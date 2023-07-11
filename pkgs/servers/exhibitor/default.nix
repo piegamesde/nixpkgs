@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
       done
     '';
     installPhase =
-      "find $out/.m2 -type f \\! -regex '.+\\(pom\\|jar\\|xml\\|sha1\\)' -delete"
-      ; # delete files with lastModified timestamps inside
+      "find $out/.m2 -type f \\! -regex '.+\\(pom\\|jar\\|xml\\|sha1\\)' -delete"; # delete files with lastModified timestamps inside
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
     outputHash = mavenDependenciesSha256;
@@ -53,8 +52,7 @@ stdenv.mkDerivation rec {
   '';
   meta = with lib; {
     description =
-      "ZooKeeper co-process for instance monitoring, backup/recovery, cleanup and visualization"
-      ;
+      "ZooKeeper co-process for instance monitoring, backup/recovery, cleanup and visualization";
     homepage = "https://github.com/soabase/exhibitor";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.asl20;

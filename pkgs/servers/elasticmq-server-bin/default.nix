@@ -17,8 +17,7 @@ let
 
     src = fetchurl {
       url =
-        "https://s3-eu-west-1.amazonaws.com/softwaremill-public/${pname}-${version}.jar"
-        ;
+        "https://s3-eu-west-1.amazonaws.com/softwaremill-public/${pname}-${version}.jar";
       sha256 = "sha256-diTfRYV51d9QYx1E6ZbSSaM6qDIaqVPum9qsBagIcec=";
     };
 
@@ -40,8 +39,7 @@ let
     meta = with lib; {
       homepage = "https://github.com/softwaremill/elasticmq";
       description =
-        "Message queueing system with Java, Scala and Amazon SQS-compatible interfaces"
-        ;
+        "Message queueing system with Java, Scala and Amazon SQS-compatible interfaces";
       sourceProvenance = with sourceTypes; [ binaryBytecode ];
       license = licenses.asl20;
       platforms = platforms.unix;

@@ -24,12 +24,10 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Terraform HTTP Backend implementation that uses Git repository as storage"
-      ;
+      "Terraform HTTP Backend implementation that uses Git repository as storage";
     homepage = "https://github.com/plumber-cd/terraform-backend-git";
     changelog =
-      "https://github.com/plumber-cd/terraform-backend-git/blob/${src.rev}/CHANGELOG.md"
-      ;
+      "https://github.com/plumber-cd/terraform-backend-git/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ blaggacao ];
   };

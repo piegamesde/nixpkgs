@@ -78,8 +78,7 @@ stdenv.mkDerivation rec {
     # https://github.com/NixOS/nixpkgs/issues/226526
     (fetchpatch {
       url =
-        "https://github.com/ibus/ibus/commit/7c8abbe89403c2fcb08e3fda42049a97187e53ab.patch"
-        ;
+        "https://github.com/ibus/ibus/commit/7c8abbe89403c2fcb08e3fda42049a97187e53ab.patch";
       hash = "sha256-59HzAdLq8ahrF7K+tFGLjTodwIiTkJGEkFe8quqIkhU=";
     })
   ];
@@ -176,8 +175,9 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  passthru = { tests = { installed-tests = nixosTests.installed-tests.ibus; }; }
-    ;
+  passthru = {
+    tests = { installed-tests = nixosTests.installed-tests.ibus; };
+  };
 
   meta = with lib; {
     homepage = "https://github.com/ibus/ibus";

@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A very minimal GUI app that can write compressed disk images to USB drives"
-      ;
+      "A very minimal GUI app that can write compressed disk images to USB drives";
     homepage = "https://gitlab.com/bztsrc/usbimager";
     license = licenses.mit;
     maintainers = with maintainers; [ vdot0x23 ];

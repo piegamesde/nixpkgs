@@ -61,8 +61,8 @@ let
 in
 stdenv.mkDerivation (finalAttrs: rec {
   pname = "poppler-${suffix}";
-  version = "23.02.0"
-    ; # beware: updates often break cups-filters build, check texlive and scribus too!
+  version =
+    "23.02.0"; # beware: updates often break cups-filters build, check texlive and scribus too!
 
   outputs = [
     "out"

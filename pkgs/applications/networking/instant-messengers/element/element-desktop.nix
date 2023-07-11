@@ -152,8 +152,7 @@ stdenv.mkDerivation (finalAttrs:
       description = "A feature-rich client for Matrix.org";
       homepage = "https://element.io/";
       changelog =
-        "https://github.com/vector-im/element-desktop/blob/v${finalAttrs.version}/CHANGELOG.md"
-        ;
+        "https://github.com/vector-im/element-desktop/blob/v${finalAttrs.version}/CHANGELOG.md";
       license = licenses.asl20;
       maintainers = teams.matrix.members;
       inherit (electron.meta) platforms;

@@ -67,8 +67,7 @@ let
       let
         mesonPatch = fetchzip {
           url =
-            "https://wrapdb.mesonbuild.com/v2/libccp4c_8.0.0-1/get_patch#somefile.zip"
-            ;
+            "https://wrapdb.mesonbuild.com/v2/libccp4c_8.0.0-1/get_patch#somefile.zip";
           hash = "sha256-ohskfKh+972Pl56KtwAeWwHtAaAFNpCzz5vZBAI/vdU=";
         };
       in ''
@@ -133,8 +132,7 @@ let
     version = "c15afa2381d5f87d4aefcc8181a15b4a6fd3a955";
     src = fetchurl {
       url =
-        "https://gitlab.desy.de/thomas.white/${pname}/-/archive/${version}/${pname}-${version}.tar.gz"
-        ;
+        "https://gitlab.desy.de/thomas.white/${pname}/-/archive/${version}/${pname}-${version}.tar.gz";
       sha256 = "11i1w57a3rpnb4x5y4n8d3iffn5m9w1zydl69syzljdk3aqg2pv8";
     };
 
@@ -151,8 +149,7 @@ let
     version = "8a828788f8272a89d484b00afbd2500c2c1ff974";
     src = fetchurl {
       url =
-        "https://gitlab.desy.de/thomas.white/${pname}/-/archive/${version}/${pname}-${version}.tar.gz"
-        ;
+        "https://gitlab.desy.de/thomas.white/${pname}/-/archive/${version}/${pname}-${version}.tar.gz";
       sha256 = "1mkgf1xd91ay0z0632kzxm0z3wcxf0cayjvs6a3znds72dkhfsyh";
     };
 
@@ -169,8 +166,7 @@ let
     version = "29da626f17f66d5c0780fc59b1eafb7c85b81dd6";
     src = fetchurl {
       url =
-        "https://gitlab.desy.de/philipp.middendorf/fdip/-/archive/${version}/fdip-${version}.tar.gz"
-        ;
+        "https://gitlab.desy.de/philipp.middendorf/fdip/-/archive/${version}/fdip-${version}.tar.gz";
       sha256 = "184l76r4fgznq54rnhgjk7dg41kqdl0d1da02vr5y4cs2fyqppky";
     };
 
@@ -194,8 +190,7 @@ let
 
     patches = [ (fetchpatch {
       url =
-        "https://github.com/spanezz/HDF5-External-Filter-Plugins/commit/6b337fe36da97a3ef72354393687ce3386c0709d.patch"
-        ;
+        "https://github.com/spanezz/HDF5-External-Filter-Plugins/commit/6b337fe36da97a3ef72354393687ce3386c0709d.patch";
       hash = "sha256-wnBEdL/MjEyRHPwaVtuhzY+DW1AFeaUQUmIXh+JaRHo=";
     }) ];
 
@@ -255,8 +250,7 @@ stdenv.mkDerivation rec {
     ./disable-fmemopen-on-aarch64-darwin.patch
     (fetchpatch {
       url =
-        "https://gitlab.desy.de/thomas.white/crystfel/-/commit/3c54d59e1c13aaae716845fed2585770c3ca9d14.diff"
-        ;
+        "https://gitlab.desy.de/thomas.white/crystfel/-/commit/3c54d59e1c13aaae716845fed2585770c3ca9d14.diff";
       hash = "sha256-oaJNBQQn0c+z4p1pnW4osRJA2KdKiz4hWu7uzoKY7wc=";
     })
   ];
@@ -282,8 +276,7 @@ stdenv.mkDerivation rec {
       - The sliced, rather than integrated, measurement of intensity data. Many, if not all reflections are partially integrated.
       - Many patterns (thousands) are required - high throughput is needed.
       - The crystal orientations in each pattern are random and uncorrelated.
-      - Merging into lower symmetry point groups may require the resolution of indexing ambiguities.''
-      ;
+      - Merging into lower symmetry point groups may require the resolution of indexing ambiguities.'';
     homepage = "https://www.desy.de/~twhite/crystfel/";
     changelog = "https://www.desy.de/~twhite/crystfel/changes.html";
     downloadPage = "https://www.desy.de/~twhite/crystfel/download.html";

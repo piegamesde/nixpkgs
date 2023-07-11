@@ -29,8 +29,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/python-poetry/poetry-plugin-export/blob/${src.rev}/CHANGELOG.md"
-      ;
+      "https://github.com/python-poetry/poetry-plugin-export/blob/${src.rev}/CHANGELOG.md";
     description = "Poetry plugin to export the dependencies to various formats";
     license = licenses.mit;
     homepage = "https://github.com/python-poetry/poetry-plugin-export";

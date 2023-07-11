@@ -27,8 +27,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Library providing syntactic sugar for creating variant forms of a canonical function"
-      ;
+      "Library providing syntactic sugar for creating variant forms of a canonical function";
     homepage = "https://github.com/python-variants/variants";
     license = licenses.asl20;
     maintainers = with maintainers; [ rakesh4g ];

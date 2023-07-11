@@ -57,8 +57,7 @@ import ./make-test-python.nix ({
           security.acme.defaults.email = "root@example.org";
           security.acme.acceptTerms = true;
 
-          security.pki.certificateFiles = [ "${test-certificates}/root_ca.crt" ]
-            ;
+          security.pki.certificateFiles = [ "${test-certificates}/root_ca.crt" ];
 
           networking.firewall.allowedTCPPorts = [
             80
@@ -83,8 +82,7 @@ import ./make-test-python.nix ({
           pkgs,
           ...
         }: {
-          security.pki.certificateFiles = [ "${test-certificates}/root_ca.crt" ]
-            ;
+          security.pki.certificateFiles = [ "${test-certificates}/root_ca.crt" ];
         }
         ;
     };

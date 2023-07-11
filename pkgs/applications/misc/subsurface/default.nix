@@ -64,8 +64,7 @@ let
     meta = with lib; {
       homepage = "https://www.libdivecomputer.org";
       description =
-        "A cross-platform and open source library for communication with dive computers from various manufacturers"
-        ;
+        "A cross-platform and open source library for communication with dive computers from various manufacturers";
       maintainers = with maintainers; [ mguentner ];
       license = licenses.lgpl21;
       platforms = platforms.all;

@@ -169,8 +169,7 @@ in let
 
       meta = with lib; {
         description =
-          "Adds ability to purge content from FastCGI, proxy, SCGI and uWSGI caches"
-          ;
+          "Adds ability to purge content from FastCGI, proxy, SCGI and uWSGI caches";
         homepage = "https://github.com/nginx-modules/ngx_cache_purge";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
@@ -227,8 +226,7 @@ in let
 
       meta = with lib; {
         description =
-          "Adds additional generic tools that module developers can use in their own modules"
-          ;
+          "Adds additional generic tools that module developers can use in their own modules";
         homepage = "https://github.com/vision5/ngx_devel_kit";
         license = with licenses; [ bsd3 ];
         maintainers = with maintainers; [ ];
@@ -247,8 +245,7 @@ in let
 
       meta = with lib; {
         description =
-          "Brings echo, sleep, time, exec and more shell-style goodies to Nginx"
-          ;
+          "Brings echo, sleep, time, exec and more shell-style goodies to Nginx";
         homepage = "https://github.com/openresty/echo-nginx-module";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
@@ -399,8 +396,7 @@ in let
           # fix compilation against nginx 1.23.0
           nginx-1-23-patch = fetchpatch {
             url =
-              "https://github.com/openresty/lua-nginx-module/commit/b6d167cf1a93c0c885c28db5a439f2404874cb26.patch"
-              ;
+              "https://github.com/openresty/lua-nginx-module/commit/b6d167cf1a93c0c885c28db5a439f2404874cb26.patch";
             sha256 = "sha256-l7GHFNZXg+RG2SIBjYJO1JHdGUtthWnzLIqEORJUNr4=";
           };
         in ''
@@ -556,8 +552,7 @@ in let
 
       meta = with lib; {
         description =
-          "Subset of the JavaScript language that allows extending nginx functionality"
-          ;
+          "Subset of the JavaScript language that allows extending nginx functionality";
         homepage = "https://nginx.org/en/docs/njs/";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
@@ -583,8 +578,7 @@ in let
 
       meta = with lib; {
         description =
-          "Enable requests served by nginx for distributed tracing via The OpenTracing Project"
-          ;
+          "Enable requests served by nginx for distributed tracing via The OpenTracing Project";
         homepage = "https://github.com/opentracing-contrib/nginx-opentracing";
         license = with licenses; [ asl20 ];
         maintainers = with maintainers; [ ];
@@ -718,8 +712,7 @@ in let
 
       meta = with lib; {
         description =
-          "Generates CDN tokens, either as a cookie or as a query string parameter"
-          ;
+          "Generates CDN tokens, either as a cookie or as a query string parameter";
         homepage = "https://github.com/kaltura/nginx-secure-token-module";
         license = with licenses; [ agpl3 ];
         maintainers = with maintainers; [ ];
@@ -738,8 +731,7 @@ in let
 
       meta = with lib; {
         description =
-          "Various set_xxx directives added to the rewrite module (md5/sha1, sql/json quoting and many more)"
-          ;
+          "Various set_xxx directives added to the rewrite module (md5/sha1, sql/json quoting and many more)";
         homepage = "https://github.com/openresty/set-misc-nginx-module";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
@@ -776,8 +768,7 @@ in let
 
       meta = with lib; {
         description =
-          "Implements a collection of augmented statistics based on HTTP-codes and upstreams response time"
-          ;
+          "Implements a collection of augmented statistics based on HTTP-codes and upstreams response time";
         homepage = "https://github.com/goldenclone/nginx-sla";
         license = with licenses; [ unfree ]; # no license in repo
         maintainers = with maintainers; [ ];
@@ -905,8 +896,7 @@ in let
 
       meta = with lib; {
         description =
-          "Filter module which can do both regular expression and fixed string substitutions"
-          ;
+          "Filter module which can do both regular expression and fixed string substitutions";
         homepage =
           "https://github.com/yaoweibin/ngx_http_substitutions_filter_module";
         license = with licenses; [ bsd2 ];
@@ -944,8 +934,7 @@ in let
 
       meta = with lib; {
         description =
-          "Handle file uploads using multipart/form-data encoding and resumable uploads"
-          ;
+          "Handle file uploads using multipart/form-data encoding and resumable uploads";
         homepage = "https://github.com/fdintino/nginx-upload-module";
         license = with licenses; [ bsd3 ];
         maintainers = with maintainers; [ ];
@@ -987,8 +976,7 @@ in let
 
       meta = with lib; {
         description =
-          "Tarantool NginX upstream module (REST, JSON API, websockets, load balancing)"
-          ;
+          "Tarantool NginX upstream module (REST, JSON API, websockets, load balancing)";
         homepage = "https://github.com/tarantool/nginx_upstream_module";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];

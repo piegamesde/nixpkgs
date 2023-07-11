@@ -28,8 +28,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A tool to simplify storing secrets that should be accessible in the shell environment in your git repo."
-      ;
+      "A tool to simplify storing secrets that should be accessible in the shell environment in your git repo.";
     homepage = "https://github.com/Shopify/ejson2env";
     maintainers = with maintainers; [ viraptor ];
     license = licenses.mit;

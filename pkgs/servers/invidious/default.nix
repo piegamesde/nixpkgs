@@ -47,13 +47,11 @@ crystal.buildCrystalPackage rec {
       commitTemplate =
         ''{{ "#{`git rev-list HEAD --max-count=1 --abbrev-commit`.strip}" }}'';
       versionTemplate = ''
-        {{ "#{`git log -1 --format=%ci | awk '{print $1}' | sed s/-/./g`.strip}" }}''
-        ;
+        {{ "#{`git log -1 --format=%ci | awk '{print $1}' | sed s/-/./g`.strip}" }}'';
         # This always uses the latest commit which invalidates the cache even if
         # the assets were not changed
       assetCommitTemplate = ''
-        {{ "#{`git rev-list HEAD --max-count=1 --abbrev-commit -- assets`.strip}" }}''
-        ;
+        {{ "#{`git rev-list HEAD --max-count=1 --abbrev-commit -- assets`.strip}" }}'';
     in ''
       for d in ${videojs}/*; do ln -s "$d" assets/videojs; done
 

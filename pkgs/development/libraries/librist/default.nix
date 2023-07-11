@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A library that can be used to easily add the RIST protocol to your application."
-      ;
+      "A library that can be used to easily add the RIST protocol to your application.";
     homepage = "https://code.videolan.org/rist/librist";
     license = with licenses; [
       bsd2

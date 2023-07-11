@@ -124,8 +124,7 @@ gnuradio.pkgs.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "An open source Global Navigation Satellite Systems software-defined receiver"
-      ;
+      "An open source Global Navigation Satellite Systems software-defined receiver";
     homepage = "https://gnss-sdr.org/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

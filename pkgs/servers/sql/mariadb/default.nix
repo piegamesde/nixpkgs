@@ -80,8 +80,7 @@ let
 
         src = fetchurl {
           url =
-            "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz"
-            ;
+            "https://downloads.mariadb.com/MariaDB/mariadb-${version}/source/mariadb-${version}.tar.gz";
           inherit hash;
         };
 

@@ -35,15 +35,13 @@ stdenv.mkDerivation rec {
     if stdenv.isDarwin then
       fetchurl {
         url =
-          "https://github.com/${pname}/${pname}/releases/download/v${version}/macos.tar.gz"
-          ;
+          "https://github.com/${pname}/${pname}/releases/download/v${version}/macos.tar.gz";
         sha256 = "1xxg79rlf7li9f73wdbwif1dyy4hnzpypy6wx4zbnvap53habq9f";
       }
     else
       fetchurl {
         url =
-          "https://github.com/${pname}/${pname}/releases/download/v${version}/linux64.tar.gz"
-          ;
+          "https://github.com/${pname}/${pname}/releases/download/v${version}/linux64.tar.gz";
         sha256 = "0rabinklsd8bs16f03zv7ij6d1lv4w2xwvzzgkwc862gpqvz9jq3";
       }
     ;
@@ -73,8 +71,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A strongly-typed functional programming language that compiles to JavaScript"
-      ;
+      "A strongly-typed functional programming language that compiles to JavaScript";
     homepage = "https://www.purescript.org/";
     license = licenses.bsd3;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];

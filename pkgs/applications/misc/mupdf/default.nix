@@ -184,8 +184,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://mupdf.com";
     description =
-      "Lightweight PDF, XPS, and E-book viewer and toolkit written in portable C"
-      ;
+      "Lightweight PDF, XPS, and E-book viewer and toolkit written in portable C";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [
       vrthra

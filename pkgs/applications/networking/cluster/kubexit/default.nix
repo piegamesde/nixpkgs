@@ -22,8 +22,7 @@ buildGoModule rec {
   ];
   meta = with lib; {
     description =
-      "Command supervisor for coordinated Kubernetes pod container termination."
-      ;
+      "Command supervisor for coordinated Kubernetes pod container termination.";
     homepage = "https://github.com/karlkfi/kubexit/";
     license = licenses.asl20;
     maintainers = with maintainers; [ qjoly ];

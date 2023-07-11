@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://downloads.sourceforge.net/sourceforge/${pname}/${pname}-${version}.tar.bz2"
-      ;
+      "http://downloads.sourceforge.net/sourceforge/${pname}/${pname}-${version}.tar.bz2";
     sha256 = "sha256-wXQ5XSmogAt1torfarrqIU4nBYj69MGM/HBYqeIE+dw=";
   };
 

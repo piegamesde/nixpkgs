@@ -116,8 +116,7 @@ in {
               fetchurl {
                 name = pname + "-recipe";
                 url =
-                  "https://raw.githubusercontent.com/melpa/melpa/${commit}/recipes/${ename}"
-                  ;
+                  "https://raw.githubusercontent.com/melpa/melpa/${commit}/recipes/${ename}";
                 inherit sha256;
               }
             ;

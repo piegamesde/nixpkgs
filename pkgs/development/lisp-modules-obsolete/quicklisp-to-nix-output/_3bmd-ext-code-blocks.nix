@@ -7,8 +7,7 @@ args@{
   version = "3bmd-20210411-git";
 
   description =
-    "extension to 3bmd implementing github style ``` delimited code blocks, with support for syntax highlighting using colorize, pygments, or chroma"
-    ;
+    "extension to 3bmd implementing github style ``` delimited code blocks, with support for syntax highlighting using colorize, pygments, or chroma";
 
   deps = [
     args."_3bmd"

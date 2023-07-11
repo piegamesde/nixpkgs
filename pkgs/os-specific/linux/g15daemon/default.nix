@@ -20,8 +20,7 @@ let
     }:
     fetchurl {
       url =
-        "mirror://sourceforge/g15tools/${pname}/${version}/${pname}-${version}.tar.bz2"
-        ;
+        "mirror://sourceforge/g15tools/${pname}/${version}/${pname}-${version}.tar.bz2";
       inherit sha256;
     }
     ;
@@ -41,8 +40,7 @@ let
 
     meta = {
       description =
-        "Provides low-level access to Logitech G11/G15 keyboards and Z10 speakers"
-        ;
+        "Provides low-level access to Logitech G11/G15 keyboards and Z10 speakers";
       inherit license maintainers;
     };
   };
@@ -72,8 +70,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/${pname}/G15Daemon%201.9x/${version}/${pname}-${version}.tar.bz2"
-      ;
+      "mirror://sourceforge/${pname}/G15Daemon%201.9x/${version}/${pname}-${version}.tar.bz2";
     sha256 = "1613gsp5dgilwbshqxxhiyw73ksngnam7n1iw6yxdjkp9fyd2a3d";
   };
 
@@ -83,8 +80,7 @@ stdenv.mkDerivation rec {
         fname: sha256:
         fetchurl rec {
           url =
-            "https://raw.githubusercontent.com/archlinux/svntogit-community/c0b0b6d4d6d7b79eca68123b20e0c9fb82e1c6e1/g15daemon/trunk/${pname}-${version}-${fname}.patch"
-            ;
+            "https://raw.githubusercontent.com/archlinux/svntogit-community/c0b0b6d4d6d7b79eca68123b20e0c9fb82e1c6e1/g15daemon/trunk/${pname}-${version}-${fname}.patch";
           name = "${fname}.patch";
           inherit sha256;
         }
@@ -113,8 +109,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "A daemon that makes it possible to use the Logitech keyboard G-Buttons and draw on various Logitech LCDs"
-      ;
+      "A daemon that makes it possible to use the Logitech keyboard G-Buttons and draw on various Logitech LCDs";
     inherit license maintainers;
   };
 }

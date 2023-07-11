@@ -16,8 +16,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/ocaml-crunch/releases/download/v${version}/crunch-${version}.tbz"
-      ;
+      "https://github.com/mirage/ocaml-crunch/releases/download/v${version}/crunch-${version}.tbz";
     sha256 = "sha256-LFug1BELy7dzHLpOr7bESnSHw/iMGtR0AScbaf+o7Wo=";
   };
 

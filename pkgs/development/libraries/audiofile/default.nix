@@ -19,8 +19,7 @@ let
     fetchpatch {
       inherit sha256 name;
       url =
-        "https://salsa.debian.org/multimedia-team/audiofile/raw/debian/0.3.6-4/debian/patches/${debname}"
-        ;
+        "https://salsa.debian.org/multimedia-team/audiofile/raw/debian/0.3.6-4/debian/patches/${debname}";
     }
     ;
 
@@ -75,8 +74,7 @@ stdenv.mkDerivation rec {
     })
     (fetchDebianPatch {
       name =
-        "CVE-2017-6827+CVE-2017-6828+CVE-2017-6832+CVE-2017-6835+CVE-2017-6837.patch"
-        ;
+        "CVE-2017-6827+CVE-2017-6828+CVE-2017-6832+CVE-2017-6835+CVE-2017-6837.patch";
       debname = "05_Always-check-the-number-of-coefficients.patch";
       sha256 = "1ih03kfkabffi6ymp6832q470i28rsds78941vzqlshnqjb2nnxw";
     })

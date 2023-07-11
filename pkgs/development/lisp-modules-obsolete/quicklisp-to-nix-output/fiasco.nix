@@ -9,8 +9,7 @@ args@{
   parasites = [ "fiasco-self-tests" ];
 
   description =
-    "A Common Lisp test framework that treasures your failures, logical continuation of Stefil."
-    ;
+    "A Common Lisp test framework that treasures your failures, logical continuation of Stefil.";
 
   deps = [
     args."alexandria"
@@ -19,8 +18,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/fiasco/2020-06-10/fiasco-20200610-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/fiasco/2020-06-10/fiasco-20200610-git.tgz";
     sha256 = "1wb0ibw6ka9fbsb40zjipn7vh3jbzyfsvcc9gq19nqhbqa8gy9r4";
   };
 

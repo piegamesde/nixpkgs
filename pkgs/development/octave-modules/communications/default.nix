@@ -24,7 +24,6 @@ buildOctavePackage rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
     description =
-      " Digital Communications, Error Correcting Codes (Channel Code), Source Code functions, Modulation and Galois Fields"
-      ;
+      " Digital Communications, Error Correcting Codes (Channel Code), Source Code functions, Modulation and Galois Fields";
   };
 }

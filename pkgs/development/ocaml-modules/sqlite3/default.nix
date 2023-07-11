@@ -15,8 +15,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mmottl/sqlite3-ocaml/releases/download/${version}/sqlite3-${version}.tbz"
-      ;
+      "https://github.com/mmottl/sqlite3-ocaml/releases/download/${version}/sqlite3-${version}.tbz";
     hash = "sha256-uw23EWkajfok/insTstpEkRK2Q4PTER6+Jgx5tHf/qU=";
   };
 

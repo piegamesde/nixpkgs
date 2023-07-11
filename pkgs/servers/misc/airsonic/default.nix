@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/airsonic/airsonic/releases/download/v${version}/airsonic.war"
-      ;
+      "https://github.com/airsonic/airsonic/releases/download/v${version}/airsonic.war";
     sha256 = "0q3qnqymj3gaa6n79pvbyidn1ga99lpngp5wvhlw1aarg1m7vccl";
   };
 

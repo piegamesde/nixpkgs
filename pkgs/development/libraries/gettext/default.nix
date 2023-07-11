@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
   patches = [ ./absolute-paths.diff ]
     ++ lib.optional stdenv.hostPlatform.isWindows (fetchpatch {
       url =
-        "https://aur.archlinux.org/cgit/aur.git/plain/gettext_formatstring-ruby.patch?h=mingw-w64-gettext&id=e8b577ee3d399518d005e33613f23363a7df07ee"
-        ;
+        "https://aur.archlinux.org/cgit/aur.git/plain/gettext_formatstring-ruby.patch?h=mingw-w64-gettext&id=e8b577ee3d399518d005e33613f23363a7df07ee";
       name = "gettext_formatstring-ruby.patch";
       sha256 = "sha256-6SxZObOMkQDxuKJuJY+mQ/VuJJxSeGbf97J8ZZddCV0=";
     });

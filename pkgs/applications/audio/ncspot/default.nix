@@ -61,8 +61,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Cross-platform ncurses Spotify client written in Rust, inspired by ncmpc and the likes"
-      ;
+      "Cross-platform ncurses Spotify client written in Rust, inspired by ncmpc and the likes";
     homepage = "https://github.com/hrkfdn/ncspot";
     license = licenses.bsd2;
     maintainers = [ maintainers.marsam ];

@@ -28,8 +28,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/gruntwork-io/cloud-nuke";
     description =
-      "A tool for cleaning up your cloud accounts by nuking (deleting) all resources within it"
-      ;
+      "A tool for cleaning up your cloud accounts by nuking (deleting) all resources within it";
     license = licenses.mit;
     maintainers = [ maintainers.marsam ];
   };

@@ -46,7 +46,6 @@ buildOctavePackage rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
     description =
-      "Computer-Aided Control System Design (CACSD) Tools for GNU Octave, based on the proven SLICOT Library"
-      ;
+      "Computer-Aided Control System Design (CACSD) Tools for GNU Octave, based on the proven SLICOT Library";
   };
 }

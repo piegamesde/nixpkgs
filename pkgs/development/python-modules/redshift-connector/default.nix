@@ -57,8 +57,7 @@ buildPythonPackage rec {
     description = "Redshift interface library";
     homepage = "https://github.com/aws/amazon-redshift-python-driver";
     changelog =
-      "https://github.com/aws/amazon-redshift-python-driver/releases/tag/v${version}"
-      ;
+      "https://github.com/aws/amazon-redshift-python-driver/releases/tag/v${version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ mcwitt ];
   };

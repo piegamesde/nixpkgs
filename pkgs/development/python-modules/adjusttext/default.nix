@@ -33,8 +33,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Iteratively adjust text position in matplotlib plots to minimize overlaps"
-      ;
+      "Iteratively adjust text position in matplotlib plots to minimize overlaps";
     homepage = "https://github.com/Phlya/adjustText";
     license = licenses.mit;
     maintainers = with maintainers; [ samuela ];

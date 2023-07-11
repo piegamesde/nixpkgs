@@ -28,7 +28,6 @@ buildOctavePackage rec {
     license = with licenses; [ gpl3Plus ]; # modified BSD?
     maintainers = with maintainers; [ KarlJoad ];
     description =
-      "Perform boolean operations with polygons using the Greiner-Hormann algorithm"
-      ;
+      "Perform boolean operations with polygons using the Greiner-Hormann algorithm";
   };
 }

@@ -156,8 +156,7 @@ in {
           -> (config.boot.kernelPackages.kernel.features.ia32Emulation or false)
           ;
         message =
-          "Option driSupport32Bit requires a kernel that supports 32bit emulation"
-          ;
+          "Option driSupport32Bit requires a kernel that supports 32bit emulation";
       }
     ];
 

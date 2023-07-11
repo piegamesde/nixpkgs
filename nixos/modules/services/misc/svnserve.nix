@@ -46,8 +46,7 @@ in {
       wantedBy = [ "multi-user.target" ];
       preStart = "mkdir -p ${cfg.svnBaseDir}";
       script =
-        "${pkgs.subversion.out}/bin/svnserve -r ${cfg.svnBaseDir} -d --foreground --pid-file=/run/svnserve.pid"
-        ;
+        "${pkgs.subversion.out}/bin/svnserve -r ${cfg.svnBaseDir} -d --foreground --pid-file=/run/svnserve.pid";
     };
   };
 }

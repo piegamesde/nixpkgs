@@ -41,8 +41,7 @@ buildGoModule rec {
     homepage = "https://atmos.tools";
     changelog = "https://github.com/cloudposse/atmos/releases/tag/v${version}";
     description =
-      "Universal Tool for DevOps and Cloud Automation (works with terraform, helm, helmfile, etc)"
-      ;
+      "Universal Tool for DevOps and Cloud Automation (works with terraform, helm, helmfile, etc)";
     license = licenses.asl20;
     maintainers = with maintainers; [ rb ];
   };

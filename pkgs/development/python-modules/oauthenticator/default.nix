@@ -47,8 +47,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Authenticate JupyterHub users with common OAuth providers, including GitHub, Bitbucket, and more."
-      ;
+      "Authenticate JupyterHub users with common OAuth providers, including GitHub, Bitbucket, and more.";
     homepage = "https://github.com/jupyterhub/oauthenticator";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ixxie ];

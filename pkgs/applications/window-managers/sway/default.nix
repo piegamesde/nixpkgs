@@ -74,8 +74,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch";
       url =
-        "https://github.com/swaywm/sway/commit/dee032d0a0ecd958c902b88302dc59703d703c7f.diff"
-        ;
+        "https://github.com/swaywm/sway/commit/dee032d0a0ecd958c902b88302dc59703d703c7f.diff";
       hash = "sha256-dx+7MpEiAkxTBnJcsT3/1BO8rYRfNLecXmpAvhqGMD0=";
     })
   ] ++ lib.optionals (!isNixOS) [

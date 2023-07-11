@@ -356,14 +356,12 @@ in {
       {
         assertion = isMysqlLocal -> cfg.database.passwordFile != null;
         message =
-          "services.writefreely.database.passwordFile must be set if services.writefreely.database.createLocally is set to true"
-          ;
+          "services.writefreely.database.passwordFile must be set if services.writefreely.database.createLocally is set to true";
       }
       {
         assertion = isSqlite -> !cfg.database.createLocally;
         message =
-          "services.writefreely.database.createLocally has no use when services.writefreely.database.type is set to sqlite3"
-          ;
+          "services.writefreely.database.createLocally has no use when services.writefreely.database.type is set to sqlite3";
       }
     ];
 
@@ -380,8 +378,7 @@ in {
         optionalAttrs (cfg.group == "writefreely") { writefreely = { }; };
     };
 
-    systemd.tmpfiles.rules = [ "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -" ]
-      ;
+    systemd.tmpfiles.rules = [ "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.writefreely = {
       after = [ "network.target" ]
@@ -398,8 +395,7 @@ in {
         Restart = "always";
         RestartSec = 20;
         ExecStart =
-          "${cfg.package}/bin/writefreely -c '${cfg.stateDir}/config.ini' serve"
-          ;
+          "${cfg.package}/bin/writefreely -c '${cfg.stateDir}/config.ini' serve";
         AmbientCapabilities =
           optionalString (settings.server.port < 1024) "cap_net_bind_service";
       };

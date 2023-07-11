@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   src = {
     "x86_64-linux" = fetchurl {
       url =
-        "https://downloads.realvnc.com/download/file/viewer.files/VNC-Viewer-${version}-Linux-x64.rpm"
-        ;
+        "https://downloads.realvnc.com/download/file/viewer.files/VNC-Viewer-${version}-Linux-x64.rpm";
       sha256 = "sha256-Mn4K2HICK7owHcXH85IJUncnpPZ56zNybkHZNiqYkHY=";
     };
   }.${stdenv.system} or (throw

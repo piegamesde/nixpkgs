@@ -18,8 +18,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/simple-inferiors/2020-03-25/simple-inferiors-20200325-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/simple-inferiors/2020-03-25/simple-inferiors-20200325-git.tgz";
     sha256 = "15gjizqrazr0ahdda2l6bkv7ii5ax1wckn9mnj5haiv17jba8pn5";
   };
 

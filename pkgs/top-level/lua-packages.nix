@@ -135,8 +135,7 @@ in rec {
 
       src = fetchurl {
         url =
-          "https://git.gitano.org.uk/luxio.git/snapshot/luxio-luxio-${version}.tar.bz2"
-          ;
+          "https://git.gitano.org.uk/luxio.git/snapshot/luxio-luxio-${version}.tar.bz2";
         sha256 = "1hvwslc25q7k82rxk461zr1a2041nxg7sn3sw3w0y5jxf0giz2pz";
       };
 

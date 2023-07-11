@@ -328,8 +328,7 @@ in {
 
       serviceConfig = {
         ExecStart =
-          "${cfg.package}/bin/buildkite-agent start --config ${cfg.dataDir}/buildkite-agent.cfg"
-          ;
+          "${cfg.package}/bin/buildkite-agent start --config ${cfg.dataDir}/buildkite-agent.cfg";
         User = "buildkite-agent-${name}";
         RestartSec = 5;
         Restart = "on-failure";
@@ -354,6 +353,5 @@ in {
     "services"
     "buildkite-agent"
   ]
-    "services.buildkite-agent has been upgraded from version 2 to version 3 and moved to an attribute set at services.buildkite-agents. Please consult the 20.03 release notes for more information.") ]
-    ;
+    "services.buildkite-agent has been upgraded from version 2 to version 3 and moved to an attribute set at services.buildkite-agents. Please consult the 20.03 release notes for more information.") ];
 }

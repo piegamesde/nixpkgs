@@ -24,8 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Open Source HTTP Reverse Proxy built in Rust for Immutable Infrastructures"
-      ;
+      "Open Source HTTP Reverse Proxy built in Rust for Immutable Infrastructures";
     homepage = "https://www.sozu.io";
     license = licenses.agpl3;
     maintainers = with maintainers; [ Br1ght0ne ];

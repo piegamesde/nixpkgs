@@ -12,8 +12,7 @@
       path = fetchurl {
         name = "_onivim_request_light___request_light_0.4.1.tgz";
         url =
-          "https://registry.yarnpkg.com/@onivim/request-light/-/request-light-0.4.1.tgz"
-          ;
+          "https://registry.yarnpkg.com/@onivim/request-light/-/request-light-0.4.1.tgz";
         sha1 = "13082e5d8a5664b73116d85d4805fb386aa44f61";
       };
     }
@@ -22,8 +21,7 @@
       path = fetchurl {
         name = "_onivim_vscode_exthost___vscode_exthost_1.57.1001.tgz";
         url =
-          "https://registry.yarnpkg.com/@onivim/vscode-exthost/-/vscode-exthost-1.57.1001.tgz"
-          ;
+          "https://registry.yarnpkg.com/@onivim/vscode-exthost/-/vscode-exthost-1.57.1001.tgz";
         sha1 = "f4642d8c077fc0ecae9dd266fa9a1dc72d84916d";
       };
     }
@@ -90,8 +88,7 @@
       path = fetchurl {
         name = "data_uri_to_buffer___data_uri_to_buffer_3.0.1.tgz";
         url =
-          "https://registry.yarnpkg.com/data-uri-to-buffer/-/data-uri-to-buffer-3.0.1.tgz"
-          ;
+          "https://registry.yarnpkg.com/data-uri-to-buffer/-/data-uri-to-buffer-3.0.1.tgz";
         sha1 = "594b8973938c5bc2c33046535785341abc4f3636";
       };
     }
@@ -133,8 +130,7 @@
       path = fetchurl {
         name = "es6_promisify___es6_promisify_5.0.0.tgz";
         url =
-          "https://registry.yarnpkg.com/es6-promisify/-/es6-promisify-5.0.0.tgz"
-          ;
+          "https://registry.yarnpkg.com/es6-promisify/-/es6-promisify-5.0.0.tgz";
         sha1 = "5109d62f3e56ea967c4b63505aef08291c8a5203";
       };
     }
@@ -151,8 +147,7 @@
       path = fetchurl {
         name = "file_uri_to_path___file_uri_to_path_1.0.0.tgz";
         url =
-          "https://registry.yarnpkg.com/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz"
-          ;
+          "https://registry.yarnpkg.com/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz";
         sha1 = "553a7b8446ff6f684359c445f1e37a05dacc33dd";
       };
     }
@@ -161,8 +156,7 @@
       path = fetchurl {
         name = "file_uri_to_path___file_uri_to_path_2.0.0.tgz";
         url =
-          "https://registry.yarnpkg.com/file-uri-to-path/-/file-uri-to-path-2.0.0.tgz"
-          ;
+          "https://registry.yarnpkg.com/file-uri-to-path/-/file-uri-to-path-2.0.0.tgz";
         sha1 = "7b415aeba227d575851e0a5b0c640d7656403fba";
       };
     }
@@ -213,8 +207,7 @@
       path = fetchurl {
         name = "http_proxy_agent___http_proxy_agent_2.1.0.tgz";
         url =
-          "https://registry.yarnpkg.com/http-proxy-agent/-/http-proxy-agent-2.1.0.tgz"
-          ;
+          "https://registry.yarnpkg.com/http-proxy-agent/-/http-proxy-agent-2.1.0.tgz";
         sha1 = "e4821beef5b2142a2026bd73926fe537631c5405";
       };
     }
@@ -223,8 +216,7 @@
       path = fetchurl {
         name = "http_proxy_agent___http_proxy_agent_4.0.1.tgz";
         url =
-          "https://registry.yarnpkg.com/http-proxy-agent/-/http-proxy-agent-4.0.1.tgz"
-          ;
+          "https://registry.yarnpkg.com/http-proxy-agent/-/http-proxy-agent-4.0.1.tgz";
         sha1 = "8a8c8ef7f5932ccf953c296ca8291b95aa74aa3a";
       };
     }
@@ -233,8 +225,7 @@
       path = fetchurl {
         name = "https_proxy_agent___https_proxy_agent_2.2.4.tgz";
         url =
-          "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-2.2.4.tgz"
-          ;
+          "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-2.2.4.tgz";
         sha1 = "4ee7a737abd92678a293d9b34a1af4d0d08c787b";
       };
     }
@@ -243,8 +234,7 @@
       path = fetchurl {
         name = "https_proxy_agent___https_proxy_agent_5.0.0.tgz";
         url =
-          "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-5.0.0.tgz"
-          ;
+          "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-5.0.0.tgz";
         sha1 = "e2a90542abb68a762e0a0850f6c9edadfd8506b2";
       };
     }
@@ -253,8 +243,7 @@
       path = fetchurl {
         name = "iconv_lite_umd___iconv_lite_umd_0.6.8.tgz";
         url =
-          "https://registry.yarnpkg.com/iconv-lite-umd/-/iconv-lite-umd-0.6.8.tgz"
-          ;
+          "https://registry.yarnpkg.com/iconv-lite-umd/-/iconv-lite-umd-0.6.8.tgz";
         sha1 = "5ad310ec126b260621471a2d586f7f37b9958ec0";
       };
     }
@@ -335,8 +324,7 @@
       path = fetchurl {
         name = "native_watchdog___native_watchdog_1.3.0.tgz";
         url =
-          "https://registry.yarnpkg.com/native-watchdog/-/native-watchdog-1.3.0.tgz"
-          ;
+          "https://registry.yarnpkg.com/native-watchdog/-/native-watchdog-1.3.0.tgz";
         sha1 = "88cee94c9dc766b85c8506eda14c8bd8c9618e27";
       };
     }
@@ -345,8 +333,7 @@
       path = fetchurl {
         name = "node_addon_api___node_addon_api_3.2.1.tgz";
         url =
-          "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-3.2.1.tgz"
-          ;
+          "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-3.2.1.tgz";
         sha1 = "81325e0a2117789c0128dab65e7e38f07ceba161";
       };
     }
@@ -372,8 +359,7 @@
       path = fetchurl {
         name = "readable_stream___readable_stream_1.1.14.tgz";
         url =
-          "https://registry.yarnpkg.com/readable-stream/-/readable-stream-1.1.14.tgz"
-          ;
+          "https://registry.yarnpkg.com/readable-stream/-/readable-stream-1.1.14.tgz";
         sha1 = "7cf4c54ef648e3813084c636dd2079e166c081d9";
       };
     }
@@ -391,8 +377,7 @@
       path = fetchurl {
         name = "socks_proxy_agent___socks_proxy_agent_5.0.0.tgz";
         url =
-          "https://registry.yarnpkg.com/socks-proxy-agent/-/socks-proxy-agent-5.0.0.tgz"
-          ;
+          "https://registry.yarnpkg.com/socks-proxy-agent/-/socks-proxy-agent-5.0.0.tgz";
         sha1 = "7c0f364e7b1cf4a7a437e71253bed72e9004be60";
       };
     }
@@ -417,8 +402,7 @@
       path = fetchurl {
         name = "string_decoder___string_decoder_0.10.31.tgz";
         url =
-          "https://registry.yarnpkg.com/string_decoder/-/string_decoder-0.10.31.tgz"
-          ;
+          "https://registry.yarnpkg.com/string_decoder/-/string_decoder-0.10.31.tgz";
         sha1 = "62e203bc41766c6c28c9fc84301dab1c5310fa94";
       };
     }
@@ -461,8 +445,7 @@
       path = fetchurl {
         name = "vscode_proxy_agent___vscode_proxy_agent_0.11.0.tgz";
         url =
-          "https://registry.yarnpkg.com/vscode-proxy-agent/-/vscode-proxy-agent-0.11.0.tgz"
-          ;
+          "https://registry.yarnpkg.com/vscode-proxy-agent/-/vscode-proxy-agent-0.11.0.tgz";
         sha1 = "9dc8d2bb9d448f1e33bb1caef97a741289660f2f";
       };
     }
@@ -471,8 +454,7 @@
       path = fetchurl {
         name = "vscode_regexpp___vscode_regexpp_3.1.0.tgz";
         url =
-          "https://registry.yarnpkg.com/vscode-regexpp/-/vscode-regexpp-3.1.0.tgz"
-          ;
+          "https://registry.yarnpkg.com/vscode-regexpp/-/vscode-regexpp-3.1.0.tgz";
         sha1 = "42d059b6fffe99bd42939c0d013f632f0cad823f";
       };
     }
@@ -481,8 +463,7 @@
       path = fetchurl {
         name = "vscode_windows_ca_certs___vscode_windows_ca_certs_0.3.0.tgz";
         url =
-          "https://registry.yarnpkg.com/vscode-windows-ca-certs/-/vscode-windows-ca-certs-0.3.0.tgz"
-          ;
+          "https://registry.yarnpkg.com/vscode-windows-ca-certs/-/vscode-windows-ca-certs-0.3.0.tgz";
         sha1 = "324e1f8ba842bbf048a39e7c0ee8fe655e9adfcc";
       };
     }

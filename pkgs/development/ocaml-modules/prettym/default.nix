@@ -18,8 +18,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/dinosaure/prettym/releases/download/${version}/prettym-${version}.tbz"
-      ;
+      "https://github.com/dinosaure/prettym/releases/download/${version}/prettym-${version}.tbz";
     hash = "sha256-kXDxoRref02YpYSlvlK7a5FBX5ccbnWJQzG0axi5jwk=";
   };
 
@@ -43,8 +42,7 @@ buildDunePackage rec {
 
   meta = {
     description =
-      "A simple bounded encoder to serialize human readable values and respect the 80-column constraint"
-      ;
+      "A simple bounded encoder to serialize human readable values and respect the 80-column constraint";
     license = lib.licenses.mit;
     homepage = "https://github.com/dinosaure/prettym";
     maintainers = with lib.maintainers; [ ];

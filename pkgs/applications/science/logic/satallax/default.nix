@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.ps.uni-saarland.de/~cebrown/satallax/downloads/${pname}-${version}.tar.gz"
-      ;
+      "https://www.ps.uni-saarland.de/~cebrown/satallax/downloads/${pname}-${version}.tar.gz";
     sha256 = "1kvxn8mc35igk4vigi5cp7w3wpxk2z3bgwllfm4n3h2jfs0vkpib";
   };
 

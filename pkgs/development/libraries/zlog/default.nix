@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Reliable, high-performance, thread safe, flexible, clear-model, pure C logging library"
-      ;
+      "Reliable, high-performance, thread safe, flexible, clear-model, pure C logging library";
     homepage = "https://hardysimpson.github.io/zlog/";
     license = licenses.lgpl21;
     maintainers = [ maintainers.matthiasbeyer ];

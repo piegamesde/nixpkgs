@@ -115,8 +115,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://rocksdb.org";
     description =
-      "A library that provides an embeddable, persistent key-value store for fast storage"
-      ;
+      "A library that provides an embeddable, persistent key-value store for fast storage";
     changelog =
       "https://github.com/facebook/rocksdb/raw/v${version}/HISTORY.md";
     license = licenses.asl20;

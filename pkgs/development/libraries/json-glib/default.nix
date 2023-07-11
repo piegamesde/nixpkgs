@@ -97,8 +97,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A library providing (de)serialization support for the JavaScript Object Notation (JSON) format"
-      ;
+      "A library providing (de)serialization support for the JavaScript Object Notation (JSON) format";
     homepage = "https://wiki.gnome.org/Projects/JsonGlib";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members;

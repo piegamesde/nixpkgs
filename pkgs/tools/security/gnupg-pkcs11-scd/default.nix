@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/alonbl/${pname}/releases/download/${pname}-${version}/${pname}-${version}.tar.bz2"
-      ;
+      "https://github.com/alonbl/${pname}/releases/download/${pname}-${version}/${pname}-${version}.tar.bz2";
     sha256 = "sha256-Kb8p53gPkhxtOhH2COKwSDwbtRDFr6hHMJAkndV8Ukk=";
   };
 

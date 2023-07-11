@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
     # We need the prepared sources tarball.
     fetchurl {
       url =
-        "https://github.com/TokTok/c-toxcore/releases/download/v${version}/c-toxcore-${version}.tar.gz"
-        ;
+        "https://github.com/TokTok/c-toxcore/releases/download/v${version}/c-toxcore-${version}.tar.gz";
       sha256 = "sha256-8pQFN5mIY1k+KLxqa19W8JZ19s2KKDJre8MbSDbAiUI=";
     };
 

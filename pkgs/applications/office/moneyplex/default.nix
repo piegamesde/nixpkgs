@@ -33,15 +33,13 @@ let
 
   src_i686 = {
     url =
-      "http://www.matrica.com/download/distribution/moneyplex_16_install32_22424.tar.gz"
-      ;
+      "http://www.matrica.com/download/distribution/moneyplex_16_install32_22424.tar.gz";
     sha256 = "0yfpc6s85r08g796dycl378kagkma865vp7j72npia3hjc4vwamr";
   };
 
   src_x86_64 = {
     url =
-      "http://www.matrica.com/download/distribution/moneyplex_16_install64_22424.tar.gz"
-      ;
+      "http://www.matrica.com/download/distribution/moneyplex_16_install64_22424.tar.gz";
     sha256 = "03vxbg1yp8qyvcn6bw2a5s134nxzq9cn0vqbmlld7hh4knbsfqzw";
   };
 

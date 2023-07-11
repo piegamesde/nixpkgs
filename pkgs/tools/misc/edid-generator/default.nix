@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       nazarewk
     ];
     platforms = lib.platforms.all;
-    broken = stdenv.isDarwin
-      ; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/edid-generator.x86_64-darwin
+    broken =
+      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/edid-generator.x86_64-darwin
   };
 }

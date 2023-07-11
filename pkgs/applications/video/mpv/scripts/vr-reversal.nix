@@ -32,8 +32,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Script for mpv to play VR video with optional saving of head tracking data."
-      ;
+      "Script for mpv to play VR video with optional saving of head tracking data.";
     homepage = "https://github.com/dfaker/VR-reversal";
     license = licenses.unlicense;
     platforms = platforms.all;

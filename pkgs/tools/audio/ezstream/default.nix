@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://ftp.osuosl.org/pub/xiph/releases/ezstream/${pname}-${version}.tar.gz"
-      ;
+      "https://ftp.osuosl.org/pub/xiph/releases/ezstream/${pname}-${version}.tar.gz";
     sha256 = "f86eb8163b470c3acbc182b42406f08313f85187bd9017afb8b79b02f03635c9";
   };
 

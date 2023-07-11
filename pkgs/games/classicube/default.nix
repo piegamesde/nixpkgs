@@ -108,8 +108,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.classicube.net/";
     description =
-      "A lightweight, custom Minecraft Classic/ClassiCube client with optional additions written from scratch in C"
-      ;
+      "A lightweight, custom Minecraft Classic/ClassiCube client with optional additions written from scratch in C";
     license = licenses.bsd3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ _360ied ];

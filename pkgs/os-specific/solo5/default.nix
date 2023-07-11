@@ -37,8 +37,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://github.com/Solo5/solo5/releases/download/v${version}/solo5-v${version}.tar.gz"
-      ;
+      "https://github.com/Solo5/solo5/releases/download/v${version}/solo5-v${version}.tar.gz";
     sha256 = "sha256-t80VOZ8Tr1Dq+mJfRPVLGqYprCaqegcQtDqdoHaSXW0=";
   };
 

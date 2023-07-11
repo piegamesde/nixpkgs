@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
   version = "3.5.2";
   src = fetchzip {
     url =
-      "https://downloads.apache.org/tinkerpop/${version}/apache-tinkerpop-gremlin-server-${version}-bin.zip"
-      ;
+      "https://downloads.apache.org/tinkerpop/${version}/apache-tinkerpop-gremlin-server-${version}-bin.zip";
     sha256 = "sha256-XFI2PQnvIPYjkJhm73TPSpMqH4+/Qv5RxS5iWkfuBg0=";
   };
 

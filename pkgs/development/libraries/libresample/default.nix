@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   version = "0.1.3";
   src = fetchurl {
     url =
-      "mirror://debian/pool/main/libr/libresample/libresample_${version}.orig.tar.gz"
-      ;
+      "mirror://debian/pool/main/libr/libresample/libresample_${version}.orig.tar.gz";
     sha256 = "05a8mmh1bw5afqx0kfdqzmph4x2npcs4idx0p0v6q95lwf22l8i0";
   };
   patches = [ patch ];

@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/RocketChat/Rocket.Chat.Electron/releases/download/${version}/rocketchat-${version}-linux-amd64.deb"
-      ;
+      "https://github.com/RocketChat/Rocket.Chat.Electron/releases/download/${version}/rocketchat-${version}-linux-amd64.deb";
     sha256 = "sha256-gRMoLzCAXByLVtzYAZnhmbgbfsav6CkbP3ZE0NDdlMw=";
   };
 

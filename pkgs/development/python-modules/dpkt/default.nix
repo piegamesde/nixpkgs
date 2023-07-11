@@ -20,8 +20,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Fast, simple packet creation / parsing, with definitions for the basic TCP/IP protocols"
-      ;
+      "Fast, simple packet creation / parsing, with definitions for the basic TCP/IP protocols";
     homepage = "https://github.com/kbandla/dpkt";
     license = licenses.bsd3;
     maintainers = with maintainers; [ bjornfor ];

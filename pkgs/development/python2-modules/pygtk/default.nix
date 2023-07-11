@@ -35,14 +35,12 @@ buildPythonPackage rec {
     # https://bugzilla.gnome.org/show_bug.cgi?id=660216 - fixes some memory leaks
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/Archive/pygtk/commit/eca72baa5616fbe4dbebea43c7e5940847dc5ab8.diff"
-        ;
+        "https://gitlab.gnome.org/Archive/pygtk/commit/eca72baa5616fbe4dbebea43c7e5940847dc5ab8.diff";
       sha256 = "031px4w5cshcx1sns430sdbr2i007b9zyb2carb3z65nzr77dpdd";
     })
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/Archive/pygtk/commit/4aaa48eb80c6802aec6d03e5695d2a0ff20e0fc2.patch"
-        ;
+        "https://gitlab.gnome.org/Archive/pygtk/commit/4aaa48eb80c6802aec6d03e5695d2a0ff20e0fc2.patch";
       sha256 = "0z8cg7nr3qki8gg8alasdzzyxcihfjlxn518glq5ajglk3q5pzsn";
     })
   ];

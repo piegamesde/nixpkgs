@@ -35,8 +35,7 @@ buildPythonPackage rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://github.com/mwouts/jupytext/commit/be9b65b03600227b737b5f10ea259a7cdb762b76.patch"
-      ;
+      "https://github.com/mwouts/jupytext/commit/be9b65b03600227b737b5f10ea259a7cdb762b76.patch";
     hash = "sha256-3klx8I+T560EVfsKe/FlrSjF6JzdKSCt6uhAW2cSwtc=";
   }) ];
 

@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/yuezk/GlobalProtect-openconnect/releases/download/v${version}/globalprotect-openconnect-${version}.tar.gz"
-      ;
+      "https://github.com/yuezk/GlobalProtect-openconnect/releases/download/v${version}/globalprotect-openconnect-${version}.tar.gz";
     hash = "sha256-vhvVKESLbqHx3XumxbIWOXIreDkW3yONDMXMHxhjsvk=";
   };
 
@@ -42,8 +41,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "GlobalProtect VPN client (GUI) for Linux based on OpenConnect that supports SAML auth mode"
-      ;
+      "GlobalProtect VPN client (GUI) for Linux based on OpenConnect that supports SAML auth mode";
     homepage = "https://github.com/yuezk/GlobalProtect-openconnect";
     license = licenses.gpl3Only;
     maintainers = [ maintainers.jerith666 ];

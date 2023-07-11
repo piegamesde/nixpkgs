@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "rm-clang-float128-hack.patch";
       url =
-        "https://github.com/7c6f434c/monotone-mirror/commit/5f01a3a9326a8dbdae7fc911b208b7c319e5f456.patch"
-        ;
+        "https://github.com/7c6f434c/monotone-mirror/commit/5f01a3a9326a8dbdae7fc911b208b7c319e5f456.patch";
       revert = true;
       sha256 = "0fzjdv49dx5lzvqhkvk50lkccagwx8h0bfha4a0k6l4qh36f9j7c";
     })

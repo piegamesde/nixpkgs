@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/mcrypt/MCrypt/${version}/${pname}-${version}.tar.gz"
-      ;
+      "mirror://sourceforge/mcrypt/MCrypt/${version}/${pname}-${version}.tar.gz";
     sha256 = "5145aa844e54cca89ddab6fb7dd9e5952811d8d787c4f4bf27eb261e6c182098";
   };
 

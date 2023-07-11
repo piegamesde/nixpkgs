@@ -78,8 +78,7 @@ let
         variantSuffix = "";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-x86_64-deb10-linux.tar.xz"
-            ;
+            "${downloadsUrl}/${version}/ghc-${version}-x86_64-deb10-linux.tar.xz";
           sha256 =
             "a77a91a39d9b0167124b7e97648b2b52973ae0978cb259e0d44f0752a75037cb";
         };
@@ -99,8 +98,7 @@ let
         variantSuffix = "";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-aarch64-deb10-linux.tar.xz"
-            ;
+            "${downloadsUrl}/${version}/ghc-${version}-aarch64-deb10-linux.tar.xz";
           sha256 =
             "fc7dbc6bae36ea5ac30b7e9a263b7e5be3b45b0eb3e893ad0bc2c950a61f14ec";
         };
@@ -124,8 +122,7 @@ let
         variantSuffix = "";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-x86_64-apple-darwin.tar.xz"
-            ;
+            "${downloadsUrl}/${version}/ghc-${version}-x86_64-apple-darwin.tar.xz";
           sha256 =
             "f2e8366fd3754dd9388510792aba2d2abecb1c2f7f1e5555f6065c3c5e2ffec4";
         };
@@ -151,8 +148,7 @@ let
         variantSuffix = "";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-aarch64-apple-darwin.tar.xz"
-            ;
+            "${downloadsUrl}/${version}/ghc-${version}-aarch64-apple-darwin.tar.xz";
           sha256 =
             "8cf8408544a1a43adf1bbbb0dd6b074efadffc68bfa1a792947c52e825171224";
         };
@@ -181,8 +177,7 @@ let
         variantSuffix = "-musl";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-x86_64-alpine3.12-linux-gmp.tar.xz"
-            ;
+            "${downloadsUrl}/${version}/ghc-${version}-x86_64-alpine3.12-linux-gmp.tar.xz";
           sha256 =
             "026348947d30a156b84de5d6afeaa48fdcb2795b47954cd8341db00d3263a481";
         };
@@ -207,8 +202,7 @@ let
 
   binDistUsed =
     ghcBinDists.${distSetName}.${stdenv.hostPlatform.system} or (throw
-      "cannot bootstrap GHC on this platform ('${stdenv.hostPlatform.system}' with libc '${distSetName}')")
-    ;
+      "cannot bootstrap GHC on this platform ('${stdenv.hostPlatform.system}' with libc '${distSetName}')");
 
   gmpUsed = (builtins.head
     (builtins.filter (drv: lib.hasPrefix "gmp" (drv.nixPackage.name or ""))

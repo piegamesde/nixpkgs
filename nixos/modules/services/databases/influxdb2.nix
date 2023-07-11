@@ -38,8 +38,7 @@ in {
       assertion = !(builtins.hasAttr "bolt-path" cfg.settings)
         && !(builtins.hasAttr "engine-path" cfg.settings);
       message =
-        "services.influxdb2.config: bolt-path and engine-path should not be set as they are managed by systemd"
-        ;
+        "services.influxdb2.config: bolt-path and engine-path should not be set as they are managed by systemd";
     } ];
 
     systemd.services.influxdb2 = {
@@ -54,8 +53,7 @@ in {
       };
       serviceConfig = {
         ExecStart =
-          "${cfg.package}/bin/influxd --bolt-path \${STATE_DIRECTORY}/influxd.bolt --engine-path \${STATE_DIRECTORY}/engine"
-          ;
+          "${cfg.package}/bin/influxd --bolt-path \${STATE_DIRECTORY}/influxd.bolt --engine-path \${STATE_DIRECTORY}/engine";
         StateDirectory = "influxdb2";
         User = "influxdb2";
         Group = "influxdb2";

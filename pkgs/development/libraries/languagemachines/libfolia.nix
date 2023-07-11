@@ -46,8 +46,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "A C++ API for FoLiA documents; an XML-based linguistic annotation format."
-      ;
+      "A C++ API for FoLiA documents; an XML-based linguistic annotation format.";
     homepage = "https://proycon.github.io/folia/";
     license = licenses.gpl3;
     platforms = platforms.all;

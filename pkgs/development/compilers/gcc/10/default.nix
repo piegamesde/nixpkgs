@@ -78,8 +78,7 @@ let
     (fetchurl {
       name = "fix-bug-80431.patch";
       url =
-        "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=de31f5445b12fd9ab9969dc536d821fe6f0edad0"
-        ;
+        "https://gcc.gnu.org/git/?p=gcc.git;a=patch;h=de31f5445b12fd9ab9969dc536d821fe6f0edad0";
       sha256 = "0sd52c898msqg7m316zp0ryyj7l326cjcn2y19dcxqp15r74qj0g";
     })
     ../11/fix-struct-redefinition-on-glibc-2.36.patch
@@ -105,8 +104,7 @@ let
     ++ optional (buildPlatform.system == "aarch64-darwin" && targetPlatform
       != buildPlatform) (fetchpatch {
         url =
-          "https://raw.githubusercontent.com/richard-vd/musl-cross-make/5e9e87f06fc3220e102c29d3413fbbffa456fcd6/patches/gcc-${version}/0008-darwin-aarch64-self-host-driver.patch"
-          ;
+          "https://raw.githubusercontent.com/richard-vd/musl-cross-make/5e9e87f06fc3220e102c29d3413fbbffa456fcd6/patches/gcc-${version}/0008-darwin-aarch64-self-host-driver.patch";
         sha256 = "sha256-XtykrPd5h/tsnjY1wGjzSOJ+AyyNLsfnjuOZ5Ryq9vA=";
       });
 

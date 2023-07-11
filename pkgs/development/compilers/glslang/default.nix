@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "Fix-Darwin-linker-error.patch";
       url =
-        "https://github.com/KhronosGroup/glslang/commit/586baa35a47b3aa6ad3fa829a27f0f4206400668.patch"
-        ;
+        "https://github.com/KhronosGroup/glslang/commit/586baa35a47b3aa6ad3fa829a27f0f4206400668.patch";
       hash = "sha256-paAl4E8GzogcxDEzn/XuhNH6XObp+i7WfArqAiuH4Mk=";
       revert = true;
     })

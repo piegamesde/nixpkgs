@@ -139,8 +139,7 @@ in {
           creation_date = 1;
           properties = {
             description =
-              "${config.system.nixos.distroName} ${config.system.nixos.codeName} ${config.system.nixos.label} ${pkgs.system}"
-              ;
+              "${config.system.nixos.distroName} ${config.system.nixos.codeName} ${config.system.nixos.label} ${pkgs.system}";
             os = "${config.system.nixos.distroId}";
             release = "${config.system.nixos.codeName}";
           };

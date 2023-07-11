@@ -28,8 +28,7 @@ stdenv.mkDerivation {
     (fetchpatch {
       name = "lean2-fix-compilation-error.patch";
       url =
-        "https://github.com/collares/lean2/commit/09b316ce75fd330b3b140d138bcdae2b0e909234.patch"
-        ;
+        "https://github.com/collares/lean2/commit/09b316ce75fd330b3b140d138bcdae2b0e909234.patch";
       sha256 = "060mvqn9y8lsn4l20q9rhamkymzsgh0r1vzkjw78gnj8kjw67jl5";
     })
   ];

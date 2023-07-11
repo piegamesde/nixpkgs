@@ -16,38 +16,30 @@ stdenv.mkDerivation rec {
 
   jar = fetchurl {
     url =
-      "https://github.com/runelite/launcher/releases/download/${version}/RuneLite.jar"
-      ;
+      "https://github.com/runelite/launcher/releases/download/${version}/RuneLite.jar";
     hash =
-      "sha512-uEvlxXtnq7pgt8H5/hYIMu/kl32/dNojcHrPW6n2/RD/nzywreDw4kZ3G1kx0gGBY71x0RIEseEbm4BM+fhJlQ=="
-      ;
+      "sha512-uEvlxXtnq7pgt8H5/hYIMu/kl32/dNojcHrPW6n2/RD/nzywreDw4kZ3G1kx0gGBY71x0RIEseEbm4BM+fhJlQ==";
   };
 
   icon = fetchurl {
     url =
-      "https://github.com/runelite/launcher/raw/${version}/appimage/runelite.png"
-      ;
+      "https://github.com/runelite/launcher/raw/${version}/appimage/runelite.png";
     hash =
-      "sha512-Yh8mpc6z9xd6ePe3f1f+KzrpE9r3fsdtQ0pfAvOhK/0hrCo/17eQA6v73yFXZcPQogVwm9CmJlrx4CkfzB25RQ=="
-      ;
+      "sha512-Yh8mpc6z9xd6ePe3f1f+KzrpE9r3fsdtQ0pfAvOhK/0hrCo/17eQA6v73yFXZcPQogVwm9CmJlrx4CkfzB25RQ==";
   };
 
     # The `.so` files provided by these two jars aren't detected by RuneLite for some reason, so we have to provide them manually
   jogl = fetchurl {
     url =
-      "https://repo.runelite.net/net/runelite/jogl/jogl-all/2.4.0-rc-20200429/jogl-all-2.4.0-rc-20200429-natives-linux-amd64.jar"
-      ;
+      "https://repo.runelite.net/net/runelite/jogl/jogl-all/2.4.0-rc-20200429/jogl-all-2.4.0-rc-20200429-natives-linux-amd64.jar";
     hash =
-      "sha512-OmJIbk5pKtvf1n1I5UHu6iaOKNrPgmaJTPhqC8yMjaRh/Hso1vV/+Eu+zKu7d5UiVggVUzJxqDKatmEnqFrzbg=="
-      ;
+      "sha512-OmJIbk5pKtvf1n1I5UHu6iaOKNrPgmaJTPhqC8yMjaRh/Hso1vV/+Eu+zKu7d5UiVggVUzJxqDKatmEnqFrzbg==";
   };
   gluegen = fetchurl {
     url =
-      "https://repo.runelite.net/net/runelite/gluegen/gluegen-rt/2.4.0-rc-20220318/gluegen-rt-2.4.0-rc-20220318-natives-linux-amd64.jar"
-      ;
+      "https://repo.runelite.net/net/runelite/gluegen/gluegen-rt/2.4.0-rc-20220318/gluegen-rt-2.4.0-rc-20220318-natives-linux-amd64.jar";
     hash =
-      "sha512-kF+RdDzYEhBuZOJ6ZwMhaEVcjYLxiwR8tYAm08FXDML45iP4HBEfmqHOLJpIakK06aQFj99/296vx810eDFX5A=="
-      ;
+      "sha512-kF+RdDzYEhBuZOJ6ZwMhaEVcjYLxiwR8tYAm08FXDML45iP4HBEfmqHOLJpIakK06aQFj99/296vx810eDFX5A==";
   };
   dontUnpack = true;
 

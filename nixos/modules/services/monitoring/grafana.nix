@@ -139,8 +139,7 @@ let
     types.coercedTo (mkOptionType {
       name = "grafana-provision-submodule";
       description =
-        "Wrapper-type for backwards compat of Grafana's declarative provisioning"
-        ;
+        "Wrapper-type for backwards compat of Grafana's declarative provisioning";
       check =
         x:
         if builtins.isList x then
@@ -957,8 +956,7 @@ in {
               '';
               default = provisionConfDir;
               defaultText =
-                "directory with links to files generated from services.grafana.provision"
-                ;
+                "directory with links to files generated from services.grafana.provision";
               type = types.path;
             };
           };
@@ -1912,8 +1910,7 @@ in {
           cfg.provision.datasources.settings.datasources
           ;
         message =
-          "For datasources of type `prometheus`, the `direct` access mode is not supported anymore (since Grafana 9.2.0)"
-          ;
+          "For datasources of type `prometheus`, the `direct` access mode is not supported anymore (since Grafana 9.2.0)";
       }
       {
         assertion = cfg.provision.dashboards.settings == null

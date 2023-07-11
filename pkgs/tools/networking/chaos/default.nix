@@ -23,8 +23,7 @@ buildGoModule rec {
     description = "Tool to communicate with Chaos DNS API";
     homepage = "https://github.com/projectdiscovery/chaos-client";
     changelog =
-      "https://github.com/projectdiscovery/chaos-client/releases/tag/v${version}"
-      ;
+      "https://github.com/projectdiscovery/chaos-client/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

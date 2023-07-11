@@ -10,8 +10,7 @@ buildDunePackage rec {
   pname = "optint";
   src = fetchurl {
     url =
-      "https://github.com/mirage/optint/releases/download/v${version}/optint-${version}.tbz"
-      ;
+      "https://github.com/mirage/optint/releases/download/v${version}/optint-${version}.tbz";
     sha256 = "sha256-KVz/LBNLA4WxO6gdUAXZ+EG6QNSlAq7RDJl/I57xFHs=";
   };
 

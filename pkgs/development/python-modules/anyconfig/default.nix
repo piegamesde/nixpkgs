@@ -38,8 +38,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python library provides common APIs to load and dump configuration files in various formats"
-      ;
+      "Python library provides common APIs to load and dump configuration files in various formats";
     homepage = "https://github.com/ssato/python-anyconfig";
     license = licenses.mit;
     maintainers = with maintainers; [ tboerger ];

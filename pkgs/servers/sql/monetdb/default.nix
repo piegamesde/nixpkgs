@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://dev.monetdb.org/downloads/sources/archive/MonetDB-${version}.tar.bz2"
-      ;
+      "https://dev.monetdb.org/downloads/sources/archive/MonetDB-${version}.tar.bz2";
     sha256 = "sha256-TYTzC1oiU/YwrJNABwyA50qSB12cwrMurqYFVCtSAcc=";
   };
 

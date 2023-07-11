@@ -27,16 +27,14 @@ stdenv.mkDerivation rec {
     # To avoid ./configure failing due to invalid arguments:
     (fetchpatch { # configure: restore backward compatibility
       url =
-        "https://git.kernel.org/pub/scm/network/iproute2/iproute2.git/patch/?id=a3272b93725a406bc98b67373da67a4bdf6fcdb0"
-        ;
+        "https://git.kernel.org/pub/scm/network/iproute2/iproute2.git/patch/?id=a3272b93725a406bc98b67373da67a4bdf6fcdb0";
       sha256 = "0hyagh2lf6rrfss4z7ca8q3ydya6gg7vfhh25slhpgcn6lnk0xbv";
     })
 
     # fix build on musl. applied anywhere to prevent patchrot.
     (fetchpatch {
       url =
-        "https://git.alpinelinux.org/aports/plain/main/iproute2/min.patch?id=4b78dbe29d18151402052c56af43cc12d04b1a69"
-        ;
+        "https://git.alpinelinux.org/aports/plain/main/iproute2/min.patch?id=4b78dbe29d18151402052c56af43cc12d04b1a69";
       sha256 = "sha256-0ROZQAN3mUPPgggictr23jyA4JDG7m9vmBUhgRp4ExY=";
     })
   ];
@@ -90,8 +88,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://wiki.linuxfoundation.org/networking/iproute2";
     description =
-      "A collection of utilities for controlling TCP/IP networking and traffic control in Linux"
-      ;
+      "A collection of utilities for controlling TCP/IP networking and traffic control in Linux";
     platforms = platforms.linux;
     license = licenses.gpl2;
     maintainers = with maintainers; [

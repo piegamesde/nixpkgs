@@ -43,8 +43,7 @@ let
     # macOS - ISOs
   darwinIsoSrc = fetchurl {
     url =
-      "https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${fusionVersion}/${fusionBuild}/x86/core/com.vmware.fusion.zip.tar"
-      ;
+      "https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${fusionVersion}/${fusionBuild}/x86/core/com.vmware.fusion.zip.tar";
     sha256 = "sha256-cSboek+nhkVj8rjdic6yzWQfjXiiLlch6gBWn73BzRU=";
   };
 
@@ -116,8 +115,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download3.vmware.com/software/WKST-1700-LX/VMware-Workstation-Full-${version}-${build}.x86_64.bundle"
-      ;
+      "https://download3.vmware.com/software/WKST-1700-LX/VMware-Workstation-Full-${version}-${build}.x86_64.bundle";
     sha256 = "sha256-kBTocGb1tg5i+dvWmOaPfPUHxrWcX8/obeKqRGR+mRA=";
   };
 

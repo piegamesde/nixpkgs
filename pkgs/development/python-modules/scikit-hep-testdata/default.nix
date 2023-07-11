@@ -42,11 +42,9 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/scikit-hep/scikit-hep-testdata";
     description =
-      "A common package to provide example files (e.g., ROOT) for testing and developing packages against"
-      ;
+      "A common package to provide example files (e.g., ROOT) for testing and developing packages against";
     changelog =
-      "https://github.com/scikit-hep/scikit-hep-testdata/releases/tag/v${version}"
-      ;
+      "https://github.com/scikit-hep/scikit-hep-testdata/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ veprbl ];
   };

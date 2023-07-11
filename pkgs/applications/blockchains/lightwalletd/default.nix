@@ -42,8 +42,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A backend service that provides a bandwidth-efficient interface to the Zcash blockchain"
-      ;
+      "A backend service that provides a bandwidth-efficient interface to the Zcash blockchain";
     homepage = "https://github.com/zcash/lightwalletd";
     maintainers = with maintainers; [ centromere ];
     license = licenses.mit;

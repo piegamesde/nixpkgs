@@ -206,8 +206,7 @@ in {
             "yarn.nodemanager.linux-container-executor.cgroups.hierarchy" =
               "/hadoop-yarn";
             "yarn.nodemanager.linux-container-executor.resources-handler.class" =
-              "org.apache.hadoop.yarn.server.nodemanager.util.CgroupsLCEResourcesHandler"
-              ;
+              "org.apache.hadoop.yarn.server.nodemanager.util.CgroupsLCEResourcesHandler";
             "yarn.nodemanager.linux-container-executor.cgroups.mount" = "true";
             "yarn.nodemanager.linux-container-executor.cgroups.mount-path" =
               "/run/wrappers/yarn-nodemanager/cgroup";

@@ -31,8 +31,7 @@ buildPythonPackage rec {
   testInventory = fetchurl {
     # Originally: https://docs.python.org/3/objects.inv
     url =
-      "https://web.archive.org/web/20221007193144/https://docs.python.org/3/objects.inv"
-      ;
+      "https://web.archive.org/web/20221007193144/https://docs.python.org/3/objects.inv";
     hash = "sha256-1cbUmdJJSoifkiIYa70SxnLsaK3F2gvnTEWo9vo/6rY=";
   };
 

@@ -96,8 +96,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Assistive Technology Service Provider Interface protocol definitions and daemon for D-Bus"
-      ;
+      "Assistive Technology Service Provider Interface protocol definitions and daemon for D-Bus";
     homepage = "https://gitlab.gnome.org/GNOME/at-spi2-core";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members ++ (with maintainers; [ raskin ]);

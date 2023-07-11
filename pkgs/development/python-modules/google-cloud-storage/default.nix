@@ -83,8 +83,7 @@ buildPythonPackage rec {
     description = "Google Cloud Storage API client library";
     homepage = "https://github.com/googleapis/python-storage";
     changelog =
-      "https://github.com/googleapis/python-storage/blob/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/googleapis/python-storage/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

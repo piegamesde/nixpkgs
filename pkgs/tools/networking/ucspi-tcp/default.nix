@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchurl {
       url =
-        "http://ftp.de.debian.org/debian/pool/main/u/ucspi-tcp/ucspi-tcp_0.88-3.diff.gz"
-        ;
+        "http://ftp.de.debian.org/debian/pool/main/u/ucspi-tcp/ucspi-tcp_0.88-3.diff.gz";
       sha256 = "0mzmhz8hjkrs0khmkzs5i0s1kgmgaqz07h493bd5jj5fm5njxln6";
     })
     ./remove-setuid.patch

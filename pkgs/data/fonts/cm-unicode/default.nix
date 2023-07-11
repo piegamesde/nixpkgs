@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/cm-unicode/cm-unicode/${version}/${pname}-${version}-otf.tar.xz"
-      ;
+      "mirror://sourceforge/cm-unicode/cm-unicode/${version}/${pname}-${version}-otf.tar.xz";
     hash = "sha256-VIp+vk1IYbEHW15wMrfGVOPqg1zBZDpgFx+jlypOHCg=";
   };
 

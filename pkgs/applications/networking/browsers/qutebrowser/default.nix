@@ -36,8 +36,7 @@ let
     in
     fetchzip {
       url =
-        "https://github.com/mozilla/pdf.js/releases/download/v${version}/pdfjs-${version}-dist.zip"
-        ;
+        "https://github.com/mozilla/pdf.js/releases/download/v${version}/pdfjs-${version}-dist.zip";
       hash = "sha256-E7t+0AUndrgi4zfJth0w28RmWLqLyXMUCnueNf/gNi4=";
       stripRoot = false;
     }
@@ -97,8 +96,7 @@ buildPythonApplication {
     else
       fetchurl {
         url =
-          "https://github.com/qutebrowser/qutebrowser/releases/download/v${version}/${pname}-${version}.tar.gz"
-          ;
+          "https://github.com/qutebrowser/qutebrowser/releases/download/v${version}/${pname}-${version}.tar.gz";
         hash = "sha256-hF7yJDTQIztUcZJae20HVhfGlLprvz6GWrgpSwLJ14E=";
       }
     ;

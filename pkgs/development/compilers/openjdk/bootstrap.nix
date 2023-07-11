@@ -16,8 +16,7 @@ let
     fetchurl {
       name = "openjdk${version}-bootstrap-${arch}-linux.tar.xz";
       url =
-        "http://tarballs.nixos.org/openjdk/2018-03-31/${version}/${arch}-linux.tar.xz"
-        ;
+        "http://tarballs.nixos.org/openjdk/2018-03-31/${version}/${arch}-linux.tar.xz";
       inherit sha256;
     }
     ;

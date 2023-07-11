@@ -14,8 +14,7 @@ in {
   };
   firefox = fetchurl {
     url =
-      "mirror://mozilla/firefox/releases/${src.firefox.version}/source/firefox-${src.firefox.version}.source.tar.xz"
-      ;
+      "mirror://mozilla/firefox/releases/${src.firefox.version}/source/firefox-${src.firefox.version}.source.tar.xz";
     inherit (src.firefox) sha512;
   };
 }

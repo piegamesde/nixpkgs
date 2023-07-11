@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "fix-backend-search-path.patch";
     url =
-      "https://github.com/SOCI/soci/commit/56c93afc467bdba8ffbe68739eea76059ea62f7a.patch"
-      ;
+      "https://github.com/SOCI/soci/commit/56c93afc467bdba8ffbe68739eea76059ea62f7a.patch";
     sha256 = "sha256-nC/39pn3Cv5e65GgIfF3l64/AbCsfZHPUPIWETZFZAY=";
   }) ];
 

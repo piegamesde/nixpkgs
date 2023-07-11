@@ -91,8 +91,7 @@ else
 
     src = fetchurl {
       url =
-        "https://github.com/ocaml-ppx/ppxlib/releases/download/${version}/ppxlib-${version}.tbz"
-        ;
+        "https://github.com/ocaml-ppx/ppxlib/releases/download/${version}/ppxlib-${version}.tbz";
       inherit (param) sha256;
     };
 

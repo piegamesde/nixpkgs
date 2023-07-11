@@ -145,8 +145,7 @@ let
     in
     fetch {
       url =
-        "https://github.com/apple-oss-distributions/${pname}/archive/refs/tags/${pname}-${version}.tar.gz"
-        ;
+        "https://github.com/apple-oss-distributions/${pname}/archive/refs/tags/${pname}-${version}.tar.gz";
       inherit sha256;
     }
     ;
@@ -363,8 +362,8 @@ developerToolsPackages_11_3_1 // macosPackages_11_0_1 // {
     if stdenv.isx86_64 then
       applePackage "xnu" "osx-10.12.6"
       "sha256-C8TPQlUT3RbzAy8YnZPNtr70hpaVG9Llv0h42s3NENI=" {
-        python3 = pkgs.buildPackages.buildPackages.python3
-          ; # TODO(@Ericson2314) this shouldn't be needed.
+        python3 =
+          pkgs.buildPackages.buildPackages.python3; # TODO(@Ericson2314) this shouldn't be needed.
       }
     else
       macosPackages_11_0_1.xnu

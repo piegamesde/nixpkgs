@@ -646,8 +646,7 @@ in {
     systemd.targets.remote-fs.unitConfig.X-StopOnReconfiguration = true;
     systemd.targets.network-online.wantedBy = [ "multi-user.target" ];
     systemd.services.systemd-importd.environment = proxy_env;
-    systemd.services.systemd-pstore.wantedBy = [ "sysinit.target" ]
-      ; # see #81138
+    systemd.services.systemd-pstore.wantedBy = [ "sysinit.target" ]; # see #81138
 
       # NixOS has kernel modules in a different location, so override that here.
     systemd.services.kmod-static-nodes.unitConfig.ConditionFileNotEmpty = [

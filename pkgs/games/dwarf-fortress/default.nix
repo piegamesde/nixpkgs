@@ -105,8 +105,8 @@ let
         inherit (self) themes;
         inherit dwarf-fortress twbt dfhack dwarf-therapist;
 
-        jdk = jdk8
-          ; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+        jdk =
+          jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
       }
       ;
   }) (lib.attrNames self.df-hashes));
@@ -127,8 +127,8 @@ let
     soundSense = callPackage ./soundsense.nix { };
 
     legends-browser = callPackage ./legends-browser {
-      jre = jre8
-        ; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+      jre =
+        jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
     };
 
     themes = recurseIntoAttrs (callPackage ./themes { stdenv = stdenvNoCC; });

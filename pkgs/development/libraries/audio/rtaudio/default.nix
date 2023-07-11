@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A set of C++ classes that provide a cross platform API for realtime audio input/output"
-      ;
+      "A set of C++ classes that provide a cross platform API for realtime audio input/output";
     homepage = "https://www.music.mcgill.ca/~gary/rtaudio/";
     license = licenses.mit;
     maintainers = with maintainers; [ magnetophon ];

@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://code.mpimet.mpg.de/attachments/download/26823/${pname}-${version}.tar.gz"
-      ;
+      "https://code.mpimet.mpg.de/attachments/download/26823/${pname}-${version}.tar.gz";
     sha256 = "sha256-7e678cOxofDGQtrmvIx2JODFS6vkYQZNxcfaykpbDc4=";
   };
 
@@ -40,8 +39,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Collection of command line Operators to manipulate and analyse Climate and NWP model Data"
-      ;
+      "Collection of command line Operators to manipulate and analyse Climate and NWP model Data";
     longDescription = ''
       Supported data formats are GRIB 1/2, netCDF 3/4, SERVICE, EXTRA and IEG.
       There are more than 600 operators available.

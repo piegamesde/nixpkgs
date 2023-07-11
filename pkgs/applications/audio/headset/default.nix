@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/headsetapp/headset-electron/releases/download/v${version}/headset_${version}_amd64.deb"
-      ;
+      "https://github.com/headsetapp/headset-electron/releases/download/v${version}/headset_${version}_amd64.deb";
     hash = "sha256-81gsIq74sggauE6g8pM6z05KTmsbe49CZa9aRQEDwMo=";
   };
 
@@ -27,8 +26,7 @@ stdenv.mkDerivation rec {
   ];
 
   unpackPhase =
-    "dpkg-deb --fsys-tarfile $src | tar -x --no-same-permissions --no-same-owner"
-    ;
+    "dpkg-deb --fsys-tarfile $src | tar -x --no-same-permissions --no-same-owner";
 
   installPhase = ''
     runHook preInstall

@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://codesynthesis.com/projects/libcutl/";
     changelog =
-      "https://git.codesynthesis.com/cgit/libcutl/libcutl/plain/NEWS?h=${version}"
-      ;
+      "https://git.codesynthesis.com/cgit/libcutl/libcutl/plain/NEWS?h=${version}";
     platforms = platforms.all;
     maintainers = with maintainers; [ ];
     license = licenses.mit;
@@ -33,8 +32,7 @@ stdenv.mkDerivation rec {
     ;
   src = fetchurl {
     url =
-      "https://codesynthesis.com/download/${pname}/${majmin}/${pname}-${version}.tar.bz2"
-      ;
+      "https://codesynthesis.com/download/${pname}/${majmin}/${pname}-${version}.tar.bz2";
     sha256 = "070j2x02m4gm1fn7gnymrkbdxflgzxwl7m96aryv8wp3f3366l8j";
   };
 

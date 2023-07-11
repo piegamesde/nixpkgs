@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/duplicati/duplicati/releases/download/v${version}-${version}_${channel}_${build_date}/duplicati-${version}_${channel}_${build_date}.zip"
-      ;
+      "https://github.com/duplicati/duplicati/releases/download/v${version}-${version}_${channel}_${build_date}/duplicati-${version}_${channel}_${build_date}.zip";
     sha256 = "sha256-usMwlmer6rLgP46wGVkaAIocUW4MjuEpVWdX7rRcghg=";
     stripRoot = false;
   };
@@ -36,8 +35,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A free backup client that securely stores encrypted, incremental, compressed backups on cloud storage services and remote file servers"
-      ;
+      "A free backup client that securely stores encrypted, incremental, compressed backups on cloud storage services and remote file servers";
     homepage = "https://www.duplicati.com/";
     license = licenses.lgpl21;
     maintainers = with maintainers; [ nyanloutre ];

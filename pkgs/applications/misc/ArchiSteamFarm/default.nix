@@ -79,8 +79,7 @@ buildDotnetModule rec {
 
   meta = with lib; {
     description =
-      "Application with primary purpose of idling Steam cards from multiple accounts simultaneously"
-      ;
+      "Application with primary purpose of idling Steam cards from multiple accounts simultaneously";
     homepage = "https://github.com/JustArchiNET/ArchiSteamFarm";
     license = licenses.asl20;
     platforms = [

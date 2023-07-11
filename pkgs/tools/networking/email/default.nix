@@ -35,8 +35,7 @@ stdenv.mkDerivation {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/deanproxy/eMail/commit/c3c1e52132832be0e51daa6e0037d5bb79a17751.patch"
-        ;
+        "https://github.com/deanproxy/eMail/commit/c3c1e52132832be0e51daa6e0037d5bb79a17751.patch";
       sha256 = "17ndrb65g0v4y521333h4244419s8nncm0yx2jwv12sf0dl6gy8i";
     })
   ];

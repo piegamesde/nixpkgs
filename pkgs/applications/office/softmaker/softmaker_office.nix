@@ -26,8 +26,7 @@ callPackage ./generic.nix (args // rec {
   src = fetchurl {
     inherit (officeVersion) hash;
     url =
-      "https://www.softmaker.net/down/softmaker-office-${edition}-${version}-amd64.tgz"
-      ;
+      "https://www.softmaker.net/down/softmaker-office-${edition}-${version}-amd64.tgz";
   };
 
   archive = "office${edition}.tar.lzma";

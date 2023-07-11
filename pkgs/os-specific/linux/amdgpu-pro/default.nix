@@ -46,12 +46,10 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://drivers.amd.com/drivers/linux/amdgpu-pro-${build}-ubuntu-20.04.tar.xz"
-      ;
+      "https://drivers.amd.com/drivers/linux/amdgpu-pro-${build}-ubuntu-20.04.tar.xz";
     sha256 = "sha256-WECqxjo2WLP3kMWeVyJgYufkvHTzwGaj57yeMGXiQ4I=";
     curlOpts =
-      "--referer https://www.amd.com/en/support/kb/release-notes/rn-amdgpu-unified-linux-21-30"
-      ;
+      "--referer https://www.amd.com/en/support/kb/release-notes/rn-amdgpu-unified-linux-21-30";
   };
 
   postUnpack = ''

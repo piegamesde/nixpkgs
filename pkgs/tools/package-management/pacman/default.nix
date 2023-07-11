@@ -76,8 +76,7 @@ stdenv.mkDerivation rec {
     # Add keyringdir meson option to configure the keyring directory
     (fetchpatch {
       url =
-        "https://gitlab.archlinux.org/pacman/pacman/-/commit/79bd512181af12ec80fd8f79486fc9508fa4a1b3.patch"
-        ;
+        "https://gitlab.archlinux.org/pacman/pacman/-/commit/79bd512181af12ec80fd8f79486fc9508fa4a1b3.patch";
       hash = "sha256-ivTPwWe06Q5shn++R6EY0x3GC0P4X0SuC+F5sndfAtM=";
     })
   ];

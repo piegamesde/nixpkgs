@@ -31,8 +31,7 @@ mkYarnPackage rec {
   postBuild =
     let
       yarnCmd =
-        "yarn --offline --frozen-lockfile --ignore-engines --ignore-scripts --lockfile ${yarnLock}"
-        ;
+        "yarn --offline --frozen-lockfile --ignore-engines --ignore-scripts --lockfile ${yarnLock}";
     in ''
       rm deps/heroic/node_modules
       ln -s ../../node_modules deps/heroic/

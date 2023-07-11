@@ -10,8 +10,7 @@ rec {
     }:
     fetchurl {
       url =
-        "https://download.documentfoundation.org/libreoffice/src/${subdir}/libreoffice-${name}-${version}.tar.xz"
-        ;
+        "https://download.documentfoundation.org/libreoffice/src/${subdir}/libreoffice-${name}-${version}.tar.xz";
       sha256 = hash;
     }
     ;
@@ -32,8 +31,7 @@ rec {
 
   src = fetchurl {
     url =
-      "https://download.documentfoundation.org/libreoffice/src/${subdir}/libreoffice-${version}.tar.xz"
-      ;
+      "https://download.documentfoundation.org/libreoffice/src/${subdir}/libreoffice-${version}.tar.xz";
     hash = "sha256-YYuQfdNrj4DgfdwTpgXo58EhJh323cmmQ24FQUMkLdM=";
   };
 

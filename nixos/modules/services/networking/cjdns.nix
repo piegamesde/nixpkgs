@@ -263,8 +263,7 @@ in {
 
     systemd.services.cjdns = {
       description =
-        "cjdns: routing engine designed for security, scalability, speed and ease of use"
-        ;
+        "cjdns: routing engine designed for security, scalability, speed and ease of use";
       wantedBy = [
         "multi-user.target"
         "sleep.target"
@@ -333,8 +332,7 @@ in {
         assertion = (cfg.ETHInterface.bind != "" || cfg.UDPInterface.bind != ""
           || cfg.confFile != null);
         message =
-          "Neither cjdns.ETHInterface.bind nor cjdns.UDPInterface.bind defined."
-          ;
+          "Neither cjdns.ETHInterface.bind nor cjdns.UDPInterface.bind defined.";
       }
       {
         assertion = config.networking.enableIPv6;

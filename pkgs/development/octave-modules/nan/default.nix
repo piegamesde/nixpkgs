@@ -21,7 +21,6 @@ buildOctavePackage rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
     description =
-      "A statistics and machine learning toolbox for data with and w/o missing values"
-      ;
+      "A statistics and machine learning toolbox for data with and w/o missing values";
   };
 }

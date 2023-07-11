@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/bviplus/bviplus/${version}/bviplus-${version}.tgz"
-      ;
+      "mirror://sourceforge/project/bviplus/bviplus/${version}/bviplus-${version}.tgz";
     sha256 = "08q2fdyiirabbsp5qpn3v8jxp4gd85l776w6gqvrbjwqa29a8arg";
   };
 
@@ -23,8 +22,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "ncurses-6.3.patch";
       url =
-        "https://sourceforge.net/p/bviplus/bugs/7/attachment/bviplus-ncurses-6.2.patch"
-        ;
+        "https://sourceforge.net/p/bviplus/bugs/7/attachment/bviplus-ncurses-6.2.patch";
       sha256 = "1g3s2fdly3qliy67f3dlb12a03a21zkjbya6gap4mqxhyyjbp46x";
         # svn patch, rely on prefix added by fetchpatch:
       extraPrefix = "";

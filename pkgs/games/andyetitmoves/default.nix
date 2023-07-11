@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
           ;
         commercialName = "${pname}-${version}_${postfix}.tar.gz";
         demoUrl =
-          "http://www.andyetitmoves.net/demo/${pname}Demo-${version}_${postfix}.tar.gz"
-          ;
+          "http://www.andyetitmoves.net/demo/${pname}Demo-${version}_${postfix}.tar.gz";
       in if commercialVersion then
         requireFile {
           message = ''

@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
       The Embedded Linux* Library (ELL) provides core, low-level functionality for system daemons. It typically has no dependencies other than the Linux kernel, C standard library, and libdl (for dynamic linking). While ELL is designed to be efficient and compact enough for use on embedded Linux platforms, it is not limited to resource-constrained systems.
     '';
     changelog =
-      "https://git.kernel.org/pub/scm/libs/ell/ell.git/tree/ChangeLog?h=${version}"
-      ;
+      "https://git.kernel.org/pub/scm/libs/ell/ell.git/tree/ChangeLog?h=${version}";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [

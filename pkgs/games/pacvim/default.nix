@@ -21,8 +21,7 @@ stdenv.mkDerivation {
     (fetchpatch {
       name = "ncurses-6.3.patch";
       url =
-        "https://github.com/jmoon018/PacVim/commit/760682824cdbb328af616ff43bf822ade23924f7.patch"
-        ;
+        "https://github.com/jmoon018/PacVim/commit/760682824cdbb328af616ff43bf822ade23924f7.patch";
       sha256 = "1y3928dc2nkfldqhpiqk0blbx7qj8ar35f1w7fb92qwxrj8p4i6g";
     })
   ];

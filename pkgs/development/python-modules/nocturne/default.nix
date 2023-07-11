@@ -54,8 +54,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A data-driven, fast driving simulator for multi-agent coordination under partial observability"
-      ;
+      "A data-driven, fast driving simulator for multi-agent coordination under partial observability";
     homepage = "https://github.com/facebookresearch/nocturne";
     license = licenses.mit;
     maintainers = with maintainers; [ samuela ];

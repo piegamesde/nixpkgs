@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://linphone.org/technical-corner/belle-sip";
     description =
-      "Modern library implementing SIP (RFC 3261) transport, transaction and dialog layers. Part of the Linphone project."
-      ;
+      "Modern library implementing SIP (RFC 3261) transport, transaction and dialog layers. Part of the Linphone project.";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
     maintainers = with maintainers; [ jluttine ];

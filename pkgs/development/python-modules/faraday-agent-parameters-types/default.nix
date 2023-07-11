@@ -47,8 +47,7 @@ buildPythonPackage rec {
     description = "Collection of Faraday agent parameters types";
     homepage = "https://github.com/infobyte/faraday_agent_parameters_types";
     changelog =
-      "https://github.com/infobyte/faraday_agent_parameters_types/blob/${version}/CHANGELOG.md"
-      ;
+      "https://github.com/infobyte/faraday_agent_parameters_types/blob/${version}/CHANGELOG.md";
     license = with licenses; [ gpl3Plus ];
     maintainers = with maintainers; [ fab ];
   };

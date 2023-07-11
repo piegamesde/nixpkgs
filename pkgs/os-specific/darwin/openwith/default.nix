@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Utility to specify which application bundle should open specific file extensions"
-      ;
+      "Utility to specify which application bundle should open specific file extensions";
     homepage = "https://github.com/jdek/openwith";
     license = licenses.unlicense;
     maintainers = with maintainers; [ zowoq ];

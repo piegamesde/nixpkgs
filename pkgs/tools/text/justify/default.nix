@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://tildegit.org/jns/justify";
     description =
-      "Simple text alignment tool that supports left/right/center/fill justify alignment"
-      ;
+      "Simple text alignment tool that supports left/right/center/fill justify alignment";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
     mainProgram = "justify";

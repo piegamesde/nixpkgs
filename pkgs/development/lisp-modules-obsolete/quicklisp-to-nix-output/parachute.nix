@@ -16,8 +16,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/parachute/2021-10-20/parachute-20211020-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/parachute/2021-10-20/parachute-20211020-git.tgz";
     sha256 = "1sc63a6z3zwdsc9h3w0dbx7yssvg2zzdyhh81kqc5cx17vcdqyk0";
   };
 

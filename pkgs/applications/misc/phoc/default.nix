@@ -28,8 +28,7 @@ let
         name =
           "0001-Revert-layer-shell-error-on-0-dimension-without-anch.patch";
         url =
-          "https://source.puri.sm/Librem5/wlroots/-/commit/4f66b0931aaaee65367102e9c4ccb736097412c7.patch"
-          ;
+          "https://source.puri.sm/Librem5/wlroots/-/commit/4f66b0931aaaee65367102e9c4ccb736097412c7.patch";
         hash = "sha256-2Vy5a4lWh8FP2PN6xRIZv6IlUuLZibT0MYW+EyvVULs=";
       })
 
@@ -37,8 +36,7 @@ let
       (fetchpatch {
         name = "xdg-activation-deduplicate-token-creation-code.patch";
         url =
-          "https://gitlab.freedesktop.org/wlroots/wlroots/-/commit/dd03d839ab56c3e5d7c607a8d76e58e0b75edb85.patch"
-          ;
+          "https://gitlab.freedesktop.org/wlroots/wlroots/-/commit/dd03d839ab56c3e5d7c607a8d76e58e0b75edb85.patch";
         sha256 = "sha256-mxt68MISC24xpaBtVSc1F2W4cyNs5wQowtbUQH9Eqr8=";
       })
 
@@ -46,8 +44,7 @@ let
       (fetchpatch {
         name = "seat-Allow-to-cancel-touches.patch";
         url =
-          "https://gitlab.freedesktop.org/wlroots/wlroots/-/commit/17b2b06633729f1826715c1d0b84614aa3cedb3a.patch"
-          ;
+          "https://gitlab.freedesktop.org/wlroots/wlroots/-/commit/17b2b06633729f1826715c1d0b84614aa3cedb3a.patch";
         sha256 = "sha256-BAeXa3ZB5TXnlq0ZP2+rZlVXEPWpLP4Wi4TLwoXjkz4=";
       })
 

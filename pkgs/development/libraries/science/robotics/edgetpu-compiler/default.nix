@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl rec {
     url =
-      "https://packages.cloud.google.com/apt/pool/${pname}_${version}_amd64_${sha256}.deb"
-      ;
+      "https://packages.cloud.google.com/apt/pool/${pname}_${version}_amd64_${sha256}.deb";
     sha256 = "ce03822053c2bddbb8640eaa988396ae66f9bc6b9d6d671914acd1727c2b445a";
   };
 
@@ -51,8 +50,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A command line tool that compiles a TensorFlow Lite model into an Edge TPU compatible file."
-      ;
+      "A command line tool that compiles a TensorFlow Lite model into an Edge TPU compatible file.";
     homepage = "https://coral.ai/docs/edgetpu/compiler";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.asl20;

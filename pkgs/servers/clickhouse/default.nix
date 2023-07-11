@@ -40,8 +40,8 @@ stdenv.mkDerivation rec {
   pname = "clickhouse";
   version = "22.8.16.32";
 
-  broken = stdenv.buildPlatform.is32bit
-    ; # not supposed to work on 32-bit https://github.com/ClickHouse/ClickHouse/pull/23959#issuecomment-835343685
+  broken =
+    stdenv.buildPlatform.is32bit; # not supposed to work on 32-bit https://github.com/ClickHouse/ClickHouse/pull/23959#issuecomment-835343685
 
   src = fetchFromGitHub {
     owner = "ClickHouse";

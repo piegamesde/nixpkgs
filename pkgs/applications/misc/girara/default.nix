@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://git.pwmt.org/pwmt/${pname}/-/archive/${version}/${pname}-${version}.tar.gz"
-      ;
+      "https://git.pwmt.org/pwmt/${pname}/-/archive/${version}/${pname}-${version}.tar.gz";
     hash = "sha256-DoqYykR/N17BHQ90GoLvAYluQ3odWPwUGRTacN6BiWU=";
   };
 
@@ -38,8 +37,7 @@ stdenv.mkDerivation rec {
     # https://git.pwmt.org/pwmt/girara/-/issues/17
     (fetchpatch2 {
       url =
-        "https://git.pwmt.org/pwmt/girara/-/commit/6926cc1234853ccf3010a1e2625aafcf462ed60e.patch"
-        ;
+        "https://git.pwmt.org/pwmt/girara/-/commit/6926cc1234853ccf3010a1e2625aafcf462ed60e.patch";
       hash = "sha256-uayT6ikXtaBPxhZFyskShug3Tbvy2a9qimLRwdiAsic=";
     })
   ];

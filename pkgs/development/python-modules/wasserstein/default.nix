@@ -15,8 +15,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pkomiske";
     repo = "Wasserstein";
-    rev = "89c2d6279a7e0aa3b56bcc8fb7b6009420f2563e"
-      ; # https://github.com/pkomiske/Wasserstein/issues/1
+    rev =
+      "89c2d6279a7e0aa3b56bcc8fb7b6009420f2563e"; # https://github.com/pkomiske/Wasserstein/issues/1
     hash = "sha256-s9en6XwvO/WPsF7/+SEmGePHZQgl7zLgu5sEn4nD9YE=";
   };
 

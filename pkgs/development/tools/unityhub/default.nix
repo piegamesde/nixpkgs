@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://hub-dist.unity3d.com/artifactory/hub-debian-prod-local/pool/main/u/unity/unityhub_amd64/unityhub-amd64-${version}.deb"
-      ;
+      "https://hub-dist.unity3d.com/artifactory/hub-debian-prod-local/pool/main/u/unity/unityhub_amd64/unityhub-amd64-${version}.deb";
     sha256 = "sha256-I1qtrD94IpMut0a6JUHErHaksoZ+z8/dDG8U68Y5zJE=";
   };
 
@@ -139,8 +138,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Official Unity3D app to download and manage Unity Projects and installations"
-      ;
+      "Official Unity3D app to download and manage Unity Projects and installations";
     homepage = "https://unity3d.com/";
     license = licenses.unfree;
     maintainers = with maintainers; [

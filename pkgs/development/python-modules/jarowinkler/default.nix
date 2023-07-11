@@ -55,8 +55,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Library for fast approximate string matching using Jaro and Jaro-Winkler similarity"
-      ;
+      "Library for fast approximate string matching using Jaro and Jaro-Winkler similarity";
     homepage = "https://github.com/maxbachmann/JaroWinkler";
     changelog =
       "https://github.com/maxbachmann/JaroWinkler/blob/${src.rev}/CHANGELOG.md";

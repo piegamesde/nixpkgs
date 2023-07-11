@@ -16,8 +16,7 @@ in {
 
       meta = {
         description =
-          "Multi-channel waveform data acquisition and chart recording application"
-          ;
+          "Multi-channel waveform data acquisition and chart recording application";
         homepage = "http://bitscope.com/software/chart/";
       };
 
@@ -40,8 +39,7 @@ in {
 
       meta = {
         description =
-          "Demonstrative communications program designed to make it easy to talk to any model BitScope"
-          ;
+          "Demonstrative communications program designed to make it easy to talk to any model BitScope";
       };
 
       src = fetchurl {
@@ -104,8 +102,7 @@ in {
 
       meta = {
         description =
-          "Mixed signal logic timing and serial protocol analysis software for BitScope"
-          ;
+          "Mixed signal logic timing and serial protocol analysis software for BitScope";
         homepage = "http://bitscope.com/software/logic/";
       };
 
@@ -155,8 +152,7 @@ in {
 
       meta = {
         description =
-          "Demonstrative prototype oscilloscope built using the BitScope Library"
-          ;
+          "Demonstrative prototype oscilloscope built using the BitScope Library";
         homepage = "http://bitscope.com/blog/DK/?p=DK15A";
       };
 

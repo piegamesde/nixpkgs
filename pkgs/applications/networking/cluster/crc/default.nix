@@ -70,8 +70,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Manages a local OpenShift 4.x cluster or a Podman VM optimized for testing and development purposes"
-      ;
+      "Manages a local OpenShift 4.x cluster or a Podman VM optimized for testing and development purposes";
     homepage = "https://crc.dev";
     license = licenses.asl20;
     maintainers = with maintainers; [

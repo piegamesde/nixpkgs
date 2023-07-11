@@ -39,8 +39,7 @@ let
   version = "766";
 
   url =
-    "https://www.segger.com/downloads/jlink/JLink_Linux_V${version}_${platform.name}.tgz"
-    ;
+    "https://www.segger.com/downloads/jlink/JLink_Linux_V${version}_${platform.name}.tgz";
 
 in
 stdenv.mkDerivation {
@@ -124,8 +123,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "J-Link Software and Documentation pack";
     homepage =
-      "https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack"
-      ;
+      "https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack";
     license = licenses.unfree;
     platforms = attrNames supported;
     maintainers = with maintainers; [

@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "An open source re-implementation of Caesar III. Fork of Julius incorporating gameplay changes"
-      ;
+      "An open source re-implementation of Caesar III. Fork of Julius incorporating gameplay changes";
     homepage = "https://github.com/Keriew/augustus";
     license = licenses.agpl3Only;
     platforms = platforms.all;

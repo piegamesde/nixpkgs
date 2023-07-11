@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "An open-source machine learning framework for global analyses of parton distributions"
-      ;
+      "An open-source machine learning framework for global analyses of parton distributions";
     homepage = "https://docs.nnpdf.science/";
     license = licenses.gpl3Only;
     maintainers = [ maintainers.veprbl ];

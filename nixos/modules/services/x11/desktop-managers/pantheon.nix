@@ -103,8 +103,7 @@ in {
         utils.removePackagesByName [ pkgs.pantheon.pantheon-agent-geoclue2 ]
         config.environment.pantheon.excludePackages;
 
-      services.xserver.displayManager.sessionPackages = [ pkgs.pantheon.elementary-session-settings ]
-        ;
+      services.xserver.displayManager.sessionPackages = [ pkgs.pantheon.elementary-session-settings ];
 
         # Ensure lightdm is used when Pantheon is enabled
         # Without it screen locking will be nonfunctional because of the use of lightlocker
@@ -248,8 +247,7 @@ in {
 
         # Override GSettings schemas
       environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR =
-        "${nixos-gsettings-desktop-schemas}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas"
-        ;
+        "${nixos-gsettings-desktop-schemas}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
 
       environment.sessionVariables.GNOME_SESSION_DEBUG = mkIf cfg.debug "1";
 

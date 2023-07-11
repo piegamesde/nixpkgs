@@ -43,8 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "mirror://gnome/sources/gtk+/2.24/${finalAttrs.pname}-${finalAttrs.version}.tar.xz"
-      ;
+      "mirror://gnome/sources/gtk+/2.24/${finalAttrs.pname}-${finalAttrs.version}.tar.xz";
     sha256 = "rCrHV/WULTGKMRpUsMgLXvKV8pnCpzxjL2v7H/Scxto=";
   };
 

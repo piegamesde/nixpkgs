@@ -41,8 +41,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/home-assistant-ecosystem/python-mystrom";
     changelog =
-      "https://github.com/home-assistant-ecosystem/python-mystrom/releases/tag/${version}"
-      ;
+      "https://github.com/home-assistant-ecosystem/python-mystrom/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

@@ -68,8 +68,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://www.bay12games.com/dwarves/df_${baseVersion}_${patchVersion}_${dfPlatform}.tar.bz2"
-      ;
+      "https://www.bay12games.com/dwarves/df_${baseVersion}_${patchVersion}_${dfPlatform}.tar.bz2";
     inherit sha256;
   };
 

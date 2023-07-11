@@ -41,8 +41,9 @@ let
 
     format = "other";
 
-    passthru = { inherit python; }
-      ; # pass it so that the same version can be used in hg2git
+    passthru = {
+      inherit python;
+    }; # pass it so that the same version can be used in hg2git
 
     cargoDeps =
       if rustSupport then

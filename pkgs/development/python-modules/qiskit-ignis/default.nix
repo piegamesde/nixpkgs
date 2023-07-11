@@ -67,8 +67,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Qiskit tools for quantum hardware verification, noise characterization, and error correction"
-      ;
+      "Qiskit tools for quantum hardware verification, noise characterization, and error correction";
     homepage = "https://qiskit.org/ignis";
     downloadPage = "https://github.com/QISKit/qiskit-ignis/releases";
     changelog = "https://qiskit.org/documentation/release_notes.html";

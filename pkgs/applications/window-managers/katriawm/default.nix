@@ -15,8 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchzip {
     name = finalAttrs.pname + "-" + finalAttrs.version;
     url =
-      "https://www.uninformativ.de/git/katriawm/archives/katriawm-v${finalAttrs.version}.tar.gz"
-      ;
+      "https://www.uninformativ.de/git/katriawm/archives/katriawm-v${finalAttrs.version}.tar.gz";
     hash = "sha256-xFKr4PxqvnQEAWplhRsaL5rhmSJpnImpk1eXFX0N1tc=";
   };
 

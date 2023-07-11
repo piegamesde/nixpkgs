@@ -20,8 +20,7 @@ buildPythonPackage rec {
   };
 
   postPatch =
-    "substituteInPlace riscof/requirements.txt --replace 'GitPython==3.1.17' GitPython"
-    ;
+    "substituteInPlace riscof/requirements.txt --replace 'GitPython==3.1.17' GitPython";
 
   propagatedBuildInputs = [
     riscv-isac

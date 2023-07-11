@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
       nr: sha256:
       fetchurl {
         url =
-          "mirror://gnu/readline/readline-${meta.branch}-patches/readline70-${nr}"
-          ;
+          "mirror://gnu/readline/readline-${meta.branch}-patches/readline70-${nr}";
         inherit sha256;
       }
       ;

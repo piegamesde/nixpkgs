@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://abuse.zoy.org/raw-attachment/wiki/download/${pname}-${version}.tar.gz"
-      ;
+      "http://abuse.zoy.org/raw-attachment/wiki/download/${pname}-${version}.tar.gz";
     sha256 = "0104db5fd2695c9518583783f7aaa7e5c0355e27c5a803840a05aef97f9d3488";
   };
 

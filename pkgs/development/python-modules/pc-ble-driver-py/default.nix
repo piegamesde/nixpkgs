@@ -57,8 +57,7 @@ buildPythonPackage rec {
     description = "Bluetooth Low Energy nRF5 SoftDevice serialization";
     homepage = "https://github.com/NordicSemiconductor/pc-ble-driver-py";
     changelog =
-      "https://github.com/NordicSemiconductor/pc-ble-driver-py/releases/tag/v${version}"
-      ;
+      "https://github.com/NordicSemiconductor/pc-ble-driver-py/releases/tag/v${version}";
     license = licenses.unfreeRedistributable;
     maintainers = with maintainers; [ gebner ];
     platforms = platforms.unix;

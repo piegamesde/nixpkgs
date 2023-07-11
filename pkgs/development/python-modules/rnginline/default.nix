@@ -24,8 +24,7 @@ buildPythonPackage rec {
     # https://github.com/h4l/rnginline/issues/3
     (fetchpatch {
       url =
-        "https://github.com/h4l/rnginline/commit/b1d1c8cda2a17d46627309950f2442021749c07e.patch"
-        ;
+        "https://github.com/h4l/rnginline/commit/b1d1c8cda2a17d46627309950f2442021749c07e.patch";
       hash = "sha256-XbisEwun2wPOp7eqW2YDVdayJ4sjAMG/ezFwgoCKe9o=";
       name = "fix_tests_failing_collect.patch";
     })
@@ -46,8 +45,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A Python library and command-line tool for loading multi-file RELAX NG schemas from arbitary URLs, and flattening them into a single RELAX NG schema"
-      ;
+      "A Python library and command-line tool for loading multi-file RELAX NG schemas from arbitary URLs, and flattening them into a single RELAX NG schema";
     homepage = "https://github.com/h4l/rnginline";
     license = licenses.asl20;
     maintainers = with maintainers; [ lesuisse ];

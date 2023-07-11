@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/rox-desktop/rox-filer/commit/86b0bb9144186d51ea9b898905111bd8b143b552.patch"
-        ;
+        "https://github.com/rox-desktop/rox-filer/commit/86b0bb9144186d51ea9b898905111bd8b143b552.patch";
       sha256 = "1csyx229i09p00lbdlkdqdhn3x2lb5zby1h9rkjgzlr2qz74gc69";
     })
   ];

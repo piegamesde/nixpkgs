@@ -70,8 +70,8 @@ python3Packages.buildPythonPackage rec {
     # for `qtile check`, needs `stubtest` and `mypy` commands
   makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ mypy ]}" ];
 
-  doCheck = false
-    ; # Requires X server #TODO this can be worked out with the existing NixOS testing infrastructure.
+  doCheck =
+    false; # Requires X server #TODO this can be worked out with the existing NixOS testing infrastructure.
 
   meta = with lib; {
     homepage = "http://www.qtile.org/";

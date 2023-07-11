@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/akryukov/oldstand/releases/download/v${version}/${pname}-${version}.otf.zip"
-      ;
+      "https://github.com/akryukov/oldstand/releases/download/v${version}/${pname}-${version}.otf.zip";
     stripRoot = false;
     hash = "sha256-cDB5KJm87DK+GczZ3Nmn4l5ejqViswVbwrJ9XbhEh8I=";
   };

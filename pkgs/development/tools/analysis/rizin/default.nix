@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/rizinorg/rizin/releases/download/v${version}/rizin-src-v${version}.tar.xz"
-      ;
+      "https://github.com/rizinorg/rizin/releases/download/v${version}/rizin-src-v${version}.tar.xz";
     hash = "sha256-cauA/DyKycgKEAANg4EoryigXTGg7hg5AMLFxuNQ7KM=";
   };
 

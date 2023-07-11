@@ -70,10 +70,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "https://github.com/flatpak/flatpak/releases/download/${finalAttrs.version}/flatpak-${finalAttrs.version}.tar.xz"
-      ;
-    sha256 = "sha256-ijTb0LZ8Q051mLmOxpCVPQRvDbJuSArq+0bXKuxxZ5k="
-      ; # Taken from https://github.com/flatpak/flatpak/releases/
+      "https://github.com/flatpak/flatpak/releases/download/${finalAttrs.version}/flatpak-${finalAttrs.version}.tar.xz";
+    sha256 =
+      "sha256-ijTb0LZ8Q051mLmOxpCVPQRvDbJuSArq+0bXKuxxZ5k="; # Taken from https://github.com/flatpak/flatpak/releases/
   };
 
   patches = [

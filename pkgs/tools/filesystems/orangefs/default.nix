@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/waltligon/orangefs/commit/f472beb50356bea657d1c32f1ca8a73e4718fd57.patch"
-        ;
+        "https://github.com/waltligon/orangefs/commit/f472beb50356bea657d1c32f1ca8a73e4718fd57.patch";
       sha256 = "0jaq1ffdxgymjciddsy8h8r87nwbif4v5yv4wd7jxysn25a0hdai";
     })
   ];

@@ -83,8 +83,7 @@ in {
         owner = "root";
         group = "root";
         source =
-          "${cfg.packageOverriden}/libexec/${cfg.packageOverriden.projectName}/bin/starter-suid.orig"
-          ;
+          "${cfg.packageOverriden}/libexec/${cfg.packageOverriden.projectName}/bin/starter-suid.orig";
       };
     systemd.tmpfiles.rules = [
       "d /var/lib/${cfg.packageOverriden.projectName}/mnt/session 0770 root root -"

@@ -21,8 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Submit pull requests for individual, amendable, rebaseable commits to GitHub"
-      ;
+      "Submit pull requests for individual, amendable, rebaseable commits to GitHub";
     homepage = "https://github.com/getcord/spr";
     license = licenses.mit;
     maintainers = with maintainers; [ sven-of-cord ];

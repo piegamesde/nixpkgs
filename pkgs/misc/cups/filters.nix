@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://openprinting.org/download/cups-filters/${pname}-${version}.tar.xz"
-      ;
+      "https://openprinting.org/download/cups-filters/${pname}-${version}.tar.xz";
     sha256 = "sha256-qQfsdp+7cu+/v5tUCyUKCOM7bjc6inw0P5hA+6TQR4s=";
   };
 
@@ -119,11 +118,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage =
-      "http://www.linuxfoundation.org/collaborate/workgroups/openprinting/cups-filters"
-      ;
+      "http://www.linuxfoundation.org/collaborate/workgroups/openprinting/cups-filters";
     description =
-      "Backends, filters, and other software that was once part of the core CUPS distribution but is no longer maintained by Apple Inc"
-      ;
+      "Backends, filters, and other software that was once part of the core CUPS distribution but is no longer maintained by Apple Inc";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
   };

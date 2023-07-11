@@ -7,8 +7,7 @@
 
 let
   url =
-    "https://gist.github.com/glandium/01d54cefdb70561b5f6675e08f2990f2/archive/2f430f0c136a69b0886281d0c76708997d8878af.zip"
-    ;
+    "https://gist.github.com/glandium/01d54cefdb70561b5f6675e08f2990f2/archive/2f430f0c136a69b0886281d0c76708997d8878af.zip";
 in {
   simple = testers.invalidateFetcherByDrvHash fetchzip {
     inherit url;

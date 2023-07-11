@@ -25,8 +25,7 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     name = "fix-requires_system_checks-list-or-tuple";
     url =
-      "https://github.com/ierror/django-js-reverse/commit/1477ba44b62c419d12ebec86e56973f1ae56f712.patch"
-      ;
+      "https://github.com/ierror/django-js-reverse/commit/1477ba44b62c419d12ebec86e56973f1ae56f712.patch";
     hash = "sha256-xUtCziewVhnCOaNWddJBH4/Vvhwjjq/wcQDvh2YzWMQ=";
   }) ];
 

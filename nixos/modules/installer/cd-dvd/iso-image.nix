@@ -53,8 +53,7 @@ let
     let
       finalCfg = {
         name =
-          "${config.system.nixos.distroName} ${config.system.nixos.label}${config.isoImage.appendToMenuLabel}"
-          ;
+          "${config.system.nixos.distroName} ${config.system.nixos.label}${config.isoImage.appendToMenuLabel}";
         params = "init=${config.system.build.toplevel}/init ${additional} ${
             toString config.boot.kernelParams
           }";
@@ -544,8 +543,7 @@ in {
       default = "nixos${
           optionalString (config.isoImage.edition != "")
           "-${config.isoImage.edition}"
-        }-${config.system.nixos.release}-${pkgs.stdenv.hostPlatform.uname.processor}"
-        ;
+        }-${config.system.nixos.release}-${pkgs.stdenv.hostPlatform.uname.processor}";
       description = lib.mdDoc ''
         Specifies the label or volume ID of the generated ISO image.
         Note that the label is used by stage 1 of the boot process to
@@ -609,8 +607,7 @@ in {
     isoImage.efiSplashImage = mkOption {
       default = pkgs.fetchurl {
         url =
-          "https://raw.githubusercontent.com/NixOS/nixos-artwork/a9e05d7deb38a8e005a2b52575a3f59a63a4dba0/bootloader/efi-background.png"
-          ;
+          "https://raw.githubusercontent.com/NixOS/nixos-artwork/a9e05d7deb38a8e005a2b52575a3f59a63a4dba0/bootloader/efi-background.png";
         sha256 = "18lfwmp8yq923322nlb9gxrh5qikj1wsk6g5qvdh31c4h5b1538x";
       };
       description = lib.mdDoc ''
@@ -621,8 +618,7 @@ in {
     isoImage.splashImage = mkOption {
       default = pkgs.fetchurl {
         url =
-          "https://raw.githubusercontent.com/NixOS/nixos-artwork/a9e05d7deb38a8e005a2b52575a3f59a63a4dba0/bootloader/isolinux/bios-boot.png"
-          ;
+          "https://raw.githubusercontent.com/NixOS/nixos-artwork/a9e05d7deb38a8e005a2b52575a3f59a63a4dba0/bootloader/isolinux/bios-boot.png";
         sha256 = "1wp822zrhbg4fgfbwkr7cbkr4labx477209agzc0hr6k62fr6rxd";
       };
       description = lib.mdDoc ''

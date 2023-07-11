@@ -7,8 +7,7 @@ let
   srcs = [
     (fetchurl {
       url =
-        "http://www.ttfotf.com/download-font/tempora-lgc-unicode-bold-italic.otf"
-        ;
+        "http://www.ttfotf.com/download-font/tempora-lgc-unicode-bold-italic.otf";
       sha256 = "1yfbi62j6gjmzglxz29m6x6lxqpxghcqjjh916qn8in74ba5v0gq";
     })
     (fetchurl {

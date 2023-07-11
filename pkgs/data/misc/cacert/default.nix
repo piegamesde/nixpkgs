@@ -152,11 +152,9 @@ stdenv.mkDerivation rec {
             blacklistCAToFingerprint = {
               # "blacklist" uses the CA name from the NSS bundle, but we check for presence using the SHA256 fingerprint.
               "CFCA EV ROOT" =
-                "5C:C3:D7:8E:4E:1D:5E:45:54:7A:04:E6:87:3E:64:F9:0C:F9:53:6D:1C:CC:2E:F8:00:F3:55:C4:C5:FD:70:FD"
-                ;
+                "5C:C3:D7:8E:4E:1D:5E:45:54:7A:04:E6:87:3E:64:F9:0C:F9:53:6D:1C:CC:2E:F8:00:F3:55:C4:C5:FD:70:FD";
               "NetLock Arany (Class Gold) Főtanúsítvány" =
-                "6C:61:DA:C3:A2:DE:F0:31:50:6B:E0:36:D2:A6:FE:40:19:94:FB:D1:3D:F9:C8:D4:66:59:92:74:C4:46:EC:98"
-                ;
+                "6C:61:DA:C3:A2:DE:F0:31:50:6B:E0:36:D2:A6:FE:40:19:94:FB:D1:3D:F9:C8:D4:66:59:92:74:C4:46:EC:98";
             };
             mapBlacklist =
               f:
@@ -216,13 +214,11 @@ stdenv.mkDerivation rec {
             extraCertificatesToFingerprint = {
               # String above
               "NixOS cacert extra certificate string" =
-                "A3:20:D0:84:96:97:25:FF:98:B8:A9:6D:A3:7C:89:95:6E:7A:77:21:92:F3:33:E9:31:AF:5E:03:CE:A9:E5:EE"
-                ;
+                "A3:20:D0:84:96:97:25:FF:98:B8:A9:6D:A3:7C:89:95:6E:7A:77:21:92:F3:33:E9:31:AF:5E:03:CE:A9:E5:EE";
 
                 # File
               "NixOS cacert extra certificate file" =
-                "88:B8:BE:A7:57:AC:F1:FE:D6:98:8B:50:E0:BD:0A:AE:88:C7:DF:70:26:E1:67:5E:F5:F6:91:27:FF:02:D4:A5"
-                ;
+                "88:B8:BE:A7:57:AC:F1:FE:D6:98:8B:50:E0:BD:0A:AE:88:C7:DF:70:26:E1:67:5E:F5:F6:91:27:FF:02:D4:A5";
             };
             mapExtra =
               f:

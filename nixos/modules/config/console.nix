@@ -228,8 +228,7 @@ in {
             RemainAfterExit = true;
             ExecStart = "${pkgs.coreutils}/bin/true";
             ExecReload =
-              "/run/current-system/systemd/bin/systemctl restart systemd-vconsole-setup"
-              ;
+              "/run/current-system/systemd/bin/systemctl restart systemd-vconsole-setup";
           };
         };
       }

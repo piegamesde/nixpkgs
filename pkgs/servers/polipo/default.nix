@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://www.pps.univ-paris-diderot.fr/~jch/software/files/polipo/${pname}-${version}.tar.gz"
-      ;
+      "http://www.pps.univ-paris-diderot.fr/~jch/software/files/polipo/${pname}-${version}.tar.gz";
     sha256 = "05g09sg9qkkhnc2mxldm1w1xkxzs2ylybkjzs28w8ydbjc3pand2";
   };
 
@@ -28,7 +27,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = with maintainers; [ ehmry ];
     platforms = platforms.all;
-    knownVulnerabilities = [ "Unmaintained upstream: https://github.com/jech/polipo/commit/4d42ca1b5849" ]
-      ;
+    knownVulnerabilities = [ "Unmaintained upstream: https://github.com/jech/polipo/commit/4d42ca1b5849" ];
   };
 }

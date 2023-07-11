@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://cdn.openttd.org/openttd-releases/${version}/${pname}-${version}-source.tar.xz"
-      ;
+      "https://cdn.openttd.org/openttd-releases/${version}/${pname}-${version}-source.tar.xz";
     hash = "sha256-Xt8i03A1I4KF72cql9WeZCgL66sj5YR4CDTM1r4KWLs=";
   };
 

@@ -63,8 +63,7 @@ let
 
   src = fetchurl {
     url =
-      "https://github.com/bazelbuild/bazel/releases/download/${version}/bazel-${version}-dist.zip"
-      ;
+      "https://github.com/bazelbuild/bazel/releases/download/${version}/bazel-${version}-dist.zip";
     hash = "sha256-b7PuIv6fqG2C4XNXLVBMCJ8Qgl10lyVZJibgkLOMlnk=";
   };
 

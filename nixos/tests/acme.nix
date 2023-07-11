@@ -88,8 +88,7 @@ let
               certs."example.test" = { domain = "*.example.test"; };
             };
 
-            users.users."${config.services."${server}".user}".extraGroups = [ "acme" ]
-              ;
+            users.users."${config.services."${server}".user}".extraGroups = [ "acme" ];
 
             services."${server}" = {
               enable = true;
@@ -224,8 +223,7 @@ in {
           wantedBy = [ "network.target" ];
           serviceConfig = {
             ExecStart =
-              "${pkgs.pebble}/bin/pebble-challtestsrv -dns01 ':53' -defaultIPv6 '' -defaultIPv4 '${nodes.webserver.networking.primaryIPAddress}'"
-              ;
+              "${pkgs.pebble}/bin/pebble-challtestsrv -dns01 ':53' -defaultIPv6 '' -defaultIPv4 '${nodes.webserver.networking.primaryIPAddress}'";
               # Required to bind on privileged ports.
             AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
           };
@@ -387,8 +385,7 @@ in {
                 certs."example.test" = { domain = "*.example.test"; };
               };
 
-              users.users."${config.services.caddy.user}".extraGroups = [ "acme" ]
-                ;
+              users.users."${config.services.caddy.user}".extraGroups = [ "acme" ];
 
               services.caddy = {
                 enable = true;

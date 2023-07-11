@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ebzzry/${pname}/releases/download/v${version}/${pname}.jar"
-      ;
+      "https://github.com/ebzzry/${pname}/releases/download/v${version}/${pname}.jar";
     sha256 = "18x3s3jrph8k3pc75jgwkfqazygpsx93zjxx68zms58my17cybh1";
   };
 

@@ -16,8 +16,7 @@ let
   mostOfVersion = builtins.concatStringsSep "."
     (lib.take 3 (lib.versions.splitVersion version));
   platform =
-    "${stdenv.hostPlatform.parsed.kernel.name}-${stdenv.hostPlatform.parsed.cpu.name}"
-    ;
+    "${stdenv.hostPlatform.parsed.kernel.name}-${stdenv.hostPlatform.parsed.cpu.name}";
 
 in
 stdenv.mkDerivation {

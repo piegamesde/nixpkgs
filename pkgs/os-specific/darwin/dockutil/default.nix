@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/kcrawford/dockutil/releases/download/${version}/dockutil-${version}.pkg"
-      ;
+      "https://github.com/kcrawford/dockutil/releases/download/${version}/dockutil-${version}.pkg";
     sha256 = "175137ea747e83ed221d60b18b712b256ed31531534cde84f679487d337668fd";
   };
 

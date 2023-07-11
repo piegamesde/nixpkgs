@@ -40,8 +40,7 @@ buildPythonApplication rec {
     # https://github.com/mypaint/mypaint/pull/1183
     (fetchpatch {
       url =
-        "https://github.com/mypaint/mypaint/commit/423950bec96d6057eac70442de577364d784a847.patch"
-        ;
+        "https://github.com/mypaint/mypaint/commit/423950bec96d6057eac70442de577364d784a847.patch";
       sha256 = "OxJJOi20bFMRibL59zx6svtMrkgeMYyEvbdSXbZHqpc=";
     })
   ];

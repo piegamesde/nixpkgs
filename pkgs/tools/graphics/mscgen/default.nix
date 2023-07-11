@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "http://www.mcternan.me.uk/mscgen/";
     description =
-      "Convert Message Sequence Chart descriptions into PNG, SVG, or EPS images"
-      ;
+      "Convert Message Sequence Chart descriptions into PNG, SVG, or EPS images";
     license = lib.licenses.gpl2;
 
     longDescription = ''

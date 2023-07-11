@@ -17,8 +17,7 @@ let
   version = "1.1.4-0";
   cupsdeb = fetchurl {
     url =
-      "https://download.brother.com/welcome/dlf007070/hl3140cwcupswrapper-${version}.i386.deb"
-      ;
+      "https://download.brother.com/welcome/dlf007070/hl3140cwcupswrapper-${version}.i386.deb";
     sha256 = "a76281828ca6ee86c63034673577fadcf5f24e8ed003213bdbb6bf47a7aced6f";
   };
   srcdir = "hl3140cw_cupswrapper_GPL_source_${version}";
@@ -28,8 +27,7 @@ let
   };
   lprdeb = fetchurl {
     url =
-      "https://support.brother.com/g/b/files/dlf/dlf007068/hl3140cwlpr-1.1.2-1.i386.deb"
-      ;
+      "https://support.brother.com/g/b/files/dlf/dlf007068/hl3140cwlpr-1.1.2-1.i386.deb";
     sha256 = "601f392b52ed7080f71b780181823bb8f6abfd0591146b452ba1f23e21f9f865";
   };
 in
@@ -120,7 +118,6 @@ stdenv.mkDerivation {
     license = lib.licenses.unfree;
     platforms = lib.platforms.linux;
     downloadPage =
-      "https://support.brother.com/g/b/downloadlist.aspx?c=eu_ot&lang=en&prod=hl3140cw_us_eu&os=128"
-      ;
+      "https://support.brother.com/g/b/downloadlist.aspx?c=eu_ot&lang=en&prod=hl3140cw_us_eu&os=128";
   };
 }

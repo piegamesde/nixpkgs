@@ -13,8 +13,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/oklm-wsh/Callipyge/releases/download/v${version}/${pname}-${version}.tbz"
-      ;
+      "https://github.com/oklm-wsh/Callipyge/releases/download/v${version}/${pname}-${version}.tbz";
     hash = "sha256-T/94a88xvK51TggjXecdKc9kyTE9aIyueIt5T24sZB0=";
   };
 

@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/darktable-org/darktable/releases/download/release-${version}/darktable-${version}.tar.xz"
-      ;
+      "https://github.com/darktable-org/darktable/releases/download/release-${version}/darktable-${version}.tar.xz";
     sha256 = "18b0917fdfe9b09f66c279a681cc3bd52894a566852bbf04b2e179ecfdb11af9";
   };
 

@@ -32,8 +32,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A feature-packed proxy & relay utility optimized for lossy, unstable connections"
-      ;
+      "A feature-packed proxy & relay utility optimized for lossy, unstable connections";
     homepage = "https://github.com/HyNetwork/hysteria";
     license = licenses.mit;
     platforms = platforms.linux;

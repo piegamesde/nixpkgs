@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/holochain/launcher/releases/download/v${version}/holochain-launcher_${version}_amd64.deb"
-      ;
+      "https://github.com/holochain/launcher/releases/download/v${version}/holochain-launcher_${version}_amd64.deb";
     sha256 = "sha256-qTzm4pwhYbEN96a/Dz/JcJcZ2OobyQJRNC2yH4CbhzQ=";
   };
 
@@ -46,8 +45,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A cross-platform executable that launches a local Holochain conductor, and installs and opens apps"
-      ;
+      "A cross-platform executable that launches a local Holochain conductor, and installs and opens apps";
     homepage = "https://github.com/holochain/launcher";
     maintainers = [ maintainers.steveej ];
     license = licenses.cal10;

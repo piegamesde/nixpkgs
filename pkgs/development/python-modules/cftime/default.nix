@@ -24,8 +24,7 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     # Fix test_num2date_precision by checking per platform precision
     url =
-      "https://github.com/Unidata/cftime/commit/221ff2195d588a43a7984597033b678f330fbc41.patch"
-      ;
+      "https://github.com/Unidata/cftime/commit/221ff2195d588a43a7984597033b678f330fbc41.patch";
     hash = "sha256-3XTJuET20g9QElM/8WGnNzJBFZ0oUN4ikhWKppwcyNM=";
   }) ];
 

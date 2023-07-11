@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
   ];
 
   preConfigure = ''
-    cmakeFlags+=" -DVIGRANUMPY_INSTALL_DIR=$out/lib/${python.libPrefix}/site-packages"''
-    ;
+    cmakeFlags+=" -DVIGRANUMPY_INSTALL_DIR=$out/lib/${python.libPrefix}/site-packages"'';
 
   cmakeFlags = [ "-DWITH_OPENEXR=1" ]
     ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [
@@ -57,8 +56,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Novel computer vision C++ library with customizable algorithms and data structures"
-      ;
+      "Novel computer vision C++ library with customizable algorithms and data structures";
     homepage = "https://hci.iwr.uni-heidelberg.de/vigra";
     license = licenses.mit;
     maintainers = [ maintainers.viric ];

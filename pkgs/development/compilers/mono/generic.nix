@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     inherit sha256;
     url =
-      "https://download.mono-project.com/sources/mono/${pname}-${version}.${srcArchiveSuffix}"
-      ;
+      "https://download.mono-project.com/sources/mono/${pname}-${version}.${srcArchiveSuffix}";
   };
 
   nativeBuildInputs = [

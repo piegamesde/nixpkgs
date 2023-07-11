@@ -24,8 +24,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/lisp-binary/2021-04-11/lisp-binary-20210411-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/lisp-binary/2021-04-11/lisp-binary-20210411-git.tgz";
     sha256 = "1sbapl8qla4xb8wcix9yxpijkbk1bpybhay7ncb3z2im7r2kzsnb";
   };
 

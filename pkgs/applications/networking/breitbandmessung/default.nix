@@ -19,8 +19,7 @@ let
     x86_64-linux = rec {
       src = fetchurl {
         url =
-          "https://download.breitbandmessung.de/bbm/Breitbandmessung-${version}-linux.deb"
-          ;
+          "https://download.breitbandmessung.de/bbm/Breitbandmessung-${version}-linux.deb";
         sha256 = "sha256-jSP+H9ej9Wd+swBZSy9uMi2ExSTZ191FGZhqaocTl7w=";
       };
 
@@ -64,8 +63,7 @@ let
     x86_64-darwin = {
       src = fetchurl {
         url =
-          "https://download.breitbandmessung.de/bbm/Breitbandmessung-${version}-mac.dmg"
-          ;
+          "https://download.breitbandmessung.de/bbm/Breitbandmessung-${version}-mac.dmg";
         sha256 = "sha256-2c8mDKJuHDSw7p52EKnJO5vr2kNTLU6r9pmGPANjE20=";
       };
 

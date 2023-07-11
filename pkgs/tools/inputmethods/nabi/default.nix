@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/nabi/nabi-${version}.tar.gz"
-      ;
+      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/nabi/nabi-${version}.tar.gz";
     sha256 = "0craa24pw7b70sh253arv9bg9sy4q3mhsjwfss3bnv5nf0xwnncw";
   };
 

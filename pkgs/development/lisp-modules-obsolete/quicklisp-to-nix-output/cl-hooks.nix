@@ -23,8 +23,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/architecture.hooks/2018-12-10/architecture.hooks-20181210-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/architecture.hooks/2018-12-10/architecture.hooks-20181210-git.tgz";
     sha256 = "04l8rjmgsd7i580rpm1wndz1jcvfqrmwllnkh3h7als3azi3q2ns";
   };
 

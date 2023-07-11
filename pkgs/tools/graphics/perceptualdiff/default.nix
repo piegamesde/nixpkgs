@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A program that compares two images using a perceptually based image metric"
-      ;
+      "A program that compares two images using a perceptually based image metric";
     homepage = "https://github.com/myint/perceptualdiff";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ uri-canva ];

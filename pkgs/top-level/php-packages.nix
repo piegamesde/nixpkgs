@@ -267,8 +267,7 @@ lib.makeScope pkgs.newScope (self:
         sourceRoot = "php-${version}/ext/pdo_oci";
 
         buildInputs = [ pkgs.oracle-instantclient ];
-        configureFlags = [ "--with-pdo-oci=instantclient,${pkgs.oracle-instantclient.lib}/lib" ]
-          ;
+        configureFlags = [ "--with-pdo-oci=instantclient,${pkgs.oracle-instantclient.lib}/lib" ];
 
         internalDeps = [ php.extensions.pdo ];
 
@@ -371,8 +370,7 @@ lib.makeScope pkgs.newScope (self:
           name = "gettext";
           buildInputs = [ gettext ];
           postPhpize = ''
-            substituteInPlace configure --replace 'as_fn_error $? "Cannot locate header file libintl.h" "$LINENO" 5' ':' ''
-            ;
+            substituteInPlace configure --replace 'as_fn_error $? "Cannot locate header file libintl.h" "$LINENO" 5' ':' '';
           configureFlags = [ "--with-gettext=${gettext}" ];
         }
         {

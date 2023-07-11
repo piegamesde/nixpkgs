@@ -77,8 +77,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A tactical 2D shooter played by up to 4 players online or on a shared screen"
-      ;
+      "A tactical 2D shooter played by up to 4 players online or on a shared screen";
     homepage = "https://fishfight.org/";
     changelog = "https://github.com/fishfolk/jumpy/releases/tag/v${version}";
     license = with licenses; [

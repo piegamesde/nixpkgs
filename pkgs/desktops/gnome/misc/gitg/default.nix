@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
     # data/meson.build:8:5: ERROR: Function does not take positional arguments.
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/gitg/-/commit/1978973b12848741b08695ec2020bac98584d636.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/gitg/-/commit/1978973b12848741b08695ec2020bac98584d636.patch";
       sha256 = "sha256-RzaGPGGiKMgjy0waFqt48rV2yWBGZgC3kHehhVhxktk=";
     })
   ];
@@ -78,8 +77,8 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  doCheck = false
-    ; # FAIL: tests-gitg gtk_style_context_add_provider_for_screen: assertion 'GDK_IS_SCREEN (screen)' failed
+  doCheck =
+    false; # FAIL: tests-gitg gtk_style_context_add_provider_for_screen: assertion 'GDK_IS_SCREEN (screen)' failed
 
   postPatch = ''
     chmod +x meson_post_install.py

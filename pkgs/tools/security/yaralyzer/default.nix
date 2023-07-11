@@ -41,8 +41,7 @@ python3.pkgs.buildPythonApplication rec {
       "Tool to visually inspect and force decode YARA and regex matches";
     homepage = "https://github.com/michelcrypt4d4mus/yaralyzer";
     changelog =
-      "https://github.com/michelcrypt4d4mus/yaralyzer/blob/${version}/CHANGELOG.md"
-      ;
+      "https://github.com/michelcrypt4d4mus/yaralyzer/blob/${version}/CHANGELOG.md";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ fab ];
   };

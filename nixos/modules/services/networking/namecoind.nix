@@ -178,8 +178,7 @@ in {
         User = "namecoin";
         Group = "namecoin";
         ExecStart =
-          "${pkgs.namecoind}/bin/namecoind -conf=${configFile} -datadir=${dataDir} -printtoconsole"
-          ;
+          "${pkgs.namecoind}/bin/namecoind -conf=${configFile} -datadir=${dataDir} -printtoconsole";
         ExecStop = "${pkgs.coreutils}/bin/kill -KILL $MAINPID";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         Nice = "10";

@@ -73,8 +73,7 @@ stdenv.mkDerivation rec {
     # see https://github.com/drogonframework/drogon/issues/1491
     (fetchpatch {
       url =
-        "https://github.com/drogonframework/drogon/commit/7d87d7e0b264ce53aa5ee006fb022d3516c9d666.patch"
-        ;
+        "https://github.com/drogonframework/drogon/commit/7d87d7e0b264ce53aa5ee006fb022d3516c9d666.patch";
       sha256 = "sha256-C4zH9oNMfhkaeVNvZuBuzu1v2vNgg/t+YPitbrmHg+Y=";
     })
   ];

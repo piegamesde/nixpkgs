@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://openslide.org";
     description =
-      "A C library that provides a simple interface to read whole-slide images."
-      ;
+      "A C library that provides a simple interface to read whole-slide images.";
     license = licenses.lgpl21;
     platforms = platforms.unix;
     maintainers = with maintainers; [ lromor ];

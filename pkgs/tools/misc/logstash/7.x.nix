@@ -40,8 +40,7 @@ let
 
     src = fetchurl {
       url =
-        "https://artifacts.elastic.co/downloads/logstash/${pname}-${version}-${plat}-${arch}.tar.gz"
-        ;
+        "https://artifacts.elastic.co/downloads/logstash/${pname}-${version}-${plat}-${arch}.tar.gz";
       sha256 =
         shas.${stdenv.hostPlatform.system} or (throw "Unknown architecture");
     };
@@ -73,8 +72,7 @@ let
 
     meta = with lib; {
       description =
-        "Logstash is a data pipeline that helps you process logs and other event data from a variety of systems"
-        ;
+        "Logstash is a data pipeline that helps you process logs and other event data from a variety of systems";
       homepage = "https://www.elastic.co/products/logstash";
       sourceProvenance = with sourceTypes; [
         fromSource

@@ -12,8 +12,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/rxhanson/Rectangle/releases/download/v${version}/Rectangle${version}.dmg"
-      ;
+      "https://github.com/rxhanson/Rectangle/releases/download/v${version}/Rectangle${version}.dmg";
     hash = "sha256-N1zSMmRo6ux/b16K4Og68A5bfht2WWi7S40Yys3QkTY=";
   };
 

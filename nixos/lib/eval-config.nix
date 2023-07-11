@@ -101,8 +101,9 @@ in let
     # Extra arguments that are useful for constructing a similar configuration.
   modulesModule = {
     config = {
-      _module.args = { inherit noUserModules baseModules extraModules modules; }
-        ;
+      _module.args = {
+        inherit noUserModules baseModules extraModules modules;
+      };
     };
   };
 

@@ -71,8 +71,7 @@ mkDerivation rec {
     runHook postInstall
   '';
 
-  qtWrapperArgs = [ "--prefix QT_XKB_CONFIG_ROOT : '${xorg.xkeyboardconfig}/share/X11/xkb'" ]
-    ;
+  qtWrapperArgs = [ "--prefix QT_XKB_CONFIG_ROOT : '${xorg.xkeyboardconfig}/share/X11/xkb'" ];
 
   postFixup = ''
     substituteInPlace $out/share/applications/HP-myroom.desktop \

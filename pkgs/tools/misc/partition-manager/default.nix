@@ -74,8 +74,7 @@ mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://kde/stable/release-service/${version}/src/${pname}-${version}.tar.xz"
-      ;
+      "mirror://kde/stable/release-service/${version}/src/${pname}-${version}.tar.xz";
     hash = "sha256-8uI7rWkjUALZAdciGwOpmjVzGDffwM86BI9B3S0eSho=";
   };
 

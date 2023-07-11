@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/choehwanjin/ibus-hangul/releases/download/${version}/${pname}-${version}.tar.gz"
-      ;
+      "https://github.com/choehwanjin/ibus-hangul/releases/download/${version}/${pname}-${version}.tar.gz";
     sha256 = "1q6g2pnrn5gqn9jqnm3975v9hh60hc5gn9x3zbrdjgy0n3wpxwm9";
   };
 

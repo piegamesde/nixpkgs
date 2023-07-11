@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
     # https://github.com/NetworkConfiguration/dhcpcd/issues/147
     (fetchpatch {
       url =
-        "https://github.com/NetworkConfiguration/dhcpcd/commit/38befd4e867583002b96ec39df733585d74c4ff5.patch"
-        ;
+        "https://github.com/NetworkConfiguration/dhcpcd/commit/38befd4e867583002b96ec39df733585d74c4ff5.patch";
       hash = "sha256-nS2zmLuQBYhLfoPp0DOwxF803Hh32EE4OUKGBTTukE0=";
     })
   ];

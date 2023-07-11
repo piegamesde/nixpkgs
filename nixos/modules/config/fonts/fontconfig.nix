@@ -252,8 +252,7 @@ let
   };
 
   fontconfigNote =
-    "Consider manually configuring fonts.fontconfig according to personal preference."
-    ;
+    "Consider manually configuring fonts.fontconfig according to personal preference.";
 in {
   imports = [
     (mkRenamedOptionModule [

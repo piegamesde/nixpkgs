@@ -114,8 +114,7 @@ let
     ]);
   clangFormatPython3 = fetchurl {
     url =
-      "https://chromium.googlesource.com/chromium/tools/build/+/e77882e0dde52c2ccf33c5570929b75b4a2a2522/recipes/recipe_modules/chromium/resources/clang-format?format=TEXT"
-      ;
+      "https://chromium.googlesource.com/chromium/tools/build/+/e77882e0dde52c2ccf33c5570929b75b4a2a2522/recipes/recipe_modules/chromium/resources/clang-format?format=TEXT";
     sha256 = "0ic3hn65dimgfhakli1cyf9j3cxcqsf1qib706ihfhmlzxf7256l";
   };
 
@@ -202,8 +201,7 @@ let
 
     src = fetchurl {
       url =
-        "https://commondatastorage.googleapis.com/chromium-browser-official/chromium-${version}.tar.xz"
-        ;
+        "https://commondatastorage.googleapis.com/chromium-browser-official/chromium-${version}.tar.xz";
       inherit (upstream-info) sha256;
     };
 

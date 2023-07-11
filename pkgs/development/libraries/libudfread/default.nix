@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://code.videolan.org/videolan/${pname}/-/archive/${version}/${pname}-${version}.tar.gz"
-      ;
+      "https://code.videolan.org/videolan/${pname}/-/archive/${version}/${pname}-${version}.tar.gz";
     sha256 = "1idsfxff1x264n8jd7077qrd61rycsd09fwmc4ar7l4qmhk6gw9b";
   };
 

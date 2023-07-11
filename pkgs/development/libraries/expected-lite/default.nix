@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/martinmoene/expected-lite";
     changelog =
-      "https://github.com/martinmoene/expected-lite/blob/${src.rev}/CHANGES.txt"
-      ;
+      "https://github.com/martinmoene/expected-lite/blob/${src.rev}/CHANGES.txt";
     license = licenses.boost;
     maintainers = with maintainers; [ azahi ];
   };

@@ -22,8 +22,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://pypi.org/project/labmath";
     description =
-      "Module for basic math in the general vicinity of computational number theory"
-      ;
+      "Module for basic math in the general vicinity of computational number theory";
     license = licenses.mit;
     maintainers = with maintainers; [ siraben ];
   };

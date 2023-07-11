@@ -43,8 +43,7 @@ buildDunePackage rec {
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-gstreamer";
     description =
-      "Bindings for the GStreamer library which provides functions for playning and manipulating multimedia streams"
-      ;
+      "Bindings for the GStreamer library which provides functions for playning and manipulating multimedia streams";
     license = licenses.lgpl21Only;
     maintainers = with maintainers; [ dandellion ];
   };

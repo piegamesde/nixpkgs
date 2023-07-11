@@ -8,15 +8,13 @@
 let
   src_x86 = fetchurl {
     url =
-      "http://apt.univention.de/download/addons/gplpv-drivers/gplpv_Vista2008x32_signed_0.11.0.373.msi"
-      ;
+      "http://apt.univention.de/download/addons/gplpv-drivers/gplpv_Vista2008x32_signed_0.11.0.373.msi";
     sha256 = "04r11xw8ikjmcdhrsk878c86g0d0pvras5arsas3zs6dhgjykqap";
   };
 
   src_amd64 = fetchurl {
     url =
-      "http://apt.univention.de/download/addons/gplpv-drivers/gplpv_Vista2008x64_signed_0.11.0.373.msi"
-      ;
+      "http://apt.univention.de/download/addons/gplpv-drivers/gplpv_Vista2008x64_signed_0.11.0.373.msi";
     sha256 = "00k628mg9b039p8lmg2l9n81dr15svy70p3m6xmq6f0frmci38ph";
   };
 
@@ -48,8 +46,7 @@ stdenv.mkDerivation {
       Certificate obtained from the VeriSign CA.
     '';
     homepage =
-      "http://wiki.univention.de/index.php?title=Installing-signed-GPLPV-drivers"
-      ;
+      "http://wiki.univention.de/index.php?title=Installing-signed-GPLPV-drivers";
     maintainers = [ ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     platforms = platforms.linux;

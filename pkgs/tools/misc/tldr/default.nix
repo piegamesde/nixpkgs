@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://tldr-pages.github.io";
     changelog =
-      "https://github.com/tldr-pages/tldr-c-client/blob/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/tldr-pages/tldr-c-client/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [
       taeer

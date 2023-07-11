@@ -16,8 +16,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/xapi-project/ocaml-unix-errno/releases/download/${version}/unix-errno-${version}.tbz"
-      ;
+      "https://github.com/xapi-project/ocaml-unix-errno/releases/download/${version}/unix-errno-${version}.tbz";
     sha256 = "sha256-jZqtHwUKTffjuOP2jdKKQRtEOBKyclhfeiPO96hEj4c=";
   };
 
@@ -28,8 +27,8 @@ buildDunePackage rec {
   ];
 
   meta = with lib; {
-    homepage = "https://github.com/xapi-project/ocaml-unix-errno"
-      ; # This is the repo used in the opam package
+    homepage =
+      "https://github.com/xapi-project/ocaml-unix-errno"; # This is the repo used in the opam package
     description = "Unix errno types, maps, and support for OCaml";
     license = with licenses; [
       isc

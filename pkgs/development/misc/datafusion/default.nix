@@ -36,8 +36,7 @@ rustPlatform.buildRustPackage rec {
     description = "cli for Apache Arrow DataFusion";
     homepage = "https://arrow.apache.org/datafusion";
     changelog =
-      "https://github.com/apache/arrow-datafusion/blob/${version}/datafusion/CHANGELOG.md"
-      ;
+      "https://github.com/apache/arrow-datafusion/blob/${version}/datafusion/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ happysalada ];
   };

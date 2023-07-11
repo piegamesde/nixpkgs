@@ -28,8 +28,7 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     # pygments 2.14 compat for tests
     url =
-      "https://github.com/django-extensions/django-extensions/commit/61ebfe38f8fca9225b41bec5418e006e6a8815e1.patch"
-      ;
+      "https://github.com/django-extensions/django-extensions/commit/61ebfe38f8fca9225b41bec5418e006e6a8815e1.patch";
     hash = "sha256-+sxaQMmKi/S4IlfHqARPGhaqc+F1CXUHVFyeU/ArW2U=";
   }) ];
 

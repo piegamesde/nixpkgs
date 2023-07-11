@@ -15,8 +15,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/Gbury/dolmen/releases/download/v${version}/dolmen-v${version}.tbz"
-      ;
+      "https://github.com/Gbury/dolmen/releases/download/v${version}/dolmen-v${version}.tbz";
     sha256 = "133l23mwxa9xy340izvk4zp5jqjz2cwsm2innsgs2kg85pd39c41";
   };
 
@@ -31,8 +30,7 @@ buildDunePackage rec {
 
   meta = {
     description =
-      "An OCaml library providing clean and flexible parsers for input languages"
-      ;
+      "An OCaml library providing clean and flexible parsers for input languages";
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.vbgl ];
     homepage = "https://github.com/Gbury/dolmen";

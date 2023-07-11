@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://bitbucket.org/hroptatyr/dateutils/downloads/${pname}-${version}.tar.xz"
-      ;
+      "https://bitbucket.org/hroptatyr/dateutils/downloads/${pname}-${version}.tar.xz";
     sha256 = "sha256-PFCOKIm51a7Kt9WdcyWnAIlZMRGhIwpJbasPWtZ3zew=";
   };
 
@@ -29,8 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A bunch of tools that revolve around fiddling with dates and times in the command line"
-      ;
+      "A bunch of tools that revolve around fiddling with dates and times in the command line";
     homepage = "http://www.fresse.org/dateutils/";
     license = licenses.bsd3;
     platforms = platforms.unix;

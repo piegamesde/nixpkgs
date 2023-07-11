@@ -15,8 +15,7 @@ let
 
     src = fetchurl {
       url =
-        "https://github.com/SketchingDev/Character-Copy/releases/download/v${version}/CharacterCopy.plgx"
-        ;
+        "https://github.com/SketchingDev/Character-Copy/releases/download/v${version}/CharacterCopy.plgx";
       sha256 =
         "f8a81a60cd1aacc04c92a242479a8e4210452add019c52ebfbb1810b58d8800a";
     };

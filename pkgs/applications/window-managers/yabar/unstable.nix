@@ -24,8 +24,7 @@ pkg.overrideAttrs (o: {
 
   patches = (o.patches or [ ]) ++ [ (fetchpatch {
     url =
-      "https://github.com/geommer/yabar/commit/008dc1420ff684cf12ce2ef3ac9d642e054e39f5.patch"
-      ;
+      "https://github.com/geommer/yabar/commit/008dc1420ff684cf12ce2ef3ac9d642e054e39f5.patch";
     sha256 = "1q7nd66ai6nr2m6iqxn55gvbr4r5gjc00c8wyjc3riv31qcbqbhv";
   }) ];
 })

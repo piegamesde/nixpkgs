@@ -17,7 +17,6 @@ mkDiscoursePlugin {
     maintainers = with maintainers; [ dpausp ];
     license = licenses.mit;
     description =
-      "This plugin integrates Discourse with a number of external chatroom systems"
-      ;
+      "This plugin integrates Discourse with a number of external chatroom systems";
   };
 }

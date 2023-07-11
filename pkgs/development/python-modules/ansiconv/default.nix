@@ -20,8 +20,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A module for converting ANSI coded text and converts it to either plain text or HTML"
-      ;
+      "A module for converting ANSI coded text and converts it to either plain text or HTML";
     homepage = "https://github.com/ansible/ansiconv";
     license = licenses.mit;
     maintainers = with maintainers; [ psyanticy ];

@@ -37,8 +37,7 @@ buildPythonPackage rec {
     description = "Version-string management for VCS-controlled trees";
     homepage = "https://github.com/python-versioneer/python-versioneer";
     changelog =
-      "https://github.com/python-versioneer/python-versioneer/blob/${version}/NEWS.md"
-      ;
+      "https://github.com/python-versioneer/python-versioneer/blob/${version}/NEWS.md";
     license = licenses.publicDomain;
     maintainers = with maintainers; [ jluttine ];
   };

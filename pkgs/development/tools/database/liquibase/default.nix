@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/liquibase/liquibase/releases/download/v${version}/${pname}-${version}.tar.gz"
-      ;
+      "https://github.com/liquibase/liquibase/releases/download/v${version}/${pname}-${version}.tar.gz";
     sha256 = "sha256-1InRJzHqikm6Jd7z54TW6JFn3FO0LtStehWNaC+rdw8=";
   };
 
@@ -81,8 +80,7 @@ stdenv.mkDerivation rec {
     description = "Version Control for your database";
     homepage = "https://www.liquibase.org/";
     changelog =
-      "https://raw.githubusercontent.com/liquibase/liquibase/v${version}/changelog.txt"
-      ;
+      "https://raw.githubusercontent.com/liquibase/liquibase/v${version}/changelog.txt";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.asl20;
     maintainers = with maintainers; [ ];

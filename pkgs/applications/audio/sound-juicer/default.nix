@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
     # data/meson.build:2:5: ERROR: Function does not take positional arguments.
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/sound-juicer/-/commit/9f97ca1faca396099f52264a9729aa355f8d122e.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/sound-juicer/-/commit/9f97ca1faca396099f52264a9729aa355f8d122e.patch";
       sha256 = "8JllVSQgI7KiBI5WP6QtXRiggYuD89NSJJp1hP4Dbao=";
     })
   ];

@@ -97,13 +97,12 @@ let
 
   retdec-support =
     let
-      version = "2018-02-08"
-        ; # make sure to adjust both hashes (once with withPEPatterns=true and once withPEPatterns=false)
+      version =
+        "2018-02-08"; # make sure to adjust both hashes (once with withPEPatterns=true and once withPEPatterns=false)
     in
     fetchzip {
       url =
-        "https://github.com/avast-tl/retdec-support/releases/download/${version}/retdec-support_${version}.tar.xz"
-        ;
+        "https://github.com/avast-tl/retdec-support/releases/download/${version}/retdec-support_${version}.tar.xz";
       sha256 =
         if withPEPatterns then
           "148i8flbyj1y4kfdyzsz7jsj38k4h97npjxj18h6v4wksd4m4jm7"
@@ -203,15 +202,13 @@ stdenv.mkDerivation rec {
     # 2.1.2 -> 2.2.1
     (fetchpatch {
       url =
-        "https://github.com/avast-tl/retdec/commit/c9d23da1c6e23c149ed684c6becd3f3828fb4a55.patch"
-        ;
+        "https://github.com/avast-tl/retdec/commit/c9d23da1c6e23c149ed684c6becd3f3828fb4a55.patch";
       sha256 = "0hdq634f72fihdy10nx2ajbps561w03dfdsy5r35afv9fapla6mv";
     })
     # 2.2.1 -> 2.2.2
     (fetchpatch {
       url =
-        "https://github.com/avast-tl/retdec/commit/fb85f00754b5d13b781385651db557741679721e.patch"
-        ;
+        "https://github.com/avast-tl/retdec/commit/fb85f00754b5d13b781385651db557741679721e.patch";
       sha256 = "0a8mwmwb39pr5ag3q11nv81ncdk51shndqrkm92shqrmdq14va52";
     })
   ];

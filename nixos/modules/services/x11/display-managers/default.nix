@@ -442,8 +442,7 @@ in {
           -> cfg.displayManager.defaultSession
           == defaultSessionFromLegacyOptions;
         message =
-          "You cannot use both services.xserver.displayManager.defaultSession option and legacy options (services.xserver.desktopManager.default and services.xserver.windowManager.default)."
-          ;
+          "You cannot use both services.xserver.displayManager.defaultSession option and legacy options (services.xserver.desktopManager.default and services.xserver.windowManager.default).";
       }
     ];
 
@@ -572,8 +571,7 @@ in {
 
       # Make xsessions and wayland sessions available in XDG_DATA_DIRS
       # as some programs have behavior that depends on them being present
-    environment.sessionVariables.XDG_DATA_DIRS = [ "${cfg.displayManager.sessionData.desktops}/share" ]
-      ;
+    environment.sessionVariables.XDG_DATA_DIRS = [ "${cfg.displayManager.sessionData.desktops}/share" ];
   };
 
   imports = [

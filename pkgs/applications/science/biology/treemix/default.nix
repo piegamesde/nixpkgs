@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://bitbucket.org/nygcresearch/treemix/downloads/${pname}-${version}.tar.gz"
-      ;
+      "https://bitbucket.org/nygcresearch/treemix/downloads/${pname}-${version}.tar.gz";
     sha256 = "1nd3rzsdgk47r8b8k43mdfvaagln533sm08s1jr0dz8km8nlym7y";
   };
 
@@ -26,8 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Inference of patterns of population splitting and mixing from genome-wide allele frequency data"
-      ;
+      "Inference of patterns of population splitting and mixing from genome-wide allele frequency data";
     homepage = "https://bitbucket.org/nygcresearch/treemix/wiki/Home";
     license = licenses.gpl3Only;
     maintainers = [ maintainers.bzizou ];

@@ -97,8 +97,7 @@ buildPythonPackage rec {
     description = "Library for interacting with the Unifi Protect API";
     homepage = "https://github.com/briis/pyunifiprotect";
     changelog =
-      "https://github.com/AngellusMortis/pyunifiprotect/releases/tag/v${version}"
-      ;
+      "https://github.com/AngellusMortis/pyunifiprotect/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

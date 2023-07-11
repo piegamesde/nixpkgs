@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://www2.cs.tum.edu/projects/cup/releases/java-cup-src-${version}.tar.gz"
-      ;
+      "http://www2.cs.tum.edu/projects/cup/releases/java-cup-src-${version}.tar.gz";
     sha256 = "1ymz3plngxclh7x3xr31537rvvak7lwyd0qkmnl1mkj5drh77rz0";
   };
 

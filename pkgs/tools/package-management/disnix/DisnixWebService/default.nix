@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
   version = "0.10.1";
   src = fetchurl {
     url =
-      "https://github.com/svanderburg/DisnixWebService/releases/download/DisnixWebService-${version}/DisnixWebService-${version}.tar.gz"
-      ;
+      "https://github.com/svanderburg/DisnixWebService/releases/download/DisnixWebService-${version}/DisnixWebService-${version}.tar.gz";
     sha256 = "02jxbgn9a0c9cr6knzp78bp9wiywzczy89wav7yxhg79vff8a1gr";
   };
   buildInputs = [

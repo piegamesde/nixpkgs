@@ -35,8 +35,7 @@ buildPythonPackage rec {
     # Allow for clang to be used to build native extensions
     (fetchpatch {
       url =
-        "https://github.com/mysql/mysql-connector-python/commit/fd24ce9dc8c60cc446a8e69458f7851d047c7831.patch"
-        ;
+        "https://github.com/mysql/mysql-connector-python/commit/fd24ce9dc8c60cc446a8e69458f7851d047c7831.patch";
       hash = "sha256-WvU1iB53MavCsksKCjGvUl7R3Ww/38alxxMVzjpr5Xg=";
     })
   ];
@@ -59,8 +58,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/mysql/mysql-connector-python";
     changelog =
-      "https://raw.githubusercontent.com/mysql/mysql-connector-python/${version}/CHANGES.txt"
-      ;
+      "https://raw.githubusercontent.com/mysql/mysql-connector-python/${version}/CHANGES.txt";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [
       neosimsim

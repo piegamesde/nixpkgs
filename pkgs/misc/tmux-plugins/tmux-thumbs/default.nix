@@ -26,8 +26,7 @@ mkTmuxPlugin rec {
   meta = with lib; {
     homepage = "https://github.com/fcsonline/tmux-thumbs";
     description =
-      "A lightning fast version of tmux-fingers written in Rust for copy pasting with vimium/vimperator like hints."
-      ;
+      "A lightning fast version of tmux-fingers written in Rust for copy pasting with vimium/vimperator like hints.";
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = with maintainers; [ ghostbuster91 ];

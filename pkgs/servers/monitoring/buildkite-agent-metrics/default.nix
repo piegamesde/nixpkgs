@@ -28,8 +28,7 @@ buildGoModule rec {
     (fetchpatch {
       name = "BUILDKITE_AGENT_TOKEN-env-var.patch";
       url =
-        "https://github.com/buildkite/buildkite-agent-metrics/commit/6c40b478b95f0e05fc12b87158222a9ff68169e0.patch"
-        ;
+        "https://github.com/buildkite/buildkite-agent-metrics/commit/6c40b478b95f0e05fc12b87158222a9ff68169e0.patch";
       sha256 = "Y4m9qGyPIROSqOY6G6xRQfFENEG4bFF3q5dZcHI4XiY=";
     })
   ];

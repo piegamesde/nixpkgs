@@ -77,8 +77,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A SMT solver for fixed-size bit-vectors, floating-point arithmetic, arrays, and uninterpreted functions"
-      ;
+      "A SMT solver for fixed-size bit-vectors, floating-point arithmetic, arrays, and uninterpreted functions";
     homepage = "https://bitwuzla.github.io";
     license = licenses.mit;
     platforms = platforms.unix;

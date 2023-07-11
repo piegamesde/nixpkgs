@@ -10,8 +10,7 @@ let
 in {
   simple = testers.invalidateFetcherByDrvHash fetchpatch {
     url =
-      "https://github.com/facebook/zstd/pull/2724/commits/e1f85dbca3a0ed5ef06c8396912a0914db8dea6a.patch"
-      ;
+      "https://github.com/facebook/zstd/pull/2724/commits/e1f85dbca3a0ed5ef06c8396912a0914db8dea6a.patch";
     sha256 =
       if isFetchpatch2 then
         "sha256-01BrkHLye4KOdqCw3tv7AJzIF6578pl2fl270TJFTmw="
@@ -22,8 +21,7 @@ in {
 
   relative = testers.invalidateFetcherByDrvHash fetchpatch {
     url =
-      "https://github.com/boostorg/math/commit/7d482f6ebc356e6ec455ccb5f51a23971bf6ce5b.patch"
-      ;
+      "https://github.com/boostorg/math/commit/7d482f6ebc356e6ec455ccb5f51a23971bf6ce5b.patch";
     relative = "include";
     sha256 =
       if isFetchpatch2 then
@@ -35,8 +33,7 @@ in {
 
   full = testers.invalidateFetcherByDrvHash fetchpatch {
     url =
-      "https://github.com/boostorg/math/commit/7d482f6ebc356e6ec455ccb5f51a23971bf6ce5b.patch"
-      ;
+      "https://github.com/boostorg/math/commit/7d482f6ebc356e6ec455ccb5f51a23971bf6ce5b.patch";
     relative = "test";
     stripLen = 1;
     extraPrefix = "foo/bar/";
@@ -53,8 +50,7 @@ in {
   decode = testers.invalidateFetcherByDrvHash fetchpatch {
     name = "gcc.patch";
     url =
-      "https://chromium.googlesource.com/aosp/platform/external/libchrome/+/f37ae3b1a873d74182a2ac31d96742ead9c1f523^!?format=TEXT"
-      ;
+      "https://chromium.googlesource.com/aosp/platform/external/libchrome/+/f37ae3b1a873d74182a2ac31d96742ead9c1f523^!?format=TEXT";
     decode = "base64 -d";
     sha256 =
       if isFetchpatch2 then

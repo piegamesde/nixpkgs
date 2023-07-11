@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/wipefreespace/wipefreespace/${version}/wipefreespace-${version}.tar.gz"
-      ;
+      "mirror://sourceforge/project/wipefreespace/wipefreespace/${version}/wipefreespace-${version}.tar.gz";
     hash = "sha256-wymV6G4Et5TCoIztZfdb3xuzjdBHFyB5OmI4EcsJKwQ=";
   };
 

@@ -51,15 +51,13 @@ let
         # 8295962: Reference to State in Task.java is ambiguous when building with JDK 19
         (fetchpatch {
           url =
-            "https://github.com/openjdk/jfx/pull/933/commits/cfaee2a52350eff39dd4352484c892716076d3de.patch"
-            ;
+            "https://github.com/openjdk/jfx/pull/933/commits/cfaee2a52350eff39dd4352484c892716076d3de.patch";
           hash = "sha256-hzJMenhvtmHs/6BJj8GfaLp14myV8VCXCLLC8n32yEw=";
         })
         # ditto
         (fetchpatch {
           url =
-            "https://github.com/openjdk/jfx/pull/933/commits/bd46ce12df0a93a56fe0d58d3653d08e58409b7f.patch"
-            ;
+            "https://github.com/openjdk/jfx/pull/933/commits/bd46ce12df0a93a56fe0d58d3653d08e58409b7f.patch";
           hash = "sha256-o9908uw9vYvULmAh/lbfyHhgxz6jpgPq2fcAltWsYoU=";
         })
       ];

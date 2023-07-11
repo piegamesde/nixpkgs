@@ -92,13 +92,12 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "High-level dynamically typed, multi-paradigm, interpreted programming language"
-      ;
+      "High-level dynamically typed, multi-paradigm, interpreted programming language";
     homepage = "https://dictu-lang.com";
     license = licenses.mit;
     maintainers = with maintainers; [ luc65r ];
     platforms = platforms.all;
-    broken = stdenv.isDarwin
-      ; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/dictu.x86_64-darwin
+    broken =
+      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/dictu.x86_64-darwin
   };
 }

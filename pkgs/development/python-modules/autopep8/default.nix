@@ -29,8 +29,7 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "ignore-deprecation-warnings.patch";
       url =
-        "https://github.com/hhatto/autopep8/commit/75b444d7cf510307ef67dc2b757d384b8a241348.patch"
-        ;
+        "https://github.com/hhatto/autopep8/commit/75b444d7cf510307ef67dc2b757d384b8a241348.patch";
       hash = "sha256-5hcJ2yAuscvGyI7zyo4Cl3NEFG/fZItQ8URstxhzwzE=";
     })
   ];
@@ -48,8 +47,7 @@ buildPythonPackage rec {
   meta = with lib; {
     changelog = "https://github.com/hhatto/autopep8/releases/tag/v${version}";
     description =
-      "A tool that automatically formats Python code to conform to the PEP 8 style guide"
-      ;
+      "A tool that automatically formats Python code to conform to the PEP 8 style guide";
     homepage = "https://github.com/hhatto/autopep8";
     license = licenses.mit;
     maintainers = with maintainers; [ bjornfor ];

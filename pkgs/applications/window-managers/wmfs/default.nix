@@ -29,8 +29,7 @@ stdenv.mkDerivation {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/xorg62/wmfs/commit/e4ec12618f4689d791892ebb49df9610a25d24d3.patch"
-        ;
+        "https://github.com/xorg62/wmfs/commit/e4ec12618f4689d791892ebb49df9610a25d24d3.patch";
       sha256 = "0qvwry9sikvr85anzha9x4gcx0r2ckwdxqw2in2l6bl9z9d9c0w2";
     })
   ];

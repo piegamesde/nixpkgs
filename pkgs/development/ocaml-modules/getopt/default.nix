@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://download.ocamlcore.org/ocaml-getopt/ocaml-getopt/${version}/ocaml-getopt-${version}.tar.gz"
-      ;
+      "https://download.ocamlcore.org/ocaml-getopt/ocaml-getopt/${version}/ocaml-getopt-${version}.tar.gz";
     sha256 = "0bng2mmdixpmj23xn8krlnaq66k22iclwz46r8zjrsrq3wcn1xgn";
   };
 

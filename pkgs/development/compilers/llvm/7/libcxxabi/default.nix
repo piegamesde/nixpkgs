@@ -41,8 +41,7 @@ stdenv.mkDerivation {
     patch -p2 < ${
       fetchpatch {
         url =
-          "https://github.com/llvm/llvm-project/commit/76ccec07b4fa0cc68dfd07d557e7fb661804a468.patch"
-          ;
+          "https://github.com/llvm/llvm-project/commit/76ccec07b4fa0cc68dfd07d557e7fb661804a468.patch";
         sha256 = "1lgzkfkp7qinfc6gd8x5di1iq1gqdv81249c6f02chn9q122sbq1";
       }
     }

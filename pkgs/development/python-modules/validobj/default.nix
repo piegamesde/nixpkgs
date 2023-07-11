@@ -28,8 +28,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Validobj is library that takes semistructured data (for example JSON and YAML configuration files) and converts it to more structured Python objects"
-      ;
+      "Validobj is library that takes semistructured data (for example JSON and YAML configuration files) and converts it to more structured Python objects";
     homepage = "https://github.com/Zaharid/validobj";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ veprbl ];

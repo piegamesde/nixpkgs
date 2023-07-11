@@ -27,8 +27,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Names and keywords for Unicode characters from the Common Locale Data Repository"
-      ;
+      "Names and keywords for Unicode characters from the Common Locale Data Repository";
     homepage = "https://cldr.unicode.org";
     license = licenses.unicode-dfs-2016;
     platforms = platforms.all;

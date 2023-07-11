@@ -63,8 +63,7 @@ import ./make-test-python.nix ({
           unixSettings = { pam_allowed_login_groups = [ "shell" ]; };
         };
 
-        networking.hosts."${nodes.server.networking.primaryIPAddress}" = [ serverDomain ]
-          ;
+        networking.hosts."${nodes.server.networking.primaryIPAddress}" = [ serverDomain ];
 
         security.pki.certificateFiles = [ certs.ca.cert ];
       }

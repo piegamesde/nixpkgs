@@ -33,8 +33,7 @@ import ./make-test-python.nix ({
                   # this is hosted as a gist on GitHub.
                 src = pkgs.fetchgit {
                   url =
-                    "https://gist.github.com/erictapen/01e39f73a6c856eac53ba809a94cdb83"
-                    ;
+                    "https://gist.github.com/erictapen/01e39f73a6c856eac53ba809a94cdb83";
                   rev = "9b1ff0f24deb40e5cf7df51f843dbe860637b8ce";
                   sha256 =
                     "1scqhmrfnpwsy5i2a9jpggqnvfgj4hv9p4qyvc79321pzkbv59nx";

@@ -45,8 +45,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python module for using finalfusion, word2vec, and fastText word embeddings"
-      ;
+      "Python module for using finalfusion, word2vec, and fastText word embeddings";
     homepage = "https://github.com/finalfusion/finalfusion-python/";
     maintainers = with maintainers; [ ];
     platforms = platforms.all;

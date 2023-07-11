@@ -85,8 +85,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Extremely fast tool to remove duplicates and other lint from your filesystem"
-      ;
+      "Extremely fast tool to remove duplicates and other lint from your filesystem";
     homepage = "https://rmlint.readthedocs.org";
     platforms = platforms.unix;
     license = licenses.gpl3;

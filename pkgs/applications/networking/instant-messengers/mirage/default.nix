@@ -86,8 +86,7 @@ mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/mirukana/mirage";
     description =
-      "A fancy, customizable, keyboard-operable Qt/QML+Python Matrix chat client for encrypted and decentralized communication"
-      ;
+      "A fancy, customizable, keyboard-operable Qt/QML+Python Matrix chat client for encrypted and decentralized communication";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [
       colemickens

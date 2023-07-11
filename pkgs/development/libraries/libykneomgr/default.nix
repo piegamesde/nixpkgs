@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://developers.yubico.com/libykneomgr/Releases/${pname}-${version}.tar.gz"
-      ;
+      "https://developers.yubico.com/libykneomgr/Releases/${pname}-${version}.tar.gz";
     sha256 = "12gqblz400kr11m1fdr1vvwr85lgy5v55zy0cf782whpk8lyyj97";
   };
 

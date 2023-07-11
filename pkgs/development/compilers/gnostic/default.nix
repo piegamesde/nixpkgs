@@ -23,8 +23,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/google/gnostic";
     description =
-      "A compiler for APIs described by the OpenAPI Specification with plugins for code generation and other API support tasks"
-      ;
+      "A compiler for APIs described by the OpenAPI Specification with plugins for code generation and other API support tasks";
     changelog = "https://github.com/google/gnostic/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ urandom ];

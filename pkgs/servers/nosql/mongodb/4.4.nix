@@ -24,8 +24,7 @@ buildMongoDB {
     (fetchpatch {
       name = "mongodb-4.4.15-adjust-the-cache-alignment-assumptions.patch";
       url =
-        "https://aur.archlinux.org/cgit/aur.git/plain/mongodb-4.4.15-adjust-cache-alignment-assumptions.patch.arm64?h=mongodb44"
-        ;
+        "https://aur.archlinux.org/cgit/aur.git/plain/mongodb-4.4.15-adjust-cache-alignment-assumptions.patch.arm64?h=mongodb44";
       sha256 = "Ah4zdSFgXUJ/HSN8VRLJqDpNy3CjMCBnRqlpALXzx+g=";
     })
   ] ++ lib.optionals

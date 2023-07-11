@@ -143,8 +143,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Free finite-difference time-domain (FDTD) software for electromagnetic simulations"
-      ;
+      "Free finite-difference time-domain (FDTD) software for electromagnetic simulations";
     homepage = "https://meep.readthedocs.io/en/latest/";
     license = licenses.gpl2Only;
     platforms = platforms.linux;

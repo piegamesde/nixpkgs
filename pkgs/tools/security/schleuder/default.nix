@@ -24,8 +24,7 @@ bundlerApp {
 
   meta = with lib; {
     description =
-      "Schleuder is an encrypting mailing list manager with remailing-capabilities"
-      ;
+      "Schleuder is an encrypting mailing list manager with remailing-capabilities";
     longDescription = ''
       Schleuder is a group's email-gateway: subscribers can exchange
       encrypted emails among themselves, receive emails from

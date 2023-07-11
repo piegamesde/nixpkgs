@@ -121,8 +121,7 @@ in {
         {
           assertion = builtins.length cfg.contentFiles >= nParity + 1;
           message =
-            "There must be at least one SnapRAID content file for each SnapRAID parity file plus one."
-            ;
+            "There must be at least one SnapRAID content file for each SnapRAID parity file plus one.";
         }
       ];
 

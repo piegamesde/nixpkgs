@@ -82,8 +82,7 @@
 
           src = fetchurl {
             url =
-              "https://raw.githubusercontent.com/jellyfin/jellyfin-web/v10.8.4/package-lock.json"
-              ;
+              "https://raw.githubusercontent.com/jellyfin/jellyfin-web/v10.8.4/package-lock.json";
             hash = "sha256-uQmc+S+V1co1Rfc4d82PpeXjmd1UqdsG492ADQFcZGA=";
           };
 
@@ -95,8 +94,7 @@
 
           src = fetchurl {
             url =
-              "https://raw.githubusercontent.com/jesec/flood/v4.7.0/package-lock.json"
-              ;
+              "https://raw.githubusercontent.com/jesec/flood/v4.7.0/package-lock.json";
             hash = "sha256-qS29tq5QPnGxV+PU40VgMAtdwVLtLyyhG2z9GMeYtC4=";
           };
 
@@ -108,8 +106,7 @@
 
           src = fetchurl {
             url =
-              "https://raw.githubusercontent.com/matrix-org/matrix-appservice-irc/0.34.0/package-lock.json"
-              ;
+              "https://raw.githubusercontent.com/matrix-org/matrix-appservice-irc/0.34.0/package-lock.json";
             hash = "sha256-1+0AQw9EmbHiMPA/H8OP8XenhrkhLRYBRhmd1cNPFjk=";
           };
 
@@ -121,8 +118,7 @@
 
           src = fetchurl {
             url =
-              "https://cyberchaos.dev/yuka/trainsearch/-/raw/e3cba6427e8ecfd843d0f697251ddaf5e53c2327/package-lock.json"
-              ;
+              "https://cyberchaos.dev/yuka/trainsearch/-/raw/e3cba6427e8ecfd843d0f697251ddaf5e53c2327/package-lock.json";
             hash = "sha256-X9mCwPqV5yP0S2GonNvpYnLSLJMd/SUIked+hMRxDpA=";
           };
 
@@ -134,8 +130,7 @@
 
           src = fetchurl {
             url =
-              "https://raw.githubusercontent.com/evcc-io/evcc/0.106.3/package-lock.json"
-              ;
+              "https://raw.githubusercontent.com/evcc-io/evcc/0.106.3/package-lock.json";
             hash = "sha256-6ZTBMyuyPP/63gpQugggHhKVup6OB4hZ2rmSvPJ0yEs=";
           };
 
@@ -148,8 +143,7 @@
 
           src = fetchurl {
             url =
-              "https://raw.githubusercontent.com/ether/etherpad-lite/1.8.18/src/package-lock.json"
-              ;
+              "https://raw.githubusercontent.com/ether/etherpad-lite/1.8.18/src/package-lock.json";
             hash = "sha256-1fGNxYJi1I4cXK/jinNG+Y6tPEOhP3QAqWOBEQttS9E=";
           };
 

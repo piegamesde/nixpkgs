@@ -62,8 +62,7 @@ buildPythonPackage rec {
     description = "Python client for the Volkswagen WeConnect Services";
     homepage = "https://github.com/tillsteinbach/WeConnect-python";
     changelog =
-      "https://github.com/tillsteinbach/WeConnect-python/releases/tag/v${version}"
-      ;
+      "https://github.com/tillsteinbach/WeConnect-python/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

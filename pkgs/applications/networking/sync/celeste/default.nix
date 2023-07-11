@@ -26,8 +26,7 @@ let
   librclone-mismatched-types-patch = fetchpatch {
     name = "use-c_char-to-be-platform-independent.patch";
     url =
-      "https://github.com/trevyn/librclone/commit/91fdf3fa5f5eea0dfd06981ba72e09034974fdad.patch"
-      ;
+      "https://github.com/trevyn/librclone/commit/91fdf3fa5f5eea0dfd06981ba72e09034974fdad.patch";
     hash = "sha256-8YDyUNP/ISP5jCliT6UCxZ89fdRFud+6u6P29XdPy58=";
   };
 in

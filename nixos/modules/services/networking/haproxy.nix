@@ -78,8 +78,7 @@ in with lib; {
           "/run/haproxy/haproxy -c -f ${haproxyCfg}"
         ];
         ExecStart =
-          "/run/haproxy/haproxy -Ws -f /etc/haproxy.cfg -p /run/haproxy/haproxy.pid"
-          ;
+          "/run/haproxy/haproxy -Ws -f /etc/haproxy.cfg -p /run/haproxy/haproxy.pid";
           # support reloading
         ExecReload = [
           "${pkgs.haproxy}/sbin/haproxy -c -f ${haproxyCfg}"
@@ -98,8 +97,7 @@ in with lib; {
         ProtectKernelModules = true;
         ProtectControlGroups = true;
         SystemCallFilter =
-          "~@cpu-emulation @keyring @module @obsolete @raw-io @reboot @swap @sync"
-          ;
+          "~@cpu-emulation @keyring @module @obsolete @raw-io @reboot @swap @sync";
           # needed in case we bind to port < 1024
         AmbientCapabilities = "CAP_NET_BIND_SERVICE";
       };

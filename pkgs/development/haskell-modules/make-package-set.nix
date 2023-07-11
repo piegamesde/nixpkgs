@@ -214,8 +214,7 @@ let
     self.haskellSrc2nix {
       name = "${name}-${version}";
       sha256 = ''
-        $(sed -e 's/.*"SHA256":"//' -e 's/".*$//' "${component}/${name}.json")''
-        ;
+        $(sed -e 's/.*"SHA256":"//' -e 's/".*$//' "${component}/${name}.json")'';
       src = "${component}/${name}.cabal";
     }
     ;

@@ -77,14 +77,12 @@ in {
       {
         assertion = cfg.bearerTokenPath != "";
         message =
-          "services.chatgpt-retrieval-plugin.bearerTokenPath should not be an empty string."
-          ;
+          "services.chatgpt-retrieval-plugin.bearerTokenPath should not be an empty string.";
       }
       {
         assertion = cfg.openaiApiKeyPath != "";
         message =
-          "services.chatgpt-retrieval-plugin.openaiApiKeyPath should not be an empty string."
-          ;
+          "services.chatgpt-retrieval-plugin.openaiApiKeyPath should not be an empty string.";
       }
     ];
 

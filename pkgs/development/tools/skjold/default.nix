@@ -37,8 +37,7 @@ python3.pkgs.buildPythonApplication rec {
     (fetchpatch {
       name = "switch-poetry-core.patch";
       url =
-        "https://github.com/twu/skjold/commit/b341748c9b11798b6a5182d659a651b0f200c6f5.patch"
-        ;
+        "https://github.com/twu/skjold/commit/b341748c9b11798b6a5182d659a651b0f200c6f5.patch";
       sha256 = "sha256-FTZTbIudO6lYO9tLD4Lh1h5zsTeKYtflR2tbbHZ5auM=";
     })
   ];

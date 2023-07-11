@@ -71,8 +71,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/yt-dlp/yt-dlp/";
     description =
-      "Command-line tool to download videos from YouTube.com and other sites (youtube-dl fork)"
-      ;
+      "Command-line tool to download videos from YouTube.com and other sites (youtube-dl fork)";
     longDescription = ''
       yt-dlp is a youtube-dl fork based on the now inactive youtube-dlc.
 

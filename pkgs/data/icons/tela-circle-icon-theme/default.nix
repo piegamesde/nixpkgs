@@ -90,8 +90,8 @@ stdenvNoCC.mkDerivation rec {
     description = "Flat and colorful personality icon theme";
     homepage = "https://github.com/vinceliuice/Tela-circle-icon-theme";
     license = licenses.gpl3Only;
-    platforms = platforms.linux
-      ; # darwin use case-insensitive filesystems that cause hash mismatches
+    platforms =
+      platforms.linux; # darwin use case-insensitive filesystems that cause hash mismatches
     maintainers = with maintainers; [ romildo ];
   };
 }

@@ -25,8 +25,7 @@ python3Packages.buildPythonApplication rec {
     (fetchpatch {
       name = "Fix-outdated-entrypoint-definiton.patch";
       url =
-        "https://github.com/jelmer/prometheus-xmpp-alerts/commit/c41dd41dbd3c781b874bcf0708f6976e6252b621.patch"
-        ;
+        "https://github.com/jelmer/prometheus-xmpp-alerts/commit/c41dd41dbd3c781b874bcf0708f6976e6252b621.patch";
       hash = "sha256-G7fRLSXbkI5EDgGf4n9xSVs54IPD0ev8rTEFffRvLY0=";
     })
   ];

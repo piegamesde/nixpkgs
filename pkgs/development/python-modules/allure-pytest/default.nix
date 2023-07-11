@@ -70,8 +70,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Allure pytest integration. It's developed as pytest plugin and distributed via pypi"
-      ;
+      "Allure pytest integration. It's developed as pytest plugin and distributed via pypi";
     homepage = "https://github.com/allure-framework/allure-python";
     license = licenses.asl20;
     maintainers = with maintainers; [ evanjs ];

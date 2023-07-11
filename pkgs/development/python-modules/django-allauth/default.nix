@@ -48,8 +48,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Integrated set of Django applications addressing authentication, registration, account management as well as 3rd party (social) account authentication"
-      ;
+      "Integrated set of Django applications addressing authentication, registration, account management as well as 3rd party (social) account authentication";
     homepage = "https://www.intenct.nl/projects/django-allauth";
     license = licenses.mit;
     maintainers = with maintainers; [ derdennisop ];

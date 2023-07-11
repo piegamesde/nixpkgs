@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/i-tu/Hasklig/releases/download/${version}/Hasklig-${version}.zip"
-      ;
+      "https://github.com/i-tu/Hasklig/releases/download/${version}/Hasklig-${version}.zip";
     stripRoot = false;
     hash = "sha256-jsPQtjuegMePt4tB1dZ9mq15LSxXBYwtakbq4od/sko=";
   };

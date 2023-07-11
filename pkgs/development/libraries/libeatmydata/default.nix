@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
     # Fixes "error: redefinition of 'open'" on musl
     (fetchpatch {
       url =
-        "https://raw.githubusercontent.com/void-linux/void-packages/861ac185a6b60134292ff93d40e40b5391d0aa8e/srcpkgs/libeatmydata/patches/musl.patch"
-        ;
+        "https://raw.githubusercontent.com/void-linux/void-packages/861ac185a6b60134292ff93d40e40b5391d0aa8e/srcpkgs/libeatmydata/patches/musl.patch";
       stripLen = 1;
       sha256 = "sha256-yfMfISbYL7r/R2C9hYPjvGcpUB553QSiW0rMrxG11Oo=";
     })

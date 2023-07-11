@@ -15,15 +15,13 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://debian/pool/main/t/tcp-wrappers/tcp-wrappers_${vanillaVersion}.orig.tar.gz"
-      ;
+      "mirror://debian/pool/main/t/tcp-wrappers/tcp-wrappers_${vanillaVersion}.orig.tar.gz";
     sha256 = "0p9ilj4v96q32klavx0phw9va21fjp8vpk11nbh6v2ppxnnxfhwm";
   };
 
   debian = fetchurl {
     url =
-      "mirror://debian/pool/main/t/tcp-wrappers/tcp-wrappers_${version}.debian.tar.xz"
-      ;
+      "mirror://debian/pool/main/t/tcp-wrappers/tcp-wrappers_${version}.debian.tar.xz";
     sha256 = "1dcdhi9lwzv7g19ggwxms2msq9fy14rl09rjqb10hwv0jix7z8j8";
   };
 

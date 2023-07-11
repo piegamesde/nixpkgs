@@ -155,8 +155,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "An office suite with a word processor, spreadsheet and presentation program"
-      ;
+      "An office suite with a word processor, spreadsheet and presentation program";
     homepage = "https://www.softmaker.com/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

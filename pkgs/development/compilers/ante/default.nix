@@ -56,8 +56,7 @@ rustPlatform.buildRustPackage {
   meta = with lib; {
     homepage = "https://antelang.org/";
     description =
-      "A low-level functional language for exploring refinement types, lifetime inference, and algebraic effects"
-      ;
+      "A low-level functional language for exploring refinement types, lifetime inference, and algebraic effects";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ ehllie ];
   };

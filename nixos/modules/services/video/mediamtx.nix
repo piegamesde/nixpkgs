@@ -34,8 +34,7 @@ in {
           paths = {
             cam = {
               runOnInit =
-                "ffmpeg -f v4l2 -i /dev/video0 -f rtsp rtsp://localhost:$RTSP_PORT/$RTSP_PATH"
-                ;
+                "ffmpeg -f v4l2 -i /dev/video0 -f rtsp rtsp://localhost:$RTSP_PORT/$RTSP_PATH";
               runOnInitRestart = true;
             };
           };

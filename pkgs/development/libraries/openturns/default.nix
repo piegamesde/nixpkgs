@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     # Remove with next version update.
     (fetchpatch {
       url =
-        "https://github.com/openturns/openturns/commit/a85061f89a5763061467beac516c1355fe81b9be.patch"
-        ;
+        "https://github.com/openturns/openturns/commit/a85061f89a5763061467beac516c1355fe81b9be.patch";
       hash = "sha256-z28ipBuX3b5UFEnKuDfp+kMI5cUcwXVz/8WZHlICnvE=";
     })
   ];

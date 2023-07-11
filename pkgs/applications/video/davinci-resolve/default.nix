@@ -54,8 +54,7 @@ let
       DOWNLOADID = "5efad1a052e8471989f662338d5247f1";
       REFERID = "263d62f31cbb49e0868005059abcb0c9";
       SITEURL =
-        "https://www.blackmagicdesign.com/api/register/us/download/${DOWNLOADID}"
-        ;
+        "https://www.blackmagicdesign.com/api/register/us/download/${DOWNLOADID}";
 
       USERAGENT = builtins.concatStringsSep " " [
         "User-Agent: Mozilla/5.0 (X11; Linux ${stdenv.targetPlatform.linuxArch})"

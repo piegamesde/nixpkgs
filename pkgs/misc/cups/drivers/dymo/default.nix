@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://download.dymo.com/dymo/Software/Download%20Drivers/Linux/Download/${dl-name}.tar.gz"
-      ;
+      "http://download.dymo.com/dymo/Software/Download%20Drivers/Linux/Download/${dl-name}.tar.gz";
     sha256 = "0wagsrz3q7yrkzb5ws0m5faq68rqnqfap9p98sgk5jl6x7krf1y6";
   };
 

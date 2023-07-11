@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.rockbox.org/rbutil/source/RockboxUtility-v${version}-src.tar.bz2"
-      ;
+      "https://download.rockbox.org/rbutil/source/RockboxUtility-v${version}-src.tar.bz2";
     hash = "sha256-PhlJ+fNY4/Qjoc72zV9WO+kNqF5bZQuwOh4EpAJwqX4=";
   };
 

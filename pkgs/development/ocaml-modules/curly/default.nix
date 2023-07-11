@@ -22,8 +22,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/rgrinberg/curly/releases/download/${version}/curly-${version}.tbz"
-      ;
+      "https://github.com/rgrinberg/curly/releases/download/${version}/curly-${version}.tbz";
     hash = "sha256-01D1+03CqxLrPoBbNWpSKOzABJf63DhQLA1kRWdueB8=";
   };
 

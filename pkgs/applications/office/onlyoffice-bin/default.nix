@@ -82,8 +82,7 @@ stdenv.mkDerivation rec {
   minor = null;
   src = fetchurl {
     url =
-      "https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v${version}/onlyoffice-desktopeditors_amd64.deb"
-      ;
+      "https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v${version}/onlyoffice-desktopeditors_amd64.deb";
     sha256 = "sha256-O9gC/b5/eZ1YImuXpEZOJhI1rzCNuFrm5IqablnYo9Y=";
   };
 
@@ -182,8 +181,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Office suite that combines text, spreadsheet and presentation editors allowing to create, view and edit local documents"
-      ;
+      "Office suite that combines text, spreadsheet and presentation editors allowing to create, view and edit local documents";
     homepage = "https://www.onlyoffice.com/";
     downloadPage = "https://github.com/ONLYOFFICE/DesktopEditors/releases";
     changelog =

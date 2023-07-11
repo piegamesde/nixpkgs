@@ -29,8 +29,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Wrapper for dnspython to return SRV records for a given host, protocol, and domain name"
-      ;
+      "Wrapper for dnspython to return SRV records for a given host, protocol, and domain name";
     homepage = "https://github.com/gmr/srvlookup";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ mmlb ];

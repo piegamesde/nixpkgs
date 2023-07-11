@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://sourceforge.net/projects/dgen/files/dgen/${version}/${pname}-${version}.tar.gz"
-      ;
+      "https://sourceforge.net/projects/dgen/files/dgen/${version}/${pname}-${version}.tar.gz";
     hash = "sha256-meLAYBfCKHPHf4gYbrzAmGckTrbgQsdjuwlLArje9h4=";
   };
 

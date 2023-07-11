@@ -40,8 +40,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Simple cron-like parser for Python, which determines if current datetime matches conditions"
-      ;
+      "Simple cron-like parser for Python, which determines if current datetime matches conditions";
     license = licenses.mit;
     homepage = "https://github.com/kipe/pycron";
     maintainers = with maintainers; [ globin ];

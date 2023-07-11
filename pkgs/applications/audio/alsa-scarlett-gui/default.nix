@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "GUI for alsa controls presented by Focusrite Scarlett Gen 2/3 Mixer Driver"
-      ;
+      "GUI for alsa controls presented by Focusrite Scarlett Gen 2/3 Mixer Driver";
     homepage = "https://github.com/geoffreybennett/alsa-scarlett-gui";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ sebtm ];

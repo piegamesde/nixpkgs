@@ -82,8 +82,7 @@ in {
 
       users.groups.${cfg.group} = { gid = config.ids.gids.ircd; };
 
-      systemd.tmpfiles.rules = [ "d ${cfg.statedir} - ${cfg.user} ${cfg.group} - -" ]
-        ;
+      systemd.tmpfiles.rules = [ "d ${cfg.statedir} - ${cfg.user} ${cfg.group} - -" ];
 
       environment.etc."charybdis/ircd.conf".source = configFile;
 
@@ -95,8 +94,7 @@ in {
         environment = { BANDB_DBPATH = "${cfg.statedir}/ban.db"; };
         serviceConfig = {
           ExecStart =
-            "${charybdis}/bin/charybdis -foreground -logfile /dev/stdout -configfile /etc/charybdis/ircd.conf"
-            ;
+            "${charybdis}/bin/charybdis -foreground -logfile /dev/stdout -configfile /etc/charybdis/ircd.conf";
           ExecReload = "${coreutils}/bin/kill -HUP $MAINPID";
           Group = cfg.group;
           User = cfg.user;

@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://kokkinizita.linuxaudio.org/linuxaudio/downloads/clxclient-${version}.tar.bz2"
-      ;
+      "https://kokkinizita.linuxaudio.org/linuxaudio/downloads/clxclient-${version}.tar.bz2";
     sha256 = "10bq6fy8d3pr1x2x3xx9qhf2hdxrwdgvg843a2y6lx70y1jfj0c5";
   };
 

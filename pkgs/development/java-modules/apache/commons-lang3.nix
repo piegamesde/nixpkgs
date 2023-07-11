@@ -14,14 +14,12 @@
       {
         type = "pom";
         sha512 =
-          "0msypmqn5q4sxks97zbvi85rq2zclkyz8j09riqw7c95n96nyv7x3pysi83vdgc53d0lhl4apkp7warl52xq1qzdyjxipjdlhqmhdcw"
-          ;
+          "0msypmqn5q4sxks97zbvi85rq2zclkyz8j09riqw7c95n96nyv7x3pysi83vdgc53d0lhl4apkp7warl52xq1qzdyjxipjdlhqmhdcw";
       }
       {
         type = "jar";
         sha512 =
-          "3lw2naanwxjqrwgbg5ij6abzlkch0l6bcx44sl4a59m2r5fi2rvmc07pqai2l9kqwql05fyx9h1md5jjh2wzia15rqnvwssprykjwvi"
-          ;
+          "3lw2naanwxjqrwgbg5ij6abzlkch0l6bcx44sl4a59m2r5fi2rvmc07pqai2l9kqwql05fyx9h1md5jjh2wzia15rqnvwssprykjwvi";
       }
     ];
 }

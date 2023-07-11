@@ -123,8 +123,7 @@ with lib.maintainers; {
       mkg20001
     ];
     scope =
-      "Maintain Cinnamon desktop environment and applications made by the Linux Mint team."
-      ;
+      "Maintain Cinnamon desktop environment and applications made by the Linux Mint team.";
     shortName = "Cinnamon";
     enableFeatureFreezePing = true;
   };
@@ -178,8 +177,7 @@ with lib.maintainers; {
     # Verify additions to this team with at least one already existing member of the team.
     members = [ limeytexan ];
     scope =
-      "Group registration for D. E. Shaw employees who collectively maintain packages."
-      ;
+      "Group registration for D. E. Shaw employees who collectively maintain packages.";
     shortName = "Shaw employees";
   };
 
@@ -247,8 +245,7 @@ with lib.maintainers; {
       "release-engineers"
     ];
     scope =
-      "Dummy team for the #everyone else' section during feture freezes, not to be used as package maintainers!"
-      ;
+      "Dummy team for the #everyone else' section during feture freezes, not to be used as package maintainers!";
     shortName = "Everyone else";
     enableFeatureFreezePing = true;
   };
@@ -448,8 +445,7 @@ with lib.maintainers; {
       lucus16
     ];
     scope =
-      "Group registration for LumiGuide employees who collectively maintain packages."
-      ;
+      "Group registration for LumiGuide employees who collectively maintain packages.";
     shortName = "Lumiguide employees";
   };
 
@@ -561,8 +557,7 @@ with lib.maintainers; {
       zimbatm
     ];
     scope =
-      "Group registration for Numtide team members who collectively maintain packages."
-      ;
+      "Group registration for Numtide team members who collectively maintain packages.";
     shortName = "Numtide team";
   };
 
@@ -623,8 +618,7 @@ with lib.maintainers; {
   postgres = {
     members = [ thoughtpolice ];
     scope =
-      "Maintain the PostgreSQL package and plugins along with the NixOS module."
-      ;
+      "Maintain the PostgreSQL package and plugins along with the NixOS module.";
     shortName = "PostgreSQL";
   };
 
@@ -727,8 +721,7 @@ with lib.maintainers; {
     # Verify additions by approval of an already existing member of the team.
     members = [ balsoft ];
     scope =
-      "Group registration for Serokell employees who collectively maintain packages."
-      ;
+      "Group registration for Serokell employees who collectively maintain packages.";
     shortName = "Serokell employees";
   };
 

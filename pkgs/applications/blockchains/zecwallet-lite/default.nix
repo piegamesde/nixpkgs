@@ -10,8 +10,7 @@ appimageTools.wrapType2 rec {
 
   src = fetchurl {
     url =
-      "https://github.com/adityapk00/zecwallet-lite/releases/download/v${version}/Zecwallet.Lite-${version}.AppImage"
-      ;
+      "https://github.com/adityapk00/zecwallet-lite/releases/download/v${version}/Zecwallet.Lite-${version}.AppImage";
     hash = "sha256-6jppP3V7R8tCR5Wv5UWfbWKkAdsgrCjSiO/bbpLNcw4=";
   };
 

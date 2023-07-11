@@ -173,8 +173,7 @@ in {
     assertions = [ {
       assertion = cfg.nginx != null || cfg.webServerUser != null;
       message =
-        "Either services.matomo.nginx or services.matomo.nginx.webServerUser is mandatory"
-        ;
+        "Either services.matomo.nginx or services.matomo.nginx.webServerUser is mandatory";
     } ];
 
     users.users.${user} = {
@@ -262,8 +261,7 @@ in {
         CPUSchedulingPolicy = "idle";
         IOSchedulingClass = "idle";
         ExecStart =
-          "${cfg.package}/bin/matomo-console core:archive --url=https://${cfg.hostname}"
-          ;
+          "${cfg.package}/bin/matomo-console core:archive --url=https://${cfg.hostname}";
       };
     };
 

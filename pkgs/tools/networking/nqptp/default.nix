@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/mikebrady/nqptp";
     description =
-      "Daemon and companion application to Shairport Sync that monitors timing data from any PTP clocks"
-      ;
+      "Daemon and companion application to Shairport Sync that monitors timing data from any PTP clocks";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ jordanisaacs ];
     platforms = platforms.linux ++ platforms.freebsd;

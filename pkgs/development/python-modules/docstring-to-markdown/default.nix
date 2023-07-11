@@ -33,8 +33,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/python-lsp/docstring-to-markdown";
     description = "On the fly conversion of Python docstrings to markdown";
     changelog =
-      "https://github.com/python-lsp/docstring-to-markdown/releases/tag/v${version}"
-      ;
+      "https://github.com/python-lsp/docstring-to-markdown/releases/tag/v${version}";
     license = licenses.lgpl2Plus;
     maintainers = with maintainers; [ doronbehar ];
   };

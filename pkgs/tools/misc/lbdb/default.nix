@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
     # fix undefined exec_prefix. Remove with the next release
     (fetchpatch {
       url =
-        "https://github.com/RolandRosenfeld/lbdb/commit/60b7bae255011f59212d96adfbded459d6a27129.patch"
-        ;
+        "https://github.com/RolandRosenfeld/lbdb/commit/60b7bae255011f59212d96adfbded459d6a27129.patch";
       sha256 = "129zg086glmlalrg395jq8ljcp787dl3rxjf9v7apsd8mqfdkl2v";
       excludes = [ "debian/changelog" ];
     })

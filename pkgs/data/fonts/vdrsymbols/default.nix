@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://andreas.vdr-developer.org/fonts/download/${pname}-ttf-${version}.tgz"
-      ;
+      "http://andreas.vdr-developer.org/fonts/download/${pname}-ttf-${version}.tgz";
     hash = "sha256-YxB+JcDkta5are+OQyP/WKDL0vllgn0m26bU9mQ3C/Q=";
   };
 

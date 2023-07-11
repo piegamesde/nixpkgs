@@ -147,8 +147,7 @@ in {
         BusName = "org.opensuse.Snapper";
         ExecStart = "${pkgs.snapper}/bin/snapperd";
         CapabilityBoundingSet =
-          "CAP_DAC_OVERRIDE CAP_FOWNER CAP_CHOWN CAP_FSETID CAP_SETFCAP CAP_SYS_ADMIN CAP_SYS_MODULE CAP_IPC_LOCK CAP_SYS_NICE"
-          ;
+          "CAP_DAC_OVERRIDE CAP_FOWNER CAP_CHOWN CAP_FSETID CAP_SETFCAP CAP_SYS_ADMIN CAP_SYS_MODULE CAP_IPC_LOCK CAP_SYS_NICE";
         LockPersonality = true;
         NoNewPrivileges = false;
         PrivateNetwork = true;
@@ -187,8 +186,7 @@ in {
       description = "Take snapper snapshot of root on boot";
       inherit documentation;
       serviceConfig.ExecStart =
-        "${pkgs.snapper}/bin/snapper --config root create --cleanup-algorithm number --description boot"
-        ;
+        "${pkgs.snapper}/bin/snapper --config root create --cleanup-algorithm number --description boot";
       serviceConfig.Type = "oneshot";
       requires = [ "local-fs.target" ];
       wantedBy = [ "multi-user.target" ];

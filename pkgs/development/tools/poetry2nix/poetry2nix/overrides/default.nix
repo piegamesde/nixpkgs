@@ -969,8 +969,7 @@ lib.composeManyExtensions [
         buildInputs = [ pkgs.jq ];
         patches = [ (pkgs.fetchpatch {
           url =
-            "https://raw.githubusercontent.com/NixOS/nixpkgs/088da8735f6620b60d724aa7db742607ea216087/pkgs/development/python-modules/jq/jq-py-setup.patch"
-            ;
+            "https://raw.githubusercontent.com/NixOS/nixpkgs/088da8735f6620b60d724aa7db742607ea216087/pkgs/development/python-modules/jq/jq-py-setup.patch";
           sha256 = "sha256-MYvX3S1YGe0QsUtExtOtULvp++AdVrv+Fid4Jh1xewQ=";
         }) ];
       });
@@ -1287,8 +1286,7 @@ lib.composeManyExtensions [
               # Fix build with more recent setuptools versions
               (pkgs.fetchpatch {
                 url =
-                  "https://github.com/ansible-community/molecule/commit/c9fee498646a702c77b5aecf6497cff324acd056.patch"
-                  ;
+                  "https://github.com/ansible-community/molecule/commit/c9fee498646a702c77b5aecf6497cff324acd056.patch";
                 sha256 = "1g1n45izdz0a3c9akgxx14zhdw6c3dkb48j8pq64n82fa6ndl1b7";
                 excludes = [ "pyproject.toml" ];
               })
@@ -1353,24 +1351,21 @@ lib.composeManyExtensions [
               && lib.strings.versionOlder old.version
               "0.940") [ (pkgs.fetchpatch {
                 url =
-                  "https://github.com/python/mypy/commit/f1755259d54330cd087cae763cd5bbbff26e3e8a.patch"
-                  ;
+                  "https://github.com/python/mypy/commit/f1755259d54330cd087cae763cd5bbbff26e3e8a.patch";
                 sha256 = "sha256-5gPahX2X6+/qUaqDQIGJGvh9lQ2EDtks2cpQutgbOHk=";
               }) ] ++ lib.optionals
             ((lib.strings.versionAtLeast old.version "0.940")
               && lib.strings.versionOlder old.version
               "0.960") [ (pkgs.fetchpatch {
                 url =
-                  "https://github.com/python/mypy/commit/e7869f05751561958b946b562093397027f6d5fa.patch"
-                  ;
+                  "https://github.com/python/mypy/commit/e7869f05751561958b946b562093397027f6d5fa.patch";
                 sha256 = "sha256-waIZ+m3tfvYE4HJ8kL6rN/C4fMjvLEe9UoPbt9mHWIM=";
               }) ] ++ lib.optionals
             ((lib.strings.versionAtLeast old.version "0.960")
               && (lib.strings.versionOlder old.version
                 "0.971")) [ (pkgs.fetchpatch {
                   url =
-                    "https://github.com/python/mypy/commit/2004ae023b9d3628d9f09886cbbc20868aee8554.patch"
-                    ;
+                    "https://github.com/python/mypy/commit/2004ae023b9d3628d9f09886cbbc20868aee8554.patch";
                   sha256 =
                     "sha256-y+tXvgyiECO5+66YLvaje8Bz5iPvfWNIBJcsnZ2nOdI=";
                 }) ];
@@ -1777,8 +1772,7 @@ lib.composeManyExtensions [
               arrowCppVersion = parseMinor _arrow-cpp;
               pyArrowVersion = parseMinor super.pyarrow;
               errorMessage =
-                "arrow-cpp version (${arrowCppVersion}) mismatches pyarrow version (${pyArrowVersion})"
-                ;
+                "arrow-cpp version (${arrowCppVersion}) mismatches pyarrow version (${pyArrowVersion})";
             in if arrowCppVersion != pyArrowVersion then
               throw errorMessage
             else
@@ -2347,8 +2341,7 @@ lib.composeManyExtensions [
         nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.geos ];
 
         GEOS_LIBRARY_PATH =
-          "${pkgs.geos}/lib/libgeos_c${stdenv.hostPlatform.extensions.sharedLibrary}"
-          ;
+          "${pkgs.geos}/lib/libgeos_c${stdenv.hostPlatform.extensions.sharedLibrary}";
 
         GEOS_LIBC = lib.optionalString (!stdenv.isDarwin) "${
             lib.getLib stdenv.cc.libc
@@ -2367,8 +2360,7 @@ lib.composeManyExtensions [
         preConfigure =
           let
             fakeCommand =
-              "type('FakeCommand', (Command,), {'initialize_options': lambda self: None, 'finalize_options': lambda self: None, 'run': lambda self: None})"
-              ;
+              "type('FakeCommand', (Command,), {'initialize_options': lambda self: None, 'finalize_options': lambda self: None, 'run': lambda self: None})";
           in ''
             substituteInPlace setup.py \
               --replace "'fetch_binaries': fetch_binaries," "'fetch_binaries': ${fakeCommand}," \
@@ -2888,8 +2880,7 @@ lib.composeManyExtensions [
           patchJinja2Imports = self.pkgs.fetchpatch {
             name = "fix-jinja2-imports.patch";
             url =
-              "https://github.com/mkdocstrings/mkdocstrings/commit/b37722716b1e0ed6393ec71308dfb0f85e142f3b.patch"
-              ;
+              "https://github.com/mkdocstrings/mkdocstrings/commit/b37722716b1e0ed6393ec71308dfb0f85e142f3b.patch";
             hash = "sha256-DD1SjEvs5HBlSRLrqP3jhF/yoeWkF7F3VXCD1gyt5Fc=";
           };
         in

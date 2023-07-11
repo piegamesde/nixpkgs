@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "An interpreter for piet programs. Also includes npietedit and npiet-foogol"
-      ;
+      "An interpreter for piet programs. Also includes npietedit and npiet-foogol";
     longDescription = ''
       npiet is an interpreter for the piet programming language.
       Instead of text, piet programs are pictures. Commands are determined based on changes in color.

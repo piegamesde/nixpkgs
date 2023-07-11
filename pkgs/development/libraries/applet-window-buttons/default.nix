@@ -26,8 +26,7 @@ mkDerivation rec {
     # FIXME: cherry-pick Plasma 5.27 build fix, remove for next release
     (fetchpatch {
       url =
-        "https://github.com/psifidotos/applet-window-buttons/commit/924994e10402921bf22fefc099bca2914989081c.diff"
-        ;
+        "https://github.com/psifidotos/applet-window-buttons/commit/924994e10402921bf22fefc099bca2914989081c.diff";
       hash = "sha256-4ErqmkIbkvKwns50LhI8Et1EMyvrXYcNRL1rXCxau2w=";
     })
   ];

@@ -27,8 +27,7 @@ optionalWarning (crowdProperties != null)
 
   src = fetchurl {
     url =
-      "https://product-downloads.atlassian.com/software/confluence/downloads/${pname}-${version}.tar.gz"
-      ;
+      "https://product-downloads.atlassian.com/software/confluence/downloads/${pname}-${version}.tar.gz";
     sha256 = "sha256-32syhzbFCWzwE2NftTY58aA+iD0kABraT4FA7mYU1II=";
   };
 
@@ -59,8 +58,7 @@ optionalWarning (crowdProperties != null)
 
   meta = with lib; {
     description =
-      "Team collaboration software written in Java and mainly used in corporate environments"
-      ;
+      "Team collaboration software written in Java and mainly used in corporate environments";
     homepage = "https://www.atlassian.com/software/confluence";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.unfree;

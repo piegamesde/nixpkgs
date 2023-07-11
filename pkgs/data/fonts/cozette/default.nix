@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/slavfox/Cozette/releases/download/v.${version}/CozetteFonts.zip"
-      ;
+      "https://github.com/slavfox/Cozette/releases/download/v.${version}/CozetteFonts.zip";
     hash = "sha256-+TnKUgrAafR5irS9XeXWfb1a2PfUKOXf8CAmqJbf6y4=";
   };
 

@@ -72,8 +72,7 @@ stdenv.mkDerivation rec {
     # Fix HAVE_SHADOWGRP configure check
     (fetchpatch {
       url =
-        "https://github.com/shadow-maint/shadow/commit/a281f241b592aec636d1b93a99e764499d68c7ef.patch"
-        ;
+        "https://github.com/shadow-maint/shadow/commit/a281f241b592aec636d1b93a99e764499d68c7ef.patch";
       sha256 = "sha256-GJWg/8ggTnrbIgjI+HYa26DdVbjTHTk/IHhy7GU9G5w=";
     })
   ];

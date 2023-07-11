@@ -162,8 +162,7 @@ let
 
       meta = with lib; {
         description =
-          "A version control system intended to be a compelling replacement for CVS in the open source community"
-          ;
+          "A version control system intended to be a compelling replacement for CVS in the open source community";
         license = licenses.asl20;
         homepage = "https://subversion.apache.org/";
         maintainers = with maintainers; [

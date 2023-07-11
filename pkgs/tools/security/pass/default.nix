@@ -87,8 +87,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://git.zx2c4.com/password-store/snapshot/${pname}-${version}.tar.xz"
-      ;
+      "https://git.zx2c4.com/password-store/snapshot/${pname}-${version}.tar.xz";
     sha256 = "1h4k6w7g8pr169p5w9n6mkdhxl3pw51zphx7www6pvgjb7vgmafg";
   };
 

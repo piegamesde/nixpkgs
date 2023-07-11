@@ -50,8 +50,8 @@
 # make sure they're in the path if desired.
 let
   k3sVersion = "1.25.3+k3s1"; # k3s git tag
-  k3sCommit = "f2585c1671b31b4b34bddbb3bf4e7d69662b0821"
-    ; # k3s git commit at the above version
+  k3sCommit =
+    "f2585c1671b31b4b34bddbb3bf4e7d69662b0821"; # k3s git commit at the above version
   k3sRepoSha256 = "0zwf3iwjcidx14zw36s1hr0q8wmmbfc0rfqwd7fmpjq597h8zkms";
   k3sVendorSha256 = "sha256-U67tJRGqPFk5AfRe7I50zKGC9HJ2oh+iI/C7qF/76BQ=";
 
@@ -114,8 +114,7 @@ let
   k3sRoot = fetchzip {
     # Note: marked as apache 2.0 license
     url =
-      "https://github.com/k3s-io/k3s-root/releases/download/v${k3sRootVersion}/k3s-root-amd64.tar"
-      ;
+      "https://github.com/k3s-io/k3s-root/releases/download/v${k3sRootVersion}/k3s-root-amd64.tar";
     sha256 = k3sRootSha256;
     stripRoot = false;
   };

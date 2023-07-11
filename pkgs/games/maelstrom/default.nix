@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://www.libsdl.org/projects/Maelstrom/src/Maelstrom-${version}.tar.gz"
-      ;
+      "http://www.libsdl.org/projects/Maelstrom/src/Maelstrom-${version}.tar.gz";
     sha256 = "0dm0m5wd7amrsa8wnrblkv34sq4v4lglc2wfx8klfkdhyhi06s4k";
   };
 

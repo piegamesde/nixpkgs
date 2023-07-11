@@ -24,12 +24,10 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
 
   buildPhase =
-    "\n    $CC src/xdemos/{glxinfo.c,glinfo_common.c} -o glxinfo -lGL -lX11\n    $CC src/xdemos/glxgears.c -o glxgears -lGL -lX11 -lm\n    $CC src/egl/opengles2/es2_info.c -o es2_info -lEGL -lGLESv2 -lX11\n    $CC src/egl/opengles2/es2gears.c src/egl/eglut/{eglut.c,eglut_x11.c} -o es2gears -Isrc/egl/eglut -lEGL -lGLESv2 -lX11 -lm\n    $CC src/egl/opengl/eglinfo.c -o eglinfo -lEGL -lGLESv2 -lX11\n  "
-    ;
+    "\n    $CC src/xdemos/{glxinfo.c,glinfo_common.c} -o glxinfo -lGL -lX11\n    $CC src/xdemos/glxgears.c -o glxgears -lGL -lX11 -lm\n    $CC src/egl/opengles2/es2_info.c -o es2_info -lEGL -lGLESv2 -lX11\n    $CC src/egl/opengles2/es2gears.c src/egl/eglut/{eglut.c,eglut_x11.c} -o es2gears -Isrc/egl/eglut -lEGL -lGLESv2 -lX11 -lm\n    $CC src/egl/opengl/eglinfo.c -o eglinfo -lEGL -lGLESv2 -lX11\n  ";
 
   installPhase =
-    "\n    install -Dm 555 -t $out/bin glx{info,gears} es2{_info,gears} eglinfo\n  "
-    ;
+    "\n    install -Dm 555 -t $out/bin glx{info,gears} es2{_info,gears} eglinfo\n  ";
 
   meta = with lib; {
     description = "Test utilities for OpenGL";

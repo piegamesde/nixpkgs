@@ -30,8 +30,7 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "fix-lbfgs-args";
       url =
-        "https://github.com/blackjax-devs/blackjax/commit/1aaa6f64bbcb0557b658604b2daba826e260cbc6.patch"
-        ;
+        "https://github.com/blackjax-devs/blackjax/commit/1aaa6f64bbcb0557b658604b2daba826e260cbc6.patch";
       hash = "sha256-XyjorXPH5Ap35Tv1/lTeTWamjplJF29SsvOq59ypftE=";
     })
   ];

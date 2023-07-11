@@ -317,8 +317,7 @@ in {
       {
         assertion = config.security.polkit.enable;
         message =
-          "The libvirtd module currently requires Polkit to be enabled ('security.polkit.enable = true')."
-          ;
+          "The libvirtd module currently requires Polkit to be enabled ('security.polkit.enable = true').";
       }
     ];
 

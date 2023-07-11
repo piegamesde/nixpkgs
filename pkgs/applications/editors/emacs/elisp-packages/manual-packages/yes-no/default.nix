@@ -10,8 +10,7 @@ trivialBuild {
 
   src = fetchurl {
     url =
-      "https://raw.githubusercontent.com/emacsmirror/emacswiki.org/143bcaeb679a8fa8a548e92a5a9d5c2baff50d9c/yes-no.el"
-      ;
+      "https://raw.githubusercontent.com/emacsmirror/emacswiki.org/143bcaeb679a8fa8a548e92a5a9d5c2baff50d9c/yes-no.el";
     sha256 = "03w4wfx885y89ckyd5d95n2571nmmzrll6kr0yan3ip2aw28xq3i";
   };
 

@@ -24,8 +24,7 @@ tcl.mkTclDerivation rec {
 
   src = fetchurl {
     url =
-      "https://dianne.skoll.ca/projects/remind/download/remind-${version}.tar.gz"
-      ;
+      "https://dianne.skoll.ca/projects/remind/download/remind-${version}.tar.gz";
     sha256 = "sha256-nOEFhVwZvgUod+j/5ifllFgTS7I8+hOAeMSDlRH4+Ag=";
   };
 

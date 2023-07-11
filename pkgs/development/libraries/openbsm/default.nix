@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "An implementation of Sun's Basic Security Module (BSM) security audit API and file format"
-      ;
+      "An implementation of Sun's Basic Security Module (BSM) security audit API and file format";
     homepage = "http://www.openbsm.org/";
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ matthewbauer ];

@@ -10,8 +10,7 @@ let
     # Don't use fetchgit as this is needed during Aarch64 bootstrapping
   configGuess = fetchurl {
     url =
-      "https://git.savannah.gnu.org/cgit/config.git/plain/config.guess?id=${rev}"
-      ;
+      "https://git.savannah.gnu.org/cgit/config.git/plain/config.guess?id=${rev}";
     sha256 = "049qgfh4xjd4fxd7ygm1phd5faqphfvhfcv8dsdldprsp86lf55v";
   };
   configSub = fetchurl {

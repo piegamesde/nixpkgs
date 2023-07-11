@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "ncurses-6.3.patch";
     url =
-      "https://github.com/lharding/tasknc/commit/f74ea0641e9bf287acf22fac9f6eeea571b01800.patch"
-      ;
+      "https://github.com/lharding/tasknc/commit/f74ea0641e9bf287acf22fac9f6eeea571b01800.patch";
     sha256 = "18a90zj85sw2zfnfcv055nvi0lx3h8lcgsyabdfk94ksn78pygrv";
   }) ];
 

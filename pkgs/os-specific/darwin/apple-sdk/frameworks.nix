@@ -136,8 +136,9 @@ with libs; {
   PCSC = { inherit CoreData; };
   PreferencePanes = { };
   PubSub = { };
-  QTKit = { inherit CoreMediaIO CoreMedia MediaToolbox QuickTime VideoToolbox; }
-    ;
+  QTKit = {
+    inherit CoreMediaIO CoreMedia MediaToolbox QuickTime VideoToolbox;
+  };
   QuickLook = { inherit ApplicationServices; };
   SceneKit = { };
   ScreenSaver = { };
@@ -156,8 +157,9 @@ with libs; {
   Tcl = { };
   VideoDecodeAcceleration = { inherit CoreVideo; };
   VideoToolbox = { inherit CoreMedia CoreVideo; };
-  WebKit = { inherit libobjc ApplicationServices Carbon JavaScriptCore OpenGL; }
-    ;
+  WebKit = {
+    inherit libobjc ApplicationServices Carbon JavaScriptCore OpenGL;
+  };
 
     # Umbrellas
   Accelerate = { inherit CoreWLAN IOBluetooth; };

@@ -14,14 +14,12 @@
       {
         type = "jar";
         sha512 =
-          "1r1sdj784x4zcnkaz840vsz36jn1p2j98c21nia56kcdl1njydjn714bsmdy816l6sdinkz4s196mm3hshmxhq8mkmf16wgxx8jnq94"
-          ;
+          "1r1sdj784x4zcnkaz840vsz36jn1p2j98c21nia56kcdl1njydjn714bsmdy816l6sdinkz4s196mm3hshmxhq8mkmf16wgxx8jnq94";
       }
       {
         type = "pom";
         sha512 =
-          "3cpfnbgil6g0bgq0cjbq2ysfjdpl05fh72d9l9cnwbilcsaxcmzn1hgmmkvam2ih222nl82dy7n5020is3y05kiv0i4n4lcs5m0ia48"
-          ;
+          "3cpfnbgil6g0bgq0cjbq2ysfjdpl05fh72d9l9cnwbilcsaxcmzn1hgmmkvam2ih222nl82dy7n5020is3y05kiv0i4n4lcs5m0ia48";
       }
     ];
 
@@ -36,14 +34,12 @@
       {
         type = "jar";
         sha512 =
-          "2al10188nwrdmi9zk3bid4ijjfsa8ymh6m9hin5jsja7hx7anbvs3i2y7kall56h4qn7j1rj73f8499x3i2k6x53kszmksvd2a1pkd4"
-          ;
+          "2al10188nwrdmi9zk3bid4ijjfsa8ymh6m9hin5jsja7hx7anbvs3i2y7kall56h4qn7j1rj73f8499x3i2k6x53kszmksvd2a1pkd4";
       }
       {
         type = "pom";
         sha512 =
-          "2bb2yrvjxci7wx7ira5cnnzdmlzdx4fk59fddpnmvdgh06dmg7fbnjlyx73pn6b13ajjrjl7rgj26mqs2hid3c0p3ni6x1qsg9w3ip0"
-          ;
+          "2bb2yrvjxci7wx7ira5cnnzdmlzdx4fk59fddpnmvdgh06dmg7fbnjlyx73pn6b13ajjrjl7rgj26mqs2hid3c0p3ni6x1qsg9w3ip0";
       }
     ];
 }

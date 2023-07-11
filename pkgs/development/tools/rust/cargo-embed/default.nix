@@ -35,8 +35,7 @@ rustPlatform.buildRustPackage rec {
     description = "A cargo extension for working with microcontrollers";
     homepage = "https://probe.rs/";
     changelog =
-      "https://github.com/probe-rs/probe-rs/blob/v${version}/cargo-embed/CHANGELOG.md"
-      ;
+      "https://github.com/probe-rs/probe-rs/blob/v${version}/cargo-embed/CHANGELOG.md";
     license = with licenses; [
       asl20 # or
       mit

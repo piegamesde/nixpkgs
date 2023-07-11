@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/silc/silc/client/sources/silc-client-${version}.tar.bz2"
-      ;
+      "mirror://sourceforge/silc/silc/client/sources/silc-client-${version}.tar.bz2";
     sha256 = "13cp3fmdnj8scjak0d2xal3bfvs2k7ssrwdhp0zl6jar5rwc7prn";
   };
 

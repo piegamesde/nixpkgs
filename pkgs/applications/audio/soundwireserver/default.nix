@@ -13,8 +13,7 @@ qt5.mkDerivation {
 
   src = fetchzip {
     url =
-      "https://web.archive.org/web/20211120182526/https://georgielabs.net/SoundWire_Server_linux64.tar.gz"
-      ;
+      "https://web.archive.org/web/20211120182526/https://georgielabs.net/SoundWire_Server_linux64.tar.gz";
     hash = "sha256-TECuQ5WXpeikc9tXEE/wVBnRbdYd0OaIFFhsBRmaukA=";
   };
 

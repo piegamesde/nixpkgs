@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/gsoap2/gsoap-${majorVersion}/gsoap_${version}.zip"
-      ;
+      "mirror://sourceforge/project/gsoap2/gsoap-${majorVersion}/gsoap_${version}.zip";
     sha256 = "0x58bwlclk7frv03kg8bp0pm7zl784samvbzskrnr7dl5v866nvl";
   };
 

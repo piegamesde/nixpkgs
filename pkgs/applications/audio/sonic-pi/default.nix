@@ -249,8 +249,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://sonic-pi.net/";
     description =
-      "Free live coding synth for everyone originally designed to support computing and music lessons within schools"
-      ;
+      "Free live coding synth for everyone originally designed to support computing and music lessons within schools";
     license = licenses.mit;
     maintainers = with maintainers; [
       Phlogistique

@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://kernel/linux/utils/nfs-utils/${version}/${pname}-${version}.tar.xz"
-      ;
+      "mirror://kernel/linux/utils/nfs-utils/${version}/${pname}-${version}.tar.xz";
     hash = "sha256-UgCHPoHE1hDiRi/CYv4YE18tvni3l5+VrM0VmuZNUBE=";
   };
 
@@ -96,8 +95,7 @@ stdenv.mkDerivation rec {
     # http://openwall.com/lists/musl/2015/08/18/10
     (fetchpatch {
       url =
-        "https://raw.githubusercontent.com/alpinelinux/aports/cb880042d48d77af412d4688f24b8310ae44f55f/main/nfs-utils/musl-getservbyport.patch"
-        ;
+        "https://raw.githubusercontent.com/alpinelinux/aports/cb880042d48d77af412d4688f24b8310ae44f55f/main/nfs-utils/musl-getservbyport.patch";
       sha256 = "1fqws9dz8n1d9a418c54r11y3w330qgy2652dpwcy96cm44sqyhf";
     })
   ];

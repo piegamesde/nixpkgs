@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "A library of PureData classes, bringing some level of compatibility between Max/MSP and Pd environments"
-      ;
+      "A library of PureData classes, bringing some level of compatibility between Max/MSP and Pd environments";
     homepage = "http://puredata.info/downloads/cyclone";
     license = lib.licenses.tcltk;
     maintainers = [ lib.maintainers.magnetophon ];

@@ -24,8 +24,7 @@ mkDerivation {
 
   meta = {
     description =
-      "Tooling for monitoring inotify limits and informing the user when they have been or about to be reached"
-      ;
+      "Tooling for monitoring inotify limits and informing the user when they have been or about to be reached";
     homepage = "https://invent.kde.org/system/kde-inotify-survey";
     license = lib.licenses.gpl2Plus;
     maintainers = [ ];

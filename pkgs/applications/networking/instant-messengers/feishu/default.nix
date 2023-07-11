@@ -69,8 +69,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://sf3-cn.feishucdn.com/obj/ee-appcenter/${packageHash}/Feishu-linux_x64-${version}.deb"
-      ;
+      "https://sf3-cn.feishucdn.com/obj/ee-appcenter/${packageHash}/Feishu-linux_x64-${version}.deb";
     hash = "sha256-93LEybYePIEbmE8mjRL95haMuBuY0xH6/8fhwF7/ctM=";
   };
 

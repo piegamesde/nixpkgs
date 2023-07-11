@@ -68,8 +68,7 @@ let
           "Tool for building, changing, and versioning infrastructure";
         homepage = "https://www.terraform.io/";
         changelog =
-          "https://github.com/hashicorp/terraform/blob/v${version}/CHANGELOG.md"
-          ;
+          "https://github.com/hashicorp/terraform/blob/v${version}/CHANGELOG.md";
         license = licenses.mpl20;
         maintainers = with maintainers; [
           Chili-Man

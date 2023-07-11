@@ -61,8 +61,7 @@ in {
 
       serviceConfig = {
         ExecStart =
-          "${pkgs.fusionInventory}/bin/fusioninventory-agent --conf-file=${configFile} --daemon --no-fork"
-          ;
+          "${pkgs.fusionInventory}/bin/fusioninventory-agent --conf-file=${configFile} --daemon --no-fork";
       };
     };
   };

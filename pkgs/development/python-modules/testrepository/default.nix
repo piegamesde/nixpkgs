@@ -33,8 +33,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A database of test results which can be used as part of developer workflow"
-      ;
+      "A database of test results which can be used as part of developer workflow";
     homepage = "https://pypi.python.org/pypi/testrepository";
     license = licenses.bsd2;
   };

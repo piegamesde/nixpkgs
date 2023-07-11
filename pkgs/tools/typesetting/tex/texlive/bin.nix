@@ -277,8 +277,7 @@ rec { # un-indented
       (fetchpatch {
         name = "reproducible_exception_strings.patch";
         url =
-          "https://bugs.debian.org/cgi-bin/bugreport.cgi?att=1;bug=1009196;filename=reproducible_exception_strings.patch;msg=5"
-          ;
+          "https://bugs.debian.org/cgi-bin/bugreport.cgi?att=1;bug=1009196;filename=reproducible_exception_strings.patch;msg=5";
         sha256 = "sha256-RNZoEeTcWnrLaltcYrhNIORh42fFdwMzBfxMRWVurbk=";
       })
     ];
@@ -542,8 +541,7 @@ rec { # un-indented
     meta = with lib; {
       homepage = "https://www.ctan.org/pkg/pygmentex";
       description =
-        "Auxiliary tool for typesetting code listings in LaTeX documents using Pygments"
-        ;
+        "Auxiliary tool for typesetting code listings in LaTeX documents using Pygments";
       longDescription = ''
         PygmenTeX is a Python-based LaTeX package that can be used for
         typesetting code listings in a LaTeX document using Pygments.

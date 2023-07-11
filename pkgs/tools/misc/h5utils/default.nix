@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
     # additional tools to build compared to the tarball release; see the README for details.
   src = fetchurl {
     url =
-      "https://github.com/stevengj/h5utils/releases/download/${version}/h5utils-${version}.tar.gz"
-      ;
+      "https://github.com/stevengj/h5utils/releases/download/${version}/h5utils-${version}.tar.gz";
     sha256 = "sha256-7qeFWoI1+st8RU5hEDCY5VZY2g3fS23luCqZLl8CQ1E=";
   };
 
@@ -41,8 +40,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A set of utilities for visualization and conversion of scientific data in the free, portable HDF5 format"
-      ;
+      "A set of utilities for visualization and conversion of scientific data in the free, portable HDF5 format";
     homepage = "https://github.com/stevengj/h5utils";
     changelog = "https://github.com/NanoComp/h5utils/releases/tag/${version}";
     license = with licenses; [

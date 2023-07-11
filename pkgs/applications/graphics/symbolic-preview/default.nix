@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://gitlab.gnome.org/World/design/symbolic-preview/uploads/df71a2eee9ea0c90b3d146e7286fec42/symbolic-preview-${version}.tar.xz"
-      ;
+      "https://gitlab.gnome.org/World/design/symbolic-preview/uploads/df71a2eee9ea0c90b3d146e7286fec42/symbolic-preview-${version}.tar.xz";
     sha256 = "08g2sbdb1x5z26mi68nmciq6xwv0chvxw6anj1qdfh7npsg0dm4c";
   };
 

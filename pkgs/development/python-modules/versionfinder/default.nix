@@ -47,8 +47,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Find the version of another package, whether installed via pip, setuptools or git"
-      ;
+      "Find the version of another package, whether installed via pip, setuptools or git";
     homepage = "https://github.com/jantman/versionfinder";
     changelog =
       "https://github.com/jantman/versionfinder/blob/${version}/CHANGES.rst";

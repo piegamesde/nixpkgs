@@ -41,8 +41,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A fancy CLI app written in Go which scrapes, downloads and packs manga into different formats"
-      ;
+      "A fancy CLI app written in Go which scrapes, downloads and packs manga into different formats";
     homepage = "https://github.com/metafates/mangal";
     license = licenses.mit;
     maintainers = [ maintainers.bertof ];

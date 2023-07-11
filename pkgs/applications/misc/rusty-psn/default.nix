@@ -64,8 +64,7 @@ rustPlatform.buildRustPackage rec {
     desktopName = "rusty-psn";
     exec = "rusty-psn-gui";
     comment =
-      "A simple tool to grab updates for PS3 games, directly from Sony's servers using their updates API."
-      ;
+      "A simple tool to grab updates for PS3 games, directly from Sony's servers using their updates API.";
     categories = [ "Network" ];
     keywords = [
       "psn"
@@ -79,8 +78,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Simple tool to grab updates for PS3 games, directly from Sony's servers using their updates API"
-      ;
+      "Simple tool to grab updates for PS3 games, directly from Sony's servers using their updates API";
     homepage = "https://github.com/RainbowCookie32/rusty-psn/";
     license = licenses.mit;
     platforms = [ "x86_64-linux" ];

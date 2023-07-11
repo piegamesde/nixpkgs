@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     changelog =
       "https://github.com/zmartzone/cjose/blob/${version}/CHANGELOG.md";
     description =
-      "C library for Javascript Object Signing and Encryption. This is a maintained fork of the original project"
-      ;
+      "C library for Javascript Object Signing and Encryption. This is a maintained fork of the original project";
     license = licenses.mit;
     maintainers = with maintainers; [ midchildan ];
     platforms = platforms.all;

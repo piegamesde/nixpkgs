@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
   version = "1.7.1";
   src = fetchzip {
     url =
-      "https://tla.msr-inria.inria.fr/tlatoolbox/products/TLAToolbox-${version}-linux.gtk.x86_64.zip"
-      ;
+      "https://tla.msr-inria.inria.fr/tlatoolbox/products/TLAToolbox-${version}-linux.gtk.x86_64.zip";
     sha256 = "02a2y2mkfab5cczw8g604m61h4xr0apir49zbd1aq6mmgcgngw80";
   };
 

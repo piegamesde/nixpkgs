@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/NixOS/${pname}/releases/download/${version}/${pname}-${version}.tar.bz2"
-      ;
+      "https://github.com/NixOS/${pname}/releases/download/${version}/${pname}-${version}.tar.bz2";
     sha256 = "sha256-9ANtPuTY4ijewb7/8PbkbYpA6eVw4AaOOdd+YuLIvcI=";
   };
 
@@ -36,8 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/NixOS/patchelf";
     license = licenses.gpl3Plus;
     description =
-      "A small utility to modify the dynamic linker and RPATH of ELF executables"
-      ;
+      "A small utility to modify the dynamic linker and RPATH of ELF executables";
     maintainers = [ maintainers.eelco ];
     platforms = platforms.all;
   };

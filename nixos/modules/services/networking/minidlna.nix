@@ -100,8 +100,7 @@ in {
         type = types.str;
         default = "warn";
         example =
-          "general,artwork,database,inotify,scanner,metadata,http,ssdp,tivo=warn"
-          ;
+          "general,artwork,database,inotify,scanner,metadata,http,ssdp,tivo=warn";
         description = lib.mdDoc
           "Defines the type of messages that should be logged and down to which level of importance."
           ;
@@ -227,8 +226,7 @@ in {
         RuntimeDirectory = "minidlna";
         PIDFile = "/run/minidlna/pid";
         ExecStart =
-          "${pkgs.minidlna}/sbin/minidlnad -S -P /run/minidlna/pid -f ${settingsFile}"
-          ;
+          "${pkgs.minidlna}/sbin/minidlnad -S -P /run/minidlna/pid -f ${settingsFile}";
       };
     };
   };

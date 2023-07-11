@@ -42,8 +42,7 @@ buildPythonPackage rec {
       "Python package to communicate with the IKEA Trådfri ZigBee Gateway";
     homepage = "https://github.com/home-assistant-libs/pytradfri";
     changelog =
-      "https://github.com/home-assistant-libs/pytradfri/releases/tag/${version}"
-      ;
+      "https://github.com/home-assistant-libs/pytradfri/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

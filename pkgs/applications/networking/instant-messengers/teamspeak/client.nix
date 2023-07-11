@@ -92,8 +92,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://files.teamspeak-services.com/releases/client/${version}/TeamSpeak3-Client-linux_${arch}-${version}.run"
-      ;
+      "https://files.teamspeak-services.com/releases/client/${version}/TeamSpeak3-Client-linux_${arch}-${version}.run";
     sha256 =
       if stdenv.is64bit then
         "sha256:0hjai1bd4mq3g2dlyi0zkn8s4zlgxd38skw77mb78nc4di5gvgpg"

@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Distribution of protoc and the gRPC Node protoc plugin for ease of installation with npm"
-      ;
+      "Distribution of protoc and the gRPC Node protoc plugin for ease of installation with npm";
     longDescription = ''
       This package distributes the Protocol Buffers compiler protoc along with
       the plugin for generating client and service objects for use with the Node

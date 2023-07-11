@@ -17,12 +17,10 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Create dependency graphs for cargo projects using `cargo metadata` and graphviz"
-      ;
+      "Create dependency graphs for cargo projects using `cargo metadata` and graphviz";
     homepage = "https://sr.ht/~jplatte/cargo-depgraph";
     changelog =
-      "https://git.sr.ht/~jplatte/cargo-depgraph/tree/v${version}/item/CHANGELOG.md"
-      ;
+      "https://git.sr.ht/~jplatte/cargo-depgraph/tree/v${version}/item/CHANGELOG.md";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ figsoda ];
   };

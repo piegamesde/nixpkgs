@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/BuGlessRB/procmail/archive/refs/tags/v${version}.tar.gz"
-      ;
+      "https://github.com/BuGlessRB/procmail/archive/refs/tags/v${version}.tar.gz";
     sha256 = "UU6kMzOXg+ld+TIeeUdx5Ih7mCOsVf2yRpcCz2m9OYk=";
   };
 

@@ -77,8 +77,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://python-mip.com/";
     description =
-      "A collection of Python tools for the modeling and solution of Mixed-Integer Linear programs (MIPs)"
-      ;
+      "A collection of Python tools for the modeling and solution of Mixed-Integer Linear programs (MIPs)";
     downloadPage = "https://github.com/coin-or/python-mip/releases";
     changelog = "https://github.com/coin-or/python-mip/releases/tag/${version}";
     license = licenses.epl20;

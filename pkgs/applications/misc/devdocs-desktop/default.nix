@@ -11,8 +11,7 @@ let
 
   src = fetchurl {
     url =
-      "https://github.com/egoist/devdocs-desktop/releases/download/v${version}/DevDocs-${version}.AppImage"
-      ;
+      "https://github.com/egoist/devdocs-desktop/releases/download/v${version}/DevDocs-${version}.AppImage";
     sha256 = "sha256-4ugpzh0Dweae6tKb6uqRhEW9HT+iVIo8MQRbVKTdRFw=";
   };
 

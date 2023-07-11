@@ -61,8 +61,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Library for reading and writing a wide range of image, video, scientific, and volumetric data formats"
-      ;
+      "Library for reading and writing a wide range of image, video, scientific, and volumetric data formats";
     homepage = "http://imageio.github.io/";
     license = licenses.bsd2;
     maintainers = with maintainers; [ Luflosi ];

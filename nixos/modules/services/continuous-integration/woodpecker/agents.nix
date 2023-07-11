@@ -91,8 +91,7 @@ let
           PrivateMounts = true;
           SystemCallArchitectures = "native";
           SystemCallFilter =
-            "~@clock @privileged @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @reboot @setuid @swap"
-            ;
+            "~@clock @privileged @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @reboot @setuid @swap";
           BindReadOnlyPaths = [
             "-/etc/resolv.conf"
             "-/etc/nsswitch.conf"

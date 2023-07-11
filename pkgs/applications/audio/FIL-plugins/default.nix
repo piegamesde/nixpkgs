@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
   version = "0.3.0";
   src = fetchurl {
     url =
-      "http://kokkinizita.linuxaudio.org/linuxaudio/downloads/${pname}-${version}.tar.bz2"
-      ;
+      "http://kokkinizita.linuxaudio.org/linuxaudio/downloads/${pname}-${version}.tar.bz2";
     sha256 = "1scfv9j7jrp50r565haa4rvxn1vk2ss86xssl5qgcr8r45qz42qw";
   };
 
@@ -27,8 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "a four-band parametric equaliser, which has the nice property of being stable even while parameters are being changed"
-      ;
+      "a four-band parametric equaliser, which has the nice property of being stable even while parameters are being changed";
     longDescription = ''
       Each section has an active/bypass switch, frequency, bandwidth and gain controls.
       There is also a global bypass switch and gain control.

@@ -139,14 +139,12 @@ in {
         assertion =
           cfg.octoprintIntegration -> config.services.octoprint.enable;
         message =
-          "Option services.klipper.octoprintIntegration requires Octoprint to be enabled on this system. Please enable services.octoprint to use it."
-          ;
+          "Option services.klipper.octoprintIntegration requires Octoprint to be enabled on this system. Please enable services.octoprint to use it.";
       }
       {
         assertion = cfg.user != null -> cfg.group != null;
         message =
-          "Option services.klipper.group is not set when services.klipper.user is specified."
-          ;
+          "Option services.klipper.group is not set when services.klipper.user is specified.";
       }
       {
         assertion = cfg.settings != null -> foldl (a: b: a && b) true
@@ -156,14 +154,12 @@ in {
               "serial"
             ] cfg.settings)) cfg.firmwares);
         message =
-          "Option services.klipper.settings.$mcu.serial must be set when settings.klipper.firmware.$mcu is specified"
-          ;
+          "Option services.klipper.settings.$mcu.serial must be set when settings.klipper.firmware.$mcu is specified";
       }
       {
         assertion = (cfg.configFile != null) != (cfg.settings != null);
         message =
-          "You need to either specify services.klipper.settings or services.klipper.configFile."
-          ;
+          "You need to either specify services.klipper.settings or services.klipper.configFile.";
       }
     ];
 
@@ -215,8 +211,7 @@ in {
 
         serviceConfig = {
           ExecStart =
-            "${cfg.package}/lib/klipper/klippy.py ${klippyArgs} ${printerConfigPath}"
-            ;
+            "${cfg.package}/lib/klipper/klippy.py ${klippyArgs} ${printerConfigPath}";
           RuntimeDirectory = "klipper";
           StateDirectory = "klipper";
           SupplementaryGroups = [ "dialout" ];

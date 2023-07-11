@@ -92,8 +92,7 @@ let
                               -f --cluster ${clusterName} --id ${daemonId}'';
       } // optionalAttrs (daemonType == "osd") {
         ExecStartPre =
-          "${ceph.lib}/libexec/ceph/ceph-osd-prestart.sh --id ${daemonId} --cluster ${clusterName}"
-          ;
+          "${ceph.lib}/libexec/ceph/ceph-osd-prestart.sh --id ${daemonId} --cluster ${clusterName}";
         RestartSec = "20s";
         PrivateDevices = "no"; # osd needs disk access
       } // optionalAttrs (daemonType == "mon") { RestartSec = "10"; };
@@ -102,8 +101,7 @@ let
   makeTarget = (daemonType: {
     "ceph-${daemonType}" = {
       description =
-        "Ceph target allowing to start/stop all ceph-${daemonType} services at once"
-        ;
+        "Ceph target allowing to start/stop all ceph-${daemonType} services at once";
       partOf = [ "ceph.target" ];
       wantedBy = [ "ceph.target" ];
       before = [ "ceph.target" ];
@@ -402,8 +400,7 @@ in {
       {
         assertion = cfg.mds.enable == true -> cfg.mds.daemons != [ ];
         message =
-          "have to set id of atleast one MDS if you're going to enable Metadata Service"
-          ;
+          "have to set id of atleast one MDS if you're going to enable Metadata Service";
       }
       {
         assertion = cfg.osd.enable == true -> cfg.osd.daemons != [ ];
@@ -468,8 +465,7 @@ in {
         targets = [ {
           ceph = {
             description =
-              "Ceph target allowing to start/stop all ceph service instances at once"
-              ;
+              "Ceph target allowing to start/stop all ceph service instances at once";
             wantedBy = [ "multi-user.target" ];
             unitConfig.StopWhenUnneeded = true;
           };

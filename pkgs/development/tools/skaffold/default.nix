@@ -48,8 +48,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://skaffold.dev/";
     changelog =
-      "https://github.com/GoogleContainerTools/skaffold/releases/tag/v${version}"
-      ;
+      "https://github.com/GoogleContainerTools/skaffold/releases/tag/v${version}";
     description = "Easy and Repeatable Kubernetes Development";
     longDescription = ''
       Skaffold is a command line tool that facilitates continuous development for Kubernetes applications.

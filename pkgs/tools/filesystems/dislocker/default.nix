@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
     # https://github.com/Aorimn/dislocker/pull/246
     (fetchpatch {
       url =
-        "https://github.com/Aorimn/dislocker/commit/7744f87c75fcfeeb414d0957771042b10fb64e62.diff"
-        ;
+        "https://github.com/Aorimn/dislocker/commit/7744f87c75fcfeeb414d0957771042b10fb64e62.diff";
       sha256 = "0bpyccbbfjsidsrd2q9qylb95nvi8g3glb3jss7xmhywj86bhzr5";
     })
   ];

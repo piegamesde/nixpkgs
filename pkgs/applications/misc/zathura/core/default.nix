@@ -30,8 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "https://pwmt.org/projects/zathura/download/zathura-${finalAttrs.version}.tar.xz"
-      ;
+      "https://pwmt.org/projects/zathura/download/zathura-${finalAttrs.version}.tar.xz";
     sha256 = "15314m9chmh5jkrd9vk2h2gwcwkcffv2kjcxkd4v3wmckz5sfjy6";
   };
 

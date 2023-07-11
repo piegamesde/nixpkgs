@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "C++ program to generate waveform data and render waveform images from audio files"
-      ;
+      "C++ program to generate waveform data and render waveform images from audio files";
     longDescription = ''
       audiowaveform is a C++ command-line application that generates waveform data from either MP3, WAV, FLAC, or Ogg Vorbis format audio files.
       Waveform data can be used to produce a visual rendering of the audio, similar in appearance to audio editing applications.

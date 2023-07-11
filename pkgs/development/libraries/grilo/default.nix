@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://gitlab.gnome.org/GNOME/grilo/-/commit/b0d75be00b06cb0163dabbedecf9122a55273349.patch"
-      ;
+      "https://gitlab.gnome.org/GNOME/grilo/-/commit/b0d75be00b06cb0163dabbedecf9122a55273349.patch";
     sha256 = "sha256-Hwnc3TLN6n3w/MAFcprHv7nbTcwRfI0cmfDriNLnAvQ=";
   }) ];
 
@@ -85,8 +84,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Projects/Grilo";
     description =
-      "Framework that provides access to various sources of multimedia content, using a pluggable system"
-      ;
+      "Framework that provides access to various sources of multimedia content, using a pluggable system";
     maintainers = teams.gnome.members;
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;

@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://kokkinizita.linuxaudio.org/linuxaudio/downloads/${pname}-${version}.tar.bz2"
-      ;
+      "https://kokkinizita.linuxaudio.org/linuxaudio/downloads/${pname}-${version}.tar.bz2";
     sha256 = "sha256-EBF2oL1AfKt7/9Mm6NaIbBtlshK8M/LvuXsD+SbEeQc=";
   };
 
@@ -34,8 +33,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "command line Jack clients to transmit full quality multichannel audio over a local IP network"
-      ;
+      "command line Jack clients to transmit full quality multichannel audio over a local IP network";
     homepage = "http://kokkinizita.linuxaudio.org/linuxaudio/index.html";
     license = licenses.gpl3;
     maintainers = [ maintainers.magnetophon ];

@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/acaudwell/Gource/releases/download/${pname}-${version}/${pname}-${version}.tar.gz"
-      ;
+      "https://github.com/acaudwell/Gource/releases/download/${pname}-${version}/${pname}-${version}.tar.gz";
     hash = "sha256-HcvO32XSz01p/gtjPlTCApJsCLgpvK0Lc+r54pzW+uU=";
   };
 

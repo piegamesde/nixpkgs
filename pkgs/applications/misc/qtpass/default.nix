@@ -49,8 +49,7 @@ mkDerivation rec {
     (fetchpatch {
       name = "qtpass-Dont-hardcode-pass-otp-usr-lib-path.patch";
       url =
-        "https://github.com/IJHack/QtPass/commit/2ca9f0ec5a8d709c97a2433c5cd814040c82d4f3.patch"
-        ;
+        "https://github.com/IJHack/QtPass/commit/2ca9f0ec5a8d709c97a2433c5cd814040c82d4f3.patch";
       sha256 = "0ljlvqxvarrz2a4j71i66aflrxi84zirb6cg9kvygnvhvm1zbc7d";
     })
   ];

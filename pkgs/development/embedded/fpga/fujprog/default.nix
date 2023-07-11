@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "JTAG programmer for the ULX3S and ULX2S open hardware FPGA development boards"
-      ;
+      "JTAG programmer for the ULX3S and ULX2S open hardware FPGA development boards";
     homepage = "https://github.com/kost/fujprog";
     license = licenses.bsd2;
     maintainers = with maintainers; [ trepetti ];

@@ -161,8 +161,7 @@ in let
       meta = with lib; {
         homepage = "https://libav.org/";
         description =
-          "A complete, cross-platform solution to record, convert and stream audio and video (fork of ffmpeg)"
-          ;
+          "A complete, cross-platform solution to record, convert and stream audio and video (fork of ffmpeg)";
         license = with licenses;
           if enableUnfree then
             unfree # ToDo: redistributable or not?

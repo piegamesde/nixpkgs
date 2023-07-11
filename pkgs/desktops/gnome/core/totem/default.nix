@@ -46,22 +46,19 @@ stdenv.mkDerivation rec {
     # Lower X11 dependency version since we do not have it.
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/totem/-/commit/140d9eea70c3101ef3234abb4de5974cb84b13db.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/totem/-/commit/140d9eea70c3101ef3234abb4de5974cb84b13db.patch";
       sha256 = "ohppxqMiH8Ksc9B2e3AXighfM6KVN+RNXYL+fLELSN8=";
       revert = true;
     })
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/totem/-/commit/2610b4536f73493587e4a5a38e01c9961fcabb96.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/totem/-/commit/2610b4536f73493587e4a5a38e01c9961fcabb96.patch";
       sha256 = "nPfzS+LQuAlyQOz67hCdtx93w2frhgWlg1KGX5bEU38=";
       revert = true;
     })
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/totem/-/commit/5b871aee5292f25bbf39dca18045732e979e7a68.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/totem/-/commit/5b871aee5292f25bbf39dca18045732e979e7a68.patch";
       sha256 = "LqQLdgyZkIVc+/hQ5sdBLqhtjCVIMDSs9tjVXwMFodg=";
       revert = true;
     })
@@ -144,8 +141,8 @@ stdenv.mkDerivation rec {
     homepage = "https://wiki.gnome.org/Apps/Videos";
     description = "Movie player for the GNOME desktop based on GStreamer";
     maintainers = teams.gnome.members;
-    license = licenses.gpl2Plus
-      ; # with exception to allow use of non-GPL compatible plug-ins
+    license =
+      licenses.gpl2Plus; # with exception to allow use of non-GPL compatible plug-ins
     platforms = platforms.linux;
   };
 }

@@ -24,8 +24,7 @@ let
   version = "15.2.2";
   src = fetchzip {
     url =
-      "https://github.com/balena-io/balena-cli/releases/download/v${version}/balena-cli-v${version}-${plat}-standalone.zip"
-      ;
+      "https://github.com/balena-io/balena-cli/releases/download/v${version}/balena-cli-v${version}-${plat}-standalone.zip";
     inherit sha256;
   };
 in

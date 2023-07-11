@@ -49,18 +49,15 @@ let
         # must be backported
         (fetchGitilesPatch {
           name =
-            "fix-mismatch-between-header-and-implementation-of-bn_sqr_comba8.patch"
-            ;
+            "fix-mismatch-between-header-and-implementation-of-bn_sqr_comba8.patch";
           url =
-            "https://boringssl.googlesource.com/boringssl/+/139adff9b27eaf0bdaac664ec4c9a7db2fe3f920"
-            ;
+            "https://boringssl.googlesource.com/boringssl/+/139adff9b27eaf0bdaac664ec4c9a7db2fe3f920";
           sha256 = "05sp602dvh50v46jkzmh4sf4wqnq5bwy553596g2rhxg75bailjj";
         })
         (fetchGitilesPatch {
           name = "use-an-unsized-helper-for-truncated-SHA-512-variants.patch";
           url =
-            "https://boringssl.googlesource.com/boringssl/+/a24ab549e6ae246b391155d7bed3790ac0e07de2"
-            ;
+            "https://boringssl.googlesource.com/boringssl/+/a24ab549e6ae246b391155d7bed3790ac0e07de2";
           sha256 = "0483jkpg4g64v23ln2blb74xnmzdjcn3r7w4zk7nfg8j3q5f9lxm";
         })
         /* # the following patch is too complex, so we will modify the build flags
@@ -75,8 +72,7 @@ let
         (fetchGitilesPatch {
           name = "fix-array-parameter-warnings.patch";
           url =
-            "https://boringssl.googlesource.com/boringssl/+/92c6fbfc4c44dc8462d260d836020d2b793e7804"
-            ;
+            "https://boringssl.googlesource.com/boringssl/+/92c6fbfc4c44dc8462d260d836020d2b793e7804";
           sha256 = "0h4sl95i8b0dj0na4ngf50wg54raxyjxl1zzwdc810abglp10vnv";
         })
       ];

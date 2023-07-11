@@ -29,8 +29,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A tool for building final distributable artifacts and uploading them to an archive"
-      ;
+      "A tool for building final distributable artifacts and uploading them to an archive";
     homepage = "https://github.com/axodotdev/cargo-dist";
     changelog =
       "https://github.com/axodotdev/cargo-dist/blob/${src.rev}/CHANGELOG.md";

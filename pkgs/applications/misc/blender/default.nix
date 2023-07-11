@@ -74,8 +74,7 @@ let
   optix = fetchzip {
     # url taken from the archlinux blender PKGBUILD
     url =
-      "https://developer.download.nvidia.com/redist/optix/v7.3/OptiX-7.3.0-Include.zip"
-      ;
+      "https://developer.download.nvidia.com/redist/optix/v7.3/OptiX-7.3.0-Include.zip";
     sha256 = "0max1j4822mchj0xpz9lqzh91zkmvsn4py0r174cvqfz8z8ykjk8";
   };
 

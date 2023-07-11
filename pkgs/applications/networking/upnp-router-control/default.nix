@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://launchpad.net/upnp-router-control/trunk/${version}/+download/upnp-router-control-${version}.tar.gz"
-      ;
+      "https://launchpad.net/upnp-router-control/trunk/${version}/+download/upnp-router-control-${version}.tar.gz";
     hash = "sha256-bYbw4Z5hDlFTSGk5XE2gnnXRPYMl4IzV+kzlwfR98yg=";
   };
 

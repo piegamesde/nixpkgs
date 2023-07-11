@@ -22,8 +22,7 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     # python3.10 compat; https://github.com/tomerfiliba/reedsolomon/pull/38
     url =
-      "https://github.com/tomerfiliba/reedsolomon/commit/63e5bd9fc3ca503990c212eb2c77c10589e6d6c3.patch"
-      ;
+      "https://github.com/tomerfiliba/reedsolomon/commit/63e5bd9fc3ca503990c212eb2c77c10589e6d6c3.patch";
     hash = "sha256-47g+jUsJEAyqGnlzRA1oSyc2XFPUOfH0EW+vcOJzsxI=";
   }) ];
 

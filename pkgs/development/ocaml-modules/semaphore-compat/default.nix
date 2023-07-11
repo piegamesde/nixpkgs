@@ -10,8 +10,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/semaphore-compat/releases/download/${version}/semaphore-compat-${version}.tbz"
-      ;
+      "https://github.com/mirage/semaphore-compat/releases/download/${version}/semaphore-compat-${version}.tbz";
     sha256 = "139c5rxdp4dg1jcwyyxvhxr8213l1xdl2ab0mc288rfcppsiyxrb";
   };
 

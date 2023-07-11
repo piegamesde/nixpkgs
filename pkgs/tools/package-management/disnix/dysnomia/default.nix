@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
   version = "0.10.1";
   src = fetchurl {
     url =
-      "https://github.com/svanderburg/dysnomia/releases/download/dysnomia-${version}/dysnomia-${version}.tar.gz"
-      ;
+      "https://github.com/svanderburg/dysnomia/releases/download/dysnomia-${version}/dysnomia-${version}.tar.gz";
     sha256 = "0w9601g8zpaxrmynx6mh8zz85ldpb8psp7cc6ls8v3srjpj1l5n3";
   };
 

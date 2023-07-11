@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://ibiblioPubLinux/system/network/finger/${srcName}-${version}.tar.gz"
-      ;
+      "mirror://ibiblioPubLinux/system/network/finger/${srcName}-${version}.tar.gz";
     hash = "sha256-hIhdZo0RfvUOAccDSkXYND10fOxiEuQOjQgVG8GOE/o=";
   };
 

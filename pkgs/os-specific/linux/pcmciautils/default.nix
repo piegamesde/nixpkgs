@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://kernel.org/pub/linux/utils/kernel/pcmcia/pcmciautils-${version}.tar.gz"
-      ;
+      "https://kernel.org/pub/linux/utils/kernel/pcmcia/pcmciautils-${version}.tar.gz";
     sha256 = "0sfm3w2n73kl5w7gb1m6q8gy5k4rgwvzz79n6yhs9w3sag3ix8sk";
   };
 
@@ -64,8 +63,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://www.kernel.org/pub/linux/utils/kernel/pcmcia/";
     longDescription =
-      "\n      PCMCIAutils contains the initialization tools necessary to allow\n      the PCMCIA subsystem to behave (almost) as every other\n      hotpluggable bus system.\n    "
-      ;
+      "\n      PCMCIAutils contains the initialization tools necessary to allow\n      the PCMCIA subsystem to behave (almost) as every other\n      hotpluggable bus system.\n    ";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
   };

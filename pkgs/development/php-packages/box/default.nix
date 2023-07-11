@@ -15,8 +15,7 @@ mkDerivation {
 
   src = fetchurl {
     url =
-      "https://github.com/box-project/box/releases/download/${version}/box.phar"
-      ;
+      "https://github.com/box-project/box/releases/download/${version}/box.phar";
     sha256 = "sha256-9pPhqFq9t3MKI/y6/7iCYB8ddWFrafGVcV/k+Exb+KQ=";
   };
 

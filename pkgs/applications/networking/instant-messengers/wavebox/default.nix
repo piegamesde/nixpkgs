@@ -38,8 +38,7 @@ stdenv.mkDerivation {
   inherit version;
   src = fetchurl {
     url =
-      "https://github.com/wavebox/waveboxapp/releases/download/v${version}/${tarball}"
-      ;
+      "https://github.com/wavebox/waveboxapp/releases/download/v${version}/${tarball}";
     sha256 = "0z04071lq9bfyrlg034fmvd4346swgfhxbmsnl12m7c2m2b9z784";
   };
 

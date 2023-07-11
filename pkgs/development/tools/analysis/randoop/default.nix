@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/randoop/randoop/releases/download/v${version}/${pname}-${version}.zip"
-      ;
+      "https://github.com/randoop/randoop/releases/download/v${version}/${pname}-${version}.zip";
     sha256 = "sha256-lcYI0Yns/R5VeOUG68Xe8h1BO8wlKvL1CZIqzWkgsqo=";
   };
 

@@ -50,8 +50,7 @@ let
     vers: tag: hash:
     fetchurl {
       url =
-        "https://github.com/electron/electron/releases/download/v${vers}/electron-v${vers}-${tag}.zip"
-        ;
+        "https://github.com/electron/electron/releases/download/v${vers}/electron-v${vers}-${tag}.zip";
       sha256 = hash;
     }
     ;
@@ -60,8 +59,7 @@ let
     vers: hash:
     fetchurl {
       url =
-        "https://artifacts.electronjs.org/headers/dist/v${vers}/node-v${vers}-headers.tar.gz"
-        ;
+        "https://artifacts.electronjs.org/headers/dist/v${vers}/node-v${vers}-headers.tar.gz";
       sha256 = hash;
     }
     ;

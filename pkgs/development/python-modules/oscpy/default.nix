@@ -22,8 +22,7 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "improve-reliability-of-test_intercept_errors.patch";
       url =
-        "https://github.com/kivy/oscpy/commit/2bc114a97692aef28f8b84d52d0d5a41554a7d93.patch"
-        ;
+        "https://github.com/kivy/oscpy/commit/2bc114a97692aef28f8b84d52d0d5a41554a7d93.patch";
       hash = "sha256-iT7cB3ChWD1o0Zx7//Czkk8TaU1oTU1pRQWvPeIpeWY=";
     })
   ];

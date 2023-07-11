@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Easy to use, powerful, and reliable system to process and distribute data"
-      ;
+      "Easy to use, powerful, and reliable system to process and distribute data";
     longDescription = ''
       Apache NiFi supports powerful and scalable directed graphs of data routing,
       transformation, and system mediation logic.

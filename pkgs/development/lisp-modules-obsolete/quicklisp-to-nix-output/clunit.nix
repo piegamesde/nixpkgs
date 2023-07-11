@@ -12,8 +12,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/clunit/2017-10-19/clunit-20171019-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/clunit/2017-10-19/clunit-20171019-git.tgz";
     sha256 = "1rapyh0fbjnksj8j3y6imzya1kw80882w18j0fv9iq1hlp718zs5";
   };
 

@@ -45,8 +45,7 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "switch-to-poetry-core.patch";
       url =
-        "https://github.com/rbw/pysnow/commit/f214a203432b329df5317f3a25b2c0d9b55a9029.patch"
-        ;
+        "https://github.com/rbw/pysnow/commit/f214a203432b329df5317f3a25b2c0d9b55a9029.patch";
       hash = "sha256-ViRR+9WStlaQwyrLGk/tMOUAcEMY+kB61ZEKGMQJ30o=";
     })
   ];

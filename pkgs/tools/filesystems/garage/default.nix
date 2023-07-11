@@ -77,8 +77,7 @@ let
 
       meta = {
         description =
-          "S3-compatible object store for small self-hosted geo-distributed deployments"
-          ;
+          "S3-compatible object store for small self-hosted geo-distributed deployments";
         homepage = "https://garagehq.deuxfleurs.fr";
         license = lib.licenses.agpl3Only;
         maintainers = with lib.maintainers; [

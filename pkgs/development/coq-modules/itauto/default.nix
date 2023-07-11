@@ -45,8 +45,7 @@ mkCoqDerivation rec {
 
   meta = with lib; {
     description =
-      "A reflexive SAT solver parameterised by a leaf tactic and Nelson-Oppen support"
-      ;
+      "A reflexive SAT solver parameterised by a leaf tactic and Nelson-Oppen support";
     maintainers = with maintainers; [ siraben ];
     license = licenses.gpl3Plus;
   };

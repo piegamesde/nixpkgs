@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
     # https://github.com/eosrei/twemoji-color-font/pull/82
     (fetchpatch {
       url =
-        "https://github.com/eosrei/twemoji-color-font/commit/208ad63c2ceb38c528b5237abeb2b85ceedc1d37.patch"
-        ;
+        "https://github.com/eosrei/twemoji-color-font/commit/208ad63c2ceb38c528b5237abeb2b85ceedc1d37.patch";
       sha256 = "7tDWIkpcdir1V6skgXSM3r0FwHy0F6PyJ07OPRsSStA=";
       postFetch = ''
         substituteInPlace $out \

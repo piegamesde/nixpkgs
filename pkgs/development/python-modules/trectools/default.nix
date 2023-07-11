@@ -54,8 +54,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/joaopalotti/trectools";
     description =
-      "Library for assisting Information Retrieval (IR) practitioners with TREC-like campaigns"
-      ;
+      "Library for assisting Information Retrieval (IR) practitioners with TREC-like campaigns";
     license = licenses.bsdOriginal;
     maintainers = with maintainers; [ MoritzBoehme ];
   };

@@ -27,8 +27,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "YAML parser/emitter that supports roundtrip preservation of comments, seq/map flow style, and map key order"
-      ;
+      "YAML parser/emitter that supports roundtrip preservation of comments, seq/map flow style, and map key order";
     homepage = "https://sourceforge.net/projects/ruamel-yaml/";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];

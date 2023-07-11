@@ -47,8 +47,7 @@ stdenv.mkDerivation {
 
   meta = {
     description =
-      "An editor that allows the interactive creation of footprints electronic components"
-      ;
+      "An editor that allows the interactive creation of footprints electronic components";
     homepage = "http://projects.qi-hardware.com/index.php/p/fped/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ expipiplus1 ];

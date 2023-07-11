@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://http.debian.net/debian/pool/main/f/fakeroot/fakeroot_${version}.orig.tar.gz"
-      ;
+      "http://http.debian.net/debian/pool/main/f/fakeroot/fakeroot_${version}.orig.tar.gz";
     sha256 = "sha256-j7uvt4DJFz46zkoEr7wdkA8zfzIWiDk59cfbNDG+fCA=";
   };
 
@@ -25,8 +24,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "also-wrap-stat-library-call.patch";
       url =
-        "https://sources.debian.org/data/main/f/fakeroot/1.29-1/debian/patches/also-wrap-stat-library-call.patch"
-        ;
+        "https://sources.debian.org/data/main/f/fakeroot/1.29-1/debian/patches/also-wrap-stat-library-call.patch";
       sha256 = "0p7lq6m31k3rqsnjbi06a8ykdqa3cp4y5ngsjyk3q1269gx59x8b";
     })
 
@@ -35,15 +33,13 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "do-not-redefine-id_t.patch";
       url =
-        "https://git.alpinelinux.org/aports/plain/main/fakeroot/do-not-redefine-id_t.patch?id=f68c541324ad07cc5b7f5228501b5f2ce4b36158"
-        ;
+        "https://git.alpinelinux.org/aports/plain/main/fakeroot/do-not-redefine-id_t.patch?id=f68c541324ad07cc5b7f5228501b5f2ce4b36158";
       sha256 = "sha256-i9PoWriSrQ7kLZzbvZT3Kq1oXzK9mTyBqq808BGepOw=";
     })
     (fetchpatch {
       name = "fakeroot-no64.patch";
       url =
-        "https://git.alpinelinux.org/aports/plain/main/fakeroot/fakeroot-no64.patch?id=f68c541324ad07cc5b7f5228501b5f2ce4b36158"
-        ;
+        "https://git.alpinelinux.org/aports/plain/main/fakeroot/fakeroot-no64.patch?id=f68c541324ad07cc5b7f5228501b5f2ce4b36158";
       sha256 = "sha256-NCDaB4nK71gvz8iQxlfaQTazsG0SBUQ/RAnN+FqwKkY=";
     })
   ];

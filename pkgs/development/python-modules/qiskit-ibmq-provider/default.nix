@@ -100,8 +100,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Qiskit provider for accessing the quantum devices and simulators at IBMQ"
-      ;
+      "Qiskit provider for accessing the quantum devices and simulators at IBMQ";
     homepage = "https://github.com/Qiskit/qiskit-ibmq-provider";
     changelog = "https://qiskit.org/documentation/release_notes.html";
     license = licenses.asl20;

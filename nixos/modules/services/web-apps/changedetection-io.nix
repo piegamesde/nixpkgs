@@ -124,8 +124,7 @@ in {
       assertion =
         !((cfg.webDriverSupport == true) && (cfg.playwrightSupport == true));
       message =
-        "'services.changedetection-io.webDriverSupport' and 'services.changedetection-io.playwrightSupport' cannot be used together."
-        ;
+        "'services.changedetection-io.webDriverSupport' and 'services.changedetection-io.playwrightSupport' cannot be used together.";
     } ];
 
     systemd =

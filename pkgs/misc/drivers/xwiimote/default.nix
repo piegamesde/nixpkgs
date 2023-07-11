@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/dvdhrm/xwiimote/releases/download/xwiimote-${version}/xwiimote-${version}.tar.xz"
-      ;
+      "https://github.com/dvdhrm/xwiimote/releases/download/xwiimote-${version}/xwiimote-${version}.tar.xz";
     sha256 = "1g9cbhblll47l300zr999xr51x2g98y49l222f77fhswd12kjzhd";
   };
 

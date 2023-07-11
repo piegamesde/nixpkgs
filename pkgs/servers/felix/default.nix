@@ -9,8 +9,7 @@ stdenv.mkDerivation rec {
   version = "7.0.1";
   src = fetchurl {
     url =
-      "mirror://apache/felix/org.apache.felix.main.distribution-${version}.tar.gz"
-      ;
+      "mirror://apache/felix/org.apache.felix.main.distribution-${version}.tar.gz";
     sha256 = "sha256-WypiOdJhqKngIFVNf/XXAUDRdS8rANxWrcT846hcWTo=";
   };
   buildCommand = ''

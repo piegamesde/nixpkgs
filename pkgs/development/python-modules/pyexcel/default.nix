@@ -35,8 +35,7 @@ buildPythonPackage rec {
 
   meta = {
     description =
-      "Single API for reading, manipulating and writing data in csv, ods, xls, xlsx and xlsm files"
-      ;
+      "Single API for reading, manipulating and writing data in csv, ods, xls, xlsx and xlsm files";
     homepage = "http://docs.pyexcel.org/";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ jtojnar ];

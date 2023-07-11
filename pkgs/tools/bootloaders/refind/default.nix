@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/refind/${version}/${pname}-src-${version}.tar.gz"
-      ;
+      "mirror://sourceforge/project/refind/${version}/${pname}-src-${version}.tar.gz";
     sha256 = "1lfgqqiyl6isy25wrxzyi3s334ii057g88714igyjjmxh47kygks";
   };
 
@@ -49,8 +48,7 @@ stdenv.mkDerivation rec {
     # Upstream: https://sourceforge.net/p/refind/code/merge-requests/45/
     (fetchpatch {
       url =
-        "https://github.com/samueldr/rEFInd/commit/29cd79dedabf84d5ddfe686f5692278cae6cc4d6.patch"
-        ;
+        "https://github.com/samueldr/rEFInd/commit/29cd79dedabf84d5ddfe686f5692278cae6cc4d6.patch";
       sha256 = "sha256-/jAmOwvMmFWazyukN+ru1tQDiIBtgGk/e/pczsl1Xc8=";
     })
   ];

@@ -93,8 +93,7 @@ import ./make-test-python.nix ({
       }:
       let
         configWithoutJobs =
-          "${nodes.master.config.system.build.toplevel}/specialisation/noJenkinsJobs"
-          ;
+          "${nodes.master.config.system.build.toplevel}/specialisation/noJenkinsJobs";
         jenkinsPort = nodes.master.config.services.jenkins.port;
         jenkinsUrl = "http://localhost:${toString jenkinsPort}";
       in ''

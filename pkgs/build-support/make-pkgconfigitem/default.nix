@@ -91,6 +91,5 @@ writeTextFile {
   destination = "/lib/pkgconfig/${name}.pc";
   text = builtins.concatStringsSep "\n" content;
   checkPhase = ''
-    ${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config --validate "$target"''
-    ;
+    ${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config --validate "$target"'';
 }

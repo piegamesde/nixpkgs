@@ -54,8 +54,7 @@ let
       requireFile {
         name = jceName;
         url =
-          "http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html"
-          ;
+          "http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html";
         sha256 = sha256JCE;
       }
     else
@@ -92,8 +91,7 @@ in let
       requireFile {
         name = "jdk-${productVersion}u${patchVersion}-${platformName}.tar.gz";
         url =
-          "http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html"
-          ;
+          "http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html";
         sha256 = sha256.${stdenv.hostPlatform.system};
       }
       ;

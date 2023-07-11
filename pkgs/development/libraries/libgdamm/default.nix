@@ -42,8 +42,8 @@ stdenv.mkDerivation rec {
   passthru = {
     updateScript = gnome.updateScript {
       packageName = pname;
-      versionPolicy = "none"
-        ; # Should be odd-unstable but stable version has not been released yet.
+      versionPolicy =
+        "none"; # Should be odd-unstable but stable version has not been released yet.
     };
   };
 

@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
     else
       fetchurl {
         url =
-          "https://github.com/containers/libkrunfw/releases/download/v${version}/v${version}-with_macos_prebuilts.tar.gz"
-          ;
+          "https://github.com/containers/libkrunfw/releases/download/v${version}/v${version}-with_macos_prebuilts.tar.gz";
         hash = "sha256-XcdsK8L5NwMgelSMhE2YKYxaAin/3p/+GrljGGZpK5Y=";
       }
     ;

@@ -44,8 +44,7 @@ buildPythonPackage rec {
     description = "Python module o control Lutron Caseta devices";
     homepage = "https://github.com/gurumitts/pylutron-caseta";
     changelog =
-      "https://github.com/gurumitts/pylutron-caseta/blob/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/gurumitts/pylutron-caseta/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

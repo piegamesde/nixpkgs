@@ -46,8 +46,7 @@ with lib;
 
     systemd.packages = [ pkgs.glib-networking ];
 
-    environment.sessionVariables.GIO_EXTRA_MODULES = [ "${pkgs.glib-networking.out}/lib/gio/modules" ]
-      ;
+    environment.sessionVariables.GIO_EXTRA_MODULES = [ "${pkgs.glib-networking.out}/lib/gio/modules" ];
 
   };
 

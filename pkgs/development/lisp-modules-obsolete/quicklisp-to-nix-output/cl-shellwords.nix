@@ -14,8 +14,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-shellwords/2015-09-23/cl-shellwords-20150923-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/cl-shellwords/2015-09-23/cl-shellwords-20150923-git.tgz";
     sha256 = "1rb0ajpl2lai6bj4x0p3wf0cnf51nnyidhca4lpqp1w1wf1vkcqk";
   };
 

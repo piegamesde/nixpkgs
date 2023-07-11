@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
     exec = "@out@/bin/${pname}";
     icon = pname;
     comment =
-      "An open-source, single-player, role-playing roguelike game set in the world of Eyal."
-      ;
+      "An open-source, single-player, role-playing roguelike game set in the world of Eyal.";
     type = "Application";
     categories = [
       "Game"
@@ -67,8 +66,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = false;
 
   env.NIX_CFLAGS_COMPILE =
-    "-I${SDL2.dev}/include/SDL2 -I${SDL2_image}/include/SDL2 -I${SDL2_ttf}/include/SDL2"
-    ;
+    "-I${SDL2.dev}/include/SDL2 -I${SDL2_image}/include/SDL2 -I${SDL2_ttf}/include/SDL2";
 
   makeFlags = [ "config=release" ];
 

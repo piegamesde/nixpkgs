@@ -19,8 +19,7 @@ buildGoModule rec {
 
   webapp = fetchurl {
     url =
-      "https://releases.mattermost.com/${version}/mattermost-${version}-linux-amd64.tar.gz"
-      ;
+      "https://releases.mattermost.com/${version}/mattermost-${version}-linux-amd64.tar.gz";
     hash = "sha256-4VOEDrCKZI5HR5U2m49Dfbs5Mc+i8l4N41jIy8+5D1k=";
   };
 
@@ -51,8 +50,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Mattermost is an open source platform for secure collaboration across the entire software development lifecycle"
-      ;
+      "Mattermost is an open source platform for secure collaboration across the entire software development lifecycle";
     homepage = "https://www.mattermost.org";
     license = with licenses; [
       agpl3

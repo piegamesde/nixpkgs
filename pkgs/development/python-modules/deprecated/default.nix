@@ -25,8 +25,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/tantale/deprecated";
     description =
-      "Python @deprecated decorator to deprecate old python classes, functions or methods"
-      ;
+      "Python @deprecated decorator to deprecate old python classes, functions or methods";
     license = licenses.mit;
     maintainers = with maintainers; [ tilpner ];
   };

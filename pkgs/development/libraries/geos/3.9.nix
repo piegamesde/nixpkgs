@@ -11,8 +11,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "https://download.osgeo.org/geos/${finalAttrs.pname}-${finalAttrs.version}.tar.bz2"
-      ;
+      "https://download.osgeo.org/geos/${finalAttrs.pname}-${finalAttrs.version}.tar.bz2";
     sha256 = "sha256-RKWpviHX1HNDa/Yhwt3MPPWou+PHhuEyKWGKO52GEpc=";
   };
 

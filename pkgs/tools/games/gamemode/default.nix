@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
     # fix build with glibc >=2.36 (declaration of pidfd_open)
     (fetchpatch {
       url =
-        "https://github.com/FeralInteractive/gamemode/commit/4934191b1928ef695c3e8af21e75781f8591745f.patch"
-        ;
+        "https://github.com/FeralInteractive/gamemode/commit/4934191b1928ef695c3e8af21e75781f8591745f.patch";
       sha256 = "sha256-pWf2NGbd3gEJFwVP/EIJRbTD29V7keTQHy388enktsY=";
     })
   ];

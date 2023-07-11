@@ -91,11 +91,9 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/agronholm/anyio/blob/${src.rev}/docs/versionhistory.rst"
-      ;
+      "https://github.com/agronholm/anyio/blob/${src.rev}/docs/versionhistory.rst";
     description =
-      "High level compatibility layer for multiple asynchronous event loop implementations on Python"
-      ;
+      "High level compatibility layer for multiple asynchronous event loop implementations on Python";
     homepage = "https://github.com/agronholm/anyio";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];

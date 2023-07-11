@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
   srcs = [
     (fetchurl {
       url =
-        "http://ftp.de.debian.org/debian/pool/main/h/hfsprogs/hfsprogs_${version}-11.debian.tar.gz"
-        ;
+        "http://ftp.de.debian.org/debian/pool/main/h/hfsprogs/hfsprogs_${version}-11.debian.tar.gz";
       sha256 =
         "62d9b8599c66ebffbc57ce5d776e20b41341130d9b27341d63bda08460ebde7c";
     })

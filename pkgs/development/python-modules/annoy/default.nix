@@ -27,8 +27,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Approximate Nearest Neighbors in C++/Python optimized for memory usage and loading/saving to disk"
-      ;
+      "Approximate Nearest Neighbors in C++/Python optimized for memory usage and loading/saving to disk";
     homepage = "https://github.com/spotify/annoy";
     changelog = "https://github.com/spotify/annoy/releases/tag/v${version}";
     license = licenses.asl20;

@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Small, fast and powerful modular synthesizer with pattern-based sequencer"
-      ;
+      "Small, fast and powerful modular synthesizer with pattern-based sequencer";
     license = licenses.unfreeRedistributable;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     homepage = "http://www.warmplace.ru/soft/sunvox/";

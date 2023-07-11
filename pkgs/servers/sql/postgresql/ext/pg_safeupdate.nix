@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A simple extension to PostgreSQL that requires criteria for UPDATE and DELETE"
-      ;
+      "A simple extension to PostgreSQL that requires criteria for UPDATE and DELETE";
     homepage = "https://github.com/eradman/pg-safeupdate";
     platforms = postgresql.meta.platforms;
     license = licenses.postgresql;

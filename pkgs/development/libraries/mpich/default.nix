@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.mpich.org/static/downloads/${version}/mpich-${version}.tar.gz"
-      ;
+      "https://www.mpich.org/static/downloads/${version}/mpich-${version}.tar.gz";
     sha256 = "sha256-7jBHGzXvh/TIj4caXirTgRzZxN8y/U8ThEMHL/QoTKI=";
   };
 
@@ -71,8 +70,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.mcs.anl.gov/mpi/mpich2/";
     license = {
       url =
-        "http://git.mpich.org/mpich.git/blob/a385d6d0d55e83c3709ae851967ce613e892cd21:/COPYRIGHT"
-        ;
+        "http://git.mpich.org/mpich.git/blob/a385d6d0d55e83c3709ae851967ce613e892cd21:/COPYRIGHT";
       fullName = "MPICH license (permissive)";
     };
     maintainers = [ maintainers.markuskowa ];

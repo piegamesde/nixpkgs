@@ -234,8 +234,7 @@ in {
       assertions = [ {
         assertion = cfg.database.createLocally -> cfg.database.user == cfg.user;
         message =
-          "services.dolibarr.database.user must match services.dolibarr.user if the database is to be automatically provisioned"
-          ;
+          "services.dolibarr.database.user must match services.dolibarr.user if the database is to be automatically provisioned";
       } ];
 
       services.dolibarr.settings = {

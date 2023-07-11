@@ -550,14 +550,12 @@ in {
         assertion =
           (cfg.database.host != null) -> (cfg.database.passwordFile != null);
         message =
-          "When services.gitlab.database.host is customized, services.discourse.database.passwordFile must be set!"
-          ;
+          "When services.gitlab.database.host is customized, services.discourse.database.passwordFile must be set!";
       }
       {
         assertion = cfg.hostname != "";
         message =
-          "Could not automatically determine hostname, set service.discourse.hostname manually."
-          ;
+          "Could not automatically determine hostname, set service.discourse.hostname manually.";
       }
       {
         assertion = cfg.database.ignorePostgresqlVersion
@@ -879,8 +877,7 @@ in {
         ProtectHome = "read-only";
 
         ExecStart =
-          "${cfg.package.rubyEnv}/bin/bundle exec config/unicorn_launcher -E production -c config/unicorn.conf.rb"
-          ;
+          "${cfg.package.rubyEnv}/bin/bundle exec config/unicorn_launcher -E production -c config/unicorn.conf.rb";
       };
     };
 

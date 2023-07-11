@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/dssi/dssi/${version}/${pname}-${version}.tar.gz"
-      ;
+      "mirror://sourceforge/project/dssi/dssi/${version}/${pname}-${version}.tar.gz";
     sha256 = "0kl1hzhb7cykzkrqcqgq1dk4xcgrcxv0jja251aq4z4l783jpj7j";
   };
 

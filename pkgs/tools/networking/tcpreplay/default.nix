@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/appneta/tcpreplay/releases/download/v${version}/tcpreplay-${version}.tar.gz"
-      ;
+      "https://github.com/appneta/tcpreplay/releases/download/v${version}/tcpreplay-${version}.tar.gz";
     sha256 = "sha256-IWMxaS4QwS1/JXlF53eSjXm9CREX8+T/tbMS6yygv3w=";
   };
 

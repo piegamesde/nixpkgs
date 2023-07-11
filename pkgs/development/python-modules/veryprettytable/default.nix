@@ -22,8 +22,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A simple Python library for easily displaying tabular data in a visually appealing ASCII table format"
-      ;
+      "A simple Python library for easily displaying tabular data in a visually appealing ASCII table format";
     homepage = "https://github.com/smeggingsmegger/VeryPrettyTable";
     license = licenses.free;
   };

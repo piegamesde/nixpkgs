@@ -75,8 +75,7 @@ buildPythonPackage rec {
     description = "Build a book with Jupyter Notebooks and Sphinx";
     homepage = "https://jupyterbook.org/";
     changelog =
-      "https://github.com/executablebooks/jupyter-book/blob/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/executablebooks/jupyter-book/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ marsam ];
   };

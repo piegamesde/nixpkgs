@@ -111,8 +111,7 @@ lib.recurseIntoAttrs {
   testEqualContents = lib.recurseIntoAttrs {
     happy = testers.testEqualContents {
       assertion =
-        "The same directory contents at different paths are recognized as equal"
-        ;
+        "The same directory contents at different paths are recognized as equal";
       expected = runCommand "expected" { } ''
         mkdir -p $out/c
         echo a >$out/a
@@ -130,8 +129,7 @@ lib.recurseIntoAttrs {
     unequalExe = runCommand "testEqualContents-unequalExe" {
       log = testers.testBuildFailure (testers.testEqualContents {
         assertion =
-          "The same directory contents at different paths are recognized as equal"
-          ;
+          "The same directory contents at different paths are recognized as equal";
         expected = runCommand "expected" { } ''
           mkdir -p $out/c
           echo a >$out/a
@@ -166,8 +164,7 @@ lib.recurseIntoAttrs {
     fileDiff = runCommand "testEqualContents-fileDiff" {
       log = testers.testBuildFailure (testers.testEqualContents {
         assertion =
-          "The same directory contents at different paths are recognized as equal"
-          ;
+          "The same directory contents at different paths are recognized as equal";
         expected = runCommand "expected" { } ''
           mkdir -p $out/c
           echo a >$out/a
@@ -200,8 +197,7 @@ lib.recurseIntoAttrs {
     fileMissing = runCommand "testEqualContents-fileMissing" {
       log = testers.testBuildFailure (testers.testEqualContents {
         assertion =
-          "The same directory contents at different paths are recognized as equal"
-          ;
+          "The same directory contents at different paths are recognized as equal";
         expected = runCommand "expected" { } ''
           mkdir -p $out/c
           echo a >$out/a

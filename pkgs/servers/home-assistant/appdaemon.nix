@@ -62,8 +62,7 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Sandboxed Python execution environment for writing automation apps for Home Assistant"
-      ;
+      "Sandboxed Python execution environment for writing automation apps for Home Assistant";
     homepage = "https://github.com/AppDaemon/appdaemon";
     changelog =
       "https://github.com/AppDaemon/appdaemon/blob/${version}/docs/HISTORY.rst";

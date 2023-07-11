@@ -185,14 +185,12 @@ in {
       {
         assertion = cfg.extraCommands == "";
         message =
-          "extraCommands is incompatible with the nftables based nat module: ${cfg.extraCommands}"
-          ;
+          "extraCommands is incompatible with the nftables based nat module: ${cfg.extraCommands}";
       }
       {
         assertion = cfg.extraStopCommands == "";
         message =
-          "extraStopCommands is incompatible with the nftables based nat module: ${cfg.extraStopCommands}"
-          ;
+          "extraStopCommands is incompatible with the nftables based nat module: ${cfg.extraStopCommands}";
       }
       {
         assertion = config.networking.nftables.rulesetFile == null;

@@ -20,8 +20,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://downloads.mariadb.com/Connectors/c/connector-c-${version}/mariadb-connector-c-${version}-src.tar.gz"
-      ;
+      "https://downloads.mariadb.com/Connectors/c/connector-c-${version}/mariadb-connector-c-${version}-src.tar.gz";
     inherit sha256;
   };
 

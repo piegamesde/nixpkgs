@@ -36,8 +36,7 @@ let
     name: instanceConfig:
     nameValuePair "pantalaimon-${name}" {
       description =
-        "pantalaimon instance ${name} - E2EE aware proxy daemon for matrix clients"
-        ;
+        "pantalaimon instance ${name} - E2EE aware proxy daemon for matrix clients";
       wants = [ "network-online.target" ];
       after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];

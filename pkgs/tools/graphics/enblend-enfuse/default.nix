@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://sourceforge.net/code-snapshots/hg/e/en/enblend/code/enblend-code-0f423c72e51872698fe2985ca3bd453961ffe4e0.zip"
-      ;
+      "https://sourceforge.net/code-snapshots/hg/e/en/enblend/code/enblend-code-0f423c72e51872698fe2985ca3bd453961ffe4e0.zip";
     sha256 = "sha256-0gCUSdg3HR3YeIbOByEBCZh2zGlYur6DeCOzUM53fdc=";
     stripRoot = true;
   };
@@ -59,8 +58,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://enblend.sourceforge.net/";
     description =
-      "Blends away the seams in a panoramic image mosaic using a multiresolution spline"
-      ;
+      "Blends away the seams in a panoramic image mosaic using a multiresolution spline";
     license = licenses.gpl2;
     platforms = with platforms; linux;
   };

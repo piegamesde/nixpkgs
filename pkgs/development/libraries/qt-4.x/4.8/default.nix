@@ -144,8 +144,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "gcc11-ptr-cmp.patch";
       url =
-        "https://github.com/qt/qttools/commit/7138c963f9d1258bc1b49cb4d63c3e2b7d0ccfda.patch"
-        ;
+        "https://github.com/qt/qttools/commit/7138c963f9d1258bc1b49cb4d63c3e2b7d0ccfda.patch";
       sha256 = "1a9g05r267c94qpw3ssb6k4lci200vla3vm5hri1nna6xwdsmrhc";
         # "src/" -> "tools/"
       stripLen = 2;
@@ -161,8 +160,7 @@ stdenv.mkDerivation rec {
     gnome_vfs = gnome_vfs.out;
   })) ++ lib.optional stdenv.isAarch64 (fetchpatch {
     url =
-      "https://src.fedoraproject.org/rpms/qt/raw/ecf530486e0fb7fe31bad26805cde61115562b2b/f/qt-aarch64.patch"
-      ;
+      "https://src.fedoraproject.org/rpms/qt/raw/ecf530486e0fb7fe31bad26805cde61115562b2b/f/qt-aarch64.patch";
     sha256 = "1fbjh78nmafqmj7yk67qwjbhl3f6ylkp6x33b1dqxfw9gld8b3gl";
   }) ++ lib.optionals stdenv.hostPlatform.isMusl [
     ./qt-musl.patch

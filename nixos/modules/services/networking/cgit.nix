@@ -197,8 +197,7 @@ in {
     assertions = mapAttrsToList (vhost: cfg: {
       assertion = !cfg.enable || (cfg.scanPath == null) != (cfg.repos == { });
       message =
-        "Exactly one of services.cgit.${vhost}.scanPath or services.cgit.${vhost}.repos must be set."
-        ;
+        "Exactly one of services.cgit.${vhost}.scanPath or services.cgit.${vhost}.repos must be set.";
     }) cfgs;
 
     services.fcgiwrap.enable = true;

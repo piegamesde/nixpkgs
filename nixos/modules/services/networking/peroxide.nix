@@ -111,8 +111,7 @@ in {
         StateDirectory = stateDir;
         StateDirectoryMode = "0700";
         ExecStart =
-          "${cfg.package}/bin/peroxide -log-file=/var/log/peroxide/peroxide.log -log-level ${cfg.logLevel}"
-          ;
+          "${cfg.package}/bin/peroxide -log-file=/var/log/peroxide/peroxide.log -log-level ${cfg.logLevel}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       };
 

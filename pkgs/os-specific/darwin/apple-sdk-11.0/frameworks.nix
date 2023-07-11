@@ -260,8 +260,9 @@ with frameworks; {
   };
   HIDDriverKit = { inherit IOKit USBDriverKit; };
   Hypervisor = { };
-  ICADevices = { inherit CoreFoundation CoreGraphics CoreServices IOBluetooth; }
-    ;
+  ICADevices = {
+    inherit CoreFoundation CoreGraphics CoreServices IOBluetooth;
+  };
   IMServicePlugIn = { inherit Foundation; };
   IOBluetooth = {
     inherit CoreAudio CoreFoundation CoreServices Foundation IOKit;
@@ -333,8 +334,9 @@ with frameworks; {
       ;
   };
   MetalPerformanceShaders = { inherit CoreGraphics Foundation Metal simd; };
-  MetalPerformanceShadersGraph = { inherit Foundation MetalPerformanceShaders; }
-    ;
+  MetalPerformanceShadersGraph = {
+    inherit Foundation MetalPerformanceShaders;
+  };
   MetricKit = { inherit CoreFoundation CoreGraphics Foundation IOKit; };
   ModelIO = { inherit CoreFoundation CoreGraphics Foundation IOKit simd; };
   MultipeerConnectivity = { inherit Cocoa Foundation; };

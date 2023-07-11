@@ -52,8 +52,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Static memory-efficient Trie-like structures for Python based on marisa-trie C++ library"
-      ;
+      "Static memory-efficient Trie-like structures for Python based on marisa-trie C++ library";
     longDescription = ''
       There are official SWIG-based Python bindings included in C++ library distribution.
       This package provides alternative Cython-based pip-installable Python bindings.

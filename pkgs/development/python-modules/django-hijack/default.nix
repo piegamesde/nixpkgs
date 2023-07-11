@@ -45,8 +45,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Allows superusers to hijack (=login as) and work on behalf of another user"
-      ;
+      "Allows superusers to hijack (=login as) and work on behalf of another user";
     homepage = "https://github.com/arteria/django-hijack";
     changelog =
       "https://github.com/django-hijack/django-hijack/releases/tag/${version}";

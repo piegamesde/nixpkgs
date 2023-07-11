@@ -391,8 +391,7 @@ in {
           # This also means things won't work for people not on Plasma, but at least this way it
           # works for SOME people.
         KPACKAGE_DEP_RESOLVERS_PATH =
-          "${pkgs.plasma5Packages.frameworkintegration.out}/libexec/kf5/kpackagehandlers"
-          ;
+          "${pkgs.plasma5Packages.frameworkintegration.out}/libexec/kf5/kpackagehandlers";
       };
 
         # Enable GTK applications to load SVG icons
@@ -478,8 +477,7 @@ in {
         services.xserver.desktopManager.plasma5.enable = true;
       '' ];
 
-      services.xserver.displayManager.sessionPackages = [ pkgs.libsForQt5.plasma5.plasma-workspace ]
-        ;
+      services.xserver.displayManager.sessionPackages = [ pkgs.libsForQt5.plasma5.plasma-workspace ];
         # Default to be `plasma` (X11) instead of `plasmawayland`, since plasma wayland currently has
         # many tiny bugs.
         # See: https://github.com/NixOS/nixpkgs/issues/143272
@@ -610,8 +608,7 @@ in {
         kwinrc = {
           "Wayland" = {
             "InputMethod[$e]" =
-              "/run/current-system/sw/share/applications/com.github.maliit.keyboard.desktop"
-              ;
+              "/run/current-system/sw/share/applications/com.github.maliit.keyboard.desktop";
             "VirtualKeyboardEnabled" = "true";
           };
           "org.kde.kdecoration2" = {
@@ -621,8 +618,7 @@ in {
         };
       };
 
-      services.xserver.displayManager.sessionPackages = [ pkgs.libsForQt5.plasma5.plasma-mobile ]
-        ;
+      services.xserver.displayManager.sessionPackages = [ pkgs.libsForQt5.plasma5.plasma-mobile ];
     })
 
     # Plasma Bigscreen
@@ -641,8 +637,7 @@ in {
         kdeconnect-kde
       ];
 
-      services.xserver.displayManager.sessionPackages = [ pkgs.plasma5Packages.plasma-bigscreen ]
-        ;
+      services.xserver.displayManager.sessionPackages = [ pkgs.plasma5Packages.plasma-bigscreen ];
 
         # required for plasma-remotecontrollers to work correctly
       hardware.uinput.enable = true;

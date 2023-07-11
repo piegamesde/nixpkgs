@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Scales PostgreSQL for time-series data via automatic partitioning across time and space"
-      ;
+      "Scales PostgreSQL for time-series data via automatic partitioning across time and space";
     homepage = "https://www.timescale.com/";
     changelog =
       "https://github.com/timescale/timescaledb/raw/${version}/CHANGELOG.md";

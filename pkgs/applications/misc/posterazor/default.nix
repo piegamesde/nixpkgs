@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/posterazor/${version}/PosteRazor-${version}-Source.zip"
-      ;
+      "mirror://sourceforge/posterazor/${version}/PosteRazor-${version}-Source.zip";
     sha256 = "1dqpdk8zl0smdg4fganp3hxb943q40619qmxjlga9jhjc01s7fq5";
   };
 
@@ -52,8 +51,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://posterazor.sourceforge.net/";
     description =
-      "Cuts a raster image into pieces which can afterwards be printed out and assembled to a poster"
-      ;
+      "Cuts a raster image into pieces which can afterwards be printed out and assembled to a poster";
     maintainers = [ maintainers.madjar ];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

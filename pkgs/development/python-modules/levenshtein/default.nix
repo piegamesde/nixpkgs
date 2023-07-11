@@ -48,8 +48,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Functions for fast computation of Levenshtein distance and string similarity"
-      ;
+      "Functions for fast computation of Levenshtein distance and string similarity";
     homepage = "https://github.com/maxbachmann/Levenshtein";
     changelog =
       "https://github.com/maxbachmann/Levenshtein/blob/${src.rev}/HISTORY.md";

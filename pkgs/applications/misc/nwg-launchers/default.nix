@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "GTK-based launchers: application grid, button bar, dmenu for sway and other window managers"
-      ;
+      "GTK-based launchers: application grid, button bar, dmenu for sway and other window managers";
     homepage = "https://github.com/nwg-piotr/nwg-launchers";
     license = licenses.gpl3;
     platforms = platforms.linux;

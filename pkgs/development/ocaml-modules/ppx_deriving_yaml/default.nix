@@ -17,8 +17,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/patricoferris/ppx_deriving_yaml/releases/download/v${version}/ppx_deriving_yaml-${version}.tbz"
-      ;
+      "https://github.com/patricoferris/ppx_deriving_yaml/releases/download/v${version}/ppx_deriving_yaml-${version}.tbz";
     sha256 = "sha256-nR3568ULM6jaGG4H4+lLBTEJqh/ALHPiJxve40jPUxw=";
   };
 

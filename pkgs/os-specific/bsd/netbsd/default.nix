@@ -106,8 +106,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
           i486 = "i386";
           i586 = "i386";
           i686 = "i386";
-        }.${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name
-          ;
+        }.${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name;
 
         MACHINE = {
           x86_64 = "amd64";
@@ -115,8 +114,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { })
           i486 = "i386";
           i586 = "i386";
           i686 = "i386";
-        }.${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name
-          ;
+        }.${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name;
 
         COMPONENT_PATH = attrs.path;
 

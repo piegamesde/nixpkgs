@@ -21,8 +21,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "RFC 3986 compliant, Unicode-aware, scheme-agnostic replacement for urlparse"
-      ;
+      "RFC 3986 compliant, Unicode-aware, scheme-agnostic replacement for urlparse";
     homepage = "https://github.com/tkem/uritools/";
     changelog =
       "https://github.com/tkem/uritools/blob/v${version}/CHANGELOG.rst";

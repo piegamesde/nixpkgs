@@ -34,11 +34,9 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/jaraco/backports.entry_points_selectable/blob/v${version}/CHANGES.rst"
-      ;
+      "https://github.com/jaraco/backports.entry_points_selectable/blob/v${version}/CHANGES.rst";
     description =
-      "Compatibility shim providing selectable entry points for older implementations"
-      ;
+      "Compatibility shim providing selectable entry points for older implementations";
     homepage = "https://github.com/jaraco/backports.entry_points_selectable";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];

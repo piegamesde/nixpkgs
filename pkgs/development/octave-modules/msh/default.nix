@@ -48,8 +48,7 @@ buildOctavePackage rec {
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ KarlJoad ];
     description =
-      "Create and manage triangular and tetrahedral meshes for Finite Element or Finite Volume PDE solvers"
-      ;
+      "Create and manage triangular and tetrahedral meshes for Finite Element or Finite Volume PDE solvers";
     longDescription = ''
       Create and manage triangular and tetrahedral meshes for Finite Element or
       Finite Volume PDE solvers. Use a mesh data structure compatible with

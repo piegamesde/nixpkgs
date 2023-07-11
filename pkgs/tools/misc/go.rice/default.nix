@@ -24,8 +24,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A Go package that makes working with resources such as html, js, css, images, templates very easy"
-      ;
+      "A Go package that makes working with resources such as html, js, css, images, templates very easy";
     homepage = "https://github.com/GeertJohan/go.rice";
     license = licenses.bsd2;
     maintainers = with maintainers; [ blaggacao ];

@@ -15,8 +15,7 @@ in {
 
     src = fetchurl {
       url =
-        "mirror://ubuntu/pool/main/f/fonts-${pname}/fonts-${pname}_${version}.orig.tar.bz2"
-        ;
+        "mirror://ubuntu/pool/main/f/fonts-${pname}/fonts-${pname}_${version}.orig.tar.bz2";
       hash = "sha256-tJaNc1GfT4dH6FVI+4XSG2Zdob8bqQCnxJmXbmqK49I=";
     };
 
@@ -52,8 +51,7 @@ in {
 
     src = fetchurl {
       url =
-        "mirror://ubuntu/pool/main/f/fonts-${pname}/fonts-${pname}_${version}.orig.tar.bz2"
-        ;
+        "mirror://ubuntu/pool/main/f/fonts-${pname}/fonts-${pname}_${version}.orig.tar.bz2";
       hash = "sha256-48GeBOp6VltKz/bx5CSAhNLhB1LjBb991sdugIYNwds=";
     };
 

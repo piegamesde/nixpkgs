@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/${version}/sratoolkit.${version}-ubuntu64.tar.gz"
-      ;
+      "https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/${version}/sratoolkit.${version}-ubuntu64.tar.gz";
     sha256 = "1590lc4cplxr3lhjqci8fjncy67imn2h14qd2l87chmhjh243qvx";
   };
 
@@ -48,8 +47,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/ncbi/sra-tools";
     description =
-      "The SRA Toolkit and SDK from NCBI is a collection of tools and libraries for using data in the INSDC Sequence Read Archives."
-      ;
+      "The SRA Toolkit and SDK from NCBI is a collection of tools and libraries for using data in the INSDC Sequence Read Archives.";
     license = licenses.publicDomain;
     maintainers = with maintainers; [ thyol ];
     platforms = [ "x86_64-linux" ];

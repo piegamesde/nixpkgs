@@ -3,8 +3,7 @@
   sources = [
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ach/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ach/firefox-113.0b9.tar.bz2";
       locale = "ach";
       arch = "linux-x86_64";
       sha256 =
@@ -12,8 +11,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/af/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/af/firefox-113.0b9.tar.bz2";
       locale = "af";
       arch = "linux-x86_64";
       sha256 =
@@ -21,8 +19,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/an/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/an/firefox-113.0b9.tar.bz2";
       locale = "an";
       arch = "linux-x86_64";
       sha256 =
@@ -30,8 +27,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ar/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ar/firefox-113.0b9.tar.bz2";
       locale = "ar";
       arch = "linux-x86_64";
       sha256 =
@@ -39,8 +35,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ast/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ast/firefox-113.0b9.tar.bz2";
       locale = "ast";
       arch = "linux-x86_64";
       sha256 =
@@ -48,8 +43,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/az/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/az/firefox-113.0b9.tar.bz2";
       locale = "az";
       arch = "linux-x86_64";
       sha256 =
@@ -57,8 +51,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/be/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/be/firefox-113.0b9.tar.bz2";
       locale = "be";
       arch = "linux-x86_64";
       sha256 =
@@ -66,8 +59,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/bg/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/bg/firefox-113.0b9.tar.bz2";
       locale = "bg";
       arch = "linux-x86_64";
       sha256 =
@@ -75,8 +67,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/bn/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/bn/firefox-113.0b9.tar.bz2";
       locale = "bn";
       arch = "linux-x86_64";
       sha256 =
@@ -84,8 +75,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/br/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/br/firefox-113.0b9.tar.bz2";
       locale = "br";
       arch = "linux-x86_64";
       sha256 =
@@ -93,8 +83,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/bs/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/bs/firefox-113.0b9.tar.bz2";
       locale = "bs";
       arch = "linux-x86_64";
       sha256 =
@@ -102,8 +91,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ca-valencia/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ca-valencia/firefox-113.0b9.tar.bz2";
       locale = "ca-valencia";
       arch = "linux-x86_64";
       sha256 =
@@ -111,8 +99,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ca/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ca/firefox-113.0b9.tar.bz2";
       locale = "ca";
       arch = "linux-x86_64";
       sha256 =
@@ -120,8 +107,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/cak/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/cak/firefox-113.0b9.tar.bz2";
       locale = "cak";
       arch = "linux-x86_64";
       sha256 =
@@ -129,8 +115,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/cs/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/cs/firefox-113.0b9.tar.bz2";
       locale = "cs";
       arch = "linux-x86_64";
       sha256 =
@@ -138,8 +123,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/cy/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/cy/firefox-113.0b9.tar.bz2";
       locale = "cy";
       arch = "linux-x86_64";
       sha256 =
@@ -147,8 +131,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/da/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/da/firefox-113.0b9.tar.bz2";
       locale = "da";
       arch = "linux-x86_64";
       sha256 =
@@ -156,8 +139,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/de/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/de/firefox-113.0b9.tar.bz2";
       locale = "de";
       arch = "linux-x86_64";
       sha256 =
@@ -165,8 +147,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/dsb/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/dsb/firefox-113.0b9.tar.bz2";
       locale = "dsb";
       arch = "linux-x86_64";
       sha256 =
@@ -174,8 +155,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/el/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/el/firefox-113.0b9.tar.bz2";
       locale = "el";
       arch = "linux-x86_64";
       sha256 =
@@ -183,8 +163,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/en-CA/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/en-CA/firefox-113.0b9.tar.bz2";
       locale = "en-CA";
       arch = "linux-x86_64";
       sha256 =
@@ -192,8 +171,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/en-GB/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/en-GB/firefox-113.0b9.tar.bz2";
       locale = "en-GB";
       arch = "linux-x86_64";
       sha256 =
@@ -201,8 +179,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/en-US/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/en-US/firefox-113.0b9.tar.bz2";
       locale = "en-US";
       arch = "linux-x86_64";
       sha256 =
@@ -210,8 +187,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/eo/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/eo/firefox-113.0b9.tar.bz2";
       locale = "eo";
       arch = "linux-x86_64";
       sha256 =
@@ -219,8 +195,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/es-AR/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/es-AR/firefox-113.0b9.tar.bz2";
       locale = "es-AR";
       arch = "linux-x86_64";
       sha256 =
@@ -228,8 +203,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/es-CL/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/es-CL/firefox-113.0b9.tar.bz2";
       locale = "es-CL";
       arch = "linux-x86_64";
       sha256 =
@@ -237,8 +211,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/es-ES/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/es-ES/firefox-113.0b9.tar.bz2";
       locale = "es-ES";
       arch = "linux-x86_64";
       sha256 =
@@ -246,8 +219,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/es-MX/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/es-MX/firefox-113.0b9.tar.bz2";
       locale = "es-MX";
       arch = "linux-x86_64";
       sha256 =
@@ -255,8 +227,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/et/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/et/firefox-113.0b9.tar.bz2";
       locale = "et";
       arch = "linux-x86_64";
       sha256 =
@@ -264,8 +235,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/eu/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/eu/firefox-113.0b9.tar.bz2";
       locale = "eu";
       arch = "linux-x86_64";
       sha256 =
@@ -273,8 +243,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/fa/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/fa/firefox-113.0b9.tar.bz2";
       locale = "fa";
       arch = "linux-x86_64";
       sha256 =
@@ -282,8 +251,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ff/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ff/firefox-113.0b9.tar.bz2";
       locale = "ff";
       arch = "linux-x86_64";
       sha256 =
@@ -291,8 +259,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/fi/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/fi/firefox-113.0b9.tar.bz2";
       locale = "fi";
       arch = "linux-x86_64";
       sha256 =
@@ -300,8 +267,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/fr/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/fr/firefox-113.0b9.tar.bz2";
       locale = "fr";
       arch = "linux-x86_64";
       sha256 =
@@ -309,8 +275,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/fur/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/fur/firefox-113.0b9.tar.bz2";
       locale = "fur";
       arch = "linux-x86_64";
       sha256 =
@@ -318,8 +283,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/fy-NL/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/fy-NL/firefox-113.0b9.tar.bz2";
       locale = "fy-NL";
       arch = "linux-x86_64";
       sha256 =
@@ -327,8 +291,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ga-IE/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ga-IE/firefox-113.0b9.tar.bz2";
       locale = "ga-IE";
       arch = "linux-x86_64";
       sha256 =
@@ -336,8 +299,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/gd/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/gd/firefox-113.0b9.tar.bz2";
       locale = "gd";
       arch = "linux-x86_64";
       sha256 =
@@ -345,8 +307,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/gl/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/gl/firefox-113.0b9.tar.bz2";
       locale = "gl";
       arch = "linux-x86_64";
       sha256 =
@@ -354,8 +315,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/gn/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/gn/firefox-113.0b9.tar.bz2";
       locale = "gn";
       arch = "linux-x86_64";
       sha256 =
@@ -363,8 +323,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/gu-IN/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/gu-IN/firefox-113.0b9.tar.bz2";
       locale = "gu-IN";
       arch = "linux-x86_64";
       sha256 =
@@ -372,8 +331,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/he/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/he/firefox-113.0b9.tar.bz2";
       locale = "he";
       arch = "linux-x86_64";
       sha256 =
@@ -381,8 +339,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/hi-IN/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/hi-IN/firefox-113.0b9.tar.bz2";
       locale = "hi-IN";
       arch = "linux-x86_64";
       sha256 =
@@ -390,8 +347,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/hr/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/hr/firefox-113.0b9.tar.bz2";
       locale = "hr";
       arch = "linux-x86_64";
       sha256 =
@@ -399,8 +355,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/hsb/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/hsb/firefox-113.0b9.tar.bz2";
       locale = "hsb";
       arch = "linux-x86_64";
       sha256 =
@@ -408,8 +363,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/hu/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/hu/firefox-113.0b9.tar.bz2";
       locale = "hu";
       arch = "linux-x86_64";
       sha256 =
@@ -417,8 +371,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/hy-AM/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/hy-AM/firefox-113.0b9.tar.bz2";
       locale = "hy-AM";
       arch = "linux-x86_64";
       sha256 =
@@ -426,8 +379,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ia/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ia/firefox-113.0b9.tar.bz2";
       locale = "ia";
       arch = "linux-x86_64";
       sha256 =
@@ -435,8 +387,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/id/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/id/firefox-113.0b9.tar.bz2";
       locale = "id";
       arch = "linux-x86_64";
       sha256 =
@@ -444,8 +395,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/is/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/is/firefox-113.0b9.tar.bz2";
       locale = "is";
       arch = "linux-x86_64";
       sha256 =
@@ -453,8 +403,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/it/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/it/firefox-113.0b9.tar.bz2";
       locale = "it";
       arch = "linux-x86_64";
       sha256 =
@@ -462,8 +411,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ja/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ja/firefox-113.0b9.tar.bz2";
       locale = "ja";
       arch = "linux-x86_64";
       sha256 =
@@ -471,8 +419,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ka/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ka/firefox-113.0b9.tar.bz2";
       locale = "ka";
       arch = "linux-x86_64";
       sha256 =
@@ -480,8 +427,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/kab/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/kab/firefox-113.0b9.tar.bz2";
       locale = "kab";
       arch = "linux-x86_64";
       sha256 =
@@ -489,8 +435,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/kk/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/kk/firefox-113.0b9.tar.bz2";
       locale = "kk";
       arch = "linux-x86_64";
       sha256 =
@@ -498,8 +443,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/km/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/km/firefox-113.0b9.tar.bz2";
       locale = "km";
       arch = "linux-x86_64";
       sha256 =
@@ -507,8 +451,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/kn/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/kn/firefox-113.0b9.tar.bz2";
       locale = "kn";
       arch = "linux-x86_64";
       sha256 =
@@ -516,8 +459,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ko/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ko/firefox-113.0b9.tar.bz2";
       locale = "ko";
       arch = "linux-x86_64";
       sha256 =
@@ -525,8 +467,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/lij/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/lij/firefox-113.0b9.tar.bz2";
       locale = "lij";
       arch = "linux-x86_64";
       sha256 =
@@ -534,8 +475,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/lt/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/lt/firefox-113.0b9.tar.bz2";
       locale = "lt";
       arch = "linux-x86_64";
       sha256 =
@@ -543,8 +483,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/lv/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/lv/firefox-113.0b9.tar.bz2";
       locale = "lv";
       arch = "linux-x86_64";
       sha256 =
@@ -552,8 +491,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/mk/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/mk/firefox-113.0b9.tar.bz2";
       locale = "mk";
       arch = "linux-x86_64";
       sha256 =
@@ -561,8 +499,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/mr/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/mr/firefox-113.0b9.tar.bz2";
       locale = "mr";
       arch = "linux-x86_64";
       sha256 =
@@ -570,8 +507,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ms/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ms/firefox-113.0b9.tar.bz2";
       locale = "ms";
       arch = "linux-x86_64";
       sha256 =
@@ -579,8 +515,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/my/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/my/firefox-113.0b9.tar.bz2";
       locale = "my";
       arch = "linux-x86_64";
       sha256 =
@@ -588,8 +523,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/nb-NO/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/nb-NO/firefox-113.0b9.tar.bz2";
       locale = "nb-NO";
       arch = "linux-x86_64";
       sha256 =
@@ -597,8 +531,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ne-NP/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ne-NP/firefox-113.0b9.tar.bz2";
       locale = "ne-NP";
       arch = "linux-x86_64";
       sha256 =
@@ -606,8 +539,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/nl/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/nl/firefox-113.0b9.tar.bz2";
       locale = "nl";
       arch = "linux-x86_64";
       sha256 =
@@ -615,8 +547,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/nn-NO/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/nn-NO/firefox-113.0b9.tar.bz2";
       locale = "nn-NO";
       arch = "linux-x86_64";
       sha256 =
@@ -624,8 +555,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/oc/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/oc/firefox-113.0b9.tar.bz2";
       locale = "oc";
       arch = "linux-x86_64";
       sha256 =
@@ -633,8 +563,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/pa-IN/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/pa-IN/firefox-113.0b9.tar.bz2";
       locale = "pa-IN";
       arch = "linux-x86_64";
       sha256 =
@@ -642,8 +571,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/pl/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/pl/firefox-113.0b9.tar.bz2";
       locale = "pl";
       arch = "linux-x86_64";
       sha256 =
@@ -651,8 +579,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/pt-BR/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/pt-BR/firefox-113.0b9.tar.bz2";
       locale = "pt-BR";
       arch = "linux-x86_64";
       sha256 =
@@ -660,8 +587,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/pt-PT/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/pt-PT/firefox-113.0b9.tar.bz2";
       locale = "pt-PT";
       arch = "linux-x86_64";
       sha256 =
@@ -669,8 +595,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/rm/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/rm/firefox-113.0b9.tar.bz2";
       locale = "rm";
       arch = "linux-x86_64";
       sha256 =
@@ -678,8 +603,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ro/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ro/firefox-113.0b9.tar.bz2";
       locale = "ro";
       arch = "linux-x86_64";
       sha256 =
@@ -687,8 +611,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ru/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ru/firefox-113.0b9.tar.bz2";
       locale = "ru";
       arch = "linux-x86_64";
       sha256 =
@@ -696,8 +619,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/sc/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/sc/firefox-113.0b9.tar.bz2";
       locale = "sc";
       arch = "linux-x86_64";
       sha256 =
@@ -705,8 +627,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/sco/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/sco/firefox-113.0b9.tar.bz2";
       locale = "sco";
       arch = "linux-x86_64";
       sha256 =
@@ -714,8 +635,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/si/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/si/firefox-113.0b9.tar.bz2";
       locale = "si";
       arch = "linux-x86_64";
       sha256 =
@@ -723,8 +643,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/sk/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/sk/firefox-113.0b9.tar.bz2";
       locale = "sk";
       arch = "linux-x86_64";
       sha256 =
@@ -732,8 +651,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/sl/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/sl/firefox-113.0b9.tar.bz2";
       locale = "sl";
       arch = "linux-x86_64";
       sha256 =
@@ -741,8 +659,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/son/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/son/firefox-113.0b9.tar.bz2";
       locale = "son";
       arch = "linux-x86_64";
       sha256 =
@@ -750,8 +667,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/sq/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/sq/firefox-113.0b9.tar.bz2";
       locale = "sq";
       arch = "linux-x86_64";
       sha256 =
@@ -759,8 +675,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/sr/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/sr/firefox-113.0b9.tar.bz2";
       locale = "sr";
       arch = "linux-x86_64";
       sha256 =
@@ -768,8 +683,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/sv-SE/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/sv-SE/firefox-113.0b9.tar.bz2";
       locale = "sv-SE";
       arch = "linux-x86_64";
       sha256 =
@@ -777,8 +691,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/szl/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/szl/firefox-113.0b9.tar.bz2";
       locale = "szl";
       arch = "linux-x86_64";
       sha256 =
@@ -786,8 +699,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ta/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ta/firefox-113.0b9.tar.bz2";
       locale = "ta";
       arch = "linux-x86_64";
       sha256 =
@@ -795,8 +707,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/te/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/te/firefox-113.0b9.tar.bz2";
       locale = "te";
       arch = "linux-x86_64";
       sha256 =
@@ -804,8 +715,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/tg/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/tg/firefox-113.0b9.tar.bz2";
       locale = "tg";
       arch = "linux-x86_64";
       sha256 =
@@ -813,8 +723,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/th/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/th/firefox-113.0b9.tar.bz2";
       locale = "th";
       arch = "linux-x86_64";
       sha256 =
@@ -822,8 +731,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/tl/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/tl/firefox-113.0b9.tar.bz2";
       locale = "tl";
       arch = "linux-x86_64";
       sha256 =
@@ -831,8 +739,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/tr/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/tr/firefox-113.0b9.tar.bz2";
       locale = "tr";
       arch = "linux-x86_64";
       sha256 =
@@ -840,8 +747,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/trs/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/trs/firefox-113.0b9.tar.bz2";
       locale = "trs";
       arch = "linux-x86_64";
       sha256 =
@@ -849,8 +755,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/uk/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/uk/firefox-113.0b9.tar.bz2";
       locale = "uk";
       arch = "linux-x86_64";
       sha256 =
@@ -858,8 +763,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ur/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/ur/firefox-113.0b9.tar.bz2";
       locale = "ur";
       arch = "linux-x86_64";
       sha256 =
@@ -867,8 +771,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/uz/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/uz/firefox-113.0b9.tar.bz2";
       locale = "uz";
       arch = "linux-x86_64";
       sha256 =
@@ -876,8 +779,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/vi/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/vi/firefox-113.0b9.tar.bz2";
       locale = "vi";
       arch = "linux-x86_64";
       sha256 =
@@ -885,8 +787,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/xh/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/xh/firefox-113.0b9.tar.bz2";
       locale = "xh";
       arch = "linux-x86_64";
       sha256 =
@@ -894,8 +795,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/zh-CN/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/zh-CN/firefox-113.0b9.tar.bz2";
       locale = "zh-CN";
       arch = "linux-x86_64";
       sha256 =
@@ -903,8 +803,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/zh-TW/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-x86_64/zh-TW/firefox-113.0b9.tar.bz2";
       locale = "zh-TW";
       arch = "linux-x86_64";
       sha256 =
@@ -912,8 +811,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ach/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ach/firefox-113.0b9.tar.bz2";
       locale = "ach";
       arch = "linux-i686";
       sha256 =
@@ -921,8 +819,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/af/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/af/firefox-113.0b9.tar.bz2";
       locale = "af";
       arch = "linux-i686";
       sha256 =
@@ -930,8 +827,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/an/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/an/firefox-113.0b9.tar.bz2";
       locale = "an";
       arch = "linux-i686";
       sha256 =
@@ -939,8 +835,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ar/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ar/firefox-113.0b9.tar.bz2";
       locale = "ar";
       arch = "linux-i686";
       sha256 =
@@ -948,8 +843,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ast/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ast/firefox-113.0b9.tar.bz2";
       locale = "ast";
       arch = "linux-i686";
       sha256 =
@@ -957,8 +851,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/az/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/az/firefox-113.0b9.tar.bz2";
       locale = "az";
       arch = "linux-i686";
       sha256 =
@@ -966,8 +859,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/be/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/be/firefox-113.0b9.tar.bz2";
       locale = "be";
       arch = "linux-i686";
       sha256 =
@@ -975,8 +867,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/bg/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/bg/firefox-113.0b9.tar.bz2";
       locale = "bg";
       arch = "linux-i686";
       sha256 =
@@ -984,8 +875,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/bn/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/bn/firefox-113.0b9.tar.bz2";
       locale = "bn";
       arch = "linux-i686";
       sha256 =
@@ -993,8 +883,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/br/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/br/firefox-113.0b9.tar.bz2";
       locale = "br";
       arch = "linux-i686";
       sha256 =
@@ -1002,8 +891,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/bs/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/bs/firefox-113.0b9.tar.bz2";
       locale = "bs";
       arch = "linux-i686";
       sha256 =
@@ -1011,8 +899,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ca-valencia/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ca-valencia/firefox-113.0b9.tar.bz2";
       locale = "ca-valencia";
       arch = "linux-i686";
       sha256 =
@@ -1020,8 +907,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ca/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ca/firefox-113.0b9.tar.bz2";
       locale = "ca";
       arch = "linux-i686";
       sha256 =
@@ -1029,8 +915,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/cak/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/cak/firefox-113.0b9.tar.bz2";
       locale = "cak";
       arch = "linux-i686";
       sha256 =
@@ -1038,8 +923,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/cs/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/cs/firefox-113.0b9.tar.bz2";
       locale = "cs";
       arch = "linux-i686";
       sha256 =
@@ -1047,8 +931,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/cy/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/cy/firefox-113.0b9.tar.bz2";
       locale = "cy";
       arch = "linux-i686";
       sha256 =
@@ -1056,8 +939,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/da/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/da/firefox-113.0b9.tar.bz2";
       locale = "da";
       arch = "linux-i686";
       sha256 =
@@ -1065,8 +947,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/de/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/de/firefox-113.0b9.tar.bz2";
       locale = "de";
       arch = "linux-i686";
       sha256 =
@@ -1074,8 +955,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/dsb/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/dsb/firefox-113.0b9.tar.bz2";
       locale = "dsb";
       arch = "linux-i686";
       sha256 =
@@ -1083,8 +963,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/el/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/el/firefox-113.0b9.tar.bz2";
       locale = "el";
       arch = "linux-i686";
       sha256 =
@@ -1092,8 +971,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/en-CA/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/en-CA/firefox-113.0b9.tar.bz2";
       locale = "en-CA";
       arch = "linux-i686";
       sha256 =
@@ -1101,8 +979,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/en-GB/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/en-GB/firefox-113.0b9.tar.bz2";
       locale = "en-GB";
       arch = "linux-i686";
       sha256 =
@@ -1110,8 +987,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/en-US/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/en-US/firefox-113.0b9.tar.bz2";
       locale = "en-US";
       arch = "linux-i686";
       sha256 =
@@ -1119,8 +995,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/eo/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/eo/firefox-113.0b9.tar.bz2";
       locale = "eo";
       arch = "linux-i686";
       sha256 =
@@ -1128,8 +1003,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/es-AR/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/es-AR/firefox-113.0b9.tar.bz2";
       locale = "es-AR";
       arch = "linux-i686";
       sha256 =
@@ -1137,8 +1011,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/es-CL/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/es-CL/firefox-113.0b9.tar.bz2";
       locale = "es-CL";
       arch = "linux-i686";
       sha256 =
@@ -1146,8 +1019,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/es-ES/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/es-ES/firefox-113.0b9.tar.bz2";
       locale = "es-ES";
       arch = "linux-i686";
       sha256 =
@@ -1155,8 +1027,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/es-MX/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/es-MX/firefox-113.0b9.tar.bz2";
       locale = "es-MX";
       arch = "linux-i686";
       sha256 =
@@ -1164,8 +1035,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/et/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/et/firefox-113.0b9.tar.bz2";
       locale = "et";
       arch = "linux-i686";
       sha256 =
@@ -1173,8 +1043,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/eu/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/eu/firefox-113.0b9.tar.bz2";
       locale = "eu";
       arch = "linux-i686";
       sha256 =
@@ -1182,8 +1051,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/fa/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/fa/firefox-113.0b9.tar.bz2";
       locale = "fa";
       arch = "linux-i686";
       sha256 =
@@ -1191,8 +1059,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ff/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ff/firefox-113.0b9.tar.bz2";
       locale = "ff";
       arch = "linux-i686";
       sha256 =
@@ -1200,8 +1067,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/fi/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/fi/firefox-113.0b9.tar.bz2";
       locale = "fi";
       arch = "linux-i686";
       sha256 =
@@ -1209,8 +1075,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/fr/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/fr/firefox-113.0b9.tar.bz2";
       locale = "fr";
       arch = "linux-i686";
       sha256 =
@@ -1218,8 +1083,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/fur/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/fur/firefox-113.0b9.tar.bz2";
       locale = "fur";
       arch = "linux-i686";
       sha256 =
@@ -1227,8 +1091,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/fy-NL/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/fy-NL/firefox-113.0b9.tar.bz2";
       locale = "fy-NL";
       arch = "linux-i686";
       sha256 =
@@ -1236,8 +1099,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ga-IE/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ga-IE/firefox-113.0b9.tar.bz2";
       locale = "ga-IE";
       arch = "linux-i686";
       sha256 =
@@ -1245,8 +1107,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/gd/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/gd/firefox-113.0b9.tar.bz2";
       locale = "gd";
       arch = "linux-i686";
       sha256 =
@@ -1254,8 +1115,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/gl/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/gl/firefox-113.0b9.tar.bz2";
       locale = "gl";
       arch = "linux-i686";
       sha256 =
@@ -1263,8 +1123,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/gn/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/gn/firefox-113.0b9.tar.bz2";
       locale = "gn";
       arch = "linux-i686";
       sha256 =
@@ -1272,8 +1131,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/gu-IN/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/gu-IN/firefox-113.0b9.tar.bz2";
       locale = "gu-IN";
       arch = "linux-i686";
       sha256 =
@@ -1281,8 +1139,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/he/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/he/firefox-113.0b9.tar.bz2";
       locale = "he";
       arch = "linux-i686";
       sha256 =
@@ -1290,8 +1147,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/hi-IN/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/hi-IN/firefox-113.0b9.tar.bz2";
       locale = "hi-IN";
       arch = "linux-i686";
       sha256 =
@@ -1299,8 +1155,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/hr/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/hr/firefox-113.0b9.tar.bz2";
       locale = "hr";
       arch = "linux-i686";
       sha256 =
@@ -1308,8 +1163,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/hsb/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/hsb/firefox-113.0b9.tar.bz2";
       locale = "hsb";
       arch = "linux-i686";
       sha256 =
@@ -1317,8 +1171,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/hu/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/hu/firefox-113.0b9.tar.bz2";
       locale = "hu";
       arch = "linux-i686";
       sha256 =
@@ -1326,8 +1179,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/hy-AM/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/hy-AM/firefox-113.0b9.tar.bz2";
       locale = "hy-AM";
       arch = "linux-i686";
       sha256 =
@@ -1335,8 +1187,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ia/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ia/firefox-113.0b9.tar.bz2";
       locale = "ia";
       arch = "linux-i686";
       sha256 =
@@ -1344,8 +1195,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/id/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/id/firefox-113.0b9.tar.bz2";
       locale = "id";
       arch = "linux-i686";
       sha256 =
@@ -1353,8 +1203,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/is/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/is/firefox-113.0b9.tar.bz2";
       locale = "is";
       arch = "linux-i686";
       sha256 =
@@ -1362,8 +1211,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/it/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/it/firefox-113.0b9.tar.bz2";
       locale = "it";
       arch = "linux-i686";
       sha256 =
@@ -1371,8 +1219,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ja/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ja/firefox-113.0b9.tar.bz2";
       locale = "ja";
       arch = "linux-i686";
       sha256 =
@@ -1380,8 +1227,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ka/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ka/firefox-113.0b9.tar.bz2";
       locale = "ka";
       arch = "linux-i686";
       sha256 =
@@ -1389,8 +1235,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/kab/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/kab/firefox-113.0b9.tar.bz2";
       locale = "kab";
       arch = "linux-i686";
       sha256 =
@@ -1398,8 +1243,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/kk/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/kk/firefox-113.0b9.tar.bz2";
       locale = "kk";
       arch = "linux-i686";
       sha256 =
@@ -1407,8 +1251,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/km/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/km/firefox-113.0b9.tar.bz2";
       locale = "km";
       arch = "linux-i686";
       sha256 =
@@ -1416,8 +1259,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/kn/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/kn/firefox-113.0b9.tar.bz2";
       locale = "kn";
       arch = "linux-i686";
       sha256 =
@@ -1425,8 +1267,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ko/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ko/firefox-113.0b9.tar.bz2";
       locale = "ko";
       arch = "linux-i686";
       sha256 =
@@ -1434,8 +1275,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/lij/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/lij/firefox-113.0b9.tar.bz2";
       locale = "lij";
       arch = "linux-i686";
       sha256 =
@@ -1443,8 +1283,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/lt/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/lt/firefox-113.0b9.tar.bz2";
       locale = "lt";
       arch = "linux-i686";
       sha256 =
@@ -1452,8 +1291,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/lv/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/lv/firefox-113.0b9.tar.bz2";
       locale = "lv";
       arch = "linux-i686";
       sha256 =
@@ -1461,8 +1299,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/mk/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/mk/firefox-113.0b9.tar.bz2";
       locale = "mk";
       arch = "linux-i686";
       sha256 =
@@ -1470,8 +1307,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/mr/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/mr/firefox-113.0b9.tar.bz2";
       locale = "mr";
       arch = "linux-i686";
       sha256 =
@@ -1479,8 +1315,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ms/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ms/firefox-113.0b9.tar.bz2";
       locale = "ms";
       arch = "linux-i686";
       sha256 =
@@ -1488,8 +1323,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/my/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/my/firefox-113.0b9.tar.bz2";
       locale = "my";
       arch = "linux-i686";
       sha256 =
@@ -1497,8 +1331,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/nb-NO/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/nb-NO/firefox-113.0b9.tar.bz2";
       locale = "nb-NO";
       arch = "linux-i686";
       sha256 =
@@ -1506,8 +1339,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ne-NP/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ne-NP/firefox-113.0b9.tar.bz2";
       locale = "ne-NP";
       arch = "linux-i686";
       sha256 =
@@ -1515,8 +1347,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/nl/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/nl/firefox-113.0b9.tar.bz2";
       locale = "nl";
       arch = "linux-i686";
       sha256 =
@@ -1524,8 +1355,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/nn-NO/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/nn-NO/firefox-113.0b9.tar.bz2";
       locale = "nn-NO";
       arch = "linux-i686";
       sha256 =
@@ -1533,8 +1363,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/oc/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/oc/firefox-113.0b9.tar.bz2";
       locale = "oc";
       arch = "linux-i686";
       sha256 =
@@ -1542,8 +1371,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/pa-IN/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/pa-IN/firefox-113.0b9.tar.bz2";
       locale = "pa-IN";
       arch = "linux-i686";
       sha256 =
@@ -1551,8 +1379,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/pl/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/pl/firefox-113.0b9.tar.bz2";
       locale = "pl";
       arch = "linux-i686";
       sha256 =
@@ -1560,8 +1387,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/pt-BR/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/pt-BR/firefox-113.0b9.tar.bz2";
       locale = "pt-BR";
       arch = "linux-i686";
       sha256 =
@@ -1569,8 +1395,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/pt-PT/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/pt-PT/firefox-113.0b9.tar.bz2";
       locale = "pt-PT";
       arch = "linux-i686";
       sha256 =
@@ -1578,8 +1403,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/rm/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/rm/firefox-113.0b9.tar.bz2";
       locale = "rm";
       arch = "linux-i686";
       sha256 =
@@ -1587,8 +1411,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ro/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ro/firefox-113.0b9.tar.bz2";
       locale = "ro";
       arch = "linux-i686";
       sha256 =
@@ -1596,8 +1419,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ru/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ru/firefox-113.0b9.tar.bz2";
       locale = "ru";
       arch = "linux-i686";
       sha256 =
@@ -1605,8 +1427,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/sc/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/sc/firefox-113.0b9.tar.bz2";
       locale = "sc";
       arch = "linux-i686";
       sha256 =
@@ -1614,8 +1435,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/sco/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/sco/firefox-113.0b9.tar.bz2";
       locale = "sco";
       arch = "linux-i686";
       sha256 =
@@ -1623,8 +1443,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/si/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/si/firefox-113.0b9.tar.bz2";
       locale = "si";
       arch = "linux-i686";
       sha256 =
@@ -1632,8 +1451,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/sk/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/sk/firefox-113.0b9.tar.bz2";
       locale = "sk";
       arch = "linux-i686";
       sha256 =
@@ -1641,8 +1459,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/sl/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/sl/firefox-113.0b9.tar.bz2";
       locale = "sl";
       arch = "linux-i686";
       sha256 =
@@ -1650,8 +1467,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/son/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/son/firefox-113.0b9.tar.bz2";
       locale = "son";
       arch = "linux-i686";
       sha256 =
@@ -1659,8 +1475,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/sq/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/sq/firefox-113.0b9.tar.bz2";
       locale = "sq";
       arch = "linux-i686";
       sha256 =
@@ -1668,8 +1483,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/sr/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/sr/firefox-113.0b9.tar.bz2";
       locale = "sr";
       arch = "linux-i686";
       sha256 =
@@ -1677,8 +1491,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/sv-SE/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/sv-SE/firefox-113.0b9.tar.bz2";
       locale = "sv-SE";
       arch = "linux-i686";
       sha256 =
@@ -1686,8 +1499,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/szl/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/szl/firefox-113.0b9.tar.bz2";
       locale = "szl";
       arch = "linux-i686";
       sha256 =
@@ -1695,8 +1507,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ta/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ta/firefox-113.0b9.tar.bz2";
       locale = "ta";
       arch = "linux-i686";
       sha256 =
@@ -1704,8 +1515,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/te/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/te/firefox-113.0b9.tar.bz2";
       locale = "te";
       arch = "linux-i686";
       sha256 =
@@ -1713,8 +1523,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/tg/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/tg/firefox-113.0b9.tar.bz2";
       locale = "tg";
       arch = "linux-i686";
       sha256 =
@@ -1722,8 +1531,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/th/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/th/firefox-113.0b9.tar.bz2";
       locale = "th";
       arch = "linux-i686";
       sha256 =
@@ -1731,8 +1539,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/tl/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/tl/firefox-113.0b9.tar.bz2";
       locale = "tl";
       arch = "linux-i686";
       sha256 =
@@ -1740,8 +1547,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/tr/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/tr/firefox-113.0b9.tar.bz2";
       locale = "tr";
       arch = "linux-i686";
       sha256 =
@@ -1749,8 +1555,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/trs/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/trs/firefox-113.0b9.tar.bz2";
       locale = "trs";
       arch = "linux-i686";
       sha256 =
@@ -1758,8 +1563,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/uk/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/uk/firefox-113.0b9.tar.bz2";
       locale = "uk";
       arch = "linux-i686";
       sha256 =
@@ -1767,8 +1571,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ur/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/ur/firefox-113.0b9.tar.bz2";
       locale = "ur";
       arch = "linux-i686";
       sha256 =
@@ -1776,8 +1579,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/uz/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/uz/firefox-113.0b9.tar.bz2";
       locale = "uz";
       arch = "linux-i686";
       sha256 =
@@ -1785,8 +1587,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/vi/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/vi/firefox-113.0b9.tar.bz2";
       locale = "vi";
       arch = "linux-i686";
       sha256 =
@@ -1794,8 +1595,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/xh/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/xh/firefox-113.0b9.tar.bz2";
       locale = "xh";
       arch = "linux-i686";
       sha256 =
@@ -1803,8 +1603,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/zh-CN/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/zh-CN/firefox-113.0b9.tar.bz2";
       locale = "zh-CN";
       arch = "linux-i686";
       sha256 =
@@ -1812,8 +1611,7 @@
     }
     {
       url =
-        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/zh-TW/firefox-113.0b9.tar.bz2"
-        ;
+        "https://archive.mozilla.org/pub/devedition/releases/113.0b9/linux-i686/zh-TW/firefox-113.0b9.tar.bz2";
       locale = "zh-TW";
       arch = "linux-i686";
       sha256 =

@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
     # https://reviews.llvm.org/D132298, Allow building libcxxabi alone
     (fetchpatch {
       url =
-        "https://github.com/llvm/llvm-project/commit/e6a0800532bb409f6d1c62f3698bdd6994a877dc.patch"
-        ;
+        "https://github.com/llvm/llvm-project/commit/e6a0800532bb409f6d1c62f3698bdd6994a877dc.patch";
       sha256 = "1xyjd56m4pfwq8p3xh6i8lhkk9kq15jaml7qbhxdf87z4jjkk63a";
       stripLen = 1;
     })

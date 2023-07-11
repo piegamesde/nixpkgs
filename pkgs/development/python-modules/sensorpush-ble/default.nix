@@ -45,8 +45,7 @@ buildPythonPackage rec {
     description = "Library for SensorPush BLE devices";
     homepage = "https://github.com/Bluetooth-Devices/sensorpush-ble";
     changelog =
-      "https://github.com/Bluetooth-Devices/sensorpush-ble/releases/tag/v${version}"
-      ;
+      "https://github.com/Bluetooth-Devices/sensorpush-ble/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

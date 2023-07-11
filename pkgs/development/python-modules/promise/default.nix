@@ -29,8 +29,7 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "use-async-def.patch";
       url =
-        "https://github.com/syrusakbary/promise/commit/3cde549d30b38dcff81b308e18c7f61783003791.patch"
-        ;
+        "https://github.com/syrusakbary/promise/commit/3cde549d30b38dcff81b308e18c7f61783003791.patch";
       hash = "sha256-XCbTo6RCv75nNrpbK3TFdV0h7tBJ0QK+WOAR8S8w9as=";
     })
   ];

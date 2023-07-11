@@ -43,8 +43,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Straightforward unification in Python that's extensible via generic functions"
-      ;
+      "Straightforward unification in Python that's extensible via generic functions";
     homepage = "https://github.com/pythological/unification";
     changelog = "https://github.com/pythological/unification/releases";
     license = licenses.bsd3;

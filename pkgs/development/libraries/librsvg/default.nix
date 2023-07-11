@@ -99,8 +99,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
     "RUST_TARGET=${rust.toRustTarget stdenv.hostPlatform}";
 
-  doCheck = false
-    ; # all tests fail on libtool-generated rsvg-convert not being able to find coreutils
+  doCheck =
+    false; # all tests fail on libtool-generated rsvg-convert not being able to find coreutils
 
   GDK_PIXBUF_QUERYLOADERS = writeScript "gdk-pixbuf-loader-loaders-wrapped" ''
     ${

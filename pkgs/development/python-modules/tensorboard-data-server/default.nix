@@ -24,8 +24,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Fast data loading for TensorBoard";
     homepage =
-      "https://github.com/tensorflow/tensorboard/tree/master/tensorboard/data/server"
-      ;
+      "https://github.com/tensorflow/tensorboard/tree/master/tensorboard/data/server";
     license = licenses.asl20;
     maintainers = with maintainers; [ abbradar ];
   };

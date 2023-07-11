@@ -26,8 +26,7 @@ python3Packages.buildPythonApplication rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://github.com/indigo-dc/udocker/commit/9f7d6c5f9a3925bf87d000603c5b306d73bb0fa3.patch"
-      ;
+      "https://github.com/indigo-dc/udocker/commit/9f7d6c5f9a3925bf87d000603c5b306d73bb0fa3.patch";
     sha256 = "sha256-fiqvVqfdVIlILbSs6oDWmbWU9piZEI2oiAKUcmecx9Q=";
   }) ];
 
@@ -46,8 +45,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "basic user tool to execute simple docker containers in user space without root privileges"
-      ;
+      "basic user tool to execute simple docker containers in user space without root privileges";
     homepage = "https://indigo-dc.gitbooks.io/udocker";
     license = licenses.asl20;
     maintainers = [ maintainers.bzizou ];

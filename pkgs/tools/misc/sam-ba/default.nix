@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://ww1.microchip.com/downloads/en/DeviceDoc/sam-ba_${version}-linux_x86_64.tar.gz"
-      ;
+      "https://ww1.microchip.com/downloads/en/DeviceDoc/sam-ba_${version}-linux_x86_64.tar.gz";
     sha256 = "1k0nbgyc98z94nphm2q7s82b274clfnayf4a2kv93l5594rzdbp1";
   };
 

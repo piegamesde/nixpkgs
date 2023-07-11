@@ -47,8 +47,7 @@ buildPythonPackage rec {
     description = "Library for Inkbird BLE devices";
     homepage = "https://github.com/Bluetooth-Devices/inkbird-ble";
     changelog =
-      "https://github.com/Bluetooth-Devices/inkbird-ble/blob/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/Bluetooth-Devices/inkbird-ble/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

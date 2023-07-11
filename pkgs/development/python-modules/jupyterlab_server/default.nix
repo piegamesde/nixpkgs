@@ -71,12 +71,10 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A set of server components for JupyterLab and JupyterLab like applications"
-      ;
+      "A set of server components for JupyterLab and JupyterLab like applications";
     homepage = "https://jupyterlab-server.readthedocs.io/";
     changelog =
-      "https://github.com/jupyterlab/jupyterlab_server/blob/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/jupyterlab/jupyterlab_server/blob/v${version}/CHANGELOG.md";
     license = licenses.bsdOriginal;
     maintainers = with maintainers; [ costrouc ];
   };

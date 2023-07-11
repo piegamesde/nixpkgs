@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/harfbuzz/harfbuzz/releases/download/${version}/harfbuzz-${version}.tar.xz"
-      ;
+      "https://github.com/harfbuzz/harfbuzz/releases/download/${version}/harfbuzz-${version}.tar.xz";
     hash = "sha256-8TWmHNRkye1ryYI3ZMGI8nbDhQqNyQRijeKoeWa3B3s=";
   };
 

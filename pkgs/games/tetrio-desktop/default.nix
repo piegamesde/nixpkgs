@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://web.archive.org/web/20211228025517if_/https://tetr.io/about/desktop/builds/TETR.IO%20Setup.deb"
-      ;
+      "https://web.archive.org/web/20211228025517if_/https://tetr.io/about/desktop/builds/TETR.IO%20Setup.deb";
     name = "tetrio-desktop.deb";
     sha256 = "1nlblfhrph4cw8rpic9icrs78mzrxyskl7ggyy2i8bk9i07i21xf";
   };

@@ -106,8 +106,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "A program to convert DocBook to DVI, PostScript or PDF via LaTeX or ConTeXt"
-      ;
+      "A program to convert DocBook to DVI, PostScript or PDF via LaTeX or ConTeXt";
     homepage = "https://dblatex.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;

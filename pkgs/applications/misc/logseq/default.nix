@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/logseq/logseq/releases/download/${version}/logseq-linux-x64-${version}.AppImage"
-      ;
+      "https://github.com/logseq/logseq/releases/download/${version}/logseq-linux-x64-${version}.AppImage";
     hash = "sha256-K04iIa/WnRtcHwRUHJbKqXO9c4l5xwHPvnwN5WX/Row=";
     name = "${pname}-${version}.AppImage";
   };
@@ -64,8 +63,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A local-first, non-linear, outliner notebook for organizing and sharing your personal knowledge base"
-      ;
+      "A local-first, non-linear, outliner notebook for organizing and sharing your personal knowledge base";
     homepage = "https://github.com/logseq/logseq";
     changelog = "https://github.com/logseq/logseq/releases/tag/${version}";
     license = licenses.agpl3Plus;

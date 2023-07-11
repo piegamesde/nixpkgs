@@ -42,8 +42,7 @@ let
         if onlyDry && !v.supportsDryActivation then
           v // {
             text =
-              "#### Activation script snippet ${a} does not support dry activation."
-              ;
+              "#### Activation script snippet ${a} does not support dry activation.";
           }
         else
           v) withHeadlines;

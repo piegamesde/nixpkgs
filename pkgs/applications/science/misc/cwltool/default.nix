@@ -71,8 +71,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Common Workflow Language reference implementation";
     homepage = "https://www.commonwl.org";
     changelog =
-      "https://github.com/common-workflow-language/cwltool/releases/tag/${version}"
-      ;
+      "https://github.com/common-workflow-language/cwltool/releases/tag/${version}";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ veprbl ];
   };

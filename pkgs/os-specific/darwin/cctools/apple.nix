@@ -21,8 +21,7 @@ let
 
     src = fetchurl {
       url =
-        "https://opensource.apple.com/tarballs/cctools/cctools-${version}.tar.gz"
-        ;
+        "https://opensource.apple.com/tarballs/cctools/cctools-${version}.tar.gz";
       hash = "sha256-r/6tsyyfi3R/0cLl+lN/B9ZaOaVF+Z7vJ6xj4LzSgiQ=";
     };
 

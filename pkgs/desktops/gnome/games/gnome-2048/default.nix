@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
     # https://gitlab.gnome.org/GNOME/gnome-2048/-/merge_requests/21
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/gnome-2048/-/commit/194e22699f7166a016cd39ba26dd719aeecfc868.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/gnome-2048/-/commit/194e22699f7166a016cd39ba26dd719aeecfc868.patch";
       sha256 = "Qpn/OJJwblRm5Pi453aU2HwbrNjsf+ftmSnns/5qZ9E=";
     })
   ];

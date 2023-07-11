@@ -30,8 +30,7 @@ else
 
     meta = with lib; {
       description =
-        "A backport of the get_terminal_size function from Python 3.3’s shutil."
-        ;
+        "A backport of the get_terminal_size function from Python 3.3’s shutil.";
       homepage =
         "https://github.com/chrippa/backports.shutil_get_terminal_size";
       license = with licenses; [ mit ];

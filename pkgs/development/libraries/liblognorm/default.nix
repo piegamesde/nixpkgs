@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Help to make sense out of syslog data, or, actually, any event data that is present in text form"
-      ;
+      "Help to make sense out of syslog data, or, actually, any event data that is present in text form";
     homepage = "https://www.liblognorm.com/";
     license = licenses.lgpl21;
     mainProgram = "lognormalizer";

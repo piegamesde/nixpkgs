@@ -32,8 +32,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "Terraform framework that provides an organized structure, and keeps your code DRY"
-      ;
+      "Terraform framework that provides an organized structure, and keeps your code DRY";
     homepage = "https://github.com/boltops-tools/terraspace";
     license = licenses.asl20;
     platforms = ruby.meta.platforms;

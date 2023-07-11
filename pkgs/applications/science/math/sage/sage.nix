@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Open Source Mathematics Software, free alternative to Magma, Maple, Mathematica, and Matlab"
-      ;
+      "Open Source Mathematics Software, free alternative to Magma, Maple, Mathematica, and Matlab";
     homepage = "https://www.sagemath.org";
     license = licenses.gpl2Plus;
     maintainers = teams.sage.members;

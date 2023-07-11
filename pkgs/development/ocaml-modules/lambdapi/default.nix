@@ -25,8 +25,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/Deducteam/lambdapi/releases/download/${version}/lambdapi-${version}.tbz"
-      ;
+      "https://github.com/Deducteam/lambdapi/releases/download/${version}/lambdapi-${version}.tbz";
     hash = "sha256-7ww2TjVcbEQyfmLnnEhLGAjW4US9a4mdOfDJw6NR1fI=";
   };
 
@@ -47,8 +46,8 @@ buildDunePackage rec {
     alcotest
     dedukti
   ];
-  doCheck = false
-    ; # anomaly: Sys_error("/homeless-shelter/.why3.conf: No such file or directory")
+  doCheck =
+    false; # anomaly: Sys_error("/homeless-shelter/.why3.conf: No such file or directory")
 
   meta = with lib; {
     homepage = "https://github.com/Deducteam/lambdapi";

@@ -15,8 +15,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/defclass-std/2020-12-20/defclass-std-20201220-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/defclass-std/2020-12-20/defclass-std-20201220-git.tgz";
     sha256 = "1ldivz1zmg0yxja43gj0lcgf10k0kj2bhb0576f0xnhy56sya0w3";
   };
 

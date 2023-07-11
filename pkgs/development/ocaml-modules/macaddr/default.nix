@@ -15,8 +15,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/ocaml-ipaddr/releases/download/v${version}/ipaddr-${version}.tbz"
-      ;
+      "https://github.com/mirage/ocaml-ipaddr/releases/download/v${version}/ipaddr-${version}.tbz";
     hash = "sha256-WmYpG/cQtF9+lVDs1WIievUZ1f7+iZ2hufsdD1HHNeo=";
   };
 

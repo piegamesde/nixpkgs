@@ -208,8 +208,7 @@ in {
 
           # NOTE: call twistd directly with stdout logging for systemd
         ExecStart =
-          "${python.pkgs.twisted}/bin/twistd --nodaemon --pidfile= --logfile - --python ${tacFile}"
-          ;
+          "${python.pkgs.twisted}/bin/twistd --nodaemon --pidfile= --logfile - --python ${tacFile}";
       };
 
     };

@@ -90,8 +90,7 @@
                                     "export LOCALE_ARCHIVE=${glibcLocales}/lib/locale/locale-archive;"
                                   }\n\n                    ${
                                     toString hasktags
-                                  }/bin/hasktags --ignore-close-implementation --ctags .\n                    mv tags $TAG_FILE\n                   }"
-              ;
+                                  }/bin/hasktags --ignore-close-implementation --ctags .\n                    mv tags $TAG_FILE\n                   }";
           } ];
         };
       };

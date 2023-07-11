@@ -46,8 +46,7 @@ in {
 
   config = mkIf cfg.enable {
 
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - slimserver slimserver - -" ]
-      ;
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - slimserver slimserver - -" ];
 
     systemd.services.slimserver = {
       after = [ "network.target" ];
@@ -58,8 +57,7 @@ in {
         User = "slimserver";
           # Issue 40589: Disable broken image/video support (audio still works!)
         ExecStart =
-          "${cfg.package}/slimserver.pl --logdir ${cfg.dataDir}/logs --prefsdir ${cfg.dataDir}/prefs --cachedir ${cfg.dataDir}/cache --noimage --novideo"
-          ;
+          "${cfg.package}/slimserver.pl --logdir ${cfg.dataDir}/logs --prefsdir ${cfg.dataDir}/prefs --cachedir ${cfg.dataDir}/cache --noimage --novideo";
       };
     };
 

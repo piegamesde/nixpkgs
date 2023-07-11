@@ -43,8 +43,7 @@ rustPlatform.buildRustPackage rec {
     description = "An implementation of Tor in Rust";
     homepage = "https://gitlab.torproject.org/tpo/core/arti";
     changelog =
-      "https://gitlab.torproject.org/tpo/core/arti/-/raw/${src.rev}/CHANGELOG.md"
-      ;
+      "https://gitlab.torproject.org/tpo/core/arti/-/raw/${src.rev}/CHANGELOG.md";
     license = with licenses; [
       asl20 # or
       mit

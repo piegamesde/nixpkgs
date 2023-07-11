@@ -27,8 +27,7 @@ mkXfceDerivation {
 
   meta = with lib; {
     description =
-      "Shows the date and time in the panel, and a calendar appears when you left-click on it"
-      ;
+      "Shows the date and time in the panel, and a calendar appears when you left-click on it";
     maintainers = with maintainers; [ ] ++ teams.xfce.members;
   };
 }

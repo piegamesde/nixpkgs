@@ -30,8 +30,7 @@ buildDunePackage (rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ocaml/ocaml-re/releases/download/${version}/re-${version}.tbz"
-      ;
+      "https://github.com/ocaml/ocaml-re/releases/download/${version}/re-${version}.tbz";
     sha256 = version_sha.sha256;
   };
 
@@ -42,8 +41,7 @@ buildDunePackage (rec {
   meta = {
     homepage = "https://github.com/ocaml/ocaml-re";
     description =
-      "Pure OCaml regular expressions, with support for Perl and POSIX-style strings"
-      ;
+      "Pure OCaml regular expressions, with support for Perl and POSIX-style strings";
     license = lib.licenses.lgpl2;
     maintainers = with lib.maintainers; [ vbgl ];
   };

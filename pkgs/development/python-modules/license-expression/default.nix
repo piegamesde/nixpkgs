@@ -39,8 +39,7 @@ buildPythonPackage rec {
       "Utility library to parse, normalize and compare License expressions";
     homepage = "https://github.com/nexB/license-expression";
     changelog =
-      "https://github.com/nexB/license-expression/blob/v${version}/CHANGELOG.rst"
-      ;
+      "https://github.com/nexB/license-expression/blob/v${version}/CHANGELOG.rst";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

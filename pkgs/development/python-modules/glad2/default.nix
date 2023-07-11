@@ -20,8 +20,7 @@ python3.pkgs.buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Multi-Language GL/GLES/EGL/GLX/WGL Loader-Generator based on the official specifications"
-      ;
+      "Multi-Language GL/GLES/EGL/GLX/WGL Loader-Generator based on the official specifications";
     homepage = "https://pypi.org/project/glad2";
     license = licenses.mit;
     maintainers = with maintainers; [ kranzes ];

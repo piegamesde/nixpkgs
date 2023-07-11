@@ -73,8 +73,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Portable abstraction of hierarchical architectures for high-performance computing"
-      ;
+      "Portable abstraction of hierarchical architectures for high-performance computing";
     longDescription = ''
       hwloc provides a portable abstraction (across OS,
       versions, architectures, ...) of the hierarchical topology of

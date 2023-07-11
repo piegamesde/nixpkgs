@@ -173,8 +173,7 @@ stdenv.mkDerivation rec {
     description = "Multi-use TUI to audit wireless networks";
     homepage = "https://github.com/v1s1t0r1sh3r3/airgeddon";
     changelog =
-      "https://github.com/v1s1t0r1sh3r3/airgeddon/blob/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/v1s1t0r1sh3r3/airgeddon/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ pedrohlc ];
     platforms = platforms.linux;

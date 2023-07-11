@@ -11,8 +11,7 @@ let
   mimallocPatch = fetchpatch {
     name = "fix-build-on-older-macos-releases.patch";
     url =
-      "https://github.com/microsoft/mimalloc/commit/40e0507a5959ee218f308d33aec212c3ebeef3bb.patch"
-      ;
+      "https://github.com/microsoft/mimalloc/commit/40e0507a5959ee218f308d33aec212c3ebeef3bb.patch";
     sha256 = "sha256-DK0LqsVXXiEVQSQCxZ5jyZMg0UJJx9a/WxzCroYSHZc=";
   };
 

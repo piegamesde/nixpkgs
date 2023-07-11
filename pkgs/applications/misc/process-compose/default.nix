@@ -58,8 +58,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A simple and flexible scheduler and orchestrator to manage non-containerized applications"
-      ;
+      "A simple and flexible scheduler and orchestrator to manage non-containerized applications";
     homepage = "https://github.com/F1bonacc1/process-compose";
     changelog =
       "https://github.com/F1bonacc1/process-compose/releases/tag/v${version}";

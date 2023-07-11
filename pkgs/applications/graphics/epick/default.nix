@@ -44,8 +44,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Simple color picker that lets the user create harmonic palettes with ease"
-      ;
+      "Simple color picker that lets the user create harmonic palettes with ease";
     homepage = "https://github.com/vv9k/epick";
     changelog = "https://github.com/vv9k/epick/blob/${version}/CHANGELOG.md";
     license = licenses.gpl3Only;

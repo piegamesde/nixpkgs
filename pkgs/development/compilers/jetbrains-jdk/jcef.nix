@@ -125,8 +125,7 @@ stdenv.mkDerivation rec {
     ;
   clang-fmt = fetchurl {
     url =
-      "https://storage.googleapis.com/chromium-clang-format/942fc8b1789144b8071d3fc03ff0fcbe1cf81ac8"
-      ;
+      "https://storage.googleapis.com/chromium-clang-format/942fc8b1789144b8071d3fc03ff0fcbe1cf81ac8";
     hash = "sha256-5iAU49tQmLS7zkS+6iGT+6SEdERRo1RkyRpiRvc9nVY=";
   };
 

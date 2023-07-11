@@ -425,8 +425,9 @@ in {
           ExecStart =
             "${data.package}/bin/tincd -D -U tinc.${network} -n ${network} ${
               optionalString (data.chroot) "-R"
-            } --pidfile /run/tinc.${network}.pid -d ${toString data.debugLevel}"
-            ;
+            } --pidfile /run/tinc.${network}.pid -d ${
+              toString data.debugLevel
+            }";
         };
         preStart = ''
           mkdir -p /etc/tinc/${network}/hosts

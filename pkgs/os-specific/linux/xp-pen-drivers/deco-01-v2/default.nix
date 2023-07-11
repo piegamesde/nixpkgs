@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://www.xp-pen.com/download/file/id/1936/pid/440/ext/gz.html#.tar.gz"
-      ;
+      "https://www.xp-pen.com/download/file/id/1936/pid/440/ext/gz.html#.tar.gz";
     name = "xp-pen-deco-01-v2-driver-${version}.tar.gz";
     sha256 = "sha256-xrRDxH7e00dISXb+lTtrnui+fNFpX7bLke2o+aTjJNk=";
   };

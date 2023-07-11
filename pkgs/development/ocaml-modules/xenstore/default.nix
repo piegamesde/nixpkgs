@@ -17,8 +17,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/ocaml-xenstore/releases/download/v${version}/xenstore-${version}.tbz"
-      ;
+      "https://github.com/mirage/ocaml-xenstore/releases/download/v${version}/xenstore-${version}.tbz";
     hash = "sha256-1Mnqtt5zHeRdYJHvhdQNjN8d4yxUEKD2cpwtoc7DGC0=";
   };
 

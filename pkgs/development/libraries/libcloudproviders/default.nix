@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://gitlab.gnome.org/World/${pname}/repository/archive.tar.gz?ref=${version}"
-      ;
+      "https://gitlab.gnome.org/World/${pname}/repository/archive.tar.gz?ref=${version}";
     sha256 = "0zazjhj3xbwxyzi2b2aws7qdnwn092zg9yrk9v3wd19m3mxq5na3";
   };
 
@@ -51,8 +50,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "DBus API that allows cloud storage sync clients to expose their services"
-      ;
+      "DBus API that allows cloud storage sync clients to expose their services";
     homepage = "https://gitlab.gnome.org/World/libcloudproviders";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ jtojnar ];

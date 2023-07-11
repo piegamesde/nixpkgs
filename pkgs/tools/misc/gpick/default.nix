@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
 
     (fetchpatch {
       url =
-        "https://raw.githubusercontent.com/archlinux/svntogit-community/1d53a9aace4bb60300e52458bb1577d248cb87cd/trunk/buildfix.diff"
-        ;
+        "https://raw.githubusercontent.com/archlinux/svntogit-community/1d53a9aace4bb60300e52458bb1577d248cb87cd/trunk/buildfix.diff";
       hash = "sha256-DnRU90VPyFhLYTk4GPJoiVYadJgtYgjMS4MLgmpYLP0=";
     })
   ];

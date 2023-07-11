@@ -11,8 +11,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/SSilence/selfoss/releases/download/${version}/selfoss-${version}.zip"
-      ;
+      "https://github.com/SSilence/selfoss/releases/download/${version}/selfoss-${version}.zip";
     sha256 = "5JxHUOlyMneWPKaZtgLwn5FI4rnyWPzmsUQpSYrw5Pw=";
   };
 

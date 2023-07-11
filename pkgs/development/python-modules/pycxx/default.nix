@@ -11,8 +11,7 @@ buildPythonPackage rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/cxx/CXX/PyCXX%20V${version}/pycxx-${version}.tar.gz"
-      ;
+      "mirror://sourceforge/cxx/CXX/PyCXX%20V${version}/pycxx-${version}.tar.gz";
     sha256 = "MUMU+/qsm92WENYFxfjQsSuR8/nE/asYG8HgIbaAaz0=";
   };
 

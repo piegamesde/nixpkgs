@@ -229,8 +229,7 @@ let
         {
           genericName = "Email Client";
           comment =
-            "Read and write e-mails or RSS feeds, or manage tasks on calendars."
-            ;
+            "Read and write e-mails or RSS feeds, or manage tasks on calendars.";
           categories = [
             "Network"
             "Chat"

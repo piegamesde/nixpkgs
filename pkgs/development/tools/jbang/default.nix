@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/jbangdev/jbang/releases/download/v${version}/${pname}-${version}.tar"
-      ;
+      "https://github.com/jbangdev/jbang/releases/download/v${version}/${pname}-${version}.tar";
     sha256 = "sha256-54yXQ3E10dlU/UqHyl3fxzQsawBTgNpIaq6XPmwXmD8=";
   };
 

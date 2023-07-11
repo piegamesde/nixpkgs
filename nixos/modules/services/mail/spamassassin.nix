@@ -146,8 +146,7 @@ in {
         Group = "spamd";
         StateDirectory = "spamassassin";
         ExecStartPost =
-          "+${config.systemd.package}/bin/systemctl -q --no-block try-reload-or-restart spamd.service"
-          ;
+          "+${config.systemd.package}/bin/systemctl -q --no-block try-reload-or-restart spamd.service";
       };
 
       script = ''
@@ -196,8 +195,7 @@ in {
         Group = "spamd";
         ExecStart = "+${pkgs.spamassassin}/bin/spamd ${
             optionalString cfg.debug "-D"
-          } --username=spamd --groupname=spamd --virtual-config-dir=%S/spamassassin/user-%u --allow-tell --pidfile=/run/spamd.pid"
-          ;
+          } --username=spamd --groupname=spamd --virtual-config-dir=%S/spamassassin/user-%u --allow-tell --pidfile=/run/spamd.pid";
         ExecReload = "+${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         StateDirectory = "spamassassin";
       };

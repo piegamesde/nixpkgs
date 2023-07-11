@@ -36,8 +36,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Distribution-building parts of Flit. See flit package for more information"
-      ;
+      "Distribution-building parts of Flit. See flit package for more information";
     homepage = "https://github.com/pypa/flit";
     license = licenses.bsd3;
     maintainers = with maintainers; [

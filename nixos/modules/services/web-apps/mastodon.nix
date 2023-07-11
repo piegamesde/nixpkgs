@@ -170,8 +170,7 @@ let
       };
       serviceConfig = {
         ExecStart =
-          "${cfg.package}/bin/sidekiq ${jobClassArgs} -c ${threads} -r ${cfg.package}"
-          ;
+          "${cfg.package}/bin/sidekiq ${jobClassArgs} -c ${threads} -r ${cfg.package}";
         Restart = "always";
         RestartSec = 20;
         EnvironmentFile =
@@ -679,8 +678,7 @@ in {
             builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ])
             cfg.sidekiqProcesses);
           message = ''
-            There must be one and only one Sidekiq queue in services.mastodon.sidekiqProcesses with jobClass "scheduler".''
-            ;
+            There must be one and only one Sidekiq queue in services.mastodon.sidekiqProcesses with jobClass "scheduler".'';
         }
       ];
 

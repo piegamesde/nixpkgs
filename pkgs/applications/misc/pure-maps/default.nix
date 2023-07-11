@@ -56,8 +56,7 @@ mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Display vector and raster maps, places, routes, and provide navigation instructions with a flexible selection of data and service providers"
-      ;
+      "Display vector and raster maps, places, routes, and provide navigation instructions with a flexible selection of data and service providers";
     homepage = "https://github.com/rinigus/pure-maps";
     changelog = "https://github.com/rinigus/pure-maps/blob/${src.rev}/NEWS.md";
     license = licenses.gpl3Only;

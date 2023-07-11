@@ -42,8 +42,7 @@ let
 
     src = fetchurl {
       url =
-        "https://codeberg.org/dnkl/foot/raw/tag/${version}/scripts/generate-alt-random-writes.py"
-        ;
+        "https://codeberg.org/dnkl/foot/raw/tag/${version}/scripts/generate-alt-random-writes.py";
       sha256 = "0w4d0rxi54p8lvbynypcywqqwbbzmyyzc0svjab27ngmdj1034ii";
     };
 

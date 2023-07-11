@@ -40,8 +40,7 @@ buildPythonPackage rec {
       "Python library for the generation of email authentication headers";
     homepage = "https://github.com/ValiMail/authentication-headers";
     changelog =
-      "https://github.com/ValiMail/authentication-headers/blob${version}/CHANGES"
-      ;
+      "https://github.com/ValiMail/authentication-headers/blob${version}/CHANGES";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

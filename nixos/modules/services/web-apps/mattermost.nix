@@ -12,8 +12,7 @@ let
   cfg = config.services.mattermost;
 
   database =
-    "postgres://${cfg.localDatabaseUser}:${cfg.localDatabasePassword}@localhost:5432/${cfg.localDatabaseName}?sslmode=disable&connect_timeout=10"
-    ;
+    "postgres://${cfg.localDatabaseUser}:${cfg.localDatabasePassword}@localhost:5432/${cfg.localDatabaseName}?sslmode=disable&connect_timeout=10";
 
   postgresPackage = config.services.postgresql.package;
 

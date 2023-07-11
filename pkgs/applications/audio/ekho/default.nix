@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/e-guidedog/Ekho/${version}/${pname}-${version}.tar.xz"
-      ;
+      "mirror://sourceforge/e-guidedog/Ekho/${version}/${pname}-${version}.tar.xz";
     sha256 = "0ym6lpcpsvwvsiwlzkl1509a2hljwcw7synngrmqjq1n49ww00nj";
   };
 

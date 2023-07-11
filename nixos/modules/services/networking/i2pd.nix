@@ -536,8 +536,7 @@ in {
       addressbook.defaulturl = mkOption {
         type = types.str;
         default =
-          "http://joajgazyztfssty4w2on5oaqksz6tqoxbduy553y34mf4byv6gpq.b32.i2p/export/alive-hosts.txt"
-          ;
+          "http://joajgazyztfssty4w2on5oaqksz6tqoxbduy553y34mf4byv6gpq.b32.i2p/export/alive-hosts.txt";
         description = lib.mdDoc ''
           AddressBook subscription URL for initial setup
         '';

@@ -19,15 +19,13 @@ let
   version = "3.2.0-1";
   lprdeb = fetchurl {
     url =
-      "https://download.brother.com/welcome/dlf101912/hll2340dlpr-${version}.i386.deb"
-      ;
+      "https://download.brother.com/welcome/dlf101912/hll2340dlpr-${version}.i386.deb";
     sha256 = "c0ae98b49b462cd8fbef445550f2177ce9d8bf627c904e182daa8cbaf8781e50";
   };
 
   cupsdeb = fetchurl {
     url =
-      "https://download.brother.com/welcome/dlf101913/hll2340dcupswrapper-${version}.i386.deb"
-      ;
+      "https://download.brother.com/welcome/dlf101913/hll2340dcupswrapper-${version}.i386.deb";
     sha256 = "8aa24a6a825e3a4d5b51778cb46fe63032ec5a731ace22f9ef2b0ffcc2033cc9";
   };
 
@@ -104,8 +102,7 @@ stdenv.mkDerivation {
     license = licenses.unfree;
     platforms = platforms.linux;
     downloadPage =
-      "https://support.brother.com/g/b/downloadlist.aspx?c=us&lang=es&prod=hll2340dw_us_eu_as&os=128&flang=English"
-      ;
+      "https://support.brother.com/g/b/downloadlist.aspx?c=us&lang=es&prod=hll2340dw_us_eu_as&os=128&flang=English";
     maintainers = [ maintainers.qknight ];
   };
 }

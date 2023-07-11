@@ -40,16 +40,14 @@ let
       "i686-linux" = rec {
         filename = "VMware-ovftool-${version}-lin.i386.zip";
         url =
-          "${baseUrl}/b70b2ad5-861a-4c11-b081-e541586bf934/57109c63-6b80-4ced-95f2-1b7255200a36/${filename}"
-          ;
+          "${baseUrl}/b70b2ad5-861a-4c11-b081-e541586bf934/57109c63-6b80-4ced-95f2-1b7255200a36/${filename}";
         sha256 = "11zs5dm4gmssm94s501p66l4s8v9p7prrd87cfa903mwmyp0ihnx";
         unpackPhase = ovftoolZipUnpackPhase;
       };
       "x86_64-linux" = rec {
         filename = "VMware-ovftool-${version}-lin.x86_64.zip";
         url =
-          "${baseUrl}/f87355ff-f7a9-4532-b312-0be218a92eac/b2916af6-9f4f-4112-adac-49d1d6c81f63/${filename}"
-          ;
+          "${baseUrl}/f87355ff-f7a9-4532-b312-0be218a92eac/b2916af6-9f4f-4112-adac-49d1d6c81f63/${filename}";
         sha256 = "1fkm18yfkkm92m7ccl6b4nxy5lagwwldq56b567091a5sgad38zw";
         unpackPhase = ovftoolZipUnpackPhase;
       };

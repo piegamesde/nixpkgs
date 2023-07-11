@@ -24,8 +24,7 @@ in {
       default =
         "user=postgres database=postgres host=/run/postgresql sslmode=disable";
       example =
-        "postgresql://username:password@localhost:5432/postgres?sslmode=disable"
-        ;
+        "postgresql://username:password@localhost:5432/postgres?sslmode=disable";
       description = lib.mdDoc ''
         Accepts PostgreSQL URI form and key=value form arguments.
       '';

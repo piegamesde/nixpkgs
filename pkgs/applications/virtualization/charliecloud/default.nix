@@ -80,8 +80,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "User-defined software stacks (UDSS) for high-performance computing (HPC) centers"
-      ;
+      "User-defined software stacks (UDSS) for high-performance computing (HPC) centers";
     longDescription = ''
       Charliecloud uses Linux user namespaces to run containers with no
       privileged operations or daemons and minimal configuration changes on

@@ -79,8 +79,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Native GTK Twitter client for the Linux desktop";
     longDescription =
-      "Cawbird is a modern, easy and fun Twitter client. Fork of the discontinued Corebird."
-      ;
+      "Cawbird is a modern, easy and fun Twitter client. Fork of the discontinued Corebird.";
     homepage = "https://ibboard.co.uk/cawbird/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

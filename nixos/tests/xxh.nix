@@ -32,8 +32,7 @@ import ./make-test-python.nix ({
     zsh-portable-binary = pkgs.fetchurl {
       # kept in sync with https://github.com/xxh/xxh-shell-zsh/tree/master/build.sh#L27
       url =
-        "https://github.com/romkatv/zsh-bin/releases/download/v3.0.1/zsh-5.8-linux-x86_64.tar.gz"
-        ;
+        "https://github.com/romkatv/zsh-bin/releases/download/v3.0.1/zsh-5.8-linux-x86_64.tar.gz";
       sha256 = "sha256-i8flMd2Isc0uLoeYQNDnOGb/kK3oTFVqQgIx7aOAIIo=";
     };
   in {

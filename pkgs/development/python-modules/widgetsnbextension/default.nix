@@ -25,8 +25,7 @@ buildPythonPackage rec {
   meta = {
     description = "IPython HTML widgets for Jupyter";
     homepage =
-      "https://github.com/jupyter-widgets/ipywidgets/tree/master/python/widgetsnbextension"
-      ;
+      "https://github.com/jupyter-widgets/ipywidgets/tree/master/python/widgetsnbextension";
     license = ipywidgets.meta.license; # Build from same repo
     maintainers = with lib.maintainers; [ fridh ];
   };

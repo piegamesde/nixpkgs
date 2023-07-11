@@ -23,8 +23,7 @@ rustPlatform.buildRustPackage rec {
   '';
   meta = with lib; {
     description =
-      "Fuse filesystem that returns symlinks to executables based on the PATH of the requesting process."
-      ;
+      "Fuse filesystem that returns symlinks to executables based on the PATH of the requesting process.";
     homepage = "https://github.com/Mic92/envfs";
     license = licenses.mit;
     maintainers = with maintainers; [ mic92 ];

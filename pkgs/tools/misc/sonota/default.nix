@@ -15,8 +15,7 @@ with python3Packages;
 let
   core = fetchurl {
     url =
-      "https://github.com/xoseperez/espurna/releases/download/${coreVersion}/espurna-${coreVersion}-espurna-core-${coreSize}.bin"
-      ;
+      "https://github.com/xoseperez/espurna/releases/download/${coreVersion}/espurna-${coreVersion}-espurna-core-${coreSize}.bin";
     sha256 = coreSha256;
   };
 
@@ -59,8 +58,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Flash Itead Sonoff devices with custom firmware via original OTA mechanism"
-      ;
+      "Flash Itead Sonoff devices with custom firmware via original OTA mechanism";
     homepage = src.meta.homepage;
     license = licenses.gpl2;
     maintainers = with maintainers; [ peterhoeg ];

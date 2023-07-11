@@ -21,8 +21,7 @@ let
 
       src = fetchurl {
         url =
-          "https://oligarchy.co.uk/xapian/${version}/xapian-core-${version}.tar.xz"
-          ;
+          "https://oligarchy.co.uk/xapian/${version}/xapian-core-${version}.tar.xz";
         inherit hash;
       };
 

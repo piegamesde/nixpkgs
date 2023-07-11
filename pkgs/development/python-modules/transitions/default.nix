@@ -53,8 +53,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/pytransitions/transitions";
     description =
-      "A lightweight, object-oriented finite state machine implementation in Python"
-      ;
+      "A lightweight, object-oriented finite state machine implementation in Python";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

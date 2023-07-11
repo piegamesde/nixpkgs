@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Belledonne Communications' fork of CUnit test framework. Part of the Linphone project."
-      ;
+      "Belledonne Communications' fork of CUnit test framework. Part of the Linphone project.";
     homepage = "https://gitlab.linphone.org/BC/public/bcunit";
     license = licenses.lgpl2Plus;
     maintainers = with maintainers; [

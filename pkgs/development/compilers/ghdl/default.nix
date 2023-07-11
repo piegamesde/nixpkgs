@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fix-build-gcc-12.patch";
       url =
-        "https://github.com/ghdl/ghdl/commit/f8b87697e8b893b6293ebbfc34670c32bfb49397.patch"
-        ;
+        "https://github.com/ghdl/ghdl/commit/f8b87697e8b893b6293ebbfc34670c32bfb49397.patch";
       hash = "sha256-tVbMm8veFkNPs6WFBHvaic5Jkp1niyg0LfFufa+hT/E=";
     })
   ];

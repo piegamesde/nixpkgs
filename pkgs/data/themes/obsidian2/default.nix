@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/madmaxms/theme-obsidian-2/releases/download/v${version}/obsidian-2-theme.tar.xz"
-      ;
+      "https://github.com/madmaxms/theme-obsidian-2/releases/download/v${version}/obsidian-2-theme.tar.xz";
     sha256 = "sha256-WvSlzCock0UMdvajHRBNHSugVMStR1FDt9vjzX5Kp8A=";
   };
 

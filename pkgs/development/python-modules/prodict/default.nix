@@ -27,8 +27,7 @@ buildPythonPackage rec {
 
   meta = {
     description =
-      "Access Python dictionary as a class with type hinting and autocompletion"
-      ;
+      "Access Python dictionary as a class with type hinting and autocompletion";
     homepage = "https://github.com/ramazanpolat/prodict";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ bcdarwin ];

@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Takes text from standard input and outputs it to a desktop-widget on Wayland desktops."
-      ;
+      "Takes text from standard input and outputs it to a desktop-widget on Wayland desktops.";
     homepage = "https://git.sr.ht/~proycon/wayout";
     license = licenses.gpl3;
     platforms = platforms.linux;

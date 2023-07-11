@@ -10,8 +10,7 @@ let
 
   src = fetchurl {
     url =
-      "https://download.mathpix.com/linux/Mathpix_Snipping_Tool-x86_64.v${version}.AppImage"
-      ;
+      "https://download.mathpix.com/linux/Mathpix_Snipping_Tool-x86_64.v${version}.AppImage";
     sha256 = "1igg8wnshmg9f23qqw1gqb85h1aa3461c1n7dmgw6sn4lrrrh5ms";
   };
 

@@ -45,8 +45,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Analyze problems of competitive programming and automatically generate boilerplate"
-      ;
+      "Analyze problems of competitive programming and automatically generate boilerplate";
     homepage = "https://github.com/online-judge-tools/template-generator";
     license = licenses.mit;
     maintainers = with maintainers; [ sei40kr ];

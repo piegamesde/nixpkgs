@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
   meta = with lib; {
     description =
-      "An implementation of the Double Description Method for generating all vertices of a convex polyhedron"
-      ;
+      "An implementation of the Double Description Method for generating all vertices of a convex polyhedron";
     license = licenses.gpl2Plus;
     maintainers = teams.sage.members;
     platforms = platforms.unix;

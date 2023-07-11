@@ -1185,8 +1185,8 @@ in {
               neededForBoot = true;
             };
           "/boot" = lib.mkIf (cfg.useBootLoader && cfg.bootPartition != null) {
-            device = cfg.bootPartition
-              ; # 1 for e.g. `vda1`, as created in `systemImage`
+            device =
+              cfg.bootPartition; # 1 for e.g. `vda1`, as created in `systemImage`
             fsType = "vfat";
             noCheck = true; # fsck fails on a r/o filesystem
           };
@@ -1201,8 +1201,7 @@ in {
           what = "overlay";
           type = "overlay";
           options =
-            "lowerdir=/sysroot/nix/.ro-store,upperdir=/sysroot/nix/.rw-store/store,workdir=/sysroot/nix/.rw-store/work"
-            ;
+            "lowerdir=/sysroot/nix/.ro-store,upperdir=/sysroot/nix/.rw-store/store,workdir=/sysroot/nix/.rw-store/work";
           wantedBy = [ "initrd-fs.target" ];
           before = [ "initrd-fs.target" ];
           requires = [ "rw-store.service" ];
@@ -1217,8 +1216,7 @@ in {
           serviceConfig = {
             Type = "oneshot";
             ExecStart =
-              "/bin/mkdir -p -m 0755 /sysroot/nix/.rw-store/store /sysroot/nix/.rw-store/work /sysroot/nix/store"
-              ;
+              "/bin/mkdir -p -m 0755 /sysroot/nix/.rw-store/store /sysroot/nix/.rw-store/work /sysroot/nix/store";
           };
         };
       };

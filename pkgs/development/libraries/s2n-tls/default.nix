@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
     "-DS2N_NO_PQ=ON"
   ];
 
-  propagatedBuildInputs = [ openssl ]
-    ; # s2n-config has find_dependency(LibCrypto).
+  propagatedBuildInputs = [ openssl ]; # s2n-config has find_dependency(LibCrypto).
 
   postInstall = ''
     # Glob for 'shared' or 'static' subdir

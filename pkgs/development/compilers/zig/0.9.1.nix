@@ -78,8 +78,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://ziglang.org/";
     description =
-      "General-purpose programming language and toolchain for maintaining robust, optimal, and reusable software"
-      ;
+      "General-purpose programming language and toolchain for maintaining robust, optimal, and reusable software";
     license = licenses.mit;
     maintainers = with maintainers; [
       aiotter

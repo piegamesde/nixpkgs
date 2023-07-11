@@ -22,8 +22,7 @@ buildPythonPackage rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://github.com/pazz/urwidtrees/commit/ed39dbc4fc67b0e0249bf108116a88cd18543aa9.patch"
-      ;
+      "https://github.com/pazz/urwidtrees/commit/ed39dbc4fc67b0e0249bf108116a88cd18543aa9.patch";
     hash = "sha256-fA+30d2uVaoNCg4rtoWLNPvrZtq41Co4vcmM80hkURs=";
   }) ];
 

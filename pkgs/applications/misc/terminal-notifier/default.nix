@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/alloy/terminal-notifier/releases/download/${version}/terminal-notifier-${version}.zip"
-      ;
+      "https://github.com/alloy/terminal-notifier/releases/download/${version}/terminal-notifier-${version}.zip";
     sha256 = "0gi54v92hi1fkryxlz3k5s5d8h0s66cc57ds0vbm1m1qk3z4xhb0";
     stripRoot = false;
   };

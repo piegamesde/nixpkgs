@@ -11,12 +11,10 @@ let
 
   src = fetchurl {
     url =
-      "https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-${version}.AppImage"
-      ;
+      "https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-${version}.AppImage";
     name = "${pname}-${version}.AppImage";
     sha512 =
-      "xGmE/ikL3ez0WTJKiOIcB5QtI7Ta9wq1Qedy9albWVpCS04FTnxQH5S0esTXw6j+iDTD8Lc2JbOhw8tYo/zRXg=="
-      ;
+      "xGmE/ikL3ez0WTJKiOIcB5QtI7Ta9wq1Qedy9albWVpCS04FTnxQH5S0esTXw6j+iDTD8Lc2JbOhw8tYo/zRXg==";
   };
 
   appimageContents = appimageTools.extractType2 { inherit pname version src; };

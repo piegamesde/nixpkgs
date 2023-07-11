@@ -13,8 +13,8 @@
 
 stdenv.mkDerivation rec {
   pname = "qtkeychain";
-  version = "0.12.0"
-    ; # verify after nix-build with `grep -R "set(PACKAGE_VERSION " result/`
+  version =
+    "0.12.0"; # verify after nix-build with `grep -R "set(PACKAGE_VERSION " result/`
 
   src = fetchFromGitHub {
     owner = "frankosterfeld";

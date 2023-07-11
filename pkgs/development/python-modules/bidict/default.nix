@@ -48,8 +48,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/jab/bidict";
     changelog = "https://github.com/jab/bidict/blob/v${version}/CHANGELOG.rst";
     description =
-      "Efficient, Pythonic bidirectional map data structures and related functionality"
-      ;
+      "Efficient, Pythonic bidirectional map data structures and related functionality";
     license = licenses.mpl20;
     maintainers = with maintainers; [ jakewaksbaum ];
   };

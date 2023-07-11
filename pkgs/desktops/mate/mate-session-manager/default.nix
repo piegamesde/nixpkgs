@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
     # allow turning on debugging from environment variable
     (fetchpatch {
       url =
-        "https://github.com/mate-desktop/mate-session-manager/commit/3ab6fbfc811d00100d7a2959f8bbb157b536690d.patch"
-        ;
+        "https://github.com/mate-desktop/mate-session-manager/commit/3ab6fbfc811d00100d7a2959f8bbb157b536690d.patch";
       sha256 = "0yjaklq0mp44clymyhy240kxlw95z3azmravh4f5pfm9dys33sg0";
     })
   ];

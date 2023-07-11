@@ -185,8 +185,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Self-hosted, globally interconnected microblogging software based on ActivityPub"
-      ;
+      "Self-hosted, globally interconnected microblogging software based on ActivityPub";
     homepage = "https://joinmastodon.org";
     license = licenses.agpl3Plus;
     platforms = [

@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://soundlab.cs.princeton.edu/software/sndpeek/files/sndpeek-${version}.tgz"
-      ;
+      "https://soundlab.cs.princeton.edu/software/sndpeek/files/sndpeek-${version}.tgz";
     sha256 = "2d86cf74854fa00dcdc05a35dd92bc4cf6115e87102b17023be5cba9ead8eedf";
   };
   sourceRoot = "sndpeek-${version}/src/sndpeek";

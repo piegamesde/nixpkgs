@@ -44,8 +44,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "Plugin for the Accounts-SSO gSignOn daemon that handles Last.FM credentials"
-      ;
+      "Plugin for the Accounts-SSO gSignOn daemon that handles Last.FM credentials";
     homepage = "https://gitlab.com/accounts-sso/gsignond-plugin-lastfm";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ ];

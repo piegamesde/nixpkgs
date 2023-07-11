@@ -48,8 +48,7 @@ in {
       ];
     };
 
-    environment.systemPackages = [ config.boot.kernelPackages.hyperv-daemons.bin ]
-      ;
+    environment.systemPackages = [ config.boot.kernelPackages.hyperv-daemons.bin ];
 
       # enable hotadding cpu/memory
     services.udev.packages = lib.singleton (pkgs.writeTextFile {

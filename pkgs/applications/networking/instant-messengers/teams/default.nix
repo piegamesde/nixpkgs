@@ -159,8 +159,7 @@ let
 
     src = fetchurl {
       url =
-        "https://statics.teams.cdn.office.net/production-osx/${versions.darwin}/Teams_osx.pkg"
-        ;
+        "https://statics.teams.cdn.office.net/production-osx/${versions.darwin}/Teams_osx.pkg";
       hash = hashes.darwin;
     };
 

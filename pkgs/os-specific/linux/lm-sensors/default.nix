@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://hwmon.wiki.kernel.org/lm_sensors";
     changelog =
-      "https://raw.githubusercontent.com/lm-sensors/lm-sensors/V${dashedVersion}/CHANGES"
-      ;
+      "https://raw.githubusercontent.com/lm-sensors/lm-sensors/V${dashedVersion}/CHANGES";
     description = "Tools for reading hardware sensors";
     license = with licenses; [
       lgpl21Plus

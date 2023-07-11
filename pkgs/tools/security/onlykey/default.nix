@@ -58,8 +58,7 @@ let
     name = onlykey.packageName;
     exec = script;
     icon =
-      "${onlykey}/lib/node_modules/${onlykey.packageName}/resources/onlykey_logo_128.png"
-      ;
+      "${onlykey}/lib/node_modules/${onlykey.packageName}/resources/onlykey_logo_128.png";
     desktopName = onlykey.packageName;
     genericName = onlykey.packageName;
   };

@@ -17,7 +17,6 @@ mkDiscoursePlugin {
     maintainers = with maintainers; [ bbenno ];
     license = licenses.mit;
     description =
-      "Allows users to react to a post from a choice of emojis, rather than only the like heart"
-      ;
+      "Allows users to react to a post from a choice of emojis, rather than only the like heart";
   };
 }

@@ -60,8 +60,8 @@ in {
 
   serviceConfig = mkMerge [
     {
-      ExecStart = "${cfg.package}/bin/Runner.Listener run --startuptype service"
-        ;
+      ExecStart =
+        "${cfg.package}/bin/Runner.Listener run --startuptype service";
 
         # Does the following, sequentially:
         # - If the module configuration or the token has changed, purge the state directory,

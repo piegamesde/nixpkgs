@@ -49,8 +49,7 @@ buildPythonPackage rec {
 
   meta = {
     description =
-      "LGPL-licensed Python bindings for the Qt cross-platform application and UI framework"
-      ;
+      "LGPL-licensed Python bindings for the Qt cross-platform application and UI framework";
     license = lib.licenses.lgpl21;
     homepage = "http://www.pyside.org";
   };

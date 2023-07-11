@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
     # https://gitlab.gnome.org/GNOME/gnome-network-displays/-/merge_requests/147
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/gnome-network-displays/-/commit/ef3f3ff565acd8238da46de604a1e750d4f02f07.diff"
-        ;
+        "https://gitlab.gnome.org/GNOME/gnome-network-displays/-/commit/ef3f3ff565acd8238da46de604a1e750d4f02f07.diff";
       sha256 = "1ljiwgqia6am4lansg70qnwkch9mp1fr6bga98s5fwyiaw6b6f4p";
     })
   ];

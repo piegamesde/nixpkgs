@@ -29,8 +29,7 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "darwin-compat.patch";
       url =
-        "https://github.com/ionelmc/python-aspectlib/commit/ef2c12304f08723dc8e79d1c59bc32c946d758dc.patch"
-        ;
+        "https://github.com/ionelmc/python-aspectlib/commit/ef2c12304f08723dc8e79d1c59bc32c946d758dc.patch";
       hash = "sha256-gtPFtwDsGIMkHTyuoiLk+SAGgB2Wyx/Si9HIdoIsvI8=";
     })
   ];
@@ -56,8 +55,7 @@ buildPythonPackage rec {
 
   meta = {
     changelog =
-      "https://github.com/ionelmc/python-aspectlib/blob/v${version}/CHANGELOG.rst"
-      ;
+      "https://github.com/ionelmc/python-aspectlib/blob/v${version}/CHANGELOG.rst";
     description =
       "Aspect-oriented programming, monkey-patch and decorators library";
     homepage = "https://github.com/ionelmc/python-aspectlib";

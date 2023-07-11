@@ -26,14 +26,12 @@ stdenv.mkDerivation rec {
     # TODO: remove on the next release
     (fetchpatch {
       url =
-        "https://github.com/dosfstools/dosfstools/commit/77ffb87e8272760b3bb2dec8f722103b0effb801.patch"
-        ;
+        "https://github.com/dosfstools/dosfstools/commit/77ffb87e8272760b3bb2dec8f722103b0effb801.patch";
       sha256 = "sha256-xHxIs3faHK/sK3vAVoG8JcTe4zAV+ZtkozWIIFBvPWI=";
     })
     (fetchpatch {
       url =
-        "https://github.com/dosfstools/dosfstools/commit/2d3125c4a74895eae1f66b93287031d340324524.patch"
-        ;
+        "https://github.com/dosfstools/dosfstools/commit/2d3125c4a74895eae1f66b93287031d340324524.patch";
       sha256 = "nlIuRDsNjk23MKZL9cZ05odOfTXvsyQaKcv/xEr4c+U=";
     })
   ];

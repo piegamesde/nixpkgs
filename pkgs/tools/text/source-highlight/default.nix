@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
     # gcc-11 compat upstream patch
     (fetchpatch {
       url =
-        "http://git.savannah.gnu.org/cgit/src-highlite.git/patch/?id=904949c9026cb772dc93fbe0947a252ef47127f4"
-        ;
+        "http://git.savannah.gnu.org/cgit/src-highlite.git/patch/?id=904949c9026cb772dc93fbe0947a252ef47127f4";
       sha256 = "1wnj0jmkmrwjww7qk9dvfxh8h06jdn7mi8v2fvwh95b6x87z5l47";
       excludes = [ "ChangeLog" ];
     })
@@ -35,8 +34,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "gcc-12.patch";
       url =
-        "http://git.savannah.gnu.org/cgit/src-highlite.git/patch/?id=ab9fe5cb9b85c5afab94f2a7f4b6d7d473c14ee9"
-        ;
+        "http://git.savannah.gnu.org/cgit/src-highlite.git/patch/?id=ab9fe5cb9b85c5afab94f2a7f4b6d7d473c14ee9";
       sha256 = "1v33zd2766k7cdgmajw2lffw9wd7v4f8z01f40z53f6bp608nr62";
     })
   ];

@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.dre.vanderbilt.edu/previous_versions/ACE-${version}.tar.bz2"
-      ;
+      "https://download.dre.vanderbilt.edu/previous_versions/ACE-${version}.tar.bz2";
     sha256 = "sha256-r+LRiu/u1qMcbrjkSr8ErnemX6zvhgvc5cLWu8AQhww=";
   };
 

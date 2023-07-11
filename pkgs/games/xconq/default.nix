@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/xconq/xconq/xconq-${version}/xconq-${version}.tar.gz"
-      ;
+      "mirror://sourceforge/project/xconq/xconq/xconq-${version}/xconq-${version}.tar.gz";
     sha256 = "1za78yx57mgwcmmi33wx3533yz1x093dnqis8q2qmqivxav51lca";
   };
 

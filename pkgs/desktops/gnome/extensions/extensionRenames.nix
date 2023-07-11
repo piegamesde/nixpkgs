@@ -96,8 +96,8 @@
   "SomaFm-Radio@cajhne.gmail.com" = "somafm-internet-radio-2";
 
   "extension-list@tu.berry" = "extension-list";
-  "screen-lock@garciabaameiro.com" = "screen-lock"
-    ; # Don't know why they got 'extension-list' as slug
+  "screen-lock@garciabaameiro.com" =
+    "screen-lock"; # Don't know why they got 'extension-list' as slug
 
     # ####### GNOME 3.38 #######
 
@@ -126,8 +126,8 @@
     "fuzzy-app-search"; # extensionPortalSlug is "gnome-fuzzy-app-search"
   "TopIcons@phocean.net" = "topicons-plus"; # extensionPortalSlug is "topicons"
   "paperwm@hedning:matrix.org" = "paperwm"; # is not on extensions.gnome.org
-  "no-title-bar@jonaspoehler.de" = "no-title-bar"
-    ; # extensionPortalSlug is "no-title-bar-forked"
+  "no-title-bar@jonaspoehler.de" =
+    "no-title-bar"; # extensionPortalSlug is "no-title-bar-forked"
     # These extensions are automatically packaged at the moment. We preserve the old attribute name
     # for backwards compatibility.
   "appindicatorsupport@rgcjonas.gmail.com" =
@@ -135,6 +135,6 @@
   "drawOnYourScreen@abakkk.framagit.org" =
     "draw-on-your-screen"; # extensionPortalSlug is "draw-on-you-screen"
   "timepp@zagortenay333" = "timepp"; # extensionPortalSlug is "time"
-  "windowIsReady_Remover@nunofarruca@gmail.com" = "window-is-ready-remover"
-    ; # extensionPortalSlug is "window-is-ready-notification-remover"
+  "windowIsReady_Remover@nunofarruca@gmail.com" =
+    "window-is-ready-remover"; # extensionPortalSlug is "window-is-ready-notification-remover"
 }

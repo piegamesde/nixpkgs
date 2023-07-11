@@ -13,8 +13,7 @@ let
   version = "0.15.13";
   rootSource = fetchzip {
     url =
-      "https://github.com/pola-rs/${pname}/archive/refs/tags/py-${version}.tar.gz"
-      ;
+      "https://github.com/pola-rs/${pname}/archive/refs/tags/py-${version}.tar.gz";
     hash = "sha256-bk2opNLN3L+fkzXVfUU5O37UmA27ijmnAElCHjsuI+o=";
   };
 in

@@ -17,8 +17,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-mysql/2020-06-10/cl-mysql-20200610-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/cl-mysql/2020-06-10/cl-mysql-20200610-git.tgz";
     sha256 = "0fzyqzz01zn9fy8v766lib3dghg9yq5wawa0hcmxslms7knzxz7w";
   };
 

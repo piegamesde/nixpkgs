@@ -70,14 +70,12 @@ buildPythonPackage {
     # Prerequisite for llvm15 patch
     (fetchpatch {
       url =
-        "https://github.com/openai/triton/commit/2aba985daaa70234823ea8f1161da938477d3e02.patch"
-        ;
+        "https://github.com/openai/triton/commit/2aba985daaa70234823ea8f1161da938477d3e02.patch";
       hash = "sha256-LGv0+Ut2WYPC4Ksi4803Hwmhi3FyQOF9zElJc/JCobk=";
     })
     (fetchpatch {
       url =
-        "https://github.com/openai/triton/commit/e3941f9d09cdd31529ba4a41018cfc0096aafea6.patch"
-        ;
+        "https://github.com/openai/triton/commit/e3941f9d09cdd31529ba4a41018cfc0096aafea6.patch";
       hash = "sha256-A+Gor6qzFlGQhVVhiaaYOzqqx8yO2MdssnQS6TIfUWg=";
     })
 

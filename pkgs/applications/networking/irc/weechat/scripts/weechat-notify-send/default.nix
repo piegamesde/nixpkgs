@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A WeeChat script that sends highlight and message notifications through notify-send"
-      ;
+      "A WeeChat script that sends highlight and message notifications through notify-send";
     homepage = "https://github.com/s3rvac/weechat-notify-send";
     license = licenses.mit;
     maintainers = with maintainers; [ tobim ];

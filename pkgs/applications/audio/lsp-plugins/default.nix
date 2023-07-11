@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/sadko4u/${pname}/releases/download/${version}/${pname}-src-${version}.tar.gz"
-      ;
+      "https://github.com/sadko4u/${pname}/releases/download/${version}/${pname}-src-${version}.tar.gz";
     sha256 = "sha256-lNrIsXW3ZNKMFwsl5qowWqK/ZaCaQUAlrSscnsOxvVg=";
   };
 

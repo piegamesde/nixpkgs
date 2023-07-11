@@ -259,7 +259,6 @@ in {
       group = "peering-manager";
     };
     users.groups.peering-manager = { };
-    users.groups."${config.services.redis.servers.peering-manager.user}".members = [ "peering-manager" ]
-      ;
+    users.groups."${config.services.redis.servers.peering-manager.user}".members = [ "peering-manager" ];
   };
 }

@@ -16,8 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "http://www.crufty.net/ftp/pub/sjg/${finalAttrs.pname}-${finalAttrs.version}.tar.gz"
-      ;
+      "http://www.crufty.net/ftp/pub/sjg/${finalAttrs.pname}-${finalAttrs.version}.tar.gz";
     hash = "sha256-hk9yGFgs95Dsc7ILcQVCXLn/ozUiJUF3LwMTMGtqC8Q=";
   };
 
@@ -45,16 +44,14 @@ stdenv.mkDerivation (finalAttrs: {
     (fetchpatch {
       name = "separate-tests.patch";
       url =
-        "https://raw.githubusercontent.com/alpinelinux/aports/2a36f7b79df44136c4d2b8e9512f908af65adfee/community/bmake/separate-tests.patch"
-        ;
+        "https://raw.githubusercontent.com/alpinelinux/aports/2a36f7b79df44136c4d2b8e9512f908af65adfee/community/bmake/separate-tests.patch";
       hash = "sha256-KkmqASAl46/6Of7JLOQDFUqkOw3rGLxnNmyg7Lk0RwM=";
     })
     # add a shebang to bmake's install(1) replacement
     (fetchpatch {
       name = "install-sh.patch";
       url =
-        "https://raw.githubusercontent.com/alpinelinux/aports/34cd8c45397c63c041cf3cbe1ba5232fd9331196/community/bmake/install-sh.patch"
-        ;
+        "https://raw.githubusercontent.com/alpinelinux/aports/34cd8c45397c63c041cf3cbe1ba5232fd9331196/community/bmake/install-sh.patch";
       hash = "sha256-RvFq5nsmDxq54UTnXGlfO6Rip/XQYj0ZySatqUxjEX0=";
     })
   ];

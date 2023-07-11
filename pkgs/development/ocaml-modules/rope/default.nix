@@ -15,8 +15,7 @@ let
       rec {
         version = "0.6.2";
         url =
-          "https://github.com/Chris00/ocaml-rope/releases/download/${version}/rope-${version}.tbz"
-          ;
+          "https://github.com/Chris00/ocaml-rope/releases/download/${version}/rope-${version}.tbz";
         sha256 = "15cvfa0s1vjx7gjd07d3fkznilishqf4z4h2q5f20wm9ysjh2h2i";
         nativeBuildInputs = [ dune_2 ];
         extra = {

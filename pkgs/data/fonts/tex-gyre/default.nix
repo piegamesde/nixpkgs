@@ -19,8 +19,7 @@ let
 
       src = fetchzip {
         url =
-          "http://www.gust.org.pl/projects/e-foundry/tex-gyre/${variant}/${abbreviation}${version}otf.zip"
-          ;
+          "http://www.gust.org.pl/projects/e-foundry/tex-gyre/${variant}/${abbreviation}${version}otf.zip";
         stripRoot = false;
         inherit sha256;
       };

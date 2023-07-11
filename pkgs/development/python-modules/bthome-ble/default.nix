@@ -47,8 +47,7 @@ buildPythonPackage rec {
     description = "Library for BThome BLE devices";
     homepage = "https://github.com/Bluetooth-Devices/bthome-ble";
     changelog =
-      "https://github.com/bluetooth-devices/bthome-ble/blob/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/bluetooth-devices/bthome-ble/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

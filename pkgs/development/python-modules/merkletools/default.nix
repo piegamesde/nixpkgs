@@ -32,8 +32,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python tools for creating Merkle trees, generating Merkle proofs, and verification of Merkle proofs"
-      ;
+      "Python tools for creating Merkle trees, generating Merkle proofs, and verification of Merkle proofs";
     homepage = "https://github.com/Tierion/pymerkletools";
     changelog =
       "https://github.com/Tierion/pymerkletools/releases/tag/${version}";

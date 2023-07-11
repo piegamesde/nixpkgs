@@ -39,8 +39,7 @@ buildPythonPackage rec {
     description = "Test Anything Protocol (TAP) reporting plugin for pytest";
     homepage = "https://github.com/python-tap/pytest-tap";
     changelog =
-      "https://github.com/python-tap/pytest-tap/blob/v${version}/docs/releases.rst"
-      ;
+      "https://github.com/python-tap/pytest-tap/blob/v${version}/docs/releases.rst";
     license = licenses.bsd2;
     maintainers = with maintainers; [ cynerd ];
   };

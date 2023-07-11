@@ -464,14 +464,12 @@ in {
       assertions = (mapAttrsToList (hostName: cfg: {
         assertion = cfg.database.createLocally -> cfg.database.user == user;
         message = ''
-          services.wordpress.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned''
-          ;
+          services.wordpress.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
       }) eachSite) ++ (mapAttrsToList (hostName: cfg: {
         assertion =
           cfg.database.createLocally -> cfg.database.passwordFile == null;
         message = ''
-          services.wordpress.sites."${hostName}".database.passwordFile cannot be specified if services.wordpress.sites."${hostName}".database.createLocally is set to true.''
-          ;
+          services.wordpress.sites."${hostName}".database.passwordFile cannot be specified if services.wordpress.sites."${hostName}".database.createLocally is set to true.'';
       }) eachSite);
 
       services.mysql =
@@ -482,8 +480,9 @@ in {
             mapAttrsToList (hostName: cfg: cfg.database.name) eachSite;
           ensureUsers = mapAttrsToList (hostName: cfg: {
             name = cfg.database.user;
-            ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; }
-              ;
+            ensurePermissions = {
+              "${cfg.database.name}.*" = "ALL PRIVILEGES";
+            };
           }) eachSite;
         };
 

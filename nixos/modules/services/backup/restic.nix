@@ -195,8 +195,7 @@ in {
             description = lib.mdDoc ''
               Extra extended options to be passed to the restic --option flag.
             '';
-            example = [ "sftp.command='ssh backup@192.168.1.100 -i /home/user/.ssh/id_rsa -s sftp'" ]
-              ;
+            example = [ "sftp.command='ssh backup@192.168.1.100 -i /home/user/.ssh/id_rsa -s sftp'" ];
           };
 
           initialize = mkOption {
@@ -284,8 +283,7 @@ in {
         paths = [ "/home" ];
         repository = "sftp:backup@host:/backups/home";
         passwordFile = "/etc/nixos/secrets/restic-password";
-        extraOptions = [ "sftp.command='ssh backup@host -i /etc/nixos/secrets/backup-private-key -s sftp'" ]
-          ;
+        extraOptions = [ "sftp.command='ssh backup@host -i /etc/nixos/secrets/backup-private-key -s sftp'" ];
         timerConfig = {
           OnCalendar = "00:05";
           RandomizedDelaySec = "5h";
@@ -302,8 +300,7 @@ in {
     assertions = mapAttrsToList (n: v: {
       assertion = (v.repository == null) != (v.repositoryFile == null);
       message =
-        "services.restic.backups.${n}: exactly one of repository or repositoryFile should be set"
-        ;
+        "services.restic.backups.${n}: exactly one of repository or repositoryFile should be set";
     }) config.services.restic.backups;
     systemd.services = mapAttrs' (name: backup:
       let

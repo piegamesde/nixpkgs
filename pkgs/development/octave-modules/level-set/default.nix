@@ -50,8 +50,7 @@ buildOctavePackage rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
     description =
-      "Routines for calculating the time-evolution of the level-set equation and extracting geometric information from the level-set function"
-      ;
+      "Routines for calculating the time-evolution of the level-set equation and extracting geometric information from the level-set function";
       # Got broke with octave 8.x update, and wasn't updated since 2019
     broken = true;
   };

@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/martinpitt/umockdev/releases/download/${version}/${pname}-${version}.tar.xz"
-      ;
+      "https://github.com/martinpitt/umockdev/releases/download/${version}/${pname}-${version}.tar.xz";
     sha256 = "sha256-IOYhseRYsyADz+qZc5tngkuGZShUqLzjPiYSTjR/32w=";
   };
 

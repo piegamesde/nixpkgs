@@ -36,8 +36,7 @@ buildPythonPackage rec {
   meta = with lib; {
     broken = stdenv.isDarwin;
     description =
-      "An application to display XY position and RGB color information for the pixel currently under the mouse. Works on Python 2 and 3."
-      ;
+      "An application to display XY position and RGB color information for the pixel currently under the mouse. Works on Python 2 and 3.";
     homepage = "https://github.com/asweigart/mouseinfo";
     license = licenses.gpl3;
     maintainers = with maintainers; [ lucasew ];

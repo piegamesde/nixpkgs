@@ -60,8 +60,7 @@ buildPythonPackage rec {
     description = "Utilities for CWL";
     homepage = "https://github.com/common-workflow-language/cwl-utils";
     changelog =
-      "https://github.com/common-workflow-language/cwl-utils/releases/tag/v${version}"
-      ;
+      "https://github.com/common-workflow-language/cwl-utils/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

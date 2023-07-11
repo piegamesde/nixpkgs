@@ -25,8 +25,7 @@ stdenvNoCC.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://web.archive.org/web/20230124210253/https://builds.parsecgaming.com/package/parsec-linux.deb"
-      ;
+      "https://web.archive.org/web/20230124210253/https://builds.parsecgaming.com/package/parsec-linux.deb";
     sha256 = "sha256-wwBy86TdrHaH9ia40yh24yd5G84WTXREihR+9I6o6uU=";
   };
 

@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
     # avoiding surprises for the next person that comes to update this
     # package.
     url =
-      "https://download.raise3d.com/ideamaker/release/4.0.1/ideaMaker_4.0.1.4802-ubuntu_amd64.deb"
-      ;
+      "https://download.raise3d.com/ideamaker/release/4.0.1/ideaMaker_4.0.1.4802-ubuntu_amd64.deb";
     sha256 = "0a1jcakdglcr4kz0kyq692dbjk6aq2yqcp3i6gzni91k791h49hp";
   };
 

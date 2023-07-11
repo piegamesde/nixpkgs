@@ -16,15 +16,13 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/hovancik/stretchly/releases/download/v${version}/stretchly-${version}.tar.xz"
-      ;
+      "https://github.com/hovancik/stretchly/releases/download/v${version}/stretchly-${version}.tar.xz";
     sha256 = "sha256-/v74vDGxD5iiOPeBXPAaV42JpyBjeJSO/Lk88pCkDng=";
   };
 
   icon = fetchurl {
     url =
-      "https://raw.githubusercontent.com/hovancik/stretchly/v${version}/stretchly_128x128.png"
-      ;
+      "https://raw.githubusercontent.com/hovancik/stretchly/v${version}/stretchly_128x128.png";
     sha256 = "0whfg1fy2hjyk1lzpryikc1aj8agsjhfrb0bf7ggl6r9m8s1rvdl";
   };
 

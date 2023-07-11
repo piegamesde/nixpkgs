@@ -32,8 +32,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "This is the Microsoft Azure Cognitive Services Management Client Library"
-      ;
+      "This is the Microsoft Azure Cognitive Services Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ maxwilson ];

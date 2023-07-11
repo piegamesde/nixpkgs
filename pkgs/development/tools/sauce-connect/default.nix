@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A secure tunneling app for executing tests securely when testing behind firewalls"
-      ;
+      "A secure tunneling app for executing tests securely when testing behind firewalls";
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     homepage = "https://docs.saucelabs.com/reference/sauce-connect/";

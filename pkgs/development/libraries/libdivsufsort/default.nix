@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/libdivsufsort/libdivsufsort-${version}.tar.bz2"
-      ;
+      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/libdivsufsort/libdivsufsort-${version}.tar.bz2";
     sha256 = "1g0q40vb2k689bpasa914yi8sjsmih04017mw20zaqqpxa32rh2m";
   };
 

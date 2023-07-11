@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A enterprise resource planning (ERP) and customer relationship manager (CRM) server"
-      ;
+      "A enterprise resource planning (ERP) and customer relationship manager (CRM) server";
     homepage = "https://dolibarr.org/";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.raitobezarius ];

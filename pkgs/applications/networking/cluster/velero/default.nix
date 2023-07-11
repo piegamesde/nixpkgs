@@ -35,8 +35,8 @@ buildGoModule rec {
     "velero-restic-restore-helper"
   ];
 
-  doCheck = false
-    ; # Tests expect a running cluster see https://github.com/vmware-tanzu/velero/tree/main/test/e2e
+  doCheck =
+    false; # Tests expect a running cluster see https://github.com/vmware-tanzu/velero/tree/main/test/e2e
   doInstallCheck = true;
   installCheckPhase = ''
     $out/bin/velero version --client-only | grep ${version} > /dev/null
@@ -52,8 +52,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "A utility for managing disaster recovery, specifically for your Kubernetes cluster resources and persistent volumes"
-      ;
+      "A utility for managing disaster recovery, specifically for your Kubernetes cluster resources and persistent volumes";
     homepage = "https://velero.io/";
     changelog =
       "https://github.com/vmware-tanzu/velero/releases/tag/v${version}";

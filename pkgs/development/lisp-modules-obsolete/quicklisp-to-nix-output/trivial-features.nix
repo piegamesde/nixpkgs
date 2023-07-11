@@ -12,8 +12,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/trivial-features/2021-12-09/trivial-features-20211209-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/trivial-features/2021-12-09/trivial-features-20211209-git.tgz";
     sha256 = "1sxblr86hvbb99isr86y08snfpcajd6ra3396ibqkfnw33hhkgql";
   };
 

@@ -40,8 +40,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Development tools (pyside-uic/rcc/lupdate) for PySide, the LGPL-licensed Python bindings for the Qt framework"
-      ;
+      "Development tools (pyside-uic/rcc/lupdate) for PySide, the LGPL-licensed Python bindings for the Qt framework";
     license = licenses.gpl2;
     homepage = "https://wiki.qt.io/PySide";
     maintainers = [ ];

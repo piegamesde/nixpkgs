@@ -37,14 +37,12 @@ buildPythonPackage rec {
     ./fix-test-pythonpath.patch
     (fetchpatch {
       url =
-        "https://github.com/dcantrell/pyparted/commit/07ba882d04fa2099b53d41370416b97957d2abcb.patch"
-        ;
+        "https://github.com/dcantrell/pyparted/commit/07ba882d04fa2099b53d41370416b97957d2abcb.patch";
       hash = "sha256-yYfLdy+TOKfN3gtTMgOWPebPTRYyaOYh/yFTowCbdjg=";
     })
     (fetchpatch {
       url =
-        "https://github.com/dcantrell/pyparted/commit/a01b4eeecf63b0580c192c7c2db7a5c406a7ad6d.patch"
-        ;
+        "https://github.com/dcantrell/pyparted/commit/a01b4eeecf63b0580c192c7c2db7a5c406a7ad6d.patch";
       hash = "sha256-M/8hYiKUBzaTOxPYDFK5BAvCm6WJGx+693qwj3HzdRA=";
     })
   ];

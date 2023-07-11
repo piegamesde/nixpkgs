@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://mturk.s3.amazonaws.com/CLTSource/aws-mturk-clt-${version}.tar.gz"
-      ;
+      "https://mturk.s3.amazonaws.com/CLTSource/aws-mturk-clt-${version}.tar.gz";
     sha256 = "00yyc7k3iygg83cknv9i2dsaxwpwzdkc8a2l9j56lg999hw3mqm3";
   };
 

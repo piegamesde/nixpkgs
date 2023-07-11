@@ -48,8 +48,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Simulate electronic circuit using Python and the Ngspice / Xyce simulators"
-      ;
+      "Simulate electronic circuit using Python and the Ngspice / Xyce simulators";
     homepage = "https://github.com/FabriceSalvaire/PySpice";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ matthuszagh ];

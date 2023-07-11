@@ -22,8 +22,7 @@ python3.pkgs.buildPythonApplication rec {
     (fetchpatch {
       name = "bitstring-4-compatibility.patch";
       url =
-        "https://github.com/espressif/esptool/commit/16fa58415be2a7ff059ece40d4545288565d0a23.patch"
-        ;
+        "https://github.com/espressif/esptool/commit/16fa58415be2a7ff059ece40d4545288565d0a23.patch";
       hash = "sha256-FYa9EvyET4P8VkdyMzJBkdxVYm0tFt2GPnfsjzBnevE=";
       excludes = [ "setup.py" ];
     })

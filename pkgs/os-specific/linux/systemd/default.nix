@@ -211,8 +211,7 @@ stdenv.mkDerivation (finalAttrs: {
   ] ++ lib.optional stdenv.hostPlatform.isMusl (let
     oe-core = fetchzip {
       url =
-        "https://git.openembedded.org/openembedded-core/snapshot/openembedded-core-f34f6ab04b443608497b73668365819343d0c2fe.tar.gz"
-        ;
+        "https://git.openembedded.org/openembedded-core/snapshot/openembedded-core-f34f6ab04b443608497b73668365819343d0c2fe.tar.gz";
       sha256 = "DFcLPvjQIxGEDADpP232ZRd7cOEKt6B48Ah29nIGTt4=";
     };
     musl-patches = oe-core + "/meta/recipes-core/systemd/systemd";

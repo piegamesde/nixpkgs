@@ -33,8 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     # https://github.com/nigels-com/glew/pull/342
     (fetchpatch {
       url =
-        "https://github.com/nigels-com/glew/commit/966e53fa153175864e151ec8a8e11f688c3e752d.diff"
-        ;
+        "https://github.com/nigels-com/glew/commit/966e53fa153175864e151ec8a8e11f688c3e752d.diff";
       sha256 = "sha256-xsSwdAbdWZA4KVoQhaLlkYvO711i3QlHGtv6v1Omkhw=";
     })
   ];

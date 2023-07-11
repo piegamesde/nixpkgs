@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/qtscrob/qtscrob/${version}/qtscrob-${version}.tar.bz2"
-      ;
+      "mirror://sourceforge/qtscrob/qtscrob/${version}/qtscrob-${version}.tar.bz2";
     sha256 = "01c8e48f616ed09504833d27d92fd62f455bd645ea2d1cc2a5f4c287d641daba";
   };
 

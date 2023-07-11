@@ -33,8 +33,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Circumvents censorship by transforming Tor traffic between clients and bridges"
-      ;
+      "Circumvents censorship by transforming Tor traffic between clients and bridges";
     longDescription = ''
       Obfs4proxy is a tool that attempts to circumvent censorship by
       transforming the Tor traffic between the client and the bridge.
@@ -47,13 +46,11 @@ buildGoModule rec {
       multiple pluggable transports.
     '';
     homepage =
-      "https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/obfs4"
-      ;
+      "https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/obfs4";
     maintainers = with maintainers; [ thoughtpolice ];
     mainProgram = "obfs4proxy";
     changelog =
-      "https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/obfs4/-/raw/${src.rev}/ChangeLog"
-      ;
+      "https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/obfs4/-/raw/${src.rev}/ChangeLog";
     license = with lib.licenses; [
       bsd2
       bsd3

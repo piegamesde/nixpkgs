@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "Fix-build-with-musl-libc.patch";
       url =
-        "https://git.kernel.org/pub/scm/network/ethtool/ethtool.git/patch/marvell.c?id=41be533331fc3c6b711dbe532405782d3b8be5d1"
-        ;
+        "https://git.kernel.org/pub/scm/network/ethtool/ethtool.git/patch/marvell.c?id=41be533331fc3c6b711dbe532405782d3b8be5d1";
       sha256 = "sha256-CItvt/eeNJkr1sOzaaHZhAnaybDutL9cT2O6XwQll+M=";
     })
   ];

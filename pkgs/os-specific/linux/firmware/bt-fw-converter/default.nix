@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://raw.githubusercontent.com/winterheart/broadcom-bt-firmware/${rev}/tools/bt-fw-converter.pl"
-      ;
+      "https://raw.githubusercontent.com/winterheart/broadcom-bt-firmware/${rev}/tools/bt-fw-converter.pl";
     sha256 = "c259b414a4a273c89a0fa7159b3ef73d1ea62b6de91c3a7c2fcc832868e39f4b";
   };
 

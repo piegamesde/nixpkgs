@@ -48,8 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/enlightenment/${finalAttrs.pname}-${finalAttrs.version}.tar.xz"
-      ;
+      "mirror://sourceforge/enlightenment/${finalAttrs.pname}-${finalAttrs.version}.tar.xz";
     hash = "sha256-cnwak3yIXAgMNyF+R23Ii1o+YNc38b8ECzQ1ILeBy7o=";
   };
 
@@ -104,8 +103,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     homepage = "https://docs.enlightenment.org/api/imlib2/html";
     changelog =
-      "https://git.enlightenment.org/legacy/imlib2.git/plain/ChangeLog?h=v${version}"
-      ;
+      "https://git.enlightenment.org/legacy/imlib2.git/plain/ChangeLog?h=v${version}";
     license = licenses.imlib2;
     pkgConfigModules = [ "imlib2" ];
     platforms = platforms.unix;

@@ -40,8 +40,7 @@ rustPlatform.buildRustPackage rec {
     lib.optionals stdenv.isLinux [ patchelfPatch ] ++ [ (fetchpatch {
       name = "fix-cli-date-bounds-checking.patch";
       url =
-        "https://github.com/rust-lang/cargo-bisect-rustc/commit/baffa98e1a1ae53f6f3605303e0d765015d9d3ae.patch"
-        ;
+        "https://github.com/rust-lang/cargo-bisect-rustc/commit/baffa98e1a1ae53f6f3605303e0d765015d9d3ae.patch";
       hash = "sha256-IQlwQvaPUzPK5T4Mbsrdt7Ea3elaPCw2pBCCdBhjtzM=";
     }) ]
     ;

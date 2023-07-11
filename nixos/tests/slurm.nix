@@ -8,8 +8,7 @@ import ./make-test-python.nix ({
       services.slurm = {
         controlMachine = "control";
         nodeName = [ "node[1-3] CPUs=1 State=UNKNOWN" ];
-        partitionName = [ "debug Nodes=node[1-3] Default=YES MaxTime=INFINITE State=UP" ]
-          ;
+        partitionName = [ "debug Nodes=node[1-3] Default=YES MaxTime=INFINITE State=UP" ];
         extraConfig = ''
           AccountingStorageHost=dbd
           AccountingStorageType=accounting_storage/slurmdbd
@@ -17,8 +16,7 @@ import ./make-test-python.nix ({
       };
       environment.systemPackages = [ mpitest ];
       networking.firewall.enable = false;
-      systemd.tmpfiles.rules = [ "f /etc/munge/munge.key 0400 munge munge - mungeverryweakkeybuteasytointegratoinatest" ]
-        ;
+      systemd.tmpfiles.rules = [ "f /etc/munge/munge.key 0400 munge munge - mungeverryweakkeybuteasytointegratoinatest" ];
     };
 
     mpitest =
@@ -100,8 +98,7 @@ import ./make-test-python.nix ({
             passFile = pkgs.writeText "dbdpassword" "password123";
           in {
             networking.firewall.enable = false;
-            systemd.tmpfiles.rules = [ "f /etc/munge/munge.key 0400 munge munge - mungeverryweakkeybuteasytointegratoinatest" ]
-              ;
+            systemd.tmpfiles.rules = [ "f /etc/munge/munge.key 0400 munge munge - mungeverryweakkeybuteasytointegratoinatest" ];
             services.slurm.dbdserver = {
               enable = true;
               storagePassFile = "${passFile}";

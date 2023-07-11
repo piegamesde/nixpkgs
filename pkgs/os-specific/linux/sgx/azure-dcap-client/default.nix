@@ -26,8 +26,7 @@ let
       owner = "intel";
       repo = "SGXDataCenterAttestationPrimitives";
       rev = "0436284f12f1bd5da7e7a06f6274d36b4c8d39f9";
-      sparseCheckout = [ "QuoteGeneration/quote_wrapper/common/inc/sgx_ql_lib_common.h" ]
-        ;
+      sparseCheckout = [ "QuoteGeneration/quote_wrapper/common/inc/sgx_ql_lib_common.h" ];
       hash = "sha256-ipKpYHbiwjCUXF/pCArJZy5ko1YX2wqMMdSnMUzhkgY=";
       postFetch = filterSparse sparseCheckout;
     })
@@ -87,8 +86,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Interfaces between SGX SDKs and the Azure Attestation SGX Certification Cache"
-      ;
+      "Interfaces between SGX SDKs and the Azure Attestation SGX Certification Cache";
     homepage = "https://github.com/microsoft/azure-dcap-client";
     maintainers = with maintainers; [
       trundle

@@ -8,8 +8,7 @@ let
   version = "2.1.2";
   src = fetchurl {
     url =
-      "https://github.com/UltimateHackingKeyboard/agent/releases/download/v${version}/UHK.Agent-${version}-linux-x86_64.AppImage"
-      ;
+      "https://github.com/UltimateHackingKeyboard/agent/releases/download/v${version}/UHK.Agent-${version}-linux-x86_64.AppImage";
     name = "${pname}-${version}.AppImage";
     sha256 = "sha256-G/UT1ec7rWl8xONZnT+dpHAFOQh6/s0Vq7MTqAcmJSA=";
   };

@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl { # https://github.com/jstedfast/gmime/releases
     url =
-      "https://github.com/jstedfast/gmime/releases/download/${version}/gmime-${version}.tar.xz"
-      ;
+      "https://github.com/jstedfast/gmime/releases/download/${version}/gmime-${version}.tar.xz";
     sha256 = "sha256-OPm3aBgjQsSExBIobbjVgRaX/4FiQ3wFea3w0G4icFs=";
   };
 
@@ -74,8 +73,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/jstedfast/gmime/";
     description =
-      "A C/C++ library for creating, editing and parsing MIME messages and structures"
-      ;
+      "A C/C++ library for creating, editing and parsing MIME messages and structures";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ ];
     platforms = platforms.unix;

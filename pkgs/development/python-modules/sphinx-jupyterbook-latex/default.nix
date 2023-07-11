@@ -34,8 +34,7 @@ buildPythonPackage rec {
     description = "Latex specific features for jupyter book";
     homepage = "https://github.com/executablebooks/sphinx-jupyterbook-latex";
     changelog =
-      "https://github.com/executablebooks/sphinx-jupyterbook-latex/raw/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/executablebooks/sphinx-jupyterbook-latex/raw/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ marsam ];
   };

@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://people.freedesktop.org/~hughsient/releases/libgusb-${version}.tar.xz"
-      ;
+      "https://people.freedesktop.org/~hughsient/releases/libgusb-${version}.tar.xz";
     sha256 = "sha256-DrC5qw+LugxZYxyAnDe2Fu806zyOAAsLm3HPEeSTG9w=";
   };
 

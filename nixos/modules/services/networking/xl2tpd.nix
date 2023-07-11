@@ -141,8 +141,7 @@ with lib;
 
         serviceConfig = {
           ExecStart =
-            "${xl2tpd-ppp-wrapped}/bin/xl2tpd -D -c ${xl2tpd-conf} -s /etc/xl2tpd/l2tp-secrets -p /run/xl2tpd/pid -C /run/xl2tpd/control"
-            ;
+            "${xl2tpd-ppp-wrapped}/bin/xl2tpd -D -c ${xl2tpd-conf} -s /etc/xl2tpd/l2tp-secrets -p /run/xl2tpd/pid -C /run/xl2tpd/control";
           KillMode = "process";
           Restart = "on-success";
           Type = "simple";

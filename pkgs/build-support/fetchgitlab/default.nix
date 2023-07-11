@@ -70,8 +70,7 @@ let
   else
     {
       url =
-        "${protocol}://${domain}/api/v4/projects/${escapedSlug}/repository/archive.tar.gz?sha=${escapedRev}"
-        ;
+        "${protocol}://${domain}/api/v4/projects/${escapedSlug}/repository/archive.tar.gz?sha=${escapedRev}";
 
       passthru = { inherit gitRepoUrl; };
     }) // passthruAttrs // {

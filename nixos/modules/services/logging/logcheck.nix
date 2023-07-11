@@ -27,8 +27,7 @@ let
   logFiles = pkgs.writeText "logcheck.logfiles" cfg.files;
 
   flags =
-    "-r ${rulesDir} -c ${configFile} -L ${logFiles} -${levelFlag} -m ${cfg.mailTo}"
-    ;
+    "-r ${rulesDir} -c ${configFile} -L ${logFiles} -${levelFlag} -m ${cfg.mailTo}";
 
   levelFlag = getAttrFromPath [ cfg.level ] {
     paranoid = "p";

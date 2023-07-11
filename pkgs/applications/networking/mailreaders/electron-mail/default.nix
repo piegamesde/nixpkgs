@@ -12,8 +12,7 @@ let
 
   src = fetchurl {
     url =
-      "https://github.com/vladimiry/ElectronMail/releases/download/v${version}/electron-mail-${version}-linux-x86_64.AppImage"
-      ;
+      "https://github.com/vladimiry/ElectronMail/releases/download/v${version}/electron-mail-${version}-linux-x86_64.AppImage";
     sha256 = "sha256-lsXVsx7U43czWFWxAgwTUYTnUXSL4KPFnXLzUklieAo=";
   };
 
@@ -40,8 +39,7 @@ appimageTools.wrapType2 {
 
   meta = with lib; {
     description =
-      "ElectronMail is an Electron-based unofficial desktop client for ProtonMail"
-      ;
+      "ElectronMail is an Electron-based unofficial desktop client for ProtonMail";
     homepage = "https://github.com/vladimiry/ElectronMail";
     license = licenses.gpl3;
     maintainers = [ maintainers.princemachiavelli ];

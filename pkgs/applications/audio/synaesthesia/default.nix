@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://logarithmic.net/pfh-files/synaesthesia/synaesthesia-${version}.tar.gz"
-      ;
+      "https://logarithmic.net/pfh-files/synaesthesia/synaesthesia-${version}.tar.gz";
     sha256 = "0nzsdxbah0shm2vlziaaw3ilzlizd3d35rridkpg40nfxmq84qnx";
   };
 

@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     # Patch to install the man page when using meson, remove on package bump
     url =
-      "https://github.com/rauc/rauc/commit/756c677d031c435070a6900e6778d06961822261.patch"
-      ;
+      "https://github.com/rauc/rauc/commit/756c677d031c435070a6900e6778d06961822261.patch";
     hash = "sha256-QgIUagioRo61PeC0JyKjZtnauFiYP1Fz9wrxGEikBGI=";
   }) ];
   passthru = { updateScript = nix-update-script { }; };

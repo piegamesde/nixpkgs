@@ -17,8 +17,7 @@ buildPythonPackage rec {
 
   src = fetchurl {
     url =
-      "https://www.riverbankcomputing.com/static/Downloads/sip/${version}/sip-${version}.tar.gz"
-      ;
+      "https://www.riverbankcomputing.com/static/Downloads/sip/${version}/sip-${version}.tar.gz";
     sha256 = "04a23cgsnx150xq86w1z44b6vr2zyazysy9mqax0fy346zlr77dk";
   };
 

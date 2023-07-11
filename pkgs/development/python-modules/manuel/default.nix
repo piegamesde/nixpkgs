@@ -25,8 +25,7 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "TextTestResult-python311.patch";
       url =
-        "https://github.com/benji-york/manuel/commit/d9f12d03e39bb76e4bb3ba43ad51af6d3e9d45c0.diff"
-        ;
+        "https://github.com/benji-york/manuel/commit/d9f12d03e39bb76e4bb3ba43ad51af6d3e9d45c0.diff";
       hash = "sha256-k0vBtxEixoI1INiKtc7Js3Ai00iGAcCvCFI1ZIBRPvQ=";
     })
   ];

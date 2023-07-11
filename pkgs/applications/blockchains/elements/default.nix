@@ -94,8 +94,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Open Source implementation of advanced blockchain features extending the Bitcoin protocol"
-      ;
+      "Open Source implementation of advanced blockchain features extending the Bitcoin protocol";
     longDescription = ''
       The Elements blockchain platform is a collection of feature experiments and extensions to the
       Bitcoin protocol. This platform enables anyone to build their own businesses or networks

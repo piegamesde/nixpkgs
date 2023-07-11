@@ -45,8 +45,7 @@ in
     '';
     src = fetchurl {
       url =
-        "https://download.qoppa.com/pdfstudioviewer/PDFStudioViewer_linux64.deb"
-        ;
+        "https://download.qoppa.com/pdfstudioviewer/PDFStudioViewer_linux64.deb";
       sha256 = "sha256-QXNsH1T+ItV3s9r8CnwgRUo1mhVbe8LkEun9gUmlVQg=";
     };
     jdk = jdk17;

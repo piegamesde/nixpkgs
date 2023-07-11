@@ -43,7 +43,7 @@ buildPerlPackage rec {
     description = "A fast PostgreSQL Log Analyzer";
     license = lib.licenses.postgresql;
     maintainers = lib.teams.determinatesystems.members;
-    broken = stdenv.isDarwin
-      ; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/pgbadger.x86_64-darwin
+    broken =
+      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/pgbadger.x86_64-darwin
   };
 }

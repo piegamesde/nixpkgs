@@ -49,8 +49,7 @@ buildPythonPackage rec {
     description = "Library for the Openexchangerates API";
     homepage = "https://github.com/MartinHjelmare/aioopenexchangerates";
     changelog =
-      "https://github.com/MartinHjelmare/aioopenexchangerates/blob/vv${version}/CHANGELOG.md"
-      ;
+      "https://github.com/MartinHjelmare/aioopenexchangerates/blob/vv${version}/CHANGELOG.md";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

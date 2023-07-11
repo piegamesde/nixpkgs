@@ -26,8 +26,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "Intuitive, config-driven terminal multiplexer designed for software & systems engineers"
-      ;
+      "Intuitive, config-driven terminal multiplexer designed for software & systems engineers";
     homepage = "https://github.com/austinjones/tab-rs";
     license = licenses.mit;
     maintainers = with maintainers; [ bbigras ];

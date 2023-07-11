@@ -23,8 +23,7 @@ buildGoModule rec {
     (fetchpatch {
       name = "update-x-sys-for-go-1.18-on-aarch64-darwin.patch";
       url =
-        "https://github.com/asiermarques/adrgen/commit/485dc383106467d1029ee6d92c9bcbc3c2281626.patch"
-        ;
+        "https://github.com/asiermarques/adrgen/commit/485dc383106467d1029ee6d92c9bcbc3c2281626.patch";
       hash = "sha256-38ktHrRgW5ysQmafvFthNtkZ6nnM61z4yEA7wUGmWb4=";
     })
   ];
@@ -40,8 +39,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/asiermarques/adrgen";
     description =
-      "A command-line tool for generating and managing Architecture Decision Records"
-      ;
+      "A command-line tool for generating and managing Architecture Decision Records";
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = [ maintainers.ivar ];

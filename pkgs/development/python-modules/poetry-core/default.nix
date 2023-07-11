@@ -34,15 +34,13 @@ buildPythonPackage rec {
   patches = lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
     (fetchpatch {
       url =
-        "https://github.com/python-poetry/poetry-core/commit/80d7dcdc722dee0e09e5f3303b663003d794832c.patch"
-        ;
+        "https://github.com/python-poetry/poetry-core/commit/80d7dcdc722dee0e09e5f3303b663003d794832c.patch";
       revert = true;
       hash = "sha256-CPjkNCmuAiowp/kyKqnEfUQNmXK95RMJOIa24nG6xi8=";
     })
     (fetchpatch {
       url =
-        "https://github.com/python-poetry/poetry-core/commit/43fd7fe62676421b3661c96844b5d7cf49b87c07.patch"
-        ;
+        "https://github.com/python-poetry/poetry-core/commit/43fd7fe62676421b3661c96844b5d7cf49b87c07.patch";
       revert = true;
       hash = "sha256-fXq8L23qjLraLeMzB1bwW1jU0eGd236/GHIoYKwOuL0=";
     })
@@ -75,8 +73,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/python-poetry/poetry-core/blob/${src.rev}/CHANGELOG.md"
-      ;
+      "https://github.com/python-poetry/poetry-core/blob/${src.rev}/CHANGELOG.md";
     description = "Core utilities for Poetry";
     homepage = "https://github.com/python-poetry/poetry-core/";
     license = licenses.mit;

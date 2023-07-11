@@ -320,8 +320,7 @@ in {
         assertion = !(hasInfix "nixos/.extra-files" (toLower filename));
         message = "boot.loader.systemd-boot.extraFiles.${
             lib.strings.escapeNixIdentifier filename
-          } is invalid: files cannot be placed in the nixos/.extra-files directory"
-          ;
+          } is invalid: files cannot be placed in the nixos/.extra-files directory";
       }
     ]) (builtins.attrNames cfg.extraFiles);
 

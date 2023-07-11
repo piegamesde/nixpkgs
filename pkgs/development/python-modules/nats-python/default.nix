@@ -28,8 +28,7 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "use-poetry-core.patch";
       url =
-        "https://github.com/Gr1N/nats-python/commit/71b25b324212dccd7fc06ba3914491adba22e83f.patch"
-        ;
+        "https://github.com/Gr1N/nats-python/commit/71b25b324212dccd7fc06ba3914491adba22e83f.patch";
       sha256 = "1fip1qpzk2ka7qgkrdpdr6vnrnb1p8cwapa51xp0h26nm7yis1gl";
     })
   ];

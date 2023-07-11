@@ -48,14 +48,12 @@ let
         {
           cond = pr == null && (match "^gitlab.*" domain) != null;
           out =
-            "https://${domain}/${owner}/${repo}/-/archive/${rev}/${repo}-${rev}.${ext}"
-            ;
+            "https://${domain}/${owner}/${repo}/-/archive/${rev}/${repo}-${rev}.${ext}";
         }
         {
           cond = (match "(www.)?mpi-sws.org" domain) != null;
           out =
-            "https://www.mpi-sws.org/~${owner}/${repo}/download/${repo}-${rev}.${ext}"
-            ;
+            "https://www.mpi-sws.org/~${owner}/${repo}/download/${repo}-${rev}.${ext}";
         }
       ] (throw "meta-fetch: no fetcher found for domain ${domain} on ${rev}");
       fetch =

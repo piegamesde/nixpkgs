@@ -11,8 +11,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/backtracking/${pname}/releases/download/${version}/${pname}-${version}.tbz"
-      ;
+      "https://github.com/backtracking/${pname}/releases/download/${version}/${pname}-${version}.tbz";
     sha256 = "0dpnpla20lgiicrxl2432m2fcr6y68msw3pnjxqb11xw6yrdfhsz";
   };
 

@@ -26,8 +26,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/realworldocaml/mdx/releases/download/${version}/mdx-${version}.tbz"
-      ;
+      "https://github.com/realworldocaml/mdx/releases/download/${version}/mdx-${version}.tbz";
     hash = "sha256-MqCDmBAK/S0ueYi8O0XJtplxJx96twiFHe04Q8lHBmE=";
   };
 

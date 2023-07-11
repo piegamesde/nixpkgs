@@ -8,8 +8,7 @@ perlPackages.buildPerlPackage rec {
   version = "1.4.0";
   src = fetchurl {
     url =
-      "https://bitbucket.org/mahlon/shelldap/downloads/shelldap-${version}.tar.gz"
-      ;
+      "https://bitbucket.org/mahlon/shelldap/downloads/shelldap-${version}.tar.gz";
     sha256 = "07gkvvxcgw3pgkfy8p9mmidakciaq1rsq5zhmdqd8zcwgqkrr24i";
   };
   buildInputs = with perlPackages; [
@@ -34,8 +33,7 @@ perlPackages.buildPerlPackage rec {
   meta = with lib; {
     homepage = "https://bitbucket.org/mahlon/shelldap/";
     description =
-      "A handy shell-like interface for browsing LDAP servers and editing their content"
-      ;
+      "A handy shell-like interface for browsing LDAP servers and editing their content";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ tobiasBora ];
     platforms = platforms.linux;

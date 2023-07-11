@@ -82,8 +82,7 @@ buildGoModule rec {
 
   meta = {
     description =
-      "Provision software development environments via Terraform on Linux, macOS, Windows, X86, ARM, and of course, Kubernetes"
-      ;
+      "Provision software development environments via Terraform on Linux, macOS, Windows, X86, ARM, and of course, Kubernetes";
     homepage = "https://coder.com";
     license = lib.licenses.agpl3;
     maintainers = [

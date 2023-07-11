@@ -21,8 +21,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/log4cl/2021-12-09/log4cl-20211209-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/log4cl/2021-12-09/log4cl-20211209-git.tgz";
     sha256 = "17jwxhc2ysh3m3cp7wvh8cy359v7w6kz9vk9f07japzi3krv9iq9";
   };
 

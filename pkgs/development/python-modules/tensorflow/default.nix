@@ -208,8 +208,7 @@ let
       (fetchpatch {
         name = "tensorflow-rules_cc-libtool-path.patch";
         url =
-          "https://github.com/bazelbuild/rules_cc/commit/8c427ab30bf213630dc3bce9d2e9a0e29d1787db.diff"
-          ;
+          "https://github.com/bazelbuild/rules_cc/commit/8c427ab30bf213630dc3bce9d2e9a0e29d1787db.diff";
         hash = "sha256-C4v6HY5+jm0ACUZ58gBPVejCYCZfuzYKlHZ0m2qDHCk=";
       })
 
@@ -217,8 +216,7 @@ let
       (fetchpatch {
         name = "tensorflow-rules_cc-install_name_tool-path.patch";
         url =
-          "https://github.com/bazelbuild/rules_cc/commit/156497dc89100db8a3f57b23c63724759d431d05.diff"
-          ;
+          "https://github.com/bazelbuild/rules_cc/commit/156497dc89100db8a3f57b23c63724759d431d05.diff";
         hash = "sha256-NES1KeQmMiUJQVoV6dS4YGRxxkZEjOpFSCyOq9HZYO0=";
       })
     ];
@@ -467,8 +465,7 @@ let
         "--spawn_strategy=sandboxed"
       ] ++ lib.optionals (mklSupport) [ "--config=mkl" ];
 
-    bazelTargets = [ "//tensorflow/tools/pip_package:build_pip_package //tensorflow/tools/lib_package:libtensorflow" ]
-      ;
+    bazelTargets = [ "//tensorflow/tools/pip_package:build_pip_package //tensorflow/tools/lib_package:libtensorflow" ];
 
     removeRulesCC = false;
       # Without this Bazel complaints about sandbox violations.

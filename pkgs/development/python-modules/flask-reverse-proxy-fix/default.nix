@@ -40,8 +40,7 @@ buildPythonPackage rec {
     license = {
       fullName = "Open Government Licence";
       url =
-        "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
-        ;
+        "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/";
     };
   };
 }

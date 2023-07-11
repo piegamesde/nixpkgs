@@ -53,8 +53,7 @@ in {
     assertions = [ {
       assertion = cfg.config == "" || cfg.settings == { };
       message =
-        "At most one of the .config attribute and the .settings attribute may be set"
-        ;
+        "At most one of the .config attribute and the .settings attribute may be set";
     } ];
 
     systemd.services.spotifyd = {
@@ -67,8 +66,7 @@ in {
       environment.SHELL = "/bin/sh";
       serviceConfig = {
         ExecStart =
-          "${pkgs.spotifyd}/bin/spotifyd --no-daemon --cache-path /var/cache/spotifyd --config-path ${spotifydConf}"
-          ;
+          "${pkgs.spotifyd}/bin/spotifyd --no-daemon --cache-path /var/cache/spotifyd --config-path ${spotifydConf}";
         Restart = "always";
         RestartSec = 12;
         DynamicUser = true;

@@ -47,8 +47,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A tool for managing cargo workspaces and their crates, inspired by lerna"
-      ;
+      "A tool for managing cargo workspaces and their crates, inspired by lerna";
     longDescription = ''
       A tool that optimizes the workflow around cargo workspaces with
       git and cargo by providing utilities to version, publish, execute

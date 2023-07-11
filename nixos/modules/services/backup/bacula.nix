@@ -560,8 +560,7 @@ in {
       path = [ pkgs.bacula ];
       serviceConfig = {
         ExecStart =
-          "${pkgs.bacula}/sbin/bacula-dir -f -u bacula -g bacula -c ${dir_conf}"
-          ;
+          "${pkgs.bacula}/sbin/bacula-dir -f -u bacula -g bacula -c ${dir_conf}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         LogsDirectory = "bacula";
         StateDirectory = "bacula";

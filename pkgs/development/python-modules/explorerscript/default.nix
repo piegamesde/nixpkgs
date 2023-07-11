@@ -42,8 +42,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/SkyTemple/explorerscript";
     description =
-      "A programming language + compiler/decompiler for creating scripts for Pokémon Mystery Dungeon Explorers of Sky"
-      ;
+      "A programming language + compiler/decompiler for creating scripts for Pokémon Mystery Dungeon Explorers of Sky";
     license = licenses.mit;
     maintainers = with maintainers; [ xfix ];
   };

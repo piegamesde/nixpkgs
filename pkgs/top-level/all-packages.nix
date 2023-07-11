@@ -7685,8 +7685,8 @@ with pkgs;
 
   elasticsearch7 = callPackage ../servers/search/elasticsearch/7.x.nix {
     util-linux = util-linuxMinimal;
-    jre_headless = jdk11_headless
-      ; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jre_headless =
+      jdk11_headless; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
   elasticsearch = elasticsearch7;
 
@@ -8162,8 +8162,8 @@ with pkgs;
   fusuma = callPackage ../tools/inputmethods/fusuma { };
 
   fdbPackages = dontRecurseIntoAttrs (callPackage ../servers/foundationdb {
-    openjdk = openjdk8
-      ; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    openjdk =
+      openjdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
     libressl = libressl_3_4;
   });
 
@@ -9347,8 +9347,8 @@ with pkgs;
 
   jing = res.jing-trang;
   jing-trang = callPackage ../tools/text/xml/jing-trang {
-    jdk_headless = jdk8_headless
-      ; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jdk_headless =
+      jdk8_headless; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
   jira-cli-go = callPackage ../development/tools/jira-cli-go { };
@@ -15527,8 +15527,8 @@ with pkgs;
     callPackage ../development/compilers/gerbil/unstable.nix { };
   gerbil-support =
     callPackage ../development/compilers/gerbil/gerbil-support.nix { };
-  gerbilPackages-unstable = gerbil-support.gerbilPackages-unstable
-    ; # NB: don't recurseIntoAttrs for (unstable!) libraries
+  gerbilPackages-unstable =
+    gerbil-support.gerbilPackages-unstable; # NB: don't recurseIntoAttrs for (unstable!) libraries
 
   gbforth = callPackage ../development/compilers/gbforth { };
 
@@ -16777,8 +16777,8 @@ with pkgs;
   marst = callPackage ../development/compilers/marst { };
 
   mercury = callPackage ../development/compilers/mercury {
-    jdk_headless = openjdk8_headless
-      ; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jdk_headless =
+      openjdk8_headless; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
   microscheme = callPackage ../development/compilers/microscheme { };
@@ -16837,8 +16837,8 @@ with pkgs;
 
   mozart2 = callPackage ../development/compilers/mozart {
     emacs = emacs-nox;
-    jre_headless = jre8_headless
-      ; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jre_headless =
+      jre8_headless; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
   mozart2-binary = callPackage ../development/compilers/mozart/binary.nix { };
@@ -17585,8 +17585,8 @@ with pkgs;
   swiProlog = callPackage ../development/compilers/swi-prolog {
     openssl = openssl_1_1;
     inherit (darwin.apple_sdk.frameworks) Security;
-    jdk = openjdk8
-      ; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jdk =
+      openjdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
   swiPrologWithGui = swiProlog.override { withGui = true; };
 
@@ -18111,8 +18111,8 @@ with pkgs;
         stdenv
       ;
     pcre2 = pcre2.override {
-      withJitSealloc = false
-        ; # See https://bugs.php.net/bug.php?id=78927 and https://bugs.php.net/bug.php?id=78630
+      withJitSealloc =
+        false; # See https://bugs.php.net/bug.php?id=78927 and https://bugs.php.net/bug.php?id=78630
     };
   };
   php82Extensions = recurseIntoAttrs php82.extensions;
@@ -18127,8 +18127,8 @@ with pkgs;
         stdenv
       ;
     pcre2 = pcre2.override {
-      withJitSealloc = false
-        ; # See https://bugs.php.net/bug.php?id=78927 and https://bugs.php.net/bug.php?id=78630
+      withJitSealloc =
+        false; # See https://bugs.php.net/bug.php?id=78927 and https://bugs.php.net/bug.php?id=78630
     };
   };
   php81Extensions = recurseIntoAttrs php81.extensions;
@@ -18143,8 +18143,8 @@ with pkgs;
         stdenv
       ;
     pcre2 = pcre2.override {
-      withJitSealloc = false
-        ; # See https://bugs.php.net/bug.php?id=78927 and https://bugs.php.net/bug.php?id=78630
+      withJitSealloc =
+        false; # See https://bugs.php.net/bug.php?id=78927 and https://bugs.php.net/bug.php?id=78630
     };
   };
   php80Extensions = recurseIntoAttrs php80.extensions;
@@ -19613,8 +19613,8 @@ with pkgs;
   pifpaf = callPackage ../development/tools/pifpaf { };
 
   pmd = callPackage ../development/tools/analysis/pmd {
-    openjdk = openjdk8
-      ; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    openjdk =
+      openjdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   };
 
   jdepend = callPackage ../development/tools/analysis/jdepend {
@@ -21241,8 +21241,8 @@ with pkgs;
     callPackage ../development/libraries/cpp-ipfs-http-client { };
 
   cpp-netlib = callPackage ../development/libraries/cpp-netlib {
-    boost = boost169
-      ; # fatal error: 'boost/asio/stream_socket_service.hpp' file not found
+    boost =
+      boost169; # fatal error: 'boost/asio/stream_socket_service.hpp' file not found
   };
 
   cpp-jwt = callPackage ../development/libraries/cpp-jwt { };
@@ -25348,10 +25348,10 @@ with pkgs;
 
   rabbitmq-java-client =
     callPackage ../development/libraries/rabbitmq-java-client {
-      jre = jre8
-        ; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
-      jdk = jdk8
-        ; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+      jre =
+        jre8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+      jdk =
+        jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
     };
 
   rapidcheck = callPackage ../development/libraries/rapidcheck { };
@@ -28425,8 +28425,8 @@ with pkgs;
             else
               null
             ;
-          abiCompat = config.xorg.abiCompat or null
-            ; # `config` because we have no `xorg.override`
+          abiCompat =
+            config.xorg.abiCompat or null; # `config` because we have no `xorg.override`
         };
 
       generatedPackages =
@@ -31532,8 +31532,8 @@ with pkgs;
   json-plot = callPackage ../applications/graphics/json-plot { };
 
   libbitcoin = callPackage ../tools/misc/libbitcoin/libbitcoin.nix {
-    boost = boost175
-      ; # fatal error: 'boost/interprocess/detail/posix_time_types_wrk.hpp' file not found
+    boost =
+      boost175; # fatal error: 'boost/interprocess/detail/posix_time_types_wrk.hpp' file not found
   };
   libbitcoin-protocol =
     callPackage ../tools/misc/libbitcoin/libbitcoin-protocol.nix {
@@ -33936,8 +33936,8 @@ with pkgs;
   };
 
   iksemel = callPackage ../development/libraries/iksemel {
-    texinfo = buildPackages.texinfo6_7
-      ; # Uses @setcontentsaftertitlepage, removed in 6.8.
+    texinfo =
+      buildPackages.texinfo6_7; # Uses @setcontentsaftertitlepage, removed in 6.8.
   };
 
   avalonia-ilspy = callPackage ../applications/misc/avalonia-ilspy { };
@@ -36759,8 +36759,8 @@ with pkgs;
   ly = callPackage ../applications/display-managers/ly { };
 
   slic3r = callPackage ../applications/misc/slic3r {
-    boost = boost172
-      ; # Building fails with Boost >1.72 due to boost/detail/endian.hpp missing
+    boost =
+      boost172; # Building fails with Boost >1.72 due to boost/detail/endian.hpp missing
   };
 
   curaengine_stable =
@@ -42242,8 +42242,8 @@ with pkgs;
     gdal = gdal.override { libmysqlclient = mysql; };
     mysql = mysql;
     pcre = pcre-cpp;
-    jre = openjdk19
-      ; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    jre =
+      openjdk19; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
   } );
 
   r128gain = callPackage ../applications/audio/r128gain { };
@@ -43150,8 +43150,7 @@ with pkgs;
       version = "1.7.9";
       src = fetchurl {
         url =
-          "http://www.openfst.org/twiki/pub/FST/FstDownload/openfst-${version}.tar.gz"
-          ;
+          "http://www.openfst.org/twiki/pub/FST/FstDownload/openfst-${version}.tar.gz";
         sha256 = "1pmx1yhn2gknj0an0zwqmzgwjaycapi896244np50a8y3nrsw6ck";
       };
     });

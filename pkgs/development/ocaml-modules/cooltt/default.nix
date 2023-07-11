@@ -109,8 +109,7 @@ buildDunePackage {
   meta = with lib; {
     homepage = "https://github.com/RedPRL/cooltt";
     description =
-      "A cool implementation of normalization by evaluation (nbe) & elaboration for Cartesian cubical type theory"
-      ;
+      "A cool implementation of normalization by evaluation (nbe) & elaboration for Cartesian cubical type theory";
     license = licenses.asl20;
     maintainers = with maintainers; [ fortuneteller2k ];
   };

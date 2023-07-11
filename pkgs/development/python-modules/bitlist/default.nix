@@ -39,8 +39,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python library for working with little-endian list representation of bit strings"
-      ;
+      "Python library for working with little-endian list representation of bit strings";
     homepage = "https://github.com/lapets/bitlist";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

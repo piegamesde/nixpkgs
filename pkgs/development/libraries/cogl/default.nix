@@ -112,8 +112,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A small open source library for using 3D graphics hardware for rendering"
-      ;
+      "A small open source library for using 3D graphics hardware for rendering";
     maintainers = with maintainers; [ lovek323 ];
 
     longDescription = ''

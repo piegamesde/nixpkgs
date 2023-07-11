@@ -142,8 +142,7 @@ with lib;
       {
         name = "bzImage";
         path =
-          "${config.system.build.kernel}/${config.system.boot.loader.kernelFile}"
-          ;
+          "${config.system.build.kernel}/${config.system.boot.loader.kernelFile}";
       }
       {
         name = "kexec-boot";

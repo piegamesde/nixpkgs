@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "A library to deal with gadu-gadu protocol (most popular polish IM protocol)"
-      ;
+      "A library to deal with gadu-gadu protocol (most popular polish IM protocol)";
     homepage = "https://libgadu.net/index.en.html";
     platforms = lib.platforms.linux;
     license = lib.licenses.lgpl21;

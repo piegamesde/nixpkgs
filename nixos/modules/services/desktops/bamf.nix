@@ -16,8 +16,9 @@ with lib;
 
     ###### interface
 
-  options = { services.bamf = { enable = mkEnableOption (lib.mdDoc "bamf"); }; }
-    ;
+  options = {
+    services.bamf = { enable = mkEnableOption (lib.mdDoc "bamf"); };
+  };
 
     ###### implementation
 

@@ -14,8 +14,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/ocaml-diet/releases/download/v${version}/diet-v${version}.tbz"
-      ;
+      "https://github.com/mirage/ocaml-diet/releases/download/v${version}/diet-v${version}.tbz";
     sha256 = "96acac2e4fdedb5f47dd8ad2562e723d85ab59cd1bd85554df21ec907b071741";
   };
 

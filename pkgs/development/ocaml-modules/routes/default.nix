@@ -13,8 +13,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/anuragsoni/routes/releases/download/${version}/routes-${version}.tbz"
-      ;
+      "https://github.com/anuragsoni/routes/releases/download/${version}/routes-${version}.tbz";
     hash = "sha256-O2KdaYwrAOUEwTtM14NUgGNxnc8BWAycP1EEuB6w1og=";
   };
 

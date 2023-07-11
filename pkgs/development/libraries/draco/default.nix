@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Library for compressing and decompressing 3D geometric meshes and point clouds"
-      ;
+      "Library for compressing and decompressing 3D geometric meshes and point clouds";
     homepage = "https://google.github.io/draco/";
     changelog = "https://github.com/google/draco/releases/tag/${version}";
     license = licenses.asl20;

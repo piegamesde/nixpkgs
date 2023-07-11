@@ -11,8 +11,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/googlefonts/roboto-serif/releases/download/v${version}/RobotoSerifFonts-v${version}.zip"
-      ;
+      "https://github.com/googlefonts/roboto-serif/releases/download/v${version}/RobotoSerifFonts-v${version}.zip";
     hash = "sha256-Nm9DcxL0CgA51nGeZJPWSCipgqwnNPlhj0wHyGhLaYQ=";
   };
 

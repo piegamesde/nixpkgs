@@ -40,8 +40,7 @@ buildPythonPackage rec {
     description = "Meta-package containing dependencies for testing";
     homepage = "https://github.com/astropy/pytest-filter-subpackage";
     changelog =
-      "https://github.com/astropy/pytest-filter-subpackage/blob/v${version}/CHANGES.rst"
-      ;
+      "https://github.com/astropy/pytest-filter-subpackage/blob/v${version}/CHANGES.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

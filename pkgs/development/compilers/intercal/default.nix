@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-lang/c-intercal/files/c-intercal-31.0-no-common.patch?id=a110a98b4de6f280d770ba3cc92a4612326205a3"
-        ;
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-lang/c-intercal/files/c-intercal-31.0-no-common.patch?id=a110a98b4de6f280d770ba3cc92a4612326205a3";
       sha256 = "03523fc40042r2ryq5val27prlim8pld4950qqpawpism4w3y1p2";
     })
   ];

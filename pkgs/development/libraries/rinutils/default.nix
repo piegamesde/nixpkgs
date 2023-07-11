@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/shlomif/${pname}/releases/download/${version}/${pname}-${version}.tar.xz"
-      ;
+      "https://github.com/shlomif/${pname}/releases/download/${version}/${pname}-${version}.tar.xz";
     sha256 = "sha256-2H/hGZcit/qb1QjhNTg/8HiPvX1lXL75dXwjIS+MIXs=";
   };
 

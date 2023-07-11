@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Creates a bidirectional virtual data connection tunnelled in HTTP requests"
-      ;
+      "Creates a bidirectional virtual data connection tunnelled in HTTP requests";
     homepage = "http://www.nocrew.org/software/httptunnel";
     license = licenses.gpl2;
     maintainers = with maintainers; [ koral ];

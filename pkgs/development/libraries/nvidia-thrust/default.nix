@@ -108,8 +108,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "A high-level C++ parallel algorithms library that builds on top of CUDA, TBB, OpenMP, etc"
-      ;
+      "A high-level C++ parallel algorithms library that builds on top of CUDA, TBB, OpenMP, etc";
     homepage = "https://github.com/NVIDIA/thrust";
     license = licenses.asl20;
     platforms = platforms.unix;

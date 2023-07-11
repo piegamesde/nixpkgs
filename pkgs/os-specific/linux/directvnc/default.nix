@@ -29,8 +29,7 @@ stdenv.mkDerivation {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/drinkmilk/directvnc/commit/e9c23d049bcf31d0097348d44391fe5fd9aad12b.patch"
-        ;
+        "https://github.com/drinkmilk/directvnc/commit/e9c23d049bcf31d0097348d44391fe5fd9aad12b.patch";
       sha256 = "1dnzr0dnx20w80r73j4a9n6mhbazjzlr5ps9xjj898924cg140zx";
     })
   ];

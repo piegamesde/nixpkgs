@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
     # Remove useage of deprecrated G_PARAM_PRIVATE
     (fetchpatch {
       url =
-        "https://github.com/mdbooth/libldm/commit/ee1b37a034038f09d61b121cc8b3651024acc46f.patch"
-        ;
+        "https://github.com/mdbooth/libldm/commit/ee1b37a034038f09d61b121cc8b3651024acc46f.patch";
       sha256 = "02y34kbcpcpffvy1n9yqngvdldmxmvdkha1v2xjqvrnclanpigcp";
     })
   ];

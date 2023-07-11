@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://linux.tlk.fr/games/TecnoballZ/download/tecnoballz-${version}.tgz"
-      ;
+      "https://linux.tlk.fr/games/TecnoballZ/download/tecnoballz-${version}.tgz";
     sha256 = "sha256-WRW76e+/eXE/KwuyOjzTPFQnKwNznbIrUrz14fnvgug=";
   };
 

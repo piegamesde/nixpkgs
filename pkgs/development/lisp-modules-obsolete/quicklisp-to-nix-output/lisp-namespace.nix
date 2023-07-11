@@ -12,8 +12,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/lisp-namespace/2021-10-20/lisp-namespace-20211020-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/lisp-namespace/2021-10-20/lisp-namespace-20211020-git.tgz";
     sha256 = "1vw7zxzhlxqjnas3cxk0f58hxvlvki78vbqsabj6f3n1rq6yx7b7";
   };
 

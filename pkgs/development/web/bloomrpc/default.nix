@@ -10,12 +10,10 @@ let
 
   src = fetchurl {
     url =
-      "https://github.com/uw-labs/${pname}/releases/download/${version}/BloomRPC-${version}.AppImage"
-      ;
+      "https://github.com/uw-labs/${pname}/releases/download/${version}/BloomRPC-${version}.AppImage";
     name = "${pname}-${version}.AppImage";
     sha512 =
-      "PebdYDpcplPN5y3mRu1mG6CXenYfYvBXNLgIGEr7ZgKnR5pIaOfJNORSNYSdagdGDb/B1sxuKfX4+4f2cqgb6Q=="
-      ;
+      "PebdYDpcplPN5y3mRu1mG6CXenYfYvBXNLgIGEr7ZgKnR5pIaOfJNORSNYSdagdGDb/B1sxuKfX4+4f2cqgb6Q==";
   };
 
   appimageContents = appimageTools.extractType2 { inherit pname src version; };

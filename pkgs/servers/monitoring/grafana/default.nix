@@ -31,8 +31,7 @@ buildGoModule rec {
 
   srcStatic = fetchurl {
     url =
-      "https://dl.grafana.com/oss/release/grafana-${version}.linux-amd64.tar.gz"
-      ;
+      "https://dl.grafana.com/oss/release/grafana-${version}.linux-amd64.tar.gz";
     hash = "sha256-2bdQXN1CmcGDXDZUf/4uYtOw7HYA3KLGRKBRlXLJw4c=";
   };
 
@@ -102,8 +101,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Gorgeous metric viz, dashboards & editors for Graphite, InfluxDB & OpenTSDB"
-      ;
+      "Gorgeous metric viz, dashboards & editors for Graphite, InfluxDB & OpenTSDB";
     license = licenses.agpl3;
     homepage = "https://grafana.com";
     maintainers = with maintainers; [

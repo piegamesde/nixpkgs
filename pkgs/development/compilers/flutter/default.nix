@@ -33,22 +33,19 @@ let
           sources = {
             "${dartVersion}-x86_64-linux" = fetchzip {
               url =
-                "https://storage.googleapis.com/dart-archive/channels/stable/release/${dartVersion}/sdk/dartsdk-linux-x64-release.zip"
-                ;
+                "https://storage.googleapis.com/dart-archive/channels/stable/release/${dartVersion}/sdk/dartsdk-linux-x64-release.zip";
               sha256 = dartHash.x86_64-linux;
             };
             "${dartVersion}-aarch64-linux" = fetchzip {
               url =
-                "https://storage.googleapis.com/dart-archive/channels/stable/release/${dartVersion}/sdk/dartsdk-linux-arm64-release.zip"
-                ;
+                "https://storage.googleapis.com/dart-archive/channels/stable/release/${dartVersion}/sdk/dartsdk-linux-arm64-release.zip";
               sha256 = dartHash.aarch64-linux;
             };
           };
         };
         src = fetchzip {
           url =
-            "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${version}-stable.tar.xz"
-            ;
+            "https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${version}-stable.tar.xz";
           sha256 = hash;
         };
       };

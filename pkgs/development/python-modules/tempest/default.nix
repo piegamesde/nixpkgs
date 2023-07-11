@@ -87,8 +87,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "An OpenStack integration test suite that runs against live OpenStack cluster and validates an OpenStack deployment"
-      ;
+      "An OpenStack integration test suite that runs against live OpenStack cluster and validates an OpenStack deployment";
     homepage = "https://github.com/openstack/tempest";
     license = licenses.asl20;
     maintainers = teams.openstack.members;

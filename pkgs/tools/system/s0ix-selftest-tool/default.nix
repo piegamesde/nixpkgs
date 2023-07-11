@@ -74,8 +74,7 @@ resholve.mkDerivation {
   meta = with lib; {
     homepage = "https://github.com/intel/S0ixSelftestTool";
     description =
-      "A tool for testing the S2idle path CPU Package C-state and S0ix failures"
-      ;
+      "A tool for testing the S2idle path CPU Package C-state and S0ix failures";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ adamcstephens ];

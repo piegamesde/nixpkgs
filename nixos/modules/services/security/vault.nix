@@ -214,8 +214,7 @@ in {
         assertion = cfg.storageBackend == "inmem"
           -> (cfg.storagePath == null && cfg.storageConfig == null);
         message = ''
-          The "inmem" storage expects no services.vault.storagePath nor services.vault.storageConfig''
-          ;
+          The "inmem" storage expects no services.vault.storagePath nor services.vault.storageConfig'';
       }
       {
         assertion = ((cfg.storageBackend == "file"
@@ -223,8 +222,7 @@ in {
           && (cfg.storagePath != null
             -> (cfg.storageBackend == "file" || cfg.storageBackend == "raft")));
         message = ''
-          You must set services.vault.storagePath only when using the "file" or "raft" backend''
-          ;
+          You must set services.vault.storagePath only when using the "file" or "raft" backend'';
       }
     ];
 
@@ -247,8 +245,8 @@ in {
         (config.services.consul.enable && cfg.storageBackend == "consul")
         "consul.service";
 
-      restartIfChanged = false
-        ; # do not restart on "nixos-rebuild switch". It would seal the storage and disrupt the clients.
+      restartIfChanged =
+        false; # do not restart on "nixos-rebuild switch". It would seal the storage and disrupt the clients.
 
       startLimitIntervalSec = 60;
       startLimitBurst = 3;

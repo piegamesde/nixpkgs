@@ -33,8 +33,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Library to get data from the Swedish Transport Administration (Trafikverket) API"
-      ;
+      "Library to get data from the Swedish Transport Administration (Trafikverket) API";
     homepage = "https://github.com/endor-force/pytrafikverket";
     changelog =
       "https://github.com/endor-force/pytrafikverket/releases/tag/${version}";

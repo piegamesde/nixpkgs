@@ -144,8 +144,7 @@ python3.pkgs.buildPythonApplication rec {
     '';
     homepage = "https://wapiti-scanner.github.io/";
     changelog =
-      "https://github.com/wapiti-scanner/wapiti/blob/${version}/doc/ChangeLog_Wapiti"
-      ;
+      "https://github.com/wapiti-scanner/wapiti/blob/${version}/doc/ChangeLog_Wapiti";
     license = with licenses; [ gpl2Only ];
     maintainers = with maintainers; [ fab ];
   };

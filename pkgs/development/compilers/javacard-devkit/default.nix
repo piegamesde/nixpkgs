@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "Official development kit by Oracle for programming for the Java Card platform"
-      ;
+      "Official development kit by Oracle for programming for the Java Card platform";
     longDescription = ''
       This Java Card SDK is the official SDK made available by Oracle for programming for the Java Card platform.
 
@@ -76,8 +75,7 @@ stdenv.mkDerivation rec {
       For more details, please refer to the documentation by Oracle
     '';
     homepage =
-      "https://www.oracle.com/technetwork/java/embedded/javacard/overview/index.html"
-      ;
+      "https://www.oracle.com/technetwork/java/embedded/javacard/overview/index.html";
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
     license = lib.licenses.unfree;
     maintainers = [ lib.maintainers.ekleog ];

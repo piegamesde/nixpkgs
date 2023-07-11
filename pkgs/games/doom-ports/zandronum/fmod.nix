@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Programming library and toolkit for the creation and playback of interactive audio"
-      ;
+      "Programming library and toolkit for the creation and playback of interactive audio";
     homepage = "http://www.fmod.org/";
     license = licenses.unfreeRedistributable;
     platforms = [

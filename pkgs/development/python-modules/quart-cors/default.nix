@@ -46,8 +46,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Quart-CORS is an extension for Quart to enable and control Cross Origin Resource Sharing, CORS"
-      ;
+      "Quart-CORS is an extension for Quart to enable and control Cross Origin Resource Sharing, CORS";
     homepage = "https://github.com/pgjones/quart-cors/";
     changelog =
       "https://github.com/pgjones/quart-cors/blob/${src.rev}/CHANGELOG.rst";

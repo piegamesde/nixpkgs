@@ -196,8 +196,7 @@ with lib;
       assertions = [ {
         assertion = cfg.config.remotes == null || cfg.remotesFile == null;
         message =
-          "Only one of `remotesFile` or `config.remotes` may be used at a time."
-          ;
+          "Only one of `remotesFile` or `config.remotes` may be used at a time.";
       } ];
 
       environment = {

@@ -18,8 +18,7 @@ build-idris-package {
 
   meta = {
     description =
-      "Some Idris libraries including nodejs bindings and ISO8601 Date and Time"
-      ;
+      "Some Idris libraries including nodejs bindings and ISO8601 Date and Time";
     homepage = "https://github.com/ostera/idris-coda";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.brainrape ];

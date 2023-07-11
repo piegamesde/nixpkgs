@@ -22,8 +22,7 @@ let
 
       src = fetchurl {
         url =
-          "https://download.nextcloud.com/server/releases/${pname}-${version}.tar.bz2"
-          ;
+          "https://download.nextcloud.com/server/releases/${pname}-${version}.tar.bz2";
         inherit sha256;
       };
 

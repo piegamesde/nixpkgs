@@ -24,8 +24,7 @@ buildDunePackage rec {
 
   meta = with lib; {
     description =
-      "A library providing a multi criteria CUDF solver, part of MANCOOSI project."
-      ;
+      "A library providing a multi criteria CUDF solver, part of MANCOOSI project.";
     downloadPage = "https://github.com/AltGr/ocaml-mccs";
     homepage = "https://www.i3s.unice.fr/~cpjm/misc/";
     license = with licenses; [

@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "An implementation of the KDE Connect protocol, built on GNOME platform libraries"
-      ;
+      "An implementation of the KDE Connect protocol, built on GNOME platform libraries";
     homepage = "https://github.com/andyholmes/valent/";
     changelog =
       "https://github.com/andyholmes/valent/blob/${src.rev}/CHANGELOG.md";

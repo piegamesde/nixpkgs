@@ -28,8 +28,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/erikrose/blessings";
     description =
-      "A thin, practical wrapper around terminal coloring, styling, and positioning"
-      ;
+      "A thin, practical wrapper around terminal coloring, styling, and positioning";
     license = licenses.mit;
     maintainers = with maintainers; [ domenkozar ];
   };

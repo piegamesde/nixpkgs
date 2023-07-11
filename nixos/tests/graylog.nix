@@ -24,8 +24,7 @@ import ./make-test-python.nix ({
         services.graylog = {
           enable = true;
           passwordSecret =
-            "YGhZ59wXMrYOojx5xdgEpBpDw2N6FbhM4lTtaJ1KPxxmKrUvSlDbtWArwAWMQ5LKx1ojHEVrQrBMVRdXbRyZLqffoUzHfssc"
-            ;
+            "YGhZ59wXMrYOojx5xdgEpBpDw2N6FbhM4lTtaJ1KPxxmKrUvSlDbtWArwAWMQ5LKx1ojHEVrQrBMVRdXbRyZLqffoUzHfssc";
           elasticsearchHosts = [ "http://localhost:9200" ];
 
             # `echo -n "nixos" | shasum -a 256`

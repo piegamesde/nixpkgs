@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
     in
     fetchzip {
       url =
-        "https://releases.hashicorp.com/vault/${version}/vault_${version}_${suffix}.zip"
-        ;
+        "https://releases.hashicorp.com/vault/${version}/vault_${version}_${suffix}.zip";
       inherit sha256;
     }
     ;

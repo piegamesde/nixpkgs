@@ -10,8 +10,7 @@ buildPythonPackage rec {
   version = "3.1.1";
 
   src =
-    "${openbabel}/lib/python${python.sourceVersion.major}.${python.sourceVersion.minor}/site-packages"
-    ;
+    "${openbabel}/lib/python${python.sourceVersion.major}.${python.sourceVersion.minor}/site-packages";
 
   nativeBuildInputs = [ openbabel ];
 

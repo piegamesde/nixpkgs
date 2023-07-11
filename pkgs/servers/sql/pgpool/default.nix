@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.pgpool.net/mediawiki/download.php?f=pgpool-II-${version}.tar.gz"
-      ;
+      "https://www.pgpool.net/mediawiki/download.php?f=pgpool-II-${version}.tar.gz";
     name = "pgpool-II-${version}.tar.gz";
     sha256 = "sha256-Pmx4jnDwZyx7OMiKbKdvMfN4axJWiZgMwGOrdSylgjQ=";
   };
@@ -40,8 +39,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://pgpool.net/mediawiki/index.php";
     description =
-      "A middleware that works between postgresql servers and postgresql clients"
-      ;
+      "A middleware that works between postgresql servers and postgresql clients";
     license = licenses.free;
     platforms = platforms.unix;
     maintainers = with maintainers; [ ];

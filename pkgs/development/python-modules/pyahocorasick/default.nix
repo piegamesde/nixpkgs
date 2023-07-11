@@ -34,8 +34,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/WojciechMula/pyahocorasick";
     changelog =
-      "https://github.com/WojciechMula/pyahocorasick/blob/${version}/CHANGELOG.rst"
-      ;
+      "https://github.com/WojciechMula/pyahocorasick/blob/${version}/CHANGELOG.rst";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ fab ];
   };

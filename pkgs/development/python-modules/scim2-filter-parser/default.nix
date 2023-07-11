@@ -43,8 +43,7 @@ buildPythonPackage rec {
     description = "A customizable parser/transpiler for SCIM2.0 filters";
     homepage = "https://github.com/15five/scim2-filter-parser";
     changelog =
-      "https://github.com/15five/scim2-filter-parser/blob/${version}/CHANGELOG.rst"
-      ;
+      "https://github.com/15five/scim2-filter-parser/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ s1341 ];
   };

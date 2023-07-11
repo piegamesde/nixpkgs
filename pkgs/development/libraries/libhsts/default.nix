@@ -13,8 +13,7 @@ let
 
   hsts_list = fetchurl {
     url =
-      "https://raw.github.com/chromium/chromium/${chromium_version}/net/http/transport_security_state_static.json"
-      ;
+      "https://raw.github.com/chromium/chromium/${chromium_version}/net/http/transport_security_state_static.json";
     sha256 = "09f24n30x5dmqk8zk7k2glcilgr27832a3304wj1yp97158sqsfx";
   };
 

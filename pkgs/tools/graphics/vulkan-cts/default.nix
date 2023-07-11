@@ -26,8 +26,7 @@
 let
   renderdoc = fetchurl {
     url =
-      "https://raw.githubusercontent.com/baldurk/renderdoc/v1.1/renderdoc/api/app/renderdoc_app.h"
-      ;
+      "https://raw.githubusercontent.com/baldurk/renderdoc/v1.1/renderdoc/api/app/renderdoc_app.h";
     hash = "sha256-57XwqlsbDq3GOhxiTAyn9a8TOqhX1qQnGw7z0L22ho4=";
   };
 
@@ -162,11 +161,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Khronos Vulkan Conformance Tests";
     homepage =
-      "https://github.com/KhronosGroup/VK-GL-CTS/blob/main/external/vulkancts/README.md"
-      ;
+      "https://github.com/KhronosGroup/VK-GL-CTS/blob/main/external/vulkancts/README.md";
     changelog =
-      "https://github.com/KhronosGroup/VK-GL-CTS/releases/tag/${finalAttrs.pname}-${finalAttrs.version}"
-      ;
+      "https://github.com/KhronosGroup/VK-GL-CTS/releases/tag/${finalAttrs.pname}-${finalAttrs.version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ Flakebi ];
   };

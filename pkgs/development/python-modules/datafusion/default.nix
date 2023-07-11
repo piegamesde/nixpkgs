@@ -90,8 +90,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://arrow.apache.org/datafusion/";
     changelog =
-      "https://github.com/apache/arrow-datafusion-python/blob/${version}/CHANGELOG.md"
-      ;
+      "https://github.com/apache/arrow-datafusion-python/blob/${version}/CHANGELOG.md";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ cpcloud ];
   };

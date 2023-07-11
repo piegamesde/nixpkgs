@@ -41,8 +41,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Implementation of itertools, builtins, and more for AsyncIO and mixed-type iterables"
-      ;
+      "Implementation of itertools, builtins, and more for AsyncIO and mixed-type iterables";
     homepage = "https://aioitertools.omnilib.dev/";
     license = licenses.mit;
     maintainers = with maintainers; [ teh ];

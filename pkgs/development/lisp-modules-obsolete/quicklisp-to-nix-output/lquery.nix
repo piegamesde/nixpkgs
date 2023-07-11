@@ -19,8 +19,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/lquery/2020-12-20/lquery-20201220-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/lquery/2020-12-20/lquery-20201220-git.tgz";
     sha256 = "0mfnk1p73aihraklw802j5mjgc8cjxva0mdf0c4p7b253crf15jx";
   };
 

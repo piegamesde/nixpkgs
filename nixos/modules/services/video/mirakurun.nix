@@ -168,8 +168,7 @@ in {
       port = mkIf (cfg.port != null) cfg.port;
     };
 
-    systemd.tmpfiles.rules = [ "d '/etc/mirakurun' - ${username} ${groupname} - -" ]
-      ;
+    systemd.tmpfiles.rules = [ "d '/etc/mirakurun' - ${username} ${groupname} - -" ];
 
     systemd.services.mirakurun = {
       description = mirakurun.meta.description;

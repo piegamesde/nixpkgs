@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
   patches = [ (fetchpatch {
     name = "10-build_with_wx_32.patch";
     url =
-      "https://sources.debian.org/data/main/s/sooperlooper/1.7.8~dfsg0-2/debian/patches/10-build_with_wx_32.patch"
-      ;
+      "https://sources.debian.org/data/main/s/sooperlooper/1.7.8~dfsg0-2/debian/patches/10-build_with_wx_32.patch";
     sha256 = "sha256-NF/w+zgRBNkSTqUJhfH9kQogXSYEF70pCN+loR0hjpg=";
   }) ];
 
@@ -71,8 +70,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A live looping sampler capable of immediate loop recording, overdubbing, multiplying, reversing and more"
-      ;
+      "A live looping sampler capable of immediate loop recording, overdubbing, multiplying, reversing and more";
     longDescription = ''
       It allows for multiple simultaneous multi-channel loops limited only by your computer's available memory.
       The application is a standalone JACK client with an engine controllable via OSC and MIDI.

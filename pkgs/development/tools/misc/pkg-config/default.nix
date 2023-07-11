@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A tool that allows packages to find out information about other packages"
-      ;
+      "A tool that allows packages to find out information about other packages";
     homepage = "http://pkg-config.freedesktop.org/wiki/";
     platforms = platforms.all;
     license = licenses.gpl2Plus;

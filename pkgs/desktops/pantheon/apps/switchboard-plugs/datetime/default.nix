@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
     # https://github.com/elementary/switchboard-plug-datetime/pull/100
     (fetchpatch {
       url =
-        "https://github.com/elementary/switchboard-plug-datetime/commit/a90639ed4f185f50d4ae448cd9503203dc24b3f4.patch"
-        ;
+        "https://github.com/elementary/switchboard-plug-datetime/commit/a90639ed4f185f50d4ae448cd9503203dc24b3f4.patch";
       sha256 = "0dz0s02ccnds62dqil44k652pc5icka2rfhcx0a5bj1wi5sifnp7";
     })
   ];

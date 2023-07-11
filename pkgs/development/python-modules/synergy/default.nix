@@ -37,8 +37,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A Python library for calculating, analyzing, and visualizing drug combination synergy"
-      ;
+      "A Python library for calculating, analyzing, and visualizing drug combination synergy";
     homepage = "https://github.com/djwooten/synergy";
     maintainers = [ maintainers.ivar ];
     license = licenses.gpl3Plus;

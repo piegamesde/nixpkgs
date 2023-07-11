@@ -53,8 +53,7 @@ let
 
     src = fetchzip {
       url =
-        "https://dl.unvanquished.net/deps/linux-amd64-default_${version}.tar.xz "
-        ;
+        "https://dl.unvanquished.net/deps/linux-amd64-default_${version}.tar.xz ";
       sha256 = "sha256-6r9j0HRMDC/7i8f4f5bBK4NmwsTpSChHrRWwz0ENAZo=";
     };
 

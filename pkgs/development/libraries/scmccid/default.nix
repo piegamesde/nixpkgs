@@ -16,15 +16,13 @@ stdenv.mkDerivation rec {
     if stdenv.hostPlatform.system == "i686-linux" then
       (fetchurl {
         url =
-          "http://www.scmmicro.com/support/download/scmccid_${version}_linux.tar.gz"
-          ;
+          "http://www.scmmicro.com/support/download/scmccid_${version}_linux.tar.gz";
         sha256 = "1r5wkarhzl09ncgj55baizf573czw0nplh1pgddzx9xck66kh5bm";
       })
     else if stdenv.hostPlatform.system == "x86_64-linux" then
       (fetchurl {
         url =
-          "http://www.scmmicro.com/support/download/scmccid_${version}_linux_x64.tar.gz"
-          ;
+          "http://www.scmmicro.com/support/download/scmccid_${version}_linux_x64.tar.gz";
         sha256 = "0k9lzlk01sl4ycfqgrqqy3bildz0mcr1r0kkicgjz96l4s0jgz0i";
       })
     else

@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/samtools/bcftools/releases/download/${version}/${pname}-${version}.tar.bz2"
-      ;
+      "https://github.com/samtools/bcftools/releases/download/${version}/${pname}-${version}.tar.bz2";
     sha256 = "sha256-AfddjnAdhbLHWRckEgCcwE8pthYWrOL6dRFhI95Flsw=";
   };
 
@@ -56,8 +55,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Tools for manipulating BCF2/VCF/gVCF format, SNP and short indel sequence variants"
-      ;
+      "Tools for manipulating BCF2/VCF/gVCF format, SNP and short indel sequence variants";
     license = licenses.mit;
     homepage = "http://www.htslib.org/";
     platforms = platforms.unix;

@@ -25,8 +25,7 @@ buildGoModule rec {
     description = "Show container images used in the cluster.";
     homepage = "https://github.com/chenjiandongx/kubectl-images";
     changelog =
-      "https://github.com/chenjiandongx/kubectl-images/releases/tag/v${version}"
-      ;
+      "https://github.com/chenjiandongx/kubectl-images/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = [ maintainers.ivankovnatsky ];
   };

@@ -32,7 +32,6 @@ buildOctavePackage rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
     description =
-      "Functions for reading, and writing FITS (Flexible Image Transport System) files using cfitsio"
-      ;
+      "Functions for reading, and writing FITS (Flexible Image Transport System) files using cfitsio";
   };
 }

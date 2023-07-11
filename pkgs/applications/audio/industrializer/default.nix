@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "This program generates synthesized percussion sounds using physical modelling"
-      ;
+      "This program generates synthesized percussion sounds using physical modelling";
     longDescription = ''
       The range of sounds possible include but is not limited to cymbal sounds, metallic noises, bubbly sounds, and chimes.
       After a sound is rendered, it can be played and then saved to a .WAV file.

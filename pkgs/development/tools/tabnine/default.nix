@@ -19,8 +19,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://update.tabnine.com/bundles/${sources.version}/${platform.name}/TabNine.zip"
-      ;
+      "https://update.tabnine.com/bundles/${sources.version}/${platform.name}/TabNine.zip";
     inherit (platform) hash;
   };
 
@@ -49,8 +48,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://tabnine.com";
     description =
-      "Smart Compose for code that uses deep learning to help you write code faster"
-      ;
+      "Smart Compose for code that uses deep learning to help you write code faster";
     license = licenses.unfree;
     platforms = attrNames sources.platforms;
     maintainers = with maintainers; [ lovesegfault ];

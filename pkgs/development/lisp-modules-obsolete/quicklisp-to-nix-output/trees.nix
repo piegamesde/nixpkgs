@@ -14,8 +14,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/trees/2018-01-31/trees-20180131-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/trees/2018-01-31/trees-20180131-git.tgz";
     sha256 = "1p54j2kav1vggdjw5msdpmfyi7cxh41f4j669rgp0g8fpimmzcfg";
   };
 

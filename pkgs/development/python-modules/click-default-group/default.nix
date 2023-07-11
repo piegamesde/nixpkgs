@@ -23,8 +23,7 @@ buildPythonPackage rec {
     # make tests compatible with click 8
     (fetchpatch {
       url =
-        "https://github.com/click-contrib/click-default-group/commit/9415c77d05cf7d16876e7d70a49a41a6189983b4.patch"
-        ;
+        "https://github.com/click-contrib/click-default-group/commit/9415c77d05cf7d16876e7d70a49a41a6189983b4.patch";
       sha256 = "1czzma8nmwyxhwhnr8rfw5bjw6d46b3s5r5bfb8ly3sjwqjlwhw2";
     })
   ];

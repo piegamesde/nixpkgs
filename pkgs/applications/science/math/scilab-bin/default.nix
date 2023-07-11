@@ -17,20 +17,17 @@ let
   srcs = {
     aarch64-darwin = fetchurl {
       url =
-        "https://www.utc.fr/~mottelet/scilab/download/${version}/scilab-${version}-accelerate-arm64.dmg"
-        ;
+        "https://www.utc.fr/~mottelet/scilab/download/${version}/scilab-${version}-accelerate-arm64.dmg";
       sha256 = "sha256-L4dxD8R8bY5nd+4oDs5Yk0LlNsFykLnAM+oN/O87SRI=";
     };
     x86_64-darwin = fetchurl {
       url =
-        "https://www.utc.fr/~mottelet/scilab/download/${version}/scilab-${version}-x86_64.dmg"
-        ;
+        "https://www.utc.fr/~mottelet/scilab/download/${version}/scilab-${version}-x86_64.dmg";
       sha256 = "sha256-tBeqzllMuogrGcJxGqEl2DdNXaiwok3yhzWSdlWY5Fc=";
     };
     x86_64-linux = fetchurl {
       url =
-        "https://www.scilab.org/download/${version}/scilab-${version}.bin.linux-x86_64.tar.gz"
-        ;
+        "https://www.scilab.org/download/${version}/scilab-${version}.bin.linux-x86_64.tar.gz";
       sha256 = "sha256-PuGnz2YdAhriavwnuf5Qyy0cnCeRHlWC6dQzfr7bLHk=";
     };
   };
@@ -40,8 +37,7 @@ let
   meta = {
     homepage = "http://www.scilab.org/";
     description =
-      "Scientific software package for numerical computations (Matlab lookalike)"
-      ;
+      "Scientific software package for numerical computations (Matlab lookalike)";
     platforms = [
       "aarch64-darwin"
       "x86_64-darwin"

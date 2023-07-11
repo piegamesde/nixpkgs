@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Terminal emulator with workspace, multiple windows, remote management, quake mode and other features"
-      ;
+      "Terminal emulator with workspace, multiple windows, remote management, quake mode and other features";
     homepage = "https://github.com/linuxdeepin/deepin-terminal";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/zsh-users/antigen/releases/download/v${version}/antigen.zsh"
-      ;
+      "https://github.com/zsh-users/antigen/releases/download/v${version}/antigen.zsh";
     sha256 = "1bmp3qf14509swpxin4j9f98n05pdilzapjm0jdzbv0dy3hn20ix";
   };
 

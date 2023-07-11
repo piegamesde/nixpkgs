@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/buchen/portfolio/releases/download/${version}/PortfolioPerformance-${version}-linux.gtk.x86_64.tar.gz"
-      ;
+      "https://github.com/buchen/portfolio/releases/download/${version}/PortfolioPerformance-${version}-linux.gtk.x86_64.tar.gz";
     hash = "sha256-V3CHp0r+3Vya9lcuCfHeVQqmy9rxlN9cs5ZShoJ9XTA=";
   };
 
@@ -76,8 +75,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A simple tool to calculate the overall performance of an investment portfolio"
-      ;
+      "A simple tool to calculate the overall performance of an investment portfolio";
     homepage = "https://www.portfolio-performance.info/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.epl10;

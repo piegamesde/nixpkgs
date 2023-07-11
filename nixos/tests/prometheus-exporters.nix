@@ -148,8 +148,7 @@ let
       metricProvider = {
         services.bitcoind.default.enable = true;
         services.bitcoind.default.rpc.users.bitcoinrpc.passwordHMAC =
-          "e8fe33f797e698ac258c16c8d7aadfbe$872bdb8f4d787367c26bcfd75e6c23c4f19d44a69f5d1ad329e5adf3f82710f7"
-          ;
+          "e8fe33f797e698ac258c16c8d7aadfbe$872bdb8f4d787367c26bcfd75e6c23c4f19d44a69f5d1ad329e5adf3f82710f7";
       };
       exporterTest = ''
         wait_for_unit("prometheus-bitcoin-exporter.service")
@@ -317,8 +316,7 @@ let
     jitsi = {
       exporterConfig = { enable = true; };
       metricProvider = {
-        systemd.services.prometheus-jitsi-exporter.after = [ "jitsi-videobridge2.service" ]
-          ;
+        systemd.services.prometheus-jitsi-exporter.after = [ "jitsi-videobridge2.service" ];
         services.jitsi-videobridge = {
           enable = true;
           apis = [
@@ -1125,8 +1123,7 @@ let
       exporterConfig = {
         configuration.jobs.points = {
           interval = "1m";
-          connections = [ "postgres://prometheus-sql-exporter@/data?host=/run/postgresql&sslmode=disable" ]
-            ;
+          connections = [ "postgres://prometheus-sql-exporter@/data?host=/run/postgresql&sslmode=disable" ];
           queries = {
             points = {
               labels = [ "name" ];
@@ -1156,8 +1153,7 @@ let
             GRANT SELECT ON points TO "prometheus-sql-exporter";
           '';
         };
-        systemd.services.prometheus-sql-exporter.after = [ "postgresql.service" ]
-          ;
+        systemd.services.prometheus-sql-exporter.after = [ "postgresql.service" ];
       };
       exporterTest = ''
         wait_for_unit("prometheus-sql-exporter.service")
@@ -1189,8 +1185,7 @@ let
         modemAddress = "localhost";
       };
       metricProvider = {
-        systemd.services.prometheus-surfboard-exporter.after = [ "nginx.service" ]
-          ;
+        systemd.services.prometheus-surfboard-exporter.after = [ "nginx.service" ];
         services.nginx = {
           enable = true;
           virtualHosts.localhost.locations."/cgi-bin/status".extraConfig = ''
@@ -1343,8 +1338,7 @@ let
         group = "varnish";
       };
       metricProvider = {
-        systemd.services.prometheus-varnish-exporter.after = [ "varnish.service" ]
-          ;
+        systemd.services.prometheus-varnish-exporter.after = [ "varnish.service" ];
         services.varnish = {
           enable = true;
           config = ''
@@ -1388,8 +1382,7 @@ let
               inherit (snakeoil.peer1) publicKey;
             };
           };
-          systemd.services.prometheus-wireguard-exporter.after = [ "wireguard-wg0.service" ]
-            ;
+          systemd.services.prometheus-wireguard-exporter.after = [ "wireguard-wg0.service" ];
         };
         exporterTest = ''
           wait_for_unit("prometheus-wireguard-exporter.service")

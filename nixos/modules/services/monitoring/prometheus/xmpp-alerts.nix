@@ -48,8 +48,7 @@ in {
       wants = [ "network-online.target" ];
       serviceConfig = {
         ExecStart =
-          "${pkgs.prometheus-xmpp-alerts}/bin/prometheus-xmpp-alerts --config ${configFile}"
-          ;
+          "${pkgs.prometheus-xmpp-alerts}/bin/prometheus-xmpp-alerts --config ${configFile}";
         Restart = "on-failure";
         DynamicUser = true;
         PrivateTmp = true;

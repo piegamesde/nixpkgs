@@ -25,8 +25,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/checkseum/releases/download/v${version}/checkseum-${version}.tbz"
-      ;
+      "https://github.com/mirage/checkseum/releases/download/v${version}/checkseum-${version}.tbz";
     hash = "sha256-K6QPMts5+hxH2a+WQ1N0lwMBoshG2T0bSozNgzRvAlo=";
   };
 

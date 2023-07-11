@@ -26,8 +26,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Automatically convert your existing AutoScaling groups to up to 90% cheaper spot instances with minimal configuration changes"
-      ;
+      "Automatically convert your existing AutoScaling groups to up to 90% cheaper spot instances with minimal configuration changes";
     homepage = "https://github.com/cloudutil/AutoSpotting";
     license = licenses.osl3;
     maintainers = with maintainers; [ costrouc ];

@@ -35,8 +35,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Automated changelog tool for preparing releases with lots of customization options"
-      ;
+      "Automated changelog tool for preparing releases with lots of customization options";
     homepage = "https://changie.dev";
     changelog =
       "https://github.com/miniscruff/changie/blob/v${version}/CHANGELOG.md";

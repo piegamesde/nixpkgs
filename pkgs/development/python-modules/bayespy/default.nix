@@ -33,8 +33,7 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "locally-defined-epsilon.patch";
       url =
-        "https://github.com/bayespy/bayespy/commit/9be53bada763e19c2b6086731a6aa542ad33aad0.patch"
-        ;
+        "https://github.com/bayespy/bayespy/commit/9be53bada763e19c2b6086731a6aa542ad33aad0.patch";
       hash = "sha256-KYt/0GcaNWR9K9/uS2OXgK7g1Z+Bayx9+IQGU75Mpuo=";
     })
   ];

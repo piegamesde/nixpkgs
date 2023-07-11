@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
   pname = "zipkin-server";
   src = fetchurl {
     url =
-      "https://search.maven.org/remotecontent?filepath=io/zipkin/java/zipkin-server/${version}/zipkin-server-${version}-exec.jar"
-      ;
+      "https://search.maven.org/remotecontent?filepath=io/zipkin/java/zipkin-server/${version}/zipkin-server-${version}-exec.jar";
     sha256 = "02369fkv0kbl1isq6y26fh2zj5wxv3zck522m5wypsjlcfcw2apa";
   };
   nativeBuildInputs = [ makeWrapper ];

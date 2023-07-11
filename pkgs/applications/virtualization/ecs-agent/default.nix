@@ -28,8 +28,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "The agent that runs on AWS EC2 container instances and starts containers on behalf of Amazon ECS"
-      ;
+      "The agent that runs on AWS EC2 container instances and starts containers on behalf of Amazon ECS";
     homepage = "https://github.com/aws/amazon-ecs-agent";
     changelog =
       "https://github.com/aws/amazon-ecs-agent/raw/v${version}/CHANGELOG.md";

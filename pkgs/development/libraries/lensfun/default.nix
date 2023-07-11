@@ -39,8 +39,7 @@ stdenv.mkDerivation {
   patches = [ (fetchpatch {
     name = "fix-compilation-with-clang.patch";
     url =
-      "https://github.com/lensfun/lensfun/commit/5c2065685a22f19f8138365c0e5acf0be8329c02.patch"
-      ;
+      "https://github.com/lensfun/lensfun/commit/5c2065685a22f19f8138365c0e5acf0be8329c02.patch";
     sha256 = "sha256-tAOCNL37pKE7hfQCu+hUTKLFnRHWF5Dplqf+GaucG+4=";
   }) ];
 

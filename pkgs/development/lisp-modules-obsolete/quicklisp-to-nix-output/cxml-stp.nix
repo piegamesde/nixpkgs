@@ -29,8 +29,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cxml-stp/2020-03-25/cxml-stp-20200325-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/cxml-stp/2020-03-25/cxml-stp-20200325-git.tgz";
     sha256 = "1y26bksmysvxifqx4lslpbsdvmcqkf7di36a3yyqnjgrb5r0jv1n";
   };
 

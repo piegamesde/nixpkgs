@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
     # This patch adds python3 support
     (fetchurl {
       url =
-        "https://raw.githubusercontent.com/archlinux/svntogit-community/90cb57ef53d952bb6ab4c33a184f815bbe1791c0/openbox/trunk/py3.patch"
-        ;
+        "https://raw.githubusercontent.com/archlinux/svntogit-community/90cb57ef53d952bb6ab4c33a184f815bbe1791c0/openbox/trunk/py3.patch";
       sha256 = "1ks99awlkhd5ph9kz94s1r6m1bfvh42g4rmxd14dyg5b421p1ljc";
     })
 
@@ -73,8 +72,7 @@ stdenv.mkDerivation rec {
     # and commited to a work branch in the upstream repo. See https://bugs.archlinux.org/task/77853.
     (fetchpatch {
       url =
-        "https://github.com/Mikachu/openbox/commit/d41128e5a1002af41c976c8860f8299cfcd3cd72.patch"
-        ;
+        "https://github.com/Mikachu/openbox/commit/d41128e5a1002af41c976c8860f8299cfcd3cd72.patch";
       sha256 = "sha256-4/aoI4y98JPybZ1MNI7egOhkroQgh/oeGnYrhNGX4t4=";
     })
   ];

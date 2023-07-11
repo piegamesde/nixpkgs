@@ -41,8 +41,7 @@ let
       url =
         "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v${
           lib.versions.majorMinor version
-        }&type=data&os=Sources&downloadFile=ParaViewGettingStarted-${version}.pdf"
-        ;
+        }&type=data&os=Sources&downloadFile=ParaViewGettingStarted-${version}.pdf";
       name = "GettingStarted.pdf";
       sha256 = "14xhlvg7s7d5amqf4qfyamx2a6b66zf4cmlfm3s7iw3jq01x1lx6";
     })
@@ -50,8 +49,7 @@ let
       url =
         "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v${
           lib.versions.majorMinor version
-        }&type=data&os=Sources&downloadFile=ParaViewCatalystGuide-${version}.pdf"
-        ;
+        }&type=data&os=Sources&downloadFile=ParaViewCatalystGuide-${version}.pdf";
       name = "CatalystGuide.pdf";
       sha256 = "133vcfrbg2nh15igl51ns6gnfn1is20vq6j0rg37wha697pmcr4a";
     })

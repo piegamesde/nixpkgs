@@ -15,8 +15,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/ezjsonm/releases/download/v${version}/ezjsonm-${version}.tbz"
-      ;
+      "https://github.com/mirage/ezjsonm/releases/download/v${version}/ezjsonm-${version}.tbz";
     hash = "sha256-CGM+Dw52eoroGTXKfnTxaTuFp5xFAtVo7t/1Fw8M13s=";
   };
 

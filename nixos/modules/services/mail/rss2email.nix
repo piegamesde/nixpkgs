@@ -103,8 +103,7 @@ in {
 
     services.rss2email.config.to = cfg.to;
 
-    systemd.tmpfiles.rules = [ "d /var/rss2email 0700 rss2email rss2email - -" ]
-      ;
+    systemd.tmpfiles.rules = [ "d /var/rss2email 0700 rss2email rss2email - -" ];
 
     systemd.services.rss2email =
       let
@@ -124,8 +123,7 @@ in {
         path = [ pkgs.system-sendmail ];
         serviceConfig = {
           ExecStart =
-            "${pkgs.rss2email}/bin/r2e -c ${conf} -d /var/rss2email/db.json run"
-            ;
+            "${pkgs.rss2email}/bin/r2e -c ${conf} -d /var/rss2email/db.json run";
           User = "rss2email";
         };
       }

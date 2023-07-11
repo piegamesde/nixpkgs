@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/tpmquotetools/${version}/${pname}-${version}.tar.gz"
-      ;
+      "mirror://sourceforge/project/tpmquotetools/${version}/${pname}-${version}.tar.gz";
     sha256 = "1qjs83xb4np4yn1bhbjfhvkiika410v8icwnjix5ad96w2nlxp0h";
   };
 
@@ -32,8 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A collection of programs that provide support for TPM based attestation using the TPM quote mechanism"
-      ;
+      "A collection of programs that provide support for TPM based attestation using the TPM quote mechanism";
     longDescription = ''
       The TPM Quote Tools is a collection of programs that provide support
       for TPM based attestation using the TPM quote mechanism.  The manual

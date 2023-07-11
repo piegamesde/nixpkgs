@@ -11,8 +11,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url =
-      "https://github.com/fordfrog/apgdiff/raw/release_${finalAttrs.version}/releases/apgdiff-${finalAttrs.version}.jar"
-      ;
+      "https://github.com/fordfrog/apgdiff/raw/release_${finalAttrs.version}/releases/apgdiff-${finalAttrs.version}.jar";
     sha256 = "sha256-6OempDmedl6LOwP/s5y0hOIxGDWHd7qM7/opW3UwQ+I=";
   };
 

@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.netfilter.org/projects/libnfnetlink/files/libnfnetlink-${version}.tar.bz2"
-      ;
+      "https://www.netfilter.org/projects/libnfnetlink/files/libnfnetlink-${version}.tar.bz2";
     sha256 = "0xn3rcrzxr6g82kfxzs9bqn2zvl2kf2yda30drwb9vr6sk1wfr5h";
   };
 

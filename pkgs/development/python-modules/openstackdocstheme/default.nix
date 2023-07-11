@@ -35,8 +35,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Sphinx theme for RST-sourced documentation published to docs.openstack.org"
-      ;
+      "Sphinx theme for RST-sourced documentation published to docs.openstack.org";
     homepage = "https://github.com/openstack/openstackdocstheme";
     license = licenses.asl20;
     maintainers = teams.openstack.members;

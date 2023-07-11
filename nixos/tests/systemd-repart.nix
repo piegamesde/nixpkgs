@@ -106,8 +106,9 @@ in {
         boot.initrd.systemd.enable = true;
 
         boot.initrd.systemd.repart.enable = true;
-        systemd.repart.partitions = { "10-root" = { Type = "linux-generic"; }; }
-          ;
+        systemd.repart.partitions = {
+          "10-root" = { Type = "linux-generic"; };
+        };
       }
       ;
 
@@ -140,8 +141,9 @@ in {
         imports = [ common ];
 
         systemd.repart.enable = true;
-        systemd.repart.partitions = { "10-root" = { Type = "linux-generic"; }; }
-          ;
+        systemd.repart.partitions = {
+          "10-root" = { Type = "linux-generic"; };
+        };
       }
       ;
 

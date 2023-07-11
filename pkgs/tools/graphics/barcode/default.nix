@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "http://git.savannah.gnu.org/cgit/barcode.git/patch/?id=4654f68706a459c9602d9932b56a56e8930f7d53"
-        ;
+        "http://git.savannah.gnu.org/cgit/barcode.git/patch/?id=4654f68706a459c9602d9932b56a56e8930f7d53";
       sha256 = "15kclzcwlh0ymr7m48vc0m8z98q0wf4xbfcky4g1y8yvvpvvrfgc";
     })
   ];

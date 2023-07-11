@@ -12,8 +12,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/vas-string-metrics/2021-12-09/vas-string-metrics-20211209-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/vas-string-metrics/2021-12-09/vas-string-metrics-20211209-git.tgz";
     sha256 = "0q8zzfmwprjw6wmj8aifizx06xw9yrq0c8qhwhrak62cyz9lvf8n";
   };
 

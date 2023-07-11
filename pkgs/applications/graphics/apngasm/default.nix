@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
     # Fix parallel build and avoid static linking of binary.
     (fetchpatch {
       url =
-        "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-gfx/apngasm/files/apngasm-3.1.10-static.patch?id=45fd0cde71ca2ae0e7e38ab67400d84b86b593d7"
-        ;
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-gfx/apngasm/files/apngasm-3.1.10-static.patch?id=45fd0cde71ca2ae0e7e38ab67400d84b86b593d7";
       sha256 = "sha256-eKthgInWxXEqN5PupvVf9wVQDElxsPYRFXT7pMc6vIU=";
     })
   ];

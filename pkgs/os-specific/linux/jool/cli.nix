@@ -21,8 +21,7 @@ stdenv.mkDerivation {
 
   patches = [ (fetchpatch {
     url =
-      "https://github.com/NICMx/Jool/commit/490ddb0933061cab3c2a7952dffc61789deed565.patch"
-      ;
+      "https://github.com/NICMx/Jool/commit/490ddb0933061cab3c2a7952dffc61789deed565.patch";
     hash = "sha256-1dpMth0ocPHujlk+96St1a63RipcWiL/CdmSz4O87Lg=";
   }) ];
 

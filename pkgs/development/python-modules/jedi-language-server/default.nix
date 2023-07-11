@@ -60,8 +60,7 @@ buildPythonPackage rec {
     description = "A Language Server for the latest version(s) of Jedi";
     homepage = "https://github.com/pappasam/jedi-language-server";
     changelog =
-      "https://github.com/pappasam/jedi-language-server/blob/${version}/CHANGELOG.md"
-      ;
+      "https://github.com/pappasam/jedi-language-server/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ doronbehar ];
   };

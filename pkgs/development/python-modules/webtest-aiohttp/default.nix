@@ -27,8 +27,7 @@ buildPythonPackage rec {
   patches = [ (fetchpatch {
     name = "python311-compat.patch";
     url =
-      "https://github.com/sloria/webtest-aiohttp/commit/64e5ab1867ea9ef87901bb2a1a6142566bffc90b.patch"
-      ;
+      "https://github.com/sloria/webtest-aiohttp/commit/64e5ab1867ea9ef87901bb2a1a6142566bffc90b.patch";
     hash = "sha256-OKJGajqJLFMkcbGmGfU9G5hCpJaj24Gs363sI0z7YZw=";
   }) ];
 

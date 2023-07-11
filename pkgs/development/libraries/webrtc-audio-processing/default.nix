@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://gitlab.freedesktop.org/pulseaudio/webrtc-audio-processing/-/archive/v1.0/webrtc-audio-processing-v${version}.tar.gz"
-      ;
+      "https://gitlab.freedesktop.org/pulseaudio/webrtc-audio-processing/-/archive/v1.0/webrtc-audio-processing-v${version}.tar.gz";
     sha256 = "sha256-dqRy1OfOG9TX2cgCD8cowU44zVanns/nPYZrilPfuiU=";
   };
 
@@ -40,8 +39,7 @@ stdenv.mkDerivation rec {
     homepage =
       "https://www.freedesktop.org/software/pulseaudio/webrtc-audio-processing";
     description =
-      "A more Linux packaging friendly copy of the AudioProcessing module from the WebRTC project"
-      ;
+      "A more Linux packaging friendly copy of the AudioProcessing module from the WebRTC project";
     license = licenses.bsd3;
       # https://gitlab.freedesktop.org/pulseaudio/webrtc-audio-processing/-/blob/master/webrtc/rtc_base/system/arch.h
     platforms = intersectLists platforms.unix

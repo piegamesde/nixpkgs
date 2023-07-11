@@ -163,8 +163,7 @@ in {
         pkgs.miniupnpc
       ];
       serviceConfig.ExecStart =
-        "${cfg.package}/lib/gnunet/libexec/gnunet-service-arm -c /etc/gnunet.conf"
-        ;
+        "${cfg.package}/lib/gnunet/libexec/gnunet-service-arm -c /etc/gnunet.conf";
       serviceConfig.User = "gnunet";
       serviceConfig.UMask = "0007";
       serviceConfig.WorkingDirectory = stateDir;

@@ -15,8 +15,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/babel/2020-09-25/babel-20200925-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/babel/2020-09-25/babel-20200925-git.tgz";
     sha256 = "1hpjm2whw7zla9igzj50y3nibii0mfg2a6y6nslaf5vpkni88jfi";
   };
 

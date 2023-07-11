@@ -112,8 +112,7 @@ let
       readmeFile = "LICENSE_en_US.txt";
       src = fetchurl {
         url =
-          "https://extensions.libreoffice.org/extensions/swedish-spelling-dictionary-den-stora-svenska-ordlistan/${version}/@@download/file/${_name}.oxt"
-          ;
+          "https://extensions.libreoffice.org/extensions/swedish-spelling-dictionary-den-stora-svenska-ordlistan/${version}/@@download/file/${_name}.oxt";
         sha256 =
           "b982881cc75f5c4af1199535bd4735ee476bdc48edf63e3f05fb4f715654a7bc";
       };
@@ -164,8 +163,7 @@ let
       readmeFile = "README_dict_fr.txt";
       src = fetchurl {
         url =
-          "http://www.dicollecte.org/download/fr/hunspell-french-dictionaries-v${version}.zip"
-          ;
+          "http://www.dicollecte.org/download/fr/hunspell-french-dictionaries-v${version}.zip";
         sha256 = "0ca7084jm7zb1ikwzh1frvpb97jn27i7a5d48288h2qlfp068ik0";
       };
       meta = with lib; {
@@ -392,8 +390,7 @@ in rec {
     dictFileName = "en_US";
     src = fetchurl {
       url =
-        "mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_US-2018.04.16.zip"
-        ;
+        "mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_US-2018.04.16.zip";
       sha256 = "18hbncvqnckzqarrmnzk58plymjqyi93k4qj98fac5mr71jbmzaf";
     };
   };
@@ -406,8 +403,7 @@ in rec {
     dictFileName = "en_US";
     src = fetchurl {
       url =
-        "mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_US-large-2018.04.16.zip"
-        ;
+        "mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_US-large-2018.04.16.zip";
       sha256 = "1xm9jgqbivp5cb78ykjxg47vzq1yqj82l7r4q5cjpivrv99s49qc";
     };
   };
@@ -420,8 +416,7 @@ in rec {
     dictFileName = "en_CA";
     src = fetchurl {
       url =
-        "mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_CA-2018.04.16.zip"
-        ;
+        "mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_CA-2018.04.16.zip";
       sha256 = "06yf3s7y1215jmikbs18cn4j8a13csp4763w3jfgah8zlim6vc47";
     };
   };
@@ -434,8 +429,7 @@ in rec {
     dictFileName = "en_CA";
     src = fetchurl {
       url =
-        "mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_CA-large-2018.04.16.zip"
-        ;
+        "mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_CA-large-2018.04.16.zip";
       sha256 = "1200xxyvv6ni8nk52v3059c367817vnrkm0cdh38rhiigb5flfha";
     };
   };
@@ -448,8 +442,7 @@ in rec {
     dictFileName = "en_AU";
     src = fetchurl {
       url =
-        "mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_AU-2018.04.16.zip"
-        ;
+        "mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_AU-2018.04.16.zip";
       sha256 = "1kp06npl1kd05mm9r52cg2iwc13x02zwqgpibdw15b6x43agg6f5";
     };
   };
@@ -462,8 +455,7 @@ in rec {
     dictFileName = "en_AU";
     src = fetchurl {
       url =
-        "mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_AU-large-2018.04.16.zip"
-        ;
+        "mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_AU-large-2018.04.16.zip";
       sha256 = "14l1w4dpk0k1js2wwq5ilfil89ni8cigph95n1rh6xi4lzxj7h6g";
     };
   };
@@ -476,8 +468,7 @@ in rec {
     dictFileName = "en_GB";
     src = fetchurl {
       url =
-        "mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_GB-ise-2018.04.16.zip"
-        ;
+        "mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_GB-ise-2018.04.16.zip";
       sha256 = "0ylg1zvfvsawamymcc9ivrqcb9qhlpgpnizm076xc56jz554xc2l";
     };
   };
@@ -490,8 +481,7 @@ in rec {
     dictFileName = "en_GB";
     src = fetchurl {
       url =
-        "mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_GB-ize-2018.04.16.zip"
-        ;
+        "mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_GB-ize-2018.04.16.zip";
       sha256 = "1rmwy6sxmd400cwjf58az6g14sq28p18f5mlq8ybg8y33q9m42ps";
     };
   };
@@ -504,8 +494,7 @@ in rec {
     dictFileName = "en_GB";
     src = fetchurl {
       url =
-        "mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_GB-large-2018.04.16.zip"
-        ;
+        "mirror://sourceforge/wordlist/speller/2018.04.16/hunspell-en_GB-large-2018.04.16.zip";
       sha256 = "1y4d7x5vvi1qh1s3i09m0vvqrpdzzqhsdngr8nsh7hc5bnlm37mi";
     };
   };
@@ -814,8 +803,7 @@ in rec {
 
     src = fetchurl {
       url =
-        "https://extensions.libreoffice.org/extensions/ukrainian-spelling-dictionary-and-thesaurus/${_version}/@@download/file/dict-uk_UA-${version}.oxt"
-        ;
+        "https://extensions.libreoffice.org/extensions/ukrainian-spelling-dictionary-and-thesaurus/${_version}/@@download/file/dict-uk_UA-${version}.oxt";
       sha256 = "14rd07yx4fx2qxjr5xqc8qy151idd8k2hr5yi18d9r8gccnm9w50";
     };
 
@@ -830,8 +818,7 @@ in rec {
       description =
         "Hunspell dictionary for Ukrainian (Ukraine) from LibreOffice";
       homepage =
-        "https://extensions.libreoffice.org/extensions/ukrainian-spelling-dictionary-and-thesaurus/"
-        ;
+        "https://extensions.libreoffice.org/extensions/ukrainian-spelling-dictionary-and-thesaurus/";
       license = licenses.mpl20;
       maintainers = with maintainers; [ dywedir ];
       platforms = platforms.all;
@@ -1024,8 +1011,7 @@ in rec {
 
     src = fetchzip {
       url =
-        "https://github.com/somasis/hunspell-tok/releases/download/${version}/hunspell-tok-${version}.tar.gz"
-        ;
+        "https://github.com/somasis/hunspell-tok/releases/download/${version}/hunspell-tok-${version}.tar.gz";
       sha256 = "sha256-RiAODKXPUeIcf8IFcU6Tacehq5S8GYuPTuxEiN2CXD0=";
     };
 

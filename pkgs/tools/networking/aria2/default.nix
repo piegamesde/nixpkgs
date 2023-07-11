@@ -70,8 +70,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://aria2.github.io";
     description =
-      "A lightweight, multi-protocol, multi-source, command-line download utility"
-      ;
+      "A lightweight, multi-protocol, multi-source, command-line download utility";
     mainProgram = "aria2c";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

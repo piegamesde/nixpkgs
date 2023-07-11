@@ -52,8 +52,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Icon theme designed with a minimal flat style using simple geometry and bright colours"
-      ;
+      "Icon theme designed with a minimal flat style using simple geometry and bright colours";
     homepage = "https://snwh.org/moka";
     license = with licenses; [
       cc-by-sa-40

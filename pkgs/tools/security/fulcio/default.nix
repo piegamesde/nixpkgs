@@ -72,8 +72,7 @@ buildGoModule rec {
     homepage = "https://github.com/sigstore/fulcio";
     changelog = "https://github.com/sigstore/fulcio/releases/tag/v${version}";
     description =
-      "A Root-CA for code signing certs - issuing certificates based on an OIDC email address"
-      ;
+      "A Root-CA for code signing certs - issuing certificates based on an OIDC email address";
     longDescription = ''
       Fulcio is a free code signing Certificate Authority, built to make
       short-lived certificates available to anyone. Based on an Open ID Connect

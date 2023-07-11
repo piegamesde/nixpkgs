@@ -57,8 +57,7 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "switch-to-poetry-core.patch";
       url =
-        "https://github.com/seandstewart/typical/commit/66b3c34f8969b7fb1f684f0603e514405bab0dd7.patch"
-        ;
+        "https://github.com/seandstewart/typical/commit/66b3c34f8969b7fb1f684f0603e514405bab0dd7.patch";
       hash = "sha256-c7qJOtHmJRnVEGl+OADB3HpjvMK8aYDD9+0gplOn9pQ=";
     })
   ];
@@ -81,8 +80,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python library for runtime analysis, inference and validation of Python types"
-      ;
+      "Python library for runtime analysis, inference and validation of Python types";
     homepage = "https://python-typical.org/";
     license = licenses.mit;
     maintainers = with maintainers; [ kfollesdal ];

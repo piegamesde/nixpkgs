@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/Shen-Language/shen-cl/releases/download/v${version}/shen-cl-v${version}-sources.tar.gz"
-      ;
+      "https://github.com/Shen-Language/shen-cl/releases/download/v${version}/shen-cl-v${version}-sources.tar.gz";
     sha256 = "0mc10jlrxqi337m6ngwbr547zi4qgk69g1flz5dsddjy5x41j0yz";
   };
 

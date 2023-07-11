@@ -19,8 +19,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-slice/2021-05-31/cl-slice-20210531-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/cl-slice/2021-05-31/cl-slice-20210531-git.tgz";
     sha256 = "1jkm8yrnc0x2nx4bwwk56xda1r5h2aw0q4yfbv8lywaiwj92v7hk";
   };
 

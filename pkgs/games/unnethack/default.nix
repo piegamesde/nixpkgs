@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fix-bison.patch";
       url =
-        "https://github.com/UnNetHack/UnNetHack/commit/04f0a3a850a94eb8837ddcef31303968240d1c31.patch"
-        ;
+        "https://github.com/UnNetHack/UnNetHack/commit/04f0a3a850a94eb8837ddcef31303968240d1c31.patch";
       sha256 = "1zblbwqqz9nx16k6n31wi2hdvz775lvzmkjblmrx18nbm4ylj0n9";
     })
   ];

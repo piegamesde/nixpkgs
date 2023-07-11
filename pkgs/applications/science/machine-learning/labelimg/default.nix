@@ -34,8 +34,7 @@ python3Packages.buildPythonApplication rec {
   '';
   meta = with lib; {
     description =
-      "A graphical image annotation tool and label object bounding boxes in images"
-      ;
+      "A graphical image annotation tool and label object bounding boxes in images";
     homepage = "https://github.com/tzutalin/labelImg";
     license = licenses.mit;
     platforms = platforms.linux;

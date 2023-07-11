@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://people.freedesktop.org/~hughsient/releases/${pname}-${version}.tar.xz"
-      ;
+      "https://people.freedesktop.org/~hughsient/releases/${pname}-${version}.tar.xz";
     sha256 = "sha256-1Ys04TwhWYZ8ORJgr04kGO6/lI1I36sC6kcrVoP/r1k=";
   };
 

@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ergoplatform/ergo/releases/download/v${version}/ergo-${version}.jar"
-      ;
+      "https://github.com/ergoplatform/ergo/releases/download/v${version}/ergo-${version}.jar";
     sha256 = "sha256-EChnLRoInWFRuRMfnyRlZbZBWB6/QG9yRdwW9+IiMYc=";
   };
 
@@ -27,8 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Open protocol that implements modern scientific ideas in the blockchain area"
-      ;
+      "Open protocol that implements modern scientific ideas in the blockchain area";
     homepage = "https://ergoplatform.org/en/";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.cc0;

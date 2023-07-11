@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/wryun/es-shell/releases/download/v${version}/es-${version}.tar.gz"
-      ;
+      "https://github.com/wryun/es-shell/releases/download/v${version}/es-${version}.tar.gz";
     sha256 = "sha256-ySZIK0IITpA+uHHuHrDO/Ana5vGt64QI3Z6TMDXE9d0=";
   };
 

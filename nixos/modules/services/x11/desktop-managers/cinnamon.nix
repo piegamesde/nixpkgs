@@ -71,8 +71,7 @@ in {
 
   config = mkMerge [
     (mkIf cfg.enable {
-      services.xserver.displayManager.sessionPackages = [ pkgs.cinnamon.cinnamon-common ]
-        ;
+      services.xserver.displayManager.sessionPackages = [ pkgs.cinnamon.cinnamon-common ];
 
       services.xserver.displayManager.lightdm.greeters.slick = {
         enable = mkDefault true;
@@ -203,8 +202,7 @@ in {
 
         # Override GSettings schemas
       environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR =
-        "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas"
-        ;
+        "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
 
       environment.pathsToLink = [
         # FIXME: modules should link subdirs of `/share` rather than relying on this

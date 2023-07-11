@@ -13,8 +13,7 @@ buildDunePackage rec {
   version = "2.2.2";
   src = fetchurl {
     url =
-      "https://github.com/mirage/ocaml-tar/releases/download/v${version}/tar-${version}.tbz"
-      ;
+      "https://github.com/mirage/ocaml-tar/releases/download/v${version}/tar-${version}.tbz";
     hash = "sha256-Q+41LPFZFHi9sXKFV3F13FZZNO3KXRSElEmr+nH58Uw=";
   };
 

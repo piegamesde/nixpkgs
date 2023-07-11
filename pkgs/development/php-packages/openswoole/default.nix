@@ -29,8 +29,7 @@ buildPecl {
     changelog =
       "https://github.com/openswoole/swoole-src/releases/tag/v${version}";
     description =
-      "Coroutine-based concurrency library and high performance programmatic server for PHP"
-      ;
+      "Coroutine-based concurrency library and high performance programmatic server for PHP";
     homepage = "https://www.openswoole.com/";
     license = licenses.asl20;
     longDescription = ''

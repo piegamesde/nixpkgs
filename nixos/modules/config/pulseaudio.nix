@@ -343,8 +343,7 @@ in {
         serviceConfig = {
           Type = "notify";
           ExecStart =
-            "${binaryNoDaemon} --log-level=${cfg.daemon.logLevel} --system -n --file=${myConfigFile}"
-            ;
+            "${binaryNoDaemon} --log-level=${cfg.daemon.logLevel} --system -n --file=${myConfigFile}";
           Restart = "on-failure";
           RestartSec = "500ms";
         };

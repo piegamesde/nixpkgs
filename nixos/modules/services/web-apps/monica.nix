@@ -286,14 +286,12 @@ in {
       {
         assertion = db.createLocally -> db.user == user;
         message =
-          "services.monica.database.user must be set to ${user} if services.monica.database.createLocally is set true."
-          ;
+          "services.monica.database.user must be set to ${user} if services.monica.database.createLocally is set true.";
       }
       {
         assertion = db.createLocally -> db.passwordFile == null;
         message =
-          "services.monica.database.passwordFile cannot be specified if services.monica.database.createLocally is set to true."
-          ;
+          "services.monica.database.passwordFile cannot be specified if services.monica.database.createLocally is set to true.";
       }
     ];
 

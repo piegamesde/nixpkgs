@@ -25,8 +25,7 @@ in {
       type = types.path;
       default = yaml.generate "karma.yaml" cfg.settings;
       defaultText =
-        "A configuration file generated from the provided nix attributes settings option."
-        ;
+        "A configuration file generated from the provided nix attributes settings option.";
       description = mdDoc ''
         A YAML config file which can be used to configure karma instead of the nix-generated file.
       '';

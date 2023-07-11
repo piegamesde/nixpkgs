@@ -48,8 +48,7 @@ import ./make-test-python.nix ({
             test-x11 =
               "glinfo | tee /tmp/test-x11.out && touch /tmp/test-x11-exit-ok";
             test-wayland =
-              "wayland-info | tee /tmp/test-wayland.out && touch /tmp/test-wayland-exit-ok"
-              ;
+              "wayland-info | tee /tmp/test-wayland.out && touch /tmp/test-wayland-exit-ok";
           };
 
             # To help with OCR:

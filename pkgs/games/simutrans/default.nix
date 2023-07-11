@@ -17,8 +17,7 @@
 let
   # Choose your "paksets" of objects, images, text, music, etc.
   paksets =
-    config.simutrans.paksets or "pak64 pak64.japan pak128 pak128.britain pak128.german"
-    ;
+    config.simutrans.paksets or "pak64 pak64.japan pak128 pak128.britain pak128.german";
 
   result = with lib;
     withPaks (if paksets == "*" then
@@ -34,8 +33,7 @@ let
 
   binary_src = fetchurl {
     url =
-      "mirror://sourceforge/simutrans/simutrans/${ver_dash}/simutrans-src-${ver_dash}.zip"
-      ;
+      "mirror://sourceforge/simutrans/simutrans/${ver_dash}/simutrans-src-${ver_dash}.zip";
     sha256 = "1f463r6kr5ig0zd3mncc74k93xbjywsq3d06j5r17831jyc9bzb9";
   };
 
@@ -54,8 +52,7 @@ let
 
       pak128 = {
         srcPath =
-          "pak128%20for%20ST%20120.4.1%20%282.8.1%2C%20priority%20signals%20%2B%20bugfix%29/pak128"
-          ;
+          "pak128%20for%20ST%20120.4.1%20%282.8.1%2C%20priority%20signals%20%2B%20bugfix%29/pak128";
         sha256 = "0z01y7r0rz7q79vr17bbnkgcbjjrimphy1dwb1pgbiv4klz7j5xw";
       };
       "pak128.britain" = {
@@ -197,8 +194,7 @@ let
 
     meta = with lib; {
       description =
-        "A simulation game in which the player strives to run a successful transport system"
-        ;
+        "A simulation game in which the player strives to run a successful transport system";
       longDescription = ''
         Simutrans is a cross-platform simulation game in which the
         player strives to run a successful transport system by

@@ -60,8 +60,7 @@ in {
       description =
         let
           documentationLink =
-            "https://gitlab.com/mojo42/Jirafeau/-/blob/${cfg.package.version}/lib/config.original.php"
-            ;
+            "https://gitlab.com/mojo42/Jirafeau/-/blob/${cfg.package.version}/lib/config.original.php";
         in
         lib.mdDoc ''
           Jirefeau configuration. Refer to <${documentationLink}> for supported

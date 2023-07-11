@@ -13,8 +13,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git/snapshot/${pname}-${version}.tar.gz"
-      ;
+      "https://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git/snapshot/${pname}-${version}.tar.gz";
     sha256 = "sha256-LzN3YB3Lb7tjyEplrFaNYtiGwHUUTztZBsMrUndd2cU=";
   };
 
@@ -37,8 +36,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git";
     description =
-      "Suite of real-time tests - cyclictest, hwlatdetect, pip_stress, pi_stress, pmqtest, ptsematest, rt-migrate-test, sendme, signaltest, sigwaittest, svsematest"
-      ;
+      "Suite of real-time tests - cyclictest, hwlatdetect, pip_stress, pi_stress, pmqtest, ptsematest, rt-migrate-test, sendme, signaltest, sigwaittest, svsematest";
     platforms = platforms.linux;
     maintainers = with maintainers; [ poelzi ];
     license = licenses.gpl2;

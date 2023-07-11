@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://codeberg.org/leiningen/leiningen/raw/tag/${version}/bin/lein-pkg"
-      ;
+      "https://codeberg.org/leiningen/leiningen/raw/tag/${version}/bin/lein-pkg";
     hash = "sha256-sXV86UHky/Fcv2Sbe09BM2XmEtqJLSKEHsFyg5G7Zq8=";
   };
 

@@ -41,8 +41,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Pixel-oriented paint program, modelled on Deluxe Paint";
-    homepage = "https://github.com/bcampbell/evilpixie"
-      ; # http://evilpixie.scumways.com/ is gone
+    homepage =
+      "https://github.com/bcampbell/evilpixie"; # http://evilpixie.scumways.com/ is gone
     downloadPage = "https://github.com/bcampbell/evilpixie/releases";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ fgaz ];

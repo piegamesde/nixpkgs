@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://invent.kde.org/unmaintained/${pname}/-/archive/v${version}/${pname}-v${version}.tar.gz"
-      ;
+      "https://invent.kde.org/unmaintained/${pname}/-/archive/v${version}/${pname}-v${version}.tar.gz";
     hash = "sha256-finsoruPeJZLawIjNUJ25Pq54eaCByfALVraNQJPk7c=";
   };
 

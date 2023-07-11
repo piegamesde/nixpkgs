@@ -55,8 +55,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A slick ORM cache with automatic granular event-driven invalidation for Django"
-      ;
+      "A slick ORM cache with automatic granular event-driven invalidation for Django";
     homepage = "https://github.com/Suor/django-cacheops";
     changelog =
       "https://github.com/Suor/django-cacheops/blob/${version}/CHANGELOG";

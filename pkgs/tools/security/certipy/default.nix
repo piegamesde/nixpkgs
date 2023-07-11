@@ -34,8 +34,7 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Tool to enumerate and abuse misconfigurations in Active Directory Certificate Services"
-      ;
+      "Tool to enumerate and abuse misconfigurations in Active Directory Certificate Services";
     homepage = "https://github.com/ly4k/Certipy";
     changelog = "https://github.com/ly4k/Certipy/releases/tag/${version}";
     license = with licenses; [ mit ];

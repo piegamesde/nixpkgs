@@ -105,8 +105,8 @@ in {
         LockPersonality = true;
         MemoryDenyWriteExecute = false;
         NoNewPrivileges = true;
-        PrivateDevices = false
-          ; # prevents access to /dev/serial, because it is set 0700 root:root
+        PrivateDevices =
+          false; # prevents access to /dev/serial, because it is set 0700 root:root
         PrivateUsers = true;
         PrivateTmp = true;
         ProtectClock = true;

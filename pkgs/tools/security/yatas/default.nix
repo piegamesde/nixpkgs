@@ -19,8 +19,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description =
-      "Tool to audit AWS infrastructure for misconfiguration or potential security issues"
-      ;
+      "Tool to audit AWS infrastructure for misconfiguration or potential security issues";
     homepage = "https://github.com/padok-team/YATAS";
     changelog = "https://github.com/padok-team/YATAS/releases/tag/v${version}";
     license = licenses.asl20;

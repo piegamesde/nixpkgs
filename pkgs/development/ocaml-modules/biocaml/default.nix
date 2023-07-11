@@ -32,8 +32,7 @@ buildDunePackage rec {
 
   patches = fetchpatch {
     url =
-      "https://github.com/biocaml/biocaml/commit/3ef74d0eb4bb48d2fb7dd8b66fb3ad8fe0aa4d78.patch"
-      ;
+      "https://github.com/biocaml/biocaml/commit/3ef74d0eb4bb48d2fb7dd8b66fb3ad8fe0aa4d78.patch";
     sha256 = "0rcvf8gwq7sz15mghl9ing722rl2zpnqif9dfxrnpdxiv0rl0731";
   };
 

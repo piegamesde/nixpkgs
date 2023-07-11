@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "TOML parser implementation for data serialization and deserialization in Fortran"
-      ;
+      "TOML parser implementation for data serialization and deserialization in Fortran";
     license = with licenses; [
       asl20
       mit

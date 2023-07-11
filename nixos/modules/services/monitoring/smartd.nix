@@ -263,8 +263,7 @@ in {
     assertions = [ {
       assertion = cfg.autodetect || cfg.devices != [ ];
       message =
-        "smartd can't run with both disabled autodetect and an empty list of devices to monitor."
-        ;
+        "smartd can't run with both disabled autodetect and an empty list of devices to monitor.";
     } ];
 
     systemd.services.smartd = {

@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/streamlink/${basename}/releases/download/v${version}/${basename}-v${version}-${arch}.tar.gz"
-      ;
+      "https://github.com/streamlink/${basename}/releases/download/v${version}/${basename}-v${version}-${arch}.tar.gz";
     hash =
       if arch == "linux64" then
         "sha256-kfCGhIgKMI0siDqnmIHSMk6RMHFlW6uwVsW48aiRua0="

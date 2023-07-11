@@ -38,8 +38,7 @@ buildLinux (args // {
         name = "rt";
         patch = fetchurl {
           url =
-            "mirror://kernel/linux/kernel/projects/rt/${branch}/older/patch-${version}.patch.xz"
-            ;
+            "mirror://kernel/linux/kernel/projects/rt/${branch}/older/patch-${version}.patch.xz";
           sha256 = "0w7ksdv3xpzqiwfxc007k496ghklblb7kglswxhn7y1yqn6pgqzs";
         };
       };

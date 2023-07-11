@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.libsdl.org/projects/SDL_ttf/release/${pname}-${version}.tar.gz"
-      ;
+      "https://www.libsdl.org/projects/SDL_ttf/release/${pname}-${version}.tar.gz";
     sha256 = "sha256-ncce2TSHUhsQeixKnKa/Q/ti9r3dXCawVea5FBiiIFM=";
   };
 

@@ -111,8 +111,7 @@ stdenv.mkDerivation rec {
   teensyduino_version = "156";
   teensyduino_src = fetchurl {
     url =
-      "https://www.pjrc.com/teensy/td_${teensyduino_version}/TeensyduinoInstall.${teensy_architecture}"
-      ;
+      "https://www.pjrc.com/teensy/td_${teensyduino_version}/TeensyduinoInstall.${teensy_architecture}";
     sha256 = {
       linux64 = "sha256-4DbhmmYrx+rCBpDrYFaC0A88Qv9UEeNlQAkFi3zAstk=";
       linux32 = "sha256-DlRPOtDxmMPv2Qzhib7vNZdKNZCxmm9YmVNnwUKXK/E=";
@@ -124,8 +123,7 @@ stdenv.mkDerivation rec {
     # Used because teensyduino requires jars be a specific size
   arduino_dist_src = fetchurl {
     url =
-      "https://downloads.arduino.cc/arduino-${version}-${teensy_architecture}.tar.xz"
-      ;
+      "https://downloads.arduino.cc/arduino-${version}-${teensy_architecture}.tar.xz";
     sha256 = {
       linux64 = "sha256-62i93B0cASC+L8oTUKA+40Uxzzf1GEeyEhC25wVFvJs=";
       linux32 = "sha256-wSxtx3BqXMQCeWQDK8PHkWLlQqQM1Csao8bIk98FrFg=";

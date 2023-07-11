@@ -38,8 +38,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Python tool to translate between different languages by using multiple translators"
-      ;
+      "Python tool to translate between different languages by using multiple translators";
     homepage = "https://deep-translator.readthedocs.io";
     changelog =
       "https://github.com/nidhaloff/deep-translator/releases/tag/v1.10.0";

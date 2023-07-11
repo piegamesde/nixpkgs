@@ -188,8 +188,7 @@ in {
         "multi-user.target"
         "post-resume.target"
       ];
-      after = [ "post-resume.target" ]
-        ; # Not sure why but it won't work without this
+      after = [ "post-resume.target" ]; # Not sure why but it won't work without this
 
       serviceConfig = {
         Type = "oneshot";

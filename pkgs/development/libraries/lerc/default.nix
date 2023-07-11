@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "use-cmake-install-full-dir.patch";
       url =
-        "https://github.com/Esri/lerc/commit/5462ca7f7dfb38c65e16f5abfd96873af177a0f8.patch"
-        ;
+        "https://github.com/Esri/lerc/commit/5462ca7f7dfb38c65e16f5abfd96873af177a0f8.patch";
       hash = "sha256-qaNR3QwLe0AB6vu1nXOh9KhlPdWM3DmgCJj4d0VdOUk=";
     })
   ];

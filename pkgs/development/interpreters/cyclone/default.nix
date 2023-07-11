@@ -51,8 +51,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://justinethier.github.io/cyclone/";
     description =
-      "A brand-new compiler that allows practical application development using R7RS Scheme"
-      ;
+      "A brand-new compiler that allows practical application development using R7RS Scheme";
     license = licenses.mit;
     maintainers = with maintainers; [ siraben ];
   };

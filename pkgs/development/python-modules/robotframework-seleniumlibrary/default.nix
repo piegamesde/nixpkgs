@@ -59,8 +59,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/robotframework/SeleniumLibrary/blob/${src.rev}/docs/SeleniumLibrary-${version}.rst"
-      ;
+      "https://github.com/robotframework/SeleniumLibrary/blob/${src.rev}/docs/SeleniumLibrary-${version}.rst";
     description = "Web testing library for Robot Framework";
     homepage = "https://github.com/robotframework/SeleniumLibrary";
     license = licenses.asl20;

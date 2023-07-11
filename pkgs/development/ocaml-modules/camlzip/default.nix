@@ -33,8 +33,7 @@ let
         version = "1.05";
         download_id = "1037";
         url =
-          "http://forge.ocamlcore.org/frs/download.php/${param.download_id}/camlzip-${param.version}.tar.gz"
-          ;
+          "http://forge.ocamlcore.org/frs/download.php/${param.download_id}/camlzip-${param.version}.tar.gz";
         sha256 =
           "930b70c736ab5a7ed1b05220102310a0a2241564786657abe418e834a538d06b";
         patches = [ ./makefile_1_05.patch ];

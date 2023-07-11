@@ -104,8 +104,7 @@ let
               files = options.type.files;
               warning = "The option `${from}` defined in ${
                   showFiles files
-                } has enum value `proxy` which has been renamed to `rspamd_proxy`"
-                ;
+                } has enum value `proxy` which has been renamed to `rspamd_proxy`";
             in
             x:
             if x == "proxy" then

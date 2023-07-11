@@ -56,8 +56,7 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/smirarab/ASTRAL";
     description =
-      "Tool for estimating an unrooted species tree given a set of unrooted gene trees"
-      ;
+      "Tool for estimating an unrooted species tree given a set of unrooted gene trees";
     sourceProvenance = with sourceTypes; [
       fromSource
       binaryBytecode # source bundles dependencies as jars

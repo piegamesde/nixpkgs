@@ -43,8 +43,7 @@ buildPythonPackage rec {
     description = "Python packages and modules used by Logilab ";
     homepage = "https://logilab-common.readthedocs.io/";
     changelog =
-      "https://forge.extranet.logilab.fr/open-source/logilab-common/-/blob/branch/default/CHANGELOG.md"
-      ;
+      "https://forge.extranet.logilab.fr/open-source/logilab-common/-/blob/branch/default/CHANGELOG.md";
     license = licenses.lgpl21Plus;
   };
 }

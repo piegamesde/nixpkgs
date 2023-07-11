@@ -42,8 +42,7 @@ buildPythonPackage rec {
     description = "Library for the Open Thread Border Router";
     homepage = "https://github.com/home-assistant-libs/python-otbr-api";
     changelog =
-      "https://github.com/home-assistant-libs/python-otbr-api/releases/tag/${version}"
-      ;
+      "https://github.com/home-assistant-libs/python-otbr-api/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

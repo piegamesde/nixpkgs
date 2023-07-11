@@ -31,8 +31,7 @@ rustPlatform.buildRustPackage rec {
     (fetchpatch {
       name = "cargo-lock-file.patch";
       url =
-        "https://github.com/rozgo/anevicon/commit/205440a0863aaea34394f30f4255fa0bb1704aed.patch"
-        ;
+        "https://github.com/rozgo/anevicon/commit/205440a0863aaea34394f30f4255fa0bb1704aed.patch";
       sha256 = "02syzm7irn4slr3s5dwwhvg1qx8fdplwlhza8gfkc6ajl7vdc7ri";
     })
   ];

@@ -12,8 +12,7 @@ gsmakeDerivation {
   name = "system_preferences-${version}";
   src = fetchurl {
     url =
-      "ftp://ftp.gnustep.org/pub/gnustep/usr-apps/SystemPreferences-${version}.tar.gz"
-      ;
+      "ftp://ftp.gnustep.org/pub/gnustep/usr-apps/SystemPreferences-${version}.tar.gz";
     sha256 = "1fg7c3ihfgvl6n21rd17fs9ivx3l8ps874m80vz86n1callgs339";
   };
     #  GNUSTEP_MAKEFILES = "${gnustep_make}/share/GNUstep/Makefiles";

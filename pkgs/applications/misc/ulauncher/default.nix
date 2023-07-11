@@ -26,8 +26,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchurl {
     url =
-      "https://github.com/Ulauncher/Ulauncher/releases/download/${version}/ulauncher_${version}.tar.gz"
-      ;
+      "https://github.com/Ulauncher/Ulauncher/releases/download/${version}/ulauncher_${version}.tar.gz";
     sha256 = "sha256-1Qo6ffMtVRtZDPCHvHEl7T0dPdDUxP4TP2hkSVSdQpo";
   };
 

@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/drush-ops/drush/releases/download/${version}/drush.phar"
-      ;
+      "https://github.com/drush-ops/drush/releases/download/${version}/drush.phar";
     sha256 = "sha256-YtD9lD621LJJAM/ieL4KWvY4o4Uqo3+FWgjGYGdQQaw=";
   };
 

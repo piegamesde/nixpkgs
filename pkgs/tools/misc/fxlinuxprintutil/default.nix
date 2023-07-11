@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://onlinesupport.fujixerox.com/driver_downloads/fxlinuxpdf112119031.zip"
-      ;
+      "https://onlinesupport.fujixerox.com/driver_downloads/fxlinuxpdf112119031.zip";
     sha256 = "1mv07ch6ysk9bknfmjqsgxb803sj6vfin29s9knaqv17jvgyh0n3";
     curlOpts = "--user-agent Mozilla/5.0"; # HTTP 410 otherwise
   };

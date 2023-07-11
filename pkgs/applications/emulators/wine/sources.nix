@@ -69,15 +69,13 @@ in rec {
     gecko32 = fetchurl rec {
       version = "2.47.3";
       url =
-        "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86.msi"
-        ;
+        "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86.msi";
       hash = "sha256-5bmwbTzjVWRqjS5y4ETjfh4MjRhGTrGYWtzRh6f0jgE=";
     };
     gecko64 = fetchurl rec {
       version = "2.47.3";
       url =
-        "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86_64.msi"
-        ;
+        "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86_64.msi";
       hash = "sha256-pT7pVDkrbR/j1oVF9uTiqXr7yNyLA6i0QzSVRc4TlnU=";
     };
 
@@ -85,8 +83,7 @@ in rec {
     mono = fetchurl rec {
       version = "7.4.0";
       url =
-        "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi"
-        ;
+        "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi";
       hash = "sha256-ZBP/Mo679+x2icZI/rNUbYEC3thlB50fvwMxsUs6sOw=";
     };
 
@@ -124,8 +121,7 @@ in rec {
     mono = fetchurl rec {
       version = "7.4.0";
       url =
-        "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi"
-        ;
+        "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi";
       hash = "sha256-ZBP/Mo679+x2icZI/rNUbYEC3thlB50fvwMxsUs6sOw=";
     };
 

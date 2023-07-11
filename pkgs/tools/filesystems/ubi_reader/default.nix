@@ -23,8 +23,7 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     description =
-      "Collection of Python scripts for reading information about and extracting data from UBI and UBIFS images"
-      ;
+      "Collection of Python scripts for reading information about and extracting data from UBI and UBIFS images";
     homepage = "https://github.com/jrspruitt/ubi_reader";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ vlaci ];

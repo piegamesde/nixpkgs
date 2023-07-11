@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://userpages.uni-koblenz.de/~krienke/ftp/noarch/geteltorito/geteltorito-${version}.tar.gz"
-      ;
+      "https://userpages.uni-koblenz.de/~krienke/ftp/noarch/geteltorito/geteltorito-${version}.tar.gz";
     sha256 = "1gkbm9ahj2mgqrkrfpibzclsriqgsbsvjh19fr815vpd9f6snkxv";
   };
 

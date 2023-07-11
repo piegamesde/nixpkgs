@@ -59,8 +59,7 @@ in {
       '';
       serviceConfig = {
         ExecStart =
-          "${pkgs.hologram}/bin/hologram-agent -debug -conf ${cfgFile} -port ${cfg.httpPort}"
-          ;
+          "${pkgs.hologram}/bin/hologram-agent -debug -conf ${cfgFile} -port ${cfg.httpPort}";
       };
     };
 

@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/ElementsProject/lightning/releases/download/v${version}/clightning-v${version}.zip"
-      ;
+      "https://github.com/ElementsProject/lightning/releases/download/v${version}/clightning-v${version}.zip";
     sha256 = "sha256-fHGBwf79Q0DSLs/b+Lhg9kdIQzDn5rJYEB9yLkLbxlE=";
   };
 

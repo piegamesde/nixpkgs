@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/40+SXFLX8upGKP3K+wk8RnO1Al4YoF8GFXyoxTkKs0=";
   };
 
-  patches = [ ./0001-Call-weak-function-to-allow-adding-preloaded-plugins.patch ]
-    ;
+  patches = [ ./0001-Call-weak-function-to-allow-adding-preloaded-plugins.patch ];
 
   nativeBuildInputs = [
     pkg-config
@@ -92,8 +91,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    broken = stdenv.isDarwin
-      ; # see https://github.com/NixOS/nixpkgs/pull/189446 for partial fix
+    broken =
+      stdenv.isDarwin; # see https://github.com/NixOS/nixpkgs/pull/189446 for partial fix
     description = "A video processing framework with the future in mind";
     homepage = "http://www.vapoursynth.com/";
     license = licenses.lgpl21;

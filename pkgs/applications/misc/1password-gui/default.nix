@@ -23,14 +23,12 @@ let
     stable = {
       x86_64-linux = {
         url =
-          "https://downloads.1password.com/linux/tar/stable/x86_64/1password-${version}.x64.tar.gz"
-          ;
+          "https://downloads.1password.com/linux/tar/stable/x86_64/1password-${version}.x64.tar.gz";
         sha256 = "sha256-zFB8bUl0FNmMvNN5AoDeYdUjasJblVxRAi50V2BF5OU=";
       };
       aarch64-linux = {
         url =
-          "https://downloads.1password.com/linux/tar/stable/aarch64/1password-${version}.arm64.tar.gz"
-          ;
+          "https://downloads.1password.com/linux/tar/stable/aarch64/1password-${version}.arm64.tar.gz";
         sha256 = "sha256-gALQ43mAJy3eX/0qmdBp0yfMLgAdqAqD93CbDydvJR8=";
       };
       x86_64-darwin = {
@@ -40,22 +38,19 @@ let
       };
       aarch64-darwin = {
         url =
-          "https://downloads.1password.com/mac/1Password-${version}-aarch64.zip"
-          ;
+          "https://downloads.1password.com/mac/1Password-${version}-aarch64.zip";
         sha256 = "sha256-eTRI7reSZ24S8uwNFPk8BkwMexdoXD5tlL6Bd3zzIGI=";
       };
     };
     beta = {
       x86_64-linux = {
         url =
-          "https://downloads.1password.com/linux/tar/beta/x86_64/1password-${version}.x64.tar.gz"
-          ;
+          "https://downloads.1password.com/linux/tar/beta/x86_64/1password-${version}.x64.tar.gz";
         sha256 = "sha256-GM93nW7kGeC2Mmq1ZtOK72RQc0QHvlWedDLEAmqtPt4=";
       };
       aarch64-linux = {
         url =
-          "https://downloads.1password.com/linux/tar/beta/aarch64/1password-${version}.arm64.tar.gz"
-          ;
+          "https://downloads.1password.com/linux/tar/beta/aarch64/1password-${version}.arm64.tar.gz";
         sha256 = "sha256-f0K35utZ/WPv08wRe/ZQPWC/IYiXsf/tBqhKjgeNBHc=";
       };
       x86_64-darwin = {
@@ -65,8 +60,7 @@ let
       };
       aarch64-darwin = {
         url =
-          "https://downloads.1password.com/mac/1Password-${version}-aarch64.zip"
-          ;
+          "https://downloads.1password.com/mac/1Password-${version}-aarch64.zip";
         sha256 = "sha256-fQ98NJI5h0IBvrcsV8GBt9RBWDiyYq0NPtS5B5ikz8k=";
       };
     };

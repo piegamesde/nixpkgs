@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://bitbucket.org/georgd/eb-garamond/downloads/EBGaramond-${version}.zip"
-      ;
+      "https://bitbucket.org/georgd/eb-garamond/downloads/EBGaramond-${version}.zip";
     hash = "sha256-P2VCLcqcMBBoTDJyRLP9vlHI+jE0EqPjPziN2MJbgEg=";
   };
 

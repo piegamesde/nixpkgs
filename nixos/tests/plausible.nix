@@ -25,8 +25,7 @@ import ./make-test-python.nix ({
           server = {
             baseUrl = "http://localhost:8000";
             secretKeybaseFile = "${pkgs.writeText "dont-try-this-at-home"
-              "nannannannannannannannannannannannannannannannannannannan_batman!"}"
-              ;
+              "nannannannannannannannannannannannannannannannannannannan_batman!"}";
           };
         };
       }

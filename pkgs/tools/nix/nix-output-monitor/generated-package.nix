@@ -41,8 +41,7 @@ mkDerivation {
   version = "2.0.0.5";
   src = fetchzip {
     url =
-      "https://github.com/maralorn/nix-output-monitor/archive/refs/tags/v2.0.0.5.tar.gz"
-      ;
+      "https://github.com/maralorn/nix-output-monitor/archive/refs/tags/v2.0.0.5.tar.gz";
     sha256 = "02xrbf2nr64yfny3idkjb1xbd97wl8m5viifrwjf4hi6ivs5bl18";
   };
   isLibrary = true;

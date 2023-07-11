@@ -16,8 +16,7 @@ in {
     "zramSwap"
     "numDevices"
   ]
-    "Using ZRAM devices as general purpose ephemeral block devices is no longer supported") ]
-    ;
+    "Using ZRAM devices as general purpose ephemeral block devices is no longer supported") ];
 
     ###### interface
 
@@ -112,8 +111,7 @@ in {
     assertions = [ {
       assertion = cfg.writebackDevice == null || cfg.swapDevices <= 1;
       message =
-        "A single writeback device cannot be shared among multiple zram devices"
-        ;
+        "A single writeback device cannot be shared among multiple zram devices";
     } ];
 
     system.requiredKernelConfig =
@@ -124,8 +122,7 @@ in {
       # boot.kernelModules = [ "zram" ];
 
     systemd.packages = [ pkgs.zram-generator ];
-    systemd.services."systemd-zram-setup@".path = [ pkgs.util-linux ]
-      ; # for mkswap
+    systemd.services."systemd-zram-setup@".path = [ pkgs.util-linux ]; # for mkswap
 
     environment.etc."systemd/zram-generator.conf".source =
       (pkgs.formats.ini { }).generate "zram-generator.conf" (lib.listToAttrs

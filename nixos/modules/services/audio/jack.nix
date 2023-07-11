@@ -221,8 +221,7 @@ in {
       assertions = [ {
         assertion = !(cfg.alsa.enable && cfg.loopback.enable);
         message =
-          "For JACK both alsa and loopback options shouldn't be used at the same time."
-          ;
+          "For JACK both alsa and loopback options shouldn't be used at the same time.";
       } ];
 
       users.users.jackaudio = {

@@ -87,8 +87,7 @@ with lib;
       assertions = [ {
         assertion = (cfg.settingsFile == null) != (cfg.settings == null);
         message =
-          "Either but not both `settingsFile` and `settings` should be specified for xray."
-          ;
+          "Either but not both `settingsFile` and `settings` should be specified for xray.";
       } ];
 
       systemd.services.xray = {

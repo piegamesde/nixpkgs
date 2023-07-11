@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://cyberelk.net/tim/data/patchutils/stable/${pname}-${version}.tar.xz"
-      ;
+      "http://cyberelk.net/tim/data/patchutils/stable/${pname}-${version}.tar.xz";
     inherit sha256;
   };
 

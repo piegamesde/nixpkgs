@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
   ];
   src = fetchurl {
     url =
-      "http://oandrieu.nerim.net/monotone-viz/${pname}-${version}-nolablgtk.tar.gz"
-      ;
+      "http://oandrieu.nerim.net/monotone-viz/${pname}-${version}-nolablgtk.tar.gz";
     sha256 = "1l5x4xqz5g1aaqbc1x80mg0yzkiah9ma9k9mivmn08alkjlakkdk";
   };
 
@@ -74,20 +73,17 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchurl {
       url =
-        "https://src.fedoraproject.org/cgit/rpms/monotone-viz.git/plain/monotone-viz-1.0.2-dot.patch"
-        ;
+        "https://src.fedoraproject.org/cgit/rpms/monotone-viz.git/plain/monotone-viz-1.0.2-dot.patch";
       sha256 = "0risfy8iqmkr209hmnvpv57ywbd3rvchzzd0jy2lfyqrrrm6zknw";
     })
     (fetchurl {
       url =
-        "https://src.fedoraproject.org/cgit/rpms/monotone-viz.git/plain/monotone-viz-1.0.2-new-stdio.patch"
-        ;
+        "https://src.fedoraproject.org/cgit/rpms/monotone-viz.git/plain/monotone-viz-1.0.2-new-stdio.patch";
       sha256 = "16bj0ppzqd45an154dr7sifjra7lv4m9anxfw3c56y763jq7fafa";
     })
     (fetchurl {
       url =
-        "https://src.fedoraproject.org/cgit/rpms/monotone-viz.git/plain/monotone-viz-1.0.2-typefix.patch"
-        ;
+        "https://src.fedoraproject.org/cgit/rpms/monotone-viz.git/plain/monotone-viz-1.0.2-typefix.patch";
       sha256 = "1gfp82rc7pawb5x4hh2wf7xh1l1l54ib75930xgd1y437la4703r";
     })
   ];

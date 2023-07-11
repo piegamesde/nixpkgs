@@ -97,8 +97,7 @@ gcc8Stdenv.mkDerivation {
 
   meta = with lib; {
     description =
-      "NoSQL data store using the seastar framework, compatible with Apache Cassandra"
-      ;
+      "NoSQL data store using the seastar framework, compatible with Apache Cassandra";
     homepage = "https://scylladb.com";
     license = licenses.agpl3;
     platforms = lib.platforms.linux;

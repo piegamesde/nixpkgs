@@ -9,8 +9,7 @@ python3.pkgs.buildPythonApplication rec {
   version = "2.09";
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/${pname}/${pname}-${version}/${pname}-${version}.tar.gz"
-      ;
+      "mirror://sourceforge/project/${pname}/${pname}-${version}/${pname}-${version}.tar.gz";
     sha256 = "09l0yfay89grjdzap2h11f0hcyn49np5zizg2yyp2aqgjs8ki57p";
   };
 

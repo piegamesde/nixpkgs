@@ -24,8 +24,7 @@ build-idris-package {
 
   meta = {
     description =
-      "Idris Binary Integer Arithmetic, porting PArith, NArith, and ZArith from Coq"
-      ;
+      "Idris Binary Integer Arithmetic, porting PArith, NArith, and ZArith from Coq";
     homepage = "https://github.com/sbp/idris-bi";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.brainrape ];

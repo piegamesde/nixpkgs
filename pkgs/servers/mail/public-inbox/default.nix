@@ -87,8 +87,7 @@ buildPerlPackage rec {
 
   src = fetchurl {
     url =
-      "https://public-inbox.org/public-inbox.git/snapshot/public-inbox-${version}.tar.gz"
-      ;
+      "https://public-inbox.org/public-inbox.git/snapshot/public-inbox-${version}.tar.gz";
     sha256 = "sha256-laJOOCk5NecIGWesv4D30cLGfijQHVkeo55eNqNKzew=";
   };
 

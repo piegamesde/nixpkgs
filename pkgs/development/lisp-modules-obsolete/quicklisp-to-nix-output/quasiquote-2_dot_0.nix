@@ -17,8 +17,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/quasiquote-2.0/2015-05-05/quasiquote-2.0-20150505-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/quasiquote-2.0/2015-05-05/quasiquote-2.0-20150505-git.tgz";
     sha256 = "0bgcqk7wp7qblw7avsawkg24zjiq9vgsbfa0yhk64avhxwjw6974";
   };
 

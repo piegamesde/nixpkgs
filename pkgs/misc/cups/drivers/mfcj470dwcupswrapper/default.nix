@@ -12,8 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://download.brother.com/welcome/dlf006866/mfcj470dw_cupswrapper_GPL_source_${version}.tar.gz"
-      ;
+      "https://download.brother.com/welcome/dlf006866/mfcj470dw_cupswrapper_GPL_source_${version}.tar.gz";
     sha256 = "b88f9b592723a00c024129560367f40a560ca3cba06fd99512ab368dd6855853";
   };
 
@@ -65,8 +64,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
     downloadPage =
-      "http://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=mfcj470dw_us_eu_as&os=128"
-      ;
+      "http://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=mfcj470dw_us_eu_as&os=128";
     maintainers = [ lib.maintainers.yochai ];
   };
 }

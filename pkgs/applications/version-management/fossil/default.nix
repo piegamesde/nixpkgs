@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://www.fossil-scm.org/home/tarball/version-${version}/fossil-${version}.tar.gz"
-      ;
+      "https://www.fossil-scm.org/home/tarball/version-${version}/fossil-${version}.tar.gz";
     hash = "sha256-wf7sp4ISTN52mSQHxw8s7//L4beLZtwkaJDYMVnvgIQ=";
   };
 

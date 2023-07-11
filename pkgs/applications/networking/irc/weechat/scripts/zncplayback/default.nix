@@ -10,8 +10,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://github.com/weechat/scripts/raw/bcc9643136addd2cd68ac957dd64e336e4f88aa1/python/zncplayback.py"
-      ;
+      "https://github.com/weechat/scripts/raw/bcc9643136addd2cd68ac957dd64e336e4f88aa1/python/zncplayback.py";
     sha256 = "1k32p6naxg40g664ip48zvm61xza7l9az3v3rawmjw97i0mwz7y3";
   };
 

@@ -69,8 +69,7 @@ stdenv.mkDerivation rec {
     description = "Beautiful GTK 4 terminal";
     homepage = "https://gitlab.gnome.org/raggesilver/blackbox";
     changelog =
-      "https://gitlab.gnome.org/raggesilver/blackbox/-/raw/v${version}/CHANGELOG.md"
-      ;
+      "https://gitlab.gnome.org/raggesilver/blackbox/-/raw/v${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ chuangzhu ];
     platforms = platforms.linux;

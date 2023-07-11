@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Variant calling and somatic mutation/CNV detection for next-generation sequencing data"
-      ;
+      "Variant calling and somatic mutation/CNV detection for next-generation sequencing data";
       # VarScan 2 is free for non-commercial use by academic,
       # government, and non-profit/not-for-profit institutions. A
       # commercial version of the software is available, and licensed

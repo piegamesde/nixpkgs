@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Import Hyperlynx Boardsim files to openEMS, an open source 3D full-wave electromagnetic field solver"
-      ;
+      "Import Hyperlynx Boardsim files to openEMS, an open source 3D full-wave electromagnetic field solver";
     homepage = "https://github.com/koendv/hyp2mat";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ matthuszagh ];

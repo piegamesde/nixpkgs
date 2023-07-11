@@ -12,8 +12,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://repos.fusiondirectory.org/sources/schema2ldif/schema2ldif-${version}.tar.gz"
-      ;
+      "https://repos.fusiondirectory.org/sources/schema2ldif/schema2ldif-${version}.tar.gz";
     hash = "sha256-KmXdqVuINUnJ6EF5oKgk6BsT3h5ebVqss7aCl3pPjQE=";
   };
 

@@ -53,8 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://github.com/storaged-project/libbytesize";
     description =
-      "A tiny library providing a C 'class' for working with arbitrary big sizes in bytes"
-      ;
+      "A tiny library providing a C 'class' for working with arbitrary big sizes in bytes";
     license = lib.licenses.lgpl2Plus;
     maintainers = with lib.maintainers; [ AndersonTorres ];
     platforms = lib.platforms.linux;

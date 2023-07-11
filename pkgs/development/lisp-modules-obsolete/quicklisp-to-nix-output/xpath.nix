@@ -26,8 +26,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/plexippus-xpath/2019-05-21/plexippus-xpath-20190521-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/plexippus-xpath/2019-05-21/plexippus-xpath-20190521-git.tgz";
     sha256 = "15357w1rlmahld4rh8avix7m40mwiiv7n2vlyc57ldw2k1m0n7xa";
   };
 

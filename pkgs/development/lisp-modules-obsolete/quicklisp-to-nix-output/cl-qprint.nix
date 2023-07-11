@@ -15,8 +15,7 @@ args@{
 
   src = fetchurl {
     url =
-      "http://beta.quicklisp.org/archive/cl-qprint/2015-08-04/cl-qprint-20150804-git.tgz"
-      ;
+      "http://beta.quicklisp.org/archive/cl-qprint/2015-08-04/cl-qprint-20150804-git.tgz";
     sha256 = "042nq9airkc4yaqzpmly5iszmkbwfn38wsgi9k361ldf1y54lq28";
   };
 

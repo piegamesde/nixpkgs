@@ -15,8 +15,7 @@ import ./make-test-python.nix ({
     discourseDomain = certs.domain;
     adminPassword = "eYAX85qmMJ5GZIHLaXGDAoszD7HSZp5d";
     secretKeyBase =
-      "381f4ac6d8f5e49d804dae72aa9c046431d2f34c656a705c41cd52fed9b4f6f76f51549f0b55db3b8b0dded7a00d6a381ebe9a4367d2d44f5e743af6628b4d42"
-      ;
+      "381f4ac6d8f5e49d804dae72aa9c046431d2f34c656a705c41cd52fed9b4f6f76f51549f0b55db3b8b0dded7a00d6a381ebe9a4367d2d44f5e743af6628b4d42";
     admin = {
       email = "alice@${clientDomain}";
       username = "alice";

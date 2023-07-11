@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "CVE-2020-29074.patch";
       url =
-        "https://github.com/LibVNC/x11vnc/commit/69eeb9f7baa14ca03b16c9de821f9876def7a36a.patch"
-        ;
+        "https://github.com/LibVNC/x11vnc/commit/69eeb9f7baa14ca03b16c9de821f9876def7a36a.patch";
       sha256 = "0hdhp32g2i5m0ihmaxkxhsn3d5f2qasadvwpgxify4xnzabmyb2d";
     })
 
@@ -38,8 +37,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "fno-common.patch";
       url =
-        "https://github.com/LibVNC/x11vnc/commit/a48b0b1cd887d7f3ae67f525d7d334bd2feffe60.patch"
-        ;
+        "https://github.com/LibVNC/x11vnc/commit/a48b0b1cd887d7f3ae67f525d7d334bd2feffe60.patch";
       sha256 = "046gjsmg0vm0m4y9ny17y2jayc4ba7vib2whw71l5x1hjp6pksjs";
     })
   ];

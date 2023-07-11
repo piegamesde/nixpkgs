@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/safecopy/safecopy/safecopy-${version}/safecopy-${version}.tar.gz"
-      ;
+      "mirror://sourceforge/project/safecopy/safecopy/safecopy-${version}/safecopy-${version}.tar.gz";
     sha256 = "1zf4kk9r8za9pn4hzy1y3j02vrhl1rxfk5adyfq0w0k48xfyvys2";
   };
 

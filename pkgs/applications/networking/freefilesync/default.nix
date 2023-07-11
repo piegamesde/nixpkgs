@@ -33,16 +33,14 @@ stdenv.mkDerivation rec {
     # Disable loading of the missing Animal.dat
     (fetchpatch {
       url =
-        "https://sources.debian.org/data/main/f/freefilesync/12.0-2/debian/patches/ffs_devuan.patch"
-        ;
+        "https://sources.debian.org/data/main/f/freefilesync/12.0-2/debian/patches/ffs_devuan.patch";
       excludes = [ "FreeFileSync/Source/ffs_paths.cpp" ];
       hash = "sha256-6pHr5txabMTpGMKP7I5oe1lGAmgb0cPW8ZkPv/WXN74=";
     })
     # Fix build with GTK 3
     (fetchpatch {
       url =
-        "https://sources.debian.org/data/main/f/freefilesync/12.0-2/debian/patches/ffs_devuan_gtk3.patch"
-        ;
+        "https://sources.debian.org/data/main/f/freefilesync/12.0-2/debian/patches/ffs_devuan_gtk3.patch";
       hash = "sha256-0n58Np4JI3hYK/CRBytkPHl9Jp4xK+IRjgUvoYti/f4=";
     })
   ];

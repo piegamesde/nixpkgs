@@ -16,8 +16,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/mpc123/version%20${version}/${pname}-${version}.tar.gz"
-      ;
+      "mirror://sourceforge/mpc123/version%20${version}/${pname}-${version}.tar.gz";
     sha256 = "0sf4pns0245009z6mbxpx7kqy4kwl69bc95wz9v23wgappsvxgy1";
   };
 

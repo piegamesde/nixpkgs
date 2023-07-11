@@ -26,8 +26,7 @@ buildGoModule rec {
     (fetchpatch {
       name = "fix-go-vet-in-go-1.18.patch";
       url =
-        "https://github.com/git-town/git-town/commit/23eb0aca7b28c6a0afc21db553aa0e35d35891aa.patch"
-        ;
+        "https://github.com/git-town/git-town/commit/23eb0aca7b28c6a0afc21db553aa0e35d35891aa.patch";
       sha256 = "sha256-EyfhKVrQxRJNrYqaZI04dJogaXs1J+bbOIu7p8g2Clc=";
     })
   ];

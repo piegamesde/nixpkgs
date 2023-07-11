@@ -726,8 +726,7 @@ in {
             # System Call Filtering
           SystemCallArchitectures = "native";
           SystemCallFilter =
-            "~@cpu-emulation @debug @keyring @memlock @mount @obsolete @privileged @resources @setuid"
-            ;
+            "~@cpu-emulation @debug @keyring @memlock @mount @obsolete @privileged @resources @setuid";
         };
       }) enabledServers;
 

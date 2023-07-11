@@ -242,8 +242,7 @@ let
 
     meta = with lib; {
       description =
-        "Powerful package manager that makes package management reliable and reproducible"
-        ;
+        "Powerful package manager that makes package management reliable and reproducible";
       longDescription = ''
         Nix is a powerful package manager for Linux and other Unix systems that
         makes package management reliable and reproducible. It provides atomic

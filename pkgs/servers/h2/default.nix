@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/h2database/h2database/releases/download/version-${version}/h2-2022-01-17.zip"
-      ;
+      "https://github.com/h2database/h2database/releases/download/version-${version}/h2-2022-01-17.zip";
     sha256 = "0zcjblhjj98dsj954ia3by9vx5w7mix1dzi85jnvp18kxmbldmf4";
   };
 

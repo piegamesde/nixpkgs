@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
     # https://github.com/apache/trafficserver/pull/7697
     (fetchpatch {
       url =
-        "https://github.com/apache/trafficserver/commit/19d3af481cf74c91fbf713fc9d2f8b138ed5fbaf.diff"
-        ;
+        "https://github.com/apache/trafficserver/commit/19d3af481cf74c91fbf713fc9d2f8b138ed5fbaf.diff";
       sha256 = "0z1ikgpp00rzrrcqh97931586yn9wbksgai9xlkcjd5cg8gq0150";
     })
   ];
@@ -193,8 +192,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://trafficserver.apache.org";
     changelog =
-      "https://raw.githubusercontent.com/apache/trafficserver/${version}/CHANGELOG-${version}"
-      ;
+      "https://raw.githubusercontent.com/apache/trafficserver/${version}/CHANGELOG-${version}";
     description = "Fast, scalable, and extensible HTTP caching proxy server";
     longDescription = ''
       Apache Traffic Server is a high-performance web proxy cache that improves

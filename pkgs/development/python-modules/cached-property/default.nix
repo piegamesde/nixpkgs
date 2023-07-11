@@ -27,8 +27,7 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "asyncio-coroutine.patch";
       url =
-        "https://github.com/pydanny/cached-property/commit/297031687679762849dedeaf24aa3a19116f095b.patch"
-        ;
+        "https://github.com/pydanny/cached-property/commit/297031687679762849dedeaf24aa3a19116f095b.patch";
       hash = "sha256-qolrUdaX7db4hE125Lt9ICmPNYsD/uBmQrdO4q5NG3c=";
     })
   ];

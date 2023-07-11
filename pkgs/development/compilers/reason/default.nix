@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/reasonml/reason/releases/download/${version}/reason-${version}.tbz"
-      ;
+      "https://github.com/reasonml/reason/releases/download/${version}/reason-${version}.tbz";
     sha256 = "sha256-etzEXbILje+CrfJxIhH7jthEMoSJdS6O33QoG8HrLvI=";
   };
 

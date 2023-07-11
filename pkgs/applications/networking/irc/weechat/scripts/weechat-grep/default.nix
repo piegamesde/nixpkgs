@@ -10,8 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/weechat/scripts/raw/5ee93d56f371c829d2798a5446a14292c180f70b/python/grep.py"
-      ;
+      "https://github.com/weechat/scripts/raw/5ee93d56f371c829d2798a5446a14292c180f70b/python/grep.py";
     sha256 = "sha256-EVcoxjTTjXOYD8DppD+IULxpKerEdolmlgphrulFGC0=";
   };
 

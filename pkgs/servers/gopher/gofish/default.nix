@@ -11,8 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://sourceforge/project/gofish/gofish/${version}/${pname}-${version}.tar.gz"
-      ;
+      "mirror://sourceforge/project/gofish/gofish/${version}/${pname}-${version}.tar.gz";
     sha256 = "0br5nvlna86k4ya4q13gz0i7nlmk225lqmpfiqlkldxkr473kf0s";
   };
 

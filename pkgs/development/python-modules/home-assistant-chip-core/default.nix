@@ -89,8 +89,7 @@ buildPythonPackage rec {
     description = "Python-base APIs and tools for CHIP";
     homepage = "https://github.com/home-assistant-libs/chip-wheels";
     changelog =
-      "https://github.com/home-assistant-libs/chip-wheels/releases/tag/${version}"
-      ;
+      "https://github.com/home-assistant-libs/chip-wheels/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = teams.home-assistant.members;
     platforms = [

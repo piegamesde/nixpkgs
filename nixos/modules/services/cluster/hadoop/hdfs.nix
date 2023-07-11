@@ -171,8 +171,7 @@ in {
         8019 # dfs.ha.zkfc.port
       ];
       preStart = (mkIf cfg.hdfs.namenode.formatOnInit
-        "${cfg.package}/bin/hdfs --config ${hadoopConf} namenode -format -nonInteractive || true")
-        ;
+        "${cfg.package}/bin/hdfs --config ${hadoopConf} namenode -format -nonInteractive || true");
     })
 
     (hadoopServiceConfig {

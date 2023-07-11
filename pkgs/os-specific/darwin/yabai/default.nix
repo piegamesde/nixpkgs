@@ -56,8 +56,7 @@ in
 
     src = fetchzip {
       url =
-        "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz"
-        ;
+        "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
       sha256 = "sha256-wL6N2+mfFISrOFn4zaCQI+oH6ixwUMRKRi1dAOigBro=";
     };
 

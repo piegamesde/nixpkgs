@@ -15,8 +15,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/mirage-console/releases/download/v${version}/mirage-console-${version}.tbz"
-      ;
+      "https://github.com/mirage/mirage-console/releases/download/v${version}/mirage-console-${version}.tbz";
     hash = "sha256-mjYRisbNOJbYoSuWaGoPueXakmqAwmWh0ATvLLsvpNM=";
   };
 

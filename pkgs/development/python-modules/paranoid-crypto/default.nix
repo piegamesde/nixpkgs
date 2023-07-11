@@ -62,8 +62,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Library contains checks for well known weaknesses on cryptographic artifacts"
-      ;
+      "Library contains checks for well known weaknesses on cryptographic artifacts";
     homepage = "https://github.com/google/paranoid_crypto";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];

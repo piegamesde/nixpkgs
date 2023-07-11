@@ -54,8 +54,7 @@ buildPythonPackage rec {
     description = "Python low-level client for OpenSearch";
     homepage = "https://github.com/opensearch-project/opensearch-py";
     changelog =
-      "https://github.com/opensearch-project/opensearch-py/releases/tag/v${version}"
-      ;
+      "https://github.com/opensearch-project/opensearch-py/releases/tag/v${version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ mcwitt ];
   };

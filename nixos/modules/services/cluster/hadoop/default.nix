@@ -119,16 +119,14 @@ in with lib; {
         "yarn.nodemanager.container-executor.class" =
           "org.apache.hadoop.yarn.server.nodemanager.LinuxContainerExecutor";
         "yarn.nodemanager.env-whitelist" =
-          "JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_HOME,LANG,TZ"
-          ;
+          "JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_HOME,LANG,TZ";
         "yarn.nodemanager.linux-container-executor.group" = "hadoop";
         "yarn.nodemanager.linux-container-executor.path" =
           "/run/wrappers/yarn-nodemanager/bin/container-executor";
         "yarn.nodemanager.log-dirs" = "/var/log/hadoop/yarn/nodemanager";
         "yarn.resourcemanager.bind-host" = "0.0.0.0";
         "yarn.resourcemanager.scheduler.class" =
-          "org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler"
-          ;
+          "org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler";
       };
       type = types.attrsOf types.anything;
       description = lib.mdDoc ''
@@ -173,8 +171,7 @@ in with lib; {
 
     log4jProperties = mkOption {
       default =
-        "${cfg.package}/lib/${cfg.package.untarDir}/etc/hadoop/log4j.properties"
-        ;
+        "${cfg.package}/lib/${cfg.package.untarDir}/etc/hadoop/log4j.properties";
       defaultText = literalExpression ''
         "''${config.${opt.package}}/lib/''${config.${opt.package}.untarDir}/etc/hadoop/log4j.properties"
       '';

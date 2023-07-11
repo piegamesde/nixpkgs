@@ -37,9 +37,8 @@ args@{
               fsType = "davfs";
               options =
                 let
-                  davfs2Conf =
-                    (pkgs.writeText "davfs2.conf" "secrets /tmp/davfs2-secrets")
-                    ;
+                  davfs2Conf = (pkgs.writeText "davfs2.conf"
+                    "secrets /tmp/davfs2-secrets");
                 in [
                   "conf=${davfs2Conf}"
                   "x-systemd.automount"
@@ -62,8 +61,7 @@ args@{
         in {
           networking.firewall.allowedTCPPorts = [ 80 ];
 
-          systemd.tmpfiles.rules = [ "d /var/lib/nextcloud-data 0750 nextcloud nginx - -" ]
-            ;
+          systemd.tmpfiles.rules = [ "d /var/lib/nextcloud-data 0750 nextcloud nginx - -" ];
 
           system.stateVersion =
             "22.11"; # stateVersion >=21.11 to make sure that we use OpenSSL3
@@ -74,8 +72,8 @@ args@{
             hostName = "nextcloud";
             config = {
               # Don't inherit adminuser since "root" is supposed to be the default
-              adminpassFile = "${pkgs.writeText "adminpass" adminpass}"
-                ; # Don't try this at home!
+              adminpassFile = "${pkgs.writeText "adminpass"
+                adminpass}"; # Don't try this at home!
               dbtableprefix = "nixos_";
             };
             package = pkgs.${"nextcloud" + (toString nextcloudVersion)};

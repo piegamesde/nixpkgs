@@ -202,8 +202,7 @@ let
 
     meta = with lib; {
       description =
-        "Flutter is Google's SDK for building mobile, web and desktop with Dart"
-        ;
+        "Flutter is Google's SDK for building mobile, web and desktop with Dart";
       longDescription = ''
         Flutter is Google’s UI toolkit for building beautiful,
         natively compiled applications for mobile, web, and desktop from a single codebase.

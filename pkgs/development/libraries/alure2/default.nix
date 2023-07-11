@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A utility library for OpenAL, providing a C++ API and managing common tasks that include file loading, caching, and streaming"
-      ;
+      "A utility library for OpenAL, providing a C++ API and managing common tasks that include file loading, caching, and streaming";
     homepage = "https://github.com/kcat/alure";
     license = licenses.zlib;
     platforms = platforms.linux;

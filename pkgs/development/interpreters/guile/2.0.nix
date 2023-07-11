@@ -82,8 +82,7 @@ builder rec {
     # Fixes stability issues with 00-repl-server.test
     (fetchpatch {
       url =
-        "https://git.savannah.gnu.org/cgit/guile.git/patch/?id=2fbde7f02adb8c6585e9baf6e293ee49cd23d4c4"
-        ;
+        "https://git.savannah.gnu.org/cgit/guile.git/patch/?id=2fbde7f02adb8c6585e9baf6e293ee49cd23d4c4";
       sha256 = "0p6c1lmw1iniq03z7x5m65kg3lq543kgvdb4nrxsaxjqf3zhl77v";
     })
   ] ++ (lib.optional (coverageAnalysis != null) ./gcov-file-name.patch)
@@ -91,8 +90,7 @@ builder rec {
       ./filter-mkostemp-darwin.patch
       (fetchpatch {
         url =
-          "https://gitlab.gnome.org/GNOME/gtk-osx/raw/52898977f165777ad9ef169f7d4818f2d4c9b731/patches/guile-clocktime.patch"
-          ;
+          "https://gitlab.gnome.org/GNOME/gtk-osx/raw/52898977f165777ad9ef169f7d4818f2d4c9b731/patches/guile-clocktime.patch";
         sha256 = "12wvwdna9j8795x59ldryv9d84c1j3qdk2iskw09306idfsis207";
       })
     ];

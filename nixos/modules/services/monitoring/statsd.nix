@@ -151,8 +151,7 @@ in {
       assertion = !isBuiltinBackend backend
         -> hasAttrByPath [ backend ] pkgs.nodePackages;
       message =
-        "Only builtin backends (graphite, console, repeater) or backends enumerated in `pkgs.nodePackages` are allowed!"
-        ;
+        "Only builtin backends (graphite, console, repeater) or backends enumerated in `pkgs.nodePackages` are allowed!";
     }) cfg.backends;
 
     users.users.statsd = {

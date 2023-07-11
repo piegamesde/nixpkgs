@@ -25,8 +25,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Provides a time object that keeps time as the number of nanoseconds since the UNIX epoch"
-      ;
+      "Provides a time object that keeps time as the number of nanoseconds since the UNIX epoch";
     homepage = "https://github.com/jbenet/nanotime/tree/master/python";
     license = licenses.mit;
     maintainers = with maintainers; [ cmcdragonkai ];

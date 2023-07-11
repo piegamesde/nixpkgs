@@ -20,8 +20,7 @@ callPackage ./dvtm.nix {
     (fetchpatch {
       name = "use-self-pipe-fix-darwin";
       url =
-        "https://github.com/martanne/dvtm/commit/1f1ed664d64603f3f1ce1388571227dc723901b2.patch"
-        ;
+        "https://github.com/martanne/dvtm/commit/1f1ed664d64603f3f1ce1388571227dc723901b2.patch";
       sha256 = "14j3kks7b1v6qq12442v1da3h7khp02rp0vi0qrz0rfgkg1zilpb";
     })
 
@@ -30,8 +29,7 @@ callPackage ./dvtm.nix {
     (fetchpatch {
       name = "fix-buffer-corruption-on-title-update";
       url =
-        "https://github.com/martanne/dvtm/commit/be6c3f8f615daeab214d484e6fff22e19631a0d1.patch"
-        ;
+        "https://github.com/martanne/dvtm/commit/be6c3f8f615daeab214d484e6fff22e19631a0d1.patch";
       sha256 = "1wdrl3sg815lhs22fwbc4w5dn4ifpdgl7v1kqfnhg752av4im7h7";
     })
   ];

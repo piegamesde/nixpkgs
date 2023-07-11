@@ -171,8 +171,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A software reverse engineering (SRE) suite of tools developed by NSA's Research Directorate in support of the Cybersecurity mission"
-      ;
+      "A software reverse engineering (SRE) suite of tools developed by NSA's Research Directorate in support of the Cybersecurity mission";
     homepage = "https://ghidra-sre.org/";
     platforms = [
       "x86_64-linux"

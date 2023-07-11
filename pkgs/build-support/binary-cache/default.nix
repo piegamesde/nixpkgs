@@ -24,8 +24,7 @@ stdenv.mkDerivation {
   preferLocalBuild = true;
 
   PATH =
-    "${buildPackages.coreutils}/bin:${buildPackages.jq}/bin:${buildPackages.python3}/bin:${buildPackages.nix}/bin:${buildPackages.xz}/bin"
-    ;
+    "${buildPackages.coreutils}/bin:${buildPackages.jq}/bin:${buildPackages.python3}/bin:${buildPackages.nix}/bin:${buildPackages.xz}/bin";
 
   builder = builtins.toFile "builder" ''
     . .attrs.sh

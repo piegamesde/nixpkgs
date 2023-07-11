@@ -128,8 +128,7 @@ in rec {
 
     meta = with lib; {
       description =
-        "Event-driven I/O framework for the V8 JavaScript engine, patched for replay"
-        ;
+        "Event-driven I/O framework for the V8 JavaScript engine, patched for replay";
       homepage = "https://github.com/RecordReplay/node";
       license = licenses.mit;
       maintainers = with maintainers; [ phryneas ];

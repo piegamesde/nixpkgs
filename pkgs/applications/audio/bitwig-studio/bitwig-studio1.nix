@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://downloads.bitwig.com/stable/${version}/bitwig-studio-${version}.deb"
-      ;
+      "https://downloads.bitwig.com/stable/${version}/bitwig-studio-${version}.deb";
     sha256 = "0n0fxh9gnmilwskjcayvjsjfcs3fz9hn00wh7b3gg0cv3qqhich8";
   };
 

@@ -113,8 +113,7 @@ python.pkgs.buildPythonApplication rec {
     description = "GTK3 Subsonic/Airsonic client";
     homepage = "https://sublimemusic.app/";
     changelog =
-      "https://github.com/sublime-music/sublime-music/blob/v${version}/CHANGELOG.rst"
-      ;
+      "https://github.com/sublime-music/sublime-music/blob/v${version}/CHANGELOG.rst";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [
       albakham

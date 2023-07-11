@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "pg_relusage extension for PostgreSQL: discover and log the relations used in your statements"
-      ;
+      "pg_relusage extension for PostgreSQL: discover and log the relations used in your statements";
     homepage = "https://github.com/adept/pg_relusage";
     maintainers = with maintainers; [ thenonameguy ];
     platforms = postgresql.meta.platforms;

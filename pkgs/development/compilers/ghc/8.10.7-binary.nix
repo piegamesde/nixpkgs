@@ -77,8 +77,7 @@ let
         variantSuffix = "";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-x86_64-deb10-linux.tar.xz"
-            ;
+            "${downloadsUrl}/${version}/ghc-${version}-x86_64-deb10-linux.tar.xz";
           sha256 =
             "a13719bca87a0d3ac0c7d4157a4e60887009a7f1a8dbe95c4759ec413e086d30";
         };
@@ -98,8 +97,7 @@ let
         variantSuffix = "";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-armv7-deb10-linux.tar.xz"
-            ;
+            "${downloadsUrl}/${version}/ghc-${version}-armv7-deb10-linux.tar.xz";
           sha256 =
             "3949c31bdf7d3b4afb765ea8246bca4ca9707c5d988d9961a244f0da100956a2";
         };
@@ -119,8 +117,7 @@ let
         variantSuffix = "";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-aarch64-deb10-linux.tar.xz"
-            ;
+            "${downloadsUrl}/${version}/ghc-${version}-aarch64-deb10-linux.tar.xz";
           sha256 =
             "fad2417f9b295233bf8ade79c0e6140896359e87be46cb61cd1d35863d9d0e55";
         };
@@ -144,8 +141,7 @@ let
         variantSuffix = "";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-x86_64-apple-darwin.tar.xz"
-            ;
+            "${downloadsUrl}/${version}/ghc-${version}-x86_64-apple-darwin.tar.xz";
           sha256 =
             "287db0f9c338c9f53123bfa8731b0996803ee50f6ee847fe388092e5e5132047";
         };
@@ -170,8 +166,7 @@ let
         variantSuffix = "";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-aarch64-apple-darwin.tar.xz"
-            ;
+            "${downloadsUrl}/${version}/ghc-${version}-aarch64-apple-darwin.tar.xz";
           sha256 =
             "dc469fc3c35fd2a33a5a575ffce87f13de7b98c2d349a41002e200a56d9bba1c";
         };
@@ -199,8 +194,7 @@ let
         variantSuffix = "-musl-integer-simple";
         src = {
           url =
-            "${downloadsUrl}/${version}/ghc-${version}-x86_64-alpine3.10-linux-integer-simple.tar.xz"
-            ;
+            "${downloadsUrl}/${version}/ghc-${version}-x86_64-alpine3.10-linux-integer-simple.tar.xz";
           sha256 =
             "16903df850ef73d5246f2ff169cbf57ecab76c2ac5acfa9928934282cfad575c";
         };
@@ -229,8 +223,7 @@ let
 
   binDistUsed =
     ghcBinDists.${distSetName}.${stdenv.hostPlatform.system} or (throw
-      "cannot bootstrap GHC on this platform ('${stdenv.hostPlatform.system}' with libc '${distSetName}')")
-    ;
+      "cannot bootstrap GHC on this platform ('${stdenv.hostPlatform.system}' with libc '${distSetName}')");
 
   useLLVM = !stdenv.targetPlatform.isx86;
 

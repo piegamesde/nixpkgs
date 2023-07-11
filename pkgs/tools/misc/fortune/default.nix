@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
     # special files.
   src = fetchurl {
     url =
-      "https://github.com/shlomif/fortune-mod/releases/download/${pname}-${version}/${pname}-${version}.tar.xz"
-      ;
+      "https://github.com/shlomif/fortune-mod/releases/download/${pname}-${version}/${pname}-${version}.tar.xz";
     sha256 = "sha256-xaaB8aJgG3GG0fYS0vOnxC4RifQybxejS8ysqYE0xCs=";
   };
 
@@ -57,8 +56,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     mainProgram = "fortune";
     description =
-      "A program that displays a pseudorandom message from a database of quotations"
-      ;
+      "A program that displays a pseudorandom message from a database of quotations";
     license = licenses.bsdOriginal;
     platforms = platforms.unix;
     maintainers = with maintainers; [ vonfry ];

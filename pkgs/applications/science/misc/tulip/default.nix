@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
   meta = {
     broken = (stdenv.isLinux && stdenv.isAarch64);
     description =
-      "A visualization framework for the analysis and visualization of relational data"
-      ;
+      "A visualization framework for the analysis and visualization of relational data";
 
     longDescription = ''
       Tulip is an information visualization framework dedicated to the

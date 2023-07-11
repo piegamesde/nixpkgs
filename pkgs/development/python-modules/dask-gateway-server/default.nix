@@ -59,8 +59,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A multi-tenant server for securely deploying and managing multiple Dask clusters"
-      ;
+      "A multi-tenant server for securely deploying and managing multiple Dask clusters";
     homepage = "https://gateway.dask.org/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ costrouc ];

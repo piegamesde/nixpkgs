@@ -38,8 +38,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "A PEP 518 build backend that uses setuptools_scm to generate a version file from your version control system, then flit to build the package."
-      ;
+      "A PEP 518 build backend that uses setuptools_scm to generate a version file from your version control system, then flit to build the package.";
     homepage = "https://gitlab.com/WillDaSilva/flit_scm";
     license = licenses.mit;
     maintainers = with maintainers; [ cpcloud ];

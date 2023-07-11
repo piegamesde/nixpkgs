@@ -85,8 +85,7 @@ let
 
       meta = with lib; {
         description =
-          "Web application accelerator also known as a caching HTTP reverse proxy"
-          ;
+          "Web application accelerator also known as a caching HTTP reverse proxy";
         homepage = "https://www.varnish-cache.org";
         license = licenses.bsd2;
         maintainers = with maintainers; [ ajs124 ];

@@ -70,8 +70,7 @@ stdenv.mkDerivation rec {
     description = "Simple backups based on borg";
     homepage = "https://apps.gnome.org/app/org.gnome.World.PikaBackup";
     changelog =
-      "https://gitlab.gnome.org/World/pika-backup/-/blob/v${version}/CHANGELOG.md"
-      ;
+      "https://gitlab.gnome.org/World/pika-backup/-/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ dotlambda ];
     platforms = platforms.linux;

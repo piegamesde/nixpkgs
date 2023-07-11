@@ -44,8 +44,7 @@ let
 
     meta = with lib; {
       description =
-        "An interface to send PartiQL statements to Amazon Quantum Ledger Database (QLDB)"
-        ;
+        "An interface to send PartiQL statements to Amazon Quantum Ledger Database (QLDB)";
       homepage = "https://github.com/awslabs/amazon-qldb-shell";
       license = licenses.asl20;
       maintainers = [ maintainers.terlar ];

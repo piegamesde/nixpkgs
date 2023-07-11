@@ -46,8 +46,7 @@ let
   hunspellDirs =
     builtins.map (lang: "${hunspellDicts.${lang}}/share/hunspell") languages;
   hunspellTargetDirs =
-    "$out/opt/Pulsar/resources/app.asar.unpacked/node_modules/spellchecker/vendor/hunspell_dictionaries"
-    ;
+    "$out/opt/Pulsar/resources/app.asar.unpacked/node_modules/spellchecker/vendor/hunspell_dictionaries";
   hunspellCopyCommands = lib.concatMapStringsSep "\n"
     (lang: "cp -r ${lang}/* ${hunspellTargetDirs};") hunspellDirs;
 in
@@ -57,8 +56,7 @@ stdenv.mkDerivation rec {
   src = with sourcesPath;
     fetchurl {
       url =
-        "https://github.com/pulsar-edit/pulsar/releases/download/v${version}/${tarname}"
-        ;
+        "https://github.com/pulsar-edit/pulsar/releases/download/v${version}/${tarname}";
       inherit hash;
     };
 

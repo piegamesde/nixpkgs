@@ -12,8 +12,7 @@ let
     patches = [ (fetchpatch {
       name = "0001-Print-csum-for-a-given-file-on-stdout.patch";
       url =
-        "https://raw.githubusercontent.com/Lakshmipathi/dduper/ecc2664c380616ec75cfc1e600b5514cdff5c687/patch/btrfs-progs-v6.1/0001-Print-csum-for-a-given-file-on-stdout.patch"
-        ;
+        "https://raw.githubusercontent.com/Lakshmipathi/dduper/ecc2664c380616ec75cfc1e600b5514cdff5c687/patch/btrfs-progs-v6.1/0001-Print-csum-for-a-given-file-on-stdout.patch";
       sha256 = "sha256-M4LT7G6gwBfSXf6EL4pxNoQJMyUTOA+ojxEJqw2yss4=";
     }) ];
   });

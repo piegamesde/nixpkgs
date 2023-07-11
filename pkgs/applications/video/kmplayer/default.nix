@@ -26,8 +26,7 @@ mkDerivation rec {
 
   src = fetchurl {
     url =
-      "mirror://kde/stable/kmplayer/${majorMinorVersion}/kmplayer-${version}.tar.bz2"
-      ;
+      "mirror://kde/stable/kmplayer/${majorMinorVersion}/kmplayer-${version}.tar.bz2";
     sha256 = "0wzdxym4fc83wvqyhcwid65yv59a2wvp1lq303cn124mpnlwx62y";
   };
 

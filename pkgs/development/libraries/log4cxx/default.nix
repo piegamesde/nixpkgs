@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "http://apache.mirrors.hoobly.com/logging/log4cxx/${version}/apache-${pname}-${version}.tar.gz"
-      ;
+      "http://apache.mirrors.hoobly.com/logging/log4cxx/${version}/apache-${pname}-${version}.tar.gz";
     sha256 = "130cjafck1jlqv92mxbn47yhxd2ccwwnprk605c6lmm941i3kq0d";
   };
 

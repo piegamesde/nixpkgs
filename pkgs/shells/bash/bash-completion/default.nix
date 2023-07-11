@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
     # See discussion in https://github.com/NixOS/nixpkgs/issues/107768
   src = fetchurl {
     url =
-      "https://github.com/scop/${pname}/releases/download/${version}/${pname}-${version}.tar.xz"
-      ;
+      "https://github.com/scop/${pname}/releases/download/${version}/${pname}-${version}.tar.xz";
     sha256 = "1b0iz7da1sgifx1a5wdyx1kxbzys53v0kyk8nhxfipllmm5qka3k";
   };
 

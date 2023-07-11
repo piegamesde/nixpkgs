@@ -995,8 +995,7 @@ in {
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ config.environment.etc."prosody/prosody.cfg.lua".source ]
-        ;
+      restartTriggers = [ config.environment.etc."prosody/prosody.cfg.lua".source ];
       serviceConfig = mkMerge [
         {
           User = cfg.user;

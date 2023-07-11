@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
 
   srcIcon = fetchurl {
     url =
-      "https://aur.archlinux.org/cgit/aur.git/plain/xmind.png?h=xmind&id=41936c866b244b34d7dfbee373cbb835eed7860b"
-      ;
+      "https://aur.archlinux.org/cgit/aur.git/plain/xmind.png?h=xmind&id=41936c866b244b34d7dfbee373cbb835eed7860b";
     sha256 = "0jxq2fiq69q9ly0m6hx2qfybqad22sl42ciw636071khpqgc885f";
   };
 

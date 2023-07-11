@@ -16,8 +16,7 @@ bundlerEnv {
 
   meta = with lib; {
     description =
-      "A command line tool for keeping track of what you’re doing and tracking what you’ve done"
-      ;
+      "A command line tool for keeping track of what you’re doing and tracking what you’ve done";
     longDescription = ''
       doing is a basic CLI for adding and listing "what was I doing" reminders
       in a TaskPaper-formatted text file. It allows for multiple

@@ -20,8 +20,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/jtushman/proxy_tools";
     description =
-      "Simple (hopefuly useful) Proxy (as in the GoF design pattern) implementation for Python"
-      ;
+      "Simple (hopefuly useful) Proxy (as in the GoF design pattern) implementation for Python";
     license = licenses.bsd2;
     maintainers = with maintainers; [ jojosch ];
   };

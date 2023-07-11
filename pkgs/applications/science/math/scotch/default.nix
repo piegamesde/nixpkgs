@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description =
-      "Graph and mesh/hypergraph partitioning, graph clustering, and sparse matrix ordering"
-      ;
+      "Graph and mesh/hypergraph partitioning, graph clustering, and sparse matrix ordering";
     longDescription = ''
       Scotch is a software package for graph and mesh/hypergraph partitioning, graph clustering,
       and sparse matrix ordering.

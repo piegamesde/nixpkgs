@@ -108,8 +108,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url =
-      "https://download-installer.cdn.mozilla.net/pub/thunderbird/releases/${version}/${source.arch}/${source.locale}/thunderbird-${version}.tar.bz2"
-      ;
+      "https://download-installer.cdn.mozilla.net/pub/thunderbird/releases/${version}/${source.arch}/${source.locale}/thunderbird-${version}.tar.bz2";
     inherit (source) sha256;
   };
 

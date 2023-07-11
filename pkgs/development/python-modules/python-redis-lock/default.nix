@@ -50,8 +50,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/ionelmc/python-redis-lock/blob/v${version}/CHANGELOG.rst"
-      ;
+      "https://github.com/ionelmc/python-redis-lock/blob/v${version}/CHANGELOG.rst";
     description = "Lock context manager implemented via redis SETNX/BLPOP";
     homepage = "https://github.com/ionelmc/python-redis-lock";
     license = licenses.bsd2;

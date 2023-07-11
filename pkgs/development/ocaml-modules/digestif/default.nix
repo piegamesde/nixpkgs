@@ -20,8 +20,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/mirage/digestif/releases/download/v${version}/digestif-${version}.tbz"
-      ;
+      "https://github.com/mirage/digestif/releases/download/v${version}/digestif-${version}.tbz";
     hash = "sha256-w3k+cg8NqAVPYobFRcghp/6+iC5/TlSX7ImxWjU1EeE=";
   };
 

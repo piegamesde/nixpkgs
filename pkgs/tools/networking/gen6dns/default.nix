@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Tool to generate static DNS records (AAAA and PTR) for hosts using Stateless Address Autoconfig (SLAAC)"
-      ;
+      "Tool to generate static DNS records (AAAA and PTR) for hosts using Stateless Address Autoconfig (SLAAC)";
     homepage = "https://www.hznet.de/tools.html#gen6dns";
     license = licenses.bsd3;
     maintainers = with maintainers; [ majiir ];

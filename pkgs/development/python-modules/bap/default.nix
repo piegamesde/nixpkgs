@@ -25,8 +25,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Platform for binary analysis. It is written in OCaml, but can be used from other languages."
-      ;
+      "Platform for binary analysis. It is written in OCaml, but can be used from other languages.";
     homepage = "https://github.com/BinaryAnalysisPlatform/bap/";
     maintainers = [ maintainers.maurer ];
     license = licenses.mit;

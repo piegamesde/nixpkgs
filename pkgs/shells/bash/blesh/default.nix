@@ -13,8 +13,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchzip {
     url =
-      "https://github.com/akinomyoga/ble.sh/releases/download/v${version}/ble-${version}.tar.xz"
-      ;
+      "https://github.com/akinomyoga/ble.sh/releases/download/v${version}/ble-${version}.tar.xz";
     sha256 = "sha256-MGCQirZvqGfjTTsbDfihY2il/u2suWBaZ6dX8mF1zLk=";
   };
 

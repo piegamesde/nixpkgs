@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
 
   patches = [ (fetchpatch {
     url =
-      "https://build.opensuse.org/public/source/openSUSE:Factory/btar/btar-librsync.patch?rev=2"
-      ;
+      "https://build.opensuse.org/public/source/openSUSE:Factory/btar/btar-librsync.patch?rev=2";
     sha256 = "1awqny9489vsfffav19s73xxg26m7zrhvsgf1wxb8c2izazwr785";
   }) ];
 

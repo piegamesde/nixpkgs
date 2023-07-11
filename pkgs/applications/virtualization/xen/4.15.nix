@@ -53,8 +53,7 @@ let
   qemuMemfdBuildFix = fetchpatch {
     name = "xen-4.8-memfd-build-fix.patch";
     url =
-      "https://github.com/qemu/qemu/commit/75e5b70e6b5dcc4f2219992d7cffa462aa406af0.patch"
-      ;
+      "https://github.com/qemu/qemu/commit/75e5b70e6b5dcc4f2219992d7cffa462aa406af0.patch";
     sha256 = "0gaz93kb33qc0jx6iphvny0yrd17i8zhcl3a9ky5ylc2idz0wiwa";
   };
 
@@ -79,8 +78,7 @@ callPackage (import ./generic.nix (rec {
 
   src = fetchurl {
     url =
-      "https://downloads.xenproject.org/release/xen/${version}/xen-${version}.tar.gz"
-      ;
+      "https://downloads.xenproject.org/release/xen/${version}/xen-${version}.tar.gz";
     sha256 = "1rmc7gb72xwhr3h9rc3bkac41s8kjjzz45miwdq6yalyq7j7vss5";
   };
 

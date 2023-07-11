@@ -9,8 +9,7 @@ let
   version = "0.6.2";
   src = fetchurl {
     url =
-      "https://github.com/floating/frame/releases/download/v${version}/Frame-${version}.AppImage"
-      ;
+      "https://github.com/floating/frame/releases/download/v${version}/Frame-${version}.AppImage";
     sha256 = "sha256-nN5+6SwfHcwhePlbsXjT3qNd/d6Xqnd85NVC8vw3ehk=";
   };
 
@@ -30,8 +29,7 @@ appimageTools.wrapType2 {
 
   meta = {
     description =
-      "Native web3 interface that lets you sign data, securely manage accounts and transparently interact with dapps via web3 protocols like Ethereum and IPFS"
-      ;
+      "Native web3 interface that lets you sign data, securely manage accounts and transparently interact with dapps via web3 protocols like Ethereum and IPFS";
     homepage = "https://frame.sh/";
     downloadPage = "https://github.com/floating/frame/releases";
     license = lib.licenses.gpl3Only;

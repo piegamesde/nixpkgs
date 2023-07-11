@@ -49,8 +49,7 @@ let
   version = "4.11.0";
   src = fetchurl {
     url =
-      "https://repo.continuum.io/miniconda/Miniconda3-py39_${version}-Linux-x86_64.sh"
-      ;
+      "https://repo.continuum.io/miniconda/Miniconda3-py39_${version}-Linux-x86_64.sh";
     sha256 = "sha256-TunDqlMynNemO0mHfAurtJsZt+WvKYB7eTp2vbHTYrQ=";
   };
   conda = (let

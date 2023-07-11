@@ -33,8 +33,7 @@ rustPlatform.buildRustPackage rec {
       "Cargo subcommand to check rust documentation for broken links";
     homepage = "https://github.com/deadlinks/cargo-deadlinks";
     changelog =
-      "https://github.com/deadlinks/cargo-deadlinks/blob/${version}/CHANGELOG.md"
-      ;
+      "https://github.com/deadlinks/cargo-deadlinks/blob/${version}/CHANGELOG.md";
     license = with licenses; [
       asl20 # or
       mit

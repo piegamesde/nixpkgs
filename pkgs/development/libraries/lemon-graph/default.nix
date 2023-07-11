@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://lemon.cs.elte.hu/trac/lemon";
     description =
-      "Efficient library for combinatorial optimization tasks on graphs and networks"
-      ;
+      "Efficient library for combinatorial optimization tasks on graphs and networks";
     license = licenses.boost;
     maintainers = with maintainers; [ trepetti ];
     platforms = platforms.all;

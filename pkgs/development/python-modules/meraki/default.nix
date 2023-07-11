@@ -25,8 +25,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description =
-      "Provides all current Meraki dashboard API calls to interface with the Cisco Meraki cloud-managed platform"
-      ;
+      "Provides all current Meraki dashboard API calls to interface with the Cisco Meraki cloud-managed platform";
     homepage = "https://github.com/meraki/dashboard-api-python";
     changelog =
       "https://github.com/meraki/dashboard-api-python/releases/tag/${version}";

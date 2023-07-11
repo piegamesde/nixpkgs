@@ -25,8 +25,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A preprocessor for mdbook, rendering LaTeX equations to HTML at build time."
-      ;
+      "A preprocessor for mdbook, rendering LaTeX equations to HTML at build time.";
     homepage = "https://github.com/lzanini/${pname}";
     license = [ licenses.mit ];
     maintainers = with maintainers; [ lovesegfault ];

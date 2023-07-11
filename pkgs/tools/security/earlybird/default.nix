@@ -20,8 +20,7 @@ buildGoModule {
 
   meta = with lib; {
     description =
-      "A sensitive data detection tool capable of scanning source code repositories for passwords, key files, and more"
-      ;
+      "A sensitive data detection tool capable of scanning source code repositories for passwords, key files, and more";
     homepage = "https://github.com/americanexpress/earlybird";
     license = licenses.asl20;
     maintainers = [ ];

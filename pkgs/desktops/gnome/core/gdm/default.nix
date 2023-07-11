@@ -39,8 +39,7 @@ let
   override = substituteAll {
     src = ./org.gnome.login-screen.gschema.override;
     icon =
-      "${nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake-white.svg"
-      ;
+      "${nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake-white.svg";
   };
 
 in
@@ -104,8 +103,7 @@ stdenv.mkDerivation rec {
     # https://gitlab.gnome.org/GNOME/gdm/-/merge_requests/92
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/gdm/-/commit/ccecd9c975d04da80db4cd547b67a1a94fa83292.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/gdm/-/commit/ccecd9c975d04da80db4cd547b67a1a94fa83292.patch";
       sha256 = "5hKS9wjjhuSAYwXct5vS0dPbmPRIINJoLC0Zm1naz6Q=";
       revert = true;
     })
@@ -186,8 +184,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "A program that manages graphical display servers and handles graphical user logins"
-      ;
+      "A program that manages graphical display servers and handles graphical user logins";
     homepage = "https://wiki.gnome.org/Projects/GDM";
     license = licenses.gpl2Plus;
     maintainers = teams.gnome.members;

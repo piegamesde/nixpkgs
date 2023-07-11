@@ -60,8 +60,7 @@ buildPythonPackage rec {
     description = "Python library to get Environment Canada weather data";
     homepage = "https://github.com/michaeldavie/env_canada";
     changelog =
-      "https://github.com/michaeldavie/env_canada/blob/v${version}/CHANGELOG.md"
-      ;
+      "https://github.com/michaeldavie/env_canada/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

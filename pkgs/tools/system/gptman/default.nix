@@ -23,8 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     description =
-      "A CLI tool for Linux to copy a partition from one disk to another and more."
-      ;
+      "A CLI tool for Linux to copy a partition from one disk to another and more.";
     homepage = "https://github.com/cecton/gptman";
     license = with licenses; [
       asl20 # or

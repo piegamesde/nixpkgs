@@ -14,8 +14,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url =
-      "https://github.com/hannesm/duration/releases/download/v${version}/duration-${version}.tbz"
-      ;
+      "https://github.com/hannesm/duration/releases/download/v${version}/duration-${version}.tbz";
     hash = "sha256-xzjB84z7mYIMEhzT3fgZ3ksiKPDVDqy9HMPOmefHHis=";
   };
 

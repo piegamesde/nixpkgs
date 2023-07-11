@@ -10,8 +10,7 @@ appimageTools.wrapType2 rec {
 
   src = fetchurl {
     url =
-      "https://github.com/SteamGridDB/steam-rom-manager/releases/download/v${version}/Steam-ROM-Manager-${version}.AppImage"
-      ;
+      "https://github.com/SteamGridDB/steam-rom-manager/releases/download/v${version}/Steam-ROM-Manager-${version}.AppImage";
     sha256 = "sha256-qm7F1/+3iVtsxSAptbhiI5sEHR0B9vo7AdEPy1/PANU=";
   };
 

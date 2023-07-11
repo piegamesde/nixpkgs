@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
     # Fix executable bit on tools (regression in Meson migration).
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/GNOME/msitools/commit/25c4353cf173cddeb76c0a2dd6621bcb753cabf8.patch"
-        ;
+        "https://gitlab.gnome.org/GNOME/msitools/commit/25c4353cf173cddeb76c0a2dd6621bcb753cabf8.patch";
       sha256 = "VknfZCCn4jxwn9l9noXdGczv2kV+IbOsw9cNBE67P1U=";
     })
 
@@ -42,8 +41,7 @@ stdenv.mkDerivation rec {
     # https://gitlab.gnome.org/GNOME/msitools/issues/31
     (fetchpatch {
       url =
-        "https://gitlab.gnome.org/skitt/msitools/commit/3668c8288085d5beefae7c1387330ce9599b8365.patch"
-        ;
+        "https://gitlab.gnome.org/skitt/msitools/commit/3668c8288085d5beefae7c1387330ce9599b8365.patch";
       sha256 = "x3Mp+9TRqBAJIdzVn68HyYt0lujyMk5h5xSBUQHe9Oo=";
     })
   ];

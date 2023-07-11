@@ -14,8 +14,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://bitbucket.org/fabriceT/openbox-menu/downloads/${pname}-${version}.tar.bz2"
-      ;
+      "https://bitbucket.org/fabriceT/openbox-menu/downloads/${pname}-${version}.tar.bz2";
     sha256 = "1hi4b6mq97y6ajq4hhsikbkk23aha7ikaahm92djw48mgj2f1w8l";
   };
 

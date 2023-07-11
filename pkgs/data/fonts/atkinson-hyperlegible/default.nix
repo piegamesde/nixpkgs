@@ -25,8 +25,7 @@ stdenvNoCC.mkDerivation {
 
   meta = with lib; {
     description =
-      "Typeface designed to offer greater legibility and readability for low vision readers"
-      ;
+      "Typeface designed to offer greater legibility and readability for low vision readers";
     homepage = "https://brailleinstitute.org/freefont";
     license = licenses.ofl;
     platforms = platforms.all;

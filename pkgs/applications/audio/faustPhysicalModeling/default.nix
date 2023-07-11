@@ -40,11 +40,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "The physical models included with faust compiled as jack standalone and lv2 instruments"
-      ;
+      "The physical models included with faust compiled as jack standalone and lv2 instruments";
     homepage =
-      "https://github.com/grame-cncm/faust/tree/master-dev/examples/physicalModeling"
-      ;
+      "https://github.com/grame-cncm/faust/tree/master-dev/examples/physicalModeling";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ magnetophon ];

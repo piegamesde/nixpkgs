@@ -76,8 +76,7 @@ buildPythonPackage rec {
     description = "Distributed computation in Python";
     homepage = "https://distributed.readthedocs.io/";
     changelog =
-      "https://github.com/dask/distributed/blob/${version}/docs/source/changelog.rst"
-      ;
+      "https://github.com/dask/distributed/blob/${version}/docs/source/changelog.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [
       teh

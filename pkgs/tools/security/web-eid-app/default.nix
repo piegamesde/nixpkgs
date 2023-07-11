@@ -35,8 +35,7 @@ mkDerivation rec {
 
   meta = with lib; {
     description =
-      "signing and authentication operations with smart cards for the Web eID browser extension"
-      ;
+      "signing and authentication operations with smart cards for the Web eID browser extension";
     longDescription = ''
       The Web eID application performs cryptographic digital signing and
       authentication operations with electronic ID smart cards for the Web eID

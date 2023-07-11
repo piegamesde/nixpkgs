@@ -65,15 +65,13 @@ let
   freetypeSource = fetchurl {
     # This is pinned in Arc's extensions/freetype/build.gradle
     url =
-      "https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.gz"
-      ;
+      "https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.gz";
     hash = "sha256-Xqt5XrsjrHcAHPtot9TVC11sdGkkewsBsslTJp9ljaw=";
   };
   glewSource = fetchurl {
     # This is pinned in Arc's backends/backend-sdl/build.gradle
     url =
-      "https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0.zip"
-      ;
+      "https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0.zip";
     hash = "sha256-qQRqkTd0OVoJXtzAsKwtgcOqzKYXh7OYOblB6b4U4NQ=";
   };
   SDLmingwSource = fetchurl {

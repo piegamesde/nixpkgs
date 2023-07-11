@@ -43,8 +43,7 @@ python.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     changelog =
-      "https://github.com/OzymandiasTheGreat/mopidy-ytmusic/blob/v${version}/CHANGELOG.rst"
-      ;
+      "https://github.com/OzymandiasTheGreat/mopidy-ytmusic/blob/v${version}/CHANGELOG.rst";
     description = "Mopidy extension for playing music from YouTube Music";
     homepage = "https://github.com/OzymandiasTheGreat/mopidy-ytmusic";
     license = licenses.asl20;

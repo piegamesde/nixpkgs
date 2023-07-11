@@ -27,8 +27,7 @@ rustPlatform.buildRustPackage {
 
   meta = with lib; {
     description =
-      "An xrandr-like CLI for configuring displays on GNOME/Wayland, on distros that don't support `wlr-randr`"
-      ;
+      "An xrandr-like CLI for configuring displays on GNOME/Wayland, on distros that don't support `wlr-randr`";
     homepage = "https://github.com/maxwellainatchi/gnome-randr-rust";
     license = licenses.mit;
     maintainers = [ maintainers.roberth ];

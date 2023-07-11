@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url =
-      "https://github.com/popcorn-official/popcorn-desktop/releases/download/v${version}/Popcorn-Time-${version}-linux64.zip"
-      ;
+      "https://github.com/popcorn-official/popcorn-desktop/releases/download/v${version}/Popcorn-Time-${version}-linux64.zip";
     sha256 = "sha256-cbKL5bgweZD/yfi/8KS0L7Raha8PTHqIm4qSPFidjUc=";
   };
 

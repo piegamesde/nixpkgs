@@ -45,8 +45,7 @@ rustPlatform.buildRustPackage rec {
 
   passthru.xgreeters = linkFarm "lightdm-mobile-greeter-xgreeters" [ {
     path =
-      "${lightdm-mobile-greeter}/share/xgreeters/lightdm-mobile-greeter.desktop"
-      ;
+      "${lightdm-mobile-greeter}/share/xgreeters/lightdm-mobile-greeter.desktop";
     name = "lightdm-mobile-greeter.desktop";
   } ];
 
