@@ -1,109 +1,45 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, autoreconfHook
-, libestr
-, json_c
-, zlib
-, docutils
-, fastJson
-, withKrb5 ? true
-, libkrb5
-, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
-, systemd
-, withJemalloc ? true
-, jemalloc
-, withMysql ? true
-, libmysqlclient
-, withPostgres ? true
-, postgresql
-, withDbi ? true
-, libdbi
-, withNetSnmp ? true
-, net-snmp
-, withUuid ? true
-, libuuid
-, withCurl ? true
-, curl
-, withGnutls ? true
-, gnutls
-, withGcrypt ? true
-, libgcrypt
-, withLognorm ? true
-, liblognorm
-, withMaxminddb ? true
-, libmaxminddb
-, withOpenssl ? true
-, openssl
-, withRelp ? true
-, librelp
-, withKsi ? true
-, libksi
-, withLogging ? true
-, liblogging
-, withNet ? true
-, libnet
-, withHadoop ? true
-, hadoop
-, withRdkafka ? true
-, rdkafka
-, withMongo ? true
-, libmongo-client
-, mongoc
-, withCzmq ? true
-, czmq
-, withRabbitmq ? true
-, rabbitmq-c
-, withHiredis ? true
-, hiredis
-, nixosTests
-}:
+{ lib, stdenv, fetchurl, pkg-config, autoreconfHook, libestr, json_c, zlib
+, docutils, fastJson, withKrb5 ? true, libkrb5
+, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd
+, withJemalloc ? true, jemalloc, withMysql ? true, libmysqlclient
+, withPostgres ? true, postgresql, withDbi ? true, libdbi, withNetSnmp ? true
+, net-snmp, withUuid ? true, libuuid, withCurl ? true, curl, withGnutls ? true
+, gnutls, withGcrypt ? true, libgcrypt, withLognorm ? true, liblognorm
+, withMaxminddb ? true, libmaxminddb, withOpenssl ? true, openssl
+, withRelp ? true, librelp, withKsi ? true, libksi, withLogging ? true
+, liblogging, withNet ? true, libnet, withHadoop ? true, hadoop
+, withRdkafka ? true, rdkafka, withMongo ? true, libmongo-client, mongoc
+, withCzmq ? true, czmq, withRabbitmq ? true, rabbitmq-c, withHiredis ? true
+, hiredis, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "rsyslog";
   version = "8.2304.0";
 
   src = fetchurl {
-    url = "https://www.rsyslog.com/files/download/rsyslog/${pname}-${version}.tar.gz";
+    url =
+      "https://www.rsyslog.com/files/download/rsyslog/${pname}-${version}.tar.gz";
     hash = "sha256-0JDpAoPrS4Dei0Pl/8bktZxOOXDyqpHmO+7woRcg100=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-    docutils
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook docutils ];
 
-  buildInputs = [
-    fastJson
-    libestr
-    json_c
-    zlib
-  ] ++ lib.optional withKrb5 libkrb5
-  ++ lib.optional withJemalloc jemalloc
-  ++ lib.optional withPostgres postgresql
-  ++ lib.optional withDbi libdbi
-  ++ lib.optional withNetSnmp net-snmp
-  ++ lib.optional withUuid libuuid
-  ++ lib.optional withCurl curl
-  ++ lib.optional withGnutls gnutls
-  ++ lib.optional withGcrypt libgcrypt
-  ++ lib.optional withLognorm liblognorm
-  ++ lib.optional withOpenssl openssl
-  ++ lib.optional withRelp librelp
-  ++ lib.optional withKsi libksi
-  ++ lib.optional withLogging liblogging
-  ++ lib.optional withNet libnet
-  ++ lib.optional withHadoop hadoop
-  ++ lib.optional withRdkafka rdkafka
-  ++ lib.optionals withMongo [ libmongo-client mongoc ]
-  ++ lib.optional withCzmq czmq
-  ++ lib.optional withRabbitmq rabbitmq-c
-  ++ lib.optional withHiredis hiredis
-  ++ lib.optional withMaxminddb libmaxminddb
-  ++ lib.optional withMysql libmysqlclient
-  ++ lib.optional withSystemd systemd;
+  buildInputs = [ fastJson libestr json_c zlib ]
+    ++ lib.optional withKrb5 libkrb5 ++ lib.optional withJemalloc jemalloc
+    ++ lib.optional withPostgres postgresql ++ lib.optional withDbi libdbi
+    ++ lib.optional withNetSnmp net-snmp ++ lib.optional withUuid libuuid
+    ++ lib.optional withCurl curl ++ lib.optional withGnutls gnutls
+    ++ lib.optional withGcrypt libgcrypt ++ lib.optional withLognorm liblognorm
+    ++ lib.optional withOpenssl openssl ++ lib.optional withRelp librelp
+    ++ lib.optional withKsi libksi ++ lib.optional withLogging liblogging
+    ++ lib.optional withNet libnet ++ lib.optional withHadoop hadoop
+    ++ lib.optional withRdkafka rdkafka
+    ++ lib.optionals withMongo [ libmongo-client mongoc ]
+    ++ lib.optional withCzmq czmq ++ lib.optional withRabbitmq rabbitmq-c
+    ++ lib.optional withHiredis hiredis
+    ++ lib.optional withMaxminddb libmaxminddb
+    ++ lib.optional withMysql libmysqlclient
+    ++ lib.optional withSystemd systemd;
 
   configureFlags = with lib; [
     "--sysconfdir=/etc"
@@ -179,14 +115,13 @@ stdenv.mkDerivation rec {
     (enableFeature true "generate-man-pages")
   ];
 
-  passthru.tests = {
-    nixos-rsyslogd = nixosTests.rsyslogd;
-  };
+  passthru.tests = { nixos-rsyslogd = nixosTests.rsyslogd; };
 
   meta = with lib; {
     homepage = "https://www.rsyslog.com/";
     description = "Enhanced syslog implementation";
-    changelog = "https://raw.githubusercontent.com/rsyslog/rsyslog/v${version}/ChangeLog";
+    changelog =
+      "https://raw.githubusercontent.com/rsyslog/rsyslog/v${version}/ChangeLog";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];

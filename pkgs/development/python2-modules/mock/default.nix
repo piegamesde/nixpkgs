@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy27
-, funcsigs
-, six
-, pbr
-, unittestCheckHook
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, funcsigs, six, pbr
+, unittestCheckHook, pytest }:
 
 buildPythonPackage rec {
   pname = "mock";
@@ -27,10 +19,7 @@ buildPythonPackage rec {
   #doCheck = !(python.isPyPy && python.isPy27);
   doCheck = false; # Infinite recursion pytest
 
-  nativeCheckInputs = [
-    unittestCheckHook
-    pytest
-  ];
+  nativeCheckInputs = [ unittestCheckHook pytest ];
 
   meta = with lib; {
     description = "Mock objects for Python";

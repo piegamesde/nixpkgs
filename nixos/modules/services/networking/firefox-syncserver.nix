@@ -7,14 +7,13 @@ let
   defaultUser = "firefox-syncserver";
 
   dbIsLocal = cfg.database.host == "localhost";
-  dbURL = "mysql://${cfg.database.user}@${cfg.database.host}/${cfg.database.name}";
+  dbURL =
+    "mysql://${cfg.database.user}@${cfg.database.host}/${cfg.database.name}";
 
-  format = pkgs.formats.toml {};
+  format = pkgs.formats.toml { };
   settings = {
     human_logs = true;
-    syncstorage = {
-      database_url = dbURL;
-    };
+    syncstorage = { database_url = dbURL; };
     tokenserver = {
       node_type = "mysql";
       database_url = dbURL;
@@ -33,48 +32,52 @@ let
       node_capacity_release_rate = 1;
     };
   };
-  configFile = format.generate "syncstorage.toml" (lib.recursiveUpdate settings cfg.settings);
+  configFile = format.generate "syncstorage.toml"
+    (lib.recursiveUpdate settings cfg.settings);
   setupScript = pkgs.writeShellScript "firefox-syncserver-setup" ''
-        set -euo pipefail
-        shopt -s inherit_errexit
+    set -euo pipefail
+    shopt -s inherit_errexit
 
-        schema_configured() {
-          mysql ${cfg.database.name} -Ne 'SHOW TABLES' | grep -q services
-        }
+    schema_configured() {
+      mysql ${cfg.database.name} -Ne 'SHOW TABLES' | grep -q services
+    }
 
-        update_config() {
-          mysql ${cfg.database.name} <<"EOF"
-            BEGIN;
+    update_config() {
+      mysql ${cfg.database.name} <<"EOF"
+        BEGIN;
 
-            INSERT INTO `services` (`id`, `service`, `pattern`)
-              VALUES (1, 'sync-1.5', '{node}/1.5/{uid}')
-              ON DUPLICATE KEY UPDATE service='sync-1.5', pattern='{node}/1.5/{uid}';
-            INSERT INTO `nodes` (`id`, `service`, `node`, `available`, `current_load`,
-                                 `capacity`, `downed`, `backoff`)
-              VALUES (1, 1, '${cfg.singleNode.url}', ${toString cfg.singleNode.capacity},
-              0, ${toString cfg.singleNode.capacity}, 0, 0)
-              ON DUPLICATE KEY UPDATE node = '${cfg.singleNode.url}', capacity=${toString cfg.singleNode.capacity};
+        INSERT INTO `services` (`id`, `service`, `pattern`)
+          VALUES (1, 'sync-1.5', '{node}/1.5/{uid}')
+          ON DUPLICATE KEY UPDATE service='sync-1.5', pattern='{node}/1.5/{uid}';
+        INSERT INTO `nodes` (`id`, `service`, `node`, `available`, `current_load`,
+                             `capacity`, `downed`, `backoff`)
+          VALUES (1, 1, '${cfg.singleNode.url}', ${
+            toString cfg.singleNode.capacity
+          },
+          0, ${toString cfg.singleNode.capacity}, 0, 0)
+          ON DUPLICATE KEY UPDATE node = '${cfg.singleNode.url}', capacity=${
+            toString cfg.singleNode.capacity
+          };
 
-            COMMIT;
-        EOF
-        }
+        COMMIT;
+    EOF
+    }
 
 
-        for (( try = 0; try < 60; try++ )); do
-          if ! schema_configured; then
-            sleep 2
-          else
-            update_config
-            exit 0
-          fi
-        done
+    for (( try = 0; try < 60; try++ )); do
+      if ! schema_configured; then
+        sleep 2
+      else
+        update_config
+        exit 0
+      fi
+    done
 
-        echo "Single-node setup failed"
-        exit 1
-      '';
-in
+    echo "Single-node setup failed"
+    exit 1
+  '';
 
-{
+in {
   options = {
     services.firefox-syncserver = {
       enable = lib.mkEnableOption (lib.mdDoc ''
@@ -161,11 +164,13 @@ in
       };
 
       singleNode = {
-        enable = lib.mkEnableOption (lib.mdDoc "auto-configuration for a simple single-node setup");
+        enable = lib.mkEnableOption
+          (lib.mdDoc "auto-configuration for a simple single-node setup");
 
         enableTLS = lib.mkEnableOption (lib.mdDoc "automatic TLS setup");
 
-        enableNginx = lib.mkEnableOption (lib.mdDoc "nginx virtualhost definitions");
+        enableNginx =
+          lib.mkEnableOption (lib.mdDoc "nginx virtualhost definitions");
 
         hostname = lib.mkOption {
           type = lib.types.str;
@@ -186,7 +191,9 @@ in
 
         url = lib.mkOption {
           type = lib.types.str;
-          default = "${if cfg.singleNode.enableTLS then "https" else "http"}://${cfg.singleNode.hostname}";
+          default = "${
+              if cfg.singleNode.enableTLS then "https" else "http"
+            }://${cfg.singleNode.hostname}";
           defaultText = lib.literalExpression ''
             ''${if cfg.singleNode.enableTLS then "https" else "http"}://''${config.${opt.singleNode.hostname}}
           '';
@@ -240,9 +247,7 @@ in
       ensureDatabases = [ cfg.database.name ];
       ensureUsers = [{
         name = cfg.database.user;
-        ensurePermissions = {
-          "${cfg.database.name}.*" = "all privileges";
-        };
+        ensurePermissions = { "${cfg.database.name}.*" = "all privileges"; };
       }];
     };
 
@@ -292,8 +297,10 @@ in
 
     systemd.services.firefox-syncserver-setup = lib.mkIf cfg.singleNode.enable {
       wantedBy = [ "firefox-syncserver.service" ];
-      requires = [ "firefox-syncserver.service" ] ++ lib.optional dbIsLocal "mysql.service";
-      after = [ "firefox-syncserver.service" ] ++ lib.optional dbIsLocal "mysql.service";
+      requires = [ "firefox-syncserver.service" ]
+        ++ lib.optional dbIsLocal "mysql.service";
+      after = [ "firefox-syncserver.service" ]
+        ++ lib.optional dbIsLocal "mysql.service";
       path = [ config.services.mysql.package ];
       serviceConfig.ExecStart = [ "${setupScript}" ];
     };

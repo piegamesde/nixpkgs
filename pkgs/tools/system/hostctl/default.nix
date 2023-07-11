@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "hostctl";
@@ -17,9 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-3UM9w3o3qSlUvgg0k87aODJXqx1ryFvxHs6hlovBILY=";
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   ldflags = [
     "-s"

@@ -1,14 +1,5 @@
-{ lib
-, fetchurl
-, intltool
-, libtorrent-rasterbar
-, python3Packages
-, gtk3
-, glib
-, gobject-introspection
-, librsvg
-, wrapGAppsHook
-}:
+{ lib, fetchurl, intltool, libtorrent-rasterbar, python3Packages, gtk3, glib
+, gobject-introspection, librsvg, wrapGAppsHook }:
 
 let
   inherit (lib) optionals;
@@ -21,41 +12,35 @@ let
       version = "2.1.1";
 
       src = fetchurl {
-        url = "http://download.deluge-torrent.org/source/${lib.versions.majorMinor version}/deluge-${version}.tar.xz";
+        url = "http://download.deluge-torrent.org/source/${
+            lib.versions.majorMinor version
+          }/deluge-${version}.tar.xz";
         hash = "sha256-do3TGYAuQkN6s3lOvnW0lxQuCO1bD7JQO61izvRC3/c=";
       };
 
-      propagatedBuildInputs = with pypkgs; [
-        twisted
-        mako
-        chardet
-        pyxdg
-        pyopenssl
-        service-identity
-        libtorrent-rasterbar.dev
-        libtorrent-rasterbar.python
-        setuptools
-        setproctitle
-        pillow
-        rencode
-        six
-        zope_interface
-        dbus-python
-        pycairo
-        librsvg
-      ] ++ optionals withGUI [
-        gtk3
-        gobject-introspection
-        pygobject3
-      ];
+      propagatedBuildInputs = with pypkgs;
+        [
+          twisted
+          mako
+          chardet
+          pyxdg
+          pyopenssl
+          service-identity
+          libtorrent-rasterbar.dev
+          libtorrent-rasterbar.python
+          setuptools
+          setproctitle
+          pillow
+          rencode
+          six
+          zope_interface
+          dbus-python
+          pycairo
+          librsvg
+        ] ++ optionals withGUI [ gtk3 gobject-introspection pygobject3 ];
 
-      nativeBuildInputs = [
-        intltool
-        glib
-      ] ++ optionals withGUI [
-        gobject-introspection
-        wrapGAppsHook
-      ];
+      nativeBuildInputs = [ intltool glib ]
+        ++ optionals withGUI [ gobject-introspection wrapGAppsHook ];
 
       nativeCheckInputs = with pypkgs; [
         pytestCheckHook
@@ -70,8 +55,7 @@ let
 
       postInstall = ''
         install -Dm444 -t $out/lib/systemd/system packaging/systemd/*.service
-      '' + (if withGUI
-      then ''
+      '' + (if withGUI then ''
         mkdir -p $out/share
         cp -R deluge/ui/data/{icons,pixmaps} $out/share/
         install -Dm444 -t $out/share/applications deluge/ui/data/share/applications/deluge.desktop
@@ -96,9 +80,14 @@ let
       };
     };
 
-in
-rec {
-  deluge-gtk = generic { pname = "deluge-gtk"; withGUI = true; };
-  deluged = generic { pname = "deluged"; withGUI = false; };
+in rec {
+  deluge-gtk = generic {
+    pname = "deluge-gtk";
+    withGUI = true;
+  };
+  deluged = generic {
+    pname = "deluged";
+    withGUI = false;
+  };
   deluge = deluge-gtk;
 }

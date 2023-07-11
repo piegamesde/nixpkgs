@@ -1,8 +1,5 @@
-{
-  mkDerivation, lib, kdepimTeam,
-  extra-cmake-modules, kdoctools,
-  kconfig, kio, ktextwidgets, kwidgetsaddons, pimcommon
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, kconfig, kio
+, ktextwidgets, kwidgetsaddons, pimcommon }:
 
 mkDerivation {
   pname = "libgravatar";
@@ -11,9 +8,7 @@ mkDerivation {
     maintainers = kdepimTeam;
   };
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
-  propagatedBuildInputs = [
-    kconfig kio ktextwidgets kwidgetsaddons pimcommon
-  ];
+  propagatedBuildInputs = [ kconfig kio ktextwidgets kwidgetsaddons pimcommon ];
   outputs = [ "out" "dev" ];
   postInstall = ''
     # added as an include directory by cmake files and fails to compile if it's missing

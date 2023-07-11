@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, requests
-}:
+{ lib, buildPythonPackage, fetchPypi, requests }:
 
 buildPythonPackage rec {
   pname = "python-ecobee-api";
@@ -13,9 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-wzL1WylQAFLxWu3lDFqQtLxJbQjse4OX/fbzaaEuvGQ=";
   };
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   # no tests implemented
   doCheck = false;

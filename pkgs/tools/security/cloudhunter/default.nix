@@ -1,7 +1,4 @@
-{ lib
-, python3
-, fetchFromGitHub
-}:
+{ lib, python3, fetchFromGitHub }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "cloudhunter";
@@ -44,7 +41,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Cloud bucket scanner";
     homepage = "https://github.com/belane/CloudHunter";
-    changelog = "https://github.com/belane/CloudHunter/releases/tag/v${version}";
+    changelog =
+      "https://github.com/belane/CloudHunter/releases/tag/v${version}";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ fab ];
   };

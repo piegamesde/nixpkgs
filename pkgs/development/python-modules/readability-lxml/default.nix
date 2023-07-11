@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, chardet
-, cssselect
-, lxml
-, timeout-decorator
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, chardet
+, cssselect, lxml, timeout-decorator }:
 
 buildPythonPackage rec {
   pname = "readability-lxml";
@@ -26,10 +18,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace 'sys.platform == "darwin"' "False"
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    timeout-decorator
-  ];
+  nativeCheckInputs = [ pytestCheckHook timeout-decorator ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

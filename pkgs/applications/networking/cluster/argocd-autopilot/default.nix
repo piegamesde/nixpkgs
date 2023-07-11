@@ -16,8 +16,8 @@ buildGoModule rec {
   proxyVendor = true;
 
   ldflags =
-    let package_url = "github.com/argoproj-labs/argocd-autopilot/pkg/store"; in
-    [
+    let package_url = "github.com/argoproj-labs/argocd-autopilot/pkg/store";
+    in [
       "-s"
       "-w"
       "-X ${package_url}.binaryName=${pname}"

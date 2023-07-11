@@ -5,9 +5,9 @@ stdenv.mkDerivation rec {
   version = "0.6.0";
 
   src = fetchFromGitHub {
-    owner  = "dsheets";
-    repo   = "ocaml-sodium";
-    rev    = version;
+    owner = "dsheets";
+    repo = "ocaml-sodium";
+    rev = version;
     sha256 = "124gpi1jhac46x05gp5viykyrafnlp03v1cmkl13c6pgcs8w04pv";
   };
 

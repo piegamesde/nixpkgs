@@ -1,13 +1,5 @@
-{ stdenvNoCC
-, lib
-, fetchFromGitHub
-, imagemagick
-, nix-update-script
-, pngquant
-, python3Packages
-, which
-, zopfli
-}:
+{ stdenvNoCC, lib, fetchFromGitHub, imagemagick, nix-update-script, pngquant
+, python3Packages, which, zopfli }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "whatsapp-emoji-linux";
@@ -20,19 +12,12 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-AYdyNZYskBNT3v2wl+M0BAYi5piwmrVIDfucSZ3nfTE=";
   };
 
-  makeFlags = [
-    "PREFIX=$(out)"
-  ];
+  makeFlags = [ "PREFIX=$(out)" ];
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    imagemagick
-    pngquant
-    python3Packages.nototools
-    which
-    zopfli
-  ];
+  nativeBuildInputs =
+    [ imagemagick pngquant python3Packages.nototools which zopfli ];
 
   passthru.updateScript = nix-update-script { };
 

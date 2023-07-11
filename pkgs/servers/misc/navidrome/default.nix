@@ -1,15 +1,5 @@
-{ callPackage
-, buildGoModule
-, fetchFromGitHub
-, lib
-, pkg-config
-, stdenv
-, ffmpeg-headless
-, taglib
-, zlib
-, makeWrapper
-, nixosTests
-, ffmpegSupport ? true
+{ callPackage, buildGoModule, fetchFromGitHub, lib, pkg-config, stdenv
+, ffmpeg-headless, taglib, zlib, makeWrapper, nixosTests, ffmpegSupport ? true
 }:
 
 let
@@ -23,13 +13,9 @@ let
     hash = "sha256-JBvY+0QAouEc0im62aVSJ27GAB7jt0qVnYtc6VN2qTA=";
   };
 
-  ui = callPackage ./ui {
-    inherit src version;
-  };
+  ui = callPackage ./ui { inherit src version; };
 
-in
-
-buildGoModule {
+in buildGoModule {
 
   pname = "navidrome";
 
@@ -60,11 +46,12 @@ buildGoModule {
   passthru = {
     inherit ui;
     tests.navidrome = nixosTests.navidrome;
-    updateScript = callPackage ./update.nix {};
+    updateScript = callPackage ./update.nix { };
   };
 
   meta = {
-    description = "Navidrome Music Server and Streamer compatible with Subsonic/Airsonic";
+    description =
+      "Navidrome Music Server and Streamer compatible with Subsonic/Airsonic";
     homepage = "https://www.navidrome.org/";
     license = lib.licenses.gpl3Only;
     sourceProvenance = with lib.sourceTypes; [ fromSource ];

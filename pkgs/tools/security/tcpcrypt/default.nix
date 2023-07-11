@@ -1,7 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook
-, openssl
-, libcap, libpcap, libnfnetlink, libnetfilter_conntrack, libnetfilter_queue
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, openssl, libcap, libpcap
+, libnfnetlink, libnetfilter_conntrack, libnetfilter_queue }:
 
 stdenv.mkDerivation rec {
   pname = "tcpcrypt";
@@ -18,8 +16,12 @@ stdenv.mkDerivation rec {
 
   outputs = [ "bin" "dev" "out" ];
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ openssl libpcap ]
-    ++ lib.optionals stdenv.isLinux [ libcap libnfnetlink libnetfilter_conntrack libnetfilter_queue ];
+  buildInputs = [ openssl libpcap ] ++ lib.optionals stdenv.isLinux [
+    libcap
+    libnfnetlink
+    libnetfilter_conntrack
+    libnetfilter_queue
+  ];
 
   enableParallelBuilding = true;
 

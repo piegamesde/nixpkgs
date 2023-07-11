@@ -1,14 +1,7 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, unstableGitUpdater
-, dosbox
+{ stdenv, lib, fetchFromGitHub, unstableGitUpdater, dosbox
 
 # Docs cause an immense increase in build time, up to 2 additional hours
-, withDocs ? false
-, ghostscript
-, withGUI ? false
-}:
+, withDocs ? false, ghostscript, withGUI ? false }:
 
 stdenv.mkDerivation rec {
   pname = "${passthru.prettyName}-unwrapped";
@@ -41,11 +34,7 @@ stdenv.mkDerivation rec {
       --replace '-static' ""
   '';
 
-  nativeBuildInputs = [
-    dosbox
-  ] ++ lib.optionals withDocs [
-    ghostscript
-  ];
+  nativeBuildInputs = [ dosbox ] ++ lib.optionals withDocs [ ghostscript ];
 
   configurePhase = ''
     runHook preConfigure
@@ -124,7 +113,8 @@ stdenv.mkDerivation rec {
     homepage = "https://open-watcom.github.io";
     license = licenses.watcom;
     platforms = with platforms; windows ++ unix;
-    badPlatforms = platforms.riscv ++ [ "powerpc64-linux" "powerpc64le-linux" "mips64el-linux" ];
+    badPlatforms = platforms.riscv
+      ++ [ "powerpc64-linux" "powerpc64le-linux" "mips64el-linux" ];
     maintainers = with maintainers; [ OPNA2608 ];
   };
 }

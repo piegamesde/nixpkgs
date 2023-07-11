@@ -1,19 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, SDL2
-, SDL2_mixer
-, SDL2_image
-, SDL2_net
-, fluidsynth
-, soundfont-fluid
-, portmidi
-, dumb
-, libvorbis
-, libmad
-, pcre
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, SDL2, SDL2_mixer, SDL2_image, SDL2_net
+, fluidsynth, soundfont-fluid, portmidi, dumb, libvorbis, libmad, pcre }:
 
 stdenv.mkDerivation rec {
   pname = "prboom-plus";
@@ -28,9 +14,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source/prboom2";
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   buildInputs = [
     SDL2

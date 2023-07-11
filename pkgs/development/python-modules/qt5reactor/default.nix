@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pyqt5
-, twisted
-, pytest-twisted
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, pyqt5, twisted, pytest-twisted
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "qt5reactor";
@@ -16,15 +10,9 @@ buildPythonPackage rec {
     sha256 = "c3470a8a25d9a339f9ca6243502a9b2277f181d772b7acbff551d5bc363b7572";
   };
 
-  propagatedBuildInputs = [
-    pyqt5
-    twisted
-  ];
+  propagatedBuildInputs = [ pyqt5 twisted ];
 
-  nativeCheckInputs = [
-    pytest-twisted
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-twisted pytestCheckHook ];
 
   pythonImportsCheck = [ "qt5reactor" ];
 

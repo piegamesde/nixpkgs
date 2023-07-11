@@ -1,19 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, libbpf
-, elfutils
-, zlib
-, libpcap
-, bpftools
-, llvmPackages
-, pkg-config
-, m4
-, emacs-nox
-, wireshark-cli
-, nukeReferences
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, libbpf, elfutils, zlib, libpcap
+, bpftools, llvmPackages, pkg-config, m4, emacs-nox, wireshark-cli
+, nukeReferences }:
 stdenv.mkDerivation rec {
   pname = "xdp-tools";
   version = "1.3.1";
@@ -28,19 +15,15 @@ stdenv.mkDerivation rec {
   patches = [
     # Fix function detection for btf__type_cnt()
     (fetchpatch {
-      url = "https://github.com/xdp-project/xdp-tools/commit/a7df567634af77381832a2212c5f5099b07734f3.patch";
+      url =
+        "https://github.com/xdp-project/xdp-tools/commit/a7df567634af77381832a2212c5f5099b07734f3.patch";
       sha256 = "n6qG/bojSGUowrAaJWxecYpWdv9OceHkoaGlhbl81hA=";
     })
   ];
 
   outputs = [ "out" "lib" ];
 
-  buildInputs = [
-    libbpf
-    elfutils
-    libpcap
-    zlib
-  ];
+  buildInputs = [ libbpf elfutils libpcap zlib ];
 
   depsBuildBuild = [
     emacs-nox # to generate man pages from .org

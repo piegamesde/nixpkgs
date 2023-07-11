@@ -13,7 +13,8 @@ buildGoModule rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/caarlos0/domain_exporter/commit/32815b0956056c5c14313d0b860d1e9db754e545.patch";
+      url =
+        "https://github.com/caarlos0/domain_exporter/commit/32815b0956056c5c14313d0b860d1e9db754e545.patch";
       hash = "sha256-iEYnJ4BU+MWQd0BgKmRb8RNj/lH2V/Z9uwFS2muR4Go=";
       name = "sg_domains.patch";
     })
@@ -27,7 +28,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/caarlos0/domain_exporter";
-    description = "Exports the expiration time of your domains as prometheus metrics";
+    description =
+      "Exports the expiration time of your domains as prometheus metrics";
     license = licenses.mit;
     maintainers = with maintainers; [ mmilata prusnak peterhoeg caarlos0 ];
   };

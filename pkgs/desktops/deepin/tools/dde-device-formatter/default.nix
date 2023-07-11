@@ -1,18 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchpatch
-, dtkwidget
-, deepin-gettext-tools
-, qt5integration
-, qmake
-, qtbase
-, qttools
-, qtx11extras
-, pkg-config
-, wrapQtAppsHook
-, udisks2-qt5
-}:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, dtkwidget, deepin-gettext-tools
+, qt5integration, qmake, qtbase, qttools, qtx11extras, pkg-config
+, wrapQtAppsHook, udisks2-qt5 }:
 
 stdenv.mkDerivation rec {
   pname = "dde-device-formatter";
@@ -28,7 +16,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "chore-do-not-use-hardcode-path.patch";
-      url = "https://github.com/linuxdeepin/dde-device-formatter/commit/b836a498b8e783e0dff3820302957f15ee8416eb.patch";
+      url =
+        "https://github.com/linuxdeepin/dde-device-formatter/commit/b836a498b8e783e0dff3820302957f15ee8416eb.patch";
       sha256 = "sha256-i/VqJ6EmCyhE6weHKUB66bW6b51gLyssIAzb5li4aJM=";
     })
   ];
@@ -38,29 +27,20 @@ stdenv.mkDerivation rec {
     patchShebangs *.sh
   '';
 
-  nativeBuildInputs = [
-    qmake
-    qttools
-    pkg-config
-    wrapQtAppsHook
-    deepin-gettext-tools
-  ];
+  nativeBuildInputs =
+    [ qmake qttools pkg-config wrapQtAppsHook deepin-gettext-tools ];
 
-  buildInputs = [
-    dtkwidget
-    udisks2-qt5
-    qtx11extras
-  ];
+  buildInputs = [ dtkwidget udisks2-qt5 qtx11extras ];
 
   cmakeFlags = [ "-DVERSION=${version}" ];
 
   # qt5integration must be placed before qtsvg in QT_PLUGIN_PATH
-  qtWrapperArgs = [
-    "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}"
-  ];
+  qtWrapperArgs =
+    [ "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}" ];
 
   meta = with lib; {
-    description = "A simple graphical interface for creating file system in a block device";
+    description =
+      "A simple graphical interface for creating file system in a block device";
     homepage = "https://github.com/linuxdeepin/dde-device-formatter";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

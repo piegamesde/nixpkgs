@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pillow
-, toml
-, numpy
-, python
-, pytestCheckHook
-}:
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, pillow, toml
+, numpy, python, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "clickgen";

@@ -1,18 +1,6 @@
-{ lib
-, buildPythonPackage
-, docstring-to-markdown
-, fetchFromGitHub
-, jedi
-, lsprotocol
-, poetry-core
-, pygls
-, pydantic
-, pyhamcrest
-, pytestCheckHook
-, python-jsonrpc-server
-, pythonOlder
-, pythonRelaxDepsHook
-}:
+{ lib, buildPythonPackage, docstring-to-markdown, fetchFromGitHub, jedi
+, lsprotocol, poetry-core, pygls, pydantic, pyhamcrest, pytestCheckHook
+, python-jsonrpc-server, pythonOlder, pythonRelaxDepsHook }:
 
 buildPythonPackage rec {
   pname = "jedi-language-server";
@@ -28,41 +16,26 @@ buildPythonPackage rec {
     hash = "sha256-+3VgONZzlobgs4wujCaGTTYpIgYrWgWwYgKQqirS7t8=";
   };
 
-  pythonRelaxDeps = [
-    "pygls"
-  ];
+  pythonRelaxDeps = [ "pygls" ];
 
-  nativeBuildInputs = [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [
-    docstring-to-markdown
-    jedi
-    lsprotocol
-    pydantic
-    pygls
-  ];
+  propagatedBuildInputs =
+    [ docstring-to-markdown jedi lsprotocol pydantic pygls ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pyhamcrest
-    python-jsonrpc-server
-  ];
+  nativeCheckInputs = [ pytestCheckHook pyhamcrest python-jsonrpc-server ];
 
   preCheck = ''
     HOME="$(mktemp -d)"
   '';
 
-  pythonImportsCheck = [
-    "jedi_language_server"
-  ];
+  pythonImportsCheck = [ "jedi_language_server" ];
 
   meta = with lib; {
     description = "A Language Server for the latest version(s) of Jedi";
     homepage = "https://github.com/pappasam/jedi-language-server";
-    changelog = "https://github.com/pappasam/jedi-language-server/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/pappasam/jedi-language-server/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ doronbehar ];
   };

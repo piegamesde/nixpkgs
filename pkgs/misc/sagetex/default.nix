@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, texlive
-}:
+{ lib, stdenv, fetchFromGitHub, texlive }:
 
 stdenv.mkDerivation (finalAttrs: rec {
   pname = "sagetex";
@@ -15,9 +11,7 @@ stdenv.mkDerivation (finalAttrs: rec {
     sha256 = "sha256-OfhbXHbGI+DaDHqZCOGiSHJPHjGuT7ZqSEjKweloW38=";
   };
 
-  buildInputs = [
-    texlive.combined.scheme-basic
-  ];
+  buildInputs = [ texlive.combined.scheme-basic ];
 
   buildPhase = ''
     make sagetex.sty
@@ -35,7 +29,8 @@ stdenv.mkDerivation (finalAttrs: rec {
   };
 
   meta = with lib; {
-    description = "Embed code, results of computations, and plots from Sage into LaTeX documents";
+    description =
+      "Embed code, results of computations, and plots from Sage into LaTeX documents";
     homepage = "https://github.com/sagemath/sagetex";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ alexnortung ];

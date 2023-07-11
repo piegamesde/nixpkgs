@@ -1,11 +1,5 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, makeWrapper
-, installShellFiles
-, docker
-, distrobox
-}:
+{ lib, buildGoModule, fetchFromGitHub, makeWrapper, installShellFiles, docker
+, distrobox }:
 
 buildGoModule rec {
   pname = "apx";
@@ -22,10 +16,7 @@ buildGoModule rec {
 
   ldflags = [ "-s" "-w" ];
 
-  nativeBuildInputs = [
-    makeWrapper
-    installShellFiles
-  ];
+  nativeBuildInputs = [ makeWrapper installShellFiles ];
 
   postInstall = ''
     mkdir -p $out/etc/apx
@@ -39,7 +30,9 @@ buildGoModule rec {
     }
     EOF
 
-    wrapProgram $out/bin/apx --prefix PATH : ${lib.makeBinPath [ docker distrobox ]}
+    wrapProgram $out/bin/apx --prefix PATH : ${
+      lib.makeBinPath [ docker distrobox ]
+    }
 
     installManPage man/apx.1 man/es/apx.1
   '';

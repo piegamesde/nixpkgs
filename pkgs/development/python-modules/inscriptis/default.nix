@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, lxml
-, pytestCheckHook
-, pythonOlder
-, requests
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, lxml, pytestCheckHook, pythonOlder
+, requests }:
 
 buildPythonPackage rec {
   pname = "inscriptis";
@@ -21,23 +15,17 @@ buildPythonPackage rec {
     hash = "sha256-grsyHqt7ahiNsYKcZN/c5cJaag/nTWTBcaHaXnW1SpU=";
   };
 
-  propagatedBuildInputs = [
-    lxml
-    requests
-  ];
+  propagatedBuildInputs = [ lxml requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "inscriptis"
-  ];
+  pythonImportsCheck = [ "inscriptis" ];
 
   meta = with lib; {
     description = "HTML to text converter";
     homepage = "https://github.com/weblyzard/inscriptis";
-    changelog = "https://github.com/weblyzard/inscriptis/releases/tag/${version}";
+    changelog =
+      "https://github.com/weblyzard/inscriptis/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

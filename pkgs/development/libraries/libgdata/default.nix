@@ -1,23 +1,6 @@
-{ lib, stdenv
-, fetchurl
-, pkg-config
-, meson
-, ninja
-, nixosTests
-, vala
-, gettext
-, libxml2
-, glib
-, json-glib
-, gcr
-, gnome-online-accounts
-, gobject-introspection
-, gnome
-, p11-kit
-, openssl
-, uhttpmock
-, libsoup
-}:
+{ lib, stdenv, fetchurl, pkg-config, meson, ninja, nixosTests, vala, gettext
+, libxml2, glib, json-glib, gcr, gnome-online-accounts, gobject-introspection
+, gnome, p11-kit, openssl, uhttpmock, libsoup }:
 
 stdenv.mkDerivation rec {
   pname = "libgdata";
@@ -26,37 +9,21 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "installedTests" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "3YWS7rZRKtCoz1yL6McudvdL/msj5N2T8HVu4HFoBMc=";
   };
 
-  patches = [
-    ./installed-tests-path.patch
-  ];
+  patches = [ ./installed-tests-path.patch ];
 
-  nativeBuildInputs = [
-    gettext
-    gobject-introspection
-    meson
-    ninja
-    pkg-config
-    vala
-  ];
+  nativeBuildInputs =
+    [ gettext gobject-introspection meson ninja pkg-config vala ];
 
-  buildInputs = [
-    gcr
-    openssl
-    p11-kit
-    uhttpmock
-  ];
+  buildInputs = [ gcr openssl p11-kit uhttpmock ];
 
-  propagatedBuildInputs = [
-    glib
-    libsoup
-    libxml2
-    gnome-online-accounts
-    json-glib
-  ];
+  propagatedBuildInputs =
+    [ glib libsoup libxml2 gnome-online-accounts json-glib ];
 
   mesonFlags = [
     "-Dgtk_doc=false"
@@ -68,12 +35,11 @@ stdenv.mkDerivation rec {
   passthru = {
     updateScript = gnome.updateScript {
       packageName = pname;
-      versionPolicy = "none"; # Stable version has not been updated for a long time.
+      versionPolicy =
+        "none"; # Stable version has not been updated for a long time.
     };
 
-    tests = {
-      installedTests = nixosTests.installed-tests.libgdata;
-    };
+    tests = { installedTests = nixosTests.installed-tests.libgdata; };
   };
 
   meta = with lib; {

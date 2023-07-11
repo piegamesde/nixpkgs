@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "6.101";
 
   src = fetchzip {
-    url = "http://software.sil.org/downloads/r/gentium/GentiumPlus-${version}.zip";
+    url =
+      "http://software.sil.org/downloads/r/gentium/GentiumPlus-${version}.zip";
     hash = "sha256-iKD1Q7/lsbZCuJQoJqySQHwplrHv8yzmph+QwKpYgMU=";
   };
 
@@ -21,7 +22,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://software.sil.org/gentium/";
-    description = "A high-quality typeface family for Latin, Cyrillic, and Greek";
+    description =
+      "A high-quality typeface family for Latin, Cyrillic, and Greek";
     longDescription = ''
       Gentium is a typeface family designed to enable the diverse ethnic groups
       around the world who use the Latin, Cyrillic and Greek scripts to produce

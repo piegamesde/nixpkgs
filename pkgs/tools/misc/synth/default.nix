@@ -1,10 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, stdenv
-, AppKit
-, Security
-}:
+{ lib, rustPlatform, fetchFromGitHub, stdenv, AppKit, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "synth";
@@ -19,10 +13,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-i2Pp9sfTBth3DtrQ99Vw+KLnGECrkqtlRNAKiwSWf48=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    AppKit
-    Security
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ AppKit Security ];
 
   checkFlags = [
     # https://github.com/shuttle-hq/synth/issues/309
@@ -33,7 +24,8 @@ rustPlatform.buildRustPackage rec {
   RUSTC_BOOTSTRAP = 1;
 
   meta = with lib; {
-    description = "A tool for generating realistic data using a declarative data model";
+    description =
+      "A tool for generating realistic data using a declarative data model";
     homepage = "https://github.com/getsynth/synth";
     license = licenses.asl20;
     maintainers = with maintainers; [ figsoda ];

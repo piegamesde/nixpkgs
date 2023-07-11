@@ -1,10 +1,8 @@
 { lib, stdenv, fetchFromGitHub, buildPackages, perl, which, ncurses }:
 
-let
-  dialect = with lib; last (splitString "-" stdenv.hostPlatform.system);
-in
+let dialect = with lib; last (splitString "-" stdenv.hostPlatform.system);
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "lsof";
   version = "4.98.0";
 
@@ -15,9 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DQLY0a0sOCZFEJA4Y4b18OcWZw47RyqKZ0mVG0CDVTI=";
   };
 
-  patches = [
-    ./no-build-info.patch
-  ];
+  patches = [ ./no-build-info.patch ];
 
   postPatch = lib.optionalString stdenv.hostPlatform.isMusl ''
     substituteInPlace dialects/linux/dlsof.h --replace "defined(__UCLIBC__)" 1
@@ -31,7 +27,8 @@ stdenv.mkDerivation rec {
 
   # Stop build scripts from searching global include paths
   LSOF_INCLUDE = "${lib.getDev stdenv.cc.libc}/include";
-  configurePhase = "LINUX_CONF_CC=$CC_FOR_BUILD LSOF_CC=$CC LSOF_AR=\"$AR cr\" LSOF_RANLIB=$RANLIB ./Configure -n ${dialect}";
+  configurePhase = ''
+    LINUX_CONF_CC=$CC_FOR_BUILD LSOF_CC=$CC LSOF_AR="$AR cr" LSOF_RANLIB=$RANLIB ./Configure -n ${dialect}'';
 
   preBuild = ''
     for filepath in $(find dialects/${dialect} -type f); do

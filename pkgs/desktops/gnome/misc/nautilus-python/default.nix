@@ -1,17 +1,5 @@
-{ stdenv
-, lib
-, substituteAll
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, gtk-doc
-, docbook-xsl-nons
-, docbook_xml_dtd_412
-, python3
-, nautilus
-, gnome
-}:
+{ stdenv, lib, substituteAll, fetchurl, meson, ninja, pkg-config, gtk-doc
+, docbook-xsl-nons, docbook_xml_dtd_412, python3, nautilus, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "nautilus-python";
@@ -20,7 +8,9 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "doc" "devdoc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/nautilus-python/${lib.versions.majorMinor version}/nautilus-python-${version}.tar.xz";
+    url = "mirror://gnome/sources/nautilus-python/${
+        lib.versions.majorMinor version
+      }/nautilus-python-${version}.tar.xz";
     sha256 = "FyQ9Yut9fYOalGGrjQcBaIgFxxYaZwXmFBOljsJoKBo=";
   };
 
@@ -28,26 +18,16 @@ stdenv.mkDerivation rec {
     # Make PyGObject’s gi library available.
     (substituteAll {
       src = ./fix-paths.patch;
-      pythonPaths = lib.concatMapStringsSep ", " (pkg: "'${pkg}/${python3.sitePackages}'") [
-        python3.pkgs.pygobject3
-      ];
+      pythonPaths =
+        lib.concatMapStringsSep ", " (pkg: "'${pkg}/${python3.sitePackages}'")
+        [ python3.pkgs.pygobject3 ];
     })
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-    gtk-doc
-    docbook-xsl-nons
-    docbook_xml_dtd_412
-  ];
+  nativeBuildInputs =
+    [ pkg-config meson ninja gtk-doc docbook-xsl-nons docbook_xml_dtd_412 ];
 
-  buildInputs = [
-    python3
-    python3.pkgs.pygobject3
-    nautilus
-  ];
+  buildInputs = [ python3 python3.pkgs.pygobject3 nautilus ];
 
   passthru = {
     updateScript = gnome.updateScript {

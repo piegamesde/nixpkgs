@@ -1,13 +1,7 @@
-{ lib
-, fetchFromGitHub
-, buildPgxExtension
-, postgresql
-, stdenv
-, nixosTests
-, cargo-pgx_0_6_1
-}:
+{ lib, fetchFromGitHub, buildPgxExtension, postgresql, stdenv, nixosTests
+, cargo-pgx_0_6_1 }:
 
-(buildPgxExtension.override {cargo-pgx = cargo-pgx_0_6_1;})rec {
+(buildPgxExtension.override { cargo-pgx = cargo-pgx_0_6_1; }) rec {
   inherit postgresql;
 
   pname = "timescaledb_toolkit";
@@ -23,15 +17,14 @@
   cargoSha256 = "sha256-ukjJ11LmfG+k8D20rj68i43gOWUN80nf3hIAjUWXihI=";
   buildAndTestSubdir = "extension";
 
-  passthru.tests = {
-    timescaledb_toolkit = nixosTests.timescaledb;
-  };
+  passthru.tests = { timescaledb_toolkit = nixosTests.timescaledb; };
 
   # tests take really long
   doCheck = false;
 
   meta = with lib; {
-    description = "Provide additional tools to ease all things analytic when using TimescaleDB";
+    description =
+      "Provide additional tools to ease all things analytic when using TimescaleDB";
     homepage = "https://github.com/timescale/timescaledb-toolkit";
     maintainers = with maintainers; [ typetetris ];
     platforms = postgresql.meta.platforms;

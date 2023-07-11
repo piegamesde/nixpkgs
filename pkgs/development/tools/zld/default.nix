@@ -4,7 +4,8 @@ stdenv.mkDerivation rec {
   pname = "zld";
   version = "1.3.4";
   src = fetchzip {
-    url = "https://github.com/michaeleisel/zld/releases/download/${version}/zld.zip";
+    url =
+      "https://github.com/michaeleisel/zld/releases/download/${version}/zld.zip";
     sha256 = "sha256-w1Pe96sdCbrfYdfBpD0BBXu7cFdW3cpo0PCn1+UyZI8=";
   };
 
@@ -19,6 +20,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = [ maintainers.rgnns ];
     platforms = platforms.darwin;
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 }

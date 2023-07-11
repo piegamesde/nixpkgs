@@ -1,11 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, rustPlatform
-, libiconv
-, pytestCheckHook
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, rustPlatform, libiconv
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "y-py";
@@ -35,9 +29,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "y_py" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = {
     description = "Python bindings for Y-CRDT";

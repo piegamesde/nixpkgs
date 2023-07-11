@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, dask
-, fetchPypi
-, fsspec
-, lxml
-, numpy
-, pytestCheckHook
-, pythonOlder
-, zarr
-}:
+{ lib, buildPythonPackage, dask, fetchPypi, fsspec, lxml, numpy, pytestCheckHook
+, pythonOlder, zarr }:
 
 buildPythonPackage rec {
   pname = "tifffile";
@@ -22,17 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-L6mfmJDKq5GdkyoKyqnQ9YQ9wu81lOISljky4gcTut0=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-  ];
+  propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [
-    dask
-    fsspec
-    lxml
-    pytestCheckHook
-    zarr
-  ];
+  nativeCheckInputs = [ dask fsspec lxml pytestCheckHook zarr ];
 
   disabledTests = [
     # Test require network access
@@ -51,14 +34,13 @@ buildPythonPackage rec {
     "test_issue_invalid_predictor"
   ];
 
-  pythonImportsCheck = [
-    "tifffile"
-  ];
+  pythonImportsCheck = [ "tifffile" ];
 
   meta = with lib; {
     description = "Read and write image data from and to TIFF files";
     homepage = "https://github.com/cgohlke/tifffile/";
-    changelog = "https://github.com/cgohlke/tifffile/blob/v${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/cgohlke/tifffile/blob/v${version}/CHANGES.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ lebastr ];
   };

@@ -1,35 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, meson
-, ninja
-, pkg-config
-, libhandy
-, modemmanager
-, gtk3
-, gom
-, gsound
-, feedbackd
-, callaudiod
-, evolution-data-server
-, glib
-, folks
-, desktop-file-utils
-, appstream-glib
-, libpeas
-, libgdata
-, dbus
-, vala
-, wrapGAppsHook
-, xvfb-run
-, gtk-doc
-, docbook-xsl-nons
-, docbook_xml_dtd_43
-, docutils
-, gobject-introspection
-, gst_all_1
-, sofia_sip
-}:
+{ lib, stdenv, fetchFromGitLab, meson, ninja, pkg-config, libhandy, modemmanager
+, gtk3, gom, gsound, feedbackd, callaudiod, evolution-data-server, glib, folks
+, desktop-file-utils, appstream-glib, libpeas, libgdata, dbus, vala
+, wrapGAppsHook, xvfb-run, gtk-doc, docbook-xsl-nons, docbook_xml_dtd_43
+, docutils, gobject-introspection, gst_all_1, sofia_sip }:
 
 stdenv.mkDerivation rec {
   pname = "calls";
@@ -79,16 +52,11 @@ stdenv.mkDerivation rec {
     sofia_sip
   ];
 
-  nativeCheckInputs = [
-    dbus
-    xvfb-run
-  ];
+  nativeCheckInputs = [ dbus xvfb-run ];
 
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 
-  mesonFlags = [
-    "-Dgtk_doc=true"
-  ];
+  mesonFlags = [ "-Dgtk_doc=true" ];
 
   # Disable until tests are fixed upstream https://gitlab.gnome.org/GNOME/calls/-/issues/258
   doCheck = false;
@@ -105,7 +73,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A phone dialer and call handler";
-    longDescription = "GNOME Calls is a phone dialer and call handler. Setting NixOS option `programs.calls.enable = true` is recommended.";
+    longDescription =
+      "GNOME Calls is a phone dialer and call handler. Setting NixOS option `programs.calls.enable = true` is recommended.";
     homepage = "https://gitlab.gnome.org/GNOME/calls";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ craigem lheckemann tomfitzhenry ];

@@ -1,24 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, installShellFiles
-, pbr
-, openstackdocstheme
-, oslo-config
-, oslo-log
-, oslo-serialization
-, oslo-utils
-, prettytable
-, requests
-, simplejson
-, sphinx
-, sphinxcontrib-programoutput
-, babel
-, osc-lib
-, python-keystoneclient
-, debtcollector
-, callPackage
-}:
+{ lib, buildPythonPackage, fetchPypi, installShellFiles, pbr, openstackdocstheme
+, oslo-config, oslo-log, oslo-serialization, oslo-utils, prettytable, requests
+, simplejson, sphinx, sphinxcontrib-programoutput, babel, osc-lib
+, python-keystoneclient, debtcollector, callPackage }:
 
 buildPythonPackage rec {
   pname = "python-manilaclient";
@@ -30,12 +13,8 @@ buildPythonPackage rec {
     hash = "sha256-iKBbR4h9J9OiQMHjUHxUVk+NbCRUYmIPtWxRwVVGQtY=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-    openstackdocstheme
-    sphinx
-    sphinxcontrib-programoutput
-  ];
+  nativeBuildInputs =
+    [ installShellFiles openstackdocstheme sphinx sphinxcontrib-programoutput ];
 
   propagatedBuildInputs = [
     pbr
@@ -61,13 +40,9 @@ buildPythonPackage rec {
   # Checks moved to 'passthru.tests' to workaround infinite recursion
   doCheck = false;
 
-  passthru.tests = {
-    tests = callPackage ./tests.nix { };
-  };
+  passthru.tests = { tests = callPackage ./tests.nix { }; };
 
-  pythonImportsCheck = [
-    "manilaclient"
-  ];
+  pythonImportsCheck = [ "manilaclient" ];
 
   meta = with lib; {
     description = "Client library for OpenStack Manila API";

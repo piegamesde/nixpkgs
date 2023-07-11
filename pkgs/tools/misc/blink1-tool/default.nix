@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, libusb1
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, libusb1 }:
 
 stdenv.mkDerivation rec {
   pname = "blink1";
@@ -25,11 +20,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ libusb1 ];
 
-  makeFlags = [
-    "GIT_TAG=v${version}"
-    "USBLIB_TYPE=HIDAPI"
-    "HIDAPI_TYPE=LIBUSB"
-  ];
+  makeFlags =
+    [ "GIT_TAG=v${version}" "USBLIB_TYPE=HIDAPI" "HIDAPI_TYPE=LIBUSB" ];
 
   hardeningDisable = [ "format" ];
 

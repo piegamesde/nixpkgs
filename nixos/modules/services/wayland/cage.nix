@@ -2,10 +2,10 @@
 
 with lib;
 
-let
-  cfg = config.services.cage;
+let cfg = config.services.cage;
 in {
-  options.services.cage.enable = mkEnableOption (lib.mdDoc "cage kiosk service");
+  options.services.cage.enable =
+    mkEnableOption (lib.mdDoc "cage kiosk service");
 
   options.services.cage.user = mkOption {
     type = types.str;
@@ -17,10 +17,11 @@ in {
 
   options.services.cage.extraArguments = mkOption {
     type = types.listOf types.str;
-    default = [];
+    default = [ ];
     defaultText = literalExpression "[]";
-    description = lib.mdDoc "Additional command line arguments to pass to Cage.";
-    example = ["-d"];
+    description =
+      lib.mdDoc "Additional command line arguments to pass to Cage.";
+    example = [ "-d" ];
   };
 
   options.services.cage.program = mkOption {
@@ -47,7 +48,8 @@ in {
         "getty@tty1.service"
       ];
       before = [ "graphical.target" ];
-      wants = [ "dbus.socket" "systemd-logind.service" "plymouth-quit.service"];
+      wants =
+        [ "dbus.socket" "systemd-logind.service" "plymouth-quit.service" ];
       wantedBy = [ "graphical.target" ];
       conflicts = [ "getty@tty1.service" ];
 

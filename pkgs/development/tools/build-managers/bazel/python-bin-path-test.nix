@@ -1,15 +1,5 @@
-{
-  bazel
-, bazelTest
-, stdenv
-, darwin
-, lib
-, runLocal
-, runtimeShell
-, writeScript
-, writeText
-, distDir
-}:
+{ bazel, bazelTest, stdenv, darwin, lib, runLocal, runtimeShell, writeScript
+, writeText, distDir }:
 
 let
   toolsBazel = writeScript "bazel" ''
@@ -55,15 +45,14 @@ let
     )
   '';
 
-  workspaceDir = runLocal "our_workspace" {} (''
+  workspaceDir = runLocal "our_workspace" { } (''
     mkdir $out
     cp ${WORKSPACE} $out/WORKSPACE
     mkdir $out/python
     cp ${pythonLib} $out/python/lib.py
     cp ${pythonBin} $out/python/bin.py
     cp ${pythonBUILD} $out/python/BUILD.bazel
-  ''
-  + (lib.optionalString stdenv.isDarwin ''
+  '' + (lib.optionalString stdenv.isDarwin ''
     mkdir $out/tools
     cp ${toolsBazel} $out/tools/bazel
   ''));

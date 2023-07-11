@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, buildPythonPackage
-, pythonOlder
-, regex
-}:
+{ lib, stdenv, fetchFromGitHub, buildPythonPackage, pythonOlder, regex }:
 
 buildPythonPackage rec {
   pname = "somajo";
@@ -20,19 +14,16 @@ buildPythonPackage rec {
     hash = "sha256-EnYw8TSZLXgB4pZaZBgxaO13PpTDx4lGsdGJ+51A6wE=";
   };
 
-  propagatedBuildInputs = [
-    regex
-  ];
+  propagatedBuildInputs = [ regex ];
 
   # loops forever
   doCheck = !stdenv.isDarwin;
 
-  pythonImportsCheck = [
-    "somajo"
-  ];
+  pythonImportsCheck = [ "somajo" ];
 
   meta = with lib; {
-    description = "Tokenizer and sentence splitter for German and English web texts";
+    description =
+      "Tokenizer and sentence splitter for German and English web texts";
     homepage = "https://github.com/tsproisl/SoMaJo";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ ];

@@ -1,9 +1,8 @@
-{ lib, buildDunePackage, cstruct, sexplib, ppxlib, stdlib-shims
-, ounit, cppo, ppx_sexp_conv, cstruct-unix, cstruct-sexp
-}:
+{ lib, buildDunePackage, cstruct, sexplib, ppxlib, stdlib-shims, ounit, cppo
+, ppx_sexp_conv, cstruct-unix, cstruct-sexp }:
 
-if lib.versionOlder (cstruct.version or "1") "3"
-then cstruct
+if lib.versionOlder (cstruct.version or "1") "3" then
+  cstruct
 else
 
   buildDunePackage {

@@ -1,13 +1,5 @@
-{ lib
-, asn1crypto
-, buildPythonPackage
-, colorama
-, cryptography
-, fetchFromGitHub
-, impacket
-, pyasn1
-, pythonOlder
-}:
+{ lib, asn1crypto, buildPythonPackage, colorama, cryptography, fetchFromGitHub
+, impacket, pyasn1, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "masky";
@@ -23,20 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-npRuszHkxwjJ+B+q8eQywXPd0OX0zS+AfCro4TM83Uc=";
   };
 
-  propagatedBuildInputs = [
-    asn1crypto
-    colorama
-    cryptography
-    impacket
-    pyasn1
-  ];
+  propagatedBuildInputs = [ asn1crypto colorama cryptography impacket pyasn1 ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "masky"
-  ];
+  pythonImportsCheck = [ "masky" ];
 
   meta = with lib; {
     description = "Library to remotely dump domain credentials";

@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, cmake
-, rocm-cmake
-, gfortran
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake, gfortran }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "hipfort";
@@ -18,11 +11,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-cXzNOvWIU388AU5hzLwmIGaX5DvzIJJCvgkP2BA4jao=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    rocm-cmake
-    gfortran
-  ];
+  nativeBuildInputs = [ cmake rocm-cmake gfortran ];
 
   cmakeFlags = [
     "-DHIPFORT_COMPILER=${gfortran}/bin/gfortran"
@@ -61,6 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = with licenses; [ mit ]; # mitx11
     maintainers = teams.rocm.members;
     platforms = platforms.linux;
-    broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
+    broken = versions.minor finalAttrs.version
+      != versions.minor stdenv.cc.version;
   };
 })

@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, pkg-config, cairo, poppler, wxGTK, Cocoa }:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, pkg-config, cairo, poppler
+, wxGTK, Cocoa }:
 
 stdenv.mkDerivation rec {
   pname = "diff-pdf";

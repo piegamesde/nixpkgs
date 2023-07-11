@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, requests
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, requests }:
 
 buildPythonPackage rec {
   pname = "rova";
@@ -20,16 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-TLL9Ta+7Xd55hGTTXjc6CBMj+tW1LpFrprpsnGqZvkQ=";
   };
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "rova"
-  ];
+  pythonImportsCheck = [ "rova" ];
 
   meta = with lib; {
     description = "Module to access for ROVA calendars";

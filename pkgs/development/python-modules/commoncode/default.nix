@@ -1,21 +1,6 @@
-{ lib
-, stdenv
-, attrs
-, beautifulsoup4
-, buildPythonPackage
-, click
-, fetchPypi
-, intbitset
-, pytest-xdist
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
-, requests
-, saneyaml
-, setuptools-scm
-, text-unidecode
-, typing
-}:
+{ lib, stdenv, attrs, beautifulsoup4, buildPythonPackage, click, fetchPypi
+, intbitset, pytest-xdist, pytestCheckHook, pythonAtLeast, pythonOlder, requests
+, saneyaml, setuptools-scm, text-unidecode, typing }:
 
 buildPythonPackage rec {
   pname = "commoncode";
@@ -36,26 +21,13 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    attrs
-    beautifulsoup4
-    click
-    intbitset
-    requests
-    saneyaml
-    text-unidecode
-  ] ++ lib.optionals (pythonOlder "3.7") [
-    typing
-  ];
+  propagatedBuildInputs =
+    [ attrs beautifulsoup4 click intbitset requests saneyaml text-unidecode ]
+    ++ lib.optionals (pythonOlder "3.7") [ typing ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-xdist
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-xdist ];
 
   disabledTests = [
     # chinese character translates different into latin
@@ -76,9 +48,7 @@ buildPythonPackage rec {
     "src/commoncode/fetch.py"
   ];
 
-  pythonImportsCheck = [
-    "commoncode"
-  ];
+  pythonImportsCheck = [ "commoncode" ];
 
   meta = with lib; {
     description = "A set of common utilities, originally split from ScanCode";

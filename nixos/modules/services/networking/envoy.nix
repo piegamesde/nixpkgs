@@ -8,12 +8,13 @@ let
   conf = format.generate "envoy.json" cfg.settings;
   validateConfig = required: file:
     pkgs.runCommand "validate-envoy-conf" { } ''
-      ${cfg.package}/bin/envoy --log-level error --mode validate -c "${file}" ${lib.optionalString (!required) "|| true"}
+      ${cfg.package}/bin/envoy --log-level error --mode validate -c "${file}" ${
+        lib.optionalString (!required) "|| true"
+      }
       cp "${file}" "$out"
     '';
-in
 
-{
+in {
   options.services.envoy = {
     enable = mkEnableOption (lib.mdDoc "Envoy reverse proxy");
 
@@ -64,7 +65,9 @@ in
       requires = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/envoy -c ${validateConfig cfg.requireValidConfig conf}";
+        ExecStart = "${cfg.package}/bin/envoy -c ${
+            validateConfig cfg.requireValidConfig conf
+          }";
         CacheDirectory = [ "envoy" ];
         LogsDirectory = [ "envoy" ];
         Restart = "no";
@@ -88,7 +91,8 @@ in
         ProtectKernelTunables = true;
         ProtectProc = "ptraceable";
         ProtectSystem = "strict";
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" "AF_XDP" ];
+        RestrictAddressFamilies =
+          [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" "AF_XDP" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";

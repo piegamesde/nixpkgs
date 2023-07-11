@@ -1,4 +1,5 @@
-{stdenv, lib, vala, meson, ninja, pkg-config, fetchFromGitea, gobject-introspection, glib, gtk3, libgflow}:
+{ stdenv, lib, vala, meson, ninja, pkg-config, fetchFromGitea
+, gobject-introspection, glib, gtk3, libgflow }:
 
 stdenv.mkDerivation rec {
   pname = "libgtkflow3";
@@ -15,30 +16,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-JoVq7U5JQ3pRxptR7igWFw7lcBTsgr3aVXxayLqhyFo=";
   };
 
-  nativeBuildInputs = [
-    vala
-    meson
-    ninja
-    pkg-config
-    gobject-introspection
-  ];
+  nativeBuildInputs = [ vala meson ninja pkg-config gobject-introspection ];
 
-  buildInputs = [
-    gtk3
-    glib
-    libgflow
-  ];
+  buildInputs = [ gtk3 glib libgflow ];
 
   postFixup = ''
     # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.
     moveToOutput "share/doc" "$devdoc"
   '';
 
-  mesonFlags = [
-    "-Denable_valadoc=true"
-    "-Denable_gtk4=false"
-    "-Denable_gflow=false"
-  ];
+  mesonFlags =
+    [ "-Denable_valadoc=true" "-Denable_gtk4=false" "-Denable_gflow=false" ];
 
   postPatch = ''
     rm -r libgflow

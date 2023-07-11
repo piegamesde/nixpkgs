@@ -1,25 +1,11 @@
-{ lib
-, mkDerivation
-, cmake
-, extra-cmake-modules
-, kcoreaddons
-, ki18n
-, kirigami2
-, mauikit
-, mauikit-filebrowsing
-, qtgraphicaleffects
-, qtmultimedia
-, qtquickcontrols2
-, gst_all_1
-}:
+{ lib, mkDerivation, cmake, extra-cmake-modules, kcoreaddons, ki18n, kirigami2
+, mauikit, mauikit-filebrowsing, qtgraphicaleffects, qtmultimedia
+, qtquickcontrols2, gst_all_1 }:
 
 mkDerivation {
   pname = "booth";
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
 
   buildInputs = [
     kcoreaddons

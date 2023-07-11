@@ -22,10 +22,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "An inline issue manager";
-    homepage    = "https://goosecode.com/watson/";
-    license     = with licenses; mit;
+    homepage = "https://goosecode.com/watson/";
+    license = with licenses; mit;
     maintainers = with maintainers; [ robertodr nicknovitski ];
     mainProgram = "watson";
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 }

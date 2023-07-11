@@ -1,25 +1,7 @@
-{ lib
-, clangStdenv
-, fetchFromGitLab
-, libclang
-, rustPlatform
-, meson
-, ninja
-, pkg-config
-, glib
-, gtk4
-, libadwaita
-, zbar
-, sqlite
-, openssl
-, pipewire
-, gstreamer
-, gst-plugins-base
-, gst-plugins-bad
-, wrapGAppsHook4
-, appstream-glib
-, desktop-file-utils
-}:
+{ lib, clangStdenv, fetchFromGitLab, libclang, rustPlatform, meson, ninja
+, pkg-config, glib, gtk4, libadwaita, zbar, sqlite, openssl, pipewire, gstreamer
+, gst-plugins-base, gst-plugins-bad, wrapGAppsHook4, appstream-glib
+, desktop-file-utils }:
 
 clangStdenv.mkDerivation rec {
   pname = "gnome-decoder";
@@ -39,18 +21,9 @@ clangStdenv.mkDerivation rec {
     hash = "sha256-3j1hoFffQzWBy4IKtmoMkLBJmNbntpyn0sjv1K0MmDo=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    wrapGAppsHook4
-    appstream-glib
-    desktop-file-utils
-  ] ++ (with rustPlatform; [
-    rust.cargo
-    rust.rustc
-    cargoSetupHook
-  ]);
+  nativeBuildInputs =
+    [ meson ninja pkg-config wrapGAppsHook4 appstream-glib desktop-file-utils ]
+    ++ (with rustPlatform; [ rust.cargo rust.rustc cargoSetupHook ]);
 
   buildInputs = [
     glib

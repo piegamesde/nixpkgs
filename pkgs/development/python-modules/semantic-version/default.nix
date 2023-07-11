@@ -1,9 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, pythonOlder
-, pytestCheckHook
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "semantic-version";
@@ -18,13 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-vau20zaZjLs3jUuds6S1ah4yNXAdwF6iaQ2amX7VBBw=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "semantic_version"
-  ];
+  pythonImportsCheck = [ "semantic_version" ];
 
   meta = with lib; {
     description = "A library implementing the 'SemVer' scheme";

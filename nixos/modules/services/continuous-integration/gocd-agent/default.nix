@@ -37,8 +37,15 @@ in {
       };
 
       packages = mkOption {
-        default = [ pkgs.stdenv pkgs.jre pkgs.git config.programs.ssh.package pkgs.nix ];
-        defaultText = literalExpression "[ pkgs.stdenv pkgs.jre pkgs.git config.programs.ssh.package pkgs.nix ]";
+        default = [
+          pkgs.stdenv
+          pkgs.jre
+          pkgs.git
+          config.programs.ssh.package
+          pkgs.nix
+        ];
+        defaultText = literalExpression
+          "[ pkgs.stdenv pkgs.jre pkgs.git config.programs.ssh.package pkgs.nix ]";
         type = types.listOf types.package;
         description = lib.mdDoc ''
           Packages to add to PATH for the Go.CD agent process.
@@ -168,21 +175,17 @@ in {
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
-      environment =
-        let
-          selectedSessionVars =
-            lib.filterAttrs (n: v: builtins.elem n [ "NIX_PATH" ])
-              config.environment.sessionVariables;
-        in
-          selectedSessionVars //
-            {
-              NIX_REMOTE = "daemon";
-              AGENT_WORK_DIR = cfg.workDir;
-              AGENT_STARTUP_ARGS = ''${concatStringsSep " "  cfg.startupOptions}'';
-              LOG_DIR = cfg.workDir;
-              LOG_FILE = "${cfg.workDir}/go-agent-start.log";
-            } //
-            cfg.environment;
+      environment = let
+        selectedSessionVars =
+          lib.filterAttrs (n: v: builtins.elem n [ "NIX_PATH" ])
+          config.environment.sessionVariables;
+      in selectedSessionVars // {
+        NIX_REMOTE = "daemon";
+        AGENT_WORK_DIR = cfg.workDir;
+        AGENT_STARTUP_ARGS = "${concatStringsSep " " cfg.startupOptions}";
+        LOG_DIR = cfg.workDir;
+        LOG_FILE = "${cfg.workDir}/go-agent-start.log";
+      } // cfg.environment;
 
       path = cfg.packages;
 
@@ -198,7 +201,9 @@ in {
 
         mkdir -p config
         rm -f config/autoregister.properties
-        ln -s "${pkgs.writeText "autoregister.properties" cfg.agentConfig}" config/autoregister.properties
+        ln -s "${
+          pkgs.writeText "autoregister.properties" cfg.agentConfig
+        }" config/autoregister.properties
 
         ${pkgs.git}/bin/git config --global --add http.sslCAinfo /etc/ssl/certs/ca-certificates.crt
         ${pkgs.jre}/bin/java ${concatStringsSep " " cfg.startupOptions} \

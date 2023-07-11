@@ -1,26 +1,7 @@
-{ lib
-, callPackage
-, buildPythonPackage
-, fetchPypi
-, installShellFiles
-, ansible
-, cryptography
-, jinja2
-, junit-xml
-, lxml
-, ncclient
-, packaging
-, paramiko
-, pexpect
-, psutil
-, pycrypto
-, pyyaml
-, requests
-, resolvelib
-, scp
-, windowsSupport ? false, pywinrm
-, xmltodict
-}:
+{ lib, callPackage, buildPythonPackage, fetchPypi, installShellFiles, ansible
+, cryptography, jinja2, junit-xml, lxml, ncclient, packaging, paramiko, pexpect
+, psutil, pycrypto, pyyaml, requests, resolvelib, scp, windowsSupport ? false
+, pywinrm, xmltodict }:
 
 buildPythonPackage rec {
   pname = "ansible-core";
@@ -39,9 +20,7 @@ buildPythonPackage rec {
       --replace "[python," "["
   '';
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   propagatedBuildInputs = [
     # depend on ansible instead of the other way around
@@ -73,7 +52,10 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    changelog = "https://github.com/ansible/ansible/blob/v${version}/changelogs/CHANGELOG-v${lib.versions.majorMinor version}.rst";
+    changelog =
+      "https://github.com/ansible/ansible/blob/v${version}/changelogs/CHANGELOG-v${
+        lib.versions.majorMinor version
+      }.rst";
     description = "Radically simple IT automation";
     homepage = "https://www.ansible.com";
     license = licenses.gpl3Plus;

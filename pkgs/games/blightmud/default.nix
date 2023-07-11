@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, alsa-lib
-, openssl
-, withTTS ? false
-, speechd
-}:
+{ stdenv, lib, fetchFromGitHub, rustPlatform, pkg-config, alsa-lib, openssl
+, withTTS ? false, speechd }:
 
 rustPlatform.buildRustPackage rec {
   pname = "blightmud";
@@ -28,25 +20,23 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ alsa-lib openssl ] ++ lib.optionals withTTS [ speechd ];
 
-  checkFlags =
-    let
-      # Most of Blightmud's unit tests pass without trouble in the isolated
-      # Nixpkgs build env. The following tests need to be skipped.
-      skipList = [
-        "test_connect"
-        "test_gmcp_negotiation"
-        "test_ttype_negotiation"
-        "test_reconnect"
-        "test_is_connected"
-        "test_mud"
-        "test_server"
-        "test_lua_script"
-        "timer_test"
-        "validate_assertion_fail"
-      ];
-      skipFlag = test: "--skip " + test;
-    in
-    builtins.concatStringsSep " " (builtins.map skipFlag skipList);
+  checkFlags = let
+    # Most of Blightmud's unit tests pass without trouble in the isolated
+    # Nixpkgs build env. The following tests need to be skipped.
+    skipList = [
+      "test_connect"
+      "test_gmcp_negotiation"
+      "test_ttype_negotiation"
+      "test_reconnect"
+      "test_is_connected"
+      "test_mud"
+      "test_server"
+      "test_lua_script"
+      "timer_test"
+      "validate_assertion_fail"
+    ];
+    skipFlag = test: "--skip " + test;
+  in builtins.concatStringsSep " " (builtins.map skipFlag skipList);
 
   meta = with lib; {
     description = "A terminal MUD client written in Rust";

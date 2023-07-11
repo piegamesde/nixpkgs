@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  zig,
-  testers,
-  zf,
-}:
+{ lib, stdenv, fetchFromGitHub, zig, testers, zf, }:
 stdenv.mkDerivation rec {
   pname = "zf";
   version = "0.8.0";
@@ -32,11 +25,12 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests.version = testers.testVersion {package = zf;};
+  passthru.tests.version = testers.testVersion { package = zf; };
 
   meta = with lib; {
     homepage = "https://github.com/natecraddock/zf";
-    description = "A commandline fuzzy finder that prioritizes matches on filenames";
+    description =
+      "A commandline fuzzy finder that prioritizes matches on filenames";
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = with maintainers; [ dit7ya mmlb ];

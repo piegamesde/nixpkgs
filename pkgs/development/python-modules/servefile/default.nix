@@ -1,11 +1,5 @@
-{ stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, lib
-, pyopenssl
-, pytestCheckHook
-, requests
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, lib, pyopenssl, pytestCheckHook
+, requests }:
 
 buildPythonPackage rec {
   pname = "servefile";

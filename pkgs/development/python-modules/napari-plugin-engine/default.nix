@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools-scm
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools-scm, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "napari-plugin-engine";
@@ -22,16 +17,12 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   # Circular dependency: napari
   doCheck = false;
 
-  pythonImportsCheck = [
-    "napari_plugin_engine"
-  ];
+  pythonImportsCheck = [ "napari_plugin_engine" ];
 
   meta = with lib; {
     description = "First generation napari plugin engine";

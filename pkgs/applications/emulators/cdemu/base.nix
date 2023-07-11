@@ -1,6 +1,7 @@
 { pname, version, pkgSha256 }:
-attrs@{ lib, stdenv, fetchurl, cmake, pkg-config, buildInputs, drvParams ? {}, ... }:
-stdenv.mkDerivation ( rec {
+attrs@{ lib, stdenv, fetchurl, cmake, pkg-config, buildInputs, drvParams ? { }
+, ... }:
+stdenv.mkDerivation (rec {
   inherit pname version buildInputs;
   src = fetchurl {
     url = "mirror://sourceforge/cdemu/${pname}-${version}.tar.xz";

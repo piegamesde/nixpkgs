@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, openssl
-, libplist
-, pkg-config
-, wrapGAppsHook
-, avahi
-, avahi-compat
-, gst_all_1
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, openssl, libplist, pkg-config
+, wrapGAppsHook, avahi, avahi-compat, gst_all_1 }:
 
 stdenv.mkDerivation rec {
   pname = "uxplay";
@@ -28,13 +18,7 @@ stdenv.mkDerivation rec {
     sed -i '/PKG_CONFIG_EXECUTABLE/d' renderers/CMakeLists.txt
   '';
 
-  nativeBuildInputs = [
-    cmake
-    openssl
-    libplist
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ cmake openssl libplist pkg-config wrapGAppsHook ];
 
   buildInputs = [
     avahi

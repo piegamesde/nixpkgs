@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, python
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, python, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "slicerator";

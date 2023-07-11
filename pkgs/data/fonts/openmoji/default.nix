@@ -1,21 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, scfbuild
-, fontforge
-, libuninameslist
-, nodejs
-, nodePackages
-, python3Packages
-, variant ? "color" # "color" or "black"
+{ lib, stdenv, fetchFromGitHub, fetchpatch, scfbuild, fontforge, libuninameslist
+, nodejs, nodePackages, python3Packages, variant ? "color" # "color" or "black"
 }:
 
 let
-  filename = builtins.replaceStrings
-    [ "color"              "black"              ]
-    [ "OpenMoji-Color.ttf" "OpenMoji-Black.ttf" ]
-    variant;
+  filename = builtins.replaceStrings [ "color" "black" ] [
+    "OpenMoji-Color.ttf"
+    "OpenMoji-Black.ttf"
+  ] variant;
 
   # With newer fontforge the build hangs, see
   # https://github.com/NixOS/nixpkgs/issues/167869
@@ -31,19 +22,20 @@ let
     };
     patches = [
       (fetchpatch {
-        url = "https://salsa.debian.org/fonts-team/fontforge/raw/76bffe6ccf8ab20a0c81476a80a87ad245e2fd1c/debian/patches/0001-add-extra-cmake-install-rules.patch";
+        url =
+          "https://salsa.debian.org/fonts-team/fontforge/raw/76bffe6ccf8ab20a0c81476a80a87ad245e2fd1c/debian/patches/0001-add-extra-cmake-install-rules.patch";
         sha256 = "u3D9od2xLECNEHhZ+8dkuv9818tPkdP6y/Tvd9CADJg=";
       })
       (fetchpatch {
-        url = "https://github.com/fontforge/fontforge/commit/69e263b2aff29ad22f97f13935cfa97a1eabf207.patch";
+        url =
+          "https://github.com/fontforge/fontforge/commit/69e263b2aff29ad22f97f13935cfa97a1eabf207.patch";
         sha256 = "06yyf90605aq6ppfiz83mqkdmnaq5418axp9jgsjyjq78b00xb29";
       })
     ];
     buildInputs = old.buildInputs ++ [ libuninameslist ];
   });
-  scfbuild-with-fontforge-20201107 = scfbuild.override (old: {
-    fontforge = fontforge-20201107;
-  });
+  scfbuild-with-fontforge-20201107 =
+    scfbuild.override (old: { fontforge = fontforge-20201107; });
 
 in stdenv.mkDerivation rec {
   pname = "openmoji";
@@ -90,6 +82,7 @@ in stdenv.mkDerivation rec {
     platforms = platforms.all;
     homepage = "https://openmoji.org/";
     downloadPage = "https://github.com/hfg-gmuend/openmoji/releases";
-    description = "Open-source emojis for designers, developers and everyone else";
+    description =
+      "Open-source emojis for designers, developers and everyone else";
   };
 }

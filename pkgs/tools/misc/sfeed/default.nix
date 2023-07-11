@@ -12,14 +12,18 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ncurses ];
 
-  makeFlags = [ "RANLIB:=$(RANLIB)" "SFEED_CURSES_LDFLAGS:=-lncurses" ]
-    # use macOS's strlcat() and strlcpy() instead of vendored ones
+  makeFlags = [
+    "RANLIB:=$(RANLIB)"
+    "SFEED_CURSES_LDFLAGS:=-lncurses"
+  ]
+  # use macOS's strlcat() and strlcpy() instead of vendored ones
     ++ lib.optional stdenv.isDarwin "COMPATOBJ:=";
 
   installFlags = [ "PREFIX=$(out)" ];
 
   # otherwise does not find SIGWINCH
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-D_DARWIN_C_SOURCE";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin "-D_DARWIN_C_SOURCE";
 
   meta = with lib; {
     homepage = "https://codemadness.org/sfeed-simple-feed-parser.html";

@@ -1,25 +1,9 @@
-{ lib
-, stdenv
-, autoreconfHook
-, c-ares
-, cryptopp
-, curl
-, fetchFromGitHub
-  # build fails with latest ffmpeg, see https://github.com/meganz/MEGAcmd/issues/523.
-  # to be re-enabled when patch available
-  # , ffmpeg
-, freeimage
-, gcc-unwrapped
-, libmediainfo
-, libraw
-, libsodium
-, libuv
-, libzen
-, pcre-cpp
-, pkg-config
-, readline
-, sqlite
-}:
+{ lib, stdenv, autoreconfHook, c-ares, cryptopp, curl, fetchFromGitHub
+# build fails with latest ffmpeg, see https://github.com/meganz/MEGAcmd/issues/523.
+# to be re-enabled when patch available
+# , ffmpeg
+, freeimage, gcc-unwrapped, libmediainfo, libraw, libsodium, libuv, libzen
+, pcre-cpp, pkg-config, readline, sqlite }:
 
 stdenv.mkDerivation rec {
   pname = "megacmd";

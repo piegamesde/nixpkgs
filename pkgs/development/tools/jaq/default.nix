@@ -14,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "regex-syntax-0.6.28" = "sha256-FltQ1TfA4XV+jC3dQZf7soTHc8R/nSwToPGcQUVwVYs=";
+      "regex-syntax-0.6.28" =
+        "sha256-FltQ1TfA4XV+jC3dQZf7soTHc8R/nSwToPGcQUVwVYs=";
     };
   };
 

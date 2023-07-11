@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, poetry-core
-, pytest-flakes
-, pytest-mock
-, pytest-socket
-, pytestCheckHook
-, six
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, poetry-core
+, pytest-flakes, pytest-mock, pytest-socket, pytestCheckHook, six }:
 
 buildPythonPackage rec {
   pname = "url-normalize";
@@ -22,26 +13,19 @@ buildPythonPackage rec {
     hash = "sha256-WE3MM9B/voI23taFbLp2FYhl0uxOfuUWsaCTBG1hyiY=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [
-    pytest-flakes
-    pytest-mock
-    pytest-socket
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ pytest-flakes pytest-mock pytest-socket pytestCheckHook ];
 
   patches = [
     # Switch to poetry-core, https://github.com/niksite/url-normalize/pull/28
     (fetchpatch {
       name = "switch-to-poetry-core.patch";
-      url = "https://github.com/niksite/url-normalize/commit/b8557b10c977b191cc9d37e6337afe874a24ad08.patch";
+      url =
+        "https://github.com/niksite/url-normalize/commit/b8557b10c977b191cc9d37e6337afe874a24ad08.patch";
       hash = "sha256-SVCQATV9V6HbLmjOHs7V7eBagO0PuqZLubIJghBYfQQ=";
     })
   ];
@@ -51,9 +35,7 @@ buildPythonPackage rec {
     sed -i "/--flakes/d" tox.ini
   '';
 
-  pythonImportsCheck = [
-    "url_normalize"
-  ];
+  pythonImportsCheck = [ "url_normalize" ];
 
   meta = with lib; {
     description = "URL normalization for Python";

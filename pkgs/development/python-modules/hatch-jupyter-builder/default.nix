@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, pytest-mock
-, pytestCheckHook
-, tomli
-, twine
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, hatchling, pytest-mock
+, pytestCheckHook, tomli, twine }:
 
 buildPythonPackage rec {
   pname = "hatch-jupyter-builder";
@@ -20,16 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-Ns5jrVfTAA7NuvUok3/13nIpXSSVZ6WRkgHyTuxkSKA=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-    tomli
-    twine
-  ];
+  nativeCheckInputs = [ pytest-mock pytestCheckHook tomli twine ];
 
   disabledTests = [
     # tests pip install, which unsuprisingly fails
@@ -37,7 +23,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog = "https://github.com/jupyterlab/hatch-jupyter-builder/releases/tag/v${version}";
+    changelog =
+      "https://github.com/jupyterlab/hatch-jupyter-builder/releases/tag/v${version}";
     description = "hatch plugin to help build Jupyter packages";
     homepage = "https://github.com/jupyterlab/hatch-jupyter-builder";
     license = licenses.bsd3;

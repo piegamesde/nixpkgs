@@ -1,19 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, ninja
-, meson
-, scdoc
-, wayland-protocols
-, wayland-scanner
-, freetype
-, harfbuzz
-, cairo
-, pango
-, wayland
-, libxkbcommon
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, ninja, meson, scdoc
+, wayland-protocols, wayland-scanner, freetype, harfbuzz, cairo, pango, wayland
+, libxkbcommon }:
 
 stdenv.mkDerivation rec {
   pname = "tofi";
@@ -27,9 +14,8 @@ stdenv.mkDerivation rec {
   };
 
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs = [
-    meson ninja pkg-config scdoc wayland-protocols wayland-scanner
-  ];
+  nativeBuildInputs =
+    [ meson ninja pkg-config scdoc wayland-protocols wayland-scanner ];
   buildInputs = [ freetype harfbuzz cairo pango wayland libxkbcommon ];
 
   meta = with lib; {

@@ -8,7 +8,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/hannesm/ocaml-${pname}/releases/download/v${version}/${pname}-v${version}.tbz";
+    url =
+      "https://github.com/hannesm/ocaml-${pname}/releases/download/v${version}/${pname}-v${version}.tbz";
     hash = "sha256-uSbW2krEWquZlzXdK7/R91ETFnENeRr6NhAGtv42/Vs=";
   };
 
@@ -17,7 +18,8 @@ buildDunePackage rec {
   doCheck = true;
 
   meta = with lib; {
-    description = "HMAC-based Extract-and-Expand Key Derivation Function (RFC 5869)";
+    description =
+      "HMAC-based Extract-and-Expand Key Derivation Function (RFC 5869)";
     homepage = "https://github.com/hannesm/ocaml-hkdf";
     license = licenses.mit;
     maintainers = with maintainers; [ sternenseemann ];

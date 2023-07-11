@@ -1,15 +1,5 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytest-asyncio
-, pytest-freezer
-, pytestCheckHook
-, pythonOlder
-, yarl
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
+, pytest-asyncio, pytest-freezer, pytestCheckHook, pythonOlder, yarl }:
 
 buildPythonPackage rec {
   pname = "energyzero";
@@ -31,30 +21,20 @@ buildPythonPackage rec {
       --replace 'addopts = "--cov"' ""
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    yarl
-  ];
+  propagatedBuildInputs = [ aiohttp yarl ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytest-freezer
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ aresponses pytest-asyncio pytest-freezer pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "energyzero"
-  ];
+  pythonImportsCheck = [ "energyzero" ];
 
   meta = with lib; {
     description = "Module for getting the dynamic prices from EnergyZero";
     homepage = "https://github.com/klaasnicolaas/python-energyzero";
-    changelog = "https://github.com/klaasnicolaas/python-energyzero/releases/tag/v${version}";
+    changelog =
+      "https://github.com/klaasnicolaas/python-energyzero/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

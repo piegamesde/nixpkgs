@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, strenum
-, token-bucket
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, strenum, token-bucket
 }:
 
 buildPythonPackage rec {
@@ -20,20 +15,16 @@ buildPythonPackage rec {
     hash = "sha256-2Et4ozVf9t+tp2XtLbDk/LgLIU+jQAEAlU8hA5lpxdk=";
   };
 
-  propagatedBuildInputs = [
-    strenum
-    token-bucket
-  ];
+  propagatedBuildInputs = [ strenum token-bucket ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "limiter"
-  ];
+  pythonImportsCheck = [ "limiter" ];
 
   meta = with lib; {
-    description = "Python rate-limiting, thread-safe and asynchronous decorators and context managers";
+    description =
+      "Python rate-limiting, thread-safe and asynchronous decorators and context managers";
     homepage = "https://github.com/alexdelorenzo/limiter";
     license = with licenses; [ agpl3Only ];
     maintainers = with maintainers; [ fab ];

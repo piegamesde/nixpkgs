@@ -1,24 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja
-, secureBuild ? false
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, ninja, secureBuild ? false }:
 
-let
-  soext = stdenv.hostPlatform.extensions.sharedLibrary;
-in
-stdenv.mkDerivation rec {
-  pname   = "mimalloc";
+let soext = stdenv.hostPlatform.extensions.sharedLibrary;
+in stdenv.mkDerivation rec {
+  pname = "mimalloc";
   version = "2.1.2";
 
   src = fetchFromGitHub {
-    owner  = "microsoft";
-    repo   = pname;
-    rev    = "v${version}";
+    owner = "microsoft";
+    repo = pname;
+    rev = "v${version}";
     sha256 = "sha256-kYhfufffM4r+ZVgcjnulqFlf1756pirlPysGZnUBzt8=";
   };
 
   doCheck = !stdenv.hostPlatform.isStatic;
   preCheck = let
-    ldLibraryPathEnv = if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
+    ldLibraryPathEnv =
+      if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
   in ''
     export ${ldLibraryPathEnv}="$(pwd)/build:''${${ldLibraryPathEnv}}"
   '';
@@ -27,8 +24,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DMI_INSTALL_TOPLEVEL=ON" ]
     ++ lib.optionals secureBuild [ "-DMI_SECURE=ON" ]
     ++ lib.optionals stdenv.hostPlatform.isStatic [ "-DMI_BUILD_SHARED=OFF" ]
-    ++ lib.optionals (!doCheck) [ "-DMI_BUILD_TESTS=OFF" ]
-  ;
+    ++ lib.optionals (!doCheck) [ "-DMI_BUILD_TESTS=OFF" ];
 
   postInstall = let
     rel = lib.versions.majorMinor version;
@@ -51,9 +47,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Compact, fast, general-purpose memory allocator";
-    homepage    = "https://github.com/microsoft/mimalloc";
-    license     = licenses.bsd2;
-    platforms   = platforms.unix;
+    homepage = "https://github.com/microsoft/mimalloc";
+    license = licenses.bsd2;
+    platforms = platforms.unix;
     maintainers = with maintainers; [ kamadorueda thoughtpolice ];
   };
 }

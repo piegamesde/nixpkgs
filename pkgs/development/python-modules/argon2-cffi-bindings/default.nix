@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, cffi
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchPypi, cffi, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "argon2-cffi-bindings";
@@ -14,13 +9,9 @@ buildPythonPackage rec {
     sha256 = "bb89ceffa6c791807d1305ceb77dbfacc5aa499891d2c55661c6459651fc39e3";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    cffi
-  ];
+  propagatedBuildInputs = [ cffi ];
 
   # tarball doesn't include tests, but the upstream tests are minimal
   doCheck = false;

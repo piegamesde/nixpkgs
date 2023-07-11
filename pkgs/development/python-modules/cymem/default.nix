@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, cython
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, cython, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "cymem";
@@ -16,13 +11,9 @@ buildPythonPackage rec {
     hash = "sha256-lYMRFFMS+ETjWd4xi12ezC8CVLbLJfynmOU1DpYQcck=";
   };
 
-  propagatedBuildInputs = [
-    cython
-  ];
+  propagatedBuildInputs = [ cython ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     TEMPDIR=$(mktemp -d)
@@ -33,7 +24,6 @@ buildPythonPackage rec {
   postCheck = ''
     popd
   '';
-
 
   meta = with lib; {
     description = "Cython memory pool for RAII-style memory management";

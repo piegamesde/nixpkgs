@@ -1,5 +1,5 @@
-{ lib, stdenv, linkFarm, lightdm-tiny-greeter, fetchFromGitHub
-, pkg-config, lightdm, gtk3, glib, wrapGAppsHook, conf ? "" }:
+{ lib, stdenv, linkFarm, lightdm-tiny-greeter, fetchFromGitHub, pkg-config
+, lightdm, gtk3, glib, wrapGAppsHook, conf ? "" }:
 
 stdenv.mkDerivation rec {
   pname = "lightdm-tiny-greeter";
@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.xgreeters = linkFarm "lightdm-tiny-greeter-xgreeters" [{
-    path = "${lightdm-tiny-greeter}/share/xgreeters/lightdm-tiny-greeter.desktop";
+    path =
+      "${lightdm-tiny-greeter}/share/xgreeters/lightdm-tiny-greeter.desktop";
     name = "lightdm-tiny-greeter.desktop";
   }];
 

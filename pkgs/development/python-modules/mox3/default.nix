@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pythonAtLeast
-, subunit
-, testrepository
-, testtools
-, six
-, pbr
-, fixtures
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, pythonAtLeast, subunit
+, testrepository, testtools, six, pbr, fixtures }:
 
 buildPythonPackage rec {
   pname = "mox3";

@@ -1,30 +1,44 @@
-{stdenv, lib, unzip, mkLicenses}:
-{packages, os ? null, nativeBuildInputs ? [], buildInputs ? [], patchesInstructions ? {}, meta ? {}, ...}@args:
+{ stdenv, lib, unzip, mkLicenses }:
+{ packages, os ? null, nativeBuildInputs ? [ ], buildInputs ? [ ]
+, patchesInstructions ? { }, meta ? { }, ... }@args:
 
 let
-  extraParams = removeAttrs args [ "packages" "os" "buildInputs" "nativeBuildInputs" "patchesInstructions" ];
-  sortedPackages = builtins.sort (x: y: builtins.lessThan x.name y.name) packages;
+  extraParams = removeAttrs args [
+    "packages"
+    "os"
+    "buildInputs"
+    "nativeBuildInputs"
+    "patchesInstructions"
+  ];
+  sortedPackages =
+    builtins.sort (x: y: builtins.lessThan x.name y.name) packages;
 
   mkXmlAttrs = attrs:
-    lib.concatStrings (lib.mapAttrsToList (name: value: " ${name}=\"${value}\"") attrs);
+    lib.concatStrings
+    (lib.mapAttrsToList (name: value: " ${name}=\"${value}\"") attrs);
   mkXmlValues = attrs:
     lib.concatStrings (lib.mapAttrsToList (name: value:
-      let
-        tag = builtins.head (builtins.match "([^:]+).*" name);
-      in
-        if builtins.typeOf value == "string" then "<${tag}>${value}</${tag}>" else mkXmlDoc name value
-    ) attrs);
+      let tag = builtins.head (builtins.match "([^:]+).*" name);
+      in if builtins.typeOf value == "string" then
+        "<${tag}>${value}</${tag}>"
+      else
+        mkXmlDoc name value) attrs);
   mkXmlDoc = name: doc:
-      let
-        tag = builtins.head (builtins.match "([^:]+).*" name);
-        hasXmlAttrs = builtins.hasAttr "element-attributes" doc;
-        xmlValues = removeAttrs doc [ "element-attributes" ];
-        hasXmlValues = builtins.length (builtins.attrNames xmlValues) > 0;
-      in
-        if hasXmlAttrs && hasXmlValues then "<${tag}${mkXmlAttrs doc.element-attributes}>${mkXmlValues xmlValues }</${tag}>"
-        else if hasXmlAttrs && !hasXmlValues then "<${tag}${mkXmlAttrs doc.element-attributes}/>"
-        else if !hasXmlAttrs && hasXmlValues then "<${tag}>${mkXmlValues xmlValues}</${tag}>"
-        else "<${tag}/>";
+    let
+      tag = builtins.head (builtins.match "([^:]+).*" name);
+      hasXmlAttrs = builtins.hasAttr "element-attributes" doc;
+      xmlValues = removeAttrs doc [ "element-attributes" ];
+      hasXmlValues = builtins.length (builtins.attrNames xmlValues) > 0;
+    in if hasXmlAttrs && hasXmlValues then
+      "<${tag}${mkXmlAttrs doc.element-attributes}>${
+        mkXmlValues xmlValues
+      }</${tag}>"
+    else if hasXmlAttrs && !hasXmlValues then
+      "<${tag}${mkXmlAttrs doc.element-attributes}/>"
+    else if !hasXmlAttrs && hasXmlValues then
+      "<${tag}>${mkXmlValues xmlValues}</${tag}>"
+    else
+      "<${tag}/>";
   mkXmlPackage = package: ''
     <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     <ns2:repository
@@ -42,14 +56,21 @@ let
       xmlns:ns13="http://schemas.android.com/sdk/android/repo/sys-img2/02"
       xmlns:ns14="http://schemas.android.com/sdk/android/repo/sys-img2/01"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-      <license id="${package.license}" type="text">${lib.concatStringsSep "---" (mkLicenses package.license)}</license>
-      <localPackage path="${builtins.replaceStrings [ "/" ] [ ";" ] package.path}" obsolete="${
-          if (lib.hasAttrByPath [ "obsolete" ] package)
-          then package.obsolete else "false"
-        }">
+      <license id="${package.license}" type="text">${
+        lib.concatStringsSep "---" (mkLicenses package.license)
+      }</license>
+      <localPackage path="${
+        builtins.replaceStrings [ "/" ] [ ";" ] package.path
+      }" obsolete="${
+        if (lib.hasAttrByPath [ "obsolete" ] package) then
+          package.obsolete
+        else
+          "false"
+      }">
         ${mkXmlDoc "type-details" package.type-details}
         ${mkXmlDoc "revision" package.revision-details}
-        ${lib.optionalString (lib.hasAttrByPath [ "dependencies" ] package)
+        ${
+          lib.optionalString (lib.hasAttrByPath [ "dependencies" ] package)
           (mkXmlDoc "dependencies" package.dependencies)
         }
         <display-name>${package.displayName}</display-name>
@@ -57,14 +78,16 @@ let
       </localPackage>
     </ns2:repository>
   '';
-in
-stdenv.mkDerivation ({
+in stdenv.mkDerivation ({
   inherit buildInputs;
   pname = lib.concatMapStringsSep "-" (package: package.name) sortedPackages;
-  version = lib.concatMapStringsSep "-" (package: package.revision) sortedPackages;
+  version =
+    lib.concatMapStringsSep "-" (package: package.revision) sortedPackages;
   src = map (package:
-    if os != null && builtins.hasAttr os package.archives then package.archives.${os} else package.archives.all
-  ) packages;
+    if os != null && builtins.hasAttr os package.archives then
+      package.archives.${os}
+    else
+      package.archives.all) packages;
   nativeBuildInputs = [ unzip ] ++ nativeBuildInputs;
   preferLocalBuild = true;
 
@@ -111,6 +134,7 @@ stdenv.mkDerivation ({
   dontAutoPatchelf = true;
 
   meta = {
-    description = lib.concatMapStringsSep "\n" (package: package.displayName) packages;
+    description =
+      lib.concatMapStringsSep "\n" (package: package.displayName) packages;
   } // meta;
 } // extraParams)

@@ -1,49 +1,25 @@
-{ stdenv
-, mkDerivation
-, lib
-, fetchurl
+{ stdenv, mkDerivation, lib, fetchurl
 # native
-, cmake
-, pkg-config
+, cmake, pkg-config
 # not native
-, gdal
-, wxGTK32
-, proj
-, dxflib
-, curl
-, libiodbc
-, xz
-, libharu
-, opencv
-, vigra
-, postgresql
-, Cocoa
-, unixODBC
-, poppler
-, hdf5
-, netcdf
-, sqlite
-, qhull
-, giflib
-, libsvm
-, fftw
-}:
+, gdal, wxGTK32, proj, dxflib, curl, libiodbc, xz, libharu, opencv, vigra
+, postgresql, Cocoa, unixODBC, poppler, hdf5, netcdf, sqlite, qhull, giflib
+, libsvm, fftw }:
 
 mkDerivation rec {
   pname = "saga";
   version = "9.0.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/saga-gis/SAGA%20-%20${lib.versions.major version}/SAGA%20-%20${version}/saga-${version}.tar.gz";
+    url = "mirror://sourceforge/saga-gis/SAGA%20-%20${
+        lib.versions.major version
+      }/SAGA%20-%20${version}/saga-${version}.tar.gz";
     sha256 = "sha256-8S8Au+aLwl8X0GbqPPv2Q6EL98KSoT665aILc5vcbpA=";
   };
 
   sourceRoot = "saga-${version}/saga-gis";
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [
     curl
@@ -65,17 +41,10 @@ mkDerivation rec {
   ]
   # See https://groups.google.com/forum/#!topic/nix-devel/h_vSzEJAPXs
   # for why the have additional buildInputs on darwin
-  ++ lib.optionals stdenv.isDarwin [
-    Cocoa
-    unixODBC
-    poppler
-    netcdf
-    sqlite
-  ];
+    ++ lib.optionals stdenv.isDarwin [ Cocoa unixODBC poppler netcdf sqlite ];
 
-  cmakeFlags = [
-    "-DOpenMP_SUPPORT=${if stdenv.isDarwin then "OFF" else "ON"}"
-  ];
+  cmakeFlags =
+    [ "-DOpenMP_SUPPORT=${if stdenv.isDarwin then "OFF" else "ON"}" ];
 
   meta = with lib; {
     description = "System for Automated Geoscientific Analyses";

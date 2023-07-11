@@ -1,23 +1,9 @@
-{ lib, stdenv, fetchurl, fetchpatch, ncurses, which, perl
-, gdbm ? null
-, openssl ? null
-, cyrus_sasl ? null
-, gnupg ? null
-, gpgme ? null
-, libkrb5 ? null
-, headerCache  ? true
-, sslSupport   ? true
-, saslSupport  ? true
-, smimeSupport ? false
-, gpgSupport   ? false
-, gpgmeSupport ? true
-, imapSupport  ? true
-, pop3Support  ? true
-, smtpSupport  ? true
-, withSidebar  ? true
-, gssSupport   ? true
-, writeScript
-}:
+{ lib, stdenv, fetchurl, fetchpatch, ncurses, which, perl, gdbm ? null
+, openssl ? null, cyrus_sasl ? null, gnupg ? null, gpgme ? null, libkrb5 ? null
+, headerCache ? true, sslSupport ? true, saslSupport ? true
+, smimeSupport ? false, gpgSupport ? false, gpgmeSupport ? true
+, imapSupport ? true, pop3Support ? true, smtpSupport ? true, withSidebar ? true
+, gssSupport ? true, writeScript }:
 assert smimeSupport -> sslSupport;
 assert gpgmeSupport -> sslSupport;
 
@@ -32,25 +18,22 @@ stdenv.mkDerivation rec {
   };
 
   patches = lib.optional smimeSupport (fetchpatch {
-    url = "https://salsa.debian.org/mutt-team/mutt/raw/debian/1.10.1-2/debian/patches/misc/smime.rc.patch";
+    url =
+      "https://salsa.debian.org/mutt-team/mutt/raw/debian/1.10.1-2/debian/patches/misc/smime.rc.patch";
     sha256 = "0b4i00chvx6zj9pcb06x2jysmrcb2znn831lcy32cgfds6gr3nsi";
   });
 
-  buildInputs =
-    [ ncurses which perl ]
-    ++ lib.optional headerCache  gdbm
-    ++ lib.optional sslSupport   openssl
-    ++ lib.optional gssSupport   libkrb5
-    ++ lib.optional saslSupport  cyrus_sasl
-    ++ lib.optional gpgmeSupport gpgme;
+  buildInputs = [ ncurses which perl ] ++ lib.optional headerCache gdbm
+    ++ lib.optional sslSupport openssl ++ lib.optional gssSupport libkrb5
+    ++ lib.optional saslSupport cyrus_sasl ++ lib.optional gpgmeSupport gpgme;
 
   configureFlags = [
-    (lib.enableFeature headerCache  "hcache")
+    (lib.enableFeature headerCache "hcache")
     (lib.enableFeature gpgmeSupport "gpgme")
-    (lib.enableFeature imapSupport  "imap")
-    (lib.enableFeature smtpSupport  "smtp")
-    (lib.enableFeature pop3Support  "pop")
-    (lib.enableFeature withSidebar  "sidebar")
+    (lib.enableFeature imapSupport "imap")
+    (lib.enableFeature smtpSupport "smtp")
+    (lib.enableFeature pop3Support "pop")
+    (lib.enableFeature withSidebar "sidebar")
     "--with-mailpath="
 
     # Look in $PATH at runtime, instead of hardcoding /usr/bin/sendmail
@@ -63,8 +46,8 @@ stdenv.mkDerivation rec {
     # set by the installer, and removing the need for the group 'mail'
     # I set the value 'mailbox' because it is a default in the configure script
     "--with-homespool=mailbox"
-  ] ++ lib.optional sslSupport  "--with-ssl"
-    ++ lib.optional gssSupport  "--with-gss"
+  ] ++ lib.optional sslSupport "--with-ssl"
+    ++ lib.optional gssSupport "--with-gss"
     ++ lib.optional saslSupport "--with-sasl";
 
   postPatch = lib.optionalString (smimeSupport || gpgmeSupport) ''

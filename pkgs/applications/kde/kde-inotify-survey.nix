@@ -1,30 +1,18 @@
-{ mkDerivation
-, lib
-, extra-cmake-modules
-, kauth
-, kcoreaddons
-, kdbusaddons
-, ki18n
-, knotifications
-}:
+{ mkDerivation, lib, extra-cmake-modules, kauth, kcoreaddons, kdbusaddons, ki18n
+, knotifications }:
 
 mkDerivation {
   pname = "kde-inotify-survey";
 
   nativeBuildInputs = [ extra-cmake-modules ];
 
-  buildInputs = [
-    kauth
-    kcoreaddons
-    kdbusaddons
-    ki18n
-    knotifications
-  ];
+  buildInputs = [ kauth kcoreaddons kdbusaddons ki18n knotifications ];
 
   meta = {
-    description = "Tooling for monitoring inotify limits and informing the user when they have been or about to be reached";
+    description =
+      "Tooling for monitoring inotify limits and informing the user when they have been or about to be reached";
     homepage = "https://invent.kde.org/system/kde-inotify-survey";
     license = lib.licenses.gpl2Plus;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

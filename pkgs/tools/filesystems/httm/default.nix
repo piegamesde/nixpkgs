@@ -1,8 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, installShellFiles
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   pname = "httm";
@@ -32,7 +28,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "Interactive, file-level Time Machine-like tool for ZFS/btrfs";
+    description =
+      "Interactive, file-level Time Machine-like tool for ZFS/btrfs";
     homepage = "https://github.com/kimono-koans/httm";
     changelog = "https://github.com/kimono-koans/httm/releases/tag/${version}";
     license = licenses.mpl20;

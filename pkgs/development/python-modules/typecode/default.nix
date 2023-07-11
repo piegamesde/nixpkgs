@@ -1,17 +1,6 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, setuptools-scm
-, attrs
-, pdfminer-six
-, commoncode
-, plugincode
-, binaryornot
-, typecode-libmagic
-, pytestCheckHook
-, pytest-xdist
-, pythonOlder
-}:
+{ lib, fetchPypi, buildPythonPackage, setuptools-scm, attrs, pdfminer-six
+, commoncode, plugincode, binaryornot, typecode-libmagic, pytestCheckHook
+, pytest-xdist, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "typecode";
@@ -33,23 +22,12 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    attrs
-    pdfminer-six
-    commoncode
-    plugincode
-    binaryornot
-    typecode-libmagic
-  ];
+  propagatedBuildInputs =
+    [ attrs pdfminer-six commoncode plugincode binaryornot typecode-libmagic ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-xdist
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-xdist ];
 
   disabledTests = [
     "TestFileTypesDataDriven"
@@ -58,12 +36,11 @@ buildPythonPackage rec {
     "test_package_json"
   ];
 
-  pythonImportsCheck = [
-    "typecode"
-  ];
+  pythonImportsCheck = [ "typecode" ];
 
   meta = with lib; {
-    description = "Comprehensive filetype and mimetype detection using libmagic and Pygments";
+    description =
+      "Comprehensive filetype and mimetype detection using libmagic and Pygments";
     homepage = "https://github.com/nexB/typecode";
     changelog = "https://github.com/nexB/typecode/releases/tag/v${version}";
     license = licenses.asl20;

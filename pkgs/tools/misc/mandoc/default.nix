@@ -5,12 +5,9 @@ let
   # (locale set by the user may differ). This would usually be C.UTF-8, but
   # darwin has no such locale.
   utf8Locale =
-    if stdenv.hostPlatform.isDarwin
-    then "en_US.UTF-8"
-    else "C.UTF-8";
-in
+    if stdenv.hostPlatform.isDarwin then "en_US.UTF-8" else "C.UTF-8";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "mandoc";
   version = "1.14.6";
 
@@ -53,9 +50,7 @@ stdenv.mkDerivation rec {
   nativeCheckInputs = [ perl ];
   preCheck = "patchShebangs --build regress/regress.pl";
 
-  passthru.tests = {
-    nixos = nixosTests.man;
-  };
+  passthru.tests = { nixos = nixosTests.man; };
 
   meta = with lib; {
     # check if we can execute binaries for the host platform on the build platform

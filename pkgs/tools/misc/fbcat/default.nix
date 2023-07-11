@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, netpbm
-}:
+{ lib, stdenv, fetchFromGitHub, netpbm }:
 
 stdenv.mkDerivation rec {
   pname = "fbcat";
@@ -21,9 +17,7 @@ stdenv.mkDerivation rec {
       --replace 'fbcat' "$out/bin/fbcat"
   '';
 
-  installFlags = [
-    "PREFIX=${placeholder "out"}"
-  ];
+  installFlags = [ "PREFIX=${placeholder "out"}" ];
 
   meta = with lib; {
     homepage = "http://jwilk.net/software/fbcat";

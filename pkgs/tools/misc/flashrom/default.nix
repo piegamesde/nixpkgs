@@ -1,15 +1,5 @@
-{ fetchurl
-, fetchpatch
-, stdenv
-, installShellFiles
-, lib
-, libftdi1
-, libjaylink
-, libusb1
-, pciutils
-, pkg-config
-, jlinkSupport ? false
-}:
+{ fetchurl, fetchpatch, stdenv, installShellFiles, lib, libftdi1, libjaylink
+, libusb1, pciutils, pkg-config, jlinkSupport ? false }:
 
 stdenv.mkDerivation rec {
   pname = "flashrom";
@@ -38,7 +28,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.flashrom.org";
-    description = "Utility for reading, writing, erasing and verifying flash ROM chips";
+    description =
+      "Utility for reading, writing, erasing and verifying flash ROM chips";
     license = licenses.gpl2;
     maintainers = with maintainers; [ fpletz felixsinger ];
     platforms = platforms.all;

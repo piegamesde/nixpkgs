@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "2021-04-24";
 
   src = fetchurl {
-    url = "https://web.archive.org/web/20220603034455/https://bellard.org/libnc/gpt2tc-2021-04-24.tar.gz";
+    url =
+      "https://web.archive.org/web/20220603034455/https://bellard.org/libnc/gpt2tc-2021-04-24.tar.gz";
     hash = "sha256-6oTxnbBwjHAXVrWMjOQVwdODbqLRoinx00pi29ff5w0=";
   };
 
@@ -17,9 +18,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [
-    (python3.withPackages (p: with p; [ numpy tensorflow ]))
-  ];
+  buildInputs = [ (python3.withPackages (p: with p; [ numpy tensorflow ])) ];
 
   installPhase = ''
     runHook preInstall

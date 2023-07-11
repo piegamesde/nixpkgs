@@ -1,13 +1,5 @@
-{ autoreconfHook
-, cmake
-, fetchFromGitLab
-, fetchpatch
-, mediastreamer
-, openh264
-, pkg-config
-, lib
-, stdenv
-}:
+{ autoreconfHook, cmake, fetchFromGitLab, fetchpatch, mediastreamer, openh264
+, pkg-config, lib, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "msopenh264";
@@ -26,10 +18,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ mediastreamer openh264 ];
 
   # Do not build static libraries
-  cmakeFlags = [
-    "-DENABLE_STATIC=NO"
-    "-DCMAKE_SKIP_INSTALL_RPATH=ON"
-  ];
+  cmakeFlags = [ "-DENABLE_STATIC=NO" "-DCMAKE_SKIP_INSTALL_RPATH=ON" ];
 
   # CMAKE_INSTALL_PREFIX has no effect so let's install manually. See:
   # https://gitlab.linphone.org/BC/public/msopenh264/issues/1
@@ -39,7 +28,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "H.264 encoder/decoder plugin for mediastreamer2. Part of the Linphone project.";
+    description =
+      "H.264 encoder/decoder plugin for mediastreamer2. Part of the Linphone project.";
     homepage = "https://www.linphone.org/technical-corner/mediastreamer2";
     license = licenses.gpl2;
     platforms = platforms.linux;

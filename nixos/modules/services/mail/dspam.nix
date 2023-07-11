@@ -56,13 +56,14 @@ in {
       storageDriver = mkOption {
         type = types.str;
         default = "hash";
-        description =  lib.mdDoc "Storage driver backend to use for dspam.";
+        description = lib.mdDoc "Storage driver backend to use for dspam.";
       };
 
       domainSocket = mkOption {
         type = types.nullOr types.path;
         default = defaultSock;
-        description = lib.mdDoc "Path to local domain socket which is used for communication with the daemon. Set to null to disable UNIX socket.";
+        description = lib.mdDoc
+          "Path to local domain socket which is used for communication with the daemon. Set to null to disable UNIX socket.";
       };
 
       extraConfig = mkOption {
@@ -74,13 +75,13 @@ in {
       maintenanceInterval = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description = lib.mdDoc "If set, maintenance script will be run at specified (in systemd.timer format) interval";
+        description = lib.mdDoc
+          "If set, maintenance script will be run at specified (in systemd.timer format) interval";
       };
 
     };
 
   };
-
 
   ###### implementation
 
@@ -112,7 +113,8 @@ in {
           User = cfg.user;
           Group = cfg.group;
           RuntimeDirectory = optional (cfg.domainSocket == defaultSock) "dspam";
-          RuntimeDirectoryMode = optional (cfg.domainSocket == defaultSock) "0750";
+          RuntimeDirectoryMode =
+            optional (cfg.domainSocket == defaultSock) "0750";
           StateDirectory = "dspam";
           StateDirectoryMode = "0750";
           LogsDirectory = "dspam";

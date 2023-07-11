@@ -1,15 +1,11 @@
 { lib, stdenv, fetchFromGitHub, python3, openssl, rustPlatform
 , enableSystemd ? lib.meta.availableOn stdenv.hostPlatform python3.pkgs.systemd
-, nixosTests
-, enableRedis ? true
-, callPackage
-}:
+, nixosTests, enableRedis ? true, callPackage }:
 
 let
   plugins = python3.pkgs.callPackage ./plugins { };
   tools = callPackage ./tools { };
-in
-with python3.pkgs;
+in with python3.pkgs;
 buildPythonApplication rec {
   pname = "matrix-synapse";
   version = "1.82.0";
@@ -34,14 +30,9 @@ buildPythonApplication rec {
     sed -i '/^setuptools_rust =/d' pyproject.toml
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-    rustPlatform.cargoSetupHook
-    setuptools-rust
-  ] ++ (with rustPlatform.rust; [
-    cargo
-    rustc
-  ]);
+  nativeBuildInputs =
+    [ poetry-core rustPlatform.cargoSetupHook setuptools-rust ]
+    ++ (with rustPlatform.rust; [ cargo rustc ]);
 
   buildInputs = [ openssl ];
 

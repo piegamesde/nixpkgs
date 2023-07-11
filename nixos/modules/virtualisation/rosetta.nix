@@ -3,8 +3,7 @@
 let
   cfg = config.virtualisation.rosetta;
   inherit (lib) types;
-in
-{
+in {
   options = {
     virtualisation.rosetta.enable = lib.mkOption {
       type = types.bool;
@@ -43,14 +42,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = pkgs.stdenv.hostPlatform.isAarch64;
-        message = "Rosetta is only supported on aarch64 systems";
-      }
-    ];
+    assertions = [{
+      assertion = pkgs.stdenv.hostPlatform.isAarch64;
+      message = "Rosetta is only supported on aarch64 systems";
+    }];
 
-    fileSystems."${cfg.mountPoint}" =  {
+    fileSystems."${cfg.mountPoint}" = {
       device = cfg.mountTag;
       fsType = "virtiofs";
     };
@@ -60,8 +57,10 @@ in
 
       # The required flags for binfmt are documented by Apple:
       # https://developer.apple.com/documentation/virtualization/running_intel_binaries_in_linux_vms_with_rosetta
-      magicOrExtension = ''\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x3e\x00'';
-      mask = ''\xff\xff\xff\xff\xff\xfe\xfe\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff'';
+      magicOrExtension =
+        "\\x7fELF\\x02\\x01\\x01\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x02\\x00\\x3e\\x00";
+      mask =
+        "\\xff\\xff\\xff\\xff\\xff\\xfe\\xfe\\x00\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\xfe\\xff\\xff\\xff";
       fixBinary = true;
       matchCredentials = true;
       preserveArgvZero = false;

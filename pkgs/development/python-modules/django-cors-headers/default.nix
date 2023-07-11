@@ -1,10 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, django
-, pytest-django
-, pytestCheckHook
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, django, pytest-django
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "django-cors-headers";
@@ -17,17 +12,13 @@ buildPythonPackage rec {
     hash = "sha256-pIyf4poW8/slxj4PVvmXpuYp//v5w00yU0Vz6Jiy2yM=";
   };
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
-  nativeCheckInputs = [
-    pytest-django
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-django pytestCheckHook ];
 
   meta = with lib; {
-    description = "Django app for handling server Cross-Origin Resource Sharing (CORS) headers";
+    description =
+      "Django app for handling server Cross-Origin Resource Sharing (CORS) headers";
     homepage = "https://github.com/OttoYiu/django-cors-headers";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

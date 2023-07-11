@@ -26,10 +26,10 @@ let
 
     meta = with lib; {
       homepage = "https://github.com/kodi-game/controller-topology-project";
-      description = "Models how controllers connect to and map to each other for all gaming history";
+      description =
+        "Models how controllers connect to and map to each other for all gaming history";
       license = with licenses; [ odbl ];
       maintainers = teams.kodi.members;
     };
   };
-in
-  toKodiAddon drv
+in toKodiAddon drv

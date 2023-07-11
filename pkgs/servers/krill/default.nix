@@ -1,11 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, openssl
-, pkg-config
-, stdenv
-, Security
-}:
+{ lib, rustPlatform, fetchFromGitHub, openssl, pkg-config, stdenv, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "krill";
@@ -27,7 +20,8 @@ rustPlatform.buildRustPackage rec {
   OPENSSL_NO_VENDOR = 1;
 
   meta = with lib; {
-    description = "RPKI Certificate Authority and Publication Server written in Rust";
+    description =
+      "RPKI Certificate Authority and Publication Server written in Rust";
     longDescription = ''
       Krill is a free, open source RPKI Certificate Authority that lets you run
       delegated RPKI under one or multiple Regional Internet Registries (RIRs).

@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, substituteAll
-, graphviz
-, python
-, pytestCheckHook
-, chardet
-, pythonOlder
-, pyparsing
-}:
+{ lib, buildPythonPackage, fetchPypi, substituteAll, graphviz, python
+, pytestCheckHook, chardet, pythonOlder, pyparsing }:
 
 buildPythonPackage rec {
   pname = "pydot";
@@ -22,14 +13,9 @@ buildPythonPackage rec {
     sha256 = "248081a39bcb56784deb018977e428605c1c758f10897a339fce1dd728ff007d";
   };
 
-  propagatedBuildInputs = [
-    pyparsing
-  ];
+  propagatedBuildInputs = [ pyparsing ];
 
-  nativeCheckInputs = [
-    chardet
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ chardet pytestCheckHook ];
 
   patches = [
     (substituteAll {
@@ -48,9 +34,7 @@ buildPythonPackage rec {
       --replace "path = os.path.join(test_dir, TESTS_DIR_1)" "path = os.path.join('test/', TESTS_DIR_1)"
   '';
 
-  pytestFlagsArray = [
-    "test/pydot_unittest.py"
-  ];
+  pytestFlagsArray = [ "test/pydot_unittest.py" ];
 
   disabledTests = [
     "test_exception_msg"
@@ -58,12 +42,11 @@ buildPythonPackage rec {
     "test_my_regression_tests"
   ];
 
-  pythonImportsCheck = [
-    "pydot"
-  ];
+  pythonImportsCheck = [ "pydot" ];
 
   meta = with lib; {
-    description = "Allows to create both directed and non directed graphs from Python";
+    description =
+      "Allows to create both directed and non directed graphs from Python";
     homepage = "https://github.com/erocarrera/pydot";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

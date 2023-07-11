@@ -1,9 +1,4 @@
-{ buildPythonPackage
-, flit
-, flit-core
-, pytestCheckHook
-, testpath
-}:
+{ buildPythonPackage, flit, flit-core, pytestCheckHook, testpath }:
 
 buildPythonPackage rec {
   pname = "flit-core";
@@ -14,9 +9,5 @@ buildPythonPackage rec {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [
-    flit
-    pytestCheckHook
-    testpath
-  ];
+  nativeCheckInputs = [ flit pytestCheckHook testpath ];
 }

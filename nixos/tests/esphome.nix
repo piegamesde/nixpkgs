@@ -1,17 +1,14 @@
 import ./make-test-python.nix ({ pkgs, lib, ... }:
 
-let
-  testPort = 6052;
-  unixSocket = "/run/esphome/esphome.sock";
-in
-with lib;
-{
-  name = "esphome";
-  meta.maintainers = with pkgs.lib.maintainers; [ oddlama ];
+  let
+    testPort = 6052;
+    unixSocket = "/run/esphome/esphome.sock";
+  in with lib; {
+    name = "esphome";
+    meta.maintainers = with pkgs.lib.maintainers; [ oddlama ];
 
-  nodes = {
-    esphomeTcp = { ... }:
-      {
+    nodes = {
+      esphomeTcp = { ... }: {
         services.esphome = {
           enable = true;
           port = testPort;
@@ -20,22 +17,21 @@ with lib;
         };
       };
 
-    esphomeUnix = { ... }:
-      {
+      esphomeUnix = { ... }: {
         services.esphome = {
           enable = true;
           enableUnixSocket = true;
         };
       };
-  };
+    };
 
-  testScript = ''
-    esphomeTcp.wait_for_unit("esphome.service")
-    esphomeTcp.wait_for_open_port(${toString testPort})
-    esphomeTcp.succeed("curl --fail http://localhost:${toString testPort}/")
+    testScript = ''
+      esphomeTcp.wait_for_unit("esphome.service")
+      esphomeTcp.wait_for_open_port(${toString testPort})
+      esphomeTcp.succeed("curl --fail http://localhost:${toString testPort}/")
 
-    esphomeUnix.wait_for_unit("esphome.service")
-    esphomeUnix.wait_for_file("${unixSocket}")
-    esphomeUnix.succeed("curl --fail --unix-socket ${unixSocket} http://localhost/")
-  '';
-})
+      esphomeUnix.wait_for_unit("esphome.service")
+      esphomeUnix.wait_for_file("${unixSocket}")
+      esphomeUnix.succeed("curl --fail --unix-socket ${unixSocket} http://localhost/")
+    '';
+  })

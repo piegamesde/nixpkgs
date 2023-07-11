@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, blas
-, gmp
-, lapack
-, libf2c
-, mpfi
-, mpfr
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, blas, gmp, lapack, libf2c, mpfi
+, mpfr }:
 
 stdenv.mkDerivation rec {
   pname = "wcpg";
@@ -21,18 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uA/ENjf4urEO+lqebkp/k54199o2434FYgPSmYCG4UA=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [
-    blas
-    gmp
-    lapack
-    libf2c
-    mpfi
-    mpfr
-  ];
+  buildInputs = [ blas gmp lapack libf2c mpfi mpfr ];
 
   meta = with lib; {
     description = "Worst-Case Peak-Gain library";

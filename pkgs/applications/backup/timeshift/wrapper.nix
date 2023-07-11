@@ -1,23 +1,12 @@
-{ stdenvNoCC
-, lib
-, wrapGAppsHook
-, gdk-pixbuf
-, librsvg
-, xorg
-, shared-mime-info
-}:
+{ stdenvNoCC, lib, wrapGAppsHook, gdk-pixbuf, librsvg, xorg, shared-mime-info }:
 
-timeshift-unwrapped:
-runtimeDeps:
+timeshift-unwrapped: runtimeDeps:
 stdenvNoCC.mkDerivation {
   inherit (timeshift-unwrapped) pname version;
 
   dontUnpack = true;
 
-  nativeBuildInputs = [
-    xorg.lndir
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ xorg.lndir wrapGAppsHook ];
 
   installPhase = ''
     runHook preInstall
@@ -34,7 +23,9 @@ stdenvNoCC.mkDerivation {
     )
     gappsWrapperArgs+=(
       # Thumbnailers
-      --prefix XDG_DATA_DIRS : "${lib.makeSearchPath "share" [ gdk-pixbuf librsvg shared-mime-info ]}"
+      --prefix XDG_DATA_DIRS : "${
+        lib.makeSearchPath "share" [ gdk-pixbuf librsvg shared-mime-info ]
+      }"
       "''${makeWrapperArgs[@]}"
     )
     wrapProgram "$out/bin/timeshift" "''${makeWrapperArgs[@]}"

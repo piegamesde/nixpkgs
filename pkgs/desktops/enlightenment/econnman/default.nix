@@ -1,39 +1,21 @@
-{ lib
-, stdenv
-, fetchurl
-, makeWrapper
-, pkg-config
-, dbus
-, efl
-, python3Packages
-, directoryListingUpdater
-}:
+{ lib, stdenv, fetchurl, makeWrapper, pkg-config, dbus, efl, python3Packages
+, directoryListingUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "econnman";
   version = "1.1";
 
   src = fetchurl {
-    url = "http://download.enlightenment.org/rel/apps/econnman/${pname}-${version}.tar.xz";
+    url =
+      "http://download.enlightenment.org/rel/apps/econnman/${pname}-${version}.tar.xz";
     sha256 = "sha256-DM6HaB+ufKcPHmPP4K5l/fF7wzRycFQxfiXjiXYZ7YU=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-    python3Packages.wrapPython
-  ];
+  nativeBuildInputs = [ makeWrapper pkg-config python3Packages.wrapPython ];
 
-  buildInputs = [
-    dbus
-    efl
-    python3Packages.python
-  ];
+  buildInputs = [ dbus efl python3Packages.python ];
 
-  pythonPath = [
-    python3Packages.dbus-python
-    python3Packages.pythonefl
-  ];
+  pythonPath = [ python3Packages.dbus-python python3Packages.pythonefl ];
 
   postInstall = ''
     wrapPythonPrograms
@@ -46,6 +28,7 @@ stdenv.mkDerivation rec {
     homepage = "https://enlightenment.org/";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    maintainers = with lib.maintainers; [ matejc ftrvxmtrx ] ++ teams.enlightenment.members;
+    maintainers = with lib.maintainers;
+      [ matejc ftrvxmtrx ] ++ teams.enlightenment.members;
   };
 }

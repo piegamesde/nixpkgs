@@ -1,26 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, qmake
-, nix-update-script
-, substituteAll
-, qtbase
-, qttools
-, qttranslations
-, qtlocation ? null # qt5 only
+{ lib, stdenv, fetchFromGitHub, qmake, nix-update-script, substituteAll, qtbase
+, qttools, qttranslations, qtlocation ? null # qt5 only
 , qtpositioning ? null # qt6 only
-, qtpbfimageplugin
-, qtserialport
-, qtsvg
-, qt5compat ? null # qt6 only
-, wrapQtAppsHook
-}:
+, qtpbfimageplugin, qtserialport, qtsvg, qt5compat ? null # qt6 only
+, wrapQtAppsHook }:
 
-let
-  isQt6 = lib.versions.major qtbase.version == "6";
+let isQt6 = lib.versions.major qtbase.version == "6";
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "gpxsee";
   version = "13.0";
 
@@ -37,15 +23,13 @@ stdenv.mkDerivation rec {
     inherit qttranslations;
   });
 
-  buildInputs = [ qtpbfimageplugin qtserialport ]
-    ++ (if isQt6 then [
+  buildInputs = [ qtpbfimageplugin qtserialport ] ++ (if isQt6 then [
     qtbase
     qtpositioning
     qtsvg
     qt5compat
-  ] else [
-    qtlocation
-  ]);
+  ] else
+    [ qtlocation ]);
 
   nativeBuildInputs = [ qmake qttools wrapQtAppsHook ];
 
@@ -60,9 +44,7 @@ stdenv.mkDerivation rec {
     ln -s $out/Applications/GPXSee.app/Contents/MacOS/GPXSee $out/bin/gpxsee
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "GPS log file viewer and analyzer";
@@ -71,7 +53,8 @@ stdenv.mkDerivation rec {
       all common GPS log file formats.
     '';
     homepage = "https://www.gpxsee.org/";
-    changelog = "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes";
+    changelog =
+      "https://build.opensuse.org/package/view_file/home:tumic:GPXSee/gpxsee/gpxsee.changes";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ womfoo sikmir ];
     platforms = platforms.unix;

@@ -1,8 +1,6 @@
 { lib, fetchFromGitHub, symlinkJoin, buildGoModule, makeWrapper, nixosTests
-, nix-update-script
-, v2ray-geoip, v2ray-domain-list-community
-, assets ? [ v2ray-geoip v2ray-domain-list-community ]
-}:
+, nix-update-script, v2ray-geoip, v2ray-domain-list-community
+, assets ? [ v2ray-geoip v2ray-domain-list-community ] }:
 
 buildGoModule rec {
   pname = "v2ray-core";
@@ -54,7 +52,8 @@ buildGoModule rec {
 
   meta = {
     homepage = "https://www.v2fly.org/en_US/";
-    description = "A platform for building proxies to bypass network restrictions";
+    description =
+      "A platform for building proxies to bypass network restrictions";
     license = with lib.licenses; [ mit ];
     maintainers = with lib.maintainers; [ servalcatty ];
   };

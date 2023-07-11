@@ -1,4 +1,5 @@
-{ lib, buildGoModule, fetchFromGitHub, stdenv, pkg-config, rustPlatform, llvmPackages, libiconv, fetchpatch, nixosTests }:
+{ lib, buildGoModule, fetchFromGitHub, stdenv, pkg-config, rustPlatform
+, llvmPackages, libiconv, fetchpatch, nixosTests }:
 
 let
   libflux_version = "0.170.1";
@@ -17,7 +18,8 @@ let
       # https://github.com/influxdata/flux/pull/5273
       # fix compile error with Rust 1.64
       (fetchpatch {
-        url = "https://github.com/influxdata/flux/commit/20ca62138a0669f2760dd469ca41fc333e04b8f2.patch";
+        url =
+          "https://github.com/influxdata/flux/commit/20ca62138a0669f2760dd469ca41fc333e04b8f2.patch";
         stripLen = 2;
         extraPrefix = "";
         sha256 = "sha256-Fb4CuH9ZvrPha249dmLLI8MqSNQRKqKPxPbw2pjqwfY=";
@@ -45,8 +47,7 @@ let
       install_name_tool -id $out/lib/libflux.dylib $out/lib/libflux.dylib
     '';
   };
-in
-buildGoModule rec {
+in buildGoModule rec {
   pname = "influxdb";
   version = "1.10.0";
 

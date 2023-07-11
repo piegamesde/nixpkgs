@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, meson
-, ninja
-, pkg-config
-, vala
-, gtk3
-, glib
-, granite
-, libgee
-, libhandy
-, libcanberra-gtk3
-, python3
-, wrapGAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
+, vala, gtk3, glib, granite, libgee, libhandy, libcanberra-gtk3, python3
+, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "elementary-notifications";
@@ -37,23 +23,14 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    glib
-    granite
-    gtk3
-    libcanberra-gtk3
-    libgee
-    libhandy
-  ];
+  buildInputs = [ glib granite gtk3 libcanberra-gtk3 libgee libhandy ];
 
   postPatch = ''
     chmod +x meson/post_install.py
     patchShebangs meson/post_install.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "GTK notification server for Pantheon";

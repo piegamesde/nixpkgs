@@ -1,7 +1,6 @@
 { lib, stdenv, fetchurl, autoPatchelfHook, makeWrapper, installShellFiles }:
 
-let
-  data = import ./data.nix {};
+let data = import ./data.nix { };
 in stdenv.mkDerivation {
   pname = "pulumi";
   version = data.version;
@@ -23,12 +22,14 @@ in stdenv.mkDerivation {
       --zsh  <($out/bin/pulumi completion zsh)
   '';
 
-  nativeBuildInputs = [ installShellFiles ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook makeWrapper ];
+  nativeBuildInputs = [ installShellFiles ]
+    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook makeWrapper ];
   buildInputs = [ stdenv.cc.cc.libgcc or null ];
 
   meta = with lib; {
     homepage = "https://pulumi.io/";
-    description = "Pulumi is a cloud development platform that makes creating cloud programs easy and productive";
+    description =
+      "Pulumi is a cloud development platform that makes creating cloud programs easy and productive";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = with licenses; [ asl20 ];
     platforms = builtins.attrNames data.pulumiPkgs;

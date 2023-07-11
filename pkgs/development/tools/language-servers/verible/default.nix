@@ -1,17 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, buildBazelPackage
-, bazel_4
-, flex
-, bison
-, python3
+{ lib, stdenv, fetchFromGitHub, buildBazelPackage, bazel_4, flex, bison, python3
 }:
 
-let
-  system = stdenv.hostPlatform.system;
-in
-buildBazelPackage rec {
+let system = stdenv.hostPlatform.system;
+in buildBazelPackage rec {
   pname = "verible";
 
   # These environment variables are read in bazel/build-version.py to create
@@ -21,7 +12,8 @@ buildBazelPackage rec {
   GIT_VERSION = "v0.0-3179-g525ffaf7";
 
   # Derive nix package version from GIT_VERSION: "v1.2-345-abcde" -> "1.2.345"
-  version = builtins.concatStringsSep "." (lib.take 3 (lib.drop 1 (builtins.splitVersion GIT_VERSION)));
+  version = builtins.concatStringsSep "."
+    (lib.take 3 (lib.drop 1 (builtins.splitVersion GIT_VERSION)));
 
   src = fetchFromGitHub {
     owner = "chipsalliance";
@@ -55,8 +47,8 @@ buildBazelPackage rec {
   };
 
   nativeBuildInputs = [
-    flex       # We use local flex and bison as WORKSPACE sources fail
-    bison      # .. to compile with newer glibc
+    flex # We use local flex and bison as WORKSPACE sources fail
+    bison # .. to compile with newer glibc
     python3
   ];
 
@@ -76,9 +68,7 @@ buildBazelPackage rec {
   removeRulesCC = false;
   bazelTargets = [ ":install-binaries" ];
   bazelTestTargets = [ "//..." ];
-  bazelBuildFlags = [
-    "-c opt"
-  ];
+  bazelBuildFlags = [ "-c opt" ];
   buildAttrs = {
     installPhase = ''
       mkdir -p "$out/bin"
@@ -100,7 +90,8 @@ buildBazelPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/chipsalliance/verible";
-    description = "Suite of SystemVerilog developer tools. Including a style-linter, indexer, formatter, and language server.";
+    description =
+      "Suite of SystemVerilog developer tools. Including a style-linter, indexer, formatter, and language server.";
     license = licenses.asl20;
     platforms = platforms.linux;
     maintainers = with maintainers; [ hzeller newam ];

@@ -1,17 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, gfortran
-, blas
-, lapack
-, mctc-lib
-, mstore
-, toml-f
-, multicharge
-, dftd4
-, simple-dftd3
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, gfortran, blas, lapack, mctc-lib, mstore
+, toml-f, multicharge, dftd4, simple-dftd3 }:
 
 assert !blas.isILP64 && !lapack.isILP64;
 
@@ -28,16 +16,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake gfortran ];
 
-  buildInputs = [
-    blas
-    lapack
-    mctc-lib
-    mstore
-    toml-f
-    multicharge
-    dftd4
-    simple-dftd3
-  ];
+  buildInputs =
+    [ blas lapack mctc-lib mstore toml-f multicharge dftd4 simple-dftd3 ];
 
   doCheck = true;
   preCheck = ''

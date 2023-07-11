@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, setuptools
-, ipython
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, setuptools, ipython }:
 
 buildPythonPackage rec {
   pname = "jupyter-ui-poll";
@@ -21,17 +15,16 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ setuptools ];
-  propagatedBuildInputs = [
-    ipython
-  ];
+  propagatedBuildInputs = [ ipython ];
 
-  doCheck = false;  # no tests in package :(
+  doCheck = false; # no tests in package :(
   pythonImportsCheck = [ "jupyter_ui_poll" ];
 
   meta = with lib; {
     description = "Block jupyter cell execution while interacting with widgets";
     homepage = "https://github.com/Kirill888/jupyter-ui-poll";
-    changelog = "https://github.com/Kirill888/jupyter-ui-poll/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Kirill888/jupyter-ui-poll/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ bcdarwin ];
   };

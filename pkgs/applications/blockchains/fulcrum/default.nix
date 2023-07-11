@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, qmake
-, python3
-, qtbase
-, rocksdb
-, zeromq
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, qmake, python3, qtbase, rocksdb
+, zeromq }:
 
 stdenv.mkDerivation rec {
   pname = "fulcrum";

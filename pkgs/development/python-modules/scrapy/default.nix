@@ -1,33 +1,8 @@
-{ lib
-, stdenv
-, botocore
-, buildPythonPackage
-, cryptography
-, cssselect
-, fetchPypi
-, fetchpatch
-, glibcLocales
-, installShellFiles
-, itemadapter
-, itemloaders
-, jmespath
-, lxml
-, packaging
-, parsel
-, protego
-, pydispatcher
-, pyopenssl
-, pytestCheckHook
-, pythonOlder
-, queuelib
-, service-identity
-, sybil
-, testfixtures
-, tldextract
-, twisted
-, w3lib
-, zope_interface
-}:
+{ lib, stdenv, botocore, buildPythonPackage, cryptography, cssselect, fetchPypi
+, fetchpatch, glibcLocales, installShellFiles, itemadapter, itemloaders
+, jmespath, lxml, packaging, parsel, protego, pydispatcher, pyopenssl
+, pytestCheckHook, pythonOlder, queuelib, service-identity, sybil, testfixtures
+, tldextract, twisted, w3lib, zope_interface }:
 
 buildPythonPackage rec {
   pname = "scrapy";
@@ -42,9 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-gHGsbGXxhewsdv6FCflNmf6ggFGf3CBvkIqSDV4F/kM=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   propagatedBuildInputs = [
     cryptography
@@ -65,14 +38,8 @@ buildPythonPackage rec {
     zope_interface
   ];
 
-  nativeCheckInputs = [
-    botocore
-    glibcLocales
-    jmespath
-    pytestCheckHook
-    sybil
-    testfixtures
-  ];
+  nativeCheckInputs =
+    [ botocore glibcLocales jmespath pytestCheckHook sybil testfixtures ];
 
   LC_ALL = "en_US.UTF-8";
 
@@ -103,7 +70,7 @@ buildPythonPackage rec {
     "test_custom_asyncio_loop_enabled_true"
     "test_custom_loop_asyncio"
     "test_custom_loop_asyncio_deferred_signal"
-    "FileFeedStoragePreFeedOptionsTest"  # https://github.com/scrapy/scrapy/issues/5157
+    "FileFeedStoragePreFeedOptionsTest" # https://github.com/scrapy/scrapy/issues/5157
     "test_timeout_download_from_spider_nodata_rcvd"
     "test_timeout_download_from_spider_server_hangs"
     # Depends on uvloop
@@ -132,9 +99,7 @@ buildPythonPackage rec {
       --bash extras/scrapy_bash_completion
   '';
 
-  pythonImportsCheck = [
-    "scrapy"
-  ];
+  pythonImportsCheck = [ "scrapy" ];
 
   __darwinAllowLocalNetworking = true;
 

@@ -1,12 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  # pythonPackages
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-}:
+# pythonPackages
+, pytestCheckHook, pythonOlder, pyyaml }:
 
 buildPythonPackage rec {
   pname = "oyaml";
@@ -22,20 +17,15 @@ buildPythonPackage rec {
     hash = "sha256-1rSEhiULlAweLDqUFX+JBFxe3iW9kNlRA2zjcG8MYSg=";
   };
 
-  propagatedBuildInputs = [
-    pyyaml
-  ];
+  propagatedBuildInputs = [ pyyaml ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "oyaml"
-  ];
+  pythonImportsCheck = [ "oyaml" ];
 
   meta = with lib; {
-    description = "Drop-in replacement for PyYAML which preserves dict ordering";
+    description =
+      "Drop-in replacement for PyYAML which preserves dict ordering";
     homepage = "https://github.com/wimglenn/oyaml";
     license = licenses.mit;
     maintainers = with maintainers; [ kamadorueda ];

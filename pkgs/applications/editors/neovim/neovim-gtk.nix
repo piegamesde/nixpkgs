@@ -1,13 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, wrapGAppsHook4
-, pkg-config
-, gdk-pixbuf
-, gtk4
-, pango
-, vte-gtk4
-}:
+{ lib, rustPlatform, fetchFromGitHub, wrapGAppsHook4, pkg-config, gdk-pixbuf
+, gtk4, pango, vte-gtk4 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "neovim-gtk";

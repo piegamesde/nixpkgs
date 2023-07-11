@@ -1,13 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, home-assistant-bluetooth
-, mac-vendor-lookup
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, home-assistant-bluetooth
+, mac-vendor-lookup, poetry-core, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "ibeacon-ble";
@@ -28,28 +20,20 @@ buildPythonPackage rec {
       --replace " --cov=ibeacon_ble --cov-report=term-missing:skip-covered" ""
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    home-assistant-bluetooth
-    mac-vendor-lookup
-  ];
+  propagatedBuildInputs =
+    [ aiohttp home-assistant-bluetooth mac-vendor-lookup ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "ibeacon_ble"
-  ];
+  pythonImportsCheck = [ "ibeacon_ble" ];
 
   meta = with lib; {
     description = "Library for iBeacon BLE devices";
     homepage = "https://github.com/Bluetooth-Devices/ibeacon-ble";
-    changelog = "https://github.com/Bluetooth-Devices/ibeacon-ble/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/Bluetooth-Devices/ibeacon-ble/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

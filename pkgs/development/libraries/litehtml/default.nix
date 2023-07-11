@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, gumbo
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, gumbo }:
 
 stdenv.mkDerivation rec {
   pname = "litehtml";
@@ -24,17 +19,11 @@ stdenv.mkDerivation rec {
       --replace "find_dependency(gumbo)" ""
   '';
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    gumbo
-  ];
+  buildInputs = [ gumbo ];
 
-  cmakeFlags = [
-    "-DEXTERNAL_GUMBO=ON"
-  ];
+  cmakeFlags = [ "-DEXTERNAL_GUMBO=ON" ];
 
   meta = with lib; {
     description = "Fast and lightweight HTML/CSS rendering engine";

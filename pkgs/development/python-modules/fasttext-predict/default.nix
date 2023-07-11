@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, pybind11
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, pybind11 }:
 
 buildPythonPackage rec {
   pname = "fasttext-predict";
@@ -15,9 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-iSCt54tqBmNfrcntDFRXb550607Zr1mMCO2PC1ZbVQw=";
   };
 
-  nativeBuildInputs = [
-    pybind11
-  ];
+  nativeBuildInputs = [ pybind11 ];
 
   # tests are removed from fork
   doCheck = false;
@@ -25,7 +18,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "fasttext" ];
 
   meta = with lib; {
-    description = "fasttext with wheels and no external dependency, but only the predict method (<1MB)";
+    description =
+      "fasttext with wheels and no external dependency, but only the predict method (<1MB)";
     homepage = "https://github.com/searxng/fasttext-predict/";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];

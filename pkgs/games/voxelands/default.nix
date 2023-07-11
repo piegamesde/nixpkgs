@@ -1,24 +1,6 @@
-{ lib, stdenv
-, fetchFromGitLab
-, bzip2
-, cmake
-, expat
-, freetype
-, irrlicht
-, libICE
-, libGL
-, libGLU
-, libSM
-, libX11
-, libXext
-, libXxf86vm
-, libjpeg
-, libpng
-, libvorbis
-, openal
-, pkg-config
-, sqlite
-}:
+{ lib, stdenv, fetchFromGitLab, bzip2, cmake, expat, freetype, irrlicht, libICE
+, libGL, libGLU, libSM, libX11, libXext, libXxf86vm, libjpeg, libpng, libvorbis
+, openal, pkg-config, sqlite }:
 
 stdenv.mkDerivation rec {
   pname = "voxelands";
@@ -37,10 +19,7 @@ stdenv.mkDerivation rec {
     "-DCMAKE_CXX_FLAGS_RELEASE=-DNDEBUG"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [
     # has to go before others to override transitive libpng-1.6
@@ -69,6 +48,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];
-    broken = stdenv.isAarch64;  # build fails with "libIrrlicht.so: undefined reference to `png_init_filter_functions_neon'"
+    broken =
+      stdenv.isAarch64; # build fails with "libIrrlicht.so: undefined reference to `png_init_filter_functions_neon'"
   };
 }

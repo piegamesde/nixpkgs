@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, poetry-core
-, gobject-introspection
-, gtk3
-, pycairo
-, pygobject3
-, typing-extensions
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, poetry-core
+, gobject-introspection, gtk3, pycairo, pygobject3, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "gaphas";
@@ -22,24 +13,13 @@ buildPythonPackage rec {
     hash = "sha256-I+/DsXppY//KOZgydDR4/Ks5qEsL4hLIiH+GaaFZHpA=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  buildInputs = [
-    gobject-introspection
-    gtk3
-  ];
+  buildInputs = [ gobject-introspection gtk3 ];
 
-  propagatedBuildInputs = [
-    pycairo
-    pygobject3
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ pycairo pygobject3 typing-extensions ];
 
-  pythonImportsCheck = [
-    "gaphas"
-  ];
+  pythonImportsCheck = [ "gaphas" ];
 
   meta = with lib; {
     description = "GTK+ based diagramming widget";

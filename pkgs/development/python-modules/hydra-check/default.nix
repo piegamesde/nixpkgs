@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, poetry-core
-, requests
-, beautifulsoup4
-, colorama
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, requests
+, beautifulsoup4, colorama }:
 
 buildPythonPackage rec {
   pname = "hydra-check";
@@ -23,11 +16,7 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ poetry-core ];
-  propagatedBuildInputs = [
-    colorama
-    requests
-    beautifulsoup4
-  ];
+  propagatedBuildInputs = [ colorama requests beautifulsoup4 ];
 
   pythonImportsCheck = [ "hydra_check" ];
 

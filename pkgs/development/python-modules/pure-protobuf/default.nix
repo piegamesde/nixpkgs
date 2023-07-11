@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, setuptools-scm
-, toml
-, pytestCheckHook
-, pytest-benchmark
-, hatch-vcs
-, hatchling
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, setuptools-scm, toml
+, pytestCheckHook, pytest-benchmark, hatch-vcs, hatchling }:
 
 buildPythonPackage rec {
   pname = "pure-protobuf";
@@ -27,22 +18,15 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    hatch-vcs
-    hatchling
-  ];
+  nativeBuildInputs = [ hatch-vcs hatchling ];
 
-  checkInputs = [
-    pytestCheckHook
-    pytest-benchmark
-  ];
+  checkInputs = [ pytestCheckHook pytest-benchmark ];
 
-  pythonImportsCheck = [
-    "pure_protobuf"
-  ];
+  pythonImportsCheck = [ "pure_protobuf" ];
 
   meta = with lib; {
-    description = "Python implementation of Protocol Buffers with dataclass-based schemas";
+    description =
+      "Python implementation of Protocol Buffers with dataclass-based schemas";
     homepage = "https://github.com/eigenein/protobuf";
     license = licenses.mit;
     maintainers = with maintainers; [ chuangzhu ];

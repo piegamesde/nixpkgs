@@ -1,19 +1,6 @@
-{ lib
-, stdenv
-, autoreconfHook
-, buildPackages
-, coreutils
-, fetchFromGitHub
-, jansson
-, libiconv
-, perl
-, pkg-config
-, python3
-, libseccomp
-, libyaml
-, pcre2
-, libxml2
-}:
+{ lib, stdenv, autoreconfHook, buildPackages, coreutils, fetchFromGitHub
+, jansson, libiconv, perl, pkg-config, python3, libseccomp, libyaml, pcre2
+, libxml2 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "universal-ctags";
@@ -26,9 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-XlqBndo8g011SDGp3zM7S+AQ0aCp6rpQlqJF6e5Dd6w=";
   };
 
-  depsBuildBuild = [
-    buildPackages.stdenv.cc
-  ];
+  depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -37,20 +22,13 @@ stdenv.mkDerivation (finalAttrs: {
     (python3.withPackages (p: [ p.docutils ]))
   ];
 
-  buildInputs = [
-    libyaml
-    pcre2
-    libxml2
-    jansson
-  ]
-  ++ lib.optional stdenv.isDarwin libiconv
-  ++ lib.optional stdenv.isLinux libseccomp;
+  buildInputs = [ libyaml pcre2 libxml2 jansson ]
+    ++ lib.optional stdenv.isDarwin libiconv
+    ++ lib.optional stdenv.isLinux libseccomp;
 
   configureFlags = [ "--enable-tmpdir=/tmp" ];
 
-  patches = [
-    ./000-nixos-specific.patch
-  ];
+  patches = [ ./000-nixos-specific.patch ];
 
   postPatch = ''
     substituteInPlace Tmain/utils.sh \
@@ -61,9 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  checkFlags = [
-    "man-test" "tlib" "tmain" "tutil" "units"
-  ];
+  checkFlags = [ "man-test" "tlib" "tmain" "tutil" "units" ];
 
   meta = with lib; {
     homepage = "https://docs.ctags.io/en/latest/";

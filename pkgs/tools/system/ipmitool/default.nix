@@ -3,7 +3,8 @@
 let
 
   iana-enterprise-numbers = fetchurl {
-    url = "https://web.archive.org/web/20230312103209id_/https://www.iana.org/assignments/enterprise-numbers.txt";
+    url =
+      "https://web.archive.org/web/20230312103209id_/https://www.iana.org/assignments/enterprise-numbers.txt";
     sha256 = "sha256-huFWygMEylBKBMLV16UE6xLWP6Aw1FGYk5h1q5CErUs=";
   };
 
@@ -14,7 +15,7 @@ in stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = "IPMITOOL_${lib.replaceStrings ["."] ["_"] version}";
+    rev = "IPMITOOL_${lib.replaceStrings [ "." ] [ "_" ] version}";
     hash = "sha256-VVYvuldRIHhaIUibed9cLX8Avfy760fdBLNO8MoUKCk=";
   };
 

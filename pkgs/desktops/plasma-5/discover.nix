@@ -1,36 +1,8 @@
-{ mkDerivation
-, extra-cmake-modules
-, gettext
-, kdoctools
-, python3
-, appstream-qt
-, discount
-, flatpak
-, fwupd
-, ostree
-, packagekit-qt
-, pcre
-, util-linux
-, qtquickcontrols2
-, qtwebview
-, qtx11extras
-, karchive
-, kcmutils
-, kconfig
-, kcrash
-, kdbusaddons
-, kdeclarative
-, kidletime
-, kio
-, kirigami2
-, kitemmodels
-, knewstuff
-, kpurpose
-, kuserfeedback
-, kwindowsystem
-, kxmlgui
-, plasma-framework
-}:
+{ mkDerivation, extra-cmake-modules, gettext, kdoctools, python3, appstream-qt
+, discount, flatpak, fwupd, ostree, packagekit-qt, pcre, util-linux
+, qtquickcontrols2, qtwebview, qtx11extras, karchive, kcmutils, kconfig, kcrash
+, kdbusaddons, kdeclarative, kidletime, kio, kirigami2, kitemmodels, knewstuff
+, kpurpose, kuserfeedback, kwindowsystem, kxmlgui, plasma-framework }:
 
 mkDerivation {
   pname = "discover";

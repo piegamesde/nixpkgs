@@ -1,6 +1,5 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
-rec {
+# Generated file.
+args@{ fetchurl, ... }: rec {
   baseName = "lack-middleware-backtrace";
   version = "lack-20211209-git";
 
@@ -9,13 +8,14 @@ rec {
   deps = [ args."uiop" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/lack/2021-12-09/lack-20211209-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/lack/2021-12-09/lack-20211209-git.tgz";
     sha256 = "0vd36hjcf98s9slkm6rmgsa7r10wvzl9s4xhfmcwh7qv7jxdgkhg";
   };
 
   packageName = "lack-middleware-backtrace";
 
-  asdFilesToKeep = ["lack-middleware-backtrace.asd"];
+  asdFilesToKeep = [ "lack-middleware-backtrace.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM lack-middleware-backtrace DESCRIPTION System lacks description
@@ -33,4 +33,5 @@ rec {
      t-lack-middleware-backtrace t-lack-middleware-csrf t-lack-middleware-mount
      t-lack-middleware-session t-lack-middleware-static t-lack-request
      t-lack-session-store-dbi t-lack-session-store-redis t-lack-util t-lack)
-    PARASITES NIL) */
+    PARASITES NIL)
+*/

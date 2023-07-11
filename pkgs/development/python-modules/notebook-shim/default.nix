@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, jupyter-server
-, pytestCheckHook
-, pytest-tornasync
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, hatchling, jupyter-server
+, pytestCheckHook, pytest-tornasync }:
 
 buildPythonPackage rec {
   pname = "notebook-shim";
@@ -31,10 +25,7 @@ buildPythonPackage rec {
   # have been comitted with msgs "wip" though.
   doCheck = false;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-tornasync
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-tornasync ];
 
   pythonImportsCheck = [ "notebook_shim" ];
 

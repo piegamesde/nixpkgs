@@ -1,11 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoconf
-, makeWrapper
-, python3Packages
-, runtimeShell
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, makeWrapper, python3Packages
+, runtimeShell }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "argbash";
@@ -24,16 +18,9 @@ stdenv.mkDerivation (finalAttrs: {
       --replace '/bin/bash' "${runtimeShell}"
   '';
 
-  nativeBuildInputs = [
-    autoconf
-    makeWrapper
-    python3Packages.docutils
-  ];
+  nativeBuildInputs = [ autoconf makeWrapper python3Packages.docutils ];
 
-  makeFlags = [
-    "-C" "resources"
-    "PREFIX=$(out)"
-  ];
+  makeFlags = [ "-C" "resources" "PREFIX=$(out)" ];
 
   postInstall = ''
     wrapProgram $out/bin/argbash \

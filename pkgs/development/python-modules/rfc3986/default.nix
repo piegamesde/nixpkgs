@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, idna
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, idna, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "rfc3986";
@@ -18,17 +12,11 @@ buildPythonPackage rec {
     hash = "sha256-l6rPnb1L/YKbqtbmMJ+mVzqvG+P2+nNcirBeRs7LJhw=";
   };
 
-  propagatedBuildInputs = [
-    idna
-  ];
+  propagatedBuildInputs = [ idna ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "rfc3986"
-  ];
+  pythonImportsCheck = [ "rfc3986" ];
 
   meta = with lib; {
     description = "Validating URI References per RFC 3986";

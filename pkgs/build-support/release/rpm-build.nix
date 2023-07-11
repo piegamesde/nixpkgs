@@ -1,17 +1,15 @@
 # This function builds an RPM from a source tarball that contains a
 # RPM spec file (i.e., one that can be built using `rpmbuild -ta').
 
-{ name ? "rpm-build"
-, diskImage
-, src, lib, vmTools
-, ... } @ args:
+{ name ? "rpm-build", diskImage, src, lib, vmTools, ... }@args:
 
 vmTools.buildRPM (
 
-  removeAttrs args ["vmTools"] //
+  removeAttrs args [ "vmTools" ] //
 
   {
-    name = name + "-" + diskImage.name + (lib.optionalString (src ? version) "-${src.version}");
+    name = name + "-" + diskImage.name
+      + (lib.optionalString (src ? version) "-${src.version}");
 
     preBuild = ''
       . ${./functions.sh}
@@ -46,7 +44,7 @@ vmTools.buildRPM (
       done
     '';
 
-    meta = (if args ? meta then args.meta else {}) // {
+    meta = (if args ? meta then args.meta else { }) // {
       description = "RPM package for ${diskImage.fullName}";
     };
   }

@@ -1,23 +1,6 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, click
-, fetchFromGitHub
-, mock
-, prettytable
-, prompt-toolkit
-, ptable
-, pygments
-, pytestCheckHook
-, pythonOlder
-, requests
-, rich
-, sphinx
-, testtools
-, tkinter
-, urllib3
-, zeep
-}:
+{ lib, stdenv, buildPythonPackage, click, fetchFromGitHub, mock, prettytable
+, prompt-toolkit, ptable, pygments, pytestCheckHook, pythonOlder, requests, rich
+, sphinx, testtools, tkinter, urllib3, zeep }:
 
 buildPythonPackage rec {
   pname = "softlayer";
@@ -38,25 +21,10 @@ buildPythonPackage rec {
         --replace "rich ==" "rich >="
   '';
 
-  propagatedBuildInputs = [
-    click
-    prettytable
-    prompt-toolkit
-    ptable
-    pygments
-    requests
-    rich
-    urllib3
-  ];
+  propagatedBuildInputs =
+    [ click prettytable prompt-toolkit ptable pygments requests rich urllib3 ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-    sphinx
-    testtools
-    tkinter
-    zeep
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook sphinx testtools tkinter zeep ];
 
   # Otherwise soap_tests.py will fail to create directory
   # Permission denied: '/homeless-shelter'
@@ -69,14 +37,13 @@ buildPythonPackage rec {
     "tests/transports/soap_tests.py.unstable"
   ];
 
-  pythonImportsCheck = [
-    "SoftLayer"
-  ];
+  pythonImportsCheck = [ "SoftLayer" ];
 
   meta = with lib; {
     description = "Python libraries that assist in calling the SoftLayer API";
     homepage = "https://github.com/softlayer/softlayer-python";
-    changelog = "https://github.com/softlayer/softlayer-python/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/softlayer/softlayer-python/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ onny ];
   };

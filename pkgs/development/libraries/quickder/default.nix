@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, python3
-, cmake
-, doxygen
-, graphviz
-, quickmem
-, arpa2common
-, arpa2cm
-, ensureNewerSourcesForZipFilesHook
-}:
+{ lib, stdenv, fetchFromGitLab, python3, cmake, doxygen, graphviz, quickmem
+, arpa2common, arpa2cm, ensureNewerSourcesForZipFilesHook }:
 
 stdenv.mkDerivation rec {
   pname = "quickder";
@@ -22,26 +12,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-f+ph5PL+uWRkswpOLDwZFWjh938wxoJ6xocJZ2WZLEk=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    doxygen
-    graphviz
-    ensureNewerSourcesForZipFilesHook
-  ];
+  nativeBuildInputs =
+    [ cmake doxygen graphviz ensureNewerSourcesForZipFilesHook ];
 
   buildInputs = [
     arpa2cm
     arpa2common
-    (python3.withPackages (ps: with ps; [
-      asn1ate
-      colored
-      pyparsing
-      setuptools
-      six
-    ]))
+    (python3.withPackages
+      (ps: with ps; [ asn1ate colored pyparsing setuptools six ]))
     quickmem
   ];
-
 
   postPatch = ''
     substituteInPlace setup.py --replace 'pyparsing==' 'pyparsing>='

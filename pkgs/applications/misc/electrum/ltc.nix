@@ -1,26 +1,22 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchFromGitHub
-, wrapQtAppsHook
-, python3
-, zbar
-, secp256k1
-, enableQt ? true
-}:
+{ lib, stdenv, fetchurl, fetchFromGitHub, wrapQtAppsHook, python3, zbar
+, secp256k1, enableQt ? true }:
 
 let
   version = "4.2.2.1";
 
-  libsecp256k1_name =
-    if stdenv.isLinux then "libsecp256k1.so.0"
-    else if stdenv.isDarwin then "libsecp256k1.0.dylib"
-    else "libsecp256k1${stdenv.hostPlatform.extensions.sharedLibrary}";
+  libsecp256k1_name = if stdenv.isLinux then
+    "libsecp256k1.so.0"
+  else if stdenv.isDarwin then
+    "libsecp256k1.0.dylib"
+  else
+    "libsecp256k1${stdenv.hostPlatform.extensions.sharedLibrary}";
 
-  libzbar_name =
-    if stdenv.isLinux then "libzbar.so.0"
-    else if stdenv.isDarwin then "libzbar.0.dylib"
-    else "libzbar${stdenv.hostPlatform.extensions.sharedLibrary}";
+  libzbar_name = if stdenv.isLinux then
+    "libzbar.so.0"
+  else if stdenv.isDarwin then
+    "libzbar.0.dylib"
+  else
+    "libzbar${stdenv.hostPlatform.extensions.sharedLibrary}";
 
   # Not provided in official source releases, which are what upstream signs.
   tests = fetchFromGitHub {
@@ -35,9 +31,7 @@ let
     '';
   };
 
-in
-
-python3.pkgs.buildPythonApplication {
+in python3.pkgs.buildPythonApplication {
   pname = "electrum-ltc";
   inherit version;
 
@@ -53,32 +47,30 @@ python3.pkgs.buildPythonApplication {
 
   nativeBuildInputs = lib.optionals enableQt [ wrapQtAppsHook ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    aiohttp
-    aiohttp-socks
-    aiorpcx
-    attrs
-    bitstring
-    cryptography
-    dnspython
-    jsonrpclib-pelix
-    matplotlib
-    pbkdf2
-    protobuf
-    py_scrypt
-    pysocks
-    qrcode
-    requests
-    tlslite-ng
-    # plugins
-    btchip-python
-    ckcc-protocol
-    keepkey
-    trezor
-  ] ++ lib.optionals enableQt [
-    pyqt5
-    qdarkstyle
-  ];
+  propagatedBuildInputs = with python3.pkgs;
+    [
+      aiohttp
+      aiohttp-socks
+      aiorpcx
+      attrs
+      bitstring
+      cryptography
+      dnspython
+      jsonrpclib-pelix
+      matplotlib
+      pbkdf2
+      protobuf
+      py_scrypt
+      pysocks
+      qrcode
+      requests
+      tlslite-ng
+      # plugins
+      btchip-python
+      ckcc-protocol
+      keepkey
+      trezor
+    ] ++ lib.optionals enableQt [ pyqt5 qdarkstyle ];
 
   preBuild = ''
     sed -i 's,usr_share = .*,usr_share = "'$out'/share",g' setup.py
@@ -109,13 +101,17 @@ python3.pkgs.buildPythonApplication {
     wrapQtApp $out/bin/electrum-ltc
   '';
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook pyaes pycryptodomex ];
+  nativeCheckInputs = with python3.pkgs; [
+    pytestCheckHook
+    pyaes
+    pycryptodomex
+  ];
 
   pytestFlagsArray = [ "electrum_ltc/tests" ];
 
   disabledTests = [
-    "test_loop"  # test tries to bind 127.0.0.1 causing permission error
-    "test_is_ip_address"  # fails spuriously https://github.com/spesmilo/electrum/issues/7307
+    "test_loop" # test tries to bind 127.0.0.1 causing permission error
+    "test_is_ip_address" # fails spuriously https://github.com/spesmilo/electrum/issues/7307
   ];
 
   postCheck = ''

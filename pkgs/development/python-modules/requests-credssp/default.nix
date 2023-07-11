@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, gssapi
-, krb5
-, pyspnego
-, pytestCheckHook
-, pythonOlder
-, requests
-}:
+{ lib, buildPythonPackage, cryptography, fetchFromGitHub, gssapi, krb5, pyspnego
+, pytestCheckHook, pythonOlder, requests }:
 
 buildPythonPackage rec {
   pname = "requests-credssp";
@@ -24,15 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-HHLEmQ+mNjMjpR6J+emrKFM+2PiYq32o7Gnoo0gUrNA=";
   };
 
-  propagatedBuildInputs = [
-    cryptography
-    pyspnego
-    requests
-  ];
+  propagatedBuildInputs = [ cryptography pyspnego requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   passthru.optional-dependencies = {
     kerberos = [
@@ -42,9 +27,7 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [
-    "requests_credssp"
-  ];
+  pythonImportsCheck = [ "requests_credssp" ];
 
   meta = with lib; {
     description = "HTTPS CredSSP authentication with the requests library";

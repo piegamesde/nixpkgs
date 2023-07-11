@@ -14,14 +14,16 @@ stdenv.mkDerivation rec {
   patches = [
     # Fix compression build. Remove with the next release. https://github.com/yandex/odyssey/pull/441
     (fetchpatch {
-      url = "https://github.com/yandex/odyssey/commit/01ca5b345c4483add7425785c9c33dfa2c135d63.patch";
+      url =
+        "https://github.com/yandex/odyssey/commit/01ca5b345c4483add7425785c9c33dfa2c135d63.patch";
       sha256 = "sha256-8UPkZkiI08ZZL6GShhug/5/kOVrmdqYlsD1bcqfxg/w=";
     })
   ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ openssl postgresql zstd ];
-  cmakeFlags = [ "-DPQ_LIBRARY=${postgresql.lib}/lib" "-DBUILD_COMPRESSION=ON" ];
+  cmakeFlags =
+    [ "-DPQ_LIBRARY=${postgresql.lib}/lib" "-DBUILD_COMPRESSION=ON" ];
 
   installPhase = ''
     install -Dm755 -t $out/bin sources/odyssey

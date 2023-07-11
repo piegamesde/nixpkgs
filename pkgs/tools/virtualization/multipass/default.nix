@@ -1,33 +1,11 @@
-{ cmake
-, dnsmasq
-, fetchFromGitHub
-, git
-, gtest
-, iproute2
-, iptables
-, lib
-, libapparmor
-, libvirt
-, libxml2
-, nixosTests
-, openssl
-, OVMF
-, pkg-config
-, qemu
-, qemu-utils
-, qtbase
-, qtx11extras
-, slang
-, stdenv
-, wrapQtAppsHook
-, xterm
-}:
+{ cmake, dnsmasq, fetchFromGitHub, git, gtest, iproute2, iptables, lib
+, libapparmor, libvirt, libxml2, nixosTests, openssl, OVMF, pkg-config, qemu
+, qemu-utils, qtbase, qtx11extras, slang, stdenv, wrapQtAppsHook, xterm }:
 
 let
   pname = "multipass";
   version = "1.11.1";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -82,41 +60,28 @@ stdenv.mkDerivation {
     EOF
   '';
 
-  buildInputs = [
-    gtest
-    libapparmor
-    libvirt
-    libxml2
-    openssl
-    qtbase
-    qtx11extras
-  ];
+  buildInputs =
+    [ gtest libapparmor libvirt libxml2 openssl qtbase qtx11extras ];
 
-  nativeBuildInputs = [
-    cmake
-    git
-    pkg-config
-    slang
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake git pkg-config slang wrapQtAppsHook ];
 
   nativeCheckInputs = [ gtest ];
 
   postInstall = ''
-    wrapProgram $out/bin/multipassd --prefix PATH : ${lib.makeBinPath [
-      dnsmasq
-      iproute2
-      iptables
-      OVMF.fd
-      qemu
-      qemu-utils
-      xterm
-    ]}
+    wrapProgram $out/bin/multipassd --prefix PATH : ${
+      lib.makeBinPath [
+        dnsmasq
+        iproute2
+        iptables
+        OVMF.fd
+        qemu
+        qemu-utils
+        xterm
+      ]
+    }
   '';
 
-  passthru.tests = {
-    multipass = nixosTests.multipass;
-  };
+  passthru.tests = { multipass = nixosTests.multipass; };
 
   meta = with lib; {
     description = "Ubuntu VMs on demand for any workstation.";

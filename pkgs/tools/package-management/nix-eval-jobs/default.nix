@@ -1,14 +1,5 @@
-{ lib
-, boost
-, cmake
-, fetchFromGitHub
-, meson
-, ninja
-, nix
-, nlohmann_json
-, pkg-config
-, stdenv
-}:
+{ lib, boost, cmake, fetchFromGitHub, meson, ninja, nix, nlohmann_json
+, pkg-config, stdenv }:
 stdenv.mkDerivation rec {
   pname = "nix-eval-jobs";
   version = "2.14.0";
@@ -18,11 +9,7 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     hash = "sha256-fpksS7lbaYwjf7NuPFE44wvyGcT5d+ERBCJmZoKXaWA=";
   };
-  buildInputs = [
-    boost
-    nix
-    nlohmann_json
-  ];
+  buildInputs = [ boost nix nlohmann_json ];
   nativeBuildInputs = [
     meson
     ninja

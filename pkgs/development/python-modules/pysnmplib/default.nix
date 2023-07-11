@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pycryptodomex
-, pysnmp-pyasn1
-, pysnmp-pysmi
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pycryptodomex
+, pysnmp-pyasn1, pysnmp-pysmi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pysnmplib";
@@ -22,22 +15,14 @@ buildPythonPackage rec {
     hash = "sha256-ejRIlRxDbdZgy7wHilSzunRTGn1uO6YLLmLxNrrHKss=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    pysnmp-pysmi
-    pysnmp-pyasn1
-    pycryptodomex
-  ];
+  propagatedBuildInputs = [ pysnmp-pysmi pysnmp-pyasn1 pycryptodomex ];
 
   # Module has no test, examples are used for testing
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pysnmp"
-  ];
+  pythonImportsCheck = [ "pysnmp" ];
 
   meta = with lib; {
     description = "Implementation of v1/v2c/v3 SNMP engine";

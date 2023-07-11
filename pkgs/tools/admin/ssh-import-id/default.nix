@@ -1,12 +1,5 @@
-{ buildPythonPackage
-, lib
-, fetchgit
-, requests
-, distro
-, makeWrapper
-, installShellFiles
-, extraHandlers ? []
-}:
+{ buildPythonPackage, lib, fetchgit, requests, distro, makeWrapper
+, installShellFiles, extraHandlers ? [ ] }:
 
 buildPythonPackage rec {
   pname = "ssh-import-id";
@@ -18,15 +11,9 @@ buildPythonPackage rec {
     sha256 = "sha256-tYbaJGH59qyvjp4kwo3ZFVs0EaE0Lsd2CQ6iraFkAdI=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    distro
-  ] ++ extraHandlers;
+  propagatedBuildInputs = [ requests distro ] ++ extraHandlers;
 
-  nativeBuildInputs = [
-    makeWrapper
-    installShellFiles
-  ];
+  nativeBuildInputs = [ makeWrapper installShellFiles ];
 
   postInstall = ''
     installManPage $src/usr/share/man/man1/ssh-import-id.1

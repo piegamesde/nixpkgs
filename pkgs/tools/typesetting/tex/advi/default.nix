@@ -1,12 +1,5 @@
-{ fetchurl
-, lib
-, makeWrapper
-, writeShellScriptBin
-, ghostscriptX
-, ocamlPackages
-, texlive
-, which
-}:
+{ fetchurl, lib, makeWrapper, writeShellScriptBin, ghostscriptX, ocamlPackages
+, texlive, which }:
 
 let
   # simplified fake-opam edited from tweag's opam-nix
@@ -29,8 +22,7 @@ let
   kpsexpand = writeShellScriptBin "kpsexpand" ''
     exec kpsetool -v
   '';
-in
-ocamlPackages.buildDunePackage rec {
+in ocamlPackages.buildDunePackage rec {
   pname = "advi";
   version = "2.0.0";
 
@@ -49,13 +41,16 @@ ocamlPackages.buildDunePackage rec {
 
   duneVersion = "3";
 
-  nativeBuildInputs = [ fake-opam kpsexpand makeWrapper texlive.combined.scheme-medium which ];
+  nativeBuildInputs =
+    [ fake-opam kpsexpand makeWrapper texlive.combined.scheme-medium which ];
   buildInputs = with ocamlPackages; [ camlimages ghostscriptX graphics ];
 
   # TODO: ghostscript linked from texlive.combine will override ghostscriptX and break advi
   preInstall = ''
     make install
-    wrapProgram "$out/bin/advi" --prefix PATH : "${lib.makeBinPath [ ghostscriptX ]}"
+    wrapProgram "$out/bin/advi" --prefix PATH : "${
+      lib.makeBinPath [ ghostscriptX ]
+    }"
   '';
 
   # TODO: redirect /share/advi/tex/latex to tex output compatible with texlive.combine
@@ -63,7 +58,8 @@ ocamlPackages.buildDunePackage rec {
 
   meta = with lib; {
     homepage = "http://advi.inria.fr/";
-    description = "Active-DVI is a Unix-platform DVI previewer and a programmable presenter for slides written in LaTeX.";
+    description =
+      "Active-DVI is a Unix-platform DVI previewer and a programmable presenter for slides written in LaTeX.";
     license = licenses.lgpl21Only;
     maintainers = [ maintainers.xworld21 ];
   };

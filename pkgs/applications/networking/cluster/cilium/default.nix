@@ -16,7 +16,8 @@ buildGoModule rec {
   subPackages = [ "cmd/cilium" ];
 
   ldflags = [
-    "-s" "-w"
+    "-s"
+    "-w"
     "-X github.com/cilium/cilium-cli/internal/cli/cmd.Version=${version}"
   ];
 
@@ -38,7 +39,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "CLI to install, manage & troubleshoot Kubernetes clusters running Cilium";
+    description =
+      "CLI to install, manage & troubleshoot Kubernetes clusters running Cilium";
     license = licenses.asl20;
     homepage = "https://www.cilium.io/";
     maintainers = with maintainers; [ humancalico bryanasdev000 ];

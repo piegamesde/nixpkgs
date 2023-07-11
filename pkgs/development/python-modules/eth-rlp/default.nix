@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, eth-hash
-, eth-utils
-, hexbytes
-, pytestCheckHook
-, pythonOlder
-, rlp
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, eth-hash, eth-utils, hexbytes
+, pytestCheckHook, pythonOlder, rlp }:
 
 buildPythonPackage rec {
   pname = "eth-rlp";
@@ -21,15 +13,10 @@ buildPythonPackage rec {
     hash = "sha256-wfmRjHFu6H3J6hNin8ZA2454xXrLgcUdeR8iGXFomRE=";
   };
 
-  propagatedBuildInputs = [
-    hexbytes
-    eth-utils
-    rlp
-  ];
+  propagatedBuildInputs = [ hexbytes eth-utils rlp ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ eth-hash.optional-dependencies.pycryptodome;
+  nativeCheckInputs = [ pytestCheckHook ]
+    ++ eth-hash.optional-dependencies.pycryptodome;
 
   pythonImportsCheck = [ "eth_rlp" ];
 

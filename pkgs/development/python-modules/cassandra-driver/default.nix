@@ -1,26 +1,6 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, cython
-, eventlet
-, fetchFromGitHub
-, geomet
-, gevent
-, gremlinpython
-, iana-etc
-, libev
-, libredirect
-, mock
-, nose
-, pytestCheckHook
-, pythonOlder
-, pytz
-, pyyaml
-, scales
-, six
-, sure
-, twisted
-}:
+{ lib, stdenv, buildPythonPackage, cython, eventlet, fetchFromGitHub, geomet
+, gevent, gremlinpython, iana-etc, libev, libredirect, mock, nose
+, pytestCheckHook, pythonOlder, pytz, pyyaml, scales, six, sure, twisted }:
 
 buildPythonPackage rec {
   pname = "cassandra-driver";
@@ -41,18 +21,11 @@ buildPythonPackage rec {
       --replace 'geomet>=0.1,<0.3' 'geomet'
   '';
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
-  buildInputs = [
-    libev
-  ];
+  buildInputs = [ libev ];
 
-  propagatedBuildInputs = [
-    six
-    geomet
-  ];
+  propagatedBuildInputs = [ six geomet ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -79,17 +52,13 @@ buildPythonPackage rec {
     substituteInPlace tests/unit/io/utils.py --replace 'delta=.15' 'delta=.3'
   '';
 
-  pythonImportsCheck = [
-    "cassandra"
-  ];
+  pythonImportsCheck = [ "cassandra" ];
 
   postCheck = ''
     unset NIX_REDIRECTS LD_PRELOAD
   '';
 
-  pytestFlagsArray = [
-    "tests/unit"
-  ];
+  pytestFlagsArray = [ "tests/unit" ];
 
   disabledTestPaths = [
     # requires puresasl
@@ -108,7 +77,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A Python client driver for Apache Cassandra";
     homepage = "http://datastax.github.io/python-driver";
-    changelog = "https://github.com/datastax/python-driver/blob/${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/datastax/python-driver/blob/${version}/CHANGELOG.rst";
     license = licenses.asl20;
     maintainers = with maintainers; [ turion ris ];
   };

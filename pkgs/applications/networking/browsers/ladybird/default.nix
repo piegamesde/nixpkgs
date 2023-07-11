@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, ninja
-, unzip
-, wrapQtAppsHook
-, libxcrypt
-, qtbase
-, nixosTests
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, ninja, unzip, wrapQtAppsHook, libxcrypt
+, qtbase, nixosTests }:
 
 stdenv.mkDerivation {
   pname = "ladybird";
@@ -34,17 +25,9 @@ stdenv.mkDerivation {
       --replace "@rpath" "$out/lib"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    unzip
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake ninja unzip wrapQtAppsHook ];
 
-  buildInputs = [
-    libxcrypt
-    qtbase
-  ];
+  buildInputs = [ libxcrypt qtbase ];
 
   cmakeFlags = [
     # Disable network operations
@@ -59,9 +42,7 @@ stdenv.mkDerivation {
     install_name_tool -add_rpath $out/lib $out/bin/ladybird
   '';
 
-  passthru.tests = {
-    nixosTest = nixosTests.ladybird;
-  };
+  passthru.tests = { nixosTest = nixosTests.ladybird; };
 
   meta = with lib; {
     description = "A browser using the SerenityOS LibWeb engine with a Qt GUI";

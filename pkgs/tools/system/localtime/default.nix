@@ -1,8 +1,4 @@
-{ buildGoModule
-, fetchFromGitHub
-, lib
-, m4
-}:
+{ buildGoModule, fetchFromGitHub, lib, m4 }:
 
 buildGoModule {
   pname = "localtime";
@@ -34,7 +30,8 @@ buildGoModule {
   '';
 
   meta = with lib; {
-    description = "A daemon for keeping the system timezone up-to-date based on the current location";
+    description =
+      "A daemon for keeping the system timezone up-to-date based on the current location";
     homepage = "https://github.com/Stebalien/localtime";
     maintainers = with maintainers; [ lovesegfault ];
     platforms = platforms.linux;

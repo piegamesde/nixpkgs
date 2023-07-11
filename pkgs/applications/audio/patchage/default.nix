@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, alsa-lib
-, boost
-, dbus-glib
-, ganv
-, glibmm
-, gtkmm2
-, libjack2
-, pkg-config
-, python3
-, wafHook
-}:
+{ lib, stdenv, fetchFromGitLab, alsa-lib, boost, dbus-glib, ganv, glibmm, gtkmm2
+, libjack2, pkg-config, python3, wafHook }:
 
 stdenv.mkDerivation rec {
   pname = "patchage";
@@ -26,17 +14,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    alsa-lib
-    boost
-    dbus-glib
-    ganv
-    glibmm
-    gtkmm2
-    libjack2
-    python3
-    wafHook
-  ];
+  buildInputs =
+    [ alsa-lib boost dbus-glib ganv glibmm gtkmm2 libjack2 python3 wafHook ];
 
   meta = {
     description = "Modular patch bay for Jack and ALSA systems";

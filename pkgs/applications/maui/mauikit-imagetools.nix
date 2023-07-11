@@ -1,25 +1,10 @@
-{ lib
-, mkDerivation
-, cmake
-, extra-cmake-modules
-, kconfig
-, kio
-, leptonica
-, mauikit
-, opencv
-, qtlocation
-, exiv2
-, kquickimageedit
-, tesseract
-}:
+{ lib, mkDerivation, cmake, extra-cmake-modules, kconfig, kio, leptonica
+, mauikit, opencv, qtlocation, exiv2, kquickimageedit, tesseract }:
 
 mkDerivation {
   pname = "mauikit-imagetools";
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
 
   buildInputs = [
     kconfig

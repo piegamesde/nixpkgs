@@ -1,19 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, runCommandLocal
-, bison
-, flex
-, llvmPackages_11
-, opencl-clang
-, python3
-, spirv-tools
-, spirv-headers
+{ lib, stdenv, fetchFromGitHub, cmake, runCommandLocal, bison, flex
+, llvmPackages_11, opencl-clang, python3, spirv-tools, spirv-headers
 , spirv-llvm-translator
 
-, buildWithPatches ? true
-}:
+, buildWithPatches ? true }:
 
 let
   vc_intrinsics_src = fetchFromGitHub {
@@ -29,9 +18,8 @@ let
 
   inherit (llvmPackages_11) lld llvm;
   inherit (llvmPkgs) clang libclang spirv-llvm-translator;
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "intel-graphics-compiler";
   version = "1.0.12812.26";
 
@@ -73,8 +61,12 @@ stdenv.mkDerivation rec {
     ln -s ${clang}/bin/clang $out/
     ln -s clang $out/clang-${lib.versions.major (lib.getVersion clang)}
     ln -s ${opencl-clang}/lib/* $out/
-    ln -s ${lib.getLib libclang}/lib/clang/${lib.getVersion clang}/include/opencl-c.h $out/
-    ln -s ${lib.getLib libclang}/lib/clang/${lib.getVersion clang}/include/opencl-c-base.h $out/
+    ln -s ${lib.getLib libclang}/lib/clang/${
+      lib.getVersion clang
+    }/include/opencl-c.h $out/
+    ln -s ${lib.getLib libclang}/lib/clang/${
+      lib.getVersion clang
+    }/include/opencl-c-base.h $out/
   '';
 
   cmakeFlags = [
@@ -88,7 +80,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/intel/intel-graphics-compiler";
-    description = "LLVM-based compiler for OpenCL targeting Intel Gen graphics hardware";
+    description =
+      "LLVM-based compiler for OpenCL targeting Intel Gen graphics hardware";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ SuperSandro2000 ];

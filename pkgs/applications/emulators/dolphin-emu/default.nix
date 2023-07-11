@@ -1,57 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, wrapQtAppsHook
-, alsa-lib
-, bluez
-, bzip2
-, cubeb
-, curl
-, enet
-, ffmpeg
-, fmt_8
-, hidapi
-, libevdev
-, libGL
-, libiconv
-, libpulseaudio
-, libspng
-, libusb1
-, libXdmcp
-, libXext
-, libXrandr
-, mbedtls_2
-, mgba
-, miniupnpc
-, minizip-ng
-, openal
-, pugixml
-, qtbase
-, sfml
-, soundtouch
-, udev
-, vulkan-loader
-, xxHash
-, xz
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, wrapQtAppsHook, alsa-lib
+, bluez, bzip2, cubeb, curl, enet, ffmpeg, fmt_8, hidapi, libevdev, libGL
+, libiconv, libpulseaudio, libspng, libusb1, libXdmcp, libXext, libXrandr
+, mbedtls_2, mgba, miniupnpc, minizip-ng, openal, pugixml, qtbase, sfml
+, soundtouch, udev, vulkan-loader, xxHash, xz
 
-  # Used in passthru
-, common-updater-scripts
-, dolphin-emu
-, jq
-, testers
-, writeShellScript
+# Used in passthru
+, common-updater-scripts, dolphin-emu, jq, testers, writeShellScript
 
-  # Darwin-only dependencies
-, CoreBluetooth
-, ForceFeedback
-, IOBluetooth
-, IOKit
-, moltenvk
-, OpenGL
-, VideoToolbox
-}:
+# Darwin-only dependencies
+, CoreBluetooth, ForceFeedback, IOBluetooth, IOKit, moltenvk, OpenGL
+, VideoToolbox }:
 
 stdenv.mkDerivation rec {
   pname = "dolphin-emu";
@@ -65,11 +23,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
 
   buildInputs = [
     bzip2
@@ -173,16 +127,12 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://dolphin-emu.org";
     description = "Gamecube/Wii/Triforce emulator for x86_64 and ARMv8";
-    mainProgram = if stdenv.hostPlatform.isDarwin then "Dolphin" else "dolphin-emu";
+    mainProgram =
+      if stdenv.hostPlatform.isDarwin then "Dolphin" else "dolphin-emu";
     branch = "master";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [
-      MP2E
-      ashkitten
-      xfix
-      ivar
-    ];
+    maintainers = with maintainers; [ MP2E ashkitten xfix ivar ];
     # Requires both LLVM and SDK bump
     broken = stdenv.isDarwin && stdenv.isx86_64;
   };

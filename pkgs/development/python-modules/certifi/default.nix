@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, cacert
-, pythonOlder
-, fetchFromGitHub
-, pytestCheckHook
+{ lib, buildPythonPackage, cacert, pythonOlder, fetchFromGitHub, pytestCheckHook
 }:
 
 buildPythonPackage rec {
@@ -35,13 +30,9 @@ buildPythonPackage rec {
     cacert
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "certifi"
-  ];
+  pythonImportsCheck = [ "certifi" ];
 
   meta = with lib; {
     homepage = "https://github.com/certifi/python-certifi";

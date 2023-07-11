@@ -1,22 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, substituteAll
-, dbus-python
-, distro
-, jinja2
-, keyring
-, proton-client
-, pygobject3
-, pyxdg
-, systemd
-, ncurses
-, networkmanager
-, pkgs-systemd
-, python
-, xdg-utils
-, makeWrapper
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, substituteAll
+, dbus-python, distro, jinja2, keyring, proton-client, pygobject3, pyxdg
+, systemd, ncurses, networkmanager, pkgs-systemd, python, xdg-utils, makeWrapper
 }:
 
 buildPythonPackage rec {
@@ -71,7 +55,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "protonvpn_nm_lib" ];
 
   meta = with lib; {
-    description = "ProtonVPN NetworkManager Library intended for every ProtonVPN service user";
+    description =
+      "ProtonVPN NetworkManager Library intended for every ProtonVPN service user";
     homepage = "https://github.com/ProtonVPN/protonvpn-nm-lib";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ wolfangaukang ];

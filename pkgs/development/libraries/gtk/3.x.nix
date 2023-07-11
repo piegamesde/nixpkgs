@@ -1,55 +1,15 @@
-{ lib
-, stdenv
-, substituteAll
-, fetchurl
-, pkg-config
-, gettext
-, docbook-xsl-nons
-, docbook_xml_dtd_43
-, gtk-doc
-, meson
-, mesonEmulatorHook
-, ninja
-, python3
-, makeWrapper
-, shared-mime-info
-, isocodes
-, expat
-, glib
-, cairo
-, pango
-, gdk-pixbuf
-, atk
-, at-spi2-atk
-, gobject-introspection
-, buildPackages
+{ lib, stdenv, substituteAll, fetchurl, pkg-config, gettext, docbook-xsl-nons
+, docbook_xml_dtd_43, gtk-doc, meson, mesonEmulatorHook, ninja, python3
+, makeWrapper, shared-mime-info, isocodes, expat, glib, cairo, pango, gdk-pixbuf
+, atk, at-spi2-atk, gobject-introspection, buildPackages
 , withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-, fribidi
-, xorg
-, libepoxy
-, libxkbcommon
-, libxml2
-, gmp
-, gnome
-, gsettings-desktop-schemas
-, sassc
-, trackerSupport ? stdenv.isLinux && (stdenv.buildPlatform == stdenv.hostPlatform)
-, tracker
-, x11Support ? stdenv.isLinux
-, waylandSupport ? stdenv.isLinux
-, libGL
-, wayland
-, wayland-protocols
-, xineramaSupport ? stdenv.isLinux
-, cupsSupport ? stdenv.isLinux
-, cups
-, AppKit
-, Cocoa
-, QuartzCore
-, broadwaySupport ? true
-, wayland-scanner
-, testers
-}:
+, fribidi, xorg, libepoxy, libxkbcommon, libxml2, gmp, gnome
+, gsettings-desktop-schemas, sassc, trackerSupport ? stdenv.isLinux
+  && (stdenv.buildPlatform == stdenv.hostPlatform), tracker
+, x11Support ? stdenv.isLinux, waylandSupport ? stdenv.isLinux, libGL, wayland
+, wayland-protocols, xineramaSupport ? stdenv.isLinux
+, cupsSupport ? stdenv.isLinux, cups, AppKit, Cocoa, QuartzCore
+, broadwaySupport ? true, wayland-scanner, testers }:
 
 let
 
@@ -59,24 +19,20 @@ let
     gtk_binary_version = "3.0.0";
   };
 
-in
-
-stdenv.mkDerivation (finalAttrs: {
+in stdenv.mkDerivation (finalAttrs: {
   pname = "gtk+3";
   version = "3.24.37";
 
   outputs = [ "out" "dev" ] ++ lib.optional withIntrospection "devdoc";
   outputBin = "dev";
 
-  setupHooks = [
-    ./hooks/drop-icon-theme-cache.sh
-    gtkCleanImmodulesCache
-  ];
+  setupHooks = [ ./hooks/drop-icon-theme-cache.sh gtkCleanImmodulesCache ];
 
-  src = let
-    inherit (finalAttrs) version;
+  src = let inherit (finalAttrs) version;
   in fetchurl {
-    url = "mirror://gnome/sources/gtk+/${lib.versions.majorMinor version}/gtk+-${version}.tar.xz";
+    url = "mirror://gnome/sources/gtk+/${
+        lib.versions.majorMinor version
+      }/gtk+-${version}.tar.xz";
     sha256 = "sha256-Z0XwtMBTeUFR/Q8OJHSwd8zP9fg+ndG/PTn+n+X7f1c=";
   };
 
@@ -91,74 +47,53 @@ stdenv.mkDerivation (finalAttrs: {
     ./patches/3.0-darwin-x11.patch
   ];
 
-  depsBuildBuild = [
-    pkg-config
-  ];
-  nativeBuildInputs = [
-    gettext
-    makeWrapper
-    meson
-    ninja
-    pkg-config
-    python3
-    sassc
-    gdk-pixbuf
-  ] ++ finalAttrs.setupHooks ++ lib.optionals withIntrospection [
-    gobject-introspection
-    docbook_xml_dtd_43
-    docbook-xsl-nons
-    gtk-doc
-    # For xmllint
-    libxml2
-  ] ++ lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-    mesonEmulatorHook
-  ] ++ lib.optionals waylandSupport [
-    wayland-scanner
-  ];
+  depsBuildBuild = [ pkg-config ];
+  nativeBuildInputs =
+    [ gettext makeWrapper meson ninja pkg-config python3 sassc gdk-pixbuf ]
+    ++ finalAttrs.setupHooks ++ lib.optionals withIntrospection [
+      gobject-introspection
+      docbook_xml_dtd_43
+      docbook-xsl-nons
+      gtk-doc
+      # For xmllint
+      libxml2
+    ] ++ lib.optionals
+    (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+    [ mesonEmulatorHook ] ++ lib.optionals waylandSupport [ wayland-scanner ];
 
-  buildInputs = [
-    libxkbcommon
-    (libepoxy.override { inherit x11Support; })
-    isocodes
-  ] ++ lib.optionals stdenv.isDarwin [
-    AppKit
-  ] ++ lib.optionals trackerSupport [
-    tracker
-  ];
+  buildInputs =
+    [ libxkbcommon (libepoxy.override { inherit x11Support; }) isocodes ]
+    ++ lib.optionals stdenv.isDarwin [ AppKit ]
+    ++ lib.optionals trackerSupport [ tracker ];
   #TODO: colord?
 
-  propagatedBuildInputs = with xorg; [
-    at-spi2-atk
-    atk
-    cairo
-    expat
-    fribidi
-    gdk-pixbuf
-    glib
-    gsettings-desktop-schemas
-    libICE
-    libSM
-    libXcomposite
-    libXcursor
-    libXdamage
-    libXfixes
-    libXi
-    libXrandr
-    libXrender
-    pango
-  ] ++ lib.optionals stdenv.isDarwin [
-    # explicitly propagated, always needed
-    Cocoa
-    QuartzCore
-  ] ++ lib.optionals waylandSupport [
-    libGL
-    wayland
-    wayland-protocols
-  ] ++ lib.optionals xineramaSupport [
-    libXinerama
-  ] ++ lib.optionals cupsSupport [
-    cups
-  ];
+  propagatedBuildInputs = with xorg;
+    [
+      at-spi2-atk
+      atk
+      cairo
+      expat
+      fribidi
+      gdk-pixbuf
+      glib
+      gsettings-desktop-schemas
+      libICE
+      libSM
+      libXcomposite
+      libXcursor
+      libXdamage
+      libXfixes
+      libXi
+      libXrandr
+      libXrender
+      pango
+    ] ++ lib.optionals stdenv.isDarwin [
+      # explicitly propagated, always needed
+      Cocoa
+      QuartzCore
+    ] ++ lib.optionals waylandSupport [ libGL wayland wayland-protocols ]
+    ++ lib.optionals xineramaSupport [ libXinerama ]
+    ++ lib.optionals cupsSupport [ cups ];
 
   mesonFlags = [
     "-Dgtk_doc=${lib.boolToString withIntrospection}"
@@ -215,7 +150,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   # Wrap demos
-  postFixup =  lib.optionalString (!stdenv.isDarwin) ''
+  postFixup = lib.optionalString (!stdenv.isDarwin) ''
     demos=(gtk3-demo gtk3-demo-application gtk3-icon-browser gtk3-widget-factory)
 
     for program in ''${demos[@]}; do
@@ -237,7 +172,8 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = with lib; {
-    description = "A multi-platform toolkit for creating graphical user interfaces";
+    description =
+      "A multi-platform toolkit for creating graphical user interfaces";
     longDescription = ''
       GTK is a highly usable, feature rich toolkit for creating
       graphical user interfaces which boasts cross platform
@@ -251,13 +187,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.gtk.org/";
     license = licenses.lgpl2Plus;
     maintainers = with maintainers; [ raskin ] ++ teams.gnome.members;
-    pkgConfigModules = [
-      "gdk-3.0"
-      "gtk+-3.0"
-    ] ++ lib.optionals x11Support [
-      "gdk-x11-3.0"
-      "gtk+-x11-3.0"
-    ];
+    pkgConfigModules = [ "gdk-3.0" "gtk+-3.0" ]
+      ++ lib.optionals x11Support [ "gdk-x11-3.0" "gtk+-x11-3.0" ];
     platforms = platforms.all;
     changelog = "https://gitlab.gnome.org/GNOME/gtk/-/raw/${version}/NEWS";
   };

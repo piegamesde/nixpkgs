@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, cherrypy
-, fetchFromGitHub
-, lockfile
-, mock
-, msgpack
-, pytestCheckHook
-, pythonOlder
-, redis
-, requests
-}:
+{ lib, buildPythonPackage, cherrypy, fetchFromGitHub, lockfile, mock, msgpack
+, pytestCheckHook, pythonOlder, redis, requests }:
 
 buildPythonPackage rec {
   pname = "cachecontrol";
@@ -27,20 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-uUPIQz/n347Q9G7NDOGuB760B/KxOglUxiS/rYjt5Po=";
   };
 
-  propagatedBuildInputs = [
-    msgpack
-    requests
-  ];
+  propagatedBuildInputs = [ msgpack requests ];
 
-  nativeCheckInputs = [
-    cherrypy
-    mock
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.filecache;
+  nativeCheckInputs = [ cherrypy mock pytestCheckHook ]
+    ++ passthru.optional-dependencies.filecache;
 
-  pythonImportsCheck = [
-    "cachecontrol"
-  ];
+  pythonImportsCheck = [ "cachecontrol" ];
 
   passthru.optional-dependencies = {
     filecache = [ lockfile ];

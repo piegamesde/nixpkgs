@@ -1,14 +1,5 @@
-{ stdenv
-, coreutils
-, lib
-, installShellFiles
-, zlib
-, autoPatchelfHook
-, fetchurl
-, makeWrapper
-, callPackage
-, jre
-}:
+{ stdenv, coreutils, lib, installShellFiles, zlib, autoPatchelfHook, fetchurl
+, makeWrapper, callPackage, jre }:
 
 let
   pname = "scala-cli";
@@ -16,24 +7,26 @@ let
   inherit (sources) version assets;
 
   platforms = builtins.attrNames assets;
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
   nativeBuildInputs = [ installShellFiles makeWrapper ]
     ++ lib.optional stdenv.isLinux autoPatchelfHook;
   buildInputs =
     assert lib.assertMsg (lib.versionAtLeast jre.version "17.0.0") ''
       scala-cli requires Java 17 or newer, but ${jre.name} is ${jre.version}
-    '';
-    [ coreutils zlib stdenv.cc.cc ];
-  src =
-    let
-      asset = assets."${stdenv.hostPlatform.system}" or (throw "Unsupported platform ${stdenv.hostPlatform.system}");
-    in
-    fetchurl {
-      url = "https://github.com/Virtuslab/scala-cli/releases/download/v${version}/${asset.asset}";
-      sha256 = asset.sha256;
-    };
+    ''; [
+      coreutils
+      zlib
+      stdenv.cc.cc
+    ];
+  src = let
+    asset = assets."${stdenv.hostPlatform.system}" or (throw
+      "Unsupported platform ${stdenv.hostPlatform.system}");
+  in fetchurl {
+    url =
+      "https://github.com/Virtuslab/scala-cli/releases/download/v${version}/${asset.asset}";
+    sha256 = asset.sha256;
+  };
   unpackPhase = ''
     runHook preUnpack
     gzip -d < $src > scala-cli
@@ -68,12 +61,14 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://scala-cli.virtuslab.org";
-    downloadPage = "https://github.com/VirtusLab/scala-cli/releases/v${version}";
+    downloadPage =
+      "https://github.com/VirtusLab/scala-cli/releases/v${version}";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.asl20;
     description = "Command-line tool to interact with the Scala language";
     maintainers = [ maintainers.kubukoz ];
   };
 
-  passthru.updateScript = callPackage ./update.nix { } { inherit platforms pname version; };
+  passthru.updateScript =
+    callPackage ./update.nix { } { inherit platforms pname version; };
 }

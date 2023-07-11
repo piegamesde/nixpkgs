@@ -6,8 +6,7 @@ let
   format = pkgs.formats.json { };
   cfg = config.services.influxdb2;
   configFile = format.generate "config.json" cfg.settings;
-in
-{
+in {
   options = {
     services.influxdb2 = {
       enable = mkEnableOption (lib.mdDoc "the influxdb2 server");
@@ -21,7 +20,8 @@ in
 
       settings = mkOption {
         default = { };
-        description = lib.mdDoc ''configuration options for influxdb2, see <https://docs.influxdata.com/influxdb/v2.0/reference/config-options> for details.'';
+        description = lib.mdDoc
+          "configuration options for influxdb2, see <https://docs.influxdata.com/influxdb/v2.0/reference/config-options> for details.";
         type = format.type;
       };
     };
@@ -29,12 +29,15 @@ in
 
   config = mkIf cfg.enable {
     assertions = [{
-      assertion = !(builtins.hasAttr "bolt-path" cfg.settings) && !(builtins.hasAttr "engine-path" cfg.settings);
-      message = "services.influxdb2.config: bolt-path and engine-path should not be set as they are managed by systemd";
+      assertion = !(builtins.hasAttr "bolt-path" cfg.settings)
+        && !(builtins.hasAttr "engine-path" cfg.settings);
+      message =
+        "services.influxdb2.config: bolt-path and engine-path should not be set as they are managed by systemd";
     }];
 
     systemd.services.influxdb2 = {
-      description = "InfluxDB is an open-source, distributed, time series database";
+      description =
+        "InfluxDB is an open-source, distributed, time series database";
       documentation = [ "https://docs.influxdata.com/influxdb/" ];
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
@@ -43,7 +46,8 @@ in
         ZONEINFO = "${pkgs.tzdata}/share/zoneinfo";
       };
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/influxd --bolt-path \${STATE_DIRECTORY}/influxd.bolt --engine-path \${STATE_DIRECTORY}/engine";
+        ExecStart =
+          "${cfg.package}/bin/influxd --bolt-path \${STATE_DIRECTORY}/influxd.bolt --engine-path \${STATE_DIRECTORY}/engine";
         StateDirectory = "influxdb2";
         User = "influxdb2";
         Group = "influxdb2";
@@ -60,7 +64,7 @@ in
       group = "influxdb2";
     };
 
-    users.extraGroups.influxdb2 = {};
+    users.extraGroups.influxdb2 = { };
   };
 
   meta.maintainers = with lib.maintainers; [ nickcao ];

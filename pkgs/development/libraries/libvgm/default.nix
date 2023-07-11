@@ -1,46 +1,29 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, unstableGitUpdater
-, cmake
-, libiconv
-, zlib
+{ stdenv, lib, fetchFromGitHub, unstableGitUpdater, cmake, libiconv, zlib
 , enableShared ? true
 
-, enableAudio ? true
-, withWaveWrite ? true
+, enableAudio ? true, withWaveWrite ? true
 , withWinMM ? stdenv.hostPlatform.isWindows
 , withDirectSound ? stdenv.hostPlatform.isWindows
 , withXAudio2 ? stdenv.hostPlatform.isWindows
 , withWASAPI ? stdenv.hostPlatform.isWindows
 , withOSS ? stdenv.hostPlatform.isFreeBSD
-, withSADA ? stdenv.hostPlatform.isSunOS
-, withALSA ? stdenv.hostPlatform.isLinux
-, alsa-lib
-, withPulseAudio ? stdenv.hostPlatform.isLinux
-, libpulseaudio
-, withCoreAudio ? stdenv.hostPlatform.isDarwin
-, CoreAudio
-, AudioToolbox
-, withLibao ? true
-, libao
+, withSADA ? stdenv.hostPlatform.isSunOS, withALSA ? stdenv.hostPlatform.isLinux
+, alsa-lib, withPulseAudio ? stdenv.hostPlatform.isLinux, libpulseaudio
+, withCoreAudio ? stdenv.hostPlatform.isDarwin, CoreAudio, AudioToolbox
+, withLibao ? true, libao
 
-, enableEmulation ? true
-, withAllEmulators ? true
-, emulators ? [ ]
+, enableEmulation ? true, withAllEmulators ? true, emulators ? [ ]
 
 , enableLibplayer ? true
 
-, enableTools ? false
-}:
+, enableTools ? false }:
 
 assert enableTools -> enableAudio && enableEmulation && enableLibplayer;
 
 let
   inherit (lib) optional optionals;
   onOff = val: if val then "ON" else "OFF";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "libvgm";
   version = "unstable-2023-04-22";
 
@@ -51,28 +34,14 @@ stdenv.mkDerivation rec {
     sha256 = "U/PO/YtS8bOb2yKk57UQKH4eRNysYC/hrmUR5YZyYlw=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ optional enableTools "bin";
+  outputs = [ "out" "dev" ] ++ optional enableTools "bin";
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  propagatedBuildInputs = [
-    libiconv
-    zlib
-  ] ++ optionals withALSA [
-    alsa-lib
-  ] ++ optionals withPulseAudio [
-    libpulseaudio
-  ] ++ optionals withCoreAudio [
-    CoreAudio
-    AudioToolbox
-  ] ++ optionals withLibao [
-    libao
-  ];
+  propagatedBuildInputs = [ libiconv zlib ] ++ optionals withALSA [ alsa-lib ]
+    ++ optionals withPulseAudio [ libpulseaudio ]
+    ++ optionals withCoreAudio [ CoreAudio AudioToolbox ]
+    ++ optionals withLibao [ libao ];
 
   cmakeFlags = [
     "-DBUILD_LIBAUDIO=${onOff enableAudio}"
@@ -95,27 +64,25 @@ stdenv.mkDerivation rec {
     "-DAUDIODRV_PULSE=${onOff withPulseAudio}"
     "-DAUDIODRV_APPLE=${onOff withCoreAudio}"
     "-DAUDIODRV_LIBAO=${onOff withLibao}"
-  ] ++ optionals enableEmulation ([
-    "-DSNDEMU__ALL=${onOff withAllEmulators}"
-  ] ++ optionals (!withAllEmulators)
-    (lib.lists.forEach emulators (x: "-DSNDEMU_${x}=ON"))
-  ) ++ optionals enableTools [
-    "-DUTIL_CHARCNV_ICONV=ON"
-    "-DUTIL_CHARCNV_WINAPI=${onOff stdenv.hostPlatform.isWindows}"
-  ];
+  ] ++ optionals enableEmulation ([ "-DSNDEMU__ALL=${onOff withAllEmulators}" ]
+    ++ optionals (!withAllEmulators)
+    (lib.lists.forEach emulators (x: "-DSNDEMU_${x}=ON")))
+    ++ optionals enableTools [
+      "-DUTIL_CHARCNV_ICONV=ON"
+      "-DUTIL_CHARCNV_WINAPI=${onOff stdenv.hostPlatform.isWindows}"
+    ];
 
-  passthru.updateScript = unstableGitUpdater {
-    url = "https://github.com/ValleyBell/libvgm.git";
-  };
+  passthru.updateScript =
+    unstableGitUpdater { url = "https://github.com/ValleyBell/libvgm.git"; };
 
   meta = with lib; {
     homepage = "https://github.com/ValleyBell/libvgm";
     description = "More modular rewrite of most components from VGMPlay";
-    license =
-      if (enableEmulation && (withAllEmulators || (lib.lists.any (core: core == "WSWAN_ALL") emulators))) then
-        licenses.unfree # https://github.com/ValleyBell/libvgm/issues/43
-      else
-        licenses.gpl2Only;
+    license = if (enableEmulation && (withAllEmulators
+      || (lib.lists.any (core: core == "WSWAN_ALL") emulators))) then
+      licenses.unfree # https://github.com/ValleyBell/libvgm/issues/43
+    else
+      licenses.gpl2Only;
     maintainers = with maintainers; [ OPNA2608 ];
     platforms = platforms.all;
   };

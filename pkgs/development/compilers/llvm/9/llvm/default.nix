@@ -1,29 +1,14 @@
-{ lib, stdenv, llvm_meta
-, pkgsBuildBuild
-, fetch
-, fetchpatch
-, cmake
-, python3
-, libffi
-, enableGoldPlugin ? libbfd.hasPluginAPI
-, libbfd
-, libpfm
-, libxml2
-, ncurses
-, version
-, release_version
-, zlib
-, buildLlvmTools
-, debugVersion ? false
-, doCheck ? stdenv.isLinux && (!stdenv.isx86_32) && (!stdenv.hostPlatform.isRiscV)
-  && (stdenv.hostPlatform == stdenv.buildPlatform)
-, enableManpages ? false
+{ lib, stdenv, llvm_meta, pkgsBuildBuild, fetch, fetchpatch, cmake, python3
+, libffi, enableGoldPlugin ? libbfd.hasPluginAPI, libbfd, libpfm, libxml2
+, ncurses, version, release_version, zlib, buildLlvmTools, debugVersion ? false
+, doCheck ? stdenv.isLinux && (!stdenv.isx86_32)
+  && (!stdenv.hostPlatform.isRiscV)
+  && (stdenv.hostPlatform == stdenv.buildPlatform), enableManpages ? false
 , enableSharedLibraries ? !stdenv.hostPlatform.isStatic
-# broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
-# broken for the armv7l builder
+  # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
+  # broken for the armv7l builder
 , enablePFM ? stdenv.isLinux && !stdenv.hostPlatform.isAarch
-, enablePolly ? false
-}:
+, enablePolly ? false }:
 
 let
   inherit (lib) optional optionals optionalString;
@@ -50,17 +35,17 @@ let
   # So, we "manually" assemble one python derivation for the package to depend
   # on, taking into account whether checks are enabled or not:
   python = if doCheck then
-    let
-      checkDeps = ps: with ps; [ psutil ];
-    in python3.withPackages checkDeps
-  else python3;
+    let checkDeps = ps: with ps; [ psutil ]; in python3.withPackages checkDeps
+  else
+    python3;
 
 in stdenv.mkDerivation (rec {
   pname = "llvm";
   inherit version;
 
   src = fetch pname "16hwp3qa54c3a3v7h8nlw0fh5criqh0hlr1skybyk0cz70gyx880";
-  polly_src = fetch "polly" "1kqg0isv0kicnylrdp5iajlgd6alc0zx1l3cxc9hs8r3z6fwcjls";
+  polly_src =
+    fetch "polly" "1kqg0isv0kicnylrdp5iajlgd6alc0zx1l3cxc9hs8r3z6fwcjls";
 
   unpackPhase = ''
     unpackFile $src
@@ -73,11 +58,12 @@ in stdenv.mkDerivation (rec {
 
   outputs = [ "out" "lib" "dev" "python" ];
 
-  nativeBuildInputs = [ cmake python ]
-    ++ optionals enableManpages [ python3.pkgs.sphinx python3.pkgs.recommonmark ];
+  nativeBuildInputs = [ cmake python ] ++ optionals enableManpages [
+    python3.pkgs.sphinx
+    python3.pkgs.recommonmark
+  ];
 
-  buildInputs = [ libxml2 libffi ]
-    ++ optional enablePFM libpfm; # exegesis
+  buildInputs = [ libxml2 libffi ] ++ optional enablePFM libpfm; # exegesis
 
   propagatedBuildInputs = [ ncurses zlib ];
 
@@ -96,7 +82,8 @@ in stdenv.mkDerivation (rec {
     # Fix missing includes for GCC 11
     (fetchpatch {
       name = "headers-gcc-11.patch";
-      url = "https://github.com/llvm/llvm-project/commit/b498303066a63a203d24f739b2d2e0e56dca70d1.patch";
+      url =
+        "https://github.com/llvm/llvm-project/commit/b498303066a63a203d24f739b2d2e0e56dca70d1.patch";
       sha256 = "0nh123kld0dgz2h941lng331dkj3wbm5lfxm375k1f569gv83hlk";
       stripLen = 1;
     })
@@ -104,7 +91,8 @@ in stdenv.mkDerivation (rec {
     # Fix invalid std::string(nullptr) for GCC 12
     (fetchpatch {
       name = "nvptx-gcc-12.patch";
-      url = "https://github.com/llvm/llvm-project/commit/99e64623ec9b31def9375753491cc6093c831809.patch";
+      url =
+        "https://github.com/llvm/llvm-project/commit/99e64623ec9b31def9375753491cc6093c831809.patch";
       sha256 = "0zjfjgavqzi2ypqwqnlvy6flyvdz8hi1anwv0ybwnm2zqixg7za3";
       stripLen = 1;
     })
@@ -186,44 +174,41 @@ in stdenv.mkDerivation (rec {
     ln -sv $PWD/lib $out
   '';
 
-  cmakeFlags = with stdenv; let
-    # These flags influence llvm-config's BuildVariables.inc in addition to the
-    # general build. We need to make sure these are also passed via
-    # CROSS_TOOLCHAIN_FLAGS_NATIVE when cross-compiling or llvm-config-native
-    # will return different results from the cross llvm-config.
-    #
-    # Some flags don't need to be repassed because LLVM already does so (like
-    # CMAKE_BUILD_TYPE), others are irrelevant to the result.
-    flagsForLlvmConfig = [
-      "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
-      "-DLLVM_ENABLE_RTTI=ON"
-    ] ++ optionals enableSharedLibraries [
-      "-DLLVM_LINK_LLVM_DYLIB=ON"
-    ];
-  in flagsForLlvmConfig ++ [
-    "-DCMAKE_BUILD_TYPE=${if debugVersion then "Debug" else "Release"}"
-    "-DLLVM_INSTALL_UTILS=ON"  # Needed by rustc
-    "-DLLVM_BUILD_TESTS=${if doCheck then "ON" else "OFF"}"
-    "-DLLVM_ENABLE_FFI=ON"
-    "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
-    "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.hostPlatform.config}"
-    "-DLLVM_ENABLE_DUMP=ON"
-  ] ++ optionals enableManpages [
-    "-DLLVM_BUILD_DOCS=ON"
-    "-DLLVM_ENABLE_SPHINX=ON"
-    "-DSPHINX_OUTPUT_MAN=ON"
-    "-DSPHINX_OUTPUT_HTML=OFF"
-    "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
-  ] ++ optionals (enableGoldPlugin) [
-    "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
-  ] ++ optionals (isDarwin) [
-    "-DLLVM_ENABLE_LIBCXX=ON"
-    "-DCAN_TARGET_i386=false"
-  ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    "-DCMAKE_CROSSCOMPILING=True"
-    "-DLLVM_TABLEGEN=${buildLlvmTools.llvm}/bin/llvm-tblgen"
-    (
-      let
+  cmakeFlags = with stdenv;
+    let
+      # These flags influence llvm-config's BuildVariables.inc in addition to the
+      # general build. We need to make sure these are also passed via
+      # CROSS_TOOLCHAIN_FLAGS_NATIVE when cross-compiling or llvm-config-native
+      # will return different results from the cross llvm-config.
+      #
+      # Some flags don't need to be repassed because LLVM already does so (like
+      # CMAKE_BUILD_TYPE), others are irrelevant to the result.
+      flagsForLlvmConfig = [
+        "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
+        "-DLLVM_ENABLE_RTTI=ON"
+      ] ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ];
+    in flagsForLlvmConfig ++ [
+      "-DCMAKE_BUILD_TYPE=${if debugVersion then "Debug" else "Release"}"
+      "-DLLVM_INSTALL_UTILS=ON" # Needed by rustc
+      "-DLLVM_BUILD_TESTS=${if doCheck then "ON" else "OFF"}"
+      "-DLLVM_ENABLE_FFI=ON"
+      "-DLLVM_HOST_TRIPLE=${stdenv.hostPlatform.config}"
+      "-DLLVM_DEFAULT_TARGET_TRIPLE=${stdenv.hostPlatform.config}"
+      "-DLLVM_ENABLE_DUMP=ON"
+    ] ++ optionals enableManpages [
+      "-DLLVM_BUILD_DOCS=ON"
+      "-DLLVM_ENABLE_SPHINX=ON"
+      "-DSPHINX_OUTPUT_MAN=ON"
+      "-DSPHINX_OUTPUT_HTML=OFF"
+      "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
+    ] ++ optionals (enableGoldPlugin)
+    [ "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include" ] ++ optionals (isDarwin) [
+      "-DLLVM_ENABLE_LIBCXX=ON"
+      "-DCAN_TARGET_i386=false"
+    ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      "-DCMAKE_CROSSCOMPILING=True"
+      "-DLLVM_TABLEGEN=${buildLlvmTools.llvm}/bin/llvm-tblgen"
+      (let
         nativeCC = pkgsBuildBuild.targetPackages.stdenv.cc;
         nativeBintools = nativeCC.bintools.bintools;
         nativeToolchainFlags = [
@@ -242,14 +227,13 @@ in stdenv.mkDerivation (rec {
           "-DCMAKE_INSTALL_LIBDIR=${placeholder "lib"}/lib"
           "-DCMAKE_INSTALL_LIBEXECDIR=${placeholder "lib"}/libexec"
         ];
-      in "-DCROSS_TOOLCHAIN_FLAGS_NATIVE:list="
-      + lib.concatStringsSep ";" (lib.concatLists [
+      in "-DCROSS_TOOLCHAIN_FLAGS_NATIVE:list=" + lib.concatStringsSep ";"
+      (lib.concatLists [
         flagsForLlvmConfig
         nativeToolchainFlags
         nativeInstallFlags
-      ])
-    )
-  ];
+      ]))
+    ];
 
   postBuild = ''
     rm -fR $out
@@ -263,17 +247,17 @@ in stdenv.mkDerivation (rec {
     mkdir -p $python/share
     mv $out/share/opt-viewer $python/share/opt-viewer
     moveToOutput "bin/llvm-config*" "$dev"
-    substituteInPlace "$dev/lib/cmake/llvm/LLVMExports-${if debugVersion then "debug" else "release"}.cmake" \
+    substituteInPlace "$dev/lib/cmake/llvm/LLVMExports-${
+      if debugVersion then "debug" else "release"
+    }.cmake" \
       --replace "\''${_IMPORT_PREFIX}/lib/lib" "$lib/lib/lib" \
       --replace "$out/bin/llvm-config" "$dev/bin/llvm-config"
     substituteInPlace "$dev/lib/cmake/llvm/LLVMConfig.cmake" \
       --replace 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}")' 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}'"$lib"'")'
-  ''
-  + optionalString (stdenv.isDarwin && enableSharedLibraries) ''
+  '' + optionalString (stdenv.isDarwin && enableSharedLibraries) ''
     ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${shortVersion}.dylib
     ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${release_version}.dylib
-  ''
-  + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+  '' + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
     cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native
   '';
 
@@ -284,7 +268,8 @@ in stdenv.mkDerivation (rec {
   requiredSystemFeatures = [ "big-parallel" ];
   meta = llvm_meta // {
     homepage = "https://llvm.org/";
-    description = "A collection of modular and reusable compiler and toolchain technologies";
+    description =
+      "A collection of modular and reusable compiler and toolchain technologies";
     longDescription = ''
       The LLVM Project is a collection of modular and reusable compiler and
       toolchain technologies. Despite its name, LLVM has little to do with
@@ -307,7 +292,7 @@ in stdenv.mkDerivation (rec {
     make docs-llvm-man
   '';
 
-  propagatedBuildInputs = [];
+  propagatedBuildInputs = [ ];
 
   installPhase = ''
     make -C docs install
@@ -320,7 +305,5 @@ in stdenv.mkDerivation (rec {
 
   doCheck = false;
 
-  meta = llvm_meta // {
-    description = "man pages for LLVM ${version}";
-  };
+  meta = llvm_meta // { description = "man pages for LLVM ${version}"; };
 })

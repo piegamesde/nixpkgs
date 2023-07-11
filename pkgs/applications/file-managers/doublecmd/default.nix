@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, dbus
-, fpc
-, getopt
-, glib
-, lazarus
-, libX11
-, libqt5pas
-, wrapQtAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, dbus, fpc, getopt, glib, lazarus, libX11
+, libqt5pas, wrapQtAppsHook }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "doublecmd";
@@ -22,21 +12,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-UV5LooVkCBzUk9E7dYje6t19HOuMCO8jY+fNGTES0KA=";
   };
 
-  nativeBuildInputs = [
-    fpc
-    getopt
-    lazarus
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ fpc getopt lazarus wrapQtAppsHook ];
 
-  buildInputs = [
-    dbus
-    glib
-    libX11
-    libqt5pas
-  ];
+  buildInputs = [ dbus glib libX11 libqt5pas ];
 
-  NIX_LDFLAGS = "--as-needed -rpath ${lib.makeLibraryPath finalAttrs.buildInputs}";
+  NIX_LDFLAGS =
+    "--as-needed -rpath ${lib.makeLibraryPath finalAttrs.buildInputs}";
 
   postPatch = ''
     patchShebangs build.sh install/linux/install.sh

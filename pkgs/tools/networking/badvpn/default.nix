@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake, openssl, nss, pkg-config, nspr, bash, debug ? false }:
+{ lib, stdenv, fetchFromGitHub, cmake, openssl, nss, pkg-config, nspr, bash
+, debug ? false }:
 
 stdenv.mkDerivation rec {
   pname = "badvpn";
@@ -12,16 +13,14 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [
-    openssl
-    nss
-    nspr
-  ];
+  buildInputs = [ openssl nss nspr ];
 
   preConfigure = ''
     find . -name '*.sh' -exec sed -e 's@#!/bin/sh@${stdenv.shell}@' -i '{}' ';'
     find . -name '*.sh' -exec sed -e 's@#!/bin/bash@${bash}/bin/bash@' -i '{}' ';'
-    cmakeFlagsArray=("-DCMAKE_BUILD_TYPE=" "-DCMAKE_C_FLAGS=-O3 ${lib.optionalString (!debug) "-DNDEBUG"}");
+    cmakeFlagsArray=("-DCMAKE_BUILD_TYPE=" "-DCMAKE_C_FLAGS=-O3 ${
+      lib.optionalString (!debug) "-DNDEBUG"
+    }");
   '';
 
   meta = with lib; {

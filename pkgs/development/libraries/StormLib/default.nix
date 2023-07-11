@@ -16,19 +16,17 @@ stdenv.mkDerivation rec {
       --replace "FRAMEWORK DESTINATION /Library/Frameworks" "FRAMEWORK DESTINATION Library/Frameworks"
   '';
 
-  cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=ON"
-    "-DWITH_LIBTOMCRYPT=ON"
-  ];
+  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" "-DWITH_LIBTOMCRYPT=ON" ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ bzip2 libtomcrypt zlib ] ++
-    lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Carbon ];
+  buildInputs = [ bzip2 libtomcrypt zlib ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Carbon ];
 
   meta = with lib; {
     homepage = "https://github.com/ladislav-zezula/StormLib";
     license = licenses.mit;
-    description = "An open-source project that can work with Blizzard MPQ archives";
+    description =
+      "An open-source project that can work with Blizzard MPQ archives";
     platforms = platforms.all;
     maintainers = with maintainers; [ aanderse karolchmist ];
   };

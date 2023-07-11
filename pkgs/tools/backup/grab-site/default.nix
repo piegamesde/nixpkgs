@@ -16,8 +16,8 @@ let
     };
   };
 
-in
-with python.pkgs; buildPythonApplication rec {
+in with python.pkgs;
+buildPythonApplication rec {
   pname = "grab-site";
   version = "2.2.7";
 

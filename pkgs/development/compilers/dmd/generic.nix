@@ -1,50 +1,30 @@
-{ version
-, dmdSha256
-, druntimeSha256
-, phobosSha256
-}:
+{ version, dmdSha256, druntimeSha256, phobosSha256 }:
 
-{ stdenv
-, lib
-, fetchFromGitHub
-, makeWrapper
-, which
-, writeTextFile
-, curl
-, tzdata
-, gdb
-, Foundation
-, callPackage
-, targetPackages
-, fetchpatch
-, bash
-, installShellFiles
-, git
-, unzip
-, HOST_DMD ? "${callPackage ./bootstrap.nix { }}/bin/dmd"
-}:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, which, writeTextFile, curl, tzdata
+, gdb, Foundation, callPackage, targetPackages, fetchpatch, bash
+, installShellFiles, git, unzip
+, HOST_DMD ? "${callPackage ./bootstrap.nix { }}/bin/dmd" }:
 
 let
   dmdConfFile = writeTextFile {
     name = "dmd.conf";
     text = (lib.generators.toINI { } {
       Environment = {
-        DFLAGS = ''-I@out@/include/dmd -L-L@out@/lib -fPIC ${lib.optionalString (!targetPackages.stdenv.cc.isClang) "-L--export-dynamic"}'';
+        DFLAGS = "-I@out@/include/dmd -L-L@out@/lib -fPIC ${
+            lib.optionalString (!targetPackages.stdenv.cc.isClang)
+            "-L--export-dynamic"
+          }";
       };
     });
   };
 
   bits = builtins.toString stdenv.hostPlatform.parsed.cpu.bits;
   osname =
-    if stdenv.isDarwin then
-      "osx"
-    else
-      stdenv.hostPlatform.parsed.kernel.name;
+    if stdenv.isDarwin then "osx" else stdenv.hostPlatform.parsed.kernel.name;
 
   pathToDmd = "\${NIX_BUILD_TOP}/dmd/generated/${osname}/release/${bits}/dmd";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "dmd";
   inherit version;
 
@@ -83,7 +63,8 @@ stdenv.mkDerivation rec {
     # Migrates D1-style operator overloads in DMD source, to allow building with
     # a newer DMD
     (fetchpatch {
-      url = "https://github.com/dlang/dmd/commit/c4d33e5eb46c123761ac501e8c52f33850483a8a.patch";
+      url =
+        "https://github.com/dlang/dmd/commit/c4d33e5eb46c123761ac501e8c52f33850483a8a.patch";
       stripLen = 1;
       extraPrefix = "dmd/";
       sha256 = "sha256-N21mAPfaTo+zGCip4njejasraV5IsWVqlGR5eOdFZZE=";
@@ -91,7 +72,8 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals (lib.versionOlder version "2.092.2") [
     # Fixes C++ tests that compiled on older C++ but not on the current one
     (fetchpatch {
-      url = "https://github.com/dlang/druntime/commit/438990def7e377ca1f87b6d28246673bb38022ab.patch";
+      url =
+        "https://github.com/dlang/druntime/commit/438990def7e377ca1f87b6d28246673bb38022ab.patch";
       stripLen = 1;
       extraPrefix = "druntime/";
       sha256 = "sha256-/pPKK7ZK9E/mBrxm2MZyBNhYExE8p9jz8JqBdZSE6uY=";
@@ -126,49 +108,33 @@ stdenv.mkDerivation rec {
       --replace 'freebsd osx' 'none'
   ''
 
-  + lib.optionalString (lib.versionOlder version "2.091.0") ''
-    # This one has tested against a hardcoded year, then against a current year on
-    # and off again. It just isn't worth it to patch all the historical versions
-    # of it, so just remove it until the most recent change.
-    rm dmd/test/compilable/ddocYear.d
-  '' + lib.optionalString (lib.versionAtLeast version "2.089.0" && lib.versionOlder version "2.092.2") ''
-    rm dmd/test/dshell/test6952.d
-  '' + lib.optionalString (lib.versionAtLeast version "2.092.2") ''
-    substituteInPlace dmd/test/dshell/test6952.d --replace "/usr/bin/env bash" "${bash}/bin/bash"
-  ''
+    + lib.optionalString (lib.versionOlder version "2.091.0") ''
+      # This one has tested against a hardcoded year, then against a current year on
+      # and off again. It just isn't worth it to patch all the historical versions
+      # of it, so just remove it until the most recent change.
+      rm dmd/test/compilable/ddocYear.d
+    '' + lib.optionalString (lib.versionAtLeast version "2.089.0"
+      && lib.versionOlder version "2.092.2") ''
+        rm dmd/test/dshell/test6952.d
+      '' + lib.optionalString (lib.versionAtLeast version "2.092.2") ''
+        substituteInPlace dmd/test/dshell/test6952.d --replace "/usr/bin/env bash" "${bash}/bin/bash"
+      ''
 
-  + lib.optionalString stdenv.isLinux ''
-    substituteInPlace phobos/std/socket.d --replace "assert(ih.addrList[0] == 0x7F_00_00_01);" ""
-  '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace phobos/std/socket.d --replace "foreach (name; names)" "names = []; foreach (name; names)"
-  '';
+    + lib.optionalString stdenv.isLinux ''
+      substituteInPlace phobos/std/socket.d --replace "assert(ih.addrList[0] == 0x7F_00_00_01);" ""
+    '' + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace phobos/std/socket.d --replace "foreach (name; names)" "names = []; foreach (name; names)"
+    '';
 
-  nativeBuildInputs = [
-    makeWrapper
-    which
-    installShellFiles
-  ] ++ lib.optionals (lib.versionOlder version "2.088.0") [
-    git
-  ];
+  nativeBuildInputs = [ makeWrapper which installShellFiles ]
+    ++ lib.optionals (lib.versionOlder version "2.088.0") [ git ];
 
-  buildInputs = [
-    curl
-    tzdata
-  ] ++ lib.optionals stdenv.isDarwin [
-    Foundation
-  ];
+  buildInputs = [ curl tzdata ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
 
-  nativeCheckInputs = [
-    gdb
-  ] ++ lib.optionals (lib.versionOlder version "2.089.0") [
-    unzip
-  ];
+  nativeCheckInputs = [ gdb ]
+    ++ lib.optionals (lib.versionOlder version "2.089.0") [ unzip ];
 
-  buildFlags = [
-    "BUILD=release"
-    "ENABLE_RELEASE=1"
-    "PIC=1"
-  ];
+  buildFlags = [ "BUILD=release" "ENABLE_RELEASE=1" "PIC=1" ];
 
   # Build and install are based on http://wiki.dlang.org/Building_DMD
   buildPhase = ''
@@ -182,7 +148,9 @@ stdenv.mkDerivation rec {
     make -C dmd -f posix.mak $buildFlags -j$buildJobs HOST_DMD=${HOST_DMD}
     make -C druntime -f posix.mak $buildFlags -j$buildJobs DMD=${pathToDmd}
     echo ${tzdata}/share/zoneinfo/ > TZDatabaseDirFile
-    echo ${lib.getLib curl}/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} > LibcurlPathFile
+    echo ${
+      lib.getLib curl
+    }/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} > LibcurlPathFile
     make -C phobos -f posix.mak $buildFlags -j$buildJobs DMD=${pathToDmd} DFLAGS="-version=TZDatabaseDir -version=LibcurlPath -J$PWD"
 
     runHook postBuild

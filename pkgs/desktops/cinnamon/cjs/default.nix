@@ -1,18 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, gobject-introspection
-, pkg-config
-, cairo
-, glib
-, readline
-, spidermonkey_78
-, meson
-, dbus
-, ninja
-, which
-, libxml2
-}:
+{ stdenv, lib, fetchFromGitHub, gobject-introspection, pkg-config, cairo, glib
+, readline, spidermonkey_78, meson, dbus, ninja, which, libxml2 }:
 
 stdenv.mkDerivation rec {
   pname = "cjs";
@@ -43,13 +30,9 @@ stdenv.mkDerivation rec {
     dbus # for dbus-run-session
   ];
 
-  propagatedBuildInputs = [
-    glib
-  ];
+  propagatedBuildInputs = [ glib ];
 
-  mesonFlags = [
-    "-Dprofiler=disabled"
-  ];
+  mesonFlags = [ "-Dprofiler=disabled" ];
 
   meta = with lib; {
     homepage = "https://github.com/linuxmint/cjs";
@@ -59,12 +42,7 @@ stdenv.mkDerivation rec {
       This module contains JavaScript bindings based on gobject-introspection.
     '';
 
-    license = with licenses; [
-      gpl2Plus
-      lgpl2Plus
-      mit
-      mpl11
-    ];
+    license = with licenses; [ gpl2Plus lgpl2Plus mit mpl11 ];
 
     platforms = platforms.linux;
     maintainers = teams.cinnamon.members;

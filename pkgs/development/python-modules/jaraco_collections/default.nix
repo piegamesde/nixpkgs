@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools-scm
-, jaraco_classes
-, jaraco_text
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools-scm, jaraco_classes
+, jaraco_text }:
 
 buildPythonPackage rec {
   pname = "jaraco.collections";
@@ -21,14 +16,9 @@ buildPythonPackage rec {
     sed -i "/'jaraco.text',/d" setup.cfg
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    jaraco_classes
-    jaraco_text
-  ];
+  propagatedBuildInputs = [ jaraco_classes jaraco_text ];
 
   pythonNamespaces = [ "jaraco" ];
 
@@ -37,7 +27,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "jaraco.collections" ];
 
   meta = with lib; {
-    description = "Models and classes to supplement the stdlib 'collections' module";
+    description =
+      "Models and classes to supplement the stdlib 'collections' module";
     homepage = "https://github.com/jaraco/jaraco.collections";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

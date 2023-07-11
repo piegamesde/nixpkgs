@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, cmake, bash-completion, pkg-config, libconfig, autoreconfHook }:
+{ stdenv, lib, fetchFromGitHub, cmake, bash-completion, pkg-config, libconfig
+, autoreconfHook }:
 stdenv.mkDerivation {
   pname = "libusbgx";
   version = "unstable-2021-10-31";
@@ -11,7 +12,8 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ autoreconfHook pkg-config ];
   buildInputs = [ libconfig ];
   meta = {
-    description = "C library encapsulating the kernel USB gadget-configfs userspace API functionality";
+    description =
+      "C library encapsulating the kernel USB gadget-configfs userspace API functionality";
     license = with lib.licenses; [
       lgpl21Plus # library
       gpl2Plus # examples

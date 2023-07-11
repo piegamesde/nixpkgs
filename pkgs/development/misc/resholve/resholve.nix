@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, callPackage
-, python27
-, installShellFiles
-, rSrc
-, version
-, oildev
-, configargparse
-, binlore
-, resholve
-, resholve-utils
-}:
+{ lib, stdenv, callPackage, python27, installShellFiles, rSrc, version, oildev
+, configargparse, binlore, resholve, resholve-utils }:
 
 python27.pkgs.buildPythonApplication {
   pname = "resholve";
@@ -19,10 +8,7 @@ python27.pkgs.buildPythonApplication {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  propagatedBuildInputs = [
-    oildev
-    configargparse
-  ];
+  propagatedBuildInputs = [ oildev configargparse ];
 
   postPatch = ''
     for file in setup.cfg _resholve/version.py; do
@@ -41,7 +27,8 @@ python27.pkgs.buildPythonApplication {
   '';
 
   passthru = {
-    inherit (resholve-utils) mkDerivation phraseSolution writeScript writeScriptBin;
+    inherit (resholve-utils)
+      mkDerivation phraseSolution writeScript writeScriptBin;
     tests = callPackage ./test.nix { inherit rSrc binlore python27 resholve; };
   };
 
@@ -51,10 +38,10 @@ python27.pkgs.buildPythonApplication {
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ abathur ];
     platforms = platforms.all;
-    knownVulnerabilities = [ ''
+    knownVulnerabilities = [''
       resholve depends on python27 (EOL). While it's safe to
       run on trusted input in the build sandbox, you should
       avoid running it on untrusted input.
-    '' ];
+    ''];
   };
 }

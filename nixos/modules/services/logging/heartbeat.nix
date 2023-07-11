@@ -12,8 +12,7 @@ let
     ${cfg.extraConfig}
   '';
 
-in
-{
+in {
   options = {
 
     services.heartbeat = {
@@ -38,14 +37,15 @@ in
 
       tags = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = lib.mdDoc "Tags to place on the shipped log messages";
       };
 
       stateDir = mkOption {
         type = types.str;
         default = "/var/lib/heartbeat";
-        description = lib.mdDoc "The state directory. heartbeat's own logs and other data are stored here.";
+        description = lib.mdDoc
+          "The state directory. heartbeat's own logs and other data are stored here.";
       };
 
       extraConfig = mkOption {
@@ -56,7 +56,8 @@ in
             urls: ["http://localhost:9200"]
             schedule: '@every 10s'
         '';
-        description = lib.mdDoc "Any other configuration options you want to add";
+        description =
+          lib.mdDoc "Any other configuration options you want to add";
       };
 
     };
@@ -64,9 +65,7 @@ in
 
   config = mkIf cfg.enable {
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.stateDir}' - nobody nogroup - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.stateDir}' - nobody nogroup - -" ];
 
     systemd.services.heartbeat = with pkgs; {
       description = "heartbeat log shipper";
@@ -77,7 +76,8 @@ in
       serviceConfig = {
         User = "nobody";
         AmbientCapabilities = "cap_net_raw";
-        ExecStart = "${cfg.package}/bin/heartbeat -c \"${heartbeatYml}\" -path.data \"${cfg.stateDir}/data\" -path.logs \"${cfg.stateDir}/logs\"";
+        ExecStart = ''
+          ${cfg.package}/bin/heartbeat -c "${heartbeatYml}" -path.data "${cfg.stateDir}/data" -path.logs "${cfg.stateDir}/logs"'';
       };
     };
   };

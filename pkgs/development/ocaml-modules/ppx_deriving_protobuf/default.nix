@@ -1,5 +1,4 @@
-{ lib, fetchurl, buildDunePackage, cppo, ppx_deriving
-, ppxlib, dune-configurator
+{ lib, fetchurl, buildDunePackage, cppo, ppx_deriving, ppxlib, dune-configurator
 }:
 
 buildDunePackage rec {
@@ -9,7 +8,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/ocaml-ppx/ppx_deriving_protobuf/releases/download/v${version}/ppx_deriving_protobuf-v${version}.tbz";
+    url =
+      "https://github.com/ocaml-ppx/ppx_deriving_protobuf/releases/download/v${version}/ppx_deriving_protobuf-v${version}.tbz";
     sha256 = "1dc1vxnkd0cnrgac5v3zbaj2lq1d2w8118mp1cmsdxylp06yz1sj";
   };
 

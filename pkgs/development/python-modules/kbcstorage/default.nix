@@ -1,20 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
 
 # build
 , setuptools-scm
 
 # propagates
-, azure-storage-blob
-, boto3
-, requests
+, azure-storage-blob, boto3, requests
 
 # tests
-, responses
-, unittestCheckHook
-}:
+, responses, unittestCheckHook }:
 buildPythonPackage rec {
   pname = "sapi-python-client";
   version = "0.5.0";
@@ -31,24 +24,15 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    azure-storage-blob
-    boto3
-    requests
-  ];
+  propagatedBuildInputs = [ azure-storage-blob boto3 requests ];
 
   # Requires API token and an active Keboola bucket
   # ValueError: Root URL is required.
   doCheck = false;
 
-  nativeCheckInputs = [
-    unittestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ unittestCheckHook responses ];
 
   pythonImportsCheck = [
     "kbcstorage"
@@ -60,7 +44,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Keboola Connection Storage API client";
     homepage = "https://github.com/keboola/sapi-python-client";
-    changelog = "https://github.com/keboola/sapi-python-client/releases/tag/${version}";
+    changelog =
+      "https://github.com/keboola/sapi-python-client/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ mrmebelman ];
   };

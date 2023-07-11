@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, libbsd
-, libressl
-, pkg-config
-}:
+{ lib, stdenv, fetchurl, libbsd, libressl, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "acme-client";
@@ -15,18 +9,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-lMCDis4CZQF6YwZGzdWD92/S1yT2cEAXXlTAipYYxro=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libbsd
-    libressl
-  ];
+  buildInputs = [ libbsd libressl ];
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-  ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   meta = with lib; {
     description = "Secure ACME/Let's Encrypt client";

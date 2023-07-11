@@ -1,11 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, pytest
-, python
-, pillow
-, numpy
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pytest, python, pillow, numpy }:
 
 buildPythonPackage rec {
   pname = "aggdraw";
@@ -18,11 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-w3HlnsHYB0R+HZOXtzygC2RST3gllPI7SYtwSCVXhTU=";
   };
 
-  nativeCheckInputs = [
-    numpy
-    pillow
-    pytest
-  ];
+  nativeCheckInputs = [ numpy pillow pytest ];
 
   checkPhase = ''
     runHook preCheck

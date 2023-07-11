@@ -26,7 +26,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Spotify lyrics in your terminal";
     homepage = "https://github.com/raitonoberu/sptlrx";
-    changelog = "https://github.com/raitonoberu/sptlrx/releases/tag/v${version}";
+    changelog =
+      "https://github.com/raitonoberu/sptlrx/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ MoritzBoehme ];
   };

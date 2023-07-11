@@ -1,17 +1,7 @@
-{ lib, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pcre
-, pkg-config
-, protobufc
-, withCrypto ? true, openssl
-, enableCuckoo ? true, jansson
-, enableDex ? true
-, enableDotNet ? true
-, enableMacho ? true
-, enableMagic ? true, file
-, enableStatic ? false
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pcre, pkg-config, protobufc
+, withCrypto ? true, openssl, enableCuckoo ? true, jansson, enableDex ? true
+, enableDotNet ? true, enableMacho ? true, enableMagic ? true, file
+, enableStatic ? false }:
 
 stdenv.mkDerivation rec {
   pname = "yara";
@@ -24,21 +14,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-Q+Q52W/MhurG3x0CIr0nv31qc4bdaLDk9AGGpMxKOcI=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    pcre
-    protobufc
-  ] ++ lib.optionals withCrypto [
-    openssl
-  ] ++ lib.optionals enableMagic [
-    file
-  ] ++ lib.optionals enableCuckoo [
-    jansson
-  ];
+  buildInputs = [ pcre protobufc ] ++ lib.optionals withCrypto [ openssl ]
+    ++ lib.optionals enableMagic [ file ]
+    ++ lib.optionals enableCuckoo [ jansson ];
 
   preConfigure = "./bootstrap.sh";
 

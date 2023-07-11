@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "mitmproxy2swagger";
@@ -15,9 +12,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-w9Jbtf/BFkr2qEVqpxkRkQ1ve5o77Mhs0kGwdG5ucKI=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
 
   propagatedBuildInputs = with python3.pkgs; [
     json-stream
@@ -28,14 +23,13 @@ python3.pkgs.buildPythonApplication rec {
   # No tests available
   doCheck = false;
 
-  pythonImportsCheck = [
-    "mitmproxy2swagger"
-  ];
+  pythonImportsCheck = [ "mitmproxy2swagger" ];
 
   meta = with lib; {
     description = "Tool to automagically reverse-engineer REST APIs";
     homepage = "https://github.com/alufers/mitmproxy2swagger";
-    changelog = "https://github.com/alufers/mitmproxy2swagger/releases/tag/${version}";
+    changelog =
+      "https://github.com/alufers/mitmproxy2swagger/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

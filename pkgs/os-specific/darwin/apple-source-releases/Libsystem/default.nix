@@ -1,15 +1,13 @@
-{ lib, stdenv, buildPackages, fetchzip
-, appleDerivation', xnu, Libc, Libm, libdispatch, Libinfo
-, dyld, Csu, architecture, libclosure, CarbonHeaders, ncurses, CommonCrypto
-, copyfile, removefile, libresolvHeaders, libresolv, Libnotify, libplatform, libpthread
-, mDNSResponder, launchd, libutilHeaders, hfsHeaders, darwin-stubs
-, headersOnly ? false
-, withLibresolv ? !headersOnly
-}:
+{ lib, stdenv, buildPackages, fetchzip, appleDerivation', xnu, Libc, Libm
+, libdispatch, Libinfo, dyld, Csu, architecture, libclosure, CarbonHeaders
+, ncurses, CommonCrypto, copyfile, removefile, libresolvHeaders, libresolv
+, Libnotify, libplatform, libpthread, mDNSResponder, launchd, libutilHeaders
+, hfsHeaders, darwin-stubs, headersOnly ? false, withLibresolv ? !headersOnly }:
 
 let
   darling.src = fetchzip {
-    url = "https://github.com/darlinghq/darling/archive/d2cc5fa748003aaa70ad4180fff0a9a85dc65e9b.tar.gz";
+    url =
+      "https://github.com/darlinghq/darling/archive/d2cc5fa748003aaa70ad4180fff0a9a85dc65e9b.tar.gz";
     sha256 = "11b51fw47nl505h63bgx5kqiyhf3glhp1q6jkpb6nqfislnzzkrf";
     postFetch = ''
       # The archive contains both `src/opendirectory` and `src/OpenDirectory`,
@@ -30,8 +28,7 @@ let
       fi
     '';
   };
-in
-appleDerivation' stdenv {
+in appleDerivation' stdenv {
   dontBuild = true;
   dontFixup = true;
 
@@ -164,7 +161,7 @@ appleDerivation' stdenv {
   meta = with lib; {
     description = "The Mac OS libc/libSystem (tapi library with pure headers)";
     maintainers = with maintainers; [ copumpkin gridaphobe ];
-    platforms   = platforms.darwin;
-    license     = licenses.apsl20;
+    platforms = platforms.darwin;
+    license = licenses.apsl20;
   };
 }

@@ -1,7 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config
-, gettext, mount, libuuid, kmod, macfuse-stubs, DiskArbitration
-, crypto ? false, libgcrypt, gnutls
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, gettext, mount
+, libuuid, kmod, macfuse-stubs, DiskArbitration, crypto ? false, libgcrypt
+, gnutls }:
 
 stdenv.mkDerivation rec {
   pname = "ntfs3g";
@@ -16,8 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nuFTsGkm3zmSzpwmhyY7Ke0VZfZU0jHOzEWaLBbglQk=";
   };
 
-  buildInputs = [ gettext libuuid ]
-    ++ lib.optionals crypto [ gnutls libgcrypt ]
+  buildInputs = [ gettext libuuid ] ++ lib.optionals crypto [ gnutls libgcrypt ]
     ++ lib.optionals stdenv.isDarwin [ macfuse-stubs DiskArbitration ];
 
   # Note: libgcrypt is listed here non-optionally because its m4 macros are
@@ -40,15 +38,13 @@ stdenv.mkDerivation rec {
     "--enable-extras"
     "--with-mount-helper=${mount}/bin/mount"
     "--with-umount-helper=${mount}/bin/umount"
-  ] ++ lib.optionals stdenv.isLinux [
-    "--with-modprobe-helper=${kmod}/bin/modprobe"
-  ];
+  ] ++ lib.optionals stdenv.isLinux
+    [ "--with-modprobe-helper=${kmod}/bin/modprobe" ];
 
-  postInstall =
-    ''
-      # Prefer ntfs-3g over the ntfs driver in the kernel.
-      ln -sv mount.ntfs-3g $out/sbin/mount.ntfs
-    '';
+  postInstall = ''
+    # Prefer ntfs-3g over the ntfs driver in the kernel.
+    ln -sv mount.ntfs-3g $out/sbin/mount.ntfs
+  '';
 
   enableParallelBuilding = true;
 

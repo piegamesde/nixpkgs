@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, numpy
-, packaging
-, quantities
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, numpy, packaging, quantities
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "neo";
@@ -20,28 +13,21 @@ buildPythonPackage rec {
     hash = "sha256-O2yk/AXf206VPiU+cJlL+7yP4ukJWPvaf6WGDK8/pjo=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    packaging
-    quantities
-  ];
+  propagatedBuildInputs = [ numpy packaging quantities ];
 
-  nativeCheckInputs = [
-    nose
-  ];
+  nativeCheckInputs = [ nose ];
 
   checkPhase = ''
     nosetests --exclude=iotest
   '';
 
-  pythonImportsCheck = [
-    "neo"
-  ];
+  pythonImportsCheck = [ "neo" ];
 
   meta = with lib; {
     description = "Package for representing electrophysiology data";
     homepage = "https://neuralensemble.org/neo/";
-    changelog = "https://neo.readthedocs.io/en/${version}/releases/${version}.html";
+    changelog =
+      "https://neo.readthedocs.io/en/${version}/releases/${version}.html";
     license = licenses.bsd3;
     maintainers = with maintainers; [ bcdarwin ];
   };

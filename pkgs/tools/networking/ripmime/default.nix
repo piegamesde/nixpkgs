@@ -24,8 +24,6 @@ stdenv.mkDerivation rec {
   };
 
   passthru = {
-    updateInfo = {
-      downloadPage = "http://www.pldaniels.com/ripmime/";
-    };
+    updateInfo = { downloadPage = "http://www.pldaniels.com/ripmime/"; };
   };
 }

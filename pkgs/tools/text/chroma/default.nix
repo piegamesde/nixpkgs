@@ -1,19 +1,17 @@
 { lib, buildGoModule, fetchFromGitHub }:
 
-let
-  srcInfo = lib.importJSON ./src.json;
-in
+let srcInfo = lib.importJSON ./src.json;
 
-buildGoModule rec {
+in buildGoModule rec {
   pname = "chroma";
   version = "2.7.0";
 
   # To update:
   # nix-prefetch-git --rev v${version} https://github.com/alecthomas/chroma.git > src.json
   src = fetchFromGitHub {
-    owner  = "alecthomas";
-    repo   = pname;
-    rev    = "v${version}";
+    owner = "alecthomas";
+    repo = pname;
+    rev = "v${version}";
     inherit (srcInfo) sha256;
   };
 
@@ -23,9 +21,12 @@ buildGoModule rec {
 
   # substitute version info as done in goreleaser builds
   ldflags = [
-    "-X" "main.version=${version}"
-    "-X" "main.commit=${srcInfo.rev}"
-    "-X" "main.date=${srcInfo.date}"
+    "-X"
+    "main.version=${version}"
+    "-X"
+    "main.commit=${srcInfo.rev}"
+    "-X"
+    "main.date=${srcInfo.date}"
   ];
 
   meta = with lib; {

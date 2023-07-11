@@ -1,6 +1,5 @@
 { lib, fetchFromGitHub, python3 }:
 
-
 let
   py = python3.override {
     packageOverrides = self: super: {
@@ -25,8 +24,7 @@ let
       });
     };
   };
-in
-with py.pkgs;
+in with py.pkgs;
 
 buildPythonApplication rec {
   pname = "haxor-news";
@@ -40,14 +38,8 @@ buildPythonApplication rec {
     hash = "sha256-5v61b49ttwqPOvtoykJBBzwVSi7S8ARlakccMr12bbw=";
   };
 
-  propagatedBuildInputs = [
-    click
-    colorama
-    requests
-    pygments
-    prompt-toolkit
-    six
-  ];
+  propagatedBuildInputs =
+    [ click colorama requests pygments prompt-toolkit six ];
 
   # will fail without pre-seeded config files
   doCheck = false;

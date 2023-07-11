@@ -1,24 +1,6 @@
-{ stdenv
-, fetchFromGitHub
-, cmake
-, bison
-, boost
-, libevent
-, double-conversion
-, libsodium
-, fizz
-, flex
-, fmt_8
-, folly
-, glog
-, gflags
-, libiberty
-, openssl
-, lib
-, wangle
-, zlib
-, zstd
-}:
+{ stdenv, fetchFromGitHub, cmake, bison, boost, libevent, double-conversion
+, libsodium, fizz, flex, fmt_8, folly, glog, gflags, libiberty, openssl, lib
+, wangle, zlib, zstd }:
 
 stdenv.mkDerivation rec {
   pname = "fbthrift";
@@ -31,11 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jCgdo7jE5QlRK5f2S6XEVM4+TPWI//4DKG/fDMFzgzg=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    bison
-    flex
-  ];
+  nativeBuildInputs = [ cmake bison flex ];
 
   cmakeFlags = lib.optionals stdenv.isDarwin [
     "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation

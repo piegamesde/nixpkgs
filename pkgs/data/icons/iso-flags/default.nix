@@ -1,9 +1,4 @@
-{ lib, stdenvNoCC
-, fetchFromGitHub
-, perl
-, inkscape
-, librsvg
-, targets ? [ "all" ]
+{ lib, stdenvNoCC, fetchFromGitHub, perl, inkscape, librsvg, targets ? [ "all" ]
 }:
 
 stdenvNoCC.mkDerivation {
@@ -21,7 +16,7 @@ stdenvNoCC.mkDerivation {
     perl
     inkscape
     librsvg
-    (perl.withPackages(pp: with pp; [ JSON XMLLibXML ]))
+    (perl.withPackages (pp: with pp; [ JSON XMLLibXML ]))
   ];
 
   postPatch = ''
@@ -36,10 +31,12 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = with lib; {
-    homepage = "https://github.com/joielechong/iso-country-flags-svg-collection";
+    homepage =
+      "https://github.com/joielechong/iso-country-flags-svg-collection";
     description = "248 country flag SVG & PNG icons with different icon styles";
     license = [ licenses.publicDomain ];
-    platforms = platforms.linux; # the output assets should work anywhere, but unsure about the tools to build them...
+    platforms =
+      platforms.linux; # the output assets should work anywhere, but unsure about the tools to build them...
     maintainers = [ maintainers.mkg20001 ];
   };
 }

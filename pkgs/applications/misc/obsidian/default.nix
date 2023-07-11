@@ -1,35 +1,35 @@
-{ stdenv
-, fetchurl
-, lib
-, makeWrapper
-, electron
-, makeDesktopItem
-, graphicsmagick
-, writeScript
-, undmg
-, unzip
-}:
+{ stdenv, fetchurl, lib, makeWrapper, electron, makeDesktopItem, graphicsmagick
+, writeScript, undmg, unzip }:
 let
   inherit (stdenv.hostPlatform) system;
   pname = "obsidian";
   version = "1.2.7";
   appname = "Obsidian";
   meta = with lib; {
-    description = "A powerful knowledge base that works on top of a local folder of plain text Markdown files";
+    description =
+      "A powerful knowledge base that works on top of a local folder of plain text Markdown files";
     homepage = "https://obsidian.md";
     downloadPage = "https://github.com/obsidianmd/obsidian-releases/releases";
     license = licenses.obsidian;
     maintainers = with maintainers; [ atila conradmearns zaninime qbit ];
   };
 
-  filename = if stdenv.isDarwin then "Obsidian-${version}-universal.dmg" else "obsidian-${version}.tar.gz";
+  filename = if stdenv.isDarwin then
+    "Obsidian-${version}-universal.dmg"
+  else
+    "obsidian-${version}.tar.gz";
   src = fetchurl {
-    url = "https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/${filename}";
-    sha256 = if stdenv.isDarwin then "sha256-E+1B+KgdvOuDyJP4W5tnkDe8sC4NdplRqY24Yu/DlEA=" else "sha256-TDgi0jwNRL0zXJSIBap0Q8WX29ab2HhY0ylb/sxgapE=";
+    url =
+      "https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/${filename}";
+    sha256 = if stdenv.isDarwin then
+      "sha256-E+1B+KgdvOuDyJP4W5tnkDe8sC4NdplRqY24Yu/DlEA="
+    else
+      "sha256-TDgi0jwNRL0zXJSIBap0Q8WX29ab2HhY0ylb/sxgapE=";
   };
 
   icon = fetchurl {
-    url = "https://forum.obsidian.md/uploads/default/original/1X/bf119bd48f748f4fd2d65f2d1bb05d3c806883b5.png";
+    url =
+      "https://forum.obsidian.md/uploads/default/original/1X/bf119bd48f748f4fd2d65f2d1bb05d3c806883b5.png";
     sha256 = "18ylnbvxr6k4x44c4i1d55wxy2dq4fdppp43a4wl6h6zar0sc9s2";
   };
 
@@ -86,5 +86,4 @@ let
       runHook postInstall
     '';
   };
-in
-if stdenv.isDarwin then darwin else linux
+in if stdenv.isDarwin then darwin else linux

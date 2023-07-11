@@ -1,19 +1,5 @@
-{ lib
-, stdenv
-, installShellFiles
-, fetchFromGitHub
-, freetype
-, gumbo
-, harfbuzz
-, jbig2dec
-, mujs
-, mupdf
-, openjpeg
-, qt3d
-, qtbase
-, qmake
-, wrapQtAppsHook
-}:
+{ lib, stdenv, installShellFiles, fetchFromGitHub, freetype, gumbo, harfbuzz
+, jbig2dec, mujs, mupdf, openjpeg, qt3d, qtbase, qmake, wrapQtAppsHook }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "sioyek";
@@ -26,23 +12,10 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-GFZaTXJhoBB+rSe7Qk6H6FZJVXr3nO9XgM+LAbS4te4=";
   };
 
-  buildInputs = [
-    gumbo
-    harfbuzz
-    jbig2dec
-    mujs
-    mupdf
-    openjpeg
-    qt3d
-    qtbase
-  ]
-  ++ lib.optionals stdenv.isDarwin [ freetype ];
+  buildInputs = [ gumbo harfbuzz jbig2dec mujs mupdf openjpeg qt3d qtbase ]
+    ++ lib.optionals stdenv.isDarwin [ freetype ];
 
-  nativeBuildInputs = [
-    installShellFiles
-    qmake
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ installShellFiles qmake wrapQtAppsHook ];
 
   qmakeFlags = lib.optionals stdenv.isDarwin [ "CONFIG+=non_portable" ];
 
@@ -74,8 +47,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     homepage = "https://sioyek.info/";
-    description = "A PDF viewer designed for research papers and technical books";
-    changelog = "https://github.com/ahrm/sioyek/releases/tag/v${finalAttrs.version}";
+    description =
+      "A PDF viewer designed for research papers and technical books";
+    changelog =
+      "https://github.com/ahrm/sioyek/releases/tag/v${finalAttrs.version}";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ podocarp ];
     platforms = platforms.unix;

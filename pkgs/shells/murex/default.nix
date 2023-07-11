@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "murex";
@@ -19,7 +16,8 @@ buildGoModule rec {
   subPackages = [ "." ];
 
   meta = with lib; {
-    description = "Bash-like shell and scripting environment with advanced features designed for safety and productivity";
+    description =
+      "Bash-like shell and scripting environment with advanced features designed for safety and productivity";
     homepage = "https://murex.rocks";
     license = licenses.gpl2;
     maintainers = with maintainers; [ dit7ya ];

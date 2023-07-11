@@ -1,24 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gdk-pixbuf
-, gtk-engine-murrine
-, jdupes
-, librsvg
-, libxml2
-, buttonVariants ? [] # default to all
-, colorVariants ? [] # default to all
-, opacityVariants ? [] # default to all
-, sizeVariants ? [] # default to all
+{ lib, stdenv, fetchFromGitHub, gdk-pixbuf, gtk-engine-murrine, jdupes, librsvg
+, libxml2, buttonVariants ? [ ] # default to all
+, colorVariants ? [ ] # default to all
+, opacityVariants ? [ ] # default to all
+, sizeVariants ? [ ] # default to all
 }:
 
-let
-  pname = "sierra-gtk-theme";
-in
-lib.checkListOfEnum "${pname}: button variants" [ "standard" "alt" ] buttonVariants
-lib.checkListOfEnum "${pname}: color variants" [ "light" "dark" ] colorVariants
-lib.checkListOfEnum "${pname}: opacity variants" [ "standard" "solid" ] opacityVariants
-lib.checkListOfEnum "${pname}: size variants" [ "standard" "compact" ] sizeVariants
+let pname = "sierra-gtk-theme";
+in lib.checkListOfEnum "${pname}: button variants" [ "standard" "alt" ]
+buttonVariants lib.checkListOfEnum "${pname}: color variants" [ "light" "dark" ]
+colorVariants lib.checkListOfEnum
+"${pname}: opacity variants" [ "standard" "solid" ] opacityVariants
+lib.checkListOfEnum "${pname}: size variants" [ "standard" "compact" ]
+sizeVariants
 
 stdenv.mkDerivation {
   inherit pname;
@@ -31,19 +24,11 @@ stdenv.mkDerivation {
     sha256 = "174l5mryc34ma1r42pk6572c6i9hmzr9vj1a6w06nqz5qcfm1hds";
   };
 
-  nativeBuildInputs = [
-    jdupes
-    libxml2
-  ];
+  nativeBuildInputs = [ jdupes libxml2 ];
 
-  buildInputs = [
-    gdk-pixbuf
-    librsvg
-  ];
+  buildInputs = [ gdk-pixbuf librsvg ];
 
-  propagatedUserEnvPkgs = [
-    gtk-engine-murrine
-  ];
+  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
   installPhase = ''
     runHook preInstall
@@ -52,10 +37,22 @@ stdenv.mkDerivation {
 
     mkdir -p $out/share/themes
     name= ./install.sh --dest $out/share/themes \
-      ${lib.optionalString (buttonVariants != []) "--alt " + builtins.toString buttonVariants} \
-      ${lib.optionalString (colorVariants != []) "--color " + builtins.toString colorVariants} \
-      ${lib.optionalString (opacityVariants != []) "--opacity " + builtins.toString opacityVariants} \
-      ${lib.optionalString (sizeVariants != []) "--flat " + builtins.toString sizeVariants}
+      ${
+        lib.optionalString (buttonVariants != [ ]) "--alt "
+        + builtins.toString buttonVariants
+      } \
+      ${
+        lib.optionalString (colorVariants != [ ]) "--color "
+        + builtins.toString colorVariants
+      } \
+      ${
+        lib.optionalString (opacityVariants != [ ]) "--opacity "
+        + builtins.toString opacityVariants
+      } \
+      ${
+        lib.optionalString (sizeVariants != [ ]) "--flat "
+        + builtins.toString sizeVariants
+      }
 
     # Replace duplicate files with hardlinks to the first file in each
     # set of duplicates, reducing the installed size in about 79%

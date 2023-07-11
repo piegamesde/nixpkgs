@@ -1,22 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, bash, gnugrep
-, fixDarwinDylibNames
-, file
-, fetchpatch
-, legacySupport ? false
-, static ? stdenv.hostPlatform.isStatic
-# these need to be ran on the host, thus disable when cross-compiling
+{ lib, stdenv, fetchFromGitHub, cmake, bash, gnugrep, fixDarwinDylibNames, file
+, fetchpatch, legacySupport ? false, static ? stdenv.hostPlatform.isStatic
+  # these need to be ran on the host, thus disable when cross-compiling
 , buildContrib ? stdenv.hostPlatform == stdenv.buildPlatform
-, doCheck ? stdenv.hostPlatform == stdenv.buildPlatform
-, nix-update-script
+, doCheck ? stdenv.hostPlatform == stdenv.buildPlatform, nix-update-script
 
 # for passthru.tests
-, libarchive
-, rocksdb
-, arrow-cpp
-, libzip
-, curl
-, python3Packages
-, haskellPackages
+, libarchive, rocksdb, arrow-cpp, libzip, curl, python3Packages, haskellPackages
 }:
 
 stdenv.mkDerivation rec {
@@ -31,7 +20,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ]
-   ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
   buildInputs = lib.optional stdenv.hostPlatform.isUnix bash;
 
   patches = [
@@ -46,7 +35,9 @@ stdenv.mkDerivation rec {
     substituteInPlace build/cmake/tests/CMakeLists.txt \
       --replace 'libzstd_static' 'libzstd_shared'
     sed -i \
-      "1aexport ${lib.optionalString stdenv.isDarwin "DY"}LD_LIBRARY_PATH=$PWD/build_/lib" \
+      "1aexport ${
+        lib.optionalString stdenv.isDarwin "DY"
+      }LD_LIBRARY_PATH=$PWD/build_/lib" \
       tests/playTests.sh
   '';
 
@@ -86,16 +77,13 @@ stdenv.mkDerivation rec {
 
     substituteInPlace ../programs/zstdless \
       --replace "zstdcat" "$bin/bin/zstdcat"
-  '' + lib.optionalString buildContrib (
-    ''
-      cp contrib/pzstd/pzstd $bin/bin/pzstd
-    '' + lib.optionalString stdenv.isDarwin ''
-      install_name_tool -change @rpath/libzstd.1.dylib $out/lib/libzstd.1.dylib $bin/bin/pzstd
-    ''
-  );
+  '' + lib.optionalString buildContrib (''
+    cp contrib/pzstd/pzstd $bin/bin/pzstd
+  '' + lib.optionalString stdenv.isDarwin ''
+    install_name_tool -change @rpath/libzstd.1.dylib $out/lib/libzstd.1.dylib $bin/bin/pzstd
+  '');
 
-  outputs = [ "bin" "dev" ]
-    ++ lib.optional stdenv.hostPlatform.isUnix "man"
+  outputs = [ "bin" "dev" ] ++ lib.optional stdenv.hostPlatform.isUnix "man"
     ++ [ "out" ];
 
   passthru = {

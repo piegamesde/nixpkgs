@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "6.200";
 
   src = fetchzip {
-    url = "https://software.sil.org/downloads/r/charis/CharisSIL-${version}.zip";
+    url =
+      "https://software.sil.org/downloads/r/charis/CharisSIL-${version}.zip";
     hash = "sha256-q451lec/l13Uanmr8K/C55Cr3avRvqQUkPK/ZZ1kgHo=";
   };
 
@@ -20,7 +21,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://software.sil.org/charis";
-    description = "A family of highly readable fonts for broad multilingual use";
+    description =
+      "A family of highly readable fonts for broad multilingual use";
     longDescription = ''
       This Charis SIL font is essentially the same design as the SIL Charis font first released by SIL in 1997. Charis is similar to Bitstream Charter, one of the first fonts designed specifically for laser printers. It is highly readable and holds up well in less-than-ideal reproduction environments. It also has a full set of styles – regular, italic, bold, bold italic. Charis is a serif, proportionally-spaced font optimized for readability in long printed documents.
 

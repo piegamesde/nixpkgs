@@ -1,21 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, docbook_xml_dtd_43
-, docbook-xsl-nons
-, glib
-, json-glib
-, gnutls
-, gpgme
-, gobject-introspection
-, vala
-, gtk-doc
-, meson
-, ninja
-, pkg-config
-, python3
-, nixosTests
-}:
+{ stdenv, lib, fetchFromGitHub, docbook_xml_dtd_43, docbook-xsl-nons, glib
+, json-glib, gnutls, gpgme, gobject-introspection, vala, gtk-doc, meson, ninja
+, pkg-config, python3, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "libjcat";
@@ -48,12 +33,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [
-    glib
-    json-glib
-    gnutls
-    gpgme
-  ];
+  buildInputs = [ glib json-glib gnutls gpgme ];
 
   mesonFlags = [
     "-Dgtkdoc=true"
@@ -63,9 +43,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   passthru = {
-    tests = {
-      installed-tests = nixosTests.installed-tests.libjcat;
-    };
+    tests = { installed-tests = nixosTests.installed-tests.libjcat; };
   };
 
   meta = with lib; {

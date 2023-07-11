@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, appstream-glib
-, desktop-file-utils
-, glib
-, gtk4
-, libepoxy
-, libadwaita
-, meson
-, mpv
-, ninja
-, nix-update-script
-, pkg-config
-, python3
-, wrapGAppsHook4
-}:
+{ lib, stdenv, fetchFromGitHub, appstream-glib, desktop-file-utils, glib, gtk4
+, libepoxy, libadwaita, meson, mpv, ninja, nix-update-script, pkg-config
+, python3, wrapGAppsHook4 }:
 
 stdenv.mkDerivation rec {
   pname = "celluloid";
@@ -37,13 +23,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [
-    glib
-    gtk4
-    libadwaita
-    libepoxy
-    mpv
-  ];
+  buildInputs = [ glib gtk4 libadwaita libepoxy mpv ];
 
   postPatch = ''
     patchShebangs meson-post-install.py src/generate-authors.py

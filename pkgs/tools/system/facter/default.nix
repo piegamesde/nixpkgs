@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, boost, cmake, cpp-hocon, curl, leatherman, libwhereami, yaml-cpp, openssl, ruby, util-linux }:
+{ lib, stdenv, fetchFromGitHub, boost, cmake, cpp-hocon, curl, leatherman
+, libwhereami, yaml-cpp, openssl, ruby, util-linux }:
 
 stdenv.mkDerivation rec {
   pname = "facter";
@@ -15,7 +16,8 @@ stdenv.mkDerivation rec {
     sed '1i#include <array>' -i lib/src/facts/glib/load_average_resolver.cc # gcc12
   '';
 
-  CXXFLAGS = lib.optionalString stdenv.cc.isGNU "-fpermissive -Wno-error=catch-value";
+  CXXFLAGS =
+    lib.optionalString stdenv.cc.isGNU "-fpermissive -Wno-error=catch-value";
   NIX_LDFLAGS = lib.optionalString stdenv.isLinux "-lblkid";
 
   cmakeFlags = [
@@ -26,7 +28,17 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ boost cpp-hocon curl leatherman libwhereami yaml-cpp openssl ruby util-linux ];
+  buildInputs = [
+    boost
+    cpp-hocon
+    curl
+    leatherman
+    libwhereami
+    yaml-cpp
+    openssl
+    ruby
+    util-linux
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/puppetlabs/facter";

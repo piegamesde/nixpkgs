@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, cython
-, decorator
-, fetchPypi
-, numpy
-, pytestCheckHook
-, pythonOlder
-, scipy
-, six
-}:
+{ lib, stdenv, buildPythonPackage, cython, decorator, fetchPypi, numpy
+, pytestCheckHook, pythonOlder, scipy, six }:
 
 buildPythonPackage rec {
   pname = "pysptk";
@@ -25,23 +15,14 @@ buildPythonPackage rec {
 
   PYSPTK_BUILD_VERSION = 0;
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [
-    decorator
-    numpy
-    scipy
-    six
-  ];
+  propagatedBuildInputs = [ decorator numpy scipy six ];
 
   # Tests are not part of the PyPI releases
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pysptk"
-  ];
+  pythonImportsCheck = [ "pysptk" ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

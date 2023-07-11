@@ -1,52 +1,11 @@
-{ lib
-, stdenv
-, fetchPypi
-, fetchpatch
-, buildPythonPackage
-, setuptools
-, which
-, pkg-config
-, python
-, isPy27
-, doxygen
-, cairo
-, ncurses
-, pango
-, wxGTK
-, gtk3
-, AGL
-, AudioToolbox
-, AVFoundation
-, AVKit
-, Carbon
-, Cocoa
-, CoreFoundation
-, CoreMedia
-, IOKit
-, Kernel
-, OpenGL
-, Security
-, WebKit
-, pillow
-, numpy
-, six
-, libXinerama
-, libSM
-, libXxf86vm
-, libXtst
-, libGLU
-, libGL
-, xorgproto
-, gst_all_1
-, libglvnd
-, mesa
-, webkitgtk
-, autoPatchelfHook
-}:
-let
-  dynamic-linker = stdenv.cc.bintools.dynamicLinker;
-in
-buildPythonPackage rec {
+{ lib, stdenv, fetchPypi, fetchpatch, buildPythonPackage, setuptools, which
+, pkg-config, python, isPy27, doxygen, cairo, ncurses, pango, wxGTK, gtk3, AGL
+, AudioToolbox, AVFoundation, AVKit, Carbon, Cocoa, CoreFoundation, CoreMedia
+, IOKit, Kernel, OpenGL, Security, WebKit, pillow, numpy, six, libXinerama
+, libSM, libXxf86vm, libXtst, libGLU, libGL, xorgproto, gst_all_1, libglvnd
+, mesa, webkitgtk, autoPatchelfHook }:
+let dynamic-linker = stdenv.cc.bintools.dynamicLinker;
+in buildPythonPackage rec {
   pname = "wxPython";
   version = "4.1.1";
   disabled = isPy27;
@@ -68,20 +27,10 @@ buildPythonPackage rec {
   # https://github.com/wxWidgets/Phoenix/issues/1316
   doCheck = false;
 
-  nativeBuildInputs = [
-    which
-    doxygen
-    gtk3
-    pkg-config
-    setuptools
-  ] ++ lib.optionals stdenv.isLinux [
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ which doxygen gtk3 pkg-config setuptools ]
+    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
-  buildInputs = [
-    gtk3
-    ncurses
-  ] ++ lib.optionals stdenv.isLinux [
+  buildInputs = [ gtk3 ncurses ] ++ lib.optionals stdenv.isLinux [
     libXinerama
     libSM
     libXxf86vm
@@ -110,11 +59,7 @@ buildPythonPackage rec {
     WebKit
   ];
 
-  propagatedBuildInputs = [
-    pillow
-    numpy
-    six
-  ];
+  propagatedBuildInputs = [ pillow numpy six ];
 
   DOXYGEN = "${doxygen}/bin/doxygen";
 

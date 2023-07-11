@@ -1,15 +1,5 @@
-{ lib, stdenv
-, buildPythonPackage
-, pythonAtLeast
-, fetchPypi
-, mock
-, pytest
-, pytest-mock
-, pytz
-, requests
-, requests-kerberos
-, toml
-}:
+{ lib, stdenv, buildPythonPackage, pythonAtLeast, fetchPypi, mock, pytest
+, pytest-mock, pytz, requests, requests-kerberos, toml }:
 
 buildPythonPackage rec {
   pname = "jenkinsapi";
@@ -35,7 +25,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "A Python API for accessing resources on a Jenkins continuous-integration server";
+    description =
+      "A Python API for accessing resources on a Jenkins continuous-integration server";
     homepage = "https://github.com/salimfadhley/jenkinsapi";
     maintainers = with maintainers; [ drets ];
     license = licenses.mit;

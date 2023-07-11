@@ -1,4 +1,5 @@
-{ kernelPackages ? null, flavour }: let
+{ kernelPackages ? null, flavour }:
+let
   preparationCode = {
     raid = ''
       machine.succeed("vgcreate test_vg /dev/vdb /dev/vdc")
@@ -18,12 +19,7 @@
   }.${flavour};
 
   extraConfig = {
-    raid = {
-      boot.initrd.kernelModules = [
-        "dm-raid"
-        "raid0"
-      ];
-    };
+    raid = { boot.initrd.kernelModules = [ "dm-raid" "raid0" ]; };
 
     thinpool = {
       services.lvm = {
@@ -69,7 +65,7 @@ in import ../make-test-python.nix ({ pkgs, ... }: {
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
-    environment.systemPackages = with pkgs; [ e2fsprogs ]; # for mkfs.ext4
+    environment.systemPackages = with pkgs; [ 0.0 fsprogs ]; # for mkfs.ext4
     boot = {
       initrd.systemd = {
         enable = true;
@@ -79,7 +75,8 @@ in import ../make-test-python.nix ({ pkgs, ... }: {
       kernelPackages = lib.mkIf (kernelPackages != null) kernelPackages;
     };
 
-    specialisation.boot-lvm.configuration.virtualisation.rootDevice = "/dev/test_vg/test_lv";
+    specialisation.boot-lvm.configuration.virtualisation.rootDevice =
+      "/dev/test_vg/test_lv";
   };
 
   testScript = ''

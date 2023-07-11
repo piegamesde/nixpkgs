@@ -1,17 +1,6 @@
-{ lib
-, stdenv
-, cython
-, async-timeout
-, buildPythonPackage
-, fetchFromGitHub
-, ifaddr
-, poetry-core
-, pytest-asyncio
-, pytest-timeout
-, pythonOlder
-, pytestCheckHook
-, setuptools
-}:
+{ lib, stdenv, cython, async-timeout, buildPythonPackage, fetchFromGitHub
+, ifaddr, poetry-core, pytest-asyncio, pytest-timeout, pythonOlder
+, pytestCheckHook, setuptools }:
 
 buildPythonPackage rec {
   pname = "zeroconf";
@@ -27,23 +16,12 @@ buildPythonPackage rec {
     hash = "sha256-+jaZ582GdO7dUDr9dPPyy4uUm1mHigDieWN0mgBR+iI=";
   };
 
-  nativeBuildInputs = [
-    cython
-    poetry-core
-    setuptools
-  ];
+  nativeBuildInputs = [ cython poetry-core setuptools ];
 
-  propagatedBuildInputs = [
-    ifaddr
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    async-timeout
-  ];
+  propagatedBuildInputs = [ ifaddr ]
+    ++ lib.optionals (pythonOlder "3.11") [ async-timeout ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-timeout
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytest-timeout pytestCheckHook ];
 
   preCheck = ''
     sed -i '/addopts/d' pyproject.toml
@@ -60,13 +38,11 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [
-    "zeroconf"
-    "zeroconf.asyncio"
-  ];
+  pythonImportsCheck = [ "zeroconf" "zeroconf.asyncio" ];
 
   meta = with lib; {
-    changelog = "https://github.com/python-zeroconf/python-zeroconf/releases/tag/${version}";
+    changelog =
+      "https://github.com/python-zeroconf/python-zeroconf/releases/tag/${version}";
     description = "Python implementation of multicast DNS service discovery";
     homepage = "https://github.com/python-zeroconf/python-zeroconf";
     license = licenses.lgpl21Only;

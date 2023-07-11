@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, pkg-config
-, cmake
-, rocm-cmake
-, libdrm
-, numactl
-, valgrind
-, gcc
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, pkg-config, cmake, rocm-cmake
+, libdrm, numactl, valgrind, gcc }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocm-thunk";
@@ -22,11 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-EU5toaKzVeZpdm/YhaQ0bXq0eoYwYQ5qGLUJzxgZVjE=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    rocm-cmake
-  ];
+  nativeBuildInputs = [ pkg-config cmake rocm-cmake ];
 
   buildInputs = [
     libdrm
@@ -55,6 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = with licenses; [ bsd2 mit ];
     maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
     platforms = platforms.linux;
-    broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
+    broken = versions.minor finalAttrs.version
+      != versions.minor stdenv.cc.version;
   };
 })

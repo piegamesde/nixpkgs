@@ -1,19 +1,6 @@
-{ lib
-, fetchFromGitHub
-, python3
-, meson
-, ninja
-, pkg-config
-, glib
-, gtk4
-, libadwaita
-, librsvg
-, espeak-ng
-, gobject-introspection
-, wrapGAppsHook4
-, appstream-glib
-, desktop-file-utils
-}:
+{ lib, fetchFromGitHub, python3, meson, ninja, pkg-config, glib, gtk4
+, libadwaita, librsvg, espeak-ng, gobject-introspection, wrapGAppsHook4
+, appstream-glib, desktop-file-utils }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "wordbook";
@@ -37,17 +24,9 @@ python3.pkgs.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    glib
-    gtk4
-    librsvg
-    libadwaita
-  ];
+  buildInputs = [ glib gtk4 librsvg libadwaita ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    pygobject3
-    wn
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ pygobject3 wn ];
 
   # prevent double wrapping
   dontWrapGApps = true;
@@ -60,7 +39,8 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Offline English-English dictionary application built for GNOME";
+    description =
+      "Offline English-English dictionary application built for GNOME";
     homepage = "https://github.com/fushinari/Wordbook";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

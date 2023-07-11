@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, isPy27
-, fetchFromGitHub
-, itsdangerous
-, python-multipart
-, pytestCheckHook
-, starlette
-, httpx
-, pytest-asyncio
-}:
+{ lib, buildPythonPackage, isPy27, fetchFromGitHub, itsdangerous
+, python-multipart, pytestCheckHook, starlette, httpx, pytest-asyncio }:
 
 buildPythonPackage rec {
   version = "0.9";
@@ -23,17 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-mmOsN2mW6eGtapq3xLqHK8hhSD0Gjzp3DsY5AGUlI8g=";
   };
 
-  propagatedBuildInputs = [
-    itsdangerous
-    python-multipart
-  ];
+  propagatedBuildInputs = [ itsdangerous python-multipart ];
 
-  nativeCheckInputs = [
-    httpx
-    pytest-asyncio
-    pytestCheckHook
-    starlette
-  ];
+  nativeCheckInputs = [ httpx pytest-asyncio pytestCheckHook starlette ];
 
   doCheck = false; # asgi-lifespan missing
 

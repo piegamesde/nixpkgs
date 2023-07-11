@@ -1,25 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, alsa-lib
-, appstream-glib
-, cmake
-, desktop-file-utils
-, glib
-, gstreamer
-, gtk4
-, libadwaita
-, libxml2
-, meson
-, ninja
-, pkg-config
-, poppler
-, python3
-, rustPlatform
-, shared-mime-info
-, wrapGAppsHook4
-, AudioUnit
-}:
+{ lib, stdenv, fetchFromGitHub, alsa-lib, appstream-glib, cmake
+, desktop-file-utils, glib, gstreamer, gtk4, libadwaita, libxml2, meson, ninja
+, pkg-config, poppler, python3, rustPlatform, shared-mime-info, wrapGAppsHook4
+, AudioUnit }:
 
 stdenv.mkDerivation rec {
   pname = "rnote";
@@ -35,7 +17,8 @@ stdenv.mkDerivation rec {
   cargoDeps = rustPlatform.importCargoLock {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "ink-stroke-modeler-rs-0.1.0" = "sha256-DrbFolHGL3ywk2p6Ly3x0vbjqxy1mXld+5CPrNlJfQM=";
+      "ink-stroke-modeler-rs-0.1.0" =
+        "sha256-DrbFolHGL3ywk2p6Ly3x0vbjqxy1mXld+5CPrNlJfQM=";
       "librsvg-2.56.0" = "sha256-4poP7xsoylmnKaUWuJ0tnlgEMpw9iJrM3dvt4IaFi7w=";
       "piet-0.6.2" = "sha256-If0qiZkgXeLvsrECItV9/HmhTk1H52xmVO7cUsD9dcU=";
     };
@@ -59,22 +42,11 @@ stdenv.mkDerivation rec {
 
   dontUseCmakeConfigure = true;
 
-  mesonFlags = [
-    (lib.mesonBool "cli" true)
-  ];
+  mesonFlags = [ (lib.mesonBool "cli" true) ];
 
-  buildInputs = [
-    glib
-    gstreamer
-    gtk4
-    libadwaita
-    libxml2
-    poppler
-  ] ++ lib.optionals stdenv.isLinux [
-    alsa-lib
-  ] ++ lib.optionals stdenv.isDarwin [
-    AudioUnit
-  ];
+  buildInputs = [ glib gstreamer gtk4 libadwaita libxml2 poppler ]
+    ++ lib.optionals stdenv.isLinux [ alsa-lib ]
+    ++ lib.optionals stdenv.isDarwin [ AudioUnit ];
 
   postPatch = ''
     pushd build-aux

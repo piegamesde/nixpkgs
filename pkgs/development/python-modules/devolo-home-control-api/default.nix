@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, requests
-, setuptools-scm
-, websocket-client
-, zeroconf
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest-mock, pytestCheckHook
+, pythonOlder, requests, setuptools-scm, websocket-client, zeroconf }:
 
 buildPythonPackage rec {
   pname = "devolo-home-control-api";
@@ -24,26 +15,14 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    requests
-    zeroconf
-    websocket-client
-  ];
+  propagatedBuildInputs = [ requests zeroconf websocket-client ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-mock ];
 
   # Disable test that requires network access
-  disabledTests = [
-    "test__on_pong"
-    "TestMprm"
-  ];
+  disabledTests = [ "test__on_pong" "TestMprm" ];
 
   pythonImportsCheck = [ "devolo_home_control_api" ];
 

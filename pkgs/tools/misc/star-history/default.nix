@@ -1,11 +1,4 @@
-{ lib
-, rustPlatform
-, fetchCrate
-, pkg-config
-, openssl
-, stdenv
-, Security
-}:
+{ lib, rustPlatform, fetchCrate, pkg-config, openssl, stdenv, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "star-history";
@@ -20,14 +13,16 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
-    Security
-  ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
   meta = with lib; {
-    description = "Command line program to generate a graph showing number of GitHub stars of a user, org or repo over time";
+    description =
+      "Command line program to generate a graph showing number of GitHub stars of a user, org or repo over time";
     homepage = "https://github.com/dtolnay/star-history";
-    license = with licenses; [ asl20 /* or */ mit ];
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = with maintainers; [ figsoda ];
   };
 }

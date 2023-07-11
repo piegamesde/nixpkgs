@@ -1,9 +1,4 @@
-{ lib
-, rustPlatform
-, fetchCrate
-, docutils
-, installShellFiles
-}:
+{ lib, rustPlatform, fetchCrate, docutils, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   pname = "mdevctl";
@@ -16,10 +11,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-TmumQBWuH5fJOe2qzcDtEGbmCs2G9Gfl8mH7xifzRGc=";
 
-  nativeBuildInputs = [
-    docutils
-    installShellFiles
-  ];
+  nativeBuildInputs = [ docutils installShellFiles ];
 
   postInstall = ''
     ln -s mdevctl $out/bin/lsmdev

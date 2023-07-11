@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromSourcehut
-, scdoc
-}:
+{ lib, buildGoModule, fetchFromSourcehut, scdoc }:
 
 buildGoModule rec {
   pname = "hut";
@@ -17,9 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-aoqGb7g8UEC/ydmL3GbWGy3HDD1kfDJOMeUP4nO9waA=";
 
-  nativeBuildInputs = [
-    scdoc
-  ];
+  nativeBuildInputs = [ scdoc ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

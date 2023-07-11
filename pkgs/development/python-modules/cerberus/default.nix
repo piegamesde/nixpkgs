@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "Cerberus";
@@ -16,13 +11,9 @@ buildPythonPackage rec {
     sha256 = "03kj15cf1pbd11mxsik96m5w1m6p0fbdc4ia5ihzmq8rz28razpq";
   };
 
-  propagatedBuildInputs = [
-    setuptools
-  ];
+  propagatedBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     export TESTDIR=$(mktemp -d)
@@ -34,13 +25,12 @@ buildPythonPackage rec {
     popd
   '';
 
-  pythonImportsCheck = [
-    "cerberus"
-  ];
+  pythonImportsCheck = [ "cerberus" ];
 
   meta = with lib; {
     homepage = "http://python-cerberus.org/";
-    description = "Lightweight, extensible schema and data validation tool for Python dictionaries";
+    description =
+      "Lightweight, extensible schema and data validation tool for Python dictionaries";
     license = licenses.mit;
   };
 }

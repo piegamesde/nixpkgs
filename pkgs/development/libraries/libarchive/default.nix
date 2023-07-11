@@ -1,35 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, acl
-, attr
-, autoreconfHook
-, bzip2
-, e2fsprogs
-, lzo
-, openssl
-, pkg-config
-, sharutils
-, xz
-, zlib
-, zstd
+{ lib, stdenv, fetchFromGitHub, fetchpatch, acl, attr, autoreconfHook, bzip2
+, e2fsprogs, lzo, openssl, pkg-config, sharutils, xz, zlib, zstd
 # Optional but increases closure only negligibly. Also, while libxml2 builds
 # fine on windows, libarchive has trouble linking windows things it depends on
 # for some reason.
 , xarSupport ? stdenv.hostPlatform.isUnix, libxml2
 
 # for passthru.tests
-, cmake
-, nix
-, samba
-, buildPackages
-}:
+, cmake, nix, samba, buildPackages }:
 
-let
-  autoreconfHook = buildPackages.autoreconfHook269;
-in
-assert xarSupport -> libxml2 != null;
+let autoreconfHook = buildPackages.autoreconfHook269;
+in assert xarSupport -> libxml2 != null;
 (stdenv.mkDerivation (finalAttrs: {
   pname = "libarchive";
   version = "3.6.2";
@@ -65,20 +45,11 @@ assert xarSupport -> libxml2 != null;
     ${lib.concatStringsSep "\n" (map removeTest skipTestPaths)}
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs =  [
-    bzip2
-    lzo
-    openssl
-    xz
-    zlib
-    zstd
-  ] ++ lib.optional stdenv.hostPlatform.isUnix sharutils
-    ++ lib.optionals stdenv.isLinux [ acl attr e2fsprogs ]
+  buildInputs = [ bzip2 lzo openssl xz zlib zstd ]
+    ++ lib.optional stdenv.hostPlatform.isUnix sharutils
+    ++ lib.optionals stdenv.isLinux [ acl attr 0.0 fsprogs ]
     ++ lib.optional xarSupport libxml2;
 
   # Without this, pkg-config-based dependencies are unhappy
@@ -110,16 +81,15 @@ assert xarSupport -> libxml2 != null;
       includes implementations of the common tar, cpio, and zcat command-line
       tools that use the libarchive library.
     '';
-    changelog = "https://github.com/libarchive/libarchive/releases/tag/v${finalAttrs.version}";
+    changelog =
+      "https://github.com/libarchive/libarchive/releases/tag/v${finalAttrs.version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ jcumming AndersonTorres ];
     platforms = platforms.all;
   };
 
-  passthru.tests = {
-    inherit cmake nix samba;
-  };
-})).overrideAttrs(previousAttrs:
+  passthru.tests = { inherit cmake nix samba; };
+})).overrideAttrs (previousAttrs:
   assert previousAttrs.version == "3.6.2";
   lib.optionalAttrs stdenv.hostPlatform.isStatic {
     patches = [
@@ -127,7 +97,8 @@ assert xarSupport -> libxml2 != null;
       # https://github.com/libarchive/libarchive/pull/1825 merged upstream
       (fetchpatch {
         name = "001-only-add-iconv-to-pc-file-if-needed.patch";
-        url = "https://github.com/libarchive/libarchive/commit/1f35c466aaa9444335a1b854b0b7223b0d2346c2.patch";
+        url =
+          "https://github.com/libarchive/libarchive/commit/1f35c466aaa9444335a1b854b0b7223b0d2346c2.patch";
         hash = "sha256-lb+zwWSH6/MLUIROvu9I/hUjSbb2jOWO755WC/r+lbY=";
       })
     ];

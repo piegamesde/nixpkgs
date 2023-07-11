@@ -93,7 +93,8 @@ in rec {
     '';
 
     meta = with lib; {
-      description = "Event-driven I/O framework for the V8 JavaScript engine, patched for replay";
+      description =
+        "Event-driven I/O framework for the V8 JavaScript engine, patched for replay";
       homepage = "https://github.com/RecordReplay/node";
       license = licenses.mit;
       maintainers = with maintainers; [ phryneas ];
@@ -128,7 +129,8 @@ in rec {
     '';
 
     meta = with lib; {
-      description = "The Time Travel Debugger for Web Development - Node Command Line";
+      description =
+        "The Time Travel Debugger for Web Development - Node Command Line";
       longDescription = ''
         The Replay Node Command Line allows you to record node applications and debug them
         with familiar browser dev tools.

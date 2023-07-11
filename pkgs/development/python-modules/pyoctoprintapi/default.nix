@@ -1,20 +1,15 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{ lib, buildPythonPackage, fetchFromGitHub
 
 # propagated
 , aiohttp
 
 # tests
-, pytest-asyncio
-, pytestCheckHook
-}:
+, pytest-asyncio, pytestCheckHook }:
 
 let
   pname = "pyoctoprintapi";
   version = "0.1.12";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "setuptools";
 
@@ -25,24 +20,18 @@ buildPythonPackage {
     hash = "sha256-Jf/zYnBHVl3TYxFy9Chy6qNH/eCroZkmUOEWfd62RIo=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
-  pythonImportsCheck = [
-    "pyoctoprintapi"
-  ];
+  pythonImportsCheck = [ "pyoctoprintapi" ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   meta = with lib; {
     description = "Simple async wrapper around the Octoprint API";
     homepage = "https://github.com/rfleming71/pyoctoprintapi";
-    changelog = "https://github.com/rfleming71/pyoctoprintapi/releases/tag/v${version}";
+    changelog =
+      "https://github.com/rfleming71/pyoctoprintapi/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers= with maintainers; [ hexa ];
+    maintainers = with maintainers; [ hexa ];
   };
 }

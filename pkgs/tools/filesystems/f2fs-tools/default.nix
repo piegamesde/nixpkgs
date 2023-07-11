@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "1.16.0";
 
   src = fetchgit {
-    url = "https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs-tools.git";
+    url =
+      "https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs-tools.git";
     rev = "refs/tags/v${version}";
     sha256 = "sha256-zNG1F//+BTBzlEc6qNVixyuCB6PMZD5Kf8pVK0ePYiA=";
   };
@@ -16,7 +17,8 @@ stdenv.mkDerivation rec {
   patches = [ ./f2fs-tools-cross-fix.patch ];
 
   meta = with lib; {
-    homepage = "https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs-tools.git/";
+    homepage =
+      "https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs-tools.git/";
     description = "Userland tools for the f2fs filesystem";
     license = licenses.gpl2;
     platforms = platforms.linux;

@@ -1,23 +1,6 @@
-{ buildGoModule
-, cmake
-, fetchFromGitHub
-, go
-, lib
-, libsecret
-, pkg-config
-, polkit
-, python3
-, qt5compat
-, qtbase
-, qtnetworkauth
-, qtsvg
-, qttools
-, qtwebsockets
-, rustPlatform
-, stdenv
-, wireguard-tools
-, wrapQtAppsHook
-}:
+{ buildGoModule, cmake, fetchFromGitHub, go, lib, libsecret, pkg-config, polkit
+, python3, qt5compat, qtbase, qtnetworkauth, qtsvg, qttools, qtwebsockets
+, rustPlatform, stdenv, wireguard-tools, wrapQtAppsHook }:
 
 let
   pname = "mozillavpn";
@@ -55,19 +38,11 @@ let
     hash = "sha256-5vazbCqzJG6iA0MFaTNha42jb1pgLhr0P9I8rQxSKtw=";
   };
 
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version src;
 
-  buildInputs = [
-    libsecret
-    polkit
-    qt5compat
-    qtbase
-    qtnetworkauth
-    qtsvg
-    qtwebsockets
-  ];
+  buildInputs =
+    [ libsecret polkit qt5compat qtbase qtnetworkauth qtsvg qtwebsockets ];
   nativeBuildInputs = [
     cmake
     go

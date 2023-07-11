@@ -1,25 +1,11 @@
-{ lib
-, stdenv
-, fetchgit
-, cmake
-, pkg-config
-, libusb1
-, libconfuse
-, cppSupport ? true
-, boost
-, pythonSupport ? true
-, python3
-, swig
-, docSupport ? true
-, doxygen
-, graphviz
-}:
+{ lib, stdenv, fetchgit, cmake, pkg-config, libusb1, libconfuse
+, cppSupport ? true, boost, pythonSupport ? true, python3, swig
+, docSupport ? true, doxygen, graphviz }:
 
 let
   inherit (lib) optionals optionalString;
   onOff = a: if a then "ON" else "OFF";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "libftdi";
   version = "1.5";
 
@@ -35,8 +21,7 @@ stdenv.mkDerivation rec {
     ++ optionals docSupport [ doxygen graphviz ]
     ++ optionals pythonSupport [ swig ];
 
-  buildInputs = [ libconfuse ]
-    ++ optionals cppSupport [ boost ];
+  buildInputs = [ libconfuse ] ++ optionals cppSupport [ boost ];
 
   cmakeFlags = [
     "-DFTDIPP=${onOff cppSupport}"

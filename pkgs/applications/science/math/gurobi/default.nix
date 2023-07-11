@@ -5,11 +5,14 @@ stdenv.mkDerivation rec {
   version = "9.5.1";
 
   src = fetchurl {
-    url = "https://packages.gurobi.com/${lib.versions.majorMinor version}/gurobi${version}_linux64.tar.gz";
+    url = "https://packages.gurobi.com/${
+        lib.versions.majorMinor version
+      }/gurobi${version}_linux64.tar.gz";
     sha256 = "sha256-+oKFnTPwj7iuudpmsPvZFxjtVzxTT1capSNyyd64kdo=";
   };
 
-  sourceRoot = "gurobi${builtins.replaceStrings ["."] [""] version}/linux64";
+  sourceRoot =
+    "gurobi${builtins.replaceStrings [ "." ] [ "" ] version}/linux64";
 
   nativeBuildInputs = [ autoPatchelfHook ];
   buildInputs = [ (python3.withPackages (ps: [ ps.gurobipy ])) ];
@@ -41,15 +44,13 @@ stdenv.mkDerivation rec {
     ln -s $out/lib/gurobi-javadoc.jar $out/share/java/
   '';
 
-  passthru.libSuffix = lib.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor version);
+  passthru.libSuffix =
+    lib.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor version);
 
   meta = with lib; {
     description = "Optimization solver for mathematical programming";
     homepage = "https://www.gurobi.com";
-    sourceProvenance = with sourceTypes; [
-      binaryBytecode
-      binaryNativeCode
-    ];
+    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ jfrankenau ];

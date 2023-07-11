@@ -1,22 +1,8 @@
-{ lib
-, bazel_5
-, bazel-gazelle
-, buildBazelPackage
-, fetchFromGitHub
-, stdenv
-, cmake
-, gn
-, go
-, jdk
-, ninja
-, patchelf
-, python3
-, linuxHeaders
-, nixosTests
+{ lib, bazel_5, bazel-gazelle, buildBazelPackage, fetchFromGitHub, stdenv, cmake
+, gn, go, jdk, ninja, patchelf, python3, linuxHeaders, nixosTests
 
 # v8 (upstream default), wavm, wamr, wasmtime, disabled
-, wasmRuntime ? "wamr"
-}:
+, wasmRuntime ? "wamr" }:
 
 let
   srcVer = {
@@ -27,8 +13,7 @@ let
     version = "1.25.1";
     rev = "bae2e9d642a6a8ae6c5d3810f77f3e888f0d97da";
   };
-in
-buildBazelPackage rec {
+in buildBazelPackage rec {
   pname = "envoy";
   inherit (srcVer) version;
   bazel = bazel_5;
@@ -61,19 +46,9 @@ buildBazelPackage rec {
     ./0002-nixpkgs-use-system-Go.patch
   ];
 
-  nativeBuildInputs = [
-    cmake
-    python3
-    gn
-    go
-    jdk
-    ninja
-    patchelf
-  ];
+  nativeBuildInputs = [ cmake python3 gn go jdk ninja patchelf ];
 
-  buildInputs = [
-    linuxHeaders
-  ];
+  buildInputs = [ linuxHeaders ];
 
   # external/com_github_grpc_grpc/src/core/ext/transport/binder/transport/binder_transport.cc:756:29: error: format not a string literal and no format arguments [-Werror=format-security]
   hardeningDisable = [ "format" ];
@@ -160,9 +135,7 @@ buildBazelPackage rec {
     #       |         ^
     "--define=tcmalloc=disabled"
   ]);
-  bazelFetchFlags = [
-    "--define=wasm=${wasmRuntime}"
-  ];
+  bazelFetchFlags = [ "--define=wasm=${wasmRuntime}" ];
 
   passthru.tests = {
     envoy = nixosTests.envoy;

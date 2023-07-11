@@ -1,8 +1,4 @@
-{ lib
-, python3
-, fetchFromGitHub
-, ffmpeg
-}:
+{ lib, python3, fetchFromGitHub, ffmpeg }:
 
 let
   python = python3.override {
@@ -30,10 +26,7 @@ in python.pkgs.buildPythonApplication rec {
     hash = "sha256-iE5d9enSbONqVxKW7H7N+1TmBp6nVGtiQvxJxV7R/1o=";
   };
 
-  nativeBuildInputs = with python.pkgs; [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = with python.pkgs; [ poetry-core pythonRelaxDepsHook ];
 
   pythonRelaxDeps = true;
 
@@ -97,14 +90,14 @@ in python.pkgs.buildPythonApplication rec {
     "test_song_from_url"
   ];
 
-  makeWrapperArgs = [
-    "--prefix" "PATH" ":" (lib.makeBinPath [ ffmpeg ])
-  ];
+  makeWrapperArgs = [ "--prefix" "PATH" ":" (lib.makeBinPath [ ffmpeg ]) ];
 
   meta = with lib; {
-    description = "Download your Spotify playlists and songs along with album art and metadata";
+    description =
+      "Download your Spotify playlists and songs along with album art and metadata";
     homepage = "https://github.com/spotDL/spotify-downloader";
-    changelog = "https://github.com/spotDL/spotify-downloader/releases/tag/v${version}";
+    changelog =
+      "https://github.com/spotDL/spotify-downloader/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

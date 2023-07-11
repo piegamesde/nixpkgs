@@ -1,29 +1,12 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, boehmgc
-, buildPackages
-, coverageAnalysis ? null
-, gawk
-, gmp
-, libffi
-, libtool
-, libunistring
-, makeWrapper
-, pkg-config
-, pkgsBuildBuild
-, readline
-, writeScript
-}:
+{ lib, stdenv, fetchurl, fetchpatch, boehmgc, buildPackages
+, coverageAnalysis ? null, gawk, gmp, libffi, libtool, libunistring, makeWrapper
+, pkg-config, pkgsBuildBuild, readline, writeScript }:
 
 let
   # Do either a coverage analysis build or a standard build.
-  builder = if coverageAnalysis != null
-            then coverageAnalysis
-            else stdenv.mkDerivation;
-in
-builder rec {
+  builder =
+    if coverageAnalysis != null then coverageAnalysis else stdenv.mkDerivation;
+in builder rec {
   pname = "guile";
   version = "3.0.9";
 
@@ -35,20 +18,11 @@ builder rec {
   outputs = [ "out" "dev" "info" ];
   setOutputFlags = false; # $dev gets into the library otherwise
 
-  depsBuildBuild = [
-    buildPackages.stdenv.cc
-  ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+  depsBuildBuild = [ buildPackages.stdenv.cc ]
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
     pkgsBuildBuild.guile_3_0;
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-  ];
-  buildInputs = [
-    libffi
-    libtool
-    libunistring
-    readline
-  ];
+  nativeBuildInputs = [ makeWrapper pkg-config ];
+  buildInputs = [ libffi libtool libunistring readline ];
   propagatedBuildInputs = [
     boehmgc
     gmp
@@ -67,12 +41,11 @@ builder rec {
   # bit-reproducibly as long as we're not cross-compiling
   enableParallelBuilding = stdenv.buildPlatform == stdenv.hostPlatform;
 
-  patches = [
-    ./eai_system.patch
-  ] ++ lib.optional (coverageAnalysis != null) ./gcov-file-name.patch
-  ++ lib.optional stdenv.isDarwin
-    (fetchpatch {
-      url = "https://gitlab.gnome.org/GNOME/gtk-osx/raw/52898977f165777ad9ef169f7d4818f2d4c9b731/patches/guile-clocktime.patch";
+  patches = [ ./eai_system.patch ]
+    ++ lib.optional (coverageAnalysis != null) ./gcov-file-name.patch
+    ++ lib.optional stdenv.isDarwin (fetchpatch {
+      url =
+        "https://gitlab.gnome.org/GNOME/gtk-osx/raw/52898977f165777ad9ef169f7d4818f2d4c9b731/patches/guile-clocktime.patch";
       sha256 = "12wvwdna9j8795x59ldryv9d84c1j3qdk2iskw09306idfsis207";
     });
 
@@ -80,44 +53,44 @@ builder rec {
   # "libgcc_s.so.1 must be installed for pthread_cancel to work".
 
   # don't have "libgcc_s.so.1" on clang
-  LDFLAGS = lib.optionalString
-    (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic) "-lgcc_s";
+  LDFLAGS =
+    lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
+    "-lgcc_s";
 
-  configureFlags = [
-    "--with-libreadline-prefix=${lib.getDev readline}"
-  ] ++ lib.optionals stdenv.isSunOS [
-    # Make sure the right <gmp.h> is found, and not the incompatible
-    # /usr/include/mp.h from OpenSolaris.  See
-    # <https://lists.gnu.org/archive/html/hydra-users/2012-08/msg00000.html>
-    # for details.
-    "--with-libgmp-prefix=${lib.getDev gmp}"
+  configureFlags = [ "--with-libreadline-prefix=${lib.getDev readline}" ]
+    ++ lib.optionals stdenv.isSunOS [
+      # Make sure the right <gmp.h> is found, and not the incompatible
+      # /usr/include/mp.h from OpenSolaris.  See
+      # <https://lists.gnu.org/archive/html/hydra-users/2012-08/msg00000.html>
+      # for details.
+      "--with-libgmp-prefix=${lib.getDev gmp}"
 
-    # Same for these (?).
-    "--with-libunistring-prefix=${libunistring}"
+      # Same for these (?).
+      "--with-libunistring-prefix=${libunistring}"
 
-    # See below.
-    "--without-threads"
-  ]
-  # Disable JIT on Apple Silicon, as it is not yet supported
-  # https://debbugs.gnu.org/cgi/bugreport.cgi?bug=44505";
-  ++ lib.optional (stdenv.isDarwin && stdenv.isAarch64) "--enable-jit=no"
-  # At least on x86_64-darwin '-flto' autodetection is not correct:
-  #  https://github.com/NixOS/nixpkgs/pull/160051#issuecomment-1046193028
-  ++ lib.optional (stdenv.isDarwin) "--disable-lto";
+      # See below.
+      "--without-threads"
+    ]
+    # Disable JIT on Apple Silicon, as it is not yet supported
+    # https://debbugs.gnu.org/cgi/bugreport.cgi?bug=44505";
+    ++ lib.optional (stdenv.isDarwin && stdenv.isAarch64) "--enable-jit=no"
+    # At least on x86_64-darwin '-flto' autodetection is not correct:
+    #  https://github.com/NixOS/nixpkgs/pull/160051#issuecomment-1046193028
+    ++ lib.optional (stdenv.isDarwin) "--disable-lto";
 
   postInstall = ''
     wrapProgram $out/bin/guile-snarf --prefix PATH : "${gawk}/bin"
   ''
-  # XXX: See http://thread.gmane.org/gmane.comp.lib.gnulib.bugs/18903 for
-  # why `--with-libunistring-prefix' and similar options coming from
-  # `AC_LIB_LINKFLAGS_BODY' don't work on NixOS/x86_64.
-  + ''
-    sed -i "$out/lib/pkgconfig/guile"-*.pc    \
-        -e "s|-lunistring|-L${libunistring}/lib -lunistring|g ;
-            s|^Cflags:\(.*\)$|Cflags: -I${libunistring.dev}/include \1|g ;
-            s|-lltdl|-L${libtool.lib}/lib -lltdl|g ;
-            s|includedir=$out|includedir=$dev|g
-            "
+    # XXX: See http://thread.gmane.org/gmane.comp.lib.gnulib.bugs/18903 for
+    # why `--with-libunistring-prefix' and similar options coming from
+    # `AC_LIB_LINKFLAGS_BODY' don't work on NixOS/x86_64.
+    + ''
+      sed -i "$out/lib/pkgconfig/guile"-*.pc    \
+          -e "s|-lunistring|-L${libunistring}/lib -lunistring|g ;
+              s|^Cflags:\(.*\)$|Cflags: -I${libunistring.dev}/include \1|g ;
+              s|-lltdl|-L${libtool.lib}/lib -lltdl|g ;
+              s|includedir=$out|includedir=$dev|g
+              "
     '';
 
   # make check doesn't work on darwin

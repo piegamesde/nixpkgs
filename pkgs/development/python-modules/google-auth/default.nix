@@ -1,29 +1,7 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, aiohttp
-, aioresponses
-, cachetools
-, cryptography
-, fetchPypi
-, flask
-, freezegun
-, grpcio
-, mock
-, oauth2client
-, pyasn1-modules
-, pyopenssl
-, pytest-asyncio
-, pytest-localserver
-, pytestCheckHook
-, pythonOlder
-, pyu2f
-, requests
-, responses
-, rsa
-, six
-, urllib3
-}:
+{ lib, stdenv, buildPythonPackage, aiohttp, aioresponses, cachetools
+, cryptography, fetchPypi, flask, freezegun, grpcio, mock, oauth2client
+, pyasn1-modules, pyopenssl, pytest-asyncio, pytest-localserver, pytestCheckHook
+, pythonOlder, pyu2f, requests, responses, rsa, six, urllib3 }:
 
 buildPythonPackage rec {
   pname = "google-auth";
@@ -37,31 +15,14 @@ buildPythonPackage rec {
     hash = "sha256-zjEeK8WLEw/d8xbfV8mzlDwqe09uwx3pZjqTM+QGTvw=";
   };
 
-  propagatedBuildInputs = [
-    cachetools
-    pyasn1-modules
-    rsa
-    six
-  ];
+  propagatedBuildInputs = [ cachetools pyasn1-modules rsa six ];
 
   passthru.optional-dependencies = {
-    aiohttp = [
-      aiohttp
-      requests
-    ];
-    enterprise_cert = [
-      cryptography
-      pyopenssl
-    ];
-    pyopenssl = [
-      pyopenssl
-    ];
-    reauth = [
-      pyu2f
-    ];
-    requests = [
-      requests
-    ];
+    aiohttp = [ aiohttp requests ];
+    enterprise_cert = [ cryptography pyopenssl ];
+    pyopenssl = [ pyopenssl ];
+    reauth = [ pyu2f ];
+    requests = [ requests ];
   };
 
   nativeCheckInputs = [
@@ -77,14 +38,14 @@ buildPythonPackage rec {
     responses
     urllib3
   ] ++ passthru.optional-dependencies.aiohttp
-  # `cryptography` is still required on `aarch64-darwin` for `tests/crypt/*`
-  ++ (if (stdenv.isDarwin && stdenv.isAarch64) then [ cryptography ] else passthru.optional-dependencies.enterprise_cert)
-  ++ passthru.optional-dependencies.reauth;
+    # `cryptography` is still required on `aarch64-darwin` for `tests/crypt/*`
+    ++ (if (stdenv.isDarwin && stdenv.isAarch64) then
+      [ cryptography ]
+    else
+      passthru.optional-dependencies.enterprise_cert)
+    ++ passthru.optional-dependencies.reauth;
 
-  pythonImportsCheck = [
-    "google.auth"
-    "google.oauth2"
-  ];
+  pythonImportsCheck = [ "google.auth" "google.oauth2" ];
 
   disabledTestPaths = lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
     # Disable tests using pyOpenSSL as it does not build on M1 Macs
@@ -103,7 +64,8 @@ buildPythonPackage rec {
       authentication mechanisms to access Google APIs.
     '';
     homepage = "https://github.com/googleapis/google-auth-library-python";
-    changelog = "https://github.com/googleapis/google-auth-library-python/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/googleapis/google-auth-library-python/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

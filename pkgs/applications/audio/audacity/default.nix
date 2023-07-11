@@ -1,60 +1,11 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, makeWrapper
-, wrapGAppsHook
-, pkg-config
-, python3
-, gettext
-, file
-, libvorbis
-, libmad
-, libjack2
-, lv2
-, lilv
-, mpg123
-, serd
-, sord
-, sqlite
-, sratom
-, suil
-, libsndfile
-, soxr
-, flac
-, lame
-, twolame
-, expat
-, libid3tag
-, libopus
-, libuuid
-, ffmpeg_4
-, soundtouch
-, pcre
+{ stdenv, lib, fetchFromGitHub, fetchpatch, cmake, makeWrapper, wrapGAppsHook
+, pkg-config, python3, gettext, file, libvorbis, libmad, libjack2, lv2, lilv
+, mpg123, serd, sord, sqlite, sratom, suil, libsndfile, soxr, flac, lame
+, twolame, expat, libid3tag, libopus, libuuid, ffmpeg_4, soundtouch, pcre
 , portaudio # given up fighting their portaudio.patch?
-, portmidi
-, linuxHeaders
-, alsa-lib
-, at-spi2-core
-, dbus
-, libepoxy
-, libXdmcp
-, libXtst
-, libpthreadstubs
-, libsbsms_2_3_0
-, libselinux
-, libsepol
-, libxkbcommon
-, util-linux
-, wavpack
-, wxGTK32
-, gtk3
-, libpng
-, libjpeg
-, AppKit
-, CoreAudioKit
-}:
+, portmidi, linuxHeaders, alsa-lib, at-spi2-core, dbus, libepoxy, libXdmcp
+, libXtst, libpthreadstubs, libsbsms_2_3_0, libselinux, libsepol, libxkbcommon
+, util-linux, wavpack, wxGTK32, gtk3, libpng, libjpeg, AppKit, CoreAudioKit }:
 
 # TODO
 # 1. detach sbsms
@@ -77,20 +28,14 @@ stdenv.mkDerivation rec {
   '' + lib.optionalString stdenv.isLinux ''
     substituteInPlace libraries/lib-files/FileNames.cpp \
       --replace /usr/include/linux/magic.h ${linuxHeaders}/include/linux/magic.h
-  '' + lib.optionalString (stdenv.isDarwin && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11.0") ''
-    sed -z -i "s/NSAppearanceName.*systemAppearance//" src/AudacityApp.mm
-  '';
+  '' + lib.optionalString (stdenv.isDarwin
+    && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11.0") ''
+      sed -z -i "s/NSAppearanceName.*systemAppearance//" src/AudacityApp.mm
+    '';
 
-  nativeBuildInputs = [
-    cmake
-    gettext
-    pkg-config
-    python3
-    makeWrapper
-    wrapGAppsHook
-  ] ++ lib.optionals stdenv.isLinux [
-    linuxHeaders
-  ];
+  nativeBuildInputs =
+    [ cmake gettext pkg-config python3 makeWrapper wrapGAppsHook ]
+    ++ lib.optionals stdenv.isLinux [ linuxHeaders ];
 
   buildInputs = [
     expat
@@ -173,7 +118,9 @@ stdenv.mkDerivation rec {
   # - Add the ffmpeg dynamic dependency
   postInstall = lib.optionalString stdenv.isLinux ''
     wrapProgram "$out/bin/audacity" \
-      --prefix LD_LIBRARY_PATH : "$out/lib/audacity":${lib.makeLibraryPath [ ffmpeg_4 ]} \
+      --prefix LD_LIBRARY_PATH : "$out/lib/audacity":${
+        lib.makeLibraryPath [ ffmpeg_4 ]
+      } \
       --suffix AUDACITY_MODULES_PATH : "$out/lib/audacity/modules" \
       --suffix AUDACITY_PATH : "$out/share/audacity"
   '' + lib.optionalString stdenv.isDarwin ''

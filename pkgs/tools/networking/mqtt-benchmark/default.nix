@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "mqtt-benchmark";
@@ -19,7 +16,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "MQTT broker benchmarking tool";
     homepage = "https://github.com/krylovsk/mqtt-benchmark";
-    changelog = "https://github.com/krylovsk/mqtt-benchmark/releases/tag/v${version}";
+    changelog =
+      "https://github.com/krylovsk/mqtt-benchmark/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

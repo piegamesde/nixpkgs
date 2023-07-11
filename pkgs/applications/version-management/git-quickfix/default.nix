@@ -1,12 +1,5 @@
-{ lib, fetchFromGitHub
-, libiconv
-, openssl
-, pkg-config
-, rustPlatform
-, stdenv
-, Security
-, SystemConfiguration
-}:
+{ lib, fetchFromGitHub, libiconv, openssl, pkg-config, rustPlatform, stdenv
+, Security, SystemConfiguration }:
 
 rustPlatform.buildRustPackage rec {
   pname = "git-quickfix";
@@ -22,16 +15,14 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
-    Security
-    SystemConfiguration
-    libiconv
-  ];
+  buildInputs = [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [ Security SystemConfiguration libiconv ];
 
   cargoSha256 = "sha256-eTAEf2nRrJ7i2Dw5BBZlLLu8mK2G/wUk40ivtfxk1pI=";
 
   meta = with lib; {
-    description = "Quickfix allows you to commit changes in your git repository to a new branch without leaving the current branch";
+    description =
+      "Quickfix allows you to commit changes in your git repository to a new branch without leaving the current branch";
     homepage = "https://github.com/siedentop/git-quickfix";
     license = licenses.gpl3;
     platforms = platforms.all;

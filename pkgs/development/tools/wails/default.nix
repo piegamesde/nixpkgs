@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, buildGoModule
-, fetchFromGitHub
-, pkg-config
-, makeWrapper
-, go
-, gcc
-, gtk3
-, webkitgtk
-, nodejs
-, zlib
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, pkg-config, makeWrapper, go, gcc
+, gtk3, webkitgtk, nodejs, zlib }:
 
 buildGoModule rec {
   pname = "wails";
@@ -31,29 +20,16 @@ buildGoModule rec {
 
   # These packages are needed to build wails
   # and will also need to be used when building a wails app.
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
 
   # Wails apps are built with Go, so we need to be able to
   # add it in propagatedBuildInputs.
   allowGoReference = true;
 
   # Following packages are required when wails used as a builder.
-  propagatedBuildInputs = [
-    pkg-config
-    go
-    gcc
-    gtk3
-    webkitgtk
-    nodejs
-  ];
+  propagatedBuildInputs = [ pkg-config go gcc gtk3 webkitgtk nodejs ];
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   # As Wails calls a compiler, certain apps and libraries need to be made available.
   postFixup = ''

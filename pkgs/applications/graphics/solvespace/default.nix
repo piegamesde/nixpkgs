@@ -1,33 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, wrapGAppsHook
-, at-spi2-core
-, cairo
-, dbus
-, eigen
-, freetype
-, fontconfig
-, glew
-, gtkmm3
-, json_c
-, libdatrie
-, libepoxy
-, libGLU
-, libpng
-, libselinux
-, libsepol
-, libspnav
-, libthai
-, libxkbcommon
-, pangomm
-, pcre
-, util-linuxMinimal # provides libmount
-, xorg
-, zlib
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, wrapGAppsHook, at-spi2-core
+, cairo, dbus, eigen, freetype, fontconfig, glew, gtkmm3, json_c, libdatrie
+, libepoxy, libGLU, libpng, libselinux, libsepol, libspnav, libthai
+, libxkbcommon, pangomm, pcre, util-linuxMinimal # provides libmount
+, xorg, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "solvespace";
@@ -41,11 +16,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook ];
 
   buildInputs = [
     at-spi2-core
@@ -97,6 +68,7 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.edef ];
     platforms = platforms.linux;
     homepage = "https://solvespace.com";
-    changelog = "https://github.com/solvespace/solvespace/raw/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/solvespace/solvespace/raw/v${version}/CHANGELOG.md";
   };
 }

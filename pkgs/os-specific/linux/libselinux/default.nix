@@ -1,6 +1,5 @@
 { lib, stdenv, fetchurl, fetchpatch, buildPackages, pcre, pkg-config, libsepol
-, enablePython ? !stdenv.hostPlatform.isStatic, swig ? null, python3 ? null
-, fts
+, enablePython ? !stdenv.hostPlatform.isStatic, swig ? null, python3 ? null, fts
 }:
 
 assert enablePython -> swig != null && python3 != null;
@@ -30,7 +29,8 @@ stdenv.mkDerivation rec {
     # This is a static email, so we shouldn't have to worry about
     # normalizing the patch.
     (fetchurl {
-      url = "https://lore.kernel.org/selinux/20211113141616.361640-1-hi@alyssa.is/raw";
+      url =
+        "https://lore.kernel.org/selinux/20211113141616.361640-1-hi@alyssa.is/raw";
       sha256 = "16a2s2ji9049892i15yyqgp4r20hi1hij4c1s4s8law9jsx65b3n";
       postFetch = ''
         mv "$out" $TMPDIR/patch
@@ -61,12 +61,11 @@ stdenv.mkDerivation rec {
 
     "LIBSEPOLA=${lib.getLib libsepol}/lib/libsepol.a"
     "ARCH=${stdenv.hostPlatform.linuxArch}"
-  ] ++ optionals stdenv.hostPlatform.isStatic [
-    "DISABLE_SHARED=y"
-  ] ++ optionals enablePython [
-    "PYTHON=${python3.pythonForBuild.interpreter}"
-    "PYTHONLIBDIR=$(py)/${python3.sitePackages}"
-  ];
+  ] ++ optionals stdenv.hostPlatform.isStatic [ "DISABLE_SHARED=y" ]
+    ++ optionals enablePython [
+      "PYTHON=${python3.pythonForBuild.interpreter}"
+      "PYTHONLIBDIR=$(py)/${python3.sitePackages}"
+    ];
 
   postPatch = lib.optionalString stdenv.hostPlatform.isMusl ''
     substituteInPlace src/procattr.c \
@@ -79,7 +78,7 @@ stdenv.mkDerivation rec {
 
   installTargets = [ "install" ] ++ optional enablePython "install-pywrap";
 
-  meta = removeAttrs libsepol.meta ["outputsToInstall"] // {
+  meta = removeAttrs libsepol.meta [ "outputsToInstall" ] // {
     description = "SELinux core library";
   };
 }

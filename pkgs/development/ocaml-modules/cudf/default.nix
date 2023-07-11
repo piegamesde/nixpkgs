@@ -1,4 +1,5 @@
-{ lib, fetchurl, stdenv, ocaml, ocamlbuild, findlib, extlib, glib, perl, pkg-config, stdlib-shims, ounit }:
+{ lib, fetchurl, stdenv, ocaml, ocamlbuild, findlib, extlib, glib, perl
+, pkg-config, stdlib-shims, ounit }:
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-cudf";
@@ -9,33 +10,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-mTLk2V3OI1sUNIYv84nM3reiirf0AuozG5ZzLCmn4Rw=";
   };
 
-  buildFlags = [
-    "all"
-    "opt"
-  ];
+  buildFlags = [ "all" "opt" ];
 
-  nativeBuildInputs = [
-    findlib
-    ocaml
-    ocamlbuild
-    pkg-config
-    perl
-  ];
-  buildInputs = [
-    glib
-    stdlib-shims
-  ];
-  propagatedBuildInputs = [
-    extlib
-  ];
+  nativeBuildInputs = [ findlib ocaml ocamlbuild pkg-config perl ];
+  buildInputs = [ glib stdlib-shims ];
+  propagatedBuildInputs = [ extlib ];
 
-  checkTarget = [
-    "all"
-    "test"
-  ];
-  checkInputs = [
-    ounit
-  ];
+  checkTarget = [ "all" "test" ];
+  checkInputs = [ ounit ];
   doCheck = true;
 
   preInstall = "mkdir -p $OCAMLFIND_DESTDIR";

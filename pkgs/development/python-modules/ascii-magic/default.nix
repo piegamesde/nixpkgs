@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, colorama
-, fetchPypi
-, pillow
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, colorama, fetchPypi, pillow, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "ascii-magic";
@@ -20,18 +14,11 @@ buildPythonPackage rec {
     hash = "sha256-PtQaHLFn3u1cz8YotmnzWjoD9nvdctzBi+X/2KJkPYU=";
   };
 
-  propagatedBuildInputs = [
-    colorama
-    pillow
-  ];
+  propagatedBuildInputs = [ colorama pillow ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "ascii_magic"
-  ];
+  pythonImportsCheck = [ "ascii_magic" ];
 
   preCheck = ''
     cd tests

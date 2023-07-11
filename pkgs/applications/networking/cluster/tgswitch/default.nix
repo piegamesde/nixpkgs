@@ -20,7 +20,8 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Command line tool to switch between different versions of terragrunt";
+    description =
+      "Command line tool to switch between different versions of terragrunt";
     homepage = "https://github.com/warrensbox/tgswitch";
     license = licenses.mit;
     maintainers = with maintainers; [ psibi ];

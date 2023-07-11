@@ -5,20 +5,15 @@ stdenv.mkDerivation rec {
   version = "1.4.0";
 
   src = fetchurl {
-    url = "https://github.com/coqui-ai/STT/releases/download/v${version}/native_client.tflite.Linux.tar.xz";
+    url =
+      "https://github.com/coqui-ai/STT/releases/download/v${version}/native_client.tflite.Linux.tar.xz";
     hash = "sha256-RVYc64pLYumQoVUEFZdxfUUaBMozaqgD0h/yiMaWN90=";
   };
   setSourceRoot = "sourceRoot=`pwd`";
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [
-    bzip2
-    xz
-    stdenv.cc.cc.lib
-  ];
+  buildInputs = [ bzip2 xz stdenv.cc.cc.lib ];
 
   installPhase = ''
     install -D stt $out/bin/stt
@@ -30,7 +25,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/coqui-ai/STT";
-    description = "Deep learning toolkit for Speech-to-Text, battle-tested in research and production";
+    description =
+      "Deep learning toolkit for Speech-to-Text, battle-tested in research and production";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mpl20;
     platforms = [ "x86_64-linux" ];

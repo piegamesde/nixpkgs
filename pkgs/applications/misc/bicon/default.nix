@@ -1,13 +1,5 @@
-{ lib, stdenv
-, fetchFromGitHub
-, fetchpatch
-, autoreconfHook
-, pkg-config
-, perl
-, fribidi
-, kbd
-, xkbutils
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, pkg-config, perl
+, fribidi, kbd, xkbutils }:
 
 stdenv.mkDerivation rec {
   pname = "bicon";
@@ -25,7 +17,8 @@ stdenv.mkDerivation rec {
     # inclusion: https://github.com/behdad/bicon/pull/29
     (fetchpatch {
       name = "clang.patch";
-      url = "https://github.com/behdad/bicon/commit/20f5a79571f222f96e07d7c0c5e76e2c9ff1c59a.patch";
+      url =
+        "https://github.com/behdad/bicon/commit/20f5a79571f222f96e07d7c0c5e76e2c9ff1c59a.patch";
       sha256 = "0l1dm7w52k57nv3lvz5pkbwp021mlsk3csyalxi90np1lx5sqbd1";
     })
   ];
@@ -39,7 +32,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A bidirectional console";
-    homepage =  "https://github.com/behdad/bicon";
+    homepage = "https://github.com/behdad/bicon";
     license = [ licenses.lgpl21 licenses.psfl licenses.bsd0 ];
     maintainers = [ ];
     platforms = platforms.linux;

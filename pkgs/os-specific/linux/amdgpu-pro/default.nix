@@ -1,20 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, elfutils
-, xorg
-, patchelf
-, libxcb
-, libxshmfence
-, perl
-, zlib
-, expat
-, libffi
-, libselinux
-, libdrm
-, udev
-, kernel ? null
-}:
+{ lib, stdenv, fetchurl, elfutils, xorg, patchelf, libxcb, libxshmfence, perl
+, zlib, expat, libffi, libselinux, libdrm, udev, kernel ? null }:
 
 with lib;
 
@@ -22,12 +7,12 @@ let
 
   bitness = if stdenv.is64bit then "64" else "32";
 
-  libArch =
-    if stdenv.hostPlatform.system == "i686-linux" then
-      "i386-linux-gnu"
-    else if stdenv.hostPlatform.system == "x86_64-linux" then
-      "x86_64-linux-gnu"
-    else throw "amdgpu-pro is Linux only. Sorry.";
+  libArch = if stdenv.hostPlatform.system == "i686-linux" then
+    "i386-linux-gnu"
+  else if stdenv.hostPlatform.system == "x86_64-linux" then
+    "x86_64-linux-gnu"
+  else
+    throw "amdgpu-pro is Linux only. Sorry.";
 
 in stdenv.mkDerivation rec {
 
@@ -36,9 +21,11 @@ in stdenv.mkDerivation rec {
   build = "${version}-1290604";
 
   src = fetchurl {
-    url = "https://drivers.amd.com/drivers/linux/amdgpu-pro-${build}-ubuntu-20.04.tar.xz";
+    url =
+      "https://drivers.amd.com/drivers/linux/amdgpu-pro-${build}-ubuntu-20.04.tar.xz";
     sha256 = "sha256-WECqxjo2WLP3kMWeVyJgYufkvHTzwGaj57yeMGXiQ4I=";
-    curlOpts = "--referer https://www.amd.com/en/support/kb/release-notes/rn-amdgpu-unified-linux-21-30";
+    curlOpts =
+      "--referer https://www.amd.com/en/support/kb/release-notes/rn-amdgpu-unified-linux-21-30";
   };
 
   postUnpack = ''
@@ -79,7 +66,8 @@ in stdenv.mkDerivation rec {
         popd
       '';
 
-      makeFlags = optionalString (kernel != null) "-C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build modules";
+      makeFlags = optionalString (kernel != null)
+        "-C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build modules";
 
       installPhase = ''
         runHook preInstall
@@ -169,19 +157,18 @@ in stdenv.mkDerivation rec {
   '';
 
   preFixup = (if stdenv.is64bit
-    # this could also be done with LIBGL_DRIVERS_PATH, but it would need to be
-    # set in the user session and for Xorg
-    then ''
-      expr1='s:/opt/amdgpu/lib/x86_64-linux-gnu/dri\0:/run/opengl-driver/lib/dri\0\0\0\0\0\0\0\0\0\0\0:g'
-      expr2='s:/usr/lib/x86_64-linux-gnu/dri[\0\:]:/run/opengl-driver/lib/dri\0\0\0\0:g'
-      perl -pi -e "$expr2" $out/lib/xorg/modules/extensions/libglx.so
-    ''
-    else ''
-      expr1='s:/opt/amdgpu/lib/i386-linux-gnu/dri\0:/run/opengl-driver-32/lib/dri\0\0\0\0\0\0:g'
-      # we replace a different path on 32-bit because it's the only one long
-      # enough to fit the target path :(
-      expr2='s:/usr/lib/i386-linux-gnu/dri[\0\:]:/run/opengl-driver-32/dri\0\0\0:g'
-    '') + ''
+  # this could also be done with LIBGL_DRIVERS_PATH, but it would need to be
+  # set in the user session and for Xorg
+  then ''
+    expr1='s:/opt/amdgpu/lib/x86_64-linux-gnu/dri\0:/run/opengl-driver/lib/dri\0\0\0\0\0\0\0\0\0\0\0:g'
+    expr2='s:/usr/lib/x86_64-linux-gnu/dri[\0\:]:/run/opengl-driver/lib/dri\0\0\0\0:g'
+    perl -pi -e "$expr2" $out/lib/xorg/modules/extensions/libglx.so
+  '' else ''
+    expr1='s:/opt/amdgpu/lib/i386-linux-gnu/dri\0:/run/opengl-driver-32/lib/dri\0\0\0\0\0\0:g'
+    # we replace a different path on 32-bit because it's the only one long
+    # enough to fit the target path :(
+    expr2='s:/usr/lib/i386-linux-gnu/dri[\0\:]:/run/opengl-driver-32/dri\0\0\0:g'
+  '') + ''
     perl -pi -e "$expr1" \
       $out/opt/amdgpu/lib/libEGL.so.1.0.0 \
       $out/opt/amdgpu/lib/libgbm.so.1.0.0 \
@@ -204,17 +191,13 @@ in stdenv.mkDerivation rec {
     find "$out" -name '*.so*' -type f -exec patchelf --set-rpath "$libPath" {} \;
   '';
 
-  buildInputs = [
-    libdrm
-    patchelf
-    perl
-  ];
+  buildInputs = [ libdrm patchelf perl ];
 
   enableParallelBuilding = true;
 
   meta = with lib; {
     description = "AMDGPU-PRO drivers";
-    homepage =  "https://www.amd.com/en/support";
+    homepage = "https://www.amd.com/en/support";
     license = licenses.unfree;
     platforms = platforms.linux;
     maintainers = with maintainers; [ corngood ];

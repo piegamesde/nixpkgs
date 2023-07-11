@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, texinfo
-}:
+{ lib, stdenv, fetchFromGitHub, texinfo }:
 
 stdenv.mkDerivation rec {
   pname = "quickjs";
@@ -22,9 +18,7 @@ stdenv.mkDerivation rec {
   makeFlags = [ "prefix=${placeholder "out"}" ];
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    texinfo
-  ];
+  nativeBuildInputs = [ texinfo ];
 
   postBuild = ''
     (cd doc

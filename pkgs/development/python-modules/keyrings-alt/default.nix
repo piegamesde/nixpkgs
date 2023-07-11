@@ -1,14 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, isPy27
-, six
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, isPy27, six
 
-, pytestCheckHook
-, keyring
-, setuptools-scm
-}:
+, pytestCheckHook, keyring, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "keyrings.alt";
@@ -21,22 +13,13 @@ buildPythonPackage rec {
     hash = "sha256-K6PVZEG6Bjf1+cCWBo9nAQrART+dC2Jt4qowGTU7ZDE=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    keyring
-  ];
+  nativeCheckInputs = [ pytestCheckHook keyring ];
 
-  pythonImportsCheck = [
-    "keyrings.alt"
-  ];
+  pythonImportsCheck = [ "keyrings.alt" ];
 
   meta = with lib; {
     license = licenses.mit;

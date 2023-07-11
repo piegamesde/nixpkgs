@@ -1,9 +1,4 @@
-{ lib
-, aiohttp
-, async-timeout
-, buildPythonPackage
-, fetchFromGitHub
-}:
+{ lib, aiohttp, async-timeout, buildPythonPackage, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "pycfdns";
@@ -22,17 +17,12 @@ buildPythonPackage rec {
       --replace 'version="master",' 'version="${version}",'
   '';
 
-  propagatedBuildInputs = [
-    aiohttp
-    async-timeout
-  ];
+  propagatedBuildInputs = [ aiohttp async-timeout ];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pycfdns"
-  ];
+  pythonImportsCheck = [ "pycfdns" ];
 
   meta = with lib; {
     description = "Python module for updating Cloudflare DNS A records";

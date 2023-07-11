@@ -13,9 +13,14 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-ZyMO+KCqoePF6MqHFt8X4tZR4nBhuSPgJDrX+emM6jc=";
 
-  ldflags =
-    let t = "github.com/jckuester/awsls/internal";
-    in [ "-s" "-w" "-X ${t}.version=${version}" "-X ${t}.commit=${src.rev}" "-X ${t}.date=unknown" ];
+  ldflags = let t = "github.com/jckuester/awsls/internal";
+  in [
+    "-s"
+    "-w"
+    "-X ${t}.version=${version}"
+    "-X ${t}.commit=${src.rev}"
+    "-X ${t}.date=unknown"
+  ];
 
   doCheck = false;
 

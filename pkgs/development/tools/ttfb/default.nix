@@ -1,11 +1,4 @@
-{ darwin
-, fetchCrate
-, lib
-, openssl
-, pkg-config
-, rustPlatform
-, stdenv
-}:
+{ darwin, fetchCrate, lib, openssl, pkg-config, rustPlatform, stdenv }:
 
 rustPlatform.buildRustPackage rec {
   pname = "ttfb";
@@ -24,20 +17,19 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs = [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   meta = {
-    description = "CLI-Tool to measure the TTFB (time to first byte) of HTTP(S) requests";
+    description =
+      "CLI-Tool to measure the TTFB (time to first byte) of HTTP(S) requests";
     longDescription = ''
       This crate measures the times of DNS lookup, TCP connect, TLS handshake, and HTTP's TTFB
       for a given IP or domain.
     '';
     homepage = "https://github.com/phip1611/ttfb";
-    changelog = "https://github.com/phip1611/ttfb/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/phip1611/ttfb/blob/v${version}/CHANGELOG.md";
     license = with lib.licenses; [ mit ];
     maintainers = with lib.maintainers; [ phip1611 ];
   };

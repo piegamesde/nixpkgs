@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, acl
-, e2fsprogs
-, libb2
-, lz4
-, openssh
-, openssl
-, python3
-, xxHash
-, zstd
-, installShellFiles
-, nixosTests
-, fetchpatch
-}:
+{ lib, stdenv, acl, e2fsprogs, libb2, lz4, openssh, openssl, python3, xxHash
+, zstd, installShellFiles, nixosTests, fetchpatch }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "borgbackup";
@@ -28,7 +15,8 @@ python3.pkgs.buildPythonApplication rec {
     (fetchpatch {
       # Fix HashIndexSizeTestCase.test_size_on_disk_accurate problems on ZFS,
       # see https://github.com/borgbackup/borg/issues/7250
-      url = "https://github.com/borgbackup/borg/pull/7252/commits/fe3775cf8078c18d8fe39a7f42e52e96d3ecd054.patch";
+      url =
+        "https://github.com/borgbackup/borg/pull/7252/commits/fe3775cf8078c18d8fe39a7f42e52e96d3ecd054.patch";
       hash = "sha256-gdssHfhdkmRfSAOeXsq9Afg7xqGM3NLIq4QnzmPBhw4=";
     })
   ];
@@ -54,15 +42,8 @@ python3.pkgs.buildPythonApplication rec {
 
   sphinxBuilders = [ "singlehtml" "man" ];
 
-  buildInputs = [
-    libb2
-    lz4
-    xxHash
-    zstd
-    openssl
-  ] ++ lib.optionals stdenv.isLinux [
-    acl
-  ];
+  buildInputs = [ libb2 lz4 xxHash zstd openssl ]
+    ++ lib.optionals stdenv.isLinux [ acl ];
 
   propagatedBuildInputs = with python3.pkgs; [
     msgpack
@@ -70,9 +51,7 @@ python3.pkgs.buildPythonApplication rec {
     (if stdenv.isLinux then pyfuse3 else llfuse)
   ];
 
-  makeWrapperArgs = [
-    ''--prefix PATH ':' "${openssh}/bin"''
-  ];
+  makeWrapperArgs = [ ''--prefix PATH ':' "${openssh}/bin"'' ];
 
   postInstall = ''
     installShellCompletion --cmd borg \
@@ -82,7 +61,8 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   nativeCheckInputs = with python3.pkgs; [
-    e2fsprogs
+    0.0
+    fsprogs
     py
     python-dateutil
     pytest-benchmark
@@ -90,10 +70,7 @@ python3.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [
-    "--benchmark-skip"
-    "--pyargs" "borg.testsuite"
-  ];
+  pytestFlagsArray = [ "--benchmark-skip" "--pyargs" "borg.testsuite" ];
 
   disabledTests = [
     # fuse: device not found, try 'modprobe fuse' first
@@ -117,9 +94,7 @@ python3.pkgs.buildPythonApplication rec {
     export HOME=$TEMP
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) borgbackup;
-  };
+  passthru.tests = { inherit (nixosTests) borgbackup; };
 
   outputs = [ "out" "doc" "man" ];
 

@@ -1,19 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
 
 # build-system
 , poetry-core
 
 # runtime
-, click
-, peewee
+, click, peewee
 
 # tests
-, psycopg2
-, pytestCheckHook
-}:
+, psycopg2, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "peewee-migrate";
@@ -27,27 +21,17 @@ buildPythonPackage rec {
     hash = "sha256-s7/Ev4nAKUr5OBgziETVCtjlxvBoeoZXriUBuAUi4eE=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   postPatch = ''
     sed -i '/addopts/d' pyproject.toml
   '';
 
-  propagatedBuildInputs = [
-    peewee
-    click
-  ];
+  propagatedBuildInputs = [ peewee click ];
 
-  pythonImportsCheck = [
-    "peewee_migrate"
-  ];
+  pythonImportsCheck = [ "peewee_migrate" ];
 
-  nativeCheckInputs = [
-    psycopg2
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ psycopg2 pytestCheckHook ];
 
   meta = with lib; {
     description = "Simple migration engine for Peewee";

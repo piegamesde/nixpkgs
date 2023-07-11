@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, backports_csv
-, configobj
-, mock
-, pytestCheckHook
-, pygments
-, tabulate
-, terminaltables
-, wcwidth
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, backports_csv, configobj
+, mock, pytestCheckHook, pygments, tabulate, terminaltables, wcwidth }:
 
 buildPythonPackage rec {
   pname = "cli-helpers";
@@ -25,19 +14,13 @@ buildPythonPackage rec {
     hash = "sha256-5xdNADorWP0+Mac/u8RdWqUT3mLL1C1Df3i5ZYvV+Wc=";
   };
 
-  propagatedBuildInputs = [
-    configobj
-    tabulate
-  ] ++ tabulate.optional-dependencies.widechars;
+  propagatedBuildInputs = [ configobj tabulate ]
+    ++ tabulate.optional-dependencies.widechars;
 
-  passthru.optional-dependencies = {
-    styles = [ pygments ];
-  };
+  passthru.optional-dependencies = { styles = [ pygments ]; };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    mock
-  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [ pytestCheckHook mock ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   meta = with lib; {
     description = "Python helpers for common CLI tasks";
@@ -62,7 +45,7 @@ buildPythonPackage rec {
       Read the documentation at http://cli-helpers.rtfd.io
     '';
     homepage = "https://cli-helpers.readthedocs.io/en/stable/";
-    license = licenses.bsd3 ;
+    license = licenses.bsd3;
     maintainers = [ maintainers.kalbasit ];
   };
 }

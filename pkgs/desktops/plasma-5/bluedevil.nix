@@ -1,21 +1,6 @@
-{ mkDerivation
-, extra-cmake-modules
-, shared-mime-info
-, qtbase
-, qtdeclarative
-, bluez-qt
-, kcoreaddons
-, kcmutils
-, kdbusaddons
-, kded
-, ki18n
-, kiconthemes
-, kio
-, knotifications
-, kwidgetsaddons
-, kwindowsystem
-, plasma-framework
-}:
+{ mkDerivation, extra-cmake-modules, shared-mime-info, qtbase, qtdeclarative
+, bluez-qt, kcoreaddons, kcmutils, kdbusaddons, kded, ki18n, kiconthemes, kio
+, knotifications, kwidgetsaddons, kwindowsystem, plasma-framework }:
 
 mkDerivation {
   pname = "bluedevil";

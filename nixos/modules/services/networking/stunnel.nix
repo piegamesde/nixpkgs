@@ -9,29 +9,32 @@ let
 
   verifyRequiredField = type: field: n: c: {
     assertion = hasAttr field c;
-    message =  "stunnel: \"${n}\" ${type} configuration - Field ${field} is required.";
+    message =
+      ''stunnel: "${n}" ${type} configuration - Field ${field} is required.'';
   };
 
   verifyChainPathAssert = n: c: {
-    assertion = (c.verifyHostname or null) == null || (c.verifyChain || c.verifyPeer);
-    message =  "stunnel: \"${n}\" client configuration - hostname verification " +
-      "is not possible without either verifyChain or verifyPeer enabled";
+    assertion = (c.verifyHostname or null) == null
+      || (c.verifyChain || c.verifyPeer);
+    message = ''stunnel: "${n}" client configuration - hostname verification ''
+      + "is not possible without either verifyChain or verifyPeer enabled";
   };
 
   removeNulls = mapAttrs (_: filterAttrs (_: v: v != null));
   mkValueString = v:
-    if v == true then "yes"
-    else if v == false then "no"
-    else generators.mkValueStringDefault {} v;
+    if v == true then
+      "yes"
+    else if v == false then
+      "no"
+    else
+      generators.mkValueStringDefault { } v;
   generateConfig = c:
     generators.toINI {
       mkSectionName = id;
       mkKeyValue = k: v: "${k} = ${mkValueString v}";
     } (removeNulls c);
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -42,7 +45,8 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to enable the stunnel TLS tunneling service.";
+        description =
+          lib.mdDoc "Whether to enable the stunnel TLS tunneling service.";
       };
 
       user = mkOption {
@@ -58,7 +62,16 @@ in
       };
 
       logLevel = mkOption {
-        type = types.enum [ "emerg" "alert" "crit" "err" "warning" "notice" "info" "debug" ];
+        type = types.enum [
+          "emerg"
+          "alert"
+          "crit"
+          "err"
+          "warning"
+          "notice"
+          "info"
+          "debug"
+        ];
         default = "info";
         description = lib.mdDoc "Verbosity of stunnel output.";
       };
@@ -66,15 +79,16 @@ in
       fipsMode = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Enable FIPS 140-2 mode required for compliance.";
+        description =
+          lib.mdDoc "Enable FIPS 140-2 mode required for compliance.";
       };
 
       enableInsecureSSLv3 = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Enable support for the insecure SSLv3 protocol.";
+        description =
+          lib.mdDoc "Enable support for the insecure SSLv3 protocol.";
       };
-
 
       servers = mkOption {
         description = lib.mdDoc ''
@@ -82,7 +96,7 @@ in
 
           See "SERVICE-LEVEL OPTIONS" in {manpage}`stunnel(8)`.
         '';
-        type = with types; attrsOf (attrsOf (nullOr (oneOf [bool int str])));
+        type = with types; attrsOf (attrsOf (nullOr (oneOf [ bool int str ])));
         example = {
           fancyWebserver = {
             accept = 443;
@@ -101,7 +115,7 @@ in
 
           See "SERVICE-LEVEL OPTIONS" in {manpage}`stunnel(8)`.
         '';
-        type = with types; attrsOf (attrsOf (nullOr (oneOf [bool int str])));
+        type = with types; attrsOf (attrsOf (nullOr (oneOf [ bool int str ])));
 
         apply = let
           applyDefaults = c:
@@ -118,7 +132,8 @@ in
               verifyHostname = null; # Not a real stunnel configuration setting
             };
           forceClient = c: c // { client = true; };
-        in mapAttrs (_: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c)));
+        in mapAttrs
+        (_: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c)));
 
         example = {
           foobar = {
@@ -132,15 +147,16 @@ in
     };
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
 
     assertions = concatLists [
       (singleton {
-        assertion = (length (attrValues cfg.servers) != 0) || ((length (attrValues cfg.clients)) != 0);
-        message = "stunnel: At least one server- or client-configuration has to be present.";
+        assertion = (length (attrValues cfg.servers) != 0)
+          || ((length (attrValues cfg.clients)) != 0);
+        message =
+          "stunnel: At least one server- or client-configuration has to be present.";
       })
 
       (mapAttrsToList verifyChainPathAssert cfg.clients)
@@ -154,19 +170,19 @@ in
     environment.systemPackages = [ pkgs.stunnel ];
 
     environment.etc."stunnel.cfg".text = ''
-      ${ optionalString (cfg.user != null) "setuid = ${cfg.user}" }
-      ${ optionalString (cfg.group != null) "setgid = ${cfg.group}" }
+      ${optionalString (cfg.user != null) "setuid = ${cfg.user}"}
+      ${optionalString (cfg.group != null) "setgid = ${cfg.group}"}
 
       debug = ${cfg.logLevel}
 
-      ${ optionalString cfg.fipsMode "fips = yes" }
-      ${ optionalString cfg.enableInsecureSSLv3 "options = -NO_SSLv3" }
+      ${optionalString cfg.fipsMode "fips = yes"}
+      ${optionalString cfg.enableInsecureSSLv3 "options = -NO_SSLv3"}
 
       ; ----- SERVER CONFIGURATIONS -----
-      ${ generateConfig cfg.servers }
+      ${generateConfig cfg.servers}
 
       ; ----- CLIENT CONFIGURATIONS -----
-      ${ generateConfig cfg.clients }
+      ${generateConfig cfg.clients}
     '';
 
     systemd.services.stunnel = {
@@ -176,7 +192,9 @@ in
       wantedBy = [ "multi-user.target" ];
       restartTriggers = [ config.environment.etc."stunnel.cfg".source ];
       serviceConfig = {
-        ExecStart = "${pkgs.stunnel}/bin/stunnel ${config.environment.etc."stunnel.cfg".source}";
+        ExecStart = "${pkgs.stunnel}/bin/stunnel ${
+            config.environment.etc."stunnel.cfg".source
+          }";
         Type = "forking";
       };
     };

@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, bison
-, flex
-, openldap
-, openssl
-, trousers
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, bison, flex, openldap, openssl
+, trousers }:
 
 stdenv.mkDerivation rec {
   pname = "opencryptoki";
@@ -20,17 +12,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-Z11CDw9ykmJ7MI7I0H4Y/i+8/I+hRgC2frklYPP1di0=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    bison
-    flex
-  ];
+  nativeBuildInputs = [ autoreconfHook bison flex ];
 
-  buildInputs = [
-    openldap
-    openssl
-    trousers
-  ];
+  buildInputs = [ openldap openssl trousers ];
 
   postPatch = ''
     substituteInPlace configure.ac \
@@ -40,24 +24,19 @@ stdenv.mkDerivation rec {
       --replace "chgrp" "true"
   '';
 
-  configureFlags = [
-    "--prefix="
-    "--disable-ccatok"
-    "--disable-icatok"
-  ];
+  configureFlags = [ "--prefix=" "--disable-ccatok" "--disable-icatok" ];
 
   enableParallelBuilding = true;
 
-  installFlags = [
-    "DESTDIR=${placeholder "out"}"
-  ];
+  installFlags = [ "DESTDIR=${placeholder "out"}" ];
 
   meta = with lib; {
-    changelog   = "https://github.com/opencryptoki/opencryptoki/blob/${src.rev}/ChangeLog";
+    changelog =
+      "https://github.com/opencryptoki/opencryptoki/blob/${src.rev}/ChangeLog";
     description = "PKCS#11 implementation for Linux";
-    homepage    = "https://github.com/opencryptoki/opencryptoki";
-    license     = licenses.cpl10;
+    homepage = "https://github.com/opencryptoki/opencryptoki";
+    license = licenses.cpl10;
     maintainers = [ ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 }

@@ -1,12 +1,4 @@
-{ stdenv
-, lib
-, fetchurl
-, meson
-, ninja
-, python3
-, gettext
-, appstream-glib
-, gnome
+{ stdenv, lib, fetchurl, meson, ninja, python3, gettext, appstream-glib, gnome
 }:
 
 stdenv.mkDerivation rec {
@@ -14,7 +6,9 @@ stdenv.mkDerivation rec {
   version = "0.303.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "+UY6BlnGPlfjgf3XU88ZKSJTlcW0kTWYlCR2GDBTBBE=";
   };
 
@@ -42,14 +36,11 @@ stdenv.mkDerivation rec {
   outputHashMode = "recursive";
   outputHash = "XeqHVdTQ7PTzxkjwfzS/BTR7+k/M69sfUKdRXGOTmZE=";
 
-  passthru = {
-    updateScript = gnome.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 
   meta = {
-    description = "Default typeface used in the user interface of GNOME since version 3.0";
+    description =
+      "Default typeface used in the user interface of GNOME since version 3.0";
     platforms = lib.platforms.all;
     license = lib.licenses.ofl;
     maintainers = with lib.maintainers; [ ];

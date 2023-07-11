@@ -1,40 +1,22 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, bzip2
-, cli11
-, cmake
-, curl
-, ghc_filesystem
-, libarchive
-, libsolv
-, yaml-cpp
-, nlohmann_json
-, python3
-, reproc
-, spdlog
-, termcolor
-, tl-expected
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, bzip2, cli11, cmake, curl
+, ghc_filesystem, libarchive, libsolv, yaml-cpp, nlohmann_json, python3, reproc
+, spdlog, termcolor, tl-expected }:
 
 let
   libsolv' = libsolv.overrideAttrs (oldAttrs: {
-    cmakeFlags = oldAttrs.cmakeFlags ++ [
-      "-DENABLE_CONDA=true"
-    ];
+    cmakeFlags = oldAttrs.cmakeFlags ++ [ "-DENABLE_CONDA=true" ];
 
     patches = [
       # Apply the same patch as in the "official" boa-forge build:
       # https://github.com/mamba-org/boa-forge/tree/master/libsolv
       (fetchpatch {
-        url = "https://raw.githubusercontent.com/mamba-org/boa-forge/20530f80e2e15012078d058803b6e2c75ed54224/libsolv/conda_variant_priorization.patch";
+        url =
+          "https://raw.githubusercontent.com/mamba-org/boa-forge/20530f80e2e15012078d058803b6e2c75ed54224/libsolv/conda_variant_priorization.patch";
         sha256 = "1iic0yx7h8s662hi2jqx68w5kpyrab4fr017vxd4wyxb6wyk35dd";
       })
     ];
   });
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "micromamba";
   version = "1.2.0";
 

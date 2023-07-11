@@ -17,7 +17,8 @@ in {
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to enable the postsrsd SRS server for Postfix.";
+        description =
+          lib.mdDoc "Whether to enable the postsrsd SRS server for Postfix.";
       };
 
       secretsFile = mkOption {
@@ -32,9 +33,10 @@ in {
       };
 
       separator = mkOption {
-        type = types.enum ["-" "=" "+"];
+        type = types.enum [ "-" "=" "+" ];
         default = "=";
-        description = lib.mdDoc "First separator character in generated addresses";
+        description =
+          lib.mdDoc "First separator character in generated addresses";
       };
 
       # bindAddress = mkOption { # uncomment once 1.5 is released
@@ -58,13 +60,15 @@ in {
       timeout = mkOption {
         type = types.int;
         default = 1800;
-        description = lib.mdDoc "Timeout for idle client connections in seconds";
+        description =
+          lib.mdDoc "Timeout for idle client connections in seconds";
       };
 
       excludeDomains = mkOption {
         type = types.listOf types.str;
-        default = [];
-        description = lib.mdDoc "Origin domains to exclude from rewriting in addition to primary domain";
+        default = [ ];
+        description = lib.mdDoc
+          "Origin domains to exclude from rewriting in addition to primary domain";
       };
 
       user = mkOption {
@@ -82,7 +86,6 @@ in {
     };
 
   };
-
 
   ###### implementation
 
@@ -110,7 +113,12 @@ in {
       path = [ pkgs.coreutils ];
 
       serviceConfig = {
-        ExecStart = ''${pkgs.postsrsd}/sbin/postsrsd "-s${cfg.secretsFile}" "-d${cfg.domain}" -a${cfg.separator} -f${toString cfg.forwardPort} -r${toString cfg.reversePort} -t${toString cfg.timeout} "-X${concatStringsSep "," cfg.excludeDomains}"'';
+        ExecStart = ''
+          ${pkgs.postsrsd}/sbin/postsrsd "-s${cfg.secretsFile}" "-d${cfg.domain}" -a${cfg.separator} -f${
+            toString cfg.forwardPort
+          } -r${toString cfg.reversePort} -t${toString cfg.timeout} "-X${
+            concatStringsSep "," cfg.excludeDomains
+          }"'';
         User = cfg.user;
         Group = cfg.group;
         PermissionsStartOnly = true;

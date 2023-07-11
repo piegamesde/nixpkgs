@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, autoconf
-, automake
-, bash
-, curl
-, fetchFromGitHub
-, fetchMavenArtifact
-, fetchurl
-, git
-, jdk8
-, makeWrapper
-, nettools
-, python3
-}:
+{ lib, stdenv, autoconf, automake, bash, curl, fetchFromGitHub
+, fetchMavenArtifact, fetchurl, git, jdk8, makeWrapper, nettools, python3 }:
 
 let
   jdk = jdk8;
@@ -56,7 +43,8 @@ let
     ];
     hamcrest = [
       (fetchMavenArtifact {
-        url = "https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar";
+        url =
+          "https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar";
         groupId = "org.hamcrest";
         artifactId = "hamcrest-core";
         version = "1.3";
@@ -276,11 +264,7 @@ in stdenv.mkDerivation rec {
     hash = "sha256-899m1H0UCLsI/bnSrNFnnny4MxSw3XBzf7rgDuEajDs=";
   };
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoconf automake makeWrapper ];
 
   buildInputs = [ curl jdk nettools python3 git ];
 
@@ -290,9 +274,10 @@ in stdenv.mkDerivation rec {
     ./bootstrap
   '';
 
-  preBuild = lib.concatStrings (lib.mapAttrsToList (dir: lib.concatMapStrings (artifact: ''
-    ln -s ${artifact}/share/java/* third_party/${dir}
-  '')) artifacts);
+  preBuild = lib.concatStrings (lib.mapAttrsToList (dir:
+    lib.concatMapStrings (artifact: ''
+      ln -s ${artifact}/share/java/* third_party/${dir}
+    '')) artifacts);
 
   postInstall = ''
     wrapProgram $out/bin/tsdb \

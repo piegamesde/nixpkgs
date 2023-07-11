@@ -1,12 +1,5 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, qmake
-, qtbase
-, qttools
-, qtimageformats
-, qtsvg
-}:
+{ lib, mkDerivation, fetchFromGitHub, qmake, qtbase, qttools, qtimageformats
+, qtsvg }:
 
 mkDerivation rec {
   pname = "qview";
@@ -21,12 +14,7 @@ mkDerivation rec {
 
   nativeBuildInputs = [ qmake ];
 
-  buildInputs = [
-    qtbase
-    qttools
-    qtimageformats
-    qtsvg
-  ];
+  buildInputs = [ qtbase qttools qtimageformats qtsvg ];
 
   meta = with lib; {
     description = "Practical and minimal image viewer";

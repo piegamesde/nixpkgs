@@ -1,22 +1,13 @@
-{ lib
-, fetchzip
-, libXxf86vm
-, makeWrapper
-, openal
-, openjdk
-, stdenv
-, xorg
-, copyDesktopItems
-, makeDesktopItem
-, writeScript
-}:
+{ lib, fetchzip, libXxf86vm, makeWrapper, openal, openjdk, stdenv, xorg
+, copyDesktopItems, makeDesktopItem, writeScript }:
 
 stdenv.mkDerivation rec {
   pname = "starsector";
   version = "0.95.1a-RC6";
 
   src = fetchzip {
-    url = "https://s3.amazonaws.com/fractalsoftworks/starsector/starsector_linux-${version}.zip";
+    url =
+      "https://s3.amazonaws.com/fractalsoftworks/starsector/starsector_linux-${version}.zip";
     sha256 = "sha256-+0zGJHM+SMonx3sytCQNQA/QBgzdPMEfQvOjrCDSOs8=";
   };
 
@@ -71,7 +62,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Open-world single-player space-combat, roleplaying, exploration, and economic game";
+    description =
+      "Open-world single-player space-combat, roleplaying, exploration, and economic game";
     homepage = "https://fractalsoftworks.com";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.unfree;

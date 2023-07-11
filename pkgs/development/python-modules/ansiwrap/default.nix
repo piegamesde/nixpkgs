@@ -1,11 +1,5 @@
-{ lib
-, ansicolors
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pythonOlder
-, textwrap3
-}:
+{ lib, ansicolors, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder
+, textwrap3 }:
 
 buildPythonPackage rec {
   pname = "ansiwrap";
@@ -27,23 +21,17 @@ buildPythonPackage rec {
       --replace "set(range(120, 400)).difference(LINE_LENGTHS)" "sorted(set(range(120, 400)).difference(LINE_LENGTHS))"
   '';
 
-  checkInputs = [
-    ansicolors
-    pytestCheckHook
-  ];
+  checkInputs = [ ansicolors pytestCheckHook ];
 
-  propagatedBuildInputs = [
-    textwrap3
-  ];
+  propagatedBuildInputs = [ textwrap3 ];
 
-  pythonImportsCheck = [
-    "ansiwrap"
-  ];
+  pythonImportsCheck = [ "ansiwrap" ];
 
   meta = with lib; {
     description = "Textwrap, but savvy to ANSI colors and styles";
     homepage = "https://github.com/jonathaneunice/ansiwrap";
-    changelog = "https://github.com/jonathaneunice/ansiwrap/blob/master/CHANGES.yml";
+    changelog =
+      "https://github.com/jonathaneunice/ansiwrap/blob/master/CHANGES.yml";
     license = licenses.asl20;
     maintainers = with maintainers; [ costrouc ];
   };

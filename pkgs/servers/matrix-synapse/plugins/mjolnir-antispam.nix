@@ -25,7 +25,8 @@ buildPythonPackage rec {
       Mjolnir's Synapse module is a way to interpret ban lists and apply
       them to your entire homeserver.
     '';
-    homepage = "https://github.com/matrix-org/mjolnir/blob/main/docs/synapse_module.md";
+    homepage =
+      "https://github.com/matrix-org/mjolnir/blob/main/docs/synapse_module.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ jojosch ];
     broken = stdenv.isDarwin;

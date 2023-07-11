@@ -1,7 +1,4 @@
-{ lib
-, python3
-, fetchFromGitHub
-}:
+{ lib, python3, fetchFromGitHub }:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "mov-cli";
@@ -14,7 +11,13 @@ python3.pkgs.buildPythonPackage rec {
     sha256 = "sha256-D+OeXcLdkbG4ASbPQYIWf7J1CRZ9jH3UXxfTL4WleY0=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ setuptools httpx click beautifulsoup4 colorama ];
+  propagatedBuildInputs = with python3.pkgs; [
+    setuptools
+    httpx
+    click
+    beautifulsoup4
+    colorama
+  ];
 
   postPatch = ''
     substituteInPlace setup.py --replace "bs4" "beautifulsoup4"

@@ -1,20 +1,13 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 
-let
-  cfg = config.services.tts;
-in
+let cfg = config.services.tts;
 
-{
-  options.services.tts = let
-    inherit (lib) literalExpression mkOption mdDoc mkEnableOption types;
-  in  {
-    servers = mkOption {
-      type = types.attrsOf (types.submodule (
-        { ... }: {
+in {
+  options.services.tts =
+    let inherit (lib) literalExpression mkOption mdDoc mkEnableOption types;
+    in {
+      servers = mkOption {
+        type = types.attrsOf (types.submodule ({ ... }: {
           options = {
             enable = mkEnableOption (mdDoc "Coqui TTS server");
 
@@ -50,59 +43,56 @@ in
 
             extraArgs = mkOption {
               type = types.listOf types.str;
-              default = [];
+              default = [ ];
               description = mdDoc ''
                 Extra arguments to pass to the server commandline.
               '';
             };
           };
-        }
-      ));
-      default = {};
-      example = literalExpression ''
-        {
-          english = {
-            port = 5300;
-            model = "tts_models/en/ljspeech/tacotron2-DDC";
-          };
-          german = {
-            port = 5301;
-            model = "tts_models/de/thorsten/tacotron2-DDC";
-          };
-          dutch = {
-            port = 5302;
-            model = "tts_models/nl/mai/tacotron2-DDC";
-          };
-        }
-      '';
-      description = mdDoc ''
-        TTS server instances.
-      '';
+        }));
+        default = { };
+        example = literalExpression ''
+          {
+            english = {
+              port = 5300;
+              model = "tts_models/en/ljspeech/tacotron2-DDC";
+            };
+            german = {
+              port = 5301;
+              model = "tts_models/de/thorsten/tacotron2-DDC";
+            };
+            dutch = {
+              port = 5302;
+              model = "tts_models/nl/mai/tacotron2-DDC";
+            };
+          }
+        '';
+        description = mdDoc ''
+          TTS server instances.
+        '';
+      };
     };
-  };
 
   config = let
-    inherit (lib) mkIf mapAttrs' nameValuePair optionalString concatMapStringsSep escapeShellArgs;
-  in mkIf (cfg.servers != {}) {
+    inherit (lib)
+      mkIf mapAttrs' nameValuePair optionalString concatMapStringsSep
+      escapeShellArgs;
+  in mkIf (cfg.servers != { }) {
     systemd.services = mapAttrs' (server: options:
       nameValuePair "tts-${server}" {
         description = "Coqui TTS server instance ${server}";
-        after = [
-          "network-online.target"
-        ];
-        wantedBy = [
-          "multi-user.target"
-        ];
-        path = with pkgs; [
-          espeak-ng
-        ];
+        after = [ "network-online.target" ];
+        wantedBy = [ "multi-user.target" ];
+        path = with pkgs; [ espeak-ng ];
         environment.HOME = "/var/lib/tts";
         serviceConfig = {
           DynamicUser = true;
           User = "tts";
           StateDirectory = "tts";
-          ExecStart = "${pkgs.tts}/bin/tts-server --port ${toString options.port}"
-            + optionalString (options.model != null) " --model_name ${options.model}"
+          ExecStart =
+            "${pkgs.tts}/bin/tts-server --port ${toString options.port}"
+            + optionalString (options.model != null)
+            " --model_name ${options.model}"
             + optionalString (options.useCuda) " --use_cuda"
             + (concatMapStringsSep " " escapeShellArgs options.extraArgs);
           CapabilityBoundingSet = "";
@@ -118,7 +108,8 @@ in
             "/dev/nvidia-modeset"
             "/dev/nvidia-uvm"
             "/dev/nvidia-uvm-tools"
-          ] else "";
+          ] else
+            "";
           DevicePolicy = "closed";
           LockPersonality = true;
           # jit via numba->llvmpipe
@@ -133,17 +124,11 @@ in
           ProtectControlGroups = true;
           ProtectProc = "invisible";
           ProcSubset = "pid";
-          RestrictAddressFamilies = [
-            "AF_INET"
-            "AF_INET6"
-          ];
+          RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
           RestrictNamespaces = true;
           RestrictRealtime = true;
           SystemCallArchitectures = "native";
-          SystemCallFilter = [
-            "@system-service"
-            "~@privileged"
-          ];
+          SystemCallFilter = [ "@system-service" "~@privileged" ];
           UMask = "0077";
         };
       }) cfg.servers;

@@ -1,15 +1,5 @@
-{ stdenv
-, fetchFromGitHub
-, lib
-, bison
-, cairo
-, flex
-, libX11
-, libXpm
-, pkg-config
-, tcl
-, tk
-}:
+{ stdenv, fetchFromGitHub, lib, bison, cairo, flex, libX11, libXpm, pkg-config
+, tcl, tk }:
 
 stdenv.mkDerivation rec {
   pname = "xschem";

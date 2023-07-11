@@ -1,8 +1,4 @@
-{ qtModule
-, qtbase
-, qtdeclarative
-, qtpositioning
-}:
+{ qtModule, qtbase, qtdeclarative, qtpositioning }:
 
 qtModule {
   pname = "qtlocation";

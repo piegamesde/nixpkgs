@@ -1,23 +1,7 @@
-{ lib
-, buildPythonPackage
-, celery
-, dash-core-components
-, dash-html-components
-, dash-table
-, diskcache
-, fetchFromGitHub
-, flask
-, flask-compress
-, mock
-, multiprocess
-, plotly
-, psutil
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, redis
-}:
+{ lib, buildPythonPackage, celery, dash-core-components, dash-html-components
+, dash-table, diskcache, fetchFromGitHub, flask, flask-compress, mock
+, multiprocess, plotly, psutil, pytest-mock, pytestCheckHook, pythonOlder
+, pyyaml, redis }:
 
 buildPythonPackage rec {
   pname = "dash";
@@ -43,23 +27,11 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    celery = [
-      celery
-      redis
-    ];
-    diskcache = [
-      diskcache
-      multiprocess
-      psutil
-    ];
+    celery = [ celery redis ];
+    diskcache = [ diskcache multiprocess psutil ];
   };
 
-  nativeCheckInputs = [
-    mock
-    pytest-mock
-    pytestCheckHook
-    pyyaml
-  ];
+  nativeCheckInputs = [ mock pytest-mock pytestCheckHook pyyaml ];
 
   disabledTestPaths = [
     "tests/unit/test_browser.py"
@@ -72,9 +44,7 @@ buildPythonPackage rec {
     "test_missing_flask_compress_raises"
   ];
 
-  pythonImportsCheck = [
-    "dash"
-  ];
+  pythonImportsCheck = [ "dash" ];
 
   meta = with lib; {
     description = "Python framework for building analytical web applications";

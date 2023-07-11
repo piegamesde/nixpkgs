@@ -1,12 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, setuptools-scm
-, setuptools
-, typing-extensions
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, setuptools-scm, setuptools
+, typing-extensions, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyvisa";
@@ -21,30 +14,22 @@ buildPythonPackage rec {
     hash = "sha256-TBu3Xko0IxFBT2vzrsOxqEG3y4XfPzISEtbkWkIaCvM=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    typing-extensions
-    setuptools
-  ];
+  propagatedBuildInputs = [ typing-extensions setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # Test can't find cli tool bin path correctly
-  disabledTests = [
-    "test_visa_info"
-  ];
+  disabledTests = [ "test_visa_info" ];
 
   postConfigure = ''
     export SETUPTOOLS_SCM_PRETEND_VERSION="v${version}"
   '';
 
   meta = with lib; {
-    description = "Python package for support of the Virtual Instrument Software Architecture (VISA)";
+    description =
+      "Python package for support of the Virtual Instrument Software Architecture (VISA)";
     homepage = "https://github.com/pyvisa/pyvisa";
     license = licenses.mit;
     maintainers = with maintainers; [ mvnetbiz ];

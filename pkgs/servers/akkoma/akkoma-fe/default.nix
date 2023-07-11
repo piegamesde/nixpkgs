@@ -1,9 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitea, fetchYarnDeps
-, fixup_yarn_lock, yarn, nodejs
-, jpegoptim, oxipng, nodePackages
-}:
+{ lib, stdenv, fetchFromGitea, fetchYarnDeps, fixup_yarn_lock, yarn, nodejs
+, jpegoptim, oxipng, nodePackages }:
 
 stdenv.mkDerivation rec {
   pname = "akkoma-fe";
@@ -22,18 +18,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-Uet3zdjLdI4qpiuU4CtW2WwWGcFaOhotLLKfnsAUqho=";
   };
 
-  nativeBuildInputs = [
-    fixup_yarn_lock
-    yarn
-    nodejs
-    jpegoptim
-    oxipng
-    nodePackages.svgo
-  ];
+  nativeBuildInputs =
+    [ fixup_yarn_lock yarn nodejs jpegoptim oxipng nodePackages.svgo ];
 
   postPatch = ''
     # Build scripts assume to be used within a Git repository checkout
-    sed -E -i '/^let commitHash =/,/;$/clet commitHash = "${builtins.substring 0 7 src.rev}";' \
+    sed -E -i '/^let commitHash =/,/;$/clet commitHash = "${
+      builtins.substring 0 7 src.rev
+    }";' \
       build/webpack.prod.conf.js
   '';
 
@@ -42,7 +34,9 @@ stdenv.mkDerivation rec {
 
     export HOME="$(mktemp -d)"
 
-    yarn config --offline set yarn-offline-mirror ${lib.escapeShellArg offlineCache}
+    yarn config --offline set yarn-offline-mirror ${
+      lib.escapeShellArg offlineCache
+    }
     fixup_yarn_lock yarn.lock
 
     yarn install --offline --frozen-lockfile --ignore-platform --ignore-scripts --no-progress --non-interactive

@@ -14,7 +14,8 @@ buildGoModule rec {
   vendorHash = "sha256-qKzGALMagf6QHeLdABfNGG4f/3K/F6CjVYjOJtyTNoM=";
 
   meta = with lib; {
-    description = "Utility to convert different pipelines to Woodpecker CI pipelines";
+    description =
+      "Utility to convert different pipelines to Woodpecker CI pipelines";
     homepage = "https://codeberg.org/lafriks/woodpecker-pipeline-transform";
     license = licenses.mit;
     mainProgram = "pipeline-convert";

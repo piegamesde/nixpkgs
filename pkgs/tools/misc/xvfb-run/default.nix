@@ -1,18 +1,5 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, makeWrapper
-, xorgserver
-, getopt
-, xauth
-, util-linux
-, which
-, fontsConf
-, gawk
-, coreutils
-, installShellFiles
-, xterm
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, makeWrapper, xorgserver, getopt, xauth
+, util-linux, which, fontsConf, gawk, coreutils, installShellFiles, xterm }:
 stdenvNoCC.mkDerivation rec {
   pname = "xvfb-run";
   version = "1+g87f6705";
@@ -39,7 +26,17 @@ stdenvNoCC.mkDerivation rec {
     patchShebangs $out/bin/xvfb-run
     wrapProgram $out/bin/xvfb-run \
       --set FONTCONFIG_FILE "${fontsConf}" \
-      --prefix PATH : ${lib.makeBinPath [ getopt xorgserver xauth which util-linux gawk coreutils ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          getopt
+          xorgserver
+          xauth
+          which
+          util-linux
+          gawk
+          coreutils
+        ]
+      }
   '';
 
   doInstallCheck = true;
@@ -51,9 +48,7 @@ stdenvNoCC.mkDerivation rec {
     )
   '';
 
-  passthru = {
-    updateScript = ./update.sh;
-  };
+  passthru = { updateScript = ./update.sh; };
 
   meta = with lib; {
     description = "Convenience script to run a virtualized X-Server";

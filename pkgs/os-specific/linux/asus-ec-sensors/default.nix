@@ -21,11 +21,14 @@ stdenv.mkDerivation rec {
   ];
 
   installPhase = ''
-    install asus-ec-sensors.ko -Dm444 -t ${placeholder "out"}/lib/modules/${kernel.modDirVersion}/kernel/drivers/hwmon
+    install asus-ec-sensors.ko -Dm444 -t ${
+      placeholder "out"
+    }/lib/modules/${kernel.modDirVersion}/kernel/drivers/hwmon
   '';
 
   meta = with lib; {
-    description = "Linux HWMON sensors driver for ASUS motherboards to read sensor data from the embedded controller";
+    description =
+      "Linux HWMON sensors driver for ASUS motherboards to read sensor data from the embedded controller";
     homepage = "https://github.com/zeule/asus-ec-sensors";
     license = licenses.gpl2;
     platforms = [ "x86_64-linux" ];

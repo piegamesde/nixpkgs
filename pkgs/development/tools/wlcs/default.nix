@@ -1,14 +1,5 @@
-{ stdenv
-, lib
-, gitUpdater
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, pkg-config
-, boost
-, gtest
-, wayland
-}:
+{ stdenv, lib, gitUpdater, fetchFromGitHub, fetchpatch, cmake, pkg-config, boost
+, gtest, wayland }:
 
 stdenv.mkDerivation rec {
   pname = "wlcs";
@@ -26,30 +17,22 @@ stdenv.mkDerivation rec {
     # Remove when https://github.com/MirServer/wlcs/pull/260 merged & in a release
     (fetchpatch {
       name = "0001-wlcs-pkgsconfig-Use-better-path-concatenations.patch";
-      url = "https://github.com/MirServer/wlcs/pull/260/commits/20f28d82fa4dfa6a6e27212dbd6b0f2e8a833c69.patch";
+      url =
+        "https://github.com/MirServer/wlcs/pull/260/commits/20f28d82fa4dfa6a6e27212dbd6b0f2e8a833c69.patch";
       hash = "sha256-m8zPD27JbX/vN2YQgNhcRsh/O+qLfvoeky5E5ZEeD1I=";
     })
   ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    boost
-    gtest
-    wayland
-  ];
+  buildInputs = [ boost gtest wayland ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12
     "-Wno-error=maybe-uninitialized"
   ];
 
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "v";
-  };
+  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
   meta = with lib; {
     description = "Wayland Conformance Test Suite";

@@ -19,10 +19,7 @@ stdenv.mkDerivation rec {
     sed -i '/CRYPTO_mem_ctrl(CRYPTO_MEM_CHECK_ON);/d' src/ssli_openssl.c
   '';
 
-  configureFlags = [
-    "--with-ssl=openssl"
-    "--enable-shmapi"
-  ];
+  configureFlags = [ "--with-ssl=openssl" "--enable-shmapi" ];
 
   meta = with lib; {
     description = "Minimalistic Murmur (Mumble server)";

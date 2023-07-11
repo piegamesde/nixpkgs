@@ -1,25 +1,9 @@
-{ stdenv
-, fetchFromGitLab
-, fetchpatch
-, lib
-, darwin
-, git
-, nettle
+{ stdenv, fetchFromGitLab, fetchpatch, lib, darwin, git, nettle
 , nix-update-script
 # Use the same llvmPackages version as Rust
-, llvmPackages_12
-, cargo
-, rustc
-, rustPlatform
-, pkg-config
-, glib
-, openssl
-, sqlite
-, capnproto
-, ensureNewerSourcesForZipFilesHook
-, pythonSupport ? true
-, pythonPackages ? null
-}:
+, llvmPackages_12, cargo, rustc, rustPlatform, pkg-config, glib, openssl, sqlite
+, capnproto, ensureNewerSourcesForZipFilesHook, pythonSupport ? true
+, pythonPackages ? null }:
 
 assert pythonSupport -> pythonPackages != null;
 
@@ -40,7 +24,8 @@ rustPlatform.buildRustPackage rec {
 
   patches = [
     (fetchpatch {
-      url = "https://gitlab.com/sequoia-pgp/sequoia/-/commit/4dc6e624c2394936dc447f18aedb4a4810bb2ddb.patch";
+      url =
+        "https://gitlab.com/sequoia-pgp/sequoia/-/commit/4dc6e624c2394936dc447f18aedb4a4810bb2ddb.patch";
       hash = "sha256-T6hh7U1gvKvyn/OCuJBvLM7TG1VFnpvpAiWS72m3P6I=";
     })
   ];
@@ -54,22 +39,16 @@ rustPlatform.buildRustPackage rec {
     llvmPackages_12.clang
     ensureNewerSourcesForZipFilesHook
     capnproto
-  ] ++
-    lib.optionals pythonSupport [ pythonPackages.setuptools ]
-  ;
+  ] ++ lib.optionals pythonSupport [ pythonPackages.setuptools ];
 
   nativeCheckInputs = lib.optionals pythonSupport [
     pythonPackages.pytest
     pythonPackages.pytest-runner
   ];
 
-  buildInputs = [
-    openssl
-    sqlite
-    nettle
-  ] ++ lib.optionals pythonSupport [ pythonPackages.python pythonPackages.cffi ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
-  ;
+  buildInputs = [ openssl sqlite nettle ]
+    ++ lib.optionals pythonSupport [ pythonPackages.python pythonPackages.cffi ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -77,9 +56,7 @@ rustPlatform.buildRustPackage rec {
     "INSTALL=install"
   ];
 
-  buildFlags = [
-    "build-release"
-  ];
+  buildFlags = [ "build-release" ];
 
   LIBCLANG_PATH = "${llvmPackages_12.libclang.lib}/lib";
 

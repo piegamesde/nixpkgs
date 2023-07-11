@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, buildGoModule
-, fetchFromGitHub
-, gnupg
-, makeWrapper
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, gnupg, makeWrapper }:
 
 buildGoModule rec {
   pname = "browserpass";

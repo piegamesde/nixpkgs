@@ -1,8 +1,5 @@
-{ lib, stdenv, fetchurl, fetchpatch
-, autoreconfHook, perl
-, gdb, cctools, xnu, bootstrap_cmds
-, writeScript
-}:
+{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, perl, gdb, cctools, xnu
+, bootstrap_cmds, writeScript }:
 
 stdenv.mkDerivation rec {
   pname = "valgrind";
@@ -17,7 +14,8 @@ stdenv.mkDerivation rec {
     # Fix build on ELFv2 powerpc64
     # https://bugs.kde.org/show_bug.cgi?id=398883
     (fetchurl {
-      url = "https://github.com/void-linux/void-packages/raw/3e16b4606235885463fc9ab45b4c120f1a51aa28/srcpkgs/valgrind/patches/elfv2-ppc64-be.patch";
+      url =
+        "https://github.com/void-linux/void-packages/raw/3e16b4606235885463fc9ab45b4c120f1a51aa28/srcpkgs/valgrind/patches/elfv2-ppc64-be.patch";
       sha256 = "NV/F+5aqFZz7+OF5oN5MUTpThv4H5PEY9sBgnnWohQY=";
     })
     # Fix checks on Musl.
@@ -48,7 +46,8 @@ stdenv.mkDerivation rec {
 
   # GDB is needed to provide a sane default for `--db-command'.
   # Perl is needed for `callgrind_{annotate,control}'.
-  buildInputs = [ gdb perl ]  ++ lib.optionals (stdenv.isDarwin) [ bootstrap_cmds xnu ];
+  buildInputs = [ gdb perl ]
+    ++ lib.optionals (stdenv.isDarwin) [ bootstrap_cmds xnu ];
 
   # Perl is also a native build input.
   nativeBuildInputs = [ autoreconfHook perl ];
@@ -59,33 +58,34 @@ stdenv.mkDerivation rec {
   preConfigure = lib.optionalString stdenv.isFreeBSD ''
     substituteInPlace configure --replace '`uname -r`' \
         ${toString stdenv.hostPlatform.parsed.kernel.version}.0
-  '' + lib.optionalString stdenv.isDarwin (
-    let OSRELEASE = ''
+  '' + lib.optionalString stdenv.isDarwin (let
+    OSRELEASE = ''
       $(awk -F '"' '/#define OSRELEASE/{ print $2 }' \
       <${xnu}/Library/Frameworks/Kernel.framework/Headers/libkern/version.h)'';
-    in ''
-      echo "Don't derive our xnu version using uname -r."
-      substituteInPlace configure --replace "uname -r" "echo ${OSRELEASE}"
+  in ''
+    echo "Don't derive our xnu version using uname -r."
+    substituteInPlace configure --replace "uname -r" "echo ${OSRELEASE}"
 
-      # Apple's GCC doesn't recognize `-arch' (as of version 4.2.1, build 5666).
-      echo "getting rid of the \`-arch' GCC option..."
-      find -name Makefile\* -exec \
-        sed -i {} -e's/DARWIN\(.*\)-arch [^ ]\+/DARWIN\1/g' \;
+    # Apple's GCC doesn't recognize `-arch' (as of version 4.2.1, build 5666).
+    echo "getting rid of the \`-arch' GCC option..."
+    find -name Makefile\* -exec \
+      sed -i {} -e's/DARWIN\(.*\)-arch [^ ]\+/DARWIN\1/g' \;
 
-      sed -i coregrind/link_tool_exe_darwin.in \
-          -e 's/^my \$archstr = .*/my $archstr = "x86_64";/g'
+    sed -i coregrind/link_tool_exe_darwin.in \
+        -e 's/^my \$archstr = .*/my $archstr = "x86_64";/g'
 
-      substituteInPlace coregrind/m_debuginfo/readmacho.c \
-         --replace /usr/bin/dsymutil ${stdenv.cc.bintools.bintools}/bin/dsymutil
+    substituteInPlace coregrind/m_debuginfo/readmacho.c \
+       --replace /usr/bin/dsymutil ${stdenv.cc.bintools.bintools}/bin/dsymutil
 
-      echo "substitute hardcoded /usr/bin/ld with ${cctools}/bin/ld"
-      substituteInPlace coregrind/link_tool_exe_darwin.in \
-        --replace /usr/bin/ld ${cctools}/bin/ld
-    '');
+    echo "substitute hardcoded /usr/bin/ld with ${cctools}/bin/ld"
+    substituteInPlace coregrind/link_tool_exe_darwin.in \
+      --replace /usr/bin/ld ${cctools}/bin/ld
+  '');
 
   configureFlags =
     lib.optional stdenv.hostPlatform.isx86_64 "--enable-only64bit"
-    ++ lib.optional stdenv.hostPlatform.isDarwin "--with-xcodedir=${xnu}/include";
+    ++ lib.optional stdenv.hostPlatform.isDarwin
+    "--with-xcodedir=${xnu}/include";
 
   doCheck = true;
 
@@ -128,9 +128,10 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
 
     maintainers = [ lib.maintainers.eelco ];
-    platforms = with lib.platforms; lib.intersectLists
-      (x86 ++ power ++ s390x ++ armv7 ++ aarch64 ++ mips)
+    platforms = with lib.platforms;
+      lib.intersectLists (x86 ++ power ++ s390x ++ armv7 ++ aarch64 ++ mips)
       (darwin ++ freebsd ++ illumos ++ linux);
-    broken = stdenv.isDarwin || stdenv.hostPlatform.isStatic; # https://hydra.nixos.org/build/128521440/nixlog/2
+    broken = stdenv.isDarwin
+      || stdenv.hostPlatform.isStatic; # https://hydra.nixos.org/build/128521440/nixlog/2
   };
 }

@@ -1,12 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub
-, beautifulsoup4
-, jsbeautifier
-, mkdocs
-, mkdocs-material
-, pymdown-extensions
-, pyyaml
-, requests
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, beautifulsoup4, jsbeautifier, mkdocs
+, mkdocs-material, pymdown-extensions, pyyaml, requests }:
 
 buildPythonPackage rec {
   pname = "mkdocs-mermaid2-plugin";
@@ -35,7 +28,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "mermaid2" ];
 
   meta = with lib; {
-    description = "A MkDocs plugin for including mermaid graphs in markdown sources";
+    description =
+      "A MkDocs plugin for including mermaid graphs in markdown sources";
     homepage = "https://github.com/fralau/mkdocs-mermaid2-plugin";
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];

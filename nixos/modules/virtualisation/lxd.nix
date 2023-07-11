@@ -4,11 +4,11 @@
 
 with lib;
 
-let
-  cfg = config.virtualisation.lxd;
+let cfg = config.virtualisation.lxd;
 in {
   imports = [
-    (mkRemovedOptionModule [ "virtualisation" "lxd" "zfsPackage" ] "Override zfs in an overlay instead to override it globally")
+    (mkRemovedOptionModule [ "virtualisation" "lxd" "zfsPackage" ]
+      "Override zfs in an overlay instead to override it globally")
   ];
 
   ###### interface
@@ -145,7 +145,8 @@ in {
 
       serviceConfig = {
         ExecStart = "@${cfg.package}/bin/lxd lxd --group lxd";
-        ExecStartPost = "${cfg.package}/bin/lxd waitready --timeout=${cfg.startTimeout}";
+        ExecStartPost =
+          "${cfg.package}/bin/lxd waitready --timeout=${cfg.startTimeout}";
         ExecStop = "${cfg.package}/bin/lxd shutdown";
 
         KillMode = "process"; # when stopping, leave the containers alone
@@ -166,11 +167,17 @@ in {
       };
     };
 
-    users.groups.lxd = {};
+    users.groups.lxd = { };
 
     users.users.root = {
-      subUidRanges = [ { startUid = 1000000; count = 65536; } ];
-      subGidRanges = [ { startGid = 1000000; count = 65536; } ];
+      subUidRanges = [{
+        startUid = 1000000;
+        count = 65536;
+      }];
+      subGidRanges = [{
+        startGid = 1000000;
+        count = 65536;
+      }];
     };
 
     boot.kernel.sysctl = mkIf cfg.recommendedSysctlSettings {

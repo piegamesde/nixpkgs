@@ -5,9 +5,9 @@ stdenv.mkDerivation rec {
   version = "0.2.5";
 
   src = fetchFromGitHub {
-    owner  = "peterhoeg";
-    repo   = "dynamic-colors";
-    rev    = "v${version}";
+    owner = "peterhoeg";
+    repo = "dynamic-colors";
+    rev = "v${version}";
     sha256 = "sha256-jSdwq9WwYZP8MK6z7zJa0q93xfanr6iuvAt8YQkQxxE=";
   };
 
@@ -20,9 +20,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Change terminal colors on the fly";
-    homepage    = "https://github.com/peterhoeg/dynamic-colors";
-    license     = licenses.mit;
+    homepage = "https://github.com/peterhoeg/dynamic-colors";
+    license = licenses.mit;
     maintainers = with maintainers; [ peterhoeg ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 }

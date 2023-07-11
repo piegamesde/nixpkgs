@@ -14,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-tj00DXQEqC/8+3uzTMWcph+1fNTTVZLSJbV/5lLFkFs=";
 
   meta = with lib; {
-    description = "Replacement for fancontrol with more fine-grained control interface in its config file";
+    description =
+      "Replacement for fancontrol with more fine-grained control interface in its config file";
     homepage = "https://gitlab.com/mcoffin/fanctl";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ icewind1991 ];

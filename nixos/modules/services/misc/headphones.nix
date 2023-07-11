@@ -9,9 +9,7 @@ let
   cfg = config.services.headphones;
   opt = options.services.headphones;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -30,7 +28,8 @@ in
       configFile = mkOption {
         type = types.path;
         default = "${cfg.dataDir}/config.ini";
-        defaultText = literalExpression ''"''${config.${opt.dataDir}}/config.ini"'';
+        defaultText =
+          literalExpression ''"''${config.${opt.dataDir}}/config.ini"'';
         description = lib.mdDoc "Path to config file.";
       };
       host = mkOption {
@@ -56,7 +55,6 @@ in
     };
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
@@ -76,14 +74,17 @@ in
     };
 
     systemd.services.headphones = {
-        description = "Headphones Server";
-        wantedBy    = [ "multi-user.target" ];
-        after = [ "network.target" ];
-        serviceConfig = {
-          User = cfg.user;
-          Group = cfg.group;
-          ExecStart = "${pkgs.headphones}/bin/headphones --datadir ${cfg.dataDir} --config ${cfg.configFile} --host ${cfg.host} --port ${toString cfg.port}";
-        };
+      description = "Headphones Server";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
+      serviceConfig = {
+        User = cfg.user;
+        Group = cfg.group;
+        ExecStart =
+          "${pkgs.headphones}/bin/headphones --datadir ${cfg.dataDir} --config ${cfg.configFile} --host ${cfg.host} --port ${
+            toString cfg.port
+          }";
+      };
     };
   };
 }

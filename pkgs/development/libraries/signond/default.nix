@@ -11,10 +11,7 @@ mkDerivation rec {
     sha256 = "sha256-d7JZmGpjIvSN9l1nvKbBZjF0OR5L5frPTGHF/pNEqHE=";
   };
 
-  nativeBuildInputs = [
-    qmake
-    doxygen
-  ];
+  nativeBuildInputs = [ qmake doxygen ];
 
   preConfigure = ''
     substituteInPlace src/signond/signond.pro \
@@ -24,7 +21,7 @@ mkDerivation rec {
   meta = with lib; {
     homepage = "https://gitlab.com/accounts-sso/signond";
     description = "Signon Daemon for Qt";
-    maintainers = with maintainers; [ freezeboy  ];
+    maintainers = with maintainers; [ freezeboy ];
     platforms = platforms.linux;
   };
 }

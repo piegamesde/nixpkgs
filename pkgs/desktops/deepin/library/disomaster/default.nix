@@ -1,12 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, pkg-config
-, qmake
-, qttools
-, wrapQtAppsHook
-, libisoburn
-}:
+{ stdenv, lib, fetchFromGitHub, pkg-config, qmake, qttools, wrapQtAppsHook
+, libisoburn }:
 
 stdenv.mkDerivation rec {
   pname = "disomaster";
@@ -19,12 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wN8mhddqqzYXkT6rRWsHVCWzaG2uRcF2iiFHlZx2LfY=";
   };
 
-  nativeBuildInputs = [
-    qmake
-    qttools
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qmake qttools pkg-config wrapQtAppsHook ];
 
   buildInputs = [ libisoburn ];
 

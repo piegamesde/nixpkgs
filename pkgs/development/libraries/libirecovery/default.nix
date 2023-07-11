@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, libusb1
-, readline
-, libimobiledevice-glue
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libusb1, readline
+, libimobiledevice-glue }:
 
 stdenv.mkDerivation rec {
   pname = "libirecovery";
@@ -21,16 +14,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-OESN9qme+TlSt+ZMbR4F3z/3RN0I12R7fcSyURBqUVk=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    libusb1
-    readline
-    libimobiledevice-glue
-  ];
+  buildInputs = [ libusb1 readline libimobiledevice-glue ];
 
   # Packager note: Not clear whether this needs a NixOS configuration,
   # as only the `idevicerestore` binary was tested so far (which worked
@@ -41,7 +27,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Library and utility to talk to iBoot/iBSS via USB on Mac OS X, Windows, and Linux";
+    description =
+      "Library and utility to talk to iBoot/iBSS via USB on Mac OS X, Windows, and Linux";
     longDescription = ''
       libirecovery is a cross-platform library which implements communication to
       iBoot/iBSS found on Apple's iOS devices via USB. A command-line utility is also

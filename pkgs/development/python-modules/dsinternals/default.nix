@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pycryptodomex
-, pyopenssl
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pycryptodomex, pyopenssl
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "dsinternals";
@@ -21,22 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-C1ar9c4F4WI5ICX7PJe8FzVwK8bxZds+kMBpttEp9Ko=";
   };
 
-  propagatedBuildInputs = [
-    pyopenssl
-    pycryptodomex
-  ];
+  propagatedBuildInputs = [ pyopenssl pycryptodomex ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "dsinternals"
-  ];
+  pythonImportsCheck = [ "dsinternals" ];
 
-  pytestFlagsArray = [
-    "tests/*.py"
-  ];
+  pytestFlagsArray = [ "tests/*.py" ];
 
   meta = with lib; {
     description = "Module to interact with Windows Active Directory";

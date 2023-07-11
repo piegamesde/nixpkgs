@@ -13,13 +13,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-Rsz7UnBlZdPRTrq3nfFaSVwok8wLDtd6aT1sEK+++vg=";
 
-  subPackages = [
-    "cmd/dex"
-  ];
+  subPackages = [ "cmd/dex" ];
 
-  ldflags = [
-    "-w" "-s" "-X github.com/dexidp/dex/version.Version=${src.rev}"
-  ];
+  ldflags = [ "-w" "-s" "-X github.com/dexidp/dex/version.Version=${src.rev}" ];
 
   postInstall = ''
     mkdir -p $out/share
@@ -29,7 +25,8 @@ buildGoModule rec {
   passthru.tests = { inherit (nixosTests) dex-oidc; };
 
   meta = with lib; {
-    description = "OpenID Connect and OAuth2 identity provider with pluggable connectors";
+    description =
+      "OpenID Connect and OAuth2 identity provider with pluggable connectors";
     homepage = "https://github.com/dexidp/dex";
     license = licenses.asl20;
     maintainers = with maintainers; [ benley techknowlogick ];

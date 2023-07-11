@@ -1,20 +1,5 @@
-{ lib
-, stdenv
-, toPythonModule
-, fetchFromGitHub
-, cmake
-, boost
-, eigen
-, ipopt
-, nlopt
-, pagmo2
-, python
-, cloudpickle
-, ipyparallel
-, numba
-, numpy
-, pybind11
-}:
+{ lib, stdenv, toPythonModule, fetchFromGitHub, cmake, boost, eigen, ipopt
+, nlopt, pagmo2, python, cloudpickle, ipyparallel, numba, numpy, pybind11 }:
 
 toPythonModule (stdenv.mkDerivation rec {
   pname = "pygmo";
@@ -28,29 +13,16 @@ toPythonModule (stdenv.mkDerivation rec {
   };
 
   cmakeFlags = [
-    "-DPYGMO_INSTALL_PATH=${placeholder "out"}/lib/${python.libPrefix}/site-packages"
+    "-DPYGMO_INSTALL_PATH=${
+      placeholder "out"
+    }/lib/${python.libPrefix}/site-packages"
   ];
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  propagatedBuildInputs = [
-    cloudpickle
-    ipyparallel
-    numba
-    numpy
-    python
-  ];
+  propagatedBuildInputs = [ cloudpickle ipyparallel numba numpy python ];
 
-  buildInputs = [
-    boost
-    eigen
-    ipopt
-    nlopt
-    pagmo2
-    pybind11
-  ];
+  buildInputs = [ boost eigen ipopt nlopt pagmo2 pybind11 ];
 
   doCheck = true;
 

@@ -17,8 +17,7 @@ let
     given control of your browser, unless of course they also control your
     NixOS configuration.
   '';
-in
-{
+in {
   options.programs.firefox = {
     enable = mkEnableOption (mdDoc "the Firefox web browser");
 
@@ -216,17 +215,12 @@ in
     environment.systemPackages = [
       (cfg.package.override {
         extraPrefs = cfg.autoConfig;
-        extraNativeMessagingHosts = with pkgs; optionals nmh.ff2mpv [
-          ff2mpv
-        ] ++ optionals nmh.euwebid [
-          web-eid-app
-        ] ++ optionals nmh.gsconnect [
-          gnomeExtensions.gsconnect
-        ] ++ optionals nmh.jabref [
-          jabref
-        ] ++ optionals nmh.passff [
-          passff-host
-        ];
+        extraNativeMessagingHosts = with pkgs;
+          optionals nmh.ff2mpv [ ff2mpv ]
+          ++ optionals nmh.euwebid [ web-eid-app ]
+          ++ optionals nmh.gsconnect [ gnomeExtensions.gsconnect ]
+          ++ optionals nmh.jabref [ jabref ]
+          ++ optionals nmh.passff [ passff-host ];
       })
     ];
 
@@ -239,28 +233,26 @@ in
       enableFXCastBridge = nmh.fxCast;
     };
 
-    environment.etc =
-      let
-        policiesJSON = policyFormat.generate "firefox-policies.json" { inherit (cfg) policies; };
-      in
-      mkIf (cfg.policies != { }) {
-        "firefox/policies/policies.json".source = "${policiesJSON}";
+    environment.etc = let
+      policiesJSON = policyFormat.generate "firefox-policies.json" {
+        inherit (cfg) policies;
       };
+    in mkIf (cfg.policies != { }) {
+      "firefox/policies/policies.json".source = "${policiesJSON}";
+    };
 
     # Preferences are converted into a policy
     programs.firefox.policies = {
-      Preferences = (mapAttrs
-        (_: value: { Value = value; Status = cfg.preferencesStatus; })
-        cfg.preferences);
-      ExtensionSettings = listToAttrs (map
-        (lang: nameValuePair
-          "langpack-${lang}@firefox.mozilla.org"
-          {
-            installation_mode = "normal_installed";
-            install_url = "https://releases.mozilla.org/pub/firefox/releases/${cfg.package.version}/linux-x86_64/xpi/${lang}.xpi";
-          }
-        )
-        cfg.languagePacks);
+      Preferences = (mapAttrs (_: value: {
+        Value = value;
+        Status = cfg.preferencesStatus;
+      }) cfg.preferences);
+      ExtensionSettings = listToAttrs (map (lang:
+        nameValuePair "langpack-${lang}@firefox.mozilla.org" {
+          installation_mode = "normal_installed";
+          install_url =
+            "https://releases.mozilla.org/pub/firefox/releases/${cfg.package.version}/linux-x86_64/xpi/${lang}.xpi";
+        }) cfg.languagePacks);
     };
   };
 

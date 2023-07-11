@@ -9,8 +9,7 @@ let
     # The copied files are not writable, make them so
     chmod +w -R "$ANGBAND_PATH"
   '';
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "Sil";
   version = "1.3.0";
 
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    saveDirCreation = pkgs.runCommand "save-dir-creation" {} ''
+    saveDirCreation = pkgs.runCommand "save-dir-creation" { } ''
       HOME=$(pwd) ${lib.getExe pkgs.sil} --help
       test -d .sil && touch $out
     '';

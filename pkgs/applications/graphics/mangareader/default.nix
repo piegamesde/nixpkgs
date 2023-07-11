@@ -1,18 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, wrapQtAppsHook
-, extra-cmake-modules
-, cmake
-, kio
-, ki18n
-, kxmlgui
-, kconfig
-, karchive
-, kcoreaddons
-, kconfigwidgets
-, nix-update-script
-}:
+{ lib, stdenv, fetchFromGitHub, wrapQtAppsHook, extra-cmake-modules, cmake, kio
+, ki18n, kxmlgui, kconfig, karchive, kcoreaddons, kconfigwidgets
+, nix-update-script }:
 
 stdenv.mkDerivation rec {
   pname = "mangareader";
@@ -25,21 +13,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-YZZcp+HS/P/GxWYyOpO35nByJSzv4HahzzrZSVRcCRs=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules wrapQtAppsHook ];
 
-  buildInputs = [
-    kio
-    ki18n
-    kxmlgui
-    kconfig
-    karchive
-    kcoreaddons
-    kconfigwidgets
-  ];
+  buildInputs =
+    [ kio ki18n kxmlgui kconfig karchive kcoreaddons kconfigwidgets ];
 
   passthru.updateScript = nix-update-script { };
 

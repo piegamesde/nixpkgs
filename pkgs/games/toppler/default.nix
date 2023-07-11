@@ -1,19 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitLab
+{ lib, stdenv, fetchFromGitLab
 
-, pkg-config
-, gettext
-, povray
-, imagemagick
-, gimp
+, pkg-config, gettext, povray, imagemagick, gimp
 
-, SDL2
-, SDL2_mixer
-, SDL2_image
-, libpng
-, zlib
-}:
+, SDL2, SDL2_mixer, SDL2_image, libpng, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "toppler";
@@ -26,21 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ecEaELu52Nmov/BD9VzcUw6wyWeHJcsKQkEzTnaW330=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    gettext
-    povray
-    imagemagick
-    gimp
-  ];
+  nativeBuildInputs = [ pkg-config gettext povray imagemagick gimp ];
 
-  buildInputs = [
-    SDL2
-    SDL2_mixer
-    SDL2_image
-    libpng
-    zlib
-  ];
+  buildInputs = [ SDL2 SDL2_mixer SDL2_image libpng zlib ];
 
   # GIMP needs a writable home
   preBuild = ''
@@ -52,7 +29,8 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
 
   meta = with lib; {
-    description = "Jump and run game, reimplementation of Tower Toppler/Nebulus";
+    description =
+      "Jump and run game, reimplementation of Tower Toppler/Nebulus";
     homepage = "https://gitlab.com/roever/toppler";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ fgaz ];

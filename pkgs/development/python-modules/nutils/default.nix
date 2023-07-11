@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, treelog
-, stringly
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, numpy, treelog, stringly
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "nutils";
@@ -23,19 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-KCvUBE3qbX6v1HahBj4/jjM8ujvFGtWNuH1D+bTHrQ0=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    treelog
-    stringly
-  ];
+  propagatedBuildInputs = [ numpy treelog stringly ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "nutils"
-  ];
+  pythonImportsCheck = [ "nutils" ];
 
   disabledTestPaths = [
     # AttributeError: type object 'setup' has no attribute '__code__'

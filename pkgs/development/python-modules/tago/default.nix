@@ -1,13 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, promise
-, python-socketio
-, pythonOlder
-, requests
-, websockets
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, promise, python-socketio
+, pythonOlder, requests, websockets }:
 
 buildPythonPackage rec {
   pname = "tago";
@@ -23,20 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-eu6n83qmo1PQKnR/ellto04xi/3egl+LSKMOG277X1k=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    promise
-    python-socketio
-    requests
-    websockets
-  ];
+  propagatedBuildInputs =
+    [ aiohttp promise python-socketio requests websockets ];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "tago"
-  ];
+  pythonImportsCheck = [ "tago" ];
 
   meta = with lib; {
     description = "Python module for interacting with Tago.io";

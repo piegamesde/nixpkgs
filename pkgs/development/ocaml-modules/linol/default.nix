@@ -1,7 +1,7 @@
-{ lib, fetchFromGitHub, buildDunePackage, yojson, logs, lsp, ppx_yojson_conv_lib }:
+{ lib, fetchFromGitHub, buildDunePackage, yojson, logs, lsp, ppx_yojson_conv_lib
+}:
 
-buildDunePackage
-rec {
+buildDunePackage rec {
   pname = "linol";
   version = "2023-04-25";
 

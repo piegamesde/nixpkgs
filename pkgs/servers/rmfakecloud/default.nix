@@ -22,9 +22,7 @@ buildGoModule rec {
     sed -i '/go:/d' ui/assets.go
   '';
 
-  ldflags = [
-    "-s" "-w" "-X main.version=v${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=v${version}" ];
 
   meta = with lib; {
     description = "Host your own cloud for the Remarkable";

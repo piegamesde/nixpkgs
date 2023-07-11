@@ -15,7 +15,8 @@ buildGoModule rec {
     (fetchpatch {
       # https://github.com/emirozer/kubectl-doctor/pull/21
       name = "go-1.19-client-go-0.25.patch";
-      url = "https://github.com/emirozer/kubectl-doctor/commit/a987ef58063e305409034af280d688a11682dbb9.patch";
+      url =
+        "https://github.com/emirozer/kubectl-doctor/commit/a987ef58063e305409034af280d688a11682dbb9.patch";
       sha256 = "sha256-NQd/WxUfYwBDowhnoUWaOV8k7msiOhff3Bjux+a9R9E=";
     })
   ];
@@ -29,7 +30,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "kubectl cluster triage plugin for k8s";
     homepage = "https://github.com/emirozer/kubectl-doctor";
-    changelog = "https://github.com/emirozer/kubectl-doctor/releases/tag/v${version}";
+    changelog =
+      "https://github.com/emirozer/kubectl-doctor/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = [ maintainers.zimbatm ];
   };

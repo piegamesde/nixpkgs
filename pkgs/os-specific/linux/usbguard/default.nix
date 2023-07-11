@@ -1,24 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, autoreconfHook
-, installShellFiles
-, nixosTests
-, asciidoc
-, pkg-config
-, libxslt
-, libxml2
-, docbook_xml_dtd_45
-, docbook_xsl
-, dbus-glib
-, libcap_ng
-, libqb
-, libseccomp
-, polkit
-, protobuf
-, audit
-, libsodium
-}:
+{ stdenv, lib, fetchFromGitHub, autoreconfHook, installShellFiles, nixosTests
+, asciidoc, pkg-config, libxslt, libxml2, docbook_xml_dtd_45, docbook_xsl
+, dbus-glib, libcap_ng, libqb, libseccomp, polkit, protobuf, audit, libsodium }:
 
 stdenv.mkDerivation rec {
   version = "1.1.2";
@@ -45,16 +27,8 @@ stdenv.mkDerivation rec {
     protobuf # protoc
   ];
 
-  buildInputs = [
-    dbus-glib
-    libcap_ng
-    libqb
-    libseccomp
-    libsodium
-    polkit
-    protobuf
-    audit
-  ];
+  buildInputs =
+    [ dbus-glib libcap_ng libqb libseccomp libsodium polkit protobuf audit ];
 
   configureFlags = [
     "--with-bundled-catch"
@@ -74,7 +48,8 @@ stdenv.mkDerivation rec {
   passthru.tests = nixosTests.usbguard;
 
   meta = with lib; {
-    description = "The USBGuard software framework helps to protect your computer against BadUSB";
+    description =
+      "The USBGuard software framework helps to protect your computer against BadUSB";
     longDescription = ''
       USBGuard is a software framework for implementing USB device authorization
       policies (what kind of USB devices are authorized) as well as method of

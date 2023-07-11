@@ -1,37 +1,19 @@
-{ stdenv
-, lib
-, fetchurl
-, autoPatchelfHook
-, wrapGAppsHook
-, makeWrapper
-, gnome
-, libsecret
-, git
-, curl
-, nss
-, nspr
-, xorg
-, libdrm
-, alsa-lib
-, cups
-, mesa
-, systemd
-, openssl
-}:
+{ stdenv, lib, fetchurl, autoPatchelfHook, wrapGAppsHook, makeWrapper, gnome
+, libsecret, git, curl, nss, nspr, xorg, libdrm, alsa-lib, cups, mesa, systemd
+, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "github-desktop";
   version = "3.2.1";
 
   src = fetchurl {
-    url = "https://github.com/shiftkey/desktop/releases/download/release-${version}-linux1/GitHubDesktop-linux-${version}-linux1.deb";
+    url =
+      "https://github.com/shiftkey/desktop/releases/download/release-${version}-linux1/GitHubDesktop-linux-${version}-linux1.deb";
     hash = "sha256-OdvebRvOTyadgNjzrv6CGDPkljfpo4RVvVAc+X9hjSo=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    (wrapGAppsHook.override { inherit makeWrapper; })
-  ];
+  nativeBuildInputs =
+    [ autoPatchelfHook (wrapGAppsHook.override { inherit makeWrapper; }) ];
 
   buildInputs = [
     gnome.gnome-keyring
@@ -68,9 +50,7 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  runtimeDependencies = [
-    (lib.getLib systemd)
-  ];
+  runtimeDependencies = [ (lib.getLib systemd) ];
 
   meta = with lib; {
     description = "GUI for managing Git and GitHub.";

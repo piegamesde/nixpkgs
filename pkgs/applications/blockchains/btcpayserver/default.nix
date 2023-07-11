@@ -1,7 +1,4 @@
-{ lib
-, buildDotnetModule
-, fetchFromGitHub
-, dotnetCorePackages
+{ lib, buildDotnetModule, fetchFromGitHub, dotnetCorePackages
 , altcoinSupport ? false }:
 
 buildDotnetModule rec {

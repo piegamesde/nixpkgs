@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchFromGitHub
-, setuptools-scm
-, substituteAll
-, cmake
-, boost
-, gmp
-, pybind11
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchFromGitHub, setuptools-scm
+, substituteAll, cmake, boost, gmp, pybind11, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "blspy";
@@ -52,9 +42,7 @@ buildPythonPackage rec {
 
   buildInputs = [ boost gmp.static pybind11 ];
 
-  pythonImportsCheck = [
-    "blspy"
-  ];
+  pythonImportsCheck = [ "blspy" ];
 
   # Note: upstream testsuite is just a single test.py script outside of any framework
   doCheck = false;

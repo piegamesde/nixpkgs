@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, cython
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
+{ lib, buildPythonPackage, cython, fetchFromGitHub, pytestCheckHook, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -20,20 +15,14 @@ buildPythonPackage rec {
     hash = "sha256-KYJd1wGJo+z34cY0YfsRbpC9IsQY/VJqycGpMmLmaVk=";
   };
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
   # Todo: Check why the tests have an import error
   doCheck = false;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "fastrlock"
-  ];
+  pythonImportsCheck = [ "fastrlock" ];
 
   meta = with lib; {
     description = "RLock implementation for CPython";

@@ -1,7 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config
-, uhd, boost, soapysdr
-, libobjc, IOKit, Security
-} :
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, uhd, boost, soapysdr, libobjc
+, IOKit, Security }:
 
 stdenv.mkDerivation rec {
   pname = "soapyuhd";

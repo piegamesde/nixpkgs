@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, callPackage
-, maven
-, jdk
-, jre
-, buildMaven
-, makeWrapper
-, git
-, fetchFromGitHub
-, graphviz
-, ensureNewerSourcesHook
-}:
+{ lib, stdenv, callPackage, maven, jdk, jre, buildMaven, makeWrapper, git
+, fetchFromGitHub, graphviz, ensureNewerSourcesHook }:
 
 let
   version = "6.1.1-SNAPSHOT";
@@ -46,13 +35,10 @@ let
 
     doCheck = false;
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit version pname src;
 
-  buildInputs = [
-    maven
-  ];
+  buildInputs = [ maven ];
 
   nativeBuildInputs = [
     makeWrapper
@@ -65,9 +51,7 @@ stdenv.mkDerivation rec {
     (ensureNewerSourcesHook { year = "1980"; })
   ];
 
-  wrappedPath = lib.makeBinPath [
-    graphviz
-  ];
+  wrappedPath = lib.makeBinPath [ graphviz ];
 
   buildPhase = ''
     VERSION=${version}

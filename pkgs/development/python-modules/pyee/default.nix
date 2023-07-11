@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, mock
-, pytest-asyncio
-, pytest-trio
-, pytestCheckHook
-, pythonOlder
-, twisted
-, typing-extensions
-, vcversioner
-}:
+{ lib, buildPythonPackage, fetchPypi, mock, pytest-asyncio, pytest-trio
+, pytestCheckHook, pythonOlder, twisted, typing-extensions, vcversioner }:
 
 buildPythonPackage rec {
   pname = "pyee";
@@ -23,25 +13,14 @@ buildPythonPackage rec {
     hash = "sha256-J3DEkoq8ch9GtwXmpysMWUgMSmnJqDygsAu5lPHqSzI=";
   };
 
-  buildInputs = [
-    vcversioner
-  ];
+  buildInputs = [ vcversioner ];
 
-  propagatedBuildInputs = [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ typing-extensions ];
 
-  nativeCheckInputs = [
-    mock
-    pytest-asyncio
-    pytest-trio
-    pytestCheckHook
-    twisted
-  ];
+  nativeCheckInputs =
+    [ mock pytest-asyncio pytest-trio pytestCheckHook twisted ];
 
-  pythonImportsCheck = [
-    "pyee"
-  ];
+  pythonImportsCheck = [ "pyee" ];
 
   meta = with lib; {
     description = "A port of Node.js's EventEmitter to Python";

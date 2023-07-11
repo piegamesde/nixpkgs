@@ -1,31 +1,16 @@
-{ stdenv
-, lib
-, fetchurl
-, gnome
-, cmake
-, gettext
-, intltool
-, pkg-config
-, evolution-data-server
-, evolution
-, gtk3
-, libsoup_3
-, libical
-, json-glib
-, libmspack
-, webkitgtk_4_1
-, substituteAll
-, _experimental-update-script-combinators
-, glib
-, makeHardcodeGsettingsPatch
-}:
+{ stdenv, lib, fetchurl, gnome, cmake, gettext, intltool, pkg-config
+, evolution-data-server, evolution, gtk3, libsoup_3, libical, json-glib
+, libmspack, webkitgtk_4_1, substituteAll
+, _experimental-update-script-combinators, glib, makeHardcodeGsettingsPatch }:
 
 stdenv.mkDerivation rec {
   pname = "evolution-ews";
   version = "3.48.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "vqakEdZAHXOqTh3oHUN5LwPAQ54DBZxVSn+YTEptmtg=";
   };
 
@@ -40,12 +25,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    cmake
-    gettext
-    intltool
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake gettext intltool pkg-config ];
 
   buildInputs = [
     evolution-data-server
@@ -73,24 +53,24 @@ stdenv.mkDerivation rec {
       };
     };
 
-    updateScript =
-      let
-        updateSource = gnome.updateScript {
-          packageName = "evolution-ews";
-          versionPolicy = "odd-unstable";
-        };
-        updatePatch = _experimental-update-script-combinators.copyAttrOutputToFile "evolution-ews.hardcodeGsettingsPatch" ./hardcode-gsettings.patch;
-      in
-      _experimental-update-script-combinators.sequence [
-        updateSource
-        updatePatch
-      ];
+    updateScript = let
+      updateSource = gnome.updateScript {
+        packageName = "evolution-ews";
+        versionPolicy = "odd-unstable";
+      };
+      updatePatch = _experimental-update-script-combinators.copyAttrOutputToFile
+        "evolution-ews.hardcodeGsettingsPatch" ./hardcode-gsettings.patch;
+    in _experimental-update-script-combinators.sequence [
+      updateSource
+      updatePatch
+    ];
   };
 
   meta = with lib; {
     description = "Evolution connector for Microsoft Exchange Server protocols";
     homepage = "https://gitlab.gnome.org/GNOME/evolution-ews";
-    license = licenses.lgpl21Plus; # https://gitlab.gnome.org/GNOME/evolution-ews/issues/111
+    license =
+      licenses.lgpl21Plus; # https://gitlab.gnome.org/GNOME/evolution-ews/issues/111
     maintainers = [ maintainers.dasj19 ];
     platforms = platforms.linux;
   };

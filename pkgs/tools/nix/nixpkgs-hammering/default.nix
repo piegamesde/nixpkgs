@@ -1,11 +1,4 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, stdenv
-, makeWrapper
-, python3
-, nix
-}:
+{ lib, fetchFromGitHub, rustPlatform, stdenv, makeWrapper, python3, nix }:
 
 let
   version = "unstable-2023-03-09";
@@ -18,7 +11,8 @@ let
   };
 
   meta = with lib; {
-    description = "A set of nit-picky rules that aim to point out and explain common mistakes in nixpkgs package pull requests";
+    description =
+      "A set of nit-picky rules that aim to point out and explain common mistakes in nixpkgs package pull requests";
     homepage = "https://github.com/jtojnar/nixpkgs-hammering";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
@@ -30,9 +24,8 @@ let
     sourceRoot = "${src.name}/rust-checks";
     cargoHash = "sha256-MFYMP6eQS0wJbHmTRKaKajSborzaW6dEfshtAZcP+xs=";
   };
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "nixpkgs-hammering";
 
   inherit version src;
@@ -56,8 +49,6 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  meta = meta // {
-    mainProgram = "nixpkgs-hammer";
-  };
+  meta = meta // { mainProgram = "nixpkgs-hammer"; };
 }
 

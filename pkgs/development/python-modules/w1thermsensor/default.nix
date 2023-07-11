@@ -1,18 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pkgs
-, setuptools
-, aiofiles
-, click
-, coverage
-, tomli
-, pytest
-, pytest-mock
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pkgs, setuptools, aiofiles, click
+, coverage, tomli, pytest, pytest-mock, pytest-asyncio, pytestCheckHook
+, pythonOlder }:
 buildPythonPackage rec {
   pname = "w1thermsensor";
   version = "2.0.0";
@@ -27,33 +15,21 @@ buildPythonPackage rec {
     sed -i 's/3\.5\.\*/3.5/' setup.py
   '';
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    aiofiles
-    click
-  ];
+  propagatedBuildInputs = [ aiofiles click ];
 
   # Don't try to load the kernel module in tests.
   env.W1THERMSENSOR_NO_KERNEL_MODULE = 1;
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytest-asyncio
-    pytestCheckHook
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
+  nativeCheckInputs = [ pytest-mock pytest-asyncio pytestCheckHook ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   # Tests for 2.0.0 currently fail on python3.11
   # https://github.com/timofurrer/w1thermsensor/issues/116
   doCheck = pythonOlder "3.11";
 
-  pythonImportsCheck = [
-    "w1thermsensor"
-  ];
+  pythonImportsCheck = [ "w1thermsensor" ];
 
   meta = with lib; {
     description = "Python interface to 1-Wire temperature sensors";

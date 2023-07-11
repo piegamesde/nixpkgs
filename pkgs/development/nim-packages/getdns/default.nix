@@ -15,7 +15,7 @@ buildNimPackage rec {
 
   doCheck = true;
   checkPhase = "nim c tests/test_example_synchronous";
-    # The test requires network but check if it builds.
+  # The test requires network but check if it builds.
 
   meta = {
     inherit (getdns.meta) homepage license platforms;

@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja, pkg-config
-, cyclonedds, libmysqlclient, mariadb, mbedtls, sqlite, zeromq
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, ninja, pkg-config, cyclonedds
+, libmysqlclient, mariadb, mbedtls, sqlite, zeromq }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "nanomq";
@@ -33,10 +32,12 @@ stdenv.mkDerivation (finalAttrs: {
     "-DNNG_ENABLE_TLS=ON"
   ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-return-type";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.cc.isClang "-Wno-return-type";
 
   meta = with lib; {
-    description = "An ultra-lightweight and blazing-fast MQTT broker for IoT edge";
+    description =
+      "An ultra-lightweight and blazing-fast MQTT broker for IoT edge";
     homepage = "https://nanomq.io/";
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];

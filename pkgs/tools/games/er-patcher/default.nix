@@ -1,8 +1,4 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, python3
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, python3 }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "er-patcher";
@@ -15,9 +11,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-w/5cXxY4ua5Xo1BSz3MYRV+SdvVGFAx53KMIORS1uWE=";
   };
 
-  buildInputs = [
-    python3
-  ];
+  buildInputs = [ python3 ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -27,8 +21,10 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/gurrgur/er-patcher";
-    changelog = "https://github.com/gurrgur/er-patcher/releases/tag/v${version}";
-    description = "Enhancement patches for Elden Ring adding ultrawide support, custom frame rate limits and more";
+    changelog =
+      "https://github.com/gurrgur/er-patcher/releases/tag/v${version}";
+    description =
+      "Enhancement patches for Elden Ring adding ultrawide support, custom frame rate limits and more";
     longDescription = ''
       A tool aimed at enhancing the experience when playing the game on linux through proton or natively on windows.
       This tool is based on patching the game executable through hex-edits. However it is done in a safe and non-destructive way,

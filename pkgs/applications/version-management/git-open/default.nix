@@ -1,4 +1,5 @@
-{ lib, stdenv, git, xdg-utils, gnugrep, fetchFromGitHub, installShellFiles, makeWrapper, pandoc }:
+{ lib, stdenv, git, xdg-utils, gnugrep, fetchFromGitHub, installShellFiles
+, makeWrapper, pandoc }:
 
 stdenv.mkDerivation rec {
   pname = "git-open";
@@ -32,7 +33,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/paulirish/git-open";
-    description = "Open the GitHub page or website for a repository in your browser";
+    description =
+      "Open the GitHub page or website for a repository in your browser";
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = with maintainers; [ SuperSandro2000 ];

@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, boost
-, tbb
-, makeWrapper
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, boost, tbb, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "PotreeConverter";
@@ -18,15 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QYNY+/v6mBEJFiv3i2QS+zqkgWJqeqXSqNoh+ChAiQA=";
   };
 
-  buildInputs = [
-    boost
-    tbb
-  ];
+  buildInputs = [ boost tbb ];
 
-  nativeBuildInputs = [
-    makeWrapper
-    cmake
-  ];
+  nativeBuildInputs = [ makeWrapper cmake ];
 
   patchPhase = ''
     runHook prePatch

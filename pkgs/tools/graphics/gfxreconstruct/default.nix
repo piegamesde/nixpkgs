@@ -1,19 +1,5 @@
-{ stdenv
-, fetchFromGitHub
-, lib
-, cmake
-, makeWrapper
-, pkg-config
-, python3
-, wayland
-, libX11
-, libxcb
-, lz4
-, vulkan-loader
-, xcbutilkeysyms
-, zlib
-, zstd
-}:
+{ stdenv, fetchFromGitHub, lib, cmake, makeWrapper, pkg-config, python3, wayland
+, libX11, libxcb, lz4, vulkan-loader, xcbutilkeysyms, zlib, zstd }:
 
 stdenv.mkDerivation rec {
   pname = "gfxreconstruct";
@@ -27,22 +13,9 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [
-    libX11
-    libxcb
-    lz4
-    python3
-    wayland
-    xcbutilkeysyms
-    zlib
-    zstd
-  ];
+  buildInputs = [ libX11 libxcb lz4 python3 wayland xcbutilkeysyms zlib zstd ];
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake makeWrapper pkg-config ];
 
   # The python script searches in subfolders, but we want to search in the same bin directory
   prePatch = ''

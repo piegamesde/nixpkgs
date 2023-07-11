@@ -1,11 +1,4 @@
-{ coreutils
-, fetchFromGitHub
-, gnused
-, lib
-, maven
-, makeWrapper
-, openjdk
-, stdenv
+{ coreutils, fetchFromGitHub, gnused, lib, maven, makeWrapper, openjdk, stdenv
 }:
 
 let

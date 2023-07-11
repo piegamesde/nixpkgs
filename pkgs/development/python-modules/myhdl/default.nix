@@ -1,10 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, verilog
-, ghdl
-, pytest
-, pytest-xdist
+{ lib, fetchFromGitHub, buildPythonPackage, verilog, ghdl, pytest, pytest-xdist
 }:
 
 buildPythonPackage rec {
@@ -19,12 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-Tgoem88Y6AhlCKVhMm0Khg6GPcrEktYOqV8xcMaNkl4=";
   };
 
-  nativeCheckInputs = [
-    pytest
-    pytest-xdist
-    verilog
-    ghdl
-  ];
+  nativeCheckInputs = [ pytest pytest-xdist verilog ghdl ];
   passthru = {
     # If using myhdl as a dependency, use these if needed and not ghdl and
     # verlog from all-packages.nix
@@ -41,7 +30,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "A free, open-source package for using Python as a hardware description and verification language.";
+    description =
+      "A free, open-source package for using Python as a hardware description and verification language.";
     homepage = "https://www.myhdl.org/";
     license = licenses.lgpl21;
     maintainers = with maintainers; [ doronbehar ];

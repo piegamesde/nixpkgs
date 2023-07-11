@@ -1,8 +1,4 @@
-{ python3Packages
-, fetchFromGitHub
-, gcc
-, lib
-}:
+{ python3Packages, fetchFromGitHub, gcc, lib }:
 
 python3Packages.buildPythonApplication rec {
   pname = "resolve-march-native";
@@ -21,7 +17,8 @@ python3Packages.buildPythonApplication rec {
   doCheck = true;
 
   meta = with lib; {
-    description = "Tool to determine what GCC flags -march=native would resolve into";
+    description =
+      "Tool to determine what GCC flags -march=native would resolve into";
     homepage = "https://github.com/hartwork/resolve-march-native";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ lovesegfault ];

@@ -1,34 +1,15 @@
-{ lib
-, mkDerivation
+{ lib, mkDerivation
 
-, cmake
-, extra-cmake-modules
-, wrapQtAppsHook
+, cmake, extra-cmake-modules, wrapQtAppsHook
 
-, c-ares
-, curl
-, kcontacts
-, ki18n
-, kio
-, kirigami-addons
-, kirigami2
-, knotifications
-, kpeople
-, libphonenumber
-, modemmanager-qt
-, protobuf
-, qcoro
-, qtquickcontrols2
-}:
+, c-ares, curl, kcontacts, ki18n, kio, kirigami-addons, kirigami2
+, knotifications, kpeople, libphonenumber, modemmanager-qt, protobuf, qcoro
+, qtquickcontrols2 }:
 
 mkDerivation {
   pname = "spacebar";
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules wrapQtAppsHook ];
 
   buildInputs = [
     c-ares

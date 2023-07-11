@@ -1,16 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchurl
-, meson
-, ninja
+{ lib, buildPythonPackage, fetchurl, meson, ninja
 
-, pkg-config
-, python
-, pygobject3
-, gobject-introspection
-, gst_all_1
-, isPy3k
-}:
+, pkg-config, python, pygobject3, gobject-introspection, gst_all_1, isPy3k }:
 
 buildPythonPackage rec {
   pname = "gst-python";
@@ -28,25 +18,17 @@ buildPythonPackage rec {
   # Python 2.x is not supported.
   disabled = !isPy3k;
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gobject-introspection
-    gst_all_1.gst-plugins-base
-  ];
+  nativeBuildInputs =
+    [ meson ninja pkg-config gobject-introspection gst_all_1.gst-plugins-base ];
 
-  propagatedBuildInputs = [
-    gst_all_1.gst-plugins-base
-    pygobject3
-  ];
+  propagatedBuildInputs = [ gst_all_1.gst-plugins-base pygobject3 ];
 
   mesonFlags = [
-    "-Dpygi-overrides-dir=${placeholder "out"}/${python.sitePackages}/gi/overrides"
+    "-Dpygi-overrides-dir=${
+      placeholder "out"
+    }/${python.sitePackages}/gi/overrides"
     # Exec format error during configure
     "-Dpython=${python.pythonForBuild.interpreter}"
   ];

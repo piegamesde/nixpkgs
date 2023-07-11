@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gst_all_1
-, pkg-config
-, meson
-, ninja
-, obs-studio
+{ lib, stdenv, fetchFromGitHub, gst_all_1, pkg-config, meson, ninja, obs-studio
 }:
 
 stdenv.mkDerivation rec {
@@ -27,16 +20,18 @@ stdenv.mkDerivation rec {
   # - Without gst-plugins-bad it won't find element "h264parse";
   # - gst-plugins-ugly adds "x264" to "Encoder type";
   # Tip: "could not link appsrc to videoconvert1" can mean a lot of things, enable GST_DEBUG=2 for help.
-  passthru.obsWrapperArguments =
-    let
-      gstreamerHook = package: "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${lib.getLib package}/lib/gstreamer-1.0";
-    in
-    with gst_all_1; builtins.map gstreamerHook [
-      gstreamer
-      gst-plugins-base
-      gst-plugins-bad
-      gst-plugins-ugly
-    ];
+  passthru.obsWrapperArguments = let
+    gstreamerHook = package:
+      "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${
+        lib.getLib package
+      }/lib/gstreamer-1.0";
+  in with gst_all_1;
+  builtins.map gstreamerHook [
+    gstreamer
+    gst-plugins-base
+    gst-plugins-bad
+    gst-plugins-ugly
+  ];
 
   # Fix output directory
   postInstall = ''
@@ -45,7 +40,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "An OBS Studio source, encoder and video filter plugin to use GStreamer elements/pipelines in OBS Studio";
+    description =
+      "An OBS Studio source, encoder and video filter plugin to use GStreamer elements/pipelines in OBS Studio";
     homepage = "https://github.com/fzwoch/obs-gstreamer";
     maintainers = with maintainers; [ ahuzik pedrohlc ];
     license = licenses.gpl2Plus;

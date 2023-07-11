@@ -1,15 +1,5 @@
-{ stdenv
-, lib
-, bash
-, coreutils
-, findutils
-, fetchFromGitHub
-, fzf
-, git
-, gnugrep
-, gnused
-, makeWrapper
-}:
+{ stdenv, lib, bash, coreutils, findutils, fetchFromGitHub, fzf, git, gnugrep
+, gnused, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "zsh-forgit";
@@ -39,7 +29,9 @@ stdenv.mkDerivation rec {
     install -D bin/git-forgit $out/bin/git-forgit
     install -D forgit.plugin.zsh $out/share/zsh/${pname}/forgit.plugin.zsh
     wrapProgram $out/bin/git-forgit \
-      --prefix PATH : ${lib.makeBinPath [ bash coreutils findutils fzf git gnugrep gnused ]}
+      --prefix PATH : ${
+        lib.makeBinPath [ bash coreutils findutils fzf git gnugrep gnused ]
+      }
 
     runHook postInstall
   '';

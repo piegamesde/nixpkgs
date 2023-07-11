@@ -1,11 +1,10 @@
 { stdenv, lib, fetchgit, buildGoModule, zlib, makeWrapper, xcodeenv, androidenv
 , xcodeWrapperArgs ? { }
 , xcodeWrapper ? xcodeenv.composeXcodeWrapper xcodeWrapperArgs
-, withAndroidPkgs ? true
-, androidPkgs ? androidenv.composeAndroidPackages {
-    includeNDK = true;
-    ndkVersion = "22.1.7171670";
-  } }:
+, withAndroidPkgs ? true, androidPkgs ? androidenv.composeAndroidPackages {
+  includeNDK = true;
+  ndkVersion = "22.1.7171670";
+} }:
 
 buildGoModule {
   pname = "gomobile";
@@ -49,8 +48,8 @@ buildGoModule {
       wrapProgram $out/bin/$bin \
         --suffix GOPATH : $out \
   '' + lib.optionalString withAndroidPkgs ''
-        --prefix PATH : "${androidPkgs.androidsdk}/bin" \
-        --set-default ANDROID_HOME "${androidPkgs.androidsdk}/libexec/android-sdk" \
+    --prefix PATH : "${androidPkgs.androidsdk}/bin" \
+    --set-default ANDROID_HOME "${androidPkgs.androidsdk}/libexec/android-sdk" \
   '' + ''
         --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ zlib ]}"
     done

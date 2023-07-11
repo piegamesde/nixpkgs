@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, django
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, django, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "filebrowser-safe";
@@ -18,9 +13,7 @@ buildPythonPackage rec {
     sha256 = "499c5dbd9e112dfc436cae7713b2fb664a59015021f6c9d131e3b7980aeb5c94";
   };
 
-  buildInputs = [
-    django
-  ];
+  buildInputs = [ django ];
 
   # There is no test embedded
   doCheck = false;

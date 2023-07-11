@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
+{ lib, buildPythonPackage, fetchPypi, pytest-mock, pytestCheckHook, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -19,19 +14,16 @@ buildPythonPackage rec {
     hash = "sha256-QFzwvZ7sLxmxMmtfSCKO/lbWWQtOkYJrjMOyzUAKlq0=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-mock ];
 
-  pythonImportsCheck = [
-    "RestrictedPython"
-  ];
+  pythonImportsCheck = [ "RestrictedPython" ];
 
   meta = with lib; {
-    description = "Restricted execution environment for Python to run untrusted code";
+    description =
+      "Restricted execution environment for Python to run untrusted code";
     homepage = "https://github.com/zopefoundation/RestrictedPython";
-    changelog = "https://github.com/zopefoundation/RestrictedPython/blob/${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/zopefoundation/RestrictedPython/blob/${version}/CHANGES.rst";
     license = licenses.zpl21;
     maintainers = with maintainers; [ juaningan ];
   };

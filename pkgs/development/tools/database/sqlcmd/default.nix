@@ -1,10 +1,4 @@
-{ buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, lib
-, sqlcmd
-, testers
-}:
+{ buildGoModule, fetchFromGitHub, installShellFiles, lib, sqlcmd, testers }:
 
 buildGoModule rec {
   pname = "sqlcmd";
@@ -46,9 +40,11 @@ buildGoModule rec {
   };
 
   meta = {
-    description = "A command line tool for working with Microsoft SQL Server, Azure SQL Database, and Azure Synapse";
+    description =
+      "A command line tool for working with Microsoft SQL Server, Azure SQL Database, and Azure Synapse";
     homepage = "https://github.com/microsoft/go-sqlcmd";
-    changelog = "https://github.com/microsoft/go-sqlcmd/releases/tag/v${version}";
+    changelog =
+      "https://github.com/microsoft/go-sqlcmd/releases/tag/v${version}";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.ratsclub ];
   };

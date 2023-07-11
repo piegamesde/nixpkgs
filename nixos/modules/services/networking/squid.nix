@@ -6,10 +6,9 @@ let
 
   cfg = config.services.squid;
 
-
-  squidConfig = pkgs.writeText "squid.conf"
-    (if cfg.configText != null then cfg.configText else
-    ''
+  squidConfig = pkgs.writeText "squid.conf" (if cfg.configText != null then
+    cfg.configText
+  else ''
     #
     # Recommended minimum configuration (3.5):
     #
@@ -97,9 +96,7 @@ let
     refresh_pattern .               0       20%     4320
   '');
 
-in
-
-{
+in {
 
   options = {
 
@@ -161,24 +158,25 @@ in
       createHome = true;
     };
 
-    users.groups.squid = {};
+    users.groups.squid = { };
 
     systemd.services.squid = {
       description = "Squid caching proxy";
       documentation = [ "man:squid(8)" ];
       after = [ "network.target" "nss-lookup.target" ];
-      wantedBy = [ "multi-user.target"];
+      wantedBy = [ "multi-user.target" ];
       preStart = ''
         mkdir -p "/var/log/squid"
         chown squid:squid "/var/log/squid"
         ${cfg.package}/bin/squid --foreground -z -f ${squidConfig}
       '';
       serviceConfig = {
-        PIDFile="/run/squid.pid";
-        ExecStart  = "${cfg.package}/bin/squid --foreground -YCs -f ${squidConfig}";
-        ExecReload="kill -HUP $MAINPID";
-        KillMode="mixed";
-        NotifyAccess="all";
+        PIDFile = "/run/squid.pid";
+        ExecStart =
+          "${cfg.package}/bin/squid --foreground -YCs -f ${squidConfig}";
+        ExecReload = "kill -HUP $MAINPID";
+        KillMode = "mixed";
+        NotifyAccess = "all";
       };
     };
 

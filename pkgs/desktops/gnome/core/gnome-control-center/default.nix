@@ -1,74 +1,23 @@
-{ fetchurl
-, lib
-, stdenv
-, substituteAll
-, accountsservice
-, adwaita-icon-theme
-, colord
-, colord-gtk4
-, cups
-, docbook-xsl-nons
-, fontconfig
-, gdk-pixbuf
-, gettext
-, glib
-, glib-networking
-, gcr
-, glibc
-, gnome-bluetooth
-, gnome-color-manager
-, gnome-desktop
-, gnome-online-accounts
-, gnome-settings-daemon
-, gnome
-, gsettings-desktop-schemas
-, gsound
-, gtk4
-, ibus
-, libgnomekbd
-, libgtop
-, libgudev
-, libadwaita
-, libkrb5
-, libpulseaudio
-, libpwquality
-, librsvg
-, webp-pixbuf-loader
-, libsecret
-, libwacom
-, libxml2
-, libxslt
-, meson
-, modemmanager
-, mutter
-, networkmanager
-, networkmanagerapplet
-, libnma-gtk4
-, ninja
-, pkg-config
-, polkit
-, python3
-, samba
-, shadow
-, shared-mime-info
-, sound-theme-freedesktop
-, tracker
-, tracker-miners
-, tzdata
-, udisks2
-, upower
-, libepoxy
-, gnome-user-share
-, gnome-remote-desktop
-, wrapGAppsHook
-}:
+{ fetchurl, lib, stdenv, substituteAll, accountsservice, adwaita-icon-theme
+, colord, colord-gtk4, cups, docbook-xsl-nons, fontconfig, gdk-pixbuf, gettext
+, glib, glib-networking, gcr, glibc, gnome-bluetooth, gnome-color-manager
+, gnome-desktop, gnome-online-accounts, gnome-settings-daemon, gnome
+, gsettings-desktop-schemas, gsound, gtk4, ibus, libgnomekbd, libgtop, libgudev
+, libadwaita, libkrb5, libpulseaudio, libpwquality, librsvg, webp-pixbuf-loader
+, libsecret, libwacom, libxml2, libxslt, meson, modemmanager, mutter
+, networkmanager, networkmanagerapplet, libnma-gtk4, ninja, pkg-config, polkit
+, python3, samba, shadow, shared-mime-info, sound-theme-freedesktop, tracker
+, tracker-miners, tzdata, udisks2, upower, libepoxy, gnome-user-share
+, gnome-remote-desktop, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-control-center";
   version = "44.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "sha256-er02UBjihnne9gpezTBJ2w+4XebaSaltrdIfuo2wAuc=";
   };
 
@@ -144,12 +93,11 @@ stdenv.mkDerivation rec {
   postInstall = ''
     # Pull in WebP support for gnome-backgrounds.
     # In postInstall to run before gappsWrapperArgsHook.
-    export GDK_PIXBUF_MODULE_FILE="${gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
-      extraLoaders = [
-        librsvg
-        webp-pixbuf-loader
-      ];
-    }}"
+    export GDK_PIXBUF_MODULE_FILE="${
+      gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
+        extraLoaders = [ librsvg webp-pixbuf-loader ];
+      }
+    }"
   '';
 
   preFixup = ''

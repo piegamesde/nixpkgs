@@ -1,13 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, python
-, setuptools
+{ lib, buildPythonPackage, fetchFromGitHub, python, setuptools
 
 # passthru tests
-, apache-beam
-, datasets
-}:
+, apache-beam, datasets }:
 
 buildPythonPackage rec {
   pname = "dill";
@@ -21,9 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-lh1o/TqnqtYN9xTZom33y1/7ZhMEAFpheLdtalwgObQ=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   checkPhase = ''
     runHook preCheck
@@ -31,9 +23,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  passthru.tests = {
-    inherit apache-beam datasets;
-  };
+  passthru.tests = { inherit apache-beam datasets; };
 
   pythonImportsCheck = [ "dill" ];
 

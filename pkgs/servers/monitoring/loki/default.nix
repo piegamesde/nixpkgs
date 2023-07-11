@@ -1,10 +1,4 @@
-{ stdenv
-, lib
-, buildGoModule
-, fetchFromGitHub
-, makeWrapper
-, nixosTests
-, systemd
+{ stdenv, lib, buildGoModule, fetchFromGitHub, makeWrapper, nixosTests, systemd
 }:
 
 buildGoModule rec {
@@ -28,7 +22,7 @@ buildGoModule rec {
     "cmd/logcli"
   ];
 
-  tags = ["promtail_journal_enabled"];
+  tags = [ "promtail_journal_enabled" ];
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = lib.optionals stdenv.isLinux [ systemd.dev ];
@@ -40,7 +34,8 @@ buildGoModule rec {
 
   passthru.tests = { inherit (nixosTests) loki; };
 
-  ldflags = let t = "github.com/grafana/loki/pkg/util/build"; in [
+  ldflags = let t = "github.com/grafana/loki/pkg/util/build";
+  in [
     "-s"
     "-w"
     "-X ${t}.Version=${version}"

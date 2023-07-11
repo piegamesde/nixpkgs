@@ -1,12 +1,5 @@
-{ lib, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, cctools
-, python3
-, vulkan-headers
-, vulkan-loader
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, cctools, python3
+, vulkan-headers, vulkan-loader }:
 let
   glslang = fetchFromGitHub {
     owner = "KhronosGroup";
@@ -43,8 +36,7 @@ let
     hash = "sha256-vooJHtgVRlBNkQG4hulYOxIgHH4GMhXw7N4OEbkKJvU=";
   };
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "amber";
   version = "unstable-2022-04-21";
 
@@ -55,18 +47,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-+xFYlUs13khT6r475eJJ+XS875h2sb+YbJ8ZN4MOSAA=";
   };
 
-  buildInputs = [
-    vulkan-headers
-    vulkan-loader
-  ];
+  buildInputs = [ vulkan-headers vulkan-loader ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    python3
-  ] ++ lib.optionals stdenv.isDarwin [
-    cctools
-  ];
+  nativeBuildInputs = [ cmake pkg-config python3 ]
+    ++ lib.optionals stdenv.isDarwin [ cctools ];
 
   # Tests are disabled so we do not have to pull in googletest and more dependencies
   cmakeFlags = [ "-DAMBER_SKIP_TESTS=ON" ];

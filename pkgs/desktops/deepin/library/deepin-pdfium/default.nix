@@ -1,11 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, qmake
-, pkg-config
-, libchardet
-, lcms2
-, openjpeg
+{ stdenv, lib, fetchFromGitHub, qmake, pkg-config, libchardet, lcms2, openjpeg
 }:
 
 stdenv.mkDerivation rec {
@@ -19,18 +12,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gUIQ+fZ7VaYaIj1hbzER10ceoJZbvhJlnDTFIShMrKw=";
   };
 
-  nativeBuildInputs = [
-    qmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ qmake pkg-config ];
 
   dontWrapQtApps = true;
 
-  buildInputs = [
-    libchardet
-    lcms2
-    openjpeg
-  ];
+  buildInputs = [ libchardet lcms2 openjpeg ];
 
   meta = with lib; {
     description = "development library for pdf on deepin";

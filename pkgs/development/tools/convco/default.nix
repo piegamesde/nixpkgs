@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, rustPlatform
-, fetchFromGitHub
-, cmake
-, libiconv
-, openssl
-, pkg-config
-, Security
-}:
+{ stdenv, lib, rustPlatform, fetchFromGitHub, cmake, libiconv, openssl
+, pkg-config, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "convco";
@@ -24,7 +16,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ libiconv Security ];
+  buildInputs = [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv Security ];
 
   meta = with lib; {
     description = "A Conventional commit cli";

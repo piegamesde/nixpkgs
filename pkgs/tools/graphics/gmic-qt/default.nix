@@ -1,56 +1,33 @@
-{ lib
-, stdenv
-, fetchzip
-, cimg
-, cmake
-, curl
-, fftw
-, gimp
-, gimpPlugins
-, gmic
-, graphicsmagick
-, libjpeg
-, libpng
-, libtiff
-, ninja
-, nix-update-script
-, opencv3
-, openexr
-, pkg-config
-, qtbase
-, qttools
-, wrapQtAppsHook
-, zlib
-, variant ? "standalone"
-}:
+{ lib, stdenv, fetchzip, cimg, cmake, curl, fftw, gimp, gimpPlugins, gmic
+, graphicsmagick, libjpeg, libpng, libtiff, ninja, nix-update-script, opencv3
+, openexr, pkg-config, qtbase, qttools, wrapQtAppsHook, zlib
+, variant ? "standalone" }:
 
 let
   variants = {
     gimp = {
-      extraDeps = [
-        gimp
-        gimp.gtk
-      ];
+      extraDeps = [ gimp gimp.gtk ];
       description = "GIMP plugin for the G'MIC image processing framework";
     };
 
     standalone = {
-      description = "Versatile front-end to the image processing framework G'MIC";
+      description =
+        "Versatile front-end to the image processing framework G'MIC";
     };
   };
 
-in
+in assert lib.assertMsg (builtins.hasAttr variant variants) ''
+  gmic-qt variant "${variant}" is not supported. Please use one of ${
+    lib.concatStringsSep ", " (builtins.attrNames variants)
+  }.'';
 
 assert lib.assertMsg
-  (builtins.hasAttr variant variants)
-  "gmic-qt variant \"${variant}\" is not supported. Please use one of ${lib.concatStringsSep ", " (builtins.attrNames variants)}.";
-
-assert lib.assertMsg
-  (builtins.all (d: d != null) variants.${variant}.extraDeps or [])
-  "gmic-qt variant \"${variant}\" is missing one of its dependencies.";
+  (builtins.all (d: d != null) variants.${variant}.extraDeps or [ ])
+  ''gmic-qt variant "${variant}" is missing one of its dependencies.'';
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "gmic-qt${lib.optionalString (variant != "standalone") "-${variant}"}";
+  pname =
+    "gmic-qt${lib.optionalString (variant != "standalone") "-${variant}"}";
   version = "3.2.4";
 
   src = fetchzip {
@@ -58,12 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-FJ2zlsah/3Jf5ie4UhQsPvMoxDMc6iHl3AkhKsZSuqE=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    ninja
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config ninja wrapQtAppsHook ];
 
   buildInputs = [
     gmic
@@ -78,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     openexr
     graphicsmagick
     curl
-  ] ++ variants.${variant}.extraDeps or [];
+  ] ++ variants.${variant}.extraDeps or [ ];
 
   preConfigure = ''
     cd gmic-qt

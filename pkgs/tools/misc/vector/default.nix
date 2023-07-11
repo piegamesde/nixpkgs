@@ -1,42 +1,30 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchpatch
-, rustPlatform
-, pkg-config
-, llvmPackages
-, openssl
-, protobuf
-, rdkafka
-, oniguruma
-, zstd
-, Security
-, libiconv
-, coreutils
-, CoreServices
-, tzdata
-, cmake
-, perl
-, git
-  # nix has a problem with the `?` in the feature list
-  # enabling kafka will produce a vector with no features at all
+{ stdenv, lib, fetchFromGitHub, fetchpatch, rustPlatform, pkg-config
+, llvmPackages, openssl, protobuf, rdkafka, oniguruma, zstd, Security, libiconv
+, coreutils, CoreServices, tzdata, cmake, perl, git
+# nix has a problem with the `?` in the feature list
+# enabling kafka will produce a vector with no features at all
 , enableKafka ? false
   # TODO investigate adding "vrl-cli" and various "vendor-*"
   # "disk-buffer" is using leveldb TODO: investigate how useful
   # it would be, perhaps only for massive scale?
-, features ? ([ "api" "api-client" "enrichment-tables" "sinks" "sources" "transforms" "vrl-cli" ]
-    # the second feature flag is passed to the rdkafka dependency
-    # building on linux fails without this feature flag (both x86_64 and AArch64)
-    ++ lib.optionals enableKafka [ "rdkafka?/gssapi-vendored" ]
-    ++ lib.optional stdenv.targetPlatform.isUnix "unix")
-, nix-update-script
-}:
+, features ? ([
+  "api"
+  "api-client"
+  "enrichment-tables"
+  "sinks"
+  "sources"
+  "transforms"
+  "vrl-cli"
+]
+# the second feature flag is passed to the rdkafka dependency
+# building on linux fails without this feature flag (both x86_64 and AArch64)
+  ++ lib.optionals enableKafka [ "rdkafka?/gssapi-vendored" ]
+  ++ lib.optional stdenv.targetPlatform.isUnix "unix"), nix-update-script }:
 
 let
   pname = "vector";
   version = "0.29.1";
-in
-rustPlatform.buildRustPackage {
+in rustPlatform.buildRustPackage {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -49,18 +37,26 @@ rustPlatform.buildRustPackage {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "azure_core-0.5.0" = "sha256-fojO7dhntpymMjV58TtYb7N4UN6rOp30D54x09RDXfQ=";
+      "azure_core-0.5.0" =
+        "sha256-fojO7dhntpymMjV58TtYb7N4UN6rOp30D54x09RDXfQ=";
       "chrono-0.4.24" = "sha256-SVPRfixSt0m14MmOcmBVseC/moj1DIA3B+m0pvT41K0=";
-      "datadog-filter-0.1.0" = "sha256-CNAIoDyJJo+D2Qzt6Fb2FwpQpzX02XurT8j1gHkz1bE=";
+      "datadog-filter-0.1.0" =
+        "sha256-CNAIoDyJJo+D2Qzt6Fb2FwpQpzX02XurT8j1gHkz1bE=";
       "heim-0.1.0-rc.1" = "sha256-ODKEQ1udt7FlxI5fvoFMG7C2zmM45eeEYDUEaLTsdYo=";
       "nix-0.26.2" = "sha256-uquYvRT56lhupkrESpxwKEimRFhmYvri10n3dj0f2yg=";
-      "tokio-util-0.7.4" = "sha256-rAzj44O+GOZhG+o6FVN5qCcG/NWxW8fUpScm+xsRjIs=";
+      "tokio-util-0.7.4" =
+        "sha256-rAzj44O+GOZhG+o6FVN5qCcG/NWxW8fUpScm+xsRjIs=";
       "tracing-0.2.0" = "sha256-YAxeEofFA43PX2hafh3RY+C81a2v6n1fGzYz2FycC3M=";
     };
   };
   nativeBuildInputs = [ pkg-config cmake perl git ];
   buildInputs = [ oniguruma openssl protobuf rdkafka zstd ]
-    ++ lib.optionals stdenv.isDarwin [ Security libiconv coreutils CoreServices ];
+    ++ lib.optionals stdenv.isDarwin [
+      Security
+      libiconv
+      coreutils
+      CoreServices
+    ];
 
   # needed for internal protobuf c wrapper library
   PROTOC = "${protobuf}/bin/protoc";
@@ -71,7 +67,7 @@ rustPlatform.buildRustPackage {
   TZDIR = "${tzdata}/share/zoneinfo";
 
   # needed to dynamically link rdkafka
-  CARGO_FEATURE_DYNAMIC_LINKING=1;
+  CARGO_FEATURE_DYNAMIC_LINKING = 1;
 
   buildNoDefaultFeatures = true;
   buildFeatures = features;

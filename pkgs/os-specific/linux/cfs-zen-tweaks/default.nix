@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, makeWrapper
-, gawk
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, makeWrapper, gawk }:
 
 stdenv.mkDerivation rec {
   pname = "cfs-zen-tweaks";
@@ -24,14 +18,9 @@ stdenv.mkDerivation rec {
       --replace '$(gawk' '$(${gawk}/bin/gawk'
   '';
 
-  buildInputs = [
-    gawk
-  ];
+  buildInputs = [ gawk ];
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake makeWrapper ];
 
   meta = with lib; {
     description = "Tweak Linux CPU scheduler for desktop responsiveness";

@@ -1,26 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, buildPythonApplication
-, appstream-glib
-, dbus-python
-, desktop-file-utils
-, gettext
-, glib
-, gobject-introspection
-, gtk3
-, hicolor-icon-theme
-, libappindicator
-, libhandy
-, meson
-, ninja
-, pkg-config
-, pygobject3
-, pyxdg
-, systemd
-, wrapGAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, buildPythonApplication
+, appstream-glib, dbus-python, desktop-file-utils, gettext, glib
+, gobject-introspection, gtk3, hicolor-icon-theme, libappindicator, libhandy
+, meson, ninja, pkg-config, pygobject3, pyxdg, systemd, wrapGAppsHook }:
 
 buildPythonApplication rec {
   pname = "cpupower-gui";
@@ -40,7 +21,8 @@ buildPythonApplication rec {
     # Fix build with 0.61, can be removed on next update
     # https://hydra.nixos.org/build/171052557/nixlog/1
     (fetchpatch {
-      url = "https://github.com/vagnum08/cpupower-gui/commit/97f8ac02fe33e412b59d3f3968c16a217753e74b.patch";
+      url =
+        "https://github.com/vagnum08/cpupower-gui/commit/97f8ac02fe33e412b59d3f3968c16a217753e74b.patch";
       sha256 = "XYnpm03kq8JLMjAT73BMCJWlzz40IAuHESm715VV6G0=";
     })
   ];
@@ -64,22 +46,11 @@ buildPythonApplication rec {
     pyxdg
   ];
 
-  buildInputs = [
-    glib
-    gtk3
-    libhandy
-  ];
+  buildInputs = [ glib gtk3 libhandy ];
 
-  propagatedBuildInputs = [
-    dbus-python
-    libappindicator
-    pygobject3
-    pyxdg
-  ];
+  propagatedBuildInputs = [ dbus-python libappindicator pygobject3 pyxdg ];
 
-  mesonFlags = [
-    "-Dsystemddir=${placeholder "out"}/lib/systemd"
-  ];
+  mesonFlags = [ "-Dsystemddir=${placeholder "out"}/lib/systemd" ];
 
   preConfigure = ''
     patchShebangs build-aux/meson/postinstall.py

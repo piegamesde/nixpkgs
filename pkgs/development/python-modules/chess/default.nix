@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, python
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "chess";
@@ -19,18 +14,18 @@ buildPythonPackage rec {
     hash = "sha256-YBABB//53gwJIwrmKJh8W+05hTBhl+49vCYv9//4E+0=";
   };
 
-  pythonImportsCheck = [
-    "chess"
-  ];
+  pythonImportsCheck = [ "chess" ];
 
   checkPhase = ''
     ${python.interpreter} ./test.py -v
   '';
 
   meta = with lib; {
-    description = "A chess library with move generation, move validation, and support for common formats";
+    description =
+      "A chess library with move generation, move validation, and support for common formats";
     homepage = "https://github.com/niklasf/python-chess";
-    changelog = "https://github.com/niklasf/python-chess/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/niklasf/python-chess/blob/v${version}/CHANGELOG.rst";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ smancill ];
   };

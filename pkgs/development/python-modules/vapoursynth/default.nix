@@ -5,17 +5,11 @@ buildPythonPackage {
 
   inherit (vapoursynth) version src;
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
-  buildInputs = [
-    vapoursynth
-  ];
+  buildInputs = [ vapoursynth ];
 
-  nativeCheckInputs = [
-    unittestCheckHook
-  ];
+  nativeCheckInputs = [ unittestCheckHook ];
 
   unittestFlagsArray = [ "-s" "$src/test" "-p" "'*test.py'" ];
 

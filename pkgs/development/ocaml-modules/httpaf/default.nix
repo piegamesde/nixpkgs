@@ -1,6 +1,5 @@
-{ lib, fetchFromGitHub, fetchpatch, buildDunePackage
-, angstrom, faraday, alcotest
-}:
+{ lib, fetchFromGitHub, fetchpatch, buildDunePackage, angstrom, faraday
+, alcotest }:
 
 buildDunePackage rec {
   pname = "httpaf";
@@ -21,7 +20,8 @@ buildDunePackage rec {
   doCheck = true;
 
   meta = {
-    description = "A high-performance, memory-efficient, and scalable web server for OCaml";
+    description =
+      "A high-performance, memory-efficient, and scalable web server for OCaml";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.vbgl ];
     inherit (src.meta) homepage;

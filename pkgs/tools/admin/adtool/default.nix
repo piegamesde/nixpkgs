@@ -6,16 +6,12 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://gp2x.org/adtool/${pname}-${version}.tar.gz";
-    sha256  = "1awmpjamrwivi69i0j2fyrziy9s096ckviqd9c4llc3990mfsn4n";
+    sha256 = "1awmpjamrwivi69i0j2fyrziy9s096ckviqd9c4llc3990mfsn4n";
   };
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-  ];
+  configureFlags = [ "--sysconfdir=/etc" ];
 
-  installFlags = [
-    "sysconfdir=$(out)/etc"
-  ];
+  installFlags = [ "sysconfdir=$(out)/etc" ];
 
   buildInputs = [ openldap ];
 
@@ -41,6 +37,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gp2x.org/adtool";
     license = licenses.gpl2;
     maintainers = with maintainers; [ peterhoeg ];
-    broken = true; # does not link against recent libldap versions and unmaintained since 2017
+    broken =
+      true; # does not link against recent libldap versions and unmaintained since 2017
   };
 }

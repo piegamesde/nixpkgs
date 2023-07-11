@@ -1,7 +1,4 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-}:
+{ lib, stdenvNoCC, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "pgf-umlcd";

@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "asterisk-mbox";
@@ -19,7 +16,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "asterisk_mbox" ];
 
   meta = with lib; {
-    description = "The client side of a client/server to interact with Asterisk voicemail mailboxes";
+    description =
+      "The client side of a client/server to interact with Asterisk voicemail mailboxes";
     homepage = "https://github.com/PhracturedBlue/asterisk_mbox";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ dotlambda ];

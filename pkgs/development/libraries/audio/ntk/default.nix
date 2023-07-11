@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cairo, libjpeg, libXft, pkg-config, python3, wafHook }:
+{ lib, stdenv, fetchFromGitHub, cairo, libjpeg, libXft, pkg-config, python3
+, wafHook }:
 
 stdenv.mkDerivation rec {
   pname = "ntk";
@@ -11,9 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config wafHook ];
-  buildInputs = [
-    cairo libjpeg libXft python3
-  ];
+  buildInputs = [ cairo libjpeg libXft python3 ];
 
   meta = {
     description = "Fork of FLTK 1.3.0 with additional functionality";

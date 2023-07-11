@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, into-dbus-python
-, dbus-python
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, into-dbus-python, dbus-python
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "dbus-python-client-gen";
@@ -21,21 +15,17 @@ buildPythonPackage rec {
     hash = "sha256-4Y4cL254ZlZKF6d6cStIOya3J4ZfypuumwKOdDNzuNc=";
   };
 
-  propagatedBuildInputs = [
-    into-dbus-python
-    dbus-python
-  ];
+  propagatedBuildInputs = [ into-dbus-python dbus-python ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "dbus_python_client_gen" ];
 
   meta = with lib; {
     description = "A Python library for generating dbus-python client code";
     homepage = "https://github.com/stratis-storage/dbus-python-client-gen";
-    changelog = "https://github.com/stratis-storage/dbus-python-client-gen/blob/v${version}/CHANGES.txt";
+    changelog =
+      "https://github.com/stratis-storage/dbus-python-client-gen/blob/v${version}/CHANGES.txt";
     license = licenses.mpl20;
     maintainers = with maintainers; [ nickcao ];
   };

@@ -1,9 +1,4 @@
-{ rustPlatform
-, fetchFromGitHub
-, lib
-, fd
-, libqalculate
-}:
+{ rustPlatform, fetchFromGitHub, lib, fd, libqalculate }:
 
 rustPlatform.buildRustPackage rec {
   pname = "pop-launcher";

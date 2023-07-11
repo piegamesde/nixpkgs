@@ -1,25 +1,6 @@
-{ lib
-, stdenv
-, mkDerivation
-, fetchFromGitHub
-, cmake
-, boost
-, cgal_5
-, eigen
-, flann
-, gdal
-, gmp
-, LASzip
-, mpfr
-, pdal
-, pcl
-, qtbase
-, qtsvg
-, qttools
-, tbb
-, xercesc
-, wrapGAppsHook
-}:
+{ lib, stdenv, mkDerivation, fetchFromGitHub, cmake, boost, cgal_5, eigen, flann
+, gdal, gmp, LASzip, mpfr, pdal, pcl, qtbase, qtsvg, qttools, tbb, xercesc
+, wrapGAppsHook }:
 
 mkDerivation rec {
   pname = "cloudcompare";

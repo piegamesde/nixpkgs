@@ -1,55 +1,30 @@
-{ lib
-, stdenv
-, fetchurl
-, cmake
-, ninja
-, p7zip
-, pkg-config
-, asciidoctor
-, gettext
+{ lib, stdenv, fetchurl, cmake, ninja, p7zip, pkg-config, asciidoctor, gettext
 
-, SDL2
-, libtheora
-, libvorbis
-, libopus
-, openal
-, openalSoft
-, physfs
-, miniupnpc
-, libsodium
-, curl
-, libpng
-, freetype
-, harfbuzz
-, sqlite
-, which
-, vulkan-headers
-, vulkan-loader
-, shaderc
+, SDL2, libtheora, libvorbis, libopus, openal, openalSoft, physfs, miniupnpc
+, libsodium, curl, libpng, freetype, harfbuzz, sqlite, which, vulkan-headers
+, vulkan-loader, shaderc
 
-, testers
-, warzone2100
-, nixosTests
+, testers, warzone2100, nixosTests
 
 , gitUpdater
 
-, withVideos ? false
-}:
+, withVideos ? false }:
 
 let
   pname = "warzone2100";
   sequences_src = fetchurl {
-    url = "mirror://sourceforge/${pname}/warzone2100/Videos/high-quality-en/sequences.wz";
+    url =
+      "mirror://sourceforge/${pname}/warzone2100/Videos/high-quality-en/sequences.wz";
     sha256 = "90ff552ca4a70e2537e027e22c5098ea4ed1bc11bb7fc94138c6c941a73d29fa";
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit pname;
-  version  = "4.3.5";
+  version = "4.3.5";
 
   src = fetchurl {
-    url = "mirror://sourceforge/${pname}/releases/${version}/${pname}_src.tar.xz";
+    url =
+      "mirror://sourceforge/${pname}/releases/${version}/${pname}_src.tar.xz";
     sha256 = "sha256-AdYI9vljjhTXyFffQK0znBv8IHoF2q/nFXrYZSo0BcM=";
   };
 
@@ -68,20 +43,10 @@ stdenv.mkDerivation rec {
     freetype
     harfbuzz
     sqlite
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    vulkan-headers
-    vulkan-loader
-  ];
+  ] ++ lib.optionals (!stdenv.isDarwin) [ vulkan-headers vulkan-loader ];
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    ninja
-    p7zip
-    asciidoctor
-    gettext
-    shaderc
-  ];
+  nativeBuildInputs =
+    [ pkg-config cmake ninja p7zip asciidoctor gettext shaderc ];
 
   postPatch = ''
     substituteInPlace lib/exceptionhandler/dumpinfo.cpp \
@@ -117,9 +82,8 @@ stdenv.mkDerivation rec {
     nixosTest = nixosTests.warzone2100;
   };
 
-  passthru.updateScript = gitUpdater {
-    url = "https://github.com/Warzone2100/warzone2100";
-  };
+  passthru.updateScript =
+    gitUpdater { url = "https://github.com/Warzone2100/warzone2100"; };
 
   meta = with lib; {
     description = "A free RTS game, originally developed by Pumpkin Studios";

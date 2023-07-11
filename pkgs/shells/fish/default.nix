@@ -1,32 +1,12 @@
-{ stdenv
-, lib
-, fetchurl
-, fetchpatch
-, coreutils
-, which
-, gnused
-, gnugrep
-, groff
-, gawk
-, man-db
-, getent
-, libiconv
-, pcre2
-, gettext
-, ncurses
-, python3
-, cmake
-, fishPlugins
-, procps
+{ stdenv, lib, fetchurl, fetchpatch, coreutils, which, gnused, gnugrep, groff
+, gawk, man-db, getent, libiconv, pcre2, gettext, ncurses, python3, cmake
+, fishPlugins, procps
 
 # used to generate autocompletions from manpages and for configuration editing in the browser
 , usePython ? true
 
-, runCommand
-, writeText
-, nixosTests
-, nix-update-script
-, useOperatingSystemEtc ? true
+, runCommand, writeText, nixosTests, nix-update-script, useOperatingSystemEtc ?
+  true
   # An optional string containing Fish code that initializes the environment.
   # This is run at the very beginning of initialization. If it sets $NIX_PROFILES
   # then Fish will use that to configure its function, completion, and conf.d paths.
@@ -35,8 +15,7 @@
   # It can also be a function that takes one argument, which is a function that
   # takes a path to a bash file and converts it to fish. For example:
   #   fishEnvPreInit = source: source "${nix}/etc/profile.d/nix-daemon.sh";
-, fishEnvPreInit ? null
-}:
+, fishEnvPreInit ? null }:
 let
   etcConfigAppendix = writeText "config.fish.appendix" ''
     ############### ↓ Nix hook for sourcing /etc/fish/config.fish ↓ ###############
@@ -82,11 +61,14 @@ let
     builtin status --is-login
     or test -z "$__fish_nixos_env_preinit_sourced" -a -z "$ETC_PROFILE_SOURCED" -a -z "$ETC_ZSHENV_SOURCED"
     ${if fishEnvPreInit != null then ''
-    and begin
-    ${lib.removeSuffix "\n" (if lib.isFunction fishEnvPreInit then fishEnvPreInit sourceWithFenv else fishEnvPreInit)}
-    end'' else ''
-    and test -f /etc/fish/nixos-env-preinit.fish
-    and source /etc/fish/nixos-env-preinit.fish''}
+      and begin
+      ${lib.removeSuffix "\n" (if lib.isFunction fishEnvPreInit then
+        fishEnvPreInit sourceWithFenv
+      else
+        fishEnvPreInit)}
+      end'' else ''
+        and test -f /etc/fish/nixos-env-preinit.fish
+        and source /etc/fish/nixos-env-preinit.fish''}
     and set -gx __fish_nixos_env_preinit_sourced 1
 
     test -n "$NIX_PROFILES"
@@ -144,7 +126,8 @@ let
       # the shell's actual version (and what it displays when running `fish
       # --version`), as well as the local documentation for all builtins (and
       # maybe other things).
-      url = "https://github.com/fish-shell/fish-shell/releases/download/${version}/${pname}-${version}.tar.xz";
+      url =
+        "https://github.com/fish-shell/fish-shell/releases/download/${version}/${pname}-${version}.tar.xz";
       hash = "sha256-VUArtHymc52KuiXkF4CQW1zhvOCl4N0X3KkItbwLSbI=";
     };
 
@@ -193,22 +176,13 @@ let
 
     outputs = [ "out" "doc" ];
     strictDeps = true;
-    nativeBuildInputs = [
-      cmake
-      gettext
-    ];
+    nativeBuildInputs = [ cmake gettext ];
 
-    buildInputs = [
-      ncurses
-      libiconv
-      pcre2
-    ];
+    buildInputs = [ ncurses libiconv pcre2 ];
 
-    cmakeFlags = [
-      "-DCMAKE_INSTALL_DOCDIR=${placeholder "doc"}/share/doc/fish"
-    ] ++ lib.optionals stdenv.isDarwin [
-      "-DMAC_CODESIGN_ID=OFF"
-    ];
+    cmakeFlags =
+      [ "-DCMAKE_INSTALL_DOCDIR=${placeholder "doc"}/share/doc/fish" ]
+      ++ lib.optionals stdenv.isDarwin [ "-DMAC_CODESIGN_ID=OFF" ];
 
     # The optional string is kind of an inelegant way to get fish to cross compile.
     # Fish needs coreutils as a runtime dependency, and it gets put into
@@ -221,71 +195,64 @@ let
     '';
 
     # Required binaries during execution
-    propagatedBuildInputs = [
-      coreutils
-      gnugrep
-      gnused
-      groff
-      gettext
-    ] ++ lib.optional (!stdenv.isDarwin) man-db;
+    propagatedBuildInputs = [ coreutils gnugrep gnused groff gettext ]
+      ++ lib.optional (!stdenv.isDarwin) man-db;
 
     doCheck = true;
 
-    nativeCheckInputs = [
-      coreutils
-      (python3.withPackages (ps: [ ps.pexpect ]))
-      procps
-    ];
+    nativeCheckInputs =
+      [ coreutils (python3.withPackages (ps: [ ps.pexpect ])) procps ];
 
     checkPhase = ''
       make test
     '';
 
-    postInstall = with lib; ''
-      sed -r "s|command grep|command ${gnugrep}/bin/grep|" \
-          -i "$out/share/fish/functions/grep.fish"
-      sed -e "s|\|cut|\|${coreutils}/bin/cut|"             \
-          -i "$out/share/fish/functions/fish_prompt.fish"
-      sed -e "s|uname|${coreutils}/bin/uname|"             \
-          -i "$out/share/fish/functions/__fish_pwd.fish"   \
-             "$out/share/fish/functions/prompt_pwd.fish"
-      sed -e "s|sed |${gnused}/bin/sed |"                  \
-          -i "$out/share/fish/functions/alias.fish"        \
-             "$out/share/fish/functions/prompt_pwd.fish"
-      sed -i "s|nroff|${groff}/bin/nroff|"                 \
-             "$out/share/fish/functions/__fish_print_help.fish"
-      sed -e "s|clear;|${getBin ncurses}/bin/clear;|"      \
-          -i "$out/share/fish/functions/fish_default_key_bindings.fish"
-      sed -i "s|/usr/local/sbin /sbin /usr/sbin||"         \
-             $out/share/fish/completions/{sudo.fish,doas.fish}
-      sed -e "s| awk | ${gawk}/bin/awk |"                  \
-          -i $out/share/fish/functions/{__fish_print_packages.fish,__fish_print_addresses.fish,__fish_describe_command.fish,__fish_complete_man.fish,__fish_complete_convert_options.fish} \
-             $out/share/fish/completions/{cwebp,adb,ezjail-admin,grunt,helm,heroku,lsusb,make,p4,psql,rmmod,vim-addons}.fish
+    postInstall = with lib;
+      ''
+        sed -r "s|command grep|command ${gnugrep}/bin/grep|" \
+            -i "$out/share/fish/functions/grep.fish"
+        sed -e "s|\|cut|\|${coreutils}/bin/cut|"             \
+            -i "$out/share/fish/functions/fish_prompt.fish"
+        sed -e "s|uname|${coreutils}/bin/uname|"             \
+            -i "$out/share/fish/functions/__fish_pwd.fish"   \
+               "$out/share/fish/functions/prompt_pwd.fish"
+        sed -e "s|sed |${gnused}/bin/sed |"                  \
+            -i "$out/share/fish/functions/alias.fish"        \
+               "$out/share/fish/functions/prompt_pwd.fish"
+        sed -i "s|nroff|${groff}/bin/nroff|"                 \
+               "$out/share/fish/functions/__fish_print_help.fish"
+        sed -e "s|clear;|${getBin ncurses}/bin/clear;|"      \
+            -i "$out/share/fish/functions/fish_default_key_bindings.fish"
+        sed -i "s|/usr/local/sbin /sbin /usr/sbin||"         \
+               $out/share/fish/completions/{sudo.fish,doas.fish}
+        sed -e "s| awk | ${gawk}/bin/awk |"                  \
+            -i $out/share/fish/functions/{__fish_print_packages.fish,__fish_print_addresses.fish,__fish_describe_command.fish,__fish_complete_man.fish,__fish_complete_convert_options.fish} \
+               $out/share/fish/completions/{cwebp,adb,ezjail-admin,grunt,helm,heroku,lsusb,make,p4,psql,rmmod,vim-addons}.fish
 
-    '' + optionalString usePython ''
-      cat > $out/share/fish/functions/__fish_anypython.fish <<EOF
-      function __fish_anypython
-          echo ${python3.interpreter}
-          return 0
-      end
-      EOF
+      '' + optionalString usePython ''
+        cat > $out/share/fish/functions/__fish_anypython.fish <<EOF
+        function __fish_anypython
+            echo ${python3.interpreter}
+            return 0
+        end
+        EOF
 
-    '' + optionalString stdenv.isLinux ''
-      for cur in $out/share/fish/functions/*.fish; do
-        sed -e "s|/usr/bin/getent|${getent}/bin/getent|" \
-            -i "$cur"
-      done
+      '' + optionalString stdenv.isLinux ''
+        for cur in $out/share/fish/functions/*.fish; do
+          sed -e "s|/usr/bin/getent|${getent}/bin/getent|" \
+              -i "$cur"
+        done
 
-    '' + optionalString (!stdenv.isDarwin) ''
-      sed -i "s|Popen(\['manpath'|Popen(\['${man-db}/bin/manpath'|" \
-              "$out/share/fish/tools/create_manpage_completions.py"
-      sed -i "s|command manpath|command ${man-db}/bin/manpath|"     \
-              "$out/share/fish/functions/man.fish"
-    '' + optionalString useOperatingSystemEtc ''
-      tee -a $out/etc/fish/config.fish < ${etcConfigAppendix}
-    '' + ''
-      tee -a $out/share/fish/__fish_build_paths.fish < ${fishPreInitHooks}
-    '';
+      '' + optionalString (!stdenv.isDarwin) ''
+        sed -i "s|Popen(\['manpath'|Popen(\['${man-db}/bin/manpath'|" \
+                "$out/share/fish/tools/create_manpage_completions.py"
+        sed -i "s|command manpath|command ${man-db}/bin/manpath|"     \
+                "$out/share/fish/functions/man.fish"
+      '' + optionalString useOperatingSystemEtc ''
+        tee -a $out/etc/fish/config.fish < ${etcConfigAppendix}
+      '' + ''
+        tee -a $out/share/fish/__fish_build_paths.fish < ${fishPreInitHooks}
+      '';
 
     meta = with lib; {
       description = "Smart and user-friendly command line shell";
@@ -302,8 +269,8 @@ let
 
         # Test the fish_config tool by checking the generated splash page.
         # Since the webserver requires a port to run, it is not started.
-        fishConfig =
-          let fishScript = writeText "test.fish" ''
+        fishConfig = let
+          fishScript = writeText "test.fish" ''
             set -x __fish_bin_dir ${fish}/bin
             echo $__fish_bin_dir
             cp -r ${fish}/share/fish/tools/web_config/* .
@@ -325,14 +292,12 @@ let
 
             # cannot test the http server because it needs a localhost port
           '';
-          in
-          runCommand "test-web-config" { } ''
-            HOME=$(mktemp -d)
-            ${fish}/bin/fish ${fishScript} && touch $out
-          '';
+        in runCommand "test-web-config" { } ''
+          HOME=$(mktemp -d)
+          ${fish}/bin/fish ${fishScript} && touch $out
+        '';
       };
       updateScript = nix-update-script { };
     };
   };
-in
-fish
+in fish

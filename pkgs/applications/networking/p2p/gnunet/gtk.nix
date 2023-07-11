@@ -1,15 +1,5 @@
-{ stdenv, fetchurl
-, glade
-, gnunet
-, gnutls
-, gtk3
-, libextractor
-, libgcrypt
-, libsodium
-, libxml2
-, pkg-config
-, wrapGAppsHook
-}:
+{ stdenv, fetchurl, glade, gnunet, gnutls, gtk3, libextractor, libgcrypt
+, libsodium, libxml2, pkg-config, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "gnunet-gtk";
@@ -20,21 +10,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-FLLlqpQ7Bf+oNRUvx7IniVxFusy/tPYxEP2T6VGF7h8=";
   };
 
-  nativeBuildInputs= [
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
 
-  buildInputs = [
-    glade
-    gnunet
-    gnutls
-    gtk3
-    libextractor
-    libgcrypt
-    libsodium
-    libxml2
-  ];
+  buildInputs =
+    [ glade gnunet gnutls gtk3 libextractor libgcrypt libsodium libxml2 ];
 
   configureFlags = [ "--with-gnunet=${gnunet}" ];
 

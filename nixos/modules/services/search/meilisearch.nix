@@ -2,11 +2,9 @@
 
 with lib;
 
-let
-  cfg = config.services.meilisearch;
+let cfg = config.services.meilisearch;
 
-in
-{
+in {
 
   meta.maintainers = with maintainers; [ Br1ght0ne happysalada ];
   meta.doc = ./meilisearch.md;
@@ -17,7 +15,8 @@ in
     enable = mkEnableOption (lib.mdDoc "MeiliSearch - a RESTful search API");
 
     package = mkOption {
-      description = lib.mdDoc "The package to use for meilisearch. Use this if you require specific features to be enabled. The default package has no features.";
+      description = lib.mdDoc
+        "The package to use for meilisearch. Use this if you require specific features to be enabled. The default package has no features.";
       default = pkgs.meilisearch;
       defaultText = lib.literalExpression "pkgs.meilisearch";
       type = types.package;
@@ -123,7 +122,8 @@ in
         ExecStart = "${cfg.package}/bin/meilisearch";
         DynamicUser = true;
         StateDirectory = "meilisearch";
-        EnvironmentFile = mkIf (cfg.masterKeyEnvironmentFile != null) cfg.masterKeyEnvironmentFile;
+        EnvironmentFile = mkIf (cfg.masterKeyEnvironmentFile != null)
+          cfg.masterKeyEnvironmentFile;
       };
     };
   };

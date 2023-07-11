@@ -4,16 +4,15 @@ with lib;
 
 let
   cfg = config.services.snipe-it;
-  snipe-it = pkgs.snipe-it.override {
-    dataDir = cfg.dataDir;
-  };
+  snipe-it = pkgs.snipe-it.override { dataDir = cfg.dataDir; };
   db = cfg.database;
   mail = cfg.mail;
 
   user = cfg.user;
   group = cfg.group;
 
-  tlsEnabled = cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME;
+  tlsEnabled = cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL
+    || cfg.nginx.enableACME;
 
   # shell script for local administration
   artisan = pkgs.writeScriptBin "snipe-it" ''
@@ -28,7 +27,8 @@ let
 in {
   options.services.snipe-it = {
 
-    enable = mkEnableOption (lib.mdDoc "A free open source IT asset/license management system");
+    enable = mkEnableOption
+      (lib.mdDoc "A free open source IT asset/license management system");
 
     user = mkOption {
       default = "snipeit";
@@ -116,7 +116,8 @@ in {
       createLocally = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Create the database and database user locally.";
+        description =
+          lib.mdDoc "Create the database and database user locally.";
       };
     };
 
@@ -159,30 +160,31 @@ in {
       backupNotificationAddress = mkOption {
         type = types.str;
         default = "backup@example.com";
-        description = lib.mdDoc "Email Address to send Backup Notifications to.";
+        description =
+          lib.mdDoc "Email Address to send Backup Notifications to.";
       };
       from = {
         name = mkOption {
           type = types.str;
           default = "Snipe-IT Asset Management";
-          description = lib.mdDoc "Mail \"from\" name.";
+          description = lib.mdDoc ''Mail "from" name.'';
         };
         address = mkOption {
           type = types.str;
           default = "mail@example.com";
-          description = lib.mdDoc "Mail \"from\" address.";
+          description = lib.mdDoc ''Mail "from" address.'';
         };
       };
       replyTo = {
         name = mkOption {
           type = types.str;
           default = "Snipe-IT Asset Management";
-          description = lib.mdDoc "Mail \"reply-to\" name.";
+          description = lib.mdDoc ''Mail "reply-to" name.'';
         };
         address = mkOption {
           type = types.str;
           default = "mail@example.com";
-          description = lib.mdDoc "Mail \"reply-to\" address.";
+          description = lib.mdDoc ''Mail "reply-to" address.'';
         };
       };
     };
@@ -211,11 +213,10 @@ in {
     };
 
     nginx = mkOption {
-      type = types.submodule (
-        recursiveUpdate
-          (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) {}
-      );
-      default = {};
+      type = types.submodule (recursiveUpdate
+        (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
+        { });
+      default = { };
       example = literalExpression ''
         {
           serverAliases = [
@@ -233,29 +234,19 @@ in {
 
     config = mkOption {
       type = with types;
-        attrsOf
-          (nullOr
-            (either
-              (oneOf [
-                bool
-                int
-                port
-                path
-                str
-              ])
-              (submodule {
-                options = {
-                  _secret = mkOption {
-                    type = nullOr (oneOf [ str path ]);
-                    description = lib.mdDoc ''
-                      The path to a file containing the value the
-                      option should be set to in the final
-                      configuration file.
-                    '';
-                  };
-                };
-              })));
-      default = {};
+        attrsOf (nullOr (either (oneOf [ bool int port path str ]) (submodule {
+          options = {
+            _secret = mkOption {
+              type = nullOr (oneOf [ str path ]);
+              description = lib.mdDoc ''
+                The path to a file containing the value the
+                option should be set to in the final
+                configuration file.
+              '';
+            };
+          };
+        })));
+      default = { };
       example = literalExpression ''
         {
           ALLOWED_IFRAME_HOSTS = "https://example.com";
@@ -290,11 +281,15 @@ in {
   config = mkIf cfg.enable {
 
     assertions = [
-      { assertion = db.createLocally -> db.user == user;
-        message = "services.snipe-it.database.user must be set to ${user} if services.snipe-it.database.createLocally is set true.";
+      {
+        assertion = db.createLocally -> db.user == user;
+        message =
+          "services.snipe-it.database.user must be set to ${user} if services.snipe-it.database.createLocally is set true.";
       }
-      { assertion = db.createLocally -> db.passwordFile == null;
-        message = "services.snipe-it.database.passwordFile cannot be specified if services.snipe-it.database.createLocally is set to true.";
+      {
+        assertion = db.createLocally -> db.passwordFile == null;
+        message =
+          "services.snipe-it.database.passwordFile cannot be specified if services.snipe-it.database.createLocally is set to true.";
       }
     ];
 
@@ -332,11 +327,10 @@ in {
       enable = true;
       package = mkDefault pkgs.mariadb;
       ensureDatabases = [ db.name ];
-      ensureUsers = [
-        { name = db.user;
-          ensurePermissions = { "${db.name}.*" = "ALL PRIVILEGES"; };
-        }
-      ];
+      ensureUsers = [{
+        name = db.user;
+        ensurePermissions = { "${db.name}.*" = "ALL PRIVILEGES"; };
+      }];
     };
 
     services.phpfpm.pools.snipe-it = {
@@ -355,29 +349,38 @@ in {
 
     services.nginx = {
       enable = mkDefault true;
-      virtualHosts."${cfg.hostName}" = mkMerge [ cfg.nginx {
-        root = mkForce "${snipe-it}/public";
-        extraConfig = optionalString (cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME) "fastcgi_param HTTPS on;";
-        locations = {
-          "/" = {
-            index = "index.php";
-            extraConfig = ''try_files $uri $uri/ /index.php?$query_string;'';
+      virtualHosts."${cfg.hostName}" = mkMerge [
+        cfg.nginx
+        {
+          root = mkForce "${snipe-it}/public";
+          extraConfig = optionalString (cfg.nginx.addSSL || cfg.nginx.forceSSL
+            || cfg.nginx.onlySSL || cfg.nginx.enableACME)
+            "fastcgi_param HTTPS on;";
+          locations = {
+            "/" = {
+              index = "index.php";
+              extraConfig = "try_files $uri $uri/ /index.php?$query_string;";
+            };
+            "~ .php$" = {
+              extraConfig = ''
+                try_files $uri $uri/ /index.php?$query_string;
+                include ${config.services.nginx.package}/conf/fastcgi_params;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                fastcgi_param REDIRECT_STATUS 200;
+                fastcgi_pass unix:${
+                  config.services.phpfpm.pools."snipe-it".socket
+                };
+                ${optionalString (cfg.nginx.addSSL || cfg.nginx.forceSSL
+                  || cfg.nginx.onlySSL || cfg.nginx.enableACME)
+                "fastcgi_param HTTPS on;"}
+              '';
+            };
+            "~ .(js|css|gif|png|ico|jpg|jpeg)$" = {
+              extraConfig = "expires 365d;";
+            };
           };
-          "~ \.php$" = {
-            extraConfig = ''
-              try_files $uri $uri/ /index.php?$query_string;
-              include ${config.services.nginx.package}/conf/fastcgi_params;
-              fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-              fastcgi_param REDIRECT_STATUS 200;
-              fastcgi_pass unix:${config.services.phpfpm.pools."snipe-it".socket};
-              ${optionalString (cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME) "fastcgi_param HTTPS on;"}
-            '';
-          };
-          "~ \.(js|css|gif|png|ico|jpg|jpeg)$" = {
-            extraConfig = "expires 365d;";
-          };
-        };
-      }];
+        }
+      ];
     };
 
     systemd.services.snipe-it-setup = {
@@ -394,70 +397,84 @@ in {
         RuntimeDirectoryMode = "0700";
       };
       path = [ pkgs.replace-secret ];
-      script =
-        let
-          isSecret  = v: isAttrs v && v ? _secret && (isString v._secret || builtins.isPath v._secret);
-          snipeITEnvVars = lib.generators.toKeyValue {
-            mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" {
-              mkValueString = v: with builtins;
-                if isInt             v then toString v
-                else if isString     v then "\"${v}\""
-                else if true  ==     v then "true"
-                else if false ==     v then "false"
-                else if isSecret     v then
-                  if (isString v._secret) then
-                    hashString "sha256" v._secret
-                  else
-                    hashString "sha256" (builtins.readFile v._secret)
-                else throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty {}) v}";
-            };
-          };
-          secretPaths = lib.mapAttrsToList (_: v: v._secret) (lib.filterAttrs (_: isSecret) cfg.config);
-          mkSecretReplacement = file: ''
-            replace-secret ${escapeShellArgs [
-              (
-                if (isString file) then
-                  builtins.hashString "sha256" file
+      script = let
+        isSecret = v:
+          isAttrs v && v ? _secret
+          && (isString v._secret || builtins.isPath v._secret);
+        snipeITEnvVars = lib.generators.toKeyValue {
+          mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" {
+            mkValueString = v:
+              with builtins;
+              if isInt v then
+                toString v
+              else if isString v then
+                ''"${v}"''
+              else if true == v then
+                "true"
+              else if false == v then
+                "false"
+              else if isSecret v then
+                if (isString v._secret) then
+                  hashString "sha256" v._secret
                 else
-                  builtins.hashString "sha256" (builtins.readFile file)
-              )
+                  hashString "sha256" (builtins.readFile v._secret)
+              else
+                throw "unsupported type ${typeOf v}: ${
+                  (lib.generators.toPretty { }) v
+                }";
+          };
+        };
+        secretPaths = lib.mapAttrsToList (_: v: v._secret)
+          (lib.filterAttrs (_: isSecret) cfg.config);
+        mkSecretReplacement = file: ''
+          replace-secret ${
+            escapeShellArgs [
+              (if (isString file) then
+                builtins.hashString "sha256" file
+              else
+                builtins.hashString "sha256" (builtins.readFile file))
               file
               "${cfg.dataDir}/.env"
-            ]}
-          '';
-          secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
-          filteredConfig = lib.converge (lib.filterAttrsRecursive (_: v: ! elem v [ {} null ])) cfg.config;
-          snipeITEnv = pkgs.writeText "snipeIT.env" (snipeITEnvVars filteredConfig);
-        in ''
-          # error handling
-          set -euo pipefail
-
-          # set permissions
-          umask 077
-
-          # create .env file
-          install -T -m 0600 -o ${user} ${snipeITEnv} "${cfg.dataDir}/.env"
-
-          # replace secrets
-          ${secretReplacements}
-
-          # prepend `base64:` if it does not exist in APP_KEY
-          if ! grep 'APP_KEY=base64:' "${cfg.dataDir}/.env" >/dev/null; then
-              sed -i 's/APP_KEY=/APP_KEY=base64:/' "${cfg.dataDir}/.env"
-          fi
-
-          # purge cache
-          rm "${cfg.dataDir}"/bootstrap/cache/*.php || true
-
-          # migrate db
-          ${pkgs.php}/bin/php artisan migrate --force
-
-          # A placeholder file for invalid barcodes
-          invalid_barcode_location="${cfg.dataDir}/public/uploads/barcodes/invalid_barcode.gif"
-          if [ ! -e "$invalid_barcode_location" ]; then
-              cp ${snipe-it}/share/snipe-it/invalid_barcode.gif "$invalid_barcode_location"
-          fi
+            ]
+          }
         '';
+        secretReplacements =
+          lib.concatMapStrings mkSecretReplacement secretPaths;
+        filteredConfig =
+          lib.converge (lib.filterAttrsRecursive (_: v: !elem v [ { } null ]))
+          cfg.config;
+        snipeITEnv =
+          pkgs.writeText "snipeIT.env" (snipeITEnvVars filteredConfig);
+      in ''
+        # error handling
+        set -euo pipefail
+
+        # set permissions
+        umask 077
+
+        # create .env file
+        install -T -m 0600 -o ${user} ${snipeITEnv} "${cfg.dataDir}/.env"
+
+        # replace secrets
+        ${secretReplacements}
+
+        # prepend `base64:` if it does not exist in APP_KEY
+        if ! grep 'APP_KEY=base64:' "${cfg.dataDir}/.env" >/dev/null; then
+            sed -i 's/APP_KEY=/APP_KEY=base64:/' "${cfg.dataDir}/.env"
+        fi
+
+        # purge cache
+        rm "${cfg.dataDir}"/bootstrap/cache/*.php || true
+
+        # migrate db
+        ${pkgs.php}/bin/php artisan migrate --force
+
+        # A placeholder file for invalid barcodes
+        invalid_barcode_location="${cfg.dataDir}/public/uploads/barcodes/invalid_barcode.gif"
+        if [ ! -e "$invalid_barcode_location" ]; then
+            cp ${snipe-it}/share/snipe-it/invalid_barcode.gif "$invalid_barcode_location"
+        fi
+      '';
     };
 
     systemd.tmpfiles.rules = [
@@ -499,9 +516,7 @@ in {
         };
         "${config.services.nginx.user}".extraGroups = [ group ];
       };
-      groups = mkIf (group == "snipeit") {
-        snipeit = {};
-      };
+      groups = mkIf (group == "snipeit") { snipeit = { }; };
     };
 
   };

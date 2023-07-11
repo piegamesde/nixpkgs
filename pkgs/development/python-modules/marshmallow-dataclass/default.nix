@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, marshmallow
-, marshmallow-enum
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
-, typeguard
-, typing-inspect
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, marshmallow, marshmallow-enum
+, pytestCheckHook, pythonAtLeast, pythonOlder, typeguard, typing-inspect }:
 
 buildPythonPackage rec {
   pname = "marshmallow-dataclass";
@@ -24,16 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-ckz2EQj8gtD+YxNCxisswfSu9FcD//ZeSZRrLBhrld0=";
   };
 
-  propagatedBuildInputs = [
-    marshmallow
-    typing-inspect
-  ];
+  propagatedBuildInputs = [ marshmallow typing-inspect ];
 
-  nativeCheckInputs = [
-    marshmallow-enum
-    pytestCheckHook
-    typeguard
-  ];
+  nativeCheckInputs = [ marshmallow-enum pytestCheckHook typeguard ];
 
   pytestFlagsArray = [
     # DeprecationWarning: The distutils package is deprecated and slated for removal in Python 3.12.
@@ -46,14 +30,14 @@ buildPythonPackage rec {
     "test_newtype"
   ];
 
-  pythonImportsCheck = [
-    "marshmallow_dataclass"
-  ];
+  pythonImportsCheck = [ "marshmallow_dataclass" ];
 
   meta = with lib; {
-    description = "Automatic generation of marshmallow schemas from dataclasses";
+    description =
+      "Automatic generation of marshmallow schemas from dataclasses";
     homepage = "https://github.com/lovasoa/marshmallow_dataclass";
-    changelog = "https://github.com/lovasoa/marshmallow_dataclass/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/lovasoa/marshmallow_dataclass/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

@@ -18,7 +18,8 @@ buildGoModule rec {
   vendorSha256 = "sha256-n9XNqXIoqn+f0xKCenJWXUYXtQhtbNBar68onWH/WV4=";
 
   meta = with lib; {
-    description = "RSS/Atom reader with the focus on speed, usability and a bit of unix philosophy";
+    description =
+      "RSS/Atom reader with the focus on speed, usability and a bit of unix philosophy";
     homepage = "https://sr.ht/~ghost08/photon";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ kmein ];

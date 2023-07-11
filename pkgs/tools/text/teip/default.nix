@@ -1,10 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, installShellFiles
-, perl
-, stdenv
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, perl, stdenv }:
 
 rustPlatform.buildRustPackage rec {
   pname = "teip";
@@ -42,7 +36,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "A tool to bypass a partial range of standard input to any command";
+    description =
+      "A tool to bypass a partial range of standard input to any command";
     homepage = "https://github.com/greymd/teip";
     changelog = "https://github.com/greymd/teip/releases/tag/v${version}";
     license = licenses.mit;

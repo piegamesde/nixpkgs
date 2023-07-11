@@ -1,21 +1,17 @@
 { stdenv, lib, buildGoModule, fetchFromGitHub }:
-let
-  version = "1.5.2";
-in
-buildGoModule {
+let version = "1.5.2";
+in buildGoModule {
   pname = "ktunnel";
   inherit version;
 
   src = fetchFromGitHub {
-    owner  = "omrikiei";
-    repo   = "ktunnel";
-    rev    = "v${version}";
+    owner = "omrikiei";
+    repo = "ktunnel";
+    rev = "v${version}";
     sha256 = "sha256-QZL3TSvxSPuBjjATAqoAOZNBSB6NCGfHHG2dq8C4Wwk=";
   };
 
-  ldflags = [
-    "-s" "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   vendorHash = "sha256-Q8t/NWGeUB1IpxdsxvyvbYh/adtcA4p+7bcCy9YFjsw=";
 

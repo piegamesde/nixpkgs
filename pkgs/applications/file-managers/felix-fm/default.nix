@@ -1,11 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, bzip2
-, zstd
-, zoxide
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, bzip2, zstd, zoxide }:
 
 rustPlatform.buildRustPackage rec {
   pname = "felix";
@@ -27,10 +20,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    bzip2
-    zstd
-  ];
+  buildInputs = [ bzip2 zstd ];
 
   nativeCheckInputs = [ zoxide ];
 
@@ -46,7 +36,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A tui file manager with vim-like key mapping";
     homepage = "https://github.com/kyoheiu/felix";
-    changelog = "https://github.com/kyoheiu/felix/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/kyoheiu/felix/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
     mainProgram = "fx";

@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gradle_7
-, perl
-, makeWrapper
-, writeText
-, jdk
-, gsettings-desktop-schemas
-}:
+{ lib, stdenv, fetchFromGitHub, gradle_7, perl, makeWrapper, writeText, jdk
+, gsettings-desktop-schemas }:
 
 let
   version = "1.2.0-1";
@@ -52,8 +44,7 @@ let
     outputHash = "sha256-T4UhEzkaYh237+ZsoQTv1RgqcAKY4dPc/3x+dEie4A8=";
   };
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "mucommander";
   inherit version src postPatch;
   nativeBuildInputs = [ gradle_7 perl makeWrapper ];

@@ -1,19 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, desktop-file-utils
-, glib
-, gtk4
-, meson
-, ninja
-, pkg-config
-, rustPlatform
-, wrapGAppsHook4
-, gtksourceview5
-, libadwaita
-, libpanel
-, vte-gtk4
-}:
+{ lib, stdenv, fetchFromGitHub, desktop-file-utils, glib, gtk4, meson, ninja
+, pkg-config, rustPlatform, wrapGAppsHook4, gtksourceview5, libadwaita, libpanel
+, vte-gtk4 }:
 
 stdenv.mkDerivation rec {
   pname = "pods";
@@ -26,9 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GTRHysG1zPr6MorGoSKYq8TgAdTH/bU/AxVrP2Ghqec=";
   };
 
-  cargoDeps = rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
-  };
+  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
 
   nativeBuildInputs = [
     desktop-file-utils
@@ -43,13 +28,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [
-    gtk4
-    gtksourceview5
-    libadwaita
-    libpanel
-    vte-gtk4
-  ];
+  buildInputs = [ gtk4 gtksourceview5 libadwaita libpanel vte-gtk4 ];
 
   meta = with lib; {
     description = "A podman desktop application";

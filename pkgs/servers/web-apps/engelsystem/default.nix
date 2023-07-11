@@ -3,8 +3,7 @@
 let
   phpExt = php.withExtensions
     ({ enabled, all }: with all; [ filter mysqlnd mysqli pdo pdo_mysql ]);
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "engelsystem";
   version = "3.3.0";
 
@@ -43,7 +42,8 @@ stdenv.mkDerivation rec {
     description =
       "Coordinate your volunteers in teams, assign them to work shifts or let them decide for themselves when and where they want to help with what";
     homepage = "https://engelsystem.de";
-    changelog = "https://github.com/engelsystem/engelsystem/releases/tag/v${version}";
+    changelog =
+      "https://github.com/engelsystem/engelsystem/releases/tag/v${version}";
     license = licenses.gpl2;
     maintainers = with maintainers; [ kloenk ];
     mainProgram = "migrate";

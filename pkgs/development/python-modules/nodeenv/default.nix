@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, mock
-, pytestCheckHook
-, python
-, pythonOlder
-, setuptools
-, which
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, mock, pytestCheckHook, python
+, pythonOlder, setuptools, which }:
 
 buildPythonPackage rec {
   pname = "nodeenv";
@@ -23,23 +15,18 @@ buildPythonPackage rec {
     hash = "sha256-X30PUiOMT/vXqmdSJKHTNNA8aLWavCUaKa7LzqkdLrk=";
   };
 
-  propagatedBuildInputs = [
-    setuptools
-  ];
+  propagatedBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   preFixup = ''
     substituteInPlace $out/${python.sitePackages}/nodeenv.py \
-      --replace '["which", candidate]' '["${lib.getBin which}/bin/which", candidate]'
+      --replace '["which", candidate]' '["${
+        lib.getBin which
+      }/bin/which", candidate]'
   '';
 
-  pythonImportsCheck = [
-    "nodeenv"
-  ];
+  pythonImportsCheck = [ "nodeenv" ];
 
   disabledTests = [
     # Test requires coverage

@@ -1,33 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, cmake
-, clang
-, hip
-, rocm-device-libs
-, rocprofiler
-, libxml2
-, doxygen
-, graphviz
-, gcc-unwrapped
-, rocm-runtime
-, python3Packages
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, clang, hip
+, rocm-device-libs, rocprofiler, libxml2, doxygen, graphviz, gcc-unwrapped
+, rocm-runtime, python3Packages
 , buildDocs ? false # Nothing seems to be generated, so not making the output
-, buildTests ? false
-}:
+, buildTests ? false }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "roctracer";
   version = "5.4.3";
 
-  outputs = [
-    "out"
-  ] ++ lib.optionals buildDocs [
-    "doc"
-  ] ++ lib.optionals buildTests [
-    "test"
-  ];
+  outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ]
+    ++ lib.optionals buildTests [ "test" ];
 
   src = fetchFromGitHub {
     owner = "ROCm-Developer-Tools";
@@ -36,14 +18,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-5vYUNczylB2ehlvhq1u/H8KUXt8ku2E+jawKrKsU7LY=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    clang
-    hip
-  ] ++ lib.optionals buildDocs [
-    doxygen
-    graphviz
-  ];
+  nativeBuildInputs = [ cmake clang hip ]
+    ++ lib.optionals buildDocs [ doxygen graphviz ];
 
   buildInputs = [
     rocm-device-libs
@@ -84,8 +60,10 @@ stdenv.mkDerivation (finalAttrs: {
     # Not sure why this is an install target
     find $out/test -executable -type f -exec mv {} $test/bin \;
     rm $test/bin/{*.sh,*.py}
-    patchelf --set-rpath $out/lib:${lib.makeLibraryPath (
-      finalAttrs.buildInputs ++ [ hip gcc-unwrapped.lib rocm-runtime ])} $test/bin/*
+    patchelf --set-rpath $out/lib:${
+      lib.makeLibraryPath
+      (finalAttrs.buildInputs ++ [ hip gcc-unwrapped.lib rocm-runtime ])
+    } $test/bin/*
     rm -rf $out/test
   '';
 

@@ -1,12 +1,5 @@
-{ lib
-, aiohttp
-, asyncio-throttle
-, awesomeversion
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, aiohttp, asyncio-throttle, awesomeversion, buildPythonPackage
+, fetchFromGitHub, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aiohue";
@@ -22,20 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-DzslGfKwsXXWWhbTb0apJCsnNdnUe7AbvrRT8ZnPbVU=";
   };
 
-  propagatedBuildInputs = [
-    awesomeversion
-    aiohttp
-    asyncio-throttle
-  ];
+  propagatedBuildInputs = [ awesomeversion aiohttp asyncio-throttle ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "aiohue"
-    "aiohue.discovery"
-  ];
+  pythonImportsCheck = [ "aiohue" "aiohue.discovery" ];
 
   disabledTestPaths = [
     # File are prefixed with test_
@@ -45,7 +29,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python package to talk to Philips Hue";
     homepage = "https://github.com/home-assistant-libs/aiohue";
-    changelog = "https://github.com/home-assistant-libs/aiohue/releases/tag/${version}";
+    changelog =
+      "https://github.com/home-assistant-libs/aiohue/releases/tag/${version}";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

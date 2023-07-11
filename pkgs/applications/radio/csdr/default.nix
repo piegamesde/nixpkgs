@@ -1,6 +1,4 @@
-{ stdenv, lib, fetchFromGitHub
-, cmake, pkg-config, fftwFloat, libsamplerate
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, fftwFloat, libsamplerate }:
 
 stdenv.mkDerivation rec {
   pname = "csdr";
@@ -13,15 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Cmms+kQzTP+CMDRXCbtWuizosFe9FywLobjBOUA79O0=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  propagatedBuildInputs = [
-    fftwFloat
-    libsamplerate
-  ];
+  propagatedBuildInputs = [ fftwFloat libsamplerate ];
 
   hardeningDisable = lib.optional stdenv.isAarch64 "format";
 
@@ -33,7 +25,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/jketterl/csdr";
-    description = "A simple DSP library and command-line tool for Software Defined Radio";
+    description =
+      "A simple DSP library and command-line tool for Software Defined Radio";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
     broken = stdenv.isDarwin;

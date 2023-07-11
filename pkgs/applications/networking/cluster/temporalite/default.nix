@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "temporalite";
@@ -27,7 +24,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "An experimental distribution of Temporal that runs as a single process";
+    description =
+      "An experimental distribution of Temporal that runs as a single process";
     homepage = "https://github.com/temporalio/temporalite";
     license = licenses.mit;
     maintainers = with maintainers; [ lucperkins ];

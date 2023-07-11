@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-ndk";
@@ -20,7 +16,10 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Cargo extension for building Android NDK projects";
     homepage = "https://github.com/bbqsrc/cargo-ndk";
-    license = with licenses; [ asl20 /* or */ mit ];
+    license = with licenses; [
+      asl20 # or
+      mit
+    ];
     maintainers = with maintainers; [ mglolenstine ];
     platforms = platforms.linux;
   };

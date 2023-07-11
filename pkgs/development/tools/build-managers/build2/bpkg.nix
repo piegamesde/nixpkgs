@@ -1,15 +1,6 @@
-{ lib, stdenv
-, build2
-, fetchurl
-, git
-, libbpkg
-, libbutl
-, libodb
-, libodb-sqlite
-, openssl
-, enableShared ? !stdenv.hostPlatform.isStatic
-, enableStatic ? !enableShared
-}:
+{ lib, stdenv, build2, fetchurl, git, libbpkg, libbutl, libodb, libodb-sqlite
+, openssl, enableShared ? !stdenv.hostPlatform.isStatic
+, enableStatic ? !enableShared }:
 
 stdenv.mkDerivation rec {
   pname = "bpkg";
@@ -23,20 +14,9 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    build2
-  ];
-  buildInputs = [
-    build2
-    libbpkg
-    libbutl
-    libodb
-    libodb-sqlite
-  ];
-  nativeCheckInputs = [
-    git
-    openssl
-  ];
+  nativeBuildInputs = [ build2 ];
+  buildInputs = [ build2 libbpkg libbutl libodb libodb-sqlite ];
+  nativeCheckInputs = [ git openssl ];
 
   doCheck = !stdenv.isDarwin; # tests hang
 
@@ -45,12 +25,13 @@ stdenv.mkDerivation rec {
     rm tests/rep-create.testscript
   '';
 
-  build2ConfigureFlags = [
-    "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}"
-  ];
+  build2ConfigureFlags =
+    [ "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}" ];
 
   postInstall = lib.optionalString stdenv.isDarwin ''
-    install_name_tool -add_rpath '${lib.getLib build2}/lib' "''${!outputBin}/bin/bpkg"
+    install_name_tool -add_rpath '${
+      lib.getLib build2
+    }/lib' "''${!outputBin}/bin/bpkg"
   '';
 
   meta = with lib; {

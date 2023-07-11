@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmark-gfm
-, xxd
-, fastJson
-, libzip
-, ninja
-, meson
-, pkg-config
-}:
+{ lib, stdenv, fetchFromGitHub, cmark-gfm, xxd, fastJson, libzip, ninja, meson
+, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "mmdoc";

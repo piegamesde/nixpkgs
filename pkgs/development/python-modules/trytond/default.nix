@@ -1,27 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, defusedxml
-, lxml
-, relatorio
-, genshi
-, python-dateutil
-, polib
-, python-sql
-, werkzeug
-, wrapt
-, passlib
-, pydot
-, levenshtein
-, html2text
-, weasyprint
-, gevent
-, pillow
-, withPostgresql ? true
-, psycopg2
-, unittestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, defusedxml, lxml, relatorio
+, genshi, python-dateutil, polib, python-sql, werkzeug, wrapt, passlib, pydot
+, levenshtein, html2text, weasyprint, gevent, pillow, withPostgresql ? true
+, psycopg2, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "trytond";
@@ -55,9 +35,9 @@ buildPythonPackage rec {
     gevent
     pillow
   ] ++ relatorio.optional-dependencies.fodt
-  ++ passlib.optional-dependencies.bcrypt
-  ++ passlib.optional-dependencies.argon2
-  ++ lib.optional withPostgresql psycopg2;
+    ++ passlib.optional-dependencies.bcrypt
+    ++ passlib.optional-dependencies.argon2
+    ++ lib.optional withPostgresql psycopg2;
 
   nativeCheckInputs = [ unittestCheckHook ];
 

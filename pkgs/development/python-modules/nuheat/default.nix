@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, mock
-, parameterized
-, pytestCheckHook
-, pythonOlder
-, requests
-, responses
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, mock, parameterized, pytestCheckHook
+, pythonOlder, requests, responses }:
 
 buildPythonPackage rec {
   pname = "nuheat";
@@ -23,25 +15,18 @@ buildPythonPackage rec {
     hash = "sha256-EsPuwILfKc1Bpvu0Qos7yooC3dBaqf46lWhiSZdu3sc=";
   };
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
-    mock
-    parameterized
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ mock parameterized pytestCheckHook responses ];
 
-  pythonImportsCheck = [
-    "nuheat"
-  ];
+  pythonImportsCheck = [ "nuheat" ];
 
   meta = with lib; {
-    description = "Library to interact with NuHeat Signature and Mapei Mapeheat radiant floor thermostats";
+    description =
+      "Library to interact with NuHeat Signature and Mapei Mapeheat radiant floor thermostats";
     homepage = "https://github.com/broox/python-nuheat";
-    changelog = "https://github.com/broox/python-nuheat/releases/tag/${version}";
+    changelog =
+      "https://github.com/broox/python-nuheat/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

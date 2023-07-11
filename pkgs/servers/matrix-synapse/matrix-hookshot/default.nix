@@ -1,20 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchYarnDeps
-, makeWrapper
-, matrix-sdk-crypto-nodejs
-, mkYarnPackage
-, rust
-, rustPlatform
-, napi-rs-cli
-, nodejs
-}:
+{ lib, stdenv, fetchFromGitHub, fetchYarnDeps, makeWrapper
+, matrix-sdk-crypto-nodejs, mkYarnPackage, rust, rustPlatform, napi-rs-cli
+, nodejs }:
 
-let
-  data = lib.importJSON ./pin.json;
-in
-mkYarnPackage rec {
+let data = lib.importJSON ./pin.json;
+in mkYarnPackage rec {
   pname = "matrix-hookshot";
   version = data.version;
 
@@ -39,7 +28,8 @@ mkYarnPackage rec {
   };
 
   packageResolutions = {
-    "@matrix-org/matrix-sdk-crypto-nodejs" = "${matrix-sdk-crypto-nodejs}/lib/node_modules/@matrix-org/matrix-sdk-crypto-nodejs";
+    "@matrix-org/matrix-sdk-crypto-nodejs" =
+      "${matrix-sdk-crypto-nodejs}/lib/node_modules/@matrix-org/matrix-sdk-crypto-nodejs";
   };
 
   nativeBuildInputs = [
@@ -53,7 +43,9 @@ mkYarnPackage rec {
   buildPhase = ''
     runHook preBuild
     cd deps/${pname}
-    napi build --target ${rust.toRustTargetSpec stdenv.targetPlatform} --dts ../src/libRs.d.ts --release ./lib
+    napi build --target ${
+      rust.toRustTargetSpec stdenv.targetPlatform
+    } --dts ../src/libRs.d.ts --release ./lib
     yarn run build:app:fix-defs
     yarn run build:app
     yarn run build:web
@@ -69,7 +61,8 @@ mkYarnPackage rec {
   doDist = false;
 
   meta = with lib; {
-    description = "A bridge between Matrix and multiple project management services, such as GitHub, GitLab and JIRA";
+    description =
+      "A bridge between Matrix and multiple project management services, such as GitHub, GitLab and JIRA";
     maintainers = with maintainers; [ chvp ];
     license = licenses.asl20;
   };

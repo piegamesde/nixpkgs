@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, ninja
-, wrapQtAppsHook
-, wayland
-, wayland-protocols
-, qtwayland
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, ninja, wrapQtAppsHook, wayland
+, wayland-protocols, qtwayland }:
 
 stdenv.mkDerivation rec {
   pname = "fwbuilder";
@@ -27,17 +19,9 @@ stdenv.mkDerivation rec {
     substituteInPlace CMakeLists.txt --replace ';-Werror;' ';'
   '';
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake ninja wrapQtAppsHook ];
 
-  buildInputs = [
-    wayland
-    wayland-protocols
-    qtwayland
-  ];
+  buildInputs = [ wayland wayland-protocols qtwayland ];
 
   meta = with lib; {
     description = "GUI Firewall Management Application";

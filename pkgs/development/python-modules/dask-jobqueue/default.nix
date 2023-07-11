@@ -1,15 +1,5 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, cryptography
-, dask
-, distributed
-, docrep
-, fetchPypi
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-}:
+{ stdenv, lib, buildPythonPackage, cryptography, dask, distributed, docrep
+, fetchPypi, pytest-asyncio, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "dask-jobqueue";
@@ -23,17 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-Fv0bZGoHOtPedd3hKg3+UpuDbyGjvbzuKoi+8k6REqc=";
   };
 
-  propagatedBuildInputs = [
-    dask
-    distributed
-    docrep
-  ];
+  propagatedBuildInputs = [ dask distributed docrep ];
 
-  nativeCheckInputs = [
-    cryptography
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ cryptography pytest-asyncio pytestCheckHook ];
 
   disabledTests = [
     # Tests have additional requirements (e.g., sge, etc.)
@@ -73,9 +55,7 @@ buildPythonPackage rec {
     "test_wrong_parameter_error"
   ];
 
-  pythonImportsCheck = [
-    "dask_jobqueue"
-  ];
+  pythonImportsCheck = [ "dask_jobqueue" ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

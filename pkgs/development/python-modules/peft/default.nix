@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, setuptools
-, numpy
-, packaging
-, psutil
-, pyyaml
-, torch
-, transformers
-, accelerate
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
+, setuptools, numpy, packaging, psutil, pyyaml, torch, transformers, accelerate
 }:
 
 buildPythonPackage rec {
@@ -29,20 +18,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    numpy
-    packaging
-    psutil
-    pyyaml
-    torch
-    transformers
-    accelerate
-  ];
+  propagatedBuildInputs =
+    [ numpy packaging psutil pyyaml torch transformers accelerate ];
 
-  doCheck = false;  # tried to download pretrained model
-  pythonImportsCheck = [
-    "peft"
-  ];
+  doCheck = false; # tried to download pretrained model
+  pythonImportsCheck = [ "peft" ];
 
   meta = with lib; {
     homepage = "https://github.com/huggingface/peft";

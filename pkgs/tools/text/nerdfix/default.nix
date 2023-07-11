@@ -1,7 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "nerdfix";
@@ -17,9 +14,11 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-hza+Vuxg9iIcXaYlPuhxZsxJ3EnYrjHzdWthXyCnEYc=";
 
   meta = with lib; {
-    description = "Nerdfix helps you to find/fix obsolete nerd font icons in your project";
+    description =
+      "Nerdfix helps you to find/fix obsolete nerd font icons in your project";
     homepage = "https://github.com/loichyan/nerdfix";
-    changelog = "https://github.com/loichyan/nerdfix/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/loichyan/nerdfix/blob/${src.rev}/CHANGELOG.md";
     license = with licenses; [ asl20 mit ];
     maintainers = with maintainers; [ figsoda ];
   };

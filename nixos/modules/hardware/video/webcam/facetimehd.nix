@@ -8,11 +8,10 @@ let
 
   kernelPackages = config.boot.kernelPackages;
 
-in
+in {
 
-{
-
-  options.hardware.facetimehd.enable = mkEnableOption (lib.mdDoc "facetimehd kernel module");
+  options.hardware.facetimehd.enable =
+    mkEnableOption (lib.mdDoc "facetimehd kernel module");
 
   options.hardware.facetimehd.withCalibration = mkOption {
     default = false;

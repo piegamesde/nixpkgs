@@ -1,17 +1,6 @@
-{ lib
-, buildPythonPackage
-, click
-, click-log
-, fetchFromGitHub
-, pure-pcapy3
-, pyserial-asyncio
-, pytest-asyncio
-, pytest-timeout
-, pytestCheckHook
-, pythonOlder
-, voluptuous
-, zigpy
-}:
+{ lib, buildPythonPackage, click, click-log, fetchFromGitHub, pure-pcapy3
+, pyserial-asyncio, pytest-asyncio, pytest-timeout, pytestCheckHook, pythonOlder
+, voluptuous, zigpy }:
 
 buildPythonPackage rec {
   pname = "bellows";
@@ -27,24 +16,12 @@ buildPythonPackage rec {
     hash = "sha256-I9PXFdRXHQ7OnzCdB631nlfnkpConl+j5Z3iiH7RcA4=";
   };
 
-  propagatedBuildInputs = [
-    click
-    click-log
-    pure-pcapy3
-    pyserial-asyncio
-    voluptuous
-    zigpy
-  ];
+  propagatedBuildInputs =
+    [ click click-log pure-pcapy3 pyserial-asyncio voluptuous zigpy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-asyncio
-    pytest-timeout
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-asyncio pytest-timeout ];
 
-  pythonImportsCheck = [
-    "bellows"
-  ];
+  pythonImportsCheck = [ "bellows" ];
 
   meta = with lib; {
     description = "Python module to implement EZSP for EmberZNet devices";

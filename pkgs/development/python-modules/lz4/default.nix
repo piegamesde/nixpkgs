@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pkgconfig
-, psutil
-, pytestCheckHook
-, python
-, pythonOlder
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pkgconfig, psutil, pytestCheckHook
+, python, pythonOlder, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "python-lz4";
@@ -30,22 +22,11 @@ buildPythonPackage rec {
     sed -i '/pytest-cov/d' setup.py
   '';
 
-  nativeBuildInputs = [
-    pkgconfig
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ pkgconfig setuptools-scm ];
 
-  pythonImportsCheck = [
-    "lz4"
-    "lz4.block"
-    "lz4.frame"
-    "lz4.stream"
-  ];
+  pythonImportsCheck = [ "lz4" "lz4.block" "lz4.frame" "lz4.stream" ];
 
-  nativeCheckInputs = [
-    psutil
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ psutil pytestCheckHook ];
 
   # for lz4.steam
   PYLZ4_EXPERIMENTAL = true;
@@ -59,7 +40,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "LZ4 Bindings for Python";
     homepage = "https://github.com/python-lz4/python-lz4";
-    changelog = "https://github.com/python-lz4/python-lz4/releases/tag/v${version}";
+    changelog =
+      "https://github.com/python-lz4/python-lz4/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ costrouc ];
   };

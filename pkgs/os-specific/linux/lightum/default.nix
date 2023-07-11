@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, libX11, libXScrnSaver, libXext, glib, dbus, pkg-config, systemd }:
+{ lib, stdenv, fetchFromGitHub, libX11, libXScrnSaver, libXext, glib, dbus
+, pkg-config, systemd }:
 
 stdenv.mkDerivation {
   pname = "lightum";
@@ -13,14 +14,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    dbus
-    glib
-    libX11
-    libXScrnSaver
-    libXext
-    systemd
-  ];
+  buildInputs = [ dbus glib libX11 libXScrnSaver libXext systemd ];
 
   patchPhase = ''
     substituteInPlace Makefile \

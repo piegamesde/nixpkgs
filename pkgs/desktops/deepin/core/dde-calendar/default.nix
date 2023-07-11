@@ -1,19 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchpatch
-, dtkwidget
-, qt5integration
-, qt5platform-plugins
-, dde-qt-dbus-factory
-, cmake
-, qttools
-, pkg-config
-, wrapQtAppsHook
-, runtimeShell
-, qtbase
-, gtest
-}:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, dtkwidget, qt5integration
+, qt5platform-plugins, dde-qt-dbus-factory, cmake, qttools, pkg-config
+, wrapQtAppsHook, runtimeShell, qtbase, gtest }:
 
 stdenv.mkDerivation rec {
   pname = "dde-calendar";
@@ -29,7 +16,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "chore-use-GNUInstallDirs-in-CmakeLists.patch";
-      url = "https://github.com/linuxdeepin/dde-calendar/commit/b9d9555d90a36318eeee62ece49250b4bf8acd10.patch";
+      url =
+        "https://github.com/linuxdeepin/dde-calendar/commit/b9d9555d90a36318eeee62ece49250b4bf8acd10.patch";
       sha256 = "sha256-pvgxZPczs/lkwNjysNuVu+1AY69VZlxOn7hR9A02/3M=";
     })
   ];
@@ -50,26 +38,15 @@ stdenv.mkDerivation rec {
       --replace "ADD_SUBDIRECTORY(tests)" " "
   '';
 
-  nativeBuildInputs = [
-    cmake
-    qttools
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake qttools pkg-config wrapQtAppsHook ];
 
-  buildInputs = [
-    dtkwidget
-    qt5platform-plugins
-    dde-qt-dbus-factory
-    gtest
-  ];
+  buildInputs = [ dtkwidget qt5platform-plugins dde-qt-dbus-factory gtest ];
 
   cmakeFlags = [ "-DVERSION=${version}" ];
 
   # qt5integration must be placed before qtsvg in QT_PLUGIN_PATH
-  qtWrapperArgs = [
-    "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}"
-  ];
+  qtWrapperArgs =
+    [ "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}" ];
 
   postFixup = ''
     wrapQtApp $out/lib/deepin-daemon/dde-calendar-service

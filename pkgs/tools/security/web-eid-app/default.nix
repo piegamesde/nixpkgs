@@ -1,13 +1,5 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, cmake
-, gtest
-, pcsclite
-, pkg-config
-, qmake
-, qttranslations
-}:
+{ lib, mkDerivation, fetchFromGitHub, cmake, gtest, pcsclite, pkg-config, qmake
+, qttranslations }:
 
 mkDerivation rec {
   pname = "web-eid-app";
@@ -21,10 +13,7 @@ mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [
     gtest # required during build of lib/libelectronic-id/lib/libpcsc-cpp
@@ -33,7 +22,8 @@ mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "signing and authentication operations with smart cards for the Web eID browser extension";
+    description =
+      "signing and authentication operations with smart cards for the Web eID browser extension";
     longDescription = ''
       The Web eID application performs cryptographic digital signing and
       authentication operations with electronic ID smart cards for the Web eID

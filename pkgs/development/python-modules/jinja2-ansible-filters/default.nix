@@ -1,7 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi
-, jinja2
-, pyyaml
-}:
+{ lib, buildPythonPackage, fetchPypi, jinja2, pyyaml }:
 
 buildPythonPackage rec {
   pname = "jinja2-ansible-filters";
@@ -12,10 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-B8EM9E1wc/TwEQLKEtmi3DG0HUfkxh7ZLvam0mabNWs=";
   };
 
-  propagatedBuildInputs = [
-    jinja2
-    pyyaml
-  ];
+  propagatedBuildInputs = [ jinja2 pyyaml ];
 
   # no tests include in sdist, and source not available
   doCheck = false;

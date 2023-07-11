@@ -1,14 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytest-aiohttp
-, pytestCheckHook
-, pythonOlder
-, voluptuous
-, vcrpy
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, poetry-core, pytest-aiohttp
+, pytestCheckHook, pythonOlder, voluptuous, vcrpy }:
 
 buildPythonPackage rec {
   pname = "python-awair";
@@ -25,16 +16,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    voluptuous
-  ];
+  propagatedBuildInputs = [ aiohttp voluptuous ];
 
-  nativeCheckInputs = [
-    pytest-aiohttp
-    pytestCheckHook
-    vcrpy
-  ];
+  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook vcrpy ];
 
   pythonImportsCheck = [ "python_awair" ];
 

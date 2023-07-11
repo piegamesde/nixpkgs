@@ -1,29 +1,16 @@
-{ config, lib, stdenv
-, fetchurl
-, autoPatchelfHook
-, makeWrapper
+{ config, lib, stdenv, fetchurl, autoPatchelfHook, makeWrapper
 
-, alsa-lib
-, curl
-, gtk3
-, lame
-, libxml2
-, ffmpeg
-, vlc
-, xdg-utils
-, xdotool
-, which
+, alsa-lib, curl, gtk3, lame, libxml2, ffmpeg, vlc, xdg-utils, xdotool, which
 
-, jackSupport ? true
-, jackLibrary
-, pulseaudioSupport ? config.pulseaudio or true
-, libpulseaudio
-}:
+, jackSupport ? true, jackLibrary, pulseaudioSupport ? config.pulseaudio or true
+, libpulseaudio }:
 
 let
-  url_for_platform = version: arch: "https://www.reaper.fm/files/${lib.versions.major version}.x/reaper${builtins.replaceStrings ["."] [""] version}_linux_${arch}.tar.xz";
-in
-stdenv.mkDerivation rec {
+  url_for_platform = version: arch:
+    "https://www.reaper.fm/files/${lib.versions.major version}.x/reaper${
+      builtins.replaceStrings [ "." ] [ "" ] version
+    }_linux_${arch}.tar.xz";
+in stdenv.mkDerivation rec {
   pname = "reaper";
   version = "6.79";
 
@@ -50,9 +37,8 @@ stdenv.mkDerivation rec {
 
   runtimeDependencies = [
     gtk3 # libSwell needs libgdk-3.so.0
-  ]
-  ++ lib.optional jackSupport jackLibrary
-  ++ lib.optional pulseaudioSupport libpulseaudio;
+  ] ++ lib.optional jackSupport jackLibrary
+    ++ lib.optional pulseaudioSupport libpulseaudio;
 
   dontBuild = true;
 
@@ -73,7 +59,17 @@ stdenv.mkDerivation rec {
     # We opt for wrapping the executable with LD_LIBRARY_PATH prefix.
     # Note that libcurl and libxml2 are needed for ReaPack to run.
     wrapProgram $out/opt/REAPER/reaper \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ curl lame libxml2 ffmpeg vlc xdotool stdenv.cc.cc.lib ]}"
+      --prefix LD_LIBRARY_PATH : "${
+        lib.makeLibraryPath [
+          curl
+          lame
+          libxml2
+          ffmpeg
+          vlc
+          xdotool
+          stdenv.cc.cc.lib
+        ]
+      }"
 
     mkdir $out/bin
     ln -s $out/opt/REAPER/reaper $out/bin/
@@ -90,6 +86,12 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = [ "x86_64-linux" "aarch64-linux" ];
-    maintainers = with maintainers; [ jfrankenau ilian orivej uniquepointer viraptor ];
+    maintainers = with maintainers; [
+      jfrankenau
+      ilian
+      orivej
+      uniquepointer
+      viraptor
+    ];
   };
 }

@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, poetry-core
-, setuptools
-, shapely
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, setuptools
+, shapely, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "preprocess-cancellation";
@@ -22,9 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-mn3/etXA5dkL+IsyxwD4/XjU/t4/roYFVyqQxlLOoOI=";
   };
 
-  patches = [
-    ./pep-621.patch
-  ];
+  patches = [ ./pep-621.patch ];
 
   postPatch = ''
     sed -i "/^addopts/d" pyproject.toml
@@ -39,18 +30,11 @@ buildPythonPackage rec {
       --replace "./GCode" "./tests/GCode"
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-    setuptools
-  ];
+  nativeBuildInputs = [ poetry-core setuptools ];
 
-  propagatedBuildInputs = [
-    shapely
-  ];
+  propagatedBuildInputs = [ shapely ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "preprocess_cancellation" ];
 

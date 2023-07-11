@@ -1,9 +1,5 @@
-{
-  mkDerivation, lib, kdepimTeam,
-  extra-cmake-modules, kdoctools,
-  kiconthemes, kparts, kwindowsystem, kxmlgui,
-  qtx11extras
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, kiconthemes
+, kparts, kwindowsystem, kxmlgui, qtx11extras }:
 
 mkDerivation {
   pname = "kontactinterface";
@@ -12,9 +8,7 @@ mkDerivation {
     maintainers = kdepimTeam;
   };
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
-  buildInputs = [
-    kiconthemes kwindowsystem kxmlgui qtx11extras
-  ];
+  buildInputs = [ kiconthemes kwindowsystem kxmlgui qtx11extras ];
   propagatedBuildInputs = [ kparts ];
   postInstall = ''
     # added as an include directory by cmake files and fails to compile if it's missing

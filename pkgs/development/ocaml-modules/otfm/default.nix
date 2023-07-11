@@ -4,9 +4,8 @@ let
   pname = "otfm";
   version = "0.4.0";
   webpage = "https://erratique.ch/software/${pname}";
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
 
   pname = "ocaml${ocaml.version}-${pname}";
   inherit version;

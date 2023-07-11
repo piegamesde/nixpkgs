@@ -1,19 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gettext
-, libnl
-, ncurses
-, pciutils
-, pkg-config
-, zlib
-, autoreconfHook
-, autoconf-archive
-, nix-update-script
-, testers
-, powertop
-, xorg
-}:
+{ lib, stdenv, fetchFromGitHub, gettext, libnl, ncurses, pciutils, pkg-config
+, zlib, autoreconfHook, autoconf-archive, nix-update-script, testers, powertop
+, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "powertop";
@@ -33,7 +20,9 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace src/main.cpp --replace "/sbin/modprobe" "modprobe"
-    substituteInPlace src/calibrate/calibrate.cpp --replace "/usr/bin/xset" "${lib.getExe xorg.xset}"
+    substituteInPlace src/calibrate/calibrate.cpp --replace "/usr/bin/xset" "${
+      lib.getExe xorg.xset
+    }"
     substituteInPlace src/tuning/bluetooth.cpp --replace "/usr/bin/hcitool" "hcitool"
   '';
 

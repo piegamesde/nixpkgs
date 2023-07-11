@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchgit, autoreconfHook, xorgproto, libX11, libXext
-, pixman, pkg-config, utilmacros, xorgserver
-}:
+{ lib, stdenv, fetchgit, autoreconfHook, xorgproto, libX11, libXext, pixman
+, pkg-config, utilmacros, xorgserver }:
 
 stdenv.mkDerivation {
   pname = "xf86-video-nested";
@@ -14,10 +13,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkg-config autoreconfHook ];
 
-  buildInputs =
-    [ xorgproto libX11 libXext pixman
-      utilmacros xorgserver
-    ];
+  buildInputs = [ xorgproto libX11 libXext pixman utilmacros xorgserver ];
 
   hardeningDisable = [ "fortify" ];
 

@@ -4,7 +4,8 @@ with lib;
 let
   cfg = config.services.openldap;
   openldap = cfg.package;
-  configDir = if cfg.configDir != null then cfg.configDir else "/etc/openldap/slapd.d";
+  configDir =
+    if cfg.configDir != null then cfg.configDir else "/etc/openldap/slapd.d";
 
   ldapValueType = let
     # Can't do types.either with multiple non-overlapping submodules, so define our own
@@ -25,63 +26,70 @@ let
     # We don't coerce to lists of single values, as some values must be unique
   in types.either singleLdapValueType (types.listOf singleLdapValueType);
 
-  ldapAttrsType =
-    let
-      options = {
-        attrs = mkOption {
-          type = types.attrsOf ldapValueType;
-          default = {};
-          description = lib.mdDoc "Attributes of the parent entry.";
-        };
-        children = mkOption {
-          # Hide the child attributes, to avoid infinite recursion in e.g. documentation
-          # Actual Nix evaluation is lazy, so this is not an issue there
-          type = let
-            hiddenOptions = lib.mapAttrs (name: attr: attr // { visible = false; }) options;
-          in types.attrsOf (types.submodule { options = hiddenOptions; });
-          default = {};
-          description = lib.mdDoc "Child entries of the current entry, with recursively the same structure.";
-          example = lib.literalExpression ''
-            {
-                "cn=schema" = {
-                # The attribute used in the DN must be defined
-                attrs = { cn = "schema"; };
-                children = {
-                    # This entry's DN is expanded to "cn=foo,cn=schema"
-                    "cn=foo" = { ... };
-                };
-                # These includes are inserted after "cn=schema", but before "cn=foo,cn=schema"
-                includes = [ ... ];
-                };
-            }
-          '';
-        };
-        includes = mkOption {
-          type = types.listOf types.path;
-          default = [];
-          description = lib.mdDoc ''
-            LDIF files to include after the parent's attributes but before its children.
-          '';
-        };
+  ldapAttrsType = let
+    options = {
+      attrs = mkOption {
+        type = types.attrsOf ldapValueType;
+        default = { };
+        description = lib.mdDoc "Attributes of the parent entry.";
       };
-    in types.submodule { inherit options; };
+      children = mkOption {
+        # Hide the child attributes, to avoid infinite recursion in e.g. documentation
+        # Actual Nix evaluation is lazy, so this is not an issue there
+        type = let
+          hiddenOptions =
+            lib.mapAttrs (name: attr: attr // { visible = false; }) options;
+        in types.attrsOf (types.submodule { options = hiddenOptions; });
+        default = { };
+        description = lib.mdDoc
+          "Child entries of the current entry, with recursively the same structure.";
+        example = lib.literalExpression ''
+          {
+              "cn=schema" = {
+              # The attribute used in the DN must be defined
+              attrs = { cn = "schema"; };
+              children = {
+                  # This entry's DN is expanded to "cn=foo,cn=schema"
+                  "cn=foo" = { ... };
+              };
+              # These includes are inserted after "cn=schema", but before "cn=foo,cn=schema"
+              includes = [ ... ];
+              };
+          }
+        '';
+      };
+      includes = mkOption {
+        type = types.listOf types.path;
+        default = [ ];
+        description = lib.mdDoc ''
+          LDIF files to include after the parent's attributes but before its children.
+        '';
+      };
+    };
+  in types.submodule { inherit options; };
 
-  valueToLdif = attr: values: let
-    listValues = if lib.isList values then values else lib.singleton values;
-  in map (value:
-    if lib.isAttrs value then
-      if lib.hasAttr "path" value
-      then "${attr}:< file://${value.path}"
-      else "${attr}:: ${value.base64}"
-    else "${attr}: ${lib.replaceStrings [ "\n" ] [ "\n " ] value}"
-  ) listValues;
+  valueToLdif = attr: values:
+    let listValues = if lib.isList values then values else lib.singleton values;
+    in map (value:
+      if lib.isAttrs value then
+        if lib.hasAttr "path" value then
+          "${attr}:< file://${value.path}"
+        else
+          "${attr}:: ${value.base64}"
+      else
+        "${attr}: ${lib.replaceStrings [ "\n" ] [ "\n " ] value}") listValues;
 
-  attrsToLdif = dn: { attrs, children, includes, ... }: [''
-    dn: ${dn}
-    ${lib.concatStringsSep "\n" (lib.flatten (lib.mapAttrsToList valueToLdif attrs))}
-  ''] ++ (map (path: "include: file://${path}\n") includes) ++ (
-    lib.flatten (lib.mapAttrsToList (name: value: attrsToLdif "${name},${dn}" value) children)
-  );
+  attrsToLdif = dn:
+    { attrs, children, includes, ... }:
+    [''
+      dn: ${dn}
+      ${lib.concatStringsSep "\n"
+      (lib.flatten (lib.mapAttrsToList valueToLdif attrs))}
+    ''] ++ (map (path: ''
+      include: file://${path}
+    '') includes) ++ (lib.flatten
+      (lib.mapAttrsToList (name: value: attrsToLdif "${name},${dn}" value)
+        children));
 in {
   options = {
     services.openldap = {
@@ -193,7 +201,7 @@ in {
 
       declarativeContents = mkOption {
         type = with types; attrsOf lines;
-        default = {};
+        default = { };
         description = lib.mdDoc ''
           Declarative contents for the LDAP database, in LDIF format by suffix.
 
@@ -230,9 +238,14 @@ in {
   meta.maintainers = with lib.maintainers; [ kwohlfahrt ];
 
   config = let
-    dbSettings = mapAttrs' (name: { attrs, ... }: nameValuePair attrs.olcSuffix attrs)
-      (filterAttrs (name: { attrs, ... }: (hasPrefix "olcDatabase=" name) && attrs ? olcSuffix) cfg.settings.children);
-    settingsFile = pkgs.writeText "config.ldif" (lib.concatStringsSep "\n" (attrsToLdif "cn=config" cfg.settings));
+    dbSettings =
+      mapAttrs' (name: { attrs, ... }: nameValuePair attrs.olcSuffix attrs)
+      (filterAttrs (name:
+        { attrs, ... }:
+        (hasPrefix "olcDatabase=" name) && attrs ? olcSuffix)
+        cfg.settings.children);
+    settingsFile = pkgs.writeText "config.ldif"
+      (lib.concatStringsSep "\n" (attrsToLdif "cn=config" cfg.settings));
     writeConfig = pkgs.writeShellScript "openldap-config" ''
       set -euo pipefail
 
@@ -246,7 +259,8 @@ in {
       chmod -R ${if cfg.mutableConfig then "u+rw" else "u+r-w"} ${configDir}
     '';
 
-    contentsFiles = mapAttrs (dn: ldif: pkgs.writeText "${dn}.ldif" ldif) cfg.declarativeContents;
+    contentsFiles = mapAttrs (dn: ldif: pkgs.writeText "${dn}.ldif" ldif)
+      cfg.declarativeContents;
     writeContents = pkgs.writeShellScript "openldap-load" ''
       set -euo pipefail
 
@@ -255,7 +269,7 @@ in {
     '';
   in mkIf cfg.enable {
     assertions = [{
-      assertion = (cfg.declarativeContents != {}) -> cfg.configDir == null;
+      assertion = (cfg.declarativeContents != { }) -> cfg.configDir == null;
       message = ''
         Declarative DB contents (${attrNames cfg.declarativeContents}) are not
         supported with user-managed configuration.
@@ -267,16 +281,18 @@ in {
         Declarative DB ${dn} does not exist in `services.openldap.settings`, or does not have
         `olcDbDirectory` configured.
       '';
-    }) (attrNames cfg.declarativeContents)) ++ (mapAttrsToList (dn: { olcDbDirectory ? null, ... }: {
-      # For forward compatibility with `DynamicUser`, and to avoid accidentally clobbering
-      # directories with `declarativeContents`.
-      assertion = (olcDbDirectory != null) ->
-      ((hasPrefix "/var/lib/openldap/" olcDbDirectory) && (olcDbDirectory != "/var/lib/openldap/"));
-      message = ''
-        Database ${dn} has `olcDbDirectory` (${olcDbDirectory}) that is not a subdirectory of
-        `/var/lib/openldap/`.
-      '';
-    }) dbSettings);
+    }) (attrNames cfg.declarativeContents)) ++ (mapAttrsToList (dn:
+      { olcDbDirectory ? null, ... }: {
+        # For forward compatibility with `DynamicUser`, and to avoid accidentally clobbering
+        # directories with `declarativeContents`.
+        assertion = (olcDbDirectory != null)
+          -> ((hasPrefix "/var/lib/openldap/" olcDbDirectory)
+            && (olcDbDirectory != "/var/lib/openldap/"));
+        message = ''
+          Database ${dn} has `olcDbDirectory` (${olcDbDirectory}) that is not a subdirectory of
+          `/var/lib/openldap/`.
+        '';
+      }) dbSettings);
     environment.systemPackages = [ openldap ];
 
     # Literal attributes must always be set
@@ -293,11 +309,7 @@ in {
 
     systemd.services.openldap = {
       description = "OpenLDAP Server Daemon";
-      documentation = [
-        "man:slapd"
-        "man:slapd-config"
-        "man:slapd-mdb"
-      ];
+      documentation = [ "man:slapd" "man:slapd-config" "man:slapd-mdb" ];
       wantedBy = [ "multi-user.target" ];
       after = [ "network-online.target" ];
       serviceConfig = {
@@ -307,12 +319,22 @@ in {
           "!${pkgs.coreutils}/bin/mkdir -p ${configDir}"
           "+${pkgs.coreutils}/bin/chown $USER ${configDir}"
         ] ++ (lib.optional (cfg.configDir == null) writeConfig)
-        ++ (mapAttrsToList (dn: content: lib.escapeShellArgs [
-          writeContents dn (getAttr dn dbSettings).olcDbDirectory content
-        ]) contentsFiles)
-        ++ [ "${openldap}/bin/slaptest -u -F ${configDir}" ];
+          ++ (mapAttrsToList (dn: content:
+            lib.escapeShellArgs [
+              writeContents
+              dn
+              (getAttr dn dbSettings).olcDbDirectory
+              content
+            ]) contentsFiles)
+          ++ [ "${openldap}/bin/slaptest -u -F ${configDir}" ];
         ExecStart = lib.escapeShellArgs ([
-          "${openldap}/libexec/slapd" "-d" "0" "-F" configDir "-h" (lib.concatStringsSep " " cfg.urlList)
+          "${openldap}/libexec/slapd"
+          "-d"
+          "0"
+          "-F"
+          configDir
+          "-h"
+          (lib.concatStringsSep " " cfg.urlList)
         ]);
         Type = "notify";
         # Fixes an error where openldap attempts to notify from a thread
@@ -320,8 +342,9 @@ in {
         #   Got notification message from PID 6378, but reception only permitted for main PID 6377
         NotifyAccess = "all";
         RuntimeDirectory = "openldap";
-        StateDirectory = ["openldap"]
-          ++ (map ({olcDbDirectory, ... }: removePrefix "/var/lib/" olcDbDirectory) (attrValues dbSettings));
+        StateDirectory = [ "openldap" ] ++ (map
+          ({ olcDbDirectory, ... }: removePrefix "/var/lib/" olcDbDirectory)
+          (attrValues dbSettings));
         StateDirectoryMode = "700";
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
         CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
@@ -335,8 +358,7 @@ in {
       };
     };
 
-    users.groups = lib.optionalAttrs (cfg.group == "openldap") {
-      openldap = {};
-    };
+    users.groups =
+      lib.optionalAttrs (cfg.group == "openldap") { openldap = { }; };
   };
 }

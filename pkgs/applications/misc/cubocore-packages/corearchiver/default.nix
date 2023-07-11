@@ -1,4 +1,5 @@
-{ mkDerivation, lib, fetchFromGitLab, qtbase, libarchive, libarchive-qt, cmake, ninja, libcprime, libcsys }:
+{ mkDerivation, lib, fetchFromGitLab, qtbase, libarchive, libarchive-qt, cmake
+, ninja, libcprime, libcsys }:
 
 mkDerivation rec {
   pname = "corearchiver";
@@ -11,18 +12,9 @@ mkDerivation rec {
     sha256 = "sha256-rn0rasFWSjgBIOpKIb35xsEewOfAQOr4kEiA1GhShg0=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ];
+  nativeBuildInputs = [ cmake ninja ];
 
-  buildInputs = [
-    qtbase
-    libarchive-qt
-    libarchive
-    libcprime
-    libcsys
-  ];
+  buildInputs = [ qtbase libarchive-qt libarchive libcprime libcsys ];
 
   meta = with lib; {
     description = "Archiver from the C Suite to create and extract archives";

@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, meson
-, ninja
-, pkg-config
-, vala
-, evolution-data-server
-, glib
-, granite
-, gtk3
-, libhandy
-, switchboard
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
+, vala, evolution-data-server, glib, granite, gtk3, libhandy, switchboard }:
 
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-onlineaccounts";
@@ -25,25 +12,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-IW6twvEbCzQbuNFnryHxer5rK5zYfbmilcLjHCV9ZsM=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    vala
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config vala ];
 
-  buildInputs = [
-    evolution-data-server
-    glib
-    granite
-    gtk3
-    libhandy
-    switchboard
-  ];
+  buildInputs =
+    [ evolution-data-server glib granite gtk3 libhandy switchboard ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Switchboard Online Accounts Plug";

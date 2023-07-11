@@ -1,68 +1,13 @@
-{ fetchurl
-, runCommand
-, lib
-, stdenv
-, pkg-config
-, gnome
-, gettext
-, gobject-introspection
-, cairo
-, colord
-, lcms2
-, pango
-, json-glib
-, libstartup_notification
-, libcanberra
-, ninja
-, xvfb-run
-, libxcvt
-, libICE
-, libX11
-, libXcomposite
-, libXcursor
-, libXdamage
-, libXext
-, libXfixes
-, libXi
-, libXtst
-, libxkbfile
-, xkeyboard_config
-, libxkbcommon
-, libXrender
-, libxcb
-, libXrandr
-, libXinerama
-, libXau
-, libinput
-, libdrm
-, gsettings-desktop-schemas
-, glib
-, atk
-, gtk4
-, fribidi
-, harfbuzz
-, gnome-desktop
-, pipewire
-, libgudev
-, libwacom
-, libSM
-, xwayland
-, mesa
-, meson
-, gnome-settings-daemon
-, xorgserver
-, python3
-, wrapGAppsHook4
-, gi-docgen
-, sysprof
-, libsysprof-capture
-, desktop-file-utils
-, libcap_ng
-, egl-wayland
-, graphene
-, wayland
-, wayland-protocols
-}:
+{ fetchurl, runCommand, lib, stdenv, pkg-config, gnome, gettext
+, gobject-introspection, cairo, colord, lcms2, pango, json-glib
+, libstartup_notification, libcanberra, ninja, xvfb-run, libxcvt, libICE, libX11
+, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXtst
+, libxkbfile, xkeyboard_config, libxkbcommon, libXrender, libxcb, libXrandr
+, libXinerama, libXau, libinput, libdrm, gsettings-desktop-schemas, glib, atk
+, gtk4, fribidi, harfbuzz, gnome-desktop, pipewire, libgudev, libwacom, libSM
+, xwayland, mesa, meson, gnome-settings-daemon, xorgserver, python3
+, wrapGAppsHook4, gi-docgen, sysprof, libsysprof-capture, desktop-file-utils
+, libcap_ng, egl-wayland, graphene, wayland, wayland-protocols }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mutter";
@@ -71,7 +16,9 @@ stdenv.mkDerivation (finalAttrs: {
   outputs = [ "out" "dev" "man" "devdoc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/mutter/${lib.versions.major finalAttrs.version}/mutter-${finalAttrs.version}.tar.xz";
+    url = "mirror://gnome/sources/mutter/${
+        lib.versions.major finalAttrs.version
+      }/mutter-${finalAttrs.version}.tar.xz";
     sha256 = "lzrq+rQvBvk0oJlPyEh4lYzbTSdmpMhnpczcVH3VcFY=";
   };
 
@@ -182,7 +129,7 @@ stdenv.mkDerivation (finalAttrs: {
     libdir = "${finalAttrs.finalPackage}/lib/mutter-12";
 
     tests = {
-      libdirExists = runCommand "mutter-libdir-exists" {} ''
+      libdirExists = runCommand "mutter-libdir-exists" { } ''
         if [[ ! -d ${finalAttrs.finalPackage.libdir} ]]; then
           echo "passthru.libdir should contain a directory, “${finalAttrs.finalPackage.libdir}” is not one."
           exit 1

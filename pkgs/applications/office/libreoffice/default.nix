@@ -1,143 +1,55 @@
-{ stdenv
-, fetchurl
-, lib
-, substituteAll
-, pam
-, python3
-, libxslt
-, perl
-, ArchiveZip
-, box2d
-, gettext
-, IOCompress
-, zlib
-, libjpeg
-, expat
-, freetype
-, libwpd
-, libxml2
-, db
-, curl
-, fontconfig
-, libsndfile
-, neon
-, bison
-, flex
-, zip
-, unzip
-, gtk3
-, libmspack
-, getopt
-, file
-, cairo
-, which
-, icu
-, boost
-, jdk17
-, ant
-, cups
-, xorg
-, fontforge
-, jre17_minimal
-, openssl
-, gperf
-, cppunit
-, poppler
-, util-linux
-, librsvg
-, libGLU
-, libGL
-, bsh
-, CoinMP
-, libwps
-, libabw
-, libmysqlclient
-, autoconf
-, automake
-, openldap
-, bash
-, hunspell
-, librdf_redland
-, nss
-, nspr
-, libwpg
-, dbus-glib
-, clucene_core
-, libcdr
-, lcms
-, unixODBC
-, mdds
-, sane-backends
-, mythes
-, libexttextcat
-, libvisio
-, fontsConf
-, pkg-config
-, bluez5
-, libtool
-, carlito
-, libatomic_ops
-, graphite2
-, harfbuzz
-, libodfgen
-, libzmf
-, librevenge
-, libe-book
-, libmwaw
-, glm
-, gst_all_1
-, gdb
-, commonsLogging
-, librdf_rasqal
-, gnome
-, glib
-, ncurses
-, libepoxy
-, gpgme
-, libwebp
-, abseil-cpp
-, langs ? [ "ar" "ca" "cs" "da" "de" "en-GB" "en-US" "eo" "es" "fr" "hu" "it" "ja" "nl" "pl" "pt" "pt-BR" "ro" "ru" "sl" "tr" "uk" "zh-CN" ]
-, withHelp ? true
-, kdeIntegration ? false
-, mkDerivation ? null
-, qtbase ? null
-, qtx11extras ? null
-, qtwayland ? null
-, ki18n ? null
-, kconfig ? null
-, kcoreaddons ? null
-, kio ? null
-, kwindowsystem ? null
-, variant ? "fresh"
-, symlinkJoin
-, postgresql
+{ stdenv, fetchurl, lib, substituteAll, pam, python3, libxslt, perl, ArchiveZip
+, box2d, gettext, IOCompress, zlib, libjpeg, expat, freetype, libwpd, libxml2
+, db, curl, fontconfig, libsndfile, neon, bison, flex, zip, unzip, gtk3
+, libmspack, getopt, file, cairo, which, icu, boost, jdk17, ant, cups, xorg
+, fontforge, jre17_minimal, openssl, gperf, cppunit, poppler, util-linux
+, librsvg, libGLU, libGL, bsh, CoinMP, libwps, libabw, libmysqlclient, autoconf
+, automake, openldap, bash, hunspell, librdf_redland, nss, nspr, libwpg
+, dbus-glib, clucene_core, libcdr, lcms, unixODBC, mdds, sane-backends, mythes
+, libexttextcat, libvisio, fontsConf, pkg-config, bluez5, libtool, carlito
+, libatomic_ops, graphite2, harfbuzz, libodfgen, libzmf, librevenge, libe-book
+, libmwaw, glm, gst_all_1, gdb, commonsLogging, librdf_rasqal, gnome, glib
+, ncurses, libepoxy, gpgme, libwebp, abseil-cpp, langs ? [
+  "ar"
+  "ca"
+  "cs"
+  "da"
+  "de"
+  "en-GB"
+  "en-US"
+  "eo"
+  "es"
+  "fr"
+  "hu"
+  "it"
+  "ja"
+  "nl"
+  "pl"
+  "pt"
+  "pt-BR"
+  "ro"
+  "ru"
+  "sl"
+  "tr"
+  "uk"
+  "zh-CN"
+], withHelp ? true, kdeIntegration ? false, mkDerivation ? null, qtbase ? null
+, qtx11extras ? null, qtwayland ? null, ki18n ? null, kconfig ? null
+, kcoreaddons ? null, kio ? null, kwindowsystem ? null, variant ? "fresh"
+, symlinkJoin, postgresql
 # The rest are used only in passthru, for the wrapper
-, kauth ? null
-, kcompletion ? null
-, kconfigwidgets ? null
-, kglobalaccel ? null
-, kitemviews ? null
-, knotifications ? null
-, ktextwidgets ? null
-, kwidgetsaddons ? null
-, kxmlgui ? null
-, phonon ? null
-, qtdeclarative ? null
-, qtquickcontrols ? null
-, qtsvg ? null
-, qttools ? null
-, solid ? null
-, sonnet ? null
-} @ args:
+, kauth ? null, kcompletion ? null, kconfigwidgets ? null, kglobalaccel ? null
+, kitemviews ? null, knotifications ? null, ktextwidgets ? null
+, kwidgetsaddons ? null, kxmlgui ? null, phonon ? null, qtdeclarative ? null
+, qtquickcontrols ? null, qtsvg ? null, qttools ? null, solid ? null
+, sonnet ? null }@args:
 
 assert builtins.elem variant [ "fresh" "still" ];
 
 let
   inherit (lib)
-    flatten flip
-    concatMapStrings concatStringsSep
-    getDev getLib
-    optionals optionalString;
+    flatten flip concatMapStrings concatStringsSep getDev getLib optionals
+    optionalString;
 
   jre' = jre17_minimal.override {
     modules = [ "java.base" "java.desktop" "java.logging" "java.sql" ];
@@ -155,17 +67,16 @@ let
 
   srcs = {
     primary = primary-src;
-    third_party =
-      map (x: ((fetchurl { inherit (x) url sha256 name; }) // { inherit (x) md5name md5; }))
-        (importVariant "download.nix" ++ [
-          (rec {
-            name = "unowinreg.dll";
-            url = "https://dev-www.libreoffice.org/extern/${md5name}";
-            sha256 = "1infwvv1p6i21scywrldsxs22f62x85mns4iq8h6vr6vlx3fdzga";
-            md5 = "185d60944ea767075d27247c3162b3bc";
-            md5name = "${md5}-${name}";
-          })
-        ]);
+    third_party = map (x:
+      ((fetchurl { inherit (x) url sha256 name; }) // {
+        inherit (x) md5name md5;
+      })) (importVariant "download.nix" ++ [(rec {
+        name = "unowinreg.dll";
+        url = "https://dev-www.libreoffice.org/extern/${md5name}";
+        sha256 = "1infwvv1p6i21scywrldsxs22f62x85mns4iq8h6vr6vlx3fdzga";
+        md5 = "185d60944ea767075d27247c3162b3bc";
+        md5name = "${md5}-${name}";
+      })]);
 
     translations = primary-src.translations;
     help = primary-src.help;
@@ -185,8 +96,7 @@ let
     ]);
   };
 
-in
-(mkDrv rec {
+in (mkDrv rec {
   pname = "libreoffice";
   inherit version;
 
@@ -206,8 +116,7 @@ in
   '' + (flip concatMapStrings srcs.third_party (f: ''
     ln -sfv ${f} $sourceRoot/${tarballPath}/${f.md5name}
     ln -sfv ${f} $sourceRoot/${tarballPath}/${f.name}
-  ''))
-  + ''
+  '')) + ''
     ln -sv ${srcs.help} $sourceRoot/${tarballPath}/${srcs.help.name}
     ln -svf ${srcs.translations} $sourceRoot/${tarballPath}/${srcs.translations.name}
     tar -xf ${srcs.help}
@@ -385,10 +294,38 @@ in
 
     # Install dolphin templates, like debian does
     install -D extras/source/shellnew/soffice.* --target-directory="$out/share/templates/.source"
-    cp ${substituteAll {src = ./soffice-template.desktop; app="Writer";  ext="odt"; type="text";        }} $out/share/templates/soffice.odt.desktop
-    cp ${substituteAll {src = ./soffice-template.desktop; app="Calc";    ext="ods"; type="spreadsheet"; }} $out/share/templates/soffice.ods.desktop
-    cp ${substituteAll {src = ./soffice-template.desktop; app="Impress"; ext="odp"; type="presentation";}} $out/share/templates/soffice.odp.desktop
-    cp ${substituteAll {src = ./soffice-template.desktop; app="Draw";    ext="odg"; type="drawing";     }} $out/share/templates/soffice.odg.desktop
+    cp ${
+      substituteAll {
+        src = ./soffice-template.desktop;
+        app = "Writer";
+        ext = "odt";
+        type = "text";
+      }
+    } $out/share/templates/soffice.odt.desktop
+    cp ${
+      substituteAll {
+        src = ./soffice-template.desktop;
+        app = "Calc";
+        ext = "ods";
+        type = "spreadsheet";
+      }
+    } $out/share/templates/soffice.ods.desktop
+    cp ${
+      substituteAll {
+        src = ./soffice-template.desktop;
+        app = "Impress";
+        ext = "odp";
+        type = "presentation";
+      }
+    } $out/share/templates/soffice.odp.desktop
+    cp ${
+      substituteAll {
+        src = ./soffice-template.desktop;
+        app = "Draw";
+        ext = "odg";
+        type = "drawing";
+      }
+    } $out/share/templates/soffice.odg.desktop
   '';
 
   # Wrapping is done in ./wrapper.nix
@@ -463,115 +400,105 @@ in
     "--enable-gtk3-kde5"
   ];
 
-  checkTarget = concatStringsSep " " [
-    "unitcheck"
-    "slowcheck"
-  ];
+  checkTarget = concatStringsSep " " [ "unitcheck" "slowcheck" ];
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    bison
-    fontforge
-    gdb
-    jdk17
-    libtool
-    pkg-config
-  ];
+  nativeBuildInputs =
+    [ autoconf automake bison fontforge gdb jdk17 libtool pkg-config ];
 
-  buildInputs = with xorg; [
-    ArchiveZip
-    CoinMP
-    IOCompress
-    abseil-cpp
-    ant
-    bluez5
-    boost
-    box2d
-    cairo
-    clucene_core
-    cppunit
-    cups
-    curl
-    db
-    dbus-glib
-    expat
-    file
-    flex
-    fontconfig
-    freetype
-    getopt
-    gettext
-    glib
-    glm
-    gnome.adwaita-icon-theme
-    gperf
-    gpgme
-    graphite2
-    gtk3
-    harfbuzz
-    hunspell
-    icu
-    jre'
-    lcms
-    libGL
-    libGLU
-    libX11
-    libXaw
-    libXdmcp
-    libXext
-    libXi
-    libXinerama
-    libXtst
-    libabw
-    libatomic_ops
-    libcdr
-    libe-book
-    libepoxy
-    libexttextcat
-    libjpeg
-    libmspack
-    libmwaw
-    libmysqlclient
-    libodfgen
-    libpthreadstubs
-    librdf_rasqal
-    librdf_redland
-    librevenge
-    librsvg
-    libsndfile
-    libvisio
-    libwpd
-    libwpg
-    libwps
-    libxml2
-    libxshmfence
-    libxslt
-    libzmf
-    mdds
-    mythes
-    ncurses
-    neon
-    nspr
-    nss
-    openldap
-    openssl
-    pam
-    perl
-    poppler
-    postgresql
-    python3
-    sane-backends
-    unixODBC
-    unzip
-    util-linux
-    which
-    zip
-    zlib
-  ]
-  ++ passthru.gst_packages
-  ++ optionals kdeIntegration [ qtbase qtx11extras kcoreaddons kio ]
-  ++ optionals (lib.versionAtLeast (lib.versions.majorMinor version) "7.4") [ libwebp ];
+  buildInputs = with xorg;
+    [
+      ArchiveZip
+      CoinMP
+      IOCompress
+      abseil-cpp
+      ant
+      bluez5
+      boost
+      box2d
+      cairo
+      clucene_core
+      cppunit
+      cups
+      curl
+      db
+      dbus-glib
+      expat
+      file
+      flex
+      fontconfig
+      freetype
+      getopt
+      gettext
+      glib
+      glm
+      gnome.adwaita-icon-theme
+      gperf
+      gpgme
+      graphite2
+      gtk3
+      harfbuzz
+      hunspell
+      icu
+      jre'
+      lcms
+      libGL
+      libGLU
+      libX11
+      libXaw
+      libXdmcp
+      libXext
+      libXi
+      libXinerama
+      libXtst
+      libabw
+      libatomic_ops
+      libcdr
+      libe-book
+      libepoxy
+      libexttextcat
+      libjpeg
+      libmspack
+      libmwaw
+      libmysqlclient
+      libodfgen
+      libpthreadstubs
+      librdf_rasqal
+      librdf_redland
+      librevenge
+      librsvg
+      libsndfile
+      libvisio
+      libwpd
+      libwpg
+      libwps
+      libxml2
+      libxshmfence
+      libxslt
+      libzmf
+      mdds
+      mythes
+      ncurses
+      neon
+      nspr
+      nss
+      openldap
+      openssl
+      pam
+      perl
+      poppler
+      postgresql
+      python3
+      sane-backends
+      unixODBC
+      unzip
+      util-linux
+      which
+      zip
+      zlib
+    ] ++ passthru.gst_packages
+    ++ optionals kdeIntegration [ qtbase qtx11extras kcoreaddons kio ]
+    ++ optionals (lib.versionAtLeast (lib.versions.majorMinor version) "7.4")
+    [ libwebp ];
 
   passthru = {
     inherit srcs;
@@ -624,7 +551,8 @@ in
   requiredSystemFeatures = [ "big-parallel" ];
 
   meta = with lib; {
-    description = "Comprehensive, professional-quality productivity suite, a variant of openoffice.org";
+    description =
+      "Comprehensive, professional-quality productivity suite, a variant of openoffice.org";
     homepage = "https://libreoffice.org/";
     # at least one jar in dependencies
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
@@ -632,4 +560,5 @@ in
     maintainers = with maintainers; [ raskin ];
     platforms = platforms.linux;
   };
-}).overrideAttrs ((importVariant "override.nix") (args // { inherit kdeIntegration; }))
+}).overrideAttrs
+((importVariant "override.nix") (args // { inherit kdeIntegration; }))

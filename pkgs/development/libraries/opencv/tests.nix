@@ -1,16 +1,5 @@
-{ opencv4
-, testDataSrc
-, stdenv
-, lib
-, runCommand
-, gst_all_1
-, runAccuracyTests
-, runPerformanceTests
-, enableGStreamer
-, enableGtk2
-, enableGtk3
-, xvfb-run
-}:
+{ opencv4, testDataSrc, stdenv, lib, runCommand, gst_all_1, runAccuracyTests
+, runPerformanceTests, enableGStreamer, enableGtk2, enableGtk3, xvfb-run }:
 let
   testNames = [
     "calib3d"
@@ -27,7 +16,7 @@ let
     #"videoio" # - a lot of GStreamer warnings and failed tests
     #"dnn" #- some caffe tests failed, probably because github workflow also downloads additional models
   ] ++ lib.optionals (!stdenv.isAarch64 && enableGStreamer) [ "gapi" ]
-  ++ lib.optionals (enableGtk2 || enableGtk3) [ "highgui" ];
+    ++ lib.optionals (enableGtk2 || enableGtk3) [ "highgui" ];
   perfTestNames = [
     "calib3d"
     "core"
@@ -53,18 +42,16 @@ let
     export GTEST_FILTER="-AsyncAPICancelation/cancel*"
   '';
   accuracyTests = lib.optionalString runAccuracyTests ''
-    ${ builtins.concatStringsSep "\n"
-      (map (test: "${testRunner}${opencv4.package_tests}/opencv_test_${test} --test_threads=$NIX_BUILD_CORES --gtest_filter=$GTEST_FILTER" ) testNames)
-    }
+    ${builtins.concatStringsSep "\n" (map (test:
+      "${testRunner}${opencv4.package_tests}/opencv_test_${test} --test_threads=$NIX_BUILD_CORES --gtest_filter=$GTEST_FILTER")
+      testNames)}
   '';
   perfomanceTests = lib.optionalString runPerformanceTests ''
-    ${ builtins.concatStringsSep "\n"
-      (map (test: "${testRunner}${opencv4.package_tests}/opencv_perf_${test} --perf_impl=plain --perf_min_samples=10 --perf_force_samples=10 --perf_verify_sanity --skip_unstable=1 --gtest_filter=$GTEST_FILTER") perfTestNames)
-    }
+    ${builtins.concatStringsSep "\n" (map (test:
+      "${testRunner}${opencv4.package_tests}/opencv_perf_${test} --perf_impl=plain --perf_min_samples=10 --perf_force_samples=10 --perf_verify_sanity --skip_unstable=1 --gtest_filter=$GTEST_FILTER")
+      perfTestNames)}
   '';
-in
-runCommand "opencv4-tests"
-{
-  nativeBuildInputs = lib.optionals enableGStreamer (with gst_all_1; [ gstreamer gst-plugins-base gst-plugins-good ]);
-}
-  (testsPreparation + accuracyTests + perfomanceTests)
+in runCommand "opencv4-tests" {
+  nativeBuildInputs = lib.optionals enableGStreamer
+    (with gst_all_1; [ gstreamer gst-plugins-base gst-plugins-good ]);
+} (testsPreparation + accuracyTests + perfomanceTests)

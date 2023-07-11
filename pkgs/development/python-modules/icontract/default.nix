@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, astor
-, asttokens
-, asyncstdlib
-, deal
-, dpcontracts
-, numpy
-, pytestCheckHook
-, typing-extensions
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, astor, asttokens
+, asyncstdlib, deal, dpcontracts, numpy, pytestCheckHook, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "icontract";
@@ -32,19 +21,10 @@ buildPythonPackage rec {
     export ICONTRACT_SLOW=1
   '';
 
-  propagatedBuildInputs = [
-    asttokens
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ asttokens typing-extensions ];
 
-  nativeCheckInputs = [
-    astor
-    asyncstdlib
-    deal
-    dpcontracts
-    numpy
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ astor asyncstdlib deal dpcontracts numpy pytestCheckHook ];
 
   disabledTestPaths = [
     # mypy decorator checks don't pass. For some reason mypy
@@ -61,9 +41,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "icontract" ];
 
   meta = with lib; {
-    description = "Provide design-by-contract with informative violation messages";
+    description =
+      "Provide design-by-contract with informative violation messages";
     homepage = "https://github.com/Parquery/icontract";
-    changelog = "https://github.com/Parquery/icontract/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/Parquery/icontract/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ gador thiagokokada ];
   };

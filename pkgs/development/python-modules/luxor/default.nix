@@ -1,11 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pytest-aiohttp
-, pytestCheckHook
-}:
+{ lib, aiohttp, buildPythonPackage, fetchPypi, pythonOlder, pytest-aiohttp
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "luxor";
@@ -19,18 +13,11 @@ buildPythonPackage rec {
     sha256 = "GIwVEOKZAudTu2M3OM4LFVR8e22q52m/AN0anskdmWQ=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [
-    pytest-aiohttp
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "luxor"
-  ];
+  pythonImportsCheck = [ "luxor" ];
 
   meta = with lib; {
     description = "Python module to control FX Luminaire controllers";

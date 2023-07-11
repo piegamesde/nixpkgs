@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cpp-utilities
-, qtutilities
-, qttools
-, qtbase
-, cmake
-, perl
-}:
+{ stdenv, lib, fetchFromGitHub, cpp-utilities, qtutilities, qttools, qtbase
+, cmake, perl }:
 
 let
   fork_awesome_release = fetchFromGitHub {
@@ -27,17 +19,8 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-9e2TCg3itYtHZSvzCoaiIZmgsCMIoebh6C/XWtKz/2Q=";
   };
 
-  buildInputs = [
-    qtbase
-    cpp-utilities
-    qtutilities
-  ];
-  nativeBuildInputs = [
-    cmake
-    qttools
-    perl
-    perl.pkgs.YAML
-  ];
+  buildInputs = [ qtbase cpp-utilities qtutilities ];
+  nativeBuildInputs = [ cmake qttools perl perl.pkgs.YAML ];
   cmakeFlags = [
     # Current freetype used by NixOS users doesn't support the `.woff2` font
     # format, so we use ttf. See
@@ -50,10 +33,11 @@ in stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/Martchus/qtforkawesome";
-    description = "Library that bundles ForkAwesome for use within Qt applications";
+    description =
+      "Library that bundles ForkAwesome for use within Qt applications";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ doronbehar ];
-    platforms   = platforms.linux ++ platforms.darwin;
+    platforms = platforms.linux ++ platforms.darwin;
   };
 }
 

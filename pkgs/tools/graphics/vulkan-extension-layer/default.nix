@@ -21,9 +21,7 @@ stdenv.mkDerivation rec {
   '';
 
   # Tests are not for gpu-less and headless environments
-  cmakeFlags = [
-    "-DBUILD_TESTS=false"
-  ];
+  cmakeFlags = [ "-DBUILD_TESTS=false" ];
 
   # Include absolute paths to layer libraries in their associated
   # layer definition json files.
@@ -35,7 +33,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Layers providing Vulkan features when native support is unavailable";
+    description =
+      "Layers providing Vulkan features when native support is unavailable";
     homepage = "https://github.com/KhronosGroup/Vulkan-ExtensionLayer/";
     platforms = platforms.linux;
     license = licenses.asl20;

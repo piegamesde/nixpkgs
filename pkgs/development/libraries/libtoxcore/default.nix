@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchurl, cmake, libsodium, ncurses, libopus, msgpack
-, libvpx, check, libconfig, pkg-config }:
+{ lib, stdenv, fetchurl, cmake, libsodium, ncurses, libopus, msgpack, libvpx
+, check, libconfig, pkg-config }:
 
 let buildToxAV = !stdenv.isAarch32;
 in stdenv.mkDerivation rec {
@@ -18,11 +18,8 @@ in stdenv.mkDerivation rec {
     [ "-DBUILD_NTOX=ON" "-DDHT_BOOTSTRAP=ON" "-DBOOTSTRAP_DAEMON=ON" ]
     ++ lib.optional buildToxAV "-DMUST_BUILD_TOXAV=ON";
 
-  buildInputs = [
-    libsodium msgpack ncurses libconfig
-  ] ++ lib.optionals buildToxAV [
-    libopus libvpx
-  ];
+  buildInputs = [ libsodium msgpack ncurses libconfig ]
+    ++ lib.optionals buildToxAV [ libopus libvpx ];
 
   nativeBuildInputs = [ cmake pkg-config ];
 
@@ -38,7 +35,8 @@ in stdenv.mkDerivation rec {
   # https://github.com/TokTok/c-toxcore/issues/2334
 
   meta = with lib; {
-    description = "P2P FOSS instant messaging application aimed to replace Skype";
+    description =
+      "P2P FOSS instant messaging application aimed to replace Skype";
     homepage = "https://tox.chat";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ peterhoeg ehmry ];

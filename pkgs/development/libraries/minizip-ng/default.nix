@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, gtest
-, pkg-config
-, zlib
-, bzip2
-, xz
-, zstd
-, openssl
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, gtest, pkg-config, zlib
+, bzip2, xz, zstd, openssl }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "minizip-ng";
@@ -27,7 +16,9 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [ zlib bzip2 xz zstd openssl ];
 
   cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=${if stdenv.hostPlatform.isStatic then "OFF" else "ON"}"
+    "-DBUILD_SHARED_LIBS=${
+      if stdenv.hostPlatform.isStatic then "OFF" else "ON"
+    }"
     "-DMZ_OPENSSL=ON"
     "-DMZ_BUILD_TESTS=${if finalAttrs.doCheck then "ON" else "OFF"}"
     "-DMZ_BUILD_UNIT_TESTS=${if finalAttrs.doCheck then "ON" else "OFF"}"
@@ -53,7 +44,8 @@ stdenv.mkDerivation (finalAttrs: {
   enableParallelChecking = false;
 
   meta = with lib; {
-    description = "Fork of the popular zip manipulation library found in the zlib distribution";
+    description =
+      "Fork of the popular zip manipulation library found in the zlib distribution";
     homepage = "https://github.com/zlib-ng/minizip-ng";
     license = licenses.zlib;
     maintainers = with maintainers; [ gebner ris ];

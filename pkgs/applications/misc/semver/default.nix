@@ -16,7 +16,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/catouc/semver-go";
-    description = "A small CLI to fish out the current or next semver version from a git repository";
+    description =
+      "A small CLI to fish out the current or next semver version from a git repository";
     maintainers = with maintainers; [ catouc ];
     license = licenses.mit;
   };

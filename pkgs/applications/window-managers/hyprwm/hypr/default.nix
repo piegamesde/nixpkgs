@@ -1,24 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cairo
-, cmake
-, glib
-, gtkmm3
-, harfbuzz
-, libX11
-, libXdmcp
-, libxcb
-, makeWrapper
-, pcre2
-, pkg-config
-, xcbutilcursor
-, xcbutilkeysyms
-, xcbutilwm
-, xcbutil
-, xmodmap
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cairo, cmake, glib, gtkmm3, harfbuzz
+, libX11, libXdmcp, libxcb, makeWrapper, pcre2, pkg-config, xcbutilcursor
+, xcbutilkeysyms, xcbutilwm, xcbutil, xmodmap }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "hypr";
@@ -31,15 +13,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-FUKR5nceEhm9GWa61hHO8+y4GBz7LYKXPB0OpQcQ674=";
   };
 
-  patches = [
-    ./000-dont-set-compiler.diff
-  ];
+  patches = [ ./000-dont-set-compiler.diff ];
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake makeWrapper pkg-config ];
 
   buildInputs = [
     cairo
@@ -57,7 +33,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   # src/ewmh/ewmh.cpp:67:28: error: non-constant-expression cannot be narrowed from type 'int' to 'uint32_t' (aka 'unsigned int') in initializer list
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-Wno-c++11-narrowing";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin "-Wno-c++11-narrowing";
 
   installPhase = ''
     runHook preInstall

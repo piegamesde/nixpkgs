@@ -1,26 +1,7 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, buildGoPackage
-, wrapQtAppsHook
-, wrapGAppsHook
-, gtk3
-, pkg-config
-, deepin-gettext-tools
-, alsa-lib
-, go-dbus-factory
-, go-gir-generator
-, go-lib
-, libcanberra
-, libgudev
-, librsvg
-, poppler
-, pulseaudio
-, gdk-pixbuf-xlib
-, dbus
-, coreutils
-, deepin-desktop-base
-}:
+{ stdenv, lib, fetchFromGitHub, buildGoPackage, wrapQtAppsHook, wrapGAppsHook
+, gtk3, pkg-config, deepin-gettext-tools, alsa-lib, go-dbus-factory
+, go-gir-generator, go-lib, libcanberra, libgudev, librsvg, poppler, pulseaudio
+, gdk-pixbuf-xlib, dbus, coreutils, deepin-desktop-base }:
 
 buildGoPackage rec {
   pname = "dde-api";
@@ -64,12 +45,8 @@ buildGoPackage rec {
 
   goDeps = ./deps.nix;
 
-  nativeBuildInputs = [
-    pkg-config
-    deepin-gettext-tools
-    wrapQtAppsHook
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ pkg-config deepin-gettext-tools wrapQtAppsHook wrapGAppsHook ];
   dontWrapGApps = true;
 
   buildInputs = [
@@ -112,7 +89,8 @@ buildGoPackage rec {
   '';
 
   meta = with lib; {
-    description = "Dbus interfaces used for screen zone detecting, thumbnail generating, sound playing, etc";
+    description =
+      "Dbus interfaces used for screen zone detecting, thumbnail generating, sound playing, etc";
     homepage = "https://github.com/linuxdeepin/dde-api";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

@@ -1,8 +1,4 @@
-{ lib
-, fetchFromGitHub
-, git
-, python3
-}:
+{ lib, fetchFromGitHub, git, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "dbx";
@@ -22,41 +18,33 @@ python3.pkgs.buildPythonApplication rec {
       --replace "rich==12.6.0" "rich"
   '';
 
-  propagatedBuildInputs = with python3.pkgs; [
-    aiohttp
-    click
-    cookiecutter
-    cryptography
-    databricks-cli
-    jinja2
-    mlflow
-    pathspec
-    pydantic
-    pyyaml
-    requests
-    retry
-    rich
-    tenacity
-    typer
-    watchdog
-  ] ++ typer.optional-dependencies.all;
+  propagatedBuildInputs = with python3.pkgs;
+    [
+      aiohttp
+      click
+      cookiecutter
+      cryptography
+      databricks-cli
+      jinja2
+      mlflow
+      pathspec
+      pydantic
+      pyyaml
+      requests
+      retry
+      rich
+      tenacity
+      typer
+      watchdog
+    ] ++ typer.optional-dependencies.all;
 
   passthru.optional-dependencies = with python3.pkgs; {
-    aws = [
-      boto3
-    ];
-    azure = [
-      azure-storage-blob
-      azure-identity
-    ];
-    gcp = [
-      google-cloud-storage
-    ];
+    aws = [ boto3 ];
+    azure = [ azure-storage-blob azure-identity ];
+    gcp = [ google-cloud-storage ];
   };
 
-  nativeCheckInputs = [
-    git
-  ] ++ (with python3.pkgs; [
+  nativeCheckInputs = [ git ] ++ (with python3.pkgs; [
     pytest-asyncio
     pytest-mock
     pytest-timeout
@@ -68,9 +56,7 @@ python3.pkgs.buildPythonApplication rec {
     export PATH="$PATH:$out/bin"
   '';
 
-  pytestFlagsArray = [
-    "tests/unit"
-  ];
+  pytestFlagsArray = [ "tests/unit" ];
 
   disabledTests = [
     # Fails because of dbfs CLI wrong call
@@ -80,14 +66,13 @@ python3.pkgs.buildPythonApplication rec {
     "test_python_basic_sanity_check"
   ];
 
-  pythonImportsCheck = [
-    "dbx"
-  ];
+  pythonImportsCheck = [ "dbx" ];
 
   meta = with lib; {
     description = "CLI tool for advanced Databricks jobs management";
     homepage = "https://github.com/databrickslabs/dbx";
-    changelog = "https://github.com/databrickslabs/dbx/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/databrickslabs/dbx/blob/v${version}/CHANGELOG.md";
     license = licenses.databricks-dbx;
     maintainers = with maintainers; [ GuillaumeDesforges ];
   };

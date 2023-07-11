@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, dos2unix
-, runCommand
-, tinyscheme
-}:
+{ lib, stdenv, fetchurl, dos2unix, runCommand, tinyscheme }:
 
 stdenv.mkDerivation rec {
   pname = "tinyscheme";
@@ -46,11 +40,11 @@ stdenv.mkDerivation rec {
 
   passthru.tests = {
     # Checks that the program can run and exit:
-    simple = runCommand "${pname}-simple-test" {} ''
+    simple = runCommand "${pname}-simple-test" { } ''
       ${tinyscheme}/bin/tinyscheme <<<"(quit 0)"
       echo "success" > $out
     '';
-    fileIo = runCommand "${pname}-file-io-test" {} ''
+    fileIo = runCommand "${pname}-file-io-test" { } ''
       ${tinyscheme}/bin/tinyscheme <<EOF
         (call-with-output-file "$out"
           (lambda (p)
@@ -60,7 +54,7 @@ stdenv.mkDerivation rec {
             )))
       EOF
     '';
-    helpText = runCommand "${pname}-help-text-test" {} ''
+    helpText = runCommand "${pname}-help-text-test" { } ''
       ${tinyscheme}/bin/tinyscheme '-?' | tee > $out || :
       [[ "$(cat $out)" =~ ^Usage: ]]
     '';

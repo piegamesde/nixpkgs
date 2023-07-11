@@ -1,10 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, nix
-, makeWrapper
-, fetchpatch
-}:
+{ lib, buildGoModule, fetchFromGitHub, nix, makeWrapper, fetchpatch }:
 
 buildGoModule rec {
   pname = "nc4nix";
@@ -20,13 +14,15 @@ buildGoModule rec {
   patches = [
     # Switch hash calculation method
     (fetchpatch {
-      url = "https://github.com/helsinki-systems/nc4nix/commit/88c182fbdddef148e086fa86438dcd72208efd75.patch";
+      url =
+        "https://github.com/helsinki-systems/nc4nix/commit/88c182fbdddef148e086fa86438dcd72208efd75.patch";
       sha256 = "sha256-zAF0+t9wHrKhhyD0+/d58BiaavLHfxO8X5J6vNlEWx0=";
       name = "switch_hash_calculation_method.patch";
     })
-     # Add package selection command line argument
+    # Add package selection command line argument
     (fetchpatch {
-      url = "https://github.com/helsinki-systems/nc4nix/pull/2/commits/449eec89538df4e92106d06046831202eb84a1db.patch";
+      url =
+        "https://github.com/helsinki-systems/nc4nix/pull/2/commits/449eec89538df4e92106d06046831202eb84a1db.patch";
       sha256 = "sha256-qAAbR1G748+2vwwfAhpe8luVEIKNGifqXqTV9QqaUFc=";
       name = "add_package_selection_command_line_arg.patch";
     })
@@ -34,9 +30,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-uhINWxFny/OY7M2vV3ehFzP90J6Z8cn5IZHWOuEg91M=";
 
- nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   postInstall = ''
     # Depends on nix-prefetch-url

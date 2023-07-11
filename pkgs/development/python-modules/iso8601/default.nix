@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, hypothesis
-, poetry-core
-, pytestCheckHook
-, pytz
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, hypothesis, poetry-core, pytestCheckHook
+, pytz, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "iso8601";
@@ -20,9 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-MoEee4He7iBj6m0ulPiBmobR84EeSdI2I6QfqDK+8D8=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   nativeCheckInputs = [
     # "hypothesis" indirectly depends on iso8601 to build its documentation
@@ -31,13 +22,9 @@ buildPythonPackage rec {
     pytz
   ];
 
-  pytestFlagsArray = [
-    "iso8601"
-  ];
+  pytestFlagsArray = [ "iso8601" ];
 
-  pythonImportsCheck = [
-    "iso8601"
-  ];
+  pythonImportsCheck = [ "iso8601" ];
 
   meta = with lib; {
     description = "Simple module to parse ISO 8601 dates";

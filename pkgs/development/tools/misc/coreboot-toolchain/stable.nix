@@ -38,14 +38,16 @@
     name = "R10_20_22.tar.gz";
     archive = fetchurl {
       sha256 = "11iv3jrz27g7bv7ffyxsrgm4cq60cld2gkkl008p3lcwfyqpx88s";
-      url = "https://github.com/acpica/acpica/archive/refs/tags//R10_20_22.tar.gz";
+      url =
+        "https://github.com/acpica/acpica/archive/refs/tags//R10_20_22.tar.gz";
     };
   }
   {
     name = "nasm-2.15.05.tar.bz2";
     archive = fetchurl {
       sha256 = "1l1gxs5ncdbgz91lsl4y7w5aapask3w02q9inayb2m5bwlwq6jrw";
-      url = "https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/nasm-2.15.05.tar.bz2";
+      url =
+        "https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/nasm-2.15.05.tar.bz2";
     };
   }
 ]

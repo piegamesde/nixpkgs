@@ -1,31 +1,7 @@
-{ lib
-, stdenv
-, Accelerate
-, blis
-, buildPythonPackage
-, catalogue
-, confection
-, CoreFoundation
-, CoreGraphics
-, CoreVideo
-, cymem
-, cython
-, fetchPypi
-, hypothesis
-, mock
-, murmurhash
-, numpy
-, plac
-, preshed
-, pydantic
-, pytestCheckHook
-, python
-, pythonOlder
-, srsly
-, tqdm
-, typing-extensions
-, wasabi
-}:
+{ lib, stdenv, Accelerate, blis, buildPythonPackage, catalogue, confection
+, CoreFoundation, CoreGraphics, CoreVideo, cymem, cython, fetchPypi, hypothesis
+, mock, murmurhash, numpy, plac, preshed, pydantic, pytestCheckHook, python
+, pythonOlder, srsly, tqdm, typing-extensions, wasabi }:
 
 buildPythonPackage rec {
   pname = "thinc";
@@ -39,9 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-NcZXy+2wT8W8JHhl1mWSHOw9Ve81+/zj7hogSGtyBoM=";
   };
 
-  buildInputs = [
-    cython
-  ] ++ lib.optionals stdenv.isDarwin [
+  buildInputs = [ cython ] ++ lib.optionals stdenv.isDarwin [
     Accelerate
     CoreFoundation
     CoreGraphics
@@ -61,15 +35,9 @@ buildPythonPackage rec {
     srsly
     tqdm
     wasabi
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ];
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  nativeCheckInputs = [
-    hypothesis
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ hypothesis mock pytestCheckHook ];
 
   # Add native extensions.
   preCheck = ''
@@ -80,9 +48,7 @@ buildPythonPackage rec {
     rm -r thinc
   '';
 
-  pythonImportsCheck = [
-    "thinc"
-  ];
+  pythonImportsCheck = [ "thinc" ];
 
   meta = with lib; {
     description = "Library for NLP machine learning";

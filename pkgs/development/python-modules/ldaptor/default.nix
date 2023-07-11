@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, twisted
-, passlib
-, pyparsing
-, service-identity
-, six
-, zope_interface
-, pythonOlder
-, python
-}:
+{ lib, buildPythonPackage, fetchPypi, twisted, passlib, pyparsing
+, service-identity, six, zope_interface, pythonOlder, python }:
 
 buildPythonPackage rec {
   pname = "ldaptor";
@@ -21,17 +11,10 @@ buildPythonPackage rec {
     hash = "sha256-jEnrGTddSqs+W4NYYGFODLF+VrtaIOGHSAj6W+xno1g=";
   };
 
-  propagatedBuildInputs = [
-    passlib
-    pyparsing
-    six
-    twisted
-    zope_interface
-  ] ++ twisted.optional-dependencies.tls;
+  propagatedBuildInputs = [ passlib pyparsing six twisted zope_interface ]
+    ++ twisted.optional-dependencies.tls;
 
-  nativeCheckInputs = [
-    twisted
-  ];
+  nativeCheckInputs = [ twisted ];
 
   # Test creates an excessive amount of temporary files (order of millions).
   # Cleaning up those files already took over 15 hours already on my zfs

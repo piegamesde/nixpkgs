@@ -1,19 +1,17 @@
 # This test runs netdata and checks for data via apps.plugin
 
-import ./make-test-python.nix ({ pkgs, ...} : {
+import ./make-test-python.nix ({ pkgs, ... }: {
   name = "netdata";
   meta = with pkgs.lib.maintainers; {
     maintainers = [ cransom raitobezarius ];
   };
 
   nodes = {
-    netdata =
-      { pkgs, ... }:
-        {
-          environment.systemPackages = with pkgs; [ curl jq ];
-          services.netdata.enable = true;
-        };
+    netdata = { pkgs, ... }: {
+      environment.systemPackages = with pkgs; [ curl jq ];
+      services.netdata.enable = true;
     };
+  };
 
   testScript = ''
     start_all()

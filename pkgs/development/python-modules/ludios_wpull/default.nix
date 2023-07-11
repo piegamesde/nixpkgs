@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, chardet
-, dnspython
-, html5-parser
-, lxml
-, namedlist
-, sqlalchemy
-, tornado
-, yapsy
-, pythonAtLeast
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, chardet, dnspython, html5-parser
+, lxml, namedlist, sqlalchemy, tornado, yapsy, pythonAtLeast }:
 
 buildPythonPackage rec {
   pname = "ludios_wpull";
@@ -26,7 +15,8 @@ buildPythonPackage rec {
     sha256 = "0j4dir0dgg8pkf4d1znicz6wyyi1wzij50r21z838cycsdr54j4c";
   };
 
-  propagatedBuildInputs = [ chardet dnspython html5-parser lxml namedlist sqlalchemy tornado yapsy ];
+  propagatedBuildInputs =
+    [ chardet dnspython html5-parser lxml namedlist sqlalchemy tornado yapsy ];
 
   # Test suite has tests that fail on all platforms
   doCheck = false;

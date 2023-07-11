@@ -1,18 +1,5 @@
-{ lib, stdenv
-, fetchFromGitHub
-, zlib
-, expat
-, cmake
-, which
-, libxml2
-, python3
-, gettext
-, doxygen
-, graphviz
-, libxslt
-, libiconv
-, removeReferencesTo
-}:
+{ lib, stdenv, fetchFromGitHub, zlib, expat, cmake, which, libxml2, python3
+, gettext, doxygen, graphviz, libxslt, libiconv, removeReferencesTo }:
 
 stdenv.mkDerivation rec {
   pname = "exiv2";
@@ -22,43 +9,24 @@ stdenv.mkDerivation rec {
 
   src = fetchFromGitHub {
     owner = "exiv2";
-    repo  = "exiv2";
+    repo = "exiv2";
     rev = "v${version}";
     sha256 = "sha256-Ddy605EQhsATzmdhN3Zq+2ksYMrHEfucA+IqezYmjo4=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    doxygen
-    gettext
-    graphviz
-    libxslt
-    removeReferencesTo
-  ];
+  nativeBuildInputs =
+    [ cmake doxygen gettext graphviz libxslt removeReferencesTo ];
 
   buildInputs = lib.optional stdenv.isDarwin libiconv;
 
-  propagatedBuildInputs = [
-    expat
-    zlib
-  ];
+  propagatedBuildInputs = [ expat zlib ];
 
-  nativeCheckInputs = [
-    libxml2.bin
-    python3
-    which
-  ];
+  nativeCheckInputs = [ libxml2.bin python3 which ];
 
-  cmakeFlags = [
-    "-DEXIV2_ENABLE_NLS=ON"
-    "-DEXIV2_BUILD_DOC=ON"
-    "-DEXIV2_ENABLE_BMFF=ON"
-  ];
+  cmakeFlags =
+    [ "-DEXIV2_ENABLE_NLS=ON" "-DEXIV2_BUILD_DOC=ON" "-DEXIV2_ENABLE_BMFF=ON" ];
 
-  buildFlags = [
-    "all"
-    "doc"
-  ];
+  buildFlags = [ "all" "doc" ];
 
   doCheck = true;
 
@@ -85,7 +53,7 @@ stdenv.mkDerivation rec {
       # disable tests that requires loopback networking
       substituteInPlace  ../tests/bash_tests/testcases.py \
         --replace "def io_test(self):" "def io_disabled(self):"
-     ''}
+    ''}
   '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
     export LC_ALL=C
   '';

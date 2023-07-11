@@ -1,9 +1,4 @@
-{ lib
-, melpaBuild
-, lsp-bridge
-, yasnippet
-, writeText
-}:
+{ lib, melpaBuild, lsp-bridge, yasnippet, writeText }:
 
 melpaBuild {
   pname = "acm";
@@ -12,9 +7,7 @@ melpaBuild {
   src = lsp-bridge.src;
   commit = lsp-bridge.src.rev;
 
-  packageRequires = [
-    yasnippet
-  ];
+  packageRequires = [ yasnippet ];
 
   recipe = writeText "recipe" ''
     (acm

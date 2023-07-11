@@ -3,8 +3,7 @@
 
 # Optional Dependencies
 , libapparmor ? null, gnutls ? null, libselinux ? null, libseccomp ? null
-, libcap ? null, systemd ? null
-}:
+, libcap ? null, systemd ? null }:
 
 with lib;
 stdenv.mkDerivation rec {
@@ -16,12 +15,18 @@ stdenv.mkDerivation rec {
     sha256 = "1vyk2j5w9gfyh23w3ar09cycyws16mxh3clbb33yhqzwcs1jy96v";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook pkg-config perl docbook2x python3Packages.wrapPython
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook pkg-config perl docbook2x python3Packages.wrapPython ];
   buildInputs = [
-    pam libapparmor gnutls libselinux libseccomp libcap
-    python3Packages.python python3Packages.setuptools systemd
+    pam
+    libapparmor
+    gnutls
+    libselinux
+    libseccomp
+    libcap
+    python3Packages.python
+    python3Packages.setuptools
+    systemd
   ];
 
   patches = [
@@ -29,7 +34,8 @@ stdenv.mkDerivation rec {
 
     # Backport of https://github.com/lxc/lxc/pull/4179 for glibc-2.36 build
     (fetchpatch {
-      url = "https://github.com/lxc/lxc/commit/c1115e1503bf955c97f4cf3b925a6a9f619764c3.patch";
+      url =
+        "https://github.com/lxc/lxc/commit/c1115e1503bf955c97f4cf3b925a6a9f619764c3.patch";
       sha256 = "sha256-aC1XQesRJfkyQnloB3NvR4p/1WITrqkGYzw50PDxDrs=";
       excludes = [ "meson.build" ];
     })
@@ -51,15 +57,14 @@ stdenv.mkDerivation rec {
   ] ++ optional (libapparmor != null) "--enable-apparmor"
     ++ optional (libselinux != null) "--enable-selinux"
     ++ optional (libseccomp != null) "--enable-seccomp"
-    ++ optional (libcap != null) "--enable-capabilities"
-    ++ [
-    "--disable-examples"
-    "--enable-python"
-    "--disable-lua"
-    "--enable-bash"
-    (if doCheck then "--enable-tests" else "--disable-tests")
-    "--with-rootfs-path=/var/lib/lxc/rootfs"
-  ];
+    ++ optional (libcap != null) "--enable-capabilities" ++ [
+      "--disable-examples"
+      "--enable-python"
+      "--disable-lua"
+      "--enable-bash"
+      (if doCheck then "--enable-tests" else "--disable-tests")
+      "--with-rootfs-path=/var/lib/lxc/rootfs"
+    ];
 
   doCheck = false;
 
@@ -89,7 +94,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://linuxcontainers.org/";
-    description = "Userspace tools for Linux Containers, a lightweight virtualization system";
+    description =
+      "Userspace tools for Linux Containers, a lightweight virtualization system";
     license = licenses.lgpl21Plus;
 
     longDescription = ''

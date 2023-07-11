@@ -1,51 +1,41 @@
-{ lib
-, stdenv
-, fetchpatch
-, fetchurl
-, tzdata
-, substituteAll
-, iana-etc
-, Security
-, Foundation
-, xcbuild
-, mailcap
-, buildPackages
-, pkgsBuildTarget
-, threadsCross
-, testers
-, skopeo
-, buildGo118Module
-}:
+{ lib, stdenv, fetchpatch, fetchurl, tzdata, substituteAll, iana-etc, Security
+, Foundation, xcbuild, mailcap, buildPackages, pkgsBuildTarget, threadsCross
+, testers, skopeo, buildGo118Module }:
 
 let
-  useGccGoBootstrap = stdenv.buildPlatform.isMusl || stdenv.buildPlatform.isRiscV;
-  goBootstrap = if useGccGoBootstrap then buildPackages.gccgo12 else buildPackages.callPackage ./bootstrap116.nix { };
+  useGccGoBootstrap = stdenv.buildPlatform.isMusl
+    || stdenv.buildPlatform.isRiscV;
+  goBootstrap = if useGccGoBootstrap then
+    buildPackages.gccgo12
+  else
+    buildPackages.callPackage ./bootstrap116.nix { };
 
   skopeoTest = skopeo.override { buildGoModule = buildGo118Module; };
 
-  goarch = platform: {
-    "aarch64" = "arm64";
-    "arm" = "arm";
-    "armv5tel" = "arm";
-    "armv6l" = "arm";
-    "armv7l" = "arm";
-    "i686" = "386";
-    "mips" = "mips";
-    "mips64el" = "mips64le";
-    "mipsel" = "mipsle";
-    "powerpc64le" = "ppc64le";
-    "riscv64" = "riscv64";
-    "s390x" = "s390x";
-    "x86_64" = "amd64";
-  }.${platform.parsed.cpu.name} or (throw "Unsupported system: ${platform.parsed.cpu.name}");
+  goarch = platform:
+    {
+      "aarch64" = "arm64";
+      "arm" = "arm";
+      "armv5tel" = "arm";
+      "armv6l" = "arm";
+      "armv7l" = "arm";
+      "i686" = "386";
+      "mips" = "mips";
+      "mips64el" = "mips64le";
+      "mipsel" = "mipsle";
+      "powerpc64le" = "ppc64le";
+      "riscv64" = "riscv64";
+      "s390x" = "s390x";
+      "x86_64" = "amd64";
+    }.${platform.parsed.cpu.name} or (throw
+      "Unsupported system: ${platform.parsed.cpu.name}");
 
   # We need a target compiler which is still runnable at build time,
   # to handle the cross-building case where build != host == target
   targetCC = pkgsBuildTarget.targetPackages.stdenv.cc;
 
   isCross = stdenv.buildPlatform != stdenv.targetPlatform;
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "go";
   version = "1.18.10";
 
@@ -55,15 +45,20 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  buildInputs = [ ]
-    ++ lib.optionals stdenv.isLinux [ stdenv.cc.libc.out ]
-    ++ lib.optionals (stdenv.hostPlatform.libc == "glibc") [ stdenv.cc.libc.static ];
+  buildInputs = [ ] ++ lib.optionals stdenv.isLinux [ stdenv.cc.libc.out ]
+    ++ lib.optionals (stdenv.hostPlatform.libc == "glibc")
+    [ stdenv.cc.libc.static ];
 
-  depsTargetTargetPropagated = lib.optionals stdenv.targetPlatform.isDarwin [ Foundation Security xcbuild ];
+  depsTargetTargetPropagated = lib.optionals stdenv.targetPlatform.isDarwin [
+    Foundation
+    Security
+    xcbuild
+  ];
 
   depsBuildTarget = lib.optional isCross targetCC;
 
-  depsTargetTarget = lib.optional stdenv.targetPlatform.isWindows threadsCross.package;
+  depsTargetTarget =
+    lib.optional stdenv.targetPlatform.isWindows threadsCross.package;
 
   postPatch = ''
     patchShebangs .
@@ -91,7 +86,8 @@ stdenv.mkDerivation rec {
 
     # runtime: support riscv64 SV57 mode
     (fetchpatch {
-      url = "https://github.com/golang/go/commit/1e3c19f3fee12e5e2b7802a54908a4d4d03960da.patch";
+      url =
+        "https://github.com/golang/go/commit/1e3c19f3fee12e5e2b7802a54908a4d4d03960da.patch";
       sha256 = "sha256-mk/9gXwQEcAkiRemF6GiNU0c0fhDR29/YcKgQR7ONTA=";
     })
   ];
@@ -107,21 +103,21 @@ stdenv.mkDerivation rec {
   # {CC,CXX}_FOR_TARGET must be only set for cross compilation case as go expect those
   # to be different from CC/CXX
   CC_FOR_TARGET =
-    if isCross then
-      "${targetCC}/bin/${targetCC.targetPrefix}cc"
-    else
-      null;
+    if isCross then "${targetCC}/bin/${targetCC.targetPrefix}cc" else null;
   CXX_FOR_TARGET =
-    if isCross then
-      "${targetCC}/bin/${targetCC.targetPrefix}c++"
-    else
-      null;
+    if isCross then "${targetCC}/bin/${targetCC.targetPrefix}c++" else null;
 
-  GOARM = toString (lib.intersectLists [ (stdenv.hostPlatform.parsed.cpu.version or "") ] [ "5" "6" "7" ]);
+  GOARM = toString
+    (lib.intersectLists [ (stdenv.hostPlatform.parsed.cpu.version or "") ] [
+      "5"
+      "6"
+      "7"
+    ]);
   GO386 = "softfloat"; # from Arch: don't assume sse2 on i686
   CGO_ENABLED = 1;
 
-  GOROOT_BOOTSTRAP = if useGccGoBootstrap then goBootstrap else "${goBootstrap}/share/go";
+  GOROOT_BOOTSTRAP =
+    if useGccGoBootstrap then goBootstrap else "${goBootstrap}/share/go";
 
   buildPhase = ''
     runHook preBuild
@@ -132,9 +128,9 @@ stdenv.mkDerivation rec {
     export PATH=$(pwd)/bin:$PATH
 
     ${lib.optionalString isCross ''
-    # Independent from host/target, CC should produce code for the building system.
-    # We only set it when cross-compiling.
-    export CC=${buildPackages.stdenv.cc}/bin/cc
+      # Independent from host/target, CC should produce code for the building system.
+      # We only set it when cross-compiling.
+      export CC=${buildPackages.stdenv.cc}/bin/cc
     ''}
     ulimit -a
 
@@ -155,12 +151,14 @@ stdenv.mkDerivation rec {
     ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
       rm -rf pkg/${GOHOSTOS}_${GOHOSTARCH} pkg/tool/${GOHOSTOS}_${GOHOSTARCH}
     ''}
-  '' else lib.optionalString (stdenv.hostPlatform.system != stdenv.targetPlatform.system) ''
-    rm -rf bin/*_*
-    ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
-      rm -rf pkg/${GOOS}_${GOARCH} pkg/tool/${GOOS}_${GOARCH}
-    ''}
-  '');
+  '' else
+    lib.optionalString
+    (stdenv.hostPlatform.system != stdenv.targetPlatform.system) ''
+      rm -rf bin/*_*
+      ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
+        rm -rf pkg/${GOOS}_${GOARCH} pkg/tool/${GOOS}_${GOARCH}
+      ''}
+    '');
 
   installPhase = ''
     runHook preInstall
@@ -174,13 +172,12 @@ stdenv.mkDerivation rec {
 
   passthru = {
     inherit goBootstrap skopeoTest;
-    tests = {
-      skopeo = testers.testVersion { package = skopeoTest; };
-    };
+    tests = { skopeo = testers.testVersion { package = skopeoTest; }; };
   };
 
   meta = with lib; {
-    changelog = "https://go.dev/doc/devel/release#go${lib.versions.majorMinor version}";
+    changelog =
+      "https://go.dev/doc/devel/release#go${lib.versions.majorMinor version}";
     description = "The Go Programming language";
     homepage = "https://go.dev/";
     license = licenses.bsd3;

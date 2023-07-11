@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "tcxreader";
@@ -19,13 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-UJ6F+GcdF0b2gALQWepLyCnWm+6RKBRnBt1eJNoRRzo=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "tcxreader"
-  ];
+  pythonImportsCheck = [ "tcxreader" ];
 
   meta = with lib; {
     description = "A reader for Garmin’s TCX file format";

@@ -1,12 +1,7 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, fetchpatch
-, autoreconfHook, bison, glm, flex
-, freeglut, ghostscriptX, imagemagick, fftw
-, boehmgc, libGLU, libGL, mesa, ncurses, readline, gsl, libsigsegv
-, python3Packages
-, zlib, perl, curl
-, texLive, texinfo
-, darwin
-}:
+{ lib, stdenv, fetchFromGitHub, fetchurl, fetchpatch, autoreconfHook, bison, glm
+, flex, freeglut, ghostscriptX, imagemagick, fftw, boehmgc, libGLU, libGL, mesa
+, ncurses, readline, gsl, libsigsegv, python3Packages, zlib, perl, curl, texLive
+, texinfo, darwin }:
 
 stdenv.mkDerivation rec {
   version = "2.85";
@@ -19,31 +14,27 @@ stdenv.mkDerivation rec {
     hash = "sha256-GyW9OEolV97WtrSdIxp4MCP3JIyA1c/DQSqg8jLC0WQ=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    bison
-    flex
-    bison
-    texinfo
-  ];
+  nativeBuildInputs = [ autoreconfHook bison flex bison texinfo ];
 
   buildInputs = [
-    ghostscriptX imagemagick fftw
-    boehmgc ncurses readline gsl libsigsegv
-    zlib perl curl
+    ghostscriptX
+    imagemagick
+    fftw
+    boehmgc
+    ncurses
+    readline
+    gsl
+    libsigsegv
+    zlib
+    perl
+    curl
     texLive
-  ] ++ (with python3Packages; [
-    python
-    pyqt5
-  ]);
+  ] ++ (with python3Packages; [ python pyqt5 ]);
 
-  propagatedBuildInputs = [
-    glm
-  ] ++ lib.optionals stdenv.isLinux [
-    freeglut libGLU libGL mesa.osmesa
-  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-    OpenGL GLUT Cocoa
-  ]);
+  propagatedBuildInputs = [ glm ]
+    ++ lib.optionals stdenv.isLinux [ freeglut libGLU libGL mesa.osmesa ]
+    ++ lib.optionals stdenv.isDarwin
+    (with darwin.apple_sdk.frameworks; [ OpenGL GLUT Cocoa ]);
 
   preConfigure = ''
     HOME=$TMP
@@ -73,7 +64,8 @@ stdenv.mkDerivation rec {
   enableParallelInstalling = false;
 
   meta = with lib; {
-    description =  "A tool for programming graphics intended to replace Metapost";
+    description =
+      "A tool for programming graphics intended to replace Metapost";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.raskin ];
     platforms = platforms.linux ++ platforms.darwin;

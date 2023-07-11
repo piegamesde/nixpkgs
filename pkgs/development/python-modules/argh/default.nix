@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, flit-core
-, iocapture
-, mock
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, flit-core, iocapture, mock
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "argh";
@@ -18,15 +11,9 @@ buildPythonPackage rec {
     hash = "sha256-sgkwhvDoCaPswktkohRTCe6PVtA0k2zVnlfFWKNXMp0=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
-  nativeCheckInputs = [
-    iocapture
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ iocapture mock pytestCheckHook ];
 
   pythonImportsCheck = [ "argh" ];
 

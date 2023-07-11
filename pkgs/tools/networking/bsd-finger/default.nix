@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, buildClient ? true
-}:
+{ lib, stdenv, fetchurl, buildClient ? true }:
 
 stdenv.mkDerivation rec {
   srcName = "bsd-finger";
@@ -10,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "0.17";
 
   src = fetchurl {
-    url = "mirror://ibiblioPubLinux/system/network/finger/${srcName}-${version}.tar.gz";
+    url =
+      "mirror://ibiblioPubLinux/system/network/finger/${srcName}-${version}.tar.gz";
     hash = "sha256-hIhdZo0RfvUOAccDSkXYND10fOxiEuQOjQgVG8GOE/o=";
   };
 
@@ -18,12 +15,9 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-D_GNU_SOURCE";
 
-  patches = [
-    ./ubuntu-0.17-9.patch
-  ];
+  patches = [ ./ubuntu-0.17-9.patch ];
 
-  preBuild = let
-    srcdir = if buildClient then "finger" else "fingerd";
+  preBuild = let srcdir = if buildClient then "finger" else "fingerd";
   in ''
     cd ${srcdir}
   '';
@@ -36,10 +30,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      if buildClient
-      then "User information lookup program"
-      else "Remote user information server";
+    description = if buildClient then
+      "User information lookup program"
+    else
+      "Remote user information server";
     platforms = platforms.linux;
     license = licenses.bsdOriginal;
   };

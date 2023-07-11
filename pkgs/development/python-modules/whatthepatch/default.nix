@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, setuptools
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, setuptools }:
 
 buildPythonPackage rec {
   pname = "whatthepatch";
@@ -17,13 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-pejph0WyhryS2injlFElFozIDl6zJeiENh6fqh6982s=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "whatthepatch" ];
 

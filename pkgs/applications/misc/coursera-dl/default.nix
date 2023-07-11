@@ -1,7 +1,6 @@
 { lib, fetchFromGitHub, fetchpatch, glibcLocales, pandoc, python3 }:
 
-let
-  pythonPackages = python3.pkgs;
+let pythonPackages = python3.pkgs;
 
 in pythonPackages.buildPythonApplication rec {
   pname = "coursera-dl";
@@ -18,7 +17,16 @@ in pythonPackages.buildPythonApplication rec {
 
   buildInputs = with pythonPackages; [ glibcLocales ];
 
-  propagatedBuildInputs = with pythonPackages; [ attrs beautifulsoup4 configargparse keyring pyasn1 requests six urllib3 ];
+  propagatedBuildInputs = with pythonPackages; [
+    attrs
+    beautifulsoup4
+    configargparse
+    keyring
+    pyasn1
+    requests
+    six
+    urllib3
+  ];
 
   nativeCheckInputs = with pythonPackages; [ pytest mock ];
 
@@ -38,11 +46,13 @@ in pythonPackages.buildPythonApplication rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/coursera-dl/coursera-dl/commit/c8796e567698be166cb15f54e095140c1a9b567e.patch";
+      url =
+        "https://github.com/coursera-dl/coursera-dl/commit/c8796e567698be166cb15f54e095140c1a9b567e.patch";
       sha256 = "sha256:07ca6zdyw3ypv7yzfv2kzmjvv86h0rwzllcg0zky27qppqz917bv";
     })
     (fetchpatch {
-      url = "https://github.com/coursera-dl/coursera-dl/commit/6c221706ba828285ca7a30a08708e63e3891b36f.patch";
+      url =
+        "https://github.com/coursera-dl/coursera-dl/commit/6c221706ba828285ca7a30a08708e63e3891b36f.patch";
       sha256 = "sha256-/AKFvBPInSq/lsz+G0jVSl/ukVgCnt66oePAb+66AjI=";
     })
   ];

@@ -1,13 +1,5 @@
-{ qtModule
-, lib
-, stdenv
-, qtbase
-, qtdeclarative
-, bluez
-, pkg-config
-, IOBluetooth
-, PCSC
-}:
+{ qtModule, lib, stdenv, qtbase, qtdeclarative, bluez, pkg-config, IOBluetooth
+, PCSC }:
 
 qtModule {
   pname = "qtconnectivity";

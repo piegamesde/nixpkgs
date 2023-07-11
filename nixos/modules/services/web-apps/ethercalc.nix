@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.services.ethercalc;
+let cfg = config.services.ethercalc;
 in {
   options = {
     services.ethercalc = {
@@ -34,7 +33,8 @@ in {
       host = mkOption {
         type = types.str;
         default = "0.0.0.0";
-        description = lib.mdDoc "Address to listen on (use 0.0.0.0 to allow access from any address).";
+        description = lib.mdDoc
+          "Address to listen on (use 0.0.0.0 to allow access from any address).";
       };
 
       port = mkOption {
@@ -48,13 +48,15 @@ in {
   config = mkIf cfg.enable {
     systemd.services.ethercalc = {
       description = "Ethercalc service";
-      wantedBy    = [ "multi-user.target" ];
-      after       = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
       serviceConfig = {
-        DynamicUser    =   true;
-        ExecStart        = "${cfg.package}/bin/ethercalc --host ${cfg.host} --port ${toString cfg.port}";
-        Restart          = "always";
-        StateDirectory   = "ethercalc";
+        DynamicUser = true;
+        ExecStart = "${cfg.package}/bin/ethercalc --host ${cfg.host} --port ${
+            toString cfg.port
+          }";
+        Restart = "always";
+        StateDirectory = "ethercalc";
         WorkingDirectory = "/var/lib/ethercalc";
       };
     };

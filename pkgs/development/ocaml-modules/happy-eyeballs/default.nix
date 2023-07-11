@@ -1,6 +1,4 @@
-{ lib, buildDunePackage, fetchurl
-, domain-name, duration, fmt, ipaddr, logs
-}:
+{ lib, buildDunePackage, fetchurl, domain-name, duration, fmt, ipaddr, logs }:
 
 buildDunePackage rec {
   pname = "happy-eyeballs";
@@ -10,17 +8,12 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/roburio/happy-eyeballs/releases/download/v${version}/happy-eyeballs-${version}.tbz";
+    url =
+      "https://github.com/roburio/happy-eyeballs/releases/download/v${version}/happy-eyeballs-${version}.tbz";
     hash = "sha256-T4BOFlSj3xfUFhP9v8UaCHgmhvGrMyeqNUQf79bdBh4=";
   };
 
-  propagatedBuildInputs = [
-    domain-name
-    duration
-    fmt
-    ipaddr
-    logs
-  ];
+  propagatedBuildInputs = [ domain-name duration fmt ipaddr logs ];
 
   meta = {
     description = "Connecting to a remote host via IP version 4 or 6";

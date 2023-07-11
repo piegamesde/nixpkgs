@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchFromGitHub
-, m4
-, cmake
-, perl
-, writeScript
-, enableUnstable ? false
-}:
+{ lib, stdenv, fetchurl, fetchFromGitHub, m4, cmake, perl, writeScript
+, enableUnstable ? false }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ath9k-htc-blobless-firmware";
@@ -30,32 +22,32 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ m4 cmake perl ];
 
-  env.NIX_CFLAGS_COMPILE = "-w";  # old libiberty emits fatal warnings
+  env.NIX_CFLAGS_COMPILE = "-w"; # old libiberty emits fatal warnings
 
   dontUseCmakeConfigure = true;
   enableParallelBuilding = true;
 
   # The firmware repository builds its own toolchain, with patches
   # applied to the xtensa support in both gcc and binutils.
-  preBuild =
-    let
-      inherit (lib) toUpper splitString last listToAttrs pipe;
-      inherit (builtins) map;
-      urls-and-hashes = import (./. + "/urls-and-hashes-${finalAttrs.version}.nix");
-      make-links = pipe
-        [ "gcc" "binutils" "gmp" "mpfr" "mpc" ]
-        [ (map (vname: fetchurl rec {
-            url = urls-and-hashes."${(toUpper vname) + "_URL"}";
-            sha256 = urls-and-hashes."${(toUpper vname) + "_SUM"}" or "";
-            name = last (splitString "/" url);
-          }))
-          (map (v: "ln -sT ${v} toolchain/dl/${v.name}"))
-          (lib.concatStringsSep "\n")
-        ];
-    in ''
-      mkdir -p toolchain/dl
-      ${make-links}
-    '';
+  preBuild = let
+    inherit (lib) toUpper splitString last listToAttrs pipe;
+    inherit (builtins) map;
+    urls-and-hashes =
+      import (./. + "/urls-and-hashes-${finalAttrs.version}.nix");
+    make-links = pipe [ "gcc" "binutils" "gmp" "mpfr" "mpc" ] [
+      (map (vname:
+        fetchurl rec {
+          url = urls-and-hashes."${(toUpper vname) + "_URL"}";
+          sha256 = urls-and-hashes."${(toUpper vname) + "_SUM"}" or "";
+          name = last (splitString "/" url);
+        }))
+      (map (v: "ln -sT ${v} toolchain/dl/${v.name}"))
+      (lib.concatStringsSep "\n")
+    ];
+  in ''
+    mkdir -p toolchain/dl
+    ${make-links}
+  '';
 
   makeTargets = [ "toolchain" "firmware" ];
 
@@ -67,10 +59,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     inherit (finalAttrs) src;
-    updateScript = writeScript "${finalAttrs.pname}-${finalAttrs.version}-updateScript" ''
-      nix-shell '<nixpkgs>' -A ${finalAttrs.pname}${lib.optionalString enableUnstable "-unstable"}.passthru.update \
-      > pkgs/os-specific/linux/firmware/ath9k/urls-and-hashes-${finalAttrs.version}.nix
-    '';
+    updateScript =
+      writeScript "${finalAttrs.pname}-${finalAttrs.version}-updateScript" ''
+        nix-shell '<nixpkgs>' -A ${finalAttrs.pname}${
+          lib.optionalString enableUnstable "-unstable"
+        }.passthru.update \
+        > pkgs/os-specific/linux/firmware/ath9k/urls-and-hashes-${finalAttrs.version}.nix
+      '';
     update = stdenv.mkDerivation {
       name = "${finalAttrs.pname}-${finalAttrs.version}-update";
       shellHook = ''
@@ -82,22 +77,22 @@ stdenv.mkDerivation (finalAttrs: {
           | tr \( \{ \
           | tr \) \}
       ''
-      # sha256 checksums were not added to upstream's Makefile until
-      # after the 1.4.0 release.  The following line is needed for
-      # the `enableUnstable==false` build but not for the
-      # `enableUnstable==true` build.  We can remove the lines below
-      # as soon as `enableUnstable==false` points to a version
-      # greater than 1.4.0.
-      + lib.optionalString (finalAttrs.version == "1.4.0") ''
-        echo 'GCC_SUM = "sha256-kuYcbcOgpEnmLXKjgYX9pVAWioZwLeoHEl69PsOZYoI=";'
-        echo 'MPFR_SUM = "sha256-e2bD8T3IOF8IJkyAWFPz4aju2rgHHVgvPmYZccms1f0=";'
-        echo 'MPC_SUM = "sha256-7VqBXP6lJdx3jfDLN0aLnBtVSq8w2TKLFDHKcFt0AP8=";'
-        echo 'GMP_SUM = "sha256-H1iKrMxBu5rtlG+f44Uhwm2LKQ0APF34B/ZWkPKq3sk=";'
-        echo 'BINUTILS_SUM = "sha256-KrLlsD4IbRLGKV+DGtrUaz4UEKOiNJM6Lo+sZssuehk=";'
-      '' + ''
-        echo '}'
-        exit
-      '';
+        # sha256 checksums were not added to upstream's Makefile until
+        # after the 1.4.0 release.  The following line is needed for
+        # the `enableUnstable==false` build but not for the
+        # `enableUnstable==true` build.  We can remove the lines below
+        # as soon as `enableUnstable==false` points to a version
+        # greater than 1.4.0.
+        + lib.optionalString (finalAttrs.version == "1.4.0") ''
+          echo 'GCC_SUM = "sha256-kuYcbcOgpEnmLXKjgYX9pVAWioZwLeoHEl69PsOZYoI=";'
+          echo 'MPFR_SUM = "sha256-e2bD8T3IOF8IJkyAWFPz4aju2rgHHVgvPmYZccms1f0=";'
+          echo 'MPC_SUM = "sha256-7VqBXP6lJdx3jfDLN0aLnBtVSq8w2TKLFDHKcFt0AP8=";'
+          echo 'GMP_SUM = "sha256-H1iKrMxBu5rtlG+f44Uhwm2LKQ0APF34B/ZWkPKq3sk=";'
+          echo 'BINUTILS_SUM = "sha256-KrLlsD4IbRLGKV+DGtrUaz4UEKOiNJM6Lo+sZssuehk=";'
+        '' + ''
+          echo '}'
+          exit
+        '';
     };
   };
 
@@ -121,22 +116,21 @@ stdenv.mkDerivation (finalAttrs: {
       to see what those CPUs are doing and modify their behavior.
     '';
     license = with lib.licenses; [ # see NOTICE.txt for details
-      bsd3                # almost everything; "the ClearBSD licence"
-      gpl2ClasspathPlus   # **/*cmnos_printf.c, only three files
-      mit                 # **/xtos, **/xtensa
+      bsd3 # almost everything; "the ClearBSD licence"
+      gpl2ClasspathPlus # **/*cmnos_printf.c, only three files
+      mit # **/xtos, **/xtensa
     ];
 
     # release 1.4.0 vendors a GMP which uses an ancient version of
     # autotools that does not work on aarch64 or powerpc.
     # However, enableUnstable (unreleased upstream) works.
-    /*
-    # disabled until #195294 is merged
-    badPlatforms =
-      with lib.systems.inspect.patterns;
-      lib.optionals (!enableUnstable && lib.versionOlder finalAttrs.version "1.4.1") [
-        isAarch64
-        isPower64
-      ];
+    /* # disabled until #195294 is merged
+       badPlatforms =
+         with lib.systems.inspect.patterns;
+         lib.optionals (!enableUnstable && lib.versionOlder finalAttrs.version "1.4.1") [
+           isAarch64
+           isPower64
+         ];
     */
 
     sourceProvenance = [ lib.sourceTypes.fromSource ];

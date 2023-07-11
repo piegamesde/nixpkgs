@@ -1,14 +1,8 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, isPyPy
-, defusedxml, olefile, freetype, libjpeg, zlib, libtiff, libwebp, libxcrypt, tcl, lcms2, tk, libX11
-, libxcb, openjpeg, libimagequant, pyroma, numpy, pytestCheckHook
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, isPyPy, defusedxml
+, olefile, freetype, libjpeg, zlib, libtiff, libwebp, libxcrypt, tcl, lcms2, tk
+, libX11, libxcb, openjpeg, libimagequant, pyroma, numpy, pytestCheckHook
 # for passthru.tests
-, imageio, matplotlib, pilkit, pydicom, reportlab
-}@args:
+, imageio, matplotlib, pilkit, pydicom, reportlab }@args:
 
 import ./generic.nix (rec {
   pname = "pillow";
@@ -23,9 +17,7 @@ import ./generic.nix (rec {
     hash = "sha256-ocLXeARI65P7zDeJvzkWqlcg2ULjeUX0BWaAMX8c0j4=";
   };
 
-  passthru.tests = {
-    inherit imageio matplotlib pilkit pydicom reportlab;
-  };
+  passthru.tests = { inherit imageio matplotlib pilkit pydicom reportlab; };
 
   meta = with lib; {
     homepage = "https://python-pillow.org/";
@@ -39,4 +31,4 @@ import ./generic.nix (rec {
     license = licenses.hpnd;
     maintainers = with maintainers; [ goibhniu prikhi SuperSandro2000 ];
   };
-} // args )
+} // args)

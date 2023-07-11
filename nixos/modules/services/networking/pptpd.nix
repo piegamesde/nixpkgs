@@ -5,37 +5,40 @@ with lib;
 {
   options = {
     services.pptpd = {
-      enable = mkEnableOption (lib.mdDoc "pptpd, the Point-to-Point Tunneling Protocol daemon");
+      enable = mkEnableOption
+        (lib.mdDoc "pptpd, the Point-to-Point Tunneling Protocol daemon");
 
       serverIp = mkOption {
-        type        = types.str;
+        type = types.str;
         description = lib.mdDoc "The server-side IP address.";
-        default     = "10.124.124.1";
+        default = "10.124.124.1";
       };
 
       clientIpRange = mkOption {
-        type        = types.str;
+        type = types.str;
         description = lib.mdDoc "The range from which client IPs are drawn.";
-        default     = "10.124.124.2-11";
+        default = "10.124.124.2-11";
       };
 
       maxClients = mkOption {
-        type        = types.int;
-        description = lib.mdDoc "The maximum number of simultaneous connections.";
-        default     = 10;
+        type = types.int;
+        description =
+          lib.mdDoc "The maximum number of simultaneous connections.";
+        default = 10;
       };
 
       extraPptpdOptions = mkOption {
-        type        = types.lines;
-        description = lib.mdDoc "Adds extra lines to the pptpd configuration file.";
-        default     = "";
+        type = types.lines;
+        description =
+          lib.mdDoc "Adds extra lines to the pptpd configuration file.";
+        default = "";
       };
 
       extraPppdOptions = mkOption {
-        type        = types.lines;
+        type = types.lines;
         description = lib.mdDoc "Adds extra lines to the pppd options file.";
-        default     = "";
-        example     = ''
+        default = "";
+        example = ''
           ms-dns 8.8.8.8
           ms-dns 8.8.4.4
         '';
@@ -54,7 +57,9 @@ with lib;
         pidfile /run/pptpd.pid
         localip ${cfg.serverIp}
         remoteip ${cfg.clientIpRange}
-        connections ${toString cfg.maxClients} # (Will get harmless warning if inconsistent with IP range)
+        connections ${
+          toString cfg.maxClients
+        } # (Will get harmless warning if inconsistent with IP range)
 
         # Extra
         ${cfg.extraPptpdOptions}
@@ -80,9 +85,9 @@ with lib;
       '';
 
       ppp-pptpd-wrapped = pkgs.stdenv.mkDerivation {
-        name         = "ppp-pptpd-wrapped";
-        phases       = [ "installPhase" ];
-        nativeBuildInputs  = with pkgs; [ makeWrapper ];
+        name = "ppp-pptpd-wrapped";
+        phases = [ "installPhase" ];
+        nativeBuildInputs = with pkgs; [ makeWrapper ];
         installPhase = ''
           mkdir -p $out/bin
           makeWrapper ${pkgs.ppp}/bin/pppd $out/bin/pppd \
@@ -114,10 +119,10 @@ with lib;
 
       serviceConfig = {
         ExecStart = "${pkgs.pptpd}/bin/pptpd --conf ${pptpd-conf}";
-        KillMode  = "process";
-        Restart   = "on-success";
-        Type      = "forking";
-        PIDFile   = "/run/pptpd.pid";
+        KillMode = "process";
+        Restart = "on-success";
+        Type = "forking";
+        PIDFile = "/run/pptpd.pid";
       };
     };
   };

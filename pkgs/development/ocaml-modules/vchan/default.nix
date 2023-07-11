@@ -1,7 +1,5 @@
-{ lib, buildDunePackage, fetchurl
-, ppx_cstruct, ppx_sexp_conv, ounit
-, lwt, cstruct, io-page, mirage-flow, xenstore, xenstore_transport
-, sexplib, cmdliner
+{ lib, buildDunePackage, fetchurl, ppx_cstruct, ppx_sexp_conv, ounit, lwt
+, cstruct, io-page, mirage-flow, xenstore, xenstore_transport, sexplib, cmdliner
 }:
 
 buildDunePackage rec {
@@ -12,7 +10,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/mirage/ocaml-vchan/releases/download/v${version}/vchan-${version}.tbz";
+    url =
+      "https://github.com/mirage/ocaml-vchan/releases/download/v${version}/vchan-${version}.tbz";
     hash = "sha256-5E7dITMVirYoxUkp8ZamRAolyhA6avXGJNAioxeBuV0=";
   };
 
@@ -29,10 +28,7 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [
-    cmdliner
-    ounit
-  ];
+  checkInputs = [ cmdliner ounit ];
 
   meta = with lib; {
     description = "Xen Vchan implementation";

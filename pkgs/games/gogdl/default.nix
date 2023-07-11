@@ -1,11 +1,5 @@
-{ lib
-, gitUpdater
-, buildPythonApplication
-, fetchFromGitHub
-, pythonOlder
-, setuptools
-, requests
-}:
+{ lib, gitUpdater, buildPythonApplication, fetchFromGitHub, pythonOlder
+, setuptools, requests }:
 
 buildPythonApplication rec {
   pname = "gogdl";
@@ -21,10 +15,7 @@ buildPythonApplication rec {
 
   disabled = pythonOlder "3.8";
 
-  propagatedBuildInputs = [
-    setuptools
-    requests
-  ];
+  propagatedBuildInputs = [ setuptools requests ];
 
   pythonImportsCheck = [ "gogdl" ];
 
@@ -35,7 +26,5 @@ buildPythonApplication rec {
     maintainers = with maintainers; [ aidalgol ];
   };
 
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "v";
-  };
+  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 }

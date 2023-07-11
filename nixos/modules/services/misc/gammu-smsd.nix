@@ -25,29 +25,32 @@ let
       ErrorSMSPath = ${cfg.backend.files.errorSMSPath}
     ''}
 
-    ${optionalString (cfg.backend.service == "sql" && cfg.backend.sql.driver == "sqlite") ''
+    ${optionalString
+    (cfg.backend.service == "sql" && cfg.backend.sql.driver == "sqlite") ''
       Driver = ${cfg.backend.sql.driver}
       DBDir = ${cfg.backend.sql.database}
     ''}
 
-    ${optionalString (cfg.backend.service == "sql" && cfg.backend.sql.driver == "native_pgsql") (
-      with cfg.backend; ''
-        Driver = ${sql.driver}
-        ${optionalString (sql.database!= null) "Database = ${sql.database}"}
-        ${optionalString (sql.host != null) "Host = ${sql.host}"}
-        ${optionalString (sql.user != null) "User = ${sql.user}"}
-        ${optionalString (sql.password != null) "Password = ${sql.password}"}
-      '')}
+    ${optionalString
+    (cfg.backend.service == "sql" && cfg.backend.sql.driver == "native_pgsql")
+    (with cfg.backend; ''
+      Driver = ${sql.driver}
+      ${optionalString (sql.database != null) "Database = ${sql.database}"}
+      ${optionalString (sql.host != null) "Host = ${sql.host}"}
+      ${optionalString (sql.user != null) "User = ${sql.user}"}
+      ${optionalString (sql.password != null) "Password = ${sql.password}"}
+    '')}
 
     ${cfg.extraConfig.smsd}
   '';
 
   initDBDir = "share/doc/gammu/examples/sql";
 
-  gammuPackage = with cfg.backend; (pkgs.gammu.override {
-    dbiSupport = service == "sql" && sql.driver == "sqlite";
-    postgresSupport = service == "sql" && sql.driver == "native_pgsql";
-  });
+  gammuPackage = with cfg.backend;
+    (pkgs.gammu.override {
+      dbiSupport = service == "sql" && sql.driver == "sqlite";
+      postgresSupport = service == "sql" && sql.driver == "native_pgsql";
+    });
 
 in {
   options = {
@@ -78,13 +81,15 @@ in {
         connection = mkOption {
           type = types.str;
           default = "at";
-          description = lib.mdDoc "Protocol which will be used to talk to the phone";
+          description =
+            lib.mdDoc "Protocol which will be used to talk to the phone";
         };
 
         synchronizeTime = mkOption {
           type = types.bool;
           default = true;
-          description = lib.mdDoc "Whether to set time from computer to the phone during starting connection";
+          description = lib.mdDoc
+            "Whether to set time from computer to the phone during starting connection";
         };
 
         pin = mkOption {
@@ -94,37 +99,45 @@ in {
         };
       };
 
-
       log = {
         file = mkOption {
           type = types.str;
           default = "syslog";
-          description = lib.mdDoc "Path to file where information about communication will be stored";
+          description = lib.mdDoc
+            "Path to file where information about communication will be stored";
         };
 
         format = mkOption {
-          type = types.enum [ "nothing" "text" "textall" "textalldate" "errors" "errorsdate" "binary" ];
+          type = types.enum [
+            "nothing"
+            "text"
+            "textall"
+            "textalldate"
+            "errors"
+            "errorsdate"
+            "binary"
+          ];
           default = "errors";
-          description = lib.mdDoc "Determines what will be logged to the LogFile";
+          description =
+            lib.mdDoc "Determines what will be logged to the LogFile";
         };
       };
-
 
       extraConfig = {
         gammu = mkOption {
           type = types.lines;
           default = "";
-          description = lib.mdDoc "Extra config lines to be added into [gammu] section";
+          description =
+            lib.mdDoc "Extra config lines to be added into [gammu] section";
         };
-
 
         smsd = mkOption {
           type = types.lines;
           default = "";
-          description = lib.mdDoc "Extra config lines to be added into [smsd] section";
+          description =
+            lib.mdDoc "Extra config lines to be added into [smsd] section";
         };
       };
-
 
       backend = {
         service = mkOption {
@@ -155,7 +168,8 @@ in {
           errorSMSPath = mkOption {
             type = types.path;
             default = "/var/spool/sms/error/";
-            description = lib.mdDoc "Where SMSes with error in transmission is placed";
+            description =
+              lib.mdDoc "Where SMSes with error in transmission is placed";
           };
         };
 
@@ -186,13 +200,15 @@ in {
           user = mkOption {
             type = types.nullOr types.str;
             default = null;
-            description = lib.mdDoc "User name used for connection to the database";
+            description =
+              lib.mdDoc "User name used for connection to the database";
           };
 
           password = mkOption {
             type = types.nullOr types.str;
             default = null;
-            description = lib.mdDoc "User password used for connection to the database";
+            description =
+              lib.mdDoc "User password used for connection to the database";
           };
         };
       };
@@ -206,16 +222,18 @@ in {
       group = cfg.device.group;
     };
 
-    environment.systemPackages = with cfg.backend; [ gammuPackage ]
-    ++ optionals (service == "sql" && sql.driver == "sqlite")  [ pkgs.sqlite ];
+    environment.systemPackages = with cfg.backend;
+      [ gammuPackage ]
+      ++ optionals (service == "sql" && sql.driver == "sqlite") [ pkgs.sqlite ];
 
     systemd.services.gammu-smsd = {
       description = "gammu-smsd daemon";
 
       wantedBy = [ "multi-user.target" ];
 
-      wants = with cfg.backend; [ ]
-      ++ optionals (service == "sql" && sql.driver == "native_pgsql") [ "postgresql.service" ];
+      wants = with cfg.backend;
+        [ ] ++ optionals (service == "sql" && sql.driver == "native_pgsql")
+        [ "postgresql.service" ];
 
       preStart = with cfg.backend;
 
@@ -225,21 +243,23 @@ in {
           chown ${cfg.user} -R ${outboxPath}
           chown ${cfg.user} -R ${sentSMSPath}
           chown ${cfg.user} -R ${errorSMSPath}
-        '')
-      + optionalString (service == "sql" && sql.driver == "sqlite") ''
-         cat "${gammuPackage}/${initDBDir}/sqlite.sql" \
-         | ${pkgs.sqlite.bin}/bin/sqlite3 ${sql.database}
-        ''
-      + (let execPsql = extraArgs: concatStringsSep " " [
-          (optionalString (sql.password != null) "PGPASSWORD=${sql.password}")
-          "${config.services.postgresql.package}/bin/psql"
-          (optionalString (sql.host != null) "-h ${sql.host}")
-          (optionalString (sql.user != null) "-U ${sql.user}")
-          "$extraArgs"
-          "${sql.database}"
-        ]; in optionalString (service == "sql" && sql.driver == "native_pgsql") ''
-         echo '\i '"${gammuPackage}/${initDBDir}/pgsql.sql" | ${execPsql ""}
-       '');
+        '') + optionalString (service == "sql" && sql.driver == "sqlite") ''
+          cat "${gammuPackage}/${initDBDir}/sqlite.sql" \
+          | ${pkgs.sqlite.bin}/bin/sqlite3 ${sql.database}
+        '' + (let
+          execPsql = extraArgs:
+            concatStringsSep " " [
+              (optionalString (sql.password != null)
+                "PGPASSWORD=${sql.password}")
+              "${config.services.postgresql.package}/bin/psql"
+              (optionalString (sql.host != null) "-h ${sql.host}")
+              (optionalString (sql.user != null) "-U ${sql.user}")
+              "$extraArgs"
+              "${sql.database}"
+            ];
+        in optionalString (service == "sql" && sql.driver == "native_pgsql") ''
+          echo '\i '"${gammuPackage}/${initDBDir}/pgsql.sql" | ${execPsql ""}
+        '');
 
       serviceConfig = {
         User = "${cfg.user}";

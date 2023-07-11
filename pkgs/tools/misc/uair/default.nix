@@ -1,9 +1,4 @@
-{ fetchFromGitHub
-, installShellFiles
-, lib
-, rustPlatform
-, scdoc
-}:
+{ fetchFromGitHub, installShellFiles, lib, rustPlatform, scdoc }:
 
 rustPlatform.buildRustPackage rec {
   pname = "uair";

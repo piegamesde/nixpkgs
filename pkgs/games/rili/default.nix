@@ -16,12 +16,15 @@ stdenv.mkDerivation rec {
     #  https://sourceforge.net/p/ri-li/bugs/2/
     (fetchpatch {
       name = "gcc-11.patch";
-      url = "https://sourceforge.net/p/ri-li/bugs/2/attachment/0001-Fix-build-on-gcc-11.patch";
+      url =
+        "https://sourceforge.net/p/ri-li/bugs/2/attachment/0001-Fix-build-on-gcc-11.patch";
       sha256 = "01il9lm3amwp3b435ka9q63p0jwlzajwnbshyazx6n9vcnrr17yw";
     })
   ];
 
-  CPPFLAGS = "-I${lib.getDev SDL}/include -I${lib.getDev SDL}/include/SDL -I${SDL_mixer}/include";
+  CPPFLAGS = "-I${lib.getDev SDL}/include -I${
+      lib.getDev SDL
+    }/include/SDL -I${SDL_mixer}/include";
 
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ SDL SDL_mixer ];
@@ -31,9 +34,9 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     description = "A children's train game";
     longDescription = ''
-     Ri-li is an arcade game licensed under the GPL (General Public License).
-You drive a toy wood engine in many levels and you must collect all the coaches
-to win.
+           Ri-li is an arcade game licensed under the GPL (General Public License).
+      You drive a toy wood engine in many levels and you must collect all the coaches
+      to win.
     '';
     maintainers = with lib.maintainers; [ jcumming ];
     platforms = with lib.platforms; linux;

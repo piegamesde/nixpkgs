@@ -1,24 +1,6 @@
-{ lib
-, fetchFromGitHub
-, fetchpatch
-, rPackages
-, buildPythonPackage
-, biopython
-, numpy
-, scipy
-, scikit-learn
-, pandas
-, matplotlib
-, reportlab
-, pysam
-, future
-, pillow
-, pomegranate
-, pyfaidx
-, python
-, pythonOlder
-, R
-}:
+{ lib, fetchFromGitHub, fetchpatch, rPackages, buildPythonPackage, biopython
+, numpy, scipy, scikit-learn, pandas, matplotlib, reportlab, pysam, future
+, pillow, pomegranate, pyfaidx, python, pythonOlder, R }:
 
 buildPythonPackage rec {
   pname = "cnvkit";
@@ -71,13 +53,12 @@ buildPythonPackage rec {
     popd # test/
   '';
 
-  pythonImportsCheck = [
-    "cnvlib"
-  ];
+  pythonImportsCheck = [ "cnvlib" ];
 
   meta = with lib; {
     homepage = "https://cnvkit.readthedocs.io";
-    description = "A Python library and command-line software toolkit to infer and visualize copy number from high-throughput DNA sequencing data";
+    description =
+      "A Python library and command-line software toolkit to infer and visualize copy number from high-throughput DNA sequencing data";
     changelog = "https://github.com/etal/cnvkit/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = [ maintainers.jbedo ];

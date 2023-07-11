@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, wrapGAppsHook
-, makeDesktopItem
-, copyDesktopItems
-, unzip
-, xdg-utils
-, gtk3
-, jdk
-, gradle
-, perl
-}:
+{ lib, stdenv, fetchFromGitHub, wrapGAppsHook, makeDesktopItem, copyDesktopItems
+, unzip, xdg-utils, gtk3, jdk, gradle, perl }:
 
 let
   versionReplace = {
@@ -23,8 +12,7 @@ let
       pin = "0e337d8773";
     };
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   version = "5.9";
   pname = "jabref";
 
@@ -93,13 +81,7 @@ stdenv.mkDerivation rec {
       settings.gradle
   '';
 
-  nativeBuildInputs = [
-    jdk
-    gradle
-    wrapGAppsHook
-    copyDesktopItems
-    unzip
-  ];
+  nativeBuildInputs = [ jdk gradle wrapGAppsHook copyDesktopItems unzip ];
 
   buildInputs = [ gtk3 ];
 
@@ -138,7 +120,9 @@ stdenv.mkDerivation rec {
     tar xf build/distributions/JabRef-${version}.tar -C $out --strip-components=1
 
     # remove openjfx libs for other platforms
-    rm $out/lib/javafx-*-win.jar ${lib.optionalString stdenv.isAarch64 "$out/lib/javafx-*-linux.jar"}
+    rm $out/lib/javafx-*-win.jar ${
+      lib.optionalString stdenv.isAarch64 "$out/lib/javafx-*-linux.jar"
+    }
 
     # workaround for https://github.com/NixOS/nixpkgs/issues/162064
     unzip $out/lib/javafx-web-*.jar libjfxwebkit.so -d $out/lib/

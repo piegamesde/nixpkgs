@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, writeText
-, fontconfig
-, libX11
-, libXft
-, libXinerama
-, conf ? null
-, nix-update-script
-}:
+{ lib, stdenv, fetchFromGitHub, writeText, fontconfig, libX11, libXft
+, libXinerama, conf ? null, nix-update-script }:
 
 stdenv.mkDerivation rec {
   pname = "xprompt";
@@ -21,20 +12,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-pOayKngUlrMY3bFsP4Fi+VsOLKCUQU3tdkZ+0OY1SCo=";
   };
 
-  buildInputs = [
-    fontconfig
-    libX11
-    libXft
-    libXinerama
-  ];
+  buildInputs = [ fontconfig libX11 libXft libXinerama ];
 
   postPatch = with lib;
     let
-      configFile =
-        if isDerivation conf || builtins.isPath conf
-        then conf else writeText "config.h" conf;
-    in
-    optionalString (conf != null) "cp ${configFile} config.h";
+      configFile = if isDerivation conf || builtins.isPath conf then
+        conf
+      else
+        writeText "config.h" conf;
+    in optionalString (conf != null) "cp ${configFile} config.h";
 
   makeFlags = [ "CC:=$(CC)" "PREFIX=$(out)" ];
 

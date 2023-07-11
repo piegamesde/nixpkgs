@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, pythonOlder
-, pythonAtLeast
-, fetchPypi
-, libmaxminddb
-, mock
-, nose
-}:
+{ stdenv, lib, buildPythonPackage, pythonOlder, pythonAtLeast, fetchPypi
+, libmaxminddb, mock, nose }:
 
 buildPythonPackage rec {
   pname = "maxminddb";

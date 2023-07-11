@@ -1,12 +1,7 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch
-, cmake, pkg-config
-, boost, miniupnpc, openssl, unbound
-, zeromq, pcsclite, readline, libsodium, hidapi
-, randomx, rapidjson
-, easyloggingpp
-, CoreData, IOKit, PCSC
-, trezorSupport ? true, libusb1, protobuf, python3
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, boost, miniupnpc
+, openssl, unbound, zeromq, pcsclite, readline, libsodium, hidapi, randomx
+, rapidjson, easyloggingpp, CoreData, IOKit, PCSC, trezorSupport ? true, libusb1
+, protobuf, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "haven-cli";
@@ -20,9 +15,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches = [
-    ./use-system-libraries.patch
-  ];
+  patches = [ ./use-system-libraries.patch ];
 
   postPatch = ''
     # remove vendored libraries
@@ -36,13 +29,21 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [
-    boost miniupnpc openssl unbound
-    zeromq pcsclite readline
-    libsodium hidapi randomx rapidjson
+    boost
+    miniupnpc
+    openssl
+    unbound
+    zeromq
+    pcsclite
+    readline
+    libsodium
+    hidapi
+    randomx
+    rapidjson
     protobuf
-    readline easyloggingpp
-  ]
-    ++ lib.optionals trezorSupport [ libusb1 protobuf python3 ];
+    readline
+    easyloggingpp
+  ] ++ lib.optionals trezorSupport [ libusb1 protobuf python3 ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"
@@ -56,10 +57,11 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "source" ];
 
   meta = with lib; {
-    description = "Haven Protocol is the world's only network of private stable asset";
-    homepage    = "https://havenprotocol.org/";
-    license     = licenses.bsd3;
-    platforms   = platforms.all;
+    description =
+      "Haven Protocol is the world's only network of private stable asset";
+    homepage = "https://havenprotocol.org/";
+    license = licenses.bsd3;
+    platforms = platforms.all;
     maintainers = with maintainers; [ kim0 ];
   };
 }

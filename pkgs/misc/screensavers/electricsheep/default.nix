@@ -1,23 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, wxGTK32
-, ffmpeg_4
-, lua5_1
-, curl
-, libpng
-, xorg
-, pkg-config
-, flam3
-, libgtop
-, boost
-, tinyxml
-, freeglut
-, libGLU
-, libGL
-, glee
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, wxGTK32, ffmpeg_4, lua5_1, curl
+, libpng, xorg, pkg-config, flam3, libgtop, boost, tinyxml, freeglut, libGLU
+, libGL, glee }:
 
 stdenv.mkDerivation rec {
   pname = "electricsheep";
@@ -54,20 +37,17 @@ stdenv.mkDerivation rec {
     sed -i '/ACX_PTHREAD/d' configure.ac
   '';
 
-  configureFlags = [
-    "CPPFLAGS=-I${glee}/include/GL"
-  ];
+  configureFlags = [ "CPPFLAGS=-I${glee}/include/GL" ];
 
-  makeFlags = [
-    ''CXXFLAGS+="-DGL_GLEXT_PROTOTYPES"''
-  ];
+  makeFlags = [ ''CXXFLAGS+="-DGL_GLEXT_PROTOTYPES"'' ];
 
   preBuild = ''
     sed -i "s|/usr|$out|" Makefile
   '';
 
   meta = with lib; {
-    description = "Electric Sheep, a distributed screen saver for evolving artificial organisms";
+    description =
+      "Electric Sheep, a distributed screen saver for evolving artificial organisms";
     homepage = "https://electricsheep.org/";
     maintainers = with maintainers; [ ];
     platforms = platforms.linux;

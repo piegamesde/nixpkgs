@@ -1,21 +1,12 @@
-{ stdenv
-, mate
-, glib
-, wrapGAppsHook
-}:
+{ stdenv, mate, glib, wrapGAppsHook }:
 
 stdenv.mkDerivation {
   pname = "${mate.mate-settings-daemon.pname}-wrapped";
   version = mate.mate-settings-daemon.version;
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ wrapGAppsHook ];
 
-  buildInputs = [
-    glib
-    mate.mate-control-center
-  ];
+  buildInputs = [ glib mate.mate-control-center ];
 
   dontWrapGApps = true;
 

@@ -1,16 +1,6 @@
-{ lib
-, antlr4
-, antlr4-python3-runtime
-, buildPythonPackage
-, fetchFromGitHub
-, jre_minimal
-, pydevd
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, substituteAll
-}:
+{ lib, antlr4, antlr4-python3-runtime, buildPythonPackage, fetchFromGitHub
+, jre_minimal, pydevd, pytest-mock, pytestCheckHook, pythonOlder, pyyaml
+, substituteAll }:
 
 buildPythonPackage rec {
   pname = "omegaconf";
@@ -29,7 +19,8 @@ buildPythonPackage rec {
   patches = [
     (substituteAll {
       src = ./antlr4.patch;
-      antlr_jar = "${antlr4.out}/share/java/antlr-${antlr4.version}-complete.jar";
+      antlr_jar =
+        "${antlr4.out}/share/java/antlr-${antlr4.version}-complete.jar";
     })
   ];
 
@@ -41,29 +32,15 @@ buildPythonPackage rec {
     sed -i 's/antlr4-python3-runtime==.*/antlr4-python3-runtime/' requirements/base.txt
   '';
 
-  nativeBuildInputs = [
-    jre_minimal
-  ];
+  nativeBuildInputs = [ jre_minimal ];
 
-  propagatedBuildInputs = [
-    antlr4-python3-runtime
-    pyyaml
-  ];
+  propagatedBuildInputs = [ antlr4-python3-runtime pyyaml ];
 
-  nativeCheckInputs = [
-    pydevd
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pydevd pytest-mock pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "omegaconf"
-  ];
+  pythonImportsCheck = [ "omegaconf" ];
 
-  pytestFlagsArray = [
-    "-W"
-    "ignore::DeprecationWarning"
-  ];
+  pytestFlagsArray = [ "-W" "ignore::DeprecationWarning" ];
 
   meta = with lib; {
     description = "Framework for configuring complex applications";

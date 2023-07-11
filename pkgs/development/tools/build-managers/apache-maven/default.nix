@@ -9,7 +9,8 @@ stdenv.mkDerivation rec {
   builder = ./builder.sh;
 
   src = fetchurl {
-    url = "mirror://apache/maven/maven-3/${version}/binaries/${pname}-${version}-bin.tar.gz";
+    url =
+      "mirror://apache/maven/maven-3/${version}/binaries/${pname}-${version}-bin.tar.gz";
     sha256 = "sha256-xwR6SN62Jqvyb3GrNkPSltubHmfx+qfZiGN96sh2tak=";
   };
 

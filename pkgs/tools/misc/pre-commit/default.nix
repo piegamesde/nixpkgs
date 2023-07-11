@@ -1,18 +1,5 @@
-{ lib
-, fetchFromGitHub
-, python3Packages
-, libiconv
-, cargo
-, coursier
-, dotnet-sdk
-, git
-, glibcLocales
-, go
-, nodejs
-, perl
-, testers
-, pre-commit
-}:
+{ lib, fetchFromGitHub, python3Packages, libiconv, cargo, coursier, dotnet-sdk
+, git, glibcLocales, go, nodejs, perl, testers, pre-commit }:
 
 with python3Packages;
 buildPythonApplication rec {
@@ -34,14 +21,7 @@ buildPythonApplication rec {
     ./hook-tmpl.patch
   ];
 
-  propagatedBuildInputs = [
-    cfgv
-    identify
-    nodeenv
-    pyyaml
-    toml
-    virtualenv
-  ];
+  propagatedBuildInputs = [ cfgv identify nodeenv pyyaml toml virtualenv ];
 
   nativeCheckInputs = [
     cargo
@@ -74,9 +54,7 @@ buildPythonApplication rec {
     patchShebangs pre_commit/resources/hook-tmpl
   '';
 
-  pytestFlagsArray = [
-    "--forked"
-  ];
+  pytestFlagsArray = [ "--forked" ];
 
   preCheck = lib.optionalString (!(stdenv.isLinux && stdenv.isAarch64)) ''
     # Disable outline atomics for rust tests on aarch64-linux.
@@ -162,16 +140,13 @@ buildPythonApplication rec {
     "test_environment_not_sourced"
   ];
 
-  pythonImportsCheck = [
-    "pre_commit"
-  ];
+  pythonImportsCheck = [ "pre_commit" ];
 
-  passthru.tests.version = testers.testVersion {
-    package = pre-commit;
-  };
+  passthru.tests.version = testers.testVersion { package = pre-commit; };
 
   meta = with lib; {
-    description = "A framework for managing and maintaining multi-language pre-commit hooks";
+    description =
+      "A framework for managing and maintaining multi-language pre-commit hooks";
     homepage = "https://pre-commit.com/";
     license = licenses.mit;
     maintainers = with maintainers; [ borisbabic ];

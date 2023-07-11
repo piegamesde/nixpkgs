@@ -5,8 +5,8 @@ let
 
   cfg = config.programs.tmux;
 
-  defaultKeyMode  = "emacs";
-  defaultResize   = 5;
+  defaultKeyMode = "emacs";
+  defaultResize = 5;
   defaultShortcut = "b";
   defaultTerminal = "screen";
 
@@ -20,31 +20,32 @@ let
     ${optionalString cfg.newSession "new-session"}
 
     ${optionalString cfg.reverseSplit ''
-    bind v split-window -h
-    bind s split-window -v
+      bind v split-window -h
+      bind s split-window -v
     ''}
 
     set -g status-keys ${cfg.keyMode}
     set -g mode-keys   ${cfg.keyMode}
 
-    ${optionalString (cfg.keyMode == "vi" && cfg.customPaneNavigationAndResize) ''
-    bind h select-pane -L
-    bind j select-pane -D
-    bind k select-pane -U
-    bind l select-pane -R
+    ${optionalString
+    (cfg.keyMode == "vi" && cfg.customPaneNavigationAndResize) ''
+      bind h select-pane -L
+      bind j select-pane -D
+      bind k select-pane -U
+      bind l select-pane -R
 
-    bind -r H resize-pane -L ${toString cfg.resizeAmount}
-    bind -r J resize-pane -D ${toString cfg.resizeAmount}
-    bind -r K resize-pane -U ${toString cfg.resizeAmount}
-    bind -r L resize-pane -R ${toString cfg.resizeAmount}
+      bind -r H resize-pane -L ${toString cfg.resizeAmount}
+      bind -r J resize-pane -D ${toString cfg.resizeAmount}
+      bind -r K resize-pane -U ${toString cfg.resizeAmount}
+      bind -r L resize-pane -R ${toString cfg.resizeAmount}
     ''}
 
     ${optionalString (cfg.shortcut != defaultShortcut) ''
-    # rebind main key: C-${cfg.shortcut}
-    unbind C-${defaultShortcut}
-    set -g prefix C-${cfg.shortcut}
-    bind ${cfg.shortcut} send-prefix
-    bind C-${cfg.shortcut} last-window
+      # rebind main key: C-${cfg.shortcut}
+      unbind C-${defaultShortcut}
+      set -g prefix C-${cfg.shortcut}
+      bind ${cfg.shortcut} send-prefix
+      bind C-${cfg.shortcut} last-window
     ''}
 
     setw -g aggressive-resize ${boolToStr cfg.aggressiveResize}
@@ -52,9 +53,9 @@ let
     set  -s escape-time       ${toString cfg.escapeTime}
     set  -g history-limit     ${toString cfg.historyLimit}
 
-    ${lib.optionalString (cfg.plugins != []) ''
-    # Run plugins
-    ${lib.concatMapStringsSep "\n" (x: "run-shell ${x.rtp}") cfg.plugins}
+    ${lib.optionalString (cfg.plugins != [ ]) ''
+      # Run plugins
+      ${lib.concatMapStringsSep "\n" (x: "run-shell ${x.rtp}") cfg.plugins}
 
     ''}
 
@@ -70,7 +71,8 @@ in {
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whenever to configure {command}`tmux` system-wide.";
+        description =
+          lib.mdDoc "Whenever to configure {command}`tmux` system-wide.";
         relatedPackages = [ "tmux" ];
       };
 
@@ -98,14 +100,16 @@ in {
       customPaneNavigationAndResize = mkOption {
         default = false;
         type = types.bool;
-        description = lib.mdDoc "Override the hjkl and HJKL bindings for pane navigation and resizing in VI mode.";
+        description = lib.mdDoc
+          "Override the hjkl and HJKL bindings for pane navigation and resizing in VI mode.";
       };
 
       escapeTime = mkOption {
         default = 500;
         example = 0;
         type = types.int;
-        description = lib.mdDoc "Time in milliseconds for which tmux waits after an escape is input.";
+        description = lib.mdDoc
+          "Time in milliseconds for which tmux waits after an escape is input.";
       };
 
       extraConfig = mkOption {
@@ -120,7 +124,8 @@ in {
         default = 2000;
         example = 5000;
         type = types.int;
-        description = lib.mdDoc "Maximum number of lines held in window history.";
+        description =
+          lib.mdDoc "Maximum number of lines held in window history.";
       };
 
       keyMode = mkOption {
@@ -133,7 +138,8 @@ in {
       newSession = mkOption {
         default = false;
         type = types.bool;
-        description = lib.mdDoc "Automatically spawn a session if trying to attach and none are running.";
+        description = lib.mdDoc
+          "Automatically spawn a session if trying to attach and none are running.";
       };
 
       reverseSplit = mkOption {
@@ -153,7 +159,8 @@ in {
         default = defaultShortcut;
         example = "a";
         type = types.str;
-        description = lib.mdDoc "Ctrl following by this key is used as the main shortcut.";
+        description =
+          lib.mdDoc "Ctrl following by this key is used as the main shortcut.";
       };
 
       terminal = mkOption {
@@ -176,7 +183,7 @@ in {
       };
 
       plugins = mkOption {
-        default = [];
+        default = [ ];
         type = types.listOf types.package;
         description = lib.mdDoc "List of plugins to install.";
         example = lib.literalExpression "[ pkgs.tmuxPlugins.nord ]";
@@ -203,7 +210,8 @@ in {
       systemPackages = [ pkgs.tmux ] ++ cfg.plugins;
 
       variables = {
-        TMUX_TMPDIR = lib.optional cfg.secureSocket ''''${XDG_RUNTIME_DIR:-"/run/user/$(id -u)"}'';
+        TMUX_TMPDIR = lib.optional cfg.secureSocket
+          ''''${XDG_RUNTIME_DIR:-"/run/user/$(id -u)"}'';
       };
     };
     security.wrappers = mkIf cfg.withUtempter {
@@ -218,6 +226,10 @@ in {
   };
 
   imports = [
-    (lib.mkRenamedOptionModule [ "programs" "tmux" "extraTmuxConf" ] [ "programs" "tmux" "extraConfig" ])
+    (lib.mkRenamedOptionModule [ "programs" "tmux" "extraTmuxConf" ] [
+      "programs"
+      "tmux"
+      "extraConfig"
+    ])
   ];
 }

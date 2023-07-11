@@ -11,17 +11,14 @@ rustPlatform.buildRustPackage rec {
     sha256 = "cgjHCSBrkX3aoz42qBS/1JUGhc7sZKarKByntp7ubaQ=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
-  buildInputs = [
-    libxkbcommon
-  ];
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ libxkbcommon ];
 
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "smithay-client-toolkit-0.16.0" = "iPDL7pxTez4EnIBaUH25lLSWpu3RRL2QBF9pfdTDsP8=";
+      "smithay-client-toolkit-0.16.0" =
+        "iPDL7pxTez4EnIBaUH25lLSWpu3RRL2QBF9pfdTDsP8=";
     };
   };
 

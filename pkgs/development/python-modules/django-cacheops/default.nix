@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, django
-, funcy
-, redis
-, pytest-django
-, pytestCheckHook
-, pythonOlder
-, six
-}:
+{ lib, buildPythonPackage, fetchPypi, django, funcy, redis, pytest-django
+, pytestCheckHook, pythonOlder, six }:
 
 buildPythonPackage rec {
   pname = "django-cacheops";
@@ -22,17 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-zHP9ChwUeZJT/yCopFeRo8jSgCIXswHnDPoIroGeQ48=";
   };
 
-  propagatedBuildInputs = [
-    django
-    funcy
-    redis
-    six
-  ];
+  propagatedBuildInputs = [ django funcy redis six ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-django
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-django ];
 
   disabledTests = [
     # Tests require networking
@@ -53,9 +36,11 @@ buildPythonPackage rec {
   DJANGO_SETTINGS_MODULE = "tests.settings";
 
   meta = with lib; {
-    description = "A slick ORM cache with automatic granular event-driven invalidation for Django";
+    description =
+      "A slick ORM cache with automatic granular event-driven invalidation for Django";
     homepage = "https://github.com/Suor/django-cacheops";
-    changelog = "https://github.com/Suor/django-cacheops/blob/${version}/CHANGELOG";
+    changelog =
+      "https://github.com/Suor/django-cacheops/blob/${version}/CHANGELOG";
     license = licenses.bsd3;
     maintainers = with maintainers; [ onny ];
   };

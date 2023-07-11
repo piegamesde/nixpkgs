@@ -13,10 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake doxygen ];
 
-  cmakeFlags = [
-    "-DBUILD_DOCUMENTATION=ON"
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-  ];
+  cmakeFlags = [ "-DBUILD_DOCUMENTATION=ON" "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   meta = with lib; {
     description = "C++ geographic library";

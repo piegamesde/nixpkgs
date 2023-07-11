@@ -4,21 +4,21 @@ let
   sets = [
     # Family                  | Shapes | Spacing | Style      | Ligatures |
     # ------------------------+--------+---------+------------+-----------|
-    "comfy"                   # Sans   | Compact | Monospaced | Yes       |
-    "comfy-fixed"             # Sans   | Compact | Monospaced | No        |
-    "comfy-duo"               # Sans   | Compact | Duospaced  | Yes       |
+    "comfy" # Sans   | Compact | Monospaced | Yes       |
+    "comfy-fixed" # Sans   | Compact | Monospaced | No        |
+    "comfy-duo" # Sans   | Compact | Duospaced  | Yes       |
     # ------------------------+--------+---------+------------+-----------|
-    "comfy-motion"            # Slab   | Compact | Monospaced | Yes       |
-    "comfy-motion-fixed"      # Slab   | Compact | Monospaced | No        |
-    "comfy-motion-duo"        # Slab   | Compact | Duospaced  | Yes       |
+    "comfy-motion" # Slab   | Compact | Monospaced | Yes       |
+    "comfy-motion-fixed" # Slab   | Compact | Monospaced | No        |
+    "comfy-motion-duo" # Slab   | Compact | Duospaced  | Yes       |
     # ------------------------+--------+---------+------------+-----------|
-    "comfy-wide"              # Sans   | Wide    | Monospaced | Yes       |
-    "comfy-wide-fixed"        # Sans   | Wide    | Monospaced | No        |
-    "comfy-wide-duo"          # Sans   | Wide    | Duospaced  | Yes       |
+    "comfy-wide" # Sans   | Wide    | Monospaced | Yes       |
+    "comfy-wide-fixed" # Sans   | Wide    | Monospaced | No        |
+    "comfy-wide-duo" # Sans   | Wide    | Duospaced  | Yes       |
     # ------------------------+--------+---------+------------+-----------|
-    "comfy-wide-motion"       # Slab   | Wide    | Monospaced | Yes       |
+    "comfy-wide-motion" # Slab   | Wide    | Monospaced | Yes       |
     "comfy-wide-motion-fixed" # Slab   | Wide    | Monospaced | No        |
-    "comfy-wide-motion-duo"   # Slab   | Wide    | Duospaced  | Yes       |
+    "comfy-wide-motion-duo" # Slab   | Wide    | Duospaced  | Yes       |
   ];
   version = "1.2.0";
   src = fetchFromSourcehut {
@@ -29,11 +29,11 @@ let
   };
   privateBuildPlan = src.outPath + "/private-build-plans.toml";
   makeIosevkaFont = set:
-    let superBuildNpmPackage = buildNpmPackage; in
-    (iosevka.override rec {
+    let superBuildNpmPackage = buildNpmPackage;
+    in (iosevka.override rec {
       inherit set privateBuildPlan;
-      buildNpmPackage = args: superBuildNpmPackage
-        (args // {
+      buildNpmPackage = args:
+        superBuildNpmPackage (args // {
           inherit version;
 
           src = fetchFromGitHub {
@@ -58,10 +58,7 @@ let
           };
         });
     });
-in
-builtins.listToAttrs (builtins.map
-  (set: {
-    name = set;
-    value = makeIosevkaFont set;
-  })
-  sets)
+in builtins.listToAttrs (builtins.map (set: {
+  name = set;
+  value = makeIosevkaFont set;
+}) sets)

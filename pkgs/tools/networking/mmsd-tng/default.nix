@@ -1,17 +1,6 @@
-{ lib, stdenv
-, fetchFromGitLab
-, c-ares
-, dbus
-, glib
-, libphonenumber
-, libsoup
-, meson
-, mobile-broadband-provider-info
-, modemmanager
-, ninja
-, pkg-config
-, protobuf
-}:
+{ lib, stdenv, fetchFromGitLab, c-ares, dbus, glib, libphonenumber, libsoup
+, meson, mobile-broadband-provider-info, modemmanager, ninja, pkg-config
+, protobuf }:
 
 stdenv.mkDerivation rec {
   pname = "mmsd-tng";
@@ -24,11 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fhbiTJWmQwJpuMaVX2qWyWwJ/2Y/Vczo//+0T0b6jhA=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
 
   buildInputs = [
     c-ares

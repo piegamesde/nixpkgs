@@ -1,24 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, jinja2
-, lxml
-, mock
-, ncclient
-, netaddr
-, nose
-, ntc-templates
-, paramiko
-, pyparsing
-, pyserial
-, pythonOlder
-, pyyaml
-, scp
-, six
-, transitions
-, yamlordereddictloader
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, jinja2, lxml, mock
+, ncclient, netaddr, nose, ntc-templates, paramiko, pyparsing, pyserial
+, pythonOlder, pyyaml, scp, six, transitions, yamlordereddictloader }:
 
 buildPythonPackage rec {
   pname = "junos-eznc";
@@ -56,21 +38,17 @@ buildPythonPackage rec {
     yamlordereddictloader
   ];
 
-  nativeCheckInputs = [
-    mock
-    nose
-  ];
+  nativeCheckInputs = [ mock nose ];
 
   checkPhase = ''
     nosetests -v -a unit --exclude=test_sw_put_ftp
   '';
 
-  pythonImportsCheck = [
-    "jnpr.junos"
-  ];
+  pythonImportsCheck = [ "jnpr.junos" ];
 
   meta = with lib; {
-    changelog = "https://github.com/Juniper/py-junos-eznc/releases/tag/${version}";
+    changelog =
+      "https://github.com/Juniper/py-junos-eznc/releases/tag/${version}";
     description = "Junos 'EZ' automation for non-programmers";
     homepage = "https://github.com/Juniper/py-junos-eznc";
     license = licenses.asl20;

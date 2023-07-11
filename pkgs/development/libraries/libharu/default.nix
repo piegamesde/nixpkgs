@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ zlib libpng ];
 
   meta = {
-    description = "Cross platform, open source library for generating PDF files";
+    description =
+      "Cross platform, open source library for generating PDF files";
     homepage = "http://libharu.org/";
     license = lib.licenses.zlib;
     maintainers = [ lib.maintainers.marcweber ];

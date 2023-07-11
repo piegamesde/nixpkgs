@@ -1,8 +1,4 @@
-{ lib
-, python3
-, fetchFromGitHub
-, wrapQtAppsHook
-}:
+{ lib, python3, fetchFromGitHub, wrapQtAppsHook }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "tumpa";
@@ -21,9 +17,7 @@ python3.pkgs.buildPythonApplication rec {
     pyside2
   ];
 
-  nativeBuildInputs = [
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ wrapQtAppsHook ];
 
   dontWrapQtApps = true;
   preFixup = ''

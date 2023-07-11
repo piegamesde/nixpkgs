@@ -1,6 +1,5 @@
-{ lib, rustPlatform, fetchFromGitHub
-, pkg-config, openssl, zlib, curl, libgit2, libssh2
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, zlib, curl, libgit2
+, libssh2 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "git-series";
@@ -26,7 +25,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "A tool to help with formatting git patches for review on mailing lists";
+    description =
+      "A tool to help with formatting git patches for review on mailing lists";
     longDescription = ''
       git series tracks changes to a patch series over time. git
       series also tracks a cover letter for the patch series,

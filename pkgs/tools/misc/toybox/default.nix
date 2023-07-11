@@ -1,16 +1,10 @@
-{
-  stdenv, lib, fetchFromGitHub, which,
-  buildPackages, libxcrypt, libiconv,
-  enableStatic ? stdenv.hostPlatform.isStatic,
-  enableMinimal ? false,
-  extraConfig ? ""
-}:
+{ stdenv, lib, fetchFromGitHub, which, buildPackages, libxcrypt, libiconv
+, enableStatic ? stdenv.hostPlatform.isStatic, enableMinimal ? false
+, extraConfig ? "" }:
 
-let
-  inherit (lib) optionals;
-in
+let inherit (lib) optionals;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "toybox";
   version = "0.8.9";
 
@@ -21,15 +15,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3boPoq/wm0af0DqEWcUCUyCmVFopVMitRHJI1xsjAWM=";
   };
 
-  depsBuildBuild = optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ buildPackages.stdenv.cc ];
-  buildInputs = [
-    libxcrypt
-  ] ++ optionals stdenv.isDarwin [
-    libiconv
-  ] ++ optionals (enableStatic && stdenv.cc.libc ? static) [
-    stdenv.cc.libc
-    stdenv.cc.libc.static
-  ];
+  depsBuildBuild = optionals (stdenv.hostPlatform != stdenv.buildPlatform)
+    [ buildPackages.stdenv.cc ];
+  buildInputs = [ libxcrypt ] ++ optionals stdenv.isDarwin [ libiconv ]
+    ++ optionals (enableStatic && stdenv.cc.libc ? static) [
+      stdenv.cc.libc
+      stdenv.cc.libc.static
+    ];
 
   postPatch = "patchShebangs .";
 
@@ -37,16 +29,15 @@ stdenv.mkDerivation rec {
   passAsFile = [ "extraConfig" ];
 
   configurePhase = ''
-    make ${if enableMinimal then
-      "allnoconfig"
-    else
-      if stdenv.isFreeBSD then
+    make ${
+      if enableMinimal then
+        "allnoconfig"
+      else if stdenv.isFreeBSD then
         "freebsd_defconfig"
+      else if stdenv.isDarwin then
+        "macos_defconfig"
       else
-        if stdenv.isDarwin then
-          "macos_defconfig"
-        else
-          "defconfig"
+        "defconfig"
     }
 
     cat $extraConfigPath .config > .config-
@@ -55,7 +46,8 @@ stdenv.mkDerivation rec {
     make oldconfig
   '';
 
-  makeFlags = [ "PREFIX=$(out)/bin" ] ++ optionals enableStatic [ "LDFLAGS=--static" ];
+  makeFlags = [ "PREFIX=$(out)/bin" ]
+    ++ optionals enableStatic [ "LDFLAGS=--static" ];
 
   installTargets = [ "install_flat" ];
 
@@ -63,13 +55,15 @@ stdenv.mkDerivation rec {
   # ...this is fixed in latest git, so doCheck can likely be enabled for next release
   # see https://github.com/landley/toybox/commit/b928ec480cd73fd83511c0f5ca786d1b9f3167c3
   #doCheck = true;
-  nativeCheckInputs = [ which ]; # used for tests with checkFlags = [ "DEBUG=true" ];
+  nativeCheckInputs =
+    [ which ]; # used for tests with checkFlags = [ "DEBUG=true" ];
   checkTarget = "tests";
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
   meta = with lib; {
-    description = "Lightweight implementation of some Unix command line utilities";
+    description =
+      "Lightweight implementation of some Unix command line utilities";
     homepage = "https://landley.net/toybox/";
     license = licenses.bsd0;
     platforms = with platforms; linux ++ darwin ++ freebsd;

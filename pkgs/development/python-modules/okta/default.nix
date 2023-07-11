@@ -1,24 +1,9 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
+{ lib, stdenv, buildPythonPackage, fetchPypi
 # install requirements
-, pycryptodome
-, yarl
-, flatdict
-, python-jose
-, aenum
-, aiohttp
-, pydash
-, xmltodict
+, pycryptodome, yarl, flatdict, python-jose, aenum, aiohttp, pydash, xmltodict
 , pyyaml
 # test requirements
-, pytestCheckHook
-, pytest-recording
-, pytest-asyncio
-, pytest-mock
-, pyfakefs
-}:
+, pytestCheckHook, pytest-recording, pytest-asyncio, pytest-mock, pyfakefs }:
 
 buildPythonPackage rec {
   pname = "okta";
@@ -41,19 +26,12 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  checkInputs = [
-    pytestCheckHook
-    pytest-asyncio
-    pytest-mock
-    pytest-recording
-    pyfakefs
-  ];
+  checkInputs =
+    [ pytestCheckHook pytest-asyncio pytest-mock pytest-recording pyfakefs ];
 
   pytestFlagsArray = [ "tests/" ];
 
-  disabledTests = [
-    "test_client_raise_exception"
-  ];
+  disabledTests = [ "test_client_raise_exception" ];
 
   pythonImportsCheck = [
     "okta"

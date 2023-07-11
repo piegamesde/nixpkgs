@@ -1,13 +1,8 @@
-{ clangStdenv
-, cmake
-, fetchFromGitHub
-, lib
-}:
+{ clangStdenv, cmake, fetchFromGitHub, lib }:
 let
   pname = "base64";
   version = "0.5.0";
-in
-clangStdenv.mkDerivation {
+in clangStdenv.mkDerivation {
   inherit pname version;
   src = fetchFromGitHub {
     owner = "aklomp";
@@ -17,7 +12,8 @@ clangStdenv.mkDerivation {
   };
   nativeBuildInputs = [ cmake ];
   meta = with lib; {
-    description = "Fast Base64 stream encoder/decoder in C99, with SIMD acceleration";
+    description =
+      "Fast Base64 stream encoder/decoder in C99, with SIMD acceleration";
     license = licenses.bsd2;
     homepage = "https://github.com/aklomp/base64";
     maintainers = with maintainers; [ avakhrenev ];

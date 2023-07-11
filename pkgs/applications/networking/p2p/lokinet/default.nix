@@ -1,18 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, libevent
-, libsodium
-, libuv
-, nlohmann_json
-, pkg-config
-, spdlog
-, sqlite
-, systemd
-, unbound
-, zeromq
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, libevent, libsodium, libuv, nlohmann_json
+, pkg-config, spdlog, sqlite, systemd, unbound, zeromq }:
 
 stdenv.mkDerivation rec {
   pname = "lokinet";
@@ -26,10 +13,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-aVFLDGTbRUOw2XWDpl+ojwHBG7c0miGeoKMLwMpqVtg=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [
     libevent
@@ -50,7 +34,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Anonymous, decentralized and IP based overlay network for the internet";
+    description =
+      "Anonymous, decentralized and IP based overlay network for the internet";
     homepage = "https://lokinet.org/";
     changelog = "https://github.com/oxen-io/lokinet/releases/tag/v${version}";
     license = licenses.gpl3Plus;

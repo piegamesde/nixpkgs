@@ -1,19 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, appstream-glib
-, desktop-file-utils
-, itstool
-, meson
-, ninja
-, pkg-config
-, python3
-, rustPlatform
-, wrapGAppsHook4
-, glib
-, gtk4
-, libadwaita
-}:
+{ lib, stdenv, fetchFromGitLab, appstream-glib, desktop-file-utils, itstool
+, meson, ninja, pkg-config, python3, rustPlatform, wrapGAppsHook4, glib, gtk4
+, libadwaita }:
 
 stdenv.mkDerivation rec {
   pname = "warp";
@@ -46,17 +33,9 @@ stdenv.mkDerivation rec {
     pkg-config
     python3
     wrapGAppsHook4
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  ] ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
 
-  buildInputs = [
-    glib
-    gtk4
-    libadwaita
-  ];
+  buildInputs = [ glib gtk4 libadwaita ];
 
   meta = {
     description = "Fast and secure file transfer";

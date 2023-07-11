@@ -6,8 +6,7 @@ let
   top = config.services.kubernetes;
   otop = options.services.kubernetes;
   cfg = top.scheduler;
-in
-{
+in {
   ###### interface
   options.services.kubernetes.scheduler = with lib.types; {
 
@@ -20,7 +19,8 @@ in
     enable = mkEnableOption (lib.mdDoc "Kubernetes scheduler");
 
     extraOpts = mkOption {
-      description = lib.mdDoc "Kubernetes scheduler extra command line options.";
+      description =
+        lib.mdDoc "Kubernetes scheduler extra command line options.";
       default = "";
       type = separatedString " ";
     };
@@ -35,7 +35,8 @@ in
     kubeconfig = top.lib.mkKubeConfigOptions "Kubernetes scheduler";
 
     leaderElect = mkOption {
-      description = lib.mdDoc "Whether to start leader election before executing main loop.";
+      description = lib.mdDoc
+        "Whether to start leader election before executing main loop.";
       type = bool;
       default = true;
     };
@@ -65,15 +66,26 @@ in
       after = [ "kube-apiserver.service" ];
       serviceConfig = {
         Slice = "kubernetes.slice";
-        ExecStart = ''${top.package}/bin/kube-scheduler \
-          --bind-address=${cfg.address} \
-          ${optionalString (cfg.featureGates != [])
-            "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"} \
-          --kubeconfig=${top.lib.mkKubeConfig "kube-scheduler" cfg.kubeconfig} \
-          --leader-elect=${boolToString cfg.leaderElect} \
-          --secure-port=${toString cfg.port} \
-          ${optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"} \
-          ${cfg.extraOpts}
+        ExecStart = ''
+          ${top.package}/bin/kube-scheduler \
+                    --bind-address=${cfg.address} \
+                    ${
+                      optionalString (cfg.featureGates != [ ])
+                      "--feature-gates=${
+                        concatMapStringsSep "," (feature: "${feature}=true")
+                        cfg.featureGates
+                      }"
+                    } \
+                    --kubeconfig=${
+                      top.lib.mkKubeConfig "kube-scheduler" cfg.kubeconfig
+                    } \
+                    --leader-elect=${boolToString cfg.leaderElect} \
+                    --secure-port=${toString cfg.port} \
+                    ${
+                      optionalString (cfg.verbosity != null)
+                      "--v=${toString cfg.verbosity}"
+                    } \
+                    ${cfg.extraOpts}
         '';
         WorkingDirectory = top.dataDir;
         User = "kubernetes";
@@ -81,9 +93,7 @@ in
         Restart = "on-failure";
         RestartSec = 5;
       };
-      unitConfig = {
-        StartLimitIntervalSec = 0;
-      };
+      unitConfig = { StartLimitIntervalSec = 0; };
     };
 
     services.kubernetes.pki.certs = {
@@ -94,7 +104,8 @@ in
       };
     };
 
-    services.kubernetes.scheduler.kubeconfig.server = mkDefault top.apiserverAddress;
+    services.kubernetes.scheduler.kubeconfig.server =
+      mkDefault top.apiserverAddress;
   };
 
   meta.buildDocsInSandbox = false;

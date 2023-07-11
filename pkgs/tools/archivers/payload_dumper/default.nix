@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, makeWrapper
-, python3
-, fetchFromGitHub
-}:
+{ lib, stdenv, makeWrapper, python3, fetchFromGitHub }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "payload_dumper";

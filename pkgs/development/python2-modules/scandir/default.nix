@@ -9,9 +9,7 @@ buildPythonPackage rec {
     sha256 = "1bkqwmf056pkchf05ywbnf659wqlp6lljcdb0y88wr9f0vv32ijd";
   };
 
-  patches = [
-    ./add-aarch64-darwin-dirent.patch
-  ];
+  patches = [ ./add-aarch64-darwin-dirent.patch ];
 
   checkPhase = "${python.interpreter} test/run_tests.py";
 

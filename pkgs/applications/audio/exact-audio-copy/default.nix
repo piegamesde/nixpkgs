@@ -1,21 +1,13 @@
-{ lib
-, stdenv
-, fetchurl
-, makeDesktopItem
-, imagemagick
-, p7zip
-, wine
-, writeShellScriptBin
-, symlinkJoin
-, use64 ? false
-}:
+{ lib, stdenv, fetchurl, makeDesktopItem, imagemagick, p7zip, wine
+, writeShellScriptBin, symlinkJoin, use64 ? false }:
 
 let
   pname = "exact-audio-copy";
   version = "1.6.0";
 
   eac_exe = fetchurl {
-    url = "http://www.exactaudiocopy.de/eac-${lib.versions.majorMinor version}.exe";
+    url =
+      "http://www.exactaudiocopy.de/eac-${lib.versions.majorMinor version}.exe";
     sha256 = "8291d33104ebab2619ba8d85744083e241330a286f5bd7d54c7b0eb08f2b84c1";
   };
 
@@ -28,10 +20,7 @@ let
     pname = "patched_eac";
     inherit version;
 
-    nativeBuildInputs = [
-      imagemagick
-      p7zip
-    ];
+    nativeBuildInputs = [ imagemagick p7zip ];
 
     buildCommand = ''
       mkdir -p $out
@@ -69,16 +58,17 @@ let
     categories = [ "Audio" "AudioVideo" ];
     icon = "${patched_eac}/eac.ico.128.png";
   };
-in
-symlinkJoin {
+in symlinkJoin {
   name = "${pname}-${version}";
 
   paths = [ wrapper desktopItem ];
 
   meta = with lib; {
-    description = "A precise CD audio grabber for creating perfect quality rips using CD and DVD drives";
+    description =
+      "A precise CD audio grabber for creating perfect quality rips using CD and DVD drives";
     homepage = "https://www.exactaudiocopy.de/";
-    changelog = "https://www.exactaudiocopy.de/en/index.php/resources/whats-new/whats-new/";
+    changelog =
+      "https://www.exactaudiocopy.de/en/index.php/resources/whats-new/whats-new/";
     license = licenses.unfree;
     maintainers = [ maintainers.brendanreis ];
     platforms = wine.meta.platforms;

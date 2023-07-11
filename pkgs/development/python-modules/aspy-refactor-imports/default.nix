@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, stdenv
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder, stdenv
 }:
 
 buildPythonPackage rec {
@@ -18,16 +13,13 @@ buildPythonPackage rec {
     sha256 = "MlCM3zNTQZJ1RWrTQG0AN28RUepWINKCeLENykbu2nw=";
   };
 
-  pythonImportsCheck = [
-    "aspy.refactor_imports"
-  ];
+  pythonImportsCheck = [ "aspy.refactor_imports" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # fails on darwin due to case-insensitive file system
-  disabledTests = lib.optionals stdenv.isDarwin ["test_application_directory_case"];
+  disabledTests =
+    lib.optionals stdenv.isDarwin [ "test_application_directory_case" ];
 
   meta = with lib; {
     description = "Utilities for refactoring imports in python-like syntax.";

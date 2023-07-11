@@ -1,12 +1,5 @@
-{ rustPlatform
-, cloud-utils
-, fetchFromGitHub
-, lib
-, llvmPackages
-, pkg-config
-, util-linux
-, zfs
-}:
+{ rustPlatform, cloud-utils, fetchFromGitHub, lib, llvmPackages, pkg-config
+, util-linux, zfs }:
 rustPlatform.buildRustPackage rec {
   pname = "zpool-auto-expand-partitions";
   version = "0.1.0";
@@ -27,19 +20,15 @@ rustPlatform.buildRustPackage rec {
       --replace '"lsblk"' '"${util-linux}/bin/lsblk"'
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    rustPlatform.bindgenHook
-  ];
+  nativeBuildInputs = [ pkg-config rustPlatform.bindgenHook ];
 
-  buildInputs = [
-    util-linux
-    zfs
-  ];
+  buildInputs = [ util-linux zfs ];
 
   meta = with lib; {
-    description = "A tool that aims to expand all partitions in a specified zpool to fill the available space";
-    homepage = "https://github.com/DeterminateSystems/zpool-auto-expand-partitions";
+    description =
+      "A tool that aims to expand all partitions in a specified zpool to fill the available space";
+    homepage =
+      "https://github.com/DeterminateSystems/zpool-auto-expand-partitions";
     license = licenses.asl20;
     maintainers = teams.determinatesystems.members;
   };

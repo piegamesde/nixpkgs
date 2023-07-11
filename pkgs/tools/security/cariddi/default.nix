@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "cariddi";
@@ -19,7 +16,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Crawler for URLs and endpoints";
     homepage = "https://github.com/edoardottt/cariddi";
-    changelog = "https://github.com/edoardottt/cariddi/releases/tag/v${version}";
+    changelog =
+      "https://github.com/edoardottt/cariddi/releases/tag/v${version}";
     license = with licenses; [ gpl3Plus ];
     maintainers = with maintainers; [ fab ];
   };

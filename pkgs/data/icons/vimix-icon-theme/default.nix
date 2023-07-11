@@ -1,18 +1,19 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, gitUpdater
-, gtk3
-, hicolor-icon-theme
-, jdupes
-, colorVariants ? [] # default: all
+{ lib, stdenvNoCC, fetchFromGitHub, gitUpdater, gtk3, hicolor-icon-theme, jdupes
+, colorVariants ? [ ] # default: all
 }:
 
-let
-  pname = "vimix-icon-theme";
+let pname = "vimix-icon-theme";
 
-in
-lib.checkListOfEnum "${pname}: color variants" [ "standard" "Amethyst" "Beryl" "Doder" "Ruby" "Jade" "Black" "White" ] colorVariants
+in lib.checkListOfEnum "${pname}: color variants" [
+  "standard"
+  "Amethyst"
+  "Beryl"
+  "Doder"
+  "Ruby"
+  "Jade"
+  "Black"
+  "White"
+] colorVariants
 
 stdenvNoCC.mkDerivation rec {
   inherit pname;
@@ -25,14 +26,9 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "5EgTWF6qu12VYVi7w5BOp7IleN4IevLZR0hH9x/qbGo=";
   };
 
-  nativeBuildInputs = [
-    gtk3
-    jdupes
-  ];
+  nativeBuildInputs = [ gtk3 jdupes ];
 
-  propagatedBuildInputs = [
-    hicolor-icon-theme
-  ];
+  propagatedBuildInputs = [ hicolor-icon-theme ];
 
   dontDropIconThemeCache = true;
 
@@ -48,7 +44,9 @@ stdenvNoCC.mkDerivation rec {
     runHook preInstall
 
     ./install.sh \
-      ${if colorVariants != [] then builtins.toString colorVariants else "-a"} \
+      ${
+        if colorVariants != [ ] then builtins.toString colorVariants else "-a"
+      } \
       -d $out/share/icons
 
     # replace duplicate files with symlinks

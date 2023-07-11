@@ -1,42 +1,40 @@
-{ lib
-, buildFHSEnv
-, symlinkJoin
-, bottles-unwrapped
-, gst_all_1
-, extraPkgs ? pkgs: [ ]
-, extraLibraries ? pkgs: [ ]
-}:
+{ lib, buildFHSEnv, symlinkJoin, bottles-unwrapped, gst_all_1
+, extraPkgs ? pkgs: [ ], extraLibraries ? pkgs: [ ] }:
 
-let fhsEnv = {
-  targetPkgs = pkgs: with pkgs; [
-    bottles-unwrapped
-    # This only allows to enable the toggle, vkBasalt won't work if not installed with environment.systemPackages (or nix-env)
-    # See https://github.com/bottlesdevs/Bottles/issues/2401
-    vkbasalt
-  ] ++ extraPkgs pkgs;
+let
+  fhsEnv = {
+    targetPkgs = pkgs:
+      with pkgs;
+      [
+        bottles-unwrapped
+        # This only allows to enable the toggle, vkBasalt won't work if not installed with environment.systemPackages (or nix-env)
+        # See https://github.com/bottlesdevs/Bottles/issues/2401
+        vkbasalt
+      ] ++ extraPkgs pkgs;
 
-  multiPkgs =
-    let
-      xorgDeps = pkgs: with pkgs.xorg; [
-        libpthreadstubs
-        libSM
-        libX11
-        libXaw
-        libxcb
-        libXcomposite
-        libXcursor
-        libXdmcp
-        libXext
-        libXi
-        libXinerama
-        libXmu
-        libXrandr
-        libXrender
-        libXv
-        libXxf86vm
-      ];
-    in
-    pkgs: with pkgs; [
+    multiPkgs = let
+      xorgDeps = pkgs:
+        with pkgs.xorg; [
+          libpthreadstubs
+          libSM
+          libX11
+          libXaw
+          libxcb
+          libXcomposite
+          libXcursor
+          libXdmcp
+          libXext
+          libXi
+          libXinerama
+          libXmu
+          libXrandr
+          libXrender
+          libXv
+          libXxf86vm
+        ];
+    in pkgs:
+    with pkgs;
+    [
       # https://wiki.winehq.org/Building_Wine
       alsa-lib
       cups
@@ -88,19 +86,23 @@ let fhsEnv = {
       libgpg-error
       p11-kit
       zlib # Freetype
-    ] ++ xorgDeps pkgs
-    ++ extraLibraries pkgs;
+    ] ++ xorgDeps pkgs ++ extraLibraries pkgs;
 
-  profile = ''
-    export GST_PLUGIN_PATH=/usr/lib32/gstreamer-1.0:/usr/lib64/gstreamer-1.0
-  '';
-};
-in
-symlinkJoin {
+    profile = ''
+      export GST_PLUGIN_PATH=/usr/lib32/gstreamer-1.0:/usr/lib64/gstreamer-1.0
+    '';
+  };
+in symlinkJoin {
   name = "bottles";
   paths = [
-    (buildFHSEnv (fhsEnv // { name = "bottles"; runScript = "bottles"; }))
-    (buildFHSEnv (fhsEnv // { name = "bottles-cli"; runScript = "bottles-cli"; }))
+    (buildFHSEnv (fhsEnv // {
+      name = "bottles";
+      runScript = "bottles";
+    }))
+    (buildFHSEnv (fhsEnv // {
+      name = "bottles-cli";
+      runScript = "bottles-cli";
+    }))
   ];
   postBuild = ''
     mkdir -p $out/share

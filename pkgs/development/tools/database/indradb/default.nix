@@ -1,10 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, lib
-, rustPlatform
-, rustfmt
-, protobuf
-}:
+{ stdenv, fetchFromGitHub, lib, rustPlatform, rustfmt, protobuf }:
 let
   src = fetchFromGitHub {
     owner = "indradb";
@@ -20,8 +14,7 @@ let
     maintainers = with maintainers; [ happysalada ];
     platforms = platforms.unix;
   };
-in
-{
+in {
   indradb-server = rustPlatform.buildRustPackage {
     pname = "indradb-server";
     version = "unstable-2021-01-05";

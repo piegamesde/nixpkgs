@@ -1,15 +1,8 @@
-{ stdenv
-, runCommand
-, makeBinaryWrapper
-, binutils
-, expectedArch ? stdenv.hostPlatform.parsed.cpu.name
-}:
+{ stdenv, runCommand, makeBinaryWrapper, binutils
+, expectedArch ? stdenv.hostPlatform.parsed.cpu.name }:
 
 runCommand "make-binary-wrapper-test-cross" {
-  nativeBuildInputs = [
-    makeBinaryWrapper
-    binutils
-  ];
+  nativeBuildInputs = [ makeBinaryWrapper binutils ];
   inherit expectedArch;
 } ''
   touch prog

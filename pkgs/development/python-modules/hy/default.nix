@@ -1,14 +1,5 @@
-{ lib
-, astor
-, buildPythonPackage
-, fetchFromGitHub
-, funcparserlib
-, hy
-, pytestCheckHook
-, python
-, pythonOlder
-, testers
-}:
+{ lib, astor, buildPythonPackage, fetchFromGitHub, funcparserlib, hy
+, pytestCheckHook, python, pythonOlder, testers }:
 
 buildPythonPackage rec {
   pname = "hy";
@@ -27,26 +18,17 @@ buildPythonPackage rec {
   # https://github.com/hylang/hy/blob/1.0a4/get_version.py#L9-L10
   HY_VERSION = version;
 
-  propagatedBuildInputs = [
-    funcparserlib
-  ] ++
-  lib.optionals (pythonOlder "3.9") [
-    astor
-  ];
+  propagatedBuildInputs = [ funcparserlib ]
+    ++ lib.optionals (pythonOlder "3.9") [ astor ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     # For test_bin_hy
     export PATH="$out/bin:$PATH"
   '';
 
-  disabledTests = [
-    "test_circular_macro_require"
-    "test_macro_require"
-  ];
+  disabledTests = [ "test_circular_macro_require" "test_macro_require" ];
 
   pythonImportsCheck = [ "hy" ];
 

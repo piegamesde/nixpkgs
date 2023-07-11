@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.services.plausible;
+let cfg = config.services.plausible;
 
 in {
   options.services.plausible = {
@@ -42,12 +41,15 @@ in {
         '';
       };
 
-      activate = mkEnableOption (lib.mdDoc "activating the freshly created admin-user");
+      activate =
+        mkEnableOption (lib.mdDoc "activating the freshly created admin-user");
     };
 
     database = {
       clickhouse = {
-        setup = mkEnableOption (lib.mdDoc "creating a clickhouse instance") // { default = true; };
+        setup = mkEnableOption (lib.mdDoc "creating a clickhouse instance") // {
+          default = true;
+        };
         url = mkOption {
           default = "http://localhost:8123/default";
           type = types.str;
@@ -57,7 +59,9 @@ in {
         };
       };
       postgres = {
-        setup = mkEnableOption (lib.mdDoc "creating a postgresql instance") // { default = true; };
+        setup = mkEnableOption (lib.mdDoc "creating a postgresql instance") // {
+          default = true;
+        };
         dbname = mkOption {
           default = "plausible";
           type = types.str;
@@ -150,7 +154,8 @@ in {
             The path to the file with the password in case SMTP auth is enabled.
           '';
         };
-        enableSSL = mkEnableOption (lib.mdDoc "SSL when connecting to the SMTP server");
+        enableSSL =
+          mkEnableOption (lib.mdDoc "SSL when connecting to the SMTP server");
         retries = mkOption {
           type = types.ints.unsigned;
           default = 2;
@@ -163,22 +168,17 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      { assertion = cfg.adminUser.activate -> cfg.database.postgres.setup;
-        message = ''
-          Unable to automatically activate the admin-user if no locally managed DB for
-          postgres (`services.plausible.database.postgres.setup') is enabled!
-        '';
-      }
-    ];
+    assertions = [{
+      assertion = cfg.adminUser.activate -> cfg.database.postgres.setup;
+      message = ''
+        Unable to automatically activate the admin-user if no locally managed DB for
+        postgres (`services.plausible.database.postgres.setup') is enabled!
+      '';
+    }];
 
-    services.postgresql = mkIf cfg.database.postgres.setup {
-      enable = true;
-    };
+    services.postgresql = mkIf cfg.database.postgres.setup { enable = true; };
 
-    services.clickhouse = mkIf cfg.database.clickhouse.setup {
-      enable = true;
-    };
+    services.clickhouse = mkIf cfg.database.clickhouse.setup { enable = true; };
 
     services.epmd.enable = true;
 
@@ -191,7 +191,7 @@ in {
           documentation = [ "https://plausible.io/docs/self-hosting" ];
           wantedBy = [ "multi-user.target" ];
           after = optional cfg.database.clickhouse.setup "clickhouse.service"
-          ++ optionals cfg.database.postgres.setup [
+            ++ optionals cfg.database.postgres.setup [
               "postgresql.service"
               "plausible-postgres.service"
             ];
@@ -235,8 +235,8 @@ in {
             SMTP_USER_NAME = cfg.mail.smtp.user;
           });
 
-          path = [ cfg.package ]
-            ++ optional cfg.database.postgres.setup config.services.postgresql.package;
+          path = [ cfg.package ] ++ optional cfg.database.postgres.setup
+            config.services.postgresql.package;
           script = ''
             export CONFIG_DIR=$CREDENTIALS_DIRECTORY
 
@@ -263,7 +263,8 @@ in {
               "ADMIN_USER_PWD:${cfg.adminUser.passwordFile}"
               "SECRET_KEY_BASE:${cfg.server.secretKeybaseFile}"
               "RELEASE_COOKIE:${cfg.releaseCookiePath}"
-            ] ++ lib.optionals (cfg.mail.smtp.passwordFile != null) [ "SMTP_USER_PWD:${cfg.mail.smtp.passwordFile}"];
+            ] ++ lib.optionals (cfg.mail.smtp.passwordFile != null)
+              [ "SMTP_USER_PWD:${cfg.mail.smtp.passwordFile}" ];
           };
         };
       }

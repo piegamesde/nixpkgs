@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, click
-, faker
-, fetchFromGitHub
-, flask
-, gunicorn
-, pyopenssl
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
-, requests
-}:
+{ lib, buildPythonPackage, click, faker, fetchFromGitHub, flask, gunicorn
+, pyopenssl, pytestCheckHook, pythonOlder, setuptools-scm, requests }:
 
 buildPythonPackage rec {
   pname = "threat9-test-bed";
@@ -28,26 +17,13 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    click
-    faker
-    flask
-    gunicorn
-    pyopenssl
-    requests
-  ];
+  propagatedBuildInputs = [ click faker flask gunicorn pyopenssl requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "threat9_test_bed"
-  ];
+  pythonImportsCheck = [ "threat9_test_bed" ];
 
   disabledTests = [
     # Assertion issue with the response codes

@@ -5,14 +5,14 @@ let
 
   cfg = config.services.tempo;
 
-  settingsFormat = pkgs.formats.yaml {};
+  settingsFormat = pkgs.formats.yaml { };
 in {
   options.services.tempo = {
     enable = mkEnableOption (lib.mdDoc "Grafana Tempo");
 
     settings = mkOption {
       type = settingsFormat.type;
-      default = {};
+      default = { };
       description = lib.mdDoc ''
         Specify the configuration for Tempo in Nix.
 
@@ -34,10 +34,8 @@ in {
     environment.systemPackages = [ pkgs.tempo ];
 
     assertions = [{
-      assertion = (
-        (cfg.settings == {}) != (cfg.configFile == null)
-      );
-      message  = ''
+      assertion = ((cfg.settings == { }) != (cfg.configFile == null));
+      message = ''
         Please specify a configuration for Tempo with either
         'services.tempo.settings' or
         'services.tempo.configFile'.
@@ -49,11 +47,11 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = let
-        conf = if cfg.configFile == null
-               then settingsFormat.generate "config.yaml" cfg.settings
-               else cfg.configFile;
-      in
-      {
+        conf = if cfg.configFile == null then
+          settingsFormat.generate "config.yaml" cfg.settings
+        else
+          cfg.configFile;
+      in {
         ExecStart = "${pkgs.tempo}/bin/tempo --config.file=${conf}";
         DynamicUser = true;
         Restart = "always";

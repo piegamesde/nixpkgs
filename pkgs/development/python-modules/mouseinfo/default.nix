@@ -1,11 +1,4 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, pyperclip
-, fetchFromGitHub
-, xlib
-, pillow
-}:
+{ stdenv, lib, buildPythonPackage, pyperclip, fetchFromGitHub, xlib, pillow }:
 buildPythonPackage rec {
   pname = "MouseInfo";
   version = "0.1.3";
@@ -17,24 +10,18 @@ buildPythonPackage rec {
     hash = "sha256-UTaHTJE0xFihN9r+DY/WhekZ7S/CXtMFbqAayzexRxk=";
   };
 
-  patches = [
-    ./fix-xlib-version.patch
-    ./pillow-version.patch
-  ];
+  patches = [ ./fix-xlib-version.patch ./pillow-version.patch ];
 
   doCheck = false;
   # Mouseinfo requires a X server running to import successfully
   # pythonImportsCheck = [ "mouseinfo" ];
 
-  propagatedBuildInputs = [
-    pyperclip
-    xlib
-    pillow
-  ];
+  propagatedBuildInputs = [ pyperclip xlib pillow ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
-    description = "An application to display XY position and RGB color information for the pixel currently under the mouse. Works on Python 2 and 3.";
+    description =
+      "An application to display XY position and RGB color information for the pixel currently under the mouse. Works on Python 2 and 3.";
     homepage = "https://github.com/asweigart/mouseinfo";
     license = licenses.gpl3;
     maintainers = with maintainers; [ lucasew ];

@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, doxygen
-, pkg-config
-, python3
-, python3Packages
-, wafHook
-, boost
-, openssl
-, sqlite
-}:
+{ lib, stdenv, fetchFromGitHub, doxygen, pkg-config, python3, python3Packages
+, wafHook, boost, openssl, sqlite }:
 
 stdenv.mkDerivation rec {
   pname = "ndn-cxx";
@@ -22,7 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nnnxlkYVTSRB6ZcuIUDFol999+amGtqegHXK+06ITK8=";
   };
 
-  nativeBuildInputs = [ doxygen pkg-config python3 python3Packages.sphinx wafHook ];
+  nativeBuildInputs =
+    [ doxygen pkg-config python3 python3Packages.sphinx wafHook ];
 
   buildInputs = [ boost openssl sqlite ];
 
@@ -33,7 +24,8 @@ stdenv.mkDerivation rec {
     "--with-tests"
   ];
 
-  doCheck = false; # some tests fail in upstream, some fail because of the sandbox environment
+  doCheck =
+    false; # some tests fail in upstream, some fail because of the sandbox environment
   checkPhase = ''
     runHook preCheck
     LD_PRELOAD=build/libndn-cxx.so build/unit-tests
@@ -42,7 +34,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://named-data.net/";
-    description = "A Named Data Networking (NDN) or Content Centric Networking (CCN) abstraction";
+    description =
+      "A Named Data Networking (NDN) or Content Centric Networking (CCN) abstraction";
     longDescription = ''
       ndn-cxx is a C++ library, implementing Named Data Networking (NDN)
       primitives that can be used to implement various NDN applications.

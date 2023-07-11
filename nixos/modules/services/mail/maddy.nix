@@ -138,7 +138,8 @@ in {
   options = {
     services.maddy = {
 
-      enable = mkEnableOption (lib.mdDoc "Maddy, a free an open source mail server");
+      enable =
+        mkEnableOption (lib.mdDoc "Maddy, a free an open source mail server");
 
       user = mkOption {
         default = "maddy";
@@ -171,7 +172,7 @@ in {
       hostname = mkOption {
         default = "localhost";
         type = with types; uniq string;
-        example = ''example.com'';
+        example = "example.com";
         description = lib.mdDoc ''
           Hostname to use. It should be FQDN.
         '';
@@ -180,7 +181,7 @@ in {
       primaryDomain = mkOption {
         default = "localhost";
         type = with types; uniq string;
-        example = ''mail.example.com'';
+        example = "mail.example.com";
         description = lib.mdDoc ''
           Primary MX domain to use. It should be FQDN.
         '';
@@ -188,12 +189,8 @@ in {
 
       localDomains = mkOption {
         type = with types; listOf str;
-        default = ["$(primary_domain)"];
-        example = [
-          "$(primary_domain)"
-          "example.com"
-          "other.example.com"
-        ];
+        default = [ "$(primary_domain)" ];
+        example = [ "$(primary_domain)" "example.com" "other.example.com" ];
         description = lib.mdDoc ''
           Define list of allowed domains.
         '';
@@ -227,25 +224,26 @@ in {
         };
 
         certificates = mkOption {
-          type = with types; listOf (submodule {
-            options = {
-              keyPath = mkOption {
-                type = types.path;
-                example = "/etc/ssl/mx1.example.org.key";
-                description = lib.mdDoc ''
-                  Path to the private key used for TLS.
-                '';
+          type = with types;
+            listOf (submodule {
+              options = {
+                keyPath = mkOption {
+                  type = types.path;
+                  example = "/etc/ssl/mx1.example.org.key";
+                  description = lib.mdDoc ''
+                    Path to the private key used for TLS.
+                  '';
+                };
+                certPath = mkOption {
+                  type = types.path;
+                  example = "/etc/ssl/mx1.example.org.crt";
+                  description = lib.mdDoc ''
+                    Path to the certificate used for TLS.
+                  '';
+                };
               };
-              certPath = mkOption {
-                type = types.path;
-                example = "/etc/ssl/mx1.example.org.crt";
-                description = lib.mdDoc ''
-                  Path to the certificate used for TLS.
-                '';
-              };
-            };
-          });
-          default = [];
+            });
+          default = [ ];
           example = lib.literalExpression ''
             [{
               keyPath = "/etc/ssl/mx1.example.org.key";
@@ -281,21 +279,18 @@ in {
 
       ensureAccounts = mkOption {
         type = with types; listOf str;
-        default = [];
+        default = [ ];
         description = lib.mdDoc ''
           List of IMAP accounts which get automatically created. Note that for
           a complete setup, user credentials for these accounts are required
           and can be created using the `ensureCredentials` option.
           This option does not delete accounts which are not (anymore) listed.
         '';
-        example = [
-          "user1@localhost"
-          "user2@localhost"
-        ];
+        example = [ "user1@localhost" "user2@localhost" ];
       };
 
       ensureCredentials = mkOption {
-        default = {};
+        default = { };
         description = lib.mdDoc ''
           List of user accounts which get automatically created if they don't
           exist yet. Note that for a complete setup, corresponding mail boxes
@@ -327,7 +322,7 @@ in {
   config = mkIf cfg.enable {
 
     assertions = [{
-      assertion = cfg.tls.loader == "file" -> cfg.tls.certificates != [];
+      assertion = cfg.tls.loader == "file" -> cfg.tls.certificates != [ ];
       message = ''
         If maddy is configured to use TLS, tls.certificates with attribute sets
         of certPath and keyPath must be provided.
@@ -346,29 +341,32 @@ in {
             Group = cfg.group;
             StateDirectory = [ "maddy" ];
           };
-          restartTriggers = [ config.environment.etc."maddy/maddy.conf".source ];
+          restartTriggers =
+            [ config.environment.etc."maddy/maddy.conf".source ];
           wantedBy = [ "multi-user.target" ];
         };
         maddy-ensure-accounts = {
           script = ''
-            ${optionalString (cfg.ensureAccounts != []) ''
+            ${optionalString (cfg.ensureAccounts != [ ]) ''
               ${concatMapStrings (account: ''
                 if ! ${pkgs.maddy}/bin/maddyctl imap-acct list | grep "${account}"; then
                   ${pkgs.maddy}/bin/maddyctl imap-acct create ${account}
                 fi
               '') cfg.ensureAccounts}
             ''}
-            ${optionalString (cfg.ensureCredentials != {}) ''
+            ${optionalString (cfg.ensureCredentials != { }) ''
               ${concatStringsSep "\n" (mapAttrsToList (name: cfg: ''
                 if ! ${pkgs.maddy}/bin/maddyctl creds list | grep "${name}"; then
-                  ${pkgs.maddy}/bin/maddyctl creds create --password $(cat ${escapeShellArg cfg.passwordFile}) ${name}
+                  ${pkgs.maddy}/bin/maddyctl creds create --password $(cat ${
+                    escapeShellArg cfg.passwordFile
+                  }) ${name}
                 fi
               '') cfg.ensureCredentials)}
             ''}
           '';
           serviceConfig = {
             Type = "oneshot";
-            User= "maddy";
+            User = "maddy";
           };
           after = [ "maddy.service" ];
           wantedBy = [ "multi-user.target" ];
@@ -386,14 +384,18 @@ in {
         hostname ${cfg.hostname}
 
         ${if (cfg.tls.loader == "file") then ''
-          tls file ${concatStringsSep " " (
-            map (x: x.certPath + " " + x.keyPath
-          ) cfg.tls.certificates)} ${optionalString (cfg.tls.extraConfig != "") ''
-            { ${cfg.tls.extraConfig} }
-          ''}
+          tls file ${
+            concatStringsSep " "
+            (map (x: x.certPath + " " + x.keyPath) cfg.tls.certificates)
+          } ${
+            optionalString (cfg.tls.extraConfig != "") ''
+              { ${cfg.tls.extraConfig} }
+            ''
+          }
         '' else if (cfg.tls.loader == "off") then ''
           tls off
-        '' else ""}
+        '' else
+          ""}
 
         ${cfg.config}
       '';
@@ -407,16 +409,11 @@ in {
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == name) {
-      ${cfg.group} = { };
-    };
+    users.groups = optionalAttrs (cfg.group == name) { ${cfg.group} = { }; };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ 25 143 587 ];
-    };
+    networking.firewall =
+      mkIf cfg.openFirewall { allowedTCPPorts = [ 25 143 587 ]; };
 
-    environment.systemPackages = [
-      pkgs.maddy
-    ];
+    environment.systemPackages = [ pkgs.maddy ];
   };
 }

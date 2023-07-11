@@ -1,18 +1,10 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, pythonAtLeast
-, pythonOlder
+{ buildPythonPackage, fetchFromGitHub, lib, pythonAtLeast, pythonOlder
 
 # runtime
 , six
 
 # tests
-, freezegun
-, pytest-mock
-, pytestCheckHook
-, tornado_4
-}:
+, freezegun, pytest-mock, pytestCheckHook, tornado_4 }:
 
 buildPythonPackage rec {
   pname = "lomond";
@@ -30,17 +22,10 @@ buildPythonPackage rec {
       --replace "'pytest-runner'" ""
   '';
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [
-    freezegun
-    pytest-mock
-    pytestCheckHook
-  ] ++ lib.optionals (pythonOlder "3.10") [
-    tornado_4
-  ];
+  nativeCheckInputs = [ freezegun pytest-mock pytestCheckHook ]
+    ++ lib.optionals (pythonOlder "3.10") [ tornado_4 ];
 
   disabledTests = [
     # Makes HTTP requests

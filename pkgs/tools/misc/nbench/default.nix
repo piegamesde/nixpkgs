@@ -16,9 +16,8 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "-static" ""
   '';
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isGnu [
-    stdenv.cc.libc.static
-  ];
+  buildInputs =
+    lib.optionals stdenv.hostPlatform.isGnu [ stdenv.cc.libc.static ];
 
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 

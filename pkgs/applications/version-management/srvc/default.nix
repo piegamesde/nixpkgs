@@ -26,7 +26,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Sysrev version control";
     homepage = "https://github.com/insilica/rs-srvc";
-    changelog = "https://github.com/insilica/rs-srvc/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/insilica/rs-srvc/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ john-shaffer ];
     mainProgram = "sr";

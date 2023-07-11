@@ -1,9 +1,5 @@
-{
-  mkDerivation, lib,
-  extra-cmake-modules, qtbase,
-  ki18n, ktextwidgets, kwallet, kwidgetsaddons,
-  ksanecore, sane-backends
-}:
+{ mkDerivation, lib, extra-cmake-modules, qtbase, ki18n, ktextwidgets, kwallet
+, kwidgetsaddons, ksanecore, sane-backends }:
 
 mkDerivation {
   pname = "libksane";

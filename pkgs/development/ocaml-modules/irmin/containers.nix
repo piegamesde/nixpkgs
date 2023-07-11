@@ -1,7 +1,5 @@
-{ buildDunePackage
-, irmin, irmin-fs, ppx_irmin, lwt, mtime
-, alcotest, alcotest-lwt, cacert
-}:
+{ buildDunePackage, irmin, irmin-fs, ppx_irmin, lwt, mtime, alcotest
+, alcotest-lwt, cacert }:
 
 buildDunePackage {
   pname = "irmin-containers";
@@ -9,26 +7,12 @@ buildDunePackage {
   inherit (ppx_irmin) src version strictDeps;
   duneVersion = "3";
 
-  nativeBuildInputs = [
-    ppx_irmin
-  ];
+  nativeBuildInputs = [ ppx_irmin ];
 
-  propagatedBuildInputs = [
-    irmin
-    irmin-fs
-    ppx_irmin
-    lwt
-    mtime
-  ];
+  propagatedBuildInputs = [ irmin irmin-fs ppx_irmin lwt mtime ];
 
   doCheck = true;
-  checkInputs = [
-    alcotest
-    alcotest-lwt
-    cacert
-  ];
+  checkInputs = [ alcotest alcotest-lwt cacert ];
 
-  meta = ppx_irmin.meta // {
-    description = "Mergeable Irmin data structures";
-  };
+  meta = ppx_irmin.meta // { description = "Mergeable Irmin data structures"; };
 }

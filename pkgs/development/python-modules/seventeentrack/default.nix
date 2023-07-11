@@ -1,16 +1,6 @@
-{ lib
-, aiohttp
-, aresponses
-, async-timeout
-, attrs
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, pytz
-}:
+{ lib, aiohttp, aresponses, async-timeout, attrs, buildPythonPackage
+, fetchFromGitHub, poetry-core, pytest-asyncio, pytestCheckHook, pythonOlder
+, pytz }:
 
 buildPythonPackage rec {
   pname = "seventeentrack";
@@ -26,31 +16,18 @@ buildPythonPackage rec {
     hash = "sha256-vMdRXcd0es/LjgsVyWItSLFzlSTEa3oaA6lr/NL4i8U=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    async-timeout
-    attrs
-    pytz
-  ];
+  propagatedBuildInputs = [ aiohttp async-timeout attrs pytz ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
 
   disabledTestPaths = [
     # Ignore the examples directory as the files are prefixed with test_
     "examples/"
   ];
 
-  pythonImportsCheck = [
-    "seventeentrack"
-  ];
+  pythonImportsCheck = [ "seventeentrack" ];
 
   meta = with lib; {
     description = "Python library to track package info from 17track.com";

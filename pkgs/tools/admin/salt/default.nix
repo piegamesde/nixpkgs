@@ -1,11 +1,7 @@
-{ lib
-, stdenv
-, python3
-, openssl
-  # Many Salt modules require various Python modules to be installed,
-  # passing them in this array enables Salt to find them.
-, extraInputs ? []
-}:
+{ lib, stdenv, python3, openssl
+# Many Salt modules require various Python modules to be installed,
+# passing them in this array enables Salt to find them.
+, extraInputs ? [ ] }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "salt";
@@ -16,28 +12,29 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-7iw4s06oYUCQE8gc8KqFKX1pzxB3O3PuegcQtclC3Mo=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    distro
-    jinja2
-    jmespath
-    looseversion
-    markupsafe
-    msgpack
-    packaging
-    psutil
-    pycryptodomex
-    pyyaml
-    pyzmq
-    requests
-  ] ++ extraInputs;
+  propagatedBuildInputs = with python3.pkgs;
+    [
+      distro
+      jinja2
+      jmespath
+      looseversion
+      markupsafe
+      msgpack
+      packaging
+      psutil
+      pycryptodomex
+      pyyaml
+      pyzmq
+      requests
+    ] ++ extraInputs;
 
-  patches = [
-    ./fix-libcrypto-loading.patch
-  ];
+  patches = [ ./fix-libcrypto-loading.patch ];
 
   postPatch = ''
     substituteInPlace "salt/utils/rsax931.py" \
-      --subst-var-by "libcrypto" "${lib.getLib openssl}/lib/libcrypto${stdenv.hostPlatform.extensions.sharedLibrary}"
+      --subst-var-by "libcrypto" "${
+        lib.getLib openssl
+      }/lib/libcrypto${stdenv.hostPlatform.extensions.sharedLibrary}"
     substituteInPlace requirements/base.txt \
       --replace contextvars ""
 
@@ -60,8 +57,10 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://saltproject.io/";
-    changelog = "https://docs.saltproject.io/en/latest/topics/releases/${version}.html";
-    description = "Portable, distributed, remote execution and configuration management system";
+    changelog =
+      "https://docs.saltproject.io/en/latest/topics/releases/${version}.html";
+    description =
+      "Portable, distributed, remote execution and configuration management system";
     maintainers = with maintainers; [ Flakebi ];
     license = licenses.asl20;
   };

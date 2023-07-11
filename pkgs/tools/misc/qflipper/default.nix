@@ -1,27 +1,8 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, pkg-config
-, zlib
-, libusb1
-, libGL
-, qmake
-, wrapGAppsHook
-, wrapQtAppsHook
-, mkDerivation
+{ stdenv, lib, fetchFromGitHub, pkg-config, zlib, libusb1, libGL, qmake
+, wrapGAppsHook, wrapQtAppsHook, mkDerivation
 
-, qttools
-, qtbase
-, qt3d
-, qtsvg
-, qtserialport
-, qtdeclarative
-, qtquickcontrols
-, qtquickcontrols2
-, qtgraphicaleffects
-, qtwayland
-, nix-update-script
-}:
+, qttools, qtbase, qt3d, qtsvg, qtserialport, qtdeclarative, qtquickcontrols
+, qtquickcontrols2, qtgraphicaleffects, qtwayland, nix-update-script }:
 let
   pname = "qFlipper";
   version = "1.3.0";
@@ -29,8 +10,7 @@ let
   timestamp = "99999999999";
   commit = "nix-${version}";
 
-in
-mkDerivation {
+in mkDerivation {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -41,13 +21,7 @@ mkDerivation {
     inherit sha256;
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    qmake
-    qttools
-    wrapGAppsHook
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config qmake qttools wrapGAppsHook wrapQtAppsHook ];
 
   buildInputs = [
     zlib
@@ -62,14 +36,10 @@ mkDerivation {
     qtquickcontrols
     qtquickcontrols2
     qtgraphicaleffects
-  ] ++ lib.optionals (stdenv.isLinux) [
-    qtwayland
-  ];
+  ] ++ lib.optionals (stdenv.isLinux) [ qtwayland ];
 
-  qmakeFlags = [
-    "DEFINES+=DISABLE_APPLICATION_UPDATES"
-    "CONFIG+=qtquickcompiler"
-  ];
+  qmakeFlags =
+    [ "DEFINES+=DISABLE_APPLICATION_UPDATES" "CONFIG+=qtquickcompiler" ];
 
   dontWrapGApps = true;
 
@@ -84,7 +54,7 @@ mkDerivation {
   postInstall = ''
     mkdir -p $out/bin
     ${lib.optionalString stdenv.isDarwin ''
-    cp qFlipper.app/Contents/MacOS/qFlipper $out/bin
+      cp qFlipper.app/Contents/MacOS/qFlipper $out/bin
     ''}
     cp qFlipper-cli $out/bin
 
@@ -100,6 +70,10 @@ mkDerivation {
     homepage = "https://flipperzero.one/";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ cab404 ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" ]; # qtbase doesn't build yet on aarch64-darwin
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-linux"
+    ]; # qtbase doesn't build yet on aarch64-darwin
   };
 }

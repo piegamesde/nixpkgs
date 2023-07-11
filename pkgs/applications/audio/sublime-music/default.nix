@@ -1,20 +1,7 @@
-{ lib
-, fetchFromGitLab
-, fetchFromGitHub
-, python3
-, gobject-introspection
-, gtk3
-, pango
-, wrapGAppsHook
-, xvfb-run
-, chromecastSupport ? false
-, serverSupport ? false
-, keyringSupport ? true
-, notifySupport ? true
-, libnotify
-, networkSupport ? true
-, networkmanager
-}:
+{ lib, fetchFromGitLab, fetchFromGitHub, python3, gobject-introspection, gtk3
+, pango, wrapGAppsHook, xvfb-run, chromecastSupport ? false
+, serverSupport ? false, keyringSupport ? true, notifySupport ? true, libnotify
+, networkSupport ? true, networkmanager }:
 
 let
   python = python3.override {
@@ -30,8 +17,7 @@ let
       });
     };
   };
-in
-python.pkgs.buildPythonApplication rec {
+in python.pkgs.buildPythonApplication rec {
   pname = "sublime-music";
   version = "0.11.16";
   format = "pyproject";
@@ -43,19 +29,11 @@ python.pkgs.buildPythonApplication rec {
     hash = "sha256-n77mTgElwwFaX3WQL8tZzbkPwnsyQ08OW9imSOjpBlg=";
   };
 
-  nativeBuildInputs = [
-    gobject-introspection
-    wrapGAppsHook
-  ] ++ (with python.pkgs; [
-    poetry-core
-    pythonRelaxDepsHook
-  ]);
+  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ]
+    ++ (with python.pkgs; [ poetry-core pythonRelaxDepsHook ]);
 
   # Can be removed in later versions (probably > 0.11.16)
-  pythonRelaxDeps = [
-    "deepdiff"
-    "python-mpv"
-  ];
+  pythonRelaxDeps = [ "deepdiff" "python-mpv" ];
 
   postPatch = ''
     sed -i "/--cov/d" setup.cfg
@@ -66,43 +44,32 @@ python.pkgs.buildPythonApplication rec {
       --replace 'python-Levenshtein = "^0.12.0"' 'Levenshtein = ">0.12.0"'
   '';
 
-  buildInputs = [
-    gtk3
-    pango
-  ]
-  ++ lib.optional notifySupport libnotify
-  ++ lib.optional networkSupport networkmanager
-  ;
+  buildInputs = [ gtk3 pango ] ++ lib.optional notifySupport libnotify
+    ++ lib.optional networkSupport networkmanager;
 
-  propagatedBuildInputs = with python.pkgs; [
-    bleach
-    dataclasses-json
-    deepdiff
-    fuzzywuzzy
-    mpv
-    peewee
-    pygobject3
-    levenshtein
-    python-dateutil
-    requests
-    semver
-  ]
-  ++ lib.optional chromecastSupport pychromecast
-  ++ lib.optional keyringSupport keyring
-  ++ lib.optional serverSupport bottle
-  ;
+  propagatedBuildInputs = with python.pkgs;
+    [
+      bleach
+      dataclasses-json
+      deepdiff
+      fuzzywuzzy
+      mpv
+      peewee
+      pygobject3
+      levenshtein
+      python-dateutil
+      requests
+      semver
+    ] ++ lib.optional chromecastSupport pychromecast
+    ++ lib.optional keyringSupport keyring ++ lib.optional serverSupport bottle;
 
-  nativeCheckInputs = with python.pkgs; [
-    pytest
-  ];
+  nativeCheckInputs = with python.pkgs; [ pytest ];
 
   checkPhase = ''
     ${xvfb-run}/bin/xvfb-run pytest
   '';
 
-  pythonImportsCheck = [
-    "sublime_music"
-  ];
+  pythonImportsCheck = [ "sublime_music" ];
 
   postInstall = ''
     install -Dm444 sublime-music.desktop      -t $out/share/applications
@@ -117,7 +84,8 @@ python.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "GTK3 Subsonic/Airsonic client";
     homepage = "https://sublimemusic.app/";
-    changelog = "https://github.com/sublime-music/sublime-music/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/sublime-music/sublime-music/blob/v${version}/CHANGELOG.rst";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ albakham sumnerevans ];
   };

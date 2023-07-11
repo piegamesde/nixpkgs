@@ -1,19 +1,6 @@
-{ lib
-, aiodns
-, aiohttp
-, azure-core
-, buildPythonPackage
-, certifi
-, fetchFromGitHub
-, httpretty
-, isodate
-, pytest-aiohttp
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-oauthlib
-, trio
-}:
+{ lib, aiodns, aiohttp, azure-core, buildPythonPackage, certifi, fetchFromGitHub
+, httpretty, isodate, pytest-aiohttp, pytestCheckHook, pythonOlder, requests
+, requests-oauthlib, trio }:
 
 buildPythonPackage rec {
   pname = "msrest";
@@ -30,22 +17,10 @@ buildPythonPackage rec {
     hash = "sha256-1EXXXflhDeU+erdI+NsWxSX76ooDTl3+MyQwRzm2xV0=";
   };
 
-  propagatedBuildInputs = [
-    azure-core
-    aiodns
-    aiohttp
-    certifi
-    isodate
-    requests
-    requests-oauthlib
-  ];
+  propagatedBuildInputs =
+    [ azure-core aiodns aiohttp certifi isodate requests requests-oauthlib ];
 
-  nativeCheckInputs = [
-    httpretty
-    pytest-aiohttp
-    pytestCheckHook
-    trio
-  ];
+  nativeCheckInputs = [ httpretty pytest-aiohttp pytestCheckHook trio ];
 
   disabledTests = [
     # Test require network access
@@ -58,9 +33,7 @@ buildPythonPackage rec {
     "test_conf_async_trio_requests"
   ];
 
-  pythonImportsCheck = [
-    "msrest"
-  ];
+  pythonImportsCheck = [ "msrest" ];
 
   meta = with lib; {
     description = "The runtime library for AutoRest generated Python clients";

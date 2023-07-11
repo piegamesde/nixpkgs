@@ -18,7 +18,8 @@ buildGoModule rec {
   ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
-    description = "Generator of an implementation of the service interface for ent protobuff";
+    description =
+      "Generator of an implementation of the service interface for ent protobuff";
     downloadPage = "https://github.com/ent/contrib/";
     license = licenses.asl20;
     homepage = "https://entgo.io/";

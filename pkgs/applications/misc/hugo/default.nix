@@ -1,4 +1,5 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub, installShellFiles, buildPackages }:
+{ stdenv, lib, buildGoModule, fetchFromGitHub, installShellFiles, buildPackages
+}:
 
 buildGoModule rec {
   pname = "hugo";
@@ -23,9 +24,11 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [ "-s" "-w" "-X github.com/gohugoio/hugo/common/hugo.vendorInfo=nixpkgs" ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/gohugoio/hugo/common/hugo.vendorInfo=nixpkgs" ];
 
-  postInstall = let emulator = stdenv.hostPlatform.emulator buildPackages; in ''
+  postInstall = let emulator = stdenv.hostPlatform.emulator buildPackages;
+  in ''
     ${emulator} $out/bin/hugo gen man
     installManPage man/*
     installShellCompletion --cmd hugo \

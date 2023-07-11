@@ -1,16 +1,8 @@
-{ stdenv
-, lib
-, fetchFromSourcehut
-, rustPlatform
-, installShellFiles
-, scdoc
+{ stdenv, lib, fetchFromSourcehut, rustPlatform, installShellFiles, scdoc
 , makeWrapper
 
 # Script dependencies.
-, fzf
-, wl-clipboard
-, xclip
-}:
+, fzf, wl-clipboard, xclip }:
 
 rustPlatform.buildRustPackage rec {
   pname = "license-cli";

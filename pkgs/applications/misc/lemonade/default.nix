@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, fetchpatch
-}:
+{ lib, buildGoModule, fetchFromGitHub, fetchpatch }:
 
 buildGoModule rec {
   pname = "lemonade";
@@ -17,7 +13,8 @@ buildGoModule rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/lemonade-command/lemonade/commit/2b292b0c9d8dc57f73c30a58b3f0f790a953b212.patch";
+      url =
+        "https://github.com/lemonade-command/lemonade/commit/2b292b0c9d8dc57f73c30a58b3f0f790a953b212.patch";
       sha256 = "sha256-jUcOfsKu1IYa7arZuAvhuD0vw7JTmhzA/VLxOtAnbmI=";
     })
   ];
@@ -27,7 +24,8 @@ buildGoModule rec {
   subPackages = [ "." ];
 
   meta = with lib; {
-    description = "Remote utility tool that to copy, paste and open browsers over TCP";
+    description =
+      "Remote utility tool that to copy, paste and open browsers over TCP";
     homepage = "https://github.com/lemonade-command/lemonade/";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];

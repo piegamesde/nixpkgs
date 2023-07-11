@@ -1,10 +1,10 @@
-{ stdenv, lib, fetchurl, iosevka, unzip
-, variant ? ""
-}:
+{ stdenv, lib, fetchurl, iosevka, unzip, variant ? "" }:
 
 let
-  name = if lib.hasPrefix "sgr" variant then variant
-    else "iosevka" + lib.optionalString (variant != "") "-" + variant;
+  name = if lib.hasPrefix "sgr" variant then
+    variant
+  else
+    "iosevka" + lib.optionalString (variant != "") "-" + variant;
 
   variantHashes = import ./variants.nix;
   validVariants = map (lib.removePrefix "iosevka-")
@@ -14,7 +14,8 @@ in stdenv.mkDerivation rec {
   version = "22.1.0";
 
   src = fetchurl {
-    url = "https://github.com/be5invis/Iosevka/releases/download/v${version}/ttc-${name}-${version}.zip";
+    url =
+      "https://github.com/be5invis/Iosevka/releases/download/v${version}/ttc-${name}-${version}.zip";
     sha256 = variantHashes.${name} or (throw ''
       No such variant "${variant}" for package iosevka-bin.
       Valid variants are: ${lib.concatStringsSep ", " validVariants}.
@@ -32,10 +33,7 @@ in stdenv.mkDerivation rec {
 
   meta = {
     inherit (iosevka.meta) homepage downloadPage description license platforms;
-    maintainers = with lib.maintainers; [
-      cstrahan
-      montchr
-    ];
+    maintainers = with lib.maintainers; [ cstrahan montchr ];
   };
 
   passthru.updateScript = ./update-bin.sh;

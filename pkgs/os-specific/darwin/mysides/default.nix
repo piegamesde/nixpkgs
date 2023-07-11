@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "1.0.1";
 
   src = fetchurl {
-    url = "https://github.com/mosen/mysides/releases/download/v${version}/mysides-${version}.pkg";
+    url =
+      "https://github.com/mosen/mysides/releases/download/v${version}/mysides-${version}.pkg";
     sha256 = "sha256-dpRrj3xb9xQSXXXxragUDgNPBaniiMc6evRF12wqVRQ=";
   };
 

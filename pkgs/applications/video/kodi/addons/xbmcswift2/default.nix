@@ -12,9 +12,7 @@ buildKodiAddon rec {
     sha256 = "sha256-Z+rHz3wncoNvV1pwhRzJFB/X0H6wdfwg88otVh27wg8=";
   };
 
-  passthru = {
-    pythonPath = "lib";
-  };
+  passthru = { pythonPath = "lib"; };
 
   meta = with lib; {
     homepage = "https://github.com/XBMC-Addons/script.module.xbmcswift2";

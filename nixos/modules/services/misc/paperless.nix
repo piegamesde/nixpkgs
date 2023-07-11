@@ -22,18 +22,15 @@ let
     PAPERLESS_TIME_ZONE = config.time.timeZone;
   } // optionalAttrs enableRedis {
     PAPERLESS_REDIS = "unix://${redisServer.unixSocket}";
-  } // (
-    lib.mapAttrs (_: toString) cfg.extraConfig
-  );
+  } // (lib.mapAttrs (_: toString) cfg.extraConfig);
 
-  manage =
-    let
-      setupEnv = lib.concatStringsSep "\n" (mapAttrsToList (name: val: "export ${name}=\"${val}\"") env);
-    in
-    pkgs.writeShellScript "manage" ''
-      ${setupEnv}
-      exec ${pkg}/bin/paperless-ngx "$@"
-    '';
+  manage = let
+    setupEnv = lib.concatStringsSep "\n"
+      (mapAttrsToList (name: val: ''export ${name}="${val}"'') env);
+  in pkgs.writeShellScript "manage" ''
+    ${setupEnv}
+    exec ${pkg}/bin/paperless-ngx "$@"
+  '';
 
   # Secure the services
   defaultServiceConfig = {
@@ -46,11 +43,7 @@ let
       "-/etc/localtime"
       "-/run/postgresql"
     ] ++ (optional enableRedis redisServer.unixSocket);
-    BindPaths = [
-      cfg.consumptionDir
-      cfg.dataDir
-      cfg.mediaDir
-    ];
+    BindPaths = [ cfg.consumptionDir cfg.dataDir cfg.mediaDir ];
     CacheDirectory = "paperless";
     CapabilityBoundingSet = "";
     # ProtectClock adds DeviceAllow=char-rtc r
@@ -89,12 +82,14 @@ let
     # Does not work well with the temporary root
     #UMask = "0066";
   };
-in
-{
+in {
   meta.maintainers = with maintainers; [ erikarvstedt Flakebi ];
 
   imports = [
-    (mkRenamedOptionModule [ "services" "paperless-ng" ] [ "services" "paperless" ])
+    (mkRenamedOptionModule [ "services" "paperless-ng" ] [
+      "services"
+      "paperless"
+    ])
   ];
 
   options.services.paperless = {
@@ -130,13 +125,15 @@ in
       type = types.str;
       default = "${cfg.dataDir}/consume";
       defaultText = literalExpression ''"''${dataDir}/consume"'';
-      description = lib.mdDoc "Directory from which new documents are imported.";
+      description =
+        lib.mdDoc "Directory from which new documents are imported.";
     };
 
     consumptionDirIsPublic = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc "Whether all users can write to the consumption dir.";
+      description =
+        lib.mdDoc "Whether all users can write to the consumption dir.";
     };
 
     passwordFile = mkOption {
@@ -206,19 +203,28 @@ in
     services.redis.servers.paperless.enable = mkIf enableRedis true;
 
     systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' - ${cfg.user} ${config.users.users.${cfg.user}.group} - -"
-      "d '${cfg.mediaDir}' - ${cfg.user} ${config.users.users.${cfg.user}.group} - -"
+      "d '${cfg.dataDir}' - ${cfg.user} ${
+        config.users.users.${cfg.user}.group
+      } - -"
+      "d '${cfg.mediaDir}' - ${cfg.user} ${
+        config.users.users.${cfg.user}.group
+      } - -"
       (if cfg.consumptionDirIsPublic then
         "d '${cfg.consumptionDir}' 777 - - - -"
       else
-        "d '${cfg.consumptionDir}' - ${cfg.user} ${config.users.users.${cfg.user}.group} - -"
-      )
+        "d '${cfg.consumptionDir}' - ${cfg.user} ${
+          config.users.users.${cfg.user}.group
+        } - -")
     ];
 
     systemd.services.paperless-scheduler = {
       description = "Paperless Celery Beat";
       wantedBy = [ "multi-user.target" ];
-      wants = [ "paperless-consumer.service" "paperless-web.service" "paperless-task-queue.service" ];
+      wants = [
+        "paperless-consumer.service"
+        "paperless-web.service"
+        "paperless-task-queue.service"
+      ];
       serviceConfig = defaultServiceConfig // {
         User = cfg.user;
         ExecStart = "${pkg}/bin/celery --app paperless beat --loglevel INFO";
@@ -252,8 +258,7 @@ in
 
           echo ${pkg.version} > "$versionFile"
         fi
-      ''
-      + optionalString (cfg.passwordFile != null) ''
+      '' + optionalString (cfg.passwordFile != null) ''
         export PAPERLESS_ADMIN_USER="''${PAPERLESS_ADMIN_USER:-admin}"
         export PAPERLESS_ADMIN_PASSWORD=$(cat "${cfg.dataDir}/superuser-password")
         superuserState="$PAPERLESS_ADMIN_USER:$PAPERLESS_ADMIN_PASSWORD"
@@ -264,9 +269,7 @@ in
           echo "$superuserState" > "$superuserStateFile"
         fi
       '';
-    } // optionalAttrs enableRedis {
-      after = [ "redis-paperless.service" ];
-    };
+    } // optionalAttrs enableRedis { after = [ "redis-paperless.service" ]; };
 
     systemd.services.paperless-task-queue = {
       description = "Paperless Celery Workers";
@@ -307,7 +310,7 @@ in
         # Enable internet access
         PrivateNetwork = false;
         # Restrict write access
-        BindPaths = [];
+        BindPaths = [ ];
         BindReadOnlyPaths = [
           "/nix/store"
           "-/etc/resolv.conf"
@@ -317,9 +320,11 @@ in
           "-/etc/hosts"
           "-/etc/localtime"
         ];
-        ExecStart = let pythonWithNltk = pkg.python.withPackages (ps: [ ps.nltk ]); in ''
-          ${pythonWithNltk}/bin/python -m nltk.downloader -d '${nltkDir}' punkt snowball_data stopwords
-        '';
+        ExecStart =
+          let pythonWithNltk = pkg.python.withPackages (ps: [ ps.nltk ]);
+          in ''
+            ${pythonWithNltk}/bin/python -m nltk.downloader -d '${nltkDir}' punkt snowball_data stopwords
+          '';
       };
     };
 
@@ -352,7 +357,8 @@ in
         Restart = "on-failure";
 
         # gunicorn needs setuid, liblapack needs mbind
-        SystemCallFilter = defaultServiceConfig.SystemCallFilter ++ [ "@setuid mbind" ];
+        SystemCallFilter = defaultServiceConfig.SystemCallFilter
+          ++ [ "@setuid mbind" ];
         # Needs to serve web page
         PrivateNetwork = false;
       } // lib.optionalAttrs (cfg.port < 1024) {
@@ -361,7 +367,9 @@ in
       };
       environment = env // {
         PATH = mkForce pkg.path;
-        PYTHONPATH = "${pkg.python.pkgs.makePythonPath pkg.propagatedBuildInputs}:${pkg}/lib/paperless-ngx/src";
+        PYTHONPATH = "${
+            pkg.python.pkgs.makePythonPath pkg.propagatedBuildInputs
+          }:${pkg}/lib/paperless-ngx/src";
       };
       # Allow the web interface to access the private /tmp directory of the server.
       # This is required to support uploading files via the web interface.
@@ -375,9 +383,7 @@ in
         home = cfg.dataDir;
       };
 
-      groups.${defaultUser} = {
-        gid = config.ids.gids.paperless;
-      };
+      groups.${defaultUser} = { gid = config.ids.gids.paperless; };
     };
   };
 }

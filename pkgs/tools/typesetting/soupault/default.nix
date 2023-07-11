@@ -1,16 +1,10 @@
-{ lib
-, fetchFromGitea
-, ocamlPackages
-, soupault
-, testers
-}:
+{ lib, fetchFromGitea, ocamlPackages, soupault, testers }:
 
 let
   pname = "soupault";
 
   version = "4.4.0";
-in
-ocamlPackages.buildDunePackage {
+in ocamlPackages.buildDunePackage {
   inherit pname version;
 
   minimalOCamlVersion = "4.13";
@@ -54,7 +48,8 @@ ocamlPackages.buildDunePackage {
   meta = {
     description = "A tool that helps you create and manage static websites";
     homepage = "https://soupault.app/";
-    changelog = "https://codeberg.org/PataphysicalSociety/soupault/src/branch/main/CHANGELOG.md";
+    changelog =
+      "https://codeberg.org/PataphysicalSociety/soupault/src/branch/main/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ toastal ];
   };

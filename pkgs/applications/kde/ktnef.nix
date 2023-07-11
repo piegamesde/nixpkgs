@@ -1,8 +1,5 @@
-{
-  mkDerivation, lib, kdepimTeam,
-  extra-cmake-modules, kdoctools,
-  kcalendarcore, kcalutils, kcontacts
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, kcalendarcore
+, kcalutils, kcontacts }:
 
 mkDerivation {
   pname = "ktnef";
@@ -11,9 +8,7 @@ mkDerivation {
     maintainers = kdepimTeam;
   };
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
-  propagatedBuildInputs = [
-    kcalendarcore kcalutils kcontacts
-  ];
+  propagatedBuildInputs = [ kcalendarcore kcalutils kcontacts ];
   outputs = [ "out" "dev" ];
   postInstall = ''
     # added as an include directory by cmake files and fails to compile if it's missing

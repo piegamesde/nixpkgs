@@ -1,7 +1,4 @@
-{ lib
-, python3
-, fetchFromGitHub
-}:
+{ lib, python3, fetchFromGitHub }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "getmail6";
@@ -29,7 +26,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "A program for retrieving mail";
     homepage = "https://getmail6.org";
-    changelog = "https://github.com/getmail6/getmail6/blob/${src.rev}/docs/CHANGELOG";
+    changelog =
+      "https://github.com/getmail6/getmail6/blob/${src.rev}/docs/CHANGELOG";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ abbe dotlambda ];
   };

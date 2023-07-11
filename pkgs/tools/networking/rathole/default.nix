@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, openssl
-, CoreServices
+{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, openssl, CoreServices
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -20,15 +14,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-OcPmHqjW79SKMET6J5HIwmR5vESh+PJcQjSMsqmnIb8=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreServices
-  ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   __darwinAllowLocalNetworking = true;
 

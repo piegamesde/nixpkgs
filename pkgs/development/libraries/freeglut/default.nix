@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchurl, libICE, libXext, libXi, libXrandr, libXxf86vm, libGL, libGLU, cmake
-, testers
-}:
+{ lib, stdenv, fetchurl, libICE, libXext, libXi, libXrandr, libXxf86vm, libGL
+, libGLU, cmake, testers }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "freeglut";
@@ -17,12 +16,12 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [ libICE libXext libXi libXrandr libXxf86vm libGL libGLU ];
 
   cmakeFlags = lib.optionals stdenv.isDarwin [
-                 "-DOPENGL_INCLUDE_DIR=${libGL}/include"
-                 "-DOPENGL_gl_LIBRARY:FILEPATH=${libGL}/lib/libGL.dylib"
-                 "-DOPENGL_glu_LIBRARY:FILEPATH=${libGLU}/lib/libGLU.dylib"
-                 "-DFREEGLUT_BUILD_DEMOS:BOOL=OFF"
-                 "-DFREEGLUT_BUILD_STATIC:BOOL=OFF"
-               ];
+    "-DOPENGL_INCLUDE_DIR=${libGL}/include"
+    "-DOPENGL_gl_LIBRARY:FILEPATH=${libGL}/lib/libGL.dylib"
+    "-DOPENGL_glu_LIBRARY:FILEPATH=${libGLU}/lib/libGLU.dylib"
+    "-DFREEGLUT_BUILD_DEMOS:BOOL=OFF"
+    "-DFREEGLUT_BUILD_STATIC:BOOL=OFF"
+  ];
 
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 

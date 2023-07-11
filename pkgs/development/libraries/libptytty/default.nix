@@ -1,16 +1,11 @@
-{ stdenv
-, lib
-, fetchurl
-, cmake
-}:
+{ stdenv, lib, fetchurl, cmake }:
 
 let
   isCross = !stdenv.buildPlatform.canExecute stdenv.hostPlatform;
   isStatic = stdenv.hostPlatform.isStatic;
   isMusl = stdenv.hostPlatform.isMusl;
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "libptytty";
   version = "2.0";
 

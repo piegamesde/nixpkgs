@@ -2,27 +2,22 @@
 # Build depends
 , docutils, meson, ninja, pkg-config, python3
 # Runtime depends
-, glfw, SDL2, SDL2_mixer
-, cglm, freetype, libpng, libwebp, libzip, zlib
-}:
+, glfw, SDL2, SDL2_mixer, cglm, freetype, libpng, libwebp, libzip, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "taisei";
   version = "1.3.2";
 
   src = fetchurl {
-    url = "https://github.com/taisei-project/${pname}/releases/download/v${version}/${pname}-v${version}.tar.xz";
+    url =
+      "https://github.com/taisei-project/${pname}/releases/download/v${version}/${pname}-v${version}.tar.xz";
     sha256 = "1g53fcyrlzmvlsb40pw90gaglysv6n1w42hk263iv61ibhdmzh6v";
   };
 
-  nativeBuildInputs = [
-    docutils meson ninja pkg-config python3
-  ];
+  nativeBuildInputs = [ docutils meson ninja pkg-config python3 ];
 
-  buildInputs = [
-    glfw SDL2 SDL2_mixer
-    cglm freetype libpng libwebp libzip zlib
-  ];
+  buildInputs =
+    [ glfw SDL2 SDL2_mixer cglm freetype libpng libwebp libzip zlib ];
 
   patches = [ ./0001-lto-fix.patch ];
 

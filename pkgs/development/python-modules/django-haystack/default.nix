@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
+{ lib, buildPythonPackage, pythonOlder, fetchPypi
 
 # build dependencies
 , setuptools-scm
@@ -10,13 +7,7 @@
 , django
 
 # tests
-, geopy
-, nose
-, pysolr
-, python-dateutil
-, requests
-, whoosh
-}:
+, geopy, nose, pysolr, python-dateutil, requests, whoosh }:
 
 buildPythonPackage rec {
   pname = "django-haystack";
@@ -34,22 +25,11 @@ buildPythonPackage rec {
       --replace "geopy==" "geopy>="
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
-  nativeCheckInputs = [
-    geopy
-    nose
-    pysolr
-    python-dateutil
-    requests
-    whoosh
-  ];
+  nativeCheckInputs = [ geopy nose pysolr python-dateutil requests whoosh ];
 
   meta = with lib; {
     description = "Pluggable search for Django";

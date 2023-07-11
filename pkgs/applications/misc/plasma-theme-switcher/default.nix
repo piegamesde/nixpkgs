@@ -1,6 +1,5 @@
-{
-  stdenv, lib, cmake, extra-cmake-modules, fetchFromGitHub, qtbase, kdeFrameworks
-}:
+{ stdenv, lib, cmake, extra-cmake-modules, fetchFromGitHub, qtbase
+, kdeFrameworks }:
 
 stdenv.mkDerivation rec {
   pname = "plasma-theme-switcher";
@@ -14,15 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "sdcJ6K5QmglJEDIEl4sd8x7DuCPCqMHRxdYbcToM46Q=";
   };
 
-  buildInputs = [
-    qtbase
-    kdeFrameworks.plasma-framework
-  ];
+  buildInputs = [ qtbase kdeFrameworks.plasma-framework ];
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
 
   installPhase = ''
     runHook preInstall

@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchurl, makeWrapper, openjdk17_headless, libmatthew_java, dbus, dbus_java }:
+{ stdenv, lib, fetchurl, makeWrapper, openjdk17_headless, libmatthew_java, dbus
+, dbus_java }:
 
 stdenv.mkDerivation rec {
   pname = "signal-cli";
@@ -6,7 +7,8 @@ stdenv.mkDerivation rec {
 
   # Building from source would be preferred, but is much more involved.
   src = fetchurl {
-    url = "https://github.com/AsamK/signal-cli/releases/download/v${version}/signal-cli-${version}-Linux.tar.gz";
+    url =
+      "https://github.com/AsamK/signal-cli/releases/download/v${version}/signal-cli-${version}-Linux.tar.gz";
     hash = "sha256-LhTv3ycJXr2vt0vyXfCd1ABro4q7CfBma63Zd1osBhA=";
   };
 
@@ -46,7 +48,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/AsamK/signal-cli";
-    description = "Command-line and dbus interface for communicating with the Signal messaging service";
+    description =
+      "Command-line and dbus interface for communicating with the Signal messaging service";
     license = licenses.gpl3;
     maintainers = with maintainers; [ ivan ];
     platforms = platforms.all;

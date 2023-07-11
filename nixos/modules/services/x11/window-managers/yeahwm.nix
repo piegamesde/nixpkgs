@@ -2,13 +2,12 @@
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager.yeahwm;
-in
-{
+let cfg = config.services.xserver.windowManager.yeahwm;
+in {
   ###### interface
   options = {
-    services.xserver.windowManager.yeahwm.enable = mkEnableOption (lib.mdDoc "yeahwm");
+    services.xserver.windowManager.yeahwm.enable =
+      mkEnableOption (lib.mdDoc "yeahwm");
   };
 
   ###### implementation

@@ -5,31 +5,33 @@ with lib;
 {
   options = {
     services.xl2tpd = {
-      enable = mkEnableOption (lib.mdDoc "xl2tpd, the Layer 2 Tunnelling Protocol Daemon");
+      enable = mkEnableOption
+        (lib.mdDoc "xl2tpd, the Layer 2 Tunnelling Protocol Daemon");
 
       serverIp = mkOption {
-        type        = types.str;
+        type = types.str;
         description = lib.mdDoc "The server-side IP address.";
-        default     = "10.125.125.1";
+        default = "10.125.125.1";
       };
 
       clientIpRange = mkOption {
-        type        = types.str;
+        type = types.str;
         description = lib.mdDoc "The range from which client IPs are drawn.";
-        default     = "10.125.125.2-11";
+        default = "10.125.125.2-11";
       };
 
       extraXl2tpOptions = mkOption {
-        type        = types.lines;
-        description = lib.mdDoc "Adds extra lines to the xl2tpd configuration file.";
-        default     = "";
+        type = types.lines;
+        description =
+          lib.mdDoc "Adds extra lines to the xl2tpd configuration file.";
+        default = "";
       };
 
       extraPppdOptions = mkOption {
-        type        = types.lines;
+        type = types.lines;
         description = lib.mdDoc "Adds extra lines to the pppd options file.";
-        default     = "";
-        example     = ''
+        default = "";
+        example = ''
           ms-dns 8.8.8.8
           ms-dns 8.8.4.4
         '';
@@ -82,9 +84,9 @@ with lib;
       '';
 
       xl2tpd-ppp-wrapped = pkgs.stdenv.mkDerivation {
-        name         = "xl2tpd-ppp-wrapped";
-        phases       = [ "installPhase" ];
-        nativeBuildInputs  = with pkgs; [ makeWrapper ];
+        name = "xl2tpd-ppp-wrapped";
+        phases = [ "installPhase" ];
+        nativeBuildInputs = with pkgs; [ makeWrapper ];
         installPhase = ''
           mkdir -p $out/bin
 
@@ -132,11 +134,12 @@ with lib;
       '';
 
       serviceConfig = {
-        ExecStart = "${xl2tpd-ppp-wrapped}/bin/xl2tpd -D -c ${xl2tpd-conf} -s /etc/xl2tpd/l2tp-secrets -p /run/xl2tpd/pid -C /run/xl2tpd/control";
-        KillMode  = "process";
-        Restart   = "on-success";
-        Type      = "simple";
-        PIDFile   = "/run/xl2tpd/pid";
+        ExecStart =
+          "${xl2tpd-ppp-wrapped}/bin/xl2tpd -D -c ${xl2tpd-conf} -s /etc/xl2tpd/l2tp-secrets -p /run/xl2tpd/pid -C /run/xl2tpd/control";
+        KillMode = "process";
+        Restart = "on-success";
+        Type = "simple";
+        PIDFile = "/run/xl2tpd/pid";
       };
     };
   };

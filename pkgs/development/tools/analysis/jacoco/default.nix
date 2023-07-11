@@ -1,16 +1,12 @@
-{ lib
-, stdenv
-, fetchzip
-, makeWrapper
-, jre
-}:
+{ lib, stdenv, fetchzip, makeWrapper, jre }:
 
 stdenv.mkDerivation rec {
   pname = "jacoco";
   version = "0.8.10";
 
   src = fetchzip {
-    url = "https://search.maven.org/remotecontent?filepath=org/jacoco/jacoco/${version}/jacoco-${version}.zip";
+    url =
+      "https://search.maven.org/remotecontent?filepath=org/jacoco/jacoco/${version}/jacoco-${version}.zip";
     stripRoot = false;
     sha256 = "sha256-V8I3DXoeUPNxAe7z/ISGa5UQAyLJN7RKXlD0FOw92Oo=";
   };

@@ -1,7 +1,8 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, callPackage, sqlcipher, nodejs, python3, yarn, fixup_yarn_lock, CoreServices, fetchYarnDeps, removeReferencesTo }:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, callPackage, sqlcipher, nodejs
+, python3, yarn, fixup_yarn_lock, CoreServices, fetchYarnDeps
+, removeReferencesTo }:
 
-let
-  pinData = lib.importJSON ./pin.json;
+let pinData = lib.importJSON ./pin.json;
 
 in rustPlatform.buildRustPackage rec {
   pname = "seshat-node";

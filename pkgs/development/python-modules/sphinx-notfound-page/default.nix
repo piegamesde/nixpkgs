@@ -1,18 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, flit-core
-, pythonImportsCheckHook
+{ lib, buildPythonPackage, fetchFromGitHub, flit-core, pythonImportsCheckHook
 # documentation build dependencies
-, sphinxHook
-, sphinx-prompt
-, sphinx-rtd-theme
-, sphinx-tabs
-, sphinx-autoapi
+, sphinxHook, sphinx-prompt, sphinx-rtd-theme, sphinx-tabs, sphinx-autoapi
 , sphinxemoji
 # runtime dependencies
-, sphinx
-}:
+, sphinx }:
 
 buildPythonPackage rec {
   pname = "sphinx-notfound-page";
@@ -43,7 +34,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "notfound" ];
 
   meta = with lib; {
-    description = "A sphinx extension to create a custom 404 page with absolute URLs hardcoded";
+    description =
+      "A sphinx extension to create a custom 404 page with absolute URLs hardcoded";
     homepage = "https://github.com/readthedocs/sphinx-notfound-page";
     license = licenses.mit;
     maintainers = with maintainers; [ kaction ];

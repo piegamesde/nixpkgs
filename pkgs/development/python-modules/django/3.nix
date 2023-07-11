@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, substituteAll
-, geos39
-, gdal
-, asgiref
-, pytz
-, sqlparse
-, tzdata
-, pythonOlder
-, withGdal ? false
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, substituteAll, geos39, gdal
+, asgiref, pytz, sqlparse, tzdata, pythonOlder, withGdal ? false }:
 
 buildPythonPackage rec {
   pname = "django";
@@ -30,19 +18,14 @@ buildPythonPackage rec {
       src = ./django_3_set_zoneinfo_dir.patch;
       zoneinfo = tzdata + "/share/zoneinfo";
     })
-  ] ++ lib.optional withGdal
-    (substituteAll {
-      src = ./django_3_set_geos_gdal_lib.patch;
-      inherit geos39;
-      inherit gdal;
-      extension = stdenv.hostPlatform.extensions.sharedLibrary;
-    });
+  ] ++ lib.optional withGdal (substituteAll {
+    src = ./django_3_set_geos_gdal_lib.patch;
+    inherit geos39;
+    inherit gdal;
+    extension = stdenv.hostPlatform.extensions.sharedLibrary;
+  });
 
-  propagatedBuildInputs = [
-    asgiref
-    pytz
-    sqlparse
-  ];
+  propagatedBuildInputs = [ asgiref pytz sqlparse ];
 
   # too complicated to setup
   doCheck = false;

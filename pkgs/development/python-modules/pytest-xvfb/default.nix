@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest
-, pyvirtualdisplay
-, isPy27
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, pyvirtualdisplay, isPy27 }:
 
 buildPythonPackage rec {
   pname = "pytest-xvfb";
@@ -18,9 +12,7 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    pyvirtualdisplay
-  ];
+  propagatedBuildInputs = [ pyvirtualdisplay ];
 
   meta = with lib; {
     description = "A pytest plugin to run Xvfb for tests";

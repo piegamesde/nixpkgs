@@ -1,23 +1,11 @@
-{ lib, stdenv
-, fetchFromGitLab
-, fetchpatch
-, python3
-, librsync
-, ncftp
-, gnupg
-, gnutar
-, par2cmdline
-, util-linux
-, rsync
-, makeWrapper
-, gettext
-}:
+{ lib, stdenv, fetchFromGitLab, fetchpatch, python3, librsync, ncftp, gnupg
+, gnutar, par2cmdline, util-linux, rsync, makeWrapper, gettext }:
 let
   pythonPackages = python3.pkgs;
   inherit (lib.versions) majorMinor splitVersion;
-  majorMinorPatch = v: builtins.concatStringsSep "." (lib.take 3 (splitVersion v));
-in
-pythonPackages.buildPythonApplication rec {
+  majorMinorPatch = v:
+    builtins.concatStringsSep "." (lib.take 3 (splitVersion v));
+in pythonPackages.buildPythonApplication rec {
   pname = "duplicity";
   version = "0.8.23";
 
@@ -57,9 +45,7 @@ pythonPackages.buildPythonApplication rec {
     pythonPackages.wrapPython
     pythonPackages.setuptools-scm
   ];
-  buildInputs = [
-    librsync
-  ];
+  buildInputs = [ librsync ];
 
   pythonPath = with pythonPackages; [
     b2sdk
@@ -85,13 +71,7 @@ pythonPackages.buildPythonApplication rec {
     par2cmdline # Add 'par2' to PATH.
   ] ++ lib.optionals stdenv.isLinux [
     util-linux # Add 'setsid' to PATH.
-  ] ++ (with pythonPackages; [
-    lockfile
-    mock
-    pexpect
-    pytest
-    pytest-runner
-  ]);
+  ] ++ (with pythonPackages; [ lockfile mock pexpect pytest pytest-runner ]);
 
   postInstall = ''
     wrapProgram $out/bin/duplicity \
@@ -127,7 +107,8 @@ pythonPackages.buildPythonApplication rec {
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {
-    description = "Encrypted bandwidth-efficient backup using the rsync algorithm";
+    description =
+      "Encrypted bandwidth-efficient backup using the rsync algorithm";
     homepage = "https://duplicity.gitlab.io/duplicity-web/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

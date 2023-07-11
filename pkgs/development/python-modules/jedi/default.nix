@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonAtLeast
-, pythonOlder
-, fetchFromGitHub
-, attrs
-, django_3
-, pytestCheckHook
-, parso
-}:
+{ lib, stdenv, buildPythonPackage, pythonAtLeast, pythonOlder, fetchFromGitHub
+, attrs, django_3, pytestCheckHook, parso }:
 
 buildPythonPackage rec {
   pname = "jedi";
@@ -27,11 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ parso ];
 
-  nativeCheckInputs = [
-    attrs
-    django_3
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ attrs django_3 pytestCheckHook ];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -56,9 +43,11 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "An autocompletion tool for Python that can be used for text editors";
+    description =
+      "An autocompletion tool for Python that can be used for text editors";
     homepage = "https://github.com/davidhalter/jedi";
-    changelog = "https://github.com/davidhalter/jedi/blob/${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/davidhalter/jedi/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

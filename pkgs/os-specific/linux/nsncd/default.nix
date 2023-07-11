@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, nix-gitignore
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, nix-gitignore }:
 
 rustPlatform.buildRustPackage rec {
   pname = "nsncd";

@@ -1,31 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, appstream
-, coreutils
-, curl
-, desktop-file-utils
-, glib
-, gnugrep
-, gobject-introspection
-, gtk3
-, html2text
-, libgee
-, libxml2
-, meson
-, ninja
-, pantheon
-, pkg-config
-, poppler
-, poppler_utils
-, python3
-, sqlite
-, unar
-, unzip
-, vala
-, webkitgtk
-, wrapGAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, appstream, coreutils, curl, desktop-file-utils
+, glib, gnugrep, gobject-introspection, gtk3, html2text, libgee, libxml2, meson
+, ninja, pantheon, pkg-config, poppler, poppler_utils, python3, sqlite, unar
+, unzip, vala, webkitgtk, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "bookworm";
@@ -38,13 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-mLyJfblF5WnWBV3rX1ZRupccou4t5mBpo3W7+ECNMVI=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    vala
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config vala wrapGAppsHook ];
 
   buildInputs = [
     appstream
@@ -70,7 +40,17 @@ stdenv.mkDerivation rec {
   # These programs are expected in PATH from the source code and scripts
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ unzip unar poppler_utils html2text coreutils curl gnugrep ]}"
+      --prefix PATH : "${
+        lib.makeBinPath [
+          unzip
+          unar
+          poppler_utils
+          html2text
+          coreutils
+          curl
+          gnugrep
+        ]
+      }"
       --prefix PATH : $out/bin
     )
   '';

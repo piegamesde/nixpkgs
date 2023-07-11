@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, cmake
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocm-cmake";
@@ -30,6 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.mit;
     maintainers = teams.rocm.members;
     platforms = platforms.unix;
-    broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
+    broken = versions.minor finalAttrs.version
+      != versions.minor stdenv.cc.version;
   };
 })

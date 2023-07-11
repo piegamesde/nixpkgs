@@ -1,9 +1,4 @@
-{ trivialBuild
-, fetchFromGitHub
-, emacs
-, popup
-, ess
-}:
+{ trivialBuild, fetchFromGitHub, emacs, popup, ess }:
 
 trivialBuild rec {
   pname = "ess-R-object-popup";
@@ -16,10 +11,7 @@ trivialBuild rec {
     hash = "sha256-YN8ZLXEbwTFdFfovkV2IXV9v6y/PTgCdiRQqbpRaF2E=";
   };
 
-  packageRequires = [
-    popup
-    ess
-  ];
+  packageRequires = [ popup ess ];
 
   meta = {
     homepage = "https://github.com/myuhe/ess-R-object-popup.el";

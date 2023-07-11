@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "chezmoi";
@@ -19,9 +15,8 @@ buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [
-    "-s" "-w" "-X main.version=${version}" "-X main.builtBy=nixpkgs"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X main.version=${version}" "-X main.builtBy=nixpkgs" ];
 
   nativeBuildInputs = [ installShellFiles ];
 

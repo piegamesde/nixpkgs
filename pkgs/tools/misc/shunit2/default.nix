@@ -1,13 +1,5 @@
-{ lib
-, resholve
-, fetchFromGitHub
-, bash
-, coreutils
-, gnused
-, gnugrep
-, findutils
-, ncurses
-}:
+{ lib, resholve, fetchFromGitHub, bash, coreutils, gnused, gnugrep, findutils
+, ncurses }:
 
 resholve.mkDerivation rec {
   pname = "shunit2";
@@ -56,19 +48,19 @@ resholve.mkDerivation rec {
       fix = {
         # stray absolute path; make it resolve from coreutils
         "/usr/bin/od" = true;
-        /*
-        Caution: this one is contextually debatable. shunit2
-        sets this variable after testing whether `echo -e test`
-        yields `test` or `-e test`. Since we're setting the
-        interpreter, we can pre-test this. But if we go fiddle
-        the interpreter later, I guess we _could_ break it.
+        /* Caution: this one is contextually debatable. shunit2
+           sets this variable after testing whether `echo -e test`
+           yields `test` or `-e test`. Since we're setting the
+           interpreter, we can pre-test this. But if we go fiddle
+           the interpreter later, I guess we _could_ break it.
         */
         "$__SHUNIT_CMD_ECHO_ESC" = [ "echo -e" ];
         "$SHUNIT_CMD_TPUT" = [ "tput" ]; # from ncurses
       };
       keep = {
         # dynamically defined in shunit2:_shunit_mktempFunc
-        eval = [ "shunit_condition_" "_shunit_test_" "_shunit_prepForSourcing" ];
+        eval =
+          [ "shunit_condition_" "_shunit_test_" "_shunit_prepForSourcing" ];
 
         # dynamic based on CLI flag
         "$_SHUNIT_LINENO_" = true;
@@ -82,7 +74,8 @@ resholve.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/kward/shunit2";
-    description = "An xUnit based unit test framework for Bourne based shell scripts";
+    description =
+      "An xUnit based unit test framework for Bourne based shell scripts";
     maintainers = with maintainers; [ abathur utdemir ];
     license = licenses.asl20;
     platforms = platforms.unix;

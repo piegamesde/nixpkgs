@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, python3, zip }: let
+{ lib, stdenv, fetchFromGitHub, python3, zip }:
+let
   version = "1.1.0";
   sha256 = "sha256-563xOz63vto19yuaHtReV1dSw6BgNf+CLtS3lrPnaoc=";
 
@@ -11,13 +12,9 @@
   };
 in stdenv.mkDerivation {
   inherit pname version src;
-  nativeBuildInputs = [
-    zip
-  ];
+  nativeBuildInputs = [ zip ];
   buildInputs = [
-    (python3.withPackages (pythonPackages: with pythonPackages; [
-      distro
-    ]))
+    (python3.withPackages (pythonPackages: with pythonPackages; [ distro ]))
   ];
   buildPhase = ''
     runHook preBuild
@@ -43,9 +40,7 @@ in stdenv.mkDerivation {
     '';
     homepage = "https://github.com/SpyHoodle/pridefetch";
     license = licenses.mit;
-    maintainers = [
-      maintainers.minion3665
-    ];
+    maintainers = [ maintainers.minion3665 ];
     platforms = platforms.all;
   };
 }

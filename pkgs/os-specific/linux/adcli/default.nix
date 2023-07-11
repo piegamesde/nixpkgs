@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, openldap
-, libkrb5
-, libxslt
-, autoreconfHook
-, pkg-config
-, cyrus_sasl
-, util-linux
-, xmlto
-, docbook_xsl
-, docbook_xml_dtd_43
-}:
+{ lib, stdenv, fetchFromGitLab, openldap, libkrb5, libxslt, autoreconfHook
+, pkg-config, cyrus_sasl, util-linux, xmlto, docbook_xsl, docbook_xml_dtd_43 }:
 
 stdenv.mkDerivation rec {
   pname = "adcli";
@@ -25,20 +13,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dipNKlIdc1DpXLg/YJjUxZlNoMFy+rt8Y/+AfWFA4dE=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    docbook_xsl
-    util-linux
-    xmlto
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook pkg-config docbook_xsl util-linux xmlto ];
 
-  buildInputs = [
-    openldap
-    libkrb5
-    libxslt
-    cyrus_sasl
-  ];
+  buildInputs = [ openldap libkrb5 libxslt cyrus_sasl ];
 
   configureFlags = [ "--disable-debug" ];
 
@@ -62,7 +40,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.freedesktop.org/software/realmd/adcli/adcli.html";
-    description = "A helper library and tools for Active Directory client operations.";
+    description =
+      "A helper library and tools for Active Directory client operations.";
     license = licenses.lgpl21Only;
     maintainers = with maintainers; [ SohamG anthonyroussel ];
     platforms = platforms.linux;

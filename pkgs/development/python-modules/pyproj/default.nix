@@ -1,19 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, python
-, proj
-, pythonOlder
-, substituteAll
-, cython
-, pytestCheckHook
-, mock
-, certifi
-, numpy
-, shapely
-, pandas
-, xarray
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python, proj, pythonOlder
+, substituteAll, cython, pytestCheckHook, mock, certifi, numpy, shapely, pandas
+, xarray }:
 
 buildPythonPackage rec {
   pname = "pyproj";
@@ -39,28 +26,16 @@ buildPythonPackage rec {
   nativeBuildInputs = [ cython ];
   buildInputs = [ proj ];
 
-  propagatedBuildInputs = [
-     certifi
-  ];
+  propagatedBuildInputs = [ certifi ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    mock
-    numpy
-    shapely
-    pandas
-    xarray
-  ];
+  nativeCheckInputs = [ pytestCheckHook mock numpy shapely pandas xarray ];
 
   preCheck = ''
     # import from $out
     rm -r pyproj
   '';
 
-  disabledTestPaths = [
-    "test/test_doctest_wrapper.py"
-    "test/test_datadir.py"
-  ];
+  disabledTestPaths = [ "test/test_doctest_wrapper.py" "test/test_datadir.py" ];
 
   disabledTests = [
     # The following tests try to access network and end up with a URLError
@@ -103,7 +78,8 @@ buildPythonPackage rec {
   meta = {
     description = "Python interface to PROJ library";
     homepage = "https://github.com/pyproj4/pyproj";
-    changelog = "https://github.com/pyproj4/pyproj/blob/${src.rev}/docs/history.rst";
+    changelog =
+      "https://github.com/pyproj4/pyproj/blob/${src.rev}/docs/history.rst";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ lsix dotlambda ];
   };

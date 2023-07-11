@@ -1,16 +1,6 @@
-{ lib
-, aiohttp
-, async-timeout
-, backports-zoneinfo
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytest-asyncio
-, pytest-timeout
-, pytestCheckHook
-, pythonOlder
-, python-dotenv
-}:
+{ lib, aiohttp, async-timeout, backports-zoneinfo, buildPythonPackage
+, fetchFromGitHub, poetry-core, pytest-asyncio, pytest-timeout, pytestCheckHook
+, pythonOlder, python-dotenv }:
 
 buildPythonPackage rec {
   pname = "aiopvpc";
@@ -31,32 +21,22 @@ buildPythonPackage rec {
       " --cov --cov-report term --cov-report html" ""
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    async-timeout
-  ] ++ lib.optionals (pythonOlder "3.9") [
-    backports-zoneinfo
-  ];
+  propagatedBuildInputs = [ aiohttp async-timeout ]
+    ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-timeout
-    pytestCheckHook
-    python-dotenv
-  ];
+  nativeCheckInputs =
+    [ pytest-asyncio pytest-timeout pytestCheckHook python-dotenv ];
 
-  pythonImportsCheck = [
-    "aiopvpc"
-  ];
+  pythonImportsCheck = [ "aiopvpc" ];
 
   meta = with lib; {
-    description = "Python module to download Spanish electricity hourly prices (PVPC)";
+    description =
+      "Python module to download Spanish electricity hourly prices (PVPC)";
     homepage = "https://github.com/azogue/aiopvpc";
-    changelog = "https://github.com/azogue/aiopvpc/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/azogue/aiopvpc/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

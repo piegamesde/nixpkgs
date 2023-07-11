@@ -1,30 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchurl
-, autoconf
-, automake
-, fontconfig
-, libX11
-, perl
-, flex
-, bison
-, pkg-config
-, tcl
-, tk
-, xorg
-, yices
-, zlib
-, ghc
-, gmp-static
-, verilog
-, asciidoctor
-, tex
-, which
-}:
+{ lib, stdenv, fetchFromGitHub, fetchurl, autoconf, automake, fontconfig, libX11
+, perl, flex, bison, pkg-config, tcl, tk, xorg, yices, zlib, ghc, gmp-static
+, verilog, asciidoctor, tex, which }:
 
 let
-  ghcWithPackages = ghc.withPackages (g: (with g; [ old-time regex-compat syb split ]));
+  ghcWithPackages =
+    ghc.withPackages (g: (with g; [ old-time regex-compat syb split ]));
 
 in stdenv.mkDerivation rec {
   pname = "bluespec";
@@ -38,7 +18,8 @@ in stdenv.mkDerivation rec {
   };
 
   yices-src = fetchurl {
-    url = "https://github.com/B-Lang-org/bsc/releases/download/${version}/yices-src-for-bsc-${version}.tar.gz";
+    url =
+      "https://github.com/B-Lang-org/bsc/releases/download/${version}/yices-src-for-bsc-${version}.tar.gz";
     sha256 = "sha256-pyEdCJvmgwOYPMZEtw7aro76tSn/Y/2GcKTyARmIh4E=";
   };
 
@@ -101,10 +82,7 @@ in stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeCheckInputs = [
-    gmp-static
-    verilog
-  ];
+  nativeCheckInputs = [ gmp-static verilog ];
 
   checkTarget = "check-smoke";
 

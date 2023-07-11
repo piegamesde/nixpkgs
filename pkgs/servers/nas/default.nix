@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, bison
-, flex
-, gccmakedep
-, imake
-, libXau
-, libXaw
-, libXext
-, libXpm
-, libXt
-, xorgcffiles
-, xorgproto
-}:
+{ lib, stdenv, fetchurl, bison, flex, gccmakedep, imake, libXau, libXaw, libXext
+, libXpm, libXt, xorgcffiles, xorgproto }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "nas";
@@ -23,21 +10,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-t4hK+zj+7AOhlr07fpxHuAPIMOzRDXRV6cl+Eiw3lEw=";
   };
 
-  nativeBuildInputs = [
-    bison
-    flex
-    gccmakedep
-    imake
-  ];
+  nativeBuildInputs = [ bison flex gccmakedep imake ];
 
-  buildInputs = [
-    libXau
-    libXaw
-    libXext
-    libXpm
-    libXt
-    xorgproto
-  ];
+  buildInputs = [ libXau libXaw libXext libXpm libXt xorgproto ];
 
   buildFlags = [ "WORLDOPTS=" "World" ];
 

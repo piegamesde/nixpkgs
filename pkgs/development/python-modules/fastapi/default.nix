@@ -1,23 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pydantic
-, starlette
-, pytestCheckHook
-, pytest-asyncio
-, aiosqlite
-, databases
-, flask
-, httpx
-, hatchling
-, orjson
-, passlib
-, peewee
-, python-jose
-, sqlalchemy
-, trio
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pydantic, starlette, pytestCheckHook
+, pytest-asyncio, aiosqlite, databases, flask, httpx, hatchling, orjson, passlib
+, peewee, python-jose, sqlalchemy, trio, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "fastapi";
@@ -33,9 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-4USWfYvPxR+LzPELRTDg0Jl4K5yBnumYKfXT84FWctg=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -43,10 +24,7 @@ buildPythonPackage rec {
       --replace "starlette==" "starlette>="
   '';
 
-  propagatedBuildInputs = [
-    starlette
-    pydantic
-  ];
+  propagatedBuildInputs = [ starlette pydantic ];
 
   nativeCheckInputs = [
     aiosqlite
@@ -61,9 +39,8 @@ buildPythonPackage rec {
     pytest-asyncio
     sqlalchemy
     trio
-  ]
-  ++ passlib.optional-dependencies.bcrypt
-  ++ pydantic.optional-dependencies.email;
+  ] ++ passlib.optional-dependencies.bcrypt
+    ++ pydantic.optional-dependencies.email;
 
   pytestFlagsArray = [
     # ignoring deprecation warnings to avoid test failure from
@@ -94,9 +71,7 @@ buildPythonPackage rec {
     "test_warn_duplicate_operation_id"
   ];
 
-  pythonImportsCheck = [
-    "fastapi"
-  ];
+  pythonImportsCheck = [ "fastapi" ];
 
   meta = with lib; {
     description = "Web framework for building APIs";

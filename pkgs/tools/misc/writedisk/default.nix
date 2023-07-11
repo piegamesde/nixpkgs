@@ -1,9 +1,4 @@
-{ lib
-, rustPlatform
-, fetchCrate
-, pkg-config
-, stdenv
-}:
+{ lib, rustPlatform, fetchCrate, pkg-config, stdenv }:
 
 rustPlatform.buildRustPackage rec {
   pname = "writedisk";

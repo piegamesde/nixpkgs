@@ -1,20 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, python
-, cython
-, setuptools
-, substituteAll
-, numpy
-, pandas
-, cramjam
-, fsspec
-, thrift
-, python-lzo
-, pytestCheckHook
-, pythonOlder
-, packaging
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python, cython, setuptools
+, substituteAll, numpy, pandas, cramjam, fsspec, thrift, python-lzo
+, pytestCheckHook, pythonOlder, packaging }:
 
 buildPythonPackage rec {
   pname = "fastparquet";
@@ -30,10 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-1hWiwXjTgflQlmy0Dk2phUa1cgYBvvH99tb0TdUmDRI=";
   };
 
-  nativeBuildInputs = [
-    cython
-    setuptools
-  ];
+  nativeBuildInputs = [ cython setuptools ];
 
   patches = [
     (substituteAll {
@@ -50,24 +33,11 @@ buildPythonPackage rec {
     sed -i '/"git", "status"/d' setup.py
   '';
 
-  propagatedBuildInputs = [
-    cramjam
-    fsspec
-    numpy
-    pandas
-    thrift
-    packaging
-  ];
+  propagatedBuildInputs = [ cramjam fsspec numpy pandas thrift packaging ];
 
-  passthru.optional-dependencies = {
-    lzo = [
-      python-lzo
-    ];
-  };
+  passthru.optional-dependencies = { lzo = [ python-lzo ]; };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # Workaround https://github.com/NixOS/nixpkgs/issues/123561
   preCheck = ''
@@ -81,9 +51,7 @@ buildPythonPackage rec {
     rm "$fastparquet_test"
   '';
 
-  pythonImportsCheck = [
-    "fastparquet"
-  ];
+  pythonImportsCheck = [ "fastparquet" ];
 
   meta = with lib; {
     description = "A python implementation of the parquet format";

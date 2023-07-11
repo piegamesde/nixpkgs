@@ -1,7 +1,6 @@
-{ lib, buildPythonApplication, fetchFromGitHub
-, gdk-pixbuf, glib, gobject-introspection, gtk3, gtksourceview, pango, webkitgtk
-, pygobject3, pyyaml
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, gdk-pixbuf, glib
+, gobject-introspection, gtk3, gtksourceview, pango, webkitgtk, pygobject3
+, pyyaml }:
 
 buildPythonApplication rec {
   pname = "rednotebook";
@@ -19,10 +18,8 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ gobject-introspection ];
 
-  propagatedBuildInputs = [
-    gdk-pixbuf glib gtk3 gtksourceview pango webkitgtk
-    pygobject3 pyyaml
-  ];
+  propagatedBuildInputs =
+    [ gdk-pixbuf glib gtk3 gtksourceview pango webkitgtk pygobject3 pyyaml ];
 
   makeWrapperArgs = [
     "--set GI_TYPELIB_PATH $GI_TYPELIB_PATH"
@@ -32,8 +29,10 @@ buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://rednotebook.sourceforge.io/";
-    changelog = "https://github.com/jendrikseipp/rednotebook/blob/v${version}/CHANGELOG.md";
-    description = "A modern journal that includes a calendar navigation, customizable templates, export functionality and word clouds";
+    changelog =
+      "https://github.com/jendrikseipp/rednotebook/blob/v${version}/CHANGELOG.md";
+    description =
+      "A modern journal that includes a calendar navigation, customizable templates, export functionality and word clouds";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ orivej ];
   };

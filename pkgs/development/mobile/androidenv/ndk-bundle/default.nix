@@ -1,13 +1,19 @@
 { stdenv, lib, pkgs, pkgsHostHost, makeWrapper, autoPatchelfHook
-, deployAndroidPackage, package, os, platform-tools
-}:
+, deployAndroidPackage, package, os, platform-tools }:
 
 let
   runtime_paths = lib.makeBinPath (with pkgsHostHost; [
-    coreutils file findutils gawk gnugrep gnused jdk python3 which
+    coreutils
+    file
+    findutils
+    gawk
+    gnugrep
+    gnused
+    jdk
+    python3
+    which
   ]) + ":${platform-tools}/platform-tools";
-in
-deployAndroidPackage rec {
+in deployAndroidPackage rec {
   inherit package os;
   nativeBuildInputs = [ makeWrapper ]
     ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
@@ -69,5 +75,6 @@ deployAndroidPackage rec {
   patchInstructions = patchOsAgnostic
     + lib.optionalString stdenv.isLinux patchElfBnaries;
 
-  noAuditTmpdir = true; # Audit script gets invoked by the build/ component in the path for the make standalone script
+  noAuditTmpdir =
+    true; # Audit script gets invoked by the build/ component in the path for the make standalone script
 }

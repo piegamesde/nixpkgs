@@ -1,11 +1,4 @@
-{ lib
-, apksigner
-, bash
-, fetchFromGitHub
-, installShellFiles
-, pandoc
-, python3
-}:
+{ lib, apksigner, bash, fetchFromGitHub, installShellFiles, pandoc, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "apksigcopier";
@@ -18,21 +11,12 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-VuwSaoTv5qq1jKwgBTKd1y9RKUzz89n86Z4UBv7Q51o=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-    pandoc
-  ];
+  nativeBuildInputs = [ installShellFiles pandoc ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    click
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ click ];
 
-  makeWrapperArgs = [
-    "--prefix"
-    "PATH"
-    ":"
-    "${lib.makeBinPath [ apksigner ]}"
-  ];
+  makeWrapperArgs =
+    [ "--prefix" "PATH" ":" "${lib.makeBinPath [ apksigner ]}" ];
 
   postPatch = ''
     substituteInPlace Makefile \

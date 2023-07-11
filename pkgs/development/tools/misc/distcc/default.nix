@@ -1,9 +1,8 @@
-{ lib, stdenv, fetchFromGitHub, popt, avahi, pkg-config, python3, gtk3, runCommand
-, gcc, autoconf, automake, which, procps, libiberty_static
+{ lib, stdenv, fetchFromGitHub, popt, avahi, pkg-config, python3, gtk3
+, runCommand, gcc, autoconf, automake, which, procps, libiberty_static
 , runtimeShell
-, sysconfDir ? ""   # set this parameter to override the default value $out/etc
-, static ? false
-}:
+, sysconfDir ? "" # set this parameter to override the default value $out/etc
+, static ? false }:
 
 let
   pname = "distcc";
@@ -18,17 +17,24 @@ let
     };
 
     nativeBuildInputs = [ pkg-config autoconf automake ];
-    buildInputs = [popt avahi python3 gtk3 which procps libiberty_static];
-    preConfigure =
-    ''
+    buildInputs = [ popt avahi python3 gtk3 which procps libiberty_static ];
+    preConfigure = ''
       export CPATH=$(ls -d ${gcc.cc}/lib/gcc/*/${gcc.cc.version}/plugin/include)
 
       configureFlagsArray=( CFLAGS="-O2 -fno-strict-aliasing"
                             CXXFLAGS="-O2 -fno-strict-aliasing"
           --mandir=$out/share/man
-                            ${if sysconfDir == "" then "" else "--sysconfdir=${sysconfDir}"}
+                            ${
+                              if sysconfDir == "" then
+                                ""
+                              else
+                                "--sysconfdir=${sysconfDir}"
+                            }
                             ${lib.optionalString static "LDFLAGS=-static"}
-                            ${lib.withFeature (static == true || popt == null) "included-popt"}
+                            ${
+                              lib.withFeature (static == true || popt == null)
+                              "included-popt"
+                            }
                             ${lib.withFeature (avahi != null) "avahi"}
                             ${lib.withFeature (gtk3 != null) "gtk"}
                             --without-gnome
@@ -49,8 +55,8 @@ let
       #
       # extraConfig is meant to be sh lines exporting environment
       # variables like DISTCC_HOSTS, DISTCC_DIR, ...
-      links = extraConfig: (runCommand "distcc-links" { passthru.gcc = gcc.cc; }
-        ''
+      links = extraConfig:
+        (runCommand "distcc-links" { passthru.gcc = gcc.cc; } ''
           mkdir -p $out/bin
           if [ -x "${gcc.cc}/bin/gcc" ]; then
             cat > $out/bin/gcc << EOF
@@ -80,5 +86,4 @@ let
       maintainers = with lib.maintainers; [ anderspapitto ];
     };
   };
-in
-  distcc
+in distcc

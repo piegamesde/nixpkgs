@@ -1,36 +1,35 @@
-/*
+/* # Updating
 
-# Updating
+   To update the list of packages from ELPA,
 
-To update the list of packages from ELPA,
+   1. Run `./update-elpa`.
+   2. Check for evaluation errors:
+        # "../../../../../" points to the default.nix from root of Nixpkgs tree
+        env NIXPKGS_ALLOW_BROKEN=1 nix-instantiate ../../../../../ -A emacs.pkgs.elpaPackages
+   3. Run `git commit -m "elpa-packages $(date -Idate)" -- elpa-generated.nix`
 
-1. Run `./update-elpa`.
-2. Check for evaluation errors:
-     # "../../../../../" points to the default.nix from root of Nixpkgs tree
-     env NIXPKGS_ALLOW_BROKEN=1 nix-instantiate ../../../../../ -A emacs.pkgs.elpaPackages
-3. Run `git commit -m "elpa-packages $(date -Idate)" -- elpa-generated.nix`
+   ## Update from overlay
 
-## Update from overlay
+   Alternatively, run the following command:
 
-Alternatively, run the following command:
+   ./update-from-overlay
 
-./update-from-overlay
-
-It will update both melpa and elpa packages using
-https://github.com/nix-community/emacs-overlay. It's almost instantenous and
-formats commits for you.
-
+   It will update both melpa and elpa packages using
+   https://github.com/nix-community/emacs-overlay. It's almost instantenous and
+   formats commits for you.
 */
 
 { lib, stdenv, texinfo, writeText, gcc, pkgs, buildPackages }:
 
-self: let
+self:
+let
 
-  markBroken = pkg: pkg.override {
-    elpaBuild = args: self.elpaBuild (args // {
-      meta = (args.meta or {}) // { broken = true; };
-    });
-  };
+  markBroken = pkg:
+    pkg.override {
+      elpaBuild = args:
+        self.elpaBuild
+        (args // { meta = (args.meta or { }) // { broken = true; }; });
+    };
 
   elpaBuild = import ../../../../build-support/emacs/elpa.nix {
     inherit lib stdenv texinfo writeText gcc;
@@ -40,101 +39,93 @@ self: let
   # Use custom elpa url fetcher with fallback/uncompress
   fetchurl = buildPackages.callPackage ./fetchelpa.nix { };
 
-  generateElpa = lib.makeOverridable ({
-    generated ? ./elpa-generated.nix
-  }: let
+  generateElpa = lib.makeOverridable ({ generated ? ./elpa-generated.nix }:
+    let
 
-    imported = import generated {
-      callPackage = pkgs: args: self.callPackage pkgs (args // {
-        inherit fetchurl;
-      });
-    };
+      imported = import generated {
+        callPackage = pkgs: args:
+          self.callPackage pkgs (args // { inherit fetchurl; });
+      };
 
-    super = removeAttrs imported [ "dash" ];
+      super = removeAttrs imported [ "dash" ];
 
-    overrides = {
-      # upstream issue: Wrong type argument: arrayp, nil
-      org-transclusion =
-        if super.org-transclusion.version == "1.2.0"
-        then markBroken super.org-transclusion
-        else super.org-transclusion;
-      rcirc-menu = markBroken super.rcirc-menu; # Missing file header
-      cl-lib = null; # builtin
-      cl-print = null; # builtin
-      tle = null; # builtin
-      advice = null; # builtin
-      seq = if lib.versionAtLeast self.emacs.version "27"
-            then null
-            else super.seq;
-      # Compilation instructions for the Ada executables:
-      # https://www.nongnu.org/ada-mode/
-      ada-mode = super.ada-mode.overrideAttrs (old: {
-        # actually unpack source of ada-mode and wisi
-        # which are both needed to compile the tools
-        # we need at runtime
-        dontUnpack = false;
-        srcs = [
-          super.ada-mode.src
-          self.wisi.src
-        ];
+      overrides = {
+        # upstream issue: Wrong type argument: arrayp, nil
+        org-transclusion = if super.org-transclusion.version == "1.2.0" then
+          markBroken super.org-transclusion
+        else
+          super.org-transclusion;
+        rcirc-menu = markBroken super.rcirc-menu; # Missing file header
+        cl-lib = null; # builtin
+        cl-print = null; # builtin
+        tle = null; # builtin
+        advice = null; # builtin
+        seq = if lib.versionAtLeast self.emacs.version "27" then
+          null
+        else
+          super.seq;
+        # Compilation instructions for the Ada executables:
+        # https://www.nongnu.org/ada-mode/
+        ada-mode = super.ada-mode.overrideAttrs (old: {
+          # actually unpack source of ada-mode and wisi
+          # which are both needed to compile the tools
+          # we need at runtime
+          dontUnpack = false;
+          srcs = [ super.ada-mode.src self.wisi.src ];
 
-        sourceRoot = "ada-mode-${self.ada-mode.version}";
+          sourceRoot = "ada-mode-${self.ada-mode.version}";
 
-        nativeBuildInputs = [
-          buildPackages.gnat
-          buildPackages.gprbuild
-          buildPackages.dos2unix
-          buildPackages.re2c
-        ];
+          nativeBuildInputs = [
+            buildPackages.gnat
+            buildPackages.gprbuild
+            buildPackages.dos2unix
+            buildPackages.re2c
+          ];
 
-        buildInputs = [
-          pkgs.gnatcoll-xref
-        ];
+          buildInputs = [ pkgs.gnatcoll-xref ];
 
-        buildPhase = ''
-          runHook preBuild
-          ./build.sh -j$NIX_BUILD_CORES
-          runHook postBuild
-        '';
+          buildPhase = ''
+            runHook preBuild
+            ./build.sh -j$NIX_BUILD_CORES
+            runHook postBuild
+          '';
 
-        postInstall = (old.postInstall or "") + "\n" + ''
-          ./install.sh --prefix=$out
-        '';
+          postInstall = (old.postInstall or "") + "\n" + ''
+            ./install.sh --prefix=$out
+          '';
 
-        meta = old.meta // {
-          maintainers = [ lib.maintainers.sternenseemann ];
-        };
-      });
+          meta = old.meta // {
+            maintainers = [ lib.maintainers.sternenseemann ];
+          };
+        });
 
-      jinx = super.jinx.overrideAttrs (old: let
-        libExt = pkgs.stdenv.targetPlatform.extensions.sharedLibrary;
-      in {
-        dontUnpack = false;
+        jinx = super.jinx.overrideAttrs (old:
+          let libExt = pkgs.stdenv.targetPlatform.extensions.sharedLibrary;
+          in {
+            dontUnpack = false;
 
-        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
-            pkgs.pkg-config
-        ];
+            nativeBuildInputs = (old.nativeBuildInputs or [ ])
+              ++ [ pkgs.pkg-config ];
 
-        buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.enchant2 ];
+            buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.enchant2 ];
 
-        postBuild = ''
-          NIX_CFLAGS_COMPILE="$($PKG_CONFIG --cflags enchant-2) $NIX_CFLAGS_COMPILE"
-          $CC -shared -o jinx-mod${libExt} jinx-mod.c -lenchant-2
-        '';
+            postBuild = ''
+              NIX_CFLAGS_COMPILE="$($PKG_CONFIG --cflags enchant-2) $NIX_CFLAGS_COMPILE"
+              $CC -shared -o jinx-mod${libExt} jinx-mod.c -lenchant-2
+            '';
 
-        postInstall = (old.postInstall or "") + "\n" + ''
-          outd=$out/share/emacs/site-lisp/elpa/jinx-*
-          install -m444 -t $outd jinx-mod${libExt}
-          rm $outd/jinx-mod.c $outd/emacs-module.h
-        '';
+            postInstall = (old.postInstall or "") + "\n" + ''
+              outd=$out/share/emacs/site-lisp/elpa/jinx-*
+              install -m444 -t $outd jinx-mod${libExt}
+              rm $outd/jinx-mod.c $outd/emacs-module.h
+            '';
 
-        meta = old.meta // {
-          maintainers = [ lib.maintainers.DamienCassou ];
-        };
-      });
+            meta = old.meta // {
+              maintainers = [ lib.maintainers.DamienCassou ];
+            };
+          });
 
-      plz = super.plz.overrideAttrs (
-        old: {
+        plz = super.plz.overrideAttrs (old: {
           dontUnpack = false;
           postPatch = old.postPatch or "" + ''
             substituteInPlace ./plz.el \
@@ -144,13 +135,12 @@ self: let
             tar -cf "$pname-$version.tar" --transform "s,^,$pname-$version/," * .[!.]*
             src="$pname-$version.tar"
           '';
-        }
-      );
+        });
 
-    };
+      };
 
-    elpaPackages = super // overrides;
+      elpaPackages = super // overrides;
 
-  in elpaPackages // { inherit elpaBuild; });
+    in elpaPackages // { inherit elpaBuild; });
 
 in generateElpa { }

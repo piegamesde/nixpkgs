@@ -1,23 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fpc
-, lazarus
-, atk
-, cairo
-, gdk-pixbuf
-, glib
-, gtk2-x11
-, libX11
-, pango
-, hamlib
-, mariadb
-, tqsl
-, xdg-utils
-, xplanet
-, autoPatchelfHook
-, wrapGAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, fpc, lazarus, atk, cairo, gdk-pixbuf, glib
+, gtk2-x11, libX11, pango, hamlib, mariadb, tqsl, xdg-utils, xplanet
+, autoPatchelfHook, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "cqrlog";
@@ -63,28 +46,10 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ lazarus fpc autoPatchelfHook wrapGAppsHook ];
-  buildInputs = [
-    atk
-    cairo
-    gdk-pixbuf
-    glib
-    gtk2-x11
-    libX11
-    pango
-  ];
-  propagatedBuildInputs = [
-    hamlib
-    mariadb
-    tqsl
-    xdg-utils
-    xplanet
-  ];
+  buildInputs = [ atk cairo gdk-pixbuf glib gtk2-x11 libX11 pango ];
+  propagatedBuildInputs = [ hamlib mariadb tqsl xdg-utils xplanet ];
 
-  makeFlags = [
-    "FPC=fpc"
-    "PP=fpc"
-    "DESTDIR=$(out)"
-  ];
+  makeFlags = [ "FPC=fpc" "PP=fpc" "DESTDIR=$(out)" ];
 
   postFixup = ''
     libmysqlclient=$(find "${mariadb.client}/lib" -name "libmysqlclient.so" | tail -n1)

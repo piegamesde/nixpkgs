@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-devhelp";
@@ -16,7 +13,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "sphinxcontrib-devhelp is a sphinx extension which outputs Devhelp document.";
+    description =
+      "sphinxcontrib-devhelp is a sphinx extension which outputs Devhelp document.";
     homepage = "https://github.com/sphinx-doc/sphinxcontrib-devhelp";
     license = licenses.bsd0;
     maintainers = teams.sphinx.members;

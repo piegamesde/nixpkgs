@@ -1,15 +1,5 @@
-{ stdenv
-, lib
-, fetchurl
-, aspell
-, groff
-, pkg-config
-, glib
-, hunspell
-, hspell
-, nuspell
-, unittest-cpp
-}:
+{ stdenv, lib, fetchurl, aspell, groff, pkg-config, glib, hunspell, hspell
+, nuspell, unittest-cpp }:
 
 stdenv.mkDerivation rec {
   pname = "enchant";
@@ -18,30 +8,19 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" ];
 
   src = fetchurl {
-    url = "https://github.com/AbiWord/${pname}/releases/download/v${version}/${pname}-${version}.tar.gz";
+    url =
+      "https://github.com/AbiWord/${pname}/releases/download/v${version}/${pname}-${version}.tar.gz";
     sha256 = "sha256-H34mdE2xyaD+ph0hafTlwc5DXPjCcxw34+QFQRnplKA=";
   };
 
-  nativeBuildInputs = [
-    groff
-    pkg-config
-  ];
+  nativeBuildInputs = [ groff pkg-config ];
 
-  buildInputs = [
-    glib
-    hunspell
-    nuspell
-  ];
+  buildInputs = [ glib hunspell nuspell ];
 
-  nativeCheckInputs = [
-    unittest-cpp
-  ];
+  nativeCheckInputs = [ unittest-cpp ];
 
   # libtool puts these to .la files
-  propagatedBuildInputs = [
-    hspell
-    aspell
-  ];
+  propagatedBuildInputs = [ hspell aspell ];
 
   enableParallelBuilding = true;
 

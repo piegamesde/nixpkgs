@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, vala
-, meson
-, ninja
-, pkg-config
-, desktop-file-utils
-, appstream
-, python3
-, shared-mime-info
-, wrapGAppsHook
-, gtk3
-, pantheon
-, libgee
-, libhandy
-}:
+{ lib, stdenv, fetchFromGitHub, vala, meson, ninja, pkg-config
+, desktop-file-utils, appstream, python3, shared-mime-info, wrapGAppsHook, gtk3
+, pantheon, libgee, libhandy }:
 
 stdenv.mkDerivation rec {
   pname = "gnonograms";
@@ -43,12 +29,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    gtk3
-    pantheon.granite
-    libgee
-    libhandy
-  ];
+  buildInputs = [ gtk3 pantheon.granite libgee libhandy ];
 
   meta = with lib; {
     description = "Nonograms puzzle game";

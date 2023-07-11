@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  jdk11,
-  gradle,
-  makeWrapper,
-  perl,
-  writeText
-}:
+{ lib, stdenv, fetchFromGitHub, jdk11, gradle, makeWrapper, perl, writeText }:
 
 let
   pname = "aeron";
@@ -24,11 +15,7 @@ let
     name = "${pname}-deps";
     inherit src;
 
-    nativeBuildInputs = [
-      gradle
-      jdk11
-      perl
-    ];
+    nativeBuildInputs = [ gradle jdk11 perl ];
 
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d);
@@ -91,14 +78,9 @@ in stdenv.mkDerivation rec {
 
   inherit pname src version;
 
-  buildInputs = [
-    jdk11
-  ];
+  buildInputs = [ jdk11 ];
 
-  nativeBuildInputs = [
-    gradle
-    makeWrapper
-  ];
+  nativeBuildInputs = [ gradle makeWrapper ];
 
   buildPhase = ''
     runHook preBuild

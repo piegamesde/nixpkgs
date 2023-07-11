@@ -5,16 +5,13 @@ with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 
 let common_meta = { maintainers = [ maintainers.viraptor ]; };
-in
-{
+in {
   gemstash_works = makeTest {
     name = "gemstash-works";
     meta = common_meta;
 
     nodes.machine = { config, pkgs, ... }: {
-      services.gemstash = {
-        enable = true;
-      };
+      services.gemstash = { enable = true; };
     };
 
     # gemstash responds to http requests
@@ -34,9 +31,7 @@ in
       services.gemstash = {
         enable = true;
         openFirewall = true;
-        settings = {
-          bind = "tcp://0.0.0.0:12345";
-        };
+        settings = { bind = "tcp://0.0.0.0:12345"; };
       };
     };
 

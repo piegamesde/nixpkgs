@@ -1,12 +1,5 @@
-{ mkDerivation
-, lib
-, extra-cmake-modules
-, qtquickcontrols2
-, kcoreaddons
-, kconfig
-, ki18n
-, kirigami2
-}:
+{ mkDerivation, lib, extra-cmake-modules, qtquickcontrols2, kcoreaddons, kconfig
+, ki18n, kirigami2 }:
 
 mkDerivation {
   pname = "telly-skout";
@@ -19,6 +12,6 @@ mkDerivation {
     description = "A convergent Kirigami TV guide";
     homepage = "https://apps.kde.org/telly-skout/";
     license = lib.licenses.gpl2Plus;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

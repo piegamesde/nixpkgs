@@ -1,20 +1,13 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, ruby
-, makeWrapper
-, getent               # /etc/passwd
-, ncurses              # tput
-, binutils-unwrapped   # strings
-, coreutils
-, findutils
-}:
+{ stdenv, lib, fetchFromGitHub, ruby, makeWrapper, getent # /etc/passwd
+, ncurses # tput
+, binutils-unwrapped # strings
+, coreutils, findutils }:
 
 # No gems used, so mkDerivation is fine.
 let
-  additionalPath = lib.makeBinPath [ getent ncurses binutils-unwrapped coreutils findutils ];
-in
-stdenv.mkDerivation rec {
+  additionalPath =
+    lib.makeBinPath [ getent ncurses binutils-unwrapped coreutils findutils ];
+in stdenv.mkDerivation rec {
   pname = "nix-top";
   version = "0.3.0";
 
@@ -25,13 +18,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-w/TKzbZmMt4CX2KnLwPvR1ydp5NNlp9nNx78jJvhp54=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [
-    ruby
-  ];
+  buildInputs = [ ruby ];
 
   installPhase = ''
     mkdir -p $out/libexec/nix-top

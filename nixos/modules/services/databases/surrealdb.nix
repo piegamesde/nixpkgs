@@ -8,7 +8,8 @@ in {
 
   options = {
     services.surrealdb = {
-      enable = mkEnableOption (lib.mdDoc "A scalable, distributed, collaborative, document-graph database, for the realtime web ");
+      enable = mkEnableOption (lib.mdDoc
+        "A scalable, distributed, collaborative, document-graph database, for the realtime web ");
 
       package = mkOption {
         default = pkgs.surrealdb;
@@ -66,10 +67,11 @@ in {
   config = mkIf cfg.enable {
 
     # Used to connect to the running service
-    environment.systemPackages = [ cfg.package ] ;
+    environment.systemPackages = [ cfg.package ];
 
     systemd.services.surrealdb = {
-      description = "A scalable, distributed, collaborative, document-graph database, for the realtime web ";
+      description =
+        "A scalable, distributed, collaborative, document-graph database, for the realtime web ";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 

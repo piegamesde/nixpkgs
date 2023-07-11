@@ -1,11 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, pkg-config
-, wrapQtAppsHook
-, dtkwidget
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, wrapQtAppsHook, dtkwidget }:
 
 stdenv.mkDerivation rec {
   pname = "deepin-turbo";
@@ -18,15 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-t6/Ws/Q8DO0zBzrUr/liD61VkxbOv4W4x6VgMWr+Ozk=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
 
-  buildInputs = [
-    dtkwidget
-  ];
+  buildInputs = [ dtkwidget ];
 
   postPatch = ''
     substituteInPlace src/{booster-dtkwidget/CMakeLists.txt,booster-desktop/{CMakeLists.txt,desktop.conf},booster-generic/CMakeLists.txt} --replace "/usr" "$out"

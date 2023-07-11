@@ -1,8 +1,8 @@
-{ lib, stdenv, fetchgit, libtoxcore
-, conf ? null }:
+{ lib, stdenv, fetchgit, libtoxcore, conf ? null }:
 
 let
-  configFile = lib.optionalString (conf!=null) (builtins.toFile "config.h" conf);
+  configFile =
+    lib.optionalString (conf != null) (builtins.toFile "config.h" conf);
 
 in stdenv.mkDerivation {
   pname = "ratox";
@@ -20,7 +20,7 @@ in stdenv.mkDerivation {
     substituteInPlace config.mk \
       --replace '-lsodium -lopus -lvpx ' ""
 
-    ${lib.optionalString (conf!=null) "cp ${configFile} config.def.h"}
+    ${lib.optionalString (conf != null) "cp ${configFile} config.def.h"}
   '';
 
   makeFlags = [ "PREFIX=$(out)" ];

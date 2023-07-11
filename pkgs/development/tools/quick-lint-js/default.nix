@@ -1,6 +1,5 @@
 { cmake, fetchFromGitHub, lib, ninja, stdenv, testers, quick-lint-js }:
 
-
 stdenv.mkDerivation rec {
   pname = "quick-lint-js";
   version = "2.12.0";

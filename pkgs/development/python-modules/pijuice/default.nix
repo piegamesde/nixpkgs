@@ -1,10 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, pythonOlder
-, smbus-cffi
-, urwid
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder, smbus-cffi, urwid }:
 
 buildPythonPackage rec {
   pname = "pijuice";

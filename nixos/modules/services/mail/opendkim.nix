@@ -10,16 +10,26 @@ let
 
   keyFile = "${cfg.keyPath}/${cfg.selector}.private";
 
-  args = [ "-f" "-l"
-           "-p" cfg.socket
-           "-d" cfg.domains
-           "-k" keyFile
-           "-s" cfg.selector
-         ] ++ optionals (cfg.configFile != null) [ "-x" cfg.configFile ];
+  args = [
+    "-f"
+    "-l"
+    "-p"
+    cfg.socket
+    "-d"
+    cfg.domains
+    "-k"
+    keyFile
+    "-s"
+    cfg.selector
+  ] ++ optionals (cfg.configFile != null) [ "-x" cfg.configFile ];
 
 in {
   imports = [
-    (mkRenamedOptionModule [ "services" "opendkim" "keyFile" ] [ "services" "opendkim" "keyPath" ])
+    (mkRenamedOptionModule [ "services" "opendkim" "keyFile" ] [
+      "services"
+      "opendkim"
+      "keyPath"
+    ])
   ];
 
   ###### interface
@@ -31,13 +41,15 @@ in {
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to enable the OpenDKIM sender authentication system.";
+        description = lib.mdDoc
+          "Whether to enable the OpenDKIM sender authentication system.";
       };
 
       socket = mkOption {
         type = types.str;
         default = defaultSock;
-        description = lib.mdDoc "Socket which is used for communication with OpenDKIM.";
+        description =
+          lib.mdDoc "Socket which is used for communication with OpenDKIM.";
       };
 
       user = mkOption {
@@ -55,7 +67,8 @@ in {
       domains = mkOption {
         type = types.str;
         default = "csl:${config.networking.hostName}";
-        defaultText = literalExpression ''"csl:''${config.networking.hostName}"'';
+        defaultText =
+          literalExpression ''"csl:''${config.networking.hostName}"'';
         example = "csl:example.com,mydomain.net";
         description = lib.mdDoc ''
           Local domains set (see `opendkim(8)` for more information on datasets).
@@ -87,7 +100,6 @@ in {
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
@@ -105,9 +117,8 @@ in {
 
     environment.systemPackages = [ pkgs.opendkim ];
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.keyPath}' - ${cfg.user} ${cfg.group} - -"
-    ];
+    systemd.tmpfiles.rules =
+      [ "d '${cfg.keyPath}' - ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.opendkim = {
       description = "OpenDKIM signing and verification daemon";
@@ -134,7 +145,7 @@ in {
         StateDirectoryMode = "0700";
         ReadWritePaths = [ cfg.keyPath ];
 
-        AmbientCapabilities = [];
+        AmbientCapabilities = [ ];
         CapabilityBoundingSet = "";
         DevicePolicy = "closed";
         LockPersonality = true;

@@ -7,20 +7,20 @@
 #   application which happens to be written in python.
 # * doCheck: Whether to run the test suites.
 lib: pythonPackages:
-{ src, info, meta ? {}, application ? false, doCheck ? true}: let
-  build = if application
-    then pythonPackages.buildPythonApplication
-  else pythonPackages.buildPythonPackage;
+{ src, info, meta ? { }, application ? false, doCheck ? true }:
+let
+  build = if application then
+    pythonPackages.buildPythonApplication
+  else
+    pythonPackages.buildPythonPackage;
 in build {
   inherit (info) pname version;
 
   inherit src meta doCheck;
 
-  nativeBuildInputs = map (p: pythonPackages.${p}) (
-    (info.setup_requires or []) ++
-    (lib.optionals doCheck (info.tests_require or []))
-  );
+  nativeBuildInputs = map (p: pythonPackages.${p}) ((info.setup_requires or [ ])
+    ++ (lib.optionals doCheck (info.tests_require or [ ])));
 
-  propagatedBuildInputs = map (p: pythonPackages.${p})
-    (info.install_requires or []);
+  propagatedBuildInputs =
+    map (p: pythonPackages.${p}) (info.install_requires or [ ]);
 }

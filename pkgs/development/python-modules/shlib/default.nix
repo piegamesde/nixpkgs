@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, braceexpand
-, inform
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, braceexpand, inform
 }:
 
 buildPythonPackage rec {
@@ -21,13 +16,8 @@ buildPythonPackage rec {
   postPatch = ''
     patchShebangs .
   '';
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
-  propagatedBuildInputs = [
-    braceexpand
-    inform
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
+  propagatedBuildInputs = [ braceexpand inform ];
 
   meta = with lib; {
     description = "shell library";

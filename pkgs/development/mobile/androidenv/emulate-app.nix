@@ -1,19 +1,10 @@
 { composeAndroidPackages, stdenv, lib, runtimeShell }:
-{ name, app ? null
-, platformVersion ? "33"
-, abiVersion ? "armeabi-v7a"
-, systemImageType ? "default"
-, enableGPU ? false
-, extraAVDFiles ? []
-, package ? null
-, activity ? null
-, androidUserHome ? null
+{ name, app ? null, platformVersion ? "33", abiVersion ? "armeabi-v7a"
+, systemImageType ? "default", enableGPU ? false, extraAVDFiles ? [ ]
+, package ? null, activity ? null, androidUserHome ? null
 , avdHomeDir ? null # Support old variable with non-standard naming!
-, androidAvdHome ? avdHomeDir
-, sdkExtraArgs ? {}
-, androidAvdFlags ? null
-, androidEmulatorFlags ? null
-}:
+, androidAvdHome ? avdHomeDir, sdkExtraArgs ? { }, androidAvdFlags ? null
+, androidEmulatorFlags ? null }:
 
 let
   sdkArgs = {
@@ -27,8 +18,7 @@ let
   };
 
   sdk = (composeAndroidPackages sdkArgs).androidsdk;
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit name;
 
   buildCommand = ''
@@ -106,14 +96,18 @@ stdenv.mkDerivation {
         # Create a virtual android device
         yes "" | ${sdk}/bin/avdmanager create avd --force -n device -k "system-images;android-${platformVersion};${systemImageType};${abiVersion}" -p $ANDROID_AVD_HOME $NIX_ANDROID_AVD_FLAGS
 
-        ${lib.optionalString enableGPU ''
-          # Enable GPU acceleration
-          echo "hw.gpu.enabled=yes" >> $ANDROID_AVD_HOME/device.avd/config.ini
-        ''}
+        ${
+          lib.optionalString enableGPU ''
+            # Enable GPU acceleration
+            echo "hw.gpu.enabled=yes" >> $ANDROID_AVD_HOME/device.avd/config.ini
+          ''
+        }
 
-        ${lib.concatMapStrings (extraAVDFile: ''
-          ln -sf ${extraAVDFile} $ANDROID_AVD_HOME/device.avd
-        '') extraAVDFiles}
+        ${
+          lib.concatMapStrings (extraAVDFile: ''
+            ln -sf ${extraAVDFile} $ANDROID_AVD_HOME/device.avd
+          '') extraAVDFiles
+        }
     fi
 
     # Launch the emulator
@@ -160,7 +154,7 @@ stdenv.mkDerivation {
 
       # Start the application
       ${lib.optionalString (package != null && activity != null) ''
-          ${sdk}/libexec/android-sdk/platform-tools/adb -s emulator-$port shell am start -a android.intent.action.MAIN -n ${package}/${activity}
+        ${sdk}/libexec/android-sdk/platform-tools/adb -s emulator-$port shell am start -a android.intent.action.MAIN -n ${package}/${activity}
       ''}
     ''}
     EOF

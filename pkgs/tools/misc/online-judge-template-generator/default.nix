@@ -1,18 +1,6 @@
-{ lib
-, buildPythonApplication
-, appdirs
-, beautifulsoup4
-, colorlog
-, fetchFromGitHub
-, mako
-, online-judge-api-client
-, online-judge-tools
-, ply
-, pyyaml
-, requests
-, setuptools
-, toml
-}:
+{ lib, buildPythonApplication, appdirs, beautifulsoup4, colorlog
+, fetchFromGitHub, mako, online-judge-api-client, online-judge-tools, ply
+, pyyaml, requests, setuptools, toml }:
 
 buildPythonApplication rec {
   pname = "online-judge-template-generator";
@@ -43,7 +31,8 @@ buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Analyze problems of competitive programming and automatically generate boilerplate";
+    description =
+      "Analyze problems of competitive programming and automatically generate boilerplate";
     homepage = "https://github.com/online-judge-tools/template-generator";
     license = licenses.mit;
     maintainers = with maintainers; [ sei40kr ];

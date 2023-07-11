@@ -1,9 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-, testers
-, seaweedfs
-}:
+{ lib, fetchFromGitHub, buildGoModule, testers, seaweedfs }:
 
 buildGoModule rec {
   pname = "seaweedfs";
@@ -20,19 +15,10 @@ buildGoModule rec {
 
   subPackages = [ "weed" ];
 
-  ldflags = [
-    "-w"
-    "-s"
-    "-X github.com/seaweedfs/seaweedfs/weed/util.COMMIT=N/A"
-  ];
+  ldflags =
+    [ "-w" "-s" "-X github.com/seaweedfs/seaweedfs/weed/util.COMMIT=N/A" ];
 
-  tags = [
-    "elastic"
-    "gocdk"
-    "sqlite"
-    "ydb"
-    "tikv"
-  ];
+  tags = [ "elastic" "gocdk" "sqlite" "ydb" "tikv" ];
 
   preBuild = ''
     export GODEBUG=http2client=0

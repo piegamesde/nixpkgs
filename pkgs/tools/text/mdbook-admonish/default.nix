@@ -16,7 +16,8 @@ rustPlatform.buildRustPackage rec {
   buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
 
   meta = with lib; {
-    description = "A preprocessor for mdbook to add Material Design admonishments";
+    description =
+      "A preprocessor for mdbook to add Material Design admonishments";
     license = licenses.mit;
     maintainers = with maintainers; [ jmgilman Frostman ];
     homepage = "https://github.com/tommilligan/mdbook-admonish";

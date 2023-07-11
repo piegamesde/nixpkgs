@@ -1,13 +1,5 @@
-{ lib
-, bleak
-, click
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-asyncio
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, bleak, click, buildPythonPackage, fetchFromGitHub, pytest-asyncio
+, pytest-mock, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyzerproc";
@@ -27,23 +19,15 @@ buildPythonPackage rec {
     sed -i "/--cov/d" setup.cfg
   '';
 
-  propagatedBuildInputs = [
-    bleak
-    click
-  ];
+  propagatedBuildInputs = [ bleak click ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytest-mock pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pyzerproc"
-  ];
+  pythonImportsCheck = [ "pyzerproc" ];
 
   meta = with lib; {
-    description = "Python library to control Zerproc Bluetooth LED smart string lights";
+    description =
+      "Python library to control Zerproc Bluetooth LED smart string lights";
     homepage = "https://github.com/emlove/pyzerproc";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];

@@ -1,7 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "swayest-workstyle";
@@ -19,7 +16,8 @@ rustPlatform.buildRustPackage rec {
   doCheck = false; # No tests
 
   meta = with lib; {
-    description = "Map sway workspace names to icons defined depending on the windows inside of the workspace";
+    description =
+      "Map sway workspace names to icons defined depending on the windows inside of the workspace";
     homepage = "https://github.com/Lyr-7D1h/swayest_workstyle";
     license = licenses.mit;
     platforms = platforms.linux;

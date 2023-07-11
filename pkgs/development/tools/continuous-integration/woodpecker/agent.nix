@@ -1,8 +1,6 @@
 { lib, buildGoModule, callPackage, fetchFromGitHub }:
-let
-  common = callPackage ./common.nix { };
-in
-buildGoModule {
+let common = callPackage ./common.nix { };
+in buildGoModule {
   pname = "woodpecker-agent";
   inherit (common) version src ldflags postBuild;
   vendorSha256 = null;

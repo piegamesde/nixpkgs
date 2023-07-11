@@ -1,22 +1,6 @@
-{ lib, stdenv, llvm_meta
-, fetch
-, fetchpatch
-, cmake
-, zlib
-, ncurses
-, swig
-, which
-, libedit
-, libxml2
-, libllvm
-, libclang
-, python3
-, version
-, darwin
-, makeWrapper
-, perl
-, lit
-}:
+{ lib, stdenv, llvm_meta, fetch, fetchpatch, cmake, zlib, ncurses, swig, which
+, libedit, libxml2, libllvm, libclang, python3, version, darwin, makeWrapper
+, perl, lit }:
 
 stdenv.mkDerivation rec {
   pname = "lldb";
@@ -31,7 +15,8 @@ stdenv.mkDerivation rec {
     # Fix darwin build
     (fetchpatch {
       name = "lldb-use-system-debugserver-fix.patch";
-      url = "https://github.com/llvm-mirror/lldb/commit/be770754cc43da22eacdb70c6203f4582eeb011f.diff";
+      url =
+        "https://github.com/llvm-mirror/lldb/commit/be770754cc43da22eacdb70c6203f4582eeb011f.diff";
       sha256 = "sha256-tKkk6sn//0Hu0nlzoKWs5fXMWc+O2JAWOEJ1ZnaLuVU=";
       excludes = [ "packages/*" ];
       postFetch = ''
@@ -43,24 +28,22 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "lib" "dev" ];
 
-  nativeBuildInputs = [
-    cmake python3 which swig lit makeWrapper
-  ] ++ lib.optionals stdenv.isDarwin [
-    # for scripts/generate-vers.pl
-    perl
-  ];
+  nativeBuildInputs = [ cmake python3 which swig lit makeWrapper ]
+    ++ lib.optionals stdenv.isDarwin [
+      # for scripts/generate-vers.pl
+      perl
+    ];
 
-  buildInputs = [
-    ncurses zlib libedit libxml2 libllvm
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.libobjc
-    darwin.apple_sdk.libs.xpc
-    darwin.apple_sdk.frameworks.Foundation
-    darwin.bootstrap_cmds
-    darwin.apple_sdk.frameworks.Carbon
-    darwin.apple_sdk.frameworks.Cocoa
-    darwin.apple_sdk.frameworks.DebugSymbols
-  ];
+  buildInputs = [ ncurses zlib libedit libxml2 libllvm ]
+    ++ lib.optionals stdenv.isDarwin [
+      darwin.libobjc
+      darwin.apple_sdk.libs.xpc
+      darwin.apple_sdk.frameworks.Foundation
+      darwin.bootstrap_cmds
+      darwin.apple_sdk.frameworks.Carbon
+      darwin.apple_sdk.frameworks.Cocoa
+      darwin.apple_sdk.frameworks.DebugSymbols
+    ];
 
   CXXFLAGS = "-fno-rtti";
   hardeningDisable = [ "format" ];

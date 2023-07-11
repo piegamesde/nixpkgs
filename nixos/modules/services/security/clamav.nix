@@ -13,14 +13,18 @@ let
     listsAsDuplicateKeys = true;
   };
 
-  clamdConfigFile = pkgs.writeText "clamd.conf" (toKeyValue cfg.daemon.settings);
-  freshclamConfigFile = pkgs.writeText "freshclam.conf" (toKeyValue cfg.updater.settings);
-in
-{
+  clamdConfigFile =
+    pkgs.writeText "clamd.conf" (toKeyValue cfg.daemon.settings);
+  freshclamConfigFile =
+    pkgs.writeText "freshclam.conf" (toKeyValue cfg.updater.settings);
+in {
   imports = [
-    (mkRemovedOptionModule [ "services" "clamav" "updater" "config" ] "Use services.clamav.updater.settings instead.")
-    (mkRemovedOptionModule [ "services" "clamav" "updater" "extraConfig" ] "Use services.clamav.updater.settings instead.")
-    (mkRemovedOptionModule [ "services" "clamav" "daemon" "extraConfig" ] "Use services.clamav.daemon.settings instead.")
+    (mkRemovedOptionModule [ "services" "clamav" "updater" "config" ]
+      "Use services.clamav.updater.settings instead.")
+    (mkRemovedOptionModule [ "services" "clamav" "updater" "extraConfig" ]
+      "Use services.clamav.updater.settings instead.")
+    (mkRemovedOptionModule [ "services" "clamav" "daemon" "extraConfig" ]
+      "Use services.clamav.daemon.settings instead.")
   ];
 
   options = {
@@ -79,8 +83,7 @@ in
       home = stateDir;
     };
 
-    users.groups.${clamavGroup} =
-      { gid = config.ids.gids.clamav; };
+    users.groups.${clamavGroup} = { gid = config.ids.gids.clamav; };
 
     services.clamav.daemon.settings = {
       DatabaseDirectory = stateDir;

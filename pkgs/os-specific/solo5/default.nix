@@ -4,14 +4,7 @@
 let
   version = "0.8.0";
   # list of all theoretically available targets
-  targets = [
-    "genode"
-    "hvt"
-    "muen"
-    "spt"
-    "virtio"
-    "xen"
-  ];
+  targets = [ "genode" "hvt" "muen" "spt" "virtio" "xen" ];
 in stdenv.mkDerivation {
   pname = "solo5";
   inherit version;
@@ -20,7 +13,8 @@ in stdenv.mkDerivation {
   buildInputs = lib.optional (stdenv.hostPlatform.isLinux) libseccomp;
 
   src = fetchurl {
-    url = "https://github.com/Solo5/solo5/releases/download/v${version}/solo5-v${version}.tar.gz";
+    url =
+      "https://github.com/Solo5/solo5/releases/download/v${version}/solo5-v${version}.tar.gz";
     sha256 = "sha256-t80VOZ8Tr1Dq+mJfRPVLGqYprCaqegcQtDqdoHaSXW0=";
   };
 
@@ -35,7 +29,7 @@ in stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   separateDebugInfo = true;
-    # debugging requires information for both the unikernel and the tender
+  # debugging requires information for both the unikernel and the tender
 
   installPhase = ''
     runHook preInstall
@@ -68,7 +62,7 @@ in stdenv.mkDerivation {
     homepage = "https://github.com/solo5/solo5";
     license = licenses.isc;
     maintainers = [ maintainers.ehmry ];
-    platforms = builtins.map ({arch, os}: "${arch}-${os}")
+    platforms = builtins.map ({ arch, os }: "${arch}-${os}")
       (cartesianProductOfSets {
         arch = [ "aarch64" "x86_64" ];
         os = [ "freebsd" "genode" "linux" "openbsd" ];

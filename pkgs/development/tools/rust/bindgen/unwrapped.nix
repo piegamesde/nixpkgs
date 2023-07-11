@@ -1,7 +1,4 @@
-{ lib, fetchCrate, rustPlatform, clang, rustfmt
-, runtimeShell
-, bash
-}:
+{ lib, fetchCrate, rustPlatform, clang, rustfmt, runtimeShell, bash }:
 let
   # bindgen hardcodes rustfmt outputs that use nightly features
   rustfmt-nightly = rustfmt.override { asNightly = true; };
@@ -36,7 +33,8 @@ in rustPlatform.buildRustPackage rec {
   passthru = { inherit clang; };
 
   meta = with lib; {
-    description = "Automatically generates Rust FFI bindings to C (and some C++) libraries";
+    description =
+      "Automatically generates Rust FFI bindings to C (and some C++) libraries";
     longDescription = ''
       Bindgen takes a c or c++ header file and turns them into
       rust ffi declarations.

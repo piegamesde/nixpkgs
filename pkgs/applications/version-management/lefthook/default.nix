@@ -1,14 +1,9 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 let
   pname = "lefthook";
   version = "1.3.12";
-in
-buildGoModule rec {
+in buildGoModule rec {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -34,9 +29,11 @@ buildGoModule rec {
   '';
 
   meta = {
-    description = "Fast and powerful Git hooks manager for any type of projects";
+    description =
+      "Fast and powerful Git hooks manager for any type of projects";
     homepage = "https://github.com/evilmartians/lefthook";
-    changelog = "https://github.com/evilmartians/lefthook/raw/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/evilmartians/lefthook/raw/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ AndersonTorres ];
   };

@@ -19,11 +19,11 @@ import ./make-test-python.nix ({ pkgs, ... }: {
           password = "ftp-test-password";
           group = "ftp-test-group";
         };
-        groups.ftp-test-group = {};
+        groups.ftp-test-group = { };
       };
     };
 
-    client = {};
+    client = { };
   };
 
   testScript = ''

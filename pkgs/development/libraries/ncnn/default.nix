@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, vulkan-headers
-, vulkan-loader
-, glslang
-, opencv
-, protobuf
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, vulkan-headers, vulkan-loader, glslang
+, opencv, protobuf }:
 
 stdenv.mkDerivation rec {
   pname = "ncnn";
@@ -20,9 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hZVeW3svuVpwQhQz67uqTPZ7B9pisLCwHhXB2zMLygo=";
   };
 
-  patches = [
-    ./cmakelists.patch
-  ];
+  patches = [ ./cmakelists.patch ];
 
   cmakeFlags = [
     "-DNCNN_CMAKE_VERBOSE=1" # Only for debugging the build
@@ -41,7 +31,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ vulkan-headers vulkan-loader glslang opencv protobuf ];
 
   meta = with lib; {
-    description = "ncnn is a high-performance neural network inference framework optimized for the mobile platform";
+    description =
+      "ncnn is a high-performance neural network inference framework optimized for the mobile platform";
     homepage = "https://github.com/Tencent/ncnn";
     license = licenses.bsd3;
     maintainers = with maintainers; [ tilcreator ];

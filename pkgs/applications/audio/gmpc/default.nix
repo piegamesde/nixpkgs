@@ -1,23 +1,6 @@
-{ lib
-, stdenv
-, fetchurl
-, libtool
-, intltool
-, pkg-config
-, glib
-, gtk2
-, curl
-, libmpdclient
-, libsoup
-, gob2
-, vala
-, libunique
-, libSM
-, libICE
-, sqlite
-, hicolor-icon-theme
-, wrapGAppsHook
-}:
+{ lib, stdenv, fetchurl, libtool, intltool, pkg-config, glib, gtk2, curl
+, libmpdclient, libsoup, gob2, vala, libunique, libSM, libICE, sqlite
+, hicolor-icon-theme, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "gmpc";
@@ -27,7 +10,9 @@ stdenv.mkDerivation rec {
     pname = "libmpd";
     version = "11.8.17";
     src = fetchurl {
-      url = "https://download.sarine.nl/Programs/gmpc/${lib.versions.majorMinor version}/libmpd-${version}.tar.gz";
+      url = "https://download.sarine.nl/Programs/gmpc/${
+          lib.versions.majorMinor version
+        }/libmpd-${version}.tar.gz";
       sha256 = "10vspwsgr8pwf3qp2bviw6b2l8prgdiswgv7qiqiyr0h1mmk487y";
     };
     patches = [ ./libmpd-11.8.17-remove-strndup.patch ];
@@ -60,7 +45,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gmpclient.org";
     description = "A GTK2 frontend for Music Player Daemon";
     license = licenses.gpl2;
-    maintainers = [];
+    maintainers = [ ];
     platforms = platforms.linux;
   };
 }

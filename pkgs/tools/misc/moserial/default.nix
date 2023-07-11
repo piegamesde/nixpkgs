@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, autoreconfHook
-, intltool
-, itstool
-, pkg-config
-, vala
-, glib
-, graphviz
-, yelp-tools
-, gtk3
-, lrzsz
-}:
+{ lib, stdenv, fetchFromGitLab, autoreconfHook, intltool, itstool, pkg-config
+, vala, glib, graphviz, yelp-tools, gtk3, lrzsz }:
 
 stdenv.mkDerivation rec {
   pname = "moserial";
@@ -25,20 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wfdI51ECqVNcUrIVjYBijf/yqpiwSQeMiKaVJSSma3k=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    intltool
-    itstool
-    pkg-config
-    vala
-  ];
+  nativeBuildInputs = [ autoreconfHook intltool itstool pkg-config vala ];
 
-  buildInputs = [
-    glib
-    graphviz
-    yelp-tools
-    gtk3
-  ];
+  buildInputs = [ glib graphviz yelp-tools gtk3 ];
 
   preFixup = ''
     gappsWrapperArgs+=(
@@ -47,7 +24,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Clean, friendly gtk-based serial terminal for the gnome desktop";
+    description =
+      "Clean, friendly gtk-based serial terminal for the gnome desktop";
     homepage = "https://wiki.gnome.org/moserial";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ linsui ];

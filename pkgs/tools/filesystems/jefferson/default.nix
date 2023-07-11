@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "jefferson";
@@ -15,19 +12,11 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-zW38vcDw4Jz5gO9IHrWRlvUznKvUyPbxkYMxn7VSTpA=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    click
-    cstruct
-    python-lzo
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ click cstruct python-lzo ];
 
-  pythonImportsCheck = [
-    "jefferson"
-  ];
+  pythonImportsCheck = [ "jefferson" ];
 
   # upstream has no tests
   doCheck = false;

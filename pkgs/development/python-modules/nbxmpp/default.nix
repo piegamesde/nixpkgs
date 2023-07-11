@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitLab
-, gobject-introspection
-, idna
-, libsoup_3
-, precis-i18n
-, pygobject3
-, pyopenssl
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitLab, gobject-introspection
+, idna, libsoup_3, precis-i18n, pygobject3, pyopenssl, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "nbxmpp";
@@ -30,21 +20,12 @@ buildPythonPackage rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    precis-i18n
-  ];
+  buildInputs = [ precis-i18n ];
 
-  propagatedBuildInputs = [
-    gobject-introspection
-    idna
-    libsoup_3
-    pygobject3
-    pyopenssl
-  ];
+  propagatedBuildInputs =
+    [ gobject-introspection idna libsoup_3 pygobject3 pyopenssl ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "nbxmpp" ];
 

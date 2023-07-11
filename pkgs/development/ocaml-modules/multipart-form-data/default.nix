@@ -1,6 +1,4 @@
-{ lib, fetchFromGitHub, buildDunePackage
-, lwt, lwt_ppx, stringext
-, alcotest }:
+{ lib, fetchFromGitHub, buildDunePackage, lwt, lwt_ppx, stringext, alcotest }:
 
 buildDunePackage rec {
   pname = "multipart-form-data";

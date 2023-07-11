@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, substituteAll
-, alsa-utils
-, libnotify
-, which
-, poetry-core
-, pythonRelaxDepsHook
-, jeepney
-, loguru
-, pytest
-, dbus
-, coreutils
-}:
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, substituteAll
+, alsa-utils, libnotify, which, poetry-core, pythonRelaxDepsHook, jeepney
+, loguru, pytest, dbus, coreutils }:
 
 buildPythonPackage rec {
   pname = "notify-py";
@@ -45,26 +31,14 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
 
-  pythonRelaxDeps = [
-    "loguru"
-  ];
+  pythonRelaxDeps = [ "loguru" ];
 
-  propagatedBuildInputs = [
-    loguru
-  ] ++ lib.optionals stdenv.isLinux [
-    jeepney
-  ];
+  propagatedBuildInputs = [ loguru ]
+    ++ lib.optionals stdenv.isLinux [ jeepney ];
 
-  nativeCheckInputs = [
-    pytest
-  ] ++ lib.optionals stdenv.isLinux [
-    dbus
-  ];
+  nativeCheckInputs = [ pytest ] ++ lib.optionals stdenv.isLinux [ dbus ];
 
   checkPhase = if stdenv.isDarwin then ''
     # Tests search for "afplay" binary which is built in to macOS and not available in nixpkgs

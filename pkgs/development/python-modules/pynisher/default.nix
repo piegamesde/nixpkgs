@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, psutil
-, pythonOlder
-, typing-extensions
-}:
+{ lib, buildPythonPackage, fetchPypi, psutil, pythonOlder, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "pynisher";
@@ -18,17 +12,12 @@ buildPythonPackage rec {
     hash = "sha256-usSowgCwGTATiX1dbPpScO9/FI+E567dvGZxAC+zS14=";
   };
 
-  propagatedBuildInputs = [
-    psutil
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ psutil typing-extensions ];
 
   # No tests in the Pypi archive
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pynisher"
-  ];
+  pythonImportsCheck = [ "pynisher" ];
 
   meta = with lib; {
     description = "Module intended to limit a functions resources";

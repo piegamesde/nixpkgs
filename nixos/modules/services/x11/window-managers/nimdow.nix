@@ -2,12 +2,11 @@
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager.nimdow;
-in
-{
+let cfg = config.services.xserver.windowManager.nimdow;
+in {
   options = {
-    services.xserver.windowManager.nimdow.enable = mkEnableOption (lib.mdDoc "nimdow");
+    services.xserver.windowManager.nimdow.enable =
+      mkEnableOption (lib.mdDoc "nimdow");
   };
 
   config = mkIf cfg.enable {

@@ -11,18 +11,13 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-h6TmQyxhoOhaAWBZr9rRPCf0BE2QMBIYm5uTVKD2paE=";
   };
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  cargoLock = { lockFile = ./Cargo.lock; };
 
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
   '';
 
-  cargoBuildFlags = [
-    "--workspace"
-    "--exclude=demo"
-  ];
+  cargoBuildFlags = [ "--workspace" "--exclude=demo" ];
 
   postBuild = ''
     cargo doc --release

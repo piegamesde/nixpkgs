@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pillow
-, numpy
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pillow, numpy }:
 
 buildPythonPackage rec {
   pname = "blurhash";
@@ -22,11 +16,7 @@ buildPythonPackage rec {
     sed -i '/^addopts/d' setup.cfg
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pillow
-    numpy
-  ];
+  nativeCheckInputs = [ pytestCheckHook pillow numpy ];
 
   pythonImportsCheck = [ "blurhash" ];
 

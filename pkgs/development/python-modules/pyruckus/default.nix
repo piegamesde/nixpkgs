@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pexpect
-, python-slugify
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, pexpect, python-slugify, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -18,10 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-SVE5BrCCQgCrhOC0CSGgbZ9TEY3iZ9Rp/xMUShPAxxM=";
   };
 
-  propagatedBuildInputs = [
-    pexpect
-    python-slugify
-  ];
+  propagatedBuildInputs = [ pexpect python-slugify ];
 
   # Tests requires network features
   doCheck = false;

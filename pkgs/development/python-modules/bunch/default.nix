@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "bunch";
@@ -27,9 +23,7 @@ buildPythonPackage rec {
   # No real tests available
   doCheck = false;
 
-  pythonImportsCheck = [
-    "bunch"
-  ];
+  pythonImportsCheck = [ "bunch" ];
 
   meta = with lib; {
     description = "Python dictionary that provides attribute-style access";

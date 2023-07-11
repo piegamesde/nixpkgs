@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, freezegun
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, freezegun, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "itsdangerous";
@@ -16,10 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-XbvGizF+XkLzJ/kCF2NUXcP8O/4i5t65aq8fw4h0FWo=";
   };
 
-  nativeCheckInputs = [
-    freezegun
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ freezegun pytestCheckHook ];
 
   meta = with lib; {
     description = "Safely pass data to untrusted environments and back";

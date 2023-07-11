@@ -1,23 +1,13 @@
-{ lib
-, findutils
-, stdenv
-, fetchurl
-, dpkg
-, makeWrapper
-, coreutils
-, gnugrep
-, gnused
-, mfc5890cnlpr
-, pkgsi686Linux
-, psutils
-}:
+{ lib, findutils, stdenv, fetchurl, dpkg, makeWrapper, coreutils, gnugrep
+, gnused, mfc5890cnlpr, pkgsi686Linux, psutils }:
 
 stdenv.mkDerivation rec {
   pname = "mfc5890cncupswrapper";
   version = "1.1.2-2";
 
   src = fetchurl {
-    url = "https://download.brother.com/welcome/dlf006170/${pname}-${version}.i386.deb";
+    url =
+      "https://download.brother.com/welcome/dlf006170/${pname}-${version}.i386.deb";
     hash = "sha256-UOCwzB09/a1/2rliY+hTrslSvO5ztVj51auisPx7OIQ=";
   };
 
@@ -25,10 +15,7 @@ stdenv.mkDerivation rec {
     dpkg-deb -x $src $out
   '';
 
-  nativeBuildInputs = [
-    dpkg
-    makeWrapper
-  ];
+  nativeBuildInputs = [ dpkg makeWrapper ];
 
   dontBuild = true;
 
@@ -55,18 +42,21 @@ stdenv.mkDerivation rec {
     $dir/cupswrapper/cupswrappermfc5890cn
 
     chmod +x $out/usr/lib64/cups/filter/brlpdwrappermfc5890cn
-    wrapProgram $out/usr/lib64/cups/filter/brlpdwrappermfc5890cn --prefix PATH : ${lib.makeBinPath [coreutils psutils gnugrep gnused]}
+    wrapProgram $out/usr/lib64/cups/filter/brlpdwrappermfc5890cn --prefix PATH : ${
+      lib.makeBinPath [ coreutils psutils gnugrep gnused ]
+    }
 
     mkdir -p $out/lib/cups/filter
     mkdir -p $out/share/cups/model
     ln $out/usr/lib64/cups/filter/brlpdwrappermfc5890cn $out/lib/cups/filter
     ln $dir/cupswrapper/cupswrappermfc5890cn $out/lib/cups/filter
     ln $out/usr/share/ppd/brmfc5890cn.ppd $out/share/cups/model
-    '';
+  '';
 
   meta = with lib; {
     description = "Brother MFC-5890CN CUPS wrapper driver.";
-    longDescription = "Brother MFC-5890CN CUPS wrapper driver. Use the connection string 'lpd://\${IP_ADDRESS}/binary_p1' when connecting to this printer via the network.";
+    longDescription =
+      "Brother MFC-5890CN CUPS wrapper driver. Use the connection string 'lpd://\${IP_ADDRESS}/binary_p1' when connecting to this printer via the network.";
     homepage = "http://www.brother.com/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.gpl2Plus;

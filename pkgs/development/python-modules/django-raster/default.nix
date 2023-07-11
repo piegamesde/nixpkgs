@@ -1,7 +1,5 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k,
-  numpy, django_colorful, pillow, psycopg2,
-  pyparsing, django, celery, boto3, importlib-metadata
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, numpy, django_colorful, pillow
+, psycopg2, pyparsing, django, celery, boto3, importlib-metadata }:
 
 buildPythonPackage rec {
   version = "0.8.1";
@@ -17,8 +15,17 @@ buildPythonPackage rec {
   # Tests require a postgresql + postgis server
   doCheck = false;
 
-  propagatedBuildInputs = [ numpy django_colorful pillow psycopg2
-                            pyparsing django celery boto3 importlib-metadata ];
+  propagatedBuildInputs = [
+    numpy
+    django_colorful
+    pillow
+    psycopg2
+    pyparsing
+    django
+    celery
+    boto3
+    importlib-metadata
+  ];
 
   meta = with lib; {
     description = "Basic raster data integration for Django";

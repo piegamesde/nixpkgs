@@ -14,9 +14,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    lv2 libX11 libGL libGLU mesa
-  ];
+  buildInputs = [ lv2 libX11 libGL libGLU mesa ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12

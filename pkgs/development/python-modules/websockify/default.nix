@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, jwcrypto
-, numpy
-, pytestCheckHook
-, pythonOlder
-, redis
-, requests
-, simplejson
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, jwcrypto, numpy, pytestCheckHook
+, pythonOlder, redis, requests, simplejson }:
 
 buildPythonPackage rec {
   pname = "websockify";
@@ -24,21 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-82Fk9qbiiCD5Rts1d14sK/njeN7DcjKMKPqE7S/1WHs=";
   };
 
-  propagatedBuildInputs = [
-    jwcrypto
-    numpy
-    redis
-    requests
-    simplejson
-  ];
+  propagatedBuildInputs = [ jwcrypto numpy redis requests simplejson ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "websockify"
-  ];
+  pythonImportsCheck = [ "websockify" ];
 
   meta = with lib; {
     description = "WebSockets support for any application/server";

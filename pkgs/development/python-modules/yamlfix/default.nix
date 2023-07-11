@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, click
-, fetchFromGitHub
-, maison
-, pdm-pep517
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-, ruyaml
-, setuptools
-}:
+{ lib, buildPythonPackage, click, fetchFromGitHub, maison, pdm-pep517
+, pytest-xdist, pytestCheckHook, pythonOlder, ruyaml, setuptools }:
 
 buildPythonPackage rec {
   pname = "yamlfix";
@@ -25,30 +15,19 @@ buildPythonPackage rec {
     hash = "sha256-av3QNfyPo/4GzFzQ60OrtPK6CV5AkN4FbbqgeBz4rY0=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-    pdm-pep517
-  ];
+  nativeBuildInputs = [ setuptools pdm-pep517 ];
 
-  propagatedBuildInputs = [
-    click
-    maison
-    ruyaml
-  ];
+  propagatedBuildInputs = [ click maison ruyaml ];
 
-  nativeCheckInputs = [
-    pytest-xdist
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-xdist pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "yamlfix"
-  ];
+  pythonImportsCheck = [ "yamlfix" ];
 
   meta = with lib; {
     description = "Python YAML formatter that keeps your comments";
     homepage = "https://github.com/lyz-code/yamlfix";
-    changelog = "https://github.com/lyz-code/yamlfix/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/lyz-code/yamlfix/blob/${version}/CHANGELOG.md";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ koozz ];
   };

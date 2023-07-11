@@ -1,9 +1,6 @@
-{ lib, stdenv, fetchFromGitHub
-, buildPythonPackage, python
-, pytestCheckHook, mock, path, pyhamcrest, pytest-html
-, glibcLocales
-, colorama, cucumber-tag-expressions, parse, parse-type, six
-}:
+{ lib, stdenv, fetchFromGitHub, buildPythonPackage, python, pytestCheckHook
+, mock, path, pyhamcrest, pytest-html, glibcLocales, colorama
+, cucumber-tag-expressions, parse, parse-type, six }:
 
 buildPythonPackage rec {
   pname = "behave";
@@ -24,7 +21,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "behave" ];
 
   buildInputs = [ glibcLocales ];
-  propagatedBuildInputs = [ colorama cucumber-tag-expressions parse parse-type six ];
+  propagatedBuildInputs =
+    [ colorama cucumber-tag-expressions parse parse-type six ];
 
   postPatch = ''
     patchShebangs bin
@@ -32,7 +30,8 @@ buildPythonPackage rec {
 
   # timing-based test flaky on Darwin
   # https://github.com/NixOS/nixpkgs/pull/97737#issuecomment-691489824
-  disabledTests = lib.optionals stdenv.isDarwin [ "test_step_decorator_async_run_until_complete" ];
+  disabledTests = lib.optionals stdenv.isDarwin
+    [ "test_step_decorator_async_run_until_complete" ];
 
   postCheck = ''
     export LANG="en_US.UTF-8"

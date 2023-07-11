@@ -3,7 +3,7 @@ import ./make-test-python.nix ({ pkgs, ... }: {
 
   nodes.server = { ... }: {
     services.pdns-recursor.enable = true;
-    services.pdns-recursor.exportHosts= true;
+    services.pdns-recursor.exportHosts = true;
     networking.hosts."192.0.2.1" = [ "example.com" ];
   };
 

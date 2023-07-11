@@ -1,20 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonRelaxDepsHook
-, attrs
-, boto3
-, google-pasta
-, importlib-metadata
-, numpy
-, protobuf
-, protobuf3-to-dict
-, smdebug-rulesconfig
-, pandas
-, pathos
-, packaging
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonRelaxDepsHook, attrs, boto3
+, google-pasta, importlib-metadata, numpy, protobuf, protobuf3-to-dict
+, smdebug-rulesconfig, pandas, pathos, packaging, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "sagemaker";
@@ -55,13 +41,11 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [
-    "sagemaker"
-    "sagemaker.lineage.visualizer"
-  ];
+  pythonImportsCheck = [ "sagemaker" "sagemaker.lineage.visualizer" ];
 
   meta = with lib; {
-    description = "Library for training and deploying machine learning models on Amazon SageMaker";
+    description =
+      "Library for training and deploying machine learning models on Amazon SageMaker";
     homepage = "https://github.com/aws/sagemaker-python-sdk/";
     license = licenses.asl20;
     maintainers = with maintainers; [ nequissimus ];

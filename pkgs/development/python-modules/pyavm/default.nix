@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, astropy
-, astropy-helpers
-, pillow
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, astropy, astropy-helpers
+, pillow }:
 
 buildPythonPackage rec {
   pname = "pyavm";
@@ -17,15 +11,9 @@ buildPythonPackage rec {
     hash = "sha256-gV78ypvYwohHmdjP3lN5F97PfmxuV91tvw5gsYeZ7i8=";
   };
 
-  propagatedBuildInputs = [
-    astropy-helpers
-  ];
+  propagatedBuildInputs = [ astropy-helpers ];
 
-  nativeCheckInputs = [
-    astropy
-    pillow
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ astropy pillow pytestCheckHook ];
 
   # Disable automatic update of the astropy-helper module
   postPatch = ''

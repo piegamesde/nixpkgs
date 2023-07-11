@@ -3,8 +3,8 @@
 with lib;
 
 let
-  cfg   = config.services.minetest-server;
-  flag  = val: name: optionalString (val != null) "--${name} ${toString val} ";
+  cfg = config.services.minetest-server;
+  flag = val: name: optionalString (val != null) "--${name} ${toString val} ";
   flags = [
     (flag cfg.gameId "gameid")
     (flag cfg.world "world")
@@ -12,19 +12,18 @@ let
     (flag cfg.logPath "logfile")
     (flag cfg.port "port")
   ];
-in
-{
+in {
   options = {
     services.minetest-server = {
       enable = mkOption {
-        type        = types.bool;
-        default     = false;
+        type = types.bool;
+        default = false;
         description = lib.mdDoc "If enabled, starts a Minetest Server.";
       };
 
       gameId = mkOption {
-        type        = types.nullOr types.str;
-        default     = null;
+        type = types.nullOr types.str;
+        default = null;
         description = lib.mdDoc ''
           Id of the game to use. To list available games run
           `minetestserver --gameid list`.
@@ -34,8 +33,8 @@ in
       };
 
       world = mkOption {
-        type        = types.nullOr types.path;
-        default     = null;
+        type = types.nullOr types.path;
+        default = null;
         description = lib.mdDoc ''
           Name of the world to use. To list available worlds run
           `minetestserver --world list`.
@@ -45,8 +44,8 @@ in
       };
 
       configPath = mkOption {
-        type        = types.nullOr types.path;
-        default     = null;
+        type = types.nullOr types.path;
+        default = null;
         description = lib.mdDoc ''
           Path to the config to use.
 
@@ -56,8 +55,8 @@ in
       };
 
       logPath = mkOption {
-        type        = types.nullOr types.path;
-        default     = null;
+        type = types.nullOr types.path;
+        default = null;
         description = lib.mdDoc ''
           Path to logfile for logging.
 
@@ -67,8 +66,8 @@ in
       };
 
       port = mkOption {
-        type        = types.nullOr types.int;
-        default     = null;
+        type = types.nullOr types.int;
+        default = null;
         description = lib.mdDoc ''
           Port number to bind to.
 
@@ -80,22 +79,22 @@ in
 
   config = mkIf cfg.enable {
     users.users.minetest = {
-      description     = "Minetest Server Service user";
-      home            = "/var/lib/minetest";
-      createHome      = true;
-      uid             = config.ids.uids.minetest;
-      group           = "minetest";
+      description = "Minetest Server Service user";
+      home = "/var/lib/minetest";
+      createHome = true;
+      uid = config.ids.uids.minetest;
+      group = "minetest";
     };
     users.groups.minetest.gid = config.ids.gids.minetest;
 
     systemd.services.minetest-server = {
-      description   = "Minetest Server Service";
-      wantedBy      = [ "multi-user.target" ];
-      after         = [ "network.target" ];
+      description = "Minetest Server Service";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
 
       serviceConfig.Restart = "always";
-      serviceConfig.User    = "minetest";
-      serviceConfig.Group   = "minetest";
+      serviceConfig.User = "minetest";
+      serviceConfig.Group = "minetest";
 
       script = ''
         cd /var/lib/minetest

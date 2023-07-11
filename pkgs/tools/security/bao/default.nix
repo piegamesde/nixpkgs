@@ -1,8 +1,4 @@
-{ lib
-, fetchCrate
-, fetchpatch
-, rustPlatform
-}:
+{ lib, fetchCrate, fetchpatch, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "bao";

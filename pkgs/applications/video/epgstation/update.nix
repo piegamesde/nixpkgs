@@ -1,15 +1,8 @@
-{ gitUpdater
-, writers
-, jq
-, yq
-, gnused
-, _experimental-update-script-combinators
+{ gitUpdater, writers, jq, yq, gnused, _experimental-update-script-combinators
 }:
 
 let
-  updateSource = gitUpdater {
-    rev-prefix = "v";
-  };
+  updateSource = gitUpdater { rev-prefix = "v"; };
   updateLocks = writers.writeBash "update-epgstation" ''
     set -euxo pipefail
 
@@ -55,8 +48,7 @@ let
     printf '\n' >> streaming.json  # rule: insert_final_newline
     popd
   '';
-in
-_experimental-update-script-combinators.sequence [
+in _experimental-update-script-combinators.sequence [
   updateSource
-  [updateLocks ./.]
+  [ updateLocks ./. ]
 ]

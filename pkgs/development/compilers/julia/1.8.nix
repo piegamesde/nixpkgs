@@ -1,22 +1,13 @@
-{ lib
-, stdenv
-, fetchurl
-, which
-, python3
-, gfortran
-, cmake
-, perl
-, gnum4
-, libxml2
-, openssl
-}:
+{ lib, stdenv, fetchurl, which, python3, gfortran, cmake, perl, gnum4, libxml2
+, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "julia";
   version = "1.8.5";
 
   src = fetchurl {
-    url = "https://github.com/JuliaLang/julia/releases/download/v${version}/julia-${version}-full.tar.gz";
+    url =
+      "https://github.com/JuliaLang/julia/releases/download/v${version}/julia-${version}-full.tar.gz";
     hash = "sha256-NVVAgKS0085S7yICVDBr1CrA2I7/nrhVkqV9BmPbXfI=";
   };
 
@@ -25,19 +16,9 @@ stdenv.mkDerivation rec {
     ./patches/1.8/0002-skip-failing-and-flaky-tests.patch
   ];
 
-  nativeBuildInputs = [
-    which
-    python3
-    gfortran
-    cmake
-    perl
-    gnum4
-  ];
+  nativeBuildInputs = [ which python3 gfortran cmake perl gnum4 ];
 
-  buildInputs = [
-    libxml2
-    openssl
-  ];
+  buildInputs = [ libxml2 openssl ];
 
   dontUseCmakeConfigure = true;
 
@@ -77,7 +58,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description = "High-level performance-oriented dynamical language for technical computing";
+    description =
+      "High-level performance-oriented dynamical language for technical computing";
     homepage = "https://julialang.org/";
     license = licenses.mit;
     maintainers = with maintainers; [ nickcao ];

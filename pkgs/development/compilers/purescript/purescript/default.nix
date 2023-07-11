@@ -6,34 +6,32 @@
 let
   dynamic-linker = stdenv.cc.bintools.dynamicLinker;
 
-  patchelf = libPath :
-    if stdenv.isDarwin
-      then ""
-      else
-        ''
-          chmod u+w $PURS
-          patchelf --interpreter ${dynamic-linker} --set-rpath ${libPath} $PURS
-          chmod u-w $PURS
-        '';
+  patchelf = libPath:
+    if stdenv.isDarwin then
+      ""
+    else ''
+      chmod u+w $PURS
+      patchelf --interpreter ${dynamic-linker} --set-rpath ${libPath} $PURS
+      chmod u-w $PURS
+    '';
 
 in stdenv.mkDerivation rec {
   pname = "purescript";
   version = "0.15.9";
 
   # These hashes can be updated automatically by running the ./update.sh script.
-  src =
-    if stdenv.isDarwin
-    then
+  src = if stdenv.isDarwin then
     fetchurl {
-      url = "https://github.com/${pname}/${pname}/releases/download/v${version}/macos.tar.gz";
+      url =
+        "https://github.com/${pname}/${pname}/releases/download/v${version}/macos.tar.gz";
       sha256 = "1xxg79rlf7li9f73wdbwif1dyy4hnzpypy6wx4zbnvap53habq9f";
     }
-    else
+  else
     fetchurl {
-      url = "https://github.com/${pname}/${pname}/releases/download/v${version}/linux64.tar.gz";
+      url =
+        "https://github.com/${pname}/${pname}/releases/download/v${version}/linux64.tar.gz";
       sha256 = "0rabinklsd8bs16f03zv7ij6d1lv4w2xwvzzgkwc862gpqvz9jq3";
     };
-
 
   buildInputs = [ zlib gmp ];
   libPath = lib.makeLibraryPath buildInputs;
@@ -52,19 +50,19 @@ in stdenv.mkDerivation rec {
 
   passthru = {
     updateScript = ./update.sh;
-    tests = {
-      minimal-module = pkgs.callPackage ./test-minimal-module {};
-    };
+    tests = { minimal-module = pkgs.callPackage ./test-minimal-module { }; };
   };
 
   meta = with lib; {
-    description = "A strongly-typed functional programming language that compiles to JavaScript";
+    description =
+      "A strongly-typed functional programming language that compiles to JavaScript";
     homepage = "https://www.purescript.org/";
     license = licenses.bsd3;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     maintainers = with maintainers; [ justinwoo mbbx6spp cdepillabout ];
     platforms = [ "x86_64-linux" "x86_64-darwin" ];
     mainProgram = "purs";
-    changelog = "https://github.com/purescript/purescript/releases/tag/v${version}";
+    changelog =
+      "https://github.com/purescript/purescript/releases/tag/v${version}";
   };
 }

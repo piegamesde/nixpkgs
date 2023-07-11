@@ -1,10 +1,4 @@
-{ lib
-, base58
-, buildPythonPackage
-, ecdsa
-, fetchPypi
-, sympy
-}:
+{ lib, base58, buildPythonPackage, ecdsa, fetchPypi, sympy }:
 
 buildPythonPackage rec {
   pname = "bitcoin-utils-fork-minimal";
@@ -16,11 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-DzibvC8qr/5ync59cfFB7tBmZWkPs/hKh+e5OC4lcEw=";
   };
 
-  propagatedBuildInputs = [
-    base58
-    ecdsa
-    sympy
-  ];
+  propagatedBuildInputs = [ base58 ecdsa sympy ];
 
   preConfigure = ''
     substituteInPlace setup.py \
@@ -32,9 +22,7 @@ buildPythonPackage rec {
   # Project doesn't ship tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "bitcoinutils"
-  ];
+  pythonImportsCheck = [ "bitcoinutils" ];
 
   meta = with lib; {
     description = "Bitcoin utility functions";

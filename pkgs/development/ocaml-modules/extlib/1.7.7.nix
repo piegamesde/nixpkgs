@@ -2,8 +2,7 @@
 # May be replaceable by the next extlib + extlib-base64 release.
 { stdenv, lib, fetchurl, ocaml, findlib, cppo
 # De facto, option minimal seems to be the default. See the README.
-, minimal ? true
-}:
+, minimal ? true }:
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-extlib";

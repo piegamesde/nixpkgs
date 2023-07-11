@@ -1,17 +1,5 @@
-{ appstream-glib
-, desktop-file-utils
-, fetchurl
-, gobject-introspection
-, gtk3
-, lib
-, libnotify
-, libhandy
-, meson
-, ninja
-, pkg-config
-, python3
-, stdenv
-, wrapGAppsHook
+{ appstream-glib, desktop-file-utils, fetchurl, gobject-introspection, gtk3, lib
+, libnotify, libhandy, meson, ninja, pkg-config, python3, stdenv, wrapGAppsHook
 }:
 
 stdenv.mkDerivation rec {
@@ -23,23 +11,15 @@ stdenv.mkDerivation rec {
     sha256 = "0v74pdyihj7r9gb3k2rkvbphan27ajlvycscd8xzrnsv74lcmbpm";
   };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    meson
-    ninja
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ desktop-file-utils meson ninja pkg-config wrapGAppsHook ];
 
   buildInputs = [
     gobject-introspection
     gtk3
     libhandy
     libnotify
-    (python3.withPackages (ps: with ps; [
-      icalendar
-      pygobject3
-    ]))
+    (python3.withPackages (ps: with ps; [ icalendar pygobject3 ]))
   ];
 
   postPatch = ''

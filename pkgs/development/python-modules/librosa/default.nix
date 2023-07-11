@@ -1,33 +1,14 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{ lib, buildPythonPackage, fetchFromGitHub
 
 # build-system
 , setuptools
 
 # runtime
-, audioread
-, decorator
-, joblib
-, lazy-loader
-, matplotlib
-, msgpack
-, numba
-, numpy
-, pooch
-, scikit-learn
-, scipy
-, soundfile
-, soxr
-, typing-extensions
+, audioread, decorator, joblib, lazy-loader, matplotlib, msgpack, numba, numpy
+, pooch, scikit-learn, scipy, soundfile, soxr, typing-extensions
 
 # tests
-, ffmpeg-headless
-, packaging
-, pytest-mpl
-, pytestCheckHook
-, resampy
-, samplerate
+, ffmpeg-headless, packaging, pytest-mpl, pytestCheckHook, resampy, samplerate
 }:
 
 buildPythonPackage rec {
@@ -43,9 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-MXzPIcbG8b1JwhEyAZG4DRObGaHq+ipVHMrZCzaxLdE=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -68,23 +47,14 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  passthru.optional-dependencies.matplotlib = [
-    matplotlib
-  ];
+  passthru.optional-dependencies.matplotlib = [ matplotlib ];
 
   # check that import works, this allows to capture errors like https://github.com/librosa/librosa/issues/1160
-  pythonImportsCheck = [
-    "librosa"
-  ];
+  pythonImportsCheck = [ "librosa" ];
 
-  nativeCheckInputs = [
-    ffmpeg-headless
-    packaging
-    pytest-mpl
-    pytestCheckHook
-    resampy
-    samplerate
-  ] ++ passthru.optional-dependencies.matplotlib;
+  nativeCheckInputs =
+    [ ffmpeg-headless packaging pytest-mpl pytestCheckHook resampy samplerate ]
+    ++ passthru.optional-dependencies.matplotlib;
 
   preCheck = ''
     export HOME=$TMPDIR

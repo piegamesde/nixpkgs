@@ -35,7 +35,8 @@ stdenv.mkDerivation rec {
   patches = [
     # fix to support linux 6.1
     (fetchpatch {
-      url = "https://gitlab.com/ddcci-driver-linux/ddcci-driver-linux/-/commit/ce52d6ac5e5ed7119a0028eed8823117a004766e.patch";
+      url =
+        "https://gitlab.com/ddcci-driver-linux/ddcci-driver-linux/-/commit/ce52d6ac5e5ed7119a0028eed8823117a004766e.patch";
       sha256 = "sha256-Tmf4oiMWLR5ma/3X0eoFuriK29HwDqy6dBT7WdqE3mI=";
     })
   ];

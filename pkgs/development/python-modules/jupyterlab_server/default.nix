@@ -1,21 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, hatchling
-, jsonschema
-, pythonOlder
-, requests
-, pytestCheckHook
-, json5
-, babel
-, jupyter-server
-, tomli
-, openapi-core
-, pytest-timeout
-, pytest-tornasync
-, ruamel-yaml
-, importlib-metadata
-}:
+{ lib, buildPythonPackage, fetchPypi, hatchling, jsonschema, pythonOlder
+, requests, pytestCheckHook, json5, babel, jupyter-server, tomli, openapi-core
+, pytest-timeout, pytest-tornasync, ruamel-yaml, importlib-metadata }:
 
 buildPythonPackage rec {
   pname = "jupyterlab_server";
@@ -29,20 +14,11 @@ buildPythonPackage rec {
     hash = "sha256-muwhohg7vt2fkahmKDVUSVdfGGLYiyitX5BQGdMebCE=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    requests
-    jsonschema
-    json5
-    babel
-    jupyter-server
-    tomli
-  ] ++ lib.optionals (pythonOlder "3.10") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs =
+    [ requests jsonschema json5 babel jupyter-server tomli ]
+    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
   nativeCheckInputs = [
     openapi-core
@@ -73,9 +49,11 @@ buildPythonPackage rec {
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {
-    description = "A set of server components for JupyterLab and JupyterLab like applications";
+    description =
+      "A set of server components for JupyterLab and JupyterLab like applications";
     homepage = "https://jupyterlab-server.readthedocs.io/";
-    changelog = "https://github.com/jupyterlab/jupyterlab_server/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/jupyterlab/jupyterlab_server/blob/v${version}/CHANGELOG.md";
     license = licenses.bsdOriginal;
     maintainers = with maintainers; [ costrouc ];
   };

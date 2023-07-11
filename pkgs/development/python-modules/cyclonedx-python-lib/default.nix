@@ -1,24 +1,7 @@
-{ lib
-, buildPythonPackage
-, ddt
-, fetchFromGitHub
-, importlib-metadata
-, jsonschema
-, lxml
-, packageurl-python
-, py-serializable
-, pythonRelaxDepsHook
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-, requirements-parser
-, sortedcontainers
-, setuptools
-, toml
-, types-setuptools
-, types-toml
-, xmldiff
-}:
+{ lib, buildPythonPackage, ddt, fetchFromGitHub, importlib-metadata, jsonschema
+, lxml, packageurl-python, py-serializable, pythonRelaxDepsHook, poetry-core
+, pytestCheckHook, pythonOlder, requirements-parser, sortedcontainers
+, setuptools, toml, types-setuptools, types-toml, xmldiff }:
 
 buildPythonPackage rec {
   pname = "cyclonedx-python-lib";
@@ -34,10 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-xXtUEunPYiuVh+1o4xoFutGstZ918ju5xK5zLvgbLHc=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     importlib-metadata
@@ -51,29 +31,17 @@ buildPythonPackage rec {
     types-toml
   ];
 
-  nativeCheckInputs = [
-    ddt
-    jsonschema
-    lxml
-    pytestCheckHook
-    xmldiff
-  ];
+  nativeCheckInputs = [ ddt jsonschema lxml pytestCheckHook xmldiff ];
 
-  pythonImportsCheck = [
-    "cyclonedx"
-  ];
+  pythonImportsCheck = [ "cyclonedx" ];
 
-  pythonRelaxDeps = [
-    "py-serializable"
-  ];
+  pythonRelaxDeps = [ "py-serializable" ];
 
   preCheck = ''
     export PYTHONPATH=tests''${PYTHONPATH+:$PYTHONPATH}
   '';
 
-  pytestFlagsArray = [
-    "tests/"
-  ];
+  pytestFlagsArray = [ "tests/" ];
 
   disabledTests = [
     # These tests require network access.
@@ -84,7 +52,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library for generating CycloneDX SBOMs";
     homepage = "https://github.com/CycloneDX/cyclonedx-python-lib";
-    changelog = "https://github.com/CycloneDX/cyclonedx-python-lib/releases/tag/v${version}";
+    changelog =
+      "https://github.com/CycloneDX/cyclonedx-python-lib/releases/tag/v${version}";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

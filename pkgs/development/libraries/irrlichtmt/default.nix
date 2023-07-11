@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, zlib
-, libpng
-, libjpeg
-, libGL
-, libX11
-, withTouchSupport ? false
-, libXi
-, libXext
-, Cocoa
-, Kernel
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, zlib, libpng, libjpeg, libGL, libX11
+, withTouchSupport ? false, libXi, libXext, Cocoa, Kernel }:
 stdenv.mkDerivation rec {
   pname = "irrlichtmt";
   version = "1.9.0mt10";
@@ -24,9 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PA+gz77XkwxQ3TtubaT0ov9dsT7s3ZlrQxrOkD5ku3g=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   # https://github.com/minetest/minetest/pull/10729
   postPatch = lib.optionalString (!withTouchSupport) ''
@@ -36,19 +21,9 @@ stdenv.mkDerivation rec {
     sed -i '/''${X11_Xi_LIB}/d' source/Irrlicht/CMakeLists.txt
   '';
 
-  buildInputs = [
-    zlib
-    libpng
-    libjpeg
-    libGL
-    libX11
-  ] ++ lib.optionals withTouchSupport [
-    libXi
-    libXext
-  ] ++ lib.optionals stdenv.isDarwin [
-    Cocoa
-    Kernel
-  ];
+  buildInputs = [ zlib libpng libjpeg libGL libX11 ]
+    ++ lib.optionals withTouchSupport [ libXi libXext ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa Kernel ];
 
   outputs = [ "out" "dev" ];
 
@@ -56,6 +31,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/minetest/irrlicht";
     license = lib.licenses.zlib;
     maintainers = with lib.maintainers; [ DeeUnderscore ];
-    description = "Minetest project's fork of Irrlicht, a realtime 3D engine written in C++";
+    description =
+      "Minetest project's fork of Irrlicht, a realtime 3D engine written in C++";
   };
 }

@@ -1,20 +1,8 @@
-{ lib
-, fetchurl
-, buildDunePackage
-, ocaml
-, findlib
-, cppo
-, ppxlib
-, ppx_derivers
-, result
-, ounit
-, ounit2
-, ocaml-migrate-parsetree
-, ocaml-migrate-parsetree-2
-}:
+{ lib, fetchurl, buildDunePackage, ocaml, findlib, cppo, ppxlib, ppx_derivers
+, result, ounit, ounit2, ocaml-migrate-parsetree, ocaml-migrate-parsetree-2 }:
 
-let params =
-  if lib.versionAtLeast ppxlib.version "0.20" then {
+let
+  params = if lib.versionAtLeast ppxlib.version "0.20" then {
     version = "5.2.1";
     sha256 = "11h75dsbv3rs03pl67hdd3lbim7wjzh257ij9c75fcknbfr5ysz9";
     useOMP2 = true;
@@ -26,17 +14,17 @@ let params =
     version = "5.0";
     sha256 = "0fkzrn4pdyvf1kl0nwvhqidq01pnq3ql8zk1jd56hb0cxaw851w3";
     useOMP2 = false;
-  }
-; in
+  };
 
-buildDunePackage rec {
+in buildDunePackage rec {
   pname = "ppx_deriving";
   inherit (params) version;
 
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/ocaml-ppx/ppx_deriving/releases/download/v${version}/ppx_deriving-v${version}.tbz";
+    url =
+      "https://github.com/ocaml-ppx/ppx_deriving/releases/download/v${version}/ppx_deriving-v${version}.tbz";
     inherit (params) sha256;
   };
 
@@ -45,20 +33,21 @@ buildDunePackage rec {
   nativeBuildInputs = [ cppo ];
   buildInputs = [ findlib ppxlib ];
   propagatedBuildInputs = [
-    (if params.useOMP2
-    then ocaml-migrate-parsetree-2
-    else ocaml-migrate-parsetree)
+    (if params.useOMP2 then
+      ocaml-migrate-parsetree-2
+    else
+      ocaml-migrate-parsetree)
     ppx_derivers
     result
   ];
 
   doCheck = lib.versionOlder ocaml.version "5.0";
-  checkInputs = [
-    (if lib.versionAtLeast version "5.2" then ounit2 else ounit)
-  ];
+  checkInputs =
+    [ (if lib.versionAtLeast version "5.2" then ounit2 else ounit) ];
 
   meta = with lib; {
-    description = "deriving is a library simplifying type-driven code generation on OCaml >=4.02.";
+    description =
+      "deriving is a library simplifying type-driven code generation on OCaml >=4.02.";
     maintainers = [ maintainers.maurer ];
     license = licenses.mit;
   };

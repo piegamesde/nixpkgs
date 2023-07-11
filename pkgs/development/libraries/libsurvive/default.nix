@@ -1,14 +1,5 @@
-{ lib, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, freeglut
-, lapack
-, libusb1
-, blas
-, zlib
-, eigen
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, freeglut, lapack, libusb1
+, blas, zlib, eigen }:
 
 stdenv.mkDerivation rec {
   pname = "libsurvive";
@@ -25,14 +16,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    freeglut
-    lapack
-    libusb1
-    blas
-    zlib
-    eigen
-  ];
+  buildInputs = [ freeglut lapack libusb1 blas zlib eigen ];
 
   # https://github.com/cntools/libsurvive/issues/272
   postPatch = ''

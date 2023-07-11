@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchurl, alsa-lib, expat, glib, libjack2, libXext, libX11, libpng
-, libpthreadstubs, libsmf, libsndfile, lv2, pkg-config, zita-resampler
+{ lib, stdenv, fetchurl, alsa-lib, expat, glib, libjack2, libXext, libX11
+, libpng, libpthreadstubs, libsmf, libsndfile, lv2, pkg-config, zita-resampler
 }:
 
 stdenv.mkDerivation rec {
@@ -7,7 +7,8 @@ stdenv.mkDerivation rec {
   pname = "drumgizmo";
 
   src = fetchurl {
-    url = "https://www.drumgizmo.org/releases/${pname}-${version}/${pname}-${version}.tar.gz";
+    url =
+      "https://www.drumgizmo.org/releases/${pname}-${version}/${pname}-${version}.tar.gz";
     sha256 = "sha256-AF8gQLiB29j963uI84TyNHIC0qwEWOCqmZIUWGq8V2o=";
   };
 
@@ -16,8 +17,18 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
 
   buildInputs = [
-    alsa-lib expat glib libjack2 libXext libX11 libpng libpthreadstubs
-    libsmf libsndfile lv2 zita-resampler
+    alsa-lib
+    expat
+    glib
+    libjack2
+    libXext
+    libX11
+    libpng
+    libpthreadstubs
+    libsmf
+    libsndfile
+    lv2
+    zita-resampler
   ];
 
   meta = with lib; {

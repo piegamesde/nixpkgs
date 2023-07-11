@@ -1,4 +1,5 @@
-{ lib, buildGoModule, fetchFromGitHub, asciidoctor, installShellFiles, git, testers, git-lfs }:
+{ lib, buildGoModule, fetchFromGitHub, asciidoctor, installShellFiles, git
+, testers, git-lfs }:
 
 buildGoModule rec {
   pname = "git-lfs";
@@ -18,7 +19,9 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/git-lfs/git-lfs/v${lib.versions.major version}/config.Vendor=${version}"
+    "-X github.com/git-lfs/git-lfs/v${
+      lib.versions.major version
+    }/config.Vendor=${version}"
   ];
 
   subPackages = [ "." ];
@@ -41,14 +44,13 @@ buildGoModule rec {
     installManPage man/man*/*
   '';
 
-  passthru.tests.version = testers.testVersion {
-    package = git-lfs;
-  };
+  passthru.tests.version = testers.testVersion { package = git-lfs; };
 
   meta = with lib; {
     description = "Git extension for versioning large files";
     homepage = "https://git-lfs.github.com/";
-    changelog = "https://github.com/git-lfs/git-lfs/raw/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/git-lfs/git-lfs/raw/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ twey marsam ];
   };

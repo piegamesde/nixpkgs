@@ -1,10 +1,4 @@
-{ stdenv
-, lib
-, fetchgit
-, autoreconfHook
-, libelf
-, libiberty
-}:
+{ stdenv, lib, fetchgit, autoreconfHook, libelf, libiberty }:
 
 stdenv.mkDerivation rec {
   pname = "prelink";
@@ -21,22 +15,16 @@ stdenv.mkDerivation rec {
 
   configurePlatforms = [ "build" "host" ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [
-    stdenv.cc.libc
-    libelf
-    libiberty
-  ];
+  buildInputs = [ stdenv.cc.libc libelf libiberty ];
 
   # most tests fail
   doCheck = false;
 
   enableParallelBuilding = true;
 
-  meta = with lib;{
+  meta = with lib; {
     description = "ELF prelinking utility to speed up dynamic linking";
     homepage = "https://wiki.yoctoproject.org/wiki/Cross-Prelink";
     license = licenses.gpl2Plus;

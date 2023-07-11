@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, openssl
-, cryptography
-, pytestCheckHook
-, pretend
-, sphinxHook
-, sphinx-rtd-theme
-, flaky
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, openssl, cryptography
+, pytestCheckHook, pretend, sphinxHook, sphinx-rtd-theme, flaky }:
 
 buildPythonPackage rec {
   pname = "pyopenssl";
@@ -22,32 +12,18 @@ buildPythonPackage rec {
     hash = "sha256-hBSYub7GFiOxtsR+u8AjZ8B9YODhlfGXkIF/EMyNsLc=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-    "doc"
-  ];
+  outputs = [ "out" "dev" "doc" ];
 
-  nativeBuildInputs = [
-    openssl
-    sphinxHook
-    sphinx-rtd-theme
-  ];
+  nativeBuildInputs = [ openssl sphinxHook sphinx-rtd-theme ];
 
   postPatch = ''
     # remove cryptography pin
     sed "/cryptography/ s/,<[0-9]*//g" setup.py
   '';
 
-  propagatedBuildInputs = [
-    cryptography
-  ];
+  propagatedBuildInputs = [ cryptography ];
 
-  nativeCheckInputs = [
-    flaky
-    pretend
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ flaky pretend pytestCheckHook ];
 
   __darwinAllowLocalNetworking = true;
 
@@ -93,7 +69,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python wrapper around the OpenSSL library";
     homepage = "https://github.com/pyca/pyopenssl";
-    changelog = "https://github.com/pyca/pyopenssl/blob/${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/pyca/pyopenssl/blob/${version}/CHANGELOG.rst";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

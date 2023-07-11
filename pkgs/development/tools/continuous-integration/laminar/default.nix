@@ -1,15 +1,5 @@
-{ stdenv
-, lib
-, fetchurl
-, fetchFromGitHub
-, cmake
-, capnproto
-, sqlite
-, boost
-, zlib
-, rapidjson
-, pandoc
-}:
+{ stdenv, lib, fetchurl, fetchFromGitHub, cmake, capnproto, sqlite, boost, zlib
+, rapidjson, pandoc }:
 let
   js.vue = fetchurl {
     url = "https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js";

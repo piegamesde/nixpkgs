@@ -1,17 +1,6 @@
-{ lib
-, aiohttp
-, aresponses
-, awesomeversion
-, backoff
-, buildPythonPackage
-, deepmerge
-, fetchFromGitHub
-, poetry-core
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, yarl
-}:
+{ lib, aiohttp, aresponses, awesomeversion, backoff, buildPythonPackage
+, deepmerge, fetchFromGitHub, poetry-core, pytest-asyncio, pytestCheckHook
+, pythonOlder, yarl }:
 
 buildPythonPackage rec {
   pname = "pyipp";
@@ -21,29 +10,17 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.9";
 
   src = fetchFromGitHub {
-   owner = "ctalkington";
-   repo = "python-ipp";
-   rev = version;
-   hash = "sha256-xTSi5Eh6vVuQ+Kr/oVMlh5YcckVRsfTUgdmGHndmX+Q=";
+    owner = "ctalkington";
+    repo = "python-ipp";
+    rev = version;
+    hash = "sha256-xTSi5Eh6vVuQ+Kr/oVMlh5YcckVRsfTUgdmGHndmX+Q=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    awesomeversion
-    backoff
-    deepmerge
-    yarl
-  ];
+  propagatedBuildInputs = [ aiohttp awesomeversion backoff deepmerge yarl ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -51,12 +28,11 @@ buildPythonPackage rec {
       --replace " --cov" ""
   '';
 
-  pythonImportsCheck = [
-    "pyipp"
-  ];
+  pythonImportsCheck = [ "pyipp" ];
 
   meta = with lib; {
-    description = "Asynchronous Python client for Internet Printing Protocol (IPP)";
+    description =
+      "Asynchronous Python client for Internet Printing Protocol (IPP)";
     homepage = "https://github.com/ctalkington/python-ipp";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];

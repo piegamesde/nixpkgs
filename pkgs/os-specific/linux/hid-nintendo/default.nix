@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, kernel
-}:
+{ lib, stdenv, fetchFromGitHub, kernel }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "hid-nintendo";

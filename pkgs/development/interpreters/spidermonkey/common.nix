@@ -1,35 +1,13 @@
 { version, hash }:
 
-{ callPackage
-, lib
-, stdenv
-, fetchurl
-, fetchpatch
+{ callPackage, lib, stdenv, fetchurl, fetchpatch
 
 # build time
-, buildPackages
-, cargo
-, m4
-, perl
-, pkg-config
-, python3
-, python39
-, rustc
-, which
-, zip
-, autoconf213
-, yasm
-, xcbuild
+, buildPackages, cargo, m4, perl, pkg-config, python3, python39, rustc, which
+, zip, autoconf213, yasm, xcbuild
 
 # runtime
-, icu
-, icu67
-, nspr
-, readline
-, zlib
-, libobjc
-, libiconv
-}:
+, icu, icu67, nspr, readline, zlib, libobjc, libiconv }:
 
 stdenv.mkDerivation (finalAttrs: rec {
   pname = "spidermonkey";
@@ -38,7 +16,8 @@ stdenv.mkDerivation (finalAttrs: rec {
   outputs = [ "out" "dev" ];
 
   src = fetchurl {
-    url = "mirror://mozilla/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz";
+    url =
+      "mirror://mozilla/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz";
     inherit hash;
   };
 
@@ -46,8 +25,10 @@ stdenv.mkDerivation (finalAttrs: rec {
     # Fix build failure on armv7l using Debian patch
     # Upstream bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1526653
     (fetchpatch {
-      url = "https://salsa.debian.org/mozilla-team/firefox/commit/fd6847c9416f9eebde636e21d794d25d1be8791d.patch";
-      hash = "sha512-K8U3Qyo7g4si2r/8kJdXyRoTrDHAY48x/YJ7YL+YBwlpfNQcHxX+EZvhRzW8FHYW+f7kOnJu9QykhE8PhSQ9zQ==";
+      url =
+        "https://salsa.debian.org/mozilla-team/firefox/commit/fd6847c9416f9eebde636e21d794d25d1be8791d.patch";
+      hash =
+        "sha512-K8U3Qyo7g4si2r/8kJdXyRoTrDHAY48x/YJ7YL+YBwlpfNQcHxX+EZvhRzW8FHYW+f7kOnJu9QykhE8PhSQ9zQ==";
     })
 
     # Remove this when updating to 79 - The patches are already applied upstream
@@ -62,10 +43,11 @@ stdenv.mkDerivation (finalAttrs: rec {
     # use pkg-config at all systems
     ./always-check-for-pkg-config.patch
     ./allow-system-s-nspr-and-icu-on-bootstrapped-sysroot.patch
-  ] ++ lib.optionals (lib.versionAtLeast version "91" && stdenv.hostPlatform.system == "i686-linux") [
-    # Fixes i686 build, https://bugzilla.mozilla.org/show_bug.cgi?id=1729459
-    ./fix-float-i686.patch
-  ];
+  ] ++ lib.optionals (lib.versionAtLeast version "91"
+    && stdenv.hostPlatform.system == "i686-linux") [
+      # Fixes i686 build, https://bugzilla.mozilla.org/show_bug.cgi?id=1729459
+      ./fix-float-i686.patch
+    ];
 
   nativeBuildInputs = [
     cargo
@@ -81,23 +63,16 @@ stdenv.mkDerivation (finalAttrs: rec {
   ] ++ lib.optionals (lib.versionOlder version "91") [
     autoconf213
     yasm # to buid icu? seems weird
-  ] ++ lib.optionals stdenv.isDarwin [
-    xcbuild
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ xcbuild ];
 
   buildInputs = [
     (if lib.versionOlder version "91" then icu67 else icu)
     nspr
     readline
     zlib
-  ] ++ lib.optionals stdenv.isDarwin [
-    libobjc
-    libiconv
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ libobjc libiconv ];
 
-  depsBuildBuild = [
-    buildPackages.stdenv.cc
-  ];
+  depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   setOutputFlags = false; # Configure script only understands --includedir
 
@@ -113,18 +88,14 @@ stdenv.mkDerivation (finalAttrs: rec {
     "--enable-readline"
     "--enable-release"
     "--enable-shared-js"
-  ] ++ lib.optionals (lib.versionAtLeast version "91") [
-    "--disable-debug"
-  ] ++ [
-    "--disable-jemalloc"
-    "--disable-strip"
-    "--disable-tests"
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    # Spidermonkey seems to use different host/build terminology for cross
-    # compilation here.
-    "--host=${stdenv.buildPlatform.config}"
-    "--target=${stdenv.hostPlatform.config}"
-  ];
+  ] ++ lib.optionals (lib.versionAtLeast version "91") [ "--disable-debug" ]
+    ++ [ "--disable-jemalloc" "--disable-strip" "--disable-tests" ]
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      # Spidermonkey seems to use different host/build terminology for cross
+      # compilation here.
+      "--host=${stdenv.buildPlatform.config}"
+      "--target=${stdenv.hostPlatform.config}"
+    ];
 
   # mkDerivation by default appends --build/--host to configureFlags when cross compiling
   # These defaults are bogus for Spidermonkey - avoid passing them by providing an empty list
@@ -134,7 +105,8 @@ stdenv.mkDerivation (finalAttrs: rec {
 
   # cc-rs insists on using -mabi=lp64 (soft-float) for riscv64,
   # while we have a double-float toolchain
-  env.NIX_CFLAGS_COMPILE = lib.optionalString (with stdenv.hostPlatform; isRiscV && is64bit && lib.versionOlder version "91") "-mabi=lp64d";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString (with stdenv.hostPlatform;
+    isRiscV && is64bit && lib.versionOlder version "91") "-mabi=lp64d";
 
   postPatch = lib.optionalString (lib.versionOlder version "102") ''
     # This patch is a manually applied fix of
@@ -175,9 +147,8 @@ stdenv.mkDerivation (finalAttrs: rec {
     ln -s $out/bin/js${lib.versions.major version} $out/bin/js
   '';
 
-  passthru.tests.run = callPackage ./test.nix {
-    spidermonkey = finalAttrs.finalPackage;
-  };
+  passthru.tests.run =
+    callPackage ./test.nix { spidermonkey = finalAttrs.finalPackage; };
 
   meta = with lib; {
     description = "Mozilla's JavaScript engine written in C/C++";

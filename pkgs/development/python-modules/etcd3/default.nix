@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, etcd
-, fetchFromGitHub
-, grpcio
-, hypothesis
-, mock
-, pifpaf
-, protobuf
-, pytestCheckHook
-, six
-, tenacity
-}:
+{ lib, buildPythonPackage, etcd, fetchFromGitHub, grpcio, hypothesis, mock
+, pifpaf, protobuf, pytestCheckHook, six, tenacity }:
 
 buildPythonPackage rec {
   pname = "etcd3";
@@ -24,31 +13,18 @@ buildPythonPackage rec {
     hash = "sha256-YM72+fkCDYXl6DORJa/O0sqXqHDWQcFLv2ifQ9kEHBo=";
   };
 
-  propagatedBuildInputs = [
-    grpcio
-    protobuf
-    six
-    tenacity
-  ];
+  propagatedBuildInputs = [ grpcio protobuf six tenacity ];
 
   # various failures and incompatible with newer hypothesis versions
   doCheck = false;
 
-  nativeCheckInputs = [
-    etcd
-    hypothesis
-    mock
-    pifpaf
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ etcd hypothesis mock pifpaf pytestCheckHook ];
 
   preCheck = ''
     pifpaf -e PYTHON run etcd --cluster
   '';
 
-  pythonImportsCheck = [
-    "etcd3"
-  ];
+  pythonImportsCheck = [ "etcd3" ];
 
   meta = with lib; {
     description = "Python client for the etcd API v3";

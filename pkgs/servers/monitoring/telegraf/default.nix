@@ -18,14 +18,13 @@ buildGoModule rec {
   vendorHash = "sha256-Tt0ZY5gmT40x1cg/XseCKu10Ol3tE+yVv+7EczPRI6s=";
   proxyVendor = true;
 
-  ldflags = [
-    "-w" "-s" "-X main.version=${version}"
-  ];
+  ldflags = [ "-w" "-s" "-X main.version=${version}" ];
 
   passthru.tests = { inherit (nixosTests) telegraf; };
 
   meta = with lib; {
-    description = "The plugin-driven server agent for collecting & reporting metrics";
+    description =
+      "The plugin-driven server agent for collecting & reporting metrics";
     license = licenses.mit;
     homepage = "https://www.influxdata.com/time-series-platform/telegraf/";
     maintainers = with maintainers; [ mic92 roblabla timstott ];

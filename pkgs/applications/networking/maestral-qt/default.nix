@@ -1,9 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-, qt6
-, nixosTests
-}:
+{ lib, fetchFromGitHub, python3, qt6, nixosTests }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "maestral-qt";
@@ -29,12 +24,10 @@ python3.pkgs.buildPythonApplication rec {
 
   buildInputs = [
     qt6.qtbase
-    qt6.qtsvg  # Needed for the systray icon
+    qt6.qtsvg # Needed for the systray icon
   ];
 
-  nativeBuildInputs = [
-    qt6.wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qt6.wrapQtAppsHook ];
 
   dontWrapQtApps = true;
 
@@ -43,7 +36,9 @@ python3.pkgs.buildPythonApplication rec {
     "\${qtWrapperArgs[@]}"
 
     # Add the installed directories to the python path so the daemon can find them
-    "--prefix PYTHONPATH : ${makePythonPath (requiredPythonModules maestral.propagatedBuildInputs)}"
+    "--prefix PYTHONPATH : ${
+      makePythonPath (requiredPythonModules maestral.propagatedBuildInputs)
+    }"
     "--prefix PYTHONPATH : ${makePythonPath [ maestral ]}"
   ];
 
@@ -55,9 +50,11 @@ python3.pkgs.buildPythonApplication rec {
   passthru.tests.maestral = nixosTests.maestral;
 
   meta = with lib; {
-    description = "GUI front-end for maestral (an open-source Dropbox client) for Linux";
+    description =
+      "GUI front-end for maestral (an open-source Dropbox client) for Linux";
     homepage = "https://maestral.app";
-    changelog = "https://github.com/samschott/maestral/releases/tag/v${version}";
+    changelog =
+      "https://github.com/samschott/maestral/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ peterhoeg sfrijters ];
     platforms = platforms.linux;

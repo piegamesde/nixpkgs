@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "enumerepo";
@@ -16,15 +13,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-Dt3QS1Rm/20Yitgg4zbBcWQXV8mTlpNbzc/k4DaTuQc=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
-    description = "Tool to list all public repositories for (valid) GitHub usernames";
+    description =
+      "Tool to list all public repositories for (valid) GitHub usernames";
     homepage = "https://github.com/trickest/enumerepo";
-    changelog = "https://github.com/trickest/enumerepo/releases/tag/v${version}";
+    changelog =
+      "https://github.com/trickest/enumerepo/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

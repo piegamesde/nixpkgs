@@ -1,10 +1,5 @@
-{ lib, stdenv, fetchurl, fetchpatch, libpcap, pkg-config, openssl, lua5_3
-, pcre, libssh2
-, libX11 ? null
-, gtk2 ? null
-, makeWrapper ? null
-, withLua ? true
-}:
+{ lib, stdenv, fetchurl, fetchpatch, libpcap, pkg-config, openssl, lua5_3, pcre
+, libssh2, libX11 ? null, gtk2 ? null, makeWrapper ? null, withLua ? true }:
 
 stdenv.mkDerivation rec {
   pname = "nmap";
@@ -15,17 +10,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Vbz+R5PiWsyWukJ02MQijbVQuOjv1yAEs47FWi3RZlE=";
   };
 
-  patches = [ ./zenmap.patch ]
-    ++ lib.optionals stdenv.cc.isClang [(
+  patches = [ ./zenmap.patch ] ++ lib.optionals stdenv.cc.isClang [
+    (
       # Fixes a compile error due an ambiguous reference to bind(2) in
       # nping/EchoServer.cc, which is otherwise resolved to std::bind.
       # https://github.com/nmap/nmap/pull/1363
       fetchpatch {
-        url = "https://github.com/nmap/nmap/commit/5bbe66f1bd8cbd3718f5805139e2e8139e6849bb.diff";
+        url =
+          "https://github.com/nmap/nmap/commit/5bbe66f1bd8cbd3718f5805139e2e8139e6849bb.diff";
         includes = [ "nping/EchoServer.cc" ];
         sha256 = "0xcph9mycy57yryjg253frxyz87c4135rrbndlqw1400c8jxq70c";
-      }
-    )];
+      })
+  ];
 
   prePatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace libz/configure \
@@ -55,10 +51,11 @@ stdenv.mkDerivation rec {
   doCheck = false; # fails 3 tests, probably needs the net
 
   meta = with lib; {
-    description = "A free and open source utility for network discovery and security auditing";
-    homepage    = "http://www.nmap.org";
-    license     = licenses.gpl2;
-    platforms   = platforms.all;
+    description =
+      "A free and open source utility for network discovery and security auditing";
+    homepage = "http://www.nmap.org";
+    license = licenses.gpl2;
+    platforms = platforms.all;
     maintainers = with maintainers; [ thoughtpolice fpletz ];
   };
 }

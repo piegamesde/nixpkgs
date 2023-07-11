@@ -1,11 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, ninja, cmake, python3, llvmPackages, spirv-llvm-translator }:
+{ lib, stdenv, fetchFromGitHub, ninja, cmake, python3, llvmPackages
+, spirv-llvm-translator }:
 
 let
   llvm = llvmPackages.llvm;
   clang-unwrapped = llvmPackages.clang-unwrapped;
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "libclc";
   version = "15.0.7";
 
@@ -29,14 +29,13 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ninja python3 spirv-llvm-translator ];
   buildInputs = [ llvm clang-unwrapped ];
   strictDeps = true;
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  ];
+  cmakeFlags = [ "-DCMAKE_INSTALL_INCLUDEDIR=include" ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
     homepage = "http://libclc.llvm.org/";
-    description = "Implementation of the library requirements of the OpenCL C programming language";
+    description =
+      "Implementation of the library requirements of the OpenCL C programming language";
     license = licenses.mit;
     platforms = platforms.all;
   };

@@ -1,13 +1,5 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, persistent
-, zope_interface
-, transaction
-, zope_testrunner
-, python
-, pythonOlder
-}:
+{ lib, fetchPypi, buildPythonPackage, persistent, zope_interface, transaction
+, zope_testrunner, python, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "btrees";
@@ -22,15 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-/d+KTcwCU+OQJ7qzgKLiDUeuNwoySFQW8qZq2a4aQ/o=";
   };
 
-  propagatedBuildInputs = [
-    persistent
-    zope_interface
-  ];
+  propagatedBuildInputs = [ persistent zope_interface ];
 
-  nativeCheckInputs = [
-    transaction
-    zope_testrunner
-  ];
+  nativeCheckInputs = [ transaction zope_testrunner ];
 
   checkPhase = ''
     runHook preCheck
@@ -38,12 +24,8 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [
-    "BTrees.OOBTree"
-    "BTrees.IOBTree"
-    "BTrees.IIBTree"
-    "BTrees.IFBTree"
-  ];
+  pythonImportsCheck =
+    [ "BTrees.OOBTree" "BTrees.IOBTree" "BTrees.IIBTree" "BTrees.IFBTree" ];
 
   meta = with lib; {
     description = "Scalable persistent components";

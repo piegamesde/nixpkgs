@@ -1,14 +1,5 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, stdenv
-, pkg-config
-, libgpg-error
-, gpgme
-, dbus
-, openssl
-, Security
-}:
+{ lib, fetchFromGitHub, rustPlatform, stdenv, pkg-config, libgpg-error, gpgme
+, dbus, openssl, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "git-ps-rs";

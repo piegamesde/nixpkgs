@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, flit-core
-, filelock
-, packaging
-, pyproject-hooks
-, pytest-mock
-, pytest-rerunfailures
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, toml
-, tomli
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, flit-core, filelock
+, packaging, pyproject-hooks, pytest-mock, pytest-rerunfailures, pytest-xdist
+, pytestCheckHook, pythonOlder, setuptools, toml, tomli }:
 
 buildPythonPackage rec {
   pname = "build";
@@ -30,16 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-kXFrfTb7+68EV+gSENL81IFSR+ue7Fl6R2gsuFFBJhI=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    packaging
-    pyproject-hooks
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
+  propagatedBuildInputs = [ packaging pyproject-hooks ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   nativeCheckInputs = [
     filelock
@@ -51,10 +31,7 @@ buildPythonPackage rec {
     toml
   ];
 
-  pytestFlagsArray = [
-    "-W"
-    "ignore::DeprecationWarning"
-  ];
+  pytestFlagsArray = [ "-W" "ignore::DeprecationWarning" ];
 
   __darwinAllowLocalNetworking = true;
 
@@ -72,9 +49,7 @@ buildPythonPackage rec {
     "test_can_get_venv_paths_with_conflicting_default_scheme"
   ];
 
-  pythonImportsCheck = [
-    "build"
-  ];
+  pythonImportsCheck = [ "build" ];
 
   meta = with lib; {
     description = "Simple, correct PEP517 package builder";

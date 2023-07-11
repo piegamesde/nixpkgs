@@ -1,7 +1,6 @@
-{ buildPythonPackage, fetchFromGitHub, lib, pythonOlder
-, clang_12, python
-, graphviz, matplotlib, numpy, pandas, plotly, scipy, six
-, withCuda ? false, cudatoolkit }:
+{ buildPythonPackage, fetchFromGitHub, lib, pythonOlder, clang_12, python
+, graphviz, matplotlib, numpy, pandas, plotly, scipy, six, withCuda ? false
+, cudatoolkit }:
 
 buildPythonPackage rec {
   pname = "catboost";
@@ -22,9 +21,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ graphviz matplotlib numpy pandas scipy plotly six ]
     ++ lib.optionals withCuda [ cudatoolkit ];
 
-  patches = [
-    ./nix-support.patch
-  ];
+  patches = [ ./nix-support.patch ];
 
   postPatch = ''
     # substituteInPlace is too slow for these large files, and the target has lots of numbers in it that change often.
@@ -48,7 +45,8 @@ buildPythonPackage rec {
   };
 
   meta = with lib; {
-    description = "High-performance library for gradient boosting on decision trees.";
+    description =
+      "High-performance library for gradient boosting on decision trees.";
     longDescription = ''
       A fast, scalable, high performance Gradient Boosting on Decision Trees
       library, used for ranking, classification, regression and other machine

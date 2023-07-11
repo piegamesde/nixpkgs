@@ -7,8 +7,15 @@ stdenv.mkDerivation rec {
   version = "4.2.6";
 
   qtInputs = [
-    qtbase qtcharts qtlocation qtserialport qtsvg qtquickcontrols2
-    qtgraphicaleffects qtspeech qtx11extras
+    qtbase
+    qtcharts
+    qtlocation
+    qtserialport
+    qtsvg
+    qtquickcontrols2
+    qtgraphicaleffects
+    qtspeech
+    qtx11extras
   ];
 
   gstInputs = with gst_all_1; [
@@ -72,7 +79,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "Provides full ground station support and configuration for the PX4 and APM Flight Stacks";
+    description =
+      "Provides full ground station support and configuration for the PX4 and APM Flight Stacks";
     homepage = "http://qgroundcontrol.com/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest
-, mockito
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest, mockito, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pytest-mockito";
@@ -19,17 +13,11 @@ buildPythonPackage rec {
     hash = "sha256-vY/i1YV1lo4mZvnxsXBOyaq31YTiF0BY6PTVwdVX10I=";
   };
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    mockito
-  ];
+  propagatedBuildInputs = [ mockito ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = {
     description = "Base fixtures for mockito";

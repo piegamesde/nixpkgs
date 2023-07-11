@@ -1,9 +1,8 @@
 { lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
-  pname   = "muscle";
+  pname = "muscle";
   version = "5.1.0";
-
 
   src = fetchFromGitHub {
     owner = "rcedgar";
@@ -19,9 +18,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Multiple sequence alignment with top benchmark scores scalable to thousands of sequences";
-    license     = licenses.gpl3Plus;
-    homepage    = "https://www.drive5.com/muscle/";
+    description =
+      "Multiple sequence alignment with top benchmark scores scalable to thousands of sequences";
+    license = licenses.gpl3Plus;
+    homepage = "https://www.drive5.com/muscle/";
     maintainers = with maintainers; [ unode thyol ];
   };
 }

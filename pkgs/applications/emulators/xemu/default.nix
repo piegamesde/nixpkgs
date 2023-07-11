@@ -1,29 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, SDL2
-, SDL2_image
-, copyDesktopItems
-, gettext
-, glib
-, gtk3
-, libGLU
-, libdrm
-, libepoxy
-, libpcap
-, libsamplerate
-, makeDesktopItem
-, mesa
-, meson
-, ninja
-, openssl
-, perl
-, pkg-config
-, python3
-, vte
-, which
-, wrapGAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, SDL2, SDL2_image, copyDesktopItems, gettext
+, glib, gtk3, libGLU, libdrm, libepoxy, libpcap, libsamplerate, makeDesktopItem
+, mesa, meson, ninja, openssl, perl, pkg-config, python3, vte, which
+, wrapGAppsHook }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "xemu";
@@ -109,15 +87,22 @@ stdenv.mkDerivation (finalAttrs: {
 
     install -Dm755 -T qemu-system-i386 $out/bin/xemu
   '' +
-  # Generate code to install the icons
-  (lib.concatMapStringsSep ";\n"
-    (res:
-      "install -Dm644 -T ../ui/icons/xemu_${res}.png $out/share/icons/hicolor/${res}/apps/xemu.png")
-    [ "16x16" "24x24" "32x32" "48x48" "128x128" "256x256" "512x512" ]) +
-  ''
+    # Generate code to install the icons
+    (lib.concatMapStringsSep ''
+      ;
+    '' (res:
+      "install -Dm644 -T ../ui/icons/xemu_${res}.png $out/share/icons/hicolor/${res}/apps/xemu.png") [
+        "16x16"
+        "24x24"
+        "32x32"
+        "48x48"
+        "128x128"
+        "256x256"
+        "512x512"
+      ]) + ''
 
-    runHook postInstall
-  '';
+        runHook postInstall
+      '';
 
   meta = {
     homepage = "https://xemu.app/";
@@ -127,7 +112,8 @@ stdenv.mkDerivation (finalAttrs: {
       Xbox game console, enabling people to play their original Xbox games on
       Windows, macOS, and Linux systems.
     '';
-    changelog = "https://github.com/xemu-project/xemu/releases/tag/v${finalAttrs.version}";
+    changelog =
+      "https://github.com/xemu-project/xemu/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ AndersonTorres genericnerdyusername ];
     platforms = with lib.platforms; linux;

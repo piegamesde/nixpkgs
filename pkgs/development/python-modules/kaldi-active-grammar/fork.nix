@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, blas
-, lapack
-, openfst
-, icu
-, pkg-config
-, fetchFromGitHub
-, python3
-, openblas
-, zlib
-, gfortran
-}:
+{ lib, stdenv, blas, lapack, openfst, icu, pkg-config, fetchFromGitHub, python3
+, openblas, zlib, gfortran }:
 
 let
   old-openfst = openfst.overrideAttrs (prev: {
@@ -25,9 +14,9 @@ let
     };
     buildInputs = [ zlib ];
   });
-in
 
-assert blas.implementation == "openblas" && lapack.implementation == "openblas";
+in assert blas.implementation == "openblas" && lapack.implementation
+  == "openblas";
 
 stdenv.mkDerivation rec {
   pname = "kaldi";
@@ -40,32 +29,15 @@ stdenv.mkDerivation rec {
     sha256 = "+kT2xJRwDj/ECv/v/J1FpsINWOK8XkP9ZvZ9moFRl70=";
   };
 
-  patches = [
-    ./0004-fork-cmake.patch
-    ./0006-fork-configure.patch
-  ];
+  patches = [ ./0004-fork-cmake.patch ./0006-fork-configure.patch ];
 
   enableParallelBuilding = true;
 
-  buildInputs = [
-    openblas
-    old-openfst
-    icu
-  ];
+  buildInputs = [ openblas old-openfst icu ];
 
-  nativeBuildInputs = [
-    pkg-config
-    python3
-    gfortran
-  ];
+  nativeBuildInputs = [ pkg-config python3 gfortran ];
 
-  buildFlags = [
-    "dragonfly"
-    "dragonflybin"
-    "bin"
-    "fstbin"
-    "lmbin"
-  ];
+  buildFlags = [ "dragonfly" "dragonflybin" "bin" "fstbin" "lmbin" ];
 
   postPatch = ''
     # Replace the shebangs for the various build scripts

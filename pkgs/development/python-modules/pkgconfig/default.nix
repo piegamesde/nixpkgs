@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pkg-config
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pkg-config
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pkgconfig";
@@ -12,12 +7,7 @@ buildPythonPackage rec {
   format = "pyproject";
 
   inherit (pkg-config)
-    setupHooks
-    wrapperName
-    suffixSalt
-    targetPrefix
-    baseBinName
-    ;
+    setupHooks wrapperName suffixSalt targetPrefix baseBinName;
 
   src = fetchFromGitHub {
     owner = "matze";

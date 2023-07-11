@@ -1,21 +1,13 @@
-{ lib
-, stdenv
-, fetchzip
-, nixosTests
-, iptables
-, iproute2
-, makeWrapper
-, openresolv
-, procps
-, bash
-}:
+{ lib, stdenv, fetchzip, nixosTests, iptables, iproute2, makeWrapper, openresolv
+, procps, bash }:
 
 stdenv.mkDerivation rec {
   pname = "wireguard-tools";
   version = "1.0.20210914";
 
   src = fetchzip {
-    url = "https://git.zx2c4.com/wireguard-tools/snapshot/wireguard-tools-${version}.tar.xz";
+    url =
+      "https://git.zx2c4.com/wireguard-tools/snapshot/wireguard-tools-${version}.tar.xz";
     sha256 = "sha256-eGGkTVdPPTWK6iEyowW11F4ywRhd+0IXJTZCqY3OZws=";
   };
 

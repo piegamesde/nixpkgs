@@ -1,10 +1,4 @@
-{ stdenv
-, lib
-, protobuf
-, rustPlatform
-, fetchFromGitHub
-, Cocoa
-}:
+{ stdenv, lib, protobuf, rustPlatform, fetchFromGitHub, Cocoa }:
 
 rustPlatform.buildRustPackage rec {
   pname = "gurk-rs";
@@ -24,10 +18,14 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "curve25519-dalek-3.2.1" = "sha256-T/NGZddFQWq32eRu6FYfgdPqU8Y4Shi1NpMaX4GeQ54=";
-      "libsignal-protocol-0.1.0" = "sha256-gapAurbs/BdsfPlVvWWF7Ai1nXZcxCW8qc5gQdbnthM=";
-      "libsignal-service-0.1.0" = "sha256-C1Lhi/NRWyPT7omlAdjK7gVTLxmZjZVuZgmZ8dn/D3Y=";
-      "presage-0.5.0-dev" = "sha256-OtRrPcH4/o6Sq/day1WU6R8QgQ2xWkespkfFPqFeKWk=";
+      "curve25519-dalek-3.2.1" =
+        "sha256-T/NGZddFQWq32eRu6FYfgdPqU8Y4Shi1NpMaX4GeQ54=";
+      "libsignal-protocol-0.1.0" =
+        "sha256-gapAurbs/BdsfPlVvWWF7Ai1nXZcxCW8qc5gQdbnthM=";
+      "libsignal-service-0.1.0" =
+        "sha256-C1Lhi/NRWyPT7omlAdjK7gVTLxmZjZVuZgmZ8dn/D3Y=";
+      "presage-0.5.0-dev" =
+        "sha256-OtRrPcH4/o6Sq/day1WU6R8QgQ2xWkespkfFPqFeKWk=";
     };
   };
 
@@ -35,7 +33,10 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ Cocoa ];
 
-  NIX_LDFLAGS = lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ "-framework" "AppKit" ];
+  NIX_LDFLAGS = lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
+    "-framework"
+    "AppKit"
+  ];
 
   PROTOC = "${protobuf}/bin/protoc";
 

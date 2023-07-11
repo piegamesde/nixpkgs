@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, mercurial
-}:
+{ lib, buildPythonPackage, fetchPypi, mercurial }:
 
 buildPythonPackage rec {
   pname = "hg-evolve";
@@ -13,9 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-gupC35pLQOJgSmXiBp+KxqWuMX3iKSX9xDUtEaB/wFQ=";
   };
 
-  nativeCheckInputs = [
-    mercurial
-  ];
+  nativeCheckInputs = [ mercurial ];
 
   checkPhase = ''
     runHook preCheck

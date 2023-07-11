@@ -1,6 +1,7 @@
 { lib, python3 }:
 
-with python3.pkgs; buildPythonApplication rec {
+with python3.pkgs;
+buildPythonApplication rec {
   pname = "mutt-ics";
   version = "0.9.2";
 

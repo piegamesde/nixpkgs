@@ -1,19 +1,8 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, makeWrapper
+{ stdenv, lib, fetchFromGitHub, makeWrapper
 
-, autoreconfHook
-, pkg-config
+, autoreconfHook, pkg-config
 
-, cairo
-, glib
-, libnotify
-, rofi-unwrapped
-, wl-clipboard
-, xclip
-, xsel
-}:
+, cairo, glib, libnotify, rofi-unwrapped, wl-clipboard, xclip, xsel }:
 
 stdenv.mkDerivation rec {
   pname = "rofi-emoji";
@@ -41,21 +30,9 @@ stdenv.mkDerivation rec {
       --prefix PATH ":" ${lib.makeBinPath [ libnotify wl-clipboard xclip xsel ]}
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config makeWrapper ];
 
-  buildInputs = [
-    cairo
-    glib
-    libnotify
-    rofi-unwrapped
-    wl-clipboard
-    xclip
-    xsel
-  ];
+  buildInputs = [ cairo glib libnotify rofi-unwrapped wl-clipboard xclip xsel ];
 
   meta = with lib; {
     description = "An emoji selector plugin for Rofi";

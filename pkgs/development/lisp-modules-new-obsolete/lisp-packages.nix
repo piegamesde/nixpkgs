@@ -12,117 +12,90 @@
 
 { pkgs, lib, stdenv, ... }:
 
-
 let
 
   inherit (lib)
-    length
-    filter
-    foldl
-    unique
-    id
-    concat
-    concatMap
-    mutuallyExclusive
-    findFirst
-    remove
-    setAttr
-    getAttr
-    hasAttr
-    attrNames
-    attrValues
-    filterAttrs
-    mapAttrs
-    splitString
-    concatStringsSep
-    concatMapStringsSep
-    replaceStrings
-    removeSuffix
-    hasInfix
-    optionalString
-    makeBinPath
-    makeLibraryPath
-    makeSearchPath
-    recurseIntoAttrs
-    dontRecurseIntoAttrs
-  ;
+    length filter foldl unique id concat concatMap mutuallyExclusive findFirst
+    remove setAttr getAttr hasAttr attrNames attrValues filterAttrs mapAttrs
+    splitString concatStringsSep concatMapStringsSep replaceStrings removeSuffix
+    hasInfix optionalString makeBinPath makeLibraryPath makeSearchPath
+    recurseIntoAttrs dontRecurseIntoAttrs;
 
-  inherit (builtins)
-    head
-    tail
-    elem
-    split
-    storeDir;
+  inherit (builtins) head tail elem split storeDir;
 
   # Returns a flattened dependency tree without duplicates
   # This is probably causing performance problems...
   flattenedDeps = lispLibs:
     let
-      toSet = list: builtins.listToAttrs (map (d: { name = d.pname; value = d; }) list);
+      toSet = list:
+        builtins.listToAttrs (map (d: {
+          name = d.pname;
+          value = d;
+        }) list);
       toList = attrValues;
       walk = acc: node:
-        if length node.lispLibs == 0
-        then acc
-        else builtins.foldl' walk (acc // toSet node.lispLibs) node.lispLibs;
-    in toList (walk {} { inherit lispLibs; });
+        if length node.lispLibs == 0 then
+          acc
+        else
+          builtins.foldl' walk (acc // toSet node.lispLibs) node.lispLibs;
+    in toList (walk { } { inherit lispLibs; });
 
   # Stolen from python-packages.nix
   # Actually no idea how this works
   makeOverridableLispPackage = f: origArgs:
     let
       ff = f origArgs;
-      overrideWith = newArgs: origArgs // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs);
-    in
-      if builtins.isAttrs ff then (ff // {
-        overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs);
+      overrideWith = newArgs:
+        origArgs
+        // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs);
+    in if builtins.isAttrs ff then
+      (ff // {
+        overrideLispAttrs = newArgs:
+          makeOverridableLispPackage f (overrideWith newArgs);
       })
-      else if builtins.isFunction ff then {
-        overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs);
-        __functor = self: ff;
-      }
-      else ff;
+    else if builtins.isFunction ff then {
+      overrideLispAttrs = newArgs:
+        makeOverridableLispPackage f (overrideWith newArgs);
+      __functor = self: ff;
+    } else
+      ff;
 
   #
   # Wrapper around stdenv.mkDerivation for building ASDF systems.
   #
-  build-asdf-system =
-    (makeOverridableLispPackage (
-    { pname,
-      version,
-      src ? null,
-      patches ? [],
+  build-asdf-system = (makeOverridableLispPackage ({ pname, version, src ? null
+    , patches ? [ ],
 
-      # Native libraries, will be appended to the library path
-      nativeLibs ? [],
+    # Native libraries, will be appended to the library path
+    nativeLibs ? [ ],
 
-      # Java libraries for ABCL, will be appended to the class path
-      javaLibs ? [],
+    # Java libraries for ABCL, will be appended to the class path
+    javaLibs ? [ ],
 
-      # Lisp dependencies
-      # these should be packages built with `build-asdf-system`
-      lispLibs ? [],
+    # Lisp dependencies
+    # these should be packages built with `build-asdf-system`
+    lispLibs ? [ ],
 
-      # Lisp command to run buildScript
-      lisp,
+    # Lisp command to run buildScript
+    lisp,
 
-      # Some libraries have multiple systems under one project, for
-      # example, cffi has cffi-grovel, cffi-toolchain etc.  By
-      # default, only the `pname` system is build.
-      #
-      # .asd's not listed in `systems` are removed in
-      # installPhase. This prevents asdf from referring to uncompiled
-      # systems on run time.
-      #
-      # Also useful when the pname is differrent than the system name,
-      # such as when using reverse domain naming.
-      systems ? [ pname ],
+    # Some libraries have multiple systems under one project, for
+    # example, cffi has cffi-grovel, cffi-toolchain etc.  By
+    # default, only the `pname` system is build.
+    #
+    # .asd's not listed in `systems` are removed in
+    # installPhase. This prevents asdf from referring to uncompiled
+    # systems on run time.
+    #
+    # Also useful when the pname is differrent than the system name,
+    # such as when using reverse domain naming.
+    systems ? [ pname ],
 
-      # The .asd files that this package provides
-      asds ? systems,
+    # The .asd files that this package provides
+    asds ? systems,
 
-      # Other args to mkDerivation
-      ...
-    } @ args:
+    # Other args to mkDerivation
+    ... }@args:
 
     let
 
@@ -140,7 +113,6 @@ let
       # generated by build-asdf-system
       dontUnpack = src == null;
 
-
       # TODO: Do the propagation like for lisp, native and java like this:
       # https://github.com/teu5us/nix-lisp-overlay/blob/e30dafafa5c1b9a5b0ccc9aaaef9d285d9f0c46b/pkgs/development/lisp-modules/setup-hook.sh
       # Then remove the "echo >> nix-drvs" from buildScript
@@ -157,18 +129,16 @@ let
       # Normally generated from lispLibs, but LD_LIBRARY_PATH as a
       # derivation attr itself can be used as an extension point when
       # the libs are not in a '/lib' subdirectory
-      LD_LIBRARY_PATH =
-        let
-          libs = concatMap (x: x.nativeLibs) libsFlat;
-          paths = filter (x: x != "") (map (x: x.LD_LIBRARY_PATH) libsFlat);
-          path =
-            makeLibraryPath libs
-            + optionalString (length paths != 0) ":"
-            + concatStringsSep ":" paths;
-        in concatStringsSep ":" (unique (splitString ":" path));
+      LD_LIBRARY_PATH = let
+        libs = concatMap (x: x.nativeLibs) libsFlat;
+        paths = filter (x: x != "") (map (x: x.LD_LIBRARY_PATH) libsFlat);
+        path = makeLibraryPath libs + optionalString (length paths != 0) ":"
+          + concatStringsSep ":" paths;
+      in concatStringsSep ":" (unique (splitString ":" path));
 
       # Java libraries For ABCL
-      CLASSPATH = makeSearchPath "share/java/*" (concatMap (x: x.javaLibs) libsFlat);
+      CLASSPATH =
+        makeSearchPath "share/java/*" (concatMap (x: x.javaLibs) libsFlat);
 
       # Portable script to build the systems.
       #
@@ -226,12 +196,11 @@ let
       # stuff like 'iolib.asdf.asd' for system 'iolib.asd'
       #
       # Same with '/': `local-time.asd` for system `cl-postgres+local-time.asd`
-      installPhase =
-        let
-          mkSystemsRegex = systems:
-            concatMapStringsSep "\\|" (replaceStrings ["." "+"] ["[.]" "[+]"]) systems;
-        in
-      ''
+      installPhase = let
+        mkSystemsRegex = systems:
+          concatMapStringsSep "\\|" (replaceStrings [ "." "+" ] [ "[.]" "[+]" ])
+          systems;
+      in ''
         mkdir -pv $out
         cp -r * $out
 
@@ -247,16 +216,16 @@ let
       dontFixup = true;
 
     } // (args // {
-      src = if builtins.length (args.patches or []) > 0
-            then pkgs.applyPatches { inherit (args) src patches; }
-            else args.src;
-      patches = [];
+      src = if builtins.length (args.patches or [ ]) > 0 then
+        pkgs.applyPatches { inherit (args) src patches; }
+      else
+        args.src;
+      patches = [ ];
 
       # make sure that propagated build-inputs from lispLibs are propagated
-      propagatedBuildInputs = lib.unique
-        (builtins.concatLists
-          (lib.catAttrs "propagatedBuildInputs"
-            (builtins.concatLists [[args] lispLibs nativeLibs javaLibs])));
+      propagatedBuildInputs = lib.unique (builtins.concatLists
+        (lib.catAttrs "propagatedBuildInputs"
+          (builtins.concatLists [ [ args ] lispLibs nativeLibs javaLibs ])));
     }))));
 
   # Build the set of lisp packages using `lisp`
@@ -291,10 +260,7 @@ let
 
   # Build the set of packages imported from quicklisp using `lisp`
   quicklispPackagesFor = { lisp, fixup ? lib.id, build ? build-asdf-system }:
-    let
-      build-asdf-system' = body: build (body // {
-        inherit lisp;
-      });
+    let build-asdf-system' = body: build (body // { inherit lisp; });
     in import ./ql.nix {
       inherit pkgs;
       inherit fixup;
@@ -312,21 +278,15 @@ let
       # Make it possible to reuse generated attrs without recursing into oblivion
       packages = (lib.filterAttrs (n: v: n != qlPkg.pname) manualPackages);
       substituteLib = pkg:
-        if lib.hasAttr pkg.pname packages
-        then packages.${pkg.pname}
-        else pkg;
+        if lib.hasAttr pkg.pname packages then packages.${pkg.pname} else pkg;
       pkg = substituteLib qlPkg;
     in pkg // { lispLibs = map substituteLib pkg.lispLibs; };
 
   makeAttrName = str:
-    removeSuffix
-      "_"
-      (replaceStrings
-        ["+" "." "/"]
-        ["_plus_" "_dot_" "_slash_"]
-        str);
+    removeSuffix "_"
+    (replaceStrings [ "+" "." "/" ] [ "_plus_" "_dot_" "_slash_" ] str);
 
-  oldMakeWrapper = pkgs.runCommand "make-wrapper.sh" {} ''
+  oldMakeWrapper = pkgs.runCommand "make-wrapper.sh" { } ''
     substitute ${./old-make-wrapper.sh} $out \
       --replace @shell@ ${pkgs.bash}/bin/bash
   '';
@@ -345,8 +305,8 @@ let
       pname = baseNameOf (head (split " " lisp));
       version = "with-packages";
       lispLibs = packages clpkgs;
-      systems = [];
-    }).overrideAttrs(o: {
+      systems = [ ];
+    }).overrideAttrs (o: {
       installPhase = ''
         # The recent version of makeWrapper causes breakage. For more info see
         # https://github.com/Uthar/nix-cl/issues/2
@@ -357,19 +317,20 @@ let
           ${head (split " " o.lisp)} \
           $out/bin/${baseNameOf (head (split " " o.lisp))} \
           --prefix CL_SOURCE_REGISTRY : "${o.CL_SOURCE_REGISTRY}" \
-          --prefix ASDF_OUTPUT_TRANSLATIONS : ${concatStringsSep "::" (flattenedDeps o.lispLibs)}: \
+          --prefix ASDF_OUTPUT_TRANSLATIONS : ${
+            concatStringsSep "::" (flattenedDeps o.lispLibs)
+          }: \
           --prefix LD_LIBRARY_PATH : "${o.LD_LIBRARY_PATH}" \
           --prefix LD_LIBRARY_PATH : "${makeLibraryPath o.nativeLibs}" \
           --prefix CLASSPATH : "${o.CLASSPATH}" \
           --prefix CLASSPATH : "${makeSearchPath "share/java/*" o.javaLibs}" \
-          --prefix PATH : "${makeBinPath (o.buildInputs or [])}" \
-          --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [])}"
+          --prefix PATH : "${makeBinPath (o.buildInputs or [ ])}" \
+          --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [ ])}"
       '';
     });
 
   lispWithPackages = lisp:
-    let
-      packages = lispPackagesFor lisp;
+    let packages = lispPackagesFor lisp;
     in lispWithPackagesInternal packages;
 
   lispPackagesFor = lisp:
@@ -382,10 +343,7 @@ let
     in qlPackages // packages;
 
   commonLispPackages = rec {
-    inherit
-      build-asdf-system
-      lispWithPackagesInternal
-      lispPackagesFor
+    inherit build-asdf-system lispWithPackagesInternal lispPackagesFor
       lispWithPackages;
 
     # TODO: uncomment clasp when clasp 1.0.0 is packaged
@@ -394,24 +352,24 @@ let
     # The problem was that with --load everywhere, some
     # implementations didn't exit with 0 on compilation failure
     # Maybe a handler-case in buildScript?
-    sbcl  = "${pkgs.sbcl}/bin/sbcl --script";
-    ecl   = "${pkgs.ecl}/bin/ecl --shell";
-    abcl  = ''${pkgs.abcl}/bin/abcl --batch --eval "(load \"$buildScript\")"'';
-    ccl   = ''${pkgs.ccl}/bin/ccl --batch --eval "(load \"$buildScript\")" --'';
+    sbcl = "${pkgs.sbcl}/bin/sbcl --script";
+    ecl = "${pkgs.ecl}/bin/ecl --shell";
+    abcl = ''${pkgs.abcl}/bin/abcl --batch --eval "(load \"$buildScript\")"'';
+    ccl = ''${pkgs.ccl}/bin/ccl --batch --eval "(load \"$buildScript\")" --'';
     # clasp = ''${pkgs.clasp}/bin/clasp --non-interactive --quit --load'';
 
     # Manually defined packages shadow the ones imported from quicklisp
 
-    sbclPackages  = recurseIntoAttrs (lispPackagesFor sbcl);
-    eclPackages   = dontRecurseIntoAttrs (lispPackagesFor ecl);
-    abclPackages  = dontRecurseIntoAttrs (lispPackagesFor abcl);
-    cclPackages   = dontRecurseIntoAttrs (lispPackagesFor ccl);
+    sbclPackages = recurseIntoAttrs (lispPackagesFor sbcl);
+    eclPackages = dontRecurseIntoAttrs (lispPackagesFor ecl);
+    abclPackages = dontRecurseIntoAttrs (lispPackagesFor abcl);
+    cclPackages = dontRecurseIntoAttrs (lispPackagesFor ccl);
     # claspPackages = lispPackagesFor clasp;
 
-    sbclWithPackages  = lispWithPackages sbcl;
-    eclWithPackages   = lispWithPackages ecl;
-    abclWithPackages  = lispWithPackages abcl;
-    cclWithPackages   = lispWithPackages ccl;
+    sbclWithPackages = lispWithPackages sbcl;
+    eclWithPackages = lispWithPackages ecl;
+    abclWithPackages = lispWithPackages abcl;
+    cclWithPackages = lispWithPackages ccl;
     # claspWithPackages = lispWithPackages clasp;
   };
 

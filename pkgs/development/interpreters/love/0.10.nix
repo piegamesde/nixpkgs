@@ -1,8 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config
-, SDL2, libGLU, libGL, openal, luajit
-, libdevil, freetype, physfs, libmodplug, mpg123, libvorbis, libogg
-, libtheora, which, autoconf, automake, libtool
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, SDL2, libGLU, libGL, openal, luajit
+, libdevil, freetype, physfs, libmodplug, mpg123, libvorbis, libogg, libtheora
+, which, autoconf, automake, libtool }:
 
 stdenv.mkDerivation rec {
   pname = "love";
@@ -17,17 +15,29 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config autoconf automake ];
   buildInputs = [
-    SDL2 libGLU libGL openal luajit libdevil freetype physfs libmodplug mpg123
-    libvorbis libogg libtheora which libtool
+    SDL2
+    libGLU
+    libGL
+    openal
+    luajit
+    libdevil
+    freetype
+    physfs
+    libmodplug
+    mpg123
+    libvorbis
+    libogg
+    libtheora
+    which
+    libtool
   ];
 
   preConfigure = "$shell ./platform/unix/automagic";
 
-  configureFlags = [
-    "--with-lua=luajit"
-  ];
+  configureFlags = [ "--with-lua=luajit" ];
 
-  env.NIX_CFLAGS_COMPILE = "-DluaL_reg=luaL_Reg"; # needed since luajit-2.1.0-beta3
+  env.NIX_CFLAGS_COMPILE =
+    "-DluaL_reg=luaL_Reg"; # needed since luajit-2.1.0-beta3
 
   meta = {
     homepage = "https://love2d.org";

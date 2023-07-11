@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "1.7.3";
 
   src = fetchurl {
-    url = "https://github.com/tlaplus/tlaplus/releases/download/v${version}/tla2tools.jar";
+    url =
+      "https://github.com/tlaplus/tlaplus/releases/download/v${version}/tla2tools.jar";
     sha256 = "sha256-5P8V6oH05voSXAgwBDclSxdxdMalrfaNpElkar4IUZ0=";
   };
 
@@ -28,11 +29,12 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "An algorithm specification language with model checking tools";
-    homepage    = "http://lamport.azurewebsites.net/tla/tla.html";
+    description =
+      "An algorithm specification language with model checking tools";
+    homepage = "http://lamport.azurewebsites.net/tla/tla.html";
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
-    license     = lib.licenses.mit;
-    platforms   = lib.platforms.unix;
+    license = lib.licenses.mit;
+    platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ florentc thoughtpolice ];
   };
 }

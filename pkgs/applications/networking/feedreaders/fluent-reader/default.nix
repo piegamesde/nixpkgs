@@ -5,7 +5,8 @@ let
   version = "1.1.3";
 
   src = fetchurl {
-    url = "https://github.com/yang991178/fluent-reader/releases/download/v${version}/Fluent.Reader.${version}.AppImage";
+    url =
+      "https://github.com/yang991178/fluent-reader/releases/download/v${version}/Fluent.Reader.${version}.AppImage";
     hash = "sha256-CzvhOaWfZ4rt2HmL/yv6P7IxEPLoyuBhftOxcjdMInU=";
   };
 
@@ -26,7 +27,8 @@ in appimageTools.wrapType2 {
   '';
 
   meta = with lib; {
-    description = "Modern desktop RSS reader built with Electron, React, and Fluent UI";
+    description =
+      "Modern desktop RSS reader built with Electron, React, and Fluent UI";
     homepage = "https://hyliu.me/fluent-reader";
     license = licenses.bsd3;
     platforms = [ "x86_64-linux" ];

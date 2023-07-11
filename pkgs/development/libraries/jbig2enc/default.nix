@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, leptonica
-, zlib
-, libwebp
-, giflib
-, libjpeg
-, libpng
-, libtiff
-, autoreconfHook
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, leptonica, zlib, libwebp, giflib
+, libjpeg, libpng, libtiff, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "jbig2enc";
@@ -24,20 +13,14 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
-  propagatedBuildInputs = [
-    leptonica
-    zlib
-    libwebp
-    giflib
-    libjpeg
-    libpng
-    libtiff
-  ];
+  propagatedBuildInputs =
+    [ leptonica zlib libwebp giflib libjpeg libpng libtiff ];
 
   patches = [
     (fetchpatch {
       name = "fix-build-leptonica-1.83.patch";
-      url = "https://github.com/agl/jbig2enc/commit/ea050190466f5336c69c6a11baa1cb686677fcab.patch";
+      url =
+        "https://github.com/agl/jbig2enc/commit/ea050190466f5336c69c6a11baa1cb686677fcab.patch";
       hash = "sha256-+kScjFgDEU9F7VOUNAhm2XBjGm49fzAH8hYhmTm8xv8=";
     })
   ];

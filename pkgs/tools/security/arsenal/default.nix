@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "arsenal";
@@ -26,9 +23,7 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "arsenal"
-  ];
+  pythonImportsCheck = [ "arsenal" ];
 
   meta = with lib; {
     description = "Tool to generate commands for security and network tools";

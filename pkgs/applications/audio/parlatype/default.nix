@@ -1,25 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, appstream-glib
-, dbus
-, desktop-file-utils
-, gettext
-, glib
-, gobject-introspection
-, gsettings-desktop-schemas
-, gst_all_1
-, gtk3
-, hicolor-icon-theme
-, isocodes
-, itstool
-, libxml2
-, meson
-, ninja
-, pkg-config
-, python3
-, wrapGAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, appstream-glib, dbus, desktop-file-utils
+, gettext, glib, gobject-introspection, gsettings-desktop-schemas, gst_all_1
+, gtk3, hicolor-icon-theme, isocodes, itstool, libxml2, meson, ninja, pkg-config
+, python3, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "parlatype";

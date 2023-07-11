@@ -1,18 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, asn1tools
-, coincurve
-, eth-hash
-, eth-typing
-, eth-utils
-, factory_boy
-, hypothesis
-, isPyPy
-, pyasn1
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, asn1tools, coincurve, eth-hash
+, eth-typing, eth-utils, factory_boy, hypothesis, isPyPy, pyasn1
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "eth-keys";
@@ -26,20 +14,13 @@ buildPythonPackage rec {
     hash = "sha256-jG/jJPM4t3z6UQIdc8L6y0DxZiGx5pVuGL8XwbIt60o=";
   };
 
-  propagatedBuildInputs = [
-    eth-typing
-    eth-utils
-  ];
+  propagatedBuildInputs = [ eth-typing eth-utils ];
 
-  nativeCheckInputs = [
-    asn1tools
-    factory_boy
-    hypothesis
-    pyasn1
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.coincurve
-  ++ lib.optional (!isPyPy) eth-hash.optional-dependencies.pysha3
-  ++ lib.optional isPyPy eth-hash.optional-dependencies.pycryptodome;
+  nativeCheckInputs =
+    [ asn1tools factory_boy hypothesis pyasn1 pytestCheckHook ]
+    ++ passthru.optional-dependencies.coincurve
+    ++ lib.optional (!isPyPy) eth-hash.optional-dependencies.pysha3
+    ++ lib.optional isPyPy eth-hash.optional-dependencies.pycryptodome;
 
   disabledTests = [
     # tests are broken
@@ -56,9 +37,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "eth_keys" ];
 
-  passthru.optional-dependencies = {
-    coincurve = [ coincurve ];
-  };
+  passthru.optional-dependencies = { coincurve = [ coincurve ]; };
 
   meta = with lib; {
     description = "Common API for Ethereum key operations";

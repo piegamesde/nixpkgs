@@ -1,9 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, fetchpatch
-, netlify-cli
-}:
+{ lib, buildGoModule, fetchFromGitHub, fetchpatch, netlify-cli }:
 
 buildGoModule rec {
   pname = "esbuild";
@@ -18,11 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-QPkBR+FscUc3jOvH7olcGUhM6OW4vxawmNJuRQxPuGs=";
 
-  passthru = {
-    tests = {
-      inherit netlify-cli;
-    };
-  };
+  passthru = { tests = { inherit netlify-cli; }; };
 
   meta = with lib; {
     description = "A fork of esbuild maintained by netlify";

@@ -1,25 +1,6 @@
-{ lib
-, buildPythonPackage
-, capstone
-, crytic-compile
-, fetchFromGitHub
-, intervaltree
-, ply
-, prettytable
-, protobuf
-, pyelftools
-, pyevmasm
-, pysha3
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, rlp
-, stdenv
-, unicorn
-, wasm
-, yices
-, z3
-}:
+{ lib, buildPythonPackage, capstone, crytic-compile, fetchFromGitHub
+, intervaltree, ply, prettytable, protobuf, pyelftools, pyevmasm, pysha3
+, pytestCheckHook, pythonOlder, pyyaml, rlp, stdenv, unicorn, wasm, yices, z3 }:
 
 buildPythonPackage rec {
   pname = "manticore";
@@ -46,11 +27,7 @@ buildPythonPackage rec {
     pyyaml
     rlp
     wasm
-  ] ++ lib.optionals (stdenv.isLinux) [
-    capstone
-    pyelftools
-    unicorn
-  ];
+  ] ++ lib.optionals (stdenv.isLinux) [ capstone pyelftools unicorn ];
 
   postPatch = ''
     # Python API is not used in the code, only z3 from PATH
@@ -59,9 +36,7 @@ buildPythonPackage rec {
       --replace "crytic-compile==0.2.2" "crytic-compile>=0.2.2"
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     export PATH=${yices}/bin:${z3}/bin:$PATH
@@ -119,16 +94,16 @@ buildPythonPackage rec {
     "test_integration_resume"
   ];
 
-  pythonImportsCheck = [
-    "manticore"
-  ];
+  pythonImportsCheck = [ "manticore" ];
 
   meta = with lib; {
     # m.c.manticore:WARNING: Manticore is only supported on Linux. Proceed at your own risk!
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;
-    description = "Symbolic execution tool for analysis of smart contracts and binaries";
+    description =
+      "Symbolic execution tool for analysis of smart contracts and binaries";
     homepage = "https://github.com/trailofbits/manticore";
-    changelog = "https://github.com/trailofbits/manticore/releases/tag/${version}";
+    changelog =
+      "https://github.com/trailofbits/manticore/releases/tag/${version}";
     license = licenses.agpl3Only;
     platforms = platforms.unix;
     maintainers = with maintainers; [ arturcygan ];

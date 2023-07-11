@@ -1,21 +1,6 @@
-{ stdenv
-, lib
-, fetchurl
-, substituteAll
-, meson
-, ninja
-, nixosTests
-, pkg-config
-, glib
-, gettext
-, makeWrapper
-, gnutls
-, p11-kit
-, libproxy
-, gnome
-, gsettings-desktop-schemas
-, bash
-}:
+{ stdenv, lib, fetchurl, substituteAll, meson, ninja, nixosTests, pkg-config
+, glib, gettext, makeWrapper, gnutls, p11-kit, libproxy, gnome
+, gsettings-desktop-schemas, bash }:
 
 stdenv.mkDerivation rec {
   pname = "glib-networking";
@@ -24,7 +9,9 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "installedTests" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "FJoFoXnmKaU4viVmKqMktJnXxFScUVHbU3PngKG/G5o=";
   };
 
@@ -78,9 +65,7 @@ stdenv.mkDerivation rec {
       versionPolicy = "odd-unstable";
     };
 
-    tests = {
-      installedTests = nixosTests.installed-tests.glib-networking;
-    };
+    tests = { installedTests = nixosTests.installed-tests.glib-networking; };
   };
 
   meta = with lib; {

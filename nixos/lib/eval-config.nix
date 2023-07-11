@@ -8,36 +8,28 @@
 # as subcomponents (e.g. the container feature, or nixops if network
 # expressions are ever made modular at the top level) can just use
 # types.submodule instead of using eval-config.nix
-evalConfigArgs@
-{ # !!! system can be set modularly, would be nice to remove,
-  #     however, removing or changing this default is too much
-  #     of a breaking change. To set it modularly, pass `null`.
-  system ? builtins.currentSystem
+evalConfigArgs@{ # !!! system can be set modularly, would be nice to remove,
+#     however, removing or changing this default is too much
+#     of a breaking change. To set it modularly, pass `null`.
+system ? builtins.currentSystem
 , # !!! is this argument needed any more? The pkgs argument can
-  # be set modularly anyway.
-  pkgs ? null
-, # !!! what do we gain by making this configurable?
-  #     we can add modules that are included in specialisations, regardless
-  #     of inheritParentConfig.
-  baseModules ? import ../modules/module-list.nix
+# be set modularly anyway.
+pkgs ? null, # !!! what do we gain by making this configurable?
+#     we can add modules that are included in specialisations, regardless
+#     of inheritParentConfig.
+baseModules ? import ../modules/module-list.nix
 , # !!! See comment about args in lib/modules.nix
-  extraArgs ? {}
-, # !!! See comment about args in lib/modules.nix
-  specialArgs ? {}
-, modules
-, modulesLocation ? (builtins.unsafeGetAttrPos "modules" evalConfigArgs).file or null
+extraArgs ? { }, # !!! See comment about args in lib/modules.nix
+specialArgs ? { }, modules, modulesLocation ?
+  (builtins.unsafeGetAttrPos "modules" evalConfigArgs).file or null
 , # !!! See comment about check in lib/modules.nix
-  check ? true
-, prefix ? []
-, lib ? import ../../lib
-, extraModules ? let e = builtins.getEnv "NIXOS_EXTRA_MODULE_PATH";
-                 in if e == "" then [] else [(import e)]
-}:
+check ? true, prefix ? [ ], lib ? import ../../lib, extraModules ?
+  let e = builtins.getEnv "NIXOS_EXTRA_MODULE_PATH";
+  in if e == "" then [ ] else [ (import e) ] }:
 
 let pkgs_ = pkgs;
-in
 
-let
+in let
   evalModulesMinimal = (import ./default.nix {
     inherit lib;
     # Implicit use of feature is noted in implementation.
@@ -59,33 +51,26 @@ let
   };
 
   withWarnings = x:
-    lib.warnIf (evalConfigArgs?extraArgs) "The extraArgs argument to eval-config.nix is deprecated. Please set config._module.args instead."
-    lib.warnIf (evalConfigArgs?check) "The check argument to eval-config.nix is deprecated. Please set config._module.check instead."
+    lib.warnIf (evalConfigArgs ? extraArgs)
+    "The extraArgs argument to eval-config.nix is deprecated. Please set config._module.args instead."
+    lib.warnIf (evalConfigArgs ? check)
+    "The check argument to eval-config.nix is deprecated. Please set config._module.check instead."
     x;
 
-  legacyModules =
-    lib.optional (evalConfigArgs?extraArgs) {
-      config = {
-        _module.args = extraArgs;
-      };
-    }
-    ++ lib.optional (evalConfigArgs?check) {
-      config = {
-        _module.check = lib.mkDefault check;
-      };
-    };
+  legacyModules = lib.optional (evalConfigArgs ? extraArgs) {
+    config = { _module.args = extraArgs; };
+  } ++ lib.optional (evalConfigArgs ? check) {
+    config = { _module.check = lib.mkDefault check; };
+  };
 
-  allUserModules =
-    let
-      # Add the invoking file (or specified modulesLocation) as error message location
-      # for modules that don't have their own locations; presumably inline modules.
-      locatedModules =
-        if modulesLocation == null then
-          modules
-        else
-          map (lib.setDefaultModuleLocation modulesLocation) modules;
-    in
-      locatedModules ++ legacyModules;
+  allUserModules = let
+    # Add the invoking file (or specified modulesLocation) as error message location
+    # for modules that don't have their own locations; presumably inline modules.
+    locatedModules = if modulesLocation == null then
+      modules
+    else
+      map (lib.setDefaultModuleLocation modulesLocation) modules;
+  in locatedModules ++ legacyModules;
 
   noUserModules = evalModulesMinimal ({
     inherit prefix specialArgs;
@@ -101,10 +86,10 @@ let
     };
   };
 
-  nixosWithUserModules = noUserModules.extendModules { modules = allUserModules; };
+  nixosWithUserModules =
+    noUserModules.extendModules { modules = allUserModules; };
 
-in
-withWarnings nixosWithUserModules // {
+in withWarnings nixosWithUserModules // {
   inherit extraArgs;
   inherit (nixosWithUserModules._module.args) pkgs;
 }

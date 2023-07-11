@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pyserial
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pyserial, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "python-velbus";
@@ -17,16 +12,12 @@ buildPythonPackage rec {
     hash = "sha256-SbuECT6851E+QNyyPaNTnKmH54fYovemSto8gvfMIKg=";
   };
 
-  propagatedBuildInputs = [
-    pyserial
-  ];
+  propagatedBuildInputs = [ pyserial ];
 
   # Project has not tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "velbus"
-  ];
+  pythonImportsCheck = [ "velbus" ];
 
   meta = with lib; {
     description = "Python library to control the Velbus home automation system";

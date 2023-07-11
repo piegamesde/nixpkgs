@@ -1,26 +1,24 @@
-{ stdenv, lib, fetchurl, makeWrapper, unzip, python3, unar, ffmpeg, nixosTests }:
+{ stdenv, lib, fetchurl, makeWrapper, unzip, python3, unar, ffmpeg, nixosTests
+}:
 
-let
-  runtimeProgDeps = [
-    ffmpeg
-    unar
-  ];
-in
-stdenv.mkDerivation rec {
+let runtimeProgDeps = [ ffmpeg unar ];
+in stdenv.mkDerivation rec {
   pname = "bazarr";
   version = "1.2.0";
 
   sourceRoot = ".";
 
   src = fetchurl {
-    url = "https://github.com/morpheus65535/bazarr/releases/download/v${version}/bazarr.zip";
+    url =
+      "https://github.com/morpheus65535/bazarr/releases/download/v${version}/bazarr.zip";
     sha256 = "sha256-rlph8On/dc9Xyx8/KQzp4vX49wY4fr1oTtBEyfVhrsc=";
   };
 
   nativeBuildInputs = [ unzip makeWrapper ];
 
   buildInputs = [
-    (python3.withPackages (ps: [ ps.lxml ps.numpy ps.gevent ps.gevent-websocket ]))
+    (python3.withPackages
+      (ps: [ ps.lxml ps.numpy ps.gevent ps.gevent-websocket ]))
   ] ++ runtimeProgDeps;
 
   installPhase = ''
@@ -41,9 +39,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = {
-    smoke-test = nixosTests.bazarr;
-  };
+  passthru.tests = { smoke-test = nixosTests.bazarr; };
 
   meta = with lib; {
     description = "Subtitle manager for Sonarr and Radarr";

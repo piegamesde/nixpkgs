@@ -1,9 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, protobuf
-, isStatic ? stdenv.hostPlatform.isStatic
-}:
+{ lib, stdenv, fetchFromGitHub, protobuf
+, isStatic ? stdenv.hostPlatform.isStatic }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "protoc-gen-grpc-web";
@@ -23,10 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ protobuf ];
   buildInputs = [ protobuf ];
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "STATIC=${if isStatic then "yes" else "no"}"
-  ];
+  makeFlags = [ "PREFIX=$(out)" "STATIC=${if isStatic then "yes" else "no"}" ];
 
   doCheck = true;
   nativeCheckInputs = [ protobuf ];
@@ -50,7 +43,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     homepage = "https://github.com/grpc/grpc-web";
-    changelog = "https://github.com/grpc/grpc-web/blob/${finalAttrs.version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/grpc/grpc-web/blob/${finalAttrs.version}/CHANGELOG.md";
     description = "gRPC web support for Google's protocol buffers";
     license = licenses.asl20;
     maintainers = with maintainers; [ jk ];

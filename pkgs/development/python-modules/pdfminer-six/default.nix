@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, isPy3k
-, cryptography
-, charset-normalizer
-, pythonOlder
-, typing-extensions
-, pytestCheckHook
-, ocrmypdf
+{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, cryptography
+, charset-normalizer, pythonOlder, typing-extensions, pytestCheckHook, ocrmypdf
 }:
 
 buildPythonPackage rec {
@@ -24,10 +16,8 @@ buildPythonPackage rec {
     hash = "sha256-OyEeQBuYfj4iEcRt2/daSaUfTOjCVSCyHW2qffal+Bk=";
   };
 
-  propagatedBuildInputs = [
-    charset-normalizer
-    cryptography
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [ charset-normalizer cryptography ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   postInstall = ''
     for file in $out/bin/*.py; do
@@ -41,20 +31,11 @@ buildPythonPackage rec {
     substituteInPlace pdfminer/__init__.py --replace "__VERSION__" ${version}
   '';
 
-  pythonImportsCheck = [
-    "pdfminer"
-    "pdfminer.high_level"
-  ];
+  pythonImportsCheck = [ "pdfminer" "pdfminer.high_level" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  passthru = {
-    tests = {
-      inherit ocrmypdf;
-    };
-  };
+  passthru = { tests = { inherit ocrmypdf; }; };
 
   meta = with lib; {
     description = "PDF parser and analyzer";

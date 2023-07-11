@@ -1,22 +1,6 @@
-{ lib
-, attrs
-, buildPythonPackage
-, colorlog
-, csvw
-, fetchFromGitHub
-, git
-, isPy27
-, lxml
-, markdown
-, markupsafe
-, mock
-, postgresql
-, pylatexenc
-, pytest-mock
-, pytestCheckHook
-, python-dateutil
-, tabulate
-}:
+{ lib, attrs, buildPythonPackage, colorlog, csvw, fetchFromGitHub, git, isPy27
+, lxml, markdown, markupsafe, mock, postgresql, pylatexenc, pytest-mock
+, pytestCheckHook, python-dateutil, tabulate }:
 
 buildPythonPackage rec {
   pname = "clldutils";
@@ -46,13 +30,7 @@ buildPythonPackage rec {
     tabulate
   ];
 
-  nativeCheckInputs = [
-    mock
-    postgresql
-    pytest-mock
-    pytestCheckHook
-    git
-  ];
+  nativeCheckInputs = [ mock postgresql pytest-mock pytestCheckHook git ];
 
   disabledTests = [
     # uses pytest.approx which is not supported in a boolean context in pytest7
@@ -61,7 +39,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Utilities for clld apps without the overhead of requiring pyramid, rdflib et al";
+    description =
+      "Utilities for clld apps without the overhead of requiring pyramid, rdflib et al";
     homepage = "https://github.com/clld/clldutils";
     license = licenses.asl20;
     maintainers = with maintainers; [ melling ];

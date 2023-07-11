@@ -1,5 +1,4 @@
-{ lib, fetchFromGitHub, python3Packages, libusb1, linuxHeaders
-}:
+{ lib, fetchFromGitHub, python3Packages, libusb1, linuxHeaders }:
 
 with python3Packages;
 
@@ -8,9 +7,9 @@ buildPythonApplication {
   version = "2017-08-11";
 
   src = fetchFromGitHub {
-    owner  = "ynsta";
-    repo   = "steamcontroller";
-    rev    = "80928ce237925e0d0d7a65a45b481435ba6b931e";
+    owner = "ynsta";
+    repo = "steamcontroller";
+    rev = "80928ce237925e0d0d7a65a45b481435ba6b931e";
     sha256 = "0lv9j2zv8fmkmc0x9r7fa8zac2xrwfczms35qz1nfa1hr84wniid";
   };
 
@@ -26,9 +25,9 @@ buildPythonApplication {
 
   meta = with lib; {
     description = "A standalone Steam controller driver";
-    homepage    = "https://github.com/ynsta/steamcontroller";
-    license     = licenses.mit;
+    homepage = "https://github.com/ynsta/steamcontroller";
+    license = licenses.mit;
     maintainers = with maintainers; [ rnhmjoj ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, py
-, pytest
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, py, pytest, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pytest-datafiles";
@@ -21,21 +15,15 @@ buildPythonPackage rec {
     hash = "sha256-YFD8M5TG6VtLRX04R3u0jtYDDlaK32D4ArWxS6x2b/E=";
   };
 
-  buildInputs = [
-    py
-    pytest
-  ];
+  buildInputs = [ py pytest ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pytest_datafiles"
-  ];
+  pythonImportsCheck = [ "pytest_datafiles" ];
 
   meta = with lib; {
-    description = "Pytest plugin to create a tmpdir containing predefined files/directories";
+    description =
+      "Pytest plugin to create a tmpdir containing predefined files/directories";
     homepage = "https://github.com/omarkohl/pytest-datafiles";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

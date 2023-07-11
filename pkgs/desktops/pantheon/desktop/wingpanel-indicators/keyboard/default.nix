@@ -1,21 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, pkg-config
-, meson
-, ninja
-, substituteAll
-, vala
-, gtk3
-, granite
-, libxml2
-, wingpanel
-, libgee
-, xorg
-, libgnomekbd
-, ibus
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, pkg-config, meson, ninja
+, substituteAll, vala, gtk3, granite, libxml2, wingpanel, libgee, xorg
+, libgnomekbd, ibus }:
 
 stdenv.mkDerivation rec {
   pname = "wingpanel-indicator-keyboard";
@@ -35,26 +20,11 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    libxml2
-    pkg-config
-    vala
-  ];
+  nativeBuildInputs = [ meson ninja libxml2 pkg-config vala ];
 
-  buildInputs = [
-    granite
-    gtk3
-    ibus
-    libgee
-    wingpanel
-    xorg.xkeyboardconfig
-  ];
+  buildInputs = [ granite gtk3 ibus libgee wingpanel xorg.xkeyboardconfig ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Keyboard Indicator for Wingpanel";

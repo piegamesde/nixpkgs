@@ -8,20 +8,20 @@ let
   hookType = types.lines;
 
   matrixOf = n: m: elemType:
-  mkOptionType rec {
-    name = "matrixOf";
-    description =
-      "${toString n}×${toString m} matrix of ${elemType.description}s";
-    check = xss:
-      let listOfSize = l: xs: isList xs && length xs == l;
-      in listOfSize n xss
-      && all (xs: listOfSize m xs && all elemType.check xs) xss;
-    merge = mergeOneOption;
-    getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "*" "*" ]);
-    getSubModules = elemType.getSubModules;
-    substSubModules = mod: matrixOf n m (elemType.substSubModules mod);
-    functor = (defaultFunctor name) // { wrapped = elemType; };
-  };
+    mkOptionType rec {
+      name = "matrixOf";
+      description =
+        "${toString n}×${toString m} matrix of ${elemType.description}s";
+      check = xss:
+        let listOfSize = l: xs: isList xs && length xs == l;
+        in listOfSize n xss
+        && all (xs: listOfSize m xs && all elemType.check xs) xss;
+      merge = mergeOneOption;
+      getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "*" "*" ]);
+      getSubModules = elemType.getSubModules;
+      substSubModules = mod: matrixOf n m (elemType.substSubModules mod);
+      functor = (defaultFunctor name) // { wrapped = elemType; };
+    };
 
   profileModule = types.submodule {
     options = {
@@ -242,7 +242,8 @@ in {
   options = {
 
     services.autorandr = {
-      enable = mkEnableOption (lib.mdDoc "handling of hotplug and sleep events by autorandr");
+      enable = mkEnableOption
+        (lib.mdDoc "handling of hotplug and sleep events by autorandr");
 
       defaultTarget = mkOption {
         default = "default";
@@ -257,7 +258,8 @@ in {
       ignoreLid = mkOption {
         default = false;
         type = types.bool;
-        description = lib.mdDoc "Treat outputs as connected even if their lids are closed";
+        description =
+          lib.mdDoc "Treat outputs as connected even if their lids are closed";
       };
 
       hooks = mkOption {

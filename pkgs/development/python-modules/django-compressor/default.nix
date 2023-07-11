@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, rcssmin
-, rjsmin
-, django-appconf
-, beautifulsoup4
-, brotli
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, rcssmin, rjsmin, django-appconf
+, beautifulsoup4, brotli, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "django-compressor";
@@ -26,28 +18,19 @@ buildPythonPackage rec {
       --replace "rjsmin == 1.2.0" "rjsmin>=1.2.0"
   '';
 
-  propagatedBuildInputs = [
-    rcssmin
-    rjsmin
-    django-appconf
-  ];
+  propagatedBuildInputs = [ rcssmin rjsmin django-appconf ];
 
-  pythonImportsCheck = [
-    "compressor"
-  ];
+  pythonImportsCheck = [ "compressor" ];
 
   doCheck = false; # missing package django-sekizai
 
-  nativeCheckInputs = [
-    beautifulsoup4
-    brotli
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ beautifulsoup4 brotli pytestCheckHook ];
 
   DJANGO_SETTINGS_MODULE = "compressor.test_settings";
 
   meta = with lib; {
-    description = "Compresses linked and inline JavaScript or CSS into single cached files";
+    description =
+      "Compresses linked and inline JavaScript or CSS into single cached files";
     homepage = "https://django-compressor.readthedocs.org/en/latest/";
     license = licenses.mit;
     maintainers = with maintainers; [ desiderius ];

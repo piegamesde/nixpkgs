@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "tlv8";
@@ -17,13 +13,9 @@ buildPythonPackage rec {
     sha256 = "sha256-G35xMFYasKD3LnGi9q8wBmmFvqgtg0HPdC+y82nxRWA=";
   };
 
-  checkInputs = [
-    pytestCheckHook
-  ];
+  checkInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "tlv8"
-  ];
+  pythonImportsCheck = [ "tlv8" ];
 
   meta = with lib; {
     description = "Type-Length-Value8 (TLV8) for Python";

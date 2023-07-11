@@ -1,17 +1,6 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, eventlet
-, fetchPypi
-, gevent
-, pkgs
-, process-tests
-, pytestCheckHook
-, pythonOlder
-, redis
-, withDjango ? false
-, django-redis
-}:
+{ lib, stdenv, buildPythonPackage, eventlet, fetchPypi, gevent, pkgs
+, process-tests, pytestCheckHook, pythonOlder, redis, withDjango ? false
+, django-redis }:
 
 buildPythonPackage rec {
   pname = "python-redis-lock";
@@ -25,19 +14,11 @@ buildPythonPackage rec {
     hash = "sha256-Sr0Lz0kTasrWZye/VIbdJJQHjKVeSe+mk/eUB3MZCRo=";
   };
 
-  propagatedBuildInputs = [
-    redis
-  ] ++ lib.optionals withDjango [
-    django-redis
-  ];
+  propagatedBuildInputs = [ redis ]
+    ++ lib.optionals withDjango [ django-redis ];
 
-  nativeCheckInputs = [
-    eventlet
-    gevent
-    pytestCheckHook
-    process-tests
-    pkgs.redis
-  ];
+  nativeCheckInputs =
+    [ eventlet gevent pytestCheckHook process-tests pkgs.redis ];
 
   disabledTests = [
     # https://github.com/ionelmc/python-redis-lock/issues/86
@@ -48,12 +29,11 @@ buildPythonPackage rec {
     "test_reset_all_signalizes"
   ];
 
-  pythonImportsCheck = [
-    "redis_lock"
-  ];
+  pythonImportsCheck = [ "redis_lock" ];
 
   meta = with lib; {
-    changelog = "https://github.com/ionelmc/python-redis-lock/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/ionelmc/python-redis-lock/blob/v${version}/CHANGELOG.rst";
     description = "Lock context manager implemented via redis SETNX/BLPOP";
     homepage = "https://github.com/ionelmc/python-redis-lock";
     license = licenses.bsd2;

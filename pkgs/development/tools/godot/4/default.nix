@@ -1,39 +1,15 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, pkg-config
-, autoPatchelfHook
-, installShellFiles
-, scons
-, vulkan-loader
-, libGL
-, libX11
-, libXcursor
-, libXinerama
-, libXext
-, libXrandr
-, libXrender
-, libXi
-, libXfixes
-, libxkbcommon
-, alsa-lib
-, libpulseaudio
-, dbus
-, speechd
-, fontconfig
-, udev
-, withPlatform ? "linuxbsd"
-, withTarget ? "editor"
-, withPrecision ? "single"
-, withPulseaudio ? true
-, withDbus ? true
-, withSpeechd ? true
-, withFontconfig ? true
-, withUdev ? true
-, withTouch ? true
-}:
+{ stdenv, lib, fetchFromGitHub, pkg-config, autoPatchelfHook, installShellFiles
+, scons, vulkan-loader, libGL, libX11, libXcursor, libXinerama, libXext
+, libXrandr, libXrender, libXi, libXfixes, libxkbcommon, alsa-lib, libpulseaudio
+, dbus, speechd, fontconfig, udev, withPlatform ? "linuxbsd"
+, withTarget ? "editor", withPrecision ? "single", withPulseaudio ? true
+, withDbus ? true, withSpeechd ? true, withFontconfig ? true, withUdev ? true
+, withTouch ? true }:
 
-assert lib.asserts.assertOneOf "withPrecision" withPrecision [ "single" "double" ];
+assert lib.asserts.assertOneOf "withPrecision" withPrecision [
+  "single"
+  "double"
+];
 
 let
   options = {
@@ -44,14 +20,14 @@ let
 
     # Options from 'godot/platform/linuxbsd/detect.py'
     pulseaudio = withPulseaudio; # Use PulseAudio
-    dbus = withDbus; # Use D-Bus to handle screensaver and portal desktop settings
+    dbus =
+      withDbus; # Use D-Bus to handle screensaver and portal desktop settings
     speechd = withSpeechd; # Use Speech Dispatcher for Text-to-Speech support
     fontconfig = withFontconfig; # Use fontconfig for system fonts support
     udev = withUdev; # Use udev for gamepad connection callbacks
     touch = withTouch; # Enable touch events
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "godot";
   version = "4.0.2-stable";
 
@@ -62,15 +38,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-kFIpY8kHa8ds/JgYWcUMB4RhwcJDebfeWFnI3BkFWiI=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    autoPatchelfHook
-    installShellFiles
-  ];
+  nativeBuildInputs = [ pkg-config autoPatchelfHook installShellFiles ];
 
-  buildInputs = [
-    scons
-  ];
+  buildInputs = [ scons ];
 
   runtimeDependencies = [
     vulkan-loader
@@ -85,14 +55,10 @@ stdenv.mkDerivation rec {
     libXfixes
     libxkbcommon
     alsa-lib
-  ]
-  ++ lib.optional withPulseaudio libpulseaudio
-  ++ lib.optional withDbus dbus
-  ++ lib.optional withDbus dbus.lib
-  ++ lib.optional withSpeechd speechd
-  ++ lib.optional withFontconfig fontconfig
-  ++ lib.optional withFontconfig fontconfig.lib
-  ++ lib.optional withUdev udev;
+  ] ++ lib.optional withPulseaudio libpulseaudio ++ lib.optional withDbus dbus
+    ++ lib.optional withDbus dbus.lib ++ lib.optional withSpeechd speechd
+    ++ lib.optional withFontconfig fontconfig
+    ++ lib.optional withFontconfig fontconfig.lib ++ lib.optional withUdev udev;
 
   enableParallelBuilding = true;
 

@@ -1,19 +1,6 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, eventlet
-, oslo-config
-, oslo-context
-, oslo-serialization
-, oslo-utils
-, oslotest
-, pbr
-, pyinotify
-, python-dateutil
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, eventlet, oslo-config
+, oslo-context, oslo-serialization, oslo-utils, oslotest, pbr, pyinotify
+, python-dateutil, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "oslo-log";
@@ -35,24 +22,16 @@ buildPythonPackage rec {
     oslo-utils
     pbr
     python-dateutil
-  ] ++ lib.optionals stdenv.isLinux [
-    pyinotify
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ pyinotify ];
 
-  nativeCheckInputs = [
-    eventlet
-    oslotest
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ eventlet oslotest pytestCheckHook ];
 
   disabledTests = [
     # not compatible with sandbox
     "test_logging_handle_error"
   ];
 
-  pythonImportsCheck = [
-    "oslo_log"
-  ];
+  pythonImportsCheck = [ "oslo_log" ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

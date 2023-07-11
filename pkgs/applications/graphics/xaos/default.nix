@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, qmake, qtbase, qttools, wrapQtAppsHook, copyDesktopItems }:
+{ lib, stdenv, fetchFromGitHub, qmake, qtbase, qttools, wrapQtAppsHook
+, copyDesktopItems }:
 
 let datapath = "$out/share/XaoS";
 in stdenv.mkDerivation rec {

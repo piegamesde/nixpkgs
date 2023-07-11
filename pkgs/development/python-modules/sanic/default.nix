@@ -1,26 +1,8 @@
-{ lib
-, stdenv
-, aiofiles
-, beautifulsoup4
-, buildPythonPackage
+{ lib, stdenv, aiofiles, beautifulsoup4, buildPythonPackage
 , doCheck ? !stdenv.isDarwin # on Darwin, tests fail but pkg still works
-, fetchFromGitHub
-, gunicorn
-, httptools
-, multidict
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, pythonAtLeast
-, sanic-routing
-, sanic-testing
-, setuptools
-, ujson
-, uvicorn
-, uvloop
-, websockets
-, aioquic
-}:
+, fetchFromGitHub, gunicorn, httptools, multidict, pytest-asyncio
+, pytestCheckHook, pythonOlder, pythonAtLeast, sanic-routing, sanic-testing
+, setuptools, ujson, uvicorn, uvloop, websockets, aioquic }:
 
 buildPythonPackage rec {
   pname = "sanic";
@@ -36,9 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-Vj780rP5rJ+YsMWlb3BR9LTKT/nTt0C2H3J0X9sysj8=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [
     aiofiles
@@ -77,10 +57,7 @@ buildPythonPackage rec {
   # uvloop usage is buggy
   #SANIC_NO_UVLOOP = true;
 
-  pytestFlagsArray = [
-    "--asyncio-mode=auto"
-    "-vvv"
-  ];
+  pytestFlagsArray = [ "--asyncio-mode=auto" "-vvv" ];
 
   disabledTests = [
     # Require networking

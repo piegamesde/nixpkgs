@@ -1,32 +1,29 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, makeDesktopItem, copyDesktopItems, makeWrapper, electron
-, nodePackages, alsa-lib, gtk3, libdbusmenu, libxshmfence, mesa, nss }:
+{ lib, stdenv, fetchurl, autoPatchelfHook, makeDesktopItem, copyDesktopItems
+, makeWrapper, electron, nodePackages, alsa-lib, gtk3, libdbusmenu, libxshmfence
+, mesa, nss }:
 
 stdenv.mkDerivation rec {
   pname = "whalebird";
   version = "4.7.4";
 
   src = let
-    downloads = "https://github.com/h3poteto/whalebird-desktop/releases/download/${version}";
-  in
-    if stdenv.system == "x86_64-linux" then
-      fetchurl {
-        url = downloads + "/Whalebird-${version}-linux-x64.tar.bz2";
-        sha256 = "sha256-jRtlnKlrh6If9wy3FqVBtctQO3rZJRwceUWAPmieT4A=";
-      }
-    else if stdenv.system == "aarch64-linux" then
-      fetchurl {
-        url = downloads + "/Whalebird-${version}-linux-arm64.tar.bz2";
-        sha256 = "sha256-gWCBH2zfhJdJ3XUAxvZ0+gBHye5uYCUgX1BDEoaruxY=";
-      }
-    else
-      throw "Whalebird is not supported for ${stdenv.system}";
+    downloads =
+      "https://github.com/h3poteto/whalebird-desktop/releases/download/${version}";
+  in if stdenv.system == "x86_64-linux" then
+    fetchurl {
+      url = downloads + "/Whalebird-${version}-linux-x64.tar.bz2";
+      sha256 = "sha256-jRtlnKlrh6If9wy3FqVBtctQO3rZJRwceUWAPmieT4A=";
+    }
+  else if stdenv.system == "aarch64-linux" then
+    fetchurl {
+      url = downloads + "/Whalebird-${version}-linux-arm64.tar.bz2";
+      sha256 = "sha256-gWCBH2zfhJdJ3XUAxvZ0+gBHye5uYCUgX1BDEoaruxY=";
+    }
+  else
+    throw "Whalebird is not supported for ${stdenv.system}";
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-    copyDesktopItems
-    nodePackages.asar
-  ];
+  nativeBuildInputs =
+    [ autoPatchelfHook makeWrapper copyDesktopItems nodePackages.asar ];
 
   buildInputs = [ alsa-lib gtk3 libdbusmenu libxshmfence mesa nss ];
 
@@ -80,7 +77,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Electron based Mastodon, Pleroma and Misskey client for Windows, Mac and Linux";
+    description =
+      "Electron based Mastodon, Pleroma and Misskey client for Windows, Mac and Linux";
     homepage = "https://whalebird.social";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mit;

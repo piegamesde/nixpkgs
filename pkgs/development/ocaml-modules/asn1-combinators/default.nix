@@ -1,6 +1,5 @@
-{ lib, buildDunePackage, fetchurl
-, cstruct, zarith, bigarray-compat, stdlib-shims, ptime, alcotest
-}:
+{ lib, buildDunePackage, fetchurl, cstruct, zarith, bigarray-compat
+, stdlib-shims, ptime, alcotest }:
 
 buildDunePackage rec {
   minimalOCamlVersion = "4.08";
@@ -10,7 +9,8 @@ buildDunePackage rec {
   version = "0.2.6";
 
   src = fetchurl {
-    url = "https://github.com/mirleft/ocaml-asn1-combinators/releases/download/v${version}/asn1-combinators-v${version}.tbz";
+    url =
+      "https://github.com/mirleft/ocaml-asn1-combinators/releases/download/v${version}/asn1-combinators-v${version}.tbz";
     sha256 = "sha256-ASreDYhp72IQY3UsHPjqAm9rxwL+0Q35r1ZojikbGpE=";
   };
 

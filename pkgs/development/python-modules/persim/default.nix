@@ -1,18 +1,6 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, deprecated
-, hopcroftkarp
-, joblib
-, matplotlib
-, numpy
-, scikit-learn
-, scipy
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, deprecated, hopcroftkarp, joblib
+, matplotlib, numpy, scikit-learn, scipy, pytestCheckHook, pythonAtLeast
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "persim";
@@ -26,19 +14,10 @@ buildPythonPackage rec {
     hash = "sha256-7w8KJHrc9hBOysFBF9sLJFgXEOqKjZZIFoBTlXALSXU=";
   };
 
-  propagatedBuildInputs = [
-    deprecated
-    hopcroftkarp
-    joblib
-    matplotlib
-    numpy
-    scikit-learn
-    scipy
-  ];
+  propagatedBuildInputs =
+    [ deprecated hopcroftkarp joblib matplotlib numpy scikit-learn scipy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     # specifically needed for darwin
@@ -47,9 +26,7 @@ buildPythonPackage rec {
     echo "backend: ps" > $HOME/.matplotlib/matplotlibrc
   '';
 
-  pythonImportsCheck = [
-    "persim"
-  ];
+  pythonImportsCheck = [ "persim" ];
 
   disabledTests = lib.optionals (pythonAtLeast "3.10") [
     # AttributeError: module 'collections' has no attribute 'Iterable'

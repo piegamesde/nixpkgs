@@ -1,12 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, zlib, gnupg, gpgme, libidn2, libunistring, gobject-introspection
-, vala }:
+{ lib, stdenv, fetchurl, pkg-config, glib, zlib, gnupg, gpgme, libidn2
+, libunistring, gobject-introspection, vala }:
 
 stdenv.mkDerivation rec {
   version = "3.2.12";
   pname = "gmime";
 
   src = fetchurl { # https://github.com/jstedfast/gmime/releases
-    url = "https://github.com/jstedfast/gmime/releases/download/${version}/gmime-${version}.tar.xz";
+    url =
+      "https://github.com/jstedfast/gmime/releases/download/${version}/gmime-${version}.tar.xz";
     sha256 = "sha256-OPm3aBgjQsSExBIobbjVgRaX/4FiQ3wFea3w0G4icFs=";
   };
 
@@ -21,10 +22,9 @@ stdenv.mkDerivation rec {
     vala # for share/vala/Makefile.vapigen
   ];
   propagatedBuildInputs = [ glib ];
-  configureFlags = [
-    "--enable-introspection=yes"
-    "--enable-vala=yes"
-  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "ac_cv_have_iconv_detect_h=yes" ];
+  configureFlags = [ "--enable-introspection=yes" "--enable-vala=yes" ]
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
+    [ "ac_cv_have_iconv_detect_h=yes" ];
 
   postPatch = ''
     substituteInPlace tests/testsuite.c \
@@ -35,7 +35,12 @@ stdenv.mkDerivation rec {
     PKG_CONFIG_VAPIGEN_VAPIGEN="$(type -p vapigen)"
     export PKG_CONFIG_VAPIGEN_VAPIGEN
   '' + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-    cp ${if stdenv.hostPlatform.isMusl then ./musl-iconv-detect.h else ./iconv-detect.h} ./iconv-detect.h
+    cp ${
+      if stdenv.hostPlatform.isMusl then
+        ./musl-iconv-detect.h
+      else
+        ./iconv-detect.h
+    } ./iconv-detect.h
   '';
 
   nativeCheckInputs = [ gnupg ];
@@ -46,7 +51,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/jstedfast/gmime/";
-    description = "A C/C++ library for creating, editing and parsing MIME messages and structures";
+    description =
+      "A C/C++ library for creating, editing and parsing MIME messages and structures";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ ];
     platforms = platforms.unix;

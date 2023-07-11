@@ -1,18 +1,5 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, numpy
-, scipy
-, cython
-, networkx
-, joblib
-, pandas
-, nose
-, pyyaml
-}:
-
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, fetchpatch, numpy, scipy
+, cython, networkx, joblib, pandas, nose, pyyaml }:
 
 buildPythonPackage rec {
   pname = "pomegranate";
@@ -28,11 +15,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy scipy cython networkx joblib pyyaml ];
 
-  nativeCheckInputs = [ pandas nose ];  # as of 0.13.5, it depends explicitly on nose, rather than pytest.
+  nativeCheckInputs = [
+    pandas
+    nose
+  ]; # as of 0.13.5, it depends explicitly on nose, rather than pytest.
 
   meta = with lib; {
     broken = stdenv.isDarwin;
-    description = "Probabilistic and graphical models for Python, implemented in cython for speed";
+    description =
+      "Probabilistic and graphical models for Python, implemented in cython for speed";
     homepage = "https://github.com/jmschrei/pomegranate";
     license = licenses.mit;
     maintainers = with maintainers; [ rybern ];

@@ -32,8 +32,8 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     description = "Automatic music downloader for SABnzbd";
-    license     = licenses.gpl3Plus;
-    homepage    = "https://github.com/rembo10/headphones";
+    license = licenses.gpl3Plus;
+    homepage = "https://github.com/rembo10/headphones";
     maintainers = with lib.maintainers; [ rembo10 ];
   };
 }

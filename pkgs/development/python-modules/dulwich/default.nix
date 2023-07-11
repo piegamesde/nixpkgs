@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, certifi
-, fastimport
-, fetchPypi
-, gevent
-, geventhttpclient
-, git
-, glibcLocales
-, gnupg
-, gpgme
-, paramiko
-, pytestCheckHook
-, pythonOlder
-, urllib3
-}:
+{ lib, stdenv, buildPythonPackage, certifi, fastimport, fetchPypi, gevent
+, geventhttpclient, git, glibcLocales, gnupg, gpgme, paramiko, pytestCheckHook
+, pythonOlder, urllib3 }:
 
 buildPythonPackage rec {
   version = "0.21.3";
@@ -30,33 +16,19 @@ buildPythonPackage rec {
 
   LC_ALL = "en_US.UTF-8";
 
-  propagatedBuildInputs = [
-    certifi
-    urllib3
-  ];
+  propagatedBuildInputs = [ certifi urllib3 ];
 
   passthru.optional-dependencies = {
-    fastimport = [
-      fastimport
-    ];
-    pgp = [
-      gpgme
-      gnupg
-    ];
-    paramiko = [
-      paramiko
-    ];
+    fastimport = [ fastimport ];
+    pgp = [ gpgme gnupg ];
+    paramiko = [ paramiko ];
   };
 
-  nativeCheckInputs = [
-    gevent
-    geventhttpclient
-    git
-    glibcLocales
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.fastimport
-  ++ passthru.optional-dependencies.pgp
-  ++ passthru.optional-dependencies.paramiko;
+  nativeCheckInputs =
+    [ gevent geventhttpclient git glibcLocales pytestCheckHook ]
+    ++ passthru.optional-dependencies.fastimport
+    ++ passthru.optional-dependencies.pgp
+    ++ passthru.optional-dependencies.paramiko;
 
   doCheck = !stdenv.isDarwin;
 
@@ -74,9 +46,7 @@ buildPythonPackage rec {
     "dulwich/contrib/test_swift_smoke.py"
   ];
 
-  pythonImportsCheck = [
-    "dulwich"
-  ];
+  pythonImportsCheck = [ "dulwich" ];
 
   meta = with lib; {
     description = "Implementation of the Git file formats and protocols";
@@ -85,7 +55,8 @@ buildPythonPackage rec {
       does not depend on Git itself. All functionality is available in pure Python.
     '';
     homepage = "https://www.dulwich.io/";
-    changelog = "https://github.com/dulwich/dulwich/blob/dulwich-${version}/NEWS";
+    changelog =
+      "https://github.com/dulwich/dulwich/blob/dulwich-${version}/NEWS";
     license = with licenses; [ asl20 gpl2Plus ];
     maintainers = with maintainers; [ koral ];
   };

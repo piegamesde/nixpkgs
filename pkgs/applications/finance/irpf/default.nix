@@ -1,13 +1,5 @@
-{ lib
-, stdenvNoCC
-, fetchzip
-, copyDesktopItems
-, jdk11
-, makeDesktopItem
-, makeWrapper
-, unzip
-, xdg-utils
-}:
+{ lib, stdenvNoCC, fetchzip, copyDesktopItems, jdk11, makeDesktopItem
+, makeWrapper, unzip, xdg-utils }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "irpf";
@@ -15,10 +7,10 @@ stdenvNoCC.mkDerivation rec {
 
   # https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/download/pgd/dirpf
   # Para outros sistemas operacionais -> Multi
-  src = let
-    year = lib.head (lib.splitVersion version);
+  src = let year = lib.head (lib.splitVersion version);
   in fetchzip {
-    url = "https://downloadirpf.receita.fazenda.gov.br/irpf/${year}/irpf/arquivos/IRPF${version}.zip";
+    url =
+      "https://downloadirpf.receita.fazenda.gov.br/irpf/${year}/irpf/arquivos/IRPF${version}.zip";
     sha256 = "sha256-UOo9LBeOA6H/A7dM6wIa0wXyAaq9xGnX9EUBzK4Y0ng=";
   };
 

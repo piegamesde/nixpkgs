@@ -1,19 +1,8 @@
-{ newScope
-, lib
-, stdenv
-, fetchurl
-, fetchpatch
-, makeSetupHook
-, makeWrapper
-, gst_all_1
-, libglvnd
-, darwin
-, buildPackages
+{ newScope, lib, stdenv, fetchurl, fetchpatch, makeSetupHook, makeWrapper
+, gst_all_1, libglvnd, darwin, buildPackages
 
-  # options
-, developerBuild ? false
-, debug ? false
-}:
+# options
+, developerBuild ? false, debug ? false }:
 
 let
   srcs = import ./srcs.nix {
@@ -21,14 +10,15 @@ let
     mirror = "mirror://qt";
   };
 
-  addPackages = self: with self;
+  addPackages = self:
+    with self;
     let
       callPackage = self.newScope ({
         inherit qtModule srcs;
-        stdenv = if stdenv.isDarwin then darwin.apple_sdk_11_0.stdenv else stdenv;
+        stdenv =
+          if stdenv.isDarwin then darwin.apple_sdk_11_0.stdenv else stdenv;
       });
-    in
-    {
+    in {
 
       inherit callPackage srcs;
 
@@ -105,7 +95,8 @@ let
       qtlocation = callPackage ./modules/qtlocation.nix { };
       qtlottie = callPackage ./modules/qtlottie.nix { };
       qtmultimedia = callPackage ./modules/qtmultimedia.nix {
-        inherit (gst_all_1) gstreamer gst-plugins-base gst-plugins-good gst-libav gst-vaapi;
+        inherit (gst_all_1)
+          gstreamer gst-plugins-base gst-plugins-good gst-libav gst-vaapi;
         inherit (darwin.apple_sdk_11_0.frameworks) VideoToolbox;
       };
       qtmqtt = callPackage ./modules/qtmqtt.nix { };
@@ -136,37 +127,33 @@ let
         inherit (darwin.apple_sdk_11_0.libs) sandbox;
         inherit (darwin.apple_sdk_11_0.frameworks)
           AGL AVFoundation Accelerate Cocoa CoreLocation CoreML ForceFeedback
-          GameController ImageCaptureCore LocalAuthentication
-          MediaAccessibility MediaPlayer MetalKit Network OpenDirectory Quartz
-          ReplayKit SecurityInterface Vision;
-        xcbuild = buildPackages.xcbuild.override {
-          productBuildVer = "20A2408";
-        };
+          GameController ImageCaptureCore LocalAuthentication MediaAccessibility
+          MediaPlayer MetalKit Network OpenDirectory Quartz ReplayKit
+          SecurityInterface Vision;
+        xcbuild =
+          buildPackages.xcbuild.override { productBuildVer = "20A2408"; };
       };
       qtwebsockets = callPackage ./modules/qtwebsockets.nix { };
       qtwebview = callPackage ./modules/qtwebview.nix {
         inherit (darwin.apple_sdk_11_0.frameworks) WebKit;
       };
 
-      wrapQtAppsHook = makeSetupHook
-        {
-          name = "wrap-qt6-apps-hook";
-          propagatedBuildInputs = [ buildPackages.makeBinaryWrapper ];
-        } ./hooks/wrap-qt-apps-hook.sh;
+      wrapQtAppsHook = makeSetupHook {
+        name = "wrap-qt6-apps-hook";
+        propagatedBuildInputs = [ buildPackages.makeBinaryWrapper ];
+      } ./hooks/wrap-qt-apps-hook.sh;
 
-      qmake = makeSetupHook
-        {
-          name = "qmake6-hook";
-          propagatedBuildInputs = [ self.qtbase.dev ];
-          substitutions = {
-            inherit debug;
-            fix_qmake_libtool = ./hooks/fix-qmake-libtool.sh;
-          };
-        } ./hooks/qmake-hook.sh;
+      qmake = makeSetupHook {
+        name = "qmake6-hook";
+        propagatedBuildInputs = [ self.qtbase.dev ];
+        substitutions = {
+          inherit debug;
+          fix_qmake_libtool = ./hooks/fix-qmake-libtool.sh;
+        };
+      } ./hooks/qmake-hook.sh;
     };
 
   # TODO(@Artturin): convert to makeScopeWithSplicing
   # simple example of how to do that in 5568a4d25ca406809530420996d57e0876ca1a01
   self = lib.makeScope newScope addPackages;
-in
-self
+in self

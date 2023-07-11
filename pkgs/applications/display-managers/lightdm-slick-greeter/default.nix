@@ -1,22 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, python3
-, vala
-, intltool
-, autoreconfHook
-, wrapGAppsHook
-, lightdm
-, gtk3
-, pixman
-, libcanberra
-, libX11
-, libXext
-, linkFarm
-, lightdm-slick-greeter
-, numlockx
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, python3, vala, intltool
+, autoreconfHook, wrapGAppsHook, lightdm, gtk3, pixman, libcanberra, libX11
+, libXext, linkFarm, lightdm-slick-greeter, numlockx }:
 
 stdenv.mkDerivation rec {
   pname = "lightdm-slick-greeter";
@@ -39,14 +23,7 @@ stdenv.mkDerivation rec {
     python3.pkgs.wrapPython
   ];
 
-  buildInputs = [
-    lightdm
-    gtk3
-    pixman
-    libcanberra
-    libX11
-    libXext
-  ];
+  buildInputs = [ lightdm gtk3 pixman libcanberra libX11 libXext ];
 
   pythonPath = [
     python3.pkgs.pygobject3 # for slick-greeter-check-hidpi
@@ -57,7 +34,9 @@ stdenv.mkDerivation rec {
       --replace "/usr/bin/numlockx" "${numlockx}/bin/numlockx" \
       --replace "/usr/share/xsessions/" "/run/current-system/sw/share/xsessions/" \
       --replace "/usr/share/wayland-sessions/" "/run/current-system/sw/share/wayland-sessions/" \
-      --replace "/usr/bin/slick-greeter" "${placeholder "out"}/bin/slick-greeter"
+      --replace "/usr/bin/slick-greeter" "${
+        placeholder "out"
+      }/bin/slick-greeter"
 
     substituteInPlace src/session-list.vala \
       --replace "/usr/share" "${placeholder "out"}/share"
@@ -77,10 +56,8 @@ stdenv.mkDerivation rec {
     "--sbindir=${placeholder "out"}/bin"
   ];
 
-  installFlags = [
-    "localstatedir=\${TMPDIR}"
-    "sysconfdir=${placeholder "out"}/etc"
-  ];
+  installFlags =
+    [ "localstatedir=\${TMPDIR}" "sysconfdir=${placeholder "out"}/etc" ];
 
   postInstall = ''
     substituteInPlace "$out/share/xgreeters/slick-greeter.desktop" \

@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, cython
-, fetchFromGitHub
-, poetry-core
-, pythonOlder
-, setuptools
-}:
+{ lib, buildPythonPackage, cython, fetchFromGitHub, poetry-core, pythonOlder
+, setuptools }:
 
 buildPythonPackage rec {
   pname = "asyncmy";
@@ -21,18 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-mkYh1fmhtBZ2DyL7a2RduTm+ig4Xnk5Ps1Tm0DS/OEc=";
   };
 
-  nativeBuildInputs = [
-    cython
-    poetry-core
-    setuptools
-  ];
+  nativeBuildInputs = [ cython poetry-core setuptools ];
 
   # Not running tests as aiomysql is missing support for pymysql>=0.9.3
   doCheck = false;
 
-  pythonImportsCheck = [
-    "asyncmy"
-  ];
+  pythonImportsCheck = [ "asyncmy" ];
 
   meta = with lib; {
     description = "Python module to interact with MySQL/mariaDB";

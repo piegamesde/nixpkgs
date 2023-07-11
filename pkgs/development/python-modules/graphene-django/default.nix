@@ -1,22 +1,8 @@
-{ lib
-, buildPythonPackage
-, pythonAtLeast
-, pythonOlder
-, fetchFromGitHub
+{ lib, buildPythonPackage, pythonAtLeast, pythonOlder, fetchFromGitHub
 
-, graphene
-, graphql-core
-, django
-, djangorestframework
-, promise
-, text-unidecode
+, graphene, graphql-core, django, djangorestframework, promise, text-unidecode
 
-, django-filter
-, mock
-, py
-, pytest-django
-, pytest-random-order
-, pytestCheckHook
+, django-filter, mock, py, pytest-django, pytest-random-order, pytestCheckHook
 }:
 
 buildPythonPackage rec {
@@ -38,27 +24,15 @@ buildPythonPackage rec {
       --replace '"pytest-runner"' ""
   '';
 
-  propagatedBuildInputs = [
-    djangorestframework
-    graphene
-    graphql-core
-    django
-    promise
-    text-unidecode
-  ];
+  propagatedBuildInputs =
+    [ djangorestframework graphene graphql-core django promise text-unidecode ];
 
   preCheck = ''
     export DJANGO_SETTINGS_MODULE=examples.django_test_settings
   '';
 
-  nativeCheckInputs = [
-    django-filter
-    mock
-    py
-    pytest-django
-    pytest-random-order
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ django-filter mock py pytest-django pytest-random-order pytestCheckHook ];
 
   disabledTests = lib.optionals (pythonAtLeast "3.11") [
     # Pèython 3.11 support, https://github.com/graphql-python/graphene-django/pull/1365
@@ -71,7 +45,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Integrate GraphQL into your Django project";
     homepage = "https://github.com/graphql-python/graphene-django";
-    changelog = "https://github.com/graphql-python/graphene-django/releases/tag/v${version}";
+    changelog =
+      "https://github.com/graphql-python/graphene-django/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };

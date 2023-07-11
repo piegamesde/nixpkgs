@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "16.0.0";
 
   src = fetchurl {
-    url = "https://github.com/valentjn/ltex-ls/releases/download/${version}/ltex-ls-${version}.tar.gz";
+    url =
+      "https://github.com/valentjn/ltex-ls/releases/download/${version}/ltex-ls-${version}.tar.gz";
     sha256 = "sha256-lW1TfTckqhCmhjcvduISY9qAdKPM/0cobxbIrCq5JkQ=";
   };
 

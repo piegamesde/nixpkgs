@@ -24,19 +24,16 @@ stdenv.mkDerivation rec {
   # To test whether spike is working, we run the RISC-V hello applications using the RISC-V proxy
   # kernel on the Spike emulator and see whether we get the expected output.
   doInstallCheck = true;
-  installCheckPhase =
-    let
-      riscvPkgs = pkgsCross.riscv64-embedded;
-    in
-    ''
-      runHook preInstallCheck
+  installCheckPhase = let riscvPkgs = pkgsCross.riscv64-embedded;
+  in ''
+    runHook preInstallCheck
 
-      echo -e "#include<stdio.h>\nint main() {printf(\"Hello, world\");return 0;}" > hello.c
-      ${riscvPkgs.stdenv.cc}/bin/riscv64-none-elf-gcc -o hello hello.c
-      $out/bin/spike -m64 ${riscvPkgs.riscv-pk}/bin/pk hello | grep -Fq "Hello, world"
+    echo -e "#include<stdio.h>\nint main() {printf(\"Hello, world\");return 0;}" > hello.c
+    ${riscvPkgs.stdenv.cc}/bin/riscv64-none-elf-gcc -o hello hello.c
+    $out/bin/spike -m64 ${riscvPkgs.riscv-pk}/bin/pk hello | grep -Fq "Hello, world"
 
-      runHook postInstallCheck
-    '';
+    runHook postInstallCheck
+  '';
 
   meta = with lib; {
     description = "A RISC-V ISA Simulator";

@@ -1,17 +1,6 @@
-{ lib
-, aiohttp
-, async-timeout
-, asyncio-dgram
-, buildPythonPackage
-, docutils
-, fetchFromGitHub
-, poetry-core
-, pytest-aiohttp
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, voluptuous
-}:
+{ lib, aiohttp, async-timeout, asyncio-dgram, buildPythonPackage, docutils
+, fetchFromGitHub, poetry-core, pytest-aiohttp, pytest-asyncio, pytestCheckHook
+, pythonOlder, voluptuous }:
 
 buildPythonPackage rec {
   pname = "aioguardian";
@@ -27,32 +16,17 @@ buildPythonPackage rec {
     hash = "sha256-plgO+pyKmG0mYnFZxDcrENcuEg5AG2Og2xWipzuzyHo=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    async-timeout
-    asyncio-dgram
-    docutils
-    voluptuous
-  ];
+  propagatedBuildInputs =
+    [ aiohttp async-timeout asyncio-dgram docutils voluptuous ];
 
-  nativeCheckInputs = [
-    asyncio-dgram
-    pytest-aiohttp
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ asyncio-dgram pytest-aiohttp pytest-asyncio pytestCheckHook ];
 
-  disabledTestPaths = [
-    "examples/"
-  ];
+  disabledTestPaths = [ "examples/" ];
 
-  pythonImportsCheck = [
-    "aioguardian"
-  ];
+  pythonImportsCheck = [ "aioguardian" ];
 
   meta = with lib; {
     description = " Python library to interact with Elexa Guardian devices";

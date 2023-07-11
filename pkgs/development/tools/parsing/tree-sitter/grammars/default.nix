@@ -1,5 +1,4 @@
-{ lib }:
-{
+{ lib }: {
   tree-sitter-bash = lib.importJSON ./tree-sitter-bash.json;
   tree-sitter-beancount = lib.importJSON ./tree-sitter-beancount.json;
   tree-sitter-bibtex = lib.importJSON ./tree-sitter-bibtex.json;
@@ -20,7 +19,8 @@
   tree-sitter-elisp = lib.importJSON ./tree-sitter-elisp.json;
   tree-sitter-elixir = lib.importJSON ./tree-sitter-elixir.json;
   tree-sitter-elm = lib.importJSON ./tree-sitter-elm.json;
-  tree-sitter-embedded-template = lib.importJSON ./tree-sitter-embedded-template.json;
+  tree-sitter-embedded-template =
+    lib.importJSON ./tree-sitter-embedded-template.json;
   tree-sitter-erlang = lib.importJSON ./tree-sitter-erlang.json;
   tree-sitter-fennel = lib.importJSON ./tree-sitter-fennel.json;
   tree-sitter-fish = lib.importJSON ./tree-sitter-fish.json;

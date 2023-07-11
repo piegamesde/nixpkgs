@@ -1,14 +1,8 @@
-{ fetchurl
-, google-chrome
-, lib
-, makeDesktopItem
-, runtimeShell
-, symlinkJoin
+{ fetchurl, google-chrome, lib, makeDesktopItem, runtimeShell, symlinkJoin
 , writeScriptBin
 
-  # command line arguments which are always set e.g "--disable-gpu"
-, commandLineArgs ? [ ]
-}:
+# command line arguments which are always set e.g "--disable-gpu"
+, commandLineArgs ? [ ] }:
 
 let
   name = "netflix-via-google-chrome";
@@ -34,19 +28,23 @@ let
     exec = name;
     icon = fetchurl {
       name = "netflix-icon-2016.png";
-      url = "https://assets.nflxext.com/us/ffe/siteui/common/icons/nficon2016.png";
+      url =
+        "https://assets.nflxext.com/us/ffe/siteui/common/icons/nficon2016.png";
       sha256 = "sha256-c0H3uLCuPA2krqVZ78MfC1PZ253SkWZP3PfWGP2V7Yo=";
       meta.license = lib.licenses.unfree;
     };
     desktopName = "Netflix via Google Chrome";
-    genericName = "A video streaming service providing films and exclusive TV series";
+    genericName =
+      "A video streaming service providing films and exclusive TV series";
     categories = [ "TV" "AudioVideo" "Network" ];
     startupNotify = true;
   };
 
   script = writeScriptBin name ''
     #!${runtimeShell}
-    exec ${google-chrome}/bin/${google-chrome.meta.mainProgram} ${lib.escapeShellArgs commandLineArgs} \
+    exec ${google-chrome}/bin/${google-chrome.meta.mainProgram} ${
+      lib.escapeShellArgs commandLineArgs
+    } \
       --app=https://netflix.com \
       --no-first-run \
       --no-default-browser-check \
@@ -54,9 +52,7 @@ let
       "$@"
   '';
 
-in
-
-symlinkJoin {
+in symlinkJoin {
   inherit name meta;
   paths = [ script desktopItem ];
 }

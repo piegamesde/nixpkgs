@@ -1,16 +1,5 @@
-{ lib
-, aiohttp
-, bidict
-, buildPythonPackage
-, fetchFromGitHub
-, mock
-, msgpack
-, pytestCheckHook
-, python-engineio
-, pythonOlder
-, requests
-, websocket-client
-}:
+{ lib, aiohttp, bidict, buildPythonPackage, fetchFromGitHub, mock, msgpack
+, pytestCheckHook, python-engineio, pythonOlder, requests, websocket-client }:
 
 buildPythonPackage rec {
   pname = "python-socketio";
@@ -26,30 +15,16 @@ buildPythonPackage rec {
     hash = "sha256-3Do3Ql48cmhvrFe14ZYvWH0xi3T8hJ2LP0FyyWin580=";
   };
 
-  propagatedBuildInputs = [
-    bidict
-    python-engineio
-  ];
+  propagatedBuildInputs = [ bidict python-engineio ];
 
   passthru.optional-dependencies = {
-    client = [
-      requests
-      websocket-client
-    ];
-    asyncio_client = [
-      aiohttp
-    ];
+    client = [ requests websocket-client ];
+    asyncio_client = [ aiohttp ];
   };
 
-  nativeCheckInputs = [
-    mock
-    msgpack
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock msgpack pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "socketio"
-  ];
+  pythonImportsCheck = [ "socketio" ];
 
   meta = with lib; {
     description = "Python Socket.IO server and client";
@@ -58,7 +33,8 @@ buildPythonPackage rec {
       bidirectional event-based communication between clients and a server.
     '';
     homepage = "https://github.com/miguelgrinberg/python-socketio/";
-    changelog = "https://github.com/miguelgrinberg/python-socketio/blob/v${version}/CHANGES.md";
+    changelog =
+      "https://github.com/miguelgrinberg/python-socketio/blob/v${version}/CHANGES.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ mic92 ];
   };

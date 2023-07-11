@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, llvmPackages
-, libxml2
-, zlib
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, llvmPackages, libxml2, zlib }:
 
 let
   zig_0_10_0 = fetchFromGitHub {
@@ -14,8 +7,7 @@ let
     rev = "0.10.0";
     hash = "sha256-DNs937N7PLQimuM2anya4npYXcj6cyH+dRS7AiOX7tw=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "zig";
   version = "0.9.1";
 
@@ -41,19 +33,9 @@ stdenv.mkDerivation rec {
     cp ${zig_0_10_0}/lib/libc/darwin/libSystem.13.tbd lib/libc/darwin/
   '';
 
-  nativeBuildInputs = [
-    cmake
-    llvmPackages.llvm.dev
-  ];
+  nativeBuildInputs = [ cmake llvmPackages.llvm.dev ];
 
-  buildInputs = [
-    libxml2
-    zlib
-  ] ++ (with llvmPackages; [
-    libclang
-    lld
-    llvm
-  ]);
+  buildInputs = [ libxml2 zlib ] ++ (with llvmPackages; [ libclang lld llvm ]);
 
   preBuild = ''
     export HOME=$TMPDIR;

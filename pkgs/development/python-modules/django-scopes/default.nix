@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, django
-, pytestCheckHook
-, pytest-django
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, django, pytestCheckHook
+, pytest-django }:
 
 buildPythonPackage rec {
   pname = "django-scopes";
@@ -18,14 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-djptJRkW1pfVbxhhs58fJA4d8dKZuvYRy01Aa3Btr+k=";
   };
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
-  nativeCheckInputs = [
-    pytest-django
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-django pytestCheckHook ];
 
   pythonImportsCheck = [ "django_scopes" ];
 

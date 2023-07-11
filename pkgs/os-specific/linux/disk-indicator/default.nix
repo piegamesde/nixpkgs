@@ -25,9 +25,7 @@ stdenv.mkDerivation {
     ./configure.sh --all
   '';
 
-  makeFlags = [
-    "COMPILER=${stdenv.cc.targetPrefix}cc"
-  ];
+  makeFlags = [ "COMPILER=${stdenv.cc.targetPrefix}cc" ];
 
   installPhase = ''
     runHook preInstall

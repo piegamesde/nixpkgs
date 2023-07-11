@@ -1,8 +1,4 @@
-{ lib
-, mkDerivation
-, fetchFromGitLab
-, extra-cmake-modules
-}:
+{ lib, mkDerivation, fetchFromGitLab, extra-cmake-modules }:
 
 mkDerivation rec {
   pname = "kquickimageeditor";
@@ -19,7 +15,8 @@ mkDerivation rec {
   nativeBuildInputs = [ extra-cmake-modules ];
 
   meta = with lib; {
-    description = "Set of QtQuick components providing basic image editing capabilities";
+    description =
+      "Set of QtQuick components providing basic image editing capabilities";
     homepage = "https://invent.kde.org/libraries/kquickimageeditor";
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;

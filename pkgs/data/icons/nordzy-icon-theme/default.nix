@@ -1,8 +1,4 @@
-{ stdenvNoCC
-, fetchFromGitHub
-, lib
-, gtk3
-, jdupes
+{ stdenvNoCC, fetchFromGitHub, lib, gtk3, jdupes
 , nordzy-themes ? [ "all" ] # Override this to only install selected themes
 }:
 
@@ -22,10 +18,7 @@ stdenvNoCC.mkDerivation rec {
     patchShebangs install.sh
   '';
 
-  nativeBuildInputs = [
-    gtk3
-    jdupes
-  ];
+  nativeBuildInputs = [ gtk3 jdupes ];
 
   dontDropIconThemeCache = true;
 
@@ -33,7 +26,10 @@ stdenvNoCC.mkDerivation rec {
     runHook preInstall
 
     name= ./install.sh --dest $out/share/icons \
-      ${lib.optionalString (nordzy-themes != []) (lib.strings.concatMapStrings (theme: "-t ${theme} ") nordzy-themes)}
+      ${
+        lib.optionalString (nordzy-themes != [ ])
+        (lib.strings.concatMapStrings (theme: "-t ${theme} ") nordzy-themes)
+      }
 
     # Replace duplicate files with hardlinks to the first file in each
     # set of duplicates, reducing the installed size in about 87%
@@ -45,7 +41,8 @@ stdenvNoCC.mkDerivation rec {
   dontFixup = true;
 
   meta = with lib; {
-    description = "Icon theme using the Nord color palette, based on WhiteSur and Numix icon themes";
+    description =
+      "Icon theme using the Nord color palette, based on WhiteSur and Numix icon themes";
     homepage = "https://github.com/alvatip/Nordzy-icon";
     license = licenses.gpl3Only;
     platforms = platforms.linux;

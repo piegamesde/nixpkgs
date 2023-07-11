@@ -1,15 +1,5 @@
-{ stdenv
-, abseil-cpp
-, absl-py
-, attrs
-, buildPythonPackage
-, cmake
-, fetchFromGitHub
-, lib
-, numpy
-, pybind11
-, wrapt
-}:
+{ stdenv, abseil-cpp, absl-py, attrs, buildPythonPackage, cmake, fetchFromGitHub
+, lib, numpy, pybind11, wrapt }:
 
 buildPythonPackage rec {
   pname = "dm-tree";
@@ -22,28 +12,15 @@ buildPythonPackage rec {
     hash = "sha256-VvSJTuEYjIz/4TTibSLkbg65YmcYqHImTHOomeorMJc=";
   };
 
-  patches = [
-    ./cmake.patch
-  ];
+  patches = [ ./cmake.patch ];
 
   dontUseCmakeConfigure = true;
 
-  nativeBuildInputs = [
-    cmake
-    pybind11
-  ];
+  nativeBuildInputs = [ cmake pybind11 ];
 
-  buildInputs = [
-    abseil-cpp
-    pybind11
-  ];
+  buildInputs = [ abseil-cpp pybind11 ];
 
-  nativeCheckInputs = [
-    absl-py
-    attrs
-    numpy
-    wrapt
-  ];
+  nativeCheckInputs = [ absl-py attrs numpy wrapt ];
 
   pythonImportsCheck = [ "tree" ];
 

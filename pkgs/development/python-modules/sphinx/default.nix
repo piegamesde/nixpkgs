@@ -1,39 +1,17 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, fetchpatch
+{ stdenv, lib, buildPythonPackage, pythonOlder, fetchFromGitHub, fetchpatch
 
 # nativeBuildInputs
 , flit-core
 
 # propagatedBuildInputs
-, babel
-, alabaster
-, docutils
-, imagesize
-, importlib-metadata
-, jinja2
-, packaging
-, pygments
-, requests
-, snowballstemmer
-, sphinxcontrib-apidoc
-, sphinxcontrib-applehelp
-, sphinxcontrib-devhelp
-, sphinxcontrib-htmlhelp
-, sphinxcontrib-jsmath
-, sphinxcontrib-qthelp
-, sphinxcontrib-serializinghtml
+, babel, alabaster, docutils, imagesize, importlib-metadata, jinja2, packaging
+, pygments, requests, snowballstemmer, sphinxcontrib-apidoc
+, sphinxcontrib-applehelp, sphinxcontrib-devhelp, sphinxcontrib-htmlhelp
+, sphinxcontrib-jsmath, sphinxcontrib-qthelp, sphinxcontrib-serializinghtml
 , sphinxcontrib-websupport
 
 # check phase
-, cython
-, html5lib
-, pytestCheckHook
-, typed-ast
-}:
+, cython, html5lib, pytestCheckHook, typed-ast }:
 
 buildPythonPackage rec {
   pname = "sphinx";
@@ -51,13 +29,13 @@ buildPythonPackage rec {
       cd $out
       mv tests/roots/test-images/testimäge.png \
         tests/roots/test-images/testimæge.png
-      patch -p1 < ${./0001-test-images-Use-normalization-equivalent-character.patch}
+      patch -p1 < ${
+        ./0001-test-images-Use-normalization-equivalent-character.patch
+      }
     '';
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   propagatedBuildInputs = [
     babel
@@ -80,17 +58,10 @@ buildPythonPackage rec {
 
     # extra plugins which are otherwise not found by sphinx-build
     sphinxcontrib-apidoc
-  ] ++ lib.optionals (pythonOlder "3.10") [
-    importlib-metadata
-  ];
+  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
-  nativeCheckInputs = [
-    cython
-    html5lib
-    pytestCheckHook
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typed-ast
-  ];
+  nativeCheckInputs = [ cython html5lib pytestCheckHook ]
+    ++ lib.optionals (pythonOlder "3.8") [ typed-ast ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

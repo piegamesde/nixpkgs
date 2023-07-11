@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, gym
-, torch
-, tensorboard
-, tqdm
-, packaging
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, gym
+, torch, tensorboard, tqdm, packaging }:
 
 buildPythonPackage rec {
   pname = "skrl";
@@ -23,13 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-/fFKotDibc+wcoGteloh5OEKbQdN/W1NdF+mWf8mSNw=";
   };
 
-  propagatedBuildInputs = [
-    gym
-    torch
-    tensorboard
-    tqdm
-    packaging
-  ];
+  propagatedBuildInputs = [ gym torch tensorboard tqdm packaging ];
 
   nativeCheckInputs = [ pytestCheckHook ];
   doCheck = torch.cudaSupport;
@@ -54,7 +39,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Reinforcement learning library using PyTorch focusing on readability and simplicity";
+    description =
+      "Reinforcement learning library using PyTorch focusing on readability and simplicity";
     homepage = "https://skrl.readthedocs.io";
     license = licenses.mit;
     maintainers = with maintainers; [ bcdarwin ];

@@ -34,11 +34,8 @@ stdenv.mkDerivation rec {
       --replace "Graphics::Magick" "Image::Magick"
   '';
 
-  buildPhase = "
-    runHook preBuild
-    ${perl}/bin/pod2man findimagedupes > findimagedupes.1
-    runHook postBuild
-  ";
+  buildPhase =
+    "\n    runHook preBuild\n    ${perl}/bin/pod2man findimagedupes > findimagedupes.1\n    runHook postBuild\n  ";
 
   installPhase = ''
     runHook preInstall
@@ -49,16 +46,19 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram "$out/bin/findimagedupes" \
-      --prefix PERL5LIB : "${with perlPackages; makePerlPath [
-        DBFile
-        FileMimeInfo
-        FileBaseDir
-        #GraphicsMagick
-        ImageMagick
-        Inline
-        InlineC
-        ParseRecDescent
-      ]}"
+      --prefix PERL5LIB : "${
+        with perlPackages;
+        makePerlPath [
+          DBFile
+          FileMimeInfo
+          FileBaseDir
+          #GraphicsMagick
+          ImageMagick
+          Inline
+          InlineC
+          ParseRecDescent
+        ]
+      }"
   '';
 
   meta = with lib; {

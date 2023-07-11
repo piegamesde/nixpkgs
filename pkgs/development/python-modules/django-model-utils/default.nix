@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, django
-, freezegun
-, psycopg2
-, pytest-django
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, django, freezegun, psycopg2
+, pytest-django, pytestCheckHook, pythonOlder, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "django-model-utils";
@@ -26,30 +17,22 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
   # requires postgres database
   doCheck = false;
 
-  nativeCheckInputs = [
-    freezegun
-    psycopg2
-    pytest-django
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ freezegun psycopg2 pytest-django pytestCheckHook ];
 
   pythonImportsCheck = [ "model_utils" ];
 
   meta = with lib; {
     homepage = "https://github.com/jazzband/django-model-utils";
     description = "Django model mixins and utilities";
-    changelog = "https://github.com/jazzband/django-model-utils/blob/${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/jazzband/django-model-utils/blob/${version}/CHANGES.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

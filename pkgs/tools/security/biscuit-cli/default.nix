@@ -12,7 +12,8 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoLock = {
-    outputHashes."biscuit-auth-3.0.0-alpha4" = "sha256-4SzOupoD33D0KHZyVLriGzUHy9XXnWK1pbgqOjJH4PI=";
+    outputHashes."biscuit-auth-3.0.0-alpha4" =
+      "sha256-4SzOupoD33D0KHZyVLriGzUHy9XXnWK1pbgqOjJH4PI=";
     lockFile = ./Cargo.lock;
   };
 

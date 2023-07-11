@@ -9,9 +9,7 @@ buildPythonPackage rec {
     sha256 = "1qry67zv2pmz8px6wdfbjqv75nmryy2ac7asqgs6q6db2722kpcw";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   meta = with lib; {
     homepage = "https://github.com/benediktschmitt/py-filelock";

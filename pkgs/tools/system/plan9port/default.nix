@@ -1,8 +1,7 @@
-{ lib, stdenv, fetchFromGitHub
-, fontconfig, freetype, libX11, libXext, libXt, xorgproto
-, perl # For building web manuals
-, which, ed
-, Carbon, Cocoa, IOKit, Metal, QuartzCore, DarwinTools # For building on Darwin
+{ lib, stdenv, fetchFromGitHub, fontconfig, freetype, libX11, libXext, libXt
+, xorgproto, perl # For building web manuals
+, which, ed, Carbon, Cocoa, IOKit, Metal, QuartzCore
+, DarwinTools # For building on Darwin
 }:
 
 stdenv.mkDerivation rec {
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     /^PATH=[^ ]*/s,,PATH=\$PATH:\$PLAN9/bin,
     # no xcbuild nonsense
     /^if.* = Darwin/+;/^fi/-c
-    ${"\t"}export NPROC=$NIX_BUILD_CORES
+    ${"	"}export NPROC=$NIX_BUILD_CORES
     .
     # remove absolute include paths from fontsrv test
     /cc -o a.out -c -I.*freetype2/;/x11.c/j
@@ -36,10 +35,18 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ ed ];
   buildInputs = [ perl which ] ++ (if !stdenv.isDarwin then [
-    fontconfig freetype # fontsrv uses these
-    libX11 libXext libXt xorgproto
+    fontconfig
+    freetype # fontsrv uses these
+    libX11
+    libXext
+    libXt
+    xorgproto
   ] else [
-    Carbon Cocoa IOKit Metal QuartzCore
+    Carbon
+    Cocoa
+    IOKit
+    Metal
+    QuartzCore
     DarwinTools
   ]);
 
@@ -113,7 +120,12 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.mit;
     maintainers = with maintainers; [
-      AndersonTorres bbarker ehmry ftrvxmtrx kovirobi ylh
+      AndersonTorres
+      bbarker
+      ehmry
+      ftrvxmtrx
+      kovirobi
+      ylh
     ];
     mainProgram = "9";
     platforms = platforms.unix;

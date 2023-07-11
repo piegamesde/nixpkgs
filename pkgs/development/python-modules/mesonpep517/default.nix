@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, meson
-, ninja
-, setuptools
-, toml
-}:
+{ lib, buildPythonPackage, fetchPypi, meson, ninja, setuptools, toml }:
 
 # TODO: offer meson as a Python package so we have dist-info folder.
 
@@ -19,9 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-Fyo7JfLqHJqbahEjVDt/0xJxOfVLqLn3xNJ4lSB7KIw=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [ toml ];
 
@@ -35,7 +26,8 @@ buildPythonPackage rec {
   propagatedNativeBuildInputs = [ meson ninja ];
 
   meta = {
-    description = "Create pep517 compliant packages from the meson build system";
+    description =
+      "Create pep517 compliant packages from the meson build system";
     homepage = "https://gitlab.com/thiblahute/mesonpep517";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.fridh ];

@@ -1,7 +1,4 @@
-{ buildPythonPackage
-, debtcollector
-, stestr
-}:
+{ buildPythonPackage, debtcollector, stestr }:
 
 buildPythonPackage rec {
   pname = "debtcollector-tests";
@@ -18,10 +15,7 @@ buildPythonPackage rec {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [
-    debtcollector
-    stestr
-  ];
+  nativeCheckInputs = [ debtcollector stestr ];
 
   checkPhase = ''
     stestr run

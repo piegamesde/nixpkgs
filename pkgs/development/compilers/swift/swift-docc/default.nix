@@ -1,19 +1,9 @@
-{ lib
-, stdenv
-, callPackage
-, swift
-, swiftpm
-, swiftpm2nix
-, Foundation
-, XCTest
-, CryptoKit
-, LocalAuthentication
-}:
+{ lib, stdenv, callPackage, swift, swiftpm, swiftpm2nix, Foundation, XCTest
+, CryptoKit, LocalAuthentication }:
 let
   sources = callPackage ../sources.nix { };
   generated = swiftpm2nix.helpers ./generated;
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "swift-docc";
 
   inherit (sources) version;
@@ -48,6 +38,12 @@ stdenv.mkDerivation {
     homepage = "https://github.com/apple/swift-docc";
     platforms = with lib.platforms; linux ++ darwin;
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dtzWill trepetti dduan trundle stephank ];
+    maintainers = with lib.maintainers; [
+      dtzWill
+      trepetti
+      dduan
+      trundle
+      stephank
+    ];
   };
 }

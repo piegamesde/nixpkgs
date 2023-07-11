@@ -6,7 +6,8 @@ stdenvNoCC.mkDerivation {
 
   src = fetchzip {
     # upstream download links are unversioned, so hash changes
-    url = "https://web.archive.org/web/20200210125314/https://www.babelstone.co.uk/Fonts/Download/BabelStoneHan.zip";
+    url =
+      "https://web.archive.org/web/20200210125314/https://www.babelstone.co.uk/Fonts/Download/BabelStoneHan.zip";
     hash = "sha256-LLhNtHu2hh5DY2XVSrLuVzzR6OtMdSSHetyA0k1IFs0=";
   };
 

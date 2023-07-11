@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, nix-update-script
-, nwjs
-}:
+{ lib, stdenv, fetchFromGitLab, nix-update-script, nwjs }:
 
 stdenv.mkDerivation rec {
   pname = "gridtracker";

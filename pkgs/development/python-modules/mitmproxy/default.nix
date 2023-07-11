@@ -1,43 +1,12 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, pythonOlder
-  # Mitmproxy requirements
-, asgiref
-, blinker
-, brotli
-, certifi
-, cryptography
-, flask
-, h11
-, h2
-, hyperframe
-, kaitaistruct
-, ldap3
-, mitmproxy-wireguard
-, msgpack
-, passlib
-, protobuf
-, publicsuffix2
-, pyopenssl
-, pyparsing
-, pyperclip
-, ruamel-yaml
-, setuptools
-, sortedcontainers
-, tornado
-, urwid
-, wsproto
-, zstandard
-  # Additional check requirements
-, hypothesis
-, parver
-, pytest-asyncio
-, pytest-timeout
-, pytest-xdist
-, pytestCheckHook
-, requests
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder
+# Mitmproxy requirements
+, asgiref, blinker, brotli, certifi, cryptography, flask, h11, h2, hyperframe
+, kaitaistruct, ldap3, mitmproxy-wireguard, msgpack, passlib, protobuf
+, publicsuffix2, pyopenssl, pyparsing, pyperclip, ruamel-yaml, setuptools
+, sortedcontainers, tornado, urwid, wsproto, zstandard
+# Additional check requirements
+, hypothesis, parver, pytest-asyncio, pytest-timeout, pytest-xdist
+, pytestCheckHook, requests }:
 
 buildPythonPackage rec {
   pname = "mitmproxy";

@@ -1,55 +1,18 @@
-{ stdenv
-, lib
-, fetchurl
-, asciidoc
-, docbook-xsl-nons
-, docbook_xml_dtd_45
-, gettext
-, itstool
-, libxslt
-, gexiv2
-, tracker
-, meson
-, ninja
-, pkg-config
-, vala
-, wrapGAppsNoGuiHook
-, bzip2
-, dbus
-, exempi
-, giflib
-, glib
-, gnome
-, gst_all_1
-, icu
-, json-glib
-, libcue
-, libexif
-, libgsf
-, libgxps
-, libiptcdata
-, libjpeg
-, libosinfo
-, libpng
-, libseccomp
-, libtiff
-, libuuid
-, libxml2
-, networkmanager
-, poppler
-, systemd
-, taglib
-, upower
-, totem-pl-parser
-, e2fsprogs
-}:
+{ stdenv, lib, fetchurl, asciidoc, docbook-xsl-nons, docbook_xml_dtd_45, gettext
+, itstool, libxslt, gexiv2, tracker, meson, ninja, pkg-config, vala
+, wrapGAppsNoGuiHook, bzip2, dbus, exempi, giflib, glib, gnome, gst_all_1, icu
+, json-glib, libcue, libexif, libgsf, libgxps, libiptcdata, libjpeg, libosinfo
+, libpng, libseccomp, libtiff, libuuid, libxml2, networkmanager, poppler
+, systemd, taglib, upower, totem-pl-parser, e2fsprogs }:
 
 stdenv.mkDerivation rec {
   pname = "tracker-miners";
   version = "3.5.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "F5ZmA9xDKphSa0kFhqSKzX+fWZNfeJXfxRcppGppAaM=";
   };
 
@@ -98,14 +61,8 @@ stdenv.mkDerivation rec {
     libxml2
     poppler
     taglib
-  ] ++ lib.optionals stdenv.isLinux [
-    libseccomp
-    networkmanager
-    systemd
-    upower
-  ] ++ lib.optionals stdenv.isDarwin [
-    e2fsprogs
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ libseccomp networkmanager systemd upower ]
+    ++ lib.optionals stdenv.isDarwin [ 0.0 fsprogs ];
 
   mesonFlags = [
     # TODO: tests do not like our sandbox
@@ -125,15 +82,12 @@ stdenv.mkDerivation rec {
     glib-compile-schemas "$out/share/glib-2.0/schemas"
   '';
 
-  passthru = {
-    updateScript = gnome.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Projects/Tracker";
-    description = "Desktop-neutral user information store, search tool and indexer";
+    description =
+      "Desktop-neutral user information store, search tool and indexer";
     maintainers = teams.gnome.members;
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

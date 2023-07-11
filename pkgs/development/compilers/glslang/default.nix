@@ -1,13 +1,5 @@
-{ lib, stdenv
-, fetchFromGitHub
-, fetchpatch
-, bison
-, cmake
-, jq
-, python3
-, spirv-headers
-, spirv-tools
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, bison, cmake, jq, python3
+, spirv-headers, spirv-tools }:
 stdenv.mkDerivation rec {
   pname = "glslang";
   version = "1.3.243.0";
@@ -34,7 +26,8 @@ stdenv.mkDerivation rec {
     # Revert the commit to allow the build to work on Darwin with the nixpkg Darwin Clang toolchain.
     (fetchpatch {
       name = "Fix-Darwin-linker-error.patch";
-      url = "https://github.com/KhronosGroup/glslang/commit/586baa35a47b3aa6ad3fa829a27f0f4206400668.patch";
+      url =
+        "https://github.com/KhronosGroup/glslang/commit/586baa35a47b3aa6ad3fa829a27f0f4206400668.patch";
       hash = "sha256-paAl4E8GzogcxDEzn/XuhNH6XObp+i7WfArqAiuH4Mk=";
       revert = true;
     })

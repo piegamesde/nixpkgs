@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "graphw00f";
@@ -15,9 +12,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-stTCUHt9UCu1QuxDPB8a26LsrHNttyoVd0tmS7e2t2Y=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    requests
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ requests ];
 
   installPhase = ''
     runHook preInstall

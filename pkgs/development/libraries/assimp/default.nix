@@ -1,17 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, boost
-, zlib
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, boost, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "assimp";
   version = "5.2.5";
   outputs = [ "out" "lib" "dev" ];
 
-  src = fetchFromGitHub{
+  src = fetchFromGitHub {
     owner = "assimp";
     repo = "assimp";
     rev = "v${version}";

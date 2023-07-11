@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pytestCheckHook
-, setuptools
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook
+, setuptools }:
 
 buildPythonPackage rec {
   pname = "range-typed-integers";
@@ -26,7 +21,8 @@ buildPythonPackage rec {
   checkInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description = "A package provides integer types that have a specific range of valid values";
+    description =
+      "A package provides integer types that have a specific range of valid values";
     homepage = "https://github.com/theCapypara/range-typed-integers";
     license = [ licenses.mit ];
     maintainers = with maintainers; [ marius851000 ];

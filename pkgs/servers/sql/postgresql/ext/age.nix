@@ -13,10 +13,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ postgresql ];
 
-  makeFlags = [
-    "BISON=${bison}/bin/bison"
-    "FLEX=${flex}/bin/flex"
-  ];
+  makeFlags = [ "BISON=${bison}/bin/bison" "FLEX=${flex}/bin/flex" ];
 
   installPhase = ''
     install -D -t $out/lib *.so
@@ -31,8 +28,7 @@ stdenv.mkDerivation rec {
 
     dontConfigure = true;
 
-    buildPhase = let
-      postgresqlAge = postgresql.withPackages (ps: [ ps.age ]);
+    buildPhase = let postgresqlAge = postgresql.withPackages (ps: [ ps.age ]);
     in ''
       # The regression tests need to be run in the order specified in the Makefile.
       echo -e "include Makefile\nfiles:\n\t@echo \$(REGRESS)" > Makefile.regress

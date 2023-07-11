@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, substituteAll
-, pkgs
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, substituteAll, pkgs }:
 
 buildPythonPackage rec {
   pname = "streamdeck";
@@ -19,7 +13,8 @@ buildPythonPackage rec {
     # substitute libusb path
     (substituteAll {
       src = ./hardcode-libusb.patch;
-      libusb = "${pkgs.hidapi}/lib/libhidapi-libusb${stdenv.hostPlatform.extensions.sharedLibrary}";
+      libusb =
+        "${pkgs.hidapi}/lib/libhidapi-libusb${stdenv.hostPlatform.extensions.sharedLibrary}";
     })
   ];
 

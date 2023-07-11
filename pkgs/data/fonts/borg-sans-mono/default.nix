@@ -6,7 +6,8 @@ stdenvNoCC.mkDerivation {
 
   src = fetchzip {
     # https://github.com/marnen/borg-sans-mono/issues/19
-    url = "https://github.com/marnen/borg-sans-mono/files/107663/BorgSansMono.ttf.zip";
+    url =
+      "https://github.com/marnen/borg-sans-mono/files/107663/BorgSansMono.ttf.zip";
     hash = "sha256-nn7TGeVm45t7QI8+eEREBTFg9aShYYKtdEYEwQwO2fQ=";
   };
 

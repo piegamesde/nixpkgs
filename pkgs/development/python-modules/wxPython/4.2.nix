@@ -1,43 +1,15 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, setuptools
-, pythonOlder
-, fetchPypi
+{ lib, stdenv, buildPythonPackage, setuptools, pythonOlder, fetchPypi
 , substituteAll
 
 # build
-, autoPatchelfHook
-, attrdict
-, doxygen
-, pkg-config
-, python
-, sip
-, which
+, autoPatchelfHook, attrdict, doxygen, pkg-config, python, sip, which
 
 # runtime
-, cairo
-, gst_all_1
-, gtk3
-, libGL
-, libGLU
-, libSM
-, libXinerama
-, libXtst
-, libXxf86vm
-, libglvnd
-, mesa
-, pango
-, SDL
-, webkitgtk
-, wxGTK
-, xorgproto
+, cairo, gst_all_1, gtk3, libGL, libGLU, libSM, libXinerama, libXtst, libXxf86vm
+, libglvnd, mesa, pango, SDL, webkitgtk, wxGTK, xorgproto
 
 # propagates
-, numpy
-, pillow
-, six
-}:
+, numpy, pillow, six }:
 
 buildPythonPackage rec {
   pname = "wxPython";
@@ -59,22 +31,10 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [
-    attrdict
-    pkg-config
-    setuptools
-    SDL
-    sip
-    which
-    wxGTK
-  ] ++ lib.optionals stdenv.isLinux [
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ attrdict pkg-config setuptools SDL sip which wxGTK ]
+    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
-  buildInputs = [
-    wxGTK
-    SDL
-  ] ++ lib.optionals stdenv.isLinux [
+  buildInputs = [ wxGTK SDL ] ++ lib.optionals stdenv.isLinux [
     gst_all_1.gst-plugins-base
     gst_all_1.gstreamer
     libGL
@@ -89,11 +49,7 @@ buildPythonPackage rec {
     xorgproto
   ];
 
-  propagatedBuildInputs = [
-    numpy
-    pillow
-    six
-  ];
+  propagatedBuildInputs = [ numpy pillow six ];
 
   buildPhase = ''
     runHook preBuild
@@ -106,7 +62,6 @@ buildPythonPackage rec {
 
     runHook postBuild
   '';
-
 
   installPhase = ''
     runHook preInstall
@@ -124,7 +79,6 @@ buildPythonPackage rec {
 
     runHook postCheck
   '';
-
 
   meta = with lib; {
     description = "Cross platform GUI toolkit for Python, Phoenix version";

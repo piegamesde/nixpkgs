@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
   buildVersion = "220906";
 
   src = fetchzip {
-    url = "https://www.supermicro.com/wftp/utility/IPMICFG/IPMICFG_${version}_build.${buildVersion}.zip";
+    url =
+      "https://www.supermicro.com/wftp/utility/IPMICFG/IPMICFG_${version}_build.${buildVersion}.zip";
     sha256 = "ZumCXuR7M2Ep7maBOBFk0UsxyRo4fBkf+9AVmkz4AF0=";
   };
 
@@ -22,14 +23,15 @@ stdenv.mkDerivation rec {
     ln -s "$out/opt/ipmicfg/IPMICFG-Linux.x86_64" "$out/bin/ipmicfg"
   '';
 
-   dontPatchShebangs = true; # There are no scripts and it complains about null bytes.
+  dontPatchShebangs =
+    true; # There are no scripts and it complains about null bytes.
 
-   meta = with lib; {
-     description = "Supermicro IPMI configuration tool";
-     homepage = "http://www.supermicro.com/products/nfo/ipmi.cfm";
-     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-     license = licenses.unfree;
-     platforms = [ "x86_64-linux" ];
-     maintainers = with maintainers; [ sorki ];
-   };
+  meta = with lib; {
+    description = "Supermicro IPMI configuration tool";
+    homepage = "http://www.supermicro.com/products/nfo/ipmi.cfm";
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    license = licenses.unfree;
+    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [ sorki ];
+  };
 }

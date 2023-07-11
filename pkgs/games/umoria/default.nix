@@ -1,16 +1,8 @@
-{ lib
-, gcc9Stdenv
-, fetchFromGitHub
-, autoreconfHook
-, cmake
-, ncurses6
-, runtimeShell
-}:
+{ lib, gcc9Stdenv, fetchFromGitHub, autoreconfHook, cmake, ncurses6
+, runtimeShell }:
 
-let
-  savesDir = "~/.umoria";
-in
-gcc9Stdenv.mkDerivation rec {
+let savesDir = "~/.umoria";
+in gcc9Stdenv.mkDerivation rec {
   pname = "umoria";
   version = "5.7.15";
 

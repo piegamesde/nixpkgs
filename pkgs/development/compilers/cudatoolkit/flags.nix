@@ -1,7 +1,4 @@
-{ config
-, lib
-, cudaVersion
-}:
+{ config, lib, cudaVersion }:
 
 # Type aliases
 # Gpu :: AttrSet
@@ -37,8 +34,7 @@ let
       lowerBoundSatisfied = strings.versionAtLeast cudaVersion minCudaVersion;
       upperBoundSatisfied = (maxCudaVersion == null)
         || !(strings.versionOlder maxCudaVersion cudaVersion);
-    in
-    lowerBoundSatisfied && upperBoundSatisfied;
+    in lowerBoundSatisfied && upperBoundSatisfied;
 
   # isDefault :: Gpu -> Bool
   isDefault = gpu:
@@ -46,8 +42,7 @@ let
       inherit (gpu) dontDefaultAfter;
       newGpu = dontDefaultAfter == null;
       recentGpu = newGpu || strings.versionAtLeast dontDefaultAfter cudaVersion;
-    in
-    recentGpu;
+    in recentGpu;
 
   # supportedGpus :: List Gpu
   # GPUs which are supported by the provided CUDA version.
@@ -68,23 +63,16 @@ let
   # Maps the name of a GPU architecture to different versions of that architecture.
   # For example, "Ampere" maps to [ "8.0" "8.6" "8.7" ].
   cudaArchNameToVersions =
-    lists.groupBy'
-      (versions: gpu: versions ++ [ gpu.computeCapability ])
-      [ ]
-      (gpu: gpu.archName)
-      supportedGpus;
+    lists.groupBy' (versions: gpu: versions ++ [ gpu.computeCapability ]) [ ]
+    (gpu: gpu.archName) supportedGpus;
 
   # cudaComputeCapabilityToName :: AttrSet String String
   # Maps the version of a GPU architecture to the name of that architecture.
   # For example, "8.0" maps to "Ampere".
-  cudaComputeCapabilityToName = builtins.listToAttrs (
-    lists.map
-      (gpu: {
-        name = gpu.computeCapability;
-        value = gpu.archName;
-      })
-      supportedGpus
-  );
+  cudaComputeCapabilityToName = builtins.listToAttrs (lists.map (gpu: {
+    name = gpu.computeCapability;
+    value = gpu.archName;
+  }) supportedGpus);
 
   # dropDot :: String -> String
   dropDot = ver: builtins.replaceStrings [ "." ] [ "" ] ver;
@@ -92,23 +80,26 @@ let
   # archMapper :: String -> List String -> List String
   # Maps a feature across a list of architecture versions to produce a list of architectures.
   # For example, "sm" and [ "8.0" "8.6" "8.7" ] produces [ "sm_80" "sm_86" "sm_87" ].
-  archMapper = feat: lists.map (computeCapability: "${feat}_${dropDot computeCapability}");
+  archMapper = feat:
+    lists.map (computeCapability: "${feat}_${dropDot computeCapability}");
 
   # gencodeMapper :: String -> List String -> List String
   # Maps a feature across a list of architecture versions to produce a list of gencode arguments.
   # For example, "sm" and [ "8.0" "8.6" "8.7" ] produces [ "-gencode=arch=compute_80,code=sm_80"
   # "-gencode=arch=compute_86,code=sm_86" "-gencode=arch=compute_87,code=sm_87" ].
-  gencodeMapper = feat: lists.map (
-    computeCapability:
-    "-gencode=arch=compute_${dropDot computeCapability},code=${feat}_${dropDot computeCapability}"
-  );
+  gencodeMapper = feat:
+    lists.map (computeCapability:
+      "-gencode=arch=compute_${dropDot computeCapability},code=${feat}_${
+        dropDot computeCapability
+      }");
 
   formatCapabilities = { cudaCapabilities, enableForwardCompat ? true }: rec {
     inherit cudaCapabilities enableForwardCompat;
 
     # archNames :: List String
     # E.g. [ "Turing" "Ampere" ]
-    archNames = lists.unique (builtins.map (cap: cudaComputeCapabilityToName.${cap}) cudaCapabilities);
+    archNames = lists.unique
+      (builtins.map (cap: cudaComputeCapabilityToName.${cap}) cudaCapabilities);
 
     # realArches :: List String
     # The real architectures are physical architectures supported by the CUDA version.
@@ -125,23 +116,20 @@ let
     # By default, build for all supported architectures and forward compatibility via a virtual
     # architecture for the newest supported architecture.
     # E.g. [ "sm_75" "sm_86" "compute_86" ]
-    arches = realArches ++
-      lists.optional enableForwardCompat (lists.last virtualArches);
+    arches = realArches
+      ++ lists.optional enableForwardCompat (lists.last virtualArches);
 
     # gencode :: List String
     # A list of CUDA gencode arguments to pass to NVCC.
     # E.g. [ "-gencode=arch=compute_75,code=sm_75" ... "-gencode=arch=compute_86,code=compute_86" ]
-    gencode =
-      let
-        base = gencodeMapper "sm" cudaCapabilities;
-        forward = gencodeMapper "compute" [ (lists.last cudaCapabilities) ];
-      in
-      base ++ lib.optionals enableForwardCompat forward;
+    gencode = let
+      base = gencodeMapper "sm" cudaCapabilities;
+      forward = gencodeMapper "compute" [ (lists.last cudaCapabilities) ];
+    in base ++ lib.optionals enableForwardCompat forward;
   };
 
-in
-# When changing names or formats: pause, validate, and update the assert
-assert (formatCapabilities { cudaCapabilities = [ "7.5" "8.6" ]; }) == {
+  # When changing names or formats: pause, validate, and update the assert
+in assert (formatCapabilities { cudaCapabilities = [ "7.5" "8.6" ]; }) == {
   cudaCapabilities = [ "7.5" "8.6" ];
   enableForwardCompat = true;
 
@@ -150,7 +138,11 @@ assert (formatCapabilities { cudaCapabilities = [ "7.5" "8.6" ]; }) == {
   virtualArches = [ "compute_75" "compute_86" ];
   arches = [ "sm_75" "sm_86" "compute_86" ];
 
-  gencode = [ "-gencode=arch=compute_75,code=sm_75" "-gencode=arch=compute_86,code=sm_86" "-gencode=arch=compute_86,code=compute_86" ];
+  gencode = [
+    "-gencode=arch=compute_75,code=sm_75"
+    "-gencode=arch=compute_86,code=sm_86"
+    "-gencode=arch=compute_86,code=compute_86"
+  ];
 };
 {
   # formatCapabilities :: { cudaCapabilities: List Capability, cudaForwardCompat: Boolean } ->  { ... }

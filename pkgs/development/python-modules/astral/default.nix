@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{ lib, buildPythonPackage, fetchPypi, pythonOlder
 
 # build
 , poetry-core
@@ -10,9 +7,7 @@
 , backports-zoneinfo
 
 # tests
-, pytestCheckHook
-, freezegun
-}:
+, pytestCheckHook, freezegun }:
 
 buildPythonPackage rec {
   pname = "astral";
@@ -26,18 +21,12 @@ buildPythonPackage rec {
     hash = "sha256-m3w7QS6eadFyz7JL4Oat3MnxvQGijbi+vmbXXMxTPYg=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.9") [
-    backports-zoneinfo
-  ];
+  propagatedBuildInputs =
+    lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
 
-  nativeCheckInputs = [
-    freezegun
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ freezegun pytestCheckHook ];
 
   meta = with lib; {
     changelog = "https://github.com/sffjunkie/astral/releases/tag/${version}";

@@ -1,10 +1,7 @@
-{ lib
-, fetchFromGitHub
-, fetchpatch
-, python3
-}:
+{ lib, fetchFromGitHub, fetchpatch, python3 }:
 
-with python3.pkgs; buildPythonApplication rec {
+with python3.pkgs;
+buildPythonApplication rec {
   pname = "poetry2conda";
   version = "0.3.0";
 
@@ -20,26 +17,21 @@ with python3.pkgs; buildPythonApplication rec {
   patches = [
     (fetchpatch {
       name = "use-poetry-core.patch";
-      url = "https://github.com/dojeda/poetry2conda/commit/b127090498c89fbd8bbcbac45d03178a1e1c4219.patch";
+      url =
+        "https://github.com/dojeda/poetry2conda/commit/b127090498c89fbd8bbcbac45d03178a1e1c4219.patch";
       hash = "sha256-J26NhVPG1vD/QNXi5irtGW05CYsIYvZNQIi8YvHwCLc=";
     })
   ];
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    poetry-semver
-    toml
-  ];
+  propagatedBuildInputs = [ poetry-semver toml ];
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-    pyyaml
-  ];
+  nativeCheckInputs = [ pytest-mock pytestCheckHook pyyaml ];
 
   meta = with lib; {
-    description = "A script to convert a Python project declared on a pyproject.toml to a conda environment";
+    description =
+      "A script to convert a Python project declared on a pyproject.toml to a conda environment";
     homepage = "https://github.com/dojeda/poetry2conda";
     license = licenses.mit;
     maintainers = with maintainers; [ cpcloud ];

@@ -1,19 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, cairo
-, desktop-file-utils
-, gettext
-, glib
-, gtk4
-, libadwaita
-, meson
-, ninja
-, pango
-, pkg-config
-, rustPlatform
-, wrapGAppsHook4
-}:
+{ stdenv, lib, fetchFromGitLab, cairo, desktop-file-utils, gettext, glib, gtk4
+, libadwaita, meson, ninja, pango, pkg-config, rustPlatform, wrapGAppsHook4 }:
 
 stdenv.mkDerivation rec {
   pname = "contrast";
@@ -46,16 +32,11 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [
-    cairo
-    glib
-    gtk4
-    libadwaita
-    pango
-  ];
+  buildInputs = [ cairo glib gtk4 libadwaita pango ];
 
   meta = with lib; {
-    description = "Checks whether the contrast between two colors meet the WCAG requirements";
+    description =
+      "Checks whether the contrast between two colors meet the WCAG requirements";
     homepage = "https://gitlab.gnome.org/World/design/contrast";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ jtojnar ];

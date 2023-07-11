@@ -1,10 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
 # build inputs
-, typing-extensions
-}:
+, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "widlparser";
@@ -23,9 +19,7 @@ buildPythonPackage rec {
     sed -i -e 's/0.0.0/${version}/' setup.py
   '';
 
-  propagatedBuildInputs = [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ typing-extensions ];
 
   pythonImportsCheck = [ "widlparser" ];
 
@@ -33,6 +27,6 @@ buildPythonPackage rec {
     description = "Stand-alone WebIDL Parser in Python";
     homepage = "https://github.com/plinss/widlparser";
     license = licenses.mit;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

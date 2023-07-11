@@ -1,19 +1,5 @@
-{ bash
-, gawk
-, git
-, gnugrep
-, fetchFromGitHub
-, installShellFiles
-, lib
-, makeWrapper
-, stdenv
-, unixtools
-, unzip
-, wget
-, xdotool
-, xorg
-, yad
-}:
+{ bash, gawk, git, gnugrep, fetchFromGitHub, installShellFiles, lib, makeWrapper
+, stdenv, unixtools, unzip, wget, xdotool, xorg, yad }:
 
 stdenv.mkDerivation rec {
   pname = "steamtinkerlaunch";
@@ -36,24 +22,27 @@ stdenv.mkDerivation rec {
   installFlags = [ "PREFIX=\${out}" ];
 
   postInstall = ''
-    wrapProgram $out/bin/steamtinkerlaunch --prefix PATH : ${lib.makeBinPath [
-      bash
-      gawk
-      git
-      gnugrep
-      unixtools.xxd
-      unzip
-      wget
-      xdotool
-      xorg.xprop
-      xorg.xrandr
-      xorg.xwininfo
-      yad
-    ]}
+    wrapProgram $out/bin/steamtinkerlaunch --prefix PATH : ${
+      lib.makeBinPath [
+        bash
+        gawk
+        git
+        gnugrep
+        unixtools.xxd
+        unzip
+        wget
+        xdotool
+        xorg.xprop
+        xorg.xrandr
+        xorg.xwininfo
+        yad
+      ]
+    }
   '';
 
   meta = with lib; {
-    description = "Linux wrapper tool for use with the Steam client for custom launch options and 3rd party programs";
+    description =
+      "Linux wrapper tool for use with the Steam client for custom launch options and 3rd party programs";
     homepage = "https://github.com/sonic2kk/steamtinkerlaunch";
     license = licenses.gpl3;
     maintainers = with maintainers; [ urandom ];

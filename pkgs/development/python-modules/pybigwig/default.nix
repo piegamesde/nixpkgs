@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, pytestCheckHook
-, pythonOlder
-, zlib
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, pytestCheckHook, pythonOlder
+, zlib }:
 
 buildPythonPackage rec {
   pname = "pybigwig";
@@ -21,22 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-uYKxM0HOG4fus5geBFjbfbv6G1kDvMaAwhk0w/e1YII=";
   };
 
-  buildInputs = [
-    zlib
-  ];
+  buildInputs = [ zlib ];
 
-  nativeCheckInputs = [
-    numpy
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ numpy pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pyBigWig"
-  ];
+  pythonImportsCheck = [ "pyBigWig" ];
 
-  pytestFlagsArray = [
-    "pyBigWigTest/test*.py"
-  ];
+  pytestFlagsArray = [ "pyBigWigTest/test*.py" ];
 
   disabledTests = [
     # Test file is donwloaded from GitHub
@@ -47,7 +32,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "File access to bigBed files, and read and write access to bigWig files";
+    description =
+      "File access to bigBed files, and read and write access to bigWig files";
     longDescription = ''
       A Python extension, written in C, for quick access to bigBed files
       and access to and creation of bigWig files. This extension uses

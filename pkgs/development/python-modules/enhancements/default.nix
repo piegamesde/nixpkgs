@@ -1,11 +1,5 @@
-{ lib
-, argcomplete
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, typeguard
-}:
+{ lib, argcomplete, buildPythonPackage, fetchFromGitHub, pytestCheckHook
+, pythonOlder, typeguard }:
 
 buildPythonPackage rec {
   pname = "enhancements";
@@ -21,18 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-Nff44WAQwSbkRpUHb9ANsQWWH2B819gtwQdXAjWJJls=";
   };
 
-  propagatedBuildInputs = [
-    argcomplete
-    typeguard
-  ];
+  propagatedBuildInputs = [ argcomplete typeguard ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "enhancements"
-  ];
+  pythonImportsCheck = [ "enhancements" ];
 
   meta = with lib; {
     description = "Library which extends various Python classes";

@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, git
-, pytestCheckHook
-, pythonOlder
-, ruamel-yaml
-, tomli
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, git, pytestCheckHook
+, pythonOlder, ruamel-yaml, tomli }:
 
 buildPythonPackage rec {
   pname = "pre-commit-hooks";
@@ -23,16 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-V23pgHQ9GdZ2mukFEMAhkp+dl/CQTGxWHAhF7s1VvHo=";
   };
 
-  propagatedBuildInputs = [
-    ruamel-yaml
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
+  propagatedBuildInputs = [ ruamel-yaml ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  nativeCheckInputs = [
-    git
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ git pytestCheckHook ];
 
   # Note: this is not likely to ever work on Darwin
   # https://github.com/pre-commit/pre-commit-hooks/pull/655
@@ -48,14 +34,13 @@ buildPythonPackage rec {
     git init .
   '';
 
-  pythonImportsCheck = [
-    "pre_commit_hooks"
-  ];
+  pythonImportsCheck = [ "pre_commit_hooks" ];
 
   meta = with lib; {
     description = "Some out-of-the-box hooks for pre-commit";
     homepage = "https://github.com/pre-commit/pre-commit-hooks";
-    changelog = "https://github.com/pre-commit/pre-commit-hooks/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/pre-commit/pre-commit-hooks/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ kalbasit ];
   };

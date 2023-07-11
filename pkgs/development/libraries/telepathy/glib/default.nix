@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, dbus-glib
-, glib
-, python3
-, pkg-config
-, libxslt
-, gobject-introspection
-, vala
-, glibcLocales
-}:
+{ lib, stdenv, fetchurl, dbus-glib, glib, python3, pkg-config, libxslt
+, gobject-introspection, vala, glibcLocales }:
 
 stdenv.mkDerivation rec {
   pname = "telepathy-glib";
@@ -23,26 +13,13 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    pkg-config
-    libxslt
-    gobject-introspection
-    vala
-    python3
-  ];
+  nativeBuildInputs = [ pkg-config libxslt gobject-introspection vala python3 ];
 
-  buildInputs = [
-    glibcLocales
-  ];
+  buildInputs = [ glibcLocales ];
 
-  propagatedBuildInputs = [
-    dbus-glib
-    glib
-  ];
+  propagatedBuildInputs = [ dbus-glib glib ];
 
-  configureFlags = [
-    "--enable-vala-bindings"
-  ];
+  configureFlags = [ "--enable-vala-bindings" ];
 
   LC_ALL = "en_US.UTF-8";
 

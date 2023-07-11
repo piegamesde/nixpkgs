@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "3.0.5";
 
   src = fetchzip {
-    url = "https://github.com/RedHatOfficial/Overpass/releases/download/v${version}/overpass-${version}.zip";
+    url =
+      "https://github.com/RedHatOfficial/Overpass/releases/download/v${version}/overpass-${version}.zip";
     hash = "sha256-8AWT0/DELfNWXtZOejC90DbUSOtyGt9tSkcSuO7HP2o=";
   };
 

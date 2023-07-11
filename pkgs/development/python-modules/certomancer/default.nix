@@ -1,23 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, asn1crypto
-, click
-, oscrypto
-, pyyaml
-, python-dateutil
-, tzlocal
-, pytest-aiohttp
-, pytz
-, freezegun
-, jinja2
-, pyhanko-certvalidator
-, requests
-, requests-mock
-, werkzeug
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, asn1crypto, click
+, oscrypto, pyyaml, python-dateutil, tzlocal, pytest-aiohttp, pytz, freezegun
+, jinja2, pyhanko-certvalidator, requests, requests-mock, werkzeug
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "certomancer";
@@ -33,14 +17,8 @@ buildPythonPackage rec {
     sha256 = "4v2e46ZrzhKXpMULj0vmDRoLOypi030eaADAYjLMg5M=";
   };
 
-  propagatedBuildInputs = [
-    asn1crypto
-    click
-    oscrypto
-    pyyaml
-    python-dateutil
-    tzlocal
-  ];
+  propagatedBuildInputs =
+    [ asn1crypto click oscrypto pyyaml python-dateutil tzlocal ];
 
   postPatch = ''
     substituteInPlace setup.py --replace ", 'pytest-runner'" ""
@@ -66,7 +44,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "certomancer" ];
 
   meta = with lib; {
-    description = "Quickly construct, mock & deploy PKI test configurations using simple declarative configuration";
+    description =
+      "Quickly construct, mock & deploy PKI test configurations using simple declarative configuration";
     homepage = "https://github.com/MatthiasValvekens/certomancer";
     license = licenses.mit;
     maintainers = with maintainers; [ wolfangaukang ];

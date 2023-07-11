@@ -1,9 +1,6 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
-with lib; let
+{ config, lib, pkgs, ... }:
+with lib;
+let
   cfg = config.programs.hyprland;
 
   defaultHyprlandPackage = pkgs.hyprland.override {
@@ -11,8 +8,7 @@ with lib; let
     hidpiXWayland = cfg.xwayland.hidpi;
     nvidiaPatches = cfg.nvidiaPatches;
   };
-in
-{
+in {
   options.programs.hyprland = {
     enable = mkEnableOption null // {
       description = mdDoc ''
@@ -53,7 +49,8 @@ in
       };
     };
 
-    nvidiaPatches = mkEnableOption (mdDoc "patching wlroots for better Nvidia support");
+    nvidiaPatches =
+      mkEnableOption (mdDoc "patching wlroots for better Nvidia support");
   };
 
   config = mkIf cfg.enable {
@@ -73,9 +70,7 @@ in
 
     xdg.portal = {
       enable = mkDefault true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-hyprland
-      ];
+      extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
     };
   };
 }

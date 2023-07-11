@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gmic
-, gmic-qt
-}:
+{ lib, stdenv, fetchFromGitHub, gmic, gmic-qt }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cimg";
@@ -45,10 +40,8 @@ stdenv.mkDerivation (finalAttrs: {
       processing applications.
     '';
     license = lib.licenses.cecill-c;
-    maintainers = [
-      lib.maintainers.AndersonTorres
-      lib.maintainers.lilyinstarlight
-    ];
+    maintainers =
+      [ lib.maintainers.AndersonTorres lib.maintainers.lilyinstarlight ];
     platforms = lib.platforms.unix;
   };
 })

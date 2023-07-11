@@ -1,78 +1,24 @@
-{ lib
-, stdenv
-, runCommand
-, fetchurl
-, perl
-, python3
-, ruby
-, gi-docgen
-, bison
-, gperf
-, cmake
-, ninja
-, pkg-config
-, gettext
-, gobject-introspection
-, gnutls
-, libgcrypt
-, libgpg-error
-, gtk3
-, wayland
-, wayland-protocols
-, libwebp
-, libwpe
-, libwpe-fdo
-, enchant2
-, xorg
-, libxkbcommon
-, libavif
-, libepoxy
-, at-spi2-core
-, libxml2
-, libsoup
-, libsecret
-, libxslt
-, harfbuzz
-, libpthreadstubs
-, pcre
-, nettle
-, libtasn1
-, p11-kit
-, libidn
-, libedit
-, readline
-, apple_sdk
-, libGL
-, libGLU
-, mesa
-, libintl
-, lcms2
-, libmanette
-, openjpeg
-, geoclue2
-, sqlite
-, enableGLES ? true
-, gst-plugins-base
-, gst-plugins-bad
-, woff2
-, bubblewrap
-, libseccomp
-, systemd
-, xdg-dbus-proxy
-, substituteAll
-, glib
-, unifdef
-, addOpenGLRunpath
-, enableGeoLocation ? true
-, withLibsecret ? true
-, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd
-, testers
-}:
+{ lib, stdenv, runCommand, fetchurl, perl, python3, ruby, gi-docgen, bison
+, gperf, cmake, ninja, pkg-config, gettext, gobject-introspection, gnutls
+, libgcrypt, libgpg-error, gtk3, wayland, wayland-protocols, libwebp, libwpe
+, libwpe-fdo, enchant2, xorg, libxkbcommon, libavif, libepoxy, at-spi2-core
+, libxml2, libsoup, libsecret, libxslt, harfbuzz, libpthreadstubs, pcre, nettle
+, libtasn1, p11-kit, libidn, libedit, readline, apple_sdk, libGL, libGLU, mesa
+, libintl, lcms2, libmanette, openjpeg, geoclue2, sqlite, enableGLES ? true
+, gst-plugins-base, gst-plugins-bad, woff2, bubblewrap, libseccomp, systemd
+, xdg-dbus-proxy, substituteAll, glib, unifdef, addOpenGLRunpath
+, enableGeoLocation ? true, withLibsecret ? true
+, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd, testers }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "webkitgtk";
   version = "2.40.1";
-  name = "${finalAttrs.pname}-${finalAttrs.version}+abi=${if lib.versionAtLeast gtk3.version "4.0" then "6.0" else "4.${if lib.versions.major libsoup.version == "2" then "0" else "1"}"}";
+  name = "${finalAttrs.pname}-${finalAttrs.version}+abi=${
+      if lib.versionAtLeast gtk3.version "4.0" then
+        "6.0"
+      else
+        "4.${if lib.versions.major libsoup.version == "2" then "0" else "1"}"
+    }";
 
   outputs = [ "out" "dev" "devdoc" ];
 
@@ -81,7 +27,8 @@ stdenv.mkDerivation (finalAttrs: {
   separateDebugInfo = stdenv.isLinux && !stdenv.is32bit;
 
   src = fetchurl {
-    url = "https://webkitgtk.org/releases/webkitgtk-${finalAttrs.version}.tar.xz";
+    url =
+      "https://webkitgtk.org/releases/webkitgtk-${finalAttrs.version}.tar.xz";
     hash = "sha256-ZOUmmE+M0hYe8DrpSa+ZwAL/Mz1hXmOGtGAWSjwbfvY=";
   };
 
@@ -100,13 +47,14 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  preConfigure = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-    # Ignore gettext in cmake_prefix_path so that find_program doesn't
-    # pick up the wrong gettext. TODO: Find a better solution for
-    # this, maybe make cmake not look up executables in
-    # CMAKE_PREFIX_PATH.
-    cmakeFlags+=" -DCMAKE_IGNORE_PATH=${lib.getBin gettext}/bin"
-  '';
+  preConfigure =
+    lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+      # Ignore gettext in cmake_prefix_path so that find_program doesn't
+      # pick up the wrong gettext. TODO: Find a better solution for
+      # this, maybe make cmake not look up executables in
+      # CMAKE_PREFIX_PATH.
+      cmakeFlags+=" -DCMAKE_IGNORE_PATH=${lib.getBin gettext}/bin"
+    '';
 
   nativeBuildInputs = [
     bison
@@ -156,48 +104,36 @@ stdenv.mkDerivation (finalAttrs: {
     pcre
     sqlite
     woff2
-  ] ++ (with xorg; [
-    libXdamage
-    libXdmcp
-    libXt
-    libXtst
-  ]) ++ lib.optionals stdenv.isDarwin [
-    libedit
-    readline
-  ] ++ lib.optional (stdenv.isDarwin && !stdenv.isAarch64) (
-    # Pull a header that contains a definition of proc_pid_rusage().
-    # (We pick just that one because using the other headers from `sdk` is not
-    # compatible with our C++ standard library. This header is already in
-    # the standard library on aarch64)
-    runCommand "webkitgtk_headers" { } ''
-      install -Dm444 "${lib.getDev apple_sdk.sdk}"/include/libproc.h "$out"/include/libproc.h
-    ''
-  ) ++ lib.optionals stdenv.isLinux [
-    bubblewrap
-    libseccomp
-    libmanette
-    wayland
-    libwpe
-    libwpe-fdo
-    xdg-dbus-proxy
-  ] ++ lib.optionals systemdSupport [
-    systemd
-  ] ++ lib.optionals enableGeoLocation [
-    geoclue2
-  ] ++ lib.optionals withLibsecret [
-    libsecret
-  ] ++ lib.optionals (lib.versionAtLeast gtk3.version "4.0") [
-    xorg.libXcomposite
-    wayland-protocols
-  ];
+  ] ++ (with xorg; [ libXdamage libXdmcp libXt libXtst ])
+    ++ lib.optionals stdenv.isDarwin [ libedit readline ]
+    ++ lib.optional (stdenv.isDarwin && !stdenv.isAarch64) (
+      # Pull a header that contains a definition of proc_pid_rusage().
+      # (We pick just that one because using the other headers from `sdk` is not
+      # compatible with our C++ standard library. This header is already in
+      # the standard library on aarch64)
+      runCommand "webkitgtk_headers" { } ''
+        install -Dm444 "${
+          lib.getDev apple_sdk.sdk
+        }"/include/libproc.h "$out"/include/libproc.h
+      '') ++ lib.optionals stdenv.isLinux [
+        bubblewrap
+        libseccomp
+        libmanette
+        wayland
+        libwpe
+        libwpe-fdo
+        xdg-dbus-proxy
+      ] ++ lib.optionals systemdSupport [ systemd ]
+    ++ lib.optionals enableGeoLocation [ geoclue2 ]
+    ++ lib.optionals withLibsecret [ libsecret ]
+    ++ lib.optionals (lib.versionAtLeast gtk3.version "4.0") [
+      xorg.libXcomposite
+      wayland-protocols
+    ];
 
-  propagatedBuildInputs = [
-    gtk3
-    libsoup
-  ];
+  propagatedBuildInputs = [ gtk3 libsoup ];
 
-  cmakeFlags = let
-    cmakeBool = x: if x then "ON" else "OFF";
+  cmakeFlags = let cmakeBool = x: if x then "ON" else "OFF";
   in [
     "-DENABLE_INTROSPECTION=ON"
     "-DPORT=GTK"
@@ -212,13 +148,9 @@ stdenv.mkDerivation (finalAttrs: {
     "-DENABLE_X11_TARGET=OFF"
     "-DUSE_APPLE_ICU=OFF"
     "-DUSE_OPENGL_OR_ES=OFF"
-  ] ++ lib.optionals (lib.versionAtLeast gtk3.version "4.0") [
-    "-DUSE_GTK4=ON"
-  ] ++ lib.optionals (!systemdSupport) [
-    "-DENABLE_JOURNALD_LOG=OFF"
-  ] ++ lib.optionals (stdenv.isLinux && enableGLES) [
-    "-DENABLE_GLES2=ON"
-  ];
+  ] ++ lib.optionals (lib.versionAtLeast gtk3.version "4.0") [ "-DUSE_GTK4=ON" ]
+  ++ lib.optionals (!systemdSupport) [ "-DENABLE_JOURNALD_LOG=OFF" ]
+  ++ lib.optionals (stdenv.isLinux && enableGLES) [ "-DENABLE_GLES2=ON" ];
 
   postPatch = ''
     patchShebangs .

@@ -1,16 +1,16 @@
-{ lib, makeWrapper, tesseractBase, languages
-, runCommand, imagemagick
+{ lib, makeWrapper, tesseractBase, languages, runCommand, imagemagick
 
 # A list of languages like [ "eng" "spa" … ] or `null` for all available languages
 , enableLanguages ? null
 
-# A list of files or a directory containing files
-, tessdata ? (if enableLanguages == null then languages.all
-              else map (lang: languages.${lang}) enableLanguages)
+  # A list of files or a directory containing files
+, tessdata ? (if enableLanguages == null then
+  languages.all
+else
+  map (lang: languages.${lang}) enableLanguages)
 
 # This argument is obsolete
-, enableLanguagesHash ? null
-}:
+, enableLanguagesHash ? null }:
 
 let
   tesseractWithData = tesseractBase.overrideAttrs (_: {
@@ -54,10 +54,7 @@ let
   # Only run test when all languages are available
   test = lib.optionalAttrs (enableLanguages == null) {
     tests.default = runCommand "tesseract-test-ocr" {
-      buildInputs = [
-        tesseractWithData
-        imagemagick
-      ];
+      buildInputs = [ tesseractWithData imagemagick ];
     } ''
       text="hello nix"
 
@@ -75,10 +72,11 @@ let
     '';
   };
 
-  tesseract = (if enableLanguages == [] then tesseractBase else tesseractWithData) // passthru // test;
-in
-  if enableLanguagesHash == null then
-    tesseract
-  else
-    lib.warn "Argument `enableLanguagesHash` is obsolete and can be removed."
-    tesseract
+  tesseract =
+    (if enableLanguages == [ ] then tesseractBase else tesseractWithData)
+    // passthru // test;
+in if enableLanguagesHash == null then
+  tesseract
+else
+  lib.warn "Argument `enableLanguagesHash` is obsolete and can be removed."
+  tesseract

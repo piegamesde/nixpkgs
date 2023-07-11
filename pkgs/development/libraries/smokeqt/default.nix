@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "4.14.3";
 
   src = fetchzip {
-    url = "https://invent.kde.org/unmaintained/${pname}/-/archive/v${version}/${pname}-v${version}.tar.gz";
+    url =
+      "https://invent.kde.org/unmaintained/${pname}/-/archive/v${version}/${pname}-v${version}.tar.gz";
     hash = "sha256-8FiEGF8gduVw5I/bi2wExGUWmjIjYEhWpjpXKJGBNMg=";
   };
 
@@ -13,9 +14,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake smokegen ];
   buildInputs = [ qt4 ];
 
-  cmakeFlags = [
-    "-DCMAKE_CXX_STANDARD=98"
-  ];
+  cmakeFlags = [ "-DCMAKE_CXX_STANDARD=98" ];
 
   meta = with lib; {
     description = "Bindings for the Qt libraries";

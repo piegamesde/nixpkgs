@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 let
   py = python3.override {
@@ -21,7 +18,8 @@ let
         version = "0.10.0";
         src = oldAttrs.src.override {
           inherit version;
-          sha256 = "b85d0567b8666149a93172712e68920734333c0ce7e89b78b3e987f71e5ed4f9";
+          sha256 =
+            "b85d0567b8666149a93172712e68920734333c0ce7e89b78b3e987f71e5ed4f9";
           hash = "";
         };
         doCheck = false;
@@ -29,8 +27,7 @@ let
 
     };
   };
-in
-with py.pkgs;
+in with py.pkgs;
 
 buildPythonApplication rec {
   pname = "oci-cli";
@@ -74,14 +71,16 @@ buildPythonApplication rec {
   # https://github.com/oracle/oci-cli/issues/187
   doCheck = false;
 
-  pythonImportsCheck = [
-    " oci_cli "
-  ];
+  pythonImportsCheck = [ " oci_cli " ];
 
   meta = with lib; {
     description = "Command Line Interface for Oracle Cloud Infrastructure";
-    homepage = "https://docs.cloud.oracle.com/iaas/Content/API/Concepts/cliconcepts.htm";
-    license = with licenses; [ asl20 /* or */ upl ];
+    homepage =
+      "https://docs.cloud.oracle.com/iaas/Content/API/Concepts/cliconcepts.htm";
+    license = with licenses; [
+      asl20 # or
+      upl
+    ];
     maintainers = with maintainers; [ ilian ];
   };
 }

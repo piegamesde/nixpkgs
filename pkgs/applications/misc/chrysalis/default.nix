@@ -9,15 +9,14 @@ in appimageTools.wrapAppImage rec {
   src = appimageTools.extract {
     inherit name;
     src = fetchurl {
-      url = "https://github.com/keyboardio/${pname}/releases/download/v${version}/${pname}-${version}.AppImage";
+      url =
+        "https://github.com/keyboardio/${pname}/releases/download/v${version}/${pname}-${version}.AppImage";
       sha256 = "sha256-sQoEO1UII4Gbp7UbHCCyejsd94lkBbi93TH325EamFc=";
     };
   };
 
   multiPkgs = null;
-  extraPkgs = p: (appimageTools.defaultFhsEnvArgs.multiPkgs p) ++ [
-    p.glib
-  ];
+  extraPkgs = p: (appimageTools.defaultFhsEnvArgs.multiPkgs p) ++ [ p.glib ];
 
   # Also expose the udev rules here, so it can be used as:
   #   services.udev.packages = [ pkgs.chrysalis ];

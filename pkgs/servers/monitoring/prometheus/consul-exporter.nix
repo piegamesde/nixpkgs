@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "consul_exporter";
@@ -16,15 +13,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-V3IWhVm47Uwgk3Mcu4JcYYGAdCrHDhkXYXCTXQr1BDE=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
     description = "Prometheus exporter for Consul metrics";
     homepage = "https://github.com/prometheus/consul_exporter";
-    changelog = "https://github.com/prometheus/consul_exporter/releases/tag/v${version}";
+    changelog =
+      "https://github.com/prometheus/consul_exporter/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ hectorj ];
     platforms = platforms.unix;

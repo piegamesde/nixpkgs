@@ -1,15 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, buildEnv, makeWrapper
-, SDL2, libGL, curl
-, openalSupport ? true, openal
-, Cocoa, OpenAL
-}:
+{ stdenv, lib, fetchFromGitHub, buildEnv, makeWrapper, SDL2, libGL, curl
+, openalSupport ? true, openal, Cocoa, OpenAL }:
 
 let
   mkFlag = b: if b then "yes" else "no";
 
   games = import ./games.nix { inherit stdenv lib fetchFromGitHub; };
 
-  wrapper = import ./wrapper.nix { inherit stdenv lib buildEnv makeWrapper yquake2; };
+  wrapper =
+    import ./wrapper.nix { inherit stdenv lib buildEnv makeWrapper yquake2; };
 
   yquake2 = stdenv.mkDerivation rec {
     pname = "yquake2";
@@ -18,7 +16,7 @@ let
     src = fetchFromGitHub {
       owner = "yquake2";
       repo = "yquake2";
-      rev = "QUAKE2_${builtins.replaceStrings ["."] ["_"] version}";
+      rev = "QUAKE2_${builtins.replaceStrings [ "." ] [ "_" ] version}";
       sha256 = "sha256-x1mk6qo03b438ZBS16/f7pzMCfugtQvaRcV+hg7Zc/w=";
     };
 
@@ -37,7 +35,7 @@ let
     makeFlags = [
       "WITH_OPENAL=${mkFlag openalSupport}"
       "WITH_SYSTEMWIDE=yes"
-      "WITH_SYSTEMDIR=$\{out}/share/games/quake2"
+      "WITH_SYSTEMDIR=\${out}/share/games/quake2"
     ];
 
     enableParallelBuilding = true;

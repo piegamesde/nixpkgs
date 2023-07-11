@@ -1,15 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, cbor2
-, fetchFromGitHub
-, pycryptodomex
-, pytestCheckHook
-, pytest-vcr
-, pytest-asyncio
-, requests
-, pythonOlder
-}:
+{ lib, aiohttp, buildPythonPackage, cbor2, fetchFromGitHub, pycryptodomex
+, pytestCheckHook, pytest-vcr, pytest-asyncio, requests, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pubnub";
@@ -25,18 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-+g/VBxv0XfqqwTEKtgBAy7Pfakll00JXMFBS2q3pHn8=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    cbor2
-    pycryptodomex
-    requests
-  ];
+  propagatedBuildInputs = [ aiohttp cbor2 pycryptodomex requests ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-vcr
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytest-vcr pytestCheckHook ];
 
   disabledTestPaths = [
     # Tests require network access
@@ -45,9 +26,7 @@ buildPythonPackage rec {
     "tests/functional/push"
   ];
 
-  pythonImportsCheck = [
-    "pubnub"
-  ];
+  pythonImportsCheck = [ "pubnub" ];
 
   meta = with lib; {
     description = "Python-based APIs for PubNub";

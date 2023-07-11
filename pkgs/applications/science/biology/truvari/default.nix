@@ -1,10 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3Packages
-, runtimeShell
-, bcftools
-, htslib
-}:
+{ lib, fetchFromGitHub, python3Packages, runtimeShell, bcftools, htslib }:
 
 let
   ssshtest = fetchFromGitHub {
@@ -44,18 +38,13 @@ in python3Packages.buildPythonApplication rec {
     pandas
   ];
 
-  makeWrapperArgs = [
-    "--prefix" "PATH" ":" (lib.makeBinPath [ bcftools htslib ])
-  ];
+  makeWrapperArgs =
+    [ "--prefix" "PATH" ":" (lib.makeBinPath [ bcftools htslib ]) ];
 
   pythonImportsCheck = [ "truvari" ];
 
-  nativeCheckInputs = [
-    bcftools
-    htslib
-  ] ++ (with python3Packages; [
-    coverage
-  ]);
+  nativeCheckInputs = [ bcftools htslib ]
+    ++ (with python3Packages; [ coverage ]);
 
   checkPhase = ''
     runHook preCheck

@@ -1,9 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, testers
-, zed
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, zed }:
 
 buildGoModule rec {
   pname = "zed";
@@ -20,16 +15,10 @@ buildGoModule rec {
 
   subPackages = [ "cmd/zed" "cmd/zq" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=github.com/brimdata/zed/cli.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X=github.com/brimdata/zed/cli.version=${version}" ];
 
   passthru.tests = {
-    zed-version = testers.testVersion {
-      package = zed;
-    };
+    zed-version = testers.testVersion { package = zed; };
     zq-version = testers.testVersion {
       package = zed;
       command = "zq --version";

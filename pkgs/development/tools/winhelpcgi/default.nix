@@ -1,4 +1,5 @@
-{ stdenv, fetchurl, libwmf, libpng, pkg-config, lib }: stdenv.mkDerivation {
+{ stdenv, fetchurl, libwmf, libpng, pkg-config, lib }:
+stdenv.mkDerivation {
   name = "winhelpcgi-1.0-rc3";
 
   src = fetchurl {
@@ -12,7 +13,8 @@
   buildInputs = [ libwmf libpng ];
 
   meta = {
-    description = "CGI module for Linux, Solaris, MacOS X and AIX to read Windows Help Files";
+    description =
+      "CGI module for Linux, Solaris, MacOS X and AIX to read Windows Help Files";
 
     homepage = "http://www.herdsoft.com/linux/produkte/winhelpcgi.html";
 

@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, autoPatchelfHook
-, makeWrapper
-, unzip
-, libGL
-, libICE
-, libSM
-, libX11
-, libXrandr
-, zlib
-, alsa-lib
-}:
+{ lib, stdenv, fetchurl, autoPatchelfHook, makeWrapper, unzip, libGL, libICE
+, libSM, libX11, libXrandr, zlib, alsa-lib }:
 
 stdenv.mkDerivation rec {
   pname = "rigsofrods-bin";
@@ -24,25 +12,11 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-    unzip
-  ];
+  nativeBuildInputs = [ autoPatchelfHook makeWrapper unzip ];
 
-  buildInputs = [
-    libGL
-    libICE
-    libSM
-    libX11
-    libXrandr
-    stdenv.cc.cc
-    zlib
-  ];
+  buildInputs = [ libGL libICE libSM libX11 libXrandr stdenv.cc.cc zlib ];
 
-  runtimeDependencies = [
-    alsa-lib
-  ];
+  runtimeDependencies = [ alsa-lib ];
 
   noDumpEnvVars = true;
 
@@ -60,7 +34,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A free/libre soft-body physics simulator mainly targeted at simulating vehicle physics";
+    description =
+      "A free/libre soft-body physics simulator mainly targeted at simulating vehicle physics";
     homepage = "https://www.rigsofrods.org";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ raskin wegank ];

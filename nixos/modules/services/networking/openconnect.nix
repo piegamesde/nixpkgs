@@ -11,7 +11,8 @@ let
     options = {
       autoStart = mkOption {
         default = true;
-        description = lib.mdDoc "Whether this VPN connection should be started automatically.";
+        description = lib.mdDoc
+          "Whether this VPN connection should be started automatically.";
         type = types.bool;
       };
 
@@ -110,7 +111,8 @@ let
       ExecStart = "${openconnect}/bin/openconnect --config=${
           generateConfig name icfg
         } ${icfg.gateway}";
-      StandardInput = lib.mkIf (icfg.passwordFile != null) "file:${icfg.passwordFile}";
+      StandardInput =
+        lib.mkIf (icfg.passwordFile != null) "file:${icfg.passwordFile}";
 
       ProtectHome = true;
     };

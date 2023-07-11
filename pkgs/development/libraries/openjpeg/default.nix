@@ -1,16 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config
-, libdeflate, libpng, libtiff, zlib, lcms2, jpylyzer
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, libdeflate
+, libpng, libtiff, zlib, lcms2, jpylyzer
 , jpipLibSupport ? false # JPIP library & executables
 , jpipServerSupport ? false, curl, fcgi # JPIP Server
-, jdk
-, poppler
-}:
+, jdk, poppler }:
 
-let
-  mkFlag = optSet: flag: "-D${flag}=${if optSet then "ON" else "OFF"}";
-in
+let mkFlag = optSet: flag: "-D${flag}=${if optSet then "ON" else "OFF"}";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "openjpeg";
   version = "2.5.0";
 
@@ -31,7 +27,8 @@ stdenv.mkDerivation rec {
     })
     # fix cmake files cross compilation
     (fetchpatch {
-      url = "https://github.com/uclouvain/openjpeg/commit/c6ceb84c221b5094f1e8a4c0c247dee3fb5074e8.patch";
+      url =
+        "https://github.com/uclouvain/openjpeg/commit/c6ceb84c221b5094f1e8a4c0c247dee3fb5074e8.patch";
       sha256 = "sha256-gBUtmO/7RwSWEl7rc8HGr8gNtvNFdhjEwm0Dd51p5O8=";
     })
   ];
@@ -54,7 +51,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals jpipServerSupport [ curl fcgi ]
     ++ lib.optional (jpipLibSupport) jdk;
 
-  doCheck = (!stdenv.isAarch64 && !stdenv.hostPlatform.isPower64); # tests fail on aarch64-linux and powerpc64
+  doCheck = (!stdenv.isAarch64
+    && !stdenv.hostPlatform.isPower64); # tests fail on aarch64-linux and powerpc64
   nativeCheckInputs = [ jpylyzer ];
   checkPhase = ''
     substituteInPlace ../tools/ctest_scripts/travis-ci.cmake \
@@ -64,9 +62,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     incDir = "openjpeg-${lib.versions.majorMinor version}";
-    tests = {
-      inherit poppler;
-    };
+    tests = { inherit poppler; };
   };
 
   meta = with lib; {
@@ -75,6 +71,7 @@ stdenv.mkDerivation rec {
     license = licenses.bsd2;
     maintainers = with maintainers; [ codyopel ];
     platforms = platforms.all;
-    changelog = "https://github.com/uclouvain/openjpeg/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/uclouvain/openjpeg/blob/v${version}/CHANGELOG.md";
   };
 }

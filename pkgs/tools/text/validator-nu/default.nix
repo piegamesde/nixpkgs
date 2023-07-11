@@ -1,12 +1,5 @@
-{ fetchFromGitHub
-, git
-, jdk_headless
-, jre_headless
-, makeWrapper
-, python3
-, stdenvNoCC
-, lib
-}:
+{ fetchFromGitHub, git, jdk_headless, jre_headless, makeWrapper, python3
+, stdenvNoCC, lib }:
 
 let
   pname = "validator-nu";
@@ -39,8 +32,7 @@ let
     outputHash = "sha256-LPtxpUd7LAYZHJL7elgcZOTaTgHqeqquiB9hiuajA6c=";
   };
 
-in
-stdenvNoCC.mkDerivation rec {
+in stdenvNoCC.mkDerivation rec {
   inherit pname version src;
 
   nativeBuildInputs = [ git jdk_headless makeWrapper python3 ];

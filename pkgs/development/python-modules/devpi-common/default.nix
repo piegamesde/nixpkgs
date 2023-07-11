@@ -1,9 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi
-, requests
-, py
-, pytestCheckHook
-, lazy
-}:
+{ lib, buildPythonPackage, fetchPypi, requests, py, pytestCheckHook, lazy }:
 
 buildPythonPackage rec {
   pname = "devpi-common";
@@ -19,16 +14,9 @@ buildPythonPackage rec {
       --replace "--flake8" ""
   '';
 
-  propagatedBuildInputs = [
-    requests
-    py
-    lazy
-  ];
+  propagatedBuildInputs = [ requests py lazy ];
 
-  nativeCheckInputs = [
-    py
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ py pytestCheckHook ];
 
   meta = with lib; {
     homepage = "https://github.com/devpi/devpi";

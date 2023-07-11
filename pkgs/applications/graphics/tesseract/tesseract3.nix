@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config
-, leptonica, libpng, libtiff, icu, pango, opencl-headers }:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, leptonica, libpng
+, libtiff, icu, pango, opencl-headers }:
 
 stdenv.mkDerivation rec {
   pname = "tesseract";
@@ -22,19 +22,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
 
-  buildInputs = [
-    leptonica
-    libpng
-    libtiff
-    icu
-    pango
-    opencl-headers
-  ];
+  buildInputs = [ leptonica libpng libtiff icu pango opencl-headers ];
 
   LIBLEPT_HEADERSDIR = "${leptonica}/include";
 

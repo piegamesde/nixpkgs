@@ -1,53 +1,11 @@
-{ fetchurl
-, runCommand
-, lib
-, fetchpatch
-, stdenv
-, pkg-config
-, gnome
-, gettext
-, gobject-introspection
-, cairo
-, colord
-, lcms2
-, pango
-, json-glib
-, libstartup_notification
-, libcanberra
-, ninja
-, xvfb-run
-, xkeyboard_config
-, libxcvt
-, libxkbfile
-, libXdamage
-, libxkbcommon
-, libXtst
-, libinput
-, libdrm
-, gsettings-desktop-schemas
-, glib
-, gtk3
-, gnome-desktop
-, pipewire
-, libgudev
-, libwacom
-, xwayland
-, mesa
-, meson
-, gnome-settings-daemon
-, xorgserver
-, python3
-, wrapGAppsHook
-, gi-docgen
-, sysprof
-, libsysprof-capture
-, desktop-file-utils
-, libcap_ng
-, egl-wayland
-, graphene
-, wayland
-, wayland-protocols
-}:
+{ fetchurl, runCommand, lib, fetchpatch, stdenv, pkg-config, gnome, gettext
+, gobject-introspection, cairo, colord, lcms2, pango, json-glib
+, libstartup_notification, libcanberra, ninja, xvfb-run, xkeyboard_config
+, libxcvt, libxkbfile, libXdamage, libxkbcommon, libXtst, libinput, libdrm
+, gsettings-desktop-schemas, glib, gtk3, gnome-desktop, pipewire, libgudev
+, libwacom, xwayland, mesa, meson, gnome-settings-daemon, xorgserver, python3
+, wrapGAppsHook, gi-docgen, sysprof, libsysprof-capture, desktop-file-utils
+, libcap_ng, egl-wayland, graphene, wayland, wayland-protocols }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mutter";
@@ -56,7 +14,9 @@ stdenv.mkDerivation (finalAttrs: {
   outputs = [ "out" "dev" "man" "devdoc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/mutter/${lib.versions.major finalAttrs.version}/mutter-${finalAttrs.version}.tar.xz";
+    url = "mirror://gnome/sources/mutter/${
+        lib.versions.major finalAttrs.version
+      }/mutter-${finalAttrs.version}.tar.xz";
     sha256 = "/JAP4ahA2aeTyOLSDUTJCqCH1fv9x5Su5wluHYoJZxo=";
   };
 
@@ -64,7 +24,8 @@ stdenv.mkDerivation (finalAttrs: {
     # Fix build with separate sysprof.
     # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2572
     (fetchpatch {
-      url = "https://gitlab.gnome.org/GNOME/mutter/-/commit/285a5a4d54ca83b136b787ce5ebf1d774f9499d5.patch";
+      url =
+        "https://gitlab.gnome.org/GNOME/mutter/-/commit/285a5a4d54ca83b136b787ce5ebf1d774f9499d5.patch";
       sha256 = "/npUE3idMSTVlFptsDpZmGWjZ/d2gqruVlJKq4eF4xU=";
     })
   ];
@@ -157,7 +118,7 @@ stdenv.mkDerivation (finalAttrs: {
     libdir = "${finalAttrs.finalPackage}/lib/mutter-11";
 
     tests = {
-      libdirExists = runCommand "mutter-libdir-exists" {} ''
+      libdirExists = runCommand "mutter-libdir-exists" { } ''
         if [[ ! -d ${finalAttrs.finalPackage.libdir} ]]; then
           echo "passthru.libdir should contain a directory, “${finalAttrs.finalPackage.libdir}” is not one."
           exit 1

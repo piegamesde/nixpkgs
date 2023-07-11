@@ -1,16 +1,7 @@
-{ lib, buildDunePackage, dune-configurator, pkg-config, fetchFromGitHub, callPackage
-, AppKit
-, AudioToolbox
-, AVFoundation
-, Cocoa
-, CoreImage
-, ForceFeedback
-, ffmpeg-base ? callPackage ./base.nix { }
-, ffmpeg-av, ffmpeg
-, OpenGL
-, stdenv
-, VideoToolbox
-}:
+{ lib, buildDunePackage, dune-configurator, pkg-config, fetchFromGitHub
+, callPackage, AppKit, AudioToolbox, AVFoundation, Cocoa, CoreImage
+, ForceFeedback, ffmpeg-base ? callPackage ./base.nix { }, ffmpeg-av, ffmpeg
+, OpenGL, stdenv, VideoToolbox }:
 
 buildDunePackage {
   pname = "ffmpeg-avdevice";
@@ -20,8 +11,7 @@ buildDunePackage {
   inherit (ffmpeg-base) version src duneVersion;
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dune-configurator ]
-  ++ lib.optionals stdenv.isDarwin [
+  buildInputs = [ dune-configurator ] ++ lib.optionals stdenv.isDarwin [
     AppKit
     AudioToolbox
     AVFoundation

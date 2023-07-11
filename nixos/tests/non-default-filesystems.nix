@@ -1,13 +1,9 @@
-import ./make-test-python.nix ({ lib, pkgs, ... }:
-{
+import ./make-test-python.nix ({ lib, pkgs, ... }: {
   name = "non-default-filesystems";
 
-  nodes.machine =
-    { config, pkgs, lib, ... }:
-    let
-      disk = config.virtualisation.rootDevice;
-    in
-    {
+  nodes.machine = { config, pkgs, lib, ... }:
+    let disk = config.virtualisation.rootDevice;
+    in {
       virtualisation.rootDevice = "/dev/vda";
       virtualisation.useDefaultFilesystems = false;
 

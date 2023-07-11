@@ -1,22 +1,18 @@
-{ stdenv
-, targetPackages
-, lib
-, makeSetupHook
-, dieHook
-, writeShellScript
-, tests
-, cc ? targetPackages.stdenv.cc
-, sanitizers ? []
-}:
+{ stdenv, targetPackages, lib, makeSetupHook, dieHook, writeShellScript, tests
+, cc ? targetPackages.stdenv.cc, sanitizers ? [ ] }:
 
 makeSetupHook {
   name = "make-binary-wrapper-hook";
-  propagatedBuildInputs = [ dieHook ]
-    # https://github.com/NixOS/nixpkgs/issues/148189
+  propagatedBuildInputs = [
+    dieHook
+  ]
+  # https://github.com/NixOS/nixpkgs/issues/148189
     ++ lib.optional (stdenv.isDarwin && stdenv.isAarch64) cc;
 
   substitutions = {
-    cc = "${cc}/bin/${cc.targetPrefix}cc ${lib.escapeShellArgs (map (s: "-fsanitize=${s}") sanitizers)}";
+    cc = "${cc}/bin/${cc.targetPrefix}cc ${
+        lib.escapeShellArgs (map (s: "-fsanitize=${s}") sanitizers)
+      }";
   };
 
   passthru = {

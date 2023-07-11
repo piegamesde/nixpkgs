@@ -1,20 +1,6 @@
-{ lib, stdenv
-, fetchurl
-, fetchpatch
-, meson
-, ninja
-, pkg-config
-, python3
-, gobject-introspection
-, gtk-doc
-, docbook_xsl
-, docbook_xml_dtd_412
-, glib
-, gupnp-igd
-, gst_all_1
-, gnutls
-, graphviz
-}:
+{ lib, stdenv, fetchurl, fetchpatch, meson, ninja, pkg-config, python3
+, gobject-introspection, gtk-doc, docbook_xsl, docbook_xml_dtd_412, glib
+, gupnp-igd, gst_all_1, gnutls, graphviz }:
 
 stdenv.mkDerivation rec {
   pname = "libnice";
@@ -33,7 +19,8 @@ stdenv.mkDerivation rec {
     # Note: upstream is not willing to merge our fix
     # https://gitlab.freedesktop.org/libnice/libnice/merge_requests/35#note_98871
     (fetchpatch {
-      url = "https://gitlab.freedesktop.org/libnice/libnice/commit/d470c4bf4f2449f7842df26ca1ce1efb63452bc6.patch";
+      url =
+        "https://gitlab.freedesktop.org/libnice/libnice/commit/d470c4bf4f2449f7842df26ca1ce1efb63452bc6.patch";
       sha256 = "0z74vizf92flfw1m83p7yz824vfykmnm0xbnk748bnnyq186i6mg";
     })
   ];
@@ -52,20 +39,24 @@ stdenv.mkDerivation rec {
     graphviz
   ];
 
-  buildInputs = [
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base
-    gnutls
-    gupnp-igd
-  ];
+  buildInputs =
+    [ gst_all_1.gstreamer gst_all_1.gst-plugins-base gnutls gupnp-igd ];
 
-  propagatedBuildInputs = [
-    glib
-  ];
+  propagatedBuildInputs = [ glib ];
 
   mesonFlags = [
-    "-Dgtk_doc=${if (stdenv.buildPlatform == stdenv.hostPlatform) then "enabled" else "disabled"}"
-    "-Dintrospection=${if (stdenv.buildPlatform == stdenv.hostPlatform) then "enabled" else "disabled"}"
+    "-Dgtk_doc=${
+      if (stdenv.buildPlatform == stdenv.hostPlatform) then
+        "enabled"
+      else
+        "disabled"
+    }"
+    "-Dintrospection=${
+      if (stdenv.buildPlatform == stdenv.hostPlatform) then
+        "enabled"
+      else
+        "disabled"
+    }"
     "-Dexamples=disabled" # requires many dependencies and probably not useful for our users
   ];
 

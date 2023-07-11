@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPyPy
-, objgraph
-, psutil
-, pytestCheckHook
+{ lib, buildPythonPackage, fetchPypi, isPyPy, objgraph, psutil, pytestCheckHook
 }:
-
 
 buildPythonPackage rec {
   pname = "greenlet";
@@ -18,13 +11,10 @@ buildPythonPackage rec {
     hash = "sha256-58jcE699sJe+1koFHS3Unp8K9JXCaZXACp7oQmkNNMA=";
   };
 
-  nativeCheckInputs = [
-    objgraph
-    psutil
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ objgraph psutil pytestCheckHook ];
 
-  doCheck = false; # installed tests need to be executed, not sure how to accomplish that
+  doCheck =
+    false; # installed tests need to be executed, not sure how to accomplish that
 
   meta = with lib; {
     homepage = "https://github.com/python-greenlet/greenlet";

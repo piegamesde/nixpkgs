@@ -1,7 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "heatshrink";
@@ -34,7 +31,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A data compression/decompression library for embedded/real-time systems";
+    description =
+      "A data compression/decompression library for embedded/real-time systems";
     homepage = "https://github.com/atomicobject/heatshrink";
     license = licenses.isc;
     maintainers = with maintainers; [ fgaz ];

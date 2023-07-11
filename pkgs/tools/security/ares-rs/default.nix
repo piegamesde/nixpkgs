@@ -1,7 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "ares-rs";
@@ -17,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-7zDq66oWT+j6t9LEBUoeby8MQ1Ihhvk3KLwWPQAThyc=";
 
   meta = with lib; {
-    description = "Automated decoding of encrypted text without knowing the key or ciphers used";
+    description =
+      "Automated decoding of encrypted text without knowing the key or ciphers used";
     homepage = "https://github.com/bee-san/ares";
     changelog = "https://github.com/bee-san/Ares/releases/tag${version}";
     license = licenses.mit;

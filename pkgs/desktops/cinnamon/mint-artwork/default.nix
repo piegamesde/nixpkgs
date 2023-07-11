@@ -1,9 +1,4 @@
-{ stdenv
-, lib
-, fetchurl
-, glib
-, nixos-artwork
-}:
+{ stdenv, lib, fetchurl, glib, nixos-artwork }:
 
 stdenv.mkDerivation rec {
   pname = "mint-artwork";
@@ -17,9 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-lusYlmTL71VTGSJFssuIZVu7xJMuZQ7wj2rMtO1lhZ8=";
   };
 
-  nativeBuildInputs = [
-    glib
-  ];
+  nativeBuildInputs = [ glib ];
 
   installPhase = ''
     mkdir $out

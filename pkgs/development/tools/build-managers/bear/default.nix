@@ -1,18 +1,5 @@
-{ lib, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, grpc
-, protobuf
-, openssl
-, nlohmann_json
-, gtest
-, spdlog
-, c-ares
-, zlib
-, sqlite
-, re2
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, grpc, protobuf, openssl
+, nlohmann_json, gtest, spdlog, c-ares, zlib, sqlite, re2 }:
 
 stdenv.mkDerivation rec {
   pname = "bear";
@@ -27,18 +14,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    grpc
-    protobuf
-    openssl
-    nlohmann_json
-    gtest
-    spdlog
-    c-ares
-    zlib
-    sqlite
-    re2
-  ];
+  buildInputs =
+    [ grpc protobuf openssl nlohmann_json gtest spdlog c-ares zlib sqlite re2 ];
 
   patches = [
     # Default libexec would be set to /nix/store/*-bear//nix/store/*-bear/libexec/...
@@ -46,7 +23,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Tool that generates a compilation database for clang tooling";
+    description =
+      "Tool that generates a compilation database for clang tooling";
     longDescription = ''
       Note: the bear command is very useful to generate compilation commands
       e.g. for YouCompleteMe.  You just enter your development nix-shell

@@ -1,20 +1,7 @@
-{ lib
-, buildPythonPackage
-, aiocoap
-, bleak
-, bleak-retry-connector
-, chacha20poly1305
-, chacha20poly1305-reuseable
-, commentjson
-, cryptography
-, fetchFromGitHub
-, orjson
-, poetry-core
-, pytest-aiohttp
-, pytestCheckHook
-, pythonOlder
-, zeroconf
-}:
+{ lib, buildPythonPackage, aiocoap, bleak, bleak-retry-connector
+, chacha20poly1305, chacha20poly1305-reuseable, commentjson, cryptography
+, fetchFromGitHub, orjson, poetry-core, pytest-aiohttp, pytestCheckHook
+, pythonOlder, zeroconf }:
 
 buildPythonPackage rec {
   pname = "aiohomekit";
@@ -30,9 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-bVvz5ruc1OpRnSKso3XHAnppnN/4ySfRHodE787eLFw=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aiocoap
@@ -48,19 +33,14 @@ buildPythonPackage rec {
 
   doCheck = lib.versionAtLeast pytest-aiohttp.version "1.0.0";
 
-  nativeCheckInputs = [
-    pytest-aiohttp
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ];
 
   disabledTestPaths = [
     # Tests require network access
     "tests/test_ip_pairing.py"
   ];
 
-  pythonImportsCheck = [
-    "aiohomekit"
-  ];
+  pythonImportsCheck = [ "aiohomekit" ];
 
   meta = with lib; {
     description = "Python module that implements the HomeKit protocol";

@@ -1,12 +1,5 @@
-{ lib
-, aiofiles
-, buildPythonPackage
-, cython
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, aiofiles, buildPythonPackage, cython, fetchFromGitHub, pytest-asyncio
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aiocsv";
@@ -22,23 +15,15 @@ buildPythonPackage rec {
     hash = "sha256-R9gZqiHYKexXXjbAkKu9YqhZnzC/VAMSDzBYT/mF5v0=";
   };
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
-  nativeCheckInputs = [
-    aiofiles
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aiofiles pytest-asyncio pytestCheckHook ];
 
   preBuild = ''
     export CYTHONIZE=1
   '';
 
-  pythonImportsCheck = [
-    "aiocsv"
-  ];
+  pythonImportsCheck = [ "aiocsv" ];
 
   disabledTestPaths = [
     # Import issue

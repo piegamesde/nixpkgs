@@ -1,37 +1,18 @@
-{ lib
-, fetchFromGitHub
-, stdenv
-, cmake
-, boost
-, ogre
-, mygui
-, ois
-, SDL2
-, libvorbis
-, pkg-config
-, makeWrapper
-, enet
-, libXcursor
-, bullet
-, openal
-, tinyxml
-, tinyxml-2
+{ lib, fetchFromGitHub, stdenv, cmake, boost, ogre, mygui, ois, SDL2, libvorbis
+, pkg-config, makeWrapper, enet, libXcursor, bullet, openal, tinyxml, tinyxml-2
 }:
 
 let
   stuntrally_ogre = ogre.overrideAttrs (old: {
-    cmakeFlags = old.cmakeFlags ++ [
-      "-DOGRE_NODELESS_POSITIONING=ON"
-      "-DOGRE_RESOURCEMANAGER_STRICT=0"
-    ];
+    cmakeFlags = old.cmakeFlags
+      ++ [ "-DOGRE_NODELESS_POSITIONING=ON" "-DOGRE_RESOURCEMANAGER_STRICT=0" ];
   });
   stuntrally_mygui = mygui.override {
     withOgre = true;
     inherit ogre;
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "stuntrally";
   version = "2.7";
 
@@ -70,7 +51,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Stunt Rally game with Track Editor, based on VDrift and OGRE";
+    description =
+      "Stunt Rally game with Track Editor, based on VDrift and OGRE";
     homepage = "http://stuntrally.tuxfamily.org/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ pSub ];

@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, gettext
-, pkg-config
-, icu
-}:
+{ lib, stdenv, fetchurl, gettext, pkg-config, icu }:
 
 stdenv.mkDerivation rec {
   pname = "dwdiff";
@@ -17,13 +11,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    gettext
-    icu
-  ];
+  buildInputs = [ gettext icu ];
 
   meta = with lib; {
-    description = "Front-end for the diff program that operates at the word level instead of the line level";
+    description =
+      "Front-end for the diff program that operates at the word level instead of the line level";
     homepage = "https://os.ghalkes.nl/dwdiff.html";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ onny ];

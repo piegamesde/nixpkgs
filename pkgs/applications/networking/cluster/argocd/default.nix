@@ -18,21 +18,21 @@ buildGoModule rec {
   # https://github.com/argoproj/argo-cd/blob/master/Makefile#L227
   subPackages = [ "cmd" ];
 
-  ldflags =
-    let package_url = "github.com/argoproj/argo-cd/v2/common"; in
-    [
-      "-s" "-w"
-      "-X ${package_url}.version=${version}"
-      "-X ${package_url}.buildDate=unknown"
-      "-X ${package_url}.gitCommit=${src.rev}"
-      "-X ${package_url}.gitTag=${src.rev}"
-      "-X ${package_url}.gitTreeState=clean"
-      "-X ${package_url}.kubectlVersion=v0.24.2"
-      # NOTE: Update kubectlVersion when upgrading this package with
-      # https://github.com/argoproj/argo-cd/blob/v${version}/go.mod#L95
-      # Per https://github.com/argoproj/argo-cd/blob/master/Makefile#L18
-      # Will need a way to automate it :P
-    ];
+  ldflags = let package_url = "github.com/argoproj/argo-cd/v2/common";
+  in [
+    "-s"
+    "-w"
+    "-X ${package_url}.version=${version}"
+    "-X ${package_url}.buildDate=unknown"
+    "-X ${package_url}.gitCommit=${src.rev}"
+    "-X ${package_url}.gitTag=${src.rev}"
+    "-X ${package_url}.gitTreeState=clean"
+    "-X ${package_url}.kubectlVersion=v0.24.2"
+    # NOTE: Update kubectlVersion when upgrading this package with
+    # https://github.com/argoproj/argo-cd/blob/v${version}/go.mod#L95
+    # Per https://github.com/argoproj/argo-cd/blob/master/Makefile#L18
+    # Will need a way to automate it :P
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 

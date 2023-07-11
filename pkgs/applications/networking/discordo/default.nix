@@ -26,12 +26,12 @@ buildGoModule rec {
       --prefix PATH : ${lib.makeBinPath [ xsel wl-clipboard ]}
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
-  };
+  passthru.updateScript =
+    nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = with lib; {
-    description = "A lightweight, secure, and feature-rich Discord terminal client";
+    description =
+      "A lightweight, secure, and feature-rich Discord terminal client";
     homepage = "https://github.com/ayn2op/discordo";
     license = licenses.mit;
     maintainers = [ maintainers.arian-d ];

@@ -9,9 +9,7 @@ let
 
   cfg = config.virtualisation.darwin-builder;
 
-in
-
-{
+in {
   imports = [
     ../virtualisation/qemu-vm.nix
 
@@ -22,7 +20,10 @@ in
         ../services/x11/desktop-managers/xterm.nix
       ];
       config = { };
-      options.boot.isContainer = lib.mkOption { default = false; internal = true; };
+      options.boot.isContainer = lib.mkOption {
+        default = false;
+        internal = true;
+      };
     }
   ];
 
@@ -58,13 +59,13 @@ in
       '';
     };
     workingDirectory = mkOption {
-       default = ".";
-       type = types.str;
-       example = "/var/lib/darwin-builder";
-       description = ''
-         The working directory to use to run the script. When running
-         as part of a flake will need to be set to a non read-only filesystem.
-       '';
+      default = ".";
+      type = types.str;
+      example = "/var/lib/darwin-builder";
+      description = ''
+        The working directory to use to run the script. When running
+        as part of a flake will need to be set to a non read-only filesystem.
+      '';
     };
     hostPort = mkOption {
       default = 22;
@@ -122,50 +123,47 @@ in
       };
     };
 
-    system.build.macos-builder-installer =
-      let
-        privateKey = "/etc/nix/${user}_${keyType}";
+    system.build.macos-builder-installer = let
+      privateKey = "/etc/nix/${user}_${keyType}";
 
-        publicKey = "${privateKey}.pub";
+      publicKey = "${privateKey}.pub";
 
-        # This installCredentials script is written so that it's as easy as
-        # possible for a user to audit before confirming the `sudo`
-        installCredentials = hostPkgs.writeShellScript "install-credentials" ''
-          KEYS="''${1}"
-          INSTALL=${hostPkgs.coreutils}/bin/install
-          "''${INSTALL}" -g nixbld -m 600 "''${KEYS}/${user}_${keyType}" ${privateKey}
-          "''${INSTALL}" -g nixbld -m 644 "''${KEYS}/${user}_${keyType}.pub" ${publicKey}
-        '';
+      # This installCredentials script is written so that it's as easy as
+      # possible for a user to audit before confirming the `sudo`
+      installCredentials = hostPkgs.writeShellScript "install-credentials" ''
+        KEYS="''${1}"
+        INSTALL=${hostPkgs.coreutils}/bin/install
+        "''${INSTALL}" -g nixbld -m 600 "''${KEYS}/${user}_${keyType}" ${privateKey}
+        "''${INSTALL}" -g nixbld -m 644 "''${KEYS}/${user}_${keyType}.pub" ${publicKey}
+      '';
 
-        hostPkgs = config.virtualisation.host.pkgs;
+      hostPkgs = config.virtualisation.host.pkgs;
 
-  script = hostPkgs.writeShellScriptBin "create-builder" (
-          # When running as non-interactively as part of a DarwinConfiguration the working directory
-          # must be set to a writeable directory.
+      script = hostPkgs.writeShellScriptBin "create-builder" (
+        # When running as non-interactively as part of a DarwinConfiguration the working directory
+        # must be set to a writeable directory.
         (if cfg.workingDirectory != "." then ''
           ${hostPkgs.coreutils}/bin/mkdir --parent "${cfg.workingDirectory}"
           cd "${cfg.workingDirectory}"
-  '' else "") + ''
-          KEYS="''${KEYS:-./keys}"
-          ${hostPkgs.coreutils}/bin/mkdir --parent "''${KEYS}"
-          PRIVATE_KEY="''${KEYS}/${user}_${keyType}"
-          PUBLIC_KEY="''${PRIVATE_KEY}.pub"
-          if [ ! -e "''${PRIVATE_KEY}" ] || [ ! -e "''${PUBLIC_KEY}" ]; then
-              ${hostPkgs.coreutils}/bin/rm --force -- "''${PRIVATE_KEY}" "''${PUBLIC_KEY}"
-              ${hostPkgs.openssh}/bin/ssh-keygen -q -f "''${PRIVATE_KEY}" -t ${keyType} -N "" -C 'builder@localhost'
-          fi
-          if ! ${hostPkgs.diffutils}/bin/cmp "''${PUBLIC_KEY}" ${publicKey}; then
-            (set -x; sudo --reset-timestamp ${installCredentials} "''${KEYS}")
-          fi
-          KEYS="$(${hostPkgs.nix}/bin/nix-store --add "$KEYS")" ${config.system.build.vm}/bin/run-nixos-vm
-        '');
+        '' else
+          "") + ''
+            KEYS="''${KEYS:-./keys}"
+            ${hostPkgs.coreutils}/bin/mkdir --parent "''${KEYS}"
+            PRIVATE_KEY="''${KEYS}/${user}_${keyType}"
+            PUBLIC_KEY="''${PRIVATE_KEY}.pub"
+            if [ ! -e "''${PRIVATE_KEY}" ] || [ ! -e "''${PUBLIC_KEY}" ]; then
+                ${hostPkgs.coreutils}/bin/rm --force -- "''${PRIVATE_KEY}" "''${PUBLIC_KEY}"
+                ${hostPkgs.openssh}/bin/ssh-keygen -q -f "''${PRIVATE_KEY}" -t ${keyType} -N "" -C 'builder@localhost'
+            fi
+            if ! ${hostPkgs.diffutils}/bin/cmp "''${PUBLIC_KEY}" ${publicKey}; then
+              (set -x; sudo --reset-timestamp ${installCredentials} "''${KEYS}")
+            fi
+            KEYS="$(${hostPkgs.nix}/bin/nix-store --add "$KEYS")" ${config.system.build.vm}/bin/run-nixos-vm
+          '');
 
-      in
-      script.overrideAttrs (old: {
-        meta = (old.meta or { }) // {
-          platforms = lib.platforms.darwin;
-        };
-      });
+    in script.overrideAttrs (old: {
+      meta = (old.meta or { }) // { platforms = lib.platforms.darwin; };
+    });
 
     system = {
       # To prevent gratuitous rebuilds on each change to Nixpkgs
@@ -181,9 +179,7 @@ in
       '');
     };
 
-    users.users."${user}" = {
-      isNormalUser = true;
-    };
+    users.users."${user}" = { isNormalUser = true; };
 
     security.polkit.enable = true;
 
@@ -202,16 +198,18 @@ in
 
       memorySize = cfg.memorySize;
 
-      forwardPorts = [
-        { from = "host"; guest.port = 22; host.port = cfg.hostPort; }
-      ];
+      forwardPorts = [{
+        from = "host";
+        guest.port = 22;
+        host.port = cfg.hostPort;
+      }];
 
       # Disable graphics for the builder since users will likely want to run it
       # non-interactively in the background.
       graphics = false;
 
       sharedDirectories.keys = {
-        source = "\"$KEYS\"";
+        source = ''"$KEYS"'';
         target = keysDirectory;
       };
 

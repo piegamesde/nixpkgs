@@ -1,23 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, pkg-config
-, meson
-, ninja
-, python3
-, vala
-, gtk3
-, libxml2
-, libhandy
-, webkitgtk_4_1
-, folks
-, glib-networking
-, granite
-, evolution-data-server
-, wrapGAppsHook
-, libgee
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, pkg-config, meson, ninja
+, python3, vala, gtk3, libxml2, libhandy, webkitgtk_4_1, folks, glib-networking
+, granite, evolution-data-server, wrapGAppsHook, libgee }:
 
 stdenv.mkDerivation rec {
   pname = "elementary-mail";
@@ -30,15 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dvDlvn8KvFmiP/NClRtHNEs5gPTUjlzgTYmgIaCfoLw=";
   };
 
-  nativeBuildInputs = [
-    libxml2
-    meson
-    ninja
-    pkg-config
-    python3
-    vala
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ libxml2 meson ninja pkg-config python3 vala wrapGAppsHook ];
 
   buildInputs = [
     evolution-data-server
@@ -56,16 +32,15 @@ stdenv.mkDerivation rec {
     patchShebangs meson/post_install.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Mail app designed for elementary OS";
     homepage = "https://github.com/elementary/mail";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ethancedwards8 ] ++ teams.pantheon.members;
+    maintainers = with maintainers;
+      [ ethancedwards8 ] ++ teams.pantheon.members;
     mainProgram = "io.elementary.mail";
   };
 }

@@ -1,9 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake
-, sqlite, wxGTK32, libusb1, soapysdr
-, mesa_glu, libX11, gnuplot, fltk
-, GLUT
-, withGui ? true
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, sqlite, wxGTK32, libusb1, soapysdr
+, mesa_glu, libX11, gnuplot, fltk, GLUT, withGui ? true }:
 
 stdenv.mkDerivation rec {
   pname = "limesuite";
@@ -18,24 +14,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [
-    "-DOpenGL_GL_PREFERENCE=GLVND"
-  ] ++ lib.optional (!withGui) "-DENABLE_GUI=OFF";
+  cmakeFlags = [ "-DOpenGL_GL_PREFERENCE=GLVND" ]
+    ++ lib.optional (!withGui) "-DENABLE_GUI=OFF";
 
-  buildInputs = [
-    libusb1
-    sqlite
-    gnuplot
-    libusb1
-    soapysdr
-  ] ++ lib.optionals stdenv.isDarwin [
-    GLUT
-  ] ++ lib.optionals withGui [
-    fltk
-    libX11
-    mesa_glu
-    wxGTK32
-  ];
+  buildInputs = [ libusb1 sqlite gnuplot libusb1 soapysdr ]
+    ++ lib.optionals stdenv.isDarwin [ GLUT ]
+    ++ lib.optionals withGui [ fltk libX11 mesa_glu wxGTK32 ];
 
   postInstall = ''
     install -Dm444 -t $out/lib/udev/rules.d ../udev-rules/64-limesuite.rules

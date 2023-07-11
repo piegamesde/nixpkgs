@@ -11,21 +11,13 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-IDsZj/X9rFSdDpa3bL6IPEPCRe5GustPteDxSbfz+SA=";
   };
 
-  nativeBuildInputs = [
-    gtk3
-  ];
+  nativeBuildInputs = [ gtk3 ];
 
-  propagatedBuildInputs = [
-    plasma5Packages.breeze-icons
-    hicolor-icon-theme
-  ];
+  propagatedBuildInputs = [ plasma5Packages.breeze-icons hicolor-icon-theme ];
 
   dontDropIconThemeCache = true;
 
-  makeFlags = [
-    "DESTDIR=$(out)"
-    "PREFIX="
-  ];
+  makeFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
 
   postInstall = ''
     # space in icon name causes gtk-update-icon-cache to fail

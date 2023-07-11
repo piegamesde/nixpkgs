@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, obs-studio
-, ffmpeg
-, libjpeg
-, libimobiledevice
-, libusbmuxd
-, libplist
-}:
+{ lib, stdenv, fetchFromGitHub, obs-studio, ffmpeg, libjpeg, libimobiledevice
+, libusbmuxd, libplist }:
 
 stdenv.mkDerivation rec {
   pname = "droidcam-obs";
@@ -31,14 +23,8 @@ stdenv.mkDerivation rec {
     mkdir ./build
   '';
 
-  buildInputs = [
-    libjpeg
-    libimobiledevice
-    libusbmuxd
-    libplist
-    obs-studio
-    ffmpeg
-  ];
+  buildInputs =
+    [ libjpeg libimobiledevice libusbmuxd libplist obs-studio ffmpeg ];
 
   makeFlags = [
     "ALLOW_STATIC=no"

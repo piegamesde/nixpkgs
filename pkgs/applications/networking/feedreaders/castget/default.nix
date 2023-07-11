@@ -1,21 +1,13 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, glib
-, ronn
-, curl
-, id3lib
-, libxml2
-, glibcLocales
-}:
+{ lib, stdenv, fetchurl, pkg-config, glib, ronn, curl, id3lib, libxml2
+, glibcLocales }:
 
 stdenv.mkDerivation rec {
   pname = "castget";
   version = "2.0.1";
 
   src = fetchurl {
-    url = "http://savannah.nongnu.org/download/castget/castget-${version}.tar.bz2";
+    url =
+      "http://savannah.nongnu.org/download/castget/castget-${version}.tar.bz2";
     hash = "sha256-Q4tffsfjGkXtN1ZjD+RH9CAVrNpT7AkgL0hihya16HU=";
   };
 
@@ -27,12 +19,7 @@ stdenv.mkDerivation rec {
     export LC_ALL="en_US.UTF-8";
   '';
 
-  buildInputs = [
-    glib
-    curl
-    id3lib
-    libxml2
-  ];
+  buildInputs = [ glib curl id3lib libxml2 ];
   nativeBuildInputs = [
     ronn
     # See comment on locale above

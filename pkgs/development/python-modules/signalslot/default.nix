@@ -1,15 +1,5 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, pythonRelaxDepsHook
-, contexter
-, eventlet
-, mock
-, pytest-xdist
-, pytestCheckHook
-, six
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, pythonRelaxDepsHook, contexter
+, eventlet, mock, pytest-xdist, pytestCheckHook, six }:
 
 buildPythonPackage rec {
   pname = "signalslot";
@@ -27,25 +17,15 @@ buildPythonPackage rec {
       --replace "--cov-report html" ""
   '';
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [
-    contexter
-    six
-  ];
+  propagatedBuildInputs = [ contexter six ];
 
   pythonRemoveDeps = [
     "weakrefmethod" # needed until https://github.com/Numergy/signalslot/pull/17
   ];
 
-  nativeCheckInputs = [
-    eventlet
-    mock
-    pytest-xdist
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ eventlet mock pytest-xdist pytestCheckHook ];
 
   pythonImportsCheck = [ "signalslot" ];
 

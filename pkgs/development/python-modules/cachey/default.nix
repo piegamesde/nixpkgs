@@ -1,11 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, typing-extensions
-, heapdict
-, pytestCheckHook
-, pythonOlder
-}: buildPythonPackage rec {
+{ lib, buildPythonPackage, fetchFromGitHub, typing-extensions, heapdict
+, pytestCheckHook, pythonOlder }:
+buildPythonPackage rec {
   pname = "cachey";
   version = "0.2.1";
   format = "setuptools";
@@ -18,9 +13,7 @@
   };
   propagatedBuildInputs = [ typing-extensions heapdict ];
   nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [
-    "cachey"
-  ];
+  pythonImportsCheck = [ "cachey" ];
   meta = with lib; {
     description = "Caching based on computation time and storage space";
     homepage = "https://github.com/dask/cachey/";

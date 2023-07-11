@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, curl, python3, python3Packages, trurl, testers }:
+{ lib, stdenv, fetchFromGitHub, curl, python3, python3Packages, trurl, testers
+}:
 
 stdenv.mkDerivation rec {
   pname = "trurl";
@@ -24,14 +25,13 @@ stdenv.mkDerivation rec {
   nativeCheckInputs = [ python3 python3Packages.packaging ];
   checkTarget = "test";
 
-  passthru.tests.version = testers.testVersion {
-    package = trurl;
-  };
+  passthru.tests.version = testers.testVersion { package = trurl; };
 
   meta = with lib; {
     description = "A command line tool for URL parsing and manipulation";
     homepage = "https://curl.se/trurl";
-    changelog = "https://github.com/curl/trurl/releases/tag/${pname}-${version}";
+    changelog =
+      "https://github.com/curl/trurl/releases/tag/${pname}-${version}";
     license = licenses.curl;
     maintainers = with maintainers; [ christoph-heiss ];
     platforms = platforms.all;

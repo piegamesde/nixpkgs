@@ -1,9 +1,7 @@
 import ./make-test-python.nix ({ lib, ... }: {
   name = "systemd-user-tmpfiles-rules";
 
-  meta = with lib.maintainers; {
-    maintainers = [ schnusch ];
-  };
+  meta = with lib.maintainers; { maintainers = [ schnusch ]; };
 
   nodes.machine = { ... }: {
     users.users = {
@@ -12,12 +10,8 @@ import ./make-test-python.nix ({ lib, ... }: {
     };
 
     systemd.user.tmpfiles = {
-      rules = [
-        "d %h/user_tmpfiles_created"
-      ];
-      users.alice.rules = [
-        "d %h/only_alice"
-      ];
+      rules = [ "d %h/user_tmpfiles_created" ];
+      users.alice.rules = [ "d %h/only_alice" ];
     };
   };
 

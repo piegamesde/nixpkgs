@@ -1,4 +1,5 @@
-{ lib, fetchFromGitHub, rustPlatform, alsa-lib, atk, cairo, dbus, gdk-pixbuf, glib, gtk3, pango, pkg-config, makeDesktopItem }:
+{ lib, fetchFromGitHub, rustPlatform, alsa-lib, atk, cairo, dbus, gdk-pixbuf
+, glib, gtk3, pango, pkg-config, makeDesktopItem }:
 
 let
   desktopItem = makeDesktopItem {
@@ -13,8 +14,7 @@ let
     startupWMClass = "psst-gui";
   };
 
-in
-rustPlatform.buildRustPackage rec {
+in rustPlatform.buildRustPackage rec {
   pname = "psst";
   version = "unstable-2022-10-13";
 
@@ -30,7 +30,8 @@ rustPlatform.buildRustPackage rec {
     outputHashes = {
       "cubeb-0.10.1" = "sha256-PRQL8dq5BAsodbVlm5SnuzUDLg9/UY3BmoumcmWF+aY=";
       "druid-0.7.0" = "sha256-fnsm+KGsuePLRRjTecJ0GBQEySSeDIth13AX/aAigqU=";
-      "druid-enums-0.1.0" = "sha256-4fo0ywoK+m4OuqYlbNbJS2BZK/VBFqeAYEFNGnGUVmM=";
+      "druid-enums-0.1.0" =
+        "sha256-4fo0ywoK+m4OuqYlbNbJS2BZK/VBFqeAYEFNGnGUVmM=";
       "piet-0.5.0" = "sha256-hCg8vABnLAO8egFwMtRSpRdzH6auETrICoUfuBZVzz8=";
     };
   };
@@ -39,16 +40,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    alsa-lib
-    atk
-    cairo
-    dbus
-    gdk-pixbuf
-    glib
-    gtk3
-    pango
-  ];
+  buildInputs = [ alsa-lib atk cairo dbus gdk-pixbuf glib gtk3 pango ];
 
   postInstall = ''
     install -Dm444 psst-gui/assets/logo_512.png $out/share/icons/hicolor/512x512/apps/${pname}.png

@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "2.2";
 
   src = fetchzip {
-    url = "https://naturaldocs.org/download/natural_docs/${version}/Natural_Docs_${version}.zip";
+    url =
+      "https://naturaldocs.org/download/natural_docs/${version}/Natural_Docs_${version}.zip";
     sha256 = "sha256-W0E9wamzABnPleVhHHXTIdWJk8kWnrUHojM+pcsowy8=";
   };
 

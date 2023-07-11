@@ -1,8 +1,7 @@
-{ lib, fetchFromGitHub, fetchpatch, mkDerivation
-, qtbase, qtsvg, qtserialport, qtwebengine, qtmultimedia, qttools
-, qtconnectivity, qtcharts, libusb-compat-0_1, gsl, blas
-, bison, flex, zlib, qmake, makeDesktopItem, wrapQtAppsHook
-}:
+{ lib, fetchFromGitHub, fetchpatch, mkDerivation, qtbase, qtsvg, qtserialport
+, qtwebengine, qtmultimedia, qttools, qtconnectivity, qtcharts
+, libusb-compat-0_1, gsl, blas, bison, flex, zlib, qmake, makeDesktopItem
+, wrapQtAppsHook }:
 
 let
   desktopItem = makeDesktopItem {
@@ -73,7 +72,8 @@ in mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Performance software for cyclists, runners and triathletes. Built from source and without API tokens";
+    description =
+      "Performance software for cyclists, runners and triathletes. Built from source and without API tokens";
     platforms = platforms.linux;
     maintainers = with maintainers; [ adamcstephens ];
     license = licenses.gpl2Plus;

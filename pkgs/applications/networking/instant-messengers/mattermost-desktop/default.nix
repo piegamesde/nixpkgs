@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, atomEnv
-, systemd
-, pulseaudio
-, libxshmfence
-, libnotify
-, libappindicator-gtk3
-, wrapGAppsHook
-, autoPatchelfHook
-}:
+{ lib, stdenv, fetchurl, atomEnv, systemd, pulseaudio, libxshmfence, libnotify
+, libappindicator-gtk3, wrapGAppsHook, autoPatchelfHook }:
 
 let
 
@@ -18,21 +8,21 @@ let
 
   srcs = {
     "x86_64-linux" = {
-      url = "https://releases.mattermost.com/desktop/${version}/${pname}-${version}-linux-x64.tar.gz";
+      url =
+        "https://releases.mattermost.com/desktop/${version}/${pname}-${version}-linux-x64.tar.gz";
       hash = "sha256-KmtQUqg2ODbZ6zJjsnwlvB+vhR1xbK2X9qqmZpyTR78=";
     };
 
     "i686-linux" = {
-      url = "https://releases.mattermost.com/desktop/${version}/${pname}-${version}-linux-ia32.tar.gz";
+      url =
+        "https://releases.mattermost.com/desktop/${version}/${pname}-${version}-linux-ia32.tar.gz";
       hash = "sha256-X8Zrthw1hZOqmcYidt72l2vonh31iiA3EDGmCQr7e4c=";
     };
   };
 
   inherit (stdenv.hostPlatform) system;
 
-in
-
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl (srcs."${system}" or (throw "Unsupported system ${system}"));
@@ -43,16 +33,10 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ wrapGAppsHook autoPatchelfHook ];
 
-  buildInputs = atomEnv.packages ++ [
-    libxshmfence
-  ];
+  buildInputs = atomEnv.packages ++ [ libxshmfence ];
 
-  runtimeDependencies = [
-    (lib.getLib systemd)
-    pulseaudio
-    libnotify
-    libappindicator-gtk3
-  ];
+  runtimeDependencies =
+    [ (lib.getLib systemd) pulseaudio libnotify libappindicator-gtk3 ];
 
   installPhase = ''
     runHook preInstall

@@ -1,28 +1,7 @@
-{ stdenv
-, lib
-, mkDerivation
-, fetchFromGitLab
-, fetchpatch
-, wafHook
-, pkg-config
-, cmake
-, qtbase
-, python3
-, qtwebengine
-, qtsvg
-, ncurses6
-, kio
-, kauth
-, kiconthemes
-, kconfigwidgets
-, kxmlgui
-, kcoreaddons
-, kconfig
-, kwidgetsaddons
-, ki18n
-, sonnet
-, kdelibs4support
-}:
+{ stdenv, lib, mkDerivation, fetchFromGitLab, fetchpatch, wafHook, pkg-config
+, cmake, qtbase, python3, qtwebengine, qtsvg, ncurses6, kio, kauth, kiconthemes
+, kconfigwidgets, kxmlgui, kcoreaddons, kconfig, kwidgetsaddons, ki18n, sonnet
+, kdelibs4support }:
 
 mkDerivation rec {
   pname = "semantik";
@@ -38,7 +17,8 @@ mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "fix-kdelibs4support.patch";
-      url = "https://gitlab.com/ita1024/semantik/-/commit/a991265bd6e3ed6541f8ec099420bc08cc62e30c.patch";
+      url =
+        "https://gitlab.com/ita1024/semantik/-/commit/a991265bd6e3ed6541f8ec099420bc08cc62e30c.patch";
       sha256 = "sha256-E4XjdWfUnqhmFJs9ORznHoXMDS9zHWNXvQIKKkN4AAo=";
     })
     ./qt5.patch
@@ -62,10 +42,13 @@ mkDerivation rec {
       --replace @Qt5Svg_dev@ "${lib.getDev qtsvg}" \
       --replace @Qt5WebEngine@ "${qtwebengine}" \
       --replace @Qt5WebEngine_dev@ "${lib.getDev qtwebengine}" \
-      --replace /usr/include/KF5/KDELibs4Support "${lib.getDev kdelibs4support}/include/KF5/KDELibs4Support"
+      --replace /usr/include/KF5/KDELibs4Support "${
+        lib.getDev kdelibs4support
+      }/include/KF5/KDELibs4Support"
   '';
 
-  nativeBuildInputs = [ (lib.getDev qtsvg) (lib.getLib qtsvg) python3 pkg-config wafHook cmake ];
+  nativeBuildInputs =
+    [ (lib.getDev qtsvg) (lib.getLib qtsvg) python3 pkg-config wafHook cmake ];
 
   buildInputs = [
     qtbase
@@ -85,9 +68,7 @@ mkDerivation rec {
     kdelibs4support
   ];
 
-  wafConfigureFlags = [
-    "--qtlibs=${lib.getLib qtbase}/lib"
-  ];
+  wafConfigureFlags = [ "--qtlibs=${lib.getLib qtbase}/lib" ];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);

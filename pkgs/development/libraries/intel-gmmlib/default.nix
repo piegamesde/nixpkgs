@@ -1,11 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
+{ lib, stdenv, fetchFromGitHub, cmake
 # for passthru.tests
-, intel-compute-runtime
-, intel-media-driver
-}:
+, intel-compute-runtime, intel-media-driver }:
 
 stdenv.mkDerivation rec {
   pname = "intel-gmmlib";
@@ -20,9 +15,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  passthru.tests = {
-    inherit intel-compute-runtime intel-media-driver;
-  };
+  passthru.tests = { inherit intel-compute-runtime intel-media-driver; };
 
   meta = with lib; {
     homepage = "https://github.com/intel/gmmlib";

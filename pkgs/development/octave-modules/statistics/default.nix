@@ -1,8 +1,4 @@
-{ buildOctavePackage
-, lib
-, fetchFromGitHub
-, io
-}:
+{ buildOctavePackage, lib, fetchFromGitHub, io }:
 
 buildOctavePackage rec {
   pname = "statistics";
@@ -15,9 +11,7 @@ buildOctavePackage rec {
     sha256 = "sha256-gFauFIaXKzcPeNvpWHv5FAxYQvZNh7ELrSUIvn43IfQ=";
   };
 
-  requiredOctavePackages = [
-    io
-  ];
+  requiredOctavePackages = [ io ];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/statistics/index.html";

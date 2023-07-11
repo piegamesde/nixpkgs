@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, btrfs-progs
-}:
+{ lib, buildPythonPackage, btrfs-progs }:
 buildPythonPackage {
   pname = "btrfsutil";
   inherit (btrfs-progs) version src;

@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, ncurses
-, pcre2
-}:
+{ lib, stdenv, fetchurl, fetchpatch, ncurses, pcre2 }:
 
 stdenv.mkDerivation rec {
   pname = "less";
@@ -21,7 +15,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       # https://github.com/advisories/GHSA-5xw7-xf7p-gm82
       name = "CVE-2022-46663.patch";
-      url = "https://github.com/gwsw/less/commit/a78e1351113cef564d790a730d657a321624d79c.patch";
+      url =
+        "https://github.com/gwsw/less/commit/a78e1351113cef564d790a730d657a321624d79c.patch";
       hash = "sha256-gWgCzoMt1WyVJVKYzkMq8HfaTlU1XUtC8fvNFUQT0sI=";
     })
   ];
@@ -32,10 +27,7 @@ stdenv.mkDerivation rec {
     "--with-regex=pcre2"
   ];
 
-  buildInputs = [
-    ncurses
-    pcre2
-  ];
+  buildInputs = [ ncurses pcre2 ];
 
   meta = with lib; {
     homepage = "https://www.greenwoodsoftware.com/less/";

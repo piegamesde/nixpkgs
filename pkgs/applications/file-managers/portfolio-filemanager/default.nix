@@ -1,20 +1,6 @@
-{ lib
-, python3
-, fetchFromGitHub
-, appstream-glib
-, desktop-file-utils
-, gettext
-, glib
-, gobject-introspection
-, gtk3
-, libhandy
-, librsvg
-, meson
-, ninja
-, pkg-config
-, wrapGAppsHook
-, nix-update-script
-}:
+{ lib, python3, fetchFromGitHub, appstream-glib, desktop-file-utils, gettext
+, glib, gobject-introspection, gtk3, libhandy, librsvg, meson, ninja, pkg-config
+, wrapGAppsHook, nix-update-script }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "portfolio";
@@ -46,17 +32,9 @@ python3.pkgs.buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    glib
-    gtk3
-    gobject-introspection
-    libhandy
-    librsvg
-  ];
+  buildInputs = [ glib gtk3 gobject-introspection libhandy librsvg ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    pygobject3
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ pygobject3 ];
 
   checkPhase = ''
     meson test
@@ -67,15 +45,15 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script {
-      attrPath = "portfolio-filemanager";
-    };
+    updateScript = nix-update-script { attrPath = "portfolio-filemanager"; };
   };
 
   meta = with lib; {
-    description = "A minimalist file manager for those who want to use Linux mobile devices";
+    description =
+      "A minimalist file manager for those who want to use Linux mobile devices";
     homepage = "https://github.com/tchx84/Portfolio";
-    changelog = "https://github.com/tchx84/Portfolio/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/tchx84/Portfolio/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ dotlambda chuangzhu ];

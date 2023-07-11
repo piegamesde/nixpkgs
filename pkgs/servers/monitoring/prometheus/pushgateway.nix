@@ -23,12 +23,12 @@ buildGoModule rec {
     "-X github.com/prometheus/common/version.BuildDate=19700101-00:00:00"
   ];
 
-  passthru.tests.version = testers.testVersion {
-    package = prometheus-pushgateway;
-  };
+  passthru.tests.version =
+    testers.testVersion { package = prometheus-pushgateway; };
 
   meta = with lib; {
-    description = "Allows ephemeral and batch jobs to expose metrics to Prometheus";
+    description =
+      "Allows ephemeral and batch jobs to expose metrics to Prometheus";
     homepage = "https://github.com/prometheus/pushgateway";
     license = licenses.asl20;
     maintainers = with maintainers; [ benley ];

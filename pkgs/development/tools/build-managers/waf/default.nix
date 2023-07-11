@@ -1,12 +1,11 @@
 { lib, stdenv, fetchFromGitLab, python3, ensureNewerSourcesForZipFilesHook
 # optional list of extra waf tools, e.g. `[ "doxygen" "pytest" ]`
-, withTools ? null
-}:
+, withTools ? null }:
 let
   wafToolsArg = with lib.strings;
-    optionalString (withTools != null) " --tools=\"${concatStringsSep "," withTools}\"";
-in
-stdenv.mkDerivation rec {
+    optionalString (withTools != null)
+    " --tools=\"${concatStringsSep "," withTools}\"";
+in stdenv.mkDerivation rec {
   pname = "waf";
   version = "2.0.25";
 
@@ -36,9 +35,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Meta build system";
-    homepage    = "https://waf.io";
-    license     = licenses.bsd3;
-    platforms   = platforms.all;
+    homepage = "https://waf.io";
+    license = licenses.bsd3;
+    platforms = platforms.all;
     maintainers = with maintainers; [ vrthra ];
   };
 }

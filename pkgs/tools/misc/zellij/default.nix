@@ -1,17 +1,5 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, stdenv
-, installShellFiles
-, pkg-config
-, libiconv
-, openssl
-, DiskArbitration
-, Foundation
-, mandown
-, zellij
-, testers
-}:
+{ lib, fetchFromGitHub, rustPlatform, stdenv, installShellFiles, pkg-config
+, libiconv, openssl, DiskArbitration, Foundation, mandown, zellij, testers }:
 
 rustPlatform.buildRustPackage rec {
   pname = "zellij";
@@ -26,19 +14,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-71HQ/75tl6ogGm5geDPZtz8oYCxUkAWUrU1lhK2AG0c=";
 
-  nativeBuildInputs = [
-    mandown
-    installShellFiles
-    pkg-config
-  ];
+  nativeBuildInputs = [ mandown installShellFiles pkg-config ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    DiskArbitration
-    Foundation
-  ];
+  buildInputs = [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv DiskArbitration Foundation ];
 
   preCheck = ''
     HOME=$TMPDIR
@@ -59,7 +38,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A terminal workspace with batteries included";
     homepage = "https://zellij.dev/";
-    changelog = "https://github.com/zellij-org/zellij/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/zellij-org/zellij/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ therealansh _0x4A6F abbe thehedgeh0g ];
   };

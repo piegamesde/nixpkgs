@@ -1,11 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gettext
-, installShellFiles
-, ncurses
-, ui ? "terminal"
-}:
+{ lib, stdenv, fetchFromGitHub, gettext, installShellFiles, ncurses
+, ui ? "terminal" }:
 
 assert lib.elem ui [ "terminal" "curses" ];
 stdenv.mkDerivation (finalAttrs: {
@@ -24,23 +18,15 @@ stdenv.mkDerivation (finalAttrs: {
       --replace "-lcurses" "-lncurses"
   '';
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = [
-    gettext
-  ]
-  ++ (lib.optional (ui == "curses") ncurses);
+  buildInputs = [ gettext ] ++ (lib.optional (ui == "curses") ncurses);
 
   dontConfigure = true;
 
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev gettext}/share/gettext/";
 
-  makeFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
-    ui
-  ];
+  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ui ];
 
   installPhase = ''
     runHook preInstall

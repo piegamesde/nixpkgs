@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "tailspin";
@@ -21,7 +18,8 @@ buildGoModule rec {
   subPackages = [ "." ];
 
   meta = with lib; {
-    description = "A log file highlighter and a drop-in replacement for `tail -f`";
+    description =
+      "A log file highlighter and a drop-in replacement for `tail -f`";
     homepage = "https://github.com/bensadeh/tailspin";
     license = licenses.mit;
     maintainers = with maintainers; [ dit7ya ];

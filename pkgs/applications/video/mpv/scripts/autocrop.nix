@@ -12,8 +12,10 @@ stdenvNoCC.mkDerivation rec {
   passthru.scriptName = "autocrop.lua";
 
   meta = {
-    description = "This script uses the lavfi cropdetect filter to automatically insert a crop filter with appropriate parameters for the currently playing video.";
-    homepage = "https://github.com/mpv-player/mpv/blob/master/TOOLS/lua/autocrop.lua";
+    description =
+      "This script uses the lavfi cropdetect filter to automatically insert a crop filter with appropriate parameters for the currently playing video.";
+    homepage =
+      "https://github.com/mpv-player/mpv/blob/master/TOOLS/lua/autocrop.lua";
     license = lib.licenses.gpl2Plus;
   };
 }

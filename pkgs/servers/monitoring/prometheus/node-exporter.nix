@@ -1,7 +1,6 @@
 { lib, stdenv, buildGoModule, fetchFromGitHub, nixosTests
-  # darwin
-  , CoreFoundation, IOKit
-}:
+# darwin
+, CoreFoundation, IOKit }:
 
 buildGoModule rec {
   pname = "node_exporter";

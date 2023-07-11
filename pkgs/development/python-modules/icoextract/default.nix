@@ -1,4 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi, pefile, pillow}:
+{ lib, buildPythonPackage, fetchPypi, pefile, pillow }:
 
 buildPythonPackage rec {
   pname = "icoextract";
@@ -10,17 +10,12 @@ buildPythonPackage rec {
     hash = "sha256-x0GEV0PUbkAzoUJgAqup9bHd7iYttGyzIZNdo8KsFyo=";
   };
 
-  propagatedBuildInputs = [
-    pefile
-    pillow
-  ];
+  propagatedBuildInputs = [ pefile pillow ];
 
   # tests expect mingw and multiarch
   doCheck = false;
 
-  pythonImportsCheck = [
-    "icoextract"
-  ];
+  pythonImportsCheck = [ "icoextract" ];
 
   meta = with lib; {
     description = "Extract icons from Windows PE files";

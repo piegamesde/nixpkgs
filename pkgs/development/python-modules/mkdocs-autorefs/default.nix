@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, markdown
-, mkdocs
-, pytestCheckHook
-, pdm-pep517
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, markdown, mkdocs, pytestCheckHook
+, pdm-pep517, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "mkdocs-autorefs";
@@ -22,27 +15,18 @@ buildPythonPackage rec {
     hash = "sha256-kiHb/XSFw6yaUbLJHBvHaQAOVUM6UfyFeomgniDZqgU=";
   };
 
-  nativeBuildInputs = [
-    pdm-pep517
-  ];
+  nativeBuildInputs = [ pdm-pep517 ];
 
-  propagatedBuildInputs = [
-    markdown
-    mkdocs
-  ];
+  propagatedBuildInputs = [ markdown mkdocs ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace 'dynamic = ["version"]' 'version = "${version}"'
   '';
 
-  pythonImportsCheck = [
-    "mkdocs_autorefs"
-  ];
+  pythonImportsCheck = [ "mkdocs_autorefs" ];
 
   meta = with lib; {
     description = "Automatically link across pages in MkDocs";

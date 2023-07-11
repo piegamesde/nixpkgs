@@ -1,29 +1,11 @@
-{ lib, stdenv
-, fetchFromGitHub
-, fetchurl
-, cmake
-, ffmpeg_4
-, libdrm
-, libglvnd
-, libffi
-, libpng
-, libX11
-, libXau
-, libXdmcp
-, libxcb
-, makeWrapper
-, ninja
-, pkg-config
-, python3
-, vulkan-loader
-, wayland
-, wayland-protocols
-, wayland-scanner
-, zlib
-}:
+{ lib, stdenv, fetchFromGitHub, fetchurl, cmake, ffmpeg_4, libdrm, libglvnd
+, libffi, libpng, libX11, libXau, libXdmcp, libxcb, makeWrapper, ninja
+, pkg-config, python3, vulkan-loader, wayland, wayland-protocols
+, wayland-scanner, zlib }:
 let
   renderdoc = fetchurl {
-    url = "https://raw.githubusercontent.com/baldurk/renderdoc/v1.1/renderdoc/api/app/renderdoc_app.h";
+    url =
+      "https://raw.githubusercontent.com/baldurk/renderdoc/v1.1/renderdoc/api/app/renderdoc_app.h";
     hash = "sha256-57XwqlsbDq3GOhxiTAyn9a8TOqhX1qQnGw7z0L22ho4=";
   };
 
@@ -74,8 +56,7 @@ let
     rev = "9a2e576a052a1e65a5d41b593e693ff02745604b";
     hash = "sha256-DBA2FeV0G/HI8GUMtGYO52jk7wM4HMlKLDA4b+Wmo+k=";
   };
-in
-stdenv.mkDerivation (finalAttrs: {
+in stdenv.mkDerivation (finalAttrs: {
   pname = "vulkan-cts";
   version = "1.3.5.2";
 
@@ -120,15 +101,8 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  nativeBuildInputs = [
-    cmake
-    glslang
-    makeWrapper
-    ninja
-    pkg-config
-    python3
-    wayland-scanner
-  ];
+  nativeBuildInputs =
+    [ cmake glslang makeWrapper ninja pkg-config python3 wayland-scanner ];
 
   cmakeFlags = [
     # Fix cts cmake not coping with absolute install dirs
@@ -154,8 +128,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     description = "Khronos Vulkan Conformance Tests";
-    homepage = "https://github.com/KhronosGroup/VK-GL-CTS/blob/main/external/vulkancts/README.md";
-    changelog = "https://github.com/KhronosGroup/VK-GL-CTS/releases/tag/${finalAttrs.pname}-${finalAttrs.version}";
+    homepage =
+      "https://github.com/KhronosGroup/VK-GL-CTS/blob/main/external/vulkancts/README.md";
+    changelog =
+      "https://github.com/KhronosGroup/VK-GL-CTS/releases/tag/${finalAttrs.pname}-${finalAttrs.version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ Flakebi ];
   };

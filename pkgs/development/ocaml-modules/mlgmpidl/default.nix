@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, perl, ocaml, findlib, camlidl, gmp, mpfr, bigarray-compat }:
+{ stdenv, lib, fetchFromGitHub, perl, ocaml, findlib, camlidl, gmp, mpfr
+, bigarray-compat }:
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-mlgmpidl";
@@ -28,10 +29,10 @@ stdenv.mkDerivation rec {
     mkdir -p $out/lib/ocaml/${ocaml.version}/site-lib/stublibs
   '';
 
-
   meta = {
     description = "OCaml interface to the GMP library";
-    homepage = "https://www.inrialpes.fr/pop-art/people/bjeannet/mlxxxidl-forge/mlgmpidl/";
+    homepage =
+      "https://www.inrialpes.fr/pop-art/people/bjeannet/mlxxxidl-forge/mlgmpidl/";
     license = lib.licenses.lgpl21;
     inherit (ocaml.meta) platforms;
     maintainers = [ lib.maintainers.vbgl ];

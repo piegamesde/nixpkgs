@@ -1,12 +1,5 @@
-{ stdenv
-, lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, openssl
-, Security
-, libiconv
-}:
+{ stdenv, lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, Security
+, libiconv }:
 
 rustPlatform.buildRustPackage rec {
   pname = "nym";
@@ -28,7 +21,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security libiconv ];
+  buildInputs = [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [ Security libiconv ];
 
   checkType = "debug";
 

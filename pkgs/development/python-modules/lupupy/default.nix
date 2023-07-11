@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, colorlog
-, pyyaml
-, fetchPypi
-, pythonOlder
-, requests
-}:
+{ lib, buildPythonPackage, colorlog, pyyaml, fetchPypi, pythonOlder, requests }:
 
 buildPythonPackage rec {
   pname = "lupupy";
@@ -19,18 +12,12 @@ buildPythonPackage rec {
     hash = "sha256-g2EEyPhsQZ+VKP/kSjZdQ9ns0NlptH8l2h0vTTLpF54=";
   };
 
-  propagatedBuildInputs = [
-    colorlog
-    pyyaml
-    requests
-  ];
+  propagatedBuildInputs = [ colorlog pyyaml requests ];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "lupupy"
-  ];
+  pythonImportsCheck = [ "lupupy" ];
 
   meta = with lib; {
     description = "Python module to control Lupusec alarm control panels";

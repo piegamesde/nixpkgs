@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, packaging
-, pyparsing
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, packaging, pyparsing
+, pytestCheckHook, pythonOlder, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "pip-requirements-parser";
@@ -26,22 +19,13 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    packaging
-    pyparsing
-  ];
+  propagatedBuildInputs = [ packaging pyparsing ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pip_requirements_parser"
-  ];
+  pythonImportsCheck = [ "pip_requirements_parser" ];
 
   disabledTests = [
     "test_RequirementsFile_to_dict"
@@ -52,7 +36,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module to parse pip requirements";
     homepage = "https://github.com/nexB/pip-requirements-parser";
-    changelog = "https://github.com/nexB/pip-requirements-parser/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/nexB/pip-requirements-parser/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

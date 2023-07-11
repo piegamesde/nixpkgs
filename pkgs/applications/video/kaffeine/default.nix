@@ -1,17 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, kio
-, cmake
-, extra-cmake-modules
-, libvlc
-, libv4l
-, libX11
-, kidletime
-, kdelibs4support
-, libXScrnSaver
-, wrapQtAppsHook
-, qtx11extras
+{ stdenv, lib, fetchFromGitLab, kio, cmake, extra-cmake-modules, libvlc, libv4l
+, libX11, kidletime, kdelibs4support, libXScrnSaver, wrapQtAppsHook, qtx11extras
 }:
 
 stdenv.mkDerivation rec {
@@ -26,11 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-FOaS9gkzkHglbsNBNMwjzbHCNQg3Mbf+9so/Vfbaquc=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules wrapQtAppsHook ];
 
   buildInputs = [
     libvlc

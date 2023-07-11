@@ -1,21 +1,14 @@
-{ lib, stdenv, fetchFromGitHub
-, runtimeShell, nixosTests, fetchpatch
-, autoreconfHook, bison, flex
-, docbook_xml_dtd_45, docbook_xsl
-, itstool , libxml2, libxslt
-, libxcrypt
-, glibcCross ? null
-, pam ? null
-, withTcb ? lib.meta.availableOn stdenv.hostPlatform tcb, tcb
-}:
+{ lib, stdenv, fetchFromGitHub, runtimeShell, nixosTests, fetchpatch
+, autoreconfHook, bison, flex, docbook_xml_dtd_45, docbook_xsl, itstool, libxml2
+, libxslt, libxcrypt, glibcCross ? null, pam ? null
+, withTcb ? lib.meta.availableOn stdenv.hostPlatform tcb, tcb }:
 let
-  glibc =
-    if stdenv.hostPlatform != stdenv.buildPlatform then glibcCross
-    else assert stdenv.hostPlatform.libc == "glibc"; stdenv.cc.libc;
+  glibc = if stdenv.hostPlatform != stdenv.buildPlatform then
+    glibcCross
+  else
+    assert stdenv.hostPlatform.libc == "glibc"; stdenv.cc.libc;
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "shadow";
   version = "4.13";
 
@@ -31,9 +24,14 @@ stdenv.mkDerivation rec {
   RUNTIME_SHELL = runtimeShell;
 
   nativeBuildInputs = [
-    autoreconfHook bison flex
-    docbook_xml_dtd_45 docbook_xsl
-    itstool libxml2 libxslt
+    autoreconfHook
+    bison
+    flex
+    docbook_xml_dtd_45
+    docbook_xsl
+    itstool
+    libxml2
+    libxslt
   ];
 
   buildInputs = [ libxcrypt ]
@@ -48,7 +46,8 @@ stdenv.mkDerivation rec {
     ./fix-install-with-tcb.patch
     # Fix HAVE_SHADOWGRP configure check
     (fetchpatch {
-      url = "https://github.com/shadow-maint/shadow/commit/a281f241b592aec636d1b93a99e764499d68c7ef.patch";
+      url =
+        "https://github.com/shadow-maint/shadow/commit/a281f241b592aec636d1b93a99e764499d68c7ef.patch";
       sha256 = "sha256-GJWg/8ggTnrbIgjI+HYa26DdVbjTHTk/IHhy7GU9G5w=";
     })
   ];
@@ -89,11 +88,14 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  disallowedReferences = lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) stdenv.shellPackage;
+  disallowedReferences =
+    lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
+    stdenv.shellPackage;
 
   meta = with lib; {
     homepage = "https://github.com/shadow-maint";
-    description = "Suite containing authentication-related tools such as passwd and su";
+    description =
+      "Suite containing authentication-related tools such as passwd and su";
     license = licenses.bsd3;
     platforms = platforms.linux;
   };

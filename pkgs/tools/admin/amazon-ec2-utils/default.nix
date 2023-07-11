@@ -1,11 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, curl
-, gawk
-, python3
-, installShellFiles
-}:
+{ stdenv, lib, fetchFromGitHub, curl, gawk, python3, installShellFiles }:
 stdenv.mkDerivation rec {
   pname = "amazon-ec2-utils";
   version = "2.0";
@@ -20,12 +13,8 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "man" ];
 
   strictDeps = true;
-  buildInputs = [
-    python3
-  ];
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  buildInputs = [ python3 ];
+  nativeBuildInputs = [ installShellFiles ];
 
   installPhase = ''
     install -Dm755 -t $out/bin/ ebsnvme-id
@@ -65,7 +54,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/aws/amazon-ec2-utils";
-    description = "Contains a set of utilities and settings for Linux deployments in EC2";
+    description =
+      "Contains a set of utilities and settings for Linux deployments in EC2";
     license = licenses.mit;
     maintainers = with maintainers; [ ketzacoatl thefloweringash ];
   };

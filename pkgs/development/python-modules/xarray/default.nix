@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, packaging
-, pandas
-, pytestCheckHook
-, pythonOlder
-, setuptoolsBuildHook
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, packaging, pandas, pytestCheckHook
+, pythonOlder, setuptoolsBuildHook, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "xarray";
@@ -22,26 +13,15 @@ buildPythonPackage rec {
     hash = "sha256-qnYFAKLY+L6O/Y87J6lLKvOwqMLANzR9WV6vb/Cdinc=";
   };
 
-  SETUPTOOLS_SCM_PRETEND_VERSION="${version}";
+  SETUPTOOLS_SCM_PRETEND_VERSION = "${version}";
 
-  nativeBuildInputs = [
-    setuptoolsBuildHook
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptoolsBuildHook setuptools-scm ];
 
-  propagatedBuildInputs = [
-    numpy
-    packaging
-    pandas
-  ];
+  propagatedBuildInputs = [ numpy packaging pandas ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "xarray"
-  ];
+  pythonImportsCheck = [ "xarray" ];
 
   meta = with lib; {
     description = "N-D labeled arrays and datasets in Python";

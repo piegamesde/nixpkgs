@@ -1,15 +1,9 @@
-{ lib
-, python
-, buildPythonPackage
-, autoPatchelfHook
-, unzip
-, cudaPackages
-}:
+{ lib, python, buildPythonPackage, autoPatchelfHook, unzip, cudaPackages }:
 
 let
-  pyVersion = "${lib.versions.major python.version}${lib.versions.minor python.version}";
-in
-buildPythonPackage rec {
+  pyVersion =
+    "${lib.versions.major python.version}${lib.versions.minor python.version}";
+in buildPythonPackage rec {
   pname = "tensorrt";
   version = cudaPackages.tensorrt.version;
 
@@ -19,11 +13,8 @@ buildPythonPackage rec {
   # We unpack the wheel ourselves because of the odd packaging.
   dontUseWheelUnpack = true;
 
-  nativeBuildInputs = [
-    unzip
-    autoPatchelfHook
-    cudaPackages.autoAddOpenGLRunpathHook
-  ];
+  nativeBuildInputs =
+    [ unzip autoPatchelfHook cudaPackages.autoAddOpenGLRunpathHook ];
 
   preUnpack = ''
     mkdir -p dist
@@ -33,17 +24,13 @@ buildPythonPackage rec {
 
   sourceRoot = ".";
 
-  buildInputs = [
-    cudaPackages.cudnn
-    cudaPackages.tensorrt
-  ];
+  buildInputs = [ cudaPackages.cudnn cudaPackages.tensorrt ];
 
-  pythonCheckImports = [
-    "tensorrt"
-  ];
+  pythonCheckImports = [ "tensorrt" ];
 
   meta = with lib; {
-    description = "Python bindings for TensorRT, a high-performance deep learning interface";
+    description =
+      "Python bindings for TensorRT, a high-performance deep learning interface";
     homepage = "https://developer.nvidia.com/tensorrt";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];

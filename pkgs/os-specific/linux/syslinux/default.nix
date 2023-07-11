@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchgit
-, fetchurl
-, libuuid
-, makeWrapper
-, mtools
-, nasm
-, perl
-, python3
-}:
+{ lib, stdenv, fetchgit, fetchurl, libuuid, makeWrapper, mtools, nasm, perl
+, python3 }:
 
 stdenv.mkDerivation {
   pname = "syslinux";
@@ -26,44 +17,36 @@ stdenv.mkDerivation {
   patches = let
     fetchDebianPatch = name: commit: hash:
       fetchurl {
-        url = "https://salsa.debian.org/images-team/syslinux/raw/"
-              + commit + "/debian/patches/" + name;
+        url = "https://salsa.debian.org/images-team/syslinux/raw/" + commit
+          + "/debian/patches/" + name;
         inherit name hash;
       };
     fetchArchlinuxPatch = name: commit: hash:
       fetchurl {
         url = "https://raw.githubusercontent.com/archlinux/svntogit-packages/"
-              + commit + "/trunk/" + name;
+          + commit + "/trunk/" + name;
         inherit name hash;
       };
   in [
     ./gcc10.patch
-    (fetchDebianPatch
-      "0002-gfxboot-menu-label.patch"
-      "fa1349f1"
+    (fetchDebianPatch "0002-gfxboot-menu-label.patch" "fa1349f1"
       "sha256-0f6QhM4lJmGflLige4n7AZTodL7vnyAvi5dIedd/Lho=")
-    (fetchArchlinuxPatch
-      "0005-gnu-efi-version-compatibility.patch"
+    (fetchArchlinuxPatch "0005-gnu-efi-version-compatibility.patch"
       "821c3da473d1399d930d5b4a086e46a4179eaa45"
       "sha256-hhCVnfbAFWj/R4yh60qsMB87ofW9RznarsByhl6L4tc=")
-    (fetchArchlinuxPatch
-      "0025-reproducible-build.patch"
+    (fetchArchlinuxPatch "0025-reproducible-build.patch"
       "821c3da473d1399d930d5b4a086e46a4179eaa45"
       "sha256-mnb291pCSFvDNxY7o4BosJ94ib3BpOGRQIiY8Q3jZmI=")
     (fetchDebianPatch
       # mbr.bin: too big (452 > 440)
       # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=906414
-      "0016-strip-gnu-property.patch"
-      "7468ef0e38c43"
+      "0016-strip-gnu-property.patch" "7468ef0e38c43"
       "sha256-lW+E6THuXlTGvhly0f/D9NwYHhkiKHot2l+bz9Eaxp4=")
     (fetchDebianPatch
       # mbr.bin: too big (452 > 440)
-      "0017-single-load-segment.patch"
-      "012e1dd312eb"
+      "0017-single-load-segment.patch" "012e1dd312eb"
       "sha256-C6VmdlTs1blMGUHH3OfOlFBZsfpwRn9vWodwqVn8+Cs=")
-    (fetchDebianPatch
-      "0018-prevent-pow-optimization.patch"
-      "26f0e7b2"
+    (fetchDebianPatch "0018-prevent-pow-optimization.patch" "26f0e7b2"
       "sha256-dVzXBi/oSV9vYgU85mRFHBKuZdup+1x1BipJX74ED7E=")
   ];
 
@@ -80,16 +63,9 @@ stdenv.mkDerivation {
     touch gnu-efi/inc/ia32/gnu/stubs-32.h
   '';
 
-  nativeBuildInputs = [
-    nasm
-    perl
-    python3
-    makeWrapper
-  ];
+  nativeBuildInputs = [ nasm perl python3 makeWrapper ];
 
-  buildInputs = [
-    libuuid
-  ];
+  buildInputs = [ libuuid ];
 
   # Fails very rarely with 'No rule to make target: ...'
   enableParallelBuilding = false;
@@ -111,8 +87,7 @@ stdenv.mkDerivation {
     "MANDIR=$(out)/share/man"
     "PERL=perl"
     "HEXDATE=0x00000000"
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isi686 [ "bios" "efi32" ];
+  ] ++ lib.optionals stdenv.hostPlatform.isi686 [ "bios" "efi32" ];
 
   # Some tests require qemu, some others fail in a sandboxed environment
   doCheck = false;

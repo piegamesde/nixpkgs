@@ -1,24 +1,11 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, hatchling
 
 # runtime
-, ApplicationServices
-, anyio
-, itsdangerous
-, jinja2
-, python-multipart
-, pyyaml
-, httpx
-, typing-extensions
+, ApplicationServices, anyio, itsdangerous, jinja2, python-multipart, pyyaml
+, httpx, typing-extensions
 
 # tests
-, pytestCheckHook
-, pythonOlder
-, trio
-}:
+, pytestCheckHook, pythonOlder, trio }:
 
 buildPythonPackage rec {
   pname = "starlette";
@@ -34,37 +21,25 @@ buildPythonPackage rec {
     hash = "sha256-s0ADo/+lcH8Y31hf1iSLbfTsV3fZtlCuZf7BS0uQc9Y=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
   postPatch = ''
     # remove coverage arguments to pytest
     sed -i '/--cov/d' setup.cfg
   '';
 
-  propagatedBuildInputs = [
-    anyio
-    itsdangerous
-    jinja2
-    python-multipart
-    pyyaml
-    httpx
-  ] ++ lib.optionals (pythonOlder "3.10") [
-    typing-extensions
-  ] ++ lib.optionals stdenv.isDarwin [
-    ApplicationServices
-  ];
+  propagatedBuildInputs =
+    [ anyio itsdangerous jinja2 python-multipart pyyaml httpx ]
+    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ]
+    ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    trio
-    typing-extensions
-  ];
+  nativeCheckInputs = [ pytestCheckHook trio typing-extensions ];
 
   pytestFlagsArray = [
-    "-W" "ignore::DeprecationWarning"
-    "-W" "ignore::trio.TrioDeprecationWarning"
+    "-W"
+    "ignore::DeprecationWarning"
+    "-W"
+    "ignore::trio.TrioDeprecationWarning"
   ];
 
   disabledTests = [
@@ -73,9 +48,7 @@ buildPythonPackage rec {
     "test_request_headers"
   ];
 
-  pythonImportsCheck = [
-    "starlette"
-  ];
+  pythonImportsCheck = [ "starlette" ];
 
   meta = with lib; {
     changelog = "https://github.com/encode/starlette/releases/tag/${version}";

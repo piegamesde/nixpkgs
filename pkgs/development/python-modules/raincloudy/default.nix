@@ -1,20 +1,6 @@
-{ lib
-, aiohttp
-, aioresponses
-, beautifulsoup4
-, buildPythonPackage
-, fetchFromGitHub
-, html5lib
-, pytest-asyncio
-, pytest-aiohttp
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-mock
-, setuptools
-, setuptools-scm
-, urllib3
-}:
+{ lib, aiohttp, aioresponses, beautifulsoup4, buildPythonPackage
+, fetchFromGitHub, html5lib, pytest-asyncio, pytest-aiohttp, pytestCheckHook
+, pythonOlder, requests, requests-mock, setuptools, setuptools-scm, urllib3 }:
 
 buildPythonPackage rec {
   pname = "raincloudy";
@@ -30,10 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-qCkBVirM09iA1sXiOB9FJns8bHjQq7rRk8XbRWrtBDI=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -47,13 +30,7 @@ buildPythonPackage rec {
     sed -i '/packages=/d' setup.py
   '';
 
-  propagatedBuildInputs = [
-    aiohttp
-    requests
-    beautifulsoup4
-    urllib3
-    html5lib
-  ];
+  propagatedBuildInputs = [ aiohttp requests beautifulsoup4 urllib3 html5lib ];
 
   nativeCheckInputs = [
     aioresponses
@@ -63,10 +40,7 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [
-    "raincloudy"
-    "raincloudy.aio"
-  ];
+  pythonImportsCheck = [ "raincloudy" "raincloudy.aio" ];
 
   disabledTests = [
     # Test requires network access
@@ -74,7 +48,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Module to interact with Melnor RainCloud Smart Garden Watering Irrigation Timer";
+    description =
+      "Module to interact with Melnor RainCloud Smart Garden Watering Irrigation Timer";
     homepage = "https://github.com/vanstinator/raincloudy";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];

@@ -1,22 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, flit-core
-, pythonImportsCheckHook
+{ lib, buildPythonPackage, fetchFromGitHub, flit-core, pythonImportsCheckHook
 # documentation build dependencies
-, sphinxHook
-, sphinx-notfound-page
-, sphinx-prompt
-, sphinx-rtd-theme
-, sphinx-tabs
-, sphinx-version-warning
-, sphinx-autoapi
-, sphinxcontrib-bibtex
-, sphinxemoji
+, sphinxHook, sphinx-notfound-page, sphinx-prompt, sphinx-rtd-theme, sphinx-tabs
+, sphinx-version-warning, sphinx-autoapi, sphinxcontrib-bibtex, sphinxemoji
 # runtime dependencies
-, sphinx
-, sphinxcontrib-jquery
-}:
+, sphinx, sphinxcontrib-jquery }:
 
 buildPythonPackage rec {
   pname = "sphinx-hoverxref";
@@ -51,7 +38,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "hoverxref" ];
 
   meta = with lib; {
-    description = "A sphinx extension for creating tooltips on the cross references of the documentation";
+    description =
+      "A sphinx extension for creating tooltips on the cross references of the documentation";
     longDescription = ''
       sphinx-hoverxref is a Sphinx extension to show a floating window
       (tooltips or modal dialogues) on the cross references of the

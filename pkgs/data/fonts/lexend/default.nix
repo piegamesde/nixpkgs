@@ -1,7 +1,4 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-}:
+{ lib, stdenvNoCC, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "lexend";
@@ -28,7 +25,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.lexend.com";
-    description = "A variable font family designed to aid in reading proficiency";
+    description =
+      "A variable font family designed to aid in reading proficiency";
     license = licenses.ofl;
     platforms = platforms.all;
     maintainers = with maintainers; [ fufexan ];

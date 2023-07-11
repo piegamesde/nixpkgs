@@ -1,42 +1,48 @@
 { pkgs }:
-let
-  inherit (pkgs) lib formats;
-in
-with lib;
+let inherit (pkgs) lib formats;
+in with lib;
 let
 
   evalFormat = format: args: def:
     let
       formatSet = format args;
-      config = formatSet.type.merge [] (imap1 (n: def: {
+      config = formatSet.type.merge [ ] (imap1 (n: def: {
         # We check the input values, so that
         #  - we don't write nonsensical tests that will impede progress
         #  - the test author has a slightly more realistic view of the
         #    final format during development.
-        value = lib.throwIfNot (formatSet.type.check def) (builtins.trace def "definition does not pass the type's check function") def;
+        value = lib.throwIfNot (formatSet.type.check def) (builtins.trace def
+          "definition does not pass the type's check function") def;
         file = "def${toString n}";
       }) [ def ]);
     in formatSet.generate "test-format-file" config;
 
-  runBuildTest = name: { drv, expected }: pkgs.runCommand name {
-    passAsFile = ["expected"];
-    inherit expected drv;
-  } ''
-    if diff -u "$expectedPath" "$drv"; then
-      touch "$out"
-    else
-      echo
-      echo "Got different values than expected; diff above."
-      exit 1
-    fi
-  '';
+  runBuildTest = name:
+    { drv, expected }:
+    pkgs.runCommand name {
+      passAsFile = [ "expected" ];
+      inherit expected drv;
+    } ''
+      if diff -u "$expectedPath" "$drv"; then
+        touch "$out"
+      else
+        echo
+        echo "Got different values than expected; diff above."
+        exit 1
+      fi
+    '';
 
-  runBuildTests = tests: pkgs.linkFarm "nixpkgs-pkgs-lib-format-tests" (mapAttrsToList (name: value: { inherit name; path = runBuildTest name value; }) (filterAttrs (name: value: value != null) tests));
+  runBuildTests = tests:
+    pkgs.linkFarm "nixpkgs-pkgs-lib-format-tests" (mapAttrsToList
+      (name: value: {
+        inherit name;
+        path = runBuildTest name value;
+      }) (filterAttrs (name: value: value != null) tests));
 
 in runBuildTests {
 
   testJsonAtoms = {
-    drv = evalFormat formats.json {} {
+    drv = evalFormat formats.json { } {
       null = null;
       false = false;
       true = true;
@@ -68,7 +74,7 @@ in runBuildTests {
   };
 
   testYamlAtoms = {
-    drv = evalFormat formats.yaml {} {
+    drv = evalFormat formats.yaml { } {
       null = null;
       false = false;
       true = true;
@@ -94,7 +100,7 @@ in runBuildTests {
   };
 
   testIniAtoms = {
-    drv = evalFormat formats.ini {} {
+    drv = evalFormat formats.ini { } {
       foo = {
         bool = true;
         int = 10;
@@ -132,7 +138,10 @@ in runBuildTests {
   };
 
   testIniListToValue = {
-    drv = evalFormat formats.ini { listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault {}); } {
+    drv = evalFormat formats.ini {
+      listToValue =
+        concatMapStringsSep ", " (generators.mkValueStringDefault { });
+    } {
       foo = {
         bar = [ null true "test" 1.2 10 ];
         baz = false;
@@ -148,7 +157,7 @@ in runBuildTests {
   };
 
   testKeyValueAtoms = {
-    drv = evalFormat formats.keyValue {} {
+    drv = evalFormat formats.keyValue { } {
       bool = true;
       int = 10;
       float = 3.141;
@@ -180,7 +189,10 @@ in runBuildTests {
   };
 
   testKeyValueListToValue = {
-    drv = evalFormat formats.keyValue { listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault {}); } {
+    drv = evalFormat formats.keyValue {
+      listToValue =
+        concatMapStringsSep ", " (generators.mkValueStringDefault { });
+    } {
       bar = [ null true "test" 1.2 10 ];
       baz = false;
       qux = "qux";
@@ -193,7 +205,7 @@ in runBuildTests {
   };
 
   testTomlAtoms = {
-    drv = evalFormat formats.toml {} {
+    drv = evalFormat formats.toml { } {
       false = false;
       true = true;
       int = 10;
@@ -224,7 +236,7 @@ in runBuildTests {
   #   2. providing a more readable example test
   # Whereas java-properties/default.nix tests the low level escaping, etc.
   testJavaProperties = {
-    drv = evalFormat formats.javaProperties {} {
+    drv = evalFormat formats.javaProperties { } {
       floaty = 3.1415;
       tautologies = true;
       contradictions = false;

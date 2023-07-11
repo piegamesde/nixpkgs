@@ -1,5 +1,4 @@
-{ lib, ... }:
-rec {
+{ lib, ... }: rec {
   # Compute the fixed point of the given function `f`, which is usually an
   # attribute set that expects its final, non-recursive representation as an
   # argument:
@@ -29,13 +28,7 @@ rec {
   #
   #     nix-repl> converge (x: x / 2) 16
   #     0
-  converge = f: x:
-    let
-      x' = f x;
-    in
-      if x' == x
-      then x
-      else converge f x';
+  converge = f: x: let x' = f x; in if x' == x then x else converge f x';
 
   # Modify the contents of an explicitly recursive attribute set in a way that
   # honors `self`-references. This is accomplished with a function
@@ -71,11 +64,11 @@ rec {
   # Compose two extending functions of the type expected by 'extends'
   # into one where changes made in the first are available in the
   # 'super' of the second
-  composeExtensions =
-    f: g: final: prev:
-      let fApplied = f final prev;
-          prev' = prev // fApplied;
-      in fApplied // g final prev';
+  composeExtensions = f: g: final: prev:
+    let
+      fApplied = f final prev;
+      prev' = prev // fApplied;
+    in fApplied // g final prev';
 
   # Compose several extending functions of the type expected by 'extends' into
   # one where changes made in preceding functions are made available to
@@ -84,7 +77,7 @@ rec {
   # composeManyExtensions : [packageSet -> packageSet -> packageSet] -> packageSet -> packageSet -> packageSet
   #                          ^final        ^prev         ^overrides     ^final        ^prev         ^overrides
   composeManyExtensions =
-    lib.foldr (x: y: composeExtensions x y) (final: prev: {});
+    lib.foldr (x: y: composeExtensions x y) (final: prev: { });
 
   # Create an overridable, recursive attribute set. For example:
   #
@@ -107,7 +100,9 @@ rec {
   # Same as `makeExtensible` but the name of the extending attribute is
   # customized.
   makeExtensibleWithCustomName = extenderName: rattrs:
-    fix' (self: (rattrs self) // {
-      ${extenderName} = f: makeExtensibleWithCustomName extenderName (extends f rattrs);
-    });
+    fix' (self:
+      (rattrs self) // {
+        ${extenderName} = f:
+          makeExtensibleWithCustomName extenderName (extends f rattrs);
+      });
 }

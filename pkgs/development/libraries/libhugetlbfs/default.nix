@@ -5,13 +5,15 @@ stdenv.mkDerivation rec {
   version = "2.23";
 
   src = fetchurl {
-    url = "https://github.com/libhugetlbfs/libhugetlbfs/releases/download/${version}/libhugetlbfs-${version}.tar.gz";
+    url =
+      "https://github.com/libhugetlbfs/libhugetlbfs/releases/download/${version}/libhugetlbfs-${version}.tar.gz";
     sha256 = "0ya4q001g111d3pqlzrf3yaifadl0ccirx5dndz1pih7x3qp41mp";
   };
 
   patches = [
     (fetchurl {
-      url = "https://build.opensuse.org/public/source/openSUSE:Factory/libhugetlbfs/glibc-2.34-fix.patch?rev=50";
+      url =
+        "https://build.opensuse.org/public/source/openSUSE:Factory/libhugetlbfs/glibc-2.34-fix.patch?rev=50";
       sha256 = "sha256-eRQa6M0ZdHMtwA5nnzDTWYv/x4AnRZhj+MpDiwyCvVM=";
     })
   ];

@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, capstone
-, stdenv
-, setuptools
-}:
+{ lib, buildPythonPackage, capstone, stdenv, setuptools }:
 
 buildPythonPackage rec {
   pname = "capstone";
@@ -20,7 +15,10 @@ buildPythonPackage rec {
 
   # aarch64 only available from MacOS SDK 11 onwards, so fix the version tag.
   # otherwise, bdist_wheel may detect "macosx_10_6_arm64" which doesn't make sense.
-  setupPyBuildFlags = lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ "--plat-name" "macosx_11_0" ];
+  setupPyBuildFlags = lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+    "--plat-name"
+    "macosx_11_0"
+  ];
 
   propagatedBuildInputs = [ setuptools ];
 

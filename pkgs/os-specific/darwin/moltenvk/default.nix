@@ -1,25 +1,6 @@
-{ lib
-, overrideCC
-, stdenv
-, fetchurl
-, fetchFromGitHub
-, cctools
-, sigtool
-, cereal
-, libcxx
-, glslang
-, spirv-cross
-, spirv-headers
-, spirv-tools
-, vulkan-headers
-, xcbuild
-, AppKit
-, Foundation
-, Libsystem
-, MacOSX-SDK
-, Metal
-, QuartzCore
-}:
+{ lib, overrideCC, stdenv, fetchurl, fetchFromGitHub, cctools, sigtool, cereal
+, libcxx, glslang, spirv-cross, spirv-headers, spirv-tools, vulkan-headers
+, xcbuild, AppKit, Foundation, Libsystem, MacOSX-SDK, Metal, QuartzCore }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "MoltenVK";
@@ -147,7 +128,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    description = "A Vulkan Portability implementation built on top of Apple’s Metal API";
+    description =
+      "A Vulkan Portability implementation built on top of Apple’s Metal API";
     homepage = "https://github.com/KhronosGroup/MoltenVK";
     changelog = "https://github.com/KhronosGroup/MoltenVK/releases";
     maintainers = [ lib.maintainers.reckenrode ];

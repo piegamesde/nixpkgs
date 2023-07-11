@@ -1,17 +1,7 @@
-{ lib, stdenv
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, libxslt
-, docbook-xsl-ns
-, glib
-, gdk-pixbuf
-, gnome
-, buildPackages
+{ lib, stdenv, fetchurl, meson, ninja, pkg-config, libxslt, docbook-xsl-ns, glib
+, gdk-pixbuf, gnome, buildPackages
 , withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-, gobject-introspection
-}:
+, gobject-introspection }:
 
 stdenv.mkDerivation rec {
   pname = "libnotify";
@@ -20,7 +10,9 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "man" "dev" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "xfTtPR+G5bEYx2QVqsuGGHPtPm8MazGBuCjPWE/FxhY=";
   };
 
@@ -41,14 +33,9 @@ stdenv.mkDerivation rec {
     libxslt
     docbook-xsl-ns
     glib # for glib-mkenums needed during the build
-  ] ++ lib.optionals withIntrospection [
-    gobject-introspection
-  ];
+  ] ++ lib.optionals withIntrospection [ gobject-introspection ];
 
-  propagatedBuildInputs = [
-    gdk-pixbuf
-    glib
-  ];
+  propagatedBuildInputs = [ gdk-pixbuf glib ];
 
   passthru = {
     updateScript = gnome.updateScript {
@@ -58,7 +45,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "A library that sends desktop notifications to a notification daemon";
+    description =
+      "A library that sends desktop notifications to a notification daemon";
     homepage = "https://gitlab.gnome.org/GNOME/libnotify";
     license = licenses.lgpl21;
     maintainers = teams.gnome.members;

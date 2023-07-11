@@ -9,7 +9,8 @@ stdenv.mkDerivation rec {
   version = "unstable-2023-01-31";
 
   src = fetchurl {
-    url = "https://raw.githubusercontent.com/probe-rs/webpage/1cba61acc6ecb5ff96f74641269844ad88ad8ad5/static/files/69-probe-rs.rules";
+    url =
+      "https://raw.githubusercontent.com/probe-rs/webpage/1cba61acc6ecb5ff96f74641269844ad88ad8ad5/static/files/69-probe-rs.rules";
     sha256 = "sha256-vQMPX3Amttja0u03KWGnPDAVTGM9ekJ+IBTjW+xlJS0=";
   };
 

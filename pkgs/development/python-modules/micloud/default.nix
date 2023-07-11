@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, click
-, pycryptodome
-, requests
-, tzlocal
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, click, pycryptodome, requests
+, tzlocal }:
 
 buildPythonPackage rec {
   pname = "micloud";
@@ -18,12 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-IsNXFs1N+rKwqve2Pjp+wRTZCxHF4acEo6KyhsSKuqI=";
   };
 
-  propagatedBuildInputs = [
-    click
-    pycryptodome
-    requests
-    tzlocal
-  ];
+  propagatedBuildInputs = [ click pycryptodome requests tzlocal ];
 
   # tests require credentials
   doCheck = false;

@@ -1,7 +1,4 @@
-{ lib
-, stdenv
-, fetchzip
-}:
+{ lib, stdenv, fetchzip }:
 
 stdenv.mkDerivation rec {
   pname = "jdom";
@@ -23,7 +20,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Java-based solution for accessing, manipulating, and outputting XML data from Java code";
+    description =
+      "Java-based solution for accessing, manipulating, and outputting XML data from Java code";
     homepage = "http://www.jdom.org";
     platforms = platforms.unix;
     license = licenses.bsdOriginal;

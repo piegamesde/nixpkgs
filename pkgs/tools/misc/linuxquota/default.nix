@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "doc" "man" ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ e2fsprogs openldap ];
+  buildInputs = [ 0.0 fsprogs openldap ];
 
   meta = with lib; {
     description = "Tools to manage kernel-level quotas in Linux";

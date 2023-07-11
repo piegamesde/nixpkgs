@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, requests
-, fetchPypi
-, pythonOlder
-}:
+{ lib, buildPythonPackage, requests, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "rjpl";
@@ -17,16 +12,12 @@ buildPythonPackage rec {
     hash = "sha256-GLNIpZuM3yuCnPyjBa8KjdaL5cFK8InluuY+LTCrimc=";
   };
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "rjpl"
-  ];
+  pythonImportsCheck = [ "rjpl" ];
 
   meta = with lib; {
     description = "Library for interacting with the Rejseplanen API";

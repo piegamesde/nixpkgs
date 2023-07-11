@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, click
-, fetchPypi
-, packaging
-, pytestCheckHook
-, requests
-}:
+{ lib, buildPythonPackage, click, fetchPypi, packaging, pytestCheckHook
+, requests }:
 
 buildPythonPackage rec {
   pname = "openwrt-luci-rpc";
@@ -16,20 +10,15 @@ buildPythonPackage rec {
     hash = "sha256-ZvPMJbYCNKMXuTrHwXQvBZ/mMenYTsV1X4COiVxvJGY=";
   };
 
-  propagatedBuildInputs = [
-    click
-    requests
-    packaging
-  ];
+  propagatedBuildInputs = [ click requests packaging ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "openwrt_luci_rpc" ];
 
   meta = with lib; {
-    description = "Python module for interacting with the OpenWrt Luci RPC interface";
+    description =
+      "Python module for interacting with the OpenWrt Luci RPC interface";
     longDescription = ''
       This module allows you to use the Luci RPC interface to fetch connected devices
       on your OpenWrt based router. Supports 15.X & 17.X & 18.X or newer releases of

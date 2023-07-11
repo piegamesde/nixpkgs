@@ -1,19 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, google-api-core
-, google-cloud-core
-, google-cloud-testutils
-, grpc-google-iam-v1
-, libcst
-, mock
-, proto-plus
-, protobuf
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, sqlparse
-}:
+{ lib, buildPythonPackage, fetchPypi, google-api-core, google-cloud-core
+, google-cloud-testutils, grpc-google-iam-v1, libcst, mock, proto-plus, protobuf
+, pytest-asyncio, pytestCheckHook, pythonOlder, sqlparse }:
 
 buildPythonPackage rec {
   pname = "google-cloud-spanner";
@@ -36,18 +23,10 @@ buildPythonPackage rec {
     sqlparse
   ] ++ google-api-core.optional-dependencies.grpc;
 
-  passthru.optional-dependencies = {
-    libcst = [
-      libcst
-    ];
-  };
+  passthru.optional-dependencies = { libcst = [ libcst ]; };
 
-  nativeCheckInputs = [
-    google-cloud-testutils
-    mock
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ google-cloud-testutils mock pytest-asyncio pytestCheckHook ];
 
   preCheck = ''
     # prevent google directory from shadowing google imports
@@ -78,7 +57,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Cloud Spanner API client library";
     homepage = "https://github.com/googleapis/python-spanner";
-    changelog = "https://github.com/googleapis/python-spanner/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/googleapis/python-spanner/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

@@ -1,28 +1,28 @@
-{ lib, callPackage, fetchFromGitHub, fetchurl, fetchpatch, stdenv, pkgsi686Linux }:
+{ lib, callPackage, fetchFromGitHub, fetchurl, fetchpatch, stdenv, pkgsi686Linux
+}:
 
 let
-  generic = args: let
-    imported = import ./generic.nix args;
-  in callPackage imported {
-    lib32 = (pkgsi686Linux.callPackage imported {
-      libsOnly = true;
-      kernel = null;
-    }).out;
-  };
+  generic = args:
+    let imported = import ./generic.nix args;
+    in callPackage imported {
+      lib32 = (pkgsi686Linux.callPackage imported {
+        libsOnly = true;
+        kernel = null;
+      }).out;
+    };
 
   kernel = callPackage # a hacky way of extracting parameters from callPackage
     ({ kernel, libsOnly ? false }: if libsOnly then { } else kernel) { };
 
-  selectHighestVersion = a: b: if lib.versionOlder a.version b.version
-    then b
-    else a;
-in
-rec {
+  selectHighestVersion = a: b:
+    if lib.versionOlder a.version b.version then b else a;
+in rec {
   # Official Unix Drivers - https://www.nvidia.com/en-us/drivers/unix/
   # Branch/Maturity data - http://people.freedesktop.org/~aplattner/nvidia-versions.txt
 
   # Policy: use the highest stable version as the default (on our master).
-  stable = if stdenv.hostPlatform.system == "i686-linux" then legacy_390 else latest;
+  stable =
+    if stdenv.hostPlatform.system == "i686-linux" then legacy_390 else latest;
 
   production = generic {
     version = "525.116.03";
@@ -63,7 +63,9 @@ rec {
     openSha256 = "sha256-Y8XL8BJWSV2K1p4VR8T9Z2DOqySgQqkB4Dvf6E6vcxI=";
     settingsSha256 = "sha256-ck6ra8y8nn5kA3L9/VcRR2W2RaWvfVbgBiOh2dRJr/8=";
     persistencedSha256 = "sha256-dt/Tqxp7ZfnbLel9BavjWDoEdLJvdJRwFjTFOBYYKLI=";
-    url = "https://developer.nvidia.com/downloads/vulkan-beta-${lib.concatStrings (lib.splitString "." version)}-linux";
+    url = "https://developer.nvidia.com/downloads/vulkan-beta-${
+        lib.concatStrings (lib.splitString "." version)
+      }-linux";
   };
 
   # Update note:
@@ -84,7 +86,8 @@ rec {
     patches = [
       # source: https://gist.github.com/joanbm/d10e9cbbbb8e245b6e7e27b2db338faf
       (fetchpatch {
-        url = "https://gist.github.com/joanbm/d10e9cbbbb8e245b6e7e27b2db338faf/raw/f5d5238bdbaa16cd4008658a0f82b9dd84f1b38f/nvidia-470xx-fix-linux-6.3.patch";
+        url =
+          "https://gist.github.com/joanbm/d10e9cbbbb8e245b6e7e27b2db338faf/raw/f5d5238bdbaa16cd4008658a0f82b9dd84f1b38f/nvidia-470xx-fix-linux-6.3.patch";
         hash = "sha256-mR+vXDHgVhWC0JeLgGlbNVCH8XTs7XnhEJS6BV75tI8=";
       })
     ];

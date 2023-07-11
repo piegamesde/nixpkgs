@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cups
-, cups-filters
-, ghostscript
-, gnused
-, perl
-, autoconf
-, automake
-, patchPpdFilesHook
-}:
+{ lib, stdenv, fetchFromGitHub, cups, cups-filters, ghostscript, gnused, perl
+, autoconf, automake, patchPpdFilesHook }:
 
 stdenv.mkDerivation rec {
   pname = "foomatic-db";
@@ -63,27 +53,32 @@ stdenv.mkDerivation rec {
   # Comments indicate the respective
   # package the command is contained in.
   ppdFileCommands = [
-    "cat" "date" "printf"  # coreutils
-    "rastertohp"  # cups
-    "foomatic-rip"  # cups-filters or foomatic-filters
-    "gs"  # ghostscript
-    "sed"  # gnused
-    "perl"  # perl
+    "cat"
+    "date"
+    "printf" # coreutils
+    "rastertohp" # cups
+    "foomatic-rip" # cups-filters or foomatic-filters
+    "gs" # ghostscript
+    "sed" # gnused
+    "perl" # perl
   ];
 
   # compress ppd files
   postFixup = ''
     echo 'compressing ppd files'
-    find -H "${placeholder "out"}/share/cups/model/foomatic-db" -type f -iname '*.ppd' -print0  \
+    find -H "${
+      placeholder "out"
+    }/share/cups/model/foomatic-db" -type f -iname '*.ppd' -print0  \
       | xargs -0r -n 64 -P "$NIX_BUILD_CORES" gzip -9n
   '';
 
   meta = {
-    changelog = "https://github.com/OpenPrinting/foomatic-db/blob/${src.rev}/ChangeLog";
+    changelog =
+      "https://github.com/OpenPrinting/foomatic-db/blob/${src.rev}/ChangeLog";
     description = "OpenPrinting printer support database (free content)";
     downloadPage = "https://www.openprinting.org/download/foomatic/";
     homepage = "https://openprinting.github.io/projects/02-foomatic/";
-    license = lib.licenses.free;  # mostly GPL and MIT, see README in source dir
+    license = lib.licenses.free; # mostly GPL and MIT, see README in source dir
     maintainers = [ lib.maintainers.yarny ];
     # list printer manufacturers here so people
     # searching for ppd files can find this package

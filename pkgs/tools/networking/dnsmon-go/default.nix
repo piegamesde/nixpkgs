@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, libpcap
-}:
+{ lib, buildGoModule, fetchFromGitHub, libpcap }:
 
 buildGoModule rec {
   pname = "dnsmon-go";
@@ -17,9 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-aiX+NGUsFK0N9vC5baAHHMr28CbF5Xa4WgYLFFLBYTs=";
 
-  buildInputs = [
-    libpcap
-  ];
+  buildInputs = [ libpcap ];
 
   meta = with lib; {
     description = "Tool to collect DNS traffic";

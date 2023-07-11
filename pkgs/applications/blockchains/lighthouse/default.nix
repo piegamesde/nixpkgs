@@ -1,24 +1,6 @@
-{ clang
-, cmake
-, CoreFoundation
-, fetchFromGitHub
-, fetchurl
-, lib
-, lighthouse
-, nix-update-script
-, nodePackages
-, perl
-, pkg-config
-, postgresql
-, protobuf
-, rustPlatform
-, Security
-, sqlite
-, stdenv
-, SystemConfiguration
-, testers
-, unzip
-}:
+{ clang, cmake, CoreFoundation, fetchFromGitHub, fetchurl, lib, lighthouse
+, nix-update-script, nodePackages, perl, pkg-config, postgresql, protobuf
+, rustPlatform, Security, sqlite, stdenv, SystemConfiguration, testers, unzip }:
 
 rustPlatform.buildRustPackage rec {
   pname = "lighthouse";
@@ -35,9 +17,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-QVAFzV9sao8+eegI7bLfm+pPHyvDFhnADS80+nqqgtE=";
   };
 
-  patches = [
-    ./use-system-sqlite.patch
-  ];
+  patches = [ ./use-system-sqlite.patch ];
 
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
@@ -48,8 +28,10 @@ rustPlatform.buildRustPackage rec {
     outputHashes = {
       "amcl-0.3.0" = "sha256-Mj4dXTlGVSleFfuTKgVDQ7S3jANMsdtVE5L90WGxA4U=";
       "arbitrary-1.3.0" = "sha256-BMxcBfxBRf+Kb0Tz55jtFbwokSeD2GPtB+KV8Wbne0g=";
-      "beacon-api-client-0.1.0" = "sha256-fI8qST6HZrchg7yr/nVtRNrsW3f5ONSX+mGRYW+iiqA=";
-      "ethereum-consensus-0.1.1" = "sha256-aBrZ786Me0BWpnncxQc5MT3r+O0yLQhqGKFBiNTdqSA=";
+      "beacon-api-client-0.1.0" =
+        "sha256-fI8qST6HZrchg7yr/nVtRNrsW3f5ONSX+mGRYW+iiqA=";
+      "ethereum-consensus-0.1.1" =
+        "sha256-aBrZ786Me0BWpnncxQc5MT3r+O0yLQhqGKFBiNTdqSA=";
       "libmdbx-0.1.4" = "sha256-NMsR/Wl1JIj+YFPyeMMkrJFfoS07iEAKEQawO89a+/Q=";
       "lmdb-rkv-0.14.0" = "sha256-sxmguwqqcyOlfXOZogVz1OLxfJPo+Q0+UjkROkbbOCk=";
       "mev-rs-0.2.1" = "sha256-n3ns1oynw5fKQtp/CQHER41+C1EmLCVEBqggkHc3or4=";
@@ -60,38 +42,32 @@ rustPlatform.buildRustPackage rec {
 
   buildFeatures = [ "modern" "gnosis" ];
 
-  nativeBuildInputs = [
-    rustPlatform.bindgenHook
-    cmake
-    perl
-    pkg-config
-    protobuf
-  ];
+  nativeBuildInputs =
+    [ rustPlatform.bindgenHook cmake perl pkg-config protobuf ];
 
-  buildInputs = [
-    sqlite
-  ] ++ lib.optionals stdenv.isDarwin [
+  buildInputs = [ sqlite ] ++ lib.optionals stdenv.isDarwin [
     CoreFoundation
     Security
     SystemConfiguration
   ];
 
   depositContractSpec = fetchurl {
-    url = "https://raw.githubusercontent.com/ethereum/eth2.0-specs/v${depositContractSpecVersion}/deposit_contract/contracts/validator_registration.json";
+    url =
+      "https://raw.githubusercontent.com/ethereum/eth2.0-specs/v${depositContractSpecVersion}/deposit_contract/contracts/validator_registration.json";
     hash = "sha256-ZslAe1wkmkg8Tua/AmmEfBmjqMVcGIiYHwi+WssEwa8=";
   };
 
   testnetDepositContractSpec = fetchurl {
-    url = "https://raw.githubusercontent.com/sigp/unsafe-eth2-deposit-contract/v${testnetDepositContractSpecVersion}/unsafe_validator_registration.json";
+    url =
+      "https://raw.githubusercontent.com/sigp/unsafe-eth2-deposit-contract/v${testnetDepositContractSpecVersion}/unsafe_validator_registration.json";
     hash = "sha256-aeTeHRT3QtxBRSNMCITIWmx89vGtox2OzSff8vZ+RYY=";
   };
 
   LIGHTHOUSE_DEPOSIT_CONTRACT_SPEC_URL = "file://${depositContractSpec}";
-  LIGHTHOUSE_DEPOSIT_CONTRACT_TESTNET_URL = "file://${testnetDepositContractSpec}";
+  LIGHTHOUSE_DEPOSIT_CONTRACT_TESTNET_URL =
+    "file://${testnetDepositContractSpec}";
 
-  cargoBuildFlags = [
-    "--package lighthouse"
-  ];
+  cargoBuildFlags = [ "--package lighthouse" ];
 
   __darwinAllowLocalNetworking = true;
 
@@ -120,10 +96,7 @@ rustPlatform.buildRustPackage rec {
     "--skip subnet_service::tests::sync_committee_service::subscribe_and_unsubscribe"
   ];
 
-  nativeCheckInputs = [
-    nodePackages.ganache
-    postgresql
-  ];
+  nativeCheckInputs = [ nodePackages.ganache postgresql ];
 
   passthru = {
     tests.version = testers.testVersion {

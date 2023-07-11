@@ -4,9 +4,8 @@ with lib;
 
 let
   cfg = config.services.litestream;
-  settingsFormat = pkgs.formats.yaml {};
-in
-{
+  settingsFormat = pkgs.formats.yaml { };
+in {
   options.services.litestream = {
     enable = mkEnableOption (lib.mdDoc "litestream");
 
@@ -23,16 +22,10 @@ in
       '';
       type = settingsFormat.type;
       example = {
-        dbs = [
-          {
-            path = "/var/lib/db1";
-            replicas = [
-              {
-                url = "s3://mybkt.litestream.io/db1";
-              }
-            ];
-          }
-        ];
+        dbs = [{
+          path = "/var/lib/db1";
+          replicas = [{ url = "s3://mybkt.litestream.io/db1"; }];
+        }];
       };
     };
 
@@ -49,7 +42,7 @@ in
         environment file.
 
         By default, Litestream will perform environment variable expansion
-        within the config file before reading it. Any references to ''$VAR or
+        within the config file before reading it. Any references to $VAR or
         ''${VAR} formatted variables will be replaced with their environment
         variable values. If no value is set then it will be replaced with an
         empty string.
@@ -79,7 +72,8 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "networking.target" ];
       serviceConfig = {
-        EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
+        EnvironmentFile =
+          mkIf (cfg.environmentFile != null) cfg.environmentFile;
         ExecStart = "${cfg.package}/bin/litestream replicate";
         Restart = "always";
         User = "litestream";
@@ -92,7 +86,7 @@ in
       group = "litestream";
       isSystemUser = true;
     };
-    users.groups.litestream = {};
+    users.groups.litestream = { };
   };
 
   meta.doc = ./default.md;

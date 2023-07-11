@@ -18,7 +18,8 @@ buildGoModule rec {
   nativeCheckInputs = [ git ];
 
   meta = with lib; {
-    description = "Manage the code review process for Git changes using a Gerrit server";
+    description =
+      "Manage the code review process for Git changes using a Gerrit server";
     homepage = "https://golang.org/x/review/git-codereview";
     license = licenses.bsd3;
     maintainers = [ maintainers.edef ];

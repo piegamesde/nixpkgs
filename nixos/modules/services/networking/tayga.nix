@@ -19,8 +19,7 @@ let
   '';
 
   addrOpts = v:
-    assert v == 4 || v == 6;
-    {
+    assert v == 4 || v == 6; {
       options = {
         address = mkOption {
           type = types.str;
@@ -28,7 +27,8 @@ let
         };
 
         prefixLength = mkOption {
-          type = types.addCheck types.int (n: n >= 0 && n <= (if v == 4 then 32 else 128));
+          type = types.addCheck types.int
+            (n: n >= 0 && n <= (if v == 4 then 32 else 128));
           description = lib.mdDoc ''
             Subnet mask of the interface, specified as the number of
             bits in the prefix ("${if v == 4 then "24" else "64"}").
@@ -49,17 +49,19 @@ let
       address = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description = lib.mdDoc "The source IPv${toString v} address of the TAYGA server.";
+        description =
+          lib.mdDoc "The source IPv${toString v} address of the TAYGA server.";
       };
 
       pool = mkOption {
         type = with types; nullOr (submodule (addrOpts v));
-        description = lib.mdDoc "The pool of IPv${toString v} addresses which are used for translation.";
+        description = lib.mdDoc "The pool of IPv${
+            toString v
+          } addresses which are used for translation.";
       };
     };
   };
-in
-{
+in {
   options = {
     services.tayga = {
       enable = mkEnableOption (lib.mdDoc "Tayga");
@@ -68,7 +70,8 @@ in
         type = types.package;
         default = pkgs.tayga;
         defaultText = lib.literalMD "pkgs.tayga";
-        description = lib.mdDoc "This option specifies the TAYGA package to use.";
+        description =
+          lib.mdDoc "This option specifies the TAYGA package to use.";
       };
 
       ipv4 = mkOption {
@@ -125,20 +128,18 @@ in
       virtualType = "tun";
       virtualOwner = mkIf config.networking.useNetworkd "";
       ipv4 = {
-        addresses = [
-          { address = cfg.ipv4.router.address; prefixLength = 32; }
-        ];
-        routes = [
-          cfg.ipv4.pool
-        ];
+        addresses = [{
+          address = cfg.ipv4.router.address;
+          prefixLength = 32;
+        }];
+        routes = [ cfg.ipv4.pool ];
       };
       ipv6 = {
-        addresses = [
-          { address = cfg.ipv6.router.address; prefixLength = 128; }
-        ];
-        routes = [
-          cfg.ipv6.pool
-        ];
+        addresses = [{
+          address = cfg.ipv6.router.address;
+          prefixLength = 128;
+        }];
+        routes = [ cfg.ipv6.pool ];
       };
     };
 
@@ -148,7 +149,8 @@ in
       after = [ "network.target" ];
 
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/tayga -d --nodetach --config ${configFile}";
+        ExecStart =
+          "${cfg.package}/bin/tayga -d --nodetach --config ${configFile}";
         ExecReload = "${pkgs.coreutils}/bin/kill -SIGHUP $MAINPID";
         Restart = "always";
 
@@ -156,22 +158,12 @@ in
         #  - nixos-scripts: 2.1
         #  - systemd-networkd: 1.6
         ProtectHome = true;
-        SystemCallFilter = [
-          "@network-io"
-          "@system-service"
-          "~@privileged"
-          "~@resources"
-        ];
+        SystemCallFilter =
+          [ "@network-io" "@system-service" "~@privileged" "~@resources" ];
         ProtectKernelLogs = true;
-        AmbientCapabilities = [
-          "CAP_NET_ADMIN"
-        ];
+        AmbientCapabilities = [ "CAP_NET_ADMIN" ];
         CapabilityBoundingSet = "";
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-          "AF_NETLINK"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_NETLINK" ];
         StateDirectory = "tayga";
         DynamicUser = mkIf config.networking.useNetworkd true;
         MemoryDenyWriteExecute = true;

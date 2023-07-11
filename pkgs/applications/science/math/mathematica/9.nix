@@ -1,38 +1,19 @@
-{ lib
-, patchelf
-, requireFile
-, stdenv
+{ lib, patchelf, requireFile, stdenv
 # arguments from default.nix
-, lang
-, meta
-, name
-, src
-, version
+, lang, meta, name, src, version
 # dependencies
-, alsa-lib
-, coreutils
-, cudaPackages
-, fontconfig
-, freetype
-, gcc
-, glib
-, ncurses
-, opencv2
-, openssl
-, unixODBC
-, xorg
+, alsa-lib, coreutils, cudaPackages, fontconfig, freetype, gcc, glib, ncurses
+, opencv2, openssl, unixODBC, xorg
 # options
-, cudaSupport
-}:
+, cudaSupport }:
 
 let
-  platform =
-    if stdenv.hostPlatform.system == "i686-linux" || stdenv.hostPlatform.system == "x86_64-linux" then
-      "Linux"
-    else
-      throw "Mathematica requires i686-linux or x86_64 linux";
-in
-stdenv.mkDerivation rec {
+  platform = if stdenv.hostPlatform.system == "i686-linux"
+  || stdenv.hostPlatform.system == "x86_64-linux" then
+    "Linux"
+  else
+    throw "Mathematica requires i686-linux or x86_64 linux";
+in stdenv.mkDerivation rec {
   inherit meta src version;
   pname = "mathematica";
 
@@ -50,15 +31,7 @@ stdenv.mkDerivation rec {
     opencv2
     openssl
     unixODBC
-  ] ++ (with xorg; [
-    libX11
-    libXext
-    libXtst
-    libXi
-    libXmu
-    libXrender
-    libxcb
-  ]);
+  ] ++ (with xorg; [ libX11 libXext libXtst libXi libXmu libXrender libxcb ]);
 
   ldpath = lib.makeLibraryPath buildInputs
     + lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux")

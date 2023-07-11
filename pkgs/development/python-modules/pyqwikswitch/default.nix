@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, attrs
-, requests
-, python
-}:
+{ lib, buildPythonPackage, fetchPypi, attrs, requests, python }:
 
 buildPythonPackage rec {
   pname = "pyqwikswitch";
@@ -16,15 +10,9 @@ buildPythonPackage rec {
     hash = "sha256-IpyWz+3EMr0I+xULBJJhBgdnQHNPJIM1SqKFLpszhQc=";
   };
 
-  propagatedBuildInputs = [
-    attrs
-    requests
-  ];
+  propagatedBuildInputs = [ attrs requests ];
 
-  pythonImportsCheck = [
-    "pyqwikswitch"
-    "pyqwikswitch.threaded"
-  ];
+  pythonImportsCheck = [ "pyqwikswitch" "pyqwikswitch.threaded" ];
 
   doCheck = false; # no tests in sdist
 

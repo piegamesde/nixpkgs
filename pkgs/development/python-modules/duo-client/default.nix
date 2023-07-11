@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, freezegun
-, mock
-, nose2
-, pytz
-, setuptools
-, six
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, freezegun, mock, nose2, pytz
+, setuptools, six }:
 
 buildPythonPackage rec {
   pname = "duo-client";
@@ -26,26 +18,18 @@ buildPythonPackage rec {
       --replace "flake8" ""
   '';
 
-  propagatedBuildInputs = [
-    setuptools
-    six
-  ];
+  propagatedBuildInputs = [ setuptools six ];
 
-  nativeCheckInputs = [
-    freezegun
-    mock
-    nose2
-    pytz
-  ];
+  nativeCheckInputs = [ freezegun mock nose2 pytz ];
 
-  pythonImportsCheck = [
-    "duo_client"
-  ];
+  pythonImportsCheck = [ "duo_client" ];
 
   meta = with lib; {
-    description = "Python library for interacting with the Duo Auth, Admin, and Accounts APIs";
+    description =
+      "Python library for interacting with the Duo Auth, Admin, and Accounts APIs";
     homepage = "https://github.com/duosecurity/duo_client_python";
-    changelog = "https://github.com/duosecurity/duo_client_python/releases/tag/${version}";
+    changelog =
+      "https://github.com/duosecurity/duo_client_python/releases/tag/${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

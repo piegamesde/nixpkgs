@@ -1,8 +1,8 @@
 { stdenv, lib, python3, cmake, libllvm, ocaml, findlib, ctypes }:
 
-let version = lib.getVersion libllvm; in
+let version = lib.getVersion libllvm;
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "ocaml-llvm";
   inherit version;
 
@@ -36,9 +36,7 @@ stdenv.mkDerivation {
     mv $OCAMLFIND_DESTDIR/llvm/stublibs $OCAMLFIND_DESTDIR/stublibs
   '';
 
-  passthru = {
-    inherit libllvm;
-  };
+  passthru = { inherit libllvm; };
 
   meta = {
     inherit (libllvm.meta) license homepage;

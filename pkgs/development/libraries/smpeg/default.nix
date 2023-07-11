@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, SDL, autoconf, automake, libtool, gtk2, m4, pkg-config, libGLU, libGL, makeWrapper }:
+{ lib, stdenv, fetchFromGitHub, SDL, autoconf, automake, libtool, gtk2, m4
+, pkg-config, libGLU, libGL, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "smpeg";
@@ -7,16 +8,11 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "icculus";
     repo = "smpeg";
-    rev = "release_${builtins.replaceStrings ["."] ["_"] version}";
+    rev = "release_${builtins.replaceStrings [ "." ] [ "_" ] version}";
     sha256 = "sha256-nq/i7cFGpJXIuTwN/ScLMX7FN8NMdgdsRM9xOD3uycs=";
   };
 
-  patches = [
-    ./format.patch
-    ./gcc6.patch
-    ./libx11.patch
-    ./gtk.patch
-  ];
+  patches = [ ./format.patch ./gcc6.patch ./libx11.patch ./gtk.patch ];
 
   enableParallelBuilding = true;
 

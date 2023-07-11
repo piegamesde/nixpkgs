@@ -1,20 +1,6 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, chardet
-, click
-, flex
-, packaging
-, pyicu
-, requests
-, ruamel-yaml
-, setuptools-scm
-, six
-, swagger-spec-validator
-, pytestCheckHook
-, openapi-spec-validator
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, chardet, click, flex
+, packaging, pyicu, requests, ruamel-yaml, setuptools-scm, six
+, swagger-spec-validator, pytestCheckHook, openapi-spec-validator }:
 
 buildPythonPackage rec {
   pname = "prance";
@@ -38,17 +24,9 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    chardet
-    packaging
-    requests
-    ruamel-yaml
-    six
-  ];
+  propagatedBuildInputs = [ chardet packaging requests ruamel-yaml six ];
 
   passthru.optional-dependencies = {
     cli = [ click ];
@@ -58,23 +36,18 @@ buildPythonPackage rec {
     ssv = [ swagger-spec-validator ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [ pytestCheckHook ]
+    ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   # Disable tests that require network
-  disabledTestPaths = [
-    "tests/test_convert.py"
-  ];
-  disabledTests = [
-    "test_convert_defaults"
-    "test_convert_output"
-    "test_fetch_url_http"
-  ];
+  disabledTestPaths = [ "tests/test_convert.py" ];
+  disabledTests =
+    [ "test_convert_defaults" "test_convert_output" "test_fetch_url_http" ];
   pythonImportsCheck = [ "prance" ];
 
   meta = with lib; {
-    changelog = "https://github.com/RonnyPfannschmidt/prance/blob/${src.rev}/CHANGES.rst";
+    changelog =
+      "https://github.com/RonnyPfannschmidt/prance/blob/${src.rev}/CHANGES.rst";
     description = "Resolving Swagger/OpenAPI 2.0 and 3.0.0 Parser";
     homepage = "https://github.com/RonnyPfannschmidt/prance";
     license = licenses.mit;

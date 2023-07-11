@@ -1,8 +1,4 @@
-{ lib
-, python3
-, fetchFromGitHub
-, fetchpatch
-}:
+{ lib, python3, fetchFromGitHub, fetchpatch }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "beancount-ing-diba";
@@ -18,16 +14,15 @@ python3.pkgs.buildPythonApplication rec {
   patches = [
     (fetchpatch {
       name = "use-poetry-core.patch";
-      url = "https://github.com/siddhantgoel/beancount-ing/commit/2d030330eed313a32c3968a2c8ce9400c6d18a41.patch";
+      url =
+        "https://github.com/siddhantgoel/beancount-ing/commit/2d030330eed313a32c3968a2c8ce9400c6d18a41.patch";
       hash = "sha256-6v7eQhgj6d4x9uWSyuO3IxXrSWkJZRS/M4N3j0H3R/U=";
     })
   ];
 
   format = "pyproject";
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
 
   meta = with lib; {
     homepage = "https://github.com/siddhantgoel/beancount-ing-diba";

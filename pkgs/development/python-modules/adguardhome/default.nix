@@ -1,14 +1,5 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, yarl
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
+, pytest-asyncio, pytestCheckHook, pythonOlder, yarl }:
 
 buildPythonPackage rec {
   pname = "adguardhome";
@@ -33,29 +24,19 @@ buildPythonPackage rec {
       --replace 0.0.0 ${version}
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    yarl
-  ];
+  propagatedBuildInputs = [ aiohttp yarl ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "adguardhome"
-  ];
+  pythonImportsCheck = [ "adguardhome" ];
 
   meta = with lib; {
     description = "Python client for the AdGuard Home API";
     homepage = "https://github.com/frenck/python-adguardhome";
-    changelog = "https://github.com/frenck/python-adguardhome/releases/tag/v${version}";
+    changelog =
+      "https://github.com/frenck/python-adguardhome/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ jamiemagee ];
   };

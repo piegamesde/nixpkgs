@@ -15,7 +15,11 @@ perlPackages.buildPerlPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  nativeCheckInputs = [ perlPackages.TestPerlCritic perlPackages.TestPod perlPackages.TestPodCoverage ];
+  nativeCheckInputs = [
+    perlPackages.TestPerlCritic
+    perlPackages.TestPod
+    perlPackages.TestPodCoverage
+  ];
   # Linting and formatting checks are of no interest for us.
   preCheck = ''
     rm -f t/93_pod_spell.t
@@ -27,7 +31,8 @@ perlPackages.buildPerlPackage rec {
   '';
 
   meta = with lib; {
-    description = "Perl script for waking up computers via Wake-On-LAN magic packets";
+    description =
+      "Perl script for waking up computers via Wake-On-LAN magic packets";
     homepage = "https://github.com/jpoliv/wakeonlan";
     license = licenses.artistic1;
     maintainers = with maintainers; [ SuperSandro2000 ];

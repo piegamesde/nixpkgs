@@ -1,26 +1,9 @@
-{ lib
-, stdenv
-, callPackage
-, fetchFromGitHub
-, cmake
-, cppunit
-, pkg-config
-, curl
-, fuse
-, libkrb5
-, libuuid
-, libxcrypt
-, libxml2
-, openssl
-, readline
-, systemd
-, voms
-, zlib
-, enableTests ? stdenv.isLinux
+{ lib, stdenv, callPackage, fetchFromGitHub, cmake, cppunit, pkg-config, curl
+, fuse, libkrb5, libuuid, libxcrypt, libxml2, openssl, readline, systemd, voms
+, zlib, enableTests ? stdenv.isLinux
   # If not null, the builder will
   # move "$out/etc" to "$out/etc.orig" and symlink "$out/etc" to externalEtc.
-, externalEtc ? "/etc"
-}:
+, externalEtc ? "/etc" }:
 
 stdenv.mkDerivation rec {
   pname = "xrootd";
@@ -40,29 +23,12 @@ stdenv.mkDerivation rec {
     test-runner = callPackage ./test-runner.nix { };
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    curl
-    libkrb5
-    libuuid
-    libxcrypt
-    libxml2
-    openssl
-    readline
-    zlib
-    fuse
-  ]
-  ++ lib.optionals stdenv.isLinux [
-    systemd
-    voms
-  ]
-  ++ lib.optionals enableTests [
-    cppunit
-  ];
+  buildInputs =
+    [ curl libkrb5 libuuid libxcrypt libxml2 openssl readline zlib fuse ]
+    ++ lib.optionals stdenv.isLinux [ systemd voms ]
+    ++ lib.optionals enableTests [ cppunit ];
 
   preConfigure = ''
     patchShebangs genversion.sh
@@ -84,9 +50,7 @@ stdenv.mkDerivation rec {
     install -m 644 -t "$out/lib/systemd/system" ../packaging/common/*.service ../packaging/common/*.socket
   '';
 
-  cmakeFlags = lib.optionals enableTests [
-    "-DENABLE_TESTS=TRUE"
-  ];
+  cmakeFlags = lib.optionals enableTests [ "-DENABLE_TESTS=TRUE" ];
 
   postFixup = lib.optionalString (externalEtc != null) ''
     mv "$out"/etc{,.orig}

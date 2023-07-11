@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cups
-, coreutils
-, nixosTests
-}:
+{ lib, stdenv, fetchFromGitHub, cups, coreutils, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "cups-pdf-to-pdf";
@@ -44,7 +38,8 @@ stdenv.mkDerivation rec {
   passthru.tests.vmtest = nixosTests.cups-pdf;
 
   meta = with lib; {
-    description = "A CUPS backend that turns print jobs into searchable PDF files";
+    description =
+      "A CUPS backend that turns print jobs into searchable PDF files";
     homepage = "https://github.com/alexivkin/CUPS-PDF-to-PDF";
     license = licenses.gpl2Only;
     maintainers = [ maintainers.yarny ];

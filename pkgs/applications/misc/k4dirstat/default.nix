@@ -1,14 +1,5 @@
-{ mkDerivation
-, extra-cmake-modules
-, fetchFromGitHub
-, kiconthemes
-, kio
-, kjobwidgets
-, kxmlgui
-, lib
-, testers
-, k4dirstat
-}:
+{ mkDerivation, extra-cmake-modules, fetchFromGitHub, kiconthemes, kio
+, kjobwidgets, kxmlgui, lib, testers, k4dirstat }:
 
 mkDerivation rec {
   pname = "k4dirstat";
@@ -24,15 +15,15 @@ mkDerivation rec {
   nativeBuildInputs = [ extra-cmake-modules ];
   buildInputs = [ kiconthemes kio kjobwidgets kxmlgui ];
 
-  passthru.tests.version =
-    testers.testVersion {
-      package = k4dirstat;
-      command = "k4dirstat -platform offscreen --version &>/dev/stdout";
-    };
+  passthru.tests.version = testers.testVersion {
+    package = k4dirstat;
+    command = "k4dirstat -platform offscreen --version &>/dev/stdout";
+  };
 
   meta = with lib; {
     homepage = "https://github.com/jeromerobert/k4dirstat";
-    description = "A small utility program that sums up disk usage for directory trees";
+    description =
+      "A small utility program that sums up disk usage for directory trees";
     license = licenses.gpl2;
     maintainers = [ maintainers.raboof ];
     platforms = platforms.linux;

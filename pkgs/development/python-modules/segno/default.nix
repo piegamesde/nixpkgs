@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pypng
-, pyzbar
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pypng, pyzbar }:
 
 buildPythonPackage rec {
   pname = "segno";
@@ -17,11 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-+OEXG5OvrZ5Ft7IO/7zodf+SgiRF+frwjltrBENNnHo=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pypng
-    pyzbar
-  ];
+  nativeCheckInputs = [ pytestCheckHook pypng pyzbar ];
 
   pythonImportsCheck = [ "segno" ];
 

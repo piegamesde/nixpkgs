@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.services.ecs-agent;
+let cfg = config.services.ecs-agent;
 in {
   options.services.ecs-agent = {
     enable = mkEnableOption (lib.mdDoc "Amazon ECS agent");
@@ -17,8 +16,9 @@ in {
 
     extra-environment = mkOption {
       type = types.attrsOf types.str;
-      description = lib.mdDoc "The environment the ECS agent should run with. See the ECS agent documentation for keys that work here.";
-      default = {};
+      description = lib.mdDoc
+        "The environment the ECS agent should run with. See the ECS agent documentation for keys that work here.";
+      default = { };
     };
   };
 
@@ -29,7 +29,7 @@ in {
 
     systemd.services.ecs-agent = {
       inherit (cfg.package.meta) description;
-      after    = [ "network.target" ];
+      after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
       environment = cfg.extra-environment;

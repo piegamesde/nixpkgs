@@ -1,43 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, expat
-, flac
-, fontconfig
-, freetype
-, fribidi
-, gdk-pixbuf
-, gdk-pixbuf-xlib
-, gettext
-, giflib
-, glib
-, imlib2
-, libICE
-, libSM
-, libX11
-, libXcomposite
-, libXdamage
-, libXdmcp
-, libXext
-, libXfixes
-, libXft
-, libXinerama
-, libXpm
-, libXrandr
-, libjpeg
-, libogg
-, libpng
-, libpthreadstubs
-, libsndfile
-, libtiff
-, libxcb
-, mkfontdir
-, pcre2
-, perl
-, pkg-config
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, expat, flac, fontconfig
+, freetype, fribidi, gdk-pixbuf, gdk-pixbuf-xlib, gettext, giflib, glib, imlib2
+, libICE, libSM, libX11, libXcomposite, libXdamage, libXdmcp, libXext, libXfixes
+, libXft, libXinerama, libXpm, libXrandr, libjpeg, libogg, libpng
+, libpthreadstubs, libsndfile, libtiff, libxcb, mkfontdir, pcre2, perl
+, pkg-config }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "icewm";
@@ -50,11 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-VcUc1T3uTj8fhSZ+/XWRzgoenjqA/gguxuNsj+PYzB0=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    perl
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake perl pkg-config ];
 
   buildInputs = [
     expat
@@ -91,10 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     pcre2
   ];
 
-  cmakeFlags = [
-    "-DPREFIX=$out"
-    "-DCFGDIR=/etc/icewm"
-  ];
+  cmakeFlags = [ "-DPREFIX=$out" "-DCFGDIR=/etc/icewm" ];
 
   # install legacy themes
   postInstall = ''

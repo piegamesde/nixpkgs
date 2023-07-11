@@ -1,18 +1,6 @@
-{ lib
-, buildPythonPackage
-, base36
-, chacha20poly1305-reuseable
-, cryptography
-, fetchFromGitHub
-, h11
-, orjson
-, pyqrcode
-, pytest-asyncio
-, pytest-timeout
-, pytestCheckHook
-, pythonOlder
-, zeroconf
-}:
+{ lib, buildPythonPackage, base36, chacha20poly1305-reuseable, cryptography
+, fetchFromGitHub, h11, orjson, pyqrcode, pytest-asyncio, pytest-timeout
+, pytestCheckHook, pythonOlder, zeroconf }:
 
 buildPythonPackage rec {
   pname = "hap-python";
@@ -28,25 +16,13 @@ buildPythonPackage rec {
     hash = "sha256-fAJB1gk8zTS/mW5KzWr3z26qctZc/EQlk//WM1Xwpl0=";
   };
 
-  propagatedBuildInputs = [
-    chacha20poly1305-reuseable
-    cryptography
-    h11
-    orjson
-    zeroconf
-  ];
+  propagatedBuildInputs =
+    [ chacha20poly1305-reuseable cryptography h11 orjson zeroconf ];
 
-  passthru.optional-dependencies.QRCode = [
-    base36
-    pyqrcode
-  ];
+  passthru.optional-dependencies.QRCode = [ base36 pyqrcode ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-timeout
-    pytestCheckHook
-  ]
-  ++ passthru.optional-dependencies.QRCode;
+  nativeCheckInputs = [ pytest-asyncio pytest-timeout pytestCheckHook ]
+    ++ passthru.optional-dependencies.QRCode;
 
   disabledTestPaths = [
     # Disable tests requiring network access
@@ -65,14 +41,13 @@ buildPythonPackage rec {
     "test_migration_to_include_client_properties"
   ];
 
-  pythonImportsCheck = [
-    "pyhap"
-  ];
+  pythonImportsCheck = [ "pyhap" ];
 
   meta = with lib; {
     description = "HomeKit Accessory Protocol implementation";
     homepage = "https://github.com/ikalchev/HAP-python";
-    changelog = "https://github.com/ikalchev/HAP-python/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/ikalchev/HAP-python/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ oro ];
   };

@@ -1,20 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, blurhash
-, cryptography
-, decorator
-, http-ece
-, python-dateutil
-, python-magic
-, pytz
-, requests
-, six
-, pytestCheckHook
-, pytest-mock
-, pytest-vcr
-, requests-mock
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, blurhash, cryptography, decorator
+, http-ece, python-dateutil, python-magic, pytz, requests, six, pytestCheckHook
+, pytest-mock, pytest-vcr, requests-mock }:
 
 buildPythonPackage rec {
   pname = "mastodon-py";
@@ -45,17 +31,13 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mock
-    pytest-vcr
-    requests-mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-mock pytest-vcr requests-mock ];
 
   pythonImportsCheck = [ "mastodon" ];
 
   meta = with lib; {
-    changelog = "https://github.com/halcy/Mastodon.py/blob/${src.rev}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/halcy/Mastodon.py/blob/${src.rev}/CHANGELOG.rst";
     description = "Python wrapper for the Mastodon API";
     homepage = "https://github.com/halcy/Mastodon.py";
     license = licenses.mit;

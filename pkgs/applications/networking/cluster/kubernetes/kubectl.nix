@@ -5,10 +5,7 @@ kubernetes.overrideAttrs (_: rec {
 
   outputs = [ "out" "man" "convert" ];
 
-  WHAT = lib.concatStringsSep " " [
-    "cmd/kubectl"
-    "cmd/kubectl-convert"
-  ];
+  WHAT = lib.concatStringsSep " " [ "cmd/kubectl" "cmd/kubectl-convert" ];
 
   installPhase = ''
     runHook preInstall

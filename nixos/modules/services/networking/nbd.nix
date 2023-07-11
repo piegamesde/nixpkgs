@@ -18,44 +18,39 @@ let
       listenaddr = cfg.server.listenAddress;
     }));
   };
-  exportSections =
-    mapAttrs
-      (_: { path, allowAddresses, extraOptions }:
-        extraOptions // {
-          exportname = path;
-        } // (optionalAttrs (allowAddresses != null) {
-          authfile = pkgs.writeText "authfile" (concatStringsSep "\n" allowAddresses);
-        }))
-      cfg.server.exports;
-  serverConfig =
-    pkgs.writeText "nbd-server-config" ''
-      ${lib.generators.toINI {} genericSection}
-      ${lib.generators.toINI {} exportSections}
-    '';
-  splitLists =
-    partition
-      (path: hasPrefix "/dev/" path)
-      (mapAttrsToList (_: { path, ... }: path) cfg.server.exports);
+  exportSections = mapAttrs (_:
+    { path, allowAddresses, extraOptions }:
+    extraOptions // {
+      exportname = path;
+    } // (optionalAttrs (allowAddresses != null) {
+      authfile =
+        pkgs.writeText "authfile" (concatStringsSep "\n" allowAddresses);
+    })) cfg.server.exports;
+  serverConfig = pkgs.writeText "nbd-server-config" ''
+    ${lib.generators.toINI { } genericSection}
+    ${lib.generators.toINI { } exportSections}
+  '';
+  splitLists = partition (path: hasPrefix "/dev/" path)
+    (mapAttrsToList (_: { path, ... }: path) cfg.server.exports);
   allowedDevices = splitLists.right;
   boundPaths = splitLists.wrong;
-in
-{
+in {
   options = {
     services.nbd = {
       server = {
-        enable = mkEnableOption (lib.mdDoc "the Network Block Device (nbd) server");
+        enable =
+          mkEnableOption (lib.mdDoc "the Network Block Device (nbd) server");
 
         listenPort = mkOption {
           type = types.port;
           default = 10809;
-          description = lib.mdDoc "Port to listen on. The port is NOT automatically opened in the firewall.";
+          description = lib.mdDoc
+            "Port to listen on. The port is NOT automatically opened in the firewall.";
         };
 
         extraOptions = mkOption {
           type = iniFields;
-          default = {
-            allowlist = false;
-          };
+          default = { allowlist = false; };
           description = lib.mdDoc ''
             Extra options for the server. See
             {manpage}`nbd-server(5)`.
@@ -63,10 +58,11 @@ in
         };
 
         exports = mkOption {
-          description = lib.mdDoc "Files or block devices to make available over the network.";
+          description = lib.mdDoc
+            "Files or block devices to make available over the network.";
           default = { };
-          type = with types; attrsOf
-            (submodule {
+          type = with types;
+            attrsOf (submodule {
               options = {
                 path = mkOption {
                   type = str;
@@ -78,7 +74,8 @@ in
                   type = nullOr (listOf str);
                   default = null;
                   example = [ "10.10.0.0/24" "127.0.0.1" ];
-                  description = lib.mdDoc "IPs and subnets that are authorized to connect for this device. If not specified, the server will allow all connections.";
+                  description = lib.mdDoc
+                    "IPs and subnets that are authorized to connect for this device. If not specified, the server will allow all connections.";
                 };
 
                 extraOptions = mkOption {
@@ -98,7 +95,8 @@ in
 
         listenAddress = mkOption {
           type = with types; nullOr str;
-          description = lib.mdDoc "Address to listen on. If not specified, the server will listen on all interfaces.";
+          description = lib.mdDoc
+            "Address to listen on. If not specified, the server will listen on all interfaces.";
           default = null;
           example = "10.10.0.1";
         };
@@ -107,12 +105,10 @@ in
   };
 
   config = mkIf cfg.server.enable {
-    assertions = [
-      {
-        assertion = !(cfg.server.exports ? "generic");
-        message = "services.nbd.server exports must not be named 'generic'";
-      }
-    ];
+    assertions = [{
+      assertion = !(cfg.server.exports ? "generic");
+      message = "services.nbd.server exports must not be named 'generic'";
+    }];
 
     boot.kernelModules = [ "nbd" ];
 

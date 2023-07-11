@@ -1,16 +1,5 @@
-{ stdenv
-, lib
-, fetchurl
-, fetchpatch
-, autoreconfHook
-, docbook_xsl
-, gtk-doc
-, intltool
-, pkg-config
-, aspell
-, enchant
-, gtk2
-}:
+{ stdenv, lib, fetchurl, fetchpatch, autoreconfHook, docbook_xsl, gtk-doc
+, intltool, pkg-config, aspell, enchant, gtk2 }:
 
 stdenv.mkDerivation rec {
   pname = "gtkspell";
@@ -25,27 +14,20 @@ stdenv.mkDerivation rec {
     # Build with enchant 2
     # https://github.com/archlinux/svntogit-packages/tree/packages/gtkspell/trunk
     (fetchpatch {
-      url = "https://github.com/archlinux/svntogit-packages/raw/17fb30b5196db378c18e7c115f28e97b962b95ff/trunk/enchant-2.diff";
+      url =
+        "https://github.com/archlinux/svntogit-packages/raw/17fb30b5196db378c18e7c115f28e97b962b95ff/trunk/enchant-2.diff";
       sha256 = "0d9409bnapwzwhnfpz3dvl6qalskqa4lzmhrmciazsypbw3ry5rf";
     })
   ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    docbook_xsl
-    gtk-doc
-    intltool
-    pkg-config
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook docbook_xsl gtk-doc intltool pkg-config ];
 
-  buildInputs = [
-    aspell
-    enchant
-    gtk2
-  ];
+  buildInputs = [ aspell enchant gtk2 ];
 
   meta = with lib; {
-    description = "Word-processor-style highlighting and replacement of misspelled words";
+    description =
+      "Word-processor-style highlighting and replacement of misspelled words";
     homepage = "https://gtkspell.sourceforge.net";
     platforms = platforms.unix;
     license = licenses.gpl2;

@@ -1,8 +1,6 @@
-{ lib, stdenv, callPackage, fetchFromGitHub, runCommandLocal, makeWrapper, substituteAll
-, sbcl, bash, which, perl, hostname
-, openssl, glucose, minisat, abc-verifier, z3, python3
-, certifyBooks ? true
-} @ args:
+{ lib, stdenv, callPackage, fetchFromGitHub, runCommandLocal, makeWrapper
+, substituteAll, sbcl, bash, which, perl, hostname, openssl, glucose, minisat
+, abc-verifier, z3, python3, certifyBooks ? true }@args:
 
 let
   # Disable immobile space so we don't run out of memory on large books, and
@@ -10,10 +8,11 @@ let
   # ACL2 system itself; see
   # https://www.cs.utexas.edu/users/moore/acl2/current/HTML/installation/requirements.html#Obtaining-SBCL
   sbcl' = args.sbcl.override { disableImmobileSpace = true; };
-  sbcl = runCommandLocal args.sbcl.name { nativeBuildInputs = [ makeWrapper ]; } ''
-    makeWrapper ${sbcl'}/bin/sbcl $out/bin/sbcl \
-      --add-flags "--dynamic-space-size 2000"
-  '';
+  sbcl =
+    runCommandLocal args.sbcl.name { nativeBuildInputs = [ makeWrapper ]; } ''
+      makeWrapper ${sbcl'}/bin/sbcl $out/bin/sbcl \
+        --add-flags "--dynamic-space-size 2000"
+    '';
 
 in stdenv.mkDerivation rec {
   pname = "acl2";
@@ -33,12 +32,18 @@ in stdenv.mkDerivation rec {
   # $IPASIR_SHARED_LIBRARY environment variable.
   libipasir = callPackage ./libipasirglucose4 { };
 
-  patches = [(substituteAll {
-    src = ./0001-Fix-some-paths-for-Nix-build.patch;
-    libipasir = "${libipasir}/lib/${libipasir.libname}";
-    libssl = "${lib.getLib openssl}/lib/libssl${stdenv.hostPlatform.extensions.sharedLibrary}";
-    libcrypto = "${lib.getLib openssl}/lib/libcrypto${stdenv.hostPlatform.extensions.sharedLibrary}";
-  })];
+  patches = [
+    (substituteAll {
+      src = ./0001-Fix-some-paths-for-Nix-build.patch;
+      libipasir = "${libipasir}/lib/${libipasir.libname}";
+      libssl = "${
+          lib.getLib openssl
+        }/lib/libssl${stdenv.hostPlatform.extensions.sharedLibrary}";
+      libcrypto = "${
+          lib.getLib openssl
+        }/lib/libcrypto${stdenv.hostPlatform.extensions.sharedLibrary}";
+    })
+  ];
 
   nativeBuildInputs = lib.optional certifyBooks makeWrapper;
 
@@ -47,10 +52,16 @@ in stdenv.mkDerivation rec {
     sbcl
   ] ++ lib.optionals certifyBooks [
     # To build community books, we need Perl and a couple of utilities:
-    which perl hostname
+    which
+    perl
+    hostname
     # Some of the books require one or more of these external tools:
-    glucose minisat abc-verifier libipasir
-    z3 (python3.withPackages (ps: [ ps.z3 ]))
+    glucose
+    minisat
+    abc-verifier
+    libipasir
+    z3
+    (python3.withPackages (ps: [ ps.z3 ]))
   ];
 
   # NOTE: Parallel building can be memory-intensive depending on the number of
@@ -90,7 +101,8 @@ in stdenv.mkDerivation rec {
     ln -s $out/share/${pname}/books/build/clean.pl $out/bin/${pname}-clean
   '';
 
-  preDistPhases = [ (if certifyBooks then "certifyBooksPhase" else "removeBooksPhase") ];
+  preDistPhases =
+    [ (if certifyBooks then "certifyBooksPhase" else "removeBooksPhase") ];
 
   certifyBooksPhase = ''
     # Certify the community books
@@ -134,14 +146,20 @@ in stdenv.mkDerivation rec {
     '');
     homepage = "https://www.cs.utexas.edu/users/moore/acl2/";
     downloadPage = "https://github.com/acl2-devel/acl2-devel/releases";
-    license = with licenses; [
-      # ACL2 itself is bsd3
-      bsd3
-    ] ++ optionals certifyBooks [
-      # The community books are mostly bsd3 or mit but with a few
-      # other things thrown in.
-      mit gpl2 llgpl21 cc0 publicDomain unfreeRedistributable
-    ];
+    license = with licenses;
+      [
+        # ACL2 itself is bsd3
+        bsd3
+      ] ++ optionals certifyBooks [
+        # The community books are mostly bsd3 or mit but with a few
+        # other things thrown in.
+        mit
+        gpl2
+        llgpl21
+        cc0
+        publicDomain
+        unfreeRedistributable
+      ];
     maintainers = with maintainers; [ kini raskin ];
     platforms = platforms.all;
   };

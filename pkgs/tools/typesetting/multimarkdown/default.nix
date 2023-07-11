@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, perl
-, pkg-config
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, perl, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "multimarkdown";
@@ -28,11 +22,7 @@ stdenv.mkDerivation rec {
     mv $out/LICENSE.txt $out/README.txt $out/share/doc/multimarkdown/
   '';
 
-  nativeBuildInputs = [
-    cmake
-    perl
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake perl pkg-config ];
 
   meta = with lib; {
     homepage = "https://fletcher.github.io/MultiMarkdown-6/introduction.html";

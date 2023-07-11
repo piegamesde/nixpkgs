@@ -1,12 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, elkhound
-, ocaml-ng
-, perl
-, which
-, gnumake42
-}:
+{ stdenv, lib, fetchFromGitHub, elkhound, ocaml-ng, perl, which, gnumake42 }:
 
 let
   # 1. Needs ocaml >= 4.04 and <= 4.11 (patched against 4.14)
@@ -14,8 +6,7 @@ let
   #    that disabled as weidu is strongly dependent on mutable strings
   ocaml' = ocaml-ng.ocamlPackages_4_14_unsafe_string.ocaml;
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "weidu";
   version = "249.00";
 

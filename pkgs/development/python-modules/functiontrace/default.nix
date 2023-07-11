@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, toml
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools, toml }:
 
 buildPythonPackage rec {
   pname = "functiontrace";
@@ -15,10 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-3bnxZFq1/D9ntwfv7O2YU6MnKEDWWIG4zX0e3cgCleg=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-    toml
-  ];
+  nativeBuildInputs = [ setuptools toml ];
 
   pythonImportsCheck = [ "functiontrace" ];
 

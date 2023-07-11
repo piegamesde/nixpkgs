@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, rustPlatform, CoreServices, graphviz }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, rustPlatform, CoreServices, graphviz
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "mdbook-graphviz";
@@ -18,9 +19,11 @@ rustPlatform.buildRustPackage rec {
   nativeCheckInputs = [ graphviz ];
 
   meta = with lib; {
-    description = "A preprocessor for mdbook, rendering Graphviz graphs to HTML at build time.";
+    description =
+      "A preprocessor for mdbook, rendering Graphviz graphs to HTML at build time.";
     homepage = "https://github.com/dylanowen/mdbook-graphviz";
-    changelog = "https://github.com/dylanowen/mdbook-graphviz/releases/tag/v${version}";
+    changelog =
+      "https://github.com/dylanowen/mdbook-graphviz/releases/tag/v${version}";
     license = [ licenses.mpl20 ];
     maintainers = with maintainers; [ lovesegfault ];
   };

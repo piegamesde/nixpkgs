@@ -1,19 +1,31 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, unzip
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, unzip }:
 
 let
   dimensions = {
     palette = [ "Frappe" "Latte" "Macchiato" "Mocha" ];
-    color = [ "Blue" "Dark" "Flamingo" "Green" "Lavender" "Light" "Maroon" "Mauve" "Peach" "Pink" "Red" "Rosewater" "Sapphire" "Sky" "Teal" "Yellow" ];
+    color = [
+      "Blue"
+      "Dark"
+      "Flamingo"
+      "Green"
+      "Lavender"
+      "Light"
+      "Maroon"
+      "Mauve"
+      "Peach"
+      "Pink"
+      "Red"
+      "Rosewater"
+      "Sapphire"
+      "Sky"
+      "Teal"
+      "Yellow"
+    ];
   };
   product = lib.attrsets.cartesianProductOfSets dimensions;
   variantName = { palette, color }: (lib.strings.toLower palette) + color;
   variants = map variantName product;
-in
-stdenvNoCC.mkDerivation rec {
+in stdenvNoCC.mkDerivation rec {
   pname = "catppuccin-cursors";
   version = "0.2.0";
   dontBuild = true;
@@ -30,7 +42,7 @@ stdenvNoCC.mkDerivation rec {
 
   outputs = variants ++ [ "out" ]; # dummy "out" output to prevent breakage
 
-  outputsToInstall = [];
+  outputsToInstall = [ ];
 
   installPhase = ''
     runHook preInstall

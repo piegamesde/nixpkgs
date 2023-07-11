@@ -1,25 +1,7 @@
-{ lib
-, buildPythonPackage
-, python
-, fetchpatch
-, fetchFromGitHub
-, addOpenGLRunpath
-, cmake
-, cudaPackages
-, llvmPackages
-, pybind11
-, gtest
-, zlib
-, ncurses
-, libxml2
-, lit
-, filelock
-, torchWithRocm
-, pytest
-, pytestCheckHook
-, pythonRelaxDepsHook
-, pkgsTargetTarget
-}:
+{ lib, buildPythonPackage, python, fetchpatch, fetchFromGitHub, addOpenGLRunpath
+, cmake, cudaPackages, llvmPackages, pybind11, gtest, zlib, ncurses, libxml2
+, lit, filelock, torchWithRocm, pytest, pytestCheckHook, pythonRelaxDepsHook
+, pkgsTargetTarget }:
 
 let
   pname = "triton";
@@ -44,12 +26,9 @@ let
     llvmTargetsToBuild = [ "NATIVE" "NVPTX" ];
     # Upstream CI sets these too:
     # targetProjects = [ "mlir" ];
-    extraCMakeFlags = [
-      "-DLLVM_INSTALL_UTILS=ON"
-    ];
+    extraCMakeFlags = [ "-DLLVM_INSTALL_UTILS=ON" ];
   });
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
 
   format = "setuptools";
@@ -64,11 +43,13 @@ buildPythonPackage {
   patches = [
     # Prerequisite for llvm15 patch
     (fetchpatch {
-      url = "https://github.com/openai/triton/commit/2aba985daaa70234823ea8f1161da938477d3e02.patch";
+      url =
+        "https://github.com/openai/triton/commit/2aba985daaa70234823ea8f1161da938477d3e02.patch";
       hash = "sha256-LGv0+Ut2WYPC4Ksi4803Hwmhi3FyQOF9zElJc/JCobk=";
     })
     (fetchpatch {
-      url = "https://github.com/openai/triton/commit/e3941f9d09cdd31529ba4a41018cfc0096aafea6.patch";
+      url =
+        "https://github.com/openai/triton/commit/e3941f9d09cdd31529ba4a41018cfc0096aafea6.patch";
       hash = "sha256-A+Gor6qzFlGQhVVhiaaYOzqqx8yO2MdssnQS6TIfUWg=";
     })
 
@@ -94,57 +75,56 @@ buildPythonPackage {
         '= get_thirdparty_packages(triton_cache_path)' \
         '= os.environ["cmakeFlags"].split()'
   ''
-  # Wiring triton=2.0.0 with llcmPackages_rocm.llvm=5.4.3
-  # Revisit when updating either triton or llvm
-  + ''
-    substituteInPlace CMakeLists.txt \
-      --replace "nvptx" "NVPTX" \
-      --replace "LLVM 11" "LLVM"
-    sed -i '/AddMLIR/a set(MLIR_TABLEGEN_EXE "${llvmPackages.mlir}/bin/mlir-tblgen")' CMakeLists.txt
-    sed -i '/AddMLIR/a set(MLIR_INCLUDE_DIR ''${MLIR_INCLUDE_DIRS})' CMakeLists.txt
-    find -iname '*.td' -exec \
-      sed -i \
-      -e '\|include "mlir/IR/OpBase.td"|a include "mlir/IR/AttrTypeBase.td"' \
-      -e 's|include "mlir/Dialect/StandardOps/IR/Ops.td"|include "mlir/Dialect/Func/IR/FuncOps.td"|' \
-      '{}' ';'
-    substituteInPlace unittest/CMakeLists.txt --replace "include(GoogleTest)" "find_package(GTest REQUIRED)"
-    sed -i 's/^include.*$//' unittest/CMakeLists.txt
-    sed -i '/LINK_LIBS/i NVPTXInfo' lib/Target/PTX/CMakeLists.txt
-    sed -i '/LINK_LIBS/i NVPTXCodeGen' lib/Target/PTX/CMakeLists.txt
-  ''
-  # TritonMLIRIR already links MLIRIR. Not transitive?
-  # + ''
-  #   echo "target_link_libraries(TritonPTX PUBLIC MLIRIR)" >> lib/Target/PTX/CMakeLists.txt
-  # ''
-  # Already defined in llvm, when built with -DLLVM_INSTALL_UTILS
-  + ''
-    substituteInPlace bin/CMakeLists.txt \
-      --replace "add_subdirectory(FileCheck)" ""
+    # Wiring triton=2.0.0 with llcmPackages_rocm.llvm=5.4.3
+    # Revisit when updating either triton or llvm
+    + ''
+      substituteInPlace CMakeLists.txt \
+        --replace "nvptx" "NVPTX" \
+        --replace "LLVM 11" "LLVM"
+      sed -i '/AddMLIR/a set(MLIR_TABLEGEN_EXE "${llvmPackages.mlir}/bin/mlir-tblgen")' CMakeLists.txt
+      sed -i '/AddMLIR/a set(MLIR_INCLUDE_DIR ''${MLIR_INCLUDE_DIRS})' CMakeLists.txt
+      find -iname '*.td' -exec \
+        sed -i \
+        -e '\|include "mlir/IR/OpBase.td"|a include "mlir/IR/AttrTypeBase.td"' \
+        -e 's|include "mlir/Dialect/StandardOps/IR/Ops.td"|include "mlir/Dialect/Func/IR/FuncOps.td"|' \
+        '{}' ';'
+      substituteInPlace unittest/CMakeLists.txt --replace "include(GoogleTest)" "find_package(GTest REQUIRED)"
+      sed -i 's/^include.*$//' unittest/CMakeLists.txt
+      sed -i '/LINK_LIBS/i NVPTXInfo' lib/Target/PTX/CMakeLists.txt
+      sed -i '/LINK_LIBS/i NVPTXCodeGen' lib/Target/PTX/CMakeLists.txt
+    ''
+    # TritonMLIRIR already links MLIRIR. Not transitive?
+    # + ''
+    #   echo "target_link_libraries(TritonPTX PUBLIC MLIRIR)" >> lib/Target/PTX/CMakeLists.txt
+    # ''
+    # Already defined in llvm, when built with -DLLVM_INSTALL_UTILS
+    + ''
+      substituteInPlace bin/CMakeLists.txt \
+        --replace "add_subdirectory(FileCheck)" ""
 
-    rm cmake/FindLLVM.cmake
-  ''
-  +
-  (
-    let
+      rm cmake/FindLLVM.cmake
+    '' + (let
       # Bash was getting weird without linting,
       # but basically upstream contains [cc, ..., "-lcuda", ...]
       # and we replace it with [..., "-lcuda", "-L/run/opengl-driver/lib", "-L$stubs", ...]
       old = [ "-lcuda" ];
-      new = [ "-lcuda" "-L${addOpenGLRunpath.driverLink}" "-L${cuda_cudart}/lib/stubs/" ];
+      new = [
+        "-lcuda"
+        "-L${addOpenGLRunpath.driverLink}"
+        "-L${cuda_cudart}/lib/stubs/"
+      ];
 
       quote = x: ''"${x}"'';
       oldStr = lib.concatMapStringsSep ", " quote old;
       newStr = lib.concatMapStringsSep ", " quote new;
-    in
-    ''
+    in ''
       substituteInPlace python/triton/compiler.py \
         --replace '${oldStr}' '${newStr}'
-    ''
-  )
-  # Triton seems to be looking up cuda.h
-  + ''
-    sed -i 's|cu_include_dir = os.path.join.*$|cu_include_dir = "${cuda_cudart}/include"|' python/triton/compiler.py
-  '';
+    '')
+    # Triton seems to be looking up cuda.h
+    + ''
+      sed -i 's|cu_include_dir = os.path.join.*$|cu_include_dir = "${cuda_cudart}/include"|' python/triton/compiler.py
+    '';
 
   nativeBuildInputs = [
     cmake
@@ -162,17 +142,9 @@ buildPythonPackage {
     llvmPackages.mlir
   ];
 
-  buildInputs = [
-    gtest
-    libxml2.dev
-    ncurses
-    pybind11
-    zlib
-  ];
+  buildInputs = [ gtest libxml2.dev ncurses pybind11 zlib ];
 
-  propagatedBuildInputs = [
-    filelock
-  ];
+  propagatedBuildInputs = [ filelock ];
 
   # Avoid GLIBCXX mismatch with other cuda-enabled python packages
   preConfigure = ''
@@ -198,19 +170,16 @@ buildPythonPackage {
 
   # CMake is run by setup.py instead
   dontUseCmakeConfigure = true;
-  cmakeFlags = [
-    "-DMLIR_DIR=${llvmPackages.mlir}/lib/cmake/mlir"
-  ];
+  cmakeFlags = [ "-DMLIR_DIR=${llvmPackages.mlir}/lib/cmake/mlir" ];
 
-  postFixup =
-    let
-      ptxasDestination = "$out/${python.sitePackages}/triton/third_party/cuda/bin/ptxas";
-    in
+  postFixup = let
+    ptxasDestination =
+      "$out/${python.sitePackages}/triton/third_party/cuda/bin/ptxas";
     # Setuptools (?) strips runpath and +x flags. Let's just restore the symlink
-    ''
-      rm -f ${ptxasDestination}
-      ln -s ${ptxas} ${ptxasDestination}
-    '';
+  in ''
+    rm -f ${ptxasDestination}
+    ln -s ${ptxas} ${ptxasDestination}
+  '';
 
   checkInputs = [
     cmake # ctest
@@ -231,9 +200,7 @@ buildPythonPackage {
   ];
 
   # Ultimately, torch is our test suite:
-  passthru.tests = {
-    inherit torchWithRocm;
-  };
+  passthru.tests = { inherit torchWithRocm; };
 
   pythonRemoveDeps = [
     # Circular dependency, cf. https://github.com/openai/triton/issues/1374

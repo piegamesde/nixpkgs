@@ -1,12 +1,5 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, flit-core
-, jinja2
-, pytestCheckHook
-, railroad-diagrams
-, pyparsing
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, flit-core, jinja2, pytestCheckHook
+, railroad-diagrams, pyparsing }:
 
 buildPythonPackage rec {
   pname = "pyparsing";
@@ -20,17 +13,11 @@ buildPythonPackage rec {
     hash = "sha256-aCRyJQyLf8qQ6NO41q+HC856TjIHzIt0vyVBLV+3teE=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   # circular dependencies with pytest if enabled by default
   doCheck = false;
-  nativeCheckInputs = [
-    jinja2
-    pytestCheckHook
-    railroad-diagrams
-  ];
+  nativeCheckInputs = [ jinja2 pytestCheckHook railroad-diagrams ];
 
   pythonImportsCheck = [ "pyparsing" ];
 
@@ -46,7 +33,7 @@ buildPythonPackage rec {
       simple grammars, vs. the traditional lex/yacc approach, or the use of
       regular expressions. The pyparsing module provides a library of classes
       that client code uses to construct the grammar directly in Python code.
-   '';
+    '';
     license = licenses.mit;
     maintainers = with maintainers; [ kamadorueda ];
   };

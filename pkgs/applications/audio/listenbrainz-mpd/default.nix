@@ -1,12 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitea
-, pkg-config
-, stdenv
-, openssl
-, libiconv
-, sqlite
-, Security }:
+{ lib, rustPlatform, fetchFromGitea, pkg-config, stdenv, openssl, libiconv
+, sqlite, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "listenbrainz-mpd";
@@ -24,11 +17,13 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ sqlite ] ++ (if stdenv.isDarwin then [ libiconv Security ] else [ openssl ]);
+  buildInputs = [ sqlite ]
+    ++ (if stdenv.isDarwin then [ libiconv Security ] else [ openssl ]);
 
   meta = with lib; {
     homepage = "https://codeberg.org/elomatreb/listenbrainz-mpd";
-    changelog = "https://codeberg.org/elomatreb/listenbrainz-mpd/src/tag/v${version}/CHANGELOG.md";
+    changelog =
+      "https://codeberg.org/elomatreb/listenbrainz-mpd/src/tag/v${version}/CHANGELOG.md";
     description = "ListenBrainz submission client for MPD";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ DeeUnderscore ];

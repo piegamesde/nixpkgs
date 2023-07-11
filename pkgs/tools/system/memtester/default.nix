@@ -10,14 +10,16 @@ stdenv.mkDerivation rec {
   '';
 
   src = fetchurl {
-    url = "http://pyropus.ca/software/memtester/old-versions/memtester-${version}.tar.gz";
+    url =
+      "http://pyropus.ca/software/memtester/old-versions/memtester-${version}.tar.gz";
     sha256 = "sha256-yf5Ot+gMjO9SAvkGXEwGgvVhZkfARV6RalcA+Y49uy4=";
   };
 
   installFlags = [ "INSTALLPATH=$(out)" ];
 
   meta = with lib; {
-    description = "A userspace utility for testing the memory subsystem for faults";
+    description =
+      "A userspace utility for testing the memory subsystem for faults";
     homepage = "http://pyropus.ca/software/memtester/";
     license = licenses.gpl2;
     maintainers = [ maintainers.dezgeg ];

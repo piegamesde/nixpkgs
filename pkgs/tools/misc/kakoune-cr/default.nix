@@ -4,8 +4,7 @@ let
     url = "https://github.com/mawww/kakoune/raw/master/doc/kakoune_logo.svg";
     hash = "sha256-JxhIEmjiGrisaarA1sX1AfzNjHNIm9xjyPs/nG1uL/U=";
   };
-in
-crystal.buildCrystalPackage rec {
+in crystal.buildCrystalPackage rec {
   pname = "kakoune.cr";
   version = "unstable-2021-11-12";
 

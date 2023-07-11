@@ -1,8 +1,5 @@
-{ system ? builtins.currentSystem
-, config ? {}
-, pkgs ? import ../.. { inherit system config; }
-, systemdStage1 ? false
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; }, systemdStage1 ? false }:
 
 import ./make-test-python.nix {
   name = "fsck";
@@ -25,9 +22,9 @@ import ./make-test-python.nix {
     machine.wait_for_unit("default.target")
 
     with subtest("root fs is fsckd"):
-        machine.succeed("journalctl -b | grep '${if systemdStage1
-          then "fsck.*vda.*clean"
-          else "fsck.ext4.*/dev/vda"}'")
+        machine.succeed("journalctl -b | grep '${
+          if systemdStage1 then "fsck.*vda.*clean" else "fsck.ext4.*/dev/vda"
+        }'")
 
     with subtest("mnt fs is fsckd"):
         machine.succeed("journalctl -b | grep 'fsck.*/dev/vdb.*clean'")

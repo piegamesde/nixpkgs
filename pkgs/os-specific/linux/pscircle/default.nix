@@ -11,15 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bqbQBNscNfoqXprhoFUnUQO88YQs9xDhD4d3KHamtG0=";
   };
 
-  nativeBuildInputs = [
-    meson
-    pkg-config
-    ninja
-  ];
+  nativeBuildInputs = [ meson pkg-config ninja ];
 
-  buildInputs = [
-    cairo
-  ];
+  buildInputs = [ cairo ];
 
   meta = with lib; {
     homepage = "https://gitlab.com/mildlyparallel/pscircle";

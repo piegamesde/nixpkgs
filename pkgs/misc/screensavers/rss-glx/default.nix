@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, autoconf
-, pkg-config
-, libX11
-, libXext
-, libGLU
-, libGL
-, imagemagick6
-, libtiff
-, bzip2
-}:
+{ lib, stdenv, fetchurl, autoconf, pkg-config, libX11, libXext, libGLU, libGL
+, imagemagick6, libtiff, bzip2 }:
 
 stdenv.mkDerivation rec {
   version = "0.9.1";
@@ -24,9 +13,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoconf pkg-config ];
   buildInputs = [ libGLU libGL libX11 libXext imagemagick6 libtiff bzip2 ];
 
-  patches = [
-    ./cstddef.patch
-  ];
+  patches = [ ./cstddef.patch ];
 
   env.NIX_CFLAGS_COMPILE = "-I${imagemagick6.dev}/include/ImageMagick";
 

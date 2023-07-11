@@ -2,18 +2,18 @@
 let
   inherit (lib) mdDoc mkEnableOption mkPackageOptionMD optional optionalString;
   cfg = config.programs.skim;
-in
-{
+in {
   options = {
     programs.skim = {
       fuzzyCompletion = mkEnableOption (mdDoc "fuzzy completion with skim");
       keybindings = mkEnableOption (mdDoc "skim keybindings");
-      package = mkPackageOptionMD pkgs "skim" {};
+      package = mkPackageOptionMD pkgs "skim" { };
     };
   };
 
   config = {
-    environment.systemPackages = optional (cfg.keybindings || cfg.fuzzyCompletion) cfg.package;
+    environment.systemPackages =
+      optional (cfg.keybindings || cfg.fuzzyCompletion) cfg.package;
 
     programs.bash.interactiveShellInit = optionalString cfg.fuzzyCompletion ''
       source ${cfg.package}/share/skim/completion.bash

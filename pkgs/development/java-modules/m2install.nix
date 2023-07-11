@@ -1,19 +1,16 @@
 { lib, stdenv, fetchurl }:
-{ version
-, artifactId
-, groupId
-, sha512
-, type ? "jar"
-, suffix ? ""
-, sourceProvenance ? (lib.optionals (type == "jar") [ lib.sourceTypes.binaryBytecode ])
-}:
+{ version, artifactId, groupId, sha512, type ? "jar", suffix ? ""
+, sourceProvenance ?
+  (lib.optionals (type == "jar") [ lib.sourceTypes.binaryBytecode ]) }:
 
 let
-  m2Path = "${builtins.replaceStrings ["."] ["/"] groupId}/${artifactId}/${version}";
+  m2Path = "${
+      builtins.replaceStrings [ "." ] [ "/" ] groupId
+    }/${artifactId}/${version}";
   m2File = "${artifactId}-${version}${suffix}.${type}";
   src = fetchurl {
-      inherit sha512;
-      url = "mirror://maven/${m2Path}/${m2File}";
+    inherit sha512;
+    url = "mirror://maven/${m2Path}/${m2File}";
   };
 in stdenv.mkDerivation {
   inherit version m2Path m2File src;

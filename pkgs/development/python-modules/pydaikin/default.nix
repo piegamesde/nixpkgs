@@ -1,14 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromBitbucket
-, freezegun
-, netifaces
-, pytest-aiohttp
-, pytestCheckHook
-, pythonOlder
-, urllib3
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromBitbucket, freezegun, netifaces
+, pytest-aiohttp, pytestCheckHook, pythonOlder, urllib3 }:
 
 buildPythonPackage rec {
   pname = "pydaikin";
@@ -24,21 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-cJkrBt4HRH2SX4YWo+gK4rd7uyZRzLUvFXJ6L5nxzeM=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    netifaces
-    urllib3
-  ];
+  propagatedBuildInputs = [ aiohttp netifaces urllib3 ];
 
-  nativeCheckInputs = [
-    freezegun
-    pytest-aiohttp
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ freezegun pytest-aiohttp pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pydaikin"
-  ];
+  pythonImportsCheck = [ "pydaikin" ];
 
   meta = with lib; {
     description = "Python Daikin HVAC appliances interface";

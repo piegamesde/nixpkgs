@@ -11,9 +11,7 @@ let
 in import ../make-test-python.nix ({ lib, pkgs, netbox, ... }: {
   name = "netbox";
 
-  meta = with lib.maintainers; {
-    maintainers = [ minijackson n0emis ];
-  };
+  meta = with lib.maintainers; { maintainers = [ minijackson n0emis ]; };
 
   nodes.machine = { config, ... }: {
     services.netbox = {
@@ -58,7 +56,8 @@ in import ../make-test-python.nix ({ lib, pkgs, netbox, ... }: {
 
       virtualHosts.netbox = {
         default = true;
-        locations."/".proxyPass = "http://localhost:${toString config.services.netbox.port}";
+        locations."/".proxyPass =
+          "http://localhost:${toString config.services.netbox.port}";
         locations."/static/".alias = "/var/lib/netbox/static/";
       };
     };

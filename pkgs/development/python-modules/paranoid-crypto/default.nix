@@ -1,17 +1,5 @@
-{ lib
-, absl-py
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, fpylll
-, gmpy
-, protobuf
-, pybind11
-, pytestCheckHook
-, pythonOlder
-, scipy
-, sympy
-}:
+{ lib, absl-py, buildPythonPackage, cryptography, fetchFromGitHub, fpylll, gmpy
+, protobuf, pybind11, pytestCheckHook, pythonOlder, scipy, sympy }:
 
 buildPythonPackage rec {
   pname = "paranoid-crypto";
@@ -28,24 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-4yF7WAFAGGhvWTV/y5dGVA/+9r1dqrXU/0/6Edgw3ow=";
   };
 
-  nativeBuildInputs = [
-    protobuf
-    pybind11
-  ];
+  nativeBuildInputs = [ protobuf pybind11 ];
 
-  propagatedBuildInputs = [
-    absl-py
-    cryptography
-    gmpy
-    scipy
-    sympy
-    protobuf
-  ];
+  propagatedBuildInputs = [ absl-py cryptography gmpy scipy sympy protobuf ];
 
-  nativeCheckInputs = [
-    fpylll
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ fpylll pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace requirements.txt \
@@ -57,12 +32,11 @@ buildPythonPackage rec {
     "paranoid_crypto/lib/randomness_tests/"
   ];
 
-  pythonImportsCheck = [
-    "paranoid_crypto"
-  ];
+  pythonImportsCheck = [ "paranoid_crypto" ];
 
   meta = with lib; {
-    description = "Library contains checks for well known weaknesses on cryptographic artifacts";
+    description =
+      "Library contains checks for well known weaknesses on cryptographic artifacts";
     homepage = "https://github.com/google/paranoid_crypto";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];

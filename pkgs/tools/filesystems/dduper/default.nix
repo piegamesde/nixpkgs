@@ -5,17 +5,14 @@ let
     patches = [
       (fetchpatch {
         name = "0001-Print-csum-for-a-given-file-on-stdout.patch";
-        url = "https://raw.githubusercontent.com/Lakshmipathi/dduper/ecc2664c380616ec75cfc1e600b5514cdff5c687/patch/btrfs-progs-v6.1/0001-Print-csum-for-a-given-file-on-stdout.patch";
+        url =
+          "https://raw.githubusercontent.com/Lakshmipathi/dduper/ecc2664c380616ec75cfc1e600b5514cdff5c687/patch/btrfs-progs-v6.1/0001-Print-csum-for-a-given-file-on-stdout.patch";
         sha256 = "sha256-M4LT7G6gwBfSXf6EL4pxNoQJMyUTOA+ojxEJqw2yss4=";
       })
     ];
   });
-  py3 = python3.withPackages (ps: with ps; [
-    prettytable
-    numpy
-  ]);
-in
-stdenv.mkDerivation rec {
+  py3 = python3.withPackages (ps: with ps; [ prettytable numpy ]);
+in stdenv.mkDerivation rec {
   pname = "dduper";
   version = "0.04";
 
@@ -26,10 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "09ncdawxkffldadqhfblqlkdl05q2qmywxyg6p61fv3dr2f2v5wm";
   };
 
-  buildInputs = [
-    btrfsProgsPatched
-    py3
-  ];
+  buildInputs = [ btrfsProgsPatched py3 ];
 
   patchPhase = ''
     substituteInPlace ./dduper --replace "/usr/sbin/btrfs.static" "${btrfsProgsPatched}/bin/btrfs"

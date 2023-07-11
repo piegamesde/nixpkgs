@@ -1,9 +1,7 @@
 { lib, fetchurl, boost, cmake, extra-cmake-modules, kparts, kpmcore, kirigami2
-, kservice, libatasmart, libxcb, yaml-cpp, libpwquality, parted, polkit-qt, python
-, qtbase, qtquickcontrols, qtsvg, qttools, qtwebengine, util-linux, tzdata
-, ckbcomp, xkeyboard_config, mkDerivation
-, nixos-extensions ? false
-}:
+, kservice, libatasmart, libxcb, yaml-cpp, libpwquality, parted, polkit-qt
+, python, qtbase, qtquickcontrols, qtsvg, qttools, qtwebengine, util-linux
+, tzdata, ckbcomp, xkeyboard_config, mkDerivation, nixos-extensions ? false }:
 
 mkDerivation rec {
   pname = "calamares";
@@ -11,7 +9,8 @@ mkDerivation rec {
 
   # release including submodule
   src = fetchurl {
-    url = "https://github.com/calamares/calamares/releases/download/v${version}/${pname}-${version}.tar.gz";
+    url =
+      "https://github.com/calamares/calamares/releases/download/v${version}/${pname}-${version}.tar.gz";
     sha256 = "sha256-oPvOwqQ4aTdT/BdCIDVhGa1624orGcMXUYqhywJdbdA=";
   };
 
@@ -42,9 +41,24 @@ mkDerivation rec {
 
   nativeBuildInputs = [ cmake extra-cmake-modules ];
   buildInputs = [
-    boost kparts.dev kpmcore.out kservice.dev kirigami2
-    libatasmart libxcb yaml-cpp libpwquality parted polkit-qt python
-    qtbase qtquickcontrols qtsvg qttools qtwebengine.dev util-linux
+    boost
+    kparts.dev
+    kpmcore.out
+    kservice.dev
+    kirigami2
+    libatasmart
+    libxcb
+    yaml-cpp
+    libpwquality
+    parted
+    polkit-qt
+    python
+    qtbase
+    qtquickcontrols
+    qtsvg
+    qttools
+    qtwebengine.dev
+    util-linux
   ];
 
   cmakeFlags = [

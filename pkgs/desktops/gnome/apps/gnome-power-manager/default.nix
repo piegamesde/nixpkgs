@@ -1,25 +1,14 @@
-{ stdenv
-, lib
-, gettext
-, fetchurl
-, pkg-config
-, gtk3
-, glib
-, meson
-, ninja
-, upower
-, python3
-, desktop-file-utils
-, wrapGAppsHook
-, gnome
-}:
+{ stdenv, lib, gettext, fetchurl, pkg-config, gtk3, glib, meson, ninja, upower
+, python3, desktop-file-utils, wrapGAppsHook, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-power-manager";
   version = "43.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-power-manager/${lib.versions.major version}/gnome-power-manager-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-power-manager/${
+        lib.versions.major version
+      }/gnome-power-manager-${version}.tar.xz";
     sha256 = "faq0i73bMOnfKrplDLYNBeZnyfiFrOagoeeVDgy90y8=";
   };
 
@@ -36,11 +25,7 @@ stdenv.mkDerivation rec {
     desktop-file-utils
   ];
 
-  buildInputs = [
-    gtk3
-    glib
-    upower
-  ];
+  buildInputs = [ gtk3 glib upower ];
 
   passthru = {
     updateScript = gnome.updateScript {

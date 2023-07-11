@@ -1,29 +1,19 @@
-{ lib
-, stdenv
-, fetchurl
-, autoconf269
-, automake
-, libtool
+{ lib, stdenv, fetchurl, autoconf269, automake, libtool
 # libs
-, cjson
-, db
-, gmp
-, libxml2
-, ncurses
+, cjson, db, gmp, libxml2, ncurses
 # docs
-, help2man
-, texinfo
-, texlive
+, help2man, texinfo, texlive
 # test
-, writeText
-}:
+, writeText }:
 
 stdenv.mkDerivation rec {
   pname = "gnu-cobol";
   version = "3.1.2";
 
   src = fetchurl {
-    url = "mirror://sourceforge/gnucobol/${lib.versions.majorMinor version}/gnucobol-${version}.tar.xz";
+    url = "mirror://sourceforge/gnucobol/${
+        lib.versions.majorMinor version
+      }/gnucobol-${version}.tar.xz";
     sha256 = "0x15ybfm63g7c9340fc6712h9v59spnbyaz4rf85pmnp3zbhaw2r";
   };
 
@@ -36,17 +26,11 @@ stdenv.mkDerivation rec {
     texlive.combined.scheme-basic
   ];
 
-  buildInputs = [
-    cjson
-    db
-    gmp
-    libxml2
-    ncurses
-  ];
+  buildInputs = [ cjson db gmp libxml2 ncurses ];
 
   outputs = [ "bin" "dev" "lib" "out" ];
   # XXX: Without this, we get a cycle between bin and dev
-  propagatedBuildOutputs = [];
+  propagatedBuildOutputs = [ ];
 
   # Skips a broken test
   postPatch = ''

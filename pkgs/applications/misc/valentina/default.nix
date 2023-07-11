@@ -1,8 +1,5 @@
-{ lib, stdenv, fetchFromGitLab, substituteAll, installShellFiles
-, qmake, qttools
-, qtsvg, qttranslations, qtxmlpatterns
-, wrapQtAppsHook
-}:
+{ lib, stdenv, fetchFromGitLab, substituteAll, installShellFiles, qmake, qttools
+, qtsvg, qttranslations, qtxmlpatterns, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "valentina";
@@ -23,7 +20,9 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace src/app/translations.pri \
-      --replace '$$[QT_INSTALL_BINS]/$$LRELEASE' '${lib.getDev qttools}/bin/lrelease'
+      --replace '$$[QT_INSTALL_BINS]/$$LRELEASE' '${
+        lib.getDev qttools
+      }/bin/lrelease'
   '';
 
   nativeBuildInputs = [ qmake qttools wrapQtAppsHook installShellFiles ];
@@ -47,7 +46,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An open source sewing pattern drafting software";
     homepage = "https://smart-pattern.com.ua/";
-    changelog = "https://gitlab.com/smart-pattern/valentina/-/blob/v${version}/ChangeLog.txt";
+    changelog =
+      "https://gitlab.com/smart-pattern/valentina/-/blob/v${version}/ChangeLog.txt";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ jfrankenau ];

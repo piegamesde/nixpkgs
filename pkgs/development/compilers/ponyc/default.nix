@@ -1,21 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, callPackage
-, cc ? stdenv.cc
-, cmake
-, coreutils
-, libxml2
-, lto ? !stdenv.isDarwin
-, makeWrapper
-, openssl
-, pcre2
-, pony-corral
-, python3
-, substituteAll
-, which
-, z3
-}:
+{ lib, stdenv, fetchFromGitHub, callPackage, cc ? stdenv.cc, cmake, coreutils
+, libxml2, lto ? !stdenv.isDarwin, makeWrapper, openssl, pcre2, pony-corral
+, python3, substituteAll, which, z3 }:
 
 stdenv.mkDerivation (rec {
   pname = "ponyc";
@@ -76,23 +61,26 @@ stdenv.mkDerivation (rec {
     make configure build_flags=-j$NIX_BUILD_CORES
   '';
 
-  makeFlags = [
-    "PONYC_VERSION=${version}"
-    "prefix=${placeholder "out"}"
-  ] ++ lib.optionals stdenv.isDarwin ([ "bits=64" ] ++ lib.optional (!lto) "lto=no");
+  makeFlags = [ "PONYC_VERSION=${version}" "prefix=${placeholder "out"}" ]
+    ++ lib.optionals stdenv.isDarwin
+    ([ "bits=64" ] ++ lib.optional (!lto) "lto=no");
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=redundant-move" "-Wno-error=implicit-fallthrough" ];
+  env.NIX_CFLAGS_COMPILE =
+    toString [ "-Wno-error=redundant-move" "-Wno-error=implicit-fallthrough" ];
 
   doCheck = true;
 
   installPhase = "make config=release prefix=$out "
-    + lib.optionalString stdenv.isDarwin ("bits=64 " + (lib.optionalString (!lto) "lto=no "))
-    + '' install
-    wrapProgram $out/bin/ponyc \
-      --prefix PATH ":" "${stdenv.cc}/bin" \
-      --set-default CC "$CC" \
-      --prefix PONYPATH : "${lib.makeLibraryPath [ pcre2 openssl (placeholder "out") ]}"
-  '';
+    + lib.optionalString stdenv.isDarwin
+    ("bits=64 " + (lib.optionalString (!lto) "lto=no ")) + ''
+      install
+         wrapProgram $out/bin/ponyc \
+           --prefix PATH ":" "${stdenv.cc}/bin" \
+           --set-default CC "$CC" \
+           --prefix PONYPATH : "${
+             lib.makeLibraryPath [ pcre2 openssl (placeholder "out") ]
+           }"
+    '';
 
   # Stripping breaks linking for ponyc
   dontStrip = true;
@@ -100,7 +88,8 @@ stdenv.mkDerivation (rec {
   passthru.tests.pony-corral = pony-corral;
 
   meta = with lib; {
-    description = "Pony is an Object-oriented, actor-model, capabilities-secure, high performance programming language";
+    description =
+      "Pony is an Object-oriented, actor-model, capabilities-secure, high performance programming language";
     homepage = "https://www.ponylang.org";
     license = licenses.bsd2;
     maintainers = with maintainers; [ kamilchm patternspandemic redvers ];

@@ -1,15 +1,10 @@
-{
-  haskell,
-  expect,
-  haskellPackages,
-  installShellFiles,
-  lib
-}: let
+{ haskell, expect, haskellPackages, installShellFiles, lib }:
+let
   inherit (haskell.lib.compose) justStaticExecutables overrideCabal;
   overrides = {
     passthru.updateScript = ./update.sh;
     testTarget = "unit-tests";
-    buildTools = [installShellFiles];
+    buildTools = [ installShellFiles ];
     postInstall = ''
       ln -s nom "$out/bin/nom-build"
       ln -s nom "$out/bin/nom-shell"
@@ -19,13 +14,9 @@
     mainProgram = "nom";
   };
   nom-pkg = haskellPackages.callPackage ./generated-package.nix { };
-  nom-pkg-with-scope = nom-pkg.overrideScope (hfinal: hprev: {
-    hermes-json = hfinal.hermes-json_0_2_0_1;
-  });
-in
-lib.pipe
-  nom-pkg-with-scope
-  [
-    (overrideCabal overrides)
-    justStaticExecutables
-  ]
+  nom-pkg-with-scope = nom-pkg.overrideScope
+    (hfinal: hprev: { hermes-json = hfinal.hermes-json_0_2_0_1; });
+in lib.pipe nom-pkg-with-scope [
+  (overrideCabal overrides)
+  justStaticExecutables
+]

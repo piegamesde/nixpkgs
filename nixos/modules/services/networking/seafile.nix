@@ -238,7 +238,8 @@ in {
         requires = [ "seaf-server.service" ];
         restartTriggers = [ seahubSettings ];
         environment = {
-          PYTHONPATH = "${pkgs.seahub.pythonPath}:${pkgs.seahub}/thirdpart:${pkgs.seahub}";
+          PYTHONPATH =
+            "${pkgs.seahub.pythonPath}:${pkgs.seahub}/thirdpart:${pkgs.seahub}";
           DJANGO_SETTINGS_MODULE = "seahub.settings";
           CCNET_CONF_DIR = ccnetDir;
           SEAFILE_CONF_DIR = dataDir;

@@ -1,7 +1,4 @@
-{ lib
-, python3
-, mopidy
-}:
+{ lib, python3, mopidy }:
 
 let
   python = python3.override {
@@ -38,7 +35,8 @@ in python.pkgs.buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    changelog = "https://github.com/OzymandiasTheGreat/mopidy-ytmusic/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/OzymandiasTheGreat/mopidy-ytmusic/blob/v${version}/CHANGELOG.rst";
     description = "Mopidy extension for playing music from YouTube Music";
     homepage = "https://github.com/OzymandiasTheGreat/mopidy-ytmusic";
     license = licenses.asl20;

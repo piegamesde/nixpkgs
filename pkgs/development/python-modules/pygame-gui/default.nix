@@ -1,11 +1,5 @@
-{ lib
-, pkgs
-, buildPythonPackage
-, fetchFromGitHub
-, pygame
-, python-i18n
-, pytestCheckHook
-}:
+{ lib, pkgs, buildPythonPackage, fetchFromGitHub, pygame, python-i18n
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pygame-gui";
@@ -46,9 +40,7 @@ buildPythonPackage rec {
     "test_process_event_text_ctrl_x"
   ];
 
-  disabledTestPaths = [
-    "tests/test_performance/test_text_performance.py"
-  ];
+  disabledTestPaths = [ "tests/test_performance/test_text_performance.py" ];
 
   meta = with lib; {
     description = "A GUI system for pygame";

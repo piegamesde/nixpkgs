@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchCrate
-, fetchpatch
-, pkg-config
-, alsa-lib
-, darwin
-}:
+{ lib, stdenv, rustPlatform, fetchCrate, fetchpatch, pkg-config, alsa-lib
+, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "termusic";
@@ -19,16 +12,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-A83gLsaPm6t4nm7DJfcp9z1huDU/Sfy9gunP8pzBiCA=";
 
-  nativeBuildInputs = [
-    pkg-config
-    rustPlatform.bindgenHook
-  ];
+  nativeBuildInputs = [ pkg-config rustPlatform.bindgenHook ];
 
-  buildInputs = lib.optionals stdenv.isLinux [
-    alsa-lib
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.AudioUnit
-  ];
+  buildInputs = lib.optionals stdenv.isLinux [ alsa-lib ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AudioUnit ];
 
   meta = with lib; {
     description = "Terminal Music Player TUI written in Rust";

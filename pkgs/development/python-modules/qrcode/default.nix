@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, pillow
-, pypng
-, typing-extensions
-, mock
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools, pillow, pypng
+, typing-extensions, mock, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "qrcode";
@@ -19,28 +11,20 @@ buildPythonPackage rec {
     hash = "sha256-ndlpRUgn4Sfb2TaWsgdHI55tVA4IKTfJDxSslbMPWEU=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    typing-extensions
-    pypng
-  ];
+  propagatedBuildInputs = [ typing-extensions pypng ];
 
-  passthru.optional-dependencies.pil = [
-    pillow
-  ];
+  passthru.optional-dependencies.pil = [ pillow ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.pil;
+  nativeCheckInputs = [ mock pytestCheckHook ]
+    ++ passthru.optional-dependencies.pil;
 
   meta = with lib; {
     description = "Python QR Code image generator";
     homepage = "https://github.com/lincolnloop/python-qrcode";
-    changelog = "https://github.com/lincolnloop/python-qrcode/blob/v${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/lincolnloop/python-qrcode/blob/v${version}/CHANGES.rst";
     license = licenses.bsd3;
   };
 

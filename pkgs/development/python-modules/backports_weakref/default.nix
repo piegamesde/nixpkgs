@@ -1,10 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools-scm
+{ lib, buildPythonPackage, fetchPypi, setuptools-scm
 # , backports
-, unittestCheckHook
-}:
+, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "backports.weakref";
@@ -15,7 +11,7 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ setuptools-scm ];
-#   nativeCheckInputs = [ backports ];
+  #   nativeCheckInputs = [ backports ];
 
   # Requires backports package
   doCheck = false;

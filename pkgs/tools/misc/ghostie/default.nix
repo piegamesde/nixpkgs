@@ -1,12 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, openssl
-, sqlite
-, stdenv
-, darwin
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, sqlite, stdenv
+, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "ghostie";
@@ -22,20 +15,15 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "clokwerk-0.4.0-rc1" = "sha256-GQDWEN2arDDRu2ft8QYdXsNhBEIhBNZTnLoLy27cbAI=";
+      "clokwerk-0.4.0-rc1" =
+        "sha256-GQDWEN2arDDRu2ft8QYdXsNhBEIhBNZTnLoLy27cbAI=";
     };
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    openssl
-    sqlite
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Cocoa
-  ];
+  buildInputs = [ openssl sqlite ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ];
 
   # 4 out of 5 tests are notification tests which do not work in nix builds
   doCheck = false;
@@ -47,7 +35,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Github notifications in your terminal";
     homepage = "https://github.com/attriaayush/ghostie";
-    changelog = "https://github.com/attriaayush/ghostie/releases/tag/v${version}";
+    changelog =
+      "https://github.com/attriaayush/ghostie/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ matthiasbeyer ];
     broken = stdenv.isx86_64 && stdenv.isDarwin;

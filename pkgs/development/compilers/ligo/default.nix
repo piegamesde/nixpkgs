@@ -1,16 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, git
-, coq
-, ocamlPackages
-, cacert
-, ocaml-crunch
-, jq
-, mustache-go
-, yaml2json
-, tezos-rust-libs
-}:
+{ stdenv, lib, fetchFromGitLab, git, coq, ocamlPackages, cacert, ocaml-crunch
+, jq, mustache-go, yaml2json, tezos-rust-libs }:
 
 ocamlPackages.buildDunePackage rec {
   pname = "ligo";
@@ -119,10 +108,7 @@ ocamlPackages.buildDunePackage rec {
     ./scripts/changelog-generation.sh
   '';
 
-  nativeCheckInputs = [
-    cacert
-    ocamlPackages.ca-certs
-  ];
+  nativeCheckInputs = [ cacert ocamlPackages.ca-certs ];
 
   doCheck = false; # Tests fail, but could not determine the reason
 

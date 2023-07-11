@@ -1,10 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, primecount
-, cython
-, cysignals
-}:
+{ lib, fetchPypi, buildPythonPackage, primecount, cython, cysignals }:
 
 buildPythonPackage rec {
   pname = "primecountpy";

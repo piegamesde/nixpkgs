@@ -1,13 +1,7 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 
-let
-  cfg = config.virtualisation.multipass;
-in
-{
+let cfg = config.virtualisation.multipass;
+in {
   options = {
     virtualisation.multipass = {
       enable = lib.mkEnableOption (lib.mdDoc ''
@@ -43,7 +37,8 @@ in
       };
 
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/multipassd --logger platform --verbosity ${cfg.logLevel}";
+        ExecStart =
+          "${cfg.package}/bin/multipassd --logger platform --verbosity ${cfg.logLevel}";
         SyslogIdentifier = "multipassd";
         Restart = "on-failure";
         TimeoutStopSec = 300;

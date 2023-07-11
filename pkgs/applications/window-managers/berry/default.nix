@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, copyDesktopItems
-, fontconfig
-, freetype
-, libX11
-, libXext
-, libXft
-, libXinerama
-, makeDesktopItem
-, pkg-config
-, which
-}:
+{ lib, stdenv, fetchFromGitHub, copyDesktopItems, fontconfig, freetype, libX11
+, libXext, libXft, libXinerama, makeDesktopItem, pkg-config, which }:
 
 stdenv.mkDerivation rec {
   pname = "berry";
@@ -24,20 +12,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-xMJRiLNtwVRQf9HiCF3ClLKEmdDNxcY35IYxe+L7+Hk=";
   };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    pkg-config
-    which
-  ];
+  nativeBuildInputs = [ copyDesktopItems pkg-config which ];
 
-  buildInputs =[
-    libX11
-    libXext
-    libXft
-    libXinerama
-    fontconfig
-    freetype
-  ];
+  buildInputs = [ libX11 libXext libXft libXinerama fontconfig freetype ];
 
   postPatch = ''
     sed -i --regexp-extended 's/(pkg_verstr=").*(")/\1${version}\2/' configure

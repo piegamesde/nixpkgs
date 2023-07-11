@@ -1,14 +1,5 @@
-{ lib
-, asyncssh
-, bcrypt
-, buildPythonPackage
-, fetchFromGitHub
-, fsspec
-, mock-ssh-server
-, pytest-asyncio
-, pytestCheckHook
-, setuptools-scm
-}:
+{ lib, asyncssh, bcrypt, buildPythonPackage, fetchFromGitHub, fsspec
+, mock-ssh-server, pytest-asyncio, pytestCheckHook, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "sshfs";
@@ -23,25 +14,13 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    asyncssh
-    bcrypt
-    fsspec
-  ];
+  propagatedBuildInputs = [ asyncssh bcrypt fsspec ];
 
-  nativeCheckInputs = [
-    mock-ssh-server
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock-ssh-server pytest-asyncio pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "sshfs"
-  ];
+  pythonImportsCheck = [ "sshfs" ];
 
   meta = with lib; {
     description = "SSH/SFTP implementation for fsspec";

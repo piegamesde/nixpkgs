@@ -1,31 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, appstream-glib
-, desktop-file-utils
-, itstool
-, meson
-, ninja
-, pkg-config
-, python3
-, wrapGAppsHook
-, evolution-data-server
-, feedbackd
-, glibmm
-, gnome-desktop
-, gspell
-, gtk3
-, json-glib
-, libgcrypt
-, libhandy
-, libphonenumber
-, modemmanager
-, olm
-, pidgin
-, protobuf
-, sqlite
-, plugins ? [ ]
-}:
+{ lib, stdenv, fetchFromGitLab, appstream-glib, desktop-file-utils, itstool
+, meson, ninja, pkg-config, python3, wrapGAppsHook, evolution-data-server
+, feedbackd, glibmm, gnome-desktop, gspell, gtk3, json-glib, libgcrypt, libhandy
+, libphonenumber, modemmanager, olm, pidgin, protobuf, sqlite, plugins ? [ ] }:
 
 stdenv.mkDerivation rec {
   pname = "chatty";
@@ -75,7 +51,9 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PURPLE_PLUGIN_PATH : ${lib.escapeShellArg (pidgin.makePluginPath plugins)}
+      --prefix PURPLE_PLUGIN_PATH : ${
+        lib.escapeShellArg (pidgin.makePluginPath plugins)
+      }
       ${lib.concatMapStringsSep " " (p: p.wrapArgs or "") plugins}
     )
   '';

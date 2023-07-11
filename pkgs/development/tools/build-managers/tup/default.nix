@@ -1,7 +1,7 @@
-{ lib, stdenv, fetchFromGitHub, fuse3, macfuse-stubs, pkg-config, sqlite, pcre }:
+{ lib, stdenv, fetchFromGitHub, fuse3, macfuse-stubs, pkg-config, sqlite, pcre
+}:
 
-let
-  fuse = if stdenv.isDarwin then macfuse-stubs else fuse3;
+let fuse = if stdenv.isDarwin then macfuse-stubs else fuse3;
 in stdenv.mkDerivation rec {
   pname = "tup";
   version = "0.7.11";

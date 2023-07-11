@@ -1,9 +1,9 @@
-{ lib, buildPecl, fetchFromGitHub, writeText, libcouchbase, zlib, php, substituteAll }:
+{ lib, buildPecl, fetchFromGitHub, writeText, libcouchbase, zlib, php
+, substituteAll }:
 let
   pname = "couchbase";
   version = "3.2.2";
-in
-buildPecl {
+in buildPecl {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -25,10 +25,12 @@ buildPecl {
   ];
 
   meta = with lib; {
-    changelog = "https://github.com/couchbase/php-couchbase/releases/tag/v${version}";
+    changelog =
+      "https://github.com/couchbase/php-couchbase/releases/tag/v${version}";
     description = "Couchbase Server PHP extension";
     license = licenses.asl20;
-    homepage = "https://docs.couchbase.com/php-sdk/current/project-docs/sdk-release-notes.html";
+    homepage =
+      "https://docs.couchbase.com/php-sdk/current/project-docs/sdk-release-notes.html";
     maintainers = teams.php.members;
   };
 }

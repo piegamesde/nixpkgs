@@ -1,16 +1,9 @@
-{ substituteAll
-, runtimeShell
-, coreutils
-, gnused
-, gnugrep
-, nix
-, lib
-, nixosTests
+{ substituteAll, runtimeShell, coreutils, gnused, gnugrep, nix, lib, nixosTests
 }:
 let
-  fallback = import ./../../../../nixos/modules/installer/tools/nix-fallback-paths.nix;
-in
-substituteAll {
+  fallback =
+    import ./../../../../nixos/modules/installer/tools/nix-fallback-paths.nix;
+in substituteAll {
   name = "nixos-rebuild";
   src = ./nixos-rebuild.sh;
   dir = "bin";
@@ -28,8 +21,10 @@ substituteAll {
   };
 
   meta = {
-    description = "Rebuild your NixOS configuration and switch to it, on local hosts and remote.";
-    homepage = "https://github.com/NixOS/nixpkgs/tree/master/pkgs/os-specific/linux/nixos-rebuild";
+    description =
+      "Rebuild your NixOS configuration and switch to it, on local hosts and remote.";
+    homepage =
+      "https://github.com/NixOS/nixpkgs/tree/master/pkgs/os-specific/linux/nixos-rebuild";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.Profpatsch ];
     mainProgram = "nixos-rebuild";

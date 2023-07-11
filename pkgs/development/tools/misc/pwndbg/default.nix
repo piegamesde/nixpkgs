@@ -1,28 +1,23 @@
-{ lib
-, stdenv
-, python3
-, fetchFromGitHub
-, makeWrapper
-, gdb
-}:
+{ lib, stdenv, python3, fetchFromGitHub, makeWrapper, gdb }:
 
 let
-  pythonPath = with python3.pkgs; makePythonPath [
-    capstone
-    future
-    psutil
-    pwntools
-    pycparser
-    pyelftools
-    pygments
-    unicorn
-    rpyc
-  ];
+  pythonPath = with python3.pkgs;
+    makePythonPath [
+      capstone
+      future
+      psutil
+      pwntools
+      pycparser
+      pyelftools
+      pygments
+      unicorn
+      rpyc
+    ];
   binPath = lib.makeBinPath ([
-    python3.pkgs.pwntools   # ref: https://github.com/pwndbg/pwndbg/blob/2022.12.19/pwndbg/wrappers/checksec.py#L8
+    python3.pkgs.pwntools # ref: https://github.com/pwndbg/pwndbg/blob/2022.12.19/pwndbg/wrappers/checksec.py#L8
   ] ++ lib.optionals stdenv.isLinux [
-    python3.pkgs.ropper     # ref: https://github.com/pwndbg/pwndbg/blob/2022.12.19/pwndbg/commands/ropper.py#L30
-    python3.pkgs.ropgadget  # ref: https://github.com/pwndbg/pwndbg/blob/2022.12.19/pwndbg/commands/rop.py#L32
+    python3.pkgs.ropper # ref: https://github.com/pwndbg/pwndbg/blob/2022.12.19/pwndbg/commands/ropper.py#L30
+    python3.pkgs.ropgadget # ref: https://github.com/pwndbg/pwndbg/blob/2022.12.19/pwndbg/commands/rop.py#L32
   ]);
 
 in stdenv.mkDerivation rec {
@@ -51,7 +46,8 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Exploit Development and Reverse Engineering with GDB Made Easy";
+    description =
+      "Exploit Development and Reverse Engineering with GDB Made Easy";
     homepage = "https://github.com/pwndbg/pwndbg";
     license = licenses.mit;
     platforms = platforms.all;

@@ -1,10 +1,7 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, fontconfig, autoreconfHook, DiskArbitration
-, withJava ? false, jdk, ant
-, withAACS ? false, libaacs
-, withBDplus ? false, libbdplus
-, withMetadata ? true, libxml2
-, withFonts ? true, freetype
-}:
+{ lib, stdenv, fetchurl, fetchpatch, pkg-config, fontconfig, autoreconfHook
+, DiskArbitration, withJava ? false, jdk, ant, withAACS ? false, libaacs
+, withBDplus ? false, libbdplus, withMetadata ? true, libxml2, withFonts ? true
+, freetype }:
 
 # Info on how to use:
 # https://wiki.archlinux.org/index.php/BluRay
@@ -14,17 +11,16 @@ stdenv.mkDerivation rec {
   version = "1.3.4";
 
   src = fetchurl {
-    url = "https://get.videolan.org/libbluray/${version}/${pname}-${version}.tar.bz2";
+    url =
+      "https://get.videolan.org/libbluray/${version}/${pname}-${version}.tar.bz2";
     hash = "sha256-R4/9aKD13ejvbKmJt/A1taCiLFmRQuXNP/ewO76+Xys=";
   };
 
   nativeBuildInputs = [ pkg-config autoreconfHook ]
     ++ lib.optionals withJava [ ant ];
 
-  buildInputs = [ fontconfig ]
-    ++ lib.optional withJava jdk
-    ++ lib.optional withMetadata libxml2
-    ++ lib.optional withFonts freetype
+  buildInputs = [ fontconfig ] ++ lib.optional withJava jdk
+    ++ lib.optional withMetadata libxml2 ++ lib.optional withFonts freetype
     ++ lib.optional stdenv.isDarwin DiskArbitration;
 
   propagatedBuildInputs = lib.optional withAACS libaacs;

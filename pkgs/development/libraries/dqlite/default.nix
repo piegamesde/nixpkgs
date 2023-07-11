@@ -13,11 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook file pkg-config ];
-  buildInputs = [
-    libuv
-    raft-canonical.dev
-    sqlite
-  ];
+  buildInputs = [ libuv raft-canonical.dev sqlite ];
 
   enableParallelBuilding = true;
 
@@ -26,9 +22,7 @@ stdenv.mkDerivation rec {
 
   outputs = [ "dev" "out" ];
 
-  passthru.tests = {
-    inherit lxd;
-  };
+  passthru.tests = { inherit lxd; };
 
   meta = with lib; {
     description = ''

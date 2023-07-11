@@ -1,11 +1,7 @@
-{ stdenv, lib, fetchFromGitHub
-, cmake, wrapQtAppsHook, perl
-, flatbuffers, protobuf, mbedtls
-, hidapi, libcec, libusb1
-, libX11, libxcb, libXrandr, python3
-, qtbase, qtserialport, qtsvg, qtx11extras
-, withRPiDispmanx ? false, libraspberrypi
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, wrapQtAppsHook, perl, flatbuffers
+, protobuf, mbedtls, hidapi, libcec, libusb1, libX11, libxcb, libXrandr, python3
+, qtbase, qtserialport, qtsvg, qtx11extras, withRPiDispmanx ? false
+, libraspberrypi }:
 
 stdenv.mkDerivation rec {
   pname = "hyperion.ng";
@@ -39,14 +35,13 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional stdenv.isLinux libcec
     ++ lib.optional withRPiDispmanx libraspberrypi;
 
-  nativeBuildInputs = [
-    cmake wrapQtAppsHook
-  ] ++ lib.optional stdenv.isDarwin perl; # for macos bundle
+  nativeBuildInputs = [ cmake wrapQtAppsHook ]
+    ++ lib.optional stdenv.isDarwin perl; # for macos bundle
 
-  patchPhase =  ''
+  patchPhase = ''
     patchShebangs test/testrunner.sh
     patchShebangs src/hyperiond/CMakeLists.txt
-  '' ;
+  '';
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"

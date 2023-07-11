@@ -1,20 +1,6 @@
-{ mkXfceDerivation
-, dbus-glib
-, garcon
-, glib
-, gtk3
-, libX11
-, libXScrnSaver
-, libXrandr
-, libwnck
-, libxfce4ui
-, libxfce4util
-, libxklavier
-, pam
-, systemd
-, xfconf
-, lib
-}:
+{ mkXfceDerivation, dbus-glib, garcon, glib, gtk3, libX11, libXScrnSaver
+, libXrandr, libwnck, libxfce4ui, libxfce4util, libxklavier, pam, systemd
+, xfconf, lib }:
 
 mkXfceDerivation {
   category = "apps";
@@ -44,7 +30,7 @@ mkXfceDerivation {
 
   makeFlags = [ "DBUS_SESSION_SERVICE_DIR=$(out)/etc" ];
 
-  meta =  {
+  meta = {
     description = "Screensaver for Xfce";
     maintainers = with lib.maintainers; [ symphorien ];
   };

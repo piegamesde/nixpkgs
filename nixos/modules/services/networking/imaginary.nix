@@ -32,12 +32,8 @@ in {
         options.
       '';
       type = types.submodule {
-        freeformType = with types; attrsOf (oneOf [
-          bool
-          int
-          (nonEmptyListOf str)
-          str
-        ]);
+        freeformType = with types;
+          attrsOf (oneOf [ bool int (nonEmptyListOf str) str ]);
 
         options = {
           return-size = mkOption {
@@ -51,13 +47,16 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = ! lib.hasAttr "a" cfg.settings;
-      message = "Use services.imaginary.address to specify the -a flag.";
-    } {
-      assertion = ! lib.hasAttr "p" cfg.settings;
-      message = "Use services.imaginary.port to specify the -p flag.";
-    } ];
+    assertions = [
+      {
+        assertion = !lib.hasAttr "a" cfg.settings;
+        message = "Use services.imaginary.address to specify the -a flag.";
+      }
+      {
+        assertion = !lib.hasAttr "p" cfg.settings;
+        message = "Use services.imaginary.port to specify the -p flag.";
+      }
+    ];
 
     systemd.services.imaginary = {
       after = [ "network.target" ];
@@ -65,15 +64,20 @@ in {
       serviceConfig = rec {
         ExecStart = let
           args = lib.mapAttrsToList (key: val:
-            "-" + key + "=" + lib.concatStringsSep "," (map toString (lib.toList val))
-          ) (cfg.settings // { a = cfg.address; p = cfg.port; });
-        in "${pkgs.imaginary}/bin/imaginary ${utils.escapeSystemdExecArgs args}";
+            "-" + key + "="
+            + lib.concatStringsSep "," (map toString (lib.toList val)))
+            (cfg.settings // {
+              a = cfg.address;
+              p = cfg.port;
+            });
+        in "${pkgs.imaginary}/bin/imaginary ${
+          utils.escapeSystemdExecArgs args
+        }";
         ProtectProc = "invisible";
-        BindReadOnlyPaths = lib.optional (cfg.settings ? mount) cfg.settings.mount;
-        CapabilityBoundingSet = if cfg.port < 1024 then
-          [ "CAP_NET_BIND_SERVICE" ]
-        else
-          [ "" ];
+        BindReadOnlyPaths =
+          lib.optional (cfg.settings ? mount) cfg.settings.mount;
+        CapabilityBoundingSet =
+          if cfg.port < 1024 then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
         AmbientCapabilities = CapabilityBoundingSet;
         NoNewPrivileges = true;
         DynamicUser = true;
@@ -89,25 +93,17 @@ in {
         ProtectKernelModules = true;
         ProtectKernelLogs = true;
         ProtectControlGroups = true;
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
         RestrictNamespaces = true;
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         RestrictRealtime = true;
         PrivateMounts = true;
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-        ];
+        SystemCallFilter = [ "@system-service" "~@privileged" ];
         DevicePolicy = "closed";
       };
     };
   };
 
-  meta = {
-    maintainers = with lib.maintainers; [ dotlambda ];
-  };
+  meta = { maintainers = with lib.maintainers; [ dotlambda ]; };
 }

@@ -85,9 +85,7 @@ let
       }
     '';
 
-    passthru = {
-      inherit plugins withPlugins;
-    };
+    passthru = { inherit plugins withPlugins; };
 
     meta = with lib; {
       description = "Autoscaling daemon for Nomad";
@@ -98,13 +96,14 @@ let
   };
 
   plugins = let
-      plugins = builtins.filter (n: !(lib.elem n [ "out" "bin" ])) package.outputs;
-    in lib.genAttrs plugins (output: package.${output});
+    plugins =
+      builtins.filter (n: !(lib.elem n [ "out" "bin" ])) package.outputs;
+  in lib.genAttrs plugins (output: package.${output});
 
   # Intended to be used as: (nomad-autoscaler.withPlugins (ps: [ ps.aws_asg ps.nomad_target ])
-  withPlugins = f: buildEnv {
-    name = "nomad-autoscaler-env";
-    paths = [ package.bin ] ++ f plugins;
-  };
-in
-  package
+  withPlugins = f:
+    buildEnv {
+      name = "nomad-autoscaler-env";
+      paths = [ package.bin ] ++ f plugins;
+    };
+in package

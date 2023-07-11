@@ -1,12 +1,4 @@
-{ lib
-, fetchFromGitHub
-, icu
-, libkiwix
-, meson
-, ninja
-, pkg-config
-, stdenv
-}:
+{ lib, fetchFromGitHub, icu, libkiwix, meson, ninja, pkg-config, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "kiwix-tools";
@@ -19,16 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-r3/aTH/YoDuYpKLPakP4toS3OtiRueTUjmR34rdmr+w=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
 
-  buildInputs = [
-    icu
-    libkiwix
-  ];
+  buildInputs = [ icu libkiwix ];
 
   meta = with lib; {
     description = "Command line Kiwix tools: kiwix-serve, kiwix-manage, ...";

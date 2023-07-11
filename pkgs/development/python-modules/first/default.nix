@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "first";
@@ -18,9 +14,7 @@ buildPythonPackage rec {
 
   doCheck = false; # no tests
 
-  pythonImportsCheck = [
-    "first"
-  ];
+  pythonImportsCheck = [ "first" ];
 
   meta = with lib; {
     description = "The function you always missed in Python";

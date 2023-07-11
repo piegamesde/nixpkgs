@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, installShellFiles, Security, libiconv, Libsystem }:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, installShellFiles, Security
+, libiconv, Libsystem }:
 
 rustPlatform.buildRustPackage rec {
   pname = "procs";
@@ -31,6 +32,10 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/dalance/procs";
     changelog = "https://github.com/dalance/procs/raw/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ Br1ght0ne SuperSandro2000 sciencentistguy ];
+    maintainers = with maintainers; [
+      Br1ght0ne
+      SuperSandro2000
+      sciencentistguy
+    ];
   };
 }

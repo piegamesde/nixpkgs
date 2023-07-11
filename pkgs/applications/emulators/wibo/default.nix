@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchzip
-, srcOnly
-, cmake
-, unzip
-}:
+{ lib, stdenv, fetchFromGitHub, fetchzip, srcOnly, cmake, unzip }:
 
 stdenv.mkDerivation rec {
   pname = "wibo";
@@ -18,10 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-J5h/RpF+twb5fBjSDQMVB5SoTWWs8VD/EUuikuj73YA=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    unzip
-  ];
+  nativeBuildInputs = [ cmake unzip ];
 
   doCheck = false;
   # Test step from https://github.com/decompals/wibo/blob/main/.github/workflows/ci.yml
@@ -29,7 +19,8 @@ stdenv.mkDerivation rec {
     gc = srcOnly {
       name = "GC_WII_COMPILERS";
       src = fetchzip {
-        url = "https://cdn.discordapp.com/attachments/727918646525165659/917185027656286218/GC_WII_COMPILERS.zip";
+        url =
+          "https://cdn.discordapp.com/attachments/727918646525165659/917185027656286218/GC_WII_COMPILERS.zip";
         hash = "sha256-o+UrmIbCsa74LxtLofT0DKrTRgT0qDK5/V7GsG2Zprc=";
         stripRoot = false;
       };

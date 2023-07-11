@@ -1,19 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, pkg-config
-, meson
-, ninja
-, vala
-, python3
-, gtk3
-, glib
-, granite
-, libgee
-, libhandy
-, wrapGAppsHook
-, appstream
+{ lib, stdenv, fetchFromGitHub, nix-update-script, pkg-config, meson, ninja
+, vala, python3, gtk3, glib, granite, libgee, libhandy, wrapGAppsHook, appstream
 }:
 
 stdenv.mkDerivation rec {
@@ -35,32 +21,16 @@ stdenv.mkDerivation rec {
     ./fix-metadata-path.patch
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-    vala
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config python3 vala wrapGAppsHook ];
 
-  buildInputs = [
-    appstream
-    granite
-    gtk3
-    libgee
-    libhandy
-    glib
-  ];
+  buildInputs = [ appstream granite gtk3 libgee libhandy glib ];
 
   postPatch = ''
     chmod +x meson/post_install.py
     patchShebangs meson/post_install.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "GitHub Issue Reporter designed for elementary OS";

@@ -1,11 +1,5 @@
-{ lib
-, aiohttp
-, async-timeout
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, pythonOlder
-}:
+{ lib, aiohttp, async-timeout, buildPythonPackage, cryptography, fetchFromGitHub
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "millheater";
@@ -21,18 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-ImEg+VEiASQPnMeZzbYMMb+ZgcsxagQcN9IDFGO05Vw=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    async-timeout
-    cryptography
-  ];
+  propagatedBuildInputs = [ aiohttp async-timeout cryptography ];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "mill"
-  ];
+  pythonImportsCheck = [ "mill" ];
 
   meta = with lib; {
     description = "Python library for Mill heater devices";

@@ -1,43 +1,10 @@
-{ lib
-, aiohttp
-, asgiref
-, backports-cached-property
-, buildPythonPackage
-, chalice
-, channels
-, click
-, daphne
-, django
-, email-validator
-, fastapi
-, fetchFromGitHub
-, fetchpatch
-, flask
-, freezegun
-, graphql-core
-, libcst
-, mypy
-, poetry-core
-, pydantic
-, pygments
-, pyinstrument
-, pytest-aiohttp
-, pytest-asyncio
-, pytest-django
-, pytest-emoji
-, pytest-flask
-, pytest-snapshot
-, pytestCheckHook
-, python-dateutil
-, python-multipart
-, pythonOlder
-, rich
-, sanic
-, sanic-testing
-, starlette
-, typing-extensions
-, uvicorn
-}:
+{ lib, aiohttp, asgiref, backports-cached-property, buildPythonPackage, chalice
+, channels, click, daphne, django, email-validator, fastapi, fetchFromGitHub
+, fetchpatch, flask, freezegun, graphql-core, libcst, mypy, poetry-core
+, pydantic, pygments, pyinstrument, pytest-aiohttp, pytest-asyncio
+, pytest-django, pytest-emoji, pytest-flask, pytest-snapshot, pytestCheckHook
+, python-dateutil, python-multipart, pythonOlder, rich, sanic, sanic-testing
+, starlette, typing-extensions, uvicorn }:
 
 buildPythonPackage rec {
   pname = "strawberry-graphql";
@@ -56,7 +23,8 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       name = "switch-to-poetry-core.patch";
-      url = "https://github.com/strawberry-graphql/strawberry/commit/710bb96f47c244e78fc54c921802bcdb48f5f421.patch";
+      url =
+        "https://github.com/strawberry-graphql/strawberry/commit/710bb96f47c244e78fc54c921802bcdb48f5f421.patch";
       hash = "sha256-ekUZ2hDPCqwXp9n0YjBikwSkhCmVKUzQk7LrPECcD7Y=";
     })
   ];
@@ -66,80 +34,32 @@ buildPythonPackage rec {
       --replace " --emoji --mypy-ini-file=mypy.ini --benchmark-disable" "" \
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    graphql-core
-    python-dateutil
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ graphql-core python-dateutil typing-extensions ];
 
   passthru.optional-dependencies = {
-    aiohttp = [
-      aiohttp
-      pytest-aiohttp
-    ];
-    asgi = [
-      starlette
-      python-multipart
-    ];
-    debug = [
-      rich
-      libcst
-    ];
-    debug-server = [
-      click
-      libcst
-      pygments
-      python-multipart
-      rich
-      starlette
-      uvicorn
-    ];
-    django = [
-      django
-      pytest-django
-      asgiref
-    ];
-    channels = [
-      channels
-      asgiref
-    ];
-    flask = [
-      flask
-      pytest-flask
-    ];
+    aiohttp = [ aiohttp pytest-aiohttp ];
+    asgi = [ starlette python-multipart ];
+    debug = [ rich libcst ];
+    debug-server =
+      [ click libcst pygments python-multipart rich starlette uvicorn ];
+    django = [ django pytest-django asgiref ];
+    channels = [ channels asgiref ];
+    flask = [ flask pytest-flask ];
     # opentelemetry = [
     #   opentelemetry-api
     #   opentelemetry-sdk
     # ];
-    pydantic = [
-      pydantic
-    ];
-    sanic = [
-      sanic
-    ];
-    fastapi = [
-      fastapi
-      python-multipart
-    ];
-    chalice = [
-      chalice
-    ];
-    cli = [
-      click
-      pygments
-      rich
-      libcst
-    ];
+    pydantic = [ pydantic ];
+    sanic = [ sanic ];
+    fastapi = [ fastapi python-multipart ];
+    chalice = [ chalice ];
+    cli = [ click pygments rich libcst ];
     # starlite = [
     #   starlite
     # ];
-    pyinstrument = [
-      pyinstrument
-    ];
+    pyinstrument = [ pyinstrument ];
   };
 
   nativeCheckInputs = [
@@ -154,9 +74,7 @@ buildPythonPackage rec {
     sanic-testing
   ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
-  pythonImportsCheck = [
-    "strawberry"
-  ];
+  pythonImportsCheck = [ "strawberry" ];
 
   disabledTestPaths = [
     "tests/benchmarks/"
@@ -173,9 +91,11 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "A GraphQL library for Python that leverages type annotations";
+    description =
+      "A GraphQL library for Python that leverages type annotations";
     homepage = "https://strawberry.rocks";
-    changelog = "https://github.com/strawberry-graphql/strawberry/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/strawberry-graphql/strawberry/blob/${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ izorkin ];
   };

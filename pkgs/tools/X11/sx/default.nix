@@ -1,9 +1,4 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, patsh
-, xorg
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, patsh, xorg }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "sx";
@@ -20,17 +15,15 @@ stdenvNoCC.mkDerivation rec {
 
   nativeBuildInputs = [ patsh ];
 
-  buildInputs = [
-    xorg.xauth
-    xorg.xorgserver
-  ];
+  buildInputs = [ xorg.xauth xorg.xorgserver ];
 
   postInstall = ''
     patsh -f $out/bin/sx -s ${builtins.storeDir}
   '';
 
   meta = with lib; {
-    description = "Simple alternative to both xinit and startx for starting a Xorg server";
+    description =
+      "Simple alternative to both xinit and startx for starting a Xorg server";
     homepage = "https://github.com/earnestly/sx";
     license = licenses.mit;
     platforms = platforms.linux;

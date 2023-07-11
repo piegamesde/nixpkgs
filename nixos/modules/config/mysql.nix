@@ -2,13 +2,12 @@
 
 with lib;
 
-let
-  cfg = config.users.mysql;
-in
-{
+let cfg = config.users.mysql;
+in {
   options = {
     users.mysql = {
-      enable = mkEnableOption (lib.mdDoc "Authentication against a MySQL/MariaDB database");
+      enable = mkEnableOption
+        (lib.mdDoc "Authentication against a MySQL/MariaDB database");
       host = mkOption {
         type = types.str;
         example = "localhost";
@@ -22,12 +21,14 @@ in
       user = mkOption {
         type = types.str;
         example = "nss-user";
-        description = lib.mdDoc "The username to use when connecting to the database";
+        description =
+          lib.mdDoc "The username to use when connecting to the database";
       };
       passwordFile = mkOption {
         type = types.path;
         example = "/run/secrets/mysql-auth-db-passwd";
-        description = lib.mdDoc "The path to the file containing the password for the user";
+        description =
+          lib.mdDoc "The path to the file containing the password for the user";
       };
       pam = mkOption {
         description = lib.mdDoc "Settings for `pam_mysql`";
@@ -36,7 +37,8 @@ in
             table = mkOption {
               type = types.str;
               example = "users";
-              description = lib.mdDoc "The name of table that maps unique login names to the passwords.";
+              description = lib.mdDoc
+                "The name of table that maps unique login names to the passwords.";
             };
             updateTable = mkOption {
               type = types.nullOr types.str;
@@ -50,12 +52,14 @@ in
             userColumn = mkOption {
               type = types.str;
               example = "username";
-              description = lib.mdDoc "The name of the column that contains a unix login name.";
+              description = lib.mdDoc
+                "The name of the column that contains a unix login name.";
             };
             passwordColumn = mkOption {
               type = types.str;
               example = "password";
-              description = lib.mdDoc "The name of the column that contains a (encrypted) password string.";
+              description = lib.mdDoc
+                "The name of the column that contains a (encrypted) password string.";
             };
             statusColumn = mkOption {
               type = types.nullOr types.str;
@@ -80,16 +84,26 @@ in
             passwordCrypt = mkOption {
               example = "2";
               type = types.enum [
-                "0" "plain"
-                "1" "Y"
-                "2" "mysql"
-                "3" "md5"
-                "4" "sha1"
-                "5" "drupal7"
-                "6" "joomla15"
-                "7" "ssha"
-                "8" "sha512"
-                "9" "sha256"
+                "0"
+                "plain"
+                "1"
+                "Y"
+                "2"
+                "mysql"
+                "3"
+                "md5"
+                "4"
+                "sha1"
+                "5"
+                "drupal7"
+                "6"
+                "joomla15"
+                "7"
+                "ssha"
+                "8"
+                "sha512"
+                "9"
+                "sha256"
               ];
               description = lib.mdDoc ''
                 The method to encrypt the user's password:
@@ -120,10 +134,12 @@ in
               '';
             };
             cryptDefault = mkOption {
-              type = types.nullOr (types.enum [ "md5" "sha256" "sha512" "blowfish" ]);
+              type = types.nullOr
+                (types.enum [ "md5" "sha256" "sha512" "blowfish" ]);
               default = null;
               example = "blowfish";
-              description = lib.mdDoc "The default encryption method to use for `passwordCrypt = 1`.";
+              description = lib.mdDoc
+                "The default encryption method to use for `passwordCrypt = 1`.";
             };
             where = mkOption {
               type = types.nullOr types.str;
@@ -153,12 +169,14 @@ in
               enable = mkOption {
                 type = types.bool;
                 default = false;
-                description = lib.mdDoc "Enables logging of authentication attempts in the MySQL database.";
+                description = lib.mdDoc
+                  "Enables logging of authentication attempts in the MySQL database.";
               };
               table = mkOption {
                 type = types.str;
                 example = "logs";
-                description = lib.mdDoc "The name of the table to which logs are written.";
+                description =
+                  lib.mdDoc "The name of the table to which logs are written.";
               };
               msgColumn = mkOption {
                 type = types.str;
@@ -367,7 +385,9 @@ in
         users.user_column=${cfg.pam.userColumn}
         users.password_column=${cfg.pam.passwordColumn}
         users.password_crypt=${cfg.pam.passwordCrypt}
-        users.disconnect_every_operation=${if cfg.pam.disconnectEveryOperation then "1" else "0"}
+        users.disconnect_every_operation=${
+          if cfg.pam.disconnectEveryOperation then "1" else "0"
+        }
         verbose=${if cfg.pam.verbose then "1" else "0"}
       '' + optionalString (cfg.pam.cryptDefault != null) ''
         users.use_${cfg.pam.cryptDefault}=1

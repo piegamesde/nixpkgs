@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchPypi, buildPythonPackage, pythonAtLeast, dnspython, pyasn1 }:
+{ stdenv, lib, fetchPypi, buildPythonPackage, pythonAtLeast, dnspython, pyasn1
+}:
 
 buildPythonPackage rec {
   pname = "sleekxmpp";
@@ -8,9 +9,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ dnspython pyasn1 ];
 
-  patches = [
-    ./dnspython-ip6.patch
-  ];
+  patches = [ ./dnspython-ip6.patch ];
 
   src = fetchPypi {
     inherit pname version;

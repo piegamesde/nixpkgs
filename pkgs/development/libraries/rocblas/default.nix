@@ -1,41 +1,16 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, cmake
-, rocm-cmake
-, hip
-, python3
-, tensile
-, msgpack
-, libxml2
-, gtest
-, gfortran
-, openmp
-, amd-blis
-, python3Packages
-, buildTensile ? true
-, buildTests ? false
-, buildBenchmarks ? false
-, tensileLogic ? "asm_full"
-, tensileCOVersion ? "V3"
-, tensileSepArch ? true
-, tensileLazyLib ? true
-, tensileLibFormat ? "msgpack"
-, gpuTargets ? [ "all" ]
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake, hip
+, python3, tensile, msgpack, libxml2, gtest, gfortran, openmp, amd-blis
+, python3Packages, buildTensile ? true, buildTests ? false
+, buildBenchmarks ? false, tensileLogic ? "asm_full", tensileCOVersion ? "V3"
+, tensileSepArch ? true, tensileLazyLib ? true, tensileLibFormat ? "msgpack"
+, gpuTargets ? [ "all" ] }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocblas";
   version = "5.4.3";
 
-  outputs = [
-    "out"
-  ] ++ lib.optionals buildTests [
-    "test"
-  ] ++ lib.optionals buildBenchmarks [
-    "benchmark"
-  ];
+  outputs = [ "out" ] ++ lib.optionals buildTests [ "test" ]
+    ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
   src = fetchFromGitHub {
     owner = "ROCmSoftwarePlatform";
@@ -44,27 +19,17 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-XhYpzBXviMnUdbF6lZi9g0LARKpzWLtDxJxLI3MuHiM=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    rocm-cmake
-    hip
-  ];
+  nativeBuildInputs = [ cmake rocm-cmake hip ];
 
-  buildInputs = [
-    python3
-  ] ++ lib.optionals buildTensile [
-    msgpack
-    libxml2
-    python3Packages.msgpack
-  ] ++ lib.optionals buildTests [
-    gtest
-  ] ++ lib.optionals (buildTests || buildBenchmarks) [
-    gfortran
-    openmp
-    amd-blis
-  ] ++ lib.optionals (buildTensile || buildTests || buildBenchmarks) [
-    python3Packages.pyyaml
-  ];
+  buildInputs = [ python3 ]
+    ++ lib.optionals buildTensile [ msgpack libxml2 python3Packages.msgpack ]
+    ++ lib.optionals buildTests [ gtest ]
+    ++ lib.optionals (buildTests || buildBenchmarks) [
+      gfortran
+      openmp
+      amd-blis
+    ] ++ lib.optionals (buildTensile || buildTests || buildBenchmarks)
+    [ python3Packages.pyyaml ];
 
   cmakeFlags = [
     "-DCMAKE_C_COMPILER=hipcc"
@@ -86,13 +51,10 @@ stdenv.mkDerivation (finalAttrs: {
     "-DTensile_SEPARATE_ARCHITECTURES=${if tensileSepArch then "ON" else "OFF"}"
     "-DTensile_LAZY_LIBRARY_LOADING=${if tensileLazyLib then "ON" else "OFF"}"
     "-DTensile_LIBRARY_FORMAT=${tensileLibFormat}"
-  ] ++ lib.optionals buildTests [
-    "-DBUILD_CLIENTS_TESTS=ON"
-  ] ++ lib.optionals buildBenchmarks [
-    "-DBUILD_CLIENTS_BENCHMARKS=ON"
-  ] ++ lib.optionals (buildTests || buildBenchmarks) [
-    "-DCMAKE_CXX_FLAGS=-I${amd-blis}/include/blis"
-  ];
+  ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
+    ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
+    ++ lib.optionals (buildTests || buildBenchmarks)
+    [ "-DCMAKE_CXX_FLAGS=-I${amd-blis}/include/blis" ];
 
   # Tensile REALLY wants to write to the nix directory if we include it normally
   postPatch = lib.optionalString buildTensile ''
@@ -116,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $benchmark/bin
     cp -a $out/bin/* $benchmark/bin
     rm $benchmark/bin/*-test || true
-  '' + lib.optionalString (buildTests || buildBenchmarks ) ''
+  '' + lib.optionalString (buildTests || buildBenchmarks) ''
     rm -rf $out/bin
   '';
 

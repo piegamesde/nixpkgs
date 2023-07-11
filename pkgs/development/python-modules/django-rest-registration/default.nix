@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, django
-, djangorestframework
-, fetchFromGitHub
-, pytest-django
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, django, djangorestframework, fetchFromGitHub
+, pytest-django, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "django-rest-registration";
@@ -22,19 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-JoIeVjl5s60ilq9kU28Jo+GaYRKU61hoqy1GzYmMdZQ=";
   };
 
-  propagatedBuildInputs = [
-    django
-    djangorestframework
-  ];
+  propagatedBuildInputs = [ django djangorestframework ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-django
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-django ];
 
-  pythonImportsCheck = [
-    "rest_registration"
-  ];
+  pythonImportsCheck = [ "rest_registration" ];
 
   disabledTests = [
     # This test fails on Python 3.10
@@ -44,9 +29,11 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "User-related REST API based on the awesome Django REST Framework";
+    description =
+      "User-related REST API based on the awesome Django REST Framework";
     homepage = "https://github.com/apragacz/django-rest-registration/";
-    changelog = "https://github.com/apragacz/django-rest-registration/releases/tag/${version}";
+    changelog =
+      "https://github.com/apragacz/django-rest-registration/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ sephi ];
   };

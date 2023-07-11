@@ -1,13 +1,5 @@
-{ lib
-, buildMozillaMach
-, cacert
-, fetchFromGitHub
-, fetchurl
-, git
-, libdbusmenu-gtk3
-, runtimeShell
-, thunderbird-unwrapped
-}:
+{ lib, buildMozillaMach, cacert, fetchFromGitHub, fetchurl, git
+, libdbusmenu-gtk3, runtimeShell, thunderbird-unwrapped }:
 
 ((buildMozillaMach rec {
   pname = "betterbird";
@@ -19,8 +11,10 @@
 
   src = fetchurl {
     # https://download.cdn.mozilla.net/pub/mozilla.org/thunderbird/releases/
-    url = "mirror://mozilla/thunderbird/releases/${version}/source/thunderbird-${version}.source.tar.xz";
-    sha512 = "2431eb8799184b261609c96bed3c9368bec9035a831aa5f744fa89e48aedb130385b268dd90f03bbddfec449dc3e5fad1b5f8727fe9e11e1d1f123a81b97ddf8";
+    url =
+      "mirror://mozilla/thunderbird/releases/${version}/source/thunderbird-${version}.source.tar.xz";
+    sha512 =
+      "2431eb8799184b261609c96bed3c9368bec9035a831aa5f744fa89e48aedb130385b268dd90f03bbddfec449dc3e5fad1b5f8727fe9e11e1d1f123a81b97ddf8";
   };
 
   extraPostPatch = let
@@ -46,7 +40,8 @@
       '';
       sha256 = "sha256-ouJSFz/5shNR9puVjrZRJq90DHTeSx7hAnDpuhkBsDo=";
     };
-  in thunderbird-unwrapped.extraPostPatch or "" + /* bash */ ''
+  in thunderbird-unwrapped.extraPostPatch or "" + # bash
+  ''
     PATH=$PATH:${lib.makeBinPath [ git ]}
     patches=$(mktemp -d)
     for dir in branding bugs external features misc; do
@@ -58,8 +53,12 @@
     cd $patches
     patch -p1 < ${./betterbird.diff}
     substituteInPlace 12-feature-linux-systray.patch \
-      --replace "/usr/include/libdbusmenu-glib-0.4/" "${lib.getDev libdbusmenu-gtk3}/include/libdbusmenu-glib-0.4/" \
-      --replace "/usr/include/libdbusmenu-gtk3-0.4/" "${lib.getDev libdbusmenu-gtk3}/include/libdbusmenu-gtk3-0.4/"
+      --replace "/usr/include/libdbusmenu-glib-0.4/" "${
+        lib.getDev libdbusmenu-gtk3
+      }/include/libdbusmenu-glib-0.4/" \
+      --replace "/usr/include/libdbusmenu-gtk3-0.4/" "${
+        lib.getDev libdbusmenu-gtk3
+      }/include/libdbusmenu-gtk3-0.4/"
     cd -
 
     chmod -R +w dom/base/test/gtest/
@@ -82,9 +81,7 @@
     done < <(cat $patches/series $patches/series-M-C)
   '';
 
-  extraBuildInputs = [
-    libdbusmenu-gtk3
-  ];
+  extraBuildInputs = [ libdbusmenu-gtk3 ];
 
   extraConfigureFlags = [
     "--enable-application=comm/mail"
@@ -92,7 +89,8 @@
   ];
 
   meta = with lib; {
-    description = "Betterbird is a fine-tuned version of Mozilla Thunderbird, Thunderbird on steroids, if you will";
+    description =
+      "Betterbird is a fine-tuned version of Mozilla Thunderbird, Thunderbird on steroids, if you will";
     homepage = "https://www.betterbird.eu/";
     maintainers = with maintainers; [ SuperSandro2000 ];
     inherit (thunderbird-unwrapped.meta) platforms badPlatforms broken license;
@@ -102,8 +100,9 @@
   geolocationSupport = false;
   webrtcSupport = false;
 
-  pgoSupport = false; # console.warn: feeds: "downloadFeed: network connection unavailable"
-}).overrideAttrs(oldAttrs: {
+  pgoSupport =
+    false; # console.warn: feeds: "downloadFeed: network connection unavailable"
+}).overrideAttrs (oldAttrs: {
   postInstall = oldAttrs.postInstall or "" + ''
     mv $out/lib/thunderbird/* $out/lib/betterbird
     rmdir $out/lib/thunderbird/
@@ -112,5 +111,5 @@
   '';
 
   doInstallCheck = false;
-  requiredSystemFeatures = [];
+  requiredSystemFeatures = [ ];
 })

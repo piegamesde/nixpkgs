@@ -1,26 +1,7 @@
-{ lib
-, attrs
-, buildPythonPackage
-, commonmark
-, fetchFromGitHub
-, flit-core
-, linkify-it-py
-, markdown
-, mdurl
-, mistletoe
-, mistune
-, myst-parser
-, panflute
-, pyyaml
-, sphinx
-, sphinx-book-theme
-, sphinx-copybutton
-, sphinx-design
-, stdenv
-, pytest-regressions
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, attrs, buildPythonPackage, commonmark, fetchFromGitHub, flit-core
+, linkify-it-py, markdown, mdurl, mistletoe, mistune, myst-parser, panflute
+, pyyaml, sphinx, sphinx-book-theme, sphinx-copybutton, sphinx-design, stdenv
+, pytest-regressions, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "markdown-it-py";
@@ -36,18 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-qdRU1BxczFDGoIEtl0ZMkKNn4p5tec8YuPt5ZwX5fYM=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    mdurl
-  ];
+  propagatedBuildInputs = [ mdurl ];
 
-  nativeCheckInputs = [
-    pytest-regressions
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.linkify;
+  nativeCheckInputs = [ pytest-regressions pytestCheckHook ]
+    ++ passthru.optional-dependencies.linkify;
 
   # disable and remove benchmark tests
   preCheck = ''
@@ -55,20 +30,27 @@ buildPythonPackage rec {
   '';
   doCheck = !stdenv.isi686;
 
-  pythonImportsCheck = [
-    "markdown_it"
-  ];
+  pythonImportsCheck = [ "markdown_it" ];
 
   passthru.optional-dependencies = {
     compare = [ commonmark markdown mistletoe mistune panflute ];
     linkify = [ linkify-it-py ];
-    rtd = [ attrs myst-parser pyyaml sphinx sphinx-copybutton sphinx-design sphinx-book-theme ];
+    rtd = [
+      attrs
+      myst-parser
+      pyyaml
+      sphinx
+      sphinx-copybutton
+      sphinx-design
+      sphinx-book-theme
+    ];
   };
 
   meta = with lib; {
     description = "Markdown parser in Python";
     homepage = "https://markdown-it-py.readthedocs.io/";
-    changelog = "https://github.com/executablebooks/markdown-it-py/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/executablebooks/markdown-it-py/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ bhipple ];
   };

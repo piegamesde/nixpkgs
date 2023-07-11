@@ -1,5 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, openssl
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "srt";
@@ -29,9 +28,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Secure, Reliable, Transport";
-    homepage    = "https://github.com/Haivision/srt";
-    license     = licenses.mpl20;
+    homepage = "https://github.com/Haivision/srt";
+    license = licenses.mpl20;
     maintainers = with maintainers; [ nh2 ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
   };
 }

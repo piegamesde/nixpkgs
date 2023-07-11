@@ -1,22 +1,6 @@
-{ lib
-, aiohttp
-, platformdirs
-, buildPythonPackage
-, docutils
-, fetchFromGitHub
-, flaky
-, installShellFiles
-, packaging
-, pycurl
-, pytest-asyncio
-, pytest-httpbin
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, structlog
-, tomli
-, tornado
-}:
+{ lib, aiohttp, platformdirs, buildPythonPackage, docutils, fetchFromGitHub
+, flaky, installShellFiles, packaging, pycurl, pytest-asyncio, pytest-httpbin
+, pytestCheckHook, pythonOlder, setuptools, structlog, tomli, tornado }:
 
 buildPythonPackage rec {
   pname = "nvchecker";
@@ -32,10 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-b/EGn26gTpnYuy2h6shnJI1dRwhl41eKJHzDJoFG1YI=";
   };
 
-  nativeBuildInputs = [
-    docutils
-    installShellFiles
-  ];
+  nativeBuildInputs = [ docutils installShellFiles ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -48,12 +29,7 @@ buildPythonPackage rec {
     tornado
   ];
 
-  nativeCheckInputs = [
-    flaky
-    pytest-asyncio
-    pytest-httpbin
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ flaky pytest-asyncio pytest-httpbin pytestCheckHook ];
 
   postBuild = ''
     patchShebangs docs/myrst2man.py
@@ -64,13 +40,9 @@ buildPythonPackage rec {
     installManPage docs/_build/man/nvchecker.1
   '';
 
-  pythonImportsCheck = [
-    "nvchecker"
-  ];
+  pythonImportsCheck = [ "nvchecker" ];
 
-  pytestFlagsArray = [
-    "-m 'not needs_net'"
-  ];
+  pytestFlagsArray = [ "-m 'not needs_net'" ];
 
   meta = with lib; {
     homepage = "https://github.com/lilydjwg/nvchecker";

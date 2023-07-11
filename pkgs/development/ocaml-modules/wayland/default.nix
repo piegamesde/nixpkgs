@@ -1,14 +1,5 @@
-{ lib
-, buildDunePackage
-, fetchurl
-, xmlm
-, lwt
-, logs
-, fmt
-, cstruct
-, cmdliner
-, alcotest-lwt
-}:
+{ lib, buildDunePackage, fetchurl, xmlm, lwt, logs, fmt, cstruct, cmdliner
+, alcotest-lwt }:
 
 buildDunePackage rec {
   pname = "wayland";
@@ -18,25 +9,16 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/talex5/ocaml-wayland/releases/download/v${version}/wayland-${version}.tbz";
+    url =
+      "https://github.com/talex5/ocaml-wayland/releases/download/v${version}/wayland-${version}.tbz";
     sha256 = "0b7czgh08i6xcx3fsz6vd19sfyngwi0i27jdzg8cnjgrgwnagv6d";
   };
 
-  propagatedBuildInputs = [
-    lwt
-    logs
-    fmt
-    cstruct
-  ];
+  propagatedBuildInputs = [ lwt logs fmt cstruct ];
 
-  buildInputs = [
-    cmdliner
-    xmlm
-  ];
+  buildInputs = [ cmdliner xmlm ];
 
-  checkInputs = [
-    alcotest-lwt
-  ];
+  checkInputs = [ alcotest-lwt ];
   doCheck = true;
 
   meta = {

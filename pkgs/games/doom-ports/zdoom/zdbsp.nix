@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchzip
-, cmake
-, zlib
-}:
+{ lib, stdenv, fetchzip, cmake, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "zdbsp";
@@ -15,13 +10,9 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    zlib
-  ];
+  buildInputs = [ zlib ];
 
   installPhase = ''
     install -Dm755 zdbsp $out/bin/zdbsp

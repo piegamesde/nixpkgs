@@ -1,10 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, eth-utils
-, hypothesis
-, pytestCheckHook
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, eth-utils, hypothesis
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "rlp";
@@ -22,14 +17,9 @@ buildPythonPackage rec {
       --replace "'setuptools-markdown'" ""
   '';
 
-  propagatedBuildInputs = [
-    eth-utils
-  ];
+  propagatedBuildInputs = [ eth-utils ];
 
-  nativeCheckInputs = [
-    hypothesis
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ hypothesis pytestCheckHook ];
 
   pythonImportsCheck = [ "rlp" ];
 

@@ -15,22 +15,18 @@ python3.pkgs.buildPythonApplication rec {
     sed -i '/addopts/d' setup.cfg
   '';
 
-  propagatedBuildInputs = with python3.pkgs; [
-    defusedxml
-    passlib
-    vobject
-    python-dateutil
-    pytz # https://github.com/Kozea/Radicale/issues/816
-  ] ++ passlib.optional-dependencies.bcrypt;
+  propagatedBuildInputs = with python3.pkgs;
+    [
+      defusedxml
+      passlib
+      vobject
+      python-dateutil
+      pytz # https://github.com/Kozea/Radicale/issues/816
+    ] ++ passlib.optional-dependencies.bcrypt;
 
-  nativeCheckInputs = with python3.pkgs; [
-    pytestCheckHook
-    waitress
-  ];
+  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook waitress ];
 
-  passthru.tests = {
-    inherit (nixosTests) radicale;
-  };
+  passthru.tests = { inherit (nixosTests) radicale; };
 
   meta = with lib; {
     homepage = "https://radicale.org/v3.html";

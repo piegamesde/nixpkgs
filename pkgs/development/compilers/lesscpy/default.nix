@@ -1,7 +1,7 @@
 { stdenv, lib, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
-  pname   = "lesscpy";
+  pname = "lesscpy";
   version = "0.13.0";
 
   src = python3Packages.fetchPypi {
@@ -13,12 +13,13 @@ python3Packages.buildPythonApplication rec {
   pythonImportsCheck = [ "lesscpy" ];
   propagatedBuildInputs = with python3Packages; [ ply six ];
 
-  doCheck = false; # Really weird test failures (`nix-build-python2.css not found`)
+  doCheck =
+    false; # Really weird test failures (`nix-build-python2.css not found`)
 
   meta = with lib; {
     description = "Python LESS Compiler";
-    homepage    = "https://github.com/lesscpy/lesscpy";
-    license     = licenses.mit;
+    homepage = "https://github.com/lesscpy/lesscpy";
+    license = licenses.mit;
     maintainers = with maintainers; [ s1341 ];
   };
 }

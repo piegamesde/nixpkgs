@@ -1,23 +1,6 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, setuptools
-, setuptools-scm
-, idna
-, sniffio
-, typing-extensions
-, curio
-, hypothesis
-, mock
-, pytest-mock
-, pytest-xdist
-, pytestCheckHook
-, trio
-, trustme
-, uvloop
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, pythonOlder, setuptools
+, setuptools-scm, idna, sniffio, typing-extensions, curio, hypothesis, mock
+, pytest-mock, pytest-xdist, pytestCheckHook, trio, trustme, uvloop }:
 
 buildPythonPackage rec {
   pname = "anyio";
@@ -36,17 +19,10 @@ buildPythonPackage rec {
     export SETUPTOOLS_SCM_PRETEND_VERSION=${version}
   '';
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
-  propagatedBuildInputs = [
-    idna
-    sniffio
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ idna sniffio ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   # trustme uses pyopenssl
   doCheck = !(stdenv.isDarwin && stdenv.isAarch64);
@@ -60,13 +36,9 @@ buildPythonPackage rec {
     trio
     trustme
     uvloop
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    mock
-  ];
+  ] ++ lib.optionals (pythonOlder "3.8") [ mock ];
 
-  pytestFlagsArray = [
-    "-W" "ignore::trio.TrioDeprecationWarning"
-  ];
+  pytestFlagsArray = [ "-W" "ignore::trio.TrioDeprecationWarning" ];
 
   disabledTests = [
     # block devices access
@@ -92,8 +64,10 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "anyio" ];
 
   meta = with lib; {
-    changelog = "https://github.com/agronholm/anyio/blob/${src.rev}/docs/versionhistory.rst";
-    description = "High level compatibility layer for multiple asynchronous event loop implementations on Python";
+    changelog =
+      "https://github.com/agronholm/anyio/blob/${src.rev}/docs/versionhistory.rst";
+    description =
+      "High level compatibility layer for multiple asynchronous event loop implementations on Python";
     homepage = "https://github.com/agronholm/anyio";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];

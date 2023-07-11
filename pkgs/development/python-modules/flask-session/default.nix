@@ -19,7 +19,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "flask_session" ];
 
   meta = with lib; {
-    description = "A Flask extension that adds support for server-side sessions";
+    description =
+      "A Flask extension that adds support for server-side sessions";
     homepage = "https://github.com/fengsp/flask-session";
     license = licenses.bsd3;
     maintainers = with maintainers; [ zhaofengli ];

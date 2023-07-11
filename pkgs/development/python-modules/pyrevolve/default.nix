@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, contexttimer
-, versioneer
-, cython
-, numpy
-, pytest
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, contexttimer, versioneer, cython
+, numpy, pytest, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyrevolve";
@@ -23,15 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-JLDn3WEBcdO8YYzt/MWOHB/1kcmbmZUsiH00/4Uwlxo=";
   };
 
-  nativeBuildInputs = [
-    versioneer
-    cython
-  ];
+  nativeBuildInputs = [ versioneer cython ];
 
-  propagatedBuildInputs = [
-    contexttimer
-    numpy
-  ];
+  propagatedBuildInputs = [ contexttimer numpy ];
 
   nativeCheckInputs = [ pytest ];
   # Using approach bellow bcs the tests fail with the pytestCheckHook, throwing the following error
@@ -41,13 +27,12 @@ buildPythonPackage rec {
     pytest
   '';
 
-  pythonImportsCheck = [
-    "pyrevolve"
-  ];
+  pythonImportsCheck = [ "pyrevolve" ];
 
   meta = with lib; {
     homepage = "https://github.com/devitocodes/pyrevolve";
-    changelog = "https://github.com/devitocodes/pyrevolve/releases/tag/v${version}";
+    changelog =
+      "https://github.com/devitocodes/pyrevolve/releases/tag/v${version}";
     description = "Python library to manage checkpointing for adjoints";
     license = licenses.epl10;
     maintainers = with maintainers; [ atila ];

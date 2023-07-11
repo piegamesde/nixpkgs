@@ -1,15 +1,5 @@
-{ buildPythonApplication
-, drawio-headless
-, fetchFromGitHub
-, lib
-, pandoc
-, pandocfilters
-, runCommand
-, runtimeShell
-, texlive
-, writeScriptBin
-, xvfb-run
-}:
+{ buildPythonApplication, drawio-headless, fetchFromGitHub, lib, pandoc
+, pandocfilters, runCommand, runtimeShell, texlive, writeScriptBin, xvfb-run }:
 
 let
   version = "1.1";
@@ -26,25 +16,17 @@ let
 
     inherit src version;
 
-    propagatedBuildInputs = [
-      drawio-headless
-      pandocfilters
-    ];
+    propagatedBuildInputs = [ drawio-headless pandocfilters ];
 
-    passthru.tests.example-doc =
-      let
-        env = {
-          nativeBuildInputs = [
-            pandoc
-            pandoc-drawio-filter
-            texlive.combined.scheme-tetex
-          ];
-        };
-      in
-      runCommand "$pandoc-drawio-filter-example-doc.pdf" env ''
-        cp -r ${src}/example/* .
-        pandoc -F pandoc-drawio example.md -T pdf -o $out
-      '';
+    passthru.tests.example-doc = let
+      env = {
+        nativeBuildInputs =
+          [ pandoc pandoc-drawio-filter texlive.combined.scheme-tetex ];
+      };
+    in runCommand "$pandoc-drawio-filter-example-doc.pdf" env ''
+      cp -r ${src}/example/* .
+      pandoc -F pandoc-drawio example.md -T pdf -o $out
+    '';
 
     meta = with lib; {
       homepage = "https://github.com/tfc/pandoc-drawio-filter";
@@ -54,6 +36,4 @@ let
     };
   };
 
-in
-
-pandoc-drawio-filter
+in pandoc-drawio-filter

@@ -5,12 +5,17 @@ stdenv.mkDerivation rec {
   version = "0.4.2";
 
   src = fetchurl {
-    url = "http://openlab.ring.gr.jp/efont/dist/unicode-bdf/${pname}-bdf-${version}.tar.bz2";
+    url =
+      "http://openlab.ring.gr.jp/efont/dist/unicode-bdf/${pname}-bdf-${version}.tar.bz2";
     sha256 = "sha256-fT7SsYlV3dCQrf0IZfiNI1grj3ngDgr8IkWdg+f9m3M=";
   };
 
-  nativeBuildInputs = with xorg;
-    [ libfaketime bdftopcf fonttosfnt mkfontscale ];
+  nativeBuildInputs = with xorg; [
+    libfaketime
+    bdftopcf
+    fonttosfnt
+    mkfontscale
+  ];
 
   buildPhase = ''
     runHook preBuild

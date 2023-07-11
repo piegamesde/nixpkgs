@@ -1,15 +1,12 @@
-{ lib
-, stdenv
-, fetchurl
-, zlib
-}:
+{ lib, stdenv, fetchurl, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "boron";
   version = "2.0.8";
 
   src = fetchurl {
-    url = "https://sourceforge.net/projects/urlan/files/Boron/boron-${version}.tar.gz";
+    url =
+      "https://sourceforge.net/projects/urlan/files/Boron/boron-${version}.tar.gz";
     sha256 = "sha256-Ni/LJgOABC2wXDMsg1ZAuZWSQdFT9/Fa4lH4+V0gy8M=";
   };
 
@@ -24,9 +21,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "DESTDIR=$(out)" ];
 
-  buildInputs = [
-    zlib
-  ];
+  buildInputs = [ zlib ];
 
   installTargets = [ "install" "install-dev" ];
 

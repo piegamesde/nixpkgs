@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, cached-property
-, chevron
-, fetchPypi
-, frozendict
-, pystache
-, pythonOlder
-, pyyaml
-}:
+{ lib, buildPythonPackage, cached-property, chevron, fetchPypi, frozendict
+, pystache, pythonOlder, pyyaml }:
 
 buildPythonPackage rec {
   pname = "genanki";
@@ -21,13 +13,8 @@ buildPythonPackage rec {
     sha256 = "bfacdcadd7903ed6afce6168e1977e473b431677b358f8fd42e80b48cedd19ab";
   };
 
-  propagatedBuildInputs = [
-    cached-property
-    chevron
-    frozendict
-    pystache
-    pyyaml
-  ];
+  propagatedBuildInputs =
+    [ cached-property chevron frozendict pystache pyyaml ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -37,9 +24,7 @@ buildPythonPackage rec {
   # relies on upstream anki
   doCheck = false;
 
-  pythonImportsCheck = [
-    "genanki"
-  ];
+  pythonImportsCheck = [ "genanki" ];
 
   meta = with lib; {
     description = "Generate Anki decks programmatically";

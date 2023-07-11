@@ -7,12 +7,14 @@ stdenvNoCC.mkDerivation rec {
   srcs = [
     (fetchurl {
       name = "nasin-nanpa.otf";
-      url = "https://github.com/ETBCOR/nasin-nanpa/releases/download/n${version}/nasin-nanpa-${version}.otf";
+      url =
+        "https://github.com/ETBCOR/nasin-nanpa/releases/download/n${version}/nasin-nanpa-${version}.otf";
       hash = "sha256-++uOrqFzQ6CB/OPEmBivpjMfAtFk3PSsCNpFBjOtGEg=";
     })
     (fetchurl {
       name = "nasin-nanpa-lasina-kin.otf";
-      url = "https://github.com/ETBCOR/nasin-nanpa/releases/download/n${version}/nasin-nanpa-${version}-lasina-kin.otf";
+      url =
+        "https://github.com/ETBCOR/nasin-nanpa/releases/download/n${version}/nasin-nanpa-${version}-lasina-kin.otf";
       hash = "sha256-4WIX74y2O4NaKi/JQrgTbOxlKDQKJ/F9wkQuoOdWuTI=";
     })
   ];
@@ -29,7 +31,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/ETBCOR/nasin-nanpa";
-    description = "UCSUR OpenType monospaced font for the Toki Pona writing system, Sitelen Pona";
+    description =
+      "UCSUR OpenType monospaced font for the Toki Pona writing system, Sitelen Pona";
     longDescription = ''
       ni li nasin pi sitelen pona.
       sitelen ale pi nasin ni li sama mute weka.

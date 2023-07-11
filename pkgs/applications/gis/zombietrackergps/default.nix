@@ -1,13 +1,5 @@
-{ mkDerivation
-, lib
-, fetchFromGitLab
-, qmake
-, qtcharts
-, qtsvg
-, marble
-, qtwebengine
-, ldutils
-}:
+{ mkDerivation, lib, fetchFromGitLab, qmake, qtcharts, qtsvg, marble
+, qtwebengine, ldutils }:
 
 mkDerivation rec {
   pname = "zombietrackergps";
@@ -20,17 +12,9 @@ mkDerivation rec {
     sha256 = "sha256-qRhCAOVWyDLD3WDptPRQVq+VwyFu83XQNaL5TMsGs4Y=";
   };
 
-  buildInputs = [
-    ldutils
-    qtcharts
-    qtsvg
-    marble.dev
-    qtwebengine
-  ];
+  buildInputs = [ ldutils qtcharts qtsvg marble.dev qtwebengine ];
 
-  nativeBuildInputs = [
-    qmake
-  ];
+  nativeBuildInputs = [ qmake ];
 
   prePatch = ''
     substituteInPlace ztgps.pro --replace "../libldutils" "libldutils"
@@ -62,6 +46,6 @@ mkDerivation rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ sohalt ];
     platforms = platforms.linux;
-    broken = true;  # doesn't build with latest Marble
+    broken = true; # doesn't build with latest Marble
   };
 }

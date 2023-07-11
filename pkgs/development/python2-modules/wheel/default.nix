@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, bootstrapped-pip
-, setuptools
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, bootstrapped-pip, setuptools }:
 
 buildPythonPackage rec {
   pname = "wheel";
@@ -24,10 +19,7 @@ buildPythonPackage rec {
     '';
   };
 
-  nativeBuildInputs = [
-    bootstrapped-pip
-    setuptools
-  ];
+  nativeBuildInputs = [ bootstrapped-pip setuptools ];
 
   # No tests in archive
   doCheck = false;

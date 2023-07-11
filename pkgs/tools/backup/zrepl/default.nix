@@ -1,11 +1,5 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, makeWrapper
-, nixosTests
-, openssh
-, fetchpatch
-}:
+{ lib, buildGoModule, fetchFromGitHub, makeWrapper, nixosTests, openssh
+, fetchpatch }:
 buildGoModule rec {
   pname = "zrepl";
   version = "0.6.0";
@@ -21,11 +15,10 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
-  ldflags = [ "-s" "-w" "-X github.com/zrepl/zrepl/version.zreplVersion=${version}" ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/zrepl/zrepl/version.zreplVersion=${version}" ];
 
   postInstall = ''
     mkdir -p $out/lib/systemd/system
@@ -36,9 +29,7 @@ buildGoModule rec {
       --prefix PATH : ${lib.makeBinPath [ openssh ]}
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) zrepl;
-  };
+  passthru.tests = { inherit (nixosTests) zrepl; };
 
   meta = with lib; {
     homepage = "https://zrepl.github.io/";

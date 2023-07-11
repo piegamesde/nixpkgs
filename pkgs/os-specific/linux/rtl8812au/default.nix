@@ -23,11 +23,12 @@ stdenv.mkDerivation rec {
 
   makeFlags = [
     "ARCH=${stdenv.hostPlatform.linuxArch}"
-    ("CONFIG_PLATFORM_I386_PC=" + (if stdenv.hostPlatform.isx86 then "y" else "n"))
-    ("CONFIG_PLATFORM_ARM_RPI=" + (if stdenv.hostPlatform.isAarch then "y" else "n"))
-  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-  ];
+    ("CONFIG_PLATFORM_I386_PC="
+      + (if stdenv.hostPlatform.isx86 then "y" else "n"))
+    ("CONFIG_PLATFORM_ARM_RPI="
+      + (if stdenv.hostPlatform.isAarch then "y" else "n"))
+  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
+    [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ];
 
   preInstall = ''
     mkdir -p "$out/lib/modules/${kernel.modDirVersion}/kernel/net/wireless/"
@@ -40,7 +41,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description = "Driver for Realtek 802.11ac, rtl8812au, provides the 8812au mod";
+    description =
+      "Driver for Realtek 802.11ac, rtl8812au, provides the 8812au mod";
     homepage = "https://github.com/morrownr/8812au-20210629";
     license = licenses.gpl2Only;
     platforms = platforms.linux;

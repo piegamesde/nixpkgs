@@ -1,13 +1,5 @@
-{ lib
-, bottle
-, buildPythonPackage
-, fetchPypi
-, numpy
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, redis
-}:
+{ lib, bottle, buildPythonPackage, fetchPypi, numpy, pytestCheckHook
+, pythonOlder, pyyaml, redis }:
 
 buildPythonPackage rec {
   pname = "jug";
@@ -22,20 +14,11 @@ buildPythonPackage rec {
     hash = "sha256-3uK6mWaLEGPFoPuznU+OcnkjFZ+beDoIw0vOC4l5gRg=";
   };
 
-  propagatedBuildInputs = [
-    bottle
-  ];
+  propagatedBuildInputs = [ bottle ];
 
-  nativeCheckInputs = [
-    numpy
-    pytestCheckHook
-    pyyaml
-    redis
-  ];
+  nativeCheckInputs = [ numpy pytestCheckHook pyyaml redis ];
 
-  pythonImportsCheck = [
-    "jug"
-  ];
+  pythonImportsCheck = [ "jug" ];
 
   meta = with lib; {
     description = "A Task-Based Parallelization Framework";

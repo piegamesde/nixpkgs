@@ -11,9 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gaAWKd5/DZrIPaaQzx9l0KtCMW9LPw17vvNPsnopZA0=";
   };
 
-  patches = [
-    ./fix-lex-to-flex.patch
-  ];
+  patches = [ ./fix-lex-to-flex.patch ];
 
   postPatch = ''
     sed -i "/TST/d" source/OMakefile

@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ninja
-, pkg-config
-, scdoc
-, wayland
-, wayland-protocols
-, wayland-scanner
-, libxkbcommon
-, cairo
-, gdk-pixbuf
-, pam
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, scdoc, wayland
+, wayland-protocols, wayland-scanner, libxkbcommon, cairo, gdk-pixbuf, pam }:
 
 stdenv.mkDerivation rec {
   pname = "swaylock-effects";
@@ -30,14 +17,10 @@ stdenv.mkDerivation rec {
   '';
 
   strictDeps = true;
-  nativeBuildInputs = [ meson ninja pkg-config scdoc wayland-scanner];
+  nativeBuildInputs = [ meson ninja pkg-config scdoc wayland-scanner ];
   buildInputs = [ wayland wayland-protocols libxkbcommon cairo gdk-pixbuf pam ];
 
-  mesonFlags = [
-    "-Dpam=enabled"
-    "-Dgdk-pixbuf=enabled"
-    "-Dman-pages=enabled"
-  ];
+  mesonFlags = [ "-Dpam=enabled" "-Dgdk-pixbuf=enabled" "-Dman-pages=enabled" ];
 
   meta = with lib; {
     description = "Screen locker for Wayland";

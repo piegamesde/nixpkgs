@@ -1,8 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, llvmPackages
-}:
+{ lib, rustPlatform, fetchFromGitHub, llvmPackages }:
 
 rustPlatform.buildRustPackage rec {
   pname = "tremor-language-server";

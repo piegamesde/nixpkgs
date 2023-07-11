@@ -1,12 +1,9 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "nomad-pack";
   version = "0.0.1-techpreview.3";
-  rev   = "3b4163b3b826c8408ae824238daaa45307d03380";
+  rev = "3b4163b3b826c8408ae824238daaa45307d03380";
 
   src = fetchFromGitHub {
     owner = "hashicorp";
@@ -29,8 +26,10 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/hashicorp/nomad-pack";
-    changelog = "https://github.com/hashicorp/nomad-pack/blob/main/CHANGELOG.md";
-    description = "Nomad Pack is a templating and packaging tool used with HashiCorp Nomad.";
+    changelog =
+      "https://github.com/hashicorp/nomad-pack/blob/main/CHANGELOG.md";
+    description =
+      "Nomad Pack is a templating and packaging tool used with HashiCorp Nomad.";
     license = licenses.mpl20;
     maintainers = with maintainers; [ techknowlogick ];
   };

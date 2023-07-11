@@ -1,39 +1,23 @@
-{ lib
-, stdenv
-, fetchurl
+{ lib, stdenv, fetchurl
 
-  # Build-time dependencies
-, makeWrapper
-, file
-, makeDesktopItem
-, imagemagick
-, copyDesktopItems
+# Build-time dependencies
+, makeWrapper, file, makeDesktopItem, imagemagick, copyDesktopItems
 
-  # Runtime dependencies
-, fontconfig
-, freetype
-, libX11
-, libXext
-, libXinerama
-, libXrandr
-, libXrender
-, libglvnd
-, openal
-}:
+# Runtime dependencies
+, fontconfig, freetype, libX11, libXext, libXinerama, libXrandr, libXrender
+, libglvnd, openal }:
 
 let
   version = "1.0";
 
-  arch =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      "x64"
-    else if stdenv.hostPlatform.system == "i686-linux" then
-      "x86"
-    else
-      throw "Unsupported platform ${stdenv.hostPlatform.system}";
-in
+  arch = if stdenv.hostPlatform.system == "x86_64-linux" then
+    "x64"
+  else if stdenv.hostPlatform.system == "i686-linux" then
+    "x86"
+  else
+    throw "Unsupported platform ${stdenv.hostPlatform.system}";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "unigine-valley";
   inherit version;
 
@@ -129,7 +113,8 @@ stdenv.mkDerivation rec {
     description = "The Unigine Valley GPU benchmarking tool";
     homepage = "https://unigine.com/products/benchmarks/valley/";
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    license = lib.licenses.unfree; # see also: $out/$instPath/documentation/License.pdf
+    license =
+      lib.licenses.unfree; # see also: $out/$instPath/documentation/License.pdf
     maintainers = [ lib.maintainers.kierdavis ];
     platforms = [ "x86_64-linux" "i686-linux" ];
     mainProgram = "valley";

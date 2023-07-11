@@ -1,21 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, libffi
-, libxml2
-, zlib
-, withManual ? true
-, withHTML ? true
-, llvmPackages
-, python3
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, libffi, libxml2, zlib, withManual ? true
+, withHTML ? true, llvmPackages, python3 }:
 
 let
   inherit (llvmPackages) libclang llvm;
   inherit (python3.pkgs) sphinx;
-in
-stdenv.mkDerivation (finalAttrs: {
+in stdenv.mkDerivation (finalAttrs: {
   pname = "castxml";
   version = "0.6.1";
 
@@ -26,23 +15,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-dyB2h6Yix2lZbVFVCz8nWNNubFSEVBlRpjVrBRec4Xo=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    llvm.dev
-  ] ++ lib.optionals (withManual || withHTML) [
-    sphinx
-  ];
+  nativeBuildInputs = [ cmake llvm.dev ]
+    ++ lib.optionals (withManual || withHTML) [ sphinx ];
 
-  buildInputs = [
-    libclang
-    libffi
-    libxml2
-    zlib
-  ];
+  buildInputs = [ libclang libffi libxml2 zlib ];
 
-  propagatedBuildInputs = [
-    libclang
-  ];
+  propagatedBuildInputs = [ libclang ];
 
   cmakeFlags = [
     "-DCLANG_RESOURCE_DIR=${libclang.dev}/"

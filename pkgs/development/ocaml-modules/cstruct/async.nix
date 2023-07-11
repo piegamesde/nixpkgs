@@ -6,10 +6,5 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [
-    async_unix
-    async
-    cstruct
-    core
-  ];
+  propagatedBuildInputs = [ async_unix async cstruct core ];
 }

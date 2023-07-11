@@ -1,63 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, bison
-, cmake
-, doxygen
-, graphviz
-, pkg-config
-, python3
-, swig
-, armadillo
-, arrow-cpp
-, c-blosc
-, brunsli
-, cfitsio
-, crunch
-, curl
-, cryptopp
-, libdeflate
-, expat
-, libgeotiff
-, geos
-, giflib
-, libheif
-, dav1d
-, libaom
-, libde265
-, rav1e
-, x265
-, hdf4
-, hdf5-cpp
-, libiconv
-, libjpeg
-, json_c
-, libjxl
-, libhwy
-, lerc
-, xz
-, libxml2
-, lz4
-, libmysqlclient
-, netcdf
-, openexr
-, openjpeg
-, openssl
-, pcre2
-, libpng
-, poppler
-, postgresql
-, proj
-, qhull
-, libspatialite
-, sqlite
-, libtiff
-, tiledb
-, libwebp
-, xercesc
-, zlib
-, zstd
-}:
+{ lib, stdenv, fetchFromGitHub, bison, cmake, doxygen, graphviz, pkg-config
+, python3, swig, armadillo, arrow-cpp, c-blosc, brunsli, cfitsio, crunch, curl
+, cryptopp, libdeflate, expat, libgeotiff, geos, giflib, libheif, dav1d, libaom
+, libde265, rav1e, x265, hdf4, hdf5-cpp, libiconv, libjpeg, json_c, libjxl
+, libhwy, lerc, xz, libxml2, lz4, libmysqlclient, netcdf, openexr, openjpeg
+, openssl, pcre2, libpng, poppler, postgresql, proj, qhull, libspatialite
+, sqlite, libtiff, tiledb, libwebp, xercesc, zlib, zstd }:
 
 stdenv.mkDerivation rec {
   pname = "gdal";
@@ -84,14 +31,17 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DGDAL_USE_INTERNAL_LIBS=OFF"
     "-DGEOTIFF_INCLUDE_DIR=${lib.getDev libgeotiff}/include"
-    "-DGEOTIFF_LIBRARY_RELEASE=${lib.getLib libgeotiff}/lib/libgeotiff${stdenv.hostPlatform.extensions.sharedLibrary}"
+    "-DGEOTIFF_LIBRARY_RELEASE=${
+      lib.getLib libgeotiff
+    }/lib/libgeotiff${stdenv.hostPlatform.extensions.sharedLibrary}"
     "-DMYSQL_INCLUDE_DIR=${lib.getDev libmysqlclient}/include/mysql"
-    "-DMYSQL_LIBRARY=${lib.getLib libmysqlclient}/lib/${lib.optionalString (libmysqlclient.pname != "mysql") "mysql/"}libmysqlclient${stdenv.hostPlatform.extensions.sharedLibrary}"
+    "-DMYSQL_LIBRARY=${lib.getLib libmysqlclient}/lib/${
+      lib.optionalString (libmysqlclient.pname != "mysql") "mysql/"
+    }libmysqlclient${stdenv.hostPlatform.extensions.sharedLibrary}"
   ] ++ lib.optionals (!stdenv.isDarwin) [
     "-DCMAKE_SKIP_BUILD_RPATH=ON" # without, libgdal.so can't find libmariadb.so
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
-  ];
+  ] ++ lib.optionals stdenv.isDarwin
+    [ "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON" ];
 
   buildInputs = [
     armadillo
@@ -107,17 +57,17 @@ stdenv.mkDerivation rec {
     geos
     giflib
     libheif
-    dav1d  # required by libheif
-    libaom  # required by libheif
-    libde265  # required by libheif
-    rav1e  # required by libheif
-    x265  # required by libheif
+    dav1d # required by libheif
+    libaom # required by libheif
+    libde265 # required by libheif
+    rav1e # required by libheif
+    x265 # required by libheif
     hdf4
     hdf5-cpp
     libjpeg
     json_c
     libjxl
-    libhwy  # required by libjxl
+    libhwy # required by libjxl
     lerc
     xz
     libxml2
@@ -191,9 +141,8 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals stdenv.isDarwin [
     # flaky on macos
     "test_rda_download_queue"
-  ] ++ lib.optionals (lib.versionOlder proj.version "8") [
-    "test_ogr_parquet_write_crs_without_id_in_datum_ensemble_members"
-  ];
+  ] ++ lib.optionals (lib.versionOlder proj.version "8")
+    [ "test_ogr_parquet_write_crs_without_id_in_datum_ensemble_members" ];
   postCheck = ''
     popd # ../autotest
   '';

@@ -1,12 +1,6 @@
-{ stdenv
-, lib
-, fetchurl
-, unzip
-, runCommand
-, darwin
-, sources ? import ./sources.nix {inherit fetchurl;}
-, version ? sources.versionUsed
-}:
+{ stdenv, lib, fetchurl, unzip, runCommand, darwin
+, sources ? import ./sources.nix { inherit fetchurl; }
+, version ? sources.versionUsed }:
 
 assert sources != null && (builtins.isAttrs sources);
 stdenv.mkDerivation (finalAttrs: {
@@ -15,7 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ unzip ];
 
-  src = sources."${version}-${stdenv.hostPlatform.system}" or (throw "unsupported version/system: ${version}/${stdenv.hostPlatform.system}");
+  src = sources."${version}-${stdenv.hostPlatform.system}" or (throw
+    "unsupported version/system: ${version}/${stdenv.hostPlatform.system}");
 
   installPhase = ''
     mkdir -p $out
@@ -30,7 +25,9 @@ stdenv.mkDerivation (finalAttrs: {
   passthru = {
     updateScript = ./update.sh;
     tests = {
-      testCreate = runCommand "dart-test-create" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
+      testCreate = runCommand "dart-test-create" {
+        nativeBuildInputs = [ finalAttrs.finalPackage ];
+      } ''
         PROJECTNAME="dart_test_project"
         dart create --no-pub $PROJECTNAME
 
@@ -57,13 +54,20 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     homepage = "https://www.dartlang.org/";
     maintainers = with maintainers; [ grburst ];
-    description = "Scalable programming language, with robust libraries and runtimes, for building web, server, and mobile apps";
+    description =
+      "Scalable programming language, with robust libraries and runtimes, for building web, server, and mobile apps";
     longDescription = ''
       Dart is a class-based, single inheritance, object-oriented language
       with C-style syntax. It offers compilation to JavaScript, interfaces,
       mixins, abstract classes, reified generics, and optional typing.
     '';
-    platforms = [ "x86_64-linux" "i686-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.bsd3;
   };

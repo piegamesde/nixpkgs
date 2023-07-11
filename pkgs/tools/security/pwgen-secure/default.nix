@@ -1,10 +1,8 @@
 { lib, python3Packages, fetchFromGitHub }:
 
-let
-  inherit (python3Packages) buildPythonApplication pythonOlder;
+let inherit (python3Packages) buildPythonApplication pythonOlder;
 
-in
-buildPythonApplication rec {
+in buildPythonApplication rec {
   pname = "pwgen-secure";
   version = "0.9.1";
 

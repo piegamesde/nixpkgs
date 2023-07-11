@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, parver
-, pulumi
-, pythonOlder
-, semver
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch, parver, pulumi
+, pythonOlder, semver }:
 
 buildPythonPackage rec {
   pname = "pulumi-aws";
@@ -26,18 +18,12 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/sdk/python";
 
-  propagatedBuildInputs = [
-    parver
-    pulumi
-    semver
-  ];
+  propagatedBuildInputs = [ parver pulumi semver ];
 
   # Checks require cloud resources
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pulumi_aws"
-  ];
+  pythonImportsCheck = [ "pulumi_aws" ];
 
   meta = with lib; {
     description = "Pulumi python amazon web services provider";

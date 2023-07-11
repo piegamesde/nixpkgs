@@ -1,32 +1,22 @@
-{ mkDerivation
-, lib
-, extra-cmake-modules
-, kdoctools
-, wrapQtAppsHook
-, qtdeclarative
-, qtgraphicaleffects
-, qtquickcontrols2
-, kirigami2
-, kpurpose
-, gst_all_1
-, pcre
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, wrapQtAppsHook
+, qtdeclarative, qtgraphicaleffects, qtquickcontrols2, kirigami2, kpurpose
+, gst_all_1, pcre }:
 
 let
-  gst = with gst_all_1; [ gstreamer gst-libav gst-plugins-base gst-plugins-good gst-plugins-bad ];
+  gst = with gst_all_1; [
+    gstreamer
+    gst-libav
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-bad
+  ];
 
-in
-mkDerivation {
+in mkDerivation {
   pname = "kamoso";
   nativeBuildInputs = [ extra-cmake-modules kdoctools wrapQtAppsHook ];
   buildInputs = [ pcre ] ++ gst;
-  propagatedBuildInputs = [
-    qtdeclarative
-    qtgraphicaleffects
-    qtquickcontrols2
-    kirigami2
-    kpurpose
-  ];
+  propagatedBuildInputs =
+    [ qtdeclarative qtgraphicaleffects qtquickcontrols2 kirigami2 kpurpose ];
 
   cmakeFlags = [
     "-DOpenGL_GL_PREFERENCE=GLVND"
@@ -34,7 +24,9 @@ mkDerivation {
   ];
 
   qtWrapperArgs = [
-    "--prefix GST_PLUGIN_PATH : ${lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" gst}"
+    "--prefix GST_PLUGIN_PATH : ${
+      lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" gst
+    }"
   ];
 
   meta = {

@@ -25,8 +25,7 @@ import ./make-test-python.nix ({ pkgs, ... }:
     containerName = "container";
     containerRoot = "/var/lib/machines/${containerName}";
 
-  in
-  {
+  in {
     name = "systemd-machinectl";
 
     nodes.machine = { lib, ... }: {
@@ -38,7 +37,8 @@ import ./make-test-python.nix ({ pkgs, ... }:
       nix.settings.substituters = lib.mkForce [ ];
 
       # auto-start container
-      systemd.targets.machines.wants = [ "systemd-nspawn@${containerName}.service" ];
+      systemd.targets.machines.wants =
+        [ "systemd-nspawn@${containerName}.service" ];
 
       virtualisation.additionalPaths = [ containerSystem ];
 
@@ -110,5 +110,4 @@ import ./make-test-python.nix ({ pkgs, ... }:
       machine.succeed("chattr -i ${containerRoot}/var/empty");
       machine.succeed("rm -rf ${containerRoot}");
     '';
-  }
-)
+  })

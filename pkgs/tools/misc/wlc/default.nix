@@ -1,6 +1,4 @@
-{ lib
-, python3
-}:
+{ lib, python3 }:
 
 with python3.pkgs;
 
@@ -13,21 +11,14 @@ buildPythonPackage rec {
     sha256 = "sha256-MZ6avuMNT5HIIXW7ezukAJeO70o+SrgJnBnGjNy4tYE=";
   };
 
-  propagatedBuildInputs = [
-    argcomplete
-    python-dateutil
-    requests
-    pyxdg
-    responses
-    twine
-  ];
+  propagatedBuildInputs =
+    [ argcomplete python-dateutil requests pyxdg responses twine ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description = "wlc is a Weblate commandline client using Weblate's REST API.";
+    description =
+      "wlc is a Weblate commandline client using Weblate's REST API.";
     homepage = "https://github.com/WeblateOrg/wlc";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ paperdigits ];

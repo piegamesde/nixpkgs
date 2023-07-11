@@ -5,30 +5,27 @@ with lib;
 let
   cfg = config.networking.ucarp;
 
-  ucarpExec = concatStringsSep " " (
-    [
-      "${cfg.package}/bin/ucarp"
-      "--interface=${cfg.interface}"
-      "--srcip=${cfg.srcIp}"
-      "--vhid=${toString cfg.vhId}"
-      "--passfile=${cfg.passwordFile}"
-      "--addr=${cfg.addr}"
-      "--advbase=${toString cfg.advBase}"
-      "--advskew=${toString cfg.advSkew}"
-      "--upscript=${cfg.upscript}"
-      "--downscript=${cfg.downscript}"
-      "--deadratio=${toString cfg.deadratio}"
-    ]
-    ++ (optional cfg.preempt "--preempt")
-    ++ (optional cfg.neutral "--neutral")
+  ucarpExec = concatStringsSep " " ([
+    "${cfg.package}/bin/ucarp"
+    "--interface=${cfg.interface}"
+    "--srcip=${cfg.srcIp}"
+    "--vhid=${toString cfg.vhId}"
+    "--passfile=${cfg.passwordFile}"
+    "--addr=${cfg.addr}"
+    "--advbase=${toString cfg.advBase}"
+    "--advskew=${toString cfg.advSkew}"
+    "--upscript=${cfg.upscript}"
+    "--downscript=${cfg.downscript}"
+    "--deadratio=${toString cfg.deadratio}"
+  ] ++ (optional cfg.preempt "--preempt") ++ (optional cfg.neutral "--neutral")
     ++ (optional cfg.shutdown "--shutdown")
     ++ (optional cfg.ignoreIfState "--ignoreifstate")
     ++ (optional cfg.noMcast "--nomcast")
-    ++ (optional (cfg.extraParam != null) "--xparam=${cfg.extraParam}")
-  );
+    ++ (optional (cfg.extraParam != null) "--xparam=${cfg.extraParam}"));
 in {
   options.networking.ucarp = {
-    enable = mkEnableOption (lib.mdDoc "ucarp, userspace implementation of CARP");
+    enable =
+      mkEnableOption (lib.mdDoc "ucarp, userspace implementation of CARP");
 
     interface = mkOption {
       type = types.str;
@@ -43,13 +40,15 @@ in {
 
     vhId = mkOption {
       type = types.ints.between 1 255;
-      description = lib.mdDoc "Virtual IP identifier shared between CARP hosts.";
+      description =
+        lib.mdDoc "Virtual IP identifier shared between CARP hosts.";
       example = 1;
     };
 
     passwordFile = mkOption {
       type = types.str;
-      description = lib.mdDoc "File containing shared password between CARP hosts.";
+      description =
+        lib.mdDoc "File containing shared password between CARP hosts.";
       example = "/run/keys/ucarp-password";
     };
 
@@ -64,7 +63,8 @@ in {
 
     neutral = mkOption {
       type = types.bool;
-      description = lib.mdDoc "Do not run downscript at start if the host is the backup.";
+      description =
+        lib.mdDoc "Do not run downscript at start if the host is the backup.";
       default = false;
     };
 
@@ -127,13 +127,15 @@ in {
 
     ignoreIfState = mkOption {
       type = types.bool;
-      description = lib.mdDoc "Ignore interface state, e.g., down or no carrier.";
+      description =
+        lib.mdDoc "Ignore interface state, e.g., down or no carrier.";
       default = false;
     };
 
     noMcast = mkOption {
       type = types.bool;
-      description = lib.mdDoc "Use broadcast instead of multicast advertisements.";
+      description =
+        lib.mdDoc "Use broadcast instead of multicast advertisements.";
       default = false;
     };
 

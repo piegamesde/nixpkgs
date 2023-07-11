@@ -1,10 +1,4 @@
-{ mkDerivation
-, lib
-, fetchFromGitLab
-, qtcharts
-, qtsvg
-, qmake
-}:
+{ mkDerivation, lib, fetchFromGitLab, qtcharts, qtsvg, qmake }:
 
 mkDerivation rec {
   pname = "ldutils";
@@ -17,19 +11,14 @@ mkDerivation rec {
     sha256 = "sha256-fP+tZY+ayaeuxPvywO/639sNE+IwrxaEJ245q9HTOCU=";
   };
 
-  buildInputs = [
-    qtcharts
-    qtsvg
-  ];
+  buildInputs = [ qtcharts qtsvg ];
 
-  nativeBuildInputs = [
-    qmake
-  ];
+  nativeBuildInputs = [ qmake ];
 
   qmakeFlags = [ "ldutils.pro" ];
 
-  LDUTILS_LIB=placeholder "out";
-  LDUTILS_INCLUDE=placeholder "out";
+  LDUTILS_LIB = placeholder "out";
+  LDUTILS_INCLUDE = placeholder "out";
 
   meta = with lib; {
     description = "Headers and link library for other ldutils projects";

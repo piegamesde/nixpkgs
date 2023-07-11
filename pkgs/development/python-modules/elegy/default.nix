@@ -1,26 +1,7 @@
-{ lib
-, buildPythonPackage
-, cloudpickle
-, deepdish
-, deepmerge
-, dm-haiku
-, fetchFromGitHub
-, fetchpatch
-, jaxlib
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, sh
-, tables
-, tabulate
-, tensorboardx
-, tensorflow
-, toolz
-, torch
-, treex
-, typing-extensions
-}:
+{ lib, buildPythonPackage, cloudpickle, deepdish, deepmerge, dm-haiku
+, fetchFromGitHub, fetchpatch, jaxlib, poetry-core, pytestCheckHook, pythonOlder
+, pyyaml, sh, tables, tabulate, tensorboardx, tensorflow, toolz, torch, treex
+, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "elegy";
@@ -39,7 +20,8 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       name = "use-poetry-core.patch";
-      url = "https://github.com/poets-ai/elegy/commit/0ed472882f470ed9eb7a63b8a537ffabe7e19aa7.patch";
+      url =
+        "https://github.com/poets-ai/elegy/commit/0ed472882f470ed9eb7a63b8a537ffabe7e19aa7.patch";
       hash = "sha256-nO/imHo7tEsiZh+64CF/M4eXQ1so3IunVhv8CvYP1ks=";
     })
   ];
@@ -54,13 +36,9 @@ buildPythonPackage rec {
       --replace 'wandb = { version = "^0.12.10", optional = true }' ""
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  buildInputs = [
-    jaxlib
-  ];
+  buildInputs = [ jaxlib ];
 
   propagatedBuildInputs = [
     cloudpickle
@@ -76,16 +54,9 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [
-    "elegy"
-  ];
+  pythonImportsCheck = [ "elegy" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    sh
-    tensorflow
-    torch
-  ];
+  nativeCheckInputs = [ pytestCheckHook sh tensorflow torch ];
 
   disabledTests = [
     # Fails with `Could not find compiler for platform Host: NOT_FOUND: could not find registered compiler for platform Host -- check target linkage`.
@@ -96,7 +67,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Neural Networks framework based on Jax inspired by Keras and Haiku";
+    description =
+      "Neural Networks framework based on Jax inspired by Keras and Haiku";
     homepage = "https://github.com/poets-ai/elegy";
     changelog = "https://github.com/poets-ai/elegy/releases/tag/${version}";
     license = licenses.asl20;

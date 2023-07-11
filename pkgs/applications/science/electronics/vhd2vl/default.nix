@@ -1,12 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, bison
-, flex
-, verilog
-, which
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, bison, flex, verilog, which }:
 
 stdenv.mkDerivation rec {
   pname = "vhd2vl";
@@ -19,15 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Hz2XkT5m4ri5wVR2ciL9Gx73zr+RdW5snjWnUg300c8=";
   };
 
-  nativeBuildInputs = [
-    bison
-    flex
-    which
-  ];
+  nativeBuildInputs = [ bison flex which ];
 
-  buildInputs = [
-    verilog
-  ];
+  buildInputs = [ verilog ];
 
   # the "translate" target both (a) builds the software and (b) runs
   # the tests (without validating the results)

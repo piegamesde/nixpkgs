@@ -1,30 +1,21 @@
-{ stdenv
-, lib
-, fetchzip
-, copyDesktopItems
-, makeDesktopItem
-, makeWrapper
-, runCommand
-, appimageTools
-, patchelf
-}:
+{ stdenv, lib, fetchzip, copyDesktopItems, makeDesktopItem, makeWrapper
+, runCommand, appimageTools, patchelf }:
 let
   pname = "jetbrains-toolbox";
   version = "1.28.0.15158";
 
   src = fetchzip {
-    url = "https://download.jetbrains.com/toolbox/jetbrains-toolbox-${version}.tar.gz";
+    url =
+      "https://download.jetbrains.com/toolbox/jetbrains-toolbox-${version}.tar.gz";
     sha256 = "sha256-IHs3tQtFXGS9xa5lKwSEWvp8aNffrCjNcoVE4tGX9ak=";
     stripRoot = false;
   };
 
-  appimageContents = runCommand "${pname}-extracted"
-    {
-      nativeBuildInputs = [ appimageTools.appimage-exec ];
-    }
-    ''
-      appimage-exec.sh -x $out ${src}/${pname}-${version}/${pname}
-    '';
+  appimageContents = runCommand "${pname}-extracted" {
+    nativeBuildInputs = [ appimageTools.appimage-exec ];
+  } ''
+    appimage-exec.sh -x $out ${src}/${pname}-${version}/${pname}
+  '';
 
   appimage = appimageTools.wrapAppImage {
     inherit pname version;
@@ -44,8 +35,7 @@ let
     startupWMClass = "jetbrains-toolbox";
     startupNotify = false;
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version src appimage;
 
   nativeBuildInputs = [ makeWrapper copyDesktopItems ];

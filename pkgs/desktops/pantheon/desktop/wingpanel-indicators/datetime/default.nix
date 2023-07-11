@@ -1,25 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, substituteAll
-, pkg-config
-, meson
-, python3
-, ninja
-, vala
-, gtk3
-, granite
-, wingpanel
-, evolution-data-server
-, libical
-, libgee
-, libhandy
-, libxml2
-, libsoup
-, libgdata
-, elementary-calendar
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, substituteAll, pkg-config
+, meson, python3, ninja, vala, gtk3, granite, wingpanel, evolution-data-server
+, libical, libgee, libhandy, libxml2, libsoup, libgdata, elementary-calendar }:
 
 stdenv.mkDerivation rec {
   pname = "wingpanel-indicator-datetime";
@@ -39,14 +20,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    libxml2
-    meson
-    ninja
-    pkg-config
-    python3
-    vala
-  ];
+  nativeBuildInputs = [ libxml2 meson ninja pkg-config python3 vala ];
 
   buildInputs = [
     evolution-data-server
@@ -64,9 +38,7 @@ stdenv.mkDerivation rec {
     patchShebangs meson/post_install.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Date & Time Indicator for Wingpanel";

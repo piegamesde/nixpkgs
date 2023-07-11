@@ -4,21 +4,19 @@
 
 with lib;
 
-let
-  cfg = config.services.gnome.tracker;
-in
-{
+let cfg = config.services.gnome.tracker;
+in {
 
-  meta = {
-    maintainers = teams.gnome.members;
-  };
+  meta = { maintainers = teams.gnome.members; };
 
   imports = [
     # Added 2021-05-07
-    (mkRenamedOptionModule
-      [ "services" "gnome3" "tracker" "enable" ]
-      [ "services" "gnome" "tracker" "enable" ]
-    )
+    (mkRenamedOptionModule [ "services" "gnome3" "tracker" "enable" ] [
+      "services"
+      "gnome"
+      "tracker"
+      "enable"
+    ])
   ];
 
   ###### interface
@@ -49,7 +47,6 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
@@ -61,14 +58,12 @@ in
     systemd.packages = [ pkgs.tracker ];
 
     environment.variables = {
-      TRACKER_CLI_SUBCOMMANDS_DIR =
-        let
-          subcommandPackagesTree = pkgs.symlinkJoin {
-            name = "tracker-with-subcommands-${pkgs.tracker.version}";
-            paths = [ pkgs.tracker ] ++ cfg.subcommandPackages;
-          };
-        in
-        "${subcommandPackagesTree}/libexec/tracker3";
+      TRACKER_CLI_SUBCOMMANDS_DIR = let
+        subcommandPackagesTree = pkgs.symlinkJoin {
+          name = "tracker-with-subcommands-${pkgs.tracker.version}";
+          paths = [ pkgs.tracker ] ++ cfg.subcommandPackages;
+        };
+      in "${subcommandPackagesTree}/libexec/tracker3";
     };
 
   };

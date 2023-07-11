@@ -1,32 +1,35 @@
-{ lib, stdenv, fetchurl, libX11, libXext, libXcursor, libXrandr, libjack2, alsa-lib
-, mpg123, releasePath ? null }:
+{ lib, stdenv, fetchurl, libX11, libXext, libXcursor, libXrandr, libjack2
+, alsa-lib, mpg123, releasePath ? null }:
 
 # To use the full release version:
 # 1) Sign into https://backstage.renoise.com and download the release version to some stable location.
 # 2) Override the releasePath attribute to point to the location of the newly downloaded bundle.
 # Note: Renoise creates an individual build for each license which screws somewhat with the
 # use of functions like requireFile as the hash will be different for every user.
-let
-  urlVersion = lib.replaceStrings [ "." ] [ "_" ];
-in
+let urlVersion = lib.replaceStrings [ "." ] [ "_" ];
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "renoise";
   version = "3.3.2";
 
-  src =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-        if releasePath == null then
-        fetchurl {
-          urls = [
-              "https://files.renoise.com/demo/Renoise_${urlVersion version}_Demo_Linux.tar.gz"
-              "https://web.archive.org/web/https://files.renoise.com/demo/Renoise_${urlVersion version}_Demo_Linux.tar.gz"
-          ];
-          sha256 = "0d9pnrvs93d4bwbfqxwyr3lg3k6gnzmp81m95gglzwdzczxkw38k";
-        }
-        else
-          releasePath
-    else throw "Platform is not supported. Use instalation native to your platform https://www.renoise.com/";
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
+    if releasePath == null then
+      fetchurl {
+        urls = [
+          "https://files.renoise.com/demo/Renoise_${
+            urlVersion version
+          }_Demo_Linux.tar.gz"
+          "https://web.archive.org/web/https://files.renoise.com/demo/Renoise_${
+            urlVersion version
+          }_Demo_Linux.tar.gz"
+        ];
+        sha256 = "0d9pnrvs93d4bwbfqxwyr3lg3k6gnzmp81m95gglzwdzczxkw38k";
+      }
+    else
+      releasePath
+  else
+    throw
+    "Platform is not supported. Use instalation native to your platform https://www.renoise.com/";
 
   buildInputs = [ alsa-lib libjack2 libX11 libXcursor libXext libXrandr ];
 
@@ -79,7 +82,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.renoise.com/";
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.unfree;
-    maintainers = [];
+    maintainers = [ ];
     platforms = [ "x86_64-linux" ];
   };
 }

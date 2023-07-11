@@ -33,9 +33,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Programming language/shell calculator";
-    homepage    = "https://tab-lang.xyz";
-    license     = licenses.boost;
+    homepage = "https://tab-lang.xyz";
+    license = licenses.boost;
     maintainers = with maintainers; [ mstarzyk ];
-    platforms   = with platforms; unix;
+    platforms = with platforms; unix;
   };
 }

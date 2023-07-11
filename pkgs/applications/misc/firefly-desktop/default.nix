@@ -4,7 +4,8 @@ let
   pname = "firefly-desktop";
   version = "1.3.3";
   src = fetchurl {
-    url = "https://github.com/iotaledger/firefly/releases/download/desktop-${version}/${pname}-${version}.AppImage";
+    url =
+      "https://github.com/iotaledger/firefly/releases/download/desktop-${version}/${pname}-${version}.AppImage";
     sha256 = "a052efa29aa692eeafc921a2be4a5cbf71ae0b4216bd4759ea179086fb44c6d6";
   };
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
@@ -12,7 +13,8 @@ let
 in appimageTools.wrapType2 {
   inherit pname version src;
 
-  extraPkgs = pkgs: (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ [ pkgs.libsecret ];
+  extraPkgs = pkgs:
+    (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ [ pkgs.libsecret ];
 
   extraInstallCommands = ''
     mkdir -p $out/share/applications $out/share/pixmaps

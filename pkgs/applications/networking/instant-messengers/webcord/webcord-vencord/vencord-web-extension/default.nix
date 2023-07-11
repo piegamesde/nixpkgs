@@ -1,9 +1,4 @@
-{ buildNpmPackage
-, fetchFromGitHub
-, lib
-, substituteAll
-, esbuild
-, buildGoModule
+{ buildNpmPackage, fetchFromGitHub, lib, substituteAll, esbuild, buildGoModule
 }:
 buildNpmPackage rec {
   pname = "vencord-web-extension";
@@ -17,16 +12,17 @@ buildNpmPackage rec {
   };
 
   ESBUILD_BINARY_PATH = lib.getExe (esbuild.override {
-    buildGoModule = args: buildGoModule (args // rec {
-      version = "0.15.18";
-      src = fetchFromGitHub {
-        owner = "evanw";
-        repo = "esbuild";
-        rev = "v${version}";
-        hash = "sha256-b9R1ML+pgRg9j2yrkQmBulPuLHYLUQvW+WTyR/Cq6zE=";
-      };
-      vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
-    });
+    buildGoModule = args:
+      buildGoModule (args // rec {
+        version = "0.15.18";
+        src = fetchFromGitHub {
+          owner = "evanw";
+          repo = "esbuild";
+          rev = "v${version}";
+          hash = "sha256-b9R1ML+pgRg9j2yrkQmBulPuLHYLUQvW+WTyR/Cq6zE=";
+        };
+        vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
+      });
   });
 
   # Supresses an error about esbuild's version.

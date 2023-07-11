@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "1.1.0";
 
   src = requireFile {
-    url = "https://github.com/google/liquidfun/releases/download/v${version}/liquidfun-${version}";
+    url =
+      "https://github.com/google/liquidfun/releases/download/v${version}/liquidfun-${version}";
     sha256 = "5011a000eacd6202a47317c489e44aa753a833fb562d970e7b8c0da9de01df86";
     name = "liquidfun-${version}.tar.gz";
   };

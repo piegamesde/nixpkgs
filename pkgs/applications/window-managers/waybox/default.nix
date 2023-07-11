@@ -1,21 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, meson
-, cmake
-, ninja
-, libxkbcommon
-, wayland
-, wayland-scanner
-, wayland-protocols
-, wlroots
-, pixman
-, udev
-, libGL
-, libxml2
-, mesa
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, meson, cmake, ninja, libxkbcommon
+, wayland, wayland-scanner, wayland-protocols, wlroots, pixman, udev, libGL
+, libxml2, mesa }:
 
 stdenv.mkDerivation rec {
   pname = "waybox";
@@ -28,13 +13,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-G8dRa4hgev3x58uqp5To5OzF3zcPSuT3NL9MPnWf2M8=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    cmake
-    ninja
-    wayland-scanner
-  ];
+  nativeBuildInputs = [ pkg-config meson cmake ninja wayland-scanner ];
 
   dontUseCmakeConfigure = true;
 

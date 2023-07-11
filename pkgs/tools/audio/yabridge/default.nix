@@ -1,16 +1,5 @@
-{ lib
-, multiStdenv
-, fetchFromGitHub
-, substituteAll
-, pkgsi686Linux
-, dbus
-, meson
-, ninja
-, pkg-config
-, wine
-, libxcb
-, nix-update-script
-}:
+{ lib, multiStdenv, fetchFromGitHub, substituteAll, pkgsi686Linux, dbus, meson
+, ninja, pkg-config, wine, libxcb, nix-update-script }:
 
 let
   # Derived from subprojects/asio.wrap
@@ -69,8 +58,7 @@ let
     fetchSubmodules = true;
     sha256 = "sha256-LsPHPoAL21XOKmF1Wl/tvLJGzjaCLjaDAcUtDvXdXSU=";
   };
-in
-multiStdenv.mkDerivation (finalAttrs: {
+in multiStdenv.mkDerivation (finalAttrs: {
   pname = "yabridge";
   version = "5.0.4";
 
@@ -83,16 +71,17 @@ multiStdenv.mkDerivation (finalAttrs: {
   };
 
   # Unpack subproject sources
-  postUnpack = ''(
-    cd "$sourceRoot/subprojects"
-    cp -R --no-preserve=mode,ownership ${asio} asio
-    cp -R --no-preserve=mode,ownership ${bitsery} bitsery
-    cp -R --no-preserve=mode,ownership ${clap} clap
-    cp -R --no-preserve=mode,ownership ${function2} function2
-    cp -R --no-preserve=mode,ownership ${ghc_filesystem} ghc_filesystem
-    cp -R --no-preserve=mode,ownership ${tomlplusplus} tomlplusplus
-    cp -R --no-preserve=mode,ownership ${vst3} vst3
-  )'';
+  postUnpack = ''
+    (
+        cd "$sourceRoot/subprojects"
+        cp -R --no-preserve=mode,ownership ${asio} asio
+        cp -R --no-preserve=mode,ownership ${bitsery} bitsery
+        cp -R --no-preserve=mode,ownership ${clap} clap
+        cp -R --no-preserve=mode,ownership ${function2} function2
+        cp -R --no-preserve=mode,ownership ${ghc_filesystem} ghc_filesystem
+        cp -R --no-preserve=mode,ownership ${tomlplusplus} tomlplusplus
+        cp -R --no-preserve=mode,ownership ${vst3} vst3
+      )'';
 
   patches = [
     # Hard code bitbridge & runtime dependencies
@@ -118,20 +107,13 @@ multiStdenv.mkDerivation (finalAttrs: {
     )
   '';
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    wine
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config wine ];
 
-  buildInputs = [
-    libxcb
-    dbus
-  ];
+  buildInputs = [ libxcb dbus ];
 
   mesonFlags = [
-    "--cross-file" "cross-wine.conf"
+    "--cross-file"
+    "cross-wine.conf"
     "-Dbitbridge=true"
 
     # Requires CMake and is unnecessary
@@ -157,7 +139,8 @@ multiStdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
-    description = "A modern and transparent way to use Windows VST2 and VST3 plugins on Linux";
+    description =
+      "A modern and transparent way to use Windows VST2 and VST3 plugins on Linux";
     homepage = "https://github.com/robbert-vdh/yabridge";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ kira-bruneau ];

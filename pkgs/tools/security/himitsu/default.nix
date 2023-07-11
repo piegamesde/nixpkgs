@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromSourcehut
-, hare
-, scdoc
-}:
+{ lib, stdenv, fetchFromSourcehut, hare, scdoc }:
 
 stdenv.mkDerivation rec {
   pname = "himitsu";
@@ -17,10 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-tzBTDJKMuFh9anURy1aKQTmt77tI7wZDZQiOUowuomk=";
   };
 
-  nativeBuildInputs = [
-    hare
-    scdoc
-  ];
+  nativeBuildInputs = [ hare scdoc ];
 
   preConfigure = ''
     export HARECACHE=$(mktemp -d)

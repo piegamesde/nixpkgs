@@ -1,7 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-}:
+{ lib, fetchPypi, buildPythonPackage }:
 
 buildPythonPackage rec {
   pname = "spacy-legacy";
@@ -15,14 +12,14 @@ buildPythonPackage rec {
   # nativeCheckInputs = [ pytestCheckHook spacy ];
   doCheck = false;
 
-  pythonImportsCheck = [
-    "spacy_legacy"
-  ];
+  pythonImportsCheck = [ "spacy_legacy" ];
 
   meta = with lib; {
-    description = "Legacy registered functions for spaCy backwards compatibility";
+    description =
+      "Legacy registered functions for spaCy backwards compatibility";
     homepage = "https://github.com/explosion/spacy-legacy";
-    changelog = "https://github.com/explosion/spacy-legacy/releases/tag/v${version}";
+    changelog =
+      "https://github.com/explosion/spacy-legacy/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ melling ];
   };

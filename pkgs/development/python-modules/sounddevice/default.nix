@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, isPy27
-, cffi
-, numpy
-, portaudio
-, substituteAll
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, isPy27, cffi, numpy, portaudio
+, substituteAll }:
 
 buildPythonPackage rec {
   pname = "sounddevice";
@@ -29,7 +21,8 @@ buildPythonPackage rec {
   patches = [
     (substituteAll {
       src = ./fix-portaudio-library-path.patch;
-      portaudio = "${portaudio}/lib/libportaudio${stdenv.hostPlatform.extensions.sharedLibrary}";
+      portaudio =
+        "${portaudio}/lib/libportaudio${stdenv.hostPlatform.extensions.sharedLibrary}";
     })
   ];
 

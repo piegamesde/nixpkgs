@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, regex
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder, regex
 }:
 
 buildPythonPackage rec {
@@ -20,26 +15,19 @@ buildPythonPackage rec {
     hash = "sha256-l0TGi3Y3/Dcwyp80eRWYYlDaDDJdpc31fcxdYEVvQas=";
   };
 
-  propagatedBuildInputs = [
-    regex
-  ];
+  propagatedBuildInputs = [ regex ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "iocextract"
-  ];
+  pythonImportsCheck = [ "iocextract" ];
 
-  pytestFlagsArray = [
-    "tests.py"
-  ];
+  pytestFlagsArray = [ "tests.py" ];
 
   meta = with lib; {
     description = "Module to extract Indicator of Compromises (IOC)";
     homepage = "https://github.com/InQuest/python-iocextract";
-    changelog = "https://github.com/InQuest/python-iocextract/releases/tag/v${version}";
+    changelog =
+      "https://github.com/InQuest/python-iocextract/releases/tag/v${version}";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ fab ];
   };

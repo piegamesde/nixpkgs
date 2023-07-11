@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A console minesweeper-style game written in C for Unix-like systems";
+    description =
+      "A console minesweeper-style game written in C for Unix-like systems";
     homepage = "https://github.com/rwestlund/freesweep";
     license = licenses.gpl2;
     maintainers = with maintainers; [ kierdavis ];

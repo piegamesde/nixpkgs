@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, colorama
-, dill
-, fetchFromGitHub
-, numpy
-, pandas
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, colorama, dill, fetchFromGitHub, numpy, pandas
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "debuglater";
@@ -23,30 +15,20 @@ buildPythonPackage rec {
     hash = "sha256-o9IAk3EN8ghEft7Y7Xx+sEjWMNgoyiZ0eiBqnCyXkm8=";
   };
 
-  propagatedBuildInputs = [
-    colorama
-  ];
+  propagatedBuildInputs = [ colorama ];
 
-  passthru.optional-dependencies = {
-    all = [
-      dill
-    ];
-  };
+  passthru.optional-dependencies = { all = [ dill ]; };
 
-  nativeCheckInputs = [
-    numpy
-    pandas
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.all;
+  nativeCheckInputs = [ numpy pandas pytestCheckHook ]
+    ++ passthru.optional-dependencies.all;
 
-  pythonImportsCheck = [
-    "debuglater"
-  ];
+  pythonImportsCheck = [ "debuglater" ];
 
   meta = with lib; {
     description = "Module for post-mortem debugging of Python programs";
     homepage = "https://github.com/ploomber/debuglater";
-    changelog = "https://github.com/ploomber/debuglater/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/ploomber/debuglater/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

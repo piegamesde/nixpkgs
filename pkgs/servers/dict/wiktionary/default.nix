@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "20220420";
 
   src = fetchurl {
-    url = "https://dumps.wikimedia.org/enwiktionary/${version}/enwiktionary-${version}-pages-articles.xml.bz2";
+    url =
+      "https://dumps.wikimedia.org/enwiktionary/${version}/enwiktionary-${version}-pages-articles.xml.bz2";
     sha256 = "qsha26LL2513SDtriE/0zdPX1zlnpzk1KKk+R9dSdew=";
   };
 

@@ -1,44 +1,15 @@
-{ lib
-, pythonOlder
-, buildPythonPackage
-, fetchFromGitHub
-, arrow
-, nest-asyncio
-, qiskit-terra
-, requests
-, requests_ntlm
-, websocket-client
-  # Visualization inputs
-, withVisualization ? true
-, ipython
-, ipyvuetify
-, ipywidgets
-, matplotlib
-, plotly
-, pyperclip
-, seaborn
-  # check inputs
-, pytestCheckHook
-, nbconvert
-, nbformat
-, pproxy
-, qiskit-aer
-, websockets
-, vcrpy
-}:
+{ lib, pythonOlder, buildPythonPackage, fetchFromGitHub, arrow, nest-asyncio
+, qiskit-terra, requests, requests_ntlm, websocket-client
+# Visualization inputs
+, withVisualization ? true, ipython, ipyvuetify, ipywidgets, matplotlib, plotly
+, pyperclip, seaborn
+# check inputs
+, pytestCheckHook, nbconvert, nbformat, pproxy, qiskit-aer, websockets, vcrpy }:
 
 let
-  visualizationPackages = [
-    ipython
-    ipyvuetify
-    ipywidgets
-    matplotlib
-    plotly
-    pyperclip
-    seaborn
-  ];
-in
-buildPythonPackage rec {
+  visualizationPackages =
+    [ ipython ipyvuetify ipywidgets matplotlib plotly pyperclip seaborn ];
+in buildPythonPackage rec {
   pname = "qiskit-ibmq-provider";
   version = "0.20.1";
 
@@ -66,18 +37,13 @@ buildPythonPackage rec {
   '';
 
   # Most tests require credentials to run on IBMQ
-  nativeCheckInputs = [
-    pytestCheckHook
-    nbconvert
-    nbformat
-    pproxy
-    qiskit-aer
-    vcrpy
-  ] ++ lib.optionals (!withVisualization) visualizationPackages;
+  nativeCheckInputs =
+    [ pytestCheckHook nbconvert nbformat pproxy qiskit-aer vcrpy ]
+    ++ lib.optionals (!withVisualization) visualizationPackages;
 
   pythonImportsCheck = [ "qiskit.providers.ibmq" ];
   disabledTests = [
-    "test_coder_operators"  # fails for some reason on nixos-21.05+
+    "test_coder_operators" # fails for some reason on nixos-21.05+
     # These disabled tests require internet connection, aren't skipped elsewhere
     "test_old_api_url"
     "test_non_auth_url"
@@ -96,7 +62,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Qiskit provider for accessing the quantum devices and simulators at IBMQ";
+    description =
+      "Qiskit provider for accessing the quantum devices and simulators at IBMQ";
     homepage = "https://github.com/Qiskit/qiskit-ibmq-provider";
     changelog = "https://qiskit.org/documentation/release_notes.html";
     license = licenses.asl20;

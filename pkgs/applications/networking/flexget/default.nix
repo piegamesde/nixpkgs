@@ -1,7 +1,4 @@
-{ lib
-, python3
-, fetchFromGitHub
-}:
+{ lib, python3, fetchFromGitHub }:
 
 let
   python = python3.override {
@@ -16,8 +13,7 @@ let
       });
     };
   };
-in
-python.pkgs.buildPythonApplication rec {
+in python.pkgs.buildPythonApplication rec {
   pname = "flexget";
   version = "3.6.3";
   format = "pyproject";
@@ -85,10 +81,7 @@ python.pkgs.buildPythonApplication rec {
     transmission-rpc
   ];
 
-  pythonImportsCheck = [
-    "flexget"
-    "flexget.plugins.clients.transmission"
-  ];
+  pythonImportsCheck = [ "flexget" "flexget.plugins.clients.transmission" ];
 
   meta = with lib; {
     homepage = "https://flexget.com/";

@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, typing-extensions
-, zeroconf
-}:
+{ lib, buildPythonPackage, cryptography, fetchFromGitHub, pytest-asyncio
+, pytestCheckHook, pythonOlder, setuptools, typing-extensions, zeroconf }:
 
 buildPythonPackage rec {
   pname = "python-rabbitair";
@@ -24,25 +15,14 @@ buildPythonPackage rec {
     hash = "sha256-CGr7NvnGRNTiKq5BpB/zmfgyd/2ggTbO0nj+Q+MavTs=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    cryptography
-    zeroconf
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ cryptography zeroconf ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "rabbitair"
-  ];
+  pythonImportsCheck = [ "rabbitair" ];
 
   disabledTests = [
     # Tests require network access

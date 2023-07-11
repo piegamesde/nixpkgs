@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "3.64.1";
 
   src = fetchurl {
-    url = "https://sourceforge.net/projects/forth-4th/files/${pname}-${version}/${pname}-${version}-unix.tar.gz";
+    url =
+      "https://sourceforge.net/projects/forth-4th/files/${pname}-${version}/${pname}-${version}-unix.tar.gz";
     hash = "sha256-+W6nTNsqrf3Dvr+NbSz3uJdrXVbBI3OHR5v/rs7en+M=";
   };
 
@@ -16,10 +17,7 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  makeFlags = [
-    "-C sources"
-    "CC=${stdenv.cc.targetPrefix}cc"
-  ];
+  makeFlags = [ "-C sources" "CC=${stdenv.cc.targetPrefix}cc" ];
 
   preInstall = ''
     install -d ${placeholder "out"}/bin \

@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "ossc-db";
     repo = pname;
-    rev = "REL${builtins.replaceStrings ["-" "."] ["_" "_"] version}";
+    rev = "REL${builtins.replaceStrings [ "-" "." ] [ "_" "_" ] version}";
     sha256 = "sha256-2hYDn/69264x2lMRVIp/I5chjocL6UqIw5ry1qdRcDM=";
   };
 
@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Extension to tweak PostgreSQL execution plans using so-called 'hints' in SQL comments";
+    description =
+      "Extension to tweak PostgreSQL execution plans using so-called 'hints' in SQL comments";
     homepage = "https://github.com/ossc-db/pg_hint_plan";
     maintainers = with maintainers; [ _1000101 ];
     platforms = postgresql.meta.platforms;

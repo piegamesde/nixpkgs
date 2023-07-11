@@ -11,7 +11,8 @@ let
     network.host: ${cfg.listenAddress}
     cluster.name: ${cfg.cluster_name}
     ${lib.optionalString cfg.single_node "discovery.type: single-node"}
-    ${lib.optionalString (cfg.single_node && es7) "gateway.auto_import_dangling_indices: true"}
+    ${lib.optionalString (cfg.single_node && es7)
+    "gateway.auto_import_dangling_indices: true"}
 
     http.port: ${toString cfg.port}
     transport.port: ${toString cfg.tcp_port}
@@ -38,8 +39,7 @@ let
     postBuild = "${pkgs.coreutils}/bin/mkdir -p $out/plugins";
   };
 
-in
-{
+in {
 
   ###### interface
 
@@ -70,13 +70,15 @@ in
     };
 
     tcp_port = mkOption {
-      description = lib.mdDoc "Elasticsearch port for the node to node communication.";
+      description =
+        lib.mdDoc "Elasticsearch port for the node to node communication.";
       default = 9300;
       type = types.int;
     };
 
     cluster_name = mkOption {
-      description = lib.mdDoc "Elasticsearch name that identifies your cluster for auto-discovery.";
+      description = lib.mdDoc
+        "Elasticsearch name that identifies your cluster for auto-discovery.";
       default = "elasticsearch";
       type = types.str;
     };
@@ -124,7 +126,8 @@ in
     };
 
     extraCmdLineOptions = mkOption {
-      description = lib.mdDoc "Extra command line options for the elasticsearch launcher.";
+      description =
+        lib.mdDoc "Extra command line options for the elasticsearch launcher.";
       default = [ ];
       type = types.listOf types.str;
     };
@@ -140,10 +143,11 @@ in
       description = lib.mdDoc "Extra elasticsearch plugins";
       default = [ ];
       type = types.listOf types.package;
-      example = lib.literalExpression "[ pkgs.elasticsearchPlugins.discovery-ec2 ]";
+      example =
+        lib.literalExpression "[ pkgs.elasticsearchPlugins.discovery-ec2 ]";
     };
 
-    restartIfChanged  = mkOption {
+    restartIfChanged = mkOption {
       type = types.bool;
       description = lib.mdDoc ''
         Automatically restart the service on config change.
@@ -171,7 +175,9 @@ in
         ES_PATH_CONF = configDir;
       };
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/elasticsearch ${toString cfg.extraCmdLineOptions}";
+        ExecStart = "${cfg.package}/bin/elasticsearch ${
+            toString cfg.extraCmdLineOptions
+          }";
         User = "elasticsearch";
         PermissionsStartOnly = true;
         LimitNOFILE = "1024000";
@@ -218,7 +224,9 @@ in
       postStart = ''
         # Make sure elasticsearch is up and running before dependents
         # are started
-        while ! ${pkgs.curl}/bin/curl -sS -f http://${cfg.listenAddress}:${toString cfg.port} 2>/dev/null; do
+        while ! ${pkgs.curl}/bin/curl -sS -f http://${cfg.listenAddress}:${
+          toString cfg.port
+        } 2>/dev/null; do
           sleep 1
         done
       '';

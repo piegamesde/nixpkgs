@@ -1,20 +1,6 @@
-{ lib
-, buildPythonPackage
-, cerberus
-, configparser
-, deepdiff
-, fetchFromGitHub
-, geoip2
-, jinja2
-, netmiko
-, openpyxl
-, pytestCheckHook
-, poetry-core
-, pyyaml
-, tabulate
-, ttp-templates
-, yangson
-}:
+{ lib, buildPythonPackage, cerberus, configparser, deepdiff, fetchFromGitHub
+, geoip2, jinja2, netmiko, openpyxl, pytestCheckHook, poetry-core, pyyaml
+, tabulate, ttp-templates, yangson }:
 
 buildPythonPackage rec {
   pname = "ttp";
@@ -28,9 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-iZJ38NQnofW9awisY5cFBIN1rjXinA6CpJYSCCnNaOY=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     # https://github.com/dmulyalin/ttp/blob/master/docs/source/Installation.rst#additional-dependencies
@@ -47,15 +31,9 @@ buildPythonPackage rec {
     yangson
   ];
 
-  pythonImportsCheck = [
-    "ttp"
-  ];
+  pythonImportsCheck = [ "ttp" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pyyaml
-    ttp-templates
-  ];
+  nativeCheckInputs = [ pytestCheckHook pyyaml ttp-templates ];
 
   disabledTestPaths = [
     # missing package n2g
@@ -97,9 +75,7 @@ buildPythonPackage rec {
     "test_ttp_templates_dir_env_variable"
   ];
 
-  pytestFlagsArray = [
-    "test/pytest"
-  ];
+  pytestFlagsArray = [ "test/pytest" ];
 
   meta = with lib; {
     changelog = "https://github.com/dmulyalin/ttp/releases/tag/${version}";

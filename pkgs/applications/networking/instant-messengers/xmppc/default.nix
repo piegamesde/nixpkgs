@@ -1,4 +1,5 @@
-{lib, stdenv, fetchFromGitea, autoconf-archive, autoreconfHook, pkg-config, libstrophe, glib, gpgme }:
+{ lib, stdenv, fetchFromGitea, autoconf-archive, autoreconfHook, pkg-config
+, libstrophe, glib, gpgme }:
 
 stdenv.mkDerivation rec {
   pname = "xmppc";
@@ -12,17 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "07cy3j4g7vycagdiva3dqb59361lw7s5f2yydpczmyih29v7hkm8";
   };
 
-  nativeBuildInputs = [
-    autoconf-archive
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoconf-archive autoreconfHook pkg-config ];
 
-  buildInputs = [
-    libstrophe
-    glib
-    gpgme
-  ];
+  buildInputs = [ libstrophe glib gpgme ];
 
   preAutoreconf = ''
     mkdir m4

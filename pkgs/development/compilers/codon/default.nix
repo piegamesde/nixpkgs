@@ -1,15 +1,5 @@
-{ cacert
-, cmake
-, fetchFromGitHub
-, git
-, lib
-, lld
-, ninja
-, nix-update-script
-, perl
-, python3
-, stdenv
-}:
+{ cacert, cmake, fetchFromGitHub, git, lib, lld, ninja, nix-update-script, perl
+, python3, stdenv }:
 
 let
   version = "0.15.5";
@@ -34,13 +24,7 @@ let
       sha256 = "sha256-03SPQgNdrpR6/JZ5aR/ntoh/FnZvCjT/6bTAcZaFafw=";
     };
 
-    nativeBuildInputs = [
-      cmake
-      git
-      lld
-      ninja
-      python3
-    ];
+    nativeBuildInputs = [ cmake git lld ninja python3 ];
 
     cmakeFlags = [
       "-DCMAKE_CXX_COMPILER=clang++"
@@ -60,13 +44,7 @@ let
 
     inherit src;
 
-    nativeBuildInputs = [
-      cacert
-      cmake
-      git
-      perl
-      python3
-    ];
+    nativeBuildInputs = [ cacert cmake git perl python3 ];
 
     dontBuild = true;
 
@@ -91,8 +69,7 @@ let
     outputHash = "sha256-a1zGSpbMjfQBrcgW/aiIdKX8+uI3p/S9pgZjHe2HtWs=";
     outputHashAlgo = "sha256";
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "codon";
 
   inherit src version;
@@ -102,14 +79,7 @@ stdenv.mkDerivation {
     ./Add-a-hash-to-the-googletest-binary.patch
   ];
 
-  nativeBuildInputs = [
-    cmake
-    git
-    lld
-    ninja
-    perl
-    python3
-  ];
+  nativeBuildInputs = [ cmake git lld ninja perl python3 ];
 
   postUnpack = ''
     mkdir -p $sourceRoot/build
@@ -128,7 +98,8 @@ stdenv.mkDerivation {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "A high-performance, zero-overhead, extensible Python compiler using LLVM";
+    description =
+      "A high-performance, zero-overhead, extensible Python compiler using LLVM";
     homepage = "https://docs.exaloop.io/codon";
     maintainers = [ lib.maintainers.paveloom ];
     license = lib.licenses.bsl11;

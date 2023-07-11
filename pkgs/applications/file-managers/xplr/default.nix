@@ -24,6 +24,11 @@ rustPlatform.buildRustPackage rec {
     description = "A hackable, minimal, fast TUI file explorer";
     homepage = "https://xplr.dev";
     license = licenses.mit;
-    maintainers = with maintainers; [ sayanarijit suryasr007 thehedgeh0g mimame ];
+    maintainers = with maintainers; [
+      sayanarijit
+      suryasr007
+      thehedgeh0g
+      mimame
+    ];
   };
 }

@@ -2,11 +2,9 @@
 
 with haskellLib;
 
-let
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
-in
+let inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
-self: super: {
+in self: super: {
 
   llvmPackages = pkgs.lib.dontRecurseIntoAttrs self.ghc.llvmPackages;
 
@@ -40,7 +38,10 @@ self: super: {
   stm = null;
   template-haskell = null;
   # GHC only builds terminfo if it is a native compiler
-  terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
+  terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
+    null
+  else
+    self.terminfo_0_4_1_6;
   text = null;
   time = null;
   transformers = null;
@@ -62,7 +63,8 @@ self: super: {
 
   # Apply patches from head.hackage.
   language-haskell-extract = appendPatch (pkgs.fetchpatch {
-    url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/dfd024c9a336c752288ec35879017a43bd7e85a0/patches/language-haskell-extract-0.2.4.patch";
+    url =
+      "https://gitlab.haskell.org/ghc/head.hackage/-/raw/dfd024c9a336c752288ec35879017a43bd7e85a0/patches/language-haskell-extract-0.2.4.patch";
     sha256 = "0w4y3v69nd3yafpml4gr23l94bdhbmx8xky48a59lckmz5x9fgxv";
   }) (doJailbreak super.language-haskell-extract);
 
@@ -86,7 +88,8 @@ self: super: {
   protolude = doJailbreak super.protolude;
 
   # https://github.com/fpco/inline-c/pull/131
-  inline-c-cpp =
-    (if isDarwin then appendConfigureFlags ["--ghc-option=-fcompact-unwind"] else x: x)
-    super.inline-c-cpp;
+  inline-c-cpp = (if isDarwin then
+    appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ]
+  else
+    x: x) super.inline-c-cpp;
 }

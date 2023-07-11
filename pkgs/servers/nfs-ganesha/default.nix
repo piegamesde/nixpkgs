@@ -1,7 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config
-, krb5, xfsprogs, jemalloc, dbus, libcap
-, ntirpc, liburcu, bison, flex, nfs-utils, acl
-} :
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, krb5, xfsprogs, jemalloc
+, dbus, libcap, ntirpc, liburcu, bison, flex, nfs-utils, acl }:
 
 stdenv.mkDerivation rec {
   pname = "nfs-ganesha";
@@ -23,24 +21,10 @@ stdenv.mkDerivation rec {
     "-DUSE_ACL_MAPPING=ON"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    bison
-    flex
-  ];
+  nativeBuildInputs = [ cmake pkg-config bison flex ];
 
-  buildInputs = [
-    acl
-    krb5
-    xfsprogs
-    jemalloc
-    dbus.lib
-    libcap
-    ntirpc
-    liburcu
-    nfs-utils
-  ];
+  buildInputs =
+    [ acl krb5 xfsprogs jemalloc dbus.lib libcap ntirpc liburcu nfs-utils ];
 
   meta = with lib; {
     description = "NFS server that runs in user space";

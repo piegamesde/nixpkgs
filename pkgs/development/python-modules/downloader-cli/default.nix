@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, urllib3
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, urllib3, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "downloader-cli";
@@ -19,16 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-Dl5XIvdZInz+edL9uQv7V6Kc6FB+7hFAGe/nybnqvQU=";
   };
 
-  propagatedBuildInputs = [
-    urllib3
-  ];
+  propagatedBuildInputs = [ urllib3 ];
 
   # Disable checks due to networking (Errno 101)
   doCheck = false;
 
-  pythonImportsCheck = [
-    "downloader_cli"
-  ];
+  pythonImportsCheck = [ "downloader_cli" ];
 
   meta = with lib; {
     description = "Downloader with an awesome customizable progressbar";

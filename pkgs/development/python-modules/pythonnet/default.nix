@@ -1,17 +1,5 @@
-{ stdenv
-, lib
-, fetchPypi
-, fetchNuGet
-, buildPythonPackage
-, pytestCheckHook
-, pycparser
-, psutil
-, pkg-config
-, dotnetbuildhelpers
-, clang
-, glib
-, mono
-}:
+{ stdenv, lib, fetchPypi, fetchNuGet, buildPythonPackage, pytestCheckHook
+, pycparser, psutil, pkg-config, dotnetbuildhelpers, clang, glib, mono }:
 
 let
 
@@ -36,9 +24,7 @@ let
     })
   ];
 
-in
-
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "pythonnet";
   version = "2.5.2";
 
@@ -67,10 +53,7 @@ buildPythonPackage rec {
 
   ] ++ dotnetPkgs;
 
-  buildInputs = [
-    glib
-    mono
-  ];
+  buildInputs = [ glib mono ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -81,10 +64,9 @@ buildPythonPackage rec {
     rm -rf packages
     mkdir packages
 
-    ${builtins.concatStringsSep "\n" (
-        builtins.map (
-            x: ''ln -s ${x}/lib/dotnet/${x.pname} ./packages/${x.pname}.${x.version}''
-          ) dotnetPkgs)}
+    ${builtins.concatStringsSep "\n" (builtins.map
+      (x: "ln -s ${x}/lib/dotnet/${x.pname} ./packages/${x.pname}.${x.version}")
+      dotnetPkgs)}
 
     # Setting TERM=xterm fixes an issue with terminfo in mono: System.Exception: Magic number is wrong: 542
     export TERM=xterm

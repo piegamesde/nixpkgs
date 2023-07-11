@@ -1,25 +1,7 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchpatch
-, fetchurl
-, pkg-config
-, cmake
-, python3Packages
-, libpng
-, zlib
-, eigen
-, protobuf
-, howard-hinnant-date
-, nlohmann_json
-, boost
-, oneDNN
-, abseil-cpp_202111
-, gtest
-, pythonSupport ? false
-, nsync
-, flatbuffers
-}:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, fetchurl, pkg-config, cmake
+, python3Packages, libpng, zlib, eigen, protobuf, howard-hinnant-date
+, nlohmann_json, boost, oneDNN, abseil-cpp_202111, gtest, pythonSupport ? false
+, nsync, flatbuffers }:
 
 # Python Support
 #
@@ -44,37 +26,24 @@ stdenv.mkDerivation rec {
     # Use dnnl from nixpkgs instead of submodules
     (fetchpatch {
       name = "system-dnnl.patch";
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/system-dnnl.diff?h=python-onnxruntime&id=9c392fb542979981fe0026e0fe3cc361a5f00a36";
+      url =
+        "https://aur.archlinux.org/cgit/aur.git/plain/system-dnnl.diff?h=python-onnxruntime&id=9c392fb542979981fe0026e0fe3cc361a5f00a36";
       sha256 = "sha256-+kedzJHLFU1vMbKO9cn8fr+9A5+IxIuiqzOfR2AfJ0k=";
     })
   ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    python3Packages.python
-    gtest
-  ] ++ lib.optionals pythonSupport (with python3Packages; [
-    setuptools
-    wheel
-    pip
-    pythonOutputDistHook
-  ]);
+  nativeBuildInputs = [ cmake pkg-config python3Packages.python gtest ]
+    ++ lib.optionals pythonSupport
+    (with python3Packages; [ setuptools wheel pip pythonOutputDistHook ]);
 
-  buildInputs = [
-    libpng
-    zlib
-    howard-hinnant-date
-    nlohmann_json
-    boost
-    oneDNN
-    protobuf
-  ] ++ lib.optionals pythonSupport [
-    nsync
-    python3Packages.numpy
-    python3Packages.pybind11
-    python3Packages.packaging
-  ];
+  buildInputs =
+    [ libpng zlib howard-hinnant-date nlohmann_json boost oneDNN protobuf ]
+    ++ lib.optionals pythonSupport [
+      nsync
+      python3Packages.numpy
+      python3Packages.pybind11
+      python3Packages.packaging
+    ];
 
   # TODO: build server, and move .so's to lib output
   # Python's wheel is stored in a separate dist output
@@ -94,9 +63,7 @@ stdenv.mkDerivation rec {
     "-Deigen_SOURCE_PATH=${eigen.src}"
     "-DFETCHCONTENT_SOURCE_DIR_ABSEIL_CPP=${abseil-cpp_202111.src}"
     "-Donnxruntime_USE_DNNL=YES"
-  ] ++ lib.optionals pythonSupport [
-    "-Donnxruntime_ENABLE_PYTHON=ON"
-  ];
+  ] ++ lib.optionals pythonSupport [ "-Donnxruntime_ENABLE_PYTHON=ON" ];
 
   doCheck = true;
 
@@ -119,13 +86,13 @@ stdenv.mkDerivation rec {
 
   passthru = {
     inherit protobuf;
-    tests = lib.optionalAttrs pythonSupport {
-      python = python3Packages.onnxruntime;
-    };
+    tests =
+      lib.optionalAttrs pythonSupport { python = python3Packages.onnxruntime; };
   };
 
   meta = with lib; {
-    description = "Cross-platform, high performance scoring engine for ML models";
+    description =
+      "Cross-platform, high performance scoring engine for ML models";
     longDescription = ''
       ONNX Runtime is a performance-focused complete scoring engine
       for Open Neural Network Exchange (ONNX) models, with an open
@@ -136,7 +103,8 @@ stdenv.mkDerivation rec {
       compatibility.
     '';
     homepage = "https://github.com/microsoft/onnxruntime";
-    changelog = "https://github.com/microsoft/onnxruntime/releases/tag/v${version}";
+    changelog =
+      "https://github.com/microsoft/onnxruntime/releases/tag/v${version}";
     # https://github.com/microsoft/onnxruntime/blob/master/BUILD.md#architectures
     platforms = platforms.unix;
     license = licenses.mit;

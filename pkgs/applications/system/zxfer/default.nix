@@ -1,17 +1,5 @@
-{ lib
-, bash
-, fetchFromGitHub
-, installShellFiles
-, coreutils
-, gawk
-, gnugrep
-, gnused
-, openssh
-, resholve
-, rsync
-, which
-, zfs
-}:
+{ lib, bash, fetchFromGitHub, installShellFiles, coreutils, gawk, gnugrep
+, gnused, openssh, resholve, rsync, which, zfs }:
 
 resholve.mkDerivation rec {
   pname = "zxfer";
@@ -46,15 +34,7 @@ resholve.mkDerivation rec {
   solutions.default = {
     scripts = [ "bin/zxfer" ];
     interpreter = "${bash}/bin/sh";
-    inputs = [
-      coreutils
-      gawk
-      gnugrep
-      gnused
-      openssh
-      rsync
-      which
-    ];
+    inputs = [ coreutils gawk gnugrep gnused openssh rsync which ];
     fake.external = [
       "kldload" # bsd builtin
       "kldstat" # bsd builtin

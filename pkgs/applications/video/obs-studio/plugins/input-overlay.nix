@@ -1,14 +1,5 @@
-{ stdenv, lib
-, fetchFromGitHub
-, cmake
-, pkg-config
-, obs-studio
-, libuiohook
-, qtbase
-, xorg
-, libxkbcommon
-, libxkbfile
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, obs-studio, libuiohook
+, qtbase, xorg, libxkbcommon, libxkbfile }:
 
 stdenv.mkDerivation rec {
   pname = "obs-input-overlay";
@@ -23,9 +14,19 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [
-    obs-studio libuiohook qtbase
-    xorg.libX11 xorg.libXau xorg.libXdmcp xorg.libXtst xorg.libXext
-    xorg.libXi xorg.libXt xorg.libXinerama libxkbcommon libxkbfile
+    obs-studio
+    libuiohook
+    qtbase
+    xorg.libX11
+    xorg.libXau
+    xorg.libXdmcp
+    xorg.libXtst
+    xorg.libXext
+    xorg.libXi
+    xorg.libXt
+    xorg.libXinerama
+    libxkbcommon
+    libxkbfile
   ];
 
   postInstall = ''

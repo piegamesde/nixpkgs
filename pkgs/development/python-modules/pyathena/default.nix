@@ -1,13 +1,5 @@
-{ lib
-, boto3
-, botocore
-, buildPythonPackage
-, fetchPypi
-, fsspec
-, pandas
-, pythonOlder
-, tenacity
-}:
+{ lib, boto3, botocore, buildPythonPackage, fetchPypi, fsspec, pandas
+, pythonOlder, tenacity }:
 
 buildPythonPackage rec {
   pname = "pyathena";
@@ -21,22 +13,14 @@ buildPythonPackage rec {
     hash = "sha256-6T2qr0fcHzgDPZvc3StZwIH2ZRvTOJFXDLPc3iFmwCQ=";
   };
 
-  propagatedBuildInputs = [
-    boto3
-    botocore
-    fsspec
-    pandas
-    tenacity
-  ];
+  propagatedBuildInputs = [ boto3 botocore fsspec pandas tenacity ];
 
   # Nearly all tests depend on a working AWS Athena instance,
   # therefore deactivating them.
   # https://github.com/laughingman7743/PyAthena/#testing
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pyathena"
-  ];
+  pythonImportsCheck = [ "pyathena" ];
 
   meta = with lib; {
     description = "Python DB API 2.0 (PEP 249) client for Amazon Athena";

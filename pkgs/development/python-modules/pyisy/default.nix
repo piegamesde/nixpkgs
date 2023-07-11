@@ -1,13 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, colorlog
-, fetchFromGitHub
-, python-dateutil
-, pythonOlder
-, requests
-, setuptools-scm
-}:
+{ lib, aiohttp, buildPythonPackage, colorlog, fetchFromGitHub, python-dateutil
+, pythonOlder, requests, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "pyisy";
@@ -30,16 +22,9 @@ buildPythonPackage rec {
       --replace 'version_format="{tag}"' 'version="${version}"'
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    colorlog
-    python-dateutil
-    requests
-  ];
+  propagatedBuildInputs = [ aiohttp colorlog python-dateutil requests ];
 
   # no tests implemented
   doCheck = false;

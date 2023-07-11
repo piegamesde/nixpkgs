@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, scipy
-, six
-, pandas
-, pyyaml
-, matplotlib
-, numba
-, pytestCheckHook
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, numpy, scipy, six, pandas
+, pyyaml, matplotlib, numba, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "trackpy";
@@ -23,19 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-NG1TOppqRbIZHLxJjlaXD4icYlAUkSxtmmC/fsS/pXo=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    six
-    pandas
-    pyyaml
-    matplotlib
-    numba
-  ];
+  propagatedBuildInputs = [ numpy scipy six pandas pyyaml matplotlib numba ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = lib.optionalString stdenv.isDarwin ''
     # specifically needed for darwin

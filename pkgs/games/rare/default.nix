@@ -1,15 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildPythonApplication
-, qt5
-, legendary-gl
-, pypresence
-, pyqt5
-, python
-, qtawesome
-, requests
-, typing-extensions
-}:
+{ lib, fetchFromGitHub, buildPythonApplication, qt5, legendary-gl, pypresence
+, pyqt5, python, qtawesome, requests, typing-extensions }:
 
 buildPythonApplication rec {
   pname = "rare";
@@ -22,18 +12,10 @@ buildPythonApplication rec {
     sha256 = "sha256-+STwVsDdvjP7HaqmaQVug+6h0n0rw/j4LGQQSNdLVQQ=";
   };
 
-  nativeBuildInputs = [
-    qt5.wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
 
-  propagatedBuildInputs = [
-    legendary-gl
-    pypresence
-    pyqt5
-    qtawesome
-    requests
-    typing-extensions
-  ];
+  propagatedBuildInputs =
+    [ legendary-gl pypresence pyqt5 qtawesome requests typing-extensions ];
 
   patches = [
     ./fix-instance.patch
@@ -56,7 +38,8 @@ buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "GUI for Legendary, an Epic Games Launcher open source alternative";
+    description =
+      "GUI for Legendary, an Epic Games Launcher open source alternative";
     homepage = "https://github.com/Dummerle/Rare";
     maintainers = with maintainers; [ wolfangaukang ];
     license = licenses.gpl3Only;

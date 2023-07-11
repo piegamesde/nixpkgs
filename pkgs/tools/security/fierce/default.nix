@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "fierce";
@@ -15,9 +12,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-9VTPD5i203BTl2nADjq131W9elgnaHNIWGIUuCiYlHg=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    dnspython
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ dnspython ];
 
   postPatch = ''
     substituteInPlace requirements.txt \
@@ -27,12 +22,11 @@ python3.pkgs.buildPythonApplication rec {
   # tests require network access
   doCheck = false;
 
-  pythonImportsCheck = [
-    "fierce"
-  ];
+  pythonImportsCheck = [ "fierce" ];
 
   meta = with lib; {
-    description = "DNS reconnaissance tool for locating non-contiguous IP space";
+    description =
+      "DNS reconnaissance tool for locating non-contiguous IP space";
     homepage = "https://github.com/mschwager/fierce";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ c0bw3b ];

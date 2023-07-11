@@ -18,7 +18,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python interface for PEMicro debug probes";
     homepage = "https://github.com/NXPmicro/pypemicro";
-    license = with licenses; [ bsd3 unfree ]; # it includes shared libraries for which no license is available (https://github.com/NXPmicro/pypemicro/issues/10)
+    license = with licenses; [
+      bsd3
+      unfree
+    ]; # it includes shared libraries for which no license is available (https://github.com/NXPmicro/pypemicro/issues/10)
     maintainers = with maintainers; [ frogamic sbruder ];
   };
 }

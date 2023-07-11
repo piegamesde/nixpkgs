@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, dask
-, fetchPypi
-, numpy
-, pims
-, pytestCheckHook
-, pythonOlder
-, scikitimage
-, scipy
-}:
+{ lib, stdenv, buildPythonPackage, dask, fetchPypi, numpy, pims, pytestCheckHook
+, pythonOlder, scikitimage, scipy }:
 
 buildPythonPackage rec {
   pname = "dask-image";
@@ -23,26 +13,16 @@ buildPythonPackage rec {
     hash = "sha256-8SPf0Wp9FcdmYqasFHeFCe1e7ZtJT0Mi5ZRemxWSNUc=";
   };
 
-  propagatedBuildInputs = [
-    dask
-    numpy
-    scipy
-    pims
-  ];
+  propagatedBuildInputs = [ dask numpy scipy pims ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    scikitimage
-  ];
+  nativeCheckInputs = [ pytestCheckHook scikitimage ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
       --replace "--flake8" ""
   '';
 
-  pythonImportsCheck = [
-    "dask_image"
-  ];
+  pythonImportsCheck = [ "dask_image" ];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);

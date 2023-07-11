@@ -1,34 +1,8 @@
-{ lib
-, anytree
-, arrayqueues
-, av
-, buildPythonPackage
-, colorspacious
-, fetchPypi
-, flammkuchen
-, git
-, gitpython
-, imageio
-, imageio-ffmpeg
-, lightparam
-, matplotlib
-, nose
-, numba
-, numpy
-, opencv3
-, pandas
-, pims
-, pyqt5
-, pyqtgraph
-, pyserial
-, pytestCheckHook
-, pythonOlder
-, qdarkstyle
-, qimage2ndarray
-, scikitimage
-, scipy
-, tables
-}:
+{ lib, anytree, arrayqueues, av, buildPythonPackage, colorspacious, fetchPypi
+, flammkuchen, git, gitpython, imageio, imageio-ffmpeg, lightparam, matplotlib
+, nose, numba, numpy, opencv3, pandas, pims, pyqt5, pyqtgraph, pyserial
+, pytestCheckHook, pythonOlder, qdarkstyle, qimage2ndarray, scikitimage, scipy
+, tables }:
 
 buildPythonPackage rec {
   pname = "stytra";
@@ -73,14 +47,11 @@ buildPythonPackage rec {
     av
   ];
 
-  nativeCheckInputs = [
-    nose
-    pytestCheckHook
-    pyserial
-  ];
+  nativeCheckInputs = [ nose pytestCheckHook pyserial ];
 
   meta = with lib; {
-    description = "A modular package to control stimulation and track behaviour";
+    description =
+      "A modular package to control stimulation and track behaviour";
     homepage = "https://github.com/portugueslab/stytra";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ tbenst ];

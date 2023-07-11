@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, python
-, regex
-, pytestCheckHook
-, js2py
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python, regex, pytestCheckHook
+, js2py }:
 
 buildPythonPackage rec {
   pname = "lark";
@@ -21,20 +15,13 @@ buildPythonPackage rec {
   # Optional import, but fixes some re known bugs & allows advanced regex features
   propagatedBuildInputs = [ regex ];
 
-  pythonImportsCheck = [
-    "lark"
-    "lark.parsers"
-    "lark.tools"
-    "lark.grammars"
-  ];
+  pythonImportsCheck = [ "lark" "lark.parsers" "lark.tools" "lark.grammars" ];
 
-  nativeCheckInputs = [
-    js2py
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ js2py pytestCheckHook ];
 
   meta = with lib; {
-    description = "A modern parsing library for Python, implementing Earley & LALR(1) and an easy interface";
+    description =
+      "A modern parsing library for Python, implementing Earley & LALR(1) and an easy interface";
     homepage = "https://lark-parser.readthedocs.io/";
     changelog = "https://github.com/lark-parser/lark/releases/tag/${version}";
     license = licenses.mit;

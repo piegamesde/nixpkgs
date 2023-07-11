@@ -6,8 +6,7 @@ let
     python = python3;
   };
 
-in
-buildNodejs {
+in buildNodejs {
   inherit enableNpm;
   version = "18.16.0";
   sha256 = "sha256-M9gaIz4jWlCa3aSk8iCQCNBFkZed5rPw9nwckGCT8Rg=";

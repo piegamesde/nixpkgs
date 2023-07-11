@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchCrate
-}:
+{ lib, stdenv, rustPlatform, fetchCrate }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-apk";
@@ -18,7 +14,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Tool for creating Android packages";
     homepage = "https://github.com/rust-windowing/android-ndk-rs";
-    license = with licenses;[ mit asl20 ];
+    license = with licenses; [ mit asl20 ];
     maintainers = with maintainers; [ nickcao ];
   };
 }

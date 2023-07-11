@@ -24,7 +24,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "Videoconferencing server that is easy to deploy, written in Go";
+    description =
+      "Videoconferencing server that is easy to deploy, written in Go";
     homepage = "https://github.com/jech/galene";
     changelog = "https://github.com/jech/galene/raw/galene-${version}/CHANGES";
     license = licenses.mit;

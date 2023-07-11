@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, appdirs
-, pytz
-, requests
-, pytestCheckHook
-, requests-mock
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, appdirs, pytz, requests
+, pytestCheckHook, requests-mock }:
 
 buildPythonPackage rec {
   pname = "datapoint";
@@ -19,16 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-YC8KFTv6lnCqMfDw1LSova7XBgmKbR3TpPDAAbH9imw=";
   };
 
-  propagatedBuildInputs = [
-    appdirs
-    pytz
-    requests
-  ];
+  propagatedBuildInputs = [ appdirs pytz requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook requests-mock ];
 
   pytestFlagsArray = [ "tests/unit" ];
 

@@ -17,16 +17,11 @@ stdenv.mkDerivation rec {
     "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
   ];
 
-  buildInputs = [
-    glog
-    folly
-    fmt_8
-    boost
-    gtest
-  ];
+  buildInputs = [ glog folly fmt_8 boost gtest ];
 
   meta = with lib; {
-    description = "A shared library for Meta's source control filesystem tools (EdenFS and Watchman)";
+    description =
+      "A shared library for Meta's source control filesystem tools (EdenFS and Watchman)";
     homepage = "https://github.com/facebookexperimental/edencommon";
     license = licenses.mit;
     platforms = platforms.unix;

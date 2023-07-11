@@ -1,17 +1,5 @@
-{ mkDerivation
-, lib
-, extra-cmake-modules
-, kdoctools
-, kio
-, kparts
-, kxmlgui
-, qtscript
-, solid
-, qtquickcontrols2
-, kdeclarative
-, kirigami2
-, kquickcharts
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, kio, kparts, kxmlgui
+, qtscript, solid, qtquickcontrols2, kdeclarative, kirigami2, kquickcharts }:
 
 mkDerivation {
   pname = "filelight";

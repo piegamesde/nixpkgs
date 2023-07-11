@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromSourcehut
-, hare
-, himitsu
-, zip
-}:
+{ lib, stdenv, fetchFromSourcehut, hare, himitsu, zip }:
 
 stdenv.mkDerivation rec {
   pname = "himitsu-firefox";
@@ -18,14 +12,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-5RbNdEGPnfDt1KDeU2LnuRsqqqMRyV/Dh2cgEWkz4vQ=";
   };
 
-  nativeBuildInputs = [
-    hare
-    zip
-  ];
+  nativeBuildInputs = [ hare zip ];
 
-  buildInputs = [
-    himitsu
-  ];
+  buildInputs = [ himitsu ];
 
   preConfigure = ''
     export HARECACHE=$(mktemp -d)

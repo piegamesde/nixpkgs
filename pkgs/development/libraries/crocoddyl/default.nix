@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, example-robot-data
-, pinocchio
-, pythonSupport ? false
-, python3Packages
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, example-robot-data, pinocchio
+, pythonSupport ? false, python3Packages }:
 
 stdenv.mkDerivation rec {
   pname = "crocoddyl";
@@ -22,17 +15,14 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  propagatedBuildInputs = lib.optionals (!pythonSupport) [
-    example-robot-data
-    pinocchio
-  ] ++ lib.optionals pythonSupport [
-    python3Packages.example-robot-data
-    python3Packages.pinocchio
-  ];
+  propagatedBuildInputs =
+    lib.optionals (!pythonSupport) [ example-robot-data pinocchio ]
+    ++ lib.optionals pythonSupport [
+      python3Packages.example-robot-data
+      python3Packages.pinocchio
+    ];
 
   cmakeFlags = lib.optionals (!pythonSupport) [
     "-DBUILD_EXAMPLES=OFF"

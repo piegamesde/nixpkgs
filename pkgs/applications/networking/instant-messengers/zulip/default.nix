@@ -1,21 +1,17 @@
-{ lib
-, fetchurl
-, appimageTools
-}:
+{ lib, fetchurl, appimageTools }:
 
 let
   pname = "zulip";
   version = "5.9.5";
 
   src = fetchurl {
-    url = "https://github.com/zulip/zulip-desktop/releases/download/v${version}/Zulip-${version}-x86_64.AppImage";
+    url =
+      "https://github.com/zulip/zulip-desktop/releases/download/v${version}/Zulip-${version}-x86_64.AppImage";
     hash = "sha256-w2thmF/UA42j3u3m4L+/onilQhwMOa7IJoOMZ/ERypw=";
-    name="${pname}-${version}.AppImage";
+    name = "${pname}-${version}.AppImage";
   };
 
-  appimageContents = appimageTools.extractType2 {
-    inherit pname version src;
-  };
+  appimageContents = appimageTools.extractType2 { inherit pname version src; };
 
 in appimageTools.wrapType2 {
   inherit pname version src;

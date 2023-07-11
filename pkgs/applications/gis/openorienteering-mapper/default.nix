@@ -1,23 +1,6 @@
-{ lib
-, stdenv
-, mkDerivation
-, fetchFromGitHub
-, fetchpatch
-, clipper
-, cmake
-, cups
-, doxygen
-, gdal
-, ninja
-, proj
-, qtimageformats
-, qtlocation
-, qtsensors
-, qttools
-, qttranslations
-, substituteAll
-, zlib
-}:
+{ lib, stdenv, mkDerivation, fetchFromGitHub, fetchpatch, clipper, cmake, cups
+, doxygen, gdal, ninja, proj, qtimageformats, qtlocation, qtsensors, qttools
+, qttranslations, substituteAll, zlib }:
 
 mkDerivation rec {
   pname = "OpenOrienteering-Mapper";
@@ -38,28 +21,16 @@ mkDerivation rec {
     })
     # https://github.com/OpenOrienteering/mapper/pull/1907
     (fetchpatch {
-      url = "https://github.com/OpenOrienteering/mapper/commit/bc52aa567e90a58d6963b44d5ae1909f3f841508.patch";
+      url =
+        "https://github.com/OpenOrienteering/mapper/commit/bc52aa567e90a58d6963b44d5ae1909f3f841508.patch";
       sha256 = "1bkckapzccn6k0ri6bgrr0nhis9498fnwj7b32s2ysym8zcg0355";
     })
   ];
 
-  nativeBuildInputs = [
-    cmake
-    doxygen
-    ninja
-    qttools
-  ];
+  nativeBuildInputs = [ cmake doxygen ninja qttools ];
 
-  buildInputs = [
-    clipper
-    cups
-    gdal
-    proj
-    qtimageformats
-    qtlocation
-    qtsensors
-    zlib
-  ];
+  buildInputs =
+    [ clipper cups gdal proj qtimageformats qtlocation qtsensors zlib ];
 
   cmakeFlags = [
     # Building the manual and bundling licenses fails
@@ -79,17 +50,19 @@ mkDerivation rec {
     "-DMapper_PACKAGE_GDAL=0"
   ];
 
-  postInstall = with stdenv; lib.optionalString isDarwin ''
-    mkdir -p $out/Applications
-    mv $out/Mapper.app $out/Applications
-    mkdir -p $out/bin
-    ln -s $out/Applications/Mapper.app/Contents/MacOS/Mapper $out/bin/mapper
-  '';
+  postInstall = with stdenv;
+    lib.optionalString isDarwin ''
+      mkdir -p $out/Applications
+      mv $out/Mapper.app $out/Applications
+      mkdir -p $out/bin
+      ln -s $out/Applications/Mapper.app/Contents/MacOS/Mapper $out/bin/mapper
+    '';
 
   meta = with lib; {
     homepage = "https://www.openorienteering.org/apps/mapper/";
     description = "An orienteering mapmaking program";
-    changelog = "https://github.com/OpenOrienteering/mapper/releases/tag/v${version}";
+    changelog =
+      "https://github.com/OpenOrienteering/mapper/releases/tag/v${version}";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ mpickering sikmir ];
     platforms = with platforms; unix;

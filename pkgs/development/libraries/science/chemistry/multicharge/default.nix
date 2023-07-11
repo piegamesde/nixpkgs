@@ -1,12 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, gfortran
-, blas
-, lapack
-, mctc-lib
-, mstore
+{ stdenv, lib, fetchFromGitHub, cmake, gfortran, blas, lapack, mctc-lib, mstore
 }:
 
 assert !blas.isILP64 && !lapack.isILP64;
@@ -37,7 +29,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Electronegativity equilibration model for atomic partial charges";
+    description =
+      "Electronegativity equilibration model for atomic partial charges";
     license = licenses.asl20;
     homepage = "https://github.com/grimme-lab/multicharge";
     platforms = platforms.linux;

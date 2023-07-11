@@ -14,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A simple tui to view & control docker containers";
     homepage = "https://github.com/mrjackwills/oxker";
-    changelog = "https://github.com/mrjackwills/oxker/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/mrjackwills/oxker/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ siph ];
   };

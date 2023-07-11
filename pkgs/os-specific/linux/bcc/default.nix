@@ -1,9 +1,6 @@
-{ lib, stdenv, fetchFromGitHub
-, makeWrapper, cmake, llvmPackages
-, flex, bison, elfutils, python, luajit, netperf, iperf, libelf
-, bash, libbpf, nixosTests
-, audit
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, cmake, llvmPackages, flex, bison
+, elfutils, python, luajit, netperf, iperf, libelf, bash, libbpf, nixosTests
+, audit }:
 
 python.pkgs.buildPythonApplication rec {
   pname = "bcc";
@@ -20,9 +17,16 @@ python.pkgs.buildPythonApplication rec {
   format = "other";
 
   buildInputs = with llvmPackages; [
-    llvm llvm.dev libclang
-    elfutils luajit netperf iperf
-    flex bash libbpf
+    llvm
+    llvm.dev
+    libclang
+    elfutils
+    luajit
+    netperf
+    iperf
+    flex
+    bash
+    libbpf
   ];
 
   patches = [
@@ -66,7 +70,7 @@ python.pkgs.buildPythonApplication rec {
     mv $out/share/bcc/man $out/share/
 
     find $out/share/bcc/tools -type f -executable -print0 | \
-    while IFS= read -r -d ''$'\0' f; do
+    while IFS= read -r -d $'\0' f; do
       bin=$out/bin/$(basename $f)
       if [ ! -e $bin ]; then
         ln -s $f $bin
@@ -84,14 +88,12 @@ python.pkgs.buildPythonApplication rec {
 
   outputs = [ "out" "man" ];
 
-  passthru.tests = {
-    bpf = nixosTests.bpf;
-  };
+  passthru.tests = { bpf = nixosTests.bpf; };
 
   meta = with lib; {
     description = "Dynamic Tracing Tools for Linux";
-    homepage    = "https://iovisor.github.io/bcc/";
-    license     = licenses.asl20;
+    homepage = "https://iovisor.github.io/bcc/";
+    license = licenses.asl20;
     maintainers = with maintainers; [ ragge mic92 thoughtpolice martinetd ];
   };
 }

@@ -1,21 +1,30 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
-rec {
+# Generated file.
+args@{ fetchurl, ... }: rec {
   baseName = "hu_dot_dwim_dot_common";
   version = "20150709-darcs";
 
-  description = "An extended Common Lisp package to the general needs of other hu.dwim systems.";
+  description =
+    "An extended Common Lisp package to the general needs of other hu.dwim systems.";
 
-  deps = [ args."alexandria" args."anaphora" args."closer-mop" args."hu_dot_dwim_dot_asdf" args."hu_dot_dwim_dot_common-lisp" args."iterate" args."metabang-bind" ];
+  deps = [
+    args."alexandria"
+    args."anaphora"
+    args."closer-mop"
+    args."hu_dot_dwim_dot_asdf"
+    args."hu_dot_dwim_dot_common-lisp"
+    args."iterate"
+    args."metabang-bind"
+  ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/hu.dwim.common/2015-07-09/hu.dwim.common-20150709-darcs.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/hu.dwim.common/2015-07-09/hu.dwim.common-20150709-darcs.tgz";
     sha256 = "12l1rr6w9m99w0b5gc6hv58ainjfhbc588kz6vwshn4gqsxyzbhp";
   };
 
   packageName = "hu.dwim.common";
 
-  asdFilesToKeep = ["hu.dwim.common.asd"];
+  asdFilesToKeep = [ "hu.dwim.common.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM hu.dwim.common DESCRIPTION
@@ -34,4 +43,5 @@ rec {
     (alexandria anaphora closer-mop hu.dwim.asdf hu.dwim.common-lisp iterate
      metabang-bind)
     VERSION 20150709-darcs SIBLINGS (hu.dwim.common.documentation) PARASITES
-    NIL) */
+    NIL)
+*/

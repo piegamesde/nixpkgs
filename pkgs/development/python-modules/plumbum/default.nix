@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, hatch-vcs
-, openssh
-, ps
-, psutil
-, pytest-mock
-, pytest-timeout
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, hatchling, hatch-vcs, openssh, ps
+, psutil, pytest-mock, pytest-timeout, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "plumbum";
@@ -30,19 +20,10 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    hatchling
-    hatch-vcs
-  ];
+  nativeBuildInputs = [ hatchling hatch-vcs ];
 
-  nativeCheckInputs = [
-    openssh
-    ps
-    psutil
-    pytest-mock
-    pytest-timeout
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ openssh ps psutil pytest-mock pytest-timeout pytestCheckHook ];
 
   preCheck = ''
     export HOME=$TMP
@@ -64,7 +45,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog = "https://github.com/tomerfiliba/plumbum/releases/tag/v${version}";
+    changelog =
+      "https://github.com/tomerfiliba/plumbum/releases/tag/v${version}";
     description = " Plumbum: Shell Combinators ";
     homepage = " https://github.com/tomerfiliba/plumbum ";
     license = licenses.mit;

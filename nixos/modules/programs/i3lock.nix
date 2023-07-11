@@ -14,10 +14,10 @@ in {
     programs.i3lock = {
       enable = mkEnableOption (mdDoc "i3lock");
       package = mkOption {
-        type        = types.package;
-        default     = pkgs.i3lock;
+        type = types.package;
+        default = pkgs.i3lock;
         defaultText = literalExpression "pkgs.i3lock";
-        example     = literalExpression ''
+        example = literalExpression ''
           pkgs.i3lock-color
         '';
         description = mdDoc ''
@@ -26,9 +26,9 @@ in {
         '';
       };
       u2fSupport = mkOption {
-        type        = types.bool;
-        default     = false;
-        example     = true;
+        type = types.bool;
+        default = false;
+        example = true;
         description = mdDoc ''
           Whether to enable U2F support in the i3lock program.
           U2F enables authentication using a hardware device, such as a security key.

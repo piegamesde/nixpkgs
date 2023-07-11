@@ -1,14 +1,5 @@
-{ stdenv
-, lib
-, fetchFromSourcehut
-, pkg-config
-, meson
-, ninja
-, wayland
-, gtk3
-, wrapGAppsHook
-, installShellFiles
-}:
+{ stdenv, lib, fetchFromSourcehut, pkg-config, meson, ninja, wayland, gtk3
+, wrapGAppsHook, installShellFiles }:
 stdenv.mkDerivation rec {
   pname = "wofi";
   version = "1.3";
@@ -21,7 +12,8 @@ stdenv.mkDerivation rec {
     vc = "hg";
   };
 
-  nativeBuildInputs = [ pkg-config meson ninja wrapGAppsHook installShellFiles ];
+  nativeBuildInputs =
+    [ pkg-config meson ninja wrapGAppsHook installShellFiles ];
   buildInputs = [ wayland gtk3 ];
 
   patches = [
@@ -34,7 +26,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A launcher/menu program for wlroots based wayland compositors such as sway";
+    description =
+      "A launcher/menu program for wlroots based wayland compositors such as sway";
     homepage = "https://hg.sr.ht/~scoopta/wofi";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ];

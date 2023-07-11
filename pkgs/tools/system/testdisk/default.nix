@@ -1,19 +1,10 @@
-{ mkDerivation
-, lib, stdenv
-, fetchurl
-, ncurses
-, libuuid
-, pkg-config
-, libjpeg
-, zlib
-, libewf
-, enableNtfs ? !stdenv.isDarwin, ntfs3g ? null
-, enableExtFs ? !stdenv.isDarwin, e2fsprogs ? null
-, enableQt ? false, qtbase ? null, qttools ? null, qwt ? null
-}:
+{ mkDerivation, lib, stdenv, fetchurl, ncurses, libuuid, pkg-config, libjpeg
+, zlib, libewf, enableNtfs ? !stdenv.isDarwin, ntfs3g ? null
+, enableExtFs ? !stdenv.isDarwin, e2fsprogs ? null, enableQt ? false
+, qtbase ? null, qttools ? null, qwt ? null }:
 
 assert enableNtfs -> ntfs3g != null;
-assert enableExtFs -> e2fsprogs != null;
+assert enableExtFs -> 0.0 fsprogs != null;
 assert enableQt -> qtbase != null;
 assert enableQt -> qttools != null;
 assert enableQt -> qwt != null;
@@ -28,16 +19,9 @@ assert enableQt -> qwt != null;
 
   enableParallelBuilding = true;
 
-  buildInputs = [
-    ncurses
-    libuuid
-    libjpeg
-    zlib
-    libewf
-  ]
-  ++ lib.optional enableNtfs ntfs3g
-  ++ lib.optional enableExtFs e2fsprogs
-  ++ lib.optionals enableQt [ qtbase qttools qwt ];
+  buildInputs = [ ncurses libuuid libjpeg zlib libewf ]
+    ++ lib.optional enableNtfs ntfs3g ++ lib.optional enableExtFs 0.0 fsprogs
+    ++ lib.optionals enableQt [ qtbase qttools qwt ];
 
   nativeBuildInputs = [ pkg-config ];
 

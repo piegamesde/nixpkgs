@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake, alsa-lib, libjack2, libpulseaudio, AudioUnit }:
+{ lib, stdenv, fetchFromGitHub, cmake, alsa-lib, libjack2, libpulseaudio
+, AudioUnit }:
 
 stdenv.mkDerivation rec {
   version = "2.0.0";
@@ -17,11 +18,10 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isLinux [ libpulseaudio alsa-lib ]
     ++ lib.optional stdenv.isDarwin AudioUnit;
 
-  cmakeFlags = lib.optionals stdenv.isDarwin [
-    "-DBUILD_TESTS=OFF"
-  ];
+  cmakeFlags = lib.optionals stdenv.isDarwin [ "-DBUILD_TESTS=OFF" ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-Wno-strict-prototypes";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin "-Wno-strict-prototypes";
 
   meta = with lib; {
     description = "Cross platform audio input and output";

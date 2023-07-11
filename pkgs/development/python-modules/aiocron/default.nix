@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, python
-, croniter
-, tzlocal
-, pytestCheckHook
+{ lib, buildPythonPackage, fetchPypi, python, croniter, tzlocal, pytestCheckHook
 }:
 
 buildPythonPackage rec {
@@ -16,15 +10,9 @@ buildPythonPackage rec {
     hash = "sha256-SFRlE/ry63kB5lpk66e2U8gBBu0A7ZyjQZw9ELZVWgE=";
   };
 
-  propagatedBuildInputs = [
-    croniter
-    tzlocal
-  ];
+  propagatedBuildInputs = [ croniter tzlocal ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    tzlocal
-  ];
+  nativeCheckInputs = [ pytestCheckHook tzlocal ];
 
   postPatch = ''
     sed -i "/--cov/d" setup.cfg

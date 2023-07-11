@@ -1,33 +1,19 @@
-{ stdenv
-, cacert
-, lib
-, writeCBin
-}:
+{ stdenv, cacert, lib, writeCBin }:
 
-args@{
-  name ? "${args.pname}-${args.version}"
-, bazel
-, bazelFlags ? []
-, bazelBuildFlags ? []
-, bazelTestFlags ? []
-, bazelFetchFlags ? []
-, bazelTargets
-, bazelTestTargets ? []
-, buildAttrs
-, fetchAttrs
+args@{ name ? "${args.pname}-${args.version}", bazel, bazelFlags ? [ ]
+, bazelBuildFlags ? [ ], bazelTestFlags ? [ ], bazelFetchFlags ? [ ]
+, bazelTargets, bazelTestTargets ? [ ], buildAttrs, fetchAttrs
 
-  # Newer versions of Bazel are moving away from built-in rules_cc and instead
-  # allow fetching it as an external dependency in a WORKSPACE file[1]. If
-  # removed in the fixed-output fetch phase, building will fail to download it.
-  # This can be seen e.g. in #73097
-  #
-  # This option allows configuring the removal of rules_cc in cases where a
-  # project depends on it via an external dependency.
-  #
-  # [1]: https://github.com/bazelbuild/rules_cc
-, removeRulesCC ? true
-, removeLocalConfigCc ? true
-, removeLocal ? true
+# Newer versions of Bazel are moving away from built-in rules_cc and instead
+# allow fetching it as an external dependency in a WORKSPACE file[1]. If
+# removed in the fixed-output fetch phase, building will fail to download it.
+# This can be seen e.g. in #73097
+#
+# This option allows configuring the removal of rules_cc in cases where a
+# project depends on it via an external dependency.
+#
+# [1]: https://github.com/bazelbuild/rules_cc
+, removeRulesCC ? true, removeLocalConfigCc ? true, removeLocal ? true
 
   # Use build --nobuild instead of fetch. This allows fetching the dependencies
   # required for the build as configured, rather than fetching all the dependencies
@@ -40,9 +26,7 @@ args@{
   # Bazel wants all headers / libraries to come from, like when using
   # CROSSTOOL. Weirdly, we can still get the flags through the wrapped
   # compiler.
-, dontAddBazelOpts ? false
-, ...
-}:
+, dontAddBazelOpts ? false, ... }:
 
 let
   fArgs = removeAttrs args [ "buildAttrs" "fetchAttrs" "removeRulesCC" ] // {
@@ -98,15 +82,15 @@ let
       }
     }
   '';
-in
-stdenv.mkDerivation (fBuildAttrs // {
+in stdenv.mkDerivation (fBuildAttrs // {
 
   deps = stdenv.mkDerivation (fFetchAttrs // {
     name = "${name}-deps.tar.gz";
 
-    impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ fFetchAttrs.impureEnvVars or [];
+    impureEnvVars = lib.fetchers.proxyImpureEnvVars
+      ++ fFetchAttrs.impureEnvVars or [ ];
 
-    nativeBuildInputs = fFetchAttrs.nativeBuildInputs or [] ++ [ bazel ];
+    nativeBuildInputs = fFetchAttrs.nativeBuildInputs or [ ] ++ [ bazel ];
 
     preHook = fFetchAttrs.preHook or "" + ''
       export bazelOut="$(echo ''${NIX_BUILD_TOP}/output | sed -e 's,//,/,g')"
@@ -123,18 +107,16 @@ stdenv.mkDerivation (fBuildAttrs // {
     buildPhase = fFetchAttrs.buildPhase or ''
       runHook preBuild
 
-      ${
-        bazelCmd {
-          cmd = if fetchConfigured then "build --nobuild" else "fetch";
-          additionalFlags = [
-            # We disable multithreading for the fetching phase since it can lead to timeouts with many dependencies/threads:
-            # https://github.com/bazelbuild/bazel/issues/6502
-            "--loading_phase_threads=1"
-            "$bazelFetchFlags"
-          ];
-          targets = fFetchAttrs.bazelTargets ++ fFetchAttrs.bazelTestTargets;
-        }
-      }
+      ${bazelCmd {
+        cmd = if fetchConfigured then "build --nobuild" else "fetch";
+        additionalFlags = [
+          # We disable multithreading for the fetching phase since it can lead to timeouts with many dependencies/threads:
+          # https://github.com/bazelbuild/bazel/issues/6502
+          "--loading_phase_threads=1"
+          "$bazelFetchFlags"
+        ];
+        targets = fFetchAttrs.bazelTargets ++ fFetchAttrs.bazelTestTargets;
+      }}
 
       runHook postBuild
     '';
@@ -144,10 +126,13 @@ stdenv.mkDerivation (fBuildAttrs // {
 
       # Remove all built in external workspaces, Bazel will recreate them when building
       rm -rf $bazelOut/external/{bazel_tools,\@bazel_tools.marker}
-      ${lib.optionalString removeRulesCC "rm -rf $bazelOut/external/{rules_cc,\\@rules_cc.marker}"}
+      ${lib.optionalString removeRulesCC
+      "rm -rf $bazelOut/external/{rules_cc,\\@rules_cc.marker}"}
       rm -rf $bazelOut/external/{embedded_jdk,\@embedded_jdk.marker}
-      ${lib.optionalString removeLocalConfigCc "rm -rf $bazelOut/external/{local_config_cc,\\@local_config_cc.marker}"}
-      ${lib.optionalString removeLocal "rm -rf $bazelOut/external/{local_*,\\@local_*.marker}"}
+      ${lib.optionalString removeLocalConfigCc
+      "rm -rf $bazelOut/external/{local_config_cc,\\@local_config_cc.marker}"}
+      ${lib.optionalString removeLocal
+      "rm -rf $bazelOut/external/{local_*,\\@local_*.marker}"}
 
       # Clear markers
       find $bazelOut/external -name '@*\.marker' -exec sh -c 'echo > {}' \;
@@ -173,8 +158,8 @@ stdenv.mkDerivation (fBuildAttrs // {
         rm "$symlink"
         ln -sf "$new_target" "$symlink"
     '' + lib.optionalString stdenv.isDarwin ''
-        # on linux symlink permissions cannot be modified, so we modify those on darwin to match the linux ones
-        ${chmodder}/bin/chmodder "$symlink"
+      # on linux symlink permissions cannot be modified, so we modify those on darwin to match the linux ones
+      ${chmodder}/bin/chmodder "$symlink"
     '' + ''
       done
 
@@ -186,13 +171,14 @@ stdenv.mkDerivation (fBuildAttrs // {
     '');
 
     dontFixup = true;
-    allowedRequisites = [];
+    allowedRequisites = [ ];
 
     outputHashAlgo = "sha256";
     outputHash = fetchAttrs.sha256;
   });
 
-  nativeBuildInputs = fBuildAttrs.nativeBuildInputs or [] ++ [ (bazel.override { enableNixHacks = true; }) ];
+  nativeBuildInputs = fBuildAttrs.nativeBuildInputs or [ ]
+    ++ [ (bazel.override { enableNixHacks = true; }) ];
 
   preHook = fBuildAttrs.preHook or "" + ''
     export bazelOut="$NIX_BUILD_TOP/output"
@@ -248,21 +234,17 @@ stdenv.mkDerivation (fBuildAttrs // {
       done
     fi
 
-    ${
-      bazelCmd {
-        cmd = "test";
-        additionalFlags =
-          ["--test_output=errors"] ++ fBuildAttrs.bazelTestFlags;
-        targets = fBuildAttrs.bazelTestTargets;
-      }
-    }
-    ${
-      bazelCmd {
-        cmd = "build";
-        additionalFlags = fBuildAttrs.bazelBuildFlags;
-        targets = fBuildAttrs.bazelTargets;
-      }
-    }
+    ${bazelCmd {
+      cmd = "test";
+      additionalFlags = [ "--test_output=errors" ]
+        ++ fBuildAttrs.bazelTestFlags;
+      targets = fBuildAttrs.bazelTestTargets;
+    }}
+    ${bazelCmd {
+      cmd = "build";
+      additionalFlags = fBuildAttrs.bazelBuildFlags;
+      targets = fBuildAttrs.bazelTargets;
+    }}
     runHook postBuild
   '';
 })

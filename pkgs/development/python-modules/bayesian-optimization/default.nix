@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, scikit-learn
-, scipy
-, pytestCheckHook
-, isPy27
-, fetchpatch
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, scikit-learn, scipy
+, pytestCheckHook, isPy27, fetchpatch }:
 
 buildPythonPackage rec {
   pname = "bayesian-optimization";
@@ -21,16 +13,14 @@ buildPythonPackage rec {
     sha256 = "01mg9npiqh1qmq5ldnbpjmr8qkiw827msiv3crpkhbj4bdzasbfm";
   };
 
-  propagatedBuildInputs = [
-    scikit-learn
-    scipy
-  ];
+  propagatedBuildInputs = [ scikit-learn scipy ];
 
   patches = [
     # TypeError with scipy >= 1.8
     # https://github.com/fmfn/BayesianOptimization/issues/300
     (fetchpatch {
-      url = "https://github.com/fmfn/BayesianOptimization/commit/b4e09a25842985a4a0acea0c0f5c8789b7be125e.patch";
+      url =
+        "https://github.com/fmfn/BayesianOptimization/commit/b4e09a25842985a4a0acea0c0f5c8789b7be125e.patch";
       hash = "sha256-PfcifCFd4GRNTA+4+T+6A760QAgyZxhDCTyzNn2crdM=";
       name = "scipy_18_fix.patch";
     })

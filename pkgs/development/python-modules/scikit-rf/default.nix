@@ -1,33 +1,7 @@
-{ stdenv
-, lib
-, pythonOlder
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, scipy
-, pandas
-, matplotlib
-, tox
-, coverage
-, flake8
-, nbval
-, pyvisa
-, networkx
-, ipython
-, ipykernel
-, ipywidgets
-, jupyter-client
-, sphinx-rtd-theme
-, sphinx
-, nbsphinx
-, openpyxl
-, qtpy
-, pyqtgraph
-, pyqt5
-, setuptools
-, pytestCheckHook
-, pytest-cov
-}:
+{ stdenv, lib, pythonOlder, buildPythonPackage, fetchFromGitHub, numpy, scipy
+, pandas, matplotlib, tox, coverage, flake8, nbval, pyvisa, networkx, ipython
+, ipykernel, ipywidgets, jupyter-client, sphinx-rtd-theme, sphinx, nbsphinx
+, openpyxl, qtpy, pyqtgraph, pyqt5, setuptools, pytestCheckHook, pytest-cov }:
 
 buildPythonPackage rec {
   pname = "scikit-rf";
@@ -43,29 +17,15 @@ buildPythonPackage rec {
     hash = "sha256-drH1N1rKFu/zdLmLsD1jH5xUkzK37V/+nJqGQ38vsTI=";
   };
 
-  buildInputs = [
-    setuptools
-  ];
+  buildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    pandas
-  ];
+  propagatedBuildInputs = [ numpy scipy pandas ];
 
   passthru.optional-dependencies = {
-    plot = [
-      matplotlib
-    ];
-    xlsx = [
-      openpyxl
-    ];
-    netw = [
-      networkx
-    ];
-    visa = [
-      pyvisa
-    ];
+    plot = [ matplotlib ];
+    xlsx = [ openpyxl ];
+    netw = [ networkx ];
+    visa = [ pyvisa ];
     docs = [
       ipython
       ipykernel
@@ -76,11 +36,7 @@ buildPythonPackage rec {
       nbsphinx
       openpyxl
     ];
-    qtapps = [
-      qtpy
-      pyqtgraph
-      pyqt5
-    ];
+    qtapps = [ qtpy pyqtgraph pyqt5 ];
   };
 
   nativeCheckInputs = [
@@ -95,18 +51,15 @@ buildPythonPackage rec {
     networkx
   ];
 
-  checkInputs = [
-    pytestCheckHook
-  ];
+  checkInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "skrf"
-  ];
+  pythonImportsCheck = [ "skrf" ];
 
   meta = with lib; {
     description = "A Python library for RF/Microwave engineering";
     homepage = "https://scikit-rf.org/";
-    changelog = "https://github.com/scikit-rf/scikit-rf/releases/tag/v${version}";
+    changelog =
+      "https://github.com/scikit-rf/scikit-rf/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ lugarun ];
   };

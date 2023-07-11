@@ -1,7 +1,4 @@
-{ buildGoPackage
-, fetchFromGitHub
-, lib
-}:
+{ buildGoPackage, fetchFromGitHub, lib }:
 # upstream is pretty stale, but it still works, so until they merge module
 # support we have to use gopath: see blynn/nex#57
 buildGoPackage rec {

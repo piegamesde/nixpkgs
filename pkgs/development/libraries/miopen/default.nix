@@ -1,50 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchurl
-, rocmUpdateScript
-, pkg-config
-, cmake
-, rocm-cmake
-, rocblas
-, rocmlir
-, hip
-, clang-tools-extra
-, clang-ocl
-, llvm
-, miopengemm
-, composable_kernel
-, half
-, boost
-, sqlite
-, bzip2
-, nlohmann_json
-, texlive
-, doxygen
-, sphinx
-, zlib
-, gtest
-, rocm-comgr
-, python3Packages
-, buildDocs ? true
-, buildTests ? false
-, fetchKDBs ? true
-, useOpenCL ? false
-}:
+{ lib, stdenv, fetchFromGitHub, fetchurl, rocmUpdateScript, pkg-config, cmake
+, rocm-cmake, rocblas, rocmlir, hip, clang-tools-extra, clang-ocl, llvm
+, miopengemm, composable_kernel, half, boost, sqlite, bzip2, nlohmann_json
+, texlive, doxygen, sphinx, zlib, gtest, rocm-comgr, python3Packages
+, buildDocs ? true, buildTests ? false, fetchKDBs ? true, useOpenCL ? false }:
 
 let
   latex = lib.optionalAttrs buildDocs texlive.combine {
-    inherit (texlive) scheme-small
-    latexmk
-    tex-gyre
-    fncychap
-    wrapfig
-    capt-of
-    framed
-    needspace
-    tabulary
-    varwidth
-    titlesec;
+    inherit (texlive)
+      scheme-small latexmk tex-gyre fncychap wrapfig capt-of framed needspace
+      tabulary varwidth titlesec;
   };
 
   kdbs = lib.optionalAttrs fetchKDBs import ./deps.nix {
@@ -55,13 +19,8 @@ in stdenv.mkDerivation (finalAttrs: {
   pname = "miopen";
   version = "5.4.2";
 
-  outputs = [
-    "out"
-  ] ++ lib.optionals buildDocs [
-    "doc"
-  ] ++ lib.optionals buildTests [
-    "test"
-  ];
+  outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ]
+    ++ lib.optionals buildTests [ "test" ];
 
   src = fetchFromGitHub {
     owner = "ROCmSoftwarePlatform";
@@ -70,13 +29,7 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-GfXPCXiVJVve3d8sQCQcFLb/vEnKkVEn7xYUhHkEEVI=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    rocm-cmake
-    hip
-    clang-tools-extra
-  ];
+  nativeBuildInputs = [ pkg-config cmake rocm-cmake hip clang-tools-extra ];
 
   buildInputs = [
     llvm
@@ -97,9 +50,7 @@ in stdenv.mkDerivation (finalAttrs: {
     python3Packages.sphinx-rtd-theme
     python3Packages.breathe
     python3Packages.myst-parser
-  ] ++ lib.optionals buildTests [
-    zlib
-  ];
+  ] ++ lib.optionals buildTests [ zlib ];
 
   cmakeFlags = [
     "-DMIOPEN_USE_MIOPENGEMM=ON"
@@ -112,18 +63,17 @@ in stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_C_COMPILER=hipcc"
     "-DCMAKE_CXX_COMPILER=hipcc"
     "-DMIOPEN_BACKEND=HIP"
-  ] ++ lib.optionals useOpenCL [
-    "-DMIOPEN_BACKEND=OpenCL"
-  ] ++ lib.optionals buildTests [
-    "-DBUILD_TESTS=ON"
-    "-DMIOPEN_TEST_ALL=ON"
-    "-DMIOPEN_TEST_GFX900=ON"
-    "-DMIOPEN_TEST_GFX906=ON"
-    "-DMIOPEN_TEST_GFX908=ON"
-    "-DMIOPEN_TEST_GFX90A=ON"
-    "-DMIOPEN_TEST_GFX103X=ON"
-    "-DGOOGLETEST_DIR=${gtest.src}" # Custom linker names
-  ];
+  ] ++ lib.optionals useOpenCL [ "-DMIOPEN_BACKEND=OpenCL" ]
+    ++ lib.optionals buildTests [
+      "-DBUILD_TESTS=ON"
+      "-DMIOPEN_TEST_ALL=ON"
+      "-DMIOPEN_TEST_GFX900=ON"
+      "-DMIOPEN_TEST_GFX906=ON"
+      "-DMIOPEN_TEST_GFX908=ON"
+      "-DMIOPEN_TEST_GFX90A=ON"
+      "-DMIOPEN_TEST_GFX103X=ON"
+      "-DGOOGLETEST_DIR=${gtest.src}" # Custom linker names
+    ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
@@ -158,13 +108,18 @@ in stdenv.mkDerivation (finalAttrs: {
   postInstall = ''
     rm $out/bin/install_precompiled_kernels.sh
   '' + lib.optionalString buildDocs ''
-    mv ../doc/html $out/share/doc/miopen-${if useOpenCL then "opencl" else "hip"}
-    mv ../doc/pdf/miopen.pdf $out/share/doc/miopen-${if useOpenCL then "opencl" else "hip"}
+    mv ../doc/html $out/share/doc/miopen-${
+      if useOpenCL then "opencl" else "hip"
+    }
+    mv ../doc/pdf/miopen.pdf $out/share/doc/miopen-${
+      if useOpenCL then "opencl" else "hip"
+    }
   '' + lib.optionalString buildTests ''
     mkdir -p $test/bin
     mv bin/test_* $test/bin
-    patchelf --set-rpath $out/lib:${lib.makeLibraryPath (finalAttrs.buildInputs ++
-      [ hip rocm-comgr ])} $test/bin/*
+    patchelf --set-rpath $out/lib:${
+      lib.makeLibraryPath (finalAttrs.buildInputs ++ [ hip rocm-comgr ])
+    } $test/bin/*
   '' + lib.optionalString fetchKDBs ''
     # Apparently gfx1030_40 wasn't generated so the developers suggest just renaming gfx1030_36 to it
     # Should be fixed in the next miopen kernel generation batch

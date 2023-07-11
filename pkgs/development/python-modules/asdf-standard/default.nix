@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, importlib-resources
-, pythonOlder
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchPypi, importlib-resources, pythonOlder
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "asdf-standard";
@@ -19,20 +14,15 @@ buildPythonPackage rec {
     hash = "sha256-r9j/mnDnsX9rzGTrkqVEhn1dT+HwB2cZFC/fYrls/UQ=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.9") [
-    importlib-resources
-  ];
+  propagatedBuildInputs =
+    lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   # Circular dependency on asdf
   doCheck = false;
 
-  pythonImportsCheck = [
-    "asdf_standard"
-  ];
+  pythonImportsCheck = [ "asdf_standard" ];
 
   meta = with lib; {
     description = "Standards document describing ASDF";

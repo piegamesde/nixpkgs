@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "hashi-up";
@@ -17,7 +14,8 @@ buildGoModule rec {
   vendorSha256 = "sha256-dircE3WlDPsPnF+0wT5RG/c4hC8qPs8NaSGM5wpvVlM=";
 
   meta = with lib; {
-    description = "A lightweight utility to install HashiCorp Consul, Nomad, or Vault on any remote Linux host";
+    description =
+      "A lightweight utility to install HashiCorp Consul, Nomad, or Vault on any remote Linux host";
     homepage = "https://github.com/jsiebens/hashi-up";
     license = licenses.mit;
     maintainers = with maintainers; [ lucperkins ];

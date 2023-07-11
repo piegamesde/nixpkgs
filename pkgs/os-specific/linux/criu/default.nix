@@ -1,8 +1,7 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, protobuf, protobufc, asciidoc, iptables
-, xmlto, docbook_xsl, libpaper, libnl, libcap, libnet, pkg-config, iproute2
-, which, python3, makeWrapper, docbook_xml_dtd_45, perl, nftables, libbsd
-, buildPackages
-}:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, protobuf, protobufc, asciidoc
+, iptables, xmlto, docbook_xsl, libpaper, libnl, libcap, libnet, pkg-config
+, iproute2, which, python3, makeWrapper, docbook_xml_dtd_45, perl, nftables
+, libbsd, buildPackages }:
 
 stdenv.mkDerivation rec {
   pname = "criu";
@@ -18,17 +17,20 @@ stdenv.mkDerivation rec {
   patches = [
     # Fixes redefinition of rseq headers
     (fetchpatch {
-      url = "https://github.com/checkpoint-restore/criu/commit/1e6e826ffb7ac05f33fa123051c2fc2ddf0f68ea.patch";
+      url =
+        "https://github.com/checkpoint-restore/criu/commit/1e6e826ffb7ac05f33fa123051c2fc2ddf0f68ea.patch";
       hash = "sha256-LJjk0jQ5v5wqeprvBMpxhjLXn7v+lSPldEGgazGUM44=";
     })
 
     # compat fixes for glibc-2.36
     (fetchpatch {
-      url = "https://github.com/checkpoint-restore/criu/commit/8cd5fccd6cf3d03afb5abe463134d31f54d42258.patch";
+      url =
+        "https://github.com/checkpoint-restore/criu/commit/8cd5fccd6cf3d03afb5abe463134d31f54d42258.patch";
       sha256 = "sha256-b65DdLmyIuZik0dNRuWJKUPcDFA6CKq0bi4Vd26zgS4=";
     })
     (fetchpatch {
-      url = "https://github.com/checkpoint-restore/criu/commit/517c0947050e63aac72f63a3bf373d76264723b9.patch";
+      url =
+        "https://github.com/checkpoint-restore/criu/commit/517c0947050e63aac72f63a3bf373d76264723b9.patch";
       sha256 = "sha256-MPZ6oILVoZ7BQEZFjUlp3RuMC7iKTKXAtrUDFqbN4T8=";
     })
   ];
@@ -48,20 +50,9 @@ stdenv.mkDerivation rec {
     python3.pkgs.wrapPython
     perl
   ];
-  buildInputs = [
-    protobuf
-    libnl
-    libcap
-    libnet
-    nftables
-    libbsd
-  ];
-  propagatedBuildInputs = [
-    protobufc
-  ] ++ (with python3.pkgs; [
-    python
-    python3.pkgs.protobuf
-  ]);
+  buildInputs = [ protobuf libnl libcap libnet nftables libbsd ];
+  propagatedBuildInputs = [ protobufc ]
+    ++ (with python3.pkgs; [ python python3.pkgs.protobuf ]);
 
   postPatch = ''
     substituteInPlace ./Documentation/Makefile \
@@ -113,9 +104,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Userspace checkpoint/restore for Linux";
-    homepage    = "https://criu.org";
-    license     = licenses.gpl2;
-    platforms   = [ "x86_64-linux" "aarch64-linux" "armv7l-linux" ];
+    homepage = "https://criu.org";
+    license = licenses.gpl2;
+    platforms = [ "x86_64-linux" "aarch64-linux" "armv7l-linux" ];
     maintainers = [ maintainers.thoughtpolice ];
   };
 }

@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description = "Detects and arranges linux display outputs, using XRandR for detection and xrandr for arrangement";
+    description =
+      "Detects and arranges linux display outputs, using XRandR for detection and xrandr for arrangement";
     homepage = "https://github.com/alex-courtis/xlayoutdisplay";
     maintainers = with maintainers; [ dtzWill ];
     license = licenses.asl20;

@@ -1,23 +1,18 @@
-{ stdenv
-, lib
-, fetchzip
-, SDL
-}:
+{ stdenv, lib, fetchzip, SDL }:
 
 stdenv.mkDerivation rec {
   pname = "asap";
   version = "5.3.0";
 
   src = fetchzip {
-    url = "mirror://sourceforge/project/asap/asap/${version}/asap-${version}.tar.gz";
+    url =
+      "mirror://sourceforge/project/asap/asap/${version}/asap-${version}.tar.gz";
     sha256 = "sha256-ioEshlPE8eUcLxNkIl0lxnczMNAYRcJN8KGN6OansjY=";
   };
 
   outputs = [ "out" "dev" ];
 
-  buildInputs = [
-    SDL
-  ];
+  buildInputs = [ SDL ];
 
   enableParallelBuilding = true;
 

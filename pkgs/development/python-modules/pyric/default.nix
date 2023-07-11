@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyric";
@@ -25,9 +21,7 @@ buildPythonPackage rec {
   # Tests are outdated
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pyric"
-  ];
+  pythonImportsCheck = [ "pyric" ];
 
   meta = with lib; {
     description = "Python Radio Interface Controller";

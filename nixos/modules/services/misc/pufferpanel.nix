@@ -1,8 +1,6 @@
 { config, pkgs, lib, ... }:
-let
-  cfg = config.services.pufferpanel;
-in
-{
+let cfg = config.services.pufferpanel;
+in {
   options.services.pufferpanel = {
     enable = lib.mkOption {
       type = lib.types.bool;

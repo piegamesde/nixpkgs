@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, asgiref
-, autobahn
-, buildPythonPackage
-, django
-, fetchFromGitHub
-, hypothesis
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, twisted
-}:
+{ lib, stdenv, asgiref, autobahn, buildPythonPackage, django, fetchFromGitHub
+, hypothesis, pytest-asyncio, pytestCheckHook, pythonOlder, twisted }:
 
 buildPythonPackage rec {
   pname = "daphne";
@@ -26,18 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-vPMrmC2B0Pcvk8Y1FsJ4PXnzIMtPod7lL2u0IYNVUxc=";
   };
 
-  propagatedBuildInputs = [
-    asgiref
-    autobahn
-    twisted
-  ] ++ twisted.optional-dependencies.tls;
+  propagatedBuildInputs = [ asgiref autobahn twisted ]
+    ++ twisted.optional-dependencies.tls;
 
-  nativeCheckInputs = [
-    django
-    hypothesis
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ django hypothesis pytest-asyncio pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -47,9 +28,7 @@ buildPythonPackage rec {
   # Most tests fail on darwin
   doCheck = !stdenv.isDarwin;
 
-  pythonImportsCheck = [
-    "daphne"
-  ];
+  pythonImportsCheck = [ "daphne" ];
 
   meta = with lib; {
     description = "Django ASGI (HTTP/WebSocket) server";

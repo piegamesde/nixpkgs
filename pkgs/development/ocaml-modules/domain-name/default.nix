@@ -1,13 +1,12 @@
-{ lib, buildDunePackage, ocaml, fetchurl
-, alcotest
-}:
+{ lib, buildDunePackage, ocaml, fetchurl, alcotest }:
 
 buildDunePackage rec {
   pname = "domain-name";
   version = "0.4.0";
 
   src = fetchurl {
-    url = "https://github.com/hannesm/domain-name/releases/download/v${version}/domain-name-${version}.tbz";
+    url =
+      "https://github.com/hannesm/domain-name/releases/download/v${version}/domain-name-${version}.tbz";
     sha256 = "sha256-pcBuIoRYlSAZc+gS/jAZJ00duBwKeHPabIAHxK0hCMU=";
   };
 

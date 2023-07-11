@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, brotli
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, brotli }:
 
 stdenv.mkDerivation rec {
   pname = "brunsli";
@@ -22,12 +16,14 @@ stdenv.mkDerivation rec {
   patches = [
     # unvendor brotli
     (fetchpatch {
-      url = "https://cgit.freebsd.org/ports/plain/graphics/brunsli/files/patch-CMakeLists.txt";
+      url =
+        "https://cgit.freebsd.org/ports/plain/graphics/brunsli/files/patch-CMakeLists.txt";
       extraPrefix = "";
       hash = "sha256-/WPOG9OcEDj9ObBSXEM8Luq4Rix+PS2MvsYyHhK5mns=";
     })
     (fetchpatch {
-      url = "https://cgit.freebsd.org/ports/plain/graphics/brunsli/files/patch-brunsli.cmake";
+      url =
+        "https://cgit.freebsd.org/ports/plain/graphics/brunsli/files/patch-brunsli.cmake";
       extraPrefix = "";
       hash = "sha256-+HXA9Tin+l2St7rRUEBM0AfhAjSoFxz8UX7hsg12aFg=";
     })
@@ -39,13 +35,9 @@ stdenv.mkDerivation rec {
     rm -r build
   '';
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    brotli
-  ];
+  buildInputs = [ brotli ];
 
   meta = {
     description = "Lossless JPEG repacking library";

@@ -1,39 +1,7 @@
-{ lib
-, stdenv
-, cmake
-, fetchurl
-, gnumake
-, makeWrapper
-, pkg-config
-, autopanosiftc
-, boost
-, cairo
-, enblend-enfuse
-, exiv2
-, fftw
-, flann
-, gettext
-, glew-egl
-, ilmbase
-, lcms2
-, lensfun
-, libjpeg
-, libpng
-, libtiff
-, libX11
-, libXi
-, libXmu
-, libGLU
-, libGL
-, openexr
-, panotools
-, perlPackages
-, sqlite
-, vigra
-, wrapGAppsHook
-, wxGTK
-, zlib
-}:
+{ lib, stdenv, cmake, fetchurl, gnumake, makeWrapper, pkg-config, autopanosiftc
+, boost, cairo, enblend-enfuse, exiv2, fftw, flann, gettext, glew-egl, ilmbase
+, lcms2, lensfun, libjpeg, libpng, libtiff, libX11, libXi, libXmu, libGLU, libGL
+, openexr, panotools, perlPackages, sqlite, vigra, wrapGAppsHook, wxGTK, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "hugin";
@@ -90,7 +58,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://hugin.sourceforge.net/";
-    description = "Toolkit for stitching photographs and assembling panoramas, together with an easy to use graphical front end";
+    description =
+      "Toolkit for stitching photographs and assembling panoramas, together with an easy to use graphical front end";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ hrdinka ];
     platforms = platforms.linux;

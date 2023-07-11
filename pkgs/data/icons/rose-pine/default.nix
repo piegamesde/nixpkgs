@@ -1,8 +1,4 @@
-{ stdenvNoCC
-, lib
-, fetchFromGitHub
-, gtk3
-}:
+{ stdenvNoCC, lib, fetchFromGitHub, gtk3 }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "rose-pine-icon-theme";
@@ -15,9 +11,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "0q74wjyrsjyym770i3sqs071bvanwmm727xzv50wk6kzvpyqgi67";
   };
 
-  nativeBuildInputs = [
-    gtk3
-  ];
+  nativeBuildInputs = [ gtk3 ];
 
   # avoid the makefile which is only for the theme maintainers
   dontBuild = true;
@@ -42,6 +36,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/rose-pine/gtk";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [romildo the-argus];
+    maintainers = with maintainers; [ romildo the-argus ];
   };
 }

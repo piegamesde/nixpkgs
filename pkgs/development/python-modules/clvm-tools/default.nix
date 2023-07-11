@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, clvm
-, clvm-tools-rs
-, setuptools-scm
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, clvm, clvm-tools-rs
+, setuptools-scm, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "clvm_tools";
@@ -20,29 +13,18 @@ buildPythonPackage rec {
     hash = "sha256-MAtVTSv1RR2/7QEKCOEQ+QH5vK4aE0Us2TXyRRAMl8U=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    clvm
-    clvm-tools-rs
-  ];
+  propagatedBuildInputs = [ clvm clvm-tools-rs ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "clvm_tools"
-  ];
+  pythonImportsCheck = [ "clvm_tools" ];
 
-  disabledTests = [
-    "test_cmd_unknown-1_txt"
-  ];
+  disabledTests = [ "test_cmd_unknown-1_txt" ];
 
   # give a hint to setuptools-scm on package version
-  SETUPTOOLS_SCM_PRETEND_VERSION="v${version}";
+  SETUPTOOLS_SCM_PRETEND_VERSION = "v${version}";
 
   meta = with lib; {
     description = "Tools for clvm development";

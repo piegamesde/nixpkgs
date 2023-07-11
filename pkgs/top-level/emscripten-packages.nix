@@ -6,9 +6,8 @@ with pkgs;
 # https://github.com/NixOS/nixpkgs/pull/16208
 
 rec {
-  json_c = (pkgs.json_c.override {
-    stdenv = pkgs.emscriptenStdenv;
-  }).overrideAttrs
+  json_c =
+    (pkgs.json_c.override { stdenv = pkgs.emscriptenStdenv; }).overrideAttrs
     (old: {
       nativeBuildInputs = [ pkg-config cmake ];
       propagatedBuildInputs = [ zlib ];
@@ -47,41 +46,40 @@ rec {
   libxml2 = (pkgs.libxml2.override {
     stdenv = emscriptenStdenv;
     pythonSupport = false;
-  }).overrideAttrs
-    (old: {
-      propagatedBuildInputs = [ zlib ];
-      nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ pkg-config ];
+  }).overrideAttrs (old: {
+    propagatedBuildInputs = [ zlib ];
+    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkg-config ];
 
-      # just override it with nothing so it does not fail
-      autoreconfPhase = "echo autoreconfPhase not used...";
-      configurePhase = ''
-        HOME=$TMPDIR
-        mkdir -p .emscriptencache
-        export EM_CACHE=$(pwd)/.emscriptencache
-        emconfigure ./configure --prefix=$out --without-python
-      '';
-      checkPhase = ''
-        echo "================= testing libxml2 using node ================="
+    # just override it with nothing so it does not fail
+    autoreconfPhase = "echo autoreconfPhase not used...";
+    configurePhase = ''
+      HOME=$TMPDIR
+      mkdir -p .emscriptencache
+      export EM_CACHE=$(pwd)/.emscriptencache
+      emconfigure ./configure --prefix=$out --without-python
+    '';
+    checkPhase = ''
+      echo "================= testing libxml2 using node ================="
 
-        echo "Compiling a custom test"
-        set -x
-        emcc -O2 -s EMULATE_FUNCTION_POINTER_CASTS=1 xmllint.o \
-        ./.libs/libxml2.a `pkg-config zlib --cflags` `pkg-config zlib --libs` -o ./xmllint.test.js \
-        --embed-file ./test/xmlid/id_err1.xml
+      echo "Compiling a custom test"
+      set -x
+      emcc -O2 -s EMULATE_FUNCTION_POINTER_CASTS=1 xmllint.o \
+      ./.libs/libxml2.a `pkg-config zlib --cflags` `pkg-config zlib --libs` -o ./xmllint.test.js \
+      --embed-file ./test/xmlid/id_err1.xml
 
-        echo "Using node to execute the test which basically outputs an error on stderr which we grep for"
-        ${pkgs.nodejs}/bin/node ./xmllint.test.js --noout test/xmlid/id_err1.xml 2>&1 | grep 0bar
+      echo "Using node to execute the test which basically outputs an error on stderr which we grep for"
+      ${pkgs.nodejs}/bin/node ./xmllint.test.js --noout test/xmlid/id_err1.xml 2>&1 | grep 0bar
 
-        set +x
-        if [ $? -ne 0 ]; then
-          echo "xmllint unit test failed, please fix this package"
-          exit 1;
-        else
-          echo "since there is no stupid text containing 'foo xml:id' it seems to work! very good."
-        fi
-        echo "================= /testing libxml2 using node ================="
-      '';
-    });
+      set +x
+      if [ $? -ne 0 ]; then
+        echo "xmllint unit test failed, please fix this package"
+        exit 1;
+      else
+        echo "since there is no stupid text containing 'foo xml:id' it seems to work! very good."
+      fi
+      echo "================= /testing libxml2 using node ================="
+    '';
+  });
 
   xmlmirror = pkgs.buildEmscriptenPackage rec {
     pname = "xmlmirror";
@@ -132,15 +130,12 @@ rec {
       cp *.rng $out/share
       cp README.md $doc/share/${pname}
     '';
-    checkPhase = ''
-    '';
+    checkPhase = "";
   };
 
-  zlib = (pkgs.zlib.override {
-    stdenv = pkgs.emscriptenStdenv;
-  }).overrideAttrs
+  zlib = (pkgs.zlib.override { stdenv = pkgs.emscriptenStdenv; }).overrideAttrs
     (old: {
-      nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ pkg-config ];
+      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkg-config ];
       # we need to reset this setting!
       env = (old.env or { }) // { NIX_CFLAGS_COMPILE = ""; };
       dontStrip = true;

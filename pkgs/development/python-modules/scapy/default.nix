@@ -1,13 +1,9 @@
-{ buildPythonPackage, fetchFromGitHub, stdenv, lib, isPyPy
-, pycrypto, ecdsa # TODO
-, mock, can, brotli
-, withOptionalDeps ? true, tcpdump, ipython
-, withCryptography ? true, cryptography
-, withVoipSupport ? true, sox
-, withPlottingSupport ? true, matplotlib
-, withGraphicsSupport ? false, pyx, texlive, graphviz, imagemagick
-, withManufDb ? false, wireshark
-, libpcap
+{ buildPythonPackage, fetchFromGitHub, stdenv, lib, isPyPy, pycrypto
+, ecdsa # TODO
+, mock, can, brotli, withOptionalDeps ? true, tcpdump, ipython
+, withCryptography ? true, cryptography, withVoipSupport ? true, sox
+, withPlottingSupport ? true, matplotlib, withGraphicsSupport ? false, pyx
+, texlive, graphviz, imagemagick, withManufDb ? false, wireshark, libpcap
 # 2D/3D graphics and graphs TODO: VPython
 # TODO: nmap, numpy
 }:
@@ -25,14 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-xJlovcxUQOQHfOU0Jgin/ayd2T5fOyeN4Jg0DbLHoeU=";
   };
 
-  patches = [
-    ./find-library.patch
-  ];
+  patches = [ ./find-library.patch ];
 
   postPatch = ''
     printf "${version}" > scapy/VERSION
 
-    libpcap_file="${lib.getLib libpcap}/lib/libpcap${stdenv.hostPlatform.extensions.sharedLibrary}"
+    libpcap_file="${
+      lib.getLib libpcap
+    }/lib/libpcap${stdenv.hostPlatform.extensions.sharedLibrary}"
     if ! [ -e "$libpcap_file" ]; then
         echo "error: $libpcap_file not found" >&2
         exit 1
@@ -48,7 +44,12 @@ buildPythonPackage rec {
     ++ lib.optional withCryptography cryptography
     ++ lib.optional withVoipSupport sox
     ++ lib.optional withPlottingSupport matplotlib
-    ++ lib.optionals withGraphicsSupport [ pyx texlive.combined.scheme-minimal graphviz imagemagick ];
+    ++ lib.optionals withGraphicsSupport [
+      pyx
+      texlive.combined.scheme-minimal
+      graphviz
+      imagemagick
+    ];
 
   # Running the tests seems too complicated:
   doCheck = false;
@@ -61,7 +62,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "scapy" ];
 
   meta = with lib; {
-    description = "A Python-based network packet manipulation program and library";
+    description =
+      "A Python-based network packet manipulation program and library";
     longDescription = ''
       Scapy is a powerful Python-based interactive packet manipulation program
       and library.

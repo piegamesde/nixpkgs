@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, levenshtein
-, pytesseract
-, opencv4
-, fuzzywuzzy
-}:
+{ lib, buildPythonPackage, fetchPypi, levenshtein, pytesseract, opencv4
+, fuzzywuzzy }:
 
 buildPythonPackage rec {
   pname = "videocr";
@@ -16,12 +10,7 @@ buildPythonPackage rec {
     sha256 = "1clifwczvhvbaw2spgxkkyqsbqh21vyfw3rh094pxfmq89ylyj63";
   };
 
-  propagatedBuildInputs = [
-    levenshtein
-    pytesseract
-    opencv4
-    fuzzywuzzy
-  ];
+  propagatedBuildInputs = [ levenshtein pytesseract opencv4 fuzzywuzzy ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -39,7 +28,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "videocr" ];
 
   meta = with lib; {
-    description = "Extract hardcoded subtitles from videos using machine learning";
+    description =
+      "Extract hardcoded subtitles from videos using machine learning";
     homepage = "https://github.com/apm1467/videocr";
     license = licenses.mit;
     maintainers = with maintainers; [ ozkutuk ];

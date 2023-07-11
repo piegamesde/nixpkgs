@@ -1,12 +1,5 @@
-{ buildOctavePackage
-, stdenv
-, lib
-, fetchgit
-, automake
-, autoconf
-, autoconf-archive
-, parallel
-}:
+{ buildOctavePackage, stdenv, lib, fetchgit, automake, autoconf
+, autoconf-archive, parallel }:
 
 buildOctavePackage rec {
   pname = "level-set";
@@ -29,15 +22,9 @@ buildOctavePackage rec {
     sed -i -E 's#[^[:graph:]]error \(# error \(\"%s\", #g' src/*.cpp
   '';
 
-  nativeBuildInputs = [
-    automake
-    autoconf
-    autoconf-archive
-  ];
+  nativeBuildInputs = [ automake autoconf autoconf-archive ];
 
-  requiredOctavePackages = [
-    parallel
-  ];
+  requiredOctavePackages = [ parallel ];
 
   preBuild = ''
     mkdir -p $out
@@ -50,7 +37,8 @@ buildOctavePackage rec {
     homepage = "https://octave.sourceforge.io/level-set/index.html";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
-    description = "Routines for calculating the time-evolution of the level-set equation and extracting geometric information from the level-set function";
+    description =
+      "Routines for calculating the time-evolution of the level-set equation and extracting geometric information from the level-set function";
     # Got broke with octave 8.x update, and wasn't updated since 2019
     broken = true;
   };

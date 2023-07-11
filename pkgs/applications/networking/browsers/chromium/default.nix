@@ -1,22 +1,14 @@
-{ newScope, config, stdenv, fetchurl, makeWrapper
-, llvmPackages_15
-, llvmPackages_16
-, ed, gnugrep, coreutils, xdg-utils
-, glib, gtk3, gtk4, gnome, gsettings-desktop-schemas, gn, fetchgit
-, libva, pipewire, wayland
-, gcc, nspr, nss, runCommand
-, lib, libkrb5
+{ newScope, config, stdenv, fetchurl, makeWrapper, llvmPackages_15
+, llvmPackages_16, ed, gnugrep, coreutils, xdg-utils, glib, gtk3, gtk4, gnome
+, gsettings-desktop-schemas, gn, fetchgit, libva, pipewire, wayland, gcc, nspr
+, nss, runCommand, lib, libkrb5
 
 # package customization
 # Note: enable* flags should not require full rebuilds (i.e. only affect the wrapper)
-, channel ? "stable"
-, proprietaryCodecs ? true
-, enableWideVine ? false
+, channel ? "stable", proprietaryCodecs ? true, enableWideVine ? false
 , ungoogled ? false # Whether to build chromium or ungoogled-chromium
-, cupsSupport ? true
-, pulseSupport ? config.pulseaudio or stdenv.isLinux
-, commandLineArgs ? ""
-}:
+, cupsSupport ? true, pulseSupport ? config.pulseaudio or stdenv.isLinux
+, commandLineArgs ? "" }:
 
 let
   llvmPackages = llvmPackages_15;
@@ -26,17 +18,20 @@ let
 
   # Helper functions for changes that depend on specific versions:
   warnObsoleteVersionConditional = min-version: result:
-    let ungoogled-version = (lib.importJSON ./upstream-info.json).ungoogled-chromium.version;
-    in lib.warnIf
-         (lib.versionAtLeast ungoogled-version min-version)
-         "chromium: ungoogled version ${ungoogled-version} is newer than a conditional bounded at ${min-version}. You can safely delete it."
-         result;
+    let
+      ungoogled-version =
+        (lib.importJSON ./upstream-info.json).ungoogled-chromium.version;
+    in lib.warnIf (lib.versionAtLeast ungoogled-version min-version)
+    "chromium: ungoogled version ${ungoogled-version} is newer than a conditional bounded at ${min-version}. You can safely delete it."
+    result;
   chromiumVersionAtLeast = min-version:
     let result = lib.versionAtLeast upstream-info.version min-version;
-    in  warnObsoleteVersionConditional min-version result;
+    in warnObsoleteVersionConditional min-version result;
   versionRange = min-version: upto-version:
-    let inherit (upstream-info) version;
-        result = lib.versionAtLeast version min-version && lib.versionOlder version upto-version;
+    let
+      inherit (upstream-info) version;
+      result = lib.versionAtLeast version min-version
+        && lib.versionOlder version upto-version;
     in warnObsoleteVersionConditional upto-version result;
 
   callPackage = newScope chromium;
@@ -46,13 +41,10 @@ let
 
     mkChromiumDerivation = callPackage ./common.nix ({
       inherit channel chromiumVersionAtLeast versionRange;
-      inherit proprietaryCodecs
-              cupsSupport pulseSupport ungoogled;
+      inherit proprietaryCodecs cupsSupport pulseSupport ungoogled;
       gnChromium = gn.overrideAttrs (oldAttrs: {
         inherit (upstream-info.deps.gn) version;
-        src = fetchgit {
-          inherit (upstream-info.deps.gn) url rev sha256;
-        };
+        src = fetchgit { inherit (upstream-info.deps.gn) url rev sha256; };
       });
     } // lib.optionalAttrs (chromiumVersionAtLeast "113") rec {
       llvmPackages = llvmPackages_16;
@@ -63,32 +55,36 @@ let
       inherit channel chromiumVersionAtLeast enableWideVine ungoogled;
     };
 
-    ungoogled-chromium = callPackage ./ungoogled.nix {};
+    ungoogled-chromium = callPackage ./ungoogled.nix { };
   };
 
-  pkgSuffix = if channel == "dev" then "unstable" else
+  pkgSuffix = if channel == "dev" then
+    "unstable"
+  else
     (if channel == "ungoogled-chromium" then "stable" else channel);
   pkgName = "google-chrome-${pkgSuffix}";
-  chromeSrc =
-    let
-      # Use the latest stable Chrome version if necessary:
-      version = if chromium.upstream-info.sha256bin64 != null
-        then chromium.upstream-info.version
-        else (lib.importJSON ./upstream-info.json).stable.version;
-      sha256 = if chromium.upstream-info.sha256bin64 != null
-        then chromium.upstream-info.sha256bin64
-        else (lib.importJSON ./upstream-info.json).stable.sha256bin64;
-    in fetchurl {
-      urls = map (repo: "${repo}/${pkgName}/${pkgName}_${version}-1_amd64.deb") [
-        "https://dl.google.com/linux/chrome/deb/pool/main/g"
-        "http://95.31.35.30/chrome/pool/main/g"
-        "http://mirror.pcbeta.com/google/chrome/deb/pool/main/g"
-        "http://repo.fdzh.org/chrome/deb/pool/main/g"
-      ];
-      inherit sha256;
+  chromeSrc = let
+    # Use the latest stable Chrome version if necessary:
+    version = if chromium.upstream-info.sha256bin64 != null then
+      chromium.upstream-info.version
+    else
+      (lib.importJSON ./upstream-info.json).stable.version;
+    sha256 = if chromium.upstream-info.sha256bin64 != null then
+      chromium.upstream-info.sha256bin64
+    else
+      (lib.importJSON ./upstream-info.json).stable.sha256bin64;
+  in fetchurl {
+    urls = map (repo: "${repo}/${pkgName}/${pkgName}_${version}-1_amd64.deb") [
+      "https://dl.google.com/linux/chrome/deb/pool/main/g"
+      "http://95.31.35.30/chrome/pool/main/g"
+      "http://mirror.pcbeta.com/google/chrome/deb/pool/main/g"
+      "http://repo.fdzh.org/chrome/deb/pool/main/g"
+    ];
+    inherit sha256;
   };
 
-  mkrpath = p: "${lib.makeSearchPathOutput "lib" "lib64" p}:${lib.makeLibraryPath p}";
+  mkrpath = p:
+    "${lib.makeSearchPathOutput "lib" "lib64" p}:${lib.makeLibraryPath p}";
   widevineCdm = stdenv.mkDerivation {
     name = "chrome-widevine-cdm";
 
@@ -138,9 +134,10 @@ let
     };
   };
 
-  suffix = if (channel == "stable" || channel == "ungoogled-chromium")
-    then ""
-    else "-" + channel;
+  suffix = if (channel == "stable" || channel == "ungoogled-chromium") then
+    ""
+  else
+    "-" + channel;
 
   sandboxExecutableName = chromium.browser.passthru.sandboxExecutableName;
 
@@ -149,28 +146,29 @@ let
   # We want users to be able to enableWideVine without rebuilding all of
   # chromium, so we have a separate derivation here that copies chromium
   # and adds the unfree WidevineCdm.
-  chromiumWV = let browser = chromium.browser; in if enableWideVine then
-    runCommand (browser.name + "-wv") { version = browser.version; }
-      ''
-        mkdir -p $out
-        cp -a ${browser}/* $out/
-        chmod u+w $out/libexec/chromium
-        cp -a ${widevineCdm}/WidevineCdm $out/libexec/chromium/
-      ''
-    else browser;
+  chromiumWV = let browser = chromium.browser;
+  in if enableWideVine then
+    runCommand (browser.name + "-wv") { version = browser.version; } ''
+      mkdir -p $out
+      cp -a ${browser}/* $out/
+      chmod u+w $out/libexec/chromium
+      cp -a ${widevineCdm}/WidevineCdm $out/libexec/chromium/
+    ''
+  else
+    browser;
 
 in stdenv.mkDerivation {
-  pname = lib.optionalString ungoogled "ungoogled-"
-    + "chromium${suffix}";
+  pname = lib.optionalString ungoogled "ungoogled-" + "chromium${suffix}";
   inherit version;
 
-  nativeBuildInputs = [
-    makeWrapper ed
-  ];
+  nativeBuildInputs = [ makeWrapper ed ];
 
   buildInputs = [
     # needed for GSETTINGS_SCHEMAS_PATH
-    gsettings-desktop-schemas glib gtk3 gtk4
+    gsettings-desktop-schemas
+    glib
+    gtk3
+    gtk4
 
     # needed for XDG_ICON_DIRS
     gnome.adwaita-icon-theme
@@ -179,13 +177,14 @@ in stdenv.mkDerivation {
     libkrb5
   ];
 
-  outputs = ["out" "sandbox"];
+  outputs = [ "out" "sandbox" ];
 
   buildCommand = let
     browserBinary = "${chromiumWV}/libexec/chromium/chromium";
     libPath = lib.makeLibraryPath [ libva pipewire wayland gtk3 gtk4 libkrb5 ];
 
-  in with lib; ''
+  in with lib;
+  ''
     mkdir -p "$out/bin"
 
     makeWrapper "${browserBinary}" "$out/bin/chromium" \

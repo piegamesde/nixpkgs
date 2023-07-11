@@ -1,14 +1,8 @@
-{ clangStdenv
-, cmake
-, fetchFromGitHub
-, lib
-, zlib
-}:
+{ clangStdenv, cmake, fetchFromGitHub, lib, zlib }:
 let
   pname = "HdrHistogram_c";
   version = "0.11.5";
-in
-clangStdenv.mkDerivation {
+in clangStdenv.mkDerivation {
   inherit pname version;
   src = fetchFromGitHub {
     owner = "HdrHistogram";

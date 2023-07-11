@@ -14,8 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "0avs833vb6q1avjbfygm55s83iy942xgqsx6qdzksry44n35s418";
 
   postPatch = ''
-     substituteInPlace src/main.rs \
-       --replace 'Command::new("git")' 'Command::new("${git}/bin/git")'
+    substituteInPlace src/main.rs \
+      --replace 'Command::new("git")' 'Command::new("${git}/bin/git")'
   '';
 
   meta = with lib; {

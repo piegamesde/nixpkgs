@@ -1,25 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, cmake
-, ninja
-, cairo
-, fribidi
-, libdatrie
-, libjpeg
-, libselinux
-, libsepol
-, libthai
-, pango
-, pcre
-, util-linux
-, wayland
-, wayland-protocols
-, wayland-scanner
-, wlroots
-, libXdmcp
-, debug ? false
+{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, ninja, cairo, fribidi
+, libdatrie, libjpeg, libselinux, libsepol, libthai, pango, pcre, util-linux
+, wayland, wayland-protocols, wayland-scanner, wlroots, libXdmcp, debug ? false
 }:
 stdenv.mkDerivation {
   pname = "hyprpicker" + lib.optionalString debug "-debug";
@@ -34,11 +15,7 @@ stdenv.mkDerivation {
 
   cmakeFlags = lib.optional debug "-DCMAKE_BUILD_TYPE=Debug";
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake ninja pkg-config ];
 
   buildInputs = [
     cairo
@@ -86,7 +63,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "A wlroots-compatible Wayland color picker that does not suck";
+    description =
+      "A wlroots-compatible Wayland color picker that does not suck";
     homepage = "https://github.com/hyprwm/hyprpicker";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fufexan ];

@@ -1,4 +1,5 @@
-{ lib, stdenv, mkDerivation, fetchFromGitHub, pkg-config, qmake, qtx11extras, qttools, mpv }:
+{ lib, stdenv, mkDerivation, fetchFromGitHub, pkg-config, qmake, qtx11extras
+, qttools, mpv }:
 
 mkDerivation rec {
   pname = "mpc-qt";

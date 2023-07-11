@@ -1,10 +1,5 @@
-{ lib
-, buildPythonApplication
-, fetchFromGitea
-, pythonImportsCheckHook
-, sphinxHook
-, sphinx-rtd-theme
-}:
+{ lib, buildPythonApplication, fetchFromGitea, pythonImportsCheckHook
+, sphinxHook, sphinx-rtd-theme }:
 
 buildPythonApplication rec {
   pname = "cdist";
@@ -19,11 +14,7 @@ buildPythonApplication rec {
     hash = "sha256-lIx0RtGQJdY2e00azI9yS6TV+5pCegpKOOD0dQmgMqA=";
   };
 
-  nativeBuildInputs = [
-    pythonImportsCheckHook
-    sphinxHook
-    sphinx-rtd-theme
-  ];
+  nativeBuildInputs = [ pythonImportsCheckHook sphinxHook sphinx-rtd-theme ];
 
   sphinxRoot = "docs/src";
 
@@ -54,7 +45,8 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "Minimalistic configuration management system";
     homepage = "https://www.sdi.st";
-    changelog = "https://code.ungleich.ch/ungleich-public/cdist/src/tag/${version}/docs/changelog";
+    changelog =
+      "https://code.ungleich.ch/ungleich-public/cdist/src/tag/${version}/docs/changelog";
 
     # Mostly. There are still couple types that are gpl3-only.
     license = licenses.gpl3Plus;

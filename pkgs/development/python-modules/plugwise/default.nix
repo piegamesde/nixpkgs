@@ -1,23 +1,6 @@
- { lib
-, aiohttp
-, async-timeout
-, buildPythonPackage
-, crcmod
-, defusedxml
-, fetchFromGitHub
-, freezegun
-, jsonpickle
-, munch
-, mypy
-, pyserial
-, pytest-aiohttp
-, pytest-asyncio
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, pytz
-, semver
-}:
+{ lib, aiohttp, async-timeout, buildPythonPackage, crcmod, defusedxml
+, fetchFromGitHub, freezegun, jsonpickle, munch, mypy, pyserial, pytest-aiohttp
+, pytest-asyncio, pytestCheckHook, python-dateutil, pythonOlder, pytz, semver }:
 
 buildPythonPackage rec {
   pname = "plugwise";
@@ -45,25 +28,18 @@ buildPythonPackage rec {
     semver
   ];
 
-  nativeCheckInputs = [
-    freezegun
-    jsonpickle
-    mypy
-    pytest-aiohttp
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ freezegun jsonpickle mypy pytest-aiohttp pytest-asyncio pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "plugwise"
-  ];
+  pythonImportsCheck = [ "plugwise" ];
 
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {
     description = "Python module for Plugwise Smiles, Stretch and USB stick";
     homepage = "https://github.com/plugwise/python-plugwise";
-    changelog = "https://github.com/plugwise/python-plugwise/releases/tag/v${version}";
+    changelog =
+      "https://github.com/plugwise/python-plugwise/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

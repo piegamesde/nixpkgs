@@ -1,28 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-  # build support
-, autoreconfHook
-, flex
-, gnulib
-, pkg-config
-, texinfo
-  # libraries
-, brotli
-, bzip2
-, gpgme
-, libhsts
-, libidn2
-, libpsl
-, lzip
-, nghttp2
-, openssl
-, pcre2
-, sslSupport ? true
-, xz
-, zlib
-, zstd
-}:
+{ lib, stdenv, fetchFromGitLab
+# build support
+, autoreconfHook, flex, gnulib, pkg-config, texinfo
+# libraries
+, brotli, bzip2, gpgme, libhsts, libidn2, libpsl, lzip, nghttp2, openssl, pcre2
+, sslSupport ? true, xz, zlib, zstd }:
 
 stdenv.mkDerivation rec {
   pname = "wget2";
@@ -45,27 +26,11 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    autoreconfHook
-    flex
-    lzip
-    pkg-config
-    texinfo
-  ];
+  nativeBuildInputs = [ autoreconfHook flex lzip pkg-config texinfo ];
 
-  buildInputs = [
-    brotli
-    bzip2
-    gpgme
-    libhsts
-    libidn2
-    libpsl
-    nghttp2
-    pcre2
-    xz
-    zlib
-    zstd
-  ] ++ lib.optional sslSupport openssl;
+  buildInputs =
+    [ brotli bzip2 gpgme libhsts libidn2 libpsl nghttp2 pcre2 xz zlib zstd ]
+    ++ lib.optional sslSupport openssl;
 
   # TODO: include translation files
   autoreconfPhase = ''
@@ -85,7 +50,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "successor of GNU Wget, a file and recursive website downloader.";
+    description =
+      "successor of GNU Wget, a file and recursive website downloader.";
     longDescription = ''
       Designed and written from scratch it wraps around libwget, that provides the basic
       functions needed by a web client.

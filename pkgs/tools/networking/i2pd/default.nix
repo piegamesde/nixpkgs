@@ -1,10 +1,6 @@
-{ lib, stdenv, fetchFromGitHub
-, installShellFiles
-, boost, zlib, openssl
-, upnpSupport ? true, miniupnpc
-, aesniSupport ? stdenv.hostPlatform.aesSupport
-, avxSupport   ? stdenv.hostPlatform.avxSupport
-}:
+{ lib, stdenv, fetchFromGitHub, installShellFiles, boost, zlib, openssl
+, upnpSupport ? true, miniupnpc, aesniSupport ? stdenv.hostPlatform.aesSupport
+, avxSupport ? stdenv.hostPlatform.avxSupport }:
 
 stdenv.mkDerivation rec {
   pname = "i2pd";
@@ -17,19 +13,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sgaNrRRAINMI0utLQ6o6zcI5ImaDrYho9WeFiJg7WuE=";
   };
 
-  buildInputs = [ boost zlib openssl ]
-    ++ lib.optional upnpSupport miniupnpc;
+  buildInputs = [ boost zlib openssl ] ++ lib.optional upnpSupport miniupnpc;
 
-  nativeBuildInputs = [
-    installShellFiles
+  nativeBuildInputs = [ installShellFiles ];
+
+  makeFlags = let ynf = a: b: a + "=" + (if b then "yes" else "no");
+  in [
+    (ynf "USE_AESNI" aesniSupport)
+    (ynf "USE_AVX" avxSupport)
+    (ynf "USE_UPNP" upnpSupport)
   ];
-
-  makeFlags =
-    let ynf = a: b: a + "=" + (if b then "yes" else "no"); in
-    [ (ynf "USE_AESNI" aesniSupport)
-      (ynf "USE_AVX"   avxSupport)
-      (ynf "USE_UPNP"  upnpSupport)
-    ];
 
   enableParallelBuilding = true;
 

@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pyyaml
-}:
+{ lib, buildPythonPackage, fetchPypi, pyyaml }:
 
 buildPythonPackage rec {
   pname = "pyngrok";
@@ -13,9 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-3YqHlEuOKFcuPRJr+yyBopSFlFdfUjfu/TZRrgtIcVU=";
   };
 
-  propagatedBuildInputs = [
-    pyyaml
-  ];
+  propagatedBuildInputs = [ pyyaml ];
 
   pythonImportsCheck = [ "pyngrok" ];
 

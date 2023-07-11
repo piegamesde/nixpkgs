@@ -1,21 +1,6 @@
-{ lib
-, autograd
-, buildPythonPackage
-, cupy
-, cvxopt
-, cython
-, fetchPypi
-, matplotlib
-, numpy
-, tensorflow
-, pymanopt
-, pytestCheckHook
-, pythonOlder
-, scikit-learn
-, scipy
-, enableDimensionalityReduction ? false
-, enableGPU ? false
-}:
+{ lib, autograd, buildPythonPackage, cupy, cvxopt, cython, fetchPypi, matplotlib
+, numpy, tensorflow, pymanopt, pytestCheckHook, pythonOlder, scikit-learn, scipy
+, enableDimensionalityReduction ? false, enableGPU ? false }:
 
 buildPythonPackage rec {
   pname = "pot";
@@ -30,29 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-PKmuPI83DPy7RkOgHHPdPJJz5NT/fpr123AVTzTLwgQ=";
   };
 
-  nativeBuildInputs = [
-    numpy
-    cython
-  ];
+  nativeBuildInputs = [ numpy cython ];
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-  ] ++ lib.optionals enableGPU [
-    cupy
-  ] ++ lib.optionals enableDimensionalityReduction [
-    autograd
-    pymanopt
-  ];
+  propagatedBuildInputs = [ numpy scipy ] ++ lib.optionals enableGPU [ cupy ]
+    ++ lib.optionals enableDimensionalityReduction [ autograd pymanopt ];
 
-  nativeCheckInputs = [
-    cvxopt
-    matplotlib
-    numpy
-    tensorflow
-    scikit-learn
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ cvxopt matplotlib numpy tensorflow scikit-learn pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -108,14 +77,9 @@ buildPythonPackage rec {
     "test/test_gromov.py"
     "test/test_helpers.py"
     "test/test_unbalanced.py"
-  ] ++ lib.optionals (!enableDimensionalityReduction) [
-    "test/test_dr.py"
-  ];
+  ] ++ lib.optionals (!enableDimensionalityReduction) [ "test/test_dr.py" ];
 
-  pythonImportsCheck = [
-    "ot"
-    "ot.lp"
-  ];
+  pythonImportsCheck = [ "ot" "ot.lp" ];
 
   meta = with lib; {
     description = "Python Optimal Transport Library";

@@ -1,22 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
 
 # propagates
-, allpairspy
-, approval-utilities
-, beautifulsoup4
-, empty-files
-, mrjob
-, pyperclip
-, pytest
-, typing-extensions
+, allpairspy, approval-utilities, beautifulsoup4, empty-files, mrjob, pyperclip
+, pytest, typing-extensions
 
 # tests
-, numpy
-, pytestCheckHook
-}:
+, numpy, pytestCheckHook }:
 
 buildPythonPackage rec {
   version = "8.2.5";
@@ -44,10 +33,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
-    numpy
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ numpy pytestCheckHook ];
 
   disabledTests = [
     # tests expects paths below ApprovalTests.Python directory

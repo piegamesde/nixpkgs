@@ -1,4 +1,5 @@
-{ lib, fetchFromGitHub, buildPythonApplication, pyside2, twisted, certifi, qt5, enableGUI ? true }:
+{ lib, fetchFromGitHub, buildPythonApplication, pyside2, twisted, certifi, qt5
+, enableGUI ? true }:
 
 buildPythonApplication rec {
   pname = "syncplay";
@@ -15,8 +16,7 @@ buildPythonApplication rec {
 
   buildInputs = lib.optionals enableGUI [ qt5.qtwayland ];
   propagatedBuildInputs = [ twisted certifi ]
-    ++ twisted.optional-dependencies.tls
-    ++ lib.optional enableGUI pyside2;
+    ++ twisted.optional-dependencies.tls ++ lib.optional enableGUI pyside2;
   nativeBuildInputs = lib.optionals enableGUI [ qt5.wrapQtAppsHook ];
 
   makeFlags = [ "DESTDIR=" "PREFIX=$(out)" ];

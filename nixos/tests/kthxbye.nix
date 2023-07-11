@@ -1,10 +1,7 @@
-import ./make-test-python.nix ({ lib, pkgs, ... }:
-{
+import ./make-test-python.nix ({ lib, pkgs, ... }: {
   name = "kthxbye";
 
-  meta = with lib.maintainers; {
-    maintainers = [ nukaduka ];
-  };
+  meta = with lib.maintainers; { maintainers = [ nukaduka ]; };
 
   nodes.server = { ... }: {
     environment.systemPackages = with pkgs; [ prometheus-alertmanager ];
@@ -17,44 +14,27 @@ import ./make-test-python.nix ({ lib, pkgs, ... }:
         evaluation_interval = "5s";
       };
 
-      scrapeConfigs = [
-        {
-          job_name = "prometheus";
-          scrape_interval = "5s";
-          static_configs = [
-            {
-              targets = [ "localhost:9090" ];
-            }
-          ];
-        }
-      ];
+      scrapeConfigs = [{
+        job_name = "prometheus";
+        scrape_interval = "5s";
+        static_configs = [{ targets = [ "localhost:9090" ]; }];
+      }];
 
-      rules = [
-        ''
-          groups:
-            - name: test
-              rules:
-                - alert: node_up
-                  expr: up != 0
-                  for: 5s
-                  labels:
-                    severity: bottom of the barrel
-                  annotations:
-                    summary: node is fine
-        ''
-      ];
+      rules = [''
+        groups:
+          - name: test
+            rules:
+              - alert: node_up
+                expr: up != 0
+                for: 5s
+                labels:
+                  severity: bottom of the barrel
+                annotations:
+                  summary: node is fine
+      ''];
 
-      alertmanagers = [
-        {
-          static_configs = [
-            {
-              targets = [
-                "localhost:9093"
-              ];
-            }
-          ];
-        }
-      ];
+      alertmanagers =
+        [{ static_configs = [{ targets = [ "localhost:9093" ]; }]; }];
 
       alertmanager = {
         enable = true;
@@ -65,16 +45,10 @@ import ./make-test-python.nix ({ lib, pkgs, ... }:
           group_interval = "5s";
           group_by = [ "..." ];
         };
-        configuration.receivers = [
-          {
-            name = "test";
-            webhook_configs = [
-              {
-                url = "http://localhost:1234";
-              }
-            ];
-          }
-        ];
+        configuration.receivers = [{
+          name = "test";
+          webhook_configs = [{ url = "http://localhost:1234"; }];
+        }];
       };
     };
 

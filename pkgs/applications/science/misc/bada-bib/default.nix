@@ -1,22 +1,6 @@
-{ lib
-, meson
-, ninja
-, fetchFromGitHub
-, appstream-glib
-, desktop-file-utils
-, gdk-pixbuf
-, gettext
-, glib
-, gnome
-, gobject-introspection
-, gtk4
-, gtksourceview5
-, libadwaita
-, libxml2
-, pkg-config
-, python3Packages
-, wrapGAppsHook4
-}:
+{ lib, meson, ninja, fetchFromGitHub, appstream-glib, desktop-file-utils
+, gdk-pixbuf, gettext, glib, gnome, gobject-introspection, gtk4, gtksourceview5
+, libadwaita, libxml2, pkg-config, python3Packages, wrapGAppsHook4 }:
 
 python3Packages.buildPythonApplication rec {
   pname = "bada-bib";
@@ -40,23 +24,11 @@ python3Packages.buildPythonApplication rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [
-    gdk-pixbuf
-    glib
-    gtk4
-    gtksourceview5
-    libadwaita
-  ];
+  buildInputs = [ gdk-pixbuf glib gtk4 gtksourceview5 libadwaita ];
 
-  nativeCheckInputs = [
-    appstream-glib
-    desktop-file-utils
-  ];
+  nativeCheckInputs = [ appstream-glib desktop-file-utils ];
 
-  pythonPath = with python3Packages; [
-    bibtexparser
-    pygobject3
-  ];
+  pythonPath = with python3Packages; [ bibtexparser pygobject3 ];
 
   postPatch = ''
     patchShebangs build-aux/meson/postinstall.py

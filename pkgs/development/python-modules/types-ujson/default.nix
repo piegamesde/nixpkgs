@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "types-ujson";
@@ -15,9 +12,7 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [
-    "ujson-stubs"
-  ];
+  pythonImportsCheck = [ "ujson-stubs" ];
 
   meta = with lib; {
     description = "Typing stubs for ujson";

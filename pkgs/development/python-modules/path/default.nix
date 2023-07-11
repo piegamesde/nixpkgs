@@ -1,16 +1,10 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
+{ lib, buildPythonPackage, pythonOlder, fetchPypi
 
 # build time
 , setuptools-scm
 
 # tests
-, pytestCheckHook
-, appdirs
-, packaging
-}:
+, pytestCheckHook, appdirs, packaging }:
 
 buildPythonPackage rec {
   pname = "path";
@@ -24,13 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-vqOBbh1U9OM6rHjSAxoLDtL5XmnbhbRdUfF9+XBx2mk=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # creates a file, checks when it was last accessed/modified
@@ -38,9 +28,7 @@ buildPythonPackage rec {
     "test_utime"
   ];
 
-  pythonImportsCheck = [
-    "path"
-  ];
+  pythonImportsCheck = [ "path" ];
 
   meta = with lib; {
     description = "Object-oriented file system path manipulation";

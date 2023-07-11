@@ -1,16 +1,5 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, pkg-config
-, qtbase
-, curl
-, libuv
-, glfw3
-, rapidjson
-, stdenv
-}:
+{ lib, mkDerivation, fetchFromGitHub, fetchpatch, cmake, pkg-config, qtbase
+, curl, libuv, glfw3, rapidjson, stdenv }:
 
 mkDerivation rec {
   pname = "maplibre-gl-native";
@@ -27,7 +16,8 @@ mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "skip-license-check.patch";
-      url = "https://git.alpinelinux.org/aports/plain/testing/mapbox-gl-native/0002-skip-license-check.patch?id=6751a93dca26b0b3ceec9eb151272253a2fe497e";
+      url =
+        "https://git.alpinelinux.org/aports/plain/testing/mapbox-gl-native/0002-skip-license-check.patch?id=6751a93dca26b0b3ceec9eb151272253a2fe497e";
       sha256 = "1yybwzxbvn0lqb1br1fyg7763p2h117s6mkmywkl4l7qg9daa7ba";
     })
   ];
@@ -37,18 +27,9 @@ mkDerivation rec {
     rm -r vendor/mapbox-base/extras/rapidjson
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    curl
-    libuv
-    glfw3
-    qtbase
-    rapidjson
-  ];
+  buildInputs = [ curl libuv glfw3 qtbase rapidjson ];
 
   cmakeFlags = [
     "-DMBGL_WITH_QT=ON"
@@ -56,10 +37,11 @@ mkDerivation rec {
     "-DMBGL_WITH_QT_HEADLESS=OFF"
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
-    # Needed with GCC 12 but problematic with some old GCCs
-    "-Wno-error=use-after-free"
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString (lib.optionals
+    (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
+      # Needed with GCC 12 but problematic with some old GCCs
+      "-Wno-error=use-after-free"
+    ]);
 
   meta = with lib; {
     description = "Open-source alternative to Mapbox GL Native";

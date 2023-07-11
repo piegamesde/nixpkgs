@@ -1,7 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "lipl";
@@ -22,7 +19,8 @@ rustPlatform.buildRustPackage rec {
   };
 
   meta = with lib; {
-    description = "A command line tool to analyse the output over time of custom shell commands";
+    description =
+      "A command line tool to analyse the output over time of custom shell commands";
     homepage = "https://github.com/yxdunc/lipl";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];

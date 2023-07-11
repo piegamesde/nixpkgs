@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, numpy
-, pydicom
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, numpy
+, pydicom }:
 
 buildPythonPackage rec {
   pname = "dicom-numpy";
@@ -19,18 +13,11 @@ buildPythonPackage rec {
     hash = "sha256-QIPuSFaWgHmcTddZ8H9kgzLYuwGUzy/FVsi/ttSUskA=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    pydicom
-  ];
+  propagatedBuildInputs = [ numpy pydicom ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "dicom_numpy"
-  ];
+  pythonImportsCheck = [ "dicom_numpy" ];
 
   meta = with lib; {
     description = "Read DICOM files into Numpy arrays";

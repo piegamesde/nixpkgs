@@ -1,28 +1,7 @@
-{ lib
-, appdirs
-, buildPythonPackage
-, configargparse
-, decorator
-, dict2xml
-, fetchFromGitHub
-, google-i18n-address
-, html5lib
-, intervaltree
-, jinja2
-, lxml
-, markupsafe
-, pycairo
-, pycountry
-, pyflakes
-, pypdf2
-, pytestCheckHook
-, python-fontconfig
-, pythonOlder
-, pyyaml
-, requests
-, six
-, wcwidth
-}:
+{ lib, appdirs, buildPythonPackage, configargparse, decorator, dict2xml
+, fetchFromGitHub, google-i18n-address, html5lib, intervaltree, jinja2, lxml
+, markupsafe, pycairo, pycountry, pyflakes, pypdf2, pytestCheckHook
+, python-fontconfig, pythonOlder, pyyaml, requests, six, wcwidth }:
 
 buildPythonPackage rec {
   pname = "xml2rfc";
@@ -65,28 +44,22 @@ buildPythonPackage rec {
     wcwidth
   ];
 
-  nativeCheckInputs = [
-    decorator
-    pycairo
-    pytestCheckHook
-    python-fontconfig
-  ];
+  nativeCheckInputs = [ decorator pycairo pytestCheckHook python-fontconfig ];
 
-   # Requires Noto Serif and Roboto Mono font
+  # Requires Noto Serif and Roboto Mono font
   doCheck = false;
 
   checkPhase = ''
     make tests-no-network
   '';
 
-  pythonImportsCheck = [
-    "xml2rfc"
-  ];
+  pythonImportsCheck = [ "xml2rfc" ];
 
   meta = with lib; {
     description = "Tool generating IETF RFCs and drafts from XML sources";
     homepage = "https://github.com/ietf-tools/xml2rfc";
-    changelog = "https://github.com/ietf-tools/xml2rfc/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/ietf-tools/xml2rfc/blob/v${version}/CHANGELOG.md";
     # Well, parts might be considered unfree, if being strict; see:
     # http://metadata.ftp-master.debian.org/changelogs/non-free/x/xml2rfc/xml2rfc_2.9.6-1_copyright
     license = licenses.bsd3;

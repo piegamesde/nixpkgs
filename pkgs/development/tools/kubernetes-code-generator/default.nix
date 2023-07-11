@@ -17,7 +17,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/kubernetes/code-generator";
-    changelog = "https://github.com/kubernetes/code-generator/releases/tag/v${version}";
+    changelog =
+      "https://github.com/kubernetes/code-generator/releases/tag/v${version}";
     description = "Kubernetes code generation";
     license = licenses.asl20;
     maintainers = with maintainers; [ urandom ];

@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, hypothesis
-, poetry-core
-, pydantic
-, pytest
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, hypothesis, poetry-core
+, pydantic, pytest, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "hypothesis-auto";
@@ -24,7 +16,8 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       name = "switch-to-poetry-core.patch";
-      url = "https://github.com/timothycrosley/hypothesis-auto/commit/8277b4232617c0433f80e9c2844452b9fae67a65.patch";
+      url =
+        "https://github.com/timothycrosley/hypothesis-auto/commit/8277b4232617c0433f80e9c2844452b9fae67a65.patch";
       hash = "sha256-/0z0nphtQnUBiLYhhzLZT59kQgktSugaBg+ePNxy0qI=";
     })
   ];
@@ -36,19 +29,11 @@ buildPythonPackage rec {
       --replace 'hypothesis = ">=4.36<6.0.0"' 'hypothesis = "*"'
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    pydantic
-    hypothesis
-    pytest
-  ];
+  propagatedBuildInputs = [ pydantic hypothesis pytest ];
 
-  pythonImportsCheck = [
-    "hypothesis_auto"
-  ];
+  pythonImportsCheck = [ "hypothesis_auto" ];
 
   meta = with lib; {
     description = "Enables fully automatic tests for type annotated functions";

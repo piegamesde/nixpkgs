@@ -1,8 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-, nixosTests
-}:
+{ lib, fetchFromGitHub, buildGoModule, nixosTests }:
 
 buildGoModule rec {
   pname = "smartctl_exporter";
@@ -17,9 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-lQKuT5dzjDHFpRSmcXpKD1RJDlEv+0kcxENkv3mT4FU=";
 
-  ldflags = [
-    "-X github.com/prometheus/common/version.Version=${version}"
-  ];
+  ldflags = [ "-X github.com/prometheus/common/version.Version=${version}" ];
 
   passthru.tests = { inherit (nixosTests.prometheus-exporters) smartctl; };
 

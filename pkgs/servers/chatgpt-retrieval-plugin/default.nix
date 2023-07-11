@@ -1,10 +1,4 @@
-{ lib
-, python3Packages
-, fetchFromGitHub
-, python3
-, nix-update-script
-, dasel
-}:
+{ lib, python3Packages, fetchFromGitHub, python3, nix-update-script, dasel }:
 
 python3Packages.buildPythonApplication {
   pname = "chatgpt-retrieval-plugin";
@@ -35,9 +29,7 @@ python3Packages.buildPythonApplication {
     ${dasel}/bin/dasel put -t string -f pyproject.toml -v '.well-known/*' '.tool.poetry.include.[]'
   '';
 
-  nativeBuildInputs = with python3Packages; [
-    poetry-core
-  ];
+  nativeBuildInputs = with python3Packages; [ poetry-core ];
 
   propagatedBuildInputs = with python3.pkgs; [
     fastapi
@@ -58,13 +50,12 @@ python3Packages.buildPythonApplication {
     docx2txt
   ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     homepage = "https://github.com/openai/chatgpt-retrieval-plugin";
-    description = "The ChatGPT Retrieval Plugin lets you easily search and find personal or work documents by asking questions in everyday language. ";
+    description =
+      "The ChatGPT Retrieval Plugin lets you easily search and find personal or work documents by asking questions in everyday language. ";
     license = licenses.mit;
     maintainers = with maintainers; [ happysalada ];
   };

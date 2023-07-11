@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, lxml
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, lxml, pytestCheckHook
+, python-dateutil, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "tcxparser";
@@ -21,18 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-HOACQpPVg/UKopz3Jdsyg0CIBnXYuVyhWUVPA+OXI0k=";
   };
 
-  propagatedBuildInputs = [
-    lxml
-    python-dateutil
-  ];
+  propagatedBuildInputs = [ lxml python-dateutil ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "tcxparser"
-  ];
+  pythonImportsCheck = [ "tcxparser" ];
 
   meta = with lib; {
     description = "Simple parser for Garmin TCX files";

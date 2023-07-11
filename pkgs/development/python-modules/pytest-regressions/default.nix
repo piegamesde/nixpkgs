@@ -1,17 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, matplotlib
-, numpy
-, pandas
-, pillow
-, pytest
-, pytest-datadir
-, pytestCheckHook
-, pyyaml
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, matplotlib, numpy, pandas
+, pillow, pytest, pytest-datadir, pytestCheckHook, pyyaml, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "pytest-regressions";
@@ -27,32 +15,15 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    numpy
-    pandas
-    pillow
-    pytest-datadir
-    pyyaml
-  ];
+  propagatedBuildInputs = [ numpy pandas pillow pytest-datadir pyyaml ];
 
+  nativeCheckInputs = [ pytestCheckHook matplotlib ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    matplotlib
-  ];
-
-  pythonImportsCheck = [
-    "pytest_regressions"
-    "pytest_regressions.plugin"
-  ];
+  pythonImportsCheck = [ "pytest_regressions" "pytest_regressions.plugin" ];
 
   meta = with lib; {
     description = "Pytest fixtures to write regression tests";

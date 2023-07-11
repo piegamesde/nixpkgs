@@ -1,29 +1,7 @@
-{
-  stdenv
-, fetchFromGitHub
-, fetchurl
-, cmake
-, dbus
-, file
-, freetype
-, jansson
-, lib
-, libGL
-, libX11
-, libXcursor
-, libXext
-, libXrandr
-, libarchive
-, libjack2
-, liblo
-, libsamplerate
-, libsndfile
-, makeWrapper
-, pkg-config
-, python3
-, speexdsp
-, libglvnd
-}:
+{ stdenv, fetchFromGitHub, fetchurl, cmake, dbus, file, freetype, jansson, lib
+, libGL, libX11, libXcursor, libXext, libXrandr, libarchive, libjack2, liblo
+, libsamplerate, libsndfile, makeWrapper, pkg-config, python3, speexdsp
+, libglvnd }:
 
 stdenv.mkDerivation rec {
   pname = "cardinal";
@@ -43,13 +21,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
   strictDeps = true;
 
-  nativeBuildInputs = [
-    cmake
-    file
-    pkg-config
-    makeWrapper
-    python3
-  ];
+  nativeBuildInputs = [ cmake file pkg-config makeWrapper python3 ];
   buildInputs = [
     dbus
     freetype

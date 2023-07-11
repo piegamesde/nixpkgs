@@ -1,31 +1,23 @@
-{ name-prefix ? "temurin"
-, brand-name ? "Eclipse Temurin"
-, sourcePerArch
-, knownVulnerabilities ? []
-}:
+{ name-prefix ? "temurin", brand-name ? "Eclipse Temurin", sourcePerArch
+, knownVulnerabilities ? [ ] }:
 
 { swingSupport ? true # not used for now
-, lib, stdenv
-, fetchurl
-, setJavaClassPath
-}:
+, lib, stdenv, fetchurl, setJavaClassPath }:
 
 let
   cpuName = stdenv.hostPlatform.parsed.cpu.name;
   validCpuTypes = builtins.attrNames lib.systems.parse.cpuTypes;
-  providedCpuTypes = builtins.filter
-    (arch: builtins.elem arch validCpuTypes)
+  providedCpuTypes = builtins.filter (arch: builtins.elem arch validCpuTypes)
     (builtins.attrNames sourcePerArch);
   result = stdenv.mkDerivation {
-    pname = if sourcePerArch.packageType == "jdk"
-      then "${name-prefix}-bin"
-      else "${name-prefix}-${sourcePerArch.packageType}-bin";
+    pname = if sourcePerArch.packageType == "jdk" then
+      "${name-prefix}-bin"
+    else
+      "${name-prefix}-${sourcePerArch.packageType}-bin";
     version =
       sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
 
-    src = fetchurl {
-      inherit (sourcePerArch.${cpuName}) url sha256;
-    };
+    src = fetchurl { inherit (sourcePerArch.${cpuName}) url sha256; };
 
     # See: https://github.com/NixOS/patchelf/issues/10
     dontStrip = 1;
@@ -65,7 +57,8 @@ let
     meta = with lib; {
       license = licenses.gpl2Classpath;
       description = "${brand-name}, prebuilt OpenJDK binary";
-      platforms = builtins.map (arch: arch + "-darwin") providedCpuTypes;  # some inherit jre.meta.platforms
+      platforms = builtins.map (arch: arch + "-darwin")
+        providedCpuTypes; # some inherit jre.meta.platforms
       maintainers = with maintainers; [ taku0 ];
       inherit knownVulnerabilities;
       mainProgram = "java";

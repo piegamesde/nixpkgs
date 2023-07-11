@@ -1,9 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, go-md2man
-, installShellFiles
-, libusb-compat-0_1
+{ stdenv, lib, fetchFromGitHub, go-md2man, installShellFiles, libusb-compat-0_1
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -17,14 +12,9 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-C9Qhd6LhAES7X0sh4rofjAM+gxwuosahVQHeR76LyIo=";
   };
 
-  nativeBuildInputs = [
-    go-md2man
-    installShellFiles
-  ];
+  nativeBuildInputs = [ go-md2man installShellFiles ];
 
-  buildInputs = [
-    libusb-compat-0_1
-  ];
+  buildInputs = [ libusb-compat-0_1 ];
 
   installPhase = ''
     runHook preInstall

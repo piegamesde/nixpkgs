@@ -1,7 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "trippy";
@@ -19,7 +16,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A network diagnostic tool";
     homepage = "https://trippy.cli.rs";
-    changelog = "https://github.com/fujiapple852/trippy/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/fujiapple852/trippy/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ figsoda ];
     mainProgram = "trip";

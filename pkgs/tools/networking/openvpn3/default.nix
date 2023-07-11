@@ -1,23 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, asio
-, autoconf-archive
-, autoreconfHook
-, glib
-, gtest
-, jsoncpp
-, libcap_ng
-, libnl
-, libuuid
-, lz4
-, openssl
-, pkg-config
-, protobuf
-, python3
-, tinyxml-2
-, wrapGAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, asio, autoconf-archive, autoreconfHook, glib
+, gtest, jsoncpp, libcap_ng, libnl, libuuid, lz4, openssl, pkg-config, protobuf
+, python3, tinyxml-2, wrapGAppsHook }:
 
 let
   openvpn3-core = fetchFromGitHub {
@@ -26,8 +9,7 @@ let
     rev = "7590cb109349809b948e8edaeecabdbfe24e4b17";
     hash = "sha256-S9D/FQa7HYj0FJnyb5dCrtgTH9Nf2nvtyp/VHiebq7I=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "openvpn3";
   # also update openvpn3-core
   version = "20";
@@ -83,10 +65,7 @@ stdenv.mkDerivation rec {
   ];
 
   # runtime deps
-  pythonPath = with python3.pkgs; [
-    dbus-python
-    pygobject3
-  ];
+  pythonPath = with python3.pkgs; [ dbus-python pygobject3 ];
 
   dontWrapGApps = true;
   preFixup = ''

@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, mac_alias
-, pytestCheckHook
-, pythonOlder
-, setuptools
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, mac_alias, pytestCheckHook
+, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "ds-store";
@@ -21,21 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-45lmkE61uXVCBUMyVVzowTJoALY1m9JI68s7Yb0vCks=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    mac_alias
-  ];
+  propagatedBuildInputs = [ mac_alias ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "ds_store"
-  ];
+  pythonImportsCheck = [ "ds_store" ];
 
   meta = with lib; {
     homepage = "https://github.com/al45tair/ds_store";

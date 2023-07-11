@@ -1,20 +1,6 @@
-{ lib, stdenv
-, cmake
-, fetchFromGitHub
-, wrapQtAppsHook
-, qtmultimedia
-, qttools
-, qtdeclarative
-, qtnetworkauth
-, qtbase
-, makeWrapper
-, catch2
-, nodejs
-, libpulseaudio
-, openssl
-, rsync
-, typescript
-}:
+{ lib, stdenv, cmake, fetchFromGitHub, wrapQtAppsHook, qtmultimedia, qttools
+, qtdeclarative, qtnetworkauth, qtbase, makeWrapper, catch2, nodejs
+, libpulseaudio, openssl, rsync, typescript }:
 
 stdenv.mkDerivation rec {
   pname = "imgbrd-grabber";
@@ -28,11 +14,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [
-    openssl
-    libpulseaudio
-    typescript
-  ];
+  buildInputs = [ openssl libpulseaudio typescript ];
 
   nativeBuildInputs = [
     makeWrapper
@@ -90,7 +72,8 @@ stdenv.mkDerivation rec {
   sourceRoot = "source/src";
 
   meta = with lib; {
-    description = "Very customizable imageboard/booru downloader with powerful filenaming features";
+    description =
+      "Very customizable imageboard/booru downloader with powerful filenaming features";
     license = licenses.asl20;
     homepage = "https://bionus.github.io/imgbrd-grabber/";
     maintainers = [ maintainers.evanjs ];

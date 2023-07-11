@@ -1,22 +1,17 @@
-{ lib
-, stdenv
-, fetchurl
-, libusb-compat-0_1
-, Security
-, IOKit
-, libobjc
-}:
+{ lib, stdenv, fetchurl, libusb-compat-0_1, Security, IOKit, libobjc }:
 
 stdenv.mkDerivation rec {
   pname = "libftdi";
   version = "0.20";
 
   src = fetchurl {
-    url = "https://www.intra2net.com/en/developer/libftdi/download/${pname}-${version}.tar.gz";
+    url =
+      "https://www.intra2net.com/en/developer/libftdi/download/${pname}-${version}.tar.gz";
     sha256 = "13l39f6k6gff30hsgh0wa2z422g9pyl91rh8a8zz6f34k2sxaxii";
   };
 
-  buildInputs = [ libusb-compat-0_1 ] ++ lib.optionals stdenv.isDarwin [ libobjc Security IOKit ];
+  buildInputs = [ libusb-compat-0_1 ]
+    ++ lib.optionals stdenv.isDarwin [ libobjc Security IOKit ];
 
   propagatedBuildInputs = [ libusb-compat-0_1 ];
 

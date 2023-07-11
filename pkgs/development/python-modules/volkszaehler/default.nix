@@ -1,9 +1,4 @@
-{ lib
-, aiohttp
-, async-timeout
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{ lib, aiohttp, async-timeout, buildPythonPackage, fetchFromGitHub, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -20,22 +15,19 @@ buildPythonPackage rec {
     hash = "sha256-jX0nwBsBYU383LG8f08FVI7Lo9gnyPSQ0fiEF8dQc/M=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    async-timeout
-  ];
+  propagatedBuildInputs = [ aiohttp async-timeout ];
 
   # no tests are present
   doCheck = false;
 
-  pythonImportsCheck = [
-    "volkszaehler"
-  ];
+  pythonImportsCheck = [ "volkszaehler" ];
 
   meta = with lib; {
     description = "Python module for interacting with the Volkszahler API";
-    homepage = "https://github.com/home-assistant-ecosystem/python-volkszaehler";
-    changelog = "https://github.com/home-assistant-ecosystem/python-volkszaehler/releases/tag/${version}";
+    homepage =
+      "https://github.com/home-assistant-ecosystem/python-volkszaehler";
+    changelog =
+      "https://github.com/home-assistant-ecosystem/python-volkszaehler/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

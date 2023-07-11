@@ -8,7 +8,8 @@ let
       inherit pname version;
 
       src = fetchzip {
-        url = "https://github.com/orioncactus/pretendard/releases/download/v${version}/${typeface}-${version}.zip";
+        url =
+          "https://github.com/orioncactus/pretendard/releases/download/v${version}/${typeface}-${version}.zip";
         stripRoot = false;
         inherit hash;
       };
@@ -30,8 +31,7 @@ let
       };
     };
 
-in
-{
+in {
   pretendard = mkPretendard {
     pname = "pretendard";
     typeface = "Pretendard";

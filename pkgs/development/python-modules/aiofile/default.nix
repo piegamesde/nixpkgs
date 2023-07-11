@@ -1,12 +1,5 @@
-{ lib
-, aiomisc
-, aiomisc-pytest
-, caio
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, aiomisc, aiomisc-pytest, caio, buildPythonPackage, fetchFromGitHub
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aiofile";
@@ -22,19 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-jQ97jtYhkqQgQjtHhtlk5JlvkzbFQw3kY6uXuV81ZkQ=";
   };
 
-  propagatedBuildInputs = [
-    caio
-  ];
+  propagatedBuildInputs = [ caio ];
 
-  nativeCheckInputs = [
-    aiomisc
-    aiomisc-pytest
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aiomisc aiomisc-pytest pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "aiofile"
-  ];
+  pythonImportsCheck = [ "aiofile" ];
 
   disabledTests = [
     # Tests (SystemError) fails randomly during nix-review
@@ -56,7 +41,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "File operations with asyncio support";
     homepage = "https://github.com/mosquito/aiofile";
-    changelog = "https://github.com/aiokitchen/aiomisc/blob/master/CHANGELOG.md";
+    changelog =
+      "https://github.com/aiokitchen/aiomisc/blob/master/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

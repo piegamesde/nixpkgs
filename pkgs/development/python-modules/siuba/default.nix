@@ -1,19 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, hypothesis
-, numpy
-, pandas
-, psycopg2
-, pymysql
-, python-dateutil
-, pytz
-, pyyaml
-, six
-, sqlalchemy
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
+, hypothesis, numpy, pandas, psycopg2, pymysql, python-dateutil, pytz, pyyaml
+, six, sqlalchemy }:
 
 buildPythonPackage rec {
   pname = "siuba";
@@ -41,17 +28,11 @@ buildPythonPackage rec {
     sqlalchemy
   ];
 
-  nativeCheckInputs = [
-    hypothesis
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ hypothesis pytestCheckHook ];
   doCheck = false;
   # requires running mysql and postgres instances; see docker-compose.yml
 
-  pythonImportsCheck = [
-    "siuba"
-    "siuba.data"
-  ];
+  pythonImportsCheck = [ "siuba" "siuba.data" ];
 
   meta = with lib; {
     description = "Use dplyr-like syntax with pandas and SQL";

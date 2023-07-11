@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, bc
-, check
-, curl
-}:
+{ lib, stdenv, fetchurl, bc, check, curl }:
 
 stdenv.mkDerivation rec {
   pname = "recutils";
@@ -17,20 +11,16 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = lib.optional stdenv.cc.isClang "format";
 
-  buildInputs = [
-    curl
-  ];
+  buildInputs = [ curl ];
 
-  nativeCheckInputs = [
-    bc
-    check
-  ];
+  nativeCheckInputs = [ bc check ];
 
   doCheck = true;
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/recutils/";
-    description = "Tools and libraries to access human-editable, text-based databases";
+    description =
+      "Tools and libraries to access human-editable, text-based databases";
     longDescription = ''
       GNU Recutils is a set of tools and libraries to access human-editable,
       text-based databases called recfiles. The data is stored as a sequence of

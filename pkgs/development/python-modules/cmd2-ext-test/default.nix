@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, cmd2
-, fetchPypi
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, cmd2, fetchPypi, pytestCheckHook, pythonOlder
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "cmd2-ext-test";
@@ -19,25 +13,18 @@ buildPythonPackage rec {
     hash = "sha256-uTc+onurLilwQe0trESR3JGa5WFT1fCt3rRA7rhRpaY=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    cmd2
-  ];
+  propagatedBuildInputs = [ cmd2 ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "cmd2_ext_test"
-  ];
+  pythonImportsCheck = [ "cmd2_ext_test" ];
 
   meta = with lib; {
     description = "Plugin supports testing of a cmd2 application";
-    homepage = "https://github.com/python-cmd2/cmd2/tree/master/plugins/ext_test";
+    homepage =
+      "https://github.com/python-cmd2/cmd2/tree/master/plugins/ext_test";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

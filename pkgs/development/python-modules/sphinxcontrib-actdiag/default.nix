@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, sphinx
-, actdiag
-, blockdiag
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, sphinx, actdiag, blockdiag, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-actdiag";
@@ -19,15 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-PFXUVP/Due/nwg8q2vAiGZuCVhLTLyAL6KSXqofg+B8=";
   };
 
-  propagatedBuildInputs = [
-    actdiag
-    blockdiag
-    sphinx
-  ];
+  propagatedBuildInputs = [ actdiag blockdiag sphinx ];
 
-  pythonImportsCheck = [
-    "sphinxcontrib.actdiag"
-  ];
+  pythonImportsCheck = [ "sphinxcontrib.actdiag" ];
 
   meta = with lib; {
     description = "Sphinx actdiag extension";

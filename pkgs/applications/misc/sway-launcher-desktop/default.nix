@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
       in any way and can be used with just about any WM.
     '';
     homepage = "https://github.com/Biont/sway-launcher-desktop";
-    changelog = "https://github.com/Biont/sway-launcher-desktop/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Biont/sway-launcher-desktop/releases/tag/v${version}";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = [ maintainers.thehedgeh0g ];

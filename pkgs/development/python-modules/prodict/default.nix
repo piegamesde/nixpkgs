@@ -1,12 +1,7 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, lib
-}:
+{ buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, lib }:
 
 buildPythonPackage rec {
-  pname   = "prodict";
+  pname = "prodict";
   version = "0.8.6";
   disabled = pythonOlder "3.7";
 
@@ -18,16 +13,15 @@ buildPythonPackage rec {
   };
 
   # make setuptools happy on case-sensitive filesystems
-  postPatch = ''if [[ ! -f README.md ]]; then mv README.MD README.md; fi'';
+  postPatch = "if [[ ! -f README.md ]]; then mv README.MD README.md; fi";
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "prodict" ];
 
   meta = {
-    description = "Access Python dictionary as a class with type hinting and autocompletion";
+    description =
+      "Access Python dictionary as a class with type hinting and autocompletion";
     homepage = "https://github.com/ramazanpolat/prodict";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ bcdarwin ];

@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, git
-, gitpython
-, krb5
-, mock
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, git, gitpython, krb5, mock
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "cccolutils";
@@ -22,23 +14,13 @@ buildPythonPackage rec {
     hash = "sha256-YzKjG43biRbTZKtzSUHHhtzOfcZfzISHDFolqzrBjL8=";
   };
 
-  buildInputs = [
-    krb5
-  ];
+  buildInputs = [ krb5 ];
 
-  propagatedBuildInputs = [
-    git
-    gitpython
-    mock
-  ];
+  propagatedBuildInputs = [ git gitpython mock ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "cccolutils"
-  ];
+  pythonImportsCheck = [ "cccolutils" ];
 
   meta = with lib; {
     description = "Python Kerberos 5 Credential Cache Collection Utilities";

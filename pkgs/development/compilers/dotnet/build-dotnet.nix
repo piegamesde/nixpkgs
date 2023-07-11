@@ -1,39 +1,19 @@
-{ type
-, version
-, srcs
-, packages ? null
-}:
+{ type, version, srcs, packages ? null }:
 
 assert builtins.elem type [ "aspnetcore" "runtime" "sdk" ];
 assert if type == "sdk" then packages != null else true;
 
-{ lib
-, stdenv
-, fetchurl
-, writeText
-, autoPatchelfHook
-, makeWrapper
-, libunwind
-, icu
-, libuuid
-, zlib
-, libkrb5
-, curl
-, lttng-ust_2_12
-, testers
-, runCommand
-, writeShellScript
-, mkNugetDeps
-}:
+{ lib, stdenv, fetchurl, writeText, autoPatchelfHook, makeWrapper, libunwind
+, icu, libuuid, zlib, libkrb5, curl, lttng-ust_2_12, testers, runCommand
+, writeShellScript, mkNugetDeps }:
 
 let
-  pname =
-    if type == "aspnetcore" then
-      "aspnetcore-runtime"
-    else if type == "runtime" then
-      "dotnet-runtime"
-    else
-      "dotnet-sdk";
+  pname = if type == "aspnetcore" then
+    "aspnetcore-runtime"
+  else if type == "runtime" then
+    "dotnet-runtime"
+  else
+    "dotnet-sdk";
 
   descriptions = {
     aspnetcore = "ASP.NET Core Runtime ${version}";
@@ -41,32 +21,26 @@ let
     sdk = ".NET SDK ${version}";
   };
 
-  packageDeps = if type == "sdk" then mkNugetDeps {
-    name = "${pname}-${version}-deps";
-    nugetDeps = packages;
-  } else null;
+  packageDeps = if type == "sdk" then
+    mkNugetDeps {
+      name = "${pname}-${version}-deps";
+      nugetDeps = packages;
+    }
+  else
+    null;
 
-in
-stdenv.mkDerivation (finalAttrs: rec {
+in stdenv.mkDerivation (finalAttrs: rec {
   inherit pname version;
 
   # Some of these dependencies are `dlopen()`ed.
-  nativeBuildInputs = [
-    makeWrapper
-  ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
+  nativeBuildInputs = [ makeWrapper ]
+    ++ lib.optional stdenv.isLinux autoPatchelfHook;
 
-  buildInputs = [
-    stdenv.cc.cc
-    zlib
-    icu
-    libkrb5
-    curl
-  ] ++ lib.optional stdenv.isLinux lttng-ust_2_12;
+  buildInputs = [ stdenv.cc.cc zlib icu libkrb5 curl ]
+    ++ lib.optional stdenv.isLinux lttng-ust_2_12;
 
-  src = fetchurl (
-    srcs."${stdenv.hostPlatform.system}" or (throw
-      "Missing source (url and hash) for host system: ${stdenv.hostPlatform.system}")
-  );
+  src = fetchurl (srcs."${stdenv.hostPlatform.system}" or (throw
+    "Missing source (url and hash) for host system: ${stdenv.hostPlatform.system}"));
 
   sourceRoot = ".";
 
@@ -126,22 +100,19 @@ stdenv.mkDerivation (finalAttrs: rec {
     inherit icu;
     packages = packageDeps;
 
-    updateScript =
-      if type == "sdk" then
+    updateScript = if type == "sdk" then
       let
-        majorVersion =
-          with lib;
+        majorVersion = with lib;
           concatStringsSep "." (take 2 (splitVersion version));
-      in
-      writeShellScript "update-dotnet-${majorVersion}" ''
+      in writeShellScript "update-dotnet-${majorVersion}" ''
         pushd pkgs/development/compilers/dotnet
         exec ${./update.sh} "${majorVersion}"
-      '' else null;
+      ''
+    else
+      null;
 
     tests = {
-      version = testers.testVersion {
-        package = finalAttrs.finalPackage;
-      };
+      version = testers.testVersion { package = finalAttrs.finalPackage; };
 
       smoke-test = runCommand "dotnet-sdk-smoke-test" {
         nativeBuildInputs = [ finalAttrs.finalPackage ];

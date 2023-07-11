@@ -1,17 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, autoreconfHook
-, go-md2man
-, pkg-config
-, libcap
-, libseccomp
-, python3
-, systemd
-, yajl
-, nixosTests
-, criu
-}:
+{ stdenv, lib, fetchFromGitHub, autoreconfHook, go-md2man, pkg-config, libcap
+, libseccomp, python3, systemd, yajl, nixosTests, criu }:
 
 let
   # these tests require additional permissions
@@ -35,8 +23,7 @@ let
     "tests_libcrun_utils"
   ];
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "crun";
   version = "1.8.4";
 
@@ -63,9 +50,9 @@ stdenv.mkDerivation rec {
     echo ${version} > .tarball-version
     echo '#define GIT_VERSION "${src.rev}"' > git-version.h
 
-    ${lib.concatMapStringsSep "\n" (e:
-      "substituteInPlace Makefile.am --replace 'tests/${e}' ''"
-    ) disabledTests}
+    ${lib.concatMapStringsSep "\n"
+    (e: "substituteInPlace Makefile.am --replace 'tests/${e}' ''")
+    disabledTests}
   '';
 
   doCheck = true;
@@ -74,7 +61,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     changelog = "https://github.com/containers/crun/releases/tag/${version}";
-    description = "A fast and lightweight fully featured OCI runtime and C library for running containers";
+    description =
+      "A fast and lightweight fully featured OCI runtime and C library for running containers";
     homepage = "https://github.com/containers/crun";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "git-filter-repo";
@@ -17,21 +12,20 @@ buildPythonPackage rec {
     hash = "sha256-/hdT4Y8L1tPJtXhoyAEa59BWpuurcGcGOWoV71MScl4=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "git_filter_repo"
-  ];
+  pythonImportsCheck = [ "git_filter_repo" ];
 
   meta = with lib; {
     description = "Quickly rewrite git repository history";
     homepage = "https://github.com/newren/git-filter-repo";
-    license = with licenses; [ mit /* or */ gpl2Plus ];
+    license = with licenses; [
+      mit # or
+      gpl2Plus
+    ];
     maintainers = with maintainers; [ fab ];
   };
 }

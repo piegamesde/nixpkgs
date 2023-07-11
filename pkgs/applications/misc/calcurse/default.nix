@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchurl, ncurses, gettext, python3, python3Packages, makeWrapper }:
+{ lib, stdenv, fetchurl, ncurses, gettext, python3, python3Packages, makeWrapper
+}:
 
 stdenv.mkDerivation rec {
   pname = "calcurse";
@@ -28,7 +29,8 @@ stdenv.mkDerivation rec {
       be used to filter and format appointments, making it suitable for use in scripts.
     '';
     homepage = "https://calcurse.org/";
-    changelog = "https://git.calcurse.org/calcurse.git/plain/CHANGES.md?h=v${version}";
+    changelog =
+      "https://git.calcurse.org/calcurse.git/plain/CHANGES.md?h=v${version}";
     license = licenses.bsd2;
     platforms = platforms.unix;
   };

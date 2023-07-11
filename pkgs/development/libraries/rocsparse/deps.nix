@@ -1,7 +1,4 @@
-{ fetchzip
-, mirror1
-, mirror2
-}:
+{ fetchzip, mirror1, mirror2 }:
 
 {
   matrix-01 = fetchzip {
@@ -25,10 +22,8 @@
   matrix-03 = fetchzip {
     sha256 = "sha256-hDzDWDUnHEyFedX/tMNq83ZH8uWyM4xtZYUUAD3rizo=";
 
-    urls = [
-      "${mirror1}/FEMLAB/sme3Dc.tar.gz"
-      "${mirror2}/FEMLAB/sme3Dc.tar.gz"
-    ];
+    urls =
+      [ "${mirror1}/FEMLAB/sme3Dc.tar.gz" "${mirror2}/FEMLAB/sme3Dc.tar.gz" ];
   };
 
   matrix-04 = fetchzip {
@@ -61,10 +56,7 @@
   matrix-07 = fetchzip {
     sha256 = "sha256-WRamuJX3D8Tm+k0q67RjUDG3DeNAxhKiaPkk5afY5eU=";
 
-    urls = [
-      "${mirror1}/Bova/rma10.tar.gz"
-      "${mirror2}/Bova/rma10.tar.gz"
-    ];
+    urls = [ "${mirror1}/Bova/rma10.tar.gz" "${mirror2}/Bova/rma10.tar.gz" ];
   };
 
   matrix-08 = fetchzip {
@@ -79,10 +71,8 @@
   matrix-09 = fetchzip {
     sha256 = "sha256-czjLWCjXAjZCk5TGYHaEkwSAzQu3TQ3QyB6eNKR4G88=";
 
-    urls = [
-      "${mirror1}/Hamm/scircuit.tar.gz"
-      "${mirror2}/Hamm/scircuit.tar.gz"
-    ];
+    urls =
+      [ "${mirror1}/Hamm/scircuit.tar.gz" "${mirror2}/Hamm/scircuit.tar.gz" ];
   };
 
   matrix-10 = fetchzip {
@@ -106,91 +96,62 @@
   matrix-12 = fetchzip {
     sha256 = "sha256-8OJqA/byhlAZd869TPUzZFdsOiwOoRGfKyhM+RMjXoY=";
 
-    urls = [
-      "${mirror1}/HB/nos1.tar.gz"
-      "${mirror2}/HB/nos1.tar.gz"
-    ];
+    urls = [ "${mirror1}/HB/nos1.tar.gz" "${mirror2}/HB/nos1.tar.gz" ];
   };
 
   matrix-13 = fetchzip {
     sha256 = "sha256-FS0rKqmg+uHwsM/yGfQLBdd7LH/rUrdutkNGBD/Mh1I=";
 
-    urls = [
-      "${mirror1}/HB/nos2.tar.gz"
-      "${mirror2}/HB/nos2.tar.gz"
-    ];
+    urls = [ "${mirror1}/HB/nos2.tar.gz" "${mirror2}/HB/nos2.tar.gz" ];
   };
 
   matrix-14 = fetchzip {
     sha256 = "sha256-DANnlrNJikrI7Pst9vRedtbuxepyHmCIu2yhltc4Qcs=";
 
-    urls = [
-      "${mirror1}/HB/nos3.tar.gz"
-      "${mirror2}/HB/nos3.tar.gz"
-    ];
+    urls = [ "${mirror1}/HB/nos3.tar.gz" "${mirror2}/HB/nos3.tar.gz" ];
   };
 
   matrix-15 = fetchzip {
     sha256 = "sha256-21mUgqjWGUfYgiWwSrKh9vH8Vdt3xzcefmqYNYRpxiY=";
 
-    urls = [
-      "${mirror1}/HB/nos4.tar.gz"
-      "${mirror2}/HB/nos4.tar.gz"
-    ];
+    urls = [ "${mirror1}/HB/nos4.tar.gz" "${mirror2}/HB/nos4.tar.gz" ];
   };
 
   matrix-16 = fetchzip {
     sha256 = "sha256-FOuXvGqBBFNkVS6cexmkluret54hCfCOdK+DOZllE4c=";
 
-    urls = [
-      "${mirror1}/HB/nos5.tar.gz"
-      "${mirror2}/HB/nos5.tar.gz"
-    ];
+    urls = [ "${mirror1}/HB/nos5.tar.gz" "${mirror2}/HB/nos5.tar.gz" ];
   };
 
   matrix-17 = fetchzip {
     sha256 = "sha256-+7NI1rA/qQxYPpjXKHvAaCZ+LSaAJ4xuJvMRMBEUYxg=";
 
-    urls = [
-      "${mirror1}/HB/nos6.tar.gz"
-      "${mirror2}/HB/nos6.tar.gz"
-    ];
+    urls = [ "${mirror1}/HB/nos6.tar.gz" "${mirror2}/HB/nos6.tar.gz" ];
   };
 
   matrix-18 = fetchzip {
     sha256 = "sha256-q3NxJjbwGGcFiQ9nhWfUKgZmdVwCfPmgQoqy0AqOsNc=";
 
-    urls = [
-      "${mirror1}/HB/nos7.tar.gz"
-      "${mirror2}/HB/nos7.tar.gz"
-    ];
+    urls = [ "${mirror1}/HB/nos7.tar.gz" "${mirror2}/HB/nos7.tar.gz" ];
   };
 
   matrix-19 = fetchzip {
     sha256 = "sha256-0GAN6qmVfD+tprIigzuUUUwm5KVhkN9X65wMEvFltDY=";
 
-    urls = [
-      "${mirror1}/DNVS/shipsec1.tar.gz"
-      "${mirror2}/DNVS/shipsec1.tar.gz"
-    ];
+    urls =
+      [ "${mirror1}/DNVS/shipsec1.tar.gz" "${mirror2}/DNVS/shipsec1.tar.gz" ];
   };
 
   matrix-20 = fetchzip {
     sha256 = "sha256-f28Du/Urxsiq5NkRmRO10Zz9vvGRjEchquzHzbZpZ7U=";
 
-    urls = [
-      "${mirror1}/Cote/mplate.tar.gz"
-      "${mirror2}/Cote/mplate.tar.gz"
-    ];
+    urls = [ "${mirror1}/Cote/mplate.tar.gz" "${mirror2}/Cote/mplate.tar.gz" ];
   };
 
   matrix-21 = fetchzip {
     sha256 = "sha256-O+Wy0NfCU1hVUOfNR1dJpvDHLBwwa301IRJDrQJnhak=";
 
-    urls = [
-      "${mirror1}/Bai/qc2534.tar.gz"
-      "${mirror2}/Bai/qc2534.tar.gz"
-    ];
+    urls = [ "${mirror1}/Bai/qc2534.tar.gz" "${mirror2}/Bai/qc2534.tar.gz" ];
   };
 
   matrix-22 = fetchzip {

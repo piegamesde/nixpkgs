@@ -1,25 +1,8 @@
-{ lib
-, stdenv
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, gobject-introspection
+{ lib, stdenv, fetchurl, meson, ninja, pkg-config, gobject-introspection
 , buildPackages
 , withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-, gsettings-desktop-schemas
-, makeWrapper
-, dbus
-, glib
-, dconf
-, libX11
-, libxml2
-, libXtst
-, libXi
-, libXext
-, gnome
-, systemd
-}:
+, gsettings-desktop-schemas, makeWrapper, dbus, glib, dconf, libX11, libxml2
+, libXtst, libXi, libXext, gnome, systemd }:
 
 stdenv.mkDerivation rec {
   pname = "at-spi2-core";
@@ -28,19 +11,14 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "kFpbbxeQto7oA7/6n1+rTOtZH7T64LL4xhLFTx1OijA=";
   };
 
-  nativeBuildInputs = [
-    glib
-    meson
-    ninja
-    pkg-config
-    makeWrapper
-  ] ++ lib.optionals withIntrospection [
-    gobject-introspection
-  ];
+  nativeBuildInputs = [ glib meson ninja pkg-config makeWrapper ]
+    ++ lib.optionals withIntrospection [ gobject-introspection ];
 
   buildInputs = [
     libX11
@@ -57,10 +35,7 @@ stdenv.mkDerivation rec {
 
   # In atspi-2.pc dbus-1 glib-2.0
   # In atk.pc gobject-2.0
-  propagatedBuildInputs = [
-    dbus
-    glib
-  ];
+  propagatedBuildInputs = [ dbus glib ];
 
   # fails with "AT-SPI: Couldn't connect to accessibility bus. Is at-spi-bus-launcher running?"
   doCheck = false;
@@ -91,7 +66,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Assistive Technology Service Provider Interface protocol definitions and daemon for D-Bus";
+    description =
+      "Assistive Technology Service Provider Interface protocol definitions and daemon for D-Bus";
     homepage = "https://gitlab.gnome.org/GNOME/at-spi2-core";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members ++ (with maintainers; [ raskin ]);

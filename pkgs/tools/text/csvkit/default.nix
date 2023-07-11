@@ -1,6 +1,4 @@
-{ lib
-, python3
-}:
+{ lib, python3 }:
 
 let
   python = python3.override {
@@ -12,18 +10,14 @@ let
           inherit version;
           hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
         };
-        nativeCheckInputs = oldAttrs.nativeCheckInputs ++ (with super; [
-          pytest-xdist
-        ]);
-        disabledTestPaths = (oldAttrs.disabledTestPaths or []) ++ [
-          "test/aaa_profiling"
-          "test/ext/mypy"
-        ];
+        nativeCheckInputs = oldAttrs.nativeCheckInputs
+          ++ (with super; [ pytest-xdist ]);
+        disabledTestPaths = (oldAttrs.disabledTestPaths or [ ])
+          ++ [ "test/aaa_profiling" "test/ext/mypy" ];
       });
     };
   };
-in
-python.pkgs.buildPythonApplication rec {
+in python.pkgs.buildPythonApplication rec {
   pname = "csvkit";
   version = "1.1.1";
   format = "setuptools";
@@ -40,13 +34,9 @@ python.pkgs.buildPythonApplication rec {
     agate-sql
   ];
 
-  nativeCheckInputs = with python.pkgs; [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python.pkgs; [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "csvkit"
-  ];
+  pythonImportsCheck = [ "csvkit" ];
 
   disabledTests = [
     # Test is comparing CLI output
@@ -54,8 +44,10 @@ python.pkgs.buildPythonApplication rec {
   ];
 
   meta = with lib; {
-    changelog = "https://github.com/wireservice/csvkit/blob/${version}/CHANGELOG.rst";
-    description = "A suite of command-line tools for converting to and working with CSV";
+    changelog =
+      "https://github.com/wireservice/csvkit/blob/${version}/CHANGELOG.rst";
+    description =
+      "A suite of command-line tools for converting to and working with CSV";
     homepage = "https://github.com/wireservice/csvkit";
     license = licenses.mit;
     maintainers = with maintainers; [ vrthra ];

@@ -1,6 +1,5 @@
 { lib, stdenv, fetchFromGitHub, fetchpatch, cmake
-, enableShared ? !stdenv.hostPlatform.isStatic
-}:
+, enableShared ? !stdenv.hostPlatform.isStatic }:
 
 let
   generic = { version, sha256, patches ? [ ] }:
@@ -21,9 +20,8 @@ let
 
       nativeBuildInputs = [ cmake ];
 
-      cmakeFlags = [
-        "-DBUILD_SHARED_LIBS=${if enableShared then "ON" else "OFF"}"
-      ];
+      cmakeFlags =
+        [ "-DBUILD_SHARED_LIBS=${if enableShared then "ON" else "OFF"}" ];
 
       doCheck = true;
 
@@ -40,8 +38,7 @@ let
         platforms = platforms.all;
       };
     };
-in
-{
+in {
   fmt_8 = generic {
     version = "8.1.1";
     sha256 = "sha256-leb2800CwdZMJRWF5b1Y9ocK0jXpOX/nwo95icDf308=";

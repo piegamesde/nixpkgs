@@ -5,13 +5,16 @@ with lib;
 let
   cfg = config.services.unpoller;
 
-  configFile = pkgs.writeText "unpoller.json" (generators.toJSON {} {
+  configFile = pkgs.writeText "unpoller.json" (generators.toJSON { } {
     inherit (cfg) poller influxdb loki prometheus unifi;
   });
 
 in {
   imports = [
-    (lib.mkRenamedOptionModule [ "services" "unifi-poller" ] [ "services" "unpoller" ])
+    (lib.mkRenamedOptionModule [ "services" "unifi-poller" ] [
+      "services"
+      "unpoller"
+    ])
   ];
 
   options.services.unpoller = {
@@ -35,7 +38,7 @@ in {
       };
       plugins = mkOption {
         type = with types; listOf str;
-        default = [];
+        default = [ ];
         description = lib.mdDoc ''
           Load additional plugins.
         '';
@@ -90,7 +93,8 @@ in {
       };
       pass = mkOption {
         type = types.path;
-        default = pkgs.writeText "unpoller-influxdb-default.password" "unifipoller";
+        default =
+          pkgs.writeText "unpoller-influxdb-default.password" "unifipoller";
         defaultText = literalExpression "unpoller-influxdb-default.password";
         description = lib.mdDoc ''
           Path of a file containing the password for influxdb.
@@ -286,7 +290,7 @@ in {
 
       controllers = mkOption {
         type = with types; listOf (submodule { options = controllerOptions; });
-        default = [];
+        default = [ ];
         description = lib.mdDoc ''
           List of Unifi controllers to poll. Use defaults if empty.
         '';

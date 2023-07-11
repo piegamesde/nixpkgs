@@ -1,21 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, curl
-, makeWrapper
-, which
-, unzip
-, lua
-, file
-, nix-prefetch-git
-  # for 'luarocks pack'
-, zip
-, nix-update-script
-  # some packages need to be compiled with cmake
-, cmake
-, installShellFiles
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, curl, makeWrapper, which, unzip, lua
+, file, nix-prefetch-git
+# for 'luarocks pack'
+, zip, nix-update-script
+# some packages need to be compiled with cmake
+, cmake, installShellFiles }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "luarocks";
@@ -33,7 +21,8 @@ stdenv.mkDerivation (finalAttrs: {
     # follow standard environmental variables
     # https://github.com/luarocks/luarocks/pull/1433
     (fetchpatch {
-      url = "https://github.com/luarocks/luarocks/commit/d719541577a89909185aa8de7a33cf73b7a63ac3.diff";
+      url =
+        "https://github.com/luarocks/luarocks/commit/d719541577a89909185aa8de7a33cf73b7a63ac3.diff";
       sha256 = "sha256-rMnhZFqLEul0wnsxvw9nl6JXVanC5QgOZ+I/HJ0vRCM=";
     })
   ];
@@ -75,16 +64,22 @@ stdenv.mkDerivation (finalAttrs: {
               --suffix LUA_PATH ";" "$(echo "$out"/share/lua/*/)?/init.lua" \
               --suffix LUA_CPATH ";" "$(echo "$out"/lib/lua/*/)?.so" \
               --suffix LUA_CPATH ";" "$(echo "$out"/share/lua/*/)?/init.lua" \
-              --suffix PATH : ${lib.makeBinPath ([ unzip ] ++
-                lib.optionals (finalAttrs.pname == "luarocks-nix") [ file nix-prefetch-git ])}
+              --suffix PATH : ${
+                lib.makeBinPath ([ unzip ]
+                  ++ lib.optionals (finalAttrs.pname == "luarocks-nix") [
+                    file
+                    nix-prefetch-git
+                  ])
+              }
         }
     done
-  '' + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    installShellCompletion --cmd luarocks \
-      --bash <($out/bin/luarocks completion bash) \
-      --fish <($out/bin/luarocks completion fish) \
-      --zsh <($out/bin/luarocks completion zsh)
-  '';
+  '' + lib.optionalString
+    (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+      installShellCompletion --cmd luarocks \
+        --bash <($out/bin/luarocks completion bash) \
+        --fish <($out/bin/luarocks completion fish) \
+        --zsh <($out/bin/luarocks completion zsh)
+    '';
 
   propagatedBuildInputs = [ zip unzip cmake ];
 
@@ -99,13 +94,11 @@ stdenv.mkDerivation (finalAttrs: {
     export LUA_PATH="src/?.lua;''${LUA_PATH:-}"
   '';
 
-  disallowedReferences = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    lua.luaOnBuild
-  ];
+  disallowedReferences =
+    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
+    [ lua.luaOnBuild ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "A package manager for Lua";

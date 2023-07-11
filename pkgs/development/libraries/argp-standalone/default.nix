@@ -17,7 +17,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/argp-standalone/argp-standalone";
-    description = "Standalone version of arguments parsing functions from Glibc";
+    description =
+      "Standalone version of arguments parsing functions from Glibc";
     platforms = platforms.unix;
     maintainers = with maintainers; [ amar1729 ];
     license = licenses.lgpl21Plus;

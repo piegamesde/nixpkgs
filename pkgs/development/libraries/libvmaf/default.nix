@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
   patches = [
     # Backport fix for non-Linux, non-Darwin platforms.
     (fetchpatch {
-      url = "https://github.com/Netflix/vmaf/commit/f47640f9ffee9494571bd7c9622e353660c93fc4.patch";
+      url =
+        "https://github.com/Netflix/vmaf/commit/f47640f9ffee9494571bd7c9622e353660c93fc4.patch";
       stripLen = 1;
       sha256 = "rsTKuqp8VJG5DBDpixPke3LrdfjKzUO945i+iL0n7CY=";
     })
@@ -30,7 +31,8 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Perceptual video quality assessment based on multi-method fusion (VMAF)";
+    description =
+      "Perceptual video quality assessment based on multi-method fusion (VMAF)";
     homepage = "https://github.com/Netflix/vmaf";
     changelog = "https://github.com/Netflix/vmaf/raw/v${version}/CHANGELOG.md";
     license = licenses.bsd2Patent;

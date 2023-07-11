@@ -1,11 +1,9 @@
-{ lib, stdenv, pythonPackages, pkg-config
-, qmake, qtbase, qtsvg, qtwebengine
-, wrapQtAppsHook
-, darwin
-}:
+{ lib, stdenv, pythonPackages, pkg-config, qmake, qtbase, qtsvg, qtwebengine
+, wrapQtAppsHook, darwin }:
 
 let
-  inherit (pythonPackages) buildPythonPackage python isPy27 pyqt5 enum34 sip pyqt-builder;
+  inherit (pythonPackages)
+    buildPythonPackage python isPy27 pyqt5 enum34 sip pyqt-builder;
   inherit (darwin) autoSignDarwinBinariesHook;
 in buildPythonPackage rec {
   pname = "PyQtWebEngine";
@@ -21,7 +19,8 @@ in buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace "[tool.sip.project]" "[tool.sip.project]''\nsip-include-dirs = [\"${pyqt5}/${python.sitePackages}/PyQt5/bindings\"]"
+      --replace "[tool.sip.project]" "[tool.sip.project]
+    sip-include-dirs = [\"${pyqt5}/${python.sitePackages}/PyQt5/bindings\"]"
   '';
 
   outputs = [ "out" "dev" ];
@@ -35,16 +34,10 @@ in buildPythonPackage rec {
     qtwebengine
     pyqt-builder
     pythonPackages.setuptools
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-    autoSignDarwinBinariesHook
-  ];
+  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
+    [ autoSignDarwinBinariesHook ];
 
-  buildInputs = [
-    sip
-    qtbase
-    qtsvg
-    qtwebengine
-  ];
+  buildInputs = [ sip qtbase qtsvg qtwebengine ];
 
   propagatedBuildInputs = [ pyqt5 ];
 
@@ -56,21 +49,17 @@ in buildPythonPackage rec {
   # Checked using pythonImportsCheck
   doCheck = false;
 
-  pythonImportsCheck = [
-    "PyQt5.QtWebEngine"
-    "PyQt5.QtWebEngineWidgets"
-  ];
+  pythonImportsCheck = [ "PyQt5.QtWebEngine" "PyQt5.QtWebEngineWidgets" ];
 
   enableParallelBuilding = true;
 
-  passthru = {
-    inherit wrapQtAppsHook;
-  };
+  passthru = { inherit wrapQtAppsHook; };
 
   meta = with lib; {
     description = "Python bindings for Qt5";
-    homepage    = "http://www.riverbankcomputing.co.uk";
-    license     = licenses.gpl3;
-    platforms   = lib.lists.intersectLists qtwebengine.meta.platforms platforms.mesaPlatforms;
+    homepage = "http://www.riverbankcomputing.co.uk";
+    license = licenses.gpl3;
+    platforms = lib.lists.intersectLists qtwebengine.meta.platforms
+      platforms.mesaPlatforms;
   };
 }

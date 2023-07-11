@@ -1,20 +1,10 @@
-{ fetchFromGitHub
-, gitMinimal
-, gfold
-, lib
-, libiconv
-, makeWrapper
-, rustPlatform
-, Security
-, stdenv
-, testers
-}:
+{ fetchFromGitHub, gitMinimal, gfold, lib, libiconv, makeWrapper, rustPlatform
+, Security, stdenv, testers }:
 
 let
   pname = "gfold";
   version = "4.3.3";
-in
-rustPlatform.buildRustPackage {
+in rustPlatform.buildRustPackage {
   inherit pname version;
 
   src = fetchFromGitHub {

@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, writeScript, common-updater-scripts
-, coreutils, git, gnused, nix }:
+{ lib, stdenv, fetchFromGitHub, writeScript, common-updater-scripts, coreutils
+, git, gnused, nix }:
 
 let
   owner = "scopatz";
@@ -25,15 +25,7 @@ in stdenv.mkDerivation rec {
   passthru.updateScript = writeScript "update.sh" ''
     #!${stdenv.shell}
     set -o errexit
-    PATH=${
-      lib.makeBinPath [
-        common-updater-scripts
-        coreutils
-        git
-        gnused
-        nix
-      ]
-    }
+    PATH=${lib.makeBinPath [ common-updater-scripts coreutils git gnused nix ]}
     oldVersion="$(nix-instantiate --eval -E "with import ./. {}; lib.getVersion ${pname}" | tr -d '"' | sed 's|\\.|-|g')"
     latestTag="$(git -c 'versionsort.suffix=-' ls-remote --exit-code --refs --sort='version:refname' --tags git@github.com:${owner}/${repo} '*.*.*' | tail --lines=1 | cut --delimiter='/' --fields=3)"
     if [ "$oldVersion" != "$latestTag" ]; then

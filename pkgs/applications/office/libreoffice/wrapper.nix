@@ -1,48 +1,58 @@
-{ lib
-, stdenv
+{ lib, stdenv
 # The unwrapped libreoffice derivation
-, unwrapped
-, makeWrapper
-, xorg # for lndir
-, runCommand
-, substituteAll
+, unwrapped, makeWrapper, xorg # for lndir
+, runCommand, substituteAll
 # For Emulating wrapGAppsHook
-, gsettings-desktop-schemas
-, hicolor-icon-theme
-, dconf
-, librsvg
-, gdk-pixbuf
+, gsettings-desktop-schemas, hicolor-icon-theme, dconf, librsvg, gdk-pixbuf
 # Configuration options for the wrapper
-, extraMakeWrapperArgs ? []
-, dbusVerify ? stdenv.isLinux
-, dbus
-}:
+, extraMakeWrapperArgs ? [ ], dbusVerify ? stdenv.isLinux, dbus }:
 
 let
   inherit (unwrapped.srcs.primary) major minor;
 
   makeWrapperArgs = builtins.concatStringsSep " " ([
-    "--set" "GDK_PIXBUF_MODULE_FILE" "${librsvg}/${gdk-pixbuf.moduleDir}.cache"
-    "--prefix" "GIO_EXTRA_MODULES" ":" "${lib.getLib dconf}/lib/gio/modules"
-    "--prefix" "XDG_DATA_DIRS" ":" "${unwrapped.gtk3}/share/gsettings-schemas/${unwrapped.gtk3.name}"
-    "--prefix" "XDG_DATA_DIRS" ":" "$out/share"
-    "--prefix" "XDG_DATA_DIRS" ":" "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}"
-    "--prefix" "XDG_DATA_DIRS" ":" "${hicolor-icon-theme}/share"
-    "--prefix" "GST_PLUGIN_SYSTEM_PATH_1_0" ":"
-      "${lib.makeSearchPath "lib/girepository-1.0" unwrapped.gst_packages}"
+    "--set"
+    "GDK_PIXBUF_MODULE_FILE"
+    "${librsvg}/${gdk-pixbuf.moduleDir}.cache"
+    "--prefix"
+    "GIO_EXTRA_MODULES"
+    ":"
+    "${lib.getLib dconf}/lib/gio/modules"
+    "--prefix"
+    "XDG_DATA_DIRS"
+    ":"
+    "${unwrapped.gtk3}/share/gsettings-schemas/${unwrapped.gtk3.name}"
+    "--prefix"
+    "XDG_DATA_DIRS"
+    ":"
+    "$out/share"
+    "--prefix"
+    "XDG_DATA_DIRS"
+    ":"
+    "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}"
+    "--prefix"
+    "XDG_DATA_DIRS"
+    ":"
+    "${hicolor-icon-theme}/share"
+    "--prefix"
+    "GST_PLUGIN_SYSTEM_PATH_1_0"
+    ":"
+    "${lib.makeSearchPath "lib/girepository-1.0" unwrapped.gst_packages}"
   ] ++ lib.optionals unwrapped.kdeIntegration [
-    "--prefix" "QT_PLUGIN_PATH" ":" "${
-      lib.makeSearchPath
-      unwrapped.qtbase.qtPluginPrefix
-      (builtins.map lib.getBin unwrapped.qtPackages)
-    }"
-    "--prefix" "QML2_IMPORT_PATH" ":" "${
-      lib.makeSearchPath unwrapped.qtbase.qtQmlPrefix
-      (builtins.map lib.getBin unwrapped.qmlPackages)
-    }"
+    "--prefix"
+    "QT_PLUGIN_PATH"
+    ":"
+    "${lib.makeSearchPath unwrapped.qtbase.qtPluginPrefix
+    (builtins.map lib.getBin unwrapped.qtPackages)}"
+    "--prefix"
+    "QML2_IMPORT_PATH"
+    ":"
+    "${lib.makeSearchPath unwrapped.qtbase.qtQmlPrefix
+    (builtins.map lib.getBin unwrapped.qmlPackages)}"
   ] ++ [
     # Add dictionaries from all NIX_PROFILES
-    "--run" (lib.escapeShellArg ''
+    "--run"
+    (lib.escapeShellArg ''
       for PROFILE in $NIX_PROFILES; do
           HDIR="$PROFILE/share/hunspell"
           if [ -d "$HDIR" ]; then
@@ -52,7 +62,8 @@ let
     '')
   ] ++ lib.optionals dbusVerify [
     # If no dbus is running, start a dedicated dbus daemon
-    "--run" (lib.escapeShellArg ''
+    "--run"
+    (lib.escapeShellArg ''
       if ! ( test -n "$DBUS_SESSION_BUS_ADDRESS" ); then
           dbus_tmp_dir="/run/user/$(id -u)/libreoffice-dbus"
           if ! test -d "$dbus_tmp_dir" && test -d "/run"; then
@@ -72,10 +83,7 @@ let
           export DBUS_SESSION_BUS_ADDRESS="unix:path=$dbus_socket_dir/session"
       fi
     '')
-  ] ++ [
-    "--inherit-argv0"
-  ] ++ extraMakeWrapperArgs
-  );
+  ] ++ [ "--inherit-argv0" ] ++ extraMakeWrapperArgs);
 in runCommand "${unwrapped.name}-wrapped" {
   inherit (unwrapped) meta;
   paths = [ unwrapped ];
@@ -83,7 +91,9 @@ in runCommand "${unwrapped.name}-wrapped" {
   passthru = {
     inherit unwrapped;
     # For backwards compatibility:
-    libreoffice = lib.warn "libreoffice: Use the unwrapped attributed, using libreoffice.libreoffice is deprecated." unwrapped;
+    libreoffice = lib.warn
+      "libreoffice: Use the unwrapped attributed, using libreoffice.libreoffice is deprecated."
+      unwrapped;
     inherit (unwrapped) kdeIntegration;
   };
 } (''
@@ -112,11 +122,11 @@ in runCommand "${unwrapped.name}-wrapped" {
       $out/lib/libreoffice/program/$i \
       ${makeWrapperArgs}
 '' + lib.optionalString dbusVerify ''
-    # Delete the dbus socket directory after libreoffice quits
-    sed -i 's/^exec -a "$0" //g' $out/lib/libreoffice/program/$i
-    echo 'code="$?"' >> $out/lib/libreoffice/program/$i
-    echo 'test -n "$dbus_socket_dir" && { rm -rf "$dbus_socket_dir"; kill $dbus_pid; }' >> $out/lib/libreoffice/program/$i
-    echo 'exit "$code"' >> $out/lib/libreoffice/program/$i
+  # Delete the dbus socket directory after libreoffice quits
+  sed -i 's/^exec -a "$0" //g' $out/lib/libreoffice/program/$i
+  echo 'code="$?"' >> $out/lib/libreoffice/program/$i
+  echo 'test -n "$dbus_socket_dir" && { rm -rf "$dbus_socket_dir"; kill $dbus_pid; }' >> $out/lib/libreoffice/program/$i
+  echo 'exit "$code"' >> $out/lib/libreoffice/program/$i
 '' + ''
     ln -s $out/lib/libreoffice/program/$i $out/bin/$i
   done

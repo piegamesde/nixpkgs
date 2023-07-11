@@ -1,7 +1,7 @@
 { lib, fetchzip, buildDunePackage, ocaml }:
 
 lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
-  "nonstd is not available for OCaml ≥ 5.0"
+"nonstd is not available for OCaml ≥ 5.0"
 
 buildDunePackage rec {
   pname = "nonstd";
@@ -10,7 +10,8 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.02";
 
   src = fetchzip {
-    url = "https://bitbucket.org/smondet/${pname}/get/${pname}.${version}.tar.gz";
+    url =
+      "https://bitbucket.org/smondet/${pname}/get/${pname}.${version}.tar.gz";
     sha256 = "0ccjwcriwm8fv29ij1cnbc9win054kb6pfga3ygzdbjpjb778j46";
   };
 

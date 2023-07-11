@@ -30,7 +30,7 @@ lib.makeScope newScope (self:
 
     chroma = callPackage ../development/nim-packages/chroma { };
 
-    coap = callPackage  ../development/nim-packages/coap { };
+    coap = callPackage ../development/nim-packages/coap { };
 
     docopt = callPackage ../development/nim-packages/docopt { };
 
@@ -38,12 +38,13 @@ lib.makeScope newScope (self:
 
     flatty = callPackage ../development/nim-packages/flatty { };
 
-    freedesktop_org = callPackage ../development/nim-packages/freedesktop_org { };
+    freedesktop_org =
+      callPackage ../development/nim-packages/freedesktop_org { };
 
     frosty = callPackage ../development/nim-packages/frosty { };
 
-    getdns = callPackage ../development/nim-packages/getdns {
-      inherit (pkgs) getdns; };
+    getdns =
+      callPackage ../development/nim-packages/getdns { inherit (pkgs) getdns; };
 
     hts-nim = callPackage ../development/nim-packages/hts-nim { };
 
@@ -120,7 +121,8 @@ lib.makeScope newScope (self:
 
     tempfile = callPackage ../development/nim-packages/tempfile { };
 
-    tkrzw = callPackage ../development/nim-packages/tkrzw { inherit (pkgs) tkrzw; };
+    tkrzw =
+      callPackage ../development/nim-packages/tkrzw { inherit (pkgs) tkrzw; };
 
     ui = callPackage ../development/nim-packages/ui { inherit (pkgs) libui; };
 

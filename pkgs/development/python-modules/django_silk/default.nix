@@ -1,27 +1,7 @@
-{ lib
-, autopep8
-, buildPythonPackage
-, django
-, factory_boy
-, fetchFromGitHub
-, fetchpatch
-, freezegun
-, gprof2dot
-, jinja2
-, mock
-, networkx
-, pillow
-, pydot
-, pygments
-, python
-, python-dateutil
-, pythonOlder
-, pytz
-, requests
-, setuptools-scm
-, simplejson
-, sqlparse
-}:
+{ lib, autopep8, buildPythonPackage, django, factory_boy, fetchFromGitHub
+, fetchpatch, freezegun, gprof2dot, jinja2, mock, networkx, pillow, pydot
+, pygments, python, python-dateutil, pythonOlder, pytz, requests, setuptools-scm
+, simplejson, sqlparse }:
 
 buildPythonPackage rec {
   pname = "django-silk";
@@ -47,13 +27,9 @@ buildPythonPackage rec {
       --replace 'use_scm_version=True' 'version="${version}"'
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  buildInputs = [
-    mock
-  ];
+  buildInputs = [ mock ];
 
   propagatedBuildInputs = [
     autopep8
@@ -69,16 +45,9 @@ buildPythonPackage rec {
     sqlparse
   ];
 
-  nativeCheckInputs = [
-    freezegun
-    networkx
-    pydot
-    factory_boy
-  ];
+  nativeCheckInputs = [ freezegun networkx pydot factory_boy ];
 
-  pythonImportsCheck = [
-    "silk"
-  ];
+  pythonImportsCheck = [ "silk" ];
 
   checkPhase = ''
     runHook preCheck
@@ -93,7 +62,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Silky smooth profiling for the Django Framework";
     homepage = "https://github.com/jazzband/django-silk";
-    changelog = "https://github.com/jazzband/django-silk/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/jazzband/django-silk/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ ris ];
   };

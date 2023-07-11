@@ -1,7 +1,4 @@
-{ buildGoModule
-, fetchFromGitHub
-, lib
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "go-cqhttp";
@@ -17,7 +14,8 @@ buildGoModule rec {
   vendorSha256 = "sha256-tAvo96hIWxkt3rrrPH5fDKwfwuc76Ze0r55R/ZssU4s=";
 
   meta = with lib; {
-    description = "The Golang implementation of OneBot based on Mirai and MiraiGo";
+    description =
+      "The Golang implementation of OneBot based on Mirai and MiraiGo";
     homepage = "https://github.com/Mrs4s/go-cqhttp";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ Anillc ];

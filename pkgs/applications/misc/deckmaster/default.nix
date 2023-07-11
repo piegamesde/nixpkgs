@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, buildGoModule
-, fetchFromGitHub
-, makeWrapper
-, roboto
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, makeWrapper, roboto }:
 
 buildGoModule rec {
   pname = "deckmaster";
@@ -21,14 +15,9 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   # Let the app find Roboto-*.ttf files (hard-coded file names).
   postFixup = ''

@@ -1,10 +1,4 @@
-{ fetchFromGitLab
-, glib
-, lib
-, pkg-config
-, scons
-, stdenv
-}:
+{ fetchFromGitLab, glib, lib, pkg-config, scons, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "hammer";

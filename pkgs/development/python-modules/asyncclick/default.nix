@@ -1,12 +1,5 @@
-{ lib
-, anyio
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools-scm
-, pytestCheckHook
-, pythonOlder
-, trio
-}:
+{ lib, anyio, buildPythonPackage, fetchFromGitHub, setuptools-scm
+, pytestCheckHook, pythonOlder, trio }:
 
 buildPythonPackage rec {
   pname = "asyncclick";
@@ -23,22 +16,13 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    anyio
-  ];
+  propagatedBuildInputs = [ anyio ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    trio
-  ];
+  nativeCheckInputs = [ pytestCheckHook trio ];
 
-  pytestFlagsArray = [
-    "-W" "ignore::trio.TrioDeprecationWarning"
-  ];
+  pytestFlagsArray = [ "-W" "ignore::trio.TrioDeprecationWarning" ];
 
   disabledTests = [
     # RuntimeWarning: coroutine 'Context.invoke' was never awaited

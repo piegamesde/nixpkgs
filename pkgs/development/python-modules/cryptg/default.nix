@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, rustPlatform
-, setuptools-rust
-, libiconv
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder, rustPlatform
+, setuptools-rust, libiconv }:
 
 buildPythonPackage rec {
   pname = "cryptg";
@@ -27,16 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-AqSVFOB9Lfvk9h3GtoYlEOXBEt7YZYLhCDNKM9upQ2U=";
   };
 
-  nativeBuildInputs = with rustPlatform;[
+  nativeBuildInputs = with rustPlatform; [
     setuptools-rust
     cargoSetupHook
     rust.rustc
     rust.cargo
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    libiconv
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
   # has no tests
   doCheck = false;
@@ -44,7 +35,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "cryptg" ];
 
   meta = with lib; {
-    description = "Official Telethon extension to provide much faster cryptography for Telegram API requests";
+    description =
+      "Official Telethon extension to provide much faster cryptography for Telegram API requests";
     homepage = "https://github.com/cher-nov/cryptg";
     license = licenses.cc0;
     maintainers = with maintainers; [ nickcao ];

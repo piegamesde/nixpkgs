@@ -1,14 +1,5 @@
-{ lib
-, aiohttp
-, aioresponses
-, buildPythonPackage
-, fetchFromGitHub
-, orjson
-, pytest-asyncio
-, pytest-error-for-skips
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, aiohttp, aioresponses, buildPythonPackage, fetchFromGitHub, orjson
+, pytest-asyncio, pytest-error-for-skips, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "nextdns";
@@ -24,21 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-fW/fLbL4IMLN6LmFijH4+ew+cDdJY9tOha+010YEfNs=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    orjson
-  ];
+  propagatedBuildInputs = [ aiohttp orjson ];
 
-  nativeCheckInputs = [
-    aioresponses
-    pytest-asyncio
-    pytest-error-for-skips
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ aioresponses pytest-asyncio pytest-error-for-skips pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "nextdns"
-  ];
+  pythonImportsCheck = [ "nextdns" ];
 
   meta = with lib; {
     changelog = "https://github.com/bieniu/nextdns/releases/tag/${version}";

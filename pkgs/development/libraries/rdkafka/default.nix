@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, zlib, zstd, pkg-config, python3, openssl, which }:
+{ lib, stdenv, fetchFromGitHub, zlib, zstd, pkg-config, python3, openssl, which
+}:
 
 stdenv.mkDerivation rec {
   pname = "rdkafka";

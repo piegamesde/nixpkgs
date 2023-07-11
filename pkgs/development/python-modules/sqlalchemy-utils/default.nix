@@ -1,37 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{ lib, buildPythonPackage, fetchPypi, pythonOlder
 
 # runtime
-, importlib-metadata
-, sqlalchemy
+, importlib-metadata, sqlalchemy
 
 # optionals
-, babel
-, arrow
-, pendulum
+, babel, arrow, pendulum
 #, intervals
-, phonenumbers
-, passlib
-, colour
-, python-dateutil
-, furl
-, cryptography
+, phonenumbers, passlib, colour, python-dateutil, furl, cryptography
 
 # tests
-, pytestCheckHook
-, pygments
-, jinja2
-, docutils
-, flexmock
-, psycopg2
-, psycopg2cffi
-, pg8000
-, pytz
-, backports-zoneinfo
-, pymysql
-, pyodbc
+, pytestCheckHook, pygments, jinja2, docutils, flexmock, psycopg2, psycopg2cffi
+, pg8000, pytz, backports-zoneinfo, pymysql, pyodbc
 
 }:
 
@@ -46,15 +25,10 @@ buildPythonPackage rec {
     hash = "sha256-r4AwiaeSmAP662FzuQ8p0aZ60C8dHnMvQLBUqOs8c3A=";
   };
 
-  patches = [
-    ./skip-database-tests.patch
-  ];
+  patches = [ ./skip-database-tests.patch ];
 
-  propagatedBuildInputs = [
-    sqlalchemy
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs = [ sqlalchemy ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   passthru.optional-dependencies = {
     babel = [ babel ];
@@ -82,11 +56,8 @@ buildPythonPackage rec {
     python-dateutil
     pymysql
     pyodbc
-  ]
-  ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-  ++ lib.optionals (pythonOlder "3.9") [
-    backports-zoneinfo
-  ];
+  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
+    ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
 
   pytestFlagsArray = [
     "--deselect tests/functions/test_database.py::TestDatabasePostgresCreateDatabaseCloseConnection::test_create_database_twice"
@@ -95,7 +66,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog = "https://github.com/kvesteri/sqlalchemy-utils/releases/tag/${version}";
+    changelog =
+      "https://github.com/kvesteri/sqlalchemy-utils/releases/tag/${version}";
     homepage = "https://github.com/kvesteri/sqlalchemy-utils";
     description = "Various utility functions and datatypes for SQLAlchemy";
     license = licenses.bsd3;

@@ -1,21 +1,27 @@
-/* Generated file. */
-args @ { fetchurl, ... }:
-rec {
+# Generated file.
+args@{ fetchurl, ... }: rec {
   baseName = "simple-inferiors";
   version = "20200325-git";
 
   description = "A very simple library to use inferior processes.";
 
-  deps = [ args."alexandria" args."bordeaux-threads" args."documentation-utils" args."trivial-indent" args."uiop" ];
+  deps = [
+    args."alexandria"
+    args."bordeaux-threads"
+    args."documentation-utils"
+    args."trivial-indent"
+    args."uiop"
+  ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/simple-inferiors/2020-03-25/simple-inferiors-20200325-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/simple-inferiors/2020-03-25/simple-inferiors-20200325-git.tgz";
     sha256 = "15gjizqrazr0ahdda2l6bkv7ii5ax1wckn9mnj5haiv17jba8pn5";
   };
 
   packageName = "simple-inferiors";
 
-  asdFilesToKeep = ["simple-inferiors.asd"];
+  asdFilesToKeep = [ "simple-inferiors.asd" ];
   overrides = x: x;
 }
 /* (SYSTEM simple-inferiors DESCRIPTION
@@ -30,4 +36,5 @@ rec {
      (NAME trivial-indent FILENAME trivial-indent) (NAME uiop FILENAME uiop))
     DEPENDENCIES
     (alexandria bordeaux-threads documentation-utils trivial-indent uiop)
-    VERSION 20200325-git SIBLINGS NIL PARASITES NIL) */
+    VERSION 20200325-git SIBLINGS NIL PARASITES NIL)
+*/

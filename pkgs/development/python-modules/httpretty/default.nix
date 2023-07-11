@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, sure
-, six
-, pytest
-, freezegun
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, sure, six, pytest, freezegun
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "httpretty";
@@ -23,17 +16,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [
-    sure
-    freezegun
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ sure freezegun pytestCheckHook ];
 
-  disabledTestPaths = [
-    "tests/bugfixes"
-    "tests/functional"
-    "tests/pyopenssl"
-  ];
+  disabledTestPaths = [ "tests/bugfixes" "tests/functional" "tests/pyopenssl" ];
 
   __darwinAllowLocalNetworking = true;
 

@@ -1,11 +1,5 @@
-{ lib
-, amply
-, buildPythonPackage
-, fetchFromGitHub
-, pyparsing
-, pythonOlder
-, pytestCheckHook
-}:
+{ lib, amply, buildPythonPackage, fetchFromGitHub, pyparsing, pythonOlder
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pulp";
@@ -21,18 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-j0f6OiscJyTqPNyLp0qWRjCGLWuT3HdU1S/sxpnsiMo=";
   };
 
-  propagatedBuildInputs = [
-    amply
-    pyparsing
-  ];
+  propagatedBuildInputs = [ amply pyparsing ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pulp"
-  ];
+  pythonImportsCheck = [ "pulp" ];
 
   disabledTests = [
     # The solver is not available

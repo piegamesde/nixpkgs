@@ -1,10 +1,4 @@
-{ lib, stdenv
-, fetchFromGitHub
-, pkg-config
-, curl
-, mpv
-, yajl
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, curl, mpv, yajl }:
 
 stdenv.mkDerivation rec {
   pname = "jftui";
@@ -17,15 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4j0ypzszNWjHbb4RkMIoqvgz624zoKCKiIpidQUPIF4=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    curl
-    mpv
-    yajl
-  ];
+  buildInputs = [ curl mpv yajl ];
 
   installPhase = ''
     install -Dm555 build/jftui $out/bin/jftui

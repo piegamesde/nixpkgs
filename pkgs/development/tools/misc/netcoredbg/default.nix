@@ -1,4 +1,5 @@
-{ lib, clangStdenv, stdenv, cmake, autoPatchelfHook, fetchFromGitHub, dotnetCorePackages, buildDotnetModule }:
+{ lib, clangStdenv, stdenv, cmake, autoPatchelfHook, fetchFromGitHub
+, dotnetCorePackages, buildDotnetModule }:
 let
   pname = "netcoredbg";
   version = "2.2.0-961";
@@ -58,8 +59,7 @@ let
     # and forces dotnet to include binary dependencies in the output (libdbgshim)
     selfContainedBuild = true;
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit pname version;
   # managed brings external binaries (libdbgshim.*)
   # include source here so that autoPatchelfHook can do it's job

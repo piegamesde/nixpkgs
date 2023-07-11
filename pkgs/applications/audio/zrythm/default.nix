@@ -1,74 +1,12 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchFromSourcehut
-, SDL2
-, alsa-lib
-, appstream
-, appstream-glib
-, bash-completion
-, boost
-, breeze-icons
-, carla
-, chromaprint
-, cmake
-, curl
-, dbus
-, dconf
-, faust2lv2
-, fftw
-, fftwFloat
-, flex
-, glib
-, graphviz
-, gtk4
-, gtksourceview5
-, guile
-, help2man
-, jq
-, json-glib
-, kissfft
-, libadwaita
-, libaudec
-, libbacktrace
-, libcyaml
-, libepoxy
-, libgtop
-, libjack2
-, libpanel
-, libpulseaudio
-, libsamplerate
-, libsass
-, libsndfile
-, libsoundio
-, libxml2
-, libyaml
-, lilv
-, lv2
-, meson
-, ninja
-, pandoc
-, pcre
-, pcre2
-, pkg-config
-, python3
-, reproc
-, rtaudio
-, rtmidi
-, rubberband
-, sassc
-, serd
-, sord
-, sox
-, sratom
-, texi2html
-, vamp-plugin-sdk
-, wrapGAppsHook
-, xdg-utils
-, xxHash
-, zix
-, zstd
-}:
+{ stdenv, lib, fetchFromGitHub, fetchFromSourcehut, SDL2, alsa-lib, appstream
+, appstream-glib, bash-completion, boost, breeze-icons, carla, chromaprint
+, cmake, curl, dbus, dconf, faust2lv2, fftw, fftwFloat, flex, glib, graphviz
+, gtk4, gtksourceview5, guile, help2man, jq, json-glib, kissfft, libadwaita
+, libaudec, libbacktrace, libcyaml, libepoxy, libgtop, libjack2, libpanel
+, libpulseaudio, libsamplerate, libsass, libsndfile, libsoundio, libxml2
+, libyaml, lilv, lv2, meson, ninja, pandoc, pcre, pcre2, pkg-config, python3
+, reproc, rtaudio, rtmidi, rubberband, sassc, serd, sord, sox, sratom, texi2html
+, vamp-plugin-sdk, wrapGAppsHook, xdg-utils, xxHash, zix, zstd }:
 
 let
   # As of zrythm-1.0.0-beta.4.5.62, Zrythm needs clap

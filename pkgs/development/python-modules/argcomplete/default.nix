@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pexpect
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pexpect, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "argcomplete";
@@ -23,21 +18,18 @@ buildPythonPackage rec {
       --replace " + lint_require" ""
   '';
 
-  propagatedBuildInputs = [
-    pexpect
-  ];
+  propagatedBuildInputs = [ pexpect ];
 
   # tries to build and install test packages which fails
   doCheck = false;
 
-  pythonImportsCheck = [
-    "argcomplete"
-  ];
+  pythonImportsCheck = [ "argcomplete" ];
 
   meta = with lib; {
     description = "Bash tab completion for argparse";
     homepage = "https://kislyuk.github.io/argcomplete/";
-    changelog = "https://github.com/kislyuk/argcomplete/blob/v${version}/Changes.rst";
+    changelog =
+      "https://github.com/kislyuk/argcomplete/blob/v${version}/Changes.rst";
     license = licenses.asl20;
     maintainers = with maintainers; [ womfoo ];
   };

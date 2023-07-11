@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flit-core
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, flit-core, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aioprocessing";
@@ -17,19 +12,16 @@ buildPythonPackage rec {
     hash = "sha256-/gHHsaOMeBaGEdMEDnPZMDbDt8imSdY23J7Xo7ybG6I=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   # Tests aren't included in pypi package
   doCheck = false;
 
-  pythonImportsCheck = [
-    "aioprocessing"
-  ];
+  pythonImportsCheck = [ "aioprocessing" ];
 
   meta = with lib; {
-    description = "Library that integrates the multiprocessing module with asyncio";
+    description =
+      "Library that integrates the multiprocessing module with asyncio";
     homepage = "https://github.com/dano/aioprocessing";
     license = licenses.bsd2;
     maintainers = with maintainers; [ uskudnik ];

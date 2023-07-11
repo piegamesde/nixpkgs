@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, blinker
-, pytestCheckHook
-, buildPythonPackage
-, fetchPypi
-, flask
-, pythonOlder
-}:
+{ lib, stdenv, blinker, pytestCheckHook, buildPythonPackage, fetchPypi, flask
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "flask-testing";
@@ -21,14 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-CnNNe2jmOpQQtBPNex+WRW+ahYvQmmIi1GVlDMeC6wE=";
   };
 
-  propagatedBuildInputs = [
-    flask
-  ];
+  propagatedBuildInputs = [ flask ];
 
-  nativeCheckInputs = [
-    blinker
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ blinker pytestCheckHook ];
 
   # Some of the tests use localhost networking on darwin
   doCheck = !stdenv.isDarwin;
@@ -47,9 +35,7 @@ buildPythonPackage rec {
     "tests/test_twill.py"
   ];
 
-  pythonImportsCheck = [
-    "flask_testing"
-  ];
+  pythonImportsCheck = [ "flask_testing" ];
 
   meta = with lib; {
     description = "Extension provides unit testing utilities for Flask";

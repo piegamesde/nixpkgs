@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, wheel
-, packaging
-, ply
-, toml
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, setuptools, wheel, packaging, ply
+, toml }:
 
 buildPythonPackage rec {
   pname = "sip";
@@ -20,10 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-3unAb6iubUQaQB+SKGf8YZbt2idO69n7/sVPB2nCqeI=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-    wheel
-  ];
+  nativeBuildInputs = [ setuptools wheel ];
 
   propagatedBuildInputs = [ packaging ply toml ];
 
@@ -34,8 +23,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Creates C++ bindings for Python modules";
-    homepage    = "https://riverbankcomputing.com/";
-    license     = licenses.gpl3Only;
+    homepage = "https://riverbankcomputing.com/";
+    license = licenses.gpl3Only;
     maintainers = with maintainers; [ nrdxp ];
   };
 }

@@ -1,13 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, cryptography
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, stdiomask
-}:
+{ lib, aiohttp, buildPythonPackage, cryptography, fetchFromGitHub
+, pytest-asyncio, pytestCheckHook, pythonOlder, stdiomask }:
 
 buildPythonPackage rec {
   pname = "subarulink";
@@ -23,16 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-D2nwzj7uYL/v5Ew2+LfJBLH904Htam4Fa3Gs6t8Hbyo=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    stdiomask
-  ];
+  propagatedBuildInputs = [ aiohttp stdiomask ];
 
-  nativeCheckInputs = [
-    cryptography
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ cryptography pytest-asyncio pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -45,9 +30,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [
-    "subarulink"
-  ];
+  pythonImportsCheck = [ "subarulink" ];
 
   meta = with lib; {
     description = "Python module for interacting with STARLINK-enabled vehicle";

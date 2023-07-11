@@ -1,24 +1,6 @@
-{ buildPythonPackage
-, SDL2
-, cmake
-, fetchFromGitHub
-, git
-, gym
-, importlib-metadata
-, importlib-resources
-, lib
-, ninja
-, numpy
-, pybind11
-, pytestCheckHook
-, python
-, pythonOlder
-, setuptools
-, stdenv
-, typing-extensions
-, wheel
-, zlib
-}:
+{ buildPythonPackage, SDL2, cmake, fetchFromGitHub, git, gym, importlib-metadata
+, importlib-resources, lib, ninja, numpy, pybind11, pytestCheckHook, python
+, pythonOlder, setuptools, stdenv, typing-extensions, wheel, zlib }:
 
 buildPythonPackage rec {
   pname = "ale-py";
@@ -37,30 +19,14 @@ buildPythonPackage rec {
     ./cmake-pybind11.patch
   ];
 
-  nativeBuildInputs = [
-    cmake
-    setuptools
-    wheel
-    pybind11
-  ];
+  nativeBuildInputs = [ cmake setuptools wheel pybind11 ];
 
-  buildInputs = [
-    zlib
-    SDL2
-  ];
+  buildInputs = [ zlib SDL2 ];
 
-  propagatedBuildInputs = [
-    typing-extensions
-    importlib-resources
-    numpy
-  ] ++ lib.optionals (pythonOlder "3.10") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs = [ typing-extensions importlib-resources numpy ]
+    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    gym
-  ];
+  nativeCheckInputs = [ pytestCheckHook gym ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -74,7 +40,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ale_py" ];
 
   meta = with lib; {
-    description = "a simple framework that allows researchers and hobbyists to develop AI agents for Atari 2600 games";
+    description =
+      "a simple framework that allows researchers and hobbyists to develop AI agents for Atari 2600 games";
     homepage = "https://github.com/mgbellemare/Arcade-Learning-Environment";
     license = licenses.gpl2;
     maintainers = with maintainers; [ billhuang ];

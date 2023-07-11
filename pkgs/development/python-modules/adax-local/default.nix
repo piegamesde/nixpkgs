@@ -1,11 +1,5 @@
-{ lib
-, aiohttp
-, bleak
-, buildPythonPackage
-, fetchFromGitHub
-, async-timeout
-, pythonOlder
-}:
+{ lib, aiohttp, bleak, buildPythonPackage, fetchFromGitHub, async-timeout
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "adax-local";
@@ -21,18 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-V3jSBdYDo32oTAGNTvHJi+GSwlL3keSDhXpNpMoCkWs=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    bleak
-    async-timeout
-  ];
+  propagatedBuildInputs = [ aiohttp bleak async-timeout ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "adax_local"
-  ];
+  pythonImportsCheck = [ "adax_local" ];
 
   meta = with lib; {
     description = "Module for local access to Adax";

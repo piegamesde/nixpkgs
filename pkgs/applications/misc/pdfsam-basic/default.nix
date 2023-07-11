@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "5.0.3";
 
   src = fetchurl {
-    url = "https://github.com/torakiki/pdfsam/releases/download/v${version}/pdfsam_${version}-1_amd64.deb";
+    url =
+      "https://github.com/torakiki/pdfsam/releases/download/v${version}/pdfsam_${version}-1_amd64.deb";
     hash = "sha256-NST5d5dzO26ifKStbgD7qNbumUMQhfUFNE472LR1z5k=";
   };
 
@@ -41,11 +42,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/torakiki/pdfsam";
-    description = "Multi-platform software designed to extract pages, split, merge, mix and rotate PDF files";
-    sourceProvenance = with sourceTypes; [
-      binaryBytecode
-      binaryNativeCode
-    ];
+    description =
+      "Multi-platform software designed to extract pages, split, merge, mix and rotate PDF files";
+    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
     license = licenses.agpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ _1000101 ];

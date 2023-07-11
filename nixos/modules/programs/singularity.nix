@@ -1,10 +1,8 @@
 { config, pkgs, lib, ... }:
 
 with lib;
-let
-  cfg = config.programs.singularity;
-in
-{
+let cfg = config.programs.singularity;
+in {
 
   options.programs.singularity = {
     enable = mkEnableOption (mdDoc "singularity") // {
@@ -64,22 +62,23 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.singularity.packageOverriden = (cfg.package.override (
-      optionalAttrs cfg.enableFakeroot {
+    programs.singularity.packageOverriden = (cfg.package.override
+      (optionalAttrs cfg.enableFakeroot {
         newuidmapPath = "/run/wrappers/bin/newuidmap";
         newgidmapPath = "/run/wrappers/bin/newgidmap";
       } // optionalAttrs cfg.enableSuid {
         enableSuid = true;
         starterSuidPath = "/run/wrappers/bin/${cfg.package.projectName}-suid";
-      }
-    ));
+      }));
     environment.systemPackages = [ cfg.packageOverriden ];
-    security.wrappers."${cfg.packageOverriden.projectName}-suid" = mkIf cfg.enableSuid {
-      setuid = true;
-      owner = "root";
-      group = "root";
-      source = "${cfg.packageOverriden}/libexec/${cfg.packageOverriden.projectName}/bin/starter-suid.orig";
-    };
+    security.wrappers."${cfg.packageOverriden.projectName}-suid" =
+      mkIf cfg.enableSuid {
+        setuid = true;
+        owner = "root";
+        group = "root";
+        source =
+          "${cfg.packageOverriden}/libexec/${cfg.packageOverriden.projectName}/bin/starter-suid.orig";
+      };
     systemd.tmpfiles.rules = [
       "d /var/lib/${cfg.packageOverriden.projectName}/mnt/session 0770 root root -"
       "d /var/lib/${cfg.packageOverriden.projectName}/mnt/final 0770 root root -"

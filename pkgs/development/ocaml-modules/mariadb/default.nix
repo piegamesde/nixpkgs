@@ -1,16 +1,16 @@
-{ lib, fetchurl, stdenv
-, ocaml, findlib, ocamlbuild
-, ctypes, mariadb, libmysqlclient }:
+{ lib, fetchurl, stdenv, ocaml, findlib, ocamlbuild, ctypes, mariadb
+, libmysqlclient }:
 
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.07")
-  "mariadb is not available for OCaml ${ocaml.version}"
+"mariadb is not available for OCaml ${ocaml.version}"
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-mariadb";
   version = "1.1.6";
 
   src = fetchurl {
-    url = "https://github.com/andrenth/ocaml-mariadb/releases/download/${version}/ocaml-mariadb-${version}.tar.gz";
+    url =
+      "https://github.com/andrenth/ocaml-mariadb/releases/download/${version}/ocaml-mariadb-${version}.tar.gz";
     sha256 = "sha256-3/C1Gz6luUzS7oaudLlDHMT6JB2v5OdbLVzJhtayHGM=";
   };
 

@@ -1,14 +1,5 @@
-{ lib
-, attrs
-, buildPythonPackage
-, click
-, commoncode
-, dockerfile-parse
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
-}:
+{ lib, attrs, buildPythonPackage, click, commoncode, dockerfile-parse
+, fetchFromGitHub, pytestCheckHook, pythonOlder, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "container-inspector";
@@ -34,29 +25,20 @@ buildPythonPackage rec {
       --replace ">=3.7.*" ">=3.7"
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    attrs
-    click
-    dockerfile-parse
-    commoncode
-  ];
+  propagatedBuildInputs = [ attrs click dockerfile-parse commoncode ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "container_inspector"
-  ];
+  pythonImportsCheck = [ "container_inspector" ];
 
   meta = with lib; {
-    description = "Suite of analysis utilities and command line tools for container images";
+    description =
+      "Suite of analysis utilities and command line tools for container images";
     homepage = "https://github.com/nexB/container-inspector";
-    changelog = "https://github.com/nexB/container-inspector/releases/tag/v${version}";
+    changelog =
+      "https://github.com/nexB/container-inspector/releases/tag/v${version}";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

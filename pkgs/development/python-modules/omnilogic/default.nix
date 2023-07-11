@@ -1,10 +1,4 @@
-{ lib
-, aiohttp
-, xmltodict
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-}:
+{ lib, aiohttp, xmltodict, buildPythonPackage, pythonOlder, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "omnilogic";
@@ -20,20 +14,16 @@ buildPythonPackage rec {
     hash = "sha256-ySK2T5T+Qdq8nVQqluIARR89KmM1N3oD44oLydwcs7E=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    xmltodict
-  ];
+  propagatedBuildInputs = [ aiohttp xmltodict ];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "omnilogic"
-  ];
+  pythonImportsCheck = [ "omnilogic" ];
 
   meta = with lib; {
-    description = "Python interface for the Hayward Omnilogic pool control system";
+    description =
+      "Python interface for the Hayward Omnilogic pool control system";
     homepage = "https://github.com/djtimca/omnilogic-api";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];

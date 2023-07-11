@@ -1,9 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, pkg-config
-, yara
-}:
+{ lib, buildGoModule, fetchFromGitHub, pkg-config, yara }:
 
 buildGoModule rec {
   pname = "spyre";
@@ -18,13 +13,9 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-qZkt5WwicDXrExwMT0tCO+FZgClIHhrVtMR8xNsdAaQ=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    yara
-  ];
+  buildInputs = [ yara ];
 
   meta = with lib; {
     description = "YARA-based IOC scanner";

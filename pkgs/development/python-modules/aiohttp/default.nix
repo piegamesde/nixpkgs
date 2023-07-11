@@ -1,33 +1,11 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, pythonOlder
+{ lib, stdenv, buildPythonPackage, fetchPypi, fetchpatch, pythonOlder
 # install_requires
-, attrs
-, charset-normalizer
-, multidict
-, async-timeout
-, yarl
-, frozenlist
-, aiosignal
-, aiodns
-, brotli
-, faust-cchardet
-, asynctest
-, typing-extensions
+, attrs, charset-normalizer, multidict, async-timeout, yarl, frozenlist
+, aiosignal, aiodns, brotli, faust-cchardet, asynctest, typing-extensions
 , idna-ssl
 # tests_require
-, async_generator
-, freezegun
-, gunicorn
-, pytest-mock
-, pytest-xdist
-, pytestCheckHook
-, re-assert
-, trustme
-}:
+, async_generator, freezegun, gunicorn, pytest-mock, pytest-xdist
+, pytestCheckHook, re-assert, trustme }:
 
 buildPythonPackage rec {
   pname = "aiohttp";
@@ -44,7 +22,8 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       # https://github.com/aio-libs/aiohttp/pull/7178
-      url = "https://github.com/aio-libs/aiohttp/commit/5718879cdb6a98bf48810a994b78bc02abaf3e07.patch";
+      url =
+        "https://github.com/aio-libs/aiohttp/commit/5718879cdb6a98bf48810a994b78bc02abaf3e07.patch";
       hash = "sha256-4UynkTZOzWzusQ2+MPZszhFA8I/PJNLeT/hHF/fASy8=";
     })
   ];
@@ -68,12 +47,8 @@ buildPythonPackage rec {
     aiodns
     brotli
     faust-cchardet
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    asynctest
-    typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.7") [
-    idna-ssl
-  ];
+  ] ++ lib.optionals (pythonOlder "3.8") [ asynctest typing-extensions ]
+    ++ lib.optionals (pythonOlder "3.7") [ idna-ssl ];
 
   nativeCheckInputs = [
     async_generator
@@ -98,12 +73,11 @@ buildPythonPackage rec {
     "test_async_with_session"
     "test_session_close_awaitable"
     "test_close_run_until_complete_not_deprecated"
-  ] ++ lib.optionals stdenv.is32bit [
-    "test_cookiejar"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "test_addresses"  # https://github.com/aio-libs/aiohttp/issues/3572, remove >= v4.0.0
-    "test_close"
-  ];
+  ] ++ lib.optionals stdenv.is32bit [ "test_cookiejar" ]
+    ++ lib.optionals stdenv.isDarwin [
+      "test_addresses" # https://github.com/aio-libs/aiohttp/issues/3572, remove >= v4.0.0
+      "test_close"
+    ];
 
   disabledTestPaths = [
     "test_proxy_functional.py" # FIXME package proxy.py
@@ -121,7 +95,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    changelog = "https://github.com/aio-libs/aiohttp/blob/v${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/aio-libs/aiohttp/blob/v${version}/CHANGES.rst";
     description = "Asynchronous HTTP Client/Server for Python and asyncio";
     license = licenses.asl20;
     homepage = "https://github.com/aio-libs/aiohttp";

@@ -1,6 +1,8 @@
 { config, stdenv, lib, fetchFromGitHub, cmake, gtest, doCheck ? true
-, cudaSupport ? config.cudaSupport or false, openclSupport ? false, mpiSupport ? false, javaWrapper ? false, hdfsSupport ? false
-, rLibrary ? false, cudaPackages, opencl-headers, ocl-icd, boost, llvmPackages, openmpi, openjdk, swig, hadoop, R, rPackages }:
+, cudaSupport ? config.cudaSupport or false, openclSupport ? false
+, mpiSupport ? false, javaWrapper ? false, hdfsSupport ? false, rLibrary ? false
+, cudaPackages, opencl-headers, ocl-icd, boost, llvmPackages, openmpi, openjdk
+, swig, hadoop, R, rPackages }:
 
 assert doCheck -> mpiSupport != true;
 assert openclSupport -> cudaSupport != true;
@@ -37,11 +39,9 @@ stdenv.mkDerivation rec {
     ++ lib.optionals mpiSupport [ openmpi ]
     ++ lib.optionals hdfsSupport [ hadoop ]
     ++ lib.optionals (hdfsSupport || javaWrapper) [ openjdk ]
-    ++ lib.optionals javaWrapper [ swig ]
-    ++ lib.optionals rLibrary [ R ];
+    ++ lib.optionals javaWrapper [ swig ] ++ lib.optionals rLibrary [ R ];
 
-  buildInputs = [ gtest ]
-    ++ lib.optional cudaSupport cudaPackages.cudatoolkit;
+  buildInputs = [ gtest ] ++ lib.optional cudaSupport cudaPackages.cudatoolkit;
 
   propagatedBuildInputs = lib.optionals rLibrary [
     rPackages.data_table
@@ -69,14 +69,16 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags = lib.optionals doCheck [ "-DBUILD_CPP_TEST=ON" ]
-    ++ lib.optionals cudaSupport [ "-DUSE_CUDA=1" "-DCMAKE_CXX_COMPILER=${cudaPackages.cudatoolkit.cc}/bin/cc" ]
-    ++ lib.optionals openclSupport [ "-DUSE_GPU=ON" ]
+    ++ lib.optionals cudaSupport [
+      "-DUSE_CUDA=1"
+      "-DCMAKE_CXX_COMPILER=${cudaPackages.cudatoolkit.cc}/bin/cc"
+    ] ++ lib.optionals openclSupport [ "-DUSE_GPU=ON" ]
     ++ lib.optionals mpiSupport [ "-DUSE_MPI=ON" ]
     ++ lib.optionals hdfsSupport [
       "-DUSE_HDFS=ON"
       "-DHDFS_LIB=${hadoop}/lib/hadoop-3.3.1/lib/native/libhdfs.so"
-      "-DHDFS_INCLUDE_DIR=${hadoop}/lib/hadoop-3.3.1/include" ]
-    ++ lib.optionals javaWrapper [ "-DUSE_SWIG=ON" ]
+      "-DHDFS_INCLUDE_DIR=${hadoop}/lib/hadoop-3.3.1/include"
+    ] ++ lib.optionals javaWrapper [ "-DUSE_SWIG=ON" ]
     ++ lib.optionals rLibrary [ "-D__BUILD_FOR_R=ON" ];
 
   configurePhase = lib.optionals rLibrary ''
@@ -85,45 +87,43 @@ stdenv.mkDerivation rec {
 
   # set the R package buildPhase to null because lightgbm has a
   # custom builder script that builds and installs in one step
-  buildPhase = lib.optionals rLibrary ''
-  '';
+  buildPhase = lib.optionals rLibrary "";
 
   inherit doCheck;
 
   installPhase = ''
-      runHook preInstall
-    '' + lib.optionalString (!rLibrary) ''
-      mkdir -p $out
-      mkdir -p $out/lib
-      mkdir -p $out/bin
-      cp -r ../include $out
-      install -Dm755 ../lib_lightgbm.so $out/lib/lib_lightgbm.so
-      install -Dm755 ../lightgbm $out/bin/lightgbm
-    '' + lib.optionalString javaWrapper ''
-      cp -r java $out
-      cp -r com $out
-      cp -r lightgbmlib.jar $out
-    '' + ''
-    '' + lib.optionalString javaWrapper ''
-      cp -r java $out
-      cp -r com $out
-      cp -r lightgbmlib.jar $out
-    '' + lib.optionalString rLibrary ''
-      mkdir $out
-      mkdir $out/tmp
-      mkdir $out/library
-      mkdir $out/library/lightgbm
-    '' + lib.optionalString (rLibrary && (!openclSupport)) ''
-      Rscript build_r.R
-      rm -rf $out/tmp
-    '' + lib.optionalString (rLibrary && openclSupport) ''
-      Rscript build_r.R --use-gpu \
-        --opencl-library=${ocl-icd}/lib/libOpenCL.so \
-        --boost-librarydir=${boost}
-      rm -rf $out/tmp
-    '' + ''
-      runHook postInstall
-    '';
+    runHook preInstall
+  '' + lib.optionalString (!rLibrary) ''
+    mkdir -p $out
+    mkdir -p $out/lib
+    mkdir -p $out/bin
+    cp -r ../include $out
+    install -Dm755 ../lib_lightgbm.so $out/lib/lib_lightgbm.so
+    install -Dm755 ../lightgbm $out/bin/lightgbm
+  '' + lib.optionalString javaWrapper ''
+    cp -r java $out
+    cp -r com $out
+    cp -r lightgbmlib.jar $out
+  '' + "" + lib.optionalString javaWrapper ''
+    cp -r java $out
+    cp -r com $out
+    cp -r lightgbmlib.jar $out
+  '' + lib.optionalString rLibrary ''
+    mkdir $out
+    mkdir $out/tmp
+    mkdir $out/library
+    mkdir $out/library/lightgbm
+  '' + lib.optionalString (rLibrary && (!openclSupport)) ''
+    Rscript build_r.R
+    rm -rf $out/tmp
+  '' + lib.optionalString (rLibrary && openclSupport) ''
+    Rscript build_r.R --use-gpu \
+      --opencl-library=${ocl-icd}/lib/libOpenCL.so \
+      --boost-librarydir=${boost}
+    rm -rf $out/tmp
+  '' + ''
+    runHook postInstall
+  '';
 
   postFixup = lib.optionalString rLibrary ''
     if test -e $out/nix-support/propagated-build-inputs; then

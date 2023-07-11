@@ -1,22 +1,16 @@
-{ lib, stdenv, rustPlatform, rustc, cargo, fetchFromGitHub, pkg-config, cmake, extra-cmake-modules, llvmPackages
-, withWayland ? true
-, withIndicator ? true, dbus, libdbusmenu
-, withXim ? true, xorg, cairo
-, withGtk3 ? true, gtk3
-, withGtk4 ? true, gtk4
-, withQt5 ? true, qt5
-, withQt6 ? false, qt6
-}:
+{ lib, stdenv, rustPlatform, rustc, cargo, fetchFromGitHub, pkg-config, cmake
+, extra-cmake-modules, llvmPackages, withWayland ? true, withIndicator ? true
+, dbus, libdbusmenu, withXim ? true, xorg, cairo, withGtk3 ? true, gtk3
+, withGtk4 ? true, gtk4, withQt5 ? true, qt5, withQt6 ? false, qt6 }:
 
 let
-  cmake_args = lib.optionals withGtk3 ["-DENABLE_GTK3=ON"]
-  ++ lib.optionals withGtk4 ["-DENABLE_GTK4=ON"]
-  ++ lib.optionals withQt5 ["-DENABLE_QT5=ON"]
-  ++ lib.optionals withQt6 ["-DENABLE_QT6=ON"];
+  cmake_args = lib.optionals withGtk3 [ "-DENABLE_GTK3=ON" ]
+    ++ lib.optionals withGtk4 [ "-DENABLE_GTK4=ON" ]
+    ++ lib.optionals withQt5 [ "-DENABLE_QT5=ON" ]
+    ++ lib.optionals withQt6 [ "-DENABLE_QT6=ON" ];
 
   optFlag = w: (if w then "1" else "0");
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "kime";
   version = "3.0.2";
 
@@ -86,11 +80,10 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs = lib.optionals withIndicator [ dbus libdbusmenu ]
-  ++ lib.optionals withXim [ xorg.libxcb cairo ]
-  ++ lib.optionals withGtk3 [ gtk3 ]
-  ++ lib.optionals withGtk4 [ gtk4 ]
-  ++ lib.optionals withQt5 [ qt5.qtbase ]
-  ++ lib.optionals withQt6 [ qt6.qtbase ];
+    ++ lib.optionals withXim [ xorg.libxcb cairo ]
+    ++ lib.optionals withGtk3 [ gtk3 ] ++ lib.optionals withGtk4 [ gtk4 ]
+    ++ lib.optionals withQt5 [ qt5.qtbase ]
+    ++ lib.optionals withQt6 [ qt6.qtbase ];
 
   nativeBuildInputs = [
     pkg-config

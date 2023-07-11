@@ -1,23 +1,6 @@
-{ stdenv, lib, fetchFromGitHub
-, fetchpatch
-, brotli
-, cmake
-, giflib
-, gperftools
-, gtest
-, libhwy
-, libjpeg
-, libpng
-, libwebp
-, openexr
-, pkg-config
-, zlib
-, buildDocs ? true
-, asciidoc
-, graphviz
-, doxygen
-, python3
-}:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, brotli, cmake, giflib, gperftools
+, gtest, libhwy, libjpeg, libpng, libwebp, openexr, pkg-config, zlib
+, buildDocs ? true, asciidoc, graphviz, doxygen, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "libjxl";
@@ -38,24 +21,16 @@ stdenv.mkDerivation rec {
     # Add missing <atomic> content to fix gcc compilation for RISCV architecture
     # https://github.com/libjxl/libjxl/pull/2211
     (fetchpatch {
-      url = "https://github.com/libjxl/libjxl/commit/22d12d74e7bc56b09cfb1973aa89ec8d714fa3fc.patch";
+      url =
+        "https://github.com/libjxl/libjxl/commit/22d12d74e7bc56b09cfb1973aa89ec8d714fa3fc.patch";
       hash = "sha256-X4fbYTMS+kHfZRbeGzSdBW5jQKw8UN44FEyFRUtw0qo=";
     })
   ];
 
-  nativeBuildInputs = [
-    cmake
-    gtest
-    pkg-config
-  ] ++ lib.optionals buildDocs [
-    asciidoc
-    doxygen
-    python3
-  ];
+  nativeBuildInputs = [ cmake gtest pkg-config ]
+    ++ lib.optionals buildDocs [ asciidoc doxygen python3 ];
 
-  depsBuildBuild = lib.optionals buildDocs [
-    graphviz
-  ];
+  depsBuildBuild = lib.optionals buildDocs [ graphviz ];
 
   # Functionality not currently provided by this package
   # that the cmake build can apparently use:
@@ -83,10 +58,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  propagatedBuildInputs = [
-    brotli
-    libhwy
-  ];
+  propagatedBuildInputs = [ brotli libhwy ];
 
   cmakeFlags = [
     # For C dependencies like brotli, which are dynamically linked,
@@ -111,14 +83,12 @@ stdenv.mkDerivation rec {
     # * the `gdk-pixbuf` one, which allows applications like `eog` to load jpeg-xl files
     # * the `gimp` one, which allows GIMP to load jpeg-xl files
     # "-DJPEGXL_ENABLE_PLUGINS=ON"
-  ] ++ lib.optionals stdenv.hostPlatform.isStatic [
-    "-DJPEGXL_STATIC=ON"
-  ] ++ lib.optionals stdenv.hostPlatform.isAarch32 [
-    "-DJPEGXL_FORCE_NEON=ON"
-  ];
+  ] ++ lib.optionals stdenv.hostPlatform.isStatic [ "-DJPEGXL_STATIC=ON" ]
+    ++ lib.optionals stdenv.hostPlatform.isAarch32 [ "-DJPEGXL_FORCE_NEON=ON" ];
 
   LDFLAGS = lib.optionalString stdenv.hostPlatform.isRiscV "-latomic";
-  CXXFLAGS = lib.optionalString stdenv.hostPlatform.isAarch32 "-mfp16-format=ieee";
+  CXXFLAGS =
+    lib.optionalString stdenv.hostPlatform.isAarch32 "-mfp16-format=ieee";
 
   # FIXME x86_64-darwin:
   # https://github.com/NixOS/nixpkgs/pull/204030#issuecomment-1352768690

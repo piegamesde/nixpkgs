@@ -1,9 +1,4 @@
-{ stdenv
-, pkgs
-, lib
-, nodejs_16
-, runtimeShell
-}:
+{ stdenv, pkgs, lib, nodejs_16, runtimeShell }:
 
 let
   nodejs = nodejs_16;
@@ -28,12 +23,12 @@ let
     '';
 
     meta = with lib; {
-      description = "Online collaborative whiteboard that is simple, free, easy to use and to deploy";
+      description =
+        "Online collaborative whiteboard that is simple, free, easy to use and to deploy";
       license = licenses.agpl3Plus;
       homepage = "https://github.com/lovasoa/whitebophir";
       maintainers = with maintainers; [ iblech ];
       platforms = platforms.unix;
     };
   };
-in
-  combined
+in combined

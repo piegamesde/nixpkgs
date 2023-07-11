@@ -1,54 +1,24 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, cmake
-, rocm-cmake
-, hip
-, openmp
-, gtest
-, rocblas
-, texlive
-, doxygen
-, sphinx
-, python3Packages
-, buildDocs ? true
-, buildTests ? false
-, buildExtendedTests ? false
-, buildBenchmarks ? false
-, buildSamples ? false
-, gpuTargets ? [ ] # gpuTargets = [ "gfx908:xnack-" "gfx90a:xnack-" "gfx90a:xnack+" ... ]
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake, hip, openmp
+, gtest, rocblas, texlive, doxygen, sphinx, python3Packages, buildDocs ? true
+, buildTests ? false, buildExtendedTests ? false, buildBenchmarks ? false
+, buildSamples ? false, gpuTargets ?
+  [ ] # gpuTargets = [ "gfx908:xnack-" "gfx90a:xnack-" "gfx90a:xnack+" ... ]
 }:
 
 let
   latex = lib.optionalAttrs buildDocs texlive.combine {
-    inherit (texlive) scheme-small
-    latexmk
-    tex-gyre
-    fncychap
-    wrapfig
-    capt-of
-    framed
-    needspace
-    tabulary
-    varwidth
-    titlesec;
+    inherit (texlive)
+      scheme-small latexmk tex-gyre fncychap wrapfig capt-of framed needspace
+      tabulary varwidth titlesec;
   };
 in stdenv.mkDerivation (finalAttrs: {
   pname = "rocwmma";
   version = "5.4.3";
 
-  outputs = [
-    "out"
-  ] ++ lib.optionals buildDocs [
-    "doc"
-  ] ++ lib.optionals (buildTests || buildBenchmarks) [
-    "test"
-  ] ++ lib.optionals buildBenchmarks [
-    "benchmark"
-  ] ++ lib.optionals buildSamples [
-    "sample"
-  ];
+  outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ]
+    ++ lib.optionals (buildTests || buildBenchmarks) [ "test" ]
+    ++ lib.optionals buildBenchmarks [ "benchmark" ]
+    ++ lib.optionals buildSamples [ "sample" ];
 
   src = fetchFromGitHub {
     owner = "ROCmSoftwarePlatform";
@@ -57,32 +27,26 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-HUJPb6IahBgl/v+W4kXludBTNAjRm8k6v0jxKAX+qZM=";
   };
 
-  patches = lib.optionals (buildTests || buildBenchmarks) [
-    ./0000-dont-fetch-googletest.patch
-  ];
+  patches = lib.optionals (buildTests || buildBenchmarks)
+    [ ./0000-dont-fetch-googletest.patch ];
 
-  nativeBuildInputs = [
-    cmake
-    rocm-cmake
-    hip
-  ];
+  nativeBuildInputs = [ cmake rocm-cmake hip ];
 
-  buildInputs = [
-    openmp
-  ] ++ lib.optionals (buildTests || buildBenchmarks) [
-    gtest
-    rocblas
-  ] ++ lib.optionals buildDocs [
-    latex
-    doxygen
-    sphinx
-    python3Packages.sphinx-rtd-theme
-    python3Packages.breathe
-  ];
+  buildInputs = [ openmp ]
+    ++ lib.optionals (buildTests || buildBenchmarks) [ gtest rocblas ]
+    ++ lib.optionals buildDocs [
+      latex
+      doxygen
+      sphinx
+      python3Packages.sphinx-rtd-theme
+      python3Packages.breathe
+    ];
 
   cmakeFlags = [
     "-DCMAKE_CXX_COMPILER=hipcc"
-    "-DROCWMMA_BUILD_TESTS=${if buildTests || buildBenchmarks then "ON" else "OFF"}"
+    "-DROCWMMA_BUILD_TESTS=${
+      if buildTests || buildBenchmarks then "ON" else "OFF"
+    }"
     "-DROCWMMA_BUILD_VALIDATION_TESTS=ON"
     "-DROCWMMA_BUILD_SAMPLES=${if buildSamples then "ON" else "OFF"}"
     "-DROCWMMA_VALIDATE_WITH_ROCBLAS=ON"
@@ -91,14 +55,13 @@ in stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_INSTALL_BINDIR=bin"
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  ] ++ lib.optionals (gpuTargets != [ ]) [
-    "-DGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
-  ] ++ lib.optionals buildExtendedTests [
-    "-DROCWMMA_BUILD_EXTENDED_TESTS=ON"
-  ] ++ lib.optionals buildBenchmarks [
-    "-DROCWMMA_BUILD_BENCHMARK_TESTS=ON"
-    "-DROCWMMA_BENCHMARK_WITH_ROCBLAS=ON"
-  ];
+  ] ++ lib.optionals (gpuTargets != [ ])
+    [ "-DGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}" ]
+    ++ lib.optionals buildExtendedTests [ "-DROCWMMA_BUILD_EXTENDED_TESTS=ON" ]
+    ++ lib.optionals buildBenchmarks [
+      "-DROCWMMA_BUILD_BENCHMARK_TESTS=ON"
+      "-DROCWMMA_BENCHMARK_WITH_ROCBLAS=ON"
+    ];
 
   postPatch = lib.optionalString buildDocs ''
     patchShebangs docs/*.sh

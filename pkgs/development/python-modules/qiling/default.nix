@@ -1,21 +1,6 @@
-{ lib
-, buildPythonPackage
-, capstone
-, fetchFromGitHub
-, fetchPypi
-, gevent
-, keystone-engine
-, multiprocess
-, pefile
-, pyelftools
-, pythonOlder
-, python-fx
-, python-registry
-, pyyaml
-, questionary
-, termcolor
-, unicorn
-}:
+{ lib, buildPythonPackage, capstone, fetchFromGitHub, fetchPypi, gevent
+, keystone-engine, multiprocess, pefile, pyelftools, pythonOlder, python-fx
+, python-registry, pyyaml, questionary, termcolor, unicorn }:
 
 buildPythonPackage rec {
   pname = "qiling";
@@ -48,14 +33,13 @@ buildPythonPackage rec {
   # amongst other things)
   doCheck = false;
 
-  pythonImportsCheck = [
-    "qiling"
-  ];
+  pythonImportsCheck = [ "qiling" ];
 
   meta = with lib; {
     description = "Qiling Advanced Binary Emulation Framework";
     homepage = "https://qiling.io/";
-    changelog = "https://github.com/qilingframework/qiling/releases/tag/${version}";
+    changelog =
+      "https://github.com/qilingframework/qiling/releases/tag/${version}";
     license = licenses.gpl2Only;
     maintainers = [ ];
   };

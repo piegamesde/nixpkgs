@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, buildGoModule
-, fetchFromGitHub
-, openssh
-, makeWrapper
-, ps
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, openssh, makeWrapper, ps }:
 
 buildGoModule rec {
   pname = "assh";
@@ -20,9 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-xh/ndjhvSz0atJqOeajAm4nw5/TmMrOdOgTauKAsAcA=";
 
-  ldflags = [
-    "-s" "-w" "-X moul.io/assh/v2/pkg/version.Version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X moul.io/assh/v2/pkg/version.Version=${version}" ];
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -39,7 +30,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "Advanced SSH config - Regex, aliases, gateways, includes and dynamic hosts";
+    description =
+      "Advanced SSH config - Regex, aliases, gateways, includes and dynamic hosts";
     homepage = "https://github.com/moul/assh";
     changelog = "https://github.com/moul/assh/releases/tag/v${version}";
     license = licenses.mit;

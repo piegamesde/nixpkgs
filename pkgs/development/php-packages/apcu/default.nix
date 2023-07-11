@@ -1,7 +1,6 @@
 { buildPecl, lib, pcre2, fetchFromGitHub }:
 
-let
-  version = "5.1.22";
+let version = "5.1.22";
 in buildPecl {
   inherit version;
   pname = "apcu";

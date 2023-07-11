@@ -1,13 +1,5 @@
-{ fetchFromGitHub
-, lib
-, Security
-, openssl
-, git
-, pkg-config
-, protobuf
-, rustPlatform
-, stdenv
-}:
+{ fetchFromGitHub, lib, Security, openssl, git, pkg-config, protobuf
+, rustPlatform, stdenv }:
 
 # Updating this package will force an update for nodePackages.prisma. The
 # version of prisma-engines and nodePackages.prisma must be the same for them to
@@ -29,21 +21,24 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "barrel-0.6.6-alpha.0" = "sha256-USh0lQ1z+3Spgc69bRFySUzhuY79qprLlEExTmYWFN8=";
-      "graphql-parser-0.3.0" = "sha256-0ZAsj2mW6fCLhwTETucjbu4rPNzfbNiHu2wVTBlTNe4=";
+      "barrel-0.6.6-alpha.0" =
+        "sha256-USh0lQ1z+3Spgc69bRFySUzhuY79qprLlEExTmYWFN8=";
+      "graphql-parser-0.3.0" =
+        "sha256-0ZAsj2mW6fCLhwTETucjbu4rPNzfbNiHu2wVTBlTNe4=";
       "mobc-0.7.3" = "sha256-Ts2VVAuZakS+Sy/rEUrCe7RJX5MWs/TTO60c7mH+5sU=";
-      "mysql_async-0.31.3" = "sha256-hvuZTJ8W6L2s2gYAGJXBezkeAHTu06zIvJGQjoYX+7Q=";
-      "postgres-native-tls-0.5.0" = "sha256-OYbtGYAvDDCTeYfhav/BI2LJSyMyUERD7xa8GA/57rI=";
-      "quaint-0.2.0-alpha.13" = "sha256-Z7Zl1ZXzP3YE1Z1iuuj9V6dYBD2DpJngVbDLb4l/gjc=";
+      "mysql_async-0.31.3" =
+        "sha256-hvuZTJ8W6L2s2gYAGJXBezkeAHTu06zIvJGQjoYX+7Q=";
+      "postgres-native-tls-0.5.0" =
+        "sha256-OYbtGYAvDDCTeYfhav/BI2LJSyMyUERD7xa8GA/57rI=";
+      "quaint-0.2.0-alpha.13" =
+        "sha256-Z7Zl1ZXzP3YE1Z1iuuj9V6dYBD2DpJngVbDLb4l/gjc=";
     };
   };
 
   nativeBuildInputs = [ pkg-config git ];
 
-  buildInputs = [
-    openssl
-    protobuf
-  ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [ openssl protobuf ]
+    ++ lib.optionals stdenv.isDarwin [ Security ];
 
   preBuild = ''
     export OPENSSL_DIR=${lib.getDev openssl}
@@ -57,10 +52,14 @@ rustPlatform.buildRustPackage rec {
   '';
 
   cargoBuildFlags = [
-    "-p" "query-engine"
-    "-p" "query-engine-node-api"
-    "-p" "schema-engine-cli"
-    "-p" "prisma-fmt"
+    "-p"
+    "query-engine"
+    "-p"
+    "query-engine-node-api"
+    "-p"
+    "schema-engine-cli"
+    "-p"
+    "prisma-fmt"
   ];
 
   postInstall = ''
@@ -71,7 +70,8 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "A collection of engines that power the core stack for Prisma";
+    description =
+      "A collection of engines that power the core stack for Prisma";
     homepage = "https://www.prisma.io/";
     license = licenses.asl20;
     platforms = platforms.unix;

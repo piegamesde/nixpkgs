@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, autoconf, automake, pkg-config, glib
-, perl, ncurses5, hamlib, xmlrpc_c }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, autoconf, automake
+, pkg-config, glib, perl, ncurses5, hamlib, xmlrpc_c }:
 
 stdenv.mkDerivation rec {
   pname = "tlf";
@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
     # related code changes. The change will be a part of 1.4.2 release.
     (fetchpatch {
       name = "ncurses-6.3.patch";
-      url = "https://salsa.debian.org/debian-hamradio-team/tlf/-/raw/5a2d79fc35bde97f653b1373fd970d41fe01a3ec/debian/patches/warnings-as-errors.patch?inline=false";
+      url =
+        "https://salsa.debian.org/debian-hamradio-team/tlf/-/raw/5a2d79fc35bde97f653b1373fd970d41fe01a3ec/debian/patches/warnings-as-errors.patch?inline=false";
       sha256 = "1zi1dd4vqkgl2pg29lnhj91ralqg58gmkzq9fkcx0dyakbjm6070";
     })
   ];

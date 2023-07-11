@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "wapiti";
@@ -15,29 +12,30 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-muAugc0BgVSER2LSRv7ATbCqpXID8/WH+hfhmtoS36o=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    aiocache
-    aiosqlite
-    arsenic
-    beautifulsoup4
-    brotli
-    browser-cookie3
-    cryptography
-    dnspython
-    httpcore
-    httpx
-    humanize
-    importlib-metadata
-    loguru
-    mako
-    markupsafe
-    mitmproxy
-    six
-    sqlalchemy
-    tld
-    yaswfp
-  ] ++ httpx.optional-dependencies.brotli
-  ++ httpx.optional-dependencies.socks;
+  propagatedBuildInputs = with python3.pkgs;
+    [
+      aiocache
+      aiosqlite
+      arsenic
+      beautifulsoup4
+      brotli
+      browser-cookie3
+      cryptography
+      dnspython
+      httpcore
+      httpx
+      humanize
+      importlib-metadata
+      loguru
+      mako
+      markupsafe
+      mitmproxy
+      six
+      sqlalchemy
+      tld
+      yaswfp
+    ] ++ httpx.optional-dependencies.brotli
+    ++ httpx.optional-dependencies.socks;
 
   nativeCheckInputs = with python3.pkgs; [
     respx
@@ -128,9 +126,7 @@ python3.pkgs.buildPythonApplication rec {
     "tests/attack/test_mod_ssl.py"
   ];
 
-  pythonImportsCheck = [
-    "wapitiCore"
-  ];
+  pythonImportsCheck = [ "wapitiCore" ];
 
   meta = with lib; {
     description = "Web application vulnerability scanner";
@@ -143,7 +139,8 @@ python3.pkgs.buildPythonApplication rec {
       if a script is vulnerable.
     '';
     homepage = "https://wapiti-scanner.github.io/";
-    changelog = "https://github.com/wapiti-scanner/wapiti/blob/${version}/doc/ChangeLog_Wapiti";
+    changelog =
+      "https://github.com/wapiti-scanner/wapiti/blob/${version}/doc/ChangeLog_Wapiti";
     license = with licenses; [ gpl2Only ];
     maintainers = with maintainers; [ fab ];
   };

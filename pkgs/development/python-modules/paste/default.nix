@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
-, setuptools
-, six
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonAtLeast
+, pythonOlder, setuptools, six }:
 
 buildPythonPackage rec {
   pname = "paste";
@@ -26,14 +19,9 @@ buildPythonPackage rec {
     patchShebangs tests/cgiapp_data/
   '';
 
-  propagatedBuildInputs = [
-    setuptools
-    six
-  ];
+  propagatedBuildInputs = [ setuptools six ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # broken test
@@ -45,9 +33,7 @@ buildPythonPackage rec {
     "test_form"
   ];
 
-  pythonNamespaces = [
-    "paste"
-  ];
+  pythonNamespaces = [ "paste" ];
 
   meta = with lib; {
     description = "Tools for using a Web Server Gateway Interface stack";

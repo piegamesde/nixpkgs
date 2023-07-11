@@ -1,12 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-, unixODBC
-, icu
-, nix-update-script
-, testers
-, usql
-}:
+{ lib, fetchFromGitHub, buildGoModule, unixODBC, icu, nix-update-script, testers
+, usql }:
 
 buildGoModule rec {
   pname = "usql";
@@ -29,10 +22,7 @@ buildGoModule rec {
   #
   # See https://github.com/xo/usql/pull/347
   #
-  excludedPackages = [
-    "impala"
-    "hive"
-  ];
+  excludedPackages = [ "impala" "hive" ];
 
   # These tags and flags are copied from build-release.sh
   tags = [
@@ -49,11 +39,8 @@ buildGoModule rec {
     "no_adodb"
   ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/xo/usql/text.CommandVersion=${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/xo/usql/text.CommandVersion=${version}" ];
 
   # All the checks currently require docker instances to run the databases.
   doCheck = false;

@@ -1,12 +1,5 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, graphql-core
-, promise
-, fetchpatch
-, pythonOlder
-, pytestCheckHook
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, graphql-core, promise, fetchpatch
+, pythonOlder, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "graphql-server-core";
@@ -22,22 +15,18 @@ buildPythonPackage rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/graphql-python/graphql-server-core/commit/865ee9d5602f352c958f6f7e15adbe9abe216784.patch";
+      url =
+        "https://github.com/graphql-python/graphql-server-core/commit/865ee9d5602f352c958f6f7e15adbe9abe216784.patch";
       sha256 = "03p44p4j8rys7mgamh2h9ibbnac2cqwvp5f5hrl2avj2hh0l6j46";
     })
   ];
 
-  propagatedBuildInputs = [
-    graphql-core
-    promise
-  ];
+  propagatedBuildInputs = [ graphql-core promise ];
 
   # fail with: cannot import name 'format_error' from 'graphql'
   doCheck = false;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Core package for using GraphQL in a custom server easily";

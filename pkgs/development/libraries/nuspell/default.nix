@@ -27,6 +27,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
     maintainers = with maintainers; [ fpletz ];
     license = licenses.lgpl3Plus;
-    changelog = "https://github.com/nuspell/nuspell/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/nuspell/nuspell/blob/v${version}/CHANGELOG.md";
   };
 }

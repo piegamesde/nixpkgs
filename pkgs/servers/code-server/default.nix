@@ -1,7 +1,7 @@
-{ lib, stdenv, fetchFromGitHub, buildGoModule, makeWrapper
-, cacert, moreutils, jq, git, rsync, pkg-config, yarn, python3
-, esbuild, nodejs_16, node-gyp, libsecret, xorg, ripgrep
-, AppKit, Cocoa, CoreServices, Security, cctools, xcbuild, quilt }:
+{ lib, stdenv, fetchFromGitHub, buildGoModule, makeWrapper, cacert, moreutils
+, jq, git, rsync, pkg-config, yarn, python3, esbuild, nodejs_16, node-gyp
+, libsecret, xorg, ripgrep, AppKit, Cocoa, CoreServices, Security, cctools
+, xcbuild, quilt }:
 
 let
   system = stdenv.hostPlatform.system;
@@ -12,20 +12,21 @@ let
   defaultYarnOpts = [ ];
 
   esbuild' = esbuild.override {
-    buildGoModule = args: buildGoModule (args // rec {
-      version = "0.16.17";
-      src = fetchFromGitHub {
-        owner = "evanw";
-        repo = "esbuild";
-        rev = "v${version}";
-        hash = "sha256-8L8h0FaexNsb3Mj6/ohA37nYLFogo5wXkAhGztGUUsQ=";
-      };
-      vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
-    });
+    buildGoModule = args:
+      buildGoModule (args // rec {
+        version = "0.16.17";
+        src = fetchFromGitHub {
+          owner = "evanw";
+          repo = "esbuild";
+          rev = "v${version}";
+          hash = "sha256-8L8h0FaexNsb3Mj6/ohA37nYLFogo5wXkAhGztGUUsQ=";
+        };
+        vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
+      });
   };
 
   # replaces esbuild's download script with a binary from nixpkgs
-  patchEsbuild = path : version : ''
+  patchEsbuild = path: version: ''
     mkdir -p ${path}/node_modules/esbuild/bin
     jq "del(.scripts.postinstall)" ${path}/node_modules/esbuild/package.json | sponge ${path}/node_modules/esbuild/package.json
     sed -i 's/${version}/${esbuild'.version}/g' ${path}/node_modules/esbuild/lib/main.js
@@ -91,13 +92,16 @@ in stdenv.mkDerivation rec {
     outputHash = "sha256-4Vr9u3+W/IhbbTc39jyDyDNQODlmdF+M/N8oJn0Z4+w=";
   };
 
-  nativeBuildInputs = [
-    nodejs yarn' python pkg-config makeWrapper git rsync jq moreutils quilt
-  ];
+  nativeBuildInputs =
+    [ nodejs yarn' python pkg-config makeWrapper git rsync jq moreutils quilt ];
   buildInputs = lib.optionals (!stdenv.isDarwin) [ libsecret ]
-    ++ (with xorg; [ libX11 libxkbfile ])
-    ++ lib.optionals stdenv.isDarwin [
-      AppKit Cocoa CoreServices Security cctools xcbuild
+    ++ (with xorg; [ libX11 libxkbfile ]) ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      Cocoa
+      CoreServices
+      Security
+      cctools
+      xcbuild
     ];
 
   patches = [
@@ -191,7 +195,7 @@ in stdenv.mkDerivation rec {
 
     ${patchEsbuild "./lib/vscode/build" "0.12.6"}
     ${patchEsbuild "./lib/vscode/extensions" "0.11.23"}
-    '' + lib.optionalString stdenv.isDarwin ''
+  '' + lib.optionalString stdenv.isDarwin ''
     # use prebuilt binary for @parcel/watcher, which requires macOS SDK 10.13+
     # (see issue #101229)
     pushd ./lib/vscode/remote/node_modules/@parcel/watcher
@@ -240,9 +244,8 @@ in stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    prefetchYarnCache = lib.overrideDerivation yarnCache (d: {
-      outputHash = lib.fakeSha256;
-    });
+    prefetchYarnCache =
+      lib.overrideDerivation yarnCache (d: { outputHash = lib.fakeSha256; });
   };
 
   meta = with lib; {

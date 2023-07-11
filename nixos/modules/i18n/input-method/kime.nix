@@ -2,7 +2,8 @@
 let imcfg = config.i18n.inputMethod;
 in {
   imports = [
-    (lib.mkRemovedOptionModule [ "i18n" "inputMethod" "kime" "config" ] "Use i18n.inputMethod.kime.* instead")
+    (lib.mkRemovedOptionModule [ "i18n" "inputMethod" "kime" "config" ]
+      "Use i18n.inputMethod.kime.* instead")
   ];
 
   options.i18n.inputMethod.kime = {
@@ -36,8 +37,8 @@ in {
 
     environment.variables = {
       GTK_IM_MODULE = "kime";
-      QT_IM_MODULE  = "kime";
-      XMODIFIERS    = "@im=kime";
+      QT_IM_MODULE = "kime";
+      XMODIFIERS = "@im=kime";
     };
 
     environment.etc."xdg/kime/config.yaml".text = ''

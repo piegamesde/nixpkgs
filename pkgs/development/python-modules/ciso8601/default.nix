@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, pytestCheckHook
-, pytz
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pytestCheckHook, pytz }:
 
 buildPythonPackage rec {
   pname = "ciso8601";
@@ -18,18 +12,11 @@ buildPythonPackage rec {
     hash = "sha256-qTpt91Wf3L6Jl7FU8sn9PvGMRd/cjhQ1mQvUaQeLFQU=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytz
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytz ];
 
-  pytestFlagsArray = [
-    "tests/tests.py"
-  ];
+  pytestFlagsArray = [ "tests/tests.py" ];
 
   pythonImportsCheck = [ "ciso8601" ];
 

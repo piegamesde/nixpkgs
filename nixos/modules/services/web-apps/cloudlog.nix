@@ -5,9 +5,10 @@ with lib;
 let
   cfg = config.services.cloudlog;
   dbFile = let
-    password = if cfg.database.createLocally
-               then "''"
-               else "trim(file_get_contents('${cfg.database.passwordFile}'))";
+    password = if cfg.database.createLocally then
+      "''"
+    else
+      "trim(file_get_contents('${cfg.database.passwordFile}'))";
   in pkgs.writeText "database.php" ''
     <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
@@ -66,8 +67,7 @@ let
       done
     '';
   };
-in
-{
+in {
   options.services.cloudlog = with types; {
     enable = mkEnableOption (mdDoc "Whether to enable Cloudlog");
     dataDir = mkOption {
@@ -89,7 +89,8 @@ in
       createLocally = mkOption {
         type = types.bool;
         default = true;
-        description = lib.mdDoc "Create the database and database user locally.";
+        description =
+          lib.mdDoc "Create the database and database user locally.";
       };
       host = mkOption {
         type = str;
@@ -136,9 +137,9 @@ in
     };
     extraConfig = mkOption {
       description = mdDoc ''
-       Any additional text to be appended to the config.php
-       configuration file. This is a PHP script. For configuration
-       settings, see <https://github.com/magicbug/Cloudlog/wiki/Cloudlog.php-Configuration-File>.
+        Any additional text to be appended to the config.php
+        configuration file. This is a PHP script. For configuration
+        settings, see <https://github.com/magicbug/Cloudlog/wiki/Cloudlog.php-Configuration-File>.
       '';
       default = "";
       type = str;
@@ -297,18 +298,18 @@ in
   };
   config = mkIf cfg.enable {
 
-    assertions = [
-      {
-        assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
-        message = "services.cloudlog.database.passwordFile cannot be specified if services.cloudlog.database.createLocally is set to true.";
-      }
-    ];
+    assertions = [{
+      assertion = cfg.database.createLocally -> cfg.database.passwordFile
+        == null;
+      message =
+        "services.cloudlog.database.passwordFile cannot be specified if services.cloudlog.database.createLocally is set to true.";
+    }];
 
     services.phpfpm = {
       pools.cloudlog = {
         inherit (cfg) user;
         group = config.services.nginx.group;
-        settings =  {
+        settings = {
           "listen.owner" = config.services.nginx.user;
           "listen.group" = config.services.nginx.group;
         } // cfg.poolConfig;
@@ -322,12 +323,12 @@ in
           root = "${package}";
           locations."/".tryFiles = "$uri /index.php$is_args$args";
           locations."~ ^/index.php(/|$)".extraConfig = ''
-              include ${config.services.nginx.package}/conf/fastcgi_params;
-              include ${pkgs.nginx}/conf/fastcgi.conf;
-              fastcgi_split_path_info ^(.+\.php)(.+)$;
-              fastcgi_pass unix:${config.services.phpfpm.pools.cloudlog.socket};
-              fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-            '';
+            include ${config.services.nginx.package}/conf/fastcgi_params;
+            include ${pkgs.nginx}/conf/fastcgi.conf;
+            fastcgi_split_path_info ^(.+\.php)(.+)$;
+            fastcgi_pass unix:${config.services.phpfpm.pools.cloudlog.socket};
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+          '';
         };
       };
     };
@@ -337,9 +338,7 @@ in
       ensureDatabases = [ cfg.database.name ];
       ensureUsers = [{
         name = cfg.database.user;
-        ensurePermissions = {
-          "${cfg.database.name}.*" = "ALL PRIVILEGES";
-        };
+        ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
       }];
     };
 
@@ -353,14 +352,13 @@ in
           };
           wantedBy = [ "phpfpm-cloudlog.service" ];
           after = [ "mysql.service" ];
-          script = let
-            mysql = "${config.services.mysql.package}/bin/mysql";
+          script = let mysql = "${config.services.mysql.package}/bin/mysql";
           in ''
             if [ ! -f ${cfg.dataDir}/.dbexists ]; then
               ${mysql} ${cfg.database.name} < ${pkgs.cloudlog}/install/assets/install.sql
               touch ${cfg.dataDir}/.dbexists
             fi
-        '';
+          '';
         };
         cloudlog-upload-lotw = {
           description = "Upload QSOs to LoTW if certs have been provided";
@@ -380,7 +378,8 @@ in
         cloudlog-update-clublog-scp = {
           description = "Update Clublog SCP Database File";
           enable = cfg.update-clublog-scp.enable;
-          script = "${pkgs.curl}/bin/curl -s ${cfg.baseUrl}/update/update_clublog_scp";
+          script =
+            "${pkgs.curl}/bin/curl -s ${cfg.baseUrl}/update/update_clublog_scp";
         };
         cloudlog-update-wwff = {
           description = "Update WWFF File for autocomplete";
@@ -449,7 +448,7 @@ in
             Persistent = true;
           };
         };
-        cloudlog-update-wwff =  {
+        cloudlog-update-wwff = {
           enable = cfg.update-wwff.enable;
           wantedBy = [ "timers.target" ];
           partOf = [ "cloudlog-update-wwff.service" ];
@@ -480,8 +479,7 @@ in
           };
         };
       };
-      tmpfiles.rules = let
-        group = config.services.nginx.group;
+      tmpfiles.rules = let group = config.services.nginx.group;
       in [
         "d ${cfg.dataDir}                0750 ${cfg.user} ${group} - -"
         "d ${cfg.dataDir}/updates        0750 ${cfg.user} ${group} - -"

@@ -4,18 +4,18 @@ with lib;
 
 let
   cfg = config.services.lxd-image-server;
-  format = pkgs.formats.toml {};
+  format = pkgs.formats.toml { };
 
   location = "/var/www/simplestreams";
-in
-{
+in {
   options = {
     services.lxd-image-server = {
       enable = mkEnableOption (lib.mdDoc "lxd-image-server");
 
       group = mkOption {
         type = types.str;
-        description = lib.mdDoc "Group assigned to the user and the webroot directory.";
+        description =
+          lib.mdDoc "Group assigned to the user and the webroot directory.";
         default = "nginx";
         example = "www-data";
       };
@@ -27,7 +27,7 @@ in
 
           Example see <https://github.com/Avature/lxd-image-server/blob/master/config.toml>.
         '';
-        default = {};
+        default = { };
       };
 
       nginx = {
@@ -47,9 +47,10 @@ in
         isSystemUser = true;
         group = cfg.group;
       };
-      users.groups.${cfg.group} = {};
+      users.groups.${cfg.group} = { };
 
-      environment.etc."lxd-image-server/config.toml".source = format.generate "config.toml" cfg.settings;
+      environment.etc."lxd-image-server/config.toml".source =
+        format.generate "config.toml" cfg.settings;
 
       services.logrotate.settings.lxd-image-server = {
         files = "/var/log/lxd-image-server/lxd-image-server.log";
@@ -61,9 +62,8 @@ in
         copytruncate = true;
       };
 
-      systemd.tmpfiles.rules = [
-        "d /var/www/simplestreams 0755 lxd-image-server ${cfg.group}"
-      ];
+      systemd.tmpfiles.rules =
+        [ "d /var/www/simplestreams 0755 lxd-image-server ${cfg.group}" ];
 
       systemd.services.lxd-image-server = {
         wantedBy = [ "multi-user.target" ];
@@ -98,33 +98,29 @@ in
           root = location;
 
           locations = {
-            "/streams/v1/" = {
-              index = "index.json";
-            };
+            "/streams/v1/" = { index = "index.json"; };
 
             # Serve json files with content type header application/json
-            "~ \.json$" = {
+            "~ .json$" = {
               extraConfig = ''
                 add_header Content-Type application/json;
               '';
             };
 
-            "~ \.tar.xz$" = {
+            "~ .tar.xz$" = {
               extraConfig = ''
                 add_header Content-Type application/octet-stream;
               '';
             };
 
-            "~ \.tar.gz$" = {
+            "~ .tar.gz$" = {
               extraConfig = ''
                 add_header Content-Type application/octet-stream;
               '';
             };
 
             # Deny access to document root and the images folder
-            "~ ^/(images/)?$" = {
-              return = "403";
-            };
+            "~ ^/(images/)?$" = { return = "403"; };
           };
         };
       };

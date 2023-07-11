@@ -1,4 +1,5 @@
-{ buildPackages, fetchFromGitHub, fetchurl, perl, buildLinux, libelf, util-linux, kernelPatches ? [], ... } @ args:
+{ buildPackages, fetchFromGitHub, fetchurl, perl, buildLinux, libelf, util-linux
+, kernelPatches ? [ ], ... }@args:
 
 buildLinux (args // rec {
   version = "4.14.180-176";
@@ -19,7 +20,8 @@ buildLinux (args // rec {
   kernelPatches = args.kernelPatches ++ [{
     name = "usbip-tools-fno-common";
     patch = fetchurl {
-      url = "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/patch/?id=d5efc2e6b98fe661dbd8dd0d5d5bfb961728e57a";
+      url =
+        "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/patch/?id=d5efc2e6b98fe661dbd8dd0d5d5bfb961728e57a";
       hash = "sha256-1CXYCV5zMLA4YdbCr8cO2N4CHEDzQChS9qbKYHPm3U4=";
     };
   }];
@@ -38,4 +40,4 @@ buildLinux (args // rec {
 
   extraMeta.platforms = [ "armv7l-linux" ];
 
-} // (args.argsOverride or {}))
+} // (args.argsOverride or { }))

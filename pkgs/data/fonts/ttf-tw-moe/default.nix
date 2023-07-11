@@ -19,7 +19,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://www.moe.gov.tw/";
-    description = "Set of KAI and SONG fonts from the Ministry of Education of Taiwan";
+    description =
+      "Set of KAI and SONG fonts from the Ministry of Education of Taiwan";
     version = version;
     longDescription = ''
       Installs 2 TTF fonts: MOESongUN and TW-MOE-Std-Kai.

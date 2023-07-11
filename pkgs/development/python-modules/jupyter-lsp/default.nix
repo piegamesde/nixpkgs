@@ -1,9 +1,4 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, jupyter-server
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, jupyter-server }:
 
 buildPythonPackage rec {
   pname = "jupyter-lsp";
@@ -14,15 +9,14 @@ buildPythonPackage rec {
     hash = "sha256-89n1mdSOCTpLq/vawZTDAzLmJIzkoD1z+nEviMd55Rk=";
   };
 
-  propagatedBuildInputs = [
-    jupyter-server
-  ];
+  propagatedBuildInputs = [ jupyter-server ];
   # tests require network
   doCheck = false;
   pythonImportsCheck = [ "jupyter_lsp" ];
 
   meta = with lib; {
-    description = "Multi-Language Server WebSocket proxy for your Jupyter notebook or lab server";
+    description =
+      "Multi-Language Server WebSocket proxy for your Jupyter notebook or lab server";
     homepage = "https://jupyterlab-lsp.readthedocs.io/en/latest/";
     license = licenses.bsd3;
     platforms = platforms.all;

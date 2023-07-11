@@ -14,14 +14,17 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "clap-3.0.0-beta.1" = "sha256-tErZmEiAF1v39AtgRUHoEmoYqXPWRDXBEkWUbH+fPyY=";
-      "clap_derive-0.3.0" = "sha256-VijH+XB4WeKYUsJH9h/ID8EGZ89R3oauYO8Yg331dPU=";
+      "clap-3.0.0-beta.1" =
+        "sha256-tErZmEiAF1v39AtgRUHoEmoYqXPWRDXBEkWUbH+fPyY=";
+      "clap_derive-0.3.0" =
+        "sha256-VijH+XB4WeKYUsJH9h/ID8EGZ89R3oauYO8Yg331dPU=";
     };
   };
   doCheck = false;
 
   meta = with lib; {
-    description = "Single dependency Kubernetes clusters for local testing, experimenting and development";
+    description =
+      "Single dependency Kubernetes clusters for local testing, experimenting and development";
     homepage = "https://github.com/saschagrunert/kubernix";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ saschagrunert ];

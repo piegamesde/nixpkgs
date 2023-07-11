@@ -1,12 +1,6 @@
-{ stdenv
-, lib
-, fetchurl
-, meson
-, ninja
+{ stdenv, lib, fetchurl, meson, ninja
 
-, pipewire
-, gitUpdater
-}:
+, pipewire, gitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "lv2";
@@ -21,10 +15,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    meson
-    ninja
-  ];
+  nativeBuildInputs = [ meson ninja ];
 
   buildInputs = [ ];
 
@@ -41,14 +32,11 @@ stdenv.mkDerivation rec {
     "-Dtests=disabled"
     # Avoid heavyweight python dependencies.
     "-Ddocs=disabled"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-Dlv2dir=${placeholder "out"}/lib/lv2"
-  ];
+  ] ++ lib.optionals stdenv.isDarwin
+    [ "-Dlv2dir=${placeholder "out"}/lib/lv2" ];
 
   passthru = {
-    tests = {
-      inherit pipewire;
-    };
+    tests = { inherit pipewire; };
     updateScript = gitUpdater {
       # No nicer place to find latest release.
       url = "https://gitlab.com/lv2/lv2.git";

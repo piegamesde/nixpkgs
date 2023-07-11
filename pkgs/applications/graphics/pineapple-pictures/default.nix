@@ -1,12 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, qtsvg
-, qttools
-, exiv2
-, wrapQtAppsHook
-, cmake
-}:
+{ lib, stdenv, fetchFromGitHub, qtsvg, qttools, exiv2, wrapQtAppsHook, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "pineapple-pictures";
@@ -19,20 +11,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QFKo4zMqhKzFseXMnZEBd2DPo0QObpelvYmI2tMyfRE=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    qttools
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake qttools wrapQtAppsHook ];
 
-  buildInputs = [
-    qtsvg
-    exiv2
-  ];
+  buildInputs = [ qtsvg exiv2 ];
 
-  cmakeFlags = [
-    "-DPREFER_QT_5=OFF"
-  ];
+  cmakeFlags = [ "-DPREFER_QT_5=OFF" ];
 
   meta = with lib; {
     description = "Homebrew lightweight image viewer";

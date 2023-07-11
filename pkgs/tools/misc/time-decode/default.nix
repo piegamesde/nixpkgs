@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "time-decode";
@@ -15,22 +12,18 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-6OSa8tOTAzQbi5aYPDJotWApeh8E3wi4V7RN16Go/E4=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    colorama
-    python-dateutil
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ colorama python-dateutil ];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "time_decode"
-  ];
+  pythonImportsCheck = [ "time_decode" ];
 
   meta = with lib; {
     description = "Timestamp and date decoder";
     homepage = "https://github.com/digitalsleuth/time_decode";
-    changelog = "https://github.com/digitalsleuth/time_decode/releases/tag/v${version}";
+    changelog =
+      "https://github.com/digitalsleuth/time_decode/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

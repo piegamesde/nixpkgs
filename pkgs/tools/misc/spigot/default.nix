@@ -1,12 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, cmake
-, gmp
-, halibut
-, ncurses
-, perl
-}:
+{ lib, stdenv, fetchurl, cmake, gmp, halibut, ncurses, perl }:
 
 stdenv.mkDerivation rec {
   pname = "spigot";
@@ -14,20 +6,14 @@ stdenv.mkDerivation rec {
   srcVersion = "20210527.7dd3cfd";
 
   src = fetchurl {
-    url = "https://www.chiark.greenend.org.uk/~sgtatham/spigot/${pname}-${srcVersion}.tar.gz";
+    url =
+      "https://www.chiark.greenend.org.uk/~sgtatham/spigot/${pname}-${srcVersion}.tar.gz";
     hash = "sha256-EBS3lgfLtsyBQ8mzoJPyZhRBJNmkVSeF5XecGgcvqtw=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    halibut
-    perl
-  ];
+  nativeBuildInputs = [ cmake halibut perl ];
 
-  buildInputs = [
-    gmp
-    ncurses
-  ];
+  buildInputs = [ gmp ncurses ];
 
   outputs = [ "out" "man" ];
 

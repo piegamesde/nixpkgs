@@ -1,19 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, autoPatchelfHook
-, dpkg
-, alsa-lib
-, freetype
-, libglvnd
-, mesa
-, curl
-, libXcursor
-, libXinerama
-, libXrandr
-, libXrender
-, libjack2
-}:
+{ lib, stdenv, fetchurl, autoPatchelfHook, dpkg, alsa-lib, freetype, libglvnd
+, mesa, curl, libXcursor, libXinerama, libXrandr, libXrender, libjack2 }:
 
 stdenv.mkDerivation rec {
   pname = "tonelib-noisereducer";
@@ -26,13 +12,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoPatchelfHook dpkg ];
 
-  buildInputs = [
-    stdenv.cc.cc.lib
-    alsa-lib
-    freetype
-    libglvnd
-    mesa
-  ] ++ runtimeDependencies;
+  buildInputs = [ stdenv.cc.cc.lib alsa-lib freetype libglvnd mesa ]
+    ++ runtimeDependencies;
 
   runtimeDependencies = map lib.getLib [
     curl
@@ -47,10 +28,11 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mv usr $out
- '';
+  '';
 
   meta = with lib; {
-    description = "ToneLib NoiseReducer – two-unit noise reduction rack effect plugin";
+    description =
+      "ToneLib NoiseReducer – two-unit noise reduction rack effect plugin";
     homepage = "https://tonelib.net/tl-noisereducer.html";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

@@ -16,7 +16,8 @@ buildGoModule rec {
   ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
-    description = "Simple, human-editable language for representing and emitting the Protobuf wire format";
+    description =
+      "Simple, human-editable language for representing and emitting the Protobuf wire format";
     homepage = "https://github.com/protocolbuffers/protoscope";
     license = licenses.asl20;
     maintainers = with maintainers; [ aaronjheng ];

@@ -1,18 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flit
-, jinja2
-, ruamel-yaml
-, matplotlib
-, pandas
-, pandoc
-, pygments
-, blessings
-, curio
-, hypothesis
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, flit, jinja2, ruamel-yaml, matplotlib
+, pandas, pandoc, pygments, blessings, curio, hypothesis, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "reportengine";
@@ -26,21 +13,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit ];
 
-  propagatedBuildInputs = [
-    jinja2
-    ruamel-yaml
-    matplotlib
-    pandas
-    pygments
-    blessings
-    curio
-  ];
+  propagatedBuildInputs =
+    [ jinja2 ruamel-yaml matplotlib pandas pygments blessings curio ];
 
-  nativeCheckInputs = [
-    hypothesis
-    pandoc
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ hypothesis pandoc pytestCheckHook ];
 
   pythonImportsCheck = [ "reportengine" ];
 

@@ -17,15 +17,12 @@ stdenv.mkDerivation rec {
       --replace 'includedir=''${prefix}/@CMAKE_INSTALL_INCLUDEDIR@' "includedir=@CMAKE_INSTALL_INCLUDEDIR@"
   '';
 
-  nativeBuildInputs = [
-    gfortran
-    cmake
-  ];
+  nativeBuildInputs = [ gfortran cmake ];
 
   meta = with lib; {
     description = "Procedural Fortran testing framework";
     homepage = "https://github.com/fortran-lang/test-drive";
-    license = with licenses; [ asl20 mit ] ;
+    license = with licenses; [ asl20 mit ];
     platforms = platforms.linux;
     maintainers = [ maintainers.sheepforce ];
   };

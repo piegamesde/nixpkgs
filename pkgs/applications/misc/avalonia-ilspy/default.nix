@@ -1,53 +1,22 @@
-{ lib
-, stdenv
-, fetchzip
-, unzip
-, autoPatchelfHook
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
-, lttng-ust
-, libkrb5
-, zlib
-, fontconfig
-, openssl_1_1
-, libX11
-, libICE
-, libSM
-, icu
-}:
+{ lib, stdenv, fetchzip, unzip, autoPatchelfHook, makeWrapper, makeDesktopItem
+, copyDesktopItems, lttng-ust, libkrb5, zlib, fontconfig, openssl_1_1, libX11
+, libICE, libSM, icu }:
 
 stdenv.mkDerivation rec {
   pname = "avalonia-ilspy";
   version = "7.2-rc";
 
   src = fetchzip {
-    url = "https://github.com/icsharpcode/AvaloniaILSpy/releases/download/v${version}/Linux.x64.Release.zip";
+    url =
+      "https://github.com/icsharpcode/AvaloniaILSpy/releases/download/v${version}/Linux.x64.Release.zip";
     sha256 = "1crf0ng4l6x70wjlz3r6qw8l166gd52ys11j7ilb4nyy3mkjxk11";
   };
 
-  nativeBuildInputs = [
-    unzip
-    autoPatchelfHook
-    makeWrapper
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ unzip autoPatchelfHook makeWrapper copyDesktopItems ];
 
-  buildInputs = [
-    stdenv.cc.cc.lib
-    lttng-ust
-    libkrb5
-    zlib
-    fontconfig
-  ];
+  buildInputs = [ stdenv.cc.cc.lib lttng-ust libkrb5 zlib fontconfig ];
 
-  libraryPath = lib.makeLibraryPath [
-    openssl_1_1
-    libX11
-    libICE
-    libSM
-    icu
-  ];
+  libraryPath = lib.makeLibraryPath [ openssl_1_1 libX11 libICE libSM icu ];
 
   unpackPhase = ''
     unzip -qq $src/ILSpy-linux-x64-Release.zip
@@ -73,21 +42,17 @@ stdenv.mkDerivation rec {
   '';
   dontStrip = true;
 
-  desktopItems = [ (makeDesktopItem {
-    name = "ILSpy";
-    desktopName = "ILSpy";
-    exec = "ILSpy";
-    icon = "ILSpy";
-    comment = ".NET assembly browser and decompiler";
-    categories = [
-      "Development"
-    ];
-    keywords = [
-      ".net"
-      "il"
-      "assembly"
-    ];
-  }) ];
+  desktopItems = [
+    (makeDesktopItem {
+      name = "ILSpy";
+      desktopName = "ILSpy";
+      exec = "ILSpy";
+      icon = "ILSpy";
+      comment = ".NET assembly browser and decompiler";
+      categories = [ "Development" ];
+      keywords = [ ".net" "il" "assembly" ];
+    })
+  ];
 
   meta = with lib; {
     description = ".NET assembly browser and decompiler";

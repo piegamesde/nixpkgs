@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, oath
-, pycryptodome
-, requests
-, pytest
-}:
+{ lib, buildPythonPackage, fetchPypi, oath, pycryptodome, requests, pytest }:
 
 buildPythonPackage rec {
   pname = "python-vipaccess";
@@ -16,11 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-vBFCRXwZ91C48GuOet2Obbo7gM02M2c9+7rhp0l6w54=";
   };
 
-  propagatedBuildInputs = [
-    oath
-    pycryptodome
-    requests
-  ];
+  propagatedBuildInputs = [ oath pycryptodome requests ];
 
   nativeCheckInputs = [ pytest ];
   # test_check_token_detects_valid_hotp_token,
@@ -32,7 +21,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "A free software implementation of Symantec's VIP Access application and protocol";
+    description =
+      "A free software implementation of Symantec's VIP Access application and protocol";
     homepage = "https://github.com/dlenski/python-vipaccess";
     license = licenses.asl20;
     maintainers = with maintainers; [ aw ];

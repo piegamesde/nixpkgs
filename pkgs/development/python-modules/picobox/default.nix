@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, flask
-, hatchling
-, hatch-vcs
-, isPy27
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, flask, hatchling
+, hatch-vcs, isPy27, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "picobox";
@@ -26,19 +18,11 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    hatchling
-    hatch-vcs
-  ];
+  nativeBuildInputs = [ hatchling hatch-vcs ];
 
-  nativeCheckInputs = [
-    flask
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ flask pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "picobox"
-  ];
+  pythonImportsCheck = [ "picobox" ];
 
   meta = with lib; {
     description = "Opinionated dependency injection framework";

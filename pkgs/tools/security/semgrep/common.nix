@@ -44,10 +44,12 @@ rec {
     };
     src = let
       inherit (stdenv.hostPlatform) system;
-      selectSystemData = data: data.${system} or (throw "Unsupported system: ${system}");
+      selectSystemData = data:
+        data.${system} or (throw "Unsupported system: ${system}");
       inherit (selectSystemData data) suffix sha256;
     in fetchzip {
-      url = "https://github.com/returntocorp/semgrep/releases/download/v${version}/semgrep-v${version}${suffix}";
+      url =
+        "https://github.com/returntocorp/semgrep/releases/download/v${version}/semgrep-v${version}${suffix}";
       inherit sha256;
     };
   };
@@ -55,7 +57,8 @@ rec {
   meta = with lib; {
     homepage = "https://semgrep.dev/";
     downloadPage = "https://github.com/returntocorp/semgrep/";
-    changelog = "https://github.com/returntocorp/semgrep/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/returntocorp/semgrep/blob/v${version}/CHANGELOG.md";
     description = "Lightweight static analysis for many languages";
     longDescription = ''
       Semgrep is a fast, open-source, static analysis tool for finding bugs and

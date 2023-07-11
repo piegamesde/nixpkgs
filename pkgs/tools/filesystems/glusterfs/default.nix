@@ -1,9 +1,9 @@
-{lib, stdenv, fetchFromGitHub, fuse, bison, flex, openssl, python3, ncurses, readline,
- autoconf, automake, libtool, pkg-config, zlib, libaio, libxml2, acl, sqlite,
- liburcu, liburing, attr, makeWrapper, coreutils, gnused, gnugrep, which,
- openssh, gawk, findutils, util-linux, lvm2, btrfs-progs, e2fsprogs, xfsprogs, systemd,
- rsync, glibc, rpcsvc-proto, libtirpc, gperftools, nixosTests
-}:
+{ lib, stdenv, fetchFromGitHub, fuse, bison, flex, openssl, python3, ncurses
+, readline, autoconf, automake, libtool, pkg-config, zlib, libaio, libxml2, acl
+, sqlite, liburcu, liburing, attr, makeWrapper, coreutils, gnused, gnugrep
+, which, openssh, gawk, findutils, util-linux, lvm2, btrfs-progs, e2fsprogs
+, xfsprogs, systemd, rsync, glibc, rpcsvc-proto, libtirpc, gperftools
+, nixosTests }:
 let
   # NOTE: On each glusterfs release, it should be checked if gluster added
   #       new, or changed, Python scripts whose PYTHONPATH has to be set in
@@ -14,32 +14,38 @@ let
   #       can help with finding new Python scripts.
 
   buildInputs = [
-    fuse openssl ncurses readline
-    zlib libaio libxml2
-    acl sqlite liburcu attr util-linux libtirpc gperftools
+    fuse
+    openssl
+    ncurses
+    readline
+    zlib
+    libaio
+    libxml2
+    acl
+    sqlite
+    liburcu
+    attr
+    util-linux
+    libtirpc
+    gperftools
     liburing
-    (python3.withPackages (pkgs: [
-      pkgs.flask
-      pkgs.prettytable
-      pkgs.requests
-      pkgs.pyxattr
-    ]))
+    (python3.withPackages
+      (pkgs: [ pkgs.flask pkgs.prettytable pkgs.requests pkgs.pyxattr ]))
     # NOTE: `python3` has to be *AFTER* the above `python3.withPackages`,
     #       to ensure that the packages are available but the `toPythonPath`
     #       shell function used in `postFixup` is also still available.
     python3
   ];
   # Some of the headers reference acl
-  propagatedBuildInputs = [
-    acl
-  ];
+  propagatedBuildInputs = [ acl ];
   # Packages from which GlusterFS calls binaries at run-time from PATH,
   # with comments on which commands are known to be called by it.
   runtimePATHdeps = [
     attr # getfattr setfattr
     btrfs-progs # btrfs
     coreutils # lots of commands in bash scripts
-    e2fsprogs # tune2fs
+    0.0
+    fsprogs # tune2fs
     findutils # find
     gawk # awk
     glibc # getent
@@ -102,11 +108,18 @@ in stdenv.mkDerivation rec {
     export PYTHON=${python3}/bin/python
   '';
 
-  configureFlags = [
-    "--localstatedir=/var"
-  ];
+  configureFlags = [ "--localstatedir=/var" ];
 
-  nativeBuildInputs = [ autoconf automake libtool pkg-config bison flex makeWrapper rpcsvc-proto ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    pkg-config
+    bison
+    flex
+    makeWrapper
+    rpcsvc-proto
+  ];
 
   makeFlags = [ "DESTDIR=$(out)" ];
 
@@ -193,9 +206,7 @@ in stdenv.mkDerivation rec {
     rm -r $out/bin/conf.py
   '';
 
-  passthru.tests = {
-    glusterfs = nixosTests.glusterfs;
-  };
+  passthru.tests = { glusterfs = nixosTests.glusterfs; };
 
   meta = with lib; {
     description = "Distributed storage system";

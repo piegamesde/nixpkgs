@@ -1,5 +1,5 @@
-{ buildPerlPackage, stdenv, lib, fetchFromGitHub, which, bzip2, PodMarkdown, JSONXS
-, TextCSV }:
+{ buildPerlPackage, stdenv, lib, fetchFromGitHub, which, bzip2, PodMarkdown
+, JSONXS, TextCSV }:
 buildPerlPackage rec {
   pname = "pgbadger";
   version = "11.5";
@@ -27,6 +27,7 @@ buildPerlPackage rec {
     description = "A fast PostgreSQL Log Analyzer";
     license = lib.licenses.postgresql;
     maintainers = lib.teams.determinatesystems.members;
-    broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/pgbadger.x86_64-darwin
+    broken =
+      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/pgbadger.x86_64-darwin
   };
 }

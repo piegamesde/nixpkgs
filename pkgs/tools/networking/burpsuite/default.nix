@@ -12,7 +12,8 @@ let
   };
 
   name = "burpsuite-${version}";
-  description = "An integrated platform for performing security testing of web applications";
+  description =
+    "An integrated platform for performing security testing of web applications";
   desktopItem = makeDesktopItem rec {
     name = "burpsuite";
     exec = name;
@@ -22,41 +23,43 @@ let
     categories = [ "Development" "Security" "System" ];
   };
 
-in
-buildFHSEnv {
+in buildFHSEnv {
   inherit name;
 
   runScript = "${jdk}/bin/java -jar ${src}";
 
-  targetPkgs = pkgs: with pkgs; [
-    alsa-lib
-    at-spi2-core
-    cairo
-    cups
-    dbus
-    expat
-    glib
-    gtk3
-    libdrm
-    libudev0-shim
-    libxkbcommon
-    mesa.drivers
-    nspr
-    nss
-    pango
-    xorg.libX11
-    xorg.libxcb
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXrandr
-  ];
+  targetPkgs = pkgs:
+    with pkgs; [
+      alsa-lib
+      at-spi2-core
+      cairo
+      cups
+      dbus
+      expat
+      glib
+      gtk3
+      libdrm
+      libudev0-shim
+      libxkbcommon
+      mesa.drivers
+      nspr
+      nss
+      pango
+      xorg.libX11
+      xorg.libxcb
+      xorg.libXcomposite
+      xorg.libXdamage
+      xorg.libXext
+      xorg.libXfixes
+      xorg.libXrandr
+    ];
 
   extraInstallCommands = ''
     mv "$out/bin/${name}" "$out/bin/burpsuite" # name includes the version number
     mkdir -p "$out/share/pixmaps"
-    ${lib.getBin unzip}/bin/unzip -p ${src} resources/Media/icon64community.png > "$out/share/pixmaps/burpsuite.png"
+    ${
+      lib.getBin unzip
+    }/bin/unzip -p ${src} resources/Media/icon64community.png > "$out/share/pixmaps/burpsuite.png"
     cp -r ${desktopItem}/share/applications $out/share
   '';
 

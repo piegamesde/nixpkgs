@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, sphinx
-, accessible-pygments
-, beautifulsoup4
-, docutils
-, packaging
-, typing-extensions
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, sphinx, accessible-pygments
+, beautifulsoup4, docutils, packaging, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "pydata-sphinx-theme";
@@ -35,9 +26,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [
-    "pydata_sphinx_theme"
-  ];
+  pythonImportsCheck = [ "pydata_sphinx_theme" ];
 
   meta = with lib; {
     description = "Bootstrap-based Sphinx theme from the PyData community";

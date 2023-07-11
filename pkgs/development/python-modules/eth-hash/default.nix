@@ -1,12 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, pythonOlder
-, pytest
-, pysha3
-, safe-pysha3
-, pycryptodome
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder, pytest, pysha3
+, safe-pysha3, pycryptodome }:
 
 buildPythonPackage rec {
   pname = "eth-hash";
@@ -20,10 +13,8 @@ buildPythonPackage rec {
     hash = "sha256-LMDtFUrsPYgj/Fl9aBW1todlj1D3LlFxAkzNFAzCGLQ=";
   };
 
-  nativeCheckInputs = [
-    pytest
-  ] ++ passthru.optional-dependencies.pycryptodome
-  ++ passthru.optional-dependencies.pysha3;
+  nativeCheckInputs = [ pytest ] ++ passthru.optional-dependencies.pycryptodome
+    ++ passthru.optional-dependencies.pysha3;
 
   checkPhase = ''
     pytest tests/backends/pycryptodome/

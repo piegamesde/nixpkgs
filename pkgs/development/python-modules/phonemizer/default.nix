@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, substituteAll
-, buildPythonPackage
-, fetchPypi
-, joblib
-, segments
-, attrs
-, dlinfo
-, typing-extensions
-, espeak-ng
-, pytestCheckHook
-, pytest-cov
-}:
+{ lib, stdenv, substituteAll, buildPythonPackage, fetchPypi, joblib, segments
+, attrs, dlinfo, typing-extensions, espeak-ng, pytestCheckHook, pytest-cov }:
 
 buildPythonPackage rec {
   pname = "phonemizer";
@@ -30,18 +18,14 @@ buildPythonPackage rec {
   patches = [
     (substituteAll {
       src = ./backend-paths.patch;
-      libespeak = "${lib.getLib espeak-ng}/lib/libespeak-ng${stdenv.hostPlatform.extensions.sharedLibrary}";
+      libespeak = "${
+          lib.getLib espeak-ng
+        }/lib/libespeak-ng${stdenv.hostPlatform.extensions.sharedLibrary}";
       # FIXME package festival
     })
   ];
 
-  propagatedBuildInputs = [
-    joblib
-    segments
-    attrs
-    dlinfo
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ joblib segments attrs dlinfo typing-extensions ];
 
   # We tried to package festival, but were unable to get the backend running,
   # so let's disable related tests.
@@ -49,7 +33,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/bootphon/phonemizer";
-    changelog = "https://github.com/bootphon/phonemizer/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/bootphon/phonemizer/blob/v${version}/CHANGELOG.md";
     description = "Simple text to phones converter for multiple languages";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ ];

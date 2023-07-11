@@ -18,7 +18,7 @@ in {
       '');
 
       rules = mkOption {
-        default = {};
+        default = { };
         example = lib.literalExpression ''
           { "restart-tor" = {
               onState = ["routable" "off"];
@@ -42,8 +42,14 @@ in {
           options = {
             onState = mkOption {
               type = types.listOf (types.enum [
-                "routable" "dormant" "no-carrier" "off" "carrier" "degraded"
-                "configuring" "configured"
+                "routable"
+                "dormant"
+                "no-carrier"
+                "off"
+                "carrier"
+                "degraded"
+                "configuring"
+                "configured"
               ]);
               default = null;
               description = lib.mdDoc ''
@@ -76,15 +82,13 @@ in {
           scriptDir = pkgs.symlinkJoin {
             name = "networkd-dispatcher-script-dir";
             paths = lib.mapAttrsToList (name: cfg:
-              (map(state:
+              (map (state:
                 pkgs.writeTextFile {
                   inherit name;
                   text = cfg.script;
                   destination = "/${state}.d/${name}";
                   executable = true;
-                }
-              ) cfg.onState)
-            ) cfg.rules;
+                }) cfg.onState)) cfg.rules;
           };
         in [
           ""

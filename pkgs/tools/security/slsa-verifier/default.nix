@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "slsa-verifier";
@@ -35,7 +32,8 @@ buildGoModule rec {
 
   meta = {
     homepage = "https://github.com/slsa-framework/slsa-verifier";
-    changelog = "https://github.com/slsa-framework/slsa-verifier/releases/tag/v${version}";
+    changelog =
+      "https://github.com/slsa-framework/slsa-verifier/releases/tag/v${version}";
     description = "Verify provenance from SLSA compliant builders";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ developer-guy mlieberman85 ];

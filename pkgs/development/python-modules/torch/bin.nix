@@ -1,25 +1,7 @@
-{ lib, stdenv
-, buildPythonPackage
-, fetchurl
-, python
-, pythonAtLeast
-, pythonOlder
-, addOpenGLRunpath
-, cudaPackages
-, future
-, numpy
-, autoPatchelfHook
-, patchelf
-, pyyaml
-, requests
-, setuptools
-, typing-extensions
-, sympy
-, jinja2
-, networkx
-, filelock
-, openai-triton
-}:
+{ lib, stdenv, buildPythonPackage, fetchurl, python, pythonAtLeast, pythonOlder
+, addOpenGLRunpath, cudaPackages, future, numpy, autoPatchelfHook, patchelf
+, pyyaml, requests, setuptools, typing-extensions, sympy, jinja2, networkx
+, filelock, openai-triton }:
 
 let
   pyVerNoDot = builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion;
@@ -45,11 +27,12 @@ in buildPythonPackage {
     patchelf
   ];
 
-  buildInputs = with cudaPackages; [
-    # $out/${sitePackages}/nvfuser/_C*.so wants libnvToolsExt.so.1 but torch/lib only ships
-    # libnvToolsExt-$hash.so.1
-    cuda_nvtx
-  ];
+  buildInputs = with cudaPackages;
+    [
+      # $out/${sitePackages}/nvfuser/_C*.so wants libnvToolsExt.so.1 but torch/lib only ships
+      # libnvToolsExt-$hash.so.1
+      cuda_nvtx
+    ];
 
   autoPatchelfIgnoreMissingDeps = [
     # This is the hardware-dependent userspace driver that comes from
@@ -70,9 +53,7 @@ in buildPythonPackage {
     jinja2
     networkx
     filelock
-  ] ++ lib.optionals stdenv.isx86_64 [
-    openai-triton
-  ];
+  ] ++ lib.optionals stdenv.isx86_64 [ openai-triton ];
 
   postInstall = ''
     # ONNX conversion
@@ -101,7 +82,8 @@ in buildPythonPackage {
   pythonImportsCheck = [ "torch" ];
 
   meta = with lib; {
-    description = "PyTorch: Tensors and Dynamic neural networks in Python with strong GPU acceleration";
+    description =
+      "PyTorch: Tensors and Dynamic neural networks in Python with strong GPU acceleration";
     homepage = "https://pytorch.org/";
     changelog = "https://github.com/pytorch/pytorch/releases/tag/v${version}";
     # Includes CUDA and Intel MKL, but redistributions of the binary are not limited.
@@ -111,8 +93,9 @@ in buildPythonPackage {
     # torch-bin includes CUDA and MKL binaries, therefore unfreeRedistributable is set.
     license = with licenses; [ bsd3 issl unfreeRedistributable ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    platforms = [ "aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
-    hydraPlatforms = []; # output size 3.2G on 1.11.0
+    platforms =
+      [ "aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
+    hydraPlatforms = [ ]; # output size 3.2G on 1.11.0
     maintainers = with maintainers; [ junjihashimoto ];
   };
 }

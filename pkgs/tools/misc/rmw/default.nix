@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ninja
-, pkg-config
-, ncurses
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "rmw";
@@ -19,20 +12,15 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-  ];
+  nativeBuildInputs = [ pkg-config meson ninja ];
 
-  buildInputs = [
-    ncurses
-  ];
+  buildInputs = [ ncurses ];
 
   meta = with lib; {
     description = "Trashcan/ recycle bin utility for the command line";
     homepage = "https://github.com/theimpossibleastronaut/rmw";
-    changelog = "https://github.com/theimpossibleastronaut/rmw/blob/${src.rev}/ChangeLog";
+    changelog =
+      "https://github.com/theimpossibleastronaut/rmw/blob/${src.rev}/ChangeLog";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ dit7ya ];
   };

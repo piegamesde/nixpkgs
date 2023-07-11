@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, paho-mqtt
-, pycryptodome
-, pythonOlder
-, requests
-, websocket-client
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, paho-mqtt, pycryptodome, pythonOlder
+, requests, websocket-client }:
 
 buildPythonPackage rec {
   pname = "tuya-iot-py-sdk";
@@ -22,12 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-KmSVa71CM/kNhzE4GznaxISGmIaV+UcTSn3v+fmxmrQ=";
   };
 
-  propagatedBuildInputs = [
-    paho-mqtt
-    pycryptodome
-    requests
-    websocket-client
-  ];
+  propagatedBuildInputs = [ paho-mqtt pycryptodome requests websocket-client ];
 
   # Project has no tests
   doCheck = false;

@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, alsa-lib
-, libjack2
-, pkg-config
-, which
-, AudioUnit
-, AudioToolbox
-, CoreAudio
-, CoreServices
-, Carbon }:
+{ lib, stdenv, fetchurl, alsa-lib, libjack2, pkg-config, which, AudioUnit
+, AudioToolbox, CoreAudio, CoreServices, Carbon }:
 
 stdenv.mkDerivation rec {
   pname = "portaudio";
@@ -26,9 +16,16 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--disable-mac-universal" "--enable-cxx" ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=nullability-inferred-on-nested-type -Wno-error=nullability-completeness-on-arrays -Wno-error=implicit-const-int-float-conversion";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang
+    "-Wno-error=nullability-inferred-on-nested-type -Wno-error=nullability-completeness-on-arrays -Wno-error=implicit-const-int-float-conversion";
 
-  propagatedBuildInputs = lib.optionals stdenv.isDarwin [ AudioUnit AudioToolbox CoreAudio CoreServices Carbon ];
+  propagatedBuildInputs = lib.optionals stdenv.isDarwin [
+    AudioUnit
+    AudioToolbox
+    CoreAudio
+    CoreServices
+    Carbon
+  ];
 
   # Disable parallel build as it fails as:
   #   make: *** No rule to make target '../../../lib/libportaudio.la',
@@ -54,14 +51,12 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Portable cross-platform Audio API";
-    homepage    = "http://www.portaudio.com/";
+    homepage = "http://www.portaudio.com/";
     # Not exactly a bsd license, but alike
-    license     = licenses.mit;
+    license = licenses.mit;
     maintainers = with maintainers; [ lovek323 ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 
-  passthru = {
-    api_version = 19;
-  };
+  passthru = { api_version = 19; };
 }

@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "5.0.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/uftp-multicast/source-tar/uftp-${version}.tar.gz";
+    url =
+      "mirror://sourceforge/uftp-multicast/source-tar/uftp-${version}.tar.gz";
     sha256 = "sha256-8ENfvI6f+hJeBWAMtsf8kz19WH9brkGyVyZ75PLODmE=";
   };
 

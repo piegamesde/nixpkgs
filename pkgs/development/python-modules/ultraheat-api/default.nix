@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pyserial
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pyserial, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "ultraheat-api";
@@ -18,19 +13,16 @@ buildPythonPackage rec {
     hash = "sha256-7yZATv0cgjRnvD9u34iZtsdsfEkdbAoVWJ19+HHlrzI=";
   };
 
-  propagatedBuildInputs = [
-    pyserial
-  ];
+  propagatedBuildInputs = [ pyserial ];
 
   # Source is not tagged, only PyPI releases
   doCheck = false;
 
-  pythonImportsCheck = [
-    "ultraheat_api"
-  ];
+  pythonImportsCheck = [ "ultraheat_api" ];
 
   meta = with lib; {
-    description = "Module for working with data from Landis+Gyr Ultraheat heat meter unit";
+    description =
+      "Module for working with data from Landis+Gyr Ultraheat heat meter unit";
     homepage = "https://github.com/vpathuis/uh50";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];

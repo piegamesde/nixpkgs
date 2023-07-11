@@ -1,33 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, buildPackages
-, pkg-config
-, meson
-, ninja
-, libusb-compat-0_1
-, readline
-, libewf
-, perl
-, zlib
-, openssl
-, libuv
-, file
-, libzip
-, xxHash
-, gtk2
-, vte
-, gtkdialog
-, python3
-, ruby
-, lua
-, lz4
-, capstone
-, useX11 ? false
-, rubyBindings ? false
-, luaBindings ? false
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, buildPackages, pkg-config, meson
+, ninja, libusb-compat-0_1, readline, libewf, perl, zlib, openssl, libuv, file
+, libzip, xxHash, gtk2, vte, gtkdialog, python3, ruby, lua, lz4, capstone
+, useX11 ? false, rubyBindings ? false, luaBindings ? false }:
 
 let
   # FIXME: Compare revision with
@@ -44,8 +18,7 @@ let
     rev = "f270a6cc99644cb8e76055b6fa632b25abd26024";
     hash = "sha256-YhfgJ7M8ys53jh1clOzj0I2yfJshXQm5zP0L9kMYsmk=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "radare2";
   version = "5.8.4";
 
@@ -71,12 +44,12 @@ stdenv.mkDerivation rec {
   '';
 
   mesonFlags = [
-   "-Duse_sys_capstone=true"
-   "-Duse_sys_magic=true"
-   "-Duse_sys_zip=true"
-   "-Duse_sys_xxhash=true"
-   "-Duse_sys_lz4=true"
-   "-Dr2_gittap=${version}"
+    "-Duse_sys_capstone=true"
+    "-Duse_sys_magic=true"
+    "-Duse_sys_zip=true"
+    "-Duse_sys_xxhash=true"
+    "-Duse_sys_lz4=true"
+    "-Dr2_gittap=${version}"
   ];
 
   enableParallelBuilding = true;
@@ -97,8 +70,7 @@ stdenv.mkDerivation rec {
     libuv
     lz4
   ] ++ lib.optionals useX11 [ gtkdialog vte gtk2 ]
-    ++ lib.optionals rubyBindings [ ruby ]
-    ++ lib.optionals luaBindings [ lua ];
+    ++ lib.optionals rubyBindings [ ruby ] ++ lib.optionals luaBindings [ lua ];
 
   propagatedBuildInputs = [
     # radare2 exposes r_lib which depends on these libraries
@@ -108,7 +80,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "UNIX-like reverse engineering framework and command-line tools";
+    description =
+      "UNIX-like reverse engineering framework and command-line tools";
     homepage = "https://radare.org";
     changelog = "https://github.com/radareorg/radare2/releases/tag/${version}";
     license = licenses.gpl2Plus;

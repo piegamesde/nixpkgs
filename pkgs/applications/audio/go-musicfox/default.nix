@@ -1,11 +1,5 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, pkg-config
-, alsa-lib
-, flac
-, nix-update-script
-}:
+{ lib, buildGoModule, fetchFromGitHub, pkg-config, alsa-lib, flac
+, nix-update-script }:
 
 buildGoModule rec {
   pname = "go-musicfox";
@@ -30,14 +24,9 @@ buildGoModule rec {
     "-X github.com/go-musicfox/go-musicfox/pkg/constants.AppVersion=${version}"
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    alsa-lib
-    flac
-  ];
+  buildInputs = [ alsa-lib flac ];
 
   passthru.updateScript = nix-update-script { };
 

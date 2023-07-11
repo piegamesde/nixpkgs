@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, msrest
-, msrestazure
-, azure-common
-, azure-mgmt-core
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, msrest, msrestazure
+, azure-common, azure-mgmt-core }:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-monitor";
@@ -21,16 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-Uhs+wz3sB5mOt1LGJCqzhMT5YWwwMnpmVi4WvXHBfZY=";
   };
 
-  propagatedBuildInputs = [
-    msrest
-    msrestazure
-    azure-common
-    azure-mgmt-core
-  ];
+  propagatedBuildInputs = [ msrest msrestazure azure-common azure-mgmt-core ];
 
-  pythonNamespaces = [
-    "azure.mgmt"
-  ];
+  pythonNamespaces = [ "azure.mgmt" ];
 
   # Module has no tests
   doCheck = false;

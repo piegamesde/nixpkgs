@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, which
-, fltk
-, mbedtls_2
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, which, fltk
+, mbedtls_2 }:
 
 stdenv.mkDerivation {
   pname = "dillong";
@@ -19,16 +12,9 @@ stdenv.mkDerivation {
     hash = "sha256-JSBd8Lgw3I20Es/jQHBtybnLd0iAcs16TqOrOxGPGiU=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    which
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config which ];
 
-  buildInputs = [
-    fltk
-    mbedtls_2
-  ];
+  buildInputs = [ fltk mbedtls_2 ];
 
   # The start_page and home settings refer to /usr.
   # We can't change /usr to $out because dillorc is copied to the home directory

@@ -1,12 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitea
-, cmake
-, pkg-config
-, lz4
-, pugixml
-, zlib
-}:
+{ lib, stdenv, fetchFromGitea, cmake, pkg-config, lz4, pugixml, zlib }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libxisf";
@@ -20,20 +12,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-u5EYnRO2rUV8ofLL9qfACeVvVbWXEXpkqh2Q4OOxpaQ=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  cmakeFlags = [
-    "-DUSE_BUNDLED_LIBS=OFF"
-  ] ++ lib.optional stdenv.hostPlatform.isStatic "-DBUILD_SHARED_LIBS=OFF";
+  cmakeFlags = [ "-DUSE_BUNDLED_LIBS=OFF" ]
+    ++ lib.optional stdenv.hostPlatform.isStatic "-DBUILD_SHARED_LIBS=OFF";
 
-  buildInputs = [
-    lz4
-    pugixml
-    zlib
-  ];
+  buildInputs = [ lz4 pugixml zlib ];
 
   doCheck = true;
 

@@ -1,20 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, meson
-, ninja
-, pkg-config
-, wrapGAppsHook4
-, libadwaita
-, gettext
-, glib
-, gobject-introspection
-, desktop-file-utils
-, appstream-glib
-, gtk4
-, librsvg
-, python3Packages
-}:
+{ stdenv, lib, fetchFromGitLab, meson, ninja, pkg-config, wrapGAppsHook4
+, libadwaita, gettext, glib, gobject-introspection, desktop-file-utils
+, appstream-glib, gtk4, librsvg, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "eartag";
@@ -48,10 +34,7 @@ python3Packages.buildPythonApplication rec {
     wrapGAppsHook4
   ] ++ lib.optional stdenv.isDarwin gtk4; # for gtk4-update-icon-cache
 
-  buildInputs = [
-    librsvg
-    libadwaita
-  ];
+  buildInputs = [ librsvg libadwaita ];
 
   propagatedBuildInputs = with python3Packages; [
     pygobject3

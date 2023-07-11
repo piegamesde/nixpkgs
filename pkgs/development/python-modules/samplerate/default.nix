@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, cffi
-, numpy
-, libsamplerate
-, pytestCheckHook
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, cffi, numpy, libsamplerate
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "samplerate";
@@ -29,18 +22,11 @@ buildPythonPackage rec {
       'lib_filename = "${libsamplerate.out}/lib/libsamplerate${stdenv.hostPlatform.extensions.sharedLibrary}"'
   '';
 
-  propagatedBuildInputs = [
-    cffi
-    numpy
-  ];
+  propagatedBuildInputs = [ cffi numpy ];
 
-  pythonImportsCheck = [
-    "samplerate"
-  ];
+  pythonImportsCheck = [ "samplerate" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     rm -rf samplerate
@@ -49,7 +35,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python bindings for libsamplerate based on CFFI and NumPy";
     homepage = "https://github.com/tuxu/python-samplerate";
-    changelog = "https://github.com/tuxu/python-samplerate/releases/tag/${version}";
+    changelog =
+      "https://github.com/tuxu/python-samplerate/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };

@@ -1,9 +1,4 @@
-{ lib
-, unittestCheckHook
-, buildPythonPackage
-, fetchPypi
-, isPy27
-, pythonAtLeast
+{ lib, unittestCheckHook, buildPythonPackage, fetchPypi, isPy27, pythonAtLeast
 }:
 
 buildPythonPackage rec {

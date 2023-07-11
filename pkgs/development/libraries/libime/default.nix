@@ -1,12 +1,5 @@
-{ lib, stdenv
-, fetchurl
-, fetchFromGitHub
-, cmake
-, extra-cmake-modules
-, boost
-, python3
-, fcitx5
-}:
+{ lib, stdenv, fetchurl, fetchFromGitHub, cmake, extra-cmake-modules, boost
+, python3, fcitx5 }:
 
 let
   table = fetchurl {
@@ -23,8 +16,7 @@ let
     url = "https://download.fcitx-im.org/data/dict-${dictVer}.tar.xz";
     sha256 = "sha256-lxdS9BMYgAfo0ZFYwRuFyVXiXXsyHsInXEs69tioXSY=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "libime";
   version = "1.0.17";
 
@@ -42,16 +34,9 @@ stdenv.mkDerivation rec {
     ln -s ${dict} data/$(stripHash ${dict})
   '';
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-    python3
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules python3 ];
 
-  buildInputs = [
-    boost
-    fcitx5
-  ];
+  buildInputs = [ boost fcitx5 ];
 
   meta = with lib; {
     description = "A library to support generic input method implementation";

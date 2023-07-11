@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, callPackage
-, fetchgit
-, libplist
-, libxml2
-, openssl
-, CoreFoundation
-, Security
-}:
+{ lib, stdenv, callPackage, fetchgit, libplist, libxml2, openssl, CoreFoundation
+, Security }:
 
 stdenv.mkDerivation rec {
   pname = "ldid";
@@ -21,23 +13,14 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  buildInputs = [
-    libplist
-    libxml2
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreFoundation
-    Security
-  ];
+  buildInputs = [ libplist libxml2 openssl ]
+    ++ lib.optionals stdenv.isDarwin [ CoreFoundation Security ];
 
-  NIX_LDFLAGS = [
-    "-lcrypto"
-    "-lplist-2.0"
-    "-lxml2"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-framework CoreFoundation"
-    "-framework Security"
-  ];
+  NIX_LDFLAGS = [ "-lcrypto" "-lplist-2.0" "-lxml2" ]
+    ++ lib.optionals stdenv.isDarwin [
+      "-framework CoreFoundation"
+      "-framework Security"
+    ];
 
   buildPhase = ''
     runHook preBuild

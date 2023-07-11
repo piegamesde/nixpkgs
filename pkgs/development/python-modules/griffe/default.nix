@@ -1,15 +1,5 @@
-{ lib
-, aiofiles
-, buildPythonPackage
-, cached-property
-, colorama
-, fetchFromGitHub
-, git
-, jsonschema
-, pdm-backend
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, aiofiles, buildPythonPackage, cached-property, colorama, fetchFromGitHub
+, git, jsonschema, pdm-backend, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "griffe";
@@ -32,36 +22,22 @@ buildPythonPackage rec {
       --replace 'version = {source = "scm"}' 'license-expression = "ISC"'
   '';
 
-  nativeBuildInputs = [
-    pdm-backend
-  ];
+  nativeBuildInputs = [ pdm-backend ];
 
-  propagatedBuildInputs = [
-    colorama
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    cached-property
-  ];
+  propagatedBuildInputs = [ colorama ]
+    ++ lib.optionals (pythonOlder "3.8") [ cached-property ];
 
-  nativeCheckInputs = [
-    git
-    jsonschema
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ git jsonschema pytestCheckHook ];
 
-  passthru.optional-dependencies = {
-    async = [
-      aiofiles
-    ];
-  };
+  passthru.optional-dependencies = { async = [ aiofiles ]; };
 
-  pythonImportsCheck = [
-    "griffe"
-  ];
+  pythonImportsCheck = [ "griffe" ];
 
   meta = with lib; {
     description = "Signatures for entire Python programs";
     homepage = "https://github.com/mkdocstrings/griffe";
-    changelog = "https://github.com/mkdocstrings/griffe/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/mkdocstrings/griffe/blob/${version}/CHANGELOG.md";
     license = licenses.isc;
     maintainers = with maintainers; [ fab ];
   };

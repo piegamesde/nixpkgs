@@ -1,14 +1,5 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, breeze-icons
-, gtk3
-, gnome-icon-theme
-, hicolor-icon-theme
-, mint-x-icons
-, pantheon
-, jdupes
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, breeze-icons, gtk3, gnome-icon-theme
+, hicolor-icon-theme, mint-x-icons, pantheon, jdupes }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "BeautyLine";
@@ -18,9 +9,7 @@ stdenvNoCC.mkDerivation rec {
     owner = "gvolpe";
     repo = pname;
     rev = version;
-    sparseCheckout = [
-      "BeautyLine-V3"
-    ];
+    sparseCheckout = [ "BeautyLine-V3" ];
     sha256 = "sha256-IkkypAj250+OXbf19TampCnqYsSbJVIjeYlxJoyhpzk=";
   };
 

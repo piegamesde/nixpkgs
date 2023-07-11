@@ -1,18 +1,7 @@
-{ lib
-, symlinkJoin
-, melpaBuild
-, fetchFromGitHub
-, rustPlatform
-, writeText
-, clang
+{ lib, symlinkJoin, melpaBuild, fetchFromGitHub, rustPlatform, writeText, clang
 , llvmPackages
 
-, runtimeShell
-, writeScript
-, python3
-, nix-prefetch-github
-, nix
-}:
+, runtimeShell, writeScript, python3, nix-prefetch-github, nix }:
 
 let
 
@@ -63,16 +52,11 @@ in symlinkJoin {
   paths = [ tsc tsc-dyn ];
 
   passthru = {
-    updateScript = let
-      pythonEnv = python3.withPackages(ps: [ ps.requests ]);
+    updateScript = let pythonEnv = python3.withPackages (ps: [ ps.requests ]);
     in writeScript "tsc-update" ''
       #!${runtimeShell}
       set -euo pipefail
-      export PATH=${lib.makeBinPath [
-        nix-prefetch-github
-        nix
-        pythonEnv
-      ]}:$PATH
+      export PATH=${lib.makeBinPath [ nix-prefetch-github nix pythonEnv ]}:$PATH
       exec python3 ${builtins.toString ./update.py} ${builtins.toString ./.}
     '';
   };

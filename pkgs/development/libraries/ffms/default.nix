@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, ffmpeg_4
-, zlib
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, ffmpeg_4, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "ffms";
@@ -20,19 +13,13 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-fPIC";
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   preAutoreconf = ''
     mkdir src/config
   '';
 
-  buildInputs = [
-    ffmpeg_4
-    zlib
-  ];
+  buildInputs = [ ffmpeg_4 zlib ];
 
   # ffms includes a built-in vapoursynth plugin, see:
   # https://github.com/FFMS/ffms2#avisynth-and-vapoursynth-plugin

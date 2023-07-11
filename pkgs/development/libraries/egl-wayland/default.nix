@@ -1,18 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, eglexternalplatform
-, pkg-config
-, meson
-, ninja
-, wayland-scanner
-, libGL
-, libX11
-, libdrm
-, wayland
-, wayland-protocols
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, eglexternalplatform, pkg-config
+, meson, ninja, wayland-scanner, libGL, libX11, libdrm, wayland
+, wayland-protocols }:
 
 stdenv.mkDerivation rec {
   pname = "egl-wayland";
@@ -31,7 +19,8 @@ stdenv.mkDerivation rec {
     # remove after next update
     # https://github.com/NVIDIA/egl-wayland/pull/79
     (fetchpatch {
-      url = "https://github.com/NVIDIA/egl-wayland/commit/13737c6af4c0a7cfef5ec9013a4382bbeb7b495c.patch";
+      url =
+        "https://github.com/NVIDIA/egl-wayland/commit/13737c6af4c0a7cfef5ec9013a4382bbeb7b495c.patch";
       hash = "sha256-EEqI6iJb+uv0HkhnauYNxSzny4YapTm73PLgK8A9Km8=";
     })
   ];
@@ -42,28 +31,13 @@ stdenv.mkDerivation rec {
     sed -i -e '/includedir/d' wayland-eglstream.pc.in
   '';
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    wayland-scanner
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config wayland-scanner ];
 
-  buildInputs = [
-    libGL
-    libX11
-    libdrm
-    wayland
-    wayland-protocols
-  ];
+  buildInputs = [ libGL libX11 libdrm wayland wayland-protocols ];
 
-  propagatedBuildInputs = [
-    eglexternalplatform
-  ];
+  propagatedBuildInputs = [ eglexternalplatform ];
 
   meta = with lib; {
     description = "The EGLStream-based Wayland external platform";

@@ -1,40 +1,23 @@
-{ lib
-, stdenv
-, docbook_xml_dtd_44
-, docbook_xml_dtd_45
-, docbook_xsl
-, asciidoctor
-, fetchurl
-, flex
-, kmod
-, libxslt
-, nixosTests
-, perl
-, systemd
+{ lib, stdenv, docbook_xml_dtd_44, docbook_xml_dtd_45, docbook_xsl, asciidoctor
+, fetchurl, flex, kmod, libxslt, nixosTests, perl, systemd
 
 # drbd-utils are compiled twice, once with forOCF = true to extract
 # its OCF definitions for use in the ocf-resource-agents derivation,
 # then again with forOCF = false, where the ocf-resource-agents is
 # provided as the OCF_ROOT.
-, forOCF ? false
-, ocf-resource-agents
-}:
+, forOCF ? false, ocf-resource-agents }:
 
 stdenv.mkDerivation rec {
   pname = "drbd";
   version = "9.19.1";
 
   src = fetchurl {
-    url = "https://pkg.linbit.com/downloads/drbd/utils/${pname}-utils-${version}.tar.gz";
+    url =
+      "https://pkg.linbit.com/downloads/drbd/utils/${pname}-utils-${version}.tar.gz";
     sha256 = "1l99kcrb0j85wxxmrdihpx9bk1a4sdi7wlp5m1x5l24k8ck1m5cf";
   };
 
-  nativeBuildInputs = [
-    flex
-    libxslt
-    docbook_xsl
-    asciidoctor
-  ];
+  nativeBuildInputs = [ flex libxslt docbook_xsl asciidoctor ];
 
   buildInputs = [
     perl
@@ -49,10 +32,8 @@ stdenv.mkDerivation rec {
     "--without-distro"
   ];
 
-  makeFlags = [
-    "SOURCE_DATE_EPOCH=1"
-    "WANT_DRBD_REPRODUCIBLE_BUILD=1"
-  ] ++ lib.optional (!forOCF) "OCF_ROOT=${ocf-resource-agents}/usr/lib/ocf}";
+  makeFlags = [ "SOURCE_DATE_EPOCH=1" "WANT_DRBD_REPRODUCIBLE_BUILD=1" ]
+    ++ lib.optional (!forOCF) "OCF_ROOT=${ocf-resource-agents}/usr/lib/ocf}";
 
   installFlags = [
     "prefix="
@@ -120,7 +101,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://linbit.com/drbd/";
-    description = "Distributed Replicated Block Device, a distributed storage system for Linux (userspace utilities)";
+    description =
+      "Distributed Replicated Block Device, a distributed storage system for Linux (userspace utilities)";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ryantm astro ];

@@ -25,9 +25,7 @@ buildGoModule rec {
     )
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) corerad;
-  };
+  passthru.tests = { inherit (nixosTests) corerad; };
 
   meta = with lib; {
     homepage = "https://github.com/mdlayher/corerad";

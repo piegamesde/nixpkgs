@@ -1,20 +1,7 @@
-{ lib, stdenv
-, fetchurl
-, ninja
-, meson
-, mesonEmulatorHook
-, pkg-config
-, vala
-, gobject-introspection
-, buildPackages
+{ lib, stdenv, fetchurl, ninja, meson, mesonEmulatorHook, pkg-config, vala
+, gobject-introspection, buildPackages
 , withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-, gtk-doc
-, docbook-xsl-nons
-, docbook_xml_dtd_43
-, glib
-, libgudev
-, libevdev
-, gnome
+, gtk-doc, docbook-xsl-nons, docbook_xml_dtd_43, glib, libgudev, libevdev, gnome
 }:
 
 stdenv.mkDerivation rec {
@@ -24,31 +11,25 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" ] ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "1b3bcdkk5xd5asq797cch9id8692grsjxrc1ss87vv11m1ck4rb3";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    glib
-  ] ++ lib.optionals withIntrospection [
-    vala
-    gobject-introspection
-    gtk-doc
-    docbook-xsl-nons
-    docbook_xml_dtd_43
-  ] ++ lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-    mesonEmulatorHook
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config glib ]
+    ++ lib.optionals withIntrospection [
+      vala
+      gobject-introspection
+      gtk-doc
+      docbook-xsl-nons
+      docbook_xml_dtd_43
+    ] ++ lib.optionals
+    (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+    [ mesonEmulatorHook ];
 
-  buildInputs = [
-    glib
-    libevdev
-  ] ++ lib.optionals withIntrospection [
-    libgudev
-  ];
+  buildInputs = [ glib libevdev ]
+    ++ lib.optionals withIntrospection [ libgudev ];
 
   mesonFlags = [
     (lib.mesonBool "doc" withIntrospection)

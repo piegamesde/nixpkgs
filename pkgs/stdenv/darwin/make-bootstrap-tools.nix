@@ -1,18 +1,15 @@
 { pkgspath ? ../../.., test-pkgspath ? pkgspath
-, localSystem ? { system = builtins.currentSystem; }
-, crossSystem ? null
-, bootstrapFiles ? null
-}:
+, localSystem ? { system = builtins.currentSystem; }, crossSystem ? null
+, bootstrapFiles ? null }:
 
-let cross = if crossSystem != null
-      then { inherit crossSystem; }
-      else {};
-    custom-bootstrap = if bootstrapFiles != null
-      then { stdenvStages = args:
-              let args' = args // { bootstrapFiles = bootstrapFiles; };
-              in (import "${pkgspath}/pkgs/stdenv/darwin" args').stagesDarwin;
-           }
-      else {};
+let
+  cross = if crossSystem != null then { inherit crossSystem; } else { };
+  custom-bootstrap = if bootstrapFiles != null then {
+    stdenvStages = args:
+      let args' = args // { bootstrapFiles = bootstrapFiles; };
+      in (import "${pkgspath}/pkgs/stdenv/darwin" args').stagesDarwin;
+  } else
+    { };
 in with import pkgspath ({ inherit localSystem; } // cross // custom-bootstrap);
 
 let
@@ -32,7 +29,10 @@ in rec {
   bzip2_ = bzip2.override (args: { linkStatic = true; });
 
   # Avoid messing with libkrb5 and libnghttp2.
-  curl_ = curlMinimal.override (args: { gssSupport = false; http2Support = false; });
+  curl_ = curlMinimal.override (args: {
+    gssSupport = false;
+    http2Support = false;
+  });
 
   build = stdenv.mkDerivation {
     name = "stdenv-bootstrap-tools";
@@ -99,7 +99,9 @@ in rec {
 
       cp -d ${lib.getLib llvmPackages.libcxx}/lib/libc++*.dylib $out/lib
       cp -d ${lib.getLib llvmPackages.libcxxabi}/lib/libc++abi*.dylib $out/lib
-      cp -d ${lib.getLib llvmPackages.compiler-rt}/lib/darwin/libclang_rt* $out/lib/darwin
+      cp -d ${
+        lib.getLib llvmPackages.compiler-rt
+      }/lib/darwin/libclang_rt* $out/lib/darwin
       cp -d ${lib.getLib llvmPackages.compiler-rt}/lib/libclang_rt* $out/lib
       cp -d ${lib.getLib llvmPackages.llvm.lib}/lib/libLLVM.dylib $out/lib
       cp -d ${lib.getLib libffi}/lib/libffi*.dylib $out/lib
@@ -191,11 +193,9 @@ in rec {
       dumpnar $out/pack | ${xz}/bin/xz > $out/on-server/bootstrap-tools.nar.xz
     '';
 
-    allowedReferences = [];
+    allowedReferences = [ ];
 
-    meta = {
-      maintainers = [ lib.maintainers.copumpkin ];
-    };
+    meta = { maintainers = [ lib.maintainers.copumpkin ]; };
   };
 
   dist = stdenv.mkDerivation {
@@ -209,9 +209,7 @@ in rec {
 
   bootstrapLlvmVersion = llvmPackages.llvm.version;
 
-  bootstrapFiles = {
-    tools = "${build}/pack";
-  };
+  bootstrapFiles = { tools = "${build}/pack"; };
 
   bootstrapTools = derivation {
     inherit system;
@@ -318,8 +316,8 @@ in rec {
     # that platform.
     localSystem = if crossSystem != null then crossSystem else localSystem;
 
-    stdenvStages = args: let
-        args' = args // { inherit bootstrapLlvmVersion bootstrapFiles; };
+    stdenvStages = args:
+      let args' = args // { inherit bootstrapLlvmVersion bootstrapFiles; };
       in (import (test-pkgspath + "/pkgs/stdenv/darwin") args').stagesDarwin;
   };
 }

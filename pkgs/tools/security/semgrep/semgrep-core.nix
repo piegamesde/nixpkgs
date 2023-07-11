@@ -1,9 +1,7 @@
 { lib, stdenvNoCC, callPackage }:
 
-let
-  common = callPackage ./common.nix { };
-in
-stdenvNoCC.mkDerivation rec {
+let common = callPackage ./common.nix { };
+in stdenvNoCC.mkDerivation rec {
   pname = "semgrep-core";
   inherit (common) version;
   inherit (common.core) src;

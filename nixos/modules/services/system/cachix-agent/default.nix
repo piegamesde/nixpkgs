@@ -2,13 +2,13 @@
 
 with lib;
 
-let
-  cfg = config.services.cachix-agent;
+let cfg = config.services.cachix-agent;
 in {
   meta.maintainers = [ lib.maintainers.domenkozar ];
 
   options.services.cachix-agent = {
-    enable = mkEnableOption (lib.mdDoc "Cachix Deploy Agent: https://docs.cachix.org/deploy/");
+    enable = mkEnableOption
+      (lib.mdDoc "Cachix Deploy Agent: https://docs.cachix.org/deploy/");
 
     name = mkOption {
       type = types.str;
@@ -54,7 +54,7 @@ in {
   config = mkIf cfg.enable {
     systemd.services.cachix-agent = {
       description = "Cachix Deploy Agent";
-      after = ["network-online.target"];
+      after = [ "network-online.target" ];
       path = [ config.nix.package ];
       wantedBy = [ "multi-user.target" ];
 
@@ -71,8 +71,12 @@ in {
         RestartSec = 5;
         EnvironmentFile = cfg.credentialsFile;
         ExecStart = ''
-          ${cfg.package}/bin/cachix ${lib.optionalString cfg.verbose "--verbose"} ${lib.optionalString (cfg.host != null) "--host ${cfg.host}"} \
-            deploy agent ${cfg.name} ${optionalString (cfg.profile != null) cfg.profile}
+          ${cfg.package}/bin/cachix ${
+            lib.optionalString cfg.verbose "--verbose"
+          } ${lib.optionalString (cfg.host != null) "--host ${cfg.host}"} \
+            deploy agent ${cfg.name} ${
+              optionalString (cfg.profile != null) cfg.profile
+            }
         '';
       };
     };

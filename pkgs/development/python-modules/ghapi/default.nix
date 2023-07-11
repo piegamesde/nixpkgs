@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, fastcore
-, packaging
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, fastcore, packaging
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "ghapi";
@@ -21,17 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-nH3OciLhet4620WAEmm8mUAmlnpniyIsF2oIzqbZ7FI=";
   };
 
-  propagatedBuildInputs = [
-    fastcore
-    packaging
-  ];
+  propagatedBuildInputs = [ fastcore packaging ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "ghapi"
-  ];
+  pythonImportsCheck = [ "ghapi" ];
 
   meta = with lib; {
     description = "Python interface to GitHub's API";

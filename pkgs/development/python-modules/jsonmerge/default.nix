@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, jsonschema
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, jsonschema, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "jsonmerge";
@@ -26,7 +21,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Merge a series of JSON documents";
     homepage = "https://github.com/avian2/jsonmerge";
-    changelog = "https://github.com/avian2/jsonmerge/blob/jsonmerge-${version}/ChangeLog";
+    changelog =
+      "https://github.com/avian2/jsonmerge/blob/jsonmerge-${version}/ChangeLog";
     license = licenses.mit;
     maintainers = with maintainers; [ emily ];
   };

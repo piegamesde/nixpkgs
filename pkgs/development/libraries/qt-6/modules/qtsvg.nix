@@ -1,11 +1,4 @@
-{ qtModule
-, qtbase
-, libwebp
-, jasper
-, libmng
-, zlib
-, pkg-config
-}:
+{ qtModule, qtbase, libwebp, jasper, libmng, zlib, pkg-config }:
 
 qtModule {
   pname = "qtsvg";

@@ -20,7 +20,8 @@ buildPythonPackage rec {
   nativeCheckInputs = [ unittestCheckHook ];
 
   meta = with lib; {
-    description = "A framework-agnostic, logic-free templating system inspired by ctemplate and et";
+    description =
+      "A framework-agnostic, logic-free templating system inspired by ctemplate and et";
     homepage = "https://github.com/defunkt/pystache";
     license = licenses.mit;
   };

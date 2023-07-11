@@ -1,27 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, pkg-config
-, meson
-, python3
-, ninja
-, vala
-, desktop-file-utils
-, gettext
-, libxml2
-, gtk3
-, granite
-, libgee
-, bamf
-, libcanberra-gtk3
-, gnome-desktop
-, mesa
-, mutter
-, gnome-settings-daemon
-, wrapGAppsHook
-, gexiv2
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, pkg-config, meson, python3
+, ninja, vala, desktop-file-utils, gettext, libxml2, gtk3, granite, libgee, bamf
+, libcanberra-gtk3, gnome-desktop, mesa, mutter, gnome-settings-daemon
+, wrapGAppsHook, gexiv2 }:
 
 stdenv.mkDerivation rec {
   pname = "gala";
@@ -76,12 +56,11 @@ stdenv.mkDerivation rec {
     patchShebangs build-aux/meson/post_install.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
-    description = "A window & compositing manager based on mutter and designed by elementary for use with Pantheon";
+    description =
+      "A window & compositing manager based on mutter and designed by elementary for use with Pantheon";
     homepage = "https://github.com/elementary/gala";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

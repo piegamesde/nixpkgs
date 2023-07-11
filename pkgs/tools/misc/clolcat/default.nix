@@ -1,7 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, lib
-}:
+{ stdenv, fetchFromGitHub, lib }:
 
 stdenv.mkDerivation rec {
   pname = "clolcat";

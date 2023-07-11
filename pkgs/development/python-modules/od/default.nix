@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, repeated-test
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, repeated-test }:
 
 buildPythonPackage rec {
   pname = "od";
@@ -17,13 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-uGkj2Z8mLg51IV+FOqwZl1hT7zVyjmD1CcY/VbH4tKk=";
   };
 
-  nativeCheckInputs = [
-    repeated-test
-  ];
+  nativeCheckInputs = [ repeated-test ];
 
-  pythonImportsCheck = [
-    "od"
-  ];
+  pythonImportsCheck = [ "od" ];
 
   meta = with lib; {
     description = "Shorthand syntax for building OrderedDicts";

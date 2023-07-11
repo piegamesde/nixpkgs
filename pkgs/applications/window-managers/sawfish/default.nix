@@ -1,24 +1,6 @@
-{ lib
-, stdenv
-, fetchurl
-, autoreconfHook
-, gdk-pixbuf-xlib
-, gettext
-, gtk2
-, libICE
-, libSM
-, libxcrypt
-, libXinerama
-, libXrandr
-, libXtst
-, librep
-, makeWrapper
-, pango
-, pkg-config
-, rep-gtk
-, texinfo
-, which
-}:
+{ lib, stdenv, fetchurl, autoreconfHook, gdk-pixbuf-xlib, gettext, gtk2, libICE
+, libSM, libxcrypt, libXinerama, libXrandr, libXtst, librep, makeWrapper, pango
+, pkg-config, rep-gtk, texinfo, which }:
 
 stdenv.mkDerivation rec {
   pname = "sawfish";
@@ -29,15 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gWs8W/pMtQjbH8FEifzNAj3siZzxPd6xm8PmXXhyr10=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gettext
-    librep
-    makeWrapper
-    pkg-config
-    texinfo
-    which
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook gettext librep makeWrapper pkg-config texinfo which ];
   buildInputs = [
     gdk-pixbuf-xlib
     gtk2

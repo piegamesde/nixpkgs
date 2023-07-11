@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, aiohttp
-, python-slugify
-, pytz
-, aresponses
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, aiohttp, python-slugify
+, pytz, aresponses, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "logi-circle";
@@ -24,16 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-Q+uoaimJjn6MiO3jXGYyZ6cS0tqI06Azkq1QbNq2FN8=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    python-slugify
-    pytz
-  ];
+  propagatedBuildInputs = [ aiohttp python-slugify pytz ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aresponses pytestCheckHook ];
 
   pythonImportsCheck = [ "logi_circle" ];
 

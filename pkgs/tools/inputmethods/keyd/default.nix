@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, pkg-config
-, systemd
-, runtimeShell
-, python3
-, nixosTests
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, systemd, runtimeShell
+, python3, nixosTests }:
 
 let
   version = "2.4.2";
@@ -42,8 +34,7 @@ let
     meta.mainProgram = pname;
   };
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "keyd";
   inherit version src;
 

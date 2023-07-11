@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "opcr-policy";
@@ -15,7 +12,8 @@ buildGoModule rec {
   };
   vendorHash = "sha256-ihuZuBsTP/i8M7Fwu5arizryMFZxZ0J26k+JeqnSiJQ=";
 
-  ldflags = [ "-s" "-w" "-X github.com/opcr-io/policy/pkg/version.ver=${version}" ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/opcr-io/policy/pkg/version.ver=${version}" ];
 
   subPackages = [ "cmd/policy" ];
   # disable go workspaces

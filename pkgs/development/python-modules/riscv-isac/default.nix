@@ -1,15 +1,5 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, click
-, colorlog
-, gitpython
-, pyelftools
-, pytablewriter
-, pytest
-, pyyaml
-, ruamel-yaml
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, click, colorlog, gitpython
+, pyelftools, pytablewriter, pytest, pyyaml, ruamel-yaml }:
 
 buildPythonPackage rec {
   pname = "riscv-isac";
@@ -22,7 +12,8 @@ buildPythonPackage rec {
     hash = "sha256-Krjr9bvpoOeNfMbYj/QbJ+Y+AVLjwrzj8KKMUXCfnMA=";
   };
 
-  postPatch = "substituteInPlace riscv_isac/requirements.txt --replace 'pyelftools==0.26' pyelftools";
+  postPatch =
+    "substituteInPlace riscv_isac/requirements.txt --replace 'pyelftools==0.26' pyelftools";
 
   propagatedBuildInputs = [
     click

@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, rtl-sdr
-, soapysdr
-, libobjc
-, IOKit
-, Security
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, rtl-sdr, soapysdr, libobjc
+, IOKit, Security }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "soapyrtlsdr";

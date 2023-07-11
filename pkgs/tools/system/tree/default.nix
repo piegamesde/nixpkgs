@@ -15,8 +15,7 @@ let
     CFLAGS="-O2 -Wall -fomit-frame-pointer"
     LDFLAGS=-s
   ''; # use linux flags by default
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "tree";
   version = "2.0.4";
 
@@ -31,10 +30,8 @@ stdenv.mkDerivation rec {
     makeFlagsArray+=(${systemFlags})
   '';
 
-  makeFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
-    "PREFIX=${placeholder "out"}"
-  ];
+  makeFlags =
+    [ "CC=${stdenv.cc.targetPrefix}cc" "PREFIX=${placeholder "out"}" ];
 
   meta = with lib; {
     homepage = "http://mama.indstate.edu/users/ice/tree/";

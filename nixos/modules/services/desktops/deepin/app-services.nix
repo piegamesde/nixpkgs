@@ -4,9 +4,7 @@ with lib;
 
 {
 
-  meta = {
-    maintainers = teams.deepin.members;
-  };
+  meta = { maintainers = teams.deepin.members; };
 
   ###### interface
 
@@ -14,12 +12,12 @@ with lib;
 
     services.deepin.app-services = {
 
-      enable = mkEnableOption (lib.mdDoc "Service collection of DDE applications, including dconfig-center");
+      enable = mkEnableOption (lib.mdDoc
+        "Service collection of DDE applications, including dconfig-center");
 
     };
 
   };
-
 
   ###### implementation
 

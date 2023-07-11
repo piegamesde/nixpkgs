@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, python
-, pygments
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python, pygments }:
 
 buildPythonPackage rec {
   pname = "markdown2";
@@ -30,9 +25,10 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    changelog = "https://github.com/trentm/python-markdown2/blob/${src.rev}/CHANGES.md";
+    changelog =
+      "https://github.com/trentm/python-markdown2/blob/${src.rev}/CHANGES.md";
     description = "A fast and complete Python implementation of Markdown";
-    homepage =  "https://github.com/trentm/python-markdown2";
+    homepage = "https://github.com/trentm/python-markdown2";
     license = licenses.mit;
     maintainers = with maintainers; [ hbunke ];
   };

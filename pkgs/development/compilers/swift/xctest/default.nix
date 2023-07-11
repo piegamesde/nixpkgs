@@ -1,15 +1,6 @@
-{ lib
-, stdenv
-, callPackage
-, cmake
-, ninja
-, swift
-, Foundation
-, DarwinTools
-}:
+{ lib, stdenv, callPackage, cmake, ninja, swift, Foundation, DarwinTools }:
 
-let
-  sources = callPackage ../sources.nix { };
+let sources = callPackage ../sources.nix { };
 in stdenv.mkDerivation {
   pname = "swift-corelibs-xctest";
 
@@ -50,6 +41,12 @@ in stdenv.mkDerivation {
     homepage = "https://github.com/apple/swift-corelibs-xctest";
     platforms = lib.platforms.all;
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dtzWill trepetti dduan trundle stephank ];
+    maintainers = with lib.maintainers; [
+      dtzWill
+      trepetti
+      dduan
+      trundle
+      stephank
+    ];
   };
 }

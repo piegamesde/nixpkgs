@@ -1,23 +1,11 @@
-{ lib
-, buildPythonPackage
-, callPackage
-, pythonOlder
-, fetchPypi
-, isPyPy
+{ lib, buildPythonPackage, callPackage, pythonOlder, fetchPypi, isPyPy
 , writeText
 
 # build
 , setuptools-scm
 
 # propagates
-, attrs
-, exceptiongroup
-, iniconfig
-, packaging
-, pluggy
-, py
-, tomli
-}:
+, attrs, exceptiongroup, iniconfig, packaging, pluggy, py, tomli }:
 
 buildPythonPackage rec {
   pname = "pytest";
@@ -29,25 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-1F4JUvNyckGRi4/Q83b1/2swHMB3fG+aVWk1yS2KfUI=";
   };
 
-  outputs = [
-    "out"
-    "testout"
-  ];
+  outputs = [ "out" "testout" ];
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    attrs
-    iniconfig
-    packaging
-    pluggy
-    py
-    tomli
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    exceptiongroup
-  ];
+  propagatedBuildInputs = [ attrs iniconfig packaging pluggy py tomli ]
+    ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ];
 
   postInstall = ''
     mkdir $testout
@@ -78,9 +53,7 @@ buildPythonPackage rec {
     preDistPhases+=" pytestRemoveBytecodePhase"
   '';
 
-  pythonImportsCheck = [
-    "pytest"
-  ];
+  pythonImportsCheck = [ "pytest" ];
 
   meta = with lib; {
     description = "Framework for writing tests";

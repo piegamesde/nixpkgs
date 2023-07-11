@@ -1,9 +1,4 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, pytestCheckHook
-, matplotlib
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, pytestCheckHook, matplotlib }:
 
 buildPythonPackage rec {
   pname = "squarify";
@@ -24,7 +19,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/laserson/squarify";
-    description = "Pure Python implementation of the squarify treemap layout algorithm";
+    description =
+      "Pure Python implementation of the squarify treemap layout algorithm";
     license = licenses.asl20;
     maintainers = with maintainers; [ veehaitch ];
   };

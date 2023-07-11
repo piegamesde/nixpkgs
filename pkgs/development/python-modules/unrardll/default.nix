@@ -11,7 +11,8 @@ buildPythonPackage rec {
 
   buildInputs = [ unrar ];
 
-  NIX_CFLAGS_LINK = lib.optionalString stdenv.isDarwin "-headerpad_max_install_names";
+  NIX_CFLAGS_LINK =
+    lib.optionalString stdenv.isDarwin "-headerpad_max_install_names";
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     install_name_tool -change libunrar.so ${unrar}/lib/libunrar.so $out/lib/python*/site-packages/unrardll/unrar.*-darwin.so

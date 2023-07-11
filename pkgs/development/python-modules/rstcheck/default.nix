@@ -1,17 +1,6 @@
-{ lib
-, buildPythonPackage
-, docutils
-, fetchFromGitHub
-, importlib-metadata
-, poetry-core
-, pydantic
-, pytestCheckHook
-, pythonOlder
-, rstcheck-core
-, typer
-, types-docutils
-, typing-extensions
-}:
+{ lib, buildPythonPackage, docutils, fetchFromGitHub, importlib-metadata
+, poetry-core, pydantic, pytestCheckHook, pythonOlder, rstcheck-core, typer
+, types-docutils, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "rstcheck";
@@ -27,29 +16,18 @@ buildPythonPackage rec {
     hash = "sha256-UMByfnnP1va3v1IgyQL0f3kC+W6HoiWScb7U2FAvWkU=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    docutils
-    rstcheck-core
-    types-docutils
-    typing-extensions
-    pydantic
-    typer
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-    importlib-metadata
-  ] ++ typer.optional-dependencies.all;
+  propagatedBuildInputs =
+    [ docutils rstcheck-core types-docutils typing-extensions pydantic typer ]
+    ++ lib.optionals (pythonOlder "3.8") [
+      typing-extensions
+      importlib-metadata
+    ] ++ typer.optional-dependencies.all;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "rstcheck"
-  ];
+  pythonImportsCheck = [ "rstcheck" ];
 
   preCheck = ''
     # The tests need to find and call the rstcheck executable
@@ -57,9 +35,11 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Checks syntax of reStructuredText and code blocks nested within it";
+    description =
+      "Checks syntax of reStructuredText and code blocks nested within it";
     homepage = "https://github.com/myint/rstcheck";
-    changelog = "https://github.com/rstcheck/rstcheck/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/rstcheck/rstcheck/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ staccato ];
   };

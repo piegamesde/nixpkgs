@@ -1,14 +1,5 @@
-{ lib, stdenv
-, autoreconfHook
-, bison
-, fetchFromGitHub
-, flex
-, lksctp-tools
-, openssl
-, pkg-config
-, sqlite
-, util-linux
-}:
+{ lib, stdenv, autoreconfHook, bison, fetchFromGitHub, flex, lksctp-tools
+, openssl, pkg-config, sqlite, util-linux }:
 
 stdenv.mkDerivation rec {
   pname = "solanum";
@@ -21,9 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-g8hXmxTfcPDmQ/cu4AI/iJfrhPLaQJEAeMdDhNDsVXs=";
   };
 
-  patches = [
-    ./dont-create-logdir.patch
-  ];
+  patches = [ ./dont-create-logdir.patch ];
 
   postPatch = ''
     substituteInPlace include/defaults.h --replace 'ETCPATH "' '"/etc/solanum'
@@ -37,22 +26,12 @@ stdenv.mkDerivation rec {
     "--localstatedir=/var/lib"
     "--with-rundir=/run"
     "--with-logdir=/var/log"
-  ] ++ lib.optionals (stdenv.isLinux) [
-    "--enable-sctp=${lksctp-tools.out}/lib"
-  ];
+  ] ++ lib.optionals (stdenv.isLinux)
+    [ "--enable-sctp=${lksctp-tools.out}/lib" ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    bison
-    flex
-    pkg-config
-    util-linux
-  ];
+  nativeBuildInputs = [ autoreconfHook bison flex pkg-config util-linux ];
 
-  buildInputs = [
-    openssl
-    sqlite
-  ];
+  buildInputs = [ openssl sqlite ];
 
   doCheck = !stdenv.isDarwin;
 

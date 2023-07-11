@@ -1,29 +1,20 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
 
   let
     user = "alice"; # from ./common/user-account.nix
     password = "foobar"; # from ./common/user-account.nix
   in {
     name = "cockpit";
-    meta = {
-      maintainers = with lib.maintainers; [ lucasew ];
-    };
+    meta = { maintainers = with lib.maintainers; [ lucasew ]; };
     nodes = {
       server = { config, ... }: {
         imports = [ ./common/user-account.nix ];
         security.polkit.enable = true;
-        users.users.${user} = {
-          extraGroups = [ "wheel" ];
-        };
+        users.users.${user} = { extraGroups = [ "wheel" ]; };
         services.cockpit = {
           enable = true;
           openFirewall = true;
-          settings = {
-            WebService = {
-              Origins = "https://server:9090";
-            };
-          };
+          settings = { WebService = { Origins = "https://server:9090"; }; };
         };
       };
       client = { config, ... }: {
@@ -31,7 +22,7 @@ import ./make-test-python.nix (
         environment.systemPackages = let
           seleniumScript = pkgs.writers.writePython3Bin "selenium-script" {
             libraries = with pkgs.python3Packages; [ selenium ];
-            } ''
+          } ''
             from selenium import webdriver
             from selenium.webdriver.common.by import By
             from selenium.webdriver.firefox.options import Options
@@ -131,5 +122,4 @@ import ./make-test-python.nix (
       print(client.succeed("whoami"))
       client.succeed('PYTHONUNBUFFERED=1 selenium-script')
     '';
-  }
-)
+  })

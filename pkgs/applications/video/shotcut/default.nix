@@ -1,23 +1,6 @@
-{ lib
-, fetchFromGitHub
-, mkDerivation
-, SDL2
-, frei0r
-, ladspaPlugins
-, gettext
-, mlt
-, jack1
-, pkg-config
-, qtbase
-, qtmultimedia
-, qtx11extras
-, qtwebsockets
-, qtquickcontrols2
-, qtgraphicaleffects
-, qmake
-, qttools
-, gitUpdater
-}:
+{ lib, fetchFromGitHub, mkDerivation, SDL2, frei0r, ladspaPlugins, gettext, mlt
+, jack1, pkg-config, qtbase, qtmultimedia, qtx11extras, qtwebsockets
+, qtquickcontrols2, qtgraphicaleffects, qmake, qttools, gitUpdater }:
 
 assert lib.versionAtLeast mlt.version "6.24.0";
 
@@ -47,7 +30,8 @@ mkDerivation rec {
     qtgraphicaleffects
   ];
 
-  env.NIX_CFLAGS_COMPILE = "-I${mlt.dev}/include/mlt++ -I${mlt.dev}/include/mlt";
+  env.NIX_CFLAGS_COMPILE =
+    "-I${mlt.dev}/include/mlt++ -I${mlt.dev}/include/mlt";
   qmakeFlags = [
     "QMAKE_LRELEASE=${lib.getDev qttools}/bin/lrelease"
     "SHOTCUT_VERSION=${version}"
@@ -74,9 +58,7 @@ mkDerivation rec {
     cp -r src/qml $out/share/shotcut/
   '';
 
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "v";
-  };
+  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
   meta = with lib; {
     description = "A free, open source, cross-platform video editor";

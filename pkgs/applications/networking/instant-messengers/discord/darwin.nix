@@ -1,4 +1,5 @@
-{ pname, version, src, openasar, meta, stdenv, binaryName, desktopName, lib, undmg, makeWrapper, branch, withOpenASAR ? false }:
+{ pname, version, src, openasar, meta, stdenv, binaryName, desktopName, lib
+, undmg, makeWrapper, branch, withOpenASAR ? false }:
 
 stdenv.mkDerivation {
   inherit pname version src meta;

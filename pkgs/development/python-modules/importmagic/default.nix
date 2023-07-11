@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, six
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, six, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "importmagic";
@@ -21,7 +16,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "importmagic" ];
 
   meta = with lib; {
-    description = "Python Import Magic - automagically add, remove and manage imports";
+    description =
+      "Python Import Magic - automagically add, remove and manage imports";
     homepage = "https://github.com/alecthomas/importmagic";
     license = licenses.bsd0;
     maintainers = with maintainers; [ onny ];

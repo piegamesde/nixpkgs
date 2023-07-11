@@ -1,25 +1,7 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, cons
-, cython
-, etuples
-, fetchFromGitHub
-, filelock
-, hatch-vcs
-, hatchling
-, jax
-, jaxlib
-, logical-unification
-, minikanren
-, numba
-, numba-scipy
-, numpy
-, pytestCheckHook
-, pythonOlder
-, scipy
-, typing-extensions
-}:
+{ lib, stdenv, buildPythonPackage, cons, cython, etuples, fetchFromGitHub
+, filelock, hatch-vcs, hatchling, jax, jaxlib, logical-unification, minikanren
+, numba, numba-scipy, numpy, pytestCheckHook, pythonOlder, scipy
+, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "aesara";
@@ -35,11 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-lRc0IGpxkSnVeziFOYX7f99P7WNvz1KHy73qMPrU24I=";
   };
 
-  nativeBuildInputs = [
-    cython
-    hatch-vcs
-    hatchling
-  ];
+  nativeBuildInputs = [ cython hatch-vcs hatchling ];
 
   propagatedBuildInputs = [
     cons
@@ -52,13 +30,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
-    jax
-    jaxlib
-    numba
-    numba-scipy
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ jax jaxlib numba numba-scipy pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -69,9 +41,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [
-    "aesara"
-  ];
+  pythonImportsCheck = [ "aesara" ];
 
   disabledTestPaths = [
     # Don't run the most compute-intense tests
@@ -90,9 +60,11 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Python library to define, optimize, and efficiently evaluate mathematical expressions involving multi-dimensional arrays";
+    description =
+      "Python library to define, optimize, and efficiently evaluate mathematical expressions involving multi-dimensional arrays";
     homepage = "https://github.com/aesara-devs/aesara";
-    changelog = "https://github.com/aesara-devs/aesara/releases/tag/rel-${version}";
+    changelog =
+      "https://github.com/aesara-devs/aesara/releases/tag/rel-${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ Etjean ];
     broken = (stdenv.isLinux && stdenv.isAarch64);

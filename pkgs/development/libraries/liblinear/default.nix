@@ -1,7 +1,6 @@
 { lib, stdenv, fetchFromGitHub }:
 
-let
-  soVersion = "5";
+let soVersion = "5";
 in stdenv.mkDerivation rec {
   pname = "liblinear";
   version = "2.46";
@@ -9,11 +8,14 @@ in stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "cjlin1";
     repo = "liblinear";
-    rev = "v${builtins.replaceStrings ["."] [""] version}";
+    rev = "v${builtins.replaceStrings [ "." ] [ "" ] version}";
     sha256 = "sha256-mKd6idfr6mIIDEie8DCS+drtfpgKoS/5UXI0JenTxlA=";
   };
 
-  makeFlags = [ "AR=${stdenv.cc.targetPrefix}ar" "RANLIB=${stdenv.cc.targetPrefix}ranlib" ];
+  makeFlags = [
+    "AR=${stdenv.cc.targetPrefix}ar"
+    "RANLIB=${stdenv.cc.targetPrefix}ranlib"
+  ];
 
   outputs = [ "bin" "dev" "out" ];
 

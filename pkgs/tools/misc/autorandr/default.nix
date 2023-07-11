@@ -1,11 +1,5 @@
-{ lib
-, python3
-, python3Packages
-, fetchFromGitHub
-, systemd
-, xrandr
-, installShellFiles
-, desktop-file-utils }:
+{ lib, python3, python3Packages, fetchFromGitHub, systemd, xrandr
+, installShellFiles, desktop-file-utils }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "autorandr";
@@ -65,7 +59,8 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/phillipberndt/autorandr/";
-    description = "Automatically select a display configuration based on connected devices";
+    description =
+      "Automatically select a display configuration based on connected devices";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ coroa globin ];
     platforms = platforms.unix;

@@ -16,7 +16,8 @@ buildGoModule rec {
   vendorSha256 = null;
 
   meta = with lib; {
-    description = "An idempotent command-line utility for managing your /etc/hosts* file.";
+    description =
+      "An idempotent command-line utility for managing your /etc/hosts* file.";
     license = licenses.mit;
     maintainers = with maintainers; [ edlimerkaj ];
   };

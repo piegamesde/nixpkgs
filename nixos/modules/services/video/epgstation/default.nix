@@ -48,25 +48,34 @@ let
   logConfig = yaml.generate "logConfig.yml" {
     appenders.stdout.type = "stdout";
     categories = {
-      default = { appenders = [ "stdout" ]; level = "info"; };
-      system = { appenders = [ "stdout" ]; level = "info"; };
-      access = { appenders = [ "stdout" ]; level = "info"; };
-      stream = { appenders = [ "stdout" ]; level = "info"; };
+      default = {
+        appenders = [ "stdout" ];
+        level = "info";
+      };
+      system = {
+        appenders = [ "stdout" ];
+        level = "info";
+      };
+      access = {
+        appenders = [ "stdout" ];
+        level = "info";
+      };
+      stream = {
+        appenders = [ "stdout" ];
+        level = "info";
+      };
     };
   };
 
   # Deprecate top level options that are redundant.
   deprecateTopLevelOption = config:
-    lib.mkRenamedOptionModule
-      ([ "services" "epgstation" ] ++ config)
-      ([ "services" "epgstation" "settings" ] ++ config);
+    lib.mkRenamedOptionModule ([ "services" "epgstation" ] ++ config)
+    ([ "services" "epgstation" "settings" ] ++ config);
 
   removeOption = config: instruction:
-    lib.mkRemovedOptionModule
-      ([ "services" "epgstation" ] ++ config)
-      instruction;
-in
-{
+    lib.mkRemovedOptionModule ([ "services" "epgstation" ] ++ config)
+    instruction;
+in {
   meta.maintainers = with lib.maintainers; [ midchildan ];
 
   imports = [
@@ -179,7 +188,8 @@ in
         options.clientSocketioPort = lib.mkOption {
           type = lib.types.port;
           default = cfg.settings.socketioPort;
-          defaultText = lib.literalExpression "config.${opt.settings}.socketioPort";
+          defaultText =
+            lib.literalExpression "config.${opt.settings}.socketioPort";
           description = lib.mdDoc ''
             Socket.io port that the web client is going to connect to. This may
             be different from {option}`${opt.settings}.socketioPort` if
@@ -187,15 +197,17 @@ in
           '';
         };
 
-        options.mirakurunPath = with mirakurun; lib.mkOption {
-          type = lib.types.str;
-          default = "http+unix://${lib.replaceStrings ["/"] ["%2F"] sock}";
-          defaultText = lib.literalExpression ''
-            "http+unix://''${lib.replaceStrings ["/"] ["%2F"] config.${option}}"
-          '';
-          example = "http://localhost:40772";
-          description = lib.mdDoc "URL to connect to Mirakurun.";
-        };
+        options.mirakurunPath = with mirakurun;
+          lib.mkOption {
+            type = lib.types.str;
+            default =
+              "http+unix://${lib.replaceStrings [ "/" ] [ "%2F" ] sock}";
+            defaultText = lib.literalExpression ''
+              "http+unix://''${lib.replaceStrings ["/"] ["%2F"] config.${option}}"
+            '';
+            example = "http://localhost:40772";
+            description = lib.mdDoc "URL to connect to Mirakurun.";
+          };
 
         options.encodeProcessNum = lib.mkOption {
           type = lib.types.ints.positive;
@@ -218,13 +230,11 @@ in
         options.encode = lib.mkOption {
           type = with lib.types; listOf attrs;
           description = lib.mdDoc "Encoding presets for recorded videos.";
-          default = [
-            {
-              name = "H.264";
-              cmd = "%NODE% ${cfg.package}/libexec/enc.js";
-              suffix = ".mp4";
-            }
-          ];
+          default = [{
+            name = "H.264";
+            cmd = "%NODE% ${cfg.package}/libexec/enc.js";
+            suffix = ".mp4";
+          }];
           defaultText = lib.literalExpression ''
             [
               {
@@ -240,15 +250,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = !(lib.hasAttr "readOnlyOnce" cfg.settings);
-        message = ''
-          The option config.${opt.settings}.readOnlyOnce can no longer be used
-          since it's been removed. No replacements are available.
-        '';
-      }
-    ];
+    assertions = [{
+      assertion = !(lib.hasAttr "readOnlyOnce" cfg.settings);
+      message = ''
+        The option config.${opt.settings}.readOnlyOnce can no longer be used
+        since it's been removed. No replacements are available.
+      '';
+    }];
 
     environment.etc = {
       "epgstation/epgUpdaterLogConfig.yml".source = logConfig;
@@ -281,28 +289,26 @@ in
       # } ];
     };
 
-    services.epgstation.settings =
-      let
-        defaultSettings = {
-          dbtype = lib.mkDefault "mysql";
-          mysql = {
-            socketPath = lib.mkDefault "/run/mysqld/mysqld.sock";
-            user = username;
-            password = lib.mkDefault "@dbPassword@";
-            database = cfg.database.name;
-          };
-
-          ffmpeg = lib.mkDefault "${pkgs.ffmpeg-full}/bin/ffmpeg";
-          ffprobe = lib.mkDefault "${pkgs.ffmpeg-full}/bin/ffprobe";
-
-          # for disambiguation with TypeScript files
-          recordedFileExtension = lib.mkDefault ".m2ts";
+    services.epgstation.settings = let
+      defaultSettings = {
+        dbtype = lib.mkDefault "mysql";
+        mysql = {
+          socketPath = lib.mkDefault "/run/mysqld/mysqld.sock";
+          user = username;
+          password = lib.mkDefault "@dbPassword@";
+          database = cfg.database.name;
         };
-      in
-      lib.mkMerge [
-        defaultSettings
-        (lib.mkIf cfg.usePreconfiguredStreaming streamingConfig)
-      ];
+
+        ffmpeg = lib.mkDefault "${pkgs.ffmpeg-full}/bin/ffmpeg";
+        ffprobe = lib.mkDefault "${pkgs.ffmpeg-full}/bin/ffprobe";
+
+        # for disambiguation with TypeScript files
+        recordedFileExtension = lib.mkDefault ".m2ts";
+      };
+    in lib.mkMerge [
+      defaultSettings
+      (lib.mkIf cfg.usePreconfiguredStreaming streamingConfig)
+    ];
 
     systemd.tmpfiles.rules = [
       "d '/var/lib/epgstation/streamfiles' - ${username} ${groupname} - -"

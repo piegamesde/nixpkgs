@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-oauthlib
-, responses
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, requests, requests-oauthlib, responses }:
 
 buildPythonPackage rec {
   pname = "asana";
@@ -22,24 +15,17 @@ buildPythonPackage rec {
     hash = "sha256-hvAyKGoNkX3bs7Mz2h7SnOa5T6J88c0YiTR/L8fgfi8=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    requests-oauthlib
-  ];
+  propagatedBuildInputs = [ requests requests-oauthlib ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytestCheckHook responses ];
 
-  pythonImportsCheck = [
-    "asana"
-  ];
+  pythonImportsCheck = [ "asana" ];
 
   meta = with lib; {
     description = "Python client library for Asana";
     homepage = "https://github.com/asana/python-asana";
-    changelog = "https://github.com/Asana/python-asana/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Asana/python-asana/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

@@ -1,5 +1,4 @@
-{ lib, stdenv, fetchurl, fig2dev, tex, ghostscript, colm
-, build-manual ? false
+{ lib, stdenv, fetchurl, fig2dev, tex, ghostscript, colm, build-manual ? false
 }:
 
 let
@@ -21,7 +20,8 @@ let
 
       configureFlags = [ "--with-colm=${colm}" ];
 
-      env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isGNU "-std=gnu++98";
+      env.NIX_CFLAGS_COMPILE =
+        lib.optionalString stdenv.cc.isGNU "-std=gnu++98";
 
       doCheck = true;
 
@@ -34,9 +34,7 @@ let
       };
     };
 
-in
-
-{
+in {
   ragelStable = generic {
     version = "6.10";
     sha256 = "0gvcsl62gh6sg73nwaxav4a5ja23zcnyxncdcdnqa2yjcpdnw5az";

@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "strenum";
@@ -26,13 +21,9 @@ buildPythonPackage rec {
       --replace " --cov=strenum --cov-report term-missing --black --pylint" ""
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "strenum"
-  ];
+  pythonImportsCheck = [ "strenum" ];
 
   meta = with lib; {
     description = "MOdule for enum that inherits from str";

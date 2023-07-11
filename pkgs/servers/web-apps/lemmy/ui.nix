@@ -1,13 +1,5 @@
-{ lib
-, mkYarnPackage
-, libsass
-, nodejs
-, python3
-, pkg-config
-, fetchFromGitHub
-, fetchYarnDeps
-, nixosTests
-}:
+{ lib, mkYarnPackage, libsass, nodejs, python3, pkg-config, fetchFromGitHub
+, fetchYarnDeps, nixosTests }:
 
 let
   pinData = lib.importJSON ./pin.json;
@@ -33,8 +25,7 @@ let
     fetchSubmodules = true;
     sha256 = pinData.uiSha256;
   };
-in
-mkYarnPackage {
+in mkYarnPackage {
 
   inherit src pkgConfig name version;
 

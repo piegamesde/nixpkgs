@@ -1,7 +1,5 @@
-{ lib, stdenv, buildPackages
-, fetchurl, pkg-config
-, libbfd, popt, zlib, linuxHeaders, libiberty_static
-}:
+{ lib, stdenv, buildPackages, fetchurl, pkg-config, libbfd, popt, zlib
+, linuxHeaders, libiberty_static }:
 
 stdenv.mkDerivation rec {
   pname = "oprofile";
@@ -23,7 +21,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--with-kernel=${linuxHeaders}"
-    "--disable-shared"   # needed because only the static libbfd is available
+    "--disable-shared" # needed because only the static libbfd is available
   ];
 
   meta = {

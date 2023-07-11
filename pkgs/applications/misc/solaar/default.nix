@@ -1,13 +1,5 @@
-{ fetchFromGitHub
-, lib
-, gobject-introspection
-, gtk3
-, python3Packages
-, wrapGAppsHook
-, gdk-pixbuf
-, libappindicator
-, librsvg
-}:
+{ fetchFromGitHub, lib, gobject-introspection, gtk3, python3Packages
+, wrapGAppsHook, gdk-pixbuf, libappindicator, librsvg }:
 
 # Although we copy in the udev rules here, you probably just want to use
 # `logitech-udev-rules`, which is an alias to `udev` output of this derivation,
@@ -25,16 +17,9 @@ python3Packages.buildPythonApplication rec {
 
   outputs = [ "out" "udev" ];
 
-  nativeBuildInputs = [
-    gdk-pixbuf
-    gobject-introspection
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gdk-pixbuf gobject-introspection wrapGAppsHook ];
 
-  buildInputs = [
-    libappindicator
-    librsvg
-  ];
+  buildInputs = [ libappindicator librsvg ];
 
   propagatedBuildInputs = with python3Packages; [
     evdev

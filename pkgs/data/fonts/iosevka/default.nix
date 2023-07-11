@@ -1,39 +1,34 @@
-{ stdenv
-, lib
-, buildNpmPackage
-, fetchFromGitHub
-, darwin
-, remarshal
+{ stdenv, lib, buildNpmPackage, fetchFromGitHub, darwin, remarshal
 , ttfautohint-nox
-  # Custom font set options.
-  # See https://typeof.net/Iosevka/customizer
-  # Can be a raw TOML string, or a Nix attrset.
+# Custom font set options.
+# See https://typeof.net/Iosevka/customizer
+# Can be a raw TOML string, or a Nix attrset.
 
-  # Ex:
-  # privateBuildPlan = ''
-  #   [buildPlans.iosevka-custom]
-  #   family = "Iosevka Custom"
-  #   spacing = "normal"
-  #   serifs = "sans"
-  #
-  #   [buildPlans.iosevka-custom.variants.design]
-  #   capital-j = "serifless"
-  #
-  #   [buildPlans.iosevka-custom.variants.italic]
-  #   i = "tailed"
-  # '';
+# Ex:
+# privateBuildPlan = ''
+#   [buildPlans.iosevka-custom]
+#   family = "Iosevka Custom"
+#   spacing = "normal"
+#   serifs = "sans"
+#
+#   [buildPlans.iosevka-custom.variants.design]
+#   capital-j = "serifless"
+#
+#   [buildPlans.iosevka-custom.variants.italic]
+#   i = "tailed"
+# '';
 
-  # Or:
-  # privateBuildPlan = {
-  #   family = "Iosevka Custom";
-  #   spacing = "normal";
-  #   serifs = "sans";
-  #
-  #   variants = {
-  #     design.capital-j = "serifless";
-  #     italic.i = "tailed";
-  #   };
-  # }
+# Or:
+# privateBuildPlan = {
+#   family = "Iosevka Custom";
+#   spacing = "normal";
+#   serifs = "sans";
+#
+#   variants = {
+#     design.capital-j = "serifless";
+#     italic.i = "tailed";
+#   };
+# }
 , privateBuildPlan ? null
   # Extra parameters. Can be used for ligature mapping.
   # It must be a raw TOML string.
@@ -47,8 +42,7 @@
   # '';
 , extraParameters ? null
   # Custom font set name. Required if any custom settings above.
-, set ? null
-}:
+, set ? null }:
 
 assert (privateBuildPlan != null) -> set != null;
 assert (extraParameters != null) -> set != null;
@@ -66,26 +60,21 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-6zt7q5aGb6jaa6YBr4HqawZjf2jqNnR9xQM/abKpT04=";
 
-  nativeBuildInputs = [
-    remarshal
-    ttfautohint-nox
-  ] ++ lib.optionals stdenv.isDarwin [
-    # libtool
-    darwin.cctools
-  ];
+  nativeBuildInputs = [ remarshal ttfautohint-nox ]
+    ++ lib.optionals stdenv.isDarwin [
+      # libtool
+      darwin.cctools
+    ];
 
-  buildPlan =
-    if builtins.isAttrs privateBuildPlan then
-      builtins.toJSON { buildPlans.${pname} = privateBuildPlan; }
-    else
-      privateBuildPlan;
+  buildPlan = if builtins.isAttrs privateBuildPlan then
+    builtins.toJSON { buildPlans.${pname} = privateBuildPlan; }
+  else
+    privateBuildPlan;
 
   inherit extraParameters;
   passAsFile = [ "extraParameters" ] ++ lib.optionals
-    (
-      !(builtins.isString privateBuildPlan
-        && lib.hasPrefix builtins.storeDir privateBuildPlan)
-    ) [ "buildPlan" ];
+    (!(builtins.isString privateBuildPlan
+      && lib.hasPrefix builtins.storeDir privateBuildPlan)) [ "buildPlan" ];
 
   configurePhase = ''
     runHook preConfigure

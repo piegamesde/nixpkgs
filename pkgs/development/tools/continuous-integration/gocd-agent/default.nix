@@ -6,25 +6,22 @@ stdenv.mkDerivation rec {
   rev = "16079";
 
   src = fetchurl {
-    url = "https://download.go.cd/binaries/${version}-${rev}/generic/go-agent-${version}-${rev}.zip";
+    url =
+      "https://download.go.cd/binaries/${version}-${rev}/generic/go-agent-${version}-${rev}.zip";
     sha256 = "sha256-L2MOkbVHoQu99lKrbnsNkhuU0SZ8VANSK72GZrGLbiQ=";
   };
   meta = with lib; {
-    description = "A continuous delivery server specializing in advanced workflow modeling and visualization";
+    description =
+      "A continuous delivery server specializing in advanced workflow modeling and visualization";
     homepage = "http://www.go.cd";
     license = licenses.asl20;
     platforms = platforms.all;
-    sourceProvenance = with sourceTypes; [
-      binaryBytecode
-      binaryNativeCode
-    ];
+    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
     maintainers = with maintainers; [ grahamc swarren83 ];
   };
 
   nativeBuildInputs = [ unzip ];
 
-  buildCommand = "
-    unzip $src -d $out
-    mv $out/go-agent-${version} $out/go-agent
-  ";
+  buildCommand =
+    "\n    unzip $src -d $out\n    mv $out/go-agent-${version} $out/go-agent\n  ";
 }

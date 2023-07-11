@@ -1,10 +1,4 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, chardet
-, pytestCheckHook
-, faker
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, chardet, pytestCheckHook, faker }:
 
 buildPythonPackage rec {
   pname = "mbstrdecoder";

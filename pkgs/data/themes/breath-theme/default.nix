@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, cmake
-, extra-cmake-modules
-, kdecoration
-, plasma-workspace
-, qtbase
-}:
+{ lib, stdenv, fetchFromGitLab, cmake, extra-cmake-modules, kdecoration
+, plasma-workspace, qtbase }:
 
 stdenv.mkDerivation {
   pname = "breath-theme";

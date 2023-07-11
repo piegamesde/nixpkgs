@@ -1,17 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, pytestCheckHook
-, coveralls
-, numpy
-, decopatch
-, more-itertools
-, nestedtext
-, pyyaml
-, tidyexc
-, toml
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, pytestCheckHook, coveralls
+, numpy, decopatch, more-itertools, nestedtext, pyyaml, tidyexc, toml }:
 
 buildPythonPackage rec {
   pname = "parametrize-from-file";
@@ -27,7 +15,8 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       name = "replace contextlib2-with-contextlib.patch";
-      url = "https://github.com/kalekundert/parametrize_from_file/commit/edee706770a713130da7c4b38b0a07de1bd79c1b.patch";
+      url =
+        "https://github.com/kalekundert/parametrize_from_file/commit/edee706770a713130da7c4b38b0a07de1bd79c1b.patch";
       hash = "sha256-VkPKGkYYTB5XCavtEEnFJ+EdNUUhITz/euwlYAPC/tQ=";
     })
   ];
@@ -40,23 +29,12 @@ buildPythonPackage rec {
       --replace "more_itertools~=8.10" "more_itertools"
   '';
 
-  nativeCheckInputs = [
-    numpy
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ numpy pytestCheckHook ];
 
-  propagatedBuildInputs = [
-    decopatch
-    more-itertools
-    nestedtext
-    pyyaml
-    tidyexc
-    toml
-  ];
+  propagatedBuildInputs =
+    [ decopatch more-itertools nestedtext pyyaml tidyexc toml ];
 
-  pythonImportsCheck = [
-    "parametrize_from_file"
-  ];
+  pythonImportsCheck = [ "parametrize_from_file" ];
 
   disabledTests = [
     # https://github.com/kalekundert/parametrize_from_file/issues/19
@@ -66,7 +44,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Read unit test parameters from config files";
     homepage = "https://github.com/kalekundert/parametrize_from_file";
-    changelog = "https://github.com/kalekundert/parametrize_from_file/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/kalekundert/parametrize_from_file/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ jpetrucciani ];
   };

@@ -18,9 +18,7 @@ buildPythonApplication rec {
       --replace 'wcwidth = "0.1.9"' 'wcwidth = "*"'
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     pygments
@@ -35,10 +33,7 @@ buildPythonApplication rec {
     wcwidth
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pexpect
-  ];
+  nativeCheckInputs = [ pytestCheckHook pexpect ];
 
   pytestFlagsArray = [
     # Fails on sandbox
@@ -53,8 +48,10 @@ buildPythonApplication rec {
   pythonImportsCheck = [ "iredis" ];
 
   meta = with lib; {
-    description = "A Terminal Client for Redis with AutoCompletion and Syntax Highlighting";
-    changelog = "https://github.com/laixintao/iredis/raw/v${version}/CHANGELOG.md";
+    description =
+      "A Terminal Client for Redis with AutoCompletion and Syntax Highlighting";
+    changelog =
+      "https://github.com/laixintao/iredis/raw/v${version}/CHANGELOG.md";
     homepage = "https://iredis.io/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ marsam ];

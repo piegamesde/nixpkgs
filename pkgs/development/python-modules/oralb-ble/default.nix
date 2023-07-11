@@ -1,14 +1,6 @@
-{ lib
-, bleak-retry-connector
-, bluetooth-data-tools
-, bluetooth-sensor-state-data
-, buildPythonPackage
-, fetchFromGitHub
-, home-assistant-bluetooth
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, bleak-retry-connector, bluetooth-data-tools, bluetooth-sensor-state-data
+, buildPythonPackage, fetchFromGitHub, home-assistant-bluetooth, poetry-core
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "oralb-ble";
@@ -24,9 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-6LnZ+Y68sl0uA5i764n4fFJnPeo+bAi/xgEvTK6LkXY=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     bleak-retry-connector
@@ -35,23 +25,20 @@ buildPythonPackage rec {
     home-assistant-bluetooth
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace " --cov=oralb_ble --cov-report=term-missing:skip-covered" ""
   '';
 
-  pythonImportsCheck = [
-    "oralb_ble"
-  ];
+  pythonImportsCheck = [ "oralb_ble" ];
 
   meta = with lib; {
     description = "Library for Oral B BLE devices";
     homepage = "https://github.com/Bluetooth-Devices/oralb-ble";
-    changelog = "https://github.com/Bluetooth-Devices/oralb-ble/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Bluetooth-Devices/oralb-ble/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

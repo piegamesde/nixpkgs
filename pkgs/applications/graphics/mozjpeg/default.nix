@@ -11,7 +11,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-tHiuQeBWjyXxy5F8jadYz5qfF2S3snagnlCPjI1Cj18=";
   };
 
-  cmakeFlags = [ "-DENABLE_STATIC=NO" "-DPNG_SUPPORTED=TRUE" ]; # See https://github.com/mozilla/mozjpeg/issues/351
+  cmakeFlags = [
+    "-DENABLE_STATIC=NO"
+    "-DPNG_SUPPORTED=TRUE"
+  ]; # See https://github.com/mozilla/mozjpeg/issues/351
 
   nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [ libpng zlib nasm ];

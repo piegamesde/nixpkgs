@@ -19,7 +19,7 @@ let
     src = fetchFromGitHub {
       owner = "numediart";
       repo = "MBROLA-voices";
-      rev = "fe05a0ccef6a941207fd6aaad0b31294a1f93a51";  # using latest commit
+      rev = "fe05a0ccef6a941207fd6aaad0b31294a1f93a51"; # using latest commit
       sha256 = "1w0y2xjp9rndwdjagp2wxh656mdm3d6w9cs411g27rjyfy1205a0";
     };
 
@@ -33,7 +33,8 @@ let
     dontFixup = true;
 
     meta = meta // {
-      description = "Speech synthesizer based on the concatenation of diphones (voice files)";
+      description =
+        "Speech synthesizer based on the concatenation of diphones (voice files)";
       homepage = "https://github.com/numediart/MBROLA-voices";
     };
   };
@@ -60,12 +61,12 @@ let
     '';
 
     meta = meta // {
-      description = "Speech synthesizer based on the concatenation of diphones (binary only)";
+      description =
+        "Speech synthesizer based on the concatenation of diphones (binary only)";
     };
   };
 
-in
-symlinkJoin {
+in symlinkJoin {
   inherit pname version meta;
   name = "${pname}-${version}";
   paths = [ bin voices ];

@@ -1,7 +1,4 @@
-{ stdenvNoCC
-, lib
-, fetchzip
-}:
+{ stdenvNoCC, lib, fetchzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "fbc-mac-bin";
@@ -26,9 +23,11 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://rpg.hamsterrepublic.com/ohrrpgce/Compiling_in_Mac_OS_X";
-    description = "FreeBASIC, a multi-platform BASIC Compiler (precompiled Darwin build by OHRRPGCE team)";
+    description =
+      "FreeBASIC, a multi-platform BASIC Compiler (precompiled Darwin build by OHRRPGCE team)";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.gpl2Plus; # runtime & graphics libraries are LGPLv2+ w/ static linking exception
+    license =
+      licenses.gpl2Plus; # runtime & graphics libraries are LGPLv2+ w/ static linking exception
     maintainers = with maintainers; [ OPNA2608 ];
     platforms = [ "x86_64-darwin" ];
   };

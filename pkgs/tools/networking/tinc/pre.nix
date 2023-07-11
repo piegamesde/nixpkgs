@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, texinfo, ncurses, readline, zlib, lzo, openssl }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, texinfo, ncurses
+, readline, zlib, lzo, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "tinc";
@@ -24,10 +25,7 @@ stdenv.mkDerivation rec {
     sed -i '/AC_INIT/s/m4_esyscmd_s.*/${version})/' configure.ac
   '';
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-  ];
+  configureFlags = [ "--sysconfdir=/etc" "--localstatedir=/var" ];
 
   meta = with lib; {
     description = "VPN daemon with full mesh routing";
@@ -37,7 +35,7 @@ stdenv.mkDerivation rec {
       Internet.  It features full mesh routing, as well as encryption,
       authentication, compression and ethernet bridging.
     '';
-    homepage="http://www.tinc-vpn.org/";
+    homepage = "http://www.tinc-vpn.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ lassulus mic92 ];

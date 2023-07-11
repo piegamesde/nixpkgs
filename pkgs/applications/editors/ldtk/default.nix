@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "1.3.2";
 
   src = fetchurl {
-    url = "https://github.com/deepnight/ldtk/releases/download/v${version}/ubuntu-distribution.zip";
+    url =
+      "https://github.com/deepnight/ldtk/releases/download/v${version}/ubuntu-distribution.zip";
     hash = "sha256-8GiMm1Nb2jRLFWtGNsSfrW1jIi9yKCcyuUKwMEqoUZI=";
   };
 

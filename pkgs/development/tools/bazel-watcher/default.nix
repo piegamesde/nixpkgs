@@ -1,17 +1,7 @@
-{ buildBazelPackage
-, bazel_5
-, fetchFromGitHub
-, git
-, go
-, python3
-, lib, stdenv
-}:
+{ buildBazelPackage, bazel_5, fetchFromGitHub, git, go, python3, lib, stdenv }:
 
 let
-  patches = [
-    ./use-go-in-path.patch
-    ./fix-rules-go-3408.patch
-  ];
+  patches = [ ./use-go-in-path.patch ./fix-rules-go-3408.patch ];
 
   # Patch the protoc alias so that it always builds from source.
   rulesProto = fetchFromGitHub {
@@ -27,8 +17,7 @@ let
     '';
   };
 
-in
-buildBazelPackage rec {
+in buildBazelPackage rec {
   pname = "bazel-watcher";
   version = "0.21.2";
 
@@ -44,10 +33,16 @@ buildBazelPackage rec {
 
   bazel = bazel_5;
   bazelFlags = [ "--override_repository=rules_proto=${rulesProto}" ];
-  bazelBuildFlags = lib.optionals stdenv.cc.isClang [ "--cxxopt=-x" "--cxxopt=c++" "--host_cxxopt=-x" "--host_cxxopt=c++" ];
+  bazelBuildFlags = lib.optionals stdenv.cc.isClang [
+    "--cxxopt=-x"
+    "--cxxopt=c++"
+    "--host_cxxopt=-x"
+    "--host_cxxopt=c++"
+  ];
   bazelTargets = [ "//cmd/ibazel" ];
 
-  fetchConfigured = false; # we want to fetch all dependencies, regardless of the current system
+  fetchConfigured =
+    false; # we want to fetch all dependencies, regardless of the current system
   fetchAttrs = {
     inherit patches;
 

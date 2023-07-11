@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "6.2";
 
   src = fetchzip {
-    url = "https://github.com/tonsky/FiraCode/releases/download/${version}/Fira_Code_v${version}.zip";
+    url =
+      "https://github.com/tonsky/FiraCode/releases/download/${version}/Fira_Code_v${version}.zip";
     stripRoot = false;
     hash = "sha256-UHOwZL9WpCHk6vZaqI/XfkZogKgycs5lWg1p0XdQt0A=";
   };

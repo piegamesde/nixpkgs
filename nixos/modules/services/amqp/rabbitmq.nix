@@ -12,8 +12,7 @@ let
 
   advanced_config_file = pkgs.writeText "advanced.config" cfg.config;
 
-in
-{
+in {
   ###### interface
   options = {
     services.rabbitmq = {
@@ -132,7 +131,8 @@ in
       pluginDirs = mkOption {
         default = [ ];
         type = types.listOf types.path;
-        description = lib.mdDoc "The list of directories containing external plugins";
+        description =
+          lib.mdDoc "The list of directories containing external plugins";
       };
 
       managementPlugin = {
@@ -147,7 +147,6 @@ in
       };
     };
   };
-
 
   ###### implementation
   config = mkIf cfg.enable {
@@ -174,7 +173,8 @@ in
       "management.tcp.ip" = cfg.listenAddress;
     };
 
-    services.rabbitmq.plugins = optional cfg.managementPlugin.enable "rabbitmq_management";
+    services.rabbitmq.plugins =
+      optional cfg.managementPlugin.enable "rabbitmq_management";
 
     systemd.services.rabbitmq = {
       description = "RabbitMQ Server";
@@ -197,7 +197,9 @@ in
         RABBITMQ_ENABLED_PLUGINS_FILE = pkgs.writeText "enabled_plugins" ''
           [ ${concatStringsSep "," cfg.plugins} ].
         '';
-      } // optionalAttrs (cfg.config != "") { RABBITMQ_ADVANCED_CONFIG_FILE = advanced_config_file; };
+      } // optionalAttrs (cfg.config != "") {
+        RABBITMQ_ADVANCED_CONFIG_FILE = advanced_config_file;
+      };
 
       serviceConfig = {
         ExecStart = "${cfg.package}/sbin/rabbitmq-server";
@@ -217,8 +219,8 @@ in
 
       preStart = ''
         ${optionalString (cfg.cookie != "") ''
-            echo -n ${cfg.cookie} > ${cfg.dataDir}/.erlang.cookie
-            chmod 600 ${cfg.dataDir}/.erlang.cookie
+          echo -n ${cfg.cookie} > ${cfg.dataDir}/.erlang.cookie
+          chmod 600 ${cfg.dataDir}/.erlang.cookie
         ''}
       '';
     };

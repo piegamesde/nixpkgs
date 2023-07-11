@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 buildGoModule rec {
   pname = "hysteria";
   version = "1.3.4";
@@ -16,11 +13,7 @@ buildGoModule rec {
   vendorSha256 = "sha256-hpV+16yU03fT8FIfxbEnIcafn6H/IMpMns9onPPPrDk=";
   proxyVendor = true;
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.appVersion=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.appVersion=${version}" ];
 
   postInstall = ''
     mv $out/bin/cmd $out/bin/hysteria
@@ -30,7 +23,8 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "A feature-packed proxy & relay utility optimized for lossy, unstable connections";
+    description =
+      "A feature-packed proxy & relay utility optimized for lossy, unstable connections";
     homepage = "https://github.com/HyNetwork/hysteria";
     license = licenses.mit;
     platforms = platforms.linux;

@@ -1,7 +1,7 @@
 { lib, stdenv, fetchFromGitHub, ocaml, findlib }:
 
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
-  "ocamlscript is not available for OCaml ${ocaml.version}"
+"ocamlscript is not available for OCaml ${ocaml.version}"
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-ocamlscript";

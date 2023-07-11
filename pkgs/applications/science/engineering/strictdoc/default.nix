@@ -1,27 +1,7 @@
-{ lib
-, stdenv
-, buildPythonApplication
-, fetchFromGitHub
-, python3
-, html5lib
-, invoke
-, openpyxl
-, poetry-core
-, tidylib
-, beautifulsoup4
-, datauri
-, docutils
-, jinja2
-, lxml
-, markupsafe
-, pygments
-, reqif
-, setuptools
-, textx
-, xlrd
-, xlsxwriter
-, pytestCheckHook
-}:
+{ lib, stdenv, buildPythonApplication, fetchFromGitHub, python3, html5lib
+, invoke, openpyxl, poetry-core, tidylib, beautifulsoup4, datauri, docutils
+, jinja2, lxml, markupsafe, pygments, reqif, setuptools, textx, xlrd, xlsxwriter
+, pytestCheckHook }:
 
 buildPythonApplication rec {
   pname = "strictdoc";
@@ -35,13 +15,13 @@ buildPythonApplication rec {
     sha256 = "sha256-SMAwji75AjW8CzXRKBDF+fR/a5++GhgIvkcuD+a/vp4=";
   };
 
-  patches = [
-    ./conftest.py.patch
-  ];
+  patches = [ ./conftest.py.patch ];
 
   postPatch = ''
     substituteInPlace ./tests/unit/conftest.py \
-      --replace @strictdoc_root_path@ "${placeholder "out"}/${python3.sitePackages}/strictdoc"
+      --replace @strictdoc_root_path@ "${
+        placeholder "out"
+      }/${python3.sitePackages}/strictdoc"
 
     substituteInPlace requirements.txt \
       --replace "jinja2 >= 2.11.2, <3.0" "jinja2 >= 2.11.2" \
@@ -50,13 +30,7 @@ buildPythonApplication rec {
       --replace "~=" ">="
   '';
 
-  nativeBuildInputs = [
-    html5lib
-    invoke
-    openpyxl
-    poetry-core
-    tidylib
-  ];
+  nativeBuildInputs = [ html5lib invoke openpyxl poetry-core tidylib ];
 
   propagatedBuildInputs = [
     beautifulsoup4
@@ -73,13 +47,9 @@ buildPythonApplication rec {
     xlsxwriter
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "strictdoc"
-  ];
+  pythonImportsCheck = [ "strictdoc" ];
 
   disabledTests = [
     # fixture 'fs' not found

@@ -1,7 +1,4 @@
-{ build-idris-package
-, fetchFromGitHub
-, lib
-}:
+{ build-idris-package, fetchFromGitHub, lib }:
 build-idris-package {
   pname = "array";
   version = "2016-10-14";

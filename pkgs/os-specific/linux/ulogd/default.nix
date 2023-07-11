@@ -7,7 +7,8 @@ stdenv.mkDerivation rec {
   pname = "ulogd";
 
   src = fetchurl {
-    url = "https://netfilter.org/projects/${pname}/files/${pname}-${version}.tar.bz2";
+    url =
+      "https://netfilter.org/projects/${pname}/files/${pname}-${version}.tar.bz2";
     hash = "sha256-Tq1sOXDD9X+h6J/i18xIO6b+K9GwhwFSHgs6/WZ98pE=";
   };
 

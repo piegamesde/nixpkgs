@@ -11,7 +11,8 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ rsync ] ++ (with ocamlPackages; [ ocaml ocamlbuild findlib ]);
+  nativeBuildInputs = [ rsync ]
+    ++ (with ocamlPackages; [ ocaml ocamlbuild findlib ]);
 
   installPhase = ''
     mkdir -p $out/bin

@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "overrides";
@@ -19,16 +14,13 @@ buildPythonPackage rec {
     hash = "sha256-mxMh1ifOnii2SqxYjupDKvslHVGwClGtRgyoJSCGfZo=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "overrides"
-  ];
+  pythonImportsCheck = [ "overrides" ];
 
   meta = with lib; {
-    description = "Decorator to automatically detect mismatch when overriding a method";
+    description =
+      "Decorator to automatically detect mismatch when overriding a method";
     homepage = "https://github.com/mkorpela/overrides";
     changelog = "https://github.com/mkorpela/overrides/releases/tag/${version}";
     license = licenses.asl20;

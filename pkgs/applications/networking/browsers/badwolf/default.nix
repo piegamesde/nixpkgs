@@ -1,14 +1,5 @@
-{ stdenv
-, lib
-, fetchgit
-, pkg-config
-, wrapGAppsHook
-, webkitgtk
-, libxml2
-, glib
-, glib-networking
-, gettext
-}:
+{ stdenv, lib, fetchgit, pkg-config, wrapGAppsHook, webkitgtk, libxml2, glib
+, glib-networking, gettext }:
 stdenv.mkDerivation rec {
   pname = "badwolf";
   version = "1.2.2";

@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchurl, fetchpatch, SDL2, libGL, libpng, libjpeg, SDL2_ttf, libvorbis, gettext
-, physfs }:
+{ lib, stdenv, fetchurl, fetchpatch, SDL2, libGL, libpng, libjpeg, SDL2_ttf
+, libvorbis, gettext, physfs }:
 
 stdenv.mkDerivation rec {
   pname = "neverball";
@@ -13,7 +13,8 @@ stdenv.mkDerivation rec {
     #   https://github.com/Neverball/neverball/pull/198
     (fetchpatch {
       name = "fno-common.patch";
-      url = "https://github.com/Neverball/neverball/commit/a42492b8db06934c7a794630db92e3ff6ebaadaa.patch";
+      url =
+        "https://github.com/Neverball/neverball/commit/a42492b8db06934c7a794630db92e3ff6ebaadaa.patch";
       sha256 = "0sqyxfwpl4xxra8iz87j5rxzwani16xra2xl4l5z61shvq30308h";
     })
   ];
@@ -45,7 +46,7 @@ stdenv.mkDerivation rec {
     homepage = "https://neverball.org/";
     description = "Tilt the floor to roll a ball";
     license = "GPL";
-    maintainers = with lib.maintainers; [viric];
+    maintainers = with lib.maintainers; [ viric ];
     platforms = with lib.platforms; linux;
   };
 }

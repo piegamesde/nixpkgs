@@ -1,21 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, rustPlatform
-, desktop-file-utils
-, appstream-glib
-, meson
-, ninja
-, pkg-config
-, reuse
-, m4
-, wrapGAppsHook4
-, glib
-, gtk4
-, gst_all_1
-, libadwaita
-, dbus
-}:
+{ lib, stdenv, fetchFromGitLab, rustPlatform, desktop-file-utils, appstream-glib
+, meson, ninja, pkg-config, reuse, m4, wrapGAppsHook4, glib, gtk4, gst_all_1
+, libadwaita, dbus }:
 
 stdenv.mkDerivation rec {
   pname = "amberol";
@@ -48,11 +33,7 @@ stdenv.mkDerivation rec {
     reuse
     m4
     wrapGAppsHook4
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  ] ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
 
   buildInputs = [
     glib

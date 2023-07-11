@@ -1,17 +1,5 @@
-{ stdenv
-, lib
-, rustPlatform
-, fetchFromGitHub
-, fetchpatch
-, pkg-config
-, makeWrapper
-, webkitgtk
-, zenity
-, Cocoa
-, Security
-, WebKit
-, withGui ? true
-}:
+{ stdenv, lib, rustPlatform, fetchFromGitHub, fetchpatch, pkg-config
+, makeWrapper, webkitgtk, zenity, Cocoa, Security, WebKit, withGui ? true }:
 
 rustPlatform.buildRustPackage rec {
   pname = "alfis";
@@ -27,7 +15,8 @@ rustPlatform.buildRustPackage rec {
   cargoPatches = [
     (fetchpatch {
       name = "bump-rust-web-view.patch";
-      url = "https://github.com/Revertron/Alfis/commit/03b461a740ab6ccbacd576eafc7a3faf4a66648f.patch";
+      url =
+        "https://github.com/Revertron/Alfis/commit/03b461a740ab6ccbacd576eafc7a3faf4a66648f.patch";
       sha256 = "sha256-CSqSMdVD31w7QxxXWtjKmqlaEirmbs1EVuiefSf1NKY=";
     })
   ];
@@ -46,9 +35,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals (withGui && stdenv.isDarwin) [ Cocoa WebKit ];
 
   buildNoDefaultFeatures = true;
-  buildFeatures = [
-    "doh"
-  ] ++ lib.optional withGui "webgui";
+  buildFeatures = [ "doh" ] ++ lib.optional withGui "webgui";
 
   postInstall = lib.optionalString (withGui && stdenv.isLinux) ''
     wrapProgram $out/bin/alfis \

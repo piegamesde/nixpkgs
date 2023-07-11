@@ -1,48 +1,12 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonAtLeast
-, pythonOlder
-, fetchPypi
-, fetchpatch
-, python
-, appdirs
-, attrs
-, automat
-, bcrypt
-, constantly
-, cryptography
-, git
-, glibcLocales
-, h2
-, hyperlink
-, hypothesis
-, idna
-, incremental
-, priority
-, pyasn1
-, pyhamcrest
-, pynacl
-, pyopenssl
-, pyserial
-, service-identity
-, setuptools
-, typing-extensions
-, zope_interface
+{ lib, stdenv, buildPythonPackage, pythonAtLeast, pythonOlder, fetchPypi
+, fetchpatch, python, appdirs, attrs, automat, bcrypt, constantly, cryptography
+, git, glibcLocales, h2, hyperlink, hypothesis, idna, incremental, priority
+, pyasn1, pyhamcrest, pynacl, pyopenssl, pyserial, service-identity, setuptools
+, typing-extensions, zope_interface
 
-  # for passthru.tests
-, cassandra-driver
-, klein
-, magic-wormhole
-, scrapy
-, treq
-, txaio
-, txamqp
-, txrequests
-, txtorcon
-, thrift
-, nixosTests
-}:
+# for passthru.tests
+, cassandra-driver, klein, magic-wormhole, scrapy, treq, txaio, txamqp
+, txrequests, txtorcon, thrift, nixosTests }:
 
 buildPythonPackage rec {
   pname = "twisted";
@@ -66,7 +30,8 @@ buildPythonPackage rec {
     (fetchpatch {
       # Conditionally skip tests that require METHOD_CRYPT
       # https://github.com/twisted/twisted/pull/11827
-      url = "https://github.com/mweinelt/twisted/commit/e69e652de671aac0abf5c7e6c662fc5172758c5a.patch";
+      url =
+        "https://github.com/mweinelt/twisted/commit/e69e652de671aac0abf5c7e6c662fc5172758c5a.patch";
       hash = "sha256-LmvKUTViZoY/TPBmSlx4S9FbJNZfB5cxzn/YcciDmoI=";
     })
   ] ++ lib.optionals (pythonAtLeast "3.11") [
@@ -76,7 +41,8 @@ buildPythonPackage rec {
       hash = "sha256-Td08pDxHwl7fPLCA6rUySuXpy8YmZfvXPHGsBpdcmSo=";
     })
     (fetchpatch {
-      url = "https://github.com/twisted/twisted/commit/00bf5be704bee022ba4d9b24eb6c2c768b4a1921.patch";
+      url =
+        "https://github.com/twisted/twisted/commit/00bf5be704bee022ba4d9b24eb6c2c768b4a1921.patch";
       hash = "sha256-fnBzczm3OlhbjRcePIQ7dSX6uldlCZ9DJTS+UFO2nAQ=";
     })
   ];
@@ -142,9 +108,10 @@ buildPythonPackage rec {
   # Generate Twisted's plug-in cache. Twisted users must do it as well. See
   # http://twistedmatrix.com/documents/current/core/howto/plugin.html#auto3
   # and http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=477103 for details.
-  postFixup = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    $out/bin/twistd --help > /dev/null
-  '';
+  postFixup =
+    lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+      $out/bin/twistd --help > /dev/null
+    '';
 
   nativeCheckInputs = [
     git
@@ -152,10 +119,10 @@ buildPythonPackage rec {
     # "hypothesis" indirectly depends on twisted to build its documentation.
     (hypothesis.override { enableDocumentation = false; })
     pyhamcrest
-  ]
-  ++ passthru.optional-dependencies.conch
-  # not supported on aarch64-darwin: https://github.com/pyca/pyopenssl/issues/873
-  ++ lib.optionals (!(stdenv.isDarwin && stdenv.isAarch64)) passthru.optional-dependencies.tls;
+  ] ++ passthru.optional-dependencies.conch
+    # not supported on aarch64-darwin: https://github.com/pyca/pyopenssl/issues/873
+    ++ lib.optionals (!(stdenv.isDarwin && stdenv.isAarch64))
+    passthru.optional-dependencies.tls;
 
   checkPhase = ''
     export SOURCE_DATE_EPOCH=315532800
@@ -174,17 +141,8 @@ buildPythonPackage rec {
     };
 
     tests = {
-      inherit
-        cassandra-driver
-        klein
-        magic-wormhole
-        scrapy
-        treq
-        txaio
-        txamqp
-        txrequests
-        txtorcon
-        thrift;
+      inherit cassandra-driver klein magic-wormhole scrapy treq txaio txamqp
+        txrequests txtorcon thrift;
       inherit (nixosTests) buildbot matrix-synapse;
     };
   };

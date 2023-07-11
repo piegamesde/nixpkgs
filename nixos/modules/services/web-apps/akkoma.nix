@@ -8,40 +8,49 @@ let
   web = ex.":pleroma"."Pleroma.Web.Endpoint";
 
   isConfined = config.systemd.services.akkoma.confinement.enable;
-  hasSmtp = (attrByPath [ ":pleroma" "Pleroma.Emails.Mailer" "adapter" "value" ] null ex) == "Swoosh.Adapters.SMTP";
+  hasSmtp =
+    (attrByPath [ ":pleroma" "Pleroma.Emails.Mailer" "adapter" "value" ] null
+      ex) == "Swoosh.Adapters.SMTP";
 
   isAbsolutePath = v: isString v && substring 0 1 v == "/";
   isSecret = v: isAttrs v && v ? _secret && isAbsolutePath v._secret;
 
-  absolutePath = with types; mkOptionType {
-    name = "absolutePath";
-    description = "absolute path";
-    descriptionClass = "noun";
-    check = isAbsolutePath;
-    inherit (str) merge;
-  };
+  absolutePath = with types;
+    mkOptionType {
+      name = "absolutePath";
+      description = "absolute path";
+      descriptionClass = "noun";
+      check = isAbsolutePath;
+      inherit (str) merge;
+    };
 
   secret = mkOptionType {
     name = "secret";
     description = "secret value";
     descriptionClass = "noun";
     check = isSecret;
-    nestedTypes = {
-      _secret = absolutePath;
-    };
+    nestedTypes = { _secret = absolutePath; };
   };
 
-  ipAddress = with types; mkOptionType {
-    name = "ipAddress";
-    description = "IPv4 or IPv6 address";
-    descriptionClass = "conjunction";
-    check = x: str.check x && builtins.match "[.0-9:A-Fa-f]+" x != null;
-    inherit (str) merge;
-  };
+  ipAddress = with types;
+    mkOptionType {
+      name = "ipAddress";
+      description = "IPv4 or IPv6 address";
+      descriptionClass = "conjunction";
+      check = x: str.check x && builtins.match "[.0-9:A-Fa-f]+" x != null;
+      inherit (str) merge;
+    };
 
   elixirValue = let
     elixirValue' = with types;
-      nullOr (oneOf [ bool int float str (attrsOf elixirValue') (listOf elixirValue') ]) // {
+      nullOr (oneOf [
+        bool
+        int
+        float
+        str
+        (attrsOf elixirValue')
+        (listOf elixirValue')
+      ]) // {
         description = "Elixir value";
       };
   in elixirValue';
@@ -71,21 +80,25 @@ let
   sha256 = builtins.hashString "sha256";
 
   replaceSec = let
-    replaceSec' = { }@args: v:
-      if isAttrs v
-        then if v ? _secret
-          then if isAbsolutePath v._secret
-            then sha256 v._secret
-            else abort "Invalid secret path (_secret = ${v._secret})"
-          else mapAttrs (_: val: replaceSec' args val) v
-        else if isList v
-          then map (replaceSec' args) v
-          else v;
-    in replaceSec' { };
+    replaceSec' = { }@args:
+      v:
+      if isAttrs v then
+        if v ? _secret then
+          if isAbsolutePath v._secret then
+            sha256 v._secret
+          else
+            abort "Invalid secret path (_secret = ${v._secret})"
+        else
+          mapAttrs (_: val: replaceSec' args val) v
+      else if isList v then
+        map (replaceSec' args) v
+      else
+        v;
+  in replaceSec' { };
 
   # Erlang/Elixir uses a somewhat special format for IP addresses
-  erlAddr = addr: fileContents
-    (pkgs.runCommand addr {
+  erlAddr = addr:
+    fileContents (pkgs.runCommand addr {
       nativeBuildInputs = with pkgs; [ elixir ];
       code = ''
         case :inet.parse_address('${addr}') do
@@ -97,26 +110,26 @@ let
     } ''elixir "$codePath" >"$out"'');
 
   format = pkgs.formats.elixirConf { };
-  configFile = format.generate "config.exs"
-    (replaceSec
-      (attrsets.updateManyAttrsByPath [{
-        path = [ ":pleroma" "Pleroma.Web.Endpoint" "http" "ip" ];
-        update = addr:
-          if isAbsolutePath addr
-            then format.lib.mkTuple
-              [ (format.lib.mkAtom ":local") addr ]
-            else format.lib.mkRaw (erlAddr addr);
-      }] cfg.config));
+  configFile = format.generate "config.exs" (replaceSec
+    (attrsets.updateManyAttrsByPath [{
+      path = [ ":pleroma" "Pleroma.Web.Endpoint" "http" "ip" ];
+      update = addr:
+        if isAbsolutePath addr then
+          format.lib.mkTuple [ (format.lib.mkAtom ":local") addr ]
+        else
+          format.lib.mkRaw (erlAddr addr);
+    }] cfg.config));
 
   writeShell = { name, text, runtimeInputs ? [ ] }:
-    pkgs.writeShellApplication { inherit name text runtimeInputs; } + "/bin/${name}";
+    pkgs.writeShellApplication { inherit name text runtimeInputs; }
+    + "/bin/${name}";
 
   genScript = writeShell {
     name = "akkoma-gen-cookie";
     runtimeInputs = with pkgs; [ coreutils util-linux ];
     text = ''
       install -m 0400 \
-        -o ${escapeShellArg cfg.user } \
+        -o ${escapeShellArg cfg.user} \
         -g ${escapeShellArg cfg.group} \
         <(hexdump -n 16 -e '"%02x"' /dev/urandom) \
         "$RUNTIME_DIRECTORY/cookie"
@@ -172,7 +185,13 @@ let
       ${optionalString (isSecret vapid-public) ''
         { test -e ${escapeShellArg vapid-private._secret} && \
           test -e ${escapeShellArg vapid-public._secret}; } || \
-            elixir ${escapeShellArgs [ vapidKeygen vapid-public._secret vapid-private._secret ]}
+            elixir ${
+              escapeShellArgs [
+                vapidKeygen
+                vapid-public._secret
+                vapid-private._secret
+              ]
+            }
       ''}
     '';
   };
@@ -196,13 +215,15 @@ let
     '';
   };
 
-  pgpass = let
-    esc = escape [ ":" ''\'' ];
-  in if (cfg.initDb.password != null)
-    then pkgs.writeText "pgpass.conf" ''
-      *:*:*${esc cfg.initDb.username}:${esc (sha256 cfg.initDb.password._secret)}
+  pgpass = let esc = escape [ ":" "\\" ];
+  in if (cfg.initDb.password != null) then
+    pkgs.writeText "pgpass.conf" ''
+      *:*:*${esc cfg.initDb.username}:${
+        esc (sha256 cfg.initDb.password._secret)
+      }
     ''
-    else null;
+  else
+    null;
 
   escapeSqlId = x: ''"${replaceStrings [ ''"'' ] [ ''""'' ] x}"'';
   escapeSqlStr = x: "'${replaceStrings [ "'" ] [ "''" ] x}'";
@@ -211,9 +232,12 @@ let
     \set ON_ERROR_STOP on
 
     ALTER ROLE ${escapeSqlId db.username}
-      LOGIN PASSWORD ${if db ? password
-        then "${escapeSqlStr (sha256 db.password._secret)}"
-        else "NULL"};
+      LOGIN PASSWORD ${
+        if db ? password then
+          "${escapeSqlStr (sha256 db.password._secret)}"
+        else
+          "NULL"
+      };
 
     ALTER DATABASE ${escapeSqlId db.database}
       OWNER TO ${escapeSqlId db.username};
@@ -224,14 +248,22 @@ let
     CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
   '';
 
-  dbHost = if db ? socket_dir then db.socket_dir
-    else if db ? socket then db.socket
-      else if db ? hostname then db.hostname
-        else null;
+  dbHost = if db ? socket_dir then
+    db.socket_dir
+  else if db ? socket then
+    db.socket
+  else if db ? hostname then
+    db.hostname
+  else
+    null;
 
   initDbScript = writeShell {
     name = "akkoma-initdb";
-    runtimeInputs = with pkgs; [ coreutils replace-secret config.services.postgresql.package ];
+    runtimeInputs = with pkgs; [
+      coreutils
+      replace-secret
+      config.services.postgresql.package
+    ];
     text = ''
       pgpass="$(mktemp -t pgpass-XXXXXXXXXX.conf)"
       setupSql="$(mktemp -t setup-XXXXXXXXXX.psql)"
@@ -243,25 +275,34 @@ let
       export PGUSER=${escapeShellArg cfg.initDb.username}
       ${optionalString (pgpass != null) ''
         cat ${escapeShellArg pgpass} >"$pgpass"
-        replace-secret ${escapeShellArgs [
-          (sha256 cfg.initDb.password._secret) cfg.initDb.password._secret ]} "$pgpass"
+        replace-secret ${
+          escapeShellArgs [
+            (sha256 cfg.initDb.password._secret)
+            cfg.initDb.password._secret
+          ]
+        } "$pgpass"
         export PGPASSFILE="$pgpass"
       ''}
 
       cat ${escapeShellArg setupSql} >"$setupSql"
       ${optionalString (db ? password) ''
-        replace-secret ${escapeShellArgs [
-         (sha256 db.password._secret) db.password._secret ]} "$setupSql"
+        replace-secret ${
+          escapeShellArgs [ (sha256 db.password._secret) db.password._secret ]
+        } "$setupSql"
       ''}
 
       # Create role if non‐existent
       psql -tAc "SELECT 1 FROM pg_roles
-        WHERE rolname = "${escapeShellArg (escapeSqlStr db.username)} | grep -F -q 1 || \
+        WHERE rolname = "${
+          escapeShellArg (escapeSqlStr db.username)
+        } | grep -F -q 1 || \
         psql -tAc "CREATE ROLE "${escapeShellArg (escapeSqlId db.username)}
 
       # Create database if non‐existent
       psql -tAc "SELECT 1 FROM pg_database
-        WHERE datname = "${escapeShellArg (escapeSqlStr db.database)} | grep -F -q 1 || \
+        WHERE datname = "${
+          escapeShellArg (escapeSqlStr db.database)
+        } | grep -F -q 1 || \
         psql -tAc "CREATE DATABASE "${escapeShellArg (escapeSqlId db.database)}"
           OWNER "${escapeShellArg (escapeSqlId db.username)}"
           TEMPLATE template0
@@ -282,11 +323,13 @@ let
         AKKOMA_CONFIG_PATH="$RUNTIME_DIRECTORY/config.exs" \
         ERL_EPMD_ADDRESS="${cfg.dist.address}" \
         ERL_EPMD_PORT="${toString cfg.dist.epmdPort}" \
-        ERL_FLAGS="${concatStringsSep " " [
-          "-kernel inet_dist_use_interface '${erlAddr cfg.dist.address}'"
-          "-kernel inet_dist_listen_min ${toString cfg.dist.portMin}"
-          "-kernel inet_dist_listen_max ${toString cfg.dist.portMax}"
-        ]}" \
+        ERL_FLAGS="${
+          concatStringsSep " " [
+            "-kernel inet_dist_use_interface '${erlAddr cfg.dist.address}'"
+            "-kernel inet_dist_listen_min ${toString cfg.dist.portMin}"
+            "-kernel inet_dist_listen_max ${toString cfg.dist.portMax}"
+          ]
+        }" \
         RELEASE_COOKIE="$(<"$RUNTIME_DIRECTORY/cookie")" \
         RELEASE_NAME="akkoma" \
           exec "${cfg.package}/bin/$(basename "$0")" "$@"
@@ -312,8 +355,8 @@ let
     '';
   };
 
-  socketScript = if isAbsolutePath web.http.ip
-    then writeShell {
+  socketScript = if isAbsolutePath web.http.ip then
+    writeShell {
       name = "akkoma-socket";
       runtimeInputs = with pkgs; [ coreutils inotify-tools ];
       text = ''
@@ -330,7 +373,8 @@ let
         chmod 0666 ${escapeShellArg web.http.ip}
       '';
     }
-    else null;
+  else
+    null;
 
   staticDir = ex.":pleroma".":instance".static_dir;
   uploadDir = ex.":pleroma".":instance".upload_dir;
@@ -338,11 +382,13 @@ let
   staticFiles = pkgs.runCommandLocal "akkoma-static" { } ''
     ${concatStringsSep "\n" (mapAttrsToList (key: val: ''
       mkdir -p $out/frontends/${escapeShellArg val.name}/
-      ln -s ${escapeShellArg val.package} $out/frontends/${escapeShellArg val.name}/${escapeShellArg val.ref}
+      ln -s ${escapeShellArg val.package} $out/frontends/${
+        escapeShellArg val.name
+      }/${escapeShellArg val.ref}
     '') cfg.frontends)}
 
-    ${optionalString (cfg.extraStatic != null)
-      (concatStringsSep "\n" (mapAttrsToList (key: val: ''
+    ${optionalString (cfg.extraStatic != null) (concatStringsSep "\n"
+      (mapAttrsToList (key: val: ''
         mkdir -p "$out/$(dirname ${escapeShellArg key})"
         ln -s ${escapeShellArg val} $out/${escapeShellArg key}
       '') cfg.extraStatic))}
@@ -407,7 +453,8 @@ in {
         username = mkOption {
           type = types.nonEmptyStr;
           default = config.services.postgresql.superUser;
-          defaultText = literalExpression "config.services.postgresql.superUser";
+          defaultText =
+            literalExpression "config.services.postgresql.superUser";
           description = mdDoc ''
             Name of the database user to initialise the database with.
 
@@ -457,9 +504,15 @@ in {
 
       extraPackages = mkOption {
         type = with types; listOf package;
-        default = with pkgs; [ exiftool ffmpeg_5-headless graphicsmagick-imagemagick-compat ];
-        defaultText = literalExpression "with pkgs; [ exiftool graphicsmagick-imagemagick-compat ffmpeg_5-headless ]";
-        example = literalExpression "with pkgs; [ exiftool imagemagick ffmpeg_5-full ]";
+        default = with pkgs; [
+          exiftool
+          ffmpeg_5-headless
+          graphicsmagick-imagemagick-compat
+        ];
+        defaultText = literalExpression
+          "with pkgs; [ exiftool graphicsmagick-imagemagick-compat ffmpeg_5-headless ]";
+        example =
+          literalExpression "with pkgs; [ exiftool imagemagick ffmpeg_5-full ]";
         description = mdDoc ''
           List of extra packages to include in the executable search path of the service unit.
           These are needed by various configurable components such as:
@@ -556,13 +609,15 @@ in {
         portMin = mkOption {
           type = types.port;
           default = 49152;
-          description = mdDoc "Lower bound for Erlang distribution protocol TCP port.";
+          description =
+            mdDoc "Lower bound for Erlang distribution protocol TCP port.";
         };
 
         portMax = mkOption {
           type = types.port;
           default = 65535;
-          description = mdDoc "Upper bound for Erlang distribution protocol TCP port.";
+          description =
+            mdDoc "Upper bound for Erlang distribution protocol TCP port.";
         };
 
         cookie = mkOption {
@@ -730,7 +785,9 @@ in {
                 live_view = {
                   signing_salt = mkOption {
                     type = secret;
-                    default = { _secret = "/var/lib/secrets/akkoma/liveview-salt"; };
+                    default = {
+                      _secret = "/var/lib/secrets/akkoma/liveview-salt";
+                    };
                     description = mdDoc ''
                       LiveView signing salt.
 
@@ -747,7 +804,9 @@ in {
 
                 signing_salt = mkOption {
                   type = secret;
-                  default = { _secret = "/var/lib/secrets/akkoma/signing-salt"; };
+                  default = {
+                    _secret = "/var/lib/secrets/akkoma/signing-salt";
+                  };
                   description = mdDoc ''
                     Signing salt.
 
@@ -764,9 +823,11 @@ in {
 
               ":frontends" = mkOption {
                 type = elixirValue;
-                default = mapAttrs
-                  (key: val: format.lib.mkMap { name = val.name; ref = val.ref; })
-                  cfg.frontends;
+                default = mapAttrs (key: val:
+                  format.lib.mkMap {
+                    name = val.name;
+                    ref = val.ref;
+                  }) cfg.frontends;
                 defaultText = literalExpression ''
                   lib.mapAttrs (key: val:
                     (pkgs.formats.elixirConf { }).lib.mkMap { name = val.name; ref = val.ref; })
@@ -802,18 +863,23 @@ in {
                       defaultText = literalExpression ''
                         "mailto:''${config.services.akkoma.config.":pleroma".":instance".email}"
                       '';
-                      description = mdDoc "mailto URI for administrative contact.";
+                      description =
+                        mdDoc "mailto URI for administrative contact.";
                     };
 
                     public_key = mkOption {
                       type = with types; either nonEmptyStr secret;
-                      default = { _secret = "/var/lib/secrets/akkoma/vapid-public"; };
+                      default = {
+                        _secret = "/var/lib/secrets/akkoma/vapid-public";
+                      };
                       description = mdDoc "base64-encoded public ECDH key.";
                     };
 
                     private_key = mkOption {
                       type = secret;
-                      default = { _secret = "/var/lib/secrets/akkoma/vapid-private"; };
+                      default = {
+                        _secret = "/var/lib/secrets/akkoma/vapid-private";
+                      };
                       description = mdDoc ''
                         base64-encoded private ECDH key.
 
@@ -847,9 +913,10 @@ in {
               ":backends" = mkOption {
                 type = types.listOf elixirValue;
                 visible = false;
-                default = with format.lib; [
-                  (mkTuple [ (mkRaw "ExSyslogger") (mkAtom ":ex_syslogger") ])
-                ];
+                default = with format.lib;
+                  [
+                    (mkTuple [ (mkRaw "ExSyslogger") (mkAtom ":ex_syslogger") ])
+                  ];
               };
 
               ":ex_syslogger" = {
@@ -889,8 +956,10 @@ in {
       };
 
       nginx = mkOption {
-        type = with types; nullOr (submodule
-          (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }));
+        type = with types;
+          nullOr (submodule (import ../web-servers/nginx/vhost-options.nix {
+            inherit config lib;
+          }));
         default = null;
         description = mdDoc ''
           Extra configuration for the nginx virtual host of Akkoma.
@@ -954,8 +1023,7 @@ in {
 
       serviceConfig = {
         Type = "oneshot";
-        User = mkIf (db ? socket_dir || db ? socket)
-          cfg.initDb.username;
+        User = mkIf (db ? socket_dir || db ? socket) cfg.initDb.username;
         RemainAfterExit = true;
         UMask = "0077";
         ExecStart = initDbScript;
@@ -998,12 +1066,16 @@ in {
 
         BindPaths = [ "${uploadDir}:${uploadDir}:norbind" ];
         BindReadOnlyPaths = mkMerge [
-          (mkIf (!isStorePath staticDir) [ "${staticDir}:${staticDir}:norbind" ])
+          (mkIf (!isStorePath staticDir)
+            [ "${staticDir}:${staticDir}:norbind" ])
           (mkIf isConfined (mkMerge [
             [ "/etc/hosts" "/etc/resolv.conf" ]
             (mkIf (isStorePath staticDir) (map (dir: "${dir}:${dir}:norbind")
-              (splitString "\n" (readFile ((pkgs.closureInfo { rootPaths = staticDir; }) + "/store-paths")))))
-            (mkIf (db ? socket_dir) [ "${db.socket_dir}:${db.socket_dir}:norbind" ])
+              (splitString "\n" (readFile
+                ((pkgs.closureInfo { rootPaths = staticDir; })
+                  + "/store-paths")))))
+            (mkIf (db ? socket_dir)
+              [ "${db.socket_dir}:${db.socket_dir}:norbind" ])
             (mkIf (db ? socket) [ "${db.socket}:${db.socket}:norbind" ])
           ]))
         ];
@@ -1036,10 +1108,11 @@ in {
         RestrictSUIDSGID = true;
         RemoveIPC = true;
 
-        CapabilityBoundingSet = mkIf
-          (any (port: port > 0 && port < 1024)
-            [ web.http.port cfg.dist.epmdPort cfg.dist.portMin ])
-          [ "CAP_NET_BIND_SERVICE" ];
+        CapabilityBoundingSet = mkIf (any (port: port > 0 && port < 1024) [
+          web.http.port
+          cfg.dist.epmdPort
+          cfg.dist.portMin
+        ]) [ "CAP_NET_BIND_SERVICE" ];
 
         NoNewPrivileges = true;
         SystemCallFilter = [ "@system-service" "~@privileged" "@chown" ];
@@ -1050,7 +1123,10 @@ in {
 
         # SMTP adapter uses dynamic port 0 binding, which is incompatible with bind address filtering
         SocketBindAllow = mkIf (!hasSmtp) (mkMerge [
-          [ "tcp:${toString cfg.dist.epmdPort}" "tcp:${toString cfg.dist.portMin}-${toString cfg.dist.portMax}" ]
+          [
+            "tcp:${toString cfg.dist.epmdPort}"
+            "tcp:${toString cfg.dist.portMin}-${toString cfg.dist.portMax}"
+          ]
           (mkIf (web.http.port != 0) [ "tcp:${toString web.http.port}" ])
         ]);
         SocketBindDeny = mkIf (!hasSmtp) "any";
@@ -1065,19 +1141,22 @@ in {
     environment.systemPackages = mkIf (cfg.installWrapper) [ userWrapper ];
 
     services.nginx.virtualHosts = mkIf (cfg.nginx != null) {
-      ${web.url.host} = mkMerge [ cfg.nginx {
-        locations."/" = {
-          proxyPass =
-            if isAbsolutePath web.http.ip
-              then "http://unix:${web.http.ip}"
-              else if hasInfix ":" web.http.ip
-                then "http://[${web.http.ip}]:${toString web.http.port}"
-                else "http://${web.http.ip}:${toString web.http.port}";
+      ${web.url.host} = mkMerge [
+        cfg.nginx
+        {
+          locations."/" = {
+            proxyPass = if isAbsolutePath web.http.ip then
+              "http://unix:${web.http.ip}"
+            else if hasInfix ":" web.http.ip then
+              "http://[${web.http.ip}]:${toString web.http.port}"
+            else
+              "http://${web.http.ip}:${toString web.http.port}";
 
-          proxyWebsockets = true;
-          recommendedProxySettings = true;
-        };
-      }];
+            proxyWebsockets = true;
+            recommendedProxySettings = true;
+          };
+        }
+      ];
     };
   };
 

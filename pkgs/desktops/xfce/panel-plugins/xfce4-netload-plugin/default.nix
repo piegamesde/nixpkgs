@@ -1,11 +1,4 @@
-{ lib
-, mkXfceDerivation
-, glib
-, gtk3
-, libxfce4ui
-, libxfce4util
-, xfce4-panel
-}:
+{ lib, mkXfceDerivation, glib, gtk3, libxfce4ui, libxfce4util, xfce4-panel }:
 
 mkXfceDerivation {
   category = "panel-plugins";
@@ -15,13 +8,7 @@ mkXfceDerivation {
   odd-unstable = false;
   sha256 = "sha256-PwbyYi9EeSTKilVXlbseY2zkabcL7o2CGnk2DFFVI94=";
 
-  buildInputs = [
-    glib
-    gtk3
-    libxfce4ui
-    libxfce4util
-    xfce4-panel
-  ];
+  buildInputs = [ glib gtk3 libxfce4ui libxfce4util xfce4-panel ];
 
   meta = with lib; {
     description = "Internet load speed plugin for Xfce4 panel";

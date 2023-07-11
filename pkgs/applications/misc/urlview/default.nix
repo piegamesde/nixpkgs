@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "urlview";
-  _version    = "0.9";
+  _version = "0.9";
   patchLevel = "19";
   version = "${_version}-${patchLevel}";
 

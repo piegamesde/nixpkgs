@@ -1,20 +1,15 @@
-{ lib, callPackage, fetchurl, fetchpatch, fetchgit
-, ocaml-ng
-, withInternalQemu ? true
-, withInternalTraditionalQemu ? true
-, withInternalSeabios ? true
-, withSeabios ? !withInternalSeabios, seabios
+{ lib, callPackage, fetchurl, fetchpatch, fetchgit, ocaml-ng
+, withInternalQemu ? true, withInternalTraditionalQemu ? true
+, withInternalSeabios ? true, withSeabios ? !withInternalSeabios, seabios
 , withInternalOVMF ? false # FIXME: tricky to build
-, withOVMF ? false, OVMF
-, withLibHVM ? false
+, withOVMF ? false, OVMF, withLibHVM ? false
 
-# xen
+  # xen
 , python3Packages
 
 # qemu
 , udev, pciutils, xorg, SDL, pixman, acl, glusterfs, spice-protocol, usbredir
-, alsa-lib, glib, python3
-, ... } @ args:
+, alsa-lib, glib, python3, ... }@args:
 
 assert withInternalSeabios -> !withSeabios;
 assert withInternalOVMF -> !withOVMF;
@@ -31,21 +26,32 @@ let
 
   qemuMemfdBuildFix = fetchpatch {
     name = "xen-4.8-memfd-build-fix.patch";
-    url = "https://github.com/qemu/qemu/commit/75e5b70e6b5dcc4f2219992d7cffa462aa406af0.patch";
+    url =
+      "https://github.com/qemu/qemu/commit/75e5b70e6b5dcc4f2219992d7cffa462aa406af0.patch";
     sha256 = "0gaz93kb33qc0jx6iphvny0yrd17i8zhcl3a9ky5ylc2idz0wiwa";
   };
 
   qemuDeps = [
-    udev pciutils xorg.libX11 SDL pixman acl glusterfs spice-protocol usbredir
-    alsa-lib glib python3
+    udev
+    pciutils
+    xorg.libX11
+    SDL
+    pixman
+    acl
+    glusterfs
+    spice-protocol
+    usbredir
+    alsa-lib
+    glib
+    python3
   ];
-in
 
-callPackage (import ./generic.nix (rec {
+in callPackage (import ./generic.nix (rec {
   version = "4.15.1";
 
   src = fetchurl {
-    url = "https://downloads.xenproject.org/release/xen/${version}/xen-${version}.tar.gz";
+    url =
+      "https://downloads.xenproject.org/release/xen/${version}/xen-${version}.tar.gz";
     sha256 = "1rmc7gb72xwhr3h9rc3bkac41s8kjjzz45miwdq6yalyq7j7vss5";
   };
 
@@ -78,13 +84,13 @@ callPackage (import ./generic.nix (rec {
         sha256 = "1dc6dhjp4y2irmi9yiyw1kzmm1habyy8j1s2zkf6qyak850krqj7";
       };
       buildInputs = qemuDeps;
-      patches = [
-      ];
+      patches = [ ];
       postPatch = ''
         substituteInPlace xen-hooks.mak \
           --replace /usr/include/pci ${pciutils}/include/pci
       '';
-      meta.description = "Xen's fork of upstream Qemu that uses old device model";
+      meta.description =
+        "Xen's fork of upstream Qemu that uses old device model";
     };
   } // optionalAttrs withInternalSeabios {
     "firmware/seabios-dir-remote" = {
@@ -117,7 +123,7 @@ callPackage (import ./generic.nix (rec {
     };
   };
 
-  configureFlags = []
+  configureFlags = [ ]
     ++ optional (!withInternalQemu) "--with-system-qemu" # use qemu from PATH
     ++ optional (withInternalTraditionalQemu) "--enable-qemu-traditional"
     ++ optional (!withInternalTraditionalQemu) "--disable-qemu-traditional"
@@ -149,14 +155,15 @@ callPackage (import ./generic.nix (rec {
     "-Wno-error"
   ];
 
-  patches = with xsa; flatten [
-    ./0000-fix-ipxe-src.4.15.patch
-    ./0000-fix-install-python.4.15.patch
-    ./0004-makefile-use-efi-ld.4.15.patch
-    ./0005-makefile-fix-efi-mountdir-use.4.15.patch
+  patches = with xsa;
+    flatten [
+      ./0000-fix-ipxe-src.4.15.patch
+      ./0000-fix-install-python.4.15.patch
+      ./0004-makefile-use-efi-ld.4.15.patch
+      ./0005-makefile-fix-efi-mountdir-use.4.15.patch
 
-    XSA_386
-  ];
+      XSA_386
+    ];
 
   postPatch = ''
     # Avoid a glibc >= 2.25 deprecation warnings that get fatal via -Werror.
@@ -173,11 +180,10 @@ callPackage (import ./generic.nix (rec {
   '';
 
   passthru = {
-    qemu-system-i386 = if withInternalQemu
-      then "lib/xen/bin/qemu-system-i386"
-      else throw "this xen has no qemu builtin";
+    qemu-system-i386 = if withInternalQemu then
+      "lib/xen/bin/qemu-system-i386"
+    else
+      throw "this xen has no qemu builtin";
   };
 
-})) ({
-  ocamlPackages = ocaml-ng.ocamlPackages_4_14;
-} // args)
+})) ({ ocamlPackages = ocaml-ng.ocamlPackages_4_14; } // args)

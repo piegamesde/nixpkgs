@@ -1,18 +1,6 @@
-{ lib
-, attrs
-, buildPythonPackage
-, cattrs
-, exceptiongroup
-, fetchFromGitHub
-, fonttools
-, fs
-, importlib-metadata
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-, ufo2ft
-, ufoLib2
-}:
+{ lib, attrs, buildPythonPackage, cattrs, exceptiongroup, fetchFromGitHub
+, fonttools, fs, importlib-metadata, poetry-core, pytestCheckHook, pythonOlder
+, ufo2ft, ufoLib2 }:
 
 buildPythonPackage rec {
   pname = "statmake";
@@ -28,9 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-3BZ71JVvj7GCojM8ycu160viPj8BLJ1SiW86Df2fzsw=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     attrs
@@ -38,21 +24,12 @@ buildPythonPackage rec {
     fonttools
     # required by fonttools[ufo]
     fs
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    exceptiongroup
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    ufo2ft
-    ufoLib2
-  ];
+  nativeCheckInputs = [ pytestCheckHook ufo2ft ufoLib2 ];
 
-  pythonImportsCheck = [
-    "statmake"
-  ];
+  pythonImportsCheck = [ "statmake" ];
 
   disabledTests = [
     # Test requires an update as later cattrs is present in Nixpkgs
@@ -61,9 +38,11 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Applies STAT information from a Stylespace to a variable font";
+    description =
+      "Applies STAT information from a Stylespace to a variable font";
     homepage = "https://github.com/daltonmaag/statmake";
-    changelog = "https://github.com/daltonmaag/statmake/releases/tag/v${version}";
+    changelog =
+      "https://github.com/daltonmaag/statmake/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ jtojnar ];
   };

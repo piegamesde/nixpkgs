@@ -13,14 +13,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-9fFvJJlDzBmbI7hes/wfjAk1Cl2H55T5n8HLnUmDw/c=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   meta = with lib; {
     description = "A runner for `mdbooks` to keep your documentation tested";
     homepage = "https://github.com/Byron/termbook/";
-    changelog = "https://github.com/Byron/termbook/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/Byron/termbook/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ phaer ];
   };

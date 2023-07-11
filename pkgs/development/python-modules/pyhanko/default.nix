@@ -1,33 +1,11 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, asn1crypto
-, click
-, cryptography
-, pyhanko-certvalidator
-, pytz
-, pyyaml
-, qrcode
-, requests
-, tzlocal
-, certomancer
-, freezegun
-, python-pae
-, pytest-aiohttp
-, requests-mock
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, asn1crypto, click
+, cryptography, pyhanko-certvalidator, pytz, pyyaml, qrcode, requests, tzlocal
+, certomancer, freezegun, python-pae, pytest-aiohttp, requests-mock
 , pytestCheckHook
 
 # optionals
-, defusedxml
-, oscrypto
-, fonttools
-, uharfbuzz
-, pillow
-, python-barcode
-, python-pkcs11
-, aiohttp
-}:
+, defusedxml, oscrypto, fonttools, uharfbuzz, pillow, python-barcode
+, python-pkcs11, aiohttp }:
 
 buildPythonPackage rec {
   pname = "pyhanko";
@@ -57,26 +35,12 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    extra_pubkey_algs = [
-      oscrypto
-    ];
-    xmp = [
-      defusedxml
-    ];
-    opentype = [
-      fonttools
-      uharfbuzz
-    ];
-    image-support = [
-      pillow
-      python-barcode
-    ];
-    pkcs11 = [
-      python-pkcs11
-    ];
-    async_http = [
-      aiohttp
-    ];
+    extra_pubkey_algs = [ oscrypto ];
+    xmp = [ defusedxml ];
+    opentype = [ fonttools uharfbuzz ];
+    image-support = [ pillow python-barcode ];
+    pkcs11 = [ python-pkcs11 ];
+    async_http = [ aiohttp ];
   };
 
   postPatch = ''
@@ -125,9 +89,7 @@ buildPythonPackage rec {
     "test_ts_fetch_requests"
   ];
 
-  pythonImportsCheck = [
-    "pyhanko"
-  ];
+  pythonImportsCheck = [ "pyhanko" ];
 
   meta = with lib; {
     description = "Sign and stamp PDF files";

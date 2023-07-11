@@ -1,14 +1,12 @@
-{ buildDunePackage
-, lib
-, fetchurl
-}:
+{ buildDunePackage, lib, fetchurl }:
 
 buildDunePackage rec {
   pname = "stdcompat";
   version = "19";
 
   src = fetchurl {
-    url = "https://github.com/thierry-martinez/stdcompat/releases/download/v${version}/stdcompat-${version}.tar.gz";
+    url =
+      "https://github.com/thierry-martinez/stdcompat/releases/download/v${version}/stdcompat-${version}.tar.gz";
     sha256 = "sha256-DKQGd4nnIN6SPls6hcA/2Jvc7ivYNpeMU6rYsVc1ClU=";
   };
 

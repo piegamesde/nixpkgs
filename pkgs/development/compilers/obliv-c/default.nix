@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   nativeBuildInputs = [ perl ]
-  ++ (with ocamlPackages; [ ocaml findlib ocamlbuild ]);
+    ++ (with ocamlPackages; [ ocaml findlib ocamlbuild ]);
   buildInputs = [ ocamlPackages.num ];
   propagatedBuildInputs = [ libgcrypt ];
   src = fetchFromGitHub {
@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
   patches = [ ./ignore-complex-float128.patch ];
 
   # https://github.com/samee/obliv-c/issues/76#issuecomment-438958209
-  env.OCAMLBUILD = "ocamlbuild -package num -ocamlopt 'ocamlopt -dontlink num' -ocamlc 'ocamlc -dontlink num'";
+  env.OCAMLBUILD =
+    "ocamlbuild -package num -ocamlopt 'ocamlopt -dontlink num' -ocamlc 'ocamlc -dontlink num'";
 
   preBuild = ''
     patchShebangs .
@@ -42,9 +43,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A GCC wrapper that makes it easy to embed secure computation protocols inside regular C programs";
+    description =
+      "A GCC wrapper that makes it easy to embed secure computation protocols inside regular C programs";
     license = lib.licenses.bsd3;
-    maintainers = [lib.maintainers.raskin];
+    maintainers = [ lib.maintainers.raskin ];
     platforms = lib.platforms.linux;
   };
 }

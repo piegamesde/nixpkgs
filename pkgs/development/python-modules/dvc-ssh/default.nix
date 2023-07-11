@@ -1,11 +1,5 @@
-{ lib
-, bcrypt
-, buildPythonPackage
-, fetchPypi
-, pythonRelaxDepsHook
-, setuptools-scm
-, sshfs
-}:
+{ lib, bcrypt, buildPythonPackage, fetchPypi, pythonRelaxDepsHook
+, setuptools-scm, sshfs }:
 
 buildPythonPackage rec {
   pname = "dvc-ssh";

@@ -1,9 +1,4 @@
-{ stdenv
-, lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, buildPackages
+{ stdenv, lib, buildGoModule, fetchFromGitHub, installShellFiles, buildPackages
 }:
 
 buildGoModule rec {
@@ -23,16 +18,15 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  postInstall =
-    let emulator = stdenv.hostPlatform.emulator buildPackages;
-    in ''
-      ${emulator} $out/bin/nfpm man > nfpm.1
-      installManPage ./nfpm.1
-      installShellCompletion --cmd nfpm \
-        --bash <(${emulator} $out/bin/nfpm completion bash) \
-        --fish <(${emulator} $out/bin/nfpm completion fish) \
-        --zsh  <(${emulator} $out/bin/nfpm completion zsh)
-    '';
+  postInstall = let emulator = stdenv.hostPlatform.emulator buildPackages;
+  in ''
+    ${emulator} $out/bin/nfpm man > nfpm.1
+    installManPage ./nfpm.1
+    installShellCompletion --cmd nfpm \
+      --bash <(${emulator} $out/bin/nfpm completion bash) \
+      --fish <(${emulator} $out/bin/nfpm completion fish) \
+      --zsh  <(${emulator} $out/bin/nfpm completion zsh)
+  '';
 
   meta = with lib; {
     description = "A simple deb and rpm packager written in Go";

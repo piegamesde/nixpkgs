@@ -1,18 +1,5 @@
-{ lib, stdenv
-, fetchFromGitLab
-, glm
-, glslang
-, meson
-, ninja
-, openxr-loader
-, pkg-config
-, vulkan-headers
-, vulkan-loader
-, xxd
-, SDL2
-, makeWrapper
-, libGL
-, glib
+{ lib, stdenv, fetchFromGitLab, glm, glslang, meson, ninja, openxr-loader
+, pkg-config, vulkan-headers, vulkan-loader, xxd, SDL2, makeWrapper, libGL, glib
 }:
 
 stdenv.mkDerivation rec {
@@ -27,22 +14,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-buw2beTPIWScq+3VQjUyF+uOwS6VF+mnAPHZ2eFGZjc=";
   };
 
-  nativeBuildInputs = [
-    glslang
-    meson
-    ninja
-    pkg-config
-    xxd
-    makeWrapper
-  ];
+  nativeBuildInputs = [ glslang meson ninja pkg-config xxd makeWrapper ];
 
-  buildInputs = [
-    glm
-    openxr-loader
-    vulkan-headers
-    vulkan-loader
-    glib
-  ];
+  buildInputs = [ glm openxr-loader vulkan-headers vulkan-loader glib ];
 
   fixupPhase = ''
     wrapProgram $out/bin/xrgears \

@@ -5,16 +5,18 @@ stdenv.mkDerivation rec {
   version = "2019.05.01"; # date of cav19 tag
 
   src = fetchgit {
-    url    = "https://bitbucket.org/arieg/extavy";
-    rev    = "cav19";
+    url = "https://bitbucket.org/arieg/extavy";
+    rev = "cav19";
     sha256 = "0qdzy9srxp5f38x4dbb3prnr9il6cy0kz80avrvd7fxqzy7wdlwy";
     fetchSubmodules = true;
   };
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ zlib boost.out boost.dev ];
-  env.NIX_CFLAGS_COMPILE = toString ([ "-Wno-narrowing" ]
-    # Squelch endless stream of warnings on same few things
+  env.NIX_CFLAGS_COMPILE = toString ([
+    "-Wno-narrowing"
+  ]
+  # Squelch endless stream of warnings on same few things
     ++ lib.optionals stdenv.cc.isClang [
       "-Wno-empty-body"
       "-Wno-tautological-compare"
@@ -39,9 +41,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "AIGER model checking for Property Directed Reachability";
-    homepage    = "https://arieg.bitbucket.io/avy/";
-    license     = lib.licenses.mit;
+    homepage = "https://arieg.bitbucket.io/avy/";
+    license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ thoughtpolice ];
-    platforms   = lib.platforms.linux;
+    platforms = lib.platforms.linux;
   };
 }

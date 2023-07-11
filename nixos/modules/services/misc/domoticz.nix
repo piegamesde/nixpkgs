@@ -23,7 +23,8 @@ in {
       port = mkOption {
         type = types.port;
         default = 8080;
-        description = lib.mdDoc "Port to bind to for HTTP, set to 0 to disable HTTP.";
+        description =
+          lib.mdDoc "Port to bind to for HTTP, set to 0 to disable HTTP.";
       };
 
     };
@@ -41,7 +42,9 @@ in {
         StateDirectory = "domoticz";
         Restart = "always";
         ExecStart = ''
-          ${pkgs.domoticz}/bin/domoticz -noupdates -www ${toString cfg.port} -wwwbind ${cfg.bind} -sslwww 0 -userdata /var/lib/domoticz -approot ${pkgs.domoticz}/share/domoticz/ -pidfile /var/run/domoticz.pid
+          ${pkgs.domoticz}/bin/domoticz -noupdates -www ${
+            toString cfg.port
+          } -wwwbind ${cfg.bind} -sslwww 0 -userdata /var/lib/domoticz -approot ${pkgs.domoticz}/share/domoticz/ -pidfile /var/run/domoticz.pid
         '';
       };
     };

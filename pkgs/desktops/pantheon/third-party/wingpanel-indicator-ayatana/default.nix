@@ -1,17 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, unstableGitUpdater
-, substituteAll
-, meson
-, ninja
-, pkg-config
-, vala
-, gtk3
-, libindicator-gtk3
-, pantheon
-, indicator-application-gtk3
-}:
+{ lib, stdenv, fetchFromGitHub, unstableGitUpdater, substituteAll, meson, ninja
+, pkg-config, vala, gtk3, libindicator-gtk3, pantheon
+, indicator-application-gtk3 }:
 
 stdenv.mkDerivation rec {
   pname = "wingpanel-indicator-ayatana";
@@ -32,19 +21,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    vala
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config vala ];
 
-  buildInputs = [
-    gtk3
-    libindicator-gtk3
-    pantheon.granite
-    pantheon.wingpanel
-  ];
+  buildInputs = [ gtk3 libindicator-gtk3 pantheon.granite pantheon.wingpanel ];
 
   passthru = {
     updateScript = unstableGitUpdater {

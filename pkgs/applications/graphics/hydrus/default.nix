@@ -1,14 +1,5 @@
-{ lib
-, fetchFromGitHub
-, wrapQtAppsHook
-, miniupnpc
-, ffmpeg
-, enableSwftools ? false
-, swftools
-, python3Packages
-, qtbase
-, qtcharts
-}:
+{ lib, fetchFromGitHub, wrapQtAppsHook, miniupnpc, ffmpeg
+, enableSwftools ? false, swftools, python3Packages, qtbase, qtcharts }:
 
 python3Packages.buildPythonPackage rec {
   pname = "hydrus";
@@ -22,15 +13,9 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-y8KfPe3cBBq/iPCG7hNXrZDkOSNi+qSir6rO/65SHkI=";
   };
 
-  nativeBuildInputs = [
-    wrapQtAppsHook
-    python3Packages.mkdocs-material
-  ];
+  nativeBuildInputs = [ wrapQtAppsHook python3Packages.mkdocs-material ];
 
-  buildInputs = [
-    qtbase
-    qtcharts
-  ];
+  buildInputs = [ qtbase qtcharts ];
 
   propagatedBuildInputs = with python3Packages; [
     beautifulsoup4
@@ -60,11 +45,7 @@ python3Packages.buildPythonPackage rec {
     twisted
   ];
 
-  nativeCheckInputs = with python3Packages; [
-    nose
-    mock
-    httmock
-  ];
+  nativeCheckInputs = with python3Packages; [ nose mock httmock ];
 
   # most tests are failing, presumably because we are not using test.py
   checkPhase = ''
@@ -122,7 +103,8 @@ python3Packages.buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Danbooru-like image tagging and searching system for the desktop";
+    description =
+      "Danbooru-like image tagging and searching system for the desktop";
     license = licenses.wtfpl;
     homepage = "https://hydrusnetwork.github.io/hydrus/";
     maintainers = with maintainers; [ dandellion evanjs ];

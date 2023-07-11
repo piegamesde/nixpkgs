@@ -13,17 +13,9 @@ stdenv.mkDerivation rec {
 
   patches = [ ./fix-nvfbc-check.patch ];
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
 
-  buildInputs = [
-    gtk3
-    libX11
-    libXrandr
-    libpulseaudio
-  ];
+  buildInputs = [ gtk3 libX11 libXrandr libpulseaudio ];
 
   buildPhase = ''
     ./build.sh
@@ -33,7 +25,9 @@ stdenv.mkDerivation rec {
     install -Dt $out/bin/ gpu-screen-recorder-gtk
     install -Dt $out/share/applications/ gpu-screen-recorder-gtk.desktop
 
-    wrapProgram $out/bin/gpu-screen-recorder-gtk --prefix PATH : ${lib.makeBinPath [ gpu-screen-recorder ]}
+    wrapProgram $out/bin/gpu-screen-recorder-gtk --prefix PATH : ${
+      lib.makeBinPath [ gpu-screen-recorder ]
+    }
   '';
 
   meta = with lib; {

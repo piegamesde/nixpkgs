@@ -1,12 +1,5 @@
-{ pkgs
-, lib
-, stdenv
-, buildGoModule
-, callPackage
-, fetchFromGitHub
-, nixosTests
-, nodejs_18
-}:
+{ pkgs, lib, stdenv, buildGoModule, callPackage, fetchFromGitHub, nixosTests
+, nodejs_18 }:
 
 let
   uiNodeDependencies = (import ./node-composition.nix {
@@ -14,10 +7,9 @@ let
     inherit (stdenv.hostPlatform) system;
     # pin nodejs version
     nodejs = nodejs_18;
-   }).nodeDependencies;
-in
+  }).nodeDependencies;
 
-buildGoModule rec {
+in buildGoModule rec {
   pname = "karma";
   version = "0.114";
 
@@ -30,9 +22,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-ZsXPA4KyKbc/bwkidyHNDg62mE8KlE+yIssOBZLmHVg=";
 
-  nativeBuildInputs = [
-    nodejs_18
-  ];
+  nativeBuildInputs = [ nodejs_18 ];
 
   postPatch = ''
     # Since we're using node2nix packages, the NODE_INSTALL hook isn't needed in the makefile

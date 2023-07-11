@@ -1,61 +1,11 @@
-{ lib
-, stdenv
-, fetchgit
-, fetchzip
-, alsa-lib
-, aubio
-, boost
-, cairomm
-, cppunit
-, curl
-, dbus
-, doxygen
-, ffmpeg
-, fftw
-, fftwSinglePrec
-, flac
-, glibc
-, glibmm
-, graphviz
-, gtkmm2
-, harvid
-, itstool
-, libarchive
-, libjack2
-, liblo
-, libogg
-, libpulseaudio
-, librdf_raptor
-, librdf_rasqal
-, libsamplerate
-, libsigcxx
-, libsndfile
-, libusb1
-, libuv
-, libwebsockets
-, libxml2
-, libxslt
-, lilv
-, lrdf
-, lv2
-, makeWrapper
-, pango
-, perl
-, pkg-config
-, python3
-, readline
-, rubberband
-, serd
-, sord
-, soundtouch
-, sratom
-, suil
-, taglib
-, vamp-plugin-sdk
-, wafHook
-, xjadeo
-, videoSupport ? true
-}:
+{ lib, stdenv, fetchgit, fetchzip, alsa-lib, aubio, boost, cairomm, cppunit
+, curl, dbus, doxygen, ffmpeg, fftw, fftwSinglePrec, flac, glibc, glibmm
+, graphviz, gtkmm2, harvid, itstool, libarchive, libjack2, liblo, libogg
+, libpulseaudio, librdf_raptor, librdf_rasqal, libsamplerate, libsigcxx
+, libsndfile, libusb1, libuv, libwebsockets, libxml2, libxslt, lilv, lrdf, lv2
+, makeWrapper, pango, perl, pkg-config, python3, readline, rubberband, serd
+, sord, soundtouch, sratom, suil, taglib, vamp-plugin-sdk, wafHook, xjadeo
+, videoSupport ? true }:
 stdenv.mkDerivation rec {
   pname = "ardour";
   version = "7.3";
@@ -69,7 +19,8 @@ stdenv.mkDerivation rec {
   };
 
   bundledContent = fetchzip {
-    url = "https://web.archive.org/web/20221026200824/http://stuff.ardour.org/loops/ArdourBundledMedia.zip";
+    url =
+      "https://web.archive.org/web/20221026200824/http://stuff.ardour.org/loops/ArdourBundledMedia.zip";
     hash = "sha256-IbPQWFeyMuvCoghFl1ZwZNNcSvLNsH84rGArXnw+t7A=";
     # archive does not contain a single folder at the root
     stripRoot = false;
@@ -166,16 +117,22 @@ stdenv.mkDerivation rec {
     # wscript does not install these for some reason
     install -vDm 644 "build/gtk2_ardour/ardour.xml" \
       -t "$out/share/mime/packages"
-    install -vDm 644 "build/gtk2_ardour/ardour${lib.versions.major version}.desktop" \
+    install -vDm 644 "build/gtk2_ardour/ardour${
+      lib.versions.major version
+    }.desktop" \
       -t "$out/share/applications"
     for size in 16 22 32 48 256 512; do
       install -vDm 644 "gtk2_ardour/resources/Ardour-icon_''${size}px.png" \
-        "$out/share/icons/hicolor/''${size}x''${size}/apps/ardour${lib.versions.major version}.png"
+        "$out/share/icons/hicolor/''${size}x''${size}/apps/ardour${
+          lib.versions.major version
+        }.png"
     done
     install -vDm 644 "ardour.1"* -t "$out/share/man/man1"
 
     # install additional bundled beats, chords and progressions
-    cp -rp "${bundledContent}"/* "$out/share/ardour${lib.versions.major version}/media"
+    cp -rp "${bundledContent}"/* "$out/share/ardour${
+      lib.versions.major version
+    }/media"
   '' + lib.optionalString videoSupport ''
     # `harvid` and `xjadeo` must be accessible in `PATH` for video to work.
     wrapProgram "$out/bin/ardour${lib.versions.major version}" \

@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchurl, writeText
-, xorgproto, libX11, libXext, libXrandr, libxcrypt
+{ lib, stdenv, fetchurl, writeText, xorgproto, libX11, libXext, libXrandr
+, libxcrypt
 # default header can be obtained from
 # https://git.suckless.org/slock/tree/config.def.h
 , conf ? null }:

@@ -1,10 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config
-, boost, miniupnpc, openssl, unbound
-, zeromq, pcsclite, readline, libsodium, hidapi
-, randomx, rapidjson
-, CoreData, IOKit, PCSC
-, trezorSupport ? true, libusb1, protobuf, python3
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, boost, miniupnpc, openssl
+, unbound, zeromq, pcsclite, readline, libsodium, hidapi, randomx, rapidjson
+, CoreData, IOKit, PCSC, trezorSupport ? true, libusb1, protobuf, python3 }:
 
 let
   # submodules
@@ -21,9 +17,7 @@ let
     sha256 = "VNypeEz9AV0ts8X3vINwYMOgO8VpNmyUPC4iY3OOuZI=";
   };
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "monero-cli";
   version = "0.18.2.2";
 
@@ -34,9 +28,7 @@ stdenv.mkDerivation rec {
     sha256 = "6VI5D3vP6NKdrEE5qOpKnv1wr6AWriixdOxkAa8HaCQ=";
   };
 
-  patches = [
-    ./use-system-libraries.patch
-  ];
+  patches = [ ./use-system-libraries.patch ];
 
   postPatch = ''
     # manually install submodules
@@ -50,9 +42,17 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [
-    boost miniupnpc openssl unbound
-    zeromq pcsclite readline
-    libsodium hidapi randomx rapidjson
+    boost
+    miniupnpc
+    openssl
+    unbound
+    zeromq
+    pcsclite
+    readline
+    libsodium
+    hidapi
+    randomx
+    rapidjson
     protobuf
   ] ++ lib.optionals stdenv.isDarwin [ IOKit CoreData PCSC ]
     ++ lib.optionals trezorSupport [ libusb1 protobuf python3 ];
@@ -69,9 +69,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Private, secure, untraceable currency";
-    homepage    = "https://getmonero.org/";
-    license     = licenses.bsd3;
-    platforms   = platforms.all;
+    homepage = "https://getmonero.org/";
+    license = licenses.bsd3;
+    platforms = platforms.all;
     maintainers = with maintainers; [ rnhmjoj ];
   };
 }

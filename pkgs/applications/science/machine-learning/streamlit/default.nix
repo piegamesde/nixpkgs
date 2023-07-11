@@ -1,28 +1,7 @@
-{ lib
-, altair
-, blinker
-, buildPythonApplication
-, cachetools
-, click
-, fetchPypi
-, gitpython
-, importlib-metadata
-, jinja2
-, pillow
-, protobuf3
-, pyarrow
-, pydeck
-, pympler
-, requests
-, rich
-, semver
-, setuptools
-, toml
-, tornado
-, tzlocal
-, validators
-, watchdog
-}:
+{ lib, altair, blinker, buildPythonApplication, cachetools, click, fetchPypi
+, gitpython, importlib-metadata, jinja2, pillow, protobuf3, pyarrow, pydeck
+, pympler, requests, rich, semver, setuptools, toml, tornado, tzlocal
+, validators, watchdog }:
 
 buildPythonApplication rec {
   pname = "streamlit";

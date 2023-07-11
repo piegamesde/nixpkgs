@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, argon2-cffi
-, keyring
-, pycryptodome
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, argon2-cffi, keyring
+, pycryptodome, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "keyrings.cryptfile";
@@ -26,29 +18,19 @@ buildPythonPackage rec {
     ./fix-testsuite.patch
     # change of API in keyrings.testing
     (fetchpatch {
-      url = "https://github.com/frispete/keyrings.cryptfile/commit/6fb9e45f559b8b69f7a0a519c0bece6324471d79.patch";
+      url =
+        "https://github.com/frispete/keyrings.cryptfile/commit/6fb9e45f559b8b69f7a0a519c0bece6324471d79.patch";
       hash = "sha256-1878pMO9Ed1zs1pl+7gMjwx77HbDHdE1CryN8TPfPdU=";
     })
   ];
 
-  propagatedBuildInputs = [
-    argon2-cffi
-    keyring
-    pycryptodome
-  ];
+  propagatedBuildInputs = [ argon2-cffi keyring pycryptodome ];
 
-  pythonImportsCheck = [
-    "keyrings.cryptfile"
-  ];
+  pythonImportsCheck = [ "keyrings.cryptfile" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    "test_set_properties"
-    "UncryptedFileKeyringTestCase"
-  ];
+  disabledTests = [ "test_set_properties" "UncryptedFileKeyringTestCase" ];
 
   meta = with lib; {
     description = "Encrypted file keyring backend";

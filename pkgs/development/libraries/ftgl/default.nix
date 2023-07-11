@@ -1,20 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, doxygen
-, freeglut
-, freetype
-, libGL
-, libGLU
-, pkg-config
-, darwin
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, doxygen, freeglut, freetype
+, libGL, libGLU, pkg-config, darwin }:
 
-let
-  inherit (darwin.apple_sdk.frameworks) OpenGL GLUT;
-in
-stdenv.mkDerivation rec {
+let inherit (darwin.apple_sdk.frameworks) OpenGL GLUT;
+in stdenv.mkDerivation rec {
   pname = "ftgl";
   version = "2.4.0";
 
@@ -33,25 +21,11 @@ stdenv.mkDerivation rec {
       --replace ' -dylib_file $GL_DYLIB: $GL_DYLIB' ""
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    doxygen
-    pkg-config
-  ];
-  buildInputs = [
-    freetype
-  ] ++ (if stdenv.isDarwin then [
-    OpenGL
-    GLUT
-  ] else [
-    libGL
-    libGLU
-    freeglut
-  ]);
+  nativeBuildInputs = [ autoreconfHook doxygen pkg-config ];
+  buildInputs = [ freetype ]
+    ++ (if stdenv.isDarwin then [ OpenGL GLUT ] else [ libGL libGLU freeglut ]);
 
-  configureFlags = [
-    "--with-ft-prefix=${lib.getDev freetype}"
-  ];
+  configureFlags = [ "--with-ft-prefix=${lib.getDev freetype}" ];
 
   enableParallelBuilding = true;
 

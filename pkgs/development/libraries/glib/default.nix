@@ -1,26 +1,12 @@
-{ config
-, lib
-, stdenv
-, fetchurl
-, fetchpatch2
-, gettext
-, meson
-, ninja
-, pkg-config
-, perl
-, python3
-, libiconv, zlib, libffi, pcre2, libelf, gnome, libselinux, bash, gnum4, gtk-doc, docbook_xsl, docbook_xml_dtd_45, libxslt
+{ config, lib, stdenv, fetchurl, fetchpatch2, gettext, meson, ninja, pkg-config
+, perl, python3, libiconv, zlib, libffi, pcre2, libelf, gnome, libselinux, bash
+, gnum4, gtk-doc, docbook_xsl, docbook_xml_dtd_45, libxslt
 # use util-linuxMinimal to avoid circular dependency (util-linux, systemd, glib)
-, util-linuxMinimal ? null
-, buildPackages
+, util-linuxMinimal ? null, buildPackages
 
 # this is just for tests (not in the closure of any regular package)
-, coreutils, dbus, libxml2, tzdata
-, desktop-file-utils, shared-mime-info
-, darwin
-, makeHardcodeGsettingsPatch
-, testers
-}:
+, coreutils, dbus, libxml2, tzdata, desktop-file-utils, shared-mime-info, darwin
+, makeHardcodeGsettingsPatch, testers }:
 
 assert stdenv.isLinux -> util-linuxMinimal != null;
 
@@ -30,12 +16,11 @@ assert stdenv.isLinux -> util-linuxMinimal != null;
 #     Possible solution: disable compilation of this example somehow
 #     Reminder: add 'sed -e 's@python2\.[0-9]@python@' -i
 #       $out/bin/gtester-report' to postInstall if this is solved
-/*
-  * Use --enable-installed-tests for GNOME-related packages,
-      and use them as a separately installed tests run by Hydra
-      (they should test an already installed package)
-      https://wiki.gnome.org/GnomeGoals/InstalledTests
-  * Support org.freedesktop.Application, including D-Bus activation from desktop files
+/* * Use --enable-installed-tests for GNOME-related packages,
+       and use them as a separately installed tests run by Hydra
+       (they should test an already installed package)
+       https://wiki.gnome.org/GnomeGoals/InstalledTests
+   * Support org.freedesktop.Application, including D-Bus activation from desktop files
 */
 let
   # Some packages don't get "Cflags" from pkg-config correctly
@@ -51,103 +36,96 @@ let
     ln -sr -t "''${!outputInclude}/include/" "''${!outputInclude}"/lib/*/include/* 2>/dev/null || true
   '';
 
-  buildDocs = stdenv.hostPlatform == stdenv.buildPlatform && !stdenv.hostPlatform.isStatic;
-in
+  buildDocs = stdenv.hostPlatform == stdenv.buildPlatform
+    && !stdenv.hostPlatform.isStatic;
 
-stdenv.mkDerivation (finalAttrs: {
+in stdenv.mkDerivation (finalAttrs: {
   pname = "glib";
   version = "2.76.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/glib/${lib.versions.majorMinor finalAttrs.version}/glib-${finalAttrs.version}.tar.xz";
+    url = "mirror://gnome/sources/glib/${
+        lib.versions.majorMinor finalAttrs.version
+      }/glib-${finalAttrs.version}.tar.xz";
     sha256 = "JPOEeFex2GdM2wOJo27ewPE8ZmzTznJ+zTQOudqKyp4=";
   };
 
-  patches = lib.optionals stdenv.isDarwin [
-    ./darwin-compilation.patch
-  ] ++ lib.optionals stdenv.hostPlatform.isMusl [
-    ./quark_init_on_demand.patch
-    ./gobject_init_on_demand.patch
-  ] ++ [
-    ./glib-appinfo-watch.patch
-    ./schema-override-variable.patch
+  patches = lib.optionals stdenv.isDarwin [ ./darwin-compilation.patch ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [
+      ./quark_init_on_demand.patch
+      ./gobject_init_on_demand.patch
+    ] ++ [
+      ./glib-appinfo-watch.patch
+      ./schema-override-variable.patch
 
-    # Add support for Pantheon’s terminal emulator.
-    ./elementary-terminal-support.patch
+      # Add support for Pantheon’s terminal emulator.
+      ./elementary-terminal-support.patch
 
-    # GLib contains many binaries used for different purposes;
-    # we will install them to different outputs:
-    # 1. Tools for desktop environment ($bin)
-    #    * gapplication (non-darwin)
-    #    * gdbus
-    #    * gio
-    #    * gio-launch-desktop (symlink to $out)
-    #    * gsettings
-    # 2. Development/build tools ($dev)
-    #    * gdbus-codegen
-    #    * gio-querymodules
-    #    * glib-compile-resources
-    #    * glib-compile-schemas
-    #    * glib-genmarshal
-    #    * glib-gettextize
-    #    * glib-mkenums
-    #    * gobject-query
-    #    * gresource
-    #    * gtester
-    #    * gtester-report
-    # 3. Tools for desktop environment that cannot go to $bin due to $out depending on them ($out)
-    #    * gio-launch-desktop
-    ./split-dev-programs.patch
+      # GLib contains many binaries used for different purposes;
+      # we will install them to different outputs:
+      # 1. Tools for desktop environment ($bin)
+      #    * gapplication (non-darwin)
+      #    * gdbus
+      #    * gio
+      #    * gio-launch-desktop (symlink to $out)
+      #    * gsettings
+      # 2. Development/build tools ($dev)
+      #    * gdbus-codegen
+      #    * gio-querymodules
+      #    * glib-compile-resources
+      #    * glib-compile-schemas
+      #    * glib-genmarshal
+      #    * glib-gettextize
+      #    * glib-mkenums
+      #    * gobject-query
+      #    * gresource
+      #    * gtester
+      #    * gtester-report
+      # 3. Tools for desktop environment that cannot go to $bin due to $out depending on them ($out)
+      #    * gio-launch-desktop
+      ./split-dev-programs.patch
 
-    # Disable flaky test.
-    # https://gitlab.gnome.org/GNOME/glib/-/issues/820
-    ./skip-timer-test.patch
-  ];
+      # Disable flaky test.
+      # https://gitlab.gnome.org/GNOME/glib/-/issues/820
+      ./skip-timer-test.patch
+    ];
 
   outputs = [ "bin" "out" "dev" "devdoc" ];
 
   setupHook = ./setup-hook.sh;
 
-  buildInputs = [
-    libelf
-    finalAttrs.setupHook
-    pcre2
-  ] ++ lib.optionals (!stdenv.hostPlatform.isWindows) [
-    bash gnum4 # install glib-gettextize and m4 macros for other apps to use
-  ] ++ lib.optionals stdenv.isLinux [
-    libselinux
-    util-linuxMinimal # for libmount
-  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
-    AppKit Carbon Cocoa CoreFoundation CoreServices Foundation
-  ]) ++ lib.optionals buildDocs [
-    # Note: this needs to be both in buildInputs and nativeBuildInputs. The
-    # Meson gtkdoc module uses find_program to look it up (-> build dep), but
-    # glib's own Meson configuration uses the host pkg-config to find its
-    # version (-> host dep). We could technically go and fix this in glib, add
-    # pkg-config to depsBuildBuild, but this would be a futile exercise since
-    # Meson's gtkdoc integration does not support cross compilation[1] anyway
-    # and this derivation disables the docs build when cross compiling.
-    #
-    # [1] https://github.com/mesonbuild/meson/issues/2003
-    gtk-doc
-  ];
+  buildInputs = [ libelf finalAttrs.setupHook pcre2 ]
+    ++ lib.optionals (!stdenv.hostPlatform.isWindows) [
+      bash
+      gnum4 # install glib-gettextize and m4 macros for other apps to use
+    ] ++ lib.optionals stdenv.isLinux [
+      libselinux
+      util-linuxMinimal # for libmount
+    ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [
+      AppKit
+      Carbon
+      Cocoa
+      CoreFoundation
+      CoreServices
+      Foundation
+    ]) ++ lib.optionals buildDocs [
+      # Note: this needs to be both in buildInputs and nativeBuildInputs. The
+      # Meson gtkdoc module uses find_program to look it up (-> build dep), but
+      # glib's own Meson configuration uses the host pkg-config to find its
+      # version (-> host dep). We could technically go and fix this in glib, add
+      # pkg-config to depsBuildBuild, but this would be a futile exercise since
+      # Meson's gtkdoc integration does not support cross compilation[1] anyway
+      # and this derivation disables the docs build when cross compiling.
+      #
+      # [1] https://github.com/mesonbuild/meson/issues/2003
+      gtk-doc
+    ];
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    perl
-    python3
-    gettext
-    libxslt
-    docbook_xsl
-  ] ++ lib.optionals buildDocs [
-    gtk-doc
-    docbook_xml_dtd_45
-    libxml2
-  ];
+  nativeBuildInputs =
+    [ meson ninja pkg-config perl python3 gettext libxslt docbook_xsl ]
+    ++ lib.optionals buildDocs [ gtk-doc docbook_xml_dtd_45 libxml2 ];
 
   propagatedBuildInputs = [ zlib libffi gettext libiconv ];
 
@@ -158,11 +136,8 @@ stdenv.mkDerivation (finalAttrs: {
     "-Dnls=enabled"
     "-Ddevbindir=${placeholder "dev"}/bin"
   ] ++ lib.optionals (!stdenv.isDarwin) [
-    "-Dman=true"                # broken on Darwin
-  ] ++ lib.optionals stdenv.isFreeBSD [
-    "-Db_lundef=false"
-    "-Dxattr=false"
-  ];
+    "-Dman=true" # broken on Darwin
+  ] ++ lib.optionals stdenv.isFreeBSD [ "-Db_lundef=false" "-Dxattr=false" ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=nonnull"
@@ -230,17 +205,18 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeCheckInputs = [ tzdata desktop-file-utils shared-mime-info ];
 
-  preCheck = lib.optionalString finalAttrs.doCheck or config.doCheckByDefault or false ''
-    export LD_LIBRARY_PATH="$NIX_BUILD_TOP/glib-${finalAttrs.version}/glib/.libs''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
-    export TZDIR="${tzdata}/share/zoneinfo"
-    export XDG_CACHE_HOME="$TMP"
-    export XDG_RUNTIME_HOME="$TMP"
-    export HOME="$TMP"
-    export XDG_DATA_DIRS="${desktop-file-utils}/share:${shared-mime-info}/share"
-    export G_TEST_DBUS_DAEMON="${dbus}/bin/dbus-daemon"
-    export PATH="$PATH:$(pwd)/gobject"
-    echo "PATH=$PATH"
-  '';
+  preCheck =
+    lib.optionalString finalAttrs.doCheck or config.doCheckByDefault or false ''
+      export LD_LIBRARY_PATH="$NIX_BUILD_TOP/glib-${finalAttrs.version}/glib/.libs''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
+      export TZDIR="${tzdata}/share/zoneinfo"
+      export XDG_CACHE_HOME="$TMP"
+      export XDG_RUNTIME_HOME="$TMP"
+      export HOME="$TMP"
+      export XDG_DATA_DIRS="${desktop-file-utils}/share:${shared-mime-info}/share"
+      export G_TEST_DBUS_DAEMON="${dbus}/bin/dbus-daemon"
+      export PATH="$PATH:$(pwd)/gobject"
+      echo "PATH=$PATH"
+    '';
 
   separateDebugInfo = stdenv.isLinux;
 
@@ -248,12 +224,14 @@ stdenv.mkDerivation (finalAttrs: {
     gioModuleDir = "lib/gio/modules";
 
     makeSchemaDataDirPath = dir: name: "${dir}/share/gsettings-schemas/${name}";
-    makeSchemaPath = dir: name: "${makeSchemaDataDirPath dir name}/glib-2.0/schemas";
+    makeSchemaPath = dir: name:
+      "${makeSchemaDataDirPath dir name}/glib-2.0/schemas";
     getSchemaPath = pkg: makeSchemaPath pkg pkg.name;
     getSchemaDataDirPath = pkg: makeSchemaDataDirPath pkg pkg.name;
 
     tests = {
-      withChecks = finalAttrs.finalPackage.overrideAttrs (_: { doCheck = true; });
+      withChecks =
+        finalAttrs.finalPackage.overrideAttrs (_: { doCheck = true; });
       pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
     };
 
@@ -263,30 +241,23 @@ stdenv.mkDerivation (finalAttrs: {
       versionPolicy = "odd-unstable";
     };
 
-    mkHardcodeGsettingsPatch =
-      {
-        src,
-        glib-schema-to-var,
-      }:
+    mkHardcodeGsettingsPatch = { src, glib-schema-to-var, }:
       builtins.trace
-        "glib.mkHardcodeGsettingsPatch is deprecated, please use makeHardcodeGsettingsPatch instead"
-        (makeHardcodeGsettingsPatch {
-          inherit src;
-          schemaIdToVariableMapping = glib-schema-to-var;
-        });
+      "glib.mkHardcodeGsettingsPatch is deprecated, please use makeHardcodeGsettingsPatch instead"
+      (makeHardcodeGsettingsPatch {
+        inherit src;
+        schemaIdToVariableMapping = glib-schema-to-var;
+      });
   };
 
   meta = with lib; {
     description = "C library of programming buildings blocks";
-    homepage    = "https://wiki.gnome.org/Projects/GLib";
-    license     = licenses.lgpl21Plus;
-    maintainers = teams.gnome.members ++ (with maintainers; [ lovek323 raskin ]);
-    pkgConfigModules = [
-      "gio-2.0"
-      "gobject-2.0"
-      "gthread-2.0"
-    ];
-    platforms   = platforms.unix;
+    homepage = "https://wiki.gnome.org/Projects/GLib";
+    license = licenses.lgpl21Plus;
+    maintainers = teams.gnome.members
+      ++ (with maintainers; [ lovek323 raskin ]);
+    pkgConfigModules = [ "gio-2.0" "gobject-2.0" "gthread-2.0" ];
+    platforms = platforms.unix;
 
     longDescription = ''
       GLib provides the core application building blocks for libraries

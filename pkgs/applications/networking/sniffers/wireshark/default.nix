@@ -1,58 +1,16 @@
-{ lib
-, stdenv
-, buildPackages
-, fetchFromGitLab
-, pkg-config
-, pcre2
-, perl
-, flex
-, bison
-, gettext
-, libpcap
-, libnl
-, c-ares
-, gnutls
-, libgcrypt
-, libgpg-error
-, libmaxminddb
-, libopus
-, bcg729
-, spandsp3
-, libkrb5
-, speexdsp
-, libsmi
-, lz4
-, snappy
-, zstd
-, minizip
-, sbc
-, openssl
-, lua5
-, python3
-, libcap
-, glib
-, libssh
-, nghttp2
-, zlib
-, cmake
-, ninja
-, makeWrapper
-, wrapGAppsHook
-, withQt ? true
-, qt5 ? null
-, ApplicationServices
-, SystemConfiguration
-, gmp
-, asciidoctor
-}:
+{ lib, stdenv, buildPackages, fetchFromGitLab, pkg-config, pcre2, perl, flex
+, bison, gettext, libpcap, libnl, c-ares, gnutls, libgcrypt, libgpg-error
+, libmaxminddb, libopus, bcg729, spandsp3, libkrb5, speexdsp, libsmi, lz4
+, snappy, zstd, minizip, sbc, openssl, lua5, python3, libcap, glib, libssh
+, nghttp2, zlib, cmake, ninja, makeWrapper, wrapGAppsHook, withQt ? true
+, qt5 ? null, ApplicationServices, SystemConfiguration, gmp, asciidoctor }:
 
 assert withQt -> qt5 != null;
 
 let
   version = "4.0.5";
   variant = if withQt then "qt" else "cli";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "wireshark-${variant}";
   inherit version;
   outputs = [ "out" "dev" ];
@@ -66,7 +24,9 @@ stdenv.mkDerivation {
 
   cmakeFlags = [
     "-DBUILD_wireshark=${if withQt then "ON" else "OFF"}"
-    "-DENABLE_APPLICATION_BUNDLE=${if withQt && stdenv.isDarwin then "ON" else "OFF"}"
+    "-DENABLE_APPLICATION_BUNDLE=${
+      if withQt && stdenv.isDarwin then "ON" else "OFF"
+    }"
     # Fix `extcap` and `plugins` paths. See https://bugs.wireshark.org/bugzilla/show_bug.cgi?id=16444
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DLEMON_C_COMPILER=cc"
@@ -78,7 +38,8 @@ stdenv.mkDerivation {
   # Avoid referencing -dev paths because of debug assertions.
   env.NIX_CFLAGS_COMPILE = toString [ "-DQT_NO_DEBUG" ];
 
-  nativeBuildInputs = [ asciidoctor bison cmake ninja flex makeWrapper pkg-config python3 perl ]
+  nativeBuildInputs =
+    [ asciidoctor bison cmake ninja flex makeWrapper pkg-config python3 perl ]
     ++ lib.optionals withQt [ qt5.wrapQtAppsHook wrapGAppsHook ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
@@ -109,10 +70,13 @@ stdenv.mkDerivation {
     glib
     zlib
   ] ++ lib.optionals withQt (with qt5; [ qtbase qtmultimedia qtsvg qttools ])
-  ++ lib.optionals (withQt && stdenv.isLinux) [ qt5.qtwayland ]
-  ++ lib.optionals stdenv.isLinux [ libcap libnl sbc ]
-  ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ApplicationServices gmp ]
-  ++ lib.optionals (withQt && stdenv.isDarwin) (with qt5; [ qtmacextras ]);
+    ++ lib.optionals (withQt && stdenv.isLinux) [ qt5.qtwayland ]
+    ++ lib.optionals stdenv.isLinux [ libcap libnl sbc ]
+    ++ lib.optionals stdenv.isDarwin [
+      SystemConfiguration
+      ApplicationServices
+      gmp
+    ] ++ lib.optionals (withQt && stdenv.isDarwin) (with qt5; [ qtmacextras ]);
 
   strictDeps = true;
 
@@ -168,7 +132,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://www.wireshark.org/";
-    changelog = "https://www.wireshark.org/docs/relnotes/wireshark-${version}.html";
+    changelog =
+      "https://www.wireshark.org/docs/relnotes/wireshark-${version}.html";
     description = "Powerful network protocol analyzer";
     license = licenses.gpl2Plus;
 

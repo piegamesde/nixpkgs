@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "2.005";
 
   src = fetchurl {
-    url = "mirror://debian/pool/main/l/${pname}/${pname}_${version}.orig.tar.gz";
+    url =
+      "mirror://debian/pool/main/l/${pname}/${pname}_${version}.orig.tar.gz";
     hash = "sha256-xlUuZt6rjW0pX4t6PKWAHkkv3PisGCj7ZwatZPAUNxk=";
   };
 
@@ -21,7 +22,5 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = {
-    description = "Latin Modern font";
-  };
+  meta = { description = "Latin Modern font"; };
 }

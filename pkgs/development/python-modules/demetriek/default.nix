@@ -1,17 +1,6 @@
-{ lib
-, aiohttp
-, awesomeversion
-, backoff
-, buildPythonPackage
-, pydantic
-, fetchFromGitHub
-, poetry-core
-, yarl
-, aresponses
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, aiohttp, awesomeversion, backoff, buildPythonPackage, pydantic
+, fetchFromGitHub, poetry-core, yarl, aresponses, pytest-asyncio
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "demetriek";
@@ -34,27 +23,13 @@ buildPythonPackage rec {
       --replace "--cov" ""
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    awesomeversion
-    backoff
-    pydantic
-    yarl
-  ];
+  propagatedBuildInputs = [ aiohttp awesomeversion backoff pydantic yarl ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "demetriek"
-  ];
+  pythonImportsCheck = [ "demetriek" ];
 
   meta = with lib; {
     description = "Python client for LaMetric TIME devices";

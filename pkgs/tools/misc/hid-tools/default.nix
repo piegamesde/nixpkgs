@@ -1,7 +1,4 @@
-{ python3
-, lib
-, fetchFromGitLab
-}:
+{ python3, lib, fetchFromGitLab }:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "hid-tools";
@@ -25,9 +22,7 @@ python3.pkgs.buildPythonPackage rec {
     pyudev
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
 
   # Tests require /dev/uhid
   doCheck = false;

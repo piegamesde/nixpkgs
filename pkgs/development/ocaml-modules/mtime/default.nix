@@ -1,7 +1,7 @@
 { stdenv, lib, fetchurl, ocaml, findlib, ocamlbuild, topkg }:
 
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
-  "mtime is not available for OCaml ${ocaml.version}"
+"mtime is not available for OCaml ${ocaml.version}"
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-mtime";

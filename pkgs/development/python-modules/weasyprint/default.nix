@@ -1,25 +1,6 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, cairosvg
-, cffi
-, cssselect2
-, fetchPypi
-, flit-core
-, fontconfig
-, fonttools
-, ghostscript
-, glib
-, harfbuzz
-, html5lib
-, pango
-, pillow
-, pydyf
-, pyphen
-, pytestCheckHook
-, pythonOlder
-, substituteAll
-, tinycss2
+{ lib, stdenv, buildPythonPackage, cairosvg, cffi, cssselect2, fetchPypi
+, flit-core, fontconfig, fonttools, ghostscript, glib, harfbuzz, html5lib, pango
+, pillow, pydyf, pyphen, pytestCheckHook, pythonOlder, substituteAll, tinycss2
 }:
 
 buildPythonPackage rec {
@@ -38,34 +19,28 @@ buildPythonPackage rec {
   patches = [
     (substituteAll {
       src = ./library-paths.patch;
-      fontconfig = "${fontconfig.lib}/lib/libfontconfig${stdenv.hostPlatform.extensions.sharedLibrary}";
-      pangoft2 = "${pango.out}/lib/libpangoft2-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
-      gobject = "${glib.out}/lib/libgobject-2.0${stdenv.hostPlatform.extensions.sharedLibrary}";
-      pango = "${pango.out}/lib/libpango-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
-      pangocairo = "${pango.out}/lib/libpangocairo-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
-      harfbuzz = "${harfbuzz.out}/lib/libharfbuzz${stdenv.hostPlatform.extensions.sharedLibrary}";
+      fontconfig =
+        "${fontconfig.lib}/lib/libfontconfig${stdenv.hostPlatform.extensions.sharedLibrary}";
+      pangoft2 =
+        "${pango.out}/lib/libpangoft2-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
+      gobject =
+        "${glib.out}/lib/libgobject-2.0${stdenv.hostPlatform.extensions.sharedLibrary}";
+      pango =
+        "${pango.out}/lib/libpango-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
+      pangocairo =
+        "${pango.out}/lib/libpangocairo-1.0${stdenv.hostPlatform.extensions.sharedLibrary}";
+      harfbuzz =
+        "${harfbuzz.out}/lib/libharfbuzz${stdenv.hostPlatform.extensions.sharedLibrary}";
     })
   ];
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    cffi
-    cssselect2
-    fonttools
-    html5lib
-    pillow
-    pydyf
-    pyphen
-    tinycss2
-  ] ++ fonttools.optional-dependencies.woff;
+  propagatedBuildInputs =
+    [ cffi cssselect2 fonttools html5lib pillow pydyf pyphen tinycss2 ]
+    ++ fonttools.optional-dependencies.woff;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    ghostscript
-  ];
+  nativeCheckInputs = [ pytestCheckHook ghostscript ];
 
   disabledTests = [
     # needs the Ahem font (fails on macOS)
@@ -80,9 +55,7 @@ buildPythonPackage rec {
   FONTCONFIG_FILE = "${fontconfig.out}/etc/fonts/fonts.conf";
 
   # Fontconfig error: Cannot load default config file: No such file: (null)
-  makeWrapperArgs = [
-    "--set FONTCONFIG_FILE ${FONTCONFIG_FILE}"
-  ];
+  makeWrapperArgs = [ "--set FONTCONFIG_FILE ${FONTCONFIG_FILE}" ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -94,9 +67,7 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  pythonImportsCheck = [
-    "weasyprint"
-  ];
+  pythonImportsCheck = [ "weasyprint" ];
 
   meta = with lib; {
     description = "Converts web documents to PDF";

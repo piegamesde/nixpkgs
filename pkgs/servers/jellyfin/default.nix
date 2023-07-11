@@ -1,16 +1,5 @@
-{ lib
-, fetchFromGitHub
-, fetchurl
-, nixosTests
-, stdenv
-, dotnetCorePackages
-, buildDotnetModule
-, ffmpeg
-, fontconfig
-, freetype
-, jellyfin-web
-, sqlite
-}:
+{ lib, fetchFromGitHub, fetchurl, nixosTests, stdenv, dotnetCorePackages
+, buildDotnetModule, ffmpeg, fontconfig, freetype, jellyfin-web, sqlite }:
 
 buildDotnetModule rec {
   pname = "jellyfin";
@@ -28,18 +17,12 @@ buildDotnetModule rec {
     ./disable-warnings.patch
   ];
 
-  propagatedBuildInputs = [
-    sqlite
-  ];
+  propagatedBuildInputs = [ sqlite ];
 
   projectFile = "Jellyfin.Server/Jellyfin.Server.csproj";
   executables = [ "jellyfin" ];
   nugetDeps = ./nuget-deps.nix;
-  runtimeDeps = [
-    ffmpeg
-    fontconfig
-    freetype
-  ];
+  runtimeDeps = [ ffmpeg fontconfig freetype ];
   dotnet-sdk = dotnetCorePackages.sdk_6_0;
   dotnet-runtime = dotnetCorePackages.aspnetcore_6_0;
   dotnetBuildFlags = [ "--no-self-contained" ];
@@ -51,9 +34,7 @@ buildDotnetModule rec {
     )
   '';
 
-  passthru.tests = {
-    smoke-test = nixosTests.jellyfin;
-  };
+  passthru.tests = { smoke-test = nixosTests.jellyfin; };
 
   passthru.updateScript = ./update.sh;
 

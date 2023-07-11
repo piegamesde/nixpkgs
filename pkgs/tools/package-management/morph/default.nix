@@ -15,10 +15,8 @@ buildGoModule rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  ldflags = [
-    "-X main.version=${version}"
-    "-X main.assetRoot=${placeholder "lib"}"
-  ];
+  ldflags =
+    [ "-X main.version=${version}" "-X main.assetRoot=${placeholder "lib"}" ];
 
   postInstall = ''
     mkdir -p $lib
@@ -32,7 +30,7 @@ buildGoModule rec {
     description = "A NixOS host manager written in Golang";
     license = licenses.mit;
     homepage = "https://github.com/dbcdk/morph";
-    maintainers = with maintainers; [adamt johanot];
+    maintainers = with maintainers; [ adamt johanot ];
     platforms = platforms.unix;
   };
 }

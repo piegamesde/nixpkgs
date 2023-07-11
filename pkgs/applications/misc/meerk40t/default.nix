@@ -1,15 +1,7 @@
-{ lib
-, fetchFromGitHub
-, meerk40t-camera
-, python3
-, gtk3
-, wrapGAppsHook
-}:
+{ lib, fetchFromGitHub, meerk40t-camera, python3, gtk3, wrapGAppsHook }:
 
-let
-  inherit (python3.pkgs) buildPythonApplication buildPythonPackage fetchPypi;
-in
-buildPythonApplication rec {
+let inherit (python3.pkgs) buildPythonApplication buildPythonPackage fetchPypi;
+in buildPythonApplication rec {
   pname = "MeerK40t";
   version = "0.8.1000";
   format = "setuptools";
@@ -21,9 +13,7 @@ buildPythonApplication rec {
     hash = "sha256-YCcnqaH4Npmct5IBHsnufswRz8bS7mUb1YFwTta/Dxc=";
   };
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ wrapGAppsHook ];
 
   # prevent double wrapping
   dontWrapGApps = true;
@@ -46,9 +36,7 @@ buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  nativeCheckInputs = with python3.pkgs; [
-    unittestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ unittestCheckHook ];
 
   preCheck = ''
     export HOME=$TMPDIR

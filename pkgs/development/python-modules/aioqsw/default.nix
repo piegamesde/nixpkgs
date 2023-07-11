@@ -1,10 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aioqsw";
@@ -20,16 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-Z7Q9b+ameddvGu9KJUNsaqOHiu0qXnpzuiZwg+/0+64=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "aioqsw"
-  ];
+  pythonImportsCheck = [ "aioqsw" ];
 
   meta = with lib; {
     description = "Library to fetch data from QNAP QSW switches";

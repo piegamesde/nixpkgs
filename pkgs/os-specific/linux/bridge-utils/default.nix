@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "1.7.1";
 
   src = fetchurl {
-    url = "https://kernel.org/pub/linux/utils/net/bridge-utils/bridge-utils-${version}.tar.xz";
+    url =
+      "https://kernel.org/pub/linux/utils/net/bridge-utils/bridge-utils-${version}.tar.xz";
     sha256 = "sha256-ph2L5PGhQFxgyO841UTwwYwFszubB+W0sxAzU2Fl5g4=";
   };
 
@@ -14,7 +15,8 @@ stdenv.mkDerivation rec {
 
     (fetchpatch {
       name = "musl-includes.patch";
-      url = "https://git.alpinelinux.org/aports/plain/main/bridge-utils/fix-PATH_MAX-on-ppc64le.patch?id=12c9046eee3a0a35665dc4e280c1f5ae2af5845d";
+      url =
+        "https://git.alpinelinux.org/aports/plain/main/bridge-utils/fix-PATH_MAX-on-ppc64le.patch?id=12c9046eee3a0a35665dc4e280c1f5ae2af5845d";
       sha256 = "sha256-uY1tgJhcm1DFctg9scmC8e+mgowgz4f/oF0+k+x+jqw=";
     })
   ];
@@ -22,7 +24,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
 
   meta = {
-    description = "An userspace tool to configure linux bridges (deprecated in favour or iproute2).";
+    description =
+      "An userspace tool to configure linux bridges (deprecated in favour or iproute2).";
     homepage = "https://wiki.linuxfoundation.org/networking/bridge";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;

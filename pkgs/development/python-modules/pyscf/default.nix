@@ -1,18 +1,5 @@
-{ buildPythonPackage
-, lib
-, fetchFromGitHub
-, cmake
-, blas
-, libcint
-, libxc
-, xcfun
-, cppe
-, h5py
-, numpy
-, scipy
-, nose
-, nose-exclude
-}:
+{ buildPythonPackage, lib, fetchFromGitHub, cmake, blas, libcint, libxc, xcfun
+, cppe, h5py, numpy, scipy, nose, nose-exclude }:
 
 buildPythonPackage rec {
   pname = "pyscf";
@@ -33,19 +20,9 @@ buildPythonPackage rec {
     PYSCF_INC_DIR="${libcint}:${libxc}:${xcfun}";
   '';
 
-  buildInputs = [
-    blas
-    libcint
-    libxc
-    xcfun
-  ];
+  buildInputs = [ blas libcint libxc xcfun ];
 
-  propagatedBuildInputs = [
-    cppe
-    h5py
-    numpy
-    scipy
-  ];
+  propagatedBuildInputs = [ cppe h5py numpy scipy ];
 
   nativeCheckInputs = [ nose nose-exclude ];
 

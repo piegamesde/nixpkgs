@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "2.2.0";
 
   src = fetchurl {
-    url = "https://www.libsdl.org/projects/SDL_net/release/${pname}-${version}.tar.gz";
+    url =
+      "https://www.libsdl.org/projects/SDL_net/release/${pname}-${version}.tar.gz";
     sha256 = "sha256-TkqJGYgxYnGXT/TpWF7R73KaEj0iwIvUcxKRedyFf+s=";
   };
 
@@ -16,7 +17,7 @@ stdenv.mkDerivation rec {
   buildInputs = lib.optional stdenv.isDarwin darwin.libobjc;
 
   configureFlags = [ "--disable-examples" ]
-  ++ lib.optional stdenv.isDarwin "--disable-sdltest";
+    ++ lib.optional stdenv.isDarwin "--disable-sdltest";
 
   propagatedBuildInputs = [ SDL2 ];
 

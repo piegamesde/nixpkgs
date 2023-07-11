@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, regex
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder, regex
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "titlecase";
@@ -23,28 +17,19 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    regex
-  ];
+  propagatedBuildInputs = [ regex ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "titlecase/tests.py"
-  ];
+  pytestFlagsArray = [ "titlecase/tests.py" ];
 
-  pythonImportsCheck = [
-    "titlecase"
-  ];
+  pythonImportsCheck = [ "titlecase" ];
 
   meta = with lib; {
-    description = "Python library to capitalize strings as specified by the New York Times";
+    description =
+      "Python library to capitalize strings as specified by the New York Times";
     homepage = "https://github.com/ppannuto/python-titlecase";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

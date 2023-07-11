@@ -1,11 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, libinput
-, libxkbcommon
-, mesa
-, pango
-, udev
+{ lib, rustPlatform, fetchFromGitHub, libinput, libxkbcommon, mesa, pango, udev
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -21,13 +14,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-zSq6YBlm6gJXGlF9xZ8gWSTMewdNqrJzwP58a0x8QIU=";
 
-  buildInputs = [
-    libxkbcommon
-    mesa
-    pango
-    udev
-    libinput
-  ];
+  buildInputs = [ libxkbcommon mesa pango udev libinput ];
 
   RUSTC_BOOTSTRAP = 1;
 
@@ -35,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     description = "A Wayland compositor written in Rust";
     homepage = "https://github.com/mahkoh/jay";
     license = licenses.gpl3;
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ dit7ya ];
   };
 }

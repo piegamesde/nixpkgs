@@ -1,32 +1,14 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, libusb-compat-0_1
-, readline
-, libewf
-, perl
-, zlib
-, openssl
-, libuv
-, file
-, libzip
-, lz4
-, xxHash
-, meson
-, python3
-, cmake
-, ninja
-, capstone
-, tree-sitter
-}:
+{ lib, stdenv, fetchurl, pkg-config, libusb-compat-0_1, readline, libewf, perl
+, zlib, openssl, libuv, file, libzip, lz4, xxHash, meson, python3, cmake, ninja
+, capstone, tree-sitter }:
 
 stdenv.mkDerivation rec {
   pname = "rizin";
   version = "0.5.2";
 
   src = fetchurl {
-    url = "https://github.com/rizinorg/rizin/releases/download/v${version}/rizin-src-v${version}.tar.xz";
+    url =
+      "https://github.com/rizinorg/rizin/releases/download/v${version}/rizin-src-v${version}.tar.xz";
     hash = "sha256-cauA/DyKycgKEAANg4EoryigXTGg7hg5AMLFxuNQ7KM=";
   };
 
@@ -44,9 +26,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     pkg-config
     meson
-    (python3.withPackages (pp: with pp; [
-      pyyaml
-    ]))
+    (python3.withPackages (pp: with pp; [ pyyaml ]))
     ninja
     cmake
   ];
@@ -91,7 +71,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "UNIX-like reverse engineering framework and command-line toolset.";
+    description =
+      "UNIX-like reverse engineering framework and command-line toolset.";
     homepage = "https://rizin.re/";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ raskin makefu mic92 ];

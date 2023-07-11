@@ -1,15 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, substituteAll
-, cmake
-, openjpeg
-, yaml-cpp
-, batchVersion ? false
-, withJpegLs ? true
-, withOpenJpeg ? true
-, withCloudflareZlib ? true
-}:
+{ lib, stdenv, fetchFromGitHub, substituteAll, cmake, openjpeg, yaml-cpp
+, batchVersion ? false, withJpegLs ? true, withOpenJpeg ? true
+, withCloudflareZlib ? true }:
 
 let
   cloudflareZlib = fetchFromGitHub {
@@ -20,8 +11,7 @@ let
     rev = "fda61188d1d4dcd21545c34c2a2f5cc9b0f5db4b";
     sha256 = "sha256-qySFwY0VI2BQLO2XoCZeYshXEDnHh6SmJ3MvcBUROWU=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   version = "1.0.20211006";
   pname = "dcm2niix";
 
@@ -46,14 +36,14 @@ stdenv.mkDerivation rec {
   cmakeFlags = lib.optionals batchVersion [
     "-DBATCH_VERSION=ON"
     "-DYAML-CPP_DIR=${yaml-cpp}/lib/cmake/yaml-cpp"
-  ] ++ lib.optionals withJpegLs [
-    "-DUSE_JPEGLS=ON"
-  ] ++ lib.optionals withOpenJpeg [
-    "-DUSE_OPENJPEG=ON"
-    "-DOpenJPEG_DIR=${openjpeg}/lib/${openjpeg.pname}-${lib.versions.majorMinor openjpeg.version}"
-  ] ++ lib.optionals withCloudflareZlib [
-    "-DZLIB_IMPLEMENTATION=Cloudflare"
-  ];
+  ] ++ lib.optionals withJpegLs [ "-DUSE_JPEGLS=ON" ]
+    ++ lib.optionals withOpenJpeg [
+      "-DUSE_OPENJPEG=ON"
+      "-DOpenJPEG_DIR=${openjpeg}/lib/${openjpeg.pname}-${
+        lib.versions.majorMinor openjpeg.version
+      }"
+    ]
+    ++ lib.optionals withCloudflareZlib [ "-DZLIB_IMPLEMENTATION=Cloudflare" ];
 
   meta = with lib; {
     description = "DICOM to NIfTI converter";

@@ -1,4 +1,5 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, curl, openssl, Security }:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, curl, openssl
+, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-tarpaulin";
@@ -11,11 +12,8 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-EJb9IVQClZwJrIorJ6FM6gDV5oSeXiwbwG9l6+4fMQ8=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
-  buildInputs = [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ curl Security ];
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ curl Security ];
 
   cargoHash = "sha256-WnvMLi0GeeLsmHDxH0tGAQfX//x9GD2cd/m7Tp/GLGA=";
   #checkFlags = [ "--test-threads" "1" ];
@@ -24,7 +22,10 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A code coverage tool for Rust projects";
     homepage = "https://github.com/xd009642/tarpaulin";
-    license = with licenses; [ mit /* or */ asl20 ];
+    license = with licenses; [
+      mit # or
+      asl20
+    ];
     maintainers = with maintainers; [ hugoreeves ];
   };
 }

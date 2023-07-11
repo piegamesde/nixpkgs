@@ -1,30 +1,19 @@
-{ lib
-, glibc
-, fetchFromGitLab
-, makeWrapper
-, buildGoPackage
-, linkFarm
-, writeShellScript
-, containerRuntimePath
-, configTemplate
-, libnvidia-container
-}:
+{ lib, glibc, fetchFromGitLab, makeWrapper, buildGoPackage, linkFarm
+, writeShellScript, containerRuntimePath, configTemplate, libnvidia-container }:
 let
-  isolatedContainerRuntimePath = linkFarm "isolated_container_runtime_path" [
-    {
-      name = "runc";
-      path = containerRuntimePath;
-    }
-  ];
-  warnIfXdgConfigHomeIsSet = writeShellScript "warn_if_xdg_config_home_is_set" ''
-    set -eo pipefail
+  isolatedContainerRuntimePath = linkFarm "isolated_container_runtime_path" [{
+    name = "runc";
+    path = containerRuntimePath;
+  }];
+  warnIfXdgConfigHomeIsSet =
+    writeShellScript "warn_if_xdg_config_home_is_set" ''
+      set -eo pipefail
 
-    if [ -n "$XDG_CONFIG_HOME" ]; then
-      echo >&2 "$(tput setaf 3)warning: \$XDG_CONFIG_HOME=$XDG_CONFIG_HOME$(tput sgr 0)"
-    fi
-  '';
-in
-buildGoPackage rec {
+      if [ -n "$XDG_CONFIG_HOME" ]; then
+        echo >&2 "$(tput setaf 3)warning: \$XDG_CONFIG_HOME=$XDG_CONFIG_HOME$(tput sgr 0)"
+      fi
+    '';
+in buildGoPackage rec {
   pname = "container-toolkit/container-toolkit";
   version = "1.9.0";
 
@@ -44,7 +33,9 @@ buildGoPackage rec {
   preBuild = ''
     # replace the default hookDefaultFilePath to the $out path
     substituteInPlace go/src/github.com/NVIDIA/nvidia-container-toolkit/cmd/nvidia-container-runtime/main.go \
-      --replace '/usr/bin/nvidia-container-runtime-hook' '${placeholder "out"}/bin/nvidia-container-runtime-hook'
+      --replace '/usr/bin/nvidia-container-runtime-hook' '${
+        placeholder "out"
+      }/bin/nvidia-container-runtime-hook'
   '';
 
   postInstall = ''
@@ -72,7 +63,9 @@ buildGoPackage rec {
     ln -s $out/bin/nvidia-container-{toolkit,runtime-hook}
 
     wrapProgram $out/bin/nvidia-container-toolkit \
-      --add-flags "-config ${placeholder "out"}/etc/nvidia-container-runtime/config.toml"
+      --add-flags "-config ${
+        placeholder "out"
+      }/etc/nvidia-container-runtime/config.toml"
   '';
 
   meta = with lib; {

@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromBitbucket
-, ziafont
-, pytestCheckHook
-, nbval
-, latex2mathml
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromBitbucket, ziafont
+, pytestCheckHook, nbval, latex2mathml }:
 
 buildPythonPackage rec {
   pname = "ziamath";
@@ -21,22 +14,17 @@ buildPythonPackage rec {
     hash = "sha256-JuuCDww0EZEHZLxB5oQrWEJpv0szjwe4iXCRGl7OYTA=";
   };
 
-  propagatedBuildInputs = [
-    ziafont
-  ];
+  propagatedBuildInputs = [ ziafont ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    nbval
-    latex2mathml
-  ];
+  nativeCheckInputs = [ pytestCheckHook nbval latex2mathml ];
 
   pytestFlagsArray = [ "--nbval-lax" ];
 
   pythonImportsCheck = [ "ziamath" ];
 
   meta = with lib; {
-    description = "Render MathML and LaTeX Math to SVG without Latex installation";
+    description =
+      "Render MathML and LaTeX Math to SVG without Latex installation";
     homepage = "https://ziamath.readthedocs.io/en/latest/";
     changelog = "https://ziamath.readthedocs.io/en/latest/changes.html";
     license = licenses.mit;

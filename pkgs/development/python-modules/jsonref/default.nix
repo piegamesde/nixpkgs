@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "jsonref";
@@ -17,23 +12,17 @@ buildPythonPackage rec {
     hash = "sha256-8p0BmDZGpQ6Dl9rkqRKZKc0doG5pyXpfcVpemmetLhs=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "tests.py"
-  ];
+  pytestFlagsArray = [ "tests.py" ];
 
   meta = with lib; {
     description = "An implementation of JSON Reference for Python";
-    homepage    = "https://github.com/gazpachoking/jsonref";
-    license     = licenses.mit;
+    homepage = "https://github.com/gazpachoking/jsonref";
+    license = licenses.mit;
     maintainers = with maintainers; [ ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
   };
 }

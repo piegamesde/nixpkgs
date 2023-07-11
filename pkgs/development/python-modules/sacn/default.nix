@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "sacn";
@@ -19,9 +15,7 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "sacn"
-  ];
+  pythonImportsCheck = [ "sacn" ];
 
   meta = with lib; {
     description = "A simple ANSI E1.31 (aka sACN) module";

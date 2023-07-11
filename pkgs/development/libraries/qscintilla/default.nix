@@ -1,11 +1,4 @@
-{ stdenv
-, lib
-, fetchurl
-, unzip
-, qtbase
-, qtmacextras
-, qmake
-, fixDarwinDylibNames
+{ stdenv, lib, fetchurl, unzip, qtbase, qtmacextras, qmake, fixDarwinDylibNames
 }:
 
 stdenv.mkDerivation rec {
@@ -13,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "2.13.2";
 
   src = fetchurl {
-    url = "https://www.riverbankcomputing.com/static/Downloads/QScintilla/${version}/QScintilla_src-${version}.tar.gz";
+    url =
+      "https://www.riverbankcomputing.com/static/Downloads/QScintilla/${version}/QScintilla_src-${version}.tar.gz";
     sha256 = "sha256-tsfl8ntR0l8J/mz4Sumn8Idq8NZdjMtVEQnm57JYhfQ=";
   };
 

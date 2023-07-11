@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, cmake
-, cvxopt
-, fetchPypi
-, future
-, numpy
-, pytestCheckHook
-, pythonOlder
-, qdldl
-, scipy
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, cmake, cvxopt, fetchPypi, future, numpy
+, pytestCheckHook, pythonOlder, qdldl, scipy, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "osqp";
@@ -32,26 +21,13 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  nativeBuildInputs = [
-    cmake
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ cmake setuptools-scm ];
 
-  propagatedBuildInputs = [
-    future
-    numpy
-    qdldl
-    scipy
-  ];
+  propagatedBuildInputs = [ future numpy qdldl scipy ];
 
-  nativeCheckInputs = [
-    cvxopt
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ cvxopt pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "osqp"
-  ];
+  pythonImportsCheck = [ "osqp" ];
 
   disabledTests = [
     # Test are failing due to scipy update (removal of scipy.random in 1.9.0)

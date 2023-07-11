@@ -4,14 +4,15 @@ with lib;
 
 let
   cfg = config.services.create_ap;
-  configFile = pkgs.writeText "create_ap.conf" (generators.toKeyValue { } cfg.settings);
+  configFile =
+    pkgs.writeText "create_ap.conf" (generators.toKeyValue { } cfg.settings);
 in {
   options = {
     services.create_ap = {
       enable = mkEnableOption (lib.mdDoc "setup wifi hotspots using create_ap");
       settings = mkOption {
         type = with types; attrsOf (oneOf [ int bool str ]);
-        default = {};
+        default = { };
         description = lib.mdDoc ''
           Configuration for `create_ap`.
           See [upstream example configuration](https://raw.githubusercontent.com/lakinduakash/linux-wifi-hotspot/master/src/scripts/create_ap.conf)
@@ -36,7 +37,8 @@ in {
         after = [ "network.target" ];
         restartTriggers = [ configFile ];
         serviceConfig = {
-          ExecStart = "${pkgs.linux-wifi-hotspot}/bin/create_ap --config ${configFile}";
+          ExecStart =
+            "${pkgs.linux-wifi-hotspot}/bin/create_ap --config ${configFile}";
           KillSignal = "SIGINT";
           Restart = "on-failure";
         };

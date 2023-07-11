@@ -7,17 +7,18 @@ let
 
   taskd = "${pkgs.taskserver}/bin/taskd";
 
-  mkManualPkiOption = desc: mkOption {
-    type = types.nullOr types.path;
-    default = null;
-    description = lib.mdDoc ''
-      ${desc}
+  mkManualPkiOption = desc:
+    mkOption {
+      type = types.nullOr types.path;
+      default = null;
+      description = lib.mdDoc ''
+        ${desc}
 
-      ::: {.note}
-      Setting this option will prevent automatic CA creation and handling.
-      :::
-    '';
-  };
+        ::: {.note}
+        Setting this option will prevent automatic CA creation and handling.
+        :::
+      '';
+    };
 
   manualPkiOptions = {
     ca.cert = mkManualPkiOption ''
@@ -37,25 +38,27 @@ let
     '';
   };
 
-  mkAutoDesc = preamble: lib.mdDoc ''
-    ${preamble}
+  mkAutoDesc = preamble:
+    lib.mdDoc ''
+      ${preamble}
 
-    ::: {.note}
-    This option is for the automatically handled CA and will be ignored if any
-    of the {option}`services.taskserver.pki.manual.*` options are set.
-    :::
-  '';
-
-  mkExpireOption = desc: mkOption {
-    type = types.nullOr types.int;
-    default = null;
-    example = 365;
-    apply = val: if val == null then -1 else val;
-    description = mkAutoDesc ''
-      The expiration time of ${desc} in days or `null` for no
-      expiration time.
+      ::: {.note}
+      This option is for the automatically handled CA and will be ignored if any
+      of the {option}`services.taskserver.pki.manual.*` options are set.
+      :::
     '';
-  };
+
+  mkExpireOption = desc:
+    mkOption {
+      type = types.nullOr types.int;
+      default = null;
+      example = 365;
+      apply = val: if val == null then -1 else val;
+      description = mkAutoDesc ''
+        The expiration time of ${desc} in days or `null` for no
+        expiration time.
+      '';
+    };
 
   autoPkiOptions = {
     bits = mkOption {
@@ -74,22 +77,24 @@ let
   };
 
   needToCreateCA = let
-    notFound = path: let
-      dotted = concatStringsSep "." path;
-    in throw "Can't find option definitions for path `${dotted}'.";
-    findPkiDefinitions = path: attrs: let
-      mkSublist = key: val: let
-        newPath = path ++ singleton key;
-      in if isOption val
-         then attrByPath newPath (notFound newPath) cfg.pki.manual
-         else findPkiDefinitions newPath val;
-    in flatten (mapAttrsToList mkSublist attrs);
-  in all (x: x == null) (findPkiDefinitions [] manualPkiOptions);
+    notFound = path:
+      let dotted = concatStringsSep "." path;
+      in throw "Can't find option definitions for path `${dotted}'.";
+    findPkiDefinitions = path: attrs:
+      let
+        mkSublist = key: val:
+          let newPath = path ++ singleton key;
+          in if isOption val then
+            attrByPath newPath (notFound newPath) cfg.pki.manual
+          else
+            findPkiDefinitions newPath val;
+      in flatten (mapAttrsToList mkSublist attrs);
+  in all (x: x == null) (findPkiDefinitions [ ] manualPkiOptions);
 
   orgOptions = { ... }: {
     options.users = mkOption {
       type = types.uniq (types.listOf types.str);
-      default = [];
+      default = [ ];
       example = [ "alice" "bob" ];
       description = lib.mdDoc ''
         A list of user names that belong to the organization.
@@ -98,7 +103,7 @@ let
 
     options.groups = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = [ "workers" "slackers" ];
       description = lib.mdDoc ''
         A list of group names that belong to the organization.
@@ -108,31 +113,35 @@ let
 
   certtool = "${pkgs.gnutls.bin}/bin/certtool";
 
-  nixos-taskserver = with pkgs.python3.pkgs; buildPythonApplication {
-    name = "nixos-taskserver";
+  nixos-taskserver = with pkgs.python3.pkgs;
+    buildPythonApplication {
+      name = "nixos-taskserver";
 
-    src = pkgs.runCommand "nixos-taskserver-src" { preferLocalBuild = true; } ''
-      mkdir -p "$out"
-      cat "${pkgs.substituteAll {
-        src = ./helper-tool.py;
-        inherit taskd certtool;
-        inherit (cfg) dataDir user group fqdn;
-        certBits = cfg.pki.auto.bits;
-        clientExpiration = cfg.pki.auto.expiration.client;
-        crlExpiration = cfg.pki.auto.expiration.crl;
-        isAutoConfig = if needToCreateCA then "True" else "False";
-      }}" > "$out/main.py"
-      cat > "$out/setup.py" <<EOF
-      from setuptools import setup
-      setup(name="nixos-taskserver",
-            py_modules=["main"],
-            install_requires=["Click"],
-            entry_points="[console_scripts]\\nnixos-taskserver=main:cli")
-      EOF
-    '';
+      src =
+        pkgs.runCommand "nixos-taskserver-src" { preferLocalBuild = true; } ''
+          mkdir -p "$out"
+          cat "${
+            pkgs.substituteAll {
+              src = ./helper-tool.py;
+              inherit taskd certtool;
+              inherit (cfg) dataDir user group fqdn;
+              certBits = cfg.pki.auto.bits;
+              clientExpiration = cfg.pki.auto.expiration.client;
+              crlExpiration = cfg.pki.auto.expiration.crl;
+              isAutoConfig = if needToCreateCA then "True" else "False";
+            }
+          }" > "$out/main.py"
+          cat > "$out/setup.py" <<EOF
+          from setuptools import setup
+          setup(name="nixos-taskserver",
+                py_modules=["main"],
+                install_requires=["Click"],
+                entry_points="[console_scripts]\\nnixos-taskserver=main:cli")
+          EOF
+        '';
 
-    propagatedBuildInputs = [ click ];
-  };
+      propagatedBuildInputs = [ click ];
+    };
 
 in {
   options = {
@@ -141,7 +150,8 @@ in {
         type = types.bool;
         default = false;
         description = let
-          url = "https://nixos.org/manual/nixos/stable/index.html#module-services-taskserver";
+          url =
+            "https://nixos.org/manual/nixos/stable/index.html#module-services-taskserver";
         in lib.mdDoc ''
           Whether to enable the Taskwarrior server.
 
@@ -172,17 +182,17 @@ in {
         type = types.nullOr (types.separatedString ":");
         default = null;
         example = "NORMAL:-VERS-SSL3.0";
-        description = let
-          url = "https://gnutls.org/manual/html_node/Priority-Strings.html";
-        in lib.mdDoc ''
-          List of GnuTLS ciphers to use. See the GnuTLS documentation about
-          priority strings at <${url}> for full details.
-        '';
+        description =
+          let url = "https://gnutls.org/manual/html_node/Priority-Strings.html";
+          in lib.mdDoc ''
+            List of GnuTLS ciphers to use. See the GnuTLS documentation about
+            priority strings at <${url}> for full details.
+          '';
       };
 
       organisations = mkOption {
         type = types.attrsOf (types.submodule orgOptions);
-        default = {};
+        default = { };
         example.myShinyOrganisation.users = [ "alice" "bob" ];
         example.myShinyOrganisation.groups = [ "staff" "outsiders" ];
         example.yetAnotherOrganisation.users = [ "foo" "bar" ];
@@ -244,7 +254,7 @@ in {
 
       allowedClientIDs = mkOption {
         type = with types; either str (listOf str);
-        default = [];
+        default = [ ];
         example = [ "[Tt]ask [2-9]+" ];
         description = lib.mdDoc ''
           A list of regular expressions that are matched against the reported
@@ -258,7 +268,7 @@ in {
 
       disallowedClientIDs = mkOption {
         type = with types; either str (listOf str);
-        default = [];
+        default = [ ];
         example = [ "[Tt]ask [2-9]+" ];
         description = lib.mdDoc ''
           A list of regular expressions that are matched against the reported
@@ -339,24 +349,34 @@ in {
           the right values Taskserver would expect.
         '';
         apply = let
-          mkKey = path: if path == ["server" "listen"] then "server"
-                        else concatStringsSep "." path;
-          recurse = path: attrs: let
-            mapper = name: val: let
-              newPath = path ++ [ name ];
-              scalar = if val == true then "true"
-                       else if val == false then "false"
-                       else toString val;
-            in if isAttrs val then recurse newPath val
-               else [ "${mkKey newPath}=${scalar}" ];
-          in concatLists (mapAttrsToList mapper attrs);
-        in recurse [];
+          mkKey = path:
+            if path == [ "server" "listen" ] then
+              "server"
+            else
+              concatStringsSep "." path;
+          recurse = path: attrs:
+            let
+              mapper = name: val:
+                let
+                  newPath = path ++ [ name ];
+                  scalar = if val == true then
+                    "true"
+                  else if val == false then
+                    "false"
+                  else
+                    toString val;
+                in if isAttrs val then
+                  recurse newPath val
+                else
+                  [ "${mkKey newPath}=${scalar}" ];
+            in concatLists (mapAttrsToList mapper attrs);
+        in recurse [ ];
       };
     };
   };
 
   imports = [
-    (mkRemovedOptionModule ["services" "taskserver" "extraConfig"] ''
+    (mkRemovedOptionModule [ "services" "taskserver" "extraConfig" ] ''
       This option was removed in favor of `services.taskserver.config` with
       different semantics (it's now a list of attributes instead of lines).
 
@@ -413,11 +433,14 @@ in {
         } else {
           cert = "${cfg.pki.manual.server.cert}";
           key = "${cfg.pki.manual.server.key}";
-          ${mapNullable (_: "crl") cfg.pki.manual.server.crl} = "${cfg.pki.manual.server.crl}";
+          ${mapNullable (_: "crl") cfg.pki.manual.server.crl} =
+            "${cfg.pki.manual.server.crl}";
         });
 
-        ca.cert = if needToCreateCA then "${cfg.dataDir}/keys/ca.cert"
-                  else "${cfg.pki.manual.ca.cert}";
+        ca.cert = if needToCreateCA then
+          "${cfg.dataDir}/keys/ca.cert"
+        else
+          "${cfg.pki.manual.ca.cert}";
       };
 
       systemd.services.taskserver-init = {
@@ -504,12 +527,14 @@ in {
               --bits ${toString cfg.pki.auto.bits} \
               --outfile "${cfg.dataDir}/keys/ca.key"
             silent_certtool -s \
-              --template "${pkgs.writeText "taskserver-ca.template" ''
-                cn = ${cfg.fqdn}
-                expiration_days = ${toString cfg.pki.auto.expiration.ca}
-                cert_signing_key
-                ca
-              ''}" \
+              --template "${
+                pkgs.writeText "taskserver-ca.template" ''
+                  cn = ${cfg.fqdn}
+                  expiration_days = ${toString cfg.pki.auto.expiration.ca}
+                  cert_signing_key
+                  ca
+                ''
+              }" \
               --load-privkey "${cfg.dataDir}/keys/ca.key" \
               --outfile "${cfg.dataDir}/keys/ca.cert"
 
@@ -523,13 +548,15 @@ in {
               --outfile "${cfg.dataDir}/keys/server.key"
 
             silent_certtool -c \
-              --template "${pkgs.writeText "taskserver-cert.template" ''
-                cn = ${cfg.fqdn}
-                expiration_days = ${toString cfg.pki.auto.expiration.server}
-                tls_www_server
-                encryption_key
-                signing_key
-              ''}" \
+              --template "${
+                pkgs.writeText "taskserver-cert.template" ''
+                  cn = ${cfg.fqdn}
+                  expiration_days = ${toString cfg.pki.auto.expiration.server}
+                  tls_www_server
+                  encryption_key
+                  signing_key
+                ''
+              }" \
               --load-ca-privkey "${cfg.dataDir}/keys/ca.key" \
               --load-ca-certificate "${cfg.dataDir}/keys/ca.cert" \
               --load-privkey "${cfg.dataDir}/keys/server.key" \
@@ -546,9 +573,11 @@ in {
 
           if [ ! -e "${cfg.dataDir}/keys/server.crl" ]; then
             silent_certtool --generate-crl \
-              --template "${pkgs.writeText "taskserver-crl.template" ''
-                expiration_days = ${toString cfg.pki.auto.expiration.crl}
-              ''}" \
+              --template "${
+                pkgs.writeText "taskserver-crl.template" ''
+                  expiration_days = ${toString cfg.pki.auto.expiration.crl}
+                ''
+              }" \
               --load-ca-privkey "${cfg.dataDir}/keys/ca.key" \
               --load-ca-certificate "${cfg.dataDir}/keys/ca.cert" \
               --outfile "${cfg.dataDir}/keys/server.crl"

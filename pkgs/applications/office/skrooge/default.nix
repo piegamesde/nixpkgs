@@ -1,9 +1,7 @@
-{ mkDerivation, lib, fetchurl,
-  cmake, extra-cmake-modules, qtwebengine, qtscript, grantlee,
-  kxmlgui, kwallet, kparts, kdoctools, kjobwidgets, kdesignerplugin,
-  kiconthemes, knewstuff, sqlcipher, qca-qt5, kactivities, karchive,
-  kguiaddons, knotifyconfig, krunner, kwindowsystem, libofx, shared-mime-info
-}:
+{ mkDerivation, lib, fetchurl, cmake, extra-cmake-modules, qtwebengine, qtscript
+, grantlee, kxmlgui, kwallet, kparts, kdoctools, kjobwidgets, kdesignerplugin
+, kiconthemes, knewstuff, sqlcipher, qca-qt5, kactivities, karchive, kguiaddons
+, knotifyconfig, krunner, kwindowsystem, libofx, shared-mime-info }:
 
 mkDerivation rec {
   pname = "skrooge";
@@ -14,14 +12,28 @@ mkDerivation rec {
     sha256 = "sha256-s2SkGMBx7HVpr1NBUJpqji3PTPnw4RqnkakdQVC5ric=";
   };
 
-  nativeBuildInputs = [
-    cmake extra-cmake-modules kdoctools shared-mime-info
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules kdoctools shared-mime-info ];
 
   buildInputs = [
-    qtwebengine qtscript grantlee kxmlgui kwallet kparts
-    kjobwidgets kdesignerplugin kiconthemes knewstuff sqlcipher qca-qt5
-    kactivities karchive kguiaddons knotifyconfig krunner kwindowsystem libofx
+    qtwebengine
+    qtscript
+    grantlee
+    kxmlgui
+    kwallet
+    kparts
+    kjobwidgets
+    kdesignerplugin
+    kiconthemes
+    knewstuff
+    sqlcipher
+    qca-qt5
+    kactivities
+    karchive
+    kguiaddons
+    knotifyconfig
+    krunner
+    kwindowsystem
+    libofx
   ];
 
   # SKG_DESIGNER must be used to generate the needed library for QtDesigner.

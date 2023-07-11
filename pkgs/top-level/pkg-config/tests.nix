@@ -10,12 +10,10 @@ let
   allPkgs = import ../default.nix {
     system = stdenv.hostPlatform.system;
     localSystem = stdenv.hostPlatform.system;
-    config = {
-      allowUnsupportedSystem = true;
-    };
-    overlays = [];
+    config = { allowUnsupportedSystem = true; };
+    overlays = [ ];
   };
-in
-lib.recurseIntoAttrs {
-  defaultPkgConfigPackages = allPkgs.callPackage ./test-defaultPkgConfigPackages.nix { };
+in lib.recurseIntoAttrs {
+  defaultPkgConfigPackages =
+    allPkgs.callPackage ./test-defaultPkgConfigPackages.nix { };
 }

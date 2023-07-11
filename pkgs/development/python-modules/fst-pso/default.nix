@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, miniful
-, numpy
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, miniful, numpy, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "fst-pso";
@@ -18,17 +12,12 @@ buildPythonPackage rec {
     hash = "sha256-s9FuwnsLTTazWzBq9AwAzQs05eCp4wpx7QJJDolUomo=";
   };
 
-  propagatedBuildInputs = [
-    miniful
-    numpy
-  ];
+  propagatedBuildInputs = [ miniful numpy ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "fstpso"
-  ];
+  pythonImportsCheck = [ "fstpso" ];
 
   meta = with lib; {
     description = "Fuzzy Self-Tuning PSO global optimization library";

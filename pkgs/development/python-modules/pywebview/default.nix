@@ -1,18 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, bottle
-, importlib-resources
-, proxy_tools
-, pygobject3
-, pyqtwebengine
-, pytest
-, pythonOlder
-, qt5
-, qtpy
-, six
-, xvfb-run
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, bottle, importlib-resources
+, proxy_tools, pygobject3, pyqtwebengine, pytest, pythonOlder, qt5, qtpy, six
+, xvfb-run }:
 
 buildPythonPackage rec {
   pname = "pywebview";
@@ -28,25 +16,12 @@ buildPythonPackage rec {
     hash = "sha256-awgX862p1jU/LWdg7QMC9by0OJMkzGwnC0yrc93I/c0=";
   };
 
-  nativeBuildInputs = [
-    qt5.wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
 
-  propagatedBuildInputs = [
-    bottle
-    pyqtwebengine
-    proxy_tools
-    six
-  ] ++ lib.optionals (pythonOlder "3.7") [
-    importlib-resources
-  ];
+  propagatedBuildInputs = [ bottle pyqtwebengine proxy_tools six ]
+    ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ];
 
-  nativeCheckInputs = [
-    pygobject3
-    pytest
-    qtpy
-    xvfb-run
-  ];
+  nativeCheckInputs = [ pygobject3 pytest qtpy xvfb-run ];
 
   checkPhase = ''
     # Cannot create directory /homeless-shelter/.... Error: FILE_ERROR_ACCESS_DENIED
@@ -66,9 +41,7 @@ buildPythonPackage rec {
     popd
   '';
 
-  pythonImportsCheck = [
-    "webview"
-  ];
+  pythonImportsCheck = [ "webview" ];
 
   meta = with lib; {
     description = "Lightweight cross-platform wrapper around a webview";

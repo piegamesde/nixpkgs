@@ -1,20 +1,9 @@
-{ lib
-, buildPythonApplication
-, fetchFromGitHub
-, wrapGAppsHook
-, gdk-pixbuf
-, glib-networking
-, gobject-introspection
-, imagemagick
-, librsvg
-, pango
-, webkitgtk
+{ lib, buildPythonApplication, fetchFromGitHub, wrapGAppsHook, gdk-pixbuf
+, glib-networking, gobject-introspection, imagemagick, librsvg, pango, webkitgtk
 # Python libs
-, protonvpn-nm-lib
-, psutil
+, protonvpn-nm-lib, psutil
 # Optionals
-, withIndicator ? true
-, libappindicator-gtk3 }:
+, withIndicator ? true, libappindicator-gtk3 }:
 
 buildPythonApplication rec {
   pname = "protonvpn-gui";
@@ -27,12 +16,8 @@ buildPythonApplication rec {
     sha256 = "sha256-MPS4d/yNkccsc/j85h7/4k4xL8uSCvhj/9JWPa7ezLY=";
   };
 
-  nativeBuildInputs = [
-    gdk-pixbuf
-    gobject-introspection
-    imagemagick
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ gdk-pixbuf gobject-introspection imagemagick wrapGAppsHook ];
 
   propagatedBuildInputs = [
     glib-networking # needed for the login captcha
@@ -40,11 +25,8 @@ buildPythonApplication rec {
     psutil
   ];
 
-  buildInputs = [
-    librsvg
-    pango
-    webkitgtk
-  ] ++ lib.optionals withIndicator [ libappindicator-gtk3 ];
+  buildInputs = [ librsvg pango webkitgtk ]
+    ++ lib.optionals withIndicator [ libappindicator-gtk3 ];
 
   postInstall = ''
     # Setting icons

@@ -1,25 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch
 
 # build-system
 , poetry-core
 
 # docs
-, furo
-, sphinxHook
+, furo, sphinxHook
 
 # runtime
-, babel
-, flask
-, jinja2
-, pytz
+, babel, flask, jinja2, pytz
 
 # tests
-, pytest-mock
-, pytestCheckHook
-}:
+, pytest-mock, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "flask-babel";
@@ -33,35 +24,19 @@ buildPythonPackage rec {
     hash = "sha256-KoTHBrGD6M3rkXoxUadRXhroRUbWKaL/rE6Rd2mxw4c=";
   };
 
-  outputs = [
-    "out"
-    "doc"
-  ];
+  outputs = [ "out" "doc" ];
 
-  nativeBuildInputs = [
-    furo
-    poetry-core
-    sphinxHook
-  ];
+  nativeBuildInputs = [ furo poetry-core sphinxHook ];
 
-  propagatedBuildInputs = [
-    babel
-    flask
-    jinja2
-    pytz
-  ];
+  propagatedBuildInputs = [ babel flask jinja2 pytz ];
 
-  pythonImportsCheck = [
-    "flask_babel"
-  ];
+  pythonImportsCheck = [ "flask_babel" ];
 
-  checkInputs = [
-    pytest-mock
-    pytestCheckHook
-  ];
+  checkInputs = [ pytest-mock pytestCheckHook ];
 
   meta = with lib; {
-    changelog = "https://github.com/python-babel/flask-babel/releases/tag/v${version}";
+    changelog =
+      "https://github.com/python-babel/flask-babel/releases/tag/v${version}";
     description = "Adds i18n/l10n support to Flask applications";
     longDescription = ''
       Implements i18n and l10n support for Flask.

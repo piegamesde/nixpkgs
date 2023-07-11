@@ -1,4 +1,6 @@
-{ lib, stdenv, apacheHttpd, autoconf, automake, autoreconfHook, curl, fetchFromGitHub, glib, lasso, libtool, libxml2, libxslt, openssl, pkg-config, xmlsec }:
+{ lib, stdenv, apacheHttpd, autoconf, automake, autoreconfHook, curl
+, fetchFromGitHub, glib, lasso, libtool, libxml2, libxslt, openssl, pkg-config
+, xmlsec }:
 
 stdenv.mkDerivation rec {
 
@@ -13,9 +15,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook pkg-config autoconf automake ];
-  buildInputs = [ apacheHttpd curl glib lasso libtool libxml2 libxslt openssl xmlsec ];
+  buildInputs =
+    [ apacheHttpd curl glib lasso libtool libxml2 libxslt openssl xmlsec ];
 
-  configureFlags = ["--with-apxs2=${apacheHttpd.dev}/bin/apxs" "--exec-prefix=$out"];
+  configureFlags =
+    [ "--with-apxs2=${apacheHttpd.dev}/bin/apxs" "--exec-prefix=$out" ];
 
   installPhase = ''
     mkdir -p $out/bin

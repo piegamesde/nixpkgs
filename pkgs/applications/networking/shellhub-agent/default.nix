@@ -1,13 +1,5 @@
-{ lib
-, buildGo120Module
-, fetchFromGitHub
-, gitUpdater
-, makeWrapper
-, openssh
-, libxcrypt
-, testers
-, shellhub-agent
-}:
+{ lib, buildGo120Module, fetchFromGitHub, gitUpdater, makeWrapper, openssh
+, libxcrypt, testers, shellhub-agent }:
 
 buildGo120Module rec {
   pname = "shellhub-agent";

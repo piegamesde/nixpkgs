@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config, glib, zlib, libpng, cmake, libxml2, python3 }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config, glib, zlib, libpng
+, cmake, libxml2, python3 }:
 
 let
   version = "0.3.3";
@@ -13,8 +14,7 @@ let
     sha256 = "sha256-/u/3oQzac/dQrgFaiYvzT5uQ108XarkXnA2DByA5sic=";
   };
 
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -27,7 +27,8 @@ stdenv.mkDerivation {
   patches = [
     (fetchpatch {
       name = "fix-compilation-with-clang.patch";
-      url = "https://github.com/lensfun/lensfun/commit/5c2065685a22f19f8138365c0e5acf0be8329c02.patch";
+      url =
+        "https://github.com/lensfun/lensfun/commit/5c2065685a22f19f8138365c0e5acf0be8329c02.patch";
       sha256 = "sha256-tAOCNL37pKE7hfQCu+hUTKLFnRHWF5Dplqf+GaucG+4=";
     })
   ];
@@ -45,8 +46,10 @@ stdenv.mkDerivation {
   '';
 
   nativeBuildInputs = [
-    cmake pkg-config
-    python3 python3.pkgs.lxml # For the db converison
+    cmake
+    pkg-config
+    python3
+    python3.pkgs.lxml # For the db converison
   ];
 
   buildInputs = [ glib zlib libpng ];
@@ -57,7 +60,8 @@ stdenv.mkDerivation {
     platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ flokli ];
     license = lib.licenses.lgpl3;
-    description = "An opensource database of photographic lenses and their characteristics";
+    description =
+      "An opensource database of photographic lenses and their characteristics";
     homepage = "https://lensfun.github.io";
   };
 }

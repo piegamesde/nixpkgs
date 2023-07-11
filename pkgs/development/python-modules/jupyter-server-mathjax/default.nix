@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, jupyter-packaging
-, setuptools
-, jupyter-server
-, pytest-jupyter
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, jupyter-packaging, setuptools
+, jupyter-server, pytest-jupyter, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "jupyter-server-mathjax";
@@ -19,19 +12,11 @@ buildPythonPackage rec {
     hash = "sha256-ux5rbcBobB/jhqIrWIYWPbVIiTqZwoEMNjmenEyiOUM=";
   };
 
-  nativeBuildInputs = [
-    jupyter-packaging
-    setuptools
-  ];
+  nativeBuildInputs = [ jupyter-packaging setuptools ];
 
-  propagatedBuildInputs = [
-    jupyter-server
-  ];
+  propagatedBuildInputs = [ jupyter-server ];
 
-  nativeCheckInputs = [
-    pytest-jupyter
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-jupyter pytestCheckHook ];
 
   pythonImportsCheck = [ "jupyter_server_mathjax" ];
 

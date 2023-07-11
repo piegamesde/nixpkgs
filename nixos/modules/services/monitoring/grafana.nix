@@ -5,39 +5,48 @@ with lib;
 let
   cfg = config.services.grafana;
   opt = options.services.grafana;
-  provisioningSettingsFormat = pkgs.formats.yaml {};
-  declarativePlugins = pkgs.linkFarm "grafana-plugins" (builtins.map (pkg: { name = pkg.pname; path = pkg; }) cfg.declarativePlugins);
+  provisioningSettingsFormat = pkgs.formats.yaml { };
+  declarativePlugins = pkgs.linkFarm "grafana-plugins" (builtins.map (pkg: {
+    name = pkg.pname;
+    path = pkg;
+  }) cfg.declarativePlugins);
   useMysql = cfg.settings.database.type == "mysql";
   usePostgresql = cfg.settings.database.type == "postgres";
 
-  settingsFormatIni = pkgs.formats.ini {};
+  settingsFormatIni = pkgs.formats.ini { };
   configFile = settingsFormatIni.generate "config.ini" cfg.settings;
 
   mkProvisionCfg = name: attr: provisionCfg:
-    if provisionCfg.path != null
-      then provisionCfg.path
+    if provisionCfg.path != null then
+      provisionCfg.path
     else
       provisioningSettingsFormat.generate "${name}.yaml"
-        (if provisionCfg.settings != null
-          then provisionCfg.settings
-          else {
-            apiVersion = 1;
-            ${attr} = [];
-          });
+      (if provisionCfg.settings != null then
+        provisionCfg.settings
+      else {
+        apiVersion = 1;
+        ${attr} = [ ];
+      });
 
-  datasourceFileOrDir = mkProvisionCfg "datasource" "datasources" cfg.provision.datasources;
-  dashboardFileOrDir = mkProvisionCfg "dashboard" "providers" cfg.provision.dashboards;
+  datasourceFileOrDir =
+    mkProvisionCfg "datasource" "datasources" cfg.provision.datasources;
+  dashboardFileOrDir =
+    mkProvisionCfg "dashboard" "providers" cfg.provision.dashboards;
 
   notifierConfiguration = {
     apiVersion = 1;
     notifiers = cfg.provision.notifiers;
   };
 
-  notifierFileOrDir = pkgs.writeText "notifier.yaml" (builtins.toJSON notifierConfiguration);
+  notifierFileOrDir =
+    pkgs.writeText "notifier.yaml" (builtins.toJSON notifierConfiguration);
 
-  generateAlertingProvisioningYaml = x: if (cfg.provision.alerting."${x}".path == null)
-                                        then provisioningSettingsFormat.generate "${x}.yaml" cfg.provision.alerting."${x}".settings
-                                        else cfg.provision.alerting."${x}".path;
+  generateAlertingProvisioningYaml = x:
+    if (cfg.provision.alerting."${x}".path == null) then
+      provisioningSettingsFormat.generate "${x}.yaml"
+      cfg.provision.alerting."${x}".settings
+    else
+      cfg.provision.alerting."${x}".path;
   rulesFileOrDir = generateAlertingProvisioningYaml "rules";
   contactPointsFileOrDir = generateAlertingProvisioningYaml "contactPoints";
   policiesFileOrDir = generateAlertingProvisioningYaml "policies";
@@ -53,16 +62,50 @@ let
       ln -sf ${src} $out/${dir}/${filename}.yaml
     fi
   '';
-  provisionConfDir = pkgs.runCommand "grafana-provisioning" { nativeBuildInputs = [ pkgs.xorg.lndir ]; } ''
+  provisionConfDir = pkgs.runCommand "grafana-provisioning" {
+    nativeBuildInputs = [ pkgs.xorg.lndir ];
+  } ''
     mkdir -p $out/{datasources,dashboards,notifiers,alerting}
-    ${ln { src = datasourceFileOrDir;    dir = "datasources"; filename = "datasource"; }}
-    ${ln { src = dashboardFileOrDir;     dir = "dashboards";  filename = "dashboard"; }}
-    ${ln { src = notifierFileOrDir;      dir = "notifiers";   filename = "notifier"; }}
-    ${ln { src = rulesFileOrDir;         dir = "alerting";    filename = "rules"; }}
-    ${ln { src = contactPointsFileOrDir; dir = "alerting";    filename = "contactPoints"; }}
-    ${ln { src = policiesFileOrDir;      dir = "alerting";    filename = "policies"; }}
-    ${ln { src = templatesFileOrDir;     dir = "alerting";    filename = "templates"; }}
-    ${ln { src = muteTimingsFileOrDir;   dir = "alerting";    filename = "muteTimings"; }}
+    ${ln {
+      src = datasourceFileOrDir;
+      dir = "datasources";
+      filename = "datasource";
+    }}
+    ${ln {
+      src = dashboardFileOrDir;
+      dir = "dashboards";
+      filename = "dashboard";
+    }}
+    ${ln {
+      src = notifierFileOrDir;
+      dir = "notifiers";
+      filename = "notifier";
+    }}
+    ${ln {
+      src = rulesFileOrDir;
+      dir = "alerting";
+      filename = "rules";
+    }}
+    ${ln {
+      src = contactPointsFileOrDir;
+      dir = "alerting";
+      filename = "contactPoints";
+    }}
+    ${ln {
+      src = policiesFileOrDir;
+      dir = "alerting";
+      filename = "policies";
+    }}
+    ${ln {
+      src = templatesFileOrDir;
+      dir = "alerting";
+      filename = "templates";
+    }}
+    ${ln {
+      src = muteTimingsFileOrDir;
+      dir = "alerting";
+      filename = "muteTimings";
+    }}
   '';
 
   # Get a submodule without any embedded metadata:
@@ -71,10 +114,11 @@ let
   # FIXME(@Ma27) remove before 23.05. This is just a helper-type
   # because `mkRenamedOptionModule` doesn't work if `foo.bar` is renamed
   # to `foo.bar.baz`.
-  submodule' = module: types.coercedTo
-    (mkOptionType {
+  submodule' = module:
+    types.coercedTo (mkOptionType {
       name = "grafana-provision-submodule";
-      description = "Wrapper-type for backwards compat of Grafana's declarative provisioning";
+      description =
+        "Wrapper-type for backwards compat of Grafana's declarative provisioning";
       check = x:
         if builtins.isList x then
           throw ''
@@ -83,10 +127,9 @@ let
             anymore. Use `services.grafana.provision.datasources.settings.datasources`
             (or `services.grafana.provision.dashboards.settings.providers`) instead.
           ''
-        else isAttrs x || isFunction x;
-    })
-    id
-    (types.submodule module);
+        else
+          isAttrs x || isFunction x;
+    }) id (types.submodule module);
 
   # http://docs.grafana.org/administration/provisioning/#datasources
   grafanaTypes.datasourceConfig = types.submodule {
@@ -102,14 +145,16 @@ let
         description = lib.mdDoc "Datasource type. Required.";
       };
       access = mkOption {
-        type = types.enum ["proxy" "direct"];
+        type = types.enum [ "proxy" "direct" ];
         default = "proxy";
-        description = lib.mdDoc "Access mode. proxy or direct (Server or Browser in the UI). Required.";
+        description = lib.mdDoc
+          "Access mode. proxy or direct (Server or Browser in the UI). Required.";
       };
       uid = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description = lib.mdDoc "Custom UID which can be used to reference this datasource in other parts of the configuration, if not specified will be generated automatically.";
+        description = lib.mdDoc
+          "Custom UID which can be used to reference this datasource in other parts of the configuration, if not specified will be generated automatically.";
       };
       url = mkOption {
         type = types.str;
@@ -152,7 +197,8 @@ let
       };
       options.path = mkOption {
         type = types.path;
-        description = lib.mdDoc "Path grafana will watch for dashboards. Required when using the 'file' type.";
+        description = lib.mdDoc
+          "Path grafana will watch for dashboards. Required when using the 'file' type.";
       };
     };
   };
@@ -165,7 +211,27 @@ let
         description = lib.mdDoc "Notifier name.";
       };
       type = mkOption {
-        type = types.enum ["dingding" "discord" "email" "googlechat" "hipchat" "kafka" "line" "teams" "opsgenie" "pagerduty" "prometheus-alertmanager" "pushover" "sensu" "sensugo" "slack" "telegram" "threema" "victorops" "webhook"];
+        type = types.enum [
+          "dingding"
+          "discord"
+          "email"
+          "googlechat"
+          "hipchat"
+          "kafka"
+          "line"
+          "teams"
+          "opsgenie"
+          "pagerduty"
+          "prometheus-alertmanager"
+          "pushover"
+          "sensu"
+          "sensugo"
+          "slack"
+          "telegram"
+          "threema"
+          "victorops"
+          "webhook"
+        ];
         description = lib.mdDoc "Notifier type.";
       };
       uid = mkOption {
@@ -190,17 +256,20 @@ let
       send_reminder = mkOption {
         type = types.bool;
         default = true;
-        description = lib.mdDoc "Should the notifier be sent reminder notifications while alerts continue to fire.";
+        description = lib.mdDoc
+          "Should the notifier be sent reminder notifications while alerts continue to fire.";
       };
       frequency = mkOption {
         type = types.str;
         default = "5m";
-        description = lib.mdDoc "How frequently should the notifier be sent reminders.";
+        description =
+          lib.mdDoc "How frequently should the notifier be sent reminders.";
       };
       disable_resolve_message = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Turn off the message that sends when an alert returns to OK.";
+        description = lib.mdDoc
+          "Turn off the message that sends when an alert returns to OK.";
       };
       settings = mkOption {
         type = types.nullOr types.attrs;
@@ -222,64 +291,329 @@ let
   };
 in {
   imports = [
-    (mkRenamedOptionModule [ "services" "grafana" "protocol" ] [ "services" "grafana" "settings" "server" "protocol" ])
-    (mkRenamedOptionModule [ "services" "grafana" "addr" ] [ "services" "grafana" "settings" "server" "http_addr" ])
-    (mkRenamedOptionModule [ "services" "grafana" "port" ] [ "services" "grafana" "settings" "server" "http_port" ])
-    (mkRenamedOptionModule [ "services" "grafana" "domain" ] [ "services" "grafana" "settings" "server" "domain" ])
-    (mkRenamedOptionModule [ "services" "grafana" "rootUrl" ] [ "services" "grafana" "settings" "server" "root_url" ])
-    (mkRenamedOptionModule [ "services" "grafana" "staticRootPath" ] [ "services" "grafana" "settings" "server" "static_root_path" ])
-    (mkRenamedOptionModule [ "services" "grafana" "certFile" ] [ "services" "grafana" "settings" "server" "cert_file" ])
-    (mkRenamedOptionModule [ "services" "grafana" "certKey" ] [ "services" "grafana" "settings" "server" "cert_key" ])
-    (mkRenamedOptionModule [ "services" "grafana" "socket" ] [ "services" "grafana" "settings" "server" "socket" ])
-    (mkRenamedOptionModule [ "services" "grafana" "database" "type" ] [ "services" "grafana" "settings" "database" "type" ])
-    (mkRenamedOptionModule [ "services" "grafana" "database" "host" ] [ "services" "grafana" "settings" "database" "host" ])
-    (mkRenamedOptionModule [ "services" "grafana" "database" "name" ] [ "services" "grafana" "settings" "database" "name" ])
-    (mkRenamedOptionModule [ "services" "grafana" "database" "user" ] [ "services" "grafana" "settings" "database" "user" ])
-    (mkRenamedOptionModule [ "services" "grafana" "database" "password" ] [ "services" "grafana" "settings" "database" "password" ])
-    (mkRenamedOptionModule [ "services" "grafana" "database" "path" ] [ "services" "grafana" "settings" "database" "path" ])
-    (mkRenamedOptionModule [ "services" "grafana" "database" "connMaxLifetime" ] [ "services" "grafana" "settings" "database" "conn_max_lifetime" ])
-    (mkRenamedOptionModule [ "services" "grafana" "security" "adminUser" ] [ "services" "grafana" "settings" "security" "admin_user" ])
-    (mkRenamedOptionModule [ "services" "grafana" "security" "adminPassword" ] [ "services" "grafana" "settings" "security" "admin_password" ])
-    (mkRenamedOptionModule [ "services" "grafana" "security" "secretKey" ] [ "services" "grafana" "settings" "security" "secret_key" ])
-    (mkRenamedOptionModule [ "services" "grafana" "server" "serveFromSubPath" ] [ "services" "grafana" "settings" "server" "serve_from_sub_path" ])
-    (mkRenamedOptionModule [ "services" "grafana" "smtp" "enable" ] [ "services" "grafana" "settings" "smtp" "enabled" ])
-    (mkRenamedOptionModule [ "services" "grafana" "smtp" "user" ] [ "services" "grafana" "settings" "smtp" "user" ])
-    (mkRenamedOptionModule [ "services" "grafana" "smtp" "password" ] [ "services" "grafana" "settings" "smtp" "password" ])
-    (mkRenamedOptionModule [ "services" "grafana" "smtp" "fromAddress" ] [ "services" "grafana" "settings" "smtp" "from_address" ])
-    (mkRenamedOptionModule [ "services" "grafana" "users" "allowSignUp" ] [ "services" "grafana" "settings" "users" "allow_sign_up" ])
-    (mkRenamedOptionModule [ "services" "grafana" "users" "allowOrgCreate" ] [ "services" "grafana" "settings" "users" "allow_org_create" ])
-    (mkRenamedOptionModule [ "services" "grafana" "users" "autoAssignOrg" ] [ "services" "grafana" "settings" "users" "auto_assign_org" ])
-    (mkRenamedOptionModule [ "services" "grafana" "users" "autoAssignOrgRole" ] [ "services" "grafana" "settings" "users" "auto_assign_org_role" ])
-    (mkRenamedOptionModule [ "services" "grafana" "auth" "disableLoginForm" ] [ "services" "grafana" "settings" "auth" "disable_login_form" ])
-    (mkRenamedOptionModule [ "services" "grafana" "auth" "anonymous" "enable" ] [ "services" "grafana" "settings" "auth.anonymous" "enabled" ])
-    (mkRenamedOptionModule [ "services" "grafana" "auth" "anonymous" "org_name" ] [ "services" "grafana" "settings" "auth.anonymous" "org_name" ])
-    (mkRenamedOptionModule [ "services" "grafana" "auth" "anonymous" "org_role" ] [ "services" "grafana" "settings" "auth.anonymous" "org_role" ])
-    (mkRenamedOptionModule [ "services" "grafana" "auth" "azuread" "enable" ] [ "services" "grafana" "settings" "auth.azuread" "enabled" ])
-    (mkRenamedOptionModule [ "services" "grafana" "auth" "azuread" "allowSignUp" ] [ "services" "grafana" "settings" "auth.azuread" "allow_sign_up" ])
-    (mkRenamedOptionModule [ "services" "grafana" "auth" "azuread" "clientId" ] [ "services" "grafana" "settings" "auth.azuread" "client_id" ])
-    (mkRenamedOptionModule [ "services" "grafana" "auth" "azuread" "allowedDomains" ] [ "services" "grafana" "settings" "auth.azuread" "allowed_domains" ])
-    (mkRenamedOptionModule [ "services" "grafana" "auth" "azuread" "allowedGroups" ] [ "services" "grafana" "settings" "auth.azuread" "allowed_groups" ])
-    (mkRenamedOptionModule [ "services" "grafana" "auth" "google" "enable" ] [ "services" "grafana" "settings" "auth.google" "enabled" ])
-    (mkRenamedOptionModule [ "services" "grafana" "auth" "google" "allowSignUp" ] [ "services" "grafana" "settings" "auth.google" "allow_sign_up" ])
-    (mkRenamedOptionModule [ "services" "grafana" "auth" "google" "clientId" ] [ "services" "grafana" "settings" "auth.google" "client_id" ])
-    (mkRenamedOptionModule [ "services" "grafana" "analytics" "reporting" "enable" ] [ "services" "grafana" "settings" "analytics" "reporting_enabled" ])
+    (mkRenamedOptionModule [ "services" "grafana" "protocol" ] [
+      "services"
+      "grafana"
+      "settings"
+      "server"
+      "protocol"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "addr" ] [
+      "services"
+      "grafana"
+      "settings"
+      "server"
+      "http_addr"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "port" ] [
+      "services"
+      "grafana"
+      "settings"
+      "server"
+      "http_port"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "domain" ] [
+      "services"
+      "grafana"
+      "settings"
+      "server"
+      "domain"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "rootUrl" ] [
+      "services"
+      "grafana"
+      "settings"
+      "server"
+      "root_url"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "staticRootPath" ] [
+      "services"
+      "grafana"
+      "settings"
+      "server"
+      "static_root_path"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "certFile" ] [
+      "services"
+      "grafana"
+      "settings"
+      "server"
+      "cert_file"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "certKey" ] [
+      "services"
+      "grafana"
+      "settings"
+      "server"
+      "cert_key"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "socket" ] [
+      "services"
+      "grafana"
+      "settings"
+      "server"
+      "socket"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "database" "type" ] [
+      "services"
+      "grafana"
+      "settings"
+      "database"
+      "type"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "database" "host" ] [
+      "services"
+      "grafana"
+      "settings"
+      "database"
+      "host"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "database" "name" ] [
+      "services"
+      "grafana"
+      "settings"
+      "database"
+      "name"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "database" "user" ] [
+      "services"
+      "grafana"
+      "settings"
+      "database"
+      "user"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "database" "password" ] [
+      "services"
+      "grafana"
+      "settings"
+      "database"
+      "password"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "database" "path" ] [
+      "services"
+      "grafana"
+      "settings"
+      "database"
+      "path"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "database"
+      "connMaxLifetime"
+    ] [ "services" "grafana" "settings" "database" "conn_max_lifetime" ])
+    (mkRenamedOptionModule [ "services" "grafana" "security" "adminUser" ] [
+      "services"
+      "grafana"
+      "settings"
+      "security"
+      "admin_user"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "security" "adminPassword" ] [
+      "services"
+      "grafana"
+      "settings"
+      "security"
+      "admin_password"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "security" "secretKey" ] [
+      "services"
+      "grafana"
+      "settings"
+      "security"
+      "secret_key"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "server"
+      "serveFromSubPath"
+    ] [ "services" "grafana" "settings" "server" "serve_from_sub_path" ])
+    (mkRenamedOptionModule [ "services" "grafana" "smtp" "enable" ] [
+      "services"
+      "grafana"
+      "settings"
+      "smtp"
+      "enabled"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "smtp" "user" ] [
+      "services"
+      "grafana"
+      "settings"
+      "smtp"
+      "user"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "smtp" "password" ] [
+      "services"
+      "grafana"
+      "settings"
+      "smtp"
+      "password"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "smtp" "fromAddress" ] [
+      "services"
+      "grafana"
+      "settings"
+      "smtp"
+      "from_address"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "users" "allowSignUp" ] [
+      "services"
+      "grafana"
+      "settings"
+      "users"
+      "allow_sign_up"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "users" "allowOrgCreate" ] [
+      "services"
+      "grafana"
+      "settings"
+      "users"
+      "allow_org_create"
+    ])
+    (mkRenamedOptionModule [ "services" "grafana" "users" "autoAssignOrg" ] [
+      "services"
+      "grafana"
+      "settings"
+      "users"
+      "auto_assign_org"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "users"
+      "autoAssignOrgRole"
+    ] [ "services" "grafana" "settings" "users" "auto_assign_org_role" ])
+    (mkRenamedOptionModule [ "services" "grafana" "auth" "disableLoginForm" ] [
+      "services"
+      "grafana"
+      "settings"
+      "auth"
+      "disable_login_form"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "auth"
+      "anonymous"
+      "enable"
+    ] [ "services" "grafana" "settings" "auth.anonymous" "enabled" ])
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "auth"
+      "anonymous"
+      "org_name"
+    ] [ "services" "grafana" "settings" "auth.anonymous" "org_name" ])
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "auth"
+      "anonymous"
+      "org_role"
+    ] [ "services" "grafana" "settings" "auth.anonymous" "org_role" ])
+    (mkRenamedOptionModule [ "services" "grafana" "auth" "azuread" "enable" ] [
+      "services"
+      "grafana"
+      "settings"
+      "auth.azuread"
+      "enabled"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "auth"
+      "azuread"
+      "allowSignUp"
+    ] [ "services" "grafana" "settings" "auth.azuread" "allow_sign_up" ])
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "auth"
+      "azuread"
+      "clientId"
+    ] [ "services" "grafana" "settings" "auth.azuread" "client_id" ])
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "auth"
+      "azuread"
+      "allowedDomains"
+    ] [ "services" "grafana" "settings" "auth.azuread" "allowed_domains" ])
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "auth"
+      "azuread"
+      "allowedGroups"
+    ] [ "services" "grafana" "settings" "auth.azuread" "allowed_groups" ])
+    (mkRenamedOptionModule [ "services" "grafana" "auth" "google" "enable" ] [
+      "services"
+      "grafana"
+      "settings"
+      "auth.google"
+      "enabled"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "auth"
+      "google"
+      "allowSignUp"
+    ] [ "services" "grafana" "settings" "auth.google" "allow_sign_up" ])
+    (mkRenamedOptionModule [ "services" "grafana" "auth" "google" "clientId" ] [
+      "services"
+      "grafana"
+      "settings"
+      "auth.google"
+      "client_id"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "grafana"
+      "analytics"
+      "reporting"
+      "enable"
+    ] [ "services" "grafana" "settings" "analytics" "reporting_enabled" ])
 
     (mkRemovedOptionModule [ "services" "grafana" "database" "passwordFile" ] ''
       This option has been removed. Use 'services.grafana.settings.database.password' with file provider instead.
     '')
-    (mkRemovedOptionModule [ "services" "grafana" "security" "adminPasswordFile" ] ''
+    (mkRemovedOptionModule [
+      "services"
+      "grafana"
+      "security"
+      "adminPasswordFile"
+    ] ''
       This option has been removed. Use 'services.grafana.settings.security.admin_password' with file provider instead.
     '')
-    (mkRemovedOptionModule [ "services" "grafana" "security" "secretKeyFile" ] ''
+    (mkRemovedOptionModule [
+      "services"
+      "grafana"
+      "security"
+      "secretKeyFile"
+    ] ''
       This option has been removed. Use 'services.grafana.settings.security.secret_key' with file provider instead.
     '')
     (mkRemovedOptionModule [ "services" "grafana" "smtp" "passwordFile" ] ''
       This option has been removed. Use 'services.grafana.settings.smtp.password' with file provider instead.
     '')
-    (mkRemovedOptionModule [ "services" "grafana" "auth" "azuread" "clientSecretFile" ] ''
+    (mkRemovedOptionModule [
+      "services"
+      "grafana"
+      "auth"
+      "azuread"
+      "clientSecretFile"
+    ] ''
       This option has been removed. Use 'services.grafana.settings.azuread.client_secret' with file provider instead.
     '')
-    (mkRemovedOptionModule [ "services" "grafana" "auth" "google" "clientSecretFile" ] ''
+    (mkRemovedOptionModule [
+      "services"
+      "grafana"
+      "auth"
+      "google"
+      "clientSecretFile"
+    ] ''
       This option has been removed. Use 'services.grafana.settings.google.client_secret' with file provider instead.
     '')
     (mkRemovedOptionModule [ "services" "grafana" "extraOptions" ] ''
@@ -287,7 +621,8 @@ in {
       review the release notes of NixOS 22.11.
     '')
 
-    (mkRemovedOptionModule [ "services" "grafana" "auth" "azuread" "tenantId" ] "This option has been deprecated upstream.")
+    (mkRemovedOptionModule [ "services" "grafana" "auth" "azuread" "tenantId" ]
+      "This option has been deprecated upstream.")
   ];
 
   options.services.grafana = {
@@ -296,8 +631,10 @@ in {
     declarativePlugins = mkOption {
       type = with types; nullOr (listOf path);
       default = null;
-      description = lib.mdDoc "If non-null, then a list of packages containing Grafana plugins to install. If set, plugins cannot be manually installed.";
-      example = literalExpression "with pkgs.grafanaPlugins; [ grafana-piechart-panel ]";
+      description = lib.mdDoc
+        "If non-null, then a list of packages containing Grafana plugins to install. If set, plugins cannot be manually installed.";
+      example = literalExpression
+        "with pkgs.grafanaPlugins; [ grafana-piechart-panel ]";
       # Make sure each plugin is added only once; otherwise building
       # the link farm fails, since the same path is added multiple
       # times.
@@ -328,9 +665,14 @@ in {
         options = {
           paths = {
             plugins = mkOption {
-              description = lib.mdDoc "Directory where grafana will automatically scan and look for plugins";
-              default = if (cfg.declarativePlugins == null) then "${cfg.dataDir}/plugins" else declarativePlugins;
-              defaultText = literalExpression "if (cfg.declarativePlugins == null) then \"\${cfg.dataDir}/plugins\" else declarativePlugins";
+              description = lib.mdDoc
+                "Directory where grafana will automatically scan and look for plugins";
+              default = if (cfg.declarativePlugins == null) then
+                "${cfg.dataDir}/plugins"
+              else
+                declarativePlugins;
+              defaultText = literalExpression ''
+                if (cfg.declarativePlugins == null) then "''${cfg.dataDir}/plugins" else declarativePlugins'';
               type = types.path;
             };
 
@@ -340,7 +682,8 @@ in {
                 Don't change the value of this option if you are planning to use `services.grafana.provision` options.
               '';
               default = provisionConfDir;
-              defaultText = "directory with links to files generated from services.grafana.provision";
+              defaultText =
+                "directory with links to files generated from services.grafana.provision";
               type = types.path;
             };
           };
@@ -349,7 +692,7 @@ in {
             protocol = mkOption {
               description = lib.mdDoc "Which protocol to listen.";
               default = "http";
-              type = types.enum ["http" "https" "h2" "socket"];
+              type = types.enum [ "http" "https" "h2" "socket" ];
             };
 
             http_addr = mkOption {
@@ -371,7 +714,8 @@ in {
             };
 
             domain = mkOption {
-              description = lib.mdDoc "The public facing domain name used to access grafana from a browser.";
+              description = lib.mdDoc
+                "The public facing domain name used to access grafana from a browser.";
               default = "localhost";
               type = types.str;
             };
@@ -385,7 +729,8 @@ in {
             static_root_path = mkOption {
               description = lib.mdDoc "Root path for static assets.";
               default = "${cfg.package}/share/grafana/public";
-              defaultText = literalExpression ''"''${package}/share/grafana/public"'';
+              defaultText =
+                literalExpression ''"''${package}/share/grafana/public"'';
               type = types.str;
             };
 
@@ -411,7 +756,8 @@ in {
             };
 
             socket = mkOption {
-              description = lib.mdDoc "Path where the socket should be created when protocol=socket. Make sure that Grafana has appropriate permissions before you change this setting.";
+              description = lib.mdDoc
+                "Path where the socket should be created when protocol=socket. Make sure that Grafana has appropriate permissions before you change this setting.";
               default = "/run/grafana/grafana.sock";
               type = types.str;
             };
@@ -421,7 +767,7 @@ in {
             type = mkOption {
               description = lib.mdDoc "Database type.";
               default = "sqlite3";
-              type = types.enum ["mysql" "sqlite3" "postgres"];
+              type = types.enum [ "mysql" "sqlite3" "postgres" ];
             };
 
             host = mkOption {
@@ -455,9 +801,11 @@ in {
             };
 
             path = mkOption {
-              description = lib.mdDoc "Only applicable to sqlite3 database. The file path where the database will be stored.";
+              description = lib.mdDoc
+                "Only applicable to sqlite3 database. The file path where the database will be stored.";
               default = "${cfg.dataDir}/data/grafana.db";
-              defaultText = literalExpression ''"''${config.${opt.dataDir}}/data/grafana.db"'';
+              defaultText = literalExpression
+                ''"''${config.${opt.dataDir}}/data/grafana.db"'';
               type = types.path;
             };
           };
@@ -536,26 +884,30 @@ in {
             };
 
             allow_org_create = mkOption {
-              description = lib.mdDoc "Whether user is allowed to create organizations.";
+              description =
+                lib.mdDoc "Whether user is allowed to create organizations.";
               default = false;
               type = types.bool;
             };
 
             auto_assign_org = mkOption {
-              description = lib.mdDoc "Whether to automatically assign new users to default org.";
+              description = lib.mdDoc
+                "Whether to automatically assign new users to default org.";
               default = true;
               type = types.bool;
             };
 
             auto_assign_org_role = mkOption {
-              description = lib.mdDoc "Default role new users will be auto assigned.";
+              description =
+                lib.mdDoc "Default role new users will be auto assigned.";
               default = "Viewer";
-              type = types.enum ["Viewer" "Editor" "Admin"];
+              type = types.enum [ "Viewer" "Editor" "Admin" ];
             };
           };
 
           analytics.reporting_enabled = mkOption {
-            description = lib.mdDoc "Whether to allow anonymous usage reporting to stats.grafana.net.";
+            description = lib.mdDoc
+              "Whether to allow anonymous usage reporting to stats.grafana.net.";
             default = true;
             type = types.bool;
           };
@@ -570,7 +922,7 @@ in {
         description = lib.mdDoc ''
           Declaratively provision Grafana's datasources.
         '';
-        default = {};
+        default = { };
         type = submodule' {
           options.settings = mkOption {
             description = lib.mdDoc ''
@@ -589,22 +941,26 @@ in {
                 };
 
                 datasources = mkOption {
-                  description = lib.mdDoc "List of datasources to insert/update.";
-                  default = [];
+                  description =
+                    lib.mdDoc "List of datasources to insert/update.";
+                  default = [ ];
                   type = types.listOf grafanaTypes.datasourceConfig;
                 };
 
                 deleteDatasources = mkOption {
-                  description = lib.mdDoc "List of datasources that should be deleted from the database.";
-                  default = [];
+                  description = lib.mdDoc
+                    "List of datasources that should be deleted from the database.";
+                  default = [ ];
                   type = types.listOf (types.submodule {
                     options.name = mkOption {
-                      description = lib.mdDoc "Name of the datasource to delete.";
+                      description =
+                        lib.mdDoc "Name of the datasource to delete.";
                       type = types.str;
                     };
 
                     options.orgId = mkOption {
-                      description = lib.mdDoc "Organization ID of the datasource to delete.";
+                      description = lib.mdDoc
+                        "Organization ID of the datasource to delete.";
                       type = types.int;
                     };
                   });
@@ -640,12 +996,11 @@ in {
         };
       };
 
-
       dashboards = mkOption {
         description = lib.mdDoc ''
           Declaratively provision Grafana's dashboards.
         '';
-        default = {};
+        default = { };
         type = submodule' {
           options.settings = mkOption {
             description = lib.mdDoc ''
@@ -664,7 +1019,7 @@ in {
 
               options.providers = mkOption {
                 description = lib.mdDoc "List of dashboards to insert/update.";
-                default = [];
+                default = [ ];
                 type = types.listOf grafanaTypes.dashboardConfig;
               };
             });
@@ -692,14 +1047,12 @@ in {
         };
       };
 
-
       notifiers = mkOption {
         description = lib.mdDoc "Grafana notifier configuration.";
-        default = [];
+        default = [ ];
         type = types.listOf grafanaTypes.notifierConfig;
         apply = x: map _filter x;
       };
-
 
       alerting = {
         rules = {
@@ -730,31 +1083,36 @@ in {
                 };
 
                 groups = mkOption {
-                  description = lib.mdDoc "List of rule groups to import or update.";
-                  default = [];
+                  description =
+                    lib.mdDoc "List of rule groups to import or update.";
+                  default = [ ];
                   type = types.listOf (types.submodule {
                     freeformType = provisioningSettingsFormat.type;
 
                     options.name = mkOption {
-                      description = lib.mdDoc "Name of the rule group. Required.";
+                      description =
+                        lib.mdDoc "Name of the rule group. Required.";
                       type = types.str;
                     };
 
                     options.folder = mkOption {
-                      description = lib.mdDoc "Name of the folder the rule group will be stored in. Required.";
+                      description = lib.mdDoc
+                        "Name of the folder the rule group will be stored in. Required.";
                       type = types.str;
                     };
 
                     options.interval = mkOption {
-                      description = lib.mdDoc "Interval that the rule group should be evaluated at. Required.";
+                      description = lib.mdDoc
+                        "Interval that the rule group should be evaluated at. Required.";
                       type = types.str;
                     };
                   });
                 };
 
                 deleteRules = mkOption {
-                  description = lib.mdDoc "List of alert rule UIDs that should be deleted.";
-                  default = [];
+                  description =
+                    lib.mdDoc "List of alert rule UIDs that should be deleted.";
+                  default = [ ];
                   type = types.listOf (types.submodule {
                     options.orgId = mkOption {
                       description = lib.mdDoc "Organization ID, default = 1";
@@ -763,7 +1121,8 @@ in {
                     };
 
                     options.uid = mkOption {
-                      description = lib.mdDoc "Unique identifier for the rule. Required.";
+                      description =
+                        lib.mdDoc "Unique identifier for the rule. Required.";
                       type = types.str;
                     };
                   });
@@ -854,21 +1213,24 @@ in {
                 };
 
                 contactPoints = mkOption {
-                  description = lib.mdDoc "List of contact points to import or update.";
-                  default = [];
+                  description =
+                    lib.mdDoc "List of contact points to import or update.";
+                  default = [ ];
                   type = types.listOf (types.submodule {
                     freeformType = provisioningSettingsFormat.type;
 
                     options.name = mkOption {
-                      description = lib.mdDoc "Name of the contact point. Required.";
+                      description =
+                        lib.mdDoc "Name of the contact point. Required.";
                       type = types.str;
                     };
                   });
                 };
 
                 deleteContactPoints = mkOption {
-                  description = lib.mdDoc "List of receivers that should be deleted.";
-                  default = [];
+                  description =
+                    lib.mdDoc "List of receivers that should be deleted.";
+                  default = [ ];
                   type = types.listOf (types.submodule {
                     options.orgId = mkOption {
                       description = lib.mdDoc "Organization ID, default = 1.";
@@ -877,7 +1239,8 @@ in {
                     };
 
                     options.uid = mkOption {
-                      description = lib.mdDoc "Unique identifier for the receiver. Required.";
+                      description = lib.mdDoc
+                        "Unique identifier for the receiver. Required.";
                       type = types.str;
                     };
                   });
@@ -935,16 +1298,18 @@ in {
                 };
 
                 policies = mkOption {
-                  description = lib.mdDoc "List of contact points to import or update.";
-                  default = [];
+                  description =
+                    lib.mdDoc "List of contact points to import or update.";
+                  default = [ ];
                   type = types.listOf (types.submodule {
                     freeformType = provisioningSettingsFormat.type;
                   });
                 };
 
                 resetPolicies = mkOption {
-                  description = lib.mdDoc "List of orgIds that should be reset to the default policy.";
-                  default = [];
+                  description = lib.mdDoc
+                    "List of orgIds that should be reset to the default policy.";
+                  default = [ ];
                   type = types.listOf types.int;
                 };
               };
@@ -1005,26 +1370,30 @@ in {
                 };
 
                 templates = mkOption {
-                  description = lib.mdDoc "List of templates to import or update.";
-                  default = [];
+                  description =
+                    lib.mdDoc "List of templates to import or update.";
+                  default = [ ];
                   type = types.listOf (types.submodule {
                     freeformType = provisioningSettingsFormat.type;
 
                     options.name = mkOption {
-                      description = lib.mdDoc "Name of the template, must be unique. Required.";
+                      description = lib.mdDoc
+                        "Name of the template, must be unique. Required.";
                       type = types.str;
                     };
 
                     options.template = mkOption {
-                      description = lib.mdDoc "Alerting with a custom text template";
+                      description =
+                        lib.mdDoc "Alerting with a custom text template";
                       type = types.str;
                     };
                   });
                 };
 
                 deleteTemplates = mkOption {
-                  description = lib.mdDoc "List of alert rule UIDs that should be deleted.";
-                  default = [];
+                  description =
+                    lib.mdDoc "List of alert rule UIDs that should be deleted.";
+                  default = [ ];
                   type = types.listOf (types.submodule {
                     options.orgId = mkOption {
                       description = lib.mdDoc "Organization ID, default = 1.";
@@ -1033,7 +1402,8 @@ in {
                     };
 
                     options.name = mkOption {
-                      description = lib.mdDoc "Name of the template, must be unique. Required.";
+                      description = lib.mdDoc
+                        "Name of the template, must be unique. Required.";
                       type = types.str;
                     };
                   });
@@ -1087,21 +1457,24 @@ in {
                 };
 
                 muteTimes = mkOption {
-                  description = lib.mdDoc "List of mute time intervals to import or update.";
-                  default = [];
+                  description = lib.mdDoc
+                    "List of mute time intervals to import or update.";
+                  default = [ ];
                   type = types.listOf (types.submodule {
                     freeformType = provisioningSettingsFormat.type;
 
                     options.name = mkOption {
-                      description = lib.mdDoc "Name of the mute time interval, must be unique. Required.";
+                      description = lib.mdDoc
+                        "Name of the mute time interval, must be unique. Required.";
                       type = types.str;
                     };
                   });
                 };
 
                 deleteMuteTimes = mkOption {
-                  description = lib.mdDoc "List of mute time intervals that should be deleted.";
-                  default = [];
+                  description = lib.mdDoc
+                    "List of mute time intervals that should be deleted.";
+                  default = [ ];
                   type = types.listOf (types.submodule {
                     options.orgId = mkOption {
                       description = lib.mdDoc "Organization ID, default = 1.";
@@ -1110,7 +1483,8 @@ in {
                     };
 
                     options.name = mkOption {
-                      description = lib.mdDoc "Name of the mute time interval, must be unique. Required.";
+                      description = lib.mdDoc
+                        "Name of the mute time interval, must be unique. Required.";
                       type = types.str;
                     };
                   });
@@ -1166,89 +1540,97 @@ in {
     warnings = let
       doesntUseFileProvider = opt: defaultValue:
         let
-          regex = "${optionalString (defaultValue != null) "^${defaultValue}$|"}^\\$__(file|env)\\{.*}$|^\\$[^_\\$][^ ]+$";
+          regex = "${
+              optionalString (defaultValue != null) "^${defaultValue}$|"
+            }^\\$__(file|env)\\{.*}$|^\\$[^_\\$][^ ]+$";
         in builtins.match regex opt == null;
-    in
       # Ensure that no custom credentials are leaked into the Nix store. Unless the default value
       # is specified, this can be achieved by using the file/env provider:
       # https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#variable-expansion
-      (optional (
-        doesntUseFileProvider cfg.settings.database.password "" ||
-        doesntUseFileProvider cfg.settings.security.admin_password "admin"
-      ) ''
+    in (optional (doesntUseFileProvider cfg.settings.database.password ""
+      || doesntUseFileProvider cfg.settings.security.admin_password "admin") ''
         Grafana passwords will be stored as plaintext in the Nix store!
         Use file provider or an env-var instead.
       '')
-      # Warn about deprecated notifiers.
-      ++ (optional (cfg.provision.notifiers != []) ''
-        Notifiers are deprecated upstream and will be removed in Grafana 10.
-        Use `services.grafana.provision.alerting.contactPoints` instead.
-      '')
-      # Ensure that `secureJsonData` of datasources provisioned via `datasources.settings`
-      # only uses file/env providers.
-      ++ (optional (
-        let
-          datasourcesToCheck = optionals
-            (cfg.provision.datasources.settings != null)
-            cfg.provision.datasources.settings.datasources;
-          declarationUnsafe = { secureJsonData, ... }:
-            secureJsonData != null
-            && any (flip doesntUseFileProvider null) (attrValues secureJsonData);
-        in any declarationUnsafe datasourcesToCheck
-      ) ''
-        Declarations in the `secureJsonData`-block of a datasource will be leaked to the
-        Nix store unless a file-provider or an env-var is used!
-      '')
-      ++ (optional (
-        any (x: x.secure_settings != null) cfg.provision.notifiers
-      ) "Notifier secure settings will be stored as plaintext in the Nix store! Use file provider instead.");
+    # Warn about deprecated notifiers.
+    ++ (optional (cfg.provision.notifiers != [ ]) ''
+      Notifiers are deprecated upstream and will be removed in Grafana 10.
+      Use `services.grafana.provision.alerting.contactPoints` instead.
+    '')
+    # Ensure that `secureJsonData` of datasources provisioned via `datasources.settings`
+    # only uses file/env providers.
+    ++ (optional (let
+      datasourcesToCheck =
+        optionals (cfg.provision.datasources.settings != null)
+        cfg.provision.datasources.settings.datasources;
+      declarationUnsafe = { secureJsonData, ... }:
+        secureJsonData != null
+        && any (flip doesntUseFileProvider null) (attrValues secureJsonData);
+    in any declarationUnsafe datasourcesToCheck) ''
+      Declarations in the `secureJsonData`-block of a datasource will be leaked to the
+      Nix store unless a file-provider or an env-var is used!
+    '')
+    ++ (optional (any (x: x.secure_settings != null) cfg.provision.notifiers)
+      "Notifier secure settings will be stored as plaintext in the Nix store! Use file provider instead.");
 
     environment.systemPackages = [ cfg.package ];
 
     assertions = [
       {
-        assertion = cfg.provision.datasources.settings == null || cfg.provision.datasources.path == null;
+        assertion = cfg.provision.datasources.settings == null
+          || cfg.provision.datasources.path == null;
         message = "Cannot set both datasources settings and datasources path";
       }
       {
         assertion = let
-          prometheusIsNotDirect = opt: all
-          ({ type, access, ... }: type == "prometheus" -> access != "direct")
-          opt;
-        in
-          cfg.provision.datasources.settings == null || prometheusIsNotDirect cfg.provision.datasources.settings.datasources;
-        message = "For datasources of type `prometheus`, the `direct` access mode is not supported anymore (since Grafana 9.2.0)";
+          prometheusIsNotDirect = opt:
+            all
+            ({ type, access, ... }: type == "prometheus" -> access != "direct")
+            opt;
+        in cfg.provision.datasources.settings == null
+        || prometheusIsNotDirect cfg.provision.datasources.settings.datasources;
+        message =
+          "For datasources of type `prometheus`, the `direct` access mode is not supported anymore (since Grafana 9.2.0)";
       }
       {
-        assertion = cfg.provision.dashboards.settings == null || cfg.provision.dashboards.path == null;
+        assertion = cfg.provision.dashboards.settings == null
+          || cfg.provision.dashboards.path == null;
         message = "Cannot set both dashboards settings and dashboards path";
       }
       {
-        assertion = cfg.provision.alerting.rules.settings == null || cfg.provision.alerting.rules.path == null;
+        assertion = cfg.provision.alerting.rules.settings == null
+          || cfg.provision.alerting.rules.path == null;
         message = "Cannot set both rules settings and rules path";
       }
       {
-        assertion = cfg.provision.alerting.contactPoints.settings == null || cfg.provision.alerting.contactPoints.path == null;
-        message = "Cannot set both contact points settings and contact points path";
+        assertion = cfg.provision.alerting.contactPoints.settings == null
+          || cfg.provision.alerting.contactPoints.path == null;
+        message =
+          "Cannot set both contact points settings and contact points path";
       }
       {
-        assertion = cfg.provision.alerting.policies.settings == null || cfg.provision.alerting.policies.path == null;
+        assertion = cfg.provision.alerting.policies.settings == null
+          || cfg.provision.alerting.policies.path == null;
         message = "Cannot set both policies settings and policies path";
       }
       {
-        assertion = cfg.provision.alerting.templates.settings == null || cfg.provision.alerting.templates.path == null;
+        assertion = cfg.provision.alerting.templates.settings == null
+          || cfg.provision.alerting.templates.path == null;
         message = "Cannot set both templates settings and templates path";
       }
       {
-        assertion = cfg.provision.alerting.muteTimings.settings == null || cfg.provision.alerting.muteTimings.path == null;
+        assertion = cfg.provision.alerting.muteTimings.settings == null
+          || cfg.provision.alerting.muteTimings.path == null;
         message = "Cannot set both mute timings settings and mute timings path";
       }
     ];
 
     systemd.services.grafana = {
       description = "Grafana Service Daemon";
-      wantedBy = ["multi-user.target"];
-      after = ["networking.target"] ++ lib.optional usePostgresql "postgresql.service" ++ lib.optional useMysql "mysql.service";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "networking.target" ]
+        ++ lib.optional usePostgresql "postgresql.service"
+        ++ lib.optional useMysql "mysql.service";
       script = ''
         set -o errexit -o pipefail -o nounset -o errtrace
         shopt -s inherit_errexit
@@ -1261,8 +1643,12 @@ in {
         RuntimeDirectory = "grafana";
         RuntimeDirectoryMode = "0755";
         # Hardening
-        AmbientCapabilities = lib.mkIf (cfg.settings.server.http_port < 1024) [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet = if (cfg.settings.server.http_port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
+        AmbientCapabilities = lib.mkIf (cfg.settings.server.http_port < 1024)
+          [ "CAP_NET_BIND_SERVICE" ];
+        CapabilityBoundingSet = if (cfg.settings.server.http_port < 1024) then
+          [ "CAP_NET_BIND_SERVICE" ]
+        else
+          [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;
         NoNewPrivileges = true;
@@ -1285,10 +1671,9 @@ in {
         SystemCallArchitectures = "native";
         # Upstream grafana is not setting SystemCallFilter for compatibility
         # reasons, see https://github.com/grafana/grafana/pull/40176
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-        ] ++ lib.optionals (cfg.settings.server.protocol == "socket") [ "@chown" ];
+        SystemCallFilter = [ "@system-service" "~@privileged" ]
+          ++ lib.optionals (cfg.settings.server.protocol == "socket")
+          [ "@chown" ];
         UMask = "0027";
       };
       preStart = ''
@@ -1304,6 +1689,6 @@ in {
       createHome = true;
       group = "grafana";
     };
-    users.groups.grafana = {};
+    users.groups.grafana = { };
   };
 }

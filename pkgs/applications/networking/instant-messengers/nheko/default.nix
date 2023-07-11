@@ -1,35 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, asciidoc
-, pkg-config
-, boost17x
-, cmark
-, coeurl
-, curl
-, libevent
-, libsecret
-, lmdb
-, lmdbxx
-, mtxclient
-, nlohmann_json
-, olm
-, qtbase
-, qtgraphicaleffects
-, qtimageformats
-, qtkeychain
-, qtmacextras
-, qtmultimedia
-, qtquickcontrols2
-, qttools
-, re2
-, spdlog
-, wrapQtAppsHook
-, voipSupport ? true
-, gst_all_1
-, libnice
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, asciidoc, pkg-config, boost17x, cmark
+, coeurl, curl, libevent, libsecret, lmdb, lmdbxx, mtxclient, nlohmann_json, olm
+, qtbase, qtgraphicaleffects, qtimageformats, qtkeychain, qtmacextras
+, qtmultimedia, qtquickcontrols2, qttools, re2, spdlog, wrapQtAppsHook
+, voipSupport ? true, gst_all_1, libnice }:
 
 stdenv.mkDerivation rec {
   pname = "nheko";
@@ -42,13 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-2daXxTbpSUlig47y901JOkWRxbZGH4qrvNMepJbvS3o=";
   };
 
-  nativeBuildInputs = [
-    asciidoc
-    cmake
-    lmdbxx
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ asciidoc cmake lmdbxx pkg-config wrapQtAppsHook ];
 
   buildInputs = [
     boost17x
@@ -70,14 +37,14 @@ stdenv.mkDerivation rec {
     qttools
     re2
     spdlog
-  ] ++ lib.optional stdenv.isDarwin qtmacextras
-  ++ lib.optionals voipSupport (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-    (gst-plugins-good.override { qt5Support = true; })
-    gst-plugins-bad
-    libnice
-  ]);
+  ] ++ lib.optional stdenv.isDarwin qtmacextras ++ lib.optionals voipSupport
+    (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      (gst-plugins-good.override { qt5Support = true; })
+      gst-plugins-bad
+      libnice
+    ]);
 
   cmakeFlags = [
     "-DCOMPILE_QML=ON" # see https://github.com/Nheko-Reborn/nheko/issues/389

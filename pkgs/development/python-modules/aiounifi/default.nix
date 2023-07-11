@@ -1,14 +1,5 @@
-{ lib
-, aiohttp
-, aioresponses
-, buildPythonPackage
-, fetchFromGitHub
-, orjson
-, pytest-aiohttp
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, aiohttp, aioresponses, buildPythonPackage, fetchFromGitHub, orjson
+, pytest-aiohttp, pytest-asyncio, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aiounifi";
@@ -24,25 +15,14 @@ buildPythonPackage rec {
     hash = "sha256-/BdSB7CD/ob8vinYDZVy0FNU23PSCiHF8jHGQUDsm1w=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    orjson
-  ];
+  propagatedBuildInputs = [ aiohttp orjson ];
 
-  nativeCheckInputs = [
-    aioresponses
-    pytest-aiohttp
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ aioresponses pytest-aiohttp pytest-asyncio pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "--asyncio-mode=auto"
-  ];
+  pytestFlagsArray = [ "--asyncio-mode=auto" ];
 
-  pythonImportsCheck = [
-    "aiounifi"
-  ];
+  pythonImportsCheck = [ "aiounifi" ];
 
   meta = with lib; {
     description = "Python library for communicating with Unifi Controller API";

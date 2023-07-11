@@ -1,9 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, testers
-, nixel
-}:
+{ lib, rustPlatform, fetchFromGitHub, testers, nixel }:
 
 rustPlatform.buildRustPackage rec {
   pname = "nixel";
@@ -23,12 +18,11 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
   #
   # Let's test it runs
-  passthru.tests = {
-    version = testers.testVersion { package = nixel; };
-  };
+  passthru.tests = { version = testers.testVersion { package = nixel; }; };
 
   meta = with lib; {
-    description = "Lexer, Parser, Abstract Syntax Tree and Concrete Syntax Tree for the Nix Expressions Language";
+    description =
+      "Lexer, Parser, Abstract Syntax Tree and Concrete Syntax Tree for the Nix Expressions Language";
     homepage = "https://github.com/kamadorueda/nixel";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ kamadorueda ];

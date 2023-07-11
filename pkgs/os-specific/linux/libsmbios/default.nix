@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl
-, pkg-config, autoreconfHook, help2man, gettext, libxml2, perl, python3, doxygen
-}:
+{ lib, stdenv, fetchFromGitHub, fetchurl, pkg-config, autoreconfHook, help2man
+, gettext, libxml2, perl, python3, doxygen }:
 
 stdenv.mkDerivation rec {
   pname = "libsmbios";
@@ -16,12 +15,14 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchurl {
       name = "musl.patch";
-      url = "https://git.alpinelinux.org/aports/plain/community/libsmbios/fixes.patch?id=bdc4f67889c958c1266fa5d0cab71c3cd639122f";
+      url =
+        "https://git.alpinelinux.org/aports/plain/community/libsmbios/fixes.patch?id=bdc4f67889c958c1266fa5d0cab71c3cd639122f";
       sha256 = "aVVc52OovDYvqWRyKcRAi62daa9AalkKvnVOGvrTmRk=";
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook doxygen gettext libxml2 help2man perl pkg-config ];
+  nativeBuildInputs =
+    [ autoreconfHook doxygen gettext libxml2 help2man perl pkg-config ];
 
   buildInputs = [ python3 ];
 

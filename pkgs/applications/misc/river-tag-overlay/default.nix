@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchFromSourcehut, fetchpatch
-, wayland, pixman, pkg-config, wayland-scanner
-}:
+{ lib, stdenv, fetchFromSourcehut, fetchpatch, wayland, pixman, pkg-config
+, wayland-scanner }:
 
 stdenv.mkDerivation rec {
   pname = "river-tag-overlay";
@@ -16,7 +15,8 @@ stdenv.mkDerivation rec {
   patches = [
     # Backport cross fix.
     (fetchpatch {
-      url = "https://git.sr.ht/~leon_plickat/river-tag-overlay/commit/791eaadf46482121a4c811ffba13d03168d74d8f.patch";
+      url =
+        "https://git.sr.ht/~leon_plickat/river-tag-overlay/commit/791eaadf46482121a4c811ffba13d03168d74d8f.patch";
       sha256 = "CxSDcweHGup1EF3oD/2vhP6RFoeYorj0BwmlgA3tbPE=";
     })
   ];
@@ -24,10 +24,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ pixman wayland ];
   nativeBuildInputs = [ pkg-config wayland-scanner ];
 
-  makeFlags = [
-    "DESTDIR=${placeholder "out"}"
-    "PREFIX="
-  ];
+  makeFlags = [ "DESTDIR=${placeholder "out"}" "PREFIX=" ];
 
   meta = with lib; {
     description = "A pop-up showing tag status";

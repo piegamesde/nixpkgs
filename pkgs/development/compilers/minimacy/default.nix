@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, alsa-lib
-, fetchFromGitHub
-, libGL
-, libGLU
-, libX11
-, libXext
-, makeBinaryWrapper
-}:
+{ lib, stdenv, alsa-lib, fetchFromGitHub, libGL, libGLU, libX11, libXext
+, makeBinaryWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "minimacy";
@@ -16,13 +8,14 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "ambermind";
     repo = pname;
-    rev =  version;
+    rev = version;
     hash = "sha256-qIK7QnXZ9FmfarMZaHktZCHhvR8cctyKVpFS8PeOpLs=";
   };
 
   nativeBuildInputs = [ makeBinaryWrapper ];
 
-  buildInputs = [ libGL libGLU ] ++ lib.optionals stdenv.isLinux [ alsa-lib libX11 libXext ];
+  buildInputs = [ libGL libGLU ]
+    ++ lib.optionals stdenv.isLinux [ alsa-lib libX11 libXext ];
 
   enableParallelBuilding = true;
 
@@ -33,7 +26,8 @@ stdenv.mkDerivation rec {
   '';
 
   # TODO: build graphic version for darwin
-  buildFlags = (if stdenv.isDarwin then [ "nox" ] else [ "all" ]) ++ [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  buildFlags = (if stdenv.isDarwin then [ "nox" ] else [ "all" ])
+    ++ [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
   postBuild = ''
     popd
@@ -44,7 +38,9 @@ stdenv.mkDerivation rec {
   checkPhase = ''
     runHook preCheck
 
-    bin/${if stdenv.isDarwin then "minimacyMac" else "minimacy"} system/demo/demo.fun.mandelbrot.mcy
+    bin/${
+      if stdenv.isDarwin then "minimacyMac" else "minimacy"
+    } system/demo/demo.fun.mandelbrot.mcy
 
     runHook postCheck
   '';
@@ -73,8 +69,8 @@ stdenv.mkDerivation rec {
       It is designed and programmed by Sylvain Huet.
     '';
     maintainers = with lib.maintainers; [ jboy ];
-    homepage    = "https://minimacy.net";
-    license     = lib.licenses.gpl2;
-    platforms   = lib.platforms.linux ++ lib.platforms.darwin;
+    homepage = "https://minimacy.net";
+    license = lib.licenses.gpl2;
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

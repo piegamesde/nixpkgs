@@ -1,9 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, rustPlatform
-, pythonOlder
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, rustPlatform, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "clvm-tools-rs";
@@ -24,10 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-46WEmp1FT6biM9A2M7z5onb45XhWjePKb6NSwLjuemc=";
   };
 
-  nativeBuildInputs = with rustPlatform; [
-    cargoSetupHook
-    maturinBuildHook
-  ];
+  nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
 
   pythonImportsCheck = [ "clvm_tools_rs" ];
 

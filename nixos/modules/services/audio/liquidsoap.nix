@@ -5,10 +5,10 @@ with lib;
 let
   streams = builtins.attrNames config.services.liquidsoap.streams;
 
-  streamService =
-    name:
-    let stream = builtins.getAttr name config.services.liquidsoap.streams; in
-    { inherit name;
+  streamService = name:
+    let stream = builtins.getAttr name config.services.liquidsoap.streams;
+    in {
+      inherit name;
       value = {
         after = [ "network-online.target" "sound.target" ];
         description = "${name} liquidsoap stream";
@@ -21,8 +21,7 @@ let
         };
       };
     };
-in
-{
+in {
 
   ##### interface
 
@@ -30,13 +29,12 @@ in
 
     services.liquidsoap.streams = mkOption {
 
-      description =
-        lib.mdDoc ''
-          Set of Liquidsoap streams to start,
-          one systemd service per stream.
-        '';
+      description = lib.mdDoc ''
+        Set of Liquidsoap streams to start,
+        one systemd service per stream.
+      '';
 
-      default = {};
+      default = { };
 
       example = literalExpression ''
         {
@@ -65,7 +63,7 @@ in
 
     users.groups.liquidsoap.gid = config.ids.gids.liquidsoap;
 
-    systemd.services = builtins.listToAttrs ( map streamService streams );
+    systemd.services = builtins.listToAttrs (map streamService streams);
   };
 
 }

@@ -1,11 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, pythonOlder
-, py-cid
-, pytestCheckHook
-, pytest-cov
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder, py-cid, pytestCheckHook
+, pytest-cov }:
 
 buildPythonPackage rec {
   pname = "pytest-cid";
@@ -25,20 +19,16 @@ buildPythonPackage rec {
       --replace "pytest >= 5.0, < 7.0" "pytest >= 5.0"
   '';
 
-  propagatedBuildInputs = [
-    py-cid
-  ];
+  propagatedBuildInputs = [ py-cid ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-cov
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-cov ];
 
   pythonImportsCheck = [ "pytest_cid" ];
 
   meta = with lib; {
     homepage = "https://github.com/ntninja/pytest-cid";
-    description = "A simple wrapper around py-cid for easily writing tests involving CIDs in datastructures";
+    description =
+      "A simple wrapper around py-cid for easily writing tests involving CIDs in datastructures";
     license = licenses.mpl20;
     maintainers = with maintainers; [ Luflosi ];
   };

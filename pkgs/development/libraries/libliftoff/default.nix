@@ -1,7 +1,4 @@
-{ lib, stdenv, fetchFromGitLab
-, meson, pkg-config, ninja
-, libdrm
-}:
+{ lib, stdenv, fetchFromGitLab, meson, pkg-config, ninja, libdrm }:
 
 stdenv.mkDerivation rec {
   pname = "libliftoff";
@@ -27,9 +24,10 @@ stdenv.mkDerivation rec {
       on them, and libliftoff will pick planes for these layers if possible.
     '';
     inherit (src.meta) homepage;
-    changelog = "https://github.com/emersion/libliftoff/releases/tag/v${version}";
-    license     = licenses.mit;
-    platforms   = platforms.linux;
+    changelog =
+      "https://github.com/emersion/libliftoff/releases/tag/v${version}";
+    license = licenses.mit;
+    platforms = platforms.linux;
     maintainers = with maintainers; [ pedrohlc primeos Scrumplex ];
   };
 }

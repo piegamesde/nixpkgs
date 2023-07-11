@@ -1,8 +1,4 @@
-{ lib
-, fetchFromGitHub
-, mkYarnPackage
-, baseUrl ? null
-}:
+{ lib, fetchFromGitHub, mkYarnPackage, baseUrl ? null }:
 
 mkYarnPackage rec {
   pname = "synapse-admin";

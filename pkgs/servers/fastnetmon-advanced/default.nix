@@ -5,17 +5,14 @@ stdenv.mkDerivation rec {
   version = "2.0.337";
 
   src = fetchurl {
-    url = "https://repo.fastnetmon.com/fastnetmon_ubuntu_jammy/pool/fastnetmon/f/fastnetmon/fastnetmon_${version}_amd64.deb";
+    url =
+      "https://repo.fastnetmon.com/fastnetmon_ubuntu_jammy/pool/fastnetmon/f/fastnetmon/fastnetmon_${version}_amd64.deb";
     hash = "sha256-lYXJ0Q0iUiWk/n/I71BsKnnoRJh3a2EJT3EWV4+pQbM=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [
-    bzip2
-  ];
+  buildInputs = [ bzip2 ];
 
   unpackPhase = ''
     ar xf $src
@@ -51,7 +48,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A high performance DDoS detector / sensor - commercial edition";
+    description =
+      "A high performance DDoS detector / sensor - commercial edition";
     homepage = "https://fastnetmon.com";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     maintainers = with maintainers; [ yuka ];

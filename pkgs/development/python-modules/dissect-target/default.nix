@@ -1,39 +1,10 @@
-{ lib
-, asn1crypto
-, buildPythonPackage
-, defusedxml
-, dissect-cim
-, dissect-clfs
-, dissect-cstruct
-, dissect-esedb
-, dissect-etl
-, dissect-eventlog
-, dissect-evidence
-, dissect-extfs
-, dissect-fat
-, dissect-ffs
-, dissect-hypervisor
-, dissect-ntfs
-, dissect-regf
-, dissect-sql
-, dissect-thumbcache
-, dissect-util
-, dissect-volume
-, dissect-xfs
-, fetchFromGitHub
-, flow-record
-, fusepy
-, ipython
-, pycryptodome
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, setuptools
-, setuptools-scm
-, structlog
-, yara-python
-, zstandard
-}:
+{ lib, asn1crypto, buildPythonPackage, defusedxml, dissect-cim, dissect-clfs
+, dissect-cstruct, dissect-esedb, dissect-etl, dissect-eventlog
+, dissect-evidence, dissect-extfs, dissect-fat, dissect-ffs, dissect-hypervisor
+, dissect-ntfs, dissect-regf, dissect-sql, dissect-thumbcache, dissect-util
+, dissect-volume, dissect-xfs, fetchFromGitHub, flow-record, fusepy, ipython
+, pycryptodome, pytestCheckHook, pythonOlder, pyyaml, setuptools, setuptools-scm
+, structlog, yara-python, zstandard }:
 
 buildPythonPackage rec {
   pname = "dissect-target";
@@ -51,10 +22,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
   propagatedBuildInputs = [
     defusedxml
@@ -92,13 +60,10 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.full;
+  nativeCheckInputs = [ pytestCheckHook ]
+    ++ passthru.optional-dependencies.full;
 
-  pythonImportsCheck = [
-    "dissect.target"
-  ];
+  pythonImportsCheck = [ "dissect.target" ];
 
   disabledTests = [
     # Test requires rdump
@@ -115,9 +80,11 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Dissect module that provides a programming API and command line tools";
+    description =
+      "Dissect module that provides a programming API and command line tools";
     homepage = "https://github.com/fox-it/dissect.target";
-    changelog = "https://github.com/fox-it/dissect.target/releases/tag/${version}";
+    changelog =
+      "https://github.com/fox-it/dissect.target/releases/tag/${version}";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ fab ];
   };

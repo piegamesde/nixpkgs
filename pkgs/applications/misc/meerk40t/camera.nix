@@ -1,11 +1,7 @@
-{ lib
-, python3
-}:
+{ lib, python3 }:
 
-let
-  inherit (python3.pkgs) buildPythonPackage fetchPypi;
-in
-buildPythonPackage rec {
+let inherit (python3.pkgs) buildPythonPackage fetchPypi;
+in buildPythonPackage rec {
   pname = "meerk40t-camera";
   version = "0.1.9";
   format = "setuptools";
@@ -19,13 +15,9 @@ buildPythonPackage rec {
     sed -i '/meerk40t/d' setup.py
   '';
 
-  propagatedBuildInputs = with python3.pkgs; [
-    opencv4
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ opencv4 ];
 
-  pythonImportsCheck = [
-    "camera"
-  ];
+  pythonImportsCheck = [ "camera" ];
 
   doCheck = false;
 

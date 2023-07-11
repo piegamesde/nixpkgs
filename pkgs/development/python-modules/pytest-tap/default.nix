@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytest
-, tappy
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytest, tappy
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pytest-tap";
@@ -21,31 +15,24 @@ buildPythonPackage rec {
     sha256 = "R0RSdKTyJYGq+x0+ut4pJEywTGNgGp/ps36ZaH5dyY4=";
   };
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    tappy
-  ];
+  propagatedBuildInputs = [ tappy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # Fixed in 4ed0138bf659c348b6dfb8bb701ae1989625d3d8 and hopefully in next release
     "test_unittest_expected_failure"
   ];
 
-  pythonImportsCheck = [
-    "pytest_tap"
-  ];
+  pythonImportsCheck = [ "pytest_tap" ];
 
   meta = with lib; {
     description = "Test Anything Protocol (TAP) reporting plugin for pytest";
     homepage = "https://github.com/python-tap/pytest-tap";
-    changelog = "https://github.com/python-tap/pytest-tap/blob/v${version}/docs/releases.rst";
+    changelog =
+      "https://github.com/python-tap/pytest-tap/blob/v${version}/docs/releases.rst";
     license = licenses.bsd2;
     maintainers = with maintainers; [ cynerd ];
   };

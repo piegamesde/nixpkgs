@@ -1,18 +1,7 @@
 # Almost 1:1 copy of idris2's nix/platform.nix. Some work done in their flake.nix
 # we do here instead.
-{ stdenv
-, lib
-, chez
-, chez-racket
-, clang
-, gmp
-, fetchFromGitHub
-, makeWrapper
-, gambit
-, nodejs
-, zsh
-, callPackage
-}:
+{ stdenv, lib, chez, chez-racket, clang, gmp, fetchFromGitHub, makeWrapper
+, gambit, nodejs, zsh, callPackage }:
 
 # NOTICE: An `idris2WithPackages` is available at: https://github.com/claymager/idris2-pkgs
 
@@ -20,7 +9,7 @@ let
   # Taken from Idris2/idris2/flake.nix. Check if the idris2 project does it this
   # way, still, every now and then.
   platformChez = if stdenv.system == "x86_64-linux" then chez else chez-racket;
-# Uses scheme to bootstrap the build of idris2
+  # Uses scheme to bootstrap the build of idris2
 in stdenv.mkDerivation rec {
   pname = "idris2";
   version = "0.6.0";
@@ -41,8 +30,7 @@ in stdenv.mkDerivation rec {
     patchShebangs --build tests
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ]
-    ++ lib.optional stdenv.isDarwin "OS=";
+  makeFlags = [ "PREFIX=$(out)" ] ++ lib.optional stdenv.isDarwin "OS=";
 
   # The name of the main executable of pkgs.chez is `scheme`
   buildFlags = [ "bootstrap" "SCHEME=scheme" ];
@@ -88,7 +76,8 @@ in stdenv.mkDerivation rec {
   passthru.tests = callPackage ./tests.nix { inherit pname; };
 
   meta = {
-    description = "A purely functional programming language with first class types";
+    description =
+      "A purely functional programming language with first class types";
     homepage = "https://github.com/idris-lang/Idris2";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ fabianhjr wchresta ];

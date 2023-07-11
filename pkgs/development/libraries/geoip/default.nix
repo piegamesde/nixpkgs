@@ -1,22 +1,16 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, drvName ? "geoip"
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, drvName ? "geoip"
 
   # in geoipDatabase, you can insert a package defining
   # "${geoipDatabase}/share/GeoIP" e.g. geolite-legacy
-, geoipDatabase ? "/var/lib/geoip-databases"
-}:
+, geoipDatabase ? "/var/lib/geoip-databases" }:
 
 let
-  dataDir =
-    if lib.isDerivation geoipDatabase
-    then "${toString geoipDatabase}/share/GeoIP"
-    else geoipDatabase;
+  dataDir = if lib.isDerivation geoipDatabase then
+    "${toString geoipDatabase}/share/GeoIP"
+  else
+    geoipDatabase;
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = drvName;
   version = "1.6.12";
 

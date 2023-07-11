@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, gevent
-, gunicorn
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, gevent, gunicorn, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "gevent-websocket";
@@ -18,17 +12,12 @@ buildPythonPackage rec {
     hash = "sha256-fq7zKWgpDJEh98Nblz4swwL/sHbQGMkGjS9cqLLYX7A=";
   };
 
-  propagatedBuildInputs = [
-    gevent
-    gunicorn
-  ];
+  propagatedBuildInputs = [ gevent gunicorn ];
 
   # Module has no test
   doCheck = false;
 
-  pythonImportsCheck = [
-    "geventwebsocket"
-  ];
+  pythonImportsCheck = [ "geventwebsocket" ];
 
   meta = with lib; {
     description = "Websocket handler for the gevent pywsgi server";

@@ -1,28 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, apispec
-, colorama
-, click
-, email-validator
-, flask
-, flask-babel
-, flask-login
-, flask-openid
-, flask-sqlalchemy
-, flask-wtf
-, flask-jwt-extended
-, jsonschema
-, marshmallow
-, marshmallow-enum
-, marshmallow-sqlalchemy
-, python-dateutil
-, pythonOlder
-, prison
-, pyjwt
-, pyyaml
-, sqlalchemy-utils
-}:
+{ lib, buildPythonPackage, fetchPypi, apispec, colorama, click, email-validator
+, flask, flask-babel, flask-login, flask-openid, flask-sqlalchemy, flask-wtf
+, flask-jwt-extended, jsonschema, marshmallow, marshmallow-enum
+, marshmallow-sqlalchemy, python-dateutil, pythonOlder, prison, pyjwt, pyyaml
+, sqlalchemy-utils }:
 
 buildPythonPackage rec {
   pname = "flask-appbuilder";
@@ -72,14 +52,13 @@ buildPythonPackage rec {
   # Majority of tests require network access or mongo
   doCheck = false;
 
-  pythonImportsCheck = [
-    "flask_appbuilder"
-  ];
+  pythonImportsCheck = [ "flask_appbuilder" ];
 
   meta = with lib; {
     description = "Application development framework, built on top of Flask";
     homepage = "https://github.com/dpgaspar/flask-appbuilder/";
-    changelog = "https://github.com/dpgaspar/Flask-AppBuilder/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/dpgaspar/Flask-AppBuilder/blob/v${version}/CHANGELOG.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ costrouc ];
     # Support for flask-sqlalchemy >= 3.0 is missing, https://github.com/dpgaspar/Flask-AppBuilder/pull/1940

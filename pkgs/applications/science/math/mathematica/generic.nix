@@ -1,73 +1,38 @@
-{ addOpenGLRunpath
-, autoPatchelfHook
-, lib
-, makeWrapper
-, requireFile
-, runCommand
-, stdenv
-, symlinkJoin
+{ addOpenGLRunpath, autoPatchelfHook, lib, makeWrapper, requireFile, runCommand
+, stdenv, symlinkJoin
 # arguments from default.nix
-, lang
-, meta
-, name
-, src
-, version
+, lang, meta, name, src, version
 # dependencies
-, alsa-lib
-, cudaPackages
-, cups
-, dbus
-, flite
-, fontconfig
-, freetype
-, gcc-unwrapped
-, glib
-, gmpxx
-, keyutils
-, libGL
-, libGLU
-, libpcap
-, libtins
-, libuuid
-, libxkbcommon
-, libxml2
-, llvmPackages_12
-, matio
-, mpfr
-, ncurses
-, opencv4
-, openjdk11
-, openssl
-, pciutils
-, tre
-, unixODBC
-, xcbutilimage
-, xcbutilkeysyms
-, xkeyboard_config
-, xorg
+, alsa-lib, cudaPackages, cups, dbus, flite, fontconfig, freetype, gcc-unwrapped
+, glib, gmpxx, keyutils, libGL, libGLU, libpcap, libtins, libuuid, libxkbcommon
+, libxml2, llvmPackages_12, matio, mpfr, ncurses, opencv4, openjdk11, openssl
+, pciutils, tre, unixODBC, xcbutilimage, xcbutilkeysyms, xkeyboard_config, xorg
 , zlib
 # options
-, cudaSupport
-}:
+, cudaSupport }:
 
-let cudaEnv = symlinkJoin {
-      name = "mathematica-cuda-env";
-      paths = with cudaPackages; [
-        cuda_cudart cuda_nvcc libcublas libcufft libcurand libcusparse
-      ];
-      postBuild = ''
-        ln -s ${addOpenGLRunpath.driverLink}/lib/libcuda.so $out/lib
-        ln -s lib $out/lib64
-      '';
-    };
+let
+  cudaEnv = symlinkJoin {
+    name = "mathematica-cuda-env";
+    paths = with cudaPackages; [
+      cuda_cudart
+      cuda_nvcc
+      libcublas
+      libcufft
+      libcurand
+      libcusparse
+    ];
+    postBuild = ''
+      ln -s ${addOpenGLRunpath.driverLink}/lib/libcuda.so $out/lib
+      ln -s lib $out/lib64
+    '';
+  };
 
 in stdenv.mkDerivation {
   inherit meta name src version;
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-  ] ++ lib.optional cudaSupport addOpenGLRunpath;
+  nativeBuildInputs = [ autoPatchelfHook makeWrapper ]
+    ++ lib.optional cudaSupport addOpenGLRunpath;
 
   buildInputs = [
     alsa-lib
@@ -119,7 +84,9 @@ in stdenv.mkDerivation {
   ]) ++ lib.optional cudaSupport cudaEnv;
 
   wrapProgramFlags = [
-    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ gcc-unwrapped.lib zlib ]}"
+    "--prefix LD_LIBRARY_PATH : ${
+      lib.makeLibraryPath [ gcc-unwrapped.lib zlib ]
+    }"
     "--prefix PATH : ${lib.makeBinPath [ stdenv.cc ]}"
     # Fix libQt errors - #96490
     "--set USE_WOLFRAM_LD_LIBRARY_PATH 1"

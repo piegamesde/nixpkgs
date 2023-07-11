@@ -1,15 +1,5 @@
-{ lib
-, buildDunePackage
-, hacl-star
-, bls12-381
-, tezos-bls12-381-polynomial
-, data-encoding
-, tezos-plompiler
-, alcotest
-, qcheck-alcotest
-, bisect_ppx
-,
-}:
+{ lib, buildDunePackage, hacl-star, bls12-381, tezos-bls12-381-polynomial
+, data-encoding, tezos-plompiler, alcotest, qcheck-alcotest, bisect_ppx, }:
 
 buildDunePackage rec {
   pname = "tezos-plonk";

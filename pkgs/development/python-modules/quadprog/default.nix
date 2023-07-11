@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, cython
-, numpy
-, pytestCheckHook
-, scipy
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, cython, numpy
+, pytestCheckHook, scipy }:
 
 buildPythonPackage rec {
   pname = "quadprog";
@@ -22,22 +15,15 @@ buildPythonPackage rec {
     hash = "sha256-/suv1KbG3HbiYqEiuCtB/ia3xbxAO5AMuWx1Svy0rMw=";
   };
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [
-    numpy
-  ];
+  propagatedBuildInputs = [ numpy ];
 
   preBuild = ''
     cython quadprog/quadprog.pyx
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    scipy
-  ];
+  nativeCheckInputs = [ pytestCheckHook scipy ];
 
   pytestFlagsArray = [
     # test fails on aarch64-darwin

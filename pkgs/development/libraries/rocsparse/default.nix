@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchzip
-, rocmUpdateScript
-, cmake
-, rocm-cmake
-, rocprim
-, hip
-, gfortran
-, git
-, gtest
-, boost
-, python3Packages
-, buildTests ? false
+{ lib, stdenv, fetchFromGitHub, fetchzip, rocmUpdateScript, cmake, rocm-cmake
+, rocprim, hip, gfortran, git, gtest, boost, python3Packages, buildTests ? false
 , buildBenchmarks ? false # Seems to depend on tests
 }:
 
@@ -20,13 +7,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "rocsparse";
   version = "5.4.3";
 
-  outputs = [
-    "out"
-  ] ++ lib.optionals (buildTests || buildBenchmarks) [
-    "test"
-  ] ++ lib.optionals buildBenchmarks [
-    "benchmark"
-  ];
+  outputs = [ "out" ]
+    ++ lib.optionals (buildTests || buildBenchmarks) [ "test" ]
+    ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
   src = fetchFromGitHub {
     owner = "ROCmSoftwarePlatform";
@@ -35,22 +18,15 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-jzHD55c4rlPab5IAj2UzHTJI9MKhTfevsLthSZKOEzQ=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    rocm-cmake
-    hip
-    gfortran
-  ];
+  nativeBuildInputs = [ cmake rocm-cmake hip gfortran ];
 
-  buildInputs = [
-    rocprim
-    git
-  ] ++ lib.optionals (buildTests || buildBenchmarks) [
-    gtest
-    boost
-    python3Packages.python
-    python3Packages.pyyaml
-  ];
+  buildInputs = [ rocprim git ]
+    ++ lib.optionals (buildTests || buildBenchmarks) [
+      gtest
+      boost
+      python3Packages.python
+      python3Packages.pyyaml
+    ];
 
   cmakeFlags = [
     "-DCMAKE_CXX_COMPILER=hipcc"
@@ -63,9 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DBUILD_CLIENTS_TESTS=ON"
     "-DCMAKE_MATRICES_DIR=/build/source/matrices"
     "-Dpython=python3"
-  ] ++ lib.optionals buildBenchmarks [
-    "-DBUILD_CLIENTS_BENCHMARKS=ON"
-  ];
+  ] ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ];
 
   # We have to manually generate the matrices
   postPatch = lib.optionalString (buildTests || buildBenchmarks) ''

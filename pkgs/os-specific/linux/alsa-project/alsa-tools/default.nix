@@ -1,12 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, alsa-lib
-, fltk13
-, gtk2
-, gtk3
-, pkg-config
-}:
+{ lib, stdenv, fetchurl, alsa-lib, fltk13, gtk2, gtk3, pkg-config }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "alsa-tools";
@@ -17,16 +9,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-NacQJ6AfTX3kci4iNSDpQN5os8VwtsZxaRVnrij5iT4=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    alsa-lib
-    fltk13
-    gtk2
-    gtk3
-  ];
+  buildInputs = [ alsa-lib fltk13 gtk2 gtk3 ];
 
   env.TOOLSET = lib.concatStringsSep " " [
     "as10k1"

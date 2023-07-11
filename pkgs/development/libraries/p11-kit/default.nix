@@ -1,18 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, docbook-xsl-nons
-, gtk-doc
-, installShellFiles
-, libxslt # for xsltproc
-, pkg-config
-, which
-, libffi
-, libiconv
-, libintl
-, libtasn1
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, docbook-xsl-nons, gtk-doc
+, installShellFiles, libxslt # for xsltproc
+, pkg-config, which, libffi, libiconv, libintl, libtasn1 }:
 
 stdenv.mkDerivation rec {
   pname = "p11-kit";
@@ -25,7 +13,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-1QIMEGBZsqLYU3v5ZswD5K9VcIGLBovJlC10lBHhH7c=";
   };
 
-  outputs = [ "out" "bin" "dev"];
+  outputs = [ "out" "bin" "dev" ];
 
   # For cross platform builds of p11-kit, libtasn1 in nativeBuildInputs
   # provides the asn1Parser binary on the hostPlatform needed for building.
@@ -43,12 +31,7 @@ stdenv.mkDerivation rec {
     which
   ];
 
-  buildInputs = [
-    libffi
-    libiconv
-    libintl
-    libtasn1
-  ];
+  buildInputs = [ libffi libiconv libintl libtasn1 ];
 
   autoreconfPhase = ''
     NOCONFIGURE=1 ./autogen.sh
@@ -58,13 +41,15 @@ stdenv.mkDerivation rec {
     "--enable-doc"
     "--sysconfdir=/etc"
     "--localstatedir=/var"
-    "--with-trust-paths=${lib.concatStringsSep ":" [
-      "/etc/ssl/trust-source"                  # p11-kit trust source
-      "/etc/ssl/certs/ca-certificates.crt"     # NixOS + Debian/Ubuntu/Arch/Gentoo...
-      "/etc/pki/tls/certs/ca-bundle.crt"       # Fedora/CentOS
-      "/var/lib/ca-certificates/ca-bundle.pem" # openSUSE
-      "/etc/ssl/cert.pem"                      # Darwin/macOS
-    ]}"
+    "--with-trust-paths=${
+      lib.concatStringsSep ":" [
+        "/etc/ssl/trust-source" # p11-kit trust source
+        "/etc/ssl/certs/ca-certificates.crt" # NixOS + Debian/Ubuntu/Arch/Gentoo...
+        "/etc/pki/tls/certs/ca-bundle.crt" # Fedora/CentOS
+        "/var/lib/ca-certificates/ca-bundle.pem" # openSUSE
+        "/etc/ssl/cert.pem" # Darwin/macOS
+      ]
+    }"
   ];
 
   enableParallelBuilding = true;
@@ -78,9 +63,7 @@ stdenv.mkDerivation rec {
 
   doCheck = !stdenv.isDarwin;
 
-  installFlags = [
-    "exampledir=${placeholder "out"}/etc/pkcs11"
-  ];
+  installFlags = [ "exampledir=${placeholder "out"}/etc/pkcs11" ];
 
   postInstall = ''
     installShellCompletion --bash bash-completion/{p11-kit,trust}

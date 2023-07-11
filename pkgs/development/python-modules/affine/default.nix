@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, flit-core
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, flit-core, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "affine";
@@ -19,16 +13,13 @@ buildPythonPackage rec {
     hash = "sha256-ok2BjWqDbBMZdtIvjCe408oy0K9kwdjSnet7r6TaHuo=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    changelog = "https://github.com/rasterio/affine/blob/${version}/CHANGES.txt";
+    changelog =
+      "https://github.com/rasterio/affine/blob/${version}/CHANGES.txt";
     description = "Matrices describing affine transformation of the plane";
     license = licenses.bsd3;
     homepage = "https://github.com/rasterio/affine";

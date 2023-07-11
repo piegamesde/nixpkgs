@@ -1,21 +1,6 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, cython
-, gdal
-, setuptools
-, attrs
-, certifi
-, click
-, click-plugins
-, cligj
-, munch
-, shapely
-, boto3
-, pytestCheckHook
-, pytz
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, cython, gdal
+, setuptools, attrs, certifi, click, click-plugins, cligj, munch, shapely, boto3
+, pytestCheckHook, pytz }:
 
 buildPythonPackage rec {
   pname = "fiona";
@@ -38,29 +23,18 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [
-    gdal
-  ];
+  buildInputs = [ gdal ];
 
-  propagatedBuildInputs = [
-    attrs
-    certifi
-    click
-    cligj
-    click-plugins
-    munch
-    setuptools
-  ];
+  propagatedBuildInputs =
+    [ attrs certifi click cligj click-plugins munch setuptools ];
 
   passthru.optional-dependencies = {
     calc = [ shapely ];
     s3 = [ boto3 ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytz
-  ] ++ passthru.optional-dependencies.s3;
+  nativeCheckInputs = [ pytestCheckHook pytz ]
+    ++ passthru.optional-dependencies.s3;
 
   preCheck = ''
     rm -r fiona # prevent importing local fiona
@@ -68,13 +42,16 @@ buildPythonPackage rec {
 
   disabledTests = [
     # Some tests access network, others test packaging
-    "http" "https" "wheel"
+    "http"
+    "https"
+    "wheel"
   ];
 
   pythonImportsCheck = [ "fiona" ];
 
   meta = with lib; {
-    changelog = "https://github.com/Toblerity/Fiona/blob/${src.rev}/CHANGES.txt";
+    changelog =
+      "https://github.com/Toblerity/Fiona/blob/${src.rev}/CHANGES.txt";
     description = "OGR's neat, nimble, no-nonsense API for Python";
     homepage = "https://fiona.readthedocs.io/";
     license = licenses.bsd3;

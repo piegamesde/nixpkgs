@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, rednose
-, six
-, mock
-, isPyPy
-, pythonOlder
-, fetchpatch
-}:
+{ lib, buildPythonPackage, fetchPypi, rednose, six, mock, isPyPy, pythonOlder
+, fetchpatch }:
 
 buildPythonPackage rec {
   pname = "sure";
@@ -24,30 +16,25 @@ buildPythonPackage rec {
   patches = [
     # https://github.com/gabrielfalcao/sure/issues/169
     (fetchpatch {
-      url = "https://raw.githubusercontent.com/archlinux/svntogit-community/055baa81cd987e566de62a5657513937521a90d4/trunk/python310.diff";
+      url =
+        "https://raw.githubusercontent.com/archlinux/svntogit-community/055baa81cd987e566de62a5657513937521a90d4/trunk/python310.diff";
       hash = "sha256-BKylV8xpTOuO/X4hzZKpoIcAQcdAK0kXYENRad7AGPc=";
     })
   ];
 
-  propagatedBuildInputs = [
-    six
-    mock
-  ];
+  propagatedBuildInputs = [ six mock ];
 
-  nativeCheckInputs = [
-    rednose
-  ];
+  nativeCheckInputs = [ rednose ];
 
   doCheck = pythonOlder "3.11";
 
-  pythonImportsCheck = [
-    "sure"
-  ];
+  pythonImportsCheck = [ "sure" ];
 
   meta = with lib; {
     description = "Utility belt for automated testing";
     homepage = "https://sure.readthedocs.io/";
-    changelog = "https://github.com/gabrielfalcao/sure/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/gabrielfalcao/sure/blob/${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ ];
   };

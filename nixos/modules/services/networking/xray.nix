@@ -47,9 +47,7 @@ with lib;
             listen = "127.0.0.1";
             protocol = "http";
           }];
-          outbounds = [{
-            protocol = "freedom";
-          }];
+          outbounds = [{ protocol = "freedom"; }];
         };
         description = lib.mdDoc ''
           The configuration object.
@@ -65,9 +63,10 @@ with lib;
 
   config = let
     cfg = config.services.xray;
-    settingsFile = if cfg.settingsFile != null
-      then cfg.settingsFile
-      else pkgs.writeTextFile {
+    settingsFile = if cfg.settingsFile != null then
+      cfg.settingsFile
+    else
+      pkgs.writeTextFile {
         name = "xray.json";
         text = builtins.toJSON cfg.settings;
         checkPhase = ''
@@ -76,12 +75,11 @@ with lib;
       };
 
   in mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = (cfg.settingsFile == null) != (cfg.settings == null);
-        message = "Either but not both `settingsFile` and `settings` should be specified for xray.";
-      }
-    ];
+    assertions = [{
+      assertion = (cfg.settingsFile == null) != (cfg.settings == null);
+      message =
+        "Either but not both `settingsFile` and `settings` should be specified for xray.";
+    }];
 
     systemd.services.xray = {
       description = "xray Daemon";

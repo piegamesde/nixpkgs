@@ -1,17 +1,5 @@
-{ lib, stdenv
-, fetchgit
-, wrapGAppsHook
-, cairo
-, glib
-, gnome
-, gst_all_1
-, gtk3
-, intltool
-, libtool
-, pkg-config
-, which
-, xorg
-}:
+{ lib, stdenv, fetchgit, wrapGAppsHook, cairo, glib, gnome, gst_all_1, gtk3
+, intltool, libtool, pkg-config, which, xorg }:
 
 stdenv.mkDerivation {
   pname = "byzanz";
@@ -55,7 +43,8 @@ stdenv.mkDerivation {
   ]);
 
   meta = with lib; {
-    description = "Tool to record a running X desktop to an animation suitable for presentation in a web browser";
+    description =
+      "Tool to record a running X desktop to an animation suitable for presentation in a web browser";
     homepage = "https://github.com/GNOME/byzanz";
     license = licenses.gpl3;
     platforms = platforms.linux;

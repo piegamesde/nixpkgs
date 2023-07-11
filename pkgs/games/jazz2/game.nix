@@ -1,18 +1,5 @@
-{ cmake
-, fetchFromGitHub
-, glew
-, glfw
-, jazz2-content
-, lib
-, libGL
-, libopenmpt
-, libvorbis
-, openal
-, SDL2
-, stdenv
-, xorg
-, zlib
-}:
+{ cmake, fetchFromGitHub, glew, glfw, jazz2-content, lib, libGL, libopenmpt
+, libvorbis, openal, SDL2, stdenv, xorg, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "jazz2";
@@ -27,7 +14,19 @@ stdenv.mkDerivation rec {
 
   patches = [ ./nocontent.patch ];
 
-  buildInputs = [ libGL SDL2 zlib glew glfw openal libvorbis libopenmpt xorg.libSM xorg.libICE xorg.libXext ];
+  buildInputs = [
+    libGL
+    SDL2
+    zlib
+    glew
+    glfw
+    openal
+    libvorbis
+    libopenmpt
+    xorg.libSM
+    xorg.libICE
+    xorg.libXext
+  ];
   nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [

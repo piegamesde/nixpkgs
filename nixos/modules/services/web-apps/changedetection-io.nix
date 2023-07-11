@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.changedetection-io;
-in
-{
+let cfg = config.services.changedetection-io;
+in {
   options.services.changedetection-io = {
     enable = mkEnableOption (lib.mdDoc "changedetection-io");
 
@@ -116,47 +114,53 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = !((cfg.webDriverSupport == true) && (cfg.playwrightSupport == true));
-        message = "'services.changedetection-io.webDriverSupport' and 'services.changedetection-io.playwrightSupport' cannot be used together.";
-      }
-    ];
+    assertions = [{
+      assertion =
+        !((cfg.webDriverSupport == true) && (cfg.playwrightSupport == true));
+      message =
+        "'services.changedetection-io.webDriverSupport' and 'services.changedetection-io.playwrightSupport' cannot be used together.";
+    }];
 
-    systemd = let
-      defaultStateDir = cfg.datastorePath == "/var/lib/changedetection-io";
-    in {
-      services.changedetection-io = {
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
-        preStart = ''
-          mkdir -p ${cfg.datastorePath}
-        '';
-        serviceConfig = {
-          User = cfg.user;
-          Group = cfg.group;
-          StateDirectory = mkIf defaultStateDir "changedetection-io";
-          StateDirectoryMode = mkIf defaultStateDir "0750";
-          WorkingDirectory = cfg.datastorePath;
-          Environment = [ "HIDE_REFERER=true" ]
-            ++ lib.optional (cfg.baseURL != null) "BASE_URL=${cfg.baseURL}"
-            ++ lib.optional cfg.behindProxy "USE_X_SETTINGS=1"
-            ++ lib.optional cfg.webDriverSupport "WEBDRIVER_URL=http://127.0.0.1:${toString cfg.chromePort}/wd/hub"
-            ++ lib.optional cfg.playwrightSupport "PLAYWRIGHT_DRIVER_URL=ws://127.0.0.1:${toString cfg.chromePort}/?stealth=1&--disable-web-security=true";
-          EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
-          ExecStart = ''
-            ${pkgs.changedetection-io}/bin/changedetection.py \
-              -h ${cfg.listenAddress} -p ${toString cfg.port} -d ${cfg.datastorePath}
+    systemd =
+      let defaultStateDir = cfg.datastorePath == "/var/lib/changedetection-io";
+      in {
+        services.changedetection-io = {
+          wantedBy = [ "multi-user.target" ];
+          after = [ "network.target" ];
+          preStart = ''
+            mkdir -p ${cfg.datastorePath}
           '';
-          ProtectHome = true;
-          ProtectSystem = true;
-          Restart = "on-failure";
+          serviceConfig = {
+            User = cfg.user;
+            Group = cfg.group;
+            StateDirectory = mkIf defaultStateDir "changedetection-io";
+            StateDirectoryMode = mkIf defaultStateDir "0750";
+            WorkingDirectory = cfg.datastorePath;
+            Environment = [ "HIDE_REFERER=true" ]
+              ++ lib.optional (cfg.baseURL != null) "BASE_URL=${cfg.baseURL}"
+              ++ lib.optional cfg.behindProxy "USE_X_SETTINGS=1"
+              ++ lib.optional cfg.webDriverSupport
+              "WEBDRIVER_URL=http://127.0.0.1:${toString cfg.chromePort}/wd/hub"
+              ++ lib.optional cfg.playwrightSupport
+              "PLAYWRIGHT_DRIVER_URL=ws://127.0.0.1:${
+                toString cfg.chromePort
+              }/?stealth=1&--disable-web-security=true";
+            EnvironmentFile =
+              mkIf (cfg.environmentFile != null) cfg.environmentFile;
+            ExecStart = ''
+              ${pkgs.changedetection-io}/bin/changedetection.py \
+                -h ${cfg.listenAddress} -p ${
+                  toString cfg.port
+                } -d ${cfg.datastorePath}
+            '';
+            ProtectHome = true;
+            ProtectSystem = true;
+            Restart = "on-failure";
+          };
         };
+        tmpfiles.rules = mkIf defaultStateDir
+          [ "d ${cfg.datastorePath} 0750 ${cfg.user} ${cfg.group} - -" ];
       };
-      tmpfiles.rules = mkIf defaultStateDir [
-        "d ${cfg.datastorePath} 0750 ${cfg.user} ${cfg.group} - -"
-      ];
-    };
 
     users = {
       users = optionalAttrs (cfg.user == "changedetection-io") {
@@ -182,12 +186,8 @@ in
               SCREEN_HEIGHT = "1080";
               SCREEN_DEPTH = "24";
             };
-            ports = [
-              "127.0.0.1:${toString cfg.chromePort}:4444"
-            ];
-            volumes = [
-              "/dev/shm:/dev/shm"
-            ];
+            ports = [ "127.0.0.1:${toString cfg.chromePort}:4444" ];
+            volumes = [ "/dev/shm:/dev/shm" ];
             extraOptions = [ "--network=bridge" ];
           };
         })
@@ -207,9 +207,7 @@ in
               DEFAULT_BLOCK_ADS = "true";
               DEFAULT_STEALTH = "true";
             };
-            ports = [
-              "127.0.0.1:${toString cfg.chromePort}:3000"
-            ];
+            ports = [ "127.0.0.1:${toString cfg.chromePort}:3000" ];
             extraOptions = [ "--network=bridge" ];
           };
         })

@@ -16,13 +16,13 @@ let
 
   inherit (lib) mkOption mkEnableOption mkIf mkMerge types;
 
-in
-
-{
+in {
   options = {
 
     boot.initrd.systemd.dbus = {
-      enable = mkEnableOption (lib.mdDoc "dbus in stage 1") // { visible = false; };
+      enable = mkEnableOption (lib.mdDoc "dbus in stage 1") // {
+        visible = false;
+      };
     };
 
     services.dbus = {
@@ -86,10 +86,7 @@ in
     {
       environment.etc."dbus-1".source = configDir;
 
-      environment.pathsToLink = [
-        "/etc/dbus-1"
-        "/share/dbus-1"
-      ];
+      environment.pathsToLink = [ "/etc/dbus-1" "/share/dbus-1" ];
 
       users.users.messagebus = {
         uid = config.ids.uids.messagebus;
@@ -101,18 +98,11 @@ in
       users.groups.messagebus.gid = config.ids.gids.messagebus;
 
       # You still need the dbus reference implementation installed to use dbus-broker
-      systemd.packages = [
-        pkgs.dbus
-      ];
+      systemd.packages = [ pkgs.dbus ];
 
-      services.dbus.packages = [
-        pkgs.dbus
-        config.system.path
-      ];
+      services.dbus.packages = [ pkgs.dbus config.system.path ];
 
-      systemd.user.sockets.dbus.wantedBy = [
-        "sockets.target"
-      ];
+      systemd.user.sockets.dbus.wantedBy = [ "sockets.target" ];
     }
 
     (mkIf config.boot.initrd.systemd.dbus.enable {
@@ -131,9 +121,7 @@ in
     })
 
     (mkIf (cfg.implementation == "dbus") {
-      environment.systemPackages = [
-        pkgs.dbus
-      ];
+      environment.systemPackages = [ pkgs.dbus ];
 
       security.wrappers.dbus-daemon-launch-helper = {
         source = "${pkgs.dbus}/libexec/dbus-daemon-launch-helper";
@@ -147,32 +135,22 @@ in
       systemd.services.dbus = {
         # Don't restart dbus-daemon. Bad things tend to happen if we do.
         reloadIfChanged = true;
-        restartTriggers = [
-          configDir
-        ];
-        environment = {
-          LD_LIBRARY_PATH = config.system.nssModules.path;
-        };
+        restartTriggers = [ configDir ];
+        environment = { LD_LIBRARY_PATH = config.system.nssModules.path; };
       };
 
       systemd.user.services.dbus = {
         # Don't restart dbus-daemon. Bad things tend to happen if we do.
         reloadIfChanged = true;
-        restartTriggers = [
-          configDir
-        ];
+        restartTriggers = [ configDir ];
       };
 
     })
 
     (mkIf (cfg.implementation == "broker") {
-      environment.systemPackages = [
-        pkgs.dbus-broker
-      ];
+      environment.systemPackages = [ pkgs.dbus-broker ];
 
-      systemd.packages = [
-        pkgs.dbus-broker
-      ];
+      systemd.packages = [ pkgs.dbus-broker ];
 
       # Just to be sure we don't restart through the unit alias
       systemd.services.dbus.reloadIfChanged = true;
@@ -181,28 +159,18 @@ in
       # NixOS Systemd Module doesn't respect 'Install'
       # https://github.com/NixOS/nixpkgs/issues/108643
       systemd.services.dbus-broker = {
-        aliases = [
-          "dbus.service"
-        ];
+        aliases = [ "dbus.service" ];
         # Don't restart dbus. Bad things tend to happen if we do.
         reloadIfChanged = true;
-        restartTriggers = [
-          configDir
-        ];
-        environment = {
-          LD_LIBRARY_PATH = config.system.nssModules.path;
-        };
+        restartTriggers = [ configDir ];
+        environment = { LD_LIBRARY_PATH = config.system.nssModules.path; };
       };
 
       systemd.user.services.dbus-broker = {
-        aliases = [
-          "dbus.service"
-        ];
+        aliases = [ "dbus.service" ];
         # Don't restart dbus. Bad things tend to happen if we do.
         reloadIfChanged = true;
-        restartTriggers = [
-          configDir
-        ];
+        restartTriggers = [ configDir ];
       };
     })
 

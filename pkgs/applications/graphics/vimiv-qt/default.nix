@@ -1,9 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-, qt5
-, installShellFiles
-}:
+{ lib, fetchFromGitHub, python3, qt5, installShellFiles }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "vimiv-qt";
@@ -16,7 +11,8 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "1pj3gak7nxkw9r9m71zsfvcaq8dk9crbk5rz4n7pravxkl5hs2bg";
   };
 
-  nativeBuildInputs = [ installShellFiles qt5.wrapQtAppsHook python3.pkgs.setuptools ];
+  nativeBuildInputs =
+    [ installShellFiles qt5.wrapQtAppsHook python3.pkgs.setuptools ];
 
   propagatedBuildInputs = with python3.pkgs; [ pyqt5 py3exiv2 qt5.qtsvg ];
 
@@ -35,7 +31,7 @@ python3.pkgs.buildPythonApplication rec {
   # Vimiv has to be wrapped manually because it is a non-ELF executable.
   dontWrapQtApps = true;
   preFixup = ''
-      wrapQtApp $out/bin/vimiv
+    wrapQtApp $out/bin/vimiv
   '';
 
   meta = with lib; {

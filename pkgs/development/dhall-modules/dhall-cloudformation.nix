@@ -1,7 +1,6 @@
 { buildDhallGitHubPackage, Prelude }:
 
-let
-  version = "0.9.64";
+let version = "0.9.64";
 
 in buildDhallGitHubPackage {
   name = "cloudformation";

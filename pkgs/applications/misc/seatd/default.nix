@@ -1,12 +1,5 @@
-{ fetchFromSourcehut
-, lib
-, meson
-, ninja
-, pkg-config
-, scdoc
-, stdenv
-, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd
-}:
+{ fetchFromSourcehut, lib, meson, ninja, pkg-config, scdoc, stdenv
+, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd }:
 
 stdenv.mkDerivation rec {
   pname = "seatd";
@@ -35,10 +28,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A universal seat management library";
-    changelog   = "https://git.sr.ht/~kennylevinsen/seatd/refs/${version}";
-    homepage    = "https://sr.ht/~kennylevinsen/seatd/";
-    license     = licenses.mit;
-    platforms   = with platforms; freebsd ++ linux ++ netbsd;
+    changelog = "https://git.sr.ht/~kennylevinsen/seatd/refs/${version}";
+    homepage = "https://sr.ht/~kennylevinsen/seatd/";
+    license = licenses.mit;
+    platforms = with platforms; freebsd ++ linux ++ netbsd;
     maintainers = with maintainers; [ emantor ];
   };
 }

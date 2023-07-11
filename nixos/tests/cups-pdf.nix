@@ -4,10 +4,10 @@ import ./make-test-python.nix ({ lib, pkgs, ... }: {
   nodes.machine = { pkgs, ... }: {
     imports = [ ./common/user-account.nix ];
     environment.systemPackages = [ pkgs.poppler_utils ];
-    fonts.fonts = [ pkgs.dejavu_fonts ];  # yields more OCR-able pdf
+    fonts.fonts = [ pkgs.dejavu_fonts ]; # yields more OCR-able pdf
     services.printing.cups-pdf.enable = true;
     services.printing.cups-pdf.instances = {
-      opt = {};
+      opt = { };
       noopt.installPrinter = false;
     };
     hardware.printers.ensurePrinters = [{
@@ -33,7 +33,9 @@ import ./make-test-python.nix ({ lib, pkgs, ... }: {
         machine.succeed(f"cp /var/spool/cups-pdf-{name}/users/alice/*.pdf /tmp/{name}.pdf")
         machine.copy_from_vm(f"/tmp/{name}.pdf", "")
         run(f"${pkgs.imagemagickBig}/bin/convert -density 300 $out/{name}.pdf $out/{name}.jpeg", shell=True, check=True)
-        assert text.encode() in run(f"${lib.getExe pkgs.tesseract} $out/{name}.jpeg stdout", shell=True, check=True, capture_output=True).stdout
+        assert text.encode() in run(f"${
+          lib.getExe pkgs.tesseract
+        } $out/{name}.jpeg stdout", shell=True, check=True, capture_output=True).stdout
   '';
 
   meta.maintainers = [ lib.maintainers.yarny ];

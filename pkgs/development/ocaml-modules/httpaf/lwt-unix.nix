@@ -1,8 +1,4 @@
-{ lib, buildDunePackage
-, httpaf
-, faraday-lwt-unix
-, lwt
-}:
+{ lib, buildDunePackage, httpaf, faraday-lwt-unix, lwt }:
 
 buildDunePackage {
   pname = "httpaf-lwt-unix";
@@ -10,13 +6,7 @@ buildDunePackage {
   duneVersion = "3";
   minimalOCamlVersion = "4.08";
 
-  propagatedBuildInputs = [
-    faraday-lwt-unix
-    httpaf
-    lwt
-  ];
+  propagatedBuildInputs = [ faraday-lwt-unix httpaf lwt ];
 
-  meta = httpaf.meta // {
-    description = "Lwt support for http/af";
-  };
+  meta = httpaf.meta // { description = "Lwt support for http/af"; };
 }

@@ -1,20 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{ lib, buildPythonPackage, fetchFromGitHub
 
 # build deps
 , poetry-core
 
 # propagates
-, cbor2
-, python-dateutil
-, pyyaml
-, tomlkit
-, u-msgpack-python
+, cbor2, python-dateutil, pyyaml, tomlkit, u-msgpack-python
 
 # tested using
-, pytestCheckHook
-}:
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "remarshal";
@@ -35,21 +28,12 @@ buildPythonPackage rec {
       --replace 'tomlkit = "^0.7"' 'tomlkit = "*"'
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    cbor2
-    python-dateutil
-    pyyaml
-    tomlkit
-    u-msgpack-python
-  ];
+  propagatedBuildInputs =
+    [ cbor2 python-dateutil pyyaml tomlkit u-msgpack-python ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Convert between TOML, YAML and JSON";

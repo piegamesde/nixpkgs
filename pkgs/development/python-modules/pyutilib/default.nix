@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, six
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, six }:
 
 buildPythonPackage rec {
   pname = "pyutilib";
@@ -15,10 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-08FPjtkCioMbK/Ubird3brqH5mz8WKBrmcNZqqZA8EA=";
   };
 
-  propagatedBuildInputs = [
-    nose
-    six
-  ];
+  propagatedBuildInputs = [ nose six ];
 
   # tests require text files that are not included in the pypi package
   doCheck = false;

@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, meson
-, ninja
-, vulkan-loader
-, vulkan-headers
-, fetchFromGitHub
-}:
+{ lib, stdenv, meson, ninja, vulkan-loader, vulkan-headers, fetchFromGitHub }:
 stdenv.mkDerivation rec {
   pname = "vkdisplayinfo";
   version = "0.1";
@@ -28,18 +21,13 @@ stdenv.mkDerivation rec {
     runHook postInstallCheck
   '';
 
-  nativeBuildInputs = [
-    meson
-    ninja
-  ];
+  nativeBuildInputs = [ meson ninja ];
 
-  buildInputs = [
-    vulkan-loader
-    vulkan-headers
-  ];
+  buildInputs = [ vulkan-loader vulkan-headers ];
 
   meta = with lib; {
-    description = "Print displays and modes enumerated with the Vulkan function vkGetPhysicalDeviceDisplayPropertiesKHR";
+    description =
+      "Print displays and modes enumerated with the Vulkan function vkGetPhysicalDeviceDisplayPropertiesKHR";
     homepage = "https://github.com/ChristophHaag/vkdisplayinfo";
     platforms = platforms.linux;
     license = licenses.boost;

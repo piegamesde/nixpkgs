@@ -4,12 +4,10 @@ let
   cfg = config.services.earlyoom;
 
   inherit (lib)
-    mkDefault mkEnableOption mkIf mkOption types
-    mkRemovedOptionModule literalExpression
-    escapeShellArg concatStringsSep optional optionalString;
+    mkDefault mkEnableOption mkIf mkOption types mkRemovedOptionModule
+    literalExpression escapeShellArg concatStringsSep optional optionalString;
 
-in
-{
+in {
   options.services.earlyoom = {
     enable = mkEnableOption (lib.mdDoc "Early out of memory killing");
 
@@ -108,14 +106,16 @@ in
       type = types.int;
       default = 3600;
       example = 0;
-      description = lib.mdDoc "Interval (in seconds) at which a memory report is printed (set to 0 to disable).";
+      description = lib.mdDoc
+        "Interval (in seconds) at which a memory report is printed (set to 0 to disable).";
     };
 
     extraArgs = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = [ "-g" "--prefer '(^|/)(java|chromium)$'" ];
-      description = lib.mdDoc "Extra command-line arguments to be passed to earlyoom.";
+      description =
+        lib.mdDoc "Extra command-line arguments to be passed to earlyoom.";
     };
   };
 
@@ -144,16 +144,16 @@ in
         ExecStart = concatStringsSep " " ([
           "${pkgs.earlyoom}/bin/earlyoom"
           ("-m ${toString cfg.freeMemThreshold}"
-            + optionalString (cfg.freeMemKillThreshold != null) ",${toString cfg.freeMemKillThreshold}")
+            + optionalString (cfg.freeMemKillThreshold != null)
+            ",${toString cfg.freeMemKillThreshold}")
           ("-s ${toString cfg.freeSwapThreshold}"
-            + optionalString (cfg.freeSwapKillThreshold != null) ",${toString cfg.freeSwapKillThreshold}")
+            + optionalString (cfg.freeSwapKillThreshold != null)
+            ",${toString cfg.freeSwapKillThreshold}")
           "-r ${toString cfg.reportInterval}"
-        ]
-        ++ optional cfg.enableDebugInfo "-d"
-        ++ optional cfg.enableNotifications "-n"
-        ++ optional (cfg.killHook != null) "-N ${escapeShellArg cfg.killHook}"
-        ++ cfg.extraArgs
-        );
+        ] ++ optional cfg.enableDebugInfo "-d"
+          ++ optional cfg.enableNotifications "-n"
+          ++ optional (cfg.killHook != null) "-N ${escapeShellArg cfg.killHook}"
+          ++ cfg.extraArgs);
       };
     };
   };

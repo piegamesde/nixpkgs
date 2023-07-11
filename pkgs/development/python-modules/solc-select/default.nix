@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, packaging
-, pycryptodome
-}:
+{ lib, buildPythonPackage, fetchPypi, packaging, pycryptodome }:
 
 buildPythonPackage rec {
   pname = "solc-select";
@@ -14,10 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-850IA1NVvQ4KiH5KEIjqEKFd1k5ECMx/zXLZE7Rvx5k=";
   };
 
-  propagatedBuildInputs = [
-    packaging
-    pycryptodome
-  ];
+  propagatedBuildInputs = [ packaging pycryptodome ];
 
   # no tests
   doCheck = false;

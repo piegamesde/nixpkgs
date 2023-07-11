@@ -1,46 +1,21 @@
-{ lib
-, stdenv
-, fetchurl
-, vulkan-headers
-, vulkan-tools
-, vulkan-loader
-, glslang
-, glfw
-, libjpeg
-, pkg-config
-, rsync
-, cmake
-, clang
-, llvm
-, llvmPackages
-, pugixml
-, freetype
-, exiv2
-, ffmpeg
-, libvorbis
-, libmad
-}:
+{ lib, stdenv, fetchurl, vulkan-headers, vulkan-tools, vulkan-loader, glslang
+, glfw, libjpeg, pkg-config, rsync, cmake, clang, llvm, llvmPackages, pugixml
+, freetype, exiv2, ffmpeg, libvorbis, libmad }:
 
 stdenv.mkDerivation rec {
   pname = "vkdt";
   version = "0.5.4";
 
   src = fetchurl {
-    url = "https://github.com/hanatos/${pname}/releases/download/${version}/${pname}-${version}.tar.xz";
+    url =
+      "https://github.com/hanatos/${pname}/releases/download/${version}/${pname}-${version}.tar.xz";
     sha256 = "sha256-lyljfJ4RZETEED4bofC/Rq88PMNhoHO1kgHmmaXPuhM=";
   };
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    clang
-    cmake
-    glslang
-    llvm
-    llvmPackages.openmp
-    pkg-config
-    rsync
-  ];
+  nativeBuildInputs =
+    [ clang cmake glslang llvm llvmPackages.openmp pkg-config rsync ];
 
   buildInputs = [
     exiv2

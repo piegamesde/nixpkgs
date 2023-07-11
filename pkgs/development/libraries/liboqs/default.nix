@@ -1,10 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, openssl
-, enableStatic ? stdenv.hostPlatform.isStatic
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, openssl
+, enableStatic ? stdenv.hostPlatform.isStatic }:
 
 stdenv.mkDerivation rec {
   pname = "liboqs";
@@ -29,10 +24,11 @@ stdenv.mkDerivation rec {
   dontFixCmake = true; # fix CMake file will give an error
 
   meta = with lib; {
-    description = "C library for prototyping and experimenting with quantum-resistant cryptography";
+    description =
+      "C library for prototyping and experimenting with quantum-resistant cryptography";
     homepage = "https://openquantumsafe.org";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

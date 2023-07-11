@@ -1,8 +1,4 @@
-{ buildOctavePackage
-, lib
-, fetchurl
-, control
-}:
+{ buildOctavePackage, lib, fetchurl, control }:
 
 buildOctavePackage rec {
   pname = "signal";
@@ -13,14 +9,13 @@ buildOctavePackage rec {
     sha256 = "sha256-VFuXVA6+ujtCDwiQb905d/wpOzvI/Db2uosJTOqI8zk=";
   };
 
-  requiredOctavePackages = [
-    control
-  ];
+  requiredOctavePackages = [ control ];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/signal/index.html";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
-    description = "Signal processing tools, including filtering, windowing and display functions";
+    description =
+      "Signal processing tools, including filtering, windowing and display functions";
   };
 }

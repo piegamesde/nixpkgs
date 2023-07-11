@@ -1,7 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "wslu";
@@ -14,19 +11,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-yhugh836BoSISbTu19ubLOrz5X31Opu5QtCR0DXrbWc=";
   };
 
-  patches = [
-    ./fallback-conf-nix-store.diff
-  ];
+  patches = [ ./fallback-conf-nix-store.diff ];
 
   postPatch = ''
     substituteInPlace src/wslu-header \
       --subst-var out
   '';
 
-  makeFlags = [
-    "DESTDIR=$(out)"
-    "PREFIX="
-  ];
+  makeFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
 
   meta = with lib; {
     description = "A collection of utilities for Windows Subsystem for Linux";

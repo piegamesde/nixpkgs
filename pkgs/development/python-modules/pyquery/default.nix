@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, cssselect
-, fetchPypi
-, lxml
-, pytestCheckHook
-, pythonOlder
-, requests
-, webob
-, webtest
-}:
+{ lib, buildPythonPackage, cssselect, fetchPypi, lxml, pytestCheckHook
+, pythonOlder, requests, webob, webtest }:
 
 buildPythonPackage rec {
   pname = "pyquery";
@@ -28,10 +19,7 @@ buildPythonPackage rec {
       --replace test_selector_html skip_test_selector_html
   '';
 
-  propagatedBuildInputs = [
-    cssselect
-    lxml
-  ];
+  propagatedBuildInputs = [ cssselect lxml ];
 
   pythonImportsCheck = [ "pyquery" ];
 

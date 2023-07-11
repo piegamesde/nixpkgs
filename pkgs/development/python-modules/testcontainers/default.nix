@@ -1,9 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, deprecation
-, docker
-, wrapt }:
+{ lib, fetchFromGitHub, buildPythonPackage, deprecation, docker, wrapt }:
 
 buildPythonPackage rec {
   pname = "testcontainers";
@@ -22,18 +17,12 @@ buildPythonPackage rec {
     echo "${version}" > VERSION
   '';
 
-  buildInputs = [
-    deprecation
-    docker
-    wrapt
-  ];
+  buildInputs = [ deprecation docker wrapt ];
 
   # Tests require various container and database services running
   doCheck = false;
 
-  pythonImportsCheck = [
-    "testcontainers"
-  ];
+  pythonImportsCheck = [ "testcontainers" ];
 
   meta = with lib; {
     description = ''

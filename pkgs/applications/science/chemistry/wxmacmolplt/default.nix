@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, wxGTK32
-, libGL
-, libGLU
-, pkg-config
-, xorg
-, autoreconfHook
-}:
+{ stdenv, lib, fetchFromGitHub, wxGTK32, libGL, libGLU, pkg-config, xorg
+, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "wxmacmolplt";
@@ -21,13 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config autoreconfHook ];
-  buildInputs = [
-    wxGTK32
-    libGL
-    libGLU
-    xorg.libX11
-    xorg.libX11.dev
-  ];
+  buildInputs = [ wxGTK32 libGL libGLU xorg.libX11 xorg.libX11.dev ];
 
   enableParallelBuilding = true;
 

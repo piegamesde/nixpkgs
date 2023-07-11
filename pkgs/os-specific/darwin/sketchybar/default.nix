@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, Carbon, Cocoa, CoreWLAN, DisplayServices, SkyLight }:
+{ lib, stdenv, fetchFromGitHub, Carbon, Cocoa, CoreWLAN, DisplayServices
+, SkyLight }:
 
 let
   inherit (stdenv.hostPlatform) system;
@@ -6,9 +7,8 @@ let
     "aarch64-darwin" = "arm64";
     "x86_64-darwin" = "x86";
   }.${system} or (throw "Unsupported system: ${system}");
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "sketchybar";
   version = "2.15.1";
 
@@ -21,9 +21,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ Carbon Cocoa CoreWLAN DisplayServices SkyLight ];
 
-  makeFlags = [
-    target
-  ];
+  makeFlags = [ target ];
 
   installPhase = ''
     mkdir -p $out/bin

@@ -1,24 +1,7 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, wrapGAppsHook4
-, meson
-, ninja
-, pkg-config
-, glib
-, desktop-file-utils
-, gettext
-, librsvg
-, blueprint-compiler
-, python3Packages
-, sassc
-, appstream-glib
-, libadwaita
-, libportal
-, libportal-gtk4
-, libsoup_3
-, gobject-introspection
-}:
+{ stdenv, lib, fetchFromGitHub, wrapGAppsHook4, meson, ninja, pkg-config, glib
+, desktop-file-utils, gettext, librsvg, blueprint-compiler, python3Packages
+, sassc, appstream-glib, libadwaita, libportal, libportal-gtk4, libsoup_3
+, gobject-introspection }:
 
 python3Packages.buildPythonApplication rec {
   pname = "gradience";
@@ -49,13 +32,7 @@ python3Packages.buildPythonApplication rec {
     sassc
   ];
 
-  buildInputs = [
-    libadwaita
-    libportal
-    libportal-gtk4
-    librsvg
-    libsoup_3
-  ];
+  buildInputs = [ libadwaita libportal libportal-gtk4 librsvg libsoup_3 ];
 
   propagatedBuildInputs = with python3Packages; [
     anyascii

@@ -1,9 +1,4 @@
-{ stdenv
-, fetchurl
-, lib
-, gtk3
-, pkg-config
-}:
+{ stdenv, fetchurl, lib, gtk3, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "gaw";

@@ -3,8 +3,7 @@ with lib;
 let
   cfg = config.services.karma;
   yaml = pkgs.formats.yaml { };
-in
-{
+in {
   options.services.karma = {
     enable = mkEnableOption (mdDoc "the Karma dashboard service");
 
@@ -20,7 +19,8 @@ in
     configFile = mkOption {
       type = types.path;
       default = yaml.generate "karma.yaml" cfg.settings;
-      defaultText = "A configuration file generated from the provided nix attributes settings option.";
+      defaultText =
+        "A configuration file generated from the provided nix attributes settings option.";
       description = mdDoc ''
         A YAML config file which can be used to configure karma instead of the nix-generated file.
       '';
@@ -29,13 +29,13 @@ in
 
     environment = mkOption {
       type = with types; attrsOf str;
-      default = {};
+      default = { };
       description = mdDoc ''
         Additional environment variables to provide to karma.
       '';
       example = {
         ALERTMANAGER_URI = "https://alertmanager.example.com";
-        ALERTMANAGER_NAME= "single";
+        ALERTMANAGER_NAME = "single";
       };
     };
 
@@ -49,13 +49,11 @@ in
 
     extraOptions = mkOption {
       type = with types; listOf str;
-      default = [];
+      default = [ ];
       description = mdDoc ''
         Extra command line options.
       '';
-      example = [
-        "--alertmanager.timeout 10s"
-      ];
+      example = [ "--alertmanager.timeout 10s" ];
     };
 
     settings = mkOption {
@@ -82,11 +80,7 @@ in
           };
         };
       };
-      default = {
-        listen = {
-          address = "127.0.0.1";
-        };
-      };
+      default = { listen = { address = "127.0.0.1"; }; };
       description = mdDoc ''
         Karma dashboard configuration as nix attributes.
 
@@ -100,12 +94,10 @@ in
         };
         alertmanager = {
           interval = "15s";
-          servers = [
-            {
-              name = "prod";
-              uri = "http://alertmanager.example.com";
-            }
-          ];
+          servers = [{
+            name = "prod";
+            uri = "http://alertmanager.example.com";
+          }];
         };
       };
     };
@@ -120,9 +112,12 @@ in
         Type = "simple";
         DynamicUser = true;
         Restart = "on-failure";
-        ExecStart = "${pkgs.karma}/bin/karma --config.file ${cfg.configFile} ${concatStringsSep " " cfg.extraOptions}";
+        ExecStart = "${pkgs.karma}/bin/karma --config.file ${cfg.configFile} ${
+            concatStringsSep " " cfg.extraOptions
+          }";
       };
     };
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.settings.listen.port ];
+    networking.firewall.allowedTCPPorts =
+      mkIf cfg.openFirewall [ cfg.settings.listen.port ];
   };
 }

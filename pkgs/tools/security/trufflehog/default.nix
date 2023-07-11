@@ -1,9 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-, testers
-, trufflehog
-}:
+{ lib, fetchFromGitHub, buildGoModule, testers, trufflehog }:
 
 buildGoModule rec {
   pname = "trufflehog";
@@ -31,16 +26,13 @@ buildGoModule rec {
     rm $out/bin/{generate,snifftest}
   '';
 
-  passthru = {
-    tests.version = testers.testVersion {
-      package = trufflehog;
-    };
-  };
+  passthru = { tests.version = testers.testVersion { package = trufflehog; }; };
 
   meta = with lib; {
     description = "Find credentials all over the place";
     homepage = "https://github.com/trufflesecurity/trufflehog";
-    changelog = "https://github.com/trufflesecurity/trufflehog/releases/tag/v${version}";
+    changelog =
+      "https://github.com/trufflesecurity/trufflehog/releases/tag/v${version}";
     license = with licenses; [ agpl3Only ];
     maintainers = with maintainers; [ fab ];
   };

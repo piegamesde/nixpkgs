@@ -1,6 +1,4 @@
-{ fetchFromGitHub
-, lib
-, rustPlatform }:
+{ fetchFromGitHub, lib, rustPlatform }:
 
 let
   # Constants

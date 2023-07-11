@@ -1,30 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, hypothesis
-, setuptools-scm
-, six
-, attrs
-, py
-, setuptools
-, pytest-timeout
-, pytest-tornado
-, mock
-, tabulate
-, nbformat
-, jsonschema
-, pytestCheckHook
-, colorama
-, pygments
-, tornado
-, requests
-, gitpython
-, jupyter-server
-, jupyter-server-mathjax
-, notebook
-, jinja2
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, hypothesis, setuptools-scm
+, six, attrs, py, setuptools, pytest-timeout, pytest-tornado, mock, tabulate
+, nbformat, jsonschema, pytestCheckHook, colorama, pygments, tornado, requests
+, gitpython, jupyter-server, jupyter-server-mathjax, notebook, jinja2 }:
 
 buildPythonPackage rec {
   pname = "nbdime";
@@ -38,9 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-Z3ZzIOlxN09wGhdapZq9OlVHIwOdOfrpCOctFjMNZIs=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     attrs
@@ -83,9 +58,7 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [
-    "nbdime"
-  ];
+  pythonImportsCheck = [ "nbdime" ];
 
   meta = with lib; {
     homepage = "https://github.com/jupyter/nbdime";

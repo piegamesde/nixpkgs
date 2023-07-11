@@ -1,24 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, desktop-file-utils
-, meson
-, ninja
-, pkg-config
-, python3
-, vala
-, wrapGAppsHook
-, discount
-, glib
-, gtk3
-, gtksourceview4
-, gtkspell3
-, libgee
-, pantheon
-, sqlite
-, webkitgtk
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, desktop-file-utils, meson
+, ninja, pkg-config, python3, vala, wrapGAppsHook, discount, glib, gtk3
+, gtksourceview4, gtkspell3, libgee, pantheon, sqlite, webkitgtk }:
 
 stdenv.mkDerivation rec {
   pname = "notes-up";
@@ -31,15 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-t9BCtdWd2JLrKTcmri1Lgl5RLBYD2xWCtMxoVXz0XPk=";
   };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    meson
-    ninja
-    pkg-config
-    python3
-    vala
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ desktop-file-utils meson ninja pkg-config python3 vala wrapGAppsHook ];
 
   buildInputs = [
     discount
@@ -58,12 +33,11 @@ stdenv.mkDerivation rec {
     patchShebangs meson/post_install.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
-    description = "Markdown notes editor and manager designed for elementary OS";
+    description =
+      "Markdown notes editor and manager designed for elementary OS";
     homepage = "https://github.com/Philip-Scott/Notes-up";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ ] ++ teams.pantheon.members;

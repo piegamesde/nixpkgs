@@ -1,22 +1,13 @@
-{ lib, stdenv, fetchurl, zlib, libX11, libXext, libSM, libICE, libxkbcommon, libxshmfence
-, libXfixes, libXt, libXi, libXcursor, libXScrnSaver, libXcomposite, libXdamage, libXtst, libXrandr
-, alsa-lib, dbus, cups, libexif, ffmpeg, systemd, libva, libGL
-, freetype, fontconfig, libXft, libXrender, libxcb, expat
-, libuuid
-, libxml2
-, glib, gtk3, pango, gdk-pixbuf, cairo, atk, at-spi2-atk, at-spi2-core
-, qt5
-, libdrm, mesa
-, vulkan-loader
-, nss, nspr
-, patchelf, makeWrapper
-, wayland, pipewire
-, isSnapshot ? false
+{ lib, stdenv, fetchurl, zlib, libX11, libXext, libSM, libICE, libxkbcommon
+, libxshmfence, libXfixes, libXt, libXi, libXcursor, libXScrnSaver
+, libXcomposite, libXdamage, libXtst, libXrandr, alsa-lib, dbus, cups, libexif
+, ffmpeg, systemd, libva, libGL, freetype, fontconfig, libXft, libXrender
+, libxcb, expat, libuuid, libxml2, glib, gtk3, pango, gdk-pixbuf, cairo, atk
+, at-spi2-atk, at-spi2-core, qt5, libdrm, mesa, vulkan-loader, nss, nspr
+, patchelf, makeWrapper, wayland, pipewire, isSnapshot ? false
 , proprietaryCodecs ? false, vivaldi-ffmpeg-codecs ? null
-, enableWidevine ? false, widevine-cdm ? null
-, commandLineArgs ? ""
-, pulseSupport ? stdenv.isLinux, libpulseaudio
-}:
+, enableWidevine ? false, widevine-cdm ? null, commandLineArgs ? ""
+, pulseSupport ? stdenv.isLinux, libpulseaudio }:
 
 let
   branch = if isSnapshot then "snapshot" else "stable";
@@ -28,14 +19,17 @@ in stdenv.mkDerivation rec {
   suffix = {
     aarch64-linux = "arm64";
     x86_64-linux = "amd64";
-  }.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  }.${stdenv.hostPlatform.system} or (throw
+    "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchurl {
-    url = "https://downloads.vivaldi.com/${branch}/vivaldi-${branch}_${version}-1_${suffix}.deb";
+    url =
+      "https://downloads.vivaldi.com/${branch}/vivaldi-${branch}_${version}-1_${suffix}.deb";
     hash = {
       aarch64-linux = "sha256-6rETxeExtHxWrKFO0MHzjLgnaHUeREVqsOB9264jZr8=";
       x86_64-linux = "sha256-vvN0AxrKotphYIpkyOKHBgEOQtF4LvYBV1cB591ICbc=";
-    }.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    }.${stdenv.hostPlatform.system} or (throw
+      "Unsupported system: ${stdenv.hostPlatform.system}");
   };
 
   unpackPhase = ''
@@ -48,20 +42,62 @@ in stdenv.mkDerivation rec {
   dontWrapQtApps = true;
 
   buildInputs = [
-    stdenv.cc.cc stdenv.cc.libc zlib libX11 libXt libXext libSM libICE libxcb libxkbcommon libxshmfence
-    libXi libXft libXcursor libXfixes libXScrnSaver libXcomposite libXdamage libXtst libXrandr
-    atk at-spi2-atk at-spi2-core alsa-lib dbus cups gtk3 gdk-pixbuf libexif ffmpeg systemd libva
+    stdenv.cc.cc
+    stdenv.cc.libc
+    zlib
+    libX11
+    libXt
+    libXext
+    libSM
+    libICE
+    libxcb
+    libxkbcommon
+    libxshmfence
+    libXi
+    libXft
+    libXcursor
+    libXfixes
+    libXScrnSaver
+    libXcomposite
+    libXdamage
+    libXtst
+    libXrandr
+    atk
+    at-spi2-atk
+    at-spi2-core
+    alsa-lib
+    dbus
+    cups
+    gtk3
+    gdk-pixbuf
+    libexif
+    ffmpeg
+    systemd
+    libva
     qt5.qtbase
-    freetype fontconfig libXrender libuuid expat glib nss nspr libGL
-    libxml2 pango cairo
-    libdrm mesa vulkan-loader
-    wayland pipewire
+    freetype
+    fontconfig
+    libXrender
+    libuuid
+    expat
+    glib
+    nss
+    nspr
+    libGL
+    libxml2
+    pango
+    cairo
+    libdrm
+    mesa
+    vulkan-loader
+    wayland
+    pipewire
   ] ++ lib.optional proprietaryCodecs vivaldi-ffmpeg-codecs
     ++ lib.optional pulseSupport libpulseaudio;
 
   libPath = lib.makeLibraryPath buildInputs
     + lib.optionalString (stdenv.is64bit)
-      (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs)
+    (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs)
     + ":$out/opt/${vivaldiName}/lib";
 
   buildPhase = ''
@@ -85,7 +121,7 @@ in stdenv.mkDerivation rec {
   '';
 
   dontPatchELF = true;
-  dontStrip    = true;
+  dontStrip = true;
 
   installPhase = ''
     runHook preInstall
@@ -112,7 +148,10 @@ in stdenv.mkDerivation rec {
       --set-default FONTCONFIG_FILE "${fontconfig.out}/etc/fonts/fonts.conf" \
       --set-default FONTCONFIG_PATH "${fontconfig.out}/etc/fonts" \
       --suffix XDG_DATA_DIRS : ${gtk3}/share/gsettings-schemas/${gtk3.name}/ \
-      ${lib.optionalString enableWidevine "--suffix LD_LIBRARY_PATH : ${libPath}"}
+      ${
+        lib.optionalString enableWidevine
+        "--suffix LD_LIBRARY_PATH : ${libPath}"
+      }
   '' + lib.optionalString enableWidevine ''
     ln -sf ${widevine-cdm}/share/google/chrome/WidevineCdm $out/opt/${vivaldiName}/WidevineCdm
   '' + ''
@@ -123,10 +162,10 @@ in stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A Browser for our Friends, powerful and personal";
-    homepage    = "https://vivaldi.com";
-    license     = licenses.unfree;
+    homepage = "https://vivaldi.com";
+    license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     maintainers = with maintainers; [ otwieracz badmutex ];
-    platforms   = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
   };
 }

@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchFromGitHub
-, mock
-, psutil
-, six
-, future
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchFromGitHub, mock, psutil, six, future
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pylink-square";
@@ -24,10 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ psutil six future ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   pythonImportsCheck = [ "pylink" ];
 

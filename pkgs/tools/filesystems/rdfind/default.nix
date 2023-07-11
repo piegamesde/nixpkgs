@@ -12,7 +12,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "include-limits.patch";
-      url = "https://github.com/pauldreik/rdfind/commit/61877de88d782b63b17458a61fcc078391499b29.patch";
+      url =
+        "https://github.com/pauldreik/rdfind/commit/61877de88d782b63b17458a61fcc078391499b29.patch";
       sha256 = "0igzm4833cn905pj84lgr88nd5gx35dnjl8kl8vrwk7bpyii6a8l";
     })
   ];

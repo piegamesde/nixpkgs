@@ -1,24 +1,6 @@
-{ stdenv
-, lib
-, fetchurl
-, pkg-config
-, gi-docgen
-, meson
-, ninja
-, gnome
-, desktop-file-utils
-, appstream-glib
-, gettext
-, itstool
-, libxml2
-, gtk4
-, libadwaita
-, glib
-, atk
-, gobject-introspection
-, vala
-, wrapGAppsHook4
-}:
+{ stdenv, lib, fetchurl, pkg-config, gi-docgen, meson, ninja, gnome
+, desktop-file-utils, appstream-glib, gettext, itstool, libxml2, gtk4
+, libadwaita, glib, atk, gobject-introspection, vala, wrapGAppsHook4 }:
 
 stdenv.mkDerivation rec {
   pname = "ghex";
@@ -27,7 +9,9 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "devdoc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/ghex/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/ghex/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "QEvfZJ6qE5IqgK4y8Z/kDnHw7g9GHEXtrHKIigDq1sI=";
   };
 
@@ -44,25 +28,15 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [
-    gtk4
-    libadwaita
-    atk
-    glib
-  ];
+  buildInputs = [ gtk4 libadwaita atk glib ];
 
-  nativeCheckInputs = [
-    appstream-glib
-    desktop-file-utils
-  ];
+  nativeCheckInputs = [ appstream-glib desktop-file-utils ];
 
-  mesonFlags = [
-    "-Dgtk_doc=true"
-    "-Dvapi=true"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # mremap does not exist on darwin
-    "-Dmmap-buffer-backend=false"
-  ];
+  mesonFlags = [ "-Dgtk_doc=true" "-Dvapi=true" ]
+    ++ lib.optionals stdenv.isDarwin [
+      # mremap does not exist on darwin
+      "-Dmmap-buffer-backend=false"
+    ];
 
   postFixup = ''
     # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.

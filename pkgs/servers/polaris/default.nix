@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, polaris-web
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, polaris-web }:
 
 rustPlatform.buildRustPackage rec {
   pname = "polaris";
@@ -46,7 +41,8 @@ rustPlatform.buildRustPackage rec {
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {
-    description = "Self-host your music collection, and access it from any computer and mobile device";
+    description =
+      "Self-host your music collection, and access it from any computer and mobile device";
     longDescription = ''
       Polaris is a FOSS music streaming application, designed to let you enjoy your music collection
       from any computer or mobile device. Polaris works by streaming your music directly from your

@@ -1,22 +1,6 @@
-{ lib
-, stdenv
-, asciidoc
-, coreutils
-, cryptsetup
-, curl
-, fetchFromGitHub
-, gnugrep
-, gnused
-, jansson
-, jose
-, libpwquality
-, luksmeta
-, makeWrapper
-, meson
-, ninja
-, pkg-config
-, tpm2-tools
-}:
+{ lib, stdenv, asciidoc, coreutils, cryptsetup, curl, fetchFromGitHub, gnugrep
+, gnused, jansson, jose, libpwquality, luksmeta, makeWrapper, meson, ninja
+, pkg-config, tpm2-tools }:
 
 stdenv.mkDerivation rec {
   pname = "clevis";
@@ -39,31 +23,26 @@ stdenv.mkDerivation rec {
   postInstall = ''
     # We wrap the main clevis binary entrypoint but not the sub-binaries.
     wrapProgram $out/bin/clevis \
-      --prefix PATH ':' "${lib.makeBinPath [tpm2-tools jose cryptsetup libpwquality luksmeta gnugrep gnused coreutils]}:${placeholder "out"}/bin"
+      --prefix PATH ':' "${
+        lib.makeBinPath [
+          tpm2-tools
+          jose
+          cryptsetup
+          libpwquality
+          luksmeta
+          gnugrep
+          gnused
+          coreutils
+        ]
+      }:${placeholder "out"}/bin"
   '';
 
-  nativeBuildInputs = [
-    asciidoc
-    makeWrapper
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ asciidoc makeWrapper meson ninja pkg-config ];
 
-  buildInputs = [
-    cryptsetup
-    curl
-    jansson
-    jose
-    libpwquality
-    luksmeta
-    tpm2-tools
-  ];
+  buildInputs =
+    [ cryptsetup curl jansson jose libpwquality luksmeta tpm2-tools ];
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
   meta = with lib; {
     description = "Automated Encryption Framework";

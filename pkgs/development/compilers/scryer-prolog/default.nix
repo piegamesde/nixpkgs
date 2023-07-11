@@ -1,13 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, openssl
-, gmp
-, libmpc
-, mpfr
-, stdenv
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, gmp, libmpc, mpfr
+, stdenv }:
 
 rustPlatform.buildRustPackage rec {
   pname = "scryer-prolog";
@@ -23,7 +15,8 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "modular-bitfield-0.11.2" = "sha256-vcx+xt5owZVWOlKwudAr0EB1zlLLL5pVfWokw034BQI=";
+      "modular-bitfield-0.11.2" =
+        "sha256-vcx+xt5owZVWOlKwudAr0EB1zlLLL5pVfWokw034BQI=";
     };
   };
 

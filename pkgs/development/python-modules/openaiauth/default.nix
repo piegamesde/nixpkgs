@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, requests
-}:
+{ lib, buildPythonPackage, fetchPypi, requests }:
 
 buildPythonPackage rec {
   pname = "openaiauth";
@@ -18,15 +14,14 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [
-    "OpenAIAuth"
-  ];
+  pythonImportsCheck = [ "OpenAIAuth" ];
 
   meta = with lib; {
     description = "A Python library for authenticating with the OpenAI API";
     license = licenses.mit;
     maintainers = with maintainers; [ realsnick ];
     homepage = "https://github.com/acheong08/OpenAIAuth";
-    changelog = "https://github.com/acheong08/OpenAIAuth/releases/tag/${version}";
+    changelog =
+      "https://github.com/acheong08/OpenAIAuth/releases/tag/${version}";
   };
 }

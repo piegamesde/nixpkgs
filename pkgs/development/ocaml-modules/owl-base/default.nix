@@ -7,7 +7,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/owlbarn/owl/releases/download/${version}/owl-${version}.tbz";
+    url =
+      "https://github.com/owlbarn/owl/releases/download/${version}/owl-${version}.tbz";
     hash = "sha256-ONIQzmwcLwljH9WZUUMOTzZLWuA2xx7RsyzlWbKikmM=";
   };
 

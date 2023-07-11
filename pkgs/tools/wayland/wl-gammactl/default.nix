@@ -1,7 +1,5 @@
-{ lib, stdenv, fetchFromGitHub
-, meson, pkg-config, ninja
-, wayland, wayland-scanner, wlroots, wlr-protocols, gtk3, glib
-}:
+{ lib, stdenv, fetchFromGitHub, meson, pkg-config, ninja, wayland
+, wayland-scanner, wlroots, wlr-protocols, gtk3, glib }:
 
 stdenv.mkDerivation rec {
   pname = "wl-gammactl";

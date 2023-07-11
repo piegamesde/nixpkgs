@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchCrate
-}:
+{ lib, stdenv, rustPlatform, fetchCrate }:
 rustPlatform.buildRustPackage rec {
   pname = "cfonts";
   version = "1.1.0";

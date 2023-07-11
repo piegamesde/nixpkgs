@@ -1,10 +1,4 @@
-{ setuptools
-, mkdocs
-, mkdocs-macros
-, mkdocs-material
-, runCommand
-, callPackage
-}:
+{ setuptools, mkdocs, mkdocs-macros, mkdocs-material, runCommand, callPackage }:
 
 let
   inherit (mkdocs-macros) pname version src;
@@ -12,16 +6,10 @@ let
   mkdocs-macros-test = callPackage ./mkdocs-macros-test.nix { };
 
   env = {
-    nativeBuildInputs = [
-      setuptools
-      mkdocs
-      mkdocs-macros
-      mkdocs-macros-test
-      mkdocs-material
-    ];
+    nativeBuildInputs =
+      [ setuptools mkdocs mkdocs-macros mkdocs-macros-test mkdocs-material ];
   };
-in
-runCommand "mkdocs-macros-example-docs" env ''
+in runCommand "mkdocs-macros-example-docs" env ''
   set -euo pipefail
   mkdir $out
 

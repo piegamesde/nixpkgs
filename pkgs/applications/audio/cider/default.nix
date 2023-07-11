@@ -5,7 +5,8 @@ appimageTools.wrapType2 rec {
   version = "1.6.0";
 
   src = fetchurl {
-    url = "https://github.com/ciderapp/cider-releases/releases/download/v${version}/Cider-${version}.AppImage";
+    url =
+      "https://github.com/ciderapp/cider-releases/releases/download/v${version}/Cider-${version}.AppImage";
     sha256 = "sha256-fbeUl+vQpEdP17m3koblKv9z4CRpLNYtVQf7bs8ZP1M=";
   };
 
@@ -21,7 +22,8 @@ appimageTools.wrapType2 rec {
     '';
 
   meta = with lib; {
-    description = "A new look into listening and enjoying Apple Music in style and performance.";
+    description =
+      "A new look into listening and enjoying Apple Music in style and performance.";
     homepage = "https://github.com/ciderapp/Cider";
     license = licenses.agpl3;
     maintainers = [ maintainers.cigrainger ];

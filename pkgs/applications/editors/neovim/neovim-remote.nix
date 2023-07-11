@@ -1,11 +1,7 @@
-{ lib
-, fetchFromGitHub
-, python3
-, neovim
-, fetchpatch
-}:
+{ lib, fetchFromGitHub, python3, neovim, fetchpatch }:
 
-with python3.pkgs; buildPythonApplication rec {
+with python3.pkgs;
+buildPythonApplication rec {
   pname = "neovim-remote";
   version = "2.5.1";
 
@@ -19,21 +15,15 @@ with python3.pkgs; buildPythonApplication rec {
   patches = [
     # Fix a compatibility issue with neovim 0.8.0
     (fetchpatch {
-      url = "https://github.com/mhinz/neovim-remote/commit/56d2a4097f4b639a16902390d9bdd8d1350f948c.patch";
+      url =
+        "https://github.com/mhinz/neovim-remote/commit/56d2a4097f4b639a16902390d9bdd8d1350f948c.patch";
       hash = "sha256-/PjE+9yfHtOUEp3xBaobzRM8Eo2wqOhnF1Es7SIdxvM=";
     })
   ];
 
-  propagatedBuildInputs = [
-    pynvim
-    psutil
-    setuptools
-  ];
+  propagatedBuildInputs = [ pynvim psutil setuptools ];
 
-  nativeCheckInputs = [
-    neovim
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ neovim pytestCheckHook ];
 
   doCheck = !stdenv.isDarwin;
 
@@ -42,7 +32,8 @@ with python3.pkgs; buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "A tool that helps controlling nvim processes from a terminal";
+    description =
+      "A tool that helps controlling nvim processes from a terminal";
     homepage = "https://github.com/mhinz/neovim-remote/";
     license = licenses.mit;
     maintainers = with maintainers; [ edanaher ];

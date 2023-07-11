@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "cyclonedds";
@@ -15,9 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Ie2l2TwEXqhMZWL3CmQD+c8LdQlclP6egsP7jnsOAlM=";
   };
 
-  patches = [
-    ./0001-Use-full-path-in-pkgconfig.patch
-  ];
+  patches = [ ./0001-Use-full-path-in-pkgconfig.patch ];
 
   nativeBuildInputs = [ cmake ];
 

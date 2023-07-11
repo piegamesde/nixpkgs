@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flit
-, hypothesis
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, flit, hypothesis, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "validobj";
@@ -23,7 +17,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "validobj" ];
 
   meta = with lib; {
-    description = "Validobj is library that takes semistructured data (for example JSON and YAML configuration files) and converts it to more structured Python objects";
+    description =
+      "Validobj is library that takes semistructured data (for example JSON and YAML configuration files) and converts it to more structured Python objects";
     homepage = "https://github.com/Zaharid/validobj";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ veprbl ];

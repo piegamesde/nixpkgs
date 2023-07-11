@@ -1,4 +1,5 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, buildFHSEnv, installShellFiles, go-task }:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, buildFHSEnv, installShellFiles
+, go-task }:
 
 let
 
@@ -13,13 +14,9 @@ let
       hash = "sha256-Em8L2ZYS1rgW46/MP5hs/EBWGcb5GP3EDEzWi072F/I=";
     };
 
-    nativeBuildInputs = [
-      installShellFiles
-    ];
+    nativeBuildInputs = [ installShellFiles ];
 
-    nativeCheckInputs = [
-      go-task
-    ];
+    nativeCheckInputs = [ go-task ];
 
     subPackages = [ "." ];
 
@@ -38,7 +35,9 @@ let
       ];
     in ''
       substituteInPlace Taskfile.yml \
-        --replace "go test" "go test -p $NIX_BUILD_CORES -skip '(${lib.concatStringsSep "|" skipTests})'"
+        --replace "go test" "go test -p $NIX_BUILD_CORES -skip '(${
+          lib.concatStringsSep "|" skipTests
+        })'"
     '';
 
     doCheck = stdenv.isLinux;
@@ -50,7 +49,10 @@ let
     '';
 
     ldflags = [
-      "-s" "-w" "-X github.com/arduino/arduino-cli/version.versionString=${version}" "-X github.com/arduino/arduino-cli/version.commit=unknown"
+      "-s"
+      "-w"
+      "-X github.com/arduino/arduino-cli/version.versionString=${version}"
+      "-X github.com/arduino/arduino-cli/version.commit=unknown"
     ] ++ lib.optionals stdenv.isLinux [ "-extldflags '-static'" ];
 
     postInstall = ''
@@ -65,20 +67,19 @@ let
     meta = with lib; {
       inherit (src.meta) homepage;
       description = "Arduino from the command line";
-      changelog = "https://github.com/arduino/arduino-cli/releases/tag/${version}";
+      changelog =
+        "https://github.com/arduino/arduino-cli/releases/tag/${version}";
       license = licenses.gpl3Only;
       maintainers = with maintainers; [ ryantm ];
     };
 
   };
 
-in
-if stdenv.isLinux then
+in if stdenv.isLinux then
 # buildFHSEnv is needed because the arduino-cli downloads compiler
 # toolchains from the internet that have their interpreters pointed at
 # /lib64/ld-linux-x86-64.so.2
-  buildFHSEnv
-  {
+  buildFHSEnv {
     inherit (pkg) name meta;
 
     runScript = "${pkg.outPath}/bin/arduino-cli";
@@ -89,9 +90,7 @@ if stdenv.isLinux then
     '';
     passthru.pureGoPkg = pkg;
 
-    targetPkgs = pkgs: with pkgs; [
-      zlib
-    ];
+    targetPkgs = pkgs: with pkgs; [ zlib ];
   }
 else
   pkg

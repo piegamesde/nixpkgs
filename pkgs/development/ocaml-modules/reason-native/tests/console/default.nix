@@ -8,10 +8,7 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  buildInputs = [
-    reason
-    console
-  ];
+  buildInputs = [ reason console ];
 
   doInstallCheck = true;
   postInstallCheck = ''

@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, python3
-, unbound
-, libreswan
-}:
+{ lib, stdenv, fetchFromGitHub, python3, unbound, libreswan }:
 
 stdenv.mkDerivation rec {
   pname = "hash-slinger";
@@ -17,26 +11,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PfOEGqPMGLixoqHENZnxOv9nK+dYMqe6P0k+ZiJMik0=";
   };
 
-  pythonPath = with python3.pkgs; [
-    dnspython
-    m2crypto
-    python-gnupg
-    pyunbound
-  ];
+  pythonPath = with python3.pkgs; [ dnspython m2crypto python-gnupg pyunbound ];
 
-  buildInputs = [
-    python3.pkgs.wrapPython
-  ];
+  buildInputs = [ python3.pkgs.wrapPython ];
 
-  propagatedBuildInputs = [
-    unbound
-    libreswan
-  ] ++ pythonPath;
+  propagatedBuildInputs = [ unbound libreswan ] ++ pythonPath;
 
-  propagatedUserEnvPkgs = [
-    unbound
-    libreswan
-  ];
+  propagatedUserEnvPkgs = [ unbound libreswan ];
 
   postPatch = ''
     substituteInPlace Makefile \

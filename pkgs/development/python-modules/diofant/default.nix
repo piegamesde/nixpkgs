@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, gmpy2
-, isort
-, mpmath
-, numpy
-, pythonOlder
-, scipy
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchPypi, gmpy2, isort, mpmath, numpy, pythonOlder
+, scipy, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "diofant";
@@ -22,17 +13,9 @@ buildPythonPackage rec {
     sha256 = "bac9e086a7156b20f18e3291d6db34e305338039a3c782c585302d377b74dd3c";
   };
 
-  nativeBuildInputs = [
-    isort
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ isort setuptools-scm ];
 
-  propagatedBuildInputs = [
-    gmpy2
-    mpmath
-    numpy
-    scipy
-  ];
+  propagatedBuildInputs = [ gmpy2 mpmath numpy scipy ];
 
   # tests take ~1h
   doCheck = false;

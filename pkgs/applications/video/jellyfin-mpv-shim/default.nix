@@ -1,19 +1,6 @@
-{ lib
-, buildPythonApplication
-, copyDesktopItems
-, fetchPypi
-, gobject-introspection
-, jellyfin-apiclient-python
-, jinja2
-, makeDesktopItem
-, mpv
-, pillow
-, pystray
-, python
-, python-mpv-jsonipc
-, pywebview
-, tkinter
-, wrapGAppsHook
+{ lib, buildPythonApplication, copyDesktopItems, fetchPypi
+, gobject-introspection, jellyfin-apiclient-python, jinja2, makeDesktopItem, mpv
+, pillow, pystray, python, python-mpv-jsonipc, pywebview, tkinter, wrapGAppsHook
 }:
 
 buildPythonApplication rec {
@@ -25,11 +12,7 @@ buildPythonApplication rec {
     sha256 = "sha256-90Z2vgYT/9hBQZgfXeY7l6sGwT5KEY8X4rZMgrbTwrM=";
   };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    wrapGAppsHook
-    gobject-introspection
-  ];
+  nativeBuildInputs = [ copyDesktopItems wrapGAppsHook gobject-introspection ];
 
   propagatedBuildInputs = [
     jellyfin-apiclient-python
@@ -94,7 +77,8 @@ buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/jellyfin/jellyfin-mpv-shim";
-    description = "Allows casting of videos to MPV via the jellyfin mobile and web app";
+    description =
+      "Allows casting of videos to MPV via the jellyfin mobile and web app";
     longDescription = ''
       Jellyfin MPV Shim is a client for the Jellyfin media server which plays media in the
       MPV media player. The application runs in the background and opens MPV only

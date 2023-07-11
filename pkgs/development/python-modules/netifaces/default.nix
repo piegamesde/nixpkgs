@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   version = "0.11.0";
@@ -19,9 +15,7 @@ buildPythonPackage rec {
   # No tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [
-    "netifaces"
-  ];
+  pythonImportsCheck = [ "netifaces" ];
 
   meta = with lib; {
     description = "Portable access to network interfaces from Python";

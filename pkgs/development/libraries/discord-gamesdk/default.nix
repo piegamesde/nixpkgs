@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchzip
-, autoPatchelfHook
-}:
+{ lib, stdenv, fetchzip, autoPatchelfHook }:
 
 stdenv.mkDerivation rec {
   pname = "discord-gamesdk";
@@ -14,28 +10,26 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook ];
 
-  installPhase =
-    let
-      processor = stdenv.hostPlatform.uname.processor;
-      sharedLibrary = stdenv.hostPlatform.extensions.sharedLibrary;
-    in
-    ''
-      runHook preInstall
+  installPhase = let
+    processor = stdenv.hostPlatform.uname.processor;
+    sharedLibrary = stdenv.hostPlatform.extensions.sharedLibrary;
+  in ''
+    runHook preInstall
 
-      install -Dm555 lib/${processor}/discord_game_sdk${sharedLibrary} $out/lib/discord_game_sdk${sharedLibrary}
+    install -Dm555 lib/${processor}/discord_game_sdk${sharedLibrary} $out/lib/discord_game_sdk${sharedLibrary}
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   meta = with lib; {
     homepage = "https://discord.com/developers/docs/game-sdk/sdk-starter-guide";
-    description = "Library to allow other programs to interact with the Discord desktop application";
+    description =
+      "Library to allow other programs to interact with the Discord desktop application";
     license = licenses.unfree;
     maintainers = with maintainers; [ tomodachi94 ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" "x86_64-windows" ];
+    platforms =
+      [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" "x86_64-windows" ];
   };
 }

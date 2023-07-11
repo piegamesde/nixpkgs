@@ -1,19 +1,6 @@
-{ lib
-, fetchFromGitLab
-, python3
-, meson
-, ninja
-, pkg-config
-, glib
-, gtk4
-, libadwaita
-, librsvg
-, blueprint-compiler
-, gobject-introspection
-, wrapGAppsHook4
-, appstream-glib
-, desktop-file-utils
-}:
+{ lib, fetchFromGitLab, python3, meson, ninja, pkg-config, glib, gtk4
+, libadwaita, librsvg, blueprint-compiler, gobject-introspection, wrapGAppsHook4
+, appstream-glib, desktop-file-utils }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "whatip";
@@ -39,19 +26,9 @@ python3.pkgs.buildPythonApplication rec {
     desktop-file-utils
   ];
 
-  buildInputs = [
-    glib
-    gtk4
-    librsvg
-    libadwaita
-    gobject-introspection
-  ];
+  buildInputs = [ glib gtk4 librsvg libadwaita gobject-introspection ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    netaddr
-    requests
-    pygobject3
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ netaddr requests pygobject3 ];
 
   meta = with lib; {
     description = "Info on your IP";

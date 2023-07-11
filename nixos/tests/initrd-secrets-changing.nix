@@ -1,16 +1,12 @@
-{ system ? builtins.currentSystem
-, config ? {}
-, pkgs ? import ../.. { inherit system config; }
-, lib ? pkgs.lib
-, testing ? import ../lib/testing-python.nix { inherit system pkgs; }
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; }, lib ? pkgs.lib
+, testing ? import ../lib/testing-python.nix { inherit system pkgs; } }:
 
 let
   secret1InStore = pkgs.writeText "topsecret" "iamasecret1";
   secret2InStore = pkgs.writeText "topsecret" "iamasecret2";
-in
 
-testing.makeTest {
+in testing.makeTest {
   name = "initrd-secrets-changing";
 
   nodes.machine = { ... }: {

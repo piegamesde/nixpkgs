@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchurl, bison, flex, makeWrapper, texinfo4, getopt, readline, texlive }:
+{ lib, stdenv, fetchurl, bison, flex, makeWrapper, texinfo4, getopt, readline
+, texlive }:
 
 stdenv.mkDerivation (finalAttrs: rec {
   pname = "eukleides";

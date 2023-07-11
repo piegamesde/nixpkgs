@@ -1,18 +1,6 @@
-{ lib
-, appdirs
-, build
-, buildPythonPackage
-, fetchFromGitHub
-, magicgui
+{ lib, appdirs, build, buildPythonPackage, fetchFromGitHub, magicgui
 , napari # reverse dependency, for tests
-, psygnal
-, pydantic
-, pythonOlder
-, pytomlpp
-, pyyaml
-, rich
-, setuptools-scm
-, typer
+, psygnal, pydantic, pythonOlder, pytomlpp, pyyaml, rich, setuptools-scm, typer
 }:
 
 buildPythonPackage rec {
@@ -38,20 +26,10 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [
-    appdirs
-    build
-    magicgui
-    pydantic
-    pytomlpp
-    pyyaml
-    rich
-    typer
-  ];
+  propagatedBuildInputs =
+    [ appdirs build magicgui pydantic pytomlpp pyyaml rich typer ];
 
-  pythonImportsCheck = [
-    "npe2"
-  ];
+  pythonImportsCheck = [ "npe2" ];
 
   passthru.tests = { inherit napari; };
 

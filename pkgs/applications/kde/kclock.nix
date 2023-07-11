@@ -1,28 +1,14 @@
-{ lib
-, mkDerivation
+{ lib, mkDerivation
 
-, cmake
-, extra-cmake-modules
+, cmake, extra-cmake-modules
 
-, kconfig
-, kcoreaddons
-, kdbusaddons
-, ki18n
-, kirigami-addons
-, kirigami2
-, knotifications
-, plasma-framework
-, qtmultimedia
-, qtquickcontrols2
-}:
+, kconfig, kcoreaddons, kdbusaddons, ki18n, kirigami-addons, kirigami2
+, knotifications, plasma-framework, qtmultimedia, qtquickcontrols2 }:
 
 mkDerivation rec {
   pname = "kclock";
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
 
   buildInputs = [
     kconfig

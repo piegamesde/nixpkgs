@@ -4,22 +4,22 @@ with lib;
 
 let
   cfg = config.services.n8n;
-  format = pkgs.formats.json {};
+  format = pkgs.formats.json { };
   configFile = format.generate "n8n.json" cfg.settings;
-in
-{
+in {
   options.services.n8n = {
     enable = mkEnableOption (lib.mdDoc "n8n server");
 
     openFirewall = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc "Open ports in the firewall for the n8n web interface.";
+      description =
+        lib.mdDoc "Open ports in the firewall for the n8n web interface.";
     };
 
     settings = mkOption {
       type = format.type;
-      default = {};
+      default = { };
       description = lib.mdDoc ''
         Configuration for n8n, see <https://docs.n8n.io/hosting/environment-variables/configuration-methods/>
         for supported values.
@@ -70,13 +70,13 @@ in
         RestrictNamespaces = "yes";
         RestrictRealtime = "yes";
         RestrictSUIDSGID = "yes";
-        MemoryDenyWriteExecute = "no"; # v8 JIT requires memory segments to be Writable-Executable.
+        MemoryDenyWriteExecute =
+          "no"; # v8 JIT requires memory segments to be Writable-Executable.
         LockPersonality = "yes";
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.settings.port ];
-    };
+    networking.firewall =
+      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.settings.port ]; };
   };
 }

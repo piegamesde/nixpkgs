@@ -1,31 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, pkg-config # needed to find minizip
-, SDL2
-, SDL2_image
-, SDL2_mixer
-, SDL2_net
-, SDL2_ttf
-, cmake
-, curl
-, doxygen
-, gettext
-, glew
-, graphviz
-, icu
-, installShellFiles
-, libpng
-, lua
-, python3
-, zlib
-, minizip
-, asio
-, libSM
-, libICE
-, libXext
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config # needed to find minizip
+, SDL2, SDL2_image, SDL2_mixer, SDL2_net, SDL2_ttf, cmake, curl, doxygen
+, gettext, glew, graphviz, icu, installShellFiles, libpng, lua, python3, zlib
+, minizip, asio, libSM, libICE, libXext }:
 
 stdenv.mkDerivation rec {
   pname = "widelands";
@@ -45,12 +21,15 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-Wno-dev" # dev warnings are only needed for upstream development
-    "-DWL_INSTALL_BASEDIR=${placeholder "out"}/share/widelands" # for COPYING, Changelog, etc.
+    "-DWL_INSTALL_BASEDIR=${
+      placeholder "out"
+    }/share/widelands" # for COPYING, Changelog, etc.
     "-DWL_INSTALL_DATADIR=${placeholder "out"}/share/widelands" # for game data
     "-DWL_INSTALL_BINDIR=${placeholder "out"}/bin"
   ];
 
-  nativeBuildInputs = [ cmake doxygen gettext graphviz installShellFiles pkg-config ];
+  nativeBuildInputs =
+    [ cmake doxygen gettext graphviz installShellFiles pkg-config ];
 
   enableParallelBuilding = true;
 
@@ -69,7 +48,7 @@ stdenv.mkDerivation rec {
     zlib
     minizip
     asio
-    libSM  # XXX: these should be propagated by SDL2?
+    libSM # XXX: these should be propagated by SDL2?
     libICE
     libXext
   ];

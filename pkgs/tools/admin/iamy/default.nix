@@ -13,12 +13,11 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-/IUYM3pTvcHXw8t5MW6JUEWdxegFuQC8zkiySp8VEgE=";
 
-  ldflags = [
-    "-X main.Version=v${version}" "-s" "-w"
-  ];
+  ldflags = [ "-X main.Version=v${version}" "-s" "-w" ];
 
   meta = with lib; {
-    description = "A cli tool for importing and exporting AWS IAM configuration to YAML files";
+    description =
+      "A cli tool for importing and exporting AWS IAM configuration to YAML files";
     homepage = "https://github.com/99designs/iamy";
     license = licenses.mit;
     maintainers = with maintainers; [ suvash ];

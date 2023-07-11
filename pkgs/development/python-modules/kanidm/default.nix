@@ -1,28 +1,18 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, pythonOlder
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, pythonOlder
 
 # build
 , poetry-core
 
 # propagates
-, aiohttp
-, pydantic
-, toml
+, aiohttp, pydantic, toml
 
 # tests
-, pytest-asyncio
-, pytest-mock
-, pytestCheckHook
-}:
+, pytest-asyncio, pytest-mock, pytestCheckHook }:
 
 let
   pname = "kanidm";
   version = "0.0.3";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "pyproject";
 
@@ -33,29 +23,15 @@ buildPythonPackage {
     hash = "sha256-sTkAKxtJa7CVYKuXC//eMmf3l8ABsrEr2mdf1r2Gf9A=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    pydantic
-    toml
-  ];
+  propagatedBuildInputs = [ aiohttp pydantic toml ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytest-mock pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "-m 'not network'"
-  ];
+  pytestFlagsArray = [ "-m 'not network'" ];
 
-  pythonImportsCheck = [
-    "kanidm"
-  ];
+  pythonImportsCheck = [ "kanidm" ];
 
   meta = with lib; {
     description = "Kanidm client library";

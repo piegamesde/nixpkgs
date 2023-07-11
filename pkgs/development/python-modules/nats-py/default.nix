@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, aiohttp
-, buildPythonPackage
-, ed25519
-, fetchFromGitHub
-, nats-server
-, pytestCheckHook
-, pythonOlder
-, uvloop
-}:
+{ lib, stdenv, aiohttp, buildPythonPackage, ed25519, fetchFromGitHub
+, nats-server, pytestCheckHook, pythonOlder, uvloop }:
 
 buildPythonPackage rec {
   pname = "nats-py";
@@ -24,16 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-w+YySX9RNXUttt7iLg/Efh8bNzmhIQTKMXcoPO1k4lI=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    ed25519
-  ];
+  propagatedBuildInputs = [ aiohttp ed25519 ];
 
-  nativeCheckInputs = [
-    nats-server
-    pytestCheckHook
-    uvloop
-  ];
+  nativeCheckInputs = [ nats-server pytestCheckHook uvloop ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -51,9 +35,7 @@ buildPythonPackage rec {
     "test_buf_size_force_flush_timeout"
   ];
 
-  pythonImportsCheck = [
-    "nats"
-  ];
+  pythonImportsCheck = [ "nats" ];
 
   meta = with lib; {
     description = "Python client for NATS.io";

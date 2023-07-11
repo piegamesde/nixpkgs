@@ -41,7 +41,8 @@
           ProtectProc = "invisible";
           ProtectSystem = "strict";
           RemoveIPC = true;
-          RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
+          RestrictAddressFamilies =
+            [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
           RestrictNamespaces = true;
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
@@ -74,21 +75,12 @@
             "${pkgs.nettools}/bin/ifconfig:/usr/bin/ifconfig"
           ];
 
-          BindPaths = [
-            "/etc/tetrd/resolv.conf:/etc/resolv.conf"
-            "/run"
-            "/var/log"
-          ];
+          BindPaths =
+            [ "/etc/tetrd/resolv.conf:/etc/resolv.conf" "/run" "/var/log" ];
 
-          CapabilityBoundingSet = [
-            "CAP_DAC_OVERRIDE"
-            "CAP_NET_ADMIN"
-          ];
+          CapabilityBoundingSet = [ "CAP_DAC_OVERRIDE" "CAP_NET_ADMIN" ];
 
-          AmbientCapabilities = [
-            "CAP_DAC_OVERRIDE"
-            "CAP_NET_ADMIN"
-          ];
+          AmbientCapabilities = [ "CAP_DAC_OVERRIDE" "CAP_NET_ADMIN" ];
         };
       };
     };

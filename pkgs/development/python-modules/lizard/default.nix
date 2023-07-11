@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, mock
-, jinja2
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, mock
+, jinja2 }:
 
 buildPythonPackage rec {
   pname = "lizard";
@@ -21,14 +15,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ jinja2 ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook mock ];
 
-  pythonImportsCheck = [
-    "lizard"
-  ];
+  pythonImportsCheck = [ "lizard" ];
 
   meta = with lib; {
     description = "Code analyzer without caring the C/C++ header files";

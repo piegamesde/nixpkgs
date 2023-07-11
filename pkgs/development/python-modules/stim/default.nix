@@ -1,18 +1,6 @@
-{ lib
-, pkgs
-, buildPythonPackage
-, pythonOlder
-, pytestCheckHook
-, pytest-xdist
-, fetchFromGitHub
-, numpy
-, pybind11
-, cirq-core
-, matplotlib
-, networkx
-, scipy
-, pandas
-}:
+{ lib, pkgs, buildPythonPackage, pythonOlder, pytestCheckHook, pytest-xdist
+, fetchFromGitHub, numpy, pybind11, cirq-core, matplotlib, networkx, scipy
+, pandas }:
 
 buildPythonPackage rec {
   pname = "stim";
@@ -28,10 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-zXWdJjFkf74FCWxyVMF8dx0P8GmUkuHFxUo5wYNU2o0=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    pybind11
-  ];
+  propagatedBuildInputs = [ numpy pybind11 ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -45,7 +30,8 @@ buildPythonPackage rec {
   ];
 
   meta = {
-    description = "A tool for high performance simulation and analysis of quantum stabilizer circuits, especially quantum error correction (QEC) circuits.";
+    description =
+      "A tool for high performance simulation and analysis of quantum stabilizer circuits, especially quantum error correction (QEC) circuits.";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ chrispattison ];
     homepage = "https://github.com/quantumlib/stim";

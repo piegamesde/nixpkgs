@@ -1,15 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, libGL, ApplicationServices
-, testers
-}:
+{ lib, stdenv, fetchurl, pkg-config, libGL, ApplicationServices, testers }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "glu";
   version = "9.0.2";
 
-  src = let
-    inherit (finalAttrs) pname version;
+  src = let inherit (finalAttrs) pname version;
   in fetchurl {
-    url = "https://mesa.freedesktop.org/archive/${pname}/${pname}-${version}.tar.xz";
+    url =
+      "https://mesa.freedesktop.org/archive/${pname}/${pname}-${version}.tar.xz";
     sha256 = "sha256-bnKA/1hcah2d/N8vykiSUWNLM3e/wzwp5AAkZqONAtQ=";
   };
 

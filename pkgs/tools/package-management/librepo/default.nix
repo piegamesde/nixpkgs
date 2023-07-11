@@ -1,16 +1,5 @@
-{ lib, stdenv
-, fetchFromGitHub
-, cmake
-, python
-, pkg-config
-, libxml2
-, glib
-, openssl
-, zchunk
-, curl
-, check
-, gpgme
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, python, pkg-config, libxml2, glib
+, openssl, zchunk, curl, check, gpgme }:
 
 stdenv.mkDerivation rec {
   version = "1.15.1";
@@ -25,28 +14,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XVjVu+UTIDbrKHmfJ2zZBLp/h0cLCZFxv/XZ0Iy8VPI=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    python
-    libxml2
-    glib
-    openssl
-    curl
-    check
-    gpgme
-    zchunk
-  ];
+  buildInputs = [ python libxml2 glib openssl curl check gpgme zchunk ];
 
   # librepo/fastestmirror.h includes curl/curl.h, and pkg-config specfile refers to others in here
-  propagatedBuildInputs = [
-    curl
-    gpgme
-    libxml2
-  ];
+  propagatedBuildInputs = [ curl gpgme libxml2 ];
 
   cmakeFlags = [ "-DPYTHON_DESIRED=${lib.substring 0 1 python.pythonVersion}" ];
 
@@ -55,7 +28,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Library providing C and Python (libcURL like) API for downloading linux repository metadata and packages";
+    description =
+      "Library providing C and Python (libcURL like) API for downloading linux repository metadata and packages";
     homepage = "https://rpm-software-management.github.io/librepo/";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;

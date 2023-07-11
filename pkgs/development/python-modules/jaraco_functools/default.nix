@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, more-itertools
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchPypi, more-itertools, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "jaraco.functools";
@@ -17,9 +12,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    more-itertools
-  ];
+  propagatedBuildInputs = [ more-itertools ];
 
   doCheck = false;
 

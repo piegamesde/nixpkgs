@@ -1,27 +1,7 @@
-{ lib
-, buildPythonApplication
-, fetchFromGitHub
-, wrapGAppsHook
-, atk
-, gdk-pixbuf
-, gobject-introspection
-, gtk3
-, gst-plugins-good
-, libhandy
-, librsvg
-, networkmanager
-, pango
-, gst-python
-, kiss-headers
-, logbook
-, pillow
-, poetry-core
-, pygobject3
-, python
-, python-zbar
-, requests
-, single-version
-, pytestCheckHook }:
+{ lib, buildPythonApplication, fetchFromGitHub, wrapGAppsHook, atk, gdk-pixbuf
+, gobject-introspection, gtk3, gst-plugins-good, libhandy, librsvg
+, networkmanager, pango, gst-python, kiss-headers, logbook, pillow, poetry-core
+, pygobject3, python, python-zbar, requests, single-version, pytestCheckHook }:
 
 buildPythonApplication rec {
   pname = "cobang";
@@ -35,14 +15,9 @@ buildPythonApplication rec {
     sha256 = "sha256-YcXQ2wAgFSsJEqcaDQotpX1put4pQaF511kwq/c2yHw=";
   };
 
-  patches = [
-    ./0001-Poetry-core-and-pillow-9.patch
-  ];
+  patches = [ ./0001-Poetry-core-and-pillow-9.patch ];
 
-  nativeBuildInputs = [
-    gobject-introspection
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
 
   propagatedBuildInputs = [
     gst-python
@@ -67,9 +42,7 @@ buildPythonApplication rec {
     pango
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # Wrapping this manually for SVG recognition
   dontWrapGApps = true;

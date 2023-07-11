@@ -1,19 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, autoreconfHook
-, libxcrypt
-, gssapiSupport ? false
-, libkrb5
-, freeipmiSupport ? false
-, freeipmi
-, ipv6Support ? true
-, opensslSupport ? true
-, openssl
-, trustUdsCredSupport ? false
-, udsSupport ? false
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, libxcrypt
+, gssapiSupport ? false, libkrb5, freeipmiSupport ? false, freeipmi
+, ipv6Support ? true, opensslSupport ? true, openssl
+, trustUdsCredSupport ? false, udsSupport ? false }:
 
 stdenv.mkDerivation rec {
   pname = "conserver";
@@ -30,15 +18,15 @@ stdenv.mkDerivation rec {
   # https://github.com/bstansell/conserver/pull/82
   patches = [
     (fetchpatch {
-      url = "https://github.com/bstansell/conserver/commit/84fc79a459e00dbc87b8cfc943c5045bfcc7aeeb.patch";
+      url =
+        "https://github.com/bstansell/conserver/commit/84fc79a459e00dbc87b8cfc943c5045bfcc7aeeb.patch";
       sha256 = "sha256:1dy8r9z7rv8512fl0rk5gi1vl02hnh7x0i6flvpcc13h6r6fhxyc";
     })
   ];
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ libxcrypt ]
-    ++ lib.optionals freeipmiSupport [ freeipmi ]
+  buildInputs = [ libxcrypt ] ++ lib.optionals freeipmiSupport [ freeipmi ]
     ++ lib.optionals gssapiSupport [ libkrb5 ]
     ++ lib.optionals opensslSupport [ openssl ];
 
@@ -55,7 +43,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.conserver.com/";
-    description = "An application that allows multiple users to watch a serial console at the same time";
+    description =
+      "An application that allows multiple users to watch a serial console at the same time";
     license = licenses.bsd3;
     platforms = platforms.unix;
     maintainers = with maintainers; [ sarcasticadmin ];

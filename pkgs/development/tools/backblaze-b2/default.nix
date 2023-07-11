@@ -19,9 +19,7 @@ python3Packages.buildPythonApplication rec {
       --replace 'setuptools_scm<6.0' 'setuptools_scm'
   '';
 
-  nativeBuildInputs = with python3Packages; [
-    setuptools-scm
-  ];
+  nativeBuildInputs = with python3Packages; [ setuptools-scm ];
 
   propagatedBuildInputs = with python3Packages; [
     b2sdk
@@ -63,7 +61,8 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Command-line tool for accessing the Backblaze B2 storage service";
+    description =
+      "Command-line tool for accessing the Backblaze B2 storage service";
     homepage = "https://github.com/Backblaze/B2_Command_Line_Tool";
     license = licenses.mit;
     maintainers = with maintainers; [ hrdinka kevincox tomhoule ];

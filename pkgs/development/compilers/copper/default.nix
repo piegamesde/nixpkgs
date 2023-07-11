@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, libffi
-}:
+{ lib, stdenv, fetchurl, libffi }:
 stdenv.mkDerivation rec {
   pname = "copper";
   version = "4.6";
@@ -10,9 +6,7 @@ stdenv.mkDerivation rec {
     url = "https://tibleiz.net/download/copper-${version}-src.tar.gz";
     sha256 = "sha256-tyxAMJp4H50eBz8gjt2O3zj5fq6nOIXKX47wql8aUUg=";
   };
-  buildInputs = [
-    libffi
-  ];
+  buildInputs = [ libffi ];
   postPatch = ''
     patchShebangs .
   '';
@@ -24,7 +18,8 @@ stdenv.mkDerivation rec {
     make BACKEND=elf64 install prefix=$out
   '';
   meta = with lib; {
-    description = "Simple imperative language, statically typed with type inference and genericity";
+    description =
+      "Simple imperative language, statically typed with type inference and genericity";
     homepage = "https://tibleiz.net/copper/";
     license = licenses.bsd2;
     platforms = platforms.x86_64;

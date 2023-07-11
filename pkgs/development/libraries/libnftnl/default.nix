@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   pname = "libnftnl";
 
   src = fetchurl {
-    url = "https://netfilter.org/projects/${pname}/files/${pname}-${version}.tar.xz";
+    url =
+      "https://netfilter.org/projects/${pname}/files/${pname}-${version}.tar.xz";
     hash = "sha256-lm3gqBIMilPbhZiJdJNov7LLoMTwtMGjDSZOzMRfEiY=";
   };
 
@@ -13,7 +14,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ libmnl ];
 
   meta = with lib; {
-    description = "A userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem";
+    description =
+      "A userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem";
     homepage = "https://netfilter.org/projects/libnftnl/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

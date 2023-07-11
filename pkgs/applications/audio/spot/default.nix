@@ -1,23 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, meson
-, ninja
-, gettext
-, python3
-, desktop-file-utils
-, rustPlatform
-, pkg-config
-, glib
-, libadwaita
-, libhandy
-, gtk4
-, openssl
-, alsa-lib
-, libpulseaudio
-, wrapGAppsHook4
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, gettext
+, python3, desktop-file-utils, rustPlatform, pkg-config, glib, libadwaita
+, libhandy, gtk4, openssl, alsa-lib, libpulseaudio, wrapGAppsHook4 }:
 
 stdenv.mkDerivation rec {
   pname = "spot";
@@ -51,15 +34,8 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [
-    glib
-    gtk4
-    libadwaita
-    libhandy
-    openssl
-    alsa-lib
-    libpulseaudio
-  ];
+  buildInputs =
+    [ glib gtk4 libadwaita libhandy openssl alsa-lib libpulseaudio ];
 
   # https://github.com/xou816/spot/issues/313
   mesonBuildType = "release";
@@ -71,9 +47,7 @@ stdenv.mkDerivation rec {
       --replace gtk-update-icon-cache gtk4-update-icon-cache
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Native Spotify client for the GNOME desktop";

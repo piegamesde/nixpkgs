@@ -5,7 +5,9 @@ stdenv.mkDerivation rec {
   version = "2.14.19";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/ORBit2/${lib.versions.majorMinor version}/ORBit2-${version}.tar.bz2";
+    url = "mirror://gnome/sources/ORBit2/${
+        lib.versions.majorMinor version
+      }/ORBit2-${version}.tar.bz2";
     sha256 = "0l3mhpyym9m5iz09fz0rgiqxl2ym6kpkwpsp1xrr4aa80nlh1jam";
   };
 
@@ -31,9 +33,9 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = false;
 
   meta = with lib; {
-    homepage    = "https://developer-old.gnome.org/ORBit2/";
+    homepage = "https://developer-old.gnome.org/ORBit2/";
     description = "A CORBA 2.4-compliant Object Request Broker";
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
     maintainers = with maintainers; [ lovek323 ];
 
     longDescription = ''

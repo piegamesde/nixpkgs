@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, aspell
-, boost
-, expat
-, intltool
-, pkg-config
-, libxml2
-, libxslt
-, pcre2
-, wxGTK32
-, xercesc
-, Cocoa
-}:
+{ lib, stdenv, fetchurl, aspell, boost, expat, intltool, pkg-config, libxml2
+, libxslt, pcre2, wxGTK32, xercesc, Cocoa }:
 
 stdenv.mkDerivation rec {
   pname = "xmlcopyeditor";
@@ -25,23 +12,10 @@ stdenv.mkDerivation rec {
 
   patches = [ ./xmlcopyeditor.patch ];
 
-  nativeBuildInputs = [
-    intltool
-    pkg-config
-  ];
+  nativeBuildInputs = [ intltool pkg-config ];
 
-  buildInputs = [
-    aspell
-    boost
-    expat
-    libxml2
-    libxslt
-    pcre2
-    wxGTK32
-    xercesc
-  ] ++ lib.optionals stdenv.isDarwin [
-    Cocoa
-  ];
+  buildInputs = [ aspell boost expat libxml2 libxslt pcre2 wxGTK32 xercesc ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   enableParallelBuilding = true;
 

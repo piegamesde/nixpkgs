@@ -1,27 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, aiohttp
-, eth-abi
-, eth-account
-, eth-hash
-, eth-typing
-, eth-utils
-, eth-rlp
-, hexbytes
-, ipfshttpclient
-, jsonschema
-, lru-dict
-, protobuf
-, requests
-, typing-extensions
-, websockets
+{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, eth-abi, eth-account
+, eth-hash, eth-typing, eth-utils, eth-rlp, hexbytes, ipfshttpclient, jsonschema
+, lru-dict, protobuf, requests, typing-extensions, websockets
 # , eth-tester
 # , py-geth
-, pytestCheckHook
-, pythonOlder
-, pythonRelaxDepsHook
-}:
+, pytestCheckHook, pythonOlder, pythonRelaxDepsHook }:
 
 buildPythonPackage rec {
   pname = "web3";
@@ -37,9 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-YsAbPI9Y6z+snKZ9NsA0YSpB38n+ra4+Ei6COYFe8v4=";
   };
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -56,9 +36,8 @@ buildPythonPackage rec {
     protobuf
     requests
     websockets
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ] ++ eth-hash.optional-dependencies.pycryptodome;
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+    ++ eth-hash.optional-dependencies.pycryptodome;
 
   pythonRelaxDeps = true;
 
@@ -72,9 +51,7 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [
-    "web3"
-  ];
+  pythonImportsCheck = [ "web3" ];
 
   meta = with lib; {
     description = "Web3 library for interactions";

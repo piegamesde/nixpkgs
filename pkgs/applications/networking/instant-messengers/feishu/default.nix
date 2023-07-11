@@ -1,64 +1,14 @@
-{ addOpenGLRunpath
-, alsa-lib
-, at-spi2-atk
-, at-spi2-core
-, atk
-, autoPatchelfHook
-, cairo
-, cups
-, dbus
-, dpkg
-, expat
-, fetchurl
-, fontconfig
-, freetype
-, gdk-pixbuf
-, glib
-, glibc
-, gnutls
-, gtk3
-, lib
-, libGL
-, libX11
-, libXScrnSaver
-, libXcomposite
-, libXcursor
-, libXdamage
-, libXext
-, libXfixes
-, libXi
-, libXrandr
-, libXrender
-, libXtst
-, libappindicator-gtk3
-, libcxx
-, libdbusmenu
-, libdrm
-, libgcrypt
-, libglvnd
-, libnotify
-, libuuid
-, libxcb
-, libxkbcommon
-, libxkbfile
-, libxshmfence
-, makeShellWrapper
-, mesa
-, nspr
-, nss
-, pango
-, pciutils
-, pipewire
-, pixman
-, stdenv
-, systemd
-, wayland
-, wrapGAppsHook
-, xdg-utils
+{ addOpenGLRunpath, alsa-lib, at-spi2-atk, at-spi2-core, atk, autoPatchelfHook
+, cairo, cups, dbus, dpkg, expat, fetchurl, fontconfig, freetype, gdk-pixbuf
+, glib, glibc, gnutls, gtk3, lib, libGL, libX11, libXScrnSaver, libXcomposite
+, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr, libXrender
+, libXtst, libappindicator-gtk3, libcxx, libdbusmenu, libdrm, libgcrypt
+, libglvnd, libnotify, libuuid, libxcb, libxkbcommon, libxkbfile, libxshmfence
+, makeShellWrapper, mesa, nspr, nss, pango, pciutils, pipewire, pixman, stdenv
+, systemd, wayland, wrapGAppsHook, xdg-utils
 
 # for custom command line arguments, e.g. "--use-gl=desktop"
-, commandLineArgs ? ""
-}:
+, commandLineArgs ? "" }:
 
 stdenv.mkDerivation rec {
   version = "5.18.11";
@@ -66,15 +16,12 @@ stdenv.mkDerivation rec {
   packageHash = "9d89b152d581"; # A hash value used in the download url
 
   src = fetchurl {
-    url = "https://sf3-cn.feishucdn.com/obj/ee-appcenter/${packageHash}/Feishu-linux_x64-${version}.deb";
+    url =
+      "https://sf3-cn.feishucdn.com/obj/ee-appcenter/${packageHash}/Feishu-linux_x64-${version}.deb";
     hash = "sha256-93LEybYePIEbmE8mjRL95haMuBuY0xH6/8fhwF7/ctM=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeShellWrapper
-    dpkg
-  ];
+  nativeBuildInputs = [ autoPatchelfHook makeShellWrapper dpkg ];
 
   buildInputs = [
     gtk3
@@ -162,7 +109,10 @@ stdenv.mkDerivation rec {
         --prefix XDG_DATA_DIRS    :  "$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH" \
         --prefix LD_LIBRARY_PATH  :  ${rpath}:$out/opt/bytedance/feishu:${addOpenGLRunpath.driverLink}/share \
         --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
-        ${lib.optionalString (commandLineArgs!="") "--add-flags ${lib.escapeShellArg commandLineArgs}"}
+        ${
+          lib.optionalString (commandLineArgs != "")
+          "--add-flags ${lib.escapeShellArg commandLineArgs}"
+        }
     done
 
     mkdir -p $out/share/icons/hicolor

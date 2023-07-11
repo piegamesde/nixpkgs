@@ -1,33 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, meson
-, ninja
-, pkg-config
-, wayland-scanner
-, libGL
-, wayland
-, wayland-protocols
-, libinput
-, libxkbcommon
-, pixman
-, libcap
-, mesa
-, xorg
-, libpng
-, ffmpeg_4
-, hwdata
-, seatd
-, vulkan-loader
-, glslang
-, nixosTests
+{ lib, stdenv, fetchFromGitLab, meson, ninja, pkg-config, wayland-scanner, libGL
+, wayland, wayland-protocols, libinput, libxkbcommon, pixman, libcap, mesa, xorg
+, libpng, ffmpeg_4, hwdata, seatd, vulkan-loader, glslang, nixosTests
 
-, enableXWayland ? true
-, xwayland ? null
-}:
+, enableXWayland ? true, xwayland ? null }:
 
 let
-  generic = { version, hash, extraBuildInputs ? [ ], extraNativeBuildInputs ? [ ], extraPatch ? "" }:
+  generic = { version, hash, extraBuildInputs ? [ ]
+    , extraNativeBuildInputs ? [ ], extraPatch ? "" }:
     stdenv.mkDerivation rec {
       pname = "wlroots";
       inherit version;
@@ -69,13 +48,9 @@ let
         xorg.xcbutilimage
         xorg.xcbutilrenderutil
         xorg.xcbutilwm
-      ]
-      ++ lib.optional enableXWayland xwayland
-      ++ extraBuildInputs;
+      ] ++ lib.optional enableXWayland xwayland ++ extraBuildInputs;
 
-      mesonFlags =
-        lib.optional (!enableXWayland) "-Dxwayland=disabled"
-      ;
+      mesonFlags = lib.optional (!enableXWayland) "-Dxwayland=disabled";
 
       postFixup = ''
         # Install ALL example programs to $examples:
@@ -99,15 +74,15 @@ let
           compositor; or about 50,000 lines of code you were going to write anyway.
         '';
         inherit (src.meta) homepage;
-        changelog = "https://gitlab.freedesktop.org/wlroots/wlroots/-/tags/${version}";
+        changelog =
+          "https://gitlab.freedesktop.org/wlroots/wlroots/-/tags/${version}";
         license = licenses.mit;
         platforms = platforms.linux;
         maintainers = with maintainers; [ primeos synthetica ];
       };
     };
 
-in
-rec {
+in rec {
   wlroots_0_14 = generic {
     version = "0.14.1";
     hash = "sha256-wauk7TCL/V7fxjOZY77KiPbfydIc9gmOiYFOuum4UOs=";

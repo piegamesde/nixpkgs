@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "types-urllib3";
@@ -16,9 +13,7 @@ buildPythonPackage rec {
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "urllib3-stubs"
-  ];
+  pythonImportsCheck = [ "urllib3-stubs" ];
 
   meta = with lib; {
     description = "Typing stubs for urllib3";

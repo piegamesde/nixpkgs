@@ -1,16 +1,8 @@
-{ lib
-, buildPythonPackage
-, bootstrapped-pip
-, fetchFromGitHub
-, mock
-, scripttest
-, virtualenv
-, pretend
-, pytest
+{ lib, buildPythonPackage, bootstrapped-pip, fetchFromGitHub, mock, scripttest
+, virtualenv, pretend, pytest
 
 # coupled downsteam dependencies
-, pip-tools
-}:
+, pip-tools }:
 
 buildPythonPackage rec {
   pname = "pip";
@@ -47,7 +39,9 @@ buildPythonPackage rec {
     description = "The PyPA recommended tool for installing Python packages";
     license = with lib.licenses; [ mit ];
     homepage = "https://pip.pypa.io/";
-    changelog = "https://pip.pypa.io/en/stable/news/#v${lib.replaceStrings [ "." ] [ "-" ] version}";
+    changelog = "https://pip.pypa.io/en/stable/news/#v${
+        lib.replaceStrings [ "." ] [ "-" ] version
+      }";
     priority = 10;
   };
 }

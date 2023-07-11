@@ -1,64 +1,61 @@
 import ./make-test-python.nix ({ pkgs, firefoxPackage, ... }:
-let firefoxPackage' = firefoxPackage.override (args: {
-      extraPrefsFiles = (args.extraPrefsFiles or []) ++ [
+  let
+    firefoxPackage' = firefoxPackage.override (args: {
+      extraPrefsFiles = (args.extraPrefsFiles or [ ]) ++ [
         # make sure that autoplay is enabled by default for the audio test
-        (builtins.toString (builtins.toFile "autoplay-pref.js" ''defaultPref("media.autoplay.default",0);''))
+        (builtins.toString (builtins.toFile "autoplay-pref.js"
+          ''defaultPref("media.autoplay.default",0);''))
       ];
-  });
+    });
 
-in
-{
-  name = firefoxPackage'.unwrapped.pname;
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ eelco shlevy ];
-  };
+  in {
+    name = firefoxPackage'.unwrapped.pname;
+    meta = with pkgs.lib.maintainers; { maintainers = [ eelco shlevy ]; };
 
-  nodes.machine =
-    { pkgs, ... }:
+    nodes.machine = { pkgs, ... }:
 
-    { imports = [ ./common/x11.nix ];
-      environment.systemPackages = [
-        firefoxPackage'
-        pkgs.xdotool
-      ];
+      {
+        imports = [ ./common/x11.nix ];
+        environment.systemPackages = [ firefoxPackage' pkgs.xdotool ];
 
-      # Create a virtual sound device, with mixing
-      # and all, for recording audio.
-      boot.kernelModules = [ "snd-aloop" ];
-      sound.enable = true;
-      sound.extraConfig = ''
-        pcm.!default {
-          type plug
-          slave.pcm pcm.dmixer
-        }
-        pcm.dmixer {
-          type dmix
-          ipc_key 1
-          slave {
-            pcm "hw:Loopback,0,0"
-            rate 48000
-            periods 128
-            period_time 0
-            period_size 1024
-            buffer_size 8192
+        # Create a virtual sound device, with mixing
+        # and all, for recording audio.
+        boot.kernelModules = [ "snd-aloop" ];
+        sound.enable = true;
+        sound.extraConfig = ''
+          pcm.!default {
+            type plug
+            slave.pcm pcm.dmixer
           }
-        }
-        pcm.recorder {
-          type hw
-          card "Loopback"
-          device 1
-          subdevice 0
-        }
-      '';
+          pcm.dmixer {
+            type dmix
+            ipc_key 1
+            slave {
+              pcm "hw:Loopback,0,0"
+              rate 48000
+              periods 128
+              period_time 0
+              period_size 1024
+              buffer_size 8192
+            }
+          }
+          pcm.recorder {
+            type hw
+            card "Loopback"
+            device 1
+            subdevice 0
+          }
+        '';
 
-      systemd.services.audio-recorder = {
-        description = "Record NixOS test audio to /tmp/record.wav";
-        script = "${pkgs.alsa-utils}/bin/arecord -D recorder -f S16_LE -r48000 /tmp/record.wav";
+        systemd.services.audio-recorder = {
+          description = "Record NixOS test audio to /tmp/record.wav";
+          script =
+            "${pkgs.alsa-utils}/bin/arecord -D recorder -f S16_LE -r48000 /tmp/record.wav";
+        };
+
       };
 
-    };
-
-  testScript = ''
+    testScript = ''
       from contextlib import contextmanager
 
 
@@ -122,4 +119,4 @@ in
           machine.screenshot("screen")
     '';
 
-})
+  })

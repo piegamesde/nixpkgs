@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, rocmUpdateScript
-, rocm-comgr
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, rocmUpdateScript, rocm-comgr }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocclr";
@@ -22,7 +16,8 @@ stdenv.mkDerivation (finalAttrs: {
     # See the upstream issue: https://github.com/RadeonOpenCompute/ROCm/issues/1659
     # And the arch patch: https://github.com/rocm-arch/rocm-arch/pull/742
     (fetchpatch {
-      url = "https://raw.githubusercontent.com/John-Gee/rocm-arch/d6812d308fee3caf2b6bb01b4d19fe03a6a0e3bd/rocm-opencl-runtime/enable-gfx800.patch";
+      url =
+        "https://raw.githubusercontent.com/John-Gee/rocm-arch/d6812d308fee3caf2b6bb01b4d19fe03a6a0e3bd/rocm-opencl-runtime/enable-gfx800.patch";
       hash = "sha256-59jFDIIsTTZcNns9RyMVWPRUggn/bSlAGrky4quu8B4=";
     })
   ];
@@ -51,7 +46,8 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = with lib; {
-    description = "Source package of the Radeon Open Compute common language runtime";
+    description =
+      "Source package of the Radeon Open Compute common language runtime";
     homepage = "https://github.com/ROCm-Developer-Tools/ROCclr";
     license = licenses.mit;
     maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
@@ -59,6 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     # to be supported yet by the build infrastructure. Recheck in
     # the future.
     platforms = [ "x86_64-linux" ];
-    broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
+    broken = versions.minor finalAttrs.version
+      != versions.minor stdenv.cc.version;
   };
 })

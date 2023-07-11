@@ -1,15 +1,11 @@
-{ lib, stdenv, fetchFromGitLab, cmake, ninja, pkg-config, wrapGAppsHook
-, glib, gtk3, gettext, libxkbfile, libX11, python3
-, freerdp, libssh, libgcrypt, gnutls, vte
-, pcre2, libdbusmenu-gtk3, libappindicator-gtk3
-, libvncserver, libpthreadstubs, libXdmcp, libxkbcommon
-, libsecret, libsoup_3, spice-protocol, spice-gtk, libepoxy, at-spi2-core
-, openssl, gsettings-desktop-schemas, json-glib, libsodium, webkitgtk_4_1, harfbuzz
+{ lib, stdenv, fetchFromGitLab, cmake, ninja, pkg-config, wrapGAppsHook, glib
+, gtk3, gettext, libxkbfile, libX11, python3, freerdp, libssh, libgcrypt, gnutls
+, vte, pcre2, libdbusmenu-gtk3, libappindicator-gtk3, libvncserver
+, libpthreadstubs, libXdmcp, libxkbcommon, libsecret, libsoup_3, spice-protocol
+, spice-gtk, libepoxy, at-spi2-core, openssl, gsettings-desktop-schemas
+, json-glib, libsodium, webkitgtk_4_1, harfbuzz
 # The themes here are soft dependencies; only icons are missing without them.
-, gnome
-, withKf5Wallet ? true, libsForQt5
-, withLibsecret ? true
-, withVte ? true
+, gnome, withKf5Wallet ? true, libsForQt5, withLibsecret ? true, withVte ? true
 }:
 
 stdenv.mkDerivation rec {
@@ -17,9 +13,9 @@ stdenv.mkDerivation rec {
   version = "1.4.30";
 
   src = fetchFromGitLab {
-    owner  = "Remmina";
-    repo   = "Remmina";
-    rev    = "v${version}";
+    owner = "Remmina";
+    repo = "Remmina";
+    rev = "v${version}";
     sha256 = "sha256-VYBolB6VJ3lT/rNl87qMW5DU5rdFCNvKezSLzx5y1JI=";
   };
 
@@ -27,15 +23,34 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     gsettings-desktop-schemas
-    glib gtk3 gettext libxkbfile libX11
-    freerdp libssh libgcrypt gnutls
-    pcre2 libdbusmenu-gtk3 libappindicator-gtk3
-    libvncserver libpthreadstubs libXdmcp libxkbcommon
-    libsoup_3 spice-protocol
+    glib
+    gtk3
+    gettext
+    libxkbfile
+    libX11
+    freerdp
+    libssh
+    libgcrypt
+    gnutls
+    pcre2
+    libdbusmenu-gtk3
+    libappindicator-gtk3
+    libvncserver
+    libpthreadstubs
+    libXdmcp
+    libxkbcommon
+    libsoup_3
+    spice-protocol
     spice-gtk
-    libepoxy at-spi2-core
-    openssl gnome.adwaita-icon-theme json-glib libsodium webkitgtk_4_1
-    harfbuzz python3
+    libepoxy
+    at-spi2-core
+    openssl
+    gnome.adwaita-icon-theme
+    json-glib
+    libsodium
+    webkitgtk_4_1
+    harfbuzz
+    python3
   ] ++ lib.optionals withLibsecret [ libsecret ]
     ++ lib.optionals withKf5Wallet [ libsForQt5.kwallet ]
     ++ lib.optionals withVte [ vte ];

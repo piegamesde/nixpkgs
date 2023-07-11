@@ -1,8 +1,4 @@
-{ lib
-, python
-, fetchFromGitHub
-, buildPythonPackage
-}:
+{ lib, python, fetchFromGitHub, buildPythonPackage }:
 
 buildPythonPackage rec {
   pname = "icnsutil";

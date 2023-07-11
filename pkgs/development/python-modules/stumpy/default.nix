@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, scipy
-, numba
-, pandas
-, dask
-, distributed
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, scipy, numba, pandas, dask
+, distributed, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "stumpy";
@@ -25,22 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-ARpXqZpWkbvIEDVkxA1SwlWoxq+3WO6tvv/e7WZ/25c=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    numba
-  ];
+  propagatedBuildInputs = [ numpy scipy numba ];
 
-  nativeCheckInputs = [
-    pandas
-    dask
-    distributed
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pandas dask distributed pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "stumpy"
-  ];
+  pythonImportsCheck = [ "stumpy" ];
 
   pytestFlagsArray = [
     # whole testsuite is very CPU intensive, only run core tests
@@ -49,7 +28,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Library that can be used for a variety of time series data mining tasks";
+    description =
+      "Library that can be used for a variety of time series data mining tasks";
     homepage = "https://github.com/TDAmeritrade/stumpy";
     license = licenses.bsd3;
     maintainers = with maintainers; [ costrouc ];

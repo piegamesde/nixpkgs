@@ -1,30 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, pkg-config
-, meson
-, ninja
-, vala
-, python3
-, desktop-file-utils
-, libcanberra
-, gtk3
-, glib
-, libgee
-, libhandy
-, granite
-, libnotify
-, pango
-, elementary-dock
-, bamf
-, sqlite
-, zeitgeist
-, libcloudproviders
-, libgit2-glib
-, wrapGAppsHook
-, systemd
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, pkg-config, meson, ninja
+, vala, python3, desktop-file-utils, libcanberra, gtk3, glib, libgee, libhandy
+, granite, libnotify, pango, elementary-dock, bamf, sqlite, zeitgeist
+, libcloudproviders, libgit2-glib, wrapGAppsHook, systemd }:
 
 stdenv.mkDerivation rec {
   pname = "elementary-files";
@@ -39,15 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-JFkyO4r/Fb8bjWn+wVS2rIpFz19/uBVCsLt8091xzVI=";
   };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    meson
-    ninja
-    pkg-config
-    python3
-    vala
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ desktop-file-utils meson ninja pkg-config python3 vala wrapGAppsHook ];
 
   buildInputs = [
     bamf
@@ -72,9 +42,7 @@ stdenv.mkDerivation rec {
     patchShebangs meson/post_install.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "File browser designed for elementary OS";

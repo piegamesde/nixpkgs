@@ -1,7 +1,4 @@
-{ lib
-, python3
-, fetchPypi
-}:
+{ lib, python3, fetchPypi }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "zeekscript";
@@ -13,17 +10,11 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-LogI9sJHvLN5WHJGdW47D09XZInKln/I2hNmG62d1JU=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [
-    setuptools
-  ];
+  nativeBuildInputs = with python3.pkgs; [ setuptools ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    tree-sitter
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ tree-sitter ];
 
-  pythonImportsCheck = [
-    "zeekscript"
-  ];
+  pythonImportsCheck = [ "zeekscript" ];
 
   meta = with lib; {
     description = "A Zeek script formatter and analyzer";

@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, beautifulsoup4
-, geojson
-, lxml
-, matplotlib
-, numpy
-, pandas
-, ujson
-, xarray
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, beautifulsoup4, geojson, lxml
+, matplotlib, numpy, pandas, ujson, xarray }:
 
 buildPythonPackage rec {
   pname = "osmpythontools";
@@ -22,16 +12,8 @@ buildPythonPackage rec {
     hash = "sha256-lTDA1Rad9aYI/ymU/0xzdJHmebUGcpVJ0GW7D0Ujdko=";
   };
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    geojson
-    lxml
-    matplotlib
-    numpy
-    pandas
-    ujson
-    xarray
-  ];
+  propagatedBuildInputs =
+    [ beautifulsoup4 geojson lxml matplotlib numpy pandas ujson xarray ];
 
   # tests touch network
   doCheck = false;
@@ -54,7 +36,8 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/mocnik-science/osm-python-tools";
     license = licenses.gpl3Only;
-    changelog = "https://raw.githubusercontent.com/mocnik-science/osm-python-tools/v${version}/version-history.md";
+    changelog =
+      "https://raw.githubusercontent.com/mocnik-science/osm-python-tools/v${version}/version-history.md";
     maintainers = with maintainers; [ das-g ];
   };
 }

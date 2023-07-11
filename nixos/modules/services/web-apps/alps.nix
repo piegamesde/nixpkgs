@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.services.alps;
+let cfg = config.services.alps;
 in {
   options.services.alps = {
     enable = mkEnableOption (lib.mdDoc "alps");
@@ -81,8 +80,10 @@ in {
       internal = true;
       type = types.listOf types.str;
       default = [
-        "-addr" "${cfg.bindIP}:${toString cfg.port}"
-        "-theme" "${cfg.theme}"
+        "-addr"
+        "${cfg.bindIP}:${toString cfg.port}"
+        "-theme"
+        "${cfg.theme}"
         "imaps://${cfg.imaps.host}:${toString cfg.imaps.port}"
         "smtps://${cfg.smtps.host}:${toString cfg.smtps.port}"
       ];

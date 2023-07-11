@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
   patches = [
     # Fix CMake relative install dir assumptions (https://github.com/ros/urdfdom_headers/pull/66)
     (fetchpatch {
-      url = "https://github.com/ros/urdfdom_headers/commit/c9c993147bbf18d5ec83bae684c5780281e529b4.patch";
+      url =
+        "https://github.com/ros/urdfdom_headers/commit/c9c993147bbf18d5ec83bae684c5780281e529b4.patch";
       hash = "sha256-BnYPdcetYSim2O1R38N0d1tY0Id++AgKNic8+dlM6Vg=";
     })
   ];
@@ -22,7 +23,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake validatePkgConfig ];
 
   meta = with lib; {
-    description = "URDF (U-Robot Description Format) headers provides core data structure headers for URDF";
+    description =
+      "URDF (U-Robot Description Format) headers provides core data structure headers for URDF";
     homepage = "https://github.com/ros/urdfdom_headers";
     license = licenses.bsd3;
     maintainers = with maintainers; [ lopsided98 ];

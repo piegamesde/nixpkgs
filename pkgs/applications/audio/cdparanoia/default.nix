@@ -1,20 +1,20 @@
-{ lib, stdenv, fetchurl, fetchpatch
-, updateAutotoolsGnuConfigScriptsHook, autoreconfHook
-, IOKit, Carbon
-}:
+{ lib, stdenv, fetchurl, fetchpatch, updateAutotoolsGnuConfigScriptsHook
+, autoreconfHook, IOKit, Carbon }:
 
 stdenv.mkDerivation rec {
   pname = "cdparanoia-III";
   version = "10.2";
 
   src = fetchurl {
-    url = "https://downloads.xiph.org/releases/cdparanoia/cdparanoia-III-${version}.src.tgz";
+    url =
+      "https://downloads.xiph.org/releases/cdparanoia/cdparanoia-III-${version}.src.tgz";
     sha256 = "1pv4zrajm46za0f6lv162iqffih57a8ly4pc69f7y0gfyigb8p80";
   };
 
   patches = lib.optionals stdenv.isDarwin [
     (fetchpatch {
-      url = "https://trac.macports.org/export/70964/trunk/dports/audio/cdparanoia/files/osx_interface.patch";
+      url =
+        "https://trac.macports.org/export/70964/trunk/dports/audio/cdparanoia/files/osx_interface.patch";
       sha256 = "0hq3lvfr0h1m3p0r33jij0s1aspiqlpy533rwv19zrfllb39qvr8";
       # Our configure patch will subsume it, but we want our configure
       # patch to be used on all platforms so we cannot just start where
@@ -22,7 +22,8 @@ stdenv.mkDerivation rec {
       excludes = [ "configure.in" ];
     })
     (fetchurl {
-      url = "https://trac.macports.org/export/70964/trunk/dports/audio/cdparanoia/files/patch-paranoia_paranoia.c.10.4.diff";
+      url =
+        "https://trac.macports.org/export/70964/trunk/dports/audio/cdparanoia/files/patch-paranoia_paranoia.c.10.4.diff";
       sha256 = "17l2qhn8sh4jy6ryy5si6ll6dndcm0r537rlmk4a6a8vkn852vad";
     })
   ] ++ [
@@ -32,15 +33,9 @@ stdenv.mkDerivation rec {
     ./configure.patch
   ] ++ lib.optional stdenv.hostPlatform.isMusl ./utils.patch;
 
-  nativeBuildInputs = [
-    updateAutotoolsGnuConfigScriptsHook
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ updateAutotoolsGnuConfigScriptsHook autoreconfHook ];
 
-  propagatedBuildInputs = lib.optionals stdenv.isDarwin [
-    Carbon
-    IOKit
-  ];
+  propagatedBuildInputs = lib.optionals stdenv.isDarwin [ Carbon IOKit ];
 
   hardeningDisable = [ "format" ];
 

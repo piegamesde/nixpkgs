@@ -4,7 +4,8 @@ stdenv.mkDerivation {
   pname = "libcxxabi";
   inherit version;
 
-  src = fetch "libcxxabi" "12lp799rskr4fc2xr64qn4jfkjnfd8b1aymvsxyn4k9ar7r9pgqv";
+  src =
+    fetch "libcxxabi" "12lp799rskr4fc2xr64qn4jfkjnfd8b1aymvsxyn4k9ar7r9pgqv";
 
   outputs = [ "out" "dev" ];
 
@@ -18,9 +19,7 @@ stdenv.mkDerivation {
     patch -p1 -d $(ls -d libcxx-*) -i ${../../libcxx-0001-musl-hacks.patch}
   '';
 
-  patches = [
-    ./gnu-install-dirs.patch
-  ];
+  patches = [ ./gnu-install-dirs.patch ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs = lib.optional (!stdenv.isDarwin) libunwind;
@@ -49,12 +48,12 @@ stdenv.mkDerivation {
 
   postInstall = ''
     mkdir -p "$dev/include"
-    install -m 644 ../include/${if stdenv.isDarwin then "*" else "cxxabi.h"} "$dev/include"
+    install -m 644 ../include/${
+      if stdenv.isDarwin then "*" else "cxxabi.h"
+    } "$dev/include"
   '';
 
-  passthru = {
-    libName = "c++abi";
-  };
+  passthru = { libName = "c++abi"; };
 
   meta = llvm_meta // {
     homepage = "https://libcxxabi.llvm.org/";

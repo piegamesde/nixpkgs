@@ -1,13 +1,12 @@
-{ lib, stdenv, fetchurl, sqlite, postgresql, zlib, acl, ncurses, openssl, readline
-, CoreFoundation, IOKit
-}:
+{ lib, stdenv, fetchurl, sqlite, postgresql, zlib, acl, ncurses, openssl
+, readline, CoreFoundation, IOKit }:
 
 stdenv.mkDerivation rec {
   pname = "bacula";
   version = "13.0.2";
 
   src = fetchurl {
-    url    = "mirror://sourceforge/bacula/${pname}-${version}.tar.gz";
+    url = "mirror://sourceforge/bacula/${pname}-${version}.tar.gz";
     sha256 = "sha256-bgi8vmpKsHDhfp6cTpvE6UTS5b03ZSHKNCxv6WogaH0=";
   };
 
@@ -31,12 +30,10 @@ stdenv.mkDerivation rec {
     "--with-logdir=/var/log/bacula"
     "--with-working-dir=/var/lib/bacula"
     "--mandir=\${out}/share/man"
-  ] ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) "ac_cv_func_setpgrp_void=yes";
+  ] ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
+    "ac_cv_func_setpgrp_void=yes";
 
-  installFlags = [
-    "logdir=\${out}/logdir"
-    "working_dir=\${out}/workdir"
-  ];
+  installFlags = [ "logdir=\${out}/logdir" "working_dir=\${out}/workdir" ];
 
   postInstall = ''
     mkdir -p $out/bin
@@ -45,9 +42,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Enterprise ready, Network Backup Tool";
-    homepage    = "http://bacula.org/";
-    license     = with licenses; [ agpl3Only bsd2 ];
+    homepage = "http://bacula.org/";
+    license = with licenses; [ agpl3Only bsd2 ];
     maintainers = with maintainers; [ lovek323 eleanor ];
-    platforms   = platforms.all;
+    platforms = platforms.all;
   };
 }

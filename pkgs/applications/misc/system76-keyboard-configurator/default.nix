@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, gtk3, glib, wrapGAppsHook, libusb1, hidapi, udev, pkg-config }:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, gtk3, glib, wrapGAppsHook, libusb1
+, hidapi, udev, pkg-config }:
 
 # system76-keyboard-configurator tries to spawn a daemon as root via pkexec, so
 # your system needs a PolicyKit authentication agent running for the
@@ -21,17 +22,13 @@ rustPlatform.buildRustPackage rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    gtk3
-    hidapi
-    libusb1
-    udev
-  ];
+  buildInputs = [ gtk3 hidapi libusb1 udev ];
 
   cargoHash = "sha256-0SFph9quh4QWR3nU5IJr4FyLGqrYvmHcZHDRli6phsc=";
 
   meta = with lib; {
-    description = "Keyboard configuration application for System76 keyboards and laptops";
+    description =
+      "Keyboard configuration application for System76 keyboards and laptops";
     homepage = "https://github.com/pop-os/keyboard-configurator";
     license = with licenses; [ gpl3Only ];
     maintainers = with maintainers; [ mirrexagon ];

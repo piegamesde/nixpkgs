@@ -10,7 +10,8 @@ stdenv.mkDerivation rec {
   version = "0.13.1";
 
   src = fetchurl {
-    url = "https://github.com/NixOS/${pname}/releases/download/${version}/${pname}-${version}.tar.bz2";
+    url =
+      "https://github.com/NixOS/${pname}/releases/download/${version}/${pname}-${version}.tar.bz2";
     sha256 = "sha256-OeiuzNdJXVTfCU0rSnwIAQ/3d3A2+q8k8o4Hd30VmOI=";
   };
 

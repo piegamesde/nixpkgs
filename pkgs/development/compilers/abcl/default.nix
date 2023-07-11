@@ -1,18 +1,12 @@
-{ stdenv
-, lib
-, fetchurl
-, ant
-, jre
-, jdk
-, makeWrapper
-}:
+{ stdenv, lib, fetchurl, ant, jre, jdk, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "abcl";
   version = "1.9.1";
 
   src = fetchurl {
-    url = "https://common-lisp.net/project/armedbear/releases/${version}/${pname}-src-${version}.tar.gz";
+    url =
+      "https://common-lisp.net/project/armedbear/releases/${version}/${pname}-src-${version}.tar.gz";
     sha256 = "sha256-pbxnfJRB9KgzwgpUG93Rb/+SZIRmkd6aHa9mmfj/EeI=";
   };
 
@@ -53,7 +47,8 @@ stdenv.mkDerivation rec {
     makeWrapper ${jre}/bin/java $out/bin/abcl \
       --prefix CLASSPATH : $out/lib/abcl/abcl.jar \
       --prefix CLASSPATH : $out/lib/abcl/abcl-contrib.jar \
-      ${lib.optionalString (lib.versionAtLeast jre.version "17")
+      ${
+        lib.optionalString (lib.versionAtLeast jre.version "17")
         # Fix for https://github.com/armedbear/abcl/issues/484
         "--add-flags --add-opens=java.base/java.util.jar=ALL-UNNAMED \\"
       }
@@ -66,7 +61,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A JVM-based Common Lisp implementation";
-    license = lib.licenses.gpl3 ;
+    license = lib.licenses.gpl3;
     maintainers = lib.teams.lisp.members;
     platforms = lib.platforms.linux;
     homepage = "https://common-lisp.net/project/armedbear/";

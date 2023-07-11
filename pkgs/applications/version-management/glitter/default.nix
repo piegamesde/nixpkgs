@@ -13,9 +13,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-CaWpGNP7Jsv/3dks0LVbZXoD/9HqJmOzaD0ejT5xSqA=";
 
-  nativeCheckInputs = [
-    git
-  ];
+  nativeCheckInputs = [ git ];
 
   # tests require it to be in a git repository
   preCheck = ''
@@ -26,9 +24,11 @@ rustPlatform.buildRustPackage rec {
   checkFlags = [ "--skip" "runs_correctly" ];
 
   meta = with lib; {
-    description = "A git wrapper that allows you to compress multiple commands into one";
+    description =
+      "A git wrapper that allows you to compress multiple commands into one";
     homepage = "https://github.com/milo123459/glitter";
-    changelog = "https://github.com/Milo123459/glitter/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Milo123459/glitter/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
   };

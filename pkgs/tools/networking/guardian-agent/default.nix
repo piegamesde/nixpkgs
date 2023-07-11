@@ -1,10 +1,4 @@
-{ buildGoPackage
-, fetchFromGitHub
-, lib
-, autossh
-, makeWrapper
-, stdenv
-}:
+{ buildGoPackage, fetchFromGitHub, lib, autossh, makeWrapper, stdenv }:
 
 buildGoPackage rec {
   pname = "guardian-agent";
@@ -42,6 +36,7 @@ buildGoPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ mmahut ];
     platforms = platforms.unix;
-    broken = stdenv.isDarwin; # x/sys/unix needs an update, but software is unmaintained
+    broken =
+      stdenv.isDarwin; # x/sys/unix needs an update, but software is unmaintained
   };
 }

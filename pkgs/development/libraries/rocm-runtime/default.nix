@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, pkg-config
-, cmake
-, xxd
-, rocm-device-libs
-, rocm-thunk
-, libelf
-, libdrm
-, numactl
-, valgrind
-, libxml2
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, pkg-config, cmake, xxd
+, rocm-device-libs, rocm-thunk, libelf, libdrm, numactl, valgrind, libxml2 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocm-runtime";
@@ -27,20 +14,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/src";
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    xxd
-  ];
+  nativeBuildInputs = [ pkg-config cmake xxd ];
 
-  buildInputs = [
-    rocm-thunk
-    libelf
-    libdrm
-    numactl
-    valgrind
-    libxml2
-  ];
+  buildInputs = [ rocm-thunk libelf libdrm numactl valgrind libxml2 ];
 
   postPatch = ''
     patchShebangs image/blit_src/create_hsaco_ascii_file.sh
@@ -71,6 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = with licenses; [ ncsa ];
     maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
     platforms = platforms.linux;
-    broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
+    broken = versions.minor finalAttrs.version
+      != versions.minor stdenv.cc.version;
   };
 })

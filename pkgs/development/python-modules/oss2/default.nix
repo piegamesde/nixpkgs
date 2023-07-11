@@ -1,18 +1,6 @@
-{ lib
-, aliyun-python-sdk-core
-, aliyun-python-sdk-kms
-, aliyun-python-sdk-sts
-, buildPythonPackage
-, crcmod
-, fetchFromGitHub
-, mock
-, pycryptodome
-, pytestCheckHook
-, pythonOlder
-, pythonRelaxDepsHook
-, requests
-, six
-}:
+{ lib, aliyun-python-sdk-core, aliyun-python-sdk-kms, aliyun-python-sdk-sts
+, buildPythonPackage, crcmod, fetchFromGitHub, mock, pycryptodome
+, pytestCheckHook, pythonOlder, pythonRelaxDepsHook, requests, six }:
 
 buildPythonPackage rec {
   pname = "oss2";
@@ -28,9 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-EL6qbtVyOJ2RGw3sZiRJouqVNLBMUKGycAZl31M1+oQ=";
   };
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     requests
@@ -41,17 +27,11 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
-    aliyun-python-sdk-sts
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aliyun-python-sdk-sts mock pytestCheckHook ];
 
   pythonRelaxDeps = true;
 
-  pythonImportsCheck = [
-    "oss2"
-  ];
+  pythonImportsCheck = [ "oss2" ];
 
   disabledTestPaths = [
     # Tests require network access
@@ -101,14 +81,13 @@ buildPythonPackage rec {
     "tests/test_website.py"
   ];
 
-  disabledTests = [
-    "test_crypto_get_compact_deprecated_kms"
-  ];
+  disabledTests = [ "test_crypto_get_compact_deprecated_kms" ];
 
   meta = with lib; {
     description = "Alibaba Cloud OSS SDK for Python";
     homepage = "https://github.com/aliyun/aliyun-oss-python-sdk";
-    changelog = "https://github.com/aliyun/aliyun-oss-python-sdk/releases/tag/${version}";
+    changelog =
+      "https://github.com/aliyun/aliyun-oss-python-sdk/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

@@ -18,7 +18,8 @@ buildGoModule rec {
   ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
-    description = "Find in Go repeated strings that could be replaced by a constant";
+    description =
+      "Find in Go repeated strings that could be replaced by a constant";
     homepage = "https://github.com/jgautheron/goconst";
     license = licenses.mit;
     maintainers = with maintainers; [ kalbasit ];

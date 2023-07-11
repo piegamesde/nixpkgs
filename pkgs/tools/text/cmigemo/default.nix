@@ -1,7 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, buildPackages
-, iconv, nkf, perl, which
-, skk-dicts
-}:
+{ lib, stdenv, fetchFromGitHub, buildPackages, iconv, nkf, perl, which
+, skk-dicts }:
 
 stdenv.mkDerivation {
   pname = "cmigemo";
@@ -26,10 +24,12 @@ stdenv.mkDerivation {
 
   buildFlags = [ (if stdenv.isDarwin then "osx-all" else "gcc-all") ];
 
-  installTargets = [ (if stdenv.isDarwin then "osx-install" else "gcc-install") ];
+  installTargets =
+    [ (if stdenv.isDarwin then "osx-install" else "gcc-install") ];
 
   meta = with lib; {
-    description = "A tool that supports Japanese incremental search with Romaji";
+    description =
+      "A tool that supports Japanese incremental search with Romaji";
     homepage = "https://www.kaoriya.net/software/cmigemo";
     license = licenses.mit;
     maintainers = [ maintainers.cohei ];

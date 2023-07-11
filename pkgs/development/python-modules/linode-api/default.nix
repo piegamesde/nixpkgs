@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, requests
-, pytestCheckHook
-, mock
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, requests
+, pytestCheckHook, mock }:
 
 buildPythonPackage rec {
   pname = "linode-api";
@@ -22,10 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   pythonImportsCheck = [ "linode_api4" ];
 

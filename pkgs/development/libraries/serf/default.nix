@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchurl, apr, scons, openssl, aprutil, zlib, libkrb5
-, pkg-config, libiconv
-, fetchpatch }:
+{ lib, stdenv, fetchurl, apr, scons, openssl, aprutil, zlib, libkrb5, pkg-config
+, libiconv, fetchpatch }:
 
 stdenv.mkDerivation rec {
   pname = "serf";
@@ -19,11 +18,13 @@ stdenv.mkDerivation rec {
     ./scons.patch
     # https://issues.apache.org/jira/projects/SERF/issues/SERF-198
     (fetchpatch {
-      url = "https://issues.apache.org/jira/secure/attachment/13019945/serf.patch";
+      url =
+        "https://issues.apache.org/jira/secure/attachment/13019945/serf.patch";
       hash = "sha256-3djDGG30R/gq74KJL8OJ/upMh1zDpqtwGylRzN0lXpY=";
     })
     (fetchpatch {
-      url = "https://src.fedoraproject.org/rpms/libserf/raw/rawhide/f/libserf-1.3.9-errgetfunc.patch";
+      url =
+        "https://src.fedoraproject.org/rpms/libserf/raw/rawhide/f/libserf-1.3.9-errgetfunc.patch";
       hash = "sha256-FQJvXOIZ0iItvbbcu4kR88j74M7fOi7C/0NN3o1/ub4=";
     })
   ];

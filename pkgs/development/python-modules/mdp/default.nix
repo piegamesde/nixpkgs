@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, future
-, joblib
-, numpy
-, pytest
-, pythonOlder
-, scikit-learn
-}:
+{ lib, buildPythonPackage, fetchPypi, future, joblib, numpy, pytest, pythonOlder
+, scikit-learn }:
 
 buildPythonPackage rec {
   pname = "mdp";
@@ -32,21 +24,11 @@ buildPythonPackage rec {
       --replace py.test"" "pytest"
   '';
 
-  propagatedBuildInputs = [
-    future
-    numpy
-  ];
+  propagatedBuildInputs = [ future numpy ];
 
-  nativeCheckInputs = [
-    joblib
-    pytest
-    scikit-learn
-  ];
+  nativeCheckInputs = [ joblib pytest scikit-learn ];
 
-  pythonImportsCheck = [
-    "mdp"
-    "bimdp"
-  ];
+  pythonImportsCheck = [ "mdp" "bimdp" ];
 
   checkPhase = ''
     runHook preCheck
@@ -58,9 +40,11 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Library for building complex data processing software by combining widely used machine learning algorithms";
+    description =
+      "Library for building complex data processing software by combining widely used machine learning algorithms";
     homepage = "https://mdp-toolkit.github.io/";
-    changelog = "https://github.com/mdp-toolkit/mdp-toolkit/blob/MDP-${version}/CHANGES";
+    changelog =
+      "https://github.com/mdp-toolkit/mdp-toolkit/blob/MDP-${version}/CHANGES";
     license = licenses.bsd3;
     maintainers = with maintainers; [ nico202 ];
   };

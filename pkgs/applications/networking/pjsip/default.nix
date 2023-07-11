@@ -1,19 +1,6 @@
-{ lib
-, testers
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, openssl
-, libsamplerate
-, swig
-, alsa-lib
-, AppKit
-, CoreFoundation
-, Security
-, python3
-, pythonSupport ? true
-, runCommand
-}:
+{ lib, testers, stdenv, fetchFromGitHub, fetchpatch, openssl, libsamplerate
+, swig, alsa-lib, AppKit, CoreFoundation, Security, python3
+, pythonSupport ? true, runCommand }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "pjsip";
   version = "2.13";
@@ -29,18 +16,19 @@ stdenv.mkDerivation (finalAttrs: {
     ./fix-aarch64.patch
     (fetchpatch {
       name = "CVE-2022-23537.patch";
-      url = "https://github.com/pjsip/pjproject/commit/d8440f4d711a654b511f50f79c0445b26f9dd1e1.patch";
+      url =
+        "https://github.com/pjsip/pjproject/commit/d8440f4d711a654b511f50f79c0445b26f9dd1e1.patch";
       sha256 = "sha256-7ueQCHIiJ7MLaWtR4+GmBc/oKaP+jmEajVnEYqiwLRA=";
     })
     (fetchpatch {
       name = "CVE-2022-23547.patch";
-      url = "https://github.com/pjsip/pjproject/commit/bc4812d31a67d5e2f973fbfaf950d6118226cf36.patch";
+      url =
+        "https://github.com/pjsip/pjproject/commit/bc4812d31a67d5e2f973fbfaf950d6118226cf36.patch";
       sha256 = "sha256-bpc8e8VAQpfyl5PX96G++6fzkFpw3Or1PJKNPKl7N5k=";
     })
   ];
 
-  nativeBuildInputs =
-    lib.optionals pythonSupport [ swig python3 ];
+  nativeBuildInputs = lib.optionals pythonSupport [ swig python3 ];
 
   buildInputs = [ openssl libsamplerate ]
     ++ lib.optional stdenv.isLinux alsa-lib
@@ -50,7 +38,8 @@ stdenv.mkDerivation (finalAttrs: {
     export LD=$CC
   '';
 
-  NIX_CFLAGS_LINK = lib.optionalString stdenv.isDarwin "-headerpad_max_install_names";
+  NIX_CFLAGS_LINK =
+    lib.optionalString stdenv.isDarwin "-headerpad_max_install_names";
 
   postBuild = lib.optionalString pythonSupport ''
     make -C pjsip-apps/src/swig/python
@@ -58,8 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   configureFlags = [ "--enable-shared" ];
 
-  outputs = [ "out" ]
-    ++ lib.optional pythonSupport "py";
+  outputs = [ "out" ] ++ lib.optional pythonSupport "py";
 
   postInstall = ''
     mkdir -p $out/bin
@@ -119,11 +107,14 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   passthru.tests.python-pjsua2 = runCommand "python-pjsua2" { } ''
-    ${(python3.withPackages (pkgs: [ pkgs.pjsua2 ])).interpreter} -c "import pjsua2" > $out
+    ${
+      (python3.withPackages (pkgs: [ pkgs.pjsua2 ])).interpreter
+    } -c "import pjsua2" > $out
   '';
 
   meta = with lib; {
-    description = "A multimedia communication library written in C, implementing standard based protocols such as SIP, SDP, RTP, STUN, TURN, and ICE";
+    description =
+      "A multimedia communication library written in C, implementing standard based protocols such as SIP, SDP, RTP, STUN, TURN, and ICE";
     homepage = "https://pjsip.org/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ olynch ];

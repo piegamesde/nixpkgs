@@ -1,42 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, qttools
+{ lib, stdenv, fetchFromGitHub, cmake, qttools
 
-, asciidoctor
-, botan2
-, curl
-, libXi
-, libXtst
-, libargon2
-, libusb1
-, minizip
-, pcsclite
-, pkg-config
-, qrencode
-, qtbase
-, qtmacextras
-, qtsvg
-, qtx11extras
-, readline
-, wrapGAppsHook
-, wrapQtAppsHook
-, zlib
+, asciidoctor, botan2, curl, libXi, libXtst, libargon2, libusb1, minizip
+, pcsclite, pkg-config, qrencode, qtbase, qtmacextras, qtsvg, qtx11extras
+, readline, wrapGAppsHook, wrapQtAppsHook, zlib
 
 , LocalAuthentication
 
-, withKeePassBrowser ? true
-, withKeePassFDOSecrets ? true
-, withKeePassKeeShare ? true
-, withKeePassNetworking ? true
-, withKeePassSSHAgent ? true
-, withKeePassTouchID ? true
-, withKeePassX11 ? true
+, withKeePassBrowser ? true, withKeePassFDOSecrets ? true
+, withKeePassKeeShare ? true, withKeePassNetworking ? true
+, withKeePassSSHAgent ? true, withKeePassTouchID ? true, withKeePassX11 ? true
 , withKeePassYubiKey ? true
 
-, nixosTests
-}:
+, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "keepassxc";
@@ -57,22 +32,21 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-rpath ${libargon2}/lib";
 
-  patches = [
-    ./darwin.patch
-  ];
+  patches = [ ./darwin.patch ];
 
   cmakeFlags = [
     "-DKEEPASSXC_BUILD_TYPE=Release"
     "-DWITH_GUI_TESTS=ON"
     "-DWITH_XC_UPDATECHECK=OFF"
-  ]
-  ++ (lib.optional (!withKeePassX11) "-DWITH_XC_X11=OFF")
-  ++ (lib.optional (withKeePassFDOSecrets && stdenv.isLinux) "-DWITH_XC_FDOSECRETS=ON")
-  ++ (lib.optional (withKeePassYubiKey && stdenv.isLinux) "-DWITH_XC_YUBIKEY=ON")
-  ++ (lib.optional withKeePassBrowser "-DWITH_XC_BROWSER=ON")
-  ++ (lib.optional withKeePassKeeShare "-DWITH_XC_KEESHARE=ON")
-  ++ (lib.optional withKeePassNetworking "-DWITH_XC_NETWORKING=ON")
-  ++ (lib.optional withKeePassSSHAgent "-DWITH_XC_SSHAGENT=ON");
+  ] ++ (lib.optional (!withKeePassX11) "-DWITH_XC_X11=OFF")
+    ++ (lib.optional (withKeePassFDOSecrets && stdenv.isLinux)
+      "-DWITH_XC_FDOSECRETS=ON")
+    ++ (lib.optional (withKeePassYubiKey && stdenv.isLinux)
+      "-DWITH_XC_YUBIKEY=ON")
+    ++ (lib.optional withKeePassBrowser "-DWITH_XC_BROWSER=ON")
+    ++ (lib.optional withKeePassKeeShare "-DWITH_XC_KEESHARE=ON")
+    ++ (lib.optional withKeePassNetworking "-DWITH_XC_NETWORKING=ON")
+    ++ (lib.optional withKeePassSSHAgent "-DWITH_XC_SSHAGENT=ON");
 
   doCheck = true;
   checkPhase = ''
@@ -83,12 +57,15 @@ stdenv.mkDerivation rec {
     export QT_PLUGIN_PATH="${qtbase.bin}/${qtbase.qtPluginPrefix}"
     # testcli, testgui and testkdbx4 are flaky - skip them all
     # testautotype on darwin throws "QWidget: Cannot create a QWidget without QApplication"
-    make test ARGS+="-E 'testcli|testgui${lib.optionalString stdenv.isDarwin "|testautotype|testkdbx4"}' --output-on-failure"
+    make test ARGS+="-E 'testcli|testgui${
+      lib.optionalString stdenv.isDarwin "|testautotype|testkdbx4"
+    }' --output-on-failure"
 
     runHook postCheck
   '';
 
-  nativeBuildInputs = [ asciidoctor cmake wrapGAppsHook wrapQtAppsHook qttools pkg-config ];
+  nativeBuildInputs =
+    [ asciidoctor cmake wrapGAppsHook wrapQtAppsHook qttools pkg-config ];
 
   dontWrapGApps = true;
   preFixup = ''
@@ -110,11 +87,10 @@ stdenv.mkDerivation rec {
     qtsvg
     readline
     zlib
-  ]
-  ++ lib.optional (stdenv.isDarwin && withKeePassTouchID) LocalAuthentication
-  ++ lib.optional stdenv.isDarwin qtmacextras
-  ++ lib.optional stdenv.isLinux libusb1
-  ++ lib.optional withKeePassX11 qtx11extras;
+  ] ++ lib.optional (stdenv.isDarwin && withKeePassTouchID) LocalAuthentication
+    ++ lib.optional stdenv.isDarwin qtmacextras
+    ++ lib.optional stdenv.isLinux libusb1
+    ++ lib.optional withKeePassX11 qtx11extras;
 
   passthru.tests = nixosTests.keepassxc;
 

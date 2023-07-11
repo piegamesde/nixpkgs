@@ -1,23 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, applyPatches
-, bundlerEnv
-, defaultGemConfig
-, callPackage
-, writeText
-, procps
-, ruby_2_7
-, postgresql
-, imlib2
-, jq
-, moreutils
-, nodejs
-, yarn
-, yarn2nix-moretea
-, v8
-, cacert
-}:
+{ stdenv, lib, fetchFromGitHub, applyPatches, bundlerEnv, defaultGemConfig
+, callPackage, writeText, procps, ruby_2_7, postgresql, imlib2, jq, moreutils
+, nodejs, yarn, yarn2nix-moretea, v8, cacert }:
 
 let
   pname = "zammad";
@@ -76,9 +59,7 @@ let
         buildFlags = [ "--without-imlib2-config" ];
       };
       mini_racer = attrs: {
-        buildFlags = [
-          "--with-v8-dir=\"${v8}\""
-        ];
+        buildFlags = [ ''--with-v8-dir="${v8}"'' ];
         dontBuild = false;
         postPatch = ''
           substituteInPlace ext/mini_racer_extension/extconf.rb \
@@ -96,19 +77,11 @@ let
     packageJSON = ./package.json;
   };
 
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version src;
 
-  buildInputs = [
-    rubyEnv
-    rubyEnv.wrappedRuby
-    rubyEnv.bundler
-    yarn
-    nodejs
-    procps
-    cacert
-  ];
+  buildInputs =
+    [ rubyEnv rubyEnv.wrappedRuby rubyEnv.bundler yarn nodejs procps cacert ];
 
   RAILS_ENV = "production";
 
@@ -128,11 +101,13 @@ stdenv.mkDerivation {
 
   passthru = {
     inherit rubyEnv yarnEnv;
-    updateScript = [ "${callPackage ./update.nix {}}/bin/update.sh" pname (toString ./.) ];
+    updateScript =
+      [ "${callPackage ./update.nix { }}/bin/update.sh" pname (toString ./.) ];
   };
 
   meta = with lib; {
-    description = "Zammad, a web-based, open source user support/ticketing solution.";
+    description =
+      "Zammad, a web-based, open source user support/ticketing solution.";
     homepage = "https://zammad.org";
     license = licenses.agpl3Plus;
     platforms = [ "x86_64-linux" ];

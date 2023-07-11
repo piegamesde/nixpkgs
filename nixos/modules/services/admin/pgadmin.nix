@@ -7,26 +7,37 @@ let
   cfg = config.services.pgadmin;
 
   _base = with types; [ int bool str ];
-  base = with types; oneOf ([ (listOf (oneOf _base)) (attrsOf (oneOf _base)) ] ++ _base);
+  base = with types;
+    oneOf ([ (listOf (oneOf _base)) (attrsOf (oneOf _base)) ] ++ _base);
 
   formatAttrset = attr:
-    "{${concatStringsSep "\n" (mapAttrsToList (key: value: "${builtins.toJSON key}: ${formatPyValue value},") attr)}}";
+    "{${
+      concatStringsSep "\n" (mapAttrsToList
+        (key: value: "${builtins.toJSON key}: ${formatPyValue value},") attr)
+    }}";
 
   formatPyValue = value:
-    if builtins.isString value then builtins.toJSON value
-    else if value ? _expr then value._expr
-    else if builtins.isInt value then toString value
-    else if builtins.isBool value then (if value then "True" else "False")
-    else if builtins.isAttrs value then (formatAttrset value)
-    else if builtins.isList value then "[${concatStringsSep "\n" (map (v: "${formatPyValue v},") value)}]"
-    else throw "Unrecognized type";
+    if builtins.isString value then
+      builtins.toJSON value
+    else if value ? _expr then
+      value._expr
+    else if builtins.isInt value then
+      toString value
+    else if builtins.isBool value then
+      (if value then "True" else "False")
+    else if builtins.isAttrs value then
+      (formatAttrset value)
+    else if builtins.isList value then
+      "[${concatStringsSep "\n" (map (v: "${formatPyValue v},") value)}]"
+    else
+      throw "Unrecognized type";
 
   formatPy = attrs:
-    concatStringsSep "\n" (mapAttrsToList (key: value: "${key} = ${formatPyValue value}") attrs);
+    concatStringsSep "\n"
+    (mapAttrsToList (key: value: "${key} = ${formatPyValue value}") attrs);
 
   pyType = with types; attrsOf (oneOf [ (attrsOf base) (listOf base) base ]);
-in
-{
+in {
   options.services.pgadmin = {
     enable = mkEnableOption (lib.mdDoc "PostgreSQL Admin 4");
 
@@ -98,7 +109,8 @@ in
       };
     };
 
-    openFirewall = mkEnableOption (lib.mdDoc "firewall passthrough for pgadmin4");
+    openFirewall =
+      mkEnableOption (lib.mdDoc "firewall passthrough for pgadmin4");
 
     settings = mkOption {
       description = lib.mdDoc ''
@@ -116,16 +128,15 @@ in
     services.pgadmin.settings = {
       DEFAULT_SERVER_PORT = cfg.port;
       SERVER_MODE = true;
-    } // (optionalAttrs cfg.openFirewall {
-      DEFAULT_SERVER = mkDefault "::";
-    }) // (optionalAttrs cfg.emailServer.enable {
-      MAIL_SERVER = cfg.emailServer.address;
-      MAIL_PORT = cfg.emailServer.port;
-      MAIL_USE_SSL = cfg.emailServer.useSSL;
-      MAIL_USE_TLS = cfg.emailServer.useTLS;
-      MAIL_USERNAME = cfg.emailServer.username;
-      SECURITY_EMAIL_SENDER = cfg.emailServer.sender;
-    });
+    } // (optionalAttrs cfg.openFirewall { DEFAULT_SERVER = mkDefault "::"; })
+      // (optionalAttrs cfg.emailServer.enable {
+        MAIL_SERVER = cfg.emailServer.address;
+        MAIL_PORT = cfg.emailServer.port;
+        MAIL_USE_SSL = cfg.emailServer.useSSL;
+        MAIL_USE_TLS = cfg.emailServer.useTLS;
+        MAIL_USERNAME = cfg.emailServer.username;
+        SECURITY_EMAIL_SENDER = cfg.emailServer.sender;
+      });
 
     systemd.services.pgadmin = {
       wantedBy = [ "multi-user.target" ];
@@ -153,9 +164,7 @@ in
         ) | ${pkg}/bin/pgadmin4-setup
       '';
 
-      restartTriggers = [
-        "/etc/pgadmin/config_system.py"
-      ];
+      restartTriggers = [ "/etc/pgadmin/config_system.py" ];
 
       serviceConfig = {
         User = "pgadmin";

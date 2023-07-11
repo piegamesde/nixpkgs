@@ -1,11 +1,6 @@
-{ lib
-, fetchFromGitHub
-, glibcLocales
-, python39
-}:
+{ lib, fetchFromGitHub, glibcLocales, python39 }:
 
-let
-  python3 = python39;
+let python3 = python39;
 in python3.pkgs.buildPythonApplication rec {
   pname = "errbot";
   version = "6.1.7";
@@ -44,24 +39,18 @@ in python3.pkgs.buildPythonApplication rec {
     webtest
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ mock pytestCheckHook ];
 
   # Slack backend test has an import issue
   pytestFlagsArray = [ "--ignore=tests/backend_tests/slack_test.py" ];
 
-  disabledTests = [
-    "backup"
-    "broken_plugin"
-    "plugin_cycle"
-  ];
+  disabledTests = [ "backup" "broken_plugin" "plugin_cycle" ];
 
   pythonImportsCheck = [ "errbot" ];
 
   meta = with lib; {
-    description = "Chatbot designed to be simple to extend with plugins written in Python";
+    description =
+      "Chatbot designed to be simple to extend with plugins written in Python";
     homepage = "http://errbot.io/";
     maintainers = with maintainers; [ globin ];
     license = licenses.gpl3Plus;

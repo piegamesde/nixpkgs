@@ -3,13 +3,10 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
   nodes.machine = { config, pkgs, ... }: {
     services.userdbd.enable = true;
 
-    users.users.test-user-nss = {
-      isNormalUser = true;
-    };
+    users.users.test-user-nss = { isNormalUser = true; };
 
-    environment.etc."userdb/test-user-dropin.user".text = builtins.toJSON {
-      userName = "test-user-dropin";
-    };
+    environment.etc."userdb/test-user-dropin.user".text =
+      builtins.toJSON { userName = "test-user-dropin"; };
 
     environment.systemPackages = with pkgs; [ libvarlink ];
   };

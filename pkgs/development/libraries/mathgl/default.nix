@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, cmake
-, zlib
-, libpng
-, libGL
-}:
+{ lib, stdenv, fetchurl, cmake, zlib, libpng, libGL }:
 stdenv.mkDerivation rec {
   pname = "mathgl";
   version = "8.0.1";
@@ -15,15 +8,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-yoS/lIDDntMRLpIMFs49jyiYaY9iiW86V3FBKGIqVao=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    zlib
-    libpng
-    libGL
-  ];
+  buildInputs = [ zlib libpng libGL ];
 
   meta = with lib; {
     description = "A library for scientific data visualization";

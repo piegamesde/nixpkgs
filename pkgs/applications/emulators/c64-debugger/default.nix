@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchgit
-, alsa-lib
-, gtk3
-, libGL
-, libGLU
-, libX11
-, pkg-config
-, upx
-, xcbutil
-}:
+{ lib, stdenv, fetchgit, alsa-lib, gtk3, libGL, libGLU, libX11, pkg-config, upx
+, xcbutil }:
 
 stdenv.mkDerivation {
   name = "c64-debugger";
@@ -21,19 +11,9 @@ stdenv.mkDerivation {
     sha256 = "sha256-3SR73AHQlYSEYpJLtQ/aJ1UITZGq7aA9tQKxBsn/yuc=";
   };
 
-  buildInputs = [
-    alsa-lib
-    gtk3
-    libGL
-    libGLU
-    libX11
-    xcbutil
-  ];
+  buildInputs = [ alsa-lib gtk3 libGL libGLU libX11 xcbutil ];
 
-  nativeBuildInputs = [
-    upx
-    pkg-config
-  ];
+  nativeBuildInputs = [ upx pkg-config ];
 
   postPatch = ''
     # Disable default definition of RUN_COMMODORE64
@@ -86,7 +66,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://sourceforge.net/projects/c64-debugger";
-    description = "Commodore 64, Atari XL/XE and NES code and memory debugger that works in real time";
+    description =
+      "Commodore 64, Atari XL/XE and NES code and memory debugger that works in real time";
     license = with licenses; [
       gpl3Only # c64-debugger
       mit # MTEngine

@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, makeDesktopItem
-, makeWrapper
-, symlinkJoin
-, writeShellScriptBin
-, wine
-}:
+{ lib, stdenv, fetchurl, makeDesktopItem, makeWrapper, symlinkJoin
+, writeShellScriptBin, wine }:
 
 let
   inherit (lib) last splitString;
@@ -53,8 +46,7 @@ let
     url = "https://aur.archlinux.org/cgit/aur.git/plain/winbox.png?h=winbox";
     sha256 = "sha256-YD6u2N+1thRnEsXO6AHm138fRda9XEtUX5+EGTg004A=";
   };
-in
-symlinkJoin {
+in symlinkJoin {
   inherit name pname version;
   paths = [ wrapper desktopItem ];
 

@@ -1,21 +1,6 @@
-{ lib
-, fetchFromGitHub
-, fetchpatch
-, meson
-, python3Packages
-, ninja
-, gtk3
-, wrapGAppsHook
-, glib
-, gtksourceview4
-, itstool
-, gettext
-, pango
-, gdk-pixbuf
-, libsecret
-, gobject-introspection
-, xvfb-run
-}:
+{ lib, fetchFromGitHub, fetchpatch, meson, python3Packages, ninja, gtk3
+, wrapGAppsHook, glib, gtksourceview4, itstool, gettext, pango, gdk-pixbuf
+, libsecret, gobject-introspection, xvfb-run }:
 
 python3Packages.buildPythonApplication rec {
   pname = "gtg";
@@ -28,23 +13,10 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-O8qBD92P2g8QrBdMXa6j0Ozk+W80Ny5yk0KNTy7ekfE=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    itstool
-    gettext
-    wrapGAppsHook
-    gobject-introspection
-  ];
+  nativeBuildInputs =
+    [ meson ninja itstool gettext wrapGAppsHook gobject-introspection ];
 
-  buildInputs = [
-    glib
-    gtk3
-    gtksourceview4
-    pango
-    gdk-pixbuf
-    libsecret
-  ];
+  buildInputs = [ glib gtk3 gtksourceview4 pango gdk-pixbuf libsecret ];
 
   propagatedBuildInputs = with python3Packages; [
     pycairo
@@ -55,12 +27,7 @@ python3Packages.buildPythonApplication rec {
     caldav
   ];
 
-  nativeCheckInputs = with python3Packages; [
-    nose
-    mock
-    xvfb-run
-    pytest
-  ];
+  nativeCheckInputs = with python3Packages; [ nose mock xvfb-run pytest ];
 
   preBuild = ''
     export HOME="$TMP"

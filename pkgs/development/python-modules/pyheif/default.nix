@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, cffi
-, libheif
-}:
+{ lib, buildPythonPackage, fetchPypi, cffi, libheif }:
 
 buildPythonPackage rec {
   pname = "pyheif";

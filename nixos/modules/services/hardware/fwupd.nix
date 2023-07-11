@@ -8,15 +8,15 @@ let
   cfg = config.services.fwupd;
 
   format = pkgs.formats.ini {
-    listToValue = l: lib.concatStringsSep ";" (map (s: generators.mkValueStringDefault {} s) l);
-    mkKeyValue = generators.mkKeyValueDefault {} "=";
+    listToValue = l:
+      lib.concatStringsSep ";"
+      (map (s: generators.mkValueStringDefault { } s) l);
+    mkKeyValue = generators.mkKeyValueDefault { } "=";
   };
 
   customEtc = {
     "fwupd/daemon.conf" = {
-      source = format.generate "daemon.conf" {
-        fwupd = cfg.daemonSettings;
-      };
+      source = format.generate "daemon.conf" { fwupd = cfg.daemonSettings; };
     };
 
     "fwupd/uefi_capsule.conf" = {
@@ -27,34 +27,32 @@ let
   };
 
   originalEtc =
-    let
-      mkEtcFile = n: nameValuePair n { source = "${cfg.package}/etc/${n}"; };
+    let mkEtcFile = n: nameValuePair n { source = "${cfg.package}/etc/${n}"; };
     in listToAttrs (map mkEtcFile cfg.package.filesInstalledToEtc);
-  extraTrustedKeys =
-    let
-      mkName = p: "pki/fwupd/${baseNameOf (toString p)}";
-      mkEtcFile = p: nameValuePair (mkName p) { source = p; };
-    in listToAttrs (map mkEtcFile cfg.extraTrustedKeys);
+  extraTrustedKeys = let
+    mkName = p: "pki/fwupd/${baseNameOf (toString p)}";
+    mkEtcFile = p: nameValuePair (mkName p) { source = p; };
+  in listToAttrs (map mkEtcFile cfg.extraTrustedKeys);
 
   enableRemote = base: remote: {
     "fwupd/remotes.d/${remote}.conf" = {
-      source = pkgs.runCommand "${remote}-enabled.conf" {} ''
+      source = pkgs.runCommand "${remote}-enabled.conf" { } ''
         sed "s,^Enabled=false,Enabled=true," \
         "${base}/etc/fwupd/remotes.d/${remote}.conf" > "$out"
       '';
     };
   };
   remotes = (foldl'
-    (configFiles: remote: configFiles // (enableRemote cfg.package remote))
-    {}
-    cfg.extraRemotes
-  ) // (
-    # We cannot include the file in $out and rely on filesInstalledToEtc
-    # to install it because it would create a cyclic dependency between
-    # the outputs. We also need to enable the remote,
-    # which should not be done by default.
-    if cfg.enableTestRemote then (enableRemote cfg.package.installedTests "fwupd-tests") else {}
-  );
+    (configFiles: remote: configFiles // (enableRemote cfg.package remote)) { }
+    cfg.extraRemotes) // (
+      # We cannot include the file in $out and rely on filesInstalledToEtc
+      # to install it because it would create a cyclic dependency between
+      # the outputs. We also need to enable the remote,
+      # which should not be done by default.
+      if cfg.enableTestRemote then
+        (enableRemote cfg.package.installedTests "fwupd-tests")
+      else
+        { });
 
 in {
 
@@ -72,7 +70,7 @@ in {
 
       extraTrustedKeys = mkOption {
         type = types.listOf types.path;
-        default = [];
+        default = [ ];
         example = literalExpression "[ /etc/nixos/fwupd/myfirmware.pem ]";
         description = lib.mdDoc ''
           Installing a public key allows firmware signed with a matching private key to be recognized as trusted, which may require less authentication to install than for untrusted files. By default trusted firmware can be upgraded (but not downgraded) without the user or administrator password. Only very few keys are installed by default.
@@ -81,7 +79,7 @@ in {
 
       extraRemotes = mkOption {
         type = with types; listOf str;
-        default = [];
+        default = [ ];
         example = [ "lvfs-testing" ];
         description = lib.mdDoc ''
           Enables extra remotes in fwupd. See `/etc/fwupd/remotes.d`.
@@ -112,7 +110,7 @@ in {
           options = {
             DisabledDevices = mkOption {
               type = types.listOf types.str;
-              default = [];
+              default = [ ];
               example = [ "2082b5e0-7a64-478a-b1b2-e3404fab6dad" ];
               description = lib.mdDoc ''
                 List of device GUIDs to be disabled.
@@ -121,7 +119,7 @@ in {
 
             DisabledPlugins = mkOption {
               type = types.listOf types.str;
-              default = [];
+              default = [ ];
               example = [ "udev" ];
               description = lib.mdDoc ''
                 List of plugins to be disabled.
@@ -131,7 +129,8 @@ in {
             EspLocation = mkOption {
               type = types.path;
               default = config.boot.loader.efi.efiSysMountPoint;
-              defaultText = lib.literalExpression "config.boot.loader.efi.efiSysMountPoint";
+              defaultText =
+                lib.literalExpression "config.boot.loader.efi.efiSysMountPoint";
               description = lib.mdDoc ''
                 The EFI system partition (ESP) path used if UDisks is not available
                 or if this partition is not mounted at /boot/efi, /boot, or /efi
@@ -139,17 +138,16 @@ in {
             };
           };
         };
-        default = {};
+        default = { };
         description = lib.mdDoc ''
           Configurations for the fwupd daemon.
         '';
       };
 
       uefiCapsuleSettings = mkOption {
-        type = types.submodule {
-          freeformType = format.type.nestedTypes.elemType;
-        };
-        default = {};
+        type =
+          types.submodule { freeformType = format.type.nestedTypes.elemType; };
+        default = { };
         description = lib.mdDoc ''
           UEFI capsule configurations for the fwupd daemon.
         '';
@@ -158,10 +156,30 @@ in {
   };
 
   imports = [
-    (mkRenamedOptionModule [ "services" "fwupd" "blacklistDevices"] [ "services" "fwupd" "daemonSettings" "DisabledDevices" ])
-    (mkRenamedOptionModule [ "services" "fwupd" "blacklistPlugins"] [ "services" "fwupd" "daemonSettings" "DisabledPlugins" ])
-    (mkRenamedOptionModule [ "services" "fwupd" "disabledDevices" ] [ "services" "fwupd" "daemonSettings" "DisabledDevices" ])
-    (mkRenamedOptionModule [ "services" "fwupd" "disabledPlugins" ] [ "services" "fwupd" "daemonSettings" "DisabledPlugins" ])
+    (mkRenamedOptionModule [ "services" "fwupd" "blacklistDevices" ] [
+      "services"
+      "fwupd"
+      "daemonSettings"
+      "DisabledDevices"
+    ])
+    (mkRenamedOptionModule [ "services" "fwupd" "blacklistPlugins" ] [
+      "services"
+      "fwupd"
+      "daemonSettings"
+      "DisabledPlugins"
+    ])
+    (mkRenamedOptionModule [ "services" "fwupd" "disabledDevices" ] [
+      "services"
+      "fwupd"
+      "daemonSettings"
+      "DisabledDevices"
+    ])
+    (mkRenamedOptionModule [ "services" "fwupd" "disabledPlugins" ] [
+      "services"
+      "fwupd"
+      "daemonSettings"
+      "DisabledPlugins"
+    ])
   ];
 
   ###### implementation
@@ -189,7 +207,5 @@ in {
     security.polkit.enable = true;
   };
 
-  meta = {
-    maintainers = pkgs.fwupd.meta.maintainers;
-  };
+  meta = { maintainers = pkgs.fwupd.meta.maintainers; };
 }

@@ -11,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-tzsw10cpu5hldkm0psWcFnWToWQejout/oGHJais6yw=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    installShellFiles
-  ];
+  nativeBuildInputs = [ autoreconfHook installShellFiles ];
 
   postPatch = ''
     substituteInPlace 'swapspace.service' \

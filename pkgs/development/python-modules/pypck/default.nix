@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-asyncio
-, pytest-timeout
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pytest-asyncio
+, pytest-timeout, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pypck";
@@ -22,25 +15,15 @@ buildPythonPackage rec {
     hash = "sha256-OcXMVgG62JUH28BGvfO/rpnC++/klhBLJ2HafDu9R40=";
   };
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-timeout
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytest-timeout pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "--asyncio-mode=auto"
-  ];
+  pytestFlagsArray = [ "--asyncio-mode=auto" ];
 
-  disabledTests = lib.optionals stdenv.isDarwin [
-    "test_connection_lost"
-  ];
+  disabledTests = lib.optionals stdenv.isDarwin [ "test_connection_lost" ];
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [
-    "pypck"
-  ];
+  pythonImportsCheck = [ "pypck" ];
 
   meta = with lib; {
     description = "LCN-PCK library written in Python";

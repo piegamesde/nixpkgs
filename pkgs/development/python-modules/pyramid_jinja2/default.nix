@@ -1,15 +1,5 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, webtest
-, markupsafe
-, jinja2
-, pytestCheckHook
-, zope_deprecation
-, pyramid
-, pythonOlder
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, webtest, markupsafe, jinja2
+, pytestCheckHook, zope_deprecation, pyramid, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyramid-jinja2";
@@ -24,26 +14,16 @@ buildPythonPackage rec {
     hash = "sha256-8nEGnZ6ay6x622kSGQqEj2M49+V6+68+lSN/6DzI9NI=";
   };
 
-  propagatedBuildInputs = [
-    markupsafe
-    jinja2
-    pyramid
-    zope_deprecation
-  ];
+  propagatedBuildInputs = [ markupsafe jinja2 pyramid zope_deprecation ];
 
-  nativeCheckInputs = [
-    webtest
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ webtest pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
       --replace " --cov" ""
   '';
 
-  pythonImportsCheck = [
-    "pyramid_jinja2"
-  ];
+  pythonImportsCheck = [ "pyramid_jinja2" ];
 
   disabledTests = [
     # AssertionError: Lists differ: ['pyramid_jinja2-2.10',...

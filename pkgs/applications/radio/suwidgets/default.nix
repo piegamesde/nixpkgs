@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, qmake
-, qtbase
-, pkg-config
-, sigutils
-, fftwSinglePrec
-}:
+{ lib, stdenv, fetchFromGitHub, qmake, qtbase, pkg-config, sigutils
+, fftwSinglePrec }:
 
 stdenv.mkDerivation rec {
   pname = "suwidgets";
@@ -26,20 +19,11 @@ stdenv.mkDerivation rec {
       --replace "PKGCONFIG += sigutils fftw3" "PKGCONFIG += sigutils fftw3f"
   '';
 
-  nativeBuildInputs = [
-    qmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ qmake pkg-config ];
 
-  buildInputs = [
-    qtbase
-    sigutils
-    fftwSinglePrec
-  ];
+  buildInputs = [ qtbase sigutils fftwSinglePrec ];
 
-  qmakeFlags = [
-    "SuWidgetsLib.pro"
-  ];
+  qmakeFlags = [ "SuWidgetsLib.pro" ];
 
   meta = with lib; {
     description = "Sigutils-related widgets";

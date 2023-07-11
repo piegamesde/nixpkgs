@@ -1,16 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, google-api-core
-, google-cloud-logging
-, google-cloud-testutils
-, mock
-, proto-plus
-, protobuf
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, google-api-core, google-cloud-logging
+, google-cloud-testutils, mock, proto-plus, protobuf, pytest-asyncio
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "google-cloud-error-reporting";
@@ -24,19 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-3N7LtFKvTdV0zBGIyUgi6tCVZX7+rbJD5Lb+xZafJNw=";
   };
 
-  propagatedBuildInputs = [
-    google-api-core
-    google-cloud-logging
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs =
+    [ google-api-core google-cloud-logging proto-plus protobuf ]
+    ++ google-api-core.optional-dependencies.grpc;
 
-  nativeCheckInputs = [
-    google-cloud-testutils
-    mock
-    pytestCheckHook
-    pytest-asyncio
-  ];
+  nativeCheckInputs =
+    [ google-cloud-testutils mock pytestCheckHook pytest-asyncio ];
 
   disabledTests = [
     # Tests require credentials
@@ -52,7 +35,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Stackdriver Error Reporting API client library";
     homepage = "https://github.com/googleapis/python-error-reporting";
-    changelog = "https://github.com/googleapis/python-error-reporting/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/googleapis/python-error-reporting/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

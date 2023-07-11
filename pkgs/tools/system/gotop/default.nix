@@ -1,19 +1,10 @@
-{ lib
-, stdenv
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, IOKit
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, installShellFiles, IOKit }:
 
 buildGoModule rec {
   pname = "gotop";
   version = "4.2.0";
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
   src = fetchFromGitHub {
     owner = "xxxserxxx";
@@ -44,9 +35,11 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "A terminal based graphical activity monitor inspired by gtop and vtop";
+    description =
+      "A terminal based graphical activity monitor inspired by gtop and vtop";
     homepage = "https://github.com/xxxserxxx/gotop";
-    changelog = "https://github.com/xxxserxxx/gotop/raw/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/xxxserxxx/gotop/raw/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = [ maintainers.magnetophon ];
   };

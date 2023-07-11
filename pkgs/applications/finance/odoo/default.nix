@@ -1,12 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchurl
-, python310
-, nodePackages
-, wkhtmltopdf
-, nixosTests
-}:
+{ stdenv, lib, fetchFromGitHub, fetchurl, python310, nodePackages, wkhtmltopdf
+, nixosTests }:
 
 let
   python = python310.override {
@@ -23,7 +16,7 @@ let
           hash = "sha256-WnRbsy/PJcotZqY9mJPLadrYqkXykOVifLIbDyNf4s4=";
         };
 
-        nativeBuildInputs = [];
+        nativeBuildInputs = [ ];
 
         nativeCheckInputs = with self; [ pytestCheckHook pillow ];
       });
@@ -54,7 +47,8 @@ in python.pkgs.buildPythonApplication rec {
 
   # latest release is at https://github.com/odoo/docker/blob/master/15.0/Dockerfile
   src = fetchurl {
-    url = "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.tar.gz";
+    url =
+      "https://nightly.odoo.com/${odoo_version}/nightly/src/odoo_${version}.tar.gz";
     name = "${pname}-${version}";
     hash = "sha256-nJEFPtZhq7DLLDCL9xt0RV75d/a45o6hBKsUlQAWh1U="; # odoo
   };
@@ -68,7 +62,10 @@ in python.pkgs.buildPythonApplication rec {
   doCheck = false;
 
   makeWrapperArgs = [
-    "--prefix" "PATH" ":" "${lib.makeBinPath [ wkhtmltopdf nodePackages.rtlcss ]}"
+    "--prefix"
+    "PATH"
+    ":"
+    "${lib.makeBinPath [ wkhtmltopdf nodePackages.rtlcss ]}"
   ];
 
   propagatedBuildInputs = with python.pkgs; [
@@ -119,9 +116,7 @@ in python.pkgs.buildPythonApplication rec {
 
   passthru = {
     updateScript = ./update.sh;
-    tests = {
-      inherit (nixosTests) odoo;
-    };
+    tests = { inherit (nixosTests) odoo; };
   };
 
   meta = with lib; {

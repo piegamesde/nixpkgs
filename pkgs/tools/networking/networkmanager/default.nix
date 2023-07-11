@@ -1,67 +1,23 @@
-{ lib
-, stdenv
-, fetchurl
-, substituteAll
-, gettext
-, pkg-config
-, fetchpatch
-, dbus
-, gnome
-, systemd
-, libuuid
-, polkit
-, gnutls
-, ppp
-, dhcpcd
-, iptables
-, nftables
-, python3
-, vala
-, libgcrypt
-, dnsmasq
-, bluez5
-, readline
-, libselinux
-, audit
-, gobject-introspection
-, perl
-, modemmanager
-, openresolv
-, libndp
-, newt
-, libsoup
-, ethtool
-, gnused
-, iputils
-, kmod
-, jansson
-, elfutils
-, gtk-doc
-, libxslt
-, docbook_xsl
-, docbook_xml_dtd_412
-, docbook_xml_dtd_42
-, docbook_xml_dtd_43
-, openconnect
-, curl
-, meson
-, mesonEmulatorHook
-, ninja
-, libpsl
-, mobile-broadband-provider-info
-, runtimeShell
-, buildPackages
-}:
+{ lib, stdenv, fetchurl, substituteAll, gettext, pkg-config, fetchpatch, dbus
+, gnome, systemd, libuuid, polkit, gnutls, ppp, dhcpcd, iptables, nftables
+, python3, vala, libgcrypt, dnsmasq, bluez5, readline, libselinux, audit
+, gobject-introspection, perl, modemmanager, openresolv, libndp, newt, libsoup
+, ethtool, gnused, iputils, kmod, jansson, elfutils, gtk-doc, libxslt
+, docbook_xsl, docbook_xml_dtd_412, docbook_xml_dtd_42, docbook_xml_dtd_43
+, openconnect, curl, meson, mesonEmulatorHook, ninja, libpsl
+, mobile-broadband-provider-info, runtimeShell, buildPackages }:
 
 let
-  pythonForDocs = python3.pythonForBuild.withPackages (pkgs: with pkgs; [ pygobject3 ]);
-in
-stdenv.mkDerivation rec {
+  pythonForDocs =
+    python3.pythonForBuild.withPackages (pkgs: with pkgs; [ pygobject3 ]);
+in stdenv.mkDerivation rec {
   pname = "networkmanager";
   version = "1.42.6";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/NetworkManager/${lib.versions.majorMinor version}/NetworkManager-${version}.tar.xz";
+    url = "mirror://gnome/sources/NetworkManager/${
+        lib.versions.majorMinor version
+      }/NetworkManager-${version}.tar.xz";
     sha256 = "sha256-jDiKw3daxrzrYF+uIb4sPiYcr+YGeZSonw36RhDtAnk=";
   };
 
@@ -129,7 +85,8 @@ stdenv.mkDerivation rec {
 
     # Support for building with ppp 2.5.0
     (fetchpatch {
-      url = "https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/commit/5df19f5b26c5921a401e63fb329e844a02d6b1f2.diff";
+      url =
+        "https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/commit/5df19f5b26c5921a401e63fb329e844a02d6b1f2.diff";
       hash = "sha256-BDm0P2U4HENAtq7OowWVDxqALNbG0nr9k/CLdE61Sck=";
     })
   ];
@@ -175,9 +132,8 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_42
     docbook_xml_dtd_43
     pythonForDocs
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-    mesonEmulatorHook
-  ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+    [ mesonEmulatorHook ];
 
   doCheck = false; # requires /sys, the net
 
@@ -196,13 +152,16 @@ stdenv.mkDerivation rec {
     # though, so we need to replace the absolute path with a local one during build.
     # We are using a symlink that will be overridden during installation.
     mkdir -p ${placeholder "out"}/lib
-    ln -s $PWD/src/libnm-client-impl/libnm.so.0 ${placeholder "out"}/lib/libnm.so.0
+    ln -s $PWD/src/libnm-client-impl/libnm.so.0 ${
+      placeholder "out"
+    }/lib/libnm.so.0
   '';
 
-  postFixup = lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-    cp -r ${buildPackages.networkmanager.devdoc} $devdoc
-    cp -r ${buildPackages.networkmanager.man} $man
-  '';
+  postFixup =
+    lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+      cp -r ${buildPackages.networkmanager.devdoc} $devdoc
+      cp -r ${buildPackages.networkmanager.man} $man
+    '';
 
   passthru = {
     updateScript = gnome.updateScript {
@@ -216,8 +175,10 @@ stdenv.mkDerivation rec {
     homepage = "https://wiki.gnome.org/Projects/NetworkManager";
     description = "Network configuration and management tool";
     license = licenses.gpl2Plus;
-    changelog = "https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/raw/${version}/NEWS";
-    maintainers = teams.freedesktop.members ++ (with maintainers; [ domenkozar obadz maxeaubrey ]);
+    changelog =
+      "https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/raw/${version}/NEWS";
+    maintainers = teams.freedesktop.members
+      ++ (with maintainers; [ domenkozar obadz maxeaubrey ]);
     platforms = platforms.linux;
   };
 }

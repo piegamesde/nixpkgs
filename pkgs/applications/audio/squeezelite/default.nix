@@ -1,25 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, alsa-lib
-, flac
-, libmad
-, libpulseaudio
-, libvorbis
-, mpg123
-, audioBackend ? "alsa"
-, dsdSupport ? true
-, faad2Support ? true
-, faad2
-, ffmpegSupport ? true
-, ffmpeg
-, opusSupport ? true
-, opusfile
-, resampleSupport ? true
-, soxr
-, sslSupport ? true
-, openssl
-}:
+{ lib, stdenv, fetchFromGitHub, alsa-lib, flac, libmad, libpulseaudio, libvorbis
+, mpg123, audioBackend ? "alsa", dsdSupport ? true, faad2Support ? true, faad2
+, ffmpegSupport ? true, ffmpeg, opusSupport ? true, opusfile
+, resampleSupport ? true, soxr, sslSupport ? true, openssl }:
 
 let
   inherit (lib) optional optionalString;
@@ -28,8 +10,7 @@ let
 
   binName = "squeezelite${optionalString pulseSupport "-pulse"}";
 
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   # the nixos module uses the pname as the binary name
   pname = binName;
   # versions are specified in `squeezelite.h`
@@ -45,10 +26,8 @@ stdenv.mkDerivation {
 
   buildInputs = [ flac libmad libvorbis mpg123 ]
     ++ lib.singleton (if pulseSupport then libpulseaudio else alsa-lib)
-    ++ optional faad2Support faad2
-    ++ optional ffmpegSupport ffmpeg
-    ++ optional opusSupport opusfile
-    ++ optional resampleSupport soxr
+    ++ optional faad2Support faad2 ++ optional ffmpegSupport ffmpeg
+    ++ optional opusSupport opusfile ++ optional resampleSupport soxr
     ++ optional sslSupport openssl;
 
   enableParallelBuilding = true;
@@ -60,14 +39,10 @@ stdenv.mkDerivation {
 
   EXECUTABLE = binName;
 
-  OPTS = [ "-DLINKALL" "-DGPIO" ]
-    ++ optional dsdSupport "-DDSD"
-    ++ optional (!faad2Support) "-DNO_FAAD"
-    ++ optional ffmpegSupport "-DFFMPEG"
-    ++ optional opusSupport "-DOPUS"
-    ++ optional pulseSupport "-DPULSEAUDIO"
-    ++ optional resampleSupport "-DRESAMPLE"
-    ++ optional sslSupport "-DUSE_SSL";
+  OPTS = [ "-DLINKALL" "-DGPIO" ] ++ optional dsdSupport "-DDSD"
+    ++ optional (!faad2Support) "-DNO_FAAD" ++ optional ffmpegSupport "-DFFMPEG"
+    ++ optional opusSupport "-DOPUS" ++ optional pulseSupport "-DPULSEAUDIO"
+    ++ optional resampleSupport "-DRESAMPLE" ++ optional sslSupport "-DUSE_SSL";
 
   installPhase = ''
     runHook preInstall

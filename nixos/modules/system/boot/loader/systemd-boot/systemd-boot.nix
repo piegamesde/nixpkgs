@@ -20,11 +20,13 @@ let
 
     nix = config.nix.package.out;
 
-    timeout = optionalString (config.boot.loader.timeout != null) config.boot.loader.timeout;
+    timeout = optionalString (config.boot.loader.timeout != null)
+      config.boot.loader.timeout;
 
     editor = if cfg.editor then "True" else "False";
 
-    configurationLimit = if cfg.configurationLimit == null then 0 else cfg.configurationLimit;
+    configurationLimit =
+      if cfg.configurationLimit == null then 0 else cfg.configurationLimit;
 
     inherit (cfg) consoleMode graceful;
 
@@ -40,13 +42,21 @@ let
       empty_file=$(${pkgs.coreutils}/bin/mktemp)
 
       ${concatStrings (mapAttrsToList (n: v: ''
-        ${pkgs.coreutils}/bin/install -Dp "${v}" "${efi.efiSysMountPoint}/"${escapeShellArg n}
-        ${pkgs.coreutils}/bin/install -D $empty_file "${efi.efiSysMountPoint}/efi/nixos/.extra-files/"${escapeShellArg n}
+        ${pkgs.coreutils}/bin/install -Dp "${v}" "${efi.efiSysMountPoint}/"${
+          escapeShellArg n
+        }
+        ${pkgs.coreutils}/bin/install -D $empty_file "${efi.efiSysMountPoint}/efi/nixos/.extra-files/"${
+          escapeShellArg n
+        }
       '') cfg.extraFiles)}
 
       ${concatStrings (mapAttrsToList (n: v: ''
-        ${pkgs.coreutils}/bin/install -Dp "${pkgs.writeText n v}" "${efi.efiSysMountPoint}/loader/entries/"${escapeShellArg n}
-        ${pkgs.coreutils}/bin/install -D $empty_file "${efi.efiSysMountPoint}/efi/nixos/.extra-files/loader/entries/"${escapeShellArg n}
+        ${pkgs.coreutils}/bin/install -Dp "${
+          pkgs.writeText n v
+        }" "${efi.efiSysMountPoint}/loader/entries/"${escapeShellArg n}
+        ${pkgs.coreutils}/bin/install -D $empty_file "${efi.efiSysMountPoint}/efi/nixos/.extra-files/loader/entries/"${
+          escapeShellArg n
+        }
       '') cfg.extraEntries)}
     '';
   };
@@ -69,9 +79,14 @@ let
   '';
 in {
 
-  imports =
-    [ (mkRenamedOptionModule [ "boot" "loader" "gummiboot" "enable" ] [ "boot" "loader" "systemd-boot" "enable" ])
-    ];
+  imports = [
+    (mkRenamedOptionModule [ "boot" "loader" "gummiboot" "enable" ] [
+      "boot"
+      "loader"
+      "systemd-boot"
+      "enable"
+    ])
+  ];
 
   options.boot.loader.systemd-boot = {
     enable = mkOption {
@@ -79,7 +94,8 @@ in {
 
       type = types.bool;
 
-      description = lib.mdDoc "Whether to enable the systemd-boot (formerly gummiboot) EFI boot manager";
+      description = lib.mdDoc
+        "Whether to enable the systemd-boot (formerly gummiboot) EFI boot manager";
     };
 
     editor = mkOption {
@@ -190,7 +206,7 @@ in {
 
     extraEntries = mkOption {
       type = types.attrsOf types.lines;
-      default = {};
+      default = { };
       example = literalExpression ''
         { "memtest86.conf" = '''
           title MemTest86
@@ -211,7 +227,7 @@ in {
 
     extraFiles = mkOption {
       type = types.attrsOf types.path;
-      default = {};
+      default = { };
       example = literalExpression ''
         { "efi/memtest86/memtest86.efi" = "''${pkgs.memtest86-efi}/BOOTX64.efi"; }
       '';
@@ -241,35 +257,44 @@ in {
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = (config.boot.kernelPackages.kernel.features or { efiBootStub = true; }) ? efiBootStub;
-        message = "This kernel does not support the EFI boot stub";
-      }
-    ] ++ concatMap (filename: [
+    assertions = [{
+      assertion =
+        (config.boot.kernelPackages.kernel.features or { efiBootStub = true; })
+        ? efiBootStub;
+      message = "This kernel does not support the EFI boot stub";
+    }] ++ concatMap (filename: [
       {
         assertion = !(hasInfix "/" filename);
-        message = "boot.loader.systemd-boot.extraEntries.${lib.strings.escapeNixIdentifier filename} is invalid: entries within folders are not supported";
+        message = "boot.loader.systemd-boot.extraEntries.${
+            lib.strings.escapeNixIdentifier filename
+          } is invalid: entries within folders are not supported";
       }
       {
         assertion = hasSuffix ".conf" filename;
-        message = "boot.loader.systemd-boot.extraEntries.${lib.strings.escapeNixIdentifier filename} is invalid: entries must have a .conf file extension";
+        message = "boot.loader.systemd-boot.extraEntries.${
+            lib.strings.escapeNixIdentifier filename
+          } is invalid: entries must have a .conf file extension";
       }
-    ]) (builtins.attrNames cfg.extraEntries)
-      ++ concatMap (filename: [
-        {
-          assertion = !(hasPrefix "/" filename);
-          message = "boot.loader.systemd-boot.extraFiles.${lib.strings.escapeNixIdentifier filename} is invalid: paths must not begin with a slash";
-        }
-        {
-          assertion = !(hasInfix ".." filename);
-          message = "boot.loader.systemd-boot.extraFiles.${lib.strings.escapeNixIdentifier filename} is invalid: paths must not reference the parent directory";
-        }
-        {
-          assertion = !(hasInfix "nixos/.extra-files" (toLower filename));
-          message = "boot.loader.systemd-boot.extraFiles.${lib.strings.escapeNixIdentifier filename} is invalid: files cannot be placed in the nixos/.extra-files directory";
-        }
-      ]) (builtins.attrNames cfg.extraFiles);
+    ]) (builtins.attrNames cfg.extraEntries) ++ concatMap (filename: [
+      {
+        assertion = !(hasPrefix "/" filename);
+        message = "boot.loader.systemd-boot.extraFiles.${
+            lib.strings.escapeNixIdentifier filename
+          } is invalid: paths must not begin with a slash";
+      }
+      {
+        assertion = !(hasInfix ".." filename);
+        message = "boot.loader.systemd-boot.extraFiles.${
+            lib.strings.escapeNixIdentifier filename
+          } is invalid: paths must not reference the parent directory";
+      }
+      {
+        assertion = !(hasInfix "nixos/.extra-files" (toLower filename));
+        message = "boot.loader.systemd-boot.extraFiles.${
+            lib.strings.escapeNixIdentifier filename
+          } is invalid: files cannot be placed in the nixos/.extra-files directory";
+      }
+    ]) (builtins.attrNames cfg.extraFiles);
 
     boot.loader.grub.enable = mkDefault false;
 
@@ -307,9 +332,8 @@ in {
 
       boot.loader.id = "systemd-boot";
 
-      requiredKernelConfig = with config.lib.kernelConfig; [
-        (isYes "EFI_STUB")
-      ];
+      requiredKernelConfig = with config.lib.kernelConfig;
+        [ (isYes "EFI_STUB") ];
     };
   };
 }

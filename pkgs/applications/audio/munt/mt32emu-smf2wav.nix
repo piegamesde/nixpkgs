@@ -1,16 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, glib
-, libmt32emu
-, pkg-config
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, glib, libmt32emu, pkg-config }:
 
-let
-  char2underscore = char: str: lib.replaceStrings [ char ] [ "_" ] str;
-in
-stdenv.mkDerivation rec {
+let char2underscore = char: str: lib.replaceStrings [ char ] [ "_" ] str;
+in stdenv.mkDerivation rec {
   pname = "mt32emu-smf2wav";
   version = "1.9.0";
 
@@ -27,20 +18,12 @@ stdenv.mkDerivation rec {
 
   dontFixCmake = true;
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    libmt32emu
-    glib
-  ];
+  buildInputs = [ libmt32emu glib ];
 
-  cmakeFlags = [
-    "-Dmunt_WITH_MT32EMU_QT=OFF"
-    "-Dmunt_WITH_MT32EMU_SMF2WAV=ON"
-  ];
+  cmakeFlags =
+    [ "-Dmunt_WITH_MT32EMU_QT=OFF" "-Dmunt_WITH_MT32EMU_SMF2WAV=ON" ];
 
   meta = with lib; {
     homepage = "https://munt.sourceforge.net/";

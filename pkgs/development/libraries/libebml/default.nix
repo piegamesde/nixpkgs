@@ -5,18 +5,15 @@ stdenv.mkDerivation rec {
   version = "1.4.4";
 
   src = fetchFromGitHub {
-    owner  = "Matroska-Org";
-    repo   = "libebml";
-    rev    = "release-${version}";
+    owner = "Matroska-Org";
+    repo = "libebml";
+    rev = "release-${version}";
     sha256 = "sha256-36SfZUHJ2sIvrrHox583cQqfWWcrL2zW1IHzgDchC9g=";
   };
 
   nativeBuildInputs = [ cmake pkg-config ];
 
-  cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=YES"
-    "-DCMAKE_INSTALL_PREFIX="
-  ];
+  cmakeFlags = [ "-DBUILD_SHARED_LIBS=YES" "-DCMAKE_INSTALL_PREFIX=" ];
 
   meta = with lib; {
     description = "Extensible Binary Meta Language library";

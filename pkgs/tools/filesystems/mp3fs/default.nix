@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, flac
-, fuse
-, lame
-, libid3tag
-, libvorbis
-, autoreconfHook
-, pkg-config
-, pandoc
-}:
+{ lib, stdenv, fetchFromGitHub, flac, fuse, lame, libid3tag, libvorbis
+, autoreconfHook, pkg-config, pandoc }:
 
 stdenv.mkDerivation rec {
   pname = "mp3fs";

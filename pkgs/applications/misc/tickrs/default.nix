@@ -20,7 +20,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Realtime ticker data in your terminal";
     homepage = "https://github.com/tarkah/tickrs";
-    changelog = "https://github.com/tarkah/tickrs/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/tarkah/tickrs/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ mredaelli ];
   };

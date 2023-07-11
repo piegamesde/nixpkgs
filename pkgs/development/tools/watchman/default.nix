@@ -1,36 +1,8 @@
-{ boost
-, cmake
-, config
-, CoreServices
-, cpptoml
-, double-conversion
-, edencommon
-, ensureNewerSourcesForZipFilesHook
-, fb303
-, fbthrift
-, fetchFromGitHub
-, fizz
-, fmt_8
-, folly
-, glog
-, gtest
-, lib
-, libevent
-, libiconv
-, libsodium
-, libunwind
-, lz4
-, openssl
-, pcre
-, pkg-config
-, python3
-, rustPlatform
-, stateDir ? "/tmp"
-, stdenv
-, wangle
-, zlib
-, zstd
-}:
+{ boost, cmake, config, CoreServices, cpptoml, double-conversion, edencommon
+, ensureNewerSourcesForZipFilesHook, fb303, fbthrift, fetchFromGitHub, fizz
+, fmt_8, folly, glog, gtest, lib, libevent, libiconv, libsodium, libunwind, lz4
+, openssl, pcre, pkg-config, python3, rustPlatform, stateDir ? "/tmp", stdenv
+, wangle, zlib, zstd }:
 
 stdenv.mkDerivation rec {
   pname = "watchman";
@@ -52,15 +24,8 @@ stdenv.mkDerivation rec {
     "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
   ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    ensureNewerSourcesForZipFilesHook
-  ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs = [ cmake pkg-config ensureNewerSourcesForZipFilesHook ]
+    ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
 
   buildInputs = [
     pcre
@@ -89,9 +54,7 @@ stdenv.mkDerivation rec {
 
   cargoRoot = "watchman/cli";
 
-  cargoDeps = rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
-  };
+  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
 
   postPatch = ''
     patchShebangs .

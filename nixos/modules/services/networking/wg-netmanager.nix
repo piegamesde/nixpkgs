@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.wg-netmanager;
-in
-{
+let cfg = config.services.wg-netmanager;
+in {
 
   options = {
     services.wg-netmanager = {
@@ -29,11 +27,12 @@ in
         ExecStop = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
 
         ReadWritePaths = [
-          "/tmp"  # wg-netmanager creates files in /tmp before deleting them after use
+          "/tmp" # wg-netmanager creates files in /tmp before deleting them after use
         ];
       };
-      unitConfig =  {
-        ConditionPathExists = ["/etc/wg_netmanager/network.yaml" "/etc/wg_netmanager/peer.yaml"];
+      unitConfig = {
+        ConditionPathExists =
+          [ "/etc/wg_netmanager/network.yaml" "/etc/wg_netmanager/peer.yaml" ];
       };
     };
   };

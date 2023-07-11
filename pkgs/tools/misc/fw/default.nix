@@ -1,12 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, libgit2
-, openssl
-, stdenv
-, Security
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, libgit2, openssl, stdenv
+, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "fw";
@@ -23,9 +16,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ libgit2 openssl ] ++ lib.optionals stdenv.isDarwin [
-    Security
-  ];
+  buildInputs = [ libgit2 openssl ]
+    ++ lib.optionals stdenv.isDarwin [ Security ];
 
   OPENSSL_NO_VENDOR = 1;
   USER = "nixbld";

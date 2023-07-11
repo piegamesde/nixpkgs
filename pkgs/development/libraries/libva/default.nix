@@ -1,24 +1,17 @@
 { stdenv, lib, fetchFromGitHub, meson, pkg-config, ninja, wayland-scanner
-, libdrm
-, minimal ? false, libva-minimal
-, libX11, libXext, libXfixes, wayland, libffi, libGL
-, mesa
+, libdrm, minimal ? false, libva-minimal, libX11, libXext, libXfixes, wayland
+, libffi, libGL, mesa
 # for passthru.tests
-, intel-compute-runtime
-, intel-media-driver
-, mpv
-, vaapiIntel
-, vlc
-}:
+, intel-compute-runtime, intel-media-driver, mpv, vaapiIntel, vlc }:
 
 stdenv.mkDerivation rec {
   pname = "libva" + lib.optionalString minimal "-minimal";
   version = "2.18.0";
 
   src = fetchFromGitHub {
-    owner  = "intel";
-    repo   = "libva";
-    rev    = version;
+    owner = "intel";
+    repo = "libva";
+    rev = version;
     sha256 = "sha256-VD+CTF0QLfzrUr4uFiyDlZux3MqsyyuJF/cXuhOFzwo=";
   };
 
@@ -28,8 +21,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ meson pkg-config ninja wayland-scanner ];
 
-  buildInputs = [ libdrm ]
-    ++ lib.optionals (!minimal) [ libva-minimal libX11 libXext libXfixes wayland libffi libGL ];
+  buildInputs = [ libdrm ] ++ lib.optionals (!minimal) [
+    libva-minimal
+    libX11
+    libXext
+    libXfixes
+    wayland
+    libffi
+    libGL
+  ];
   # TODO: share libs between minimal and !minimal - perhaps just symlink them
 
   mesonFlags = [

@@ -1,10 +1,5 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, cython
-, gfortran
-, pytestCheckHook
-, numpy }:
+{ lib, fetchPypi, buildPythonPackage, cython, gfortran, pytestCheckHook, numpy
+}:
 
 buildPythonPackage rec {
   pname = "scikit-misc";
@@ -20,21 +15,14 @@ buildPythonPackage rec {
       --replace "--cov --cov-report=xml" ""
   '';
 
-  nativeBuildInputs = [
-    gfortran
-  ];
+  nativeBuildInputs = [ gfortran ];
 
-  buildInputs = [
-    cython
-    numpy
-  ];
+  buildInputs = [ cython numpy ];
 
   # Tests fail because of infinite recursion error
   doCheck = false;
 
-  pythonImportsCheck = [
-    "skmisc"
-  ];
+  pythonImportsCheck = [ "skmisc" ];
 
   meta = with lib; {
     description = "Miscellaneous tools for scientific computing";

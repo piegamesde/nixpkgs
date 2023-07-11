@@ -1,12 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pbr
-, flake8
-, stestr
-, ddt
-, testscenarios
-}:
+{ lib, buildPythonPackage, fetchPypi, pbr, flake8, stestr, ddt, testscenarios }:
 
 buildPythonPackage rec {
   pname = "hacking";
@@ -27,15 +19,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pbr ];
 
-  propagatedBuildInputs = [
-    flake8
-  ];
+  propagatedBuildInputs = [ flake8 ];
 
-  nativeCheckInputs = [
-    ddt
-    stestr
-    testscenarios
-  ];
+  nativeCheckInputs = [ ddt stestr testscenarios ];
 
   checkPhase = ''
     # tries to trigger flake8 and fails

@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, filelock
-, lxml
-, pycryptodomex
-, pythonOlder
-, urllib3
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, filelock, lxml, pycryptodomex
+, pythonOlder, urllib3 }:
 
 buildPythonPackage rec {
   pname = "blobfile";
@@ -22,24 +15,19 @@ buildPythonPackage rec {
     hash = "sha256-vVoiNIN/LNdbedaOQ+gtj4jhzmrGri49fftHKG+K/fg=";
   };
 
-  propagatedBuildInputs = [
-    pycryptodomex
-    filelock
-    urllib3
-    lxml
-  ];
+  propagatedBuildInputs = [ pycryptodomex filelock urllib3 lxml ];
 
   # Tests require a running Docker instance
   doCheck = false;
 
-  pythonImportsCheck = [
-    "blobfile"
-  ];
+  pythonImportsCheck = [ "blobfile" ];
 
   meta = with lib; {
-    description = "Read Google Cloud Storage, Azure Blobs, and local paths with the same interface";
+    description =
+      "Read Google Cloud Storage, Azure Blobs, and local paths with the same interface";
     homepage = "https://github.com/christopher-hesse/blobfile";
-    changelog = "https://github.com/christopher-hesse/blobfile/blob/v${version}/CHANGES.md";
+    changelog =
+      "https://github.com/christopher-hesse/blobfile/blob/v${version}/CHANGES.md";
     license = licenses.mit;
     maintainers = with maintainers; [ happysalada ];
   };

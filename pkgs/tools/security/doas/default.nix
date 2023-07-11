@@ -1,13 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, bison
-, pam
-, libxcrypt
+{ lib, stdenv, fetchFromGitHub, bison, pam, libxcrypt
 
-, withPAM ? true
-, withTimestamp ? true
-}:
+, withPAM ? true, withTimestamp ? true }:
 
 stdenv.mkDerivation rec {
   pname = "doas";
@@ -24,7 +17,8 @@ stdenv.mkDerivation rec {
   dontDisableStatic = true;
 
   configureFlags = [
-    (lib.optionalString withTimestamp "--with-timestamp") # to allow the "persist" setting
+    (lib.optionalString withTimestamp
+      "--with-timestamp") # to allow the "persist" setting
     (lib.optionalString (!withPAM) "--without-pam")
   ];
 
@@ -46,8 +40,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ bison ];
-  buildInputs = [ ]
-    ++ lib.optional withPAM pam
+  buildInputs = [ ] ++ lib.optional withPAM pam
     ++ lib.optional (!withPAM) libxcrypt;
 
   meta = with lib; {

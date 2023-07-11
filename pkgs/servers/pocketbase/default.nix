@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "pocketbase";
@@ -22,11 +19,8 @@ buildGoModule rec {
   CGO_ENABLED = 0;
 
   # Upstream build instructions
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/pocketbase/pocketbase.Version=${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/pocketbase/pocketbase.Version=${version}" ];
 
   postInstall = ''
     mv $out/bin/base $out/bin/pocketbase

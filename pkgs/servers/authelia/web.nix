@@ -1,17 +1,15 @@
 { buildNpmPackage, fetchFromGitHub }:
 
 let
-  inherit (import ./sources.nix { inherit fetchFromGitHub; }) pname version src npmDepsHash;
-in
-buildNpmPackage {
+  inherit (import ./sources.nix { inherit fetchFromGitHub; })
+    pname version src npmDepsHash;
+in buildNpmPackage {
   pname = "${pname}-web";
   inherit src version npmDepsHash;
 
   sourceRoot = "source/web";
 
-  patches = [
-    ./change-web-out-dir.patch
-  ];
+  patches = [ ./change-web-out-dir.patch ];
 
   postPatch = ''
     cp ${./package-lock.json} ./package-lock.json

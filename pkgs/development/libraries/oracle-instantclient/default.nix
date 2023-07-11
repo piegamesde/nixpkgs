@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, autoPatchelfHook
-, fixDarwinDylibNames
-, unzip
-, libaio
-, makeWrapper
-, odbcSupport ? true
-, unixODBC
-}:
+{ lib, stdenv, fetchurl, autoPatchelfHook, fixDarwinDylibNames, unzip, libaio
+, makeWrapper, odbcSupport ? true, unixODBC }:
 
 assert odbcSupport -> unixODBC != null;
 
@@ -18,7 +9,8 @@ let
   throwSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
   # assemble list of components
-  components = [ "basic" "sdk" "sqlplus" "tools" ] ++ optional odbcSupport "odbc";
+  components = [ "basic" "sdk" "sqlplus" "tools" ]
+    ++ optional odbcSupport "odbc";
 
   # determine the version number, there might be different ones per architecture
   version = {
@@ -76,30 +68,28 @@ let
 
   # calculate the filename of a single zip file
   srcFilename = component: arch: version: rel:
-    "instantclient-${component}-${arch}-${version}" +
-    (optionalString (rel != "") "-${rel}") +
-    "dbru.zip"; # ¯\_(ツ)_/¯
+    "instantclient-${component}-${arch}-${version}"
+    + (optionalString (rel != "") "-${rel}") + "dbru.zip"; # ¯\_(ツ)_/¯
 
   # fetcher for the non clickthrough artifacts
-  fetcher = srcFilename: hash: fetchurl {
-    url = "https://download.oracle.com/otn_software/${shortArch}/instantclient/${directory}/${srcFilename}";
-    sha256 = hash;
-  };
+  fetcher = srcFilename: hash:
+    fetchurl {
+      url =
+        "https://download.oracle.com/otn_software/${shortArch}/instantclient/${directory}/${srcFilename}";
+      sha256 = hash;
+    };
 
   # assemble srcs
-  srcs = map
-    (component:
-      (fetcher (srcFilename component arch version rels.${component} or "") hashes.${component} or ""))
-    components;
+  srcs = map (component:
+    (fetcher (srcFilename component arch version rels.${component} or "")
+      hashes.${component} or "")) components;
 
   pname = "oracle-instantclient";
   extLib = stdenv.hostPlatform.extensions.sharedLibrary;
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version srcs;
 
-  buildInputs = [ stdenv.cc.cc.lib ]
-    ++ optional stdenv.isLinux libaio
+  buildInputs = [ stdenv.cc.cc.lib ] ++ optional stdenv.isLinux libaio
     ++ optional odbcSupport unixODBC;
 
   nativeBuildInputs = [ makeWrapper unzip ]

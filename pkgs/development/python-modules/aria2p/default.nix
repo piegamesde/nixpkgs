@@ -1,23 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pdm-pep517
-, appdirs
-, loguru
-, requests
-, setuptools
-, toml
-, websocket-client
-, asciimatics
-, pyperclip
-, aria2
-, fastapi
-, pytest-xdist
-, pytestCheckHook
-, responses
-, uvicorn
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pdm-pep517, appdirs
+, loguru, requests, setuptools, toml, websocket-client, asciimatics, pyperclip
+, aria2, fastapi, pytest-xdist, pytestCheckHook, responses, uvicorn }:
 
 buildPythonPackage rec {
   pname = "aria2p";
@@ -32,9 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-z74ej6J6Yh1aVsXR5fE+XhoCzCS+zfDxQL8gKFd7tBA=";
   };
 
-  nativeBuildInputs = [
-    pdm-pep517
-  ];
+  nativeBuildInputs = [ pdm-pep517 ];
 
   propagatedBuildInputs = [
     appdirs
@@ -45,22 +26,15 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-  passthru.optional-dependencies = {
-    tui = [ asciimatics pyperclip ];
-  };
+  passthru.optional-dependencies = { tui = [ asciimatics pyperclip ]; };
 
   preCheck = ''
     export HOME=$TMPDIR
   '';
 
-  nativeCheckInputs = [
-    aria2
-    fastapi
-    pytest-xdist
-    pytestCheckHook
-    responses
-    uvicorn
-  ] ++ passthru.optional-dependencies.tui;
+  nativeCheckInputs =
+    [ aria2 fastapi pytest-xdist pytestCheckHook responses uvicorn ]
+    ++ passthru.optional-dependencies.tui;
 
   disabledTests = [
     # require a running display server
@@ -76,8 +50,10 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/pawamoy/aria2p";
-    changelog = "https://github.com/pawamoy/aria2p/blob/${src.rev}/CHANGELOG.md";
-    description = "Command-line tool and library to interact with an aria2c daemon process with JSON-RPC";
+    changelog =
+      "https://github.com/pawamoy/aria2p/blob/${src.rev}/CHANGELOG.md";
+    description =
+      "Command-line tool and library to interact with an aria2c daemon process with JSON-RPC";
     license = licenses.isc;
     maintainers = with maintainers; [ koral ];
   };

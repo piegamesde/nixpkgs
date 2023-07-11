@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, aiohttp
-, dask
-, distributed
-, setuptools
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, dask, distributed
+, setuptools }:
 
 buildPythonPackage rec {
   pname = "dask-gateway";
@@ -24,11 +18,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    dask
-    distributed
-  ];
+  propagatedBuildInputs = [ aiohttp dask distributed ];
 
   # tests requires cluster for testing
   doCheck = false;

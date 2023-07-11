@@ -1,7 +1,4 @@
-{ buildDunePackage, containers
-, dune-configurator
-, gen, iter, qcheck-core
-}:
+{ buildDunePackage, containers, dune-configurator, gen, iter, qcheck-core }:
 
 buildDunePackage {
   pname = "containers-data";

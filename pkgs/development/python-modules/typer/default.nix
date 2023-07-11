@@ -1,19 +1,6 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, colorama
-, fetchpatch
-, fetchPypi
-, flit-core
-, click
-, pytestCheckHook
-, rich
-, shellingham
-, pytest-xdist
-, pytest-sugar
-, coverage
-, pythonOlder
-}:
+{ lib, stdenv, buildPythonPackage, colorama, fetchpatch, fetchPypi, flit-core
+, click, pytestCheckHook, rich, shellingham, pytest-xdist, pytest-sugar
+, coverage, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "typer";
@@ -32,21 +19,11 @@ buildPythonPackage rec {
       --replace "rich >=10.11.0,<13.0.0" "rich"
   '';
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    click
-  ];
+  propagatedBuildInputs = [ click ];
 
-  passthru.optional-dependencies = {
-    all = [
-      colorama
-      shellingham
-      rich
-    ];
-  };
+  passthru.optional-dependencies = { all = [ colorama shellingham rich ]; };
 
   nativeCheckInputs = [
     coverage # execs coverage in tests
@@ -62,13 +39,10 @@ buildPythonPackage rec {
     # likely related to https://github.com/sarugaku/shellingham/issues/35
     "test_show_completion"
     "test_install_completion"
-  ] ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
-    "test_install_completion"
-  ];
+  ] ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64)
+    [ "test_install_completion" ];
 
-  pythonImportsCheck = [
-    "typer"
-  ];
+  pythonImportsCheck = [ "typer" ];
 
   meta = with lib; {
     description = "Library for building CLI applications";

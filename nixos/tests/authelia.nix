@@ -7,7 +7,8 @@ import ./make-test-python.nix ({ lib, ... }: {
     authelia = { config, pkgs, lib, ... }: {
       services.authelia.instances.testing = {
         enable = true;
-        secrets.storageEncryptionKeyFile = "/etc/authelia/storageEncryptionKeyFile";
+        secrets.storageEncryptionKeyFile =
+          "/etc/authelia/storageEncryptionKeyFile";
         secrets.jwtSecretFile = "/etc/authelia/jwtSecretFile";
         settings = {
           authentication_backend.file.path = "/etc/authelia/users_database.yml";
@@ -23,7 +24,8 @@ import ./make-test-python.nix ({ lib, ... }: {
       environment.etc."authelia/storageEncryptionKeyFile" = {
         mode = "0400";
         user = "authelia-testing";
-        text = "you_must_generate_a_random_string_of_more_than_twenty_chars_and_configure_this";
+        text =
+          "you_must_generate_a_random_string_of_more_than_twenty_chars_and_configure_this";
       };
       environment.etc."authelia/jwtSecretFile" = {
         mode = "0400";
@@ -51,37 +53,30 @@ import ./make-test-python.nix ({ lib, ... }: {
         enable = true;
 
         dynamicConfigOptions = {
-          tls.certificates =
-            let
-              certDir = pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
-                openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=example.com/CN=auth.example.com/CN=static.example.com' -days 36500
-                mkdir -p $out
-                cp key.pem cert.pem $out
-              '';
-            in
-            [{
-              certFile = "${certDir}/cert.pem";
-              keyFile = "${certDir}/key.pem";
-            }];
+          tls.certificates = let
+            certDir = pkgs.runCommand "selfSignedCerts" {
+              buildInputs = [ pkgs.openssl ];
+            } ''
+              openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=example.com/CN=auth.example.com/CN=static.example.com' -days 36500
+              mkdir -p $out
+              cp key.pem cert.pem $out
+            '';
+          in [{
+            certFile = "${certDir}/cert.pem";
+            keyFile = "${certDir}/key.pem";
+          }];
           http.middlewares.authelia.forwardAuth = {
-            address = "http://localhost:9091/api/verify?rd=https%3A%2F%2Fauth.example.com%2F";
+            address =
+              "http://localhost:9091/api/verify?rd=https%3A%2F%2Fauth.example.com%2F";
             trustForwardHeader = true;
-            authResponseHeaders = [
-              "Remote-User"
-              "Remote-Groups"
-              "Remote-Email"
-              "Remote-Name"
-            ];
+            authResponseHeaders =
+              [ "Remote-User" "Remote-Groups" "Remote-Email" "Remote-Name" ];
           };
           http.middlewares.authelia-basic.forwardAuth = {
             address = "http://localhost:9091/api/verify?auth=basic";
             trustForwardHeader = true;
-            authResponseHeaders = [
-              "Remote-User"
-              "Remote-Groups"
-              "Remote-Email"
-              "Remote-Name"
-            ];
+            authResponseHeaders =
+              [ "Remote-User" "Remote-Groups" "Remote-Email" "Remote-Name" ];
           };
 
           http.routers.simplehttp = {
@@ -99,9 +94,7 @@ import ./make-test-python.nix ({ lib, ... }: {
           };
 
           http.services.simplehttp = {
-            loadBalancer.servers = [{
-              url = "http://localhost:8000";
-            }];
+            loadBalancer.servers = [{ url = "http://localhost:8000"; }];
           };
 
           http.routers.authelia = {
@@ -112,9 +105,7 @@ import ./make-test-python.nix ({ lib, ... }: {
           };
 
           http.services.authelia = {
-            loadBalancer.servers = [{
-              url = "http://localhost:9091";
-            }];
+            loadBalancer.servers = [{ url = "http://localhost:9091"; }];
           };
         };
 
@@ -129,9 +120,10 @@ import ./make-test-python.nix ({ lib, ... }: {
       };
 
       systemd.services.simplehttp =
-        let fakeWebPageDir = pkgs.writeTextDir "index.html" "hello"; in
-        {
-          script = "${pkgs.python3}/bin/python -m http.server --directory ${fakeWebPageDir} 8000";
+        let fakeWebPageDir = pkgs.writeTextDir "index.html" "hello";
+        in {
+          script =
+            "${pkgs.python3}/bin/python -m http.server --directory ${fakeWebPageDir} 8000";
           serviceConfig.Type = "simple";
           wantedBy = [ "multi-user.target" ];
         };

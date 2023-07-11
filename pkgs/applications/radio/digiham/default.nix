@@ -1,6 +1,5 @@
-{ stdenv, lib, fetchFromGitHub
-, cmake, pkg-config, protobuf, icu, csdr, codecserver
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, protobuf, icu, csdr
+, codecserver }:
 
 stdenv.mkDerivation rec {
   pname = "digiham";
@@ -13,16 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nKNA5xAhM/lyyvFJnajWwY0hwVZhLApbDkXoUYFjlt0=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    codecserver
-    protobuf
-    csdr
-    icu
-  ];
+  buildInputs = [ codecserver protobuf csdr icu ];
 
   meta = with lib; {
     homepage = "https://github.com/jketterl/digiham";

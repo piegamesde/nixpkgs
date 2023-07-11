@@ -20,7 +20,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A tool to query HTML files with CSS selectors";
     homepage = "https://github.com/causal-agent/scraper";
-    changelog = "https://github.com/causal-agent/scraper/releases/tag/v${version}";
+    changelog =
+      "https://github.com/causal-agent/scraper/releases/tag/v${version}";
     license = licenses.isc;
     maintainers = with maintainers; [ figsoda ];
   };

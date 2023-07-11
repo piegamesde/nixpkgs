@@ -6,9 +6,9 @@ buildGoModule rec {
 
   src = fetchFromGitHub {
     owner = "ViRb3";
-    repo  = pname;
-    rev   = "v${version}";
-    hash  = "sha256-6V4fIoFB0fuCEu1Rj8QWGDNdgystrD/gefjbshvxVsw=";
+    repo = pname;
+    rev = "v${version}";
+    hash = "sha256-6V4fIoFB0fuCEu1Rj8QWGDNdgystrD/gefjbshvxVsw=";
   };
 
   subPackages = ".";
@@ -17,9 +17,9 @@ buildGoModule rec {
 
   meta = with lib; {
     description = "Cross-platform, unofficial CLI for Cloudflare Warp";
-    homepage    = "https://github.com/ViRb3/wgcf";
-    license     = licenses.mit;
-    platforms   = platforms.unix;
+    homepage = "https://github.com/ViRb3/wgcf";
+    license = licenses.mit;
+    platforms = platforms.unix;
     maintainers = with maintainers; [ yureien ];
   };
 }

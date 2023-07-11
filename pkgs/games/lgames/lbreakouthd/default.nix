@@ -1,28 +1,17 @@
-{ lib
-, stdenv
-, fetchurl
-, directoryListingUpdater
-, SDL2
-, SDL2_image
-, SDL2_mixer
-, SDL2_ttf
-}:
+{ lib, stdenv, fetchurl, directoryListingUpdater, SDL2, SDL2_image, SDL2_mixer
+, SDL2_ttf }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lbreakouthd";
   version = "1.1.2";
 
   src = fetchurl {
-    url = "mirror://sourceforge/lgames/lbreakouthd-${finalAttrs.version}.tar.gz";
+    url =
+      "mirror://sourceforge/lgames/lbreakouthd-${finalAttrs.version}.tar.gz";
     hash = "sha256-fK7w5uS7zPJnbEmY3YpxoA9cGuooQbVlDB9Mu6yB8hw=";
   };
 
-  buildInputs = [
-    SDL2
-    SDL2_image
-    SDL2_mixer
-    SDL2_ttf
-  ];
+  buildInputs = [ SDL2 SDL2_image SDL2_mixer SDL2_ttf ];
 
   hardeningDisable = [ "format" ];
 

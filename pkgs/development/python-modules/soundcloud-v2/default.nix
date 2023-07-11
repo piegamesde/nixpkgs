@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, dacite
-, python-dateutil
-, requests
-}:
+{ lib, buildPythonPackage, fetchPypi, dacite, python-dateutil, requests }:
 
 buildPythonPackage rec {
   pname = "soundcloud-v2";
@@ -15,11 +9,7 @@ buildPythonPackage rec {
     sha256 = "9a9c12aa22e71566e2ca6015267cabc1856afd79fa458f0fc43c44872c184741";
   };
 
-  propagatedBuildInputs = [
-    dacite
-    python-dateutil
-    requests
-  ];
+  propagatedBuildInputs = [ dacite python-dateutil requests ];
 
   # tests require network
   doCheck = false;

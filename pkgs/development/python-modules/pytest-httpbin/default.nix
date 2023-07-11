@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, httpbin
-, pytest
-, pytestCheckHook
-, pythonOlder
-, requests
-, six
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, httpbin, pytest, pytestCheckHook
+, pythonOlder, requests, six }:
 
 buildPythonPackage rec {
   pname = "pytest-httpbin";
@@ -23,14 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-S4ThQx4H3UlKhunJo35esPClZiEn7gX/Qwo4kE1QMTI=";
   };
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    httpbin
-    six
-  ];
+  propagatedBuildInputs = [ httpbin six ];
 
   preCheck = ''
     # Remove assertion that doesn't hold for Flask 2.1.0
@@ -38,16 +25,11 @@ buildPythonPackage rec {
       --replace "assert response.headers['Location'].startswith('https://')" ""
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    requests
-  ];
+  nativeCheckInputs = [ pytestCheckHook requests ];
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [
-    "pytest_httpbin"
-  ];
+  pythonImportsCheck = [ "pytest_httpbin" ];
 
   meta = with lib; {
     description = "Test your HTTP library against a local copy of httpbin.org";

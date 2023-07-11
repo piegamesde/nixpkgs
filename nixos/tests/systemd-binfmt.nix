@@ -1,41 +1,37 @@
 # Teach the kernel how to run armv7l and aarch64-linux binaries,
 # and run GNU Hello for these architectures.
 
-{ system ? builtins.currentSystem,
-  config ? {},
-  pkgs ? import ../.. { inherit system config; }
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; } }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 
 let
-  expectArgv0 = xpkgs: xpkgs.runCommandCC "expect-argv0" {
-    src = pkgs.writeText "expect-argv0.c" ''
-      #include <stdio.h>
-      #include <string.h>
+  expectArgv0 = xpkgs:
+    xpkgs.runCommandCC "expect-argv0" {
+      src = pkgs.writeText "expect-argv0.c" ''
+        #include <stdio.h>
+        #include <string.h>
 
-      int main(int argc, char **argv) {
-        fprintf(stderr, "Our argv[0] is %s\n", argv[0]);
+        int main(int argc, char **argv) {
+          fprintf(stderr, "Our argv[0] is %s\n", argv[0]);
 
-        if (strcmp(argv[0], argv[1])) {
-          fprintf(stderr, "ERROR: argv[0] is %s, should be %s\n", argv[0], argv[1]);
-          return 1;
+          if (strcmp(argv[0], argv[1])) {
+            fprintf(stderr, "ERROR: argv[0] is %s, should be %s\n", argv[0], argv[1]);
+            return 1;
+          }
+
+          return 0;
         }
-
-        return 0;
-      }
+      '';
+    } ''
+      $CC -o $out $src
     '';
-  } ''
-    $CC -o $out $src
-  '';
 in {
   basic = makeTest {
     name = "systemd-binfmt";
     nodes.machine = {
-      boot.binfmt.emulatedSystems = [
-        "armv7l-linux"
-        "aarch64-linux"
-      ];
+      boot.binfmt.emulatedSystems = [ "armv7l-linux" "aarch64-linux" ];
     };
 
     testScript = let
@@ -56,26 +52,18 @@ in {
 
   preserveArgvZero = makeTest {
     name = "systemd-binfmt-preserve-argv0";
-    nodes.machine = {
-      boot.binfmt.emulatedSystems = [
-        "aarch64-linux"
-      ];
-    };
-    testScript = let
-      testAarch64 = expectArgv0 pkgs.pkgsCross.aarch64-multiplatform;
-    in ''
-      machine.start()
-      machine.succeed("exec -a meow ${testAarch64} meow")
-    '';
+    nodes.machine = { boot.binfmt.emulatedSystems = [ "aarch64-linux" ]; };
+    testScript =
+      let testAarch64 = expectArgv0 pkgs.pkgsCross.aarch64-multiplatform;
+      in ''
+        machine.start()
+        machine.succeed("exec -a meow ${testAarch64} meow")
+      '';
   };
 
   ldPreload = makeTest {
     name = "systemd-binfmt-ld-preload";
-    nodes.machine = {
-      boot.binfmt.emulatedSystems = [
-        "aarch64-linux"
-      ];
-    };
+    nodes.machine = { boot.binfmt.emulatedSystems = [ "aarch64-linux" ]; };
     testScript = let
       helloAarch64 = pkgs.pkgsCross.aarch64-multiplatform.hello;
       libredirectAarch64 = pkgs.pkgsCross.aarch64-multiplatform.libredirect;

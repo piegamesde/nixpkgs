@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, bluez
-, gattlib
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, bluez, gattlib }:
 
 buildPythonPackage rec {
   pname = "pybluez";
@@ -18,21 +12,14 @@ buildPythonPackage rec {
     hash = "sha256-GA58DfCFaVzZQA1HYpGQ68bznrt4SX1ojyOVn8hyCGo=";
   };
 
-  buildInputs = [
-    bluez
-  ];
+  buildInputs = [ bluez ];
 
-  propagatedBuildInputs = [
-    gattlib
-  ];
+  propagatedBuildInputs = [ gattlib ];
 
   # there are no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "bluetooth"
-    "bluetooth.ble"
-  ];
+  pythonImportsCheck = [ "bluetooth" "bluetooth.ble" ];
 
   meta = with lib; {
     description = "Bluetooth Python extension module";

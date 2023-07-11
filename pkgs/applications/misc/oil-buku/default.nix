@@ -22,10 +22,8 @@ stdenvNoCC.mkDerivation rec {
       "/usr/bin/env -S awk" "${gawk}/bin/awk"
   '';
 
-  makeFlags = [
-    "BINDIR=${placeholder "out"}/bin"
-    "LIBDIR=${placeholder "out"}/lib"
-  ];
+  makeFlags =
+    [ "BINDIR=${placeholder "out"}/bin" "LIBDIR=${placeholder "out"}/lib" ];
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -35,7 +33,8 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Search-as-you-type cli frontend for the buku bookmarks manager using peco";
+    description =
+      "Search-as-you-type cli frontend for the buku bookmarks manager using peco";
     homepage = "https://github.com/AndreiUlmeyda/oil";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ atila ];

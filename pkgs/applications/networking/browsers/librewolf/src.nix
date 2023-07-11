@@ -1,7 +1,6 @@
 { fetchurl, fetchFromGitLab }:
 let src = builtins.fromJSON (builtins.readFile ./src.json);
-in
-{
+in {
   inherit (src) packageVersion;
   source = fetchFromGitLab {
     owner = "librewolf-community";

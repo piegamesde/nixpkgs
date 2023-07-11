@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, zlib, protobuf, ncurses, pkg-config
-, makeWrapper, perl, openssl, autoreconfHook, openssh, bash-completion
+{ lib, stdenv, fetchFromGitHub, zlib, protobuf, ncurses, pkg-config, makeWrapper
+, perl, openssl, autoreconfHook, openssh, bash-completion
 , withUtempter ? stdenv.isLinux && !stdenv.hostPlatform.isMusl, libutempter }:
 
 stdenv.mkDerivation rec {
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withUtempter "--with-utempter";
 
   postInstall = ''
-      wrapProgram $out/bin/mosh --prefix PERL5LIB : $PERL5LIB
+    wrapProgram $out/bin/mosh --prefix PERL5LIB : $PERL5LIB
   '';
 
   CXXFLAGS = lib.optionalString stdenv.cc.isClang "-std=c++11";

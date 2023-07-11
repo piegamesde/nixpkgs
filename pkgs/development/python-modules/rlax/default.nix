@@ -1,16 +1,5 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, chex
-, jaxlib
-, tensorflow-probability
-, optax
-, dm-haiku
-, bsuite
-, frozendict
-, pytestCheckHook
-, dm-env
-, distrax }:
+{ lib, fetchPypi, buildPythonPackage, chex, jaxlib, tensorflow-probability
+, optax, dm-haiku, bsuite, frozendict, pytestCheckHook, dm-env, distrax }:
 
 buildPythonPackage rec {
   pname = "rlax";
@@ -21,25 +10,12 @@ buildPythonPackage rec {
     hash = "sha256-GRqiGacyHZpVKUqfAteMjRV4EtdHkSgfFRj/H76bBVo=";
   };
 
-  buildInputs = [
-    chex
-    jaxlib
-    distrax
-    tensorflow-probability
-  ];
+  buildInputs = [ chex jaxlib distrax tensorflow-probability ];
 
-  nativeCheckInputs = [
-    bsuite
-    dm-env
-    dm-haiku
-    frozendict
-    optax
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ bsuite dm-env dm-haiku frozendict optax pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "rlax"
-  ];
+  pythonImportsCheck = [ "rlax" ];
 
   disabledTests = [
     # RuntimeErrors

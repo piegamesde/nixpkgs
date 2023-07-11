@@ -13,14 +13,9 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-nFttVJbEAAGsrAglMphuw0wJ2Kf8sWB4HrpVqfHO76o=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libGL
-    nssmdns
-  ] ++ (with xorg; [
+  buildInputs = [ libGL nssmdns ] ++ (with xorg; [
     libX11
     libX11.dev
     libXcursor

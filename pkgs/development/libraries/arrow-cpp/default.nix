@@ -1,53 +1,22 @@
-{ stdenv
-, lib
-, fetchurl
-, fetchFromGitHub
-, fixDarwinDylibNames
-, autoconf
-, aws-sdk-cpp
-, boost
-, brotli
-, c-ares
-, cmake
-, crc32c
-, curl
-, flatbuffers
-, gflags
-, glog
-, google-cloud-cpp
-, grpc
-, gtest
-, libbacktrace
-, lz4
-, minio
-, ninja
-, nlohmann_json
-, openssl
-, perl
-, protobuf
-, python3
-, rapidjson
-, re2
-, snappy
-, sqlite
-, thrift
-, tzdata
-, utf8proc
-, which
-, zlib
-, zstd
-, enableShared ? !stdenv.hostPlatform.isStatic
-, enableFlight ? true
+{ stdenv, lib, fetchurl, fetchFromGitHub, fixDarwinDylibNames, autoconf
+, aws-sdk-cpp, boost, brotli, c-ares, cmake, crc32c, curl, flatbuffers, gflags
+, glog, google-cloud-cpp, grpc, gtest, libbacktrace, lz4, minio, ninja
+, nlohmann_json, openssl, perl, protobuf, python3, rapidjson, re2, snappy
+, sqlite, thrift, tzdata, utf8proc, which, zlib, zstd
+, enableShared ? !stdenv.hostPlatform.isStatic, enableFlight ? true
 , enableJemalloc ? !stdenv.isDarwin
   # boost/process is broken in 1.69 on darwin, but fixed in 1.70 and
   # non-existent in older versions
   # see https://github.com/boostorg/process/issues/55
-, enableS3 ? (!stdenv.isDarwin) || (lib.versionOlder boost.version "1.69" || lib.versionAtLeast boost.version "1.70")
-, enableGcs ? (!stdenv.isDarwin) && (lib.versionAtLeast grpc.cxxStandard "17") # google-cloud-cpp is not supported on darwin, needs to support C++17
+, enableS3 ? (!stdenv.isDarwin) || (lib.versionOlder boost.version "1.69"
+  || lib.versionAtLeast boost.version "1.70"), enableGcs ? (!stdenv.isDarwin)
+  && (lib.versionAtLeast grpc.cxxStandard
+    "17") # google-cloud-cpp is not supported on darwin, needs to support C++17
 }:
 
-assert lib.asserts.assertMsg
-  ((enableS3 && stdenv.isDarwin) -> (lib.versionOlder boost.version "1.69" || lib.versionAtLeast boost.version "1.70"))
+assert lib.asserts.assertMsg ((enableS3 && stdenv.isDarwin)
+  -> (lib.versionOlder boost.version "1.69"
+    || lib.versionAtLeast boost.version "1.70"))
   "S3 on Darwin requires Boost != 1.69";
 
 let
@@ -78,13 +47,13 @@ let
     ];
   };
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "arrow-cpp";
   version = "12.0.0";
 
   src = fetchurl {
-    url = "mirror://apache/arrow/arrow-${version}/apache-arrow-${version}.tar.gz";
+    url =
+      "mirror://apache/arrow/arrow-${version}/apache-arrow-${version}.tar.gz";
     hash = "sha256-3dg0eIJ3XlOvfQlloZArfY/NCgMP0U94PU+F6CE1LVI=";
   };
 
@@ -96,7 +65,8 @@ stdenv.mkDerivation rec {
   # jemalloc: arrow uses a custom prefix to prevent default allocator symbol
   # collisions as well as custom build flags
   ${if enableJemalloc then "ARROW_JEMALLOC_URL" else null} = fetchurl {
-    url = "https://github.com/jemalloc/jemalloc/releases/download/5.3.0/jemalloc-5.3.0.tar.bz2";
+    url =
+      "https://github.com/jemalloc/jemalloc/releases/download/5.3.0/jemalloc-5.3.0.tar.bz2";
     hash = "sha256-LbgtHnEZ3z5xt2QCGbbf6EeJvAU3mDw7esT3GJrs/qo=";
   };
 
@@ -151,19 +121,15 @@ stdenv.mkDerivation rec {
     utf8proc
     zlib
     zstd
-  ] ++ lib.optionals enableFlight [
-    grpc
-    openssl
-    protobuf
-    sqlite
-  ] ++ lib.optionals enableS3 [ aws-sdk-cpp-arrow openssl ]
-  ++ lib.optionals enableGcs [
-    crc32c
-    curl
-    google-cloud-cpp
-    grpc
-    nlohmann_json
-  ];
+  ] ++ lib.optionals enableFlight [ grpc openssl protobuf sqlite ]
+    ++ lib.optionals enableS3 [ aws-sdk-cpp-arrow openssl ]
+    ++ lib.optionals enableGcs [
+      crc32c
+      curl
+      google-cloud-cpp
+      grpc
+      nlohmann_json
+    ];
 
   preConfigure = ''
     patchShebangs build-support/
@@ -210,40 +176,40 @@ stdenv.mkDerivation rec {
     "-DARROW_PARQUET=ON"
     "-DPARQUET_BUILD_EXECUTABLES=ON"
     "-DPARQUET_REQUIRE_ENCRYPTION=ON"
-  ] ++ lib.optionals (!enableShared) [
-    "-DARROW_TEST_LINKAGE=static"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "-DCMAKE_INSTALL_RPATH=@loader_path/../lib" # needed for tools executables
-  ] ++ lib.optionals (!stdenv.isx86_64) [ "-DARROW_USE_SIMD=OFF" ]
-  ++ lib.optionals enableS3 [ "-DAWSSDK_CORE_HEADER_FILE=${aws-sdk-cpp-arrow}/include/aws/core/Aws.h" ];
+  ] ++ lib.optionals (!enableShared) [ "-DARROW_TEST_LINKAGE=static" ]
+    ++ lib.optionals stdenv.isDarwin [
+      "-DCMAKE_INSTALL_RPATH=@loader_path/../lib" # needed for tools executables
+    ] ++ lib.optionals (!stdenv.isx86_64) [ "-DARROW_USE_SIMD=OFF" ]
+    ++ lib.optionals enableS3
+    [ "-DAWSSDK_CORE_HEADER_FILE=${aws-sdk-cpp-arrow}/include/aws/core/Aws.h" ];
 
   doInstallCheck = true;
   ARROW_TEST_DATA = lib.optionalString doInstallCheck "${arrow-testing}/data";
-  PARQUET_TEST_DATA = lib.optionalString doInstallCheck "${parquet-testing}/data";
-  GTEST_FILTER =
-    let
-      # Upstream Issue: https://issues.apache.org/jira/browse/ARROW-11398
-      filteredTests = lib.optionals stdenv.hostPlatform.isAarch64 [
-        "TestFilterKernelWithNumeric/3.CompareArrayAndFilterRandomNumeric"
-        "TestFilterKernelWithNumeric/7.CompareArrayAndFilterRandomNumeric"
-        "TestCompareKernel.PrimitiveRandomTests"
-      ] ++ lib.optionals enableS3 [
-        "S3OptionsTest.FromUri"
-        "S3RegionResolutionTest.NonExistentBucket"
-        "S3RegionResolutionTest.PublicBucket"
-        "S3RegionResolutionTest.RestrictedBucket"
-        "TestMinioServer.Connect"
-        "TestS3FS.*"
-        "TestS3FSGeneric.*"
-      ] ++ lib.optionals stdenv.isDarwin [
-        # TODO: revisit at 12.0.0 or when
-        # https://github.com/apache/arrow/commit/295c6644ca6b67c95a662410b2c7faea0920c989
-        # is available, see
-        # https://github.com/apache/arrow/pull/15288#discussion_r1071244661
-        "ExecPlanExecution.StressSourceSinkStopped"
-      ];
-    in
-    lib.optionalString doInstallCheck "-${lib.concatStringsSep ":" filteredTests}";
+  PARQUET_TEST_DATA =
+    lib.optionalString doInstallCheck "${parquet-testing}/data";
+  GTEST_FILTER = let
+    # Upstream Issue: https://issues.apache.org/jira/browse/ARROW-11398
+    filteredTests = lib.optionals stdenv.hostPlatform.isAarch64 [
+      "TestFilterKernelWithNumeric/3.CompareArrayAndFilterRandomNumeric"
+      "TestFilterKernelWithNumeric/7.CompareArrayAndFilterRandomNumeric"
+      "TestCompareKernel.PrimitiveRandomTests"
+    ] ++ lib.optionals enableS3 [
+      "S3OptionsTest.FromUri"
+      "S3RegionResolutionTest.NonExistentBucket"
+      "S3RegionResolutionTest.PublicBucket"
+      "S3RegionResolutionTest.RestrictedBucket"
+      "TestMinioServer.Connect"
+      "TestS3FS.*"
+      "TestS3FSGeneric.*"
+    ] ++ lib.optionals stdenv.isDarwin [
+      # TODO: revisit at 12.0.0 or when
+      # https://github.com/apache/arrow/commit/295c6644ca6b67c95a662410b2c7faea0920c989
+      # is available, see
+      # https://github.com/apache/arrow/pull/15288#discussion_r1071244661
+      "ExecPlanExecution.StressSourceSinkStopped"
+    ];
+  in lib.optionalString doInstallCheck
+  "-${lib.concatStringsSep ":" filteredTests}";
 
   __darwinAllowLocalNetworking = true;
 
@@ -260,7 +226,9 @@ stdenv.mkDerivation rec {
   installCheckPhase = ''
     runHook preInstallCheck
 
-    ctest -L unittest --exclude-regex '^(${lib.concatStringsSep "|" disabledTests})$'
+    ctest -L unittest --exclude-regex '^(${
+      lib.concatStringsSep "|" disabledTests
+    })$'
 
     runHook postInstallCheck
   '';
@@ -272,7 +240,5 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     maintainers = with maintainers; [ tobim veprbl cpcloud ];
   };
-  passthru = {
-    inherit enableFlight enableJemalloc enableS3 enableGcs;
-  };
+  passthru = { inherit enableFlight enableJemalloc enableS3 enableGcs; };
 }

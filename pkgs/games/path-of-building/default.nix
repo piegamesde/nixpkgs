@@ -1,9 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, runCommand, unzip, meson, ninja, pkg-config, qtbase, qttools, wrapQtAppsHook, luajit }:
+{ stdenv, lib, fetchFromGitHub, runCommand, unzip, meson, ninja, pkg-config
+, qtbase, qttools, wrapQtAppsHook, luajit }:
 let
   dataVersion = "2.29.0";
   frontendVersion = "unstable-2023-04-09";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "path-of-building";
   version = "${dataVersion}-${frontendVersion}";
 
@@ -23,8 +23,7 @@ stdenv.mkDerivation {
     };
 
     nativeBuildInputs = [ unzip ];
-  }
-  ''
+  } ''
     # I have absolutely no idea how this file is generated
     # and I don't think I want to know. The Flatpak also does this.
     unzip -j -d $out $src/runtime-win32.zip lua/sha1.lua
@@ -64,6 +63,6 @@ stdenv.mkDerivation {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.k900 ];
     mainProgram = "pobfrontend";
-    broken = stdenv.isDarwin;  # doesn't find uic6 for some reason
+    broken = stdenv.isDarwin; # doesn't find uic6 for some reason
   };
 }

@@ -2,14 +2,14 @@
 
 with lib;
 
-let
-  cfg = config.services.journald;
+let cfg = config.services.journald;
 in {
   options = {
     services.journald.console = mkOption {
       default = "";
       type = types.str;
-      description = lib.mdDoc "If non-empty, write log messages to the specified TTY device.";
+      description = lib.mdDoc
+        "If non-empty, write log messages to the specified TTY device.";
     };
 
     services.journald.rateLimitInterval = mkOption {
@@ -71,8 +71,10 @@ in {
     };
 
     services.journald.forwardToSyslog = mkOption {
-      default = config.services.rsyslogd.enable || config.services.syslog-ng.enable;
-      defaultText = literalExpression "services.rsyslogd.enable || services.syslog-ng.enable";
+      default = config.services.rsyslogd.enable
+        || config.services.syslog-ng.enable;
+      defaultText = literalExpression
+        "services.rsyslogd.enable || services.syslog-ng.enable";
       type = types.bool;
       description = lib.mdDoc ''
         Whether to forward log messages to syslog.
@@ -89,12 +91,11 @@ in {
       "systemd-journald@.service"
       "systemd-journal-flush.service"
       "systemd-journal-catalog-update.service"
-      ] ++ (optional (!config.boot.isContainer) "systemd-journald-audit.socket") ++ [
-      "systemd-journald-dev-log.socket"
-      "syslog.socket"
-      ] ++ optionals cfg.enableHttpGateway [
-      "systemd-journal-gatewayd.socket"
-      "systemd-journal-gatewayd.service"
+    ] ++ (optional (!config.boot.isContainer) "systemd-journald-audit.socket")
+      ++ [ "systemd-journald-dev-log.socket" "syslog.socket" ]
+      ++ optionals cfg.enableHttpGateway [
+        "systemd-journal-gatewayd.socket"
+        "systemd-journal-gatewayd.service"
       ];
 
     environment.etc = {
@@ -115,17 +116,21 @@ in {
     };
 
     users.groups.systemd-journal.gid = config.ids.gids.systemd-journal;
-    users.users.systemd-journal-gateway.uid = config.ids.uids.systemd-journal-gateway;
+    users.users.systemd-journal-gateway.uid =
+      config.ids.uids.systemd-journal-gateway;
     users.users.systemd-journal-gateway.group = "systemd-journal-gateway";
-    users.groups.systemd-journal-gateway.gid = config.ids.gids.systemd-journal-gateway;
+    users.groups.systemd-journal-gateway.gid =
+      config.ids.gids.systemd-journal-gateway;
 
     systemd.sockets.systemd-journal-gatewayd.wantedBy =
       optional cfg.enableHttpGateway "sockets.target";
 
     systemd.services.systemd-journal-flush.restartIfChanged = false;
-    systemd.services.systemd-journald.restartTriggers = [ config.environment.etc."systemd/journald.conf".source ];
+    systemd.services.systemd-journald.restartTriggers =
+      [ config.environment.etc."systemd/journald.conf".source ];
     systemd.services.systemd-journald.stopIfChanged = false;
-    systemd.services."systemd-journald@".restartTriggers = [ config.environment.etc."systemd/journald.conf".source ];
+    systemd.services."systemd-journald@".restartTriggers =
+      [ config.environment.etc."systemd/journald.conf".source ];
     systemd.services."systemd-journald@".stopIfChanged = false;
   };
 }

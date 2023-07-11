@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, stdenv
-, libcxx
-, cppy
-, setuptools-scm
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, stdenv, libcxx, cppy, setuptools-scm
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "kiwisolver";
@@ -20,19 +13,14 @@ buildPythonPackage rec {
     hash = "sha256-1BmXUZ/LpKHkbrSi/jG8EvD/lXsrgbrCjbJHRPMz6VU=";
   };
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-I${lib.getDev libcxx}/include/c++/v1";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin "-I${lib.getDev libcxx}/include/c++/v1";
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  buildInputs = [
-    cppy
-  ];
+  buildInputs = [ cppy ];
 
-  pythonImportsCheck = [
-    "kiwisolver"
-  ];
+  pythonImportsCheck = [ "kiwisolver" ];
 
   meta = with lib; {
     description = "Implementation of the Cassowary constraint solver";

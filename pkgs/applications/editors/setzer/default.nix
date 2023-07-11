@@ -1,21 +1,6 @@
-{ lib
-, python3
-, fetchFromGitHub
-, meson
-, ninja
-, gettext
-, appstream
-, appstream-glib
-, wrapGAppsHook
-, desktop-file-utils
-, gobject-introspection
-, gtksourceview4
-, gspell
-, libhandy
-, poppler_gi
-, webkitgtk_4_1
-, librsvg
-}:
+{ lib, python3, fetchFromGitHub, meson, ninja, gettext, appstream
+, appstream-glib, wrapGAppsHook, desktop-file-utils, gobject-introspection
+, gtksourceview4, gspell, libhandy, poppler_gi, webkitgtk_4_1, librsvg }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "setzer";
@@ -41,14 +26,8 @@ python3.pkgs.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    gtksourceview4
-    gspell
-    libhandy
-    poppler_gi
-    webkitgtk_4_1
-    librsvg
-  ];
+  buildInputs =
+    [ gtksourceview4 gspell libhandy poppler_gi webkitgtk_4_1 librsvg ];
 
   propagatedBuildInputs = with python3.pkgs; [
     pygobject3

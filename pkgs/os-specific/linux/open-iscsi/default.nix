@@ -1,17 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, meson
-, pkg-config
-, ninja
-, perl
-, util-linux
-, open-isns
-, openssl
-, kmod
-, systemd
-, runtimeShell
-, nixosTests }:
+{ stdenv, lib, fetchFromGitHub, meson, pkg-config, ninja, perl, util-linux
+, open-isns, openssl, kmod, systemd, runtimeShell, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "open-iscsi";
@@ -24,19 +12,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-JzSyX9zvUkhCEpNwTMneTZpCRgaYxHZ1wP215YnMI78=";
   };
 
-  nativeBuildInputs = [
-    meson
-    pkg-config
-    ninja
-    perl
-  ];
-  buildInputs = [
-    kmod
-    (lib.getLib open-isns)
-    openssl
-    systemd
-    util-linux
-  ];
+  nativeBuildInputs = [ meson pkg-config ninja perl ];
+  buildInputs = [ kmod (lib.getLib open-isns) openssl systemd util-linux ];
 
   preConfigure = ''
     patchShebangs .
@@ -58,7 +35,8 @@ stdenv.mkDerivation rec {
   passthru.tests = { inherit (nixosTests) iscsi-root iscsi-multipath-root; };
 
   meta = with lib; {
-    description = "A high performance, transport independent, multi-platform implementation of RFC3720";
+    description =
+      "A high performance, transport independent, multi-platform implementation of RFC3720";
     license = licenses.gpl2Plus;
     homepage = "https://www.open-iscsi.com";
     platforms = platforms.linux;

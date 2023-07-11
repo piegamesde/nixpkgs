@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, substituteAll
-, cmake
-, pkg-config
-, gtkmm3
-, gtk3
-, procps
-, spdlog
-}:
+{ lib, stdenv, fetchFromGitHub, substituteAll, cmake, pkg-config, gtkmm3, gtk3
+, procps, spdlog }:
 
 stdenv.mkDerivation rec {
   pname = "wsysmon";
@@ -31,17 +22,9 @@ stdenv.mkDerivation rec {
     ./install.patch
   ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    gtkmm3
-    gtk3
-    procps
-    spdlog
-  ];
+  buildInputs = [ gtkmm3 gtk3 procps spdlog ];
 
   meta = with lib; {
     description = "A windows task manager clone for Linux";

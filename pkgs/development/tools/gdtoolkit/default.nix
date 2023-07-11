@@ -1,23 +1,19 @@
-{ lib
-, python3Packages
-, fetchFromGitHub
-, godot-server
-}:
+{ lib, python3Packages, fetchFromGitHub, godot-server }:
 
-let lark080 = python3Packages.lark.overrideAttrs (old: rec {
-  # gdtoolkit needs exactly this lark version
-  version = "0.8.0";
-  src = fetchFromGitHub {
-    owner = "lark-parser";
-    repo = "lark";
-    rev = version;
-    hash = "sha256-KN9buVlH8hJ8t0ZP5yefeYM5vH5Gg7a7TEDGKJYpozs=";
-    fetchSubmodules = true;
-  };
-});
+let
+  lark080 = python3Packages.lark.overrideAttrs (old: rec {
+    # gdtoolkit needs exactly this lark version
+    version = "0.8.0";
+    src = fetchFromGitHub {
+      owner = "lark-parser";
+      repo = "lark";
+      rev = version;
+      hash = "sha256-KN9buVlH8hJ8t0ZP5yefeYM5vH5Gg7a7TEDGKJYpozs=";
+      fetchSubmodules = true;
+    };
+  });
 
-in
-python3Packages.buildPythonApplication rec {
+in python3Packages.buildPythonApplication rec {
   pname = "gdtoolkit";
   version = "3.3.1";
 
@@ -31,12 +27,8 @@ python3Packages.buildPythonApplication rec {
 
   disabled = python3Packages.pythonOlder "3.7";
 
-  propagatedBuildInputs = [ lark080
-  ] ++ (with python3Packages; [
-    docopt
-    pyyaml
-    setuptools
-  ]);
+  propagatedBuildInputs = [ lark080 ]
+    ++ (with python3Packages; [ docopt pyyaml setuptools ]);
 
   doCheck = true;
 
@@ -46,37 +38,38 @@ python3Packages.buildPythonApplication rec {
     godot-server
   ];
 
-  preCheck =
-    let
-      godotServerMajorVersion = lib.versions.major godot-server.version;
-      gdtoolkitMajorVersion = lib.versions.major version;
-      msg = ''
-        gdtoolkit major version ${gdtoolkitMajorVersion} does not match godot-server major version ${godotServerMajorVersion}!
-        gdtoolkit needs a matching godot-server for its tests.
-        If you see this error, you can either:
-         - disable doCheck for gdtoolkit, or
-         - provide a compatible godot-server version to gdtoolkit"
-      '';
-    in lib.throwIf (godotServerMajorVersion != gdtoolkitMajorVersion) msg ''
-      # The tests want to run the installed executables
-      export PATH=$out/bin:$PATH
-
-      # gdtoolkit tries to write cache variables to $HOME/.cache
-      export HOME=$TMP
-
-      # Work around https://github.com/godotengine/godot/issues/20503
-      # Without this, Godot will complain about a missing project file
-      touch project.godot
-
-      # Remove broken test case
-      # (hard to skip via disabledTests since the test name contains an absolute path)
-      rm tests/potential-godot-bugs/multiline-subscription-expression.gd
+  preCheck = let
+    godotServerMajorVersion = lib.versions.major godot-server.version;
+    gdtoolkitMajorVersion = lib.versions.major version;
+    msg = ''
+      gdtoolkit major version ${gdtoolkitMajorVersion} does not match godot-server major version ${godotServerMajorVersion}!
+      gdtoolkit needs a matching godot-server for its tests.
+      If you see this error, you can either:
+       - disable doCheck for gdtoolkit, or
+       - provide a compatible godot-server version to gdtoolkit"
     '';
+  in lib.throwIf (godotServerMajorVersion != gdtoolkitMajorVersion) msg ''
+    # The tests want to run the installed executables
+    export PATH=$out/bin:$PATH
 
-  pythonImportsCheck = [ "gdtoolkit" "gdtoolkit.formatter" "gdtoolkit.linter" "gdtoolkit.parser" ];
+    # gdtoolkit tries to write cache variables to $HOME/.cache
+    export HOME=$TMP
+
+    # Work around https://github.com/godotengine/godot/issues/20503
+    # Without this, Godot will complain about a missing project file
+    touch project.godot
+
+    # Remove broken test case
+    # (hard to skip via disabledTests since the test name contains an absolute path)
+    rm tests/potential-godot-bugs/multiline-subscription-expression.gd
+  '';
+
+  pythonImportsCheck =
+    [ "gdtoolkit" "gdtoolkit.formatter" "gdtoolkit.linter" "gdtoolkit.parser" ];
 
   meta = with lib; {
-    description = "Independent set of tools for working with Godot's GDScript - parser, linter and formatter";
+    description =
+      "Independent set of tools for working with Godot's GDScript - parser, linter and formatter";
     homepage = "https://github.com/Scony/godot-gdscript-toolkit";
     license = licenses.mit;
     maintainers = with maintainers; [ shiryel tmarkus ];

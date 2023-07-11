@@ -1,60 +1,21 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, pkg-config
-, cmake
-, rocm-cmake
-, hip
-, clang-tools-extra
-, openmp
-, rocblas
-, rocmlir
-, miopengemm
-, miopen
-, protobuf
-, half
-, nlohmann_json
-, msgpack
-, sqlite
-, oneDNN
-, blaze
-, texlive
-, doxygen
-, sphinx
-, docutils
-, ghostscript
-, python3Packages
-, buildDocs ? false
-, buildTests ? false
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, pkg-config, cmake, rocm-cmake
+, hip, clang-tools-extra, openmp, rocblas, rocmlir, miopengemm, miopen, protobuf
+, half, nlohmann_json, msgpack, sqlite, oneDNN, blaze, texlive, doxygen, sphinx
+, docutils, ghostscript, python3Packages, buildDocs ? false, buildTests ? false
 }:
 
 let
   latex = lib.optionalAttrs buildDocs texlive.combine {
-    inherit (texlive) scheme-small
-    latexmk
-    tex-gyre
-    fncychap
-    wrapfig
-    capt-of
-    framed
-    needspace
-    tabulary
-    varwidth
-    titlesec
-    epstopdf;
+    inherit (texlive)
+      scheme-small latexmk tex-gyre fncychap wrapfig capt-of framed needspace
+      tabulary varwidth titlesec epstopdf;
   };
 in stdenv.mkDerivation (finalAttrs: {
   pname = "migraphx";
   version = "5.4.3";
 
-  outputs = [
-    "out"
-  ] ++ lib.optionals buildDocs [
-    "doc"
-  ] ++ lib.optionals buildTests [
-    "test"
-  ];
+  outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ]
+    ++ lib.optionals buildTests [ "test" ];
 
   src = fetchFromGitHub {
     owner = "ROCmSoftwarePlatform";
@@ -63,22 +24,17 @@ in stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-UDhm+j9qs4Rk81C1PE4kkacytfY2StYbfsCOtFL+p6s=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    rocm-cmake
-    hip
-    clang-tools-extra
-    python3Packages.python
-  ] ++ lib.optionals buildDocs [
-    latex
-    doxygen
-    sphinx
-    docutils
-    ghostscript
-    python3Packages.sphinx-rtd-theme
-    python3Packages.breathe
-  ];
+  nativeBuildInputs =
+    [ pkg-config cmake rocm-cmake hip clang-tools-extra python3Packages.python ]
+    ++ lib.optionals buildDocs [
+      latex
+      doxygen
+      sphinx
+      docutils
+      ghostscript
+      python3Packages.sphinx-rtd-theme
+      python3Packages.breathe
+    ];
 
   buildInputs = [
     openmp

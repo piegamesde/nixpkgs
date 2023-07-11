@@ -13,15 +13,9 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3Packages; [ psutil six ];
 
-  nativeBuildInputs = with python3Packages; [
-    installShellFiles
-    shtab
-  ];
+  nativeBuildInputs = with python3Packages; [ installShellFiles shtab ];
 
-  nativeCheckInputs = with python3Packages; [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3Packages; [ mock pytestCheckHook ];
 
   postPatch = ''
     sed -i '/typing/d' setup.cfg

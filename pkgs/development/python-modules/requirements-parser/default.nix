@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, types-setuptools
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook
+, pythonOlder, setuptools, types-setuptools }:
 
 buildPythonPackage rec {
   pname = "requirements-parser";
@@ -22,22 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-e2dfVBMh1uGRMDw7OdPefO4/eRxc3BGwvy/D7u5ipkk=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    setuptools
-    types-setuptools
-  ];
+  propagatedBuildInputs = [ setuptools types-setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "requirements"
-  ];
+  pythonImportsCheck = [ "requirements" ];
 
   meta = with lib; {
     description = "Pip requirements file parser";

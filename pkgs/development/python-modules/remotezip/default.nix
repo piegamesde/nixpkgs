@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, requests
-, tabulate
-, pytestCheckHook
-, requests-mock
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, requests, tabulate, pytestCheckHook
+, requests-mock }:
 
 buildPythonPackage {
   pname = "remotezip";
@@ -21,25 +15,17 @@ buildPythonPackage {
     hash = "sha256-su4dlV8KZuewf/yGdTnGHK9hNLHwGe10ditmFcne4Us=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    tabulate
-  ];
+  propagatedBuildInputs = [ requests tabulate ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs = [
-    requests-mock
-  ];
+  checkInputs = [ requests-mock ];
 
-  pythonImportsCheck = [
-    "remotezip"
-  ];
+  pythonImportsCheck = [ "remotezip" ];
 
   meta = with lib; {
-    description = "Python module to access single members of a zip archive without downloading the full content";
+    description =
+      "Python module to access single members of a zip archive without downloading the full content";
     homepage = "https://github.com/gtsystem/python-remotezip";
     license = licenses.mit;
     maintainers = with maintainers; [ nickcao ];

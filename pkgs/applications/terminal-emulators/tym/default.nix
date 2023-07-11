@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, gtk3, vte, lua5_3, pcre2 }:
+{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, gtk3, vte, lua5_3
+, pcre2 }:
 
 stdenv.mkDerivation rec {
   pname = "tym";
@@ -11,17 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5pXNOuMT2/G+m6XoTrwNTCGNfISLLy0wQpVPhQJzs4s=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
 
-  buildInputs = [
-    gtk3
-    vte
-    lua5_3
-    pcre2
-  ];
+  buildInputs = [ gtk3 vte lua5_3 pcre2 ];
 
   meta = with lib; {
     description = "Lua-configurable terminal emulator";

@@ -8,8 +8,7 @@ let
   defaultrecordingsDir = "${cfg.stateDir}/recordings";
   defaultgroupsDir = "${cfg.stateDir}/groups";
   defaultdataDir = "${cfg.stateDir}/data";
-in
-{
+in {
   options = {
     services.galene = {
       enable = mkEnableOption (lib.mdDoc "Galene Service");
@@ -89,7 +88,8 @@ in
       recordingsDir = mkOption {
         type = types.str;
         default = defaultrecordingsDir;
-        defaultText = literalExpression ''"''${config.${opt.stateDir}}/recordings"'';
+        defaultText =
+          literalExpression ''"''${config.${opt.stateDir}}/recordings"'';
         example = "/var/lib/galene/recordings";
         description = lib.mdDoc "Recordings directory.";
       };
@@ -105,7 +105,8 @@ in
       groupsDir = mkOption {
         type = types.str;
         default = defaultgroupsDir;
-        defaultText = literalExpression ''"''${config.${opt.stateDir}}/groups"'';
+        defaultText =
+          literalExpression ''"''${config.${opt.stateDir}}/groups"'';
         example = "/var/lib/galene/groups";
         description = lib.mdDoc "Web server directory.";
       };
@@ -122,15 +123,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = cfg.insecure || (cfg.certFile != null && cfg.keyFile != null);
-        message = ''
-          Galene needs both certFile and keyFile defined for encryption, or
-          the insecure flag.
-        '';
-      }
-    ];
+    assertions = [{
+      assertion = cfg.insecure || (cfg.certFile != null && cfg.keyFile != null);
+      message = ''
+        Galene needs both certFile and keyFile defined for encryption, or
+        the insecure flag.
+      '';
+    }];
 
     systemd.services.galene = {
       description = "galene";
@@ -139,76 +138,73 @@ in
 
       preStart = ''
         ${optionalString (cfg.insecure != true) ''
-           install -m 700 -o '${cfg.user}' -g '${cfg.group}' ${cfg.certFile} ${cfg.dataDir}/cert.pem
-           install -m 700 -o '${cfg.user}' -g '${cfg.group}' ${cfg.keyFile} ${cfg.dataDir}/key.pem
+          install -m 700 -o '${cfg.user}' -g '${cfg.group}' ${cfg.certFile} ${cfg.dataDir}/cert.pem
+          install -m 700 -o '${cfg.user}' -g '${cfg.group}' ${cfg.keyFile} ${cfg.dataDir}/key.pem
         ''}
       '';
 
-      serviceConfig = mkMerge [
-        {
-          Type = "simple";
-          User = cfg.user;
-          Group = cfg.group;
-          WorkingDirectory = cfg.stateDir;
-          ExecStart = ''${cfg.package}/bin/galene \
-          ${optionalString (cfg.insecure) "-insecure"} \
-          -data ${cfg.dataDir} \
-          -groups ${cfg.groupsDir} \
-          -recordings ${cfg.recordingsDir} \
-          -static ${cfg.staticDir}'';
-          Restart = "always";
-          # Upstream Requirements
-          LimitNOFILE = 65536;
-          StateDirectory = [ ] ++
-            optional (cfg.stateDir == defaultstateDir) "galene" ++
-            optional (cfg.dataDir == defaultdataDir) "galene/data" ++
-            optional (cfg.groupsDir == defaultgroupsDir) "galene/groups" ++
-            optional (cfg.recordingsDir == defaultrecordingsDir) "galene/recordings";
+      serviceConfig = mkMerge [{
+        Type = "simple";
+        User = cfg.user;
+        Group = cfg.group;
+        WorkingDirectory = cfg.stateDir;
+        ExecStart = ''
+          ${cfg.package}/bin/galene \
+                    ${optionalString (cfg.insecure) "-insecure"} \
+                    -data ${cfg.dataDir} \
+                    -groups ${cfg.groupsDir} \
+                    -recordings ${cfg.recordingsDir} \
+                    -static ${cfg.staticDir}'';
+        Restart = "always";
+        # Upstream Requirements
+        LimitNOFILE = 65536;
+        StateDirectory = [ ]
+          ++ optional (cfg.stateDir == defaultstateDir) "galene"
+          ++ optional (cfg.dataDir == defaultdataDir) "galene/data"
+          ++ optional (cfg.groupsDir == defaultgroupsDir) "galene/groups"
+          ++ optional (cfg.recordingsDir == defaultrecordingsDir)
+          "galene/recordings";
 
-          # Hardening
-          CapabilityBoundingSet = [ "" ];
-          DeviceAllow = [ "" ];
-          LockPersonality = true;
-          MemoryDenyWriteExecute = true;
-          NoNewPrivileges = true;
-          PrivateDevices = true;
-          PrivateTmp = true;
-          PrivateUsers = true;
-          ProcSubset = "pid";
-          ProtectClock = true;
-          ProtectControlGroups = true;
-          ProtectHome = true;
-          ProtectHostname = true;
-          ProtectKernelLogs = true;
-          ProtectKernelModules = true;
-          ProtectKernelTunables = true;
-          ProtectProc = "invisible";
-          ProtectSystem = "strict";
-          ReadWritePaths = cfg.recordingsDir;
-          RemoveIPC = true;
-          RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
-          RestrictNamespaces = true;
-          RestrictRealtime = true;
-          RestrictSUIDSGID = true;
-          SystemCallArchitectures = "native";
-          SystemCallFilter = [ "@system-service" "~@privileged" ];
-          UMask = "0077";
-        }
-      ];
+        # Hardening
+        CapabilityBoundingSet = [ "" ];
+        DeviceAllow = [ "" ];
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        NoNewPrivileges = true;
+        PrivateDevices = true;
+        PrivateTmp = true;
+        PrivateUsers = true;
+        ProcSubset = "pid";
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHome = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectProc = "invisible";
+        ProtectSystem = "strict";
+        ReadWritePaths = cfg.recordingsDir;
+        RemoveIPC = true;
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        SystemCallArchitectures = "native";
+        SystemCallFilter = [ "@system-service" "~@privileged" ];
+        UMask = "0077";
+      }];
     };
 
-    users.users = mkIf (cfg.user == "galene")
-      {
-        galene = {
-          description = "galene Service";
-          group = cfg.group;
-          isSystemUser = true;
-        };
+    users.users = mkIf (cfg.user == "galene") {
+      galene = {
+        description = "galene Service";
+        group = cfg.group;
+        isSystemUser = true;
       };
-
-    users.groups = mkIf (cfg.group == "galene") {
-      galene = { };
     };
+
+    users.groups = mkIf (cfg.group == "galene") { galene = { }; };
   };
   meta.maintainers = with lib.maintainers; [ rgrunbla ];
 }

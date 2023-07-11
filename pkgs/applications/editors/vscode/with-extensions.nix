@@ -1,8 +1,7 @@
-{ lib, stdenv, runCommand, buildEnv, vscode, vscode-utils, makeWrapper, writeTextFile
-, vscodeExtensions ? [] }:
+{ lib, stdenv, runCommand, buildEnv, vscode, vscode-utils, makeWrapper
+, writeTextFile, vscodeExtensions ? [ ] }:
 
-/*
-  `vscodeExtensions`
+/* `vscodeExtensions`
    :  A set of vscode extensions to be installed alongside the editor. Here's a an
       example:
 
@@ -60,9 +59,8 @@ let
   extensionsFlag = ''
     --add-flags "--extensions-dir ${combinedExtensionsDrv}/share/vscode/extensions"
   '';
-in
 
-runCommand "${wrappedPkgName}-with-extensions-${wrappedPkgVersion}" {
+in runCommand "${wrappedPkgName}-with-extensions-${wrappedPkgVersion}" {
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ vscode ];
   dontPatchELF = true;

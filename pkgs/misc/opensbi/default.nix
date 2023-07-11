@@ -1,11 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, python3
-, withPlatform ? "generic"
-, withPayload ? null
-, withFDT ? null
-}:
+{ lib, stdenv, fetchFromGitHub, python3, withPlatform ? "generic"
+, withPayload ? null, withFDT ? null }:
 
 stdenv.mkDerivation rec {
   pname = "opensbi";
@@ -24,17 +18,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ python3 ];
 
-  installFlags = [
-    "I=$(out)"
-  ];
+  installFlags = [ "I=$(out)" ];
 
-  makeFlags = [
-    "PLATFORM=${withPlatform}"
-  ] ++ lib.optionals (withPayload != null) [
-    "FW_PAYLOAD_PATH=${withPayload}"
-  ] ++ lib.optionals (withFDT != null) [
-    "FW_FDT_PATH=${withFDT}"
-  ];
+  makeFlags = [ "PLATFORM=${withPlatform}" ]
+    ++ lib.optionals (withPayload != null) [ "FW_PAYLOAD_PATH=${withPayload}" ]
+    ++ lib.optionals (withFDT != null) [ "FW_FDT_PATH=${withFDT}" ];
 
   dontStrip = true;
   dontPatchELF = true;

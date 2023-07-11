@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, boto3, amazon-ion, ionhash, pytestCheckHook }:
+{ lib, buildPythonPackage, fetchFromGitHub, boto3, amazon-ion, ionhash
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pyqldb";

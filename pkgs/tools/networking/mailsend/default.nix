@@ -9,16 +9,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Vl72vibFjvdQZcVRnq6N1VuuMUKShhlpayjSQrc0k/c=";
   };
 
-  buildInputs = [
-    openssl
-  ];
-  configureFlags = [
-    "--with-openssl=${openssl.dev}"
-  ];
+  buildInputs = [ openssl ];
+  configureFlags = [ "--with-openssl=${openssl.dev}" ];
 
   patches = [
     (fetchurl {
-      url = "https://github.com/muquit/mailsend/commit/960df6d7a11eef90128dc2ae660866b27f0e4336.patch";
+      url =
+        "https://github.com/muquit/mailsend/commit/960df6d7a11eef90128dc2ae660866b27f0e4336.patch";
       sha256 = "0vz373zcfl19inflybfjwshcq06rvhx0i5g0f4b021cxfhyb1sm0";
     })
   ];

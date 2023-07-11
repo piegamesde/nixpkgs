@@ -1,14 +1,8 @@
-{ lib, stdenv, fetchurl
-, cxxSupport ? true
-, compat185 ? true
-, dbmSupport ? false
+{ lib, stdenv, fetchurl, cxxSupport ? true, compat185 ? true, dbmSupport ? false
 
-# Options from inherited versions
-, version, sha256
-, extraPatches ? [ ]
-, license ? lib.licenses.sleepycat
-, drvArgs ? {}
-}:
+  # Options from inherited versions
+, version, sha256, extraPatches ? [ ], license ? lib.licenses.sleepycat
+, drvArgs ? { } }:
 
 stdenv.mkDerivation (rec {
   pname = "db";
@@ -23,12 +17,10 @@ stdenv.mkDerivation (rec {
 
   outputs = [ "bin" "out" "dev" ];
 
-  configureFlags =
-    [
-      (if cxxSupport then "--enable-cxx" else "--disable-cxx")
-      (if compat185 then "--enable-compat185" else "--disable-compat185")
-    ]
-    ++ lib.optional dbmSupport "--enable-dbm"
+  configureFlags = [
+    (if cxxSupport then "--enable-cxx" else "--disable-cxx")
+    (if compat185 then "--enable-compat185" else "--disable-compat185")
+  ] ++ lib.optional dbmSupport "--enable-dbm"
     ++ lib.optional stdenv.isFreeBSD "--with-pic";
 
   preConfigure = ''
@@ -49,7 +41,8 @@ stdenv.mkDerivation (rec {
   '';
 
   meta = with lib; {
-    homepage = "https://www.oracle.com/database/technologies/related/berkeleydb.html";
+    homepage =
+      "https://www.oracle.com/database/technologies/related/berkeleydb.html";
     description = "Berkeley DB";
     license = license;
     platforms = platforms.unix;

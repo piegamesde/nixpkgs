@@ -18,28 +18,27 @@ buildGoModule rec {
 
   # Mongodb incorrectly names all of their binaries main
   # Let's work around this with our own installer
-  buildPhase =
-    let
-      tools = [
-        "bsondump"
-        "mongodump"
-        "mongoexport"
-        "mongofiles"
-        "mongoimport"
-        "mongorestore"
-        "mongostat"
-        "mongotop"
-      ]; in
-    ''
-      # move vendored codes so nixpkgs go builder could find it
-      runHook preBuild
+  buildPhase = let
+    tools = [
+      "bsondump"
+      "mongodump"
+      "mongoexport"
+      "mongofiles"
+      "mongoimport"
+      "mongorestore"
+      "mongostat"
+      "mongotop"
+    ];
+  in ''
+    # move vendored codes so nixpkgs go builder could find it
+    runHook preBuild
 
-      ${lib.concatMapStrings (t: ''
-        go build -o "$out/bin/${t}" -tags ssl -ldflags "-s -w" ./${t}/main
-      '') tools}
+    ${lib.concatMapStrings (t: ''
+      go build -o "$out/bin/${t}" -tags ssl -ldflags "-s -w" ./${t}/main
+    '') tools}
 
-      runHook postBuild
-    '';
+    runHook postBuild
+  '';
 
   meta = {
     homepage = "https://github.com/mongodb/mongo-tools";

@@ -3,14 +3,14 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
   meta = with lib.maintainers; { maintainers = [ anoa ]; };
 
   nodes.client = { nodes, ... }:
-      let user = nodes.client.config.users.users.alice;
-      in {
-        imports = [ ./common/user-account.nix ./common/x11.nix ];
+    let user = nodes.client.config.users.users.alice;
+    in {
+      imports = [ ./common/user-account.nix ./common/x11.nix ];
 
-        environment.systemPackages = [ pkgs.libuiohook.test ];
+      environment.systemPackages = [ pkgs.libuiohook.test ];
 
-        test-support.displayManager.auto.user = user.name;
-      };
+      test-support.displayManager.auto.user = user.name;
+    };
 
   testScript = { nodes, ... }:
     let user = nodes.client.config.users.users.alice;

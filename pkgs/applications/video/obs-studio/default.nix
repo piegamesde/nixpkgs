@@ -1,54 +1,15 @@
-{ config
-, lib
-, stdenv
-, fetchFromGitHub
-, addOpenGLRunpath
-, cmake
-, fdk_aac
-, ffmpeg_4
-, jansson
-, libjack2
-, libxkbcommon
-, libpthreadstubs
-, libXdmcp
-, qtbase
-, qtsvg
-, speex
-, libv4l
-, x264
-, curl
-, wayland
-, xorg
-, pkg-config
-, libvlc
-, mbedtls
-, wrapGAppsHook
-, scriptingSupport ? true
-, luajit
-, swig
-, python3
-, alsaSupport ? stdenv.isLinux
-, alsa-lib
-, pulseaudioSupport ? config.pulseaudio or stdenv.isLinux
-, libpulseaudio
-, libcef
-, pciutils
-, pipewireSupport ? stdenv.isLinux
-, pipewire
-, libdrm
-, libajantv2
-, librist
-, libva
-, srt
-, qtwayland
-, wrapQtAppsHook
-}:
+{ config, lib, stdenv, fetchFromGitHub, addOpenGLRunpath, cmake, fdk_aac
+, ffmpeg_4, jansson, libjack2, libxkbcommon, libpthreadstubs, libXdmcp, qtbase
+, qtsvg, speex, libv4l, x264, curl, wayland, xorg, pkg-config, libvlc, mbedtls
+, wrapGAppsHook, scriptingSupport ? true, luajit, swig, python3
+, alsaSupport ? stdenv.isLinux, alsa-lib
+, pulseaudioSupport ? config.pulseaudio or stdenv.isLinux, libpulseaudio, libcef
+, pciutils, pipewireSupport ? stdenv.isLinux, pipewire, libdrm, libajantv2
+, librist, libva, srt, qtwayland, wrapQtAppsHook }:
 
-let
-  inherit (lib) optional optionals;
+let inherit (lib) optional optionals;
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "obs-studio";
   version = "29.0.2";
 
@@ -66,14 +27,9 @@ stdenv.mkDerivation rec {
     ./Provide-runtime-plugin-destination-as-relative-path.patch
   ];
 
-  nativeBuildInputs = [
-    addOpenGLRunpath
-    cmake
-    pkg-config
-    wrapGAppsHook
-    wrapQtAppsHook
-  ]
-  ++ optional scriptingSupport swig;
+  nativeBuildInputs =
+    [ addOpenGLRunpath cmake pkg-config wrapGAppsHook wrapQtAppsHook ]
+    ++ optional scriptingSupport swig;
 
   buildInputs = [
     curl
@@ -99,11 +55,9 @@ stdenv.mkDerivation rec {
     libva
     srt
     qtwayland
-  ]
-  ++ optionals scriptingSupport [ luajit python3 ]
-  ++ optional alsaSupport alsa-lib
-  ++ optional pulseaudioSupport libpulseaudio
-  ++ optionals pipewireSupport [ pipewire libdrm ];
+  ] ++ optionals scriptingSupport [ luajit python3 ]
+    ++ optional alsaSupport alsa-lib ++ optional pulseaudioSupport libpulseaudio
+    ++ optionals pipewireSupport [ pipewire libdrm ];
 
   # Copied from the obs-linuxbrowser
   postUnpack = ''
@@ -121,7 +75,7 @@ stdenv.mkDerivation rec {
   # DL_OPENGL is an explicit path. Not sure if there's a better way
   # to handle this.
   cmakeFlags = [
-    "-DCMAKE_CXX_FLAGS=-DDL_OPENGL=\\\"$(out)/lib/libobs-opengl.so\\\""
+    ''-DCMAKE_CXX_FLAGS=-DDL_OPENGL=\"$(out)/lib/libobs-opengl.so\"''
     "-DOBS_VERSION_OVERRIDE=${version}"
     "-Wno-dev" # kill dev warnings that are useless for packaging
     # Add support for browser source
@@ -144,7 +98,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Free and open source software for video recording and live streaming";
+    description =
+      "Free and open source software for video recording and live streaming";
     longDescription = ''
       This project is a rewrite of what was formerly known as "Open Broadcaster
       Software", software originally designed for recording and streaming live

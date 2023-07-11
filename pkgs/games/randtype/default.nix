@@ -27,6 +27,7 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ dandellion ];
     license = licenses.gpl2Only;
     platforms = platforms.unix;
-    broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/randtype.x86_64-darwin
+    broken =
+      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/randtype.x86_64-darwin
   };
 }

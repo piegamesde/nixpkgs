@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "23.04";
 
   src = fetchurl {
-    url = "https://mediaarea.net/download/source/libmediainfo/${version}/libmediainfo_${version}.tar.xz";
+    url =
+      "https://mediaarea.net/download/source/libmediainfo/${version}/libmediainfo_${version}.tar.xz";
     sha256 = "sha256-NlDt6jJv5U0/Y0YUdkSZUI++7ErphAAvCGrfHQwHGSY=";
   };
 

@@ -16,9 +16,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ lzip ];
 
-  configureFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
-  ];
+  configureFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
   doCheck = true;
 

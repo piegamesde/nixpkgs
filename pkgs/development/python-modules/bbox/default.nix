@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pyquaternion
-, numpy
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, pyquaternion, numpy }:
 
 buildPythonPackage rec {
   pname = "bbox";

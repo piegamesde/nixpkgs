@@ -1,8 +1,5 @@
-{ lib, fetchFromGitHub
-  , buildPythonApplication, buildPythonPackage
-  , pygobject3, pytest-runner, requests, responses, pytest, python-olm
-  , canonicaljson, olm
-}:
+{ lib, fetchFromGitHub, buildPythonApplication, buildPythonPackage, pygobject3
+, pytest-runner, requests, responses, pytest, python-olm, canonicaljson, olm }:
 let
   mainsrc = fetchFromGitHub {
     owner = "saadnpq";
@@ -19,10 +16,8 @@ let
 
     src = "${mainsrc}/matrix-python-sdk/";
 
-    propagatedBuildInputs = [
-      requests responses olm python-olm canonicaljson
-      pytest-runner pytest
-    ];
+    propagatedBuildInputs =
+      [ requests responses olm python-olm canonicaljson pytest-runner pytest ];
 
     doCheck = false;
     doInstallCheck = false;
@@ -34,19 +29,18 @@ let
     };
   };
 
-in
-buildPythonApplication rec {
+in buildPythonApplication rec {
   pname = "matrixcli";
   version = "0.0.2019-08-15";
 
   src = mainsrc;
 
-  propagatedBuildInputs = [pygobject3 sdk];
+  propagatedBuildInputs = [ pygobject3 sdk ];
 
   meta = {
     description = "CLI client for Matrix";
     license = lib.licenses.gpl3;
-    maintainers = [lib.maintainers.raskin];
+    maintainers = [ lib.maintainers.raskin ];
     platforms = lib.platforms.linux;
     homepage = "https://github.com/saadnpq/matrixcli";
   };

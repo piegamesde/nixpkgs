@@ -1,18 +1,11 @@
-{ stdenvNoCC
-, lib
-, fetchurl
-, undmg
-, pname
-, version
-, sha256
-, metaCommon ? { }
-}:
+{ stdenvNoCC, lib, fetchurl, undmg, pname, version, sha256, metaCommon ? { } }:
 
 stdenvNoCC.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url = "https://github.com/sindresorhus/caprine/releases/download/v${version}/Caprine-${version}.dmg";
+    url =
+      "https://github.com/sindresorhus/caprine/releases/download/v${version}/Caprine-${version}.dmg";
     name = "Caprine-${version}.dmg";
     inherit sha256;
   };

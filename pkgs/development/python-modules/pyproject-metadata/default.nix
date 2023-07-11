@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, packaging
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, tomli
-, wheel
-}:
+{ lib, buildPythonPackage, fetchPypi, packaging, pytestCheckHook, pythonOlder
+, setuptools, tomli, wheel }:
 
 buildPythonPackage rec {
   pname = "pyproject-metadata";
@@ -21,32 +13,23 @@ buildPythonPackage rec {
     hash = "sha256-CpTxixCLmyHzomo9VB8FbDTtyxfchyoUShVhj+1672c=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-    wheel
-  ];
+  nativeBuildInputs = [ setuptools wheel ];
 
-  propagatedBuildInputs = [
-    packaging
-  ];
+  propagatedBuildInputs = [ packaging ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ];
+  nativeCheckInputs = [ pytestCheckHook ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   # Many broken tests, and missing test files
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pyproject_metadata"
-  ];
+  pythonImportsCheck = [ "pyproject_metadata" ];
 
   meta = with lib; {
     description = "PEP 621 metadata parsing";
     homepage = "https://github.com/FFY00/python-pyproject-metadata";
-    changelog = "https://github.com/FFY00/python-pyproject-metadata/blob/${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/FFY00/python-pyproject-metadata/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ fridh ];
   };

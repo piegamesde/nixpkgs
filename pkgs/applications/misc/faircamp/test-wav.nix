@@ -1,7 +1,4 @@
-{ stdenv
-, faircamp
-, ffmpeg
-}:
+{ stdenv, faircamp, ffmpeg }:
 
 stdenv.mkDerivation {
   name = "faircamp-test-wav";

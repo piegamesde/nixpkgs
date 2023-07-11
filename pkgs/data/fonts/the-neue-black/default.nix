@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   version = "1.007";
 
   src = fetchzip {
-    url = "https://github.com/theleagueof/the-neue-black/releases/download/${finalAttrs.version}/TheNeueBlack-${finalAttrs.version}.tar.xz";
+    url =
+      "https://github.com/theleagueof/the-neue-black/releases/download/${finalAttrs.version}/TheNeueBlack-${finalAttrs.version}.tar.xz";
     hash = "sha256-AsB6w1000xdl+pOPDXqqzQhru1T/VD0hIJ4gFec7mU4=";
   };
 
@@ -19,7 +20,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    description = "Tré Seals’ first open-source font, a typeface based on the Chicago Freedom Movement";
+    description =
+      "Tré Seals’ first open-source font, a typeface based on the Chicago Freedom Movement";
     longDescription = ''
       The open-source release of The Neue Black is in partnership with designer
       Tré Seals of Vocal Type Co. The Neue Black is a display sans serif with a

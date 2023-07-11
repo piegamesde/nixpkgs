@@ -1,11 +1,4 @@
-{ stdenv
-, lib
-, fetchFromGitea
-, curl
-, openssl
-, nix-update-script
-, testers
-, snac2
+{ stdenv, lib, fetchFromGitea, curl, openssl, nix-update-script, testers, snac2
 }:
 
 stdenv.mkDerivation rec {
@@ -35,7 +28,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://codeberg.org/grunfink/snac2";
     description = "A simple, minimalistic ActivityPub instance (2.x, C)";
-    changelog = "https://codeberg.org/grunfink/snac2/src/tag/${version}/RELEASE_NOTES.md";
+    changelog =
+      "https://codeberg.org/grunfink/snac2/src/tag/${version}/RELEASE_NOTES.md";
     license = licenses.mit;
     maintainers = with maintainers; [ misuzu ];
     platforms = platforms.linux;

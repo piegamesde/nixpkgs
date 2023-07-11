@@ -1,22 +1,8 @@
-{ lib
-, stdenv
-, autoPatchelfHook
-, graalvm-ce
-, makeWrapper
-, perl
-, unzip
-, zlib
+{ lib, stdenv, autoPatchelfHook, graalvm-ce, makeWrapper, perl, unzip, zlib
 , libxcrypt-legacy
-  # extra params
-, product
-, javaVersion
-, extraBuildInputs ? [ ]
-, extraNativeBuildInputs ? [ ]
-, graalvmPhases ? { }
-, meta ? { }
-, passthru ? { }
-, ...
-} @ args:
+# extra params
+, product, javaVersion, extraBuildInputs ? [ ], extraNativeBuildInputs ? [ ]
+, graalvmPhases ? { }, meta ? { }, passthru ? { }, ... }@args:
 
 let
   extraArgs = builtins.removeAttrs args [
@@ -36,13 +22,11 @@ let
     "meta"
     "passthru"
   ];
-in
-stdenv.mkDerivation ({
+in stdenv.mkDerivation ({
   pname = "${product}-java${javaVersion}";
 
   nativeBuildInputs = [ perl unzip makeWrapper ]
-    ++ lib.optional stdenv.isLinux autoPatchelfHook
-    ++ extraNativeBuildInputs;
+    ++ lib.optional stdenv.isLinux autoPatchelfHook ++ extraNativeBuildInputs;
 
   buildInputs = [
     stdenv.cc.cc.lib # libstdc++.so.6
@@ -101,8 +85,10 @@ stdenv.mkDerivation ({
     inherit graalvmPhases;
   } // passthru;
 
-  meta = with lib; ({
-    inherit (graalvm-ce.meta) homepage license sourceProvenance maintainers platforms;
-    description = "High-Performance Polyglot VM (Product: ${product})";
-  } // meta);
+  meta = with lib;
+    ({
+      inherit (graalvm-ce.meta)
+        homepage license sourceProvenance maintainers platforms;
+      description = "High-Performance Polyglot VM (Product: ${product})";
+    } // meta);
 } // extraArgs)

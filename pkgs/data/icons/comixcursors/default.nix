@@ -3,20 +3,18 @@
 let
   dimensions = {
     color = [ "Black" "Blue" "Green" "Orange" "Red" "White" ];
-    opacity = [ "" "Opaque_" ];  # Translucent or opaque.
-    thickness = [ "" "Slim_" ];  # Thick or slim edges.
-    handedness = [ "" "LH_" ];   # Right- or left-handed.
+    opacity = [ "" "Opaque_" ]; # Translucent or opaque.
+    thickness = [ "" "Slim_" ]; # Thick or slim edges.
+    handedness = [ "" "LH_" ]; # Right- or left-handed.
   };
   product = lib.cartesianProductOfSets dimensions;
-  variantName =
-    { color, opacity, thickness, handedness }:
+  variantName = { color, opacity, thickness, handedness }:
     "${handedness}${opacity}${thickness}${color}";
   variants =
     # (The order of this list is already good looking enough to show in the
     # meta.longDescription.)
     map variantName product;
-in
-stdenvNoCC.mkDerivation rec {
+in stdenvNoCC.mkDerivation rec {
   pname = "comixcursors";
   version = "0.9.2";
 
@@ -71,17 +69,16 @@ stdenvNoCC.mkDerivation rec {
 
   outputs = let
     default = "Opaque_Black";
-  in
     # Have the most-traditional variant be the default output (as the first).
     # Even with outputsToInstall=[], the default/first still has an effect on
     # some Nix tools (e.g. nix-build).
-    [ default ] ++ (lib.remove default variants)
-    # Need a dummy "out" output to prevent the builder scripts from breaking.
-    ++ [ "out" ];
+  in [ default ] ++ (lib.remove default variants)
+  # Need a dummy "out" output to prevent the builder scripts from breaking.
+  ++ [ "out" ];
 
   # No default output (to the extent possible).  Instead, the outputs'
   # attributes are used to choose which variant(s) to have.
-  outputsToInstall = [];
+  outputsToInstall = [ ];
 
   meta = with lib; {
     description = "The Comix Cursors mouse themes";

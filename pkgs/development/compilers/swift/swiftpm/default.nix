@@ -1,24 +1,8 @@
-{ lib
-, stdenv
-, callPackage
-, cmake
-, ninja
-, git
-, swift
-, swiftpm2nix
-, Foundation
-, XCTest
-, sqlite
-, ncurses
-, substituteAll
-, runCommandLocal
-, makeWrapper
+{ lib, stdenv, callPackage, cmake, ninja, git, swift, swiftpm2nix, Foundation
+, XCTest, sqlite, ncurses, substituteAll, runCommandLocal, makeWrapper
 , DarwinTools # sw_vers
 , cctools # vtool
-, xcbuild
-, CryptoKit
-, LocalAuthentication
-}:
+, xcbuild, CryptoKit, LocalAuthentication }:
 
 let
 
@@ -64,67 +48,64 @@ let
   };
 
   # Tools invoked by swiftpm at run-time.
-  runtimeDeps = [ git ]
-    ++ lib.optionals stdenv.isDarwin [
-      xcbuild.xcrun
-      # vtool is used to determine a minimum deployment target. This is part of
-      # cctools, but adding that as a build input puts an unwrapped linker in
-      # PATH, and breaks builds. This small derivation exposes just vtool.
-      (runCommandLocal "vtool" { } ''
-        mkdir -p $out/bin
-        ln -s ${cctools}/bin/vtool $out/bin/vtool
-      '')
-    ];
+  runtimeDeps = [ git ] ++ lib.optionals stdenv.isDarwin [
+    xcbuild.xcrun
+    # vtool is used to determine a minimum deployment target. This is part of
+    # cctools, but adding that as a build input puts an unwrapped linker in
+    # PATH, and breaks builds. This small derivation exposes just vtool.
+    (runCommandLocal "vtool" { } ''
+      mkdir -p $out/bin
+      ln -s ${cctools}/bin/vtool $out/bin/vtool
+    '')
+  ];
 
   # Common attributes for the bootstrap derivations.
-  mkBootstrapDerivation = attrs: stdenv.mkDerivation (attrs // {
-    nativeBuildInputs = (attrs.nativeBuildInputs or [ ])
-      ++ [ cmake ninja swift ]
-      ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+  mkBootstrapDerivation = attrs:
+    stdenv.mkDerivation (attrs // {
+      nativeBuildInputs = (attrs.nativeBuildInputs or [ ])
+        ++ [ cmake ninja swift ]
+        ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
 
-    buildInputs = (attrs.buildInputs or [ ])
-      ++ [ Foundation ];
+      buildInputs = (attrs.buildInputs or [ ]) ++ [ Foundation ];
 
-    postPatch = (attrs.postPatch or "")
-      + lib.optionalString stdenv.isDarwin ''
-        # On Darwin only, Swift uses arm64 as cpu arch.
-        if [ -e cmake/modules/SwiftSupport.cmake ]; then
-          substituteInPlace cmake/modules/SwiftSupport.cmake \
-            --replace '"aarch64" PARENT_SCOPE' '"arm64" PARENT_SCOPE'
-        fi
-      '';
+      postPatch = (attrs.postPatch or "")
+        + lib.optionalString stdenv.isDarwin ''
+          # On Darwin only, Swift uses arm64 as cpu arch.
+          if [ -e cmake/modules/SwiftSupport.cmake ]; then
+            substituteInPlace cmake/modules/SwiftSupport.cmake \
+              --replace '"aarch64" PARENT_SCOPE' '"arm64" PARENT_SCOPE'
+          fi
+        '';
 
-    preConfigure = (attrs.preConfigure or "")
-      + ''
+      preConfigure = (attrs.preConfigure or "") + ''
         # Builds often don't set a target, and our default minimum macOS deployment
         # target on x86_64-darwin is too low. Harmless on non-Darwin.
         export MACOSX_DEPLOYMENT_TARGET=10.15.4
       '';
 
-    postInstall = (attrs.postInstall or "")
-      + lib.optionalString stdenv.isDarwin ''
-        # The install name of libraries is incorrectly set to lib/ (via our
-        # CMake setup hook) instead of lib/swift/. This'd be easily fixed by
-        # fixDarwinDylibNames, but some builds create libraries that reference
-        # eachother, and we also have to fix those references.
-        dylibs="$(find $out/lib/swift* -name '*.dylib')"
-        changes=""
-        for dylib in $dylibs; do
-          changes+=" -change $(otool -D $dylib | tail -n 1) $dylib"
-        done
-        for dylib in $dylibs; do
-          install_name_tool -id $dylib $changes $dylib
-        done
-      '';
+      postInstall = (attrs.postInstall or "")
+        + lib.optionalString stdenv.isDarwin ''
+          # The install name of libraries is incorrectly set to lib/ (via our
+          # CMake setup hook) instead of lib/swift/. This'd be easily fixed by
+          # fixDarwinDylibNames, but some builds create libraries that reference
+          # eachother, and we also have to fix those references.
+          dylibs="$(find $out/lib/swift* -name '*.dylib')"
+          changes=""
+          for dylib in $dylibs; do
+            changes+=" -change $(otool -D $dylib | tail -n 1) $dylib"
+          done
+          for dylib in $dylibs; do
+            install_name_tool -id $dylib $changes $dylib
+          done
+        '';
 
-    cmakeFlags = (attrs.cmakeFlags or [ ])
-      ++ [
+      cmakeFlags = (attrs.cmakeFlags or [ ]) ++ [
         # Some builds link to libraries within the same build. Make sure these
         # create references to $out. None of our builds run their own products,
         # so we don't have to account for that scenario.
         "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
       ];
-  });
+    });
 
   # On Darwin, we only want ncurses in the linker search path, because headers
   # are part of libsystem. Adding its headers to the search path causes strange
@@ -181,10 +162,7 @@ let
     name = "swift-tools-support-core";
     src = generated.sources.swift-tools-support-core;
 
-    buildInputs = [
-      swift-system
-      sqlite
-    ];
+    buildInputs = [ swift-system sqlite ];
 
     postInstall = cmakeGlue.TSC + ''
       # Swift modules are not installed.
@@ -206,10 +184,7 @@ let
 
     buildInputs = [ ncursesInput sqlite ];
 
-    cmakeFlags = [
-      "-DBUILD_TESTING=NO"
-      "-DBUILD_EXAMPLES=NO"
-    ];
+    cmakeFlags = [ "-DBUILD_TESTING=NO" "-DBUILD_EXAMPLES=NO" ];
 
     postInstall = cmakeGlue.ArgumentParser
       + lib.optionalString stdenv.isLinux ''
@@ -236,9 +211,7 @@ let
     nativeBuildInputs = lib.optional stdenv.isDarwin xcbuild;
     buildInputs = [ ncursesInput sqlite ];
 
-    patches = [
-      ./patches/llbuild-cmake-disable-rpath.patch
-    ];
+    patches = [ ./patches/llbuild-cmake-disable-rpath.patch ];
 
     postPatch = ''
       # Substitute ncurses for curses.
@@ -256,9 +229,7 @@ let
         --replace 'add_subdirectory(Xcode/' '#add_subdirectory(Xcode/'
     '';
 
-    cmakeFlags = [
-      "-DLLBUILD_SUPPORT_BINDINGS=Swift"
-    ];
+    cmakeFlags = [ "-DLLBUILD_SUPPORT_BINDINGS=Swift" ];
 
     postInstall = cmakeGlue.LLBuild + ''
       # Install module map.
@@ -321,9 +292,7 @@ let
       swift-tools-support-core
     ];
 
-    cmakeFlags = [
-      "-DUSE_CMAKE_INSTALL=ON"
-    ];
+    cmakeFlags = [ "-DUSE_CMAKE_INSTALL=ON" ];
 
     postInstall = ''
       for program in $out/bin/swift-*; do
@@ -332,23 +301,14 @@ let
     '';
   });
 
-# Build the final swiftpm with the bootstrapping swiftpm.
+  # Build the final swiftpm with the bootstrapping swiftpm.
 in stdenv.mkDerivation (commonAttrs // {
   pname = "swiftpm";
 
-  nativeBuildInputs = commonAttrs.nativeBuildInputs ++ [
-    swift
-    swiftpm-bootstrap
-  ];
-  buildInputs = [
-    ncursesInput
-    sqlite
-    XCTest
-  ]
-    ++ lib.optionals stdenv.isDarwin [
-      CryptoKit
-      LocalAuthentication
-    ];
+  nativeBuildInputs = commonAttrs.nativeBuildInputs
+    ++ [ swift swiftpm-bootstrap ];
+  buildInputs = [ ncursesInput sqlite XCTest ]
+    ++ lib.optionals stdenv.isDarwin [ CryptoKit LocalAuthentication ];
 
   configurePhase = generated.configure + ''
     # Functionality provided by Xcode XCTest, but not available in
@@ -359,10 +319,12 @@ in stdenv.mkDerivation (commonAttrs // {
 
     # Prevent a warning about SDK directories we don't have.
     swiftpmMakeMutable swift-driver
-    patch -p1 -d .build/checkouts/swift-driver -i ${substituteAll {
-      src = ../swift-driver/patches/prevent-sdk-dirs-warnings.patch;
-      inherit (builtins) storeDir;
-    }}
+    patch -p1 -d .build/checkouts/swift-driver -i ${
+      substituteAll {
+        src = ../swift-driver/patches/prevent-sdk-dirs-warnings.patch;
+        inherit (builtins) storeDir;
+      }
+    }
   '';
 
   buildPhase = ''
@@ -414,6 +376,12 @@ in stdenv.mkDerivation (commonAttrs // {
     homepage = "https://github.com/apple/swift-package-manager";
     platforms = with lib.platforms; linux ++ darwin;
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dtzWill trepetti dduan trundle stephank ];
+    maintainers = with lib.maintainers; [
+      dtzWill
+      trepetti
+      dduan
+      trundle
+      stephank
+    ];
   };
 })

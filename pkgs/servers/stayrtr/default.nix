@@ -1,9 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-, stayrtr
-, testers
-}:
+{ lib, fetchFromGitHub, buildGoModule, stayrtr, testers }:
 
 buildGoModule rec {
   pname = "stayrtr";
@@ -17,19 +12,11 @@ buildGoModule rec {
   };
   vendorHash = "sha256-ndMME9m3kbv/c1iKlU2Pn/YoiRQy7jfVQri3M+qhujk=";
 
-  patches = [
-    ./go.mod.patch
-  ];
+  patches = [ ./go.mod.patch ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
-  passthru.tests.version = testers.testVersion {
-    package = stayrtr;
-  };
+  passthru.tests.version = testers.testVersion { package = stayrtr; };
 
   meta = with lib; {
     description = "Simple RPKI-To-Router server. (Hard fork of GoRTR)";

@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, gdcm
-, nibabel
-, numpy
-, pydicom
-, scipy
-, setuptools
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, gdcm
+, nibabel, numpy, pydicom, scipy, setuptools }:
 
 buildPythonPackage rec {
   pname = "dicom2nifti";

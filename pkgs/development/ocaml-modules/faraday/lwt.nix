@@ -7,7 +7,5 @@ buildDunePackage rec {
   propagatedBuildInputs = [ faraday lwt ];
   duneVersion = "3";
 
-  meta = faraday.meta // {
-    description = "Lwt support for Faraday";
-  };
+  meta = faraday.meta // { description = "Lwt support for Faraday"; };
 }

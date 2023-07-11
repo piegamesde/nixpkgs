@@ -1,6 +1,5 @@
-{ config, lib, stdenv, autoreconfHook, fetchFromGitHub, fetchpatch
-, pkg-config, makeWrapper
-, alsa-lib, alsa-plugins, libtool, icu, pcre2
+{ config, lib, stdenv, autoreconfHook, fetchFromGitHub, fetchpatch, pkg-config
+, makeWrapper, alsa-lib, alsa-plugins, libtool, icu, pcre2
 , pulseaudioSupport ? config.pulseaudio or false, libpulseaudio }:
 
 stdenv.mkDerivation rec {
@@ -19,24 +18,16 @@ stdenv.mkDerivation rec {
     #   https://github.com/MycroftAI/mimic1/pull/216
     (fetchpatch {
       name = "fno-common";
-      url = "https://github.com/MycroftAI/mimic1/commit/77b36eaeb2c38eba571b8db7e9bb0fd507774e6d.patch";
+      url =
+        "https://github.com/MycroftAI/mimic1/commit/77b36eaeb2c38eba571b8db7e9bb0fd507774e6d.patch";
       sha256 = "0n3hqrfpbdp44y0c8bq55ay9m4c96r09k18hjxka4x54j5c7lw1m";
     })
   ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config makeWrapper ];
 
-  buildInputs = [
-    alsa-lib
-    alsa-plugins
-    libtool
-    icu
-    pcre2
-  ] ++ lib.optional pulseaudioSupport libpulseaudio;
+  buildInputs = [ alsa-lib alsa-plugins libtool icu pcre2 ]
+    ++ lib.optional pulseaudioSupport libpulseaudio;
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12

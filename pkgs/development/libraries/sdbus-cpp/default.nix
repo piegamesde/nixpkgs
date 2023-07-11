@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, systemd
-, expat
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, systemd, expat }:
 
 stdenv.mkDerivation rec {
   pname = "sdbus-cpp";
@@ -18,24 +11,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-EX/XLgqUwIRosLu3Jgtpp42Yt6Tf22Htj9JULoUL7ao=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    systemd
-    expat
-  ];
+  buildInputs = [ systemd expat ];
 
-  cmakeFlags = [
-    "-DBUILD_CODE_GEN=ON"
-  ];
+  cmakeFlags = [ "-DBUILD_CODE_GEN=ON" ];
 
   meta = with lib; {
     homepage = "https://github.com/Kistler-Group/sdbus-cpp";
-    changelog = "https://github.com/Kistler-Group/sdbus-cpp/blob/v${version}/ChangeLog";
-    description = "High-level C++ D-Bus library designed to provide easy-to-use yet powerful API";
+    changelog =
+      "https://github.com/Kistler-Group/sdbus-cpp/blob/v${version}/ChangeLog";
+    description =
+      "High-level C++ D-Bus library designed to provide easy-to-use yet powerful API";
     longDescription = ''
       sdbus-c++ is a high-level C++ D-Bus library for Linux designed to provide expressive, easy-to-use API in modern C++.
       It adds another layer of abstraction on top of sd-bus, a nice, fresh C D-Bus implementation by systemd.

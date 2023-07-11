@@ -15,9 +15,7 @@ buildGoModule rec {
 
   ldflags = [ "-s" "-w" ];
 
-  passthru.tests.version = testers.testVersion {
-    package = mmark;
-  };
+  passthru.tests.version = testers.testVersion { package = mmark; };
 
   meta = {
     description = "A powerful markdown processor in Go geared towards the IETF";

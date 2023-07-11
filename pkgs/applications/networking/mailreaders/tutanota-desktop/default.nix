@@ -1,20 +1,18 @@
-{ stdenv, lib, fetchurl, makeDesktopItem, copyDesktopItems, makeWrapper,
-electron, libsecret }:
+{ stdenv, lib, fetchurl, makeDesktopItem, copyDesktopItems, makeWrapper
+, electron, libsecret }:
 
 stdenv.mkDerivation rec {
   pname = "tutanota-desktop";
   version = "3.112.6";
 
   src = fetchurl {
-    url = "https://github.com/tutao/tutanota/releases/download/tutanota-desktop-release-${version}/${pname}-${version}-unpacked-linux.tar.gz";
+    url =
+      "https://github.com/tutao/tutanota/releases/download/tutanota-desktop-release-${version}/${pname}-${version}-unpacked-linux.tar.gz";
     name = "tutanota-desktop-${version}.tar.gz";
     sha256 = "sha256-Kqj6XQkwPU7pmR8JY8f7iMqpOYjvWxS5Yir/YTBPXjM=";
   };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    makeWrapper
-  ];
+  nativeBuildInputs = [ copyDesktopItems makeWrapper ];
 
   dontConfigure = true;
   dontBuild = true;
@@ -46,7 +44,9 @@ stdenv.mkDerivation rec {
       $out/bin/tutanota-desktop \
       --add-flags $out/share/tutanota-desktop/resources/app.asar \
       --run "mkdir -p /tmp/tutanota" \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libsecret stdenv.cc.cc.lib ]}
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [ libsecret stdenv.cc.cc.lib ]
+      }
 
     runHook postInstall
   '';

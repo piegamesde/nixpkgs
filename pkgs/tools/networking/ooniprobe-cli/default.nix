@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "ooniprobe-cli";
@@ -20,7 +17,8 @@ buildGoModule rec {
 
   meta = with lib; {
     changelog = "https://github.com/ooni/probe-cli/releases/tag/${src.rev}";
-    description = "The Open Observatory of Network Interference command line network probe";
+    description =
+      "The Open Observatory of Network Interference command line network probe";
     homepage = "https://ooni.org/install/cli";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ dotlambda ];

@@ -18,7 +18,12 @@ buildGoModule rec {
 
   vendorHash = "sha256-0N0bZdimGHu3vkLe+eGKBTm/YeSQOnp+Pxhz3LVniTk=";
 
-  excludedPackages = [ "internal/ci/updatetxtar" "internal/cmd/embedpkg" "internal/cmd/qgo" "pkg/gen" ];
+  excludedPackages = [
+    "internal/ci/updatetxtar"
+    "internal/cmd/embedpkg"
+    "internal/cmd/qgo"
+    "pkg/gen"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -42,8 +47,9 @@ buildGoModule rec {
     command = "cue version";
   };
 
-  meta = with lib;  {
-    description = "A data constraint language which aims to simplify tasks involving defining and using data";
+  meta = with lib; {
+    description =
+      "A data constraint language which aims to simplify tasks involving defining and using data";
     homepage = "https://cuelang.org/";
     license = lib.licenses.asl20;
     maintainers = with maintainers; [ aaronjheng ];

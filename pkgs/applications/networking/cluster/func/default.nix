@@ -23,7 +23,6 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-
   postInstall = ''
     installShellCompletion --cmd func \
       --bash <($out/bin/func completion bash) \
@@ -37,9 +36,11 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "The Knative client library and CLI for creating, building, and deploying Knative Functions";
+    description =
+      "The Knative client library and CLI for creating, building, and deploying Knative Functions";
     homepage = "https://github.com/knative/func";
-    changelog = "https://github.com/knative/func/releases/tag/knative-v${version}";
+    changelog =
+      "https://github.com/knative/func/releases/tag/knative-v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ maxwell-lt ];
   };

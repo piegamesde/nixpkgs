@@ -1,10 +1,5 @@
-{ lib
-, bleak
-, bleak-retry-connector
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-}:
+{ lib, bleak, bleak-retry-connector, buildPythonPackage, fetchFromGitHub
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "cometblue-lite";
@@ -20,17 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-Cjd7PdZ2/neRr1jStDY5iJaGMJ/srnFmCea8aLNan6g=";
   };
 
-  propagatedBuildInputs = [
-    bleak
-    bleak-retry-connector
-  ];
+  propagatedBuildInputs = [ bleak bleak-retry-connector ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "cometblue_lite"
-  ];
+  pythonImportsCheck = [ "cometblue_lite" ];
 
   meta = with lib; {
     description = "Module for Eurotronic Comet Blue thermostats";

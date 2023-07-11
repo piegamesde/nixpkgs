@@ -1,16 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, dateparser
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-mock
-, six
-, ujson
-, websockets
-}:
+{ lib, aiohttp, buildPythonPackage, dateparser, fetchFromGitHub, pytestCheckHook
+, pythonOlder, requests, requests-mock, six, ujson, websockets }:
 
 buildPythonPackage rec {
   pname = "python-binance";
@@ -26,19 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-e88INUEkjOSVOD0KSs9LmstuQ7dQZdJk8K6VqFEusww=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    dateparser
-    requests
-    six
-    ujson
-    websockets
-  ];
+  propagatedBuildInputs = [ aiohttp dateparser requests six ujson websockets ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook requests-mock ];
 
   disabledTestPaths = [
     # Tests require network access
@@ -46,12 +25,11 @@ buildPythonPackage rec {
     "tests/test_historical_klines.py"
   ];
 
-  pythonImportsCheck = [
-    "binance"
-  ];
+  pythonImportsCheck = [ "binance" ];
 
   meta = with lib; {
-    description = "Binance Exchange API python implementation for automated trading";
+    description =
+      "Binance Exchange API python implementation for automated trading";
     homepage = "https://github.com/sammchardy/python-binance";
     license = licenses.mit;
     maintainers = with maintainers; [ bhipple ];

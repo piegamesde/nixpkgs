@@ -1,6 +1,7 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, varnish, docutils, removeReferencesTo }:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, varnish, docutils
+, removeReferencesTo }:
 let
-  common = { version, sha256, extraNativeBuildInputs ? [] }:
+  common = { version, sha256, extraNativeBuildInputs ? [ ] }:
     stdenv.mkDerivation rec {
       pname = "${varnish.name}-modules";
       inherit version;
@@ -17,7 +18,7 @@ let
         docutils
         pkg-config
         removeReferencesTo
-        varnish.python  # use same python version as varnish server
+        varnish.python # use same python version as varnish server
       ];
 
       buildInputs = [ varnish ];
@@ -27,16 +28,17 @@ let
         substituteInPlace Makefile.am --replace "''${LIBVARNISHAPI_DATAROOTDIR}/aclocal" "${varnish.dev}/share/aclocal"
       '';
 
-      postInstall = "find $out -type f -exec remove-references-to -t ${varnish.dev} '{}' +"; # varnish.dev captured only as __FILE__ in assert messages
+      postInstall =
+        "find $out -type f -exec remove-references-to -t ${varnish.dev} '{}' +"; # varnish.dev captured only as __FILE__ in assert messages
 
       meta = with lib; {
-        description = "Collection of Varnish Cache modules (vmods) by Varnish Software";
+        description =
+          "Collection of Varnish Cache modules (vmods) by Varnish Software";
         homepage = "https://github.com/varnish/varnish-modules";
         inherit (varnish.meta) license platforms maintainers;
       };
     };
-in
-{
+in {
   modules15 = common {
     version = "0.15.1";
     sha256 = "1lwgjhgr5yw0d17kbqwlaj5pkn70wvaqqjpa1i0n459nx5cf5pqj";

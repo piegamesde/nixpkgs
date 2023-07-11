@@ -1,32 +1,8 @@
-{ stdenv
-, lib
-, fetchurl
-, fetchpatch
-, fetchFromGitHub
-, copyDesktopItems
-, makeDesktopItem
-, desktopToDarwinBundle
-, buildPackages
-, pkg-config
-, freetype
-, harfbuzz
-, openjpeg
-, jbig2dec
-, libjpeg
-, darwin
-, gumbo
-, enableX11 ? (!stdenv.isDarwin)
-, libX11
-, libXext
-, libXi
-, libXrandr
-, enableCurl ? true
-, curl
-, openssl
-, enableGL ? true
-, freeglut
-, libGLU
-, xcbuild
+{ stdenv, lib, fetchurl, fetchpatch, fetchFromGitHub, copyDesktopItems
+, makeDesktopItem, desktopToDarwinBundle, buildPackages, pkg-config, freetype
+, harfbuzz, openjpeg, jbig2dec, libjpeg, darwin, gumbo
+, enableX11 ? (!stdenv.isDarwin), libX11, libXext, libXi, libXrandr
+, enableCurl ? true, curl, openssl, enableGL ? true, freeglut, libGLU, xcbuild
 }:
 let
 
@@ -45,19 +21,20 @@ let
     };
   });
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   version = "1.21.1";
   pname = "mupdf";
 
   src = fetchurl {
-    url = "https://mupdf.com/downloads/archive/${pname}-${version}-source.tar.gz";
+    url =
+      "https://mupdf.com/downloads/archive/${pname}-${version}-source.tar.gz";
     sha256 = "sha256-sk3b4SUGzILeCNXNSUYUugg0b4F12x2YvPk4/5SSWlQ=";
   };
 
-  patches = [ ./0001-Use-command-v-in-favor-of-which.patch
-              ./0002-Add-Darwin-deps.patch
-            ];
+  patches = [
+    ./0001-Use-command-v-in-favor-of-which.patch
+    ./0002-Add-Darwin-deps.patch
+  ];
 
   postPatch = ''
     sed -i "s/__OPENJPEG__VERSION__/${openJpegVersion}/" source/fitz/load-jpx.c
@@ -81,14 +58,13 @@ stdenv.mkDerivation rec {
   buildInputs = [ freetype harfbuzz openjpeg jbig2dec libjpeg gumbo ]
     ++ lib.optional stdenv.isDarwin xcbuild
     ++ lib.optionals enableX11 [ libX11 libXext libXi libXrandr ]
-    ++ lib.optionals enableCurl [ curl openssl ]
-    ++ lib.optionals enableGL (
-    if stdenv.isDarwin then
+    ++ lib.optionals enableCurl [ curl openssl ] ++ lib.optionals enableGL
+    (if stdenv.isDarwin then
       with darwin.apple_sdk.frameworks; [ GLUT OpenGL ]
-    else
-      [ freeglut-mupdf libGLU ]
-  )
-  ;
+    else [
+      freeglut-mupdf
+      libGLU
+    ]);
   outputs = [ "bin" "dev" "out" "man" "doc" ];
 
   preConfigure = ''
@@ -114,8 +90,16 @@ stdenv.mkDerivation rec {
       ];
       categories = [ "Graphics" "Viewer" ];
       keywords = [
-        "mupdf" "comic" "document" "ebook" "viewer"
-        "cbz" "epub" "fb2" "pdf" "xps"
+        "mupdf"
+        "comic"
+        "document"
+        "ebook"
+        "viewer"
+        "cbz"
+        "epub"
+        "fb2"
+        "pdf"
+        "xps"
       ];
     })
   ];
@@ -140,15 +124,17 @@ stdenv.mkDerivation rec {
     cp docs/logo/mupdf.png $bin/share/icons/hicolor/48x48/apps
   '' + (if enableGL then ''
     ln -s "$bin/bin/mupdf-gl" "$bin/bin/mupdf"
-  '' else lib.optionalString (enableX11) ''
-    ln -s "$bin/bin/mupdf-x11" "$bin/bin/mupdf"
-  '');
+  '' else
+    lib.optionalString (enableX11) ''
+      ln -s "$bin/bin/mupdf-x11" "$bin/bin/mupdf"
+    '');
 
   enableParallelBuilding = true;
 
   meta = with lib; {
     homepage = "https://mupdf.com";
-    description = "Lightweight PDF, XPS, and E-book viewer and toolkit written in portable C";
+    description =
+      "Lightweight PDF, XPS, and E-book viewer and toolkit written in portable C";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ vrthra fpletz ];
     platforms = platforms.unix;

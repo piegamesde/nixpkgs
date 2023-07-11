@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
   patches = [
     # Fix CMake relative install dir assumptions (https://github.com/ros/urdfdom/pull/142)
     (fetchpatch {
-      url = "https://github.com/ros/urdfdom/commit/cbe6884d267779463bb444be851f6404e692cc0a.patch";
+      url =
+        "https://github.com/ros/urdfdom/commit/cbe6884d267779463bb444be851f6404e692cc0a.patch";
       hash = "sha256-1gTRKIGqiSRion76bGecSfFJSBskYUJguUIa6ePIiX4=";
     })
   ];
@@ -25,7 +26,8 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ urdfdom-headers console-bridge ];
 
   meta = with lib; {
-    description = "Provides core data structures and a simple XML parser for populating the class data structures from an URDF file";
+    description =
+      "Provides core data structures and a simple XML parser for populating the class data structures from an URDF file";
     homepage = "https://github.com/ros/urdfdom";
     license = licenses.bsd3;
     maintainers = with maintainers; [ lopsided98 ];

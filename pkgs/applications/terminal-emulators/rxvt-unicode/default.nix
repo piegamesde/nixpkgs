@@ -1,14 +1,7 @@
-{ lib, stdenv, fetchurl, fetchpatch, makeDesktopItem
-, libX11, libXt, libXft, libXrender
-, ncurses, fontconfig, freetype
-, pkg-config, gdk-pixbuf, perl
-, libptytty
-, perlSupport      ? true
-, gdkPixbufSupport ? true
-, unicode3Support  ? true
-, emojiSupport     ? false
-, nixosTests
-}:
+{ lib, stdenv, fetchurl, fetchpatch, makeDesktopItem, libX11, libXt, libXft
+, libXrender, ncurses, fontconfig, freetype, pkg-config, gdk-pixbuf, perl
+, libptytty, perlSupport ? true, gdkPixbufSupport ? true, unicode3Support ? true
+, emojiSupport ? false, nixosTests }:
 
 let
   pname = "rxvt-unicode";
@@ -27,30 +20,35 @@ let
 
   fetchPatchFromAUR = { package, name, rev, sha256 }:
     fetchpatch rec {
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/${name}?h=${package}&id=${rev}";
+      url =
+        "https://aur.archlinux.org/cgit/aur.git/plain/${name}?h=${package}&id=${rev}";
       extraPrefix = "";
       inherit name sha256;
     };
-in
 
-with lib;
+in with lib;
 
 stdenv.mkDerivation {
   name = "${pname}-unwrapped-${version}";
   inherit pname version;
 
   src = fetchurl {
-    url = "http://dist.schmorp.de/rxvt-unicode/Attic/rxvt-unicode-${version}.tar.bz2";
+    url =
+      "http://dist.schmorp.de/rxvt-unicode/Attic/rxvt-unicode-${version}.tar.bz2";
     sha256 = "0badnkjsn3zps24r5iggj8k5v4f00npc77wqg92pcn1q5z8r677y";
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [ libX11 libXt libXft ncurses  # required to build the terminfo file
-      fontconfig freetype libXrender
-      libptytty
-    ] ++ optional perlSupport perl
-      ++ optional gdkPixbufSupport gdk-pixbuf;
+  buildInputs = [
+    libX11
+    libXt
+    libXft
+    ncurses # required to build the terminfo file
+    fontconfig
+    freetype
+    libXrender
+    libptytty
+  ] ++ optional perlSupport perl ++ optional gdkPixbufSupport gdk-pixbuf;
 
   outputs = [ "out" "terminfo" ];
 
@@ -69,11 +67,10 @@ stdenv.mkDerivation {
       rev = "69701a09c2c206233952b84bc966407f6774f1dc";
       sha256 = "1jj5ai2182nq912279adihi4zph1w4dvbdqa1pwacy4na6y0fz9y";
     })
-  ] else [
-    ./patches/9.06-font-width.patch
-  ]) ++ [
-    ./patches/256-color-resources.patch
-  ]++ optional stdenv.isDarwin ./patches/makefile-phony.patch;
+  ] else
+    [ ./patches/9.06-font-width.patch ])
+    ++ [ ./patches/256-color-resources.patch ]
+    ++ optional stdenv.isDarwin ./patches/makefile-phony.patch;
 
   configureFlags = [
     "--with-terminfo=${placeholder "terminfo"}/share/terminfo"
@@ -85,18 +82,16 @@ stdenv.mkDerivation {
   LDFLAGS = [ "-lfontconfig" "-lXrender" "-lpthread" ];
   CFLAGS = [ "-I${freetype.dev}/include/freetype2" ];
 
-  preConfigure =
-    ''
-      # without this the terminfo won't be compiled by tic, see man tic
-      mkdir -p $terminfo/share/terminfo
-      export TERMINFO=$terminfo/share/terminfo
-    ''
-    + lib.optionalString perlSupport ''
-      # make urxvt find its perl file lib/perl5/site_perl
-      # is added to PERL5LIB automatically
-      mkdir -p $out/$(dirname ${perl.libPrefix})
-      ln -s $out/lib/urxvt $out/${perl.libPrefix}
-    '';
+  preConfigure = ''
+    # without this the terminfo won't be compiled by tic, see man tic
+    mkdir -p $terminfo/share/terminfo
+    export TERMINFO=$terminfo/share/terminfo
+  '' + lib.optionalString perlSupport ''
+    # make urxvt find its perl file lib/perl5/site_perl
+    # is added to PERL5LIB automatically
+    mkdir -p $out/$(dirname ${perl.libPrefix})
+    ln -s $out/lib/urxvt $out/${perl.libPrefix}
+  '';
 
   postInstall = ''
     mkdir -p $out/nix-support

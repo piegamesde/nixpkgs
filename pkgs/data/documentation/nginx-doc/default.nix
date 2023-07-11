@@ -31,10 +31,10 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "A reverse proxy and lightweight webserver (documentation)";
-    homepage    = "https://nginx.org/";
-    license     = licenses.bsd2;
-    platforms   = platforms.all;
-    priority    = 6;
+    homepage = "https://nginx.org/";
+    license = licenses.bsd2;
+    platforms = platforms.all;
+    priority = 6;
     maintainers = with maintainers; [ kaction ];
   };
 }

@@ -1,17 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, trezor
-, libagent
-, ecdsa
-, ed25519
-, mnemonic
-, keepkey
-, semver
-, setuptools
-, wheel
-, pinentry
-}:
+{ lib, buildPythonPackage, fetchPypi, trezor, libagent, ecdsa, ed25519, mnemonic
+, keepkey, semver, setuptools, wheel, pinentry }:
 
 buildPythonPackage rec {
   pname = "trezor_agent";
@@ -22,7 +10,18 @@ buildPythonPackage rec {
     hash = "sha256-4IylpUvXZYAXFkyFGNbN9iPTsHff3M/RL2Eq9f7wWFU=";
   };
 
-  propagatedBuildInputs = [ setuptools trezor libagent ecdsa ed25519 mnemonic keepkey semver wheel pinentry ];
+  propagatedBuildInputs = [
+    setuptools
+    trezor
+    libagent
+    ecdsa
+    ed25519
+    mnemonic
+    keepkey
+    semver
+    wheel
+    pinentry
+  ];
 
   # relax dependency constraint
   postPatch = ''

@@ -2,11 +2,12 @@
 
 let
   cfg = config.programs.iay;
-  inherit (lib) mkEnableOption mkIf mkOption mkPackageOptionMD optionalString types;
+  inherit (lib)
+    mkEnableOption mkIf mkOption mkPackageOptionMD optionalString types;
 in {
   options.programs.iay = {
     enable = mkEnableOption (lib.mdDoc "iay");
-    package = mkPackageOptionMD pkgs "iay" {};
+    package = mkPackageOptionMD pkgs "iay" { };
 
     minimalPrompt = mkOption {
       type = types.bool;

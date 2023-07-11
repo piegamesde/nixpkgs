@@ -1,9 +1,4 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyecowitt";
@@ -19,16 +14,12 @@ buildPythonPackage rec {
     sha256 = "5VdVo6j2HZXSCWU4NvfWzyS/KJfVb7N1KSMeu8TvWaQ=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
   # Project thas no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pyecowitt"
-  ];
+  pythonImportsCheck = [ "pyecowitt" ];
 
   meta = with lib; {
     description = "Python module for the EcoWitt Protocol";

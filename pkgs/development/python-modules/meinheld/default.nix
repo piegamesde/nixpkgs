@@ -20,9 +20,7 @@ buildPythonPackage rec {
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "meinheld"
-  ];
+  pythonImportsCheck = [ "meinheld" ];
 
   meta = with lib; {
     description = "High performance asynchronous Python WSGI Web Server";

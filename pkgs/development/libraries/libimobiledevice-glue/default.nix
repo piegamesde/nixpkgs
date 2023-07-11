@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, libplist
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libplist }:
 
 stdenv.mkDerivation rec {
   pname = "libimobiledevice-glue";
@@ -19,18 +13,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-BAdpJK6/iUKCNYLaCJQo0VK63AdIafO8wGbNhnvEc/o=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  propagatedBuildInputs = [
-    libplist
-  ];
+  propagatedBuildInputs = [ libplist ];
 
   meta = with lib; {
     homepage = "https://github.com/libimobiledevice/libimobiledevice-glue";
-    description = "Library with common code used by the libraries and tools around the libimobiledevice project.";
+    description =
+      "Library with common code used by the libraries and tools around the libimobiledevice project.";
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ infinisil ];

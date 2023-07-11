@@ -1,8 +1,6 @@
-{ lib, ...} : {
+{ lib, ... }: {
   name = "kubo";
-  meta = with lib.maintainers; {
-    maintainers = [ mguentner Luflosi ];
-  };
+  meta = with lib.maintainers; { maintainers = [ mguentner Luflosi ]; };
 
   nodes.machine = { config, ... }: {
     services.kubo = {
@@ -27,9 +25,7 @@
       isNormalUser = true;
       extraGroups = [ config.services.kubo.group ];
     };
-    users.users.bob = {
-      isNormalUser = true;
-    };
+    users.users.bob = { isNormalUser = true; };
   };
 
   testScript = ''

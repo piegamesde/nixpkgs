@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
+{ lib, buildPythonPackage, fetchPypi, pythonOlder
 
 # build time
 , pdm-pep517
@@ -10,14 +7,12 @@
 , packaging
 
 # tests
-, pytestCheckHook
-}:
+, pytestCheckHook }:
 
 let
   pname = "findpython";
   version = "0.2.4";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "pyproject";
 
@@ -28,26 +23,19 @@ buildPythonPackage {
     hash = "sha256-YfF2jN2EPcL4pFlxJyxYwlZBpQsZ2pEwLiSS4ypmc2I=";
   };
 
-  nativeBuildInputs = [
-    pdm-pep517
-  ];
+  nativeBuildInputs = [ pdm-pep517 ];
 
-  propagatedBuildInputs = [
-    packaging
-  ];
+  propagatedBuildInputs = [ packaging ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "findpython"
-  ];
+  pythonImportsCheck = [ "findpython" ];
 
   meta = with lib; {
     description = "A utility to find python versions on your system";
     homepage = "https://github.com/frostming/findpython";
-    changelog = "https://github.com/frostming/findpython/releases/tag/${version}";
+    changelog =
+      "https://github.com/frostming/findpython/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };

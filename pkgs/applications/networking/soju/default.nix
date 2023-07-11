@@ -1,9 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromSourcehut
-, installShellFiles
-, scdoc
-}:
+{ lib, buildGoModule, fetchFromSourcehut, installShellFiles, scdoc }:
 
 buildGoModule rec {
   pname = "soju";
@@ -18,17 +13,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-n1wwi7I2hDLOe08RkJOiopDUGI6uhipNpBdeOLARIoU=";
 
-  subPackages = [
-    "cmd/soju"
-    "cmd/sojuctl"
-    "contrib/migrate-db"
-    "contrib/znc-import"
-  ];
+  subPackages =
+    [ "cmd/soju" "cmd/sojuctl" "contrib/migrate-db" "contrib/znc-import" ];
 
-  nativeBuildInputs = [
-    installShellFiles
-    scdoc
-  ];
+  nativeBuildInputs = [ installShellFiles scdoc ];
 
   ldflags = [ "-s" "-w" ];
 

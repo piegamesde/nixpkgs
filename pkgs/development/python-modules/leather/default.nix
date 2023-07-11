@@ -1,11 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, six
-, cssselect
-, lxml
-, nose
-}:
+{ lib, fetchPypi, buildPythonPackage, six, cssselect, lxml, nose }:
 
 buildPythonPackage rec {
   pname = "leather";
@@ -18,11 +11,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [
-    cssselect
-    lxml
-    nose
-  ];
+  nativeCheckInputs = [ cssselect lxml nose ];
 
   checkPhase = ''
     runHook preCheck

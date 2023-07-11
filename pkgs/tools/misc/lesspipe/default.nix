@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, substituteAll, makeWrapper, perl, procps, file, gnused, bash }:
+{ lib, stdenv, fetchFromGitHub, substituteAll, makeWrapper, perl, procps, file
+, gnused, bash }:
 
 stdenv.mkDerivation rec {
   pname = "lesspipe";
@@ -29,7 +30,9 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     for f in lesspipe.sh lesscomplete; do
-      wrapProgram "$out/bin/$f" --prefix-each PATH : "${lib.makeBinPath [ file gnused procps ]}"
+      wrapProgram "$out/bin/$f" --prefix-each PATH : "${
+        lib.makeBinPath [ file gnused procps ]
+      }"
     done
   '';
 

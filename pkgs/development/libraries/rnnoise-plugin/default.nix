@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, cmake
-, fetchFromGitHub
-, freetype
-, gtk3-x11
-, mount
-, pcre
-, pkg-config
-, webkitgtk
-, xorg
-, llvmPackages
-, WebKit
-, MetalKit
-, CoreAudioKit
-, simd
-}:
+{ lib, stdenv, cmake, fetchFromGitHub, freetype, gtk3-x11, mount, pcre
+, pkg-config, webkitgtk, xorg, llvmPackages, WebKit, MetalKit, CoreAudioKit
+, simd }:
 stdenv.mkDerivation rec {
   pname = "rnnoise-plugin";
   version = "1.03";
@@ -33,26 +19,15 @@ stdenv.mkDerivation rec {
     ./disable-ubsan.patch
   ];
 
-  buildInputs =
-    [
-      freetype
-      gtk3-x11
-      pcre
-      xorg.libX11
-      xorg.libXrandr
-    ] ++ lib.optionals stdenv.isLinux [
-      webkitgtk
-    ] ++ lib.optionals stdenv.isDarwin [
-      WebKit
-      MetalKit
-      CoreAudioKit
-      simd
-    ];
+  buildInputs = [ freetype gtk3-x11 pcre xorg.libX11 xorg.libXrandr ]
+    ++ lib.optionals stdenv.isLinux [ webkitgtk ]
+    ++ lib.optionals stdenv.isDarwin [ WebKit MetalKit CoreAudioKit simd ];
 
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
 
   meta = with lib; {
-    description = "A real-time noise suppression plugin for voice based on Xiph's RNNoise";
+    description =
+      "A real-time noise suppression plugin for voice based on Xiph's RNNoise";
     homepage = "https://github.com/werman/noise-suppression-for-voice";
     license = licenses.gpl3;
     platforms = platforms.all;

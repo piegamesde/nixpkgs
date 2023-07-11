@@ -1,10 +1,6 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-  # Runtime dependencies
-, httplib2
-, six
-}:
+{ buildPythonPackage, fetchFromGitHub, lib
+# Runtime dependencies
+, httplib2, six }:
 
 buildPythonPackage {
   pname = "plantuml";
@@ -17,10 +13,7 @@ buildPythonPackage {
     hash = "sha256-aPXPqoKlu8VLi0Jn84brG7v3qM9L18Ut4sabYYGb3qQ=";
   };
 
-  propagatedBuildInputs = [
-    httplib2
-    six
-  ];
+  propagatedBuildInputs = [ httplib2 six ];
 
   # Project does not contain a test suite
   doCheck = false;
@@ -28,7 +21,8 @@ buildPythonPackage {
   pythonImportsCheck = [ "plantuml" ];
 
   meta = with lib; {
-    description = "Python interface to a plantuml web service instead of having to run java locally";
+    description =
+      "Python interface to a plantuml web service instead of having to run java locally";
     homepage = "https://github.com/dougn/python-plantuml";
     license = licenses.bsd2;
     maintainers = with maintainers; [ nikstur ];

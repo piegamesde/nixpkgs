@@ -5,20 +5,13 @@
 
 with lib;
 
-{ /*
-    pname: Nix package name without special symbols and without version or
-    "emacs-" prefix.
-  */
-  pname
-  /*
-    ename: Original Emacs package name, possibly containing special symbols.
-  */
-, ename ? null
-, version
-, recipe
-, meta ? {}
-, ...
-}@args:
+{
+/* pname: Nix package name without special symbols and without version or
+   "emacs-" prefix.
+*/
+pname
+# ename: Original Emacs package name, possibly containing special symbols.
+, ename ? null, version, recipe, meta ? { }, ... }@args:
 
 let
 
@@ -26,14 +19,9 @@ let
     homepage = args.src.meta.homepage or "https://melpa.org/#/${pname}";
   };
 
-in
+in import ./generic.nix { inherit lib stdenv emacs texinfo writeText gcc; } ({
 
-import ./generic.nix { inherit lib stdenv emacs texinfo writeText gcc; } ({
-
-  ename =
-    if ename == null
-    then pname
-    else ename;
+  ename = if ename == null then pname else ename;
 
   packageBuild = stdenv.mkDerivation {
     name = "package-build";
@@ -49,10 +37,7 @@ import ./generic.nix { inherit lib stdenv emacs texinfo writeText gcc; } ({
     dontConfigure = true;
     dontBuild = true;
 
-    installPhase = "
-      mkdir -p $out
-      cp -r * $out
-    ";
+    installPhase = "\n      mkdir -p $out\n      cp -r * $out\n    ";
   };
 
   elpa2nix = ./elpa2nix.el;
@@ -86,7 +71,7 @@ import ./generic.nix { inherit lib stdenv emacs texinfo writeText gcc; } ({
         $ename $version $commit
 
     runHook postBuild
-    '';
+  '';
 
   installPhase = ''
     runHook preInstall
@@ -107,4 +92,4 @@ import ./generic.nix { inherit lib stdenv emacs texinfo writeText gcc; } ({
   meta = defaultMeta // meta;
 }
 
-// removeAttrs args [ "meta" ])
+  // removeAttrs args [ "meta" ])

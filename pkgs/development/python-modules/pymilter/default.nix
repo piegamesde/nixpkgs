@@ -1,4 +1,5 @@
-{ lib, python, buildPythonPackage, fetchFromGitHub, libmilter, bsddb3, pydns, iana-etc, libredirect }:
+{ lib, python, buildPythonPackage, fetchFromGitHub, libmilter, bsddb3, pydns
+, iana-etc, libredirect }:
 
 buildPythonPackage rec {
   pname = "pymilter";

@@ -1,16 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, makeDesktopItem, makeWrapper, wrapGAppsHook, ant, jdk, jre, gtk2, glib, xorg, Cocoa }:
+{ lib, stdenv, fetchFromGitHub, makeDesktopItem, makeWrapper, wrapGAppsHook, ant
+, jdk, jre, gtk2, glib, xorg, Cocoa }:
 
 let
   _version = "2.10.2";
   _build = "484";
   version = "${_version}-${_build}";
 
-  swtSystem =
-    if stdenv.hostPlatform.system == "i686-linux" then "linux"
-    else if stdenv.hostPlatform.system == "x86_64-linux" then "linux64"
-    else if stdenv.hostPlatform.system == "aarch64-linux" then "linux-arm64"
-    else if stdenv.hostPlatform.system == "x86_64-darwin" then "macos64"
-    else throw "Unsupported system: ${stdenv.hostPlatform.system}";
+  swtSystem = if stdenv.hostPlatform.system == "i686-linux" then
+    "linux"
+  else if stdenv.hostPlatform.system == "x86_64-linux" then
+    "linux64"
+  else if stdenv.hostPlatform.system == "aarch64-linux" then
+    "linux-arm64"
+  else if stdenv.hostPlatform.system == "x86_64-darwin" then
+    "macos64"
+  else
+    throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
   desktopItem = makeDesktopItem {
     name = "jameica";
@@ -21,8 +26,7 @@ let
     icon = "jameica";
     categories = [ "Office" ];
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "jameica";
   inherit version;
 
@@ -33,7 +37,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "willuhn";
     repo = "jameica";
-    rev = "V_${builtins.replaceStrings ["."] ["_"] _version}_BUILD_${_build}";
+    rev =
+      "V_${builtins.replaceStrings [ "." ] [ "_" ] _version}_BUILD_${_build}";
     sha256 = "1x9sybknzsfxp9z0pvw9dx80732ynyap57y03p7xwwjbcrnjla57";
   };
 
@@ -62,9 +67,12 @@ stdenv.mkDerivation rec {
   postFixup = ''
     makeWrapper ${jre}/bin/java $out/bin/jameica \
       --add-flags "-cp $out/share/java/jameica.jar:$out/share/jameica-${version}/* ${
-        lib.optionalString stdenv.isDarwin ''-Xdock:name="Jameica" -XstartOnFirstThread''
+        lib.optionalString stdenv.isDarwin
+        ''-Xdock:name="Jameica" -XstartOnFirstThread''
       } de.willuhn.jameica.Main" \
-      --prefix LD_LIBRARY_PATH : ${lib.escapeShellArg (lib.makeLibraryPath buildInputs)} \
+      --prefix LD_LIBRARY_PATH : ${
+        lib.escapeShellArg (lib.makeLibraryPath buildInputs)
+      } \
       --chdir "$out/share/java/" \
       "''${gappsWrapperArgs[@]}"
   '';

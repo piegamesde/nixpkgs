@@ -1,5 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch
-, libusb1, systemd }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, libusb1, systemd }:
 
 stdenv.mkDerivation rec {
   pname = "dmrconfig";
@@ -16,14 +15,13 @@ stdenv.mkDerivation rec {
     # Pull upstream fix for -fno-common toolchains.
     (fetchpatch {
       name = "fno-common.patch";
-      url = "https://github.com/OpenRTX/dmrconfig/commit/1a6901488db26262a6b69f80b0e795864e9e8d0a.patch";
+      url =
+        "https://github.com/OpenRTX/dmrconfig/commit/1a6901488db26262a6b69f80b0e795864e9e8d0a.patch";
       sha256 = "03px1y95a8aspd251i1jj8ggqfjvkqby4lhn5pb7l5c1lzh6h762";
     })
   ];
 
-  buildInputs = [
-    libusb1 systemd
-  ];
+  buildInputs = [ libusb1 systemd ];
 
   preConfigure = ''
     substituteInPlace Makefile \

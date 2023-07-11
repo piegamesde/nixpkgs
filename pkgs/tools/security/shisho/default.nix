@@ -1,9 +1,4 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, installShellFiles
-, rustfmt
-}:
+{ lib, fetchFromGitHub, rustPlatform, installShellFiles, rustfmt }:
 
 rustPlatform.buildRustPackage rec {
   pname = "shisho";
@@ -44,7 +39,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     homepage = "https://docs.shisho.dev/shisho/";
     changelog = "https://docs.shisho.dev/changelog/";
-    description = "Lightweight static analyzer for several programming languages";
+    description =
+      "Lightweight static analyzer for several programming languages";
     longDescription = ''
       Shisho is a lightweight static code analyzer designed for developers and
       is the core engine for Shisho products. It is, so to speak, like a

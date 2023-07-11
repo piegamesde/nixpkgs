@@ -1,18 +1,6 @@
-{ lib, stdenv
-, fetchurl
-, fetchpatch
-, lvm2
-, libuuid
-, gettext
-, readline
-, dosfstools
-, e2fsprogs
-, perl
-, python3
-, util-linux
-, check
-, enableStatic ? stdenv.hostPlatform.isStatic
-}:
+{ lib, stdenv, fetchurl, fetchpatch, lvm2, libuuid, gettext, readline
+, dosfstools, e2fsprogs, perl, python3, util-linux, check
+, enableStatic ? stdenv.hostPlatform.isStatic }:
 
 stdenv.mkDerivation rec {
   pname = "parted";
@@ -29,22 +17,21 @@ stdenv.mkDerivation rec {
     patchShebangs tests
   '';
 
-  buildInputs = [ libuuid ]
-    ++ lib.optional (readline != null) readline
+  buildInputs = [ libuuid ] ++ lib.optional (readline != null) readline
     ++ lib.optional (gettext != null) gettext
     ++ lib.optional (lvm2 != null) lvm2;
 
-  configureFlags =
-       (if (readline != null)
-        then [ "--with-readline" ]
-        else [ "--without-readline" ])
+  configureFlags = (if (readline != null) then
+    [ "--with-readline" ]
+  else
+    [ "--without-readline" ])
     ++ lib.optional (lvm2 == null) "--disable-device-mapper"
     ++ lib.optional enableStatic "--enable-static";
 
   # Tests were previously failing due to Hydra running builds as uid 0.
   # That should hopefully be fixed now.
-  doCheck = !stdenv.hostPlatform.isMusl; /* translation test */
-  nativeCheckInputs = [ check dosfstools e2fsprogs perl python3 util-linux ];
+  doCheck = !stdenv.hostPlatform.isMusl; # translation test
+  nativeCheckInputs = [ check dosfstools 0.0 fsprogs perl python3 util-linux ];
 
   meta = {
     description = "Create, destroy, resize, check, and copy partitions";

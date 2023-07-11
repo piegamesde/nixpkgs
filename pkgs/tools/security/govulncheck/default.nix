@@ -38,7 +38,8 @@ buildGoModule {
   meta = with lib; {
     homepage = "https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck";
     downloadPage = "https://github.com/golang/vuln";
-    description = "The database client and tools for the Go vulnerability database, also known as vuln";
+    description =
+      "The database client and tools for the Go vulnerability database, also known as vuln";
     longDescription = ''
       Govulncheck reports known vulnerabilities that affect Go code. It uses
       static analysis of source code or a binary's symbol table to narrow down

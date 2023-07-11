@@ -10,10 +10,9 @@ let
     inherit nodeEnv;
   };
 
-  nodeDependencies = (nodePackages.shell.override (old: {
-  })).nodeDependencies;
-in
-with python3Packages; buildPythonApplication rec {
+  nodeDependencies = (nodePackages.shell.override (old: { })).nodeDependencies;
+in with python3Packages;
+buildPythonApplication rec {
 
   pname = "isso";
   version = "0.12.6.2";
@@ -25,20 +24,10 @@ with python3Packages; buildPythonApplication rec {
     sha256 = "sha256-T5T3EJS8ef8uo+P9qkC+7I70qv+4PFrnhImr04Fz57U=";
   };
 
-  propagatedBuildInputs = [
-    itsdangerous
-    jinja2
-    misaka
-    html5lib
-    werkzeug
-    bleach
-    flask-caching
-  ];
+  propagatedBuildInputs =
+    [ itsdangerous jinja2 misaka html5lib werkzeug bleach flask-caching ];
 
-  nativeBuildInputs = [
-    cffi
-    nodejs
-  ];
+  nativeBuildInputs = [ cffi nodejs ];
 
   preBuild = ''
     ln -s ${nodeDependencies}/lib/node_modules ./node_modules
@@ -47,10 +36,7 @@ with python3Packages; buildPythonApplication rec {
     make js
   '';
 
-  nativeCheckInputs = [
-    pytest
-    pytest-cov
-  ];
+  nativeCheckInputs = [ pytest pytest-cov ];
 
   checkPhase = ''
     pytest

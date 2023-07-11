@@ -15,9 +15,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optional stdenv.isDarwin Security;
 
-  nativeCheckInputs = [
-    python3Packages.cython
-  ];
+  nativeCheckInputs = [ python3Packages.cython ];
 
   checkFlags = [
     # Disable tests that require rust unstable features

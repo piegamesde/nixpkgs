@@ -1,13 +1,8 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-}:
+{ lib, fetchFromGitHub, rustPlatform }:
 
-let
-  version = "0.4.0";
+let version = "0.4.0";
 
-in
-rustPlatform.buildRustPackage {
+in rustPlatform.buildRustPackage {
 
   pname = "systemfd";
   inherit version;
@@ -22,7 +17,8 @@ rustPlatform.buildRustPackage {
   cargoSha256 = "sha256-UhfE9Q5E79rN2mjkNB5IAN/J0fbpoy9CmM6ojHQcFP0=";
 
   meta = {
-    description = "A convenient helper for passing sockets into another process";
+    description =
+      "A convenient helper for passing sockets into another process";
     homepage = "https://github.com/mitsuhiko/systemfd";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.adisbladis ];

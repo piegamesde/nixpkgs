@@ -1,11 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, which, bison, nixosTests, linuxHeaders, gnutls }:
+{ lib, stdenv, fetchurl, pkg-config, glib, which, bison, nixosTests
+, linuxHeaders, gnutls }:
 
 stdenv.mkDerivation rec {
   pname = "nbd";
   version = "3.25";
 
   src = fetchurl {
-    url = "https://github.com/NetworkBlockDevice/nbd/releases/download/nbd-${version}/nbd-${version}.tar.xz";
+    url =
+      "https://github.com/NetworkBlockDevice/nbd/releases/download/nbd-${version}/nbd-${version}.tar.xz";
     hash = "sha256-9cj9D8tXsckmWU0OV/NWQy7ghni+8dQNCI8IMPDL3Qo=";
   };
 
@@ -21,9 +23,7 @@ stdenv.mkDerivation rec {
 
   doCheck = !stdenv.isDarwin;
 
-  passthru.tests = {
-    test = nixosTests.nbd;
-  };
+  passthru.tests = { test = nixosTests.nbd; };
 
   meta = {
     homepage = "https://nbd.sourceforge.io/";

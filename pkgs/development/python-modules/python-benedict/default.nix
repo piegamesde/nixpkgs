@@ -1,26 +1,7 @@
-{ lib
-, boto3
-, buildPythonPackage
-, fetchFromGitHub
-, ftfy
-, mailchecker
-, openpyxl
-, orjson
-, phonenumbers
-, pytestCheckHook
-, python-dateutil
-, python-decouple
-, python-fsutil
-, python-slugify
-, pythonOlder
-, pythonRelaxDepsHook
-, pyyaml
-, requests
-, six
-, toml
-, xlrd
-, xmltodict
-}:
+{ lib, boto3, buildPythonPackage, fetchFromGitHub, ftfy, mailchecker, openpyxl
+, orjson, phonenumbers, pytestCheckHook, python-dateutil, python-decouple
+, python-fsutil, python-slugify, pythonOlder, pythonRelaxDepsHook, pyyaml
+, requests, six, toml, xlrd, xmltodict }:
 
 buildPythonPackage rec {
   pname = "python-benedict";
@@ -36,13 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-/LERLQw0Jb/Yuf2CfEKIZ658LtSkHjMvMxGcB00IgKs=";
   };
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  pythonRelaxDeps = [
-    "boto3"
-  ];
+  pythonRelaxDeps = [ "boto3" ];
 
   propagatedBuildInputs = [
     boto3
@@ -60,12 +37,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  nativeCheckInputs = [
-    orjson
-    pytestCheckHook
-    python-decouple
-    six
-  ];
+  nativeCheckInputs = [ orjson pytestCheckHook python-decouple six ];
 
   disabledTests = [
     # Tests require network access
@@ -80,14 +52,13 @@ buildPythonPackage rec {
     "test_from_yaml_with_valid_url_valid_content"
   ];
 
-  pythonImportsCheck = [
-    "benedict"
-  ];
+  pythonImportsCheck = [ "benedict" ];
 
   meta = with lib; {
     description = "Module with keylist/keypath support";
     homepage = "https://github.com/fabiocaccamo/python-benedict";
-    changelog = "https://github.com/fabiocaccamo/python-benedict/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/fabiocaccamo/python-benedict/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

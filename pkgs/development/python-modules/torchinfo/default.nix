@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, torch
-, torchvision
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder, torch
+, torchvision }:
 
 buildPythonPackage rec {
   pname = "torchinfo";
@@ -21,14 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-O+I7BNQ5moV/ZcbbuP/IFoi0LO0WsGHBbSfgPmFu1Ec=";
   };
 
-  propagatedBuildInputs = [
-    torch
-    torchvision
-  ];
+  propagatedBuildInputs = [ torch torchvision ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # Skip as it downloads pretrained weights (require network access)
@@ -42,9 +31,7 @@ buildPythonPackage rec {
     "tests/torchinfo_xl_test.py"
   ];
 
-  pythonImportsCheck = [
-    "torchinfo"
-  ];
+  pythonImportsCheck = [ "torchinfo" ];
 
   meta = with lib; {
     description = "API to visualize pytorch models";

@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "ldapnomnom";
@@ -17,9 +14,11 @@ buildGoModule rec {
   vendorHash = "sha256-3ucnLD+qhBSWY2wLtBcsOcuEf1woqHP17qQg7LlERA8=";
 
   meta = with lib; {
-    description = "Tool to anonymously bruteforce usernames from Domain controllers";
+    description =
+      "Tool to anonymously bruteforce usernames from Domain controllers";
     homepage = "https://github.com/lkarlslund/ldapnomnom";
-    changelog = "https://github.com/lkarlslund/ldapnomnom/releases/tag/v${version}";
+    changelog =
+      "https://github.com/lkarlslund/ldapnomnom/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

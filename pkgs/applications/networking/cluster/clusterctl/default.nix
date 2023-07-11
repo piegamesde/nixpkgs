@@ -17,7 +17,8 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = let t = "sigs.k8s.io/cluster-api/version"; in [
+  ldflags = let t = "sigs.k8s.io/cluster-api/version";
+  in [
     "-X ${t}.gitMajor=${lib.versions.major version}"
     "-X ${t}.gitMinor=${lib.versions.minor version}"
     "-X ${t}.gitVersion=v${version}"
@@ -39,7 +40,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    changelog = "https://github.com/kubernetes-sigs/cluster-api/releases/tag/${src.rev}";
+    changelog =
+      "https://github.com/kubernetes-sigs/cluster-api/releases/tag/${src.rev}";
     description = "Kubernetes cluster API tool";
     homepage = "https://cluster-api.sigs.k8s.io/";
     license = licenses.asl20;

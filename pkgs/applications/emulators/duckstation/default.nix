@@ -1,26 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, SDL2
-, cmake
-, copyDesktopItems
-, curl
-, extra-cmake-modules
-, libXrandr
-, libpulseaudio
-, makeDesktopItem
+{ lib, stdenv, fetchFromGitHub, SDL2, cmake, copyDesktopItems, curl
+, extra-cmake-modules, libXrandr, libpulseaudio, makeDesktopItem
 , mesa # for libgbm
-, ninja
-, pkg-config
-, qtbase
-, qtsvg
-, qttools
-, qtwayland
-, vulkan-loader
-, wayland
-, wrapQtAppsHook
-, enableWayland ? true
-}:
+, ninja, pkg-config, qtbase, qtsvg, qttools, qtwayland, vulkan-loader, wayland
+, wrapQtAppsHook, enableWayland ? true }:
 
 stdenv.mkDerivation {
   pname = "duckstation";
@@ -33,37 +15,16 @@ stdenv.mkDerivation {
     sha256 = "sha256-sRs/b4GVXhF3zrOef8DSBKJJGYECUER/nNWZAqv7suA=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    copyDesktopItems
-    ninja
-    pkg-config
-    qttools
-    wrapQtAppsHook
-  ]
-  ++ lib.optionals enableWayland [
-    extra-cmake-modules
-  ];
+  nativeBuildInputs =
+    [ cmake copyDesktopItems ninja pkg-config qttools wrapQtAppsHook ]
+    ++ lib.optionals enableWayland [ extra-cmake-modules ];
 
-  buildInputs = [
-    SDL2
-    curl
-    libpulseaudio
-    libXrandr
-    mesa
-    qtbase
-    qtsvg
-    vulkan-loader
-  ]
-  ++ lib.optionals enableWayland [
-    qtwayland
-    wayland
-  ];
+  buildInputs =
+    [ SDL2 curl libpulseaudio libXrandr mesa qtbase qtsvg vulkan-loader ]
+    ++ lib.optionals enableWayland [ qtwayland wayland ];
 
-  cmakeFlags = [
-    "-DUSE_DRMKMS=ON"
-  ]
-  ++ lib.optionals enableWayland [ "-DUSE_WAYLAND=ON" ];
+  cmakeFlags = [ "-DUSE_DRMKMS=ON" ]
+    ++ lib.optionals enableWayland [ "-DUSE_WAYLAND=ON" ];
 
   desktopItems = [
     (makeDesktopItem {
@@ -100,7 +61,9 @@ stdenv.mkDerivation {
   '';
 
   qtWrapperArgs = [
-    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libpulseaudio vulkan-loader ]}"
+    "--prefix LD_LIBRARY_PATH : ${
+      lib.makeLibraryPath [ libpulseaudio vulkan-loader ]
+    }"
   ];
 
   meta = with lib; {

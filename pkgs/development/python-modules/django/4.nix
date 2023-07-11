@@ -1,44 +1,20 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, substituteAll
+{ lib, stdenv, buildPythonPackage, fetchPypi, pythonOlder, substituteAll
 
 # build
 , setuptools
 
 # patched in
-, geos
-, gdal
-, withGdal ? false
+, geos, gdal, withGdal ? false
 
-# propagates
-, asgiref
-, sqlparse
+  # propagates
+, asgiref, sqlparse
 
 # extras
-, argon2-cffi
-, bcrypt
+, argon2-cffi, bcrypt
 
 # tests
-, aiosmtpd
-, docutils
-, geoip2
-, jinja2
-, numpy
-, pillow
-, pylibmc
-, pymemcache
-, python
-, pywatchman
-, pyyaml
-, pytz
-, redis
-, selenium
-, tblib
-, tzdata
-}:
+, aiosmtpd, docutils, geoip2, jinja2, numpy, pillow, pylibmc, pymemcache, python
+, pywatchman, pyyaml, pytz, redis, selenium, tblib, tzdata }:
 
 buildPythonPackage rec {
   pname = "Django";
@@ -74,22 +50,13 @@ buildPythonPackage rec {
       --replace "/usr/bin/python" "${python.interpreter}"
   '';
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    asgiref
-    sqlparse
-  ];
+  propagatedBuildInputs = [ asgiref sqlparse ];
 
   passthru.optional-dependencies = {
-    argon2 = [
-      argon2-cffi
-    ];
-    bcrypt = [
-      bcrypt
-    ];
+    argon2 = [ argon2-cffi ];
+    bcrypt = [ bcrypt ];
   };
 
   nativeCheckInputs = [
@@ -134,8 +101,11 @@ buildPythonPackage rec {
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {
-    changelog = "https://docs.djangoproject.com/en/${lib.versions.majorMinor version}/releases/${version}/";
-    description = "A high-level Python Web framework that encourages rapid development and clean, pragmatic design.";
+    changelog = "https://docs.djangoproject.com/en/${
+        lib.versions.majorMinor version
+      }/releases/${version}/";
+    description =
+      "A high-level Python Web framework that encourages rapid development and clean, pragmatic design.";
     homepage = "https://www.djangoproject.com";
     license = licenses.bsd3;
     maintainers = with maintainers; [ hexa ];

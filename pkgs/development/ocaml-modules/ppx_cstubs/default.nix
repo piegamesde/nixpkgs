@@ -1,16 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildDunePackage
-, bigarray-compat
-, containers
-, cppo
-, ctypes
-, integers
-, num
-, ppxlib
-, re
-, findlib
-}:
+{ lib, fetchFromGitHub, buildDunePackage, bigarray-compat, containers, cppo
+, ctypes, integers, num, ppxlib, re, findlib }:
 
 buildDunePackage rec {
   pname = "ppx_cstubs";
@@ -29,23 +18,14 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ cppo ];
 
-  buildInputs = [
-    bigarray-compat
-    containers
-    findlib
-    integers
-    num
-    ppxlib
-    re
-  ];
+  buildInputs = [ bigarray-compat containers findlib integers num ppxlib re ];
 
-  propagatedBuildInputs = [
-    ctypes
-  ];
+  propagatedBuildInputs = [ ctypes ];
 
   meta = with lib; {
     homepage = "https://github.com/fdopen/ppx_cstubs";
-    changelog = "https://github.com/fdopen/ppx_cstubs/raw/${version}/CHANGES.md";
+    changelog =
+      "https://github.com/fdopen/ppx_cstubs/raw/${version}/CHANGES.md";
     description = "Preprocessor for easier stub generation with ocaml-ctypes";
     license = licenses.lgpl21Plus;
     maintainers = [ maintainers.osener ];

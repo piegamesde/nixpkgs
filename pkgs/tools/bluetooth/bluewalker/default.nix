@@ -13,10 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "189qs6vmx63vwsjmc4qgf1y8xjsi7x6l1f5c3kd8j8jnagl26z4h";
 
-  ldflags = [
-    "-w"
-    "-s"
-  ];
+  ldflags = [ "-w" "-s" ];
 
   meta = with lib; {
     description = "Simple command line Bluetooth LE scanner";

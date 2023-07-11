@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, freetype
-, fribidi
-, imlib2
-, libX11
-, libXext
-, libXft
-, libXinerama
-, libXpm
-, libXrandr
-, libXrender
-, pkg-config
-, xorgproto
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, freetype, fribidi, imlib2
+, libX11, libXext, libXft, libXinerama, libXpm, libXrandr, libXrender
+, pkg-config, xorgproto }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "hackedbox";
@@ -27,10 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-hxfbEj7UxQ19xhetmdi0iyK6ceLUfUvAAyyTbNivlLQ=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   buildInputs = [
     freetype
@@ -46,10 +29,8 @@ stdenv.mkDerivation (finalAttrs: {
     xorgproto
   ];
 
-  configureFlags = [
-    "--x-includes=${libX11.dev}/include"
-    "--x-libraries=${libX11.out}/lib"
-  ];
+  configureFlags =
+    [ "--x-includes=${libX11.dev}/include" "--x-libraries=${libX11.out}/lib" ];
 
   meta = with lib; {
     description = "A bastard hacked offspring of Blackbox";

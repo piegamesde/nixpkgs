@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pydantic
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pydantic
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "camel-converter";
@@ -26,28 +20,20 @@ buildPythonPackage rec {
       --replace "--cov=camel_converter --cov-report term-missing" ""
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  passthru.optional-dependencies = {
-    pydantic = [
-      pydantic
-    ];
-  };
+  passthru.optional-dependencies = { pydantic = [ pydantic ]; };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.pydantic;
+  nativeCheckInputs = [ pytestCheckHook ]
+    ++ passthru.optional-dependencies.pydantic;
 
-  pythonImportsCheck = [
-    "camel_converter"
-  ];
+  pythonImportsCheck = [ "camel_converter" ];
 
   meta = with lib; {
     description = "Client for the Meilisearch API";
     homepage = "https://github.com/sanders41/camel-converter";
-    changelog = "https://github.com/sanders41/camel-converter/releases/tag/v${version}";
+    changelog =
+      "https://github.com/sanders41/camel-converter/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

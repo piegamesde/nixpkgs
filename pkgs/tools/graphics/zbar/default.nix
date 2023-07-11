@@ -1,33 +1,12 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, imagemagickBig
-, pkg-config
-, withXorg ? true
-, libX11
-, libv4l
-, qtbase
-, qtx11extras
-, wrapQtAppsHook
-, wrapGAppsHook
-, gtk3
-, xmlto
-, docbook_xsl
-, autoreconfHook
-, dbus
-, enableVideo ? stdenv.isLinux
+{ stdenv, lib, fetchFromGitHub, imagemagickBig, pkg-config, withXorg ? true
+, libX11, libv4l, qtbase, qtx11extras, wrapQtAppsHook, wrapGAppsHook, gtk3
+, xmlto, docbook_xsl, autoreconfHook, dbus, enableVideo ? stdenv.isLinux
   # The implementation is buggy and produces an error like
   # Name Error (Connection ":1.4380" is not allowed to own the service "org.linuxtv.Zbar" due to security policies in the configuration file)
   # for every scanned code.
   # see https://github.com/mchehab/zbar/issues/104
-, enableDbus ? false
-, libintl
-, libiconv
-, Foundation
-, bash
-, python3
-, argp-standalone
-}:
+, enableDbus ? false, libintl, libiconv, Foundation, bash, python3
+, argp-standalone }:
 
 stdenv.mkDerivation rec {
   pname = "zbar";
@@ -42,41 +21,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VhVrngAX7pXZp+szqv95R6RGAJojp3svdbaRKigGb0w=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    xmlto
-    autoreconfHook
-    docbook_xsl
-  ] ++ lib.optionals enableVideo [
-    wrapGAppsHook
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config xmlto autoreconfHook docbook_xsl ]
+    ++ lib.optionals enableVideo [ wrapGAppsHook wrapQtAppsHook ];
 
-  buildInputs = [
-    imagemagickBig
-    libintl
-  ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-    Foundation
-  ] ++ lib.optionals enableDbus [
-    dbus
-  ] ++ lib.optionals withXorg [
-    libX11
-  ] ++ lib.optionals enableVideo [
-    libv4l
-    gtk3
-    qtbase
-    qtx11extras
-  ];
+  buildInputs = [ imagemagickBig libintl ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv Foundation ]
+    ++ lib.optionals enableDbus [ dbus ] ++ lib.optionals withXorg [ libX11 ]
+    ++ lib.optionals enableVideo [ libv4l gtk3 qtbase qtx11extras ];
 
-  nativeCheckInputs = [
-    bash
-    python3
-  ];
+  nativeCheckInputs = [ bash python3 ];
 
-  checkInputs = lib.optionals stdenv.isDarwin [
-    argp-standalone
-  ];
+  checkInputs = lib.optionals stdenv.isDarwin [ argp-standalone ];
 
   # Note: postConfigure instead of postPatch in order to include some
   # autoconf-generated files. The template files for the autogen'd scripts are
@@ -88,19 +43,16 @@ stdenv.mkDerivation rec {
   # Disable assertions which include -dev QtBase file paths.
   env.NIX_CFLAGS_COMPILE = "-DQT_NO_DEBUG";
 
-  configureFlags = [
-    "--without-python"
-  ] ++ (if enableDbus then [
-    "--with-dbusconfdir=${placeholder "out"}/share"
-  ] else [
-    "--without-dbus"
-  ]) ++ (if enableVideo then [
-    "--with-gtk=gtk3"
-  ] else [
-    "--disable-video"
-    "--without-gtk"
-    "--without-qt"
-  ]);
+  configureFlags = [ "--without-python" ] ++ (if enableDbus then
+    [ "--with-dbusconfdir=${placeholder "out"}/share" ]
+  else
+    [ "--without-dbus" ]) ++ (if enableVideo then
+      [ "--with-gtk=gtk3" ]
+    else [
+      "--disable-video"
+      "--without-gtk"
+      "--without-qt"
+    ]);
 
   doCheck = true;
 

@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, pytestCheckHook
-, requests
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pytestCheckHook
+, requests }:
 
 buildPythonPackage rec {
   pname = "rangehttpserver";
@@ -18,23 +13,17 @@ buildPythonPackage rec {
     hash = "sha256-ZXEbis37QO8t05JQ2qQQf5rkUSxq3DwzR3khAJkZ5W0=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    requests
-  ];
+  nativeCheckInputs = [ pytestCheckHook requests ];
 
-  pythonImportsCheck = [
-    "RangeHTTPServer"
-  ];
+  pythonImportsCheck = [ "RangeHTTPServer" ];
 
   meta = with lib; {
     description = "SimpleHTTPServer with support for Range requests";
     homepage = "https://github.com/danvk/RangeHTTPServer";
-    changelog = "https://github.com/danvk/RangeHTTPServer/releases/tag/${version}";
+    changelog =
+      "https://github.com/danvk/RangeHTTPServer/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

@@ -1,28 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, swig
-, boost
-, spectra
-, libxml2
-, tbb
-, hmat-oss
-, nlopt
-, cminpack
-, ceres-solver
-, dlib
-, hdf5
-, primesieve
-, pagmo2
-, ipopt
-, Accelerate
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, swig, boost, spectra, libxml2
+, tbb, hmat-oss, nlopt, cminpack, ceres-solver, dlib, hdf5, primesieve, pagmo2
+, ipopt, Accelerate
 # tests take an hour to build on a 48-core machine
-, runTests ? false
-, enablePython ? false
-, python3Packages
-}:
+, runTests ? false, enablePython ? false, python3Packages }:
 
 stdenv.mkDerivation rec {
   pname = "openturns";
@@ -39,12 +19,14 @@ stdenv.mkDerivation rec {
     # Fix build with primesieve 11, https://github.com/openturns/openturns/pull/2187
     # Remove with next version update.
     (fetchpatch {
-      url = "https://github.com/openturns/openturns/commit/a85061f89a5763061467beac516c1355fe81b9be.patch";
+      url =
+        "https://github.com/openturns/openturns/commit/a85061f89a5763061467beac516c1355fe81b9be.patch";
       hash = "sha256-z28ipBuX3b5UFEnKuDfp+kMI5cUcwXVz/8WZHlICnvE=";
     })
   ];
 
-  nativeBuildInputs = [ cmake ] ++ lib.optional enablePython python3Packages.sphinx;
+  nativeBuildInputs = [ cmake ]
+    ++ lib.optional enablePython python3Packages.sphinx;
   buildInputs = [
     swig
     boost
@@ -81,7 +63,8 @@ stdenv.mkDerivation rec {
   checkTarget = "tests check";
 
   meta = with lib; {
-    description = "Multivariate probabilistic modeling and uncertainty treatment library";
+    description =
+      "Multivariate probabilistic modeling and uncertainty treatment library";
     license = with licenses; [ lgpl3 gpl3 ];
     homepage = "https://openturns.github.io/www/";
     maintainers = with maintainers; [ gdinh ];

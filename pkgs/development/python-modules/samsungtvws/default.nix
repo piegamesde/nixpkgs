@@ -1,25 +1,16 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, isPy27
+{ lib, buildPythonPackage, fetchFromGitHub, isPy27
 
 # propagates:
-, requests
-, websocket-client
+, requests, websocket-client
 
 # extras: async
-, aiohttp
-, websockets
+, aiohttp, websockets
 
 # extras: encrypted
-, cryptography
-, py3rijndael
+, cryptography, py3rijndael
 
 # tests
-, aioresponses
-, pytest-asyncio
-, pytestCheckHook
-}:
+, aioresponses, pytest-asyncio, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "samsungtvws";
@@ -34,29 +25,16 @@ buildPythonPackage rec {
     hash = "sha256-AimG5tyTRBETpivC2BwCuoR4o7y98YT6u5sogJlcmoo=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    websocket-client
-  ];
+  propagatedBuildInputs = [ requests websocket-client ];
 
   passthru.optional-dependencies = {
-    async = [
-      aiohttp
-      websockets
-    ];
-    encrypted = [
-      cryptography
-      py3rijndael
-    ];
+    async = [ aiohttp websockets ];
+    encrypted = [ cryptography py3rijndael ];
   };
 
-  nativeCheckInputs = [
-    aioresponses
-    pytest-asyncio
-    pytestCheckHook
-  ]
-  ++ passthru.optional-dependencies.async
-  ++ passthru.optional-dependencies.encrypted;
+  nativeCheckInputs = [ aioresponses pytest-asyncio pytestCheckHook ]
+    ++ passthru.optional-dependencies.async
+    ++ passthru.optional-dependencies.encrypted;
 
   pythonImportsCheck = [ "samsungtvws" ];
 

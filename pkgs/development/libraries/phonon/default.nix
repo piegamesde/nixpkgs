@@ -1,23 +1,11 @@
-{ stdenv
-, lib
-, fetchurl
-, cmake
-, libGLU
-, libGL
-, pkg-config
-, libpulseaudio
-, extra-cmake-modules
-, qtbase
-, qttools
-, debug ? false
-}:
+{ stdenv, lib, fetchurl, cmake, libGLU, libGL, pkg-config, libpulseaudio
+, extra-cmake-modules, qtbase, qttools, debug ? false }:
 
 let
   soname = "phonon4qt5";
   buildsystemdir = "share/cmake/${soname}";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "phonon";
   version = "4.11.1";
 
@@ -34,27 +22,15 @@ stdenv.mkDerivation rec {
     sha256 = "0bfy8iqmjhlg3ma3iqd3kxjc2zkzpjgashbpf5x17y0dc2i1whxl";
   };
 
-  buildInputs = [
-    libGLU
-    libGL
-    libpulseaudio
-    qtbase
-    qttools
-  ];
+  buildInputs = [ libGLU libGL libpulseaudio qtbase qttools ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake pkg-config extra-cmake-modules ];
 
   outputs = [ "out" "dev" ];
 
   env.NIX_CFLAGS_COMPILE = "-fPIC";
 
-  cmakeFlags = [
-    "-DCMAKE_BUILD_TYPE=${if debug then "Debug" else "Release"}"
-  ];
+  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=${if debug then "Debug" else "Release"}" ];
 
   dontWrapQtApps = true;
 

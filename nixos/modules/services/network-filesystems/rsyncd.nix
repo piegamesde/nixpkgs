@@ -48,8 +48,8 @@ in {
       socketActivated = mkOption {
         default = false;
         type = types.bool;
-        description =
-          lib.mdDoc "If enabled Rsync will be socket-activated rather than run persistently.";
+        description = lib.mdDoc
+          "If enabled Rsync will be socket-activated rather than run persistently.";
       };
 
     };

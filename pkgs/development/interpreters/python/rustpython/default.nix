@@ -1,11 +1,5 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, SystemConfiguration
-, python3
-, fetchpatch
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, SystemConfiguration, python3
+, fetchpatch }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rustpython";
@@ -21,14 +15,16 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "rustpython-doc-0.1.0" = "sha256-4xBiV1FcYA05cWs9fQV+OklZEU1VZunhCo9deOSWPe8=";
+      "rustpython-doc-0.1.0" =
+        "sha256-4xBiV1FcYA05cWs9fQV+OklZEU1VZunhCo9deOSWPe8=";
     };
   };
 
   patches = [
     # Fix aarch64 compatibility for sqlite. Remove with the next release. https://github.com/RustPython/RustPython/pull/4499
     (fetchpatch {
-      url = "https://github.com/RustPython/RustPython/commit/9cac89347e2276fcb309f108561e99f4be5baff2.patch";
+      url =
+        "https://github.com/RustPython/RustPython/commit/9cac89347e2276fcb309f108561e99f4be5baff2.patch";
       hash = "sha256-vUPQI/5ec6/36Vdtt7/B2unPDsVrGh5iEiSMBRatxWU=";
     })
   ];

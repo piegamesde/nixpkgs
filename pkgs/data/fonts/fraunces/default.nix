@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "1.000";
 
   src = fetchzip {
-    url = "https://github.com/undercasetype/Fraunces/releases/download/${version}/UnderCaseType_Fraunces_${version}.zip";
+    url =
+      "https://github.com/undercasetype/Fraunces/releases/download/${version}/UnderCaseType_Fraunces_${version}.zip";
     hash = "sha256-hu2G4Fs2I3TMEy/EBFnc88Pv3c8Mpc5rm3OwVvol7gQ=";
   };
 
@@ -19,7 +20,8 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A display, “Old Style” soft-serif typeface inspired by early 20th century typefaces";
+    description =
+      "A display, “Old Style” soft-serif typeface inspired by early 20th century typefaces";
     homepage = "https://github.com/undercasetype/Fraunces";
     license = licenses.ofl;
     maintainers = [ maintainers.marsam ];

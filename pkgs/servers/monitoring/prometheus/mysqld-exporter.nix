@@ -13,8 +13,10 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-M6u+ZBEUqCd6cKVHPvHqRiXLbuWz66GK+ybIQm+5tQE=";
 
-  ldflags = let t = "github.com/prometheus/common/version"; in [
-    "-s" "-w"
+  ldflags = let t = "github.com/prometheus/common/version";
+  in [
+    "-s"
+    "-w"
     "-X ${t}.Version=${version}"
     "-X ${t}.Revision=${src.rev}"
     "-X ${t}.Branch=unknown"

@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, jre
-, jdk
-, gradle_6
-, makeDesktopItem
-, copyDesktopItems
-, perl
-, writeText
-, runtimeShell
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, jre, jdk, gradle_6, makeDesktopItem
+, copyDesktopItems, perl, writeText, runtimeShell }:
 
 let
   pname = "jd-gui";
@@ -27,7 +16,8 @@ let
     # https://github.com/java-decompiler/jd-gui/pull/362
     (fetchpatch {
       name = "nebula-plugin-gradle-6-compatibility.patch";
-      url = "https://github.com/java-decompiler/jd-gui/commit/91f805f9dc8ce0097460e63c8095ccea870687e6.patch";
+      url =
+        "https://github.com/java-decompiler/jd-gui/commit/91f805f9dc8ce0097460e63c8095ccea870687e6.patch";
       hash = "sha256-9eaM9Mx2FaKIhGSOHjATKN/CrtvJeXyrH8Mdx8LNtpE=";
     })
   ];
@@ -83,7 +73,8 @@ let
     comment = "Java Decompiler JD-GUI";
     desktopName = "JD-GUI";
     genericName = "Java Decompiler";
-    mimeTypes = [ "application/java" "application/java-vm" "application/java-archive" ];
+    mimeTypes =
+      [ "application/java" "application/java-vm" "application/java-archive" ];
     categories = [ "Development" "Debugger" ];
     startupWMClass = "org-jd-gui-App";
   };
@@ -99,8 +90,7 @@ in stdenv.mkDerivation rec {
     gradle --offline --no-daemon --info --init-script ${gradleInit} jar
   '';
 
-  installPhase = let
-    jar = "$out/share/jd-gui/${name}.jar";
+  installPhase = let jar = "$out/share/jd-gui/${name}.jar";
   in ''
     runHook preInstall
 
@@ -122,13 +112,13 @@ in stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Fast Java Decompiler with powerful GUI";
-    homepage    = "https://java-decompiler.github.io/";
+    homepage = "https://java-decompiler.github.io/";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # deps
+      binaryBytecode # deps
     ];
-    license     = licenses.gpl3;
-    platforms   = platforms.unix;
+    license = licenses.gpl3;
+    platforms = platforms.unix;
     maintainers = [ maintainers.thoughtpolice ];
   };
 }

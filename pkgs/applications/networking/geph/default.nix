@@ -1,28 +1,17 @@
-{ lib
-, stdenvNoCC
-, rustPlatform
-, fetchFromGitHub
-, buildNpmPackage
-, perl
-, pkg-config
-, glib
-, webkitgtk
-, libappindicator-gtk3
-, libayatana-appindicator
-, cairo
-, openssl
-}:
+{ lib, stdenvNoCC, rustPlatform, fetchFromGitHub, buildNpmPackage, perl
+, pkg-config, glib, webkitgtk, libappindicator-gtk3, libayatana-appindicator
+, cairo, openssl }:
 
 let
   version = "4.7.8";
   geph-meta = with lib; {
-    description = "A modular Internet censorship circumvention system designed specifically to deal with national filtering.";
+    description =
+      "A modular Internet censorship circumvention system designed specifically to deal with national filtering.";
     homepage = "https://geph.io";
     platforms = platforms.linux;
     maintainers = with maintainers; [ penalty1083 ];
   };
-in
-{
+in {
   cli = rustPlatform.buildRustPackage rec {
     pname = "geph4-client";
     inherit version;
@@ -38,9 +27,7 @@ in
 
     nativeBuildInputs = [ perl ];
 
-    meta = geph-meta // {
-      license = with lib.licenses; [ gpl3Only ];
-    };
+    meta = geph-meta // { license = with lib.licenses; [ gpl3Only ]; };
   };
 
   gui = stdenvNoCC.mkDerivation rec {
@@ -115,8 +102,6 @@ in
       sed -i -e '/StartupWMClass/s/=.*/=gephgui-wry/' $out/share/applications/io.geph.GephGui.desktop
     '';
 
-    meta = geph-meta // {
-      license = with lib.licenses; [ unfree ];
-    };
+    meta = geph-meta // { license = with lib.licenses; [ unfree ]; };
   };
 }

@@ -15,7 +15,8 @@ rustPlatform.buildRustPackage rec {
     # updates outdated lock file and fixes a test
     (fetchpatch {
       name = "fix-tests.patch";
-      url = "https://github.com/daynin/fundoc/commit/7dd3cf53a1d1ed72b00bf38ea3a45ba4590da7ef.patch";
+      url =
+        "https://github.com/daynin/fundoc/commit/7dd3cf53a1d1ed72b00bf38ea3a45ba4590da7ef.patch";
       hash = "sha256-9Xsw2P4t9gzwc/qDU6U5+HZevPiQOOQo88gybC8QpyM=";
     })
   ];

@@ -2,18 +2,17 @@ config:
 { lib, stdenv, cmake, pkg-config, which
 
 # Xen
-, bison, bzip2, checkpolicy, dev86, figlet, flex, gettext, glib
-, acpica-tools, libaio, libiconv, libuuid, ncurses, openssl, perl
-, xz, yajl, zlib
+, bison, bzip2, checkpolicy, dev86, figlet, flex, gettext, glib, acpica-tools
+, libaio, libiconv, libuuid, ncurses, openssl, perl, xz, yajl, zlib
 , python3Packages
 
 # Xen Optional
 , ocamlPackages
 
 # Scripts
-, coreutils, gawk, gnused, gnugrep, diffutils, multipath-tools
-, iproute2, inetutils, iptables, bridge-utils, openvswitch, nbd, drbd
-, util-linux, procps, systemd
+, coreutils, gawk, gnused, gnugrep, diffutils, multipath-tools, iproute2
+, inetutils, iptables, bridge-utils, openvswitch, nbd, drbd, util-linux, procps
+, systemd
 
 # Documentation
 # python3Packages.markdown
@@ -21,42 +20,56 @@ config:
 
 , binutils-unwrapped
 
-, ...} @ args:
+, ... }@args:
 
 with lib;
 
 let
   #TODO: fix paths instead
   scriptEnvPath = concatMapStringsSep ":" (x: "${x}/bin") [
-    which perl
-    coreutils gawk gnused gnugrep diffutils util-linux multipath-tools
-    iproute2 inetutils iptables bridge-utils openvswitch nbd drbd
+    which
+    perl
+    coreutils
+    gawk
+    gnused
+    gnugrep
+    diffutils
+    util-linux
+    multipath-tools
+    iproute2
+    inetutils
+    iptables
+    bridge-utils
+    openvswitch
+    nbd
+    drbd
   ];
 
   withXenfiles = f: concatStringsSep "\n" (mapAttrsToList f config.xenfiles);
 
-  withTools = a: f: withXenfiles (name: x: optionalString (hasAttr a x) ''
-    echo "processing ${name}"
-    __do() {
-      cd "tools/${name}"
-      ${f name x}
-    }
-    ( __do )
-  '');
+  withTools = a: f:
+    withXenfiles (name: x:
+      optionalString (hasAttr a x) ''
+        echo "processing ${name}"
+        __do() {
+          cd "tools/${name}"
+          ${f name x}
+        }
+        ( __do )
+      '');
 
   # We don't want to use the wrapped version, because this version of ld is
   # only used for linking the Xen EFI binary, and the build process really
   # needs control over the LDFLAGS used
   efiBinutils = binutils-unwrapped.overrideAttrs (oldAttrs: {
     name = "efi-binutils";
-    configureFlags = oldAttrs.configureFlags ++ [
-      "--enable-targets=x86_64-pep"
-    ];
-    doInstallCheck = false; # We get a spurious failure otherwise, due to host/target mis-match
+    configureFlags = oldAttrs.configureFlags
+      ++ [ "--enable-targets=x86_64-pep" ];
+    doInstallCheck =
+      false; # We get a spurious failure otherwise, due to host/target mis-match
   });
-in
 
-stdenv.mkDerivation (rec {
+in stdenv.mkDerivation (rec {
   inherit (config) version;
 
   name = "xen-${version}";
@@ -70,21 +83,44 @@ stdenv.mkDerivation (rec {
     which
 
     # Xen
-    bison bzip2 checkpolicy dev86 figlet flex gettext glib acpica-tools libaio
-    libiconv libuuid ncurses openssl perl python3Packages.python xz yajl zlib
+    bison
+    bzip2
+    checkpolicy
+    dev86
+    figlet
+    flex
+    gettext
+    glib
+    acpica-tools
+    libaio
+    libiconv
+    libuuid
+    ncurses
+    openssl
+    perl
+    python3Packages.python
+    xz
+    yajl
+    zlib
 
     # oxenstored
-    ocamlPackages.findlib ocamlPackages.ocaml systemd
+    ocamlPackages.findlib
+    ocamlPackages.ocaml
+    systemd
 
     # Python fixes
     python3Packages.wrapPython
 
     # Documentation
-    python3Packages.markdown fig2dev ghostscript texinfo pandoc
+    python3Packages.markdown
+    fig2dev
+    ghostscript
+    texinfo
+    pandoc
 
     # Others
-  ] ++ (concatMap (x: x.buildInputs or []) (attrValues config.xenfiles))
-    ++ (config.buildInputs or []);
+  ] ++ (concatMap (x: x.buildInputs or [ ]) (attrValues config.xenfiles))
+    ++ (config.buildInputs or [ ]);
 
   prePatch = ''
     ### Generic fixes
@@ -131,8 +167,7 @@ stdenv.mkDerivation (rec {
     '')}
   '';
 
-  patches = [
-  ] ++ (config.patches or []);
+  patches = [ ] ++ (config.patches or [ ]);
 
   postPatch = ''
     ### Hacks
@@ -194,8 +229,9 @@ stdenv.mkDerivation (rec {
 
   # TODO: Flask needs more testing before enabling it by default.
   #makeFlags = [ "XSM_ENABLE=y" "FLASK_ENABLE=y" "PREFIX=$(out)" "CONFIG_DIR=/etc" "XEN_EXTFILES_URL=\\$(XEN_ROOT)/xen_ext_files" ];
-  makeFlags = [ "PREFIX=$(out) CONFIG_DIR=/etc" "XEN_SCRIPT_DIR=/etc/xen/scripts" ]
-           ++ (config.makeFlags or []);
+  makeFlags =
+    [ "PREFIX=$(out) CONFIG_DIR=/etc" "XEN_SCRIPT_DIR=/etc/xen/scripts" ]
+    ++ (config.makeFlags or [ ]);
 
   preBuild = ''
     ${config.preBuild or ""}
@@ -238,11 +274,13 @@ stdenv.mkDerivation (rec {
   meta = {
     homepage = "http://www.xen.org/";
     description = "Xen hypervisor and related components"
-                + optionalString (args ? meta && args.meta ? description)
-                                 " (${args.meta.description})";
-    longDescription = (args.meta.longDescription or "")
-                    + "\nIncludes:\n"
-                    + withXenfiles (name: x: "* ${name}: ${x.meta.description or "(No description)"}.");
+      + optionalString (args ? meta && args.meta ? description)
+      " (${args.meta.description})";
+    longDescription = (args.meta.longDescription or "") + ''
+
+      Includes:
+    '' + withXenfiles
+      (name: x: "* ${name}: ${x.meta.description or "(No description)"}.");
     platforms = [ "x86_64-linux" ];
     maintainers = [ ];
     license = lib.licenses.gpl2;
@@ -257,9 +295,15 @@ stdenv.mkDerivation (rec {
       # https://www.openwall.com/lists/oss-security/2023/03/21/3
       # Affects 4.15 - 4.17
       "CVE-2022-42331"
-    # https://xenbits.xen.org/docs/unstable/support-matrix.html
+      # https://xenbits.xen.org/docs/unstable/support-matrix.html
     ] ++ lib.optionals (lib.versionOlder version "4.15") [
       "This version of Xen has reached its end of life. See https://xenbits.xen.org/docs/unstable/support-matrix.html"
     ];
-  } // (config.meta or {});
-} // removeAttrs config [ "xenfiles" "buildInputs" "patches" "postPatch" "meta" ])
+  } // (config.meta or { });
+} // removeAttrs config [
+  "xenfiles"
+  "buildInputs"
+  "patches"
+  "postPatch"
+  "meta"
+])

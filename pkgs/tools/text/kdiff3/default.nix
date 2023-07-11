@@ -1,16 +1,5 @@
-{ mkDerivation
-, lib
-, fetchurl
-, extra-cmake-modules
-, kdoctools
-, wrapGAppsHook
-, boost
-, kcrash
-, kconfig
-, kinit
-, kparts
-, kiconthemes
-}:
+{ mkDerivation, lib, fetchurl, extra-cmake-modules, kdoctools, wrapGAppsHook
+, boost, kcrash, kconfig, kinit, kparts, kiconthemes }:
 
 mkDerivation rec {
   pname = "kdiff3";

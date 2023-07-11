@@ -1,6 +1,4 @@
-{ lib, fetchurl, buildDunePackage
-, cstruct, lwt, fmt
-}:
+{ lib, fetchurl, buildDunePackage, cstruct, lwt, fmt }:
 
 buildDunePackage rec {
   pname = "mirage-block";
@@ -9,7 +7,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/mirage/mirage-block/releases/download/v${version}/mirage-block-${version}.tbz";
+    url =
+      "https://github.com/mirage/mirage-block/releases/download/v${version}/mirage-block-${version}.tbz";
     hash = "sha256-UALUfeL0G1mfSsLgAb/HpQ6OV12YtY+GUOYG6yhUwAI=";
   };
 

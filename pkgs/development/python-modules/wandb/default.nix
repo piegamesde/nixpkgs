@@ -1,52 +1,11 @@
-{ lib
-, stdenv
-, appdirs
-, azure-core
-, bokeh
-, boto3
-, buildPythonPackage
-, click
-, docker_pycreds
-, fetchFromGitHub
-, flask
-, git
-, gitpython
-, google-cloud-compute
-, google-cloud-storage
-, hypothesis
-, jsonref
-, jsonschema
-, keras
-, kubernetes
-, matplotlib
-, mlflow
-, nbclient
-, nbformat
-, pandas
-, parameterized
-, pathtools
-, promise
-, protobuf
-, psutil
-, pydantic
-, pytest-mock
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-, pythonRelaxDepsHook
-, pyyaml
-, requests
-, responses
-, scikit-learn
-, sentry-sdk
-, setproctitle
-, setuptools
-, shortuuid
-, substituteAll
-, tensorflow
-, torch
-, tqdm
-}:
+{ lib, stdenv, appdirs, azure-core, bokeh, boto3, buildPythonPackage, click
+, docker_pycreds, fetchFromGitHub, flask, git, gitpython, google-cloud-compute
+, google-cloud-storage, hypothesis, jsonref, jsonschema, keras, kubernetes
+, matplotlib, mlflow, nbclient, nbformat, pandas, parameterized, pathtools
+, promise, protobuf, psutil, pydantic, pytest-mock, pytest-xdist
+, pytestCheckHook, pythonOlder, pythonRelaxDepsHook, pyyaml, requests, responses
+, scikit-learn, sentry-sdk, setproctitle, setuptools, shortuuid, substituteAll
+, tensorflow, torch, tqdm }:
 
 buildPythonPackage rec {
   pname = "wandb";
@@ -70,9 +29,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   # setuptools is necessary since pkg_resources is required at runtime.
   propagatedBuildInputs = [
@@ -247,16 +204,13 @@ buildPythonPackage rec {
 
   # Disable test that fails on darwin due to issue with python3Packages.psutil:
   # https://github.com/giampaolo/psutil/issues/1219
-  disabledTests = lib.optionals stdenv.isDarwin [
-    "test_tpu_system_stats"
-  ];
+  disabledTests = lib.optionals stdenv.isDarwin [ "test_tpu_system_stats" ];
 
-  pythonImportsCheck = [
-    "wandb"
-  ];
+  pythonImportsCheck = [ "wandb" ];
 
   meta = with lib; {
-    description = "A CLI and library for interacting with the Weights and Biases API";
+    description =
+      "A CLI and library for interacting with the Weights and Biases API";
     homepage = "https://github.com/wandb/wandb";
     changelog = "https://github.com/wandb/wandb/raw/v${version}/CHANGELOG.md";
     license = licenses.mit;

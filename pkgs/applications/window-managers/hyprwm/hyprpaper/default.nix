@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, libjpeg
-, mesa
-, pango
-, pkg-config
-, wayland
-, wayland-protocols
-, wayland-scanner
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, libjpeg, mesa, pango, pkg-config, wayland
+, wayland-protocols, wayland-scanner }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "hyprpaper";
@@ -22,19 +12,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-LqvhYx1Gu+rlkF4pA1NYZzwRQwz3FeWBqXqmQq86m8o=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wayland-scanner
-  ];
+  nativeBuildInputs = [ cmake pkg-config wayland-scanner ];
 
-  buildInputs = [
-    libjpeg
-    mesa
-    pango
-    wayland
-    wayland-protocols
-  ];
+  buildInputs = [ libjpeg mesa pango wayland wayland-protocols ];
 
   prePatch = ''
     substituteInPlace src/main.cpp \

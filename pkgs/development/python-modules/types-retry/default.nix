@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "types-retry";
@@ -16,9 +13,7 @@ buildPythonPackage rec {
   # Modules doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "retry-stubs"
-  ];
+  pythonImportsCheck = [ "retry-stubs" ];
 
   meta = with lib; {
     description = "Typing stubs for retry";

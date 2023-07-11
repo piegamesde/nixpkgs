@@ -1,8 +1,4 @@
-{ lib
-, clang
-, fetchFromGitHub
-, buildGoModule
-}:
+{ lib, clang, fetchFromGitHub, buildGoModule }:
 buildGoModule rec {
   pname = "dae";
   version = "0.1.7";
@@ -38,7 +34,8 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "A Linux high-performance transparent proxy solution based on eBPF";
+    description =
+      "A Linux high-performance transparent proxy solution based on eBPF";
     homepage = "https://github.com/daeuniverse/dae";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ oluceps ];

@@ -4,22 +4,16 @@ stdenv.mkDerivation rec {
   pname = "ethash";
   version = "0.8.0";
 
-  src =
-    fetchFromGitHub {
-      owner = "chfast";
-      repo = "ethash";
-      rev = "v${version}";
-      sha256 = "sha256-4SJk4niSpLPjymwTCD0kHOrqpMf+vE3J/O7DiffUSJ4=";
-    };
+  src = fetchFromGitHub {
+    owner = "chfast";
+    repo = "ethash";
+    rev = "v${version}";
+    sha256 = "sha256-4SJk4niSpLPjymwTCD0kHOrqpMf+vE3J/O7DiffUSJ4=";
+  };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  nativeCheckInputs = [
-    gbenchmark
-    gtest
-  ];
+  nativeCheckInputs = [ gbenchmark gtest ];
 
   #preConfigure = ''
   #  sed -i 's/GTest::main//' test/unittests/CMakeLists.txt

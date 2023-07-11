@@ -3,10 +3,9 @@
 let
   pname = "sawja";
   version = "1.5.12";
-in
 
-lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
-  "${pname} is not available for OCaml ${ocaml.version}"
+in lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
+"${pname} is not available for OCaml ${ocaml.version}"
 
 stdenv.mkDerivation {
 
@@ -34,12 +33,13 @@ stdenv.mkDerivation {
   configureScript = "./configure.sh";
   dontAddPrefix = "true";
   dontAddStaticConfigureFlags = true;
-  configurePlatforms = [];
+  configurePlatforms = [ ];
 
   propagatedBuildInputs = [ javalib ];
 
   meta = with lib; {
-    description = "A library written in OCaml, relying on Javalib to provide a high level representation of Java bytecode programs";
+    description =
+      "A library written in OCaml, relying on Javalib to provide a high level representation of Java bytecode programs";
     homepage = "http://sawja.inria.fr/";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.vbgl ];

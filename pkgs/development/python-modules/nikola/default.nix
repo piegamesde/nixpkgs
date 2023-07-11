@@ -1,43 +1,8 @@
-{ lib
-, aiohttp
-, babel
-, blinker
-, buildPythonPackage
-, python-dateutil
-, docutils
-, doit
-, fetchPypi
-, freezegun
-, ghp-import
-, hsluv
-, html5lib
-, ipykernel
-, jinja2
-, lxml
-, mako
-, markdown
-, micawber
-, mock
-, natsort
-, notebook
-, phpserialize
-, piexif
-, pillow
-, pygal
-, pygments
-, pyphen
-, pyrss2gen
-, pytestCheckHook
-, pythonOlder
-, requests
-, ruamel-yaml
-, stdenv
-, toml
-, typogrify
-, unidecode
-, watchdog
-, yapsy
-}:
+{ lib, aiohttp, babel, blinker, buildPythonPackage, python-dateutil, docutils
+, doit, fetchPypi, freezegun, ghp-import, hsluv, html5lib, ipykernel, jinja2
+, lxml, mako, markdown, micawber, mock, natsort, notebook, phpserialize, piexif
+, pillow, pygal, pygments, pyphen, pyrss2gen, pytestCheckHook, pythonOlder
+, requests, ruamel-yaml, stdenv, toml, typogrify, unidecode, watchdog, yapsy }:
 
 buildPythonPackage rec {
   pname = "nikola";
@@ -86,11 +51,7 @@ buildPythonPackage rec {
     yapsy
   ];
 
-  nativeCheckInputs = [
-    freezegun
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ freezegun mock pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -112,7 +73,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Static website and blog generator";
     homepage = "https://getnikola.com/";
-    changelog = "https://github.com/getnikola/nikola/blob/v${version}/CHANGES.txt";
+    changelog =
+      "https://github.com/getnikola/nikola/blob/v${version}/CHANGES.txt";
     license = licenses.mit;
     maintainers = with maintainers; [ jluttine ];
     # All tests fail

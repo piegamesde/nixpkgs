@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest-asyncio, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "sockio";
@@ -27,14 +22,9 @@ buildPythonPackage rec {
       --replace "--durations=2 --verbose" ""
   '';
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "sockio"
-  ];
+  pythonImportsCheck = [ "sockio" ];
 
   disabledTests = [
     # Tests require network access

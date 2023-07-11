@@ -1,18 +1,10 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, nix-update-script
-, Security
-, openssl
-}:
+{ stdenv, lib, fetchFromGitHub, rustPlatform, pkg-config, nix-update-script
+, Security, openssl }:
 
 let
   pname = "gptcommit";
   version = "0.5.8";
-in
-rustPlatform.buildRustPackage {
+in rustPlatform.buildRustPackage {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -29,14 +21,14 @@ rustPlatform.buildRustPackage {
   # 0.5.6 release has failing tests
   doCheck = false;
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security ] ++ lib.optionals stdenv.isLinux [ openssl ];
+  buildInputs = lib.optionals stdenv.isDarwin [ Security ]
+    ++ lib.optionals stdenv.isLinux [ openssl ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
-    description = "A git prepare-commit-msg hook for authoring commit messages with GPT-3. ";
+    description =
+      "A git prepare-commit-msg hook for authoring commit messages with GPT-3. ";
     homepage = "https://github.com/zurawiki/gptcommit";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ happysalada ];

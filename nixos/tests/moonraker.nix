@@ -1,8 +1,6 @@
-import ./make-test-python.nix ({ pkgs, ...} : {
+import ./make-test-python.nix ({ pkgs, ... }: {
   name = "moonraker";
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ zhaofengli ];
-  };
+  meta = with pkgs.lib.maintainers; { maintainers = [ zhaofengli ]; };
 
   nodes = {
     printer = { config, pkgs, ... }: {
@@ -13,9 +11,7 @@ import ./make-test-python.nix ({ pkgs, ...} : {
         allowSystemControl = true;
 
         settings = {
-          authorization = {
-            trusted_clients = [ "127.0.0.0/8" "::1/128" ];
-          };
+          authorization = { trusted_clients = [ "127.0.0.0/8" "::1/128" ]; };
         };
       };
 
@@ -26,7 +22,7 @@ import ./make-test-python.nix ({ pkgs, ...} : {
         group = "moonraker";
 
         # No mcu configured so won't even enter `ready` state
-        settings = {};
+        settings = { };
       };
     };
   };

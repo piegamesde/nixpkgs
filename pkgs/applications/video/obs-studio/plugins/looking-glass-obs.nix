@@ -1,5 +1,4 @@
-{ lib, stdenv, cmake, libbfd, SDL2, obs-studio
-, looking-glass-client }:
+{ lib, stdenv, cmake, libbfd, SDL2, obs-studio, looking-glass-client }:
 
 stdenv.mkDerivation {
   pname = "looking-glass-obs";
@@ -20,7 +19,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "Plugin for OBS Studio for efficient capturing of looking-glass";
+    description =
+      "Plugin for OBS Studio for efficient capturing of looking-glass";
     homepage = "https://looking-glass.io/docs/stable/obs/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ babbaj ];

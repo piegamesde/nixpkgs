@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, cmake
-, rocm-runtime
-, rocm-thunk
-, roctracer
-, numactl
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-runtime
+, rocm-thunk, roctracer, numactl }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocprofiler";
@@ -23,11 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   patches = [ ./0000-dont-require-hsa_amd_aqlprofile.patch ];
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    rocm-thunk
-    rocm-runtime
-    numactl
-  ];
+  buildInputs = [ rocm-thunk rocm-runtime numactl ];
 
   cmakeFlags = [
     "-DPROF_API_HEADER_PATH=${roctracer.src}/inc/ext"
@@ -46,7 +34,9 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   postInstall = ''
-    patchelf --set-rpath $out/lib:${lib.makeLibraryPath finalAttrs.buildInputs} $out/lib/rocprofiler/librocprof-tool.so
+    patchelf --set-rpath $out/lib:${
+      lib.makeLibraryPath finalAttrs.buildInputs
+    } $out/lib/rocprofiler/librocprof-tool.so
   '';
 
   passthru.updateScript = rocmUpdateScript {
@@ -61,6 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = with licenses; [ mit ]; # mitx11
     maintainers = teams.rocm.members;
     platforms = platforms.linux;
-    broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
+    broken = versions.minor finalAttrs.version
+      != versions.minor stdenv.cc.version;
   };
 })

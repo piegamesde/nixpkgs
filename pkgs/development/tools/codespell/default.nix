@@ -1,8 +1,4 @@
-{ lib
-, fetchFromGitHub
-, aspellDicts
-, python3
-}:
+{ lib, fetchFromGitHub, aspellDicts, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "codespell";
@@ -22,9 +18,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace "--cov-report=" ""
   '';
 
-  nativeBuildInputs = with python3.pkgs; [
-    setuptools-scm
-  ];
+  nativeBuildInputs = with python3.pkgs; [ setuptools-scm ];
 
   nativeCheckInputs = with python3.pkgs; [
     aspell-python

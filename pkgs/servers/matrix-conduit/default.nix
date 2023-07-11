@@ -1,4 +1,5 @@
-{ lib, rustPlatform, fetchFromGitLab, pkg-config, sqlite, stdenv, darwin, nixosTests, rocksdb_6_23 }:
+{ lib, rustPlatform, fetchFromGitLab, pkg-config, sqlite, stdenv, darwin
+, nixosTests, rocksdb_6_23 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "matrix-conduit";
@@ -28,14 +29,10 @@ rustPlatform.buildRustPackage rec {
     cargo update --offline -p rusqlite
   '';
 
-  nativeBuildInputs = [
-    rustPlatform.bindgenHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ rustPlatform.bindgenHook pkg-config ];
 
-  buildInputs = [ sqlite ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-  ];
+  buildInputs = [ sqlite ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   ROCKSDB_INCLUDE_DIR = "${rocksdb_6_23}/include";
   ROCKSDB_LIB_DIR = "${rocksdb_6_23}/lib";
@@ -43,9 +40,7 @@ rustPlatform.buildRustPackage rec {
   # tests failed on x86_64-darwin with SIGILL: illegal instruction
   doCheck = !(stdenv.isx86_64 && stdenv.isDarwin);
 
-  passthru.tests = {
-    inherit (nixosTests) matrix-conduit;
-  };
+  passthru.tests = { inherit (nixosTests) matrix-conduit; };
 
   meta = with lib; {
     description = "A Matrix homeserver written in Rust";

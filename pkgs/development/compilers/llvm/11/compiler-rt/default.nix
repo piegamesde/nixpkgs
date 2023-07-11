@@ -1,24 +1,23 @@
-{ lib, stdenv, llvm_meta, version, fetch, cmake, python3, xcbuild, libllvm, libcxxabi, libxcrypt
-, doFakeLibgcc ? stdenv.hostPlatform.isFreeBSD
-}:
+{ lib, stdenv, llvm_meta, version, fetch, cmake, python3, xcbuild, libllvm
+, libcxxabi, libxcrypt, doFakeLibgcc ? stdenv.hostPlatform.isFreeBSD }:
 
 let
 
   useLLVM = stdenv.hostPlatform.useLLVM or false;
-  isNewDarwinBootstrap = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64;
+  isNewDarwinBootstrap = stdenv.hostPlatform.isDarwin
+    && stdenv.hostPlatform.isAarch64;
   bareMetal = stdenv.hostPlatform.parsed.kernel.name == "none";
   haveLibc = stdenv.cc.libc != null;
   inherit (stdenv.hostPlatform) isMusl;
 
-in
-
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "compiler-rt" + lib.optionalString (haveLibc) "-libc";
   inherit version;
-  src = fetch "compiler-rt" "0x1j8ngf1zj63wlnns9vlibafq48qcm72p4jpaxkmkb4qw0grwfy";
+  src =
+    fetch "compiler-rt" "0x1j8ngf1zj63wlnns9vlibafq48qcm72p4jpaxkmkb4qw0grwfy";
 
   nativeBuildInputs = [ cmake python3 libllvm.dev ]
-     ++ lib.optional stdenv.isDarwin xcbuild.xcrun;
+    ++ lib.optional stdenv.isDarwin xcbuild.xcrun;
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-DSCUDO_DEFAULT_OPTIONS=DeleteSizeMismatch=0:DeallocationTypeMismatch=0"
@@ -28,32 +27,32 @@ stdenv.mkDerivation {
     "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON"
     "-DCMAKE_C_COMPILER_TARGET=${stdenv.hostPlatform.config}"
     "-DCMAKE_ASM_COMPILER_TARGET=${stdenv.hostPlatform.config}"
-  ] ++ lib.optionals (haveLibc && stdenv.hostPlatform.isGnu) [
-    "-DSANITIZER_COMMON_CFLAGS=-I${libxcrypt}/include"
-  ] ++ lib.optionals (useLLVM || bareMetal || isMusl || isNewDarwinBootstrap) [
-    "-DCOMPILER_RT_BUILD_SANITIZERS=OFF"
-    "-DCOMPILER_RT_BUILD_XRAY=OFF"
-    "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF"
-  ] ++ lib.optionals (useLLVM || bareMetal) [
-    "-DCOMPILER_RT_BUILD_PROFILE=OFF"
-  ] ++ lib.optionals (!haveLibc || bareMetal) [
-    "-DCMAKE_C_COMPILER_WORKS=ON"
-    "-DCMAKE_CXX_COMPILER_WORKS=ON"
-    "-DCOMPILER_RT_BAREMETAL_BUILD=ON"
-    "-DCMAKE_SIZEOF_VOID_P=${toString (stdenv.hostPlatform.parsed.cpu.bits / 8)}"
-  ] ++ lib.optionals (!haveLibc) [
-    "-DCMAKE_C_FLAGS=-nodefaultlibs"
-  ] ++ lib.optionals (useLLVM || isNewDarwinBootstrap) [
-    "-DCOMPILER_RT_BUILD_BUILTINS=ON"
-    #https://stackoverflow.com/questions/53633705/cmake-the-c-compiler-is-not-able-to-compile-a-simple-test-program
-    "-DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY"
-  ] ++ lib.optionals (bareMetal) [
-    "-DCOMPILER_RT_OS_DIR=baremetal"
-  ] ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
-    "-DDARWIN_macosx_OVERRIDE_SDK_VERSION=ON"
-    "-DDARWIN_osx_ARCHS=${stdenv.hostPlatform.darwinArch}"
-    "-DDARWIN_osx_BUILTIN_ARCHS=${stdenv.hostPlatform.darwinArch}"
-  ];
+  ] ++ lib.optionals (haveLibc && stdenv.hostPlatform.isGnu)
+    [ "-DSANITIZER_COMMON_CFLAGS=-I${libxcrypt}/include" ]
+    ++ lib.optionals (useLLVM || bareMetal || isMusl || isNewDarwinBootstrap) [
+      "-DCOMPILER_RT_BUILD_SANITIZERS=OFF"
+      "-DCOMPILER_RT_BUILD_XRAY=OFF"
+      "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF"
+    ] ++ lib.optionals (useLLVM || bareMetal)
+    [ "-DCOMPILER_RT_BUILD_PROFILE=OFF" ]
+    ++ lib.optionals (!haveLibc || bareMetal) [
+      "-DCMAKE_C_COMPILER_WORKS=ON"
+      "-DCMAKE_CXX_COMPILER_WORKS=ON"
+      "-DCOMPILER_RT_BAREMETAL_BUILD=ON"
+      "-DCMAKE_SIZEOF_VOID_P=${
+        toString (stdenv.hostPlatform.parsed.cpu.bits / 8)
+      }"
+    ] ++ lib.optionals (!haveLibc) [ "-DCMAKE_C_FLAGS=-nodefaultlibs" ]
+    ++ lib.optionals (useLLVM || isNewDarwinBootstrap) [
+      "-DCOMPILER_RT_BUILD_BUILTINS=ON"
+      #https://stackoverflow.com/questions/53633705/cmake-the-c-compiler-is-not-able-to-compile-a-simple-test-program
+      "-DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY"
+    ] ++ lib.optionals (bareMetal) [ "-DCOMPILER_RT_OS_DIR=baremetal" ]
+    ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
+      "-DDARWIN_macosx_OVERRIDE_SDK_VERSION=ON"
+      "-DDARWIN_osx_ARCHS=${stdenv.hostPlatform.darwinArch}"
+      "-DDARWIN_osx_BUILTIN_ARCHS=${stdenv.hostPlatform.darwinArch}"
+    ];
 
   outputs = [ "out" "dev" ];
 
@@ -100,24 +99,26 @@ stdenv.mkDerivation {
   '';
 
   # Hack around weird upsream RPATH bug
-  postInstall = lib.optionalString (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm) ''
-    ln -s "$out/lib"/*/* "$out/lib"
-  '' + lib.optionalString (useLLVM) ''
-    ln -s $out/lib/*/clang_rt.crtbegin-*.o $out/lib/crtbegin.o
-    ln -s $out/lib/*/clang_rt.crtend-*.o $out/lib/crtend.o
-    ln -s $out/lib/*/clang_rt.crtbegin-*.o $out/lib/crtbeginS.o
-    ln -s $out/lib/*/clang_rt.crtend-*.o $out/lib/crtendS.o
-    ln -s $out/lib/*/clang_rt.crtbegin_shared-*.o $out/lib/crtbeginS.o
-    ln -s $out/lib/*/clang_rt.crtend_shared-*.o $out/lib/crtendS.o
-  ''
-  # See https://reviews.llvm.org/D37278 for why android exception
-  + lib.optionalString (stdenv.hostPlatform.isx86_32 && !stdenv.hostPlatform.isAndroid) ''
-    for f in $out/lib/*/*builtins-i?86*; do
-      ln -s "$f" $(echo "$f" | sed -e 's/builtins-i.86/builtins-i386/')
-    done
-  '' + lib.optionalString doFakeLibgcc ''
-    ln -s $out/lib/freebsd/libclang_rt.builtins-*.a $out/lib/libgcc.a
-  '';
+  postInstall = lib.optionalString
+    (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm) ''
+      ln -s "$out/lib"/*/* "$out/lib"
+    '' + lib.optionalString (useLLVM) ''
+      ln -s $out/lib/*/clang_rt.crtbegin-*.o $out/lib/crtbegin.o
+      ln -s $out/lib/*/clang_rt.crtend-*.o $out/lib/crtend.o
+      ln -s $out/lib/*/clang_rt.crtbegin-*.o $out/lib/crtbeginS.o
+      ln -s $out/lib/*/clang_rt.crtend-*.o $out/lib/crtendS.o
+      ln -s $out/lib/*/clang_rt.crtbegin_shared-*.o $out/lib/crtbeginS.o
+      ln -s $out/lib/*/clang_rt.crtend_shared-*.o $out/lib/crtendS.o
+    ''
+    # See https://reviews.llvm.org/D37278 for why android exception
+    + lib.optionalString
+    (stdenv.hostPlatform.isx86_32 && !stdenv.hostPlatform.isAndroid) ''
+      for f in $out/lib/*/*builtins-i?86*; do
+        ln -s "$f" $(echo "$f" | sed -e 's/builtins-i.86/builtins-i386/')
+      done
+    '' + lib.optionalString doFakeLibgcc ''
+      ln -s $out/lib/freebsd/libclang_rt.builtins-*.a $out/lib/libgcc.a
+    '';
 
   meta = llvm_meta // {
     homepage = "https://compiler-rt.llvm.org/";
@@ -135,6 +136,7 @@ stdenv.mkDerivation {
     license = with lib.licenses; [ mit ncsa ];
     # compiler-rt requires a Clang stdenv on 32-bit RISC-V:
     # https://reviews.llvm.org/D43106#1019077
-    broken = stdenv.hostPlatform.isRiscV && stdenv.hostPlatform.is32bit && !stdenv.cc.isClang;
+    broken = stdenv.hostPlatform.isRiscV && stdenv.hostPlatform.is32bit
+      && !stdenv.cc.isClang;
   };
 }

@@ -1,12 +1,4 @@
-{ stdenv
-, lib
-, fetchurl
-, gtk3
-, glib
-, pkg-config
-, libpng
-, zlib
-}:
+{ stdenv, lib, fetchurl, gtk3, glib, pkg-config, libpng, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "xmedcon";
@@ -17,12 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-g1CRJDokLDzB+1YIuVQNByBLx01CI47EwGeluqVDujk=";
   };
 
-  buildInputs = [
-    gtk3
-    glib
-    libpng
-    zlib
-  ];
+  buildInputs = [ gtk3 glib libpng zlib ];
 
   nativeBuildInputs = [ pkg-config ];
 

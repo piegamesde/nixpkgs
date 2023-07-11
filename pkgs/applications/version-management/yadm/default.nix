@@ -1,31 +1,15 @@
-{ lib
-, stdenv
-, resholve
-, fetchFromGitHub
-, git
-, bash
-, openssl
-, gawk
-/*
-TODO: yadm can use git-crypt and transcrypt
-but it does so in a way that resholve 0.6.0
-can't yet do anything smart about. It looks
-like these are for interactive use, so the
-main impact should just be that users still
-need both of these packages in their profile
-to support their use in yadm.
+{ lib, stdenv, resholve, fetchFromGitHub, git, bash, openssl, gawk
+/* TODO: yadm can use git-crypt and transcrypt
+   but it does so in a way that resholve 0.6.0
+   can't yet do anything smart about. It looks
+   like these are for interactive use, so the
+   main impact should just be that users still
+   need both of these packages in their profile
+   to support their use in yadm.
 */
 # , git-crypt
 # , transcrypt
-, j2cli
-, esh
-, gnupg
-, coreutils
-, gnutar
-, installShellFiles
-, runCommand
-, yadm
-}:
+, j2cli, esh, gnupg, coreutils, gnutar, installShellFiles, runCommand, yadm }:
 
 resholve.mkDerivation rec {
   pname = "yadm";
@@ -34,10 +18,10 @@ resholve.mkDerivation rec {
   nativeBuildInputs = [ installShellFiles ];
 
   src = fetchFromGitHub {
-    owner  = "TheLocehiliosan";
-    repo   = "yadm";
-    rev    = version;
-    hash   = "sha256-GcuqMlE8oef9+LIqKoCotktU7GcgPBE9CTVrZ8bKhv4=";
+    owner = "TheLocehiliosan";
+    repo = "yadm";
+    rev = version;
+    hash = "sha256-GcuqMlE8oef9+LIqKoCotktU7GcgPBE9CTVrZ8bKhv4=";
   };
 
   dontConfigure = true;
@@ -74,9 +58,7 @@ resholve.mkDerivation rec {
         coreutils
         gnutar
       ];
-      fake = {
-        external = if stdenv.isCygwin then [ ] else [ "cygpath" ];
-      };
+      fake = { external = if stdenv.isCygwin then [ ] else [ "cygpath" ]; };
       fix = {
         "$GPG_PROGRAM" = [ "gpg" ];
         "$OPENSSL_PROGRAM" = [ "openssl" ];
@@ -102,8 +84,7 @@ resholve.mkDerivation rec {
         "$ENVTPL_PROGRAM" = true;
         "$LSB_RELEASE_PROGRAM" = true;
       };
-      /*
-      TODO: these should be dropped as fast as they can be dealt
+      /* TODO: these should be dropped as fast as they can be dealt
             with properly in binlore and/or resholve.
       */
       execer = [
@@ -116,7 +97,7 @@ resholve.mkDerivation rec {
   };
 
   passthru.tests = {
-    minimal = runCommand "${pname}-test" {} ''
+    minimal = runCommand "${pname}-test" { } ''
       export HOME=$out
       ${yadm}/bin/yadm init
     '';
@@ -131,7 +112,8 @@ resholve.mkDerivation rec {
       * Provides a way to use alternate files on a specific OS or host.
       * Supplies a method of encrypting confidential data so it can safely be stored in your repository.
     '';
-    changelog = "https://github.com/TheLocehiliosan/yadm/blob/${version}/CHANGES";
+    changelog =
+      "https://github.com/TheLocehiliosan/yadm/blob/${version}/CHANGES";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ abathur ];
     platforms = lib.platforms.unix;

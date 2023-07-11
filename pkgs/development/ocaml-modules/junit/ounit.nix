@@ -6,10 +6,7 @@ buildDunePackage ({
   inherit (junit) src version meta;
   duneVersion = "3";
 
-  propagatedBuildInputs = [
-    junit
-    ounit
-  ];
+  propagatedBuildInputs = [ junit ounit ];
 
   doCheck = true;
 })

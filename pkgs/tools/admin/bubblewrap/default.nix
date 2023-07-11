@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, docbook_xsl
-, libxslt
-, meson
-, ninja
-, pkg-config
-, bash-completion
-, libcap
-, libselinux
-}:
+{ lib, stdenv, fetchFromGitHub, docbook_xsl, libxslt, meson, ninja, pkg-config
+, bash-completion, libcap, libselinux }:
 
 stdenv.mkDerivation rec {
   pname = "bubblewrap";
@@ -27,25 +17,16 @@ stdenv.mkDerivation rec {
       --replace "/var/tmp" "$TMPDIR"
   '';
 
-  nativeBuildInputs = [
-    docbook_xsl
-    libxslt
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ docbook_xsl libxslt meson ninja pkg-config ];
 
-  buildInputs = [
-    bash-completion
-    libcap
-    libselinux
-  ];
+  buildInputs = [ bash-completion libcap libselinux ];
 
   # incompatible with Nix sandbox
   doCheck = false;
 
   meta = with lib; {
-    changelog = "https://github.com/containers/bubblewrap/releases/tag/${src.rev}";
+    changelog =
+      "https://github.com/containers/bubblewrap/releases/tag/${src.rev}";
     description = "Unprivileged sandboxing tool";
     homepage = "https://github.com/containers/bubblewrap";
     license = licenses.lgpl2Plus;

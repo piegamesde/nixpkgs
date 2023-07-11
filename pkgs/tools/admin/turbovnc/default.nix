@@ -1,30 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nixosTests
+{ lib, stdenv, fetchFromGitHub, nixosTests
 
 # Dependencies
-, bzip2
-, cmake
-, freetype
-, libGL
-, libjpeg_turbo
-, makeWrapper
+, bzip2, cmake, freetype, libGL, libjpeg_turbo, makeWrapper
 , mesa # for built-in 3D software rendering using swrast
 , openjdk # for the client with Java GUI
 , openjdk_headless # for the server
-, openssh
-, openssl
-, pam
-, perl
-, python3
-, which
-, xkbcomp
-, xkeyboard_config
-, xorg
-, xterm
-, zlib
-}:
+, openssh, openssl, pam, perl, python3, which, xkbcomp, xkeyboard_config, xorg
+, xterm, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "turbovnc";
@@ -49,12 +31,7 @@ stdenv.mkDerivation rec {
   #   so that the server can be built without openjdk dependency.
   # * Perhaps allow to build the client on non-Linux platforms.
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-    openjdk_headless
-    python3
-  ];
+  nativeBuildInputs = [ cmake makeWrapper openjdk_headless python3 ];
 
   buildInputs = [
     bzip2
@@ -137,6 +114,7 @@ stdenv.mkDerivation rec {
     description = "High-speed version of VNC derived from TightVNC";
     maintainers = with lib.maintainers; [ nh2 ];
     platforms = with lib.platforms; linux;
-    changelog = "https://github.com/TurboVNC/turbovnc/blob/${version}/ChangeLog.md";
+    changelog =
+      "https://github.com/TurboVNC/turbovnc/blob/${version}/ChangeLog.md";
   };
 }

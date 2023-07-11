@@ -1,26 +1,7 @@
-{ lib
-, stdenv
-, buildEnv
-, fetchFromGitHub
-, fetchYarnDeps
-, fixup_yarn_lock
-, installShellFiles
-, lame
-, mpv-unwrapped
-, ninja
-, nodejs
-, nodejs-slim
-, protobuf
-, python3
-, qt6
-, rsync
-, rustPlatform
-, writeShellScriptBin
-, yarn
-, swift
-, AVKit
-, CoreAudio
-}:
+{ lib, stdenv, buildEnv, fetchFromGitHub, fetchYarnDeps, fixup_yarn_lock
+, installShellFiles, lame, mpv-unwrapped, ninja, nodejs, nodejs-slim, protobuf
+, python3, qt6, rsync, rustPlatform, writeShellScriptBin, yarn, swift, AVKit
+, CoreAudio }:
 
 let
   pname = "anki";
@@ -35,19 +16,16 @@ let
     fetchSubmodules = true;
   };
 
-
   cargoDeps = rustPlatform.importCargoLock {
     lockFile = ./Cargo.lock;
     outputHashes = {
       "csv-1.1.6" = "sha256-w728ffOVkI+IfK6FbmkGhr0CjuyqgJnPB1kutMJIUYg=";
-      "linkcheck-0.4.1-alpha.0" = "sha256-Fiom8oHW9y7vV2RLXW0ClzHOdIlBq3Z9jLP+p6Sk4GI=";
+      "linkcheck-0.4.1-alpha.0" =
+        "sha256-Fiom8oHW9y7vV2RLXW0ClzHOdIlBq3Z9jLP+p6Sk4GI=";
     };
   };
 
-  anki-build-python = python3.withPackages (ps: with ps; [
-    pip
-    mypy-protobuf
-  ]);
+  anki-build-python = python3.withPackages (ps: with ps; [ pip mypy-protobuf ]);
 
   # anki shells out to git to check its revision, and also to update submodules
   # We don't actually need the submodules, so we stub that out
@@ -78,11 +56,7 @@ let
 
   pyEnv = buildEnv {
     name = "anki-pyenv-${version}";
-    paths = with python3.pkgs; [
-      pip
-      fakePipSync
-      anki-build-python
-    ];
+    paths = with python3.pkgs; [ pip fakePipSync anki-build-python ];
     pathsToLink = [ "/bin" ];
   };
 
@@ -96,11 +70,7 @@ let
     pname = "anki-nodemodules";
     inherit version src yarnOfflineCache;
 
-    nativeBuildInputs = [
-      fixup_yarn_lock
-      yarn
-      nodejs-slim
-    ];
+    nativeBuildInputs = [ fixup_yarn_lock yarn nodejs-slim ];
 
     configurePhase = ''
       export HOME=$NIX_BUILD_TOP
@@ -115,8 +85,7 @@ let
       mv node_modules $out
     '';
   };
-in
-python3.pkgs.buildPythonApplication {
+in python3.pkgs.buildPythonApplication {
   inherit pname version src;
 
   outputs = [ "out" "doc" "man" ];
@@ -141,57 +110,53 @@ python3.pkgs.buildPythonApplication {
     qt6.wrapQtAppsHook
     rsync
   ] ++ lib.optional stdenv.isDarwin swift;
-  nativeCheckInputs = with python3.pkgs; [ pytest mock astroid  ];
+  nativeCheckInputs = with python3.pkgs; [ pytest mock astroid ];
 
-  buildInputs = [
-    qt6.qtbase
-  ] ++ lib.optional stdenv.isLinux qt6.qtwayland;
-  propagatedBuildInputs = with python3.pkgs; [
-    # This rather long list came from running:
-    #    grep --no-filename -oE "^[^ =]*" python/{requirements.base.txt,requirements.bundle.txt,requirements.qt6_4.txt} | \
-    #      sort | uniq | grep -v "^#$"
-    # in their repo at the git tag for this version
-    # There's probably a more elegant way, but the above extracted all the
-    # names, without version numbers, of their python dependencies. The hope is
-    # that nixpkgs versions are "close enough"
-    # I then removed the ones the check phase failed on (pythonCatchConflictsPhase)
-    beautifulsoup4
-    certifi
-    charset-normalizer
-    click
-    colorama
-    decorator
-    distro
-    flask
-    flask-cors
-    idna
-    importlib-metadata
-    itsdangerous
-    jinja2
-    jsonschema
-    markdown
-    markupsafe
-    orjson
-    pep517
-    python3.pkgs.protobuf
-    pyparsing
-    pyqt6
-    pyqt6-sip
-    pyqt6-webengine
-    pyrsistent
-    pysocks
-    requests
-    send2trash
-    six
-    soupsieve
-    urllib3
-    waitress
-    werkzeug
-    zipp
-  ] ++ lib.optionals stdenv.isDarwin [
-    AVKit
-    CoreAudio
-  ];
+  buildInputs = [ qt6.qtbase ] ++ lib.optional stdenv.isLinux qt6.qtwayland;
+  propagatedBuildInputs = with python3.pkgs;
+    [
+      # This rather long list came from running:
+      #    grep --no-filename -oE "^[^ =]*" python/{requirements.base.txt,requirements.bundle.txt,requirements.qt6_4.txt} | \
+      #      sort | uniq | grep -v "^#$"
+      # in their repo at the git tag for this version
+      # There's probably a more elegant way, but the above extracted all the
+      # names, without version numbers, of their python dependencies. The hope is
+      # that nixpkgs versions are "close enough"
+      # I then removed the ones the check phase failed on (pythonCatchConflictsPhase)
+      beautifulsoup4
+      certifi
+      charset-normalizer
+      click
+      colorama
+      decorator
+      distro
+      flask
+      flask-cors
+      idna
+      importlib-metadata
+      itsdangerous
+      jinja2
+      jsonschema
+      markdown
+      markupsafe
+      orjson
+      pep517
+      python3.pkgs.protobuf
+      pyparsing
+      pyqt6
+      pyqt6-sip
+      pyqt6-webengine
+      pyrsistent
+      pysocks
+      requests
+      send2trash
+      six
+      soupsieve
+      urllib3
+      waitress
+      werkzeug
+      zipp
+    ] ++ lib.optionals stdenv.isDarwin [ AVKit CoreAudio ];
 
   # Activate optimizations
   RELEASE = true;

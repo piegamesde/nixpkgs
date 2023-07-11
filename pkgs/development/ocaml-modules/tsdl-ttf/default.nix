@@ -1,11 +1,5 @@
-{ buildDunePackage
-, dune-configurator
-, fetchFromGitHub
-, lib
-, SDL2
-, SDL2_ttf
-, tsdl
-}:
+{ buildDunePackage, dune-configurator, fetchFromGitHub, lib, SDL2, SDL2_ttf
+, tsdl }:
 
 buildDunePackage rec {
   pname = "tsdl-ttf";
@@ -20,15 +14,9 @@ buildDunePackage rec {
     hash = "sha256-ai9ChsA3HZzTxT9AuHsY1UIA2Q3U3CcOA7jRSG4MDsQ=";
   };
 
-  buildInputs = [
-    dune-configurator
-  ];
+  buildInputs = [ dune-configurator ];
 
-  propagatedBuildInputs = [
-    SDL2
-    SDL2_ttf
-    tsdl
-  ];
+  propagatedBuildInputs = [ SDL2 SDL2_ttf tsdl ];
 
   meta = with lib; {
     description = "SDL2_ttf bindings for Ocaml with Tsdl";

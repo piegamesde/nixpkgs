@@ -1,52 +1,11 @@
-{ stdenv
-, lib
-, fetchurl
-, substituteAll
-, pkg-config
-, gnome
-, _experimental-update-script-combinators
-, python3
-, gobject-introspection
-, gettext
-, libsoup_3
-, libxml2
-, libsecret
-, icu
-, sqlite
-, tzdata
-, libcanberra-gtk3
-, p11-kit
-, db
-, nspr
-, nss
-, libical
-, gperf
-, wrapGAppsHook
-, glib-networking
-, pcre
-, vala
-, cmake
-, ninja
-, libkrb5
-, openldap
-, enableOAuth2 ? stdenv.isLinux
-, webkitgtk_4_1
-, webkitgtk_6_0
-, libaccounts-glib
-, json-glib
-, glib
-, gtk3
-, gtk4
-, withGtk3 ? true
-, withGtk4 ? false
-, libphonenumber
-, gnome-online-accounts
-, libgweather
-, boost
-, protobuf
-, libiconv
-, makeHardcodeGsettingsPatch
-}:
+{ stdenv, lib, fetchurl, substituteAll, pkg-config, gnome
+, _experimental-update-script-combinators, python3, gobject-introspection
+, gettext, libsoup_3, libxml2, libsecret, icu, sqlite, tzdata, libcanberra-gtk3
+, p11-kit, db, nspr, nss, libical, gperf, wrapGAppsHook, glib-networking, pcre
+, vala, cmake, ninja, libkrb5, openldap, enableOAuth2 ? stdenv.isLinux
+, webkitgtk_4_1, webkitgtk_6_0, libaccounts-glib, json-glib, glib, gtk3, gtk4
+, withGtk3 ? true, withGtk4 ? false, libphonenumber, gnome-online-accounts
+, libgweather, boost, protobuf, libiconv, makeHardcodeGsettingsPatch }:
 
 stdenv.mkDerivation rec {
   pname = "evolution-data-server";
@@ -55,7 +14,9 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/evolution-data-server/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/evolution-data-server/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "XOYsHmfyeJNCp/SgNbEC905i7YX2DoGlt/PgQWVATf8=";
   };
 
@@ -100,30 +61,15 @@ stdenv.mkDerivation rec {
     libphonenumber
     boost
     protobuf
-  ] ++ lib.optionals stdenv.isLinux [
-    libaccounts-glib
-  ] ++ lib.optionals stdenv.isDarwin [
-    libiconv
-  ] ++ lib.optionals withGtk3 [
-    gtk3
-  ] ++ lib.optionals (withGtk3 && enableOAuth2) [
-    webkitgtk_4_1
-  ] ++ lib.optionals withGtk4 [
-    gtk4
-  ] ++ lib.optionals (withGtk4 && enableOAuth2) [
-    webkitgtk_6_0
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ libaccounts-glib ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv ]
+    ++ lib.optionals withGtk3 [ gtk3 ]
+    ++ lib.optionals (withGtk3 && enableOAuth2) [ webkitgtk_4_1 ]
+    ++ lib.optionals withGtk4 [ gtk4 ]
+    ++ lib.optionals (withGtk4 && enableOAuth2) [ webkitgtk_6_0 ];
 
-  propagatedBuildInputs = [
-    db
-    libsecret
-    nss
-    nspr
-    libical
-    libsoup_3
-    libxml2
-    json-glib
-  ];
+  propagatedBuildInputs =
+    [ db libsecret nss nspr libical libsoup_3 libxml2 json-glib ];
 
   cmakeFlags = [
     "-DENABLE_UOA=OFF"
@@ -162,22 +108,23 @@ stdenv.mkDerivation rec {
       };
       inherit src;
     };
-    updateScript =
-      let
-        updateSource = gnome.updateScript {
-          packageName = "evolution-data-server";
-          versionPolicy = "odd-unstable";
-        };
-        updatePatch = _experimental-update-script-combinators.copyAttrOutputToFile "evolution-data-server.hardcodeGsettingsPatch" ./hardcode-gsettings.patch;
-      in
-      _experimental-update-script-combinators.sequence [
-        updateSource
-        updatePatch
-      ];
+    updateScript = let
+      updateSource = gnome.updateScript {
+        packageName = "evolution-data-server";
+        versionPolicy = "odd-unstable";
+      };
+      updatePatch = _experimental-update-script-combinators.copyAttrOutputToFile
+        "evolution-data-server.hardcodeGsettingsPatch"
+        ./hardcode-gsettings.patch;
+    in _experimental-update-script-combinators.sequence [
+      updateSource
+      updatePatch
+    ];
   };
 
   meta = with lib; {
-    description = "Unified backend for programs that work with contacts, tasks, and calendar information";
+    description =
+      "Unified backend for programs that work with contacts, tasks, and calendar information";
     homepage = "https://wiki.gnome.org/Apps/Evolution";
     license = licenses.lgpl2Plus;
     maintainers = teams.gnome.members;

@@ -1,17 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, fetchurl
-, clang-tools, cmake, bzip2, zlib, expat, boost, git, pandoc, gzip
-, postgresql_12
-, python3, python3Packages, php
-}:
+{ stdenv, lib, fetchFromGitHub, fetchurl, clang-tools, cmake, bzip2, zlib, expat
+, boost, git, pandoc, gzip, postgresql_12, python3, python3Packages, php }:
 
 let
   countryGrid = fetchurl {
     # Nominatim docs mention https://www.nominatim.org/data/country_grid.sql.gz but it's not a very good URL for pinning
-    url = "https://web.archive.org/web/20220323041006/https://nominatim.org/data/country_grid.sql.gz";
+    url =
+      "https://web.archive.org/web/20220323041006/https://nominatim.org/data/country_grid.sql.gz";
     sha256 = "sha256-/mY5Oq9WF0klXOv0xh0TqEJeMmuM5QQJ2IxANRZd4Ek=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "nominatim";
   version = "4.0.1";
 
@@ -23,13 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sKI/KBKveb5kAWJ7y1xw+ZF1thynr402rJhVjkIdFMo=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    clang-tools
-    git
-    pandoc
-    php
-  ];
+  nativeBuildInputs = [ cmake clang-tools git pandoc php ];
 
   buildInputs = [
     bzip2

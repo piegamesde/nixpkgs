@@ -1,8 +1,4 @@
-{ lib,
-  fetchFromGitHub,
-  rustPlatform,
-  enableAppletSymlinks ? true,
-}:
+{ lib, fetchFromGitHub, rustPlatform, enableAppletSymlinks ? true, }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rsbkb";
@@ -18,12 +14,11 @@ rustPlatform.buildRustPackage rec {
 
   # Setup symlinks for all the utilities,
   # busybox style
-  postInstall = lib.optionalString enableAppletSymlinks
-    ''
+  postInstall = lib.optionalString enableAppletSymlinks ''
     cd $out/bin || exit 1
     path="$(realpath --canonicalize-missing ./rsbkb)"
     for i in $(./rsbkb list) ; do ln -s $path $i ; done
-    '';
+  '';
 
   meta = with lib; {
     description = "Command line tools to encode/decode things";

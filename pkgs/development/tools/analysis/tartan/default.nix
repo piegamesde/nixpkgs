@@ -1,14 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, meson
-, ninja
-, pkg-config
-, llvmPackages
-, gobject-introspection
-, glib
-, unstableGitUpdater
-}:
+{ stdenv, lib, fetchFromGitLab, meson, ninja, pkg-config, llvmPackages
+, gobject-introspection, glib, unstableGitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "tartan";
@@ -22,18 +13,10 @@ stdenv.mkDerivation rec {
     sha256 = "l3duPt8Kh/JljzOV+Dm26XbS7gZ+mmFfYUYofWSJRyo=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
 
-  buildInputs = [
-    gobject-introspection
-    glib
-    llvmPackages.libclang
-    llvmPackages.libllvm
-  ];
+  buildInputs =
+    [ gobject-introspection glib llvmPackages.libclang llvmPackages.libllvm ];
 
   passthru = {
     updateScript = unstableGitUpdater {

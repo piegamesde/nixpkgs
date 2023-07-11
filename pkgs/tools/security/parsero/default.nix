@@ -11,10 +11,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "rqupeJxslL3AfQ+CzBWRb4ZS32VoYd8hlA+eACMKGPY=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
-    beautifulsoup4
-    urllib3
-  ];
+  propagatedBuildInputs = with python3Packages; [ beautifulsoup4 urllib3 ];
 
   # Project has no tests
   doCheck = false;

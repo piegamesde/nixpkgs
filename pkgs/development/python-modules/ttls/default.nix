@@ -1,12 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, colour
-, fetchFromGitHub
-, poetry-core
-, pythonOlder
-, setuptools
-}:
+{ lib, aiohttp, buildPythonPackage, colour, fetchFromGitHub, poetry-core
+, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "ttls";
@@ -22,22 +15,14 @@ buildPythonPackage rec {
     hash = "sha256-W7r2XgH8SloL9l/Lw1xWLmjF8aMBHWFe2DQ3tkqu+JQ=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    colour
-    setuptools
-  ];
+  propagatedBuildInputs = [ aiohttp colour setuptools ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "ttls"
-  ];
+  pythonImportsCheck = [ "ttls" ];
 
   meta = with lib; {
     description = "Module to interact with Twinkly LEDs";

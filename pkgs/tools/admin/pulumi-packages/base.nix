@@ -1,17 +1,8 @@
-{ buildGoModule
-, fetchFromGitHub
-, python3Packages
-}:
+{ buildGoModule, fetchFromGitHub, python3Packages }:
 let
   mkBasePackage =
-    { pname
-    , src
-    , version
-    , vendorHash
-    , cmd
-    , extraLdflags
-    , ...
-    }@args: buildGoModule (rec {
+    { pname, src, version, vendorHash, cmd, extraLdflags, ... }@args:
+    buildGoModule (rec {
       inherit pname src vendorHash version;
 
       sourceRoot = "${src.name}/provider";
@@ -20,20 +11,12 @@ let
 
       doCheck = false;
 
-      ldflags = [
-        "-s"
-        "-w"
-      ] ++ extraLdflags;
+      ldflags = [ "-s" "-w" ] ++ extraLdflags;
     } // args);
 
-  mkPythonPackage =
-    { meta
-    , pname
-    , src
-    , version
-    , ...
-    }: python3Packages.callPackage
-      ({ buildPythonPackage, pythonOlder, parver, pulumi, semver }:
+  mkPythonPackage = { meta, pname, src, version, ... }:
+    python3Packages.callPackage
+    ({ buildPythonPackage, pythonOlder, parver, pulumi, semver }:
       buildPythonPackage rec {
         inherit pname meta src version;
         format = "setuptools";
@@ -42,11 +25,7 @@ let
 
         sourceRoot = "${src.name}/sdk/python";
 
-        propagatedBuildInputs = [
-          parver
-          pulumi
-          semver
-        ];
+        propagatedBuildInputs = [ parver pulumi semver ];
 
         postPatch = ''
           sed -i \
@@ -66,25 +45,11 @@ let
           runHook postCheck
         '';
 
-        pythonImportsCheck = [
-          (builtins.replaceStrings [ "-" ] [ "_" ] pname)
-        ];
-      })
-      { };
-in
-{ owner
-, repo
-, rev
-, version
-, hash
-, vendorHash
-, cmdGen
-, cmdRes
-, extraLdflags
-, meta
-, fetchSubmodules ? false
-, ...
-}@args:
+        pythonImportsCheck =
+          [ (builtins.replaceStrings [ "-" ] [ "_" ] pname) ];
+      }) { };
+in { owner, repo, rev, version, hash, vendorHash, cmdGen, cmdRes, extraLdflags
+, meta, fetchSubmodules ? false, ... }@args:
 let
   src = fetchFromGitHub {
     name = "source-${repo}-${rev}";
@@ -97,15 +62,12 @@ let
     cmd = cmdGen;
     pname = cmdGen;
   };
-in
-mkBasePackage ({
+in mkBasePackage ({
   inherit meta src version vendorHash extraLdflags;
 
   pname = repo;
 
-  nativeBuildInputs = [
-    pulumi-gen
-  ];
+  nativeBuildInputs = [ pulumi-gen ];
 
   cmd = cmdRes;
 

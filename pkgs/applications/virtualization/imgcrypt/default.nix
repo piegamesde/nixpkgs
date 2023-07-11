@@ -11,9 +11,8 @@ buildGoModule rec {
     sha256 = "sha256-VGP63tGyYD/AtjEZD1uo8A2I/4Di7bfLeeaNat+coI4=";
   };
 
-  ldflags = [
-    "-X github.com/containerd/containerd/version.Version=${version}"
-  ];
+  ldflags =
+    [ "-X github.com/containerd/containerd/version.Version=${version}" ];
 
   vendorSha256 = null;
   subPackages = [ "cmd/ctd-decoder" "cmd/ctr" ];

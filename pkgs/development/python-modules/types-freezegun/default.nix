@@ -1,7 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "types-freezegun";
@@ -16,9 +13,7 @@ buildPythonPackage rec {
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "freezegun-stubs"
-  ];
+  pythonImportsCheck = [ "freezegun-stubs" ];
 
   meta = with lib; {
     description = "Typing stubs for freezegun";

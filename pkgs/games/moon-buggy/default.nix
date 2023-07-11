@@ -1,12 +1,10 @@
-{lib, stdenv, fetchurl, ncurses}:
+{ lib, stdenv, fetchurl, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "moon-buggy";
   version = "1.0.51";
 
-  buildInputs = [
-    ncurses
-  ];
+  buildInputs = [ ncurses ];
 
   src = fetchurl {
     url = "http://m.seehuhn.de/programs/moon-buggy-${version}.tar.gz";
@@ -14,9 +12,10 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    description = "A simple character graphics game where you drive some kind of car across the moon's surface";
+    description =
+      "A simple character graphics game where you drive some kind of car across the moon's surface";
     license = lib.licenses.gpl2;
-    maintainers = [lib.maintainers.rybern];
+    maintainers = [ lib.maintainers.rybern ];
     platforms = lib.platforms.linux;
     homepage = "https://www.seehuhn.de/pages/moon-buggy";
   };

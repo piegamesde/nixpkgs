@@ -16,7 +16,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "A git credential helper for 1Password";
     homepage = "https://github.com/develerik/git-credential-1password";
-    changelog = "https://github.com/develerik/git-credential-1password/releases/tag/v${version}";
+    changelog =
+      "https://github.com/develerik/git-credential-1password/releases/tag/v${version}";
     license = licenses.isc;
     maintainers = [ maintainers.ivankovnatsky ];
   };

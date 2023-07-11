@@ -1,11 +1,7 @@
-{ lib
-, fetchFromGitHub
-, crystal
-}:
+{ lib, fetchFromGitHub, crystal }:
 
 let
-  generic =
-    { version, hash }:
+  generic = { version, hash }:
 
     crystal.buildCrystalPackage {
       pname = "shards";
@@ -34,8 +30,7 @@ let
       };
     };
 
-in
-rec {
+in rec {
   shards_0_17 = generic {
     version = "0.17.3";
     hash = "sha256-vgcMB/vp685YwYI9XtJ5cTEjdnYaZY9aOMUnJBJaQoU=";

@@ -1,29 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, installShellFiles
-, libX11
-, libinput
-, libxcb
-, libxkbcommon
-, pixman
-, pkg-config
-, substituteAll
-, wayland-scanner
-, wayland
-, wayland-protocols
-, wlroots_0_16
-, writeText
-, xcbutilwm
-, xwayland
-, enableXWayland ? true
-, conf ? null
-}:
+{ lib, stdenv, fetchFromGitHub, installShellFiles, libX11, libinput, libxcb
+, libxkbcommon, pixman, pkg-config, substituteAll, wayland-scanner, wayland
+, wayland-protocols, wlroots_0_16, writeText, xcbutilwm, xwayland
+, enableXWayland ? true, conf ? null }:
 
-let
-  wlroots = wlroots_0_16;
-in
-stdenv.mkDerivation (finalAttrs: {
+let wlroots = wlroots_0_16;
+in stdenv.mkDerivation (finalAttrs: {
   pname = "dwl";
   version = "0.4";
 
@@ -34,33 +15,20 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-OW7K7yMYSzqZWpQ9Vmpy8EgdWvyv3q1uh8A40f6AQF4=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-    pkg-config
-    wayland-scanner
-  ];
+  nativeBuildInputs = [ installShellFiles pkg-config wayland-scanner ];
 
-  buildInputs = [
-    libinput
-    libxcb
-    libxkbcommon
-    pixman
-    wayland
-    wayland-protocols
-    wlroots
-  ] ++ lib.optionals enableXWayland [
-    libX11
-    xcbutilwm
-    xwayland
-  ];
+  buildInputs =
+    [ libinput libxcb libxkbcommon pixman wayland wayland-protocols wlroots ]
+    ++ lib.optionals enableXWayland [ libX11 xcbutilwm xwayland ];
 
   outputs = [ "out" "man" ];
 
   # Allow users to set an alternative config.def.h
   postPatch = let
-    configFile = if lib.isDerivation conf || builtins.isPath conf
-                 then conf
-                 else writeText "config.def.h" conf;
+    configFile = if lib.isDerivation conf || builtins.isPath conf then
+      conf
+    else
+      writeText "config.def.h" conf;
   in lib.optionalString (conf != null) "cp ${configFile} config.def.h";
 
   makeFlags = [
@@ -91,7 +59,8 @@ stdenv.mkDerivation (finalAttrs: {
       - Limited to 2000 SLOC to promote hackability
       - Tied to as few external dependencies as possible
     '';
-    changelog = "https://github.com/djpohly/dwl/releases/tag/v${finalAttrs.version}";
+    changelog =
+      "https://github.com/djpohly/dwl/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.AndersonTorres ];
     inherit (wayland.meta) platforms;

@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromSourcehut
-, pkg-config
-, scdoc
-, wayland-scanner
-, wayland
-, wayland-protocols
-, libxkbcommon
-}:
+{ lib, stdenv, fetchFromSourcehut, pkg-config, scdoc, wayland-scanner, wayland
+, wayland-protocols, libxkbcommon }:
 
 stdenv.mkDerivation rec {
   pname = "wev";
@@ -22,9 +14,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   # for scdoc
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
   nativeBuildInputs = [ pkg-config scdoc wayland-scanner ];
   buildInputs = [ wayland wayland-protocols libxkbcommon ];
 

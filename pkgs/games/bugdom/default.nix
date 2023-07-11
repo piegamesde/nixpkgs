@@ -21,17 +21,10 @@ stdenv.mkDerivation rec {
     sed -i '/plutil/d' CMakeLists.txt
   '';
 
-  buildInputs = [
-    SDL2
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    IOKit
-    Foundation
-  ];
+  buildInputs = [ SDL2 ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ IOKit Foundation ];
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake makeWrapper ];
 
   cmakeFlags = lib.optionals stdenv.hostPlatform.isDarwin [
     "-DCMAKE_OSX_ARCHITECTURES=${stdenv.hostPlatform.darwinArch}"
@@ -59,7 +52,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A port of Bugdom, a 1999 Macintosh game by Pangea Software, for modern operating systems";
+    description =
+      "A port of Bugdom, a 1999 Macintosh game by Pangea Software, for modern operating systems";
     homepage = "https://github.com/jorio/Bugdom";
     license = with licenses; [ cc-by-sa-40 ];
     maintainers = with maintainers; [ lux ];

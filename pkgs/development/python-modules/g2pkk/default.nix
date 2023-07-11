@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, jamo
-, nltk
-}:
+{ lib, buildPythonPackage, fetchPypi, jamo, nltk }:
 
 buildPythonPackage rec {
   pname = "g2pkk";
@@ -15,14 +10,9 @@ buildPythonPackage rec {
     hash = "sha256-YarV1Btn1x3Sm4Vw/JDSyJy3ZJMXAQHZJJJklSG0R+Q=";
   };
 
-  propagatedBuildInputs = [
-    jamo
-    nltk
-  ];
+  propagatedBuildInputs = [ jamo nltk ];
 
-  pythonImportsCheck = [
-    "g2pkk"
-  ];
+  pythonImportsCheck = [ "g2pkk" ];
 
   doCheck = false;
 

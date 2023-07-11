@@ -16,9 +16,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ libiconv libpng ]
     ++ lib.optionals stdenv.isDarwin [ libobjc ];
 
-  configureFlags = [
-    "--with-tests"
-  ];
+  configureFlags = [ "--with-tests" ];
 
   nativeCheckInputs = [ SDL2 ];
 

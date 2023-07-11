@@ -2,13 +2,13 @@
 
 with lib;
 
-let
-  cfg = config.services.devmon;
+let cfg = config.services.devmon;
 
 in {
   options = {
     services.devmon = {
-      enable = mkEnableOption (lib.mdDoc "devmon, an automatic device mounting daemon");
+      enable = mkEnableOption
+        (lib.mdDoc "devmon, an automatic device mounting daemon");
     };
   };
 

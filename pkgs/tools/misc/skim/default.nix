@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchCrate
-, rustPlatform
-, installShellFiles
-}:
+{ lib, stdenv, fetchCrate, rustPlatform, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   pname = "skim";

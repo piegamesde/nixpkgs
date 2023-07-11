@@ -1,11 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pytest-asyncio
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "asyncio-dgram";
@@ -21,13 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-Eb/9JtgPT2yOlfnn5Ox8M0kcQhSlRCuX8+Rq6amki8Q=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs = [
-    pytest-asyncio
-  ];
+  checkInputs = [ pytest-asyncio ];
 
   # OSError: AF_UNIX path too long
   doCheck = !stdenv.isDarwin;
@@ -38,14 +28,13 @@ buildPythonPackage rec {
     "test_from_socket_bad_socket"
   ];
 
-  pythonImportsCheck = [
-    "asyncio_dgram"
-  ];
+  pythonImportsCheck = [ "asyncio_dgram" ];
 
   meta = with lib; {
     description = "Python support for higher level Datagram";
     homepage = "https://github.com/jsbronder/asyncio-dgram";
-    changelog = "https://github.com/jsbronder/asyncio-dgram/blob/v${version}/ChangeLog";
+    changelog =
+      "https://github.com/jsbronder/asyncio-dgram/blob/v${version}/ChangeLog";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

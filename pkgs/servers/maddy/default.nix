@@ -1,4 +1,5 @@
-{ lib, buildGoModule, fetchFromGitHub, pam, coreutils, installShellFiles, scdoc, nixosTests }:
+{ lib, buildGoModule, fetchFromGitHub, pam, coreutils, installShellFiles, scdoc
+, nixosTests }:
 
 buildGoModule rec {
   pname = "maddy";

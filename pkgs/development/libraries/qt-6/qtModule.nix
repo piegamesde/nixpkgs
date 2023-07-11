@@ -1,12 +1,4 @@
-{ lib
-, stdenv
-, cmake
-, ninja
-, perl
-, moveBuildTree
-, srcs
-, patches ? [ ]
-}:
+{ lib, stdenv, cmake, ninja, perl, moveBuildTree, srcs, patches ? [ ] }:
 
 args:
 
@@ -14,8 +6,7 @@ let
   inherit (args) pname;
   version = args.version or srcs.${pname}.version;
   src = args.src or srcs.${pname}.src;
-in
-stdenv.mkDerivation (args // {
+in stdenv.mkDerivation (args // {
   inherit pname version src;
   patches = args.patches or patches.${pname} or [ ];
 
@@ -30,11 +21,12 @@ stdenv.mkDerivation (args // {
 
   dontWrapQtApps = args.dontWrapQtApps or true;
 
-  meta = with lib; {
-    homepage = "https://www.qt.io/";
-    description = "A cross-platform application framework for C++";
-    license = with licenses; [ fdl13Plus gpl2Plus lgpl21Plus lgpl3Plus ];
-    maintainers = with maintainers; [ milahu nickcao ];
-    platforms = platforms.unix;
-  } // (args.meta or { });
+  meta = with lib;
+    {
+      homepage = "https://www.qt.io/";
+      description = "A cross-platform application framework for C++";
+      license = with licenses; [ fdl13Plus gpl2Plus lgpl21Plus lgpl3Plus ];
+      maintainers = with maintainers; [ milahu nickcao ];
+      platforms = platforms.unix;
+    } // (args.meta or { });
 })

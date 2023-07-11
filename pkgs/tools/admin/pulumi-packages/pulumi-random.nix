@@ -1,6 +1,4 @@
-{ lib
-, mkPulumiPackage
-}:
+{ lib, mkPulumiPackage }:
 mkPulumiPackage rec {
   owner = "pulumi";
   repo = "pulumi-random";
@@ -15,7 +13,8 @@ mkPulumiPackage rec {
   ];
   __darwinAllowLocalNetworking = true;
   meta = with lib; {
-    description = "A Pulumi provider that safely enables randomness for resources";
+    description =
+      "A Pulumi provider that safely enables randomness for resources";
     homepage = "https://github.com/pulumi/pulumi-random";
     license = licenses.asl20;
     maintainers = with maintainers; [ veehaitch trundle ];

@@ -1,12 +1,13 @@
-{ lib, stdenv, fetchurl, gcc, flex, bison, texinfo, jdk_headless, erlang, makeWrapper
-, readline }:
+{ lib, stdenv, fetchurl, gcc, flex, bison, texinfo, jdk_headless, erlang
+, makeWrapper, readline }:
 
 stdenv.mkDerivation rec {
   pname = "mercury";
   version = "22.01.5";
 
   src = fetchurl {
-    url    = "https://dl.mercurylang.org/release/mercury-srcdist-${version}.tar.gz";
+    url =
+      "https://dl.mercurylang.org/release/mercury-srcdist-${version}.tar.gz";
     sha256 = "sha256-fhstGxMMCvxlVCvjwuSDmc8sJdegStPEJ+AicVsJig8=";
   };
 
@@ -54,8 +55,8 @@ stdenv.mkDerivation rec {
       allowing modularity, separate compilation, and numerous optimization/time
       trade-offs.
     '';
-    homepage    = "http://mercurylang.org";
-    license     = lib.licenses.gpl2;
+    homepage = "http://mercurylang.org";
+    license = lib.licenses.gpl2;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     maintainers = [ ];
   };

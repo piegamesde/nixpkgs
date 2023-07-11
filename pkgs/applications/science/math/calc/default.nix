@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, makeWrapper
-, ncurses
-, readline
-, util-linux
-, enableReadline ? true
-}:
+{ lib, stdenv, fetchurl, makeWrapper, ncurses, readline, util-linux
+, enableReadline ? true }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "calc";
@@ -26,17 +19,10 @@ stdenv.mkDerivation (finalAttrs: {
       --replace '-install_name ''${LIBDIR}/libcustcalc''${LIB_EXT_VERSION}' '-install_name ''${T}''${LIBDIR}/libcustcalc''${LIB_EXT_VERSION}'
   '';
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [
-    util-linux
-  ]
-  ++ lib.optionals enableReadline [
-    ncurses
-    readline
-  ];
+  buildInputs = [ util-linux ]
+    ++ lib.optionals enableReadline [ ncurses readline ];
 
   makeFlags = [
     "T=$(out)"
@@ -49,8 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     # Handle LDFLAGS defaults in calc
     "DEFAULT_LIB_INSTALL_PATH=$(out)/lib"
-  ]
-  ++ lib.optionals enableReadline [
+  ] ++ lib.optionals enableReadline [
     "READLINE_LIB=-lreadline"
     "USE_READLINE=-DUSE_READLINE"
   ];
@@ -58,12 +43,12 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "http://www.isthe.com/chongo/tech/comp/calc/";
     description = "C-style arbitrary precision calculator";
-    changelog = "https://github.com/lcn2/calc/blob/v${finalAttrs.version}/CHANGES";
+    changelog =
+      "https://github.com/lcn2/calc/blob/v${finalAttrs.version}/CHANGES";
     # The licensing situation depends on readline (see section 3 of the LGPL)
     # If linked against readline then GPLv2 otherwise LGPLv2.1
-    license = if enableReadline
-              then lib.licenses.gpl2Only
-              else lib.licenses.lgpl21Only;
+    license =
+      if enableReadline then lib.licenses.gpl2Only else lib.licenses.lgpl21Only;
     maintainers = with lib.maintainers; [ matthewbauer ];
     platforms = lib.platforms.all;
   };

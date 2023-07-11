@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "trickster";
@@ -19,22 +16,18 @@ buildGoModule rec {
 
   subPackages = [ "cmd/trickster" ];
 
-  preBuild =
-    let
-      ldflags = with lib;
-        concatStringsSep " " (
-          [ "-extldflags '-static'" "-s" "-w" ] ++
-          (mapAttrsToList (n: v: "-X main.application${n}=${v}") {
-            BuildTime = "1970-01-01T00:00:00+0000";
-            GitCommitID = rev;
-            GoVersion = "$(go env GOVERSION)";
-            GoArch = "$(go env GOARCH)";
-          })
-        );
-    in
-    ''
-      buildFlagsArray+=("-ldflags=${ldflags}")
-    '';
+  preBuild = let
+    ldflags = with lib;
+      concatStringsSep " " ([ "-extldflags '-static'" "-s" "-w" ]
+        ++ (mapAttrsToList (n: v: "-X main.application${n}=${v}") {
+          BuildTime = "1970-01-01T00:00:00+0000";
+          GitCommitID = rev;
+          GoVersion = "$(go env GOVERSION)";
+          GoArch = "$(go env GOARCH)";
+        }));
+  in ''
+    buildFlagsArray+=("-ldflags=${ldflags}")
+  '';
 
   # Tests are broken.
   doCheck = false;

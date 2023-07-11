@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "arnparse";
@@ -16,13 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-2+wxzYoS/KJXjYM6lZguxbr2Oxobo0eFNnzWZHLi0WM=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "arnparse"
-  ];
+  pythonImportsCheck = [ "arnparse" ];
 
   meta = with lib; {
     description = "Parse ARNs using Python";

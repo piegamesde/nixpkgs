@@ -1,11 +1,7 @@
-{
-  mkDerivation, lib,
-  extra-cmake-modules, kdoctools,
-  exiv2, lcms2, cfitsio,
-  baloo, kactivities, kio, kipi-plugins, kitemmodels, kparts, libkdcraw, libkipi,
-  phonon, qtimageformats, qtsvg, qtx11extras, kinit, kpurpose, kcolorpicker, kimageannotator,
-  wayland, wayland-protocols
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, exiv2, lcms2, cfitsio
+, baloo, kactivities, kio, kipi-plugins, kitemmodels, kparts, libkdcraw, libkipi
+, phonon, qtimageformats, qtsvg, qtx11extras, kinit, kpurpose, kcolorpicker
+, kimageannotator, wayland, wayland-protocols }:
 
 mkDerivation {
   pname = "gwenview";
@@ -17,10 +13,25 @@ mkDerivation {
   };
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
   buildInputs = [
-    baloo kactivities kio kitemmodels kparts libkdcraw libkipi phonon
-    exiv2 lcms2 cfitsio
-    qtimageformats qtsvg qtx11extras kpurpose kcolorpicker kimageannotator
-    wayland wayland-protocols
+    baloo
+    kactivities
+    kio
+    kitemmodels
+    kparts
+    libkdcraw
+    libkipi
+    phonon
+    exiv2
+    lcms2
+    cfitsio
+    qtimageformats
+    qtsvg
+    qtx11extras
+    kpurpose
+    kcolorpicker
+    kimageannotator
+    wayland
+    wayland-protocols
   ];
   propagatedUserEnvPkgs = [ kipi-plugins libkipi (lib.getBin kinit) ];
 }

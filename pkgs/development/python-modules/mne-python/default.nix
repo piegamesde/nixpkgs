@@ -1,22 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, scipy
-, pytestCheckHook
-, pytest-timeout
-, h5py
-, matplotlib
-, nibabel
-, pandas
-, scikit-learn
-, decorator
-, jinja2
-, pooch
-, tqdm
-, setuptools
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, scipy, pytestCheckHook
+, pytest-timeout, h5py, matplotlib, nibabel, pandas, scikit-learn, decorator
+, jinja2, pooch, tqdm, setuptools, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "mne-python";
@@ -32,25 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-jvrk6m1Cd5ig2LXq6sAIbHDhmtG1gH/7WNAc7oet+tg=";
   };
 
-  propagatedBuildInputs = [
-    decorator
-    jinja2
-    matplotlib
-    numpy
-    pooch
-    scipy
-    setuptools
-    tqdm
-  ];
+  propagatedBuildInputs =
+    [ decorator jinja2 matplotlib numpy pooch scipy setuptools tqdm ];
 
-  nativeCheckInputs = [
-    h5py
-    nibabel
-    pandas
-    pytestCheckHook
-    scikit-learn
-    pytest-timeout
-  ];
+  nativeCheckInputs =
+    [ h5py nibabel pandas pytestCheckHook scikit-learn pytest-timeout ];
 
   preCheck = ''
     export HOME=$TMP
@@ -61,9 +31,7 @@ buildPythonPackage rec {
   # All tests pass, but Pytest hangs afterwards - probably some thread hasn't terminated
   doCheck = false;
 
-  pythonImportsCheck = [
-    "mne"
-  ];
+  pythonImportsCheck = [ "mne" ];
 
   meta = with lib; {
     description = "Magnetoencephelography and electroencephalography in Python";

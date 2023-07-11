@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, autoconf
-, automake
-, fetchFromGitHub
-, libpcap
-, ncurses
-, openssl
-, pcre
-}:
+{ lib, stdenv, autoconf, automake, fetchFromGitHub, libpcap, ncurses, openssl
+, pcre }:
 
 stdenv.mkDerivation rec {
   pname = "sngrep";
@@ -20,25 +12,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gFba2wOU4GwpOZTo5A2QpBgnC6OgDJEeyaPGHbA+7tA=";
   };
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-  ];
+  nativeBuildInputs = [ autoconf automake ];
 
-  buildInputs = [
-    libpcap
-    ncurses
-    ncurses
-    openssl
-    pcre
-  ];
+  buildInputs = [ libpcap ncurses ncurses openssl pcre ];
 
-  configureFlags = [
-    "--with-pcre"
-    "--enable-unicode"
-    "--enable-ipv6"
-    "--enable-eep"
-  ];
+  configureFlags =
+    [ "--with-pcre" "--enable-unicode" "--enable-ipv6" "--enable-eep" ];
 
   preConfigure = ''
     ./bootstrap.sh

@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, nixosTests
-}:
+{ lib, buildGoModule, fetchFromGitHub, nixosTests }:
 
 buildGoModule rec {
   pname = "nginx-sso";
@@ -22,12 +18,11 @@ buildGoModule rec {
     cp -R $src/frontend $out/share
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) nginx-sso;
-  };
+  passthru.tests = { inherit (nixosTests) nginx-sso; };
 
   meta = with lib; {
-    description = "SSO authentication provider for the auth_request nginx module";
+    description =
+      "SSO authentication provider for the auth_request nginx module";
     homepage = "https://github.com/Luzifer/nginx-sso";
     license = licenses.asl20;
     maintainers = with maintainers; [ delroth ];

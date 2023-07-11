@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pkg-config
-, igraph
-, texttable
-, unittestCheckHook
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pkg-config, igraph
+, texttable, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "igraph";
@@ -27,33 +20,26 @@ buildPythonPackage rec {
     rm -r vendor
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    igraph
-  ];
+  buildInputs = [ igraph ];
 
-  propagatedBuildInputs = [
-    texttable
-  ];
+  propagatedBuildInputs = [ texttable ];
 
   # NB: We want to use our igraph, not vendored igraph, but even with
   # pkg-config on the PATH, their custom setup.py still needs to be explicitly
   # told to do it. ~ C.
   setupPyGlobalFlags = [ "--use-pkg-config" ];
 
-  nativeCheckInputs = [
-    unittestCheckHook
-  ];
+  nativeCheckInputs = [ unittestCheckHook ];
 
   pythonImportsCheck = [ "igraph" ];
 
   meta = with lib; {
     description = "High performance graph data structures and algorithms";
     homepage = "https://igraph.org/python/";
-    changelog = "https://github.com/igraph/python-igraph/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/igraph/python-igraph/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ MostAwesomeDude dotlambda ];
   };

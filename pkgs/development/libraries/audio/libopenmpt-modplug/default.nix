@@ -1,10 +1,4 @@
-{ stdenv
-, lib
-, fetchurl
-, autoreconfHook
-, pkg-config
-, libopenmpt
-}:
+{ stdenv, lib, fetchurl, autoreconfHook, pkg-config, libopenmpt }:
 
 stdenv.mkDerivation rec {
   pname = "libopenmpt-modplug";
@@ -13,24 +7,18 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" ];
 
   src = fetchurl {
-    url = "https://lib.openmpt.org/files/libopenmpt-modplug/libopenmpt-modplug-${version}.tar.gz";
+    url =
+      "https://lib.openmpt.org/files/libopenmpt-modplug/libopenmpt-modplug-${version}.tar.gz";
     sha256 = "sha256-7M4aDuz9sLWCTKuJwnDc5ZWWKVosF8KwQyFez018T/c=";
   };
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    libopenmpt
-  ];
+  buildInputs = [ libopenmpt ];
 
-  configureFlags = [
-    "--enable-libmodplug"
-  ];
+  configureFlags = [ "--enable-libmodplug" ];
 
   meta = with lib; {
     description = "A libmodplug emulation layer based on libopenmpt";

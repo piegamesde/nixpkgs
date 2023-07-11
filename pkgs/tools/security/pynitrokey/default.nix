@@ -33,23 +33,15 @@ buildPythonApplication rec {
     typing-extensions
   ];
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  pythonRelaxDeps = [
-    "cryptography"
-    "protobuf"
-    "python-dateutil"
-    "spsdk"
-    "typing_extensions"
-  ];
+  pythonRelaxDeps =
+    [ "cryptography" "protobuf" "python-dateutil" "spsdk" "typing_extensions" ];
 
   # libnitrokey is not propagated to users of pynitrokey
   # It is only usable from the wrapped bin/nitropy
-  makeWrapperArgs = [
-    "--set LIBNK_PATH ${lib.makeLibraryPath [ libnitrokey ]}"
-  ];
+  makeWrapperArgs =
+    [ "--set LIBNK_PATH ${lib.makeLibraryPath [ libnitrokey ]}" ];
 
   # no tests
   doCheck = false;

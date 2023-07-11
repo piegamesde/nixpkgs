@@ -1,8 +1,4 @@
-{ python3Packages
-, fetchFromGitHub
-, wrapQtAppsHook
-, lib
-}:
+{ python3Packages, fetchFromGitHub, wrapQtAppsHook, lib }:
 
 python3Packages.buildPythonApplication rec {
   pname = "opensnitch-ui";
@@ -20,10 +16,7 @@ python3Packages.buildPythonApplication rec {
       --replace /usr/lib/python3/dist-packages/data ${python3Packages.pyasn}/${python3Packages.python.sitePackages}/pyasn/data
   '';
 
-  nativeBuildInputs = [
-    python3Packages.pyqt5
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ python3Packages.pyqt5 wrapQtAppsHook ];
 
   propagatedBuildInputs = with python3Packages; [
     grpcio-tools

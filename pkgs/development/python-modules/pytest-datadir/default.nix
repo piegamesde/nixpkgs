@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools-scm
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools-scm, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pytest-datadir";
@@ -23,7 +18,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pytest_datadir" ];
 
   meta = with lib; {
-    description = "Pytest plugin for manipulating test data directories and files";
+    description =
+      "Pytest plugin for manipulating test data directories and files";
     homepage = "https://github.com/gabrielcnr/pytest-datadir";
     license = licenses.mit;
     maintainers = with maintainers; [ kira-bruneau ];

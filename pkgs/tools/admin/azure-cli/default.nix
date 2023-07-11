@@ -13,11 +13,8 @@ let
   };
 
   # put packages that needs to be overridden in the py package scope
-  py = import ./python-packages.nix {
-    inherit stdenv lib src version python3;
-  };
-in
-py.pkgs.toPythonApplication (py.pkgs.buildAzureCliPackage {
+  py = import ./python-packages.nix { inherit stdenv lib src version python3; };
+in py.pkgs.toPythonApplication (py.pkgs.buildAzureCliPackage {
   pname = "azure-cli";
   inherit version src;
 
@@ -264,7 +261,8 @@ py.pkgs.toPythonApplication (py.pkgs.buildAzureCliPackage {
 
   meta = with lib; {
     homepage = "https://github.com/Azure/azure-cli";
-    description = "Next generation multi-platform command line experience for Azure";
+    description =
+      "Next generation multi-platform command line experience for Azure";
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];
   };

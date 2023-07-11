@@ -14,8 +14,7 @@ let
       });
     };
   };
-in
-python.pkgs.buildPythonApplication rec {
+in python.pkgs.buildPythonApplication rec {
   pname = "heisenbridge";
   version = "1.14.2";
 
@@ -37,9 +36,7 @@ python.pkgs.buildPythonApplication rec {
     python-socks
   ];
 
-  nativeCheckInputs = with python.pkgs; [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python.pkgs; [ pytestCheckHook ];
 
   meta = with lib; {
     description = "A bouncer-style Matrix-IRC bridge.";

@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, hatchling
-, dill
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, hatchling, dill, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "latexify-py";

@@ -1,7 +1,5 @@
-{ lib, stdenv, pkg-config, fetchFromGitHub, python3, vala
-, gtk3, libwnck, libxfce4util, xfce4-panel, wafHook, xfce
-, gitUpdater
-}:
+{ lib, stdenv, pkg-config, fetchFromGitHub, python3, vala, gtk3, libwnck
+, libxfce4util, xfce4-panel, wafHook, xfce, gitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "xfce4-namebar-plugin";
@@ -22,13 +20,12 @@ stdenv.mkDerivation rec {
     substituteInPlace src/preferences.vala --replace 'var dir_strings = Environment.get_system_data_dirs()' "string[] dir_strings = { \"$out/share\" }"
   '';
 
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "v";
-  };
+  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
   meta = with lib; {
     homepage = "https://github.com/HugLifeTiZ/xfce4-namebar-plugin";
-    description = "Plugin which integrates titlebar and window controls into the xfce4-panel";
+    description =
+      "Plugin which integrates titlebar and window controls into the xfce4-panel";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ] ++ teams.xfce.members;

@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, hatchling
-, pyflakes
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, hatchling, pyflakes, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "autoflake";
@@ -16,21 +10,13 @@ buildPythonPackage rec {
     hash = "sha256-HOUgExt/OWkVJC/pHlciH01CQIUpu+Ouk62v7ShlkeA=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    pyflakes
-  ];
+  propagatedBuildInputs = [ pyflakes ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "autoflake"
-  ];
+  pythonImportsCheck = [ "autoflake" ];
 
   disabledTests = [
     # AssertionError: True is not false

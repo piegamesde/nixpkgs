@@ -1,4 +1,5 @@
-{ lib, mkDerivation, fetchurl, qtbase, qtscript, qtwebengine, qmake, zlib, pkg-config, poppler, wrapGAppsHook }:
+{ lib, mkDerivation, fetchurl, qtbase, qtscript, qtwebengine, qmake, zlib
+, pkg-config, poppler, wrapGAppsHook }:
 
 mkDerivation rec {
   pname = "texmaker";
@@ -27,7 +28,7 @@ mkDerivation rec {
 
   meta = with lib; {
     description = "TeX and LaTeX editor";
-    longDescription=''
+    longDescription = ''
       This editor is a full fledged IDE for TeX and
       LaTeX editing with completion, structure viewer, preview,
       spell checking and support of any compilation chain.

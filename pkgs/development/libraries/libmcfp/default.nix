@@ -14,7 +14,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
-    description = "Header only library that can collect configuration options from command line arguments";
+    description =
+      "Header only library that can collect configuration options from command line arguments";
     homepage = "https://github.com/mhekkel/libmcfp";
     license = licenses.bsd2;
     maintainers = with maintainers; [ natsukium ];

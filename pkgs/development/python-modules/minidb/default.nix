@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "minidb";
@@ -19,13 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-0f2usKoHs4NO/Ir8MhyiAVZFYnUkVH5avdh3QdHzY6s=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "minidb"
-  ];
+  pythonImportsCheck = [ "minidb" ];
 
   meta = with lib; {
     description = "SQLite3-based store for Python objects";

@@ -1,13 +1,7 @@
-{
-  mkDerivation, lib, kdepimTeam,
-  extra-cmake-modules, kdoctools,
-  akonadi, akonadi-search, grantlee, grantleetheme, kcmutils, kcompletion,
-  kcrash, kdbusaddons, ki18n, kontactinterface, kparts,
-  kpimtextedit,
-  kuserfeedback,
-  kxmlgui, libkdepim, libkleo, mailcommon, pimcommon, prison,
-  qgpgme, qtbase,
-}:
+{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi
+, akonadi-search, grantlee, grantleetheme, kcmutils, kcompletion, kcrash
+, kdbusaddons, ki18n, kontactinterface, kparts, kpimtextedit, kuserfeedback
+, kxmlgui, libkdepim, libkleo, mailcommon, pimcommon, prison, qgpgme, qtbase, }:
 
 mkDerivation {
   pname = "kaddressbook";
@@ -19,10 +13,27 @@ mkDerivation {
   };
   nativeBuildInputs = [ extra-cmake-modules kdoctools ];
   buildInputs = [
-    akonadi akonadi-search grantlee grantleetheme kcmutils kcompletion kcrash
-    kdbusaddons ki18n kontactinterface kparts kpimtextedit
+    akonadi
+    akonadi-search
+    grantlee
+    grantleetheme
+    kcmutils
+    kcompletion
+    kcrash
+    kdbusaddons
+    ki18n
+    kontactinterface
+    kparts
+    kpimtextedit
     kuserfeedback
-    kxmlgui libkdepim libkleo mailcommon pimcommon prison qgpgme qtbase
+    kxmlgui
+    libkdepim
+    libkleo
+    mailcommon
+    pimcommon
+    prison
+    qgpgme
+    qtbase
   ];
   postInstall = ''
     # added as an include directory by cmake files and fails to compile if it's missing

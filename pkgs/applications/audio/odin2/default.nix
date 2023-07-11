@@ -1,19 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, pkg-config
-, alsa-lib
-, freetype
-, libjack2
-, lv2
-, libX11
-, libXcursor
-, libXext
-, libXinerama
-, libXrandr
-, libGL
-, gcc-unwrapped
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, alsa-lib, freetype, libjack2
+, lv2, libX11, libXcursor, libXext, libXinerama, libXrandr, libGL, gcc-unwrapped
 }:
 
 stdenv.mkDerivation rec {
@@ -33,10 +19,7 @@ stdenv.mkDerivation rec {
       libs/JUCELV2/modules/juce_gui_basics/windows/juce_ComponentPeer.h # gcc12
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [
     alsa-lib
@@ -52,13 +35,8 @@ stdenv.mkDerivation rec {
   ];
 
   # JUCE dlopen's these at runtime, crashes without them
-  NIX_LDFLAGS = (toString [
-    "-lX11"
-    "-lXext"
-    "-lXcursor"
-    "-lXinerama"
-    "-lXrandr"
-  ]);
+  NIX_LDFLAGS =
+    (toString [ "-lX11" "-lXext" "-lXcursor" "-lXinerama" "-lXrandr" ]);
 
   cmakeFlags = [
     "-DCMAKE_AR=${gcc-unwrapped}/bin/gcc-ar"
@@ -73,8 +51,7 @@ stdenv.mkDerivation rec {
     cp -r VST3/Odin2.vst3 $out/lib/vst3
     cp -r LV2/Odin2.lv2 $out/lib/lv2
     cp -r CLAP/Odin2.clap $out/lib/clap
-'';
-
+  '';
 
   meta = with lib; {
     description = "Odin 2 Synthesizer Plugin";

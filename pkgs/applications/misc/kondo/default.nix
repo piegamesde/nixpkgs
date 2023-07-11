@@ -14,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-DouQN9Lo/CoqZZD3HuO1+Xzvc2yL5l157TeAi+bmfrE=";
 
   meta = with lib; {
-    description = "Save disk space by cleaning unneeded files from software projects";
+    description =
+      "Save disk space by cleaning unneeded files from software projects";
     homepage = "https://github.com/tbillington/kondo";
     license = licenses.mit;
     maintainers = with maintainers; [ Br1ght0ne ];

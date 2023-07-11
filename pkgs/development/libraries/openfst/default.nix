@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "1.8.2";
 
   src = fetchurl {
-    url = "http://www.openfst.org/twiki/pub/FST/FstDownload/${pname}-${version}.tar.gz";
+    url =
+      "http://www.openfst.org/twiki/pub/FST/FstDownload/${pname}-${version}.tar.gz";
     sha256 = "sha256-3ph782JHIcXVujIa+VdRiY5PS7Qcijbi1k8GJ2Vti0I=";
   };
 

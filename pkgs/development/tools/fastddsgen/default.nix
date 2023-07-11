@@ -1,4 +1,5 @@
-{ lib, stdenv, runtimeShell, writeText, fetchFromGitHub, gradle_7, openjdk17, git, perl, cmake }:
+{ lib, stdenv, runtimeShell, writeText, fetchFromGitHub, gradle_7, openjdk17
+, git, perl, cmake }:
 let
   pname = "fastddsgen";
   version = "2.3.0";
@@ -37,8 +38,7 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-wnnoyaO1QndAYrqmYu1fO6OJrP1NQs8IX4uh37dVntY=";
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname src version;
 
   nativeBuildInputs = [ gradle openjdk17 ];

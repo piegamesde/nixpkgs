@@ -1,5 +1,5 @@
-{ lib, buildPythonApplication, fetchFromGitHub, mpv, requests, python-mpv-jsonipc, pystray, tkinter
-, wrapGAppsHook, gobject-introspection }:
+{ lib, buildPythonApplication, fetchFromGitHub, mpv, requests
+, python-mpv-jsonipc, pystray, tkinter, wrapGAppsHook, gobject-introspection }:
 
 buildPythonApplication rec {
   pname = "plex-mpv-shim";
@@ -12,10 +12,7 @@ buildPythonApplication rec {
     sha256 = "sha256-hUGKOJEDZMK5uhHoevFt1ay6QQEcoN4F8cPxln5uMRo=";
   };
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    gobject-introspection
-  ];
+  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
 
   propagatedBuildInputs = [ mpv requests python-mpv-jsonipc pystray tkinter ];
 
@@ -30,7 +27,8 @@ buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/iwalton3/plex-mpv-shim";
-    description = "Allows casting of videos to MPV via the Plex mobile and web app";
+    description =
+      "Allows casting of videos to MPV via the Plex mobile and web app";
     license = licenses.mit;
   };
 }

@@ -1,28 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, assimp
-, curl
-, freetype
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, assimp, curl, freetype
 #, glew
-, libGL
-, libGLU
-, libpng
-, libsigcxx
-, libvorbis
-, lua5_2
-, mesa
-, SDL2
-, SDL2_image
-}:
+, libGL, libGLU, libpng, libsigcxx, libvorbis, lua5_2, mesa, SDL2, SDL2_image }:
 
 stdenv.mkDerivation rec {
   pname = "pioneer";
   version = "20220203";
 
-  src = fetchFromGitHub{
+  src = fetchFromGitHub {
     owner = "pioneerspacesim";
     repo = "pioneer";
     rev = version;
@@ -59,11 +43,10 @@ stdenv.mkDerivation rec {
   makeFlags = [ "all" "build-data" ];
 
   meta = with lib; {
-    description = "A space adventure game set in the Milky Way galaxy at the turn of the 31st century";
+    description =
+      "A space adventure game set in the Milky Way galaxy at the turn of the 31st century";
     homepage = "https://pioneerspacesim.net";
-    license = with licenses; [
-        gpl3Only cc-by-sa-30
-    ];
+    license = with licenses; [ gpl3Only cc-by-sa-30 ];
     platforms = [ "x86_64-linux" "i686-linux" ];
   };
 }

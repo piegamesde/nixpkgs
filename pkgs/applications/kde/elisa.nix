@@ -1,20 +1,6 @@
-{ mkDerivation
-, lib
-, extra-cmake-modules
-, kdoctools
-, qtmultimedia
-, qtquickcontrols2
-, qtwebsockets
-, kconfig
-, kcmutils
-, kcrash
-, kdeclarative
-, kfilemetadata
-, kinit
-, kirigami2
-, baloo
-, libvlc
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, qtmultimedia
+, qtquickcontrols2, qtwebsockets, kconfig, kcmutils, kcrash, kdeclarative
+, kfilemetadata, kinit, kirigami2, baloo, libvlc }:
 
 mkDerivation {
   pname = "elisa";

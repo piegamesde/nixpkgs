@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, help2man
-, libiconv
-}:
+{ lib, stdenv, fetchurl, help2man, libiconv }:
 
 stdenv.mkDerivation rec {
   version = "1.6.5.640";
@@ -35,7 +30,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://fatsort.sourceforge.net/";
-    description = "Sorts FAT partition table, for devices that don't do sorting of files";
+    description =
+      "Sorts FAT partition table, for devices that don't do sorting of files";
     maintainers = [ maintainers.kovirobi ];
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

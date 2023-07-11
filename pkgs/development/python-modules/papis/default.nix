@@ -1,33 +1,8 @@
-{ lib
-, stdenv
-, arxiv2bib
-, beautifulsoup4
-, bibtexparser
-, buildPythonPackage
-, chardet
-, click
-, colorama
-, configparser
-, fetchFromGitHub
-, filetype
-, habanero
-, isbnlib
-, lxml
-, prompt-toolkit
-, pygments
-, pyparsing
-, pytestCheckHook
-, python-doi
-, python-slugify
-, pythonAtLeast
-, pythonOlder
-, pyyaml
-, requests
-, stevedore
-, tqdm
-, typing-extensions
-, whoosh
-}:
+{ lib, stdenv, arxiv2bib, beautifulsoup4, bibtexparser, buildPythonPackage
+, chardet, click, colorama, configparser, fetchFromGitHub, filetype, habanero
+, isbnlib, lxml, prompt-toolkit, pygments, pyparsing, pytestCheckHook
+, python-doi, python-slugify, pythonAtLeast, pythonOlder, pyyaml, requests
+, stevedore, tqdm, typing-extensions, whoosh }:
 
 buildPythonPackage rec {
   pname = "papis";
@@ -76,21 +51,15 @@ buildPythonPackage rec {
       --replace "--cov=papis" ""
   '';
 
-  checkInputs = [
-    pytestCheckHook
-  ];
+  checkInputs = [ pytestCheckHook ];
 
   preCheck = ''
     export HOME=$(mktemp -d);
   '';
 
-  pytestFlagsArray = [
-    "papis tests"
-  ];
+  pytestFlagsArray = [ "papis tests" ];
 
-  disabledTestPaths = [
-    "tests/downloaders"
-  ];
+  disabledTestPaths = [ "tests/downloaders" ];
 
   disabledTests = [
     "get_document_url"
@@ -101,13 +70,9 @@ buildPythonPackage rec {
     "test_get_data"
     "test_validate_arxivid"
     "test_yaml"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "test_default_opener"
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ "test_default_opener" ];
 
-  pythonImportsCheck = [
-    "papis"
-  ];
+  pythonImportsCheck = [ "papis" ];
 
   meta = with lib; {
     description = "Powerful command-line document and bibliography manager";

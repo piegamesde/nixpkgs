@@ -1,18 +1,17 @@
-{ lib, stdenv, fetchurl
-, pkg-config
-, meson, ninja, wayland-scanner
-, python3, wayland
-}:
+{ lib, stdenv, fetchurl, pkg-config, meson, ninja, wayland-scanner, python3
+, wayland }:
 
 stdenv.mkDerivation rec {
   pname = "wayland-protocols";
   version = "1.31";
 
   # https://gitlab.freedesktop.org/wayland/wayland-protocols/-/issues/48
-  doCheck = stdenv.hostPlatform == stdenv.buildPlatform && stdenv.targetPlatform.linker == "bfd" && wayland.withLibraries;
+  doCheck = stdenv.hostPlatform == stdenv.buildPlatform
+    && stdenv.targetPlatform.linker == "bfd" && wayland.withLibraries;
 
   src = fetchurl {
-    url = "https://gitlab.freedesktop.org/wayland/${pname}/-/releases/${version}/downloads/${pname}-${version}.tar.xz";
+    url =
+      "https://gitlab.freedesktop.org/wayland/${pname}/-/releases/${version}/downloads/${pname}-${version}.tar.xz";
     hash = "sha256-oH+nIu2HZ27AINhncUvJovJMRk2nORLzlwbu71IZ4jg=";
   };
 
@@ -35,9 +34,9 @@ stdenv.mkDerivation rec {
       protocol either in Wayland core, or some other protocol in
       wayland-protocols.
     '';
-    homepage    = "https://gitlab.freedesktop.org/wayland/wayland-protocols";
-    license     = lib.licenses.mit; # Expat version
-    platforms   = lib.platforms.all;
+    homepage = "https://gitlab.freedesktop.org/wayland/wayland-protocols";
+    license = lib.licenses.mit; # Expat version
+    platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ primeos ];
   };
 

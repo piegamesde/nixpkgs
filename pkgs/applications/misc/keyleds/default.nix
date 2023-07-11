@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, pkg-config
-, libuv
-, libX11
-, libXi
-, libyaml
-, luajit
-, udev
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, libuv, libX11
+, libXi, libyaml, luajit, udev }:
 
 stdenv.mkDerivation rec {
   pname = "keyleds";
@@ -29,32 +18,21 @@ stdenv.mkDerivation rec {
   # This patch fixes the build process which is broken on the current master branch of keyleds.
   patches = [
     (fetchpatch {
-      url = "https://github.com/keyleds/keyleds/commit/bffed5eb181127df915002b6ed830f85f15feafd.patch";
+      url =
+        "https://github.com/keyleds/keyleds/commit/bffed5eb181127df915002b6ed830f85f15feafd.patch";
       sha256 = "sha256-i2N3D/K++34JVqJloNK2UcN473NarIjdjAz6PUhXcNY=";
     })
   ];
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    libuv
-    libX11
-    libXi
-    libyaml
-    luajit
-    udev
-  ];
+  buildInputs = [ libuv libX11 libXi libyaml luajit udev ];
 
   enableParallelBuilding = true;
 
-  cmakeFlags = [
-    "-DCMAKE_BUILD_TYPE=MinSizeRel"
-  ];
+  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=MinSizeRel" ];
 
   meta = {
     homepage = "https://github.com/keyleds/keyleds";

@@ -14,14 +14,10 @@ let
     pname = "phpactor-vendor";
     inherit src version;
 
-
     # See https://github.com/NixOS/nix/issues/6660
     dontPatchShebangs = true;
 
-    nativeBuildInputs = [
-      php
-      phpPackages.composer
-    ];
+    nativeBuildInputs = [ php phpPackages.composer ];
 
     buildPhase = ''
       runHook preBuild
@@ -47,14 +43,11 @@ let
     outputHashAlgo = "sha256";
     outputHash = "sha256-7R6nadWFv7A5Hv14D9egsTD/zcKK5uK9LQlHmwtbKdE=";
   };
-in
-stdenvNoCC.mkDerivation {
+in stdenvNoCC.mkDerivation {
   pname = "phpactor";
   inherit src version;
 
-  buildInputs = [
-    php
-  ];
+  buildInputs = [ php ];
 
   dontBuild = true;
 

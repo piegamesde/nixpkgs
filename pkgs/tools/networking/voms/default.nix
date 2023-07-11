@@ -1,23 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-  # Native build inputs
-, autoreconfHook
-, bison
-, flex
-, pkg-config
-  # Build inputs
-, expat
-, gsoap
-, openssl
-, zlib
-  # Configuration overridable with .override
-  # If not null, the builder will
-  # move "$out/etc" to "$out/etc.orig" and symlink "$out/etc" to externalEtc.
-, externalEtc ? "/etc"
-}:
+{ lib, stdenv, fetchFromGitHub
+# Native build inputs
+, autoreconfHook, bison, flex, pkg-config
+# Build inputs
+, expat, gsoap, openssl, zlib
+# Configuration overridable with .override
+# If not null, the builder will
+# move "$out/etc" to "$out/etc.orig" and symlink "$out/etc" to externalEtc.
+, externalEtc ? "/etc" }:
 
-stdenv.mkDerivation rec{
+stdenv.mkDerivation rec {
   pname = "voms-unstable";
   version = "2022-06-14";
 
@@ -28,23 +19,11 @@ stdenv.mkDerivation rec{
     hash = "sha256-FG4fHO2lsQ3t/ZaKT9xY+xqdQHfdtzi5ULtxLhdPnss=";
   };
 
-  passthru = {
-    inherit externalEtc;
-  };
+  passthru = { inherit externalEtc; };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    bison
-    flex
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook bison flex pkg-config ];
 
-  buildInputs = [
-    expat
-    gsoap
-    openssl
-    zlib
-  ];
+  buildInputs = [ expat gsoap openssl zlib ];
 
   outputs = [ "bin" "out" "dev" "man" ];
 
@@ -63,9 +42,7 @@ stdenv.mkDerivation rec{
     export GSOAP_SSL_PP_LIBS="$(pkg-config --libs gsoapssl++ zlib)"
   '';
 
-  configureFlags = [
-    "--with-gsoap-wsdl2h=${gsoap}/bin/wsdl2h"
-  ];
+  configureFlags = [ "--with-gsoap-wsdl2h=${gsoap}/bin/wsdl2h" ];
 
   postFixup = ''
     ${lib.optionalString (externalEtc != null) ''

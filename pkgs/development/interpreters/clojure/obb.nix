@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, babashka
-, cacert
-, clojure
-, git
-, jdk
-, obb
-, fetchFromGitHub
-, makeWrapper
-, runCommand }:
+{ lib, stdenv, fetchurl, babashka, cacert, clojure, git, jdk, obb
+, fetchFromGitHub, makeWrapper, runCommand }:
 
 stdenv.mkDerivation rec {
   pname = "obb";
@@ -65,19 +55,18 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    simple = runCommand "${pname}-test" {} ''
+    simple = runCommand "${pname}-test" { } ''
       [ $(${obb}/bin/obb -e '(+ 1 2)') = '3' ]
       touch $out
     '';
   };
 
   meta = with lib; {
-    description = "Ad-hoc ClojureScript scripting of Mac applications via Apple's Open Scripting Architecture";
+    description =
+      "Ad-hoc ClojureScript scripting of Mac applications via Apple's Open Scripting Architecture";
     homepage = "https://github.com/babashka/obb";
     license = licenses.epl10;
-    maintainers = with maintainers; [
-      willcohen
-    ];
+    maintainers = with maintainers; [ willcohen ];
     platforms = platforms.darwin;
   };
 }

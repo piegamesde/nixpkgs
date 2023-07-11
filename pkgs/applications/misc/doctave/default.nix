@@ -16,14 +16,13 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-keLcNttdM9JUnn3qi/bWkcObIHl3MRACDHKPSZuScOc=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    CoreServices
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
 
   meta = with lib; {
     description = "A batteries-included developer documentation site generator";
     homepage = "https://github.com/doctave/doctave";
-    changelog = "https://github.com/doctave/doctave/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/doctave/doctave/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
   };

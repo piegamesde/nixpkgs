@@ -2,22 +2,31 @@
 
 let
   archids = {
-    x86_64-linux = { hostarch = "x86_64"; efiPlatform = "x64"; };
-    i686-linux = rec { hostarch = "ia32"; efiPlatform = hostarch; };
-    aarch64-linux = { hostarch = "aarch64"; efiPlatform = "aa64"; };
+    x86_64-linux = {
+      hostarch = "x86_64";
+      efiPlatform = "x64";
+    };
+    i686-linux = rec {
+      hostarch = "ia32";
+      efiPlatform = hostarch;
+    };
+    aarch64-linux = {
+      hostarch = "aarch64";
+      efiPlatform = "aa64";
+    };
   };
 
-  inherit
-    (archids.${stdenv.hostPlatform.system} or (throw "unsupported system: ${stdenv.hostPlatform.system}"))
+  inherit (archids.${stdenv.hostPlatform.system} or (throw
+    "unsupported system: ${stdenv.hostPlatform.system}"))
     hostarch efiPlatform;
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "refind";
   version = "0.13.3.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/refind/${version}/${pname}-src-${version}.tar.gz";
+    url =
+      "mirror://sourceforge/project/refind/${version}/${pname}-src-${version}.tar.gz";
     sha256 = "1lfgqqiyl6isy25wrxzyi3s334ii057g88714igyjjmxh47kygks";
   };
 
@@ -28,7 +37,8 @@ stdenv.mkDerivation rec {
     # Fixes issue with null dereference in ReadHiddenTags
     # Upstream: https://sourceforge.net/p/refind/code/merge-requests/45/
     (fetchpatch {
-      url = "https://github.com/samueldr/rEFInd/commit/29cd79dedabf84d5ddfe686f5692278cae6cc4d6.patch";
+      url =
+        "https://github.com/samueldr/rEFInd/commit/29cd79dedabf84d5ddfe686f5692278cae6cc4d6.patch";
       sha256 = "sha256-/jAmOwvMmFWazyukN+ru1tQDiIBtgGk/e/pczsl1Xc8=";
     })
   ];
@@ -37,15 +47,15 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "stackprotector" ];
 
-  makeFlags =
-    [ "prefix="
-      "EFIINC=${gnu-efi}/include/efi"
-      "EFILIB=${gnu-efi}/lib"
-      "GNUEFILIB=${gnu-efi}/lib"
-      "EFICRT0=${gnu-efi}/lib"
-      "HOSTARCH=${hostarch}"
-      "ARCH=${hostarch}"
-    ];
+  makeFlags = [
+    "prefix="
+    "EFIINC=${gnu-efi}/include/efi"
+    "EFILIB=${gnu-efi}/lib"
+    "GNUEFILIB=${gnu-efi}/lib"
+    "EFICRT0=${gnu-efi}/lib"
+    "HOSTARCH=${hostarch}"
+    "ARCH=${hostarch}"
+  ];
 
   buildFlags = [ "gnuefi" "fs_gnuefi" ];
 
@@ -114,9 +124,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = {
-    uefiCdrom = nixosTests.boot.uefiCdrom;
-  };
+  passthru.tests = { uefiCdrom = nixosTests.boot.uefiCdrom; };
 
   meta = with lib; {
     description = "A graphical {,U}EFI boot manager";

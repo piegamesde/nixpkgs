@@ -1,30 +1,10 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, python
-, pythonOlder
-, cython
-, numpy
-, python-dateutil
-, pytz
-, scipy
-, sqlalchemy
-, tables
-, xlrd
-, xlwt
+{ lib, stdenv, buildPythonPackage, fetchPypi, python, pythonOlder, cython, numpy
+, python-dateutil, pytz, scipy, sqlalchemy, tables, xlrd, xlwt
 # Test inputs
-, glibcLocales
-, hypothesis
-, jinja2
-, pytestCheckHook
-, pytest-xdist
-, pytest-asyncio
-, xlsxwriter
+, glibcLocales, hypothesis, jinja2, pytestCheckHook, pytest-xdist
+, pytest-asyncio, xlsxwriter
 # Darwin inputs
-, runtimeShell
-, libcxx
-}:
+, runtimeShell, libcxx }:
 
 buildPythonPackage rec {
   pname = "pandas";
@@ -41,11 +21,7 @@ buildPythonPackage rec {
 
   buildInputs = lib.optional stdenv.isDarwin libcxx;
 
-  propagatedBuildInputs = [
-    numpy
-    python-dateutil
-    pytz
-  ];
+  propagatedBuildInputs = [ numpy python-dateutil pytz ];
 
   nativeCheckInputs = [
     glibcLocales
@@ -62,7 +38,8 @@ buildPythonPackage rec {
   # https://github.com/NixOS/nixpkgs/issues/39687
   hardeningDisable = lib.optional stdenv.cc.isClang "strictoverflow";
 
-  doCheck = !stdenv.isAarch32 && !stdenv.isAarch64; # upstream doesn't test this architecture
+  doCheck = !stdenv.isAarch32
+    && !stdenv.isAarch64; # upstream doesn't test this architecture
 
   # don't max out build cores, it breaks tests
   dontUsePytestXdist = true;
@@ -72,8 +49,10 @@ buildPythonPackage rec {
     "--skip-db"
     "--skip-slow"
     "--skip-network"
-    "-m" "'not single_cpu'"
-    "--numprocesses" "4"
+    "-m"
+    "'not single_cpu'"
+    "--numprocesses"
+    "4"
   ];
 
   disabledTests = [
@@ -117,15 +96,15 @@ buildPythonPackage rec {
     export LC_ALL="en_US.UTF-8"
     PYTHONPATH=$out/${python.sitePackages}:$PYTHONPATH
   ''
-  # TODO: Get locale and clipboard support working on darwin.
-  #       Until then we disable the tests.
-  + lib.optionalString stdenv.isDarwin ''
-    # Fake the impure dependencies pbpaste and pbcopy
-    echo "#!${runtimeShell}" > pbcopy
-    echo "#!${runtimeShell}" > pbpaste
-    chmod a+x pbcopy pbpaste
-    export PATH=$(pwd):$PATH
-  '';
+    # TODO: Get locale and clipboard support working on darwin.
+    #       Until then we disable the tests.
+    + lib.optionalString stdenv.isDarwin ''
+      # Fake the impure dependencies pbpaste and pbcopy
+      echo "#!${runtimeShell}" > pbcopy
+      echo "#!${runtimeShell}" > pbpaste
+      chmod a+x pbcopy pbpaste
+      export PATH=$(pwd):$PATH
+    '';
 
   enableParallelBuilding = true;
 

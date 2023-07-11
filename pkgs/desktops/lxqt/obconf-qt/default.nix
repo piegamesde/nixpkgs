@@ -1,17 +1,5 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, cmake
-, pkg-config
-, pcre
-, qtbase
-, qttools
-, qtx11extras
-, xorg
-, lxqt-build-tools
-, openbox
-, gitUpdater
-}:
+{ lib, mkDerivation, fetchFromGitHub, cmake, pkg-config, pcre, qtbase, qttools
+, qtx11extras, xorg, lxqt-build-tools, openbox, gitUpdater }:
 
 mkDerivation rec {
   pname = "obconf-qt";
@@ -24,11 +12,7 @@ mkDerivation rec {
     sha256 = "zxwQfKowgpLjfxSV2t7Ly8o7DFqoIxi60zIVCcKDQWo=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    lxqt-build-tools
-  ];
+  nativeBuildInputs = [ cmake pkg-config lxqt-build-tools ];
 
   buildInputs = [
     pcre

@@ -1,7 +1,5 @@
-{ system ? builtins.currentSystem
-, config ? { }
-, pkgs ? import ../.. { inherit system config; }
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; } }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -76,8 +74,7 @@ let
       copyChannel = false;
     };
   };
-in
-{
+in {
   basic = makeTest {
     name = "systemd-repart";
     meta.maintainers = with maintainers; [ nikstur ];
@@ -88,11 +85,7 @@ in
       boot.initrd.systemd.enable = true;
 
       boot.initrd.systemd.repart.enable = true;
-      systemd.repart.partitions = {
-        "10-root" = {
-          Type = "linux-generic";
-        };
-      };
+      systemd.repart.partitions = { "10-root" = { Type = "linux-generic"; }; };
     };
 
     testScript = { nodes, ... }: ''
@@ -114,11 +107,7 @@ in
       imports = [ common ];
 
       systemd.repart.enable = true;
-      systemd.repart.partitions = {
-        "10-root" = {
-          Type = "linux-generic";
-        };
-      };
+      systemd.repart.partitions = { "10-root" = { Type = "linux-generic"; }; };
     };
 
     testScript = { nodes, ... }: ''

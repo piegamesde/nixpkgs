@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, nose
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, nose }:
 
 buildPythonPackage rec {
   pname = "pyquaternion";

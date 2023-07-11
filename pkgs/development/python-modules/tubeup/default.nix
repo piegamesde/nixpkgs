@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, internetarchive
-, fetchPypi
-, yt-dlp
-, docopt
-, pythonOlder
-, urllib3
-}:
+{ lib, buildPythonPackage, internetarchive, fetchPypi, yt-dlp, docopt
+, pythonOlder, urllib3 }:
 
 buildPythonPackage rec {
   pname = "tubeup";
@@ -27,16 +20,9 @@ buildPythonPackage rec {
       --replace "docopt==0.6.2" "docopt"
   '';
 
-  propagatedBuildInputs = [
-    internetarchive
-    docopt
-    urllib3
-    yt-dlp
-  ];
+  propagatedBuildInputs = [ internetarchive docopt urllib3 yt-dlp ];
 
-  pythonImportsCheck = [
-    "tubeup"
-  ];
+  pythonImportsCheck = [ "tubeup" ];
 
   # Tests failing upstream
   doCheck = false;

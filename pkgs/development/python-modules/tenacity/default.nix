@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pbr
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, setuptools-scm
-, tornado
-, typeguard
-}:
+{ lib, buildPythonPackage, fetchPypi, pbr, pytest-asyncio, pytestCheckHook
+, pythonOlder, setuptools-scm, tornado, typeguard }:
 
 buildPythonPackage rec {
   pname = "tenacity";
@@ -22,21 +13,11 @@ buildPythonPackage rec {
     hash = "sha256-Q68DeCK9ACkCWHfzstl8xNe7DCmRAAo9WdcVF8XJaeA=";
   };
 
-  nativeBuildInputs = [
-    pbr
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ pbr setuptools-scm ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-    tornado
-    typeguard
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook tornado typeguard ];
 
-  pythonImportsCheck = [
-    "tenacity"
-  ];
+  pythonImportsCheck = [ "tenacity" ];
 
   meta = with lib; {
     homepage = "https://github.com/jd/tenacity";

@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, freezegun
-, mock
-, pytestCheckHook
-, python-dateutil
-, pythonOlder
-, requests-mock
-, requests-oauthlib
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, freezegun, mock, pytestCheckHook
+, python-dateutil, pythonOlder, requests-mock, requests-oauthlib }:
 
 buildPythonPackage rec {
   pname = "fitbit";
@@ -24,21 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-1u3h47lRBrJ7EUWBl5+RLGW4KHHqXqqrXbboZdy7VPA=";
   };
 
-  propagatedBuildInputs = [
-    python-dateutil
-    requests-oauthlib
-  ];
+  propagatedBuildInputs = [ python-dateutil requests-oauthlib ];
 
-  nativeCheckInputs = [
-    freezegun
-    mock
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs = [ freezegun mock pytestCheckHook requests-mock ];
 
-  pythonImportsCheck = [
-    "fitbit"
-  ];
+  pythonImportsCheck = [ "fitbit" ];
 
   meta = with lib; {
     description = "Fitbit API Python Client Implementation";

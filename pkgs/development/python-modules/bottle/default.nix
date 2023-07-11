@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "bottle";
@@ -15,9 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-JIASGnPoc4CYm3fjK9IJLRkOfqfXHm8bj3r36rnVTqM=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   preCheck = ''
     cd test
@@ -35,7 +29,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://bottlepy.org/";
-    description = "A fast and simple micro-framework for small web-applications";
+    description =
+      "A fast and simple micro-framework for small web-applications";
     license = licenses.mit;
     maintainers = with maintainers; [ koral ];
   };

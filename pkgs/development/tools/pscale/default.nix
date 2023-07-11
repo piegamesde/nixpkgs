@@ -1,10 +1,4 @@
-{ buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, lib
-, pscale
-, testers
-}:
+{ buildGoModule, fetchFromGitHub, installShellFiles, lib, pscale, testers }:
 
 buildGoModule rec {
   pname = "pscale";
@@ -20,7 +14,8 @@ buildGoModule rec {
   vendorHash = "sha256-4DV2VjSfGHKxLa4W8WNft9BmQKids+yvc3Gb+upLBo4=";
 
   ldflags = [
-    "-s" "-w"
+    "-s"
+    "-w"
     "-X main.version=v${version}"
     "-X main.commit=v${version}"
     "-X main.date=unknown"
@@ -35,9 +30,7 @@ buildGoModule rec {
       --zsh <($out/bin/pscale completion zsh)
   '';
 
-  passthru.tests.version = testers.testVersion {
-    package = pscale;
-  };
+  passthru.tests.version = testers.testVersion { package = pscale; };
 
   meta = with lib; {
     description = "The CLI for PlanetScale Database";

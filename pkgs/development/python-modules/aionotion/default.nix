@@ -1,16 +1,6 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pydantic
-, pytest-aiohttp
-, pytest-asyncio
-, pytest-cov
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
+, pydantic, pytest-aiohttp, pytest-asyncio, pytest-cov, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aionotion";
@@ -26,30 +16,16 @@ buildPythonPackage rec {
     hash = "sha256-wnyM8ERHJydhBdX9ZAskGdvIrvZNhYh/UVJv/JdxChE=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    pydantic
-  ];
+  propagatedBuildInputs = [ aiohttp pydantic ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-aiohttp
-    pytest-asyncio
-    pytest-cov
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ aresponses pytest-aiohttp pytest-asyncio pytest-cov pytestCheckHook ];
 
-  disabledTestPaths = [
-    "examples"
-  ];
+  disabledTestPaths = [ "examples" ];
 
-  pythonImportsCheck = [
-    "aionotion"
-  ];
+  pythonImportsCheck = [ "aionotion" ];
 
   meta = with lib; {
     description = "Python library for Notion Home Monitoring";

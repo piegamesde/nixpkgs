@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pytestCheckHook
-, hypothesis
-, levenshtein
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, pytestCheckHook, hypothesis
+, levenshtein }:
 
 buildPythonPackage rec {
   pname = "thefuzz";
@@ -26,14 +20,9 @@ buildPythonPackage rec {
     substituteInPlace test_thefuzz.py --replace "import pycodestyle" ""
   '';
 
-  pythonImportsCheck = [
-    "thefuzz"
-  ];
+  pythonImportsCheck = [ "thefuzz" ];
 
-  nativeCheckInputs = [
-    hypothesis
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ hypothesis pytestCheckHook ];
 
   disabledTests = [
     # Skip linting
@@ -43,7 +32,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Fuzzy string matching for Python";
     homepage = "https://github.com/seatgeek/thefuzz";
-    changelog = "https://github.com/seatgeek/thefuzz/blob/${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/seatgeek/thefuzz/blob/${version}/CHANGES.rst";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ sumnerevans ];
   };

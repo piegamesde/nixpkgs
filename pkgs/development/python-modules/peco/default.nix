@@ -1,10 +1,4 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchPypi
-, pydantic
-, pythonOlder
-, setuptools
+{ lib, aiohttp, buildPythonPackage, fetchPypi, pydantic, pythonOlder, setuptools
 }:
 
 buildPythonPackage rec {
@@ -19,21 +13,14 @@ buildPythonPackage rec {
     hash = "sha256-zL0tBTwm+l5eyxlWr2xoE+nLpMfUKri1/yD+WgTUqHQ=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    pydantic
-  ];
+  propagatedBuildInputs = [ aiohttp pydantic ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "peco"
-  ];
+  pythonImportsCheck = [ "peco" ];
 
   meta = with lib; {
     description = "Library for interacting with the PECO outage map";

@@ -1,9 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, python3, gfortran, blas, lapack
-, fftw, libint, libvori, libxc, mpi, gsl, scalapack, openssh, makeWrapper
-, libxsmm, spglib, which, pkg-config, plumed, zlib
-, enableElpa ? false
-, elpa
-} :
+{ lib, stdenv, fetchFromGitHub, python3, gfortran, blas, lapack, fftw, libint
+, libvori, libxc, mpi, gsl, scalapack, openssh, makeWrapper, libxsmm, spglib
+, which, pkg-config, plumed, zlib, enableElpa ? false, elpa }:
 
 let
   cp2kVersion = "psmp";
@@ -41,10 +38,7 @@ in stdenv.mkDerivation rec {
   propagatedBuildInputs = [ mpi ];
   propagatedUserEnvPkgs = [ mpi ];
 
-  makeFlags = [
-    "ARCH=${arch}"
-    "VERSION=${cp2kVersion}"
-  ];
+  makeFlags = [ "ARCH=${arch}" "VERSION=${cp2kVersion}" ];
 
   doCheck = true;
 
@@ -66,7 +60,9 @@ in stdenv.mkDerivation rec {
     AR         = ar -r
     DFLAGS     = -D__FFTW3 -D__LIBXC -D__LIBINT -D__parallel -D__SCALAPACK \
                  -D__MPI_VERSION=3 -D__F2008 -D__LIBXSMM -D__SPGLIB \
-                 -D__MAX_CONTR=4 -D__LIBVORI ${lib.optionalString enableElpa "-D__ELPA"} \
+                 -D__MAX_CONTR=4 -D__LIBVORI ${
+                   lib.optionalString enableElpa "-D__ELPA"
+                 } \
                  -D__PLUMED2
     CFLAGS    = -fopenmp
     FCFLAGS    = \$(DFLAGS) -O2 -ffree-form -ffree-line-length-none \
@@ -74,14 +70,22 @@ in stdenv.mkDerivation rec {
                  -std=f2008 \
                  -fopenmp -ftree-vectorize -funroll-loops \
                  -I${libxc}/include -I${libxsmm}/include \
-                 -I${libint}/include ${lib.optionalString enableElpa "$(pkg-config --variable=fcflags elpa)"}
+                 -I${libint}/include ${
+                   lib.optionalString enableElpa
+                   "$(pkg-config --variable=fcflags elpa)"
+                 }
     LIBS       = -lfftw3 -lfftw3_threads \
                  -lscalapack -lblas -llapack \
                  -lxcf03 -lxc -lxsmmf -lxsmm -lsymspg \
                  -lint2 -lstdc++ -lvori \
                  -lgomp -lpthread -lm \
-                 -fopenmp ${lib.optionalString enableElpa "$(pkg-config --libs elpa)"} \
-                 -lz -ldl -lstdc++ ${lib.optionalString (mpi.pname == "openmpi") "$(mpicxx --showme:link)"} \
+                 -fopenmp ${
+                   lib.optionalString enableElpa "$(pkg-config --libs elpa)"
+                 } \
+                 -lz -ldl -lstdc++ ${
+                   lib.optionalString (mpi.pname == "openmpi")
+                   "$(mpicxx --showme:link)"
+                 } \
                  -lplumed
     LDFLAGS    = \$(FCFLAGS) \$(LIBS)
     include ${plumed}/lib/plumed/src/lib/Plumed.inc

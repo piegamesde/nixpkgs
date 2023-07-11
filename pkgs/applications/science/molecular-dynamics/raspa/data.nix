@@ -1,8 +1,4 @@
-{ lib
-, stdenvNoCC
-, gzip
-, raspa
-}:
+{ lib, stdenvNoCC, gzip, raspa }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "raspa-data";

@@ -1,18 +1,7 @@
-{ lib
-, python3
-, fetchFromGitHub
-, fetchpatch
-, espeak-ng
-, tts
-}:
+{ lib, python3, fetchFromGitHub, fetchpatch, espeak-ng, tts }:
 
-let
-  python = python3.override {
-    packageOverrides = self: super: {
-    };
-  };
-in
-python.pkgs.buildPythonApplication rec {
+let python = python3.override { packageOverrides = self: super: { }; };
+in python.pkgs.buildPythonApplication rec {
   pname = "tts";
   version = "0.13.2";
   format = "pyproject";
@@ -27,11 +16,10 @@ python.pkgs.buildPythonApplication rec {
   patches = [
     (fetchpatch {
       # upgrade librosa to 0.10.0
-      url = "https://github.com/coqui-ai/TTS/commit/4c829e74a1399ab083b566a70c1b7e879eda6e1e.patch";
+      url =
+        "https://github.com/coqui-ai/TTS/commit/4c829e74a1399ab083b566a70c1b7e879eda6e1e.patch";
       hash = "sha256-QP9AnMbdEpGJywiZBreojHUjq29ihqy6HxvUtS5OKvQ=";
-      excludes = [
-        "requirements.txt"
-      ];
+      excludes = [ "requirements.txt" ];
     })
   ];
 
@@ -49,18 +37,17 @@ python.pkgs.buildPythonApplication rec {
     ];
   in ''
     sed -r -i \
-      ${lib.concatStringsSep "\n" (map (package:
-        ''-e 's/${package}.*[<>=]+.*/${package}/g' \''
-      ) relaxedConstraints)}
+      ${
+        lib.concatStringsSep "\n"
+        (map (package: "-e 's/${package}.*[<>=]+.*/${package}/g' \\")
+          relaxedConstraints)
+      }
     requirements.txt
     # only used for notebooks and visualization
     sed -r -i -e '/umap-learn/d' requirements.txt
   '';
 
-  nativeBuildInputs = with python.pkgs; [
-    cython
-    packaging
-  ];
+  nativeBuildInputs = with python.pkgs; [ cython packaging ];
 
   propagatedBuildInputs = with python.pkgs; [
     anyascii
@@ -106,10 +93,7 @@ python.pkgs.buildPythonApplication rec {
   doCheck = false;
   passthru.tests.pytest = tts.overridePythonAttrs (_: { doCheck = true; });
 
-  nativeCheckInputs = with python.pkgs; [
-    espeak-ng
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python.pkgs; [ espeak-ng pytestCheckHook ];
 
   preCheck = ''
     # use the installed TTS in $PYTHONPATH instead of the one from source to also have cython modules.
@@ -179,14 +163,13 @@ python.pkgs.buildPythonApplication rec {
     "tests/tts_tests/test_overflow.py"
   ];
 
-  passthru = {
-    inherit python;
-  };
+  passthru = { inherit python; };
 
   meta = with lib; {
     homepage = "https://github.com/coqui-ai/TTS";
     changelog = "https://github.com/coqui-ai/TTS/releases/tag/v${version}";
-    description = "Deep learning toolkit for Text-to-Speech, battle-tested in research and production";
+    description =
+      "Deep learning toolkit for Text-to-Speech, battle-tested in research and production";
     license = licenses.mpl20;
     maintainers = teams.tts.members;
   };

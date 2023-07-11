@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "lightwave";
@@ -16,9 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-h/ztEY473XjvUCWu6vr7FA3WSYPHaLKNMc2fpu/wRC0=";
   };
 
-  pythonImportsCheck = [
-    "lightwave"
-  ];
+  pythonImportsCheck = [ "lightwave" ];
 
   # Requires phyiscal hardware
   doCheck = false;

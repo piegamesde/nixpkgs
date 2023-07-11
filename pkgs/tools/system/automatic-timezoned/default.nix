@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-}:
+{ lib, fetchFromGitHub, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "automatic-timezoned";
@@ -19,7 +16,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Automatically update system timezone based on location";
     homepage = "https://github.com/maxbrunet/automatic-timezoned";
-    changelog = "https://github.com/maxbrunet/automatic-timezoned/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/maxbrunet/automatic-timezoned/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3;
     maintainers = with maintainers; [ maxbrunet ];
     platforms = platforms.linux;

@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pciutils
-, pkg-config
-, python3
-}:
+{ lib, stdenv, fetchFromGitHub, pciutils, pkg-config, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "x86info";
@@ -17,14 +11,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-/qWioC4dV1bQkU4SiTR8duYqoGIMIH7s8vuAXi75juo=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    python3
-  ];
+  nativeBuildInputs = [ pkg-config python3 ];
 
-  buildInputs = [
-    pciutils
-  ];
+  buildInputs = [ pciutils ];
 
   postBuild = ''
     patchShebangs lsmsr/createheader.py

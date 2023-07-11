@@ -1,34 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, cmake
-, rocm-cmake
-, hip
-, gfortran
-, rocblas
-, rocsolver
-, gtest
-, lapack-reference
-, buildTests ? false
-, buildBenchmarks ? false
-, buildSamples ? false
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake, hip
+, gfortran, rocblas, rocsolver, gtest, lapack-reference, buildTests ? false
+, buildBenchmarks ? false, buildSamples ? false }:
 
 # Can also use cuBLAS
 stdenv.mkDerivation (finalAttrs: {
   pname = "hipblas";
   version = "5.4.3";
 
-  outputs = [
-    "out"
-  ] ++ lib.optionals buildTests [
-    "test"
-  ] ++ lib.optionals buildBenchmarks [
-    "benchmark"
-  ] ++ lib.optionals buildSamples [
-    "sample"
-  ];
+  outputs = [ "out" ] ++ lib.optionals buildTests [ "test" ]
+    ++ lib.optionals buildBenchmarks [ "benchmark" ]
+    ++ lib.optionals buildSamples [ "sample" ];
 
   src = fetchFromGitHub {
     owner = "ROCmSoftwarePlatform";
@@ -37,21 +18,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-mSZCq8UaiffMzWVflW1nAX6CQZ1DqwWJaSIzKslZSEk=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    rocm-cmake
-    hip
-    gfortran
-  ];
+  nativeBuildInputs = [ cmake rocm-cmake hip gfortran ];
 
-  buildInputs = [
-    rocblas
-    rocsolver
-  ] ++ lib.optionals buildTests [
-    gtest
-  ] ++ lib.optionals (buildTests || buildBenchmarks) [
-    lapack-reference
-  ];
+  buildInputs = [ rocblas rocsolver ] ++ lib.optionals buildTests [ gtest ]
+    ++ lib.optionals (buildTests || buildBenchmarks) [ lapack-reference ];
 
   cmakeFlags = [
     "-DCMAKE_C_COMPILER=hipcc"
@@ -61,13 +31,9 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_INSTALL_BINDIR=bin"
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  ] ++ lib.optionals buildTests [
-    "-DBUILD_CLIENTS_TESTS=ON"
-  ] ++ lib.optionals buildBenchmarks [
-    "-DBUILD_CLIENTS_BENCHMARKS=ON"
-  ] ++ lib.optionals buildSamples [
-    "-DBUILD_CLIENTS_SAMPLES=ON"
-  ];
+  ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
+    ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
+    ++ lib.optionals buildSamples [ "-DBUILD_CLIENTS_SAMPLES=ON" ];
 
   postInstall = lib.optionalString buildTests ''
     mkdir -p $test/bin
@@ -95,6 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = teams.rocm.members;
     platforms = platforms.linux;
     # Fixed in develop branch by using C++17 and related refactor
-    broken = versions.minor finalAttrs.version != versions.minor hip.version || buildTests || buildBenchmarks || buildSamples;
+    broken = versions.minor finalAttrs.version != versions.minor hip.version
+      || buildTests || buildBenchmarks || buildSamples;
   };
 })

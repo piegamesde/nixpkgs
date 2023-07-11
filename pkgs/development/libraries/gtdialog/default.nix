@@ -10,12 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config unzip ];
-  buildInputs = [
-    cdk
-    gtk2
-    glib
-    ncurses
-  ];
+  buildInputs = [ cdk gtk2 glib ncurses ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

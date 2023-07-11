@@ -11,16 +11,15 @@ let
     ${cfg.extraConfig}
   '';
 
-in
-
-{
+in {
   options = {
     services.cachefilesd = {
 
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to enable cachefilesd network filesystems caching daemon.";
+        description = lib.mdDoc
+          "Whether to enable cachefilesd network filesystems caching daemon.";
       };
 
       cacheDir = mkOption {
@@ -33,7 +32,8 @@ in
         type = types.lines;
         default = "";
         example = "brun 10%";
-        description = lib.mdDoc "Additional configuration file entries. See cachefilesd.conf(5) for more information.";
+        description = lib.mdDoc
+          "Additional configuration file entries. See cachefilesd.conf(5) for more information.";
       };
 
     };
@@ -56,8 +56,6 @@ in
       };
     };
 
-    systemd.tmpfiles.rules = [
-      "d ${cfg.cacheDir} 0700 root root - -"
-    ];
+    systemd.tmpfiles.rules = [ "d ${cfg.cacheDir} 0700 root root - -" ];
   };
 }

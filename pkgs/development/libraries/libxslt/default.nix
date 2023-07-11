@@ -1,64 +1,41 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, autoreconfHook
-, libxml2
-, findXMLCatalogs
-, gettext
-, python
-, ncurses
-, libxcrypt
-, libgcrypt
-, cryptoSupport ? false
-, pythonSupport ? libxml2.pythonSupport
-, gnome
-}:
+{ lib, stdenv, fetchurl, pkg-config, autoreconfHook, libxml2, findXMLCatalogs
+, gettext, python, ncurses, libxcrypt, libgcrypt, cryptoSupport ? false
+, pythonSupport ? libxml2.pythonSupport, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "libxslt";
   version = "1.1.37";
 
-  outputs = [ "bin" "dev" "out" "doc" "devdoc" ] ++ lib.optional pythonSupport "py";
+  outputs = [ "bin" "dev" "out" "doc" "devdoc" ]
+    ++ lib.optional pythonSupport "py";
   outputMan = "bin";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "Oksn3IAnzNYUZyWVAzbx7FIJKPMg8UTrX6eZCuYSOrQ=";
   };
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
 
-  buildInputs = [
-    libxml2.dev libxcrypt
-  ] ++ lib.optionals stdenv.isDarwin [
-    gettext
-  ] ++ lib.optionals pythonSupport [
-    libxml2.py
-    python
-    ncurses
-  ] ++ lib.optionals cryptoSupport [
-    libgcrypt
-  ];
+  buildInputs = [ libxml2.dev libxcrypt ]
+    ++ lib.optionals stdenv.isDarwin [ gettext ]
+    ++ lib.optionals pythonSupport [ libxml2.py python ncurses ]
+    ++ lib.optionals cryptoSupport [ libgcrypt ];
 
-  propagatedBuildInputs = [
-    findXMLCatalogs
-  ];
+  propagatedBuildInputs = [ findXMLCatalogs ];
 
   configureFlags = [
     "--without-debug"
     "--without-mem-debug"
     "--without-debugger"
     (lib.withFeature pythonSupport "python")
-    (lib.optionalString pythonSupport "PYTHON=${python.pythonForBuild.interpreter}")
-  ] ++ lib.optionals (!cryptoSupport) [
-    "--without-crypto"
-  ];
+    (lib.optionalString pythonSupport
+      "PYTHON=${python.pythonForBuild.interpreter}")
+  ] ++ lib.optionals (!cryptoSupport) [ "--without-crypto" ];
 
   postFixup = ''
     moveToOutput bin/xslt-config "$dev"
@@ -84,6 +61,7 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = with maintainers; [ eelco jtojnar ];
-    broken = pythonSupport && !libxml2.pythonSupport; # see #73102 for why this is not an assert
+    broken = pythonSupport
+      && !libxml2.pythonSupport; # see #73102 for why this is not an assert
   };
 }

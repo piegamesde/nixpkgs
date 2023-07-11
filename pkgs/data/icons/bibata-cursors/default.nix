@@ -1,10 +1,4 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, fetchurl
-, clickgen
-, attrs
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, fetchurl, clickgen, attrs }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "bibata-cursors";

@@ -1,21 +1,13 @@
-{ stdenv, fetchgit, lib
-, pkg-config, autoreconfHook
-, glib, dbus-glib
-, gtkVersion ? "3"
-, gtk2, libindicator-gtk2, libdbusmenu-gtk2
-, gtk3, libindicator-gtk3, libdbusmenu-gtk3
-, gtk-doc, vala, gobject-introspection
-, monoSupport ? false, mono, gtk-sharp-2_0, gtk-sharp-3_0
-, testers
-}:
+{ stdenv, fetchgit, lib, pkg-config, autoreconfHook, glib, dbus-glib
+, gtkVersion ? "3", gtk2, libindicator-gtk2, libdbusmenu-gtk2, gtk3
+, libindicator-gtk3, libdbusmenu-gtk3, gtk-doc, vala, gobject-introspection
+, monoSupport ? false, mono, gtk-sharp-2_0, gtk-sharp-3_0, testers }:
 
-let
-  throwBadGtkVersion = throw "unknown GTK version ${gtkVersion}";
-in
+let throwBadGtkVersion = throw "unknown GTK version ${gtkVersion}";
 
-stdenv.mkDerivation (finalAttrs: {
+in stdenv.mkDerivation (finalAttrs: {
   pname = let postfix = if monoSupport then "sharp" else "gtk${gtkVersion}";
-          in "libappindicator-${postfix}";
+  in "libappindicator-${postfix}";
   version = "12.10.1+20.10.20200706.1";
 
   outputs = [ "out" "dev" ];
@@ -26,7 +18,8 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "0xjvbl4gn7ra2fs6gn2g9s787kzb5cg9hv79iqsz949rxh4iw32d";
   };
 
-  nativeBuildInputs = [ pkg-config autoreconfHook vala gobject-introspection gtk-doc ];
+  nativeBuildInputs =
+    [ pkg-config autoreconfHook vala gobject-introspection gtk-doc ];
 
   propagatedBuildInputs = {
     "2" = [ gtk2 libdbusmenu-gtk2 ];
@@ -34,7 +27,8 @@ stdenv.mkDerivation (finalAttrs: {
   }.${gtkVersion} or throwBadGtkVersion;
 
   buildInputs = [
-    glib dbus-glib
+    glib
+    dbus-glib
     {
       "2" = libindicator-gtk2;
       "3" = libindicator-gtk3;
@@ -60,15 +54,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = false; # generates shebangs in check phase, too lazy to fix
 
-  installFlags = [
-    "sysconfdir=${placeholder "out"}/etc"
-    "localstatedir=\${TMPDIR}"
-  ];
+  installFlags =
+    [ "sysconfdir=${placeholder "out"}/etc" "localstatedir=\${TMPDIR}" ];
 
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
   meta = with lib; {
-    description = "A library to allow applications to export a menu into the Unity Menu bar";
+    description =
+      "A library to allow applications to export a menu into the Unity Menu bar";
     homepage = "https://launchpad.net/libappindicator";
     license = with licenses; [ lgpl21 lgpl3 ];
     pkgConfigModules = {

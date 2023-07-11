@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, mock
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-mock
-, setuptools
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, mock, pytestCheckHook, pythonOlder
+, requests, requests-mock, setuptools }:
 
 buildPythonPackage rec {
   pname = "py-canary";
@@ -23,23 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-873XAf0jOX5pjrNRELEcTWCauk80FUYxTu7G7jc3MHE=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook requests-mock ];
 
-  pythonImportsCheck = [
-    "canary"
-  ];
+  pythonImportsCheck = [ "canary" ];
 
   disabledTests = [
     # Test requires network access

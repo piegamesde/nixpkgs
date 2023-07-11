@@ -1,18 +1,6 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, cmake
-, boost
-, eigen
-, python
-, catch
-, numpy
-, pytestCheckHook
-, libxcrypt
-, makeSetupHook
-}: let
+{ stdenv, lib, buildPythonPackage, pythonOlder, fetchFromGitHub, cmake, boost
+, eigen, python, catch, numpy, pytestCheckHook, libxcrypt, makeSetupHook }:
+let
   setupHook = makeSetupHook {
     name = "pybind11-setup-hook";
     substitutions = {
@@ -53,9 +41,8 @@ in buildPythonPackage rec {
   cmakeFlags = [
     "-DBoost_INCLUDE_DIR=${lib.getDev boost}/include"
     "-DEIGEN3_INCLUDE_DIR=${lib.getDev eigen}/include/eigen3"
-  ] ++ lib.optionals (python.isPy3k && !stdenv.cc.isClang) [
-    "-DPYBIND11_CXX_STANDARD=-std=c++17"
-  ];
+  ] ++ lib.optionals (python.isPy3k && !stdenv.cc.isClang)
+    [ "-DPYBIND11_CXX_STANDARD=-std=c++17" ];
 
   postBuild = ''
     # build tests
@@ -69,11 +56,7 @@ in buildPythonPackage rec {
     ln -sf $out/include/pybind11 $out/include/${python.libPrefix}/pybind11
   '';
 
-  nativeCheckInputs = [
-    catch
-    numpy
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ catch numpy pytestCheckHook ];
 
   disabledTestPaths = [
     # require dependencies not available in nixpkgs
@@ -95,7 +78,8 @@ in buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/pybind/pybind11";
-    changelog = "https://github.com/pybind/pybind11/blob/${src.rev}/docs/changelog.rst";
+    changelog =
+      "https://github.com/pybind/pybind11/blob/${src.rev}/docs/changelog.rst";
     description = "Seamless operability between C++11 and Python";
     longDescription = ''
       Pybind11 is a lightweight header-only library that exposes

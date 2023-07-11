@@ -1,26 +1,7 @@
-{ lib
-, ansible
-, ansible-core
-, anyconfig
-, appdirs
-, buildPythonPackage
-, colorama
-, fetchFromGitHub
-, flake8
-, jsonschema
-, nested-lookup
-, pathspec
-, poetry-core
-, pytest-mock
-, python-json-logger
-, pytestCheckHook
-, pythonRelaxDepsHook
-, pythonOlder
-, pyyaml
-, toolz
-, unidiff
-, yamllint
-}:
+{ lib, ansible, ansible-core, anyconfig, appdirs, buildPythonPackage, colorama
+, fetchFromGitHub, flake8, jsonschema, nested-lookup, pathspec, poetry-core
+, pytest-mock, python-json-logger, pytestCheckHook, pythonRelaxDepsHook
+, pythonOlder, pyyaml, toolz, unidiff, yamllint }:
 
 buildPythonPackage rec {
   pname = "ansible-later";
@@ -53,10 +34,7 @@ buildPythonPackage rec {
     "yamllint"
   ];
 
-  nativeBuildInputs = [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     ansible
@@ -75,23 +53,19 @@ buildPythonPackage rec {
     yamllint
   ];
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
 
   postInstall = ''
     rm $out/lib/python*/site-packages/LICENSE
   '';
 
-  pythonImportsCheck = [
-    "ansiblelater"
-  ];
+  pythonImportsCheck = [ "ansiblelater" ];
 
   meta = with lib; {
     description = "Best practice scanner for Ansible roles and playbooks";
     homepage = "https://github.com/thegeeklab/ansible-later";
-    changelog = "https://github.com/thegeeklab/ansible-later/releases/tag/v${version}";
+    changelog =
+      "https://github.com/thegeeklab/ansible-later/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ tboerger ];
   };

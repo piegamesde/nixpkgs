@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, cmake
-, protobuf
- }:
+{ lib, stdenv, fetchFromGitLab, cmake, protobuf }:
 
 stdenv.mkDerivation rec {
   pname = "goldberg-emu";
@@ -22,9 +17,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
   buildInputs = [ protobuf ];
 
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}/share/goldberg"
-  ];
+  cmakeFlags = [ "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}/share/goldberg" ];
 
   preFixup = ''
     mkdir -p $out/{bin,lib}

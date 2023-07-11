@@ -1,59 +1,13 @@
-{ stdenv
-, lib
-, fetchurl
-, substituteAll
-, autoreconfHook
-, pkg-config
-, intltool
-, babl
-, gegl
-, gtk2
-, glib
-, gdk-pixbuf
-, isocodes
-, pango
-, cairo
-, freetype
-, fontconfig
-, lcms
-, libpng
-, libjpeg
-, libjxl
-, poppler
-, poppler_data
-, libtiff
-, libmng
-, librsvg
-, libwmf
-, zlib
-, libzip
-, ghostscript
-, aalib
-, shared-mime-info
-, libexif
-, gettext
-, makeWrapper
-, gtk-doc
-, xorg
-, glib-networking
-, libmypaint
-, gexiv2
-, harfbuzz
-, mypaint-brushes1
-, libwebp
-, libheif
-, libgudev
-, openexr
-, desktopToDarwinBundle
-, AppKit
-, Cocoa
-, gtk-mac-integration-gtk2
-, withPython ? false
-, python2
-}:
+{ stdenv, lib, fetchurl, substituteAll, autoreconfHook, pkg-config, intltool
+, babl, gegl, gtk2, glib, gdk-pixbuf, isocodes, pango, cairo, freetype
+, fontconfig, lcms, libpng, libjpeg, libjxl, poppler, poppler_data, libtiff
+, libmng, librsvg, libwmf, zlib, libzip, ghostscript, aalib, shared-mime-info
+, libexif, gettext, makeWrapper, gtk-doc, xorg, glib-networking, libmypaint
+, gexiv2, harfbuzz, mypaint-brushes1, libwebp, libheif, libgudev, openexr
+, desktopToDarwinBundle, AppKit, Cocoa, gtk-mac-integration-gtk2
+, withPython ? false, python2 }:
 
-let
-  python = python2.withPackages (pp: [ pp.pygtk ]);
+let python = python2.withPackages (pp: [ pp.pygtk ]);
 in stdenv.mkDerivation (finalAttrs: {
   pname = "gimp";
   version = "2.10.34";
@@ -61,7 +15,9 @@ in stdenv.mkDerivation (finalAttrs: {
   outputs = [ "out" "dev" ];
 
   src = fetchurl {
-    url = "http://download.gimp.org/pub/gimp/v${lib.versions.majorMinor finalAttrs.version}/gimp-${finalAttrs.version}.tar.bz2";
+    url = "http://download.gimp.org/pub/gimp/v${
+        lib.versions.majorMinor finalAttrs.version
+      }/gimp-${finalAttrs.version}.tar.bz2";
     sha256 = "hABGQtNRs5ikKTzX/TWSBEqUTwW7UoUO5gaPJHxleqM=";
   };
 
@@ -85,9 +41,7 @@ in stdenv.mkDerivation (finalAttrs: {
     gettext
     makeWrapper
     gtk-doc
-  ] ++ lib.optionals stdenv.isDarwin [
-    desktopToDarwinBundle
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
 
   buildInputs = [
     babl
@@ -125,22 +79,15 @@ in stdenv.mkDerivation (finalAttrs: {
     glib-networking
     libmypaint
     mypaint-brushes1
-  ] ++ lib.optionals stdenv.isDarwin [
-    AppKit
-    Cocoa
-    gtk-mac-integration-gtk2
-  ] ++ lib.optionals stdenv.isLinux [
-    libgudev
-  ] ++ lib.optionals withPython [
-    python
-    # Duplicated here because python.withPackages does not expose the dev output with pkg-config files
-    python2.pkgs.pygtk
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ AppKit Cocoa gtk-mac-integration-gtk2 ]
+    ++ lib.optionals stdenv.isLinux [ libgudev ] ++ lib.optionals withPython [
+      python
+      # Duplicated here because python.withPackages does not expose the dev output with pkg-config files
+      python2.pkgs.pygtk
+    ];
 
   # needed by gimp-2.0.pc
-  propagatedBuildInputs = [
-    gegl
-  ];
+  propagatedBuildInputs = [ gegl ];
 
   configureFlags = [
     "--without-webkit" # old version is required
@@ -158,10 +105,12 @@ in stdenv.mkDerivation (finalAttrs: {
   doCheck = true;
 
   env = {
-    NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-DGDK_OSX_BIG_SUR=16";
+    NIX_CFLAGS_COMPILE =
+      lib.optionalString stdenv.isDarwin "-DGDK_OSX_BIG_SUR=16";
 
     # Check if librsvg was built with --disable-pixbuf-loader.
-    PKG_CONFIG_GDK_PIXBUF_2_0_GDK_PIXBUF_MODULEDIR = "${librsvg}/${gdk-pixbuf.moduleDir}";
+    PKG_CONFIG_GDK_PIXBUF_2_0_GDK_PIXBUF_MODULEDIR =
+      "${librsvg}/${gdk-pixbuf.moduleDir}";
   };
 
   preConfigure = ''

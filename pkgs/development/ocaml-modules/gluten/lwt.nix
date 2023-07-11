@@ -1,7 +1,4 @@
-{ buildDunePackage
-, gluten
-, lwt
-}:
+{ buildDunePackage, gluten, lwt }:
 
 buildDunePackage rec {
   pname = "gluten-lwt";
@@ -9,8 +6,5 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [
-    gluten
-    lwt
-  ];
+  propagatedBuildInputs = [ gluten lwt ];
 }

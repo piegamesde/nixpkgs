@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "aiodnsbrute";
@@ -15,19 +12,12 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-cEpk71VoQJZfKeAZummkk7yjtXKSMndgo0VleYiMlWE=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    aiodns
-    click
-    tqdm
-    uvloop
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ aiodns click tqdm uvloop ];
 
   # Project no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "aiodnsbrute.cli"
-  ];
+  pythonImportsCheck = [ "aiodnsbrute.cli" ];
 
   meta = with lib; {
     description = "DNS brute force utility";

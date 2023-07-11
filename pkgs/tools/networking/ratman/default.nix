@@ -1,16 +1,5 @@
-{ lib
-, fetchFromGitLab
-, installShellFiles
-, libsodium
-, pkg-config
-, protobuf
-, rustPlatform
-, fetchYarnDeps
-, fixup_yarn_lock
-, stdenv
-, yarn
-, nodejs
-}:
+{ lib, fetchFromGitLab, installShellFiles, libsodium, pkg-config, protobuf
+, rustPlatform, fetchYarnDeps, fixup_yarn_lock, stdenv, yarn, nodejs }:
 
 rustPlatform.buildRustPackage rec {
   pname = "ratman";
@@ -84,7 +73,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "A modular decentralised peer-to-peer packet router and associated tools";
+    description =
+      "A modular decentralised peer-to-peer packet router and associated tools";
     homepage = "https://git.irde.st/we/irdest";
     platforms = platforms.unix;
     license = licenses.agpl3;

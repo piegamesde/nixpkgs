@@ -1,13 +1,5 @@
-{ lib
-, attrs
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonAtLeast
-, pythonOlder
-, typish
-, tzdata
-}:
+{ lib, attrs, buildPythonPackage, fetchFromGitHub, pytestCheckHook
+, pythonAtLeast, pythonOlder, typish, tzdata }:
 
 buildPythonPackage rec {
   pname = "jsons";
@@ -23,15 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-7OIByHvsqhKFOkb1q2kuxmbkkleryavYgp/T4U5hvGk=";
   };
 
-  propagatedBuildInputs = [
-    typish
-  ];
+  propagatedBuildInputs = [ typish ];
 
-  nativeCheckInputs = [
-    attrs
-    pytestCheckHook
-    tzdata
-  ];
+  nativeCheckInputs = [ attrs pytestCheckHook tzdata ];
 
   disabledTestPaths = [
     # These tests are based on timings, which fail
@@ -44,14 +30,13 @@ buildPythonPackage rec {
     "test_dump_load_parameterized_collections"
   ];
 
-  pythonImportsCheck = [
-    "jsons"
-  ];
+  pythonImportsCheck = [ "jsons" ];
 
   meta = with lib; {
     description = "Turn Python objects into dicts or json strings and back";
     homepage = "https://github.com/ramonhagenaars/jsons";
-    changelog = "https://github.com/ramonhagenaars/jsons/releases/tag/v${version}";
+    changelog =
+      "https://github.com/ramonhagenaars/jsons/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fmoda3 ];
   };

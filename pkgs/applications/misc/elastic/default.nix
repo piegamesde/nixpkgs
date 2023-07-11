@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, meson
-, ninja
-, pkg-config
-, vala
-, gtk4
-, libgee
-, libadwaita
-, gtksourceview5
-, blueprint-compiler
-, wrapGAppsHook4
-, appstream-glib
-, desktop-file-utils
-, template-glib
-}:
+{ lib, stdenv, fetchFromGitLab, meson, ninja, pkg-config, vala, gtk4, libgee
+, libadwaita, gtksourceview5, blueprint-compiler, wrapGAppsHook4, appstream-glib
+, desktop-file-utils, template-glib }:
 
 stdenv.mkDerivation rec {
   pname = "elastic";
@@ -39,13 +25,7 @@ stdenv.mkDerivation rec {
     blueprint-compiler
   ];
 
-  buildInputs = [
-    gtk4
-    libadwaita
-    libgee
-    gtksourceview5
-    template-glib
-  ];
+  buildInputs = [ gtk4 libadwaita libgee gtksourceview5 template-glib ];
 
   meta = with lib; {
     description = "Design spring animations";

@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools }:
 
 buildPythonPackage rec {
   pname = "mac-alias";
@@ -15,9 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-yZxyjrUS6VXBHxpiA6D/qIg7JlSeiv5ogEAxql2oVrc=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   # pypi package does not include tests;
   # tests anyway require admin privileges to succeed
@@ -26,7 +20,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/al45tair/mac_alias";
-    description = "Generate or read binary Alias and Bookmark records from Python code";
+    description =
+      "Generate or read binary Alias and Bookmark records from Python code";
     longDescription = ''
       mac_alias lets you generate or read binary Alias and Bookmark records from Python code.
 

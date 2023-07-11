@@ -1,11 +1,5 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, mbstrdecoder
-, typepy
-, pytestCheckHook
-, termcolor
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, mbstrdecoder, typepy
+, pytestCheckHook, termcolor }:
 
 buildPythonPackage rec {
   pname = "dataproperty";

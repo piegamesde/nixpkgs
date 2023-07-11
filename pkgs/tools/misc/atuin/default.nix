@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, installShellFiles
-, rustPlatform
-, libiconv
-, Security
-, SystemConfiguration
-, xvfb-run
-, nixosTests
-}:
+{ lib, stdenv, fetchFromGitHub, installShellFiles, rustPlatform, libiconv
+, Security, SystemConfiguration, xvfb-run, nixosTests }:
 
 rustPlatform.buildRustPackage rec {
   pname = "atuin";
@@ -22,11 +13,15 @@ rustPlatform.buildRustPackage rec {
   };
 
   # TODO: unify this to one hash because updater do not support this
-  cargoHash = if stdenv.isLinux then "sha256-oaBTj+ZSJ36AFwIrB6d0cZppoAzV4QDr3+EylYqY7cw=" else "sha256-UNuoW/EOGtuNROm1qZJ4afDfMlecziVsem1m3Z1ZsOU=";
+  cargoHash = if stdenv.isLinux then
+    "sha256-oaBTj+ZSJ36AFwIrB6d0cZppoAzV4QDr3+EylYqY7cw="
+  else
+    "sha256-UNuoW/EOGtuNROm1qZJ4afDfMlecziVsem1m3Z1ZsOU=";
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv Security SystemConfiguration ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ libiconv Security SystemConfiguration ];
 
   postInstall = ''
     installShellCompletion --cmd atuin \
@@ -35,9 +30,7 @@ rustPlatform.buildRustPackage rec {
       --zsh <($out/bin/atuin gen-completions -s zsh)
   '';
 
-  nativeCheckInputs = lib.optionals xvfb-run.meta.available [
-    xvfb-run
-  ];
+  nativeCheckInputs = lib.optionals xvfb-run.meta.available [ xvfb-run ];
 
   checkPhase = lib.optionalString xvfb-run.meta.available ''
     runHook preCheck
@@ -45,12 +38,11 @@ rustPlatform.buildRustPackage rec {
     runHook postCheck
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) atuin;
-  };
+  passthru.tests = { inherit (nixosTests) atuin; };
 
   meta = with lib; {
-    description = "Replacement for a shell history which records additional commands context with optional encrypted synchronization between machines";
+    description =
+      "Replacement for a shell history which records additional commands context with optional encrypted synchronization between machines";
     homepage = "https://github.com/ellie/atuin";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 sciencentistguy _0x4A6F ];

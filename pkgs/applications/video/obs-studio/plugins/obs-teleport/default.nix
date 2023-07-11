@@ -1,10 +1,4 @@
-{ buildGoModule
-, fetchFromGitHub
-, lib
-, libjpeg
-, nix-update-script
-, obs-studio
-}:
+{ buildGoModule, fetchFromGitHub, lib, libjpeg, nix-update-script, obs-studio }:
 
 buildGoModule rec {
   pname = "obs-teleport";
@@ -19,10 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-2rlEMkdcD+46EpQhUpLIGMzqvlyMFYK/XQYV9DJZxao=";
 
-  buildInputs = [
-    libjpeg
-    obs-studio
-  ];
+  buildInputs = [ libjpeg obs-studio ];
 
   ldflags = [ "-s" "-w" ];
 

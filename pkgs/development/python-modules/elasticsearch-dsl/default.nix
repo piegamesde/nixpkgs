@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, elasticsearch
-, python-dateutil
-, six
-}:
+{ lib, buildPythonPackage, fetchPypi, elasticsearch, python-dateutil, six }:
 
 buildPythonPackage rec {
   pname = "elasticsearch-dsl";

@@ -1,8 +1,4 @@
-{ lib
-, buildNpmPackage
-, fetchFromGitHub
-, nix-update-script
-}:
+{ lib, buildNpmPackage, fetchFromGitHub, nix-update-script }:
 
 buildNpmPackage rec {
   pname = "ansible-language-server";
@@ -34,7 +30,8 @@ buildNpmPackage rec {
   passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
-    changelog = "https://github.com/ansible/ansible-language-server/releases/tag/v${version}";
+    changelog =
+      "https://github.com/ansible/ansible-language-server/releases/tag/v${version}";
     description = "Ansible Language Server";
     homepage = "https://github.com/ansible/ansible-language-server";
     license = licenses.mit;

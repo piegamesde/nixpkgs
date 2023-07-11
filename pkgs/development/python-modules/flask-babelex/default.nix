@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, flask
-, babel
-, speaklater
-, jinja2
-, pytestCheckHook
-, pytz
-}:
+{ lib, buildPythonPackage, fetchPypi, flask, babel, speaklater, jinja2
+, pytestCheckHook, pytz }:
 
 buildPythonPackage rec {
   pname = "flask-babelex";
@@ -20,21 +12,11 @@ buildPythonPackage rec {
     sha256 = "09yfr8hlwvpgvq8kp1y7qbnnl0q28hi0348bv199ssiqx779r99r";
   };
 
-  propagatedBuildInputs = [
-    flask
-    babel
-    speaklater
-    jinja2
-  ];
+  propagatedBuildInputs = [ flask babel speaklater jinja2 ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytz
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytz ];
 
-  pytestFlagsArray = [
-    "tests/tests.py"
-  ];
+  pytestFlagsArray = [ "tests/tests.py" ];
 
   disabledTests = [
     # Disabled 3 tests failing due to string representations of dates:

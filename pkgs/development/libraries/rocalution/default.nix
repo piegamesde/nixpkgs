@@ -1,37 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, cmake
-, rocm-cmake
-, rocblas
-, rocsparse
-, rocprim
-, rocrand
-, hip
-, git
-, openmp
-, openmpi
-, gtest
-, buildTests ? false
-, buildBenchmarks ? false
-, buildSamples ? false
-, gpuTargets ? [ ] # gpuTargets = [ "gfx803" "gfx900:xnack-" "gfx906:xnack-" ... ]
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake, rocblas
+, rocsparse, rocprim, rocrand, hip, git, openmp, openmpi, gtest
+, buildTests ? false, buildBenchmarks ? false, buildSamples ? false
+, gpuTargets ?
+  [ ] # gpuTargets = [ "gfx803" "gfx900:xnack-" "gfx906:xnack-" ... ]
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocalution";
   version = "5.4.3";
 
-  outputs = [
-    "out"
-  ] ++ lib.optionals buildTests [
-    "test"
-  ] ++ lib.optionals buildBenchmarks [
-    "benchmark"
-  ] ++ lib.optionals buildSamples [
-    "sample"
-  ];
+  outputs = [ "out" ] ++ lib.optionals buildTests [ "test" ]
+    ++ lib.optionals buildBenchmarks [ "benchmark" ]
+    ++ lib.optionals buildSamples [ "sample" ];
 
   src = fetchFromGitHub {
     owner = "ROCmSoftwarePlatform";
@@ -40,23 +20,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-jovhodhNa7tr1bSqpZCKI/9xF7Ie96JB+giqAEfis2k=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    rocm-cmake
-    hip
-    git
-  ];
+  nativeBuildInputs = [ cmake rocm-cmake hip git ];
 
-  buildInputs = [
-    rocblas
-    rocsparse
-    rocprim
-    rocrand
-    openmp
-    openmpi
-  ] ++ lib.optionals buildTests [
-    gtest
-  ];
+  buildInputs = [ rocblas rocsparse rocprim rocrand openmp openmpi ]
+    ++ lib.optionals buildTests [ gtest ];
 
   cmakeFlags = [
     "-DCMAKE_CXX_COMPILER=hipcc"
@@ -71,13 +38,10 @@ stdenv.mkDerivation (finalAttrs: {
     "-DCMAKE_INSTALL_BINDIR=bin"
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  ] ++ lib.optionals (gpuTargets != [ ]) [
-    "-DAMDGPU_TARGETS=${lib.strings.concatStringsSep ";" gpuTargets}"
-  ] ++ lib.optionals buildTests [
-    "-DBUILD_CLIENTS_TESTS=ON"
-  ] ++ lib.optionals buildBenchmarks [
-    "-DBUILD_CLIENTS_BENCHMARKS=ON"
-  ];
+  ] ++ lib.optionals (gpuTargets != [ ])
+    [ "-DAMDGPU_TARGETS=${lib.strings.concatStringsSep ";" gpuTargets}" ]
+    ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
+    ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ];
 
   postInstall = lib.optionalString buildTests ''
     mkdir -p $test/bin

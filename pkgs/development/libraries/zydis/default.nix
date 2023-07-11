@@ -1,17 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, callPackage
-, cmake
-, python3
-}:
+{ lib, stdenv, fetchFromGitHub, callPackage, cmake, python3 }:
 
-let
-  zycore = callPackage ./zycore.nix {
-    inherit stdenv fetchFromGitHub cmake;
-  };
-in
-stdenv.mkDerivation rec {
+let zycore = callPackage ./zycore.nix { inherit stdenv fetchFromGitHub cmake; };
+in stdenv.mkDerivation rec {
   pname = "zydis";
   version = "4.0.0";
 

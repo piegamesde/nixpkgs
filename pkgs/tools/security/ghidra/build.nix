@@ -1,20 +1,6 @@
-{ stdenv
-, fetchzip
-, fetchurl
-, fetchFromGitHub
-, lib
-, gradle_7
-, perl
-, makeWrapper
-, openjdk17
-, unzip
-, makeDesktopItem
-, autoPatchelfHook
-, icoutils
-, xcbuild
-, protobuf3_17
-, libredirect
-}:
+{ stdenv, fetchzip, fetchurl, fetchFromGitHub, lib, gradle_7, perl, makeWrapper
+, openjdk17, unzip, makeDesktopItem, autoPatchelfHook, icoutils, xcbuild
+, protobuf3_17, libredirect }:
 
 let
   pkg_path = "$out/lib/ghidra";
@@ -42,37 +28,37 @@ let
   # postPatch scripts.
   # Tells ghidra to use our own protoc binary instead of the prebuilt one.
   fixProtoc = ''
-    cat >>Ghidra/Debug/Debugger-gadp/build.gradle <<HERE
-protobuf {
-  protoc {
-    path = '${protobuf3_17}/bin/protoc'
-  }
-}
-HERE
+        cat >>Ghidra/Debug/Debugger-gadp/build.gradle <<HERE
+    protobuf {
+      protoc {
+        path = '${protobuf3_17}/bin/protoc'
+      }
+    }
+    HERE
   '';
 
   # Adds a gradle step that downloads all the dependencies to the gradle cache.
   addResolveStep = ''
-    cat >>build.gradle <<HERE
-task resolveDependencies {
-  doLast {
-    project.rootProject.allprojects.each { subProject ->
-      subProject.buildscript.configurations.each { configuration ->
-        resolveConfiguration(subProject, configuration, "buildscript config \''${configuration.name}")
-      }
-      subProject.configurations.each { configuration ->
-        resolveConfiguration(subProject, configuration, "config \''${configuration.name}")
+        cat >>build.gradle <<HERE
+    task resolveDependencies {
+      doLast {
+        project.rootProject.allprojects.each { subProject ->
+          subProject.buildscript.configurations.each { configuration ->
+            resolveConfiguration(subProject, configuration, "buildscript config \''${configuration.name}")
+          }
+          subProject.configurations.each { configuration ->
+            resolveConfiguration(subProject, configuration, "config \''${configuration.name}")
+          }
+        }
       }
     }
-  }
-}
-void resolveConfiguration(subProject, configuration, name) {
-  if (configuration.canBeResolved) {
-    logger.info("Resolving project {} {}", subProject.name, name)
-    configuration.resolve()
-  }
-}
-HERE
+    void resolveConfiguration(subProject, configuration, name) {
+      if (configuration.canBeResolved) {
+        logger.info("Resolving project {} {}", subProject.name, name)
+        configuration.resolve()
+      }
+    }
+    HERE
   '';
 
   # fake build to pre-download deps into fixed-output derivation
@@ -112,9 +98,8 @@ HERE
 in stdenv.mkDerivation rec {
   inherit pname version src;
 
-  nativeBuildInputs = [
-    gradle unzip makeWrapper icoutils
-  ] ++ lib.optional stdenv.isDarwin xcbuild;
+  nativeBuildInputs = [ gradle unzip makeWrapper icoutils ]
+    ++ lib.optional stdenv.isDarwin xcbuild;
 
   dontStrip = true;
 
@@ -162,12 +147,13 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A software reverse engineering (SRE) suite of tools developed by NSA's Research Directorate in support of the Cybersecurity mission";
+    description =
+      "A software reverse engineering (SRE) suite of tools developed by NSA's Research Directorate in support of the Cybersecurity mission";
     homepage = "https://ghidra-sre.org/";
     platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # deps
+      binaryBytecode # deps
     ];
     license = licenses.asl20;
     maintainers = with maintainers; [ roblabla ];

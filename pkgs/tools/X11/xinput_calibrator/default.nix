@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, libXi, xorgproto, autoconf, automake, libtool, m4, pkg-config, xorg }:
+{ lib, stdenv, fetchFromGitHub, libXi, xorgproto, autoconf, automake, libtool
+, m4, pkg-config, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "xinput_calibrator";

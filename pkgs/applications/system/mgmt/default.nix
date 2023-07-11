@@ -1,14 +1,5 @@
-{ augeas
-, buildGoModule
-, fetchFromGitHub
-, gotools
-, lib
-, libvirt
-, libxml2
-, nex
-, pkg-config
-, ragel
-}:
+{ augeas, buildGoModule, fetchFromGitHub, gotools, lib, libvirt, libxml2, nex
+, pkg-config, ragel }:
 buildGoModule rec {
   pname = "mgmt";
   version = "unstable-2022-10-24";
@@ -33,33 +24,20 @@ buildGoModule rec {
     make lang funcgen
   '';
 
-  buildInputs = [
-    augeas
-    libvirt
-    libxml2
-  ];
+  buildInputs = [ augeas libvirt libxml2 ];
 
-  nativeBuildInputs = [
-    gotools
-    nex
-    pkg-config
-    ragel
-  ];
+  nativeBuildInputs = [ gotools nex pkg-config ragel ];
 
-
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.program=${pname}"
-    "-X main.version=${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X main.program=${pname}" "-X main.version=${version}" ];
 
   subPackages = [ "." ];
 
   vendorHash = "sha256-Dtqy4TILN+7JXiHKHDdjzRTsT8jZYG5sPudxhd8znXY=";
 
   meta = with lib; {
-    description = "Next generation distributed, event-driven, parallel config management!";
+    description =
+      "Next generation distributed, event-driven, parallel config management!";
     homepage = "https://mgmtconfig.com";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ urandom ];

@@ -1,21 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, meson
-, ninja
-, scdoc
-, gtk3
-, libxkbcommon
-, wayland
-, wayland-protocols
-, gtk-layer-shell
+{ lib, stdenv, fetchFromGitHub, pkg-config, meson, ninja, scdoc, gtk3
+, libxkbcommon, wayland, wayland-protocols, gtk-layer-shell
 # gtk-layer-shell fails to cross-compile due to a hard dependency
 # on gobject-introspection.
 # Disable it when cross-compiling since it's an optional dependency.
 # This disables transparency support.
-, withGtkLayerShell ? (stdenv.buildPlatform == stdenv.hostPlatform)
-}:
+, withGtkLayerShell ? (stdenv.buildPlatform == stdenv.hostPlatform) }:
 
 stdenv.mkDerivation rec {
   pname = "wlogout";
@@ -31,14 +20,8 @@ stdenv.mkDerivation rec {
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];
   nativeBuildInputs = [ pkg-config meson ninja scdoc ];
-  buildInputs = [
-    gtk3
-    libxkbcommon
-    wayland
-    wayland-protocols
-  ] ++ lib.optionals withGtkLayerShell [
-    gtk-layer-shell
-  ];
+  buildInputs = [ gtk3 libxkbcommon wayland wayland-protocols ]
+    ++ lib.optionals withGtkLayerShell [ gtk-layer-shell ];
 
   postPatch = ''
     substituteInPlace style.css \

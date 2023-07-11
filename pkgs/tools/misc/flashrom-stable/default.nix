@@ -1,14 +1,5 @@
-{ fetchgit
-, installShellFiles
-, lib
-, libftdi1
-, libgpiod
-, libjaylink
-, libusb1
-, pciutils
-, pkg-config
-, stdenv
-}:
+{ fetchgit, installShellFiles, lib, libftdi1, libgpiod, libjaylink, libusb1
+, pciutils, pkg-config, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "flashrom-stable";
@@ -20,24 +11,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-DR4PAING69+TMsyycGxt1cu0ba1tTlG36+H/pJ0oP4E=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-    pkg-config
-  ];
+  nativeBuildInputs = [ installShellFiles pkg-config ];
 
-  buildInputs = [
-    libftdi1
-    libgpiod
-    libjaylink
-    libusb1
-    pciutils
-  ];
+  buildInputs = [ libftdi1 libgpiod libjaylink libusb1 pciutils ];
 
   makeFlags = [ "PREFIX=$(out)" "libinstall" ];
 
   meta = with lib; {
     homepage = "https://www.flashrom.org";
-    description = "Utility for reading, writing, erasing and verifying flash ROM chips.";
+    description =
+      "Utility for reading, writing, erasing and verifying flash ROM chips.";
     license = with licenses; [ gpl2 gpl2Plus ];
     maintainers = with maintainers; [ felixsinger ];
     platforms = platforms.all;

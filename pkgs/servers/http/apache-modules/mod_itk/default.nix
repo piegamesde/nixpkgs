@@ -1,12 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, pkg-config
-, mod_ca
-, apr
-, aprutil
-, apacheHttpd
-}:
+{ lib, stdenv, fetchurl, pkg-config, mod_ca, apr, aprutil, apacheHttpd }:
 
 stdenv.mkDerivation rec {
   pname = "mod_itk";

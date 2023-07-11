@@ -1,14 +1,5 @@
-{ lib
-, async-timeout
-, bluez
-, buildPythonPackage
-, dbus-fast
-, fetchFromGitHub
-, poetry-core
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, typing-extensions
+{ lib, async-timeout, bluez, buildPythonPackage, dbus-fast, fetchFromGitHub
+, poetry-core, pytest-asyncio, pytestCheckHook, pythonOlder, typing-extensions
 }:
 
 buildPythonPackage rec {
@@ -25,20 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-hiQSsQHq1hoCQhoWU50i2NXYR/LaTHAize9cfr1uZsY=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    async-timeout
-    dbus-fast
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ async-timeout dbus-fast typing-extensions ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   postPatch = ''
     # bleak checks BlueZ's version with a call to `bluetoothctl --version`
@@ -46,9 +28,7 @@ buildPythonPackage rec {
       --replace \"bluetoothctl\" \"${bluez}/bin/bluetoothctl\"
   '';
 
-  pythonImportsCheck = [
-    "bleak"
-  ];
+  pythonImportsCheck = [ "bleak" ];
 
   meta = with lib; {
     description = "Bluetooth Low Energy platform agnostic client";

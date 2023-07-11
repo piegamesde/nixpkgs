@@ -8,9 +8,7 @@ let
     pkgs = buildPackages;
   };
 
-in
-
-nodeComposition.package.override {
+in nodeComposition.package.override {
 
   pname = "navidrome";
   inherit version;

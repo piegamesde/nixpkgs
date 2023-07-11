@@ -1,6 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
+{ lib, buildPythonPackage, fetchPypi
 
 , pythonOlder
 
@@ -8,14 +6,10 @@
 , poetry-core
 
 # runtime
-, graphql-core
-, typing-extensions
+, graphql-core, typing-extensions
 
 # tests
-, pytest-asyncio
-, pytest-describe
-, pytestCheckHook
-}:
+, pytest-asyncio, pytest-describe, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "graphql-relay";
@@ -27,26 +21,18 @@ buildPythonPackage rec {
     hash = "sha256-H/HFEpg1bkgaC+AJzN/ySYMs5T8wVZwTOPIqDg0XJQw=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    graphql-core
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ graphql-core ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-describe
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytest-describe pytestCheckHook ];
 
   pythonImportsCheck = [ "graphql_relay" ];
 
   meta = with lib; {
-    description = "A library to help construct a graphql-py server supporting react-relay";
+    description =
+      "A library to help construct a graphql-py server supporting react-relay";
     homepage = "https://github.com/graphql-python/graphql-relay-py/";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];

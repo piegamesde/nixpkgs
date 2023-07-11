@@ -1,14 +1,6 @@
-{ lib
-, stdenv
-, borgbackup
-, coreutils
-, python3Packages
-, systemd
+{ lib, stdenv, borgbackup, coreutils, python3Packages, systemd
 , enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
-, installShellFiles
-, borgmatic
-, testers
-}:
+, installShellFiles, borgmatic, testers }:
 
 python3Packages.buildPythonApplication rec {
   pname = "borgmatic";
@@ -19,13 +11,15 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-v3Qxwy7V6rqX90G4/Xp6mVTUkrqDXmudgh3th0GCjuk=";
   };
 
-  nativeCheckInputs = with python3Packages; [ flexmock pytestCheckHook pytest-cov ];
+  nativeCheckInputs = with python3Packages; [
+    flexmock
+    pytestCheckHook
+    pytest-cov
+  ];
 
   # - test_borgmatic_version_matches_news_version
   # The file NEWS not available on the pypi source, and this test is useless
-  disabledTests = [
-    "test_borgmatic_version_matches_news_version"
-  ];
+  disabledTests = [ "test_borgmatic_version_matches_news_version" ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -56,7 +50,8 @@ python3Packages.buildPythonApplication rec {
   passthru.tests.version = testers.testVersion { package = borgmatic; };
 
   meta = with lib; {
-    description = "Simple, configuration-driven backup software for servers and workstations";
+    description =
+      "Simple, configuration-driven backup software for servers and workstations";
     homepage = "https://torsion.org/borgmatic/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

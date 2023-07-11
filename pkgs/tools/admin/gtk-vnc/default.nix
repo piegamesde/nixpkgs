@@ -1,26 +1,7 @@
-{ lib
-, stdenv
-, fetchurl
-, meson
-, ninja
-, gobject-introspection
-, gnutls
-, cairo
-, glib
-, pkg-config
-, cyrus_sasl
-, pulseaudioSupport ? stdenv.isLinux
-, libpulseaudio
-, libgcrypt
-, gtk3
-, vala
-, gettext
-, perl
-, python3
-, gnome
-, gdk-pixbuf
-, zlib
-}:
+{ lib, stdenv, fetchurl, meson, ninja, gobject-introspection, gnutls, cairo
+, glib, pkg-config, cyrus_sasl, pulseaudioSupport ? stdenv.isLinux
+, libpulseaudio, libgcrypt, gtk3, vala, gettext, perl, python3, gnome
+, gdk-pixbuf, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "gtk-vnc";
@@ -29,7 +10,9 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "bin" "man" "dev" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "USdjrE4FWdAVi2aCyl3Ro71jPwgvXkNJ1xWOa1+A8c4=";
   };
 
@@ -44,22 +27,10 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [
-    gnutls
-    cairo
-    gdk-pixbuf
-    zlib
-    glib
-    libgcrypt
-    cyrus_sasl
-    gtk3
-  ] ++ lib.optionals pulseaudioSupport [
-    libpulseaudio
-  ];
+  buildInputs = [ gnutls cairo gdk-pixbuf zlib glib libgcrypt cyrus_sasl gtk3 ]
+    ++ lib.optionals pulseaudioSupport [ libpulseaudio ];
 
-  mesonFlags = lib.optionals (!pulseaudioSupport) [
-    "-Dpulseaudio=disabled"
-  ];
+  mesonFlags = lib.optionals (!pulseaudioSupport) [ "-Dpulseaudio=disabled" ];
 
   passthru = {
     updateScript = gnome.updateScript {

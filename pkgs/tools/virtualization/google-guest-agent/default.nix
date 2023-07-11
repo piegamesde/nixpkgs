@@ -1,6 +1,5 @@
 { buildGoModule, fetchFromGitHub, fetchpatch, lib, coreutils, makeWrapper
-, google-guest-configs, google-guest-oslogin, iproute2, dhcp, procps
-}:
+, google-guest-configs, google-guest-oslogin, iproute2, dhcp, procps }:
 
 buildGoModule rec {
   pname = "guest-agent";
@@ -27,7 +26,13 @@ buildGoModule rec {
   '';
 
   # We don't add `shadow` here; it's added to PATH if `mutableUsers` is enabled.
-  binPath = lib.makeBinPath [ google-guest-configs google-guest-oslogin iproute2 dhcp procps ];
+  binPath = lib.makeBinPath [
+    google-guest-configs
+    google-guest-oslogin
+    iproute2
+    dhcp
+    procps
+  ];
 
   # Skip tests which require networking.
   preCheck = ''

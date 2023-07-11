@@ -1,9 +1,4 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, nix-update-script
-, nixosTests
-, php}:
+{ lib, stdenvNoCC, fetchFromGitHub, nix-update-script, nixosTests, php }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "cloudlog";
@@ -27,9 +22,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   passthru = {
-    tests = {
-      inherit (nixosTests) cloudlog;
-    };
+    tests = { inherit (nixosTests) cloudlog; };
     updateScript = nix-update-script { };
   };
 

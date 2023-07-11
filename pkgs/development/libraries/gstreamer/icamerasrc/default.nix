@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, gst_all_1
-, ipu6-camera-hal
-, libdrm
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, gst_all_1
+, ipu6-camera-hal, libdrm }:
 
 stdenv.mkDerivation rec {
   pname = "icamerasrc-${ipu6-camera-hal.ipuVersion}";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-j8ZYe4nyy5yfo10CGeXDwbAaAPvdr0ptMWB8hQDyESQ=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   preConfigure = ''
     # https://github.com/intel/ipu6-camera-hal/issues/1
@@ -31,12 +21,8 @@ stdenv.mkDerivation rec {
     export STRIP_VIRTUAL_CHANNEL_CAMHAL=ON
   '';
 
-  buildInputs = [
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base
-    ipu6-camera-hal
-    libdrm
-  ];
+  buildInputs =
+    [ gst_all_1.gstreamer gst_all_1.gst-plugins-base ipu6-camera-hal libdrm ];
 
   NIX_CFLAGS_COMPILE = [
     # gstcameradeinterlace.cpp:55:10: fatal error: gst/video/video.h: No such file or directory
@@ -45,12 +31,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru = {
-    inherit (ipu6-camera-hal) ipuVersion;
-  };
+  passthru = { inherit (ipu6-camera-hal) ipuVersion; };
 
   meta = with lib; {
-    description = "GStreamer Plugin for MIPI camera support through the IPU6/IPU6EP/IPU6SE on Intel Tigerlake/Alderlake/Jasperlake platforms";
+    description =
+      "GStreamer Plugin for MIPI camera support through the IPU6/IPU6EP/IPU6SE on Intel Tigerlake/Alderlake/Jasperlake platforms";
     homepage = "https://github.com/intel/icamerasrc/tree/icamerasrc_slim_api";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ hexa ];

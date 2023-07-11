@@ -16,7 +16,8 @@ buildGoModule rec {
   patches = [
     # Add Go Modules support
     (fetchpatch {
-      url = "https://github.com/qustavo/httplab/commit/80680bebc83f1ed19216f60339c62cd9213d736b.patch";
+      url =
+        "https://github.com/qustavo/httplab/commit/80680bebc83f1ed19216f60339c62cd9213d736b.patch";
       hash = "sha256-y4KO3FGwKNAfM+4uR3KDbV90d/4JeBGvWtfirDJrWZk=";
     })
   ];

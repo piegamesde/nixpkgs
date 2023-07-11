@@ -1,11 +1,5 @@
-{ lib
-, buildPythonApplication
-, fetchFromGitHub
-, bencoder
-, pyyaml
-, requests
-, setuptools
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, bencoder, pyyaml, requests
+, setuptools }:
 buildPythonApplication rec {
   pname = "gazelle-origin";
   version = "3.0.0";
@@ -20,16 +14,13 @@ buildPythonApplication rec {
     hash = "sha256-+yMKnfG2f+A1/MxSBFLaHfpCgI2m968iXqt+2QanM/c=";
   };
 
-  propagatedBuildInputs = [
-    bencoder
-    pyyaml
-    requests
-  ];
+  propagatedBuildInputs = [ bencoder pyyaml requests ];
 
   pythonImportsCheck = [ "gazelleorigin" ];
 
   meta = with lib; {
-    description = "Tool for generating origin files using the API of Gazelle-based torrent trackers";
+    description =
+      "Tool for generating origin files using the API of Gazelle-based torrent trackers";
     homepage = "https://github.com/spinfast319/gazelle-origin";
     # TODO license is unspecified in the upstream, as well as the fork
     license = licenses.unfree;

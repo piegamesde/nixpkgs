@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, callPackage
-, swift
-, swiftpm
-, swiftpm2nix
-, Foundation
-, XCTest
-, sqlite
-, ncurses
-, CryptoKit
-, LocalAuthentication
-}:
+{ lib, stdenv, callPackage, swift, swiftpm, swiftpm2nix, Foundation, XCTest
+, sqlite, ncurses, CryptoKit, LocalAuthentication }:
 let
   sources = callPackage ../sources.nix { };
   generated = swiftpm2nix.helpers ./generated;
@@ -20,25 +9,21 @@ let
   # mixing and errors.
   # TODO: Find a better way to prevent this conflict.
   ncursesInput = if stdenv.isDarwin then ncurses.out else ncurses;
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "sourcekit-lsp";
 
   inherit (sources) version;
   src = sources.sourcekit-lsp;
 
   nativeBuildInputs = [ swift swiftpm ];
-  buildInputs = [
-    Foundation
-    XCTest
-    sqlite
-    ncursesInput
-  ]
+  buildInputs = [ Foundation XCTest sqlite ncursesInput ]
     ++ lib.optionals stdenv.isDarwin [ CryptoKit LocalAuthentication ];
 
   configurePhase = generated.configure + ''
     swiftpmMakeMutable indexstore-db
-    patch -p1 -d .build/checkouts/indexstore-db -i ${./patches/indexstore-db-macos-target.patch}
+    patch -p1 -d .build/checkouts/indexstore-db -i ${
+      ./patches/indexstore-db-macos-target.patch
+    }
 
     # This toggles a section specific to Xcode XCTest, which doesn't work on
     # Darwin, where we also use swift-corelibs-xctest.
@@ -63,10 +48,17 @@ stdenv.mkDerivation {
   disallowedRequisites = [ swift.swift ];
 
   meta = {
-    description = "Language Server Protocol implementation for Swift and C-based languages";
+    description =
+      "Language Server Protocol implementation for Swift and C-based languages";
     homepage = "https://github.com/apple/sourcekit-lsp";
     platforms = with lib.platforms; linux ++ darwin;
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dtzWill trepetti dduan trundle stephank ];
+    maintainers = with lib.maintainers; [
+      dtzWill
+      trepetti
+      dduan
+      trundle
+      stephank
+    ];
   };
 }

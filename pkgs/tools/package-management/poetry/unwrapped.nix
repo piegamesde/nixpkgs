@@ -1,46 +1,10 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, installShellFiles
-, build
-, cachecontrol
-, cleo
-, crashtest
-, dulwich
-, filelock
-, html5lib
-, installer
-, jsonschema
-, keyring
-, lockfile
-, packaging
-, pexpect
-, pkginfo
-, platformdirs
-, poetry-core
-, poetry-plugin-export
-, pyproject-hooks
-, requests
-, requests-toolbelt
-, shellingham
-, tomlkit
-, trove-classifiers
-, urllib3
-, virtualenv
-, xattr
-, tomli
-, importlib-metadata
-, cachy
-, deepdiff
-, flatdict
-, pytestCheckHook
-, httpretty
-, pytest-mock
-, pytest-xdist
-, pythonAtLeast
-}:
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub
+, installShellFiles, build, cachecontrol, cleo, crashtest, dulwich, filelock
+, html5lib, installer, jsonschema, keyring, lockfile, packaging, pexpect
+, pkginfo, platformdirs, poetry-core, poetry-plugin-export, pyproject-hooks
+, requests, requests-toolbelt, shellingham, tomlkit, trove-classifiers, urllib3
+, virtualenv, xattr, tomli, importlib-metadata, cachy, deepdiff, flatdict
+, pytestCheckHook, httpretty, pytest-mock, pytest-xdist, pythonAtLeast }:
 
 buildPythonPackage rec {
   pname = "poetry";
@@ -56,9 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-AiRQFZA5+M1niTzj1RO2lx0QFOMmSzpQo1gzauyTblg=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   propagatedBuildInputs = [
     build
@@ -86,13 +48,10 @@ buildPythonPackage rec {
     trove-classifiers
     urllib3
     virtualenv
-  ] ++ lib.optionals (stdenv.isDarwin) [
-    xattr
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    tomli
-  ] ++ lib.optionals (pythonOlder "3.10") [
-    importlib-metadata
-  ] ++ cachecontrol.optional-dependencies.filecache;
+  ] ++ lib.optionals (stdenv.isDarwin) [ xattr ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
+    ++ cachecontrol.optional-dependencies.filecache;
 
   postInstall = ''
     installShellCompletion --cmd poetry \
@@ -147,12 +106,11 @@ buildPythonPackage rec {
   ];
 
   # Allow for package to use pep420's native namespaces
-  pythonNamespaces = [
-    "poetry"
-  ];
+  pythonNamespaces = [ "poetry" ];
 
   meta = with lib; {
-    changelog = "https://github.com/python-poetry/poetry/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/python-poetry/poetry/blob/${src.rev}/CHANGELOG.md";
     homepage = "https://python-poetry.org/";
     description = "Python dependency management and packaging made easy";
     license = licenses.mit;

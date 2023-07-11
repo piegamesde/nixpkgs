@@ -1,25 +1,8 @@
-{ lib
-, stdenv
-, alsa-lib
-, autoPatchelfHook
-, cairo
-, cups
-, darwin
-, fontconfig
-, glib
-, gtk3
-, makeWrapper
-, setJavaClassPath
-, unzip
-, xorg
-, zlib
-  # extra params
-, javaVersion
-, meta ? { }
-, products ? [ ]
-, gtkSupport ? stdenv.isLinux
-, ...
-} @ args:
+{ lib, stdenv, alsa-lib, autoPatchelfHook, cairo, cups, darwin, fontconfig, glib
+, gtk3, makeWrapper, setJavaClassPath, unzip, xorg, zlib
+# extra params
+, javaVersion, meta ? { }, products ? [ ], gtkSupport ? stdenv.isLinux, ...
+}@args:
 
 let
   extraArgs = builtins.removeAttrs args [
@@ -45,7 +28,8 @@ let
   ];
   runtimeLibraryPath = lib.makeLibraryPath
     ([ cups ] ++ lib.optionals gtkSupport [ cairo glib gtk3 ]);
-  mapProducts = key: default: (map (p: p.graalvmPhases.${key} or default) products);
+  mapProducts = key: default:
+    (map (p: p.graalvmPhases.${key} or default) products);
   concatProducts = key: lib.concatStringsSep "\n" (mapProducts key "");
 
   graalvmXXX-ce = stdenv.mkDerivation ({
@@ -130,8 +114,8 @@ let
     installCheckPhase = ''
       runHook preInstallCheck
 
-      ${# broken in darwin
-        lib.optionalString stdenv.isLinux ''
+      ${ # broken in darwin
+      lib.optionalString stdenv.isLinux ''
         echo "Testing Jshell"
         echo '1 + 1' | $out/bin/jshell
       ''}
@@ -162,14 +146,14 @@ let
       updateScript = ./update.sh;
     };
 
-    meta = with lib; ({
-      homepage = "https://www.graalvm.org/";
-      description = "High-Performance Polyglot VM";
-      license = with licenses; [ upl gpl2Classpath bsd3 ];
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-      mainProgram = "java";
-      maintainers = with maintainers; teams.graalvm-ce.members ++ [ ];
-    } // meta);
+    meta = with lib;
+      ({
+        homepage = "https://www.graalvm.org/";
+        description = "High-Performance Polyglot VM";
+        license = with licenses; [ upl gpl2Classpath bsd3 ];
+        sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+        mainProgram = "java";
+        maintainers = with maintainers; teams.graalvm-ce.members ++ [ ];
+      } // meta);
   } // extraArgs);
-in
-graalvmXXX-ce
+in graalvmXXX-ce

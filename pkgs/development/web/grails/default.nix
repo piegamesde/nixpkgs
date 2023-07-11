@@ -1,20 +1,19 @@
 { lib, stdenv, fetchurl, unzip
 # If jdk is null, require JAVA_HOME in runtime environment, else store
 # JAVA_HOME=${jdk.home} into grails.
-, jdk ? null
-, coreutils, ncurses, gnused, gnugrep  # for purity
+, jdk ? null, coreutils, ncurses, gnused, gnugrep # for purity
 }:
 
 let
   binpath = lib.makeBinPath
     ([ coreutils ncurses gnused gnugrep ] ++ lib.optional (jdk != null) jdk);
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "grails";
   version = "5.3.2";
 
   src = fetchurl {
-    url = "https://github.com/grails/grails-core/releases/download/v${version}/grails-${version}.zip";
+    url =
+      "https://github.com/grails/grails-core/releases/download/v${version}/grails-${version}.zip";
     sha256 = "sha256-UdRtrQiHbBc8VoVUulDCZmAfZ1YTVdgNfeF91HomSqc=";
   };
 

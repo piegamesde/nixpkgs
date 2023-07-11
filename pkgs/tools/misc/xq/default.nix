@@ -1,8 +1,4 @@
-{ lib
-, rustPlatform
-, fetchCrate
-, stdenv
-}:
+{ lib, rustPlatform, fetchCrate, stdenv }:
 
 rustPlatform.buildRustPackage rec {
   pname = "xq";

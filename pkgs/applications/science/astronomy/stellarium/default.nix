@@ -1,23 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, perl
-, wrapGAppsHook
-, wrapQtAppsHook
-, qtbase
-, qtcharts
-, qtpositioning
-, qtmultimedia
-, qtserialport
-, qttranslations
-, qtwayland
-, qtwebengine
-, calcmysky
-, qxlsx
-, indilib
-, libnova
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, perl, wrapGAppsHook, wrapQtAppsHook
+, qtbase, qtcharts, qtpositioning, qtmultimedia, qtserialport, qttranslations
+, qtwayland, qtwebengine, calcmysky, qxlsx, indilib, libnova }:
 
 stdenv.mkDerivation rec {
   pname = "stellarium";
@@ -33,17 +16,14 @@ stdenv.mkDerivation rec {
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace CMakeLists.txt \
       --replace 'SET(CMAKE_INSTALL_PREFIX "''${PROJECT_BINARY_DIR}/Stellarium.app/Contents")' \
-                'SET(CMAKE_INSTALL_PREFIX "${placeholder "out"}/Applications/Stellarium.app/Contents")'
+                'SET(CMAKE_INSTALL_PREFIX "${
+                  placeholder "out"
+                }/Applications/Stellarium.app/Contents")'
     substituteInPlace src/CMakeLists.txt \
       --replace "\''${_qt_bin_dir}/../" "${qtmultimedia}/lib/qt-6/"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    perl
-    wrapGAppsHook
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake perl wrapGAppsHook wrapQtAppsHook ];
 
   buildInputs = [
     qtbase
@@ -57,16 +37,15 @@ stdenv.mkDerivation rec {
     qxlsx
     indilib
     libnova
-  ] ++ lib.optionals stdenv.isLinux [
-    qtwayland
-  ];
+  ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
 
   preConfigure = lib.optionalString stdenv.isDarwin ''
     export LC_ALL=en_US.UTF-8
   '';
 
   # fatal error: 'QtSerialPort/QSerialPortInfo' file not found
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-F${qtserialport}/lib";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin "-F${qtserialport}/lib";
 
   dontWrapGApps = true;
 

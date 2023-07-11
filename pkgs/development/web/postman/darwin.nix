@@ -1,10 +1,4 @@
-{ stdenvNoCC
-, fetchurl
-, unzip
-, pname
-, version
-, meta
-}:
+{ stdenvNoCC, fetchurl, unzip, pname, version, meta }:
 
 let
   appName = "Postman.app";
@@ -18,11 +12,10 @@ let
       arch = "64";
       sha256 = "sha256-36T7S/F35hRCmXXYA8DWwwLsuJiUVU9UBY7eAXjzx1s=";
     };
-  }.${stdenvNoCC.hostPlatform.system} or (throw "Unsupported system: ${stdenvNoCC.hostPlatform.system}");
+  }.${stdenvNoCC.hostPlatform.system} or (throw
+    "Unsupported system: ${stdenvNoCC.hostPlatform.system}");
 
-in
-
-stdenvNoCC.mkDerivation {
+in stdenvNoCC.mkDerivation {
   inherit pname version meta;
 
   src = fetchurl {

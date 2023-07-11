@@ -1,38 +1,11 @@
-{ lib
-, buildPythonPackage
-, callPackage
-, fetchFromGitHub
-, babel
-, gruut-ipa
-, dateparser
-, jsonlines
-, num2words
-, python-crfsuite
-, python
-, networkx
-, glibcLocales
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, callPackage, fetchFromGitHub, babel, gruut-ipa
+, dateparser, jsonlines, num2words, python-crfsuite, python, networkx
+, glibcLocales, pytestCheckHook }:
 
 let
-  langPkgs = [
-    "ar"
-    "cs"
-    "de"
-    "en"
-    "es"
-    "fa"
-    "fr"
-    "it"
-    "lb"
-    "nl"
-    "pt"
-    "ru"
-    "sv"
-    "sw"
-  ];
-in
-buildPythonPackage rec {
+  langPkgs =
+    [ "ar" "cs" "de" "en" "es" "fa" "fr" "it" "lb" "nl" "pt" "ru" "sv" "sw" ];
+in buildPythonPackage rec {
   pname = "gruut";
   version = "2.3.4";
   format = "setuptools";
@@ -51,17 +24,11 @@ buildPythonPackage rec {
       --replace "networkx>=2.5.0,<3.0.0" "networkx"
   '';
 
-  propagatedBuildInputs = [
-    babel
-    gruut-ipa
-    jsonlines
-    num2words
-    python-crfsuite
-    dateparser
-    networkx
-  ] ++ (map (lang: callPackage ./language-pack.nix {
-    inherit lang version format src;
-  }) langPkgs);
+  propagatedBuildInputs =
+    [ babel gruut-ipa jsonlines num2words python-crfsuite dateparser networkx ]
+    ++ (map (lang:
+      callPackage ./language-pack.nix { inherit lang version format src; })
+      langPkgs);
 
   nativeCheckInputs = [ glibcLocales pytestCheckHook ];
 
@@ -79,12 +46,11 @@ buildPythonPackage rec {
     export LC_ALL=en_US.utf-8
   '';
 
-  pythonImportsCheck = [
-    "gruut"
-  ];
+  pythonImportsCheck = [ "gruut" ];
 
   meta = with lib; {
-    description = "A tokenizer, text cleaner, and phonemizer for many human languages";
+    description =
+      "A tokenizer, text cleaner, and phonemizer for many human languages";
     homepage = "https://github.com/rhasspy/gruut";
     license = licenses.mit;
     maintainers = teams.tts.members;

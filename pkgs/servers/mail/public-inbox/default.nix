@@ -1,34 +1,8 @@
-{ stdenv, lib, fetchurl, makeWrapper, nixosTests
-, buildPerlPackage
-, coreutils
-, curl
-, git
-, gnumake
-, highlight
-, libgit2
-, man
-, openssl
-, pkg-config
-, sqlite
-, xapian
-, AnyURIEscape
-, DBDSQLite
-, DBI
-, EmailAddressXS
-, EmailMIME
-, IOSocketSSL
-, IPCRun
-, Inline
-, InlineC
-, LinuxInotify2
-, MailIMAPClient
-, ParseRecDescent
-, Plack
-, PlackMiddlewareReverseProxy
-, SearchXapian
-, TimeDate
-, URI
-}:
+{ stdenv, lib, fetchurl, makeWrapper, nixosTests, buildPerlPackage, coreutils
+, curl, git, gnumake, highlight, libgit2, man, openssl, pkg-config, sqlite
+, xapian, AnyURIEscape, DBDSQLite, DBI, EmailAddressXS, EmailMIME, IOSocketSSL
+, IPCRun, Inline, InlineC, LinuxInotify2, MailIMAPClient, ParseRecDescent, Plack
+, PlackMiddlewareReverseProxy, SearchXapian, TimeDate, URI }:
 
 let
 
@@ -40,7 +14,10 @@ let
     #
     # These tests were indentified with
     #     grep -r shared t/
-    "convert-compact" "search" "v2writable" "www_listing"
+    "convert-compact"
+    "search"
+    "v2writable"
+    "www_listing"
     # perl5.32.0-public-inbox> t/eml.t ...................... 1/? Cannot parse parameter '=?ISO-8859-1?Q?=20charset=3D=1BOF?=' at t/eml.t line 270.
     # perl5.32.0-public-inbox> #   Failed test 'got wide character by assuming utf-8'
     # perl5.32.0-public-inbox> #   at t/eml.t line 272.
@@ -72,14 +49,13 @@ let
   testConditions = with lib;
     concatMapStringsSep " " (n: "! -name ${escapeShellArg n}.t") skippedTests;
 
-in
-
-buildPerlPackage rec {
+in buildPerlPackage rec {
   pname = "public-inbox";
   version = "1.8.0";
 
   src = fetchurl {
-    url = "https://public-inbox.org/public-inbox.git/snapshot/public-inbox-${version}.tar.gz";
+    url =
+      "https://public-inbox.org/public-inbox.git/snapshot/public-inbox-${version}.tar.gz";
     sha256 = "sha256-laJOOCk5NecIGWesv4D30cLGfijQHVkeo55eNqNKzew=";
   };
 
@@ -116,17 +92,9 @@ buildPerlPackage rec {
   ];
 
   doCheck = !stdenv.isDarwin;
-  nativeCheckInputs = [
-    MailIMAPClient
-    curl
-    git
-    openssl
-    pkg-config
-    sqlite
-    xapian
-  ] ++ lib.optionals stdenv.isLinux [
-    LinuxInotify2
-  ];
+  nativeCheckInputs =
+    [ MailIMAPClient curl git openssl pkg-config sqlite xapian ]
+    ++ lib.optionals stdenv.isLinux [ LinuxInotify2 ];
   preCheck = ''
     perl certs/create-certs.perl
     export TEST_LEI_ERR_LOUD=1
@@ -137,20 +105,20 @@ buildPerlPackage rec {
   installTargets = [ "install" ];
   postInstall = ''
     for prog in $out/bin/*; do
-        wrapProgram $prog --prefix PATH : ${lib.makeBinPath [
-          git
-          /* for InlineC */
-          gnumake
-          stdenv.cc.cc
-        ]}
+        wrapProgram $prog --prefix PATH : ${
+          lib.makeBinPath [
+            git
+            # for InlineC
+            gnumake
+            stdenv.cc.cc
+          ]
+        }
     done
 
     mv sa_config $sa_config
   '';
 
-  passthru.tests = {
-    nixos-public-inbox = nixosTests.public-inbox;
-  };
+  passthru.tests = { nixos-public-inbox = nixosTests.public-inbox; };
 
   meta = with lib; {
     homepage = "https://public-inbox.org/";

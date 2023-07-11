@@ -1,4 +1,4 @@
-{lib, stdenv, fetchurl, unzip, makeDesktopItem, copyDesktopItems, nwjs
+{ lib, stdenv, fetchurl, unzip, makeDesktopItem, copyDesktopItems, nwjs
 , wrapGAppsHook, gsettings-desktop-schemas, gtk3 }:
 
 stdenv.mkDerivation rec {
@@ -6,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "0.4.1";
 
   src = fetchurl {
-    url = "https://github.com/emuflight/EmuConfigurator/releases/download/${version}/emuflight-configurator_${version}_linux64.zip";
+    url =
+      "https://github.com/emuflight/EmuConfigurator/releases/download/${version}/emuflight-configurator_${version}_linux64.zip";
     sha256 = "sha256-e4HNg5yr9V5LyT0hYP6gzw0tZm4dLidJg5MQtH3L3JI=";
   };
 
@@ -42,10 +43,10 @@ stdenv.mkDerivation rec {
       quadcopters, hexacopters, octocopters and fixed-wing aircraft.
       The application allows you to configure the Emuflight software running on any supported Emuflight target.
     '';
-    homepage    = "https://github.com/emuflight/EmuConfigurator";
+    homepage = "https://github.com/emuflight/EmuConfigurator";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license     = licenses.gpl3Only;
+    license = licenses.gpl3Only;
     maintainers = with maintainers; [ beezow ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

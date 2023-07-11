@@ -1,7 +1,6 @@
 { lib, stdenv, fetchFromGitHub, autoreconfHook, autoconf-archive, pkg-config
-, leptonica, libpng, libtiff, icu, pango, opencl-headers, fetchpatch
-, Accelerate, CoreGraphics, CoreVideo
-}:
+, leptonica, libpng, libtiff, icu, pango, opencl-headers, fetchpatch, Accelerate
+, CoreGraphics, CoreVideo }:
 
 stdenv.mkDerivation rec {
   pname = "tesseract";
@@ -16,24 +15,10 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-    autoconf-archive
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook autoconf-archive ];
 
-  buildInputs = [
-    leptonica
-    libpng
-    libtiff
-    icu
-    pango
-    opencl-headers
-  ] ++ lib.optionals stdenv.isDarwin [
-    Accelerate
-    CoreGraphics
-    CoreVideo
-  ];
+  buildInputs = [ leptonica libpng libtiff icu pango opencl-headers ]
+    ++ lib.optionals stdenv.isDarwin [ Accelerate CoreGraphics CoreVideo ];
 
   meta = {
     description = "OCR engine";

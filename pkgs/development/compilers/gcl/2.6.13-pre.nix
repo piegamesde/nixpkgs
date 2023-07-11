@@ -1,11 +1,10 @@
-{ lib, stdenv, fetchgit, mpfr, m4, binutils, emacs, zlib, which
-, texinfo, libX11, xorgproto, libXi, gmp, readline
-, libXext, libXt, libXaw, libXmu } :
+{ lib, stdenv, fetchgit, mpfr, m4, binutils, emacs, zlib, which, texinfo, libX11
+, xorgproto, libXi, gmp, readline, libXext, libXt, libXaw, libXmu }:
 
-assert stdenv ? cc ;
-assert stdenv.cc.isGNU ;
-assert stdenv.cc ? libc ;
-assert stdenv.cc.libc != null ;
+assert stdenv ? cc;
+assert stdenv.cc.isGNU;
+assert stdenv.cc ? libc;
+assert stdenv.cc.libc != null;
 
 stdenv.mkDerivation rec {
   pname = "gcl";
@@ -14,7 +13,8 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     sha256 = "sha256-e4cUQlNSfdz+B3urlZ82pf7fTc6aoloUyDDorAUi5kc=";
     url = "https://git.savannah.gnu.org/r/gcl.git";
-    rev = "refs/tags/Version_${builtins.replaceStrings ["."] ["_"] version}";
+    rev =
+      "refs/tags/Version_${builtins.replaceStrings [ "." ] [ "_" ] version}";
   };
 
   postPatch = ''
@@ -26,18 +26,28 @@ stdenv.mkDerivation rec {
   # breaks when compiling in parallel
   enableParallelBuilding = false;
 
-  patches = [];
+  patches = [ ];
 
   buildInputs = [
-    mpfr m4 binutils emacs gmp
-    libX11 xorgproto libXi
-    libXext libXt libXaw libXmu
-    zlib which texinfo readline
+    mpfr
+    m4
+    binutils
+    emacs
+    gmp
+    libX11
+    xorgproto
+    libXi
+    libXext
+    libXt
+    libXaw
+    libXmu
+    zlib
+    which
+    texinfo
+    readline
   ];
 
-  configureFlags = [
-    "--enable-ansi"
-  ];
+  configureFlags = [ "--enable-ansi" ];
 
   hardeningDisable = [ "pic" "bindnow" ];
 

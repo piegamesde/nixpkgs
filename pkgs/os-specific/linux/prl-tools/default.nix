@@ -1,30 +1,13 @@
-{ lib
-, stdenv
-, fetchurl
-, autoPatchelfHook
-, bbe
-, makeWrapper
-, p7zip
-, perl
-, undmg
-, dbus-glib
-, glib
-, xorg
-, zlib
-, kernel
-, bash
-, cups
-, gawk
-, netcat
-, timetrap
-, util-linux
-}:
+{ lib, stdenv, fetchurl, autoPatchelfHook, bbe, makeWrapper, p7zip, perl, undmg
+, dbus-glib, glib, xorg, zlib, kernel, bash, cups, gawk, netcat, timetrap
+, util-linux }:
 
 let
   kernelVersion = kernel.modDirVersion;
   kernelDir = "${kernel.dev}/lib/modules/${kernelVersion}";
 
-  libPath = lib.concatStringsSep ":" [ "${glib.out}/lib" "${xorg.libXrandr}/lib" ];
+  libPath =
+    lib.concatStringsSep ":" [ "${glib.out}/lib" "${xorg.libXrandr}/lib" ];
   scriptPath = lib.concatStringsSep ":" [
     "${bash}/bin"
     "${cups}/sbin"
@@ -33,28 +16,23 @@ let
     "${timetrap}/bin"
     "${util-linux}/bin"
   ];
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   version = "18.2.0-53488";
   pname = "prl-tools";
 
   # We download the full distribution to extract prl-tools-lin.iso from
   # => ${dmg}/Parallels\ Desktop.app/Contents/Resources/Tools/prl-tools-lin.iso
   src = fetchurl {
-    url = "https://download.parallels.com/desktop/v${lib.versions.major version}/${version}/ParallelsDesktop-${version}.dmg";
+    url = "https://download.parallels.com/desktop/v${
+        lib.versions.major version
+      }/${version}/ParallelsDesktop-${version}.dmg";
     hash = "sha256-FpAbQQapIcZ7GsGjH4ZeJ81Ke+NUF7GvgV1wEDLKoUU=";
   };
 
   hardeningDisable = [ "pic" "format" ];
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    bbe
-    makeWrapper
-    p7zip
-    perl
-    undmg
-  ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs = [ autoPatchelfHook bbe makeWrapper p7zip perl undmg ]
+    ++ kernel.moduleBuildDependencies;
 
   buildInputs = [
     dbus-glib
@@ -68,23 +46,24 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  runtimeDependencies = [
-    glib
-    xorg.libXrandr
-  ];
+  runtimeDependencies = [ glib xorg.libXrandr ];
 
   unpackPhase = ''
     runHook preUnpack
 
     undmg $src
     export sourceRoot=prl-tools-build
-    7z x "Parallels Desktop.app/Contents/Resources/Tools/prl-tools-lin${lib.optionalString stdenv.isAarch64 "-arm"}.iso" -o$sourceRoot
+    7z x "Parallels Desktop.app/Contents/Resources/Tools/prl-tools-lin${
+      lib.optionalString stdenv.isAarch64 "-arm"
+    }.iso" -o$sourceRoot
     ( cd $sourceRoot/kmods; tar -xaf prl_mod.tar.gz )
 
     runHook postUnpack
   '';
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString (lib.versionAtLeast kernelVersion "6.3") "-Wno-incompatible-pointer-types";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString (lib.versionAtLeast kernelVersion "6.3")
+    "-Wno-incompatible-pointer-types";
 
   buildPhase = ''
     runHook preBuild
@@ -111,12 +90,21 @@ stdenv.mkDerivation rec {
       cp prl_fs/SharedFolders/Guest/Linux/prl_fs/prl_fs.ko $out/lib/modules/${kernelVersion}/extra
       cp prl_fs_freeze/Snapshot/Guest/Linux/prl_freeze/prl_fs_freeze.ko $out/lib/modules/${kernelVersion}/extra
       cp prl_tg/Toolgate/Guest/Linux/prl_tg/prl_tg.ko $out/lib/modules/${kernelVersion}/extra
-      ${lib.optionalString stdenv.isAarch64
-      "cp prl_notifier/Installation/lnx/prl_notifier/prl_notifier.ko $out/lib/modules/${kernelVersion}/extra"}
+      ${
+        lib.optionalString stdenv.isAarch64
+        "cp prl_notifier/Installation/lnx/prl_notifier/prl_notifier.ko $out/lib/modules/${kernelVersion}/extra"
+      }
     )
 
     ( # tools
-      cd tools/tools${if stdenv.isAarch64 then "-arm64" else if stdenv.isx86_64 then "64" else "32"}
+      cd tools/tools${
+        if stdenv.isAarch64 then
+          "-arm64"
+        else if stdenv.isx86_64 then
+          "64"
+        else
+          "32"
+      }
       mkdir -p $out/lib
 
       # prltoolsd contains hardcoded /bin/bash path

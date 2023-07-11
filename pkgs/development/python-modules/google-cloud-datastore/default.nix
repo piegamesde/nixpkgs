@@ -1,17 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, google-api-core
-, google-cloud-core
-, google-cloud-testutils
-, libcst
-, mock
-, proto-plus
-, protobuf
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, google-api-core, google-cloud-core
+, google-cloud-testutils, libcst, mock, proto-plus, protobuf, pytest-asyncio
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "google-cloud-datastore";
@@ -25,25 +14,14 @@ buildPythonPackage rec {
     hash = "sha256-TC8OiCVIKomYyMW2cshiBqbZiORJ8lG7m/F9rpoFbC4=";
   };
 
-  propagatedBuildInputs = [
-    google-api-core
-    google-cloud-core
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs =
+    [ google-api-core google-cloud-core proto-plus protobuf ]
+    ++ google-api-core.optional-dependencies.grpc;
 
-  passthru.optional-dependencies = {
-    libcst = [
-      libcst
-    ];
-  };
+  passthru.optional-dependencies = { libcst = [ libcst ]; };
 
-  nativeCheckInputs = [
-    google-cloud-testutils
-    mock
-    pytestCheckHook
-    pytest-asyncio
-  ];
+  nativeCheckInputs =
+    [ google-cloud-testutils mock pytestCheckHook pytest-asyncio ];
 
   preCheck = ''
     # directory shadows imports
@@ -69,7 +47,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Google Cloud Datastore API client library";
     homepage = "https://github.com/googleapis/python-datastore";
-    changelog = "https://github.com/googleapis/python-datastore/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/googleapis/python-datastore/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

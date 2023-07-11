@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, setuptools-scm
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools, setuptools-scm
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "multiset";
@@ -16,23 +11,16 @@ buildPythonPackage rec {
     hash = "sha256-5FZxyug4Wo5iSKmwejqDKAwtDMQxJxMFjPus3F7Jlz4=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
   postPatch = ''
     # Drop broken version specifier
     sed -i '/python_requires/d' setup.cfg
   '';
 
-  pythonImportsCheck = [
-    "multiset"
-  ];
+  pythonImportsCheck = [ "multiset" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "An implementation of a multiset";

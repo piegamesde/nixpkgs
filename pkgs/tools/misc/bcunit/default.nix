@@ -1,7 +1,4 @@
-{ cmake
-, fetchFromGitLab
-, lib, stdenv
-}:
+{ cmake, fetchFromGitLab, lib, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "bcunit";
@@ -18,7 +15,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "Belledonne Communications' fork of CUnit test framework. Part of the Linphone project.";
+    description =
+      "Belledonne Communications' fork of CUnit test framework. Part of the Linphone project.";
     homepage = "https://gitlab.linphone.org/BC/public/bcunit";
     license = licenses.lgpl2Plus;
     maintainers = with maintainers; [ raskin jluttine ];

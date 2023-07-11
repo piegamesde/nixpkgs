@@ -1,17 +1,13 @@
 import ./make-test-python.nix ({ pkgs, ... }: {
   name = "airsonic";
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ sumnerevans ];
-  };
+  meta = with pkgs.lib.maintainers; { maintainers = [ sumnerevans ]; };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.airsonic = {
-        enable = true;
-        maxMemory = 800;
-      };
+  nodes.machine = { pkgs, ... }: {
+    services.airsonic = {
+      enable = true;
+      maxMemory = 800;
     };
+  };
 
   testScript = ''
     def airsonic_is_up(_) -> bool:

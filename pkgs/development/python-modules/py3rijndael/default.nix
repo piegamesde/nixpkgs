@@ -1,14 +1,9 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook }:
 
 let
   pname = "py3rijndael";
   version = "0.3.3";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "setuptools";
 
@@ -17,9 +12,7 @@ buildPythonPackage {
     hash = "sha256-tmVaPr/zoQVA6u0EnoeI7qOsk9a3GzpqwrACJLvs6ag=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Rijndael algorithm library";

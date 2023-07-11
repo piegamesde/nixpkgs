@@ -17,13 +17,9 @@ python3.pkgs.buildPythonPackage rec {
       --replace 'version=version' 'version="${version}"'
   '';
 
-  nativeBuildInputs = with python3.pkgs; [
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = with python3.pkgs; [ pythonRelaxDepsHook ];
 
-  pythonRelaxDeps = [
-    "mautrix"
-  ];
+  pythonRelaxDeps = [ "mautrix" ];
 
   propagatedBuildInputs = with python3.pkgs; [
     commonmark

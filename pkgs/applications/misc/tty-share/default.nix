@@ -18,7 +18,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://tty-share.com";
-    description = "Share terminal via browser for remote work or shared sessions";
+    description =
+      "Share terminal via browser for remote work or shared sessions";
     license = licenses.mit;
     maintainers = with maintainers; [ andys8 ];
   };

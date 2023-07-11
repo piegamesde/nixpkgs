@@ -1,15 +1,6 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, gtk3
-, breeze-icons
-, gnome-icon-theme
-, numix-icon-theme
-, numix-icon-theme-circle
-, hicolor-icon-theme
-, jdupes
-, gitUpdater
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, gtk3, breeze-icons, gnome-icon-theme
+, numix-icon-theme, numix-icon-theme-circle, hicolor-icon-theme, jdupes
+, gitUpdater }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "zafiro-icons";
@@ -22,10 +13,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-IbFnlUOSADYMNMfvRuRPndxcQbnV12BqMDb9bJRjnoU=";
   };
 
-  nativeBuildInputs = [
-    gtk3
-    jdupes
-  ];
+  nativeBuildInputs = [ gtk3 jdupes ];
 
   propagatedBuildInputs = [
     breeze-icons

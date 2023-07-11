@@ -1,18 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, aiohttp
-, asn1crypto
-, cryptography
-, freezegun
-, oscrypto
-, requests
-, uritools
-, openssl
-, pytest-asyncio
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, aiohttp, asn1crypto
+, cryptography, freezegun, oscrypto, requests, uritools, openssl, pytest-asyncio
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pyhanko-certvalidator";
@@ -29,20 +17,10 @@ buildPythonPackage rec {
     hash = "sha256-0RSveoSZb7R6d4cMlF1mIrDfnTx2DYNwfTMMtmg+RpM=";
   };
 
-  propagatedBuildInputs = [
-    asn1crypto
-    cryptography
-    oscrypto
-    requests
-    uritools
-  ];
+  propagatedBuildInputs =
+    [ asn1crypto cryptography oscrypto requests uritools ];
 
-  nativeCheckInputs = [
-    aiohttp
-    freezegun
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aiohttp freezegun pytest-asyncio pytestCheckHook ];
 
   disabledTestPaths = [
     # Requests
@@ -64,9 +42,7 @@ buildPythonPackage rec {
     "test_revocation_mode_soft"
   ];
 
-  pythonImportsCheck = [
-    "pyhanko_certvalidator"
-  ];
+  pythonImportsCheck = [ "pyhanko_certvalidator" ];
 
   meta = with lib; {
     description = "Python library for validating X.509 certificates and paths";

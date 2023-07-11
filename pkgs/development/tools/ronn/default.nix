@@ -1,4 +1,5 @@
-{ stdenv, lib, bundlerEnv, bundlerUpdateScript, makeWrapper, groff, callPackage }:
+{ stdenv, lib, bundlerEnv, bundlerUpdateScript, makeWrapper, groff, callPackage
+}:
 
 stdenv.mkDerivation rec {
   pname = "ronn";
@@ -11,9 +12,7 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
     runHook preInstall
@@ -27,7 +26,8 @@ stdenv.mkDerivation rec {
 
   passthru.updateScript = bundlerUpdateScript "ronn";
 
-  passthru.tests.reproducible-html-manpage = callPackage ./test-reproducible-html.nix { };
+  passthru.tests.reproducible-html-manpage =
+    callPackage ./test-reproducible-html.nix { };
 
   meta = with lib; {
     description = "markdown-based tool for building manpages";

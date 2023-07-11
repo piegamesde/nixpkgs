@@ -6,12 +6,8 @@ let
   xcfg = config.services.xserver;
   cfg = xcfg.desktopManager.lxqt;
 
-in
-
-{
-  meta = {
-    maintainers = teams.lxqt.members;
-  };
+in {
+  meta = { maintainers = teams.lxqt.members; };
 
   options = {
 
@@ -22,10 +18,11 @@ in
     };
 
     environment.lxqt.excludePackages = mkOption {
-      default = [];
+      default = [ ];
       example = literalExpression "[ pkgs.lxqt.qterminal ]";
       type = types.listOf types.package;
-      description = lib.mdDoc "Which LXQt packages to exclude from the default environment";
+      description =
+        lib.mdDoc "Which LXQt packages to exclude from the default environment";
     };
 
   };
@@ -52,11 +49,9 @@ in
       '';
     };
 
-    environment.systemPackages =
-      pkgs.lxqt.preRequisitePackages ++
-      pkgs.lxqt.corePackages ++
-      (utils.removePackagesByName
-        pkgs.lxqt.optionalPackages
+    environment.systemPackages = pkgs.lxqt.preRequisitePackages
+      ++ pkgs.lxqt.corePackages
+      ++ (utils.removePackagesByName pkgs.lxqt.optionalPackages
         config.environment.lxqt.excludePackages);
 
     # Link some extra directories in /run/current-system/software/share

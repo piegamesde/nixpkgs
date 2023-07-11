@@ -1,4 +1,5 @@
-{ lib, fetchFromGitHub, rustPlatform, stdenv, Security, installShellFiles, nix-update-script }:
+{ lib, fetchFromGitHub, rustPlatform, stdenv, Security, installShellFiles
+, nix-update-script }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rustic-rs";
@@ -29,7 +30,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = {
     homepage = "https://github.com/rustic-rs/rustic";
-    changelog = "https://github.com/rustic-rs/rustic/blob/${src.rev}/changelog/${version}.txt";
+    changelog =
+      "https://github.com/rustic-rs/rustic/blob/${src.rev}/changelog/${version}.txt";
     description = "fast, encrypted, deduplicated backups powered by pure Rust";
     mainProgram = "rustic";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;

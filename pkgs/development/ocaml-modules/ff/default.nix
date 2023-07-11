@@ -5,15 +5,9 @@ buildDunePackage rec {
   inherit (ff-sig) version src;
   duneVersion = "3";
 
-  propagatedBuildInputs = [
-    ff-sig
-    zarith
-  ];
+  propagatedBuildInputs = [ ff-sig zarith ];
 
-  checkInputs = [
-    alcotest
-    ff-pbt
-  ];
+  checkInputs = [ alcotest ff-pbt ];
 
   doCheck = true;
 

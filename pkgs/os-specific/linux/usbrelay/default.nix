@@ -10,18 +10,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2elDrO+WaaRYdTrG40Ez00qSsNVQjXE6GdOJbWPfugE=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = [
-    hidapi
-  ];
+  buildInputs = [ hidapi ];
 
-  makeFlags = [
-    "DIR_VERSION=${version}"
-    "PREFIX=${placeholder "out"}"
-  ];
+  makeFlags = [ "DIR_VERSION=${version}" "PREFIX=${placeholder "out"}" ];
 
   postInstall = ''
     installManPage usbrelay.1

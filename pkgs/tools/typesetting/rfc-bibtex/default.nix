@@ -1,9 +1,7 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
-with python3.pkgs; buildPythonApplication rec {
+with python3.pkgs;
+buildPythonApplication rec {
   pname = "rfc-bibtex";
   version = "0.3.2";
   format = "setuptools";
@@ -15,14 +13,9 @@ with python3.pkgs; buildPythonApplication rec {
     hash = "sha256-bPCNQqiG50vWVFA6J2kyxftwsXunHTNBdSkoIRYkb0s=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    vcrpy
-  ];
+  nativeCheckInputs = [ pytestCheckHook vcrpy ];
 
-  pythonImportsCheck = [
-    "rfc_bibtex"
-  ];
+  pythonImportsCheck = [ "rfc_bibtex" ];
 
   meta = with lib; {
     homepage = "https://github.com/iluxonchik/rfc-bibtex/";

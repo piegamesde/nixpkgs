@@ -13,7 +13,8 @@ let
   CGO_ENABLED = 0;
 
   meta = with lib; {
-    description = "Distributed reliable key-value store for the most critical data of a distributed system";
+    description =
+      "Distributed reliable key-value store for the most critical data of a distributed system";
     license = licenses.asl20;
     homepage = "https://etcd.io/";
     maintainers = with maintainers; [ offline zowoq endocrimes ];
@@ -59,17 +60,12 @@ let
 
     modRoot = "./etcdctl";
   };
-in
-symlinkJoin {
+in symlinkJoin {
   name = "etcd-${version}";
 
   inherit meta version;
 
   passthru = { inherit etcdserver etcdutl etcdctl; };
 
-  paths = [
-    etcdserver
-    etcdutl
-    etcdctl
-  ];
+  paths = [ etcdserver etcdutl etcdctl ];
 }

@@ -1,56 +1,42 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, fetchurl
-, substituteAll
+{ lib, stdenv, fetchFromGitHub, fetchpatch, fetchurl, substituteAll
 
 # build
-, addOpenGLRunpath
-, autoPatchelfHook
-, cmake
-, git
-, libarchive
-, pkg-config
-, python
+, addOpenGLRunpath, autoPatchelfHook, cmake, git, libarchive, pkg-config, python
 , shellcheck
 
 # runtime
-, libusb1
-, libxml2
-, opencv
-, protobuf
-, pugixml
-, tbb
-}:
+, libusb1, libxml2, opencv, protobuf, pugixml, tbb }:
 
 let
   # See FIRMWARE_PACKAGE_VERSION in src/plugins/intel_myriad/myriad_dependencies.cmake
   myriad_firmware_version = "20221129_35";
   myriad_usb_firmware = fetchurl {
-    url = "https://storage.openvinotoolkit.org/dependencies/myriad/firmware_usb-ma2x8x_${myriad_firmware_version}.zip";
+    url =
+      "https://storage.openvinotoolkit.org/dependencies/myriad/firmware_usb-ma2x8x_${myriad_firmware_version}.zip";
     hash = "sha256-HKNWbSlMjSafOgrS9WmenbsmeaJKRVssw0NhIwPYZ70=";
   };
   myriad_pcie_firmware = fetchurl {
-    url = "https://storage.openvinotoolkit.org/dependencies/myriad/firmware_pcie-ma2x8x_${myriad_firmware_version}.zip";
+    url =
+      "https://storage.openvinotoolkit.org/dependencies/myriad/firmware_pcie-ma2x8x_${myriad_firmware_version}.zip";
     hash = "sha256-VmfrAoKQ++ySIgAxWQul+Hd0p7Y4sTF44Nz4RHpO6Mo=";
   };
 
   # See GNA_VERSION in cmake/dependencies.cmake
   gna_version = "03.00.00.1910";
   gna = fetchurl {
-    url = "https://storage.openvinotoolkit.org/dependencies/gna/gna_${gna_version}.zip";
+    url =
+      "https://storage.openvinotoolkit.org/dependencies/gna/gna_${gna_version}.zip";
     hash = "sha256-iU3bwK40WfBFE7hTsMq8MokN1Oo3IooCK2oyEBvbt/g=";
   };
 
   tbbbind_version = "2_5";
   tbbbind = fetchurl {
-    url = "https://download.01.org/opencv/master/openvinotoolkit/thirdparty/linux/tbbbind_${tbbbind_version}_static_lin_v2.tgz";
+    url =
+      "https://download.01.org/opencv/master/openvinotoolkit/thirdparty/linux/tbbbind_${tbbbind_version}_static_lin_v2.tgz";
     hash = "sha256-hl54lMWEAiM8rw0bKIBW4OarK/fJ0AydxgVhxIS8kPQ=";
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "openvino";
   version = "2022.3.0";
 
@@ -62,10 +48,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Ie58zTNatiYZZQJ8kJh/+HlSetQjhAtf2Us83z1jGv4=";
   };
 
-  outputs = [
-    "out"
-    "python"
-  ];
+  outputs = [ "out" "python" ];
 
   nativeBuildInputs = [
     addOpenGLRunpath
@@ -74,11 +57,7 @@ stdenv.mkDerivation rec {
     git
     libarchive
     pkg-config
-    (python.withPackages (ps: with ps; [
-      cython
-      pybind11
-      setuptools
-    ]))
+    (python.withPackages (ps: with ps; [ cython pybind11 setuptools ]))
     shellcheck
   ];
 
@@ -140,18 +119,9 @@ stdenv.mkDerivation rec {
     "-DENABLE_SAMPLES:BOOL=OFF"
   ];
 
-  autoPatchelfIgnoreMissingDeps = [
-    "libngraph_backend.so"
-  ];
+  autoPatchelfIgnoreMissingDeps = [ "libngraph_backend.so" ];
 
-  buildInputs = [
-    libusb1
-    libxml2
-    opencv
-    protobuf
-    pugixml
-    tbb
-  ];
+  buildInputs = [ libusb1 libxml2 opencv protobuf pugixml tbb ];
 
   enableParallelBuilding = true;
 

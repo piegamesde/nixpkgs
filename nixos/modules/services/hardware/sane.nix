@@ -32,14 +32,16 @@ let
     LD_LIBRARY_PATH = [ "/etc/sane-libs" ];
   };
 
-  backends = [ pkg netConf ] ++ optional config.services.saned.enable sanedConf ++ config.hardware.sane.extraBackends;
-  saneConfig = pkgs.mkSaneConfig { paths = backends; inherit (config.hardware.sane) disabledDefaultBackends; };
+  backends = [ pkg netConf ] ++ optional config.services.saned.enable sanedConf
+    ++ config.hardware.sane.extraBackends;
+  saneConfig = pkgs.mkSaneConfig {
+    paths = backends;
+    inherit (config.hardware.sane) disabledDefaultBackends;
+  };
 
   enabled = config.hardware.sane.enable || config.services.saned.enable;
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -60,12 +62,13 @@ in
     hardware.sane.snapshot = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc "Use a development snapshot of SANE scanner drivers.";
+      description =
+        lib.mdDoc "Use a development snapshot of SANE scanner drivers.";
     };
 
     hardware.sane.extraBackends = mkOption {
       type = types.listOf types.path;
-      default = [];
+      default = [ ];
       description = lib.mdDoc ''
         Packages providing extra SANE backends to enable.
 
@@ -80,7 +83,7 @@ in
 
     hardware.sane.disabledDefaultBackends = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = [ "v4l" ];
       description = lib.mdDoc ''
         Names of backends which are enabled by default but should be disabled.
@@ -158,7 +161,6 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkMerge [
@@ -172,7 +174,8 @@ in
       services.udev.packages = backends;
 
       users.groups.scanner.gid = config.ids.gids.scanner;
-      networking.firewall.allowedUDPPorts = mkIf config.hardware.sane.openFirewall [ 8612 ];
+      networking.firewall.allowedUDPPorts =
+        mkIf config.hardware.sane.openFirewall [ 8612 ];
     })
 
     (mkIf config.services.saned.enable {
@@ -203,7 +206,8 @@ in
       users.users.scanner = {
         uid = config.ids.uids.scanner;
         group = "scanner";
-        extraGroups = [ "lp" ] ++ optionals config.services.avahi.enable [ "avahi" ];
+        extraGroups = [ "lp" ]
+          ++ optionals config.services.avahi.enable [ "avahi" ];
       };
     })
   ];

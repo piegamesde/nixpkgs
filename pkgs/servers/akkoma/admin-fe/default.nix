@@ -1,9 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitea, fetchYarnDeps
-, fixup_yarn_lock, yarn, nodejs
-, python3, pkg-config, libsass
-}:
+{ lib, stdenv, fetchFromGitea, fetchYarnDeps, fixup_yarn_lock, yarn, nodejs
+, python3, pkg-config, libsass }:
 
 stdenv.mkDerivation rec {
   pname = "admin-fe";
@@ -24,14 +20,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-h+QUBT2VwPWu2l05Zkcp+0vHN/x40uXxw2KYjq7l/Xk=";
   };
 
-  nativeBuildInputs = [
-    fixup_yarn_lock
-    yarn
-    nodejs
-    pkg-config
-    python3
-    libsass
-  ];
+  nativeBuildInputs =
+    [ fixup_yarn_lock yarn nodejs pkg-config python3 libsass ];
 
   postPatch = ''
     cp ${./yarn.lock} yarn.lock
@@ -42,7 +32,9 @@ stdenv.mkDerivation rec {
 
     export HOME="$(mktemp -d)"
 
-    yarn config --offline set yarn-offline-mirror ${lib.escapeShellArg offlineCache}
+    yarn config --offline set yarn-offline-mirror ${
+      lib.escapeShellArg offlineCache
+    }
     fixup_yarn_lock yarn.lock
 
     yarn install --offline --frozen-lockfile --ignore-platform --ignore-scripts --no-progress --non-interactive

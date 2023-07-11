@@ -1,15 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, which
-, ocaml
-, findlib
-, camlzip
-, extlib
-}:
+{ lib, stdenv, fetchFromGitHub, which, ocaml, findlib, camlzip, extlib }:
 
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
-  "javalib is not available for OCaml ${ocaml.version}"
+"javalib is not available for OCaml ${ocaml.version}"
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-javalib";
@@ -40,7 +32,8 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ camlzip extlib ];
 
   meta = with lib; {
-    description = "A library that parses Java .class files into OCaml data structures";
+    description =
+      "A library that parses Java .class files into OCaml data structures";
     homepage = "https://javalib-team.github.io/javalib/";
     license = licenses.lgpl3;
     maintainers = [ maintainers.vbgl ];

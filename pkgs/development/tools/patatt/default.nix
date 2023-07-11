@@ -9,9 +9,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-WaEq4qWL6xAZ3cJJ/lkJ5XTIrXcOMIESbytvWbsYx2s=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
-    pynacl
-  ];
+  propagatedBuildInputs = with python3Packages; [ pynacl ];
 
   meta = with lib; {
     homepage = "https://git.kernel.org/pub/scm/utils/patatt/patatt.git/about/";

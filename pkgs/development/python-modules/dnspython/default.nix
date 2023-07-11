@@ -1,22 +1,6 @@
-{ lib
-, stdenv
-, aioquic
-, buildPythonPackage
-, cacert
-, cryptography
-, curio
-, fetchPypi
-, h2
-, httpx
-, idna
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-toolbelt
-, setuptools-scm
-, sniffio
-, trio
-}:
+{ lib, stdenv, aioquic, buildPythonPackage, cacert, cryptography, curio
+, fetchPypi, h2, httpx, idna, pytestCheckHook, pythonOlder, requests
+, requests-toolbelt, setuptools-scm, sniffio, trio }:
 
 buildPythonPackage rec {
   pname = "dnspython";
@@ -30,42 +14,20 @@ buildPythonPackage rec {
     hash = "sha256-Ik4ysD60a+cOEu9tZOC+Ejpk5iGrTAgi/21FDVKlQLk=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   passthru.optional-dependencies = {
-    DOH = [
-      httpx
-      h2
-      requests
-      requests-toolbelt
-    ];
-    IDNA = [
-      idna
-    ];
-    DNSSEC = [
-      cryptography
-    ];
-    trio = [
-      trio
-    ];
-    curio = [
-      curio
-      sniffio
-    ];
-    DOQ = [
-      aioquic
-    ];
+    DOH = [ httpx h2 requests requests-toolbelt ];
+    IDNA = [ idna ];
+    DNSSEC = [ cryptography ];
+    trio = [ trio ];
+    curio = [ curio sniffio ];
+    DOQ = [ aioquic ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs = [
-    cacert
-  ] ++ passthru.optional-dependencies.DNSSEC;
+  checkInputs = [ cacert ] ++ passthru.optional-dependencies.DNSSEC;
 
   disabledTests = [
     # dns.exception.SyntaxError: protocol not found
@@ -81,14 +43,13 @@ buildPythonPackage rec {
     "testResolveTCP"
   ];
 
-  pythonImportsCheck = [
-    "dns"
-  ];
+  pythonImportsCheck = [ "dns" ];
 
   meta = with lib; {
     description = "A DNS toolkit for Python";
     homepage = "https://www.dnspython.org";
-    changelog = "https://github.com/rthalley/dnspython/blob/v${version}/doc/whatsnew.rst";
+    changelog =
+      "https://github.com/rthalley/dnspython/blob/v${version}/doc/whatsnew.rst";
     license = with licenses; [ isc ];
     maintainers = with maintainers; [ gador ];
   };

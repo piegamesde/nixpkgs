@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, pcre
-, uthash
-, lua5_4
-, makeWrapper
-, installShellFiles
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, pcre, uthash, lua5_4, makeWrapper
+, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "mle";
@@ -24,12 +16,14 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "skip_locale_dep_test.patch";
-      url = "https://github.com/adsr/mle/commit/e4dc4314b02a324701d9ae9873461d34cce041e5.patch";
+      url =
+        "https://github.com/adsr/mle/commit/e4dc4314b02a324701d9ae9873461d34cce041e5.patch";
       sha256 = "sha256-j3Z/n+2LqB9vEkWzvRVSOrF6yE+hk6f0dvEsTQ74erw=";
     })
     (fetchpatch {
       name = "fix_input_trail.patch";
-      url = "https://github.com/adsr/mle/commit/bc05ec0eee4143d824010c6688fce526550ed508.patch";
+      url =
+        "https://github.com/adsr/mle/commit/bc05ec0eee4143d824010c6688fce526550ed508.patch";
       sha256 = "sha256-dM63EBDQfHLAqGZk3C5NtNAv23nCTxXVW8XpLkAeEyQ=";
     })
   ];

@@ -1,17 +1,8 @@
 # Based upon https://src.fedoraproject.org/rpms/twitter-twemoji-fonts
 # The main difference is that we use “Twitter Color Emoji” name (which is recognized by upstream fontconfig)
 
-{ lib, stdenv
-, fetchFromGitHub
-, cairo
-, imagemagick
-, pkg-config
-, pngquant
-, python3
-, which
-, zopfli
-, noto-fonts-emoji
-}:
+{ lib, stdenv, fetchFromGitHub, cairo, imagemagick, pkg-config, pngquant
+, python3, which, zopfli, noto-fonts-emoji }:
 
 let
   version = "14.1.2";
@@ -24,18 +15,13 @@ let
     sha256 = "sha256-UQ4PwO4D1kw7JOMf6xSaRBfT822KwrvWBPDmaQjkRVQ=";
   };
 
-  pythonEnv =
-    python3.withPackages (ps: with ps; [ fonttools nototools ]);
+  pythonEnv = python3.withPackages (ps: with ps; [ fonttools nototools ]);
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "twitter-color-emoji";
   inherit version;
 
-  srcs = [
-    noto-fonts-emoji.src
-    twemojiSrc
-  ];
+  srcs = [ noto-fonts-emoji.src twemojiSrc ];
 
   sourceRoot = noto-fonts-emoji.src.name;
 
@@ -44,24 +30,17 @@ stdenv.mkDerivation rec {
     mv ${twemojiSrc.name} ${noto-fonts-emoji.src.name}
   '';
 
-  nativeBuildInputs = [
-    cairo
-    imagemagick
-    pkg-config
-    pngquant
-    pythonEnv
-    which
-    zopfli
-  ];
+  nativeBuildInputs =
+    [ cairo imagemagick pkg-config pngquant pythonEnv which zopfli ];
 
   postPatch = let
     templateSubstitutions = lib.concatStringsSep "; " [
       "s#Noto Color Emoji#Twitter Color Emoji#"
       "s#NotoColorEmoji#TwitterColorEmoji#"
-      ''s#Copyright .* Google Inc\.#Twitter, Inc and other contributors.#''
+      "s#Copyright .* Google Inc\\.#Twitter, Inc and other contributors.#"
       "s# Version .*# ${version}#"
       "s#.*is a trademark.*##"
-      ''s#Google, Inc\.#Twitter, Inc and other contributors#''
+      "s#Google, Inc\\.#Twitter, Inc and other contributors#"
       "s#http://www.google.com/get/noto/#https://twemoji.twitter.com/#"
       "s#.*is licensed under.*#      Creative Commons Attribution 4.0 International#"
       "s#http://scripts.sil.org/OFL#http://creativecommons.org/licenses/by/4.0/#"
@@ -92,7 +71,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Color emoji font with a flat visual style, designed and used by Twitter";
+    description =
+      "Color emoji font with a flat visual style, designed and used by Twitter";
     longDescription = ''
       A bitmap color emoji font built from Twitter's Twemoji emoji set
       with support for ZWJ, skin tone diversity and country flags.

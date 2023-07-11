@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ zlib openssl ];
 
   meta = with lib; {
-    description = "Tool and library to extract CAB files from InstallShield installers";
+    description =
+      "Tool and library to extract CAB files from InstallShield installers";
     homepage = "https://github.com/twogood/unshield";
     license = licenses.mit;
     platforms = platforms.linux ++ platforms.darwin;

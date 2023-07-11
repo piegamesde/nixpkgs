@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pefile
-, pytestCheckHook
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, pefile, pytestCheckHook, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -26,22 +21,17 @@ buildPythonPackage rec {
       --replace "pytest-runner" ""
   '';
 
-  propagatedBuildInputs = [
-    pefile
-  ];
+  propagatedBuildInputs = [ pefile ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "dnfile"
-  ];
+  pythonImportsCheck = [ "dnfile" ];
 
   meta = with lib; {
     description = "Module to parse .NET executable files";
     homepage = "hhttps://github.com/malwarefrank/dnfile";
-    changelog = "https://github.com/malwarefrank/dnfile/blob/v${version}/HISTORY.rst";
+    changelog =
+      "https://github.com/malwarefrank/dnfile/blob/v${version}/HISTORY.rst";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

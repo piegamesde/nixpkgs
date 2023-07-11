@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, matplotlib
-, numpy
-, pytestCheckHook
-, pythonOlder
-, seaborn
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, matplotlib, numpy, pytestCheckHook
+, pythonOlder, seaborn }:
 
 buildPythonPackage rec {
   pname = "pycm";
@@ -22,15 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-L0WPZomOU/I/x8QrdAerG0S2wnHyP661XTaDzzWeruk=";
   };
 
-  propagatedBuildInputs = [
-    matplotlib
-    numpy
-    seaborn
-  ];
+  propagatedBuildInputs = [ matplotlib numpy seaborn ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     # Remove a trivial dependency on the author's `art` Python ASCII art library
@@ -44,9 +31,7 @@ buildPythonPackage rec {
   # https://github.com/sepandhaghighi/pycm/issues/488
   pytestFlagsArray = [ "Test" ];
 
-  pythonImportsCheck = [
-    "pycm"
-  ];
+  pythonImportsCheck = [ "pycm" ];
 
   meta = with lib; {
     description = "Multiclass confusion matrix library";

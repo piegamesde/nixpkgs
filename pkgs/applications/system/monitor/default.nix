@@ -1,28 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gitUpdater
-, meson
-, ninja
-, vala
-, pkg-config
-, pantheon
-, python3
-, curl
-, gettext
-, glib
-, gtk3
-, json-glib
-, libwnck
-, libgee
-, libgtop
-, libhandy
-, sassc
-, udisks2
-, wrapGAppsHook
-, libX11
-, libXext
-, libXNVCtrl
+{ lib, stdenv, fetchFromGitHub, gitUpdater, meson, ninja, vala, pkg-config
+, pantheon, python3, curl, gettext, glib, gtk3, json-glib, libwnck, libgee
+, libgtop, libhandy, sassc, udisks2, wrapGAppsHook, libX11, libXext, libXNVCtrl
 }:
 
 stdenv.mkDerivation rec {
@@ -37,15 +15,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    gettext
-    meson
-    ninja
-    vala
-    pkg-config
-    python3
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ gettext meson ninja vala pkg-config python3 wrapGAppsHook ];
 
   buildInputs = [
     curl
@@ -83,11 +54,7 @@ stdenv.mkDerivation rec {
       "meson.get_compiler('c').find_library('libcurl', dirs: '${curl.out}/lib')"
   '';
 
-  passthru = {
-    updateScript = gitUpdater {
-      ignoredVersions = "ci.*";
-    };
-  };
+  passthru = { updateScript = gitUpdater { ignoredVersions = "ci.*"; }; };
 
   meta = with lib; {
     description = "Manage processes and monitor system resources";

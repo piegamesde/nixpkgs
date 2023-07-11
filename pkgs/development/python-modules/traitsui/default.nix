@@ -1,10 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, traits
-, pyface
-, pythonOlder
-}:
+{ lib, fetchPypi, buildPythonPackage, traits, pyface, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "traitsui";
@@ -18,17 +12,12 @@ buildPythonPackage rec {
     hash = "sha256-2zJRfpYioFgMIyCeE/gDLOoA5hxndJNnCf9F52M11bk=";
   };
 
-  propagatedBuildInputs = [
-    traits
-    pyface
-  ];
+  propagatedBuildInputs = [ traits pyface ];
 
   # Needs X server
   doCheck = false;
 
-  pythonImportsCheck = [
-    "traitsui"
-  ];
+  pythonImportsCheck = [ "traitsui" ];
 
   meta = with lib; {
     description = "Traits-capable windowing framework";

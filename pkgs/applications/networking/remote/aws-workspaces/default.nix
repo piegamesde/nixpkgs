@@ -1,7 +1,7 @@
-{ stdenv, lib
-, makeWrapper, dpkg, fetchurl, autoPatchelfHook
-, curl, libkrb5, lttng-ust, libpulseaudio, gtk3, openssl_1_1, icu70, webkitgtk, librsvg, gdk-pixbuf, libsoup, glib-networking, graphicsmagick_q16, libva, libusb1, hiredis
-}:
+{ stdenv, lib, makeWrapper, dpkg, fetchurl, autoPatchelfHook, curl, libkrb5
+, lttng-ust, libpulseaudio, gtk3, openssl_1_1, icu70, webkitgtk, librsvg
+, gdk-pixbuf, libsoup, glib-networking, graphicsmagick_q16, libva, libusb1
+, hiredis }:
 
 stdenv.mkDerivation rec {
   pname = "aws-workspaces";
@@ -16,10 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1ysj020fYOmIRvZR27+7ZNqdzqkA2QbrCwDU18ouxaI=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
 
   # Crashes at startup when stripping:
   # "Failed to create CoreCLR, HRESULT: 0x80004005"
@@ -69,7 +66,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Client for Amazon WorkSpaces, a managed, secure Desktop-as-a-Service (DaaS) solution";
+    description =
+      "Client for Amazon WorkSpaces, a managed, secure Desktop-as-a-Service (DaaS) solution";
     homepage = "https://clients.amazonworkspaces.com";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

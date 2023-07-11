@@ -1,8 +1,4 @@
-{ buildOctavePackage
-, lib
-, fetchurl
-, netcdf
-}:
+{ buildOctavePackage, lib, fetchurl, netcdf }:
 
 buildOctavePackage rec {
   pname = "netcdf";
@@ -13,9 +9,7 @@ buildOctavePackage rec {
     sha256 = "sha256-1Lr+6xLRXxSeUhM9+WdCUPFRZSWdxtAQlxpiv4CHJrs=";
   };
 
-  buildInputs = [
-    netcdf
-  ];
+  buildInputs = [ netcdf ];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/netcdf/index.html";

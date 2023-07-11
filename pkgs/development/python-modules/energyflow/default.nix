@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, h5py
-, numpy
-, six
-, wasserstein
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, h5py, numpy, six, wasserstein
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "EnergyFlow";
@@ -25,19 +18,10 @@ buildPythonPackage rec {
       --replace "pytest-runner" ""
   '';
 
-  propagatedBuildInputs = [
-    h5py
-    numpy
-    six
-    wasserstein
-  ];
+  propagatedBuildInputs = [ h5py numpy six wasserstein ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
-  pytestFlagsArray = [
-    "energyflow/tests"
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
+  pytestFlagsArray = [ "energyflow/tests" ];
   disabledTestPaths = [
     "energyflow/tests/test_archs.py" # requires tensorflow
     "energyflow/tests/test_emd.py" # requires "ot"

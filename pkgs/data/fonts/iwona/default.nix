@@ -15,7 +15,8 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "A two-element sans-serif typeface, created by Małgorzata Budyta";
+    description =
+      "A two-element sans-serif typeface, created by Małgorzata Budyta";
     homepage = "https://jmn.pl/en/kurier-i-iwona/";
     # "[...] GUST Font License (GFL), which is a free license, legally
     # equivalent to the LaTeX Project Public # License (LPPL), version 1.3c or

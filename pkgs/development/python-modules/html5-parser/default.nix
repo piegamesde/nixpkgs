@@ -1,14 +1,5 @@
-{ lib
-, beautifulsoup4
-, buildPythonPackage
-, chardet
-, fetchFromGitHub
-, lxml
-, pkg-config
-, pkgs
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, beautifulsoup4, buildPythonPackage, chardet, fetchFromGitHub, lxml
+, pkg-config, pkgs, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "html5-parser";
@@ -24,31 +15,17 @@ buildPythonPackage rec {
     hash = "sha256-l7cCt+zX+qOujS6noc1/p7mELqrHae3eiKQNXBxLm7o=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    pkgs.libxml2
-  ];
+  buildInputs = [ pkgs.libxml2 ];
 
-  propagatedBuildInputs = [
-    chardet
-    lxml
-  ];
+  propagatedBuildInputs = [ chardet lxml ];
 
-  nativeCheckInputs = [
-    beautifulsoup4
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ beautifulsoup4 pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "html5_parser"
-  ];
+  pythonImportsCheck = [ "html5_parser" ];
 
-  pytestFlagsArray = [
-    "test/*.py"
-  ];
+  pytestFlagsArray = [ "test/*.py" ];
 
   meta = with lib; {
     description = "Fast C based HTML 5 parsing for python";

@@ -1,4 +1,5 @@
-{ lib, buildDunePackage, fetchFromGitHub, dune-configurator, faad2, pkg-config }:
+{ lib, buildDunePackage, fetchFromGitHub, dune-configurator, faad2, pkg-config
+}:
 
 buildDunePackage rec {
   pname = "faad";
@@ -17,7 +18,8 @@ buildDunePackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-faad";
-    description = "Bindings for the faad library which provides functions for decoding AAC audio files";
+    description =
+      "Bindings for the faad library which provides functions for decoding AAC audio files";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ dandellion ];
   };

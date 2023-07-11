@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, jupyter_console
-, jupyter-core
-, pygments
-, termcolor
-, txzmq
-}:
+{ lib, buildPythonPackage, fetchPypi, jupyter_console, jupyter-core, pygments
+, termcolor, txzmq }:
 
 buildPythonPackage rec {
   pname = "ilua";
@@ -18,13 +11,8 @@ buildPythonPackage rec {
     hash = "sha256-YxV6xC7GS5NXyMPRZN9YIJxamgP2etwrZUAZjk5PjtU=";
   };
 
-  propagatedBuildInputs = [
-    jupyter_console
-    jupyter-core
-    pygments
-    termcolor
-    txzmq
-  ];
+  propagatedBuildInputs =
+    [ jupyter_console jupyter-core pygments termcolor txzmq ];
 
   # No tests found
   doCheck = false;

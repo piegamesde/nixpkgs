@@ -1,14 +1,5 @@
-{ lib
-, mkYarnPackage
-, fetchYarnDeps
-, fetchFromGitHub
-, srcOnly
-, makeWrapper
-, removeReferencesTo
-, python3
-, nodejs
-, matrix-sdk-crypto-nodejs
-}:
+{ lib, mkYarnPackage, fetchYarnDeps, fetchFromGitHub, srcOnly, makeWrapper
+, removeReferencesTo, python3, nodejs, matrix-sdk-crypto-nodejs }:
 
 let
   pin = lib.importJSON ./pin.json;
@@ -49,7 +40,7 @@ in mkYarnPackage rec {
         find build -type f -exec \
           ${removeReferencesTo}/bin/remove-references-to \
           -t "${nodeSources}" {} \;
-     '';
+      '';
     };
   };
 

@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, case
-, fetchPypi
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, case, fetchPypi, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "vine";
@@ -18,14 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-fTsWJKlT2oLvY0YgE7vScdPrdXUUifmAdZjo80C9Y34=";
   };
 
-  nativeCheckInputs = [
-    case
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ case pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "vine"
-  ];
+  pythonImportsCheck = [ "vine" ];
 
   meta = with lib; {
     description = "Python promises";

@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ninja
-, python3
-, nix-update-script
-, testers
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, python3, nix-update-script
+, testers }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libvarlink";
@@ -46,7 +39,8 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = with lib; {
-    description = "C implementation of the Varlink protocol and command line tool";
+    description =
+      "C implementation of the Varlink protocol and command line tool";
     homepage = "https://github.com/varlink/libvarlink";
     license = licenses.asl20;
     maintainers = with maintainers; [ artturin ];

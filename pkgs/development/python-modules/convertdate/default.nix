@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pymeeus
-, pytz
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pymeeus, pytz, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "convertdate";
@@ -21,21 +15,15 @@ buildPythonPackage rec {
     hash = "sha256-iOHK3UJulXJJR50nhiVgfk3bt+CAtG3BRySJ8DkBuJE=";
   };
 
-  propagatedBuildInputs = [
-    pymeeus
-    pytz
-  ];
+  propagatedBuildInputs = [ pymeeus pytz ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "convertdate"
-  ];
+  pythonImportsCheck = [ "convertdate" ];
 
   meta = with lib; {
-    description = "Utils for converting between date formats and calculating holidays";
+    description =
+      "Utils for converting between date formats and calculating holidays";
     homepage = "https://github.com/fitnr/convertdate";
     license = licenses.mit;
     maintainers = with maintainers; [ jluttine ];

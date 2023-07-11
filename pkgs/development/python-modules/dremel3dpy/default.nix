@@ -1,16 +1,5 @@
-{ lib
-, async-timeout
-, buildPythonPackage
-, fetchPypi
-, imageio
-, imutils
-, pythonOlder
-, requests
-, urllib3
-, tqdm
-, validators
-, yarl
-}:
+{ lib, async-timeout, buildPythonPackage, fetchPypi, imageio, imutils
+, pythonOlder, requests, urllib3, tqdm, validators, yarl }:
 
 buildPythonPackage rec {
   pname = "dremel3dpy";
@@ -24,23 +13,13 @@ buildPythonPackage rec {
     hash = "sha256-ioZwvbdPhO2kY10TqGR427mRUJBUZ5bmpiWVOV92OkI=";
   };
 
-  propagatedBuildInputs = [
-    async-timeout
-    imageio
-    imutils
-    requests
-    tqdm
-    urllib3
-    validators
-    yarl
-  ];
+  propagatedBuildInputs =
+    [ async-timeout imageio imutils requests tqdm urllib3 validators yarl ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "dremel3dpy"
-  ];
+  pythonImportsCheck = [ "dremel3dpy" ];
 
   meta = with lib; {
     description = "Module for interacting with Dremel 3D printers";

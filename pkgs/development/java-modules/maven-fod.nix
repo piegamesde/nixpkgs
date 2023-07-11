@@ -1,18 +1,9 @@
-{ lib
-, stdenv
-, maven
-}:
+{ lib, stdenv, maven }:
 
-{ src
-, patches ? []
-, pname
-, version
+{ src, patches ? [ ], pname, version
 , mvnSha256 ? "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
-, mvnHash ? "sha256-${mvnSha256}"
-, mvnFetchExtraArgs ? {}
-, mvnParameters ? ""
-, ...
-} @args:
+, mvnHash ? "sha256-${mvnSha256}", mvnFetchExtraArgs ? { }, mvnParameters ? ""
+, ... }@args:
 
 # originally extracted from dbeaver
 # created to allow using maven packages in the same style as rust
@@ -22,9 +13,7 @@ stdenv.mkDerivation (rec {
     name = "${pname}-${version}-maven-deps";
     inherit src;
 
-    buildInputs = [
-      maven
-    ];
+    buildInputs = [ maven ];
 
     buildPhase = ''
       mvn package -Dmaven.repo.local=$out/.m2 ${mvnParameters}

@@ -13,10 +13,8 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  nativeCheckInputs = with llvmPackages; [
-    clang
-    llvm
-  ] ++ lib.optionals stdenv.isDarwin [ getconf ];
+  nativeCheckInputs = with llvmPackages;
+    [ clang llvm ] ++ lib.optionals stdenv.isDarwin [ getconf ];
 
   meta = with lib; {
     homepage = "https://github.com/SRI-CSL/gllvm";

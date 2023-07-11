@@ -5,7 +5,9 @@ stdenv.mkDerivation rec {
   version = "2.20.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gtk-engines/${lib.versions.majorMinor version}/gtk-engines-${version}.tar.bz2";
+    url = "mirror://gnome/sources/gtk-engines/${
+        lib.versions.majorMinor version
+      }/gtk-engines-${version}.tar.bz2";
     sha256 = "1db65pb0j0mijmswrvpgkdabilqd23x22d95hp5kwxvcramq1dhm";
   };
 

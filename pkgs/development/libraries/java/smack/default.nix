@@ -5,7 +5,9 @@ stdenv.mkDerivation rec {
   version = "4.1.9";
 
   src = fetchurl {
-    url = "http://www.igniterealtime.org/downloadServlet?filename=smack/smack_${lib.replaceStrings ["."] ["_"] version}.tar.gz";
+    url = "http://www.igniterealtime.org/downloadServlet?filename=smack/smack_${
+        lib.replaceStrings [ "." ] [ "_" ] version
+      }.tar.gz";
     sha256 = "009x0qcxd4dkvwcjz2nla470pwbabwvg37wc21pslpw42ldi0bzp";
   };
 
@@ -21,7 +23,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A XMPP (Jabber) client library for instant messaging and presence";
+    description =
+      "A XMPP (Jabber) client library for instant messaging and presence";
     homepage = "http://www.igniterealtime.org/projects/smack/";
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
     platforms = lib.platforms.unix;

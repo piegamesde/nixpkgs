@@ -19,7 +19,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/rancher/rke";
-    description = "An extremely simple, lightning fast Kubernetes distribution that runs entirely within containers";
+    description =
+      "An extremely simple, lightning fast Kubernetes distribution that runs entirely within containers";
     changelog = "https://github.com/rancher/rke/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ urandom ];

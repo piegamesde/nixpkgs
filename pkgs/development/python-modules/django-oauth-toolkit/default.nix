@@ -1,20 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonRelaxDepsHook
+{ lib, buildPythonPackage, fetchFromGitHub, pythonRelaxDepsHook
 
 # propagates
-, django
-, jwcrypto
-, requests
-, oauthlib
+, django, jwcrypto, requests, oauthlib
 
 # tests
-, djangorestframework
-, pytest-django
-, pytest-xdist
-, pytest-mock
-, pytestCheckHook
+, djangorestframework, pytest-django, pytest-xdist, pytest-mock, pytestCheckHook
 }:
 
 buildPythonPackage rec {
@@ -33,17 +23,10 @@ buildPythonPackage rec {
     sed -i '/cov/d' tox.ini
   '';
 
-  propagatedBuildInputs = [
-    django
-    jwcrypto
-    oauthlib
-    requests
-  ];
+  propagatedBuildInputs = [ django jwcrypto oauthlib requests ];
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
-  pythonRelaxDeps = [
-    "django"
-  ];
+  pythonRelaxDeps = [ "django" ];
 
   DJANGO_SETTINGS_MODULE = "tests.settings";
 

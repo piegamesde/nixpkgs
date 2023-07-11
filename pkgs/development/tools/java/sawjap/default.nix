@@ -1,8 +1,8 @@
 { stdenv, ocamlPackages }:
 
-let inherit (ocamlPackages) ocaml findlib sawja; in
+let inherit (ocamlPackages) ocaml findlib sawja;
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
 
   pname = "sawjap";
 
@@ -24,8 +24,6 @@ stdenv.mkDerivation {
 
   dontInstall = true;
 
-  meta = sawja.meta // {
-    description = "Pretty-print .class files";
-  };
+  meta = sawja.meta // { description = "Pretty-print .class files"; };
 
 }

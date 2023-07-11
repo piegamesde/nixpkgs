@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, certifi
-, fetchPypi
-, python-dateutil
-, pythonOlder
-, six
-, urllib3
-}:
+{ lib, buildPythonPackage, certifi, fetchPypi, python-dateutil, pythonOlder, six
+, urllib3 }:
 
 buildPythonPackage rec {
   pname = "cloudsmith-api";
@@ -21,19 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-wFSHlUdZTARsAV3igVXThrXoGsPUaZyzXBJCSJFZYYQ=";
   };
 
-  propagatedBuildInputs = [
-    certifi
-    python-dateutil
-    six
-    urllib3
-  ];
+  propagatedBuildInputs = [ certifi python-dateutil six urllib3 ];
 
   # Wheels have no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "cloudsmith_api"
-  ];
+  pythonImportsCheck = [ "cloudsmith_api" ];
 
   meta = with lib; {
     description = "Cloudsmith API Client";

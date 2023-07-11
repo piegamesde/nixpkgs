@@ -1,13 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, paho-mqtt
-, pytestCheckHook
-, pythonOlder
-, requests
-, retrying
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, paho-mqtt, pytestCheckHook
+, pythonOlder, requests, retrying }:
 
 buildPythonPackage rec {
   pname = "meross-iot";
@@ -23,24 +15,18 @@ buildPythonPackage rec {
     hash = "sha256-Wyg9Y4THnjNTWQsiOanoyEEBqVgsG5MeyoGE69/n8sM=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    paho-mqtt
-    requests
-    retrying
-  ];
+  propagatedBuildInputs = [ aiohttp paho-mqtt requests retrying ];
 
   # Test require network access
   doCheck = false;
 
-  pythonImportsCheck = [
-    "meross_iot"
-  ];
+  pythonImportsCheck = [ "meross_iot" ];
 
   meta = with lib; {
     description = "Python library to interact with Meross devices";
     homepage = "https://github.com/albertogeniola/MerossIot";
-    changelog = "https://github.com/albertogeniola/MerossIot/releases/tag/${version}";
+    changelog =
+      "https://github.com/albertogeniola/MerossIot/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

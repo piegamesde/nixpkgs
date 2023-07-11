@@ -1,18 +1,17 @@
-{
-  system ? builtins.currentSystem,
-  config ? {},
-  pkgs ? import ../.. { inherit system config; },
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; }, }:
 
 let
   shared = {
     services.mediawiki.enable = true;
     services.mediawiki.httpd.virtualHost.hostName = "localhost";
     services.mediawiki.httpd.virtualHost.adminAddr = "root@example.com";
-    services.mediawiki.passwordFile = pkgs.writeText "password" "correcthorsebatterystaple";
+    services.mediawiki.passwordFile =
+      pkgs.writeText "password" "correcthorsebatterystaple";
     services.mediawiki.extensions = {
       Matomo = pkgs.fetchzip {
-        url = "https://github.com/DaSchTour/matomo-mediawiki-extension/archive/v4.0.1.tar.gz";
+        url =
+          "https://github.com/DaSchTour/matomo-mediawiki-extension/archive/v4.0.1.tar.gz";
         sha256 = "0g5rd3zp0avwlmqagc59cg9bbkn3r7wx7p6yr80s644mj6dlvs1b";
       };
       ParserFunctions = null;
@@ -23,13 +22,10 @@ let
     inherit system pkgs;
     extraConfigurations = [ shared ];
   };
-in
-{
+in {
   mysql = testLib.makeTest {
     name = "mediawiki-mysql";
-    nodes.machine = {
-      services.mediawiki.database.type = "mysql";
-    };
+    nodes.machine = { services.mediawiki.database.type = "mysql"; };
     testScript = ''
       start_all()
 
@@ -42,9 +38,7 @@ in
 
   postgresql = testLib.makeTest {
     name = "mediawiki-postgres";
-    nodes.machine = {
-      services.mediawiki.database.type = "postgres";
-    };
+    nodes.machine = { services.mediawiki.database.type = "postgres"; };
     testScript = ''
       start_all()
 
@@ -57,9 +51,7 @@ in
 
   nohttpd = testLib.makeTest {
     name = "mediawiki-nohttpd";
-    nodes.machine = {
-      services.mediawiki.webserver = "none";
-    };
+    nodes.machine = { services.mediawiki.webserver = "none"; };
     testScript = { nodes, ... }: ''
       start_all()
       machine.wait_for_unit("phpfpm-mediawiki.service")

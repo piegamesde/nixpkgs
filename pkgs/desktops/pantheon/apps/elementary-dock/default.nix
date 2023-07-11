@@ -1,29 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, vala
-, atk
-, cairo
-, dconf
-, glib
-, gtk3
-, libwnck
-, libX11
-, libXfixes
-, libXi
-, pango
-, pkg-config
-, libxml2
-, bamf
-, gdk-pixbuf
-, libdbusmenu-gtk3
-, gnome-menus
-, libgee
-, wrapGAppsHook
-, meson
-, ninja
-, granite
-}:
+{ lib, stdenv, fetchFromGitHub, vala, atk, cairo, dconf, glib, gtk3, libwnck
+, libX11, libXfixes, libXi, pango, pkg-config, libxml2, bamf, gdk-pixbuf
+, libdbusmenu-gtk3, gnome-menus, libgee, wrapGAppsHook, meson, ninja, granite }:
 
 stdenv.mkDerivation rec {
   pname = "elementary-dock";

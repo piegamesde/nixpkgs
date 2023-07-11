@@ -1,48 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, cmake
-, ninja
-, yasm
-, libjpeg
-, openssl_1_1
-, libopus
-, ffmpeg_4
-, protobuf
-, openh264
-, usrsctp
-, libvpx
-, libX11
-, libXtst
-, libXcomposite
-, libXdamage
-, libXext
-, libXrender
-, libXrandr
-, libXi
-, glib
-, abseil-cpp
-, pipewire
-, mesa
-, libdrm
-, libGL
-, Cocoa
-, AppKit
-, IOKit
-, IOSurface
-, Foundation
-, AVFoundation
-, CoreMedia
-, VideoToolbox
-, CoreGraphics
-, CoreVideo
-, OpenGL
-, Metal
-, MetalKit
-, CoreFoundation
-, ApplicationServices
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, ninja, yasm, libjpeg
+, openssl_1_1, libopus, ffmpeg_4, protobuf, openh264, usrsctp, libvpx, libX11
+, libXtst, libXcomposite, libXdamage, libXext, libXrender, libXrandr, libXi
+, glib, abseil-cpp, pipewire, mesa, libdrm, libGL, Cocoa, AppKit, IOKit
+, IOSurface, Foundation, AVFoundation, CoreMedia, VideoToolbox, CoreGraphics
+, CoreVideo, OpenGL, Metal, MetalKit, CoreFoundation, ApplicationServices }:
 
 stdenv.mkDerivation {
   pname = "tg_owt";
@@ -56,9 +17,7 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  patches = [
-    ./tg_owt.patch
-  ];
+  patches = [ ./tg_owt.patch ];
 
   postPatch = lib.optionalString stdenv.isLinux ''
     substituteInPlace src/modules/desktop_capture/linux/egl_dmabuf.cc \

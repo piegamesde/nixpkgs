@@ -1,16 +1,6 @@
-{ lib
-, aiohttp
-, aioresponses
-, aqipy-atmotech
-, buildPythonPackage
-, dacite
-, fetchFromGitHub
-, orjson
-, pytest-asyncio
-, pytest-error-for-skips
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, aiohttp, aioresponses, aqipy-atmotech, buildPythonPackage, dacite
+, fetchFromGitHub, orjson, pytest-asyncio, pytest-error-for-skips
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "nettigo-air-monitor";
@@ -26,28 +16,19 @@ buildPythonPackage rec {
     hash = "sha256-6pLdaBeyTIrsAzkr83Iywta+K4Vx3nt0QyL8opHNwV8=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    aqipy-atmotech
-    dacite
-    orjson
-  ];
+  propagatedBuildInputs = [ aiohttp aqipy-atmotech dacite orjson ];
 
-  nativeCheckInputs = [
-    aioresponses
-    pytest-asyncio
-    pytest-error-for-skips
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ aioresponses pytest-asyncio pytest-error-for-skips pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "nettigo_air_monitor"
-  ];
+  pythonImportsCheck = [ "nettigo_air_monitor" ];
 
   meta = with lib; {
-    description = "Python module to get air quality data from Nettigo Air Monitor devices";
+    description =
+      "Python module to get air quality data from Nettigo Air Monitor devices";
     homepage = "https://github.com/bieniu/nettigo-air-monitor";
-    changelog = "https://github.com/bieniu/nettigo-air-monitor/releases/tag/${version}";
+    changelog =
+      "https://github.com/bieniu/nettigo-air-monitor/releases/tag/${version}";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

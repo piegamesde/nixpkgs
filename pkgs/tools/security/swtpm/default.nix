@@ -1,18 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, libtasn1, openssl, fuse, glib, libseccomp, json-glib
-, libtpms
-, unixtools, expect, socat
-, gnutls
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libtasn1, openssl
+, fuse, glib, libseccomp, json-glib, libtpms, unixtools, expect, socat, gnutls
 , perl
 
 # Tests
-, python3, which
-, nixosTests
-}:
+, python3, which, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "swtpm";
@@ -26,31 +17,22 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    pkg-config unixtools.netstat expect socat
+    pkg-config
+    unixtools.netstat
+    expect
+    socat
     perl # for pod2man
     python3
     autoreconfHook
   ];
 
-  nativeCheckInputs = [
-    which
-  ];
+  nativeCheckInputs = [ which ];
 
-  buildInputs = [
-    libtpms
-    openssl libtasn1
-    glib json-glib
-    gnutls
-  ] ++ lib.optionals stdenv.isLinux [
-    fuse
-    libseccomp
-  ];
+  buildInputs = [ libtpms openssl libtasn1 glib json-glib gnutls ]
+    ++ lib.optionals stdenv.isLinux [ fuse libseccomp ];
 
-  configureFlags = [
-    "--localstatedir=/var"
-  ] ++ lib.optionals stdenv.isLinux [
-    "--with-cuse"
-  ];
+  configureFlags = [ "--localstatedir=/var" ]
+    ++ lib.optionals stdenv.isLinux [ "--with-cuse" ];
 
   postPatch = ''
     patchShebangs tests/*

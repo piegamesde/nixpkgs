@@ -1,7 +1,4 @@
-{ qtModule
-, qtbase
-, qtwebsockets
-}:
+{ qtModule, qtbase, qtwebsockets }:
 
 qtModule {
   pname = "qthttpserver";

@@ -1,13 +1,8 @@
-{ config
-, lib
-, pkgs
-, options
-}:
+{ config, lib, pkgs, options }:
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.kea;
+let cfg = config.services.prometheus.exporters.kea;
 in {
   port = 9547;
   extraOpts = {
@@ -25,10 +20,7 @@ in {
     };
   };
   serviceOpts = {
-    after = [
-      "kea-dhcp4-server.service"
-      "kea-dhcp6-server.service"
-    ];
+    after = [ "kea-dhcp4-server.service" "kea-dhcp6-server.service" ];
     serviceConfig = {
       User = "kea";
       ExecStart = ''

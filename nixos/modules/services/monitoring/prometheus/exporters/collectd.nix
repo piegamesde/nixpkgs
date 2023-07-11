@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.collectd;
-in
-{
+let cfg = config.services.prometheus.exporters.collectd;
+in {
   port = 9103;
   extraOpts = {
     collectdBinary = {
@@ -14,13 +12,15 @@ in
       authFile = mkOption {
         default = null;
         type = types.nullOr types.path;
-        description = lib.mdDoc "File mapping user names to pre-shared keys (passwords).";
+        description =
+          lib.mdDoc "File mapping user names to pre-shared keys (passwords).";
       };
 
       port = mkOption {
         type = types.port;
         default = 25826;
-        description = lib.mdDoc "Network address on which to accept collectd binary network packets.";
+        description = lib.mdDoc
+          "Network address on which to accept collectd binary network packets.";
       };
 
       listenAddress = mkOption {
@@ -28,11 +28,11 @@ in
         default = "0.0.0.0";
         description = lib.mdDoc ''
           Address to listen on for binary network packets.
-          '';
+        '';
       };
 
       securityLevel = mkOption {
-        type = types.enum ["None" "Sign" "Encrypt"];
+        type = types.enum [ "None" "Sign" "Encrypt" ];
         default = "None";
         description = lib.mdDoc ''
           Minimum required security level for accepted packets.
@@ -50,7 +50,7 @@ in
     };
 
     logLevel = mkOption {
-      type = types.enum ["debug" "info" "warn" "error" "fatal"];
+      type = types.enum [ "debug" "info" "warn" "error" "fatal" ];
       default = "info";
       description = lib.mdDoc ''
         Only log messages with the given severity or above.
@@ -59,7 +59,9 @@ in
   };
   serviceOpts = let
     collectSettingsArgs = optionalString (cfg.collectdBinary.enable) ''
-      --collectd.listen-address ${cfg.collectdBinary.listenAddress}:${toString cfg.collectdBinary.port} \
+      --collectd.listen-address ${cfg.collectdBinary.listenAddress}:${
+        toString cfg.collectdBinary.port
+      } \
       --collectd.security-level ${cfg.collectdBinary.securityLevel} \
     '';
   in {

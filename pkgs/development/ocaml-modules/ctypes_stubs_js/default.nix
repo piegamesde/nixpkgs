@@ -1,9 +1,5 @@
-{
-  lib, fetchFromGitLab, buildDunePackage
-, integers_stubs_js, ctypes, ppx_expect
-, js_of_ocaml-compiler
-, nodejs
-}:
+{ lib, fetchFromGitLab, buildDunePackage, integers_stubs_js, ctypes, ppx_expect
+, js_of_ocaml-compiler, nodejs }:
 
 buildDunePackage rec {
   pname = "ctypes_stubs_js";
@@ -20,14 +16,8 @@ buildDunePackage rec {
   };
 
   propagatedBuildInputs = [ integers_stubs_js ];
-  nativeCheckInputs = [
-    nodejs
-    js_of_ocaml-compiler
-  ];
-  checkInputs = [
-    ctypes
-    ppx_expect
-  ];
+  nativeCheckInputs = [ nodejs js_of_ocaml-compiler ];
+  checkInputs = [ ctypes ppx_expect ];
   doCheck = true;
 
   meta = {

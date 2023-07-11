@@ -1,21 +1,11 @@
-{ lib
-, foomatic-db
-, foomatic-db-nonfree
-, buildEnv
-, foomatic-db-engine
-, stdenv
-, cups-filters
-, ghostscript
-, netpbm
-, perl
-, psutils
-, patchPpdFilesHook
-, withNonfreeDb ? false  # include foomatic-db-nonfree ppd files
+{ lib, foomatic-db, foomatic-db-nonfree, buildEnv, foomatic-db-engine, stdenv
+, cups-filters, ghostscript, netpbm, perl, psutils, patchPpdFilesHook
+, withNonfreeDb ? false # include foomatic-db-nonfree ppd files
 }:
 
 let
-  foomatic-db-packages = [ foomatic-db ] ++
-    lib.lists.optional withNonfreeDb foomatic-db-nonfree;
+  foomatic-db-packages = [ foomatic-db ]
+    ++ lib.lists.optional withNonfreeDb foomatic-db-nonfree;
 
   foomatic-db-combined = buildEnv {
     name = "foomatic-db-combined";
@@ -35,12 +25,12 @@ let
   # the effective license is `free` if all database
   # packages have free licenses, `unfree` otherwise
   isFree = lib.trivial.pipe foomatic-db-packages [
-    (lib.lists.map (lib.attrsets.attrByPath [ "meta" "license" ] lib.licenses.unfree))
+    (lib.lists.map
+      (lib.attrsets.attrByPath [ "meta" "license" ] lib.licenses.unfree))
     (lib.lists.all (lib.attrsets.attrByPath [ "free" ] true))
   ];
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "foomatic-db-ppds";
   # the effective version is simply the
   # highest version of all database packages
@@ -51,38 +41,34 @@ stdenv.mkDerivation {
     lib.lists.head
   ];
 
-  buildInputs = [
-    cups-filters
-    ghostscript
-    netpbm
-    perl
-    psutils
-  ];
+  buildInputs = [ cups-filters ghostscript netpbm perl psutils ];
 
-  nativeBuildInputs = [
-    foomatic-db-combined
-    foomatic-db-engine
-    patchPpdFilesHook
-  ];
+  nativeBuildInputs =
+    [ foomatic-db-combined foomatic-db-engine patchPpdFilesHook ];
 
   dontUnpack = true;
 
   installPhase = ''
     runHook preInstall
     mkdir -p "${placeholder "out"}/share/cups/model"
-    foomatic-compiledb -j "$NIX_BUILD_CORES" -d "${placeholder "out"}/share/cups/model/foomatic-db-ppds"
+    foomatic-compiledb -j "$NIX_BUILD_CORES" -d "${
+      placeholder "out"
+    }/share/cups/model/foomatic-db-ppds"
     runHook postInstall
   '';
 
   # Comments indicate the respective
   # package the command is contained in.
   ppdFileCommands = [
-    "cat" "echo"  # coreutils
-    "foomatic-rip"  # cups-filters or foomatic-filters
-    "gs"  # ghostscript
-    "pnmflip" "pnmgamma" "pnmnoraw"  # netpbm
-    "perl"  # perl
-    "psresize"  # psutils
+    "cat"
+    "echo" # coreutils
+    "foomatic-rip" # cups-filters or foomatic-filters
+    "gs" # ghostscript
+    "pnmflip"
+    "pnmgamma"
+    "pnmnoraw" # netpbm
+    "perl" # perl
+    "psresize" # psutils
     # These commands aren't packaged yet.
     # ppd files using these likely won't work.
     #"c2050" "c2070" "cjet" "lm1100"
@@ -92,7 +78,9 @@ stdenv.mkDerivation {
   # compress ppd files
   postFixup = ''
     echo 'compressing ppd files'
-    find -H "${placeholder "out"}/share/cups/model/foomatic-db-ppds" -type f -iname '*.ppd' -print0  \
+    find -H "${
+      placeholder "out"
+    }/share/cups/model/foomatic-db-ppds" -type f -iname '*.ppd' -print0  \
       | xargs -0r -n 64 -P "$NIX_BUILD_CORES" gzip -9n
   '';
 

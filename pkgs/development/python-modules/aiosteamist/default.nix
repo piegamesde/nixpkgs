@@ -1,11 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pythonOlder
-, xmltodict
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, poetry-core, pythonOlder
+, xmltodict }:
 
 buildPythonPackage rec {
   pname = "aiosteamist";
@@ -21,14 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-IKrAJ4QDcYJRO4hcomL9FRs8hJ3k7SgRgK4H1b8SxIM=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    xmltodict
-  ];
+  propagatedBuildInputs = [ aiohttp xmltodict ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -36,9 +25,7 @@ buildPythonPackage rec {
       --replace 'xmltodict = "^0.12.0"' 'xmltodict = "*"'
   '';
 
-  pythonImportsCheck = [
-    "aiosteamist"
-  ];
+  pythonImportsCheck = [ "aiosteamist" ];
 
   # Modules doesn't have test suite
   doCheck = false;

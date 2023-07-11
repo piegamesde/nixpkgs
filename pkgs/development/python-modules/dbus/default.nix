@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchPypi, buildPythonPackage, python, pkg-config, dbus, dbus-glib, isPyPy
-, ncurses, pygobject3, isPy3k }:
+{ lib, stdenv, fetchPypi, buildPythonPackage, python, pkg-config, dbus
+, dbus-glib, isPyPy, ncurses, pygobject3, isPy3k }:
 
 buildPythonPackage rec {
   pname = "dbus-python";
@@ -14,23 +14,24 @@ buildPythonPackage rec {
     sha256 = "0q3jrw515z98mqdk9x822nd95rky455zz9876f1nqna5igkd3gcj";
   };
 
-  patches = [
-    ./fix-includedir.patch
-  ];
+  patches = [ ./fix-includedir.patch ];
 
-  preConfigure = lib.optionalString (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11" && stdenv.isDarwin) ''
-    MACOSX_DEPLOYMENT_TARGET=10.16
-  '';
+  preConfigure = lib.optionalString
+    (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
+      && stdenv.isDarwin) ''
+        MACOSX_DEPLOYMENT_TARGET=10.16
+      '';
 
-  configureFlags = [
-    "PYTHON=${python.pythonForBuild.interpreter}"
-  ];
+  configureFlags = [ "PYTHON=${python.pythonForBuild.interpreter}" ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dbus dbus-glib ]
-    # My guess why it's sometimes trying to -lncurses.
-    # It seems not to retain the dependency anyway.
-    ++ lib.optional (! python ? modules) ncurses;
+  buildInputs = [
+    dbus
+    dbus-glib
+  ]
+  # My guess why it's sometimes trying to -lncurses.
+  # It seems not to retain the dependency anyway.
+    ++ lib.optional (!python ? modules) ncurses;
 
   doCheck = isPy3k;
   nativeCheckInputs = [ dbus.out pygobject3 ];

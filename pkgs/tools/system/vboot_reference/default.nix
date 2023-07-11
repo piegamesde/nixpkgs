@@ -6,8 +6,10 @@ stdenv.mkDerivation rec {
   pname = "vboot_reference";
 
   src = fetchFromGitiles {
-    url = "https://chromium.googlesource.com/chromiumos/platform/vboot_reference";
-    rev = "1a1cb5c9a38030a5868e2aaad295c68432c680fd"; # refs/heads/release-R111-15329.B
+    url =
+      "https://chromium.googlesource.com/chromiumos/platform/vboot_reference";
+    rev =
+      "1a1cb5c9a38030a5868e2aaad295c68432c680fd"; # refs/heads/release-R111-15329.B
     sha256 = "sha256-56/hqqFiKHw0/ah0D20U1ueIU2iq8I4Wn5DiEWxB9qA=";
   };
 

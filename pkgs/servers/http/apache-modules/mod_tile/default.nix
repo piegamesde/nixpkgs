@@ -1,21 +1,5 @@
-{ fetchFromGitHub
-, lib
-, stdenv
-, cmake
-, pkg-config
-, apacheHttpd
-, apr
-, aprutil
-, boost
-, cairo
-, curl
-, glib
-, gtk2
-, harfbuzz
-, icu
-, iniparser
-, libmemcached
-, mapnik
+{ fetchFromGitHub, lib, stdenv, cmake, pkg-config, apacheHttpd, apr, aprutil
+, boost, cairo, curl, glib, gtk2, harfbuzz, icu, iniparser, libmemcached, mapnik
 }:
 
 stdenv.mkDerivation rec {
@@ -29,10 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jIqeplAQt4W97PNKm6ZDGPDUc/PEiLM5yEdPeI+H03A=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [
     apacheHttpd
@@ -63,7 +44,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/openstreetmap/mod_tile";
-    description = "Efficiently render and serve OpenStreetMap tiles using Apache and Mapnik";
+    description =
+      "Efficiently render and serve OpenStreetMap tiles using Apache and Mapnik";
     license = licenses.gpl2;
     maintainers = with maintainers; [ jglukasik ];
     platforms = platforms.linux;

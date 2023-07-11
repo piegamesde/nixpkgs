@@ -1,18 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, grpcio
-, grpcio-tools
-, h2
-, httpx
-, numpy
-, pytestCheckHook
-, poetry-core
-, pydantic
-, pythonOlder
-, typing-extensions
-, urllib3
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, grpcio, grpcio-tools, h2, httpx
+, numpy, pytestCheckHook, poetry-core, pydantic, pythonOlder, typing-extensions
+, urllib3 }:
 
 buildPythonPackage rec {
   pname = "qdrant-client";
@@ -28,28 +16,14 @@ buildPythonPackage rec {
     hash = "sha256-rpNTV3VBTND39iW/kve0aG1KJzAIl1whmhH+e6RbOhw=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    numpy
-    httpx
-    grpcio
-    typing-extensions
-    grpcio-tools
-    pydantic
-    urllib3
-    h2
-  ];
+  propagatedBuildInputs =
+    [ numpy httpx grpcio typing-extensions grpcio-tools pydantic urllib3 h2 ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "qdrant_client"
-  ];
+  pythonImportsCheck = [ "qdrant_client" ];
 
   disabledTests = [
     # Tests require network access
@@ -65,7 +39,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python client for Qdrant vector search engine";
     homepage = "https://github.com/qdrant/qdrant-client";
-    changelog = "https://github.com/qdrant/qdrant-client/releases/tag/v${version}";
+    changelog =
+      "https://github.com/qdrant/qdrant-client/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ happysalada ];
   };

@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "0.11.0";
 
   src = fetchurl {
-    url = "mirror://sourceforge/oscaf/shared-desktop-ontologies-${version}.tar.bz2";
+    url =
+      "mirror://sourceforge/oscaf/shared-desktop-ontologies-${version}.tar.bz2";
     sha256 = "1m5vnijg7rnwg41vig2ckg632dlczzdab1gsq51g4x7m9k1fdbw2";
   };
 

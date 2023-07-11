@@ -1,9 +1,8 @@
 { lib, stdenv, fetchFromGitHub, bison, boost, cmake, makeWrapper, pkg-config
-, curl, cyrus_sasl, libaio, libedit, libev, libevent, libgcrypt, libgpg-error, lz4
-, ncurses, numactl, openssl, protobuf, valgrind, xxd, zlib
-, perlPackages
-, version, sha256, fetchSubmodules ? false, extraPatches ? [], extraPostInstall ? "", ...
-}:
+, curl, cyrus_sasl, libaio, libedit, libev, libevent, libgcrypt, libgpg-error
+, lz4, ncurses, numactl, openssl, protobuf, valgrind, xxd, zlib, perlPackages
+, version, sha256, fetchSubmodules ? false, extraPatches ? [ ]
+, extraPostInstall ? "", ... }:
 
 stdenv.mkDerivation rec {
   pname = "percona-xtrabackup";
@@ -19,8 +18,22 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ bison boost cmake makeWrapper pkg-config ];
 
   buildInputs = [
-    (curl.override { inherit openssl; }) cyrus_sasl libaio libedit libevent libev libgcrypt libgpg-error lz4
-    ncurses numactl openssl protobuf valgrind xxd zlib
+    (curl.override { inherit openssl; })
+    cyrus_sasl
+    libaio
+    libedit
+    libevent
+    libev
+    libgcrypt
+    libgpg-error
+    lz4
+    ncurses
+    numactl
+    openssl
+    protobuf
+    valgrind
+    xxd
+    zlib
   ] ++ (with perlPackages; [ perl DBI DBDmysql ]);
 
   patches = extraPatches;

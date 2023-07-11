@@ -6,23 +6,26 @@ let
   cfg = config.services.tremor-rs;
 
   loggerSettingsFormat = pkgs.formats.yaml { };
-  loggerConfigFile = loggerSettingsFormat.generate "logger.yaml" cfg.loggerSettings;
+  loggerConfigFile =
+    loggerSettingsFormat.generate "logger.yaml" cfg.loggerSettings;
 in {
 
   options = {
     services.tremor-rs = {
-      enable = lib.mkEnableOption (lib.mdDoc "Tremor event- or stream-processing system");
+      enable = lib.mkEnableOption
+        (lib.mdDoc "Tremor event- or stream-processing system");
 
       troyFileList = mkOption {
         type = types.listOf types.path;
-        default = [];
+        default = [ ];
         description = lib.mdDoc "List of troy files to load.";
       };
 
       tremorLibDir = mkOption {
         type = types.path;
         default = "";
-        description = lib.mdDoc "Directory where to find /lib containing tremor script files";
+        description = lib.mdDoc
+          "Directory where to find /lib containing tremor script files";
       };
 
       host = mkOption {
@@ -39,7 +42,7 @@ in {
 
       loggerSettings = mkOption {
         description = lib.mdDoc "Tremor logger configuration";
-        default = {};
+        default = { };
         type = loggerSettingsFormat.type;
 
         example = {
@@ -92,7 +95,7 @@ in {
 
   config = mkIf (cfg.enable) {
 
-    environment.systemPackages = [ pkgs.tremor-rs ] ;
+    environment.systemPackages = [ pkgs.tremor-rs ];
 
     systemd.services.tremor-rs = {
       description = "Tremor event- or stream-processing system";
@@ -103,7 +106,10 @@ in {
       environment.TREMOR_PATH = "${pkgs.tremor-rs}/lib:${cfg.tremorLibDir}";
 
       serviceConfig = {
-        ExecStart = "${pkgs.tremor-rs}/bin/tremor --logger-config ${loggerConfigFile} server run ${concatStringsSep " " cfg.troyFileList} --api-host ${cfg.host}:${toString cfg.port}";
+        ExecStart =
+          "${pkgs.tremor-rs}/bin/tremor --logger-config ${loggerConfigFile} server run ${
+            concatStringsSep " " cfg.troyFileList
+          } --api-host ${cfg.host}:${toString cfg.port}";
         DynamicUser = true;
         Restart = "always";
         NoNewPrivileges = true;

@@ -1,47 +1,18 @@
-{ stdenv
-, lib
-, fetchurl
-, substituteAll
-, gettext
-, meson
-, ninja
-, pkg-config
-, wrapGAppsHook4
-, gnome
-, accountsservice
-, fontconfig
-, gdm
-, geoclue2
-, geocode-glib_2
-, glib
-, gnome-desktop
-, gnome-online-accounts
-, gtk3
-, gtk4
-, libgweather
-, json-glib
-, krb5
-, libpwquality
-, librest_1_0
-, libsecret
-, networkmanager
-, pango
-, polkit
-, webkitgtk_6_0
-, systemd
-, libadwaita
-, libnma-gtk4
-, tzdata
-, libgnomekbd
-, gsettings-desktop-schemas
-}:
+{ stdenv, lib, fetchurl, substituteAll, gettext, meson, ninja, pkg-config
+, wrapGAppsHook4, gnome, accountsservice, fontconfig, gdm, geoclue2
+, geocode-glib_2, glib, gnome-desktop, gnome-online-accounts, gtk3, gtk4
+, libgweather, json-glib, krb5, libpwquality, librest_1_0, libsecret
+, networkmanager, pango, polkit, webkitgtk_6_0, systemd, libadwaita, libnma-gtk4
+, tzdata, libgnomekbd, gsettings-desktop-schemas }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-initial-setup";
   version = "44.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "WTz8bcj4KphnG5TANbl9vojvVucIeAsq0dIyTk0Eu/8=";
   };
 
@@ -52,14 +23,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    gettext
-    meson
-    ninja
-    pkg-config
-    systemd
-    wrapGAppsHook4
-  ];
+  nativeBuildInputs = [ gettext meson ninja pkg-config systemd wrapGAppsHook4 ];
 
   buildInputs = [
     accountsservice

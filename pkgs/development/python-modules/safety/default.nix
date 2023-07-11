@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, pythonRelaxDepsHook
-, setuptools
-, click
-, requests
-, packaging
-, dparse
-, ruamel-yaml
-, pytestCheckHook
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, pythonRelaxDepsHook
+, setuptools, click, requests, packaging, dparse, ruamel-yaml, pytestCheckHook
 }:
 
 buildPythonPackage rec {
@@ -34,27 +24,14 @@ buildPythonPackage rec {
       --replace "telemetry', default=True" "telemetry', default=False"
   '';
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-    setuptools
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook setuptools ];
 
-  pythonRelaxDeps = [
-    "packaging"
-  ];
+  pythonRelaxDeps = [ "packaging" ];
 
-  propagatedBuildInputs = [
-    setuptools
-    click
-    requests
-    packaging
-    dparse
-    ruamel-yaml
-  ];
+  propagatedBuildInputs =
+    [ setuptools click requests packaging dparse ruamel-yaml ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # Disable tests depending on online services
   disabledTests = [

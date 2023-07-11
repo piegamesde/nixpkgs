@@ -3,8 +3,7 @@
 with lib;
 let cfg = config.services.vector;
 
-in
-{
+in {
   options.services.vector = {
     enable = mkEnableOption (lib.mdDoc "Vector");
 
@@ -34,28 +33,26 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network-online.target" ];
       requires = [ "network-online.target" ];
-      serviceConfig =
-        let
-          format = pkgs.formats.toml { };
-          conf = format.generate "vector.toml" cfg.settings;
-          validateConfig = file:
+      serviceConfig = let
+        format = pkgs.formats.toml { };
+        conf = format.generate "vector.toml" cfg.settings;
+        validateConfig = file:
           pkgs.runCommand "validate-vector-conf" {
             nativeBuildInputs = [ pkgs.vector ];
           } ''
-              vector validate --no-environment "${file}"
-              ln -s "${file}" "$out"
-            '';
-        in
-        {
-          ExecStart = "${pkgs.vector}/bin/vector --config ${validateConfig conf}";
-          DynamicUser = true;
-          Restart = "no";
-          StateDirectory = "vector";
-          ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-          AmbientCapabilities = "CAP_NET_BIND_SERVICE";
-          # This group is required for accessing journald.
-          SupplementaryGroups = mkIf cfg.journaldAccess "systemd-journal";
-        };
+            vector validate --no-environment "${file}"
+            ln -s "${file}" "$out"
+          '';
+      in {
+        ExecStart = "${pkgs.vector}/bin/vector --config ${validateConfig conf}";
+        DynamicUser = true;
+        Restart = "no";
+        StateDirectory = "vector";
+        ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+        AmbientCapabilities = "CAP_NET_BIND_SERVICE";
+        # This group is required for accessing journald.
+        SupplementaryGroups = mkIf cfg.journaldAccess "systemd-journal";
+      };
     };
   };
 }

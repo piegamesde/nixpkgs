@@ -1,8 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi
-, paramiko
-, pytestCheckHook
-, mock
-}:
+{ lib, buildPythonPackage, fetchPypi, paramiko, pytestCheckHook, mock }:
 
 buildPythonPackage rec {
   version = "0.4.0";
@@ -18,11 +14,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook mock ];
 
   # disable impure tests
-  disabledTests = [
-    "test_get_keys"
-    "connect_via_proxy"
-    "read_ssh_config"
-  ];
+  disabledTests = [ "test_get_keys" "connect_via_proxy" "read_ssh_config" ];
 
   meta = with lib; {
     description = "Pure python SSH tunnels";

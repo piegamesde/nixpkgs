@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, autoreconfHook
-, check
-, flex
-, pkg-config
-, which
-, elfutils
-, libelf
-, libffi
-, llvm
-, zlib
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, check, flex
+, pkg-config, which, elfutils, libelf, libffi, llvm, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "nvc";
@@ -25,23 +12,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-xB2COtYgbg00rrOWTbcBocRnqF5682jUG2eS7I71Ln4=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    check
-    flex
-    pkg-config
-    which
-  ];
+  nativeBuildInputs = [ autoreconfHook check flex pkg-config which ];
 
-  buildInputs = [
-    libffi
-    llvm
-    zlib
-  ] ++ lib.optionals stdenv.isLinux [
-    elfutils
-  ] ++ lib.optionals (!stdenv.isLinux) [
-    libelf
-  ];
+  buildInputs = [ libffi llvm zlib ]
+    ++ lib.optionals stdenv.isLinux [ elfutils ]
+    ++ lib.optionals (!stdenv.isLinux) [ libelf ];
 
   preConfigure = ''
     mkdir build
@@ -50,10 +25,7 @@ stdenv.mkDerivation rec {
 
   configureScript = "../configure";
 
-  configureFlags = [
-    "--enable-vhpi"
-    "--disable-lto"
-  ];
+  configureFlags = [ "--enable-vhpi" "--disable-lto" ];
 
   doCheck = true;
 

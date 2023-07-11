@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, requests
-, pytestCheckHook
-, responses
+{ lib, buildPythonPackage, fetchFromGitHub, requests, pytestCheckHook, responses
 }:
 
 buildPythonPackage rec {
@@ -17,19 +12,15 @@ buildPythonPackage rec {
     sha256 = "sha256-VuAW5Dl3pkA6mtn/mbzxTFoavO5jPoqFSFVlrxc7KRk=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytestCheckHook responses ];
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   meta = with lib; {
     description = "A Python wrapper of the TestRail API";
     homepage = "https://github.com/tolstislon/testrail-api";
-    changelog = "https://github.com/tolstislon/ytestrail-api/releases/tag/${version}";
+    changelog =
+      "https://github.com/tolstislon/ytestrail-api/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ aanderse ];
   };

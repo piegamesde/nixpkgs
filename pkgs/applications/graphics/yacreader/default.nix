@@ -1,7 +1,6 @@
 { mkDerivation, lib, fetchFromGitHub, qmake, poppler, pkg-config, libunarr
 , libGLU, qtdeclarative, qtgraphicaleffects, qtmultimedia, qtquickcontrols2
-, qtscript
-}:
+, qtscript }:
 
 mkDerivation rec {
   pname = "yacreader";
@@ -19,7 +18,8 @@ mkDerivation rec {
   propagatedBuildInputs = [ qtquickcontrols2 qtgraphicaleffects qtdeclarative ];
 
   meta = {
-    description = "A comic reader for cross-platform reading and managing your digital comic collection";
+    description =
+      "A comic reader for cross-platform reading and managing your digital comic collection";
     homepage = "http://www.yacreader.com";
     license = lib.licenses.gpl3;
     maintainers = with lib.maintainers; [ srapenne ];

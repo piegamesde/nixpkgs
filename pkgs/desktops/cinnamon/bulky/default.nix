@@ -1,15 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, wrapGAppsHook
-, python3
-, gobject-introspection
-, gsettings-desktop-schemas
-, gettext
-, gtk3
-, glib
-, common-licenses
-}:
+{ stdenv, lib, fetchFromGitHub, wrapGAppsHook, python3, gobject-introspection
+, gsettings-desktop-schemas, gettext, gtk3, glib, common-licenses }:
 
 stdenv.mkDerivation rec {
   pname = "bulky";
@@ -22,11 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Ps7ql6EAdoljQ6S8D2JxNSh0+jtEVZpnQv3fpvWkQSk=";
   };
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    gsettings-desktop-schemas
-    gettext
-  ];
+  nativeBuildInputs = [ wrapGAppsHook gsettings-desktop-schemas gettext ];
 
   buildInputs = [
     (python3.withPackages (p: with p; [ pygobject3 magic setproctitle ]))

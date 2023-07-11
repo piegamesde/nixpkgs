@@ -1,11 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
 # build inputs
-, typing-extensions
-, uri-template
-}:
+, typing-extensions, uri-template }:
 
 buildPythonPackage rec {
   pname = "json-home-client";
@@ -24,10 +19,7 @@ buildPythonPackage rec {
     sed -i -e 's/0.0.0/${version}/' setup.py
   '';
 
-  propagatedBuildInputs = [
-    typing-extensions
-    uri-template
-  ];
+  propagatedBuildInputs = [ typing-extensions uri-template ];
 
   pythonImportsCheck = [ "json_home_client" ];
 
@@ -35,6 +27,6 @@ buildPythonPackage rec {
     description = "Client class for calling http+json APIs in Python";
     homepage = "https://github.com/plinss/json_home_client";
     license = licenses.mit;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

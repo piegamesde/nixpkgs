@@ -1,9 +1,7 @@
 { cfg }:
 { config, lib, name, ... }:
-let
-  inherit (lib) literalExpression mkOption types;
-in
-{
+let inherit (lib) literalExpression mkOption types;
+in {
   options = {
 
     hostName = mkOption {

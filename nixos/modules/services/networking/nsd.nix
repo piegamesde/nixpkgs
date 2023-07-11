@@ -15,19 +15,20 @@ let
     ipv6 = cfg.ipv6;
     ratelimit = cfg.ratelimit.enable;
     rootServer = cfg.rootServer;
-    zoneStats = length (collect (x: (x.zoneStats or null) != null) cfg.zones) > 0;
+    zoneStats = length (collect (x: (x.zoneStats or null) != null) cfg.zones)
+      > 0;
   };
 
   mkZoneFileName = name: if name == "." then "root" else name;
 
   # replaces include: directives for keys with fake keys for nsd-checkconf
-  injectFakeKeys = keys: concatStrings
-    (mapAttrsToList
-      (keyName: keyOptions: ''
-        fakeKey="$(${pkgs.bind}/bin/tsig-keygen -a ${escapeShellArgs [ keyOptions.algorithm keyName ]} | grep -oP "\s*secret \"\K.*(?=\";)")"
-        sed "s@^\s*include:\s*\"${stateDir}/private/${keyName}\"\$@secret: $fakeKey@" -i $out/nsd.conf
-      '')
-      keys);
+  injectFakeKeys = keys:
+    concatStrings (mapAttrsToList (keyName: keyOptions: ''
+      fakeKey="$(${pkgs.bind}/bin/tsig-keygen -a ${
+        escapeShellArgs [ keyOptions.algorithm keyName ]
+      } | grep -oP "\s*secret \"\K.*(?=\";)")"
+      sed "s@^\s*include:\s*\"${stateDir}/private/${keyName}\"\$@secret: $fakeKey@" -i $out/nsd.conf
+    '') keys);
 
   nsdEnv = pkgs.buildEnv {
     name = "nsd-env";
@@ -64,12 +65,12 @@ let
     '';
   };
 
-  writeZoneData = name: text: pkgs.writeTextFile {
-    name = "nsd-zone-${mkZoneFileName name}";
-    inherit text;
-    destination = "/zones/${mkZoneFileName name}";
-  };
-
+  writeZoneData = name: text:
+    pkgs.writeTextFile {
+      name = "nsd-zone-${mkZoneFileName name}";
+      inherit text;
+      destination = "/zones/${mkZoneFileName name}";
+    };
 
   # options are ordered alphanumerically by the nixos option name
   configFile = pkgs.writeTextDir "nsd.conf" ''
@@ -90,19 +91,19 @@ let
       # interfaces
     ${forEach "  ip-address: " cfg.interfaces}
 
-      ip-freebind:         ${yesOrNo  cfg.ipFreebind}
-      hide-version:        ${yesOrNo  cfg.hideVersion}
+      ip-freebind:         ${yesOrNo cfg.ipFreebind}
+      hide-version:        ${yesOrNo cfg.hideVersion}
       identity:            "${cfg.identity}"
-      ip-transparent:      ${yesOrNo  cfg.ipTransparent}
-      do-ip4:              ${yesOrNo  cfg.ipv4}
+      ip-transparent:      ${yesOrNo cfg.ipTransparent}
+      do-ip4:              ${yesOrNo cfg.ipv4}
       ipv4-edns-size:      ${toString cfg.ipv4EDNSSize}
-      do-ip6:              ${yesOrNo  cfg.ipv6}
+      do-ip6:              ${yesOrNo cfg.ipv6}
       ipv6-edns-size:      ${toString cfg.ipv6EDNSSize}
-      log-time-ascii:      ${yesOrNo  cfg.logTimeAscii}
+      log-time-ascii:      ${yesOrNo cfg.logTimeAscii}
       ${maybeString "nsid: " cfg.nsid}
       port:                ${toString cfg.port}
-      reuseport:           ${yesOrNo  cfg.reuseport}
-      round-robin:         ${yesOrNo  cfg.roundRobin}
+      reuseport:           ${yesOrNo cfg.reuseport}
+      round-robin:         ${yesOrNo cfg.roundRobin}
       server-count:        ${toString cfg.serverCount}
       ${maybeToString "statistics: " cfg.statistics}
       tcp-count:           ${toString cfg.tcpCount}
@@ -111,19 +112,19 @@ let
       verbosity:           ${toString cfg.verbosity}
       ${maybeString "version: " cfg.version}
       xfrd-reload-timeout: ${toString cfg.xfrdReloadTimeout}
-      zonefiles-check:     ${yesOrNo  cfg.zonefilesCheck}
+      zonefiles-check:     ${yesOrNo cfg.zonefilesCheck}
 
       ${maybeString "rrl-ipv4-prefix-length: " cfg.ratelimit.ipv4PrefixLength}
       ${maybeString "rrl-ipv6-prefix-length: " cfg.ratelimit.ipv6PrefixLength}
       rrl-ratelimit:           ${toString cfg.ratelimit.ratelimit}
-      ${maybeString "rrl-slip: "               cfg.ratelimit.slip}
+      ${maybeString "rrl-slip: " cfg.ratelimit.slip}
       rrl-size:                ${toString cfg.ratelimit.size}
       rrl-whitelist-ratelimit: ${toString cfg.ratelimit.whitelistRatelimit}
 
     ${keyConfigFile}
 
     remote-control:
-      control-enable:    ${yesOrNo  cfg.remoteControl.enable}
+      control-enable:    ${yesOrNo cfg.remoteControl.enable}
       control-key-file:  "${cfg.remoteControl.controlKeyFile}"
       control-cert-file: "${cfg.remoteControl.controlCertFile}"
     ${forEach "  control-interface: " cfg.remoteControl.interfaces}
@@ -138,9 +139,9 @@ let
 
   yesOrNo = b: if b then "yes" else "no";
   maybeString = prefix: x: if x == null then "" else ''${prefix} "${x}"'';
-  maybeToString = prefix: x: if x == null then "" else ''${prefix} ${toString x}'';
+  maybeToString = prefix: x:
+    if x == null then "" else "${prefix} ${toString x}";
   forEach = pre: l: concatMapStrings (x: pre + x + "\n") l;
-
 
   keyConfigFile = concatStrings (mapAttrsToList (keyName: keyOptions: ''
     key:
@@ -157,42 +158,44 @@ let
     chmod 0400 "$dest"
   '') cfg.keys);
 
-
   # options are ordered alphanumerically by the nixos option name
   zoneConfigFile = name: zone: ''
     zone:
       name:         "${name}"
       zonefile:     "${stateDir}/zones/${mkZoneFileName name}"
       ${maybeString "outgoing-interface: " zone.outgoingInterface}
-    ${forEach     "  rrl-whitelist: "      zone.rrlWhitelist}
-      ${maybeString "zonestats: "          zone.zoneStats}
+    ${forEach "  rrl-whitelist: " zone.rrlWhitelist}
+      ${maybeString "zonestats: " zone.zoneStats}
 
       ${maybeToString "max-refresh-time: " zone.maxRefreshSecs}
       ${maybeToString "min-refresh-time: " zone.minRefreshSecs}
       ${maybeToString "max-retry-time:   " zone.maxRetrySecs}
       ${maybeToString "min-retry-time:   " zone.minRetrySecs}
 
-      allow-axfr-fallback: ${yesOrNo       zone.allowAXFRFallback}
-    ${forEach     "  allow-notify: "       zone.allowNotify}
-    ${forEach     "  request-xfr: "        zone.requestXFR}
+      allow-axfr-fallback: ${yesOrNo zone.allowAXFRFallback}
+    ${forEach "  allow-notify: " zone.allowNotify}
+    ${forEach "  request-xfr: " zone.requestXFR}
 
-    ${forEach     "  notify: "             zone.notify}
+    ${forEach "  notify: " zone.notify}
       notify-retry:                        ${toString zone.notifyRetry}
-    ${forEach     "  provide-xfr: "        zone.provideXFR}
+    ${forEach "  provide-xfr: " zone.provideXFR}
   '';
 
-  zoneConfigs = zoneConfigs' {} "" { children = cfg.zones; };
+  zoneConfigs = zoneConfigs' { } "" { children = cfg.zones; };
 
   zoneConfigs' = parent: name: zone:
     if !(zone ? children) || zone.children == null || zone.children == { }
-      # leaf -> actual zone
-      then listToAttrs [ (nameValuePair name (parent // zone)) ]
+    # leaf -> actual zone
+    then
+      listToAttrs [
+        (nameValuePair name (parent // zone))
+      ]
 
       # fork -> pattern
-      else zipAttrsWith (name: head) (
-        mapAttrsToList (name: child: zoneConfigs' (parent // zone // { children = {}; }) name child)
-                       zone.children
-      );
+    else
+      zipAttrsWith (name: head) (mapAttrsToList (name: child:
+        zoneConfigs' (parent // zone // { children = { }; }) name child)
+        zone.children);
 
   # options are ordered alphanumerically
   zoneOptions = types.submodule {
@@ -210,9 +213,11 @@ let
       allowNotify = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [ "192.0.2.0/24 NOKEY" "10.0.0.1-10.0.0.5 my_tsig_key_name"
-                    "10.0.3.4&255.255.0.0 BLOCKED"
-                  ];
+        example = [
+          "192.0.2.0/24 NOKEY"
+          "10.0.0.1-10.0.0.5 my_tsig_key_name"
+          "10.0.3.4&255.255.0.0 BLOCKED"
+        ];
         description = lib.mdDoc ''
           Listed primary servers are allowed to notify this secondary server.
 
@@ -242,7 +247,7 @@ let
         # type here with `zoneConfigs`, since that would set all the attributes
         # to default values, breaking the parent inheriting function.
         type = types.attrsOf types.anything;
-        default = {};
+        default = { };
         description = lib.mdDoc ''
           Children zones inherit all options of their parents. Attributes
           defined in a child will overwrite the ones of its parent. Only
@@ -284,20 +289,22 @@ let
         };
         zsk = mkOption {
           type = keyPolicy;
-          default = { keySize = 2048;
-                      prePublish = "1w";
-                      postPublish = "1w";
-                      rollPeriod = "1mo";
-                    };
+          default = {
+            keySize = 2048;
+            prePublish = "1w";
+            postPublish = "1w";
+            rollPeriod = "1mo";
+          };
           description = lib.mdDoc "Key policy for zone signing keys";
         };
         ksk = mkOption {
           type = keyPolicy;
-          default = { keySize = 4096;
-                      prePublish = "1mo";
-                      postPublish = "1mo";
-                      rollPeriod = "0";
-                    };
+          default = {
+            keySize = 4096;
+            prePublish = "1mo";
+            postPublish = "1mo";
+            rollPeriod = "0";
+          };
           description = lib.mdDoc "Key policy for key signing keys";
         };
       };
@@ -339,10 +346,9 @@ let
         '';
       };
 
-
       notify = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         example = [ "10.0.0.1@3721 my_key" "::5 NOKEY" ];
         description = lib.mdDoc ''
           This primary server will notify all given secondary servers about
@@ -380,7 +386,7 @@ let
 
       provideXFR = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         example = [ "192.0.2.0/24 NOKEY" "192.0.2.0/24 my_tsig_key_name" ];
         description = lib.mdDoc ''
           Allow these IPs and TSIG to transfer zones, addr TSIG|NOKEY|BLOCKED
@@ -390,15 +396,27 @@ let
 
       requestXFR = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         description = lib.mdDoc ''
           Format: `[AXFR|UDP] <ip-address> <key-name | NOKEY>`
         '';
       };
 
       rrlWhitelist = mkOption {
-        type = with types; listOf (enum [ "nxdomain" "error" "referral" "any" "rrsig" "wildcard" "nodata" "dnskey" "positive" "all" ]);
-        default = [];
+        type = with types;
+          listOf (enum [
+            "nxdomain"
+            "error"
+            "referral"
+            "any"
+            "rrsig"
+            "wildcard"
+            "nodata"
+            "dnskey"
+            "positive"
+            "all"
+          ]);
+        default = [ ];
         description = lib.mdDoc ''
           Whitelists the given rrl-types.
         '';
@@ -431,7 +449,8 @@ let
       };
       postPublish = mkOption {
         type = types.str;
-        description = lib.mdDoc "How long after deactivation to keep a key in the zone";
+        description =
+          lib.mdDoc "How long after deactivation to keep a key in the zone";
       };
       rollPeriod = mkOption {
         type = types.str;
@@ -440,9 +459,10 @@ let
     };
   };
 
-  dnssecZones = (filterAttrs (n: v: if v ? dnssec then v.dnssec else false) zoneConfigs);
+  dnssecZones =
+    (filterAttrs (n: v: if v ? dnssec then v.dnssec else false) zoneConfigs);
 
-  dnssec = dnssecZones != {};
+  dnssec = dnssecZones != { };
 
   dnssecTools = pkgs.bind.override { enablePython = true; };
 
@@ -454,27 +474,29 @@ let
     ${concatStrings (mapAttrsToList signZone dnssecZones)}
   '';
   signZone = name: zone: ''
-    ${dnssecTools}/bin/dnssec-keymgr -g ${dnssecTools}/bin/dnssec-keygen -s ${dnssecTools}/bin/dnssec-settime -K ${stateDir}/dnssec -c ${policyFile name zone.dnssecPolicy} ${name}
+    ${dnssecTools}/bin/dnssec-keymgr -g ${dnssecTools}/bin/dnssec-keygen -s ${dnssecTools}/bin/dnssec-settime -K ${stateDir}/dnssec -c ${
+      policyFile name zone.dnssecPolicy
+    } ${name}
     ${dnssecTools}/bin/dnssec-signzone -S -K ${stateDir}/dnssec -o ${name} -O full -N date ${stateDir}/zones/${name}
     ${nsdPkg}/sbin/nsd-checkzone ${name} ${stateDir}/zones/${name}.signed && mv -v ${stateDir}/zones/${name}.signed ${stateDir}/zones/${name}
   '';
-  policyFile = name: policy: pkgs.writeText "${name}.policy" ''
-    zone ${name} {
-      algorithm ${policy.algorithm};
-      key-size zsk ${toString policy.zsk.keySize};
-      key-size ksk ${toString policy.ksk.keySize};
-      keyttl ${policy.keyttl};
-      pre-publish zsk ${policy.zsk.prePublish};
-      pre-publish ksk ${policy.ksk.prePublish};
-      post-publish zsk ${policy.zsk.postPublish};
-      post-publish ksk ${policy.ksk.postPublish};
-      roll-period zsk ${policy.zsk.rollPeriod};
-      roll-period ksk ${policy.ksk.rollPeriod};
-      coverage ${policy.coverage};
-    };
-  '';
-in
-{
+  policyFile = name: policy:
+    pkgs.writeText "${name}.policy" ''
+      zone ${name} {
+        algorithm ${policy.algorithm};
+        key-size zsk ${toString policy.zsk.keySize};
+        key-size ksk ${toString policy.ksk.keySize};
+        keyttl ${policy.keyttl};
+        pre-publish zsk ${policy.zsk.prePublish};
+        pre-publish ksk ${policy.ksk.prePublish};
+        post-publish zsk ${policy.zsk.postPublish};
+        post-publish ksk ${policy.ksk.postPublish};
+        roll-period zsk ${policy.zsk.rollPeriod};
+        roll-period ksk ${policy.ksk.rollPeriod};
+        coverage ${policy.coverage};
+      };
+    '';
+in {
   # options are ordered alphanumerically
   options.services.nsd = {
 
@@ -694,7 +716,6 @@ in
       '';
     };
 
-
     keys = mkOption {
       type = types.attrsOf (types.submodule {
         options = {
@@ -719,7 +740,7 @@ in
 
         };
       });
-      default = {};
+      default = { };
       example = literalExpression ''
         { "tsig.example.org" = {
             algorithm = "hmac-md5";
@@ -731,7 +752,6 @@ in
         Define your TSIG keys here.
       '';
     };
-
 
     ratelimit = {
 
@@ -793,7 +813,6 @@ in
 
     };
 
-
     remoteControl = {
 
       enable = mkEnableOption (lib.mdDoc "remote control via nsd-control");
@@ -854,7 +873,7 @@ in
 
     zones = mkOption {
       type = types.attrsOf zoneOptions;
-      default = {};
+      default = { };
       example = literalExpression ''
         { "serverGroup1" = {
             provideXFR = [ "10.1.2.3 NOKEY" ];
@@ -902,7 +921,7 @@ in
     assertions = singleton {
       assertion = zoneConfigs ? "." -> cfg.rootServer;
       message = "You have a root zone configured. If this is really what you "
-              + "want, please enable 'services.nsd.rootServer'.";
+        + "want, please enable 'services.nsd.rootServer'.";
     };
 
     environment = {
@@ -915,7 +934,7 @@ in
     users.users.${username} = {
       description = "NSD service user";
       home = stateDir;
-      createHome  = true;
+      createHome = true;
       uid = config.ids.uids.nsd;
       group = username;
     };
@@ -927,7 +946,7 @@ in
       wantedBy = [ "multi-user.target" ];
 
       startLimitBurst = 4;
-      startLimitIntervalSec = 5 * 60;  # 5 mins
+      startLimitIntervalSec = 5 * 60; # 5 mins
       serviceConfig = {
         ExecStart = "${nsdPkg}/sbin/nsd -d -c ${nsdEnv}/nsd.conf";
         StandardError = "null";

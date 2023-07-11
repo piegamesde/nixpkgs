@@ -1,37 +1,23 @@
-{ stdenv
-, lib
-, fetchFromSourcehut
-, asciidoc
-, cmocka
-, docbook_xsl
-, libxslt
-, meson
-, ninja
-, pkg-config
-, icu
-, pango
-, inih
-, withWindowSystem ? null
-, xorg
-, libxkbcommon
-, libGLU
-, wayland
-, withBackends ? [ "freeimage" "libtiff" "libjpeg" "libpng" "librsvg" "libnsgif" "libheif" ]
-, freeimage
-, libtiff
-, libjpeg_turbo
-, libpng
-, librsvg
-, netsurf
-, libheif
-}:
+{ stdenv, lib, fetchFromSourcehut, asciidoc, cmocka, docbook_xsl, libxslt, meson
+, ninja, pkg-config, icu, pango, inih, withWindowSystem ? null, xorg
+, libxkbcommon, libGLU, wayland, withBackends ? [
+  "freeimage"
+  "libtiff"
+  "libjpeg"
+  "libpng"
+  "librsvg"
+  "libnsgif"
+  "libheif"
+], freeimage, libtiff, libjpeg_turbo, libpng, librsvg, netsurf, libheif }:
 
 let
   # default value of withWindowSystem
-  withWindowSystem' =
-         if withWindowSystem != null then withWindowSystem
-    else if stdenv.isLinux then "all"
-    else "x11";
+  withWindowSystem' = if withWindowSystem != null then
+    withWindowSystem
+  else if stdenv.isLinux then
+    "all"
+  else
+    "x11";
 
   windowSystems = {
     all = windowSystems.x11 ++ windowSystems.wayland;
@@ -45,15 +31,14 @@ let
     inherit (netsurf) libnsgif;
   };
 
-  backendFlags = builtins.map
-    (b: if builtins.elem b withBackends
-        then "-D${b}=enabled"
-        else "-D${b}=disabled")
-    (builtins.attrNames backends);
-in
+  backendFlags = builtins.map (b:
+    if builtins.elem b withBackends then
+      "-D${b}=enabled"
+    else
+      "-D${b}=disabled") (builtins.attrNames backends);
 
-# check that given window system is valid
-assert lib.assertOneOf "withWindowSystem" withWindowSystem'
+  # check that given window system is valid
+in assert lib.assertOneOf "withWindowSystem" withWindowSystem'
   (builtins.attrNames windowSystems);
 # check that every given backend is valid
 assert builtins.all
@@ -72,28 +57,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LLEEbriHzZhAOQivqHqdr6g7lh4uj++ytlme8AfRjf4=";
   };
 
-  mesonFlags = [
-    "-Dwindows=${withWindowSystem'}"
-    "-Dtest=enabled"
-    "-Dman=enabled"
-  ] ++ backendFlags;
+  mesonFlags =
+    [ "-Dwindows=${withWindowSystem'}" "-Dtest=enabled" "-Dman=enabled" ]
+    ++ backendFlags;
 
-  nativeBuildInputs = [
-    asciidoc
-    cmocka
-    docbook_xsl
-    libxslt
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs =
+    [ asciidoc cmocka docbook_xsl libxslt meson ninja pkg-config ];
 
-  buildInputs = [
-    icu
-    libxkbcommon
-    pango
-    inih
-  ] ++ windowSystems."${withWindowSystem'}"
+  buildInputs = [ icu libxkbcommon pango inih ]
+    ++ windowSystems."${withWindowSystem'}"
     ++ builtins.map (b: backends."${b}") withBackends;
 
   postInstall = ''

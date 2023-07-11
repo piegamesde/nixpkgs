@@ -1,13 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, faker
-, fetchFromGitHub
-, pytest-aiohttp
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, aiohttp, buildPythonPackage, faker, fetchFromGitHub, pytest-aiohttp
+, pytest-mock, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aiolookin";
@@ -23,30 +15,22 @@ buildPythonPackage rec {
     hash = "sha256-G3/lUgV60CMLskUo83TlvLLIfJtu5DEz+94mdVI4OrI=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [
-    faker
-    pytest-aiohttp
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ faker pytest-aiohttp pytest-mock pytestCheckHook ];
 
   disabledTests = [
     # Not all tests are ready yet
     "test_successful"
   ];
 
-  pythonImportsCheck = [
-    "aiolookin"
-  ];
+  pythonImportsCheck = [ "aiolookin" ];
 
   meta = with lib; {
     description = "Python client for interacting with LOOKin devices";
     homepage = "https://github.com/ANMalko/aiolookin";
-    changelog = "https://github.com/ANMalko/aiolookin/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/ANMalko/aiolookin/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

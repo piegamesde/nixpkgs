@@ -1,12 +1,4 @@
-{ lib, stdenv
-, fetchpatch
-, fetchurl
-, boost
-, cmake
-, libuuid
-, python3
-, ruby
-}:
+{ lib, stdenv, fetchpatch, fetchurl, boost, cmake, libuuid, python3, ruby }:
 
 stdenv.mkDerivation rec {
   pname = "qpid-cpp";
@@ -23,7 +15,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "python3-managementgen";
-      url = "https://github.com/apache/qpid-cpp/commit/0e558866e90ef3d5becbd2f6d5630a6a6dc43a5d.patch";
+      url =
+        "https://github.com/apache/qpid-cpp/commit/0e558866e90ef3d5becbd2f6d5630a6a6dc43a5d.patch";
       hash = "sha256-pV6xx8Nrys/ZxIO0Z/fARH0ELqcSdTXLPsVXYUd3f70=";
     })
   ];
@@ -36,11 +29,8 @@ stdenv.mkDerivation rec {
     sed -i '/management/d' CMakeLists.txt
   '';
 
-  env.NIX_CFLAGS_COMPILE = toString ([
-    "-Wno-error=maybe-uninitialized"
-  ] ++ lib.optionals stdenv.cc.isGNU [
-    "-Wno-error=deprecated-copy"
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString ([ "-Wno-error=maybe-uninitialized" ]
+    ++ lib.optionals stdenv.cc.isGNU [ "-Wno-error=deprecated-copy" ]);
 
   meta = with lib; {
     homepage = "https://qpid.apache.org";

@@ -18,18 +18,14 @@ import ./make-test-python.nix ({ lib, ... }: {
     services.postgresql = {
       enable = true;
       ensureDatabases = [ "tandoor_recipes" ];
-      ensureUsers = [
-        {
-          name = "tandoor_recipes";
-          ensurePermissions."DATABASE tandoor_recipes" = "ALL PRIVILEGES";
-        }
-      ];
+      ensureUsers = [{
+        name = "tandoor_recipes";
+        ensurePermissions."DATABASE tandoor_recipes" = "ALL PRIVILEGES";
+      }];
     };
 
     systemd.services = {
-      tandoor-recipes = {
-        after = [ "postgresql.service" ];
-      };
+      tandoor-recipes = { after = [ "postgresql.service" ]; };
     };
   };
 

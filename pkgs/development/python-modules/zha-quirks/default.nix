@@ -1,11 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, zigpy
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pytestCheckHook
+, pythonOlder, zigpy }:
 
 buildPythonPackage rec {
   pname = "zha-quirks";
@@ -21,23 +15,18 @@ buildPythonPackage rec {
     hash = "sha256-09heRXlaqc+qbQj+LKodu6Pq1pgQ5eVZbihOMeO5EWU=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    zigpy
-  ];
+  propagatedBuildInputs = [ aiohttp zigpy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "zhaquirks"
-  ];
+  pythonImportsCheck = [ "zhaquirks" ];
 
   meta = with lib; {
-    description = "ZHA Device Handlers are custom quirks implementations for Zigpy";
+    description =
+      "ZHA Device Handlers are custom quirks implementations for Zigpy";
     homepage = "https://github.com/dmulcahey/zha-device-handlers";
-    changelog = "https://github.com/zigpy/zha-device-handlers/releases/tag/${version}";
+    changelog =
+      "https://github.com/zigpy/zha-device-handlers/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
     platforms = platforms.linux;

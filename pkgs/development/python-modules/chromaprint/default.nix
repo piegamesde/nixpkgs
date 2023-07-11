@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, isPy27
-, m2r
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, m2r }:
 
 buildPythonPackage rec {
   pname = "chromaprint";

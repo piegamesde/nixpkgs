@@ -1,21 +1,13 @@
-{ lib
-, stdenv
-, mkDerivation
-, fetchzip
-, installShellFiles
-, pkg-config
-, qmake
-, qtbase
-, kcoreaddons
-, kwidgetsaddons
-}:
+{ lib, stdenv, mkDerivation, fetchzip, installShellFiles, pkg-config, qmake
+, qtbase, kcoreaddons, kwidgetsaddons }:
 
 mkDerivation rec {
   pname = "qelectrotech";
   version = "0.8.0";
 
   src = fetchzip {
-    url = "https://git.tuxfamily.org/qet/qet.git/snapshot/qet-${version}.tar.gz";
+    url =
+      "https://git.tuxfamily.org/qet/qet.git/snapshot/qet-${version}.tar.gz";
     sha256 = "sha256-op2vnMPF9bNnHGphWFB/HEeoThE6tX+9UvX8LWVwkzI=";
   };
 
@@ -29,21 +21,11 @@ mkDerivation rec {
                 "INSTALL_PREFIX             = '$out/'"
   '';
 
-  nativeBuildInputs = [
-    installShellFiles
-    pkg-config
-    qmake
-  ];
+  nativeBuildInputs = [ installShellFiles pkg-config qmake ];
 
-  buildInputs = [
-    kcoreaddons
-    kwidgetsaddons
-    qtbase
-  ];
+  buildInputs = [ kcoreaddons kwidgetsaddons qtbase ];
 
-  qmakeFlags = [
-    "INSTALLROOT=$(out)"
-  ];
+  qmakeFlags = [ "INSTALLROOT=$(out)" ];
 
   installPhase = ''
     runHook preInstall

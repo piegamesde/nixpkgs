@@ -7,8 +7,8 @@ let
   cfg4 = config.services.dhcpd4;
   cfg6 = config.services.dhcpd6;
 
-  writeConfig = postfix: cfg: pkgs.writeText "dhcpd.conf"
-    ''
+  writeConfig = postfix: cfg:
+    pkgs.writeText "dhcpd.conf" ''
       default-lease-time 600;
       max-lease-time 7200;
       ${optionalString (!cfg.authoritative) "not "}authoritative;
@@ -17,58 +17,58 @@ let
 
       ${cfg.extraConfig}
 
-      ${lib.concatMapStrings
-          (machine: ''
-            host ${machine.hostName} {
-              hardware ethernet ${machine.ethernetAddress};
-              fixed-address${
-                optionalString (postfix == "6") postfix
-              } ${machine.ipAddress};
-            }
-          '')
-          cfg.machines
-      }
+      ${lib.concatMapStrings (machine: ''
+        host ${machine.hostName} {
+          hardware ethernet ${machine.ethernetAddress};
+          fixed-address${
+            optionalString (postfix == "6") postfix
+          } ${machine.ipAddress};
+        }
+      '') cfg.machines}
     '';
 
   dhcpdService = postfix: cfg:
     let
-      configFile =
-        if cfg.configFile != null
-          then cfg.configFile
-          else writeConfig postfix cfg;
+      configFile = if cfg.configFile != null then
+        cfg.configFile
+      else
+        writeConfig postfix cfg;
       leaseFile = "/var/lib/dhcpd${postfix}/dhcpd.leases";
       args = [
-        "@${pkgs.dhcp}/sbin/dhcpd" "dhcpd${postfix}" "-${postfix}"
-        "-pf" "/run/dhcpd${postfix}/dhcpd.pid"
-        "-cf" configFile
-        "-lf" leaseFile
-      ] ++ cfg.extraFlags
-        ++ cfg.interfaces;
-    in
-      optionalAttrs cfg.enable {
-        "dhcpd${postfix}" = {
-          description = "DHCPv${postfix} server";
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+        "@${pkgs.dhcp}/sbin/dhcpd"
+        "dhcpd${postfix}"
+        "-${postfix}"
+        "-pf"
+        "/run/dhcpd${postfix}/dhcpd.pid"
+        "-cf"
+        configFile
+        "-lf"
+        leaseFile
+      ] ++ cfg.extraFlags ++ cfg.interfaces;
+    in optionalAttrs cfg.enable {
+      "dhcpd${postfix}" = {
+        description = "DHCPv${postfix} server";
+        wantedBy = [ "multi-user.target" ];
+        after = [ "network.target" ];
 
-          preStart = "touch ${leaseFile}";
-          serviceConfig = {
-            ExecStart = concatMapStringsSep " " escapeShellArg args;
-            Type = "forking";
-            Restart = "always";
-            DynamicUser = true;
-            User = "dhcpd";
-            Group = "dhcpd";
-            AmbientCapabilities = [
-              "CAP_NET_RAW"          # to send ICMP messages
-              "CAP_NET_BIND_SERVICE" # to bind on DHCP port (67)
-            ];
-            StateDirectory   = "dhcpd${postfix}";
-            RuntimeDirectory = "dhcpd${postfix}";
-            PIDFile = "/run/dhcpd${postfix}/dhcpd.pid";
-          };
+        preStart = "touch ${leaseFile}";
+        serviceConfig = {
+          ExecStart = concatMapStringsSep " " escapeShellArg args;
+          Type = "forking";
+          Restart = "always";
+          DynamicUser = true;
+          User = "dhcpd";
+          Group = "dhcpd";
+          AmbientCapabilities = [
+            "CAP_NET_RAW" # to send ICMP messages
+            "CAP_NET_BIND_SERVICE" # to bind on DHCP port (67)
+          ];
+          StateDirectory = "dhcpd${postfix}";
+          RuntimeDirectory = "dhcpd${postfix}";
+          PIDFile = "/run/dhcpd${postfix}/dhcpd.pid";
         };
       };
+    };
 
   machineOpts = { ... }: {
 
@@ -134,7 +134,7 @@ let
 
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       description = lib.mdDoc ''
         Additional command line flags to be passed to the dhcpd daemon.
       '';
@@ -151,7 +151,7 @@ let
 
     interfaces = mkOption {
       type = types.listOf types.str;
-      default = ["eth0"];
+      default = [ "eth0" ];
       description = lib.mdDoc ''
         The interfaces on which the DHCP server should listen.
       '';
@@ -159,13 +159,15 @@ let
 
     machines = mkOption {
       type = with types; listOf (submodule machineOpts);
-      default = [];
+      default = [ ];
       example = [
-        { hostName = "foo";
+        {
+          hostName = "foo";
           ethernetAddress = "00:16:76:9a:32:1d";
           ipAddress = "192.168.1.10";
         }
-        { hostName = "bar";
+        {
+          hostName = "bar";
           ethernetAddress = "00:19:d1:1d:c4:9a";
           ipAddress = "192.168.1.11";
         }
@@ -188,19 +190,16 @@ let
 
   };
 
-in
+in {
 
-{
-
-  imports = [
-    (mkRenamedOptionModule [ "services" "dhcpd" ] [ "services" "dhcpd4" ])
-  ] ++ flip map [ "4" "6" ] (postfix:
-    mkRemovedOptionModule [ "services" "dhcpd${postfix}" "stateDir" ] ''
-      The DHCP server state directory is now managed with the systemd's DynamicUser mechanism.
-      This means the directory is named after the service (dhcpd${postfix}), created under
-      /var/lib/private/ and symlinked to /var/lib/.
-    ''
-  );
+  imports =
+    [ (mkRenamedOptionModule [ "services" "dhcpd" ] [ "services" "dhcpd4" ]) ]
+    ++ flip map [ "4" "6" ] (postfix:
+      mkRemovedOptionModule [ "services" "dhcpd${postfix}" "stateDir" ] ''
+        The DHCP server state directory is now managed with the systemd's DynamicUser mechanism.
+        This means the directory is named after the service (dhcpd${postfix}), created under
+        /var/lib/private/ and symlinked to /var/lib/.
+      '');
 
   ###### interface
 
@@ -211,20 +210,17 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf (cfg4.enable || cfg6.enable) {
 
     systemd.services = dhcpdService "4" cfg4 // dhcpdService "6" cfg6;
 
-    warnings = [
-      ''
-        The dhcpd4 and dhcpd6 modules will be removed from NixOS 23.11, because ISC DHCP reached its end of life.
-        See https://www.isc.org/blogs/isc-dhcp-eol/ for details.
-        Please switch to a different implementation like kea, systemd-networkd or dnsmasq.
-      ''
-    ];
+    warnings = [''
+      The dhcpd4 and dhcpd6 modules will be removed from NixOS 23.11, because ISC DHCP reached its end of life.
+      See https://www.isc.org/blogs/isc-dhcp-eol/ for details.
+      Please switch to a different implementation like kea, systemd-networkd or dnsmasq.
+    ''];
   };
 
 }

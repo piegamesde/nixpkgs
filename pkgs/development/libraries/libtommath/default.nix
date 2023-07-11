@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "1.2.0";
 
   src = fetchurl {
-    url = "https://github.com/libtom/libtommath/releases/download/v${version}/ltm-${version}.tar.xz";
+    url =
+      "https://github.com/libtom/libtommath/releases/download/v${version}/ltm-${version}.tar.xz";
     sha256 = "1c8q1qy88cjhdjlk3g24mra94h34c1ldvkjz0n2988c0yvn5xixp";
   };
 
@@ -24,7 +25,9 @@ stdenv.mkDerivation rec {
 
   makefile = "makefile.shared";
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) "-DTARGET_OS_IPHONE=0";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString (stdenv.isDarwin && stdenv.isAarch64)
+    "-DTARGET_OS_IPHONE=0";
 
   enableParallelBuilding = true;
 

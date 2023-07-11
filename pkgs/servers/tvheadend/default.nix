@@ -1,31 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
+{ lib, stdenv, fetchFromGitHub, fetchpatch
 
 # buildtime
-, makeWrapper
-, pkg-config
-, python3
-, which
+, makeWrapper, pkg-config, python3, which
 
 # runtime
-, avahi
-, bzip2
-, dbus
-, dtv-scan-tables
-, ffmpeg_4
-, gettext
-, gnutar
-, gzip
-, libiconv
-, openssl
-, uriparser
-, zlib
-}:
+, avahi, bzip2, dbus, dtv-scan-tables, ffmpeg_4, gettext, gnutar, gzip, libiconv
+, openssl, uriparser, zlib }:
 
-let
-  version = "4.2.8";
+let version = "4.2.8";
 in stdenv.mkDerivation {
   pname = "tvheadend";
   inherit version;
@@ -37,10 +19,7 @@ in stdenv.mkDerivation {
     sha256 = "1xq059r2bplaa0nd0wkhw80jfwd962x0h5hgd7fz2yp6largw34m";
   };
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
   patches = [
     # Pull upstream fix for -fno-common toolchain
@@ -48,17 +27,13 @@ in stdenv.mkDerivation {
     # TODO: can be removed with 4.3 release.
     (fetchpatch {
       name = "fno-common.patch";
-      url = "https://github.com/tvheadend/tvheadend/commit/bd92f1389f1aacdd08e913b0383a0ca9dc223153.patch";
+      url =
+        "https://github.com/tvheadend/tvheadend/commit/bd92f1389f1aacdd08e913b0383a0ca9dc223153.patch";
       sha256 = "17bsx6mnv4pjiayvx1d57dphva0kvlppvnmmaym06dh4524pnly1";
     })
   ];
 
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-    python3
-    which
-  ];
+  nativeBuildInputs = [ makeWrapper pkg-config python3 which ];
 
   buildInputs = [
     avahi
@@ -75,13 +50,13 @@ in stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  env.NIX_CFLAGS_COMPILE = toString ([
-    "-Wno-error=format-truncation"
-    "-Wno-error=stringop-truncation"
-  ] ++ lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
-    # Needed with GCC 12 but unrecognized with GCC 9
-    "-Wno-error=use-after-free"
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString
+    ([ "-Wno-error=format-truncation" "-Wno-error=stringop-truncation" ]
+      ++ lib.optionals
+      (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
+        # Needed with GCC 12 but unrecognized with GCC 9
+        "-Wno-error=use-after-free"
+      ]);
 
   configureFlags = [
     # disable dvbscan, as having it enabled causes a network download which

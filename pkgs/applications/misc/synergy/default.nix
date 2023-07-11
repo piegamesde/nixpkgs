@@ -1,39 +1,11 @@
-{ withGUI ? true
-, stdenv
-, lib
-, fetchFromGitHub
-, wrapQtAppsHook
+{ withGUI ? true, stdenv, lib, fetchFromGitHub, wrapQtAppsHook
 
-, cmake
-, openssl
-, pcre
-, util-linux
-, libselinux
-, libsepol
-, pkg-config
-, gdk-pixbuf
-, libnotify
-, qttools
-, libICE
-, libSM
-, libX11
-, libxkbfile
-, libXi
-, libXtst
-, libXrandr
-, libXinerama
-, xkeyboardconfig
-, xinput
-, avahi-compat
+, cmake, openssl, pcre, util-linux, libselinux, libsepol, pkg-config, gdk-pixbuf
+, libnotify, qttools, libICE, libSM, libX11, libxkbfile, libXi, libXtst
+, libXrandr, libXinerama, xkeyboardconfig, xinput, avahi-compat
 
-  # MacOS / darwin
-, darwin
-, ApplicationServices
-, Carbon
-, Cocoa
-, CoreServices
-, ScreenSaver
-}:
+# MacOS / darwin
+, darwin, ApplicationServices, Carbon, Cocoa, CoreServices, ScreenSaver }:
 
 stdenv.mkDerivation rec {
   pname = "synergy";
@@ -50,11 +22,12 @@ stdenv.mkDerivation rec {
   patches = [
     # Without this OpenSSL from nixpkgs is not detected
     ./darwin-non-static-openssl.patch
-  ] ++ lib.optionals (stdenv.isDarwin && !(darwin.apple_sdk.frameworks ? UserNotifications)) [
-    # We cannot include UserNotifications because of a build failure in the Apple SDK.
-    # The functions used from it are already implicitly included anyways.
-    ./darwin-no-UserNotifications-includes.patch
-  ];
+  ] ++ lib.optionals
+    (stdenv.isDarwin && !(darwin.apple_sdk.frameworks ? UserNotifications)) [
+      # We cannot include UserNotifications because of a build failure in the Apple SDK.
+      # The functions used from it are already implicitly included anyways.
+      ./darwin-no-UserNotifications-includes.patch
+    ];
 
   postPatch = ''
     substituteInPlace src/gui/src/SslCertificate.cpp \
@@ -64,10 +37,8 @@ stdenv.mkDerivation rec {
       --replace "/usr/share/X11/xkb/rules/evdev.xml" "${xkeyboardconfig}/share/X11/xkb/rules/evdev.xml"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optional withGUI wrapQtAppsHook;
+  nativeBuildInputs = [ cmake pkg-config ]
+    ++ lib.optional withGUI wrapQtAppsHook;
 
   buildInputs = [
     qttools # Used for translations even when not building the GUI
@@ -79,32 +50,39 @@ stdenv.mkDerivation rec {
     Cocoa
     CoreServices
     ScreenSaver
-  ] ++ lib.optionals (stdenv.isDarwin && darwin.apple_sdk.frameworks ? UserNotifications) [
-    darwin.apple_sdk.frameworks.UserNotifications
-  ] ++ lib.optionals stdenv.isLinux [
-    util-linux
-    libselinux
-    libsepol
-    libICE
-    libSM
-    libX11
-    libXi
-    libXtst
-    libXrandr
-    libXinerama
-    libxkbfile
-    xinput
-    avahi-compat
-    gdk-pixbuf
-    libnotify
-  ];
+  ] ++ lib.optionals
+    (stdenv.isDarwin && darwin.apple_sdk.frameworks ? UserNotifications)
+    [ darwin.apple_sdk.frameworks.UserNotifications ]
+    ++ lib.optionals stdenv.isLinux [
+      util-linux
+      libselinux
+      libsepol
+      libICE
+      libSM
+      libX11
+      libXi
+      libXtst
+      libXrandr
+      libXinerama
+      libxkbfile
+      xinput
+      avahi-compat
+      gdk-pixbuf
+      libnotify
+    ];
 
   # Silences many warnings
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-Wno-inconsistent-missing-override";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin "-Wno-inconsistent-missing-override";
 
   cmakeFlags = lib.optional (!withGUI) "-DSYNERGY_BUILD_LEGACY_GUI=OFF"
     # NSFilenamesPboardType is deprecated in 10.14+
-    ++ lib.optional stdenv.isDarwin "-DCMAKE_OSX_DEPLOYMENT_TARGET=${if stdenv.isAarch64 then "10.13" else stdenv.targetPlatform.darwinSdkVersion}";
+    ++ lib.optional stdenv.isDarwin "-DCMAKE_OSX_DEPLOYMENT_TARGET=${
+      if stdenv.isAarch64 then
+        "10.13"
+      else
+        stdenv.targetPlatform.darwinSdkVersion
+    }";
 
   doCheck = true;
 
@@ -139,7 +117,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Share one mouse and keyboard between multiple computers";
     homepage = "https://symless.com/synergy";
-    changelog = "https://github.com/symless/synergy-core/blob/${version}/ChangeLog";
+    changelog =
+      "https://github.com/symless/synergy-core/blob/${version}/ChangeLog";
     mainProgram = lib.optionalString (!withGUI) "synergyc";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ talyz ivar ];

@@ -1,16 +1,5 @@
-{ lib
-, boost
-, fetchFromGitHub
-, installShellFiles
-, mkDerivation
-, muparser
-, pkg-config
-, qmake
-, qtbase
-, qtsvg
-, qttools
-, runtimeShell
-}:
+{ lib, boost, fetchFromGitHub, installShellFiles, mkDerivation, muparser
+, pkg-config, qmake, qtbase, qtsvg, qttools, runtimeShell }:
 
 mkDerivation rec {
   pname = "librecad";
@@ -23,24 +12,11 @@ mkDerivation rec {
     sha256 = "sha256-horKTegmvcMg4m5NbZ4nzy4J6Ac/6+E5OkiZl0v6TBc=";
   };
 
-  buildInputs = [
-    boost
-    muparser
-    qtbase
-    qtsvg
-  ];
+  buildInputs = [ boost muparser qtbase qtsvg ];
 
-  nativeBuildInputs = [
-    installShellFiles
-    pkg-config
-    qmake
-    qttools
-  ];
+  nativeBuildInputs = [ installShellFiles pkg-config qmake qttools ];
 
-  qmakeFlags = [
-    "MUPARSER_DIR=${muparser}"
-    "BOOST_DIR=${boost.dev}"
-  ];
+  qmakeFlags = [ "MUPARSER_DIR=${muparser}" "BOOST_DIR=${boost.dev}" ];
 
   postPatch = ''
     substituteInPlace scripts/postprocess-unix.sh \
@@ -49,7 +25,6 @@ mkDerivation rec {
     substituteInPlace librecad/src/main/qc_applicationwindow.cpp \
       --replace __DATE__ 0
   '';
-
 
   installPhase = ''
     runHook preInstall

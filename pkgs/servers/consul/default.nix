@@ -24,7 +24,7 @@ buildGoModule rec {
 
   # This corresponds to paths with package main - normally unneeded but consul
   # has a split module structure in one repo
-  subPackages = ["." "connect/certgen"];
+  subPackages = [ "." "connect/certgen" ];
 
   vendorHash = "sha256-Vcl23cWErAycmza1CS9rl+xJ7CBuocMAdSG9AA88SrQ=";
 
@@ -41,6 +41,11 @@ buildGoModule rec {
     homepage = "https://www.consul.io/";
     platforms = platforms.linux ++ platforms.darwin;
     license = licenses.mpl20;
-    maintainers = with maintainers; [ pradeepchhetri vdemeester nh2 techknowlogick];
+    maintainers = with maintainers; [
+      pradeepchhetri
+      vdemeester
+      nh2
+      techknowlogick
+    ];
   };
 }

@@ -15,11 +15,7 @@ python3Packages.buildPythonApplication rec {
       --replace "protobuf~=3.6" "protobuf"
   '';
 
-  propagatedBuildInputs = with python3Packages; [
-    click
-    protobuf
-    requests
-  ];
+  propagatedBuildInputs = with python3Packages; [ click protobuf requests ];
 
   # No tests in repository
   doCheck = false;

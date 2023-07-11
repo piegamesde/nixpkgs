@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, mock
-, nose
-, pytestCheckHook
-, pythonOlder
+{ lib, buildPythonPackage, fetchPypi, mock, nose, pytestCheckHook, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -19,15 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-Qbv/N9YYZDD3f5ANd35btqJJKKHEb7HeaS+LUriDO1w=";
   };
 
-  checkInputs = [
-    mock
-    nose
-    pytestCheckHook
-  ];
+  checkInputs = [ mock nose pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "parameterized/test.py"
-  ];
+  pytestFlagsArray = [ "parameterized/test.py" ];
 
   disabledTests = [
     # Tests seem outdated
@@ -37,14 +25,13 @@ buildPythonPackage rec {
     "testCamelCaseMethodC"
   ];
 
-  pythonImportsCheck = [
-    "parameterized"
-  ];
+  pythonImportsCheck = [ "parameterized" ];
 
   meta = with lib; {
     description = "Parameterized testing with any Python test framework";
     homepage = "https://github.com/wolever/parameterized";
-    changelog = "https://github.com/wolever/parameterized/blob/v${version}/CHANGELOG.txt";
+    changelog =
+      "https://github.com/wolever/parameterized/blob/v${version}/CHANGELOG.txt";
     license = licenses.bsd2;
     maintainers = with maintainers; [ ];
   };

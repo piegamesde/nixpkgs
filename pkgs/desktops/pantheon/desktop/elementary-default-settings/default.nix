@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, meson
-, ninja
-, nixos-artwork
-, glib
-, pkg-config
-, dbus
-, polkit
-, accountsservice
-, python3
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, nixos-artwork
+, glib, pkg-config, dbus, polkit, accountsservice, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "elementary-default-settings";
@@ -49,7 +37,9 @@ stdenv.mkDerivation rec {
   preInstall = ''
     # Install our override for plank dockitems as the desktop file path is different.
     schema_dir=$out/share/glib-2.0/schemas
-    install -D ${./overrides/plank-dockitems.gschema.override} $schema_dir/plank-dockitems.gschema.override
+    install -D ${
+      ./overrides/plank-dockitems.gschema.override
+    } $schema_dir/plank-dockitems.gschema.override
 
     # Our launchers that use paths at /run/current-system/sw/bin
     mkdir -p $out/etc/skel/.config/plank/dock1
@@ -62,9 +52,7 @@ stdenv.mkDerivation rec {
     rm -r $out/share/applications
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Default settings and configuration files for elementary";

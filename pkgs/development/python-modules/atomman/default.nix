@@ -1,27 +1,7 @@
-{ lib
-, ase
-, buildPythonPackage
-, cython
-, datamodeldict
-, fetchFromGitHub
-, matplotlib
-, numericalunits
-, numpy
-, pandas
-, phonopy
-, potentials
-, pymatgen
-, pytest
-, pytestCheckHook
-, pythonOlder
-, pythonAtLeast
-, requests
-, scipy
-, setuptools
-, toolz
-, xmltodict
-, pythonRelaxDepsHook
-}:
+{ lib, ase, buildPythonPackage, cython, datamodeldict, fetchFromGitHub
+, matplotlib, numericalunits, numpy, pandas, phonopy, potentials, pymatgen
+, pytest, pytestCheckHook, pythonOlder, pythonAtLeast, requests, scipy
+, setuptools, toolz, xmltodict, pythonRelaxDepsHook }:
 
 buildPythonPackage rec {
   version = "1.4.6";
@@ -37,10 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-tcsxtFbBdMC6+ixzqhnR+5UNwcQmnPQSvuyNA2IYelI=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ setuptools pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     cython
@@ -66,21 +43,13 @@ buildPythonPackage rec {
     rm -r atomman
   '';
 
-  nativeCheckInputs = [
-    ase
-    phonopy
-    pymatgen
-    pytest
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ ase phonopy pymatgen pytest pytestCheckHook ];
 
   disabledTests = [
     "test_unique_shifts_prototype" # needs network access to download database files
   ];
 
-  pythonImportsCheck = [
-    "atomman"
-  ];
+  pythonImportsCheck = [ "atomman" ];
 
   meta = with lib; {
     description = "Atomistic Manipulation Toolkit";

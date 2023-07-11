@@ -1,23 +1,7 @@
-{ lib
-, stdenv
-, mkDerivation
-, fetchFromGitHub
-, symlinkJoin
-, qttools
-, cmake
-, clang_8
-, grpc
-, protobuf
-, openssl
-, pkg-config
-, c-ares
-, libGL
-, zlib
-, curl
-, v2ray
+{ lib, stdenv, mkDerivation, fetchFromGitHub, symlinkJoin, qttools, cmake
+, clang_8, grpc, protobuf, openssl, pkg-config, c-ares, libGL, zlib, curl, v2ray
 , v2ray-geoip, v2ray-domain-list-community
-, assets ? [ v2ray-geoip v2ray-domain-list-community ]
-}:
+, assets ? [ v2ray-geoip v2ray-domain-list-community ] }:
 
 mkDerivation rec {
   pname = "qv2ray";
@@ -55,14 +39,7 @@ mkDerivation rec {
     export _QV2RAY_BUILD_EXTRA_INFO_="(Nixpkgs build) nixpkgs"
   '';
 
-  buildInputs = [
-    libGL
-    zlib
-    grpc
-    protobuf
-    openssl
-    c-ares
-  ];
+  buildInputs = [ libGL zlib grpc protobuf openssl c-ares ];
 
   nativeBuildInputs = [
     cmake

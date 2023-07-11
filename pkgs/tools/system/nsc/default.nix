@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "nsc";
@@ -16,12 +11,8 @@ buildGoModule rec {
     hash = "sha256-8TBg5ByR4d/AvJOiADW068W40wN7ggRT8LbZFfHeqz4=";
   };
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=v${version}"
-    "-X main.builtBy=nixpkgs"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X main.version=v${version}" "-X main.builtBy=nixpkgs" ];
 
   vendorHash = "sha256-Yywurr+RM96qJGH/WvuLDtf6bLzw9C5hG2d0ID9w1pQ=";
 
@@ -40,7 +31,8 @@ buildGoModule rec {
   '';
 
   meta = {
-    description = "A tool for creating NATS account and user access configurations";
+    description =
+      "A tool for creating NATS account and user access configurations";
     homepage = "https://github.com/nats-io/nsc";
     license = with lib.licenses; [ asl20 ];
     maintainers = with lib.maintainers; [ cbrewster ];

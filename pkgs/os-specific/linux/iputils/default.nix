@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ninja
-, pkg-config
-, gettext
-, libxslt
-, docbook_xsl_ns
-, libcap
-, libidn2
-, iproute2
-, apparmorRulesFromClosure
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, gettext, libxslt
+, docbook_xsl_ns, libcap, libidn2, iproute2, apparmorRulesFromClosure }:
 
 stdenv.mkDerivation rec {
   pname = "iputils";
@@ -37,9 +25,10 @@ stdenv.mkDerivation rec {
     "-DSKIP_TESTS=${lib.boolToString (!doCheck)}"
   ]
   # Disable idn usage w/musl (https://github.com/iputils/iputils/pull/111):
-  ++ lib.optional stdenv.hostPlatform.isMusl "-DUSE_IDN=false";
+    ++ lib.optional stdenv.hostPlatform.isMusl "-DUSE_IDN=false";
 
-  nativeBuildInputs = [ meson ninja pkg-config gettext libxslt.bin docbook_xsl_ns ];
+  nativeBuildInputs =
+    [ meson ninja pkg-config gettext libxslt.bin docbook_xsl_ns ];
   buildInputs = [ libcap ]
     ++ lib.optional (!stdenv.hostPlatform.isMusl) libidn2;
   nativeCheckInputs = [ iproute2 ];
@@ -52,8 +41,10 @@ stdenv.mkDerivation rec {
       include <abstractions/base>
       include <abstractions/consoles>
       include <abstractions/nameservice>
-      include "${apparmorRulesFromClosure { name = "ping"; }
-       ([libcap] ++ lib.optional (!stdenv.hostPlatform.isMusl) libidn2)}"
+      include "${
+        apparmorRulesFromClosure { name = "ping"; }
+        ([ libcap ] ++ lib.optional (!stdenv.hostPlatform.isMusl) libidn2)
+      }"
       include <local/bin.ping>
       capability net_raw,
       network inet raw,

@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, isPyPy
-, fetchPypi
-, fetchpatch
-, pytestCheckHook
-, setuptools-scm
-, apipkg
-, py
-}:
+{ lib, buildPythonPackage, isPyPy, fetchPypi, fetchpatch, pytestCheckHook
+, setuptools-scm, apipkg, py }:
 
 buildPythonPackage rec {
   pname = "execnet";
@@ -22,7 +14,8 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       # Fix test compat with pytest 7.2.0
-      url = "https://github.com/pytest-dev/execnet/commit/c0459b92bc4a42b08281e69b8802d24c5d3415d4.patch";
+      url =
+        "https://github.com/pytest-dev/execnet/commit/c0459b92bc4a42b08281e69b8802d24c5d3415d4.patch";
       hash = "sha256-AT2qr7AUpFXcPps525U63A7ARcEVmf0HM6ya73Z2vi0=";
     })
   ];
@@ -36,27 +29,19 @@ buildPythonPackage rec {
     ${lib.optionalString isPyPy "rm -v testing/test_multi.py"}
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    apipkg
-  ];
+  propagatedBuildInputs = [ apipkg ];
 
-  nativeCheckInputs = [
-    py
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ py pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "execnet"
-  ];
+  pythonImportsCheck = [ "execnet" ];
 
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {
-    changelog = "https://github.com/pytest-dev/execnet/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/pytest-dev/execnet/blob/v${version}/CHANGELOG.rst";
     description = "Distributed Python deployment and communication";
     homepage = "https://execnet.readthedocs.io/";
     license = licenses.mit;

@@ -1,7 +1,6 @@
 { lib, stdenv, fetchFromGitHub, zlib, cmake }:
 
-stdenv.mkDerivation rec
-{
+stdenv.mkDerivation rec {
   pname = "ptex";
   version = "2.4.2";
 

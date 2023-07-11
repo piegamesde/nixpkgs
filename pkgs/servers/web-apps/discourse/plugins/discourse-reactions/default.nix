@@ -12,6 +12,7 @@ mkDiscoursePlugin {
     homepage = "https://github.com/discourse/discourse-reactions";
     maintainers = with maintainers; [ bbenno ];
     license = licenses.mit;
-    description = "Allows users to react to a post from a choice of emojis, rather than only the like heart";
+    description =
+      "Allows users to react to a post from a choice of emojis, rather than only the like heart";
   };
 }

@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytools
-, appdirs
-, six
-, cgen
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytools, appdirs, six, cgen }:
 
 buildPythonPackage rec {
   pname = "codepy";

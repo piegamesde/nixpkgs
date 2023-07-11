@@ -1,13 +1,5 @@
-{ lib
-, fetchFromSourcehut
-, buildGoModule
-, buildPythonPackage
-, python
-, srht
-, pygit2
-, scmsrht
-, unzip
-}:
+{ lib, fetchFromSourcehut, buildGoModule, buildPythonPackage, python, srht
+, pygit2, scmsrht, unzip }:
 let
   version = "0.78.20";
 
@@ -53,8 +45,7 @@ let
     vendorSha256 = "sha256-Bc3yPabS2S+qiroHFKrtkII/CfzBDYQ6xWxKHAME+Tc=";
   };
 
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   inherit src version;
   pname = "gitsrht";
 
@@ -63,11 +54,7 @@ buildPythonPackage rec {
       --replace "all: api gitsrht-dispatch gitsrht-keys gitsrht-shell gitsrht-update-hook" ""
   '';
 
-  propagatedBuildInputs = [
-    srht
-    pygit2
-    scmsrht
-  ];
+  propagatedBuildInputs = [ srht pygit2 scmsrht ];
 
   preBuild = ''
     export PKGVER=${version}

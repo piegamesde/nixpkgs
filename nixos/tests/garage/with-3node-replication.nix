@@ -1,16 +1,25 @@
 args@{ mkNode, ... }:
-(import ../make-test-python.nix ({ pkgs, ...} :
-{
+(import ../make-test-python.nix ({ pkgs, ... }: {
   name = "garage-3node-replication";
-  meta = {
-    maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
-  };
+  meta = { maintainers = with pkgs.lib.maintainers; [ raitobezarius ]; };
 
   nodes = {
-    node1 = mkNode { replicationMode = 3; publicV6Address = "fc00:1::1"; };
-    node2 = mkNode { replicationMode = 3; publicV6Address = "fc00:1::2"; };
-    node3 = mkNode { replicationMode = 3; publicV6Address = "fc00:1::3"; };
-    node4 = mkNode { replicationMode = 3; publicV6Address = "fc00:1::4"; };
+    node1 = mkNode {
+      replicationMode = 3;
+      publicV6Address = "fc00:1::1";
+    };
+    node2 = mkNode {
+      replicationMode = 3;
+      publicV6Address = "fc00:1::2";
+    };
+    node3 = mkNode {
+      replicationMode = 3;
+      publicV6Address = "fc00:1::3";
+    };
+    node4 = mkNode {
+      replicationMode = 3;
+      publicV6Address = "fc00:1::4";
+    };
   };
 
   testScript = ''

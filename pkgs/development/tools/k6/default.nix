@@ -22,12 +22,13 @@ buildGoModule rec {
     $out/bin/k6 version | grep ${version} > /dev/null
   '';
 
-  postInstall = lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
-    installShellCompletion --cmd k6 \
-      --bash <($out/bin/k6 completion bash) \
-      --fish <($out/bin/k6 completion fish) \
-      --zsh <($out/bin/k6 completion zsh)
-  '';
+  postInstall =
+    lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
+      installShellCompletion --cmd k6 \
+        --bash <($out/bin/k6 completion bash) \
+        --fish <($out/bin/k6 completion fish) \
+        --zsh <($out/bin/k6 completion zsh)
+    '';
 
   meta = with lib; {
     description = "A modern load testing tool, using Go and JavaScript";

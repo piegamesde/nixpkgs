@@ -14,8 +14,10 @@ buildGoModule rec {
   vendorHash = "sha256-Q0XazJmfmAwR2wXD/RXO6nPiNyWFubBYL3kNFKBRMzc=";
 
   meta = with lib; {
-    changelog = "https://github.com/restic/rest-server/blob/${src.rev}/CHANGELOG.md";
-    description = "A high performance HTTP server that implements restic's REST backend API";
+    changelog =
+      "https://github.com/restic/rest-server/blob/${src.rev}/CHANGELOG.md";
+    description =
+      "A high performance HTTP server that implements restic's REST backend API";
     homepage = "https://github.com/restic/rest-server";
     platforms = platforms.unix;
     license = licenses.bsd2;

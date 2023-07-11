@@ -10,8 +10,7 @@ let
   opt = options.services.sickbeard;
   sickbeard = cfg.package;
 
-in
-{
+in {
 
   ###### interface
 
@@ -27,7 +26,7 @@ in
         default = pkgs.sickbeard;
         defaultText = literalExpression "pkgs.sickbeard";
         example = literalExpression "pkgs.sickrage";
-        description =lib.mdDoc ''
+        description = lib.mdDoc ''
           Enable `pkgs.sickrage` or `pkgs.sickgear`
           as an alternative to SickBeard
         '';
@@ -40,7 +39,8 @@ in
       configFile = mkOption {
         type = types.path;
         default = "${cfg.dataDir}/config.ini";
-        defaultText = literalExpression ''"''${config.${opt.dataDir}}/config.ini"'';
+        defaultText =
+          literalExpression ''"''${config.${opt.dataDir}}/config.ini"'';
         description = lib.mdDoc "Path to config file.";
       };
       port = mkOption {
@@ -60,7 +60,6 @@ in
       };
     };
   };
-
 
   ###### implementation
 
@@ -82,13 +81,16 @@ in
 
     systemd.services.sickbeard = {
       description = "Sickbeard Server";
-      wantedBy    = [ "multi-user.target" ];
+      wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = "${sickbeard}/bin/${sickbeard.pname} --datadir ${cfg.dataDir} --config ${cfg.configFile} --port ${toString cfg.port}";
+        ExecStart =
+          "${sickbeard}/bin/${sickbeard.pname} --datadir ${cfg.dataDir} --config ${cfg.configFile} --port ${
+            toString cfg.port
+          }";
       };
     };
   };

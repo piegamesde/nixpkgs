@@ -1,11 +1,5 @@
-{ lib
-, stdenv
-, buildGoModule
-, buildGoPackage
-, fetchFromGitHub
-, installShellFiles
-, pkgsBuildBuild
-}:
+{ lib, stdenv, buildGoModule, buildGoPackage, fetchFromGitHub, installShellFiles
+, pkgsBuildBuild }:
 
 let
   # Argo can package a static server in the CLI using the `staticfiles` go module.
@@ -32,8 +26,7 @@ let
 
     ldflags = [ "-s" "-w" ];
   };
-in
-buildGoModule rec {
+in buildGoModule rec {
   pname = "argo";
   version = "3.4.7";
 
@@ -48,13 +41,9 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [
-    "cmd/argo"
-  ];
+  subPackages = [ "cmd/argo" ];
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   preBuild = ''
     mkdir -p ui/dist/app
@@ -75,9 +64,11 @@ buildGoModule rec {
 
   postInstall = ''
     for shell in bash zsh; do
-      ${if (stdenv.buildPlatform == stdenv.hostPlatform)
-        then "$out/bin/argo"
-        else "${pkgsBuildBuild.argo}/bin/argo"
+      ${
+        if (stdenv.buildPlatform == stdenv.hostPlatform) then
+          "$out/bin/argo"
+        else
+          "${pkgsBuildBuild.argo}/bin/argo"
       } completion $shell > argo.$shell
       installShellCompletion argo.$shell
     done
@@ -86,7 +77,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Container native workflow engine for Kubernetes";
     homepage = "https://github.com/argoproj/argo";
-    changelog = "https://github.com/argoproj/argo-workflows/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/argoproj/argo-workflows/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ groodt ];
     platforms = platforms.unix;

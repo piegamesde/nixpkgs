@@ -1,10 +1,5 @@
-{ mkDerivation
-, lib
-, extra-cmake-modules
-, qtquickcontrols2
-, networkmanager-qt
-, ki18n
-}:
+{ mkDerivation, lib, extra-cmake-modules, qtquickcontrols2, networkmanager-qt
+, ki18n }:
 
 mkDerivation {
   pname = "kpublictransport";
@@ -14,9 +9,5 @@ mkDerivation {
   };
   nativeBuildInputs = [ extra-cmake-modules ];
 
-  buildInputs = [
-    qtquickcontrols2
-    networkmanager-qt
-    ki18n
-  ];
+  buildInputs = [ qtquickcontrols2 networkmanager-qt ki18n ];
 }

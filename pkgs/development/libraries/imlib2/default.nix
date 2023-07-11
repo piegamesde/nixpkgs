@@ -1,49 +1,30 @@
 { lib, stdenv, fetchurl
 # Image file formats
-, libjpeg, libtiff, giflib, libpng, libwebp, libjxl
-, libspectre
+, libjpeg, libtiff, giflib, libpng, libwebp, libjxl, libspectre
 # imlib2 can load images from ID3 tags.
-, libid3tag, librsvg, libheif
-, freetype , bzip2, pkg-config
-, x11Support ? true
-, webpSupport ? true
-, svgSupport ? false
-, heifSupport ? false
-, jxlSupport ? false
-, psSupport ? false
+, libid3tag, librsvg, libheif, freetype, bzip2, pkg-config, x11Support ? true
+, webpSupport ? true, svgSupport ? false, heifSupport ? false
+, jxlSupport ? false, psSupport ? false
 
-# for passthru.tests
-, libcaca
-, diffoscopeMinimal
-, feh
-, icewm
-, openbox
-, fluxbox
-, enlightenment
-, xorg
-, testers
-}:
+  # for passthru.tests
+, libcaca, diffoscopeMinimal, feh, icewm, openbox, fluxbox, enlightenment, xorg
+, testers }:
 
-let
-  inherit (lib) optional optionals;
-in
-stdenv.mkDerivation (finalAttrs: {
+let inherit (lib) optional optionals;
+in stdenv.mkDerivation (finalAttrs: {
   pname = "imlib2";
   version = "1.10.0";
 
   src = fetchurl {
-    url = "mirror://sourceforge/enlightenment/${finalAttrs.pname}-${finalAttrs.version}.tar.xz";
+    url =
+      "mirror://sourceforge/enlightenment/${finalAttrs.pname}-${finalAttrs.version}.tar.xz";
     hash = "sha256-cnwak3yIXAgMNyF+R23Ii1o+YNc38b8ECzQ1ILeBy7o=";
   };
 
-  buildInputs = [
-    libjpeg libtiff giflib libpng
-    bzip2 freetype libid3tag
-  ] ++ optionals x11Support [ xorg.libXft xorg.libXext ]
-    ++ optional heifSupport libheif
-    ++ optional svgSupport librsvg
-    ++ optional webpSupport libwebp
-    ++ optional jxlSupport libjxl
+  buildInputs = [ libjpeg libtiff giflib libpng bzip2 freetype libid3tag ]
+    ++ optionals x11Support [ xorg.libXft xorg.libXext ]
+    ++ optional heifSupport libheif ++ optional svgSupport librsvg
+    ++ optional webpSupport libwebp ++ optional jxlSupport libjxl
     ++ optional psSupport libspectre;
 
   nativeBuildInputs = [ pkg-config ];
@@ -60,14 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
   outputs = [ "bin" "out" "dev" ];
 
   passthru.tests = {
-    inherit
-      libcaca
-      diffoscopeMinimal
-      feh
-      icewm
-      openbox
-      fluxbox
-      enlightenment;
+    inherit libcaca diffoscopeMinimal feh icewm openbox fluxbox enlightenment;
   };
 
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
@@ -84,7 +58,8 @@ stdenv.mkDerivation (finalAttrs: {
     '';
 
     homepage = "https://docs.enlightenment.org/api/imlib2/html";
-    changelog = "https://git.enlightenment.org/legacy/imlib2.git/plain/ChangeLog?h=v${version}";
+    changelog =
+      "https://git.enlightenment.org/legacy/imlib2.git/plain/ChangeLog?h=v${version}";
     license = licenses.imlib2;
     pkgConfigModules = [ "imlib2" ];
     platforms = platforms.unix;

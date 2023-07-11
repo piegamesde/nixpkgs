@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, click
-, cryptography
-, ecdsa
-, fido2
-, intelhex
-, pyserial
-, pyusb
-, requests
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, click, cryptography
+, ecdsa, fido2, intelhex, pyserial, pyusb, requests }:
 
 buildPythonPackage rec {
   pname = "solo-python";
@@ -26,28 +15,15 @@ buildPythonPackage rec {
     hash = "sha256-XVPYr7JwxeZfZ68+vQ7a7MNiAfJ2bvMbM3R1ryVJ+OU=";
   };
 
-  propagatedBuildInputs = [
-    click
-    cryptography
-    ecdsa
-    fido2
-    intelhex
-    pyserial
-    pyusb
-    requests
-  ];
+  propagatedBuildInputs =
+    [ click cryptography ecdsa fido2 intelhex pyserial pyusb requests ];
 
   preBuild = ''
     export HOME=$TMPDIR
   '';
 
-  pythonImportsCheck = [
-    "solo"
-    "solo.cli"
-    "solo.commands"
-    "solo.fido2"
-    "solo.operations"
-  ];
+  pythonImportsCheck =
+    [ "solo" "solo.cli" "solo.commands" "solo.fido2" "solo.operations" ];
 
   meta = with lib; {
     description = "Python tool and library for SoloKeys Solo 1";

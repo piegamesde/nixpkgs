@@ -1,6 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, cmake, fftw, hamlib, libpulseaudio, libGL, libX11, liquid-dsp,
-  pkg-config, soapysdr-with-plugins, wxGTK32, enableDigitalLab ? false,
-  Cocoa, WebKit }:
+{ lib, stdenv, fetchFromGitHub, cmake, fftw, hamlib, libpulseaudio, libGL
+, libX11, liquid-dsp, pkg-config, soapysdr-with-plugins, wxGTK32
+, enableDigitalLab ? false, Cocoa, WebKit }:
 
 stdenv.mkDerivation rec {
   pname = "cubicsdr";

@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, flit-core
-, pytest
-, sphinx
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, flit-core, pytest, sphinx
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "sphinx-pytest";
@@ -22,19 +16,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    sphinx
-  ];
+  propagatedBuildInputs = [ sphinx ];
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
   pythonImportsCheck = [ "sphinx_pytest" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Helpful pytest fixtures for Sphinx extensions";

@@ -1,25 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchsvn
-, pkg-config
-, scons
-, libGLU
-, libGL
-, SDL2
-, SDL2_image
-, libvorbis
-, bullet
-, curl
-, gettext
-, writeShellScriptBin
+{ lib, stdenv, fetchFromGitHub, fetchsvn, pkg-config, scons, libGLU, libGL, SDL2
+, SDL2_image, libvorbis, bullet, curl, gettext, writeShellScriptBin
 
 , data ? fetchsvn {
-    url = "svn://svn.code.sf.net/p/vdrift/code/vdrift-data";
-    rev = "1446";
-    sha256 = "sha256-KEu49GAOfenPyuaUItt6W9pkuqUNpXgmTSFuc7ThljQ=";
-  }
-}:
+  url = "svn://svn.code.sf.net/p/vdrift/code/vdrift-data";
+  rev = "1446";
+  sha256 = "sha256-KEu49GAOfenPyuaUItt6W9pkuqUNpXgmTSFuc7ThljQ=";
+} }:
 let
   version = "unstable-2021-09-05";
   bin = stdenv.mkDerivation {
@@ -34,11 +20,10 @@ let
     };
 
     nativeBuildInputs = [ pkg-config scons ];
-    buildInputs = [ libGLU libGL SDL2 SDL2_image libvorbis bullet curl gettext ];
+    buildInputs =
+      [ libGLU libGL SDL2 SDL2_image libvorbis bullet curl gettext ];
 
-    patches = [
-      ./0001-Ignore-missing-data-for-installation.patch
-    ];
+    patches = [ ./0001-Ignore-missing-data-for-installation.patch ];
 
     buildPhase = ''
       sed -i -e s,/usr/local,$out, SConstruct
@@ -56,15 +41,12 @@ let
     };
   };
   wrappedName = "vdrift-${version}-with-data-${toString data.rev}";
-in
-(writeShellScriptBin "vdrift"  ''
+in (writeShellScriptBin "vdrift" ''
   export VDRIFT_DATA_DIRECTORY="${data}"
   exec ${bin}/bin/vdrift "$@"
 '').overrideAttrs (_: {
   name = wrappedName;
-  meta = bin.meta // {
-    hydraPlatforms = [ ];
-  };
+  meta = bin.meta // { hydraPlatforms = [ ]; };
   unwrapped = bin;
   inherit bin data;
 })

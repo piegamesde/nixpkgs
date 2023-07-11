@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, azure-common
-, azure-storage-common
-, msrest
+{ lib, buildPythonPackage, fetchPypi, azure-common, azure-storage-common, msrest
 }:
 
 buildPythonPackage rec {
@@ -16,17 +11,14 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  propagatedBuildInputs = [
-    azure-common
-    azure-storage-common
-    msrest
-  ];
+  propagatedBuildInputs = [ azure-common azure-storage-common msrest ];
 
   # has no tests
   doCheck = false;
 
   meta = with lib; {
-    description = "Client library for Microsoft Azure Storage services containing the queue service APIs";
+    description =
+      "Client library for Microsoft Azure Storage services containing the queue service APIs";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ cmcdragonkai ];

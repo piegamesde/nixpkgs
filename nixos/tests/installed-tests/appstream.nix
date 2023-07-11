@@ -3,7 +3,5 @@
 makeInstalledTest {
   tested = pkgs.appstream;
 
-  testConfig = {
-    appstream.enable = true;
-  };
+  testConfig = { appstream.enable = true; };
 }

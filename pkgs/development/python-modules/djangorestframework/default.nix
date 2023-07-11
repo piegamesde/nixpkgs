@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, coreapi
-, django
-, django-guardian
-, pythonOlder
-, pytest-django
-, pytestCheckHook
-, pytz
-, pyyaml
-, uritemplate
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, coreapi, django, django-guardian
+, pythonOlder, pytest-django, pytestCheckHook, pytz, pyyaml, uritemplate }:
 
 buildPythonPackage rec {
   pname = "djangorestframework";
@@ -24,10 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-Fnj0n3NS3SetOlwSmGkLE979vNJnYE6i6xwVBslpNz4=";
   };
 
-  propagatedBuildInputs = [
-    django
-    pytz
-  ];
+  propagatedBuildInputs = [ django pytz ];
 
   nativeCheckInputs = [
     pytest-django

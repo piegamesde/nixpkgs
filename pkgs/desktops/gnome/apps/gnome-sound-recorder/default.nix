@@ -1,29 +1,15 @@
-{ stdenv
-, lib
-, fetchurl
-, pkg-config
-, gettext
-, gobject-introspection
-, wrapGAppsHook
-, gjs
-, glib
-, gtk4
-, gdk-pixbuf
-, gst_all_1
-, gnome
-, meson
-, ninja
-, python3
-, desktop-file-utils
-, libadwaita
-}:
+{ stdenv, lib, fetchurl, pkg-config, gettext, gobject-introspection
+, wrapGAppsHook, gjs, glib, gtk4, gdk-pixbuf, gst_all_1, gnome, meson, ninja
+, python3, desktop-file-utils, libadwaita }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-sound-recorder";
   version = "43.beta";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "bbbbmjsbUv0KtU+aW/Tymctx5SoTrF/fw+dOtGmFpOY=";
   };
 
@@ -38,13 +24,7 @@ stdenv.mkDerivation rec {
     desktop-file-utils
   ];
 
-  buildInputs = [
-    gjs
-    glib
-    gtk4
-    gdk-pixbuf
-    libadwaita
-  ] ++ (with gst_all_1; [
+  buildInputs = [ gjs glib gtk4 gdk-pixbuf libadwaita ] ++ (with gst_all_1; [
     gstreamer
     gst-plugins-base
     gst-plugins-good

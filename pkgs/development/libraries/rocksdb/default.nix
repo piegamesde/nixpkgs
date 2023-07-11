@@ -1,21 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, ninja
-, bzip2
-, lz4
-, snappy
-, zlib
-, zstd
-, windows
-, enableJemalloc ? false
-, jemalloc
-, enableLite ? false
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, ninja, bzip2, lz4, snappy
+, zlib, zstd, windows, enableJemalloc ? false, jemalloc, enableLite ? false
 , enableShared ? !stdenv.hostPlatform.isStatic
-, sse42Support ? stdenv.hostPlatform.sse4_2Support
-}:
+, sse42Support ? stdenv.hostPlatform.sse4_2Support }:
 
 stdenv.mkDerivation rec {
   pname = "rocksdb";
@@ -35,10 +21,7 @@ stdenv.mkDerivation rec {
   buildInputs = lib.optional enableJemalloc jemalloc
     ++ lib.optional stdenv.hostPlatform.isMinGW windows.mingw_w64_pthreads;
 
-  outputs = [
-    "out"
-    "tools"
-  ];
+  outputs = [ "out" "tools" ];
 
   env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [
     "-Wno-error=deprecated-copy"
@@ -94,8 +77,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://rocksdb.org";
-    description = "A library that provides an embeddable, persistent key-value store for fast storage";
-    changelog = "https://github.com/facebook/rocksdb/raw/v${version}/HISTORY.md";
+    description =
+      "A library that provides an embeddable, persistent key-value store for fast storage";
+    changelog =
+      "https://github.com/facebook/rocksdb/raw/v${version}/HISTORY.md";
     license = licenses.asl20;
     platforms = platforms.all;
     maintainers = with maintainers; [ adev magenbluten ];

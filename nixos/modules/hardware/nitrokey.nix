@@ -6,9 +6,7 @@ let
 
   cfg = config.hardware.nitrokey;
 
-in
-
-{
+in {
   options.hardware.nitrokey = {
     enable = mkOption {
       type = types.bool;
@@ -21,7 +19,5 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
-    services.udev.packages = [ pkgs.libnitrokey ];
-  };
+  config = mkIf cfg.enable { services.udev.packages = [ pkgs.libnitrokey ]; };
 }

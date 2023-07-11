@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config
-, zlib, curl, protobuf, prime-server, boost, sqlite, libspatialite
-, luajit, geos39, python3, zeromq }:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, zlib, curl, protobuf
+, prime-server, boost, sqlite, libspatialite, luajit, geos39, python3, zeromq }:
 
 stdenv.mkDerivation rec {
   pname = "valhalla";
@@ -25,14 +24,20 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [
-    zlib curl protobuf prime-server boost sqlite libspatialite
-    luajit geos39 python3 zeromq
+    zlib
+    curl
+    protobuf
+    prime-server
+    boost
+    sqlite
+    libspatialite
+    luajit
+    geos39
+    python3
+    zeromq
   ];
 
-  cmakeFlags = [
-    "-DENABLE_TESTS=OFF"
-    "-DENABLE_BENCHMARKS=OFF"
-  ];
+  cmakeFlags = [ "-DENABLE_TESTS=OFF" "-DENABLE_BENCHMARKS=OFF" ];
 
   postFixup = ''
     substituteInPlace "$out"/lib/pkgconfig/libvalhalla.pc \

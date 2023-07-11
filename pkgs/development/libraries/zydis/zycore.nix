@@ -1,7 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, cmake
-}:
+{ stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "zycore";
@@ -18,8 +15,6 @@ stdenv.mkDerivation rec {
 
   # The absolute paths set by the Nix CMake build manager confuse
   # Zycore's config generation (which appends them to the package path).
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-    "-DCMAKE_INSTALL_INCLUDEDIR=include"
-  ];
+  cmakeFlags =
+    [ "-DCMAKE_INSTALL_LIBDIR=lib" "-DCMAKE_INSTALL_INCLUDEDIR=include" ];
 }

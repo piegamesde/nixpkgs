@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, fetchgit
-, unstableGitUpdater
-}:
+{ lib, buildGoModule, fetchgit, unstableGitUpdater }:
 
 buildGoModule {
   pname = "bloat";

@@ -25,8 +25,7 @@ let
       cp -r dist $out
     '';
   };
-in
-buildGoModule rec {
+in buildGoModule rec {
   pname = "memos";
   inherit version src;
 
@@ -40,9 +39,7 @@ buildGoModule rec {
     cp -r ${frontend} server/dist
   '';
 
-  passthru = {
-    updateScript = ./update.sh;
-  };
+  passthru = { updateScript = ./update.sh; };
 
   meta = with lib; {
     homepage = "https://usememos.com";

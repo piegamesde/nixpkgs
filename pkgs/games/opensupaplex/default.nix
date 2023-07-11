@@ -1,23 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchurl
-, makeDesktopItem
-, copyDesktopItems
-, testers
-, opensupaplex
-, SDL2
-, SDL2_mixer
-}:
+{ lib, stdenv, fetchFromGitHub, fetchurl, makeDesktopItem, copyDesktopItems
+, testers, opensupaplex, SDL2, SDL2_mixer }:
 
 let
   # Doesn't seem to be included in tagged releases, but does exist on master.
   icon = fetchurl {
-    url = "https://raw.githubusercontent.com/sergiou87/open-supaplex/b102548699cf16910b59559f689ecfad88d2a7d2/open-supaplex.svg";
+    url =
+      "https://raw.githubusercontent.com/sergiou87/open-supaplex/b102548699cf16910b59559f689ecfad88d2a7d2/open-supaplex.svg";
     sha256 = "sha256-nKeSBUGjSulbEP7xxc6smsfCRjyc/xsLykH0o3Rq5wo=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "opensupaplex";
   version = "7.1.2";
 
@@ -68,22 +59,26 @@ stdenv.mkDerivation rec {
     version = "v${version}";
   };
 
-  desktopItems = [(makeDesktopItem {
-    name = "opensupaplex";
-    exec = meta.mainProgram;
-    icon = "open-supaplex";
-    desktopName = "OpenSupaplex";
-    comment = meta.description;
-    categories = [ "Application" "Game" ];
-  })];
+  desktopItems = [
+    (makeDesktopItem {
+      name = "opensupaplex";
+      exec = meta.mainProgram;
+      icon = "open-supaplex";
+      desktopName = "OpenSupaplex";
+      comment = meta.description;
+      categories = [ "Application" "Game" ];
+    })
+  ];
 
   meta = with lib; {
     description = "A decompilation of Supaplex in C and SDL";
     homepage = "https://github.com/sergiou87/open-supaplex";
-    changelog = "https://github.com/sergiou87/open-supaplex/blob/master/changelog/v${version}.txt";
+    changelog =
+      "https://github.com/sergiou87/open-supaplex/blob/master/changelog/v${version}.txt";
     license = licenses.gpl3Only;
     maintainers = [ maintainers.ivar ];
-    platforms = platforms.linux; # Many more are supported upstream, but only linux is tested.
+    platforms =
+      platforms.linux; # Many more are supported upstream, but only linux is tested.
     mainProgram = "opensupaplex";
   };
 }

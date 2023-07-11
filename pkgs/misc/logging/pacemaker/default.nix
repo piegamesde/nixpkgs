@@ -1,31 +1,12 @@
-{ lib
-, stdenv
-, autoconf
-, automake
-, bash
-, bzip2
-, corosync
-, dbus
-, fetchFromGitHub
-, glib
-, gnutls
-, libqb
-, libtool
-, libuuid
-, libxml2
-, libxslt
-, pam
-, pkg-config
-, python3
-, nixosTests
+{ lib, stdenv, autoconf, automake, bash, bzip2, corosync, dbus, fetchFromGitHub
+, glib, gnutls, libqb, libtool, libuuid, libxml2, libxslt, pam, pkg-config
+, python3, nixosTests
 
 # Pacemaker is compiled twice, once with forOCF = true to extract its
 # OCF definitions for use in the ocf-resource-agents derivation, then
 # again with forOCF = false, where the ocf-resource-agents is provided
 # as the OCF_ROOT.
-, forOCF ? false
-, ocf-resource-agents
-} :
+, forOCF ? false, ocf-resource-agents }:
 
 stdenv.mkDerivation rec {
   pname = "pacemaker";
@@ -38,12 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vsHWNKCrHJIgXlJYyZZEUfuIUBnaejPrPCM1HrYOTKQ=";
   };
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoconf automake libtool pkg-config ];
 
   buildInputs = [
     bash
@@ -72,13 +48,13 @@ stdenv.mkDerivation rec {
     "--with-corosync"
     # allows Type=notify in the systemd service
     "--enable-systemd"
-  ] ++ lib.optional (!forOCF) "--with-ocfdir=${ocf-resource-agents}/usr/lib/ocf";
+  ] ++ lib.optional (!forOCF)
+    "--with-ocfdir=${ocf-resource-agents}/usr/lib/ocf";
 
   installFlags = [ "DESTDIR=${placeholder "out"}" ];
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [
-    "-Wno-error=strict-prototypes"
-  ]);
+  env.NIX_CFLAGS_COMPILE =
+    toString (lib.optionals stdenv.cc.isGNU [ "-Wno-error=strict-prototypes" ]);
 
   enableParallelBuilding = true;
 
@@ -88,13 +64,12 @@ stdenv.mkDerivation rec {
     rm -r $out/nix
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) pacemaker;
-  };
+  passthru.tests = { inherit (nixosTests) pacemaker; };
 
   meta = with lib; {
     homepage = "https://clusterlabs.org/pacemaker/";
-    description = "Pacemaker is an open source, high availability resource manager suitable for both small and large clusters.";
+    description =
+      "Pacemaker is an open source, high availability resource manager suitable for both small and large clusters.";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ryantm astro ];

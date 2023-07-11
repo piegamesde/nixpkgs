@@ -1,16 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonAtLeast
-, flit-core
-, pytestCheckHook
+{ lib, buildPythonPackage, fetchPypi, pythonAtLeast, flit-core, pytestCheckHook
 }:
 
 let
   pname = "socksio";
   version = "1.0.0";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "pyproject";
 
@@ -19,18 +13,14 @@ buildPythonPackage {
     hash = "sha256-+IvrPaW1w4uYkEad5n0MsPnUlLeLEGyhhF+WwQuRxKw=";
   };
 
-  nativeBuildInputs = [
-    flit-core
-  ];
+  nativeBuildInputs = [ flit-core ];
 
   # remove coverage configuration
   preCheck = ''
     rm pytest.ini
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Sans-I/O implementation of SOCKS4, SOCKS4A, and SOCKS5";

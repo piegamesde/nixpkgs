@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, aiofiles
-, aiohttp
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, aiofiles, aiohttp }:
 
 buildPythonPackage rec {
   pname = "mac-vendor-lookup";
@@ -21,16 +16,11 @@ buildPythonPackage rec {
     sed -i '/mac-vendors.txt/d' setup.py
   '';
 
-  propagatedBuildInputs = [
-    aiofiles
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiofiles aiohttp ];
 
   doCheck = false; # no tests
 
-  pythonImportsCheck = [
-    "mac_vendor_lookup"
-  ];
+  pythonImportsCheck = [ "mac_vendor_lookup" ];
 
   meta = with lib; {
     description = "Find the vendor for a given MAC address";

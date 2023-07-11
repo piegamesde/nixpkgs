@@ -1,10 +1,8 @@
 { lib, stdenv, fetchFromGitHub, pkg-config, meson, ninja, xxd, gettext, intltool
 , gtk3, lcms2, exiv2, libchamplain, clutter-gtk, ffmpegthumbnailer, fbida
 , libarchive, djvulibre, libheif, openjpeg, libjxl, libraw, lua5_3, poppler
-, gspell, libtiff, libwebp
-, wrapGAppsHook, fetchpatch, doxygen
-, nix-update-script
-}:
+, gspell, libtiff, libwebp, wrapGAppsHook, fetchpatch, doxygen
+, nix-update-script }:
 
 stdenv.mkDerivation rec {
   pname = "geeqie";
@@ -25,15 +23,27 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs =
-    [ pkg-config gettext intltool
-      wrapGAppsHook doxygen
-      meson ninja xxd
-    ];
+    [ pkg-config gettext intltool wrapGAppsHook doxygen meson ninja xxd ];
 
   buildInputs = [
-    gtk3 lcms2 exiv2 libchamplain clutter-gtk ffmpegthumbnailer fbida
-    libarchive djvulibre libheif openjpeg libjxl libraw lua5_3 poppler
-    gspell libtiff libwebp
+    gtk3
+    lcms2
+    exiv2
+    libchamplain
+    clutter-gtk
+    ffmpegthumbnailer
+    fbida
+    libarchive
+    djvulibre
+    libheif
+    openjpeg
+    libjxl
+    libraw
+    lua5_3
+    poppler
+    gspell
+    libtiff
+    libwebp
   ];
 
   postInstall = ''
@@ -45,23 +55,20 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Lightweight GTK based image viewer";
 
-    longDescription =
-      ''
-        Geeqie is a lightweight GTK based image viewer for Unix like
-        operating systems.  It features: EXIF, IPTC and XMP metadata
-        browsing and editing interoperability; easy integration with other
-        software; geeqie works on files and directories, there is no need to
-        import images; fast preview for many raw image formats; tools for
-        image comparison, sorting and managing photo collection.  Geeqie was
-        initially based on GQview.
-      '';
+    longDescription = ''
+      Geeqie is a lightweight GTK based image viewer for Unix like
+      operating systems.  It features: EXIF, IPTC and XMP metadata
+      browsing and editing interoperability; easy integration with other
+      software; geeqie works on files and directories, there is no need to
+      import images; fast preview for many raw image formats; tools for
+      image comparison, sorting and managing photo collection.  Geeqie was
+      initially based on GQview.
+    '';
 
     license = licenses.gpl2Plus;
 

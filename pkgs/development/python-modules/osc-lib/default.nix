@@ -1,16 +1,5 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, cliff
-, oslo-i18n
-, oslo-utils
-, openstacksdk
-, pbr
-, requests-mock
-, simplejson
-, stestr
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, cliff, oslo-i18n, oslo-utils
+, openstacksdk, pbr, requests-mock, simplejson, stestr }:
 
 buildPythonPackage rec {
   pname = "osc-lib";
@@ -26,22 +15,12 @@ buildPythonPackage rec {
   # fake version to make pbr.packaging happy and not reject it...
   PBR_VERSION = "2.5.0";
 
-  nativeBuildInputs = [
-    pbr
-  ];
+  nativeBuildInputs = [ pbr ];
 
-  propagatedBuildInputs = [
-    cliff
-    openstacksdk
-    oslo-i18n
-    oslo-utils
-    simplejson
-  ];
+  propagatedBuildInputs =
+    [ cliff openstacksdk oslo-i18n oslo-utils simplejson ];
 
-  nativeCheckInputs = [
-    requests-mock
-    stestr
-  ];
+  nativeCheckInputs = [ requests-mock stestr ];
 
   checkPhase = ''
     # tests parse cli output which slightly changed

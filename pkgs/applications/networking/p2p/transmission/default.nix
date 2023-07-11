@@ -1,39 +1,13 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, fetchurl
-, cmake
-, pkg-config
-, openssl
-, curl
-, libevent
-, inotify-tools
-, systemd
-, zlib
-, pcre
-, libb64
-, libutp
-, miniupnpc
-, dht
-, libnatpmp
-, libiconv
-  # Build options
-, enableGTK3 ? false
-, gtk3
-, xorg
-, wrapGAppsHook
-, enableQt ? false
-, qt5
-, nixosTests
-, enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
-, enableDaemon ? true
-, enableCli ? true
-, installLib ? false
-, apparmorRulesFromClosure
-}:
+{ stdenv, lib, fetchFromGitHub, fetchurl, cmake, pkg-config, openssl, curl
+, libevent, inotify-tools, systemd, zlib, pcre, libb64, libutp, miniupnpc, dht
+, libnatpmp, libiconv
+# Build options
+, enableGTK3 ? false, gtk3, xorg, wrapGAppsHook, enableQt ? false, qt5
+, nixosTests, enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
+, enableDaemon ? true, enableCli ? true, installLib ? false
+, apparmorRulesFromClosure }:
 
-let
-  version = "3.00";
+let version = "3.00";
 
 in stdenv.mkDerivation {
   pname = "transmission";
@@ -50,51 +24,35 @@ in stdenv.mkDerivation {
   patches = [
     # fix build with openssl 3.0
     (fetchurl {
-      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/net-p2p/transmission/files/transmission-3.00-openssl-3.patch";
+      url =
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/net-p2p/transmission/files/transmission-3.00-openssl-3.patch";
       hash = "sha256-peVrkGck8AfbC9uYNfv1CIu1alIewpca7A6kRXjVlVs=";
     })
   ];
 
   outputs = [ "out" "apparmor" ];
 
-  cmakeFlags =
-    let
-      mkFlag = opt: if opt then "ON" else "OFF";
-    in
-    [
-      "-DENABLE_MAC=OFF" # requires xcodebuild
-      "-DENABLE_GTK=${mkFlag enableGTK3}"
-      "-DENABLE_QT=${mkFlag enableQt}"
-      "-DENABLE_DAEMON=${mkFlag enableDaemon}"
-      "-DENABLE_CLI=${mkFlag enableCli}"
-      "-DINSTALL_LIB=${mkFlag installLib}"
-    ];
+  cmakeFlags = let mkFlag = opt: if opt then "ON" else "OFF";
+  in [
+    "-DENABLE_MAC=OFF" # requires xcodebuild
+    "-DENABLE_GTK=${mkFlag enableGTK3}"
+    "-DENABLE_QT=${mkFlag enableQt}"
+    "-DENABLE_DAEMON=${mkFlag enableDaemon}"
+    "-DENABLE_CLI=${mkFlag enableCli}"
+    "-DINSTALL_LIB=${mkFlag installLib}"
+  ];
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-  ]
-  ++ lib.optionals enableGTK3 [ wrapGAppsHook ]
-  ++ lib.optionals enableQt [ qt5.wrapQtAppsHook ]
-  ;
+  nativeBuildInputs = [ pkg-config cmake ]
+    ++ lib.optionals enableGTK3 [ wrapGAppsHook ]
+    ++ lib.optionals enableQt [ qt5.wrapQtAppsHook ];
 
-  buildInputs = [
-    openssl
-    curl
-    libevent
-    zlib
-    pcre
-    libb64
-    libutp
-    miniupnpc
-    dht
-    libnatpmp
-  ]
-  ++ lib.optionals enableQt [ qt5.qttools qt5.qtbase ]
-  ++ lib.optionals enableGTK3 [ gtk3 xorg.libpthreadstubs ]
-  ++ lib.optionals enableSystemd [ systemd ]
-  ++ lib.optionals stdenv.isLinux [ inotify-tools ]
-  ++ lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs =
+    [ openssl curl libevent zlib pcre libb64 libutp miniupnpc dht libnatpmp ]
+    ++ lib.optionals enableQt [ qt5.qttools qt5.qtbase ]
+    ++ lib.optionals enableGTK3 [ gtk3 xorg.libpthreadstubs ]
+    ++ lib.optionals enableSystemd [ systemd ]
+    ++ lib.optionals stdenv.isLinux [ inotify-tools ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
   postInstall = ''
     mkdir $apparmor
@@ -104,11 +62,12 @@ in stdenv.mkDerivation {
       include <abstractions/base>
       include <abstractions/nameservice>
       include <abstractions/ssl_certs>
-      include "${apparmorRulesFromClosure { name = "transmission-daemon"; } ([
-        curl libevent openssl pcre zlib libnatpmp miniupnpc
-      ] ++ lib.optionals enableSystemd [ systemd ]
-        ++ lib.optionals stdenv.isLinux [ inotify-tools ]
-      )}"
+      include "${
+        apparmorRulesFromClosure { name = "transmission-daemon"; }
+        ([ curl libevent openssl pcre zlib libnatpmp miniupnpc ]
+          ++ lib.optionals enableSystemd [ systemd ]
+          ++ lib.optionals stdenv.isLinux [ inotify-tools ])
+      }"
       r @{PROC}/sys/kernel/random/uuid,
       r @{PROC}/sys/vm/overcommit_memory,
       r @{PROC}/@{pid}/environ,
@@ -123,7 +82,8 @@ in stdenv.mkDerivation {
   '';
 
   passthru.tests = {
-    apparmor = nixosTests.transmission; # starts the service with apparmor enabled
+    apparmor =
+      nixosTests.transmission; # starts the service with apparmor enabled
     smoke-test = nixosTests.bittorrent;
   };
 

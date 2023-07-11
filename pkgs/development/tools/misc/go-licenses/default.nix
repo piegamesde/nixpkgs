@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "go-licenses";
@@ -24,9 +20,7 @@ buildGoModule rec {
     ./fix-go-version-error.patch
   ];
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   postInstall = ''
     installShellCompletion --cmd go-licenses \
@@ -39,8 +33,10 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    changelog = "https://github.com/google/go-licenses/releases/tag/v${version}";
-    description = "Reports on the licenses used by a Go package and its dependencies";
+    changelog =
+      "https://github.com/google/go-licenses/releases/tag/v${version}";
+    description =
+      "Reports on the licenses used by a Go package and its dependencies";
     homepage = "https://github.com/google/go-licenses";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ Luflosi ];

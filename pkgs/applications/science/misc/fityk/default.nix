@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, wxGTK32
-, boost
-, lua
-, zlib
-, bzip2
-, xylib
-, readline
-, gnuplot
-, swig3
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, wxGTK32, boost, lua, zlib, bzip2
+, xylib, readline, gnuplot, swig3 }:
 
 stdenv.mkDerivation rec {
   pname = "fityk";
@@ -25,21 +13,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [
-    wxGTK32
-    boost
-    lua
-    zlib
-    bzip2
-    xylib
-    readline
-    gnuplot
-    swig3
-  ];
+  buildInputs = [ wxGTK32 boost lua zlib bzip2 xylib readline gnuplot swig3 ];
 
-  env.NIX_CFLAGS_COMPILE = toString [
-    "-std=c++11"
-  ];
+  env.NIX_CFLAGS_COMPILE = toString [ "-std=c++11" ];
 
   meta = {
     description = "Curve fitting and peak fitting software";

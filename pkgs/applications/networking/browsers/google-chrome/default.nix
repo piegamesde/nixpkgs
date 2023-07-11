@@ -2,11 +2,11 @@
 
 # Linked dynamic libraries.
 , glib, fontconfig, freetype, pango, cairo, libX11, libXi, atk, nss, nspr
-, libXcursor, libXext, libXfixes, libXrender, libXScrnSaver, libXcomposite, libxcb
-, alsa-lib, libXdamage, libXtst, libXrandr, libxshmfence, expat, cups
+, libXcursor, libXext, libXfixes, libXrender, libXScrnSaver, libXcomposite
+, libxcb, alsa-lib, libXdamage, libXtst, libXrandr, libxshmfence, expat, cups
 , dbus, gtk3, gtk4, gdk-pixbuf, gcc-unwrapped, at-spi2-atk, at-spi2-core
-, libkrb5, libdrm, libglvnd, mesa
-, libxkbcommon, pipewire, wayland # ozone/wayland
+, libkrb5, libdrm, libglvnd, mesa, libxkbcommon, pipewire
+, wayland # ozone/wayland
 
 # Command line programs
 , coreutils
@@ -14,7 +14,7 @@
 # command line arguments which are always set e.g "--disable-gpu"
 , commandLineArgs ? ""
 
-# Will crash without.
+  # Will crash without.
 , systemd
 
 # Loaded at runtime.
@@ -31,50 +31,88 @@
 # Which distribution channel to use.
 , channel ? "stable"
 
-# Necessary for USB audio devices.
+  # Necessary for USB audio devices.
 , pulseSupport ? true, libpulseaudio
 
 # Only needed for getting information about upstream binaries
 , chromium
 
-, gsettings-desktop-schemas
-, gnome
+, gsettings-desktop-schemas, gnome
 
 # For video acceleration via VA-API (--enable-features=VaapiVideoDecoder)
 , libvaSupport ? true, libva
 
 # For Vulkan support (--enable-features=Vulkan)
-, addOpenGLRunpath
-}:
+, addOpenGLRunpath }:
 
 let
-  opusWithCustomModes = libopus.override {
-    withCustomModes = true;
-  };
+  opusWithCustomModes = libopus.override { withCustomModes = true; };
 
   version = chromium.upstream-info.version;
 
   deps = [
-    glib fontconfig freetype pango cairo libX11 libXi atk nss nspr
-    libXcursor libXext libXfixes libXrender libXScrnSaver libXcomposite libxcb
-    alsa-lib libXdamage libXtst libXrandr libxshmfence expat cups
-    dbus gdk-pixbuf gcc-unwrapped.lib
+    glib
+    fontconfig
+    freetype
+    pango
+    cairo
+    libX11
+    libXi
+    atk
+    nss
+    nspr
+    libXcursor
+    libXext
+    libXfixes
+    libXrender
+    libXScrnSaver
+    libXcomposite
+    libxcb
+    alsa-lib
+    libXdamage
+    libXtst
+    libXrandr
+    libxshmfence
+    expat
+    cups
+    dbus
+    gdk-pixbuf
+    gcc-unwrapped.lib
     systemd
-    libexif pciutils
-    liberation_ttf curl util-linux wget
-    flac harfbuzz icu libpng opusWithCustomModes snappy speechd
-    bzip2 libcap at-spi2-atk at-spi2-core
-    libkrb5 libdrm libglvnd mesa coreutils
-    libxkbcommon pipewire wayland
+    libexif
+    pciutils
+    liberation_ttf
+    curl
+    util-linux
+    wget
+    flac
+    harfbuzz
+    icu
+    libpng
+    opusWithCustomModes
+    snappy
+    speechd
+    bzip2
+    libcap
+    at-spi2-atk
+    at-spi2-core
+    libkrb5
+    libdrm
+    libglvnd
+    mesa
+    coreutils
+    libxkbcommon
+    pipewire
+    wayland
   ] ++ lib.optional pulseSupport libpulseaudio
-    ++ lib.optional libvaSupport libva
-    ++ [ gtk3 gtk4 ];
+    ++ lib.optional libvaSupport libva ++ [ gtk3 gtk4 ];
 
   suffix = lib.optionalString (channel != "stable") "-${channel}";
 
-  crashpadHandlerBinary = if lib.versionAtLeast version "94"
-    then "chrome_crashpad_handler"
-    else "crashpad_handler";
+  crashpadHandlerBinary = if lib.versionAtLeast version "94" then
+    "chrome_crashpad_handler"
+  else
+    "crashpad_handler";
 
 in stdenv.mkDerivation {
   inherit version;
@@ -86,7 +124,9 @@ in stdenv.mkDerivation {
   nativeBuildInputs = [ patchelf makeWrapper ];
   buildInputs = [
     # needed for GSETTINGS_SCHEMAS_PATH
-    gsettings-desktop-schemas glib gtk3
+    gsettings-desktop-schemas
+    glib
+    gtk3
 
     # needed for XDG_ICON_DIRS
     gnome.adwaita-icon-theme
@@ -97,7 +137,8 @@ in stdenv.mkDerivation {
     tar xf data.tar.xz
   '';
 
-  rpath = lib.makeLibraryPath deps + ":" + lib.makeSearchPathOutput "lib" "lib64" deps;
+  rpath = lib.makeLibraryPath deps + ":"
+    + lib.makeSearchPathOutput "lib" "lib64" deps;
   binpath = lib.makeBinPath deps;
 
   installPhase = ''
@@ -167,8 +208,9 @@ in stdenv.mkDerivation {
     # will try to merge PRs and respond to issues but I'm not actually using
     # Google Chrome.
     platforms = [ "x86_64-linux" ];
-    mainProgram =
-      if (channel == "dev") then "google-chrome-unstable"
-      else "google-chrome-${channel}";
+    mainProgram = if (channel == "dev") then
+      "google-chrome-unstable"
+    else
+      "google-chrome-${channel}";
   };
 }

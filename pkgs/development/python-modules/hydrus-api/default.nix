@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, poetry-core
-, requests
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, poetry-core, requests }:
 
 buildPythonPackage rec {
   pname = "hydrus-api";
@@ -25,13 +19,9 @@ buildPythonPackage rec {
       "poetry.core.masonry.api"
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    requests
-  ];
+  propagatedBuildInputs = [ requests ];
 
   pythonImportsCheck = [ "hydrus_api" ];
 

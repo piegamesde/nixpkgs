@@ -1,12 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, gbenchmark
-, gtest
-, civetweb
-, zlib
-, curl
+{ lib, stdenv, fetchFromGitHub, cmake, gbenchmark, gtest, civetweb, zlib, curl
 }:
 
 stdenv.mkDerivation rec {
@@ -25,10 +17,7 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ civetweb ];
   strictDeps = true;
 
-  cmakeFlags = [
-    "-DUSE_THIRDPARTY_LIBRARIES=OFF"
-    "-DBUILD_SHARED_LIBS=ON"
-  ];
+  cmakeFlags = [ "-DUSE_THIRDPARTY_LIBRARIES=OFF" "-DBUILD_SHARED_LIBS=ON" ];
 
   outputs = [ "out" "dev" ];
 

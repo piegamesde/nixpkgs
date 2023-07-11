@@ -1,15 +1,5 @@
-{ lib
-, asyncio-dgram
-, buildPythonPackage
-, click
-, dnspython
-, fetchFromGitHub
-, mock
-, poetry-core
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, asyncio-dgram, buildPythonPackage, click, dnspython, fetchFromGitHub
+, mock, poetry-core, pytest-asyncio, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "mcstatus";
@@ -25,21 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-LHcLqP9IGqi0YmjgFoTwojyS+IZmBOBujYWMPuqNc6w=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    asyncio-dgram
-    click
-    dnspython
-  ];
+  propagatedBuildInputs = [ asyncio-dgram click dnspython ];
 
-  nativeCheckInputs = [
-    mock
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytest-asyncio pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -49,9 +29,7 @@ buildPythonPackage rec {
       --replace 'dnspython = "2.2.1"' 'dnspython = ">=2.2.0"'
   '';
 
-  pythonImportsCheck = [
-    "mcstatus"
-  ];
+  pythonImportsCheck = [ "mcstatus" ];
 
   disabledTests = [
     # DNS features are limited in the sandbox

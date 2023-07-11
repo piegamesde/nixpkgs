@@ -1,11 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildDunePackage
-, camlp-streams
-, alcotest
-, qcheck
-, qcheck-alcotest
-}:
+{ lib, fetchFromGitHub, buildDunePackage, camlp-streams, alcotest, qcheck
+, qcheck-alcotest }:
 
 buildDunePackage rec {
   version = "2.0.0";
@@ -30,7 +24,8 @@ buildDunePackage rec {
     description = "An extended Pratt parser";
     homepage = "https://github.com/gabrielhdt/pratter";
     license = licenses.bsd3;
-    changelog = "https://github.com/gabrielhdt/pratter/raw/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/gabrielhdt/pratter/raw/${version}/CHANGELOG.md";
     maintainers = with maintainers; [ bcdarwin ];
   };
 }

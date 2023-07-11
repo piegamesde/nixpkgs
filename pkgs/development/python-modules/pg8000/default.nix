@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, importlib-metadata
-, passlib
-, python-dateutil
-, pythonOlder
-, scramp
-, setuptools
-}:
+{ lib, buildPythonPackage, fetchPypi, importlib-metadata, passlib
+, python-dateutil, pythonOlder, scramp, setuptools }:
 
 buildPythonPackage rec {
   pname = "pg8000";
@@ -21,17 +13,10 @@ buildPythonPackage rec {
     hash = "sha256-dtKqF1ejC8ceAwfa4Yw3TjNqaRI+awRuIGqWYR+iozA=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    passlib
-    python-dateutil
-    scramp
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs = [ passlib python-dateutil scramp ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   postPatch = ''
     sed '/^\[metadata\]/a version = ${version}' setup.cfg
@@ -40,9 +25,7 @@ buildPythonPackage rec {
   # Tests require a running PostgreSQL instance
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pg8000"
-  ];
+  pythonImportsCheck = [ "pg8000" ];
 
   meta = with lib; {
     description = "Python driver for PostgreSQL";

@@ -1,21 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, meson
-, ninja
-, pkg-config
-, python3
-, vala
-, wrapGAppsHook4
-, appcenter
-, elementary-settings-daemon
-, glib
-, granite7
-, gtk4
-, libadwaita
-, libgee
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
+, python3, vala, wrapGAppsHook4, appcenter, elementary-settings-daemon, glib
+, granite7, gtk4, libadwaita, libgee }:
 
 stdenv.mkDerivation rec {
   pname = "elementary-onboarding";
@@ -28,14 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OWALEcVOOh7wjEEvysd+MQhB/iK3105XCIVp5pklMwY=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-    vala
-    wrapGAppsHook4
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config python3 vala wrapGAppsHook4 ];
 
   buildInputs = [
     appcenter # settings schema
@@ -52,9 +30,7 @@ stdenv.mkDerivation rec {
     patchShebangs meson/post_install.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Onboarding app for new users designed for elementary OS";

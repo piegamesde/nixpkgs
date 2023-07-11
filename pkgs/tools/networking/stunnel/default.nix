@@ -1,8 +1,6 @@
 { lib, stdenv, fetchurl, openssl
 , systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd
-, nixosTests
-}:
-
+, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "stunnel";
@@ -11,7 +9,9 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "doc" "man" ];
 
   src = fetchurl {
-    url    = "https://www.stunnel.org/archive/${lib.versions.major version}.x/${pname}-${version}.tar.gz";
+    url = "https://www.stunnel.org/archive/${
+        lib.versions.major version
+      }.x/${pname}-${version}.tar.gz";
     sha256 = "sha256-H/fZ8wiEx1uYyKCk4VNPp5rcraIyJjXmeHM3tOOP24E=";
     # please use the contents of "https://www.stunnel.org/downloads/stunnel-${version}.tar.gz.sha256",
     # not the output of `nix-prefetch-url`
@@ -19,11 +19,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals systemdSupport [
-    systemd
-  ];
+  buildInputs = [ openssl ] ++ lib.optionals systemdSupport [ systemd ];
 
   configureFlags = [
     "--with-ssl=${openssl.dev}"
@@ -37,20 +33,15 @@ stdenv.mkDerivation rec {
     rm $out/bin/stunnel3
   '';
 
-  installFlags = [
-    "sysconfdir=\${out}/etc"
-    "localstatedir=\${TMPDIR}"
-  ];
+  installFlags = [ "sysconfdir=\${out}/etc" "localstatedir=\${TMPDIR}" ];
 
-  passthru.tests = {
-    stunnel = nixosTests.stunnel;
-  };
+  passthru.tests = { stunnel = nixosTests.stunnel; };
 
   meta = {
     description = "Universal tls/ssl wrapper";
-    homepage    = "https://www.stunnel.org/";
-    license     = lib.licenses.gpl2Plus;
-    platforms   = lib.platforms.unix;
+    homepage = "https://www.stunnel.org/";
+    license = lib.licenses.gpl2Plus;
+    platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.thoughtpolice ];
   };
 }

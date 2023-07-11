@@ -1,13 +1,6 @@
-{ lib
-, php
-, mkDerivation
-, fetchurl
-, makeWrapper
-}:
-let
-  php' = php.withExtensions ({ enabled, all }: enabled ++ [ all.ast ]);
-in
-mkDerivation rec {
+{ lib, php, mkDerivation, fetchurl, makeWrapper }:
+let php' = php.withExtensions ({ enabled, all }: enabled ++ [ all.ast ]);
+in mkDerivation rec {
   pname = "phan";
   version = "5.4.1";
 

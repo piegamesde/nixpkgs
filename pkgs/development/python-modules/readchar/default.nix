@@ -1,11 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
+{ lib, buildPythonPackage, fetchFromGitHub
 
 # tests
-, pytestCheckHook
-, pexpect
-}:
+, pytestCheckHook, pexpect }:
 
 buildPythonPackage rec {
   pname = "readchar";
@@ -31,10 +27,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "readchar" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pexpect
-  ];
+  nativeCheckInputs = [ pytestCheckHook pexpect ];
 
   meta = with lib; {
     homepage = "https://github.com/magmax/python-readchar";

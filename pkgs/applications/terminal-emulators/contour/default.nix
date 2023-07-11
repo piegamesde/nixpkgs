@@ -1,24 +1,6 @@
-{ lib
-, stdenv
-, mkDerivation
-, fetchFromGitHub
-, cmake
-, pkg-config
-, freetype
-, fontconfig
-, libGL
-, pcre
-, boost
-, catch2
-, fmt
-, microsoft_gsl
-, range-v3
-, yaml-cpp
-, ncurses
-, file
-, darwin
-, nixosTests
-}:
+{ lib, stdenv, mkDerivation, fetchFromGitHub, cmake, pkg-config, freetype
+, fontconfig, libGL, pcre, boost, catch2, fmt, microsoft_gsl, range-v3, yaml-cpp
+, ncurses, file, darwin, nixosTests }:
 
 let
   # Commits refs come from https://github.com/contour-terminal/contour/blob/master/scripts/install-deps.sh
@@ -35,8 +17,7 @@ let
     rev = "cd571e3cebb7c00de9168126b28852f32fb204ed";
     sha256 = "sha256-dNtOmBu63LFYfiGjXf34C2tiG8pMmsFT4yK3nBnK9WI=";
   };
-in
-mkDerivation rec {
+in mkDerivation rec {
   pname = "contour";
   version = "0.3.1.200";
 
@@ -47,12 +28,7 @@ mkDerivation rec {
     sha256 = "sha256-TpxVC0GFZD3jGISnDWHKEetgVVpznm5k/Vc2dwVfSG4=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    ncurses
-    file
-  ];
+  nativeBuildInputs = [ cmake pkg-config ncurses file ];
 
   buildInputs = [
     fontconfig
@@ -93,7 +69,8 @@ mkDerivation rec {
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;
     description = "Modern C++ Terminal Emulator";
     homepage = "https://github.com/contour-terminal/contour";
-    changelog = "https://github.com/contour-terminal/contour/raw/v${version}/Changelog.md";
+    changelog =
+      "https://github.com/contour-terminal/contour/raw/v${version}/Changelog.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ fortuneteller2k ];
     platforms = platforms.unix;

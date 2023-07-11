@@ -1,14 +1,12 @@
-{ lib, pkgs, stdenv, buildGoModule, fetchFromGitHub, nixosTests
-, nodejs, debianutils, mkdocs, python3, python3Packages }:
-
+{ lib, pkgs, stdenv, buildGoModule, fetchFromGitHub, nixosTests, nodejs
+, debianutils, mkdocs, python3, python3Packages }:
 
 let
   nodeDependencies = (import ./node-composition.nix {
     inherit pkgs nodejs;
     inherit (stdenv.hostPlatform) system;
   }).nodeDependencies;
-in
-buildGoModule rec {
+in buildGoModule rec {
   pname = "ntfy-sh";
   version = "2.4.0";
 
@@ -50,7 +48,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "Send push notifications to your phone or desktop via PUT/POST";
+    description =
+      "Send push notifications to your phone or desktop via PUT/POST";
     homepage = "https://ntfy.sh";
     license = licenses.asl20;
     maintainers = with maintainers; [ arjan-s fpletz ];

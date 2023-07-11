@@ -1,5 +1,4 @@
-{ lib, buildPythonApplication, fetchFromGitHub
-, requests, scapy }:
+{ lib, buildPythonApplication, fetchFromGitHub, requests, scapy }:
 
 buildPythonApplication rec {
   pname = "websploit";
@@ -12,10 +11,7 @@ buildPythonApplication rec {
     sha256 = "LpDfJmH2FbL37Fk86CAC/bxFqM035DBN6c6FPfGpaIw=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    scapy
-  ];
+  propagatedBuildInputs = [ requests scapy ];
 
   # Project has no tests
   doCheck = false;

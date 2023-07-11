@@ -1,39 +1,18 @@
-{ stdenv
-, lib
-, fetchurl
-, autoPatchelfHook
-, alsa-lib
-, coreutils
-, db
-, dpkg
-, glib
-, gtk3
-, wrapGAppsHook
-, libkrb5
-, libsecret
-, nss
-, openssl
-, udev
-, xorg
-, mesa
-, libdrm
-, libappindicator
-}:
+{ stdenv, lib, fetchurl, autoPatchelfHook, alsa-lib, coreutils, db, dpkg, glib
+, gtk3, wrapGAppsHook, libkrb5, libsecret, nss, openssl, udev, xorg, mesa
+, libdrm, libappindicator }:
 
 stdenv.mkDerivation rec {
   pname = "mailspring";
   version = "1.10.8";
 
   src = fetchurl {
-    url = "https://github.com/Foundry376/Mailspring/releases/download/${version}/mailspring-${version}-amd64.deb";
+    url =
+      "https://github.com/Foundry376/Mailspring/releases/download/${version}/mailspring-${version}-amd64.deb";
     sha256 = "sha256-aXpPn6tpSOwWL/34qlpJ+on/H+X7303J1jwvwcVOTNs=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    dpkg
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook dpkg wrapGAppsHook ];
 
   buildInputs = [
     alsa-lib
@@ -52,12 +31,7 @@ stdenv.mkDerivation rec {
     libdrm
   ];
 
-  runtimeDependencies = [
-    coreutils
-    openssl
-    (lib.getLib udev)
-    libappindicator
-  ];
+  runtimeDependencies = [ coreutils openssl (lib.getLib udev) libappindicator ];
 
   unpackPhase = ''
     runHook preUnpack
@@ -82,13 +56,15 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  postFixup = /* sh */ ''
-    substituteInPlace $out/share/applications/Mailspring.desktop \
-      --replace Exec=mailspring Exec=$out/bin/mailspring
-  '';
+  postFixup = # sh
+    ''
+      substituteInPlace $out/share/applications/Mailspring.desktop \
+        --replace Exec=mailspring Exec=$out/bin/mailspring
+    '';
 
   meta = with lib; {
-    description = "A beautiful, fast and maintained fork of Nylas Mail by one of the original authors";
+    description =
+      "A beautiful, fast and maintained fork of Nylas Mail by one of the original authors";
     longDescription = ''
       Mailspring is an open-source mail client forked from Nylas Mail and built with Electron.
       Mailspring's sync engine runs locally, but its source is not open.

@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, libX11
-, libXext
-, alsa-lib
-, autoPatchelfHook
-, releasePath ? null
-}:
+{ lib, stdenv, fetchurl, libX11, libXext, alsa-lib, autoPatchelfHook
+, releasePath ? null }:
 
 # To use the full release version (same as renoise):
 # 1) Sign into https://backstage.renoise.com and download the release version to some stable location.
@@ -18,22 +11,19 @@ stdenv.mkDerivation rec {
   pname = "redux";
   version = "1.3.2";
 
-  src = if releasePath != null then releasePath
-    else fetchurl {
-      url = "https://files.renoise.com/demo/Renoise_Redux_${lib.replaceStrings ["."] ["_"] version}_Demo_Linux_x86_64.tar.gz";
+  src = if releasePath != null then
+    releasePath
+  else
+    fetchurl {
+      url = "https://files.renoise.com/demo/Renoise_Redux_${
+          lib.replaceStrings [ "." ] [ "_" ] version
+        }_Demo_Linux_x86_64.tar.gz";
       sha256 = "sha256-wafOeNvVIHc8pOHoNQcCwV8+OwnuevJo1EcRQKRX4YA=";
     };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [
-    libX11
-    libXext
-    alsa-lib
-    stdenv.cc.cc.lib
-  ];
+  buildInputs = [ libX11 libXext alsa-lib stdenv.cc.cc.lib ];
 
   installPhase = ''
     runHook preInstall

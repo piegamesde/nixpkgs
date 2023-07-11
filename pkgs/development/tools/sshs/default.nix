@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, nix-update-script
-}:
+{ lib, buildGoModule, fetchFromGitHub, nix-update-script }:
 
 buildGoModule rec {
   pname = "sshs";
@@ -17,7 +13,8 @@ buildGoModule rec {
 
   vendorSha256 = "OCh37wjSs40Q0VQmoc1nXQ4nWddnoUCrI5xgxpxR/Ec=";
 
-  ldflags = [ "-s" "-w" "-X github.com/quantumsheep/sshs/cmd.Version=${version}" ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/quantumsheep/sshs/cmd.Version=${version}" ];
 
   passthru.updateScript = nix-update-script { };
 

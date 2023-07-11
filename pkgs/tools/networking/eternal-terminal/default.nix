@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, gflags
-, libsodium
-, openssl
-, protobuf
-, zlib
-, catch2
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, gflags, libsodium, openssl, protobuf
+, zlib, catch2 }:
 
 stdenv.mkDerivation rec {
   pname = "eternal-terminal";
@@ -21,17 +12,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-9W9Pz0VrFU+HNpf98I3CLrn8+kpjjNLOUK8gGcDJcI8=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    gflags
-    libsodium
-    openssl
-    protobuf
-    zlib
-  ];
+  buildInputs = [ gflags libsodium openssl protobuf zlib ];
 
   preBuild = ''
     cp ${catch2}/include/catch2/catch.hpp ../external_imported/Catch2/single_include/catch2/catch.hpp
@@ -43,16 +26,16 @@ stdenv.mkDerivation rec {
     "-DDISABLE_CRASH_LOG=TRUE"
   ];
 
-  CXXFLAGS = lib.optionals stdenv.cc.isClang [
-    "-std=c++17"
-  ];
+  CXXFLAGS = lib.optionals stdenv.cc.isClang [ "-std=c++17" ];
 
   doCheck = true;
 
   meta = with lib; {
-    description = "Remote shell that automatically reconnects without interrupting the session";
+    description =
+      "Remote shell that automatically reconnects without interrupting the session";
     homepage = "https://eternalterminal.dev/";
-    changelog = "https://github.com/MisterTea/EternalTerminal/releases/tag/et-v${version}";
+    changelog =
+      "https://github.com/MisterTea/EternalTerminal/releases/tag/et-v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ dezgeg ];
     platforms = platforms.linux ++ platforms.darwin;

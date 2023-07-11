@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, installShellFiles
-, Security
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, installShellFiles, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "tealdeer";

@@ -1,7 +1,5 @@
-{ lib, stdenv, fetchFromGitHub
-, autoreconfHook, bison, flex, pkg-config
-, curl, geoip, libmaxminddb, libxml2, lmdb, lua, pcre, pcre2, ssdeep, yajl
-, nixosTests
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, bison, flex, pkg-config, curl
+, geoip, libmaxminddb, libxml2, lmdb, lua, pcre, pcre2, ssdeep, yajl, nixosTests
 }:
 
 stdenv.mkDerivation rec {
@@ -17,7 +15,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook bison flex pkg-config ];
-  buildInputs = [ curl geoip libmaxminddb libxml2 lmdb lua pcre pcre2 ssdeep yajl ];
+  buildInputs =
+    [ curl geoip libmaxminddb libxml2 lmdb lua pcre pcre2 ssdeep yajl ];
 
   outputs = [ "out" "dev" ];
 
@@ -56,9 +55,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.tests = {
-    nginx-modsecurity = nixosTests.nginx-modsecurity;
-  };
+  passthru.tests = { nginx-modsecurity = nixosTests.nginx-modsecurity; };
 
   meta = with lib; {
     homepage = "https://github.com/SpiderLabs/ModSecurity";

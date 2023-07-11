@@ -1,25 +1,17 @@
-{ stdenv
-, lib
-, fetchurl
-, meson
-, ninja
-, python3
-, gnome
-, wrapGAppsNoGuiHook
-, gobject-introspection
-}:
+{ stdenv, lib, fetchurl, meson, ninja, python3, gnome, wrapGAppsNoGuiHook
+, gobject-introspection }:
 
-let
-  inherit (python3.pkgs) buildPythonApplication pygobject3;
-in
-buildPythonApplication rec {
+let inherit (python3.pkgs) buildPythonApplication pygobject3;
+in buildPythonApplication rec {
   pname = "gnome-browser-connector";
   version = "42.1";
 
   format = "other";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-browser-connector/${lib.versions.major version}/gnome-browser-connector-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-browser-connector/${
+        lib.versions.major version
+      }/gnome-browser-connector-${version}.tar.xz";
     sha256 = "vZcCzhwWNgbKMrjBPR87pugrJHz4eqxgYQtBHfFVYhI=";
   };
 
@@ -35,9 +27,7 @@ buildPythonApplication rec {
     gobject-introspection # for Gio typelib
   ];
 
-  pythonPath = [
-    pygobject3
-  ];
+  pythonPath = [ pygobject3 ];
 
   postPatch = ''
     patchShebangs contrib/merge_json.py
@@ -51,9 +41,8 @@ buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript {
-      packageName = "gnome-browser-connector";
-    };
+    updateScript =
+      gnome.updateScript { packageName = "gnome-browser-connector"; };
   };
 
   meta = with lib; {

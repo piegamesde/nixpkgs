@@ -1,17 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, buildPythonPackage
-, pkgconfig
-, gmp
-, pari
-, mpfr
-, fplll
-, cython
-, cysignals
-, numpy
-, pytest
-}:
+{ stdenv, lib, fetchFromGitHub, buildPythonPackage, pkgconfig, gmp, pari, mpfr
+, fplll, cython, cysignals, numpy, pytest }:
 
 buildPythonPackage rec {
   pname = "fpylll";
@@ -24,26 +12,13 @@ buildPythonPackage rec {
     hash = "sha256-T6l6hKzRDevlLyLu5H+bnEdl0OhsPer1coCDiftbPAk=";
   };
 
-  buildInputs = [
-    gmp
-    pari
-    mpfr
-    fplll
-  ];
+  buildInputs = [ gmp pari mpfr fplll ];
 
-  propagatedBuildInputs = [
-    cython
-    cysignals
-    numpy
-  ];
+  propagatedBuildInputs = [ cython cysignals numpy ];
 
-  nativeBuildInputs = [
-    pkgconfig
-  ];
+  nativeBuildInputs = [ pkgconfig ];
 
-  nativeCheckInputs = [
-    pytest
-  ];
+  nativeCheckInputs = [ pytest ];
 
   checkPhase = ''
     # Since upstream introduced --doctest-modules in

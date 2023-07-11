@@ -12,13 +12,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-  ];
-  buildInputs = [
-    SDL2
-  ];
+  nativeBuildInputs = [ cmake makeWrapper ];
+  buildInputs = [ SDL2 ];
 
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
 
@@ -35,7 +30,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A port of Nanosaur, a 1998 Macintosh game by Pangea Software, for modern operating systems";
+    description =
+      "A port of Nanosaur, a 1998 Macintosh game by Pangea Software, for modern operating systems";
     longDescription = ''
       Nanosaur is a 1998 Macintosh game by Pangea Software.
       In it, you’re a cybernetic dinosaur from the future who’s sent back in time 20 minutes before a giant asteroid hits the Earth.

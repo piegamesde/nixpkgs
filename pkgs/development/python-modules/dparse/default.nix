@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, toml
-, pyyaml
-, packaging
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, toml, pyyaml, packaging
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "dparse";
@@ -20,19 +13,11 @@ buildPythonPackage rec {
     hash = "sha256-1FJVvaIfmYvH3fKv1eYlBbphNHVrotQqhMVrCCZhTf4=";
   };
 
-  propagatedBuildInputs = [
-    toml
-    pyyaml
-    packaging
-  ];
+  propagatedBuildInputs = [ toml pyyaml packaging ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "dparse"
-  ];
+  pythonImportsCheck = [ "dparse" ];
 
   disabledTests = [
     # requires unpackaged dependency pipenv

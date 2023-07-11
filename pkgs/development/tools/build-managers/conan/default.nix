@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, git
-, pkg-config
-, python3
-, zlib
-}:
+{ lib, stdenv, fetchFromGitHub, git, pkg-config, python3, zlib }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "conan";
@@ -19,33 +12,26 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-yx/MO5QAVKnGraQXJitXxaZooLtBqa+L04s73DwiE14=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    bottle
-    colorama
-    python-dateutil
-    distro
-    fasteners
-    jinja2
-    patch-ng
-    pluginbase
-    pygments
-    pyjwt
-    pylint # Not in `requirements.txt` but used in hooks, see https://github.com/conan-io/conan/pull/6152
-    pyyaml
-    requests
-    tqdm
-    urllib3
-  ] ++ lib.optionals stdenv.isDarwin [
-    idna
-    cryptography
-    pyopenssl
-  ];
+  propagatedBuildInputs = with python3.pkgs;
+    [
+      bottle
+      colorama
+      python-dateutil
+      distro
+      fasteners
+      jinja2
+      patch-ng
+      pluginbase
+      pygments
+      pyjwt
+      pylint # Not in `requirements.txt` but used in hooks, see https://github.com/conan-io/conan/pull/6152
+      pyyaml
+      requests
+      tqdm
+      urllib3
+    ] ++ lib.optionals stdenv.isDarwin [ idna cryptography pyopenssl ];
 
-  nativeCheckInputs = [
-    git
-    pkg-config
-    zlib
-  ] ++ (with python3.pkgs; [
+  nativeCheckInputs = [ git pkg-config zlib ] ++ (with python3.pkgs; [
     mock
     parameterized
     pytest-xdist
@@ -53,14 +39,9 @@ python3.pkgs.buildPythonApplication rec {
     webtest
   ]);
 
-  pythonImportsCheck = [
-    "conan"
-  ];
+  pythonImportsCheck = [ "conan" ];
 
-  pytestFlagsArray = [
-    "-n"
-    "$NIX_BUILD_CORES"
-  ];
+  pytestFlagsArray = [ "-n" "$NIX_BUILD_CORES" ];
 
   disabledTests = [
     # Tests require network access

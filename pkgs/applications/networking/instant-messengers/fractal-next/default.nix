@@ -1,25 +1,7 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, meson
-, ninja
-, rustPlatform
-, pkg-config
-, glib
-, gtk4
-, gtksourceview5
-, libadwaita
-, gstreamer
-, gst-plugins-base
-, gst-plugins-bad
-, libsecret
-, desktop-file-utils
-, appstream-glib
-, openssl
-, pipewire
-, libshumate
-, wrapGAppsHook4
-}:
+{ stdenv, lib, fetchFromGitLab, meson, ninja, rustPlatform, pkg-config, glib
+, gtk4, gtksourceview5, libadwaita, gstreamer, gst-plugins-base, gst-plugins-bad
+, libsecret, desktop-file-utils, appstream-glib, openssl, pipewire, libshumate
+, wrapGAppsHook4 }:
 
 stdenv.mkDerivation rec {
   pname = "fractal-next";
@@ -36,8 +18,10 @@ stdenv.mkDerivation rec {
   cargoDeps = rustPlatform.importCargoLock {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "indexed_db_futures-0.2.3" = "sha256-yAG2gqMclkyQNfb+gG+YlPX46rKSKGAmagQqlcP6gr8=";
-      "matrix-sdk-0.5.0" = "sha256-qti8NEl8nhGLclX3AjF5X+RLX8AH2CQw/Z+uL3wRMp4=";
+      "indexed_db_futures-0.2.3" =
+        "sha256-yAG2gqMclkyQNfb+gG+YlPX46rKSKGAmagQqlcP6gr8=";
+      "matrix-sdk-0.5.0" =
+        "sha256-qti8NEl8nhGLclX3AjF5X+RLX8AH2CQw/Z+uL3wRMp4=";
     };
   };
 

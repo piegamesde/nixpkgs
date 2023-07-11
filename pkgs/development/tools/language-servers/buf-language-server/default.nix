@@ -13,10 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-ORzCOmBx6k1GZj6pYLhqPsdneCc7Tt1yHpI5mw5ruFU=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
     description = "Language server for protocol buffers";

@@ -1,18 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools
 # documentation build dependencies
-, sphinxHook
-, sphinx-rtd-theme
-, matplotlib
-, ipython
+, sphinxHook, sphinx-rtd-theme, matplotlib, ipython
 # runtime dependencies
-, sphinx
-, beautifulsoup4
+, sphinx, beautifulsoup4
 # check dependencies
-, pytest
-}:
+, pytest }:
 
 buildPythonPackage rec {
   pname = "sphinx-codeautolink";
@@ -28,13 +20,8 @@ buildPythonPackage rec {
     hash = "sha256-iXUdOwyTRViDTDRPCcteiJ2Rcdbpiol7JPEzqbUwIPc=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-    sphinxHook
-    sphinx-rtd-theme
-    matplotlib
-    ipython
-  ];
+  nativeBuildInputs =
+    [ setuptools sphinxHook sphinx-rtd-theme matplotlib ipython ];
 
   sphinxRoot = "docs/src";
 

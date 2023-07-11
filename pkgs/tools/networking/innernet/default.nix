@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchFromGitHub
-, llvmPackages
-, sqlite
-, installShellFiles
-, Security
-, libiconv
-, innernet
-, testers
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, llvmPackages, sqlite
+, installShellFiles, Security, libiconv, innernet, testers }:
 
 rustPlatform.buildRustPackage rec {
   pname = "innernet";
@@ -23,12 +13,9 @@ rustPlatform.buildRustPackage rec {
   };
   cargoSha256 = "sha256-qQ6yRI0rNxV/TRZHCR69h6kx6L2Wp75ziw+B2P8LZmE=";
 
-  nativeBuildInputs = with llvmPackages; [
-    llvm
-    clang
-    installShellFiles
-  ];
-  buildInputs = [ sqlite ] ++ lib.optionals stdenv.isDarwin [ Security libiconv ];
+  nativeBuildInputs = with llvmPackages; [ llvm clang installShellFiles ];
+  buildInputs = [ sqlite ]
+    ++ lib.optionals stdenv.isDarwin [ Security libiconv ];
 
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 
@@ -43,8 +30,14 @@ rustPlatform.buildRustPackage rec {
   '');
 
   passthru.tests = {
-    serverVersion = testers.testVersion { package = innernet; command = "innernet-server --version"; };
-    version = testers.testVersion { package = innernet; command = "innernet --version"; };
+    serverVersion = testers.testVersion {
+      package = innernet;
+      command = "innernet-server --version";
+    };
+    version = testers.testVersion {
+      package = innernet;
+      command = "innernet --version";
+    };
   };
 
   meta = with lib; {

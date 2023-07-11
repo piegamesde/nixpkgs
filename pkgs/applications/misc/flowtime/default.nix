@@ -1,19 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, vala
-, meson
-, ninja
-, wrapGAppsHook4
-, libadwaita
-, libxml2
-, libgee
-, gst_all_1
-, gobject-introspection
-, desktop-file-utils
-, glib
-, pkg-config
-}:
+{ stdenv, lib, fetchFromGitHub, vala, meson, ninja, wrapGAppsHook4, libadwaita
+, libxml2, libgee, gst_all_1, gobject-introspection, desktop-file-utils, glib
+, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "flowtime";
@@ -37,15 +24,8 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [
-    libadwaita
-    libxml2
-    libgee
-  ] ++ (with gst_all_1; [
-    gstreamer
-    gst-plugins-base
-    gst-plugins-bad
-  ]);
+  buildInputs = [ libadwaita libxml2 libgee ]
+    ++ (with gst_all_1; [ gstreamer gst-plugins-base gst-plugins-bad ]);
 
   meta = with lib; {
     description = "Get what motivates you done, without losing concentration";

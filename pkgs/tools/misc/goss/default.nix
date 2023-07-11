@@ -14,9 +14,7 @@ buildGoModule rec {
   vendorSha256 = "sha256-zlQMVn4w6syYmntxpeiIc1UTbFrIJzOMg0RVDCICTM8=";
 
   CGO_ENABLED = 0;
-  ldflags = [
-    "-s" "-w" "-X main.version=v${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=v${version}" ];
 
   meta = with lib; {
     homepage = "https://github.com/aelsabbahy/goss/";

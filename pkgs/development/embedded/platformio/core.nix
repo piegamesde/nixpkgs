@@ -1,11 +1,8 @@
-{ stdenv, lib, python3
-, fetchFromGitHub
-, fetchPypi
-, git
-, spdx-license-list-data
+{ stdenv, lib, python3, fetchFromGitHub, fetchPypi, git, spdx-license-list-data
 }:
 
-with python3.pkgs; buildPythonApplication rec {
+with python3.pkgs;
+buildPythonApplication rec {
   pname = "platformio";
 
   version = "6.1.6";
@@ -65,10 +62,7 @@ with python3.pkgs; buildPythonApplication rec {
     export PATH=$PATH:$out/bin
   '';
 
-  nativeCheckInputs = [
-    jsondiff
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ jsondiff pytestCheckHook ];
 
   # Install udev rules into a separate output so all of platformio-core is not a dependency if
   # you want to use the udev rules on NixOS but not install platformio in your system packages.
@@ -101,9 +95,7 @@ with python3.pkgs; buildPythonApplication rec {
     "test_ping_internet_ips"
   ];
 
-  pytestFlagsArray = [
-    "tests"
-  ] ++ (map (e: "--deselect tests/${e}") [
+  pytestFlagsArray = [ "tests" ] ++ (map (e: "--deselect tests/${e}") [
     "commands/pkg/test_exec.py::test_pkg_specified"
     "commands/pkg/test_exec.py::test_unrecognized_options"
     "commands/test_ci.py::test_ci_boards"
@@ -162,9 +154,7 @@ with python3.pkgs; buildPythonApplication rec {
     "test_pkgmanifest.py::test_packages"
   ]);
 
-  passthru = {
-    python = python3;
-  };
+  passthru = { python = python3; };
 
   meta = with lib; {
     description = "An open source ecosystem for IoT development";

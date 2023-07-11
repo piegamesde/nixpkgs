@@ -1,10 +1,4 @@
-{ stdenv
-, lib
-, fetchzip
-, util-linux
-, jq
-, mtools
-}:
+{ stdenv, lib, fetchzip, util-linux, jq, mtools }:
 
 stdenv.mkDerivation rec {
   pname = "memtest86-efi";
@@ -13,16 +7,13 @@ stdenv.mkDerivation rec {
   src = fetchzip {
     # We're using the Internet Archive Wayback Machine because the company developing MemTest86 has stopped providing a versioned download link for the latest version:
     # https://forums.passmark.com/memtest86/44494-version-8-1-distribution-file-is-not-versioned
-    url = "https://web.archive.org/web/20211111004725/https://www.memtest86.com/downloads/memtest86-usb.zip";
+    url =
+      "https://web.archive.org/web/20211111004725/https://www.memtest86.com/downloads/memtest86-usb.zip";
     sha256 = "sha256-GJdZCUFw1uX4HcaaAy5QqDGNqHTFtrqla13wF7xCAaM=";
     stripRoot = false;
   };
 
-  nativeBuildInputs = [
-    util-linux
-    jq
-    mtools
-  ];
+  nativeBuildInputs = [ util-linux jq mtools ];
 
   installPhase = ''
     runHook preInstall

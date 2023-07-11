@@ -1,12 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildGoModule
-, pandoc
-, installShellFiles
-, nix-update-script
-, testers
-, eget
-}:
+{ lib, fetchFromGitHub, buildGoModule, pandoc, installShellFiles
+, nix-update-script, testers, eget }:
 
 buildGoModule rec {
   pname = "eget";

@@ -1,26 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, cairo
-, fontconfig
-, freetype
-, fribidi
-, libXcursor
-, libXft
-, libXinerama
-, libXpm
-, libXt
-, libpng
-, librsvg
-, libstroke
-, libxslt
-, perl
-, pkg-config
-, python3Packages
-, readline
-, enableGestures ? false
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, cairo, fontconfig, freetype
+, fribidi, libXcursor, libXft, libXinerama, libXpm, libXt, libpng, librsvg
+, libstroke, libxslt, perl, pkg-config, python3Packages, readline
+, enableGestures ? false }:
 
 stdenv.mkDerivation rec {
   pname = "fvwm";
@@ -33,11 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-KcuX8las1n8UUE/BOHj7WOeZjva5hxgpFHtATMUk3bg=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    python3Packages.wrapPython
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config python3Packages.wrapPython ];
 
   buildInputs = [
     cairo
@@ -57,14 +34,9 @@ stdenv.mkDerivation rec {
     readline
   ] ++ lib.optional enableGestures libstroke;
 
-  pythonPath = [
-    python3Packages.pyxdg
-  ];
+  pythonPath = [ python3Packages.pyxdg ];
 
-  configureFlags = [
-    "--enable-mandoc"
-    "--disable-htmldoc"
-  ];
+  configureFlags = [ "--enable-mandoc" "--disable-htmldoc" ];
 
   postFixup = ''
     wrapPythonPrograms

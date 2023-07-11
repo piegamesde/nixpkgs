@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libX11, libxcb
-, libXrandr, wayland, moltenvk, vulkan-headers, addOpenGLRunpath }:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libX11, libxcb, libXrandr
+, wayland, moltenvk, vulkan-headers, addOpenGLRunpath }:
 
 stdenv.mkDerivation rec {
   pname = "vulkan-loader";
@@ -20,8 +20,10 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DCMAKE_INSTALL_INCLUDEDIR=${vulkan-headers}/include" ]
     ++ lib.optional stdenv.isDarwin "-DSYSCONFDIR=${moltenvk}/share"
-    ++ lib.optional stdenv.isLinux "-DSYSCONFDIR=${addOpenGLRunpath.driverLink}/share"
-    ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) "-DUSE_GAS=OFF";
+    ++ lib.optional stdenv.isLinux
+    "-DSYSCONFDIR=${addOpenGLRunpath.driverLink}/share"
+    ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
+    "-DUSE_GAS=OFF";
 
   outputs = [ "out" "dev" ];
 
@@ -36,9 +38,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "LunarG Vulkan loader";
-    homepage    = "https://www.lunarg.com";
-    platforms   = platforms.unix;
-    license     = licenses.asl20;
+    homepage = "https://www.lunarg.com";
+    platforms = platforms.unix;
+    license = licenses.asl20;
     maintainers = [ maintainers.ralith ];
     broken = (version != vulkan-headers.version);
   };

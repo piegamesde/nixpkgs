@@ -1,18 +1,6 @@
-{ lib
-, arrow
-, buildPythonPackage
-, fetchPypi
-, importlib-metadata
-, logfury
-, pyfakefs
-, pytestCheckHook
-, pytest-lazy-fixture
-, pytest-mock
-, pythonOlder
-, requests
-, setuptools-scm
-, tqdm
-}:
+{ lib, arrow, buildPythonPackage, fetchPypi, importlib-metadata, logfury
+, pyfakefs, pytestCheckHook, pytest-lazy-fixture, pytest-mock, pythonOlder
+, requests, setuptools-scm, tqdm }:
 
 buildPythonPackage rec {
   pname = "b2sdk";
@@ -26,25 +14,13 @@ buildPythonPackage rec {
     hash = "sha256-aJpSt+dXjw4S33dBiMkaR6wxzwLru+jseuPKFj2R36Y=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    arrow
-    logfury
-    requests
-    tqdm
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs = [ arrow logfury requests tqdm ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-lazy-fixture
-    pytest-mock
-    pyfakefs
-  ];
+  nativeCheckInputs =
+    [ pytestCheckHook pytest-lazy-fixture pytest-mock pyfakefs ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -66,12 +42,11 @@ buildPythonPackage rec {
     "test_large_file"
   ];
 
-  pythonImportsCheck = [
-    "b2sdk"
-  ];
+  pythonImportsCheck = [ "b2sdk" ];
 
   meta = with lib; {
-    description = "Client library and utilities for access to B2 Cloud Storage (backblaze)";
+    description =
+      "Client library and utilities for access to B2 Cloud Storage (backblaze)";
     homepage = "https://github.com/Backblaze/b2-sdk-python";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

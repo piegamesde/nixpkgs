@@ -1,8 +1,6 @@
 import ./make-test-python.nix ({ lib, ... }: {
   name = "systemd-bpf";
-  meta = with lib.maintainers; {
-    maintainers = [ veehaitch ];
-  };
+  meta = with lib.maintainers; { maintainers = [ veehaitch ]; };
   nodes = {
     node1 = {
       virtualisation.vlans = [ 1 ];
@@ -10,9 +8,10 @@ import ./make-test-python.nix ({ lib, ... }: {
         useNetworkd = true;
         useDHCP = false;
         firewall.enable = false;
-        interfaces.eth1.ipv4.addresses = [
-          { address = "192.168.1.1"; prefixLength = 24; }
-        ];
+        interfaces.eth1.ipv4.addresses = [{
+          address = "192.168.1.1";
+          prefixLength = 24;
+        }];
       };
     };
 
@@ -22,9 +21,10 @@ import ./make-test-python.nix ({ lib, ... }: {
         useNetworkd = true;
         useDHCP = false;
         firewall.enable = false;
-        interfaces.eth1.ipv4.addresses = [
-          { address = "192.168.1.2"; prefixLength = 24; }
-        ];
+        interfaces.eth1.ipv4.addresses = [{
+          address = "192.168.1.2";
+          prefixLength = 24;
+        }];
       };
     };
   };

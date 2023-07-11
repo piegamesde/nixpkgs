@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pythonOlder
-, setuptools
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder, setuptools
 }:
 
 buildPythonPackage rec {
@@ -18,22 +13,17 @@ buildPythonPackage rec {
     hash = "sha256-9dhpwY8DAgLrQS8Iso0q/upVPWYTruieIA16yn7wH18=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "msgpack"
-  ];
+  pythonImportsCheck = [ "msgpack" ];
 
-  meta = with lib;  {
+  meta = with lib; {
     description = "MessagePack serializer implementation";
     homepage = "https://github.com/msgpack/msgpack-python";
-    changelog = "https://github.com/msgpack/msgpack-python/blob/master/ChangeLog.rst";
+    changelog =
+      "https://github.com/msgpack/msgpack-python/blob/master/ChangeLog.rst";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

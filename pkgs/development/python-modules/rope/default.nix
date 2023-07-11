@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytoolconfig
-, pytest-timeout
-, pytestCheckHook
-, pythonOlder
-, setuptools
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytoolconfig, pytest-timeout
+, pytestCheckHook, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "rope";
@@ -22,18 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-avNCti288dY9pl5AVTmUzZU/vb6WDkXEtELNlEi6L/o=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    pytoolconfig
-  ] ++ pytoolconfig.optional-dependencies.global;
+  propagatedBuildInputs = [ pytoolconfig ]
+    ++ pytoolconfig.optional-dependencies.global;
 
-  nativeCheckInputs = [
-    pytest-timeout
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-timeout pytestCheckHook ];
 
   disabledTests = [
     "test_search_submodule"
@@ -44,7 +31,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python refactoring library";
     homepage = "https://github.com/python-rope/rope";
-    changelog = "https://github.com/python-rope/rope/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/python-rope/rope/blob/${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ goibhniu ];
   };

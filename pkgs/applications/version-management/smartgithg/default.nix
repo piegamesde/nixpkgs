@@ -1,22 +1,14 @@
-{ lib
-, stdenv
-, fetchurl
-, makeDesktopItem
-, jre
-, gtk3
-, glib
-, gnome
-, wrapGAppsHook
-, libXtst
-, which
-}:
+{ lib, stdenv, fetchurl, makeDesktopItem, jre, gtk3, glib, gnome, wrapGAppsHook
+, libXtst, which }:
 
 stdenv.mkDerivation rec {
   pname = "smartgithg";
   version = "22.1.5";
 
   src = fetchurl {
-    url = "https://www.syntevo.com/downloads/smartgit/smartgit-linux-${builtins.replaceStrings [ "." ] [ "_" ] version}.tar.gz";
+    url = "https://www.syntevo.com/downloads/smartgit/smartgit-linux-${
+        builtins.replaceStrings [ "." ] [ "_" ] version
+      }.tar.gz";
     sha256 = "sha256-s31sYEC1g7eLMhT9UkmjbBnHePY9wnQPmgGQXgVX4j4=";
   };
 
@@ -27,11 +19,7 @@ stdenv.mkDerivation rec {
   preFixup = with lib; ''
     gappsWrapperArgs+=( \
       --prefix PATH : ${makeBinPath [ jre which ]} \
-      --prefix LD_LIBRARY_PATH : ${makeLibraryPath [
-        gtk3
-        glib
-        libXtst
-      ]} \
+      --prefix LD_LIBRARY_PATH : ${makeLibraryPath [ gtk3 glib libXtst ]} \
       --prefix JRE_HOME : ${jre} \
       --prefix JAVA_HOME : ${jre} \
       --prefix SMARTGITHG_JAVA_HOME : ${jre} \
@@ -63,26 +51,23 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItem = with lib; makeDesktopItem rec {
-    name = "smartgit";
-    exec = "smartgit";
-    comment = meta.description;
-    icon = "smartgit";
-    desktopName = "SmartGit";
-    categories = [
-      "Application"
-      "Development"
-      "RevisionControl"
-    ];
-    mimeTypes = [
-      "x-scheme-handler/git"
-      "x-scheme-handler/smartgit"
-      "x-scheme-handler/sourcetree"
-    ];
-    startupNotify = true;
-    startupWMClass = name;
-    keywords = [ "git" ];
-  };
+  desktopItem = with lib;
+    makeDesktopItem rec {
+      name = "smartgit";
+      exec = "smartgit";
+      comment = meta.description;
+      icon = "smartgit";
+      desktopName = "SmartGit";
+      categories = [ "Application" "Development" "RevisionControl" ];
+      mimeTypes = [
+        "x-scheme-handler/git"
+        "x-scheme-handler/smartgit"
+        "x-scheme-handler/sourcetree"
+      ];
+      startupNotify = true;
+      startupWMClass = name;
+      keywords = [ "git" ];
+    };
 
   meta = with lib; {
     description = "GUI for Git, Mercurial, Subversion";

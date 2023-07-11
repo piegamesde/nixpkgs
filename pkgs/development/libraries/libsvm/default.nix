@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, fixDarwinDylibNames
-, llvmPackages
-, withOpenMP ? true
-}:
+{ lib, stdenv, fetchurl, fixDarwinDylibNames, llvmPackages, withOpenMP ? true }:
 
 stdenv.mkDerivation rec {
   pname = "libsvm";
@@ -17,7 +11,8 @@ stdenv.mkDerivation rec {
 
   patches = lib.optionals withOpenMP [ ./openmp.patch ];
 
-  buildInputs = lib.optionals (stdenv.cc.isClang && withOpenMP) [ llvmPackages.openmp ];
+  buildInputs =
+    lib.optionals (stdenv.cc.isClang && withOpenMP) [ llvmPackages.openmp ];
 
   buildFlags = [ "lib" "all" ];
 
@@ -25,25 +20,23 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 
-  installPhase =
-    let
-      libSuff = stdenv.hostPlatform.extensions.sharedLibrary;
-      soVersion = "3";
-    in
-    ''
-      runHook preInstall
+  installPhase = let
+    libSuff = stdenv.hostPlatform.extensions.sharedLibrary;
+    soVersion = "3";
+  in ''
+    runHook preInstall
 
-      install -D libsvm.so.${soVersion} $out/lib/libsvm.${soVersion}${libSuff}
-      ln -s $out/lib/libsvm.${soVersion}${libSuff} $out/lib/libsvm${libSuff}
+    install -D libsvm.so.${soVersion} $out/lib/libsvm.${soVersion}${libSuff}
+    ln -s $out/lib/libsvm.${soVersion}${libSuff} $out/lib/libsvm${libSuff}
 
-      install -Dt $bin/bin/ svm-scale svm-train svm-predict
+    install -Dt $bin/bin/ svm-scale svm-train svm-predict
 
-      install -Dm644 -t $dev/include svm.h
-      mkdir $dev/include/libsvm
-      ln -s $dev/include/svm.h $dev/include/libsvm/svm.h
+    install -Dm644 -t $dev/include svm.h
+    mkdir $dev/include/libsvm
+    ln -s $dev/include/svm.h $dev/include/libsvm/svm.h
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   meta = with lib; {
     description = "A library for support vector machines";

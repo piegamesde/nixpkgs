@@ -13,14 +13,17 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "doc" ];
 
-  nativeBuildInputs = [ texlive.combined.scheme-full ]; # scheme-full needed for ucs package
+  nativeBuildInputs =
+    [ texlive.combined.scheme-full ]; # scheme-full needed for ucs package
   buildInputs = [ xercesc ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
-  buildFlags =
-    [ "doc" ] ++
-    (if stdenv.isDarwin
-     then [ "blahtex-mac" "blahtexml-mac" ]
-     else [ "blahtex-linux" "blahtexml-linux" ]);
+  buildFlags = [ "doc" ] ++ (if stdenv.isDarwin then [
+    "blahtex-mac"
+    "blahtexml-mac"
+  ] else [
+    "blahtex-linux"
+    "blahtexml-linux"
+  ]);
 
   installPhase = ''
     install -D -t "$out/bin" blahtex blahtexml

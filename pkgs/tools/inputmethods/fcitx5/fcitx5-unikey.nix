@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, extra-cmake-modules
-, fcitx5
-, fcitx5-qt
-, gettext
-, wrapQtAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, fcitx5, fcitx5-qt
+, gettext, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "fcitx5-unikey";

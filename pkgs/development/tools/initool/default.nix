@@ -1,8 +1,4 @@
-{ stdenv
-, mlton
-, lib
-, fetchFromGitHub
-}:
+{ stdenv, mlton, lib, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "initool";
@@ -34,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "Manipulate INI files from the command line";
     homepage = "https://github.com/dbohdan/initool";
     license = licenses.mit;
-    maintainers = with maintainers; [ e1mo ];
+    maintainers = with maintainers; [ 0.0 mo ];
     changelog = "https://github.com/dbohdan/initool/releases/tag/v${version}";
   };
 }

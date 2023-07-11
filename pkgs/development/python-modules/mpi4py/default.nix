@@ -9,9 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-F4WPLrxiMiDQEg0fqNQo0DPd50nEvDWzPYGmatf5NIA=";
   };
 
-  passthru = {
-    inherit mpi;
-  };
+  passthru = { inherit mpi; };
 
   postPatch = ''
     substituteInPlace test/test_spawn.py --replace \
@@ -39,7 +37,7 @@ buildPythonPackage rec {
     export OMPI_MCA_rmaps_base_oversubscribe=yes
   '';
 
-  setupPyBuildFlags = ["--mpicc=${mpi}/bin/mpicc"];
+  setupPyBuildFlags = [ "--mpicc=${mpi}/bin/mpicc" ];
 
   nativeBuildInputs = [ mpi ];
 

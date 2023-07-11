@@ -1,31 +1,11 @@
-{ stdenvNoCC
-, lib
-, fetchurl
-, autoPatchelfHook
-, copyDesktopItems
-, freetype
-, makeDesktopItem
-, makeWrapper
-, libGL
-, libGLU
+{ stdenvNoCC, lib, fetchurl, autoPatchelfHook, copyDesktopItems, freetype
+, makeDesktopItem, makeWrapper, libGL, libGLU
 # Darwin cannot handle these when devendored:
 # - DYLD_LIBRARY_PATH masks system libraries with similar, differently-cased names and cause missing symbol errors
 # - symlinks cause unrelated BMP image loading to fail(?)
-, devendorImageLibs ? !stdenvNoCC.hostPlatform.isDarwin
-, libjpeg
-, libpng12
-, libX11
-, libXext
-, libXi
-, libXmu
-, runtimeShell
-, SDL_compat
-, SDL_image
-, SDL_ttf
-, undmg
-, unrpa
-, zlib
-}:
+, devendorImageLibs ? !stdenvNoCC.hostPlatform.isDarwin, libjpeg, libpng12
+, libX11, libXext, libXi, libXmu, runtimeShell, SDL_compat, SDL_image, SDL_ttf
+, undmg, unrpa, zlib }:
 
 let
   stdenv = stdenvNoCC;
@@ -39,14 +19,15 @@ let
       urlSuffix = "%5bmac%5d%5b1DFC84A6%5d.dmg";
       hash = "sha256-Sc5BAlpJsffjcNrZ8+VU3n7G10DoqDKQn/leHDW32Y8=";
     };
-  }.${stdenv.hostPlatform.system} or (throw "Don't know how to fetch source for ${stdenv.hostPlatform.system}!");
-in
-stdenv.mkDerivation rec {
+  }.${stdenv.hostPlatform.system} or (throw
+    "Don't know how to fetch source for ${stdenv.hostPlatform.system}!");
+in stdenv.mkDerivation rec {
   pname = "katawa-shoujo";
   version = "1.3.1";
 
   src = fetchurl {
-    url = "https://dl.katawa-shoujo.com/gold_${version}/%5b4ls%5d_katawa_shoujo_${version}-${srcDetails.urlSuffix}";
+    url =
+      "https://dl.katawa-shoujo.com/gold_${version}/%5b4ls%5d_katawa_shoujo_${version}-${srcDetails.urlSuffix}";
     inherit (srcDetails) hash;
   };
 
@@ -57,55 +38,51 @@ stdenv.mkDerivation rec {
     autoPatchelfHook
     copyDesktopItems
     unrpa
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    makeWrapper
-    undmg
-  ];
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ makeWrapper undmg ];
 
-  buildInputs = [
-    freetype
-    SDL_compat
-    zlib
-  ] ++ lib.optionals devendorImageLibs [
-    libjpeg
-    libpng12
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
-    libX11
-    libXext
-    libXi
-    libXmu
-    libGL
-    libGLU
-  ];
+  buildInputs = [ freetype SDL_compat zlib ]
+    ++ lib.optionals devendorImageLibs [ libjpeg libpng12 ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
+      libX11
+      libXext
+      libXi
+      libXmu
+      libGL
+      libGLU
+    ];
 
-  desktopItems = [(makeDesktopItem rec {
-    name = "katawa-shoujo";
-    desktopName = "Katawa Shoujo";
-    comment = meta.description;
-    exec = name;
-    icon = name;
-    categories = [ "Game" ];
-  })];
+  desktopItems = [
+    (makeDesktopItem rec {
+      name = "katawa-shoujo";
+      desktopName = "Katawa Shoujo";
+      comment = meta.description;
+      exec = name;
+      icon = name;
+      categories = [ "Game" ];
+    })
+  ];
 
   dontConfigure = true;
   dontBuild = true;
 
   installPhase = let
-    platformDetails = with stdenv.hostPlatform; if isDarwin then rec {
-      arch = "darwin-x86_64";
-      sourceDir = "'Katawa Shoujo'.app";
-      installDir = "$out/Applications/'Katawa Shoujo'.app";
-      dataDir = "${installDir}/Contents/Resources/autorun";
-      bin = "${installDir}/Contents/MacOS/'Katawa Shoujo'";
-    } else rec {
-      arch = "linux-${if isx86_64 then "x86_64" else "i686"}";
-      sourceDir = "'Katawa Shoujo'-${version}-linux";
-      installDir = "$out/share/katawa-shoujo";
-      dataDir = installDir;
-      bin = "${installDir}/'Katawa Shoujo'.sh";
-    };
+    platformDetails = with stdenv.hostPlatform;
+      if isDarwin then rec {
+        arch = "darwin-x86_64";
+        sourceDir = "'Katawa Shoujo'.app";
+        installDir = "$out/Applications/'Katawa Shoujo'.app";
+        dataDir = "${installDir}/Contents/Resources/autorun";
+        bin = "${installDir}/Contents/MacOS/'Katawa Shoujo'";
+      } else rec {
+        arch = "linux-${if isx86_64 then "x86_64" else "i686"}";
+        sourceDir = "'Katawa Shoujo'-${version}-linux";
+        installDir = "$out/share/katawa-shoujo";
+        dataDir = installDir;
+        bin = "${installDir}/'Katawa Shoujo'.sh";
+      };
     libDir = with platformDetails; "${dataDir}/lib/${arch}";
-  in with platformDetails; ''
+  in with platformDetails;
+  ''
     runHook preInstall
 
     mkdir -p "$(dirname ${installDir})"
@@ -152,7 +129,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Bishoujo-style visual novel by Four Leaf Studios, built in Ren'Py";
+    description =
+      "Bishoujo-style visual novel by Four Leaf Studios, built in Ren'Py";
     longDescription = ''
       Katawa Shoujo is a bishoujo-style visual novel set in the fictional Yamaku High School for disabled children,
       located somewhere in modern Japan. Hisao Nakai, a normal boy living a normal life, has his life turned upside down

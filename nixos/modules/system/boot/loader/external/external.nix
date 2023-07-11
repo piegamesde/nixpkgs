@@ -2,17 +2,16 @@
 
 with lib;
 
-let
-  cfg = config.boot.loader.external;
-in
-{
+let cfg = config.boot.loader.external;
+in {
   meta = {
     maintainers = with maintainers; [ cole-h grahamc raitobezarius ];
     doc = ./external.md;
   };
 
   options.boot.loader.external = {
-    enable = mkEnableOption (lib.mdDoc "use an external tool to install your bootloader");
+    enable = mkEnableOption
+      (lib.mdDoc "use an external tool to install your bootloader");
 
     installHook = mkOption {
       type = with types; path;

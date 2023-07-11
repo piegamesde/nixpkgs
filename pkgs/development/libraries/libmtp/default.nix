@@ -1,16 +1,5 @@
-{ stdenv
-, autoconf
-, automake
-, fetchFromGitHub
-, fetchpatch
-, gettext
-, lib
-, libiconv
-, libtool
-, libusb1
-, pkg-config
-, buildPackages
-}:
+{ stdenv, autoconf, automake, fetchFromGitHub, fetchpatch, gettext, lib
+, libiconv, libtool, libusb1, pkg-config, buildPackages }:
 
 stdenv.mkDerivation rec {
   pname = "libmtp";
@@ -26,20 +15,15 @@ stdenv.mkDerivation rec {
   patches = [
     # Backport cross fix.
     (fetchpatch {
-      url = "https://github.com/libmtp/libmtp/commit/467fa26e6b14c0884b15cf6d191de97e5513fe05.patch";
+      url =
+        "https://github.com/libmtp/libmtp/commit/467fa26e6b14c0884b15cf6d191de97e5513fe05.patch";
       sha256 = "2DrRrdcguJ9su4LxtT6YOjer8gUTxIoHVpk+6M9P4cg=";
     })
   ];
 
   outputs = [ "bin" "dev" "out" ];
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    gettext
-    libtool
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoconf automake gettext libtool pkg-config ];
 
   buildInputs = [ libiconv ];
 
@@ -51,9 +35,9 @@ stdenv.mkDerivation rec {
 
   configurePlatforms = [ "build" "host" ];
 
-  makeFlags = lib.optionals (stdenv.isLinux && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-    "MTP_HOTPLUG=${buildPackages.libmtp}/bin/mtp-hotplug"
-  ];
+  makeFlags = lib.optionals
+    (stdenv.isLinux && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+    [ "MTP_HOTPLUG=${buildPackages.libmtp}/bin/mtp-hotplug" ];
 
   enableParallelBuilding = true;
 

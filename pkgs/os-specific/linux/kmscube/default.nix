@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchgit, fetchpatch, autoreconfHook, libdrm, libX11, libGL, mesa, pkg-config }:
+{ lib, stdenv, fetchgit, fetchpatch, autoreconfHook, libdrm, libX11, libGL, mesa
+, pkg-config }:
 
 stdenv.mkDerivation {
   pname = "kmscube";
@@ -14,7 +15,8 @@ stdenv.mkDerivation {
     # Pull upstream patch for -fno-common toolchains.
     (fetchpatch {
       name = "fno-common.patch";
-      url = "https://gitlab.freedesktop.org/mesa/kmscube/-/commit/908ef39864442c0807954af5d3f88a3da1a6f8a5.patch";
+      url =
+        "https://gitlab.freedesktop.org/mesa/kmscube/-/commit/908ef39864442c0807954af5d3f88a3da1a6f8a5.patch";
       sha256 = "1gxn3b50mvjlc25234839v5z29r8fd9di4176a3yx4gbsz8cc5vi";
     })
   ];

@@ -1,15 +1,5 @@
-{ lib
-, fetchFromGitLab
-, buildDunePackage
-, bls12-381
-, data-encoding
-, bigstringaf
-, alcotest
-, alcotest-lwt
-, bisect_ppx
-, qcheck-alcotest
-, ppx_repr
-}:
+{ lib, fetchFromGitLab, buildDunePackage, bls12-381, data-encoding, bigstringaf
+, alcotest, alcotest-lwt, bisect_ppx, qcheck-alcotest, ppx_repr }:
 
 buildDunePackage rec {
   pname = "tezos-bls12-381-polynomial";

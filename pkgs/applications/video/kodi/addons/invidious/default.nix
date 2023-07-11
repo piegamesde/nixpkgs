@@ -1,4 +1,5 @@
-{ lib, buildKodiAddon, fetchFromGitHub, addonUpdateScript, requests, inputstream-adaptive, inputstreamhelper }:
+{ lib, buildKodiAddon, fetchFromGitHub, addonUpdateScript, requests
+, inputstream-adaptive, inputstreamhelper }:
 
 buildKodiAddon rec {
   pname = "invidious";
@@ -15,15 +16,9 @@ buildKodiAddon rec {
     hash = "sha256-DpsAQUOUYCs3rpWwsk82+00KME4J+Iocu/v781dyyws=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    inputstream-adaptive
-    inputstreamhelper
-  ];
+  propagatedBuildInputs = [ requests inputstream-adaptive inputstreamhelper ];
 
-  passthru = {
-    pythonPath = "resources/lib";
-  };
+  passthru = { pythonPath = "resources/lib"; };
 
   meta = with lib; {
     homepage = "https://github.com/TheAssassin/kodi-invidious-plugin";

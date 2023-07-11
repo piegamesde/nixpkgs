@@ -1,22 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, graphviz
-, jupyter
-, matplotlib
-, networkx
-, opt-einsum
-, pandas
-, pillow
-, pyro-api
-, pythonOlder
-, torch
-, scikit-learn
-, seaborn
-, torchvision
-, tqdm
-, wget
-}:
+{ lib, buildPythonPackage, fetchPypi, graphviz, jupyter, matplotlib, networkx
+, opt-einsum, pandas, pillow, pyro-api, pythonOlder, torch, scikit-learn
+, seaborn, torchvision, tqdm, wget }:
 
 buildPythonPackage rec {
   pname = "pyro-ppl";
@@ -30,13 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-dm+tYeUt9IiF3pbUEhPaH46MG3ns8witUxifzRXBy0E=";
   };
 
-  propagatedBuildInputs = [
-    pyro-api
-    torch
-    networkx
-    opt-einsum
-    tqdm
-  ];
+  propagatedBuildInputs = [ pyro-api torch networkx opt-einsum tqdm ];
 
   passthru.optional-dependencies = {
     extras = [
@@ -57,12 +35,8 @@ buildPythonPackage rec {
   # pyro not shipping tests do simple smoke test instead
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pyro"
-    "pyro.distributions"
-    "pyro.infer"
-    "pyro.optim"
-  ];
+  pythonImportsCheck =
+    [ "pyro" "pyro.distributions" "pyro.infer" "pyro.optim" ];
 
   meta = with lib; {
     description = "Library for probabilistic modeling and inference";

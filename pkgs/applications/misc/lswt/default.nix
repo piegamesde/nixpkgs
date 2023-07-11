@@ -14,10 +14,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ wayland-scanner ];
   buildInputs = [ wayland ];
 
-  makeFlags = [
-    "DESTDIR=${placeholder "out"}"
-    "PREFIX="
-  ];
+  makeFlags = [ "DESTDIR=${placeholder "out"}" "PREFIX=" ];
 
   meta = with lib; {
     description = "A command that lists Wayland toplevels";

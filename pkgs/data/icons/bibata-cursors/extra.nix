@@ -1,10 +1,4 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, fetchurl
-, clickgen
-, unzip
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, fetchurl, clickgen, unzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "bibata-extra-cursors";
@@ -18,7 +12,8 @@ stdenvNoCC.mkDerivation rec {
   };
 
   bitmaps = fetchurl {
-    url = "https://github.com/ful1e5/Bibata_Extra_Cursor/releases/download/v${version}/bitmaps.zip";
+    url =
+      "https://github.com/ful1e5/Bibata_Extra_Cursor/releases/download/v${version}/bitmaps.zip";
     sha256 = "0vf14ln53wigaq3dkqdk5avarqplsq751nlv72da04ms6gqjfhdl";
   };
 

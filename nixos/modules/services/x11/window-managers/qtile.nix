@@ -4,10 +4,10 @@ with lib;
 
 let
   cfg = config.services.xserver.windowManager.qtile;
-  pyEnv = pkgs.python3.withPackages (p: [ (cfg.package.unwrapped or cfg.package) ] ++ (cfg.extraPackages p));
-in
+  pyEnv = pkgs.python3.withPackages
+    (p: [ (cfg.package.unwrapped or cfg.package) ] ++ (cfg.extraPackages p));
 
-{
+in {
   options.services.xserver.windowManager.qtile = {
     enable = mkEnableOption (lib.mdDoc "qtile");
 
@@ -18,8 +18,8 @@ in
       default = null;
       example = literalExpression "./your_config.py";
       description = lib.mdDoc ''
-          Path to the qtile configuration file.
-          If null, $XDG_CONFIG_HOME/qtile/config.py will be used.
+        Path to the qtile configuration file.
+        If null, $XDG_CONFIG_HOME/qtile/config.py will be used.
       '';
     };
 
@@ -27,27 +27,27 @@ in
       type = types.enum [ "x11" "wayland" ];
       default = "x11";
       description = lib.mdDoc ''
-          Backend to use in qtile: `x11` or `wayland`.
+        Backend to use in qtile: `x11` or `wayland`.
       '';
     };
 
     extraPackages = mkOption {
-        type = types.functionTo (types.listOf types.package);
-        default = _: [];
-        defaultText = literalExpression ''
-          python3Packages: with python3Packages; [];
-        '';
-        description = lib.mdDoc ''
-          Extra Python packages available to Qtile.
-          An example would be to include `python3Packages.qtile-extras`
-          for additional unoffical widgets.
-        '';
-        example = literalExpression ''
-          python3Packages: with python3Packages; [
-            qtile-extras
-          ];
-        '';
-      };
+      type = types.functionTo (types.listOf types.package);
+      default = _: [ ];
+      defaultText = literalExpression ''
+        python3Packages: with python3Packages; [];
+      '';
+      description = lib.mdDoc ''
+        Extra Python packages available to Qtile.
+        An example would be to include `python3Packages.qtile-extras`
+        for additional unoffical widgets.
+      '';
+      example = literalExpression ''
+        python3Packages: with python3Packages; [
+          qtile-extras
+        ];
+      '';
+    };
   };
 
   config = mkIf cfg.enable {
@@ -55,8 +55,10 @@ in
       name = "qtile";
       start = ''
         ${pyEnv}/bin/qtile start -b ${cfg.backend} \
-        ${optionalString (cfg.configFile != null)
-        "--config \"${cfg.configFile}\""} &
+        ${
+          optionalString (cfg.configFile != null)
+          ''--config "${cfg.configFile}"''
+        } &
         waitPID=$!
       '';
     }];

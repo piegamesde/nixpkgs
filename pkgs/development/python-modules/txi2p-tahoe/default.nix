@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, setuptools-scm
-, parsley
-, twisted
-, python
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, setuptools-scm, parsley
+, twisted, python }:
 
 buildPythonPackage rec {
   pname = "txi2p-tahoe";
@@ -21,17 +14,11 @@ buildPythonPackage rec {
     hash = "sha256-u/IOhxK9jWC/tTKKLsc4PexbCuki+yEtMNw7LuQKmuk=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  propagatedBuildInputs = [
-    parsley
-    twisted
-  ];
+  propagatedBuildInputs = [ parsley twisted ];
 
   pythonImportsCheck = [ "txi2p" ];
 

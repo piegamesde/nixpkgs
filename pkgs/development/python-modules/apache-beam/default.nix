@@ -1,50 +1,11 @@
-{ buildPythonPackage
-, cloudpickle
-, crcmod
-, cython
-, dill
-, fastavro
-, fasteners
-, fetchFromGitHub
-, fetchpatch
-, freezegun
-, grpcio
-, grpcio-tools
-, hdfs
-, httplib2
-, hypothesis
-, lib
-, mock
-, mypy-protobuf
-, numpy
-, objsize
-, orjson
-, pandas
-, parameterized
-, proto-plus
-, protobuf
-, psycopg2
-, pyarrow
-, pydot
-, pyhamcrest
-, pymongo
-, pytest-xdist
-, pytestCheckHook
-, python
-, python-dateutil
-, pythonRelaxDepsHook
-, pytz
-, pyyaml
-, regex
-, requests
-, requests-mock
-, scikit-learn
-, sqlalchemy
-, tenacity
-, testcontainers
-, typing-extensions
-, zstandard
-}:
+{ buildPythonPackage, cloudpickle, crcmod, cython, dill, fastavro, fasteners
+, fetchFromGitHub, fetchpatch, freezegun, grpcio, grpcio-tools, hdfs, httplib2
+, hypothesis, lib, mock, mypy-protobuf, numpy, objsize, orjson, pandas
+, parameterized, proto-plus, protobuf, psycopg2, pyarrow, pydot, pyhamcrest
+, pymongo, pytest-xdist, pytestCheckHook, python, python-dateutil
+, pythonRelaxDepsHook, pytz, pyyaml, regex, requests, requests-mock
+, scikit-learn, sqlalchemy, tenacity, testcontainers, typing-extensions
+, zstandard }:
 
 buildPythonPackage rec {
   pname = "apache-beam";
@@ -61,7 +22,8 @@ buildPythonPackage rec {
     (fetchpatch {
       # https://github.com/apache/beam/pull/24143
       name = "fix-for-dill-0.3.6.patch";
-      url = "https://github.com/apache/beam/commit/7e014435b816015d21cc07f3f6c80809f3d8023d.patch";
+      url =
+        "https://github.com/apache/beam/commit/7e014435b816015d21cc07f3f6c80809f3d8023d.patch";
       hash = "sha256-iUmnzrItTFM98w3mpadzrmtI3t0fucpSujAg/6qxCGk=";
       stripLen = 2;
     })
@@ -89,12 +51,7 @@ buildPythonPackage rec {
 
   sourceRoot = "source/sdks/python";
 
-  nativeBuildInputs = [
-    cython
-    grpcio-tools
-    mypy-protobuf
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ cython grpcio-tools mypy-protobuf pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     cloudpickle
@@ -123,9 +80,7 @@ buildPythonPackage rec {
 
   enableParallelBuilding = true;
 
-  pythonImportsCheck = [
-    "apache_beam"
-  ];
+  pythonImportsCheck = [ "apache_beam" ];
 
   checkInputs = [
     freezegun
@@ -205,7 +160,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Unified model for defining both batch and streaming data-parallel processing pipelines";
+    description =
+      "Unified model for defining both batch and streaming data-parallel processing pipelines";
     homepage = "https://beam.apache.org/";
     license = licenses.asl20;
     maintainers = with maintainers; [ ndl ];

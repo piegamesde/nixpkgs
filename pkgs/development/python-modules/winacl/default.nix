@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, cryptography
-, fetchPypi
-, pythonOlder
-}:
+{ lib, buildPythonPackage, cryptography, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "winacl";
@@ -17,9 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-ymYsCRRxpsYp12xe7GPYob8a98BUNI8JwSQvM4hQsr0=";
   };
 
-  propagatedBuildInputs = [
-    cryptography
-  ];
+  propagatedBuildInputs = [ cryptography ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -29,9 +22,7 @@ buildPythonPackage rec {
   # Project doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "winacl"
-  ];
+  pythonImportsCheck = [ "winacl" ];
 
   meta = with lib; {
     description = "Python module for ACL/ACE/Security descriptor manipulation";

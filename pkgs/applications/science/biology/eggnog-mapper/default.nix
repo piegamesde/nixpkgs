@@ -1,10 +1,4 @@
-{ lib
-, autoPatchelfHook
-, fetchFromGitHub
-, python3Packages
-, wget
-, zlib
-}:
+{ lib, autoPatchelfHook, fetchFromGitHub, python3Packages, wget, zlib }:
 
 python3Packages.buildPythonApplication rec {
   pname = "eggnog-mapper";
@@ -23,21 +17,12 @@ python3Packages.buildPythonApplication rec {
       --replace "==" ">="
   '';
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [
-    zlib
-  ];
+  buildInputs = [ zlib ];
 
-  propagatedBuildInputs = [
-    wget
-  ] ++ (with python3Packages; [
-    biopython
-    psutil
-    xlsxwriter
-  ]);
+  propagatedBuildInputs = [ wget ]
+    ++ (with python3Packages; [ biopython psutil xlsxwriter ]);
 
   # Tests rely on some of the databases being available, which is not bundled
   # with this package as (1) in total, they represent >100GB of data, and (2)
@@ -45,7 +30,8 @@ python3Packages.buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Fast genome-wide functional annotation through orthology assignment";
+    description =
+      "Fast genome-wide functional annotation through orthology assignment";
     license = licenses.gpl2;
     homepage = "https://github.com/eggnogdb/eggnog-mapper/wiki";
     maintainers = with maintainers; [ luispedro ];

@@ -1,6 +1,5 @@
-{lib, stdenv, pkg-config, luajit, openssl, fetchurl, libpcap, pcre, libdnet, daq, zlib, flex, bison, makeWrapper
-, libtirpc
-}:
+{ lib, stdenv, pkg-config, luajit, openssl, fetchurl, libpcap, pcre, libdnet
+, daq, zlib, flex, bison, makeWrapper, libtirpc }:
 
 stdenv.mkDerivation rec {
   version = "2.9.20";
@@ -8,12 +7,14 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     name = "${pname}-${version}.tar.gz";
-    url = "https://snort.org/downloads/archive/snort/${pname}-${version}.tar.gz";
+    url =
+      "https://snort.org/downloads/archive/snort/${pname}-${version}.tar.gz";
     sha256 = "sha256-KUAOE/U7GDHguLEOwSJKHLqm3BUzpTIqIN2Au4S0mBw=";
   };
 
   nativeBuildInputs = [ makeWrapper pkg-config ];
-  buildInputs = [ luajit openssl libpcap pcre libdnet daq zlib flex bison libtirpc ];
+  buildInputs =
+    [ luajit openssl libpcap pcre libdnet daq zlib flex bison libtirpc ];
 
   env.NIX_CFLAGS_COMPILE = toString [ "-I${libtirpc.dev}/include/tirpc" ];
 

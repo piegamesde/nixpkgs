@@ -1,20 +1,7 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, asn1crypto
-, cffi
-, cryptography
-, ibm-sw-tpm2
-, pkgconfig # see nativeBuildInputs
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, asn1crypto, cffi
+, cryptography, ibm-sw-tpm2, pkgconfig # see nativeBuildInputs
 , pkg-config # see nativeBuildInputs
-, pycparser
-, pytestCheckHook
-, python
-, pyyaml
-, setuptools-scm
-, tpm2-tss
-}:
+, pycparser, pytestCheckHook, python, pyyaml, setuptools-scm, tpm2-tss }:
 
 buildPythonPackage rec {
   pname = "tpm2-pytss";
@@ -35,32 +22,21 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [
-    tpm2-tss
-  ];
+  buildInputs = [ tpm2-tss ];
 
-  propagatedBuildInputs = [
-    cffi
-    asn1crypto
-    cryptography
-    pyyaml
-  ];
+  propagatedBuildInputs = [ cffi asn1crypto cryptography pyyaml ];
 
   # https://github.com/tpm2-software/tpm2-pytss/issues/341
   doCheck = false;
 
-  nativeCheckInputs = [
-    ibm-sw-tpm2
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ ibm-sw-tpm2 pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "tpm2_pytss"
-  ];
+  pythonImportsCheck = [ "tpm2_pytss" ];
 
   meta = with lib; {
     homepage = "https://github.com/tpm2-software/tpm2-pytss";
-    changelog = "https://github.com/tpm2-software/tpm2-pytss/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/tpm2-software/tpm2-pytss/blob/${version}/CHANGELOG.md";
     description = "TPM2 TSS Python bindings for Enhanced System API (ESYS)";
     license = licenses.bsd2;
     maintainers = with maintainers; [ baloo ];

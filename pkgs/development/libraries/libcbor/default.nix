@@ -1,15 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, cmocka
+{ lib, stdenv, fetchFromGitHub, cmake, cmocka
 
 # for passthru.tests
-, libfido2
-, mysql80
-, openssh
-, systemd
-}:
+, libfido2, mysql80, openssh, systemd }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libcbor";
@@ -34,8 +26,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   # Tests are restricted while pkgsStatic.cmocka is broken. Tracked at:
   # https://github.com/NixOS/nixpkgs/issues/213623
-  doCheck = !stdenv.hostPlatform.isStatic
-    && stdenv.hostPlatform == stdenv.buildPlatform;
+  doCheck = !stdenv.hostPlatform.isStatic && stdenv.hostPlatform
+    == stdenv.buildPlatform;
 
   nativeCheckInputs = [ cmocka ];
 

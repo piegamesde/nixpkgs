@@ -1,5 +1,5 @@
-{ fetchFromGitHub, lib, stdenv, ffmpeg-headless, cmake, libpng, pkg-config, libjpeg
-}:
+{ fetchFromGitHub, lib, stdenv, ffmpeg-headless, cmake, libpng, pkg-config
+, libjpeg }:
 
 stdenv.mkDerivation rec {
   pname = "ffmpegthumbnailer";
@@ -22,17 +22,11 @@ stdenv.mkDerivation rec {
       --replace '$'{exec_prefix}/@CMAKE_INSTALL_LIBDIR@ @CMAKE_INSTALL_FULL_LIBDIR@
   '';
 
-  meta = with lib;  {
+  meta = with lib; {
     homepage = "https://github.com/dirkvdb/ffmpegthumbnailer";
     description = "A lightweight video thumbnailer";
-    longDescription = "FFmpegthumbnailer is a lightweight video
-        thumbnailer that can be used by file managers to create thumbnails
-        for your video files. The thumbnailer uses ffmpeg o decode frames
-        from the video files, so supported videoformats depend on the
-        configuration flags of ffmpeg.
-        This thumbnailer was designed to be as fast and lightweight as possible.
-        The only dependencies are ffmpeg and libpng.
-    ";
+    longDescription =
+      "FFmpegthumbnailer is a lightweight video\n        thumbnailer that can be used by file managers to create thumbnails\n        for your video files. The thumbnailer uses ffmpeg o decode frames\n        from the video files, so supported videoformats depend on the\n        configuration flags of ffmpeg.\n        This thumbnailer was designed to be as fast and lightweight as possible.\n        The only dependencies are ffmpeg and libpng.\n    ";
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.jagajaga ];

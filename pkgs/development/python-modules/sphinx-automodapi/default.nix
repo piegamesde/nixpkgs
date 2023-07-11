@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, cython
-, fetchFromGitHub
-, fetchurl
-, gcc
-, graphviz
-, pytestCheckHook
-, pythonOlder
-, sphinx
-}:
+{ lib, buildPythonPackage, cython, fetchFromGitHub, fetchurl, gcc, graphviz
+, pytestCheckHook, pythonOlder, sphinx }:
 
 buildPythonPackage rec {
   pname = "sphinx-automodapi";
@@ -29,7 +20,8 @@ buildPythonPackage rec {
   # https://github.com/astropy/sphinx-automodapi/issues/155
   testInventory = fetchurl {
     # Originally: https://docs.python.org/3/objects.inv
-    url = "https://web.archive.org/web/20221007193144/https://docs.python.org/3/objects.inv";
+    url =
+      "https://web.archive.org/web/20221007193144/https://docs.python.org/3/objects.inv";
     hash = "sha256-1cbUmdJJSoifkiIYa70SxnLsaK3F2gvnTEWo9vo/6rY=";
   };
 
@@ -41,12 +33,7 @@ buildPythonPackage rec {
       --replace '[0]), None)' "[0]), (None, '${testInventory}'))"
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    cython
-    gcc
-    graphviz
-  ];
+  nativeCheckInputs = [ pytestCheckHook cython gcc graphviz ];
 
   pythonImportsCheck = [ "sphinx_automodapi" ];
 

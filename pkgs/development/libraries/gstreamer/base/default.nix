@@ -1,47 +1,15 @@
-{ stdenv
-, fetchurl
-, lib
-, pkg-config
-, meson
-, ninja
-, gettext
-, python3
-, gstreamer
-, graphene
-, orc
-, pango
-, libtheora
-, libintl
-, libopus
-, isocodes
-, libjpeg
-, libpng
-, libvisual
-, tremor # provides 'virbisidec'
-, libGL
-, gobject-introspection
-, enableX11 ? stdenv.isLinux
-, libXext
-, libXi
-, libXv
-, enableWayland ? stdenv.isLinux
-, wayland
-, wayland-protocols
-, enableAlsa ? stdenv.isLinux
-, alsa-lib
+{ stdenv, fetchurl, lib, pkg-config, meson, ninja, gettext, python3, gstreamer
+, graphene, orc, pango, libtheora, libintl, libopus, isocodes, libjpeg, libpng
+, libvisual, tremor # provides 'virbisidec'
+, libGL, gobject-introspection, enableX11 ? stdenv.isLinux, libXext, libXi
+, libXv, enableWayland ? stdenv.isLinux, wayland, wayland-protocols
+, enableAlsa ? stdenv.isLinux, alsa-lib
 # TODO: fix once x86_64-darwin sdk updated
-, enableCocoa ? (stdenv.isDarwin && stdenv.isAarch64)
-, Cocoa
-, OpenGL
+, enableCocoa ? (stdenv.isDarwin && stdenv.isAarch64), Cocoa, OpenGL
 , enableGl ? (enableX11 || enableWayland || enableCocoa)
-, enableCdparanoia ? (!stdenv.isDarwin)
-, cdparanoia
-, glib
-, testers
+, enableCdparanoia ? (!stdenv.isDarwin), cdparanoia, glib, testers
 # Checks meson.is_cross_build(), so even canExecute isn't enough.
-, enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform
-, hotdoc
-}:
+, enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform, hotdoc }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gst-plugins-base";
@@ -49,17 +17,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   outputs = [ "out" "dev" ];
 
-  src = let
-    inherit (finalAttrs) pname version;
+  src = let inherit (finalAttrs) pname version;
   in fetchurl {
-    url = "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
+    url =
+      "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
     hash = "sha256-62USDE7nm3oVPDwZctXAFYwhUYd8xR7Hclu6V0lnnUk=";
   };
 
   strictDeps = true;
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
   nativeBuildInputs = [
     meson
     ninja
@@ -70,11 +36,8 @@ stdenv.mkDerivation (finalAttrs: {
     glib
     gstreamer
     gobject-introspection
-  ] ++ lib.optionals enableDocumentation [
-    hotdoc
-  ] ++ lib.optionals enableWayland [
-    wayland
-  ];
+  ] ++ lib.optionals enableDocumentation [ hotdoc ]
+    ++ lib.optionals enableWayland [ wayland ];
 
   buildInputs = [
     gobject-introspection
@@ -89,42 +52,32 @@ stdenv.mkDerivation (finalAttrs: {
     tremor
     libGL
     pango
-  ] ++ lib.optionals (!stdenv.isDarwin) [
-    libvisual
-  ] ++ lib.optionals stdenv.isDarwin [
-    OpenGL
-  ] ++ lib.optionals enableAlsa [
-    alsa-lib
-  ] ++ lib.optionals enableX11 [
-    libXext
-    libXi
-    libXv
-  ] ++ lib.optionals enableWayland [
-    wayland
-    wayland-protocols
-  ] ++ lib.optional enableCocoa Cocoa
+  ] ++ lib.optionals (!stdenv.isDarwin) [ libvisual ]
+    ++ lib.optionals stdenv.isDarwin [ OpenGL ]
+    ++ lib.optionals enableAlsa [ alsa-lib ]
+    ++ lib.optionals enableX11 [ libXext libXi libXv ]
+    ++ lib.optionals enableWayland [ wayland wayland-protocols ]
+    ++ lib.optional enableCocoa Cocoa
     ++ lib.optional enableCdparanoia cdparanoia;
 
-  propagatedBuildInputs = [
-    gstreamer
-  ];
+  propagatedBuildInputs = [ gstreamer ];
 
   mesonFlags = [
     "-Dexamples=disabled" # requires many dependencies and probably not useful for our users
     # See https://github.com/GStreamer/gst-plugins-base/blob/d64a4b7a69c3462851ff4dcfa97cc6f94cd64aef/meson_options.txt#L15 for a list of choices
-    "-Dgl_winsys=${lib.concatStringsSep "," (lib.optional enableX11 "x11" ++ lib.optional enableWayland "wayland" ++ lib.optional enableCocoa "cocoa")}"
+    "-Dgl_winsys=${
+      lib.concatStringsSep "," (lib.optional enableX11 "x11"
+        ++ lib.optional enableWayland "wayland"
+        ++ lib.optional enableCocoa "cocoa")
+    }"
     (lib.mesonEnable "doc" enableDocumentation)
-  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-    "-Dtests=disabled"
-  ]
-  ++ lib.optional (!enableX11) "-Dx11=disabled"
-  # TODO How to disable Wayland?
-  ++ lib.optional (!enableGl) "-Dgl=disabled"
-  ++ lib.optional (!enableAlsa) "-Dalsa=disabled"
-  ++ lib.optional (!enableCdparanoia) "-Dcdparanoia=disabled"
-  ++ lib.optionals stdenv.isDarwin [
-    "-Dlibvisual=disabled"
-  ];
+  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
+    [ "-Dtests=disabled" ] ++ lib.optional (!enableX11) "-Dx11=disabled"
+    # TODO How to disable Wayland?
+    ++ lib.optional (!enableGl) "-Dgl=disabled"
+    ++ lib.optional (!enableAlsa) "-Dalsa=disabled"
+    ++ lib.optional (!enableCdparanoia) "-Dcdparanoia=disabled"
+    ++ lib.optionals stdenv.isDarwin [ "-Dlibvisual=disabled" ];
 
   postPatch = ''
     patchShebangs \

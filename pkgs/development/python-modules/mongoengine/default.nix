@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pymongo
-, isPy27
-, six
-, blinker
-, nose
-, pillow
-, coverage
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pymongo, isPy27, six, blinker, nose
+, pillow, coverage }:
 
 buildPythonPackage rec {
   pname = "mongoengine";
@@ -22,17 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-mPz9Nyoyke++e9vBWSKunc9VGHCP8pbmldgKty5HIMA=";
   };
 
-  propagatedBuildInputs = [
-    pymongo
-    six
-  ];
+  propagatedBuildInputs = [ pymongo six ];
 
-  nativeCheckInputs = [
-    nose
-    pillow
-    coverage
-    blinker
-  ];
+  nativeCheckInputs = [ nose pillow coverage blinker ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -46,7 +29,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "mongoengine" ];
 
   meta = with lib; {
-    description = "MongoEngine is a Python Object-Document Mapper for working with MongoDB";
+    description =
+      "MongoEngine is a Python Object-Document Mapper for working with MongoDB";
     homepage = "http://mongoengine.org/";
     license = licenses.mit;
     maintainers = [ maintainers.costrouc ];

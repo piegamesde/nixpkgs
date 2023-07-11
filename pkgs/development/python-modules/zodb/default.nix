@@ -1,17 +1,5 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, python
-, zope_testrunner
-, transaction
-, six
-, zope_interface
-, zodbpickle
-, zconfig
-, persistent
-, zc_lockfile
-, btrees
-, manuel
+{ lib, fetchPypi, buildPythonPackage, python, zope_testrunner, transaction, six
+, zope_interface, zodbpickle, zconfig, persistent, zc_lockfile, btrees, manuel
 }:
 
 buildPythonPackage rec {
@@ -39,10 +27,7 @@ buildPythonPackage rec {
     btrees
   ];
 
-  nativeCheckInputs = [
-    manuel
-    zope_testrunner
-  ];
+  nativeCheckInputs = [ manuel zope_testrunner ];
 
   checkPhase = ''
     ${python.interpreter} -m zope.testrunner --test-path=src []
@@ -51,7 +36,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Zope Object Database: object database and persistence";
     homepage = "https://zodb-docs.readthedocs.io/";
-    changelog = "https://github.com/zopefoundation/ZODB/blob/${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/zopefoundation/ZODB/blob/${version}/CHANGES.rst";
     license = licenses.zpl21;
     maintainers = with maintainers; [ goibhniu ];
   };

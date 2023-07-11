@@ -1,19 +1,6 @@
-{ lib
-, buildPythonPackage
-, cachelib
-, cryptography
-, fetchFromGitHub
-, flask
-, flask-sqlalchemy
-, httpx
-, mock
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, requests
-, starlette
-, werkzeug
-}:
+{ lib, buildPythonPackage, cachelib, cryptography, fetchFromGitHub, flask
+, flask-sqlalchemy, httpx, mock, pytest-asyncio, pytestCheckHook, pythonOlder
+, requests, starlette, werkzeug }:
 
 buildPythonPackage rec {
   pname = "authlib";
@@ -29,10 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-OYfvfPnpWE9g7L9cFXUD95B/9+OZy55ZVbmFhFgguUg=";
   };
 
-  propagatedBuildInputs = [
-    cryptography
-    requests
-  ];
+  propagatedBuildInputs = [ cryptography requests ];
 
   nativeCheckInputs = [
     cachelib
@@ -46,9 +30,7 @@ buildPythonPackage rec {
     werkzeug
   ];
 
-  pythonImportsCheck = [
-    "authlib"
-  ];
+  pythonImportsCheck = [ "authlib" ];
   disabledTestPaths = [
     # Django tests require a running instance
     "tests/django/"

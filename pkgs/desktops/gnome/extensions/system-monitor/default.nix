@@ -1,4 +1,5 @@
-{ lib, stdenv, substituteAll, fetchFromGitHub, fetchpatch, glib, glib-networking, libgtop, gnome }:
+{ lib, stdenv, substituteAll, fetchFromGitHub, fetchpatch, glib, glib-networking
+, libgtop, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-system-monitor";
@@ -11,15 +12,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-XDqWxTyaFEWPdXMTklcNQxqql73ESXAIF6TjMFHaj7g=";
   };
 
-  nativeBuildInputs = [
-    glib
-    gnome.gnome-shell
-  ];
+  nativeBuildInputs = [ glib gnome.gnome-shell ];
 
   patches = [
     # GNOME 44 compatibility
     (fetchpatch {
-      url = "https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet/pull/788/commits/e69349942791140807c01d472dfe5e0ddf5c73c0.patch";
+      url =
+        "https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet/pull/788/commits/e69349942791140807c01d472dfe5e0ddf5c73c0.patch";
       hash = "sha256-g5Ocpvp7eO/pBkDBZsxgXH7e8rdPBUUxDSwK2hJHKbY=";
     })
     (substituteAll {
@@ -45,6 +44,7 @@ stdenv.mkDerivation rec {
     description = "Display system informations in gnome shell status bar";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ andersk ];
-    homepage = "https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet";
+    homepage =
+      "https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet";
   };
 }

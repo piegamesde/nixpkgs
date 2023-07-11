@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, pkg-config
-, texinfo
-, bison
-, flex
-, zlib
-, elfutils
-, gmp
-, ncurses
-, expat
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, pkg-config, texinfo, bison
+, flex, zlib, elfutils, gmp, ncurses, expat }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocgdb";
@@ -31,13 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     flex
   ];
 
-  buildInputs = [
-    zlib
-    elfutils
-    gmp
-    ncurses
-    expat
-  ];
+  buildInputs = [ zlib elfutils gmp ncurses expat ];
 
   # `-Wno-format-nonliteral` doesn't work
   env.NIX_CFLAGS_COMPILE = "-Wno-error=format-security";

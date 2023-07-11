@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytest
-, pytest-metadata
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest, pytest-metadata
+, pytest-xdist, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pytest-json-report";
@@ -22,27 +15,18 @@ buildPythonPackage rec {
     hash = "sha256-hMB/atDuo7CjwhHFUOxVfgJ7Qp4AA9J428iv7hyQFcs=";
   };
 
-  buildInputs = [
-    pytest
-  ];
+  buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    pytest-metadata
-  ];
+  propagatedBuildInputs = [ pytest-metadata ];
 
-  nativeCheckInputs = [
-    pytest-xdist
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-xdist pytestCheckHook ];
 
   disabledTests = [
     # pytest-flaky is not available at the moment
     "test_bug_31"
   ];
 
-  pythonImportsCheck = [
-    "pytest_jsonreport"
-  ];
+  pythonImportsCheck = [ "pytest_jsonreport" ];
 
   meta = with lib; {
     description = "Pytest plugin to report test results as JSON";

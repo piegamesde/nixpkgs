@@ -1,27 +1,19 @@
-import ./make-test-python.nix ({ pkgs, ...} :
-{
+import ./make-test-python.nix ({ pkgs, ... }: {
   name = "sgtpuzzles";
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ tomfitzhenry ];
-  };
+  meta = with pkgs.lib.maintainers; { maintainers = [ tomfitzhenry ]; };
 
   nodes.machine = { ... }:
 
-  {
-    imports = [
-      ./common/x11.nix
-    ];
+    {
+      imports = [ ./common/x11.nix ];
 
-    services.xserver.enable = true;
-    environment.systemPackages = with pkgs; [
-      sgtpuzzles
-    ];
-  };
+      services.xserver.enable = true;
+      environment.systemPackages = with pkgs; [ sgtpuzzles ];
+    };
 
   enableOCR = true;
 
-  testScript = { nodes, ... }:
-  ''
+  testScript = { nodes, ... }: ''
     start_all()
     machine.wait_for_x()
 

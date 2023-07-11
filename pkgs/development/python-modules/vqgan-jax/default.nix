@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, flax
-, jax
-, jaxlib
-, transformers
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, flax, jax, jaxlib, transformers }:
 
 buildPythonPackage rec {
   pname = "vqgan-jax";
@@ -20,21 +13,13 @@ buildPythonPackage rec {
 
   format = "setuptools";
 
-  buildInputs = [
-    jaxlib
-  ];
+  buildInputs = [ jaxlib ];
 
-  propagatedBuildInputs = [
-    flax
-    jax
-    transformers
-  ];
+  propagatedBuildInputs = [ flax jax transformers ];
 
   doCheck = false;
 
-  pythonImportsCheck = [
-    "vqgan_jax"
-  ];
+  pythonImportsCheck = [ "vqgan_jax" ];
 
   meta = with lib; {
     description = "JAX implementation of VQGAN";

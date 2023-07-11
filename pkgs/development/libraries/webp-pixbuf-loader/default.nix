@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, meson
-, ninja
-, pkg-config
-, makeWrapper
-, gdk-pixbuf
-, libwebp
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, makeWrapper
+, gdk-pixbuf, libwebp }:
 
 let
   inherit (gdk-pixbuf) moduleDir;
@@ -15,8 +7,7 @@ let
   # turning lib/gdk-pixbuf-#.#/#.#.#/loaders into lib/gdk-pixbuf-#.#/#.#.#/loaders.cache
   # removeSuffix is just in case moduleDir gets a trailing slash
   loadersPath = (lib.strings.removeSuffix "/" gdk-pixbuf.moduleDir) + ".cache";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "webp-pixbuf-loader";
   version = "0.0.7";
 
@@ -27,22 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Za5/9YlDRqF5oGI8ZfLhx2ZT0XvXK6Z0h6fu5CGvizc=";
   };
 
-  nativeBuildInputs = [
-    gdk-pixbuf.dev
-    meson
-    ninja
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ gdk-pixbuf.dev meson ninja pkg-config makeWrapper ];
 
-  buildInputs = [
-    gdk-pixbuf
-    libwebp
-  ];
+  buildInputs = [ gdk-pixbuf libwebp ];
 
-  mesonFlags = [
-    "-Dgdk_pixbuf_moduledir=${placeholder "out"}/${moduleDir}"
-  ];
+  mesonFlags = [ "-Dgdk_pixbuf_moduledir=${placeholder "out"}/${moduleDir}" ];
 
   postPatch = ''
     # It looks for gdk-pixbuf-thumbnailer in this package's bin rather than the gdk-pixbuf bin. We need to patch that.

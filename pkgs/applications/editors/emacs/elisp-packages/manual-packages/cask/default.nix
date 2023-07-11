@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, bash
-, emacs
-, python3
-}:
+{ lib, stdenv, fetchFromGitHub, bash, emacs, python3 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cask";
@@ -20,11 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = true;
 
   nativeBuildInputs = [ emacs ];
-  buildInputs = [
-    bash
-    python3
-  ]
-  ++ (with emacs.pkgs; [
+  buildInputs = [ bash python3 ] ++ (with emacs.pkgs; [
     ansi
     dash
     ecukes

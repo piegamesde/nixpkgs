@@ -1,14 +1,5 @@
-{ lib
-, aiohttp
-, aresponses
-, buildPythonPackage
-, aio-geojson-client
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, pytz
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, aio-geojson-client
+, fetchFromGitHub, pytest-asyncio, pytestCheckHook, pythonOlder, pytz }:
 
 buildPythonPackage rec {
   pname = "aio-geojson-generic-client";
@@ -24,26 +15,17 @@ buildPythonPackage rec {
     hash = "sha256-toDvliFMxicaEhlxb7wCadDJErpsIPcZbJz7TpO83GE=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    aio-geojson-client
-    pytz
-  ];
+  propagatedBuildInputs = [ aiohttp aio-geojson-client pytz ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "aio_geojson_generic_client"
-  ];
+  pythonImportsCheck = [ "aio_geojson_generic_client" ];
 
   meta = with lib; {
     description = "Python library for accessing GeoJSON feeds";
     homepage = "https://github.com/exxamalte/python-aio-geojson-generic-client";
-    changelog = "https://github.com/exxamalte/python-aio-geojson-generic-client/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/exxamalte/python-aio-geojson-generic-client/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

@@ -10,7 +10,7 @@ buildDunePackage rec {
   src = fetchFromGitHub {
     owner = "xavierleroy";
     repo = "cryptokit";
-    rev = "release${lib.replaceStrings ["."] [""] version}";
+    rev = "release${lib.replaceStrings [ "." ] [ "" ] version}";
     hash = "sha256-8ae8hroCSkp4O5vM/qVOhAnnJJ+uygMYm3ix5ytwtHU=";
   };
 
@@ -29,8 +29,6 @@ buildDunePackage rec {
     homepage = "http://pauillac.inria.fr/~xleroy/software.html";
     description = "A library of cryptographic primitives for OCaml";
     license = lib.licenses.lgpl2Only;
-    maintainers = [
-      lib.maintainers.maggesi
-    ];
+    maintainers = [ lib.maintainers.maggesi ];
   };
 }

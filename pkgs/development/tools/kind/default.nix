@@ -5,9 +5,9 @@ buildGoModule rec {
   version = "0.18.0";
 
   src = fetchFromGitHub {
-    rev    = "v${version}";
-    owner  = "kubernetes-sigs";
-    repo   = "kind";
+    rev = "v${version}";
+    owner = "kubernetes-sigs";
+    repo = "kind";
     sha256 = "sha256-ei0klTKLTyxhCkwhG/CSswFd1JPimCMR32pKwPYPvQU=";
   };
 
@@ -35,10 +35,11 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "Kubernetes IN Docker - local clusters for testing Kubernetes";
-    homepage    = "https://github.com/kubernetes-sigs/kind";
+    description =
+      "Kubernetes IN Docker - local clusters for testing Kubernetes";
+    homepage = "https://github.com/kubernetes-sigs/kind";
     maintainers = with maintainers; [ offline rawkode ];
-    license     = licenses.asl20;
-    platforms   = platforms.unix;
+    license = licenses.asl20;
+    platforms = platforms.unix;
   };
 }

@@ -1,35 +1,15 @@
-{ lib
-, mkDerivation
+{ lib, mkDerivation
 
-, cmake
-, extra-cmake-modules
-, pkg-config
+, cmake, extra-cmake-modules, pkg-config
 
-, kconfig
-, kdbusaddons
-, ki18n
-, kirigami2
-, kirigami-addons
-, knotifications
-, qqc2-desktop-style
-, qtbase
-, qtkeychain
-, qtmultimedia
-, qtquickcontrols2
-, qttools
-, qtwebsockets
-, kitemmodels
-, pimcommon
-}:
+, kconfig, kdbusaddons, ki18n, kirigami2, kirigami-addons, knotifications
+, qqc2-desktop-style, qtbase, qtkeychain, qtmultimedia, qtquickcontrols2
+, qttools, qtwebsockets, kitemmodels, pimcommon }:
 
 mkDerivation {
   pname = "tokodon";
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config ];
 
   buildInputs = [
     kconfig

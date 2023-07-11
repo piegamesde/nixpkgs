@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, gfortran, lhapdf, python3, zlib }:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, gfortran, lhapdf, python3, zlib
+}:
 
 stdenv.mkDerivation rec {
   pname = "apfel";
@@ -20,9 +21,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A PDF Evolution Library";
-    license     = licenses.gpl3Plus;
-    homepage    = "https://apfel.mi.infn.it/";
-    platforms   = platforms.unix;
+    license = licenses.gpl3Plus;
+    homepage = "https://apfel.mi.infn.it/";
+    platforms = platforms.unix;
     maintainers = with maintainers; [ veprbl ];
   };
 }

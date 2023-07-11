@@ -23,9 +23,7 @@ buildGoModule rec {
     installShellCompletion --zsh --name _history $out/share/zsh/completions/_history
   '';
 
-  passthru.tests = {
-    zsh-history-shell-integration = nixosTests.zsh-history;
-  };
+  passthru.tests = { zsh-history-shell-integration = nixosTests.zsh-history; };
 
   meta = with lib; {
     description = "A CLI to provide enhanced history for your ZSH shell";

@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-, six
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pytest-mock
+, pytestCheckHook, pythonOlder, six }:
 
 buildPythonPackage rec {
   pname = "headerparser";
@@ -22,18 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-KJJt85iC/4oBoIelB2zUJVyHSppFem/22v6F30P5nYM=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace tox.ini \
@@ -42,12 +28,11 @@ buildPythonPackage rec {
       --replace "--flakes" ""
   '';
 
-  pythonImportsCheck = [
-    "headerparser"
-  ];
+  pythonImportsCheck = [ "headerparser" ];
 
   meta = with lib; {
-    description = "Module to parse key-value pairs in the style of RFC 822 (e-mail) headers";
+    description =
+      "Module to parse key-value pairs in the style of RFC 822 (e-mail) headers";
     homepage = "https://github.com/jwodder/headerparser";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ ayazhafiz ];

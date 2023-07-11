@@ -1,6 +1,4 @@
-{ lib, buildPythonPackage, fetchPypi
-, isPyPy, isPy3k
-}:
+{ lib, buildPythonPackage, fetchPypi, isPyPy, isPy3k }:
 
 buildPythonPackage rec {
   pname = "funcsigs";
@@ -20,7 +18,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "funcsigs" ];
 
   meta = with lib; {
-    description = "Python function signatures from PEP362 for Python 2.6, 2.7 and 3.2+";
+    description =
+      "Python function signatures from PEP362 for Python 2.6, 2.7 and 3.2+";
     homepage = "https://github.com/aliles/funcsigs";
     maintainers = with maintainers; [ ];
     license = licenses.asl20;

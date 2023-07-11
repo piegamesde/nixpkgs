@@ -1,10 +1,4 @@
-{ lib
-, rustPlatform
-, fetchCrate
-, stdenv
-, Security
-, withLsp ? true
-}:
+{ lib, rustPlatform, fetchCrate, stdenv, Security, withLsp ? true }:
 
 rustPlatform.buildRustPackage rec {
   pname = "taplo";

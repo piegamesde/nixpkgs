@@ -1,13 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, installShellFiles
-, pkg-config
-, withNativeTls ? true
-, stdenv
-, Security
-, openssl
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, pkg-config
+, withNativeTls ? true, stdenv, Security, openssl }:
 
 rustPlatform.buildRustPackage rec {
   pname = "xh";

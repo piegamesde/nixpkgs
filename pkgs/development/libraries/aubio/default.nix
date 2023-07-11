@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchurl, alsa-lib, fftw, libjack2, libsamplerate
-, libsndfile, pkg-config, python3, wafHook
-}:
+{ lib, stdenv, fetchurl, alsa-lib, fftw, libjack2, libsamplerate, libsndfile
+, pkg-config, python3, wafHook }:
 
 stdenv.mkDerivation rec {
   pname = "aubio";
@@ -16,7 +15,8 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   dontAddWafCrossFlags = true;
-  wafFlags = lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) "--disable-tests";
+  wafFlags = lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
+    "--disable-tests";
 
   meta = with lib; {
     description = "Library for audio labelling";

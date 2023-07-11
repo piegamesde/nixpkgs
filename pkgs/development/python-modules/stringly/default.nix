@@ -1,4 +1,4 @@
-{ lib , python, buildPythonPackage , fetchPypi, typing-extensions }:
+{ lib, python, buildPythonPackage, fetchPypi, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "stringly";
@@ -11,9 +11,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "stringly" ];
 
-  propagatedBuildInputs = [
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ typing-extensions ];
 
   checkPhase = ''
     ${python.interpreter} -m unittest

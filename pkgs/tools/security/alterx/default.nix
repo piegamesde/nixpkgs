@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "alterx";
@@ -17,9 +14,11 @@ buildGoModule rec {
   vendorHash = "sha256-tIXSkNJbbT6X23WCUnB+c0FbxJdV3RF1iOrEJxETeaE=";
 
   meta = with lib; {
-    description = "Fast and customizable subdomain wordlist generator using DSL";
+    description =
+      "Fast and customizable subdomain wordlist generator using DSL";
     homepage = "https://github.com/projectdiscovery/alterx";
-    changelog = "https://github.com/projectdiscovery/alterx/releases/tag/v${version}";
+    changelog =
+      "https://github.com/projectdiscovery/alterx/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

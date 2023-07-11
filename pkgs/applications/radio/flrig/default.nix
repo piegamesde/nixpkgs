@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, fltk13
-, libjpeg
-, eudev
-, pkg-config
-}:
+{ lib, stdenv, fetchurl, fltk13, libjpeg, eudev, pkg-config }:
 
 stdenv.mkDerivation rec {
   version = "1.4.8";
@@ -16,15 +9,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7aqjNbcAE1ATb5Zl+ziVb7O86nqlFwdpsYm9RoX51rg=";
   };
 
-  buildInputs = [
-    fltk13
-    libjpeg
-    eudev
-  ];
+  buildInputs = [ fltk13 libjpeg eudev ];
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   meta = {
     description = "Digital modem rig control program";

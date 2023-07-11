@@ -1,12 +1,4 @@
-{ bash
-, coreutils
-, fetchFromGitHub
-, git
-, lib
-, makeWrapper
-, ncurses
-, stdenv
-}:
+{ bash, coreutils, fetchFromGitHub, git, lib, makeWrapper, ncurses, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "dockstarter";
@@ -25,16 +17,14 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     install -Dm755 main.sh $out/bin/ds
-    wrapProgram $out/bin/ds --prefix PATH : ${lib.makeBinPath [
-      bash
-      coreutils
-      git
-      ncurses
-    ]}
+    wrapProgram $out/bin/ds --prefix PATH : ${
+      lib.makeBinPath [ bash coreutils git ncurses ]
+    }
   '';
 
   meta = with lib; {
-    description = "DockSTARTer helps you get started with running apps in Docker.";
+    description =
+      "DockSTARTer helps you get started with running apps in Docker.";
     homepage = "https://dockstarter.com";
     license = licenses.mit;
     maintainers = with maintainers; [ urandom ];

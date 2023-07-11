@@ -1,9 +1,9 @@
 { stdenv, lib, fetchFromGitHub, kernel }:
 
 let
-  modDestDir = "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/realtek/rtw89";
-in
-stdenv.mkDerivation {
+  modDestDir =
+    "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/realtek/rtw89";
+in stdenv.mkDerivation {
   pname = "rtw89";
   version = "unstable-2022-12-18";
 
@@ -15,7 +15,8 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
-  makeFlags = kernel.makeFlags ++ [ "KSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
+  makeFlags = kernel.makeFlags
+    ++ [ "KSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
 
   enableParallelBuilding = true;
 
@@ -30,7 +31,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = " Driver for Realtek 8852AE, 8852BE, and 8853CE, 802.11ax devices";
+    description =
+      " Driver for Realtek 8852AE, 8852BE, and 8853CE, 802.11ax devices";
     homepage = "https://github.com/lwfinger/rtw89";
     license = with licenses; [ gpl2Only ];
     maintainers = with maintainers; [ tvorog ];

@@ -1,16 +1,5 @@
-{ lib
-, aiohttp
-, aioitertools
-, botocore
-, buildPythonPackage
-, dill
-, fetchFromGitHub
-, moto
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, wrapt
-}:
+{ lib, aiohttp, aioitertools, botocore, buildPythonPackage, dill
+, fetchFromGitHub, moto, pytest-asyncio, pytestCheckHook, pythonOlder, wrapt }:
 
 buildPythonPackage rec {
   pname = "aiobotocore";
@@ -32,23 +21,11 @@ buildPythonPackage rec {
     sed -i "s/'botocore>=.*'/'botocore'/" setup.py
   '';
 
-  propagatedBuildInputs = [
-    aiohttp
-    aioitertools
-    botocore
-    wrapt
-  ];
+  propagatedBuildInputs = [ aiohttp aioitertools botocore wrapt ];
 
-  nativeCheckInputs = [
-    dill
-    moto
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ dill moto pytest-asyncio pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "aiobotocore"
-  ];
+  pythonImportsCheck = [ "aiobotocore" ];
 
   disabledTestPaths = [
     # Tests require network access
@@ -81,7 +58,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python client for amazon services";
     homepage = "https://github.com/aio-libs/aiobotocore";
-    changelog = "https://github.com/aio-libs/aiobotocore/releases/tag/${version}";
+    changelog =
+      "https://github.com/aio-libs/aiobotocore/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ teh ];
   };

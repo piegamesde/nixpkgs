@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, setuptools
-, zeep
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, setuptools, zeep }:
 
 buildPythonPackage rec {
   pname = "total-connect-client";
@@ -21,26 +15,19 @@ buildPythonPackage rec {
     hash = "sha256-sZA+3UjYSHZnN87KUNukRCQ/kG7aobcPVWnhqNOLwJw=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    zeep
-  ];
+  propagatedBuildInputs = [ zeep ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "total_connect_client"
-  ];
+  pythonImportsCheck = [ "total_connect_client" ];
 
   meta = with lib; {
     description = "Interact with Total Connect 2 alarm systems";
     homepage = "https://github.com/craigjmidwinter/total-connect-client";
-    changelog = "https://github.com/craigjmidwinter/total-connect-client/releases/tag/${version}";
+    changelog =
+      "https://github.com/craigjmidwinter/total-connect-client/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

@@ -1,7 +1,4 @@
-{ callPackage
-, fetchhg
-, ...
-} @ args:
+{ callPackage, fetchhg, ... }@args:
 
 callPackage ./generic.nix args {
   pname = "nginxQuic";
@@ -16,10 +13,7 @@ callPackage ./generic.nix args {
     ln -s auto/configure configure
   '';
 
-  configureFlags = [
-    "--with-http_v3_module"
-    "--with-stream_quic_module"
-  ];
+  configureFlags = [ "--with-http_v3_module" "--with-stream_quic_module" ];
 
   version = "1.23.4";
 }

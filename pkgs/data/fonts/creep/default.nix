@@ -1,6 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, libfaketime
-, xorg
-}:
+{ lib, stdenv, fetchFromGitHub, libfaketime, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "creep";

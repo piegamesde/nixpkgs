@@ -1,7 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake
-, airspy, soapysdr
-, libobjc, IOKit, Security
-} :
+{ lib, stdenv, fetchFromGitHub, cmake, airspy, soapysdr, libobjc, IOKit
+, Security }:
 
 stdenv.mkDerivation rec {
   pname = "soapyairspy";

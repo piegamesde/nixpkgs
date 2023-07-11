@@ -1,31 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, zlib
-, openssl
-, libre
-, librem
-, pkg-config
-, gst_all_1
-, cairo
-, gtk3
-, mpg123
-, alsa-lib
-, SDL2
-, libv4l
-, celt
-, libsndfile
-, srtp
-, ffmpeg
-, gsm
-, speex
-, portaudio
-, spandsp3
-, libuuid
-, libvpx
-, cmake
-, dbusSupport ? true
-}:
+{ lib, stdenv, fetchFromGitHub, zlib, openssl, libre, librem, pkg-config
+, gst_all_1, cairo, gtk3, mpg123, alsa-lib, SDL2, libv4l, celt, libsndfile, srtp
+, ffmpeg, gsm, speex, portaudio, spandsp3, libuuid, libvpx, cmake
+, dbusSupport ? true }:
 stdenv.mkDerivation rec {
   version = "2.9.0";
   pname = "baresip";
@@ -60,12 +36,15 @@ stdenv.mkDerivation rec {
     spandsp3
     libuuid
     libvpx
-  ] ++ (with gst_all_1; [ gstreamer gst-libav gst-plugins-base gst-plugins-bad gst-plugins-good ]);
+  ] ++ (with gst_all_1; [
+    gstreamer
+    gst-libav
+    gst-plugins-base
+    gst-plugins-bad
+    gst-plugins-good
+  ]);
 
-  cmakeFlags = [
-    "-DCMAKE_SKIP_BUILD_RPATH=ON"
-    "-Dre_DIR=${libre}/include/re"
-  ];
+  cmakeFlags = [ "-DCMAKE_SKIP_BUILD_RPATH=ON" "-Dre_DIR=${libre}/include/re" ];
 
   makeFlags = [
     "LIBRE_MK=${libre}/share/re/re.mk"
@@ -112,16 +91,15 @@ stdenv.mkDerivation rec {
     "USE_ILBC="
     "USE_OPUS="
     "USE_SILK="
-  ]
-  ++ lib.optional (stdenv.cc.cc != null) "SYSROOT_ALT=${stdenv.cc.cc}"
-  ++ lib.optional (stdenv.cc.libc != null) "SYSROOT=${stdenv.cc.libc}"
-  ;
+  ] ++ lib.optional (stdenv.cc.cc != null) "SYSROOT_ALT=${stdenv.cc.cc}"
+    ++ lib.optional (stdenv.cc.libc != null) "SYSROOT=${stdenv.cc.libc}";
 
   enableParallelBuilding = true;
 
-  env.NIX_CFLAGS_COMPILE = '' -I${librem}/include/rem -I${gsm}/include/gsm
-    -DHAVE_INTTYPES_H -D__GLIBC__
-    -D__need_timeval -D__need_timespec -D__need_time_t '';
+  env.NIX_CFLAGS_COMPILE = ''
+    -I${librem}/include/rem -I${gsm}/include/gsm
+       -DHAVE_INTTYPES_H -D__GLIBC__
+       -D__need_timeval -D__need_timespec -D__need_time_t '';
 
   meta = {
     description = "A modular SIP User-Agent with audio and video support";

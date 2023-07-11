@@ -1,11 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, installShellFiles
-, makeWrapper
-, libpcap
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, installShellFiles, makeWrapper
+, libpcap }:
 
 stdenv.mkDerivation rec {
   pname = "masscan";
@@ -22,7 +16,8 @@ stdenv.mkDerivation rec {
     # Patches the missing "--resume" functionality
     (fetchpatch {
       name = "resume.patch";
-      url = "https://github.com/robertdavidgraham/masscan/commit/90791550bbdfac8905917a109ed74024161f14b3.patch";
+      url =
+        "https://github.com/robertdavidgraham/masscan/commit/90791550bbdfac8905917a109ed74024161f14b3.patch";
       sha256 = "sha256-A7Fk3MBNxaad69MrUYg7fdMG77wba5iESDTIRigYslw=";
     })
   ];
@@ -34,11 +29,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper installShellFiles ];
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "GITVER=${version}"
-    "CC=${stdenv.cc.targetPrefix}cc"
-  ];
+  makeFlags =
+    [ "PREFIX=$(out)" "GITVER=${version}" "CC=${stdenv.cc.targetPrefix}cc" ];
 
   enableParallelBuilding = true;
 
@@ -62,7 +54,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Fast scan of the Internet";
     homepage = "https://github.com/robertdavidgraham/masscan";
-    changelog = "https://github.com/robertdavidgraham/masscan/releases/tag/${version}";
+    changelog =
+      "https://github.com/robertdavidgraham/masscan/releases/tag/${version}";
     license = licenses.agpl3Only;
     platforms = platforms.unix;
     maintainers = with maintainers; [ rnhmjoj ];

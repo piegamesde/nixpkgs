@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, pyserial-asyncio
-, pytz
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, pyserial-asyncio, pytz }:
 
 buildPythonPackage rec {
   pname = "upb-lib";
@@ -18,10 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-I1lnIr8ptDCyK8r0bvFWFPUGRwoMsQcNnSCSwzdt1Bc=";
   };
 
-  propagatedBuildInputs = [
-    pyserial-asyncio
-    pytz
-  ];
+  propagatedBuildInputs = [ pyserial-asyncio pytz ];
 
   # no tests on PyPI, no tags on GitHub
   doCheck = false;

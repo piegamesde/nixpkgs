@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, pkg-config
-, udev
-, runtimeShellPackage
-, runtimeShell
-, nixosTests
-, enablePrivSep ? true
-}:
+{ lib, stdenv, fetchurl, fetchpatch, pkg-config, udev, runtimeShellPackage
+, runtimeShell, nixosTests, enablePrivSep ? true }:
 
 stdenv.mkDerivation rec {
   pname = "dhcpcd";
@@ -23,7 +14,8 @@ stdenv.mkDerivation rec {
     # dhcpcd with privsep SIGSYS's on dhcpcd -U
     # https://github.com/NetworkConfiguration/dhcpcd/issues/147
     (fetchpatch {
-      url = "https://github.com/NetworkConfiguration/dhcpcd/commit/38befd4e867583002b96ec39df733585d74c4ff5.patch";
+      url =
+        "https://github.com/NetworkConfiguration/dhcpcd/commit/38befd4e867583002b96ec39df733585d74c4ff5.patch";
       hash = "sha256-nS2zmLuQBYhLfoPp0DOwxF803Hh32EE4OUKGBTTukE0=";
     })
   ];
@@ -40,20 +32,15 @@ stdenv.mkDerivation rec {
 
   preConfigure = "patchShebangs ./configure";
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-  ]
-  ++ (
-    if ! enablePrivSep
-    then [ "--disable-privsep" ]
+  configureFlags = [ "--sysconfdir=/etc" "--localstatedir=/var" ]
+    ++ (if !enablePrivSep then
+      [ "--disable-privsep" ]
     else [
       "--enable-privsep"
       # dhcpcd disables privsep if it can't find the default user,
       # so we explicitly specify a user.
       "--privsepuser=dhcpcd"
-    ]
-  );
+    ]);
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
@@ -62,11 +49,14 @@ stdenv.mkDerivation rec {
   installFlags = [ "DBDIR=$(TMPDIR)/db" "SYSCONFDIR=${placeholder "out"}/etc" ];
 
   # Check that the udev plugin got built.
-  postInstall = lib.optionalString (udev != null) "[ -e ${placeholder "out"}/lib/dhcpcd/dev/udev.so ]";
+  postInstall = lib.optionalString (udev != null)
+    "[ -e ${placeholder "out"}/lib/dhcpcd/dev/udev.so ]";
 
   passthru = {
     inherit enablePrivSep;
-    tests = { inherit (nixosTests.networking.scripted) macvlan dhcpSimple dhcpOneIf; };
+    tests = {
+      inherit (nixosTests.networking.scripted) macvlan dhcpSimple dhcpOneIf;
+    };
   };
 
   meta = with lib; {

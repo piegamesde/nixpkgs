@@ -19,7 +19,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "sphinx_jinja" ];
 
   meta = with lib; {
-    description = "Sphinx extension to include jinja templates in documentation";
+    description =
+      "Sphinx extension to include jinja templates in documentation";
     homepage = "https://github.com/tardyp/sphinx-jinja";
     maintainers = with maintainers; [ ];
     license = licenses.mit;

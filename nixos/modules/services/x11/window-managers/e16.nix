@@ -1,14 +1,13 @@
-{ config , lib , pkgs , ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager.e16;
-in
-{
+let cfg = config.services.xserver.windowManager.e16;
+in {
   ###### interface
   options = {
-    services.xserver.windowManager.e16.enable = mkEnableOption (lib.mdDoc "e16");
+    services.xserver.windowManager.e16.enable =
+      mkEnableOption (lib.mdDoc "e16");
   };
 
   ###### implementation

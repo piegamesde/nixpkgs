@@ -1,11 +1,5 @@
-{ buildGoModule
-, fetchFromGitLab
-, fetchzip
-, ffmpeg
-, installShellFiles
-, lib
-, makeWrapper
-}:
+{ buildGoModule, fetchFromGitLab, fetchzip, ffmpeg, installShellFiles, lib
+, makeWrapper }:
 
 buildGoModule rec {
   pname = "olaris-server";
@@ -20,7 +14,8 @@ buildGoModule rec {
 
   preBuild = let
     olaris-react = fetchzip {
-      url = "https://gitlab.com/api/v4/projects/olaris%2Folaris-react/jobs/artifacts/v${version}/download?job=build";
+      url =
+        "https://gitlab.com/api/v4/projects/olaris%2Folaris-react/jobs/artifacts/v${version}/download?job=build";
       extension = "zip";
       hash = "sha256-MkxBf/mGvtiOu0e79bMpd9Z/D0eOxhzPE+bKic//viM=";
     };
@@ -48,13 +43,16 @@ buildGoModule rec {
       --bash <($out/bin/olaris-server completion bash) \
       --fish <($out/bin/olaris-server completion fish) \
       --zsh <($out/bin/olaris-server completion zsh)
-      wrapProgram $out/bin/olaris-server --prefix PATH : ${lib.makeBinPath [ffmpeg]}
+      wrapProgram $out/bin/olaris-server --prefix PATH : ${
+        lib.makeBinPath [ ffmpeg ]
+      }
   '';
 
   meta = with lib; {
     description = "A media manager and transcoding server.";
     homepage = "https://gitlab.com/olaris/olaris-server";
-    changelog = "https://gitlab.com/olaris/olaris-server/-/releases/v${version}";
+    changelog =
+      "https://gitlab.com/olaris/olaris-server/-/releases/v${version}";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ urandom ];
   };

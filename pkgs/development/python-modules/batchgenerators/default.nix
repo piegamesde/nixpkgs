@@ -1,17 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, pytestCheckHook
-, future
-, numpy
-, pillow
-, fetchpatch
-, scipy
-, scikit-learn
-, scikitimage
-, threadpoolctl
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook, future
+, numpy, pillow, fetchpatch, scipy, scikit-learn, scikitimage, threadpoolctl }:
 
 buildPythonPackage rec {
   pname = "batchgenerators";
@@ -27,15 +15,8 @@ buildPythonPackage rec {
     hash = "sha256-47jAeHMJPBk7GpUvXtQuJchgiSy6M50anftsuXWk2ag=";
   };
 
-  propagatedBuildInputs = [
-    future
-    numpy
-    pillow
-    scipy
-    scikit-learn
-    scikitimage
-    threadpoolctl
-  ];
+  propagatedBuildInputs =
+    [ future numpy pillow scipy scikit-learn scikitimage threadpoolctl ];
 
   # see https://github.com/MIC-DKFZ/batchgenerators/pull/78
   postPatch = ''
@@ -43,9 +24,7 @@ buildPythonPackage rec {
       --replace '"unittest2",' ""
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # see https://github.com/MIC-DKFZ/batchgenerators/pull/78
   disabledTestPaths = [ "tests/test_axis_mirroring.py" ];

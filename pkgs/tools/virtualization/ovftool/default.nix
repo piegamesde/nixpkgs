@@ -1,7 +1,6 @@
-{ lib, stdenv, fetchurl, system ? builtins.currentSystem, ovftoolBundles ? {}
-, requireFile, autoPatchelfHook, makeWrapper, unzip
-, glibc, c-ares, libxcrypt, expat, icu60, xercesc, zlib
-}:
+{ lib, stdenv, fetchurl, system ? builtins.currentSystem, ovftoolBundles ? { }
+, requireFile, autoPatchelfHook, makeWrapper, unzip, glibc, c-ares, libxcrypt
+, expat, icu60, xercesc, zlib }:
 
 let
   version = "4.5.0-20459872";
@@ -19,37 +18,39 @@ let
     runHook postUnpack
   '';
 
-  ovftoolSystems = let
-    baseUrl = "https://vdc-download.vmware.com/vmwb-repository/dcr-public";
-  in {
-    "i686-linux" = rec {
-      filename = "VMware-ovftool-${version}-lin.i386.zip";
-      url = "${baseUrl}/b70b2ad5-861a-4c11-b081-e541586bf934/57109c63-6b80-4ced-95f2-1b7255200a36/${filename}";
-      sha256 = "11zs5dm4gmssm94s501p66l4s8v9p7prrd87cfa903mwmyp0ihnx";
-      unpackPhase = ovftoolZipUnpackPhase;
+  ovftoolSystems =
+    let baseUrl = "https://vdc-download.vmware.com/vmwb-repository/dcr-public";
+    in {
+      "i686-linux" = rec {
+        filename = "VMware-ovftool-${version}-lin.i386.zip";
+        url =
+          "${baseUrl}/b70b2ad5-861a-4c11-b081-e541586bf934/57109c63-6b80-4ced-95f2-1b7255200a36/${filename}";
+        sha256 = "11zs5dm4gmssm94s501p66l4s8v9p7prrd87cfa903mwmyp0ihnx";
+        unpackPhase = ovftoolZipUnpackPhase;
+      };
+      "x86_64-linux" = rec {
+        filename = "VMware-ovftool-${version}-lin.x86_64.zip";
+        url =
+          "${baseUrl}/f87355ff-f7a9-4532-b312-0be218a92eac/b2916af6-9f4f-4112-adac-49d1d6c81f63/${filename}";
+        sha256 = "1fkm18yfkkm92m7ccl6b4nxy5lagwwldq56b567091a5sgad38zw";
+        unpackPhase = ovftoolZipUnpackPhase;
+      };
     };
-    "x86_64-linux" = rec {
-      filename = "VMware-ovftool-${version}-lin.x86_64.zip";
-      url = "${baseUrl}/f87355ff-f7a9-4532-b312-0be218a92eac/b2916af6-9f4f-4112-adac-49d1d6c81f63/${filename}";
-      sha256 = "1fkm18yfkkm92m7ccl6b4nxy5lagwwldq56b567091a5sgad38zw";
-      unpackPhase = ovftoolZipUnpackPhase;
-    };
-  };
 
   ovftoolSystem = if builtins.hasAttr system ovftoolSystems then
-                    ovftoolSystems.${system}
-                  else throw "System '${system}' is unsupported by ovftool";
+    ovftoolSystems.${system}
+  else
+    throw "System '${system}' is unsupported by ovftool";
 
   ovftoolSource = if builtins.hasAttr system ovftoolBundles then
-                    ovftoolBundles.${system}
-                  else
-                    fetchurl {
-                      name = ovftoolSystem.filename;
-                      url = ovftoolSystem.url;
-                      sha256 = ovftoolSystem.sha256;
-                    };
-in
-stdenv.mkDerivation rec {
+    ovftoolBundles.${system}
+  else
+    fetchurl {
+      name = ovftoolSystem.filename;
+      url = ovftoolSystem.url;
+      sha256 = ovftoolSystem.sha256;
+    };
+in stdenv.mkDerivation rec {
   pname = "ovftool";
   inherit version;
 
@@ -58,15 +59,7 @@ stdenv.mkDerivation rec {
   # Maintainers: try downloading a NixOS OVA and run the following to test:
   # `./result/bin/ovftool https://channels.nixos.org/nixos-unstable/latest-nixos-x86_64-linux.ova nixos.ovf`
   # Some dependencies are not loaded until operations actually occur!
-  buildInputs = [
-    glibc
-    libxcrypt
-    c-ares
-    expat
-    icu60
-    xercesc
-    zlib
-  ];
+  buildInputs = [ glibc libxcrypt c-ares expat icu60 xercesc zlib ];
 
   nativeBuildInputs = [ autoPatchelfHook makeWrapper unzip ];
 

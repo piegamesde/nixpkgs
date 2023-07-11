@@ -24,8 +24,15 @@ perlPackages.buildPerlPackage {
   '';
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = with perlPackages;
-    [ perl TermReadKey GD BitVector ncurses lynx ImageSize ];
+  buildInputs = with perlPackages; [
+    perl
+    TermReadKey
+    GD
+    BitVector
+    ncurses
+    lynx
+    ImageSize
+  ];
 
   patches = [ ./redhat-with-thr.patch ./dynaloader.patch ./no_bitvector.patch ];
 
@@ -51,9 +58,10 @@ perlPackages.buildPerlPackage {
 
   preFixup = ''
     wrapProgram $out/bin/wml \
-      --set PERL5LIB ${with perlPackages; makePerlPath [
-        BitVector TermReadKey ImageSize
-      ]}
+      --set PERL5LIB ${
+        with perlPackages;
+        makePerlPath [ BitVector TermReadKey ImageSize ]
+      }
   '';
 
   enableParallelBuilding = false;
@@ -61,7 +69,8 @@ perlPackages.buildPerlPackage {
   installTargets = [ "install" ];
 
   meta = with lib; {
-    homepage = "https://www.shlomifish.org/open-source/projects/website-meta-language/";
+    homepage =
+      "https://www.shlomifish.org/open-source/projects/website-meta-language/";
     description = "Off-line HTML generation toolkit for Unix";
     license = licenses.gpl2;
     platforms = platforms.linux;

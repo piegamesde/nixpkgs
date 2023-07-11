@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitLab, pkgs, lib, nodejs_14, pkg-config
-, libjpeg, pixman, cairo, pango, which, postgresql }:
+{ stdenv, fetchFromGitLab, pkgs, lib, nodejs_14, pkg-config, libjpeg, pixman
+, cairo, pango, which, postgresql }:
 
 let
   nodejs = nodejs_14;
@@ -22,7 +22,8 @@ let
 in myNodePackages.package.override {
   inherit version src;
 
-  nativeBuildInputs = [ nodejs.pkgs.node-pre-gyp nodejs.pkgs.node-gyp-build pkg-config which ];
+  nativeBuildInputs =
+    [ nodejs.pkgs.node-pre-gyp nodejs.pkgs.node-gyp-build pkg-config which ];
   buildInputs = [ libjpeg pixman cairo pango postgresql ];
 
   postRebuild = ''

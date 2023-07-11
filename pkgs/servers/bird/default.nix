@@ -12,16 +12,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ flex bison ];
   buildInputs = [ readline libssh ];
 
-  patches = [
-    ./dont-create-sysconfdir-2.patch
-  ];
+  patches = [ ./dont-create-sysconfdir-2.patch ];
 
-  CPP="${stdenv.cc.targetPrefix}cpp -E";
+  CPP = "${stdenv.cc.targetPrefix}cpp -E";
 
-  configureFlags = [
-    "--localstatedir=/var"
-    "--runstatedir=/run/bird"
-  ];
+  configureFlags = [ "--localstatedir=/var" "--runstatedir=/run/bird" ];
 
   passthru.tests = nixosTests.bird;
 

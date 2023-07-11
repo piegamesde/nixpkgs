@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchpatch
-, fetchPypi
-}:
+{ lib, buildPythonPackage, fetchpatch, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "fn";
@@ -15,11 +11,10 @@ buildPythonPackage rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/kachayev/fn.py/commit/a54fc0bd8aeae277de2db726131d249ce607c0c2.patch";
+      url =
+        "https://github.com/kachayev/fn.py/commit/a54fc0bd8aeae277de2db726131d249ce607c0c2.patch";
       hash = "sha256-I0ZISOgVibsc1k7gwSfeW6qV9PspQqdaHlRLr/IusQ8=";
-      excludes = [
-        "fn/monad.py"
-      ];
+      excludes = [ "fn/monad.py" ];
     })
   ];
 

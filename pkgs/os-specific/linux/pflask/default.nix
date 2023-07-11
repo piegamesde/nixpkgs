@@ -16,7 +16,8 @@ stdenv.mkDerivation rec {
     #  https://github.com/ghedo/pflask/pull/30
     (fetchpatch {
       name = "fno-common.patch";
-      url = "https://github.com/ghedo/pflask/commit/73ba32ec48e1e0e4a56b1bceed4635711526e079.patch";
+      url =
+        "https://github.com/ghedo/pflask/commit/73ba32ec48e1e0e4a56b1bceed4635711526e079.patch";
       hash = "sha256-KVuBS7LbYJQv6NXljpSiGGja7ar7W6A6SKzkEjB1B6U=";
     })
   ];

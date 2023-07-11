@@ -1,13 +1,6 @@
-{ lib
-, bluetooth-sensor-state-data
-, buildPythonPackage
-, fetchFromGitHub
-, home-assistant-bluetooth
-, poetry-core
-, pytestCheckHook
-, pythonOlder
-, sensor-state-data
-}:
+{ lib, bluetooth-sensor-state-data, buildPythonPackage, fetchFromGitHub
+, home-assistant-bluetooth, poetry-core, pytestCheckHook, pythonOlder
+, sensor-state-data }:
 
 buildPythonPackage rec {
   pname = "moat-ble";
@@ -23,33 +16,25 @@ buildPythonPackage rec {
     hash = "sha256-dy1Fm0Z1PUsPY8QTiXUcWSi+csFnTUsobSkA92m06QI=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    bluetooth-sensor-state-data
-    home-assistant-bluetooth
-    sensor-state-data
-  ];
+  propagatedBuildInputs =
+    [ bluetooth-sensor-state-data home-assistant-bluetooth sensor-state-data ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace " --cov=moat_ble --cov-report=term-missing:skip-covered" ""
   '';
 
-  pythonImportsCheck = [
-    "moat_ble"
-  ];
+  pythonImportsCheck = [ "moat_ble" ];
 
   meta = with lib; {
     description = "Library for Moat BLE devices";
     homepage = "https://github.com/Bluetooth-Devices/moat-ble";
-    changelog = "https://github.com/Bluetooth-Devices/moat-ble/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Bluetooth-Devices/moat-ble/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

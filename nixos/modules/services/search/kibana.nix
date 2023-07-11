@@ -9,8 +9,8 @@ let
   ge7 = builtins.compareVersions cfg.package.version "7" >= 0;
   lt6_6 = builtins.compareVersions cfg.package.version "6.6" < 0;
 
-  cfgFile = pkgs.writeText "kibana.json" (builtins.toJSON (
-    (filterAttrsRecursive (n: v: v != null && v != []) ({
+  cfgFile = pkgs.writeText "kibana.json" (builtins.toJSON
+    ((filterAttrsRecursive (n: v: v != null && v != [ ]) ({
       server.host = cfg.listenAddress;
       server.port = cfg.port;
       server.ssl.certificate = cfg.cert;
@@ -26,9 +26,9 @@ let
 
       elasticsearch.ssl.certificate = cfg.elasticsearch.cert;
       elasticsearch.ssl.key = cfg.elasticsearch.key;
-      elasticsearch.ssl.certificateAuthorities = cfg.elasticsearch.certificateAuthorities;
-    } // cfg.extraConf)
-  )));
+      elasticsearch.ssl.certificateAuthorities =
+        cfg.elasticsearch.certificateAuthorities;
+    } // cfg.extraConf))));
 
 in {
   options.services.kibana = {
@@ -59,7 +59,8 @@ in {
     };
 
     index = mkOption {
-      description = lib.mdDoc "Elasticsearch index to use for saving kibana config.";
+      description =
+        lib.mdDoc "Elasticsearch index to use for saving kibana config.";
       default = ".kibana";
       type = types.str;
     };
@@ -130,7 +131,7 @@ in {
 
           This defaults to the singleton list [ca] when the {option}`ca` option is defined.
         '';
-        default = if cfg.elasticsearch.ca == null then [] else [ca];
+        default = if cfg.elasticsearch.ca == null then [ ] else [ ca ];
         defaultText = literalExpression ''
           if config.${opt.elasticsearch.ca} == null then [ ] else [ ca ]
         '';
@@ -138,7 +139,8 @@ in {
       };
 
       cert = mkOption {
-        description = lib.mdDoc "Certificate file to auth against elasticsearch.";
+        description =
+          lib.mdDoc "Certificate file to auth against elasticsearch.";
         default = null;
         type = types.nullOr types.path;
       };
@@ -165,7 +167,7 @@ in {
 
     extraConf = mkOption {
       description = lib.mdDoc "Kibana extra configuration";
-      default = {};
+      default = { };
       type = types.attrs;
     };
   };
@@ -175,8 +177,8 @@ in {
       {
         assertion = ge7 -> cfg.elasticsearch.url == null;
         message =
-          "The option services.kibana.elasticsearch.url has been removed when using kibana >= 7.0.0. " +
-          "Please use option services.kibana.elasticsearch.hosts instead.";
+          "The option services.kibana.elasticsearch.url has been removed when using kibana >= 7.0.0. "
+          + "Please use option services.kibana.elasticsearch.hosts instead.";
       }
       {
         assertion = lt6_6 -> cfg.elasticsearch.hosts == null;
@@ -190,10 +192,8 @@ in {
       after = [ "network.target" "elasticsearch.service" ];
       environment = { BABEL_CACHE_PATH = "${cfg.dataDir}/.babelcache.json"; };
       serviceConfig = {
-        ExecStart =
-          "${cfg.package}/bin/kibana" +
-          " --config ${cfgFile}" +
-          " --path.data ${cfg.dataDir}";
+        ExecStart = "${cfg.package}/bin/kibana" + " --config ${cfgFile}"
+          + " --path.data ${cfg.dataDir}";
         User = "kibana";
         WorkingDirectory = cfg.dataDir;
       };
@@ -208,6 +208,6 @@ in {
       createHome = true;
       group = "kibana";
     };
-    users.groups.kibana = {};
+    users.groups.kibana = { };
   };
 }

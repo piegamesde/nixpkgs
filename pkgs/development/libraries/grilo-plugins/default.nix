@@ -1,32 +1,7 @@
-{ lib, stdenv
-, fetchurl
-, substituteAll
-, meson
-, ninja
-, pkg-config
-, gettext
-, gperf
-, sqlite
-, libarchive
-, libdmapsharing
-, libsoup_3
-, gnome
-, libxml2
-, lua5_4
-, liboauth
-, libgdata
-, libmediaart
-, grilo
-, gst_all_1
-, gnome-online-accounts
-, gmime
-, gom
-, json-glib
-, avahi
-, tracker
-, dleyna-server
-, itstool
-, totem-pl-parser
+{ lib, stdenv, fetchurl, substituteAll, meson, ninja, pkg-config, gettext, gperf
+, sqlite, libarchive, libdmapsharing, libsoup_3, gnome, libxml2, lua5_4
+, liboauth, libgdata, libmediaart, grilo, gst_all_1, gnome-online-accounts
+, gmime, gom, json-glib, avahi, tracker, dleyna-server, itstool, totem-pl-parser
 }:
 
 stdenv.mkDerivation rec {
@@ -34,7 +9,9 @@ stdenv.mkDerivation rec {
   version = "0.3.16";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "/m9Nvlhsa4uiQGOU4gLyLQCdZCqW6zpU8y9qIdCEzcs=";
   };
 
@@ -45,11 +22,12 @@ stdenv.mkDerivation rec {
     # * chromaprint (gst-plugins-bad)
     (substituteAll {
       src = ./chromaprint-gst-plugins.patch;
-      load_plugins = lib.concatMapStrings (plugin: ''gst_registry_scan_path(gst_registry_get(), "${lib.getLib plugin}/lib/gstreamer-1.0");'') (with gst_all_1; [
-        gstreamer
-        gst-plugins-base
-        gst-plugins-bad
-      ]);
+      load_plugins = lib.concatMapStrings (plugin:
+        ''
+          gst_registry_scan_path(gst_registry_get(), "${
+            lib.getLib plugin
+          }/lib/gstreamer-1.0");'')
+        (with gst_all_1; [ gstreamer gst-plugins-base gst-plugins-bad ]);
     })
   ];
 

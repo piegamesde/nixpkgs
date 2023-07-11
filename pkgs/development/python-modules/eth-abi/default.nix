@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, eth-hash
-, eth-typing
-, eth-utils
-, hypothesis
-, parsimonious
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, eth-hash, eth-typing, eth-utils
+, hypothesis, parsimonious, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "eth-abi";
@@ -27,19 +18,13 @@ buildPythonPackage rec {
       --replace "parsimonious>=0.8.0,<0.9.0" "parsimonious"
   '';
 
-  propagatedBuildInputs = [
-    eth-typing
-    eth-utils
-    parsimonious
-  ];
+  propagatedBuildInputs = [ eth-typing eth-utils parsimonious ];
 
   # lots of: TypeError: isinstance() arg 2 must be a type or tuple of types
   doCheck = false;
 
-  nativeCheckInputs = [
-    hypothesis
-    pytestCheckHook
-  ] ++ eth-hash.optional-dependencies.pycryptodome;
+  nativeCheckInputs = [ hypothesis pytestCheckHook ]
+    ++ eth-hash.optional-dependencies.pycryptodome;
 
   disabledTests = [
     # boolean list representation changed

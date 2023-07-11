@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "ankisyncd";
@@ -40,17 +37,11 @@ python3.pkgs.buildPythonApplication rec {
           --add-flags "$out/share/ankisyncctl.py"
   '';
 
-  nativeCheckInputs = with python3.pkgs; [
-    pytest
-    webtest
-  ];
+  nativeCheckInputs = with python3.pkgs; [ pytest webtest ];
 
   buildInputs = [ ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    decorator
-    requests
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ decorator requests ];
 
   checkPhase = ''
     # skip these tests, our files are too young:

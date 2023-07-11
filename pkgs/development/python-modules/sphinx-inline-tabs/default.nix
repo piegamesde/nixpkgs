@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, sphinx
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, sphinx }:
 
 buildPythonPackage rec {
   pname = "sphinx-inline-tabs";
@@ -16,9 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-1oZheHDNOQU0vWL3YClQrJe94WyUJ72bCAF1UKtjJ0w=";
   };
 
-  propagatedBuildInputs = [
-    sphinx
-  ];
+  propagatedBuildInputs = [ sphinx ];
 
   # no tests, see https://github.com/pradyunsg/sphinx-inline-tabs/issues/6
   doCheck = false;

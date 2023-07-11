@@ -1,24 +1,6 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, pkg-config
-, catch2
-, libX11
-, libXrandr
-, libXinerama
-, libXext
-, libXcursor
-, freetype
-, alsa-lib
-, Cocoa
-, WebKit
-, CoreServices
-, DiscRecording
-, CoreAudioKit
-, MetalKit
-, simd
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, catch2, libX11, libXrandr
+, libXinerama, libXext, libXcursor, freetype, alsa-lib, Cocoa, WebKit
+, CoreServices, DiscRecording, CoreAudioKit, MetalKit, simd }:
 
 let
   # FetchContent replacement, check CMakeLists.txt for requested versions (Nixpkgs' Catch2 works)
@@ -28,8 +10,7 @@ let
     rev = "v1.0.6";
     sha256 = "sha256-g7NX7Ucl5GWw3u6TiUOITjhv7492ByTzACtWR0Ph2Jc=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "fire";
   version = "1.0.0.3";
 
@@ -41,9 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-X3pzTrNd0G6BouCDkr3dukQTFDzZ7qblIYxFQActKGE=";
   };
 
-  patches = [
-    ./0001-Remove-FetchContent-usage.patch
-  ];
+  patches = [ ./0001-Remove-FetchContent-usage.patch ];
 
   postPatch = ''
     # 1. Remove hardcoded LTO flags: needs extra setup on Linux,
@@ -62,10 +41,7 @@ stdenv.mkDerivation rec {
     ln -s ${catch2.src} Catch2
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     libX11
@@ -86,7 +62,12 @@ stdenv.mkDerivation rec {
   ];
 
   installPhase = let
-    vst3Dir = "${placeholder "out"}/${if stdenv.hostPlatform.isDarwin then "Library/Audio/Plug-Ins/VST3" else "lib/vst3"}";
+    vst3Dir = "${placeholder "out"}/${
+        if stdenv.hostPlatform.isDarwin then
+          "Library/Audio/Plug-Ins/VST3"
+        else
+          "lib/vst3"
+      }";
     auDir = "${placeholder "out"}/Library/Audio/Plug-Ins/Components";
   in ''
     runHook preInstall
@@ -103,7 +84,8 @@ stdenv.mkDerivation rec {
   '';
 
   # Fails to find fp.h on its own
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin "-isystem ${CoreServices}/Library/Frameworks/CoreServices.framework/Versions/Current/Frameworks/CarbonCore.framework/Versions/Current/Headers/";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin
+    "-isystem ${CoreServices}/Library/Frameworks/CoreServices.framework/Versions/Current/Frameworks/CarbonCore.framework/Versions/Current/Headers/";
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 

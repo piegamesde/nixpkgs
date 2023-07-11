@@ -1,17 +1,5 @@
-{ lib, stdenv
-, fetchurl
-, python3
-, pkg-config
-, cmocka
-, readline
-, talloc
-, libxslt
-, docbook-xsl-nons
-, docbook_xml_dtd_42
-, which
-, wafHook
-, libxcrypt
-}:
+{ lib, stdenv, fetchurl, python3, pkg-config, cmocka, readline, talloc, libxslt
+, docbook-xsl-nons, docbook_xml_dtd_42, which, wafHook, libxcrypt }:
 
 stdenv.mkDerivation rec {
   pname = "tevent";
@@ -49,10 +37,8 @@ stdenv.mkDerivation rec {
 
   wafPath = "buildtools/bin/waf";
 
-  wafConfigureFlags = [
-    "--bundled-libraries=NONE"
-    "--builtin-libraries=replace"
-  ];
+  wafConfigureFlags =
+    [ "--bundled-libraries=NONE" "--builtin-libraries=replace" ];
 
   # python-config from build Python gives incorrect values when cross-compiling.
   # If python-config is not found, the build falls back to using the sysconfig
@@ -60,7 +46,8 @@ stdenv.mkDerivation rec {
   PYTHON_CONFIG = "/invalid";
 
   meta = with lib; {
-    description = "An event system based on the talloc memory management library";
+    description =
+      "An event system based on the talloc memory management library";
     homepage = "https://tevent.samba.org/";
     license = licenses.lgpl3Plus;
     platforms = platforms.all;

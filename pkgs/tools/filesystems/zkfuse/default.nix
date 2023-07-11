@@ -1,18 +1,11 @@
-{ stdenv
-, lib
-, autoreconfHook
-, boost
-, fuse
-, log4cxx
-, zookeeper
-, zookeeper_mt
-}:
+{ stdenv, lib, autoreconfHook, boost, fuse, log4cxx, zookeeper, zookeeper_mt }:
 
 stdenv.mkDerivation rec {
   pname = "zkfuse";
   inherit (zookeeper_mt) version src;
 
-  sourceRoot = "apache-${zookeeper.pname}-${version}/zookeeper-contrib/zookeeper-contrib-zkfuse";
+  sourceRoot =
+    "apache-${zookeeper.pname}-${version}/zookeeper-contrib/zookeeper-contrib-zkfuse";
 
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ zookeeper_mt log4cxx boost fuse ];

@@ -1,9 +1,4 @@
-{ lib
-, aliyun-python-sdk-core
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-}:
+{ lib, aliyun-python-sdk-core, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aliyun-python-sdk-cdn";
@@ -17,21 +12,18 @@ buildPythonPackage rec {
     hash = "sha256-/fhHR/6nepDOKsL69lztUkPqXrV091BLMTSn7O0jvPk=";
   };
 
-  propagatedBuildInputs = [
-    aliyun-python-sdk-core
-  ];
+  propagatedBuildInputs = [ aliyun-python-sdk-core ];
 
   # All components are stored in a mono repo
   doCheck = false;
 
-  pythonImportsCheck = [
-    "aliyunsdkcdn"
-  ];
+  pythonImportsCheck = [ "aliyunsdkcdn" ];
 
   meta = with lib; {
     description = "CDN module of Aliyun Python SDK";
     homepage = "https://github.com/aliyun/aliyun-openapi-python-sdk";
-    changelog = "https://github.com/aliyun/aliyun-openapi-python-sdk/blob/master/aliyun-python-sdk-cdn/ChangeLog.txt";
+    changelog =
+      "https://github.com/aliyun/aliyun-openapi-python-sdk/blob/master/aliyun-python-sdk-cdn/ChangeLog.txt";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, python
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, python, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "dj-email-url";
@@ -25,7 +20,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Use an URL to configure email backend settings in your Django Application";
+    description =
+      "Use an URL to configure email backend settings in your Django Application";
     homepage = "https://github.com/migonzalvar/dj-email-url";
     license = licenses.bsd0;
     maintainers = with maintainers; [ costrouc ];

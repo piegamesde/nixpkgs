@@ -1,52 +1,21 @@
-{ lib
-, pkgs
-, stdenv
+{ lib, pkgs, stdenv
 
-  # Build-time dependencies:
-, addOpenGLRunpath
-, bazel_5
-, binutils
-, buildBazelPackage
-, buildPythonPackage
-, cctools
-, curl
-, cython
-, fetchFromGitHub
-, git
-, IOKit
-, jsoncpp
-, nsync
-, openssl
-, pybind11
-, setuptools
-, symlinkJoin
-, wheel
-, which
+# Build-time dependencies:
+, addOpenGLRunpath, bazel_5, binutils, buildBazelPackage, buildPythonPackage
+, cctools, curl, cython, fetchFromGitHub, git, IOKit, jsoncpp, nsync, openssl
+, pybind11, setuptools, symlinkJoin, wheel, which
 
-  # Python dependencies:
-, absl-py
-, flatbuffers
-, numpy
-, scipy
-, six
+# Python dependencies:
+, absl-py, flatbuffers, numpy, scipy, six
 
-  # Runtime dependencies:
-, double-conversion
-, giflib
-, grpc
-, libjpeg_turbo
-, protobuf
-, python
-, snappy
-, zlib
+# Runtime dependencies:
+, double-conversion, giflib, grpc, libjpeg_turbo, protobuf, python, snappy, zlib
 
-  # CUDA flags:
-, cudaSupport ? false
-, cudaPackages ? {}
+# CUDA flags:
+, cudaSupport ? false, cudaPackages ? { }
 
   # MKL:
-, mklSupport ? true
-}:
+, mklSupport ? true }:
 
 let
   inherit (cudaPackages) backendStdenv cudatoolkit cudaFlags cudnn nccl;
@@ -55,7 +24,8 @@ let
   version = "0.4.4";
 
   meta = with lib; {
-    description = "JAX is Autograd and XLA, brought together for high-performance machine learning research.";
+    description =
+      "JAX is Autograd and XLA, brought together for high-performance machine learning research.";
     homepage = "https://github.com/google/jax";
     license = licenses.asl20;
     maintainers = with maintainers; [ ndl ];
@@ -68,14 +38,12 @@ let
 
   cudatoolkit_joined = symlinkJoin {
     name = "${cudatoolkit.name}-merged";
-    paths = [
-      cudatoolkit.lib
-      cudatoolkit.out
-    ] ++ lib.optionals (lib.versionOlder cudatoolkit.version "11") [
-      # for some reason some of the required libs are in the targets/x86_64-linux
-      # directory; not sure why but this works around it
-      "${cudatoolkit}/targets/${stdenv.system}"
-    ];
+    paths = [ cudatoolkit.lib cudatoolkit.out ]
+      ++ lib.optionals (lib.versionOlder cudatoolkit.version "11") [
+        # for some reason some of the required libs are in the targets/x86_64-linux
+        # directory; not sure why but this works around it
+        "${cudatoolkit}/targets/${stdenv.system}"
+      ];
   };
 
   cudatoolkit_cc_joined = symlinkJoin {
@@ -142,16 +110,8 @@ let
       hash = "sha256-DP68UwS9bg243iWU4MLHN0pwl8LaOcW3Sle1ZjsLOHo=";
     };
 
-    nativeBuildInputs = [
-      cython
-      pkgs.flatbuffers
-      git
-      setuptools
-      wheel
-      which
-    ] ++ lib.optionals stdenv.isDarwin [
-      cctools
-    ];
+    nativeBuildInputs = [ cython pkgs.flatbuffers git setuptools wheel which ]
+      ++ lib.optionals stdenv.isDarwin [ cctools ];
 
     buildInputs = [
       curl
@@ -169,14 +129,9 @@ let
       six
       snappy
       zlib
-    ] ++ lib.optionals cudaSupport [
-      cudatoolkit
-      cudnn
-    ] ++ lib.optionals stdenv.isDarwin [
-      IOKit
-    ] ++ lib.optionals (!stdenv.isDarwin) [
-      nsync
-    ];
+    ] ++ lib.optionals cudaSupport [ cudatoolkit cudnn ]
+      ++ lib.optionals stdenv.isDarwin [ IOKit ]
+      ++ lib.optionals (!stdenv.isDarwin) [ nsync ];
 
     postPatch = ''
       rm -f .bazelversion
@@ -186,8 +141,10 @@ let
 
     removeRulesCC = false;
 
-    GCC_HOST_COMPILER_PREFIX = lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin";
-    GCC_HOST_COMPILER_PATH = lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin/gcc";
+    GCC_HOST_COMPILER_PREFIX =
+      lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin";
+    GCC_HOST_COMPILER_PATH =
+      lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin/gcc";
 
     preConfigure = ''
       # dummy ldconfig
@@ -206,22 +163,27 @@ let
       build --action_env CUDA_TOOLKIT_PATH="${cudatoolkit_joined}"
       build --action_env CUDNN_INSTALL_PATH="${cudnn}"
       build --action_env TF_CUDA_PATHS="${cudatoolkit_joined},${cudnn},${nccl}"
-      build --action_env TF_CUDA_VERSION="${lib.versions.majorMinor cudatoolkit.version}"
+      build --action_env TF_CUDA_VERSION="${
+        lib.versions.majorMinor cudatoolkit.version
+      }"
       build --action_env TF_CUDNN_VERSION="${lib.versions.major cudnn.version}"
-      build:cuda --action_env TF_CUDA_COMPUTE_CAPABILITIES="${builtins.concatStringsSep "," cudaFlags.realArches}"
+      build:cuda --action_env TF_CUDA_COMPUTE_CAPABILITIES="${
+        builtins.concatStringsSep "," cudaFlags.realArches
+      }"
     '' + ''
       CFG
     '';
 
     # Make sure Bazel knows about our configuration flags during fetching so that the
     # relevant dependencies can be downloaded.
-    bazelFlags = [
-      "-c opt"
-    ] ++ lib.optionals stdenv.cc.isClang [
+    bazelFlags = [ "-c opt" ] ++ lib.optionals stdenv.cc.isClang [
       # bazel depends on the compiler frontend automatically selecting these flags based on file
       # extension but our clang doesn't.
       # https://github.com/NixOS/nixpkgs/issues/150655
-      "--cxxopt=-x" "--cxxopt=c++" "--host_cxxopt=-x" "--host_cxxopt=c++"
+      "--cxxopt=-x"
+      "--cxxopt=c++"
+      "--host_cxxopt=-x"
+      "--host_cxxopt=c++"
     ];
 
     # We intentionally overfetch so we can share the fetch derivation across all the different configurations
@@ -229,39 +191,34 @@ let
       TF_SYSTEM_LIBS = lib.concatStringsSep "," tf_system_libs;
       # we have to force @mkl_dnn_v1 since it's not needed on darwin
       bazelTargets = bazelTargets ++ [ "@mkl_dnn_v1//:mkl_dnn" ];
-      bazelFlags = bazelFlags ++ [
-        "--config=avx_posix"
-      ] ++ lib.optionals cudaSupport [
-        # ideally we'd add this unconditionally too, but it doesn't work on darwin
-        # we make this conditional on `cudaSupport` instead of the system, so that the hash for both
-        # the cuda and the non-cuda deps can be computed on linux, since a lot of contributors don't
-        # have access to darwin machines
-        "--config=cuda"
-      ] ++ [
-        "--config=mkl_open_source_only"
-      ];
+      bazelFlags = bazelFlags ++ [ "--config=avx_posix" ]
+        ++ lib.optionals cudaSupport [
+          # ideally we'd add this unconditionally too, but it doesn't work on darwin
+          # we make this conditional on `cudaSupport` instead of the system, so that the hash for both
+          # the cuda and the non-cuda deps can be computed on linux, since a lot of contributors don't
+          # have access to darwin machines
+          "--config=cuda"
+        ] ++ [ "--config=mkl_open_source_only" ];
 
-      sha256 =
-        if cudaSupport then
-          "sha256-cgsiloW77p4+TKRrYequZ/UwKwfO2jsHKtZ+aA30H7E="
-        else
-          "sha256-D7WYG3YUaWq+4APYx8WpA191VVtoHG0fth3uEHXOeos=";
+      sha256 = if cudaSupport then
+        "sha256-cgsiloW77p4+TKRrYequZ/UwKwfO2jsHKtZ+aA30H7E="
+      else
+        "sha256-D7WYG3YUaWq+4APYx8WpA191VVtoHG0fth3uEHXOeos=";
     };
 
     buildAttrs = {
       outputs = [ "out" ];
 
-      TF_SYSTEM_LIBS = lib.concatStringsSep "," (tf_system_libs ++ lib.optionals (!stdenv.isDarwin) [
-        "nsync" # fails to build on darwin
-      ]);
+      TF_SYSTEM_LIBS = lib.concatStringsSep "," (tf_system_libs
+        ++ lib.optionals (!stdenv.isDarwin) [
+          "nsync" # fails to build on darwin
+        ]);
 
-      bazelFlags = bazelFlags ++ lib.optionals (stdenv.targetPlatform.isx86_64 && stdenv.targetPlatform.isUnix) [
-        "--config=avx_posix"
-      ] ++ lib.optionals cudaSupport [
-        "--config=cuda"
-      ] ++ lib.optionals mklSupport [
-        "--config=mkl_open_source_only"
-      ];
+      bazelFlags = bazelFlags ++ lib.optionals
+        (stdenv.targetPlatform.isx86_64 && stdenv.targetPlatform.isUnix)
+        [ "--config=avx_posix" ]
+        ++ lib.optionals cudaSupport [ "--config=cuda" ]
+        ++ lib.optionals mklSupport [ "--config=mkl_open_source_only" ];
       # Note: we cannot do most of this patching at `patch` phase as the deps are not available yet.
       # 1) Fix pybind11 include paths.
       # 2) Link protobuf from nixpkgs (through TF_SYSTEM_LIBS when using gcc) to prevent crashes on
@@ -288,7 +245,8 @@ let
       '' else if stdenv.cc.isClang then ''
         sed -i 's@-lprotobuf@${protobuf}/lib/libprotobuf.a@' ../output/external/org_tensorflow/third_party/systemlibs/protobuf.BUILD
         sed -i 's@-lprotoc@${protobuf}/lib/libprotoc.a@' ../output/external/org_tensorflow/third_party/systemlibs/protobuf.BUILD
-      '' else throw "Unsupported stdenv.cc: ${stdenv.cc}");
+      '' else
+        throw "Unsupported stdenv.cc: ${stdenv.cc}");
 
       installPhase = ''
         ./bazel-bin/build/build_wheel --output_path=$out --cpu=${stdenv.targetPlatform.linuxArch}
@@ -297,22 +255,21 @@ let
 
     inherit meta;
   };
-  platformTag =
-    if stdenv.targetPlatform.isLinux then
-      "manylinux2014_${stdenv.targetPlatform.linuxArch}"
-    else if stdenv.system == "x86_64-darwin" then
-      "macosx_10_9_${stdenv.targetPlatform.linuxArch}"
-    else if stdenv.system == "aarch64-darwin" then
-      "macosx_11_0_${stdenv.targetPlatform.linuxArch}"
-    else throw "Unsupported target platform: ${stdenv.targetPlatform}";
+  platformTag = if stdenv.targetPlatform.isLinux then
+    "manylinux2014_${stdenv.targetPlatform.linuxArch}"
+  else if stdenv.system == "x86_64-darwin" then
+    "macosx_10_9_${stdenv.targetPlatform.linuxArch}"
+  else if stdenv.system == "aarch64-darwin" then
+    "macosx_11_0_${stdenv.targetPlatform.linuxArch}"
+  else
+    throw "Unsupported target platform: ${stdenv.targetPlatform}";
 
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit meta pname version;
   format = "wheel";
 
   src =
-    let cp = "cp${builtins.replaceStrings ["."] [""] python.pythonVersion}";
+    let cp = "cp${builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
     in "${bazel-build}/jaxlib-${version}-${cp}-${cp}-${platformTag}.whl";
 
   # Note that cudatoolkit is necessary since jaxlib looks for "ptxas" in $PATH.

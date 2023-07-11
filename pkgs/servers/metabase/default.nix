@@ -20,14 +20,13 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "The easy, open source way for everyone in your company to ask questions and learn from data";
-    homepage    = "https://metabase.com";
+    description =
+      "The easy, open source way for everyone in your company to ask questions and learn from data";
+    homepage = "https://metabase.com";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license     = licenses.agpl3Only;
-    platforms   = platforms.all;
+    license = licenses.agpl3Only;
+    platforms = platforms.all;
     maintainers = with maintainers; [ schneefux thoughtpolice mmahut ];
   };
-  passthru.tests = {
-    inherit (nixosTests) metabase;
-  };
+  passthru.tests = { inherit (nixosTests) metabase; };
 }

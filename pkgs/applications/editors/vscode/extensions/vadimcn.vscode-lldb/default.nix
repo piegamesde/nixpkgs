@@ -1,6 +1,6 @@
-{ pkgs, lib, stdenv, fetchFromGitHub, runCommand, rustPlatform, makeWrapper, llvmPackages
-, nodePackages, cmake, nodejs, unzip, python3, pkg-config, libsecret
-}:
+{ pkgs, lib, stdenv, fetchFromGitHub, runCommand, rustPlatform, makeWrapper
+, llvmPackages, nodePackages, cmake, nodejs, unzip, python3, pkg-config
+, libsecret }:
 assert lib.versionAtLeast python3.version "3.5";
 let
   publisher = "vadimcn";
@@ -19,7 +19,8 @@ let
   };
 
   # need to build a custom version of lldb and llvm for enhanced rust support
-  lldb = (import ./lldb.nix { inherit fetchFromGitHub runCommand llvmPackages; });
+  lldb =
+    (import ./lldb.nix { inherit fetchFromGitHub runCommand llvmPackages; });
 
   adapter = rustPlatform.buildRustPackage {
     pname = "${pname}-adapter";
@@ -33,10 +34,7 @@ let
 
     buildFeatures = [ "weak-linkage" ];
 
-    cargoBuildFlags = [
-      "--lib"
-      "--bin=codelldb"
-    ];
+    cargoBuildFlags = [ "--lib" "--bin=codelldb" ];
 
     # Tests are linked to liblldb but it is not available here.
     doCheck = false;
@@ -48,7 +46,7 @@ let
   }).nodeDependencies.override (old: {
     inherit src version;
     nativeBuildInputs = [ pkg-config ];
-    buildInputs = [libsecret];
+    buildInputs = [ libsecret ];
     dontNpmInstall = true;
   }));
 

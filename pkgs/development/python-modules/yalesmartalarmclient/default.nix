@@ -1,10 +1,4 @@
-{ lib
-, backoff
-, buildPythonPackage
-, fetchFromGitHub
-, requests
-, pythonOlder
-}:
+{ lib, backoff, buildPythonPackage, fetchFromGitHub, requests, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "yalesmartalarmclient";
@@ -20,17 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-Zpj1lLaxiTaYpcj1R/ktuVldl/r19r7fzNKvnSIDq80=";
   };
 
-  propagatedBuildInputs = [
-    backoff
-    requests
-  ];
+  propagatedBuildInputs = [ backoff requests ];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "yalesmartalarmclient"
-  ];
+  pythonImportsCheck = [ "yalesmartalarmclient" ];
 
   meta = with lib; {
     description = "Python module to interface with Yale Smart Alarm Systems";

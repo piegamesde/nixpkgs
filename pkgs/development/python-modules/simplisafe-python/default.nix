@@ -1,21 +1,6 @@
-{ lib
-, aiohttp
-, aresponses
-, backoff
-, beautifulsoup4
-, buildPythonPackage
-, docutils
-, fetchFromGitHub
-, poetry-core
-, pytest-aiohttp
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, pytz
-, types-pytz
-, voluptuous
-, websockets
-}:
+{ lib, aiohttp, aresponses, backoff, beautifulsoup4, buildPythonPackage
+, docutils, fetchFromGitHub, poetry-core, pytest-aiohttp, pytest-asyncio
+, pytestCheckHook, pythonOlder, pytz, types-pytz, voluptuous, websockets }:
 
 buildPythonPackage rec {
   pname = "simplisafe-python";
@@ -31,27 +16,13 @@ buildPythonPackage rec {
     hash = "sha256-ExiwaVSSpXfnLCMKRQ7iXLzxO81kV6I5Nj/ZSUyZAMg=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    backoff
-    beautifulsoup4
-    docutils
-    pytz
-    voluptuous
-    websockets
-  ];
+  propagatedBuildInputs =
+    [ aiohttp backoff beautifulsoup4 docutils pytz voluptuous websockets ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-aiohttp
-    pytest-asyncio
-    pytestCheckHook
-    types-pytz
-  ];
+  nativeCheckInputs =
+    [ aresponses pytest-aiohttp pytest-asyncio pytestCheckHook types-pytz ];
 
   disabledTests = [
     # simplipy/api.py:253: InvalidCredentialsError
@@ -66,14 +37,13 @@ buildPythonPackage rec {
     "examples/"
   ];
 
-  pythonImportsCheck = [
-    "simplipy"
-  ];
+  pythonImportsCheck = [ "simplipy" ];
 
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {
-    changelog = "https://github.com/bachya/simplisafe-python/releases/tag/${version}";
+    changelog =
+      "https://github.com/bachya/simplisafe-python/releases/tag/${version}";
     description = "Python library the SimpliSafe API";
     homepage = "https://simplisafe-python.readthedocs.io/";
     license = with licenses; [ mit ];

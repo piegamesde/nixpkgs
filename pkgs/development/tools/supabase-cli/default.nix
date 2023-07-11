@@ -1,11 +1,5 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, testers
-, supabase-cli
-, nix-update-script
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, testers, supabase-cli
+, nix-update-script }:
 
 buildGoModule rec {
   pname = "supabase-cli";
@@ -41,9 +35,7 @@ buildGoModule rec {
   '';
 
   passthru = {
-    tests.version = testers.testVersion {
-      package = supabase-cli;
-    };
+    tests.version = testers.testVersion { package = supabase-cli; };
     updateScript = nix-update-script { };
   };
 

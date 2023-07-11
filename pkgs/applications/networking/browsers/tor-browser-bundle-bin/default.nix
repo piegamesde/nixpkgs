@@ -1,46 +1,22 @@
-{ lib, stdenv
-, fetchurl
-, makeDesktopItem
-, writeText
+{ lib, stdenv, fetchurl, makeDesktopItem, writeText
 
 # Common run-time dependencies
 , zlib
 
 # libxul run-time dependencies
-, atk
-, cairo
-, dbus
-, dbus-glib
-, fontconfig
-, freetype
-, gdk-pixbuf
-, glib
-, gtk3
-, libxcb
-, libX11
-, libXext
-, libXrender
-, libXt
-, pango
+, atk, cairo, dbus, dbus-glib, fontconfig, freetype, gdk-pixbuf, glib, gtk3
+, libxcb, libX11, libXext, libXrender, libXt, pango
 
-, audioSupport ? mediaSupport
-, pulseaudioSupport ? mediaSupport
-, libpulseaudio
-, apulse
-, alsa-lib
+, audioSupport ? mediaSupport, pulseaudioSupport ? mediaSupport, libpulseaudio
+, apulse, alsa-lib
 
 # Media support (implies audio support)
-, mediaSupport ? true
-, ffmpeg
+, mediaSupport ? true, ffmpeg
 
 , gmp
 
 # Wrapper runtime
-, coreutils
-, glibcLocales
-, gnome
-, runtimeShell
-, shared-mime-info
+, coreutils, glibcLocales, gnome, runtimeShell, shared-mime-info
 , gsettings-desktop-schemas
 
 # Hardening
@@ -48,12 +24,11 @@
 # Whether to use graphene-hardened-malloc
 , useHardenedMalloc ? true
 
-# Whether to disable multiprocess support
+  # Whether to disable multiprocess support
 , disableContentSandbox ? false
 
-# Extra preferences
-, extraPrefs ? ""
-}:
+  # Extra preferences
+, extraPrefs ? "" }:
 
 let
   libPath = lib.makeLibraryPath libPkgs;
@@ -78,11 +53,8 @@ let
     stdenv.cc.cc
     stdenv.cc.libc
     zlib
-  ]
-  ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
-  ++ lib.optionals mediaSupport [
-    ffmpeg
-  ];
+  ] ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
+    ++ lib.optionals mediaSupport [ ffmpeg ];
 
   # Library search path for the fte transport
   fteLibPath = lib.makeLibraryPath [ stdenv.cc.cc gmp ];
@@ -114,7 +86,7 @@ let
     };
   };
 
-  distributionIni = writeText "distribution.ini" (lib.generators.toINI {} {
+  distributionIni = writeText "distribution.ini" (lib.generators.toINI { } {
     # Some light branding indicating this build uses our distro preferences
     Global = {
       id = "nixos";
@@ -123,15 +95,14 @@ let
     };
   });
 
-  policiesJson = writeText "policies.json" (builtins.toJSON {
-    policies.DisableAppUpdate = true;
-  });
-in
-stdenv.mkDerivation rec {
+  policiesJson = writeText "policies.json"
+    (builtins.toJSON { policies.DisableAppUpdate = true; });
+in stdenv.mkDerivation rec {
   pname = "tor-browser-bundle-bin";
   inherit version;
 
-  src = srcs.${stdenv.hostPlatform.system} or (throw "unsupported system: ${stdenv.hostPlatform.system}");
+  src = srcs.${stdenv.hostPlatform.system} or (throw
+    "unsupported system: ${stdenv.hostPlatform.system}");
 
   preferLocalBuild = true;
   allowSubstitutes = false;
@@ -231,7 +202,9 @@ stdenv.mkDerivation rec {
 
     // Optionally disable multiprocess support.  We always set this to ensure that
     // toggling the pref takes effect.
-    lockPref("browser.tabs.remote.autostart.2", ${if disableContentSandbox then "false" else "true"});
+    lockPref("browser.tabs.remote.autostart.2", ${
+      if disableContentSandbox then "false" else "true"
+    });
 
     // Allow sandbox access to sound devices if using ALSA directly
     ${if (audioSupport && !pulseaudioSupport) then ''
@@ -267,18 +240,25 @@ stdenv.mkDerivation rec {
     GeoIPv6File $TBB_IN_STORE/TorBrowser/Data/Tor/geoip6
     EOF
 
-    WRAPPER_LD_PRELOAD=${lib.optionalString useHardenedMalloc
-      "${graphene-hardened-malloc}/lib/libhardened_malloc.so"}
+    WRAPPER_LD_PRELOAD=${
+      lib.optionalString useHardenedMalloc
+      "${graphene-hardened-malloc}/lib/libhardened_malloc.so"
+    }
 
-    WRAPPER_XDG_DATA_DIRS=${lib.concatMapStringsSep ":" (x: "${x}/share") [
-      gnome.adwaita-icon-theme
-      shared-mime-info
-    ]}
-    WRAPPER_XDG_DATA_DIRS+=":"${lib.concatMapStringsSep ":" (x: "${x}/share/gsettings-schemas/${x.name}") [
-      glib
-      gsettings-desktop-schemas
-      gtk3
-    ]};
+    WRAPPER_XDG_DATA_DIRS=${
+      lib.concatMapStringsSep ":" (x: "${x}/share") [
+        gnome.adwaita-icon-theme
+        shared-mime-info
+      ]
+    }
+    WRAPPER_XDG_DATA_DIRS+=":"${
+      lib.concatMapStringsSep ":"
+      (x: "${x}/share/gsettings-schemas/${x.name}") [
+        glib
+        gsettings-desktop-schemas
+        gtk3
+      ]
+    };
 
     # Generate wrapper
     mkdir -p $out/bin
@@ -459,9 +439,17 @@ stdenv.mkDerivation rec {
       the `/nix/store`.
     '';
     homepage = "https://www.torproject.org/";
-    changelog = "https://gitweb.torproject.org/builders/tor-browser-build.git/plain/projects/tor-browser/Bundle-Data/Docs/ChangeLog.txt?h=maint-${version}";
+    changelog =
+      "https://gitweb.torproject.org/builders/tor-browser-build.git/plain/projects/tor-browser/Bundle-Data/Docs/ChangeLog.txt?h=maint-${version}";
     platforms = attrNames srcs;
-    maintainers = with maintainers; [ offline matejc thoughtpolice joachifm hax404 KarlJoad ];
+    maintainers = with maintainers; [
+      offline
+      matejc
+      thoughtpolice
+      joachifm
+      hax404
+      KarlJoad
+    ];
     mainProgram = "tor-browser";
     # MPL2.0+, GPL+, &c.  While it's not entirely clear whether
     # the compound is "libre" in a strict sense (some components place certain

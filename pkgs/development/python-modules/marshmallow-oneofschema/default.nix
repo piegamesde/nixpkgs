@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, marshmallow
-, pytestCheckHook
-, pythonOlder
-, setuptools
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, marshmallow, pytestCheckHook
+, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "marshmallow-oneofschema";
@@ -21,22 +15,17 @@ buildPythonPackage rec {
     hash = "sha256-Em2jQmvI5IiWREeOX/JAcdOQlpwP7k+cbCirkh82sf0=";
   };
 
-  propagatedBuildInputs = [
-    marshmallow
-    setuptools
-  ];
+  propagatedBuildInputs = [ marshmallow setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "marshmallow_oneofschema"
-  ];
+  pythonImportsCheck = [ "marshmallow_oneofschema" ];
 
   meta = with lib; {
-    changelog = "https://github.com/marshmallow-code/marshmallow-oneofschema/blob/${src.rev}/CHANGELOG.rst";
-    description = "Marshmallow library extension that allows schema (de)multiplexing";
+    changelog =
+      "https://github.com/marshmallow-code/marshmallow-oneofschema/blob/${src.rev}/CHANGELOG.rst";
+    description =
+      "Marshmallow library extension that allows schema (de)multiplexing";
     homepage = "https://github.com/marshmallow-code/marshmallow-oneofschema";
     license = licenses.mit;
     maintainers = with maintainers; [ ivan-tkatchev ];

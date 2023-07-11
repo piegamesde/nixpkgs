@@ -1,17 +1,16 @@
-{ stdenv, lib, unzip, autoPatchelfHook
-, fetchurl, atomEnv, makeWrapper
-, makeDesktopItem, copyDesktopItems, wrapGAppsHook, libxshmfence
-, metaCommon
-}:
+{ stdenv, lib, unzip, autoPatchelfHook, fetchurl, atomEnv, makeWrapper
+, makeDesktopItem, copyDesktopItems, wrapGAppsHook, libxshmfence, metaCommon }:
 
 let
   pname = "trilium-desktop";
   version = "0.59.4";
 
-  linuxSource.url = "https://github.com/zadam/trilium/releases/download/v${version}/trilium-linux-x64-${version}.tar.xz";
+  linuxSource.url =
+    "https://github.com/zadam/trilium/releases/download/v${version}/trilium-linux-x64-${version}.tar.xz";
   linuxSource.sha256 = "0vv58bcwx62slrc6f7ra61m71nqh6pb2rg4h99f8krj2h56zhrij";
 
-  darwinSource.url = "https://github.com/zadam/trilium/releases/download/v${version}/trilium-mac-x64-${version}.zip";
+  darwinSource.url =
+    "https://github.com/zadam/trilium/releases/download/v${version}/trilium-mac-x64-${version}.zip";
   darwinSource.sha256 = "18jdz32i0blh3hrdyh558fmqncjrnv1j1g3hwjcph8hi90pqycdr";
 
   meta = metaCommon // {
@@ -25,12 +24,8 @@ let
 
     src = fetchurl linuxSource;
 
-    nativeBuildInputs = [
-      autoPatchelfHook
-      makeWrapper
-      wrapGAppsHook
-      copyDesktopItems
-    ];
+    nativeBuildInputs =
+      [ autoPatchelfHook makeWrapper wrapGAppsHook copyDesktopItems ];
 
     buildInputs = atomEnv.packages ++ [ libxshmfence ];
 
@@ -85,5 +80,4 @@ let
     '';
   };
 
-in
-  if stdenv.isDarwin then darwin else linux
+in if stdenv.isDarwin then darwin else linux

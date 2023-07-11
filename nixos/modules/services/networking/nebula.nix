@@ -7,18 +7,17 @@ let
   cfg = config.services.nebula;
   enabledNetworks = filterAttrs (n: v: v.enable) cfg.networks;
 
-  format = pkgs.formats.yaml {};
+  format = pkgs.formats.yaml { };
 
   nameToId = netName: "nebula-${netName}";
-in
-{
+in {
   # Interface
 
   options = {
     services.nebula = {
       networks = mkOption {
         description = lib.mdDoc "Nebula network definitions.";
-        default = {};
+        default = { };
         type = types.attrsOf (types.submodule {
           options = {
             enable = mkOption {
@@ -36,7 +35,8 @@ in
 
             ca = mkOption {
               type = types.path;
-              description = lib.mdDoc "Path to the certificate authority certificate.";
+              description =
+                lib.mdDoc "Path to the certificate authority certificate.";
               example = "/etc/nebula/ca.crt";
             };
 
@@ -54,7 +54,7 @@ in
 
             staticHostMap = mkOption {
               type = types.attrsOf (types.listOf (types.str));
-              default = {};
+              default = { };
               description = lib.mdDoc ''
                 The static host map defines a set of hosts with fixed IP addresses on the internet (or any network).
                 A host can have multiple fixed IP addresses defined here, and nebula will try each when establishing a tunnel.
@@ -76,7 +76,7 @@ in
 
             lighthouses = mkOption {
               type = types.listOf types.str;
-              default = [];
+              default = [ ];
               description = lib.mdDoc ''
                 List of IPs of lighthouse hosts this node should report to and query from. This should be empty on lighthouse
                 nodes. The IPs should be the lighthouse's Nebula IPs, not their external IPs.
@@ -86,7 +86,7 @@ in
 
             relays = mkOption {
               type = types.listOf types.str;
-              default = [];
+              default = [ ];
               description = lib.mdDoc ''
                 List of IPs of relays that this node should allow traffic from.
               '';
@@ -116,26 +116,35 @@ in
             tun.device = mkOption {
               type = types.nullOr types.str;
               default = null;
-              description = lib.mdDoc "Name of the tun device. Defaults to nebula.\${networkName}.";
+              description = lib.mdDoc
+                "Name of the tun device. Defaults to nebula.\${networkName}.";
             };
 
             firewall.outbound = mkOption {
               type = types.listOf types.attrs;
-              default = [];
+              default = [ ];
               description = lib.mdDoc "Firewall rules for outbound traffic.";
-              example = [ { port = "any"; proto = "any"; host = "any"; } ];
+              example = [{
+                port = "any";
+                proto = "any";
+                host = "any";
+              }];
             };
 
             firewall.inbound = mkOption {
               type = types.listOf types.attrs;
-              default = [];
+              default = [ ];
               description = lib.mdDoc "Firewall rules for inbound traffic.";
-              example = [ { port = "any"; proto = "any"; host = "any"; } ];
+              example = [{
+                port = "any";
+                proto = "any";
+                host = "any";
+              }];
             };
 
             settings = mkOption {
               type = format.type;
-              default = {};
+              default = { };
               description = lib.mdDoc ''
                 Nebula configuration. Refer to
                 <https://github.com/slackhq/nebula/blob/master/examples/config.yml>
@@ -157,7 +166,7 @@ in
   };
 
   # Implementation
-  config = mkIf (enabledNetworks != {}) {
+  config = mkIf (enabledNetworks != { }) {
     systemd.services = mkMerge (mapAttrsToList (netName: netCfg:
       let
         networkId = nameToId netName;
@@ -183,7 +192,10 @@ in
           };
           tun = {
             disabled = netCfg.tun.disable;
-            dev = if (netCfg.tun.device != null) then netCfg.tun.device else "nebula.${netName}";
+            dev = if (netCfg.tun.device != null) then
+              netCfg.tun.device
+            else
+              "nebula.${netName}";
           };
           firewall = {
             inbound = netCfg.firewall.inbound;
@@ -191,63 +203,63 @@ in
           };
         } netCfg.settings;
         configFile = format.generate "nebula-config-${netName}.yml" settings;
-        in
-        {
-          # Create the systemd service for Nebula.
-          "nebula@${netName}" = {
-            description = "Nebula VPN service for ${netName}";
-            wants = [ "basic.target" ];
-            after = [ "basic.target" "network.target" ];
-            before = [ "sshd.service" ];
-            wantedBy = [ "multi-user.target" ];
-            serviceConfig = {
-              Type = "simple";
-              Restart = "always";
-              ExecStart = "${netCfg.package}/bin/nebula -config ${configFile}";
-              UMask = "0027";
-              CapabilityBoundingSet = "CAP_NET_ADMIN";
-              AmbientCapabilities = "CAP_NET_ADMIN";
-              LockPersonality = true;
-              NoNewPrivileges = true;
-              PrivateDevices = false; # needs access to /dev/net/tun (below)
-              DeviceAllow = "/dev/net/tun rw";
-              DevicePolicy = "closed";
-              PrivateTmp = true;
-              PrivateUsers = false; # CapabilityBoundingSet needs to apply to the host namespace
-              ProtectClock = true;
-              ProtectControlGroups = true;
-              ProtectHome = true;
-              ProtectHostname = true;
-              ProtectKernelLogs = true;
-              ProtectKernelModules = true;
-              ProtectKernelTunables = true;
-              ProtectProc = "invisible";
-              ProtectSystem = "strict";
-              RestrictNamespaces = true;
-              RestrictSUIDSGID = true;
-              User = networkId;
-              Group = networkId;
-            };
-            unitConfig.StartLimitIntervalSec = 0; # ensure Restart=always is always honoured (networks can go down for arbitrarily long)
+      in {
+        # Create the systemd service for Nebula.
+        "nebula@${netName}" = {
+          description = "Nebula VPN service for ${netName}";
+          wants = [ "basic.target" ];
+          after = [ "basic.target" "network.target" ];
+          before = [ "sshd.service" ];
+          wantedBy = [ "multi-user.target" ];
+          serviceConfig = {
+            Type = "simple";
+            Restart = "always";
+            ExecStart = "${netCfg.package}/bin/nebula -config ${configFile}";
+            UMask = "0027";
+            CapabilityBoundingSet = "CAP_NET_ADMIN";
+            AmbientCapabilities = "CAP_NET_ADMIN";
+            LockPersonality = true;
+            NoNewPrivileges = true;
+            PrivateDevices = false; # needs access to /dev/net/tun (below)
+            DeviceAllow = "/dev/net/tun rw";
+            DevicePolicy = "closed";
+            PrivateTmp = true;
+            PrivateUsers =
+              false; # CapabilityBoundingSet needs to apply to the host namespace
+            ProtectClock = true;
+            ProtectControlGroups = true;
+            ProtectHome = true;
+            ProtectHostname = true;
+            ProtectKernelLogs = true;
+            ProtectKernelModules = true;
+            ProtectKernelTunables = true;
+            ProtectProc = "invisible";
+            ProtectSystem = "strict";
+            RestrictNamespaces = true;
+            RestrictSUIDSGID = true;
+            User = networkId;
+            Group = networkId;
           };
-        }) enabledNetworks);
-
-    # Open the chosen ports for UDP.
-    networking.firewall.allowedUDPPorts =
-      unique (mapAttrsToList (netName: netCfg: netCfg.listen.port) enabledNetworks);
-
-    # Create the service users and groups.
-    users.users = mkMerge (mapAttrsToList (netName: netCfg:
-      {
-        ${nameToId netName} = {
-          group = nameToId netName;
-          description = "Nebula service user for network ${netName}";
-          isSystemUser = true;
+          unitConfig.StartLimitIntervalSec =
+            0; # ensure Restart=always is always honoured (networks can go down for arbitrarily long)
         };
       }) enabledNetworks);
 
-    users.groups = mkMerge (mapAttrsToList (netName: netCfg: {
-      ${nameToId netName} = {};
+    # Open the chosen ports for UDP.
+    networking.firewall.allowedUDPPorts = unique
+      (mapAttrsToList (netName: netCfg: netCfg.listen.port) enabledNetworks);
+
+    # Create the service users and groups.
+    users.users = mkMerge (mapAttrsToList (netName: netCfg: {
+      ${nameToId netName} = {
+        group = nameToId netName;
+        description = "Nebula service user for network ${netName}";
+        isSystemUser = true;
+      };
     }) enabledNetworks);
+
+    users.groups = mkMerge
+      (mapAttrsToList (netName: netCfg: { ${nameToId netName} = { }; })
+        enabledNetworks);
   };
 }

@@ -4,18 +4,14 @@ import ./make-test-python.nix ({ pkgs, ... }: {
     server = { ... }: {
       environment.systemPackages = [ pkgs.jq ];
       services.mimir.enable = true;
-      services.mimir.configuration = {
-        ingester.ring.replication_factor = 1;
-      };
+      services.mimir.configuration = { ingester.ring.replication_factor = 1; };
 
       services.telegraf.enable = true;
       services.telegraf.extraConfig = {
         agent.interval = "1s";
         agent.flush_interval = "1s";
         inputs.exec = {
-          commands = [
-            "${pkgs.coreutils}/bin/echo 'foo i=42i'"
-          ];
+          commands = [ "${pkgs.coreutils}/bin/echo 'foo i=42i'" ];
           data_format = "influx";
         };
         outputs = {

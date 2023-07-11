@@ -1,23 +1,6 @@
-{ bash
-, brotli
-, buildGoModule
-, forgejo
-, git
-, gzip
-, lib
-, makeWrapper
-, nixosTests
-, openssh
-, pam
-, pamSupport ? true
-, sqliteSupport ? true
-, xorg
-, runCommand
-, stdenv
-, fetchFromGitea
-, buildNpmPackage
-, writeShellApplication
-}:
+{ bash, brotli, buildGoModule, forgejo, git, gzip, lib, makeWrapper, nixosTests
+, openssh, pam, pamSupport ? true, sqliteSupport ? true, xorg, runCommand
+, stdenv, fetchFromGitea, buildNpmPackage, writeShellApplication }:
 
 let
   frontend = buildNpmPackage rec {
@@ -26,9 +9,7 @@ let
 
     npmDepsHash = "sha256-dB/uBuS0kgaTwsPYnqklT450ejLHcPAqBdDs3JT8Uxg=";
 
-    patches = [
-      ./package-json-npm-build-frontend.patch
-    ];
+    patches = [ ./package-json-npm-build-frontend.patch ];
 
     # override npmInstallHook
     installPhase = ''
@@ -36,8 +17,7 @@ let
       cp -R ./public $out/
     '';
   };
-in
-buildGoModule rec {
+in buildGoModule rec {
   pname = "forgejo";
   version = "1.19.3-0";
 
@@ -58,9 +38,7 @@ buildGoModule rec {
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = lib.optional pamSupport pam;
 
-  patches = [
-    ./../gitea/static-root-path.patch
-  ];
+  patches = [ ./../gitea/static-root-path.patch ];
 
   postPatch = ''
     substituteInPlace modules/setting/setting.go --subst-var data

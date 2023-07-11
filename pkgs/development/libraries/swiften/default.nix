@@ -1,16 +1,5 @@
-{ stdenv
-, lib
-, libidn
-, lua
-, miniupnpc
-, expat
-, zlib
-, fetchurl
-, fetchpatch
-, openssl
-, boost
-, scons
-}:
+{ stdenv, lib, libidn, lua, miniupnpc, expat, zlib, fetchurl, fetchpatch
+, openssl, boost, scons }:
 
 stdenv.mkDerivation rec {
   pname = "swiften";
@@ -29,27 +18,17 @@ stdenv.mkDerivation rec {
     # https://swift.im/git/swift/commit/Swiften/Base/Platform.h?id=3666cbbe30e4d4e25401a5902ae359bc2c24248b
     (fetchpatch {
       name = "3666cbbe30e4d4e25401a5902ae359bc2c24248b.patch";
-      url = "https://swift.im/git/swift/patch/Swiften/Base/Platform.h?id=3666cbbe30e4d4e25401a5902ae359bc2c24248b";
+      url =
+        "https://swift.im/git/swift/patch/Swiften/Base/Platform.h?id=3666cbbe30e4d4e25401a5902ae359bc2c24248b";
       sha256 = "Wh8Nnfm0/EppSJ7aH2vTNObHtodE5tM19kV1oDfm70w=";
     })
   ];
 
-  nativeBuildInputs = [
-    scons
-  ];
+  nativeBuildInputs = [ scons ];
 
-  buildInputs = [
-    libidn
-    lua
-    miniupnpc
-    expat
-    zlib
-  ];
+  buildInputs = [ libidn lua miniupnpc expat zlib ];
 
-  propagatedBuildInputs = [
-    openssl
-    boost
-  ];
+  propagatedBuildInputs = [ openssl boost ];
 
   sconsFlags = [
     "openssl=${openssl.dev}"
@@ -73,9 +52,7 @@ stdenv.mkDerivation rec {
 
   installTargets = "${placeholder "out"}";
 
-  installFlags = [
-    "SWIFTEN_INSTALLDIR=${placeholder "out"}"
-  ];
+  installFlags = [ "SWIFTEN_INSTALLDIR=${placeholder "out"}" ];
 
   enableParallelBuilding = true;
 

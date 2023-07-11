@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, runCommand
-, asciidoctor
-, coreutils
-, gawk
-, glibc
-, util-linux
-, bash
-, makeBinaryWrapper
-, doas-sudo-shim
-}:
+{ lib, stdenv, fetchFromGitHub, runCommand, asciidoctor, coreutils, gawk, glibc
+, util-linux, bash, makeBinaryWrapper, doas-sudo-shim }:
 
 stdenv.mkDerivation rec {
   pname = "doas-sudo-shim";
@@ -29,15 +18,17 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  installFlags = [ "DESTDIR=$(out)" "PREFIX=\"\"" ];
+  installFlags = [ "DESTDIR=$(out)" ''PREFIX=""'' ];
 
   postInstall = ''
     wrapProgram $out/bin/sudo \
-      --prefix PATH : ${lib.makeBinPath [ bash coreutils gawk glibc util-linux ]}
+      --prefix PATH : ${
+        lib.makeBinPath [ bash coreutils gawk glibc util-linux ]
+      }
   '';
 
   passthru.tests = {
-    helpTest = runCommand "${pname}-helpTest" {} ''
+    helpTest = runCommand "${pname}-helpTest" { } ''
       ${doas-sudo-shim}/bin/sudo -h > $out
       grep -q "Execute a command as another user using doas(1)" $out
     '';

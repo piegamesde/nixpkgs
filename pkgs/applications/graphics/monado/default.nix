@@ -1,49 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, writeText
-, cmake
-, doxygen
-, glslang
-, pkg-config
-, python3
-, SDL2
-, dbus
-, eigen
-, ffmpeg
-, gst-plugins-base
-, gstreamer
-, hidapi
-, libGL
-, libXau
-, libXdmcp
-, libXrandr
-, libbsd
-, libffi
-, libjpeg
+{ lib, stdenv, fetchFromGitLab, writeText, cmake, doxygen, glslang, pkg-config
+, python3, SDL2, dbus, eigen, ffmpeg, gst-plugins-base, gstreamer, hidapi, libGL
+, libXau, libXdmcp, libXrandr, libbsd, libffi, libjpeg
 # , librealsense
-, libsurvive
-, libusb1
-, libuv
-, libuvc
-, libv4l
-, libxcb
-, opencv4
-, openhmd
-, udev
-, vulkan-headers
-, vulkan-loader
-, wayland
-, wayland-protocols
-, wayland-scanner
-, libdrm
-, zlib
+, libsurvive, libusb1, libuv, libuvc, libv4l, libxcb, opencv4, openhmd, udev
+, vulkan-headers, vulkan-loader, wayland, wayland-protocols, wayland-scanner
+, libdrm, zlib
 # Set as 'false' to build monado without service support, i.e. allow VR
 # applications linking against libopenxr_monado.so to use OpenXR standalone
 # instead of via the monado-service program. For more information see:
 # https://gitlab.freedesktop.org/monado/monado/-/blob/master/doc/targets.md#xrt_feature_service-disabled
-, serviceSupport ? true
-}:
+, serviceSupport ? true }:
 
 stdenv.mkDerivation rec {
   pname = "monado";
@@ -57,13 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zieJmI6BKHpYyCPOOUora9qoWn+NXehbHKvoi4h81UA=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    doxygen
-    glslang
-    pkg-config
-    python3
-  ];
+  nativeBuildInputs = [ cmake doxygen glslang pkg-config python3 ];
 
   cmakeFlags = [
     "-DXRT_FEATURE_SERVICE=${if serviceSupport then "ON" else "OFF"}"

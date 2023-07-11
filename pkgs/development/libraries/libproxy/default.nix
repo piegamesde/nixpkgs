@@ -1,23 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, pkg-config
-, cmake
-, zlib
-, dbus
-, networkmanager
-, enableJavaScript ? stdenv.isDarwin || lib.meta.availableOn stdenv.hostPlatform duktape
-, duktape
-, pcre
-, gsettings-desktop-schemas
-, glib
-, makeWrapper
-, python3
-, SystemConfiguration
-, CoreFoundation
-, JavaScriptCore
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config, cmake, zlib, dbus
+, networkmanager, enableJavaScript ? stdenv.isDarwin
+  || lib.meta.availableOn stdenv.hostPlatform duktape, duktape, pcre
+, gsettings-desktop-schemas, glib, makeWrapper, python3, SystemConfiguration
+, CoreFoundation, JavaScriptCore }:
 
 stdenv.mkDerivation rec {
   pname = "libproxy";
@@ -33,38 +18,32 @@ stdenv.mkDerivation rec {
   patches = lib.optionals stdenv.isDarwin [
     # https://github.com/libproxy/libproxy/pull/189
     (fetchpatch {
-      url = "https://github.com/libproxy/libproxy/commit/4331b9db427ce2c25ff5eeb597bec4bc35ed1a0b.patch";
+      url =
+        "https://github.com/libproxy/libproxy/commit/4331b9db427ce2c25ff5eeb597bec4bc35ed1a0b.patch";
       sha256 = "sha256-uTh3rYVvEke1iWVHsT3Zj2H1F+gyLrffcmyt0JEKaCA=";
     })
   ];
 
   outputs = [ "out" "dev" "py3" ];
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config cmake makeWrapper ];
 
-  buildInputs = [
-    pcre
-    python3
-    zlib
-  ] ++ lib.optionals enableJavaScript [
-    (if stdenv.hostPlatform.isDarwin then JavaScriptCore else duktape)
-  ] ++ (if stdenv.hostPlatform.isDarwin then [
-    SystemConfiguration
-    CoreFoundation
-  ] else [
-    glib
-    dbus
-    networkmanager
-  ]);
+  buildInputs = [ pcre python3 zlib ] ++ lib.optionals enableJavaScript
+    [ (if stdenv.hostPlatform.isDarwin then JavaScriptCore else duktape) ]
+    ++ (if stdenv.hostPlatform.isDarwin then [
+      SystemConfiguration
+      CoreFoundation
+    ] else [
+      glib
+      dbus
+      networkmanager
+    ]);
 
   cmakeFlags = [
     "-DWITH_PYTHON2=OFF"
     "-DPYTHON3_SITEPKG_DIR=${placeholder "py3"}/${python3.sitePackages}"
-  ] ++ lib.optional (enableJavaScript && !stdenv.hostPlatform.isDarwin) "-DWITH_MOZJS=ON";
+  ] ++ lib.optional (enableJavaScript && !stdenv.hostPlatform.isDarwin)
+    "-DWITH_MOZJS=ON";
 
   postFixup = lib.optionalString stdenv.isLinux ''
     # config_gnome3 uses the helper to find GNOME proxy settings
@@ -77,6 +56,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux ++ platforms.darwin;
     license = licenses.lgpl21;
     homepage = "http://libproxy.github.io/libproxy/";
-    description = "A library that provides automatic proxy configuration management";
+    description =
+      "A library that provides automatic proxy configuration management";
   };
 }

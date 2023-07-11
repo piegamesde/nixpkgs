@@ -1,14 +1,5 @@
-{ lib
-, pkgs
-, mkDerivation
-, libcanberra
-, pulseaudio
-, fetchFromGitHub
-, cmake
-, extra-cmake-modules
-, kio
-, kidletime
-}:
+{ lib, pkgs, mkDerivation, libcanberra, pulseaudio, fetchFromGitHub, cmake
+, extra-cmake-modules, kio, kidletime }:
 
 mkDerivation rec {
   pname = "maui-core";
@@ -21,20 +12,13 @@ mkDerivation rec {
     sha256 = "sha256-58ja76N7LrJ0f/SsNMYr7Z9hdW60PwsNlTkHQ+NEdUM=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
 
-  buildInputs = [
-    kidletime
-    kio
-    libcanberra
-    pulseaudio
-  ];
+  buildInputs = [ kidletime kio libcanberra pulseaudio ];
 
   meta = with lib; {
-    description = "Core libraries to manage the desktop to be shared between Maui Settings and Cask";
+    description =
+      "Core libraries to manage the desktop to be shared between Maui Settings and Cask";
     homepage = "https://github.com/Nitrux/maui-core";
     # Missing license information https://github.com/Nitrux/maui-core/issues/1
     license = licenses.unfree;

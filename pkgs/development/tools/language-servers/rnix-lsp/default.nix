@@ -16,7 +16,8 @@ rustPlatform.buildRustPackage rec {
   nativeCheckInputs = lib.optional (!stdenv.isDarwin) nix;
 
   meta = with lib; {
-    description = "A work-in-progress language server for Nix, with syntax checking and basic completion";
+    description =
+      "A work-in-progress language server for Nix, with syntax checking and basic completion";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

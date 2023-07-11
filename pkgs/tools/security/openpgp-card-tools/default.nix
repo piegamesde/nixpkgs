@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, rustPlatform
-, fetchCrate
-, pkg-config
-, pcsclite
-, nettle
-, PCSC
-, testers
-, openpgp-card-tools
-}:
+{ lib, stdenv, rustPlatform, fetchCrate, pkg-config, pcsclite, nettle, PCSC
+, testers, openpgp-card-tools }:
 
 rustPlatform.buildRustPackage rec {
   pname = "openpgp-card-tools";
@@ -25,9 +16,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [ pcsclite nettle ] ++ lib.optionals stdenv.isDarwin [ PCSC ];
 
   passthru = {
-    tests.version = testers.testVersion {
-      package = openpgp-card-tools;
-    };
+    tests.version = testers.testVersion { package = openpgp-card-tools; };
   };
 
   meta = with lib; {

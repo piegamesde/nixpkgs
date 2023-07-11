@@ -1,33 +1,7 @@
-{ lib, stdenv
-, fetchurl
-, fetchpatch
-, blas
-, boost
-, cmake
-, doxygen
-, eigen
-, gtest
-, hdf5
-, lapack
-, mpi
-, mpi4py
-, numpy
-, pkg-config
-, ply
-, pybind11
-, pytest
-, python
-, pythonPackages
-, scotch
-, setuptools
-, six
-, sphinx
-, suitesparse
-, swig
-, sympy
-, zlib
-, nixosTests
-}:
+{ lib, stdenv, fetchurl, fetchpatch, blas, boost, cmake, doxygen, eigen, gtest
+, hdf5, lapack, mpi, mpi4py, numpy, pkg-config, ply, pybind11, pytest, python
+, pythonPackages, scotch, setuptools, six, sphinx, suitesparse, swig, sympy
+, zlib, nixosTests }:
 
 let
   version = "2019.1.0";
@@ -36,7 +10,8 @@ let
     pname = "dijitso";
     inherit version;
     src = fetchurl {
-      url = "https://bitbucket.org/fenics-project/dijitso/downloads/dijitso-${version}.tar.gz";
+      url =
+        "https://bitbucket.org/fenics-project/dijitso/downloads/dijitso-${version}.tar.gz";
       sha256 = "1ncgbr0bn5cvv16f13g722a0ipw6p9y6p4iasxjziwsp8kn5x97a";
     };
     propagatedBuildInputs = [ numpy six ];
@@ -61,7 +36,8 @@ let
     pname = "fiat";
     inherit version;
     src = fetchurl {
-      url = "https://bitbucket.org/fenics-project/fiat/downloads/fiat-${version}.tar.gz";
+      url =
+        "https://bitbucket.org/fenics-project/fiat/downloads/fiat-${version}.tar.gz";
       sha256 = "1sbi0fbr7w9g9ajr565g3njxrc3qydqjy3334vmz5xg0rd3106il";
     };
     propagatedBuildInputs = [ numpy six sympy ];
@@ -91,7 +67,8 @@ let
     pname = "ufl";
     inherit version;
     src = fetchurl {
-      url = "https://bitbucket.org/fenics-project/ufl/downloads/ufl-${version}.tar.gz";
+      url =
+        "https://bitbucket.org/fenics-project/ufl/downloads/ufl-${version}.tar.gz";
       sha256 = "04daxwg4y9c51sdgvwgmlc82nn0fjw7i2vzs15ckdc7dlazmcfi1";
     };
     propagatedBuildInputs = [ numpy six ];
@@ -102,7 +79,8 @@ let
       runHook postCheck
     '';
     meta = {
-      description = "A domain-specific language for finite element variational forms";
+      description =
+        "A domain-specific language for finite element variational forms";
       homepage = "https://fenicsproject.org/";
       platforms = lib.platforms.all;
       license = lib.licenses.lgpl3;
@@ -113,21 +91,12 @@ let
     pname = "ffc";
     inherit version;
     src = fetchurl {
-      url = "https://bitbucket.org/fenics-project/ffc/downloads/ffc-${version}.tar.gz";
+      url =
+        "https://bitbucket.org/fenics-project/ffc/downloads/ffc-${version}.tar.gz";
       sha256 = "1zdg6pziss4va74pd7jjl8sc3ya2gmhpypccmyd8p7c66ji23y2g";
     };
-    nativeBuildInputs = [
-      pybind11
-    ];
-    propagatedBuildInputs = [
-      dijitso
-      fiat
-      numpy
-      six
-      sympy
-      ufl
-      setuptools
-    ];
+    nativeBuildInputs = [ pybind11 ];
+    propagatedBuildInputs = [ dijitso fiat numpy six sympy ufl setuptools ];
     nativeCheckInputs = [ pytest ];
     preCheck = ''
       export HOME=$PWD
@@ -149,28 +118,20 @@ let
     pname = "dolfin";
     inherit version;
     src = fetchurl {
-      url = "https://bitbucket.org/fenics-project/dolfin/downloads/dolfin-${version}.tar.gz";
+      url =
+        "https://bitbucket.org/fenics-project/dolfin/downloads/dolfin-${version}.tar.gz";
       sha256 = "0kbyi4x5f6j4zpasch0swh0ch81w2h92rqm1nfp3ydi4a93vky33";
     };
     patches = [
       (fetchpatch {
         name = "fix-double-prefix.patch";
-        url = "https://bitbucket.org/josef_kemetmueller/dolfin/commits/328e94acd426ebaf2243c072b806be3379fd4340/raw";
+        url =
+          "https://bitbucket.org/josef_kemetmueller/dolfin/commits/328e94acd426ebaf2243c072b806be3379fd4340/raw";
         sha256 = "1zj7k3y7vsx0hz3gwwlxhq6gdqamqpcw90d4ishwx5ps5ckcsb9r";
       })
     ];
-    propagatedBuildInputs = [
-      dijitso
-      fiat
-      numpy
-      six
-      ufl
-    ];
-    nativeBuildInputs = [
-      cmake
-      doxygen
-      pkg-config
-    ];
+    propagatedBuildInputs = [ dijitso fiat numpy six ufl ];
+    nativeBuildInputs = [ cmake doxygen pkg-config ];
     buildInputs = [
       boost
       dijitso
@@ -226,10 +187,7 @@ let
     disabled = pythonPackages.isPy27;
     src = dolfin.src;
     sourceRoot = "${pname}-${version}/python";
-    nativeBuildInputs = [
-      pybind11
-      cmake
-    ];
+    nativeBuildInputs = [ pybind11 cmake ];
     dontUseCmakeConfigure = true;
     preConfigure = ''
       export CMAKE_PREFIX_PATH=${pybind11}/share/cmake/pybind11:$CMAKE_PREFIX_PATH
@@ -238,10 +196,7 @@ let
         --replace 'pkgconfig.exists("dolfin")' 'pkgconfig.exists("${dolfin}/lib/pkgconfig/dolfin.pc")' \
         --replace 'pkgconfig.parse("dolfin")' 'pkgconfig.parse("${dolfin}/lib/pkgconfig/dolfin.pc")'
     '';
-    buildInputs = [
-      dolfin
-      boost
-    ];
+    buildInputs = [ dolfin boost ];
 
     propagatedBuildInputs = [
       dijitso

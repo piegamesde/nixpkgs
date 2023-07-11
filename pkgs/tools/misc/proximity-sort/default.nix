@@ -12,9 +12,13 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-VGxU3CD5pj0Hrt6nUbNU7eNEpNrzHp/WaFHAKPUz8DA=";
 
   meta = with lib; {
-    description = "Simple command-line utility for sorting inputs by proximity to a path argument";
+    description =
+      "Simple command-line utility for sorting inputs by proximity to a path argument";
     homepage = "https://github.com/jonhoo/proximity-sort";
-    license = with licenses; [ mit /* or */ asl20 ];
+    license = with licenses; [
+      mit # or
+      asl20
+    ];
     maintainers = with maintainers; [ figsoda ];
   };
 }

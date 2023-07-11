@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, blas
-, lapack
-, gfortran
-, enableAMPL ? true, libamplsolver
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, blas, lapack, gfortran
+, enableAMPL ? true, libamplsolver }:
 
 assert (!blas.isILP64) && (!lapack.isILP64);
 

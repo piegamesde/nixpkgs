@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytestCheckHook
-, numpy
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, numpy
 }:
 
 buildPythonPackage rec {
@@ -25,11 +20,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-  doCheck = false;  # requires SimpleITK python package (not in Nixpkgs)
+  doCheck = false; # requires SimpleITK python package (not in Nixpkgs)
 
-  pythonImportsCheck = [
-    "pymedio"
-  ];
+  pythonImportsCheck = [ "pymedio" ];
 
   meta = with lib; {
     description = "Read medical image files into Numpy arrays";

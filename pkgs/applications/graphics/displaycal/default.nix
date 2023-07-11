@@ -1,11 +1,4 @@
-{ lib
-, python3
-, xorg
-, argyllcms
-, wrapGAppsHook
-, gtk3
-, librsvg
-}:
+{ lib, python3, xorg, argyllcms, wrapGAppsHook, gtk3, librsvg }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "displaycal";
@@ -18,10 +11,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-oDHDVb0zuAC49yPfmNe7xuFKaA1BRZGr75XwsLqugHs=";
   };
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    gtk3
-  ];
+  nativeBuildInputs = [ wrapGAppsHook gtk3 ];
 
   propagatedBuildInputs = with python3.pkgs; [
     build
@@ -33,18 +23,11 @@ python3.pkgs.buildPythonApplication rec {
     send2trash
   ];
 
-  buildInputs = [
-    gtk3
-    librsvg
-  ] ++ (with xorg; [
-    libX11
-    libXxf86vm
-    libXext
-    libXinerama
-    libXrandr
-  ]);
+  buildInputs = [ gtk3 librsvg ]
+    ++ (with xorg; [ libX11 libXxf86vm libXext libXinerama libXrandr ]);
 
-  doCheck = false; # Tests try to access an X11 session and dbus in weird locations.
+  doCheck =
+    false; # Tests try to access an X11 session and dbus in weird locations.
 
   pythonImportsCheck = [ "DisplayCAL" ];
 
@@ -59,7 +42,8 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Display calibration and characterization powered by Argyll CMS (Migrated to Python 3)";
+    description =
+      "Display calibration and characterization powered by Argyll CMS (Migrated to Python 3)";
     homepage = "https://github.com/eoyilmaz/displaycal-py3";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

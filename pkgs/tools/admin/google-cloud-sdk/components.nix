@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, google-cloud-sdk
-, system
-, snapshotPath
-, autoPatchelfHook
-, python3
-, libxcrypt-legacy
-, ...
-}:
+{ stdenv, lib, google-cloud-sdk, system, snapshotPath, autoPatchelfHook, python3
+, libxcrypt-legacy, ... }:
 
 let
   # Mapping from GCS component architecture names to Nix archictecture names
@@ -30,8 +22,7 @@ let
     let
       arch' = arches.${arch} or (throw "unsupported architecture '${arch}'");
       os' = oses.${os} or (throw "unsupported OS '${os}'");
-    in
-    "${arch'}-${os'}";
+    in "${arch'}-${os'}";
 
   # All architectures that are supported by GCS
   allArches = builtins.attrNames arches;
@@ -44,12 +35,7 @@ let
   # `snapshot`, but only contains a single component.  These files are
   # installed with google-cloud-sdk to let it know which components are
   # available.
-  snapshotFromComponent =
-    { component
-    , revision
-    , schema_version
-    , version
-    }:
+  snapshotFromComponent = { component, revision, schema_version, version }:
     builtins.toJSON {
       components = [ component ];
       inherit revision schema_version version;
@@ -57,23 +43,14 @@ let
 
   # Generate a set of components from a JSON file describing these components
   componentsFromSnapshot =
-    { components
-    , revision
-    , schema_version
-    , version
-    , ...
-    }:
-    lib.fix (
-      self:
-      builtins.listToAttrs (
-        builtins.map
-          (component: {
-            name = component.id;
-            value = componentFromSnapshot self { inherit component revision schema_version version; };
-          })
-          components
-      )
-    );
+    { components, revision, schema_version, version, ... }:
+    lib.fix (self:
+      builtins.listToAttrs (builtins.map (component: {
+        name = component.id;
+        value = componentFromSnapshot self {
+          inherit component revision schema_version version;
+        };
+      }) components));
 
   # Generate a single component from its snapshot, along with a set of
   # available dependencies to choose from.
@@ -81,49 +58,42 @@ let
     # Component derivations that can be used as dependencies
     components:
     # This component's snapshot
-    { component
-    , revision
-    , schema_version
-    , version
-    } @ attrs:
+    { component, revision, schema_version, version }@attrs:
     let
       baseUrl = builtins.dirOf schema_version.url;
       # Architectures supported by this component.  Defaults to all available
       # architectures.
-      architectures = builtins.filter
-        (arch: builtins.elem arch (builtins.attrNames arches))
+      architectures =
+        builtins.filter (arch: builtins.elem arch (builtins.attrNames arches))
         (lib.attrByPath [ "platform" "architectures" ] allArches component);
       # Operating systems supported by this component
-      operating_systems = builtins.filter
-        (os: builtins.elem os (builtins.attrNames oses))
+      operating_systems =
+        builtins.filter (os: builtins.elem os (builtins.attrNames oses))
         component.platform.operating_systems;
-    in
-    mkComponent
-      {
-        pname = component.id;
-        version = component.version.version_string;
-        src =
-          lib.optionalString (lib.hasAttrByPath [ "data" "source" ] component) "${baseUrl}/${component.data.source}";
-        sha256 = lib.attrByPath [ "data" "checksum" ] "" component;
-        dependencies = builtins.map (dep: builtins.getAttr dep components) component.dependencies;
-        platforms =
-          if component.platform == { }
-          then lib.platforms.all
-          else
-            builtins.concatMap
-              (arch: builtins.map (os: toNixPlatform arch os) operating_systems)
-              architectures;
-        snapshot = snapshotFromComponent attrs;
-      };
+    in mkComponent {
+      pname = component.id;
+      version = component.version.version_string;
+      src = lib.optionalString (lib.hasAttrByPath [ "data" "source" ] component)
+        "${baseUrl}/${component.data.source}";
+      sha256 = lib.attrByPath [ "data" "checksum" ] "" component;
+      dependencies = builtins.map (dep: builtins.getAttr dep components)
+        component.dependencies;
+      platforms = if component.platform == { } then
+        lib.platforms.all
+      else
+        builtins.concatMap
+        (arch: builtins.map (os: toNixPlatform arch os) operating_systems)
+        architectures;
+      snapshot = snapshotFromComponent attrs;
+    };
 
   # Filter out dependencies not supported by current system
-  filterForSystem = builtins.filter (drv: builtins.elem system drv.meta.platforms);
+  filterForSystem =
+    builtins.filter (drv: builtins.elem system drv.meta.platforms);
 
   # Make a google-cloud-sdk component
-  mkComponent =
-    { pname
-    , version
-      # Source tarball, if any
+  mkComponent = { pname, version
+    # Source tarball, if any
     , src ? ""
       # Checksum for the source tarball, if there is a source
     , sha256 ? ""
@@ -134,16 +104,13 @@ let
       # Platforms supported
     , platforms ? lib.platforms.all
       # The snapshot corresponding to this component
-    , snapshot
-    }: stdenv.mkDerivation {
+    , snapshot }:
+    stdenv.mkDerivation {
       inherit pname version snapshot;
-      src =
-        lib.optionalString (src != "")
-          (builtins.fetchurl
-            {
-              url = src;
-              inherit sha256;
-            }) ;
+      src = lib.optionalString (src != "") (builtins.fetchurl {
+        url = src;
+        inherit sha256;
+      });
       dontUnpack = true;
       installPhase = ''
         mkdir -p $out/google-cloud-sdk/.install
@@ -162,22 +129,11 @@ let
         # Write the snapshot file to the `.install` folder
         cp $snapshotPath $out/google-cloud-sdk/.install/${pname}.snapshot.json
       '';
-      nativeBuildInputs = [
-        python3
-        stdenv.cc.cc
-      ] ++ lib.optionals stdenv.isLinux [
-        autoPatchelfHook
-      ];
-      buildInputs = [
-        libxcrypt-legacy
-      ];
-      passthru = {
-        dependencies = filterForSystem dependencies;
-      };
+      nativeBuildInputs = [ python3 stdenv.cc.cc ]
+        ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+      buildInputs = [ libxcrypt-legacy ];
+      passthru = { dependencies = filterForSystem dependencies; };
       passAsFile = [ "snapshot" ];
-      meta = {
-        inherit description platforms;
-      };
+      meta = { inherit description platforms; };
     };
-in
-componentsFromSnapshot snapshot
+in componentsFromSnapshot snapshot

@@ -26,7 +26,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "CLI tool to easily migrate Kubernetes persistent volumes ";
     homepage = "https://github.com/utkuozdemir/pv-migrate";
-    changelog = "https://github.com/utkuozdemir/pv-migrate/releases/tag/${version}";
+    changelog =
+      "https://github.com/utkuozdemir/pv-migrate/releases/tag/${version}";
     license = licenses.afl20;
     maintainers = [ maintainers.ivankovnatsky ];
   };

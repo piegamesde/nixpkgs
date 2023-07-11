@@ -41,8 +41,8 @@ in {
     };
 
     configuration = mkOption {
-      type = (pkgs.formats.json {}).type;
-      default = {};
+      type = (pkgs.formats.json { }).type;
+      default = { };
       description = lib.mdDoc ''
         Specify the configuration for Loki in Nix.
       '';
@@ -58,7 +58,7 @@ in {
 
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = [ "--server.http-listen-port=3101" ];
       description = lib.mdDoc ''
         Specify a list of additional command line flags,
@@ -69,11 +69,9 @@ in {
 
   config = mkIf cfg.enable {
     assertions = [{
-      assertion = (
-        (cfg.configuration == {} -> cfg.configFile != null) &&
-        (cfg.configFile != null -> cfg.configuration == {})
-      );
-      message  = ''
+      assertion = ((cfg.configuration == { } -> cfg.configFile != null)
+        && (cfg.configFile != null -> cfg.configuration == { }));
+      message = ''
         Please specify either
         'services.loki.configuration' or
         'services.loki.configFile'.
@@ -96,12 +94,14 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = let
-        conf = if cfg.configFile == null
-               then prettyJSON cfg.configuration
-               else cfg.configFile;
-      in
-      {
-        ExecStart = "${cfg.package}/bin/loki --config.file=${conf} ${escapeShellArgs cfg.extraFlags}";
+        conf = if cfg.configFile == null then
+          prettyJSON cfg.configuration
+        else
+          cfg.configFile;
+      in {
+        ExecStart = "${cfg.package}/bin/loki --config.file=${conf} ${
+            escapeShellArgs cfg.extraFlags
+          }";
         User = cfg.user;
         Restart = "always";
         PrivateTmp = true;

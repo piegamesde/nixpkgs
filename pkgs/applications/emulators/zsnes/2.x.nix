@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, SDL
-, libGL
-, libGLU
-, libpng
-, nasm
-, pkg-config
-, zlib
-}:
+{ lib, stdenv, fetchFromGitHub, SDL, libGL, libGLU, libpng, nasm, pkg-config
+, zlib }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "zsnes2";
@@ -21,18 +12,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-QFPl3I2nFWMmgQRGxrlt4Vh5N4SygvBLjeFiQpgRr8o=";
   };
 
-  nativeBuildInputs = [
-    nasm
-    pkg-config
-  ];
+  nativeBuildInputs = [ nasm pkg-config ];
 
-  buildInputs = [
-    SDL
-    libGL
-    libGLU
-    libpng
-    zlib
-  ];
+  buildInputs = [ SDL libGL libGLU libpng zlib ];
 
   dontConfigure = true;
 
@@ -41,9 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-Wp,-D_FORTIFY_SOURCE=0"
   ];
 
-  installFlags = [
-    "PREFIX=${placeholder "out"}"
-  ];
+  installFlags = [ "PREFIX=${placeholder "out"}" ];
 
   postInstall = ''
     install -Dm644 linux/zsnes.desktop $out/share/applications/zsnes.desktop

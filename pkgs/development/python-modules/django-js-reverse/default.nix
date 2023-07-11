@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchpatch
-, fetchFromGitHub
-, python
-, django
-, nodejs
-, js2py
-, six
-}:
+{ lib, buildPythonPackage, fetchpatch, fetchFromGitHub, python, django, nodejs
+, js2py, six }:
 
 buildPythonPackage rec {
   pname = "django-js-reverse";
@@ -24,20 +16,15 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       name = "fix-requires_system_checks-list-or-tuple";
-      url = "https://github.com/ierror/django-js-reverse/commit/1477ba44b62c419d12ebec86e56973f1ae56f712.patch";
+      url =
+        "https://github.com/ierror/django-js-reverse/commit/1477ba44b62c419d12ebec86e56973f1ae56f712.patch";
       hash = "sha256-xUtCziewVhnCOaNWddJBH4/Vvhwjjq/wcQDvh2YzWMQ=";
     })
   ];
 
-  propagatedBuildInputs = [
-    django
-  ];
+  propagatedBuildInputs = [ django ];
 
-  nativeCheckInputs = [
-    nodejs
-    js2py
-    six
-  ];
+  nativeCheckInputs = [ nodejs js2py six ];
 
   checkPhase = ''
     ${python.interpreter} django_js_reverse/tests/unit_tests.py

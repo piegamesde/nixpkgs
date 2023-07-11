@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fastnumbers
-, fetchPypi
-, glibcLocales
-, hypothesis
-, pyicu
-, pytest-mock
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fastnumbers, fetchPypi, glibcLocales, hypothesis
+, pyicu, pytest-mock, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "natsort";
@@ -22,26 +13,17 @@ buildPythonPackage rec {
     hash = "sha256-UXWVSS3eVwpP1ranb2REQMG6UeIzjIpnHX8Edf2o+f0=";
   };
 
-  propagatedBuildInputs = [
-    fastnumbers
-    pyicu
-  ];
+  propagatedBuildInputs = [ fastnumbers pyicu ];
 
-  nativeCheckInputs = [
-    glibcLocales
-    hypothesis
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ glibcLocales hypothesis pytest-mock pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "natsort"
-  ];
+  pythonImportsCheck = [ "natsort" ];
 
   meta = with lib; {
     description = "Natural sorting for Python";
     homepage = "https://github.com/SethMMorton/natsort";
-    changelog = "https://github.com/SethMMorton/natsort/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/SethMMorton/natsort/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

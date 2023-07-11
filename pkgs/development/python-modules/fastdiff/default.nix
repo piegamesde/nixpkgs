@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchPypi
-, wasmer
-, wasmer-compiler-cranelift
-, py
-, pytestCheckHook
-, pytest-benchmark
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, wasmer, wasmer-compiler-cranelift
+, py, pytestCheckHook, pytest-benchmark }:
 
 buildPythonPackage rec {
   pname = "fastdiff";
@@ -25,27 +17,17 @@ buildPythonPackage rec {
       --replace "collect_ignore = ['setup.py']" ""
   '';
 
-  propagatedBuildInputs = [
-    wasmer
-    wasmer-compiler-cranelift
-  ];
+  propagatedBuildInputs = [ wasmer wasmer-compiler-cranelift ];
 
-  nativeCheckInputs = [
-    py
-    pytestCheckHook
-    pytest-benchmark
-  ];
+  nativeCheckInputs = [ py pytestCheckHook pytest-benchmark ];
 
-  pytestFlagsArray = [
-    "--benchmark-skip"
-  ];
+  pytestFlagsArray = [ "--benchmark-skip" ];
 
-  pythonImportsCheck = [
-    "fastdiff"
-  ];
+  pythonImportsCheck = [ "fastdiff" ];
 
   meta = with lib; {
-    description = "A fast native implementation of diff algorithm with a pure Python fallback";
+    description =
+      "A fast native implementation of diff algorithm with a pure Python fallback";
     homepage = "https://github.com/syrusakbary/fastdiff";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];

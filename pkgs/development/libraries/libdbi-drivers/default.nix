@@ -1,20 +1,19 @@
 { lib, stdenv, fetchurl, libdbi
 # TODO: migrate away from overriding packages to null
-, libmysqlclient ? null
-, sqlite ? null
-, postgresql ? null
-}:
+, libmysqlclient ? null, sqlite ? null, postgresql ? null }:
 
 stdenv.mkDerivation rec {
   pname = "libdbi-drivers";
   version = "0.9.0";
 
   src = fetchurl {
-    url = "mirror://sourceforge/libdbi-drivers/libdbi-drivers-${version}.tar.gz";
+    url =
+      "mirror://sourceforge/libdbi-drivers/libdbi-drivers-${version}.tar.gz";
     sha256 = "0m680h8cc4428xin4p733azysamzgzcmv4psjvraykrsaz6ymlj3";
   };
 
-  buildInputs = [ libdbi sqlite postgresql ] ++ lib.optional (libmysqlclient != null) libmysqlclient;
+  buildInputs = [ libdbi sqlite postgresql ]
+    ++ lib.optional (libmysqlclient != null) libmysqlclient;
 
   postPatch = ''
     sed -i '/SQLITE3_LIBS/ s/-lsqlite/-lsqlite3/' configure;

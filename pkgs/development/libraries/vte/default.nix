@@ -1,31 +1,7 @@
-{ stdenv
-, lib
-, fetchurl
-, fetchpatch
-, gettext
-, pkg-config
-, meson
-, ninja
-, gnome
-, glib
-, gtk3
-, gtk4
-, gtkVersion ? "3"
-, gobject-introspection
-, vala
-, python3
-, gi-docgen
-, libxml2
-, gnutls
-, gperf
-, pango
-, pcre2
-, fribidi
-, zlib
-, icu
-, systemd
-, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd
-, nixosTests
+{ stdenv, lib, fetchurl, fetchpatch, gettext, pkg-config, meson, ninja, gnome
+, glib, gtk3, gtk4, gtkVersion ? "3", gobject-introspection, vala, python3
+, gi-docgen, libxml2, gnutls, gperf, pango, pcre2, fribidi, zlib, icu, systemd
+, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd, nixosTests
 }:
 
 stdenv.mkDerivation rec {
@@ -35,7 +11,9 @@ stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "devdoc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "sha256-BVT5+I1Wzi14OY/Mf2m8AOU7u8X2lOCuHcr1KG+J1+Q=";
   };
 
@@ -45,7 +23,8 @@ stdenv.mkDerivation rec {
     # Taken from https://git.alpinelinux.org/aports/tree/community/vte3
     (fetchpatch {
       name = "0001-Add-W_EXITCODE-macro-for-non-glibc-systems.patch";
-      url = "https://git.alpinelinux.org/aports/plain/community/vte3/fix-W_EXITCODE.patch?id=4d35c076ce77bfac7655f60c4c3e4c86933ab7dd";
+      url =
+        "https://git.alpinelinux.org/aports/plain/community/vte3/fix-W_EXITCODE.patch?id=4d35c076ce77bfac7655f60c4c3e4c86933ab7dd";
       sha256 = "FkVyhsM0mRUzZmS2Gh172oqwcfXv6PyD6IEgjBhy2uU=";
     })
   ];
@@ -63,15 +42,8 @@ stdenv.mkDerivation rec {
     gi-docgen
   ];
 
-  buildInputs = [
-    fribidi
-    gnutls
-    pcre2
-    zlib
-    icu
-  ] ++ lib.optionals systemdSupport [
-    systemd
-  ];
+  buildInputs = [ fribidi gnutls pcre2 zlib icu ]
+    ++ lib.optionals systemdSupport [ systemd ];
 
   propagatedBuildInputs = assert (gtkVersion == "3" || gtkVersion == "4"); [
     # Required by vte-2.91.pc.
@@ -80,20 +52,17 @@ stdenv.mkDerivation rec {
     pango
   ];
 
-  mesonFlags = [
-    "-Ddocs=true"
-  ] ++ lib.optionals (!systemdSupport) [
-    "-D_systemd=false"
-  ] ++ lib.optionals (gtkVersion == "4") [
-    "-Dgtk3=false"
-    "-Dgtk4=true"
-  ] ++ lib.optionals stdenv.isDarwin [
-    # -Bsymbolic-functions is not supported on darwin
-    "-D_b_symbolic_functions=false"
-  ];
+  mesonFlags = [ "-Ddocs=true" ]
+    ++ lib.optionals (!systemdSupport) [ "-D_systemd=false" ]
+    ++ lib.optionals (gtkVersion == "4") [ "-Dgtk3=false" "-Dgtk4=true" ]
+    ++ lib.optionals stdenv.isDarwin [
+      # -Bsymbolic-functions is not supported on darwin
+      "-D_b_symbolic_functions=false"
+    ];
 
   # error: argument unused during compilation: '-pie' [-Werror,-Wunused-command-line-argument]
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isMusl "-Wno-unused-command-line-argument";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isMusl
+    "-Wno-unused-command-line-argument";
 
   postPatch = ''
     patchShebangs perf/*
@@ -113,7 +82,9 @@ stdenv.mkDerivation rec {
       versionPolicy = "odd-unstable";
     };
     tests = {
-      inherit (nixosTests.terminal-emulators) gnome-terminal lxterminal mlterm roxterm sakura stupidterm terminator termite xfce4-terminal;
+      inherit (nixosTests.terminal-emulators)
+        gnome-terminal lxterminal mlterm roxterm sakura stupidterm terminator
+        termite xfce4-terminal;
     };
   };
 

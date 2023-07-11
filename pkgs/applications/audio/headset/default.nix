@@ -1,17 +1,12 @@
-{ lib
-, stdenv
-, fetchurl
-, dpkg
-, makeWrapper
-, electron
-}:
+{ lib, stdenv, fetchurl, dpkg, makeWrapper, electron }:
 
 stdenv.mkDerivation rec {
   pname = "headset";
   version = "4.2.1";
 
   src = fetchurl {
-    url = "https://github.com/headsetapp/headset-electron/releases/download/v${version}/headset_${version}_amd64.deb";
+    url =
+      "https://github.com/headsetapp/headset-electron/releases/download/v${version}/headset_${version}_amd64.deb";
     hash = "sha256-81gsIq74sggauE6g8pM6z05KTmsbe49CZa9aRQEDwMo=";
   };
 
@@ -20,7 +15,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper dpkg ];
 
-  unpackPhase = "dpkg-deb --fsys-tarfile $src | tar -x --no-same-permissions --no-same-owner";
+  unpackPhase =
+    "dpkg-deb --fsys-tarfile $src | tar -x --no-same-permissions --no-same-owner";
 
   installPhase = ''
     runHook preInstall

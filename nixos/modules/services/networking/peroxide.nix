@@ -6,18 +6,16 @@ let
   cfg = config.services.peroxide;
   settingsFormat = pkgs.formats.yaml { };
   stateDir = "peroxide";
-in
-{
+in {
   options.services.peroxide = {
     enable = mkEnableOption (lib.mdDoc "peroxide");
 
-    package = mkPackageOptionMD pkgs "peroxide" {
-      default = [ "peroxide" ];
-    };
+    package = mkPackageOptionMD pkgs "peroxide" { default = [ "peroxide" ]; };
 
     logLevel = mkOption {
       # https://github.com/sirupsen/logrus#level-logging
-      type = types.enum [ "Panic" "Fatal" "Error" "Warning" "Info" "Debug" "Trace" ];
+      type =
+        types.enum [ "Panic" "Fatal" "Error" "Warning" "Info" "Debug" "Trace" ];
       default = "Warning";
       example = "Info";
       description = lib.mdDoc "Only log messages of this priority or higher.";
@@ -31,20 +29,23 @@ in
           UserPortImap = mkOption {
             type = types.port;
             default = 1143;
-            description = lib.mdDoc "The port on which to listen for IMAP connections.";
+            description =
+              lib.mdDoc "The port on which to listen for IMAP connections.";
           };
 
           UserPortSmtp = mkOption {
             type = types.port;
             default = 1025;
-            description = lib.mdDoc "The port on which to listen for SMTP connections.";
+            description =
+              lib.mdDoc "The port on which to listen for SMTP connections.";
           };
 
           ServerAddress = mkOption {
             type = types.str;
             default = "[::0]";
             example = "localhost";
-            description = lib.mdDoc "The address on which to listen for connections.";
+            description =
+              lib.mdDoc "The address on which to listen for connections.";
           };
         };
       };
@@ -94,7 +95,8 @@ in
         CacheDirectoryMode = "0700";
         StateDirectory = stateDir;
         StateDirectoryMode = "0700";
-        ExecStart = "${cfg.package}/bin/peroxide -log-file=/var/log/peroxide/peroxide.log -log-level ${cfg.logLevel}";
+        ExecStart =
+          "${cfg.package}/bin/peroxide -log-file=/var/log/peroxide/peroxide.log -log-level ${cfg.logLevel}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       };
 
@@ -123,7 +125,8 @@ in
       postrotate = "systemctl reload peroxide";
     };
 
-    environment.etc."peroxide.conf".source = settingsFormat.generate "peroxide.conf" cfg.settings;
+    environment.etc."peroxide.conf".source =
+      settingsFormat.generate "peroxide.conf" cfg.settings;
     environment.systemPackages = [ cfg.package ];
   };
 

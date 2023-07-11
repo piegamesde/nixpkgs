@@ -1,23 +1,14 @@
-{ lib
-, stdenv
-, cmake
-, buildGo118Module
-, makeWrapper
-, fetchFromGitHub
-, pythonPackages
-, pkg-config
-, systemd
-, hostname
+{ lib, stdenv, cmake, buildGo118Module, makeWrapper, fetchFromGitHub
+, pythonPackages, pkg-config, systemd, hostname
 , withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
-, extraTags ? [ ]
-}:
+, extraTags ? [ ] }:
 
 let
   # keep this in sync with github.com/DataDog/agent-payload dependency
   payloadVersion = "4.78.0";
   python = pythonPackages.python;
-  owner   = "DataDog";
-  repo    = "datadog-agent";
+  owner = "DataDog";
+  repo = "datadog-agent";
   goPackagePath = "github.com/${owner}/${repo}";
   version = "7.38.1";
 
@@ -32,7 +23,7 @@ let
     inherit version;
     nativeBuildInputs = [ cmake ];
     buildInputs = [ python ];
-    cmakeFlags = ["-DBUILD_DEMO=OFF" "-DDISABLE_PYTHON2=ON"];
+    cmakeFlags = [ "-DBUILD_DEMO=OFF" "-DDISABLE_PYTHON2=ON" ];
   };
 
 in buildGo118Module rec {
@@ -51,20 +42,12 @@ in buildGo118Module rec {
     "cmd/trace-agent"
   ];
 
-
   nativeBuildInputs = [ pkg-config makeWrapper ];
-  buildInputs = [rtloader] ++ lib.optionals withSystemd [ systemd ];
+  buildInputs = [ rtloader ] ++ lib.optionals withSystemd [ systemd ];
   PKG_CONFIG_PATH = "${python}/lib/pkgconfig";
 
-  tags = [
-    "ec2"
-    "python"
-    "process"
-    "log"
-    "secrets"
-  ]
-  ++ lib.optionals withSystemd [ "systemd" ]
-  ++ extraTags;
+  tags = [ "ec2" "python" "process" "log" "secrets" ]
+    ++ lib.optionals withSystemd [ "systemd" ] ++ extraTags;
 
   ldflags = [
     "-X ${goPackagePath}/pkg/version.Commit=${src.rev}"
@@ -99,16 +82,19 @@ in buildGo118Module rec {
     cp -R $src/pkg/status/templates $out/share/datadog-agent
 
     wrapProgram "$out/bin/agent" \
-      --set PYTHONPATH "$out/${python.sitePackages}"'' + lib.optionalString withSystemd '' \
-      --prefix LD_LIBRARY_PATH : '' + lib.makeLibraryPath [ (lib.getLib systemd) rtloader ];
+      --set PYTHONPATH "$out/${python.sitePackages}"''
+    + lib.optionalString withSystemd ''
+      \
+           --prefix LD_LIBRARY_PATH : ''
+    + lib.makeLibraryPath [ (lib.getLib systemd) rtloader ];
 
   meta = with lib; {
     description = ''
       Event collector for the DataDog analysis service
       -- v6 new golang implementation.
     '';
-    homepage    = "https://www.datadoghq.com";
-    license     = licenses.bsd3;
+    homepage = "https://www.datadoghq.com";
+    license = licenses.bsd3;
     maintainers = with maintainers; [ thoughtpolice domenkozar rvl viraptor ];
     # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin && stdenv.isAarch64;

@@ -1,11 +1,12 @@
 { stdenv, lib, fetchurl, fetchFromGitHub, jq, wofi, wtype, wl-clipboard }:
 
-let emojiJSON = fetchurl {
-  url = "https://raw.githubusercontent.com/muan/emojilib/v3.0.6/dist/emoji-en-US.json";
-  sha256 = "sha256-wf7zsIEbX/diLwmVvnN2Goxh2V5D3Z6nbEMSb5pSGt0=";
-};
-in
-stdenv.mkDerivation rec {
+let
+  emojiJSON = fetchurl {
+    url =
+      "https://raw.githubusercontent.com/muan/emojilib/v3.0.6/dist/emoji-en-US.json";
+    sha256 = "sha256-wf7zsIEbX/diLwmVvnN2Goxh2V5D3Z6nbEMSb5pSGt0=";
+  };
+in stdenv.mkDerivation rec {
   pname = "wofi-emoji";
   version = "unstable-2022-08-19";
 
@@ -42,7 +43,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Simple emoji selector for Wayland using wofi and wl-clipboard";
+    description =
+      "Simple emoji selector for Wayland using wofi and wl-clipboard";
     homepage = "https://github.com/dln/wofi-emoji";
     license = licenses.mit;
     maintainers = [ maintainers.ymarkus ];

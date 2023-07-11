@@ -1,31 +1,34 @@
-{ lib, stdenv, fetchFromGitHub, coreutils, ocaml-ng, zlib, pcre, neko, mbedtls_2, Security }:
+{ lib, stdenv, fetchFromGitHub, coreutils, ocaml-ng, zlib, pcre, neko, mbedtls_2
+, Security }:
 
 let
   ocamlDependencies = version:
-    if lib.versionAtLeast version "4.2"
-    then with ocaml-ng.ocamlPackages_4_12; [
-      ocaml
-      findlib
-      sedlex
-      xml-light
-      ptmap
-      camlp5
-      sha
-      dune_3
-      luv
-      extlib
-    ] else with ocaml-ng.ocamlPackages_4_10; [
-      ocaml
-      findlib
-      sedlex
-      xml-light
-      ptmap
-      camlp5
-      sha
-      dune_3
-      luv
-      extlib-1-7-7
-    ];
+    if lib.versionAtLeast version "4.2" then
+      with ocaml-ng.ocamlPackages_4_12; [
+        ocaml
+        findlib
+        sedlex
+        xml-light
+        ptmap
+        camlp5
+        sha
+        dune_3
+        luv
+        extlib
+      ]
+    else
+      with ocaml-ng.ocamlPackages_4_10; [
+        ocaml
+        findlib
+        sedlex
+        xml-light
+        ptmap
+        camlp5
+        sha
+        dune_3
+        luv
+        extlib-1-7-7
+      ];
 
   defaultPatch = ''
     substituteInPlace extra/haxelib_src/src/haxelib/client/Main.hx \
@@ -39,8 +42,8 @@ let
 
       buildInputs = [ zlib pcre neko ]
         ++ lib.optional (lib.versionAtLeast version "4.1") mbedtls_2
-        ++ lib.optional (lib.versionAtLeast version "4.1" && stdenv.isDarwin) Security
-        ++ ocamlDependencies version;
+        ++ lib.optional (lib.versionAtLeast version "4.1" && stdenv.isDarwin)
+        Security ++ ocamlDependencies version;
 
       src = fetchFromGitHub {
         owner = "HaxeFoundation";
@@ -108,10 +111,12 @@ let
       '';
 
       meta = with lib; {
-        description = "Programming language targeting JavaScript, Flash, NekoVM, PHP, C++";
+        description =
+          "Programming language targeting JavaScript, Flash, NekoVM, PHP, C++";
         homepage = "https://haxe.org";
         license = with licenses; [ gpl2Plus mit ]; # based on upstream opam file
-        maintainers = [ maintainers.marcweber maintainers.locallycompact maintainers.logo ];
+        maintainers =
+          [ maintainers.marcweber maintainers.locallycompact maintainers.logo ];
         platforms = platforms.linux ++ platforms.darwin;
       };
     };

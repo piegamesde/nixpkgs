@@ -1,18 +1,5 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, glib
-, cairo
-, pango
-, gdk-pixbuf
-, atk
-, gtk4
-, wrapGAppsHook4
-, gobject-introspection
-, xvfb-run
-, testers
-, czkawka
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, glib, cairo, pango, gdk-pixbuf
+, atk, gtk4, wrapGAppsHook4, gobject-introspection, xvfb-run, testers, czkawka
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -28,24 +15,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-jBl7+ElK+SEe92qygTocd6R1sgdHf+RpTVJZymhf3mQ=";
 
-  nativeBuildInputs = [
-    pkg-config
-    wrapGAppsHook4
-    gobject-introspection
-  ];
+  nativeBuildInputs = [ pkg-config wrapGAppsHook4 gobject-introspection ];
 
-  buildInputs = [
-    glib
-    cairo
-    pango
-    gdk-pixbuf
-    atk
-    gtk4
-  ];
+  buildInputs = [ glib cairo pango gdk-pixbuf atk gtk4 ];
 
-  nativeCheckInputs = [
-    xvfb-run
-  ];
+  nativeCheckInputs = [ xvfb-run ];
 
   checkPhase = ''
     runHook preCheck
@@ -60,7 +34,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     changelog = "https://github.com/qarmin/czkawka/raw/${version}/Changelog.md";
-    description = "A simple, fast and easy to use app to remove unnecessary files from your computer";
+    description =
+      "A simple, fast and easy to use app to remove unnecessary files from your computer";
     homepage = "https://github.com/qarmin/czkawka";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ yanganto _0x4A6F ];

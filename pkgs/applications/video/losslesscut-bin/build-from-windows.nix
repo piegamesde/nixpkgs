@@ -1,18 +1,11 @@
-{ lib
-, stdenvNoCC
-, fetchurl
-, p7zip
-, pname
-, version
-, hash
-, metaCommon ? { }
-}:
+{ lib, stdenvNoCC, fetchurl, p7zip, pname, version, hash, metaCommon ? { } }:
 
 stdenvNoCC.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url = "https://github.com/mifi/lossless-cut/releases/download/v${version}/LosslessCut-win-x64.7z";
+    url =
+      "https://github.com/mifi/lossless-cut/releases/download/v${version}/LosslessCut-win-x64.7z";
     inherit hash;
   };
 

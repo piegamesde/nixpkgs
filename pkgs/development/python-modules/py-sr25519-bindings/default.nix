@@ -1,13 +1,5 @@
-{ lib
-, fetchFromGitHub
-, fetchpatch
-, buildPythonPackage
-, pythonOlder
-, pytestCheckHook
-, rustPlatform
-, stdenv
-, py-bip39-bindings
-, libiconv }:
+{ lib, fetchFromGitHub, fetchpatch, buildPythonPackage, pythonOlder
+, pytestCheckHook, rustPlatform, stdenv, py-bip39-bindings, libiconv }:
 
 buildPythonPackage rec {
   pname = "py-sr25519-bindings";
@@ -23,33 +15,21 @@ buildPythonPackage rec {
     hash = "sha256-Lu3J0+YeQHHKItOZTT24DlQAUJuE9fd+py6Eb46/MSE=";
   };
 
-  cargoDeps = rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
-  };
+  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
 
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
   '';
 
-  nativeBuildInputs = with rustPlatform; [
-    cargoSetupHook
-    maturinBuildHook
-  ];
+  nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    py-bip39-bindings
-  ];
+  nativeCheckInputs = [ pytestCheckHook py-bip39-bindings ];
 
-  pytestFlagsArray = [
-    "tests.py"
-  ];
+  pytestFlagsArray = [ "tests.py" ];
 
-  pythonImportsCheck = [
-    "sr25519"
-  ];
+  pythonImportsCheck = [ "sr25519" ];
 
   meta = with lib; {
     description = "Python bindings for sr25519 library";

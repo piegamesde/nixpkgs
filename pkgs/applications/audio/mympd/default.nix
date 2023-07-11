@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, libmpdclient
-, openssl
-, lua5_3
-, libid3tag
-, flac
-, pcre2
-, gzip
-, perl
-, jq
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libmpdclient, openssl, lua5_3
+, libid3tag, flac, pcre2, gzip, perl, jq }:
 
 stdenv.mkDerivation rec {
   pname = "mympd";
@@ -25,24 +12,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KQf+Szr/AunL/roCtRPiC771P2A3POXPFlXUhbNej6g=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    gzip
-    perl
-    jq
-  ];
+  nativeBuildInputs = [ pkg-config cmake gzip perl jq ];
   preConfigure = ''
     env MYMPD_BUILDDIR=$PWD/build ./build.sh createassets
   '';
-  buildInputs = [
-    libmpdclient
-    openssl
-    lua5_3
-    libid3tag
-    flac
-    pcre2
-  ];
+  buildInputs = [ libmpdclient openssl lua5_3 libid3tag flac pcre2 ];
 
   cmakeFlags = [
     "-DENABLE_LUA=ON"
@@ -56,7 +30,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://jcorporation.github.io/myMPD";
-    description = "A standalone and mobile friendly web mpd client with a tiny footprint and advanced features";
+    description =
+      "A standalone and mobile friendly web mpd client with a tiny footprint and advanced features";
     maintainers = [ lib.maintainers.doronbehar ];
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;

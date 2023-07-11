@@ -1,7 +1,4 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-}:
+{ lib, stdenvNoCC, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "pgfplots";
@@ -25,7 +22,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     homepage = "https://pgfplots.sourceforge.net";
-    description = "TeX package to draw plots directly in TeX in two and three dimensions";
+    description =
+      "TeX package to draw plots directly in TeX in two and three dimensions";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ AndersonTorres ];
     platforms = platforms.unix;

@@ -53,7 +53,8 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Simple command line wrapper around JD Core Java Decompiler project";
+    description =
+      "Simple command line wrapper around JD Core Java Decompiler project";
     homepage = "https://github.com/intoolswetrust/jd-cli";
     license = licenses.gpl3;
     platforms = platforms.unix;

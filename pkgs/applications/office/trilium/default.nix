@@ -2,7 +2,8 @@
 
 let
   metaCommon = with lib; {
-    description = "Hierarchical note taking application with focus on building large personal knowledge bases";
+    description =
+      "Hierarchical note taking application with focus on building large personal knowledge bases";
     homepage = "https://github.com/zadam/trilium";
     license = licenses.agpl3Plus;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];

@@ -1,16 +1,9 @@
-{ stdenv
-, lib
-, rustPlatform
-, fetchFromGitHub
-, DiskArbitration
-, Foundation
-}:
+{ stdenv, lib, rustPlatform, fetchFromGitHub, DiskArbitration, Foundation }:
 
 # unstable was chosen because of an added Cargo.lock
 # revert to stable for the version after 0.9.0
 let version = "unstable-2022-06-25";
-in
-rustPlatform.buildRustPackage {
+in rustPlatform.buildRustPackage {
   pname = "lnx";
   inherit version;
   src = fetchFromGitHub {
@@ -27,7 +20,8 @@ rustPlatform.buildRustPackage {
   };
   buildInputs = lib.optionals stdenv.isDarwin [ DiskArbitration Foundation ];
   meta = with lib; {
-    description = "Insanely fast, Feature-rich searching. lnx is the adaptable, typo tollerant deployment of the tantivy search engine. Standing on the shoulders of giants. ";
+    description =
+      "Insanely fast, Feature-rich searching. lnx is the adaptable, typo tollerant deployment of the tantivy search engine. Standing on the shoulders of giants. ";
     homepage = "https://lnx.rs/";
     license = licenses.mit;
     maintainers = with maintainers; [ happysalada ];

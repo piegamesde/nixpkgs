@@ -13,16 +13,14 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-faco4/6ldZiD2pkvjFgWDHbpCcNA4dGXxVhuO3PK77k=";
 
-  ldflags = [
-    "-s" "-w" "-X=github.com/rikatz/kubepug/version.Version=${src.rev}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X=github.com/rikatz/kubepug/version.Version=${src.rev}" ];
 
-  patches = [
-    ./skip-external-network-tests.patch
-  ];
+  patches = [ ./skip-external-network-tests.patch ];
 
   meta = with lib; {
-    description = "Checks a Kubernetes cluster for objects using deprecated API versions";
+    description =
+      "Checks a Kubernetes cluster for objects using deprecated API versions";
     homepage = "https://github.com/rikatz/kubepug";
     license = licenses.asl20;
     maintainers = with maintainers; [ mausch ];

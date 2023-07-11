@@ -1,12 +1,5 @@
-{ buildPythonPackage
-, lib
-, fetchFromGitHub
-, networkx
-, numpy
-, scipy
-, six
-, pytestCheckHook
-}:
+{ buildPythonPackage, lib, fetchFromGitHub, networkx, numpy, scipy, six
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "geometric";
@@ -19,16 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-y8dh4vZ/d1KL1EpDrle8CH/KIDMCKKZdAyJVgUFjx/o=";
   };
 
-  patches = [
-    ./ase-is-optional.patch
-  ];
+  patches = [ ./ase-is-optional.patch ];
 
-  propagatedBuildInputs = [
-    networkx
-    numpy
-    scipy
-    six
-  ];
+  propagatedBuildInputs = [ networkx numpy scipy six ];
 
   preCheck = ''
     export OMP_NUM_THREADS=2

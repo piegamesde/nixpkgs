@@ -1,12 +1,5 @@
-{ lib
-, buildPythonApplication
-, fetchPypi
-, fleep
-, libarchive-c
-, pillow
-, requests-toolbelt
-, setuptools
-, zeroconf }:
+{ lib, buildPythonApplication, fetchPypi, fleep, libarchive-c, pillow
+, requests-toolbelt, setuptools, zeroconf }:
 
 buildPythonApplication rec {
   pname = "opendrop";
@@ -17,14 +10,8 @@ buildPythonApplication rec {
     sha256 = "sha256-FE1oGpL6C9iBhI8Zj71Pm9qkObJvSeU2gaBZwK1bTQc=";
   };
 
-  propagatedBuildInputs = [
-    fleep
-    libarchive-c
-    pillow
-    requests-toolbelt
-    setuptools
-    zeroconf
-  ];
+  propagatedBuildInputs =
+    [ fleep libarchive-c pillow requests-toolbelt setuptools zeroconf ];
 
   # There are tests, but getting the following error:
   # nix_run_setup: error: argument action: invalid choice: 'test' (choose from 'receive', 'find', 'send')

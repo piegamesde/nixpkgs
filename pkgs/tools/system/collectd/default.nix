@@ -1,14 +1,7 @@
-{ lib, stdenv, fetchurl, fetchpatch, darwin, callPackage
-, autoreconfHook
-, pkg-config
-, libtool
-, nixosTests
-, ...
-}@args:
-let
-  plugins = callPackage ./plugins.nix args;
-in
-stdenv.mkDerivation rec {
+{ lib, stdenv, fetchurl, fetchpatch, darwin, callPackage, autoreconfHook
+, pkg-config, libtool, nixosTests, ... }@args:
+let plugins = callPackage ./plugins.nix args;
+in stdenv.mkDerivation rec {
   version = "5.12.0";
   pname = "collectd";
 
@@ -21,27 +14,24 @@ stdenv.mkDerivation rec {
     # fix -t never printing syntax errors
     # should be included in next release
     (fetchpatch {
-      url = "https://github.com/collectd/collectd/commit/3f575419e7ccb37a3b10ecc82adb2e83ff2826e1.patch";
+      url =
+        "https://github.com/collectd/collectd/commit/3f575419e7ccb37a3b10ecc82adb2e83ff2826e1.patch";
       sha256 = "0jwjdlfl0dp7mlbwygp6h0rsbaqfbgfm5z07lr5l26z6hhng2h2y";
     })
   ];
 
   nativeBuildInputs = [ pkg-config autoreconfHook ];
-  buildInputs = [
-    libtool
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.ApplicationServices
-  ] ++ plugins.buildInputs;
+  buildInputs = [ libtool ] ++ lib.optionals stdenv.isDarwin
+    [ darwin.apple_sdk.frameworks.ApplicationServices ] ++ plugins.buildInputs;
 
-  configureFlags = [
-    "--localstatedir=/var"
-    "--disable-werror"
-  ] ++ plugins.configureFlags
-  ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "--with-fp-layout=nothing" ];
+  configureFlags = [ "--localstatedir=/var" "--disable-werror" ]
+    ++ plugins.configureFlags
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
+    [ "--with-fp-layout=nothing" ];
 
   # do not create directories in /var during installPhase
   postConfigure = ''
-     substituteInPlace Makefile --replace '$(mkinstalldirs) $(DESTDIR)$(localstatedir)/' '#'
+    substituteInPlace Makefile --replace '$(mkinstalldirs) $(DESTDIR)$(localstatedir)/' '#'
   '';
 
   postInstall = ''
@@ -52,12 +42,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.tests = {
-    inherit (nixosTests) collectd;
-  };
+  passthru.tests = { inherit (nixosTests) collectd; };
 
   meta = with lib; {
-    description = "Daemon which collects system performance statistics periodically";
+    description =
+      "Daemon which collects system performance statistics periodically";
     homepage = "https://collectd.org";
     license = licenses.gpl2;
     platforms = platforms.unix;

@@ -1,18 +1,5 @@
-{ lib
-, buildDunePackage
-, fetchFromGitHub
-, ppx_deriving
-, bppsuite
-, alcotest
-, angstrom-unix
-, biocaml
-, core
-, gsl
-, lacaml
-, menhir
-, menhirLib
-, printbox-text
-}:
+{ lib, buildDunePackage, fetchFromGitHub, ppx_deriving, bppsuite, alcotest
+, angstrom-unix, biocaml, core, gsl, lacaml, menhir, menhirLib, printbox-text }:
 
 buildDunePackage rec {
   pname = "phylogenetics";

@@ -11,15 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1GER+SxTpbMiYLwFCwLX/hLvzCIqutyvQc9DNJ7d1C0=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    gtk2
-    openssh
-  ];
+  buildInputs = [ gtk2 openssh ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

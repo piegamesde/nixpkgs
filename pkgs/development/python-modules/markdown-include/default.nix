@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, markdown
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, markdown, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "markdown-include";
@@ -20,22 +15,17 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    markdown
-  ];
+  propagatedBuildInputs = [ markdown ];
 
-  pythonImportsCheck = [
-    "markdown_include"
-  ];
+  pythonImportsCheck = [ "markdown_include" ];
 
   doCheck = false; # no tests
 
   meta = with lib; {
-    description = "Extension to Python-Markdown which provides an include function";
+    description =
+      "Extension to Python-Markdown which provides an include function";
     homepage = "https://github.com/cmacmackin/markdown-include";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ hexa ];

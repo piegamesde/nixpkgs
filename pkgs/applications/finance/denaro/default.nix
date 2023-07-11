@@ -1,19 +1,6 @@
-{ lib
-, stdenvNoCC
-, buildDotnetModule
-, fetchFromGitHub
-, fetchpatch
-, dotnetCorePackages
-, gtk4
-, libadwaita
-, pkg-config
-, wrapGAppsHook4
-, glib
-, shared-mime-info
-, python3
-, desktop-file-utils
-, gdk-pixbuf
-}:
+{ lib, stdenvNoCC, buildDotnetModule, fetchFromGitHub, fetchpatch
+, dotnetCorePackages, gtk4, libadwaita, pkg-config, wrapGAppsHook4, glib
+, shared-mime-info, python3, desktop-file-utils, gdk-pixbuf }:
 
 buildDotnetModule rec {
   pname = "denaro";
@@ -34,8 +21,14 @@ buildDotnetModule rec {
   executables = "NickvisionMoney.GNOME";
 
   # Prevent installing native libraries for all platforms
-  dotnetBuildFlags = [ "--runtime" (dotnetCorePackages.systemToDotnetRid stdenvNoCC.hostPlatform.system) ];
-  dotnetInstallFlags = [ "--runtime" (dotnetCorePackages.systemToDotnetRid stdenvNoCC.hostPlatform.system) ];
+  dotnetBuildFlags = [
+    "--runtime"
+    (dotnetCorePackages.systemToDotnetRid stdenvNoCC.hostPlatform.system)
+  ];
+  dotnetInstallFlags = [
+    "--runtime"
+    (dotnetCorePackages.systemToDotnetRid stdenvNoCC.hostPlatform.system)
+  ];
 
   nativeBuildInputs = [
     pkg-config
@@ -64,7 +57,8 @@ buildDotnetModule rec {
     homepage = "https://github.com/nlogozzo/NickvisionMoney";
     mainProgram = "NickvisionMoney.GNOME";
     license = licenses.mit;
-    changelog = "https://github.com/nlogozzo/NickvisionMoney/releases/tag/${version}";
+    changelog =
+      "https://github.com/nlogozzo/NickvisionMoney/releases/tag/${version}";
     maintainers = with maintainers; [ chuangzhu ];
     platforms = platforms.linux;
   };

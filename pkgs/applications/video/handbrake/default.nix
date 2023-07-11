@@ -7,82 +7,33 @@
 # be nice to add the native GUI (and/or the GTK GUI) as an option too, but that
 # requires invoking the Xcode build system, which is non-trivial for now.
 
-{ stdenv
-, lib
-, fetchFromGitHub
-  # For tests
-, testers
-, runCommand
-, fetchurl
-  # Main build tools
-, pkg-config
-, autoconf
-, automake
-, libtool
-, m4
-, xz
-, python3
-, numactl
-, writeText
-  # Processing, video codecs, containers
-, ffmpeg_5-full
-, nv-codec-headers
-, libogg
-, x264
-, x265
-, libvpx
-, libtheora
-, dav1d
-, zimg
-, svt-av1
-  # Codecs, audio
-, libopus
-, lame
-, libvorbis
-, a52dec
-, speex
-, libsamplerate
-  # Text processing
-, libiconv
-, fribidi
-, fontconfig
-, freetype
-, libass
-, jansson
-, libxml2
-, harfbuzz
+{ stdenv, lib, fetchFromGitHub
+# For tests
+, testers, runCommand, fetchurl
+# Main build tools
+, pkg-config, autoconf, automake, libtool, m4, xz, python3, numactl, writeText
+# Processing, video codecs, containers
+, ffmpeg_5-full, nv-codec-headers, libogg, x264, x265, libvpx, libtheora, dav1d
+, zimg, svt-av1
+# Codecs, audio
+, libopus, lame, libvorbis, a52dec, speex, libsamplerate
+# Text processing
+, libiconv, fribidi, fontconfig, freetype, libass, jansson, libxml2, harfbuzz
 , libjpeg_turbo
-  # Optical media
-, libdvdread
-, libdvdnav
-, libdvdcss
-, libbluray
-  # Darwin-specific
-, AudioToolbox
-, Foundation
-, libobjc
-, VideoToolbox
-  # GTK
-  # NOTE: 2019-07-19: The gtk3 package has a transitive dependency on dbus,
-  # which in turn depends on systemd. systemd is not supported on Darwin, so
-  # for now we disable GTK GUI support on Darwin. (It may be possible to remove
-  # this restriction later.)
-, useGtk ? !stdenv.isDarwin
-, wrapGAppsHook
-, intltool
-, glib
-, gtk3
-, libappindicator-gtk3
-, libnotify
-, gst_all_1
-, dbus-glib
-, udev
-, libgudev
+# Optical media
+, libdvdread, libdvdnav, libdvdcss, libbluray
+# Darwin-specific
+, AudioToolbox, Foundation, libobjc, VideoToolbox
+# GTK
+# NOTE: 2019-07-19: The gtk3 package has a transitive dependency on dbus,
+# which in turn depends on systemd. systemd is not supported on Darwin, so
+# for now we disable GTK GUI support on Darwin. (It may be possible to remove
+# this restriction later.)
+, useGtk ? !stdenv.isDarwin, wrapGAppsHook, intltool, glib, gtk3
+, libappindicator-gtk3, libnotify, gst_all_1, dbus-glib, udev, libgudev
 , hicolor-icon-theme
-  # FDK
-, useFdk ? false
-, fdk_aac
-}:
+# FDK
+, useFdk ? false, fdk_aac }:
 
 let
   version = "1.6.1";
@@ -149,8 +100,7 @@ let
 
   inherit (lib) optional optionals optionalString versions;
 
-in
-let
+in let
   self = stdenv.mkDerivation rec {
     pname = "handbrake";
     inherit version src;
@@ -184,15 +134,8 @@ let
         --replace /usr/include/libxml2 ${libxml2.dev}/include/libxml2
     '';
 
-    nativeBuildInputs = [
-      autoconf
-      automake
-      libtool
-      m4
-      pkg-config
-      python3
-    ]
-    ++ optionals useGtk [ intltool wrapGAppsHook ];
+    nativeBuildInputs = [ autoconf automake libtool m4 pkg-config python3 ]
+      ++ optionals useGtk [ intltool wrapGAppsHook ];
 
     buildInputs = [
       a52dec
@@ -224,9 +167,7 @@ let
       x265
       xz
       zimg
-    ]
-    ++ optional (!stdenv.isDarwin) numactl
-    ++ optionals useGtk [
+    ] ++ optional (!stdenv.isDarwin) numactl ++ optionals useGtk [
       dbus-glib
       glib
       gst_all_1.gst-plugins-base
@@ -237,22 +178,24 @@ let
       libgudev
       libnotify
       udev
+    ] ++ optional useFdk fdk_aac ++ optionals stdenv.isDarwin [
+      AudioToolbox
+      Foundation
+      libobjc
+      VideoToolbox
     ]
-    ++ optional useFdk fdk_aac
-    ++ optionals stdenv.isDarwin [ AudioToolbox Foundation libobjc VideoToolbox ]
     # NOTE: 2018-12-27: Handbrake supports nv-codec-headers for Linux only,
     # look at ./make/configure.py search "enable_nvenc"
-    ++ optional stdenv.isLinux nv-codec-headers;
+      ++ optional stdenv.isLinux nv-codec-headers;
 
     configureFlags = [
       "--disable-df-fetch"
       "--disable-df-verify"
       "--disable-gtk-update-checks"
-    ]
-    ++ optional (!useGtk) "--disable-gtk"
-    ++ optional useFdk "--enable-fdk-aac"
-    ++ optional stdenv.isDarwin "--disable-xcode"
-    ++ optional stdenv.hostPlatform.isx86 "--harden";
+    ] ++ optional (!useGtk) "--disable-gtk"
+      ++ optional useFdk "--enable-fdk-aac"
+      ++ optional stdenv.isDarwin "--disable-xcode"
+      ++ optional stdenv.hostPlatform.isx86 "--harden";
 
     # NOTE: 2018-12-27: Check NixOS HandBrake test if changing
     NIX_LDFLAGS = [ "-lx265" ];
@@ -260,23 +203,27 @@ let
     makeFlags = [ "--directory=build" ];
 
     passthru.tests = {
-      basic-conversion =
-        let
-          # Big Buck Bunny example, licensed under CC Attribution 3.0.
-          testMkv = fetchurl {
-            url = "https://github.com/Matroska-Org/matroska-test-files/blob/cf0792be144ac470c4b8052cfe19bb691993e3a2/test_files/test1.mkv?raw=true";
-            sha256 = "1hfxbbgxwfkzv85pvpvx55a72qsd0hxjbm9hkl5r3590zw4s75h9";
-          };
-        in
-        runCommand "${pname}-${version}-basic-conversion" { nativeBuildInputs = [ self ]; } ''
-          mkdir -p $out
-          cd $out
-          HandBrakeCLI -i ${testMkv} -o test.mp4 -e x264 -q 20 -B 160
-          test -e test.mp4
-          HandBrakeCLI -i ${testMkv} -o test.mkv -e x264 -q 20 -B 160
-          test -e test.mkv
-        '';
-      version = testers.testVersion { package = self; command = "HandBrakeCLI --version"; };
+      basic-conversion = let
+        # Big Buck Bunny example, licensed under CC Attribution 3.0.
+        testMkv = fetchurl {
+          url =
+            "https://github.com/Matroska-Org/matroska-test-files/blob/cf0792be144ac470c4b8052cfe19bb691993e3a2/test_files/test1.mkv?raw=true";
+          sha256 = "1hfxbbgxwfkzv85pvpvx55a72qsd0hxjbm9hkl5r3590zw4s75h9";
+        };
+      in runCommand "${pname}-${version}-basic-conversion" {
+        nativeBuildInputs = [ self ];
+      } ''
+        mkdir -p $out
+        cd $out
+        HandBrakeCLI -i ${testMkv} -o test.mp4 -e x264 -q 20 -B 160
+        test -e test.mp4
+        HandBrakeCLI -i ${testMkv} -o test.mkv -e x264 -q 20 -B 160
+        test -e test.mkv
+      '';
+      version = testers.testVersion {
+        package = self;
+        command = "HandBrakeCLI --version";
+      };
     };
 
     meta = with lib; {
@@ -293,8 +240,8 @@ let
       license = licenses.gpl2Only;
       maintainers = with maintainers; [ Anton-Latukha wmertens ];
       platforms = with platforms; unix;
-      broken = stdenv.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13";
+      broken = stdenv.isDarwin
+        && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13";
     };
   };
-in
-self
+in self

@@ -5,7 +5,9 @@ stdenv.mkDerivation rec {
   version = "1.39.3";
 
   src = fetchurl {
-    url = "https://releases.wikimedia.org/mediawiki/${lib.versions.majorMinor version}/mediawiki-${version}.tar.gz";
+    url = "https://releases.wikimedia.org/mediawiki/${
+        lib.versions.majorMinor version
+      }/mediawiki-${version}.tar.gz";
     hash = "sha256-41dpNDh2r0JJbaQ64vRyJPuMd5uPRXBcQUfG/zUizB0=";
   };
 
@@ -29,9 +31,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = {
-    inherit (nixosTests.mediawiki) mysql postgresql;
-  };
+  passthru.tests = { inherit (nixosTests.mediawiki) mysql postgresql; };
 
   meta = with lib; {
     description = "The collaborative editing software that runs Wikipedia";

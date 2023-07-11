@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, gettext, libtool, automake, autoconf, cairo, gtk2-x11, autoreconfHook }:
+{ lib, stdenv, fetchurl, fetchpatch, pkg-config, gettext, libtool, automake
+, autoconf, cairo, gtk2-x11, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "gerbv";
@@ -14,7 +15,8 @@ stdenv.mkDerivation rec {
     #  https://sourceforge.net/p/gerbv/patches/84/
     (fetchpatch {
       name = "fnoc-mmon.patch";
-      url = "https://sourceforge.net/p/gerbv/patches/84/attachment/0001-gerbv-fix-build-on-gcc-10-fno-common.patch";
+      url =
+        "https://sourceforge.net/p/gerbv/patches/84/attachment/0001-gerbv-fix-build-on-gcc-10-fno-common.patch";
       sha256 = "1avfbkqhxl7wxn1z19y30ilkwvdgpdkzhzawrs5y3damxmqq8ggk";
     })
   ];
@@ -22,7 +24,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook pkg-config automake autoconf ];
   buildInputs = [ gettext libtool cairo gtk2-x11 ];
 
-  configureFlags = ["--disable-update-desktop-database"];
+  configureFlags = [ "--disable-update-desktop-database" ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-format-security";
 

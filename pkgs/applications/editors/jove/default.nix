@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, groff
-, makeWrapper
-, ncurses
-}:
+{ lib, stdenv, fetchFromGitHub, groff, makeWrapper, ncurses }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "jove";
@@ -19,10 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [
-    groff
-    ncurses
-  ];
+  buildInputs = [ groff ncurses ];
 
   dontConfigure = true;
 
@@ -39,7 +30,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     homepage = "https://github.com/jonmacs/jove";
     description = "Jonathan's Own Version of Emacs";
-    changelog = "https://github.com/jonmacs/jove/releases/tag/${finalAttrs.version}";
+    changelog =
+      "https://github.com/jonmacs/jove/releases/tag/${finalAttrs.version}";
     license = licenses.bsd2;
     maintainers = with maintainers; [ AndersonTorres ];
     platforms = platforms.unix;

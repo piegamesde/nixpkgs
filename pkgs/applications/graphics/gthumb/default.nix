@@ -1,44 +1,17 @@
-{ stdenv
-, lib
-, fetchurl
-, fetchpatch
-, gnome
-, pkg-config
-, meson
-, ninja
-, exiv2
-, libheif
-, libjpeg
-, libtiff
-, gst_all_1
-, libraw
-, libsoup
-, libsecret
-, glib
-, gtk3
-, gsettings-desktop-schemas
-, libchamplain
-, librsvg
-, libwebp
-, json-glib
-, webkitgtk
-, lcms2
-, bison
-, flex
-, clutter-gtk
-, wrapGAppsHook
-, shared-mime-info
-, python3
-, desktop-file-utils
-, itstool
-}:
+{ stdenv, lib, fetchurl, fetchpatch, gnome, pkg-config, meson, ninja, exiv2
+, libheif, libjpeg, libtiff, gst_all_1, libraw, libsoup, libsecret, glib, gtk3
+, gsettings-desktop-schemas, libchamplain, librsvg, libwebp, json-glib
+, webkitgtk, lcms2, bison, flex, clutter-gtk, wrapGAppsHook, shared-mime-info
+, python3, desktop-file-utils, itstool }:
 
 stdenv.mkDerivation rec {
   pname = "gthumb";
   version = "3.12.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "sha256-l/iv5SJTUhZUHrvx47VG0Spr6zio8OuF8m5naTSq1CU=";
   };
 
@@ -46,7 +19,8 @@ stdenv.mkDerivation rec {
     # Fix build with libraw 0.21, can be removed on next update
     # https://hydra.nixos.org/build/209327709/nixlog/1
     (fetchpatch {
-      url = "https://gitlab.gnome.org/GNOME/gthumb/-/commit/da0d3f22a5c3a141211d943e7d963d14090011ec.patch";
+      url =
+        "https://gitlab.gnome.org/GNOME/gthumb/-/commit/da0d3f22a5c3a141211d943e7d963d14090011ec.patch";
       sha256 = "sha256-/l9US19rKxIUJjZ+oynGLr/9PKJPg9VUuA/VSuIT5AQ=";
     })
   ];
@@ -89,9 +63,7 @@ stdenv.mkDerivation rec {
     webkitgtk
   ];
 
-  mesonFlags = [
-    "-Dlibchamplain=true"
-  ];
+  mesonFlags = [ "-Dlibchamplain=true" ];
 
   postPatch = ''
     chmod +x gthumb/make-gthumb-h.py

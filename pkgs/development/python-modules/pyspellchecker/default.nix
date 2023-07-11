@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, setuptools
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pyspellchecker";
@@ -17,13 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-DV2JxUKTCVJRRLmi+d5dMloCgpYwC5uyI1o34L26TxA=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Pure python spell checking";

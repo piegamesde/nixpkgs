@@ -1,15 +1,12 @@
-{ lib
-, fetchzip
-, stdenvNoCC
-, makeWrapper
-}:
+{ lib, fetchzip, stdenvNoCC, makeWrapper }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "swiftbar";
   version = "1.4.3";
 
   src = fetchzip {
-    url = "https://github.com/swiftbar/SwiftBar/releases/download/v${version}/SwiftBar.zip";
+    url =
+      "https://github.com/swiftbar/SwiftBar/releases/download/v${version}/SwiftBar.zip";
     sha256 = "sha256-Ut+lr1E7bMp8Uz1aL7EV0ZsfdTh9t7zUjDU/DScRpHY=";
     stripRoot = false;
   };
@@ -17,9 +14,7 @@ stdenvNoCC.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
     runHook preInstall

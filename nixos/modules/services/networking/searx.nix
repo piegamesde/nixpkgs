@@ -7,8 +7,7 @@ let
 
   cfg = config.services.searx;
 
-  settingsFile = pkgs.writeText "settings.yml"
-    (builtins.toJSON cfg.settings);
+  settingsFile = pkgs.writeText "settings.yml" (builtins.toJSON cfg.settings);
 
   generateConfig = ''
     cd ${runDir}
@@ -25,20 +24,20 @@ let
     done
   '';
 
-  settingType = with types; (oneOf
-    [ bool int float str
-      (listOf settingType)
-      (attrsOf settingType)
-    ]) // { description = "JSON value"; };
+  settingType = with types;
+    (oneOf [ bool int float str (listOf settingType) (attrsOf settingType) ])
+    // {
+      description = "JSON value";
+    };
 
-in
-
-{
+in {
 
   imports = [
-    (mkRenamedOptionModule
-      [ "services" "searx" "configFile" ]
-      [ "services" "searx" "settingsFile" ])
+    (mkRenamedOptionModule [ "services" "searx" "configFile" ] [
+      "services"
+      "searx"
+      "settingsFile"
+    ])
   ];
 
   ###### interface
@@ -51,7 +50,8 @@ in
         type = types.bool;
         default = false;
         relatedPackages = [ "searx" ];
-        description = lib.mdDoc "Whether to enable Searx, the meta search engine.";
+        description =
+          lib.mdDoc "Whether to enable Searx, the meta search engine.";
       };
 
       environmentFile = mkOption {
@@ -154,17 +154,16 @@ in
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
 
-    users.users.searx =
-      { description = "Searx daemon user";
-        group = "searx";
-        isSystemUser = true;
-      };
+    users.users.searx = {
+      description = "Searx daemon user";
+      group = "searx";
+      isSystemUser = true;
+    };
 
     users.groups.searx = { };
 
@@ -176,8 +175,9 @@ in
         User = "searx";
         RuntimeDirectory = "searx";
         RuntimeDirectoryMode = "750";
-      } // optionalAttrs (cfg.environmentFile != null)
-        { EnvironmentFile = builtins.toPath cfg.environmentFile; };
+      } // optionalAttrs (cfg.environmentFile != null) {
+        EnvironmentFile = builtins.toPath cfg.environmentFile;
+      };
       script = generateConfig;
     };
 
@@ -187,21 +187,22 @@ in
       requires = [ "searx-init.service" ];
       after = [ "searx-init.service" ];
       serviceConfig = {
-        User  = "searx";
+        User = "searx";
         Group = "searx";
         ExecStart = "${cfg.package}/bin/searx-run";
-      } // optionalAttrs (cfg.environmentFile != null)
-        { EnvironmentFile = builtins.toPath cfg.environmentFile; };
+      } // optionalAttrs (cfg.environmentFile != null) {
+        EnvironmentFile = builtins.toPath cfg.environmentFile;
+      };
       environment = {
         SEARX_SETTINGS_PATH = cfg.settingsFile;
         SEARXNG_SETTINGS_PATH = cfg.settingsFile;
       };
     };
 
-    systemd.services.uwsgi = mkIf (cfg.runInUwsgi)
-      { requires = [ "searx-init.service" ];
-        after = [ "searx-init.service" ];
-      };
+    systemd.services.uwsgi = mkIf (cfg.runInUwsgi) {
+      requires = [ "searx-init.service" ];
+      after = [ "searx-init.service" ];
+    };
 
     services.searx.settings = {
       # merge NixOS settings with defaults settings.yml

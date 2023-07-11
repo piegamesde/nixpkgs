@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pencompy";
@@ -19,9 +15,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pencompy"
-  ];
+  pythonImportsCheck = [ "pencompy" ];
 
   meta = with lib; {
     description = "Library for interacting with Pencom relay boards";

@@ -1,23 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, pkg-config
-, meson
-, ninja
-, python3
-, vala
-, desktop-file-utils
-, gtk3
-, granite
-, libhandy
-, libnotify
-, vte
-, libgee
-, pcre2
-, wrapGAppsHook
-, xvfb-run
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, pkg-config, meson, ninja
+, python3, vala, desktop-file-utils, gtk3, granite, libhandy, libnotify, vte
+, libgee, pcre2, wrapGAppsHook, xvfb-run }:
 
 stdenv.mkDerivation rec {
   pname = "elementary-terminal";
@@ -41,24 +24,14 @@ stdenv.mkDerivation rec {
     xvfb-run
   ];
 
-  buildInputs = [
-    granite
-    gtk3
-    libgee
-    libhandy
-    libnotify
-    pcre2
-    vte
-  ];
+  buildInputs = [ granite gtk3 libgee libhandy libnotify pcre2 vte ];
 
   postPatch = ''
     chmod +x meson/post_install.py
     patchShebangs meson/post_install.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Terminal emulator designed for elementary OS";

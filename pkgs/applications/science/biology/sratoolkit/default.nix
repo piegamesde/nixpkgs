@@ -1,12 +1,4 @@
-{ stdenv
-, lib
-, fetchurl
-, autoPatchelfHook
-, libidn
-, zlib
-, bzip2
-}:
-
+{ stdenv, lib, fetchurl, autoPatchelfHook, libidn, zlib, bzip2 }:
 
 let
   libidn11 = libidn.overrideAttrs (old: {
@@ -18,27 +10,19 @@ let
     };
   });
 
-in
-
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "sratoolkit";
   version = "2.11.3";
 
   src = fetchurl {
-    url = "https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/${version}/sratoolkit.${version}-ubuntu64.tar.gz";
+    url =
+      "https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/${version}/sratoolkit.${version}-ubuntu64.tar.gz";
     sha256 = "1590lc4cplxr3lhjqci8fjncy67imn2h14qd2l87chmhjh243qvx";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [
-    libidn11
-    zlib
-    bzip2
-    stdenv.cc.cc.lib
-  ];
+  buildInputs = [ libidn11 zlib bzip2 stdenv.cc.cc.lib ];
 
   sourceRoot = "./sratoolkit.${version}-ubuntu64/bin";
 
@@ -48,7 +32,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/ncbi/sra-tools";
-    description = "The SRA Toolkit and SDK from NCBI is a collection of tools and libraries for using data in the INSDC Sequence Read Archives.";
+    description =
+      "The SRA Toolkit and SDK from NCBI is a collection of tools and libraries for using data in the INSDC Sequence Read Archives.";
     license = licenses.publicDomain;
     maintainers = with maintainers; [ thyol ];
     platforms = [ "x86_64-linux" ];

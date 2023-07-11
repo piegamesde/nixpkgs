@@ -1,11 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, nose
-, pythonOlder
-, pytestCheckHook
-, six
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, pythonOlder, pytestCheckHook, six }:
 
 buildPythonPackage rec {
   pname = "case";
@@ -19,17 +12,12 @@ buildPythonPackage rec {
     sha256 = "48432b01d91913451c3512c5b90e31b0f348f1074b166a3431085eb70d784fb1";
   };
 
-  propagatedBuildInputs = [
-    nose
-    six
-  ];
+  propagatedBuildInputs = [ nose six ];
 
   # No real unittests, only coverage
   doCheck = false;
 
-  pythonImportsCheck = [
-    "case"
-  ];
+  pythonImportsCheck = [ "case" ];
 
   meta = with lib; {
     homepage = "https://github.com/celery/case";

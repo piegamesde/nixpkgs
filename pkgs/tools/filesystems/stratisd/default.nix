@@ -1,28 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, asciidoc
-, ncurses
-, glibc
-, dbus
-, cryptsetup
-, util-linux
-, udev
-, lvm2
-, systemd
-, xfsprogs
-, thin-provisioning-tools
-, clevis
-, jose
-, jq
-, curl
-, tpm2-tools
-, coreutils
-, clevisSupport ? false
-, nixosTests
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, asciidoc, ncurses
+, glibc, dbus, cryptsetup, util-linux, udev, lvm2, systemd, xfsprogs
+, thin-provisioning-tools, clevis, jose, jq, curl, tpm2-tools, coreutils
+, clevisSupport ? false, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "stratisd";
@@ -62,28 +41,18 @@ stdenv.mkDerivation rec {
     ncurses # tput
   ];
 
-  buildInputs = [
-    glibc
-    glibc.static
-    dbus
-    cryptsetup
-    util-linux
-    udev
-    lvm2
-  ];
+  buildInputs = [ glibc glibc.static dbus cryptsetup util-linux udev lvm2 ];
 
-  EXECUTABLES_PATHS = lib.makeBinPath ([
-    xfsprogs
-    thin-provisioning-tools
-  ] ++ lib.optionals clevisSupport [
-    clevis
-    jose
-    jq
-    cryptsetup
-    curl
-    tpm2-tools
-    coreutils
-  ]);
+  EXECUTABLES_PATHS = lib.makeBinPath ([ xfsprogs thin-provisioning-tools ]
+    ++ lib.optionals clevisSupport [
+      clevis
+      jose
+      jq
+      cryptsetup
+      curl
+      tpm2-tools
+      coreutils
+    ]);
 
   makeFlags = [ "PREFIX=${placeholder "out"}" "INSTALL=install" ];
   buildFlags = [ "build-all" ];

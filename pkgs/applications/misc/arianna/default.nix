@@ -1,21 +1,7 @@
-{ lib
-, mkDerivation
-, fetchFromGitLab
-, cmake
-, extra-cmake-modules
-, pkg-config
-, baloo
-, kfilemetadata
-, kirigami2
-, kirigami-addons
-, kquickcharts
-, plasma-framework
-, qqc2-desktop-style
-, qtbase
-, qtquickcontrols2
-, qtwebsockets
-, qtwebengine
-}:
+{ lib, mkDerivation, fetchFromGitLab, cmake, extra-cmake-modules, pkg-config
+, baloo, kfilemetadata, kirigami2, kirigami-addons, kquickcharts
+, plasma-framework, qqc2-desktop-style, qtbase, qtquickcontrols2, qtwebsockets
+, qtwebengine }:
 
 mkDerivation rec {
   pname = "arianna";
@@ -29,11 +15,7 @@ mkDerivation rec {
     hash = "sha256-IETqKVIWeICFgqmBSVz8ea8100hHGXIo5S3O0OaIC04=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config ];
 
   buildInputs = [
     baloo

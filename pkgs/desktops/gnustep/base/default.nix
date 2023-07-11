@@ -1,17 +1,6 @@
-{ aspell, audiofile
-, gsmakeDerivation
-, cups
-, fetchzip
-, fetchpatch
-, gmp, gnutls
-, libffi, binutils-unwrapped
-, libjpeg, libtiff, libpng, giflib
-, libxml2, libxslt, libiconv
-, libobjc, libgcrypt
-, icu
-, pkg-config, portaudio
-, libiberty
-}:
+{ aspell, audiofile, gsmakeDerivation, cups, fetchzip, fetchpatch, gmp, gnutls
+, libffi, binutils-unwrapped, libjpeg, libtiff, libpng, giflib, libxml2, libxslt
+, libiconv, libobjc, libgcrypt, icu, pkg-config, portaudio, libiberty }:
 gsmakeDerivation rec {
   pname = "gnustep-base";
   version = "1.28.0";
@@ -22,13 +11,22 @@ gsmakeDerivation rec {
   outputs = [ "out" "dev" "lib" ];
   nativeBuildInputs = [ pkg-config ];
   propagatedBuildInputs = [
-    aspell audiofile
+    aspell
+    audiofile
     cups
-    gmp gnutls
-    libffi binutils-unwrapped
-    libjpeg libtiff libpng giflib
-    libxml2 libxslt libiconv
-    libobjc libgcrypt
+    gmp
+    gnutls
+    libffi
+    binutils-unwrapped
+    libjpeg
+    libtiff
+    libpng
+    giflib
+    libxml2
+    libxslt
+    libiconv
+    libobjc
+    libgcrypt
     icu
     portaudio
     libiberty
@@ -37,14 +35,18 @@ gsmakeDerivation rec {
     ./fixup-paths.patch
     # https://github.com/gnustep/libs-base/issues/212 / https://www.sogo.nu/bugs/view.php?id=5416#c15585
     (fetchpatch {
-      url = "https://github.com/gnustep/libs-base/commit/bd5f2909e6edc8012a0a6e44ea1402dfbe1353a4.patch";
+      url =
+        "https://github.com/gnustep/libs-base/commit/bd5f2909e6edc8012a0a6e44ea1402dfbe1353a4.patch";
       revert = true;
       sha256 = "02awigkbhqa60hfhqfh2wjsa960y3q6557qck1k2l231piz2xasa";
     })
   ];
 
   meta = {
-    description = "An implementation of AppKit and Foundation libraries of OPENSTEP and Cocoa";
-    changelog = "https://github.com/gnustep/libs-base/releases/tag/base-${builtins.replaceStrings [ "." ] [ "_" ] version}";
+    description =
+      "An implementation of AppKit and Foundation libraries of OPENSTEP and Cocoa";
+    changelog = "https://github.com/gnustep/libs-base/releases/tag/base-${
+        builtins.replaceStrings [ "." ] [ "_" ] version
+      }";
   };
 }

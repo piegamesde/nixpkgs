@@ -1,17 +1,6 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchFromGitHub
-, which
-, linuxHeaders
-, clang
-, llvm
-, python3
-, curl
-, debugRuntime ? true
-, runtimeAsserts ? false
-, extraKleeuClibcConfig ? {}
-}:
+{ lib, stdenv, fetchurl, fetchFromGitHub, which, linuxHeaders, clang, llvm
+, python3, curl, debugRuntime ? true, runtimeAsserts ? false
+, extraKleeuClibcConfig ? { } }:
 
 let
   localeSrcBase = "uClibc-locale-030818.tgz";
@@ -19,11 +8,13 @@ let
     url = "http://www.uclibc.org/downloads/${localeSrcBase}";
     sha256 = "xDYr4xijjxjZjcz0YtItlbq5LwVUi7k/ZSmP6a+uvVc=";
   };
-  resolvedExtraKleeuClibcConfig = lib.mapAttrsToList (name: value: "${name}=${value}") (extraKleeuClibcConfig // {
-    "UCLIBC_DOWNLOAD_PREGENERATED_LOCALE_DATA" = "n";
-    "RUNTIME_PREFIX" = "/";
-    "DEVEL_PREFIX" = "/";
-  });
+  resolvedExtraKleeuClibcConfig =
+    lib.mapAttrsToList (name: value: "${name}=${value}") (extraKleeuClibcConfig
+      // {
+        "UCLIBC_DOWNLOAD_PREGENERATED_LOCALE_DATA" = "n";
+        "RUNTIME_PREFIX" = "/";
+        "DEVEL_PREFIX" = "/";
+      });
 in stdenv.mkDerivation rec {
   pname = "klee-uclibc";
   version = "1.3";
@@ -34,13 +25,7 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-xQ8GWa0Gmd3lbwKodJhrsZeuR4j7NT4zIUh+kNhVY/w=";
   };
 
-  nativeBuildInputs = [
-    clang
-    curl
-    llvm
-    python3
-    which
-  ];
+  nativeBuildInputs = [ clang curl llvm python3 which ];
 
   # Some uClibc sources depend on Linux headers.
   UCLIBC_KERNEL_HEADERS = "${linuxHeaders}/include";
@@ -56,11 +41,11 @@ in stdenv.mkDerivation rec {
 
   # klee-uclibc configure does not support --prefix, so we override configurePhase entirely
   configurePhase = ''
-    ./configure ${lib.escapeShellArgs (
-      ["--make-llvm-lib"]
-      ++ lib.optional (!debugRuntime) "--enable-release"
-      ++ lib.optional runtimeAsserts "--enable-assertions"
-    )}
+    ./configure ${
+      lib.escapeShellArgs ([ "--make-llvm-lib" ]
+        ++ lib.optional (!debugRuntime) "--enable-release"
+        ++ lib.optional runtimeAsserts "--enable-assertions")
+    }
 
     # Set all the configs we care about.
     configs=(
@@ -86,7 +71,7 @@ in stdenv.mkDerivation rec {
     ln -sf ${localeSrc} extra/locale/${localeSrcBase}
   '';
 
-  makeFlags = ["HAVE_DOT_CONFIG=y"];
+  makeFlags = [ "HAVE_DOT_CONFIG=y" ];
 
   meta = with lib; {
     description = "A modified version of uClibc for KLEE.";

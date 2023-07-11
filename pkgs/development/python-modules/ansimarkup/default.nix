@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, colorama
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, colorama }:
 
 buildPythonPackage rec {
   pname = "ansimarkup";

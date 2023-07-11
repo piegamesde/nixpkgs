@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, pkg-config, libiconv, gettext, xxd }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, pkg-config, libiconv
+, gettext, xxd }:
 
 stdenv.mkDerivation rec {
   pname = "dosfstools";
@@ -15,11 +16,13 @@ stdenv.mkDerivation rec {
     # macOS and FreeBSD build fixes backported from master
     # TODO: remove on the next release
     (fetchpatch {
-      url = "https://github.com/dosfstools/dosfstools/commit/77ffb87e8272760b3bb2dec8f722103b0effb801.patch";
+      url =
+        "https://github.com/dosfstools/dosfstools/commit/77ffb87e8272760b3bb2dec8f722103b0effb801.patch";
       sha256 = "sha256-xHxIs3faHK/sK3vAVoG8JcTe4zAV+ZtkozWIIFBvPWI=";
     })
     (fetchpatch {
-      url = "https://github.com/dosfstools/dosfstools/commit/2d3125c4a74895eae1f66b93287031d340324524.patch";
+      url =
+        "https://github.com/dosfstools/dosfstools/commit/2d3125c4a74895eae1f66b93287031d340324524.patch";
       sha256 = "nlIuRDsNjk23MKZL9cZ05odOfTXvsyQaKcv/xEr4c+U=";
     })
   ];
@@ -39,7 +42,8 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = {
-    description = "Utilities for creating and checking FAT and VFAT file systems";
+    description =
+      "Utilities for creating and checking FAT and VFAT file systems";
     homepage = "https://github.com/dosfstools/dosfstools";
     platforms = lib.platforms.unix;
     license = lib.licenses.gpl3;

@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "2.2";
 
   src = fetchzip {
-    url = "https://github.com/akryukov/oldstand/releases/download/v${version}/${pname}-${version}.otf.zip";
+    url =
+      "https://github.com/akryukov/oldstand/releases/download/v${version}/${pname}-${version}.otf.zip";
     stripRoot = false;
     hash = "sha256-cDB5KJm87DK+GczZ3Nmn4l5ejqViswVbwrJ9XbhEh8I=";
   };
@@ -21,7 +22,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/akryukov/oldstand";
-    description = "An attempt to revive a specific type of Modern style of serif typefaces";
+    description =
+      "An attempt to revive a specific type of Modern style of serif typefaces";
     maintainers = with maintainers; [ raskin ];
     license = licenses.ofl;
     platforms = platforms.all;

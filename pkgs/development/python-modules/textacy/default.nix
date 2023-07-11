@@ -1,23 +1,6 @@
-{ lib
-, buildPythonPackage
-, cachetools
-, cytoolz
-, fetchPypi
-, jellyfish
-, joblib
-, matplotlib
-, networkx
-, numpy
-, pyemd
-, pyphen
-, pytestCheckHook
-, pythonOlder
-, requests
-, scikit-learn
-, scipy
-, spacy
-, tqdm
-}:
+{ lib, buildPythonPackage, cachetools, cytoolz, fetchPypi, jellyfish, joblib
+, matplotlib, networkx, numpy, pyemd, pyphen, pytestCheckHook, pythonOlder
+, requests, scikit-learn, scipy, spacy, tqdm }:
 
 buildPythonPackage rec {
   pname = "textacy";
@@ -47,9 +30,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pytestFlagsArray = [
     # Almost all tests have to deal with downloading a dataset, only test pure tests

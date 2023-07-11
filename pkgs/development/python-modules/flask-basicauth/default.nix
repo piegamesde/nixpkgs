@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, flask
-, python
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, flask, python }:
 
 buildPythonPackage rec {
   pname = "flask-basicauth";
@@ -30,7 +24,8 @@ buildPythonPackage rec {
       # has been merged:
       #   https://github.com/jpvanhal/flask-basicauth/pull/29
       name = "fix-test-flask-ext-imports.patch";
-      url = "https://github.com/jpvanhal/flask-basicauth/commit/23f57dc1c3d85ea6fc7f468e8d8c6f19348a0a81.patch";
+      url =
+        "https://github.com/jpvanhal/flask-basicauth/commit/23f57dc1c3d85ea6fc7f468e8d8c6f19348a0a81.patch";
       hash = "sha256-njUYjO0TRe3vr5D0XjIfCNcsFlShbGxtFV/DJerAKDE=";
     })
   ];

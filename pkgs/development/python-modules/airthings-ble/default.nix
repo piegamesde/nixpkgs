@@ -1,11 +1,5 @@
-{ lib
-, bleak
-, bleak-retry-connector
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pythonOlder
-}:
+{ lib, bleak, bleak-retry-connector, buildPythonPackage, fetchFromGitHub
+, poetry-core, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "airthings-ble";
@@ -26,26 +20,20 @@ buildPythonPackage rec {
       --replace 'bleak-retry-connector = "^0.15.1"' 'bleak = "*"'
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    bleak
-    bleak-retry-connector
-  ];
+  propagatedBuildInputs = [ bleak bleak-retry-connector ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "airthings_ble"
-  ];
+  pythonImportsCheck = [ "airthings_ble" ];
 
   meta = with lib; {
     description = "Library for Airthings BLE devices";
     homepage = "https://github.com/vincegio/airthings-ble";
-    changelog = "https://github.com/vincegio/airthings-ble/releases/tag/v${version}";
+    changelog =
+      "https://github.com/vincegio/airthings-ble/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

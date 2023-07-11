@@ -1,13 +1,13 @@
 { lib, stdenv, fetchurl, pkg-config, gwenhywfar, pcsclite, zlib }:
 
-let
-  inherit ((import ./sources.nix).libchipcard) hash releaseId version;
+let inherit ((import ./sources.nix).libchipcard) hash releaseId version;
 in stdenv.mkDerivation rec {
   pname = "libchipcard";
   inherit version;
 
   src = fetchurl {
-    url = "https://www.aquamaniac.de/rdm/attachments/download/${releaseId}/${pname}-${version}.tar.gz";
+    url =
+      "https://www.aquamaniac.de/rdm/attachments/download/${releaseId}/${pname}-${version}.tar.gz";
     inherit hash;
   };
 

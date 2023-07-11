@@ -1,18 +1,6 @@
-{ lib
-, buildPythonPackage
-, click
-, click-completion
-, click-default-group
-, cucumber-tag-expressions
-, fetchFromGitHub
-, pluggy
-, poetry-core
-, pprintpp
-, pythonOlder
-, pythonRelaxDepsHook
-, rich
-, tomli
-}:
+{ lib, buildPythonPackage, click, click-completion, click-default-group
+, cucumber-tag-expressions, fetchFromGitHub, pluggy, poetry-core, pprintpp
+, pythonOlder, pythonRelaxDepsHook, rich, tomli }:
 
 buildPythonPackage rec {
   pname = "ward";
@@ -28,14 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-4dEMEEPySezgw3dIcYMl56HrhyaYlql9JvtamOn7Y8g=";
   };
 
-  pythonRelaxDeps = [
-    "rich"
-  ];
+  pythonRelaxDeps = [ "rich" ];
 
-  nativeBuildInputs = [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     click
@@ -51,14 +34,13 @@ buildPythonPackage rec {
   # Fixture is missing. Looks like an issue with the import of the sample file
   doCheck = false;
 
-  pythonImportsCheck = [
-    "ward"
-  ];
+  pythonImportsCheck = [ "ward" ];
 
   meta = with lib; {
     description = "Test framework for Python";
     homepage = "https://github.com/darrenburns/ward";
-    changelog = "https://github.com/darrenburns/ward/releases/tag/release%2F${version}";
+    changelog =
+      "https://github.com/darrenburns/ward/releases/tag/release%2F${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

@@ -1,13 +1,5 @@
-{ autoPatchelfHook
-, buildFHSEnv
-, dpkg
-, fetchurl
-, inotify-tools
-, lib
-, stdenvNoCC
-, sysctl
-, writeScript
-}:
+{ autoPatchelfHook, buildFHSEnv, dpkg, fetchurl, inotify-tools, lib, stdenvNoCC
+, sysctl, writeScript }:
 
 let
   pname = "expressvpn";
@@ -19,7 +11,8 @@ let
     inherit pname version;
 
     src = fetchurl {
-      url = "https://www.expressvpn.works/clients/linux/expressvpn_${version}-1_amd64.deb";
+      url =
+        "https://www.expressvpn.works/clients/linux/expressvpn_${version}-1_amd64.deb";
       hash = "sha256-lyDjG346FrgT7SZbsWET+Hexl9Un6mzMukfO2PwlInA=";
     };
 
@@ -65,14 +58,9 @@ let
     # The expressvpnd binary also uses hard-coded paths to the other binaries and files
     # it ships with, hence the FHS environment.
 
-    targetPkgs = pkgs: with pkgs; [
-      expressvpnBase
-      inotify-tools
-      iproute2
-    ];
+    targetPkgs = pkgs: with pkgs; [ expressvpnBase inotify-tools iproute2 ];
   };
-in
-stdenvNoCC.mkDerivation {
+in stdenvNoCC.mkDerivation {
   inherit pname version;
 
   dontUnpack = true;

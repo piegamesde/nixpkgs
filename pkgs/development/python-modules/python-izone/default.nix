@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, aiohttp
-, netifaces
-, pytest-aio
-, pytest-asyncio
-, pytestCheckHook
-, setuptools-scm
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, aiohttp, netifaces
+, pytest-aio, pytest-asyncio, pytestCheckHook, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "python-izone";
@@ -24,28 +15,17 @@ buildPythonPackage rec {
     hash = "sha256-0rj+tKn2pbFe+nczTMGLwIwmc4jCznGGF4/IMjlEvQg=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  propagatedBuildInputs = [
-    aiohttp
-    netifaces
-  ];
+  propagatedBuildInputs = [ aiohttp netifaces ];
 
-  nativeCheckInputs = [
-    pytest-aio
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-aio pytest-asyncio pytestCheckHook ];
 
   doCheck = false; # most tests access network
 
-  pythonImportsCheck = [
-    "pizone"
-  ];
+  pythonImportsCheck = [ "pizone" ];
 
   meta = with lib; {
     description = "Python interface to the iZone airconditioner controller";

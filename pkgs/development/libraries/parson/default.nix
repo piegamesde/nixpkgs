@@ -7,7 +7,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "kgabis";
     repo = "parson";
-    rev = "3c4ee26dbb3df177a2d7b9d80e154ec435ca8c01"; # upstream doesn't use tags
+    rev =
+      "3c4ee26dbb3df177a2d7b9d80e154ec435ca8c01"; # upstream doesn't use tags
     sha256 = "sha256-fz2yhxy6Q5uEPAbzMxMiaXqSYkQ9uB3A4sV2qYOekJ8=";
   };
 

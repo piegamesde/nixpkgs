@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, kernel ? null
-, libelf
-, nasm
-, python3
-, withDriver ? false
-}:
+{ lib, stdenv, fetchFromGitHub, kernel ? null, libelf, nasm, python3
+, withDriver ? false }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "chipsec";
@@ -23,17 +16,12 @@ python3.pkgs.buildPythonApplication rec {
 
   patches = lib.optionals withDriver [ ./ko-path.diff ./compile-ko.diff ];
 
-  KSRC = lib.optionalString withDriver "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
+  KSRC = lib.optionalString withDriver
+    "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
 
-  nativeBuildInputs = [
-    libelf
-    nasm
-  ];
+  nativeBuildInputs = [ libelf nasm ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    distro
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ distro pytestCheckHook ];
 
   preBuild = lib.optionalString withDriver ''
     export CHIPSEC_BUILD_LIB=$(mktemp -d)
@@ -51,15 +39,10 @@ python3.pkgs.buildPythonApplication rec {
       $out/${python3.pkgs.python.sitePackages}/drivers/linux/chipsec.ko
   '';
 
-  setupPyBuildFlags = [
-    "--build-lib=$CHIPSEC_BUILD_LIB"
-  ] ++ lib.optionals (!withDriver) [
-    "--skip-driver"
-  ];
+  setupPyBuildFlags = [ "--build-lib=$CHIPSEC_BUILD_LIB" ]
+    ++ lib.optionals (!withDriver) [ "--skip-driver" ];
 
-  pythonImportsCheck = [
-    "chipsec"
-  ];
+  pythonImportsCheck = [ "chipsec" ];
 
   meta = with lib; {
     description = "Platform Security Assessment Framework";
@@ -73,6 +56,7 @@ python3.pkgs.buildPythonApplication rec {
     license = licenses.gpl2Only;
     homepage = "https://github.com/chipsec/chipsec";
     maintainers = with maintainers; [ johnazoidberg ];
-    platforms = [ "x86_64-linux" ] ++ lib.optional (!withDriver) "x86_64-darwin";
+    platforms = [ "x86_64-linux" ]
+      ++ lib.optional (!withDriver) "x86_64-darwin";
   };
 }

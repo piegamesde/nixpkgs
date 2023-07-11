@@ -1,14 +1,5 @@
-{ lib
-, buildPythonApplication
-, pytest-mock
-, pytestCheckHook
-, fetchFromGitHub
-, installShellFiles
-, git
-, nix-update-script
-, testers
-, git-machete
-}:
+{ lib, buildPythonApplication, pytest-mock, pytestCheckHook, fetchFromGitHub
+, installShellFiles, git, nix-update-script, testers, git-machete }:
 
 buildPythonApplication rec {
   pname = "git-machete";
@@ -23,11 +14,7 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  nativeCheckInputs = [
-    git
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ git pytest-mock pytestCheckHook ];
 
   postInstall = ''
     installShellCompletion --bash --name git-machete completion/git-machete.completion.bash
@@ -39,14 +26,14 @@ buildPythonApplication rec {
     test "$($out/bin/git-machete version)" = "git-machete version ${version}"
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     homepage = "https://github.com/VirtusLab/git-machete";
-    description = "Git repository organizer and rebase/merge workflow automation tool";
-    changelog = "https://github.com/VirtusLab/git-machete/releases/tag/v${version}";
+    description =
+      "Git repository organizer and rebase/merge workflow automation tool";
+    changelog =
+      "https://github.com/VirtusLab/git-machete/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ blitz ];
   };

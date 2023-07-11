@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, autoconf
-, automake
-, libtool
-, zlib
-, cunit
-, libxcrypt
-}:
+{ stdenv, lib, fetchFromGitHub, autoconf, automake, libtool, zlib, cunit
+, libxcrypt }:
 stdenv.mkDerivation rec {
   pname = "dcap";
   version = "2.47.14";

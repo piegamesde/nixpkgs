@@ -1,12 +1,5 @@
-{ lib
-, fetchFromGitHub
-, buildPythonPackage
-, pythonOlder
-, beancount-parser
-, click
-, poetry-core
-, pytestCheckHook
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder, beancount-parser, click
+, poetry-core, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "beancount-black";
@@ -22,22 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-1n+IADiGUsi69XoxO4Tjio2QdkJyoYZHgvYc646TuF4=";
   };
 
-  buildInputs = [
-    poetry-core
-  ];
+  buildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    beancount-parser
-    click
-  ];
+  propagatedBuildInputs = [ beancount-parser click ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "beancount_black"
-  ];
+  pythonImportsCheck = [ "beancount_black" ];
 
   meta = with lib; {
     description = "Opinioned code formatter for Beancount";

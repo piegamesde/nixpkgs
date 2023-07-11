@@ -1,29 +1,19 @@
-{ lib
-, stdenv
-, fetchzip
-, makeWrapper
-, jdk8
-, python3Packages
-, extraPythonPackages ? [ ]
-, coreutils
-, hadoopSupport ? true
-, hadoop
-, RSupport ? true
-, R
-}:
+{ lib, stdenv, fetchzip, makeWrapper, jdk8, python3Packages
+, extraPythonPackages ? [ ], coreutils, hadoopSupport ? true, hadoop
+, RSupport ? true, R }:
 
 let
-  spark = { pname, version, sha256, extraMeta ? {} }:
+  spark = { pname, version, sha256, extraMeta ? { } }:
     stdenv.mkDerivation rec {
       inherit pname version;
       jdk = if hadoopSupport then hadoop.jdk else jdk8;
       src = fetchzip {
-        url = "mirror://apache/spark/${pname}-${version}/${pname}-${version}-bin-without-hadoop.tgz";
+        url =
+          "mirror://apache/spark/${pname}-${version}/${pname}-${version}-bin-without-hadoop.tgz";
         sha256 = sha256;
       };
       nativeBuildInputs = [ makeWrapper ];
-      buildInputs = [ jdk python3Packages.python ]
-        ++ extraPythonPackages
+      buildInputs = [ jdk python3Packages.python ] ++ extraPythonPackages
         ++ lib.optional RSupport R;
 
       untarDir = "${pname}-${version}";
@@ -60,16 +50,21 @@ let
       '';
 
       meta = {
-        description = "Apache Spark is a fast and general engine for large-scale data processing";
+        description =
+          "Apache Spark is a fast and general engine for large-scale data processing";
         homepage = "https://spark.apache.org/";
         sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
         license = lib.licenses.asl20;
         platforms = lib.platforms.all;
-        maintainers = with lib.maintainers; [ thoughtpolice offline kamilchm illustris ];
+        maintainers = with lib.maintainers; [
+          thoughtpolice
+          offline
+          kamilchm
+          illustris
+        ];
       } // extraMeta;
     };
-in
-{
+in {
   spark_3_2 = spark rec {
     pname = "spark";
     version = "3.2.2";

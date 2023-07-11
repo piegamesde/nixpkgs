@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "vtm";
@@ -21,7 +17,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://vtm.netxs.online/";
-    description = "Terminal multiplexer with window manager and session sharing";
+    description =
+      "Terminal multiplexer with window manager and session sharing";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ ahuzik ];

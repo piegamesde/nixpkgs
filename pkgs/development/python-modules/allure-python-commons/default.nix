@@ -1,14 +1,5 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, pythonOlder
-, attrs
-, pluggy
-, six
-, allure-python-commons-test
-, setuptools-scm
-, python
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, attrs, pluggy, six
+, allure-python-commons-test, setuptools-scm, python }:
 
 buildPythonPackage rec {
   pname = "allure-python-commons";
@@ -21,9 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-1cNi3QEWfwhjMYIumxkS1Ob9bLwtGgBt0EjnfoKnrnM=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [ attrs pluggy six allure-python-commons-test ];
 
@@ -35,7 +24,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "allure" "allure_commons" ];
 
   meta = with lib; {
-    description = "Common engine for all modules. It is useful for make integration with your homemade frameworks";
+    description =
+      "Common engine for all modules. It is useful for make integration with your homemade frameworks";
     homepage = "https://github.com/allure-framework/allure-python";
     license = licenses.asl20;
     maintainers = with maintainers; [ evanjs ];

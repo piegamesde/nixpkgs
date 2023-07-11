@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, numpy
-, pyyaml
-, matplotlib
-, h5py
-, scipy
-, spglib
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, pyyaml, matplotlib, h5py, scipy
+, spglib, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "phonopy";
@@ -23,32 +13,23 @@ buildPythonPackage rec {
     hash = "sha256-t+1i1S8UVd0s9/Fda0H2kaouDDBVS+x6G40Meb2rLYc=";
   };
 
-  propagatedBuildInputs = [
-    h5py
-    matplotlib
-    numpy
-    pyyaml
-    scipy
-    spglib
-  ];
+  propagatedBuildInputs = [ h5py matplotlib numpy pyyaml scipy spglib ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # prevent pytest from importing local directory
   preCheck = ''
     rm -r phonopy
   '';
 
-  pythonImportsCheck = [
-    "phonopy"
-  ];
+  pythonImportsCheck = [ "phonopy" ];
 
   meta = with lib; {
-    description = "Modulefor phonon calculations at harmonic and quasi-harmonic levels";
+    description =
+      "Modulefor phonon calculations at harmonic and quasi-harmonic levels";
     homepage = "https://phonopy.github.io/phonopy/";
-    changelog = "https://github.com/phonopy/phonopy/blob/v${version}/doc/changelog.md";
+    changelog =
+      "https://github.com/phonopy/phonopy/blob/v${version}/doc/changelog.md";
     license = licenses.bsd0;
     maintainers = with maintainers; [ psyanticy ];
   };

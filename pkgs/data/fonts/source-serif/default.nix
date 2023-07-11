@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "4.004";
 
   src = fetchzip {
-    url = "https://github.com/adobe-fonts/source-serif/releases/download/${version}R/source-serif-${version}.zip";
+    url =
+      "https://github.com/adobe-fonts/source-serif/releases/download/${version}R/source-serif-${version}.zip";
     hash = "sha256-tGSMOwYBEZat7MI78wkPr6lgJdsOdOaIZb+IAOoOlq4=";
   };
 
@@ -21,7 +22,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://adobe-fonts.github.io/source-serif/";
-    description = "Typeface for setting text in many sizes, weights, and languages. Designed to complement Source Sans";
+    description =
+      "Typeface for setting text in many sizes, weights, and languages. Designed to complement Source Sans";
     license = licenses.ofl;
     platforms = platforms.all;
     maintainers = with maintainers; [ ttuegel ];

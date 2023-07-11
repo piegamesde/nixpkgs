@@ -1,19 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, requests
-, shapely
-, python-dateutil
-, pytz
-, importlib-metadata
-, numpy
-, dateparser
-, remotezip
-, pytestCheckHook
-, requests-mock
-, defusedxml
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, requests, shapely
+, python-dateutil, pytz, importlib-metadata, numpy, dateparser, remotezip
+, pytestCheckHook, requests-mock, defusedxml }:
 
 buildPythonPackage rec {
   pname = "asf-search";
@@ -40,21 +27,15 @@ buildPythonPackage rec {
     remotezip
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs = [
-    requests-mock
-    defusedxml
-  ];
+  checkInputs = [ requests-mock defusedxml ];
 
-  pythonImportsCheck = [
-    "asf_search"
-  ];
+  pythonImportsCheck = [ "asf_search" ];
 
   meta = with lib; {
-    changelog = "https://github.com/asfadmin/Discovery-asf_search/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/asfadmin/Discovery-asf_search/blob/${src.rev}/CHANGELOG.md";
     description = "Python wrapper for the ASF SearchAPI";
     homepage = "https://github.com/asfadmin/Discovery-asf_search";
     license = licenses.bsd3;

@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "sqlfluff";
@@ -15,32 +12,30 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-FXSGG13/Al8QVFy55f91+ZyQKeZA4wFGd06kIj6NjaI=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    appdirs
-    cached-property
-    chardet
-    click
-    colorama
-    configparser
-    diff-cover
-    jinja2
-    oyaml
-    pathspec
-    pytest
-    regex
-    tblib
-    toml
-    tqdm
-    typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.8") [
-    backports.cached-property
-    importlib_metadata
-  ];
+  propagatedBuildInputs = with python3.pkgs;
+    [
+      appdirs
+      cached-property
+      chardet
+      click
+      colorama
+      configparser
+      diff-cover
+      jinja2
+      oyaml
+      pathspec
+      pytest
+      regex
+      tblib
+      toml
+      tqdm
+      typing-extensions
+    ] ++ lib.optionals (pythonOlder "3.8") [
+      backports.cached-property
+      importlib_metadata
+    ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    hypothesis
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ hypothesis pytestCheckHook ];
 
   disabledTestPaths = [
     # Don't run the plugin related tests
@@ -57,14 +52,13 @@ python3.pkgs.buildPythonApplication rec {
     "test__rules__std_file_dbt"
   ];
 
-  pythonImportsCheck = [
-    "sqlfluff"
-  ];
+  pythonImportsCheck = [ "sqlfluff" ];
 
   meta = with lib; {
     description = "SQL linter and auto-formatter";
     homepage = "https://www.sqlfluff.com/";
-    changelog = "https://github.com/sqlfluff/sqlfluff/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/sqlfluff/sqlfluff/blob/${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

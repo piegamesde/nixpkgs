@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, click
-, requests
-}:
+{ lib, buildPythonPackage, fetchPypi, click, requests }:
 
 buildPythonPackage rec {
   pname = "vsure";
@@ -15,17 +10,12 @@ buildPythonPackage rec {
     hash = "sha256-D6Q76L1BVx5hpFSShP1rUOmgTogEO+6Jj5x8GaepC+c=";
   };
 
-  propagatedBuildInputs = [
-    click
-    requests
-  ];
+  propagatedBuildInputs = [ click requests ];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "verisure"
-  ];
+  pythonImportsCheck = [ "verisure" ];
 
   meta = with lib; {
     description = "Python library for working with verisure devices";

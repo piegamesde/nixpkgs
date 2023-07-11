@@ -9,7 +9,8 @@ stdenv.mkDerivation rec {
   dontStrip = true;
 
   src = fetchzip {
-    url = "https://github.com/github/codeql-cli-binaries/releases/download/v${version}/codeql.zip";
+    url =
+      "https://github.com/github/codeql-cli-binaries/releases/download/v${version}/codeql.zip";
     sha256 = "sha256-K74o/qEC3DeR8lclJpkIXp6cAP6GLkK5QWJ6HzLxE8M=";
   };
 

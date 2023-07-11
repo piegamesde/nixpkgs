@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.services.grafana_reporter;
+let cfg = config.services.grafana_reporter;
 
 in {
   options.services.grafana_reporter = {
@@ -13,7 +12,7 @@ in {
       protocol = mkOption {
         description = lib.mdDoc "Grafana protocol.";
         default = "http";
-        type = types.enum ["http" "https"];
+        type = types.enum [ "http" "https" ];
       };
       addr = mkOption {
         description = lib.mdDoc "Grafana address.";
@@ -40,7 +39,8 @@ in {
     };
 
     templateDir = mkOption {
-      description = lib.mdDoc "Optional template directory to use custom tex templates";
+      description =
+        lib.mdDoc "Optional template directory to use custom tex templates";
       default = pkgs.grafana_reporter;
       defaultText = literalExpression "pkgs.grafana_reporter";
       type = types.either types.str types.path;
@@ -50,8 +50,8 @@ in {
   config = mkIf cfg.enable {
     systemd.services.grafana_reporter = {
       description = "Grafana Reporter Service Daemon";
-      wantedBy = ["multi-user.target"];
-      after = ["network.target"];
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
       serviceConfig = let
         args = lib.concatStringsSep " " [
           "-proto ${cfg.grafana.protocol}://"

@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "2.1";
 
   src = fetchurl {
-    url = "https://git.causal.agency/catgirl/snapshot/${pname}-${version}.tar.gz";
+    url =
+      "https://git.causal.agency/catgirl/snapshot/${pname}-${version}.tar.gz";
     sha256 = "sha256-pov7gvYlvN97xbem4VKP41Wbze1B8NPJcvi36Ri87o4=";
   };
 

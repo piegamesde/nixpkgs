@@ -1,6 +1,6 @@
 { lib, fetchFromGitHub, buildGoModule, installShellFiles }:
 
-buildGoModule rec{
+buildGoModule rec {
   pname = "pinniped";
   version = "0.23.0";
 

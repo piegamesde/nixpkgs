@@ -2,10 +2,8 @@
 
 assert mountPath != "";
 
-let
-  version = "0.5";
-in
-stdenv.mkDerivation rec {
+let version = "0.5";
+in stdenv.mkDerivation rec {
   pname = "ldm";
   inherit version;
 
@@ -33,7 +31,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A lightweight device mounter, with libudev as only dependency";
+    description =
+      "A lightweight device mounter, with libudev as only dependency";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
   };

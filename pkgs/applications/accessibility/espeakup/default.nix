@@ -1,14 +1,5 @@
-{ stdenv
-, lib
-, meson
-, ninja
-, espeak-ng
-, fetchFromGitHub
-, pkg-config
-, ronn
-, alsa-lib
-, systemd
-}:
+{ stdenv, lib, meson, ninja, espeak-ng, fetchFromGitHub, pkg-config, ronn
+, alsa-lib, systemd }:
 
 stdenv.mkDerivation rec {
   pname = "espeakup";
@@ -21,20 +12,12 @@ stdenv.mkDerivation rec {
     sha256 = "0lmjwafvfxy07zn18v3dzjwwpnid2xffgvy2dzlwkbns8gb60ds2";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    ronn
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ronn ];
 
-  buildInputs = [
-    espeak-ng
-    alsa-lib
-    systemd
-  ];
+  buildInputs = [ espeak-ng alsa-lib systemd ];
 
-  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${placeholder "out"}/lib/systemd/system";
+  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR =
+    "${placeholder "out"}/lib/systemd/system";
 
   meta = with lib; {
     homepage = "https://github.com/linux-speakup/espeakup";

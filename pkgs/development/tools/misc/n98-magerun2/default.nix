@@ -3,8 +3,7 @@
 let
   pname = "n98-magerun2";
   version = "6.1.1";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchFromGitHub {

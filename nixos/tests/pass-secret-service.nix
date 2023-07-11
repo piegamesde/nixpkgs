@@ -2,34 +2,32 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
   name = "pass-secret-service";
   meta.maintainers = [ lib.maintainers.aidalgol ];
 
-  nodes.machine = { nodes, pkgs, ... }:
-    {
-      imports = [ ./common/user-account.nix ];
+  nodes.machine = { nodes, pkgs, ... }: {
+    imports = [ ./common/user-account.nix ];
 
-      services.passSecretService.enable = true;
+    services.passSecretService.enable = true;
 
-      environment.systemPackages = [
-        # Create a script that tries to make a request to the D-Bus secrets API.
-        (pkgs.writers.writePython3Bin "secrets-dbus-init"
-          {
-            libraries = [ pkgs.python3Packages.secretstorage ];
-          } ''
-          import secretstorage
-          print("Initializing dbus connection...")
-          connection = secretstorage.dbus_init()
-          print("Requesting default collection...")
-          collection = secretstorage.get_default_collection(connection)
-          print("Done!  dbus-org.freedesktop.secrets should now be active.")
-        '')
-        pkgs.pass
-      ];
+    environment.systemPackages = [
+      # Create a script that tries to make a request to the D-Bus secrets API.
+      (pkgs.writers.writePython3Bin "secrets-dbus-init" {
+        libraries = [ pkgs.python3Packages.secretstorage ];
+      } ''
+        import secretstorage
+        print("Initializing dbus connection...")
+        connection = secretstorage.dbus_init()
+        print("Requesting default collection...")
+        collection = secretstorage.get_default_collection(connection)
+        print("Done!  dbus-org.freedesktop.secrets should now be active.")
+      '')
+      pkgs.pass
+    ];
 
-      programs.gnupg = {
-        agent.enable = true;
-        agent.pinentryFlavor = "tty";
-        dirmngr.enable = true;
-      };
+    programs.gnupg = {
+      agent.enable = true;
+      agent.pinentryFlavor = "tty";
+      dirmngr.enable = true;
     };
+  };
 
   # Some of the commands are run via a virtual console because they need to be
   # run under a real login session, with D-Bus running in the environment.
@@ -39,8 +37,7 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
       gpg-uid = "alice@example.net";
       gpg-pw = "foobar9000";
       ready-file = "/tmp/secrets-dbus-init.done";
-    in
-    ''
+    in ''
       # Initialise the pass(1) storage.
       machine.succeed("""
         sudo -u alice gpg --pinentry-mode loopback --batch --passphrase ${gpg-pw} \

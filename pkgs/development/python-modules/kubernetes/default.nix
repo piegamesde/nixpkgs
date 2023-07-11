@@ -1,26 +1,11 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder
 
 # propgatedBuildInputs
-, adal
-, certifi
-, google-auth
-, python-dateutil
-, pyyaml
-, requests
-, requests-oauthlib
-, setuptools
-, six
-, urllib3
-, websocket-client
+, adal, certifi, google-auth, python-dateutil, pyyaml, requests
+, requests-oauthlib, setuptools, six, urllib3, websocket-client
 
 # tests
-, pytestCheckHook
-, mock
-}:
+, pytestCheckHook, mock }:
 
 buildPythonPackage rec {
   pname = "kubernetes";
@@ -50,14 +35,9 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-  pythonImportsCheck = [
-    "kubernetes"
-  ];
+  pythonImportsCheck = [ "kubernetes" ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   disabledTests = lib.optionals stdenv.isDarwin [
     # AssertionError: <class 'urllib3.poolmanager.ProxyManager'> != <class 'urllib3.poolmanager.Poolmanager'>

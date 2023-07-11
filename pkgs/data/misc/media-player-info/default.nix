@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "24";
 
   src = fetchurl {
-    url = "https://www.freedesktop.org/software/media-player-info/${pname}-${version}.tar.gz";
+    url =
+      "https://www.freedesktop.org/software/media-player-info/${pname}-${version}.tar.gz";
     sha256 = "0d0i7av8v369hzvlynwlrbickv1brlzsmiky80lrjgjh1gdldkz6";
   };
 
@@ -19,7 +20,8 @@ stdenv.mkDerivation rec {
   configureFlags = [ "--with-udevdir=${placeholder "out"}/lib/udev" ];
 
   meta = with lib; {
-    description = "A repository of data files describing media player capabilities";
+    description =
+      "A repository of data files describing media player capabilities";
     homepage = "https://www.freedesktop.org/wiki/Software/media-player-info/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ttuegel ];

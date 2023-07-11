@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, asynctest
-, pytest-asyncio
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, asynctest, pytest-asyncio
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "dynalite-devices";
@@ -13,7 +8,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "ziv1234";
     repo = "python-dynalite-devices";
-    rev = "refs/tags/v${version}"; # https://github.com/ziv1234/python-dynalite-devices/issues/2
+    rev =
+      "refs/tags/v${version}"; # https://github.com/ziv1234/python-dynalite-devices/issues/2
     hash = "sha256-kJo4e5vhgWzijLUhQd9VBVk1URpg9SXhOA60dJYashM=";
   };
 
@@ -21,15 +17,9 @@ buildPythonPackage rec {
     sed -i '/^addopts/d' setup.cfg
   '';
 
-  nativeCheckInputs = [
-    asynctest
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ asynctest pytest-asyncio pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "--asyncio-mode=auto"
-  ];
+  pytestFlagsArray = [ "--asyncio-mode=auto" ];
 
   pythonImportsCheck = [ "dynalite_devices_lib" ];
 

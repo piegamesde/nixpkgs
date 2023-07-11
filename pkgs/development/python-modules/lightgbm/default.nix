@@ -1,19 +1,6 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchPypi
-, cmake
-, numpy
-, scipy
-, scikit-learn
-, llvmPackages ? null
-, pythonOlder
-, python
-, ocl-icd
-, opencl-headers
-, boost
-, gpuSupport ? true
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, cmake, numpy, scipy, scikit-learn
+, llvmPackages ? null, pythonOlder, python, ocl-icd, opencl-headers, boost
+, gpuSupport ? true }:
 
 buildPythonPackage rec {
   pname = "lightgbm";
@@ -27,28 +14,19 @@ buildPythonPackage rec {
     hash = "sha256-ELj73PhR5PaKHwLzjZm9xEx8f7mxpi3PkkoNKf9zOVw=";
   };
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   dontUseCmakeConfigure = true;
 
-  buildInputs = (lib.optionals stdenv.cc.isClang [
-    llvmPackages.openmp
-  ]) ++ (lib.optionals gpuSupport [
-    boost
-    ocl-icd
-    opencl-headers
-  ]);
+  buildInputs = (lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ])
+    ++ (lib.optionals gpuSupport [ boost ocl-icd opencl-headers ]);
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    scikit-learn
-  ];
+  propagatedBuildInputs = [ numpy scipy scikit-learn ];
 
   buildPhase = ''
-    ${python.pythonForBuild.interpreter} setup.py bdist_wheel ${lib.optionalString gpuSupport "--gpu"}
+    ${python.pythonForBuild.interpreter} setup.py bdist_wheel ${
+      lib.optionalString gpuSupport "--gpu"
+    }
   '';
 
   postConfigure = ''
@@ -60,14 +38,14 @@ buildPythonPackage rec {
   # `make check`.
   doCheck = false;
 
-  pythonImportsCheck = [
-    "lightgbm"
-  ];
+  pythonImportsCheck = [ "lightgbm" ];
 
   meta = {
-    description = "A fast, distributed, high performance gradient boosting (GBDT, GBRT, GBM or MART) framework";
+    description =
+      "A fast, distributed, high performance gradient boosting (GBDT, GBRT, GBM or MART) framework";
     homepage = "https://github.com/Microsoft/LightGBM";
-    changelog = "https://github.com/microsoft/LightGBM/releases/tag/v${version}";
+    changelog =
+      "https://github.com/microsoft/LightGBM/releases/tag/v${version}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ teh costrouc ];
   };

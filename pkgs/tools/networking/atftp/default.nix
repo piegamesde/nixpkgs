@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, autoreconfHook
-, fetchurl
-, gcc
-, makeWrapper
-, pcre2
-, perl
-, ps
-, readline
-, tcp_wrappers
-}:
+{ lib, stdenv, autoreconfHook, fetchurl, gcc, makeWrapper, pcre2, perl, ps
+, readline, tcp_wrappers }:
 
 stdenv.mkDerivation rec {
   pname = "atftp";
@@ -25,22 +15,11 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoreconfHook makeWrapper ];
 
-  buildInputs = [
-    gcc
-    pcre2
-    readline
-    tcp_wrappers
-  ];
+  buildInputs = [ gcc pcre2 readline tcp_wrappers ];
 
-  nativeCheckInputs = [
-    perl
-    ps
-  ];
+  nativeCheckInputs = [ perl ps ];
 
   # Expects pre-GCC5 inline semantics
   env.NIX_CFLAGS_COMPILE = "-std=gnu89";
@@ -49,7 +28,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Advanced tftp tools";
-    changelog = "https://sourceforge.net/p/atftp/code/ci/v${version}/tree/Changelog";
+    changelog =
+      "https://sourceforge.net/p/atftp/code/ci/v${version}/tree/Changelog";
     homepage = "https://sourceforge.net/projects/atftp/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ raskin ];

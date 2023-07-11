@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, python3
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 let
   py = python3.override {
@@ -34,8 +31,7 @@ let
       });
     };
   };
-in
-with py.pkgs;
+in with py.pkgs;
 
 buildPythonApplication rec {
   pname = "catt";
@@ -47,23 +43,16 @@ buildPythonApplication rec {
     hash = "sha256-Q9ePWRLwuuTG+oPKFg7xn1gj4uAVlXUxegWdyH3Yd90=";
   };
 
-  propagatedBuildInputs = [
-    click
-    ifaddr
-    pychromecast
-    protobuf
-    requests
-    yt-dlp
-  ];
+  propagatedBuildInputs =
+    [ click ifaddr pychromecast protobuf requests yt-dlp ];
 
   doCheck = false; # attempts to access various URLs
 
-  pythonImportsCheck = [
-    "catt"
-  ];
+  pythonImportsCheck = [ "catt" ];
 
   meta = with lib; {
-    description = "Tool to send media from online sources to Chromecast devices";
+    description =
+      "Tool to send media from online sources to Chromecast devices";
     homepage = "https://github.com/skorokithakis/catt";
     license = licenses.bsd2;
     maintainers = with maintainers; [ dtzWill ];

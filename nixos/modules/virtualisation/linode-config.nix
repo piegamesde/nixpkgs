@@ -1,6 +1,5 @@
 { config, lib, pkgs, ... }:
-with lib;
-{
+with lib; {
   imports = [ ../profiles/qemu-guest.nix ];
 
   services.openssh = {
@@ -23,11 +22,7 @@ with lib;
   };
 
   # Install diagnostic tools for Linode support
-  environment.systemPackages = with pkgs; [
-    inetutils
-    mtr
-    sysstat
-  ];
+  environment.systemPackages = with pkgs; [ inetutils mtr sysstat ];
 
   fileSystems."/" = {
     fsType = "ext4";
@@ -41,12 +36,8 @@ with lib;
   boot = {
     # Add Required Kernel Modules
     # NOTE: These are not documented in the install guide
-    initrd.availableKernelModules = [
-      "virtio_pci"
-      "virtio_scsi"
-      "ahci"
-      "sd_mod"
-    ];
+    initrd.availableKernelModules =
+      [ "virtio_pci" "virtio_scsi" "ahci" "sd_mod" ];
 
     # Set Up LISH Serial Connection
     kernelParams = [ "console=ttyS0,19200n8" ];

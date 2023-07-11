@@ -1,4 +1,5 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flake8, click, pyyaml, six, pytestCheckHook, pytest-cov }:
+{ lib, buildPythonPackage, fetchFromGitHub, flake8, click, pyyaml, six
+, pytestCheckHook, pytest-cov }:
 
 buildPythonPackage rec {
   pname = "clickclick";
@@ -15,9 +16,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ flake8 click pyyaml six ];
 
   # test_cli asserts on exact quoting style of output
-  disabledTests = [
-    "test_cli"
-  ];
+  disabledTests = [ "test_cli" ];
 
   meta = with lib; {
     description = "Click command line utilities";

@@ -1,12 +1,4 @@
-{ lib
-, stdenv
-, fetchzip
-, autoreconfHook
-, dos2unix
-, doxygen
-, freeimage
-, libpgf
-}:
+{ lib, stdenv, fetchzip, autoreconfHook, dos2unix, doxygen, freeimage, libpgf }:
 
 stdenv.mkDerivation rec {
   pname = "pgf";
@@ -22,16 +14,9 @@ stdenv.mkDerivation rec {
     mv README.txt README
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    dos2unix
-    doxygen
-  ];
+  nativeBuildInputs = [ autoreconfHook dos2unix doxygen ];
 
-  buildInputs = [
-    freeimage
-    libpgf
-  ];
+  buildInputs = [ freeimage libpgf ];
 
   meta = {
     homepage = "https://www.libpgf.org/";

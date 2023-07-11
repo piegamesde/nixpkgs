@@ -1,15 +1,11 @@
-{ lib, stdenv
-, fetchFromGitHub
-, zlib
-}:
+{ lib, stdenv, fetchFromGitHub, zlib }:
 
 let
   version = "0.10";
   tag = "v${version}";
   rev = "b364724f15fd6fce8234ad8add68107c23a22151";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "mrustc";
   inherit version;
 

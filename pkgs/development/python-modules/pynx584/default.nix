@@ -1,21 +1,10 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, flask
-, mock
-, prettytable
-, pyserial
-, pytestCheckHook
-, pythonOlder
-, requests
-, stevedore
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, flask, mock, prettytable, pyserial
+, pytestCheckHook, pythonOlder, requests, stevedore }:
 
 buildPythonPackage rec {
   pname = "pynx584";
   version = "0.8.1";
   disabled = pythonOlder "3.6";
-
 
   src = fetchFromGitHub {
     owner = "kk7ds";
@@ -24,18 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-nF8+LbKqy/GrnPpykS5wEQMPoFYxi40pfM3Ys/UXCeo=";
   };
 
-  propagatedBuildInputs = [
-    flask
-    prettytable
-    pyserial
-    requests
-    stevedore
-  ];
+  propagatedBuildInputs = [ flask prettytable pyserial requests stevedore ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   pythonImportsCheck = [ "nx584" ];
 

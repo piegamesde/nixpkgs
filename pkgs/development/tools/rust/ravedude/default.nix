@@ -1,9 +1,4 @@
-{ lib
-, rustPlatform
-, fetchCrate
-, pkg-config
-, udev
-}:
+{ lib, rustPlatform, fetchCrate, pkg-config, udev }:
 
 rustPlatform.buildRustPackage rec {
   pname = "ravedude";
@@ -21,9 +16,13 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [ udev ];
 
   meta = with lib; {
-    description = "Tool to easily flash code onto an AVR microcontroller with avrdude";
+    description =
+      "Tool to easily flash code onto an AVR microcontroller with avrdude";
     homepage = "https://crates.io/crates/ravedude";
-    license = with licenses; [ mit /* or */ asl20 ];
+    license = with licenses; [
+      mit # or
+      asl20
+    ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ rvarago ];
   };

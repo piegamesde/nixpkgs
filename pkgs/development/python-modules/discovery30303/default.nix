@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, poetry-core
-, pytest-asyncio
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, poetry-core
+, pytest-asyncio, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "discovery30303";
@@ -22,27 +16,18 @@ buildPythonPackage rec {
     hash = "sha256-WSVMhiJxASxAkxs6RGuAVvEFS8TPxDKE9M99Rp8HKGM=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "--asyncio-mode=auto"
-  ];
+  pytestFlagsArray = [ "--asyncio-mode=auto" ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace " --cov=discovery30303" ""
   '';
 
-  pythonImportsCheck = [
-    "discovery30303"
-  ];
+  pythonImportsCheck = [ "discovery30303" ];
 
   meta = with lib; {
     description = "Module to discover devices that respond on port 30303";

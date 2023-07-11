@@ -22,25 +22,24 @@ let
     };
   };
 
-  acpiConfDir = pkgs.runCommand "acpi-events" { preferLocalBuild = true; }
-    ''
-      mkdir -p $out
-      ${
-        # Generate a configuration file for each event. (You can't have
-        # multiple events in one config file...)
-        let f = name: handler:
-          ''
-            fn=$out/${name}
-            echo "event=${handler.event}" > $fn
-            echo "action=${pkgs.writeShellScriptBin "${name}.sh" handler.action }/bin/${name}.sh '%e'" >> $fn
-          '';
-        in concatStringsSep "\n" (mapAttrsToList f (canonicalHandlers // cfg.handlers))
-      }
-    '';
+  acpiConfDir = pkgs.runCommand "acpi-events" { preferLocalBuild = true; } ''
+    mkdir -p $out
+    ${
+    # Generate a configuration file for each event. (You can't have
+    # multiple events in one config file...)
+    let
+      f = name: handler: ''
+        fn=$out/${name}
+        echo "event=${handler.event}" > $fn
+        echo "action=${
+          pkgs.writeShellScriptBin "${name}.sh" handler.action
+        }/bin/${name}.sh '%e'" >> $fn
+      '';
+    in concatStringsSep "\n"
+    (mapAttrsToList f (canonicalHandlers // cfg.handlers))}
+  '';
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -61,13 +60,15 @@ in
           options = {
             event = mkOption {
               type = types.str;
-              example = literalExpression ''"button/power.*" "button/lid.*" "ac_adapter.*" "button/mute.*" "button/volumedown.*" "cd/play.*" "cd/next.*"'';
+              example = literalExpression ''
+                "button/power.*" "button/lid.*" "ac_adapter.*" "button/mute.*" "button/volumedown.*" "cd/play.*" "cd/next.*"'';
               description = lib.mdDoc "Event type.";
             };
 
             action = mkOption {
               type = types.lines;
-              description = lib.mdDoc "Shell commands to execute when the event is triggered.";
+              description = lib.mdDoc
+                "Shell commands to execute when the event is triggered.";
             };
           };
         });
@@ -79,7 +80,7 @@ in
           Handler can be a single command.
           :::
         '';
-        default = {};
+        default = { };
         example = {
           ac-power = {
             event = "ac_adapter/*";
@@ -104,25 +105,27 @@ in
       powerEventCommands = mkOption {
         type = types.lines;
         default = "";
-        description = lib.mdDoc "Shell commands to execute on a button/power.* event.";
+        description =
+          lib.mdDoc "Shell commands to execute on a button/power.* event.";
       };
 
       lidEventCommands = mkOption {
         type = types.lines;
         default = "";
-        description = lib.mdDoc "Shell commands to execute on a button/lid.* event.";
+        description =
+          lib.mdDoc "Shell commands to execute on a button/lid.* event.";
       };
 
       acEventCommands = mkOption {
         type = types.lines;
         default = "";
-        description = lib.mdDoc "Shell commands to execute on an ac_adapter.* event.";
+        description =
+          lib.mdDoc "Shell commands to execute on an ac_adapter.* event.";
       };
 
     };
 
   };
-
 
   ###### implementation
 
@@ -135,13 +138,13 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = escapeShellArgs
-          ([ "${pkgs.acpid}/bin/acpid"
-             "--foreground"
-             "--netlink"
-             "--confdir" "${acpiConfDir}"
-           ] ++ optional cfg.logEvents "--logevents"
-          );
+        ExecStart = escapeShellArgs ([
+          "${pkgs.acpid}/bin/acpid"
+          "--foreground"
+          "--netlink"
+          "--confdir"
+          "${acpiConfDir}"
+        ] ++ optional cfg.logEvents "--logevents");
       };
       unitConfig = {
         ConditionVirtualization = "!systemd-nspawn";

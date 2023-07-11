@@ -1,9 +1,4 @@
-{ stdenv
-, fetchFromGitHub
-, cmake
-, ninja
-, lib
-}:
+{ stdenv, fetchFromGitHub, cmake, ninja, lib }:
 
 stdenv.mkDerivation {
   pname = "asmjit";
@@ -16,10 +11,7 @@ stdenv.mkDerivation {
     hash = "sha256-CfTtdgb+ZCLHwCRa+t2O4CG9rhHgqPLcfHDqLBvI9Tg=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ];
+  nativeBuildInputs = [ cmake ninja ];
 
   strictDeps = true;
 

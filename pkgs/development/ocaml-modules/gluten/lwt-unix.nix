@@ -1,9 +1,4 @@
-{ buildDunePackage
-, faraday-lwt-unix
-, gluten
-, gluten-lwt
-, lwt_ssl
-}:
+{ buildDunePackage, faraday-lwt-unix, gluten, gluten-lwt, lwt_ssl }:
 
 buildDunePackage rec {
   pname = "gluten-lwt-unix";
@@ -11,9 +6,5 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [
-    faraday-lwt-unix
-    gluten-lwt
-    lwt_ssl
-  ];
+  propagatedBuildInputs = [ faraday-lwt-unix gluten-lwt lwt_ssl ];
 }

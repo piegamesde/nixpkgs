@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, eth-utils
-, hypothesis
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, eth-utils, hypothesis
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "hexbytes";
@@ -19,16 +13,13 @@ buildPythonPackage rec {
     hash = "sha256-EDFE5MUc+XMwe8BaXkz/DRchAZbS86X+AcShi5rx83M=";
   };
 
-  nativeCheckInputs = [
-    eth-utils
-    hypothesis
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ eth-utils hypothesis pytestCheckHook ];
 
   pythonImportsCheck = [ "hexbytes" ];
 
   meta = with lib; {
-    description = "`bytes` subclass that decodes hex, with a readable console output";
+    description =
+      "`bytes` subclass that decodes hex, with a readable console output";
     homepage = "https://github.com/ethereum/hexbytes";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];

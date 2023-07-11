@@ -1,20 +1,8 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, cython
-, libuv
-, CoreServices
-, ApplicationServices
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, cython, libuv
+, CoreServices, ApplicationServices
 
 # Check Inputs
-, aiohttp
-, psutil
-, pyopenssl
-, pytest-forked
-, pytestCheckHook
-}:
+, aiohttp, psutil, pyopenssl, pytest-forked, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "uvloop";
@@ -27,25 +15,14 @@ buildPythonPackage rec {
     hash = "sha256-Dd9rr5zxGhoixxSH858Vss9461vefltF+7meip2RueE=";
   };
 
-  nativeBuildInputs = [
-    cython
-  ];
+  nativeBuildInputs = [ cython ];
 
-  buildInputs = [
-    libuv
-  ] ++ lib.optionals stdenv.isDarwin [
-    CoreServices
-    ApplicationServices
-  ];
+  buildInputs = [ libuv ]
+    ++ lib.optionals stdenv.isDarwin [ CoreServices ApplicationServices ];
 
   dontUseSetuptoolsCheck = true;
-  nativeCheckInputs = [
-    pytest-forked
-    pytestCheckHook
-    psutil
-  ] ++ lib.optionals (pythonOlder "3.11") [
-    aiohttp
-  ];
+  nativeCheckInputs = [ pytest-forked pytestCheckHook psutil ]
+    ++ lib.optionals (pythonOlder "3.11") [ aiohttp ];
 
   LIBUV_CONFIGURE_HOST = stdenv.hostPlatform.config;
 
@@ -103,10 +80,7 @@ buildPythonPackage rec {
     popd
   '';
 
-  pythonImportsCheck = [
-    "uvloop"
-    "uvloop.loop"
-  ];
+  pythonImportsCheck = [ "uvloop" "uvloop.loop" ];
 
   # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;

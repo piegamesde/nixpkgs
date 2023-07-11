@@ -1,16 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pycryptodomex
-, pysocks
-, pynacl
-, requests
-, six
-, varint
-, pytestCheckHook
-, pytest-cov
-, responses
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pycryptodomex, pysocks, pynacl
+, requests, six, varint, pytestCheckHook, pytest-cov, responses }:
 
 buildPythonPackage rec {
   pname = "monero";
@@ -31,14 +20,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "monero" ];
 
-  propagatedBuildInputs = [
-    pycryptodomex
-    pynacl
-    pysocks
-    requests
-    six
-    varint
-  ];
+  propagatedBuildInputs = [ pycryptodomex pynacl pysocks requests six varint ];
 
   nativeCheckInputs = [ pytestCheckHook pytest-cov responses ];
 

@@ -1,35 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, cmake
-, ninja
-, pkg-config
-, rustPlatform
-, curl
-, freetype
-, libGLU
-, libnotify
-, libogg
-, libX11
-, opusfile
-, pcre
-, python3
-, SDL2
-, sqlite
-, wavpack
-, ffmpeg
-, x264
-, vulkan-headers
-, vulkan-loader
-, glslang
-, spirv-tools
-, gtest
-, Carbon
-, Cocoa
-, OpenGL
-, Security
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, ninja, pkg-config
+, rustPlatform, curl, freetype, libGLU, libnotify, libogg, libX11, opusfile
+, pcre, python3, SDL2, sqlite, wavpack, ffmpeg, x264, vulkan-headers
+, vulkan-loader, glslang, spirv-tools, gtest, Carbon, Cocoa, OpenGL, Security }:
 
 stdenv.mkDerivation rec {
   pname = "ddnet";
@@ -57,9 +29,7 @@ stdenv.mkDerivation rec {
     rustPlatform.cargoSetupHook
   ];
 
-  nativeCheckInputs = [
-    gtest
-  ];
+  nativeCheckInputs = [ gtest ];
 
   buildInputs = [
     curl
@@ -87,15 +57,14 @@ stdenv.mkDerivation rec {
       --replace /usr/ $out/
   '';
 
-  cmakeFlags = [
-    "-DAUTOUPDATE=OFF"
-  ];
+  cmakeFlags = [ "-DAUTOUPDATE=OFF" ];
 
   doCheck = true;
   checkTarget = "run_tests";
 
   meta = with lib; {
-    description = "A Teeworlds modification with a unique cooperative gameplay.";
+    description =
+      "A Teeworlds modification with a unique cooperative gameplay.";
     longDescription = ''
       DDraceNetwork (DDNet) is an actively maintained version of DDRace,
       a Teeworlds modification with a unique cooperative gameplay.

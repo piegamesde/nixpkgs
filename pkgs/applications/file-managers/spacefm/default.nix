@@ -28,9 +28,7 @@ stdenv.mkDerivation rec {
   # or equivalent is merged upstream.
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  configureFlags = [
-    "--with-bash-path=${pkgs.bash}/bin/bash"
-  ];
+  configureFlags = [ "--with-bash-path=${pkgs.bash}/bin/bash" ];
 
   preConfigure = ''
     configureFlags="$configureFlags --sysconfdir=$out/etc"
@@ -47,13 +45,20 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config intltool ];
   buildInputs = [
-    gtk3 udev desktop-file-utils shared-mime-info
-    wrapGAppsHook ffmpegthumbnailer jmtpfs lsof udisks2
+    gtk3
+    udev
+    desktop-file-utils
+    shared-mime-info
+    wrapGAppsHook
+    ffmpegthumbnailer
+    jmtpfs
+    lsof
+    udisks2
   ] ++ (lib.optionals ifuseSupport [ ifuse ]);
   # Introduced because ifuse doesn't build due to CVEs in libplist
   # Revert when libplist builds again…
 
-  meta = with lib;  {
+  meta = with lib; {
     description = "A multi-panel tabbed file manager";
     longDescription = ''
       Multi-panel tabbed file and desktop manager for Linux

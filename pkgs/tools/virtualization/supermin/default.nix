@@ -1,6 +1,4 @@
-{ lib, stdenv, fetchurl
-, cpio, e2fsprogs, perl, pkg-config, ocamlPackages
-, glibc
+{ lib, stdenv, fetchurl, cpio, e2fsprogs, perl, pkg-config, ocamlPackages, glibc
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -8,11 +6,13 @@ stdenv.mkDerivation (finalAttrs: {
   version = "5.2.2";
 
   src = fetchurl {
-    url = "https://download.libguestfs.org/supermin/${lib.versions.majorMinor finalAttrs.version}-stable/supermin-${finalAttrs.version}.tar.gz";
+    url = "https://download.libguestfs.org/supermin/${
+        lib.versions.majorMinor finalAttrs.version
+      }-stable/supermin-${finalAttrs.version}.tar.gz";
     sha256 = "zjkh02NcgWjPt8oMWoK51c71srJx+Et3bWO4u77sNY4=";
   };
 
-  nativeBuildInputs = [ cpio e2fsprogs perl pkg-config ]
+  nativeBuildInputs = [ cpio 0.0 fsprogs perl pkg-config ]
     ++ (with ocamlPackages; [ findlib ocaml ]);
   buildInputs = lib.optionals stdenv.hostPlatform.isGnu [ glibc glibc.static ];
 

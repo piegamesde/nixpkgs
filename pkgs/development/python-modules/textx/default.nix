@@ -1,21 +1,6 @@
-{ lib
-, buildPythonPackage
-, python
-, fetchFromGitHub
-, mkdocs
-, twine
-, arpeggio
-, click
-, future
-, setuptools
-, callPackage
-, gprof2dot
-, html5lib
-, jinja2
-, memory_profiler
-, psutil
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, python, fetchFromGitHub, mkdocs, twine, arpeggio
+, click, future, setuptools, callPackage, gprof2dot, html5lib, jinja2
+, memory_profiler, psutil, pytestCheckHook }:
 
 let
   textx = buildPythonPackage rec {
@@ -34,22 +19,11 @@ let
       substituteInPlace setup.cfg --replace "click >=7.0, <8.0" "click >=7.0"
     '';
 
-    outputs = [
-      "out"
-      "testout"
-    ];
+    outputs = [ "out" "testout" ];
 
-    nativeBuildInputs = [
-      mkdocs
-      twine
-    ];
+    nativeBuildInputs = [ mkdocs twine ];
 
-    propagatedBuildInputs = [
-      arpeggio
-      click
-      future
-      setuptools
-    ];
+    propagatedBuildInputs = [ arpeggio click future setuptools ];
 
     postInstall = ''
       # FileNotFoundError: [Errno 2] No such file or directory: '$out/lib/python3.10/site-packages/textx/textx.tx
@@ -60,22 +34,16 @@ let
       cp -r tests $testout/tests
     '';
 
-    pythonImportsCheck = [
-      "textx"
-    ];
+    pythonImportsCheck = [ "textx" ];
 
     # Circular dependencies, do tests in passthru.tests instead.
     doCheck = false;
 
     passthru.tests = {
       textxTests = callPackage ./tests.nix {
-        inherit
-          textx-data-dsl
-          textx-example-project
-          textx-flow-codegen
-          textx-flow-dsl
-          textx-types-dsl;
-       };
+        inherit textx-data-dsl textx-example-project textx-flow-codegen
+          textx-flow-dsl textx-types-dsl;
+      };
     };
 
     meta = with lib; {
@@ -95,10 +63,7 @@ let
     format = "setuptools";
     pathToSourceRoot = "tests/functional/registration/projects/data_dsl";
     sourceRoot = "${src.name}/" + pathToSourceRoot;
-    propagatedBuildInputs = [
-      textx
-      textx-types-dsl
-    ];
+    propagatedBuildInputs = [ textx textx-types-dsl ];
     meta = with lib; {
       inherit (textx.meta) license maintainers;
       description = "Sample textX language for testing";
@@ -113,10 +78,7 @@ let
     format = "setuptools";
     pathToSourceRoot = "tests/functional/registration/projects/flow_codegen";
     sourceRoot = "${src.name}/" + pathToSourceRoot;
-    propagatedBuildInputs = [
-      click
-      textx
-    ];
+    propagatedBuildInputs = [ click textx ];
     meta = with lib; {
       inherit (textx.meta) license maintainers;
       description = "Sample textX language for testing";
@@ -131,9 +93,7 @@ let
     format = "setuptools";
     pathToSourceRoot = "tests/functional/registration/projects/flow_dsl";
     sourceRoot = "${src.name}/" + pathToSourceRoot;
-    propagatedBuildInputs = [
-      textx
-    ];
+    propagatedBuildInputs = [ textx ];
     meta = with lib; {
       inherit (textx.meta) license maintainers;
       description = "Sample textX language for testing";
@@ -148,9 +108,7 @@ let
     format = "setuptools";
     pathToSourceRoot = "tests/functional/registration/projects/types_dsl";
     sourceRoot = "${src.name}/" + pathToSourceRoot;
-    propagatedBuildInputs = [
-      textx
-    ];
+    propagatedBuildInputs = [ textx ];
     meta = with lib; {
       inherit (textx.meta) license maintainers;
       description = "Sample textX language for testing";
@@ -165,14 +123,11 @@ let
     format = "setuptools";
     pathToSourceRoot = "tests/functional/subcommands/example_project";
     sourceRoot = "${src.name}/" + pathToSourceRoot;
-    propagatedBuildInputs = [
-      textx
-    ];
+    propagatedBuildInputs = [ textx ];
     meta = with lib; {
       inherit (textx.meta) license maintainers;
       description = "Sample textX sub-command for testing";
       homepage = textx.homepage + "tree/${version}/" + pathToSourceRoot;
     };
   };
-in
-  textx
+in textx

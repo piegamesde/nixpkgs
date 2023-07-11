@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, unzip
-, jre
-, jdk
-, ant
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
-, glib
-, wrapGAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, unzip, jre, jdk, ant, makeWrapper
+, makeDesktopItem, copyDesktopItems, glib, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "pattypan";

@@ -1,24 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools-scm
-, ansible-compat
-, ansible-core
-, black
-, enrich
-, filelock
-, flaky
-, jsonschema
-, pythonOlder
-, pytest
-, pytest-xdist
-, pytestCheckHook
-, pyyaml
-, rich
-, ruamel-yaml
-, wcmatch
-, yamllint
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools-scm, ansible-compat
+, ansible-core, black, enrich, filelock, flaky, jsonschema, pythonOlder, pytest
+, pytest-xdist, pytestCheckHook, pyyaml, rich, ruamel-yaml, wcmatch, yamllint }:
 
 buildPythonPackage rec {
   pname = "ansible-lint";
@@ -38,9 +20,7 @@ buildPythonPackage rec {
       --replace "sys.exit(1)" ""
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     ansible-compat
@@ -60,11 +40,7 @@ buildPythonPackage rec {
   # tests can't be easily run without installing things from ansible-galaxy
   doCheck = false;
 
-  nativeCheckInputs = [
-    flaky
-    pytest-xdist
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ flaky pytest-xdist pytestCheckHook ];
 
   preCheck = ''
     # ansible wants to write to $HOME and crashes if it can't
@@ -100,7 +76,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Best practices checker for Ansible";
     homepage = "https://github.com/ansible/ansible-lint";
-    changelog = "https://github.com/ansible/ansible-lint/releases/tag/v${version}";
+    changelog =
+      "https://github.com/ansible/ansible-lint/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ sengaya ];
   };

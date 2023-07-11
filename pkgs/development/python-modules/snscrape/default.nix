@@ -1,14 +1,5 @@
-{ lib
-, beautifulsoup4
-, buildPythonPackage
-, fetchFromGitHub
-, filelock
-, lxml
-, pythonOlder
-, pytz
-, requests
-, setuptools-scm
-}:
+{ lib, beautifulsoup4, buildPythonPackage, fetchFromGitHub, filelock, lxml
+, pythonOlder, pytz, requests, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "snscrape";
@@ -26,20 +17,11 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    filelock
-    lxml
-    requests
-  ]
-  ++ requests.optional-dependencies.socks
-  ++ lib.optionals (pythonOlder "3.9") [
-    pytz
-  ];
+  propagatedBuildInputs = [ beautifulsoup4 filelock lxml requests ]
+    ++ requests.optional-dependencies.socks
+    ++ lib.optionals (pythonOlder "3.9") [ pytz ];
 
   # There are no tests; make sure the executable works.
   checkPhase = ''
@@ -47,9 +29,7 @@ buildPythonPackage rec {
     snscrape --help
   '';
 
-  pythonImportsCheck = [
-    "snscrape"
-  ];
+  pythonImportsCheck = [ "snscrape" ];
 
   meta = with lib; {
     description = "A social networking service scraper";

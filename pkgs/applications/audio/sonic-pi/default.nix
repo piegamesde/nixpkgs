@@ -1,41 +1,12 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, wrapQtAppsHook
-, makeDesktopItem
-, copyDesktopItems
-, cmake
-, pkg-config
-, catch2_3
-, qtbase
-, qtsvg
-, qttools
-, qwt
-, qscintilla
-, kissfftFloat
-, crossguid
-, reproc
-, platform-folders
-, ruby
-, erlang
-, elixir
-, beamPackages
-, alsa-lib
-, rtmidi
-, boost
-, aubio
-, jack2
-, supercollider-with-sc3-plugins
-, parallel
+{ stdenv, lib, fetchFromGitHub, wrapQtAppsHook, makeDesktopItem
+, copyDesktopItems, cmake, pkg-config, catch2_3, qtbase, qtsvg, qttools, qwt
+, qscintilla, kissfftFloat, crossguid, reproc, platform-folders, ruby, erlang
+, elixir, beamPackages, alsa-lib, rtmidi, boost, aubio, jack2
+, supercollider-with-sc3-plugins, parallel
 
-, withTauWidget ? false
-, qtwebengine
+, withTauWidget ? false, qtwebengine
 
-, withImGui ? false
-, gl3w
-, SDL2
-, fmt
-}:
+, withImGui ? false, gl3w, SDL2, fmt }:
 
 stdenv.mkDerivation rec {
   pname = "sonic-pi";
@@ -85,19 +56,10 @@ stdenv.mkDerivation rec {
     rtmidi
     boost
     aubio
-  ] ++ lib.optionals withTauWidget [
-    qtwebengine
-  ] ++ lib.optionals withImGui [
-    gl3w
-    SDL2
-    fmt
-  ];
+  ] ++ lib.optionals withTauWidget [ qtwebengine ]
+    ++ lib.optionals withImGui [ gl3w SDL2 fmt ];
 
-  nativeCheckInputs = [
-    parallel
-    supercollider-with-sc3-plugins
-    jack2
-  ];
+  nativeCheckInputs = [ parallel supercollider-with-sc3-plugins jack2 ];
 
   cmakeFlags = [
     "-DUSE_SYSTEM_LIBS=ON"
@@ -187,14 +149,18 @@ stdenv.mkDerivation rec {
   preFixup = ''
     # Wrap Qt GUI (distributed binary)
     wrapQtApp $out/bin/sonic-pi \
-      --prefix PATH : ${lib.makeBinPath [ ruby supercollider-with-sc3-plugins jack2 ]}
+      --prefix PATH : ${
+        lib.makeBinPath [ ruby supercollider-with-sc3-plugins jack2 ]
+      }
 
     # If ImGui was built
     if [ -e $out/app/build/gui/imgui/sonic-pi-imgui ]; then
       # Wrap ImGui into bin
       makeWrapper $out/app/build/gui/imgui/sonic-pi-imgui $out/bin/sonic-pi-imgui \
         --inherit-argv0 \
-        --prefix PATH : ${lib.makeBinPath [ ruby supercollider-with-sc3-plugins jack2 ]}
+        --prefix PATH : ${
+          lib.makeBinPath [ ruby supercollider-with-sc3-plugins jack2 ]
+        }
     fi
 
     # Remove runtime Erlang references
@@ -220,9 +186,16 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://sonic-pi.net/";
-    description = "Free live coding synth for everyone originally designed to support computing and music lessons within schools";
+    description =
+      "Free live coding synth for everyone originally designed to support computing and music lessons within schools";
     license = licenses.mit;
-    maintainers = with maintainers; [ Phlogistique kamilchm c0deaddict sohalt lilyinstarlight ];
+    maintainers = with maintainers; [
+      Phlogistique
+      kamilchm
+      c0deaddict
+      sohalt
+      lilyinstarlight
+    ];
     platforms = platforms.linux;
   };
 }

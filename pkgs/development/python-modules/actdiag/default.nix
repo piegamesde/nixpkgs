@@ -1,12 +1,5 @@
-{ lib
-, blockdiag
-, buildPythonPackage
-, fetchFromGitHub
-, nose
-, pytestCheckHook
-, pythonOlder
-, setuptools
-}:
+{ lib, blockdiag, buildPythonPackage, fetchFromGitHub, nose, pytestCheckHook
+, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "actdiag";
@@ -22,26 +15,17 @@ buildPythonPackage rec {
     hash = "sha256-WmprkHOgvlsOIg8H77P7fzEqxGnj6xaL7Df7urRkg3o=";
   };
 
-  propagatedBuildInputs = [
-    blockdiag
-    setuptools
-  ];
+  propagatedBuildInputs = [ blockdiag setuptools ];
 
-  nativeCheckInputs = [
-    nose
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ nose pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "src/actdiag/tests/"
-  ];
+  pytestFlagsArray = [ "src/actdiag/tests/" ];
 
-  pythonImportsCheck = [
-    "actdiag"
-  ];
+  pythonImportsCheck = [ "actdiag" ];
 
   meta = with lib; {
-    description = "Generate activity-diagram image from spec-text file (similar to Graphviz)";
+    description =
+      "Generate activity-diagram image from spec-text file (similar to Graphviz)";
     homepage = "http://blockdiag.com/";
     license = licenses.asl20;
     platforms = platforms.unix;

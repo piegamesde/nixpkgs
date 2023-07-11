@@ -1,14 +1,6 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, hatchling
-, jupyter-server-fileid
-, jupyter-ydoc
-, ypy-websocket
-, pytest-jupyter
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, hatchling
+, jupyter-server-fileid, jupyter-ydoc, ypy-websocket, pytest-jupyter
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "jupyter-server-ydoc";
@@ -29,29 +21,21 @@ buildPythonPackage rec {
     sed -i "/^timeout/d" pyproject.toml
   '';
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    jupyter-server-fileid
-    jupyter-ydoc
-    ypy-websocket
-  ];
+  propagatedBuildInputs = [ jupyter-server-fileid jupyter-ydoc ypy-websocket ];
 
   pythonImportsCheck = [ "jupyter_server_ydoc" ];
 
-  nativeCheckInputs = [
-    pytest-jupyter
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-jupyter pytestCheckHook ];
 
   preCheck = ''
     export HOME=$TEMP
   '';
 
   meta = {
-    changelog = "https://github.com/jupyterlab/jupyter_collaboration/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/jupyterlab/jupyter_collaboration/blob/${src.rev}/CHANGELOG.md";
     description = "A Jupyter Server Extension Providing Y Documents";
     homepage = "https://github.com/jupyterlab/jupyter_collaboration";
     license = lib.licenses.bsd3;

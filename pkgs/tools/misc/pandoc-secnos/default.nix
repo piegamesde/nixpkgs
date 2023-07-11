@@ -1,9 +1,4 @@
-{ buildPythonApplication
-, fetchFromGitHub
-, lib
-, pandoc-xnos
-, setuptools
-}:
+{ buildPythonApplication, fetchFromGitHub, lib, pandoc-xnos, setuptools }:
 
 buildPythonApplication rec {
   pname = "pandoc-secnos";
@@ -17,21 +12,18 @@ buildPythonApplication rec {
     sha256 = "sha256-J9KLZvioYM3Pl2UXjrEgd4PuLTwCLYy9SsJIzgw5/jU=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs = [ pandoc-xnos ];
 
-  patches = [
-    ./patch/fix-manifest.patch
-  ];
+  patches = [ ./patch/fix-manifest.patch ];
 
   # Different pandoc executables are not available
   doCheck = false;
 
   meta = with lib; {
-    description = "Standalone pandoc filter from the pandoc-xnos suite for numbering sections and section references";
+    description =
+      "Standalone pandoc filter from the pandoc-xnos suite for numbering sections and section references";
     homepage = "https://github.com/tomduck/pandoc-secnos";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ppenguin ];

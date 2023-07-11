@@ -1,5 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, libftdi
-, infnoise, testers }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, libftdi, infnoise, testers }:
 
 stdenv.mkDerivation rec {
   pname = "infnoise";
@@ -18,7 +17,8 @@ stdenv.mkDerivation rec {
 
     # Fix getc return type
     (fetchpatch {
-      url = "https://github.com/leetronics/infnoise/commit/7ed7014e14253311c07e530c8f89f1c8f4705c2b.patch";
+      url =
+        "https://github.com/leetronics/infnoise/commit/7ed7014e14253311c07e530c8f89f1c8f4705c2b.patch";
       sha256 = "sha256-seB/fJaxQ/rXJp5iPtnobXXOccQ2KUAk6HFx31dhOhs=";
     })
   ];
@@ -42,9 +42,7 @@ stdenv.mkDerivation rec {
       sh -c "install -Dm755 {} $out/bin/infnoise-\$(basename {})" \;
   '';
 
-  passthru = {
-    tests.version = testers.testVersion { package = infnoise; };
-  };
+  passthru = { tests.version = testers.testVersion { package = infnoise; }; };
 
   meta = with lib; {
     homepage = "https://github.com/leetronics/infnoise";

@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, boost
-, SDL2
-, SDL2_ttf
-, SDL2_image
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, boost, SDL2
+, SDL2_ttf, SDL2_image }:
 
 stdenv.mkDerivation rec {
   pname = "libwtk-sdl2";
@@ -20,16 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-NAjsDQ4/hklYRfa85uleOr50tmc6UJVo2xiDnEbmIxk=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-  ];
-  buildInputs = [
-    boost
-    SDL2
-    SDL2_ttf
-    SDL2_image
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  buildInputs = [ boost SDL2 SDL2_ttf SDL2_image ];
   # From some reason, this is needed as otherwise SDL.h is not found
   NIX_CFLAGS_COMPILE = "-I${SDL2.dev}/include/SDL2";
 
@@ -42,9 +26,9 @@ stdenv.mkDerivation rec {
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ doronbehar ];
     /* Partial darwin build failure log (from ofborg):
-    geometry.cpp:95:34: error: no member named 'abs' in namespace 'std'
-       >     return { std::abs(v.w), std::abs(v.h) };
-       >                             ~~~~~^
+       geometry.cpp:95:34: error: no member named 'abs' in namespace 'std'
+          >     return { std::abs(v.w), std::abs(v.h) };
+          >                             ~~~~~^
     */
     platforms = platforms.linux;
   };

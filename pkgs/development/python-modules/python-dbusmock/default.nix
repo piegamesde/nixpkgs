@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, nose
-, dbus
-, dbus-python
-, pygobject3
-, bluez
-, networkmanager
-, setuptools-scm
-, runCommand
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, nose, dbus, dbus-python, pygobject3
+, bluez, networkmanager, setuptools-scm, runCommand }:
 
 let
   # Cannot just add it to path in preCheck since that attribute will be passed to
@@ -31,22 +21,11 @@ in buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    dbus-python
-  ];
+  propagatedBuildInputs = [ dbus-python ];
 
-  nativeCheckInputs = [
-    dbus
-    pygobject3
-    bluez
-    pbap-client
-    networkmanager
-    nose
-  ];
+  nativeCheckInputs = [ dbus pygobject3 bluez pbap-client networkmanager nose ];
 
   # TODO: Get the rest of these tests running?
   NOSE_EXCLUDE = lib.concatStringsSep "," [

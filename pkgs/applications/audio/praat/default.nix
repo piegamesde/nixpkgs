@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, wrapGAppsHook, alsa-lib, gtk3, libpulseaudio }:
+{ lib, stdenv, fetchFromGitHub, pkg-config, wrapGAppsHook, alsa-lib, gtk3
+, libpulseaudio }:
 
 stdenv.mkDerivation rec {
   pname = "praat";
@@ -15,9 +16,7 @@ stdenv.mkDerivation rec {
     cp makefiles/makefile.defs.linux.pulse makefile.defs
   '';
 
-  makeFlags = [
-    "AR=${stdenv.cc.targetPrefix}ar"
-  ];
+  makeFlags = [ "AR=${stdenv.cc.targetPrefix}ar" ];
 
   installPhase = ''
     install -Dt $out/bin praat

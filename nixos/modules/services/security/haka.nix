@@ -10,13 +10,16 @@ let
 
   haka = cfg.package;
 
-  hakaConf = pkgs.writeText "haka.conf"
-  ''
+  hakaConf = pkgs.writeText "haka.conf" ''
     [general]
-    configuration = ${if lib.strings.hasPrefix "/" cfg.configFile
-      then "${cfg.configFile}"
-      else "${haka}/share/haka/sample/${cfg.configFile}"}
-    ${optionalString (builtins.lessThan 0 cfg.threads) "thread = ${cfg.threads}"}
+    configuration = ${
+      if lib.strings.hasPrefix "/" cfg.configFile then
+        "${cfg.configFile}"
+      else
+        "${haka}/share/haka/sample/${cfg.configFile}"
+    }
+    ${optionalString (builtins.lessThan 0 cfg.threads)
+    "thread = ${cfg.threads}"}
 
     [packet]
     ${optionalString cfg.pcap ''module = "packet/pcap"''}
@@ -45,9 +48,7 @@ let
     #file = "/dev/null"
   '';
 
-in
-
-{
+in {
 
   ###### interface
 
@@ -106,38 +107,42 @@ in
       nfqueue = mkEnableOption (lib.mdDoc "nfqueue");
 
       dump.enable = mkEnableOption (lib.mdDoc "dump");
-      dump.input  = mkOption {
+      dump.input = mkOption {
         default = "/tmp/input.pcap";
         example = "/path/to/file.pcap";
         type = types.path;
-        description = lib.mdDoc "Path to file where incoming packets are dumped";
+        description =
+          lib.mdDoc "Path to file where incoming packets are dumped";
       };
 
-      dump.output  = mkOption {
+      dump.output = mkOption {
         default = "/tmp/output.pcap";
         example = "/path/to/file.pcap";
         type = types.path;
-        description = lib.mdDoc "Path to file where outgoing packets are dumped";
+        description =
+          lib.mdDoc "Path to file where outgoing packets are dumped";
       };
     };
   };
-
 
   ###### implementation
 
   config = mkIf cfg.enable {
 
     assertions = [
-      { assertion = cfg.pcap != cfg.nfqueue;
+      {
+        assertion = cfg.pcap != cfg.nfqueue;
         message = "either pcap or nfqueue can be enabled, not both.";
       }
-      { assertion = cfg.nfqueue -> !dump.enable;
+      {
+        assertion = cfg.nfqueue -> !dump.enable;
         message = "dump can only be used with nfqueue.";
       }
-      { assertion = cfg.interfaces != [];
+      {
+        assertion = cfg.interfaces != [ ];
         message = "at least one interface must be specified.";
-      }];
-
+      }
+    ];
 
     environment.systemPackages = [ haka ];
 

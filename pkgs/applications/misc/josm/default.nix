@@ -1,16 +1,17 @@
 { lib, stdenv, fetchurl, fetchsvn, makeWrapper, unzip, jre, libXxf86vm
-, extraJavaOpts ? "-Djosm.restart=true -Djava.net.useSystemProxies=true"
-}:
+, extraJavaOpts ? "-Djosm.restart=true -Djava.net.useSystemProxies=true" }:
 let
   pname = "josm";
   version = "18721";
   srcs = {
     jar = fetchurl {
-      url = "https://josm.openstreetmap.de/download/josm-snapshot-${version}.jar";
+      url =
+        "https://josm.openstreetmap.de/download/josm-snapshot-${version}.jar";
       hash = "sha256-nc6itoblAzP064xTTF8q990TiRX3+zf5uk+enS+C5Jo=";
     };
     macosx = fetchurl {
-      url = "https://josm.openstreetmap.de/download/macosx/josm-macos-${version}-java17.zip";
+      url =
+        "https://josm.openstreetmap.de/download/macosx/josm-macos-${version}-java17.zip";
       hash = "sha256-uaj32PupxAS5Pa7us9sIeeepGJ6BIljm41e6onB7zxQ=";
     };
     pkg = fetchsvn {
@@ -19,8 +20,7 @@ let
       sha256 = "sha256-/zdOaiyuvSwdVZcnw0ghDj2I+YKpFLc12fjZUMtRtVg=";
     };
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit pname version;
 
   dontUnpack = true;
@@ -28,19 +28,18 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = lib.optionals (!stdenv.isDarwin) [ jre ];
 
-  installPhase =
-    if stdenv.isDarwin then ''
-      mkdir -p $out/Applications
-      ${unzip}/bin/unzip ${srcs.macosx} 'JOSM.app/*' -d $out/Applications
-    '' else ''
-      install -Dm644 ${srcs.jar} $out/share/josm/josm.jar
-      cp -R ${srcs.pkg}/usr/share $out
+  installPhase = if stdenv.isDarwin then ''
+    mkdir -p $out/Applications
+    ${unzip}/bin/unzip ${srcs.macosx} 'JOSM.app/*' -d $out/Applications
+  '' else ''
+    install -Dm644 ${srcs.jar} $out/share/josm/josm.jar
+    cp -R ${srcs.pkg}/usr/share $out
 
-      # Add libXxf86vm to path because it is needed by at least Kendzi3D plugin
-      makeWrapper ${jre}/bin/java $out/bin/josm \
-        --add-flags "${extraJavaOpts} -jar $out/share/josm/josm.jar" \
-        --prefix LD_LIBRARY_PATH ":" '${libXxf86vm}/lib'
-    '';
+    # Add libXxf86vm to path because it is needed by at least Kendzi3D plugin
+    makeWrapper ${jre}/bin/java $out/bin/josm \
+      --add-flags "${extraJavaOpts} -jar $out/share/josm/josm.jar" \
+      --prefix LD_LIBRARY_PATH ":" '${libXxf86vm}/lib'
+  '';
 
   meta = with lib; {
     description = "An extensible editor for OpenStreetMap";

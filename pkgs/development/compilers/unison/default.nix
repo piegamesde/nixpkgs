@@ -1,8 +1,5 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook
-, ncurses5, zlib, gmp
-, makeWrapper
-, less
-}:
+{ lib, stdenv, fetchurl, autoPatchelfHook, ncurses5, zlib, gmp, makeWrapper
+, less }:
 
 stdenv.mkDerivation rec {
   pname = "unison-code-manager";
@@ -11,12 +8,14 @@ stdenv.mkDerivation rec {
 
   src = if (stdenv.isDarwin) then
     fetchurl {
-      url = "https://github.com/unisonweb/unison/releases/download/release/${milestone_id}/ucm-macos.tar.gz";
+      url =
+        "https://github.com/unisonweb/unison/releases/download/release/${milestone_id}/ucm-macos.tar.gz";
       hash = "sha256-7yphap7qZBkbTKiwhyCTLgbBO/aA0eUWtva+XjpaZDI=";
     }
   else
     fetchurl {
-      url = "https://github.com/unisonweb/unison/releases/download/release/${milestone_id}/ucm-linux.tar.gz";
+      url =
+        "https://github.com/unisonweb/unison/releases/download/release/${milestone_id}/ucm-linux.tar.gz";
       hash = "sha256-vrZpYFoQw1hxgZ7lAoejIqnjIOFFMahAI9SjFN/Cnms=";
     };
 
@@ -25,7 +24,8 @@ stdenv.mkDerivation rec {
   dontBuild = true;
   dontConfigure = true;
 
-  nativeBuildInputs = [ makeWrapper ] ++ (lib.optional (!stdenv.isDarwin) autoPatchelfHook);
+  nativeBuildInputs = [ makeWrapper ]
+    ++ (lib.optional (!stdenv.isDarwin) autoPatchelfHook);
   buildInputs = lib.optionals (!stdenv.isDarwin) [ ncurses5 zlib gmp ];
 
   installPhase = ''

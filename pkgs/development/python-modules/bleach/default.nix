@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, six
-, html5lib
-, setuptools
-, tinycss2
-, packaging
-, pythonOlder
-, webencodings
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, six, html5lib, setuptools
+, tinycss2, packaging, pythonOlder, webencodings }:
 
 buildPythonPackage rec {
   pname = "bleach";
@@ -21,32 +11,18 @@ buildPythonPackage rec {
     hash = "sha256-GhqFwVleB9jbFMXwnwnmQzUCxRxZWXDtwJBVHw25lBQ=";
   };
 
-  propagatedBuildInputs = [
-    html5lib
-    packaging
-    setuptools
-    six
-    webencodings
-  ];
+  propagatedBuildInputs = [ html5lib packaging setuptools six webencodings ];
 
-  passthru.optional-dependencies = {
-    css = [
-      tinycss2
-    ];
-  };
+  passthru.optional-dependencies = { css = [ tinycss2 ]; };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     # Disable network tests
     "protocols"
   ];
 
-  pythonImportsCheck = [
-    "bleach"
-  ];
+  pythonImportsCheck = [ "bleach" ];
 
   meta = with lib; {
     description = "An easy, HTML5, whitelisting HTML sanitizer";

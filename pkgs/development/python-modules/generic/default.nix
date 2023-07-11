@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchPypi
-, exceptiongroup
-, poetry-core
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, exceptiongroup, poetry-core
 }:
 
 buildPythonPackage rec {
@@ -18,13 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-UHz2v6K5lNYb7cxBViTfPkpu2M8LItApGoSg3Bb2bqI=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    exceptiongroup
-  ];
+  propagatedBuildInputs = [ exceptiongroup ];
 
   pythonImportsCheck = [ "generic" ];
 

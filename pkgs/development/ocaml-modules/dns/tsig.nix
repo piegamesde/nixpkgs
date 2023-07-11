@@ -6,18 +6,10 @@ buildDunePackage {
   inherit (dns) version src;
   duneVersion = "3";
 
-  propagatedBuildInputs = [
-    mirage-crypto
-    dns
-    base64
-  ];
+  propagatedBuildInputs = [ mirage-crypto dns base64 ];
 
   doCheck = true;
-  checkInputs = [
-    alcotest
-  ];
+  checkInputs = [ alcotest ];
 
-  meta = dns.meta // {
-    description = "TSIG support for DNS";
-  };
+  meta = dns.meta // { description = "TSIG support for DNS"; };
 }

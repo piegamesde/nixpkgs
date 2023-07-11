@@ -1,9 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-, openssl
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, openssl }:
 
 buildGoModule rec {
   pname = "grype";
@@ -30,13 +25,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-NMKdMW/DRod/C5nL8GZR0pKTRzF58dARoWQD1o+i3Y4=";
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
-  nativeCheckInputs = [
-    openssl
-  ];
+  nativeCheckInputs = [ openssl ];
 
   subPackages = [ "." ];
 

@@ -1,17 +1,5 @@
-{ lib
-, aiocontextvars
-, blinker
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, httpx
-, mock
-, pytestCheckHook
-, requests
-, six
-, pythonOlder
-, webob
-}:
+{ lib, aiocontextvars, blinker, buildPythonPackage, fetchPypi, fetchpatch, httpx
+, mock, pytestCheckHook, requests, six, pythonOlder, webob }:
 
 buildPythonPackage rec {
   pname = "rollbar";
@@ -25,28 +13,17 @@ buildPythonPackage rec {
     hash = "sha256-AjE9/GBxDsc2qwM9D4yWnYV6i5kc1n4MGpFiDooE7eI=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    six
-  ];
+  propagatedBuildInputs = [ requests six ];
 
-  nativeCheckInputs = [
-    webob
-    blinker
-    mock
-    httpx
-    aiocontextvars
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ webob blinker mock httpx aiocontextvars pytestCheckHook ];
 
   # Still supporting unittest2
   # https://github.com/rollbar/pyrollbar/pull/346
   # https://github.com/rollbar/pyrollbar/pull/340
   doCheck = false;
 
-  pythonImportsCheck = [
-    "rollbar"
-  ];
+  pythonImportsCheck = [ "rollbar" ];
 
   meta = with lib; {
     description = "Error tracking and logging from Python to Rollbar";

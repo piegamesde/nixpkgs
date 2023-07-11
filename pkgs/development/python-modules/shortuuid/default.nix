@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "shortuuid";
@@ -17,18 +12,15 @@ buildPythonPackage rec {
     hash = "sha256-/HXyYVkUgVqOTLFQGzpRN0XLZu8P1fxvufjD+jSB94k=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "shortuuid"
-  ];
+  pythonImportsCheck = [ "shortuuid" ];
 
   meta = with lib; {
     description = "Library to generate concise, unambiguous and URL-safe UUIDs";
     homepage = "https://github.com/stochastic-technologies/shortuuid/";
-    changelog = "https://github.com/skorokithakis/shortuuid/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/skorokithakis/shortuuid/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ zagy ];
   };

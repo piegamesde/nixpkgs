@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, spotipy
-, click
-, pycryptodomex
-, mutagen
-, requests
-, deezer-py
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, spotipy, click, pycryptodomex, mutagen
+, requests, deezer-py, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "deemix";
@@ -22,21 +13,13 @@ buildPythonPackage rec {
     hash = "sha256-xEahzA1PIrGPfnnOcuXQLVQpSVOUFk6/0v9ViLgWCwk=";
   };
 
-  propagatedBuildInputs = [
-    spotipy
-    click
-    pycryptodomex
-    mutagen
-    requests
-    deezer-py
-  ];
+  propagatedBuildInputs =
+    [ spotipy click pycryptodomex mutagen requests deezer-py ];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "deezer"
-  ];
+  pythonImportsCheck = [ "deezer" ];
 
   meta = with lib; {
     description = "Deezer downloader built from the ashes of Deezloader Remix";

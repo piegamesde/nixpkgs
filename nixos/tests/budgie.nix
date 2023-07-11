@@ -1,14 +1,10 @@
 import ./make-test-python.nix ({ pkgs, lib, ... }: {
   name = "budgie";
 
-  meta = with lib; {
-    maintainers = [ maintainers.federicoschonborn ];
-  };
+  meta = with lib; { maintainers = [ maintainers.federicoschonborn ]; };
 
   nodes.machine = { ... }: {
-    imports = [
-      ./common/user-account.nix
-    ];
+    imports = [ ./common/user-account.nix ];
 
     services.xserver.enable = true;
 
@@ -22,17 +18,13 @@ import ./make-test-python.nix ({ pkgs, lib, ... }: {
 
     services.xserver.desktopManager.budgie = {
       enable = true;
-      extraPlugins = [
-        pkgs.budgie.budgie-analogue-clock-applet
-      ];
+      extraPlugins = [ pkgs.budgie.budgie-analogue-clock-applet ];
     };
   };
 
   testScript = { nodes, ... }:
-    let
-      user = nodes.machine.users.users.alice;
-    in
-    ''
+    let user = nodes.machine.users.users.alice;
+    in ''
       with subtest("Wait for login"):
           machine.wait_for_x()
           machine.wait_for_file("${user.home}/.Xauthority")

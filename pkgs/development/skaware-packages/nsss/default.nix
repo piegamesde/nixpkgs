@@ -7,7 +7,8 @@ buildPackage {
   version = "0.2.0.3";
   sha256 = "seOX7VsydhGnwsjB3GDpH+81PFT+rUZPiHcgvAkUFI4=";
 
-  description = "An implementation of a subset of the pwd.h, group.h and shadow.h family of functions.";
+  description =
+    "An implementation of a subset of the pwd.h, group.h and shadow.h family of functions.";
 
   # TODO: nsss support
   configureFlags = [

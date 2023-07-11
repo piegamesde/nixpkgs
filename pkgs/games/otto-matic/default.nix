@@ -12,14 +12,9 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake makeWrapper ];
 
-  buildInputs = [
-    SDL2
-  ];
+  buildInputs = [ SDL2 ];
 
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
 
@@ -37,7 +32,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A port of Otto Matic, a 2001 Macintosh game by Pangea Software, for modern operating systems";
+    description =
+      "A port of Otto Matic, a 2001 Macintosh game by Pangea Software, for modern operating systems";
     homepage = "https://github.com/jorio/OttoMatic";
     license = licenses.cc-by-sa-40;
     maintainers = with maintainers; [ lux ];

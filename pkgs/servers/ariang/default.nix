@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, pkgs
-, fetchFromGitHub
-, nodejs ? pkgs.nodejs_14
-}:
+{ lib, stdenv, pkgs, fetchFromGitHub, nodejs ? pkgs.nodejs_14 }:
 
 stdenv.mkDerivation rec {
   pname = "ariang";
@@ -16,27 +11,25 @@ stdenv.mkDerivation rec {
     hash = "sha256-kh2XdsrZhR0i+vUhTrzXu5z5Ahv9otNEEjqlCUnVmqE=";
   };
 
-  buildPhase =
-    let
-      nodePackages = import ./node-composition.nix {
-        inherit pkgs nodejs;
-        inherit (stdenv.hostPlatform) system;
-      };
-      nodeDependencies = (nodePackages.shell.override (old: {
-        # access to path '/nix/store/...-source' is forbidden in restricted mode
-        src = src;
-        # Error: Cannot find module '/nix/store/...-node-dependencies
-        dontNpmInstall = true;
-      })).nodeDependencies;
-    in
-    ''
-      runHook preBuild
+  buildPhase = let
+    nodePackages = import ./node-composition.nix {
+      inherit pkgs nodejs;
+      inherit (stdenv.hostPlatform) system;
+    };
+    nodeDependencies = (nodePackages.shell.override (old: {
+      # access to path '/nix/store/...-source' is forbidden in restricted mode
+      src = src;
+      # Error: Cannot find module '/nix/store/...-node-dependencies
+      dontNpmInstall = true;
+    })).nodeDependencies;
+  in ''
+    runHook preBuild
 
-      ln -s ${nodeDependencies}/lib/node_modules ./node_modules
-      ${nodeDependencies}/bin/gulp clean build
+    ln -s ${nodeDependencies}/lib/node_modules ./node_modules
+    ${nodeDependencies}/bin/gulp clean build
 
-      runHook postBuild
-    '';
+    runHook postBuild
+  '';
 
   installPhase = ''
     runHook preInstall
@@ -57,5 +50,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
   };
 }
-
 

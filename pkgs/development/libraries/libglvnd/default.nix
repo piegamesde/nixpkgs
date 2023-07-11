@@ -1,7 +1,5 @@
-{ stdenv, lib, fetchFromGitLab
-, autoreconfHook, pkg-config, python3, addOpenGLRunpath
-, libX11, libXext, xorgproto
-}:
+{ stdenv, lib, fetchFromGitLab, autoreconfHook, pkg-config, python3
+, addOpenGLRunpath, libX11, libXext, xorgproto }:
 
 stdenv.mkDerivation rec {
   pname = "libglvnd";
@@ -30,16 +28,19 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = toString ([
     "-UDEFAULT_EGL_VENDOR_CONFIG_DIRS"
     # FHS paths are added so that non-NixOS applications can find vendor files.
-    "-DDEFAULT_EGL_VENDOR_CONFIG_DIRS=\"${addOpenGLRunpath.driverLink}/share/glvnd/egl_vendor.d:/etc/glvnd/egl_vendor.d:/usr/share/glvnd/egl_vendor.d\""
+    ''
+      -DDEFAULT_EGL_VENDOR_CONFIG_DIRS="${addOpenGLRunpath.driverLink}/share/glvnd/egl_vendor.d:/etc/glvnd/egl_vendor.d:/usr/share/glvnd/egl_vendor.d"''
 
     "-Wno-error=array-bounds"
   ] ++ lib.optional stdenv.cc.isClang "-Wno-error");
 
-  configureFlags  = []
+  configureFlags = [ ]
     # Indirectly: https://bugs.freedesktop.org/show_bug.cgi?id=35268
     ++ lib.optional stdenv.hostPlatform.isMusl "--disable-tls"
     # Remove when aarch64-darwin asm support is upstream: https://gitlab.freedesktop.org/glvnd/libglvnd/-/issues/216
-    ++ lib.optional (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) "--disable-asm";
+    ++ lib.optional
+    (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
+    "--disable-asm";
 
   outputs = [ "out" "dev" ];
 
@@ -63,7 +64,8 @@ stdenv.mkDerivation rec {
     '';
     inherit (src.meta) homepage;
     # https://gitlab.freedesktop.org/glvnd/libglvnd#libglvnd:
-    changelog = "https://gitlab.freedesktop.org/glvnd/libglvnd/-/tags/v${version}";
+    changelog =
+      "https://gitlab.freedesktop.org/glvnd/libglvnd/-/tags/v${version}";
     license = with licenses; [ mit bsd1 bsd3 gpl3Only asl20 ];
     platforms = platforms.unix;
     maintainers = with maintainers; [ primeos ];

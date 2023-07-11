@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, ninja
-, python
-, scikit-build
-, pytest
-, numpy
-, fetchpatch
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, ninja, python, scikit-build, pytest
+, numpy, fetchpatch }:
 
 stdenv.mkDerivation rec {
   pname = "segyio";
@@ -17,8 +8,9 @@ stdenv.mkDerivation rec {
   patches = [
     # PR https://github.com/equinor/segyio/pull/531
     (fetchpatch {
-        url = "https://github.com/equinor/segyio/commit/628bc5e02d0f98b89fe70b072df9b8e677622e9e.patch";
-        hash = "sha256-j+vqHZNfPIh+yWBgqbGD3W04FBvFiDJKnmcC/oTk3a8=";
+      url =
+        "https://github.com/equinor/segyio/commit/628bc5e02d0f98b89fe70b072df9b8e677622e9e.patch";
+      hash = "sha256-j+vqHZNfPIh+yWBgqbGD3W04FBvFiDJKnmcC/oTk3a8=";
     })
   ];
 

@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, text-unidecode
-, unidecode
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, text-unidecode, unidecode }:
 
 buildPythonPackage rec {
   pname = "python-slugify";
@@ -21,22 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-JGjUNBEMuICsaClQGDSGX4qFRjecVKzmpPNRUTvfwho=";
   };
 
-  propagatedBuildInputs = [
-    text-unidecode
-    unidecode
-  ];
+  propagatedBuildInputs = [ text-unidecode unidecode ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray = [
-    "test.py"
-  ];
+  pytestFlagsArray = [ "test.py" ];
 
-  pythonImportsCheck = [
-    "slugify"
-  ];
+  pythonImportsCheck = [ "slugify" ];
 
   meta = with lib; {
     description = "Python Slugify application that handles Unicode";

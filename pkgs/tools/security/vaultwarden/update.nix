@@ -1,17 +1,19 @@
-{ writeShellScript
-, lib
-, nix
-, nix-prefetch-git
-, nix-update
-, curl
-, git
-, gnugrep
-, gnused
-, jq
-}:
+{ writeShellScript, lib, nix, nix-prefetch-git, nix-update, curl, git, gnugrep
+, gnused, jq }:
 
 writeShellScript "update-vaultwarden" ''
-  PATH=${lib.makeBinPath [ curl git gnugrep gnused jq nix nix-prefetch-git nix-update ]}
+  PATH=${
+    lib.makeBinPath [
+      curl
+      git
+      gnugrep
+      gnused
+      jq
+      nix
+      nix-prefetch-git
+      nix-update
+    ]
+  }
 
   set -euxo pipefail
 

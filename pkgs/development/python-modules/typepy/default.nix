@@ -1,13 +1,5 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, mbstrdecoder
-, python-dateutil
-, pytz
-, packaging
-, pytestCheckHook
-, tcolorpy
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, mbstrdecoder, python-dateutil, pytz
+, packaging, pytestCheckHook, tcolorpy }:
 
 buildPythonPackage rec {
   pname = "typepy";
@@ -27,7 +19,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/thombashi/typepy";
-    description = "A library for variable type checker/validator/converter at a run time";
+    description =
+      "A library for variable type checker/validator/converter at a run time";
     maintainers = with maintainers; [ genericnerdyusername ];
     license = licenses.mit;
   };

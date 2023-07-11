@@ -16,12 +16,8 @@ stdenv.mkDerivation {
       --replace "-lGLESv2" "-lGL -lGLESv2"
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
-  buildInputs = [
-    libGL glfw soil
-  ];
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ libGL glfw soil ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -29,7 +25,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "Offline ShaderToy-compatible GLSL shader viewer using OpenGL ES 2.0";
+    description =
+      "Offline ShaderToy-compatible GLSL shader viewer using OpenGL ES 2.0";
     homepage = "https://github.com/cmcsun/esshader";
     license = licenses.mit;
     maintainers = with maintainers; [ astro ];

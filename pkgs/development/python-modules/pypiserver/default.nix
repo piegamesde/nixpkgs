@@ -1,13 +1,5 @@
-{ buildPythonPackage
-, fetchFromGitHub
-, lib
-, passlib
-, pytestCheckHook
-, setuptools
-, setuptools-git
-, twine
-, webtest
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, passlib, pytestCheckHook, setuptools
+, setuptools-git, twine, webtest }:
 
 buildPythonPackage rec {
   pname = "pypiserver";
@@ -28,12 +20,7 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  nativeCheckInputs = [
-    passlib
-    pytestCheckHook
-    twine
-    webtest
-  ];
+  nativeCheckInputs = [ passlib pytestCheckHook twine webtest ];
 
   disabledTests = [
     # fails to install the package

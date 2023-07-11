@@ -1,13 +1,6 @@
-{ lib
-, clangStdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, libimobiledevice
-, libusb1
-, avahi
-, clang
-}: let
+{ lib, clangStdenv, fetchFromGitHub, autoreconfHook, pkg-config
+, libimobiledevice, libusb1, avahi, clang }:
+let
 
   libgeneral = clangStdenv.mkDerivation rec {
     pname = "libgeneral";
@@ -22,10 +15,7 @@
       # Set package version so we don't require git
       sed -i '/AC_INIT/s/m4_esyscmd.*/${version})/' configure.ac
     '';
-    nativeBuildInputs = [
-      autoreconfHook
-      pkg-config
-    ];
+    nativeBuildInputs = [ autoreconfHook pkg-config ];
     meta = with lib; {
       description = "Helper library used by usbmuxd2";
       homepage = "https://github.com/tihmstar/libgeneral";
@@ -34,8 +24,7 @@
     };
   };
 
-in
-clangStdenv.mkDerivation rec {
+in clangStdenv.mkDerivation rec {
   pname = "usbmuxd2";
   version = "unstable-2022-02-07";
 
@@ -53,31 +42,21 @@ clangStdenv.mkDerivation rec {
     sed -i 's/libgeneral >= 39/libgeneral/' configure.ac
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    clang
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook clang pkg-config ];
 
-  propagatedBuildInputs = [
-    avahi
-    libgeneral
-    libimobiledevice
-    libusb1
-  ];
+  propagatedBuildInputs = [ avahi libgeneral libimobiledevice libusb1 ];
 
   configureFlags = [
     "--with-udevrulesdir=${placeholder "out"}/lib/udev/rules.d"
     "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
   ];
 
-  makeFlags = [
-    "sbindir=${placeholder "out"}/bin"
-  ];
+  makeFlags = [ "sbindir=${placeholder "out"}/bin" ];
 
   meta = with lib; {
     homepage = "https://github.com/tihmstar/usbmuxd2";
-    description = "A socket daemon to multiplex connections from and to iOS devices";
+    description =
+      "A socket daemon to multiplex connections from and to iOS devices";
     license = licenses.lgpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ onny ];

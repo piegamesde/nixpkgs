@@ -1,18 +1,5 @@
-{ lib
-, buildDunePackage
-, fetchFromGitHub
-, substituteAll
-, base64
-, cmdliner
-, digestif
-, git-unix
-, kicadsch
-, lwt
-, lwt_ppx
-, sha
-, tyxml
-, coreutils
-, imagemagick
+{ lib, buildDunePackage, fetchFromGitHub, substituteAll, base64, cmdliner
+, digestif, git-unix, kicadsch, lwt, lwt_ppx, sha, tyxml, coreutils, imagemagick
 }:
 
 buildDunePackage rec {
@@ -30,17 +17,8 @@ buildDunePackage rec {
     })
   ];
 
-  buildInputs = [
-    base64
-    cmdliner
-    digestif
-    git-unix
-    kicadsch
-    lwt
-    lwt_ppx
-    sha
-    tyxml
-  ];
+  buildInputs =
+    [ base64 cmdliner digestif git-unix kicadsch lwt lwt_ppx sha tyxml ];
 
   meta = with lib; {
     description = "A tool to export Kicad Sch files to SVG pictures";

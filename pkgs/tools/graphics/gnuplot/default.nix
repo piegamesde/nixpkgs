@@ -1,25 +1,14 @@
-{ lib, stdenv, fetchurl, makeWrapper, pkg-config, texinfo
-, cairo, gd, libcerf, pango, readline, zlib
-, withTeXLive ? false, texlive
-, withLua ? false, lua
-, withCaca ? false, libcaca
-, libX11 ? null
-, libXt ? null
-, libXpm ? null
-, libXaw ? null
-, aquaterm ? false
-, withWxGTK ? false, wxGTK32, Cocoa
-, fontconfig ? null
-, gnused ? null
-, coreutils ? null
-, withQt ? false, mkDerivation, qttools, qtbase, qtsvg
-}:
+{ lib, stdenv, fetchurl, makeWrapper, pkg-config, texinfo, cairo, gd, libcerf
+, pango, readline, zlib, withTeXLive ? false, texlive, withLua ? false, lua
+, withCaca ? false, libcaca, libX11 ? null, libXt ? null, libXpm ? null
+, libXaw ? null, aquaterm ? false, withWxGTK ? false, wxGTK32, Cocoa
+, fontconfig ? null, gnused ? null, coreutils ? null, withQt ? false
+, mkDerivation, qttools, qtbase, qtsvg }:
 
-assert libX11 != null -> (fontconfig != null && gnused != null && coreutils != null);
-let
-  withX = libX11 != null && !aquaterm && !stdenv.isDarwin;
-in
-(if withQt then mkDerivation else stdenv.mkDerivation) rec {
+assert libX11 != null
+  -> (fontconfig != null && gnused != null && coreutils != null);
+let withX = libX11 != null && !aquaterm && !stdenv.isDarwin;
+in (if withQt then mkDerivation else stdenv.mkDerivation) rec {
   pname = "gnuplot";
   version = "5.4.6";
 
@@ -28,16 +17,15 @@ in
     sha256 = "sha256-AvwnkYIA7WTY8MO4T+gblbWc1HrZnycJOa5JfBnydBk=";
   };
 
-  nativeBuildInputs = [ makeWrapper pkg-config texinfo ] ++ lib.optional withQt qttools;
+  nativeBuildInputs = [ makeWrapper pkg-config texinfo ]
+    ++ lib.optional withQt qttools;
 
-  buildInputs =
-    [ cairo gd libcerf pango readline zlib ]
-    ++ lib.optional withTeXLive (texlive.combine { inherit (texlive) scheme-small; })
-    ++ lib.optional withLua lua
-    ++ lib.optional withCaca libcaca
+  buildInputs = [ cairo gd libcerf pango readline zlib ]
+    ++ lib.optional withTeXLive
+    (texlive.combine { inherit (texlive) scheme-small; })
+    ++ lib.optional withLua lua ++ lib.optional withCaca libcaca
     ++ lib.optionals withX [ libX11 libXpm libXt libXaw ]
-    ++ lib.optionals withQt [ qtbase qtsvg ]
-    ++ lib.optional withWxGTK wxGTK32
+    ++ lib.optionals withQt [ qtbase qtsvg ] ++ lib.optional withWxGTK wxGTK32
     ++ lib.optional (withWxGTK && stdenv.isDarwin) Cocoa;
 
   postPatch = ''
@@ -65,7 +53,8 @@ in
 
   meta = with lib; {
     homepage = "http://www.gnuplot.info/";
-    description = "A portable command-line driven graphing utility for many platforms";
+    description =
+      "A portable command-line driven graphing utility for many platforms";
     platforms = platforms.linux ++ platforms.darwin;
     license = {
       # Essentially a BSD license with one modifaction:
@@ -74,7 +63,8 @@ in
       # be distributed as patches to the released version.  Permission to
       # distribute binaries produced by compiling modified sources is granted,
       # provided you: ...
-      url = "https://sourceforge.net/p/gnuplot/gnuplot-main/ci/master/tree/Copyright";
+      url =
+        "https://sourceforge.net/p/gnuplot/gnuplot-main/ci/master/tree/Copyright";
     };
     maintainers = with maintainers; [ lovek323 ];
   };

@@ -1,21 +1,6 @@
-{ lib, stdenv
-, fetchurl
-, mrustc
-, mrustc-minicargo
-, rust
-, llvm_12
-, llvmPackages_12
-, libffi
-, cmake
-, python3
-, zlib
-, libxml2
-, openssl
-, pkg-config
-, curl
-, which
-, time
-}:
+{ lib, stdenv, fetchurl, mrustc, mrustc-minicargo, rust, llvm_12
+, llvmPackages_12, libffi, cmake, python3, zlib, libxml2, openssl, pkg-config
+, curl, which, time }:
 
 let
   mrustcTargetVersion = "1.54";
@@ -26,9 +11,8 @@ let
   };
   rustcDir = "rustc-${rustcVersion}-src";
   outputDir = "output-${rustcVersion}";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "mrustc-bootstrap";
   version = "${mrustc.version}_${rustcVersion}";
 
@@ -38,9 +22,7 @@ stdenv.mkDerivation rec {
   # the rust build system complains that nix alters the checksums
   dontFixLibtool = true;
 
-  patches = [
-    ./patches/0001-dont-download-rustc.patch
-  ];
+  patches = [ ./patches/0001-dont-download-rustc.patch ];
 
   postPatch = ''
     echo "applying patch ./rustc-${rustcVersion}-src.patch"
@@ -52,18 +34,14 @@ stdenv.mkDerivation rec {
   dontUseCmakeConfigure = true;
 
   strictDeps = true;
-  nativeBuildInputs = [
-    cmake
-    mrustc
-    mrustc-minicargo
-    pkg-config
-    python3
-    time
-    which
-  ];
+  nativeBuildInputs =
+    [ cmake mrustc mrustc-minicargo pkg-config python3 time which ];
   buildInputs = [
     # for rustc
-    llvm_12 libffi zlib libxml2
+    llvm_12
+    libffi
+    zlib
+    libxml2
     # for cargo
     openssl
     (curl.override { inherit openssl; })
@@ -129,7 +107,9 @@ stdenv.mkDerivation rec {
     cp run_rustc/${outputDir}/prefix/bin/rustc_binary $out/bin/rustc
 
     cp -r run_rustc/${outputDir}/prefix/lib/* $out/lib/
-    cp $out/lib/rustlib/${rust.toRustTarget stdenv.targetPlatform}/lib/*.so $out/lib/
+    cp $out/lib/rustlib/${
+      rust.toRustTarget stdenv.targetPlatform
+    }/lib/*.so $out/lib/
     runHook postInstall
   '';
 

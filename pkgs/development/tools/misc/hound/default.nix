@@ -1,12 +1,5 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, makeWrapper
-, mercurial
-, git
-, openssh
-, nixosTests
-}:
+{ lib, buildGoModule, fetchFromGitHub, makeWrapper, mercurial, git, openssh
+, nixosTests }:
 
 buildGoModule rec {
   pname = "hound";
@@ -27,7 +20,9 @@ buildGoModule rec {
   doCheck = false;
 
   postInstall = ''
-    wrapProgram $out/bin/houndd --prefix PATH : ${lib.makeBinPath [ mercurial git openssh ]}
+    wrapProgram $out/bin/houndd --prefix PATH : ${
+      lib.makeBinPath [ mercurial git openssh ]
+    }
   '';
 
   passthru.tests = { inherit (nixosTests) hound; };

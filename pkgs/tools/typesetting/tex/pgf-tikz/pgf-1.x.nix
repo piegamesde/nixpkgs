@@ -1,7 +1,4 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-}:
+{ lib, stdenvNoCC, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "pgf";
@@ -10,7 +7,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "pgf-tikz";
     repo = "pgf";
-    rev = "refs/tags/version-${lib.replaceStrings ["."] ["-"] finalAttrs.version}";
+    rev = "refs/tags/version-${
+        lib.replaceStrings [ "." ] [ "-" ] finalAttrs.version
+      }";
     hash = "sha256-WZ/191iEDd5VK1bnV9JZx2BZfACUeAUhAqrlyx+ZvA4=";
   };
 
@@ -28,7 +27,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     homepage = "https://github.com/pgf-tikz/pgf";
-    description = "A Portable Graphic Format for TeX - version ${finalAttrs.version}";
+    description =
+      "A Portable Graphic Format for TeX - version ${finalAttrs.version}";
     branch = lib.versions.major version;
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ AndersonTorres ];

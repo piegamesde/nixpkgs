@@ -9,14 +9,14 @@ let
     "--smartctl.path=${pkgs.smartmontools}/bin/smartctl"
     "--smartctl.interval=${cfg.maxInterval}"
   ] ++ map (device: "--smartctl.device=${device}") cfg.devices
-  ++ cfg.extraFlags);
+    ++ cfg.extraFlags);
 in {
   port = 9633;
 
   extraOpts = {
     devices = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       example = literalExpression ''
         [ "/dev/sda", "/dev/nvme0n1" ];
       '';
@@ -37,20 +37,11 @@ in {
 
   serviceOpts = {
     serviceConfig = {
-      AmbientCapabilities = [
-        "CAP_SYS_RAWIO"
-        "CAP_SYS_ADMIN"
-      ];
-      CapabilityBoundingSet = [
-        "CAP_SYS_RAWIO"
-        "CAP_SYS_ADMIN"
-      ];
+      AmbientCapabilities = [ "CAP_SYS_RAWIO" "CAP_SYS_ADMIN" ];
+      CapabilityBoundingSet = [ "CAP_SYS_RAWIO" "CAP_SYS_ADMIN" ];
       DevicePolicy = "closed";
-      DeviceAllow = lib.mkOverride 50 [
-        "block-blkext rw"
-        "block-sd rw"
-        "char-nvme rw"
-      ];
+      DeviceAllow =
+        lib.mkOverride 50 [ "block-blkext rw" "block-sd rw" "char-nvme rw" ];
       ExecStart = ''
         ${pkgs.prometheus-smartctl-exporter}/bin/smartctl_exporter ${args}
       '';

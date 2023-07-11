@@ -1,14 +1,5 @@
-{ stdenv
-, fetchurl
-, lib
-, autoPatchelfHook
-, wrapQtAppsHook
-, gmpxx
-, gnustep
-, libbsd
-, libffi_3_3
-, ncurses6
-}:
+{ stdenv, fetchurl, lib, autoPatchelfHook, wrapQtAppsHook, gmpxx, gnustep
+, libbsd, libffi_3_3, ncurses6 }:
 
 stdenv.mkDerivation rec {
   pname = "hopper";
@@ -16,23 +7,16 @@ stdenv.mkDerivation rec {
   rev = "v4";
 
   src = fetchurl {
-    url = "https://d2ap6ypl1xbe4k.cloudfront.net/Hopper-${rev}-${version}-Linux-demo.pkg.tar.xz";
+    url =
+      "https://d2ap6ypl1xbe4k.cloudfront.net/Hopper-${rev}-${version}-Linux-demo.pkg.tar.xz";
     hash = "sha256-xq9ZVg1leHm/tq6LYyQLa8p5dDwBd64Jt92uMoE0z58=";
   };
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook wrapQtAppsHook ];
 
-  buildInputs = [
-    gnustep.libobjc
-    libbsd
-    libffi_3_3
-    ncurses6
-  ];
+  buildInputs = [ gnustep.libobjc libbsd libffi_3_3 ncurses6 ];
 
   installPhase = ''
     runHook preInstall
@@ -67,10 +51,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.hopperapp.com/index.html";
     description = "A macOS and Linux Disassembler";
     license = licenses.unfree;
-    maintainers = with maintainers; [
-      luis
-      Enteee
-    ];
+    maintainers = with maintainers; [ luis Enteee ];
     platforms = platforms.linux;
   };
 }

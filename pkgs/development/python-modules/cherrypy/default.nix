@@ -1,26 +1,7 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, cheroot
-, fetchPypi
-, jaraco_collections
-, more-itertools
-, objgraph
-, path
-, portend
-, pyopenssl
-, pytest-forked
-, pytest-services
-, pytestCheckHook
-, python-memcached
-, pythonAtLeast
-, pythonOlder
-, requests-toolbelt
-, routes
-, setuptools-scm
-, simplejson
-, zc_lockfile
-}:
+{ lib, stdenv, buildPythonPackage, cheroot, fetchPypi, jaraco_collections
+, more-itertools, objgraph, path, portend, pyopenssl, pytest-forked
+, pytest-services, pytestCheckHook, python-memcached, pythonAtLeast, pythonOlder
+, requests-toolbelt, routes, setuptools-scm, simplejson, zc_lockfile }:
 
 buildPythonPackage rec {
   pname = "cherrypy";
@@ -44,17 +25,10 @@ buildPythonPackage rec {
     sed -i "/--cov/d" pytest.ini
   '';
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    cheroot
-    portend
-    more-itertools
-    zc_lockfile
-    jaraco_collections
-  ];
+  propagatedBuildInputs =
+    [ cheroot portend more-itertools zc_lockfile jaraco_collections ];
 
   nativeCheckInputs = [
     objgraph
@@ -65,10 +39,7 @@ buildPythonPackage rec {
     requests-toolbelt
   ];
 
-  pytestFlagsArray = [
-    "-W"
-    "ignore::DeprecationWarning"
-  ];
+  pytestFlagsArray = [ "-W" "ignore::DeprecationWarning" ];
 
   disabledTests = [
     # Keyboard interrupt ends test suite run
@@ -82,19 +53,14 @@ buildPythonPackage rec {
     "test_basic_request"
     "test_3_Redirect"
     "test_4_File_deletion"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "test_block"
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ "test_block" ];
 
-  disabledTestPaths = lib.optionals stdenv.isDarwin [
-    "cherrypy/test/test_config_server.py"
-  ];
+  disabledTestPaths =
+    lib.optionals stdenv.isDarwin [ "cherrypy/test/test_config_server.py" ];
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [
-    "cherrypy"
-  ];
+  pythonImportsCheck = [ "cherrypy" ];
 
   passthru.optional-dependencies = {
     json = [ simplejson ];
@@ -102,7 +68,8 @@ buildPythonPackage rec {
     routes_dispatcher = [ routes ];
     ssl = [ pyopenssl ];
     # not packaged yet
-    xcgi = [ /* flup */ ];
+    xcgi = [ # flup
+    ];
   };
 
   meta = with lib; {

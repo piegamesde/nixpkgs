@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, qtbase
-, qmake
-, qttools
-, wrapQtAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, qtbase, qmake, qttools, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "cubiomes-viewer";
@@ -25,15 +18,9 @@ stdenv.mkDerivation rec {
       --replace '$$[QT_INSTALL_BINS]/lrelease' lrelease
   '';
 
-  buildInputs = [
-    qtbase
-  ];
+  buildInputs = [ qtbase ];
 
-  nativeBuildInputs = [
-    qmake
-    qttools
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qmake qttools wrapQtAppsHook ];
 
   preBuild = ''
     # QMAKE_PRE_LINK is not executed (I dont know why)

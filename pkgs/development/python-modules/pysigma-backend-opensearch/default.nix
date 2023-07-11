@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, poetry-core
-, pysigma
-, pysigma-backend-elasticsearch
-, pytestCheckHook
-, pythonOlder
-, requests
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pysigma
+, pysigma-backend-elasticsearch, pytestCheckHook, pythonOlder, requests }:
 
 buildPythonPackage rec {
   pname = "pysigma-backend-opensearch";
@@ -28,23 +20,13 @@ buildPythonPackage rec {
       --replace " --cov=sigma --cov-report term --cov-report xml:cov.xml" ""
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    pysigma
-    pysigma-backend-elasticsearch
-  ];
+  propagatedBuildInputs = [ pysigma pysigma-backend-elasticsearch ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    requests
-  ];
+  nativeCheckInputs = [ pytestCheckHook requests ];
 
-  pythonImportsCheck = [
-    "sigma.backends.opensearch"
-  ];
+  pythonImportsCheck = [ "sigma.backends.opensearch" ];
 
   disabledTests = [
     # Tests requires network access
@@ -54,7 +36,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library to support OpenSearch for pySigma";
     homepage = "https://github.com/SigmaHQ/pySigma-backend-opensearch";
-    changelog = "https://github.com/SigmaHQ/pySigma-backend-opensearch/releases/tag/v${version}";
+    changelog =
+      "https://github.com/SigmaHQ/pySigma-backend-opensearch/releases/tag/v${version}";
     license = with licenses; [ lgpl21Only ];
     maintainers = with maintainers; [ fab ];
   };

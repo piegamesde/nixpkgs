@@ -78,7 +78,7 @@ with lib;
     # Enable wpa_supplicant, but don't start it by default.
     networking.wireless.enable = mkDefault true;
     networking.wireless.userControlled.enable = true;
-    systemd.services.wpa_supplicant.wantedBy = mkOverride 50 [];
+    systemd.services.wpa_supplicant.wantedBy = mkOverride 50 [ ];
 
     # Tell the Nix evaluator to garbage collect more aggressively.
     # This is desirable in memory-constrained environments that don't
@@ -94,17 +94,16 @@ with lib;
 
     # To speed up installation a little bit, include the complete
     # stdenv in the Nix store on the CD.
-    system.extraDependencies = with pkgs;
-      [
-        stdenv
-        stdenvNoCC # for runCommand
-        busybox
-        jq # for closureInfo
-        # For boot.initrd.systemd
-        makeInitrdNGTool
-        systemdStage1
-        systemdStage1Network
-      ];
+    system.extraDependencies = with pkgs; [
+      stdenv
+      stdenvNoCC # for runCommand
+      busybox
+      jq # for closureInfo
+      # For boot.initrd.systemd
+      makeInitrdNGTool
+      systemdStage1
+      systemdStage1Network
+    ];
 
     # Show all debug messages from the kernel but don't log refused packets
     # because we have the firewall enabled. This makes installs from the

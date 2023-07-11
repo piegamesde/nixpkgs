@@ -1,19 +1,8 @@
-{ lib
-, fetchurl
-, gdk-pixbuf
-, gobject-introspection
-, gtk3
-, mcomix
-, python3
-, testers
-, wrapGAppsHook
+{ lib, fetchurl, gdk-pixbuf, gobject-introspection, gtk3, mcomix, python3
+, testers, wrapGAppsHook
 
 # Recommended Dependencies:
-, lhasa
-, mupdf
-, p7zip
-, unrar
-, unrarSupport ? false  # unfree software
+, lhasa, mupdf, p7zip, unrar, unrarSupport ? false # unfree software
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -38,13 +27,14 @@ python3.pkgs.buildPythonApplication rec {
   preFixup = ''
     makeWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"
-      "--prefix" "PATH" ":" "${lib.makeBinPath ([ p7zip lhasa mupdf ] ++ lib.optional (unrarSupport) unrar)}"
+      "--prefix" "PATH" ":" "${
+        lib.makeBinPath
+        ([ p7zip lhasa mupdf ] ++ lib.optional (unrarSupport) unrar)
+      }"
     )
   '';
 
-  passthru.tests.version = testers.testVersion {
-    package = mcomix;
-  };
+  passthru.tests.version = testers.testVersion { package = mcomix; };
 
   meta = with lib; {
     description = "Comic book reader and image viewer";

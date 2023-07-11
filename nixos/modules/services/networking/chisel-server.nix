@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.services.chisel-server;
+let cfg = config.services.chisel-server;
 
 in {
   options = {
@@ -25,7 +24,7 @@ in {
         type = with types; nullOr path;
         default = null;
       };
-      keepalive  = mkOption {
+      keepalive = mkOption {
         description = mdDoc "Keepalive interval, falls back to 25s";
         type = with types; nullOr str;
         default = null;
@@ -56,15 +55,15 @@ in {
       wantedBy = [ "network-online.target" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.chisel}/bin/chisel server " + concatStringsSep " " (
-          optional (cfg.host != null) "--host ${cfg.host}"
-          ++ optional (cfg.port != null) "--port ${builtins.toString cfg.port}"
-          ++ optional (cfg.authfile != null) "--authfile ${cfg.authfile}"
-          ++ optional (cfg.keepalive != null) "--keepalive ${cfg.keepalive}"
-          ++ optional (cfg.backend != null) "--backend ${cfg.backend}"
-          ++ optional cfg.socks5 "--socks5"
-          ++ optional cfg.reverse "--reverse"
-        );
+        ExecStart = "${pkgs.chisel}/bin/chisel server " + concatStringsSep " "
+          (optional (cfg.host != null) "--host ${cfg.host}"
+            ++ optional (cfg.port != null)
+            "--port ${builtins.toString cfg.port}"
+            ++ optional (cfg.authfile != null) "--authfile ${cfg.authfile}"
+            ++ optional (cfg.keepalive != null) "--keepalive ${cfg.keepalive}"
+            ++ optional (cfg.backend != null) "--backend ${cfg.backend}"
+            ++ optional cfg.socks5 "--socks5"
+            ++ optional cfg.reverse "--reverse");
 
         # Security Hardening
         # Refer to systemd.exec(5) for option descriptions.
@@ -89,7 +88,8 @@ in {
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = "~@clock @cpu-emulation @debug @mount @obsolete @reboot @swap @privileged @resources";
+        SystemCallFilter =
+          "~@clock @cpu-emulation @debug @mount @obsolete @reboot @swap @privileged @resources";
         UMask = "0077";
       };
     };

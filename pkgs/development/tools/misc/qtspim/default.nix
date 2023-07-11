@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchsvn, wrapQtAppsHook, qtbase, qttools, qmake, bison, flex, ... }:
+{ lib, stdenv, fetchsvn, wrapQtAppsHook, qtbase, qttools, qmake, bison, flex
+, ... }:
 stdenv.mkDerivation rec {
   pname = "qtspim";
   version = "9.1.23";
@@ -25,12 +26,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ qtbase ];
   QT_PLUGIN_PATH = "${qtbase}/${qtbase.qtPluginPrefix}";
 
-  qmakeFlags = [
-    "QtSpim.pro"
-    "-spec"
-    "linux-g++"
-    "CONFIG+=release"
-  ];
+  qmakeFlags = [ "QtSpim.pro" "-spec" "linux-g++" "CONFIG+=release" ];
 
   installPhase = ''
     runHook preInstall

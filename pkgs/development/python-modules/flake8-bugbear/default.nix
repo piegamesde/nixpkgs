@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, attrs
-, flake8
-, pytestCheckHook
-, pythonOlder
-, hypothesis
-, hypothesmith
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, attrs, flake8, pytestCheckHook
+, pythonOlder, hypothesis, hypothesmith }:
 
 buildPythonPackage rec {
   pname = "flake8-bugbear";
@@ -23,22 +15,15 @@ buildPythonPackage rec {
     hash = "sha256-4iOt6KQU8QkNdmGBIyevfwqvbKpylV+BN49GjeX68xE=";
   };
 
-  propagatedBuildInputs = [
-    attrs
-    flake8
-  ];
+  propagatedBuildInputs = [ attrs flake8 ];
 
-  nativeCheckInputs = [
-    flake8
-    pytestCheckHook
-    hypothesis
-    hypothesmith
-  ];
+  nativeCheckInputs = [ flake8 pytestCheckHook hypothesis hypothesmith ];
 
   meta = with lib; {
     description = "Plugin for Flake8 to find bugs and design problems";
     homepage = "https://github.com/PyCQA/flake8-bugbear";
-    changelog = "https://github.com/PyCQA/flake8-bugbear/blob/${version}/README.rst#change-log";
+    changelog =
+      "https://github.com/PyCQA/flake8-bugbear/blob/${version}/README.rst#change-log";
     longDescription = ''
       A plugin for flake8 finding likely bugs and design problems in your
       program.

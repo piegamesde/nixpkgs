@@ -1,11 +1,4 @@
-{ lib
-, python3Packages
-, fetchFromGitHub
-, wrapGAppsHook
-, p7zip
-, parted
-, grub2
-}:
+{ lib, python3Packages, fetchFromGitHub, wrapGAppsHook, p7zip, parted, grub2 }:
 
 with python3Packages;
 
@@ -26,18 +19,9 @@ buildPythonApplication rec {
       --replace "/usr/" "$out/"
   '';
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ wrapGAppsHook ];
 
-  propagatedBuildInputs = [
-    p7zip
-    parted
-    grub2
-    termcolor
-    wxPython_4_2
-    six
-  ];
+  propagatedBuildInputs = [ p7zip parted grub2 termcolor wxPython_4_2 six ];
 
   preConfigure = ''
     mkdir -p $out/bin $out/share/applications $out/share/polkit-1/actions
@@ -47,7 +31,8 @@ buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "A tool to create a Windows USB stick installer from a real Windows DVD or image";
+    description =
+      "A tool to create a Windows USB stick installer from a real Windows DVD or image";
     homepage = "https://github.com/WoeUSB/WoeUSB-ng";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ stunkymonkey ];

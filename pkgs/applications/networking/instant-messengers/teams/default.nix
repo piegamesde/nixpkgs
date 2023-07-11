@@ -1,25 +1,7 @@
-{ lib
-, stdenv
-, runtimeShell
-, fetchurl
-, autoPatchelfHook
-, wrapGAppsHook
-, dpkg
-, atomEnv
-, libuuid
-, libappindicator-gtk3
-, pulseaudio
-, at-spi2-atk
-, coreutils
-, gawk
-, xdg-utils
-, systemd
-, nodePackages
-, xar
-, cpio
-, makeWrapper
-, enableRectOverlay ? false
-}:
+{ lib, stdenv, runtimeShell, fetchurl, autoPatchelfHook, wrapGAppsHook, dpkg
+, atomEnv, libuuid, libappindicator-gtk3, pulseaudio, at-spi2-atk, coreutils
+, gawk, xdg-utils, systemd, nodePackages, xar, cpio, makeWrapper
+, enableRectOverlay ? false }:
 
 let
   pname = "teams";
@@ -54,20 +36,15 @@ let
       hash = hashes.linux;
     };
 
-    nativeBuildInputs = [ dpkg autoPatchelfHook wrapGAppsHook nodePackages.asar ];
+    nativeBuildInputs =
+      [ dpkg autoPatchelfHook wrapGAppsHook nodePackages.asar ];
 
     unpackCmd = "dpkg -x $curSrc .";
 
-    buildInputs = atomEnv.packages ++ [
-      libuuid
-      at-spi2-atk
-    ];
+    buildInputs = atomEnv.packages ++ [ libuuid at-spi2-atk ];
 
-    runtimeDependencies = [
-      (lib.getLib systemd)
-      pulseaudio
-      libappindicator-gtk3
-    ];
+    runtimeDependencies =
+      [ (lib.getLib systemd) pulseaudio libappindicator-gtk3 ];
 
     preFixup = ''
       gappsWrapperArgs+=(
@@ -77,7 +54,6 @@ let
         --append-flags '--disable-namespace-sandbox --disable-setuid-sandbox'
       )
     '';
-
 
     buildPhase = ''
       runHook preBuild
@@ -108,9 +84,9 @@ let
       ln -s $out/opt/teams/teams $out/bin/
 
       ${lib.optionalString (!enableRectOverlay) ''
-      # Work-around screen sharing bug
-      # https://docs.microsoft.com/en-us/answers/questions/42095/sharing-screen-not-working-anymore-bug.html
-      rm $out/opt/teams/resources/app.asar.unpacked/node_modules/slimcore/bin/rect-overlay
+        # Work-around screen sharing bug
+        # https://docs.microsoft.com/en-us/answers/questions/42095/sharing-screen-not-working-anymore-bug.html
+        rm $out/opt/teams/resources/app.asar.unpacked/node_modules/slimcore/bin/rect-overlay
       ''}
 
       runHook postInstall
@@ -146,7 +122,8 @@ let
     version = versions.darwin;
 
     src = fetchurl {
-      url = "https://statics.teams.cdn.office.net/production-osx/${versions.darwin}/Teams_osx.pkg";
+      url =
+        "https://statics.teams.cdn.office.net/production-osx/${versions.darwin}/Teams_osx.pkg";
       hash = hashes.darwin;
     };
 
@@ -157,7 +134,7 @@ let
       zcat < Teams_osx_app.pkg/Payload | cpio -i
     '';
 
-    sourceRoot = "Microsoft\ Teams.app";
+    sourceRoot = "Microsoft Teams.app";
     dontPatch = true;
     dontConfigure = true;
     dontBuild = true;
@@ -170,7 +147,4 @@ let
       runHook postInstall
     '';
   };
-in
-if stdenv.isDarwin
-then darwin
-else linux
+in if stdenv.isDarwin then darwin else linux

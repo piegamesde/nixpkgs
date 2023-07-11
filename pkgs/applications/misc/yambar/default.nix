@@ -1,38 +1,11 @@
-{ lib
-, stdenv
-, fetchFromGitea
-, alsa-lib
-, bison
-, fcft
-, flex
-, json_c
-, libmpdclient
-, libxcb
-, libyaml
-, meson
-, ninja
-, pipewire
-, pixman
-, pkg-config
-, pulseaudio
-, scdoc
-, tllist
-, udev
-, wayland
-, wayland-protocols
-, wayland-scanner
-, xcbutil
-, xcbutilcursor
-, xcbutilerrors
-, xcbutilwm
-, waylandSupport ? true
-, x11Support ? true
-}:
+{ lib, stdenv, fetchFromGitea, alsa-lib, bison, fcft, flex, json_c, libmpdclient
+, libxcb, libyaml, meson, ninja, pipewire, pixman, pkg-config, pulseaudio, scdoc
+, tllist, udev, wayland, wayland-protocols, wayland-scanner, xcbutil
+, xcbutilcursor, xcbutilerrors, xcbutilwm, waylandSupport ? true
+, x11Support ? true }:
 
-let
-  inherit (lib) mesonEnable;
-in
-assert (x11Support || waylandSupport);
+let inherit (lib) mesonEnable;
+in assert (x11Support || waylandSupport);
 stdenv.mkDerivation (finalAttrs: {
   pname = "yambar";
   version = "1.9.0";
@@ -45,15 +18,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-0bgRnZYLGWJ9PE62i04hPBcgzWyd30DK7AUuejSgta4=";
   };
 
-  nativeBuildInputs = [
-    bison
-    flex
-    meson
-    ninja
-    pkg-config
-    scdoc
-    wayland-scanner
-  ];
+  nativeBuildInputs =
+    [ bison flex meson ninja pkg-config scdoc wayland-scanner ];
 
   buildInputs = [
     alsa-lib
@@ -66,15 +32,13 @@ stdenv.mkDerivation (finalAttrs: {
     pulseaudio
     tllist
     udev
-  ] ++ lib.optionals (waylandSupport) [
-    wayland
-    wayland-protocols
-  ] ++ lib.optionals (x11Support) [
-    xcbutil
-    xcbutilcursor
-    xcbutilerrors
-    xcbutilwm
-  ];
+  ] ++ lib.optionals (waylandSupport) [ wayland wayland-protocols ]
+    ++ lib.optionals (x11Support) [
+      xcbutil
+      xcbutilcursor
+      xcbutilerrors
+      xcbutilwm
+    ];
 
   mesonBuildType = "release";
 
@@ -85,7 +49,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     homepage = "https://codeberg.org/dnkl/yambar";
-    changelog = "https://codeberg.org/dnkl/yambar/releases/tag/${finalAttrs.version}";
+    changelog =
+      "https://codeberg.org/dnkl/yambar/releases/tag/${finalAttrs.version}";
     description = "Modular status panel for X11 and Wayland";
     longDescription = ''
       yambar is a lightweight and configurable status panel (bar, for short) for

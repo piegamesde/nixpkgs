@@ -5,7 +5,8 @@ stdenv.mkDerivation rec {
   version = "0.3.8";
 
   src = fetchurl {
-    url = "https://github.com/riemann/riemann/releases/download/${version}/${pname}-${version}.tar.bz2";
+    url =
+      "https://github.com/riemann/riemann/releases/download/${version}/${pname}-${version}.tar.bz2";
     sha256 = "sha256-MjTUrqdi9K71PhpLzR3lqdOiNM7Ilmh8HWf3BUOr+b0=";
   };
 
@@ -28,6 +29,6 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.epl10;
     platforms = platforms.all;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

@@ -9,7 +9,5 @@ buildDunePackage {
 
   propagatedBuildInputs = [ qcheck-core alcotest ];
 
-  meta = qcheck-core.meta // {
-    description = "Alcotest backend for qcheck";
-  };
+  meta = qcheck-core.meta // { description = "Alcotest backend for qcheck"; };
 }

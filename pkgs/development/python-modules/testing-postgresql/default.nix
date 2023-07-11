@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pg8000
-, postgresql
-, psycopg2
-, pytestCheckHook
-, pythonOlder
-, sqlalchemy
-, testing-common-database
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pg8000, postgresql, psycopg2
+, pytestCheckHook, pythonOlder, sqlalchemy, testing-common-database }:
 
 buildPythonPackage rec {
   pname = "testing-postgresql";
@@ -25,16 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-A4tahAaa98X66ZYa3QxIQDZkwAwVB6ZDRObEhkbUWKs=";
   };
 
-  propagatedBuildInputs = [
-    testing-common-database
-    pg8000
-  ];
+  propagatedBuildInputs = [ testing-common-database pg8000 ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    psycopg2
-    sqlalchemy
-  ];
+  nativeCheckInputs = [ pytestCheckHook psycopg2 sqlalchemy ];
 
   # Add PostgreSQL to search path
   prePatch = ''
@@ -47,9 +31,7 @@ buildPythonPackage rec {
       --replace "pg8000 >= 1.10" "pg8000"
   '';
 
-  pythonImportsCheck = [
-    "testing.postgresql"
-  ];
+  pythonImportsCheck = [ "testing.postgresql" ];
 
   # Fix tests for Darwin build. See:
   # https://github.com/NixOS/nixpkgs/pull/74716#issuecomment-598546916

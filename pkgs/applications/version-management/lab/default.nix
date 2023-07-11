@@ -1,4 +1,5 @@
-{ lib, buildGoModule, fetchFromGitHub, makeBinaryWrapper, xdg-utils, installShellFiles, git }:
+{ lib, buildGoModule, fetchFromGitHub, makeBinaryWrapper, xdg-utils
+, installShellFiles, git }:
 
 buildGoModule rec {
   pname = "lab";
@@ -33,7 +34,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "Lab wraps Git or Hub, making it simple to clone, fork, and interact with repositories on GitLab";
+    description =
+      "Lab wraps Git or Hub, making it simple to clone, fork, and interact with repositories on GitLab";
     homepage = "https://zaquestion.github.io/lab";
     license = licenses.cc0;
     maintainers = with maintainers; [ marsam dtzWill SuperSandro2000 ];

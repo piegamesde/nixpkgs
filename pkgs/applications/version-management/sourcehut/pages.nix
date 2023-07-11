@@ -1,8 +1,4 @@
-{ lib
-, fetchFromSourcehut
-, buildGoModule
-, unzip
-}:
+{ lib, fetchFromSourcehut, buildGoModule, unzip }:
 
 buildGoModule (rec {
   pname = "pagessrht";
@@ -35,4 +31,7 @@ buildGoModule (rec {
   };
   # There is no ./loaders but this does not cause troubles
   # to go generate
-} // import ./fix-gqlgen-trimpath.nix { inherit unzip; gqlgenVersion= "0.17.9"; })
+} // import ./fix-gqlgen-trimpath.nix {
+  inherit unzip;
+  gqlgenVersion = "0.17.9";
+})

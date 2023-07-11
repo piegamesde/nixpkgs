@@ -1,18 +1,5 @@
-{ lib
-, buildPythonPackage
-, python-dateutil
-, fetchPypi
-, fetchpatch
-, mock
-, msgpack
-, nose
-, pandas
-, pytestCheckHook
-, pytz
-, requests
-, requests-mock
-, six
-}:
+{ lib, buildPythonPackage, python-dateutil, fetchPypi, fetchpatch, mock, msgpack
+, nose, pandas, pytestCheckHook, pytz, requests, requests-mock, six }:
 
 buildPythonPackage rec {
   pname = "influxdb";
@@ -23,21 +10,9 @@ buildPythonPackage rec {
     sha256 = "0ymjv322mv6y424fmpd70f87152w55mbwwj6i7p3sjzf0ixmxy26";
   };
 
-  propagatedBuildInputs = [
-    requests
-    python-dateutil
-    pytz
-    six
-    msgpack
-  ];
+  propagatedBuildInputs = [ requests python-dateutil pytz six msgpack ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    requests-mock
-    mock
-    nose
-    pandas
-  ];
+  nativeCheckInputs = [ pytestCheckHook requests-mock mock nose pandas ];
 
   disabledTests = [
     # Tests cause FutureWarning due to use of 'record' instead of 'records' in pandas.

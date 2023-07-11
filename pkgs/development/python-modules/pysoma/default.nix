@@ -1,8 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pysoma";
@@ -19,9 +15,7 @@ buildPythonPackage rec {
   # Project has no test
   doCheck = false;
 
-  pythonImportsCheck = [
-    "api"
-  ];
+  pythonImportsCheck = [ "api" ];
 
   meta = with lib; {
     description = "Python wrapper for the HTTP API provided by SOMA Connect";

@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, bson
-, pytestCheckHook
-, pyyaml
-, setuptools
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, bson, pytestCheckHook
+, pyyaml, setuptools }:
 
 buildPythonPackage rec {
   pname = "pymarshal";
@@ -27,19 +20,11 @@ buildPythonPackage rec {
       --replace "--cov=pymarshal --cov-report=html --cov-report=term" ""
   '';
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    bson
-  ];
+  propagatedBuildInputs = [ bson ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    bson
-    pyyaml
-  ];
+  nativeCheckInputs = [ pytestCheckHook bson pyyaml ];
 
   pytestFlagsArray = [ "test" ];
 

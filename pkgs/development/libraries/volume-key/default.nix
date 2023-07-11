@@ -1,8 +1,6 @@
-{ lib, stdenv, fetchgit, autoreconfHook, pkg-config, gettext, python3
-, ncurses, swig, glib, util-linux, cryptsetup, nss, gpgme
-, autoconf, automake, libtool
-, buildPackages
-}:
+{ lib, stdenv, fetchgit, autoreconfHook, pkg-config, gettext, python3, ncurses
+, swig, glib, util-linux, cryptsetup, nss, gpgme, autoconf, automake, libtool
+, buildPackages }:
 
 stdenv.mkDerivation rec {
   pname = "volume_key";
@@ -22,9 +20,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ glib cryptsetup nss util-linux ncurses ];
 
-  configureFlags = [
-    "--with-gpgme-prefix=${gpgme.dev}"
-  ];
+  configureFlags = [ "--with-gpgme-prefix=${gpgme.dev}" ];
 
   preConfigure = ''
     export PYTHON="${buildPackages.python3}/bin/python"
@@ -39,10 +35,11 @@ stdenv.mkDerivation rec {
   doCheck = false; # fails 1 out of 1 tests, needs `certutil`
 
   meta = with lib; {
-    description = "A library for manipulating storage volume encryption keys and storing them separately from volumes to handle forgotten passphrases, and the associated command-line tool";
+    description =
+      "A library for manipulating storage volume encryption keys and storing them separately from volumes to handle forgotten passphrases, and the associated command-line tool";
     homepage = "https://pagure.io/volume_key/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [];
+    maintainers = with maintainers; [ ];
     platforms = platforms.linux;
   };
 }

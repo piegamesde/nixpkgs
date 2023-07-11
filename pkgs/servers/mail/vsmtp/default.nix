@@ -1,10 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, installShellFiles
-, testers
-, vsmtp
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, testers, vsmtp }:
 
 rustPlatform.buildRustPackage rec {
   pname = "vsmtp";
@@ -21,11 +15,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildFeatures = [
-    "telemetry"
-    "journald"
-    "syslog"
-  ];
+  buildFeatures = [ "telemetry" "journald" "syslog" ];
 
   # tests do not run well in the nix sandbox
   doCheck = false;
@@ -35,7 +25,10 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru = {
-    tests.version = testers.testVersion { package = vsmtp; version = "v${version}"; };
+    tests.version = testers.testVersion {
+      package = vsmtp;
+      version = "v${version}";
+    };
   };
 
   meta = with lib; {

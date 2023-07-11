@@ -1,29 +1,7 @@
-{ stdenv
-, lib
-, pkg-config
-, meson
-, mesonEmulatorHook
-, ninja
-, fetchFromGitLab
-, fetchpatch
-, libgudev
-, glib
-, polkit
-, dbus
-, gobject-introspection
-, gettext
-, gtk-doc
-, docbook-xsl-nons
-, docbook_xml_dtd_412
-, libxml2
-, libxslt
-, upower
-, umockdev
-, systemd
-, python3
-, wrapGAppsNoGuiHook
-, nixosTests
-}:
+{ stdenv, lib, pkg-config, meson, mesonEmulatorHook, ninja, fetchFromGitLab
+, fetchpatch, libgudev, glib, polkit, dbus, gobject-introspection, gettext
+, gtk-doc, docbook-xsl-nons, docbook_xml_dtd_412, libxml2, libxslt, upower
+, umockdev, systemd, python3, wrapGAppsNoGuiHook, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "power-profiles-daemon";
@@ -53,14 +31,10 @@ stdenv.mkDerivation rec {
     wrapGAppsNoGuiHook
     python3.pkgs.wrapPython
     # checkInput but cheked for during the configuring
-    (python3.pythonForBuild.withPackages (ps: with ps; [
-      pygobject3
-      dbus-python
-      python-dbusmock
-    ]))
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-    mesonEmulatorHook
-  ];
+    (python3.pythonForBuild.withPackages
+      (ps: with ps; [ pygobject3 dbus-python python-dbusmock ]))
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+    [ mesonEmulatorHook ];
 
   buildInputs = [
     libgudev
@@ -76,24 +50,22 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   # for cli tool
-  pythonPath = [
-    python3.pkgs.pygobject3
-  ];
+  pythonPath = [ python3.pkgs.pygobject3 ];
 
-  nativeCheckInputs = [
-    umockdev
-    dbus
-  ];
+  nativeCheckInputs = [ umockdev dbus ];
 
   mesonFlags = [
     "-Dsystemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
     "-Dgtk_doc=true"
-    "-Dtests=${lib.boolToString (stdenv.buildPlatform.canExecute stdenv.hostPlatform)}"
+    "-Dtests=${
+      lib.boolToString (stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+    }"
   ];
 
   doCheck = true;
 
-  PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR = "${placeholder "out"}/share/polkit-1/actions";
+  PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR =
+    "${placeholder "out"}/share/polkit-1/actions";
 
   # Avoid double wrapping
   dontWrapGApps = true;
@@ -117,15 +89,12 @@ stdenv.mkDerivation rec {
     wrapPythonProgramsIn "$out/bin" "$pythonPath"
   '';
 
-  passthru = {
-    tests = {
-      nixos = nixosTests.power-profiles-daemon;
-    };
-  };
+  passthru = { tests = { nixos = nixosTests.power-profiles-daemon; }; };
 
   meta = with lib; {
     homepage = "https://gitlab.freedesktop.org/hadess/power-profiles-daemon";
-    description = "Makes user-selected power profiles handling available over D-Bus";
+    description =
+      "Makes user-selected power profiles handling available over D-Bus";
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ jtojnar mvnetbiz ];

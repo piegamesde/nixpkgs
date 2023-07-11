@@ -15,26 +15,14 @@
 # ^1 https://github.com/NixOS/nixpkgs/issues/69338
 
 {
-  # Build dependencies
-  appimageTools
-, autoPatchelfHook
-, fetchzip
-, lib
-, stdenv
+# Build dependencies
+appimageTools, autoPatchelfHook, fetchzip, lib, stdenv
 
-  # Runtime dependencies;
-  # A few additional ones (e.g. Node) are already shipped together with the
-  # AppImage, so we don't have to duplicate them here.
-, alsa-lib
-, dbus-glib
-, fuse
-, gsettings-desktop-schemas
-, gtk3
-, libdbusmenu-gtk2
-, libXdamage
-, nss
-, udev
-}:
+# Runtime dependencies;
+# A few additional ones (e.g. Node) are already shipped together with the
+# AppImage, so we don't have to duplicate them here.
+, alsa-lib, dbus-glib, fuse, gsettings-desktop-schemas, gtk3, libdbusmenu-gtk2
+, libXdamage, nss, udev }:
 
 let
   pname = "pcloud";
@@ -42,7 +30,8 @@ let
   code = "XZyc9wVZAbFzyV8ElP71D5v170CvEmVtmrB7";
   # Archive link's codes: https://www.pcloud.com/release-notes/linux.html
   src = fetchzip {
-    url = "https://api.pcloud.com/getpubzip?code=${code}&filename=${pname}-${version}.zip";
+    url =
+      "https://api.pcloud.com/getpubzip?code=${code}&filename=${pname}-${version}.zip";
     hash = "sha256-QzBlpF+qtNdSZFv3gU0mQhpVyPTWdGH3c+UHKKGfvKc=";
   };
 
@@ -51,8 +40,7 @@ let
     src = "${src}/pcloud";
   };
 
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
   src = appimageContents;
@@ -60,20 +48,10 @@ stdenv.mkDerivation {
   dontConfigure = true;
   dontBuild = true;
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [
-    alsa-lib
-    dbus-glib
-    fuse
-    gtk3
-    libdbusmenu-gtk2
-    libXdamage
-    nss
-    udev
-  ];
+  buildInputs =
+    [ alsa-lib dbus-glib fuse gtk3 libdbusmenu-gtk2 libXdamage nss udev ];
 
   installPhase = ''
     mkdir "$out"
@@ -114,7 +92,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "Secure and simple to use cloud storage for your files; pCloud Drive, Electron Edition";
+    description =
+      "Secure and simple to use cloud storage for your files; pCloud Drive, Electron Edition";
     homepage = "https://www.pcloud.com/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

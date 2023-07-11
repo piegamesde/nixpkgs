@@ -1,8 +1,4 @@
-{ lib
-, fetchFromGitHub
-, wayland
-}:
-{
+{ lib, fetchFromGitHub, wayland }: {
   version = "unstable-2023-04-06";
 
   src = fetchFromGitHub {

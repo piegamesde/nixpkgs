@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub, }:
 
 stdenv.mkDerivation rec {
   pname = "w_scan2";
@@ -16,10 +12,11 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    description = "A small channel scan tool which generates ATSC, DVB-C, DVB-S/S2 and DVB-T/T2 channels.conf files";
+    description =
+      "A small channel scan tool which generates ATSC, DVB-C, DVB-S/S2 and DVB-T/T2 channels.conf files";
     homepage = "https://github.com/stefantalpalaru/w_scan2";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ _0x4A6F ] ;
+    maintainers = with lib.maintainers; [ _0x4A6F ];
     license = lib.licenses.gpl2Only;
   };
 }

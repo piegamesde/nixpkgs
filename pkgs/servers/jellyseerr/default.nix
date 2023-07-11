@@ -1,21 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, makeWrapper
-, mkYarnPackage
-, nodejs
-, sqlite
-, fetchYarnDeps
-, python3
-, pkg-config
-, glib
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, mkYarnPackage, nodejs, sqlite
+, fetchYarnDeps, python3, pkg-config, glib }:
 
-let
-  pin = lib.importJSON ./pin.json;
-in
+let pin = lib.importJSON ./pin.json;
 
-mkYarnPackage rec {
+in mkYarnPackage rec {
   pname = "jellyseerr";
   inherit (pin) version;
 
@@ -35,10 +23,7 @@ mkYarnPackage rec {
 
   doDist = false;
 
-  nativeBuildInputs = [
-    nodejs
-    makeWrapper
-  ];
+  nativeBuildInputs = [ nodejs makeWrapper ];
 
   # Fixes "SQLite package has not been found installed" at launch
   pkgConfig.sqlite3 = {

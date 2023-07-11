@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, rustPlatform
-, setuptools-rust
-, json-stream-rs-tokenizer
-, json-stream
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, rustPlatform, setuptools-rust
+, json-stream-rs-tokenizer, json-stream }:
 
 buildPythonPackage rec {
   pname = "json-stream-rs-tokenizer";
@@ -29,26 +23,16 @@ buildPythonPackage rec {
     hash = "sha256-HwWH8/UWKWOdRmyCVQtNqJxXD55f6zxLY0LhR7JU9ro=";
   };
 
-  nativeBuildInputs = [
-    setuptools-rust
-  ]
-  ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs = [ setuptools-rust ]
+    ++ (with rustPlatform; [ cargoSetupHook rust.cargo rust.rustc ]);
 
   # Tests depend on json-stream, which depends on this package.
   # To avoid infinite recursion, we only enable tests when building passthru.tests.
   doCheck = false;
 
-  checkInputs = [
-    json-stream
-  ];
+  checkInputs = [ json-stream ];
 
-  pythonImportsCheck = [
-    "json_stream_rs_tokenizer"
-  ];
+  pythonImportsCheck = [ "json_stream_rs_tokenizer" ];
 
   passthru.tests = {
     runTests = json-stream-rs-tokenizer.overrideAttrs (_: { doCheck = true; });

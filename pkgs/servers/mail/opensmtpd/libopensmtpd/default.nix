@@ -1,9 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, libevent
-, mandoc
-}:
+{ lib, stdenv, fetchurl, libevent, mandoc }:
 stdenv.mkDerivation rec {
   pname = "libopensmtpd";
   version = "0.7";
@@ -19,11 +14,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ mandoc ];
 
-  makeFlags = [
-    "-f Makefile.gnu"
-    "DESTDIR=$(out)"
-    "LOCALBASE="
-  ];
+  makeFlags = [ "-f Makefile.gnu" "DESTDIR=$(out)" "LOCALBASE=" ];
 
   meta = with lib; {
     description = "Library for creating OpenSMTPD filters";

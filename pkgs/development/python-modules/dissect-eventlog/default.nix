@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, dissect-cstruct
-, dissect-util
-, fetchFromGitHub
-, setuptools
-, setuptools-scm
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, dissect-cstruct, dissect-util, fetchFromGitHub
+, setuptools, setuptools-scm, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "dissect-eventlog";
@@ -25,28 +17,20 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
-  propagatedBuildInputs = [
-    dissect-cstruct
-    dissect-util
-  ];
+  propagatedBuildInputs = [ dissect-cstruct dissect-util ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "dissect.eventlog"
-  ];
+  pythonImportsCheck = [ "dissect.eventlog" ];
 
   meta = with lib; {
-    description = "Dissect module implementing parsers for the Windows EVT, EVTX and WEVT log file formats";
+    description =
+      "Dissect module implementing parsers for the Windows EVT, EVTX and WEVT log file formats";
     homepage = "https://github.com/fox-it/dissect.eventlog";
-    changelog = "https://github.com/fox-it/dissect.eventlog/releases/tag/${version}";
+    changelog =
+      "https://github.com/fox-it/dissect.eventlog/releases/tag/${version}";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ fab ];
   };

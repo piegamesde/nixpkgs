@@ -1,17 +1,16 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, pkgsCross
-, stdenv
-, bash
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, pkgsCross, stdenv, bash }:
 
 stdenvNoCC.mkDerivation (finalAttrs:
   let
-    dxvk32 = if stdenv.isDarwin then pkgsCross.mingw32.dxvk_1 else pkgsCross.mingw32.dxvk_2;
-    dxvk64 = if stdenv.isDarwin then pkgsCross.mingwW64.dxvk_1 else pkgsCross.mingwW64.dxvk_2;
-  in
-  {
+    dxvk32 = if stdenv.isDarwin then
+      pkgsCross.mingw32.dxvk_1
+    else
+      pkgsCross.mingw32.dxvk_2;
+    dxvk64 = if stdenv.isDarwin then
+      pkgsCross.mingwW64.dxvk_1
+    else
+      pkgsCross.mingwW64.dxvk_2;
+  in {
     pname = "dxvk";
     inherit (dxvk64) version;
 

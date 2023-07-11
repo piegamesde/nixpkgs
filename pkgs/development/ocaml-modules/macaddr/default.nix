@@ -1,6 +1,4 @@
-{ lib, fetchurl, buildDunePackage
-, ppx_sexp_conv, ounit2
-}:
+{ lib, fetchurl, buildDunePackage, ppx_sexp_conv, ounit2 }:
 
 buildDunePackage rec {
   pname = "macaddr";
@@ -10,7 +8,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/mirage/ocaml-ipaddr/releases/download/v${version}/ipaddr-${version}.tbz";
+    url =
+      "https://github.com/mirage/ocaml-ipaddr/releases/download/v${version}/ipaddr-${version}.tbz";
     hash = "sha256-WmYpG/cQtF9+lVDs1WIievUZ1f7+iZ2hufsdD1HHNeo=";
   };
 

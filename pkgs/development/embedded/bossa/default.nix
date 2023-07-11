@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, wxGTK32
-, libX11
-, readline
-, darwin
-}:
+{ lib, stdenv, fetchFromGitHub, wxGTK32, libX11, readline, darwin }:
 
 let
   # BOSSA needs a "bin2c" program to embed images.
@@ -19,8 +12,7 @@ let
     installPhase = "mkdir -p $out/bin; cp bin2c $out/bin/";
   };
 
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "bossa";
   version = "1.9.1";
 
@@ -37,13 +29,8 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ bin2c ];
-  buildInputs = [
-    wxGTK32
-    libX11
-    readline
-  ] ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Cocoa
-  ];
+  buildInputs = [ wxGTK32 libX11 readline ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ];
 
   makeFlags = [
     "WXVERSION=3.2"
@@ -60,7 +47,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A flash programming utility for Atmel's SAM family of flash-based ARM microcontrollers";
+    description =
+      "A flash programming utility for Atmel's SAM family of flash-based ARM microcontrollers";
     longDescription = ''
       BOSSA is a flash programming utility for Atmel's SAM family of
       flash-based ARM microcontrollers. The motivation behind BOSSA is

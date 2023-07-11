@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, gettext
-, meson
-, ninja
-, python3
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, gettext, meson, ninja
+, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "elementary-wallpapers";
@@ -19,21 +12,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-i9tIz5UckON8uwGlE62b/y0M0Neqt86rR3VdNUWBo04=";
   };
 
-  nativeBuildInputs = [
-    gettext
-    meson
-    ninja
-    python3
-  ];
+  nativeBuildInputs = [ gettext meson ninja python3 ];
 
   postPatch = ''
     chmod +x meson/symlink.py
     patchShebangs meson/symlink.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Collection of wallpapers for elementary";

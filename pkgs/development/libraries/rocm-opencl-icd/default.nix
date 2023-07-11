@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, callPackage
-, rocm-opencl-runtime
-}:
+{ lib, stdenv, callPackage, rocm-opencl-runtime }:
 
 stdenv.mkDerivation rec {
   pname = "rocm-opencl-icd";

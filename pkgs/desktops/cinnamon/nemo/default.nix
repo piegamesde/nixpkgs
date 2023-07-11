@@ -1,25 +1,7 @@
-{ fetchFromGitHub
-, fetchpatch
-, glib
-, gobject-introspection
-, meson
-, ninja
-, pkg-config
-, lib
-, stdenv
-, wrapGAppsHook
-, libxml2
-, gtk3
-, gvfs
-, cinnamon-desktop
-, xapp
-, libexif
-, exempi
-, intltool
-, shared-mime-info
-, cinnamon-translations
-, libgsf
-}:
+{ fetchFromGitHub, fetchpatch, glib, gobject-introspection, meson, ninja
+, pkg-config, lib, stdenv, wrapGAppsHook, libxml2, gtk3, gvfs, cinnamon-desktop
+, xapp, libexif, exempi, intltool, shared-mime-info, cinnamon-translations
+, libgsf }:
 
 stdenv.mkDerivation rec {
   pname = "nemo";
@@ -53,14 +35,8 @@ stdenv.mkDerivation rec {
     libgsf
   ];
 
-  nativeBuildInputs = [
-    meson
-    pkg-config
-    ninja
-    wrapGAppsHook
-    intltool
-    shared-mime-info
-  ];
+  nativeBuildInputs =
+    [ meson pkg-config ninja wrapGAppsHook intltool shared-mime-info ];
 
   mesonFlags = [
     # use locales from cinnamon-translations

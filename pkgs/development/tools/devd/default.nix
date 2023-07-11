@@ -16,7 +16,8 @@ buildGoModule rec {
   patches = [
     # Update x/sys to support go 1.17.
     (fetchpatch {
-      url = "https://github.com/cortesi/devd/commit/5f4720bf41399736b4e7e1a493da6c87a583d0b2.patch";
+      url =
+        "https://github.com/cortesi/devd/commit/5f4720bf41399736b4e7e1a493da6c87a583d0b2.patch";
       hash = "sha256-WDN08XNsDPuZwBCE8iDXgGAWFwx2UTwqRkhzKMtPKR8=";
     })
   ];

@@ -1,18 +1,5 @@
-{ lib
-, bash
-, dbus
-, fetchFromGitHub
-, fetchpatch
-, installShellFiles
-, libgit2
-, libssh2
-, openssl
-, pkg-config
-, rustPlatform
-, systemd
-, xz
-, zlib
-}:
+{ lib, bash, dbus, fetchFromGitHub, fetchpatch, installShellFiles, libgit2
+, libssh2, openssl, pkg-config, rustPlatform, systemd, xz, zlib }:
 
 rustPlatform.buildRustPackage rec {
   pname = "ciel";
@@ -62,7 +49,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "A tool for controlling AOSC OS packaging environments using multi-layer filesystems and containers.";
+    description =
+      "A tool for controlling AOSC OS packaging environments using multi-layer filesystems and containers.";
     homepage = "https://github.com/AOSC-Dev/ciel-rs";
     license = licenses.mit;
     platforms = platforms.linux;

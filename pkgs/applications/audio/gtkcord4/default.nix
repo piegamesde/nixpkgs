@@ -1,20 +1,6 @@
-{ buildGoModule
-, cairo
-, fetchFromGitHub
-, gdk-pixbuf
-, glib
-, gobject-introspection
-, graphene
-, gst_all_1
-, gtk4
-, lib
-, libadwaita
-, libcanberra-gtk3
-, pango
-, pkg-config
-, sound-theme-freedesktop
-, wrapGAppsHook4
-}:
+{ buildGoModule, cairo, fetchFromGitHub, gdk-pixbuf, glib, gobject-introspection
+, graphene, gst_all_1, gtk4, lib, libadwaita, libcanberra-gtk3, pango
+, pkg-config, sound-theme-freedesktop, wrapGAppsHook4 }:
 
 buildGoModule rec {
   pname = "gtkcord4";
@@ -27,11 +13,7 @@ buildGoModule rec {
     hash = "sha256-WrKZRRJAbEzcCRcFUTa7PxahQ3YADhfWaKlB4uJjVk0=";
   };
 
-  nativeBuildInputs = [
-    gobject-introspection
-    pkg-config
-    wrapGAppsHook4
-  ];
+  nativeBuildInputs = [ gobject-introspection pkg-config wrapGAppsHook4 ];
 
   buildInputs = [
     cairo

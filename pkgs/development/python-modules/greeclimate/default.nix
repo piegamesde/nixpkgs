@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, netifaces
-, pycryptodome
-, pytest-asyncio
-, pytestCheckHook
-}:
+{ stdenv, lib, buildPythonPackage, pythonOlder, fetchFromGitHub, netifaces
+, pycryptodome, pytest-asyncio, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "greeclimate";
@@ -23,15 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-M4oxFi/PpqhJgZX/wM+9rSrraIZcqzubbxnihfK0W2E=";
   };
 
-  propagatedBuildInputs = [
-    netifaces
-    pycryptodome
-  ];
+  propagatedBuildInputs = [ netifaces pycryptodome ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [
     "greeclimate"
@@ -45,7 +31,8 @@ buildPythonPackage rec {
     broken = stdenv.isDarwin;
     description = "Discover, connect and control Gree based minisplit systems";
     homepage = "https://github.com/cmroche/greeclimate";
-    changelog = "https://github.com/cmroche/greeclimate/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/cmroche/greeclimate/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ dotlambda ];
   };

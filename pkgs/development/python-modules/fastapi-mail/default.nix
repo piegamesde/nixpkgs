@@ -1,21 +1,6 @@
-{ lib
-, aioredis
-, aiosmtplib
-, blinker
-, buildPythonPackage
-, email-validator
-, fakeredis
-, fastapi
-, fetchFromGitHub
-, httpx
-, jinja2
-, poetry-core
-, pydantic
-, pytest-asyncio
-, pytestCheckHook
-, python-multipart
-, pythonOlder
-}:
+{ lib, aioredis, aiosmtplib, blinker, buildPythonPackage, email-validator
+, fakeredis, fastapi, fetchFromGitHub, httpx, jinja2, poetry-core, pydantic
+, pytest-asyncio, pytestCheckHook, python-multipart, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "fastapi-mail";
@@ -40,9 +25,7 @@ buildPythonPackage rec {
       --replace 'black = "^22.12.0"' ""
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
   propagatedBuildInputs = [
     aioredis
@@ -57,10 +40,7 @@ buildPythonPackage rec {
     python-multipart
   ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   disabledTests = [
     # Tests require access to /etc/resolv.conf
@@ -68,14 +48,13 @@ buildPythonPackage rec {
     "test_redis_checker"
   ];
 
-  pythonImportsCheck = [
-    "fastapi_mail"
-  ];
+  pythonImportsCheck = [ "fastapi_mail" ];
 
   meta = with lib; {
     description = "Module for sending emails and attachments";
     homepage = "https://github.com/sabuhish/fastapi-mail";
-    changelog = "https://github.com/sabuhish/fastapi-mail/releases/tag/${version}";
+    changelog =
+      "https://github.com/sabuhish/fastapi-mail/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

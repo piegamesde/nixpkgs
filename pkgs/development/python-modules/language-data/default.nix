@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, marisa-trie
-, poetry-core
-, pythonOlder
-, setuptools
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, marisa-trie, poetry-core
+, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "language-data";
@@ -21,21 +15,14 @@ buildPythonPackage rec {
     sha256 = "51TUVHXPHG6ofbnxI6+o5lrtr+QCIpGKu+OjDK3l7Mc=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-    setuptools
-  ];
+  nativeBuildInputs = [ poetry-core setuptools ];
 
-  propagatedBuildInputs = [
-    marisa-trie
-  ];
+  propagatedBuildInputs = [ marisa-trie ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "language_data"
-  ];
+  pythonImportsCheck = [ "language_data" ];
 
   meta = with lib; {
     description = "Supplement module for langcodes";

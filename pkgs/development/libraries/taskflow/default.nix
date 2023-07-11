@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, substituteAll
-, doctest
-, cmake
-}:
+{ lib, stdenv, fetchFromGitHub, substituteAll, doctest, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "taskflow";
@@ -31,17 +25,15 @@ stdenv.mkDerivation rec {
     sed -i '/^#if __has_include (<immintrin\.h>)/,/^#endif/d' taskflow/utility/os.hpp
   '';
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   doCheck = true;
 
   meta = {
-    description = "General-purpose Parallel and Heterogeneous Task Programming System";
+    description =
+      "General-purpose Parallel and Heterogeneous Task Programming System";
     homepage = "https://taskflow.github.io/";
-    changelog = let
-      release = lib.replaceStrings ["."] ["-"] version;
+    changelog = let release = lib.replaceStrings [ "." ] [ "-" ] version;
     in "https://taskflow.github.io/taskflow/release-${release}.html";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;

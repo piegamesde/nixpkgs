@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation {
   version = "20160811";
 
   src = fetchzip {
-    url = "https://github.com/tonsky/FiraCode/files/412440/FiraCode-Regular-Symbol.zip";
+    url =
+      "https://github.com/tonsky/FiraCode/files/412440/FiraCode-Regular-Symbol.zip";
     hash = "sha256-7y51blEn0Osf8azytK08zJgtfVX/CIWQkiOoRzYKIa4=";
   };
 
@@ -26,6 +27,7 @@ stdenvNoCC.mkDerivation {
     '';
     license = licenses.ofl;
     maintainers = [ maintainers.Profpatsch ];
-    homepage = "https://github.com/tonsky/FiraCode/issues/211#issuecomment-239058632";
+    homepage =
+      "https://github.com/tonsky/FiraCode/issues/211#issuecomment-239058632";
   };
 }

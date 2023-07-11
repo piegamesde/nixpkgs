@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, mypy-extensions
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-, ruamel-yaml
-, schema-salad
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, mypy-extensions, pytest-xdist
+, pytestCheckHook, pythonOlder, ruamel-yaml, schema-salad }:
 
 buildPythonPackage rec {
   pname = "cwl-upgrader";
@@ -30,25 +22,17 @@ buildPythonPackage rec {
     sed -i "/ruamel.yaml/d" setup.py
   '';
 
-  propagatedBuildInputs = [
-    mypy-extensions
-    ruamel-yaml
-    schema-salad
-  ];
+  propagatedBuildInputs = [ mypy-extensions ruamel-yaml schema-salad ];
 
-  nativeCheckInputs = [
-    pytest-xdist
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-xdist pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "cwlupgrader"
-  ];
+  pythonImportsCheck = [ "cwlupgrader" ];
 
   meta = with lib; {
     description = "Library to interface with Yolink";
     homepage = "https://github.com/common-workflow-language/cwl-utils";
-    changelog = "https://github.com/common-workflow-language/cwl-utils/releases/tag/v${version}";
+    changelog =
+      "https://github.com/common-workflow-language/cwl-utils/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, cython
-, fetchFromGitHub
-, numba
-, numpy
-, pytestCheckHook
-, pythonOlder
-, scipy
-}:
+{ lib, buildPythonPackage, cython, fetchFromGitHub, numba, numpy
+, pytestCheckHook, pythonOlder, scipy }:
 
 buildPythonPackage rec {
   pname = "resampy";
@@ -23,25 +15,16 @@ buildPythonPackage rec {
     hash = "sha256-t5I7NJmIeV0uucPyvR+UJ24NK7fIzYlNJ8bECkbvdjI=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    cython
-    numba
-  ];
+  propagatedBuildInputs = [ numpy cython numba ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    scipy
-  ];
+  nativeCheckInputs = [ pytestCheckHook scipy ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
       --replace " --cov-report term-missing --cov resampy --cov-report=xml" ""
   '';
 
-  pythonImportsCheck = [
-    "resampy"
-  ];
+  pythonImportsCheck = [ "resampy" ];
 
   meta = with lib; {
     description = "Efficient signal resampling";

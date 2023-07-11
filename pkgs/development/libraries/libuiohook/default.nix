@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nixosTests
-, cmake
-, pkg-config
-, AppKit
-, ApplicationServices
-, Carbon
-, libX11
-, libxkbcommon
-, xinput
-, xorg
-}:
+{ lib, stdenv, fetchFromGitHub, nixosTests, cmake, pkg-config, AppKit
+, ApplicationServices, Carbon, libX11, libxkbcommon, xinput, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "libuiohook";
@@ -26,14 +14,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs =
-    if stdenv.isDarwin then [ AppKit ApplicationServices Carbon ]
-    else [
-      libX11
-      libxkbcommon
-      xinput
-    ] ++
-    (with xorg; [
+  buildInputs = if stdenv.isDarwin then [
+    AppKit
+    ApplicationServices
+    Carbon
+  ] else
+    [ libX11 libxkbcommon xinput ] ++ (with xorg; [
       libXau
       libXdmcp
       libXi
@@ -50,9 +36,7 @@ stdenv.mkDerivation rec {
   # This will produce a "uiohook_tests" binary which can be run to test the
   # functionality of the library on the current system.
   # Running the test binary requires a running X11 session.
-  cmakeFlags = [
-    "-DENABLE_TEST:BOOL=ON"
-  ];
+  cmakeFlags = [ "-DENABLE_TEST:BOOL=ON" ];
 
   postInstall = ''
     mkdir -p $test/share
@@ -60,7 +44,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A C library to provide global keyboard and mouse hooks from userland";
+    description =
+      "A C library to provide global keyboard and mouse hooks from userland";
     homepage = "https://github.com/kwhat/libuiohook";
     license = licenses.gpl3Only;
     platforms = platforms.all;

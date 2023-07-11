@@ -1,24 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, fetchpatch2
-, docbook-xsl-nons
-, docutils
-, gi-docgen
-, gobject-introspection
-, gtk-doc
-, libxslt
-, meson
-, ninja
-, pkg-config
-, vala
-, wrapGAppsHook
-, glib
-, gsound
-, json-glib
-, libgudev
-, dbus
-}:
+{ lib, stdenv, fetchFromGitLab, fetchpatch2, docbook-xsl-nons, docutils
+, gi-docgen, gobject-introspection, gtk-doc, libxslt, meson, ninja, pkg-config
+, vala, wrapGAppsHook, glib, gsound, json-glib, libgudev, dbus }:
 
 let
   themes = fetchFromGitLab {
@@ -28,8 +10,7 @@ let
     rev = "v0.1.0";
     sha256 = "sha256-YK9fJ3awmhf1FAhdz95T/POivSO93jsNApm+u4OOZ80=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "feedbackd";
   version = "0.1.0";
 
@@ -46,14 +27,13 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch2 {
-      url = "https://source.puri.sm/Librem5/feedbackd/-/merge_requests/109.patch";
+      url =
+        "https://source.puri.sm/Librem5/feedbackd/-/merge_requests/109.patch";
       hash = "sha256-z3Ud6P2GHYOaGA2vJDD3Sz47+M8p0VcYZ5gbYcGydMk=";
     })
   ];
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
   nativeBuildInputs = [
     docbook-xsl-nons
@@ -69,21 +49,11 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    glib
-    gsound
-    json-glib
-    libgudev
-  ];
+  buildInputs = [ glib gsound json-glib libgudev ];
 
-  mesonFlags = [
-    "-Dgtk_doc=true"
-    "-Dman=true"
-  ];
+  mesonFlags = [ "-Dgtk_doc=true" "-Dman=true" ];
 
-  nativeCheckInputs = [
-    dbus
-  ];
+  nativeCheckInputs = [ dbus ];
 
   doCheck = true;
 
@@ -105,7 +75,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A daemon to provide haptic (and later more) feedback on events";
+    description =
+      "A daemon to provide haptic (and later more) feedback on events";
     homepage = "https://source.puri.sm/Librem5/feedbackd";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ pacman99 tomfitzhenry ];

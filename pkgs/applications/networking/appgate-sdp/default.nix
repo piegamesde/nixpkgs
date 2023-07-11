@@ -1,43 +1,8 @@
-{ alsa-lib
-, at-spi2-atk
-, at-spi2-core
-, atk
-, autoPatchelfHook
-, cairo
-, cups
-, curl
-, dbus
-, dnsmasq
-, dpkg
-, expat
-, fetchurl
-, gdk-pixbuf
-, glib
-, gtk3
-, icu
-, iproute2
-, krb5
-, lib
-, libdrm
-, libsecret
-, libuuid
-, libxcb
-, libxkbcommon
-, lttng-ust
-, makeWrapper
-, mesa
-, networkmanager
-, nspr
-, nss
-, openssl
-, pango
-, python3
-, stdenv
-, systemd
-, xdg-utils
-, xorg
-, zlib
-}:
+{ alsa-lib, at-spi2-atk, at-spi2-core, atk, autoPatchelfHook, cairo, cups, curl
+, dbus, dnsmasq, dpkg, expat, fetchurl, gdk-pixbuf, glib, gtk3, icu, iproute2
+, krb5, lib, libdrm, libsecret, libuuid, libxcb, libxkbcommon, lttng-ust
+, makeWrapper, mesa, networkmanager, nspr, nss, openssl, pango, python3, stdenv
+, systemd, xdg-utils, xorg, zlib }:
 
 let
   deps = [
@@ -83,13 +48,14 @@ let
     xorg.libxshmfence
     zlib
   ];
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "appgate-sdp";
   version = "6.1.3";
 
   src = fetchurl {
-    url = "https://bin.appgate-sdp.com/${lib.versions.majorMinor version}/client/appgate-sdp_${version}_amd64.deb";
+    url = "https://bin.appgate-sdp.com/${
+        lib.versions.majorMinor version
+      }/client/appgate-sdp_${version}_amd64.deb";
     sha256 = "sha256-uk7+XBKtTGnX/bHBQttmxlu9+gKvFqu3VhzC7uIYCNQ=";
   };
 
@@ -98,16 +64,9 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  buildInputs = [
-    python3
-    python3.pkgs.dbus-python
-  ];
+  buildInputs = [ python3 python3.pkgs.dbus-python ];
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-    dpkg
-  ];
+  nativeBuildInputs = [ autoPatchelfHook makeWrapper dpkg ];
 
   unpackPhase = ''
     dpkg-deb -x $src $out
@@ -150,7 +109,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Appgate SDP (Software Defined Perimeter) desktop client";
-    homepage = "https://www.appgate.com/support/software-defined-perimeter-support";
+    homepage =
+      "https://www.appgate.com/support/software-defined-perimeter-support";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = platforms.linux;

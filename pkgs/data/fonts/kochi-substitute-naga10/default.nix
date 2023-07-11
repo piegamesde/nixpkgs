@@ -21,7 +21,8 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = {
-    description = "Japanese font, non-free replacement for MS Gothic and MS Mincho";
+    description =
+      "Japanese font, non-free replacement for MS Gothic and MS Mincho";
     longDescription = ''
       Kochi Gothic and Kochi Mincho were developed as free replacements for the
       MS Gothic and MS Mincho fonts from Microsoft. This version of the fonts

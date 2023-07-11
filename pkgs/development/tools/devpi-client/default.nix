@@ -1,9 +1,4 @@
-{ lib
-, devpi-server
-, git
-, glibcLocales
-, python3
-}:
+{ lib, devpi-server, git, glibcLocales, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "devpi-client";
@@ -21,9 +16,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace "--flake8" ""
   '';
 
-  buildInputs = [
-    glibcLocales
-  ];
+  buildInputs = [ glibcLocales ];
 
   propagatedBuildInputs = with python3.pkgs; [
     argon2-cffi-bindings
@@ -39,10 +32,7 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  nativeCheckInputs = [
-    devpi-server
-    git
-  ] ++ (with python3.pkgs; [
+  nativeCheckInputs = [ devpi-server git ] ++ (with python3.pkgs; [
     mercurial
     mock
     pypitoken
@@ -67,9 +57,11 @@ python3.pkgs.buildPythonApplication rec {
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {
-    description = "Client for devpi, a pypi index server and packaging meta tool";
+    description =
+      "Client for devpi, a pypi index server and packaging meta tool";
     homepage = "http://doc.devpi.net";
-    changelog = "https://github.com/devpi/devpi/blob/client-${version}/client/CHANGELOG";
+    changelog =
+      "https://github.com/devpi/devpi/blob/client-${version}/client/CHANGELOG";
     license = licenses.mit;
     maintainers = with maintainers; [ lewo makefu ];
   };

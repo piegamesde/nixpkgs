@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rocmUpdateScript
-, buildPythonPackage
-, pyyaml
-, msgpack
-, pandas
-}:
+{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, buildPythonPackage, pyyaml
+, msgpack, pandas }:
 
 buildPythonPackage rec {
   pname = "tensile";
@@ -19,11 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-W6yr6mptfsiJSSzPCImgqI1EmsUv+l99SjqkoZsOjag=";
   };
 
-  buildInputs = [
-    pyyaml
-    msgpack
-    pandas
-  ];
+  buildInputs = [ pyyaml msgpack pandas ];
 
   passthru.updateScript = rocmUpdateScript {
     name = pname;

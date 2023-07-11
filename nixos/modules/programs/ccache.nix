@@ -1,8 +1,7 @@
 { config, pkgs, lib, ... }:
 
 with lib;
-let
-  cfg = config.programs.ccache;
+let cfg = config.programs.ccache;
 in {
   options.programs.ccache = {
     # host configuration
@@ -15,8 +14,9 @@ in {
     # target configuration
     packageNames = mkOption {
       type = types.listOf types.str;
-      description = lib.mdDoc "Nix top-level packages to be compiled using CCache";
-      default = [];
+      description =
+        lib.mdDoc "Nix top-level packages to be compiled using CCache";
+      default = [ ];
       example = [ "wxGTK32" "ffmpeg" "libav_all" ];
     };
   };
@@ -50,9 +50,13 @@ in {
     })
 
     # target configuration
-    (mkIf (cfg.packageNames != []) {
+    (mkIf (cfg.packageNames != [ ]) {
       nixpkgs.overlays = [
-        (self: super: genAttrs cfg.packageNames (pn: super.${pn}.override { stdenv = builtins.trace "with ccache: ${pn}" self.ccacheStdenv; }))
+        (self: super:
+          genAttrs cfg.packageNames (pn:
+            super.${pn}.override {
+              stdenv = builtins.trace "with ccache: ${pn}" self.ccacheStdenv;
+            }))
 
         (self: super: {
           ccacheWrapper = super.ccacheWrapper.override {

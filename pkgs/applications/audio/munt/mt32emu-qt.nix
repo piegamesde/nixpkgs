@@ -1,22 +1,9 @@
-{ lib
-, stdenv
-, mkDerivation
-, fetchFromGitHub
-, alsa-lib
-, cmake
-, libpulseaudio
-, libmt32emu
-, pkg-config
-, portaudio
-, qtbase
-, qtmultimedia
-, withJack ? stdenv.hostPlatform.isUnix, libjack2
-}:
+{ lib, stdenv, mkDerivation, fetchFromGitHub, alsa-lib, cmake, libpulseaudio
+, libmt32emu, pkg-config, portaudio, qtbase, qtmultimedia
+, withJack ? stdenv.hostPlatform.isUnix, libjack2 }:
 
-let
-  char2underscore = char: str: lib.replaceStrings [ char ] [ "_" ] str;
-in
-mkDerivation rec {
+let char2underscore = char: str: lib.replaceStrings [ char ] [ "_" ] str;
+in mkDerivation rec {
   pname = "mt32emu-qt";
   version = "1.11.1";
 
@@ -31,22 +18,11 @@ mkDerivation rec {
     sed -i -e '/add_subdirectory(mt32emu)/d' CMakeLists.txt
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    libmt32emu
-    portaudio
-    qtbase
-    qtmultimedia
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [
-    alsa-lib
-    libpulseaudio
-  ]
-  ++ lib.optional withJack libjack2;
+  buildInputs = [ libmt32emu portaudio qtbase qtmultimedia ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [ alsa-lib libpulseaudio ]
+    ++ lib.optional withJack libjack2;
 
   dontFixCmake = true;
 

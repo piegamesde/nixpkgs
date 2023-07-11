@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, nix-update-script
-, python3, git, gnupg, less, openssh
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, nix-update-script, python3, git
+, gnupg, less, openssh }:
 
 stdenv.mkDerivation rec {
   pname = "git-repo";
@@ -40,9 +39,7 @@ stdenv.mkDerivation rec {
       "${lib.makeBinPath [ git gnupg less openssh ]}"
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Android's repo management tool";

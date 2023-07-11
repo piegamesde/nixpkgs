@@ -1,15 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, ocaml, findlib, camlp4, ocamlbuild
-, erm_xml, mirage-crypto, mirage-crypto-rng, base64
-}:
+{ stdenv, lib, fetchFromGitHub, ocaml, findlib, camlp4, ocamlbuild, erm_xml
+, mirage-crypto, mirage-crypto-rng, base64 }:
 
 stdenv.mkDerivation rec {
   version = "0.3+20220404";
   pname = "ocaml${ocaml.version}-erm_xmpp";
 
   src = fetchFromGitHub {
-    owner  = "hannesm";
-    repo   = "xmpp";
-    rev    = "e54d54e142ac9770c37e144693473692bf473530";
+    owner = "hannesm";
+    repo = "xmpp";
+    rev = "e54d54e142ac9770c37e144693473692bf473530";
     sha256 = "sha256-Ize8Em4LI54Cy1Xuzr9BjQGV7JMr3W6KI1YzI8G1q/U=";
   };
 

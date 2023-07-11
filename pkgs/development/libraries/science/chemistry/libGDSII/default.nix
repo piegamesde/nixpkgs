@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "libGDSII";
@@ -23,7 +19,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
 
   meta = with lib; {
-    description = "Library and command-line utility for reading GDSII geometry files";
+    description =
+      "Library and command-line utility for reading GDSII geometry files";
     homepage = "https://github.com/HomerReid/libGDSII";
     license = [ licenses.gpl2Only ];
     maintainers = with maintainers; [ sheepforce markuskowa ];

@@ -1,38 +1,21 @@
-{ lib
-, stdenv
-, fetchurl
-, cairo
-, ffmpeg
-, libexif
-, pango
-, pkg-config
-, wxGTK
-, darwin
-}:
+{ lib, stdenv, fetchurl, cairo, ffmpeg, libexif, pango, pkg-config, wxGTK
+, darwin }:
 
-let
-  inherit (darwin.apple_sdk.frameworks) Cocoa;
-in
-stdenv.mkDerivation rec {
+let inherit (darwin.apple_sdk.frameworks) Cocoa;
+in stdenv.mkDerivation rec {
   pname = "wxSVG";
   version = "1.5.24";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/wxsvg/wxsvg/${version}/wxsvg-${version}.tar.bz2";
+    url =
+      "mirror://sourceforge/project/wxsvg/wxsvg/${version}/wxsvg-${version}.tar.bz2";
     hash = "sha256-rkcykfjQpf6voGzScMgmxr6tS86yud1vzs8tt8JeJII=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    cairo
-    ffmpeg
-    libexif
-    pango
-    wxGTK
-  ] ++ lib.optional stdenv.isDarwin Cocoa;
+  buildInputs = [ cairo ffmpeg libexif pango wxGTK ]
+    ++ lib.optional stdenv.isDarwin Cocoa;
 
   meta = with lib; {
     homepage = "https://wxsvg.sourceforge.net/";

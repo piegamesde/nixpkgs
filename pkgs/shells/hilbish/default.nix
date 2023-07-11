@@ -16,11 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Kiy1JR3X++naY2XNLpnGujrNQt7qlL0zxv8E96cHmHo=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.dataDir=${placeholder "out"}/share/hilbish"
-  ];
+  ldflags = [ "-s" "-w" "-X main.dataDir=${placeholder "out"}/share/hilbish" ];
 
   postInstall = ''
     mkdir -p "$out/share/hilbish"

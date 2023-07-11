@@ -1,19 +1,6 @@
-{ lib
-, aiohttp
-, aiosqlite
-, buildPythonPackage
-, crccheck
-, cryptography
-, freezegun
-, fetchFromGitHub
-, pycryptodome
-, pyserial-asyncio
-, pytest-asyncio
-, pytest-timeout
-, pytestCheckHook
-, pythonOlder
-, voluptuous
-}:
+{ lib, aiohttp, aiosqlite, buildPythonPackage, crccheck, cryptography, freezegun
+, fetchFromGitHub, pycryptodome, pyserial-asyncio, pytest-asyncio
+, pytest-timeout, pytestCheckHook, pythonOlder, voluptuous }:
 
 buildPythonPackage rec {
   pname = "zigpy";
@@ -39,12 +26,8 @@ buildPythonPackage rec {
     voluptuous
   ];
 
-  nativeCheckInputs = [
-    freezegun
-    pytest-asyncio
-    pytest-timeout
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ freezegun pytest-asyncio pytest-timeout pytestCheckHook ];
 
   disabledTests = [
     # # Our two manual scans succeeded and the periodic one was attempted

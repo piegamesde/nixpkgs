@@ -14,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "nvim-rs-0.1.1-alpha.0" = "sha256-wn68Lix3zZULrg/G4hP+OSj1GbEZMsA/+PaOlG9WLtc=";
+      "nvim-rs-0.1.1-alpha.0" =
+        "sha256-wn68Lix3zZULrg/G4hP+OSj1GbEZMsA/+PaOlG9WLtc=";
     };
   };
 

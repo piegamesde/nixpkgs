@@ -1,6 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, rustPlatform
-, bzip2, curl, zlib, zstd, libiconv, CoreServices
-}:
+{ stdenv, lib, fetchFromGitHub, pkg-config, rustPlatform, bzip2, curl, zlib
+, zstd, libiconv, CoreServices }:
 
 stdenv.mkDerivation rec {
   pname = "git-cinnabar";
@@ -14,9 +13,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    pkg-config rustPlatform.cargoSetupHook rustPlatform.rust.cargo
-  ];
+  nativeBuildInputs =
+    [ pkg-config rustPlatform.cargoSetupHook rustPlatform.rust.cargo ];
 
   buildInputs = [ bzip2 curl zlib zstd ]
     ++ lib.optionals stdenv.isDarwin [ libiconv CoreServices ];

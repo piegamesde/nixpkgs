@@ -7,7 +7,8 @@ stdenv.mkDerivation rec {
   version = "1.0.4";
 
   src = fetchurl {
-    url = "https://erratique.ch/software/${pname}/releases/${pname}-${version}.tbz";
+    url =
+      "https://erratique.ch/software/${pname}/releases/${pname}-${version}.tbz";
     sha256 = "1h04q0zkasd0mw64ggh4y58lgzkhg6yhzy60lab8k8zq9ba96ajw";
   };
 
@@ -25,7 +26,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://erratique.ch/software/cmdliner";
-    description = "An OCaml module for the declarative definition of command line interfaces";
+    description =
+      "An OCaml module for the declarative definition of command line interfaces";
     license = licenses.isc;
     inherit (ocaml.meta) platforms;
     maintainers = [ maintainers.vbgl ];

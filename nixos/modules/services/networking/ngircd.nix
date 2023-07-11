@@ -23,7 +23,8 @@ in {
       enable = mkEnableOption (lib.mdDoc "the ngircd IRC server");
 
       config = mkOption {
-        description = lib.mdDoc "The ngircd configuration (see ngircd.conf(5)).";
+        description =
+          lib.mdDoc "The ngircd configuration (see ngircd.conf(5)).";
 
         type = types.lines;
       };
@@ -46,7 +47,8 @@ in {
 
       wantedBy = [ "multi-user.target" ];
 
-      serviceConfig.ExecStart = "${cfg.package}/sbin/ngircd --config ${configFile} --nodaemon";
+      serviceConfig.ExecStart =
+        "${cfg.package}/sbin/ngircd --config ${configFile} --nodaemon";
 
       serviceConfig.User = "ngircd";
     };
@@ -56,7 +58,7 @@ in {
       group = "ngircd";
       description = "ngircd user.";
     };
-    users.groups.ngircd = {};
+    users.groups.ngircd = { };
 
   };
 }

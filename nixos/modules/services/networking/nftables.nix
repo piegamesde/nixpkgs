@@ -1,32 +1,29 @@
 { config, pkgs, lib, ... }:
 with lib;
-let
-  cfg = config.networking.nftables;
-in
-{
+let cfg = config.networking.nftables;
+in {
   ###### interface
 
   options = {
     networking.nftables.enable = mkOption {
       type = types.bool;
       default = false;
-      description =
-        lib.mdDoc ''
-          Whether to enable nftables and use nftables based firewall if enabled.
-          nftables is a Linux-based packet filtering framework intended to
-          replace frameworks like iptables.
+      description = lib.mdDoc ''
+        Whether to enable nftables and use nftables based firewall if enabled.
+        nftables is a Linux-based packet filtering framework intended to
+        replace frameworks like iptables.
 
-          Note that if you have Docker enabled you will not be able to use
-          nftables without intervention. Docker uses iptables internally to
-          setup NAT for containers. This module disables the ip_tables kernel
-          module, however Docker automatically loads the module. Please see
-          <https://github.com/NixOS/nixpkgs/issues/24318#issuecomment-289216273>
-          for more information.
+        Note that if you have Docker enabled you will not be able to use
+        nftables without intervention. Docker uses iptables internally to
+        setup NAT for containers. This module disables the ip_tables kernel
+        module, however Docker automatically loads the module. Please see
+        <https://github.com/NixOS/nixpkgs/issues/24318#issuecomment-289216273>
+        for more information.
 
-          There are other programs that use iptables internally too, such as
-          libvirt. For information on how the two firewalls interact, see
-          <https://wiki.nftables.org/wiki-nftables/index.php/Troubleshooting#Question_4._How_do_nftables_and_iptables_interact_when_used_on_the_same_system.3F>.
-        '';
+        There are other programs that use iptables internally too, such as
+        libvirt. For information on how the two firewalls interact, see
+        <https://wiki.nftables.org/wiki-nftables/index.php/Troubleshooting#Question_4._How_do_nftables_and_iptables_interact_when_used_on_the_same_system.3F>.
+      '';
     };
 
     networking.nftables.checkRuleset = mkOption {
@@ -99,22 +96,20 @@ in
           }
         }
       '';
-      description =
-        lib.mdDoc ''
-          The ruleset to be used with nftables.  Should be in a format that
-          can be loaded using "/bin/nft -f".  The ruleset is updated atomically.
-          This option conflicts with rulesetFile.
-        '';
+      description = lib.mdDoc ''
+        The ruleset to be used with nftables.  Should be in a format that
+        can be loaded using "/bin/nft -f".  The ruleset is updated atomically.
+        This option conflicts with rulesetFile.
+      '';
     };
     networking.nftables.rulesetFile = mkOption {
       type = types.nullOr types.path;
       default = null;
-      description =
-        lib.mdDoc ''
-          The ruleset file to be used with nftables.  Should be in a format that
-          can be loaded using "nft -f".  The ruleset is updated atomically.
-          This option conflicts with ruleset and nftables based firewall.
-        '';
+      description = lib.mdDoc ''
+        The ruleset file to be used with nftables.  Should be in a format that
+        can be loaded using "nft -f".  The ruleset is updated atomically.
+        This option conflicts with ruleset and nftables based firewall.
+      '';
     };
   };
 
@@ -132,14 +127,15 @@ in
       reloadIfChanged = true;
       serviceConfig = let
         rulesScript = pkgs.writeTextFile {
-          name =  "nftables-rules";
+          name = "nftables-rules";
           executable = true;
           text = ''
             #! ${pkgs.nftables}/bin/nft -f
             flush ruleset
             ${if cfg.rulesetFile != null then ''
               include "${cfg.rulesetFile}"
-            '' else cfg.ruleset}
+            '' else
+              cfg.ruleset}
           '';
           checkPhase = lib.optionalString cfg.checkRuleset ''
             cp $out ruleset.conf

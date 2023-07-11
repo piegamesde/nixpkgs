@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, pkg-config
-, autoreconfHook
-, autoconf-archive
-, guile
-, texinfo
-, rofi
-}:
+{ stdenv, lib, fetchFromGitHub, pkg-config, autoreconfHook, autoconf-archive
+, guile, texinfo, rofi }:
 
 stdenv.mkDerivation rec {
   pname = "pinentry-rofi";
@@ -20,12 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-H9Y7oPLpDuKtIy80HLS8/iXpOq8ZKiy8ZIH2NwguetY=";
   };
 
-  nativeBuildInputs = [
-    autoconf-archive
-    autoreconfHook
-    pkg-config
-    texinfo
-  ];
+  nativeBuildInputs = [ autoconf-archive autoreconfHook pkg-config texinfo ];
 
   buildInputs = [ guile ];
 

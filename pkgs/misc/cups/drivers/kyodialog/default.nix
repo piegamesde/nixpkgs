@@ -1,16 +1,9 @@
-{ lib
-, stdenv
-, fetchzip
-, cups
-, autoPatchelfHook
-, python3Packages
+{ lib, stdenv, fetchzip, cups, autoPatchelfHook, python3Packages
 
 # Sets the default paper format: use "EU" for A4, or "Global" for Letter
 , region ? "EU"
-# optional GUI, quite redundant to CUPS admin web GUI
-, withQtGui ? false
-, qt5
-}:
+  # optional GUI, quite redundant to CUPS admin web GUI
+, withQtGui ? false, qt5 }:
 
 # Open issues:
 #
@@ -25,8 +18,7 @@ assert region == "Global" || region == "EU";
 let
   kyodialog_version = "9.2";
   date = "20220928";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "cups-kyodialog";
   version = "${kyodialog_version}-${date}";
 
@@ -53,13 +45,14 @@ stdenv.mkDerivation rec {
       x86_64-linux = "amd64";
       i686-linux = "i386";
     };
-    platform = platforms.${stdenv.hostPlatform.system} or (throw "unsupported system: ${stdenv.hostPlatform.system}");
+    platform = platforms.${stdenv.hostPlatform.system} or (throw
+      "unsupported system: ${stdenv.hostPlatform.system}");
   in ''
     ar p "$src/Debian/${region}/kyodialog_${platform}/kyodialog_${kyodialog_version}-0_${platform}.deb" data.tar.gz | tar -xz
   '';
 
   nativeBuildInputs = [ autoPatchelfHook python3Packages.wrapPython ]
-  ++ lib.optionals withQtGui [ qt5.wrapQtAppsHook ];
+    ++ lib.optionals withQtGui [ qt5.wrapQtAppsHook ];
 
   buildInputs = [ cups ] ++ lib.optionals withQtGui [ qt5.qtbase ];
 

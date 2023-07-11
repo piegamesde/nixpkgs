@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, pythonOlder
-, fetchFromGitHub
-, aiohttp
-, siobrultech-protocols
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, aiohttp
+, siobrultech-protocols, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "greeneye-monitor";
@@ -27,14 +21,9 @@ buildPythonPackage rec {
       --replace "siobrultech_protocols==" "siobrultech_protocols>="
   '';
 
-  propagatedBuildInputs = [
-    aiohttp
-    siobrultech-protocols
-  ];
+  propagatedBuildInputs = [ aiohttp siobrultech-protocols ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "greeneye.monitor" ];
 

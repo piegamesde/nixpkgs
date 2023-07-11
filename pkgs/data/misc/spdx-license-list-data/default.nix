@@ -12,7 +12,17 @@ stdenvNoCC.mkDerivation rec {
   };
 
   # List of file formats to package.
-  _types = [ "html" "json" "jsonld" "rdfa" "rdfnt" "rdfturtle" "rdfxml" "template" "text" ];
+  _types = [
+    "html"
+    "json"
+    "jsonld"
+    "rdfa"
+    "rdfnt"
+    "rdfturtle"
+    "rdfxml"
+    "template"
+    "text"
+  ];
 
   outputs = [ "out" ] ++ _types;
 

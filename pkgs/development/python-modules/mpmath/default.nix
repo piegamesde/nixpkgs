@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fetchpatch
-, setuptools-scm
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, setuptools-scm
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "mpmath";
@@ -18,25 +13,23 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       name = "CVE-2021-29063.patch";
-      url = "https://github.com/fredrik-johansson/mpmath/commit/46d44c3c8f3244017fe1eb102d564eb4ab8ef750.patch";
+      url =
+        "https://github.com/fredrik-johansson/mpmath/commit/46d44c3c8f3244017fe1eb102d564eb4ab8ef750.patch";
       hash = "sha256-DaZ6nj9rEsjTAomu481Ujun364bL5E6lkXFvgBfHyeA=";
     })
   ];
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    homepage    = "https://mpmath.org/";
-    description = "A pure-Python library for multiprecision floating arithmetic";
-    license     = licenses.bsd3;
+    homepage = "https://mpmath.org/";
+    description =
+      "A pure-Python library for multiprecision floating arithmetic";
+    license = licenses.bsd3;
     maintainers = with maintainers; [ lovek323 ];
-    platforms   = platforms.unix;
+    platforms = platforms.unix;
   };
 
 }

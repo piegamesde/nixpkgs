@@ -1,22 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, coreutils
-, pbr
-, prettytable
-, keystoneauth1
-, requests
-, warlock
-, oslo-utils
-, oslo-i18n
-, wrapt
-, pyopenssl
-, pythonOlder
-, stestr
-, testscenarios
-, ddt
-, requests-mock
-}:
+{ lib, buildPythonPackage, fetchPypi, coreutils, pbr, prettytable, keystoneauth1
+, requests, warlock, oslo-utils, oslo-i18n, wrapt, pyopenssl, pythonOlder
+, stestr, testscenarios, ddt, requests-mock }:
 
 buildPythonPackage rec {
   pname = "python-glanceclient";
@@ -47,20 +31,13 @@ buildPythonPackage rec {
     pyopenssl
   ];
 
-  nativeCheckInputs = [
-    stestr
-    testscenarios
-    ddt
-    requests-mock
-  ];
+  nativeCheckInputs = [ stestr testscenarios ddt requests-mock ];
 
   checkPhase = ''
     stestr run
   '';
 
-  pythonImportsCheck = [
-    "glanceclient"
-  ];
+  pythonImportsCheck = [ "glanceclient" ];
 
   meta = with lib; {
     description = "Python bindings for the OpenStack Images API";

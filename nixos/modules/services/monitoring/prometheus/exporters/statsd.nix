@@ -2,10 +2,8 @@
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.statsd;
-in
-{
+let cfg = config.services.prometheus.exporters.statsd;
+in {
   port = 9102;
   serviceOpts = {
     serviceConfig = {

@@ -11,9 +11,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-S4mHNCyK7WGYRBckxQkwA3+eu7QhUyKkOZ/KqhMJf+s=";
   };
 
- cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  cargoLock = { lockFile = ./Cargo.lock; };
 
   doCheck = false; # test result: FAILED. 5 passed; 3 failed;
 

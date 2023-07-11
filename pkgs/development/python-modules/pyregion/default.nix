@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, pyparsing
-, numpy
-, cython
-, astropy
-, astropy-helpers
-, pytestCheckHook
-, pytest-astropy
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch, pyparsing, numpy
+, cython, astropy, astropy-helpers, pytestCheckHook, pytest-astropy }:
 
 buildPythonPackage rec {
   pname = "pyregion";
@@ -25,21 +14,19 @@ buildPythonPackage rec {
     hash = "sha256-xo+XbBJ2HKql9rd7Ma84JofRg8M4u6vmz44Qo8JhEBc=";
   };
 
-  propagatedBuildInputs = [
-    pyparsing
-    numpy
-    astropy
-  ];
+  propagatedBuildInputs = [ pyparsing numpy astropy ];
 
   # Upstream patches needed for the tests to pass
   # See https://github.com/astropy/pyregion/pull/157/
   patches = [
     (fetchpatch {
-      url = "https://github.com/astropy/pyregion/pull/157/commits/082649730d353a0d0c0ee9619be1aa501aabba62.patch";
+      url =
+        "https://github.com/astropy/pyregion/pull/157/commits/082649730d353a0d0c0ee9619be1aa501aabba62.patch";
       hash = "sha256-4mHZt3S29ZfK+QKavm6DLBwVxGl/ga7W7GEcQ5ewxuo=";
     })
     (fetchpatch {
-      url = "https://github.com/astropy/pyregion/pull/157/commits/c448a465dd56887979da62aec6138fc89bb37b19.patch";
+      url =
+        "https://github.com/astropy/pyregion/pull/157/commits/c448a465dd56887979da62aec6138fc89bb37b19.patch";
       hash = "sha256-GEtvScmVbAdE4E5Xx0hNOPommvzcnJ3jNZpBmY3PbyE=";
     })
   ];

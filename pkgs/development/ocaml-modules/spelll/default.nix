@@ -1,7 +1,4 @@
-{ lib, fetchFromGitHub, buildDunePackage
-, seq
-, stdlib-shims
-}:
+{ lib, fetchFromGitHub, buildDunePackage, seq, stdlib-shims }:
 
 buildDunePackage rec {
   pname = "spelll";

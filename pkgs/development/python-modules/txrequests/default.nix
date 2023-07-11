@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, twisted
-, requests
-, cryptography
-, unittestCheckHook
-}:
+{ lib, buildPythonPackage, fetchPypi, twisted, requests, cryptography
+, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "txrequests";
@@ -25,8 +19,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Asynchronous Python HTTP for Humans.";
-    homepage    = "https://github.com/tardyp/txrequests";
-    license     = licenses.asl20;
+    homepage = "https://github.com/tardyp/txrequests";
+    license = licenses.asl20;
     maintainers = with maintainers; [ ];
   };
 

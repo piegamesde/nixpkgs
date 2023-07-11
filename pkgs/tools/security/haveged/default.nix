@@ -1,7 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "haveged";
@@ -37,7 +34,8 @@ stdenv.mkDerivation rec {
       the barriers to using haveged for other tasks.
     '';
     homepage = "https://github.com/jirka-h/haveged";
-    changelog = "https://raw.githubusercontent.com/jirka-h/haveged/v${version}/ChangeLog";
+    changelog =
+      "https://raw.githubusercontent.com/jirka-h/haveged/v${version}/ChangeLog";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ domenkozar ];
     platforms = platforms.unix;

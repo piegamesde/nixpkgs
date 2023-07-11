@@ -1,10 +1,4 @@
-{ bctoolbox
-, belr
-, cmake
-, fetchFromGitLab
-, lib
-, stdenv
-}:
+{ bctoolbox, belr, cmake, fetchFromGitLab, lib, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "belcard";
@@ -28,7 +22,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "C++ library to manipulate VCard standard format. Part of the Linphone project.";
+    description =
+      "C++ library to manipulate VCard standard format. Part of the Linphone project.";
     homepage = "https://gitlab.linphone.org/BC/public/belcard";
     license = licenses.gpl3Plus;
     platforms = platforms.all;

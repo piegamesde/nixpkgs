@@ -4,8 +4,7 @@ import ./make-test-python.nix ({ pkgs, ... }: {
     maintainers = [ matthewcroughan nixinator ];
   };
 
-  nodes =
-  {
+  nodes = {
     client = { config, pkgs, ... }: {
       # DBUS runs only once a user session is created, which means a user has to
       # login. Here, we log in as root. Once logged in, the gvfs-daemon service runs
@@ -22,13 +21,10 @@ import ./make-test-python.nix ({ pkgs, ... }: {
       # Creates a usb-mtp device inside the VM, which is mapped to the host's
       # /tmp folder, it is able to write files to this location, but only has
       # permissions to read its own creations.
-      virtualisation.qemu.options = [
-        "-usb"
-        "-device usb-mtp,rootdir=/tmp,readonly=false"
-      ];
+      virtualisation.qemu.options =
+        [ "-usb" "-device usb-mtp,rootdir=/tmp,readonly=false" ];
     };
   };
-
 
   testScript = { nodes, ... }:
     let
@@ -95,15 +91,14 @@ import ./make-test-python.nix ({ pkgs, ... }: {
           tree phone
         '';
       };
-    in
-    # Using >&2 allows the results of the scripts to be printed to the terminal
-    # when building this test with Nix. Scripts would otherwise complete
-    # silently.
-    ''
-    start_all()
-    client.wait_for_unit("multi-user.target")
-    client.wait_for_unit("dbus.service")
-    client.succeed("${gvfs.gvfsTest} >&2")
-    client.succeed("${jmtpfs.jmtpfsTest} >&2")
-  '';
+      # Using >&2 allows the results of the scripts to be printed to the terminal
+      # when building this test with Nix. Scripts would otherwise complete
+      # silently.
+    in ''
+      start_all()
+      client.wait_for_unit("multi-user.target")
+      client.wait_for_unit("dbus.service")
+      client.succeed("${gvfs.gvfsTest} >&2")
+      client.succeed("${jmtpfs.jmtpfsTest} >&2")
+    '';
 })

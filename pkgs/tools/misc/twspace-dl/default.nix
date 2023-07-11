@@ -14,9 +14,7 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = with python3Packages; [ poetry-core ];
 
-  propagatedBuildInputs = with python3Packages; [
-    requests
-  ];
+  propagatedBuildInputs = with python3Packages; [ requests ];
 
   makeWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ ffmpeg ]}" ];
 

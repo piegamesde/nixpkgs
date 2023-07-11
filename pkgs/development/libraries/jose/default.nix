@@ -1,6 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, meson, pkg-config, ninja, asciidoc
-, zlib, jansson, openssl
-}:
+{ lib, stdenv, fetchFromGitHub, meson, pkg-config, ninja, asciidoc, zlib
+, jansson, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "jose";
@@ -20,7 +19,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    description = "C-language implementation of Javascript Object Signing and Encryption";
+    description =
+      "C-language implementation of Javascript Object Signing and Encryption";
     homepage = "https://github.com/latchset/jose";
     maintainers = with lib.maintainers; [ ];
     license = lib.licenses.asl20;

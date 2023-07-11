@@ -13,19 +13,16 @@ stdenv.mkDerivation rec {
 
   patches = [ ./install.patch ];
 
-  installFlags = [
-    "LIBEXECDIR=$(out)/modules"
-    "BINDIR=$(out)/bin"
-  ];
+  installFlags = [ "LIBEXECDIR=$(out)/modules" "BINDIR=$(out)/bin" ];
 
   passthru = { inherit apacheHttpd; };
 
-  buildInputs = [ apacheHttpd python3 ]
-    ++ lib.optional stdenv.isDarwin libintl;
+  buildInputs = [ apacheHttpd python3 ] ++ lib.optional stdenv.isDarwin libintl;
 
   meta = with lib; {
     homepage = "https://modpython.org/";
-    description = "An Apache module that embeds the Python interpreter within the server";
+    description =
+      "An Apache module that embeds the Python interpreter within the server";
     platforms = platforms.unix;
     maintainers = with maintainers; [ ];
   };

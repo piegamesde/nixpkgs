@@ -1,28 +1,7 @@
-{ lib
-, buildPythonPackage
-, python
-, runCommand
-, fetchFromGitHub
-, configargparse
-, acme
-, configobj
-, cryptography
-, distro
-, josepy
-, parsedatetime
-, pyRFC3339
-, pyopenssl
-, pytz
-, requests
-, six
-, zope_component
-, zope_interface
-, dialog
-, gnureadline
-, pytest-xdist
-, pytestCheckHook
-, python-dateutil
-}:
+{ lib, buildPythonPackage, python, runCommand, fetchFromGitHub, configargparse
+, acme, configobj, cryptography, distro, josepy, parsedatetime, pyRFC3339
+, pyopenssl, pytz, requests, six, zope_component, zope_interface, dialog
+, gnureadline, pytest-xdist, pytestCheckHook, python-dateutil }:
 
 buildPythonPackage rec {
   pname = "certbot";
@@ -56,11 +35,7 @@ buildPythonPackage rec {
 
   buildInputs = [ dialog gnureadline ];
 
-  nativeCheckInputs = [
-    python-dateutil
-    pytestCheckHook
-    pytest-xdist
-  ];
+  nativeCheckInputs = [ python-dateutil pytestCheckHook pytest-xdist ];
 
   pytestFlagsArray = [
     "-o cache_dir=$(mktemp -d)"
@@ -77,12 +52,9 @@ buildPythonPackage rec {
   # it gets invoked with a lambda, and invokes that lambda with the python package set matching certbot's:
   # certbot.withPlugins (cp: [ cp.certbot-dns-foo ])
   passthru.withPlugins = f:
-    let
-      pythonEnv = python.withPackages f;
+    let pythonEnv = python.withPackages f;
 
-    in
-    runCommand "certbot-with-plugins"
-      { } ''
+    in runCommand "certbot-with-plugins" { } ''
       mkdir -p $out/bin
       cd $out/bin
       ln -s ${pythonEnv}/bin/certbot
@@ -90,7 +62,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = src.meta.homepage;
-    description = "ACME client that can obtain certs and extensibly update server configurations";
+    description =
+      "ACME client that can obtain certs and extensibly update server configurations";
     platforms = platforms.unix;
     maintainers = with maintainers; [ domenkozar ];
     license = with licenses; [ asl20 ];

@@ -1,20 +1,6 @@
-{ lib
-, buildPythonPackage
-, deprecated
-, fetchFromGitHub
-, etcd3
-, hiro
-, packaging
-, pymemcache
-, pymongo
-, pytest-asyncio
-, pytest-lazy-fixture
-, pytestCheckHook
-, pythonOlder
-, redis
-, setuptools
-, typing-extensions
-}:
+{ lib, buildPythonPackage, deprecated, fetchFromGitHub, etcd3, hiro, packaging
+, pymemcache, pymongo, pytest-asyncio, pytest-lazy-fixture, pytestCheckHook
+, pythonOlder, redis, setuptools, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "limits";
@@ -36,12 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-zMU2MU7MFTWSig2j1PaBLPtKM5/7gNkFajKXw3A+fIQ=";
   };
 
-  propagatedBuildInputs = [
-    deprecated
-    packaging
-    setuptools
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ deprecated packaging setuptools typing-extensions ];
 
   nativeCheckInputs = [
     etcd3
@@ -66,9 +47,7 @@ buildPythonPackage rec {
     echo 'def get_versions(): return {"version": "${version}"}' > limits/_version.py
   '';
 
-  pythonImportsCheck = [
-    "limits"
-  ];
+  pythonImportsCheck = [ "limits" ];
 
   pytestFlagsArray = [
     # All other tests require a running Docker instance
@@ -78,7 +57,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Rate limiting using various strategies and storage backends such as redis & memcached";
+    description =
+      "Rate limiting using various strategies and storage backends such as redis & memcached";
     homepage = "https://github.com/alisaifee/limits";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

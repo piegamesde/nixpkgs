@@ -1,14 +1,5 @@
-{ lib
-, fetchFromGitHub
-, pythonOlder
-, buildPythonPackage
-, python
-, hatchling
-, django
-, jinja2
-, sqlparse
-, html5lib
-}:
+{ lib, fetchFromGitHub, pythonOlder, buildPythonPackage, python, hatchling
+, django, jinja2, sqlparse, html5lib }:
 
 buildPythonPackage rec {
   pname = "django-debug-toolbar";
@@ -24,24 +15,16 @@ buildPythonPackage rec {
     hash = "sha256-GlEw25wem8iwwm3rYLk6TFEAIzC1pYjpSHdAkHwtFcE=";
   };
 
-  nativeBuildInputs = [
-    hatchling
-  ];
+  nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    django
-    jinja2
-    sqlparse
-  ];
+  propagatedBuildInputs = [ django jinja2 sqlparse ];
 
   DB_BACKEND = "sqlite3";
   DB_NAME = ":memory:";
   TEST_ARGS = "tests";
   DJANGO_SETTINGS_MODULE = "tests.settings";
 
-  nativeCheckInputs = [
-    html5lib
-  ];
+  nativeCheckInputs = [ html5lib ];
 
   checkPhase = ''
     runHook preCheck
@@ -49,15 +32,15 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [
-    "debug_toolbar"
-  ];
+  pythonImportsCheck = [ "debug_toolbar" ];
 
   meta = with lib; {
-    description = "Configurable set of panels that display debug information about the current request/response";
+    description =
+      "Configurable set of panels that display debug information about the current request/response";
     homepage = "https://github.com/jazzband/django-debug-toolbar";
-    changelog = "https://django-debug-toolbar.readthedocs.io/en/latest/changes.html";
+    changelog =
+      "https://django-debug-toolbar.readthedocs.io/en/latest/changes.html";
     license = licenses.bsd3;
     maintainers = with maintainers; [ yuu ];
-};
+  };
 }

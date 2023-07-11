@@ -1,14 +1,16 @@
 { lib, stdenv, vscode-utils, callPackage }:
 let
   version = "1.8.1";
-  rescript-editor-analysis = callPackage ./rescript-editor-analysis.nix { inherit version; };
-  arch =
-    if stdenv.isLinux then "linux"
-    else if stdenv.isDarwin then "darwin"
-    else throw "Unsupported platform";
+  rescript-editor-analysis =
+    callPackage ./rescript-editor-analysis.nix { inherit version; };
+  arch = if stdenv.isLinux then
+    "linux"
+  else if stdenv.isDarwin then
+    "darwin"
+  else
+    throw "Unsupported platform";
   analysisDir = "server/analysis_binaries/${arch}";
-in
-vscode-utils.buildVscodeMarketplaceExtension rec {
+in vscode-utils.buildVscodeMarketplaceExtension rec {
   mktplcRef = {
     name = "rescript-vscode";
     publisher = "chenglou92";

@@ -6,15 +6,18 @@ let
 
   srcs = {
     x86_64-linux = fetchurl {
-      url = "https://github.com/Rabbit-Company/Passky-Desktop/releases/download/v${version}/Passky-${version}.AppImage";
+      url =
+        "https://github.com/Rabbit-Company/Passky-Desktop/releases/download/v${version}/Passky-${version}.AppImage";
       sha256 = "1xnhrmmm018mmyzjq05mhbf673f0n81fh1k3kbfarbgk2kbwpq6y";
     };
     x86_64-darwin = fetchurl {
-      url = "https://github.com/Rabbit-Company/Passky-Desktop/releases/download/v${version}/Passky-${version}.dmg";
+      url =
+        "https://github.com/Rabbit-Company/Passky-Desktop/releases/download/v${version}/Passky-${version}.dmg";
       sha256 = "0mm7hk4v7zvpjdqyw3nhk33x72j0gh3f59bx3q18azlm4dr61r2d";
     };
   };
-  src = srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  src = srcs.${stdenv.hostPlatform.system} or (throw
+    "Unsupported system: ${stdenv.hostPlatform.system}");
 
   appimageContents = appimageTools.extract { inherit pname version src; };
   meta = with lib; {
@@ -53,7 +56,4 @@ let
       cp -r *.app $out/Applications
     '';
   };
-in
-if stdenv.isDarwin
-  then darwin
-  else linux
+in if stdenv.isDarwin then darwin else linux

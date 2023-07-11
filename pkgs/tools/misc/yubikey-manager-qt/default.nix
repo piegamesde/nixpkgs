@@ -1,48 +1,28 @@
-{ lib
-, mkDerivation
-, fetchurl
-, imagemagick
-, pcsclite
-, pyotherside
-, python3
-, qmake
-, qtbase
-, qtgraphicaleffects
-, qtquickcontrols2
-, yubikey-manager4
-, yubikey-personalization
-}:
+{ lib, mkDerivation, fetchurl, imagemagick, pcsclite, pyotherside, python3
+, qmake, qtbase, qtgraphicaleffects, qtquickcontrols2, yubikey-manager4
+, yubikey-personalization }:
 
 mkDerivation rec {
   pname = "yubikey-manager-qt";
   version = "1.2.4";
 
   src = fetchurl {
-    url = "https://developers.yubico.com/${pname}/Releases/${pname}-${version}.tar.gz";
+    url =
+      "https://developers.yubico.com/${pname}/Releases/${pname}-${version}.tar.gz";
     sha256 = "sha256-PxHc7IeRsO+CPrNTofGypLLW8fSHDkcBqr75NwdlUyc=";
   };
 
-  nativeBuildInputs = [
-    python3.pkgs.wrapPython
-    qmake
-    imagemagick
-  ];
+  nativeBuildInputs = [ python3.pkgs.wrapPython qmake imagemagick ];
 
   postPatch = ''
     substituteInPlace ykman-gui/deployment.pri --replace '/usr/bin' "$out/bin"
   '';
 
-  buildInputs = [
-    pyotherside
-    python3
-    qtbase
-    qtgraphicaleffects
-    qtquickcontrols2
-  ];
+  buildInputs =
+    [ pyotherside python3 qtbase qtgraphicaleffects qtquickcontrols2 ];
 
-  pythonPath = [
-    (yubikey-manager4.override { python3Packages = python3.pkgs; })
-  ];
+  pythonPath =
+    [ (yubikey-manager4.override { python3Packages = python3.pkgs; }) ];
 
   postInstall = ''
     # Desktop files
@@ -67,7 +47,10 @@ mkDerivation rec {
   '';
 
   qtWrapperArgs = [
-    "--prefix" "LD_LIBRARY_PATH" ":" (lib.makeLibraryPath [ pcsclite yubikey-personalization ])
+    "--prefix"
+    "LD_LIBRARY_PATH"
+    ":"
+    (lib.makeLibraryPath [ pcsclite yubikey-personalization ])
   ];
 
   preFixup = ''
@@ -76,7 +59,8 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Cross-platform application for configuring any YubiKey over all USB interfaces";
+    description =
+      "Cross-platform application for configuring any YubiKey over all USB interfaces";
     homepage = "https://developers.yubico.com/yubikey-manager-qt/";
     license = licenses.bsd2;
     maintainers = [ maintainers.cbley ];

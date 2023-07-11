@@ -2,14 +2,10 @@
 
 with lib;
 
-let
-  cfg = config.xdg.portal.lxqt;
+let cfg = config.xdg.portal.lxqt;
 
-in
-{
-  meta = {
-    maintainers = teams.lxqt.members;
-  };
+in {
+  meta = { maintainers = teams.lxqt.members; };
 
   options.xdg.portal.lxqt = {
     enable = mkEnableOption (lib.mdDoc ''
@@ -22,12 +18,13 @@ in
 
     styles = mkOption {
       type = types.listOf types.package;
-      default = [];
-      example = literalExpression ''[
-        pkgs.libsForQt5.qtstyleplugin-kvantum
-        pkgs.breeze-qt5
-        pkgs.qtcurve
-      ];
+      default = [ ];
+      example = literalExpression ''
+        [
+                pkgs.libsForQt5.qtstyleplugin-kvantum
+                pkgs.breeze-qt5
+                pkgs.qtcurve
+              ];
       '';
       description = lib.mdDoc ''
         Extra Qt styles that will be available to the
@@ -40,7 +37,9 @@ in
     xdg.portal = {
       enable = true;
       extraPortals = [
-        (pkgs.lxqt.xdg-desktop-portal-lxqt.override { extraQtStyles = cfg.styles; })
+        (pkgs.lxqt.xdg-desktop-portal-lxqt.override {
+          extraQtStyles = cfg.styles;
+        })
       ];
     };
 

@@ -1,8 +1,6 @@
-import ./make-test-python.nix ({ pkgs, lib, ...} : {
+import ./make-test-python.nix ({ pkgs, lib, ... }: {
   name = "envoy";
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ cameronnemo ];
-  };
+  meta = with pkgs.lib.maintainers; { maintainers = [ cameronnemo ]; };
 
   nodes.machine = { pkgs, ... }: {
     services.envoy.enable = true;
@@ -18,15 +16,16 @@ import ./make-test-python.nix ({ pkgs, lib, ...} : {
         };
       };
       static_resources = {
-        listeners = [];
-        clusters = [];
+        listeners = [ ];
+        clusters = [ ];
       };
     };
     specialisation = {
       withoutConfigValidation.configuration = { ... }: {
         services.envoy = {
           requireValidConfig = false;
-          settings.admin.access_log_path = lib.mkForce "/var/log/envoy/access.log";
+          settings.admin.access_log_path =
+            lib.mkForce "/var/log/envoy/access.log";
         };
       };
     };
@@ -35,8 +34,7 @@ import ./make-test-python.nix ({ pkgs, lib, ...} : {
   testScript = { nodes, ... }:
     let
       specialisations = "${nodes.machine.system.build.toplevel}/specialisation";
-    in
-    ''
+    in ''
       machine.start()
 
       with subtest("envoy.service starts and responds with ready"):

@@ -1,9 +1,6 @@
 { lib, stdenv, fetchFromGitHub, cmake
-  # passthru.tests
-, tmux
-, fcft
-, arrow-cpp
-}:
+# passthru.tests
+, tmux, fcft, arrow-cpp }:
 
 stdenv.mkDerivation rec {
   pname = "utf8proc";
@@ -18,16 +15,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=ON"
-    "-DUTF8PROC_ENABLE_TESTING=ON"
-  ];
+  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" "-DUTF8PROC_ENABLE_TESTING=ON" ];
 
   doCheck = true;
 
-  passthru.tests = {
-    inherit fcft tmux arrow-cpp;
-  };
+  passthru.tests = { inherit fcft tmux arrow-cpp; };
 
   meta = with lib; {
     description = "A clean C library for processing UTF-8 Unicode data";

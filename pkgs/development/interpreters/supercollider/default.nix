@@ -1,17 +1,15 @@
-{ lib, stdenv, mkDerivation, fetchurl, cmake
-, pkg-config, alsa-lib, libjack2, libsndfile, fftw
-, curl, gcc, libXt, qtbase, qttools, qtwebengine
-, readline, qtwebsockets, useSCEL ? false, emacs
-, gitUpdater, supercollider-with-plugins
-, supercolliderPlugins, writeText, runCommand
-}:
+{ lib, stdenv, mkDerivation, fetchurl, cmake, pkg-config, alsa-lib, libjack2
+, libsndfile, fftw, curl, gcc, libXt, qtbase, qttools, qtwebengine, readline
+, qtwebsockets, useSCEL ? false, emacs, gitUpdater, supercollider-with-plugins
+, supercolliderPlugins, writeText, runCommand }:
 
 mkDerivation rec {
   pname = "supercollider";
   version = "3.13.0";
 
   src = fetchurl {
-    url = "https://github.com/supercollider/supercollider/releases/download/Version-${version}/SuperCollider-${version}-Source.tar.bz2";
+    url =
+      "https://github.com/supercollider/supercollider/releases/download/Version-${version}/SuperCollider-${version}-Source.tar.bz2";
     sha256 = "sha256-D8Xbpbrq43+Qaa0oiFqkBcaiUwnjiGy+ERvTt8BVMc4=";
   };
 
@@ -24,16 +22,22 @@ mkDerivation rec {
 
   nativeBuildInputs = [ cmake pkg-config qttools ];
 
-  buildInputs = [ gcc libjack2 libsndfile fftw curl libXt qtbase qtwebengine qtwebsockets readline ]
-    ++ lib.optional (!stdenv.isDarwin) alsa-lib
-    ++ lib.optional useSCEL emacs;
+  buildInputs = [
+    gcc
+    libjack2
+    libsndfile
+    fftw
+    curl
+    libXt
+    qtbase
+    qtwebengine
+    qtwebsockets
+    readline
+  ] ++ lib.optional (!stdenv.isDarwin) alsa-lib ++ lib.optional useSCEL emacs;
 
   hardeningDisable = [ "stackprotector" ];
 
-  cmakeFlags = [
-    "-DSC_WII=OFF"
-    "-DSC_EL=${if useSCEL then "ON" else "OFF"}"
-  ];
+  cmakeFlags = [ "-DSC_WII=OFF" "-DSC_EL=${if useSCEL then "ON" else "OFF"}" ];
 
   passthru = {
     updateScript = gitUpdater {
@@ -66,7 +70,8 @@ mkDerivation rec {
   meta = with lib; {
     description = "Programming language for real time audio synthesis";
     homepage = "https://supercollider.github.io";
-    changelog = "https://github.com/supercollider/supercollider/blob/Version-${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/supercollider/supercollider/blob/Version-${version}/CHANGELOG.md";
     maintainers = with maintainers; [ lilyinstarlight ];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

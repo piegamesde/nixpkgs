@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, openblas
-, blas
-, lapack
-, openfst
-, icu
-, cmake
-, pkg-config
-, fetchFromGitHub
-, git
-, python3
-, Accelerate
-}:
+{ lib, stdenv, openblas, blas, lapack, openfst, icu, cmake, pkg-config
+, fetchFromGitHub, git, python3, Accelerate }:
 
 assert blas.implementation == "openblas" && lapack.implementation == "openblas";
 let
@@ -22,8 +10,7 @@ let
     rev = "338225416178ac36b8002d70387f5556e44c8d05";
     sha256 = "sha256-MGEUuw7ex+WcujVdxpO2Bf5sB6Z0edcAeLGqW/Lo1Hs=";
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "kaldi";
   version = "unstable-2022-09-26";
 
@@ -72,19 +59,10 @@ stdenv.mkDerivation {
 
   outputs = [ "out" "dev" ];
 
-  buildInputs = [
-    openblas
-    openfst
-    icu
-  ] ++ lib.optionals stdenv.isDarwin [
-    Accelerate
-  ];
+  buildInputs = [ openblas openfst icu ]
+    ++ lib.optionals stdenv.isDarwin [ Accelerate ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    python3
-  ];
+  nativeBuildInputs = [ cmake pkg-config python3 ];
 
   postInstall = ''
     mkdir -p $out/share/kaldi

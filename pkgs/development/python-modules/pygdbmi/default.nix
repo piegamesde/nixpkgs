@@ -1,10 +1,4 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, fetchFromGitHub
-, gdb
-, pytest
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, gdb, pytest }:
 
 buildPythonPackage rec {
   pname = "pygdbmi";

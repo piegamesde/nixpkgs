@@ -1,18 +1,6 @@
-{ lib
-, fetchFromGitHub
-, docutils
-, gettext
-, glibcLocales
-, glib-networking
-, gobject-introspection
-, gtk3
-, python3
-, python3Packages
-, steam-run
-, unzip
-, webkitgtk
-, wrapGAppsHook
-}:
+{ lib, fetchFromGitHub, docutils, gettext, glibcLocales, glib-networking
+, gobject-introspection, gtk3, python3, python3Packages, steam-run, unzip
+, webkitgtk, wrapGAppsHook }:
 
 python3Packages.buildPythonApplication rec {
   pname = "minigalaxy";
@@ -31,22 +19,11 @@ python3Packages.buildPythonApplication rec {
     runHook postCheck
   '';
 
-  nativeBuildInputs = [
-    gettext
-    wrapGAppsHook
-    gobject-introspection
-  ];
+  nativeBuildInputs = [ gettext wrapGAppsHook gobject-introspection ];
 
-  buildInputs = [
-    glib-networking
-    gtk3
-  ];
+  buildInputs = [ glib-networking gtk3 ];
 
-  nativeCheckInputs = with python3Packages; [
-    glibcLocales
-    pytest
-    tox
-  ];
+  nativeCheckInputs = with python3Packages; [ glibcLocales pytest tox ];
 
   pythonPath = [
     docutils
@@ -67,7 +44,8 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://sharkwouter.github.io/minigalaxy/";
-    changelog = "https://github.com/sharkwouter/minigalaxy/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/sharkwouter/minigalaxy/blob/${version}/CHANGELOG.md";
     downloadPage = "https://github.com/sharkwouter/minigalaxy/releases";
     description = "A simple GOG client for Linux";
     license = licenses.gpl3;

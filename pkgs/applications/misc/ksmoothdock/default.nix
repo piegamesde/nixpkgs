@@ -1,11 +1,5 @@
-{ lib
-, mkDerivation
-, fetchFromGitHub
-, cmake
-, extra-cmake-modules
-, kactivities
-, qtbase
-}:
+{ lib, mkDerivation, fetchFromGitHub, cmake, extra-cmake-modules, kactivities
+, qtbase }:
 
 mkDerivation rec {
   pname = "KSmoothDock";

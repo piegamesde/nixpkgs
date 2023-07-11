@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, libpng
-, rlottie
-, giflib
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, libpng, rlottie, giflib }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lottieconverter";
@@ -21,10 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ cmake ];
   buildInputs = [ libpng rlottie giflib ];
 
-  cmakeFlags = [
-    "-DSYSTEM_RL=1"
-    "-DSYSTEM_GL=1"
-  ];
+  cmakeFlags = [ "-DSYSTEM_RL=1" "-DSYSTEM_GL=1" ];
 
   installPhase = ''
     runHook preInstall

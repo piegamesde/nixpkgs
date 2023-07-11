@@ -1,13 +1,15 @@
-{ stdenv, lib, fetchzip, glib, systemd, nss, nspr, gtk3-x11, pango,
-atk, cairo, gdk-pixbuf, xorg, xorg_sys_opengl, util-linux, alsa-lib, dbus, at-spi2-atk,
-cups, vivaldi-ffmpeg-codecs, libpulseaudio, at-spi2-core, libxkbcommon, mesa }:
+{ stdenv, lib, fetchzip, glib, systemd, nss, nspr, gtk3-x11, pango, atk, cairo
+, gdk-pixbuf, xorg, xorg_sys_opengl, util-linux, alsa-lib, dbus, at-spi2-atk
+, cups, vivaldi-ffmpeg-codecs, libpulseaudio, at-spi2-core, libxkbcommon, mesa
+}:
 
 stdenv.mkDerivation rec {
   pname = "exodus";
   version = "23.4.10";
 
   src = fetchzip {
-    url = "https://downloads.exodus.com/releases/${pname}-linux-x64-${version}.zip";
+    url =
+      "https://downloads.exodus.com/releases/${pname}-linux-x64-${version}.zip";
     sha256 = "sha256-NWUIJCsoCsG8FKZnApicHsBTBwTL2fNb0su1KWd1E1o=";
   };
 
@@ -69,7 +71,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.exodus.io/";
-    description = "Top-rated cryptocurrency wallet with Trezor integration and built-in Exchange";
+    description =
+      "Top-rated cryptocurrency wallet with Trezor integration and built-in Exchange";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = platforms.linux;

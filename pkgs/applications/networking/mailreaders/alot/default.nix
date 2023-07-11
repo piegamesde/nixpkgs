@@ -1,23 +1,12 @@
-{ lib
-, python3
-, fetchFromGitHub
-, file
-, gnupg
-, gawk
-, notmuch
-, procps
-, withManpage ? false
-}:
+{ lib, python3, fetchFromGitHub, file, gnupg, gawk, notmuch, procps
+, withManpage ? false }:
 
-with python3.pkgs; buildPythonApplication rec {
+with python3.pkgs;
+buildPythonApplication rec {
   pname = "alot";
   version = "0.10";
 
-  outputs = [
-    "out"
-  ] ++ lib.optionals withManpage [
-    "man"
-  ];
+  outputs = [ "out" ] ++ lib.optionals withManpage [ "man" ];
 
   disabled = !isPy3k;
 
@@ -47,18 +36,9 @@ with python3.pkgs; buildPythonApplication rec {
     urwidtrees
   ];
 
-  nativeCheckInputs = [
-    future
-    gawk
-    gnupg
-    mock
-    procps
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ future gawk gnupg mock procps pytestCheckHook ];
 
-  postBuild = lib.optionalString withManpage [
-    "make -C docs man"
-  ];
+  postBuild = lib.optionalString withManpage [ "make -C docs man" ];
 
   disabledTests = [
     # Some twisted tests need internet access
@@ -69,14 +49,11 @@ with python3.pkgs; buildPythonApplication rec {
   ];
 
   postInstall =
-    let
-      completionPython = python.withPackages (ps: [ ps.configobj ]);
-    in
-    lib.optionalString withManpage ''
+    let completionPython = python.withPackages (ps: [ ps.configobj ]);
+    in lib.optionalString withManpage ''
       mkdir -p $out/man
       cp -r docs/build/man $out/man
-    ''
-    + ''
+    '' + ''
       mkdir -p $out/share/{applications,alot}
       cp -r extra/themes $out/share/alot
 

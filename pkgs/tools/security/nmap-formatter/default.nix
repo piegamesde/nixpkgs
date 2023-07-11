@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "nmap-formatter";
@@ -19,7 +16,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Tool that allows you to convert nmap output";
     homepage = "https://github.com/vdjagilev/nmap-formatter";
-    changelog = "https://github.com/vdjagilev/nmap-formatter/releases/tag/v${version}";
+    changelog =
+      "https://github.com/vdjagilev/nmap-formatter/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

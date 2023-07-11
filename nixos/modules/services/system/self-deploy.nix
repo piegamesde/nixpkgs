@@ -12,16 +12,17 @@ let
   renderNixArgs = args:
     let
       toArg = key: value:
-        if builtins.isString value
-        then " --argstr ${lib.escapeShellArg key} ${lib.escapeShellArg value}"
-        else " --arg ${lib.escapeShellArg key} ${lib.escapeShellArg (toString value)}";
-    in
-    lib.concatStrings (lib.mapAttrsToList toArg args);
+        if builtins.isString value then
+          " --argstr ${lib.escapeShellArg key} ${lib.escapeShellArg value}"
+        else
+          " --arg ${lib.escapeShellArg key} ${
+             lib.escapeShellArg (toString value)
+           }";
+    in lib.concatStrings (lib.mapAttrsToList toArg args);
 
   isPathType = x: lib.types.path.check x;
 
-in
-{
+in {
   options.services.self-deploy = {
     enable = lib.mkEnableOption (lib.mdDoc "self-deploy");
 
@@ -130,19 +131,17 @@ in
 
       wantedBy = [ "multi-user.target" ];
 
-      requires = lib.mkIf (!(isPathType cfg.repository)) [ "network-online.target" ];
+      requires =
+        lib.mkIf (!(isPathType cfg.repository)) [ "network-online.target" ];
 
       environment.GIT_SSH_COMMAND = lib.mkIf (cfg.sshKeyFile != null)
         "${pkgs.openssh}/bin/ssh -i ${lib.escapeShellArg cfg.sshKeyFile}";
 
       restartIfChanged = false;
 
-      path = with pkgs; [
-        git
-        gnutar
-        gzip
-        nix
-      ] ++ lib.optionals (cfg.switchCommand == "boot") [ systemd ];
+      path = with pkgs;
+        [ git gnutar gzip nix ]
+        ++ lib.optionals (cfg.switchCommand == "boot") [ systemd ];
 
       script = ''
         if [ ! -e ${repositoryDirectory} ]; then
@@ -150,17 +149,21 @@ in
           git init ${repositoryDirectory}
         fi
 
-        ${gitWithRepo} fetch ${lib.escapeShellArg cfg.repository} ${lib.escapeShellArg cfg.branch}
+        ${gitWithRepo} fetch ${lib.escapeShellArg cfg.repository} ${
+          lib.escapeShellArg cfg.branch
+        }
 
         ${gitWithRepo} checkout FETCH_HEAD
 
-        nix-build${renderNixArgs cfg.nixArgs} ${lib.cli.toGNUCommandLineShell { } {
-          attr = cfg.nixAttribute;
-          out-link = outPath;
-        }} ${lib.escapeShellArg "${repositoryDirectory}${cfg.nixFile}"}
+        nix-build${renderNixArgs cfg.nixArgs} ${
+          lib.cli.toGNUCommandLineShell { } {
+            attr = cfg.nixAttribute;
+            out-link = outPath;
+          }
+        } ${lib.escapeShellArg "${repositoryDirectory}${cfg.nixFile}"}
 
         ${lib.optionalString (cfg.switchCommand != "test")
-          "nix-env --profile /nix/var/nix/profiles/system --set ${outPath}"}
+        "nix-env --profile /nix/var/nix/profiles/system --set ${outPath}"}
 
         ${outPath}/bin/switch-to-configuration ${cfg.switchCommand}
 

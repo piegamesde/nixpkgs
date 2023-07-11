@@ -1,5 +1,6 @@
-{ stdenv, lib, substituteAll, makeWrapper, fetchFromGitHub, fetchpatch, ocaml, pkg-config, mupdf, libX11, jbig2dec, openjpeg, libjpeg , lcms2, harfbuzz,
-libGLU, libGL, gumbo, freetype, zlib, xclip, inotify-tools, procps }:
+{ stdenv, lib, substituteAll, makeWrapper, fetchFromGitHub, fetchpatch, ocaml
+, pkg-config, mupdf, libX11, jbig2dec, openjpeg, libjpeg, lcms2, harfbuzz
+, libGLU, libGL, gumbo, freetype, zlib, xclip, inotify-tools, procps }:
 
 assert lib.versionAtLeast (lib.getVersion ocaml) "4.07";
 
@@ -17,7 +18,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "system-makedeps.patch";
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/system-makedeps.patch?h=llpp&id=0d2913056aaf3dbf7431e57b7b08b55568ba076c";
+      url =
+        "https://aur.archlinux.org/cgit/aur.git/plain/system-makedeps.patch?h=llpp&id=0d2913056aaf3dbf7431e57b7b08b55568ba076c";
       hash = "sha256-t9PLXsM8+exCeYqJBe0LSDK0D2rpktmozS8qNcEAcHo=";
     })
   ];
@@ -29,7 +31,20 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   nativeBuildInputs = [ makeWrapper ocaml pkg-config ];
-  buildInputs = [ mupdf libX11 libGLU libGL freetype zlib gumbo jbig2dec openjpeg libjpeg lcms2 harfbuzz ];
+  buildInputs = [
+    mupdf
+    libX11
+    libGLU
+    libGL
+    freetype
+    zlib
+    gumbo
+    jbig2dec
+    openjpeg
+    libjpeg
+    lcms2
+    harfbuzz
+  ];
 
   dontStrip = true;
 

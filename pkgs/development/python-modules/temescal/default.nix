@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pythonOlder
-, pycryptodome
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, pycryptodome }:
 
 buildPythonPackage rec {
   pname = "temescal";
@@ -17,16 +12,12 @@ buildPythonPackage rec {
     hash = "sha256-MfTftheNj8zI3iXIIJU+jy9xikvX9eO58LA0NCMJBnY=";
   };
 
-  propagatedBuildInputs = [
-    pycryptodome
-  ];
+  propagatedBuildInputs = [ pycryptodome ];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "temescal"
-  ];
+  pythonImportsCheck = [ "temescal" ];
 
   meta = with lib; {
     description = "Module for interacting with LG speaker systems";

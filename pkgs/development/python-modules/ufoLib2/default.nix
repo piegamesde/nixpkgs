@@ -1,17 +1,8 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, attrs
-, fonttools
-, pytestCheckHook
+{ lib, buildPythonPackage, fetchPypi, attrs, fonttools, pytestCheckHook
 , setuptools-scm
 
 # optionals
-, cattrs
-, lxml
-, orjson
-, msgpack
-}:
+, cattrs, lxml, orjson, msgpack }:
 
 buildPythonPackage rec {
   pname = "ufoLib2";
@@ -23,14 +14,10 @@ buildPythonPackage rec {
     hash = "sha256-OdUJfNe3nOQyCf3nT9/5y/C8vZXnSAWiLHvZ8GXMViw=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    attrs
-    fonttools
-  ] ++ fonttools.optional-dependencies.ufo;
+  propagatedBuildInputs = [ attrs fonttools ]
+    ++ fonttools.optional-dependencies.ufo;
 
   passthru.optional-dependencies = {
     lxml = [ lxml ];
@@ -39,9 +26,8 @@ buildPythonPackage rec {
     msgpack = [ cattrs msgpack ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [ pytestCheckHook ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   pythonImportsCheck = [ "ufoLib2" ];
 

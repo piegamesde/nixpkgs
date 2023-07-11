@@ -1,20 +1,6 @@
-{ lib
-, bleak
-, buildPythonPackage
-, ecpy
-, fetchPypi
-, future
-, hidapi
-, nfcpy
-, pillow
-, protobuf
-, pycrypto
-, pycryptodomex
-, pyelftools
-, python-u2flib-host
-, pythonOlder
-, websocket-client
-}:
+{ lib, bleak, buildPythonPackage, ecpy, fetchPypi, future, hidapi, nfcpy, pillow
+, protobuf, pycrypto, pycryptodomex, pyelftools, python-u2flib-host, pythonOlder
+, websocket-client }:
 
 buildPythonPackage rec {
   pname = "ledgerblue";
@@ -46,9 +32,7 @@ buildPythonPackage rec {
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "ledgerblue"
-  ];
+  pythonImportsCheck = [ "ledgerblue" ];
 
   meta = with lib; {
     description = "Python library to communicate with Ledger Blue/Nano S";

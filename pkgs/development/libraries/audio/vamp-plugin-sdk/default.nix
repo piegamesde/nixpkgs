@@ -18,13 +18,12 @@ stdenv.mkDerivation rec {
   buildInputs = [ libsndfile ];
 
   enableParallelBuilding = true;
-  makeFlags = [
-    "AR:=$(AR)"
-    "RANLIB:=$(RANLIB)"
-  ] ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) "-o test";
+  makeFlags = [ "AR:=$(AR)" "RANLIB:=$(RANLIB)" ]
+    ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) "-o test";
 
   meta = with lib; {
-    description = "Audio processing plugin system for plugins that extract descriptive information from audio data";
+    description =
+      "Audio processing plugin system for plugins that extract descriptive information from audio data";
     homepage = "https://vamp-plugins.org/";
     license = licenses.bsd3;
     maintainers = [ maintainers.goibhniu maintainers.marcweber ];

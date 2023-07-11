@@ -1,35 +1,19 @@
-{ stdenv
-, lib
-, fetchurl
-, dpkg
-, autoPatchelfHook
-, makeWrapper
-, copyDesktopItems
-, makeDesktopItem
-, dbus
-, nftables
-}:
+{ stdenv, lib, fetchurl, dpkg, autoPatchelfHook, makeWrapper, copyDesktopItems
+, makeDesktopItem, dbus, nftables }:
 
 stdenv.mkDerivation rec {
   pname = "cloudflare-warp";
   version = "2023.3.398";
 
   src = fetchurl {
-    url = "https://pkg.cloudflareclient.com/uploads/cloudflare_warp_2023_3_398_1_amd64_002e48d521.deb";
+    url =
+      "https://pkg.cloudflareclient.com/uploads/cloudflare_warp_2023_3_398_1_amd64_002e48d521.deb";
     hash = "sha256-1var+/G3WwICRLXsMHke277tmPYRPFW8Yf9b1Ex9OmU=";
   };
 
-  nativeBuildInputs = [
-    dpkg
-    autoPatchelfHook
-    makeWrapper
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ dpkg autoPatchelfHook makeWrapper copyDesktopItems ];
 
-  buildInputs = [
-    dbus
-    stdenv.cc.cc.lib
-  ];
+  buildInputs = [ dbus stdenv.cc.cc.lib ];
 
   desktopItems = [
     (makeDesktopItem {
@@ -64,11 +48,14 @@ stdenv.mkDerivation rec {
   '';
 
   postInstall = ''
-    wrapProgram $out/bin/warp-svc --prefix PATH : ${lib.makeBinPath [ nftables ]}
+    wrapProgram $out/bin/warp-svc --prefix PATH : ${
+      lib.makeBinPath [ nftables ]
+    }
   '';
 
   meta = with lib; {
-    description = "Replaces the connection between your device and the Internet with a modern, optimized, protocol";
+    description =
+      "Replaces the connection between your device and the Internet with a modern, optimized, protocol";
     homepage = "https://pkg.cloudflareclient.com/packages/cloudflare-warp";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

@@ -1,14 +1,5 @@
-{ bash
-, coreutils
-, fetchFromGitHub
-, ghostscript
-, glibc
-, gnome
-, gnused
-, lib
-, resholve
-, xorg
-}:
+{ bash, coreutils, fetchFromGitHub, ghostscript, glibc, gnome, gnused, lib
+, resholve, xorg }:
 
 resholve.mkDerivation rec {
   pname = "pdfmm";
@@ -28,18 +19,9 @@ resholve.mkDerivation rec {
   '';
 
   solutions.default = {
-    scripts = [
-      "bin/pdfmm"
-    ];
+    scripts = [ "bin/pdfmm" ];
     interpreter = "${bash}/bin/bash";
-    inputs = [
-      coreutils
-      ghostscript
-      glibc
-      gnome.zenity
-      gnused
-      xorg.xmessage
-    ];
+    inputs = [ coreutils ghostscript glibc gnome.zenity gnused xorg.xmessage ];
     execer = [
       "cannot:${glibc.bin}/bin/locale"
       "cannot:${gnome.zenity}/bin/zenity"

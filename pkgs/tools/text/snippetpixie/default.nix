@@ -1,26 +1,7 @@
-{ lib, stdenv
-, fetchFromGitHub
-, nix-update-script
-, meson
-, ninja
-, vala
-, pkg-config
-, wrapGAppsHook
-, appstream
-, desktop-file-utils
-, python3
-, libgee
-, glib
-, gtk3
-, sqlite
-, at-spi2-atk
-, at-spi2-core
-, dbus
-, ibus
-, json-glib
-, pantheon
-, xorg
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, vala
+, pkg-config, wrapGAppsHook, appstream, desktop-file-utils, python3, libgee
+, glib, gtk3, sqlite, at-spi2-atk, at-spi2-core, dbus, ibus, json-glib, pantheon
+, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "snippetpixie";
@@ -65,9 +46,7 @@ stdenv.mkDerivation rec {
     patchShebangs meson/post_install.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Your little expandable text snippet helper";

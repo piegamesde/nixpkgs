@@ -1,18 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, docbook_xml_dtd_43
-, docbook_xsl
-, gettext
-, gmp
-, gtk-doc
-, libxslt
-, mpfr
-, pcre2
-, pkg-config
-, python3
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, docbook_xml_dtd_43, docbook_xsl
+, gettext, gmp, gtk-doc, libxslt, mpfr, pcre2, pkg-config, python3 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libbytesize";
@@ -38,15 +25,12 @@ stdenv.mkDerivation (finalAttrs: {
     python3
   ];
 
-  buildInputs = [
-    gmp
-    mpfr
-    pcre2
-  ];
+  buildInputs = [ gmp mpfr pcre2 ];
 
   meta = {
     homepage = "https://github.com/storaged-project/libbytesize";
-    description = "A tiny library providing a C 'class' for working with arbitrary big sizes in bytes";
+    description =
+      "A tiny library providing a C 'class' for working with arbitrary big sizes in bytes";
     license = lib.licenses.lgpl2Plus;
     maintainers = with lib.maintainers; [ AndersonTorres ];
     platforms = lib.platforms.linux;

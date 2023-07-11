@@ -18,9 +18,7 @@ import ./make-test-python.nix ({ lib, pkgs, ... }: {
     };
 
     specialisation.boot-btrfs-raid.configuration = {
-      fileSystems = lib.mkVMOverride {
-        "/".fsType = lib.mkForce "btrfs";
-      };
+      fileSystems = lib.mkVMOverride { "/".fsType = lib.mkForce "btrfs"; };
       virtualisation.rootDevice = "/dev/vdb";
     };
   };

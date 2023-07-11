@@ -1,8 +1,4 @@
-{ lib
-, fetchFromGitHub
-, buildPythonApplication
-, installShellFiles
-}:
+{ lib, fetchFromGitHub, buildPythonApplication, installShellFiles }:
 
 buildPythonApplication rec {
   pname = "grc";

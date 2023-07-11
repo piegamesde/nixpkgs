@@ -1,25 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, glib
-, udev
-, libgudev
-, polkit
-, ppp
-, gettext
-, pkg-config
-, libxslt
-, python3
-, libmbim
-, libqmi
-, systemd
-, bash-completion
-, meson
-, ninja
-, vala
-, gobject-introspection
-, dbus
-}:
+{ lib, stdenv, fetchFromGitLab, glib, udev, libgudev, polkit, ppp, gettext
+, pkg-config, libxslt, python3, libmbim, libqmi, systemd, bash-completion, meson
+, ninja, vala, gobject-introspection, dbus }:
 
 stdenv.mkDerivation rec {
   pname = "modemmanager";
@@ -39,15 +20,8 @@ stdenv.mkDerivation rec {
     ./no-dummy-dirs-in-sysconfdir.patch
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    vala
-    gobject-introspection
-    gettext
-    pkg-config
-    libxslt
-  ];
+  nativeBuildInputs =
+    [ meson ninja vala gobject-introspection gettext pkg-config libxslt ];
 
   buildInputs = [
     glib
@@ -62,11 +36,8 @@ stdenv.mkDerivation rec {
     dbus
   ];
 
-  nativeInstallCheckInputs = [
-    python3
-    python3.pkgs.dbus-python
-    python3.pkgs.pygobject3
-  ];
+  nativeInstallCheckInputs =
+    [ python3 python3.pkgs.dbus-python python3.pkgs.pygobject3 ];
 
   mesonFlags = [
     "-Dudevdir=${placeholder "out"}/lib/udev"

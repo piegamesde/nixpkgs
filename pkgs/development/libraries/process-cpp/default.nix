@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, cmake
-, boost
-, properties-cpp
-, pkg-config
-}:
+{ lib, stdenv, fetchFromGitLab, cmake, boost, properties-cpp, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "process-cpp";
@@ -30,19 +23,15 @@ stdenv.mkDerivation rec {
     sed -i '/tests/d' CMakeLists.txt
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    boost
-    properties-cpp
-  ];
+  buildInputs = [ boost properties-cpp ];
 
   meta = with lib; {
-    description = "A simple convenience library for handling processes in C++11";
-    homepage = "https://gitlab.com/ubports/development/core/lib-cpp/process-cpp";
+    description =
+      "A simple convenience library for handling processes in C++11";
+    homepage =
+      "https://gitlab.com/ubports/development/core/lib-cpp/process-cpp";
     license = with licenses; [ gpl3Only lgpl3Only ];
     maintainers = with maintainers; [ onny ];
     platforms = platforms.linux;

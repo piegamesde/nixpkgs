@@ -12,14 +12,15 @@ in {
       dataDir = mkOption {
         type = types.str;
         default = "/var/lib/nzbhydra2";
-        description = lib.mdDoc "The directory where NZBHydra2 stores its data files.";
+        description =
+          lib.mdDoc "The directory where NZBHydra2 stores its data files.";
       };
 
       openFirewall = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc "Open ports in the firewall for the NZBHydra2 web interface.";
+        description = lib.mdDoc
+          "Open ports in the firewall for the NZBHydra2 web interface.";
       };
 
       package = mkOption {
@@ -58,7 +59,7 @@ in {
         ProtectControlGroups = true;
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
-        RestrictAddressFamilies ="AF_UNIX AF_INET AF_INET6 AF_NETLINK";
+        RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -73,6 +74,6 @@ in {
       isSystemUser = true;
     };
 
-    users.groups.nzbhydra2 = {};
+    users.groups.nzbhydra2 = { };
   };
 }

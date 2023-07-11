@@ -1,33 +1,11 @@
-{ stdenv
-, lib
-, pythonOlder
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-  # C Inputs
-, blas
-, catch2
-, cmake
-, cython
-, fmt
-, muparserx
-, ninja
-, nlohmann_json
-, spdlog
-  # Python Inputs
-, cvxpy
-, numpy
-, pybind11
-, scikit-build
-  # Check Inputs
-, pytestCheckHook
-, ddt
-, fixtures
-, pytest-timeout
-, qiskit-terra
-, setuptools
-, testtools
-}:
+{ stdenv, lib, pythonOlder, buildPythonPackage, fetchFromGitHub, fetchpatch
+# C Inputs
+, blas, catch2, cmake, cython, fmt, muparserx, ninja, nlohmann_json, spdlog
+# Python Inputs
+, cvxpy, numpy, pybind11, scikit-build
+# Check Inputs
+, pytestCheckHook, ddt, fixtures, pytest-timeout, qiskit-terra, setuptools
+, testtools }:
 
 buildPythonPackage rec {
   pname = "qiskit-aer";
@@ -52,24 +30,13 @@ buildPythonPackage rec {
       --replace "min_version='0.11.0'" ""
   '';
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    scikit-build
-  ];
+  nativeBuildInputs = [ cmake ninja scikit-build ];
 
-  buildInputs = [
-    blas
-    catch2
-    nlohmann_json
-    fmt
-    muparserx
-    spdlog
-  ];
+  buildInputs = [ blas catch2 nlohmann_json fmt muparserx spdlog ];
 
   propagatedBuildInputs = [
     cvxpy
-    cython  # generates some cython files at runtime that need to be cython-ized
+    cython # generates some cython files at runtime that need to be cython-ized
     numpy
     pybind11
   ];
@@ -120,19 +87,10 @@ buildPythonPackage rec {
     "test_extended_stabilizer_sparse_output_probs"
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    ddt
-    fixtures
-    pytest-timeout
-    qiskit-terra
-    testtools
-  ];
+  nativeCheckInputs =
+    [ pytestCheckHook ddt fixtures pytest-timeout qiskit-terra testtools ];
 
-  pytestFlagsArray = [
-    "--timeout=30"
-    "--durations=10"
-  ];
+  pytestFlagsArray = [ "--timeout=30" "--durations=10" ];
 
   preCheck = ''
     # Tests include a compiled "circuit" which is auto-built in $HOME

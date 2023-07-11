@@ -13,11 +13,16 @@ let
     foreground=YES
     use=${cfg.use}
     login=${cfg.username}
-    password=${if cfg.protocol == "nsupdate" then "/run/${RuntimeDirectory}/ddclient.key" else "@password_placeholder@"}
+    password=${
+      if cfg.protocol == "nsupdate" then
+        "/run/${RuntimeDirectory}/ddclient.key"
+      else
+        "@password_placeholder@"
+    }
     protocol=${cfg.protocol}
     ${lib.optionalString (cfg.script != "") "script=${cfg.script}"}
     ${lib.optionalString (cfg.server != "") "server=${cfg.server}"}
-    ${lib.optionalString (cfg.zone != "")   "zone=${cfg.zone}"}
+    ${lib.optionalString (cfg.zone != "") "zone=${cfg.zone}"}
     ssl=${boolToStr cfg.ssl}
     wildcard=YES
     ipv6=${boolToStr cfg.ipv6}
@@ -30,7 +35,8 @@ let
 
   preStart = ''
     install --mode=600 --owner=$USER ${configFile} /run/${RuntimeDirectory}/ddclient.conf
-    ${lib.optionalString (cfg.configFile == null) (if (cfg.protocol == "nsupdate") then ''
+    ${lib.optionalString (cfg.configFile == null)
+    (if (cfg.protocol == "nsupdate") then ''
       install --mode=600 --owner=$USER ${cfg.passwordFile} /run/${RuntimeDirectory}/ddclient.key
     '' else if (cfg.passwordFile != null) then ''
       "${pkgs.replace-secret}/bin/replace-secret" "@password_placeholder@" "${cfg.passwordFile}" "/run/${RuntimeDirectory}/ddclient.conf"
@@ -39,19 +45,21 @@ let
     '')}
   '';
 
-in
-
-with lib;
+in with lib;
 
 {
 
   imports = [
-    (mkChangedOptionModule [ "services" "ddclient" "domain" ] [ "services" "ddclient" "domains" ]
-      (config:
-        let value = getAttrFromPath [ "services" "ddclient" "domain" ] config;
-        in if value != "" then [ value ] else []))
+    (mkChangedOptionModule [ "services" "ddclient" "domain" ] [
+      "services"
+      "ddclient"
+      "domains"
+    ] (config:
+      let value = getAttrFromPath [ "services" "ddclient" "domain" ] config;
+      in if value != "" then [ value ] else [ ]))
     (mkRemovedOptionModule [ "services" "ddclient" "homeDir" ] "")
-    (mkRemovedOptionModule [ "services" "ddclient" "password" ] "Use services.ddclient.passwordFile instead.")
+    (mkRemovedOptionModule [ "services" "ddclient" "password" ]
+      "Use services.ddclient.passwordFile instead.")
   ];
 
   ###### interface
@@ -87,7 +95,9 @@ with lib;
 
       username = mkOption {
         # For `nsupdate` username contains the path to the nsupdate executable
-        default = lib.optionalString (config.services.ddclient.protocol == "nsupdate") "${pkgs.bind.dnsutils}/bin/nsupdate";
+        default =
+          lib.optionalString (config.services.ddclient.protocol == "nsupdate")
+          "${pkgs.bind.dnsutils}/bin/nsupdate";
         defaultText = "";
         type = str;
         description = lib.mdDoc ''
@@ -154,7 +164,6 @@ with lib;
         '';
       };
 
-
       quiet = mkOption {
         default = false;
         type = bool;
@@ -172,7 +181,8 @@ with lib;
       };
 
       use = mkOption {
-        default = "web, web=checkip.dyndns.com/, web-skip='Current IP Address: '";
+        default =
+          "web, web=checkip.dyndns.com/, web-skip='Current IP Address: '";
         type = str;
         description = lib.mdDoc ''
           Method to determine the IP address to send to the dynamic DNS provider.
@@ -209,7 +219,6 @@ with lib;
     };
   };
 
-
   ###### implementation
 
   config = mkIf config.services.ddclient.enable {
@@ -227,7 +236,9 @@ with lib;
         inherit StateDirectory;
         Type = "oneshot";
         ExecStartPre = "!${pkgs.writeShellScript "ddclient-prestart" preStart}";
-        ExecStart = "${lib.getBin cfg.package}/bin/ddclient -file /run/${RuntimeDirectory}/ddclient.conf";
+        ExecStart = "${
+            lib.getBin cfg.package
+          }/bin/ddclient -file /run/${RuntimeDirectory}/ddclient.conf";
       };
     };
 

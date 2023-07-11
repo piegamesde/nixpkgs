@@ -1,8 +1,6 @@
 { lib, fetchFromGitLab, git, buildGoModule }:
-let
-  data = lib.importJSON ../data.json;
-in
-buildGoModule rec {
+let data = lib.importJSON ../data.json;
+in buildGoModule rec {
   pname = "gitlab-workhorse";
 
   version = "15.11.1";

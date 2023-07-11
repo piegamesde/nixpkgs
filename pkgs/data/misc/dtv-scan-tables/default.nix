@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, v4l-utils
-}:
+{ lib, stdenv, fetchurl, v4l-utils }:
 
 stdenv.mkDerivation rec {
   pname = "dtv-scan-tables";
@@ -13,15 +9,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-amJoqjkkWTePo6E5IvwBWj+mP/gi9LDWTTPXE1Cm7J4=";
   };
 
-  nativeBuildInputs = [
-    v4l-utils
-  ];
+  nativeBuildInputs = [ v4l-utils ];
 
   sourceRoot = "usr/share/dvb";
 
-  makeFlags = [
-    "PREFIX=$(out)"
-  ];
+  makeFlags = [ "PREFIX=$(out)" ];
 
   allowedReferences = [ ];
 

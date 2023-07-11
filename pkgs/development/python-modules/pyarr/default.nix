@@ -1,9 +1,4 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, types-requests
-, requests
-}:
+{ lib, fetchPypi, buildPythonPackage, types-requests, requests }:
 
 buildPythonPackage rec {
   pname = "pyarr";
@@ -14,15 +9,13 @@ buildPythonPackage rec {
     hash = "sha256-3DX02V3Srpx6hqimWbesxfkDqslVH4+8uXY7XYDmjX0=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    types-requests
-  ];
+  propagatedBuildInputs = [ requests types-requests ];
 
   pythonImportsCheck = [ "pyarr" ];
 
   meta = with lib; {
-    description = "Python client for Servarr API's (Sonarr, Radarr, Readarr, Lidarr)";
+    description =
+      "Python client for Servarr API's (Sonarr, Radarr, Readarr, Lidarr)";
     homepage = "https://github.com/totaldebug/pyarr";
     license = licenses.mit;
     maintainers = with maintainers; [ onny ];

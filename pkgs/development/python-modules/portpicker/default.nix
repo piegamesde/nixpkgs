@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, psutil
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools, psutil, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "portpicker";
@@ -18,17 +12,11 @@ buildPythonPackage rec {
     hash = "sha256-xVaDrXJfXACkG8fbAiUiPovgJLH6Vk0DntM5Dk/Uj7M=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    psutil
-  ];
+  propagatedBuildInputs = [ psutil ];
 
-  pythonImportsCheck = [
-    "portpicker"
-  ];
+  pythonImportsCheck = [ "portpicker" ];
 
   meta = with lib; {
     description = "Library to choose unique available network ports";

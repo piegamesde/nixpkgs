@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, aiocontextvars
-, buildPythonPackage
-, colorama
-, fetchpatch
-, fetchFromGitHub
-, freezegun
-, mypy
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, stdenv, aiocontextvars, buildPythonPackage, colorama, fetchpatch
+, fetchFromGitHub, freezegun, mypy, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "loguru";
@@ -27,20 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-lMGyQbBX3z6186ojs/iew7JMrG91ivPA679T9r+7xYw=";
   };
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.7") [
-    aiocontextvars
-  ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.7") [ aiocontextvars ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    colorama
-    freezegun
-    mypy
-  ];
+  nativeCheckInputs = [ pytestCheckHook colorama freezegun mypy ];
 
-  disabledTestPaths = lib.optionals stdenv.isDarwin [
-    "tests/test_multiprocessing.py"
-  ];
+  disabledTestPaths =
+    lib.optionals stdenv.isDarwin [ "tests/test_multiprocessing.py" ];
 
   disabledTests = lib.optionals stdenv.isDarwin [
     "test_rotation_and_retention"
@@ -49,9 +31,7 @@ buildPythonPackage rec {
     "test_await_complete_inheritance"
   ];
 
-  pythonImportsCheck = [
-    "loguru"
-  ];
+  pythonImportsCheck = [ "loguru" ];
 
   meta = with lib; {
     homepage = "https://github.com/Delgan/loguru";

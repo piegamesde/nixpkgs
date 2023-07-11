@@ -1,20 +1,6 @@
-{ lib
-, stdenv
-, mkDerivation
-, fetchFromGitHub
-, installShellFiles
-, pkg-config
-, qmake
-, qttools
-, boost
-, libGLU
-, muparser
-, qtbase
-, qtscript
-, qtsvg
-, qtxmlpatterns
-, qtmacextras
-}:
+{ lib, stdenv, mkDerivation, fetchFromGitHub, installShellFiles, pkg-config
+, qmake, qttools, boost, libGLU, muparser, qtbase, qtscript, qtsvg
+, qtxmlpatterns, qtmacextras }:
 
 mkDerivation rec {
   pname = "qcad";
@@ -42,24 +28,10 @@ mkDerivation rec {
     fi
   '';
 
-  nativeBuildInputs = [
-    installShellFiles
-    pkg-config
-    qmake
-    qttools
-  ];
+  nativeBuildInputs = [ installShellFiles pkg-config qmake qttools ];
 
-  buildInputs = [
-    boost
-    libGLU
-    muparser
-    qtbase
-    qtscript
-    qtsvg
-    qtxmlpatterns
-  ] ++ lib.optionals stdenv.isDarwin [
-    qtmacextras
-  ];
+  buildInputs = [ boost libGLU muparser qtbase qtscript qtsvg qtxmlpatterns ]
+    ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
 
   qmakeFlags = [
     "MUPARSER_DIR=${muparser}"
@@ -67,10 +39,10 @@ mkDerivation rec {
     "BOOST_DIR=${boost.dev}"
   ];
 
-  qtWrapperArgs =
-    lib.optionals stdenv.isLinux [ "--prefix LD_LIBRARY_PATH : ${placeholder "out"}/lib" ]
-    ++
-    lib.optionals stdenv.isDarwin [ "--prefix DYLD_LIBRARY_PATH : ${placeholder "out"}/lib" ];
+  qtWrapperArgs = lib.optionals stdenv.isLinux
+    [ "--prefix LD_LIBRARY_PATH : ${placeholder "out"}/lib" ]
+    ++ lib.optionals stdenv.isDarwin
+    [ "--prefix DYLD_LIBRARY_PATH : ${placeholder "out"}/lib" ];
 
   installPhase = ''
     runHook preInstall
@@ -80,8 +52,7 @@ mkDerivation rec {
   '' + lib.optionalString stdenv.isDarwin ''
     install -Dm555 release/QCAD.app/Contents/MacOS/QCAD $out/bin/qcad
     mkdir -p $out/lib
-  '' +
-  ''
+  '' + ''
     install -Dm555 -t $out/lib release/libspatialindexnavel${stdenv.hostPlatform.extensions.sharedLibrary}
     install -Dm555 -t $out/lib release/libqcadcore${stdenv.hostPlatform.extensions.sharedLibrary}
     install -Dm555 -t $out/lib release/libqcadentity${stdenv.hostPlatform.extensions.sharedLibrary}

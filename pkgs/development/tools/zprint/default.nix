@@ -1,11 +1,12 @@
-{ lib, buildGraalvmNativeImage, fetchurl  }:
+{ lib, buildGraalvmNativeImage, fetchurl }:
 
 buildGraalvmNativeImage rec {
   pname = "zprint";
   version = "1.2.5";
 
   src = fetchurl {
-    url = "https://github.com/kkinnear/${pname}/releases/download/${version}/${pname}-filter-${version}";
+    url =
+      "https://github.com/kkinnear/${pname}/releases/download/${version}/${pname}-filter-${version}";
     sha256 = "sha256-PWdR5jqyzvTk9HoxqDldwtZNik34dmebBtZZ5vtva4A=";
   };
 

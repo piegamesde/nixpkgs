@@ -1,11 +1,8 @@
-{ olm
-}:
+{ olm }:
 
 { ... }:
 
-{ runtimeDependencies ? [ ]
-, ...
-}:
+{ runtimeDependencies ? [ ], ... }:
 
 {
   runtimeDependencies = runtimeDependencies ++ [ olm ];

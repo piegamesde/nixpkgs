@@ -1,19 +1,11 @@
-{ lib, stdenv, callPackage, fetchFromGitHub, autoreconfHook, pkg-config, makeWrapper
-, CoreFoundation, IOKit, libossp_uuid
-, nixosTests
-, netdata-go-plugins
-, bash, curl, jemalloc, libuv, zlib
-, libcap, libuuid, lm_sensors, protobuf
-, withCups ? false, cups
-, withDBengine ? true, lz4
-, withIpmi ? (!stdenv.isDarwin), freeipmi
-, withNetfilter ? (!stdenv.isDarwin), libmnl, libnetfilter_acct
-, withCloud ? (!stdenv.isDarwin), json_c
-, withConnPubSub ? false, google-cloud-cpp, grpc
-, withConnPrometheus ? false, snappy
-, withSsl ? true, openssl
-, withDebug ? false
-}:
+{ lib, stdenv, callPackage, fetchFromGitHub, autoreconfHook, pkg-config
+, makeWrapper, CoreFoundation, IOKit, libossp_uuid, nixosTests
+, netdata-go-plugins, bash, curl, jemalloc, libuv, zlib, libcap, libuuid
+, lm_sensors, protobuf, withCups ? false, cups, withDBengine ? true, lz4
+, withIpmi ? (!stdenv.isDarwin), freeipmi, withNetfilter ? (!stdenv.isDarwin)
+, libmnl, libnetfilter_acct, withCloud ? (!stdenv.isDarwin), json_c
+, withConnPubSub ? false, google-cloud-cpp, grpc, withConnPrometheus ? false
+, snappy, withSsl ? true, openssl, withDebug ? false }:
 
 stdenv.mkDerivation rec {
   # Don't forget to update go.d.plugin.nix as well
@@ -35,8 +27,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ bash curl jemalloc libuv zlib ]
     ++ lib.optionals stdenv.isDarwin [ CoreFoundation IOKit libossp_uuid ]
     ++ lib.optionals (!stdenv.isDarwin) [ libcap libuuid ]
-    ++ lib.optionals withCups [ cups ]
-    ++ lib.optionals withDBengine [ lz4 ]
+    ++ lib.optionals withCups [ cups ] ++ lib.optionals withDBengine [ lz4 ]
     ++ lib.optionals withIpmi [ freeipmi ]
     ++ lib.optionals withNetfilter [ libmnl libnetfilter_acct ]
     ++ lib.optionals withCloud [ json_c ]
@@ -65,10 +56,11 @@ stdenv.mkDerivation rec {
   # to bootstrap tools:
   #   https://github.com/NixOS/nixpkgs/pull/175719
   # We pick zlib.dev as a simple canary package with pkg-config input.
-  disallowedReferences = if withDebug then [] else [ zlib.dev ];
+  disallowedReferences = if withDebug then [ ] else [ zlib.dev ];
 
   donStrip = withDebug;
-  env.NIX_CFLAGS_COMPILE = lib.optionalString withDebug "-O1 -ggdb -DNETDATA_INTERNAL_CHECKS=1";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString withDebug "-O1 -ggdb -DNETDATA_INTERNAL_CHECKS=1";
 
   postInstall = ''
     ln -s ${netdata-go-plugins}/lib/netdata/conf.d/* $out/lib/netdata/conf.d
@@ -99,15 +91,16 @@ stdenv.mkDerivation rec {
     "--sysconfdir=/etc"
     "--disable-ebpf"
     "--with-jemalloc=${jemalloc}"
-  ] ++ lib.optionals (!withDBengine) [
-    "--disable-dbengine"
-  ] ++ lib.optionals (!withCloud) [
-    "--disable-cloud"
-  ];
+  ] ++ lib.optionals (!withDBengine) [ "--disable-dbengine" ]
+    ++ lib.optionals (!withCloud) [ "--disable-cloud" ];
 
   postFixup = ''
-    wrapProgram $out/bin/netdata-claim.sh --prefix PATH : ${lib.makeBinPath [ openssl ]}
-    wrapProgram $out/libexec/netdata/plugins.d/cgroup-network-helper.sh --prefix PATH : ${lib.makeBinPath [ bash ]}
+    wrapProgram $out/bin/netdata-claim.sh --prefix PATH : ${
+      lib.makeBinPath [ openssl ]
+    }
+    wrapProgram $out/libexec/netdata/plugins.d/cgroup-network-helper.sh --prefix PATH : ${
+      lib.makeBinPath [ bash ]
+    }
   '';
 
   enableParallelBuild = true;

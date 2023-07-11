@@ -1,16 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake
-, fetchpatch
-, openblas, blas, lapack, opencv3, libzip, boost, protobuf, mpi
-, onebitSGDSupport ? false
-, cudaSupport ? false, cudaPackages ? {}, addOpenGLRunpath, cudatoolkit, nvidia_x11
-, cudnnSupport ? cudaSupport
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, fetchpatch, openblas, blas, lapack
+, opencv3, libzip, boost, protobuf, mpi, onebitSGDSupport ? false
+, cudaSupport ? false, cudaPackages ? { }, addOpenGLRunpath, cudatoolkit
+, nvidia_x11, cudnnSupport ? cudaSupport }:
 
-let
-  inherit (cudaPackages) cudatoolkit cudnn;
-in
+let inherit (cudaPackages) cudatoolkit cudnn;
 
-assert cudnnSupport -> cudaSupport;
+in assert cudnnSupport -> cudaSupport;
 assert blas.implementation == "openblas" && lapack.implementation == "openblas";
 
 let
@@ -38,7 +33,8 @@ in stdenv.mkDerivation rec {
     # Fix build with protobuf 3.18+
     # Remove with onnx submodule bump to 1.9+
     (fetchpatch {
-      url = "https://github.com/onnx/onnx/commit/d3bc82770474761571f950347560d62a35d519d7.patch";
+      url =
+        "https://github.com/onnx/onnx/commit/d3bc82770474761571f950347560d62a35d519d7.patch";
       extraPrefix = "Source/CNTKv2LibraryDll/proto/onnx/onnx_repo/";
       stripLen = 1;
       sha256 = "00raqj8wx30b06ky6cdp5vvc1mrzs7hglyi6h58hchw5lhrwkzxp";
@@ -63,8 +59,7 @@ in stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-declarations";
 
   buildInputs = [ openblas opencv3 libzip boost protobuf mpi ]
-             ++ lib.optional cudaSupport cudatoolkit
-             ++ lib.optional cudnnSupport cudnn;
+    ++ lib.optional cudaSupport cudatoolkit ++ lib.optional cudnnSupport cudnn;
 
   configureFlags = [
     "--with-opencv=${opencv3}"
@@ -122,7 +117,8 @@ in stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/Microsoft/CNTK";
     description = "An open source deep-learning toolkit";
-    license = if onebitSGDSupport then licenses.unfreeRedistributable else licenses.mit;
+    license =
+      if onebitSGDSupport then licenses.unfreeRedistributable else licenses.mit;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ abbradar ];
     # Newer cub is included with cudatoolkit now and it breaks the build.

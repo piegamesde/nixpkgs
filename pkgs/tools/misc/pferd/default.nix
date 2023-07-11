@@ -1,7 +1,4 @@
-{ lib
-, python3Packages
-, fetchFromGitHub
-}:
+{ lib, python3Packages, fetchFromGitHub }:
 
 python3Packages.buildPythonApplication rec {
   pname = "pferd";
@@ -15,9 +12,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-m9u4CLvyF2n61JQyxEKlVzWZCUhzVEVqpSZMNDZXCAo=";
   };
 
-  nativeBuildInputs = with python3Packages; [
-    setuptools
-  ];
+  nativeBuildInputs = with python3Packages; [ setuptools ];
 
   propagatedBuildInputs = with python3Packages; [
     aiohttp

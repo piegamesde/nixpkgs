@@ -5,7 +5,8 @@ stdenv.mkDerivation {
   version = "2.14";
 
   src = fetchurl {
-    url = "https://github.com/ZakKemble/AVRDUDESS/releases/download/v2.14/AVRDUDESS-2.14-portable.zip";
+    url =
+      "https://github.com/ZakKemble/AVRDUDESS/releases/download/v2.14/AVRDUDESS-2.14-portable.zip";
     sha256 = "sha256-x3xcsJLBJVO8XdV4OUveZ4KLqN5z/z0FsNLbGHSNoHs=";
   };
 
@@ -22,7 +23,7 @@ stdenv.mkDerivation {
 
     cat >> "$out/bin/avrdudess" << __EOF__
     #!${runtimeShell}
-    export LD_LIBRARY_PATH="${lib.makeLibraryPath [gtk2 mono]}"
+    export LD_LIBRARY_PATH="${lib.makeLibraryPath [ gtk2 mono ]}"
     # We need PATH from user env for xdg-open to find its tools, which
     # typically depend on the currently running desktop environment.
     export PATH="\$PATH:${lib.makeBinPath [ avrdude xdg-utils ]}"
@@ -37,7 +38,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "GUI for AVRDUDE (AVR microcontroller programmer)";
     homepage = "https://blog.zakkemble.net/avrdudess-a-gui-for-avrdude/";
-    changelog = "https://github.com/ZakKemble/AVRDUDESS/blob/v${version}/Changelog.txt";
+    changelog =
+      "https://github.com/ZakKemble/AVRDUDESS/blob/v${version}/Changelog.txt";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];

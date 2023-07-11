@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, buildPythonPackage
-, django
-, dnspython
-, fetchFromGitHub
-, protobuf
-, pythonOlder
-, fetchpatch
-}:
+{ stdenv, lib, buildPythonPackage, django, dnspython, fetchFromGitHub, protobuf
+, pythonOlder, fetchpatch }:
 
 buildPythonPackage rec {
   pname = "mysql-connector";
@@ -33,19 +25,15 @@ buildPythonPackage rec {
 
     # Allow for clang to be used to build native extensions
     (fetchpatch {
-      url = "https://github.com/mysql/mysql-connector-python/commit/fd24ce9dc8c60cc446a8e69458f7851d047c7831.patch";
+      url =
+        "https://github.com/mysql/mysql-connector-python/commit/fd24ce9dc8c60cc446a8e69458f7851d047c7831.patch";
       hash = "sha256-WvU1iB53MavCsksKCjGvUl7R3Ww/38alxxMVzjpr5Xg=";
     })
   ];
 
-  propagatedBuildInputs = [
-    dnspython
-    protobuf
-  ];
+  propagatedBuildInputs = [ dnspython protobuf ];
 
-  pythonImportsCheck = [
-    "mysql"
-  ];
+  pythonImportsCheck = [ "mysql" ];
 
   # Tests require a running MySQL instance
   doCheck = false;
@@ -57,7 +45,8 @@ buildPythonPackage rec {
       implements the DB API v2.0 specification.
     '';
     homepage = "https://github.com/mysql/mysql-connector-python";
-    changelog = "https://raw.githubusercontent.com/mysql/mysql-connector-python/${version}/CHANGES.txt";
+    changelog =
+      "https://raw.githubusercontent.com/mysql/mysql-connector-python/${version}/CHANGES.txt";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ neosimsim turion ];
   };

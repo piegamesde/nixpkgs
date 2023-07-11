@@ -9,8 +9,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   buildInputs = [ gmp ];
-  propagatedBuildInputs = [ cstruct mirage-crypto mirage-crypto-rng
-                            zarith eqaf sexplib0 ];
+  propagatedBuildInputs =
+    [ cstruct mirage-crypto mirage-crypto-rng zarith eqaf sexplib0 ];
 
   doCheck = true;
   checkInputs = [ ounit2 randomconv ];

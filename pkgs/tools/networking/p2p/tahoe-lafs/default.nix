@@ -58,12 +58,33 @@ python3Packages.buildPythonApplication rec {
   nativeBuildInputs = with python3Packages; [ sphinx texinfo ];
 
   # The `backup' command requires `sqlite3'.
-  propagatedBuildInputs = with python3Packages; [
-    appdirs beautifulsoup4 characteristic distro eliot fixtures foolscap future
-    html5lib magic-wormhole netifaces pyasn1 pycrypto pyutil pyyaml recommonmark
-    service-identity simplejson sphinx-rtd-theme testtools treq twisted zfec
-    zope_interface
-  ] ++ twisted.optional-dependencies.tls
+  propagatedBuildInputs = with python3Packages;
+    [
+      appdirs
+      beautifulsoup4
+      characteristic
+      distro
+      eliot
+      fixtures
+      foolscap
+      future
+      html5lib
+      magic-wormhole
+      netifaces
+      pyasn1
+      pycrypto
+      pyutil
+      pyyaml
+      recommonmark
+      service-identity
+      simplejson
+      sphinx-rtd-theme
+      testtools
+      treq
+      twisted
+      zfec
+      zope_interface
+    ] ++ twisted.optional-dependencies.tls
     ++ twisted.optional-dependencies.conch;
 
   nativeCheckInputs = with python3Packages; [ mock hypothesis twisted ];
@@ -88,7 +109,8 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Tahoe-LAFS, a decentralized, fault-tolerant, distributed storage system";
+    description =
+      "Tahoe-LAFS, a decentralized, fault-tolerant, distributed storage system";
     longDescription = ''
       Tahoe-LAFS is a secure, decentralized, fault-tolerant filesystem.
       This filesystem is encrypted and spread over multiple peers in
@@ -96,7 +118,10 @@ python3Packages.buildPythonApplication rec {
       are unavailable, malfunctioning, or malicious.
     '';
     homepage = "https://tahoe-lafs.org/";
-    license = [ licenses.gpl2Plus /* or */ "TGPPLv1+" ];
+    license = [
+      licenses.gpl2Plus # or
+      "TGPPLv1+"
+    ];
     maintainers = with lib.maintainers; [ MostAwesomeDude ];
     platforms = platforms.linux;
   };

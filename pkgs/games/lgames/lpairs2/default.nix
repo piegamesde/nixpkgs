@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchurl
-, SDL2
-, SDL2_image
-, SDL2_mixer
-, SDL2_ttf
-, directoryListingUpdater
-}:
+{ lib, stdenv, fetchurl, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf
+, directoryListingUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "lpairs2";
@@ -17,12 +10,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-swe/cB9RqxHSNSShiryJ8XfwZk2X6qIDxFURbwNOd58=";
   };
 
-  buildInputs = [
-    SDL2
-    SDL2_image
-    SDL2_mixer
-    SDL2_ttf
-  ];
+  buildInputs = [ SDL2 SDL2_image SDL2_mixer SDL2_ttf ];
 
   passthru.updateScript = directoryListingUpdater {
     inherit pname version;

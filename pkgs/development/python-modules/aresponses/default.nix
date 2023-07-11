@@ -1,12 +1,5 @@
-{ lib
-, aiohttp
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, pytest
-, pytest-asyncio
-, pytestCheckHook
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pythonOlder, pytest
+, pytest-asyncio, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "aresponses";
@@ -22,20 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-Ui9ZpWaVBfCbDlZH3EgHX32FIZtyTHnc/UXqtoEyFcw=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
-  buildInputs = [
-    pytest
-    pytest-asyncio
-  ];
+  buildInputs = [ pytest pytest-asyncio ];
 
-  nativeCheckInputs = [
-    aiohttp
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aiohttp pytest-asyncio pytestCheckHook ];
 
   disabledTests = [
     # Disable tests which requires network access
@@ -45,9 +29,7 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [
-    "aresponses"
-  ];
+  pythonImportsCheck = [ "aresponses" ];
 
   meta = with lib; {
     description = "Asyncio testing server";

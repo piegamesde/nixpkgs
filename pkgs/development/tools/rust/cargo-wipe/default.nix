@@ -1,8 +1,4 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, nix-update-script
-}:
+{ lib, rustPlatform, fetchFromGitHub, nix-update-script }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-wipe";
@@ -17,12 +13,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-/cne7uTGyxgTRONWMEE5dPbPDnCxf+ZnYzYXRAeHJyQ=";
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
-    description = ''Cargo subcommand "wipe": recursively finds and optionally wipes all "target" or "node_modules" folders'';
+    description = ''
+      Cargo subcommand "wipe": recursively finds and optionally wipes all "target" or "node_modules" folders'';
     homepage = "https://github.com/mihai-dinculescu/cargo-wipe";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ otavio ];

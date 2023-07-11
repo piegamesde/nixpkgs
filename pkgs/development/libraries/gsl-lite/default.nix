@@ -1,11 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, ninja
-, installCompatHeader ? false
-, installLegacyHeaders ? false
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, ninja, installCompatHeader ? false
+, installLegacyHeaders ? false }:
 
 stdenv.mkDerivation rec {
   pname = "gsl-lite";
@@ -20,9 +14,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ninja ];
 
-  cmakeFlags = lib.mapAttrsToList
-    (name: value: ''-DGSL_LITE_OPT_${name}:BOOL=${if value then "ON" else "OFF"}'')
-    {
+  cmakeFlags = lib.mapAttrsToList (name: value:
+    "-DGSL_LITE_OPT_${name}:BOOL=${if value then "ON" else "OFF"}") {
       INSTALL_COMPAT_HEADER = installCompatHeader;
       INSTALL_LEGACY_HEADERS = installLegacyHeaders;
       BUILD_TESTS = doCheck;
@@ -43,7 +36,8 @@ stdenv.mkDerivation rec {
       C++20.
     '';
     homepage = "https://github.com/gsl-lite/gsl-lite";
-    changelog = "https://github.com/gsl-lite/gsl-lite/blob/${src.rev}/CHANGES.txt";
+    changelog =
+      "https://github.com/gsl-lite/gsl-lite/blob/${src.rev}/CHANGES.txt";
     license = licenses.mit;
     maintainers = with maintainers; [ azahi ];
     platforms = platforms.all;

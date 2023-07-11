@@ -1,21 +1,13 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
 
 # build
-, cython
-, pkg-config
-, setuptools
+, cython, pkg-config, setuptools
 
 # runtime
 , ffmpeg
 
 # tests
-, numpy
-, pillow
-, pytestCheckHook
-}:
+, numpy, pillow, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "av";
@@ -31,26 +23,16 @@ buildPythonPackage rec {
     hash = "sha256-XcHP8RwC2iwD64Jc7SS+t9OxjFTsz3FbrnjMgJnN7Ak=";
   };
 
-  nativeBuildInputs = [
-    cython
-    pkg-config
-    setuptools
-  ];
+  nativeBuildInputs = [ cython pkg-config setuptools ];
 
-  buildInputs = [
-    ffmpeg
-  ];
+  buildInputs = [ ffmpeg ];
 
   preCheck = ''
     # ensure we import the built version
     rm -r av
   '';
 
-  nativeCheckInputs = [
-    numpy
-    pillow
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ numpy pillow pytestCheckHook ];
 
   pytestFlagsArray = [
     # Tests that want to download FATE data

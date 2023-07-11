@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, libconfuse
-, libxcrypt
-, testers
-, merecat
-, nixosTests
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libconfuse
+, libxcrypt, testers, merecat, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "merecat";
@@ -22,15 +13,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-oIzOXUnCFqd3HPyKp58r+enRRpaE7f9hqNITtxCCB7I=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    libconfuse
-    libxcrypt
-  ];
+  buildInputs = [ libconfuse libxcrypt ];
 
   passthru.tests = {
     testVersion = testers.testVersion {
@@ -41,7 +26,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "Small and made-easy HTTP/HTTPS server based on Jef Poskanzer's thttpd";
+    description =
+      "Small and made-easy HTTP/HTTPS server based on Jef Poskanzer's thttpd";
     homepage = "https://troglobit.com/projects/merecat/";
     license = licenses.bsd2;
     maintainers = with maintainers; [ fgaz ];

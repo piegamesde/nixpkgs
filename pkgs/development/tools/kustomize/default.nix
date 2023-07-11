@@ -4,12 +4,8 @@ buildGoModule rec {
   pname = "kustomize";
   version = "4.5.4";
 
-  ldflags = let t = "sigs.k8s.io/kustomize/api/provenance"; in
-    [
-      "-s"
-      "-X ${t}.version=${version}"
-      "-X ${t}.gitCommit=${src.rev}"
-    ];
+  ldflags = let t = "sigs.k8s.io/kustomize/api/provenance";
+  in [ "-s" "-X ${t}.version=${version}" "-X ${t}.gitCommit=${src.rev}" ];
 
   src = fetchFromGitHub {
     owner = "kubernetes-sigs";
@@ -41,6 +37,13 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/kubernetes-sigs/kustomize";
     license = licenses.asl20;
-    maintainers = with maintainers; [ carlosdagos vdemeester periklis zaninime Chili-Man saschagrunert ];
+    maintainers = with maintainers; [
+      carlosdagos
+      vdemeester
+      periklis
+      zaninime
+      Chili-Man
+      saschagrunert
+    ];
   };
 }

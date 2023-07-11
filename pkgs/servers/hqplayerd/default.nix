@@ -1,37 +1,18 @@
-{ stdenv, lib
-, addOpenGLRunpath
-, alsa-lib
-, autoPatchelfHook
-, cairo
-, fetchurl
-, flac
-, gcc12
-, gssdp
-, gupnp
-, gupnp-av
-, lame
-, libgmpris
-, libusb-compat-0_1
-, llvmPackages_14
-, meson
-, mpg123
-, ninja
-, rpmextract
-, wavpack
+{ stdenv, lib, addOpenGLRunpath, alsa-lib, autoPatchelfHook, cairo, fetchurl
+, flac, gcc12, gssdp, gupnp, gupnp-av, lame, libgmpris, libusb-compat-0_1
+, llvmPackages_14, meson, mpg123, ninja, rpmextract, wavpack
 
-, callPackage
-, rygel ? null
-}@inputs:
+, callPackage, rygel ? null }@inputs:
 let
   # FIXME: Replace with gnome.rygel once hqplayerd releases a new version.
   rygel-hqplayerd = inputs.rygel or (callPackage ./rygel.nix { });
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "hqplayerd";
   version = "4.34.0-100sse42";
 
   src = fetchurl {
-    url = "https://www.signalyst.eu/bins/${pname}/fc36/${pname}-${version}.fc36.x86_64.rpm";
+    url =
+      "https://www.signalyst.eu/bins/${pname}/fc36/${pname}-${version}.fc36.x86_64.rpm";
     hash = "sha256-MCRZ0XKi6pztVTuPQpPEn6wHsOwtSxR0Px9r12jnC9U=";
   };
 
@@ -104,13 +85,12 @@ stdenv.mkDerivation rec {
     $out/bin/hqplayerd --version
   '';
 
-  passthru = {
-    rygel = rygel-hqplayerd;
-  };
+  passthru = { rygel = rygel-hqplayerd; };
 
   meta = with lib; {
     homepage = "https://www.signalyst.com/custom.html";
-    description = "High-end upsampling multichannel software embedded HD-audio player";
+    description =
+      "High-end upsampling multichannel software embedded HD-audio player";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];

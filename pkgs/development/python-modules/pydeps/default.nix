@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, graphviz
-, stdlib-list
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, graphviz, stdlib-list
+, pytestCheckHook, pythonOlder, pyyaml }:
 
 buildPythonPackage rec {
   pname = "pydeps";
@@ -22,19 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-Zw5LGsNie2BAsJUWfL16HRdATpb5twkB5trBbIHNCc4=";
   };
 
-  buildInputs = [
-    graphviz
-  ];
+  buildInputs = [ graphviz ];
 
-  propagatedBuildInputs = [
-    graphviz
-    stdlib-list
-  ];
+  propagatedBuildInputs = [ graphviz stdlib-list ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pyyaml
-  ];
+  nativeCheckInputs = [ pytestCheckHook pyyaml ];
 
   postPatch = ''
     # Path is hard-coded
@@ -47,9 +32,7 @@ buildPythonPackage rec {
     "test_find_package_names"
   ];
 
-  pythonImportsCheck = [
-    "pydeps"
-  ];
+  pythonImportsCheck = [ "pydeps" ];
 
   meta = with lib; {
     description = "Python module dependency visualization";

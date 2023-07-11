@@ -2,13 +2,12 @@
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager.oroborus;
-in
-{
+let cfg = config.services.xserver.windowManager.oroborus;
+in {
   ###### interface
   options = {
-    services.xserver.windowManager.oroborus.enable = mkEnableOption (lib.mdDoc "oroborus");
+    services.xserver.windowManager.oroborus.enable =
+      mkEnableOption (lib.mdDoc "oroborus");
   };
 
   ###### implementation

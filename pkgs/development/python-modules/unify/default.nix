@@ -1,9 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, untokenize
-, unittestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, untokenize, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "unify";

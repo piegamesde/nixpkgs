@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, cmake
-, extra-cmake-modules
-, gettext
-, fcitx5
-, fcitx5-qt
-, libskk
-, qtbase
-, skk-dicts
-, wrapQtAppsHook
-, enableQt ? false
+{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, extra-cmake-modules, gettext
+, fcitx5, fcitx5-qt, libskk, qtbase, skk-dicts, wrapQtAppsHook, enableQt ? false
 }:
 
 stdenv.mkDerivation rec {
@@ -25,20 +13,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-y5GciWJMEFQM8SsqYANXe/SdVq6GEqsfF1yrKKhw0KA=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-    gettext
-    pkg-config
-  ] ++ lib.optional enableQt wrapQtAppsHook;
+  nativeBuildInputs = [ cmake extra-cmake-modules gettext pkg-config ]
+    ++ lib.optional enableQt wrapQtAppsHook;
 
-  buildInputs = [
-    fcitx5
-    libskk
-  ] ++ lib.optionals enableQt [
-    fcitx5-qt
-    qtbase
-  ];
+  buildInputs = [ fcitx5 libskk ]
+    ++ lib.optionals enableQt [ fcitx5-qt qtbase ];
 
   cmakeFlags = [
     "-DENABLE_QT=${toString enableQt}"
@@ -46,7 +25,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Input method engine for Fcitx5, which uses libskk as its backend";
+    description =
+      "Input method engine for Fcitx5, which uses libskk as its backend";
     homepage = "https://github.com/fcitx/fcitx5-skk";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ milran ];

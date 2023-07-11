@@ -13,14 +13,13 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-nH/myA/KdTeFXvmBymXITyx5fdCGnWRn6hNRinXc3/s=";
 
-  subPackages = [
-    "./cnitool"
-  ];
+  subPackages = [ "./cnitool" ];
 
   ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
-    description = "Container Network Interface - networking for Linux containers";
+    description =
+      "Container Network Interface - networking for Linux containers";
     license = licenses.asl20;
     homepage = "https://github.com/containernetworking/cni";
     maintainers = with maintainers; [ offline vdemeester ];

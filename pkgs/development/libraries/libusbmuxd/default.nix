@@ -1,11 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, libplist
-, libimobiledevice-glue
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libplist
+, libimobiledevice-glue }:
 
 stdenv.mkDerivation rec {
   pname = "libusbmuxd";
@@ -22,18 +16,13 @@ stdenv.mkDerivation rec {
     echo '${version}' > .tarball-version
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    libplist
-    libimobiledevice-glue
-  ];
+  buildInputs = [ libplist libimobiledevice-glue ];
 
   meta = with lib; {
-    description = "A client library to multiplex connections from and to iOS devices";
+    description =
+      "A client library to multiplex connections from and to iOS devices";
     homepage = "https://github.com/libimobiledevice/libusbmuxd";
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;

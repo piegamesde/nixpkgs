@@ -3,8 +3,7 @@
 let
   cfg = config.services.lldap;
   format = pkgs.formats.toml { };
-in
-{
+in {
   options.services.lldap = with lib; {
     enable = mkEnableOption (mdDoc "lldap");
 
@@ -44,7 +43,8 @@ in
         options = {
           ldap_host = mkOption {
             type = types.str;
-            description = mdDoc "The host address that the LDAP server will be bound to.";
+            description =
+              mdDoc "The host address that the LDAP server will be bound to.";
             default = "::";
           };
 
@@ -56,19 +56,22 @@ in
 
           http_host = mkOption {
             type = types.str;
-            description = mdDoc "The host address that the HTTP server will be bound to.";
+            description =
+              mdDoc "The host address that the HTTP server will be bound to.";
             default = "::";
           };
 
           http_port = mkOption {
             type = types.port;
-            description = mdDoc "The port on which to have the HTTP server, for user login and administration.";
+            description = mdDoc
+              "The port on which to have the HTTP server, for user login and administration.";
             default = 17170;
           };
 
           http_url = mkOption {
             type = types.str;
-            description = mdDoc "The public URL of the server, for password reset links.";
+            description =
+              mdDoc "The public URL of the server, for password reset links.";
             default = "http://localhost";
           };
 
@@ -94,7 +97,8 @@ in
             type = types.str;
             description = mdDoc "Database URL.";
             default = "sqlite://./users.db?mode=rwc";
-            example = "postgres://postgres-user:password@postgres-server/my-database";
+            example =
+              "postgres://postgres-user:password@postgres-server/my-database";
           };
         };
       };
@@ -107,13 +111,16 @@ in
       after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${lib.getExe cfg.package} run --config-file ${format.generate "lldap_config.toml" cfg.settings}";
+        ExecStart = "${lib.getExe cfg.package} run --config-file ${
+            format.generate "lldap_config.toml" cfg.settings
+          }";
         StateDirectory = "lldap";
         WorkingDirectory = "%S/lldap";
         User = "lldap";
         Group = "lldap";
         DynamicUser = true;
-        EnvironmentFile = lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
+        EnvironmentFile =
+          lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
       };
       inherit (cfg) environment;
     };

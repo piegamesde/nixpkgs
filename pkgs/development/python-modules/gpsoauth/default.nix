@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pycryptodomex
-, pythonOlder
-, requests
-}:
+{ lib, buildPythonPackage, fetchPypi, pycryptodomex, pythonOlder, requests }:
 
 buildPythonPackage rec {
   version = "1.0.2";

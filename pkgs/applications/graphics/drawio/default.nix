@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchYarnDeps
-, makeDesktopItem
-, copyDesktopItems
-, desktopToDarwinBundle
-, fixup_yarn_lock
-, makeWrapper
-, nodejs
-, yarn
-, electron
-}:
+{ lib, stdenv, fetchFromGitHub, fetchYarnDeps, makeDesktopItem, copyDesktopItems
+, desktopToDarwinBundle, fixup_yarn_lock, makeWrapper, nodejs, yarn, electron }:
 
 stdenv.mkDerivation rec {
   pname = "drawio";
@@ -29,13 +18,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-YlJ84psoEgeDnCX+O8TvwqhTthm5voJ6dfTvTiZlkuk=";
   };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    fixup_yarn_lock
-    makeWrapper
-    nodejs
-    yarn
-  ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+  nativeBuildInputs =
+    [ copyDesktopItems fixup_yarn_lock makeWrapper nodejs yarn ]
+    ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = true;
 
@@ -95,7 +80,8 @@ stdenv.mkDerivation rec {
     description = "A desktop application for creating diagrams";
     homepage = "https://about.draw.io/";
     license = licenses.asl20;
-    changelog = "https://github.com/jgraph/drawio-desktop/releases/tag/v${version}";
+    changelog =
+      "https://github.com/jgraph/drawio-desktop/releases/tag/v${version}";
     maintainers = with maintainers; [ qyliss darkonion0 ];
     platforms = platforms.darwin ++ platforms.linux;
     broken = stdenv.isDarwin;

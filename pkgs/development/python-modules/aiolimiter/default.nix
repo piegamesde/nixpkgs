@@ -1,14 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, poetry-core
-, importlib-metadata
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-, toml
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, poetry-core
+, importlib-metadata, pytest-asyncio, pytestCheckHook, pythonOlder, toml }:
 
 buildPythonPackage rec {
   pname = "aiolimiter";
@@ -24,25 +15,19 @@ buildPythonPackage rec {
     hash = "sha256-4wByVZoOLhrXFx9oK19GBmRcjGoJolQ3Gwx9vQV/n8s=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-  ];
+  nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs =
+    lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-    toml
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook toml ];
 
   patches = [
     # Switch to poetry-core, https://github.com/mjpieters/aiolimiter/pull/77
     (fetchpatch {
       name = "switch-to-peotry-core.patch";
-      url = "https://github.com/mjpieters/aiolimiter/commit/84a85eff42621b0daff8fcf6bb485db313faae0b.patch";
+      url =
+        "https://github.com/mjpieters/aiolimiter/commit/84a85eff42621b0daff8fcf6bb485db313faae0b.patch";
       hash = "sha256-xUfJwLvMF2Xt/V1bKBFn/fjn1uyw7bGNo9RpWxtyr50=";
     })
   ];
@@ -52,9 +37,7 @@ buildPythonPackage rec {
       --replace " --cov=aiolimiter --cov-config=tox.ini --cov-report term-missing" ""
   '';
 
-  pythonImportsCheck = [
-    "aiolimiter"
-  ];
+  pythonImportsCheck = [ "aiolimiter" ];
 
   meta = with lib; {
     description = "Implementation of a rate limiter for asyncio";

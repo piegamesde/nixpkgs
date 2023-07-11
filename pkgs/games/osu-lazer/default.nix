@@ -1,19 +1,6 @@
-{ lib
-, stdenvNoCC
-, buildDotnetModule
-, fetchFromGitHub
-, makeDesktopItem
-, copyDesktopItems
-, ffmpeg
-, alsa-lib
-, SDL2
-, lttng-ust
-, numactl
-, dotnetCorePackages
-, libglvnd
-, xorg
-, udev
-}:
+{ lib, stdenvNoCC, buildDotnetModule, fetchFromGitHub, makeDesktopItem
+, copyDesktopItems, ffmpeg, alsa-lib, SDL2, lttng-ust, numactl
+, dotnetCorePackages, libglvnd, xorg, udev }:
 
 buildDotnetModule rec {
   pname = "osu-lazer";
@@ -61,23 +48,28 @@ buildDotnetModule rec {
     done
 
     ln -sft $out/lib/${pname} ${SDL2}/lib/libSDL2${stdenvNoCC.hostPlatform.extensions.sharedLibrary}
-    cp -f ${./osu.runtimeconfig.json} "$out/lib/${pname}/osu!.runtimeconfig.json"
+    cp -f ${
+      ./osu.runtimeconfig.json
+    } "$out/lib/${pname}/osu!.runtimeconfig.json"
 
     runHook postFixup
   '';
 
-  desktopItems = [(makeDesktopItem {
-    desktopName = "osu!";
-    name = "osu";
-    exec = "osu!";
-    icon = "osu!";
-    comment = meta.description;
-    type = "Application";
-    categories = [ "Game" ];
-  })];
+  desktopItems = [
+    (makeDesktopItem {
+      desktopName = "osu!";
+      name = "osu";
+      exec = "osu!";
+      icon = "osu!";
+      comment = meta.description;
+      type = "Application";
+      categories = [ "Game" ];
+    })
+  ];
 
   meta = with lib; {
-    description = "Rhythm is just a *click* away (no score submission or multiplayer, see osu-lazer-bin)";
+    description =
+      "Rhythm is just a *click* away (no score submission or multiplayer, see osu-lazer-bin)";
     homepage = "https://osu.ppy.sh";
     license = with licenses; [
       mit

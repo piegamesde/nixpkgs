@@ -1,9 +1,8 @@
 { stdenv, fetchurl, buildPackages, lib, fetchpatch, texinfo
 , # "newlib-nano" is what the official ARM embedded toolchain calls this build
-  # configuration that prioritizes low space usage. We include it as a preset
-  # for embedded projects striving for a similar configuration.
-  nanoizeNewlib ? false
-}:
+# configuration that prioritizes low space usage. We include it as a preset
+# for embedded projects striving for a similar configuration.
+nanoizeNewlib ? false }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "newlib";
@@ -18,7 +17,8 @@ stdenv.mkDerivation (finalAttrs: {
     # https://bugs.gentoo.org/723756
     (fetchpatch {
       name = "newlib-3.3.0-no-nano-cxx.patch";
-      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/sys-libs/newlib/files/newlib-3.3.0-no-nano-cxx.patch?id=9ee5a1cd6f8da6d084b93b3dbd2e8022a147cfbf";
+      url =
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/sys-libs/newlib/files/newlib-3.3.0-no-nano-cxx.patch?id=9ee5a1cd6f8da6d084b93b3dbd2e8022a147cfbf";
       sha256 = "sha256-S3mf7vwrzSMWZIGE+d61UDH+/SK/ao1hTPee1sElgco=";
     })
   ];
@@ -36,31 +36,30 @@ stdenv.mkDerivation (finalAttrs: {
   configurePlatforms = [ "build" "target" ];
   # flags copied from https://community.arm.com/support-forums/f/compilers-and-libraries-forum/53310/gcc-arm-none-eabi-what-were-the-newlib-compilation-options
   # sort alphabetically
-  configureFlags = [
-    "--host=${stdenv.buildPlatform.config}"
-  ] ++ (if !nanoizeNewlib then [
-    "--disable-newlib-supplied-syscalls"
-    "--disable-nls"
-    "--enable-newlib-io-c99-formats"
-    "--enable-newlib-io-long-long"
-    "--enable-newlib-reent-check-verify"
-    "--enable-newlib-register-fini"
-    "--enable-newlib-retargetable-locking"
-  ] else [
-    "--disable-newlib-fseek-optimization"
-    "--disable-newlib-fvwrite-in-streamio"
-    "--disable-newlib-supplied-syscalls"
-    "--disable-newlib-unbuf-stream-opt"
-    "--disable-newlib-wide-orient"
-    "--disable-nls"
-    "--enable-lite-exit"
-    "--enable-newlib-global-atexit"
-    "--enable-newlib-nano-formatted-io"
-    "--enable-newlib-nano-malloc"
-    "--enable-newlib-reent-check-verify"
-    "--enable-newlib-reent-small"
-    "--enable-newlib-retargetable-locking"
-  ]);
+  configureFlags = [ "--host=${stdenv.buildPlatform.config}" ]
+    ++ (if !nanoizeNewlib then [
+      "--disable-newlib-supplied-syscalls"
+      "--disable-nls"
+      "--enable-newlib-io-c99-formats"
+      "--enable-newlib-io-long-long"
+      "--enable-newlib-reent-check-verify"
+      "--enable-newlib-register-fini"
+      "--enable-newlib-retargetable-locking"
+    ] else [
+      "--disable-newlib-fseek-optimization"
+      "--disable-newlib-fvwrite-in-streamio"
+      "--disable-newlib-supplied-syscalls"
+      "--disable-newlib-unbuf-stream-opt"
+      "--disable-newlib-wide-orient"
+      "--disable-nls"
+      "--enable-lite-exit"
+      "--enable-newlib-global-atexit"
+      "--enable-newlib-nano-formatted-io"
+      "--enable-newlib-nano-malloc"
+      "--enable-newlib-reent-check-verify"
+      "--enable-newlib-reent-small"
+      "--enable-newlib-retargetable-locking"
+    ]);
 
   dontDisableStatic = true;
 

@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, libpcap
-}:
+{ lib, buildGoModule, fetchFromGitHub, libpcap }:
 
 buildGoModule rec {
   pname = "secrets-extractor";
@@ -17,9 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-KhAaBNSpFu7LAWiHCWD1OssexW9N96ArDb7Oo1AaiWI=";
 
-  buildInputs = [
-    libpcap
-  ];
+  buildInputs = [ libpcap ];
 
   meta = with lib; {
     description = "Tool to check packets for secrets";

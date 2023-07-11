@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, clang
-, pkg-config
-, elfutils
-, rustfmt
-, zlib
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, clang, pkg-config, elfutils
+, rustfmt, zlib }:
 
 rustPlatform.buildRustPackage rec {
   pname = "below";

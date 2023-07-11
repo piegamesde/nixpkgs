@@ -1,12 +1,4 @@
-{ lib
-, stdenv
-, cmake
-, fetchFromGitLab
-, pkg-config
-, meson
-, ninja
-, glib
-, libusb1
+{ lib, stdenv, cmake, fetchFromGitLab, pkg-config, meson, ninja, glib, libusb1
 }:
 
 stdenv.mkDerivation rec {
@@ -21,25 +13,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zehf0DkqSSvmatbk/UB1oySjyqiFUYTuIhqb5xKeK7I=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
 
-  buildInputs = [
-    glib
-  ];
+  buildInputs = [ glib ];
 
-  propagatedBuildInputs = [
-    libusb1
-  ];
+  propagatedBuildInputs = [ libusb1 ];
 
-  mesonFlags = [
-    "-Dgit_werror=disabled"
-    "-Dtools=enabled"
-    "-Dfuzzing=disabled"
-  ];
+  mesonFlags =
+    [ "-Dgit_werror=disabled" "-Dtools=enabled" "-Dfuzzing=disabled" ];
 
   outputs = [ "out" "dev" ];
 

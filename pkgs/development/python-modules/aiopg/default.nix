@@ -1,9 +1,4 @@
-{ lib
-, async-timeout
-, buildPythonPackage
-, fetchFromGitHub
-, psycopg2
-, pythonOlder
+{ lib, async-timeout, buildPythonPackage, fetchFromGitHub, psycopg2, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -20,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-GD5lRSUjASTwBk5vEK8v3xD8eNyxpwSrO3HHvtwubmk=";
   };
 
-  propagatedBuildInputs = [
-    async-timeout
-    psycopg2
-  ];
+  propagatedBuildInputs = [ async-timeout psycopg2 ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -33,9 +25,7 @@ buildPythonPackage rec {
   # Tests requires a PostgreSQL Docker instance
   doCheck = false;
 
-  pythonImportsCheck = [
-    "aiopg"
-  ];
+  pythonImportsCheck = [ "aiopg" ];
 
   meta = with lib; {
     description = "Python library for accessing a PostgreSQL database";

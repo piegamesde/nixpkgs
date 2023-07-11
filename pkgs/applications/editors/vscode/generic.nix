@@ -1,7 +1,6 @@
-{ stdenv, lib, makeDesktopItem
-, unzip, libsecret, libXScrnSaver, libxshmfence, buildPackages
-, atomEnv, at-spi2-atk, autoPatchelfHook
-, systemd, fontconfig, libdbusmenu, glib, buildFHSEnv, wayland
+{ stdenv, lib, makeDesktopItem, unzip, libsecret, libXScrnSaver, libxshmfence
+, buildPackages, atomEnv, at-spi2-atk, autoPatchelfHook, systemd, fontconfig
+, libdbusmenu, glib, buildFHSEnv, wayland
 
 # Populate passthru.tests
 , tests
@@ -10,13 +9,11 @@
 , nodePackages, bash
 
 # Attributes inherit from specific versions
-, version, src, meta, sourceRoot, commandLineArgs
-, executableName, longName, shortName, pname, updateScript
-, dontFixup ? false
-# sourceExecutableName is the name of the binary in the source archive, over
-# which we have no control
-, sourceExecutableName ? executableName
-}:
+, version, src, meta, sourceRoot, commandLineArgs, executableName, longName
+, shortName, pname, updateScript, dontFixup ? false
+  # sourceExecutableName is the name of the binary in the source archive, over
+  # which we have no control
+, sourceExecutableName ? executableName }:
 
 let
   inherit (stdenv.hostPlatform) system;
@@ -26,7 +23,7 @@ let
 
     passthru = {
       inherit executableName longName tests updateScript;
-      fhs = fhs {};
+      fhs = fhs { };
       fhsWithPackages = f: fhs { additionalPkgs = f; };
     };
 
@@ -66,15 +63,21 @@ let
     buildInputs = [ libsecret libXScrnSaver libxshmfence ]
       ++ lib.optionals (!stdenv.isDarwin) ([ at-spi2-atk ] ++ atomEnv.packages);
 
-    runtimeDependencies = lib.optionals stdenv.isLinux [ (lib.getLib systemd) fontconfig.lib libdbusmenu wayland ];
+    runtimeDependencies = lib.optionals stdenv.isLinux [
+      (lib.getLib systemd)
+      fontconfig.lib
+      libdbusmenu
+      wayland
+    ];
 
-    nativeBuildInputs = [ unzip ]
-      ++ lib.optionals stdenv.isLinux [
-        autoPatchelfHook
-        nodePackages.asar
-        # override doesn't preserve splicing https://github.com/NixOS/nixpkgs/issues/132651
-        (buildPackages.wrapGAppsHook.override { inherit (buildPackages) makeWrapper; })
-      ];
+    nativeBuildInputs = [ unzip ] ++ lib.optionals stdenv.isLinux [
+      autoPatchelfHook
+      nodePackages.asar
+      # override doesn't preserve splicing https://github.com/NixOS/nixpkgs/issues/132651
+      (buildPackages.wrapGAppsHook.override {
+        inherit (buildPackages) makeWrapper;
+      })
+    ];
 
     dontBuild = true;
     dontConfigure = true;
@@ -152,54 +155,53 @@ let
   #
   # buildFHSEnv allows for users to use the existing vscode
   # extension tooling without significant pain.
-  fhs = { additionalPkgs ? pkgs: [] }: buildFHSEnv {
-    # also determines the name of the wrapped command
-    name = executableName;
+  fhs = { additionalPkgs ? pkgs: [ ] }:
+    buildFHSEnv {
+      # also determines the name of the wrapped command
+      name = executableName;
 
-    # additional libraries which are commonly needed for extensions
-    targetPkgs = pkgs: (with pkgs; [
-      # ld-linux-x86-64-linux.so.2 and others
-      glibc
+      # additional libraries which are commonly needed for extensions
+      targetPkgs = pkgs:
+        (with pkgs; [
+          # ld-linux-x86-64-linux.so.2 and others
+          glibc
 
-      # dotnet
-      curl
-      icu
-      libunwind
-      libuuid
-      lttng-ust
-      openssl
-      zlib
+          # dotnet
+          curl
+          icu
+          libunwind
+          libuuid
+          lttng-ust
+          openssl
+          zlib
 
-      # mono
-      krb5
-    ]) ++ additionalPkgs pkgs;
+          # mono
+          krb5
+        ]) ++ additionalPkgs pkgs;
 
-    extraBwrapArgs = [
-      "--bind-try /etc/nixos/ /etc/nixos/"
-    ];
+      extraBwrapArgs = [ "--bind-try /etc/nixos/ /etc/nixos/" ];
 
-    # symlink shared assets, including icons and desktop entries
-    extraInstallCommands = ''
-      ln -s "${unwrapped}/share" "$out/"
-    '';
-
-    runScript = "${unwrapped}/bin/${executableName}";
-
-    # vscode likes to kill the parent so that the
-    # gui application isn't attached to the terminal session
-    dieWithParent = false;
-
-    passthru = {
-      inherit executableName;
-      inherit (unwrapped) pname version; # for home-manager module
-    };
-
-    meta = meta // {
-      description = ''
-        Wrapped variant of ${pname} which launches in a FHS compatible envrionment.
-        Should allow for easy usage of extensions without nix-specific modifications.
+      # symlink shared assets, including icons and desktop entries
+      extraInstallCommands = ''
+        ln -s "${unwrapped}/share" "$out/"
       '';
+
+      runScript = "${unwrapped}/bin/${executableName}";
+
+      # vscode likes to kill the parent so that the
+      # gui application isn't attached to the terminal session
+      dieWithParent = false;
+
+      passthru = {
+        inherit executableName;
+        inherit (unwrapped) pname version; # for home-manager module
+      };
+
+      meta = meta // {
+        description = ''
+          Wrapped variant of ${pname} which launches in a FHS compatible envrionment.
+          Should allow for easy usage of extensions without nix-specific modifications.
+        '';
+      };
     };
-  };
-in
-  unwrapped
+in unwrapped

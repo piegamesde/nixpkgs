@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, fltk13
-, libjpeg
-, pkg-config
-}:
+{ lib, stdenv, fetchurl, fltk13, libjpeg, pkg-config }:
 
 stdenv.mkDerivation rec {
   version = "4.0.20";
@@ -15,14 +9,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-TsYwd2uUGJsweiKigTWBPXA7PtItZeIOxKk3lV3sy24=";
   };
 
-  buildInputs = [
-    fltk13
-    libjpeg
-  ];
+  buildInputs = [ fltk13 libjpeg ];
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+  nativeBuildInputs = [ pkg-config ];
 
   meta = {
     description = "Digital modem message program";

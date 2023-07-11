@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pam, pkg-config, libmysqlclient, mariadb, libxcrypt }:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, pam, pkg-config, libmysqlclient
+, mariadb, libxcrypt }:
 
 stdenv.mkDerivation rec {
   pname = "pam_mysql";

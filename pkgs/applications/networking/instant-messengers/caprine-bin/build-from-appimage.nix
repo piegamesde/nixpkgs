@@ -1,27 +1,18 @@
-{ lib
-, fetchurl
-, appimageTools
-, xorg
-, pname
-, version
-, sha256
-, metaCommon ? { }
+{ lib, fetchurl, appimageTools, xorg, pname, version, sha256, metaCommon ? { }
 }:
 
 let
   src = fetchurl {
-    url = "https://github.com/sindresorhus/caprine/releases/download/v${version}/Caprine-${version}.AppImage";
+    url =
+      "https://github.com/sindresorhus/caprine/releases/download/v${version}/Caprine-${version}.AppImage";
     name = "Caprine-${version}.AppImage";
     inherit sha256;
   };
   extracted = appimageTools.extractType2 { inherit pname version src; };
-in
-(appimageTools.wrapType2 {
+in (appimageTools.wrapType2 {
   inherit pname version src;
 
-  passthru = {
-    inherit pname version src;
-  };
+  passthru = { inherit pname version src; };
 
   profile = ''
     export LC_ALL=C.UTF-8

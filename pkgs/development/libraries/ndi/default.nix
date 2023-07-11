@@ -1,17 +1,15 @@
 { lib, stdenv, requireFile, avahi, obs-studio-plugins }:
 
-let
-  versionJSON = builtins.fromJSON (builtins.readFile ./version.json);
-in
-stdenv.mkDerivation rec {
+let versionJSON = builtins.fromJSON (builtins.readFile ./version.json);
+in stdenv.mkDerivation rec {
   pname = "ndi";
   version = versionJSON.version;
   majorVersion = builtins.head (builtins.splitVersion version);
   installerName = "Install_NDI_SDK_v${majorVersion}_Linux";
 
   src = requireFile rec {
-    name    = "${installerName}.tar.gz";
-    sha256  = versionJSON.hash;
+    name = "${installerName}.tar.gz";
+    sha256 = versionJSON.hash;
     message = ''
       In order to use NDI SDK version ${version}, you need to comply with
       NewTek's license and download the appropriate Linux tarball from:
@@ -55,16 +53,14 @@ stdenv.mkDerivation rec {
   # Stripping breaks ndi-record.
   dontStrip = true;
 
-  passthru.tests = {
-    inherit (obs-studio-plugins) obs-ndi;
-  };
+  passthru.tests = { inherit (obs-studio-plugins) obs-ndi; };
   passthru.updateScript = ./update.py;
 
   meta = with lib; {
     homepage = "https://ndi.tv/sdk/";
     description = "NDI Software Developer Kit";
-    platforms = ["x86_64-linux"];
-    hydraPlatforms = [];
+    platforms = [ "x86_64-linux" ];
+    hydraPlatforms = [ ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
   };

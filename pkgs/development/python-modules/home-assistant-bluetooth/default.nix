@@ -1,13 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, cython
-, poetry-core
-, setuptools
-, bleak
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, cython, poetry-core
+, setuptools, bleak, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "home-assistant-bluetooth";
@@ -28,28 +20,20 @@ buildPythonPackage rec {
     sed -i '/addopts/d' pyproject.toml
   '';
 
-  nativeBuildInputs = [
-    cython
-    poetry-core
-    setuptools
-  ];
+  nativeBuildInputs = [ cython poetry-core setuptools ];
 
-  propagatedBuildInputs = [
-    bleak
-  ];
+  propagatedBuildInputs = [ bleak ];
 
-  pythonImportsCheck = [
-    "home_assistant_bluetooth"
-  ];
+  pythonImportsCheck = [ "home_assistant_bluetooth" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Basic bluetooth models used by Home Assistant";
-    changelog = "https://github.com/home-assistant-libs/home-assistant-bluetooth/blob/v${version}/CHANGELOG.md";
-    homepage = "https://github.com/home-assistant-libs/home-assistant-bluetooth";
+    changelog =
+      "https://github.com/home-assistant-libs/home-assistant-bluetooth/blob/v${version}/CHANGELOG.md";
+    homepage =
+      "https://github.com/home-assistant-libs/home-assistant-bluetooth";
     license = licenses.asl20;
     maintainers = teams.home-assistant.members;
   };

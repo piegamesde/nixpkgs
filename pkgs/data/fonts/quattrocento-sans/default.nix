@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "2.0";
 
   src = fetchzip {
-    url = "https://web.archive.org/web/20170709124317/http://www.impallari.com/media/releases/quattrocento-sans-v${version}.zip";
+    url =
+      "https://web.archive.org/web/20170709124317/http://www.impallari.com/media/releases/quattrocento-sans-v${version}.zip";
     stripRoot = false;
     hash = "sha256-L3aFZmaA94B9APxsp8bSBpocIlK3Ehvj/RFXVcW2nso=";
   };

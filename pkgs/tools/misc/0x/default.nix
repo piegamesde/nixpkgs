@@ -1,7 +1,4 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-}:
+{ lib, fetchFromGitHub, rustPlatform }:
 
 rustPlatform.buildRustPackage {
   pname = "0x";
@@ -14,9 +11,7 @@ rustPlatform.buildRustPackage {
     hash = "sha256-NzD/j8rBfk/cpoBnkFHFqpXz58mswLZr8TUS16vlrZQ=";
   };
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  cargoLock = { lockFile = ./Cargo.lock; };
 
   postPatch = ''
     ln -s ${./Cargo.lock} Cargo.lock

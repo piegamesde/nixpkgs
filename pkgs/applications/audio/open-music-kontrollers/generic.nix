@@ -1,10 +1,7 @@
-{ stdenv, lib, fetchurl, pkg-config, meson, ninja, libGLU, lv2, serd, sord, libX11, libXext, glew, lv2lint
-, pname, version, sha256, description
-, url ? "https://git.open-music-kontrollers.ch/lv2/${pname}.lv2/snapshot/${pname}.lv2-${version}.tar.xz"
-, additionalBuildInputs ? []
-, postPatch ? ""
-, ...
-}:
+{ stdenv, lib, fetchurl, pkg-config, meson, ninja, libGLU, lv2, serd, sord
+, libX11, libXext, glew, lv2lint, pname, version, sha256, description, url ?
+  "https://git.open-music-kontrollers.ch/lv2/${pname}.lv2/snapshot/${pname}.lv2-${version}.tar.xz"
+, additionalBuildInputs ? [ ], postPatch ? "", ... }:
 
 stdenv.mkDerivation {
   inherit pname;
@@ -18,14 +15,8 @@ stdenv.mkDerivation {
     sha256 = sha256;
   };
   nativeBuildInputs = [ pkg-config meson ninja ];
-  buildInputs = [
-    lv2
-    sord
-    libX11
-    libXext
-    glew
-    lv2lint
-  ] ++ additionalBuildInputs;
+  buildInputs = [ lv2 sord libX11 libXext glew lv2lint ]
+    ++ additionalBuildInputs;
 
   meta = with lib; {
     broken = stdenv.isDarwin;

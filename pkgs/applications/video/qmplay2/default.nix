@@ -1,25 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, alsa-lib
-, cmake
-, ffmpeg
-, game-music-emu
-, libXv
-, libass
-, libcddb
-, libcdio
-, libpulseaudio
-, libsidplayfp
-, libva
-, pkg-config
-, qtbase
-, qttools
-, taglib
-, vulkan-headers
-, vulkan-tools
-, wrapQtAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, alsa-lib, cmake, ffmpeg, game-music-emu, libXv
+, libass, libcddb, libcdio, libpulseaudio, libsidplayfp, libva, pkg-config
+, qtbase, qttools, taglib, vulkan-headers, vulkan-tools, wrapQtAppsHook }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qmplay2";
@@ -33,11 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
 
   buildInputs = [
     alsa-lib
@@ -71,7 +48,8 @@ stdenv.mkDerivation (finalAttrs: {
       files, Rayman 2 music and chiptunes. It contains YouTube and MyFreeMP3
       browser.
     '';
-    changelog = "https://github.com/zaps166/QMPlay2/releases/tag/${finalAttrs.version}";
+    changelog =
+      "https://github.com/zaps166/QMPlay2/releases/tag/${finalAttrs.version}";
     license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [ AndersonTorres ];
     platforms = lib.platforms.linux;

@@ -1,15 +1,5 @@
-{ lib
-, buildDunePackage
-, fetchurl
-, ocaml
-, angstrom
-, ipaddr
-, base64
-, pecu
-, uutf
-, alcotest
-, cmdliner
-}:
+{ lib, buildDunePackage, fetchurl, ocaml, angstrom, ipaddr, base64, pecu, uutf
+, alcotest, cmdliner }:
 
 buildDunePackage rec {
   pname = "emile";
@@ -19,19 +9,14 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/dinosaure/emile/releases/download/v${version}/emile-v${version}.tbz";
+    url =
+      "https://github.com/dinosaure/emile/releases/download/v${version}/emile-v${version}.tbz";
     hash = "sha256:0r1141makr0b900aby1gn0fccjv1qcqgyxib3bzq8fxmjqwjan8p";
   };
 
   buildInputs = [ cmdliner ];
 
-  propagatedBuildInputs = [
-    angstrom
-    ipaddr
-    base64
-    pecu
-    uutf
-  ];
+  propagatedBuildInputs = [ angstrom ipaddr base64 pecu uutf ];
 
   doCheck = true;
   checkInputs = [ alcotest ];

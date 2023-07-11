@@ -1,5 +1,4 @@
-import ./make-test-python.nix ({ lib, pkgs, ... }:
-{
+import ./make-test-python.nix ({ lib, pkgs, ... }: {
   name = "endlessh";
   meta.maintainers = with lib.maintainers; [ azahi ];
 

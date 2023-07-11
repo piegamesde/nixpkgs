@@ -1,25 +1,7 @@
-{ lib
-, stdenv
-, git
-, runtimeShell
-, fetchurl
-, wrapGAppsHook
-, glib
-, gtk3
-, atomEnv
-, xorg
-, libxkbcommon
-, hunspell
-, hunspellDicts
-, useHunspell ? true
-, languages ? [ "en_US" ]
-, withNemoAction ? true
-, makeDesktopItem
-, copyDesktopItems
-, makeWrapper
-, nodePackages
-, python3
-}:
+{ lib, stdenv, git, runtimeShell, fetchurl, wrapGAppsHook, glib, gtk3, atomEnv
+, xorg, libxkbcommon, hunspell, hunspellDicts, useHunspell ? true
+, languages ? [ "en_US" ], withNemoAction ? true, makeDesktopItem
+, copyDesktopItems, makeWrapper, nodePackages, python3 }:
 
 let
   pname = "pulsar";
@@ -30,7 +12,8 @@ let
     x86_64-linux.hash = "sha256-HEMUQVNPb6qWIXX25N79HwHo7j11MyFiBRsq9otdAL8=";
     aarch64-linux.tarname = "ARM.Linux.${pname}-${version}-arm64.tar.gz";
     aarch64-linux.hash = "sha256-f+s54XtLLdhTFY9caKTKngJF6zLai0F7ur9v37bwuNE=";
-  }.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  }.${stdenv.hostPlatform.system} or (throw
+    "Unsupported system: ${stdenv.hostPlatform.system}");
 
   additionalLibs = lib.makeLibraryPath [
     xorg.libxshmfence
@@ -41,32 +24,27 @@ let
   newLibpath = "${atomEnv.libPath}:${additionalLibs}";
 
   # Hunspell
-  hunspellDirs = builtins.map (lang: "${hunspellDicts.${lang}}/share/hunspell") languages;
-  hunspellTargetDirs = "$out/opt/Pulsar/resources/app.asar.unpacked/node_modules/spellchecker/vendor/hunspell_dictionaries";
-  hunspellCopyCommands = lib.concatMapStringsSep "\n" (lang: "cp -r ${lang}/* ${hunspellTargetDirs};") hunspellDirs;
-in
-stdenv.mkDerivation rec {
+  hunspellDirs =
+    builtins.map (lang: "${hunspellDicts.${lang}}/share/hunspell") languages;
+  hunspellTargetDirs =
+    "$out/opt/Pulsar/resources/app.asar.unpacked/node_modules/spellchecker/vendor/hunspell_dictionaries";
+  hunspellCopyCommands = lib.concatMapStringsSep "\n"
+    (lang: "cp -r ${lang}/* ${hunspellTargetDirs};") hunspellDirs;
+in stdenv.mkDerivation rec {
   inherit pname version;
 
-  src = with sourcesPath; fetchurl {
-    url = "https://github.com/pulsar-edit/pulsar/releases/download/v${version}/${tarname}";
-    inherit hash;
-  };
+  src = with sourcesPath;
+    fetchurl {
+      url =
+        "https://github.com/pulsar-edit/pulsar/releases/download/v${version}/${tarname}";
+      inherit hash;
+    };
 
-  patches = [
-    ./001-patch-wrapper.patch
-  ];
+  patches = [ ./001-patch-wrapper.patch ];
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    copyDesktopItems
-    nodePackages.asar
-  ];
+  nativeBuildInputs = [ wrapGAppsHook copyDesktopItems nodePackages.asar ];
 
-  buildInputs = [
-    gtk3
-    xorg.libxkbfile
-  ];
+  buildInputs = [ gtk3 xorg.libxkbfile ];
 
   dontBuild = true;
   dontConfigure = true;

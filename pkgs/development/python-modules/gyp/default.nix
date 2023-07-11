@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, buildPythonPackage
-, fetchFromGitiles
-, six
-, python
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitiles, six, python }:
 
 buildPythonPackage {
   pname = "gyp";
@@ -16,14 +10,10 @@ buildPythonPackage {
     hash = "sha256-LUlF2VhRnuDwJLdITgmXIQV/IuKdx1KXQkiPVHKrl4Q=";
   };
 
-  patches = lib.optionals stdenv.isDarwin [
-    ./no-darwin-cflags.patch
-    ./no-xcode.patch
-  ];
+  patches =
+    lib.optionals stdenv.isDarwin [ ./no-darwin-cflags.patch ./no-xcode.patch ];
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
   pythonImportsCheck = [ "gyp" "gyp.generator" ];
 

@@ -1,33 +1,8 @@
-{ lib
-, stdenv
-, arrow-cpp
-, bokeh
-, buildPythonPackage
-, click
-, cloudpickle
-, distributed
-, fastparquet
-, fetchFromGitHub
-, fetchpatch
-, fsspec
-, importlib-metadata
-, jinja2
-, numpy
-, packaging
-, pandas
-, partd
-, pyarrow
-, pytest-rerunfailures
-, pytest-xdist
-, pytestCheckHook
-, pythonOlder
-, pyyaml
-, scipy
-, setuptools
-, toolz
-, versioneer
-, zarr
-}:
+{ lib, stdenv, arrow-cpp, bokeh, buildPythonPackage, click, cloudpickle
+, distributed, fastparquet, fetchFromGitHub, fetchpatch, fsspec
+, importlib-metadata, jinja2, numpy, packaging, pandas, partd, pyarrow
+, pytest-rerunfailures, pytest-xdist, pytestCheckHook, pythonOlder, pyyaml
+, scipy, setuptools, toolz, versioneer, zarr }:
 
 buildPythonPackage rec {
   pname = "dask";
@@ -43,10 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-PkEFXF6OFZU+EMFBUopv84WniQghr5Q6757Qx6D5MyE=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-    versioneer
-  ];
+  nativeBuildInputs = [ setuptools versioneer ];
 
   propagatedBuildInputs = [
     click
@@ -60,35 +32,19 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    array = [
-      numpy
-    ];
-    complete = [
-      distributed
-    ];
-    dataframe = [
-      numpy
-      pandas
-    ];
-    distributed = [
-      distributed
-    ];
-    diagnostics = [
-      bokeh
-      jinja2
-    ];
+    array = [ numpy ];
+    complete = [ distributed ];
+    dataframe = [ numpy pandas ];
+    distributed = [ distributed ];
+    diagnostics = [ bokeh jinja2 ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-rerunfailures
-    pytest-xdist
-    scipy
-    zarr
-  ] ++ lib.optionals (!arrow-cpp.meta.broken) [ # support is sparse on aarch64
-    fastparquet
-    pyarrow
-  ];
+  nativeCheckInputs =
+    [ pytestCheckHook pytest-rerunfailures pytest-xdist scipy zarr ]
+    ++ lib.optionals (!arrow-cpp.meta.broken) [ # support is sparse on aarch64
+      fastparquet
+      pyarrow
+    ];
 
   dontUseSetuptoolsCheck = true;
 

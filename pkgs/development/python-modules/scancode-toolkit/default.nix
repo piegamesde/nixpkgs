@@ -1,62 +1,13 @@
-{ lib
-, attrs
-, beautifulsoup4
-, bitarray
-, boolean-py
-, buildPythonPackage
-, chardet
-, click
-, colorama
-, commoncode
-, container-inspector
-, debian-inspector
-, dparse2
-, extractcode
-, extractcode-7z
-, extractcode-libarchive
-, fasteners
-, fetchPypi
-, fingerprints
-, ftfy
-, gemfileparser
-, html5lib
-, importlib-metadata
-, intbitset
-, jaraco_functools
-, javaproperties
-, jinja2
-, jsonstreams
-, license-expression
-, lxml
-, markupsafe
-, packageurl-python
-, packaging
-, parameter-expansion-patched
-, pefile
-, pip-requirements-parser
-, pkginfo2
-, pluggy
-, plugincode
-, publicsuffix2
-, pyahocorasick
-, pycryptodome
-, pygmars
-, pygments
-, pymaven-patch
-, pytestCheckHook
-, pythonOlder
-, requests
-, saneyaml
-, spdx-tools
-, text-unidecode
-, toml
-, typecode
-, typecode-libmagic
-, typing
-, urlpy
-, xmltodict
-, zipp
-}:
+{ lib, attrs, beautifulsoup4, bitarray, boolean-py, buildPythonPackage, chardet
+, click, colorama, commoncode, container-inspector, debian-inspector, dparse2
+, extractcode, extractcode-7z, extractcode-libarchive, fasteners, fetchPypi
+, fingerprints, ftfy, gemfileparser, html5lib, importlib-metadata, intbitset
+, jaraco_functools, javaproperties, jinja2, jsonstreams, license-expression
+, lxml, markupsafe, packageurl-python, packaging, parameter-expansion-patched
+, pefile, pip-requirements-parser, pkginfo2, pluggy, plugincode, publicsuffix2
+, pyahocorasick, pycryptodome, pygmars, pygments, pymaven-patch, pytestCheckHook
+, pythonOlder, requests, saneyaml, spdx-tools, text-unidecode, toml, typecode
+, typecode-libmagic, typing, urlpy, xmltodict, zipp }:
 
 buildPythonPackage rec {
   pname = "scancode-toolkit";
@@ -123,15 +74,10 @@ buildPythonPackage rec {
     typecode-libmagic
     urlpy
     xmltodict
-  ] ++ lib.optionals (pythonOlder "3.9") [
-    zipp
-  ] ++ lib.optionals (pythonOlder "3.7") [
-    typing
-  ];
+  ] ++ lib.optionals (pythonOlder "3.9") [ zipp ]
+    ++ lib.optionals (pythonOlder "3.7") [ typing ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -148,15 +94,14 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [
-    "scancode"
-  ];
+  pythonImportsCheck = [ "scancode" ];
 
   # takes a long time and doesn't appear to do anything
   dontStrip = true;
 
   meta = with lib; {
-    description = "Tool to scan code for license, copyright, package and their documented dependencies and other interesting facts";
+    description =
+      "Tool to scan code for license, copyright, package and their documented dependencies and other interesting facts";
     homepage = "https://github.com/nexB/scancode-toolkit";
     license = with licenses; [ asl20 cc-by-40 ];
     maintainers = [ ];

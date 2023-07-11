@@ -1,16 +1,5 @@
-{ lib
-, arviz
-, buildPythonPackage
-, cachetools
-, cloudpickle
-, fastprogress
-, fetchFromGitHub
-, numpy
-, pytensor
-, pythonOlder
-, scipy
-, typing-extensions
-}:
+{ lib, arviz, buildPythonPackage, cachetools, cloudpickle, fastprogress
+, fetchFromGitHub, numpy, pytensor, pythonOlder, scipy, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "pymc";
@@ -46,12 +35,11 @@ buildPythonPackage rec {
   # indicative for package usability hence tests are disabled by default.
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pymc"
-  ];
+  pythonImportsCheck = [ "pymc" ];
 
   meta = with lib; {
-    description = "Bayesian estimation, particularly using Markov chain Monte Carlo (MCMC)";
+    description =
+      "Bayesian estimation, particularly using Markov chain Monte Carlo (MCMC)";
     homepage = "https://github.com/pymc-devs/pymc3";
     changelog = "https://github.com/pymc-devs/pymc/releases/tag/v${version}";
     license = licenses.asl20;

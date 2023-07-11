@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, fetchFromSourcehut
-, redo-apenwarr
-}:
+{ lib, stdenv, fetchFromSourcehut, redo-apenwarr }:
 
 stdenv.mkDerivation rec {
   pname = "slweb";

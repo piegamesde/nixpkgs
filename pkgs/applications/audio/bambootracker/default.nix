@@ -1,15 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, pkg-config
-, qmake
-, qt5compat ? null
-, qtbase
-, qttools
-, rtaudio
-, rtmidi
-, wrapQtAppsHook
-}:
+{ stdenv, lib, fetchFromGitHub, pkg-config, qmake, qt5compat ? null, qtbase
+, qttools, rtaudio, rtmidi, wrapQtAppsHook }:
 
 assert lib.versionAtLeast qtbase.version "6.0" -> qt5compat != null;
 
@@ -32,25 +22,12 @@ stdenv.mkDerivation rec {
       --replace 'equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 12)' 'if(true)'
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    qmake
-    qttools
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config qmake qttools wrapQtAppsHook ];
 
-  buildInputs = [
-    qtbase
-    rtaudio
-    rtmidi
-  ] ++ lib.optionals (lib.versionAtLeast qtbase.version "6.0") [
-    qt5compat
-  ];
+  buildInputs = [ qtbase rtaudio rtmidi ]
+    ++ lib.optionals (lib.versionAtLeast qtbase.version "6.0") [ qt5compat ];
 
-  qmakeFlags = [
-    "CONFIG+=system_rtaudio"
-    "CONFIG+=system_rtmidi"
-  ];
+  qmakeFlags = [ "CONFIG+=system_rtaudio" "CONFIG+=system_rtmidi" ];
 
   postConfigure = "make qmake_all";
 
@@ -65,7 +42,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A tracker for YM2608 (OPNA) which was used in NEC PC-8801/9801 series computers";
+    description =
+      "A tracker for YM2608 (OPNA) which was used in NEC PC-8801/9801 series computers";
     homepage = "https://bambootracker.github.io/BambooTracker/";
     license = licenses.gpl2Plus;
     platforms = platforms.all;

@@ -1,14 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, keyutils
-, libkrb5
-, openafs
-, perl
-, pkg-config
-, enableSetPAG ? false
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, keyutils, libkrb5, openafs, perl
+, pkg-config, enableSetPAG ? false }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "kstart";
@@ -21,22 +12,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-MGWL4oNc0MZTGWqBEt2wRTkqoagiUTDrS0kz4ewbZZA=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    perl
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook perl pkg-config ];
 
-  buildInputs = [
-    keyutils
-    libkrb5
-    openafs
-  ];
+  buildInputs = [ keyutils libkrb5 openafs ];
 
-  configureFlags = [
-    "--enable-silent-rules"
-  ]
-  ++ (lib.optional enableSetPAG "--enable-setpag");
+  configureFlags = [ "--enable-silent-rules" ]
+    ++ (lib.optional enableSetPAG "--enable-setpag");
 
   preBuild = ''
     for f in k5start krenew; do
@@ -53,7 +34,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     outputsToInstall = [ "out" "man" ];
-    description = "Modified version of kerberos tools that support automatic ticket refresh";
+    description =
+      "Modified version of kerberos tools that support automatic ticket refresh";
     license = licenses.mit;
     platforms = platforms.linux ++ platforms.darwin;
   };

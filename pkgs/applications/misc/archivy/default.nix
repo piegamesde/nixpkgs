@@ -1,7 +1,4 @@
-{ lib
-, stdenv
-, python3
-}:
+{ lib, stdenv, python3 }:
 
 let
   py = python3.override {
@@ -18,8 +15,7 @@ let
       });
     };
   };
-in
-with py.pkgs;
+in with py.pkgs;
 
 buildPythonApplication rec {
   pname = "archivy";

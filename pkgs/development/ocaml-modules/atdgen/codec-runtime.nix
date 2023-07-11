@@ -7,7 +7,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/ahrefs/atd/releases/download/${version}/atdts-${version}.tbz";
+    url =
+      "https://github.com/ahrefs/atd/releases/download/${version}/atdts-${version}.tbz";
     hash = "sha256-TTTuSxNKydPmTmztUapLoxntBIrAo8aWYIJ/G5cok1Y=";
   };
 

@@ -2,12 +2,11 @@
 
 with lib;
 
-let
-  cfg = config.services.oxidized;
-in
-{
+let cfg = config.services.oxidized;
+in {
   options.services.oxidized = {
-    enable = mkEnableOption (lib.mdDoc "the oxidized configuration backup service");
+    enable =
+      mkEnableOption (lib.mdDoc "the oxidized configuration backup service");
 
     user = mkOption {
       type = types.str;
@@ -108,7 +107,7 @@ in
         Group = cfg.group;
         UMask = "0077";
         NoNewPrivileges = true;
-        Restart  = "always";
+        Restart = "always";
         WorkingDirectory = cfg.dataDir;
         KillSignal = "SIGKILL";
         PIDFile = "${cfg.dataDir}/.config/oxidized/pid";

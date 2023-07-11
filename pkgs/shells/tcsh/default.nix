@@ -1,10 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, libxcrypt
-, ncurses
-, buildPackages
-}:
+{ lib, stdenv, fetchurl, libxcrypt, ncurses, buildPackages }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "tcsh";
@@ -17,14 +11,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  depsBuildBuild = [
-    buildPackages.stdenv.cc
-  ];
+  depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  buildInputs = [
-    libxcrypt
-    ncurses
-  ];
+  buildInputs = [ libxcrypt ncurses ];
 
   passthru.shellPath = "/bin/tcsh";
 

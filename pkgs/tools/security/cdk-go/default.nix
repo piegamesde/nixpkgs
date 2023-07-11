@@ -1,8 +1,4 @@
-{ lib
-, stdenv
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "cdk-go";
@@ -27,6 +23,7 @@ buildGoModule rec {
     license = with licenses; [ gpl2Only ];
     maintainers = with maintainers; [ fab ];
     mainProgram = "cdk";
-    broken = stdenv.isDarwin; # needs to update gopsutil to at least v3.21.3 to include https://github.com/shirou/gopsutil/pull/1042
+    broken =
+      stdenv.isDarwin; # needs to update gopsutil to at least v3.21.3 to include https://github.com/shirou/gopsutil/pull/1042
   };
 }

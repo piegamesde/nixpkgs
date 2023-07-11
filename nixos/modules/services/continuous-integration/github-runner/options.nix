@@ -1,9 +1,4 @@
-{ config
-, lib
-, pkgs
-, includeNameDefault
-, ...
-}:
+{ config, lib, pkgs, includeNameDefault, ... }:
 
 with lib;
 
@@ -83,7 +78,8 @@ with lib;
 
   name = let
     # Same pattern as for `networking.hostName`
-    baseType = types.strMatching "^$|^[[:alnum:]]([[:alnum:]_-]{0,61}[[:alnum:]])?$";
+    baseType =
+      types.strMatching "^$|^[[:alnum:]]([[:alnum:]_-]{0,61}[[:alnum:]])?$";
   in mkOption {
     type = if includeNameDefault then baseType else types.nullOr baseType;
     description = lib.mdDoc ''
@@ -143,10 +139,8 @@ with lib;
     description = lib.mdDoc ''
       Extra environment variables to set for the runner, as an attrset.
     '';
-    example = {
-      GIT_CONFIG = "/path/to/git/config";
-    };
-    default = {};
+    example = { GIT_CONFIG = "/path/to/git/config"; };
+    default = { };
   };
 
   serviceOverrides = mkOption {
@@ -158,7 +152,7 @@ with lib;
       ProtectHome = false;
       RestrictAddressFamilies = [ "AF_PACKET" ];
     };
-    default = {};
+    default = { };
   };
 
   package = mkOption {

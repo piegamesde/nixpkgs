@@ -5,8 +5,7 @@ with lib;
 let
   cfg = config.security.please;
   ini = pkgs.formats.ini { };
-in
-{
+in {
   options.security.please = {
     enable = mkEnableOption (mdDoc ''
       please, a Sudo clone which allows a users to execute a command or edit a
@@ -61,22 +60,20 @@ in
   };
 
   config = mkIf cfg.enable {
-    security.wrappers =
-      let
-        owner = "root";
-        group = "root";
-        setuid = true;
-      in
-      {
-        please = {
-          source = "${cfg.package}/bin/please";
-          inherit owner group setuid;
-        };
-        pleaseedit = {
-          source = "${cfg.package}/bin/pleaseedit";
-          inherit owner group setuid;
-        };
+    security.wrappers = let
+      owner = "root";
+      group = "root";
+      setuid = true;
+    in {
+      please = {
+        source = "${cfg.package}/bin/please";
+        inherit owner group setuid;
       };
+      pleaseedit = {
+        source = "${cfg.package}/bin/pleaseedit";
+        inherit owner group setuid;
+      };
+    };
 
     security.please.settings = rec {
       # The "wheel" group is allowed to do anything by default but this can be
@@ -96,8 +93,8 @@ in
     environment = {
       systemPackages = [ cfg.package ];
 
-      etc."please.ini".source = ini.generate "please.ini"
-        (cfg.settings // (rec {
+      etc."please.ini".source = ini.generate "please.ini" (cfg.settings
+        // (rec {
           # The "root" user is allowed to do anything by default and this cannot
           # be overridden.
           root_run_as_any = {

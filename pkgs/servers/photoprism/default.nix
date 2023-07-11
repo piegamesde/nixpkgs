@@ -1,4 +1,5 @@
-{ pkgs, lib, stdenv, fetchFromGitHub, fetchzip, darktable, rawtherapee, ffmpeg, libheif, exiftool, makeWrapper, testers }:
+{ pkgs, lib, stdenv, fetchFromGitHub, fetchzip, darktable, rawtherapee, ffmpeg
+, libheif, exiftool, makeWrapper, testers }:
 
 let
   version = "221118-e58fee0fb";
@@ -12,7 +13,8 @@ let
   };
 
   libtensorflow = pkgs.callPackage ./libtensorflow.nix { };
-  backend = pkgs.callPackage ./backend.nix { inherit libtensorflow src version; };
+  backend =
+    pkgs.callPackage ./backend.nix { inherit libtensorflow src version; };
   frontend = pkgs.callPackage ./frontend.nix { inherit src version; };
 
   fetchModel = { name, sha256 }:
@@ -38,13 +40,10 @@ let
   };
 
   assets_path = "$out/share/${pname}";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+  nativeBuildInputs = [ makeWrapper ];
 
   dontUnpack = true;
   dontBuild = true;
@@ -78,7 +77,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://photoprism.app";
-    description = "Personal Photo Management powered by Go and Google TensorFlow";
+    description =
+      "Personal Photo Management powered by Go and Google TensorFlow";
     inherit (libtensorflow.meta) platforms;
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ benesim ];

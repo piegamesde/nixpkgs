@@ -1,15 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, buildPythonPackage
-, six
-, lxml
-, pytestCheckHook
-, doFullCheck ? false  # weird filenames cause issues on some filesystems
+{ lib, stdenv, fetchFromGitHub, buildPythonPackage, six, lxml, pytestCheckHook
+, doFullCheck ? false # weird filenames cause issues on some filesystems
 
-# for passthru.tests
-, jpylyzer
-}:
+  # for passthru.tests
+, jpylyzer }:
 
 let
   # unclear relationship between test-files version and jpylyzer version.
@@ -42,9 +35,8 @@ in buildPythonPackage rec {
   preCheck = lib.optionalString doFullCheck ''
     sed -i '/^testFilesDir = /ctestFilesDir = "${testFiles}"' tests/unit/test_testfiles.py
   '';
-  disabledTestPaths = lib.optionals (!doFullCheck) [
-    "tests/unit/test_testfiles.py"
-  ];
+  disabledTestPaths =
+    lib.optionals (!doFullCheck) [ "tests/unit/test_testfiles.py" ];
 
   pythonImportsCheck = [ "jpylyzer" ];
 
@@ -55,7 +47,8 @@ in buildPythonPackage rec {
   };
 
   meta = with lib; {
-    description = "JP2 (JPEG 2000 Part 1) image validator and properties extractor";
+    description =
+      "JP2 (JPEG 2000 Part 1) image validator and properties extractor";
     homepage = "https://jpylyzer.openpreservation.org/";
     license = licenses.lgpl3;
     maintainers = with maintainers; [ ris ];

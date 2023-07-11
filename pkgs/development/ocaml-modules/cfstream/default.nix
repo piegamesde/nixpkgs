@@ -1,4 +1,5 @@
-{ lib, buildDunePackage, fetchFromGitHub, m4, camlp-streams, core_kernel, ounit }:
+{ lib, buildDunePackage, fetchFromGitHub, m4, camlp-streams, core_kernel, ounit
+}:
 
 buildDunePackage rec {
   pname = "cfstream";
@@ -10,8 +11,8 @@ buildDunePackage rec {
 
   src = fetchFromGitHub {
     owner = "biocaml";
-    repo   = pname;
-    rev    = version;
+    repo = pname;
+    rev = version;
     hash = "sha256-iSg0QsTcU0MT/Cletl+hW6bKyH0jkp7Jixqu8H59UmQ=";
   };
 
@@ -27,7 +28,8 @@ buildDunePackage rec {
 
   meta = with lib; {
     inherit (src.meta) homepage;
-    description = "Simple Core-inspired wrapper for standard library Stream module";
+    description =
+      "Simple Core-inspired wrapper for standard library Stream module";
     maintainers = [ maintainers.bcdarwin ];
     license = licenses.lgpl21;
   };

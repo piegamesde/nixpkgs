@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "gosec";
@@ -16,9 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-5LIIXf+8ZN7WcFSPzsJ5Tt+d40AgF5YI3O1oXms1WgI=";
 
-  subPackages = [
-    "cmd/gosec"
-  ];
+  subPackages = [ "cmd/gosec" ];
 
   ldflags = [
     "-s"

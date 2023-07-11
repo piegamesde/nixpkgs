@@ -1,4 +1,5 @@
-{ lib, stdenv, fetchurl, jdk, jre, makeWrapper, runCommand, python3Packages, writeText }:
+{ lib, stdenv, fetchurl, jdk, jre, makeWrapper, runCommand, python3Packages
+, writeText }:
 
 let
   elasticmq-server = stdenv.mkDerivation rec {
@@ -6,7 +7,8 @@ let
     version = "1.3.14";
 
     src = fetchurl {
-      url = "https://s3-eu-west-1.amazonaws.com/softwaremill-public/${pname}-${version}.jar";
+      url =
+        "https://s3-eu-west-1.amazonaws.com/softwaremill-public/${pname}-${version}.jar";
       sha256 = "sha256-diTfRYV51d9QYx1E6ZbSSaM6qDIaqVPum9qsBagIcec=";
     };
 
@@ -27,7 +29,8 @@ let
 
     meta = with lib; {
       homepage = "https://github.com/softwaremill/elasticmq";
-      description = "Message queueing system with Java, Scala and Amazon SQS-compatible interfaces";
+      description =
+        "Message queueing system with Java, Scala and Amazon SQS-compatible interfaces";
       sourceProvenance = with sourceTypes; [ binaryBytecode ];
       license = licenses.asl20;
       platforms = platforms.unix;

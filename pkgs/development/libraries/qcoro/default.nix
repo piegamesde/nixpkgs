@@ -1,13 +1,5 @@
-{ stdenv
-, gcc12Stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, libpthreadstubs
-, qtbase
-, qtwebsockets
-, wrapQtAppsHook
-}:
+{ stdenv, gcc12Stdenv, lib, fetchFromGitHub, cmake, libpthreadstubs, qtbase
+, qtwebsockets, wrapQtAppsHook }:
 
 gcc12Stdenv.mkDerivation rec {
   pname = "qcoro";
@@ -22,19 +14,13 @@ gcc12Stdenv.mkDerivation rec {
 
   outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    wrapQtAppsHook
-    cmake
-  ];
+  nativeBuildInputs = [ wrapQtAppsHook cmake ];
 
-  buildInputs = [
-    qtbase
-    qtwebsockets
-    libpthreadstubs
-  ];
+  buildInputs = [ qtbase qtwebsockets libpthreadstubs ];
 
   meta = with lib; {
-    description = "Library for using C++20 coroutines in connection with certain asynchronous Qt actions";
+    description =
+      "Library for using C++20 coroutines in connection with certain asynchronous Qt actions";
     homepage = "https://github.com/danvratil/qcoro";
     license = licenses.mit;
     maintainers = with maintainers; [ smitop ];

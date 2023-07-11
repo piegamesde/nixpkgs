@@ -1,21 +1,6 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, setuptools
-, zope_interface
-, zope_schema
-, zope-cachedescriptors
-, pytz
-, webtest
-, beautifulsoup4
-, soupsieve
-, wsgiproxy2
-, six
-, mock
-, zope_testing
-, zope_testrunner
-, python
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools, zope_interface, zope_schema
+, zope-cachedescriptors, pytz, webtest, beautifulsoup4, soupsieve, wsgiproxy2
+, six, mock, zope_testing, zope_testrunner, python }:
 
 buildPythonPackage rec {
   pname = "zope-testbrowser";
@@ -48,11 +33,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
-    mock
-    zope_testing
-    zope_testrunner
-  ];
+  nativeCheckInputs = [ mock zope_testing zope_testrunner ];
 
   checkPhase = ''
     ${python.interpreter} -m zope.testrunner --test-path=src

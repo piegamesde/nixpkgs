@@ -1,25 +1,18 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gitUpdater
-, gdk-pixbuf
-, gnome-themes-extra
-, gtk-engine-murrine
-, jdupes
-, librsvg
-, sassc
-, which
-, themeVariants ? [] # default: blue
-, colorVariants ? [] # default: all
-, tweaks ? []
-}:
+{ lib, stdenv, fetchFromGitHub, gitUpdater, gdk-pixbuf, gnome-themes-extra
+, gtk-engine-murrine, jdupes, librsvg, sassc, which
+, themeVariants ? [ ] # default: blue
+, colorVariants ? [ ] # default: all
+, tweaks ? [ ] }:
 
-let
-  pname = "qogir-theme";
+let pname = "qogir-theme";
 
-in
-lib.checkListOfEnum "${pname}: theme variants" [ "default" "manjaro" "ubuntu" "all" ] themeVariants
-lib.checkListOfEnum "${pname}: color variants" [ "standard" "light" "dark" ] colorVariants
+in lib.checkListOfEnum "${pname}: theme variants" [
+  "default"
+  "manjaro"
+  "ubuntu"
+  "all"
+] themeVariants lib.checkListOfEnum
+"${pname}: color variants" [ "standard" "light" "dark" ] colorVariants
 lib.checkListOfEnum "${pname}: tweaks" [ "image" "square" "round" ] tweaks
 
 stdenv.mkDerivation rec {
@@ -33,11 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "oBUBSPlOCBEaRRFK5ZyoGlk+gwcE8LtdwxvL+iTfuMA=";
   };
 
-  nativeBuildInputs = [
-    jdupes
-    sassc
-    which
-  ];
+  nativeBuildInputs = [ jdupes sassc which ];
 
   buildInputs = [
     gdk-pixbuf # pixbuf engine for Gtk2
@@ -59,9 +48,18 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/themes
 
     name= HOME="$TMPDIR" ./install.sh \
-      ${lib.optionalString (themeVariants != []) "--theme " + builtins.toString themeVariants} \
-      ${lib.optionalString (colorVariants != []) "--color " + builtins.toString colorVariants} \
-      ${lib.optionalString (tweaks != []) "--tweaks " + builtins.toString tweaks} \
+      ${
+        lib.optionalString (themeVariants != [ ]) "--theme "
+        + builtins.toString themeVariants
+      } \
+      ${
+        lib.optionalString (colorVariants != [ ]) "--color "
+        + builtins.toString colorVariants
+      } \
+      ${
+        lib.optionalString (tweaks != [ ]) "--tweaks "
+        + builtins.toString tweaks
+      } \
       --dest $out/share/themes
 
     mkdir -p $out/share/doc/${pname}

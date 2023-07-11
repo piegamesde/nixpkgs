@@ -1,34 +1,9 @@
-{ fetchurl
-, lib
-, stdenv
-, meson
-, mesonEmulatorHook
-, ninja
-, pkg-config
-, gnome
-, gtk3
-, atk
-, gobject-introspection
-, spidermonkey_102
-, pango
-, cairo
-, readline
-, libsysprof-capture
-, glib
-, libxml2
-, dbus
-, gdk-pixbuf
-, harfbuzz
-, makeWrapper
-, which
-, xvfb-run
-, nixosTests
-}:
+{ fetchurl, lib, stdenv, meson, mesonEmulatorHook, ninja, pkg-config, gnome
+, gtk3, atk, gobject-introspection, spidermonkey_102, pango, cairo, readline
+, libsysprof-capture, glib, libxml2, dbus, gdk-pixbuf, harfbuzz, makeWrapper
+, which, xvfb-run, nixosTests }:
 
-let
-  testDeps = [
-    gtk3 atk pango.out gdk-pixbuf harfbuzz
-  ];
+let testDeps = [ gtk3 atk pango.out gdk-pixbuf harfbuzz ];
 in stdenv.mkDerivation rec {
   pname = "gjs";
   version = "1.76.0";
@@ -36,7 +11,9 @@ in stdenv.mkDerivation rec {
   outputs = [ "out" "dev" "installedTests" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gjs/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gjs/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "sha256-pj8VaWSxNgU+q1HqATEU59fBk7dRjSjAQLawLDyTOm0=";
   };
 
@@ -57,30 +34,18 @@ in stdenv.mkDerivation rec {
     libxml2 # for xml-stripblanks
     dbus # for dbus-run-session
     gobject-introspection
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-    mesonEmulatorHook
-  ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+    [ mesonEmulatorHook ];
 
-  buildInputs = [
-    cairo
-    readline
-    libsysprof-capture
-    spidermonkey_102
-  ];
+  buildInputs = [ cairo readline libsysprof-capture spidermonkey_102 ];
 
-  nativeCheckInputs = [
-    xvfb-run
-  ] ++ testDeps;
+  nativeCheckInputs = [ xvfb-run ] ++ testDeps;
 
-  propagatedBuildInputs = [
-    glib
-  ];
+  propagatedBuildInputs = [ glib ];
 
-  mesonFlags = [
-    "-Dinstalled_test_prefix=${placeholder "installedTests"}"
-  ] ++ lib.optionals (!stdenv.isLinux || stdenv.hostPlatform.isMusl) [
-    "-Dprofiler=disabled"
-  ];
+  mesonFlags = [ "-Dinstalled_test_prefix=${placeholder "installedTests"}" ]
+    ++ lib.optionals (!stdenv.isLinux || stdenv.hostPlatform.isMusl)
+    [ "-Dprofiler=disabled" ];
 
   doCheck = !stdenv.isDarwin;
 
@@ -115,7 +80,9 @@ in stdenv.mkDerivation rec {
   postFixup = ''
     wrapProgram "$installedTests/libexec/installed-tests/gjs/minijasmine" \
       --prefix XDG_DATA_DIRS : "$installedTestsSchemaDatadir" \
-      --prefix GI_TYPELIB_PATH : "${lib.makeSearchPath "lib/girepository-1.0" testDeps}"
+      --prefix GI_TYPELIB_PATH : "${
+        lib.makeSearchPath "lib/girepository-1.0" testDeps
+      }"
   '';
 
   checkPhase = ''
@@ -128,9 +95,7 @@ in stdenv.mkDerivation rec {
   separateDebugInfo = stdenv.isLinux;
 
   passthru = {
-    tests = {
-      installed-tests = nixosTests.installed-tests.gjs;
-    };
+    tests = { installed-tests = nixosTests.installed-tests.gjs; };
 
     updateScript = gnome.updateScript {
       packageName = "gjs";

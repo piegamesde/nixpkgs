@@ -1,11 +1,4 @@
-{ lib
-, stdenv
-, fetchurl
-, meson
-, ninja
-, pkg-config
-, efl
-, directoryListingUpdater
+{ lib, stdenv, fetchurl, meson, ninja, pkg-config, efl, directoryListingUpdater
 }:
 
 stdenv.mkDerivation rec {
@@ -13,19 +6,14 @@ stdenv.mkDerivation rec {
   version = "0.2.0";
 
   src = fetchurl {
-    url = "http://download.enlightenment.org/rel/apps/${pname}/${pname}-${version}.tar.xz";
+    url =
+      "http://download.enlightenment.org/rel/apps/${pname}/${pname}-${version}.tar.xz";
     sha256 = "1pszk583rzclfqy3dyjh1m9pz1hnr84vqz8vw9kngcnmj23mjr6r";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
 
-  buildInputs = [
-    efl
-  ];
+  buildInputs = [ efl ];
 
   passthru.updateScript = directoryListingUpdater { };
 

@@ -1,10 +1,4 @@
-{ qtModule
-, qtbase
-, qtlanguageserver
-, qtshadertools
-, openssl
-, python3
-}:
+{ qtModule, qtbase, qtlanguageserver, qtshadertools, openssl, python3 }:
 
 qtModule {
   pname = "qtdeclarative";

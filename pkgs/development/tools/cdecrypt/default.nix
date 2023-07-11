@@ -1,7 +1,4 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "cdecrypt";
@@ -21,7 +18,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A utility that decrypts Wii U NUS content files";
     homepage = "https://github.com/VitaSmith/cdecrypt";
-    changelog = "https://github.com/VitaSmith/cdecrypt/releases/tag/v${version}";
+    changelog =
+      "https://github.com/VitaSmith/cdecrypt/releases/tag/v${version}";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ hughobrien ];
     platforms = platforms.linux ++ platforms.darwin;

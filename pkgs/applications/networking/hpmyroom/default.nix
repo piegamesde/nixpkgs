@@ -1,25 +1,34 @@
-{ mkDerivation, stdenv, lib, fetchurl, rpmextract, autoPatchelfHook , libuuid
-, libXtst, libXfixes, glib, gst_all_1, alsa-lib, freetype, fontconfig , libXext
-, libGL, libpng, libXScrnSaver, libxcb, xorg, libpulseaudio, libdrm
-}:
+{ mkDerivation, stdenv, lib, fetchurl, rpmextract, autoPatchelfHook, libuuid
+, libXtst, libXfixes, glib, gst_all_1, alsa-lib, freetype, fontconfig, libXext
+, libGL, libpng, libXScrnSaver, libxcb, xorg, libpulseaudio, libdrm }:
 mkDerivation rec {
   pname = "hpmyroom";
   version = "12.9.0.0601";
 
   src = fetchurl {
-    url = "https://www.myroom.hpe.com/downloadfiles/${pname}-${version}.x86_64.rpm";
+    url =
+      "https://www.myroom.hpe.com/downloadfiles/${pname}-${version}.x86_64.rpm";
     sha256 = "sha256-1BC4EjCCLAuCIOV+jJn3pfKKW7UJI5tfC+wg0FUgB64=";
   };
 
-  nativeBuildInputs = [
-    rpmextract autoPatchelfHook
-  ];
+  nativeBuildInputs = [ rpmextract autoPatchelfHook ];
 
   buildInputs = [
-    libuuid libXtst libXScrnSaver libXfixes alsa-lib freetype fontconfig libXext
-    libGL libpng libxcb libpulseaudio libdrm
-    glib  # For libgobject
-    stdenv.cc.cc  # For libstdc++
+    libuuid
+    libXtst
+    libXScrnSaver
+    libXfixes
+    alsa-lib
+    freetype
+    fontconfig
+    libXext
+    libGL
+    libpng
+    libxcb
+    libpulseaudio
+    libdrm
+    glib # For libgobject
+    stdenv.cc.cc # For libstdc++
     xorg.libX11
   ] ++ (with gst_all_1; [ gstreamer gst-plugins-base ]);
 
@@ -35,9 +44,8 @@ mkDerivation rec {
     runHook postInstall
   '';
 
-  qtWrapperArgs = [
-    "--prefix QT_XKB_CONFIG_ROOT : '${xorg.xkeyboardconfig}/share/X11/xkb'"
-  ];
+  qtWrapperArgs =
+    [ "--prefix QT_XKB_CONFIG_ROOT : '${xorg.xkeyboardconfig}/share/X11/xkb'" ];
 
   postFixup = ''
     substituteInPlace $out/share/applications/HP-myroom.desktop \

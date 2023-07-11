@@ -1,18 +1,5 @@
-{ lib
-, apptools
-, buildPythonPackage
-, envisage
-, fetchPypi
-, numpy
-, packaging
-, pyface
-, pygments
-, pyqt5
-, pythonOlder
-, traitsui
-, vtk
-, wrapQtAppsHook
-}:
+{ lib, apptools, buildPythonPackage, envisage, fetchPypi, numpy, packaging
+, pyface, pygments, pyqt5, pythonOlder, traitsui, vtk, wrapQtAppsHook }:
 
 buildPythonPackage rec {
   pname = "mayavi";
@@ -32,30 +19,17 @@ buildPythonPackage rec {
       --replace "build.build.run(self)" "build.build.run(self); return"
   '';
 
-  nativeBuildInputs = [
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ wrapQtAppsHook ];
 
-  propagatedBuildInputs = [
-    apptools
-    envisage
-    numpy
-    packaging
-    pyface
-    pygments
-    pyqt5
-    traitsui
-    vtk
-  ];
+  propagatedBuildInputs =
+    [ apptools envisage numpy packaging pyface pygments pyqt5 traitsui vtk ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
   # Needs X server
   doCheck = false;
 
-  pythonImportsCheck = [
-    "mayavi"
-  ];
+  pythonImportsCheck = [ "mayavi" ];
 
   preFixup = ''
     makeWrapperArgs+=("''${qtWrapperArgs[@]}")

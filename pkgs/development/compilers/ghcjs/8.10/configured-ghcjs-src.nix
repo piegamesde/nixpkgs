@@ -1,38 +1,19 @@
-{ perl
-, autoconf
-, automake
-, python3
-, gcc
-, cabal-install
-, runCommand
-, fetchpatch
+{ perl, autoconf, automake, python3, gcc, cabal-install, runCommand, fetchpatch
 
-, ghc
-, happy
-, alex
+, ghc, happy, alex
 
-, ghcjsSrc
-, version
-}:
+, ghcjsSrc, version }:
 
 runCommand "configured-ghcjs-src" {
-  nativeBuildInputs = [
-    perl
-    autoconf
-    automake
-    python3
-    ghc
-    happy
-    alex
-    cabal-install
-    gcc
-  ];
+  nativeBuildInputs =
+    [ perl autoconf automake python3 ghc happy alex cabal-install gcc ];
 
   inherit ghcjsSrc;
 
   ctimePatch = fetchpatch {
     name = "ghcjs-base-ctime-64-bit.patch";
-    url = "https://github.com/ghcjs/ghcjs/commit/b7711fbca7c3f43a61f1dba526e6f2a2656ef44c.patch";
+    url =
+      "https://github.com/ghcjs/ghcjs/commit/b7711fbca7c3f43a61f1dba526e6f2a2656ef44c.patch";
     hash = "sha256-zZ3l8/5gbIGtvu0s2Xl92fEDhkhJ2c2w+5Ql5qkvr3s=";
   };
 } ''

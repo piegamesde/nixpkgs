@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, glog, leveldb, marisa, opencc,
-  yaml-cpp, gtest, capnproto, pkg-config, plugins ? [ ] }:
+{ lib, stdenv, fetchFromGitHub, cmake, boost, glog, leveldb, marisa, opencc
+, yaml-cpp, gtest, capnproto, pkg-config, plugins ? [ ] }:
 
 let
   copySinglePlugin = plug: "cp -r ${plug} plugins/${plug.name}";
@@ -7,8 +7,7 @@ let
     ${lib.concatMapStringsSep "\n" copySinglePlugin plugins}
     chmod +w -R plugins/*
   '';
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "librime";
   version = "1.8.5";
 
@@ -22,15 +21,15 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [ boost glog leveldb marisa opencc yaml-cpp gtest capnproto ]
-              ++ plugins; # for propagated build inputs
+    ++ plugins; # for propagated build inputs
 
   preConfigure = copyPlugins;
 
   meta = with lib; {
-    homepage    = "https://rime.im/";
+    homepage = "https://rime.im/";
     description = "Rime Input Method Engine, the core library";
-    license     = licenses.bsd3;
+    license = licenses.bsd3;
     maintainers = with maintainers; [ vonfry ];
-    platforms   = platforms.linux;
+    platforms = platforms.linux;
   };
 }

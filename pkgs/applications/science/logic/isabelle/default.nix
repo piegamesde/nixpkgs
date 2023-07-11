@@ -1,22 +1,6 @@
-{ lib
-, stdenv
-, fetchurl
-, coreutils
-, nettools
-, java
-, scala_3
-, polyml
-, veriT
-, vampire
-, eprover-ho
-, naproche
-, rlwrap
-, perl
-, makeDesktopItem
-, isabelle-components
-, symlinkJoin
-, fetchhg
-}:
+{ lib, stdenv, fetchurl, coreutils, nettools, java, scala_3, polyml, veriT
+, vampire, eprover-ho, naproche, rlwrap, perl, makeDesktopItem
+, isabelle-components, symlinkJoin, fetchhg }:
 
 let
   sha1 = stdenv.mkDerivation {
@@ -50,25 +34,24 @@ in stdenv.mkDerivation (finalAttrs: rec {
 
   dirname = "Isabelle${version}";
 
-  src =
-    if stdenv.isDarwin
-    then
-      fetchurl
-        {
-          url = "https://isabelle.in.tum.de/website-${dirname}/dist/${dirname}_macos.tar.gz";
-          sha256 = "0b84rx9b7b5y8m1sg7xdp17j6yngd2dkx6v5bkd8h7ly102lai18";
-        }
-    else if stdenv.hostPlatform.isx86
-    then
-      fetchurl {
-        url = "https://isabelle.in.tum.de/website-${dirname}/dist/${dirname}_linux.tar.gz";
-        sha256 = "1ih4gykkp1an43qdgc5xzyvf30fhs0dah3y0a5ksbmvmjsfnxyp7";
-      }
-    else
-      fetchurl {
-        url = "https://isabelle.in.tum.de/website-${dirname}/dist/${dirname}_linux_arm.tar.gz";
-        hash = "sha256-qI/BR/KZwLjnkO5q/yYeW4lN4xyUe78VOM2INC/Z/io=";
-      };
+  src = if stdenv.isDarwin then
+    fetchurl {
+      url =
+        "https://isabelle.in.tum.de/website-${dirname}/dist/${dirname}_macos.tar.gz";
+      sha256 = "0b84rx9b7b5y8m1sg7xdp17j6yngd2dkx6v5bkd8h7ly102lai18";
+    }
+  else if stdenv.hostPlatform.isx86 then
+    fetchurl {
+      url =
+        "https://isabelle.in.tum.de/website-${dirname}/dist/${dirname}_linux.tar.gz";
+      sha256 = "1ih4gykkp1an43qdgc5xzyvf30fhs0dah3y0a5ksbmvmjsfnxyp7";
+    }
+  else
+    fetchurl {
+      url =
+        "https://isabelle.in.tum.de/website-${dirname}/dist/${dirname}_linux_arm.tar.gz";
+      hash = "sha256-qI/BR/KZwLjnkO5q/yYeW4lN4xyUe78VOM2INC/Z/io=";
+    };
 
   nativeBuildInputs = [ java ];
 
@@ -145,15 +128,27 @@ in stdenv.mkDerivation (finalAttrs: rec {
     substituteInPlace lib/scripts/isabelle-platform \
       --replace 'ISABELLE_APPLE_PLATFORM64=arm64-darwin' ""
   '' + lib.optionalString stdenv.isLinux ''
-    arch=${if stdenv.hostPlatform.system == "x86_64-linux" then "x86_64-linux"
-           else if stdenv.hostPlatform.isx86 then "x86-linux"
-           else "arm64-linux"}
+    arch=${
+      if stdenv.hostPlatform.system == "x86_64-linux" then
+        "x86_64-linux"
+      else if stdenv.hostPlatform.isx86 then
+        "x86-linux"
+      else
+        "arm64-linux"
+    }
     for f in contrib/*/$arch/{z3,epclextract,nunchaku,SPASS,zipperposition}; do
-      patchelf --set-interpreter $(cat ${stdenv.cc}/nix-support/dynamic-linker) "$f"${lib.optionalString stdenv.isAarch64 " || true"}
+      patchelf --set-interpreter $(cat ${stdenv.cc}/nix-support/dynamic-linker) "$f"${
+        lib.optionalString stdenv.isAarch64 " || true"
+      }
     done
     patchelf --set-interpreter $(cat ${stdenv.cc}/nix-support/dynamic-linker) contrib/bash_process-*/platform_$arch/bash_process
     for d in contrib/kodkodi-*/jni/$arch; do
-      patchelf --set-rpath "${lib.concatStringsSep ":" [ "${java}/lib/openjdk/lib/server" "${stdenv.cc.cc.lib}/lib" ]}" $d/*.so
+      patchelf --set-rpath "${
+        lib.concatStringsSep ":" [
+          "${java}/lib/openjdk/lib/server"
+          "${stdenv.cc.cc.lib}/lib"
+        ]
+      }" $d/*.so
     done
     patchelf --set-rpath "${stdenv.cc.cc.lib}/lib" contrib/z3-*/$arch/z3
   '';
@@ -217,7 +212,7 @@ in stdenv.mkDerivation (finalAttrs: rec {
     homepage = "https://isabelle.in.tum.de/";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryNativeCode  # source bundles binary dependencies
+      binaryNativeCode # source bundles binary dependencies
     ];
     license = licenses.bsd3;
     maintainers = [ maintainers.jwiegley maintainers.jvanbruegge ];
@@ -231,7 +226,8 @@ in stdenv.mkDerivation (finalAttrs: rec {
       components = f isabelle-components;
     in symlinkJoin {
       name = "isabelle-with-components-${isabelle.version}";
-      paths = [ isabelle ] ++ (builtins.map (c: c.override { inherit isabelle; }) components);
+      paths = [ isabelle ]
+        ++ (builtins.map (c: c.override { inherit isabelle; }) components);
 
       postBuild = ''
         rm $out/bin/*

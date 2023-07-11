@@ -1,15 +1,7 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, makeWrapper
-, gnupg
-, perl
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, gnupg, perl }:
 
-let
-  perlEnv = perl.withPackages (p: with p; [ TextMarkdown ]);
-in
-stdenv.mkDerivation rec {
+let perlEnv = perl.withPackages (p: with p; [ TextMarkdown ]);
+in stdenv.mkDerivation rec {
   pname = "regpg";
   version = "1.11";
 

@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, asio
-, cmake
-, curl
-, obs-studio
-, opencv
-, procps
-, qtbase
-, websocketpp
-, xorg
-}:
+{ lib, stdenv, fetchFromGitHub, asio, cmake, curl, obs-studio, opencv, procps
+, qtbase, websocketpp, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "advanced-scene-switcher";

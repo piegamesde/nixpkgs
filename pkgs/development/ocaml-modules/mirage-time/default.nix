@@ -9,7 +9,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/mirage/mirage-time/releases/download/v${version}/mirage-time-v${version}.tbz";
+    url =
+      "https://github.com/mirage/mirage-time/releases/download/v${version}/mirage-time-v${version}.tbz";
     hash = "sha256-DUCUm1jix+i3YszIzgZjRQRiM8jJXQ49F6JC/yicvXw=";
   };
 

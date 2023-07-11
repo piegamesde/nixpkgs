@@ -7,9 +7,7 @@ let
   cfgC = config.services.synergy.client;
   cfgS = config.services.synergy.server;
 
-in
-
-{
+in {
   ###### interface
 
   options = {
@@ -19,7 +17,8 @@ in
       # !!! All these option descriptions needs to be cleaned up.
 
       client = {
-        enable = mkEnableOption (lib.mdDoc "the Synergy client (receive keyboard and mouse events from a Synergy server)");
+        enable = mkEnableOption (lib.mdDoc
+          "the Synergy client (receive keyboard and mouse events from a Synergy server)");
 
         screenName = mkOption {
           default = "";
@@ -40,12 +39,14 @@ in
         autoStart = mkOption {
           default = true;
           type = types.bool;
-          description = lib.mdDoc "Whether the Synergy client should be started automatically.";
+          description = lib.mdDoc
+            "Whether the Synergy client should be started automatically.";
         };
       };
 
       server = {
-        enable = mkEnableOption (lib.mdDoc "the Synergy server (send keyboard and mouse events)");
+        enable = mkEnableOption
+          (lib.mdDoc "the Synergy server (send keyboard and mouse events)");
 
         configFile = mkOption {
           type = types.path;
@@ -68,7 +69,8 @@ in
         autoStart = mkOption {
           default = true;
           type = types.bool;
-          description = lib.mdDoc "Whether the Synergy server should be started automatically.";
+          description = lib.mdDoc
+            "Whether the Synergy server should be started automatically.";
         };
         tls = {
           enable = mkOption {
@@ -87,14 +89,14 @@ in
             type = types.nullOr types.str;
             default = null;
             example = "~/.synergy/SSL/Synergy.pem";
-            description = lib.mdDoc "The TLS certificate to use for encryption.";
+            description =
+              lib.mdDoc "The TLS certificate to use for encryption.";
           };
         };
       };
     };
 
   };
-
 
   ###### implementation
 
@@ -105,7 +107,9 @@ in
         description = "Synergy client";
         wantedBy = optional cfgC.autoStart "graphical-session.target";
         path = [ pkgs.synergy ];
-        serviceConfig.ExecStart = ''${pkgs.synergy}/bin/synergyc -f ${optionalString (cfgC.screenName != "") "-n ${cfgC.screenName}"} ${cfgC.serverAddress}'';
+        serviceConfig.ExecStart = "${pkgs.synergy}/bin/synergyc -f ${
+            optionalString (cfgC.screenName != "") "-n ${cfgC.screenName}"
+          } ${cfgC.serverAddress}";
         serviceConfig.Restart = "on-failure";
       };
     })
@@ -115,7 +119,15 @@ in
         description = "Synergy server";
         wantedBy = optional cfgS.autoStart "graphical-session.target";
         path = [ pkgs.synergy ];
-        serviceConfig.ExecStart = ''${pkgs.synergy}/bin/synergys -c ${cfgS.configFile} -f${optionalString (cfgS.address != "") " -a ${cfgS.address}"}${optionalString (cfgS.screenName != "") " -n ${cfgS.screenName}"}${optionalString cfgS.tls.enable " --enable-crypto"}${optionalString (cfgS.tls.cert != null) (" --tls-cert ${cfgS.tls.cert}")}'';
+        serviceConfig.ExecStart =
+          "${pkgs.synergy}/bin/synergys -c ${cfgS.configFile} -f${
+            optionalString (cfgS.address != "") " -a ${cfgS.address}"
+          }${optionalString (cfgS.screenName != "") " -n ${cfgS.screenName}"}${
+            optionalString cfgS.tls.enable " --enable-crypto"
+          }${
+            optionalString (cfgS.tls.cert != null)
+            (" --tls-cert ${cfgS.tls.cert}")
+          }";
         serviceConfig.Restart = "on-failure";
       };
     })
@@ -124,26 +136,26 @@ in
 }
 
 /* SYNERGY SERVER example configuration file
-section: screens
-  laptop:
-  dm:
-  win:
-end
-section: aliases
-    laptop:
-      192.168.5.5
-    dm:
-      192.168.5.78
-    win:
-      192.168.5.54
-end
-section: links
-   laptop:
-       left = dm
-   dm:
-       right = laptop
-       left = win
-  win:
-      right = dm
-end
+   section: screens
+     laptop:
+     dm:
+     win:
+   end
+   section: aliases
+       laptop:
+         192.168.5.5
+       dm:
+         192.168.5.78
+       win:
+         192.168.5.54
+   end
+   section: links
+      laptop:
+          left = dm
+      dm:
+          right = laptop
+          left = win
+     win:
+         right = dm
+   end
 */

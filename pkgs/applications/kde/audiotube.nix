@@ -1,20 +1,9 @@
-{ lib
-, mkDerivation
+{ lib, mkDerivation
 
-, extra-cmake-modules
-, wrapGAppsHook
+, extra-cmake-modules, wrapGAppsHook
 
-, gst_all_1
-, kcoreaddons
-, kcrash
-, ki18n
-, kirigami2
-, kirigami-addons
-, qtimageformats
-, qtmultimedia
-, qtquickcontrols2
-, python3Packages
-}:
+, gst_all_1, kcoreaddons, kcrash, ki18n, kirigami2, kirigami-addons
+, qtimageformats, qtmultimedia, qtquickcontrols2, python3Packages }:
 
 mkDerivation rec {
   pname = "audiotube";
@@ -42,10 +31,7 @@ mkDerivation rec {
     gstreamer
   ]) ++ pythonPath;
 
-  pythonPath = with python3Packages; [
-    yt-dlp
-    ytmusicapi
-  ];
+  pythonPath = with python3Packages; [ yt-dlp ytmusicapi ];
 
   preFixup = ''
     buildPythonPath "$pythonPath"

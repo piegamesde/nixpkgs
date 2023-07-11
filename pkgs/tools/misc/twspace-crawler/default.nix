@@ -16,7 +16,8 @@ buildNpmPackage rec {
   meta = with lib; {
     description = "Script to monitor & download Twitter Spaces 24/7";
     homepage = "https://github.com/HitomaruKonpaku/twspace-crawler";
-    changelog = "https://github.com/HitomaruKonpaku/twspace-crawler/raw/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/HitomaruKonpaku/twspace-crawler/raw/v${version}/CHANGELOG.md";
     license = licenses.isc;
     maintainers = [ maintainers.marsam ];
   };

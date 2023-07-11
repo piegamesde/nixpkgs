@@ -1,26 +1,8 @@
-{ stdenv
-, lib
-, fetchurl
-, fetchpatch
-, alsa-lib
-, dbus
-, ell
-, glib
-, json_c
-, libical
-, docutils
-, pkg-config
-, python3
-, readline
-, systemdMinimal
-, udev
-, withExperimental ? false
-}: let
-  pythonPath = with python3.pkgs; [
-    dbus-python
-    pygobject3
-    recursivePthLoader
-  ];
+{ stdenv, lib, fetchurl, fetchpatch, alsa-lib, dbus, ell, glib, json_c, libical
+, docutils, pkg-config, python3, readline, systemdMinimal, udev
+, withExperimental ? false }:
+let
+  pythonPath = with python3.pkgs; [ dbus-python pygobject3 recursivePthLoader ];
 in stdenv.mkDerivation rec {
   pname = "bluez";
   version = "5.66";
@@ -33,28 +15,15 @@ in stdenv.mkDerivation rec {
   patches = [
     # replace use of a non-standard symbol to fix build with musl libc (pkgsMusl.bluez)
     (fetchpatch {
-      url = "https://git.alpinelinux.org/aports/plain/main/bluez/max-input.patch?id=32b31b484cb13009bd8081c4106e4cf064ec2f1f";
+      url =
+        "https://git.alpinelinux.org/aports/plain/main/bluez/max-input.patch?id=32b31b484cb13009bd8081c4106e4cf064ec2f1f";
       sha256 = "sha256-SczbXtsxBkCO+izH8XOBcrJEO2f7MdtYVT3+2fCV8wU=";
     })
   ];
 
-  buildInputs = [
-    alsa-lib
-    dbus
-    ell
-    glib
-    json_c
-    libical
-    python3
-    readline
-    udev
-  ];
+  buildInputs = [ alsa-lib dbus ell glib json_c libical python3 readline udev ];
 
-  nativeBuildInputs = [
-    docutils
-    pkg-config
-    python3.pkgs.wrapPython
-  ];
+  nativeBuildInputs = [ docutils pkg-config python3.pkgs.wrapPython ];
 
   outputs = [ "out" "dev" "test" ];
 
@@ -95,7 +64,6 @@ in stdenv.mkDerivation rec {
     # superseded by new D-Bus APIs
     "--enable-deprecated"
   ] ++ lib.optional withExperimental "--enable-experimental";
-
 
   # Work around `make install' trying to create /var/lib/bluetooth.
   installFlags = [ "statedir=$(TMPDIR)/var/lib/bluetooth" ];

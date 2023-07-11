@@ -1,6 +1,4 @@
-{ lib, python3
-, sassc, hyperkitty, postorius
-}:
+{ lib, python3, sassc, hyperkitty, postorius }:
 
 with python3.pkgs;
 
@@ -34,9 +32,7 @@ buildPythonPackage rec {
   # Tries to check runtime configuration.
   doCheck = false;
 
-  makeWrapperArgs = [
-    "--suffix PATH : ${lib.makeBinPath [ sassc ]}"
-  ];
+  makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ sassc ]}" ];
 
   meta = with lib; {
     description = "Django project for Mailman 3 web interface";

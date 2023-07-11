@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, fetchpatch
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "overpy";
@@ -23,18 +18,15 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       # Remove pytest-runner
-      url = "https://patch-diff.githubusercontent.com/raw/DinoTools/python-overpy/pull/104.patch";
+      url =
+        "https://patch-diff.githubusercontent.com/raw/DinoTools/python-overpy/pull/104.patch";
       hash = "sha256-ScS0vd2P+wyQGyCQV6/4cUcqoQ+S07tGpEovuz9oBMw=";
     })
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "overpy"
-  ];
+  pythonImportsCheck = [ "overpy" ];
 
   meta = with lib; {
     description = "Python Wrapper to access the Overpass API";

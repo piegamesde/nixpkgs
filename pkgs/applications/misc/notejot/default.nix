@@ -1,18 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, gtk4
-, json-glib
-, libadwaita
-, libgee
-, desktop-file-utils
-, meson
-, ninja
-, nix-update-script
-, pkg-config
-, vala
-, wrapGAppsHook4
-}:
+{ lib, stdenv, fetchFromGitHub, gtk4, json-glib, libadwaita, libgee
+, desktop-file-utils, meson, ninja, nix-update-script, pkg-config, vala
+, wrapGAppsHook4 }:
 
 stdenv.mkDerivation rec {
   pname = "notejot";
@@ -25,21 +13,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-p5F0OITgfZyvHwndI5r5BE524+nft7A2XfR3BJZFamU=";
   };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    meson
-    ninja
-    pkg-config
-    vala
-    wrapGAppsHook4
-  ];
+  nativeBuildInputs =
+    [ desktop-file-utils meson ninja pkg-config vala wrapGAppsHook4 ];
 
-  buildInputs = [
-    gtk4
-    json-glib
-    libadwaita
-    libgee
-  ];
+  buildInputs = [ gtk4 json-glib libadwaita libgee ];
 
   passthru.updateScript = nix-update-script { };
 

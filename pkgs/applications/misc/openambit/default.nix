@@ -1,15 +1,5 @@
-{ cmake
-, fetchFromGitHub
-, fetchpatch
-, lib
-, libusb1
-, mkDerivation
-, python3
-, qtbase
-, qttools
-, udev
-, zlib
-}:
+{ cmake, fetchFromGitHub, fetchpatch, lib, libusb1, mkDerivation, python3
+, qtbase, qttools, udev, zlib }:
 
 mkDerivation rec {
   pname = "openambit";
@@ -27,7 +17,8 @@ mkDerivation rec {
     #   https://github.com/openambitproject/openambit/pull/244
     (fetchpatch {
       name = "fno-common.patch";
-      url = "https://github.com/openambitproject/openambit/commit/b6d97eab417977b6dbe355e0b071d0a56cc3df6b.patch";
+      url =
+        "https://github.com/openambitproject/openambit/commit/b6d97eab417977b6dbe355e0b071d0a56cc3df6b.patch";
       sha256 = "1p0dg902mlcfjvs01dxl9wv2b50ayp4330p38d14q87mn0c2xl5d";
     })
   ];
@@ -35,7 +26,8 @@ mkDerivation rec {
   nativeBuildInputs = [ cmake qttools ];
   buildInputs = [ libusb1 python3 qtbase udev zlib ];
 
-  cmakeFlags = [ "-DCMAKE_INSTALL_UDEVRULESDIR=${placeholder "out"}/lib/udev/rules.d" ];
+  cmakeFlags =
+    [ "-DCMAKE_INSTALL_UDEVRULESDIR=${placeholder "out"}/lib/udev/rules.d" ];
 
   doInstallCheck = true;
   installCheckPhase = ''

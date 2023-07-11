@@ -1,16 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, gettext
-, intltool
-, pkg-config
-, wrapGAppsHook
-, gtkmm3
-, libuuid
-, poppler
-, qpdf
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, gettext, intltool, pkg-config
+, wrapGAppsHook, gtkmm3, libuuid, poppler, qpdf }:
 
 stdenv.mkDerivation rec {
   pname = "pdfslicer";
@@ -30,23 +19,13 @@ stdenv.mkDerivation rec {
       --replace "add_subdirectory (tests)" ""
   '';
 
-  nativeBuildInputs = [
-    cmake
-    gettext
-    intltool
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ cmake gettext intltool pkg-config wrapGAppsHook ];
 
-  buildInputs = [
-    gtkmm3
-    libuuid
-    poppler
-    qpdf
-  ];
+  buildInputs = [ gtkmm3 libuuid poppler qpdf ];
 
   meta = with lib; {
-    description = "A simple application to extract, merge, rotate and reorder pages of PDF documents";
+    description =
+      "A simple application to extract, merge, rotate and reorder pages of PDF documents";
     homepage = "https://junrrein.github.io/pdfslicer/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ dotlambda ];

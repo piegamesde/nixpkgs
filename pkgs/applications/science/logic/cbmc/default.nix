@@ -1,15 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, testers
-, bison
-, cadical
-, cbmc
-, cmake
-, flex
-, makeWrapper
-, perl
-}:
+{ lib, stdenv, fetchFromGitHub, testers, bison, cadical, cbmc, cmake, flex
+, makeWrapper, perl }:
 
 stdenv.mkDerivation rec {
   pname = "cbmc";
@@ -22,21 +12,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OVOoAfoqev33c7pIzBGK9HD+zgji/+BWKD33RYJaSDc=";
   };
 
-  nativeBuildInputs = [
-    bison
-    cmake
-    flex
-    perl
-    makeWrapper
-  ];
+  nativeBuildInputs = [ bison cmake flex perl makeWrapper ];
 
   buildInputs = [ cadical ];
 
   # do not download sources
   # link existing cadical instead
-  patches = [
-    ./0001-Do-not-download-sources-in-cmake.patch
-  ];
+  patches = [ ./0001-Do-not-download-sources-in-cmake.patch ];
 
   postPatch = ''
     # do not hardcode gcc
@@ -69,7 +51,11 @@ stdenv.mkDerivation rec {
   ]);
 
   # TODO: add jbmc support
-  cmakeFlags = [ "-DWITH_JBMC=OFF" "-Dsat_impl=cadical" "-Dcadical_INCLUDE_DIR=${cadical.dev}/include" ];
+  cmakeFlags = [
+    "-DWITH_JBMC=OFF"
+    "-Dsat_impl=cadical"
+    "-Dcadical_INCLUDE_DIR=${cadical.dev}/include"
+  ];
 
   passthru.tests.version = testers.testVersion {
     package = cbmc;

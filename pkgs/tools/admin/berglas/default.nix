@@ -13,19 +13,16 @@ let
     update = "Update";
   };
 
-  skipTestsCommand =
-    builtins.foldl' (acc: goFileName:
-      let testName = builtins.getAttr goFileName skipTests; in
-      ''
-        ${acc}
-        substituteInPlace pkg/berglas/${goFileName}_test.go \
-          --replace "TestClient_${testName}_storage" "SkipClient_${testName}_storage" \
-          --replace "TestClient_${testName}_secretManager" "SkipClient_${testName}_secretManager"
-      ''
-    ) "" (builtins.attrNames skipTests);
-in
+  skipTestsCommand = builtins.foldl' (acc: goFileName:
+    let testName = builtins.getAttr goFileName skipTests;
+    in ''
+      ${acc}
+      substituteInPlace pkg/berglas/${goFileName}_test.go \
+        --replace "TestClient_${testName}_storage" "SkipClient_${testName}_storage" \
+        --replace "TestClient_${testName}_secretManager" "SkipClient_${testName}_secretManager"
+    '') "" (builtins.attrNames skipTests);
 
-buildGoModule rec {
+in buildGoModule rec {
   pname = "berglas";
   version = "1.0.2";
 

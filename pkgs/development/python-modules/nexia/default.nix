@@ -1,13 +1,5 @@
-{ lib
-, aioresponses
-, buildPythonPackage
-, orjson
-, fetchFromGitHub
-, pytestCheckHook
-, pythonOlder
-, requests
-, requests-mock
-}:
+{ lib, aioresponses, buildPythonPackage, orjson, fetchFromGitHub
+, pytestCheckHook, pythonOlder, requests, requests-mock }:
 
 buildPythonPackage rec {
   pname = "nexia";
@@ -23,25 +15,16 @@ buildPythonPackage rec {
     hash = "sha256-VBK+h5K/irI0T0eUaYC1iouzMUo/lJshLTe0h5CtnAQ=";
   };
 
-  propagatedBuildInputs = [
-    orjson
-    requests
-  ];
+  propagatedBuildInputs = [ orjson requests ];
 
-  nativeCheckInputs = [
-    aioresponses
-    requests-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aioresponses requests-mock pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.py \
       --replace '"pytest-runner",' ""
   '';
 
-  pythonImportsCheck = [
-    "nexia"
-  ];
+  pythonImportsCheck = [ "nexia" ];
 
   meta = with lib; {
     description = "Python module for Nexia thermostats";

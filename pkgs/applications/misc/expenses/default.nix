@@ -1,9 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, sqlite
-, installShellFiles
-}:
+{ lib, buildGoModule, fetchFromGitHub, sqlite, installShellFiles }:
 
 buildGoModule rec {
   pname = "expenses";
@@ -25,9 +20,8 @@ buildGoModule rec {
 
   buildInputs = [ sqlite ];
 
-  ldflags = [
-    "-s" "-w" "-X github.com/manojkarthick/expenses/cmd.Version=${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/manojkarthick/expenses/cmd.Version=${version}" ];
 
   postInstall = ''
     installShellCompletion --cmd expenses \
@@ -37,8 +31,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-   description = "An interactive command line expense logger";
-   license = licenses.mit;
-   maintainers = [ maintainers.manojkarthick ];
+    description = "An interactive command line expense logger";
+    license = licenses.mit;
+    maintainers = [ maintainers.manojkarthick ];
   };
 }

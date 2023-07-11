@@ -1,8 +1,6 @@
-{ lib, stdenv, fetchurl, libGLU, libGL, libX11, xorgproto, tcl, freeglut, freetype
-, sfml, libXi
-, libXmu, libXext, libXt, libSM, libICE
-, libpng, pkg-config, gettext, intltool
-}:
+{ lib, stdenv, fetchurl, libGLU, libGL, libX11, xorgproto, tcl, freeglut
+, freetype, sfml, libXi, libXmu, libXext, libXt, libSM, libICE, libpng
+, pkg-config, gettext, intltool }:
 
 stdenv.mkDerivation rec {
   version = "0.8.2";
@@ -15,10 +13,22 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config intltool ];
   buildInputs = [
-    libGLU libGL libX11 xorgproto tcl freeglut freetype
-    sfml libXi
-    libXmu libXext libXt libSM libICE
-    libpng gettext
+    libGLU
+    libGL
+    libX11
+    xorgproto
+    tcl
+    freeglut
+    freetype
+    sfml
+    libXi
+    libXmu
+    libXext
+    libXt
+    libSM
+    libICE
+    libpng
+    gettext
   ];
 
   configureFlags = [ "--with-tcl=${tcl}/lib" ];

@@ -1,15 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, google-api-core
-, grpc-google-iam-v1
-, mock
-, proto-plus
-, protobuf
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, google-api-core, grpc-google-iam-v1, mock
+, proto-plus, protobuf, pytest-asyncio, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "google-cloud-appengine-logging";
@@ -23,28 +13,20 @@ buildPythonPackage rec {
     hash = "sha256-1S8U4empk3l6CG7/PUdy3qeQg5DGrWEtJigTQfF8mkk=";
   };
 
-  propagatedBuildInputs = [
-    google-api-core
-    grpc-google-iam-v1
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  propagatedBuildInputs =
+    [ google-api-core grpc-google-iam-v1 proto-plus protobuf ]
+    ++ google-api-core.optional-dependencies.grpc;
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-    pytest-asyncio
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook pytest-asyncio ];
 
-  pythonImportsCheck = [
-    "google.cloud.appengine_logging"
-    "google.cloud.appengine_logging_v1"
-  ];
+  pythonImportsCheck =
+    [ "google.cloud.appengine_logging" "google.cloud.appengine_logging_v1" ];
 
   meta = with lib; {
     description = "Appengine logging client library";
     homepage = "https://github.com/googleapis/python-appengine-logging";
-    changelog = "https://github.com/googleapis/python-appengine-logging/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/googleapis/python-appengine-logging/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

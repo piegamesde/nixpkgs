@@ -1,10 +1,4 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pyopenssl
-, pythonOlder
-, requests
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pyopenssl, pythonOlder, requests }:
 
 buildPythonPackage rec {
   pname = "requests-pkcs12";
@@ -20,17 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-xk8+oERonZWzxKEmZutfvovzVOz9ZP5O83cMDTz9i3Y=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    pyopenssl
-  ];
+  propagatedBuildInputs = [ requests pyopenssl ];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "requests_pkcs12"
-  ];
+  pythonImportsCheck = [ "requests_pkcs12" ];
 
   meta = with lib; {
     description = "PKCS#12 support for the Python requests library";

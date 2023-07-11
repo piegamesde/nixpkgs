@@ -1,30 +1,8 @@
-{ lib
-, fetchFromGitHub
-, stdenv
-, autoreconfHook
-, pkg-config
-, bison
-, libiconv
-, pcre
-, libgcrypt
-, libxcrypt
-, json_c
-, libxml2
-, ipv6Support ? false
-, mccpSupport ? false
-, zlib
-, mysqlSupport ? false
-, libmysqlclient
-, postgresSupport ? false
-, postgresql
-, sqliteSupport ? false
-, sqlite
-, tlsSupport ? false
-, openssl
-, pythonSupport ? false
-, python310
-, ...
-}:
+{ lib, fetchFromGitHub, stdenv, autoreconfHook, pkg-config, bison, libiconv
+, pcre, libgcrypt, libxcrypt, json_c, libxml2, ipv6Support ? false
+, mccpSupport ? false, zlib, mysqlSupport ? false, libmysqlclient
+, postgresSupport ? false, postgresql, sqliteSupport ? false, sqlite
+, tlsSupport ? false, openssl, pythonSupport ? false, python310, ... }:
 
 stdenv.mkDerivation rec {
   pname = "ldmud";
@@ -39,8 +17,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/src";
 
-  nativeBuildInputs =
-    [ autoreconfHook pkg-config bison ];
+  nativeBuildInputs = [ autoreconfHook pkg-config bison ];
   buildInputs = [ libgcrypt libxcrypt pcre json_c libxml2 ]
     ++ lib.optional mccpSupport zlib ++ lib.optional mysqlSupport libmysqlclient
     ++ lib.optional postgresSupport postgresql
@@ -82,7 +59,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A gamedriver for LPMuds including a LPC compiler, interpreter and runtime";
+    description =
+      "A gamedriver for LPMuds including a LPC compiler, interpreter and runtime";
     homepage = "https://ldmud.eu";
     changelog = "https://github.com/ldmud/ldmud/blob/${version}/HISTORY";
     longDescription = ''

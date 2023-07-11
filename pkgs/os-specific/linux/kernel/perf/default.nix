@@ -1,50 +1,17 @@
-{ lib
-, stdenv
-, fetchpatch
-, fetchurl
-, kernel
-, elfutils
-, python3
-, perl
-, newt
-, slang
-, asciidoc
-, xmlto
-, makeWrapper
-, docbook_xsl
-, docbook_xml_dtd_45
-, libxslt
-, flex
-, bison
-, pkg-config
-, libunwind
-, binutils-unwrapped
-, libiberty
-, audit
-, libbfd
-, libbfd_2_38
-, libopcodes
-, libopcodes_2_38
-, libtraceevent
-, openssl
-, systemtap
-, numactl
-, zlib
-, babeltrace
-, withGtk ? false
-, gtk2
-, withZstd ? true
-, zstd
-, withLibcap ? true
-, libcap
-}:
+{ lib, stdenv, fetchpatch, fetchurl, kernel, elfutils, python3, perl, newt
+, slang, asciidoc, xmlto, makeWrapper, docbook_xsl, docbook_xml_dtd_45, libxslt
+, flex, bison, pkg-config, libunwind, binutils-unwrapped, libiberty, audit
+, libbfd, libbfd_2_38, libopcodes, libopcodes_2_38, libtraceevent, openssl
+, systemtap, numactl, zlib, babeltrace, withGtk ? false, gtk2, withZstd ? true
+, zstd, withLibcap ? true, libcap }:
 let
   d3-flame-graph-templates = stdenv.mkDerivation rec {
     pname = "d3-flame-graph-templates";
     version = "4.1.3";
 
     src = fetchurl {
-      url = "https://registry.npmjs.org/d3-flame-graph/-/d3-flame-graph-${version}.tgz";
+      url =
+        "https://registry.npmjs.org/d3-flame-graph/-/d3-flame-graph-${version}.tgz";
       sha256 = "sha256-W5/Vh5jarXUV224aIiTB2TnBFYT3naEIcG2945QjY8Q=";
     };
 
@@ -52,9 +19,8 @@ let
       install -D -m 0755 -t $out/share/d3-flame-graph/ ./dist/templates/*
     '';
   };
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "perf-linux";
   version = kernel.version;
 
@@ -118,14 +84,17 @@ stdenv.mkDerivation {
     python3
     perl
     babeltrace
-  ] ++ (if (lib.versionAtLeast kernel.version "5.19")
-  then [ libbfd libopcodes ]
-  else [ libbfd_2_38 libopcodes_2_38 ])
-  ++ lib.optional (lib.meta.availableOn stdenv.hostPlatform systemtap) systemtap.stapBuild
-  ++ lib.optional withGtk gtk2
-  ++ lib.optional withZstd zstd
-  ++ lib.optional withLibcap libcap
-  ++ lib.optional (lib.versionAtLeast kernel.version "6.0") python3.pkgs.setuptools;
+  ] ++ (if (lib.versionAtLeast kernel.version "5.19") then [
+    libbfd
+    libopcodes
+  ] else [
+    libbfd_2_38
+    libopcodes_2_38
+  ]) ++ lib.optional (lib.meta.availableOn stdenv.hostPlatform systemtap)
+    systemtap.stapBuild ++ lib.optional withGtk gtk2
+    ++ lib.optional withZstd zstd ++ lib.optional withLibcap libcap
+    ++ lib.optional (lib.versionAtLeast kernel.version "6.0")
+    python3.pkgs.setuptools;
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=cpp"

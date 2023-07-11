@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, pytest-asyncio
-, pytest-trio
-, pytestCheckHook
-, pythonOlder
-, trio
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest-asyncio, pytest-trio
+, pytestCheckHook, pythonOlder, trio }:
 
 buildPythonPackage rec {
   pname = "siosocks";
@@ -20,15 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-uja79vWhPYOhhTUBIh+XpS4GnrYJy0/XpDXXQjnyHWM=";
   };
 
-  propagatedBuildInputs = [
-    trio
-  ];
+  propagatedBuildInputs = [ trio ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-    pytest-trio
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook pytest-trio ];
 
   disabledTests = [
     # network access
@@ -44,9 +31,7 @@ buildPythonPackage rec {
     "tests/test_socketserver.py"
   ];
 
-  pythonImportsCheck = [
-    "siosocks"
-  ];
+  pythonImportsCheck = [ "siosocks" ];
 
   meta = with lib; {
     description = "Python socks 4/5 client/server library/framework";

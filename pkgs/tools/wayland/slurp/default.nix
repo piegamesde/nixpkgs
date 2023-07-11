@@ -1,17 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cairo
-, libxkbcommon
-, meson
-, ninja
-, pkg-config
-, scdoc
-, wayland
-, wayland-protocols
-, wayland-scanner
-, buildDocs ? true
-}:
+{ lib, stdenv, fetchFromGitHub, cairo, libxkbcommon, meson, ninja, pkg-config
+, scdoc, wayland, wayland-protocols, wayland-scanner, buildDocs ? true }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "slurp";
@@ -24,23 +12,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-jUuY2wuN00libHDaJEmrvQAb1o989Ly3nLyKHV0jz8Q=";
   };
 
-  depsBuildBuild = [
-    pkg-config
-  ];
+  depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    wayland-scanner
-  ] ++ lib.optional buildDocs scdoc;
+  nativeBuildInputs = [ meson ninja pkg-config wayland-scanner ]
+    ++ lib.optional buildDocs scdoc;
 
-  buildInputs = [
-    cairo
-    libxkbcommon
-    wayland
-    wayland-protocols
-  ];
+  buildInputs = [ cairo libxkbcommon wayland wayland-protocols ];
 
   strictDeps = true;
 
@@ -49,7 +26,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     homepage = "https://github.com/emersion/slurp";
     description = "Select a region in a Wayland compositor";
-    changelog = "https://github.com/emersion/slurp/releases/tag/v${finalAttrs.version}";
+    changelog =
+      "https://github.com/emersion/slurp/releases/tag/v${finalAttrs.version}";
     license = licenses.mit;
     maintainers = with maintainers; [ buffet ];
     inherit (wayland.meta) platforms;

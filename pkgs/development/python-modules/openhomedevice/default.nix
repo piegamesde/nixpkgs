@@ -1,9 +1,4 @@
-{ lib
-, async-upnp-client
-, buildPythonPackage
-, fetchFromGitHub
-, lxml
-, pythonOlder
+{ lib, async-upnp-client, buildPythonPackage, fetchFromGitHub, lxml, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -20,18 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-D4n/fv+tgdKiU7CemI+12cqoox2hsqRYlCHY7daD5fM=";
   };
 
-  propagatedBuildInputs = [
-    async-upnp-client
-    lxml
-  ];
+  propagatedBuildInputs = [ async-upnp-client lxml ];
 
   # Tests are currently outdated
   # https://github.com/bazwilliams/openhomedevice/issues/20
   doCheck = false;
 
-  pythonImportsCheck = [
-    "openhomedevice"
-  ];
+  pythonImportsCheck = [ "openhomedevice" ];
 
   meta = with lib; {
     description = "Python module to access Linn Ds and Openhome devices";

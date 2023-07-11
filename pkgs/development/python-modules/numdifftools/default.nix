@@ -1,11 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, numpy
-, pytestCheckHook
-, pythonOlder
-, scipy
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, pytestCheckHook, pythonOlder
+, scipy }:
 
 buildPythonPackage rec {
   pname = "numdifftools";
@@ -21,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-HYacLaowSDdrwkxL1h3h+lw/8ahzaecpXEnwrCqMCWk=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-  ];
+  propagatedBuildInputs = [ numpy scipy ];
 
   # Tests requires algopy and other modules which are optional and/or not available
   doCheck = false;
@@ -38,12 +29,11 @@ buildPythonPackage rec {
       --replace "statsmodels>=0.6" ""
   '';
 
-  pythonImportsCheck = [
-    "numdifftools"
-  ];
+  pythonImportsCheck = [ "numdifftools" ];
 
   meta = with lib; {
-    description = "Library to solve automatic numerical differentiation problems in one or more variables";
+    description =
+      "Library to solve automatic numerical differentiation problems in one or more variables";
     homepage = "https://github.com/pbrod/numdifftools";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fab ];

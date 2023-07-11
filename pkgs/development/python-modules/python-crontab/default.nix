@@ -1,10 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, python-dateutil
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, buildPythonPackage, fetchPypi, python-dateutil, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "python-crontab";
@@ -18,13 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-shr0ZHx7u4SP7y8CBhbGsCidy5+UtPmRpVMQ/5vsV0k=";
   };
 
-  propagatedBuildInputs = [
-    python-dateutil
-  ];
+  propagatedBuildInputs = [ python-dateutil ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
     "test_07_non_posix_shell"
@@ -32,9 +23,7 @@ buildPythonPackage rec {
     "test_03_usage"
   ];
 
-  pythonImportsCheck = [
-    "crontab"
-  ];
+  pythonImportsCheck = [ "crontab" ];
 
   meta = with lib; {
     description = "Python API for crontab";

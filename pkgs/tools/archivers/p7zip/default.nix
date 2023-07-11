@@ -45,7 +45,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   enableParallelBuilding = true;
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=c++11-narrowing";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.cc.isClang "-Wno-error=c++11-narrowing";
 
   makeFlags = [
     "DEST_BIN=${placeholder "out"}/bin"
@@ -61,11 +62,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     homepage = "https://github.com/p7zip-project/p7zip";
-    description = "A new p7zip fork with additional codecs and improvements (forked from https://sourceforge.net/projects/p7zip/)";
+    description =
+      "A new p7zip fork with additional codecs and improvements (forked from https://sourceforge.net/projects/p7zip/)";
     license = with licenses;
-      # p7zip code is largely lgpl2Plus
-      # CPP/7zip/Compress/LzfseDecoder.cpp is bsd3
-      [ lgpl2Plus /* and */ bsd3 ] ++
+    # p7zip code is largely lgpl2Plus
+    # CPP/7zip/Compress/LzfseDecoder.cpp is bsd3
+      [
+        lgpl2Plus # and
+        bsd3
+      ] ++
       # and CPP/7zip/Compress/Rar* are unfree with the unRAR license restriction
       # the unRAR compression code is disabled by default
       lib.optionals enableUnfree [ unfree ];

@@ -5,7 +5,9 @@ stdenv.mkDerivation rec {
   version = "6.4.0-1";
 
   src = fetchurl {
-    url = "http://voip.null.ro/tarballs/yate${lib.versions.major version}/${pname}-${version}.tar.gz";
+    url = "http://voip.null.ro/tarballs/yate${
+        lib.versions.major version
+      }/${pname}-${version}.tar.gz";
     hash = "sha256-jCPca/+/jUeNs6hZZLUBl3HI9sms9SIPNGVRanSKA7A=";
   };
 
@@ -14,22 +16,20 @@ stdenv.mkDerivation rec {
   buildInputs = [ qt4 openssl ];
 
   # /dev/null is used when linking which is a impure path for the wrapper
-  postPatch =
-    ''
-      patchShebangs configure
-      substituteInPlace configure --replace ",/dev/null" ""
-    '';
+  postPatch = ''
+    patchShebangs configure
+    substituteInPlace configure --replace ",/dev/null" ""
+  '';
 
   enableParallelBuilding = false; # fails to build if true
 
   # --unresolved-symbols=ignore-in-shared-libs makes ld no longer find --library=yate? Why?
-  preBuild =
-    ''
-      export NIX_LDFLAGS="-L$TMP/yate $NIX_LDFLAGS"
-      find . -type f -iname Makefile | xargs sed -i \
-        -e 's@-Wl,--unresolved-symbols=ignore-in-shared-libs@@' \
-        -e 's@-Wl,--retain-symbols-file@@'
-    '';
+  preBuild = ''
+    export NIX_LDFLAGS="-L$TMP/yate $NIX_LDFLAGS"
+    find . -type f -iname Makefile | xargs sed -i \
+      -e 's@-Wl,--unresolved-symbols=ignore-in-shared-libs@@' \
+      -e 's@-Wl,--retain-symbols-file@@'
+  '';
 
   meta = {
     description = "Yet another telephony engine";

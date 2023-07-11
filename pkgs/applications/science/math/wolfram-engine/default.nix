@@ -1,31 +1,7 @@
-{ lib
-, stdenv
-, autoPatchelfHook
-, requireFile
-, callPackage
-, makeWrapper
-, alsa-lib
-, dbus
-, fontconfig
-, freetype
-, gcc
-, glib
-, installShellFiles
-, libssh2
-, ncurses
-, opencv4
-, openssl
-, unixODBC
-, xkeyboard_config
-, xorg
-, zlib
-, libxml2
-, libuuid
-, lang ? "en"
-, libGL
-, libGLU
-, wrapQtAppsHook
-}:
+{ lib, stdenv, autoPatchelfHook, requireFile, callPackage, makeWrapper, alsa-lib
+, dbus, fontconfig, freetype, gcc, glib, installShellFiles, libssh2, ncurses
+, opencv4, openssl, unixODBC, xkeyboard_config, xorg, zlib, libxml2, libuuid
+, lang ? "en", libGL, libGLU, wrapQtAppsHook }:
 
 let
   l10n = import ./l10ns.nix {
@@ -33,15 +9,10 @@ let
     inherit requireFile lang;
   };
   dirName = "WolframEngine";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit (l10n) version name src;
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    installShellFiles
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook installShellFiles wrapQtAppsHook ];
   dontWrapQtApps = true;
 
   buildInputs = [
@@ -84,7 +55,7 @@ stdenv.mkDerivation rec {
 
   ldpath = lib.makeLibraryPath buildInputs
     + lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux")
-      (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs);
+    (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs);
 
   unpackPhase = ''
     # find offset from file

@@ -1,12 +1,5 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, six
-, mock
-, pyfakefs
-, pytest-forked
-, pytestCheckHook
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, six, mock, pyfakefs, pytest-forked
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pyu2f";
@@ -20,16 +13,9 @@ buildPythonPackage rec {
     sha256 = "0mx7bn1p3n0fxyxa82wg3c719hby7vqkxv57fhf7zvhlg2zfnr0v";
   };
 
-  propagatedBuildInputs = [
-    six
-  ];
+  propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [
-    mock
-    pyfakefs
-    pytest-forked
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pyfakefs pytest-forked pytestCheckHook ];
 
   disabledTestPaths = [
     # API breakage with pyfakefs>=5.0

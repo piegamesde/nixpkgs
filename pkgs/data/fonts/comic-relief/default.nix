@@ -5,7 +5,8 @@ stdenvNoCC.mkDerivation rec {
   version = "1.1";
 
   src = fetchzip {
-    url = "https://fontlibrary.org/assets/downloads/comic-relief/45c456b6db2aaf2f7f69ac66b5ac7239/comic-relief.zip";
+    url =
+      "https://fontlibrary.org/assets/downloads/comic-relief/45c456b6db2aaf2f7f69ac66b5ac7239/comic-relief.zip";
     stripRoot = false;
     hash = "sha256-lvkMfaQvLMZ8F0Q5JnpmMsIAkR+XfihoHIoS4z5QEvA=";
   };
@@ -16,7 +17,9 @@ stdenvNoCC.mkDerivation rec {
     mkdir -p $out/etc/fonts/conf.d
     mkdir -p $out/share/doc/${pname}-${version}
     mkdir -p $out/share/fonts/truetype
-    cp -v ${./comic-sans-ms-alias.conf}     $out/etc/fonts/conf.d/30-comic-sans-ms.conf
+    cp -v ${
+      ./comic-sans-ms-alias.conf
+    }     $out/etc/fonts/conf.d/30-comic-sans-ms.conf
     cp *.ttf      -d $out/share/fonts/truetype
     cp FONTLOG.txt -d $out/share/doc/${pname}-${version}
 

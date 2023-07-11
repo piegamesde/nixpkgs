@@ -1,22 +1,6 @@
-{ lib, stdenv
-, fetchFromGitHub
-, pkg-config
-, python3
-, meson
-, ninja
-, vala
-, gtk3
-, glib
-, pantheon
-, gtksourceview
-, libgee
-, nix-update-script
-, webkitgtk
-, libqalculate
-, intltool
-, gnuplot
-, wrapGAppsHook
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, python3, meson, ninja, vala, gtk3
+, glib, pantheon, gtksourceview, libgee, nix-update-script, webkitgtk
+, libqalculate, intltool, gnuplot, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "nasc";
@@ -64,9 +48,7 @@ stdenv.mkDerivation rec {
       --replace "link_with: 'libqalculate_lib_static'" "link_with: libqalculate_lib_static"
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Do maths like a normal person, designed for elementary OS";

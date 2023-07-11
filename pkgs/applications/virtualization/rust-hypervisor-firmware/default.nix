@@ -1,19 +1,11 @@
-{ lib
-, fetchFromGitHub
-, makeRustPlatform
-, hostPlatform
-, targetPlatform
-, lld
-}:
+{ lib, fetchFromGitHub, makeRustPlatform, hostPlatform, targetPlatform, lld }:
 
 let
   arch = targetPlatform.qemuArch;
 
   target = ./. + "/${arch}-unknown-none.json";
 
-in
-
-assert lib.assertMsg (builtins.pathExists target) "Target spec not found";
+in assert lib.assertMsg (builtins.pathExists target) "Target spec not found";
 
 let
   cross = import ../../../.. {
@@ -26,9 +18,7 @@ let
 
   inherit (cross) rustPlatform;
 
-in
-
-rustPlatform.buildRustPackage rec {
+in rustPlatform.buildRustPackage rec {
   pname = "rust-hypervisor-firmware";
   version = "0.4.2";
 
@@ -43,9 +33,7 @@ rustPlatform.buildRustPackage rec {
 
   RUSTC_BOOTSTRAP = 1;
 
-  nativeBuildInputs = [
-    lld
-  ];
+  nativeBuildInputs = [ lld ];
 
   RUSTFLAGS = "-C linker=lld -C linker-flavor=ld.lld";
 
@@ -54,7 +42,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/cloud-hypervisor/rust-hypervisor-firmware";
-    description = "A simple firmware that is designed to be launched from anything that supports loading ELF binaries and running them with the PVH booting standard";
+    description =
+      "A simple firmware that is designed to be launched from anything that supports loading ELF binaries and running them with the PVH booting standard";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ astro ];
     platforms = [ "x86_64-none" ];

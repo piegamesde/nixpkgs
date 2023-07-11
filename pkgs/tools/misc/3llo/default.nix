@@ -4,7 +4,7 @@ bundlerApp {
   pname = "3llo";
   ruby = ruby_3_0;
 
-  gemdir  = ./.;
+  gemdir = ./.;
 
   exes = [ "3llo" ];
 

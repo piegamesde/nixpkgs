@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, curl
-, libgit2
-, openssl
-, Security
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, curl, libgit2, openssl
+, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-raze";
@@ -24,12 +16,8 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-hNZgQwhm4UPqmANplZGxG0DYHa31tu06nmqYaCA7Vdg=";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libgit2
-    openssl
-    curl
-  ]
-  ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [ libgit2 openssl curl ]
+    ++ lib.optional stdenv.isDarwin Security;
 
   meta = with lib; {
     description = "Generate Bazel BUILD files from Cargo dependencies";

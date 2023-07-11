@@ -24,7 +24,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Controller library that allows applications to interact with Tor";
+    description =
+      "Controller library that allows applications to interact with Tor";
     homepage = "https://github.com/onionshare/cepa";
     license = licenses.lgpl3Only;
     maintainers = with maintainers; [ lourkeur ];

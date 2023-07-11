@@ -1,12 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, gperf
-, kmod
-, pkg-config
-, util-linux
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, gperf, kmod, pkg-config
+, util-linux }:
 
 stdenv.mkDerivation rec {
   pname = "eudev";
@@ -19,26 +12,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-W5nL4hicQ4fxz5rqoP+hhkE1tVn8lJZjMq4UaiXH6jc=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gperf
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook gperf pkg-config ];
 
-  buildInputs = [
-    kmod
-    util-linux
-  ];
+  buildInputs = [ kmod util-linux ];
 
-  configureFlags = [
-    "--localstatedir=/var"
-    "--sysconfdir=/etc"
-  ];
+  configureFlags = [ "--localstatedir=/var" "--sysconfdir=/etc" ];
 
-  makeFlags = [
-    "hwdb_bin=/var/lib/udev/hwdb.bin"
-    "udevrulesdir=/etc/udev/rules.d"
-    ];
+  makeFlags =
+    [ "hwdb_bin=/var/lib/udev/hwdb.bin" "udevrulesdir=/etc/udev/rules.d" ];
 
   preInstall = ''
     # Disable install-exec-hook target,
@@ -59,7 +40,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/eudev-project/eudev";
     description = "A fork of udev with the aim of isolating it from init";
-    license = licenses.gpl2Plus ;
+    license = licenses.gpl2Plus;
     maintainers = with maintainers; [ raskin AndersonTorres ];
     platforms = platforms.linux;
   };

@@ -1,26 +1,7 @@
-{ lib
-, fetchFromGitHub
-, nix-update-script
-, cmake
-, pkg-config
-, mkDerivation
-, qtbase
-, qtx11extras
-, qtsvg
-, makeWrapper
-, vulkan-loader
-, libglvnd
-, xorg
-, python3
-, python3Packages
-, bison
-, pcre
-, automake
-, autoconf
-, addOpenGLRunpath
-, waylandSupport ? false
-, wayland
-}:
+{ lib, fetchFromGitHub, nix-update-script, cmake, pkg-config, mkDerivation
+, qtbase, qtx11extras, qtsvg, makeWrapper, vulkan-loader, libglvnd, xorg
+, python3, python3Packages, bison, pcre, automake, autoconf, addOpenGLRunpath
+, waylandSupport ? false, wayland }:
 let
   custom_swig = fetchFromGitHub {
     owner = "baldurk";
@@ -29,8 +10,7 @@ let
     sha256 = "15r2m5kcs0id64pa2fsw58qll3jyh71jzc04wy20pgsh2326zis6";
   };
   cmakeBool = b: if b then "ON" else "OFF";
-in
-mkDerivation rec {
+in mkDerivation rec {
   pname = "renderdoc";
   version = "1.26";
 
@@ -42,13 +22,26 @@ mkDerivation rec {
   };
 
   buildInputs = [
-    qtbase qtsvg xorg.libpthreadstubs xorg.libXdmcp qtx11extras vulkan-loader python3
-  ] ++ (with python3Packages; [
-    pyside2 pyside2-tools shiboken2
-  ])
-  ++ lib.optional waylandSupport wayland;
+    qtbase
+    qtsvg
+    xorg.libpthreadstubs
+    xorg.libXdmcp
+    qtx11extras
+    vulkan-loader
+    python3
+  ] ++ (with python3Packages; [ pyside2 pyside2-tools shiboken2 ])
+    ++ lib.optional waylandSupport wayland;
 
-  nativeBuildInputs = [ cmake makeWrapper pkg-config bison pcre automake autoconf addOpenGLRunpath ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    pkg-config
+    bison
+    pcre
+    automake
+    autoconf
+    addOpenGLRunpath
+  ];
 
   postUnpack = ''
     cp -r ${custom_swig} swig

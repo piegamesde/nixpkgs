@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "bomber-go";
@@ -16,15 +13,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-tkjwnc5EquAuIfYKy8u6ZDFJPl/UTW6x7vvY1QTsBXg=";
 
-  ldflags = [
-    "-w"
-    "-s"
-  ];
+  ldflags = [ "-w" "-s" ];
 
   meta = with lib; {
-    description = "Tool to scans Software Bill of Materials (SBOMs) for vulnerabilities";
+    description =
+      "Tool to scans Software Bill of Materials (SBOMs) for vulnerabilities";
     homepage = "https://github.com/devops-kung-fu/bomber";
-    changelog = "https://github.com/devops-kung-fu/bomber/releases/tag/v${version}";
+    changelog =
+      "https://github.com/devops-kung-fu/bomber/releases/tag/v${version}";
     license = licenses.mpl20;
     mainProgram = "bomber";
     maintainers = with maintainers; [ fab ];

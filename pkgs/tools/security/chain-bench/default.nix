@@ -1,8 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, installShellFiles
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "chain-bench";
@@ -18,11 +14,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=v${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=v${version}" ];
 
   postInstall = ''
     installShellCompletion --cmd chain-bench \
@@ -41,8 +33,10 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/aquasecurity/chain-bench";
-    changelog = "https://github.com/aquasecurity/chain-bench/releases/tag/v${version}";
-    description = "An open-source tool for auditing your software supply chain stack for security compliance based on a new CIS Software Supply Chain benchmark";
+    changelog =
+      "https://github.com/aquasecurity/chain-bench/releases/tag/v${version}";
+    description =
+      "An open-source tool for auditing your software supply chain stack for security compliance based on a new CIS Software Supply Chain benchmark";
     longDescription = ''
       Chain-bench is an open-source tool for auditing your software supply chain
       stack for security compliance based on a new CIS Software Supply Chain

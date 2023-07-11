@@ -1,31 +1,15 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchpatch
-, meson
-, ninja
-, pkg-config
-, glib
-, gtk3
-, itstool
-, libxml2
-, brasero
-, libcanberra-gtk3
-, gnome
-, gst_all_1
-, libmusicbrainz5
-, libdiscid
-, isocodes
-, gsettings-desktop-schemas
-, wrapGAppsHook
-}:
+{ lib, stdenv, fetchurl, fetchpatch, meson, ninja, pkg-config, glib, gtk3
+, itstool, libxml2, brasero, libcanberra-gtk3, gnome, gst_all_1, libmusicbrainz5
+, libdiscid, isocodes, gsettings-desktop-schemas, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "sound-juicer";
   version = "3.38.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "08d5d81rz9sj3m5paw8fwbgxmhlbr7bcjdzpmzj832qvg8smydxf";
   };
 
@@ -33,19 +17,13 @@ stdenv.mkDerivation rec {
     # Fix build with meson 0.61
     # data/meson.build:2:5: ERROR: Function does not take positional arguments.
     (fetchpatch {
-      url = "https://gitlab.gnome.org/GNOME/sound-juicer/-/commit/9f97ca1faca396099f52264a9729aa355f8d122e.patch";
+      url =
+        "https://gitlab.gnome.org/GNOME/sound-juicer/-/commit/9f97ca1faca396099f52264a9729aa355f8d122e.patch";
       sha256 = "8JllVSQgI7KiBI5WP6QtXRiggYuD89NSJJp1hP4Dbao=";
     })
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    itstool
-    libxml2
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config itstool libxml2 wrapGAppsHook ];
 
   buildInputs = [
     glib
@@ -64,11 +42,7 @@ stdenv.mkDerivation rec {
     gst_all_1.gst-libav
   ];
 
-  passthru = {
-    updateScript = gnome.updateScript {
-      packageName = pname;
-    };
-  };
+  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 
   meta = with lib; {
     description = "A Gnome CD Ripper";

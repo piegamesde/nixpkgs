@@ -1,13 +1,5 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, unstableGitUpdater
-, nixosTests
-, cmake
-, pkg-config
-, mir
-, libxkbcommon
-}:
+{ stdenv, lib, fetchFromGitHub, unstableGitUpdater, nixosTests, cmake
+, pkg-config, mir, libxkbcommon }:
 
 stdenv.mkDerivation rec {
   pname = "miriway";
@@ -22,22 +14,14 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    mir
-    libxkbcommon
-  ];
+  buildInputs = [ mir libxkbcommon ];
 
   passthru = {
     updateScript = unstableGitUpdater { };
     providedSessions = [ "miriway" ];
-    tests = {
-      inherit (nixosTests) miriway;
-    };
+    tests = { inherit (nixosTests) miriway; };
   };
 
   meta = with lib; {

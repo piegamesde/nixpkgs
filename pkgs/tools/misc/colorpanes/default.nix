@@ -19,7 +19,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "Panes in the 8 bright terminal colors with shadows of the respective darker color";
+    description =
+      "Panes in the 8 bright terminal colors with shadows of the respective darker color";
     homepage = "https://codeberg.org/annaaurora/colorpanes";
     license = licenses.lgpl3Only;
     maintainers = with maintainers; [ annaaurora ];

@@ -1,12 +1,5 @@
-{ lib
-, aiohttp
-, asynctest
-, buildPythonPackage
-, fetchFromGitHub
-, pytest-asyncio
-, pytestCheckHook
-, pythonOlder
-}:
+{ lib, aiohttp, asynctest, buildPythonPackage, fetchFromGitHub, pytest-asyncio
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pymelcloud";
@@ -22,19 +15,11 @@ buildPythonPackage rec {
     sha256 = "1q6ny58cn9qy86blxbk6l2iklab7y11b734l7yb1bp35dmy27w26";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-  ];
+  propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [
-    asynctest
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ asynctest pytest-asyncio pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pymelcloud"
-  ];
+  pythonImportsCheck = [ "pymelcloud" ];
 
   meta = with lib; {
     description = "Python module for interacting with MELCloud";

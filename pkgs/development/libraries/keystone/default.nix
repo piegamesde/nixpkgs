@@ -1,9 +1,4 @@
-{ lib, stdenv
-, fetchFromGitHub
-, pkg-config
-, cmake
-, python3
-, fixDarwinDylibNames
+{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, python3, fixDarwinDylibNames
 }:
 
 stdenv.mkDerivation rec {
@@ -17,22 +12,17 @@ stdenv.mkDerivation rec {
     sha256 = "020d1l1aqb82g36l8lyfn2j8c660mm6sh1nl4haiykwgdl9xnxfa";
   };
 
-  cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=ON"
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-  ];
+  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    python3
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    # TODO: could be replaced by setting CMAKE_INSTALL_NAME_DIR?
-    fixDarwinDylibNames
-  ];
+  nativeBuildInputs = [ pkg-config cmake python3 ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      # TODO: could be replaced by setting CMAKE_INSTALL_NAME_DIR?
+      fixDarwinDylibNames
+    ];
 
   meta = with lib; {
-    description = "Lightweight multi-platform, multi-architecture assembler framework";
+    description =
+      "Lightweight multi-platform, multi-architecture assembler framework";
     homepage = "https://www.keystone-engine.org";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ luc65r ];

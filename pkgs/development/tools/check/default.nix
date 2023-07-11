@@ -1,7 +1,4 @@
-{ lib
-, buildGoModule
-, fetchFromGitLab
-}:
+{ lib, buildGoModule, fetchFromGitLab }:
 
 buildGoModule rec {
   pname = "check";

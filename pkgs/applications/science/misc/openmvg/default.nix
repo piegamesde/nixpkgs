@@ -1,13 +1,7 @@
 { lib, stdenv, fetchFromGitHub, pkg-config, cmake, cereal, openmp
-, libjpeg ? null
-, zlib ? null
-, libpng ? null
-, eigen ? null
-, libtiff ? null
-, ceres-solver
-, enableShared ? !stdenv.hostPlatform.isStatic
-, enableExamples ? false
-, enableDocs ? false }:
+, libjpeg ? null, zlib ? null, libpng ? null, eigen ? null, libtiff ? null
+, ceres-solver, enableShared ? !stdenv.hostPlatform.isStatic
+, enableExamples ? false, enableDocs ? false }:
 
 stdenv.mkDerivation rec {
   version = "unstable-2022-12-30";
@@ -21,7 +15,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ libjpeg zlib libpng eigen libtiff cereal openmp ceres-solver ];
+  buildInputs =
+    [ libjpeg zlib libpng eigen libtiff cereal openmp ceres-solver ];
 
   nativeBuildInputs = [ cmake pkg-config ];
 
@@ -44,7 +39,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     broken = stdenv.isDarwin && stdenv.isx86_64;
-    description = "A library for computer-vision scientists and targeted for the Multiple View Geometry community";
+    description =
+      "A library for computer-vision scientists and targeted for the Multiple View Geometry community";
     homepage = "https://openmvg.readthedocs.io/en/latest/";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.unix;

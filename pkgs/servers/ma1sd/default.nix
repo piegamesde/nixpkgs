@@ -1,13 +1,5 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, jre
-, git
-, gradle_7
-, perl
-, makeWrapper
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, jre, git, gradle_7, perl
+, makeWrapper }:
 
 let
   pname = "ma1sd";
@@ -26,7 +18,8 @@ let
     # https://github.com/ma1uta/ma1sd/pull/122
     (fetchpatch {
       name = "java-16-compatibility.patch";
-      url = "https://github.com/ma1uta/ma1sd/commit/be2e2e97ce21741ca6a2e29a06f5748f45dd414e.patch";
+      url =
+        "https://github.com/ma1uta/ma1sd/commit/be2e2e97ce21741ca6a2e29a06f5748f45dd414e.patch";
       hash = "sha256-dvCeK/0InNJtUG9CWrsg7BE0FGWtXuHo3TU0iFFUmIk=";
     })
   ];
@@ -56,8 +49,7 @@ let
     outputHash = "sha256-Px8FLnREBC6pADcEPn/GfhrtGnmZqjXIX7l1xPjiCvQ=";
   };
 
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname src version patches;
   nativeBuildInputs = [ gradle perl makeWrapper ];
   buildInputs = [ jre ];
@@ -90,7 +82,7 @@ stdenv.mkDerivation {
     changelog = "https://github.com/ma1uta/ma1sd/releases/tag/${version}";
     sourceProvenance = with sourceTypes; [
       fromSource
-      binaryBytecode  # deps
+      binaryBytecode # deps
     ];
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ mguentner ];

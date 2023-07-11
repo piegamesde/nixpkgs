@@ -48,7 +48,8 @@ in {
 
       hostname = mkOption {
         type = types.nullOr types.str;
-        description = lib.mdDoc "DNS name or IP address that will be used for the stream directory lookups or possibly the playlist generation if a Host header is not provided.";
+        description = lib.mdDoc
+          "DNS name or IP address that will be used for the stream directory lookups or possibly the playlist generation if a Host header is not provided.";
         default = config.networking.domain;
         defaultText = literalExpression "config.networking.domain";
       };
@@ -56,13 +57,15 @@ in {
       admin = {
         user = mkOption {
           type = types.str;
-          description = lib.mdDoc "Username used for all administration functions.";
+          description =
+            lib.mdDoc "Username used for all administration functions.";
           default = "admin";
         };
 
         password = mkOption {
           type = types.str;
-          description = lib.mdDoc "Password used for all administration functions.";
+          description =
+            lib.mdDoc "Password used for all administration functions.";
         };
       };
 
@@ -75,7 +78,8 @@ in {
       listen = {
         port = mkOption {
           type = types.port;
-          description = lib.mdDoc "TCP port that will be used to accept client connections.";
+          description = lib.mdDoc
+            "TCP port that will be used to accept client connections.";
           default = 8000;
         };
 
@@ -108,7 +112,6 @@ in {
 
   };
 
-
   ###### implementation
 
   config = mkIf cfg.enable {
@@ -118,7 +121,8 @@ in {
       description = "Icecast Network Audio Streaming Server";
       wantedBy = [ "multi-user.target" ];
 
-      preStart = "mkdir -p ${cfg.logDir} && chown ${cfg.user}:${cfg.group} ${cfg.logDir}";
+      preStart =
+        "mkdir -p ${cfg.logDir} && chown ${cfg.user}:${cfg.group} ${cfg.logDir}";
       serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.icecast}/bin/icecast -c ${configFile}";
