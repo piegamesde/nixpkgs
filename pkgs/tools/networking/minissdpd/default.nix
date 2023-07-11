@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, libnfnetlink }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libnfnetlink,
+}:
 
 stdenv.mkDerivation rec {
   pname = "minissdpd";

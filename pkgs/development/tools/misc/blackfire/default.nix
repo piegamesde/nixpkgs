@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchurl, dpkg, writeShellScript, curl, jq
-, common-updater-scripts }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  dpkg,
+  writeShellScript,
+  curl,
+  jq,
+  common-updater-scripts,
+}:
 
 stdenv.mkDerivation rec {
   pname = "blackfire";

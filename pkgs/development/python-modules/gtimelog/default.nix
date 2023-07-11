@@ -1,5 +1,18 @@
-{ lib, fetchFromGitHub, makeWrapper, glibcLocales, gobject-introspection, gtk3
-, libsoup, libsecret, buildPythonPackage, python, pygobject3, freezegun, mock }:
+{
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  glibcLocales,
+  gobject-introspection,
+  gtk3,
+  libsoup,
+  libsecret,
+  buildPythonPackage,
+  python,
+  pygobject3,
+  freezegun,
+  mock,
+}:
 
 buildPythonPackage rec {
   pname = "gtimelog";

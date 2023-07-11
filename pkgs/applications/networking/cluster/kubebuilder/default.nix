@@ -1,5 +1,15 @@
-{ lib, buildGoModule, fetchFromGitHub, makeWrapper, git, go, gnumake
-, installShellFiles, testers, kubebuilder }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  git,
+  go,
+  gnumake,
+  installShellFiles,
+  testers,
+  kubebuilder,
+}:
 
 buildGoModule rec {
   pname = "kubebuilder";

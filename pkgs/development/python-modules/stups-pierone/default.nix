@@ -1,5 +1,15 @@
-{ lib, fetchFromGitHub, buildPythonPackage, requests, stups-cli-support
-, stups-zign, pytest, pytest-cov, hypothesis, pythonOlder }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  requests,
+  stups-cli-support,
+  stups-zign,
+  pytest,
+  pytest-cov,
+  hypothesis,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "stups-pierone";

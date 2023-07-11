@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitLab, fetchpatch, autoconf, automake, gettext, ncurses
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  autoconf,
+  automake,
+  gettext,
+  ncurses,
 }:
 
 stdenv.mkDerivation rec {

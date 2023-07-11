@@ -1,4 +1,8 @@
-{ lib, buildPythonPackage, flatbuffers }:
+{
+  lib,
+  buildPythonPackage,
+  flatbuffers,
+}:
 
 buildPythonPackage rec {
   inherit (flatbuffers) pname version src;

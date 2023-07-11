@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, click, click-log, fetchFromGitHub, pure-pcapy3
-, pyserial-asyncio, pytest-asyncio, pytest-timeout, pytestCheckHook, pythonOlder
-, voluptuous, zigpy }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  click-log,
+  fetchFromGitHub,
+  pure-pcapy3,
+  pyserial-asyncio,
+  pytest-asyncio,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonOlder,
+  voluptuous,
+  zigpy,
+}:
 
 buildPythonPackage rec {
   pname = "bellows";

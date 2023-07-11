@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, libnet, libpcap }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  libnet,
+  libpcap,
+}:
 
 stdenv.mkDerivation rec {
   pname = "arping";

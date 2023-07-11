@@ -1,5 +1,12 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pytestCheckHook
-, pytest-aiohttp, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pytest-aiohttp,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aiohttp-retry";

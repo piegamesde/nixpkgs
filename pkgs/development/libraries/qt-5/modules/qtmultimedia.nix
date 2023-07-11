@@ -1,5 +1,16 @@
-{ qtModule, lib, stdenv, qtbase, qtdeclarative, pkg-config, alsa-lib, gstreamer
-, gst-plugins-base, libpulseaudio, wayland }:
+{
+  qtModule,
+  lib,
+  stdenv,
+  qtbase,
+  qtdeclarative,
+  pkg-config,
+  alsa-lib,
+  gstreamer,
+  gst-plugins-base,
+  libpulseaudio,
+  wayland,
+}:
 
 qtModule {
   pname = "qtmultimedia";

@@ -1,4 +1,12 @@
-{ self, bash, fetchpatch, fzf, lib, openssl, zstd }:
+{
+  self,
+  bash,
+  fetchpatch,
+  fzf,
+  lib,
+  openssl,
+  zstd,
+}:
 
 with self;
 

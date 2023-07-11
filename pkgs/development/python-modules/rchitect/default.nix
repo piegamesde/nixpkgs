@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cffi, six, pytestCheckHook
-, pytest-mock, R, rPackages }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cffi,
+  six,
+  pytestCheckHook,
+  pytest-mock,
+  R,
+  rPackages,
+}:
 
 buildPythonPackage rec {
   pname = "rchitect";

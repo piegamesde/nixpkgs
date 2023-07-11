@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchgit, fetchurl, git, cmake, pkg-config, openssl, boost, grpc
-, protobuf, libnsl }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  fetchurl,
+  git,
+  cmake,
+  pkg-config,
+  openssl,
+  boost,
+  grpc,
+  protobuf,
+  libnsl,
+}:
 
 let
   sqlite3 = fetchurl rec {

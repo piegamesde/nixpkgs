@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitea, guile, autoreconfHook, pkg-config, texinfo
-, sqlite }:
+{
+  lib,
+  stdenv,
+  fetchFromGitea,
+  guile,
+  autoreconfHook,
+  pkg-config,
+  texinfo,
+  sqlite,
+}:
 
 stdenv.mkDerivation rec {
   pname = "guile-sqlite3";

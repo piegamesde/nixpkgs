@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, flit-core, tomli, pythonOlder
-, importlib-metadata, zipp, pytestCheckHook, setuptools, testpath, mock, pip }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flit-core,
+  tomli,
+  pythonOlder,
+  importlib-metadata,
+  zipp,
+  pytestCheckHook,
+  setuptools,
+  testpath,
+  mock,
+  pip,
+}:
 
 buildPythonPackage rec {
   pname = "pep517";

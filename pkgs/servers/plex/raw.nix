@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, dpkg, writeScript, curl, jq, common-updater-scripts }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  writeScript,
+  curl,
+  jq,
+  common-updater-scripts,
+}:
 
 # The raw package that fetches and extracts the Plex RPM. Override the source
 # and version of this derivation if you want to use a Plex Pass version of the

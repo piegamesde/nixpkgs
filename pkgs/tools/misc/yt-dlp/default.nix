@@ -1,8 +1,23 @@
-{ lib, buildPythonPackage, fetchPypi, brotli, certifi, ffmpeg, rtmpdump
-, atomicparsley, pycryptodomex, websockets, mutagen, secretstorage
-, atomicparsleySupport ? true, ffmpegSupport ? true, rtmpSupport ? true
-, withAlias ? false # Provides bin/youtube-dl for backcompat
-, update-python-libraries }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  brotli,
+  certifi,
+  ffmpeg,
+  rtmpdump,
+  atomicparsley,
+  pycryptodomex,
+  websockets,
+  mutagen,
+  secretstorage,
+  atomicparsleySupport ? true,
+  ffmpegSupport ? true,
+  rtmpSupport ? true,
+  withAlias ? false # Provides bin/youtube-dl for backcompat
+  ,
+  update-python-libraries,
+}:
 
 buildPythonPackage rec {
   pname = "yt-dlp";

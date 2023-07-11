@@ -1,11 +1,42 @@
-{ withGUI ? true, stdenv, lib, fetchFromGitHub, wrapQtAppsHook
+{
+  withGUI ? true,
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  wrapQtAppsHook
 
-, cmake, openssl, pcre, util-linux, libselinux, libsepol, pkg-config, gdk-pixbuf
-, libnotify, qttools, libICE, libSM, libX11, libxkbfile, libXi, libXtst
-, libXrandr, libXinerama, xkeyboardconfig, xinput, avahi-compat
+  ,
+  cmake,
+  openssl,
+  pcre,
+  util-linux,
+  libselinux,
+  libsepol,
+  pkg-config,
+  gdk-pixbuf,
+  libnotify,
+  qttools,
+  libICE,
+  libSM,
+  libX11,
+  libxkbfile,
+  libXi,
+  libXtst,
+  libXrandr,
+  libXinerama,
+  xkeyboardconfig,
+  xinput,
+  avahi-compat
 
-# MacOS / darwin
-, darwin, ApplicationServices, Carbon, Cocoa, CoreServices, ScreenSaver }:
+  # MacOS / darwin
+  ,
+  darwin,
+  ApplicationServices,
+  Carbon,
+  Cocoa,
+  CoreServices,
+  ScreenSaver,
+}:
 
 stdenv.mkDerivation rec {
   pname = "synergy";

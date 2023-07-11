@@ -1,4 +1,9 @@
-{ lib, fetchurl, fetchzip, callPackage }:
+{
+  lib,
+  fetchurl,
+  fetchzip,
+  callPackage,
+}:
 
 # Older versions should be removed when their usage decrease
 # This script scraps Github looking for OCamlformat's options and versions usage:

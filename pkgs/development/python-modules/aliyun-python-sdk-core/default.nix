@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, cryptography, fetchPypi, jmespath, pythonOlder
-, pythonRelaxDepsHook }:
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchPypi,
+  jmespath,
+  pythonOlder,
+  pythonRelaxDepsHook,
+}:
 
 buildPythonPackage rec {
   pname = "aliyun-python-sdk-core";

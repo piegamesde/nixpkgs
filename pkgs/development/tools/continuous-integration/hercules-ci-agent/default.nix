@@ -1,5 +1,15 @@
-{ gnutar, gzip, git, haskell, haskellPackages, lib, makeWrapper, nixos, runc
-, stdenv }:
+{
+  gnutar,
+  gzip,
+  git,
+  haskell,
+  haskellPackages,
+  lib,
+  makeWrapper,
+  nixos,
+  runc,
+  stdenv,
+}:
 let
   inherit (haskell.lib.compose)
     overrideCabal addBuildTools justStaticExecutables;

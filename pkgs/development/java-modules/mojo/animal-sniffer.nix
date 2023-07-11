@@ -1,4 +1,6 @@
-{ fetchMaven }:
+{
+  fetchMaven,
+}:
 
 {
   mojoAnimalSniffer_1_11 = map (obj:

@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, eigen, libxml2, mpi, python3
-, mklSupport ? true, mkl, substituteAll }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  eigen,
+  libxml2,
+  mpi,
+  python3,
+  mklSupport ? true,
+  mkl,
+  substituteAll,
+}:
 
 stdenv.mkDerivation rec {
   pname = "FEBio";

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, pkg-config, gettext, isocodes, gnome, gtk3, dconf
-, wrapGAppsHook, mateUpdateScript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gettext,
+  isocodes,
+  gnome,
+  gtk3,
+  dconf,
+  wrapGAppsHook,
+  mateUpdateScript,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mate-desktop";

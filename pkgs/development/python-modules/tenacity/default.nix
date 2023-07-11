@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, pbr, pytest-asyncio, pytestCheckHook
-, pythonOlder, setuptools-scm, tornado, typeguard }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pbr,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  tornado,
+  typeguard,
+}:
 
 buildPythonPackage rec {
   pname = "tenacity";

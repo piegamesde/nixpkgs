@@ -1,6 +1,23 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, pytestCheckHook
-, writeText, autograd, cma, cython, deprecated, dill, matplotlib, nbformat
-, notebook, numba, numpy, pandas, scipy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pytestCheckHook,
+  writeText,
+  autograd,
+  cma,
+  cython,
+  deprecated,
+  dill,
+  matplotlib,
+  nbformat,
+  notebook,
+  numba,
+  numpy,
+  pandas,
+  scipy,
+}:
 
 buildPythonPackage rec {
   pname = "pymoo";

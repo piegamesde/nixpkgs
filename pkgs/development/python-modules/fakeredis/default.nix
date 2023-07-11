@@ -1,6 +1,19 @@
-{ lib, aioredis, buildPythonPackage, fetchFromGitHub, hypothesis, lupa
-, poetry-core, pytest-asyncio, pytestCheckHook, pytest-mock, pythonOlder, redis
-, six, sortedcontainers }:
+{
+  lib,
+  aioredis,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hypothesis,
+  lupa,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pytest-mock,
+  pythonOlder,
+  redis,
+  six,
+  sortedcontainers,
+}:
 
 buildPythonPackage rec {
   pname = "fakeredis";

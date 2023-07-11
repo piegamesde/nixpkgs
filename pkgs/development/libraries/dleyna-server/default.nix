@@ -1,6 +1,19 @@
-{ stdenv, lib, fetchFromGitHub, meson, ninja, makeWrapper, pkg-config
-, dleyna-core, dleyna-connector-dbus, gssdp, gupnp, gupnp-av, gupnp-dlna
-, libsoup }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  makeWrapper,
+  pkg-config,
+  dleyna-core,
+  dleyna-connector-dbus,
+  gssdp,
+  gupnp,
+  gupnp-av,
+  gupnp-dlna,
+  libsoup,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dleyna-server";

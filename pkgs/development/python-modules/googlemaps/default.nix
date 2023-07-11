@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest-cov, pytestCheckHook
-, pythonOlder, requests, responses }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-cov,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  responses,
+}:
 
 buildPythonPackage rec {
   pname = "googlemaps";

@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cryptography, python-dateutil
-, requests, requests-toolbelt, requests-unixsocket, ws4py, ddt, mock-services
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cryptography,
+  python-dateutil,
+  requests,
+  requests-toolbelt,
+  requests-unixsocket,
+  ws4py,
+  ddt,
+  mock-services,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pylxd";

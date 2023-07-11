@@ -1,4 +1,11 @@
-{ mkDerivation, base, containers, exceptions, lib, QuickCheck, template-haskell
+{
+  mkDerivation,
+  base,
+  containers,
+  exceptions,
+  lib,
+  QuickCheck,
+  template-haskell,
 }:
 mkDerivation {
   pname = "bimap";

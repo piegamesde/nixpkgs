@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cython, openems, csxcad, numpy
-, matplotlib }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cython,
+  openems,
+  csxcad,
+  numpy,
+  matplotlib,
+}:
 
 buildPythonPackage rec {
   pname = "python-csxcad";

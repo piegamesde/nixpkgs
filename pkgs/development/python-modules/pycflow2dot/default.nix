@@ -1,4 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, cflow, graphviz, pydot, networkx, which }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cflow,
+  graphviz,
+  pydot,
+  networkx,
+  which,
+}:
 
 buildPythonPackage rec {
   pname = "pycflow2dot";

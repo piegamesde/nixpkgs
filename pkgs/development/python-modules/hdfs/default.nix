@@ -1,5 +1,14 @@
-{ buildPythonPackage, docopt, fastavro, fetchFromGitHub, lib, nose
-, pytestCheckHook, requests, six }:
+{
+  buildPythonPackage,
+  docopt,
+  fastavro,
+  fetchFromGitHub,
+  lib,
+  nose,
+  pytestCheckHook,
+  requests,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "hdfs";

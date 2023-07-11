@@ -1,8 +1,23 @@
-{ lib, buildPythonPackage, fetchpatch, fetchFromGitHub, pythonAtLeast
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchFromGitHub,
+  pythonAtLeast
 
-, coqpit, fsspec, torch-bin, tensorboardx, protobuf, psutil
+  ,
+  coqpit,
+  fsspec,
+  torch-bin,
+  tensorboardx,
+  protobuf,
+  psutil
 
-, pytestCheckHook, soundfile, torchvision-bin }:
+  ,
+  pytestCheckHook,
+  soundfile,
+  torchvision-bin,
+}:
 
 let
   pname = "trainer";

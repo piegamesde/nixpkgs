@@ -1,4 +1,11 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitiles, six, python }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitiles,
+  six,
+  python,
+}:
 
 buildPythonPackage {
   pname = "gyp";

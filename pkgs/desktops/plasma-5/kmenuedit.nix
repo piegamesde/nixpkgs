@@ -1,5 +1,15 @@
-{ mkDerivation, extra-cmake-modules, kdoctools, kdbusaddons, khotkeys, ki18n
-, kiconthemes, kio, kxmlgui, sonnet }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  kdoctools,
+  kdbusaddons,
+  khotkeys,
+  ki18n,
+  kiconthemes,
+  kio,
+  kxmlgui,
+  sonnet,
+}:
 
 mkDerivation {
   pname = "kmenuedit";

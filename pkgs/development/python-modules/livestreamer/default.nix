@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPyPy, makeWrapper, rtmpdump
-, pycrypto, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPyPy,
+  makeWrapper,
+  rtmpdump,
+  pycrypto,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "livestreamer";

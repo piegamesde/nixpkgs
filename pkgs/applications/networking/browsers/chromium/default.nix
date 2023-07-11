@@ -1,14 +1,44 @@
-{ newScope, config, stdenv, fetchurl, makeWrapper, llvmPackages_15
-, llvmPackages_16, ed, gnugrep, coreutils, xdg-utils, glib, gtk3, gtk4, gnome
-, gsettings-desktop-schemas, gn, fetchgit, libva, pipewire, wayland, gcc, nspr
-, nss, runCommand, lib, libkrb5
+{
+  newScope,
+  config,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  llvmPackages_15,
+  llvmPackages_16,
+  ed,
+  gnugrep,
+  coreutils,
+  xdg-utils,
+  glib,
+  gtk3,
+  gtk4,
+  gnome,
+  gsettings-desktop-schemas,
+  gn,
+  fetchgit,
+  libva,
+  pipewire,
+  wayland,
+  gcc,
+  nspr,
+  nss,
+  runCommand,
+  lib,
+  libkrb5
 
-# package customization
-# Note: enable* flags should not require full rebuilds (i.e. only affect the wrapper)
-, channel ? "stable", proprietaryCodecs ? true, enableWideVine ? false
-, ungoogled ? false # Whether to build chromium or ungoogled-chromium
-, cupsSupport ? true, pulseSupport ? config.pulseaudio or stdenv.isLinux
-, commandLineArgs ? "" }:
+  # package customization
+  # Note: enable* flags should not require full rebuilds (i.e. only affect the wrapper)
+  ,
+  channel ? "stable",
+  proprietaryCodecs ? true,
+  enableWideVine ? false,
+  ungoogled ? false # Whether to build chromium or ungoogled-chromium
+  ,
+  cupsSupport ? true,
+  pulseSupport ? config.pulseaudio or stdenv.isLinux,
+  commandLineArgs ? ""
+}:
 
 let
   llvmPackages = llvmPackages_15;

@@ -1,5 +1,14 @@
-{ deployAndroidPackage, lib, package, os, autoPatchelfHook, makeWrapper, pkgs
-, pkgsi686Linux, postInstall }:
+{
+  deployAndroidPackage,
+  lib,
+  package,
+  os,
+  autoPatchelfHook,
+  makeWrapper,
+  pkgs,
+  pkgsi686Linux,
+  postInstall,
+}:
 
 deployAndroidPackage {
   inherit package os;

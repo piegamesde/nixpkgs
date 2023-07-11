@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, pkg-config, libopus }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libopus,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libopusenc";

@@ -1,5 +1,18 @@
-{ mkDerivation, bison, extra-cmake-modules, flex, kconfig, kcoreaddons, kcrash
-, kdbusaddons, kdoctools, ki18n, kwindowsystem, qtbase, shared-mime-info, }:
+{
+  mkDerivation,
+  bison,
+  extra-cmake-modules,
+  flex,
+  kconfig,
+  kcoreaddons,
+  kcrash,
+  kdbusaddons,
+  kdoctools,
+  ki18n,
+  kwindowsystem,
+  qtbase,
+  shared-mime-info,
+}:
 
 mkDerivation {
   pname = "kservice";

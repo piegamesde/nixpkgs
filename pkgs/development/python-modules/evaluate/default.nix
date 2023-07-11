@@ -1,7 +1,26 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pythonRelaxDepsHook
-, pytestCheckHook, cookiecutter, datasets, dill, fsspec, huggingface-hub
-, importlib-metadata, multiprocess, numpy, packaging, pandas, pyarrow, requests
-, responses, tqdm, xxhash }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  pytestCheckHook,
+  cookiecutter,
+  datasets,
+  dill,
+  fsspec,
+  huggingface-hub,
+  importlib-metadata,
+  multiprocess,
+  numpy,
+  packaging,
+  pandas,
+  pyarrow,
+  requests,
+  responses,
+  tqdm,
+  xxhash,
+}:
 
 buildPythonPackage rec {
   pname = "evaluate";

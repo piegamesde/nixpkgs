@@ -1,5 +1,19 @@
-{ lib, fetchFromGitHub, python3, python3Packages, mypy, glib, pango, pkg-config
-, libinput, libxkbcommon, wayland, wlroots, xcbutilcursor, pulseaudio }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  python3Packages,
+  mypy,
+  glib,
+  pango,
+  pkg-config,
+  libinput,
+  libxkbcommon,
+  wayland,
+  wlroots,
+  xcbutilcursor,
+  pulseaudio,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "qtile";

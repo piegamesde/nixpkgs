@@ -1,4 +1,10 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, libxkbcommon }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  libxkbcommon,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "wpaperd";

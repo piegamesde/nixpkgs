@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, zlib, bzip2, cmake, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  bzip2,
+  cmake,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "SPAdes";

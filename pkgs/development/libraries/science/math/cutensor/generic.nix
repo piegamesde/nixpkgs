@@ -1,7 +1,16 @@
-{ stdenv, lib, libPath, cudatoolkit, fetchurl, autoPatchelfHook
-, addOpenGLRunpath
+{
+  stdenv,
+  lib,
+  libPath,
+  cudatoolkit,
+  fetchurl,
+  autoPatchelfHook,
+  addOpenGLRunpath
 
-, version, hash }:
+  ,
+  version,
+  hash,
+}:
 
 let
   mostOfVersion = builtins.concatStringsSep "."

@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
-, hypothesis, numpy, pandas, psycopg2, pymysql, python-dateutil, pytz, pyyaml
-, six, sqlalchemy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  hypothesis,
+  numpy,
+  pandas,
+  psycopg2,
+  pymysql,
+  python-dateutil,
+  pytz,
+  pyyaml,
+  six,
+  sqlalchemy,
+}:
 
 buildPythonPackage rec {
   pname = "siuba";

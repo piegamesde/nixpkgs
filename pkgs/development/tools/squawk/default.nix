@@ -1,5 +1,14 @@
-{ darwin, fetchFromGitHub, lib, libiconv, libpg_query, openssl, pkg-config
-, rustPlatform, stdenv }:
+{
+  darwin,
+  fetchFromGitHub,
+  lib,
+  libiconv,
+  libpg_query,
+  openssl,
+  pkg-config,
+  rustPlatform,
+  stdenv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "squawk";

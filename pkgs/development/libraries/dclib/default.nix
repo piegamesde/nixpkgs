@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, libxml2, openssl, bzip2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libxml2,
+  openssl,
+  bzip2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dclib";

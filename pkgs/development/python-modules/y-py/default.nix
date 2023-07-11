@@ -1,5 +1,12 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, rustPlatform, libiconv
-, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  rustPlatform,
+  libiconv,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "y-py";

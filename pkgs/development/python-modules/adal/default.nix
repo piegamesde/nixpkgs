@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, httpretty, pyjwt, pytestCheckHook
-, python-dateutil, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  httpretty,
+  pyjwt,
+  pytestCheckHook,
+  python-dateutil,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "adal";

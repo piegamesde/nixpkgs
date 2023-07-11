@@ -1,7 +1,24 @@
-{ lib, asdf-standard, asdf-transform-schemas, astropy, buildPythonPackage
-, fetchFromGitHub, fetchpatch, importlib-resources, jmespath, jsonschema, lz4
-, numpy, packaging, pytest-astropy, pytestCheckHook, pythonOlder, pyyaml
-, semantic-version, setuptools-scm }:
+{
+  lib,
+  asdf-standard,
+  asdf-transform-schemas,
+  astropy,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  importlib-resources,
+  jmespath,
+  jsonschema,
+  lz4,
+  numpy,
+  packaging,
+  pytest-astropy,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  semantic-version,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "asdf";

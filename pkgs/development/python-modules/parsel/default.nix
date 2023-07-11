@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, cssselect, fetchPypi, jmespath, lxml, packaging
-, psutil, pytestCheckHook, pythonOlder, w3lib }:
+{
+  lib,
+  buildPythonPackage,
+  cssselect,
+  fetchPypi,
+  jmespath,
+  lxml,
+  packaging,
+  psutil,
+  pytestCheckHook,
+  pythonOlder,
+  w3lib,
+}:
 
 buildPythonPackage rec {
   pname = "parsel";

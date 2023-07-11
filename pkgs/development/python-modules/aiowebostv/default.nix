@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, websockets }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  websockets,
+}:
 
 buildPythonPackage rec {
   pname = "aiowebostv";

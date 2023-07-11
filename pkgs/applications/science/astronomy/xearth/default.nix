@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, imake, gccmakedep, libXt, libXext }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  imake,
+  gccmakedep,
+  libXt,
+  libXext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xearth";

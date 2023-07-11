@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, installShellFiles, DiskArbitration
-, Foundation, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  installShellFiles,
+  DiskArbitration,
+  Foundation,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "fnm";

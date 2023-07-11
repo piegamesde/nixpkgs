@@ -1,4 +1,8 @@
-{ lib, pkgs, libsForQt5 }:
+{
+  lib,
+  pkgs,
+  libsForQt5,
+}:
 let
   packages = self:
     let inherit (self) callPackage;

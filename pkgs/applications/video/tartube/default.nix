@@ -1,5 +1,18 @@
-{ lib, fetchFromGitHub, gdk-pixbuf, gobject-introspection, gtk3, libnotify
-, pango, python3Packages, wrapGAppsHook, youtube-dl, glib, ffmpeg, aria }:
+{
+  lib,
+  fetchFromGitHub,
+  gdk-pixbuf,
+  gobject-introspection,
+  gtk3,
+  libnotify,
+  pango,
+  python3Packages,
+  wrapGAppsHook,
+  youtube-dl,
+  glib,
+  ffmpeg,
+  aria,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "tartube";

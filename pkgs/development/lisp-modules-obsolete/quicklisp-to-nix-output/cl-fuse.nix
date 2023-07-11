@@ -1,5 +1,8 @@
 # Generated file.
-args@{ fetchurl, ... }: rec {
+args@{
+  fetchurl,
+  ...
+}: rec {
   baseName = "cl-fuse";
   version = "20200925-git";
 

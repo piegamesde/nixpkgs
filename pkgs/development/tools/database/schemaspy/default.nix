@@ -1,5 +1,17 @@
-{ lib, stdenv, callPackage, maven, jdk, jre, buildMaven, makeWrapper, git
-, fetchFromGitHub, graphviz, ensureNewerSourcesHook }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  maven,
+  jdk,
+  jre,
+  buildMaven,
+  makeWrapper,
+  git,
+  fetchFromGitHub,
+  graphviz,
+  ensureNewerSourcesHook,
+}:
 
 let
   version = "6.1.1-SNAPSHOT";

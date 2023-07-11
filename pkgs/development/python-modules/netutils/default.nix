@@ -1,5 +1,15 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, jinja2, poetry-core
-, pytestCheckHook, pythonOlder, pyyaml, toml }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jinja2,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  toml,
+}:
 
 buildPythonPackage rec {
   pname = "netutils";

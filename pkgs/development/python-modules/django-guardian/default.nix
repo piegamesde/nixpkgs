@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, django-environ, mock, django
-, pytestCheckHook, pytest-django }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  django-environ,
+  mock,
+  django,
+  pytestCheckHook,
+  pytest-django,
+}:
 
 buildPythonPackage rec {
   pname = "django-guardian";

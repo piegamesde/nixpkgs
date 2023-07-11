@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, openssl, nss, pkg-config, nspr, bash
-, debug ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  openssl,
+  nss,
+  pkg-config,
+  nspr,
+  bash,
+  debug ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "badvpn";

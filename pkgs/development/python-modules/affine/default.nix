@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, flit-core, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  flit-core,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "affine";

@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchurl, elfutils, xorg, patchelf, libxcb, libxshmfence, perl
-, zlib, expat, libffi, libselinux, libdrm, udev, kernel ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  elfutils,
+  xorg,
+  patchelf,
+  libxcb,
+  libxshmfence,
+  perl,
+  zlib,
+  expat,
+  libffi,
+  libselinux,
+  libdrm,
+  udev,
+  kernel ? null
+}:
 
 with lib;
 

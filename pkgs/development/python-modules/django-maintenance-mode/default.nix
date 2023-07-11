@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, buildPythonPackage, pytest, django, python-fsutil
-, pythonOlder }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pytest,
+  django,
+  python-fsutil,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "django-maintenance-mode";

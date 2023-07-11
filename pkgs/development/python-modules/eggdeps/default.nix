@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, zope_interface, zope_testing }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  zope_interface,
+  zope_testing,
+}:
 
 buildPythonPackage rec {
   pname = "tl-eggdeps";

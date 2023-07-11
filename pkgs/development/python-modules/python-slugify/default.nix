@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
-, text-unidecode, unidecode }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  text-unidecode,
+  unidecode,
+}:
 
 buildPythonPackage rec {
   pname = "python-slugify";

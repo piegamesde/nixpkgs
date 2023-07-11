@@ -1,4 +1,8 @@
-{ stdenvNoCC, lib, fetchurl }:
+{
+  stdenvNoCC,
+  lib,
+  fetchurl,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "fasm-bin";

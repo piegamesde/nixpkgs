@@ -1,5 +1,12 @@
-{ lib, aiohttp, bleak, buildPythonPackage, fetchFromGitHub, async-timeout
-, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  bleak,
+  buildPythonPackage,
+  fetchFromGitHub,
+  async-timeout,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "adax-local";

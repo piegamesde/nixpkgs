@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, dbus, mpv-unwrapped }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  dbus,
+  mpv-unwrapped,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mpv-inhibit-gnome";

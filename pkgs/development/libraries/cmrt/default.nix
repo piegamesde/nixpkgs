@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libdrm, libva }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  libdrm,
+  libva,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cmrt";

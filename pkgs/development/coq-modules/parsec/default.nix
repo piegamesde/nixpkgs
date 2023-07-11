@@ -1,4 +1,11 @@
-{ lib, mkCoqDerivation, coq, ceres, coq-ext-lib, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  ceres,
+  coq-ext-lib,
+  version ? null
+}:
 
 mkCoqDerivation {
 

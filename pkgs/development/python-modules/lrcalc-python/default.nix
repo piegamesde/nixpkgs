@@ -1,4 +1,11 @@
-{ lib, fetchPypi, buildPythonPackage, cython, pkg-config, lrcalc }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  cython,
+  pkg-config,
+  lrcalc,
+}:
 
 buildPythonPackage rec {
   pname = "lrcalc-python";

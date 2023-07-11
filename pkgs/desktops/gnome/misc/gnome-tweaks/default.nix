@@ -1,6 +1,24 @@
-{ lib, meson, ninja, fetchurl, gdk-pixbuf, gettext, glib, gnome, gnome-desktop
-, gobject-introspection, gsettings-desktop-schemas, gtk3, itstool, libhandy
-, libnotify, libxml2, pkg-config, python3Packages, wrapGAppsHook }:
+{
+  lib,
+  meson,
+  ninja,
+  fetchurl,
+  gdk-pixbuf,
+  gettext,
+  glib,
+  gnome,
+  gnome-desktop,
+  gobject-introspection,
+  gsettings-desktop-schemas,
+  gtk3,
+  itstool,
+  libhandy,
+  libnotify,
+  libxml2,
+  pkg-config,
+  python3Packages,
+  wrapGAppsHook,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "gnome-tweaks";

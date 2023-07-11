@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, python2, pkg-config, pam, xorg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python2,
+  pkg-config,
+  pam,
+  xorg,
+}:
 
 stdenv.mkDerivation {
   pname = "xtrlock-pam";

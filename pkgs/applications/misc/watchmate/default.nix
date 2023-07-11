@@ -1,5 +1,16 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, gtk4, libadwaita, bluez, dbus
-, openssl, wrapGAppsHook4, glib }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  gtk4,
+  libadwaita,
+  bluez,
+  dbus,
+  openssl,
+  wrapGAppsHook4,
+  glib,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "watchmate";

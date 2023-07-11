@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, cryptography, fetchFromGitHub, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "securetar";

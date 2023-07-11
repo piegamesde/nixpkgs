@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, substituteAll, jam, cctools, pkg-config, SDL
-, SDL_mixer, SDL_sound, gtk2, libvorbis, smpeg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  substituteAll,
+  jam,
+  cctools,
+  pkg-config,
+  SDL,
+  SDL_mixer,
+  SDL_sound,
+  gtk2,
+  libvorbis,
+  smpeg,
+}:
 
 let
 

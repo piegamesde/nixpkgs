@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchurl, makeWrapper, runCommand }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchurl,
+  makeWrapper,
+  runCommand,
+}:
 
 let
   version = "1.3.6";

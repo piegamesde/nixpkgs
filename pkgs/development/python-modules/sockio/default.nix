@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest-asyncio, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "sockio";

@@ -1,6 +1,15 @@
-{ lib, stdenv, python3Packages, wrapGAppsHook, gtk3, gobject-introspection
-, libcanberra-gtk3, poppler_gi, withGstreamer ? stdenv.isLinux
-, withVLC ? stdenv.isLinux }:
+{
+  lib,
+  stdenv,
+  python3Packages,
+  wrapGAppsHook,
+  gtk3,
+  gobject-introspection,
+  libcanberra-gtk3,
+  poppler_gi,
+  withGstreamer ? stdenv.isLinux,
+  withVLC ? stdenv.isLinux
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "pympress";

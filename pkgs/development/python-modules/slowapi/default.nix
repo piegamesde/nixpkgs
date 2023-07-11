@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fastapi, fetchFromGitHub, limits, mock, hiro
-, poetry-core, pytestCheckHook, pythonAtLeast, pythonOlder, pythonRelaxDepsHook
-, redis, starlette }:
+{
+  lib,
+  buildPythonPackage,
+  fastapi,
+  fetchFromGitHub,
+  limits,
+  mock,
+  hiro,
+  poetry-core,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  redis,
+  starlette,
+}:
 
 buildPythonPackage rec {
   pname = "slowapi";

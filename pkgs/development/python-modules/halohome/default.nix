@@ -1,4 +1,11 @@
-{ lib, aiohttp, bleak, buildPythonPackage, csrmesh, fetchFromGitHub, pythonOlder
+{
+  lib,
+  aiohttp,
+  bleak,
+  buildPythonPackage,
+  csrmesh,
+  fetchFromGitHub,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

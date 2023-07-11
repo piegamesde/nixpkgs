@@ -1,5 +1,15 @@
-{ lib, poetry-core, buildPythonPackage, fetchFromGitHub, pythonOlder
-, importlib-metadata, packaging, pytestCheckHook, setuptools, git }:
+{
+  lib,
+  poetry-core,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  importlib-metadata,
+  packaging,
+  pytestCheckHook,
+  setuptools,
+  git,
+}:
 
 buildPythonPackage rec {
   pname = "dunamai";

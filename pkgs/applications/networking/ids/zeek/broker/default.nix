@@ -1,5 +1,14 @@
-{ stdenv, lib, callPackage, fetchFromGitHub, cmake, pkg-config, python3, caf
-, openssl }:
+{
+  stdenv,
+  lib,
+  callPackage,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  python3,
+  caf,
+  openssl,
+}:
 let
   inherit (stdenv.hostPlatform) isStatic;
 

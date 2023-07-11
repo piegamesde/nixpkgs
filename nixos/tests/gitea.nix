@@ -1,5 +1,9 @@
-{ system ? builtins.currentSystem, config ? { }, giteaPackage ? pkgs.gitea
-, pkgs ? import ../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  giteaPackage ? pkgs.gitea,
+  pkgs ? import ../.. { inherit system config; }
+}:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -32,24 +36,36 @@ let
       ];
 
       nodes = {
-        server = { config, pkgs, ... }: {
-          virtualisation.memorySize = 2048;
-          services.gitea = {
-            enable = true;
-            database = { inherit type; };
-            package = giteaPackage;
-            settings.service.DISABLE_REGISTRATION = true;
-            settings."repository.signing".SIGNING_KEY = signingPrivateKeyId;
+        server = {
+            config,
+            pkgs,
+            ...
+          }: {
+            virtualisation.memorySize = 2048;
+            services.gitea = {
+              enable = true;
+              database = { inherit type; };
+              package = giteaPackage;
+              settings.service.DISABLE_REGISTRATION = true;
+              settings."repository.signing".SIGNING_KEY = signingPrivateKeyId;
+            };
+            environment.systemPackages = [ giteaPackage pkgs.gnupg pkgs.jq ];
+            services.openssh.enable = true;
           };
-          environment.systemPackages = [ giteaPackage pkgs.gnupg pkgs.jq ];
-          services.openssh.enable = true;
-        };
-        client1 = { config, pkgs, ... }: {
-          environment.systemPackages = [ pkgs.git ];
-        };
-        client2 = { config, pkgs, ... }: {
-          environment.systemPackages = [ pkgs.git ];
-        };
+        client1 = {
+            config,
+            pkgs,
+            ...
+          }: {
+            environment.systemPackages = [ pkgs.git ];
+          };
+        client2 = {
+            config,
+            pkgs,
+            ...
+          }: {
+            environment.systemPackages = [ pkgs.git ];
+          };
       };
 
       testScript = let

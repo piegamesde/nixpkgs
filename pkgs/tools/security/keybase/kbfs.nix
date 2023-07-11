@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, keybase }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  keybase,
+}:
 
 buildGoModule {
   pname = "kbfs";

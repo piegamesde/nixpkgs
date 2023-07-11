@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, rustPlatform }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+}:
 
 let version = "0.4.0";
 

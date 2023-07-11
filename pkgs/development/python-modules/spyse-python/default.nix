@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, dataclasses-json, fetchFromGitHub, fetchpatch
-, limiter, pythonOlder, requests, responses }:
+{
+  lib,
+  buildPythonPackage,
+  dataclasses-json,
+  fetchFromGitHub,
+  fetchpatch,
+  limiter,
+  pythonOlder,
+  requests,
+  responses,
+}:
 
 buildPythonPackage rec {
   pname = "spyse-python";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, ncurses, pcre }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  ncurses,
+  pcre,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ccze";

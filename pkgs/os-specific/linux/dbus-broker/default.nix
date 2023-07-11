@@ -1,8 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, docutils, meson, ninja, pkg-config, dbus
-, linuxHeaders, systemd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  docutils,
+  meson,
+  ninja,
+  pkg-config,
+  dbus,
+  linuxHeaders,
+  systemd,
+}:
 
 let
-  dep = { pname, version, hash, buildInputs ? [ ] }:
+  dep = {
+      pname,
+      version,
+      hash,
+      buildInputs ? [ ]
+    }:
     stdenv.mkDerivation {
       inherit pname version;
       src = fetchFromGitHub {

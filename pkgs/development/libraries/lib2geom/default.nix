@@ -1,5 +1,18 @@
-{ stdenv, fetchpatch, fetchFromGitLab, cmake, ninja, pkg-config, boost, glib
-, gsl, cairo, double-conversion, gtest, lib }:
+{
+  stdenv,
+  fetchpatch,
+  fetchFromGitLab,
+  cmake,
+  ninja,
+  pkg-config,
+  boost,
+  glib,
+  gsl,
+  cairo,
+  double-conversion,
+  gtest,
+  lib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lib2geom";

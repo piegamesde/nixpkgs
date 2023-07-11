@@ -1,5 +1,16 @@
-{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
-, pytest-asyncio, pytest-aiohttp, pytestCheckHook, pythonOlder, ujson }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-asyncio,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+  ujson,
+}:
 
 buildPythonPackage rec {
   pname = "pyoutbreaksnearme";

@@ -1,9 +1,23 @@
-{ stdenv, lib, haskellPackages, writeText, gawk }:
+{
+  stdenv,
+  lib,
+  haskellPackages,
+  writeText,
+  gawk,
+}:
 let
   awk = "${gawk}/bin/awk";
   dockerCredentialsFile = import ./credentials.nix;
-in { fetcher, name, registry ? "https://registry-1.docker.io/v2/"
-, repository ? "library", imageName, sha256, tag ? "", layerDigest ? "" }:
+in {
+  fetcher,
+  name,
+  registry ? "https://registry-1.docker.io/v2/",
+  repository ? "library",
+  imageName,
+  sha256,
+  tag ? "",
+  layerDigest ? ""
+}:
 
 # There must be no slashes in the repository or container names since
 # we use these to make the output derivation name for the nix store

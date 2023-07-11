@@ -1,5 +1,8 @@
 # Generated file.
-args@{ fetchurl, ... }: rec {
+args@{
+  fetchurl,
+  ...
+}: rec {
   baseName = "cl-syslog";
   version = "20190202-git";
 

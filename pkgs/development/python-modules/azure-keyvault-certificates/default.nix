@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, azure-common, azure-core, msrest
-, msrestazure, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  azure-common,
+  azure-core,
+  msrest,
+  msrestazure,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "azure-keyvault-certificates";

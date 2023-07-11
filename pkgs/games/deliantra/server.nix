@@ -1,5 +1,21 @@
-{ stdenv, lib, fetchurl, perlPackages, autoconf, perl, gperf, optipng, pngnq
-, rsync, imagemagick, blitz, pkg-config, glib, boost, makeWrapper }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  perlPackages,
+  autoconf,
+  perl,
+  gperf,
+  optipng,
+  pngnq,
+  rsync,
+  imagemagick,
+  blitz,
+  pkg-config,
+  glib,
+  boost,
+  makeWrapper,
+}:
 
 let
   perl-deps = with perlPackages; [

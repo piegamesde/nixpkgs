@@ -1,5 +1,16 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder, pandas, numpy, scipy
-, filelock, pytest, nose, parameterized }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder,
+  pandas,
+  numpy,
+  scipy,
+  filelock,
+  pytest,
+  nose,
+  parameterized,
+}:
 
 buildPythonPackage rec {
   pname = "theano-pymc";

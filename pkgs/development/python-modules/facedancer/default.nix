@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, pyusb, pyserial }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  pyusb,
+  pyserial,
+}:
 
 buildPythonPackage rec {
   pname = "facedancer";

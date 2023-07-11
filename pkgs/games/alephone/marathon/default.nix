@@ -1,4 +1,7 @@
-{ alephone, fetchurl }:
+{
+  alephone,
+  fetchurl,
+}:
 
 alephone.makeWrapper rec {
   pname = "marathon";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, bzip2, libtomcrypt, zlib, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  bzip2,
+  libtomcrypt,
+  zlib,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "StormLib";

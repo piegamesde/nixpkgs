@@ -1,4 +1,12 @@
-{ fetchFromGitHub, lib, python3Packages, meld, subversion, gvfs, xdg-utils, gtk3
+{
+  fetchFromGitHub,
+  lib,
+  python3Packages,
+  meld,
+  subversion,
+  gvfs,
+  xdg-utils,
+  gtk3,
 }:
 
 python3Packages.buildPythonApplication rec {

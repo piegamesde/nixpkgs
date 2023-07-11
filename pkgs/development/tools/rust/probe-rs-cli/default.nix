@@ -1,5 +1,14 @@
-{ lib, stdenv, rustPlatform, fetchCrate, pkg-config, libusb1, openssl
-, DarwinTools, AppKit }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  libusb1,
+  openssl,
+  DarwinTools,
+  AppKit,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "probe-rs-cli";

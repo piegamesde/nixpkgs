@@ -1,7 +1,19 @@
-{ lib, aws-sdk-cpp, boehmgc, callPackage, fetchFromGitHub, fetchurl, fetchpatch
-, fetchpatch2, Security
+{
+  lib,
+  aws-sdk-cpp,
+  boehmgc,
+  callPackage,
+  fetchFromGitHub,
+  fetchurl,
+  fetchpatch,
+  fetchpatch2,
+  Security
 
-, storeDir ? "/nix/store", stateDir ? "/nix/var", confDir ? "/etc" }:
+  ,
+  storeDir ? "/nix/store",
+  stateDir ? "/nix/var",
+  confDir ? "/etc"
+}:
 let
   boehmgc-nix_2_3 = boehmgc.override { enableLargeConfig = true; };
 

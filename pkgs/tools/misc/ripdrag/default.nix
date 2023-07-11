@@ -1,4 +1,10 @@
-{ lib, rustPlatform, fetchCrate, pkg-config, gtk4 }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  gtk4,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "ripdrag";

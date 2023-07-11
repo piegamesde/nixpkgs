@@ -1,5 +1,16 @@
-{ lib, fetchFromGitHub, wrapGAppsHook, gettext, python3Packages, gnome, gtk3
-, glib, gdk-pixbuf, gsettings-desktop-schemas, gobject-introspection }:
+{
+  lib,
+  fetchFromGitHub,
+  wrapGAppsHook,
+  gettext,
+  python3Packages,
+  gnome,
+  gtk3,
+  glib,
+  gdk-pixbuf,
+  gsettings-desktop-schemas,
+  gobject-introspection,
+}:
 
 let
   inherit (python3Packages)

@@ -1,5 +1,16 @@
-{ stdenv, lib, bash, coreutils, findutils, fetchFromGitHub, fzf, git, gnugrep
-, gnused, makeWrapper }:
+{
+  stdenv,
+  lib,
+  bash,
+  coreutils,
+  findutils,
+  fetchFromGitHub,
+  fzf,
+  git,
+  gnugrep,
+  gnused,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zsh-forgit";

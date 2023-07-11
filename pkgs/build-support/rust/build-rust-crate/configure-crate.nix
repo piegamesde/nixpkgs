@@ -1,9 +1,33 @@
-{ lib, stdenv, rust, echo_colored, noisily, mkRustcDepArgs, mkRustcFeatureArgs
+{
+  lib,
+  stdenv,
+  rust,
+  echo_colored,
+  noisily,
+  mkRustcDepArgs,
+  mkRustcFeatureArgs,
 }:
-{ build, buildDependencies, codegenUnits, colors, completeBuildDeps
-, completeDeps, crateAuthors, crateDescription, crateHomepage, crateFeatures
-, crateName, crateRenames, crateVersion, extraLinkFlags
-, extraRustcOptsForBuildRs, libName, libPath, release, verbose, workspace_member
+{
+  build,
+  buildDependencies,
+  codegenUnits,
+  colors,
+  completeBuildDeps,
+  completeDeps,
+  crateAuthors,
+  crateDescription,
+  crateHomepage,
+  crateFeatures,
+  crateName,
+  crateRenames,
+  crateVersion,
+  extraLinkFlags,
+  extraRustcOptsForBuildRs,
+  libName,
+  libPath,
+  release,
+  verbose,
+  workspace_member,
 }:
 let
   version_ = lib.splitString "-" crateVersion;

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchpatch, fetchFromGitHub, kernel }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchFromGitHub,
+  kernel,
+}:
 let
   isKernelRT = (kernel.structuredExtraConfig ? PREEMPT_RT)
     && (kernel.structuredExtraConfig.PREEMPT_RT == lib.kernel.yes);

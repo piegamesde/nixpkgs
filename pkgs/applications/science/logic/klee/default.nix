@@ -1,24 +1,46 @@
-{ lib, stdenv, callPackage, fetchFromGitHub, cmake, clang, llvm, python3, zlib
-, z3, stp, cryptominisat, gperftools, sqlite, gtest, lit
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchFromGitHub,
+  cmake,
+  clang,
+  llvm,
+  python3,
+  zlib,
+  z3,
+  stp,
+  cryptominisat,
+  gperftools,
+  sqlite,
+  gtest,
+  lit
 
-# Build KLEE in debug mode. Defaults to false.
-, debug ? false
+  # Build KLEE in debug mode. Defaults to false.
+  ,
+  debug ? false
 
-  # Include debug info in the build. Defaults to true.
-, includeDebugInfo ? true
+    # Include debug info in the build. Defaults to true.
+  ,
+  includeDebugInfo ? true
 
-  # Enable KLEE asserts. Defaults to true, since LLVM is built with them.
-, asserts ? true
+    # Enable KLEE asserts. Defaults to true, since LLVM is built with them.
+  ,
+  asserts ? true
 
-  # Build the KLEE runtime in debug mode. Defaults to true, as this improves
-  # stack traces of the software under test.
-, debugRuntime ? true
+    # Build the KLEE runtime in debug mode. Defaults to true, as this improves
+    # stack traces of the software under test.
+  ,
+  debugRuntime ? true
 
-  # Enable runtime asserts. Default false.
-, runtimeAsserts ? false
+    # Enable runtime asserts. Default false.
+  ,
+  runtimeAsserts ? false
 
-  # Extra klee-uclibc config.
-, extraKleeuClibcConfig ? { } }:
+    # Extra klee-uclibc config.
+  ,
+  extraKleeuClibcConfig ? { }
+}:
 
 let
   # Python used for KLEE tests.

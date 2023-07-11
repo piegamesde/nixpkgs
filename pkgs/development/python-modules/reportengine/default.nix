@@ -1,5 +1,19 @@
-{ lib, buildPythonPackage, fetchPypi, flit, jinja2, ruamel-yaml, matplotlib
-, pandas, pandoc, pygments, blessings, curio, hypothesis, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flit,
+  jinja2,
+  ruamel-yaml,
+  matplotlib,
+  pandas,
+  pandoc,
+  pygments,
+  blessings,
+  curio,
+  hypothesis,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "reportengine";

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fuse, p7zip, autoconf, automake, pkg-config
-, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fuse,
+  p7zip,
+  autoconf,
+  automake,
+  pkg-config,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fuse-7z-ng";

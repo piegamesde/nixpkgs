@@ -1,4 +1,11 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub, makeWrapper, nixosTests, systemd
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  nixosTests,
+  systemd,
 }:
 
 buildGoModule rec {

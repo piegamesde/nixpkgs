@@ -1,4 +1,12 @@
-{ lib, stdenv, cmake, version, src, patches ? [ ], ... }:
+{
+  lib,
+  stdenv,
+  cmake,
+  version,
+  src,
+  patches ? [ ],
+  ...
+}:
 
 stdenv.mkDerivation {
   pname = "msgpack";

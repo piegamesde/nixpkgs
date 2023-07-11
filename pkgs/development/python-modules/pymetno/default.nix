@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, async-timeout, pytz
-, xmltodict }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiohttp,
+  async-timeout,
+  pytz,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "pymetno";

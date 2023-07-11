@@ -1,5 +1,13 @@
-{ lib, buildLinux, fetchurl, kernelPatches ? [ ], structuredExtraConfig ? { }
-, extraMeta ? { }, argsOverride ? { }, ... }@args:
+{
+  lib,
+  buildLinux,
+  fetchurl,
+  kernelPatches ? [ ],
+  structuredExtraConfig ? { },
+  extraMeta ? { },
+  argsOverride ? { },
+  ...
+}@args:
 
 let
   version = "5.15.107-rt62"; # updated by ./update-rt.sh

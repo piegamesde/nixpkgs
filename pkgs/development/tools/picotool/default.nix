@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libusb1, pico-sdk }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libusb1,
+  pico-sdk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "picotool";

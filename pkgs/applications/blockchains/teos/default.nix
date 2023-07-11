@@ -1,5 +1,14 @@
-{ lib, rustPlatform, fetchFromGitHub, protobuf, rustfmt, stdenv, darwin
-, pkg-config, openssl }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  protobuf,
+  rustfmt,
+  stdenv,
+  darwin,
+  pkg-config,
+  openssl,
+}:
 
 let
   version = "0.2.0";

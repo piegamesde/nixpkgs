@@ -14,7 +14,11 @@ let
       line = pos.line;
       key = toLower (simplify n);
     }) (attrNames maintainers));
-  before = { name, line, key }:
+  before = {
+      name,
+      line,
+      key,
+    }:
     foldl'
     (acc: n: if n.key < key && (acc == null || n.key > acc.key) then n else acc)
     null namesSorted;

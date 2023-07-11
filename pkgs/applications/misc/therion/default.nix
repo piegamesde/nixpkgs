@@ -1,6 +1,33 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, perl, tcl, tcllib, tk, expat
-, bwidget, python3, texlive, survex, makeWrapper, fmt, proj, wxGTK32, vtk
-, freetype, libjpeg, gettext, libGL, libGLU, sqlite, libtiff, curl, tkimg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  perl,
+  tcl,
+  tcllib,
+  tk,
+  expat,
+  bwidget,
+  python3,
+  texlive,
+  survex,
+  makeWrapper,
+  fmt,
+  proj,
+  wxGTK32,
+  vtk,
+  freetype,
+  libjpeg,
+  gettext,
+  libGL,
+  libGLU,
+  sqlite,
+  libtiff,
+  curl,
+  tkimg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "therion";

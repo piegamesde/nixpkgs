@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, openssl, pkg-config, libpcap }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  openssl,
+  pkg-config,
+  libpcap,
+}:
 
 buildGoModule rec {
   pname = "mongo-tools";

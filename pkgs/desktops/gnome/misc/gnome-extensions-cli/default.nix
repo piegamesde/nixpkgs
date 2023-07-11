@@ -1,6 +1,17 @@
-{ lib, fetchPypi, buildPythonApplication, poetry-core, colorama, more-itertools
-, packaging, pydantic, requests, pygobject3, gobject-introspection
-, wrapGAppsNoGuiHook }:
+{
+  lib,
+  fetchPypi,
+  buildPythonApplication,
+  poetry-core,
+  colorama,
+  more-itertools,
+  packaging,
+  pydantic,
+  requests,
+  pygobject3,
+  gobject-introspection,
+  wrapGAppsNoGuiHook,
+}:
 
 buildPythonApplication rec {
   pname = "gnome-extensions-cli";

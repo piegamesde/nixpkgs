@@ -1,4 +1,11 @@
-{ lib, stdenv, substituteAll, buildEnv, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  stdenv,
+  substituteAll,
+  buildEnv,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wee-slack";

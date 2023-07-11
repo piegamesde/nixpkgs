@@ -1,8 +1,42 @@
-{ lib, stdenv, alsa-lib, autoconf213, cairo, dbus, dbus-glib, desktop-file-utils
-, fetchFromGitea, ffmpeg, fontconfig, freetype, gnome2, gnum4, libGL, libGLU
-, libevent, libnotify, libpulseaudio, libstartup_notification, pango, perl
-, pkg-config, python2, unzip, which, wrapGAppsHook, writeScript, xorg, yasm, zip
-, zlib, withGTK3 ? true, gtk3, gtk2, testers, palemoon }:
+{
+  lib,
+  stdenv,
+  alsa-lib,
+  autoconf213,
+  cairo,
+  dbus,
+  dbus-glib,
+  desktop-file-utils,
+  fetchFromGitea,
+  ffmpeg,
+  fontconfig,
+  freetype,
+  gnome2,
+  gnum4,
+  libGL,
+  libGLU,
+  libevent,
+  libnotify,
+  libpulseaudio,
+  libstartup_notification,
+  pango,
+  perl,
+  pkg-config,
+  python2,
+  unzip,
+  which,
+  wrapGAppsHook,
+  writeScript,
+  xorg,
+  yasm,
+  zip,
+  zlib,
+  withGTK3 ? true,
+  gtk3,
+  gtk2,
+  testers,
+  palemoon,
+}:
 
 # Only specific GCC versions are supported with branding
 # https://developer.palemoon.org/build/linux/

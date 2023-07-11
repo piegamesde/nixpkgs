@@ -1,6 +1,21 @@
-{ lib, mkDerivation, fetchFromGitHub, fluxbox, hicolor-icon-theme, libarchive
-, numlockx, qmake, qtbase, qtmultimedia, qtsvg, qttools, qtx11extras, xorg
-, xscreensaver, wrapGAppsHook }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  fluxbox,
+  hicolor-icon-theme,
+  libarchive,
+  numlockx,
+  qmake,
+  qtbase,
+  qtmultimedia,
+  qtsvg,
+  qttools,
+  qtx11extras,
+  xorg,
+  xscreensaver,
+  wrapGAppsHook,
+}:
 
 mkDerivation rec {
   pname = "lumina";

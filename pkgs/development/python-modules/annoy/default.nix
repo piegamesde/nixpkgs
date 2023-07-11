@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, h5py, nose, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  h5py,
+  nose,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "annoy";

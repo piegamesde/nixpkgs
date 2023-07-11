@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, buildPythonPackage, clickclick, dnspython, requests
-, pytest, pytest-cov, isPy3k }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  clickclick,
+  dnspython,
+  requests,
+  pytest,
+  pytest-cov,
+  isPy3k,
+}:
 
 buildPythonPackage rec {
   pname = "stups-cli-support";

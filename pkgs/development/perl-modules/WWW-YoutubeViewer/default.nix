@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, buildPerlPackage, shortenPerlShebang, LWP
-, LWPProtocolHttps, DataDump, JSON }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildPerlPackage,
+  shortenPerlShebang,
+  LWP,
+  LWPProtocolHttps,
+  DataDump,
+  JSON,
+}:
 
 buildPerlPackage rec {
   pname = "WWW-YoutubeViewer";

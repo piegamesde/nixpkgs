@@ -1,23 +1,36 @@
 # This file contains all runtime glue: Bindings to optional runtime dependencies
 # for pdfSupport, presentationSupport, and media playback.
-{ lib, mkDerivation, wrapGAppsHook, python3Packages
+{
+  lib,
+  mkDerivation,
+  wrapGAppsHook,
+  python3Packages
 
-# qt deps
-, qtbase, qtmultimedia
+  # qt deps
+  ,
+  qtbase,
+  qtmultimedia
 
-# optional deps
-, pdfSupport ? false, mupdf # alternatively could use ghostscript
-, presentationSupport ? false, libreoffice-unwrapped, vlcSupport ? false
-, gstreamerSupport ? false, gst_all_1, gstPlugins ? (gst: [
-  gst.gst-plugins-base
-  gst.gst-plugins-good
-  gst.gst-plugins-bad
-  gst.gst-plugins-ugly
-])
+  # optional deps
+  ,
+  pdfSupport ? false,
+  mupdf # alternatively could use ghostscript
+  ,
+  presentationSupport ? false,
+  libreoffice-unwrapped,
+  vlcSupport ? false,
+  gstreamerSupport ? false,
+  gst_all_1,
+  gstPlugins ? (gst: [
+    gst.gst-plugins-base
+    gst.gst-plugins-good
+    gst.gst-plugins-bad
+    gst.gst-plugins-ugly
+  ])
 
-#, enableMySql ? false      # Untested. If interested, contact maintainer.
-#, enablePostgreSql ? false # Untested. If interested, contact maintainer.
-#, enableJenkinsApi ? false # Untested. If interested, contact maintainer.
+  #, enableMySql ? false      # Untested. If interested, contact maintainer.
+  #, enablePostgreSql ? false # Untested. If interested, contact maintainer.
+  #, enableJenkinsApi ? false # Untested. If interested, contact maintainer.
 }:
 
 let

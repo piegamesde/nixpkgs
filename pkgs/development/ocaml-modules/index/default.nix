@@ -1,6 +1,22 @@
-{ lib, fetchurl, buildDunePackage, repr, ppx_repr, fmt, logs, mtime
-, stdlib-shims, cmdliner, progress, semaphore-compat, optint, alcotest, crowbar
-, re, lru }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  repr,
+  ppx_repr,
+  fmt,
+  logs,
+  mtime,
+  stdlib-shims,
+  cmdliner,
+  progress,
+  semaphore-compat,
+  optint,
+  alcotest,
+  crowbar,
+  re,
+  lru,
+}:
 
 buildDunePackage rec {
   pname = "index";

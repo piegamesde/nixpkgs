@@ -1,4 +1,10 @@
-{ self, callPackage, fetchFromGitHub, lib, passthruFun }:
+{
+  self,
+  callPackage,
+  fetchFromGitHub,
+  lib,
+  passthruFun,
+}:
 
 callPackage ./default.nix {
   version = "2.0.5-2022-09-13";

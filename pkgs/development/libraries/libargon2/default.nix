@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, fixDarwinDylibNames }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  fixDarwinDylibNames,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libargon2";

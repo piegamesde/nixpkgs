@@ -1,4 +1,10 @@
-{ fetchurl, fetchpatch, lib, stdenv, cmake }:
+{
+  fetchurl,
+  fetchpatch,
+  lib,
+  stdenv,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cmocka";

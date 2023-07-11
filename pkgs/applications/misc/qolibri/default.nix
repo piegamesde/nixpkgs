@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, cmake, libeb, lzo, qtmultimedia
-, qttools, qtwebengine, wrapQtAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  libeb,
+  lzo,
+  qtmultimedia,
+  qttools,
+  qtwebengine,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qolibri";

@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, python-dateutil, babelfish, rebulk
-, pythonOlder, importlib-resources, py, pytestCheckHook, pytest-mock
-, pytest-benchmark, pyyaml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python-dateutil,
+  babelfish,
+  rebulk,
+  pythonOlder,
+  importlib-resources,
+  py,
+  pytestCheckHook,
+  pytest-mock,
+  pytest-benchmark,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "guessit";

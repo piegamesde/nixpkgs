@@ -1,5 +1,16 @@
-{ lib, stdenv, pkgs, fetchFromGitHub, runCommand, buildNpmPackage, nodejs_16
-, tone, ffmpeg-full, util-linux, libwebp }:
+{
+  lib,
+  stdenv,
+  pkgs,
+  fetchFromGitHub,
+  runCommand,
+  buildNpmPackage,
+  nodejs_16,
+  tone,
+  ffmpeg-full,
+  util-linux,
+  libwebp,
+}:
 
 let
   nodejs = nodejs_16;

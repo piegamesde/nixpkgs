@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, eth-hash, eth-utils, hexbytes
-, pytestCheckHook, pythonOlder, rlp }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  eth-hash,
+  eth-utils,
+  hexbytes,
+  pytestCheckHook,
+  pythonOlder,
+  rlp,
+}:
 
 buildPythonPackage rec {
   pname = "eth-rlp";

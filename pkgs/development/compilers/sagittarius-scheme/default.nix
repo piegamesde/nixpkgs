@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, cmake, pkg-config, libffi, boehmgc, openssl, zlib
-, odbcSupport ? true, libiodbc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  pkg-config,
+  libffi,
+  boehmgc,
+  openssl,
+  zlib,
+  odbcSupport ? true,
+  libiodbc,
+}:
 
 let
   platformLdLibraryPath = if stdenv.isDarwin then

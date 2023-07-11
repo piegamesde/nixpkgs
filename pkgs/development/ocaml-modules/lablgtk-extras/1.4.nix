@@ -1,4 +1,14 @@
-{ stdenv, lib, fetchurl, ocaml, findlib, camlp4, config-file, lablgtk, xmlm }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ocaml,
+  findlib,
+  camlp4,
+  config-file,
+  lablgtk,
+  xmlm,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml-lablgtk-extras";

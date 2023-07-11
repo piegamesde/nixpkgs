@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, asciidoc, autoconf-archive, autoreconfHook
-, pkg-config, curl, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  asciidoc,
+  autoconf-archive,
+  autoreconfHook,
+  pkg-config,
+  curl,
+  openssl,
+}:
 stdenv.mkDerivation rec {
   pname = "uacme";
   version = "1.7.4";

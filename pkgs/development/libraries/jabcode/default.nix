@@ -1,6 +1,14 @@
-{ stdenv, fetchFromGitHub, lib
-, subproject ? "library" # one of "library", "reader" or  "writer"
-, zlib, libpng, libtiff, jabcode }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  subproject ? "library" # one of "library", "reader" or  "writer"
+  ,
+  zlib,
+  libpng,
+  libtiff,
+  jabcode,
+}:
 let
   subdir = lib.getAttr subproject {
     "library" = "jabcode";

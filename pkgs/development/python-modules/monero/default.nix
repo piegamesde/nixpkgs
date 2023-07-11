@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pycryptodomex, pysocks, pynacl
-, requests, six, varint, pytestCheckHook, pytest-cov, responses }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pycryptodomex,
+  pysocks,
+  pynacl,
+  requests,
+  six,
+  varint,
+  pytestCheckHook,
+  pytest-cov,
+  responses,
+}:
 
 buildPythonPackage rec {
   pname = "monero";

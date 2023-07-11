@@ -1,5 +1,16 @@
-{ lib, stdenv, gtest, fetchFromGitHub, cmake, boost, eigen, python3, vtk_8, zlib
-, tbb }:
+{
+  lib,
+  stdenv,
+  gtest,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  eigen,
+  python3,
+  vtk_8,
+  zlib,
+  tbb,
+}:
 
 stdenv.mkDerivation rec {
   version = "2.0.0";

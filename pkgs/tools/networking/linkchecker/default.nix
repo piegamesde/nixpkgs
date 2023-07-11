@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, python3, gettext }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  gettext,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "linkchecker";

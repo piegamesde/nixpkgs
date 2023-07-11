@@ -1,4 +1,9 @@
-{ stdenv, usbrelay, python3, installShellFiles }:
+{
+  stdenv,
+  usbrelay,
+  python3,
+  installShellFiles,
+}:
 let
   python = python3.withPackages (ps: with ps; [ usbrelay-py paho-mqtt ]);
   # This is a separate derivation, not just an additional output of

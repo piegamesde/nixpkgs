@@ -1,4 +1,12 @@
-{ lib, fetchurl, buildDunePackage, topkg, findlib, ocamlbuild, ocaml }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  topkg,
+  findlib,
+  ocamlbuild,
+  ocaml,
+}:
 
 buildDunePackage rec {
   pname = "asetmap";

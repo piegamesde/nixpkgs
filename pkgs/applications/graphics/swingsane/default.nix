@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, makeDesktopItem, unzip, jre, runtimeShell }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeDesktopItem,
+  unzip,
+  jre,
+  runtimeShell,
+}:
 
 stdenv.mkDerivation rec {
   pname = "swingsane";

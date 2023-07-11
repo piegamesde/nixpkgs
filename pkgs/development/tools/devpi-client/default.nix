@@ -1,4 +1,10 @@
-{ lib, devpi-server, git, glibcLocales, python3 }:
+{
+  lib,
+  devpi-server,
+  git,
+  glibcLocales,
+  python3,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "devpi-client";

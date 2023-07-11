@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, ncurses, pkg-config, glib, libviper, libpseudo, gpm
-, libvterm }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  pkg-config,
+  glib,
+  libviper,
+  libpseudo,
+  gpm,
+  libvterm,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vwm";

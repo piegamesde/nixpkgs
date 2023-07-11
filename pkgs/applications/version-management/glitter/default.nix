@@ -1,4 +1,9 @@
-{ lib, rustPlatform, fetchFromGitHub, git }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  git,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "glitter";

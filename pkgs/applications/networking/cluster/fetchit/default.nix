@@ -1,5 +1,12 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, installShellFiles, lvm2
-, pkg-config }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  lvm2,
+  pkg-config,
+}:
 
 buildGoModule rec {
   pname = "fetchit";

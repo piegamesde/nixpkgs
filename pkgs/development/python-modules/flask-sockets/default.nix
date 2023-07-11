@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, flask, gevent, gevent-websocket }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  gevent,
+  gevent-websocket,
+}:
 
 buildPythonPackage rec {
   pname = "Flask-Sockets";

@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cloudpickle, scikit-learn
-, scikitimage, packaging, psutil, py-deprecate, torch, pytestCheckHook
-, torchmetrics, pytorch-lightning }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cloudpickle,
+  scikit-learn,
+  scikitimage,
+  packaging,
+  psutil,
+  py-deprecate,
+  torch,
+  pytestCheckHook,
+  torchmetrics,
+  pytorch-lightning,
+}:
 
 let
   pname = "torchmetrics";

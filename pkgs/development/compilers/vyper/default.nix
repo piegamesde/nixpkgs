@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, pythonRelaxDepsHook
-, writeText, asttokens, pycryptodome, recommonmark, semantic-version, sphinx
-, sphinx-rtd-theme, pytest-runner, setuptools-scm, git }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  writeText,
+  asttokens,
+  pycryptodome,
+  recommonmark,
+  semantic-version,
+  sphinx,
+  sphinx-rtd-theme,
+  pytest-runner,
+  setuptools-scm,
+  git,
+}:
 
 let
   sample-contract = writeText "example.vy" ''

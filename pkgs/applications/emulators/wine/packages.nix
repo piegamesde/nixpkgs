@@ -1,5 +1,14 @@
-{ stdenv_32bit, lib, pkgs, pkgsi686Linux, pkgsCross, callPackage, moltenvk
-, wineRelease ? "stable", supportFlags }:
+{
+  stdenv_32bit,
+  lib,
+  pkgs,
+  pkgsi686Linux,
+  pkgsCross,
+  callPackage,
+  moltenvk,
+  wineRelease ? "stable",
+  supportFlags,
+}:
 
 let src = lib.getAttr wineRelease (callPackage ./sources.nix { });
 in with src; {

@@ -3,7 +3,9 @@
 {
   description = "A collection of packages for the Nix package manager";
 
-  outputs = { self }:
+  outputs = {
+      self,
+    }:
     let
       jobs = import ./pkgs/top-level/release.nix { nixpkgs = self; };
 

@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchzip, autoconf, automake, cups, glib, libxml2, libusb1
-, libtool, withDebug ? false }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  autoconf,
+  automake,
+  cups,
+  glib,
+  libxml2,
+  libusb1,
+  libtool,
+  withDebug ? false
+}:
 
 stdenv.mkDerivation {
   pname = "cnijfilter2";

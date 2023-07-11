@@ -1,5 +1,13 @@
-{ lib, stdenv, rustPlatform, fetchFromBitbucket, llvmPackages, Libsystem
-, SystemConfiguration, installShellFiles }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromBitbucket,
+  llvmPackages,
+  Libsystem,
+  SystemConfiguration,
+  installShellFiles,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "bore";

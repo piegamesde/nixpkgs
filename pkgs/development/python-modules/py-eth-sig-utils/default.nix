@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, eth-abi, py-ecc, pycryptodome
-, python, rlp }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  eth-abi,
+  py-ecc,
+  pycryptodome,
+  python,
+  rlp,
+}:
 
 buildPythonPackage rec {
   pname = "py-eth-sig-utils";

@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, desktop-file-utils, glib, gtk3, intltool, meson
-, ninja, pkg-config, vala, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  desktop-file-utils,
+  glib,
+  gtk3,
+  intltool,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "budgie-desktop-view";

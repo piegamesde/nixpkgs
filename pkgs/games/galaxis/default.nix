@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, ncurses, xmlto }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  xmlto,
+}:
 
 with lib;
 stdenv.mkDerivation rec {

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, frozendict, pytestCheckHook, pythonOlder
-, setuptools, simplejson }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  frozendict,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  simplejson,
+}:
 
 buildPythonPackage rec {
   pname = "canonicaljson";

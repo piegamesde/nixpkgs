@@ -1,6 +1,20 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, extra-cmake-modules, qtx11extras
-, kcoreaddons, kguiaddons, kconfig, kdecoration, kconfigwidgets, kwindowsystem
-, kiconthemes, kwayland, unstableGitUpdater }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  qtx11extras,
+  kcoreaddons,
+  kguiaddons,
+  kconfig,
+  kdecoration,
+  kconfigwidgets,
+  kwindowsystem,
+  kiconthemes,
+  kwayland,
+  unstableGitUpdater,
+}:
 
 mkDerivation rec {
   pname = "material-kwin-decoration";

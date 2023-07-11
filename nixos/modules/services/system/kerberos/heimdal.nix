@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
   inherit (lib)
@@ -7,9 +12,16 @@ let
   kerberos = config.krb5.kerberos;
   stateDir = "/var/heimdal";
   aclFiles = mapAttrs (name:
-    { acl, ... }:
-    pkgs.writeText "${name}.acl" (concatMapStrings
-      (({ principal, access, target, ... }: ''
+    {
+      acl,
+      ...
+    }:
+    pkgs.writeText "${name}.acl" (concatMapStrings (({
+        principal,
+        access,
+        target,
+        ...
+      }: ''
         ${principal}	${concatStringsSep "," (toList access)}	${target}
       '')) acl)) cfg.realms;
 

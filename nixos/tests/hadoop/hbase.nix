@@ -1,7 +1,13 @@
 # Test a minimal hbase cluster
-{ pkgs, ... }:
-import ../make-test-python.nix
-({ hadoop ? pkgs.hadoop, hbase ? pkgs.hbase, ... }:
+{
+  pkgs,
+  ...
+}:
+import ../make-test-python.nix ({
+    hadoop ? pkgs.hadoop,
+    hbase ? pkgs.hbase,
+    ...
+  }:
   with pkgs.lib; {
     name = "hadoop-hbase";
 
@@ -13,60 +19,74 @@ import ../make-test-python.nix
       };
       zookeeperQuorum = "zookeeper";
     in {
-      zookeeper = { ... }: {
-        services.zookeeper.enable = true;
-        networking.firewall.allowedTCPPorts = [ 2181 ];
-      };
-      namenode = { ... }: {
-        services.hadoop = {
-          hdfs = { namenode = defOpts // { formatOnInit = true; }; };
-          inherit coreSite;
+      zookeeper = {
+          ...
+        }: {
+          services.zookeeper.enable = true;
+          networking.firewall.allowedTCPPorts = [ 2181 ];
         };
-      };
-      datanode = { ... }: {
-        virtualisation.diskSize = 8192;
-        services.hadoop = {
-          hdfs.datanode = defOpts;
-          inherit coreSite;
+      namenode = {
+          ...
+        }: {
+          services.hadoop = {
+            hdfs = { namenode = defOpts // { formatOnInit = true; }; };
+            inherit coreSite;
+          };
         };
-      };
+      datanode = {
+          ...
+        }: {
+          virtualisation.diskSize = 8192;
+          services.hadoop = {
+            hdfs.datanode = defOpts;
+            inherit coreSite;
+          };
+        };
 
-      master = { ... }: {
-        services.hadoop = {
-          inherit coreSite;
-          hbase = {
-            inherit zookeeperQuorum;
-            master = defOpts // { initHDFS = true; };
+      master = {
+          ...
+        }: {
+          services.hadoop = {
+            inherit coreSite;
+            hbase = {
+              inherit zookeeperQuorum;
+              master = defOpts // { initHDFS = true; };
+            };
           };
         };
-      };
-      regionserver = { ... }: {
-        services.hadoop = {
-          inherit coreSite;
-          hbase = {
-            inherit zookeeperQuorum;
-            regionServer = defOpts;
+      regionserver = {
+          ...
+        }: {
+          services.hadoop = {
+            inherit coreSite;
+            hbase = {
+              inherit zookeeperQuorum;
+              regionServer = defOpts;
+            };
           };
         };
-      };
-      thrift = { ... }: {
-        services.hadoop = {
-          inherit coreSite;
-          hbase = {
-            inherit zookeeperQuorum;
-            thrift = defOpts;
+      thrift = {
+          ...
+        }: {
+          services.hadoop = {
+            inherit coreSite;
+            hbase = {
+              inherit zookeeperQuorum;
+              thrift = defOpts;
+            };
           };
         };
-      };
-      rest = { ... }: {
-        services.hadoop = {
-          inherit coreSite;
-          hbase = {
-            inherit zookeeperQuorum;
-            rest = defOpts;
+      rest = {
+          ...
+        }: {
+          services.hadoop = {
+            inherit coreSite;
+            hbase = {
+              inherit zookeeperQuorum;
+              rest = defOpts;
+            };
           };
         };
-      };
     };
 
     testScript = ''

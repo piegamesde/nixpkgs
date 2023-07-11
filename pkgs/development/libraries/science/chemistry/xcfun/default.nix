@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, cmake, gfortran, python3 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  gfortran,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xcfun";

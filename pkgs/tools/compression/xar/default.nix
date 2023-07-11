@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, pkg-config, libxml2, xz, openssl, zlib, bzip2, fts
-, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libxml2,
+  xz,
+  openssl,
+  zlib,
+  bzip2,
+  fts,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.6.1";

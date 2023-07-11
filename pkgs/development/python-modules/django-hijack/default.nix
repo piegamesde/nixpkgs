@@ -1,5 +1,12 @@
-{ lib, fetchPypi, buildPythonPackage, django, django_compat, pytest-django
-, pytestCheckHook }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  django,
+  django_compat,
+  pytest-django,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "django-hijack";

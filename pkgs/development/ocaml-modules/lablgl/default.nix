@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, ocaml, findlib, libGLU, libGL, freeglut, darwin
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  libGLU,
+  libGL,
+  freeglut,
+  darwin,
 }:
 
 if lib.versionOlder ocaml.version "4.03" then

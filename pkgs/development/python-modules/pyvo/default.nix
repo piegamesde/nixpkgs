@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, astropy, pillow, pythonOlder
-, pytestCheckHook, pytest-astropy, requests, requests-mock, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  astropy,
+  pillow,
+  pythonOlder,
+  pytestCheckHook,
+  pytest-astropy,
+  requests,
+  requests-mock,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "pyvo";

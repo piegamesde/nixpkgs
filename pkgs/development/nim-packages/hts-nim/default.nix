@@ -1,4 +1,8 @@
-{ buildNimPackage, fetchFromGitHub, htslib }:
+{
+  buildNimPackage,
+  fetchFromGitHub,
+  htslib,
+}:
 
 buildNimPackage rec {
   pname = "hts-nim";

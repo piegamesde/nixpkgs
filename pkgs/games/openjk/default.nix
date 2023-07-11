@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, makeDesktopItem, makeWrapper, cmake, libjpeg
-, zlib, libpng, libGL, SDL2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeDesktopItem,
+  makeWrapper,
+  cmake,
+  libjpeg,
+  zlib,
+  libpng,
+  libGL,
+  SDL2,
+}:
 
 let
   jamp = makeDesktopItem rec {

@@ -1,11 +1,23 @@
-{ lib, stdenv, fetchurl, lvm2, json_c, asciidoctor, openssl, libuuid, pkg-config
-, popt, nixosTests
+{
+  lib,
+  stdenv,
+  fetchurl,
+  lvm2,
+  json_c,
+  asciidoctor,
+  openssl,
+  libuuid,
+  pkg-config,
+  popt,
+  nixosTests
 
-# The release tarballs contain precomputed manpage files, so we don't need
-# to run asciidoctor on the man sources. By avoiding asciidoctor, we make
-# the bare NixOS build hash independent of changes to the ruby ecosystem,
-# saving mass-rebuilds.
-, rebuildMan ? false }:
+  # The release tarballs contain precomputed manpage files, so we don't need
+  # to run asciidoctor on the man sources. By avoiding asciidoctor, we make
+  # the bare NixOS build hash independent of changes to the ruby ecosystem,
+  # saving mass-rebuilds.
+  ,
+  rebuildMan ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "cryptsetup";

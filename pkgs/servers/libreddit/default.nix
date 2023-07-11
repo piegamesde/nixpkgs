@@ -1,4 +1,11 @@
-{ lib, stdenv, nixosTests, rustPlatform, fetchFromGitHub, Security }:
+{
+  lib,
+  stdenv,
+  nixosTests,
+  rustPlatform,
+  fetchFromGitHub,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "libreddit";

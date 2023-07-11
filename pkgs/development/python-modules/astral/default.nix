@@ -1,13 +1,22 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder
 
-# build
-, poetry-core
+  # build
+  ,
+  poetry-core
 
-# runtime
-, backports-zoneinfo
+  # runtime
+  ,
+  backports-zoneinfo
 
-# tests
-, pytestCheckHook, freezegun }:
+  # tests
+  ,
+  pytestCheckHook,
+  freezegun,
+}:
 
 buildPythonPackage rec {
   pname = "astral";

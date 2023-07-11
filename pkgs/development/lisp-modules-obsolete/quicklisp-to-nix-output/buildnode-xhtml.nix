@@ -1,5 +1,8 @@
 # Generated file.
-args@{ fetchurl, ... }: rec {
+args@{
+  fetchurl,
+  ...
+}: rec {
   baseName = "buildnode-xhtml";
   version = "buildnode-20170403-git";
 

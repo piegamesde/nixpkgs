@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchzip, installShellFiles }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchzip,
+  installShellFiles,
+}:
 
 let
   webconsoleVersion = "1.0.18";

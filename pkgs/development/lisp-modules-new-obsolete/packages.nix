@@ -1,4 +1,11 @@
-{ build-asdf-system, lisp, quicklispPackagesFor, fixupFor, pkgs, ... }:
+{
+  build-asdf-system,
+  lisp,
+  quicklispPackagesFor,
+  fixupFor,
+  pkgs,
+  ...
+}:
 
 let
 

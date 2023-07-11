@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, click, fetchFromGitHub, pytest-asyncio
-, pytest-timeout, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aiovlc";

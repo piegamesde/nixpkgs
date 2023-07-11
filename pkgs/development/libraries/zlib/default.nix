@@ -1,10 +1,18 @@
-{ lib, stdenv, fetchurl, shared ? !stdenv.hostPlatform.isStatic, static ? true
-  # If true, a separate .static ouput is created and the .a is moved there.
-  # In this case `pkg-config` auto detection does not currently work if the
-  # .static output is given as `buildInputs` to another package (#66461), because
-  # the `.pc` file lists only the main output's lib dir.
-  # If false, and if `{ static = true; }`, the .a stays in the main output.
-, splitStaticOutput ? shared && static, testers }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  shared ? !stdenv.hostPlatform.isStatic,
+  static ? true
+    # If true, a separate .static ouput is created and the .a is moved there.
+    # In this case `pkg-config` auto detection does not currently work if the
+    # .static output is given as `buildInputs` to another package (#66461), because
+    # the `.pc` file lists only the main output's lib dir.
+    # If false, and if `{ static = true; }`, the .a stays in the main output.
+  ,
+  splitStaticOutput ? shared && static,
+  testers,
+}:
 
 # Without either the build will actually still succeed because the build
 # system makes an arbitrary choice, but we shouldn't be so indecisive.

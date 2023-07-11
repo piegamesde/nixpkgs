@@ -1,6 +1,21 @@
-{ lib, python3Packages, pkg-config, librsvg, gobject-introspection, atk, gtk3
-, gtkspell3, gnome, glib, goocanvas2, gdk-pixbuf, pango, fontconfig, freetype
-, wrapGAppsHook }:
+{
+  lib,
+  python3Packages,
+  pkg-config,
+  librsvg,
+  gobject-introspection,
+  atk,
+  gtk3,
+  gtkspell3,
+  gnome,
+  glib,
+  goocanvas2,
+  gdk-pixbuf,
+  pango,
+  fontconfig,
+  freetype,
+  wrapGAppsHook,
+}:
 
 with lib;
 

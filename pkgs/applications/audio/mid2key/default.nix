@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, alsa-lib, libX11, libXi, libXtst, xorgproto }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  alsa-lib,
+  libX11,
+  libXi,
+  libXtst,
+  xorgproto,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mid2key";

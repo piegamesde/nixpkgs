@@ -1,5 +1,13 @@
-{ lib, stdenv, rustPlatform, fetchCrate, fetchpatch, pkg-config, alsa-lib
-, darwin }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchCrate,
+  fetchpatch,
+  pkg-config,
+  alsa-lib,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "termusic";

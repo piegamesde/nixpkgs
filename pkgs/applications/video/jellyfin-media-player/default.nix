@@ -1,7 +1,32 @@
-{ lib, fetchFromGitHub, fetchzip, mkDerivation, stdenv, Cocoa, CoreAudio
-, CoreFoundation, MediaPlayer, SDL2, cmake, libGL, libX11, libXrandr, libvdpau
-, mpv, ninja, pkg-config, python3, qtbase, qtwayland, qtwebchannel, qtwebengine
-, qtx11extras, jellyfin-web, withDbus ? stdenv.isLinux, dbus }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchzip,
+  mkDerivation,
+  stdenv,
+  Cocoa,
+  CoreAudio,
+  CoreFoundation,
+  MediaPlayer,
+  SDL2,
+  cmake,
+  libGL,
+  libX11,
+  libXrandr,
+  libvdpau,
+  mpv,
+  ninja,
+  pkg-config,
+  python3,
+  qtbase,
+  qtwayland,
+  qtwebchannel,
+  qtwebengine,
+  qtx11extras,
+  jellyfin-web,
+  withDbus ? stdenv.isLinux,
+  dbus,
+}:
 
 mkDerivation rec {
   pname = "jellyfin-media-player";

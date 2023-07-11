@@ -1,4 +1,12 @@
-{ lib, stdenv, dpkg, fahviewer, fetchurl, makeWrapper, python2 }:
+{
+  lib,
+  stdenv,
+  dpkg,
+  fahviewer,
+  fetchurl,
+  makeWrapper,
+  python2,
+}:
 let
   majMin = lib.versions.majorMinor version;
   version = "7.6.21";

@@ -1,5 +1,16 @@
-{ lib, aiohttp, buildPythonPackage, fetchPypi, maxminddb, mocket
-, pytestCheckHook, pythonAtLeast, pythonOlder, requests, requests-mock, urllib3
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchPypi,
+  maxminddb,
+  mocket,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  requests,
+  requests-mock,
+  urllib3,
 }:
 
 buildPythonPackage rec {

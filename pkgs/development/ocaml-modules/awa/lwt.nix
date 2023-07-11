@@ -1,4 +1,12 @@
-{ buildDunePackage, awa, cstruct, mtime, lwt, cstruct-unix, mirage-crypto-rng }:
+{
+  buildDunePackage,
+  awa,
+  cstruct,
+  mtime,
+  lwt,
+  cstruct-unix,
+  mirage-crypto-rng,
+}:
 
 buildDunePackage {
   pname = "awa-lwt";

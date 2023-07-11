@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, bash, python3, yosys, yices, boolector, z3
-, aiger }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bash,
+  python3,
+  yosys,
+  yices,
+  boolector,
+  z3,
+  aiger,
+}:
 
 stdenv.mkDerivation {
   pname = "symbiyosys";

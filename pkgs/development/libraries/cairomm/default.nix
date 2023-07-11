@@ -1,5 +1,16 @@
-{ fetchurl, stdenv, lib, pkg-config, darwin, cairo, fontconfig, freetype
-, libsigcxx, meson, ninja }:
+{
+  fetchurl,
+  stdenv,
+  lib,
+  pkg-config,
+  darwin,
+  cairo,
+  fontconfig,
+  freetype,
+  libsigcxx,
+  meson,
+  ninja,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cairomm";

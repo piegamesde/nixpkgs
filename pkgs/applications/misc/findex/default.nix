@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, rustPlatform, pkg-config, keybinder3, gtk3 }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  keybinder3,
+  gtk3,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "findex";

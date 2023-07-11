@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, zlib, rdkafka, yajl, avro-c
-, libserdes, which }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  zlib,
+  rdkafka,
+  yajl,
+  avro-c,
+  libserdes,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kcat";

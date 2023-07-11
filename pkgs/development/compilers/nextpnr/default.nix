@@ -1,7 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, python3, eigen, python3Packages
-, icestorm, trellis, llvmPackages
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  python3,
+  eigen,
+  python3Packages,
+  icestorm,
+  trellis,
+  llvmPackages
 
-, enableGui ? false, wrapQtAppsHook ? null, qtbase ? null, OpenGL ? null }:
+  ,
+  enableGui ? false,
+  wrapQtAppsHook ? null,
+  qtbase ? null,
+  OpenGL ? null
+}:
 
 let
   boostPython = boost.override {

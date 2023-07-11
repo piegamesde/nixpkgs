@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, nix-update-script, pam, xmlsec }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  nix-update-script,
+  pam,
+  xmlsec,
+}:
 
 let
   # TODO: Switch to OpenPAM once https://gitlab.com/oath-toolkit/oath-toolkit/-/issues/26 is addressed upstream

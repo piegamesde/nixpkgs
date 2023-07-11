@@ -1,6 +1,29 @@
-{ lib, stdenv, fetchFromGitHub, python3, gfortran, blas, lapack, fftw, libint
-, libvori, libxc, mpi, gsl, scalapack, openssh, makeWrapper, libxsmm, spglib
-, which, pkg-config, plumed, zlib, enableElpa ? false, elpa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  gfortran,
+  blas,
+  lapack,
+  fftw,
+  libint,
+  libvori,
+  libxc,
+  mpi,
+  gsl,
+  scalapack,
+  openssh,
+  makeWrapper,
+  libxsmm,
+  spglib,
+  which,
+  pkg-config,
+  plumed,
+  zlib,
+  enableElpa ? false,
+  elpa,
+}:
 
 let
   cp2kVersion = "psmp";

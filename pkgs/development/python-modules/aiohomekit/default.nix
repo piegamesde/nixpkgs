@@ -1,7 +1,21 @@
-{ lib, buildPythonPackage, aiocoap, bleak, bleak-retry-connector
-, chacha20poly1305, chacha20poly1305-reuseable, commentjson, cryptography
-, fetchFromGitHub, orjson, poetry-core, pytest-aiohttp, pytestCheckHook
-, pythonOlder, zeroconf }:
+{
+  lib,
+  buildPythonPackage,
+  aiocoap,
+  bleak,
+  bleak-retry-connector,
+  chacha20poly1305,
+  chacha20poly1305-reuseable,
+  commentjson,
+  cryptography,
+  fetchFromGitHub,
+  orjson,
+  poetry-core,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+  zeroconf,
+}:
 
 buildPythonPackage rec {
   pname = "aiohomekit";

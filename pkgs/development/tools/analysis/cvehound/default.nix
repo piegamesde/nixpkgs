@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, coccinelle, gnugrep, python3 }:
+{
+  lib,
+  fetchFromGitHub,
+  coccinelle,
+  gnugrep,
+  python3,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "cvehound";

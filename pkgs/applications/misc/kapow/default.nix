@@ -1,4 +1,12 @@
-{ lib, stdenv, qmake, fetchFromGitHub, qtbase, qttools, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  qmake,
+  fetchFromGitHub,
+  qtbase,
+  qttools,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kapow";

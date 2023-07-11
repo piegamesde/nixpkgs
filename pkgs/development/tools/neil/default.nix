@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, babashka, jdk }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  babashka,
+  jdk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "neil";

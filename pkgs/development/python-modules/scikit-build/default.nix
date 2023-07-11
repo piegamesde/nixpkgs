@@ -1,8 +1,27 @@
-{ lib, buildPythonPackage, fetchPypi, distro, packaging, python, setuptools
-, setuptools-scm, wheel
-# Test Inputs
-, cmake, cython, flake8, ninja, path, pytestCheckHook, pytest-mock
-, pytest-virtualenv, requests, six, virtualenv }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  distro,
+  packaging,
+  python,
+  setuptools,
+  setuptools-scm,
+  wheel
+  # Test Inputs
+  ,
+  cmake,
+  cython,
+  flake8,
+  ninja,
+  path,
+  pytestCheckHook,
+  pytest-mock,
+  pytest-virtualenv,
+  requests,
+  six,
+  virtualenv,
+}:
 
 buildPythonPackage rec {
   pname = "scikit-build";

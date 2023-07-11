@@ -1,23 +1,59 @@
-{ lib, stdenv, fetchurl, makeWrapper, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  wrapGAppsHook
 
-# Buildtime dependencies.
-, check, pkg-config, xxd
+  # Buildtime dependencies.
+  ,
+  check,
+  pkg-config,
+  xxd
 
-# Runtime dependencies.
-, curl, expat, libXcursor, libXrandr, libidn, libjpeg, libpng, libwebp, libxml2
-, openssl, perl, perlPackages
+  # Runtime dependencies.
+  ,
+  curl,
+  expat,
+  libXcursor,
+  libXrandr,
+  libidn,
+  libjpeg,
+  libpng,
+  libwebp,
+  libxml2,
+  openssl,
+  perl,
+  perlPackages
 
-# uilib-specific dependencies
-, gtk2 # GTK 2
-, gtk3 # GTK 3
-, SDL # Framebuffer
+  # uilib-specific dependencies
+  ,
+  gtk2 # GTK 2
+  ,
+  gtk3 # GTK 3
+  ,
+  SDL # Framebuffer
 
-# Configuration
-, uilib
+  # Configuration
+  ,
+  uilib
 
-# Netsurf-specific dependencies
-, libcss, libdom, libhubbub, libnsbmp, libnsfb, libnsgif, libnslog, libnspsl
-, libnsutils, libparserutils, libsvgtiny, libutf8proc, libwapcaplet, nsgenbind
+  # Netsurf-specific dependencies
+  ,
+  libcss,
+  libdom,
+  libhubbub,
+  libnsbmp,
+  libnsfb,
+  libnsgif,
+  libnslog,
+  libnspsl,
+  libnsutils,
+  libparserutils,
+  libsvgtiny,
+  libutf8proc,
+  libwapcaplet,
+  nsgenbind,
 }:
 
 let inherit (lib) optional optionals;

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder, six, wcwidth
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
+  six,
+  wcwidth,
 }:
 
 buildPythonPackage rec {

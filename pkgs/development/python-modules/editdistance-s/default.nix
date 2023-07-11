@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, cffi }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  cffi,
+}:
 
 buildPythonPackage rec {
   pname = "editdistance-s";

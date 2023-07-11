@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, docutils, sphinx, readthedocs-sphinx-ext
-, sphinxcontrib-jquery, pytestCheckHook, pythonRelaxDepsHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  docutils,
+  sphinx,
+  readthedocs-sphinx-ext,
+  sphinxcontrib-jquery,
+  pytestCheckHook,
+  pythonRelaxDepsHook,
+}:
 
 buildPythonPackage rec {
   pname = "sphinx-rtd-theme";

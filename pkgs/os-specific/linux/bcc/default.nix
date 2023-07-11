@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, cmake, llvmPackages, flex, bison
-, elfutils, python, luajit, netperf, iperf, libelf, bash, libbpf, nixosTests
-, audit }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  cmake,
+  llvmPackages,
+  flex,
+  bison,
+  elfutils,
+  python,
+  luajit,
+  netperf,
+  iperf,
+  libelf,
+  bash,
+  libbpf,
+  nixosTests,
+  audit,
+}:
 
 python.pkgs.buildPythonApplication rec {
   pname = "bcc";

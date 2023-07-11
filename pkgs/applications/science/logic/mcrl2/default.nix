@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, cmake, libGLU, libGL, qt5, boost }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  libGLU,
+  libGL,
+  qt5,
+  boost,
+}:
 
 stdenv.mkDerivation rec {
   version = "202206";

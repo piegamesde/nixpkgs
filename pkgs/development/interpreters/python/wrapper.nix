@@ -1,13 +1,25 @@
-{ lib, stdenv, buildEnv, makeBinaryWrapper
+{
+  lib,
+  stdenv,
+  buildEnv,
+  makeBinaryWrapper
 
-# manually pased
-, python, requiredPythonModules
+  # manually pased
+  ,
+  python,
+  requiredPythonModules
 
-# extra opts
-, extraLibs ? [ ], extraOutputsToInstall ? [ ], postBuild ? ""
-, ignoreCollisions ? false, permitUserSite ? false
-  # Wrap executables with the given argument.
-, makeWrapperArgs ? [ ], }:
+  # extra opts
+  ,
+  extraLibs ? [ ],
+  extraOutputsToInstall ? [ ],
+  postBuild ? "",
+  ignoreCollisions ? false,
+  permitUserSite ? false
+    # Wrap executables with the given argument.
+  ,
+  makeWrapperArgs ? [ ],
+}:
 
 # Create a python executable that knows about additional packages.
 let

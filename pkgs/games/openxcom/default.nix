@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libGLU, libGL, zlib, openssl
-, yaml-cpp, boost, SDL, SDL_image, SDL_mixer, SDL_gfx }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libGLU,
+  libGL,
+  zlib,
+  openssl,
+  yaml-cpp,
+  boost,
+  SDL,
+  SDL_image,
+  SDL_mixer,
+  SDL_gfx,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openxcom";

@@ -1,5 +1,14 @@
-{ lib, aiooss2, buildPythonPackage, fetchFromGitHub, fsspec, oss2, pythonOlder
-, pythonRelaxDepsHook, setuptools-scm }:
+{
+  lib,
+  aiooss2,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fsspec,
+  oss2,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "ossfs";

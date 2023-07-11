@@ -1,5 +1,14 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch, parver, pulumi
-, pythonOlder, semver }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  parver,
+  pulumi,
+  pythonOlder,
+  semver,
+}:
 
 buildPythonPackage rec {
   pname = "pulumi-aws";

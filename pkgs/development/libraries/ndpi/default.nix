@@ -1,5 +1,15 @@
-{ lib, stdenv, autoconf, automake, fetchFromGitHub, json_c, libpcap, libtool
-, pkg-config, which }:
+{
+  lib,
+  stdenv,
+  autoconf,
+  automake,
+  fetchFromGitHub,
+  json_c,
+  libpcap,
+  libtool,
+  pkg-config,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ndpi";

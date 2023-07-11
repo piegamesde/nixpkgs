@@ -1,5 +1,20 @@
-{ stdenv, lib, makeWrapper, fetchFromGitLab, openjade, gnumake, perl, flex
-, gnused, coreutils, which, opensp, groff, texlive, texinfo, withLatex ? false
+{
+  stdenv,
+  lib,
+  makeWrapper,
+  fetchFromGitLab,
+  openjade,
+  gnumake,
+  perl,
+  flex,
+  gnused,
+  coreutils,
+  which,
+  opensp,
+  groff,
+  texlive,
+  texinfo,
+  withLatex ? false
 }:
 
 stdenv.mkDerivation rec {

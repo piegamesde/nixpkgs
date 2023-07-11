@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, pkg-config, gnum4, glib, libsigcxx, gnome, darwin
-, meson, ninja }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gnum4,
+  glib,
+  libsigcxx,
+  gnome,
+  darwin,
+  meson,
+  ninja,
+}:
 
 stdenv.mkDerivation rec {
   pname = "glibmm";

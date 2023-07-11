@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, icalendar, lxml, pytestCheckHook
-, pythonOlder, pytz, recurring-ical-events, requests, tzlocal, vobject }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  icalendar,
+  lxml,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  recurring-ical-events,
+  requests,
+  tzlocal,
+  vobject,
+}:
 
 buildPythonPackage rec {
   pname = "caldav";

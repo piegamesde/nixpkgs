@@ -1,5 +1,16 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, openssl, libgit2
-, IOKit, CoreFoundation, Security, fetchpatch }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  libgit2,
+  IOKit,
+  CoreFoundation,
+  Security,
+  fetchpatch,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "git-trim";

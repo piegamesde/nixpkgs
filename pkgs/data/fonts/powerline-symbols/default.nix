@@ -1,4 +1,8 @@
-{ lib, runCommand, powerline }:
+{
+  lib,
+  runCommand,
+  powerline,
+}:
 
 let inherit (powerline) version;
 in runCommand "powerline-symbols-${version}" {

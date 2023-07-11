@@ -1,4 +1,9 @@
-{ newScope, lxqt, lib, libsForQt5 }:
+{
+  newScope,
+  lxqt,
+  lib,
+  libsForQt5,
+}:
 
 let
   packages = self:

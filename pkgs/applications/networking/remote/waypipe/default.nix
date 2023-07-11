@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitLab, meson, ninja, pkg-config, scdoc, mesa, lz4, zstd
-, ffmpeg, libva }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+  scdoc,
+  mesa,
+  lz4,
+  zstd,
+  ffmpeg,
+  libva,
+}:
 
 stdenv.mkDerivation rec {
   pname = "waypipe";

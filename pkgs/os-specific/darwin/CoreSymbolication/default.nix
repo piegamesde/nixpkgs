@@ -1,4 +1,7 @@
-{ fetchFromGitHub, stdenv }:
+{
+  fetchFromGitHub,
+  stdenv,
+}:
 
 # Reverse engineered CoreSymbolication to make dtrace buildable
 

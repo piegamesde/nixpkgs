@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, glibcLocales, installShellFiles, jq, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  glibcLocales,
+  installShellFiles,
+  jq,
+  python3,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "todoman";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, bison, flex, openssl, gnutls }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  bison,
+  flex,
+  openssl,
+  gnutls,
+}:
 
 stdenv.mkDerivation rec {
   pname = "charybdis";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libusb1 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libusb1,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libuvc";

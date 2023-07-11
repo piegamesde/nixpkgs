@@ -1,5 +1,16 @@
-{ lib, fetchFromGitHub, buildGoModule, pkg-config, wrapGAppsHook
-, gobject-introspection, gtk-layer-shell, gtk3, pango, gdk-pixbuf, atk }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  pkg-config,
+  wrapGAppsHook,
+  gobject-introspection,
+  gtk-layer-shell,
+  gtk3,
+  pango,
+  gdk-pixbuf,
+  atk,
+}:
 
 buildGoModule rec {
   pname = "nwg-menu";

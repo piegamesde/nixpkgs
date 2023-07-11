@@ -1,19 +1,59 @@
-{ buildPythonApplication, lib, fetchFromGitHub
+{
+  buildPythonApplication,
+  lib,
+  fetchFromGitHub
 
-# build inputs
-, atk, file, gdk-pixbuf, glib-networking, gnome-desktop, gobject-introspection
-, gst_all_1, gtk3, libnotify, pango, webkitgtk, wrapGAppsHook
+  # build inputs
+  ,
+  atk,
+  file,
+  gdk-pixbuf,
+  glib-networking,
+  gnome-desktop,
+  gobject-introspection,
+  gst_all_1,
+  gtk3,
+  libnotify,
+  pango,
+  webkitgtk,
+  wrapGAppsHook
 
-# check inputs
-, xvfb-run, nose2, flake8
+  # check inputs
+  ,
+  xvfb-run,
+  nose2,
+  flake8
 
-# python dependencies
-, certifi, dbus-python, distro, evdev, lxml, pillow, pygobject3, pypresence
-, pyyaml, requests
+  # python dependencies
+  ,
+  certifi,
+  dbus-python,
+  distro,
+  evdev,
+  lxml,
+  pillow,
+  pygobject3,
+  pypresence,
+  pyyaml,
+  requests
 
-# commands that lutris needs
-, xrandr, pciutils, psmisc, glxinfo, vulkan-tools, xboxdrv, pulseaudio, p7zip
-, xgamma, libstrangle, fluidsynth, xorgserver, xorg, util-linux }:
+  # commands that lutris needs
+  ,
+  xrandr,
+  pciutils,
+  psmisc,
+  glxinfo,
+  vulkan-tools,
+  xboxdrv,
+  pulseaudio,
+  p7zip,
+  xgamma,
+  libstrangle,
+  fluidsynth,
+  xorgserver,
+  xorg,
+  util-linux,
+}:
 
 let
   # See lutris/util/linux.py

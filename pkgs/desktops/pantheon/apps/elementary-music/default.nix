@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
-, python3, vala, wrapGAppsHook4, elementary-gtk-theme, elementary-icon-theme
-, glib, granite7, gst_all_1, gtk4 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  vala,
+  wrapGAppsHook4,
+  elementary-gtk-theme,
+  elementary-icon-theme,
+  glib,
+  granite7,
+  gst_all_1,
+  gtk4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "elementary-music";

@@ -1,12 +1,32 @@
-{ lib, stdenv, fetchurl
-# native deps.
-, runCommand, pkg-config, meson, ninja, makeWrapper
-# build+runtime deps.
-, knot-dns, luajitPackages, libuv, gnutls, lmdb, jemalloc, systemd, libcap_ng
-, dns-root-data, nghttp2 # optionals, in principle
-# test-only deps.
-, cmocka, which, cacert
-, extraFeatures ? false # catch-all if defaults aren't enough
+{
+  lib,
+  stdenv,
+  fetchurl
+  # native deps.
+  ,
+  runCommand,
+  pkg-config,
+  meson,
+  ninja,
+  makeWrapper
+  # build+runtime deps.
+  ,
+  knot-dns,
+  luajitPackages,
+  libuv,
+  gnutls,
+  lmdb,
+  jemalloc,
+  systemd,
+  libcap_ng,
+  dns-root-data,
+  nghttp2 # optionals, in principle
+  # test-only deps.
+  ,
+  cmocka,
+  which,
+  cacert,
+  extraFeatures ? false # catch-all if defaults aren't enough
 }:
 let # un-indented, over the whole file
 

@@ -1,4 +1,9 @@
-{ lib, melpaBuild, fetchFromGitHub, writeText }:
+{
+  lib,
+  melpaBuild,
+  fetchFromGitHub,
+  writeText,
+}:
 
 let rev = "d8d168148c187ed19350bb7a1a190217c2915a63";
 in melpaBuild {

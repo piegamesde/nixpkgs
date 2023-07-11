@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, buildPythonPackage, plugincode, file, zlib }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  plugincode,
+  file,
+  zlib,
+}:
 buildPythonPackage rec {
   pname = "typecode-libmagic";
   version = "21.4.4";

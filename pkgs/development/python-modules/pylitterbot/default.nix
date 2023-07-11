@@ -1,6 +1,17 @@
-{ lib, aiohttp, aioresponses, buildPythonPackage, fetchFromGitHub, poetry-core
-, pyjwt, pytest-aiohttp, pytest-freezegun, pytestCheckHook, pythonOlder
-, deepdiff }:
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pyjwt,
+  pytest-aiohttp,
+  pytest-freezegun,
+  pytestCheckHook,
+  pythonOlder,
+  deepdiff,
+}:
 
 buildPythonPackage rec {
   pname = "pylitterbot";

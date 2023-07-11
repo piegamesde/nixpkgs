@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, ant, jdk8 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  ant,
+  jdk8,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jna";

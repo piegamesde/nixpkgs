@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pyjwt, djangorestframework }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyjwt,
+  djangorestframework,
+}:
 
 buildPythonPackage rec {
   pname = "drf-jwt";

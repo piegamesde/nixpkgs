@@ -1,6 +1,12 @@
 # NixOS module for Buildbot continuous integration server.
 
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 
 with lib;
 

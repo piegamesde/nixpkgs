@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+}:
 
 let
   pname = "wtfis";

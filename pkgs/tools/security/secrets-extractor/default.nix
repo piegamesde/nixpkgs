@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, libpcap }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  libpcap,
+}:
 
 buildGoModule rec {
   pname = "secrets-extractor";

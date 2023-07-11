@@ -1,5 +1,12 @@
-{ lib, aiohttp, async-timeout, buildPythonPackage, fetchFromGitHub, poetry-core
-, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "enturclient";

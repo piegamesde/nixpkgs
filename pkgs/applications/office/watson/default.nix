@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, python3, installShellFiles, fetchpatch }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  installShellFiles,
+  fetchpatch,
+}:
 
 with python3.pkgs;
 

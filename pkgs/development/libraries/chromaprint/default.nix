@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, cmake, boost, ffmpeg_4, darwin, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  boost,
+  ffmpeg_4,
+  darwin,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "chromaprint";

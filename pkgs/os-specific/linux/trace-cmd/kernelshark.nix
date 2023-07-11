@@ -1,6 +1,20 @@
-{ lib, mkDerivation, fetchgit, qtbase, cmake, asciidoc, docbook_xsl, json_c
-, mesa_glu, freeglut, trace-cmd, pkg-config, libtraceevent, libtracefs
-, freefont_ttf }:
+{
+  lib,
+  mkDerivation,
+  fetchgit,
+  qtbase,
+  cmake,
+  asciidoc,
+  docbook_xsl,
+  json_c,
+  mesa_glu,
+  freeglut,
+  trace-cmd,
+  pkg-config,
+  libtraceevent,
+  libtracefs,
+  freefont_ttf,
+}:
 
 mkDerivation rec {
   pname = "kernelshark";

@@ -1,5 +1,15 @@
-{ lib, stdenv, meson, ninja, fetchFromGitHub, glib, pkg-config, gtk-doc
-, docbook_xsl, gobject-introspection }:
+{
+  lib,
+  stdenv,
+  meson,
+  ninja,
+  fetchFromGitHub,
+  glib,
+  pkg-config,
+  gtk-doc,
+  docbook_xsl,
+  gobject-introspection,
+}:
 
 stdenv.mkDerivation rec {
   pname = "playerctl";

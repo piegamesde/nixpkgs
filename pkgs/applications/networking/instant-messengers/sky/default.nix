@@ -1,5 +1,18 @@
-{ lib, mkDerivation, fetchurl, autoPatchelfHook, zstd, curl, ffmpeg
-, libjpeg_turbo, libpam-wrapper, libv4l, pulseaudio, zlib, xorg }:
+{
+  lib,
+  mkDerivation,
+  fetchurl,
+  autoPatchelfHook,
+  zstd,
+  curl,
+  ffmpeg,
+  libjpeg_turbo,
+  libpam-wrapper,
+  libv4l,
+  pulseaudio,
+  zlib,
+  xorg,
+}:
 
 mkDerivation rec {
   pname = "sky";

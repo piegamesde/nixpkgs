@@ -1,4 +1,13 @@
-{ fetchurl, lib, stdenv, guile, guile-lib, libffi, pkg-config, glib }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  guile,
+  guile-lib,
+  libffi,
+  pkg-config,
+  glib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "g-wrap";

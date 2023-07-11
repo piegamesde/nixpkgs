@@ -1,6 +1,26 @@
-{ lib, fetchFromGitHub, fetchpatch, armadillo, cmake, gmp, glog, gtest, openssl
-, gflags, gnuradio, thrift, enableRawUdp ? true, libpcap, orc, pkg-config, blas
-, lapack, matio, pugixml, protobuf }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  armadillo,
+  cmake,
+  gmp,
+  glog,
+  gtest,
+  openssl,
+  gflags,
+  gnuradio,
+  thrift,
+  enableRawUdp ? true,
+  libpcap,
+  orc,
+  pkg-config,
+  blas,
+  lapack,
+  matio,
+  pugixml,
+  protobuf,
+}:
 
 gnuradio.pkgs.mkDerivation rec {
   pname = "gnss-sdr";

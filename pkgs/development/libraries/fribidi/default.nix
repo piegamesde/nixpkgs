@@ -1,5 +1,14 @@
-{ lib, stdenv, buildPackages, fetchurl, meson, ninja, pkg-config
-, fixDarwinDylibNames, python3 }:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  fixDarwinDylibNames,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fribidi";

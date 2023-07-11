@@ -1,6 +1,25 @@
-{ fetchFromGitHub, glib, gobject-introspection, gtk3, libgnomekbd, gdk-pixbuf
-, cairo, xorg, meson, ninja, pkg-config, python3, lib, stdenv, vala
-, wrapGAppsHook, inxi, mate, dbus, libdbusmenu-gtk3 }:
+{
+  fetchFromGitHub,
+  glib,
+  gobject-introspection,
+  gtk3,
+  libgnomekbd,
+  gdk-pixbuf,
+  cairo,
+  xorg,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  lib,
+  stdenv,
+  vala,
+  wrapGAppsHook,
+  inxi,
+  mate,
+  dbus,
+  libdbusmenu-gtk3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xapp";

@@ -1,5 +1,13 @@
-{ lib, buildPerlPackage, fetchFromGitHub, makeWrapper, openssh, GitRepository
-, URI, XMLMini }:
+{
+  lib,
+  buildPerlPackage,
+  fetchFromGitHub,
+  makeWrapper,
+  openssh,
+  GitRepository,
+  URI,
+  XMLMini,
+}:
 
 buildPerlPackage {
   pname = "ham-unstable";

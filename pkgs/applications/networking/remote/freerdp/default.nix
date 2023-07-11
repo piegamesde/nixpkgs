@@ -1,16 +1,63 @@
-{ stdenv, lib, fetchFromGitHub, cmake, docbook-xsl-nons, libxslt, pkg-config
-, alsa-lib, faac, faad2, ffmpeg, glib, openh264, openssl, pcre2, zlib, libX11
-, libXcursor, libXdamage, libXdmcp, libXext, libXi, libXinerama, libXrandr
-, libXrender, libXtst, libXv, libxkbcommon, libxkbfile, wayland, wayland-scanner
-, gstreamer, gst-plugins-base, gst-plugins-good, libunwind, orc, cairo, libusb1
-, libpulseaudio, cups, pcsclite, systemd, libjpeg_turbo, buildServer ? true
-, nocaps ? false, AudioToolbox, AVFoundation, Carbon, Cocoa, CoreMedia
-, withUnfree ? false
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  docbook-xsl-nons,
+  libxslt,
+  pkg-config,
+  alsa-lib,
+  faac,
+  faad2,
+  ffmpeg,
+  glib,
+  openh264,
+  openssl,
+  pcre2,
+  zlib,
+  libX11,
+  libXcursor,
+  libXdamage,
+  libXdmcp,
+  libXext,
+  libXi,
+  libXinerama,
+  libXrandr,
+  libXrender,
+  libXtst,
+  libXv,
+  libxkbcommon,
+  libxkbfile,
+  wayland,
+  wayland-scanner,
+  gstreamer,
+  gst-plugins-base,
+  gst-plugins-good,
+  libunwind,
+  orc,
+  cairo,
+  libusb1,
+  libpulseaudio,
+  cups,
+  pcsclite,
+  systemd,
+  libjpeg_turbo,
+  buildServer ? true,
+  nocaps ? false,
+  AudioToolbox,
+  AVFoundation,
+  Carbon,
+  Cocoa,
+  CoreMedia,
+  withUnfree ? false
 
-  # tries to compile and run generate_argument_docbook.c
-, withManPages ? stdenv.buildPlatform.canExecute stdenv.hostPlatform
+    # tries to compile and run generate_argument_docbook.c
+  ,
+  withManPages ? stdenv.buildPlatform.canExecute stdenv.hostPlatform
 
-, buildPackages }:
+  ,
+  buildPackages,
+}:
 
 let
   cmFlag = flag: if flag then "ON" else "OFF";

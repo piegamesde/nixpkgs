@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config, file, fuse, libmtp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  file,
+  fuse,
+  libmtp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jmtpfs";

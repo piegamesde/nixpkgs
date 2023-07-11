@@ -1,14 +1,61 @@
 # Updating? Keep $out/etc synchronized with passthru keys
 
-{ stdenv, lib, fetchFromGitHub, gi-docgen, pkg-config, gobject-introspection
-, gettext, libgudev, polkit, libxmlb, glib, gusb, sqlite, libarchive
-, libredirect, curl, libjcat, elfutils, libsmbios, efivar, valgrind, meson
-, libuuid, colord, ninja, gcab, gnutls, protobufc, python3, wrapGAppsNoGuiHook
-, ensureNewerSourcesForZipFilesHook, json-glib, bash-completion
-, shared-mime-info, umockdev, vala, makeFontsConf, freefont_ttf, pango, tpm2-tss
-, bubblewrap, efibootmgr, flashrom, tpm2-tools, fwupd-efi, nixosTests
-, runCommand, unstableGitUpdater, modemmanager, libqmi, libmbim, libcbor, xz
-, enableFlashrom ? false }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  gi-docgen,
+  pkg-config,
+  gobject-introspection,
+  gettext,
+  libgudev,
+  polkit,
+  libxmlb,
+  glib,
+  gusb,
+  sqlite,
+  libarchive,
+  libredirect,
+  curl,
+  libjcat,
+  elfutils,
+  libsmbios,
+  efivar,
+  valgrind,
+  meson,
+  libuuid,
+  colord,
+  ninja,
+  gcab,
+  gnutls,
+  protobufc,
+  python3,
+  wrapGAppsNoGuiHook,
+  ensureNewerSourcesForZipFilesHook,
+  json-glib,
+  bash-completion,
+  shared-mime-info,
+  umockdev,
+  vala,
+  makeFontsConf,
+  freefont_ttf,
+  pango,
+  tpm2-tss,
+  bubblewrap,
+  efibootmgr,
+  flashrom,
+  tpm2-tools,
+  fwupd-efi,
+  nixosTests,
+  runCommand,
+  unstableGitUpdater,
+  modemmanager,
+  libqmi,
+  libmbim,
+  libcbor,
+  xz,
+  enableFlashrom ? false
+}:
 
 let
   python = python3.withPackages (p: with p; [ pygobject3 setuptools ]);

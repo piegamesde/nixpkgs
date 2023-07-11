@@ -1,4 +1,10 @@
-{ lib, buildDunePackage, dune_2, csexp, result }:
+{
+  lib,
+  buildDunePackage,
+  dune_2,
+  csexp,
+  result,
+}:
 
 buildDunePackage rec {
   pname = "dune-configurator";

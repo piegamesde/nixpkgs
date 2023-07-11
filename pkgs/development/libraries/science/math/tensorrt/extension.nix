@@ -39,7 +39,11 @@ let
       };
     in { inherit buildTensorRTPackage; } // allBuilds // defaultBuild;
 
-  tarballURL = { fullVersion, fileVersionCuda, fileVersionCudnn ? null }:
+  tarballURL = {
+      fullVersion,
+      fileVersionCuda,
+      fileVersionCudnn ? null
+    }:
     "TensorRT-${fullVersion}.Linux.x86_64-gnu.cuda-${fileVersionCuda}"
     + lib.optionalString (fileVersionCudnn != null) ".cudnn${fileVersionCudnn}"
     + ".tar.gz";

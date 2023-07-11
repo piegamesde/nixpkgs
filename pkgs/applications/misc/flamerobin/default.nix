@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, wxGTK32, boost, firebird }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  wxGTK32,
+  boost,
+  firebird,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.9.3.12";

@@ -1,10 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, cmake, callPackage
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  callPackage
 
-# Linux deps
-, libGL, xorg
+  # Linux deps
+  ,
+  libGL,
+  xorg
 
-# Darwin deps
-, CoreFoundation, Cocoa, AudioToolbox, OpenGL, Foundation, ForceFeedback }:
+  # Darwin deps
+  ,
+  CoreFoundation,
+  Cocoa,
+  AudioToolbox,
+  OpenGL,
+  Foundation,
+  ForceFeedback,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lobster";

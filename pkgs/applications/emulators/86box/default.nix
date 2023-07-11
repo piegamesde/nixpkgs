@@ -1,10 +1,30 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, makeWrapper, freetype, SDL2
-, glib, pcre2, openal, rtmidi, fluidsynth, jack2, alsa-lib, qt5, libvncserver
-, discord-gamesdk, libpcap
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  makeWrapper,
+  freetype,
+  SDL2,
+  glib,
+  pcre2,
+  openal,
+  rtmidi,
+  fluidsynth,
+  jack2,
+  alsa-lib,
+  qt5,
+  libvncserver,
+  discord-gamesdk,
+  libpcap
 
-, enableDynarec ? with stdenv.hostPlatform; isx86 || isAarch
-, enableNewDynarec ? enableDynarec && stdenv.hostPlatform.isAarch
-, enableVncRenderer ? false, unfreeEnableDiscord ? false }:
+  ,
+  enableDynarec ? with stdenv.hostPlatform; isx86 || isAarch,
+  enableNewDynarec ? enableDynarec && stdenv.hostPlatform.isAarch,
+  enableVncRenderer ? false,
+  unfreeEnableDiscord ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "86Box";

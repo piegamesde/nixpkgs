@@ -1,4 +1,14 @@
-{ stdenv, lib, fetchurl, pkg-config, libsoup_3, libxml2, meson, ninja, gnome }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  libsoup_3,
+  libxml2,
+  meson,
+  ninja,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "phodav";

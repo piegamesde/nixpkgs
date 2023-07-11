@@ -1,5 +1,14 @@
-{ stdenv, lib, clang, cmake, fetchFromGitHub, llvmPackages, rustPlatform
-, testers, Security }:
+{
+  stdenv,
+  lib,
+  clang,
+  cmake,
+  fetchFromGitHub,
+  llvmPackages,
+  rustPlatform,
+  testers,
+  Security,
+}:
 
 let
   pname = "amazon-qldb-shell";

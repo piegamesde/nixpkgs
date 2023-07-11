@@ -1,4 +1,12 @@
-{ pkgs, lib, stdenv, fetchurl, autoPatchelfHook, dpkg, ... }:
+{
+  pkgs,
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  dpkg,
+  ...
+}:
 with lib;
 stdenv.mkDerivation rec {
   pname = "figma-linux";

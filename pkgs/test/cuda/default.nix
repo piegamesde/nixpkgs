@@ -1,4 +1,6 @@
-{ callPackage }:
+{
+  callPackage,
+}:
 
 rec {
   cuda-samplesPackages = callPackage ./cuda-samples { };

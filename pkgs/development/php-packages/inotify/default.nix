@@ -1,4 +1,8 @@
-{ buildPecl, lib, stdenv }:
+{
+  buildPecl,
+  lib,
+  stdenv,
+}:
 
 buildPecl {
   pname = "inotify";

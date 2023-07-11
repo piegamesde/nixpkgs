@@ -1,5 +1,16 @@
-{ lib, asgiref, blinker, buildPythonPackage, fetchPypi, flask, pytestCheckHook
-, pythonAtLeast, pythonOlder, semantic-version, werkzeug }:
+{
+  lib,
+  asgiref,
+  blinker,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  semantic-version,
+  werkzeug,
+}:
 
 buildPythonPackage rec {
   pname = "flask-login";

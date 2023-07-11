@@ -1,4 +1,11 @@
-{ lib, stdenv, autoreconfHook, fetchurl, fetchpatch, ncurses }:
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  fetchurl,
+  fetchpatch,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bwm-ng";

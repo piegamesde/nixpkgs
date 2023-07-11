@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchpatch, fetchFromGitHub, btrfs-progs, python3 }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchFromGitHub,
+  btrfs-progs,
+  python3,
+}:
 
 let
   btrfsProgsPatched = btrfs-progs.overrideAttrs (oldAttrs: {

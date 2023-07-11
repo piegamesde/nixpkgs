@@ -1,5 +1,15 @@
-{ stdenv, fetchFromGitHub, lib, makeWrapper, autoreconfHook, buildEnv, python3
-, fontforge, potrace, texlive }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  makeWrapper,
+  autoreconfHook,
+  buildEnv,
+  python3,
+  fontforge,
+  potrace,
+  texlive,
+}:
 
 /* To use with a texlive distribution, ensure that the desired fonts and
    the packages kpathsea, t1utils, metafont are available at runtime.

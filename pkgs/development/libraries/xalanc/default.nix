@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, xercesc, getopt, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  xercesc,
+  getopt,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xalan-c";

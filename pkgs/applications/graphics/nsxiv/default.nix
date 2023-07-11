@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitea, fetchpatch, giflib, imlib2, libXft, libexif
-, libwebp, libinotify-kqueue, conf ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitea,
+  fetchpatch,
+  giflib,
+  imlib2,
+  libXft,
+  libexif,
+  libwebp,
+  libinotify-kqueue,
+  conf ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "nsxiv";

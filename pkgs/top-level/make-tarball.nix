@@ -3,9 +3,14 @@
    evaluate correctly.
 */
 
-{ nixpkgs, officialRelease, supportedSystems, pkgs ? import nixpkgs.outPath { }
-, nix ? pkgs.nix
-, lib-tests ? import ../../lib/tests/release.nix { inherit pkgs; } }:
+{
+  nixpkgs,
+  officialRelease,
+  supportedSystems,
+  pkgs ? import nixpkgs.outPath { },
+  nix ? pkgs.nix,
+  lib-tests ? import ../../lib/tests/release.nix { inherit pkgs; }
+}:
 
 pkgs.releaseTools.sourceTarball {
   name = "nixpkgs-tarball";

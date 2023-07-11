@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
-, requests, responses, }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  responses,
+}:
 buildPythonPackage rec {
   pname = "btsmarthub_devicelist";
   version = "0.2.3";

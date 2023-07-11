@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, glibcLocales
-, pycodestyle, pytestCheckHook, pythonOlder, tomli }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  glibcLocales,
+  pycodestyle,
+  pytestCheckHook,
+  pythonOlder,
+  tomli,
+}:
 
 buildPythonPackage rec {
   pname = "autopep8";

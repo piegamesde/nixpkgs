@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, gtk2-x11, pkg-config, python3, gfortran, lesstif
-, cfitsio, getopt, perl, groff, which, darwin, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gtk2-x11,
+  pkg-config,
+  python3,
+  gfortran,
+  lesstif,
+  cfitsio,
+  getopt,
+  perl,
+  groff,
+  which,
+  darwin,
+  ncurses,
+}:
 
 let python3Env = python3.withPackages (ps: with ps; [ numpy setuptools ]);
 

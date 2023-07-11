@@ -1,4 +1,8 @@
-import ../make-test-python.nix ({ lib, pkgs, ... }:
+import ../make-test-python.nix ({
+    lib,
+    pkgs,
+    ...
+  }:
 
   let
     inherit (lib) mkMerge nameValuePair maintainers;
@@ -25,22 +29,25 @@ import ../make-test-python.nix ({ lib, pkgs, ... }:
     extraNodeConfs = {
       sqlite = { };
 
-      socket = { config, ... }: {
-        services.grafana.settings.server = {
-          protocol = "socket";
-          socket = "/run/grafana/sock";
-          socket_gid = config.users.groups.nginx.gid;
-        };
+      socket = {
+          config,
+          ...
+        }: {
+          services.grafana.settings.server = {
+            protocol = "socket";
+            socket = "/run/grafana/sock";
+            socket_gid = config.users.groups.nginx.gid;
+          };
 
-        users.users.grafana.extraGroups = [ "nginx" ];
+          users.users.grafana.extraGroups = [ "nginx" ];
 
-        services.nginx = {
-          enable = true;
-          recommendedProxySettings = true;
-          virtualHosts."_".locations."/".proxyPass =
-            "http://unix:/run/grafana/sock";
+          services.nginx = {
+            enable = true;
+            recommendedProxySettings = true;
+            virtualHosts."_".locations."/".proxyPass =
+              "http://unix:/run/grafana/sock";
+          };
         };
-      };
 
       declarativePlugins = {
         services.grafana.declarativePlugins =

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, inkex
-, lxml, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  inkex,
+  lxml,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "svg2tikz";

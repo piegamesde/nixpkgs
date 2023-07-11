@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, boxfort, meson, libcsptr, pkg-config, gettext
-, cmake, ninja, protobuf, libffi, libgit2, dyncall, nanomsg, nanopbMalloc
-, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  boxfort,
+  meson,
+  libcsptr,
+  pkg-config,
+  gettext,
+  cmake,
+  ninja,
+  protobuf,
+  libffi,
+  libgit2,
+  dyncall,
+  nanomsg,
+  nanopbMalloc,
+  python3Packages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "criterion";

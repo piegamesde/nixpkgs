@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, keepkey, setuptools, libagent, wheel }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  keepkey,
+  setuptools,
+  libagent,
+  wheel,
+}:
 
 buildPythonPackage rec {
   pname = "keepkey_agent";

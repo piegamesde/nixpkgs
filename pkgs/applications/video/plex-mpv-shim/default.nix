@@ -1,5 +1,15 @@
-{ lib, buildPythonApplication, fetchFromGitHub, mpv, requests
-, python-mpv-jsonipc, pystray, tkinter, wrapGAppsHook, gobject-introspection }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  mpv,
+  requests,
+  python-mpv-jsonipc,
+  pystray,
+  tkinter,
+  wrapGAppsHook,
+  gobject-introspection,
+}:
 
 buildPythonApplication rec {
   pname = "plex-mpv-shim";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, boost, gtkmm2, lv2, pkg-config, python3, wafHook
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  boost,
+  gtkmm2,
+  lv2,
+  pkg-config,
+  python3,
+  wafHook,
 }:
 
 stdenv.mkDerivation rec {

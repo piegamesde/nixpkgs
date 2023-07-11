@@ -1,7 +1,13 @@
-{ fetchzip }:
+{
+  fetchzip,
+}:
 
 # gitweb example, snapshot support is optional in gitweb
-{ repo, rev, name ? "source", ... # For hash agility
+{
+  repo,
+  rev,
+  name ? "source",
+  ... # For hash agility
 }@args:
 fetchzip ({
   inherit name;

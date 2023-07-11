@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, libpulseaudio, libnotify, gobject-introspection
-, python3Packages, extraLibs ? [ ] }:
+{
+  lib,
+  fetchFromGitHub,
+  libpulseaudio,
+  libnotify,
+  gobject-introspection,
+  python3Packages,
+  extraLibs ? [ ]
+}:
 
 python3Packages.buildPythonApplication rec {
   # i3pystatus moved to rolling release:

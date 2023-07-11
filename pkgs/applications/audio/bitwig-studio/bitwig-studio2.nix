@@ -1,4 +1,8 @@
-{ fetchurl, bitwig-studio1, pulseaudio }:
+{
+  fetchurl,
+  bitwig-studio1,
+  pulseaudio,
+}:
 
 bitwig-studio1.overrideAttrs (oldAttrs: rec {
   pname = "bitwig-studio";

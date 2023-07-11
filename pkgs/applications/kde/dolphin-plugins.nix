@@ -1,5 +1,13 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, dolphin, ki18n, kio
-, kxmlgui }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  dolphin,
+  ki18n,
+  kio,
+  kxmlgui,
+}:
 
 mkDerivation {
   pname = "dolphin-plugins";

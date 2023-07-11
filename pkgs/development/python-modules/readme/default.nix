@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, readme_renderer }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  readme_renderer,
+}:
 
 buildPythonPackage rec {
   pname = "readme";

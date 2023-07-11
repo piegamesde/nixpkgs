@@ -1,7 +1,27 @@
-{ lib, ansible, ansible-core, anyconfig, appdirs, buildPythonPackage, colorama
-, fetchFromGitHub, flake8, jsonschema, nested-lookup, pathspec, poetry-core
-, pytest-mock, python-json-logger, pytestCheckHook, pythonRelaxDepsHook
-, pythonOlder, pyyaml, toolz, unidiff, yamllint }:
+{
+  lib,
+  ansible,
+  ansible-core,
+  anyconfig,
+  appdirs,
+  buildPythonPackage,
+  colorama,
+  fetchFromGitHub,
+  flake8,
+  jsonschema,
+  nested-lookup,
+  pathspec,
+  poetry-core,
+  pytest-mock,
+  python-json-logger,
+  pytestCheckHook,
+  pythonRelaxDepsHook,
+  pythonOlder,
+  pyyaml,
+  toolz,
+  unidiff,
+  yamllint,
+}:
 
 buildPythonPackage rec {
   pname = "ansible-later";

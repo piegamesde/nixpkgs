@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, wayland, wayland-protocols
-, wayland-scanner, wlr-protocols, libGL, bash, installExampleScripts ? true
-, makeWrapper, pipectl, slurp, rofi, scdoc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  wlr-protocols,
+  libGL,
+  bash,
+  installExampleScripts ? true,
+  makeWrapper,
+  pipectl,
+  slurp,
+  rofi,
+  scdoc,
+}:
 
 let
   wl-present-binpath =

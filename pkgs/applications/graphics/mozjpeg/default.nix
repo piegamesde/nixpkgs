@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libpng, zlib, nasm }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libpng,
+  zlib,
+  nasm,
+}:
 
 stdenv.mkDerivation rec {
   version = "4.1.1";

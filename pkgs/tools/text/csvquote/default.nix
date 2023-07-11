@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, patsh }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  patsh,
+}:
 
 stdenv.mkDerivation rec {
   pname = "csvquote";

@@ -1,4 +1,9 @@
-{ stdenv, fetchFromGitHub, cmake, nasm }:
+{
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  nasm,
+}:
 stdenv.mkDerivation {
   pname = "libcbs";
   version = "unstable-2022-02-07";

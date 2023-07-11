@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, openssl, libevent, pkg-config
-, libprom, libpromhttp, libmicrohttpd, sqlite, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  openssl,
+  libevent,
+  pkg-config,
+  libprom,
+  libpromhttp,
+  libmicrohttpd,
+  sqlite,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "coturn";

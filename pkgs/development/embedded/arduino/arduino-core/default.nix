@@ -1,9 +1,37 @@
-{ stdenv, lib, fetchFromGitHub, fetchurl, jdk, ant, libusb-compat-0_1, libusb1
-, unzip, zlib, ncurses, readline, withGui ? false, gtk3, wrapGAppsHook
-, withTeensyduino ? false
-  # Packages needed for Teensyduino
-, upx, fontconfig, xorg, gcc, atk, glib, pango, gdk-pixbuf, gtk2, libpng12
-, expat, freetype, cairo, udev }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  jdk,
+  ant,
+  libusb-compat-0_1,
+  libusb1,
+  unzip,
+  zlib,
+  ncurses,
+  readline,
+  withGui ? false,
+  gtk3,
+  wrapGAppsHook,
+  withTeensyduino ? false
+    # Packages needed for Teensyduino
+  ,
+  upx,
+  fontconfig,
+  xorg,
+  gcc,
+  atk,
+  glib,
+  pango,
+  gdk-pixbuf,
+  gtk2,
+  libpng12,
+  expat,
+  freetype,
+  cairo,
+  udev,
+}:
 
 assert withTeensyduino -> withGui;
 let
@@ -207,12 +235,15 @@ in stdenv.mkDerivation rec {
       patchelf --set-rpath ${rpath}:$out/lib $file || true
     done
 
-    ${lib.concatMapStringsSep "\n" ({ jar, file }: ''
-      jar xvf $out/${jar} ${file}
-      patchelf --set-rpath $rpath ${file}
-      jar uvf $out/${jar} ${file}
-      rm -f ${file}
-    '') patchelfInJars}
+    ${lib.concatMapStringsSep "\n" ({
+        jar,
+        file,
+      }: ''
+        jar xvf $out/${jar} ${file}
+        patchelf --set-rpath $rpath ${file}
+        jar uvf $out/${jar} ${file}
+        rm -f ${file}
+      '') patchelfInJars}
 
     # avrdude_bin is linked against libtinfo.so.5
     mkdir $out/lib/

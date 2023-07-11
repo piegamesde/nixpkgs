@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, example-robot-data, pinocchio
-, pythonSupport ? false, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  example-robot-data,
+  pinocchio,
+  pythonSupport ? false,
+  python3Packages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "crocoddyl";

@@ -1,6 +1,24 @@
-{ stdenv, lib, gitUpdater, testers, furnace, fetchFromGitHub, cmake, pkg-config
-, makeWrapper, fftw, fmt_8, libsndfile, rtmidi, SDL2, zlib
-, withJACK ? stdenv.hostPlatform.isUnix, libjack2, withGUI ? true, Cocoa }:
+{
+  stdenv,
+  lib,
+  gitUpdater,
+  testers,
+  furnace,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  makeWrapper,
+  fftw,
+  fmt_8,
+  libsndfile,
+  rtmidi,
+  SDL2,
+  zlib,
+  withJACK ? stdenv.hostPlatform.isUnix,
+  libjack2,
+  withGUI ? true,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "furnace";

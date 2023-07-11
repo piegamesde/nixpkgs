@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub, bitbox02, cbor, ecdsa, hidapi
-, libusb1, mnemonic, pyaes, pyserial, typing-extensions, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  bitbox02,
+  cbor,
+  ecdsa,
+  hidapi,
+  libusb1,
+  mnemonic,
+  pyaes,
+  pyserial,
+  typing-extensions,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "hwi";

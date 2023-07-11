@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libp11, pam, libintl
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  libp11,
+  pam,
+  libintl,
 }:
 
 stdenv.mkDerivation rec {

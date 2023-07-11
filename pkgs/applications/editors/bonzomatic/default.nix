@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, cmake, makeWrapper, alsa-lib, fontconfig
-, mesa_glu, libXcursor, libXinerama, libXrandr, xorg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  makeWrapper,
+  alsa-lib,
+  fontconfig,
+  mesa_glu,
+  libXcursor,
+  libXinerama,
+  libXrandr,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bonzomatic";

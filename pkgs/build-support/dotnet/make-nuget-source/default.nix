@@ -1,6 +1,15 @@
-{ dotnetPackages, lib, xml2, stdenvNoCC }:
+{
+  dotnetPackages,
+  lib,
+  xml2,
+  stdenvNoCC,
+}:
 
-{ name, description ? "", deps ? [ ] }:
+{
+  name,
+  description ? "",
+  deps ? [ ]
+}:
 
 let
   nuget-source = stdenvNoCC.mkDerivation rec {

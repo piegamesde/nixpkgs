@@ -1,5 +1,16 @@
-{ fetchurl, lib, stdenv, gtk, pkg-config, libgsf, libofx, intltool
-, wrapGAppsHook, libsoup, gnome }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  gtk,
+  pkg-config,
+  libgsf,
+  libofx,
+  intltool,
+  wrapGAppsHook,
+  libsoup,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "grisbi";

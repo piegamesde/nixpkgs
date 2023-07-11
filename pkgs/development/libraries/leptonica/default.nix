@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, which, gnuplot, giflib
-, libjpeg, libpng, libtiff, libwebp, openjpeg, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  which,
+  gnuplot,
+  giflib,
+  libjpeg,
+  libpng,
+  libtiff,
+  libwebp,
+  openjpeg,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "leptonica";

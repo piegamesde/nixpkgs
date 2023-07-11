@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, lxml, robotframework, pytestCheckHook, six
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  lxml,
+  robotframework,
+  pytestCheckHook,
+  six,
 }:
 
 buildPythonPackage rec {

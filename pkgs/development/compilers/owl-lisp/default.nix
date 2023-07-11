@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitLab, which }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "owl-lisp";

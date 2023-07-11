@@ -1,7 +1,18 @@
-{ stdenv, lib, pname, idris2, zsh }:
+{
+  stdenv,
+  lib,
+  pname,
+  idris2,
+  zsh,
+}:
 
 let
-  testCompileAndRun = { testName, code, want, packages ? [ ] }:
+  testCompileAndRun = {
+      testName,
+      code,
+      want,
+      packages ? [ ]
+    }:
     let
       packageString =
         builtins.concatStringsSep " " (map (p: "--package " + p) packages);

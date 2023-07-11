@@ -1,4 +1,12 @@
-{ lib, rustPlatform, fetchFromGitHub, openssl, pkg-config, stdenv, darwin }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  openssl,
+  pkg-config,
+  stdenv,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "speedtest-rs";

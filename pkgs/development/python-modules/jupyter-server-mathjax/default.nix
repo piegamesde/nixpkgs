@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, jupyter-packaging, setuptools
-, jupyter-server, pytest-jupyter, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jupyter-packaging,
+  setuptools,
+  jupyter-server,
+  pytest-jupyter,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "jupyter-server-mathjax";

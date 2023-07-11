@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, fetchpatch, getopt, ksh, tzdata
-, pkgsMusl # for passthru.tests
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  getopt,
+  ksh,
+  tzdata,
+  pkgsMusl # for passthru.tests
+  ,
 }:
 
 stdenv.mkDerivation (finalAttrs: {

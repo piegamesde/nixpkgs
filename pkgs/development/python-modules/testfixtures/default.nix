@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, mock, pytestCheckHook, pythonAtLeast
-, pythonOlder, sybil, twisted, zope_component }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  mock,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  sybil,
+  twisted,
+  zope_component,
+}:
 
 buildPythonPackage rec {
   pname = "testfixtures";

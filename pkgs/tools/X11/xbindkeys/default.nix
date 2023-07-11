@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, libX11, guile }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libX11,
+  guile,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xbindkeys";

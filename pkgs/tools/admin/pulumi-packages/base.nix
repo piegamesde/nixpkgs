@@ -1,7 +1,18 @@
-{ buildGoModule, fetchFromGitHub, python3Packages }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  python3Packages,
+}:
 let
-  mkBasePackage =
-    { pname, src, version, vendorHash, cmd, extraLdflags, ... }@args:
+  mkBasePackage = {
+      pname,
+      src,
+      version,
+      vendorHash,
+      cmd,
+      extraLdflags,
+      ...
+    }@args:
     buildGoModule (rec {
       inherit pname src vendorHash version;
 
@@ -14,9 +25,20 @@ let
       ldflags = [ "-s" "-w" ] ++ extraLdflags;
     } // args);
 
-  mkPythonPackage = { meta, pname, src, version, ... }:
-    python3Packages.callPackage
-    ({ buildPythonPackage, pythonOlder, parver, pulumi, semver }:
+  mkPythonPackage = {
+      meta,
+      pname,
+      src,
+      version,
+      ...
+    }:
+    python3Packages.callPackage ({
+        buildPythonPackage,
+        pythonOlder,
+        parver,
+        pulumi,
+        semver,
+      }:
       buildPythonPackage rec {
         inherit pname meta src version;
         format = "setuptools";
@@ -48,8 +70,20 @@ let
         pythonImportsCheck =
           [ (builtins.replaceStrings [ "-" ] [ "_" ] pname) ];
       }) { };
-in { owner, repo, rev, version, hash, vendorHash, cmdGen, cmdRes, extraLdflags
-, meta, fetchSubmodules ? false, ... }@args:
+in {
+  owner,
+  repo,
+  rev,
+  version,
+  hash,
+  vendorHash,
+  cmdGen,
+  cmdRes,
+  extraLdflags,
+  meta,
+  fetchSubmodules ? false,
+  ...
+}@args:
 let
   src = fetchFromGitHub {
     name = "source-${repo}-${rev}";

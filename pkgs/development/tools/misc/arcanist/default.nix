@@ -1,5 +1,15 @@
-{ bison, cacert, fetchFromGitHub, flex, php, lib, stdenv, installShellFiles
-, which, python3 }:
+{
+  bison,
+  cacert,
+  fetchFromGitHub,
+  flex,
+  php,
+  lib,
+  stdenv,
+  installShellFiles,
+  which,
+  python3,
+}:
 
 # Make a custom wrapper. If `wrapProgram` is used, arcanist thinks .arc-wrapped is being
 # invoked and complains about it being an unknown toolset. We could use `makeWrapper`, but

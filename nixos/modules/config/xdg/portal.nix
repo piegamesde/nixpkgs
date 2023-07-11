@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf mkOption mkRenamedOptionModule teams types;
@@ -11,7 +16,12 @@ in {
       "extraPortals"
     ])
 
-    ({ config, lib, options, ... }:
+    ({
+        config,
+        lib,
+        options,
+        ...
+      }:
       let
         from = [ "xdg" "portal" "gtkUsePortal" ];
         fromOpt = lib.getAttrFromPath from options;

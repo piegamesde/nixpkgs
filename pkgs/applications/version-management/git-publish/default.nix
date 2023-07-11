@@ -1,4 +1,11 @@
-{ lib, stdenv, python, perl, fetchFromGitHub, installShellFiles }:
+{
+  lib,
+  stdenv,
+  python,
+  perl,
+  fetchFromGitHub,
+  installShellFiles,
+}:
 stdenv.mkDerivation rec {
   pname = "git-publish";
   version = "1.8.1";

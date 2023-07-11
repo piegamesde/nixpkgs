@@ -1,4 +1,10 @@
-{ lib, fetchPypi, buildPythonPackage, lzo, nose }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  lzo,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "python-lzo";

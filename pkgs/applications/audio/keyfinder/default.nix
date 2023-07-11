@@ -1,5 +1,14 @@
-{ lib, mkDerivation, fetchFromGitHub, libav_0_8, libkeyfinder, qtbase
-, qtxmlpatterns, qmake, taglib }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  libav_0_8,
+  libkeyfinder,
+  qtbase,
+  qtxmlpatterns,
+  qmake,
+  taglib,
+}:
 
 mkDerivation rec {
   pname = "keyfinder";

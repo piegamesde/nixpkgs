@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, autoPatchelfHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  autoPatchelfHook,
+}:
 
 buildPythonPackage rec {
   pname = "pypemicro";

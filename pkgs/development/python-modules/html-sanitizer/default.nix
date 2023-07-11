@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, lxml, beautifulsoup4
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  lxml,
+  beautifulsoup4,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "html-sanitizer";

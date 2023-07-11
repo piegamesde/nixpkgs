@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gettext, libdnf, pkg-config, glib
-, libpeas, libsmartcols, help2man }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gettext,
+  libdnf,
+  pkg-config,
+  glib,
+  libpeas,
+  libsmartcols,
+  help2man,
+}:
 
 stdenv.mkDerivation rec {
   pname = "microdnf";

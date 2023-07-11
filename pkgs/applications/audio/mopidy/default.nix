@@ -1,4 +1,8 @@
-{ lib, newScope, python }:
+{
+  lib,
+  newScope,
+  python,
+}:
 
 # Create a custom scope so we are consistent in which python version is used
 lib.makeScope newScope (self:

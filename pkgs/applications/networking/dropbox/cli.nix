@@ -1,5 +1,17 @@
-{ lib, stdenv, substituteAll, autoreconfHook, pkg-config, fetchurl, python3
-, dropbox, gtk3, gnome, gdk-pixbuf, gobject-introspection }:
+{
+  lib,
+  stdenv,
+  substituteAll,
+  autoreconfHook,
+  pkg-config,
+  fetchurl,
+  python3,
+  dropbox,
+  gtk3,
+  gnome,
+  gdk-pixbuf,
+  gobject-introspection,
+}:
 
 let
   version = "2020.03.04";

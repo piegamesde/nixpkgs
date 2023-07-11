@@ -1,6 +1,23 @@
-{ lib, buildPythonPackage, decorator, entrypoints, fetchPypi, hatchling
-, ipykernel, ipython, ipython_genutils, jupyter-client, packaging, psutil
-, python-dateutil, pythonOlder, pyzmq, tornado, tqdm, traitlets }:
+{
+  lib,
+  buildPythonPackage,
+  decorator,
+  entrypoints,
+  fetchPypi,
+  hatchling,
+  ipykernel,
+  ipython,
+  ipython_genutils,
+  jupyter-client,
+  packaging,
+  psutil,
+  python-dateutil,
+  pythonOlder,
+  pyzmq,
+  tornado,
+  tqdm,
+  traitlets,
+}:
 
 buildPythonPackage rec {
   pname = "ipyparallel";

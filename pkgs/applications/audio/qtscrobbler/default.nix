@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchurl, withMtp ? true, libmtp, pkg-config, which, qt4
-, qmake4Hook }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  withMtp ? true,
+  libmtp,
+  pkg-config,
+  which,
+  qt4,
+  qmake4Hook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qtscrobbler";

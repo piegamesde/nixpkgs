@@ -1,6 +1,18 @@
-{ python3Packages, lib, fetchFromGitLab, meson, pkg-config, glib, ninja
-, desktop-file-utils, gobject-introspection, gtk3, libnotify, dbus
-, wrapGAppsHook }:
+{
+  python3Packages,
+  lib,
+  fetchFromGitLab,
+  meson,
+  pkg-config,
+  glib,
+  ninja,
+  desktop-file-utils,
+  gobject-introspection,
+  gtk3,
+  libnotify,
+  dbus,
+  wrapGAppsHook,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "gkraken";

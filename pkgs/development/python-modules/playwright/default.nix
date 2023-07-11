@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, git, greenlet, fetchFromGitHub, pyee, python
-, pythonOlder, setuptools-scm, playwright-driver }:
+{
+  lib,
+  buildPythonPackage,
+  git,
+  greenlet,
+  fetchFromGitHub,
+  pyee,
+  python,
+  pythonOlder,
+  setuptools-scm,
+  playwright-driver,
+}:
 
 let driver = playwright-driver;
 in buildPythonPackage rec {

@@ -1,5 +1,16 @@
-{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
-, pydantic, pytest-asyncio, pytestCheckHook, pythonOlder, yarl }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pydantic,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  yarl,
+}:
 
 buildPythonPackage rec {
   pname = "pvo";

@@ -1,5 +1,14 @@
-{ lib, aiodns, buildPythonPackage, c-ares, cffi, fetchPypi, idna, pythonOlder
-, tornado }:
+{
+  lib,
+  aiodns,
+  buildPythonPackage,
+  c-ares,
+  cffi,
+  fetchPypi,
+  idna,
+  pythonOlder,
+  tornado,
+}:
 
 buildPythonPackage rec {
   pname = "pycares";

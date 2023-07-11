@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, perl, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  perl,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "multimarkdown";

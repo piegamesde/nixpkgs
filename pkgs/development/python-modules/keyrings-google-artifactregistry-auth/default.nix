@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, google-auth, keyring, pluggy, requests
-, setuptools-scm, toml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-auth,
+  keyring,
+  pluggy,
+  requests,
+  setuptools-scm,
+  toml,
+}:
 
 buildPythonPackage rec {
   pname = "keyrings.google-artifactregistry-auth";

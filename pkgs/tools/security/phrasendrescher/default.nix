@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, openssl, libssh2, gpgme }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+  libssh2,
+  gpgme,
+}:
 
 stdenv.mkDerivation rec {
   pname = "phrasendrescher";

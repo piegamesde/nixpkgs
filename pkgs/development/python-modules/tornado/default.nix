@@ -1,4 +1,10 @@
-{ lib, python, buildPythonPackage, fetchFromGitHub, pytestCheckHook }:
+{
+  lib,
+  python,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "tornado";

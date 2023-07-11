@@ -1,4 +1,8 @@
-{ lib, stdenvNoCC, fetchzip }:
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+}:
 
 let mspgccVersion = "6_1_1_0";
 in stdenvNoCC.mkDerivation rec {

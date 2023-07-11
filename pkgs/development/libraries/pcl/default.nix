@@ -1,6 +1,27 @@
-{ lib, stdenv, fetchFromGitHub, wrapQtAppsHook, cmake, qhull, flann, boost, vtk
-, eigen, pkg-config, qtbase, libusb1, libpcap, libtiff, libXt, libpng, Cocoa
-, AGL, OpenGL, withCuda ? false, cudatoolkit }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+  cmake,
+  qhull,
+  flann,
+  boost,
+  vtk,
+  eigen,
+  pkg-config,
+  qtbase,
+  libusb1,
+  libpcap,
+  libtiff,
+  libXt,
+  libpng,
+  Cocoa,
+  AGL,
+  OpenGL,
+  withCuda ? false,
+  cudatoolkit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pcl";

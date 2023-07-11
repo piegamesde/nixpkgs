@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, python3, libX11, libXrandr }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  libX11,
+  libXrandr,
+}:
 
 stdenv.mkDerivation rec {
   pname = "blugon";

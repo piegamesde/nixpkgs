@@ -1,4 +1,11 @@
-{ IOKit, buildGoModule, fetchFromGitHub, fetchpatch, lib, stdenv }:
+{
+  IOKit,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchpatch,
+  lib,
+  stdenv,
+}:
 
 buildGoModule rec {
   pname = "avalanchego";

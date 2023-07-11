@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, beautifulsoup4, jsbeautifier, mkdocs
-, mkdocs-material, pymdown-extensions, pyyaml, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  beautifulsoup4,
+  jsbeautifier,
+  mkdocs,
+  mkdocs-material,
+  pymdown-extensions,
+  pyyaml,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "mkdocs-mermaid2-plugin";

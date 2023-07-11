@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, substituteAll, pkg-config, meson
-, ninja, gnu-efi, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  substituteAll,
+  pkg-config,
+  meson,
+  ninja,
+  gnu-efi,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fwupd-efi";

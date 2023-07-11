@@ -1,8 +1,18 @@
-{ callPackage }:
+{
+  callPackage,
+}:
 
 {
-  test-bash = callPackage ({ lib, runCommandLocal, bash, hello, ksh
-    , patchRcPathBash, shellcheck, zsh }:
+  test-bash = callPackage ({
+      lib,
+      runCommandLocal,
+      bash,
+      hello,
+      ksh,
+      patchRcPathBash,
+      shellcheck,
+      zsh,
+    }:
     runCommandLocal "patch-rc-path-bash-test" {
       nativeBuildInputs = [ bash ksh patchRcPathBash shellcheck zsh ];
       meta = {
@@ -126,158 +136,172 @@
       touch "$out"
     '') { };
 
-  test-csh = callPackage
-    ({ lib, runCommandLocal, gnused, hello, patchRcPathCsh, tcsh }:
-      runCommandLocal "patch-rc-path-csh-test" {
-        nativeBuildInputs = [ patchRcPathCsh tcsh ];
-        meta = {
-          description = "Package test of patchActivateCsh";
-          inherit (patchRcPathCsh.meta) maintainers;
-        };
-      } ''
-        set -eu -o pipefail
+  test-csh = callPackage ({
+      lib,
+      runCommandLocal,
+      gnused,
+      hello,
+      patchRcPathCsh,
+      tcsh,
+    }:
+    runCommandLocal "patch-rc-path-csh-test" {
+      nativeBuildInputs = [ patchRcPathCsh tcsh ];
+      meta = {
+        description = "Package test of patchActivateCsh";
+        inherit (patchRcPathCsh.meta) maintainers;
+      };
+    } ''
+      set -eu -o pipefail
 
 
-        # Test patching a blank file
+      # Test patching a blank file
 
-        echo > blank.csh
+      echo > blank.csh
 
-        echo "Generating blank_patched.csh from blank.csh"
-        cp blank.csh blank_patched.csh
-        patchRcPathCsh blank_patched.csh "$PWD/delta:$PWD/foxtrot"
+      echo "Generating blank_patched.csh from blank.csh"
+      cp blank.csh blank_patched.csh
+      patchRcPathCsh blank_patched.csh "$PWD/delta:$PWD/foxtrot"
 
-        echo "Testing in Csh if blank.csh and blank_patched.csh modifies PATH the same way"
-        tcsh -e ${./test-sourcing-csh} blank.csh blank_patched.csh
-
-
-        # Test patching silent_hello file
-
-        echo "hello > /dev/null" > silent_hello.csh
-
-        echo "Generating silent_hello_patched.csh from silent_hello.csh"
-        cp silent_hello.csh silent_hello_patched.csh
-        patchRcPathCsh silent_hello_patched.csh "${hello}/bin"
-
-        echo "Testing in Csh if silent_hello_patched.csh get sourced without errer"
-        tcsh -e -c "source silent_hello_patched.csh"
+      echo "Testing in Csh if blank.csh and blank_patched.csh modifies PATH the same way"
+      tcsh -e ${./test-sourcing-csh} blank.csh blank_patched.csh
 
 
-        # Generate the sample source
+      # Test patching silent_hello file
 
-        substitute ${
-          ./sample_source.csh.in
-        } sample_source.csh --replace @sed@ ${gnused}/bin/sed
-        chmod u+rw sample_source.csh
+      echo "hello > /dev/null" > silent_hello.csh
 
+      echo "Generating silent_hello_patched.csh from silent_hello.csh"
+      cp silent_hello.csh silent_hello_patched.csh
+      patchRcPathCsh silent_hello_patched.csh "${hello}/bin"
 
-        # Test patching the sample source
-
-        echo "Generating sample_source_patched.csh from sample_source.csh"
-        cp sample_source.csh sample_source_patched.csh
-        chmod u+w sample_source_patched.csh
-        patchRcPathCsh sample_source_patched.csh "$PWD/delta:$PWD/foxtrot"
-
-        echo "Testing in Csh if sample_source.csh and sample_source_patched.csh modifies PATH the same way"
-        tcsh -e ${
-          ./test-sourcing-csh
-        } sample_source.csh sample_source_patched.csh
+      echo "Testing in Csh if silent_hello_patched.csh get sourced without errer"
+      tcsh -e -c "source silent_hello_patched.csh"
 
 
-        # Test double-patching the sample source
+      # Generate the sample source
 
-        echo "Patching again sample_source_patched.csh from sample_source.csh"
-        patchRcPathCsh sample_source_patched.csh "$PWD/foxtrot:$PWD/golf"
-
-        echo "Testing in Csh if sample_source.csh and sample_source_patched.csh modifies PATH the same way"
-        tcsh -e ${
-          ./test-sourcing-csh
-        } sample_source.csh sample_source_patched.csh
+      substitute ${
+        ./sample_source.csh.in
+      } sample_source.csh --replace @sed@ ${gnused}/bin/sed
+      chmod u+rw sample_source.csh
 
 
-        # Create a dummy output
-        touch "$out"
-      '') { };
+      # Test patching the sample source
 
-  test-fish = callPackage
-    ({ lib, runCommandLocal, fish, hello, patchRcPathFish }:
-      runCommandLocal "patch-rc-path-fish-test" {
-        nativeBuildInputs = [ fish patchRcPathFish ];
-        meta = {
-          description = "Package test of patchActivateFish";
-          inherit (patchRcPathFish.meta) maintainers;
-        };
-      } ''
-        set -eu -o pipefail
+      echo "Generating sample_source_patched.csh from sample_source.csh"
+      cp sample_source.csh sample_source_patched.csh
+      chmod u+w sample_source_patched.csh
+      patchRcPathCsh sample_source_patched.csh "$PWD/delta:$PWD/foxtrot"
+
+      echo "Testing in Csh if sample_source.csh and sample_source_patched.csh modifies PATH the same way"
+      tcsh -e ${./test-sourcing-csh} sample_source.csh sample_source_patched.csh
 
 
-        # Test patching a blank file
+      # Test double-patching the sample source
 
-        echo > blank.fish
+      echo "Patching again sample_source_patched.csh from sample_source.csh"
+      patchRcPathCsh sample_source_patched.csh "$PWD/foxtrot:$PWD/golf"
 
-        echo "Generating blank_patched.fish from blank.fish"
-        cp blank.fish blank_patched.fish
-        patchRcPathFish blank_patched.fish "$PWD/delta:$PWD/foxtrot"
-
-        echo "Testing in Fish if blank.fish and blank_patched.fish modifies PATH the same way"
-        HOME_TEMP="$(mktemp -d temporary_home_XXXXXX)"
-        HOME="$HOME_TEMP" fish ${
-          ./test-sourcing-fish
-        } blank.fish blank_patched.fish
-        rm -r "$HOME_TEMP"
+      echo "Testing in Csh if sample_source.csh and sample_source_patched.csh modifies PATH the same way"
+      tcsh -e ${./test-sourcing-csh} sample_source.csh sample_source_patched.csh
 
 
-        # Test patching silent_hello file
+      # Create a dummy output
+      touch "$out"
+    '') { };
 
-        echo "hello > /dev/null" > silent_hello.fish
-
-        echo "Generating silent_hello_patched.fish from silent_hello.fish"
-        cp silent_hello.fish silent_hello_patched.fish
-        patchRcPathFish silent_hello_patched.fish "${hello}/bin"
-
-        echo "Testing in Fish if silent_hello_patched.fish get sourced without error"
-        HOME_TEMP="$(mktemp -d temporary_home_XXXXXX)"
-        HOME="$HOME_TEMP" fish -c "source silent_hello_patched.fish"
-        rm -r "$HOME_TEMP"
-
-
-        # Test patching the sample source
-
-        cp ${./sample_source.fish} sample_source_patched.fish
-        chmod u+w sample_source_patched.fish
-
-        echo "Generating sample_source_patched.fish from ${
-          ./sample_source.fish
-        }"
-        patchRcPathFish sample_source_patched.fish "$PWD/delta:$PWD/foxtrot"
-        echo "Testing in Fish if sample_source.fish and sample_source_patched.fish modifies PATH the same way"
-        HOME_TEMP="$(mktemp -d temporary_home_XXXXXX)"
-        HOME="$HOME_TEMP" fish ${./test-sourcing-fish} ${
-          ./sample_source.fish
-        } sample_source_patched.fish
-        rm -r "$HOME_TEMP"
+  test-fish = callPackage ({
+      lib,
+      runCommandLocal,
+      fish,
+      hello,
+      patchRcPathFish,
+    }:
+    runCommandLocal "patch-rc-path-fish-test" {
+      nativeBuildInputs = [ fish patchRcPathFish ];
+      meta = {
+        description = "Package test of patchActivateFish";
+        inherit (patchRcPathFish.meta) maintainers;
+      };
+    } ''
+      set -eu -o pipefail
 
 
-        # Test double-patching the sample source
+      # Test patching a blank file
 
-        echo "Patching again sample_source_patched.fish from ${
-          ./sample_source.fish
-        }"
-        patchRcPathFish sample_source_patched.fish "$PWD/foxtrot:$PWD/golf"
+      echo > blank.fish
 
-        echo "Testing in Fish if sample_source.fish and sample_source_patched.fish modifies PATH the same way"
-        HOME_TEMP="$(mktemp -d temporary_home_XXXXXX)"
-        HOME="$HOME_TEMP" fish ${./test-sourcing-fish} ${
-          ./sample_source.fish
-        } sample_source_patched.fish
-        rm -r "$HOME_TEMP"
+      echo "Generating blank_patched.fish from blank.fish"
+      cp blank.fish blank_patched.fish
+      patchRcPathFish blank_patched.fish "$PWD/delta:$PWD/foxtrot"
+
+      echo "Testing in Fish if blank.fish and blank_patched.fish modifies PATH the same way"
+      HOME_TEMP="$(mktemp -d temporary_home_XXXXXX)"
+      HOME="$HOME_TEMP" fish ${
+        ./test-sourcing-fish
+      } blank.fish blank_patched.fish
+      rm -r "$HOME_TEMP"
 
 
-        # Create a dummy output
-        touch "$out"
-      '') { };
+      # Test patching silent_hello file
 
-  test-posix = callPackage ({ lib, runCommandLocal, bash, dash, gnused, hello
-    , ksh, patchRcPathPosix, shellcheck }:
+      echo "hello > /dev/null" > silent_hello.fish
+
+      echo "Generating silent_hello_patched.fish from silent_hello.fish"
+      cp silent_hello.fish silent_hello_patched.fish
+      patchRcPathFish silent_hello_patched.fish "${hello}/bin"
+
+      echo "Testing in Fish if silent_hello_patched.fish get sourced without error"
+      HOME_TEMP="$(mktemp -d temporary_home_XXXXXX)"
+      HOME="$HOME_TEMP" fish -c "source silent_hello_patched.fish"
+      rm -r "$HOME_TEMP"
+
+
+      # Test patching the sample source
+
+      cp ${./sample_source.fish} sample_source_patched.fish
+      chmod u+w sample_source_patched.fish
+
+      echo "Generating sample_source_patched.fish from ${./sample_source.fish}"
+      patchRcPathFish sample_source_patched.fish "$PWD/delta:$PWD/foxtrot"
+      echo "Testing in Fish if sample_source.fish and sample_source_patched.fish modifies PATH the same way"
+      HOME_TEMP="$(mktemp -d temporary_home_XXXXXX)"
+      HOME="$HOME_TEMP" fish ${./test-sourcing-fish} ${
+        ./sample_source.fish
+      } sample_source_patched.fish
+      rm -r "$HOME_TEMP"
+
+
+      # Test double-patching the sample source
+
+      echo "Patching again sample_source_patched.fish from ${
+        ./sample_source.fish
+      }"
+      patchRcPathFish sample_source_patched.fish "$PWD/foxtrot:$PWD/golf"
+
+      echo "Testing in Fish if sample_source.fish and sample_source_patched.fish modifies PATH the same way"
+      HOME_TEMP="$(mktemp -d temporary_home_XXXXXX)"
+      HOME="$HOME_TEMP" fish ${./test-sourcing-fish} ${
+        ./sample_source.fish
+      } sample_source_patched.fish
+      rm -r "$HOME_TEMP"
+
+
+      # Create a dummy output
+      touch "$out"
+    '') { };
+
+  test-posix = callPackage ({
+      lib,
+      runCommandLocal,
+      bash,
+      dash,
+      gnused,
+      hello,
+      ksh,
+      patchRcPathPosix,
+      shellcheck,
+    }:
     runCommandLocal "patch-rc-path-posix-test" {
       nativeBuildInputs = [ bash dash ksh patchRcPathPosix shellcheck ];
       meta = {

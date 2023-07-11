@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, bash, curl, xsel }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bash,
+  curl,
+  xsel,
+}:
 
 stdenv.mkDerivation rec {
   pname = "imgurbash2";

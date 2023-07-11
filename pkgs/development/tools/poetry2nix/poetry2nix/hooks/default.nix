@@ -1,4 +1,13 @@
-{ python, stdenv, buildPackages, makeSetupHook, wheel, pip, pkgs, lib }:
+{
+  python,
+  stdenv,
+  buildPackages,
+  makeSetupHook,
+  wheel,
+  pip,
+  pkgs,
+  lib,
+}:
 let
   inherit (python.pythonForBuild.pkgs) callPackage;
   pythonInterpreter = python.pythonForBuild.interpreter;
@@ -6,7 +15,10 @@ let
 
   nonOverlayedPython =
     pkgs.python3.pythonForBuild.withPackages (ps: [ ps.tomlkit ]);
-  makeRemoveSpecialDependenciesHook = { fields, kind }:
+  makeRemoveSpecialDependenciesHook = {
+      fields,
+      kind,
+    }:
     nonOverlayedPython.pkgs.callPackage (_:
       makeSetupHook {
         name = "remove-path-dependencies.sh";
@@ -39,7 +51,10 @@ in {
     kind = "git";
   };
 
-  pipBuildHook = callPackage ({ pip, wheel }:
+  pipBuildHook = callPackage ({
+      pip,
+      wheel,
+    }:
     makeSetupHook ({
       name = "pip-build-hook.sh";
       substitutions = { inherit pythonInterpreter pythonSitePackages; };

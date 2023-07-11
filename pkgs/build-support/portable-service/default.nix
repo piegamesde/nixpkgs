@@ -1,4 +1,8 @@
-{ pkgs, lib, stdenv }:
+{
+  pkgs,
+  lib,
+  stdenv,
+}:
 /* Create a systemd portable service image
    https://systemd.io/PORTABLE_SERVICES/
 
@@ -12,27 +16,36 @@
 {
 # The name and version of the portable service. The resulting image will be
 # created in result/$pname_$version.raw
-pname, version
+  pname,
+  version
 
-# Units is a list of derivations for systemd unit files. Those files will be
-# copied to /etc/systemd/system in the resulting image. Note that the unit
-# names must be prefixed with the name of the portable service.
-, units
+  # Units is a list of derivations for systemd unit files. Those files will be
+  # copied to /etc/systemd/system in the resulting image. Note that the unit
+  # names must be prefixed with the name of the portable service.
+  ,
+  units
 
-# Basic info about the portable service image, used for the generated
-# /etc/os-release
-, description ? null, homepage ? null
+  # Basic info about the portable service image, used for the generated
+  # /etc/os-release
+  ,
+  description ? null,
+  homepage ? null
 
-  # A list of attribute sets {object, symlink}. Symlinks will be created
-  # in the root filesystem of the image to objects in the nix store.
-, symlinks ? [ ]
+    # A list of attribute sets {object, symlink}. Symlinks will be created
+    # in the root filesystem of the image to objects in the nix store.
+  ,
+  symlinks ? [ ]
 
-  # A list of additional derivations to be included in the image as-is.
-, contents ? [ ]
+    # A list of additional derivations to be included in the image as-is.
+  ,
+  contents ? [ ]
 
-  # mksquashfs options
-, squashfsTools ? pkgs.squashfsTools, squash-compression ? "xz -Xdict-size 100%"
-, squash-block-size ? "1M" }:
+    # mksquashfs options
+  ,
+  squashfsTools ? pkgs.squashfsTools,
+  squash-compression ? "xz -Xdict-size 100%",
+  squash-block-size ? "1M"
+}:
 
 let
   filterNull = lib.filterAttrs (_: v: v != null);
@@ -68,10 +81,13 @@ let
       # units **must** be copied to /etc/systemd/system/
       + (lib.concatMapStringsSep "\n"
         (u: "cp ${u} $out/etc/systemd/system/${u.name};") units)
-      + (lib.concatMapStringsSep "\n" ({ object, symlink }: ''
-        mkdir -p $(dirname $out/${symlink});
-        ln -s ${object} $out/${symlink};
-      '') symlinks);
+      + (lib.concatMapStringsSep "\n" ({
+          object,
+          symlink,
+        }: ''
+          mkdir -p $(dirname $out/${symlink});
+          ln -s ${object} $out/${symlink};
+        '') symlinks);
   };
 
 in assert lib.assertMsg (lib.all (u: lib.hasPrefix pname u.name) units)

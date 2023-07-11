@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, cmake, libGL, SDL2, libGLU, catch }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  libGL,
+  SDL2,
+  libGLU,
+  catch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "recastai";

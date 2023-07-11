@@ -1,10 +1,38 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, pythonOlder, hatch-jupyter-builder
-, hatchling, pandoc, pytestCheckHook, pytest-console-scripts, pytest-jupyter
-, pytest-timeout, pytest-tornasync, argon2-cffi, jinja2, tornado, pyzmq
-, ipykernel, ipython_genutils, traitlets, jupyter-core, jupyter-client
-, jupyter-events, jupyter-server-terminals, nbformat, nbconvert, send2trash
-, terminado, prometheus-client, anyio, websocket-client, requests
-, requests-unixsocket }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  hatch-jupyter-builder,
+  hatchling,
+  pandoc,
+  pytestCheckHook,
+  pytest-console-scripts,
+  pytest-jupyter,
+  pytest-timeout,
+  pytest-tornasync,
+  argon2-cffi,
+  jinja2,
+  tornado,
+  pyzmq,
+  ipykernel,
+  ipython_genutils,
+  traitlets,
+  jupyter-core,
+  jupyter-client,
+  jupyter-events,
+  jupyter-server-terminals,
+  nbformat,
+  nbconvert,
+  send2trash,
+  terminado,
+  prometheus-client,
+  anyio,
+  websocket-client,
+  requests,
+  requests-unixsocket,
+}:
 
 buildPythonPackage rec {
   pname = "jupyter-server";

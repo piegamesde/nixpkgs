@@ -1,4 +1,10 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub, libpcap }:
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  libpcap,
+}:
 
 buildGoModule rec {
   pname = "godspeed";

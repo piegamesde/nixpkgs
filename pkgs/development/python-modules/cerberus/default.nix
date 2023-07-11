@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "Cerberus";

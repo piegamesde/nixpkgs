@@ -1,6 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, bzip2, expat, libedit, lmdb, openssl, libxcrypt
-, python3 # for tests only
-, cpp11 ? false }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  bzip2,
+  expat,
+  libedit,
+  lmdb,
+  openssl,
+  libxcrypt,
+  python3 # for tests only
+  ,
+  cpp11 ? false
+}:
 
 let
   zeroc_mcpp = stdenv.mkDerivation rec {

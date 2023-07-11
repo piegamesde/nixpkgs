@@ -1,7 +1,16 @@
-{ sourcePerArch, knownVulnerabilities ? [ ] }:
+{
+  sourcePerArch,
+  knownVulnerabilities ? [ ]
+}:
 
-{ swingSupport ? true # not used for now
-, lib, stdenv, fetchurl, setJavaClassPath }:
+{
+  swingSupport ? true # not used for now
+  ,
+  lib,
+  stdenv,
+  fetchurl,
+  setJavaClassPath,
+}:
 
 assert (stdenv.isDarwin && stdenv.isx86_64);
 

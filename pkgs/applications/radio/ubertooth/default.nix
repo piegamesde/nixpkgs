@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, libbtbb, libpcap, libusb1
-, bluez, udevGroup ? "ubertooth" }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libbtbb,
+  libpcap,
+  libusb1,
+  bluez,
+  udevGroup ? "ubertooth"
+}:
 
 stdenv.mkDerivation rec {
   pname = "ubertooth";

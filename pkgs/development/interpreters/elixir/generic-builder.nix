@@ -1,12 +1,28 @@
-{ pkgs, lib, stdenv, fetchFromGitHub, erlang, makeWrapper, coreutils, curl, bash
-, debugInfo ? false }:
+{
+  pkgs,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  erlang,
+  makeWrapper,
+  coreutils,
+  curl,
+  bash,
+  debugInfo ? false
+}:
 
-{ baseName ? "elixir", version, minimumOTPVersion, sha256 ? null
-, rev ? "v${version}", src ? fetchFromGitHub {
-  inherit rev sha256;
-  owner = "elixir-lang";
-  repo = "elixir";
-} }@args:
+{
+  baseName ? "elixir",
+  version,
+  minimumOTPVersion,
+  sha256 ? null,
+  rev ? "v${version}",
+  src ? fetchFromGitHub {
+    inherit rev sha256;
+    owner = "elixir-lang";
+    repo = "elixir";
+  }
+}@args:
 
 let inherit (lib) getVersion versionAtLeast optional;
 

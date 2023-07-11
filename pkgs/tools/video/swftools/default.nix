@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, freetype, libjpeg, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  freetype,
+  libjpeg,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "swftools";

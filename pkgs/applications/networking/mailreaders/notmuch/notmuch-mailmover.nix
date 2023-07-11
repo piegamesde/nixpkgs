@@ -1,4 +1,10 @@
-{ notmuch, lib, stdenv, fetchFromGitHub, rustPlatform }:
+{
+  notmuch,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "notmuch-mailmover";
   version = "0.1.0";

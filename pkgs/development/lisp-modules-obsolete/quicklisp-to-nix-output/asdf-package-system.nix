@@ -1,5 +1,8 @@
 # Generated file.
-args@{ fetchurl, ... }: rec {
+args@{
+  fetchurl,
+  ...
+}: rec {
   baseName = "asdf-package-system";
   version = "20150608-git";
 

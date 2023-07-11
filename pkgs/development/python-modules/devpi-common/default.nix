@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, requests, py, pytestCheckHook, lazy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  py,
+  pytestCheckHook,
+  lazy,
+}:
 
 buildPythonPackage rec {
   pname = "devpi-common";

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, gtk3, libwnck
-, libxklavier, appindicatorSupport ? true, libayatana-appindicator }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  gtk3,
+  libwnck,
+  libxklavier,
+  appindicatorSupport ? true,
+  libayatana-appindicator,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gxkb";

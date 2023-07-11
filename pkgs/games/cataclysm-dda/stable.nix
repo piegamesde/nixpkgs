@@ -1,5 +1,17 @@
-{ lib, callPackage, CoreFoundation, fetchFromGitHub, fetchpatch, pkgs, wrapCDDA
-, attachPkgs, tiles ? true, Cocoa, debug ? false, useXdgDir ? false }:
+{
+  lib,
+  callPackage,
+  CoreFoundation,
+  fetchFromGitHub,
+  fetchpatch,
+  pkgs,
+  wrapCDDA,
+  attachPkgs,
+  tiles ? true,
+  Cocoa,
+  debug ? false,
+  useXdgDir ? false
+}:
 
 let
   common = callPackage ./common.nix {

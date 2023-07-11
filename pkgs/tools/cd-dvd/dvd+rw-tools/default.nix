@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, fetchpatch, cdrtools, m4, darwin }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  cdrtools,
+  m4,
+  darwin,
+}:
 
 let inherit (darwin.apple_sdk.frameworks) IOKit;
 in stdenv.mkDerivation rec {
@@ -15,7 +23,10 @@ in stdenv.mkDerivation rec {
     ./darwin.patch
   ]
   # Patches from Gentoo
-    ++ builtins.map ({ pfile, sha256 }:
+    ++ builtins.map ({
+        pfile,
+        sha256,
+      }:
       fetchpatch {
         url =
           "https://gitweb.gentoo.org/repo/gentoo.git/plain/app-cdr/dvd+rw-tools/files/${pfile}?id=b510df361241e8f16314b1f14642305f0111dac6";

@@ -1,4 +1,11 @@
-{ lib, python, buildPythonPackage, autoPatchelfHook, unzip, cudaPackages }:
+{
+  lib,
+  python,
+  buildPythonPackage,
+  autoPatchelfHook,
+  unzip,
+  cudaPackages,
+}:
 
 let
   pyVersion =

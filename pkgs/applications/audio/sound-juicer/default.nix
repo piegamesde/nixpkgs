@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchurl, fetchpatch, meson, ninja, pkg-config, glib, gtk3
-, itstool, libxml2, brasero, libcanberra-gtk3, gnome, gst_all_1, libmusicbrainz5
-, libdiscid, isocodes, gsettings-desktop-schemas, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  meson,
+  ninja,
+  pkg-config,
+  glib,
+  gtk3,
+  itstool,
+  libxml2,
+  brasero,
+  libcanberra-gtk3,
+  gnome,
+  gst_all_1,
+  libmusicbrainz5,
+  libdiscid,
+  isocodes,
+  gsettings-desktop-schemas,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sound-juicer";

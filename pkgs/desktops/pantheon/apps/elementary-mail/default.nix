@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, pkg-config, meson, ninja
-, python3, vala, gtk3, libxml2, libhandy, webkitgtk_4_1, folks, glib-networking
-, granite, evolution-data-server, wrapGAppsHook, libgee }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  pkg-config,
+  meson,
+  ninja,
+  python3,
+  vala,
+  gtk3,
+  libxml2,
+  libhandy,
+  webkitgtk_4_1,
+  folks,
+  glib-networking,
+  granite,
+  evolution-data-server,
+  wrapGAppsHook,
+  libgee,
+}:
 
 stdenv.mkDerivation rec {
   pname = "elementary-mail";

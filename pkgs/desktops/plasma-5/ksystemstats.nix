@@ -1,5 +1,12 @@
-{ mkDerivation, lib, extra-cmake-modules, libksysguard, libnl, lm_sensors
-, networkmanager-qt }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  libksysguard,
+  libnl,
+  lm_sensors,
+  networkmanager-qt,
+}:
 
 mkDerivation {
   pname = "ksystemstats";

@@ -1,5 +1,13 @@
-{ fetchFromGitHub, lib, stdenv, zlib, qtbase, qt5compat ? null, cmake
-, fixDarwinDylibNames }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  zlib,
+  qtbase,
+  qt5compat ? null,
+  cmake,
+  fixDarwinDylibNames,
+}:
 
 stdenv.mkDerivation rec {
   pname = "quazip";

@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, rustPlatform, bzip2, curl, zlib
-, zstd, libiconv, CoreServices }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  rustPlatform,
+  bzip2,
+  curl,
+  zlib,
+  zstd,
+  libiconv,
+  CoreServices,
+}:
 
 stdenv.mkDerivation rec {
   pname = "git-cinnabar";

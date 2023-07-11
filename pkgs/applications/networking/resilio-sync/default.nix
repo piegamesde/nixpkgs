@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, libxcrypt-legacy }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  libxcrypt-legacy,
+}:
 
 stdenv.mkDerivation rec {
   pname = "resilio-sync";

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchzip, makeWrapper, which, nodejs, mkYarnPackage
-, fetchYarnDeps, python3, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  makeWrapper,
+  which,
+  nodejs,
+  mkYarnPackage,
+  fetchYarnDeps,
+  python3,
+  nixosTests,
+}:
 
 mkYarnPackage rec {
   pname = "hedgedoc";

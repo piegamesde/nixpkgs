@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, ocaml, findlib, ocamlbuild, ctypes, libsodium }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  ctypes,
+  libsodium,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-sodium";

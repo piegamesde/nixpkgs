@@ -1,4 +1,10 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, pybind11 }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pybind11,
+}:
 
 buildPythonPackage rec {
   pname = "fasttext-predict";

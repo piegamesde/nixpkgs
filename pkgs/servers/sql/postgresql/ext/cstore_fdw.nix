@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, postgresql, protobufc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  postgresql,
+  protobufc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cstore_fdw";

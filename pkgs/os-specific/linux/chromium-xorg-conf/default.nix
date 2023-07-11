@@ -1,4 +1,6 @@
-{ fetchFromGitiles }:
+{
+  fetchFromGitiles,
+}:
 
 fetchFromGitiles {
   name = "chromium-xorg-conf";

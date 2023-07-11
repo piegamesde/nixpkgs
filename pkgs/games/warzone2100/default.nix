@@ -1,14 +1,45 @@
-{ lib, stdenv, fetchurl, cmake, ninja, p7zip, pkg-config, asciidoctor, gettext
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  ninja,
+  p7zip,
+  pkg-config,
+  asciidoctor,
+  gettext
 
-, SDL2, libtheora, libvorbis, libopus, openal, openalSoft, physfs, miniupnpc
-, libsodium, curl, libpng, freetype, harfbuzz, sqlite, which, vulkan-headers
-, vulkan-loader, shaderc
+  ,
+  SDL2,
+  libtheora,
+  libvorbis,
+  libopus,
+  openal,
+  openalSoft,
+  physfs,
+  miniupnpc,
+  libsodium,
+  curl,
+  libpng,
+  freetype,
+  harfbuzz,
+  sqlite,
+  which,
+  vulkan-headers,
+  vulkan-loader,
+  shaderc
 
-, testers, warzone2100, nixosTests
+  ,
+  testers,
+  warzone2100,
+  nixosTests
 
-, gitUpdater
+  ,
+  gitUpdater
 
-, withVideos ? false }:
+  ,
+  withVideos ? false
+}:
 
 let
   pname = "warzone2100";

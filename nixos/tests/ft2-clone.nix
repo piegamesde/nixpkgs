@@ -1,28 +1,35 @@
-import ./make-test-python.nix ({ pkgs, ... }: {
-  name = "ft2-clone";
-  meta = with pkgs.lib.maintainers; { maintainers = [ fgaz ]; };
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }: {
+    name = "ft2-clone";
+    meta = with pkgs.lib.maintainers; { maintainers = [ fgaz ]; };
 
-  nodes.machine = { config, pkgs, ... }: {
-    imports = [ ./common/x11.nix ];
+    nodes.machine = {
+        config,
+        pkgs,
+        ...
+      }: {
+        imports = [ ./common/x11.nix ];
 
-    services.xserver.enable = true;
-    sound.enable = true;
-    environment.systemPackages = [ pkgs.ft2-clone ];
-  };
+        services.xserver.enable = true;
+        sound.enable = true;
+        environment.systemPackages = [ pkgs.ft2-clone ];
+      };
 
-  enableOCR = true;
+    enableOCR = true;
 
-  testScript = ''
-    machine.wait_for_x()
-    # Add a dummy sound card, or the program won't start
-    machine.execute("modprobe snd-dummy")
+    testScript = ''
+      machine.wait_for_x()
+      # Add a dummy sound card, or the program won't start
+      machine.execute("modprobe snd-dummy")
 
-    machine.execute("ft2-clone >&2 &")
+      machine.execute("ft2-clone >&2 &")
 
-    machine.wait_for_window(r"Fasttracker")
-    machine.sleep(5)
-    machine.wait_for_text(r"(Songlen|Repstart|Time|About|Nibbles|Help)")
-    machine.screenshot("screen")
-  '';
-})
+      machine.wait_for_window(r"Fasttracker")
+      machine.sleep(5)
+      machine.wait_for_text(r"(Songlen|Repstart|Time|About|Nibbles|Help)")
+      machine.screenshot("screen")
+    '';
+  })
 

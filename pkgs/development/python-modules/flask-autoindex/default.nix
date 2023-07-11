@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, flask, flask-silk, future, pythonOlder
-, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  flask-silk,
+  future,
+  pythonOlder,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "flask-autoindex";

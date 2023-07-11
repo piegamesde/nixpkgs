@@ -1,11 +1,33 @@
-{ ruby, lib, callPackage, defaultGemConfig, buildEnv, runCommand, bundler, rsync
+{
+  ruby,
+  lib,
+  callPackage,
+  defaultGemConfig,
+  buildEnv,
+  runCommand,
+  bundler,
+  rsync,
 }@defs:
 
-{ name ? null, pname ? null, gemdir ? null, gemfile ? null, lockfile ? null
-, gemset ? null, groups ? [ "default" ], ruby ? defs.ruby
-, copyGemFiles ? false # Copy gem files instead of symlinking
-, gemConfig ? defaultGemConfig, postBuild ? null, document ? [ ], meta ? { }
-, ignoreCollisions ? false, passthru ? { }, ... }@args:
+{
+  name ? null,
+  pname ? null,
+  gemdir ? null,
+  gemfile ? null,
+  lockfile ? null,
+  gemset ? null,
+  groups ? [ "default" ],
+  ruby ? defs.ruby,
+  copyGemFiles ? false # Copy gem files instead of symlinking
+  ,
+  gemConfig ? defaultGemConfig,
+  postBuild ? null,
+  document ? [ ],
+  meta ? { },
+  ignoreCollisions ? false,
+  passthru ? { },
+  ...
+}@args:
 
 let
   inherit (import ../bundled-common/functions.nix {

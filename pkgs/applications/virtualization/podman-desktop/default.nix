@@ -1,6 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, fetchYarnDeps, yarn, fixup_yarn_lock, nodejs
-, makeWrapper, copyDesktopItems, desktopToDarwinBundle, electron
-, makeDesktopItem }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  yarn,
+  fixup_yarn_lock,
+  nodejs,
+  makeWrapper,
+  copyDesktopItems,
+  desktopToDarwinBundle,
+  electron,
+  makeDesktopItem,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "podman-desktop";

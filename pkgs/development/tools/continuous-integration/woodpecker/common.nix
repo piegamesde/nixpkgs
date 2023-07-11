@@ -1,4 +1,7 @@
-{ lib, fetchFromGitHub }:
+{
+  lib,
+  fetchFromGitHub,
+}:
 let
   version = "0.15.7";
   srcSha256 = "sha256-Y6ew9CychStC26A7uyjChvkR+oDis3GZq8kYLHS7AXQ=";

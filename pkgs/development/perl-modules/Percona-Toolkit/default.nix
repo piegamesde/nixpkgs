@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, buildPerlPackage, shortenPerlShebang, DBDmysql, DBI
-, IOSocketSSL, TermReadKey }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPerlPackage,
+  shortenPerlShebang,
+  DBDmysql,
+  DBI,
+  IOSocketSSL,
+  TermReadKey,
+}:
 
 buildPerlPackage rec {
   pname = "Percona-Toolkit";

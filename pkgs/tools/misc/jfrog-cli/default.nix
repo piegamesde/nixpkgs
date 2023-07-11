@@ -1,4 +1,9 @@
-{ buildGoModule, fetchFromGitHub, pkgs, lib }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  pkgs,
+  lib,
+}:
 
 buildGoModule rec {
   pname = "jfrog-cli";

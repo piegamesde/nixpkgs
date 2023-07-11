@@ -1,4 +1,11 @@
-{ lib, stdenv, cmake, ninja, gtest, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  cmake,
+  ninja,
+  gtest,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libhwy";

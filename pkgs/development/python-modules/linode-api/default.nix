@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, requests
-, pytestCheckHook, mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  requests,
+  pytestCheckHook,
+  mock,
+}:
 
 buildPythonPackage rec {
   pname = "linode-api";

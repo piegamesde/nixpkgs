@@ -1,7 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, callPackage, makeWrapper, clang, llvm
-# TODO: switch to latest versions when 2.6 release is out to include
-#   https://github.com/google/honggfuzz/commit/90fdf81006614664ef05e5e3c6f94d91610f11b2
-, libbfd_2_38, libopcodes_2_38, libunwind, libblocksruntime }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  callPackage,
+  makeWrapper,
+  clang,
+  llvm
+  # TODO: switch to latest versions when 2.6 release is out to include
+  #   https://github.com/google/honggfuzz/commit/90fdf81006614664ef05e5e3c6f94d91610f11b2
+  ,
+  libbfd_2_38,
+  libopcodes_2_38,
+  libunwind,
+  libblocksruntime,
+}:
 
 stdenv.mkDerivation rec {
   pname = "honggfuzz";

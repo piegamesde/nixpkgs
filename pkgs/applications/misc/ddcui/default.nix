@@ -1,5 +1,13 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, pkg-config, qtbase, qttools
-, ddcutil }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  qtbase,
+  qttools,
+  ddcutil,
+}:
 
 mkDerivation rec {
   pname = "ddcui";

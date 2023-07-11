@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, pkg-config, fcitx5
-, m17n_lib, m17n_db, gettext, fmt }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  pkg-config,
+  fcitx5,
+  m17n_lib,
+  m17n_db,
+  gettext,
+  fmt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fcitx5-m17n";

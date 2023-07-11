@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, mpi, perl, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  mpi,
+  perl,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ior";

@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pyasn1, pyasn1-modules
-, pythonAtLeast, pythonOlder, pytestCheckHook, openldap, cyrus_sasl }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyasn1,
+  pyasn1-modules,
+  pythonAtLeast,
+  pythonOlder,
+  pytestCheckHook,
+  openldap,
+  cyrus_sasl,
+}:
 
 buildPythonPackage rec {
   pname = "python-ldap";

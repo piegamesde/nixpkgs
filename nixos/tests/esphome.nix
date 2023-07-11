@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   let
     testPort = 6052;
@@ -8,21 +12,25 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
     meta.maintainers = with pkgs.lib.maintainers; [ oddlama ];
 
     nodes = {
-      esphomeTcp = { ... }: {
-        services.esphome = {
-          enable = true;
-          port = testPort;
-          address = "0.0.0.0";
-          openFirewall = true;
+      esphomeTcp = {
+          ...
+        }: {
+          services.esphome = {
+            enable = true;
+            port = testPort;
+            address = "0.0.0.0";
+            openFirewall = true;
+          };
         };
-      };
 
-      esphomeUnix = { ... }: {
-        services.esphome = {
-          enable = true;
-          enableUnixSocket = true;
+      esphomeUnix = {
+          ...
+        }: {
+          services.esphome = {
+            enable = true;
+            enableUnixSocket = true;
+          };
         };
-      };
     };
 
     testScript = ''

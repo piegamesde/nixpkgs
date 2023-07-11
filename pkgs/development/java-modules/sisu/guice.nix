@@ -1,4 +1,6 @@
-{ fetchMaven }:
+{
+  fetchMaven,
+}:
 
 {
   sisuGuice_2_9_4 = map (obj:

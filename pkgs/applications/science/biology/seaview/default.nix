@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, coreutils, fltk, libjpeg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  coreutils,
+  fltk,
+  libjpeg,
+}:
 
 stdenv.mkDerivation rec {
   version = "5.0.5";

@@ -1,8 +1,41 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, qtbase, qtmultimedia, qscintilla
-, bison, flex, eigen, boost, libGLU, libGL, glew, opencsg, cgal, mpfr, gmp, glib
-, pkg-config, harfbuzz, gettext, freetype, fontconfig, double-conversion, lib3mf
-, libzip, mkDerivation, qtmacextras, qmake, spacenavSupport ? stdenv.isLinux
-, libspnav, wayland, wayland-protocols, qtwayland, cairo }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  qtbase,
+  qtmultimedia,
+  qscintilla,
+  bison,
+  flex,
+  eigen,
+  boost,
+  libGLU,
+  libGL,
+  glew,
+  opencsg,
+  cgal,
+  mpfr,
+  gmp,
+  glib,
+  pkg-config,
+  harfbuzz,
+  gettext,
+  freetype,
+  fontconfig,
+  double-conversion,
+  lib3mf,
+  libzip,
+  mkDerivation,
+  qtmacextras,
+  qmake,
+  spacenavSupport ? stdenv.isLinux,
+  libspnav,
+  wayland,
+  wayland-protocols,
+  qtwayland,
+  cairo,
+}:
 
 mkDerivation rec {
   pname = "openscad";

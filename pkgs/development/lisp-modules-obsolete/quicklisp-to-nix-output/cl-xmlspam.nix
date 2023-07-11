@@ -1,5 +1,8 @@
 # Generated file.
-args@{ fetchurl, ... }: rec {
+args@{
+  fetchurl,
+  ...
+}: rec {
   baseName = "cl-xmlspam";
   version = "20101006-http";
 

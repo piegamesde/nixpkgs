@@ -1,5 +1,17 @@
-{ version, sha256, installFiles }:
-{ lib, mkDerivation, fetchFromGitHub, qtbase, qmake, cmake, zip }:
+{
+  version,
+  sha256,
+  installFiles,
+}:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  qtbase,
+  qmake,
+  cmake,
+  zip,
+}:
 
 mkDerivation rec {
   passthru = {

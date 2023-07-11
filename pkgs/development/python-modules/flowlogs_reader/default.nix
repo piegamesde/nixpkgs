@@ -1,5 +1,14 @@
-{ lib, boto3, botocore, buildPythonPackage, fetchFromGitHub, parquet
-, pytestCheckHook, python-dateutil, pythonOlder }:
+{
+  lib,
+  boto3,
+  botocore,
+  buildPythonPackage,
+  fetchFromGitHub,
+  parquet,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "flowlogs-reader";

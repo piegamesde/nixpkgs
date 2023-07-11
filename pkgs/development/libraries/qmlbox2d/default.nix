@@ -1,4 +1,10 @@
-{ lib, stdenv, qtdeclarative, fetchFromGitHub, qmake }:
+{
+  lib,
+  stdenv,
+  qtdeclarative,
+  fetchFromGitHub,
+  qmake,
+}:
 stdenv.mkDerivation {
   pname = "qml-box2d";
   version = "unstable-2018-04-06";

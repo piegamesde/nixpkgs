@@ -1,7 +1,26 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, stdenv, zlib, xz, gzip
-, bzip2, gnutar, p7zip, cabextract, cramfsprogs, cramfsswap, sasquatch
-, squashfsTools, matplotlib, nose, pycrypto, pyqtgraph
-, visualizationSupport ? false }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  stdenv,
+  zlib,
+  xz,
+  gzip,
+  bzip2,
+  gnutar,
+  p7zip,
+  cabextract,
+  cramfsprogs,
+  cramfsswap,
+  sasquatch,
+  squashfsTools,
+  matplotlib,
+  nose,
+  pycrypto,
+  pyqtgraph,
+  visualizationSupport ? false
+}:
 
 buildPythonPackage rec {
   pname = "binwalk${lib.optionalString visualizationSupport "-full"}";

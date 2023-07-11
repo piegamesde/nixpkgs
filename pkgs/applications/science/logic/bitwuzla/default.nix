@@ -1,7 +1,24 @@
-{ stdenv, fetchFromGitHub, lib, python3, cmake, lingeling, btor2tools, symfpu
-, gtest, gmp, cadical, minisat, picosat, cryptominisat, zlib, pkg-config
-# "*** internal error in 'lglib.c': watcher stack overflow" on aarch64-linux
-, withLingeling ? !stdenv.hostPlatform.isAarch64 }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  python3,
+  cmake,
+  lingeling,
+  btor2tools,
+  symfpu,
+  gtest,
+  gmp,
+  cadical,
+  minisat,
+  picosat,
+  cryptominisat,
+  zlib,
+  pkg-config
+  # "*** internal error in 'lglib.c': watcher stack overflow" on aarch64-linux
+  ,
+  withLingeling ? !stdenv.hostPlatform.isAarch64
+}:
 
 stdenv.mkDerivation rec {
   pname = "bitwuzla";

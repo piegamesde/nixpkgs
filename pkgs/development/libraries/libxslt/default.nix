@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchurl, pkg-config, autoreconfHook, libxml2, findXMLCatalogs
-, gettext, python, ncurses, libxcrypt, libgcrypt, cryptoSupport ? false
-, pythonSupport ? libxml2.pythonSupport, gnome }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  autoreconfHook,
+  libxml2,
+  findXMLCatalogs,
+  gettext,
+  python,
+  ncurses,
+  libxcrypt,
+  libgcrypt,
+  cryptoSupport ? false,
+  pythonSupport ? libxml2.pythonSupport,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libxslt";

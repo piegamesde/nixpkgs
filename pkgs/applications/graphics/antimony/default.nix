@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, libpng, python3, libGLU, libGL, qtbase
-, wrapQtAppsHook, ncurses, cmake, flex, lemon, makeDesktopItem, copyDesktopItems
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libpng,
+  python3,
+  libGLU,
+  libGL,
+  qtbase,
+  wrapQtAppsHook,
+  ncurses,
+  cmake,
+  flex,
+  lemon,
+  makeDesktopItem,
+  copyDesktopItems,
 }:
 
 let

@@ -1,4 +1,9 @@
-{ lib, python3, khard, testers }:
+{
+  lib,
+  python3,
+  khard,
+  testers,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   version = "0.18.0";

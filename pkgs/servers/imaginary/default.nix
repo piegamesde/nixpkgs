@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchpatch, pkg-config, vips }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  vips,
+}:
 
 buildGoModule rec {
   pname = "imaginary";

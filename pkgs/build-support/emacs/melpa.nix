@@ -1,7 +1,15 @@
 # builder for Emacs packages built for packages.el
 # using MELPA package-build.el
 
-{ lib, stdenv, fetchFromGitHub, emacs, texinfo, writeText, gcc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  emacs,
+  texinfo,
+  writeText,
+  gcc,
+}:
 
 with lib;
 
@@ -9,9 +17,15 @@ with lib;
 /* pname: Nix package name without special symbols and without version or
    "emacs-" prefix.
 */
-pname
-# ename: Original Emacs package name, possibly containing special symbols.
-, ename ? null, version, recipe, meta ? { }, ... }@args:
+  pname
+  # ename: Original Emacs package name, possibly containing special symbols.
+  ,
+  ename ? null,
+  version,
+  recipe,
+  meta ? { },
+  ...
+}@args:
 
 let
 

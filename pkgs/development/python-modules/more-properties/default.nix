@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "more-properties";

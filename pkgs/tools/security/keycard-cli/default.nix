@@ -1,4 +1,11 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, pkg-config, pcsclite }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  pkg-config,
+  pcsclite,
+}:
 
 buildGoModule rec {
   pname = "keycard-cli";

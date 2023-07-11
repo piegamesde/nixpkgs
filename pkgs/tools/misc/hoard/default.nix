@@ -1,5 +1,13 @@
-{ lib, rustPlatform, fetchFromGitHub, ncurses, openssl, pkg-config, stdenv
-, Security }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  ncurses,
+  openssl,
+  pkg-config,
+  stdenv,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "hoard";

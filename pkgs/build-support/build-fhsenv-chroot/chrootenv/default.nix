@@ -1,4 +1,11 @@
-{ lib, stdenv, meson, ninja, pkg-config, glib }:
+{
+  lib,
+  stdenv,
+  meson,
+  ninja,
+  pkg-config,
+  glib,
+}:
 
 stdenv.mkDerivation {
   name = "chrootenv";

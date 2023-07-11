@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, eigen, boost, libnabo }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  eigen,
+  boost,
+  libnabo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libpointmatcher";

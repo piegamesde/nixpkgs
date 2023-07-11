@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, cmake, meson, ninja, pkg-config, wf-config
-, cairo, doctest, libdrm, libexecinfo, libinput, libjpeg, libxkbcommon, wayland
-, wayland-protocols, wayland-scanner, wlroots, pango, xorg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  meson,
+  ninja,
+  pkg-config,
+  wf-config,
+  cairo,
+  doctest,
+  libdrm,
+  libexecinfo,
+  libinput,
+  libjpeg,
+  libxkbcommon,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  wlroots,
+  pango,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wayfire";

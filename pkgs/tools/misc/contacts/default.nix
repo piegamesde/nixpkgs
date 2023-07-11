@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, xcbuildHook, Foundation, AddressBook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  xcbuildHook,
+  Foundation,
+  AddressBook,
+}:
 
 stdenv.mkDerivation {
   version = "1.1a-3";

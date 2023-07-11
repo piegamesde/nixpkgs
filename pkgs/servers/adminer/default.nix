@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, php, nix-update-script }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  php,
+  nix-update-script,
+}:
 
 stdenv.mkDerivation rec {
   version = "4.8.1";

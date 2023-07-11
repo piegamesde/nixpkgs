@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchFromGitHub, bottle, importlib-resources
-, proxy_tools, pygobject3, pyqtwebengine, pytest, pythonOlder, qt5, qtpy, six
-, xvfb-run }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  bottle,
+  importlib-resources,
+  proxy_tools,
+  pygobject3,
+  pyqtwebengine,
+  pytest,
+  pythonOlder,
+  qt5,
+  qtpy,
+  six,
+  xvfb-run,
+}:
 
 buildPythonPackage rec {
   pname = "pywebview";

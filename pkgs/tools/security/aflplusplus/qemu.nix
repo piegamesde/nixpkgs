@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, aflplusplus, python3, zlib, pkg-config, glib, perl
-, texinfo, libuuid, flex, bison, pixman, autoconf }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  aflplusplus,
+  python3,
+  zlib,
+  pkg-config,
+  glib,
+  perl,
+  texinfo,
+  libuuid,
+  flex,
+  bison,
+  pixman,
+  autoconf,
+}:
 
 let
   qemuName = "qemu-3.1.0";

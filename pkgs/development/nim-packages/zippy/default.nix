@@ -1,4 +1,9 @@
-{ lib, buildNimPackage, fetchFromGitHub, unzip }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+  unzip,
+}:
 
 buildNimPackage rec {
   pname = "zippy";

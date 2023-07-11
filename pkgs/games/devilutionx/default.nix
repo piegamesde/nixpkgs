@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, fetchurl, bzip2, cmake, pkg-config
-, gettext, libsodium, SDL2, SDL_audiolib, SDL2_image, fmt, libpng, smpq }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchurl,
+  bzip2,
+  cmake,
+  pkg-config,
+  gettext,
+  libsodium,
+  SDL2,
+  SDL_audiolib,
+  SDL2_image,
+  fmt,
+  libpng,
+  smpq,
+}:
 
 let
   # TODO: submit a PR upstream to allow system copies of these libraries where possible

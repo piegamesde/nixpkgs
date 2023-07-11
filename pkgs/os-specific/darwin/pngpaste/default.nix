@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, AppKit, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  AppKit,
+  Cocoa,
+}:
 
 let
   pname = "pngpaste";

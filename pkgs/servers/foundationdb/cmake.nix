@@ -1,9 +1,23 @@
 # This builder is for FoundationDB CMake build system.
 
-{ lib, fetchFromGitHub, cmake, ninja, python3, openjdk, mono, pkg-config
-, msgpack, toml11
+{
+  lib,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  python3,
+  openjdk,
+  mono,
+  pkg-config,
+  msgpack,
+  toml11
 
-, gccStdenv, llvmPackages, useClang ? false, ... }:
+  ,
+  gccStdenv,
+  llvmPackages,
+  useClang ? false,
+  ...
+}:
 
 let
   stdenv = if useClang then llvmPackages.libcxxStdenv else gccStdenv;
@@ -18,8 +32,15 @@ let
       patch = lib.toInt (lib.versions.patch version);
     in isOdd patch;
 
-  makeFdb = { version, sha256, rev ? "refs/tags/${version}"
-    , officialRelease ? true, patches ? [ ], boost, ssl }:
+  makeFdb = {
+      version,
+      sha256,
+      rev ? "refs/tags/${version}",
+      officialRelease ? true,
+      patches ? [ ],
+      boost,
+      ssl,
+    }:
     stdenv.mkDerivation {
       pname = "foundationdb";
       inherit version;

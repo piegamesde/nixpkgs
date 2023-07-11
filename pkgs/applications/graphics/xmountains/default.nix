@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, xorg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xmountains";

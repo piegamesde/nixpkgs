@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "scikit-fmm";

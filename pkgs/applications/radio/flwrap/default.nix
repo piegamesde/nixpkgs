@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, fltk13, libjpeg, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fltk13,
+  libjpeg,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.3.6";

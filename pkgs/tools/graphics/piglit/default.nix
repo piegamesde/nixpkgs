@@ -1,6 +1,23 @@
-{ stdenv, fetchFromGitLab, lib, cmake, freeglut, libGL, libGLU, libglvnd
-, makeWrapper, ninja, pkg-config, python3, waffle, wayland, libX11, libXrender
-, libxcb, libxkbcommon }:
+{
+  stdenv,
+  fetchFromGitLab,
+  lib,
+  cmake,
+  freeglut,
+  libGL,
+  libGLU,
+  libglvnd,
+  makeWrapper,
+  ninja,
+  pkg-config,
+  python3,
+  waffle,
+  wayland,
+  libX11,
+  libXrender,
+  libxcb,
+  libxkbcommon,
+}:
 
 stdenv.mkDerivation rec {
   pname = "piglit";

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, cython, fetchFromGitHub, libpcap, pkgconfig
-, pytestCheckHook, python, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  cython,
+  fetchFromGitHub,
+  libpcap,
+  pkgconfig,
+  pytestCheckHook,
+  python,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pcapy-ng";

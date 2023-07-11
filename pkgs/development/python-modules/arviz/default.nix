@@ -1,11 +1,36 @@
-{ lib, buildPythonPackage, fetchFromGitHub, emcee, matplotlib, netcdf4, numba
-, numpy, pandas, pytest, setuptools, cloudpickle, pytestCheckHook, scipy
-, packaging, typing-extensions, pythonOlder, xarray, xarray-einstats, zarr
-, ffmpeg, h5py, jaxlib, torchvision, jax
-# , pymc3 (circular dependency)
-, pyro-ppl
-#, pystan (not packaged)
-, numpyro }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  emcee,
+  matplotlib,
+  netcdf4,
+  numba,
+  numpy,
+  pandas,
+  pytest,
+  setuptools,
+  cloudpickle,
+  pytestCheckHook,
+  scipy,
+  packaging,
+  typing-extensions,
+  pythonOlder,
+  xarray,
+  xarray-einstats,
+  zarr,
+  ffmpeg,
+  h5py,
+  jaxlib,
+  torchvision,
+  jax
+  # , pymc3 (circular dependency)
+  ,
+  pyro-ppl
+  #, pystan (not packaged)
+  ,
+  numpyro,
+}:
 
 buildPythonPackage rec {
   pname = "arviz";

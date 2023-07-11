@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, requests, requests-oauthlib
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  requests-oauthlib,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "twitterapi";

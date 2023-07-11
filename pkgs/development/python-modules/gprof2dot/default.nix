@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildPythonPackage, python, graphviz }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  python,
+  graphviz,
+}:
 
 buildPythonPackage rec {
   pname = "gprof2dot";

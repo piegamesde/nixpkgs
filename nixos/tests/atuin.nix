@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   let
     testPort = 8888;
@@ -10,17 +14,22 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
     meta.maintainers = with pkgs.lib.maintainers; [ devusb ];
 
     nodes = {
-      server = { ... }: {
-        services.atuin = {
-          enable = true;
-          port = testPort;
-          host = "0.0.0.0";
-          openFirewall = true;
-          openRegistration = true;
+      server = {
+          ...
+        }: {
+          services.atuin = {
+            enable = true;
+            port = testPort;
+            host = "0.0.0.0";
+            openFirewall = true;
+            openRegistration = true;
+          };
         };
-      };
 
-      client = { ... }: { };
+      client = {
+          ...
+        }:
+        { };
 
     };
 

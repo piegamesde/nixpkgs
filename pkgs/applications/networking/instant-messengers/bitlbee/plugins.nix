@@ -1,4 +1,8 @@
-{ lib, runCommandLocal, bitlbee }:
+{
+  lib,
+  runCommandLocal,
+  bitlbee,
+}:
 
 plugins:
 runCommandLocal "bitlbee-plugins" {

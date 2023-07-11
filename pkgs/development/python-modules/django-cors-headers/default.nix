@@ -1,5 +1,11 @@
-{ lib, fetchFromGitHub, buildPythonPackage, django, pytest-django
-, pytestCheckHook }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  django,
+  pytest-django,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "django-cors-headers";

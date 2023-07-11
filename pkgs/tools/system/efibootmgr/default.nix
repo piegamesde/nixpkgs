@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, efivar, popt }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  efivar,
+  popt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "efibootmgr";

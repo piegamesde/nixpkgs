@@ -1,5 +1,12 @@
-{ fetchFromGitHub, lib, buildPythonPackage, git, which, pythonOlder
-, unittestCheckHook }:
+{
+  fetchFromGitHub,
+  lib,
+  buildPythonPackage,
+  git,
+  which,
+  pythonOlder,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "nix-prefetch-github";

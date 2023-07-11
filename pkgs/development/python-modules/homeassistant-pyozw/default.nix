@@ -1,4 +1,9 @@
-{ python_openzwave, fetchPypi, openzwave, fetchFromGitHub }:
+{
+  python_openzwave,
+  fetchPypi,
+  openzwave,
+  fetchFromGitHub,
+}:
 
 (python_openzwave.override {
   openzwave = openzwave.overrideAttrs (oldAttrs: {

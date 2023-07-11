@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, ocaml, findlib, ocamlbuild, buildDunePackage }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  buildDunePackage,
+}:
 
 let
   pname = "cppo";

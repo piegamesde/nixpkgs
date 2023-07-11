@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, unzip, makeDesktopItem, copyDesktopItems, nwjs
-, wrapGAppsHook, gsettings-desktop-schemas, gtk3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  makeDesktopItem,
+  copyDesktopItems,
+  nwjs,
+  wrapGAppsHook,
+  gsettings-desktop-schemas,
+  gtk3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "emuflight-configurator";

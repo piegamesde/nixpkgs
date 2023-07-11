@@ -1,6 +1,22 @@
-{ boto3, buildPythonPackage, crc32c, which, fetchFromGitHub, lib, matplotlib
-, moto, numpy, pillow, protobuf, pytestCheckHook, torch, six, soundfile
-, tensorboard, torchvision }:
+{
+  boto3,
+  buildPythonPackage,
+  crc32c,
+  which,
+  fetchFromGitHub,
+  lib,
+  matplotlib,
+  moto,
+  numpy,
+  pillow,
+  protobuf,
+  pytestCheckHook,
+  torch,
+  six,
+  soundfile,
+  tensorboard,
+  torchvision,
+}:
 
 buildPythonPackage rec {
   pname = "tensorboardx";

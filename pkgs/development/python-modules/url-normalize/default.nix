@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, poetry-core
-, pytest-flakes, pytest-mock, pytest-socket, pytestCheckHook, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  poetry-core,
+  pytest-flakes,
+  pytest-mock,
+  pytest-socket,
+  pytestCheckHook,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "url-normalize";

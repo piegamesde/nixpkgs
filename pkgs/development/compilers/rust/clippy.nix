@@ -1,4 +1,10 @@
-{ stdenv, lib, rustPlatform, Security, patchelf }:
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  Security,
+  patchelf,
+}:
 
 rustPlatform.buildRustPackage {
   pname = "clippy";

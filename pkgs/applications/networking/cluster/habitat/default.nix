@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, rustPlatform, pkg-config, libsodium, libarchive, openssl
-, zeromq }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  libsodium,
+  libarchive,
+  openssl,
+  zeromq,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "habitat";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flake8, python, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flake8,
+  python,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pep8-naming";

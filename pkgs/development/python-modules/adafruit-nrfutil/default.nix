@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, pythonOlder, pyserial
-, click, ecdsa, behave, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pythonOlder,
+  pyserial,
+  click,
+  ecdsa,
+  behave,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "adafruit-nrfutil";

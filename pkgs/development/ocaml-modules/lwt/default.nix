@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, libev, buildDunePackage, ocaml, cppo, dune-configurator
-, ocplib-endian }:
+{
+  lib,
+  fetchFromGitHub,
+  libev,
+  buildDunePackage,
+  ocaml,
+  cppo,
+  dune-configurator,
+  ocplib-endian,
+}:
 
 buildDunePackage rec {
   pname = "lwt";

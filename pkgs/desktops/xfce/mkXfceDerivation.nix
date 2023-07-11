@@ -1,9 +1,27 @@
-{ lib, stdenv, fetchFromGitLab, pkg-config, xfce4-dev-tools, hicolor-icon-theme
-, xfce, wrapGAppsHook, gitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  pkg-config,
+  xfce4-dev-tools,
+  hicolor-icon-theme,
+  xfce,
+  wrapGAppsHook,
+  gitUpdater,
+}:
 
-{ category, pname, version, attrPath ? "xfce.${pname}", rev-prefix ? "${pname}-"
-, rev ? "${rev-prefix}${version}", sha256, odd-unstable ? true
-, patchlevel-unstable ? true, ... }@args:
+{
+  category,
+  pname,
+  version,
+  attrPath ? "xfce.${pname}",
+  rev-prefix ? "${pname}-",
+  rev ? "${rev-prefix}${version}",
+  sha256,
+  odd-unstable ? true,
+  patchlevel-unstable ? true,
+  ...
+}@args:
 
 let
   inherit (builtins) filter getAttr head isList;

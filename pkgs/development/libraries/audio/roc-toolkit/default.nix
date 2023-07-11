@@ -1,7 +1,24 @@
-{ stdenv, lib, fetchFromGitHub, scons, ragel, gengetopt, pkg-config, libuv
-, openfecSupport ? true, openfec, speexdsp, libunwindSupport ? true, libunwind
-, pulseaudioSupport ? true, libpulseaudio, opensslSupport ? true, openssl
-, soxSupport ? true, sox }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  scons,
+  ragel,
+  gengetopt,
+  pkg-config,
+  libuv,
+  openfecSupport ? true,
+  openfec,
+  speexdsp,
+  libunwindSupport ? true,
+  libunwind,
+  pulseaudioSupport ? true,
+  libpulseaudio,
+  opensslSupport ? true,
+  openssl,
+  soxSupport ? true,
+  sox,
+}:
 
 stdenv.mkDerivation rec {
   pname = "roc-toolkit";

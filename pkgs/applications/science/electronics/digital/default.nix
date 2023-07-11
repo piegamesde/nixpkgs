@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, makeDesktopItem, copyDesktopItems, makeWrapper
-, jre, maven, git }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeDesktopItem,
+  copyDesktopItems,
+  makeWrapper,
+  jre,
+  maven,
+  git,
+}:
 
 let
   pkgDescription = "A digital logic designer and circuit simulator.";

@@ -1,5 +1,13 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, hatchling, plumbum
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hatchling,
+  plumbum,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "rpyc";

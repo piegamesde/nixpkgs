@@ -1,6 +1,20 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
-, setuptools, numpy, packaging, psutil, pyyaml, torch, evaluate, parameterized
-, transformers }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  setuptools,
+  numpy,
+  packaging,
+  psutil,
+  pyyaml,
+  torch,
+  evaluate,
+  parameterized,
+  transformers,
+}:
 
 buildPythonPackage rec {
   pname = "accelerate";

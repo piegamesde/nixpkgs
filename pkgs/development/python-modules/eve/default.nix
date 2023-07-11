@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, flask, events, pymongo
-, simplejson, cerberus, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  flask,
+  events,
+  pymongo,
+  simplejson,
+  cerberus,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "eve";

@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
   let
 
     customPkgs = pkgs.appendOverlays [
@@ -11,23 +15,30 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
     name = "containers-custom-pkgs";
     meta = { maintainers = with lib.maintainers; [ adisbladis erikarvstedt ]; };
 
-    nodes.machine = { config, ... }: {
-      assertions = let
-        helloName = (builtins.head
-          config.containers.test.config.system.extraDependencies).name;
-      in [{
-        assertion = helloName == "custom-hello";
-        message = "Unexpected value: ${helloName}";
-      }];
+    nodes.machine = {
+        config,
+        ...
+      }: {
+        assertions = let
+          helloName = (builtins.head
+            config.containers.test.config.system.extraDependencies).name;
+        in [{
+          assertion = helloName == "custom-hello";
+          message = "Unexpected value: ${helloName}";
+        }];
 
-      containers.test = {
-        autoStart = true;
-        config = { pkgs, config, ... }: {
-          nixpkgs.pkgs = customPkgs;
-          system.extraDependencies = [ pkgs.hello ];
+        containers.test = {
+          autoStart = true;
+          config = {
+              pkgs,
+              config,
+              ...
+            }: {
+              nixpkgs.pkgs = customPkgs;
+              system.extraDependencies = [ pkgs.hello ];
+            };
         };
       };
-    };
 
     # This test only consists of evaluating the test machine
     testScript = "pass";

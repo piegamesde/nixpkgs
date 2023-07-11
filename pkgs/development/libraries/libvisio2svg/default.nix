@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, freetype, libemf2svg, librevenge
-, libvisio, libwmf, libxml2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  freetype,
+  libemf2svg,
+  librevenge,
+  libvisio,
+  libwmf,
+  libxml2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libvisio2svg";

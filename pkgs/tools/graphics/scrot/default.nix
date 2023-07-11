@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, imlib2, autoreconfHook, autoconf-archive, libX11
-, libXext, libXfixes, libXcomposite, pkg-config, libbsd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  imlib2,
+  autoreconfHook,
+  autoconf-archive,
+  libX11,
+  libXext,
+  libXfixes,
+  libXcomposite,
+  pkg-config,
+  libbsd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "scrot";

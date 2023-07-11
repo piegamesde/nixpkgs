@@ -1,6 +1,18 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, which, linuxHeaders, clang, llvm
-, python3, curl, debugRuntime ? true, runtimeAsserts ? false
-, extraKleeuClibcConfig ? { } }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  which,
+  linuxHeaders,
+  clang,
+  llvm,
+  python3,
+  curl,
+  debugRuntime ? true,
+  runtimeAsserts ? false,
+  extraKleeuClibcConfig ? { }
+}:
 
 let
   localeSrcBase = "uClibc-locale-030818.tgz";

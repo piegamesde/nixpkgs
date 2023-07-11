@@ -1,11 +1,35 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libuuid, sane-backends
-, podofo, libjpeg, djvulibre, libxmlxx3, libzip, tesseract, intltool, poppler
-, json-glib, ninja, python3
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libuuid,
+  sane-backends,
+  podofo,
+  libjpeg,
+  djvulibre,
+  libxmlxx3,
+  libzip,
+  tesseract,
+  intltool,
+  poppler,
+  json-glib,
+  ninja,
+  python3
 
-# Gtk deps
-# upstream gImagereader supports Qt too
-, gobject-introspection, wrapGAppsHook, gtkmm3, gtksourceview3, gtksourceviewmm
-, gtkspell3, gtkspellmm, cairomm }:
+  # Gtk deps
+  # upstream gImagereader supports Qt too
+  ,
+  gobject-introspection,
+  wrapGAppsHook,
+  gtkmm3,
+  gtksourceview3,
+  gtksourceviewmm,
+  gtkspell3,
+  gtkspellmm,
+  cairomm,
+}:
 
 let
   variant = "gtk";

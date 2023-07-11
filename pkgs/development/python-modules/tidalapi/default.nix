@@ -1,4 +1,11 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, python-dateutil, requests }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  python-dateutil,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "tidalapi";

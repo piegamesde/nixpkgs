@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchurl, fetchFromGitHub, cmake, python3, rustPlatform, SDL2
-, fltk, rapidjson, gtest, Carbon, Cocoa }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchFromGitHub,
+  cmake,
+  python3,
+  rustPlatform,
+  SDL2,
+  fltk,
+  rapidjson,
+  gtest,
+  Carbon,
+  Cocoa,
+}:
 let
   version = "0.17.0";
   src = fetchFromGitHub {

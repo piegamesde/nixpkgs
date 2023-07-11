@@ -1,10 +1,28 @@
-{ lib, stdenv, nodejs-slim, mkYarnPackage, fetchFromGitHub, bundlerEnv
-, nixosTests, yarn, callPackage, imagemagick, ffmpeg, file, ruby_3_0
-, writeShellScript, fetchYarnDeps, fixup_yarn_lock, brotli
+{
+  lib,
+  stdenv,
+  nodejs-slim,
+  mkYarnPackage,
+  fetchFromGitHub,
+  bundlerEnv,
+  nixosTests,
+  yarn,
+  callPackage,
+  imagemagick,
+  ffmpeg,
+  file,
+  ruby_3_0,
+  writeShellScript,
+  fetchYarnDeps,
+  fixup_yarn_lock,
+  brotli
 
-# Allow building a fork or custom version of Mastodon:
-, pname ? "mastodon", version ? import ./version.nix, srcOverride ? null
-, dependenciesDir ? ./. # Should contain gemset.nix, yarn.nix and package.json.
+  # Allow building a fork or custom version of Mastodon:
+  ,
+  pname ? "mastodon",
+  version ? import ./version.nix,
+  srcOverride ? null,
+  dependenciesDir ? ./. # Should contain gemset.nix, yarn.nix and package.json.
 }:
 
 stdenv.mkDerivation rec {

@@ -1,3 +1,6 @@
-{ lib, ... }:
+{
+  lib,
+  ...
+}:
 
 lib.mkForce { enable = false; }

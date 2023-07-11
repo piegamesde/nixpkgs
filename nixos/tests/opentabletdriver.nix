@@ -1,14 +1,20 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let testUser = "alice";
   in {
     name = "opentabletdriver";
     meta = { maintainers = with pkgs.lib.maintainers; [ thiagokokada ]; };
 
-    nodes.machine = { pkgs, ... }: {
-      imports = [ ./common/user-account.nix ./common/x11.nix ];
-      test-support.displayManager.auto.user = testUser;
-      hardware.opentabletdriver.enable = true;
-    };
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        imports = [ ./common/user-account.nix ./common/x11.nix ];
+        test-support.displayManager.auto.user = testUser;
+        hardware.opentabletdriver.enable = true;
+      };
 
     testScript = ''
       machine.start()

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, fetchpatch, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.7.4";

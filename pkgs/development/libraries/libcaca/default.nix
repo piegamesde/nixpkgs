@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, imlib2, xorg, ncurses
-, pkg-config, zlib, x11Support ? !stdenv.isDarwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  imlib2,
+  xorg,
+  ncurses,
+  pkg-config,
+  zlib,
+  x11Support ? !stdenv.isDarwin
+}:
 
 stdenv.mkDerivation rec {
   pname = "libcaca";

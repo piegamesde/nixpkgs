@@ -1,4 +1,9 @@
-{ buildGoModule, buildGoPackage, fetchFromGitHub, lib }:
+{
+  buildGoModule,
+  buildGoPackage,
+  fetchFromGitHub,
+  lib,
+}:
 
 let
   version = "2.7.3";

@@ -1,4 +1,11 @@
-{ fetchFromGitLab, lib, stdenv, autoreconfHook, pkg-config, libusb1 }:
+{
+  fetchFromGitLab,
+  lib,
+  stdenv,
+  autoreconfHook,
+  pkg-config,
+  libusb1,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libjaylink";

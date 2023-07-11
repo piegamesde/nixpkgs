@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, libxml2, file, p7zip, unrar, unzip }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libxml2,
+  file,
+  p7zip,
+  unrar,
+  unzip,
+}:
 
 stdenv.mkDerivation {
   pname = "rarcrack";

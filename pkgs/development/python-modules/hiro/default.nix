@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, six, mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  mock,
+}:
 buildPythonPackage rec {
   pname = "hiro";
   version = "1.1.1";

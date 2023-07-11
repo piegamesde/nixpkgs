@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, catch2, cmake, unixODBC }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  catch2,
+  cmake,
+  unixODBC,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nanodbc";

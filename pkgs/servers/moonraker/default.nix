@@ -1,5 +1,12 @@
-{ lib, stdenvNoCC, fetchFromGitHub, python3, makeWrapper, unstableGitUpdater
-, nixosTests }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  python3,
+  makeWrapper,
+  unstableGitUpdater,
+  nixosTests,
+}:
 
 let
   pythonEnv = python3.withPackages (packages:

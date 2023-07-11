@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, fetchpatch, xmlto, docbook_xml_dtd_412, docbook_xsl
-, libxml2, fixDarwinDylibNames, pkgsStatic }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  xmlto,
+  docbook_xml_dtd_412,
+  docbook_xsl,
+  libxml2,
+  fixDarwinDylibNames,
+  pkgsStatic,
+}:
 
 stdenv.mkDerivation rec {
   pname = "giflib";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, libX11, libXi, libconfuse }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libX11,
+  libXi,
+  libconfuse,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dispad";

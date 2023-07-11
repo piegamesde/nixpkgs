@@ -1,5 +1,16 @@
-{ lib, stdenv, gcc10StdenvCompat, pkgs, mkCoqDerivation, coq, trakt, veriT
-, zchaff, fetchurl, version ? null }:
+{
+  lib,
+  stdenv,
+  gcc10StdenvCompat,
+  pkgs,
+  mkCoqDerivation,
+  coq,
+  trakt,
+  veriT,
+  zchaff,
+  fetchurl,
+  version ? null
+}:
 
 let
   # version of veriT that works with SMTCoq

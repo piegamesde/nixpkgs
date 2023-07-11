@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, jsonschema, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jsonschema,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "cvss";

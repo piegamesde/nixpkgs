@@ -1,5 +1,16 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, lxqt-build-tools, qtermwidget
-, qtbase, qttools, qtx11extras, gitUpdater, nixosTests }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  lxqt-build-tools,
+  qtermwidget,
+  qtbase,
+  qttools,
+  qtx11extras,
+  gitUpdater,
+  nixosTests,
+}:
 
 mkDerivation rec {
   pname = "qterminal";

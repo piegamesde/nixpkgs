@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchCrate, rustPlatform, openssl, pkg-config, Security }:
+{
+  lib,
+  stdenv,
+  fetchCrate,
+  rustPlatform,
+  openssl,
+  pkg-config,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "apkeep";

@@ -1,6 +1,23 @@
-{ lib, buildPythonPackage, fetchPypi, coreutils, pbr, prettytable, keystoneauth1
-, requests, warlock, oslo-utils, oslo-i18n, wrapt, pyopenssl, pythonOlder
-, stestr, testscenarios, ddt, requests-mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  coreutils,
+  pbr,
+  prettytable,
+  keystoneauth1,
+  requests,
+  warlock,
+  oslo-utils,
+  oslo-i18n,
+  wrapt,
+  pyopenssl,
+  pythonOlder,
+  stestr,
+  testscenarios,
+  ddt,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "python-glanceclient";

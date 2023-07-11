@@ -1,5 +1,15 @@
-{ lib, stdenv, mkDerivation, fetchzip, autoPatchelfHook, libusb1, libX11
-, libXtst, qtbase, libglvnd }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchzip,
+  autoPatchelfHook,
+  libusb1,
+  libX11,
+  libXtst,
+  qtbase,
+  libglvnd,
+}:
 
 mkDerivation rec {
   pname = "xp-pen-g430-driver";

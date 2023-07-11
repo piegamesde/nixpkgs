@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, meson, ninja, pkg-config, glib
-, gtk4, appstream-glib, desktop-file-utils, libxml2, wrapGAppsHook4, openssl
-, dbus, libadwaita, gst_all_1, Foundation, SystemConfiguration }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  meson,
+  ninja,
+  pkg-config,
+  glib,
+  gtk4,
+  appstream-glib,
+  desktop-file-utils,
+  libxml2,
+  wrapGAppsHook4,
+  openssl,
+  dbus,
+  libadwaita,
+  gst_all_1,
+  Foundation,
+  SystemConfiguration,
+}:
 
 stdenv.mkDerivation rec {
   pname = "netease-cloud-music-gtk";

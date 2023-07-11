@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, fetchpatch, tcl, tk }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  tcl,
+  tk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "uudeview";

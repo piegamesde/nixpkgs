@@ -1,6 +1,20 @@
-{ buildPythonPackage, fetchFromGitHub, lib, pythonOlder, clang_12, python
-, graphviz, matplotlib, numpy, pandas, plotly, scipy, six, withCuda ? false
-, cudatoolkit }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  pythonOlder,
+  clang_12,
+  python,
+  graphviz,
+  matplotlib,
+  numpy,
+  pandas,
+  plotly,
+  scipy,
+  six,
+  withCuda ? false,
+  cudatoolkit,
+}:
 
 buildPythonPackage rec {
   pname = "catboost";

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchzip, libtommath }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  libtommath,
+}:
 
 stdenv.mkDerivation rec {
   pname = "convertlit";

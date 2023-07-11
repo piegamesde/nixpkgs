@@ -1,7 +1,17 @@
-{ lib, stdenv, fetchurl, fetchpatch, perl, texinfo
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  perl,
+  texinfo
 
-# for passthru.tests
-, gnutls, samba, qemu }:
+  # for passthru.tests
+  ,
+  gnutls,
+  samba,
+  qemu,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libtasn1";

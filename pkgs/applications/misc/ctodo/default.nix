@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ncurses, readline }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ncurses,
+  readline,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ctodo";

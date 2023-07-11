@@ -8,7 +8,11 @@
 # must remember to do the check.
 #
 
-{ stdenv, pkgs, lib }:
+{
+  stdenv,
+  pkgs,
+  lib,
+}:
 
 assert stdenv.cc.isGNU;
 with pkgs;

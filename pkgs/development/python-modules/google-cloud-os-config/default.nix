@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, google-api-core, protobuf, proto-plus
-, pytestCheckHook, pytest-asyncio, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  protobuf,
+  proto-plus,
+  pytestCheckHook,
+  pytest-asyncio,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "google-cloud-os-config";

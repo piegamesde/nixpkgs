@@ -1,5 +1,18 @@
-{ lib, python3, fetchFromGitHub, fetchpatch, installShellFiles, libcdio-paranoia
-, cdrdao, libsndfile, flac, sox, util-linux, testers, whipper }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  fetchpatch,
+  installShellFiles,
+  libcdio-paranoia,
+  cdrdao,
+  libsndfile,
+  flac,
+  sox,
+  util-linux,
+  testers,
+  whipper,
+}:
 
 let bins = [ libcdio-paranoia cdrdao flac sox util-linux ];
 in python3.pkgs.buildPythonApplication rec {

@@ -1,5 +1,14 @@
-{ lib, aiohttp, buildPythonPackage, ddt, fetchPypi, pbr, pytestCheckHook
-, pythonOlder, setuptools }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  ddt,
+  fetchPypi,
+  pbr,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "aioresponses";

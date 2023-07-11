@@ -1,5 +1,13 @@
-{ lib, mkYarnPackage, fetchFromGitHub, gitUpdater, makeWrapper, electron, gogdl
-, legendary-gl }:
+{
+  lib,
+  mkYarnPackage,
+  fetchFromGitHub,
+  gitUpdater,
+  makeWrapper,
+  electron,
+  gogdl,
+  legendary-gl,
+}:
 
 mkYarnPackage rec {
   pname = "heroic-unwrapped";

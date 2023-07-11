@@ -1,4 +1,9 @@
-{ build-idris-package, fetchFromGitHub, contrib, lib }:
+{
+  build-idris-package,
+  fetchFromGitHub,
+  contrib,
+  lib,
+}:
 build-idris-package {
   pname = "setoids";
   version = "2018-06-18";

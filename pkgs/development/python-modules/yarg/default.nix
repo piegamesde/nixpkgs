@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, requests, nose, mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  nose,
+  mock,
+}:
 
 buildPythonPackage rec {
   pname = "yarg";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, enableNLS ? false, libnatspec ? null, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  enableNLS ? false,
+  libnatspec ? null,
+  libiconv,
+}:
 
 assert enableNLS -> libnatspec != null;
 

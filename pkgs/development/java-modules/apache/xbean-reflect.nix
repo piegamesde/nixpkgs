@@ -1,4 +1,6 @@
-{ fetchMaven }:
+{
+  fetchMaven,
+}:
 
 {
   xbeanReflect_3_4 = map (obj:

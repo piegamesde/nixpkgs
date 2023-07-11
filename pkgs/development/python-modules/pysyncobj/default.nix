@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pysyncobj";

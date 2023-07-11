@@ -1,4 +1,13 @@
-{ lib, stdenv, callPackage, cmake, ninja, swift, Foundation, DarwinTools }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  cmake,
+  ninja,
+  swift,
+  Foundation,
+  DarwinTools,
+}:
 
 let sources = callPackage ../sources.nix { };
 in stdenv.mkDerivation {

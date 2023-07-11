@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+}:
 stdenv.mkDerivation rec {
   pname = "hyprland-protocols";
   version = "unstable-2023-01-13";

@@ -1,6 +1,13 @@
-{ lib, fetchPypi, buildPythonPackage, six, numpy
-, scipy # optional, allows spline-related features (see patsy's docs)
-, pytestCheckHook }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  six,
+  numpy,
+  scipy # optional, allows spline-related features (see patsy's docs)
+  ,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "patsy";

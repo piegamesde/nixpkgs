@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchurl, pkgs, clwrapper }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkgs,
+  clwrapper,
+}:
 let
   quicklisp-to-nix-packages = rec {
     inherit stdenv lib fetchurl clwrapper pkgs quicklisp-to-nix-packages;

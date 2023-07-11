@@ -1,6 +1,21 @@
-{ lib, sqliteSupport ? true, postgresqlSupport ? true, mysqlSupport ? true
-, rustPlatform, fetchCrate, installShellFiles, pkg-config, openssl, stdenv
-, Security, libiconv, sqlite, postgresql, mariadb, zlib }:
+{
+  lib,
+  sqliteSupport ? true,
+  postgresqlSupport ? true,
+  mysqlSupport ? true,
+  rustPlatform,
+  fetchCrate,
+  installShellFiles,
+  pkg-config,
+  openssl,
+  stdenv,
+  Security,
+  libiconv,
+  sqlite,
+  postgresql,
+  mariadb,
+  zlib,
+}:
 
 assert lib.assertMsg
   (sqliteSupport == true || postgresqlSupport == true || mysqlSupport == true)

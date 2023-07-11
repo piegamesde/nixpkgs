@@ -1,7 +1,26 @@
-{ stdenv, lib, cacert, curl, runCommandLocal, unzip, appimage-run
-, addOpenGLRunpath, libGLU, xorg, buildFHSEnv, buildFHSEnvChroot, bash
-, writeText, ocl-icd, xkeyboard_config, glib, libarchive, libxcrypt, python2
-, aprutil }:
+{
+  stdenv,
+  lib,
+  cacert,
+  curl,
+  runCommandLocal,
+  unzip,
+  appimage-run,
+  addOpenGLRunpath,
+  libGLU,
+  xorg,
+  buildFHSEnv,
+  buildFHSEnvChroot,
+  bash,
+  writeText,
+  ocl-icd,
+  xkeyboard_config,
+  glib,
+  libarchive,
+  libxcrypt,
+  python2,
+  aprutil,
+}:
 
 let
   davinci = (stdenv.mkDerivation rec {

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, django, fetchPypi, python, pythonOlder
-, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  django,
+  fetchPypi,
+  python,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "django-formtools";

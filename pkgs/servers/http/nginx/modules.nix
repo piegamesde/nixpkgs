@@ -1,8 +1,38 @@
-{ lib, config, fetchFromGitHub, fetchFromGitLab, fetchhg, fetchpatch, runCommand
+{
+  lib,
+  config,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  fetchhg,
+  fetchpatch,
+  runCommand
 
-, arpa2common, brotli, curl, expat, fdk_aac, ffmpeg, geoip, libbsd, libiconv
-, libmaxminddb, libmodsecurity, libuuid, libxml2, lmdb, luajit, msgpuck, openssl
-, opentracing-cpp, pam, psol, which, yajl, zlib, zstd }:
+  ,
+  arpa2common,
+  brotli,
+  curl,
+  expat,
+  fdk_aac,
+  ffmpeg,
+  geoip,
+  libbsd,
+  libiconv,
+  libmaxminddb,
+  libmodsecurity,
+  libuuid,
+  libxml2,
+  lmdb,
+  luajit,
+  msgpuck,
+  openssl,
+  opentracing-cpp,
+  pam,
+  psol,
+  which,
+  yajl,
+  zlib,
+  zstd,
+}:
 
 let
 

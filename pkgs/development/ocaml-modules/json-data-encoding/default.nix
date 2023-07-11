@@ -1,4 +1,11 @@
-{ lib, fetchFromGitLab, buildDunePackage, uri, crowbar, alcotest }:
+{
+  lib,
+  fetchFromGitLab,
+  buildDunePackage,
+  uri,
+  crowbar,
+  alcotest,
+}:
 
 buildDunePackage rec {
   pname = "json-data-encoding";

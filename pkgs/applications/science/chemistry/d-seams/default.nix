@@ -1,5 +1,21 @@
-{ clangStdenv, fetchFromGitHub, fetchpatch, catch2, rang, fmt, yaml-cpp, cmake
-, eigen, lua, luaPackages, liblapack, blas, lib, boost, gsl }:
+{
+  clangStdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  catch2,
+  rang,
+  fmt,
+  yaml-cpp,
+  cmake,
+  eigen,
+  lua,
+  luaPackages,
+  liblapack,
+  blas,
+  lib,
+  boost,
+  gsl,
+}:
 
 clangStdenv.mkDerivation rec {
   version = "1.0.1";

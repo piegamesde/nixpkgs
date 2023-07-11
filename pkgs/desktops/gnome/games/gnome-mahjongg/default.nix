@@ -1,6 +1,22 @@
-{ stdenv, lib, fetchurl, fetchpatch, pkg-config, gnome, gtk3, wrapGAppsHook
-, librsvg, gettext, itstool, libxml2, meson, ninja, glib, vala
-, desktop-file-utils }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  gnome,
+  gtk3,
+  wrapGAppsHook,
+  librsvg,
+  gettext,
+  itstool,
+  libxml2,
+  meson,
+  ninja,
+  glib,
+  vala,
+  desktop-file-utils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-mahjongg";

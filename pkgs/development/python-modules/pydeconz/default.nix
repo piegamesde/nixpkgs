@@ -1,5 +1,15 @@
-{ lib, aiohttp, aioresponses, async-timeout, buildPythonPackage, fetchFromGitHub
-, orjson, pytest-aiohttp, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  orjson,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pydeconz";

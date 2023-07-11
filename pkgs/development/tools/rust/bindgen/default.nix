@@ -1,4 +1,10 @@
-{ rust-bindgen-unwrapped, zlib, bash, runCommand, runCommandCC }:
+{
+  rust-bindgen-unwrapped,
+  zlib,
+  bash,
+  runCommand,
+  runCommandCC,
+}:
 let
   clang = rust-bindgen-unwrapped.clang;
   self = runCommand "rust-bindgen-${rust-bindgen-unwrapped.version}" {

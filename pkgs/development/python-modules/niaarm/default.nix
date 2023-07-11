@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, niapy, nltk, pandas, poetry-core
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  niapy,
+  nltk,
+  pandas,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "niaarm";

@@ -1,6 +1,22 @@
-{ pkgs, buildPythonPackage, fetchPypi, astropy, requests, keyring
-, beautifulsoup4, html5lib, matplotlib, pillow, pytest, pytest-astropy
-, pytestCheckHook, pyvo, astropy-helpers, setuptools, isPy3k }:
+{
+  pkgs,
+  buildPythonPackage,
+  fetchPypi,
+  astropy,
+  requests,
+  keyring,
+  beautifulsoup4,
+  html5lib,
+  matplotlib,
+  pillow,
+  pytest,
+  pytest-astropy,
+  pytestCheckHook,
+  pyvo,
+  astropy-helpers,
+  setuptools,
+  isPy3k,
+}:
 
 buildPythonPackage rec {
   pname = "astroquery";

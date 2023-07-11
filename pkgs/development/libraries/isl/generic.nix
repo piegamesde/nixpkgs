@@ -1,6 +1,18 @@
-{ version, urls, sha256, configureFlags ? [ ], patches ? [ ] }:
+{
+  version,
+  urls,
+  sha256,
+  configureFlags ? [ ],
+  patches ? [ ]
+}:
 
-{ lib, stdenv, fetchurl, gmp, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gmp,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation {
   pname = "isl";

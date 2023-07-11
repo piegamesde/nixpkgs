@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, sdcc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  sdcc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sigrok-firmware-fx2lafw";

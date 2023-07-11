@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder, duckdb
-, hypothesis, ipython-sql, poetry-core, sqlalchemy, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  duckdb,
+  hypothesis,
+  ipython-sql,
+  poetry-core,
+  sqlalchemy,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "duckdb-engine";

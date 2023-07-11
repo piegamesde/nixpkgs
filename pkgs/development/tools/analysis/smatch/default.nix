@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, sqlite, openssl
-, buildllvmsparse ? false, buildc2xml ? false, libllvm, libxml2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  sqlite,
+  openssl,
+  buildllvmsparse ? false,
+  buildc2xml ? false,
+  libllvm,
+  libxml2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "smatch";

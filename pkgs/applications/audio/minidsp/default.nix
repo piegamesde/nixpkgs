@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, rustPlatform, stdenv, libusb1, AppKit, IOKit, pkg-config
-, }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  stdenv,
+  libusb1,
+  AppKit,
+  IOKit,
+  pkg-config,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "minidsp";
   version = "0.1.9";

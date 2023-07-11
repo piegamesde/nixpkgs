@@ -1,4 +1,11 @@
-{ lib, fetchPypi, buildPythonPackage, django, pytestCheckHook, pytest-django }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  django,
+  pytestCheckHook,
+  pytest-django,
+}:
 
 buildPythonPackage rec {
   pname = "jsonfield";

@@ -1,4 +1,7 @@
-{ appleDerivation, darwin-stubs }:
+{
+  appleDerivation,
+  darwin-stubs,
+}:
 
 appleDerivation {
   # Not strictly necessary, since libSystem depends on it, but it's nice to be explicit so we

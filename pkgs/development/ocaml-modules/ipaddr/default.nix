@@ -1,5 +1,12 @@
-{ lib, buildDunePackage, macaddr, domain-name, stdlib-shims, ounit2
-, ppx_sexp_conv }:
+{
+  lib,
+  buildDunePackage,
+  macaddr,
+  domain-name,
+  stdlib-shims,
+  ounit2,
+  ppx_sexp_conv,
+}:
 
 buildDunePackage rec {
   pname = "ipaddr";

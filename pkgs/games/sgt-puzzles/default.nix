@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, desktop-file-utils, gtk3, libX11, cmake, imagemagick
-, pkg-config, perl, wrapGAppsHook, nixosTests, isMobile ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  desktop-file-utils,
+  gtk3,
+  libX11,
+  cmake,
+  imagemagick,
+  pkg-config,
+  perl,
+  wrapGAppsHook,
+  nixosTests,
+  isMobile ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "sgt-puzzles";

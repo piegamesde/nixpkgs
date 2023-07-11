@@ -1,4 +1,10 @@
-{ lib, config, pkgs, utils, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  utils,
+  ...
+}:
 
 let
   inherit (lib) mdDoc mkEnableOption mkIf mkOption types;

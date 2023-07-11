@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, ncurses, libnl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  ncurses,
+  libnl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "userhosts";

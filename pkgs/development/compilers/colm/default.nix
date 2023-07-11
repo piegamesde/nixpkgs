@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, makeWrapper, gcc, asciidoc, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  gcc,
+  asciidoc,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "colm";

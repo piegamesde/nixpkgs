@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, nixosTests, cmake, pkg-config, AppKit
-, ApplicationServices, Carbon, libX11, libxkbcommon, xinput, xorg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nixosTests,
+  cmake,
+  pkg-config,
+  AppKit,
+  ApplicationServices,
+  Carbon,
+  libX11,
+  libxkbcommon,
+  xinput,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libuiohook";

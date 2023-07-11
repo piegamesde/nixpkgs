@@ -1,5 +1,15 @@
-{ fetchFromGitHub, gitMinimal, gfold, lib, libiconv, makeWrapper, rustPlatform
-, Security, stdenv, testers }:
+{
+  fetchFromGitHub,
+  gitMinimal,
+  gfold,
+  lib,
+  libiconv,
+  makeWrapper,
+  rustPlatform,
+  Security,
+  stdenv,
+  testers,
+}:
 
 let
   pname = "gfold";

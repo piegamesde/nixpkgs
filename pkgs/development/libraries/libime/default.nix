@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, cmake, extra-cmake-modules, boost
-, python3, fcitx5 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  boost,
+  python3,
+  fcitx5,
+}:
 
 let
   table = fetchurl {

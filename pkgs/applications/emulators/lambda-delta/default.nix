@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, SDL2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  SDL2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lambda-delta";

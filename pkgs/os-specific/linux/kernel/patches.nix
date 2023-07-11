@@ -1,4 +1,8 @@
-{ lib, fetchpatch, fetchurl }:
+{
+  lib,
+  fetchpatch,
+  fetchurl,
+}:
 
 {
   ath_regd_optional = rec {
@@ -39,7 +43,11 @@
 
   hardened = let
     mkPatch = kernelVersion:
-      { version, sha256, patch }:
+      {
+        version,
+        sha256,
+        patch,
+      }:
       let src = patch;
       in {
         name = lib.removeSuffix ".patch" src.name;

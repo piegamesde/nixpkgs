@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, cmake, qtbase, qtwayland, wayland
-, wayland-protocols, extra-cmake-modules, deepin-wayland-protocols, qttools }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  qtbase,
+  qtwayland,
+  wayland,
+  wayland-protocols,
+  extra-cmake-modules,
+  deepin-wayland-protocols,
+  qttools,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dwayland";

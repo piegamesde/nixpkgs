@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkgs, pandoc, CoreServices }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkgs,
+  pandoc,
+  CoreServices,
+}:
 
 let
   # Note for maintainers:

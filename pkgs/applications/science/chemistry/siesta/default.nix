@@ -1,5 +1,14 @@
-{ lib, stdenv, gfortran, blas, lapack, scalapack, useMpi ? false, mpi
-, fetchFromGitLab }:
+{
+  lib,
+  stdenv,
+  gfortran,
+  blas,
+  lapack,
+  scalapack,
+  useMpi ? false,
+  mpi,
+  fetchFromGitLab,
+}:
 
 stdenv.mkDerivation rec {
   version = "4.1.5";

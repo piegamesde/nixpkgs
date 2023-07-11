@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, git }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  git,
+}:
 buildGoModule {
   pname = "zoekt";
   version = "unstable-2022-11-09";

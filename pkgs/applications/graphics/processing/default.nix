@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, ant, unzip, makeWrapper, jdk
-, javaPackages, rsync, ffmpeg, batik, gsettings-desktop-schemas, xorg
-, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  ant,
+  unzip,
+  makeWrapper,
+  jdk,
+  javaPackages,
+  rsync,
+  ffmpeg,
+  batik,
+  gsettings-desktop-schemas,
+  xorg,
+  wrapGAppsHook,
+}:
 let
   buildNumber = "1289";
   vaqua = fetchurl {

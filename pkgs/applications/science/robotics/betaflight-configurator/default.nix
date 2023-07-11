@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, unzip, makeDesktopItem, nwjs, wrapGAppsHook
-, gsettings-desktop-schemas, gtk3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  makeDesktopItem,
+  nwjs,
+  wrapGAppsHook,
+  gsettings-desktop-schemas,
+  gtk3,
+}:
 
 let
   pname = "betaflight-configurator";

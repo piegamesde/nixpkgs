@@ -1,6 +1,13 @@
-{ runtimeShell, symlinkJoin, writeTextFile }:
+{
+  runtimeShell,
+  symlinkJoin,
+  writeTextFile,
+}:
 
-{ emulator, rom }:
+{
+  emulator,
+  rom,
+}:
 
 assert emulator.version == rom.version;
 

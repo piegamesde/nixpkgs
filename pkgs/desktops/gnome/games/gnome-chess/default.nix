@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchurl, meson, ninja, vala, pkg-config, desktop-file-utils
-, wrapGAppsHook4, gobject-introspection, gettext, itstool, libxml2, gnome, glib
-, gtk4, libadwaita, librsvg, pango }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  vala,
+  pkg-config,
+  desktop-file-utils,
+  wrapGAppsHook4,
+  gobject-introspection,
+  gettext,
+  itstool,
+  libxml2,
+  gnome,
+  glib,
+  gtk4,
+  libadwaita,
+  librsvg,
+  pango,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-chess";

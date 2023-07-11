@@ -1,6 +1,27 @@
-{ lib, stdenv, mkDerivation, fetchFromGitHub, pkg-config, autoreconfHook
-, openssl, db48, boost, zlib, miniupnpc, glib, protobuf, util-linux, qrencode
-, AppKit, withGui ? true, libevent, qtbase, qttools, zeromq, fmt }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  openssl,
+  db48,
+  boost,
+  zlib,
+  miniupnpc,
+  glib,
+  protobuf,
+  util-linux,
+  qrencode,
+  AppKit,
+  withGui ? true,
+  libevent,
+  qtbase,
+  qttools,
+  zeromq,
+  fmt,
+}:
 
 mkDerivation rec {
   pname = "litecoin" + lib.optionalString (!withGui) "d";

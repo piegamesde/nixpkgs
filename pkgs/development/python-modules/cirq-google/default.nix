@@ -1,5 +1,11 @@
-{ buildPythonPackage, cirq-core, google-api-core, protobuf, pytestCheckHook
-, freezegun }:
+{
+  buildPythonPackage,
+  cirq-core,
+  google-api-core,
+  protobuf,
+  pytestCheckHook,
+  freezegun,
+}:
 
 buildPythonPackage rec {
   pname = "cirq-google";

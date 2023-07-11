@@ -1,9 +1,30 @@
-{ stdenv, nixosTests, lib, pkg-config, jansson, pcre, libxcrypt, expat, zlib
-# plugins: list of strings, eg. [ "python2" "python3" ]
-, plugins ? [ ], pam, withPAM ? stdenv.isLinux, systemd
-, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd, libcap
-, withCap ? stdenv.isLinux, python2, python3, ncurses, ruby, php, makeWrapper
-, fetchFromGitHub }:
+{
+  stdenv,
+  nixosTests,
+  lib,
+  pkg-config,
+  jansson,
+  pcre,
+  libxcrypt,
+  expat,
+  zlib
+  # plugins: list of strings, eg. [ "python2" "python3" ]
+  ,
+  plugins ? [ ],
+  pam,
+  withPAM ? stdenv.isLinux,
+  systemd,
+  withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  libcap,
+  withCap ? stdenv.isLinux,
+  python2,
+  python3,
+  ncurses,
+  ruby,
+  php,
+  makeWrapper,
+  fetchFromGitHub,
+}:
 
 let
   php-embed = php.override {

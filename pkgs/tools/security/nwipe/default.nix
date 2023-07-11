@@ -1,4 +1,12 @@
-{ lib, stdenv, autoreconfHook, fetchFromGitHub, ncurses, parted, pkg-config }:
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  fetchFromGitHub,
+  ncurses,
+  parted,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nwipe";

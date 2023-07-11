@@ -1,5 +1,16 @@
-{ mkDerivation, lib, extra-cmake-modules, qtbase, kdoctools, kcodecs, ki18n, kio
-, kwidgetsaddons, kcmutils, libmusicbrainz5 }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  qtbase,
+  kdoctools,
+  kcodecs,
+  ki18n,
+  kio,
+  kwidgetsaddons,
+  kcmutils,
+  libmusicbrainz5,
+}:
 
 mkDerivation {
   pname = "libkcddb";

@@ -1,4 +1,8 @@
-{ lib, python3Packages, bash }:
+{
+  lib,
+  python3Packages,
+  bash,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "simp_le-client";

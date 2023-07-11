@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, yosys, readline, zlib, ghdl }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  yosys,
+  readline,
+  zlib,
+  ghdl,
+}:
 
 stdenv.mkDerivation {
   pname = "yosys-ghdl";

@@ -1,4 +1,12 @@
-{ fetchzip, libX11, libGLU, libGL, makeWrapper, lib, stdenv }:
+{
+  fetchzip,
+  libX11,
+  libGLU,
+  libGL,
+  makeWrapper,
+  lib,
+  stdenv,
+}:
 
 let
 

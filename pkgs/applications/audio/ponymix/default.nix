@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, libpulseaudio, libnotify, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libpulseaudio,
+  libnotify,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ponymix";

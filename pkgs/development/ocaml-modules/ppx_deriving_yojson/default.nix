@@ -1,4 +1,12 @@
-{ lib, buildDunePackage, fetchFromGitHub, ppxlib, ounit, ppx_deriving, yojson }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  ppxlib,
+  ounit,
+  ppx_deriving,
+  yojson,
+}:
 
 let
   param = if lib.versionAtLeast ppxlib.version "0.26" then {

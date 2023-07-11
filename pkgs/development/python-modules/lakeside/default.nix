@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, protobuf, pycryptodome, pythonOlder
-, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  protobuf,
+  pycryptodome,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "lakeside";

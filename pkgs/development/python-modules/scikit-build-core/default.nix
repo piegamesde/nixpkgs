@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, fetchPypi, distlib, pythonOlder, exceptiongroup
-, hatch-vcs, hatchling, cattrs, cmake, packaging, pathspec, pyproject-metadata
-, pytest-subprocess, pytestCheckHook, tomli }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  distlib,
+  pythonOlder,
+  exceptiongroup,
+  hatch-vcs,
+  hatchling,
+  cattrs,
+  cmake,
+  packaging,
+  pathspec,
+  pyproject-metadata,
+  pytest-subprocess,
+  pytestCheckHook,
+  tomli,
+}:
 
 buildPythonPackage rec {
   pname = "scikit-build-core";

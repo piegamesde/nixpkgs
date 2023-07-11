@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, certifi, chardet, fetchFromGitHub, idna, pythonOlder
-, requests, urllib3 }:
+{
+  lib,
+  buildPythonPackage,
+  certifi,
+  chardet,
+  fetchFromGitHub,
+  idna,
+  pythonOlder,
+  requests,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "frigidaire";

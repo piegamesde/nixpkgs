@@ -1,4 +1,12 @@
-{ lib, aiohttp, attrs, buildPythonPackage, fetchPypi, jmespath, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  attrs,
+  buildPythonPackage,
+  fetchPypi,
+  jmespath,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pysma";

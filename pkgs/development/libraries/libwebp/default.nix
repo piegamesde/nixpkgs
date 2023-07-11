@@ -1,20 +1,54 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, libtool, fetchpatch
-, threadingSupport ? true # multi-threading
-, openglSupport ? false, freeglut, libGL, libGLU # OpenGL (required for vwebp)
-, pngSupport ? true, libpng # PNG image format
-, jpegSupport ? true, libjpeg # JPEG image format
-, tiffSupport ? true, libtiff # TIFF image format
-, gifSupport ? true, giflib # GIF image format
-, alignedSupport ? false # Force aligned memory operations
-, swap16bitcspSupport ? false # Byte swap for 16bit color spaces
-, experimentalSupport ? false # Experimental code
-, libwebpmuxSupport ? true # Build libwebpmux
-, libwebpdemuxSupport ? true # Build libwebpdemux
-, libwebpdecoderSupport ? true # Build libwebpdecoder
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  libtool,
+  fetchpatch,
+  threadingSupport ? true # multi-threading
+  ,
+  openglSupport ? false,
+  freeglut,
+  libGL,
+  libGLU # OpenGL (required for vwebp)
+  ,
+  pngSupport ? true,
+  libpng # PNG image format
+  ,
+  jpegSupport ? true,
+  libjpeg # JPEG image format
+  ,
+  tiffSupport ? true,
+  libtiff # TIFF image format
+  ,
+  gifSupport ? true,
+  giflib # GIF image format
+  ,
+  alignedSupport ? false # Force aligned memory operations
+  ,
+  swap16bitcspSupport ? false # Byte swap for 16bit color spaces
+  ,
+  experimentalSupport ? false # Experimental code
+  ,
+  libwebpmuxSupport ? true # Build libwebpmux
+  ,
+  libwebpdemuxSupport ? true # Build libwebpdemux
+  ,
+  libwebpdecoderSupport ? true # Build libwebpdecoder
 
-  # for passthru.tests
-, freeimage, gd, graphicsmagick, haskellPackages, imagemagick, imlib2, libjxl
-, opencv, python3, vips }:
+    # for passthru.tests
+  ,
+  freeimage,
+  gd,
+  graphicsmagick,
+  haskellPackages,
+  imagemagick,
+  imlib2,
+  libjxl,
+  opencv,
+  python3,
+  vips,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libwebp";

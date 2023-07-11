@@ -1,4 +1,10 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, fetchurl }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  fetchurl,
+}:
 
 let
   nnueFile = "nn-13406b1dcbe0.nnue";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, openssl, boost, gmp, procps
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  openssl,
+  boost,
+  gmp,
+  procps,
 }:
 
 stdenv.mkDerivation rec {

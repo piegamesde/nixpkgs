@@ -1,4 +1,6 @@
-{ fetchMaven }:
+{
+  fetchMaven,
+}:
 
 {
   commonsCli_1_0 = map (obj:

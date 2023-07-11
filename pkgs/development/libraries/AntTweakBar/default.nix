@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, unzip, xorg, libGLU, libGL }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  xorg,
+  libGLU,
+  libGL,
+}:
 
 stdenv.mkDerivation rec {
   pname = "AntTweakBar";

@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, gcc, postgresql }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  gcc,
+  postgresql,
+}:
 
 stdenv.mkDerivation {
 

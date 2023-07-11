@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, libtool, pkg-config, perl, ncurses }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  libtool,
+  pkg-config,
+  perl,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "unibilium";

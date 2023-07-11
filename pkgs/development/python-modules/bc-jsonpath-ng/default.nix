@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, decorator, fetchFromGitHub, ply, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  decorator,
+  fetchFromGitHub,
+  ply,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "bc-jsonpath-ng";

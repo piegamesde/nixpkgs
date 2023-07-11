@@ -1,5 +1,15 @@
-{ lib, attrs, buildPythonPackage, click, commoncode, dockerfile-parse
-, fetchFromGitHub, pytestCheckHook, pythonOlder, setuptools-scm }:
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  click,
+  commoncode,
+  dockerfile-parse,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "container-inspector";

@@ -1,4 +1,11 @@
-{ lib, fetchurl, buildDunePackage, ocaml, ounit, seq }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  ocaml,
+  ounit,
+  seq,
+}:
 
 let
   version_sha = if lib.versionAtLeast ocaml.version "4.08" then {

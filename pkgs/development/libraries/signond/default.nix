@@ -1,4 +1,10 @@
-{ mkDerivation, lib, fetchFromGitLab, qmake, doxygen }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitLab,
+  qmake,
+  doxygen,
+}:
 
 mkDerivation rec {
   pname = "signond";

@@ -1,5 +1,17 @@
-{ stdenv, lib, libidn, lua, miniupnpc, expat, zlib, fetchurl, fetchpatch
-, openssl, boost, scons }:
+{
+  stdenv,
+  lib,
+  libidn,
+  lua,
+  miniupnpc,
+  expat,
+  zlib,
+  fetchurl,
+  fetchpatch,
+  openssl,
+  boost,
+  scons,
+}:
 
 stdenv.mkDerivation rec {
   pname = "swiften";

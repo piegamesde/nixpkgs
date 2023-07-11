@@ -1,4 +1,9 @@
-{ mkDerivation, extra-cmake-modules, qtquickcontrols2, qtbase, }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  qtquickcontrols2,
+  qtbase,
+}:
 
 mkDerivation {
   pname = "kquickcharts";

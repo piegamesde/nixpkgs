@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, pkg-config, zlib, kmod, which, hwdata
-, static ? stdenv.hostPlatform.isStatic, IOKit, gitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  zlib,
+  kmod,
+  which,
+  hwdata,
+  static ? stdenv.hostPlatform.isStatic,
+  IOKit,
+  gitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pciutils";

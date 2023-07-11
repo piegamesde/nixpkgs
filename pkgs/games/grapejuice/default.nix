@@ -1,6 +1,22 @@
-{ lib, fetchFromGitLab, gobject-introspection, pciutils, python3Packages, gtk3
-, wrapGAppsHook, glib, cairo, desktop-file-utils, xdg-utils, xdg-user-dirs
-, gettext, winetricks, wine, glxinfo, xrandr }:
+{
+  lib,
+  fetchFromGitLab,
+  gobject-introspection,
+  pciutils,
+  python3Packages,
+  gtk3,
+  wrapGAppsHook,
+  glib,
+  cairo,
+  desktop-file-utils,
+  xdg-utils,
+  xdg-user-dirs,
+  gettext,
+  winetricks,
+  wine,
+  glxinfo,
+  xrandr,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "grapejuice";

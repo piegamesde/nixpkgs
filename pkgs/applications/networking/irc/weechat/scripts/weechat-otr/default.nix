@@ -1,5 +1,13 @@
-{ lib, stdenv, substituteAll, buildEnv, fetchgit, fetchFromGitHub
-, python3Packages, gmp }:
+{
+  lib,
+  stdenv,
+  substituteAll,
+  buildEnv,
+  fetchgit,
+  fetchFromGitHub,
+  python3Packages,
+  gmp,
+}:
 
 let
   # pure-python-otr (potr) requires an older version of pycrypto, which is

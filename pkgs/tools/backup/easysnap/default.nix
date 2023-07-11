@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, zfs }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zfs,
+}:
 
 stdenv.mkDerivation {
   pname = "easysnap";

@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitLab, appstream-glib, desktop-file-utils, glib, gtk4
-, gtksourceview5, libadwaita, libgee, libpanel, meson, ninja, pkg-config
-, wrapGAppsHook4 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  appstream-glib,
+  desktop-file-utils,
+  glib,
+  gtk4,
+  gtksourceview5,
+  libadwaita,
+  libgee,
+  libpanel,
+  meson,
+  ninja,
+  pkg-config,
+  wrapGAppsHook4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "schemes";

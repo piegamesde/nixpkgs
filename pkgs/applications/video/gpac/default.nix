@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   version = "2.2.0";

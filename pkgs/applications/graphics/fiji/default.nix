@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchurl, makeWrapper, autoPatchelfHook, jdk11, makeDesktopItem
-, copyDesktopItems, runtimeShell }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  makeWrapper,
+  autoPatchelfHook,
+  jdk11,
+  makeDesktopItem,
+  copyDesktopItems,
+  runtimeShell,
+}:
 stdenv.mkDerivation rec {
   pname = "fiji";
   version = "20201104-1356";

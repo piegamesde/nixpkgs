@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, rocmUpdateScript, rocm-comgr }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  rocmUpdateScript,
+  rocm-comgr,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocclr";

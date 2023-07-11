@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchpatch, fetchFromGitHub, cython, cmake, symengine
-, pytest, sympy, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchFromGitHub,
+  cython,
+  cmake,
+  symengine,
+  pytest,
+  sympy,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "symengine";

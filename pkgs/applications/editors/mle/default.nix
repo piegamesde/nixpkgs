@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, pcre, uthash, lua5_4, makeWrapper
-, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  pcre,
+  uthash,
+  lua5_4,
+  makeWrapper,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mle";

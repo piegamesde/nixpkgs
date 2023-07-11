@@ -1,6 +1,21 @@
-{ lib, fetchFromGitHub, meson, ninja, pkg-config, python3, gtk3, appstream-glib
-, desktop-file-utils, gobject-introspection, wrapGAppsHook, glib, gdk-pixbuf
-, pango, gettext, itstool }:
+{
+  lib,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  gtk3,
+  appstream-glib,
+  desktop-file-utils,
+  gobject-introspection,
+  wrapGAppsHook,
+  glib,
+  gdk-pixbuf,
+  pango,
+  gettext,
+  itstool,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "drawing";

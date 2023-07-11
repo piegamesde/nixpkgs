@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, aiohttp, aresponses, backoff, fetchFromGitHub
-, poetry-core, pytest-aiohttp, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  aiohttp,
+  aresponses,
+  backoff,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyiqvia";

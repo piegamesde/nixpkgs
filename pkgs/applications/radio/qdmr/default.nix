@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, installShellFiles, writeText, cmake, libxslt
-, docbook_xsl_ns, wrapQtAppsHook, libusb1, qtlocation, qtserialport, qttools
-, qtbase, yaml-cpp, }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  installShellFiles,
+  writeText,
+  cmake,
+  libxslt,
+  docbook_xsl_ns,
+  wrapQtAppsHook,
+  libusb1,
+  qtlocation,
+  qtserialport,
+  qttools,
+  qtbase,
+  yaml-cpp,
+}:
 
 let inherit (stdenv) isLinux;
 

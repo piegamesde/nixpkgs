@@ -1,6 +1,25 @@
-{ lib, stdenv, pkgs, fetchFromGitHub, fetchpatch, which, openssh, gcc, gfortran
-, perl, mpi, blas, lapack, python3, tcsh, bash, automake, autoconf, libtool
-, makeWrapper }:
+{
+  lib,
+  stdenv,
+  pkgs,
+  fetchFromGitHub,
+  fetchpatch,
+  which,
+  openssh,
+  gcc,
+  gfortran,
+  perl,
+  mpi,
+  blas,
+  lapack,
+  python3,
+  tcsh,
+  bash,
+  automake,
+  autoconf,
+  libtool,
+  makeWrapper,
+}:
 
 assert blas.isILP64 == lapack.isILP64;
 

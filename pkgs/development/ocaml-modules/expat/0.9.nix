@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchurl, ocaml, findlib, ounit, expat }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ocaml,
+  findlib,
+  ounit,
+  expat,
+}:
 
 let
   pname = "ocaml-expat";

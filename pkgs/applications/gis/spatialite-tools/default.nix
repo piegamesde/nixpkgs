@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchurl, pkg-config, freexl, geos, expat, librttopo
-, libspatialite, libxml2, minizip, proj, readosm, sqlite, testers
-, spatialite_tools }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  freexl,
+  geos,
+  expat,
+  librttopo,
+  libspatialite,
+  libxml2,
+  minizip,
+  proj,
+  readosm,
+  sqlite,
+  testers,
+  spatialite_tools,
+}:
 
 stdenv.mkDerivation rec {
   pname = "spatialite-tools";

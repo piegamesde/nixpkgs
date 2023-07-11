@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, fetchpatch, SDL, libpng, libjpeg, libtiff, giflib
-, libXpm, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  SDL,
+  libpng,
+  libjpeg,
+  libtiff,
+  giflib,
+  libXpm,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "SDL_image";

@@ -1,7 +1,25 @@
-{ lib, stdenv, fetchurl, makeWrapper, perl, libassuan, libgcrypt, perlPackages
-, lockfileProgs, gnupg, coreutils
-# For the tests:
-, openssh, which, socat, cpio, hexdump, procps, openssl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  perl,
+  libassuan,
+  libgcrypt,
+  perlPackages,
+  lockfileProgs,
+  gnupg,
+  coreutils
+  # For the tests:
+  ,
+  openssh,
+  which,
+  socat,
+  cpio,
+  hexdump,
+  procps,
+  openssl,
+}:
 
 let
   # A patch is needed to run the tests inside the Nix sandbox:

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, pytestCheckHook, pexpect
-, pytest-cov }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  pytestCheckHook,
+  pexpect,
+  pytest-cov,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-timeout";

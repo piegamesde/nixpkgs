@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, python3Packages, runtimeShell, bcftools, htslib }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  runtimeShell,
+  bcftools,
+  htslib,
+}:
 
 let
   ssshtest = fetchFromGitHub {

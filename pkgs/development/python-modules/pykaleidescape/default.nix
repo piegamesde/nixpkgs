@@ -1,5 +1,13 @@
-{ lib, aiohttp, buildPythonPackage, dnspython, fetchFromGitHub, pytest-asyncio
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  dnspython,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pykaleidescape";

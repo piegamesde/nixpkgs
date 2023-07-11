@@ -1,6 +1,8 @@
 # Generated using:  ./generate-sdk-packages.sh developer-tools 11.3.1
 
-{ applePackage' }:
+{
+  applePackage',
+}:
 
 {
   bootstrap_cmds = applePackage' "bootstrap_cmds" "116" "developer-tools-11.3.1"

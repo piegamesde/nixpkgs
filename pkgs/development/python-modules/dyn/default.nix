@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, pytest-cov, mock, pytest-xdist
-, covCore, glibcLocales }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  pytest-cov,
+  mock,
+  pytest-xdist,
+  covCore,
+  glibcLocales,
+}:
 
 buildPythonPackage rec {
   pname = "dyn";

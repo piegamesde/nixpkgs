@@ -1,5 +1,17 @@
-{ lib, amqp, azure-servicebus, buildPythonPackage, cached-property, case
-, fetchPypi, importlib-metadata, pyro4, pytestCheckHook, pythonOlder, pytz, vine
+{
+  lib,
+  amqp,
+  azure-servicebus,
+  buildPythonPackage,
+  cached-property,
+  case,
+  fetchPypi,
+  importlib-metadata,
+  pyro4,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  vine,
 }:
 
 buildPythonPackage rec {

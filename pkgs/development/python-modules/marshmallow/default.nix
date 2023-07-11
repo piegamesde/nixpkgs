@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder, pytz
-, simplejson, packaging }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  simplejson,
+  packaging,
+}:
 
 buildPythonPackage rec {
   pname = "marshmallow";

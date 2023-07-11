@@ -1,5 +1,16 @@
-{ lib, aiohttp, attrs, buildPythonPackage, fetchFromGitHub, fetchpatch
-, poetry-core, pytestCheckHook, pythonRelaxDepsHook, pythonOlder, structlog }:
+{
+  lib,
+  aiohttp,
+  attrs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  poetry-core,
+  pytestCheckHook,
+  pythonRelaxDepsHook,
+  pythonOlder,
+  structlog,
+}:
 
 buildPythonPackage rec {
   pname = "arsenic";

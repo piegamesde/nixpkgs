@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, click, fetchFromGitHub, fetchpatch, pytestCheckHook
-, pythonOlder, six }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  fetchpatch,
+  pytestCheckHook,
+  pythonOlder,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "xdis";

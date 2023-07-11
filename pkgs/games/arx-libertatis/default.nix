@@ -1,7 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, cmake, zlib, boost, openal, glm, freetype
-, libGLU, SDL2, libepoxy, dejavu_fonts, inkscape, optipng, imagemagick
-, withCrashReporter ? !stdenv.isDarwin, qtbase ? null, wrapQtAppsHook ? null
-, curl ? null, gdb ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  zlib,
+  boost,
+  openal,
+  glm,
+  freetype,
+  libGLU,
+  SDL2,
+  libepoxy,
+  dejavu_fonts,
+  inkscape,
+  optipng,
+  imagemagick,
+  withCrashReporter ? !stdenv.isDarwin,
+  qtbase ? null,
+  wrapQtAppsHook ? null,
+  curl ? null,
+  gdb ? null
+}:
 
 with lib;
 

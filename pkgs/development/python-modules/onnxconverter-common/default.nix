@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, numpy, packaging, protobuf, onnx
-, unittestCheckHook, onnxruntime }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  packaging,
+  protobuf,
+  onnx,
+  unittestCheckHook,
+  onnxruntime,
+}:
 
 buildPythonPackage rec {
   pname = "onnxconverter-common";

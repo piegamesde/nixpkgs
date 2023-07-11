@@ -1,5 +1,17 @@
-{ stdenv, pkgs, lib, fetchurl, e2fsprogs, ntfs3g, xfsprogs, reiser4progs, libaal
-, jfsutils, libuuid, texinfo }:
+{
+  stdenv,
+  pkgs,
+  lib,
+  fetchurl,
+  e2fsprogs,
+  ntfs3g,
+  xfsprogs,
+  reiser4progs,
+  libaal,
+  jfsutils,
+  libuuid,
+  texinfo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wipefreespace";

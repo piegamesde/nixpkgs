@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, pkgs, stdenv }:
+{
+  lib,
+  fetchFromGitHub,
+  pkgs,
+  stdenv,
+}:
 
 let
   rtpPath = "share/tmux-plugins";
@@ -10,11 +15,21 @@ let
       overrideAttrs = f: mkTmuxPlugin (attrs // f attrs);
     };
 
-  mkTmuxPlugin = a@{ pluginName, rtpFilePath ?
-      (builtins.replaceStrings [ "-" ] [ "_" ] pluginName) + ".tmux"
-    , namePrefix ? "tmuxplugin-", src, unpackPhase ? "", configurePhase ? ":"
-    , buildPhase ? ":", addonInfo ? null, preInstall ? "", postInstall ? ""
-    , path ? lib.getName pluginName, ... }:
+  mkTmuxPlugin = a@{
+      pluginName,
+      rtpFilePath ? (builtins.replaceStrings [ "-" ] [ "_" ] pluginName)
+        + ".tmux",
+      namePrefix ? "tmuxplugin-",
+      src,
+      unpackPhase ? "",
+      configurePhase ? ":",
+      buildPhase ? ":",
+      addonInfo ? null,
+      preInstall ? "",
+      postInstall ? "",
+      path ? lib.getName pluginName,
+      ...
+    }:
     if lib.hasAttr "dependencies" a then
       throw
       "dependencies attribute is obselete. see NixOS/nixpkgs#118034" # added 2021-04-01

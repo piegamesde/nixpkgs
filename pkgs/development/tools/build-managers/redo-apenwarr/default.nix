@@ -1,5 +1,15 @@
-{ stdenv, lib, python3, fetchFromGitHub, which, coreutils, perl
-, installShellFiles, gnumake42, doCheck ? true }:
+{
+  stdenv,
+  lib,
+  python3,
+  fetchFromGitHub,
+  which,
+  coreutils,
+  perl,
+  installShellFiles,
+  gnumake42,
+  doCheck ? true
+}:
 stdenv.mkDerivation rec {
 
   pname = "redo-apenwarr";

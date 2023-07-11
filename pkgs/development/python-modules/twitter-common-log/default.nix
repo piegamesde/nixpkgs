@@ -1,5 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, twitter-common-options
-, twitter-common-dirutil }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  twitter-common-options,
+  twitter-common-dirutil,
+}:
 
 buildPythonPackage rec {
   pname = "twitter.common.log";

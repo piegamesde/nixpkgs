@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gmp, flint, mpfr, libmpc, catch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gmp,
+  flint,
+  mpfr,
+  libmpc,
+  catch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "symengine";

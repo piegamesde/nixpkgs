@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools
-, importlib-metadata, mypy-extensions, typing-extensions, pytestCheckHook, pytz
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools,
+  importlib-metadata,
+  mypy-extensions,
+  typing-extensions,
+  pytestCheckHook,
+  pytz,
 }:
 
 buildPythonPackage rec {

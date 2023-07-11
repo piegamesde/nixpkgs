@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cryptography, ecdsa }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cryptography,
+  ecdsa,
+}:
 
 buildPythonPackage rec {
   version = "3.3.1";

@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, certifi, chardet, datadog, decorator, fetchPypi, idna
-, requests, urllib3, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  certifi,
+  chardet,
+  datadog,
+  decorator,
+  fetchPypi,
+  idna,
+  requests,
+  urllib3,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "gradient-statsd";

@@ -1,5 +1,13 @@
-{ lib, buildDotnetModule, dotnetCorePackages, fetchFromGitHub, glibcLocales
-, gtk3, intltool, wrapGAppsHook }:
+{
+  lib,
+  buildDotnetModule,
+  dotnetCorePackages,
+  fetchFromGitHub,
+  glibcLocales,
+  gtk3,
+  intltool,
+  wrapGAppsHook,
+}:
 
 buildDotnetModule rec {
   pname = "Pinta";

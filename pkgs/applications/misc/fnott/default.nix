@@ -1,6 +1,22 @@
-{ stdenv, lib, fetchFromGitea, pkg-config, meson, ninja, scdoc, wayland-scanner
-, fontconfig, freetype, pixman, libpng, tllist, wayland, wayland-protocols, dbus
-, fcft }:
+{
+  stdenv,
+  lib,
+  fetchFromGitea,
+  pkg-config,
+  meson,
+  ninja,
+  scdoc,
+  wayland-scanner,
+  fontconfig,
+  freetype,
+  pixman,
+  libpng,
+  tllist,
+  wayland,
+  wayland-protocols,
+  dbus,
+  fcft,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fnott";

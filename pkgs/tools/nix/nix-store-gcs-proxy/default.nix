@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 buildGoModule rec {
   pname = "nix-store-gcs-proxy";
   version = "0.1.0";

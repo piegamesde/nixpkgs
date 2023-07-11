@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, unzip, jre, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  jre,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "geoserver";

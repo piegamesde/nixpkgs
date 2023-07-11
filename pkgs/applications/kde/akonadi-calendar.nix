@@ -1,6 +1,18 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi
-, akonadi-contacts, kcalendarcore, kcalutils, kcontacts, kidentitymanagement
-, kio, kmailtransport, }:
+{
+  mkDerivation,
+  lib,
+  kdepimTeam,
+  extra-cmake-modules,
+  kdoctools,
+  akonadi,
+  akonadi-contacts,
+  kcalendarcore,
+  kcalutils,
+  kcontacts,
+  kidentitymanagement,
+  kio,
+  kmailtransport,
+}:
 
 mkDerivation {
   pname = "akonadi-calendar";

@@ -1,6 +1,24 @@
-{ stdenv, lib, substituteAll, fetchFromGitHub, buildPythonPackage, python
-, pkg-config, libX11, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, libpng, libjpeg
-, portmidi, freetype, fontconfig, AppKit, pythonOlder }:
+{
+  stdenv,
+  lib,
+  substituteAll,
+  fetchFromGitHub,
+  buildPythonPackage,
+  python,
+  pkg-config,
+  libX11,
+  SDL2,
+  SDL2_image,
+  SDL2_mixer,
+  SDL2_ttf,
+  libpng,
+  libjpeg,
+  portmidi,
+  freetype,
+  fontconfig,
+  AppKit,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pygame";

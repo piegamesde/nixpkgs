@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools-scm, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-repeat";

@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchurl, callPackage, patchelf, makeWrapper, libusb1
-, avahi-compat, glib, libredirect, nixosTests }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  callPackage,
+  patchelf,
+  makeWrapper,
+  libusb1,
+  avahi-compat,
+  glib,
+  libredirect,
+  nixosTests,
+}:
 let
   myPatchElf = file:
     with lib; ''

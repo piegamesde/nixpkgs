@@ -1,4 +1,9 @@
-{ lib, fetchurl, buildLinux, ... }@args:
+{
+  lib,
+  fetchurl,
+  buildLinux,
+  ...
+}@args:
 
 with lib;
 

@@ -1,4 +1,11 @@
-{ lib, isPy27, buildPythonPackage, fetchPypi, pytestCheckHook, mock }:
+{
+  lib,
+  isPy27,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  mock,
+}:
 
 let pythonEnv = lib.optional isPy27 mock;
 in buildPythonPackage rec {

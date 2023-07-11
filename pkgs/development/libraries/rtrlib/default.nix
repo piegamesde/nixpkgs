@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, stdenv, cmake, libssh, openssl }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  cmake,
+  libssh,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rtrlib";

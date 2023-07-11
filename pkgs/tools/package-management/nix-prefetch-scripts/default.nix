@@ -1,5 +1,20 @@
-{ lib, stdenv, makeWrapper, buildEnv, breezy, coreutils, cvs, findutils, gawk
-, git, git-lfs, gnused, mercurial, nix, subversion }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  buildEnv,
+  breezy,
+  coreutils,
+  cvs,
+  findutils,
+  gawk,
+  git,
+  git-lfs,
+  gnused,
+  mercurial,
+  nix,
+  subversion,
+}:
 
 let
   mkPrefetchScript = tool: src: deps:

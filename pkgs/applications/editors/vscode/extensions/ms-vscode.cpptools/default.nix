@@ -1,7 +1,21 @@
-{ lib, vscode-utils, fetchurl, writeScript, runtimeShell, jq, clang-tools
-, gdbUseFixed ? true
-, gdb # The gdb default setting will be fixed to specified. Use version from `PATH` otherwise.
-, autoPatchelfHook, makeWrapper, stdenv, lttng-ust, libkrb5, zlib }:
+{
+  lib,
+  vscode-utils,
+  fetchurl,
+  writeScript,
+  runtimeShell,
+  jq,
+  clang-tools,
+  gdbUseFixed ? true,
+  gdb # The gdb default setting will be fixed to specified. Use version from `PATH` otherwise.
+  ,
+  autoPatchelfHook,
+  makeWrapper,
+  stdenv,
+  lttng-ust,
+  libkrb5,
+  zlib,
+}:
 
 /* Note that this version of the extension still has some nix specific issues
    which could not be fixed merely by patching (inside a C# dll).

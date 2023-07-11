@@ -1,5 +1,18 @@
-{ fetchurl, lib, stdenv, libxml2, freetype, libGLU, libGL, glew, qtbase
-, wrapQtAppsHook, python3, cmake, libjpeg }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  libxml2,
+  freetype,
+  libGLU,
+  libGL,
+  glew,
+  qtbase,
+  wrapQtAppsHook,
+  python3,
+  cmake,
+  libjpeg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tulip";

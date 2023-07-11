@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, isPy27, fetchPypi, aiohttp, click }:
+{
+  lib,
+  buildPythonPackage,
+  isPy27,
+  fetchPypi,
+  aiohttp,
+  click,
+}:
 
 buildPythonPackage rec {
   pname = "aioazuredevops";

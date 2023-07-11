@@ -1,5 +1,12 @@
-{ lib, buildPythonApplication, pythonOlder, fetchFromGitHub, protonvpn-nm-lib
-, pythondialog, dialog }:
+{
+  lib,
+  buildPythonApplication,
+  pythonOlder,
+  fetchFromGitHub,
+  protonvpn-nm-lib,
+  pythondialog,
+  dialog,
+}:
 
 buildPythonApplication rec {
   pname = "protonvpn-cli";

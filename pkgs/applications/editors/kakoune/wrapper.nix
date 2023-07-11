@@ -1,4 +1,10 @@
-{ symlinkJoin, makeWrapper, kakoune, plugins ? [ ], configure ? { } }:
+{
+  symlinkJoin,
+  makeWrapper,
+  kakoune,
+  plugins ? [ ],
+  configure ? { }
+}:
 
 let
   # "plugins" is the preferred way, but some configurations may be

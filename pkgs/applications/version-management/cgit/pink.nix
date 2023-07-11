@@ -1,4 +1,8 @@
-{ lib, fetchurl, callPackage }:
+{
+  lib,
+  fetchurl,
+  callPackage,
+}:
 
 callPackage (import ./common.nix rec {
   pname = "cgit-pink";

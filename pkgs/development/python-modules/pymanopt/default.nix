@@ -1,5 +1,15 @@
-{ lib, fetchFromGitHub, buildPythonPackage, numpy, scipy, torch, autograd, nose2
-, matplotlib, tensorflow }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  numpy,
+  scipy,
+  torch,
+  autograd,
+  nose2,
+  matplotlib,
+  tensorflow,
+}:
 
 buildPythonPackage rec {
   pname = "pymanopt";

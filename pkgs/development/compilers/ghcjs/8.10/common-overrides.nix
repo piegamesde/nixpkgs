@@ -1,4 +1,8 @@
-{ haskellLib, fetchpatch, buildPackages }:
+{
+  haskellLib,
+  fetchpatch,
+  buildPackages,
+}:
 
 let
   inherit (haskellLib)

@@ -1,4 +1,12 @@
-{ bats, bash, fetchFromGitHub, lib, resholve, coreutils, getopt }:
+{
+  bats,
+  bash,
+  fetchFromGitHub,
+  lib,
+  resholve,
+  coreutils,
+  getopt,
+}:
 let version = "0.0.1";
 in resholve.mkDerivation {
   pname = "locate-dominating-file";

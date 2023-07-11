@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, jinja2, poetry-core
-, round, graphviz, inkscape, imagemagick, pytestCheckHook, typed-ast }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  jinja2,
+  poetry-core,
+  round,
+  graphviz,
+  inkscape,
+  imagemagick,
+  pytestCheckHook,
+  typed-ast,
+}:
 
 buildPythonPackage rec {
   pname = "diagrams";

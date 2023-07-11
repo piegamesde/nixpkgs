@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, musl-fts }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  musl-fts,
+}:
 
 stdenv.mkDerivation {
   pname = "rcshist";

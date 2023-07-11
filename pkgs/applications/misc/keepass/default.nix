@@ -1,6 +1,21 @@
-{ lib, fetchurl, buildDotnetPackage, substituteAll, makeWrapper, makeDesktopItem
-, unzip, icoutils, gtk2, xorg, xdotool, xsel, coreutils, unixtools, glib
-, plugins ? [ ] }:
+{
+  lib,
+  fetchurl,
+  buildDotnetPackage,
+  substituteAll,
+  makeWrapper,
+  makeDesktopItem,
+  unzip,
+  icoutils,
+  gtk2,
+  xorg,
+  xdotool,
+  xsel,
+  coreutils,
+  unixtools,
+  glib,
+  plugins ? [ ]
+}:
 let
   inherit (builtins)
     add length readFile replaceStrings unsafeDiscardStringContext toString map;

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flake8, click, pyyaml, six
-, pytestCheckHook, pytest-cov }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flake8,
+  click,
+  pyyaml,
+  six,
+  pytestCheckHook,
+  pytest-cov,
+}:
 
 buildPythonPackage rec {
   pname = "clickclick";

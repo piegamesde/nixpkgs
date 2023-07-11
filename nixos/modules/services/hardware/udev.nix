@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -41,8 +46,15 @@ let
   '';
 
   # Perform substitutions in all udev rules files.
-  udevRulesFor = { name, udevPackages, udevPath, udev, systemd, binPackages
-    , initrdBin ? null }:
+  udevRulesFor = {
+      name,
+      udevPackages,
+      udevPath,
+      udev,
+      systemd,
+      binPackages,
+      initrdBin ? null
+    }:
     pkgs.runCommand name {
       preferLocalBuild = true;
       allowSubstitutes = false;

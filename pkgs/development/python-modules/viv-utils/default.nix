@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, funcy, intervaltree, pefile
-, typing-extensions, vivisect, pytest-sugar, pytestCheckHook, python-flirt }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  funcy,
+  intervaltree,
+  pefile,
+  typing-extensions,
+  vivisect,
+  pytest-sugar,
+  pytestCheckHook,
+  python-flirt,
+}:
 buildPythonPackage rec {
   pname = "viv-utils";
   version = "0.7.7";

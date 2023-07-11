@@ -1,4 +1,12 @@
-{ copyDesktopItems, fetchurl, lib, makeDesktopItem, stdenv, tcl, tk }:
+{
+  copyDesktopItems,
+  fetchurl,
+  lib,
+  makeDesktopItem,
+  stdenv,
+  tcl,
+  tk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dirdiff";

@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, fetchYarnDeps, makeDesktopItem, copyDesktopItems
-, desktopToDarwinBundle, fixup_yarn_lock, makeWrapper, nodejs, yarn, electron }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  makeDesktopItem,
+  copyDesktopItems,
+  desktopToDarwinBundle,
+  fixup_yarn_lock,
+  makeWrapper,
+  nodejs,
+  yarn,
+  electron,
+}:
 
 stdenv.mkDerivation rec {
   pname = "drawio";

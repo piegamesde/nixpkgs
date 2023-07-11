@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, nose, mock, isPy3k }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  nose,
+  mock,
+  isPy3k,
+}:
 
 buildPythonPackage {
   pname = "simplebayes";

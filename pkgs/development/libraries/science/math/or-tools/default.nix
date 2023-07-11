@@ -1,6 +1,23 @@
-{ abseil-cpp, bzip2, cbc, cmake, eigen, ensureNewerSourcesForZipFilesHook
-, fetchFromGitHub, fetchpatch, glpk, lib, pkg-config, protobuf, python, re2
-, stdenv, swig4, unzip, zlib }:
+{
+  abseil-cpp,
+  bzip2,
+  cbc,
+  cmake,
+  eigen,
+  ensureNewerSourcesForZipFilesHook,
+  fetchFromGitHub,
+  fetchpatch,
+  glpk,
+  lib,
+  pkg-config,
+  protobuf,
+  python,
+  re2,
+  stdenv,
+  swig4,
+  unzip,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "or-tools";

@@ -1,8 +1,28 @@
-{ lib, stdenv, aiofiles, beautifulsoup4, buildPythonPackage
-, doCheck ? !stdenv.isDarwin # on Darwin, tests fail but pkg still works
-, fetchFromGitHub, gunicorn, httptools, multidict, pytest-asyncio
-, pytestCheckHook, pythonOlder, pythonAtLeast, sanic-routing, sanic-testing
-, setuptools, ujson, uvicorn, uvloop, websockets, aioquic }:
+{
+  lib,
+  stdenv,
+  aiofiles,
+  beautifulsoup4,
+  buildPythonPackage,
+  doCheck ? !stdenv.isDarwin # on Darwin, tests fail but pkg still works
+  ,
+  fetchFromGitHub,
+  gunicorn,
+  httptools,
+  multidict,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  pythonAtLeast,
+  sanic-routing,
+  sanic-testing,
+  setuptools,
+  ujson,
+  uvicorn,
+  uvloop,
+  websockets,
+  aioquic,
+}:
 
 buildPythonPackage rec {
   pname = "sanic";

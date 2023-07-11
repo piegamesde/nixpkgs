@@ -1,7 +1,30 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, setuptools, cffi
-, paramiko, requests, future, textfsm, jinja2, netaddr, pyyaml, pyeapi, netmiko
-, junos-eznc, ciscoconfparse, scp, lxml, ncclient, pytestCheckHook, ddt, mock
-, pythonOlder, invoke }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  setuptools,
+  cffi,
+  paramiko,
+  requests,
+  future,
+  textfsm,
+  jinja2,
+  netaddr,
+  pyyaml,
+  pyeapi,
+  netmiko,
+  junos-eznc,
+  ciscoconfparse,
+  scp,
+  lxml,
+  ncclient,
+  pytestCheckHook,
+  ddt,
+  mock,
+  pythonOlder,
+  invoke,
+}:
 
 buildPythonPackage rec {
   pname = "napalm";

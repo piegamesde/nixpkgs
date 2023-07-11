@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
   let
     gpgKeyring =
       (pkgs.runCommand "gpg-keyring" { buildInputs = [ pkgs.gnupg ]; } ''
@@ -45,17 +49,23 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
     name = "systemd-nspawn";
 
     nodes = {
-      server = { pkgs, ... }: {
-        networking.firewall.allowedTCPPorts = [ 80 ];
-        services.nginx = {
-          enable = true;
-          virtualHosts."server".root = nspawnImages;
+      server = {
+          pkgs,
+          ...
+        }: {
+          networking.firewall.allowedTCPPorts = [ 80 ];
+          services.nginx = {
+            enable = true;
+            virtualHosts."server".root = nspawnImages;
+          };
         };
-      };
-      client = { pkgs, ... }: {
-        environment.etc."systemd/import-pubring.gpg".source =
-          "${gpgKeyring}/pubkey.gpg";
-      };
+      client = {
+          pkgs,
+          ...
+        }: {
+          environment.etc."systemd/import-pubring.gpg".source =
+            "${gpgKeyring}/pubkey.gpg";
+        };
     };
 
     testScript = ''

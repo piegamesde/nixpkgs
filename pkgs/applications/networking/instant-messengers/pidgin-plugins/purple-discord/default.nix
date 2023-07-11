@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, imagemagick, gettext, pidgin, json-glib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  imagemagick,
+  gettext,
+  pidgin,
+  json-glib,
+}:
 
 stdenv.mkDerivation {
   pname = "purple-discord";

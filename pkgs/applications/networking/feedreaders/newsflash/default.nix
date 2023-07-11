@@ -1,6 +1,25 @@
-{ lib, stdenv, rustPlatform, fetchFromGitLab, meson, ninja, pkg-config
-, wrapGAppsHook4, gdk-pixbuf, glib, gtk4, libadwaita, libxml2, openssl, sqlite
-, webkitgtk, glib-networking, librsvg, gst_all_1, gitUpdater }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+  wrapGAppsHook4,
+  gdk-pixbuf,
+  glib,
+  gtk4,
+  libadwaita,
+  libxml2,
+  openssl,
+  sqlite,
+  webkitgtk,
+  glib-networking,
+  librsvg,
+  gst_all_1,
+  gitUpdater,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "newsflash";

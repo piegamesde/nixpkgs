@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, decorator, fetchPypi, pythonOlder, requests }:
+{
+  lib,
+  buildPythonPackage,
+  decorator,
+  fetchPypi,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "stashy";

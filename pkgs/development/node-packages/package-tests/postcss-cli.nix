@@ -1,4 +1,7 @@
-{ runCommand, postcss-cli }:
+{
+  runCommand,
+  postcss-cli,
+}:
 
 let inherit (postcss-cli) packageName version;
 

@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, python3, asciidoc, cacert, docbook_xsl
-, installShellFiles, libxml2, libxslt }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  asciidoc,
+  cacert,
+  docbook_xsl,
+  installShellFiles,
+  libxml2,
+  libxslt,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "offlineimap";

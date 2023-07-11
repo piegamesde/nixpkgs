@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, gfortran, perl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gfortran,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hoppet";

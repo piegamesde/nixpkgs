@@ -1,69 +1,155 @@
 # NOTE: Make sure to (re-)format this file on changes with `nixpkgs-fmt`!
 
-{ stdenv, lib, nixosTests, pkgsCross, fetchFromGitHub, fetchpatch, fetchzip
-, buildPackages, makeBinaryWrapper, ninja, meson, m4, pkg-config, coreutils
-, gperf, getent, glibcLocales
+{
+  stdenv,
+  lib,
+  nixosTests,
+  pkgsCross,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchzip,
+  buildPackages,
+  makeBinaryWrapper,
+  ninja,
+  meson,
+  m4,
+  pkg-config,
+  coreutils,
+  gperf,
+  getent,
+  glibcLocales
 
-# glib is only used during tests (test-bus-gvariant, test-bus-marshal)
-, glib, substituteAll, gettext, python3Packages
+  # glib is only used during tests (test-bus-gvariant, test-bus-marshal)
+  ,
+  glib,
+  substituteAll,
+  gettext,
+  python3Packages
 
-# Mandatory dependencies
-, libcap, util-linux, kbd, kmod, libxcrypt
+  # Mandatory dependencies
+  ,
+  libcap,
+  util-linux,
+  kbd,
+  kmod,
+  libxcrypt
 
-# Optional dependencies
-, pam, cryptsetup, audit, acl, lz4, libgcrypt, libgpg-error, libidn2, curl
-, gnutar, gnupg, zlib, xz, zstd, tpm2-tss, libuuid, libapparmor, intltool, bzip2
-, pcre2, e2fsprogs, elfutils, linuxHeaders ? stdenv.cc.libc.linuxHeaders
-, gnu-efi, iptables, withSelinux ? false, libselinux
-, withLibseccomp ? lib.meta.availableOn stdenv.hostPlatform libseccomp
-, libseccomp
-, withKexectools ? lib.meta.availableOn stdenv.hostPlatform kexec-tools
-, kexec-tools, bashInteractive, bash, libmicrohttpd, libfido2, p11-kit
+  # Optional dependencies
+  ,
+  pam,
+  cryptsetup,
+  audit,
+  acl,
+  lz4,
+  libgcrypt,
+  libgpg-error,
+  libidn2,
+  curl,
+  gnutar,
+  gnupg,
+  zlib,
+  xz,
+  zstd,
+  tpm2-tss,
+  libuuid,
+  libapparmor,
+  intltool,
+  bzip2,
+  pcre2,
+  e2fsprogs,
+  elfutils,
+  linuxHeaders ? stdenv.cc.libc.linuxHeaders,
+  gnu-efi,
+  iptables,
+  withSelinux ? false,
+  libselinux,
+  withLibseccomp ? lib.meta.availableOn stdenv.hostPlatform libseccomp,
+  libseccomp,
+  withKexectools ? lib.meta.availableOn stdenv.hostPlatform kexec-tools,
+  kexec-tools,
+  bashInteractive,
+  bash,
+  libmicrohttpd,
+  libfido2,
+  p11-kit
 
-# the (optional) BPF feature requires bpftool, libbpf, clang and llvm-strip to be available during build time.
-# Only libbpf should be a runtime dependency.
-# Note: llvmPackages is explicitly taken from buildPackages instead of relying
-# on splicing. Splicing will evaluate the adjacent (pkgsHostTarget) llvmPackages
-# which is sometimes problematic: llvmPackages.clang looks at targetPackages.stdenv.cc
-# which, in the unfortunate case of pkgsCross.ghcjs, `throw`s. If we explicitly
-# take buildPackages.llvmPackages, this is no problem because
-# `buildPackages.targetPackages.stdenv.cc == stdenv.cc` relative to us. Working
-# around this is important, because systemd is in the dependency closure of
-# GHC via emscripten and jdk.
-, bpftools, libbpf
+  # the (optional) BPF feature requires bpftool, libbpf, clang and llvm-strip to be available during build time.
+  # Only libbpf should be a runtime dependency.
+  # Note: llvmPackages is explicitly taken from buildPackages instead of relying
+  # on splicing. Splicing will evaluate the adjacent (pkgsHostTarget) llvmPackages
+  # which is sometimes problematic: llvmPackages.clang looks at targetPackages.stdenv.cc
+  # which, in the unfortunate case of pkgsCross.ghcjs, `throw`s. If we explicitly
+  # take buildPackages.llvmPackages, this is no problem because
+  # `buildPackages.targetPackages.stdenv.cc == stdenv.cc` relative to us. Working
+  # around this is important, because systemd is in the dependency closure of
+  # GHC via emscripten and jdk.
+  ,
+  bpftools,
+  libbpf
 
-, withAcl ? true, withAnalyze ? true, withApparmor ? true, withAudit ? true
-, withCompression ? true # adds bzip2, lz4, xz and zstd
-, withCoredump ? true, withCryptsetup ? true, withDocumentation ? true
-, withEfi ? stdenv.hostPlatform.isEfi, withFido2 ? true
-, withHomed ? !stdenv.hostPlatform.isMusl, withHostnamed ? true, withHwdb ? true
-, withImportd ? !stdenv.hostPlatform.isMusl, withKmod ? true, withLibBPF ?
-  lib.versionAtLeast buildPackages.llvmPackages.clang.version "10.0"
-  && (stdenv.hostPlatform.isAarch
-    -> lib.versionAtLeast stdenv.hostPlatform.parsed.cpu.version
-    "6") # assumes hard floats
-  && !stdenv.hostPlatform.isMips64 # see https://github.com/NixOS/nixpkgs/pull/194149#issuecomment-1266642211
-  # buildPackages.targetPackages.llvmPackages is the same as llvmPackages,
-  # but we do it this way to avoid taking llvmPackages as an input, and
-  # risking making it too easy to ignore the above comment about llvmPackages.
-  && lib.meta.availableOn stdenv.hostPlatform
-  buildPackages.targetPackages.llvmPackages.compiler-rt, withLibidn2 ? true
-, withLocaled ? true, withLogind ? true, withMachined ? true
-, withNetworkd ? true, withNss ? !stdenv.hostPlatform.isMusl, withOomd ? true
-, withPam ? true, withPCRE2 ? true, withPolkit ? true
-, withPortabled ? !stdenv.hostPlatform.isMusl
-, withRemote ? !stdenv.hostPlatform.isMusl, withResolved ? true
-, withShellCompletions ? true, withTimedated ? true, withTimesyncd ? true
-, withTpm2Tss ? true
-, withUkify ? false # adds python to closure which is too much by default
-, withUserDb ? true, withUtmp ? !stdenv.hostPlatform.isMusl
-  # tests assume too much system access for them to be feasible for us right now
-, withTests ? false
+  ,
+  withAcl ? true,
+  withAnalyze ? true,
+  withApparmor ? true,
+  withAudit ? true,
+  withCompression ? true # adds bzip2, lz4, xz and zstd
+  ,
+  withCoredump ? true,
+  withCryptsetup ? true,
+  withDocumentation ? true,
+  withEfi ? stdenv.hostPlatform.isEfi,
+  withFido2 ? true,
+  withHomed ? !stdenv.hostPlatform.isMusl,
+  withHostnamed ? true,
+  withHwdb ? true,
+  withImportd ? !stdenv.hostPlatform.isMusl,
+  withKmod ? true,
+  withLibBPF ?
+    lib.versionAtLeast buildPackages.llvmPackages.clang.version "10.0"
+    && (stdenv.hostPlatform.isAarch
+      -> lib.versionAtLeast stdenv.hostPlatform.parsed.cpu.version
+      "6") # assumes hard floats
+    && !stdenv.hostPlatform.isMips64 # see https://github.com/NixOS/nixpkgs/pull/194149#issuecomment-1266642211
+    # buildPackages.targetPackages.llvmPackages is the same as llvmPackages,
+    # but we do it this way to avoid taking llvmPackages as an input, and
+    # risking making it too easy to ignore the above comment about llvmPackages.
+    && lib.meta.availableOn stdenv.hostPlatform
+    buildPackages.targetPackages.llvmPackages.compiler-rt,
+  withLibidn2 ? true,
+  withLocaled ? true,
+  withLogind ? true,
+  withMachined ? true,
+  withNetworkd ? true,
+  withNss ? !stdenv.hostPlatform.isMusl,
+  withOomd ? true,
+  withPam ? true,
+  withPCRE2 ? true,
+  withPolkit ? true,
+  withPortabled ? !stdenv.hostPlatform.isMusl,
+  withRemote ? !stdenv.hostPlatform.isMusl,
+  withResolved ? true,
+  withShellCompletions ? true,
+  withTimedated ? true,
+  withTimesyncd ? true,
+  withTpm2Tss ? true,
+  withUkify ? false # adds python to closure which is too much by default
+  ,
+  withUserDb ? true,
+  withUtmp ? !stdenv.hostPlatform.isMusl
+    # tests assume too much system access for them to be feasible for us right now
+  ,
+  withTests ? false
 
-  # name argument
-, pname ? "systemd"
+    # name argument
+  ,
+  pname ? "systemd"
 
-, libxslt, docbook_xsl, docbook_xml_dtd_42, docbook_xml_dtd_45 }:
+  ,
+  libxslt,
+  docbook_xsl,
+  docbook_xml_dtd_42,
+  docbook_xml_dtd_45,
+}:
 
 assert withImportd -> withCompression;
 assert withCoredump -> withCompression;
@@ -603,11 +689,21 @@ in stdenv.mkDerivation (finalAttrs: {
     }];
 
     # { replacement, search, where } -> List[str]
-    mkSubstitute = { replacement, search, where, ignore ? [ ] }:
+    mkSubstitute = {
+        replacement,
+        search,
+        where,
+        ignore ? [ ]
+      }:
       map (path:
         ''substituteInPlace ${path} --replace '${search}' "${replacement}"'')
       where;
-    mkEnsureSubstituted = { replacement, search, where, ignore ? [ ] }:
+    mkEnsureSubstituted = {
+        replacement,
+        search,
+        where,
+        ignore ? [ ]
+      }:
       let ignore' = lib.concatStringsSep "|" (ignore ++ [ "^test" "NEWS" ]);
       in ''
         set +e

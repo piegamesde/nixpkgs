@@ -1,7 +1,33 @@
-{ mkDerivation, lib, fetchFromGitLab, ffmpeg, cmake, ninja, qtbase, qtx11extras
-, qtconnectivity, v4l-utils, grim, wf-recorder, libdbusmenu, playerctl, xorg
-, iio-sensor-proxy, inotify-tools, bluez, networkmanager, connman, redshift
-, gawk, polkit, libnotify, systemd, xdg-utils, libcprime, libcsys }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitLab,
+  ffmpeg,
+  cmake,
+  ninja,
+  qtbase,
+  qtx11extras,
+  qtconnectivity,
+  v4l-utils,
+  grim,
+  wf-recorder,
+  libdbusmenu,
+  playerctl,
+  xorg,
+  iio-sensor-proxy,
+  inotify-tools,
+  bluez,
+  networkmanager,
+  connman,
+  redshift,
+  gawk,
+  polkit,
+  libnotify,
+  systemd,
+  xdg-utils,
+  libcprime,
+  libcsys,
+}:
 
 mkDerivation rec {
   pname = "coretoppings";

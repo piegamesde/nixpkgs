@@ -10,7 +10,12 @@
 # - figure out a less awkward way to patch sources
 #   (have to build from src directly for SLIME to work, so can't just patch sources in place)
 
-{ pkgs, lib, stdenv, ... }:
+{
+  pkgs,
+  lib,
+  stdenv,
+  ...
+}:
 
 let
 
@@ -63,39 +68,43 @@ let
   #
   # Wrapper around stdenv.mkDerivation for building ASDF systems.
   #
-  build-asdf-system = (makeOverridableLispPackage ({ pname, version, src ? null
-    , patches ? [ ],
+  build-asdf-system = (makeOverridableLispPackage ({
+      pname,
+      version,
+      src ? null,
+      patches ? [ ],
 
-    # Native libraries, will be appended to the library path
-    nativeLibs ? [ ],
+      # Native libraries, will be appended to the library path
+      nativeLibs ? [ ],
 
-    # Java libraries for ABCL, will be appended to the class path
-    javaLibs ? [ ],
+      # Java libraries for ABCL, will be appended to the class path
+      javaLibs ? [ ],
 
-    # Lisp dependencies
-    # these should be packages built with `build-asdf-system`
-    lispLibs ? [ ],
+      # Lisp dependencies
+      # these should be packages built with `build-asdf-system`
+      lispLibs ? [ ],
 
-    # Lisp command to run buildScript
-    lisp,
+      # Lisp command to run buildScript
+      lisp,
 
-    # Some libraries have multiple systems under one project, for
-    # example, cffi has cffi-grovel, cffi-toolchain etc.  By
-    # default, only the `pname` system is build.
-    #
-    # .asd's not listed in `systems` are removed in
-    # installPhase. This prevents asdf from referring to uncompiled
-    # systems on run time.
-    #
-    # Also useful when the pname is differrent than the system name,
-    # such as when using reverse domain naming.
-    systems ? [ pname ],
+      # Some libraries have multiple systems under one project, for
+      # example, cffi has cffi-grovel, cffi-toolchain etc.  By
+      # default, only the `pname` system is build.
+      #
+      # .asd's not listed in `systems` are removed in
+      # installPhase. This prevents asdf from referring to uncompiled
+      # systems on run time.
+      #
+      # Also useful when the pname is differrent than the system name,
+      # such as when using reverse domain naming.
+      systems ? [ pname ],
 
-    # The .asd files that this package provides
-    asds ? systems,
+      # The .asd files that this package provides
+      asds ? systems,
 
-    # Other args to mkDerivation
-    ... }@args:
+      # Other args to mkDerivation
+      ...
+    }@args:
 
     let
 
@@ -259,7 +268,11 @@ let
     };
 
   # Build the set of packages imported from quicklisp using `lisp`
-  quicklispPackagesFor = { lisp, fixup ? lib.id, build ? build-asdf-system }:
+  quicklispPackagesFor = {
+      lisp,
+      fixup ? lib.id,
+      build ? build-asdf-system
+    }:
     let build-asdf-system' = body: build (body // { inherit lisp; });
     in import ./ql.nix {
       inherit pkgs;

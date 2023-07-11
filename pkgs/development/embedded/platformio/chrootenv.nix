@@ -1,4 +1,8 @@
-{ lib, buildFHSEnv, platformio-core }:
+{
+  lib,
+  buildFHSEnv,
+  platformio-core,
+}:
 
 let
   pio-pkgs = pkgs:

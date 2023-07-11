@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, utmp, musl-fts }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  utmp,
+  musl-fts,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pax";

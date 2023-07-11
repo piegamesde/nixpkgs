@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, pkg-config, cmake, rocm-cmake
-, libdrm, numactl, valgrind, gcc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  pkg-config,
+  cmake,
+  rocm-cmake,
+  libdrm,
+  numactl,
+  valgrind,
+  gcc,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocm-thunk";

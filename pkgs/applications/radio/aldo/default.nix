@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchgit, libao, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  libao,
+  autoreconfHook,
+}:
 
 let
   pname = "aldo";

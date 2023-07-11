@@ -1,6 +1,15 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub
 
-, cmake, doxygen, zlib, python3Packages }:
+  ,
+  cmake,
+  doxygen,
+  zlib,
+  python3Packages,
+}:
 
 let
   testdata = fetchFromGitHub {

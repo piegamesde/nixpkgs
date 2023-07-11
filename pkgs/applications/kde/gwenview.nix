@@ -1,7 +1,30 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, exiv2, lcms2, cfitsio
-, baloo, kactivities, kio, kipi-plugins, kitemmodels, kparts, libkdcraw, libkipi
-, phonon, qtimageformats, qtsvg, qtx11extras, kinit, kpurpose, kcolorpicker
-, kimageannotator, wayland, wayland-protocols }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  exiv2,
+  lcms2,
+  cfitsio,
+  baloo,
+  kactivities,
+  kio,
+  kipi-plugins,
+  kitemmodels,
+  kparts,
+  libkdcraw,
+  libkipi,
+  phonon,
+  qtimageformats,
+  qtsvg,
+  qtx11extras,
+  kinit,
+  kpurpose,
+  kcolorpicker,
+  kimageannotator,
+  wayland,
+  wayland-protocols,
+}:
 
 mkDerivation {
   pname = "gwenview";

@@ -1,7 +1,29 @@
-{ stdenv, lib, billiard, boto3, buildPythonPackage, case, click
-, click-didyoumean, click-plugins, click-repl, dnspython, fetchPypi, fetchpatch
-, kombu, moto, pymongo, pytest-celery, pytest-subtests, pytest-timeout
-, pytestCheckHook, pythonOlder, pytz, vine, nixosTests }:
+{
+  stdenv,
+  lib,
+  billiard,
+  boto3,
+  buildPythonPackage,
+  case,
+  click,
+  click-didyoumean,
+  click-plugins,
+  click-repl,
+  dnspython,
+  fetchPypi,
+  fetchpatch,
+  kombu,
+  moto,
+  pymongo,
+  pytest-celery,
+  pytest-subtests,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  vine,
+  nixosTests,
+}:
 
 buildPythonPackage rec {
   pname = "celery";

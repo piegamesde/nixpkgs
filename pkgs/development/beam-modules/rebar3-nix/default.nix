@@ -1,4 +1,8 @@
-{ lib, buildRebar3, fetchFromGitHub }:
+{
+  lib,
+  buildRebar3,
+  fetchFromGitHub,
+}:
 buildRebar3 rec {
   name = "rebar3_nix";
   version = "0.1.1";

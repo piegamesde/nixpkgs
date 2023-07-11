@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, asttokens, colorama, executing, pygments
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  asttokens,
+  colorama,
+  executing,
+  pygments,
 }:
 
 buildPythonPackage rec {

@@ -1,8 +1,18 @@
-{ lib, buildPythonPackage, callPackage, fetchFromGitHub, flit-core
-, unittestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  callPackage,
+  fetchFromGitHub,
+  flit-core,
+  unittestCheckHook
 
-# important downstream dependencies
-, flit, black, mypy, setuptools-scm }:
+  # important downstream dependencies
+  ,
+  flit,
+  black,
+  mypy,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "tomli";

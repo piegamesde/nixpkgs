@@ -1,4 +1,11 @@
-{ fetchFromGitHub, lib, libffi, libxml2, llvmPackages_13, ncurses, rustPlatform
+{
+  fetchFromGitHub,
+  lib,
+  libffi,
+  libxml2,
+  llvmPackages_13,
+  ncurses,
+  rustPlatform,
 }:
 
 rustPlatform.buildRustPackage {

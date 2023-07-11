@@ -1,4 +1,12 @@
-{ callPackage, runCommand, lib, fetchurl, perl, postgresql, nixosTests, ...
+{
+  callPackage,
+  runCommand,
+  lib,
+  fetchurl,
+  perl,
+  postgresql,
+  nixosTests,
+  ...
 }@args:
 
 callPackage ../nginx/generic.nix args rec {

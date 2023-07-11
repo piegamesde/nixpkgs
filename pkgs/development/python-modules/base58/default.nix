@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, py, pyhamcrest, pytest-benchmark
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  py,
+  pyhamcrest,
+  pytest-benchmark,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "base58";

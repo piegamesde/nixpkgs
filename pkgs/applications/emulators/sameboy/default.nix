@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, gtk3, rgbds, SDL2, wrapGAppsHook, glib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gtk3,
+  rgbds,
+  SDL2,
+  wrapGAppsHook,
+  glib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sameboy";

@@ -1,8 +1,34 @@
-{ lib, stdenv, arxiv2bib, beautifulsoup4, bibtexparser, buildPythonPackage
-, chardet, click, colorama, configparser, fetchFromGitHub, filetype, habanero
-, isbnlib, lxml, prompt-toolkit, pygments, pyparsing, pytestCheckHook
-, python-doi, python-slugify, pythonAtLeast, pythonOlder, pyyaml, requests
-, stevedore, tqdm, typing-extensions, whoosh }:
+{
+  lib,
+  stdenv,
+  arxiv2bib,
+  beautifulsoup4,
+  bibtexparser,
+  buildPythonPackage,
+  chardet,
+  click,
+  colorama,
+  configparser,
+  fetchFromGitHub,
+  filetype,
+  habanero,
+  isbnlib,
+  lxml,
+  prompt-toolkit,
+  pygments,
+  pyparsing,
+  pytestCheckHook,
+  python-doi,
+  python-slugify,
+  pythonAtLeast,
+  pythonOlder,
+  pyyaml,
+  requests,
+  stevedore,
+  tqdm,
+  typing-extensions,
+  whoosh,
+}:
 
 buildPythonPackage rec {
   pname = "papis";

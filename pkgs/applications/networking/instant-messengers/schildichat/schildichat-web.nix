@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, fetchYarnDeps, nodejs, yarn, fixup_yarn_lock
-, writeText, jq, conf ? { } }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  nodejs,
+  yarn,
+  fixup_yarn_lock,
+  writeText,
+  jq,
+  conf ? { }
+}:
 
 let
   pinData = lib.importJSON ./pin.json;

@@ -1,10 +1,33 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, python, pythonOlder, cython, numpy
-, python-dateutil, pytz, scipy, sqlalchemy, tables, xlrd, xlwt
-# Test inputs
-, glibcLocales, hypothesis, jinja2, pytestCheckHook, pytest-xdist
-, pytest-asyncio, xlsxwriter
-# Darwin inputs
-, runtimeShell, libcxx }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  pythonOlder,
+  cython,
+  numpy,
+  python-dateutil,
+  pytz,
+  scipy,
+  sqlalchemy,
+  tables,
+  xlrd,
+  xlwt
+  # Test inputs
+  ,
+  glibcLocales,
+  hypothesis,
+  jinja2,
+  pytestCheckHook,
+  pytest-xdist,
+  pytest-asyncio,
+  xlsxwriter
+  # Darwin inputs
+  ,
+  runtimeShell,
+  libcxx,
+}:
 
 buildPythonPackage rec {
   pname = "pandas";

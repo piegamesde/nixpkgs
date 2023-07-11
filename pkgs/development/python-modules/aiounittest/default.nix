@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, nose, coverage, isPy27, wrapt }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  nose,
+  coverage,
+  isPy27,
+  wrapt,
+}:
 
 buildPythonPackage rec {
   pname = "aiounittest";

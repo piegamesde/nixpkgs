@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, bash, pharo, unzip, makeDesktopItem }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bash,
+  pharo,
+  unzip,
+  makeDesktopItem,
+}:
 
 stdenv.mkDerivation rec {
   version = "2017.02.28";

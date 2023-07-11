@@ -1,8 +1,32 @@
-{ lib, fetchFromGitHub, fetchpatch, gitUpdater, python3Packages
-, blueprint-compiler, meson, ninja, pkg-config, wrapGAppsHook4, appstream-glib
-, desktop-file-utils, librsvg, gtk4, gtksourceview5, libadwaita, cabextract
-, p7zip, xdpyinfo, imagemagick, lsb-release, pciutils, procps, gamescope
-, mangohud, vkbasalt-cli, vmtouch }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  gitUpdater,
+  python3Packages,
+  blueprint-compiler,
+  meson,
+  ninja,
+  pkg-config,
+  wrapGAppsHook4,
+  appstream-glib,
+  desktop-file-utils,
+  librsvg,
+  gtk4,
+  gtksourceview5,
+  libadwaita,
+  cabextract,
+  p7zip,
+  xdpyinfo,
+  imagemagick,
+  lsb-release,
+  pciutils,
+  procps,
+  gamescope,
+  mangohud,
+  vkbasalt-cli,
+  vmtouch,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "bottles-unwrapped";

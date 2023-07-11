@@ -1,4 +1,10 @@
-{ lib, callPackage, runCommand, makeWrapper, ruby }@defs:
+{
+  lib,
+  callPackage,
+  runCommand,
+  makeWrapper,
+  ruby,
+}@defs:
 
 # Use for simple installation of Ruby tools shipped in a Gem.
 # Start with a Gemfile that includes `gem <toolgem>`
@@ -11,17 +17,31 @@
 # The 'exes' parameter ensures that a copy of e.g. rake doesn't polute the system.
 {
 # use the name of the name in question; its version will be picked up from the gemset
-pname
-# Gemdir is the location of the Gemfile{,.lock} and gemset.nix; usually ./.
-# This is required unless gemfile, lockfile, and gemset are all provided
-, gemdir ? null
-  # Exes is the list of executables provided by the gems in the Gemfile
-, exes ? [ ]
-  # Scripts are ruby programs depend on gems in the Gemfile (e.g. scripts/rails)
-, scripts ? [ ], ruby ? defs.ruby, gemfile ? null, lockfile ? null
-, gemset ? null, preferLocalBuild ? false, allowSubstitutes ? false
-, installManpages ? true, meta ? { }, nativeBuildInputs ? [ ], buildInputs ? [ ]
-, postBuild ? "", gemConfig ? null, passthru ? { } }@args:
+  pname
+  # Gemdir is the location of the Gemfile{,.lock} and gemset.nix; usually ./.
+  # This is required unless gemfile, lockfile, and gemset are all provided
+  ,
+  gemdir ? null
+    # Exes is the list of executables provided by the gems in the Gemfile
+  ,
+  exes ? [ ]
+    # Scripts are ruby programs depend on gems in the Gemfile (e.g. scripts/rails)
+  ,
+  scripts ? [ ],
+  ruby ? defs.ruby,
+  gemfile ? null,
+  lockfile ? null,
+  gemset ? null,
+  preferLocalBuild ? false,
+  allowSubstitutes ? false,
+  installManpages ? true,
+  meta ? { },
+  nativeBuildInputs ? [ ],
+  buildInputs ? [ ],
+  postBuild ? "",
+  gemConfig ? null,
+  passthru ? { }
+}@args:
 
 let
   basicEnv = (callPackage ../bundled-common { inherit ruby; }) args;

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -35,7 +40,9 @@ let
       message = "Invalid config key ${prefix}.${n}.";
     }) config;
 
-  formatFreeform = { prefix ? "" }:
+  formatFreeform = {
+      prefix ? ""
+    }:
     mapAttrsToList (n: v: "${prefix}${n} ${optionToString v}");
 
   userOptions = with types;

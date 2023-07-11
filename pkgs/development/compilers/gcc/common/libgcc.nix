@@ -1,4 +1,10 @@
-{ lib, stdenv, langC, langCC, langJit }:
+{
+  lib,
+  stdenv,
+  langC,
+  langCC,
+  langJit,
+}:
 
 let
   enableLibGccOutput = (with stdenv; targetPlatform == hostPlatform) && !langJit

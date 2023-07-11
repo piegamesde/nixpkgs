@@ -1,5 +1,8 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; }
+}:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -24,17 +27,19 @@ let
       name = postgresql-name;
       meta = with pkgs.lib.maintainers; { maintainers = [ zagy ]; };
 
-      nodes.machine = { ... }: {
-        services.postgresql = {
-          enable = true;
-          package = postgresql-package;
-        };
+      nodes.machine = {
+          ...
+        }: {
+          services.postgresql = {
+            enable = true;
+            package = postgresql-package;
+          };
 
-        services.postgresqlBackup = {
-          enable = true;
-          databases = optional (!backup-all) "postgres";
+          services.postgresqlBackup = {
+            enable = true;
+            databases = optional (!backup-all) "postgres";
+          };
         };
-      };
 
       testScript = let
         backupName = if backup-all then "all" else "postgres";
@@ -135,27 +140,29 @@ let
       name = postgresql-name;
       meta = with pkgs.lib.maintainers; { maintainers = [ zagy ]; };
 
-      nodes.machine = { ... }: {
-        services.postgresql = {
-          enable = true;
-          package = postgresql-package;
-          ensureUsers = [
-            {
-              name = "all-clauses";
-              ensureClauses = {
-                superuser = true;
-                createdb = true;
-                createrole = true;
-                "inherit" = true;
-                login = true;
-                replication = true;
-                bypassrls = true;
-              };
-            }
-            { name = "default-clauses"; }
-          ];
+      nodes.machine = {
+          ...
+        }: {
+          services.postgresql = {
+            enable = true;
+            package = postgresql-package;
+            ensureUsers = [
+              {
+                name = "all-clauses";
+                ensureClauses = {
+                  superuser = true;
+                  createdb = true;
+                  createrole = true;
+                  "inherit" = true;
+                  login = true;
+                  replication = true;
+                  bypassrls = true;
+                };
+              }
+              { name = "default-clauses"; }
+            ];
+          };
         };
-      };
 
       testScript = let
         getClausesQuery = user:

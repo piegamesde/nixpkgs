@@ -1,4 +1,8 @@
-{ buildDunePackage, xtmpl, ppxlib }:
+{
+  buildDunePackage,
+  xtmpl,
+  ppxlib,
+}:
 
 buildDunePackage {
   pname = "xtmpl_ppx";

@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, git }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  git,
+}:
 buildGoModule rec {
   pname = "git-bug-migration";
   version = "0.3.4";

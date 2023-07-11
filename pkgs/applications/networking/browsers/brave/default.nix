@@ -1,24 +1,77 @@
-{ lib, stdenv, fetchurl, wrapGAppsHook, makeWrapper, dpkg, alsa-lib, at-spi2-atk
-, at-spi2-core, atk, cairo, cups, dbus, expat, fontconfig, freetype, gdk-pixbuf
-, glib, gnome, gsettings-desktop-schemas, gtk3, libuuid, libdrm, libX11
-, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libxkbcommon
-, libXrandr, libXrender, libXScrnSaver, libxshmfence, libXtst, mesa, nspr, nss
-, pango, pipewire, udev, wayland, xorg, zlib, xdg-utils, snappy
+{
+  lib,
+  stdenv,
+  fetchurl,
+  wrapGAppsHook,
+  makeWrapper,
+  dpkg,
+  alsa-lib,
+  at-spi2-atk,
+  at-spi2-core,
+  atk,
+  cairo,
+  cups,
+  dbus,
+  expat,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  gnome,
+  gsettings-desktop-schemas,
+  gtk3,
+  libuuid,
+  libdrm,
+  libX11,
+  libXcomposite,
+  libXcursor,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXi,
+  libxkbcommon,
+  libXrandr,
+  libXrender,
+  libXScrnSaver,
+  libxshmfence,
+  libXtst,
+  mesa,
+  nspr,
+  nss,
+  pango,
+  pipewire,
+  udev,
+  wayland,
+  xorg,
+  zlib,
+  xdg-utils,
+  snappy
 
-# command line arguments which are always set e.g "--disable-gpu"
-, commandLineArgs ? ""
+  # command line arguments which are always set e.g "--disable-gpu"
+  ,
+  commandLineArgs ? ""
 
-  # Necessary for USB audio devices.
-, pulseSupport ? stdenv.isLinux, libpulseaudio
+    # Necessary for USB audio devices.
+  ,
+  pulseSupport ? stdenv.isLinux,
+  libpulseaudio
 
-# For GPU acceleration support on Wayland (without the lib it doesn't seem to work)
-, libGL
+  # For GPU acceleration support on Wayland (without the lib it doesn't seem to work)
+  ,
+  libGL
 
-# For video acceleration via VA-API (--enable-features=VaapiVideoDecoder,VaapiVideoEncoder)
-, libvaSupport ? stdenv.isLinux, libva, enableVideoAcceleration ? libvaSupport
+  # For video acceleration via VA-API (--enable-features=VaapiVideoDecoder,VaapiVideoEncoder)
+  ,
+  libvaSupport ? stdenv.isLinux,
+  libva,
+  enableVideoAcceleration ? libvaSupport
 
-  # For Vulkan support (--enable-features=Vulkan); disabled by default as it seems to break VA-API
-, vulkanSupport ? false, addOpenGLRunpath, enableVulkan ? vulkanSupport }:
+    # For Vulkan support (--enable-features=Vulkan); disabled by default as it seems to break VA-API
+  ,
+  vulkanSupport ? false,
+  addOpenGLRunpath,
+  enableVulkan ? vulkanSupport
+}:
 
 let
   inherit (lib)

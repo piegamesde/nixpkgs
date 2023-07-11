@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchurl, mmpython, pyqt4 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchurl,
+  mmpython,
+  pyqt4,
+}:
 
 buildPythonPackage rec {
   version = "2.0.18";

@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, ninja, ignite, numpy
-, pybind11, torch, which }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  ninja,
+  ignite,
+  numpy,
+  pybind11,
+  torch,
+  which,
+}:
 
 buildPythonPackage rec {
   pname = "monai";

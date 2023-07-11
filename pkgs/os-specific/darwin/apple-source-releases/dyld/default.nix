@@ -1,4 +1,8 @@
-{ lib, appleDerivation', stdenvNoCC }:
+{
+  lib,
+  appleDerivation',
+  stdenvNoCC,
+}:
 
 appleDerivation' stdenvNoCC {
   installPhase = ''

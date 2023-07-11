@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, substituteAll, pythonOlder, cudatoolkit
-, addOpenGLRunpath }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  substituteAll,
+  pythonOlder,
+  cudatoolkit,
+  addOpenGLRunpath,
+}:
 
 buildPythonPackage rec {
   pname = "pynvml";

@@ -1,14 +1,27 @@
-{ lib, coreutils, fakechroot, fakeroot, evalMinimalConfig, pkgsModule
-, runCommand, util-linux, vmTools, writeText }:
+{
+  lib,
+  coreutils,
+  fakechroot,
+  fakeroot,
+  evalMinimalConfig,
+  pkgsModule,
+  runCommand,
+  util-linux,
+  vmTools,
+  writeText,
+}:
 let
-  node = evalMinimalConfig ({ config, ... }: {
-    imports = [ pkgsModule ../etc/etc.nix ];
-    environment.etc."passwd" = { text = passwdText; };
-    environment.etc."hosts" = {
-      text = hostsText;
-      mode = "0751";
-    };
-  });
+  node = evalMinimalConfig ({
+      config,
+      ...
+    }: {
+      imports = [ pkgsModule ../etc/etc.nix ];
+      environment.etc."passwd" = { text = passwdText; };
+      environment.etc."hosts" = {
+        text = hostsText;
+        mode = "0751";
+      };
+    });
   passwdText = ''
     root:x:0:0:System administrator:/root:/run/current-system/sw/bin/bash
   '';

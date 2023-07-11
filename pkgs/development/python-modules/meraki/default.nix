@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, aiohttp, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  aiohttp,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "meraki";

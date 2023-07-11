@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, pythonAtLeast, pythonOlder, fetchpatch, fetchPypi
-, setuptools, setuptools-scm, importlib-metadata, cssselect, jaraco-test, lxml
-, mock, pytestCheckHook, importlib-resources }:
+{
+  lib,
+  buildPythonPackage,
+  pythonAtLeast,
+  pythonOlder,
+  fetchpatch,
+  fetchPypi,
+  setuptools,
+  setuptools-scm,
+  importlib-metadata,
+  cssselect,
+  jaraco-test,
+  lxml,
+  mock,
+  pytestCheckHook,
+  importlib-resources,
+}:
 
 buildPythonPackage rec {
   pname = "cssutils";

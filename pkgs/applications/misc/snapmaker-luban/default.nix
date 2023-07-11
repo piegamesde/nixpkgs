@@ -1,8 +1,41 @@
-{ lib, stdenv, autoPatchelfHook, makeDesktopItem, copyDesktopItems
-, wrapGAppsHook, fetchurl, alsa-lib, at-spi2-atk, at-spi2-core, atk, cairo, cups
-, gtk3, nss, glib, dbus, nspr, gdk-pixbuf, libdrm, mesa, libX11, libXScrnSaver
-, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr
-, libXrender, libXtst, libxcb, pango, gcc-unwrapped, udev }:
+{
+  lib,
+  stdenv,
+  autoPatchelfHook,
+  makeDesktopItem,
+  copyDesktopItems,
+  wrapGAppsHook,
+  fetchurl,
+  alsa-lib,
+  at-spi2-atk,
+  at-spi2-core,
+  atk,
+  cairo,
+  cups,
+  gtk3,
+  nss,
+  glib,
+  dbus,
+  nspr,
+  gdk-pixbuf,
+  libdrm,
+  mesa,
+  libX11,
+  libXScrnSaver,
+  libXcomposite,
+  libXcursor,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXi,
+  libXrandr,
+  libXrender,
+  libXtst,
+  libxcb,
+  pango,
+  gcc-unwrapped,
+  udev,
+}:
 
 stdenv.mkDerivation rec {
   pname = "snapmaker-luban";

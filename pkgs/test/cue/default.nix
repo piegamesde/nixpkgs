@@ -1,4 +1,9 @@
-{ writeCueValidator, runCommand, writeText, ... }:
+{
+  writeCueValidator,
+  runCommand,
+  writeText,
+  ...
+}:
 
 let
   validator = writeCueValidator (writeText "schema.cue" ''

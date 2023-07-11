@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchpatch, fetchPypi, freezegun, numpy, py
-, pytestCheckHook, pythonAtLeast, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchPypi,
+  freezegun,
+  numpy,
+  py,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pypytools";

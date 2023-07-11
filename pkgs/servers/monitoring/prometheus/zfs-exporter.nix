@@ -1,4 +1,8 @@
-{ buildGoModule, lib, fetchFromGitHub }:
+{
+  buildGoModule,
+  lib,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "zfs_exporter";

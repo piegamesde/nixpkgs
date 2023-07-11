@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, napi-rs-cli, nodejs, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  napi-rs-cli,
+  nodejs,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "matrix-sdk-crypto-nodejs";

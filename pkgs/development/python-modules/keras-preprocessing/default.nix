@@ -1,4 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, six, scipy, pillow, pytest, keras
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  six,
+  scipy,
+  pillow,
+  pytest,
+  keras,
 }:
 
 buildPythonPackage rec {

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, autoreconfHook, texinfo, mpfr }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  texinfo,
+  mpfr,
+}:
 stdenv.mkDerivation rec {
   pname = "mpfi";
   version = "1.5.4";

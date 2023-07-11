@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, curl, libnxml, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  curl,
+  libnxml,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libmrss";

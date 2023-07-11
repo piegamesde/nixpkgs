@@ -1,5 +1,14 @@
-{ buildPythonPackage, callPackage, fetchPypi, packaging, typing-extensions
-, tomli, setuptools, pythonOlder, lib }:
+{
+  buildPythonPackage,
+  callPackage,
+  fetchPypi,
+  packaging,
+  typing-extensions,
+  tomli,
+  setuptools,
+  pythonOlder,
+  lib,
+}:
 
 buildPythonPackage rec {
   pname = "setuptools-scm";

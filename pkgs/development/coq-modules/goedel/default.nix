@@ -1,4 +1,11 @@
-{ lib, mkCoqDerivation, coq, hydra-battles, pocklington, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  hydra-battles,
+  pocklington,
+  version ? null
+}:
 
 mkCoqDerivation {
   pname = "goedel";

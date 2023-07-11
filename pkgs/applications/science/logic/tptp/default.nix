@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, yap, tcsh, perl, patchelf }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  yap,
+  tcsh,
+  perl,
+  patchelf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "TPTP";

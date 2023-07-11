@@ -1,6 +1,25 @@
-{ qtModule, lib, stdenv, qtbase, qtdeclarative, qtshadertools, qtsvg, pkg-config
-, alsa-lib, gstreamer, gst-plugins-base, gst-plugins-good, gst-libav, gst-vaapi
-, libpulseaudio, wayland, elfutils, libunwind, orc, VideoToolbox }:
+{
+  qtModule,
+  lib,
+  stdenv,
+  qtbase,
+  qtdeclarative,
+  qtshadertools,
+  qtsvg,
+  pkg-config,
+  alsa-lib,
+  gstreamer,
+  gst-plugins-base,
+  gst-plugins-good,
+  gst-libav,
+  gst-vaapi,
+  libpulseaudio,
+  wayland,
+  elfutils,
+  libunwind,
+  orc,
+  VideoToolbox,
+}:
 
 qtModule {
   pname = "qtmultimedia";

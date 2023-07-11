@@ -1,4 +1,10 @@
-{ buildGoModule, fetchFromGitHub, lib, lightwalletd, testers }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  lightwalletd,
+  testers,
+}:
 
 buildGoModule rec {
   pname = "lightwalletd";

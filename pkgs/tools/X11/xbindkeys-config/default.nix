@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, gtk, pkg-config, procps, makeWrapper, ... }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gtk,
+  pkg-config,
+  procps,
+  makeWrapper,
+  ...
+}:
 
 stdenv.mkDerivation rec {
   pname = "xbindkeys-config";

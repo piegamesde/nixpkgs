@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, python, django, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  django,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "django-compat";

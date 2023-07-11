@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 # TODO: This is not secure, have a look at the file docs/security.txt inside
 # the project sources.
@@ -7,88 +12,92 @@ with lib;
 let cfg = config.power.ups;
 
 in let
-  upsOptions = { name, config, ... }: {
-    options = {
-      # This can be inferred from the UPS model by looking at
-      # /nix/store/nut/share/driver.list
-      driver = mkOption {
-        type = types.str;
-        description = lib.mdDoc ''
-          Specify the program to run to talk to this UPS.  apcsmart,
-          bestups, and sec are some examples.
-        '';
+  upsOptions = {
+      name,
+      config,
+      ...
+    }: {
+      options = {
+        # This can be inferred from the UPS model by looking at
+        # /nix/store/nut/share/driver.list
+        driver = mkOption {
+          type = types.str;
+          description = lib.mdDoc ''
+            Specify the program to run to talk to this UPS.  apcsmart,
+            bestups, and sec are some examples.
+          '';
+        };
+
+        port = mkOption {
+          type = types.str;
+          description = lib.mdDoc ''
+            The serial port to which your UPS is connected.  /dev/ttyS0 is
+            usually the first port on Linux boxes, for example.
+          '';
+        };
+
+        shutdownOrder = mkOption {
+          default = 0;
+          type = types.int;
+          description = lib.mdDoc ''
+            When you have multiple UPSes on your system, you usually need to
+            turn them off in a certain order.  upsdrvctl shuts down all the
+            0s, then the 1s, 2s, and so on.  To exclude a UPS from the
+            shutdown sequence, set this to -1.
+          '';
+        };
+
+        maxStartDelay = mkOption {
+          default = null;
+          type = types.uniq (types.nullOr types.int);
+          description = lib.mdDoc ''
+            This can be set as a global variable above your first UPS
+            definition and it can also be set in a UPS section.  This value
+            controls how long upsdrvctl will wait for the driver to finish
+            starting.  This keeps your system from getting stuck due to a
+            broken driver or UPS.
+          '';
+        };
+
+        description = mkOption {
+          default = "";
+          type = types.str;
+          description = lib.mdDoc ''
+            Description of the UPS.
+          '';
+        };
+
+        directives = mkOption {
+          default = [ ];
+          type = types.listOf types.str;
+          description = lib.mdDoc ''
+            List of configuration directives for this UPS.
+          '';
+        };
+
+        summary = mkOption {
+          default = "";
+          type = types.lines;
+          description = lib.mdDoc ''
+            Lines which would be added inside ups.conf for handling this UPS.
+          '';
+        };
+
       };
 
-      port = mkOption {
-        type = types.str;
-        description = lib.mdDoc ''
-          The serial port to which your UPS is connected.  /dev/ttyS0 is
-          usually the first port on Linux boxes, for example.
-        '';
-      };
+      config = {
+        directives = mkOrder 10 ([
+          "driver = ${config.driver}"
+          "port = ${config.port}"
+          ''desc = "${config.description}"''
+          "sdorder = ${toString config.shutdownOrder}"
+        ] ++ (optional (config.maxStartDelay != null)
+          "maxstartdelay = ${toString config.maxStartDelay}"));
 
-      shutdownOrder = mkOption {
-        default = 0;
-        type = types.int;
-        description = lib.mdDoc ''
-          When you have multiple UPSes on your system, you usually need to
-          turn them off in a certain order.  upsdrvctl shuts down all the
-          0s, then the 1s, 2s, and so on.  To exclude a UPS from the
-          shutdown sequence, set this to -1.
-        '';
+        summary =
+          concatStringsSep "\n      " ([ "[${name}]" ] ++ config.directives);
       };
-
-      maxStartDelay = mkOption {
-        default = null;
-        type = types.uniq (types.nullOr types.int);
-        description = lib.mdDoc ''
-          This can be set as a global variable above your first UPS
-          definition and it can also be set in a UPS section.  This value
-          controls how long upsdrvctl will wait for the driver to finish
-          starting.  This keeps your system from getting stuck due to a
-          broken driver or UPS.
-        '';
-      };
-
-      description = mkOption {
-        default = "";
-        type = types.str;
-        description = lib.mdDoc ''
-          Description of the UPS.
-        '';
-      };
-
-      directives = mkOption {
-        default = [ ];
-        type = types.listOf types.str;
-        description = lib.mdDoc ''
-          List of configuration directives for this UPS.
-        '';
-      };
-
-      summary = mkOption {
-        default = "";
-        type = types.lines;
-        description = lib.mdDoc ''
-          Lines which would be added inside ups.conf for handling this UPS.
-        '';
-      };
-
     };
-
-    config = {
-      directives = mkOrder 10 ([
-        "driver = ${config.driver}"
-        "port = ${config.port}"
-        ''desc = "${config.description}"''
-        "sdorder = ${toString config.shutdownOrder}"
-      ] ++ (optional (config.maxStartDelay != null)
-        "maxstartdelay = ${toString config.maxStartDelay}"));
-
-      summary =
-        concatStringsSep "\n      " ([ "[${name}]" ] ++ config.directives);
-    };
-  };
 
 in {
   options = {

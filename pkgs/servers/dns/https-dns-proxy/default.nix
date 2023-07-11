@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gtest, c-ares, curl, libev }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gtest,
+  c-ares,
+  curl,
+  libev,
+}:
 
 let
   # https-dns-proxy supports HTTP3 if curl has support, but as of 2022-08 curl doesn't work with that enabled

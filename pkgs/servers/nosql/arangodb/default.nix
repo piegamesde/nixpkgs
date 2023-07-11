@@ -2,9 +2,21 @@
 # gcc 11.2 suggested on 3.10.3.
 # gcc 11.3.0 unsupported yet, investigate gcc support when upgrading
 # See https://github.com/arangodb/arangodb/issues/17454
-gcc10Stdenv, git, lib, fetchFromGitHub, openssl, zlib, cmake, python3, perl
-, snappy, lzo, which, targetArchitecture ? null
-, asmOptimizations ? gcc10Stdenv.targetPlatform.isx86 }:
+  gcc10Stdenv,
+  git,
+  lib,
+  fetchFromGitHub,
+  openssl,
+  zlib,
+  cmake,
+  python3,
+  perl,
+  snappy,
+  lzo,
+  which,
+  targetArchitecture ? null,
+  asmOptimizations ? gcc10Stdenv.targetPlatform.isx86
+}:
 
 let
   defaultTargetArchitecture =

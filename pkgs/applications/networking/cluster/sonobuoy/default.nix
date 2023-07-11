@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 # SHA of ${version} for the tool's help output. Unfortunately this is needed in build flags.
 let rev = "bd5465d6b2b2b92b517f4c6074008d22338ff509";

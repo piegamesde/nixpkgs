@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, cunit, ncurses, curlHTTP3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  cunit,
+  ncurses,
+  curlHTTP3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nghttp3";

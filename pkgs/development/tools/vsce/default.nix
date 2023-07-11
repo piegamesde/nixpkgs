@@ -1,5 +1,14 @@
-{ lib, stdenv, buildNpmPackage, fetchFromGitHub, pkg-config, libsecret, python3
-, testers, vsce }:
+{
+  lib,
+  stdenv,
+  buildNpmPackage,
+  fetchFromGitHub,
+  pkg-config,
+  libsecret,
+  python3,
+  testers,
+  vsce,
+}:
 
 buildNpmPackage rec {
   pname = "vsce";

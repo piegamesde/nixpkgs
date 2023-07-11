@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitLab, pkg-config, cmake, yaml-cpp, libevdev, udev
-, boost }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  pkg-config,
+  cmake,
+  yaml-cpp,
+  libevdev,
+  udev,
+  boost,
+}:
 
 stdenv.mkDerivation rec {
   pname = "interception-tools";

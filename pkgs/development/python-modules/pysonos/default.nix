@@ -1,7 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, xmltodict, ifaddr, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy3k,
+  xmltodict,
+  ifaddr,
+  requests
 
-# Test dependencies
-, pytestCheckHook, mock, requests-mock }:
+  # Test dependencies
+  ,
+  pytestCheckHook,
+  mock,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "pysonos";

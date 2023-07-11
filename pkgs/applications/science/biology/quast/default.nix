@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, python3Packages, zlib, bash }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3Packages,
+  zlib,
+  bash,
+}:
 
 let
   pythonPackages = python3Packages;

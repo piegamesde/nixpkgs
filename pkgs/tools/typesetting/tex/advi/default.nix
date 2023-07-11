@@ -1,5 +1,13 @@
-{ fetchurl, lib, makeWrapper, writeShellScriptBin, ghostscriptX, ocamlPackages
-, texlive, which }:
+{
+  fetchurl,
+  lib,
+  makeWrapper,
+  writeShellScriptBin,
+  ghostscriptX,
+  ocamlPackages,
+  texlive,
+  which,
+}:
 
 let
   # simplified fake-opam edited from tweag's opam-nix

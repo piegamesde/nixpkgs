@@ -1,5 +1,9 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../../.. { inherit system config; }, lib ? pkgs.lib }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../../.. { inherit system config; },
+  lib ? pkgs.lib
+}:
 
 let
   inherit (import ./common.nix { inherit pkgs lib; })
@@ -7,7 +11,10 @@ let
 
   makeTest = import ./../make-test-python.nix;
 
-  makeAutobackupTest = { package, name ? mkTestName package, }:
+  makeAutobackupTest = {
+      package,
+      name ? mkTestName package,
+    }:
     makeTest {
       name = "${name}-automysqlbackup";
       meta.maintainers = [ lib.maintainers.aanderse ];

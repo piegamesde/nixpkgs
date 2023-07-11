@@ -1,5 +1,18 @@
-{ lib, fetchurl, buildDunePackage, dune-configurator, bos, ctypes, fmt, logs
-, mdx, alcotest, crowbar, junit_alcotest, ezjsonm }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  dune-configurator,
+  bos,
+  ctypes,
+  fmt,
+  logs,
+  mdx,
+  alcotest,
+  crowbar,
+  junit_alcotest,
+  ezjsonm,
+}:
 
 buildDunePackage rec {
   pname = "yaml";

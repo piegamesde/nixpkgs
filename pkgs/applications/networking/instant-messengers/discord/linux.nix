@@ -1,12 +1,67 @@
-{ pname, version, src, openasar, meta, binaryName, desktopName, autoPatchelfHook
-, makeDesktopItem, lib, stdenv, wrapGAppsHook, makeShellWrapper, alsa-lib
-, at-spi2-atk, at-spi2-core, atk, cairo, cups, dbus, expat, fontconfig, freetype
-, gdk-pixbuf, glib, gtk3, libcxx, libdrm, libglvnd, libnotify, libpulseaudio
-, libuuid, libX11, libXScrnSaver, libXcomposite, libXcursor, libXdamage, libXext
-, libXfixes, libXi, libXrandr, libXrender, libXtst, libxcb, libxshmfence, mesa
-, nspr, nss, pango, systemd, libappindicator-gtk3, libdbusmenu, writeScript
-, python3, runCommand, libunity, speechd, wayland, branch
-, common-updater-scripts, withOpenASAR ? false, withTTS ? false }:
+{
+  pname,
+  version,
+  src,
+  openasar,
+  meta,
+  binaryName,
+  desktopName,
+  autoPatchelfHook,
+  makeDesktopItem,
+  lib,
+  stdenv,
+  wrapGAppsHook,
+  makeShellWrapper,
+  alsa-lib,
+  at-spi2-atk,
+  at-spi2-core,
+  atk,
+  cairo,
+  cups,
+  dbus,
+  expat,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  libcxx,
+  libdrm,
+  libglvnd,
+  libnotify,
+  libpulseaudio,
+  libuuid,
+  libX11,
+  libXScrnSaver,
+  libXcomposite,
+  libXcursor,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXi,
+  libXrandr,
+  libXrender,
+  libXtst,
+  libxcb,
+  libxshmfence,
+  mesa,
+  nspr,
+  nss,
+  pango,
+  systemd,
+  libappindicator-gtk3,
+  libdbusmenu,
+  writeScript,
+  python3,
+  runCommand,
+  libunity,
+  speechd,
+  wayland,
+  branch,
+  common-updater-scripts,
+  withOpenASAR ? false,
+  withTTS ? false
+}:
 
 let
   disableBreakingUpdates = runCommand "disable-breaking-updates.py" {

@@ -1,4 +1,11 @@
-{ stdenv, fetchurl, undmg, cpio, xar, lib }:
+{
+  stdenv,
+  fetchurl,
+  undmg,
+  cpio,
+  xar,
+  lib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fpc-binary";

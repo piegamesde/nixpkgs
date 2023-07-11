@@ -1,5 +1,17 @@
-{ lib, fetchzip, buildDunePackage, ocaml, zarith, eqaf, bigarray-compat, hex
-, ff-sig, ff, alcotest, bisect_ppx }:
+{
+  lib,
+  fetchzip,
+  buildDunePackage,
+  ocaml,
+  zarith,
+  eqaf,
+  bigarray-compat,
+  hex,
+  ff-sig,
+  ff,
+  alcotest,
+  bisect_ppx,
+}:
 
 buildDunePackage rec {
   pname = "mec";

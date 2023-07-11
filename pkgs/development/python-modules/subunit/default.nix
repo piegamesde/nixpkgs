@@ -1,9 +1,22 @@
-{ buildPythonPackage
-# pkgs dependencies
-, check, cppunit, pkg-config, subunit, pythonOlder
+{
+  buildPythonPackage
+  # pkgs dependencies
+  ,
+  check,
+  cppunit,
+  pkg-config,
+  subunit,
+  pythonOlder
 
-# python dependencies
-, fixtures, hypothesis, pytestCheckHook, setuptools, testscenarios, testtools }:
+  # python dependencies
+  ,
+  fixtures,
+  hypothesis,
+  pytestCheckHook,
+  setuptools,
+  testscenarios,
+  testtools,
+}:
 
 buildPythonPackage {
   inherit (subunit) name src meta;

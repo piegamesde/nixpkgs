@@ -1,4 +1,9 @@
-{ python3Packages, lib, git, graphviz }:
+{
+  python3Packages,
+  lib,
+  git,
+  graphviz,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "git-big-picture";

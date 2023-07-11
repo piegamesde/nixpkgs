@@ -1,7 +1,19 @@
-{ lib, stdenv, dpkg, fetchurl, zip, nixosTests }:
+{
+  lib,
+  stdenv,
+  dpkg,
+  fetchurl,
+  zip,
+  nixosTests,
+}:
 
 let
-  generic = { version, sha256, suffix ? "", ... }@args:
+  generic = {
+      version,
+      sha256,
+      suffix ? "",
+      ...
+    }@args:
     stdenv.mkDerivation (args // {
       pname = "unifi-controller";
 

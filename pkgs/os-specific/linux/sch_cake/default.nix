@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, kernel }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  kernel,
+}:
 
 stdenv.mkDerivation {
   pname = "sch_cake";

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, wayland
-, wayland-protocols, fetchpatch, wayland-scanner }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  wayland,
+  wayland-protocols,
+  fetchpatch,
+  wayland-scanner,
+}:
 
 stdenv.mkDerivation {
   pname = "wdomirror";

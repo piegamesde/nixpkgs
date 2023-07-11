@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, fetchpatch, buildGoModule }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  buildGoModule,
+}:
 buildGoModule rec {
   pname = "json-plot";
   version = "1.1.12";

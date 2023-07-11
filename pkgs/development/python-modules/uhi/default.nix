@@ -1,5 +1,12 @@
-{ lib, fetchPypi, buildPythonPackage, hatchling, hatch-vcs, numpy
-, pytestCheckHook }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  hatchling,
+  hatch-vcs,
+  numpy,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "uhi";

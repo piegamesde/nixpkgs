@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, postgresql, freetds }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  postgresql,
+  freetds,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tds_fdw";

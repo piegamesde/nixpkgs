@@ -1,4 +1,11 @@
-{ fetchFromGitHub, lib, stdenv, fontforge, perl, perlPackages }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  fontforge,
+  perl,
+  perlPackages,
+}:
 
 let
   version = "2.37";

@@ -1,5 +1,13 @@
-{ lib, appleDerivation', stdenv, stdenvNoCC, Libinfo, configdHeaders
-, mDNSResponder, headersOnly ? false }:
+{
+  lib,
+  appleDerivation',
+  stdenv,
+  stdenvNoCC,
+  Libinfo,
+  configdHeaders,
+  mDNSResponder,
+  headersOnly ? false
+}:
 
 appleDerivation' (if headersOnly then stdenvNoCC else stdenv) {
   buildInputs =

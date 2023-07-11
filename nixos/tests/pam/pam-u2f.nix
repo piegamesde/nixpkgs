@@ -1,18 +1,22 @@
-import ../make-test-python.nix ({ ... }:
+import ../make-test-python.nix ({
+    ...
+  }:
 
   {
     name = "pam-u2f";
 
-    nodes.machine = { ... }: {
-      security.pam.u2f = {
-        control = "required";
-        cue = true;
-        debug = true;
-        enable = true;
-        interactive = true;
-        origin = "nixos-test";
+    nodes.machine = {
+        ...
+      }: {
+        security.pam.u2f = {
+          control = "required";
+          cue = true;
+          debug = true;
+          enable = true;
+          interactive = true;
+          origin = "nixos-test";
+        };
       };
-    };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

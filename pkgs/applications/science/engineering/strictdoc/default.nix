@@ -1,7 +1,28 @@
-{ lib, stdenv, buildPythonApplication, fetchFromGitHub, python3, html5lib
-, invoke, openpyxl, poetry-core, tidylib, beautifulsoup4, datauri, docutils
-, jinja2, lxml, markupsafe, pygments, reqif, setuptools, textx, xlrd, xlsxwriter
-, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonApplication,
+  fetchFromGitHub,
+  python3,
+  html5lib,
+  invoke,
+  openpyxl,
+  poetry-core,
+  tidylib,
+  beautifulsoup4,
+  datauri,
+  docutils,
+  jinja2,
+  lxml,
+  markupsafe,
+  pygments,
+  reqif,
+  setuptools,
+  textx,
+  xlrd,
+  xlsxwriter,
+  pytestCheckHook,
+}:
 
 buildPythonApplication rec {
   pname = "strictdoc";

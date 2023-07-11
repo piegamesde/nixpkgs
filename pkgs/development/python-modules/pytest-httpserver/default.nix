@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook
-, pythonOlder, requests, toml, werkzeug }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  toml,
+  werkzeug,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-httpserver";

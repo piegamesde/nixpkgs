@@ -1,5 +1,15 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder, routerFeatures, janus
-, ncclient, paramiko, pyyaml, sanic }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder,
+  routerFeatures,
+  janus,
+  ncclient,
+  paramiko,
+  pyyaml,
+  sanic,
+}:
 
 let
   # The `routerFeatures` flag optionally brings in some somewhat heavy

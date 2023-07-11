@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, libIDL, libintl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glib,
+  libIDL,
+  libintl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ORBit2";

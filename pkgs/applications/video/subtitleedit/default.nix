@@ -1,5 +1,19 @@
-{ lib, stdenv, copyDesktopItems, makeDesktopItem, makeWrapper, fetchzip, ffmpeg
-, gtk2, hunspell, icoutils, mono, mpv, tesseract4, nix-update-script }:
+{
+  lib,
+  stdenv,
+  copyDesktopItems,
+  makeDesktopItem,
+  makeWrapper,
+  fetchzip,
+  ffmpeg,
+  gtk2,
+  hunspell,
+  icoutils,
+  mono,
+  mpv,
+  tesseract4,
+  nix-update-script,
+}:
 
 stdenv.mkDerivation rec {
   pname = "subtitleedit";

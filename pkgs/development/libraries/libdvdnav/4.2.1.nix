@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, pkg-config, libdvdread }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libdvdread,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libdvdnav";

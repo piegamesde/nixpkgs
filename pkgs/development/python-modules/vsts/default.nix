@@ -1,4 +1,10 @@
-{ buildPythonPackage, lib, python, fetchPypi, msrest }:
+{
+  buildPythonPackage,
+  lib,
+  python,
+  fetchPypi,
+  msrest,
+}:
 
 buildPythonPackage rec {
   version = "0.1.25";

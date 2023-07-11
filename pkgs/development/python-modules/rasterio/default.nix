@@ -1,7 +1,29 @@
-{ lib, stdenv, affine, attrs, boto3, buildPythonPackage, click, click-plugins
-, cligj, certifi, cython, fetchFromGitHub, gdal, hypothesis, matplotlib, ipython
-, numpy, packaging, pytest-randomly, pytestCheckHook, pythonOlder, setuptools
-, shapely, snuggs }:
+{
+  lib,
+  stdenv,
+  affine,
+  attrs,
+  boto3,
+  buildPythonPackage,
+  click,
+  click-plugins,
+  cligj,
+  certifi,
+  cython,
+  fetchFromGitHub,
+  gdal,
+  hypothesis,
+  matplotlib,
+  ipython,
+  numpy,
+  packaging,
+  pytest-randomly,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  shapely,
+  snuggs,
+}:
 
 buildPythonPackage rec {
   pname = "rasterio";

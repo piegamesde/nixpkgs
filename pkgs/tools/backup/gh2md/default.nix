@@ -1,4 +1,7 @@
-{ lib, python3Packages }:
+{
+  lib,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "gh2md";

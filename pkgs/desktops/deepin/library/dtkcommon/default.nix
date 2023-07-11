@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, cmake, qtbase, qttools
-, wrapQtAppsHook, glib }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  qtbase,
+  qttools,
+  wrapQtAppsHook,
+  glib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dtkcommon";

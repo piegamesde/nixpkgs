@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, guile, texinfo, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  guile,
+  texinfo,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "guile-json";

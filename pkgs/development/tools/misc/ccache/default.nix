@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, substituteAll, binutils, asciidoctor, cmake
-, perl, zstd, bashInteractive, xcodebuild, makeWrapper, nix-update-script }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  substituteAll,
+  binutils,
+  asciidoctor,
+  cmake,
+  perl,
+  zstd,
+  bashInteractive,
+  xcodebuild,
+  makeWrapper,
+  nix-update-script,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ccache";
@@ -59,7 +72,10 @@ stdenv.mkDerivation (finalAttrs: {
   passthru = {
     # A derivation that provides gcc and g++ commands, but that
     # will end up calling ccache for the given cacheDir
-    links = { unwrappedCC, extraConfig }:
+    links = {
+        unwrappedCC,
+        extraConfig,
+      }:
       stdenv.mkDerivation {
         pname = "ccache-links";
         inherit (finalAttrs) version;

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -189,121 +194,124 @@ in {
         };
       '';
       default = { };
-      type = attrsOf (submodule ({ name, ... }: {
-        options = {
-          xmppServerHosts = mkOption {
-            type = listOf str;
-            example = [ "xmpp.example.org" ];
-            description = lib.mdDoc ''
-              Hostnames of the XMPP servers to connect to.
-            '';
-          };
-          xmppDomain = mkOption {
-            type = str;
-            example = "xmpp.example.org";
-            description = lib.mdDoc ''
-              The base XMPP domain.
-            '';
-          };
-          control.muc.domain = mkOption {
-            type = str;
-            description = lib.mdDoc ''
-              The domain part of the MUC to connect to for control.
-            '';
-          };
-          control.muc.roomName = mkOption {
-            type = str;
-            default = "JibriBrewery";
-            description = lib.mdDoc ''
-              The room name of the MUC to connect to for control.
-            '';
-          };
-          control.muc.nickname = mkOption {
-            type = str;
-            default = "jibri";
-            description = lib.mdDoc ''
-              The nickname for this Jibri instance in the MUC.
-            '';
-          };
-          control.login.domain = mkOption {
-            type = str;
-            description = lib.mdDoc ''
-              The domain part of the JID for this Jibri instance.
-            '';
-          };
-          control.login.username = mkOption {
-            type = str;
-            default = "jvb";
-            description = lib.mdDoc ''
-              User part of the JID.
-            '';
-          };
-          control.login.passwordFile = mkOption {
-            type = str;
-            example = "/run/keys/jibri-xmpp1";
-            description = lib.mdDoc ''
-              File containing the password for the user.
-            '';
+      type = attrsOf (submodule ({
+          name,
+          ...
+        }: {
+          options = {
+            xmppServerHosts = mkOption {
+              type = listOf str;
+              example = [ "xmpp.example.org" ];
+              description = lib.mdDoc ''
+                Hostnames of the XMPP servers to connect to.
+              '';
+            };
+            xmppDomain = mkOption {
+              type = str;
+              example = "xmpp.example.org";
+              description = lib.mdDoc ''
+                The base XMPP domain.
+              '';
+            };
+            control.muc.domain = mkOption {
+              type = str;
+              description = lib.mdDoc ''
+                The domain part of the MUC to connect to for control.
+              '';
+            };
+            control.muc.roomName = mkOption {
+              type = str;
+              default = "JibriBrewery";
+              description = lib.mdDoc ''
+                The room name of the MUC to connect to for control.
+              '';
+            };
+            control.muc.nickname = mkOption {
+              type = str;
+              default = "jibri";
+              description = lib.mdDoc ''
+                The nickname for this Jibri instance in the MUC.
+              '';
+            };
+            control.login.domain = mkOption {
+              type = str;
+              description = lib.mdDoc ''
+                The domain part of the JID for this Jibri instance.
+              '';
+            };
+            control.login.username = mkOption {
+              type = str;
+              default = "jvb";
+              description = lib.mdDoc ''
+                User part of the JID.
+              '';
+            };
+            control.login.passwordFile = mkOption {
+              type = str;
+              example = "/run/keys/jibri-xmpp1";
+              description = lib.mdDoc ''
+                File containing the password for the user.
+              '';
+            };
+
+            call.login.domain = mkOption {
+              type = str;
+              example = "recorder.xmpp.example.org";
+              description = lib.mdDoc ''
+                The domain part of the JID for the recorder.
+              '';
+            };
+            call.login.username = mkOption {
+              type = str;
+              default = "recorder";
+              description = lib.mdDoc ''
+                User part of the JID for the recorder.
+              '';
+            };
+            call.login.passwordFile = mkOption {
+              type = str;
+              example = "/run/keys/jibri-recorder-xmpp1";
+              description = lib.mdDoc ''
+                File containing the password for the user.
+              '';
+            };
+            disableCertificateVerification = mkOption {
+              type = bool;
+              default = false;
+              description = lib.mdDoc ''
+                Whether to skip validation of the server's certificate.
+              '';
+            };
+
+            stripFromRoomDomain = mkOption {
+              type = str;
+              default = "0";
+              example = "conference.";
+              description = lib.mdDoc ''
+                The prefix to strip from the room's JID domain to derive the call URL.
+              '';
+            };
+            usageTimeout = mkOption {
+              type = str;
+              default = "0";
+              example = "1 hour";
+              description = lib.mdDoc ''
+                The duration that the Jibri session can be.
+                A value of zero means indefinitely.
+              '';
+            };
           };
 
-          call.login.domain = mkOption {
-            type = str;
-            example = "recorder.xmpp.example.org";
-            description = lib.mdDoc ''
-              The domain part of the JID for the recorder.
-            '';
+          config = let
+            nick = mkDefault (builtins.replaceStrings [ "." ] [ "-" ]
+              (config.networking.hostName
+                + optionalString (config.networking.domain != null)
+                ".${config.networking.domain}"));
+          in {
+            call.login.username = nick;
+            control.muc.nickname = nick;
           };
-          call.login.username = mkOption {
-            type = str;
-            default = "recorder";
-            description = lib.mdDoc ''
-              User part of the JID for the recorder.
-            '';
-          };
-          call.login.passwordFile = mkOption {
-            type = str;
-            example = "/run/keys/jibri-recorder-xmpp1";
-            description = lib.mdDoc ''
-              File containing the password for the user.
-            '';
-          };
-          disableCertificateVerification = mkOption {
-            type = bool;
-            default = false;
-            description = lib.mdDoc ''
-              Whether to skip validation of the server's certificate.
-            '';
-          };
-
-          stripFromRoomDomain = mkOption {
-            type = str;
-            default = "0";
-            example = "conference.";
-            description = lib.mdDoc ''
-              The prefix to strip from the room's JID domain to derive the call URL.
-            '';
-          };
-          usageTimeout = mkOption {
-            type = str;
-            default = "0";
-            example = "1 hour";
-            description = lib.mdDoc ''
-              The duration that the Jibri session can be.
-              A value of zero means indefinitely.
-            '';
-          };
-        };
-
-        config = let
-          nick = mkDefault (builtins.replaceStrings [ "." ] [ "-" ]
-            (config.networking.hostName
-              + optionalString (config.networking.domain != null)
-              ".${config.networking.domain}"));
-        in {
-          call.login.username = nick;
-          control.muc.nickname = nick;
-        };
-      }));
+        }));
     };
   };
 

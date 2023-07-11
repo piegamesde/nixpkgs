@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, shhmsg, shhopt, xorg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  shhmsg,
+  shhopt,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "snake4";

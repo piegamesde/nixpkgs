@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, libsndfile, freeglut, alsa-lib, mesa, libGLU, libX11
-, libXmu, libXext, libXi }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libsndfile,
+  freeglut,
+  alsa-lib,
+  mesa,
+  libGLU,
+  libX11,
+  libXmu,
+  libXext,
+  libXi,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sndpeek";

@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, cmake, msgpack }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  msgpack,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mmtf-cpp";

@@ -1,5 +1,18 @@
-{ stdenvNoCC, subversion, sshSupport ? true, openssh ? null, expect }:
-{ username, password, url, rev ? "HEAD", md5 ? "", sha256 ? "" }:
+{
+  stdenvNoCC,
+  subversion,
+  sshSupport ? true,
+  openssh ? null,
+  expect,
+}:
+{
+  username,
+  password,
+  url,
+  rev ? "HEAD",
+  md5 ? "",
+  sha256 ? ""
+}:
 
 if md5 != "" then
   throw "fetchsvnssh does not support md5 anymore, please use sha256"

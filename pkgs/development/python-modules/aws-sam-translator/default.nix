@@ -1,6 +1,21 @@
-{ lib, boto3, buildPythonPackage, fetchFromGitHub, fetchpatch, jsonschema, mock
-, parameterized, pydantic, pytest-env, pytest-rerunfailures, pytest-xdist
-, pytestCheckHook, pythonOlder, pyyaml, typing-extensions }:
+{
+  lib,
+  boto3,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  jsonschema,
+  mock,
+  parameterized,
+  pydantic,
+  pytest-env,
+  pytest-rerunfailures,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "aws-sam-translator";

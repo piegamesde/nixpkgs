@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, boost, pkg-config, cmake, catch2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  boost,
+  pkg-config,
+  cmake,
+  catch2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "grip-search";

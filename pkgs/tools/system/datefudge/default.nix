@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchgit, fetchpatch, makeWrapper, coreutils }:
+{
+  stdenv,
+  lib,
+  fetchgit,
+  fetchpatch,
+  makeWrapper,
+  coreutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "datefudge";

@@ -1,5 +1,12 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, installShellFiles, udev
-, coreutils }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  installShellFiles,
+  udev,
+  coreutils,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "surface-control";

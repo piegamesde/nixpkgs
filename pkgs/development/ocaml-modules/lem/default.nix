@@ -1,5 +1,15 @@
-{ stdenv, fetchFromGitHub, lib, ncurses, makeWrapper, ocamlbuild, findlib, ocaml
-, num, zarith }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  ncurses,
+  makeWrapper,
+  ocamlbuild,
+  findlib,
+  ocaml,
+  num,
+  zarith,
+}:
 
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.07")
 "lem is not available for OCaml ${ocaml.version}"

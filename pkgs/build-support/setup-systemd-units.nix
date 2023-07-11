@@ -3,19 +3,29 @@
 #
 # Creates a symlink at /etc/systemd-static/${namespace} for slightly
 # improved atomicity.
-{ writeScriptBin, bash, coreutils, systemd, runCommand, lib }:
-{ units # : AttrSet String (Either Path { path : Path, wanted-by : [ String ] })
-# ^ A set whose names are unit names and values are
-# either paths to the corresponding unit files or a set
-# containing the path and the list of units this unit
-# should be wanted-by (none by default).
-#
-# The names should include the unit suffix
-# (e.g. ".service")
-, namespace # : String
-# The namespace for the unit files, to allow for
-# multiple independent unit sets managed by
-# `setupSystemdUnits`.
+{
+  writeScriptBin,
+  bash,
+  coreutils,
+  systemd,
+  runCommand,
+  lib,
+}:
+{
+  units # : AttrSet String (Either Path { path : Path, wanted-by : [ String ] })
+  # ^ A set whose names are unit names and values are
+  # either paths to the corresponding unit files or a set
+  # containing the path and the list of units this unit
+  # should be wanted-by (none by default).
+  #
+  # The names should include the unit suffix
+  # (e.g. ".service")
+  ,
+  namespace # : String
+  # The namespace for the unit files, to allow for
+  # multiple independent unit sets managed by
+  # `setupSystemdUnits`.
+  ,
 }:
 let
   static = runCommand "systemd-static" { } ''

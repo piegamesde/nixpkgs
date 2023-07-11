@@ -1,4 +1,10 @@
-{ mkDerivation, appstream, qtbase, qttools, nixosTests }:
+{
+  mkDerivation,
+  appstream,
+  qtbase,
+  qttools,
+  nixosTests,
+}:
 
 # TODO: look into using the libraries from the regular appstream derivation as we keep duplicates here
 

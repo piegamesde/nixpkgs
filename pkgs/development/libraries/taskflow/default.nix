@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, substituteAll, doctest, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  substituteAll,
+  doctest,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "taskflow";

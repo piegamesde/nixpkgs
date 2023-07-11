@@ -1,4 +1,9 @@
-{ lib, python3Packages, ffmpeg, fetchpatch }:
+{
+  lib,
+  python3Packages,
+  ffmpeg,
+  fetchpatch,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "streamlink";

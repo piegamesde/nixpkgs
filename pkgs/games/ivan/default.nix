@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, SDL2, SDL2_mixer, alsa-lib
-, libpng, pcre, makeDesktopItem }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  SDL2,
+  SDL2_mixer,
+  alsa-lib,
+  libpng,
+  pcre,
+  makeDesktopItem,
+}:
 
 stdenv.mkDerivation rec {
 

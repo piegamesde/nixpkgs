@@ -1,4 +1,10 @@
-{ lib, mkDerivationWith, python3Packages, fetchFromGitHub, wrapQtAppsHook }:
+{
+  lib,
+  mkDerivationWith,
+  python3Packages,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+}:
 
 mkDerivationWith python3Packages.buildPythonApplication rec {
   pname = "cq-editor";

@@ -1,5 +1,12 @@
-{ lib, buildGoModule, fetchFromGitHub, nix-update-script, makeWrapper, xsel
-, wl-clipboard }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nix-update-script,
+  makeWrapper,
+  xsel,
+  wl-clipboard,
+}:
 
 buildGoModule rec {
   pname = "discordo";

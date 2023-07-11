@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchzip, gnome, gettext, glib }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  gnome,
+  gettext,
+  glib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-clock-override";

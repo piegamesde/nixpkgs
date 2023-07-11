@@ -1,6 +1,25 @@
-{ lib, stdenv, mkDerivation, fetchFromGitHub, cmake, pkg-config, freetype
-, fontconfig, libGL, pcre, boost, catch2, fmt, microsoft_gsl, range-v3, yaml-cpp
-, ncurses, file, darwin, nixosTests }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  freetype,
+  fontconfig,
+  libGL,
+  pcre,
+  boost,
+  catch2,
+  fmt,
+  microsoft_gsl,
+  range-v3,
+  yaml-cpp,
+  ncurses,
+  file,
+  darwin,
+  nixosTests,
+}:
 
 let
   # Commits refs come from https://github.com/contour-terminal/contour/blob/master/scripts/install-deps.sh

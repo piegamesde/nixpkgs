@@ -1,4 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, cmake, numpy, scipy, stdenv, xgboost }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  cmake,
+  numpy,
+  scipy,
+  stdenv,
+  xgboost,
+}:
 
 buildPythonPackage {
   pname = "xgboost";

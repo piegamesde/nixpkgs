@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, testers, aws-rotate-key }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  testers,
+  aws-rotate-key,
+}:
 
 buildGoModule rec {
   pname = "aws-rotate-key";

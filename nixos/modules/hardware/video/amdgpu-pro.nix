@@ -1,6 +1,11 @@
 # This module provides the proprietary AMDGPU-PRO drivers.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

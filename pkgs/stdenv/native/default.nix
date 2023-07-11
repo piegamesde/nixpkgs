@@ -1,4 +1,11 @@
-{ lib, localSystem, crossSystem, config, overlays, crossOverlays ? [ ] }:
+{
+  lib,
+  localSystem,
+  crossSystem,
+  config,
+  overlays,
+  crossOverlays ? [ ]
+}:
 
 assert crossSystem == localSystem;
 
@@ -76,8 +83,13 @@ let
 
   # A function that builds a "native" stdenv (one that uses tools in
   # /usr etc.).
-  makeStdenv = { cc, fetchurl, extraPath ? [ ], overrides ? (self: super: { })
-    , extraNativeBuildInputs ? [ ] }:
+  makeStdenv = {
+      cc,
+      fetchurl,
+      extraPath ? [ ],
+      overrides ? (self: super: { }),
+      extraNativeBuildInputs ? [ ]
+    }:
 
     import ../generic {
       buildPlatform = localSystem;

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, colorama, pytest
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  colorama,
+  pytest,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-resource-path";

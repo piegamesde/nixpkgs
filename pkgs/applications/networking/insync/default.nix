@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, makeWrapper, autoPatchelfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  autoPatchelfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "insync";

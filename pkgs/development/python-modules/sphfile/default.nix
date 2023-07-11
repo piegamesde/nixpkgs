@@ -1,4 +1,9 @@
-{ lib, fetchurl, buildPythonPackage, numpy }:
+{
+  lib,
+  fetchurl,
+  buildPythonPackage,
+  numpy,
+}:
 
 buildPythonPackage rec {
   pname = "sphfile";

@@ -1,9 +1,38 @@
-{ gcc12Stdenv, lib, fetchFromGitHub, wrapQtAppsHook, cmake, pkg-config, git
-, qtbase, qtquickcontrols, qtmultimedia, openal, glew, vulkan-headers
-, vulkan-loader, libpng, ffmpeg, libevdev, libusb1, zlib, curl, wolfssl, python3
-, pugixml, faudio, flatbuffers, sdl2Support ? true, SDL2
-, pulseaudioSupport ? true, libpulseaudio, waylandSupport ? true, wayland
-, alsaSupport ? true, alsa-lib }:
+{
+  gcc12Stdenv,
+  lib,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+  cmake,
+  pkg-config,
+  git,
+  qtbase,
+  qtquickcontrols,
+  qtmultimedia,
+  openal,
+  glew,
+  vulkan-headers,
+  vulkan-loader,
+  libpng,
+  ffmpeg,
+  libevdev,
+  libusb1,
+  zlib,
+  curl,
+  wolfssl,
+  python3,
+  pugixml,
+  faudio,
+  flatbuffers,
+  sdl2Support ? true,
+  SDL2,
+  pulseaudioSupport ? true,
+  libpulseaudio,
+  waylandSupport ? true,
+  wayland,
+  alsaSupport ? true,
+  alsa-lib,
+}:
 
 let
   # Keep these separate so the update script can regex them

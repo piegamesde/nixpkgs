@@ -1,7 +1,17 @@
-{ lib, stdenv, fetchurl, buildPackages, pkg-config, abiVersion ? "6"
-, enableStatic ? stdenv.hostPlatform.isStatic
-, withCxx ? !stdenv.hostPlatform.useAndroidPrebuilt, mouseSupport ? false, gpm
-, unicodeSupport ? true, testers }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  buildPackages,
+  pkg-config,
+  abiVersion ? "6",
+  enableStatic ? stdenv.hostPlatform.isStatic,
+  withCxx ? !stdenv.hostPlatform.useAndroidPrebuilt,
+  mouseSupport ? false,
+  gpm,
+  unicodeSupport ? true,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   version = "6.4";

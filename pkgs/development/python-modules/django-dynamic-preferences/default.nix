@@ -1,10 +1,20 @@
-{ lib, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
 
-# dependencies
-, django, persisting-theory, six
+  # dependencies
+  ,
+  django,
+  persisting-theory,
+  six
 
-# tests
-, djangorestframework, pytest-django, pytestCheckHook }:
+  # tests
+  ,
+  djangorestframework,
+  pytest-django,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "django-dynamic-preferences";

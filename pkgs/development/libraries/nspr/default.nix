@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, CoreServices, buildPackages, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  CoreServices,
+  buildPackages,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nspr";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, obs-studio, onnxruntime, opencv }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  obs-studio,
+  onnxruntime,
+  opencv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "obs-backgroundremoval";

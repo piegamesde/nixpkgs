@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, markdown, isPy27 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  markdown,
+  isPy27,
+}:
 
 buildPythonPackage rec {
   pname = "python-markdown-math";

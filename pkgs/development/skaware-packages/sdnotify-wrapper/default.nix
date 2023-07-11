@@ -1,4 +1,9 @@
-{ stdenv, lib, runCommandCC, skawarePackages }:
+{
+  stdenv,
+  lib,
+  runCommandCC,
+  skawarePackages,
+}:
 
 with skawarePackages;
 

@@ -1,5 +1,12 @@
-{ lib, buildGoModule, fetchFromGitHub }:
-import ./versions.nix ({ version, sha256 }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
+import ./versions.nix ({
+    version,
+    sha256,
+  }:
   buildGoModule {
     pname = "honeymarker";
     inherit version;

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, sphinx-rtd-theme, sphinxHook
-, colorzero, mock, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  sphinx-rtd-theme,
+  sphinxHook,
+  colorzero,
+  mock,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "gpiozero";

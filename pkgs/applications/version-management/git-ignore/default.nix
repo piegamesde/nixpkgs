@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchFromGitHub, installShellFiles, stdenv, darwin }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  stdenv,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "git-ignore";

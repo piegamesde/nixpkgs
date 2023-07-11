@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, gtk-engine-murrine, gitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gtk-engine-murrine,
+  gitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "theme-obsidian2";

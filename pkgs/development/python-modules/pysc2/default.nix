@@ -1,6 +1,21 @@
-{ buildPythonPackage, lib, fetchFromGitHub, absl-py, enum34, future, mock, mpyq
-, numpy, portpicker, protobuf, pygame, s2clientprotocol, six, websocket-client
-, sc2-headless }:
+{
+  buildPythonPackage,
+  lib,
+  fetchFromGitHub,
+  absl-py,
+  enum34,
+  future,
+  mock,
+  mpyq,
+  numpy,
+  portpicker,
+  protobuf,
+  pygame,
+  s2clientprotocol,
+  six,
+  websocket-client,
+  sc2-headless,
+}:
 
 buildPythonPackage {
   pname = "PySC2";

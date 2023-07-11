@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, six, pytest-datadir
-, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  six,
+  pytest-datadir,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "jproperties";

@@ -1,6 +1,19 @@
-{ lib, stdenv, aiohttp, buildPythonPackage, eventlet, fetchFromGitHub, iana-etc
-, libredirect, mock, pytestCheckHook, pythonOlder, requests, tornado
-, websocket-client }:
+{
+  lib,
+  stdenv,
+  aiohttp,
+  buildPythonPackage,
+  eventlet,
+  fetchFromGitHub,
+  iana-etc,
+  libredirect,
+  mock,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  tornado,
+  websocket-client,
+}:
 
 buildPythonPackage rec {
   pname = "python-engineio";

@@ -1,5 +1,18 @@
-{ lib, awkward, buildPythonPackage, fetchPypi, hatch-vcs, hatchling, numba
-, numpy, notebook, packaging, papermill, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  awkward,
+  buildPythonPackage,
+  fetchPypi,
+  hatch-vcs,
+  hatchling,
+  numba,
+  numpy,
+  notebook,
+  packaging,
+  papermill,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "vector";

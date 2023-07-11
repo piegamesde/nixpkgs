@@ -1,5 +1,20 @@
-{ stdenv, lib, fetchFromGitHub, zlib, openssl, ncurses, libidn, pcre, libssh
-, libmysqlclient, postgresql, withGUI ? false, makeWrapper, pkg-config, gtk2 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  zlib,
+  openssl,
+  ncurses,
+  libidn,
+  pcre,
+  libssh,
+  libmysqlclient,
+  postgresql,
+  withGUI ? false,
+  makeWrapper,
+  pkg-config,
+  gtk2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "thc-hydra";

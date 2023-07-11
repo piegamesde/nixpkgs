@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, makeWrapper, pkg-config, git, perlPackages }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  pkg-config,
+  git,
+  perlPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vcsh";

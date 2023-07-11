@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, sassc, gnome, gtk-engine-murrine
-, gdk-pixbuf, librsvg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  sassc,
+  gnome,
+  gtk-engine-murrine,
+  gdk-pixbuf,
+  librsvg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "materia-theme";

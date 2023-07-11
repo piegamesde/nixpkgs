@@ -1,6 +1,12 @@
-{ substituteAll, perl, shadow, util-linux
-, configurationDirectory ? "/etc/nixos-containers"
-, stateDirectory ? "/var/lib/nixos-containers", nixosTests }:
+{
+  substituteAll,
+  perl,
+  shadow,
+  util-linux,
+  configurationDirectory ? "/etc/nixos-containers",
+  stateDirectory ? "/var/lib/nixos-containers",
+  nixosTests,
+}:
 
 substituteAll {
   name = "nixos-container";

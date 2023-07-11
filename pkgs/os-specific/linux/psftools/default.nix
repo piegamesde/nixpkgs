@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 stdenv.mkDerivation rec {
   pname = "psftools";
   version = "1.1.1";

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, coreutils, bash, installShellFiles
-, libiconv, mdbook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  coreutils,
+  bash,
+  installShellFiles,
+  libiconv,
+  mdbook,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "just";

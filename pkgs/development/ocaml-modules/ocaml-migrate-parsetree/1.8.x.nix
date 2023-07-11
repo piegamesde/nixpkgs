@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, buildDunePackage, ocaml, result, ppx_derivers }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  ocaml,
+  result,
+  ppx_derivers,
+}:
 
 if lib.versionOlder "4.13" ocaml.version then
   throw

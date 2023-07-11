@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, colorama, fetchPypi, pillow, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  colorama,
+  fetchPypi,
+  pillow,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "ascii-magic";

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, static ? stdenv.hostPlatform.isStatic }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  static ? stdenv.hostPlatform.isStatic
+}:
 
 stdenv.mkDerivation rec {
   pname = "bibutils";

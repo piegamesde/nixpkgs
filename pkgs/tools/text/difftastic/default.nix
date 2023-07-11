@@ -1,4 +1,11 @@
-{ lib, fetchpatch, rustPlatform, fetchFromGitHub, testers, difftastic }:
+{
+  lib,
+  fetchpatch,
+  rustPlatform,
+  fetchFromGitHub,
+  testers,
+  difftastic,
+}:
 
 let
   mimallocPatch = fetchpatch {

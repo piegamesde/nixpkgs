@@ -1,4 +1,10 @@
-{ stdenv, stdenvNoCC, lib, symlinkJoin, fetchFromGitHub }:
+{
+  stdenv,
+  stdenvNoCC,
+  lib,
+  symlinkJoin,
+  fetchFromGitHub,
+}:
 
 let
   pname = "mbrola";

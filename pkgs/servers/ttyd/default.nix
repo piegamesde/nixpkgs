@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, xxd, openssl, libwebsockets
-, json_c, libuv, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  xxd,
+  openssl,
+  libwebsockets,
+  json_c,
+  libuv,
+  zlib,
+}:
 
 with builtins;
 

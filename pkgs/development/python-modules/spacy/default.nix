@@ -1,8 +1,39 @@
-{ lib, blis, buildPythonPackage, callPackage, catalogue, cymem, fetchPypi
-, jinja2, jsonschema, langcodes, murmurhash, numpy, packaging, pathy, preshed
-, pydantic, pytest, python, pythonOlder, requests, setuptools, spacy-legacy
-, spacy-loggers, srsly, thinc, tqdm, typer, typing-extensions, wasabi
-, writeScript, stdenv, nix, git, nix-update }:
+{
+  lib,
+  blis,
+  buildPythonPackage,
+  callPackage,
+  catalogue,
+  cymem,
+  fetchPypi,
+  jinja2,
+  jsonschema,
+  langcodes,
+  murmurhash,
+  numpy,
+  packaging,
+  pathy,
+  preshed,
+  pydantic,
+  pytest,
+  python,
+  pythonOlder,
+  requests,
+  setuptools,
+  spacy-legacy,
+  spacy-loggers,
+  srsly,
+  thinc,
+  tqdm,
+  typer,
+  typing-extensions,
+  wasabi,
+  writeScript,
+  stdenv,
+  nix,
+  git,
+  nix-update,
+}:
 
 buildPythonPackage rec {
   pname = "spacy";

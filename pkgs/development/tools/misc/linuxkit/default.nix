@@ -1,5 +1,13 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, git, Virtualization, testers
-, linuxkit }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  git,
+  Virtualization,
+  testers,
+  linuxkit,
+}:
 
 buildGoModule rec {
   pname = "linuxkit";

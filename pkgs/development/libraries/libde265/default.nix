@@ -1,9 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  pkg-config
 
-, callPackage
+  ,
+  callPackage
 
-# for passthru.tests
-, imagemagick, libheif, imlib2Full, gst_all_1 }:
+  # for passthru.tests
+  ,
+  imagemagick,
+  libheif,
+  imlib2Full,
+  gst_all_1,
+}:
 
 stdenv.mkDerivation (finalAttrs: rec {
   version = "1.0.11";

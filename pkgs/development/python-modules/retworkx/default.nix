@@ -1,7 +1,21 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, rustPlatform, fetchFromGitHub
-, libiconv
-# Check inputs
-, pytestCheckHook, fixtures, graphviz, matplotlib, networkx, numpy, pydot }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  rustPlatform,
+  fetchFromGitHub,
+  libiconv
+  # Check inputs
+  ,
+  pytestCheckHook,
+  fixtures,
+  graphviz,
+  matplotlib,
+  networkx,
+  numpy,
+  pydot,
+}:
 
 buildPythonPackage rec {
   pname = "retworkx";

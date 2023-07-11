@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchurl, cmake, qt4, file }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  cmake,
+  qt4,
+  file,
+}:
 
 stdenv.mkDerivation rec {
   pname = "animbar";

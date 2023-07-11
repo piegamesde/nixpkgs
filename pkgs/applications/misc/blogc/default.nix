@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, ronn, git, cmocka }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  ronn,
+  git,
+  cmocka,
+}:
 
 stdenv.mkDerivation rec {
   pname = "blogc";

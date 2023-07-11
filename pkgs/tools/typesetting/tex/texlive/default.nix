@@ -2,10 +2,28 @@
    - source: ../../../../../doc/languages-frameworks/texlive.xml
    - current html: https://nixos.org/nixpkgs/manual/#sec-language-texlive
 */
-{ stdenv, lib, fetchurl, runCommand, writeText, buildEnv, callPackage
-, ghostscript_headless, harfbuzz, makeWrapper, python3, ruby, perl, gnused
-, gnugrep, coreutils, libfaketime, makeFontsConf, useFixedHashes ? true
-, recurseIntoAttrs }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  runCommand,
+  writeText,
+  buildEnv,
+  callPackage,
+  ghostscript_headless,
+  harfbuzz,
+  makeWrapper,
+  python3,
+  ruby,
+  perl,
+  gnused,
+  gnugrep,
+  coreutils,
+  libfaketime,
+  makeFontsConf,
+  useFixedHashes ? true,
+  recurseIntoAttrs,
+}:
 let
   # various binaries (compiled)
   bin = callPackage ./bin.nix {
@@ -160,8 +178,16 @@ let
   '';
 
   # create a derivation that contains an unpacked upstream TL package
-  mkPkg = { pname, tlType, revision, version, sha512, postUnpack ? ""
-    , stripPrefix ? 1, ... }@args:
+  mkPkg = {
+      pname,
+      tlType,
+      revision,
+      version,
+      sha512,
+      postUnpack ? "",
+      stripPrefix ? 1,
+      ...
+    }@args:
     let
       # the basename used by upstream (without ".tar.xz" suffix)
       urlName = pname + lib.optionalString (tlType != "run") ".${tlType}";
@@ -203,16 +229,28 @@ let
     lib.catAttrs "pkg" (let
       # a TeX package is an attribute set { pkgs = [ ... ]; ... } where pkgs is a list of derivations
       # the derivations make up the TeX package and optionally (for backward compatibility) its dependencies
-      tlPkgToSets = { pkgs, ... }:
-        map ({ tlType, version ? "", outputName ? "", ... }@pkg: {
-          # outputName required to distinguish among bin.core-big outputs
-          key = "${pkg.pname or pkg.name}.${tlType}-${version}-${outputName}";
-          inherit pkg;
-        }) pkgs;
+      tlPkgToSets = {
+          pkgs,
+          ...
+        }:
+        map ({
+            tlType,
+            version ? "",
+            outputName ? "",
+            ...
+          }@pkg: {
+            # outputName required to distinguish among bin.core-big outputs
+            key = "${pkg.pname or pkg.name}.${tlType}-${version}-${outputName}";
+            inherit pkg;
+          }) pkgs;
       pkgListToSets = lib.concatMap tlPkgToSets;
     in builtins.genericClosure {
       startSet = pkgListToSets pkgList;
-      operator = { pkg, ... }: pkgListToSets (pkg.tlDeps or [ ]);
+      operator = {
+          pkg,
+          ...
+        }:
+        pkgListToSets (pkg.tlDeps or [ ]);
     });
 
   assertions = lib.assertMsg (tlpdbVersion.year == version.texliveYear)

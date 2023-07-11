@@ -1,8 +1,34 @@
-{ lib, stdenv, fetchFromGitea, alsa-lib, bison, fcft, flex, json_c, libmpdclient
-, libxcb, libyaml, meson, ninja, pipewire, pixman, pkg-config, pulseaudio, scdoc
-, tllist, udev, wayland, wayland-protocols, wayland-scanner, xcbutil
-, xcbutilcursor, xcbutilerrors, xcbutilwm, waylandSupport ? true
-, x11Support ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitea,
+  alsa-lib,
+  bison,
+  fcft,
+  flex,
+  json_c,
+  libmpdclient,
+  libxcb,
+  libyaml,
+  meson,
+  ninja,
+  pipewire,
+  pixman,
+  pkg-config,
+  pulseaudio,
+  scdoc,
+  tllist,
+  udev,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  xcbutil,
+  xcbutilcursor,
+  xcbutilerrors,
+  xcbutilwm,
+  waylandSupport ? true,
+  x11Support ? true
+}:
 
 let inherit (lib) mesonEnable;
 in assert (x11Support || waylandSupport);

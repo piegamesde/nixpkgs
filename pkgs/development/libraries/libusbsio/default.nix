@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchzip, pkg-config, libusb1, systemdMinimal }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  pkg-config,
+  libusb1,
+  systemdMinimal,
+}:
 let binDirPrefix = if stdenv.isDarwin then "osx_" else "linux_";
 in stdenv.mkDerivation rec {
   pname = "libusbsio";

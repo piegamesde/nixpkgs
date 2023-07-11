@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, buildPythonPackage, radicale }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  radicale,
+}:
 
 buildPythonPackage {
   pname = "radicale_infcloud";

@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchFromGitLab, fetchpatch2, docbook-xsl-nons, docutils
-, gi-docgen, gobject-introspection, gtk-doc, libxslt, meson, ninja, pkg-config
-, vala, wrapGAppsHook, glib, gsound, json-glib, libgudev, dbus }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch2,
+  docbook-xsl-nons,
+  docutils,
+  gi-docgen,
+  gobject-introspection,
+  gtk-doc,
+  libxslt,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  wrapGAppsHook,
+  glib,
+  gsound,
+  json-glib,
+  libgudev,
+  dbus,
+}:
 
 let
   themes = fetchFromGitLab {

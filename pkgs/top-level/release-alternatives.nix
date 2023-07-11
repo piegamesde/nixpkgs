@@ -1,5 +1,9 @@
-{ pkgsFun ? import ../.., lib ? import ../../lib
-, supportedSystems ? [ "x86_64-linux" ], allowUnfree ? false }:
+{
+  pkgsFun ? import ../..,
+  lib ? import ../../lib,
+  supportedSystems ? [ "x86_64-linux" ],
+  allowUnfree ? false
+}:
 
 let
 

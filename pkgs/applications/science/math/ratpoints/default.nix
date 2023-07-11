@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, fetchpatch, gmp }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  gmp,
+}:
 stdenv.mkDerivation rec {
   pname = "ratpoints";
   version = "2.1.3.p4";

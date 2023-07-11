@@ -1,7 +1,17 @@
-{ lib, fetchFromGitHub, cmake, curl, xorg, avahi, qtbase, mkDerivation, openssl
-, wrapGAppsHook
-, avahiWithLibdnssdCompat ? avahi.override { withLibdnssdCompat = true; }
-, fetchpatch }:
+{
+  lib,
+  fetchFromGitHub,
+  cmake,
+  curl,
+  xorg,
+  avahi,
+  qtbase,
+  mkDerivation,
+  openssl,
+  wrapGAppsHook,
+  avahiWithLibdnssdCompat ? avahi.override { withLibdnssdCompat = true; },
+  fetchpatch,
+}:
 
 mkDerivation rec {
   pname = "barrier";

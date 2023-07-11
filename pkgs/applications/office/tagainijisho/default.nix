@@ -1,4 +1,12 @@
-{ lib, mkDerivation, fetchzip, qtbase, qttools, cmake, sqlite }:
+{
+  lib,
+  mkDerivation,
+  fetchzip,
+  qtbase,
+  qttools,
+  cmake,
+  sqlite,
+}:
 mkDerivation rec {
   pname = "tagainijisho";
   version = "1.2.2";

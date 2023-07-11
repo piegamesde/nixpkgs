@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, python3, nodejs, closurecompiler, jre, binaryen
-, llvmPackages, symlinkJoin, makeWrapper, substituteAll, fetchpatch
-, buildNpmPackage, emscripten }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  nodejs,
+  closurecompiler,
+  jre,
+  binaryen,
+  llvmPackages,
+  symlinkJoin,
+  makeWrapper,
+  substituteAll,
+  fetchpatch,
+  buildNpmPackage,
+  emscripten,
+}:
 
 stdenv.mkDerivation rec {
   pname = "emscripten";

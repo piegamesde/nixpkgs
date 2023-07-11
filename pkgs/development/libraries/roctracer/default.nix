@@ -1,8 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, clang, hip
-, rocm-device-libs, rocprofiler, libxml2, doxygen, graphviz, gcc-unwrapped
-, rocm-runtime, python3Packages
-, buildDocs ? false # Nothing seems to be generated, so not making the output
-, buildTests ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  cmake,
+  clang,
+  hip,
+  rocm-device-libs,
+  rocprofiler,
+  libxml2,
+  doxygen,
+  graphviz,
+  gcc-unwrapped,
+  rocm-runtime,
+  python3Packages,
+  buildDocs ? false # Nothing seems to be generated, so not making the output
+  ,
+  buildTests ? false
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "roctracer";

@@ -1,5 +1,13 @@
-{ lib, fetchPypi, buildPythonPackage, uvloop, postgresql, pythonOlder
-, pytest-xdist, pytestCheckHook }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  uvloop,
+  postgresql,
+  pythonOlder,
+  pytest-xdist,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "asyncpg";

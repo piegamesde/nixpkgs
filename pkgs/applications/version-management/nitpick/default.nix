@@ -1,4 +1,9 @@
-{ fetchFromGitHub, buildPythonPackage, lib, isPy27 }:
+{
+  fetchFromGitHub,
+  buildPythonPackage,
+  lib,
+  isPy27,
+}:
 
 buildPythonPackage rec {
   pname = "nitpick";

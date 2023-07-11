@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchgit, pkg-config, libtraceevent, asciidoc, xmlto
-, docbook_xml_dtd_45, docbook_xsl, coreutils, which, valgrind, sourceHighlight
+{
+  lib,
+  stdenv,
+  fetchgit,
+  pkg-config,
+  libtraceevent,
+  asciidoc,
+  xmlto,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  coreutils,
+  which,
+  valgrind,
+  sourceHighlight,
 }:
 
 stdenv.mkDerivation rec {

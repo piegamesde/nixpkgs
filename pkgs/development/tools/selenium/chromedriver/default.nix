@@ -1,6 +1,28 @@
-{ lib, stdenv, fetchurl, unzip, makeWrapper, cairo, fontconfig, freetype
-, gdk-pixbuf, glib, glibc, gtk2, libX11, nspr, nss, pango, libxcb, libXi
-, libXrender, libXext, dbus, testers, chromedriver }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  makeWrapper,
+  cairo,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  glibc,
+  gtk2,
+  libX11,
+  nspr,
+  nss,
+  pango,
+  libxcb,
+  libXi,
+  libXrender,
+  libXext,
+  dbus,
+  testers,
+  chromedriver,
+}:
 
 let
   upstream-info = (lib.importJSON

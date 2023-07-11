@@ -1,6 +1,30 @@
-{ stdenv, lib, fetchurl, dpkg, patchelf, wrapGAppsHook, hicolor-icon-theme, gtk3
-, glib, systemd, xorg, nss, nspr, atk, at-spi2-atk, dbus, gdk-pixbuf, pango
-, cairo, expat, libdrm, mesa, alsa-lib, at-spi2-core, cups }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  dpkg,
+  patchelf,
+  wrapGAppsHook,
+  hicolor-icon-theme,
+  gtk3,
+  glib,
+  systemd,
+  xorg,
+  nss,
+  nspr,
+  atk,
+  at-spi2-atk,
+  dbus,
+  gdk-pixbuf,
+  pango,
+  cairo,
+  expat,
+  libdrm,
+  mesa,
+  alsa-lib,
+  at-spi2-core,
+  cups,
+}:
 
 let
   LD_LIBRARY_PATH = lib.makeLibraryPath [

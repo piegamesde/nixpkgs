@@ -1,7 +1,35 @@
-{ lib, stdenv, fetchurl, fetchpatch, blas, boost, cmake, doxygen, eigen, gtest
-, hdf5, lapack, mpi, mpi4py, numpy, pkg-config, ply, pybind11, pytest, python
-, pythonPackages, scotch, setuptools, six, sphinx, suitesparse, swig, sympy
-, zlib, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  blas,
+  boost,
+  cmake,
+  doxygen,
+  eigen,
+  gtest,
+  hdf5,
+  lapack,
+  mpi,
+  mpi4py,
+  numpy,
+  pkg-config,
+  ply,
+  pybind11,
+  pytest,
+  python,
+  pythonPackages,
+  scotch,
+  setuptools,
+  six,
+  sphinx,
+  suitesparse,
+  swig,
+  sympy,
+  zlib,
+  nixosTests,
+}:
 
 let
   version = "2019.1.0";

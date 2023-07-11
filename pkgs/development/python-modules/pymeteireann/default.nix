@@ -1,5 +1,12 @@
-{ lib, aiohttp, async-timeout, buildPythonPackage, fetchFromGitHub, pytz
-, xmltodict }:
+{
+  lib,
+  aiohttp,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytz,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "pymeteireann";

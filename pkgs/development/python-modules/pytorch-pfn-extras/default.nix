@@ -1,5 +1,15 @@
-{ buildPythonPackage, fetchFromGitHub, lib, numpy, onnx, packaging
-, pytestCheckHook, torch, torchvision, typing-extensions }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  numpy,
+  onnx,
+  packaging,
+  pytestCheckHook,
+  torch,
+  torchvision,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "pytorch-pfn-extras";

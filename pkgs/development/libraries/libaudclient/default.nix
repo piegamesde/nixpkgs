@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, dbus-glib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glib,
+  dbus-glib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libaudclient";

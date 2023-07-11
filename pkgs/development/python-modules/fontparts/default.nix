@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, fetchPypi, python, pythonOlder, fonttools, lxml, fs
-, unicodedata2, defcon, fontpens, fontmath, booleanoperations, pytest
-, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  pythonOlder,
+  fonttools,
+  lxml,
+  fs,
+  unicodedata2,
+  defcon,
+  fontpens,
+  fontmath,
+  booleanoperations,
+  pytest,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "fontParts";

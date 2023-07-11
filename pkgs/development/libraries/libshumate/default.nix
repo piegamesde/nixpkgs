@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitLab, gi-docgen, meson, ninja, pkg-config, vala
-, gobject-introspection, glib, cairo, sqlite, libsoup_3, gtk4, xvfb-run, gnome
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  gi-docgen,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  gobject-introspection,
+  glib,
+  cairo,
+  sqlite,
+  libsoup_3,
+  gtk4,
+  xvfb-run,
+  gnome,
 }:
 
 stdenv.mkDerivation rec {

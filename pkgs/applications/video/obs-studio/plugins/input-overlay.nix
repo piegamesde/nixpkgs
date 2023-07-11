@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, obs-studio, libuiohook
-, qtbase, xorg, libxkbcommon, libxkbfile }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  obs-studio,
+  libuiohook,
+  qtbase,
+  xorg,
+  libxkbcommon,
+  libxkbfile,
+}:
 
 stdenv.mkDerivation rec {
   pname = "obs-input-overlay";

@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchurl, jre, makeWrapper, unzip }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  jre,
+  makeWrapper,
+  unzip,
+}:
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
   pname = "dex2jar";

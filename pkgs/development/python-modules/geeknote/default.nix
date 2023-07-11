@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy27, thrift, beautifulsoup4
-, markdown2, sqlalchemy, html2text, evernote }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy27,
+  thrift,
+  beautifulsoup4,
+  markdown2,
+  sqlalchemy,
+  html2text,
+  evernote,
+}:
 
 buildPythonPackage {
   version = "2015-05-11";

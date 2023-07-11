@@ -1,4 +1,9 @@
-{ lib, writeText, haskellPackages, cabal-install }:
+{
+  lib,
+  writeText,
+  haskellPackages,
+  cabal-install,
+}:
 
 (haskellPackages.shellFor {
   packages = p: [ p.constraints p.linear ];

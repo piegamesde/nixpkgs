@@ -9,7 +9,10 @@
 # Systemd can also change ownership of service directories using the
 # RuntimeDirectory/StateDirectory options.
 
-{ lib, ... }:
+{
+  lib,
+  ...
+}:
 
 let inherit (lib) types;
 in {

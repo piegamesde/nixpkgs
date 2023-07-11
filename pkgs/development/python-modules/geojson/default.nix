@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, glibcLocales, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  glibcLocales,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "geojson";

@@ -1,7 +1,23 @@
-{ composeAndroidPackages, stdenv, lib, ant, jdk, gnumake, gawk }:
+{
+  composeAndroidPackages,
+  stdenv,
+  lib,
+  ant,
+  jdk,
+  gnumake,
+  gawk,
+}:
 
-{ name, release ? false, keyStore ? null, keyAlias ? null
-, keyStorePassword ? null, keyAliasPassword ? null, antFlags ? "", ... }@args:
+{
+  name,
+  release ? false,
+  keyStore ? null,
+  keyAlias ? null,
+  keyStorePassword ? null,
+  keyAliasPassword ? null,
+  antFlags ? "",
+  ...
+}@args:
 
 assert release -> keyStore != null && keyAlias != null && keyStorePassword
   != null && keyAliasPassword != null;

@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, docopt, colorama, pytest, watchdog }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  docopt,
+  colorama,
+  pytest,
+  watchdog,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-watch";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, makeWrapper, openjdk11_headless, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  openjdk11_headless,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "graylog";

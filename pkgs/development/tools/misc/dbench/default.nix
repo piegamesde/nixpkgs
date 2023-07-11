@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchgit, autoconf, popt, zlib, rpcsvc-proto, libtirpc }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  autoconf,
+  popt,
+  zlib,
+  rpcsvc-proto,
+  libtirpc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dbench";

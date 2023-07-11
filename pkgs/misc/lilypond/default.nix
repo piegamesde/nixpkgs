@@ -1,8 +1,37 @@
-{ stdenv, lib, fetchurl, ghostscript, gyre-fonts, texinfo, imagemagick
-, texi2html, guile, python3, gettext, flex, perl, bison, pkg-config
-, autoreconfHook, dblatex, fontconfig, freetype, pango, fontforge, help2man, zip
-, netpbm, groff, makeWrapper, t1utils, boehmgc, rsync, texlive, tex ?
-  texlive.combine { inherit (texlive) scheme-small lh metafont epsf fontinst; }
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ghostscript,
+  gyre-fonts,
+  texinfo,
+  imagemagick,
+  texi2html,
+  guile,
+  python3,
+  gettext,
+  flex,
+  perl,
+  bison,
+  pkg-config,
+  autoreconfHook,
+  dblatex,
+  fontconfig,
+  freetype,
+  pango,
+  fontforge,
+  help2man,
+  zip,
+  netpbm,
+  groff,
+  makeWrapper,
+  t1utils,
+  boehmgc,
+  rsync,
+  texlive,
+  tex ? texlive.combine {
+    inherit (texlive) scheme-small lh metafont epsf fontinst;
+  }
 }:
 
 stdenv.mkDerivation rec {

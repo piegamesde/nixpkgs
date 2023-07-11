@@ -1,4 +1,8 @@
-{ poetry2nix, pkgs, lib }:
+{
+  poetry2nix,
+  pkgs,
+  lib,
+}:
 
 let
   pythonPackages = (poetry2nix.mkPoetryPackages {

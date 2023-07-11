@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, netcdf4, h5py, exdown
-, pytestCheckHook, rich, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  netcdf4,
+  h5py,
+  exdown,
+  pytestCheckHook,
+  rich,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "meshio";

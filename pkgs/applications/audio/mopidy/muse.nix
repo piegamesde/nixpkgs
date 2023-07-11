@@ -1,4 +1,8 @@
-{ lib, pythonPackages, mopidy }:
+{
+  lib,
+  pythonPackages,
+  mopidy,
+}:
 
 pythonPackages.buildPythonApplication rec {
   pname = "mopidy-muse";

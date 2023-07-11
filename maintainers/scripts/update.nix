@@ -4,8 +4,15 @@
 
    See https://nixos.org/manual/nixpkgs/unstable/#var-passthru-updateScript
 */
-{ package ? null, maintainer ? null, predicate ? null, path ? null
-, max-workers ? null, include-overlays ? false, keep-going ? null, commit ? null
+{
+  package ? null,
+  maintainer ? null,
+  predicate ? null,
+  path ? null,
+  max-workers ? null,
+  include-overlays ? false,
+  keep-going ? null,
+  commit ? null
 }:
 
 let
@@ -44,14 +51,17 @@ let
         let
           result = builtins.tryEval pathContent;
 
-          somewhatUniqueRepresentant = { package, attrPath }: {
-            inherit (package) updateScript;
-            # Some updaters use the same `updateScript` value for all packages.
-            # Also compare `meta.description`.
-            position = package.meta.position or null;
-            # We cannot always use `meta.position` since it might not be available
-            # or it might be shared among multiple packages.
-          };
+          somewhatUniqueRepresentant = {
+              package,
+              attrPath,
+            }: {
+              inherit (package) updateScript;
+              # Some updaters use the same `updateScript` value for all packages.
+              # Also compare `meta.description`.
+              position = package.meta.position or null;
+              # We cannot always use `meta.position` since it might not be available
+              # or it might be shared among multiple packages.
+            };
 
           dedupResults = lst:
             nubOn somewhatUniqueRepresentant (lib.concatLists lst);
@@ -179,15 +189,18 @@ let
   '';
 
   # Transform a matched package into an object for update.py.
-  packageData = { package, attrPath }: {
-    name = package.name;
-    pname = lib.getName package;
-    oldVersion = lib.getVersion package;
-    updateScript = map builtins.toString
-      (lib.toList (package.updateScript.command or package.updateScript));
-    supportedFeatures = package.updateScript.supportedFeatures or [ ];
-    attrPath = package.updateScript.attrPath or attrPath;
-  };
+  packageData = {
+      package,
+      attrPath,
+    }: {
+      name = package.name;
+      pname = lib.getName package;
+      oldVersion = lib.getVersion package;
+      updateScript = map builtins.toString
+        (lib.toList (package.updateScript.command or package.updateScript));
+      supportedFeatures = package.updateScript.supportedFeatures or [ ];
+      attrPath = package.updateScript.attrPath or attrPath;
+    };
 
   # JSON file with data for update.py.
   packagesJson =

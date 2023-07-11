@@ -1,4 +1,13 @@
-{ lib, stdenv, cmake, ninja, perl, moveBuildTree, srcs, patches ? [ ] }:
+{
+  lib,
+  stdenv,
+  cmake,
+  ninja,
+  perl,
+  moveBuildTree,
+  srcs,
+  patches ? [ ]
+}:
 
 args:
 

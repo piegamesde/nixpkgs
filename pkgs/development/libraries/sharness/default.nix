@@ -1,5 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, fetchurl, perl, perlPackages
-, sharnessExtensions ? { } }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  perl,
+  perlPackages,
+  sharnessExtensions ? { }
+}:
 
 stdenv.mkDerivation rec {
   pname = "sharness";

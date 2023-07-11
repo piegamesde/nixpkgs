@@ -1,4 +1,11 @@
-{ lib, localSystem, crossSystem, config, overlays, crossOverlays ? [ ] }:
+{
+  lib,
+  localSystem,
+  crossSystem,
+  config,
+  overlays,
+  crossOverlays ? [ ]
+}:
 
 assert crossSystem == localSystem;
 let
@@ -196,30 +203,33 @@ in [
     });
   })
 
-  ({ bootstrapTools, ... }: rec {
-    __raw = true;
+  ({
+      bootstrapTools,
+      ...
+    }: rec {
+      __raw = true;
 
-    inherit bootstrapTools;
+      inherit bootstrapTools;
 
-    fetchurl = import ../../build-support/fetchurl {
-      inherit lib;
-      stdenvNoCC = stdenv;
-      curl = bootstrapTools;
-    };
+      fetchurl = import ../../build-support/fetchurl {
+        inherit lib;
+        stdenvNoCC = stdenv;
+        curl = bootstrapTools;
+      };
 
-    stdenv = import ../generic {
-      name = "stdenv-freebsd-boot-1";
-      buildPlatform = localSystem;
-      hostPlatform = localSystem;
-      targetPlatform = localSystem;
-      inherit config;
-      initialPath = [ "/" "/usr" ];
-      shell = "${bootstrapTools}/bin/bash";
-      fetchurlBoot = null;
-      cc = null;
-      overrides = self: super: { };
-    };
-  })
+      stdenv = import ../generic {
+        name = "stdenv-freebsd-boot-1";
+        buildPlatform = localSystem;
+        hostPlatform = localSystem;
+        targetPlatform = localSystem;
+        inherit config;
+        initialPath = [ "/" "/usr" ];
+        shell = "${bootstrapTools}/bin/bash";
+        fetchurlBoot = null;
+        cc = null;
+        overrides = self: super: { };
+      };
+    })
 
   (prevStage: {
     __raw = true;

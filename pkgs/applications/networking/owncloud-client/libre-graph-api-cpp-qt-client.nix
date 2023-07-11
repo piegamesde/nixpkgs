@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, mkDerivation, cmake, qtbase }:
+{
+  lib,
+  fetchFromGitHub,
+  mkDerivation,
+  cmake,
+  qtbase,
+}:
 
 mkDerivation rec {
   pname = "libre-graph-api-cpp-qt-client";

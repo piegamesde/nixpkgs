@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, automake }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  automake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "corkscrew";

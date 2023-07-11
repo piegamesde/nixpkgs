@@ -1,9 +1,42 @@
-{ lib, stdenv, fetchurl, fetchpatch, avahi, bluez, boost, curl, eigen, faust
-, fftw, gettext, glib, glib-networking, glibmm, gnome, gsettings-desktop-schemas
-, gtk3, gtkmm3, hicolor-icon-theme, intltool, ladspaH, libjack2, libsndfile
-, lilv, lrdf, lv2, pkg-config, python3, sassc, serd, sord, sratom, wafHook
-, wrapGAppsHook, zita-convolver, zita-resampler
-, optimizationSupport ? false # Enable support for native CPU extensions
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  avahi,
+  bluez,
+  boost,
+  curl,
+  eigen,
+  faust,
+  fftw,
+  gettext,
+  glib,
+  glib-networking,
+  glibmm,
+  gnome,
+  gsettings-desktop-schemas,
+  gtk3,
+  gtkmm3,
+  hicolor-icon-theme,
+  intltool,
+  ladspaH,
+  libjack2,
+  libsndfile,
+  lilv,
+  lrdf,
+  lv2,
+  pkg-config,
+  python3,
+  sassc,
+  serd,
+  sord,
+  sratom,
+  wafHook,
+  wrapGAppsHook,
+  zita-convolver,
+  zita-resampler,
+  optimizationSupport ? false # Enable support for native CPU extensions
 }:
 
 let inherit (lib) optional;

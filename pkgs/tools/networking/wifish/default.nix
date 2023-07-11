@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, dialog, gawk, wpa_supplicant, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  dialog,
+  gawk,
+  wpa_supplicant,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wifish";

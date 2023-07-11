@@ -1,6 +1,24 @@
-{ lib, fetchurl, nix-update-script, python3Packages, gdk-pixbuf, glib, gnome
-, gobject-introspection, gtk3, wrapGAppsHook, webkitgtk, libnotify, keybinder3
-, libappindicator, intltool, wmctrl, xvfb-run, librsvg, libX11 }:
+{
+  lib,
+  fetchurl,
+  nix-update-script,
+  python3Packages,
+  gdk-pixbuf,
+  glib,
+  gnome,
+  gobject-introspection,
+  gtk3,
+  wrapGAppsHook,
+  webkitgtk,
+  libnotify,
+  keybinder3,
+  libappindicator,
+  intltool,
+  wmctrl,
+  xvfb-run,
+  librsvg,
+  libX11,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "ulauncher";

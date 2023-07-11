@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, jupyter_console, jupyter-core, pygments
-, termcolor, txzmq }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jupyter_console,
+  jupyter-core,
+  pygments,
+  termcolor,
+  txzmq,
+}:
 
 buildPythonPackage rec {
   pname = "ilua";

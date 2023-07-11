@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchpatch, fetchurl, boost }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchurl,
+  boost,
+}:
 
 stdenv.mkDerivation rec {
   pname = "source-highlight";

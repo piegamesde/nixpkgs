@@ -1,4 +1,11 @@
-{ lib, stdenv, python3, fetchFromGitHub, makeWrapper, medusa }:
+{
+  lib,
+  stdenv,
+  python3,
+  fetchFromGitHub,
+  makeWrapper,
+  medusa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "brutespray";

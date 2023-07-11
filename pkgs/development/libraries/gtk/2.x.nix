@@ -1,9 +1,29 @@
-{ config, lib, substituteAll, stdenv, fetchurl, pkg-config, gettext, glib, atk
-, pango, cairo, perl, xorg, gdk-pixbuf, gobject-introspection
-, xineramaSupport ? stdenv.isLinux
-, cupsSupport ? config.gtk2.cups or stdenv.isLinux, cups
-, gdktarget ? if stdenv.isDarwin then "quartz" else "x11", AppKit, Cocoa
-, fetchpatch, buildPackages, testers }:
+{
+  config,
+  lib,
+  substituteAll,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gettext,
+  glib,
+  atk,
+  pango,
+  cairo,
+  perl,
+  xorg,
+  gdk-pixbuf,
+  gobject-introspection,
+  xineramaSupport ? stdenv.isLinux,
+  cupsSupport ? config.gtk2.cups or stdenv.isLinux,
+  cups,
+  gdktarget ? if stdenv.isDarwin then "quartz" else "x11",
+  AppKit,
+  Cocoa,
+  fetchpatch,
+  buildPackages,
+  testers,
+}:
 
 let
 

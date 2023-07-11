@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPythonPackage, defusedxml, deprecated, fetchFromGitHub, lxml
-, paramiko, psutil, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  defusedxml,
+  deprecated,
+  fetchFromGitHub,
+  lxml,
+  paramiko,
+  psutil,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "ospd";

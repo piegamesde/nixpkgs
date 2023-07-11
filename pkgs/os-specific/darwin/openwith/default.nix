@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, swift, AppKit, Foundation
-, UniformTypeIdentifiers }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  swift,
+  AppKit,
+  Foundation,
+  UniformTypeIdentifiers,
+}:
 
 let arch = if stdenv.isAarch64 then "arm64" else "x86_64";
 in stdenv.mkDerivation rec {

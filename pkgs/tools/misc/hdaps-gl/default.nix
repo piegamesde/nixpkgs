@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, freeglut, libGL, libGLU }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  freeglut,
+  libGL,
+  libGLU,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hdaps-gl";

@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, fetchpatch, git
-, postgresqlTestHook, postgresql }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  fetchpatch,
+  git,
+  postgresqlTestHook,
+  postgresql,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "reshape";

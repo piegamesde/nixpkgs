@@ -1,4 +1,9 @@
-{ buildPythonPackage, fetchPypi, nose, zope_interface }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  zope_interface,
+}:
 
 buildPythonPackage rec {
   pname = "lazr.delegates";

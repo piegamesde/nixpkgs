@@ -1,5 +1,14 @@
-{ lib, fetchPypi, fetchpatch, buildPythonPackage, flask, itsdangerous, wtforms
-, email-validator, pytestCheckHook }:
+{
+  lib,
+  fetchPypi,
+  fetchpatch,
+  buildPythonPackage,
+  flask,
+  itsdangerous,
+  wtforms,
+  email-validator,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "flask-wtf";

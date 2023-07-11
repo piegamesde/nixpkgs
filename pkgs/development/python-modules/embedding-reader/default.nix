@@ -1,5 +1,14 @@
-{ buildPythonPackage, fetchFromGitHub, fsspec, lib, numpy, pandas, pyarrow
-, pytestCheckHook, pythonRelaxDepsHook }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  fsspec,
+  lib,
+  numpy,
+  pandas,
+  pyarrow,
+  pytestCheckHook,
+  pythonRelaxDepsHook,
+}:
 
 buildPythonPackage rec {
   pname = "embedding-reader";

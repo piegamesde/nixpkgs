@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, perl, libX11 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  libX11,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xkbset";

@@ -1,9 +1,26 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder
-# build inputs
-, jsonref, jsonschema, python-dateutil, pyyaml, requests, simplejson, six
-, swagger-spec-validator, pytz, msgpack
-# check inputs
-, pytestCheckHook, mock }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder
+  # build inputs
+  ,
+  jsonref,
+  jsonschema,
+  python-dateutil,
+  pyyaml,
+  requests,
+  simplejson,
+  six,
+  swagger-spec-validator,
+  pytz,
+  msgpack
+  # check inputs
+  ,
+  pytestCheckHook,
+  mock,
+}:
 
 buildPythonPackage rec {
   pname = "bravado-core";

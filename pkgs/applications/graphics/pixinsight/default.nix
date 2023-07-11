@@ -1,10 +1,43 @@
-{ stdenv, lib, requireFile, wrapQtAppsHook, autoPatchelfHook, makeWrapper
-, unixtools, fakeroot, mailcap, libGL, libpulseaudio, alsa-lib, nss, gd
-, gst_all_1, nspr, expat, fontconfig, dbus, glib, zlib, openssl, libdrm, cups
-, avahi-compat, xorg, wayland, libudev0-shim
-# Qt 5 subpackages
-, qtbase, qtgamepad, qtserialport, qtserialbus, qtvirtualkeyboard, qtmultimedia
-, qt3d, mlt }:
+{
+  stdenv,
+  lib,
+  requireFile,
+  wrapQtAppsHook,
+  autoPatchelfHook,
+  makeWrapper,
+  unixtools,
+  fakeroot,
+  mailcap,
+  libGL,
+  libpulseaudio,
+  alsa-lib,
+  nss,
+  gd,
+  gst_all_1,
+  nspr,
+  expat,
+  fontconfig,
+  dbus,
+  glib,
+  zlib,
+  openssl,
+  libdrm,
+  cups,
+  avahi-compat,
+  xorg,
+  wayland,
+  libudev0-shim
+  # Qt 5 subpackages
+  ,
+  qtbase,
+  qtgamepad,
+  qtserialport,
+  qtserialbus,
+  qtvirtualkeyboard,
+  qtmultimedia,
+  qt3d,
+  mlt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pixinsight";

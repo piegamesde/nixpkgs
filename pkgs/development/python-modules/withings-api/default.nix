@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, arrow
-, requests-oauthlib, typing-extensions, pydantic, responses, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  arrow,
+  requests-oauthlib,
+  typing-extensions,
+  pydantic,
+  responses,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "withings-api";

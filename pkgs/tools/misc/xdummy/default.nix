@@ -1,5 +1,12 @@
-{ writeText, writeScriptBin, xorg, xkeyboard_config, runtimeShell
-, unfreeFonts ? false, lib }:
+{
+  writeText,
+  writeScriptBin,
+  xorg,
+  xkeyboard_config,
+  runtimeShell,
+  unfreeFonts ? false,
+  lib,
+}:
 
 let
   xorgConfig = writeText "dummy-xorg.conf" ''

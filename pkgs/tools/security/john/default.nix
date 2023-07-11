@@ -1,5 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, openssl, nss, nspr, libkrb5, gmp, zlib, libpcap
-, re2, gcc, python3Packages, perl, perlPackages, makeWrapper, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  openssl,
+  nss,
+  nspr,
+  libkrb5,
+  gmp,
+  zlib,
+  libpcap,
+  re2,
+  gcc,
+  python3Packages,
+  perl,
+  perlPackages,
+  makeWrapper,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "john";

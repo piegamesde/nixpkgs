@@ -1,5 +1,15 @@
-{ lib, python3, buildEnv, writeText, runCommandCC, stdenv, runCommand
-, vapoursynth, makeWrapper, withPlugins }:
+{
+  lib,
+  python3,
+  buildEnv,
+  writeText,
+  runCommandCC,
+  stdenv,
+  runCommand,
+  vapoursynth,
+  makeWrapper,
+  withPlugins,
+}:
 
 plugins:
 let

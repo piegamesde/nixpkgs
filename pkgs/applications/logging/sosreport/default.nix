@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, gettext, magic, pexpect, pyyaml
-, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gettext,
+  magic,
+  pexpect,
+  pyyaml,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "sosreport";

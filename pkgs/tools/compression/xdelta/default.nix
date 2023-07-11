@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, lzmaSupport ? true, xz ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  lzmaSupport ? true,
+  xz ? null
+}:
 
 assert lzmaSupport -> xz != null;
 

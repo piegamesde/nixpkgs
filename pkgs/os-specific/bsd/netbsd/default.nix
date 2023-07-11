@@ -1,6 +1,23 @@
-{ stdenv, lib, stdenvNoCC, makeScopeWithSplicing, generateSplicesForMkScope
-, buildPackages, bsdSetupHook, makeSetupHook, fetchcvs, groff, mandoc, byacc
-, flex, zlib, writeShellScript, writeText, runtimeShell, symlinkJoin }:
+{
+  stdenv,
+  lib,
+  stdenvNoCC,
+  makeScopeWithSplicing,
+  generateSplicesForMkScope,
+  buildPackages,
+  bsdSetupHook,
+  makeSetupHook,
+  fetchcvs,
+  groff,
+  mandoc,
+  byacc,
+  flex,
+  zlib,
+  writeShellScript,
+  writeText,
+  runtimeShell,
+  symlinkJoin,
+}:
 
 let
   inherit (buildPackages.buildPackages) rsync;

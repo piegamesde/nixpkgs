@@ -1,4 +1,12 @@
-{ lib, stdenv, file, makeDesktopItem, cog32, spur32, spur64 ? "none" }:
+{
+  lib,
+  stdenv,
+  file,
+  makeDesktopItem,
+  cog32,
+  spur32,
+  spur64 ? "none"
+}:
 
 stdenv.mkDerivation rec {
   name = "pharo";

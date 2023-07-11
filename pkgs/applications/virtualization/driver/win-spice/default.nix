@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, p7zip, win-virtio }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  p7zip,
+  win-virtio,
+}:
 
 let
   version_usbdk = "1.0.22";

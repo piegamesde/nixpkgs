@@ -1,4 +1,9 @@
-{ stdenv, gnvim-unwrapped, neovim, makeWrapper }:
+{
+  stdenv,
+  gnvim-unwrapped,
+  neovim,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation {
   pname = "gnvim";

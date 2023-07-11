@@ -1,7 +1,28 @@
-{ stdenv, lib, fetchurl, pkg-config, meson, ninja, libGLU, lv2, serd, sord
-, libX11, libXext, glew, lv2lint, pname, version, sha256, description, url ?
-  "https://git.open-music-kontrollers.ch/lv2/${pname}.lv2/snapshot/${pname}.lv2-${version}.tar.xz"
-, additionalBuildInputs ? [ ], postPatch ? "", ... }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  meson,
+  ninja,
+  libGLU,
+  lv2,
+  serd,
+  sord,
+  libX11,
+  libXext,
+  glew,
+  lv2lint,
+  pname,
+  version,
+  sha256,
+  description,
+  url ?
+    "https://git.open-music-kontrollers.ch/lv2/${pname}.lv2/snapshot/${pname}.lv2-${version}.tar.xz",
+  additionalBuildInputs ? [ ],
+  postPatch ? "",
+  ...
+}:
 
 stdenv.mkDerivation {
   inherit pname;

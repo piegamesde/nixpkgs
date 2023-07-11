@@ -1,6 +1,17 @@
-{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, numpy
-, poetry-core, pysmb, pytest-aiohttp, pytest-asyncio, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  poetry-core,
+  pysmb,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyairvisual";

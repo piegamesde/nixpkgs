@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, makeWrapper, pkg-config, systemd
-, dbus, pcsclite, wget, coreutils, perlPackages }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  makeWrapper,
+  pkg-config,
+  systemd,
+  dbus,
+  pcsclite,
+  wget,
+  coreutils,
+  perlPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pcsc-tools";

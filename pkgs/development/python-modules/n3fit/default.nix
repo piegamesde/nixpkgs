@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, hyperopt, keras, nnpdf, psutil, tensorflow
-, validphys2 }:
+{
+  lib,
+  buildPythonPackage,
+  hyperopt,
+  keras,
+  nnpdf,
+  psutil,
+  tensorflow,
+  validphys2,
+}:
 
 buildPythonPackage rec {
   pname = "n3fit";

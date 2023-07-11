@@ -1,4 +1,10 @@
-{ buildDunePackage, alcotest, graphql_parser, rresult, yojson }:
+{
+  buildDunePackage,
+  alcotest,
+  graphql_parser,
+  rresult,
+  yojson,
+}:
 
 buildDunePackage rec {
   pname = "graphql";

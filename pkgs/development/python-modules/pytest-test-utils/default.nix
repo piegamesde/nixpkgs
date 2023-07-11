@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pytestCheckHook, pytest
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  pytestCheckHook,
+  pytest,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-test-utils";

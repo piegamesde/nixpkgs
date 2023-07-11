@@ -1,15 +1,36 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, cmake, expat, yaml-cpp, ilmbase
-, pystring, imath, minizip-ng
-# Only required on Linux
-, glew, freeglut
-# Only required on Darwin
-, Carbon, GLUT, Cocoa
-# Python bindings
-, pythonBindings ? true # Python bindings
-, python3Packages
-# Build apps
-, buildApps ? true # Utility applications
-, lcms2, openexr_3 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  expat,
+  yaml-cpp,
+  ilmbase,
+  pystring,
+  imath,
+  minizip-ng
+  # Only required on Linux
+  ,
+  glew,
+  freeglut
+  # Only required on Darwin
+  ,
+  Carbon,
+  GLUT,
+  Cocoa
+  # Python bindings
+  ,
+  pythonBindings ? true # Python bindings
+  ,
+  python3Packages
+  # Build apps
+  ,
+  buildApps ? true # Utility applications
+  ,
+  lcms2,
+  openexr_3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "opencolorio";

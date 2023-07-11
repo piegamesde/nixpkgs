@@ -1,12 +1,50 @@
-{ lib, stdenv, buildPythonPackage, pythonAtLeast, pythonOlder, fetchPypi
-, fetchpatch, python, appdirs, attrs, automat, bcrypt, constantly, cryptography
-, git, glibcLocales, h2, hyperlink, hypothesis, idna, incremental, priority
-, pyasn1, pyhamcrest, pynacl, pyopenssl, pyserial, service-identity, setuptools
-, typing-extensions, zope_interface
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonAtLeast,
+  pythonOlder,
+  fetchPypi,
+  fetchpatch,
+  python,
+  appdirs,
+  attrs,
+  automat,
+  bcrypt,
+  constantly,
+  cryptography,
+  git,
+  glibcLocales,
+  h2,
+  hyperlink,
+  hypothesis,
+  idna,
+  incremental,
+  priority,
+  pyasn1,
+  pyhamcrest,
+  pynacl,
+  pyopenssl,
+  pyserial,
+  service-identity,
+  setuptools,
+  typing-extensions,
+  zope_interface
 
-# for passthru.tests
-, cassandra-driver, klein, magic-wormhole, scrapy, treq, txaio, txamqp
-, txrequests, txtorcon, thrift, nixosTests }:
+  # for passthru.tests
+  ,
+  cassandra-driver,
+  klein,
+  magic-wormhole,
+  scrapy,
+  treq,
+  txaio,
+  txamqp,
+  txrequests,
+  txtorcon,
+  thrift,
+  nixosTests,
+}:
 
 buildPythonPackage rec {
   pname = "twisted";

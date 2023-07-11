@@ -1,7 +1,23 @@
-{ lib, appdirs, buildPythonPackage, defusedxml, fetchFromGitHub, marshmallow
-, pytest-datafiles, pytest-vcr, pytestCheckHook, python-box, python-dateutil
-, pythonOlder, requests, requests-pkcs12, responses, restfly, semver
-, typing-extensions }:
+{
+  lib,
+  appdirs,
+  buildPythonPackage,
+  defusedxml,
+  fetchFromGitHub,
+  marshmallow,
+  pytest-datafiles,
+  pytest-vcr,
+  pytestCheckHook,
+  python-box,
+  python-dateutil,
+  pythonOlder,
+  requests,
+  requests-pkcs12,
+  responses,
+  restfly,
+  semver,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "pytenable";

@@ -1,5 +1,13 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pytest-asyncio
-, pytestCheckHook, pythonOlder, typing-extensions }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   version = "3.6.0";

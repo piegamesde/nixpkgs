@@ -1,5 +1,12 @@
-{ buildPythonPackage, fetchFromGitHub, lib, git, riscv-isac, riscv-config
-, jinja2 }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  git,
+  riscv-isac,
+  riscv-config,
+  jinja2,
+}:
 
 buildPythonPackage rec {
   pname = "riscof";

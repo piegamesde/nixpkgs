@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, lxml, numpy, openjpeg
-, pytestCheckHook, pythonOlder, scikitimage, setuptools }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  lxml,
+  numpy,
+  openjpeg,
+  pytestCheckHook,
+  pythonOlder,
+  scikitimage,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "glymur";

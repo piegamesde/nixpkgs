@@ -1,6 +1,21 @@
-{ lib, branca, buildPythonPackage, fetchFromGitHub, geopandas, jinja2, nbconvert
-, numpy, pandas, pillow, pytestCheckHook, pythonOlder, requests, selenium
-, setuptools-scm, xyzservices }:
+{
+  lib,
+  branca,
+  buildPythonPackage,
+  fetchFromGitHub,
+  geopandas,
+  jinja2,
+  nbconvert,
+  numpy,
+  pandas,
+  pillow,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  selenium,
+  setuptools-scm,
+  xyzservices,
+}:
 
 buildPythonPackage rec {
   pname = "folium";

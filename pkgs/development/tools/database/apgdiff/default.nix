@@ -1,4 +1,10 @@
-{ lib, stdenvNoCC, fetchurl, makeWrapper, jre }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  makeWrapper,
+  jre,
+}:
 stdenvNoCC.mkDerivation (finalAttrs: {
   version = "2.7.0";
   pname = "apgdiff";

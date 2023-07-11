@@ -1,4 +1,12 @@
-{ stdenv, fetchFromGitHub, lib, pkg-config, cmake, gtk3, ayatana-ido }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  pkg-config,
+  cmake,
+  gtk3,
+  ayatana-ido,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libayatana-indicator";

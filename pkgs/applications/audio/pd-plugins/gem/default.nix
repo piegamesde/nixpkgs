@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, puredata, libGL
-, libGLU, glew, freeglut, libv4l, libX11, file }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  puredata,
+  libGL,
+  libGLU,
+  glew,
+  freeglut,
+  libv4l,
+  libX11,
+  file,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gem-unstable";

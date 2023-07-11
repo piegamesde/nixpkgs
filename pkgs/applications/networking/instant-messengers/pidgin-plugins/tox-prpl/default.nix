@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, libtoxcore, pidgin, autoreconfHook, libsodium }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libtoxcore,
+  pidgin,
+  autoreconfHook,
+  libsodium,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tox-prpl";

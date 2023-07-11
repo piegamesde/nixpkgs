@@ -1,5 +1,12 @@
-{ lib, stdenvNoCC, fetchFromGitHub, gtk3, breeze-icons, gnome-icon-theme
-, hicolor-icon-theme }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gtk3,
+  breeze-icons,
+  gnome-icon-theme,
+  hicolor-icon-theme,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "gruvbox-dark-icons-gtk";

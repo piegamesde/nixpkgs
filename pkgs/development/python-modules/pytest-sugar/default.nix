@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, termcolor, pytest, packaging
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  termcolor,
+  pytest,
+  packaging,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-sugar";

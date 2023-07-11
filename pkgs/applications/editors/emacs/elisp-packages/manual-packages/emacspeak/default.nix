@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, emacs, tcl, tclx, espeak-ng }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  emacs,
+  tcl,
+  tclx,
+  espeak-ng,
+}:
 
 stdenv.mkDerivation rec {
   pname = "emacspeak";

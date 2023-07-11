@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, spidev }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  spidev,
+}:
 
 buildPythonPackage rec {
   pname = "bme280spi";

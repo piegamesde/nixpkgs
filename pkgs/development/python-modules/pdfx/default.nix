@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pdfminer-six, chardet
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pdfminer-six,
+  chardet,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pdfx";

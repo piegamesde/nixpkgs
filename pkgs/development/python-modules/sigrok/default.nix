@@ -1,6 +1,17 @@
-{ lib, stdenv, libsigrok, toPythonModule, python, autoreconfHook
-, pythonImportsCheckHook, pythonCatchConflictsHook, swig, setuptools, numpy
-, pygobject3 }:
+{
+  lib,
+  stdenv,
+  libsigrok,
+  toPythonModule,
+  python,
+  autoreconfHook,
+  pythonImportsCheckHook,
+  pythonCatchConflictsHook,
+  swig,
+  setuptools,
+  numpy,
+  pygobject3,
+}:
 
 # build libsigrok plus its Python bindings. Unfortunately it does not appear
 # to be possible to build them separately, at least not easily.

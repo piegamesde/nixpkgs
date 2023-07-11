@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools, sqlalchemy
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  sqlalchemy,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "sqlalchemy-views";

@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, runCommand, cmake, rocm-cmake
-, rocrand, hip, openmp, sqlite, python3, gtest, boost, fftw, fftwFloat
-, buildTests ? false, buildBenchmarks ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  runCommand,
+  cmake,
+  rocm-cmake,
+  rocrand,
+  hip,
+  openmp,
+  sqlite,
+  python3,
+  gtest,
+  boost,
+  fftw,
+  fftwFloat,
+  buildTests ? false,
+  buildBenchmarks ? false
+}:
 
 let
   name-zero = "librocfft-device-0.so.0.1";

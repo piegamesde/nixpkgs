@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, setuptools
-, setuptools-scm, wheel, py, pytest, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  setuptools,
+  setuptools-scm,
+  wheel,
+  py,
+  pytest,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-forked";

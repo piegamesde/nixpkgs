@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, unzip, jdk8, ant, makeWrapper, callPackage }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  jdk8,
+  ant,
+  makeWrapper,
+  callPackage,
+}:
 
 let
   jre = jdk8.jre;

@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, installShellFiles, gnustep, bzip2, zlib, icu
-, openssl, wavpack, xcbuildHook, Foundation, AppKit }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  installShellFiles,
+  gnustep,
+  bzip2,
+  zlib,
+  icu,
+  openssl,
+  wavpack,
+  xcbuildHook,
+  Foundation,
+  AppKit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "unar";

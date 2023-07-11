@@ -1,4 +1,10 @@
-{ lib, rustPlatform, fetchFromGitHub, linux-doc, xorg }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  linux-doc,
+  xorg,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "systeroid";

@@ -1,4 +1,11 @@
-{ buildPythonPackage, fetchFromGitHub, jax, jaxlib, lib, pytestCheckHook }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  jax,
+  jaxlib,
+  lib,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "jmp";

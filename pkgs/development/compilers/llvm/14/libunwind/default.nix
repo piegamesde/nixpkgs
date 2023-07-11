@@ -1,5 +1,13 @@
-{ lib, stdenv, llvm_meta, version, monorepoSrc, runCommand, cmake
-, enableShared ? !stdenv.hostPlatform.isStatic }:
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  version,
+  monorepoSrc,
+  runCommand,
+  cmake,
+  enableShared ? !stdenv.hostPlatform.isStatic
+}:
 
 stdenv.mkDerivation rec {
   pname = "libunwind";

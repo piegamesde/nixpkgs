@@ -1,4 +1,8 @@
-{ lib, python3Packages, ffmpeg }:
+{
+  lib,
+  python3Packages,
+  ffmpeg,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "vcsi";

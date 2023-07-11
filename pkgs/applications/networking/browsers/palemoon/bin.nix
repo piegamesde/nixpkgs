@@ -1,6 +1,22 @@
-{ stdenv, lib, fetchzip, alsa-lib, autoPatchelfHook, copyDesktopItems, dbus-glib
-, ffmpeg, gtk2-x11, withGTK3 ? true, gtk3, libXt, libpulseaudio, makeDesktopItem
-, wrapGAppsHook, testers, palemoon-bin }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  alsa-lib,
+  autoPatchelfHook,
+  copyDesktopItems,
+  dbus-glib,
+  ffmpeg,
+  gtk2-x11,
+  withGTK3 ? true,
+  gtk3,
+  libXt,
+  libpulseaudio,
+  makeDesktopItem,
+  wrapGAppsHook,
+  testers,
+  palemoon-bin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "palemoon-bin";

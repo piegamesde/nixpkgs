@@ -1,6 +1,24 @@
-{ buildDunePackage, lib, fetchurl, asn1-combinators, uri, base64, logs, fmt, lwt
-, mirage-crypto, mirage-crypto-ec, mirage-crypto-pk, mirage-crypto-rng, x509
-, yojson, ounit, ptime, domain-name, cstruct }:
+{
+  buildDunePackage,
+  lib,
+  fetchurl,
+  asn1-combinators,
+  uri,
+  base64,
+  logs,
+  fmt,
+  lwt,
+  mirage-crypto,
+  mirage-crypto-ec,
+  mirage-crypto-pk,
+  mirage-crypto-rng,
+  x509,
+  yojson,
+  ounit,
+  ptime,
+  domain-name,
+  cstruct,
+}:
 
 buildDunePackage rec {
   pname = "letsencrypt";

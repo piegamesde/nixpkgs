@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, patchelf, cmake, pkg-config, intel-gmmlib
-, intel-graphics-compiler, level-zero, libva }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  patchelf,
+  cmake,
+  pkg-config,
+  intel-gmmlib,
+  intel-graphics-compiler,
+  level-zero,
+  libva,
+}:
 
 stdenv.mkDerivation rec {
   pname = "intel-compute-runtime";

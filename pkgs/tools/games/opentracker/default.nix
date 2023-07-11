@@ -1,6 +1,18 @@
-{ lib, stdenv, buildDotnetModule, fetchFromGitHub, autoPatchelfHook
-, wrapGAppsHook, dotnetCorePackages, fontconfig, gtk3, libunwind, openssl
-, xinput, xorg, }:
+{
+  lib,
+  stdenv,
+  buildDotnetModule,
+  fetchFromGitHub,
+  autoPatchelfHook,
+  wrapGAppsHook,
+  dotnetCorePackages,
+  fontconfig,
+  gtk3,
+  libunwind,
+  openssl,
+  xinput,
+  xorg,
+}:
 buildDotnetModule rec {
   pname = "opentracker";
   version = "1.8.5";

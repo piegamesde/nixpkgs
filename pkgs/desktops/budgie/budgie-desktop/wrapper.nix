@@ -1,4 +1,12 @@
-{ lib, stdenv, glib, xorg, wrapGAppsHook, budgie-desktop, plugins ? [ ] }:
+{
+  lib,
+  stdenv,
+  glib,
+  xorg,
+  wrapGAppsHook,
+  budgie-desktop,
+  plugins ? [ ]
+}:
 
 stdenv.mkDerivation {
   pname = "${budgie-desktop.pname}-with-plugins";

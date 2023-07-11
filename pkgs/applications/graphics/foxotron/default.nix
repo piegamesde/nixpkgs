@@ -1,7 +1,28 @@
-{ stdenv, lib, fetchFromGitHub, nix-update-script, cmake, pkg-config
-, makeWrapper, zlib, libX11, libXrandr, libXinerama, libXcursor, libXi, libXext
-, libGLU, alsa-lib, fontconfig, AVFoundation, Carbon, Cocoa, CoreAudio, Kernel
-, OpenGL }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  nix-update-script,
+  cmake,
+  pkg-config,
+  makeWrapper,
+  zlib,
+  libX11,
+  libXrandr,
+  libXinerama,
+  libXcursor,
+  libXi,
+  libXext,
+  libGLU,
+  alsa-lib,
+  fontconfig,
+  AVFoundation,
+  Carbon,
+  Cocoa,
+  CoreAudio,
+  Kernel,
+  OpenGL,
+}:
 
 stdenv.mkDerivation rec {
   pname = "foxotron";

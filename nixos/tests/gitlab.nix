@@ -6,7 +6,11 @@
 # - Creating Merge Requests and merging them
 # - Opening and closing issues.
 # - Downloading repository archives as tar.gz and tar.bz2
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   with lib;
 
@@ -30,72 +34,79 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
     meta = with pkgs.lib.maintainers; { maintainers = [ globin yayayayaka ]; };
 
     nodes = {
-      gitlab = { ... }: {
-        imports = [ common/user-account.nix ];
+      gitlab = {
+          ...
+        }: {
+          imports = [ common/user-account.nix ];
 
-        virtualisation.memorySize = if pkgs.stdenv.is64bit then 4096 else 2047;
-        virtualisation.cores = 4;
-        virtualisation.useNixStoreImage = true;
-        virtualisation.writableStore = false;
+          virtualisation.memorySize =
+            if pkgs.stdenv.is64bit then 4096 else 2047;
+          virtualisation.cores = 4;
+          virtualisation.useNixStoreImage = true;
+          virtualisation.writableStore = false;
 
-        systemd.services.gitlab.serviceConfig.Restart = mkForce "no";
-        systemd.services.gitlab-workhorse.serviceConfig.Restart = mkForce "no";
-        systemd.services.gitaly.serviceConfig.Restart = mkForce "no";
-        systemd.services.gitlab-sidekiq.serviceConfig.Restart = mkForce "no";
+          systemd.services.gitlab.serviceConfig.Restart = mkForce "no";
+          systemd.services.gitlab-workhorse.serviceConfig.Restart =
+            mkForce "no";
+          systemd.services.gitaly.serviceConfig.Restart = mkForce "no";
+          systemd.services.gitlab-sidekiq.serviceConfig.Restart = mkForce "no";
 
-        services.nginx = {
-          enable = true;
-          recommendedProxySettings = true;
-          virtualHosts = {
-            localhost = {
-              locations."/".proxyPass =
-                "http://unix:/run/gitlab/gitlab-workhorse.socket";
-            };
-          };
-        };
-
-        services.openssh.enable = true;
-
-        services.dovecot2 = {
-          enable = true;
-          enableImap = true;
-        };
-
-        systemd.services.gitlab-backup.environment.BACKUP = "dump";
-
-        services.gitlab = {
-          enable = true;
-          databasePasswordFile = pkgs.writeText "dbPassword" "xo0daiF4";
-          initialRootPasswordFile =
-            pkgs.writeText "rootPassword" initialRootPassword;
-          smtp.enable = true;
-          pages = {
+          services.nginx = {
             enable = true;
-            settings.pages-domain = "localhost";
-          };
-          extraConfig = {
-            incoming_email = {
-              enabled = true;
-              mailbox = "inbox";
-              address = "alice@localhost";
-              user = "alice";
-              password = "foobar";
-              host = "localhost";
-              port = 143;
+            recommendedProxySettings = true;
+            virtualHosts = {
+              localhost = {
+                locations."/".proxyPass =
+                  "http://unix:/run/gitlab/gitlab-workhorse.socket";
+              };
             };
           };
-          secrets = {
-            secretFile = pkgs.writeText "secret" "Aig5zaic";
-            otpFile = pkgs.writeText "otpsecret" "Riew9mue";
-            dbFile = pkgs.writeText "dbsecret" "we2quaeZ";
-            jwsFile = pkgs.runCommand "oidcKeyBase" { }
-              "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+
+          services.openssh.enable = true;
+
+          services.dovecot2 = {
+            enable = true;
+            enableImap = true;
+          };
+
+          systemd.services.gitlab-backup.environment.BACKUP = "dump";
+
+          services.gitlab = {
+            enable = true;
+            databasePasswordFile = pkgs.writeText "dbPassword" "xo0daiF4";
+            initialRootPasswordFile =
+              pkgs.writeText "rootPassword" initialRootPassword;
+            smtp.enable = true;
+            pages = {
+              enable = true;
+              settings.pages-domain = "localhost";
+            };
+            extraConfig = {
+              incoming_email = {
+                enabled = true;
+                mailbox = "inbox";
+                address = "alice@localhost";
+                user = "alice";
+                password = "foobar";
+                host = "localhost";
+                port = 143;
+              };
+            };
+            secrets = {
+              secretFile = pkgs.writeText "secret" "Aig5zaic";
+              otpFile = pkgs.writeText "otpsecret" "Riew9mue";
+              dbFile = pkgs.writeText "dbsecret" "we2quaeZ";
+              jwsFile = pkgs.runCommand "oidcKeyBase" { }
+                "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+            };
           };
         };
-      };
     };
 
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let
         auth = pkgs.writeText "auth.json" (builtins.toJSON {
           grant_type = "password";

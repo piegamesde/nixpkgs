@@ -1,5 +1,14 @@
-{ lib, aioconsole, bleak, buildPythonPackage, dbus-next, fetchFromGitHub, numpy
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aioconsole,
+  bleak,
+  buildPythonPackage,
+  dbus-next,
+  fetchFromGitHub,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "bless";

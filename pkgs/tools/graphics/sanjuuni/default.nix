@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, ffmpeg, poco }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  ffmpeg,
+  poco,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sanjuuni";

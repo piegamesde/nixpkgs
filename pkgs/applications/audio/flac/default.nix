@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, cmake, pkg-config, doxygen, graphviz, libogg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  pkg-config,
+  doxygen,
+  graphviz,
+  libogg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "flac";

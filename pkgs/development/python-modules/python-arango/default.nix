@@ -1,5 +1,16 @@
-{ lib, arangodb, buildPythonPackage, fetchFromGitHub, pythonOlder
-, pytestCheckHook, pyjwt, pytest, mock, requests, requests-toolbelt }:
+{
+  lib,
+  arangodb,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  pyjwt,
+  pytest,
+  mock,
+  requests,
+  requests-toolbelt,
+}:
 
 let
   testDBOpts = {

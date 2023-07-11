@@ -1,4 +1,12 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, bzip2, CoreServices }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  bzip2,
+  CoreServices,
+}:
 
 let
   pname = "mdbook-epub";

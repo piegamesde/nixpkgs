@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, six, httplib2, py, pytestCheckHook
-, pythonOlder, requests, urllib3 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  httplib2,
+  py,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "wsgi-intercept";

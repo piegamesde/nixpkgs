@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, git, gitpython, krb5, mock
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  git,
+  gitpython,
+  krb5,
+  mock,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "cccolutils";

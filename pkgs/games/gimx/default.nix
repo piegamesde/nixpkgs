@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, curl, libusb1, xorg, libxml2
-, ncurses5, bluez, libmhash, gimxPdpGamepad ? false }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  curl,
+  libusb1,
+  xorg,
+  libxml2,
+  ncurses5,
+  bluez,
+  libmhash,
+  gimxPdpGamepad ? false
+}:
 
 let
   gimx-config = fetchFromGitHub {

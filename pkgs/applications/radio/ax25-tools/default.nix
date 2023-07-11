@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, libax25 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libax25,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ax25-tools";

@@ -6,12 +6,14 @@
 #
 #   nix-build nixos/release-small.nix -A <jobname>
 #
-{ nixpkgs ? {
-  outPath = (import ../lib).cleanSource ./..;
-  revCount = 56789;
-  shortRev = "gfedcba";
-}, stableBranch ? false
-, supportedSystems ? [ "aarch64-linux" "x86_64-linux" ] # no i686-linux
+{
+  nixpkgs ? {
+    outPath = (import ../lib).cleanSource ./..;
+    revCount = 56789;
+    shortRev = "gfedcba";
+  },
+  stableBranch ? false,
+  supportedSystems ? [ "aarch64-linux" "x86_64-linux" ] # no i686-linux
 }:
 
 let

@@ -1,6 +1,20 @@
-{ lib, stdenv, callPackage, rustPlatform, fetchFromGitHub, fetchurl, nixosTests
-, pkg-config, openssl, libiconv, Security, CoreServices, dbBackend ? "sqlite"
-, libmysqlclient, postgresql }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  rustPlatform,
+  fetchFromGitHub,
+  fetchurl,
+  nixosTests,
+  pkg-config,
+  openssl,
+  libiconv,
+  Security,
+  CoreServices,
+  dbBackend ? "sqlite",
+  libmysqlclient,
+  postgresql,
+}:
 
 let webvault = callPackage ./webvault.nix { };
 

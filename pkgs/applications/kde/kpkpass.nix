@@ -1,4 +1,11 @@
-{ mkDerivation, lib, extra-cmake-modules, qtbase, karchive, shared-mime-info }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  qtbase,
+  karchive,
+  shared-mime-info,
+}:
 
 mkDerivation {
   pname = "kpkpass";

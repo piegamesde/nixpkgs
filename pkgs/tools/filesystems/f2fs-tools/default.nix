@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchgit, autoreconfHook, libselinux, libuuid, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  autoreconfHook,
+  libselinux,
+  libuuid,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "f2fs-tools";

@@ -1,7 +1,34 @@
-{ lib, stdenv, fetchurl, substituteAll, meson, ninja, pkg-config, gettext, gperf
-, sqlite, libarchive, libdmapsharing, libsoup_3, gnome, libxml2, lua5_4
-, liboauth, libgdata, libmediaart, grilo, gst_all_1, gnome-online-accounts
-, gmime, gom, json-glib, avahi, tracker, dleyna-server, itstool, totem-pl-parser
+{
+  lib,
+  stdenv,
+  fetchurl,
+  substituteAll,
+  meson,
+  ninja,
+  pkg-config,
+  gettext,
+  gperf,
+  sqlite,
+  libarchive,
+  libdmapsharing,
+  libsoup_3,
+  gnome,
+  libxml2,
+  lua5_4,
+  liboauth,
+  libgdata,
+  libmediaart,
+  grilo,
+  gst_all_1,
+  gnome-online-accounts,
+  gmime,
+  gom,
+  json-glib,
+  avahi,
+  tracker,
+  dleyna-server,
+  itstool,
+  totem-pl-parser,
 }:
 
 stdenv.mkDerivation rec {

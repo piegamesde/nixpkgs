@@ -1,5 +1,15 @@
-{ stdenv, lib, substituteAll, fetchPypi, buildPythonPackage, SDL2, SDL2_ttf
-, SDL2_image, SDL2_gfx, SDL2_mixer }:
+{
+  stdenv,
+  lib,
+  substituteAll,
+  fetchPypi,
+  buildPythonPackage,
+  SDL2,
+  SDL2_ttf,
+  SDL2_image,
+  SDL2_gfx,
+  SDL2_mixer,
+}:
 
 buildPythonPackage rec {
   pname = "PySDL2";

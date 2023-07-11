@@ -1,5 +1,19 @@
-{ mkDerivation, lib, fetchFromGitHub, cmake, boost17x, ceres-solver, eigen
-, freeimage, glog, libGLU, glew, qtbase, cudaSupport ? false, cudaPackages }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  boost17x,
+  ceres-solver,
+  eigen,
+  freeimage,
+  glog,
+  libGLU,
+  glew,
+  qtbase,
+  cudaSupport ? false,
+  cudaPackages,
+}:
 
 assert cudaSupport -> cudaPackages != { };
 

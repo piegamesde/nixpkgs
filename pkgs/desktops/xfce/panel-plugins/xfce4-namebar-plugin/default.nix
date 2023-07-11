@@ -1,5 +1,18 @@
-{ lib, stdenv, pkg-config, fetchFromGitHub, python3, vala, gtk3, libwnck
-, libxfce4util, xfce4-panel, wafHook, xfce, gitUpdater }:
+{
+  lib,
+  stdenv,
+  pkg-config,
+  fetchFromGitHub,
+  python3,
+  vala,
+  gtk3,
+  libwnck,
+  libxfce4util,
+  xfce4-panel,
+  wafHook,
+  xfce,
+  gitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xfce4-namebar-plugin";

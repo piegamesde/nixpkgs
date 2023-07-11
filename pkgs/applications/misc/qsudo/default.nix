@@ -1,4 +1,11 @@
-{ lib, mkDerivation, fetchFromGitHub, qmake, qtbase, sudo }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  qmake,
+  qtbase,
+  sudo,
+}:
 
 mkDerivation rec {
   pname = "qsudo";

@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, installShellFiles, bash, coreutils
-, curl, git, writeScript }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  installShellFiles,
+  bash,
+  coreutils,
+  curl,
+  git,
+  writeScript,
+}:
 
 let
   asdfReshimFile = writeScript "asdf-reshim" ''

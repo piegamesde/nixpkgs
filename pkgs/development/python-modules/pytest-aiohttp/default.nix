@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools-scm, aiohttp, pytest
-, pytest-asyncio, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  aiohttp,
+  pytest,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-aiohttp";

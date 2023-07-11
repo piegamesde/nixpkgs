@@ -1,6 +1,23 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, extra-cmake-modules, zlib, boost
-, libunwind, elfutils, sparsehash, zstd, qtbase, kio, kitemmodels, threadweaver
-, kconfigwidgets, kcoreaddons, kdiagram }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  zlib,
+  boost,
+  libunwind,
+  elfutils,
+  sparsehash,
+  zstd,
+  qtbase,
+  kio,
+  kitemmodels,
+  threadweaver,
+  kconfigwidgets,
+  kcoreaddons,
+  kdiagram,
+}:
 
 mkDerivation rec {
   pname = "heaptrack";

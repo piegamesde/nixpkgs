@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, ghcWithPackages, haskellPackages, ... }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  ghcWithPackages,
+  haskellPackages,
+  ...
+}:
 
 let xmonadctlEnv = ghcWithPackages (self: [ self.xmonad-contrib self.X11 ]);
 in stdenv.mkDerivation rec {

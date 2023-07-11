@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest,
+}:
 
 buildPythonPackage rec {
   version = "2.0.1";

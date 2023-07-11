@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder, numpy
-, scipy, matplotlib, plotly, pandas }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  numpy,
+  scipy,
+  matplotlib,
+  plotly,
+  pandas,
+}:
 
 buildPythonPackage rec {
   pname = "synergy";

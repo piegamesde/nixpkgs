@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, packaging, pycryptodome }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  packaging,
+  pycryptodome,
+}:
 
 buildPythonPackage rec {
   pname = "solc-select";

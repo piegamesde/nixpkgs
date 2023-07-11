@@ -1,6 +1,19 @@
-{ lib, stdenv, mkDerivation, fetchFromGitHub, alsa-lib, cmake, libpulseaudio
-, libmt32emu, pkg-config, portaudio, qtbase, qtmultimedia
-, withJack ? stdenv.hostPlatform.isUnix, libjack2 }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchFromGitHub,
+  alsa-lib,
+  cmake,
+  libpulseaudio,
+  libmt32emu,
+  pkg-config,
+  portaudio,
+  qtbase,
+  qtmultimedia,
+  withJack ? stdenv.hostPlatform.isUnix,
+  libjack2,
+}:
 
 let char2underscore = char: str: lib.replaceStrings [ char ] [ "_" ] str;
 in mkDerivation rec {

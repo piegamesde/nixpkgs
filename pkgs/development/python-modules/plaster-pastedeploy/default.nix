@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, plaster, pastedeploy
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  plaster,
+  pastedeploy,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "plaster-pastedeploy";

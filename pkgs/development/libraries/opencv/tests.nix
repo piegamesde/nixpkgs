@@ -1,5 +1,17 @@
-{ opencv4, testDataSrc, stdenv, lib, runCommand, gst_all_1, runAccuracyTests
-, runPerformanceTests, enableGStreamer, enableGtk2, enableGtk3, xvfb-run }:
+{
+  opencv4,
+  testDataSrc,
+  stdenv,
+  lib,
+  runCommand,
+  gst_all_1,
+  runAccuracyTests,
+  runPerformanceTests,
+  enableGStreamer,
+  enableGtk2,
+  enableGtk3,
+  xvfb-run,
+}:
 let
   testNames = [
     "calib3d"

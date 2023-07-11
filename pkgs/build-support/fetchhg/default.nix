@@ -1,6 +1,18 @@
-{ lib, stdenvNoCC, mercurial }:
-{ name ? null, url, rev ? null, md5 ? null, sha256 ? null, hash ? null
-, fetchSubrepos ? false, preferLocalBuild ? true }:
+{
+  lib,
+  stdenvNoCC,
+  mercurial,
+}:
+{
+  name ? null,
+  url,
+  rev ? null,
+  md5 ? null,
+  sha256 ? null,
+  hash ? null,
+  fetchSubrepos ? false,
+  preferLocalBuild ? true
+}:
 
 if md5 != null then
   throw "fetchhg does not support md5 anymore, please use sha256 or hash"

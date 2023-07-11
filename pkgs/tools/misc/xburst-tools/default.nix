@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchgit, libusb-compat-0_1, libusb1, autoconf, automake
-, libconfuse, pkg-config, gccCross ? null }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  libusb-compat-0_1,
+  libusb1,
+  autoconf,
+  automake,
+  libconfuse,
+  pkg-config,
+  gccCross ? null
+}:
 
 let version = "2011-12-26";
 in stdenv.mkDerivation {

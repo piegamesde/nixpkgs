@@ -1,5 +1,15 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder, attrs, pluggy, six
-, pyhamcrest, setuptools-scm, python }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder,
+  attrs,
+  pluggy,
+  six,
+  pyhamcrest,
+  setuptools-scm,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "allure-python-commons-test";

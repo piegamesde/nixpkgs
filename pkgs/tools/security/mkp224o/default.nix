@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, libsodium }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  libsodium,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mkp224o";
@@ -36,17 +42,20 @@ stdenv.mkDerivation rec {
         configureFlags = [ "--enable-amd64-64-24k" ];
       }
     ];
-  in lib.concatMapStrings ({ suffix, configureFlags }: ''
-    install -D ${
-      stdenv.mkDerivation {
-        name = "mkp224o-${suffix}-${version}";
-        inherit version src configureFlags;
-        nativeBuildInputs = [ autoreconfHook ];
-        buildInputs = [ libsodium ];
-        installPhase = "install -D mkp224o $out";
-      }
-    } $out/bin/mkp224o-${suffix}
-  '') variants;
+  in lib.concatMapStrings ({
+      suffix,
+      configureFlags,
+    }: ''
+      install -D ${
+        stdenv.mkDerivation {
+          name = "mkp224o-${suffix}-${version}";
+          inherit version src configureFlags;
+          nativeBuildInputs = [ autoreconfHook ];
+          buildInputs = [ libsodium ];
+          installPhase = "install -D mkp224o $out";
+        }
+      } $out/bin/mkp224o-${suffix}
+    '') variants;
 
   meta = with lib; {
     description =

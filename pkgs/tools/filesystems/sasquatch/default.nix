@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, xz, lzo, zlib, zstd, lz4
-, lz4Support ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  xz,
+  lzo,
+  zlib,
+  zstd,
+  lz4,
+  lz4Support ? false
+}:
 
 let
   patch = fetchFromGitHub {

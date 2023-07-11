@@ -1,5 +1,15 @@
-{ lib, stdenv, cmark-gfm, fetchurl, fetchpatch, qmake, qtbase, qtwebengine
-, wrapGAppsHook, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  cmark-gfm,
+  fetchurl,
+  fetchpatch,
+  qmake,
+  qtbase,
+  qtwebengine,
+  wrapGAppsHook,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mindforger";

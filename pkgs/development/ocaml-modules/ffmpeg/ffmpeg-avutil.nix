@@ -1,6 +1,16 @@
-{ lib, stdenv, buildDunePackage, dune-configurator, pkg-config, fetchFromGitHub
-, callPackage, AudioToolbox, VideoToolbox
-, ffmpeg-base ? callPackage ./base.nix { }, ffmpeg }:
+{
+  lib,
+  stdenv,
+  buildDunePackage,
+  dune-configurator,
+  pkg-config,
+  fetchFromGitHub,
+  callPackage,
+  AudioToolbox,
+  VideoToolbox,
+  ffmpeg-base ? callPackage ./base.nix { },
+  ffmpeg,
+}:
 
 buildDunePackage {
   pname = "ffmpeg-avutil";

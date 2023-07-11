@@ -1,6 +1,27 @@
-{ lib, stdenv, rustPlatform, gettext, meson, ninja, fetchurl, pkg-config, gtk4
-, glib, gdk-pixbuf, desktop-file-utils, appstream-glib, wrapGAppsHook4, python3
-, gnome, libadwaita, librsvg, rustc, rust, writeText, cargo }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  gettext,
+  meson,
+  ninja,
+  fetchurl,
+  pkg-config,
+  gtk4,
+  glib,
+  gdk-pixbuf,
+  desktop-file-utils,
+  appstream-glib,
+  wrapGAppsHook4,
+  python3,
+  gnome,
+  libadwaita,
+  librsvg,
+  rustc,
+  rust,
+  writeText,
+  cargo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-tour";

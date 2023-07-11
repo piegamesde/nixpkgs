@@ -1,4 +1,11 @@
-{ callPackage, lib, pkgs, runCommand, writeText, writeStringReferencesToFile }:
+{
+  callPackage,
+  lib,
+  pkgs,
+  runCommand,
+  writeText,
+  writeStringReferencesToFile,
+}:
 let
   sample = import ./sample.nix { inherit pkgs; };
   samplePaths = lib.unique (lib.attrValues sample);

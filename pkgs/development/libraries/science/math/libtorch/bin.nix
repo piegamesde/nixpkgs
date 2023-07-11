@@ -1,8 +1,18 @@
-{ callPackage, stdenv, fetchzip, lib, libcxx
+{
+  callPackage,
+  stdenv,
+  fetchzip,
+  lib,
+  libcxx
 
-, addOpenGLRunpath, patchelf, fixDarwinDylibNames
+  ,
+  addOpenGLRunpath,
+  patchelf,
+  fixDarwinDylibNames
 
-, cudaSupport }:
+  ,
+  cudaSupport,
+}:
 
 let
   # The binary libtorch distribution statically links the CUDA

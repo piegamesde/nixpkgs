@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, gawk, cmake }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gawk,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   name = "ilbc-rfc3951";

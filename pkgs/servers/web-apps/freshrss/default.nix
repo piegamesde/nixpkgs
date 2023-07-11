@@ -1,4 +1,11 @@
-{ stdenvNoCC, lib, fetchFromGitHub, nixosTests, php, pkgs }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  nixosTests,
+  php,
+  pkgs,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "FreshRSS";

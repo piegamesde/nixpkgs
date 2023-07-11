@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, python3, qtbase
-, qttools, radare2, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  qtbase,
+  qttools,
+  radare2,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "iaito";

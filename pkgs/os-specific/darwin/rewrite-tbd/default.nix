@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, libyaml }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libyaml,
+}:
 
 stdenv.mkDerivation {
   pname = "rewrite-tbd";

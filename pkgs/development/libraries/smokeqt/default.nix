@@ -1,4 +1,11 @@
-{ stdenv, lib, cmake, qt4, smokegen, fetchzip }:
+{
+  stdenv,
+  lib,
+  cmake,
+  qt4,
+  smokegen,
+  fetchzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "smokeqt";

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, flask, hatchling
-, hatch-vcs, isPy27, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  flask,
+  hatchling,
+  hatch-vcs,
+  isPy27,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "picobox";

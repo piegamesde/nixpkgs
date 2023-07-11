@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, dask, dask-glm, distributed, fetchPypi
-, multipledispatch, numba, numpy, packaging, pandas, pythonOlder, scikit-learn
-, scipy, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  dask,
+  dask-glm,
+  distributed,
+  fetchPypi,
+  multipledispatch,
+  numba,
+  numpy,
+  packaging,
+  pandas,
+  pythonOlder,
+  scikit-learn,
+  scipy,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "dask-ml";

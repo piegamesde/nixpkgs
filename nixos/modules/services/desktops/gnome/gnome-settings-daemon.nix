@@ -1,6 +1,11 @@
 # GNOME Settings Daemon
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, cython, hypothesis, numpy, pytest
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cython,
+  hypothesis,
+  numpy,
+  pytest,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "blis";

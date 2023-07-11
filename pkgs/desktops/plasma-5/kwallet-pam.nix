@@ -1,5 +1,13 @@
-{ mkDerivation, lib, extra-cmake-modules, pam, socat, libgcrypt, qtbase, kwallet
-, }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  pam,
+  socat,
+  libgcrypt,
+  qtbase,
+  kwallet,
+}:
 
 mkDerivation {
   pname = "kwallet-pam";

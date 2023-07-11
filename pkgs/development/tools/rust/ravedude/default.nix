@@ -1,4 +1,10 @@
-{ lib, rustPlatform, fetchCrate, pkg-config, udev }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  udev,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "ravedude";

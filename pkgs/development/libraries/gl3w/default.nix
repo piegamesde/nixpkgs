@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, python3, cmake, libglvnd, libGLU
-, unstableGitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  cmake,
+  libglvnd,
+  libGLU,
+  unstableGitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gl3w";

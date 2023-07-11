@@ -1,11 +1,30 @@
-{ lib, mkDerivation, cmake, corrosion, extra-cmake-modules, kconfig, kcoreaddons
-, kdbusaddons, ki18n, kirigami-addons, kirigami2, knotifications, kpurpose
-, kwindowsystem, qtfeedback, qtquickcontrols2, qqc2-desktop-style, qtwebengine
-, rustPlatform, srcs
+{
+  lib,
+  mkDerivation,
+  cmake,
+  corrosion,
+  extra-cmake-modules,
+  kconfig,
+  kcoreaddons,
+  kdbusaddons,
+  ki18n,
+  kirigami-addons,
+  kirigami2,
+  knotifications,
+  kpurpose,
+  kwindowsystem,
+  qtfeedback,
+  qtquickcontrols2,
+  qqc2-desktop-style,
+  qtwebengine,
+  rustPlatform,
+  srcs
 
-# These must be updated in tandem with package updates.
-, cargoShaForVersion ? "23.04.0"
-, cargoSha256 ? "sha256-96Qe8zdLZdOrU/t6J+JJ6V0PXyFOnJF18qDrk4PZGsA=" }:
+  # These must be updated in tandem with package updates.
+  ,
+  cargoShaForVersion ? "23.04.0",
+  cargoSha256 ? "sha256-96Qe8zdLZdOrU/t6J+JJ6V0PXyFOnJF18qDrk4PZGsA="
+}:
 
 # Guard against incomplete updates.
 # Values are provided as callPackage inputs to enable easier overrides through overlays.

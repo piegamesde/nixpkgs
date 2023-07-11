@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, bzip2, expat, glib, curl
-, libxml2, python3, rpm, openssl, sqlite, file, xz, pcre, bash-completion, zstd
-, zchunk, libmodulemd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  bzip2,
+  expat,
+  glib,
+  curl,
+  libxml2,
+  python3,
+  rpm,
+  openssl,
+  sqlite,
+  file,
+  xz,
+  pcre,
+  bash-completion,
+  zstd,
+  zchunk,
+  libmodulemd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "createrepo_c";

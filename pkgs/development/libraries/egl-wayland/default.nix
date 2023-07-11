@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, eglexternalplatform, pkg-config
-, meson, ninja, wayland-scanner, libGL, libX11, libdrm, wayland
-, wayland-protocols }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  eglexternalplatform,
+  pkg-config,
+  meson,
+  ninja,
+  wayland-scanner,
+  libGL,
+  libX11,
+  libdrm,
+  wayland,
+  wayland-protocols,
+}:
 
 stdenv.mkDerivation rec {
   pname = "egl-wayland";

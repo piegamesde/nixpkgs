@@ -1,4 +1,11 @@
-{ autoreconfHook, fetchFromGitHub, lib, nix-update-script, pkg-config, stdenv }:
+{
+  autoreconfHook,
+  fetchFromGitHub,
+  lib,
+  nix-update-script,
+  pkg-config,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gensio";

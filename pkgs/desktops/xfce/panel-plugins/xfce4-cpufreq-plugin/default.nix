@@ -1,4 +1,12 @@
-{ lib, mkXfceDerivation, gtk3, libxfce4ui, libxfce4util, xfce4-panel, xfconf }:
+{
+  lib,
+  mkXfceDerivation,
+  gtk3,
+  libxfce4ui,
+  libxfce4util,
+  xfce4-panel,
+  xfconf,
+}:
 
 mkXfceDerivation {
   category = "panel-plugins";

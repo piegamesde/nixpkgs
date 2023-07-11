@@ -1,7 +1,27 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, pkg-config, ncurses, openssl
-, Cocoa, withALSA ? true, alsa-lib, withClipboard ? true, libxcb, python3
-, withCover ? false, ueberzug, withPulseAudio ? false, libpulseaudio
-, withPortAudio ? false, portaudio, withMPRIS ? true, withNotify ? true, dbus }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  ncurses,
+  openssl,
+  Cocoa,
+  withALSA ? true,
+  alsa-lib,
+  withClipboard ? true,
+  libxcb,
+  python3,
+  withCover ? false,
+  ueberzug,
+  withPulseAudio ? false,
+  libpulseaudio,
+  withPortAudio ? false,
+  portaudio,
+  withMPRIS ? true,
+  withNotify ? true,
+  dbus,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "ncspot";

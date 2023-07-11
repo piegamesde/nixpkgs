@@ -1,5 +1,14 @@
-{ lib, blas, lapack, buildPythonPackage, cffi, fetchFromGitHub, nose, numpy
-, stdenv }:
+{
+  lib,
+  blas,
+  lapack,
+  buildPythonPackage,
+  cffi,
+  fetchFromGitHub,
+  nose,
+  numpy,
+  stdenv,
+}:
 
 buildPythonPackage {
   pname = "prox-tv";

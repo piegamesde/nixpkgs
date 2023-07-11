@@ -1,7 +1,30 @@
-{ lib, stdenv, fetchurl, chromaprint, cmake, docbook_xml_dtd_45, docbook_xsl
-, ffmpeg, flac, id3lib, libogg, libvorbis, libxslt, mp4v2, phonon, pkg-config
-, python3, qtbase, qtmultimedia, qtquickcontrols, qttools, readline, taglib
-, wrapQtAppsHook, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  chromaprint,
+  cmake,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  ffmpeg,
+  flac,
+  id3lib,
+  libogg,
+  libvorbis,
+  libxslt,
+  mp4v2,
+  phonon,
+  pkg-config,
+  python3,
+  qtbase,
+  qtmultimedia,
+  qtquickcontrols,
+  qttools,
+  readline,
+  taglib,
+  wrapQtAppsHook,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kid3";

@@ -1,4 +1,9 @@
-{ stdenv, installShellFiles, qemu, removeReferencesTo }:
+{
+  stdenv,
+  installShellFiles,
+  qemu,
+  removeReferencesTo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qemu-utils";

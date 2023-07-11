@@ -1,7 +1,19 @@
-{ lib, mkDerivation, fetchFromGitHub, pkg-config, cmake, alsa-lib, libjack2
-, dbus, qtbase, qttools, qtx11extras
-# Enable jack session support
-, jackSession ? false }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  alsa-lib,
+  libjack2,
+  dbus,
+  qtbase,
+  qttools,
+  qtx11extras
+  # Enable jack session support
+  ,
+  jackSession ? false
+}:
 
 mkDerivation rec {
   version = "0.9.10";

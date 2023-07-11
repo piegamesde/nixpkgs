@@ -1,34 +1,81 @@
-{ config, lib, stdenv, fetchFromGitHub, runCommand, ncurses, pkg-config
-, libiconv, CoreAudio, AudioUnit, VideoToolbox
+{
+  config,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  runCommand,
+  ncurses,
+  pkg-config,
+  libiconv,
+  CoreAudio,
+  AudioUnit,
+  VideoToolbox
 
-, alsaSupport ? stdenv.isLinux, alsa-lib ? null
-  # simple fallback for everyone else
-, aoSupport ? !stdenv.isLinux, libao ? null, jackSupport ? false, libjack ? null
-, samplerateSupport ? jackSupport, libsamplerate ? null, ossSupport ? false
-, alsa-oss ? null, pulseaudioSupport ? config.pulseaudio or false
-, libpulseaudio ? null, mprisSupport ? stdenv.isLinux, systemd ? null
+  ,
+  alsaSupport ? stdenv.isLinux,
+  alsa-lib ? null
+    # simple fallback for everyone else
+  ,
+  aoSupport ? !stdenv.isLinux,
+  libao ? null,
+  jackSupport ? false,
+  libjack ? null,
+  samplerateSupport ? jackSupport,
+  libsamplerate ? null,
+  ossSupport ? false,
+  alsa-oss ? null,
+  pulseaudioSupport ? config.pulseaudio or false,
+  libpulseaudio ? null,
+  mprisSupport ? stdenv.isLinux,
+  systemd ? null
 
-  # TODO: add these
-  #, artsSupport
-  #, roarSupport
-  #, sndioSupport
-  #, sunSupport
-  #, waveoutSupport
+    # TODO: add these
+    #, artsSupport
+    #, roarSupport
+    #, sndioSupport
+    #, sunSupport
+    #, waveoutSupport
 
-, cddbSupport ? true, libcddb ? null, cdioSupport ? true, libcdio ? null
-, libcdio-paranoia ? null, cueSupport ? true, libcue ? null
-, discidSupport ? false, libdiscid ? null, ffmpegSupport ? true, ffmpeg ? null
-, flacSupport ? true, flac ? null, madSupport ? true, libmad ? null
-, mikmodSupport ? true, libmikmod ? null, modplugSupport ? true
-, libmodplug ? null, mpcSupport ? true, libmpcdec ? null, tremorSupport ? false
-, tremor ? null, vorbisSupport ? true, libvorbis ? null, wavpackSupport ? true
-, wavpack ? null, opusSupport ? true, opusfile ? null
+  ,
+  cddbSupport ? true,
+  libcddb ? null,
+  cdioSupport ? true,
+  libcdio ? null,
+  libcdio-paranoia ? null,
+  cueSupport ? true,
+  libcue ? null,
+  discidSupport ? false,
+  libdiscid ? null,
+  ffmpegSupport ? true,
+  ffmpeg ? null,
+  flacSupport ? true,
+  flac ? null,
+  madSupport ? true,
+  libmad ? null,
+  mikmodSupport ? true,
+  libmikmod ? null,
+  modplugSupport ? true,
+  libmodplug ? null,
+  mpcSupport ? true,
+  libmpcdec ? null,
+  tremorSupport ? false,
+  tremor ? null,
+  vorbisSupport ? true,
+  libvorbis ? null,
+  wavpackSupport ? true,
+  wavpack ? null,
+  opusSupport ? true,
+  opusfile ? null
 
-, aacSupport ? false, faad2 ? null # already handled by ffmpeg
-, mp4Support ? false, mp4v2 ? null # ffmpeg does support mp4 better
+  ,
+  aacSupport ? false,
+  faad2 ? null # already handled by ffmpeg
+  ,
+  mp4Support ? false,
+  mp4v2 ? null # ffmpeg does support mp4 better
 
-  # not in nixpkgs
-  #, vtxSupport ? true, libayemu ? null
+    # not in nixpkgs
+    #, vtxSupport ? true, libayemu ? null
 }:
 
 assert samplerateSupport -> jackSupport;

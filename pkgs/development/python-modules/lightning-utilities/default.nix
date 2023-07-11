@@ -1,13 +1,22 @@
-{ lib, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
 
-# build
-, setuptools
+  # build
+  ,
+  setuptools
 
-# runtime
-, packaging, typing-extensions
+  # runtime
+  ,
+  packaging,
+  typing-extensions
 
-# tests
-, pytest-timeout, pytestCheckHook }:
+  # tests
+  ,
+  pytest-timeout,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "lightning-utilities";

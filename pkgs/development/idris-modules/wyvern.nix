@@ -1,4 +1,10 @@
-{ build-idris-package, fetchFromGitHub, contrib, effects, lib }:
+{
+  build-idris-package,
+  fetchFromGitHub,
+  contrib,
+  effects,
+  lib,
+}:
 build-idris-package {
   pname = "wyvern";
   version = "2017-06-26";

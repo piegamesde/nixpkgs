@@ -1,6 +1,11 @@
 # NixOS module for oauth2_proxy.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let

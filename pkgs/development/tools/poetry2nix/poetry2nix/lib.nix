@@ -1,4 +1,8 @@
-{ lib, pkgs, stdenv }:
+{
+  lib,
+  pkgs,
+  stdenv,
+}:
 let
   inherit (import ./semver.nix { inherit lib ireplace; }) satisfiesSemver;
   inherit (builtins) genList length;
@@ -108,7 +112,12 @@ let
   #   file: filename including extension
   #   hash: SRI hash
   #   kind: Language implementation and version tag
-  predictURLFromPypi = lib.makeOverridable ({ pname, file, hash, kind }:
+  predictURLFromPypi = lib.makeOverridable ({
+      pname,
+      file,
+      hash,
+      kind,
+    }:
     "https://files.pythonhosted.org/packages/${kind}/${
       lib.toLower (builtins.substring 0 1 file)
     }/${pname}/${file}");
@@ -122,35 +131,50 @@ let
   #   version: the version string of the dependency
   #   hash: SRI hash
   #   kind: Language implementation and version tag
-  fetchFromPypi = lib.makeOverridable
-    ({ pname, file, version, hash, kind, curlOpts ? "" }:
-      let predictedURL = predictURLFromPypi { inherit pname file hash kind; };
-      in (pkgs.stdenvNoCC.mkDerivation {
-        name = file;
-        nativeBuildInputs = [ pkgs.buildPackages.curl pkgs.buildPackages.jq ];
-        isWheel = lib.strings.hasSuffix "whl" file;
-        system = "builtin";
+  fetchFromPypi = lib.makeOverridable ({
+      pname,
+      file,
+      version,
+      hash,
+      kind,
+      curlOpts ? ""
+    }:
+    let predictedURL = predictURLFromPypi { inherit pname file hash kind; };
+    in (pkgs.stdenvNoCC.mkDerivation {
+      name = file;
+      nativeBuildInputs = [ pkgs.buildPackages.curl pkgs.buildPackages.jq ];
+      isWheel = lib.strings.hasSuffix "whl" file;
+      system = "builtin";
 
-        preferLocalBuild = true;
-        impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [ "NIX_CURL_FLAGS" ];
+      preferLocalBuild = true;
+      impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [ "NIX_CURL_FLAGS" ];
 
-        inherit pname file version curlOpts predictedURL;
+      inherit pname file version curlOpts predictedURL;
 
-        builder = ./fetch-from-pypi.sh;
+      builder = ./fetch-from-pypi.sh;
 
-        outputHashMode = "flat";
-        outputHashAlgo = "sha256";
-        outputHash = hash;
+      outputHashMode = "flat";
+      outputHashAlgo = "sha256";
+      outputHash = hash;
 
-        passthru = {
-          urls = [ predictedURL ]; # retain compatibility with nixpkgs' fetchurl
-        };
-      }));
+      passthru = {
+        urls = [ predictedURL ]; # retain compatibility with nixpkgs' fetchurl
+      };
+    }));
 
-  fetchFromLegacy = lib.makeOverridable ({ python, pname, url, file, hash }:
+  fetchFromLegacy = lib.makeOverridable ({
+      python,
+      pname,
+      url,
+      file,
+      hash,
+    }:
     let
-      pathParts = (builtins.filter ({ prefix, path }: "NETRC" == prefix)
-        builtins.nixPath);
+      pathParts = (builtins.filter ({
+          prefix,
+          path,
+        }:
+        "NETRC" == prefix) builtins.nixPath);
       netrc_file =
         if (pathParts != [ ]) then (builtins.head pathParts).path else "";
     in pkgs.runCommand file {
@@ -165,7 +189,10 @@ let
       mv ${file} $out
     '');
 
-  getBuildSystemPkgs = { pythonPackages, pyProject }:
+  getBuildSystemPkgs = {
+      pythonPackages,
+      pyProject,
+    }:
     let
       missingBuildBackendError =
         "No build-system.build-backend section in pyproject.toml. "
@@ -197,7 +224,9 @@ let
      - Filters pycache/pyc files
      - Uses cleanSourceFilter to filter out .git/.hg, .o/.so, editor backup files & nix result symlinks
   */
-  cleanPythonSources = { src }:
+  cleanPythonSources = {
+      src,
+    }:
     let
       gitIgnores = findGitIgnores src;
       pycacheFilter = name: type:

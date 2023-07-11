@@ -1,6 +1,24 @@
-{ buildGoModule, cmake, fetchFromGitHub, go, lib, libsecret, pkg-config, polkit
-, python3, qt5compat, qtbase, qtnetworkauth, qtsvg, qttools, qtwebsockets
-, rustPlatform, stdenv, wireguard-tools, wrapQtAppsHook }:
+{
+  buildGoModule,
+  cmake,
+  fetchFromGitHub,
+  go,
+  lib,
+  libsecret,
+  pkg-config,
+  polkit,
+  python3,
+  qt5compat,
+  qtbase,
+  qtnetworkauth,
+  qtsvg,
+  qttools,
+  qtwebsockets,
+  rustPlatform,
+  stdenv,
+  wireguard-tools,
+  wrapQtAppsHook,
+}:
 
 let
   pname = "mozillavpn";

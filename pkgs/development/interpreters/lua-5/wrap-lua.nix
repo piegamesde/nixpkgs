@@ -1,4 +1,9 @@
-{ lib, lua, makeSetupHook, makeWrapper }:
+{
+  lib,
+  lua,
+  makeSetupHook,
+  makeWrapper,
+}:
 
 # defined in trivial-builders.nix
 # imported as wrapLua in lua-packages.nix and passed to build-lua-derivation to be used as buildInput

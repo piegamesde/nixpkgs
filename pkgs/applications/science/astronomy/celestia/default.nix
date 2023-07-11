@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, freeglut, gtk2, gtkglext
-, libjpeg_turbo, libtheora, libXmu, lua, libGLU, libGL, perl, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  freeglut,
+  gtk2,
+  gtkglext,
+  libjpeg_turbo,
+  libtheora,
+  libXmu,
+  lua,
+  libGLU,
+  libGL,
+  perl,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "celestia";

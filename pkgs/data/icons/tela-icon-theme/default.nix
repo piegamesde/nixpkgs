@@ -1,4 +1,11 @@
-{ lib, stdenvNoCC, fetchFromGitHub, gtk3, jdupes, hicolor-icon-theme }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gtk3,
+  jdupes,
+  hicolor-icon-theme,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "tela-icon-theme";

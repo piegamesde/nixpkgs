@@ -1,6 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, cmake, sqlite, httpSupport ? true, curl
-, cliSupport ? true, linenoiseSupport ? cliSupport, linenoise
-, enableLTO ? stdenv.cc.isGNU }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  sqlite,
+  httpSupport ? true,
+  curl,
+  cliSupport ? true,
+  linenoiseSupport ? cliSupport,
+  linenoise,
+  enableLTO ? stdenv.cc.isGNU
+}:
 
 assert enableLTO -> stdenv.cc.isGNU;
 

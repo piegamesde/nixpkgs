@@ -1,5 +1,17 @@
-{ stdenv, lib, perl, pkg-config, curl, nix, libsodium, boost, autoreconfHook
-, autoconf-archive, nlohmann_json, Security }:
+{
+  stdenv,
+  lib,
+  perl,
+  pkg-config,
+  curl,
+  nix,
+  libsodium,
+  boost,
+  autoreconfHook,
+  autoconf-archive,
+  nlohmann_json,
+  Security,
+}:
 
 stdenv.mkDerivation {
   pname = "nix-perl";

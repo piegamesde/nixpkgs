@@ -1,4 +1,10 @@
-{ lib, fetchPypi, buildPythonPackage, six, wheel }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  six,
+  wheel,
+}:
 
 buildPythonPackage rec {
   pname = "astunparse";

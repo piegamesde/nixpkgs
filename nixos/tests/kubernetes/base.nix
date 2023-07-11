@@ -1,12 +1,20 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../../.. { inherit system config; }
+}:
 
 with import ../../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 
 let
-  mkKubernetesBaseTest =
-    { name, domain ? "my.zyx", test, machines, extraConfiguration ? null }:
+  mkKubernetesBaseTest = {
+      name,
+      domain ? "my.zyx",
+      test,
+      machines,
+      extraConfiguration ? null
+    }:
     let
       masterName = head (filter (machineName:
         any (role: role == "master") machines.${machineName}.roles)
@@ -28,7 +36,13 @@ let
       inherit name;
 
       nodes = mapAttrs (machineName: machine:
-        { config, pkgs, lib, nodes, ... }:
+        {
+          config,
+          pkgs,
+          lib,
+          nodes,
+          ...
+        }:
         mkMerge [
           {
             boot.postBootCommands =

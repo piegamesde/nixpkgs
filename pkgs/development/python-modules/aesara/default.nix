@@ -1,7 +1,26 @@
-{ lib, stdenv, buildPythonPackage, cons, cython, etuples, fetchFromGitHub
-, filelock, hatch-vcs, hatchling, jax, jaxlib, logical-unification, minikanren
-, numba, numba-scipy, numpy, pytestCheckHook, pythonOlder, scipy
-, typing-extensions }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  cons,
+  cython,
+  etuples,
+  fetchFromGitHub,
+  filelock,
+  hatch-vcs,
+  hatchling,
+  jax,
+  jaxlib,
+  logical-unification,
+  minikanren,
+  numba,
+  numba-scipy,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "aesara";

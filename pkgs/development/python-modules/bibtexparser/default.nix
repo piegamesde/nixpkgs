@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pyparsing, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyparsing,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "bibtexparser";

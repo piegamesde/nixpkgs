@@ -1,6 +1,20 @@
-{ stdenv, lib, lndir, makeWrapper, fetchFromGitHub, cmake, libusb-compat-0_1
-, pkg-config, usePython ? false, python ? null, ncurses, swig2
-, extraPackages ? [ ], testers, buildPackages }:
+{
+  stdenv,
+  lib,
+  lndir,
+  makeWrapper,
+  fetchFromGitHub,
+  cmake,
+  libusb-compat-0_1,
+  pkg-config,
+  usePython ? false,
+  python ? null,
+  ncurses,
+  swig2,
+  extraPackages ? [ ],
+  testers,
+  buildPackages,
+}:
 
 let
 

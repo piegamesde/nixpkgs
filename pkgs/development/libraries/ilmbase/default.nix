@@ -1,4 +1,10 @@
-{ stdenv, lib, buildPackages, cmake, openexr }:
+{
+  stdenv,
+  lib,
+  buildPackages,
+  cmake,
+  openexr,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ilmbase";

@@ -1,5 +1,15 @@
-{ lib, aiohttp, aioresponses, buildPythonPackage, fetchFromGitHub, poetry-core
-, pyroute2, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pyroute2,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "unifi-discovery";

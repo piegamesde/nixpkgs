@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, SDL, autoconf, automake, libtool, gtk2, m4
-, pkg-config, libGLU, libGL, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL,
+  autoconf,
+  automake,
+  libtool,
+  gtk2,
+  m4,
+  pkg-config,
+  libGLU,
+  libGL,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "smpeg";

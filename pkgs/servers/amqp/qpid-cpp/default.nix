@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchpatch, fetchurl, boost, cmake, libuuid, python3, ruby }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchurl,
+  boost,
+  cmake,
+  libuuid,
+  python3,
+  ruby,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qpid-cpp";

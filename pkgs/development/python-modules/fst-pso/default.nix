@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, miniful, numpy, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  miniful,
+  numpy,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "fst-pso";

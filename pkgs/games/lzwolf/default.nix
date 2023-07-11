@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchFromBitbucket, p7zip, cmake, SDL2, bzip2, zlib, libjpeg
-, libsndfile, mpg123, pkg-config, SDL2_net, SDL2_mixer }:
+{
+  stdenv,
+  lib,
+  fetchFromBitbucket,
+  p7zip,
+  cmake,
+  SDL2,
+  bzip2,
+  zlib,
+  libjpeg,
+  libsndfile,
+  mpg123,
+  pkg-config,
+  SDL2_net,
+  SDL2_mixer,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lzwolf";

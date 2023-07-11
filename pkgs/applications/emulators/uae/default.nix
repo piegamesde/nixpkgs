@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, gtk2, alsa-lib, SDL }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gtk2,
+  alsa-lib,
+  SDL,
+}:
 
 stdenv.mkDerivation rec {
   pname = "uae";

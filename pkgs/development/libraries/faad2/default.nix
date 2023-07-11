@@ -1,8 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, drmSupport ?
-  false # Digital Radio Mondiale
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  drmSupport ? false # Digital Radio Mondiale
 
-  # for passthru.tests
-, gst_all_1, mpd, ocamlPackages, vlc }:
+    # for passthru.tests
+  ,
+  gst_all_1,
+  mpd,
+  ocamlPackages,
+  vlc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "faad2";

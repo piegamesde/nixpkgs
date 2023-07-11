@@ -1,5 +1,20 @@
-{ lib, python3, melpaBuild, fetchFromGitHub, substituteAll, acm, markdown-mode
-, posframe, git, go, gopls, pyright, tempel, writeText, unstableGitUpdater }:
+{
+  lib,
+  python3,
+  melpaBuild,
+  fetchFromGitHub,
+  substituteAll,
+  acm,
+  markdown-mode,
+  posframe,
+  git,
+  go,
+  gopls,
+  pyright,
+  tempel,
+  writeText,
+  unstableGitUpdater,
+}:
 
 let
   rev = "7e1e6a4c349e720d75c892cd7230b29c35148342";

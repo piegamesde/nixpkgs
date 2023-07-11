@@ -1,8 +1,30 @@
-{ stdenv, fetchurl, meson, ninja, pkg-config, gettext, bison, flex, python3
-, glib, makeWrapper, libcap, libunwind, elfutils # for libdw
-, bash-completion, lib, Cocoa, CoreServices, gobject-introspection, testers
-# Checks meson.is_cross_build(), so even canExecute isn't enough.
-, enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform, hotdoc }:
+{
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  gettext,
+  bison,
+  flex,
+  python3,
+  glib,
+  makeWrapper,
+  libcap,
+  libunwind,
+  elfutils # for libdw
+  ,
+  bash-completion,
+  lib,
+  Cocoa,
+  CoreServices,
+  gobject-introspection,
+  testers
+  # Checks meson.is_cross_build(), so even canExecute isn't enough.
+  ,
+  enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform,
+  hotdoc,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gstreamer";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, qmake, qtbase, protobuf }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qmake,
+  qtbase,
+  protobuf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qtpbfimageplugin";

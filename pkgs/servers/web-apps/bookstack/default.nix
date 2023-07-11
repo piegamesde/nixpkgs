@@ -1,4 +1,10 @@
-{ pkgs, stdenv, lib, fetchFromGitHub, dataDir ? "/var/lib/bookstack" }:
+{
+  pkgs,
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  dataDir ? "/var/lib/bookstack"
+}:
 
 let
   package = (import ./composition.nix {

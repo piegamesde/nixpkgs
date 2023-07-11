@@ -1,4 +1,13 @@
-{ lib, stdenv, requireFile, cmake, libGLU, libGL, libX11, libXi }:
+{
+  lib,
+  stdenv,
+  requireFile,
+  cmake,
+  libGLU,
+  libGL,
+  libX11,
+  libXi,
+}:
 
 stdenv.mkDerivation rec {
   pname = "liquidfun";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libX11, libXpm }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
+  libXpm,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xgalaga++";

@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
   let
     orga = "example";
     domain = "${orga}.localdomain";
@@ -14,7 +18,12 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
 
     meta.maintainers = with pkgs.lib.maintainers; [ julm ];
 
-    machine = { config, pkgs, nodes, ... }:
+    machine = {
+        config,
+        pkgs,
+        nodes,
+        ...
+      }:
       let
         inherit (config.services) gitolite public-inbox;
         # Git repositories paths in Gitolite.

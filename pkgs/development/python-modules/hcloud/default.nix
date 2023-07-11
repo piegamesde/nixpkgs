@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, future, mock, pytestCheckHook
-, python-dateutil, pythonOlder, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  future,
+  mock,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "hcloud";

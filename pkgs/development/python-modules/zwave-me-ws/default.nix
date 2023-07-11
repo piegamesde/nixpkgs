@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pythonOlder, requests
-, websocket-client }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pythonOlder,
+  requests,
+  websocket-client,
+}:
 
 buildPythonPackage rec {
   pname = "zwave-me-ws";

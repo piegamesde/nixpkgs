@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, git, withWayland ? true, cairo, libxkbcommon
-, wayland, withX ? true, libXi, libXinerama, libXft, libXfixes, libXtst, libX11
-, libXext }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  git,
+  withWayland ? true,
+  cairo,
+  libxkbcommon,
+  wayland,
+  withX ? true,
+  libXi,
+  libXinerama,
+  libXft,
+  libXfixes,
+  libXtst,
+  libX11,
+  libXext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "warpd";

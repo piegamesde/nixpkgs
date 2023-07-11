@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, vala
-, pkg-config, pantheon, python3, substituteAll, glib, gtk3, dosfstools
-, e2fsprogs, exfat, hfsprogs, ntfs3g, libgee, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  meson,
+  ninja,
+  vala,
+  pkg-config,
+  pantheon,
+  python3,
+  substituteAll,
+  glib,
+  gtk3,
+  dosfstools,
+  e2fsprogs,
+  exfat,
+  hfsprogs,
+  ntfs3g,
+  libgee,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "formatter";

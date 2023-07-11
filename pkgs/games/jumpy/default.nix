@@ -1,5 +1,19 @@
-{ lib, rustPlatform, fetchFromGitHub, makeWrapper, pkg-config, zstd, stdenv
-, alsa-lib, libxkbcommon, udev, vulkan-loader, wayland, xorg, darwin }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  makeWrapper,
+  pkg-config,
+  zstd,
+  stdenv,
+  alsa-lib,
+  libxkbcommon,
+  udev,
+  vulkan-loader,
+  wayland,
+  xorg,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "jumpy";

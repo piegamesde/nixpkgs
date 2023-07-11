@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchurl, gtk3, glib, pkg-config, libpng, zlib }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  gtk3,
+  glib,
+  pkg-config,
+  libpng,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xmedcon";

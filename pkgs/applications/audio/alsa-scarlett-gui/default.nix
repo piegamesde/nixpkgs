@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, alsa-lib, gtk4, wrapGAppsHook4 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  alsa-lib,
+  gtk4,
+  wrapGAppsHook4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "alsa-scarlett-gui";

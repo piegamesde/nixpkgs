@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, cmake, unzip, gmp, scalp }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  unzip,
+  gmp,
+  scalp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pagsuite";

@@ -1,4 +1,10 @@
-{ lib, stdenv, libdiscid, buildPythonPackage, fetchPypi }:
+{
+  lib,
+  stdenv,
+  libdiscid,
+  buildPythonPackage,
+  fetchPypi,
+}:
 
 buildPythonPackage rec {
   pname = "discid";

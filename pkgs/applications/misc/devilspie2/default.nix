@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, intltool, pkg-config, glib, gtk, lua, libwnck }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  intltool,
+  pkg-config,
+  glib,
+  gtk,
+  lua,
+  libwnck,
+}:
 
 stdenv.mkDerivation rec {
   pname = "devilspie2";

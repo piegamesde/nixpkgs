@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "assimp";

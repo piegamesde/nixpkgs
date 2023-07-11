@@ -1,5 +1,13 @@
-{ lib, stdenv, autoreconfHook, fetchFromGitHub, gtk3, libtool, pkg-config
-, guiSupport ? false }:
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  fetchFromGitHub,
+  gtk3,
+  libtool,
+  pkg-config,
+  guiSupport ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "libzbc";

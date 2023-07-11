@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, openldap }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openldap,
+}:
 
 stdenv.mkDerivation rec {
   pname = "adtool";

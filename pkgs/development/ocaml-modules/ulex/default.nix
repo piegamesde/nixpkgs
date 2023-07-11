@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, ocaml, findlib, ocamlbuild, camlp4 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  camlp4,
+}:
 
 let
   pname = "ulex";

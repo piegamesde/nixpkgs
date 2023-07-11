@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, libICE, libXext, libXi, libXrandr, libXxf86vm, libGL
-, libGLU, cmake, testers }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libICE,
+  libXext,
+  libXi,
+  libXrandr,
+  libXxf86vm,
+  libGL,
+  libGLU,
+  cmake,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "freeglut";

@@ -1,5 +1,14 @@
-{ lib, stdenv, autoconf, automake, fetchFromGitHub, libpcap, ncurses, openssl
-, pcre }:
+{
+  lib,
+  stdenv,
+  autoconf,
+  automake,
+  fetchFromGitHub,
+  libpcap,
+  ncurses,
+  openssl,
+  pcre,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sngrep";

@@ -1,9 +1,25 @@
-{ version, hash }:
-{ lib, stdenv, fetchurl, nspr, perl, zlib, sqlite, ninja, darwin
-, fixDarwinDylibNames, buildPackages, useP11kit ? true, p11-kit
-, # allow FIPS mode. Note that this makes the output non-reproducible.
-# https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/NSS_Tech_Notes/nss_tech_note6
-enableFIPS ? false, nixosTests }:
+{
+  version,
+  hash,
+}:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  nspr,
+  perl,
+  zlib,
+  sqlite,
+  ninja,
+  darwin,
+  fixDarwinDylibNames,
+  buildPackages,
+  useP11kit ? true,
+  p11-kit, # allow FIPS mode. Note that this makes the output non-reproducible.
+  # https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/NSS_Tech_Notes/nss_tech_note6
+  enableFIPS ? false,
+  nixosTests,
+}:
 
 let underscoreVersion = lib.replaceStrings [ "." ] [ "_" ] version;
 in stdenv.mkDerivation rec {

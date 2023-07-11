@@ -1,6 +1,23 @@
-{ lib, stdenv, python, fetchFromGitHub, cmake, Cocoa, fontconfig, freetype
-, libGL, libGLU, libX11, libXext, libXi, libXmu, opencascade-occt, rapidjson
-, smesh, swig4 }:
+{
+  lib,
+  stdenv,
+  python,
+  fetchFromGitHub,
+  cmake,
+  Cocoa,
+  fontconfig,
+  freetype,
+  libGL,
+  libGLU,
+  libX11,
+  libXext,
+  libXi,
+  libXmu,
+  opencascade-occt,
+  rapidjson,
+  smesh,
+  swig4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pythonocc-core";

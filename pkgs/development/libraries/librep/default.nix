@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, autoreconfHook, gdbm, gmp, libffi, pkg-config, readline
-, texinfo }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  gdbm,
+  gmp,
+  libffi,
+  pkg-config,
+  readline,
+  texinfo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "librep";

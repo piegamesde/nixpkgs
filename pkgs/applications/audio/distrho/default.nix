@@ -1,5 +1,19 @@
-{ lib, stdenv, alsa-lib, fetchFromGitHub, fftwFloat, freetype, libGL, libX11
-, libXcursor, libXext, libXrender, meson, ninja, pkg-config }:
+{
+  lib,
+  stdenv,
+  alsa-lib,
+  fetchFromGitHub,
+  fftwFloat,
+  freetype,
+  libGL,
+  libX11,
+  libXcursor,
+  libXext,
+  libXrender,
+  meson,
+  ninja,
+  pkg-config,
+}:
 
 let rpathLibs = [ fftwFloat ];
 in stdenv.mkDerivation rec {

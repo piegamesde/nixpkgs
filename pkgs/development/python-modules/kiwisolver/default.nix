@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, stdenv, libcxx, cppy, setuptools-scm
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  stdenv,
+  libcxx,
+  cppy,
+  setuptools-scm,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "kiwisolver";

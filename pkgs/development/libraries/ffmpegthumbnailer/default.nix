@@ -1,5 +1,13 @@
-{ fetchFromGitHub, lib, stdenv, ffmpeg-headless, cmake, libpng, pkg-config
-, libjpeg }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  ffmpeg-headless,
+  cmake,
+  libpng,
+  pkg-config,
+  libjpeg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ffmpegthumbnailer";

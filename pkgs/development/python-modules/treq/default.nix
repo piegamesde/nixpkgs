@@ -1,4 +1,12 @@
-{ lib, fetchPypi, buildPythonPackage, requests, twisted, incremental, httpbin }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  requests,
+  twisted,
+  incremental,
+  httpbin,
+}:
 
 buildPythonPackage rec {
   pname = "treq";

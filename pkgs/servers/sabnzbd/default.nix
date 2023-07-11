@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, python3, par2cmdline, unzip, unrar, p7zip
-, makeWrapper, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  par2cmdline,
+  unzip,
+  unrar,
+  p7zip,
+  makeWrapper,
+  nixosTests,
+}:
 
 let
   pythonEnv = python3.withPackages (ps:

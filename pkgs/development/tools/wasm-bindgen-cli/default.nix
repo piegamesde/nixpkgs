@@ -1,5 +1,15 @@
-{ lib, rustPlatform, fetchCrate, nodejs, pkg-config, openssl, stdenv, curl
-, Security, runCommand }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  nodejs,
+  pkg-config,
+  openssl,
+  stdenv,
+  curl,
+  Security,
+  runCommand,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "wasm-bindgen-cli";

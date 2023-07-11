@@ -1,10 +1,15 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
 
   {
     name = "plasma5-systemd-start";
     meta = with pkgs.lib.maintainers; { maintainers = [ oxalica ]; };
 
-    nodes.machine = { ... }:
+    nodes.machine = {
+        ...
+      }:
 
       {
         imports = [ ./common/user-account.nix ];
@@ -21,7 +26,10 @@ import ./make-test-python.nix ({ pkgs, ... }:
         };
       };
 
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let user = nodes.machine.config.users.users.alice;
       in ''
         with subtest("Wait for login"):

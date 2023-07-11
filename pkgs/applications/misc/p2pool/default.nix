@@ -1,5 +1,19 @@
-{ stdenv, cmake, curl, fetchFromGitHub, gss, hwloc, lib, libsodium, libuv
-, nix-update-script, openssl, pkg-config, zeromq, darwin }:
+{
+  stdenv,
+  cmake,
+  curl,
+  fetchFromGitHub,
+  gss,
+  hwloc,
+  lib,
+  libsodium,
+  libuv,
+  nix-update-script,
+  openssl,
+  pkg-config,
+  zeromq,
+  darwin,
+}:
 
 let inherit (darwin.apple_sdk.frameworks) Foundation;
 in stdenv.mkDerivation rec {

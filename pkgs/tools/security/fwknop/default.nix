@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, libpcap, texinfo
-, iptables, gnupgSupport ? true, gnupg, gpgme # Increases dependencies!
-, wgetSupport ? true, wget, buildServer ? true, buildClient ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  libpcap,
+  texinfo,
+  iptables,
+  gnupgSupport ? true,
+  gnupg,
+  gpgme # Increases dependencies!
+  ,
+  wgetSupport ? true,
+  wget,
+  buildServer ? true,
+  buildClient ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "fwknop";

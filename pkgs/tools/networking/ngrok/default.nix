@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 let
   versions = lib.importJSON ./versions.json;

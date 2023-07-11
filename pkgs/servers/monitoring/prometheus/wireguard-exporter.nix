@@ -1,4 +1,12 @@
-{ stdenv, rustPlatform, fetchFromGitHub, lib, libiconv, Security, nixosTests }:
+{
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  lib,
+  libiconv,
+  Security,
+  nixosTests,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "wireguard-exporter";

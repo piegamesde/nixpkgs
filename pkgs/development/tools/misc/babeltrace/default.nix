@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, glib, libuuid, popt
-, elfutils }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  glib,
+  libuuid,
+  popt,
+  elfutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "babeltrace";

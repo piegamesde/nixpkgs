@@ -1,8 +1,29 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, extra-cmake-modules, inotify-tools
-, installShellFiles, libcloudproviders, librsvg, libsecret, openssl, pcre
-, pkg-config, qtbase, qtkeychain, qttools, qtwebengine, qtwebsockets
-, qtquickcontrols2, qtgraphicaleffects, plasma5Packages, sphinx, sqlite
-, xdg-utils }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  inotify-tools,
+  installShellFiles,
+  libcloudproviders,
+  librsvg,
+  libsecret,
+  openssl,
+  pcre,
+  pkg-config,
+  qtbase,
+  qtkeychain,
+  qttools,
+  qtwebengine,
+  qtwebsockets,
+  qtquickcontrols2,
+  qtgraphicaleffects,
+  plasma5Packages,
+  sphinx,
+  sqlite,
+  xdg-utils,
+}:
 
 mkDerivation rec {
   pname = "nextcloud-client";

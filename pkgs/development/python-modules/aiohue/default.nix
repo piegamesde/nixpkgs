@@ -1,5 +1,13 @@
-{ lib, aiohttp, asyncio-throttle, awesomeversion, buildPythonPackage
-, fetchFromGitHub, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  asyncio-throttle,
+  awesomeversion,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aiohue";

@@ -1,5 +1,13 @@
-{ lib, flutter, python3, fetchFromGitHub, pcre2, gnome, makeWrapper
-, removeReferencesTo }:
+{
+  lib,
+  flutter,
+  python3,
+  fetchFromGitHub,
+  pcre2,
+  gnome,
+  makeWrapper,
+  removeReferencesTo,
+}:
 
 flutter.buildFlutterApplication rec {
   pname = "yubioath-flutter";

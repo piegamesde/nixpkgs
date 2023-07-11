@@ -1,4 +1,6 @@
-{ fetchMaven }:
+{
+  fetchMaven,
+}:
 
 {
   sisuInjectPlexus_2_1_1 = map (obj:

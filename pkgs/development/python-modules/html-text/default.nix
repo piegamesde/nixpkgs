@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, lxml, six, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  lxml,
+  six,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "html-text";

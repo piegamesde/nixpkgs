@@ -1,10 +1,22 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools
-# documentation build dependencies
-, sphinxHook, sphinx-rtd-theme, matplotlib, ipython
-# runtime dependencies
-, sphinx, beautifulsoup4
-# check dependencies
-, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools
+  # documentation build dependencies
+  ,
+  sphinxHook,
+  sphinx-rtd-theme,
+  matplotlib,
+  ipython
+  # runtime dependencies
+  ,
+  sphinx,
+  beautifulsoup4
+  # check dependencies
+  ,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "sphinx-codeautolink";

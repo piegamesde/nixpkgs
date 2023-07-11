@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, kernel, perl, kmod, libelf }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  kernel,
+  perl,
+  kmod,
+  libelf,
+}:
 let version = "1.63";
 in stdenv.mkDerivation {
   name = "ndiswrapper-${version}-${kernel.version}";

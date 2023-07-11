@@ -1,5 +1,13 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, rustPlatform, libiconv, fetchzip
-, typing-extensions }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  rustPlatform,
+  libiconv,
+  fetchzip,
+  typing-extensions,
+}:
 let
   pname = "polars";
   version = "0.15.13";

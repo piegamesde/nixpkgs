@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cairo, cmake, glib, gtkmm3, harfbuzz
-, libX11, libXdmcp, libxcb, makeWrapper, pcre2, pkg-config, xcbutilcursor
-, xcbutilkeysyms, xcbutilwm, xcbutil, xmodmap }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cairo,
+  cmake,
+  glib,
+  gtkmm3,
+  harfbuzz,
+  libX11,
+  libXdmcp,
+  libxcb,
+  makeWrapper,
+  pcre2,
+  pkg-config,
+  xcbutilcursor,
+  xcbutilkeysyms,
+  xcbutilwm,
+  xcbutil,
+  xmodmap,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "hypr";

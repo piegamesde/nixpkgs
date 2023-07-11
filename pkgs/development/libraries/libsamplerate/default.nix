@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, libsndfile, ApplicationServices, Carbon
-, CoreServices }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libsndfile,
+  ApplicationServices,
+  Carbon,
+  CoreServices,
+}:
 
 let inherit (lib) optionals optionalString;
 

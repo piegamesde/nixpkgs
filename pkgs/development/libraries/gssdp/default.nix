@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchurl, meson, ninja, pkg-config, gobject-introspection, vala
-, gi-docgen, python3, libsoup, glib, gnome, gssdp-tools }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  gobject-introspection,
+  vala,
+  gi-docgen,
+  python3,
+  libsoup,
+  glib,
+  gnome,
+  gssdp-tools,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gssdp";

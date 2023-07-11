@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
-, hatchling }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  hatchling,
+}:
 
 buildPythonPackage rec {
   pname = "hatch-nodejs-version";

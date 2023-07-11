@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, imagemagick, qrencode, testQR ? false
-, zbar ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  imagemagick,
+  qrencode,
+  testQR ? false,
+  zbar ? null
+}:
 
 assert testQR -> zbar != false;
 

@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, asn1crypto
-, certvalidator, oscrypto, pyasn1, pyasn1-modules, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  asn1crypto,
+  certvalidator,
+  oscrypto,
+  pyasn1,
+  pyasn1-modules,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "signify";

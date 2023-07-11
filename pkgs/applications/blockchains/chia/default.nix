@@ -1,4 +1,9 @@
-{ lib, cacert, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  cacert,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 let
   chia = python3Packages.buildPythonApplication rec {

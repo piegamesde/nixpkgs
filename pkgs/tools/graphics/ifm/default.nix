@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchzip, autoreconfHook, bison, flex, help2man, perl, tk }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  autoreconfHook,
+  bison,
+  flex,
+  help2man,
+  perl,
+  tk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ifm";

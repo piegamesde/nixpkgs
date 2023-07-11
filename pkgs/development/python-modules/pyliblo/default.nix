@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchurl, isPyPy, pythonAtLeast, liblo, cython }:
+{
+  lib,
+  buildPythonPackage,
+  fetchurl,
+  isPyPy,
+  pythonAtLeast,
+  liblo,
+  cython,
+}:
 
 buildPythonPackage rec {
   pname = "pyliblo";

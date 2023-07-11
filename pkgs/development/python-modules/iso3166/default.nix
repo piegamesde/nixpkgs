@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildPythonPackage, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "iso3166";

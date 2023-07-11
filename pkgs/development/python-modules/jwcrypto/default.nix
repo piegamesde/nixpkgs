@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, cryptography, deprecated, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cryptography,
+  deprecated,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "jwcrypto";

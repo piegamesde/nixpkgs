@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
-, vala, gtk3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  gtk3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "elementary-print-shim";

@@ -1,17 +1,47 @@
-{ pkgs, lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook269, util-linux
-, nukeReferences, coreutils, perl, nixosTests, configFile ? "all"
+{
+  pkgs,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook269,
+  util-linux,
+  nukeReferences,
+  coreutils,
+  perl,
+  nixosTests,
+  configFile ? "all"
 
-  # Userspace dependencies
-, zlib, libuuid, python3, attr, openssl, libtirpc, nfs-utils, samba, gawk
-, gnugrep, gnused, systemd, smartmontools, enableMail ? false, sysstat
-, pkg-config, curl
+    # Userspace dependencies
+  ,
+  zlib,
+  libuuid,
+  python3,
+  attr,
+  openssl,
+  libtirpc,
+  nfs-utils,
+  samba,
+  gawk,
+  gnugrep,
+  gnused,
+  systemd,
+  smartmontools,
+  enableMail ? false,
+  sysstat,
+  pkg-config,
+  curl
 
-# Kernel dependencies
-, kernel ? null, enablePython ? true
+  # Kernel dependencies
+  ,
+  kernel ? null,
+  enablePython ? true
 
-  # for determining the latest compatible linuxPackages
-, linuxPackages_6_1 ? pkgs.linuxKernel.packages.linux_6_1
-, linuxPackages_6_2 ? pkgs.linuxKernel.packages.linux_6_2 }:
+    # for determining the latest compatible linuxPackages
+  ,
+  linuxPackages_6_1 ? pkgs.linuxKernel.packages.linux_6_1,
+  linuxPackages_6_2 ? pkgs.linuxKernel.packages.linux_6_2
+}:
 
 let
   inherit (lib) any optionalString optionals optional makeBinPath;
@@ -29,8 +59,14 @@ let
   # clang-built) kernels.
   stdenv' = if kernel == null then stdenv else kernel.stdenv;
 
-  common = { version, sha256, extraPatches ? [ ], rev ? "zfs-${version}"
-    , isUnstable ? false, latestCompatibleLinuxPackages, kernelCompatible ? null
+  common = {
+      version,
+      sha256,
+      extraPatches ? [ ],
+      rev ? "zfs-${version}",
+      isUnstable ? false,
+      latestCompatibleLinuxPackages,
+      kernelCompatible ? null
     }:
 
     stdenv'.mkDerivation {

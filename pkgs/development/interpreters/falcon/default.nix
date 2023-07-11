@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, pcre, zlib, sqlite }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  pcre,
+  zlib,
+  sqlite,
+}:
 
 stdenv.mkDerivation {
   pname = "falcon";

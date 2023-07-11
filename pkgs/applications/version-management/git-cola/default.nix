@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, python3Packages, gettext, git, qt5 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  gettext,
+  git,
+  qt5,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "git-cola";

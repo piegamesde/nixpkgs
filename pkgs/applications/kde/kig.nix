@@ -1,5 +1,17 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, boost, karchive, kcrash
-, kiconthemes, kparts, ktexteditor, qtsvg, qtxmlpatterns, }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  boost,
+  karchive,
+  kcrash,
+  kiconthemes,
+  kparts,
+  ktexteditor,
+  qtsvg,
+  qtxmlpatterns,
+}:
 
 mkDerivation {
   pname = "kig";

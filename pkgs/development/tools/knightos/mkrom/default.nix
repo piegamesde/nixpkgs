@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, libxslt, asciidoc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libxslt,
+  asciidoc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mkrom";

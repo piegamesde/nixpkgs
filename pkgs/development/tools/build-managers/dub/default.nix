@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, curl, libevent, rsync, ldc, dcompiler ? ldc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  curl,
+  libevent,
+  rsync,
+  ldc,
+  dcompiler ? ldc
+}:
 
 assert dcompiler != null;
 

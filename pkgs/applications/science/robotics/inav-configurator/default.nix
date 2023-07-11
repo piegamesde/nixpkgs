@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, makeDesktopItem, copyDesktopItems, nwjs, wrapGAppsHook
-, gsettings-desktop-schemas, gtk3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeDesktopItem,
+  copyDesktopItems,
+  nwjs,
+  wrapGAppsHook,
+  gsettings-desktop-schemas,
+  gtk3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "inav-configurator";

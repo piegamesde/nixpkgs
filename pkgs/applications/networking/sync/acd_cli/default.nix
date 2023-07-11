@@ -1,5 +1,16 @@
-{ lib, fetchFromGitHub, buildPythonApplication, fuse, appdirs, colorama
-, python-dateutil, requests, requests-toolbelt, fusepy, sqlalchemy, setuptools
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonApplication,
+  fuse,
+  appdirs,
+  colorama,
+  python-dateutil,
+  requests,
+  requests-toolbelt,
+  fusepy,
+  sqlalchemy,
+  setuptools,
 }:
 
 buildPythonApplication rec {

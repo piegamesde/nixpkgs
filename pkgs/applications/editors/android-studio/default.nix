@@ -1,4 +1,10 @@
-{ callPackage, makeFontsConf, gnome2, buildFHSEnv, tiling_wm ? false }:
+{
+  callPackage,
+  makeFontsConf,
+  gnome2,
+  buildFHSEnv,
+  tiling_wm ? false
+}:
 
 let
   mkStudio = opts:

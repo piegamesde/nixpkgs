@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, pkg-config, gnome
-, gtk-doc, gtk2, lua, gobject-introspection }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  libtool,
+  pkg-config,
+  gnome,
+  gtk-doc,
+  gtk2,
+  lua,
+  gobject-introspection,
+}:
 
 stdenv.mkDerivation rec {
   pname = "keybinder";

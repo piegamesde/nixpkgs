@@ -1,5 +1,12 @@
-{ lib, bundlerApp, bundlerUpdateScript, withPostgresql ? true, postgresql
-, withSqlite ? false, sqlite }:
+{
+  lib,
+  bundlerApp,
+  bundlerUpdateScript,
+  withPostgresql ? true,
+  postgresql,
+  withSqlite ? false,
+  sqlite,
+}:
 
 bundlerApp {
   pname = "ledger_web";

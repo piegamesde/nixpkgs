@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, cryptography, futures ? null
-, pyopenssl, service-identity, pytestCheckHook, idna }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  cryptography,
+  futures ? null,
+  pyopenssl,
+  service-identity,
+  pytestCheckHook,
+  idna,
+}:
 
 buildPythonPackage rec {
   pname = "trustme";

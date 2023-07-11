@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, SDL2, cmake, libpng, libzip, openal, pkg-config
-, span-lite, yaml-cpp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  cmake,
+  libpng,
+  libzip,
+  openal,
+  pkg-config,
+  span-lite,
+  yaml-cpp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openloco";

@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, fftw, hackrf
-, libusb1 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  fftw,
+  hackrf,
+  libusb1,
+}:
 
 stdenv.mkDerivation {
   pname = "kalibrate-hackrf";

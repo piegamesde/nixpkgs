@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub, beautifulsoup4, click, gtts-token
-, mock, pytest, requests, six, testfixtures, twine, urllib3 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  beautifulsoup4,
+  click,
+  gtts-token,
+  mock,
+  pytest,
+  requests,
+  six,
+  testfixtures,
+  twine,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "gtts";

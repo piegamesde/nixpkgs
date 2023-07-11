@@ -1,5 +1,9 @@
 dotnetPackages:
-{ buildEnv, makeWrapper, lib }:
+{
+  buildEnv,
+  makeWrapper,
+  lib,
+}:
 # TODO: Rethink how we determine and/or get the CLI.
 #       Possible options raised in #187118:
 #         1. A separate argument for the CLI (as suggested by IvarWithoutBones

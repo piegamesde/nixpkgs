@@ -1,6 +1,23 @@
-{ lib, buildPythonPackage, dotmap, fetchFromGitHub, pexpect, protobuf, pygatt
-, pypubsub, pyqrcode, pyserial, pytap2, pytestCheckHook, pythonOlder, pyyaml
-, requests, setuptools, tabulate, timeago }:
+{
+  lib,
+  buildPythonPackage,
+  dotmap,
+  fetchFromGitHub,
+  pexpect,
+  protobuf,
+  pygatt,
+  pypubsub,
+  pyqrcode,
+  pyserial,
+  pytap2,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  requests,
+  setuptools,
+  tabulate,
+  timeago,
+}:
 
 buildPythonPackage rec {
   pname = "meshtastic";

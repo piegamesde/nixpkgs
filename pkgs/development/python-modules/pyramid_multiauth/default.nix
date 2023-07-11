@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, pyramid }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyramid,
+}:
 
 buildPythonPackage rec {
   pname = "pyramid_multiauth";

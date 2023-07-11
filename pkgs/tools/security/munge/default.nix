@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, libgcrypt, zlib, bzip2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  libgcrypt,
+  zlib,
+  bzip2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "munge";

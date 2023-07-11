@@ -1,4 +1,14 @@
-{ fetchurl, lib, stdenv, SDL, SDL_image, SDL_mixer, SDL_ttf, guile, gettext }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  SDL,
+  SDL_image,
+  SDL_mixer,
+  SDL_ttf,
+  guile,
+  gettext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ballandpaddle";

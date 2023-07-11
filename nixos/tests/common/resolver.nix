@@ -3,7 +3,13 @@
 # (except those that point to 127.0.0.1 or ::1) within the current test network
 # and delegates these zones using a fake root zone served by a BIND recursive
 # name server.
-{ config, nodes, pkgs, lib, ... }:
+{
+  config,
+  nodes,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   options.test-support.resolver.enable = lib.mkOption {
@@ -141,7 +147,10 @@
         ns.fakedns. IN A ${config.networking.primaryIPAddress}
         . IN NS ns.fakedns.
         ${lib.concatImapStrings (num:
-          { ip, zones }: ''
+          {
+            ip,
+            zones,
+          }: ''
             ns${toString num}.fakedns. IN A ${ip}
             ${lib.concatMapStrings (zone: ''
               ${zone} IN NS ns${toString num}.fakedns.

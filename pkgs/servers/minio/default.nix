@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, nixosTests }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nixosTests,
+}:
 
 let
   # The web client verifies, that the server version is a valid datetime string:

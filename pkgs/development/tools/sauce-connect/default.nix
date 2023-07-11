@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchurl, zlib, unzip }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  zlib,
+  unzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sauce-connect";

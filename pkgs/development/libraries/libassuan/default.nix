@@ -1,4 +1,12 @@
-{ fetchurl, lib, stdenv, gettext, npth, libgpg-error, buildPackages }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  gettext,
+  npth,
+  libgpg-error,
+  buildPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libassuan";

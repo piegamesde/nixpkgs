@@ -1,5 +1,13 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, IOKit, nvidiaSupport ? false
-, makeWrapper, llvmPackages }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  IOKit,
+  nvidiaSupport ? false,
+  makeWrapper,
+  llvmPackages,
+}:
 
 assert nvidiaSupport -> stdenv.isLinux;
 

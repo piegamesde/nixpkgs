@@ -1,18 +1,26 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
   let
     password = "foobar";
     newPass = "barfoo";
   in {
     name = "systemd-homed";
-    nodes.machine = { config, pkgs, ... }: {
-      services.homed.enable = true;
+    nodes.machine = {
+        config,
+        pkgs,
+        ...
+      }: {
+        services.homed.enable = true;
 
-      users.users.test-normal-user = {
-        extraGroups = [ "wheel" ];
-        isNormalUser = true;
-        initialPassword = password;
+        users.users.test-normal-user = {
+          extraGroups = [ "wheel" ];
+          isNormalUser = true;
+          initialPassword = password;
+        };
       };
-    };
     testScript = ''
       def switchTTY(number):
         machine.send_key(f"alt-f{number}")

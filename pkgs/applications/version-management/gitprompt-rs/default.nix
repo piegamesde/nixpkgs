@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, rustPlatform, git }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  git,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "gitprompt-rs";

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromSourcehut, meson, pkg-config, scdoc, ninja, libxkbcommon
-, wayland, wayland-scanner }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  meson,
+  pkg-config,
+  scdoc,
+  ninja,
+  libxkbcommon,
+  wayland,
+  wayland-scanner,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wlrctl";

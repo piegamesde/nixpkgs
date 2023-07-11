@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, coreutils
-, pythonOlder, astunparse, jq, bc }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  coreutils,
+  pythonOlder,
+  astunparse,
+  jq,
+  bc,
+}:
 
 buildPythonPackage rec {
   pname = "pyp";

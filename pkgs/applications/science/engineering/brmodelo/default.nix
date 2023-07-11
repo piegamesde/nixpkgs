@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, openjdk8, ant, makeWrapper
-, makeDesktopItem, copyDesktopItems }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  openjdk8,
+  ant,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+}:
 
 stdenv.mkDerivation rec {
   pname = "brmodelo";

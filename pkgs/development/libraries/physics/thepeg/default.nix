@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, autoreconfHook, boost, fastjet, gsl, hepmc2, lhapdf
-, rivet, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  boost,
+  fastjet,
+  gsl,
+  hepmc2,
+  lhapdf,
+  rivet,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "thepeg";

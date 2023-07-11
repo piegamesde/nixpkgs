@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, bluez, libX11, libXtst, makeWrapper
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  bluez,
+  libX11,
+  libXtst,
+  makeWrapper,
 }:
 
 stdenv.mkDerivation rec {

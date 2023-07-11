@@ -1,5 +1,16 @@
-{ lib, stdenvNoCC, callPackage, fetchurl, autoPatchelfHook, unzip, openssl
-, writeShellScript, curl, jq, common-updater-scripts }:
+{
+  lib,
+  stdenvNoCC,
+  callPackage,
+  fetchurl,
+  autoPatchelfHook,
+  unzip,
+  openssl,
+  writeShellScript,
+  curl,
+  jq,
+  common-updater-scripts,
+}:
 
 stdenvNoCC.mkDerivation rec {
   version = "0.5.9";

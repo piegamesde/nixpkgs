@@ -1,5 +1,16 @@
-{ stdenv, fetchFromGitHub, lib, pkg-config, cmake, gtk-doc, gtk3
-, libayatana-indicator, libdbusmenu-gtk3, vala, gobject-introspection }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  pkg-config,
+  cmake,
+  gtk-doc,
+  gtk3,
+  libayatana-indicator,
+  libdbusmenu-gtk3,
+  vala,
+  gobject-introspection,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libayatana-appindicator";

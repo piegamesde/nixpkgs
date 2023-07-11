@@ -1,5 +1,14 @@
-{ lib, python3, fetchFromGitHub, file, gnupg, gawk, notmuch, procps
-, withManpage ? false }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  file,
+  gnupg,
+  gawk,
+  notmuch,
+  procps,
+  withManpage ? false
+}:
 
 with python3.pkgs;
 buildPythonApplication rec {

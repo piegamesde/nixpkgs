@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, curl, jdk, libedit, srt }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  curl,
+  jdk,
+  libedit,
+  srt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tsduck";

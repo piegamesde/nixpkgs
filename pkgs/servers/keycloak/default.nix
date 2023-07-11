@@ -1,6 +1,17 @@
-{ stdenv, lib, fetchzip, makeWrapper, jre, writeText, nixosTests, callPackage
+{
+  stdenv,
+  lib,
+  fetchzip,
+  makeWrapper,
+  jre,
+  writeText,
+  nixosTests,
+  callPackage
 
-, confFile ? null, plugins ? [ ] }:
+  ,
+  confFile ? null,
+  plugins ? [ ]
+}:
 
 stdenv.mkDerivation rec {
   pname = "keycloak";

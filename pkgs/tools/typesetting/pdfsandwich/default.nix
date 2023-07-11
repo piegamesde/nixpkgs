@@ -1,5 +1,16 @@
-{ lib, stdenv, ocaml, makeWrapper, fetchsvn, ghostscript, imagemagick, perl
-, poppler_utils, tesseract, unpaper }:
+{
+  lib,
+  stdenv,
+  ocaml,
+  makeWrapper,
+  fetchsvn,
+  ghostscript,
+  imagemagick,
+  perl,
+  poppler_utils,
+  tesseract,
+  unpaper,
+}:
 
 stdenv.mkDerivation {
   version = "0.1.7";

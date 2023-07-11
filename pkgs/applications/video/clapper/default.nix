@@ -1,7 +1,27 @@
-{ config, lib, stdenv, fetchFromGitHub, glib, gobject-introspection, python3
-, pkg-config, ninja, wayland, wayland-protocols, desktop-file-utils, makeWrapper
-, shared-mime-info, wrapGAppsHook4, meson, gjs, gtk4, gst_all_1, libadwaita
-, appstream-glib, libsoup }:
+{
+  config,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  glib,
+  gobject-introspection,
+  python3,
+  pkg-config,
+  ninja,
+  wayland,
+  wayland-protocols,
+  desktop-file-utils,
+  makeWrapper,
+  shared-mime-info,
+  wrapGAppsHook4,
+  meson,
+  gjs,
+  gtk4,
+  gst_all_1,
+  libadwaita,
+  appstream-glib,
+  libsoup,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clapper";

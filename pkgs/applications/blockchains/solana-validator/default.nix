@@ -1,32 +1,50 @@
 # largely inspired from https://github.com/saber-hq/saber-overlay/blob/master/packages/solana/solana.nix
 
-{ stdenv, fetchFromGitHub, lib, rustPlatform, IOKit, Security, AppKit
-, pkg-config, udev, zlib, protobuf, clang, llvm, openssl, libclang, rustfmt
-, perl, hidapi, solanaPkgs ? [
-  "solana"
-  "solana-bench-tps"
-  "solana-faucet"
-  "solana-gossip"
-  "solana-install"
-  "solana-keygen"
-  "solana-ledger-tool"
-  "solana-log-analyzer"
-  "solana-net-shaper"
-  "solana-sys-tuner"
-  "solana-validator"
-  "cargo-build-bpf"
-  "cargo-test-bpf"
-  "solana-dos"
-  "solana-install-init"
-  "solana-stake-accounts"
-  "solana-test-validator"
-  "solana-tokens"
-  "solana-watchtower"
-] ++ [
-  # XXX: Ensure `solana-genesis` is built LAST!
-  # See https://github.com/solana-labs/solana/issues/5826
-  "solana-genesis"
-] }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  rustPlatform,
+  IOKit,
+  Security,
+  AppKit,
+  pkg-config,
+  udev,
+  zlib,
+  protobuf,
+  clang,
+  llvm,
+  openssl,
+  libclang,
+  rustfmt,
+  perl,
+  hidapi,
+  solanaPkgs ? [
+    "solana"
+    "solana-bench-tps"
+    "solana-faucet"
+    "solana-gossip"
+    "solana-install"
+    "solana-keygen"
+    "solana-ledger-tool"
+    "solana-log-analyzer"
+    "solana-net-shaper"
+    "solana-sys-tuner"
+    "solana-validator"
+    "cargo-build-bpf"
+    "cargo-test-bpf"
+    "solana-dos"
+    "solana-install-init"
+    "solana-stake-accounts"
+    "solana-test-validator"
+    "solana-tokens"
+    "solana-watchtower"
+  ] ++ [
+    # XXX: Ensure `solana-genesis` is built LAST!
+    # See https://github.com/solana-labs/solana/issues/5826
+    "solana-genesis"
+  ]
+}:
 let
   pinData = lib.importJSON ./pin.json;
   version = pinData.version;

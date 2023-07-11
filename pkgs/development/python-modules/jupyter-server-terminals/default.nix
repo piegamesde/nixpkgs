@@ -1,13 +1,22 @@
-{ lib, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
 
-# build
-, hatchling
+  # build
+  ,
+  hatchling
 
-# runtime
-, terminado
+  # runtime
+  ,
+  terminado
 
-# tests
-, pytest-jupyter, pytest-timeout, pytestCheckHook }:
+  # tests
+  ,
+  pytest-jupyter,
+  pytest-timeout,
+  pytestCheckHook,
+}:
 
 let
   self = buildPythonPackage rec {

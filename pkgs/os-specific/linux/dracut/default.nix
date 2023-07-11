@@ -1,7 +1,31 @@
-{ stdenv, lib, fetchFromGitHub, gitUpdater, makeBinaryWrapper, pkg-config
-, asciidoc, libxslt, docbook_xsl, bash, kmod, binutils, bzip2, coreutils, cpio
-, findutils, gnugrep, gnused, gnutar, gzip, lz4, lzop, squashfsTools, util-linux
-, xz, zstd }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  gitUpdater,
+  makeBinaryWrapper,
+  pkg-config,
+  asciidoc,
+  libxslt,
+  docbook_xsl,
+  bash,
+  kmod,
+  binutils,
+  bzip2,
+  coreutils,
+  cpio,
+  findutils,
+  gnugrep,
+  gnused,
+  gnutar,
+  gzip,
+  lz4,
+  lzop,
+  squashfsTools,
+  util-linux,
+  xz,
+  zstd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dracut";

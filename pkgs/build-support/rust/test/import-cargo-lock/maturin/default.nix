@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3, rustPlatform }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  rustPlatform,
+}:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "word-count";

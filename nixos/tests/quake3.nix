@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   let
 
@@ -18,7 +22,10 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
       in elem pkg.pname allowPackageNames
       && elem (pkg.meta.license or null) allowLicenses;
 
-    client = { pkgs, ... }:
+    client = {
+        pkgs,
+        ...
+      }:
 
       {
         imports = [ ./common/x11.nix ];
@@ -36,7 +43,10 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
     #makeCoverageReport = true;
 
     nodes = {
-      server = { pkgs, ... }:
+      server = {
+          pkgs,
+          ...
+        }:
 
         {
           systemd.services.quake3-server = {

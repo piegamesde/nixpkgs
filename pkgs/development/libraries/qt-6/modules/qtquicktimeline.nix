@@ -1,4 +1,8 @@
-{ qtModule, qtbase, qtdeclarative }:
+{
+  qtModule,
+  qtbase,
+  qtdeclarative,
+}:
 
 qtModule {
   pname = "qtquicktimeline";

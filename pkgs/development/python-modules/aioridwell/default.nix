@@ -1,6 +1,20 @@
-{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, freezegun
-, poetry-core, pyjwt, pytest-aiohttp, pytest-asyncio, pytestCheckHook
-, pythonOlder, pytz, titlecase, types-pytz }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  freezegun,
+  poetry-core,
+  pyjwt,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  titlecase,
+  types-pytz,
+}:
 
 buildPythonPackage rec {
   pname = "aioridwell";

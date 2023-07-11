@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchPypi, fetchpatch, buildPythonPackage, isPy3k, rustPlatform
-, setuptools-rust, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchPypi,
+  fetchpatch,
+  buildPythonPackage,
+  isPy3k,
+  rustPlatform,
+  setuptools-rust,
+  libiconv,
+}:
 
 buildPythonPackage rec {
   pname = "spacy-alignments";

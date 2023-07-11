@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
-, requests, testfixtures }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  testfixtures,
+}:
 
 buildPythonPackage rec {
   pname = "openerz-api";

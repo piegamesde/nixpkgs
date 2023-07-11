@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, fetchpatch, makeWrapper, glibcLocales, mono
-, dotnetPackages, unzip, dotnetCorePackages, writeText, roslyn }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  makeWrapper,
+  glibcLocales,
+  mono,
+  dotnetPackages,
+  unzip,
+  dotnetCorePackages,
+  writeText,
+  roslyn,
+}:
 
 let
 

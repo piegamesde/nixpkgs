@@ -1,6 +1,23 @@
-{ lib, stdenv, asciidoc, coreutils, cryptsetup, curl, fetchFromGitHub, gnugrep
-, gnused, jansson, jose, libpwquality, luksmeta, makeWrapper, meson, ninja
-, pkg-config, tpm2-tools }:
+{
+  lib,
+  stdenv,
+  asciidoc,
+  coreutils,
+  cryptsetup,
+  curl,
+  fetchFromGitHub,
+  gnugrep,
+  gnused,
+  jansson,
+  jose,
+  libpwquality,
+  luksmeta,
+  makeWrapper,
+  meson,
+  ninja,
+  pkg-config,
+  tpm2-tools,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clevis";

@@ -1,4 +1,12 @@
-{ stdenv, lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, Security }:
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "mpd-discord-rpc";

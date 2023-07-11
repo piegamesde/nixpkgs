@@ -1,7 +1,16 @@
-{ lib, fetchFromGitHub, callPackage, semgrep-core, buildPythonApplication
-, pythonPackages, pythonRelaxDepsHook
+{
+  lib,
+  fetchFromGitHub,
+  callPackage,
+  semgrep-core,
+  buildPythonApplication,
+  pythonPackages,
+  pythonRelaxDepsHook
 
-, pytestCheckHook, git }:
+  ,
+  pytestCheckHook,
+  git,
+}:
 
 let common = callPackage ./common.nix { };
 in buildPythonApplication rec {

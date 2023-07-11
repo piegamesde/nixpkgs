@@ -1,7 +1,23 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, asn1crypto, cffi
-, cryptography, ibm-sw-tpm2, pkgconfig # see nativeBuildInputs
-, pkg-config # see nativeBuildInputs
-, pycparser, pytestCheckHook, python, pyyaml, setuptools-scm, tpm2-tss }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  asn1crypto,
+  cffi,
+  cryptography,
+  ibm-sw-tpm2,
+  pkgconfig # see nativeBuildInputs
+  ,
+  pkg-config # see nativeBuildInputs
+  ,
+  pycparser,
+  pytestCheckHook,
+  python,
+  pyyaml,
+  setuptools-scm,
+  tpm2-tss,
+}:
 
 buildPythonPackage rec {
   pname = "tpm2-pytss";

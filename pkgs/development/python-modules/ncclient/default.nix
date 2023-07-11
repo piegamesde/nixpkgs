@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, lxml, paramiko, pytestCheckHook
-, pythonOlder, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  lxml,
+  paramiko,
+  pytestCheckHook,
+  pythonOlder,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "ncclient";

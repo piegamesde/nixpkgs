@@ -1,10 +1,17 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   let
     nodesIps = [ "192.168.1.1" "192.168.1.2" "192.168.1.3" ];
 
     createNode = index:
-      { pkgs, ... }:
+      {
+        pkgs,
+        ...
+      }:
       let
         ip = builtins.elemAt nodesIps
           index; # since we already use IPs to identify servers
@@ -87,57 +94,63 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
       node2 = createNode 1;
       node3 = createNode 2;
 
-      etcd = { pkgs, ... }: {
+      etcd = {
+          pkgs,
+          ...
+        }: {
 
-        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
-          address = "192.168.1.4";
-          prefixLength = 16;
-        }];
+          networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+            address = "192.168.1.4";
+            prefixLength = 16;
+          }];
 
-        services.etcd = {
-          enable = true;
-          listenClientUrls = [ "http://192.168.1.4:2379" ];
+          services.etcd = {
+            enable = true;
+            listenClientUrls = [ "http://192.168.1.4:2379" ];
+          };
+
+          networking.firewall.allowedTCPPorts = [ 2379 ];
         };
 
-        networking.firewall.allowedTCPPorts = [ 2379 ];
-      };
+      client = {
+          pkgs,
+          ...
+        }: {
+          environment.systemPackages = [ pkgs.postgresql_14 ];
 
-      client = { pkgs, ... }: {
-        environment.systemPackages = [ pkgs.postgresql_14 ];
+          networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+            address = "192.168.2.1";
+            prefixLength = 16;
+          }];
 
-        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
-          address = "192.168.2.1";
-          prefixLength = 16;
-        }];
+          services.haproxy = {
+            enable = true;
+            config = ''
+              global
+                  maxconn 100
 
-        services.haproxy = {
-          enable = true;
-          config = ''
-            global
-                maxconn 100
+              defaults
+                  log global
+                  mode tcp
+                  retries 2
+                  timeout client 30m
+                  timeout connect 4s
+                  timeout server 30m
+                  timeout check 5s
 
-            defaults
-                log global
-                mode tcp
-                retries 2
-                timeout client 30m
-                timeout connect 4s
-                timeout server 30m
-                timeout check 5s
-
-            listen cluster1
-                bind 127.0.0.1:5432
-                option httpchk
-                http-check expect status 200
-                default-server inter 3s fall 3 rise 2 on-marked-down shutdown-sessions
-                ${
-                  builtins.concatStringsSep "\n" (map (ip:
-                    "server postgresql_${ip}_5432 ${ip}:5432 maxconn 100 check port 8008")
-                    nodesIps)
-                }
-          '';
+              listen cluster1
+                  bind 127.0.0.1:5432
+                  option httpchk
+                  http-check expect status 200
+                  default-server inter 3s fall 3 rise 2 on-marked-down shutdown-sessions
+                  ${
+                    builtins.concatStringsSep "\n" (map (ip:
+                      "server postgresql_${ip}_5432 ${ip}:5432 maxconn 100 check port 8008")
+                      nodesIps)
+                  }
+            '';
+          };
         };
-      };
     };
 
     testScript = ''

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libxml2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libxml2,
+}:
 
 stdenv.mkDerivation {
   version = "0.3.0";

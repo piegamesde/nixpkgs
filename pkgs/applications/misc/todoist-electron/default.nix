@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, appimageTools, makeWrapper, electron_21, libsecret }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  appimageTools,
+  makeWrapper,
+  electron_21,
+  libsecret,
+}:
 
 stdenv.mkDerivation rec {
   pname = "todoist-electron";

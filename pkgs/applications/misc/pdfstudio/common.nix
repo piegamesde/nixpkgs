@@ -1,6 +1,23 @@
-{ pname, program, src, year, version, desktopName, longDescription, buildFHSEnv
-, extraBuildInputs ? [ ], jdk, stdenv, lib, dpkg, makeDesktopItem
-, copyDesktopItems, autoPatchelfHook, sane-backends, cups }:
+{
+  pname,
+  program,
+  src,
+  year,
+  version,
+  desktopName,
+  longDescription,
+  buildFHSEnv,
+  extraBuildInputs ? [ ],
+  jdk,
+  stdenv,
+  lib,
+  dpkg,
+  makeDesktopItem,
+  copyDesktopItems,
+  autoPatchelfHook,
+  sane-backends,
+  cups,
+}:
 let
   thisPackage = stdenv.mkDerivation rec {
     inherit pname src version;

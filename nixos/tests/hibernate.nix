@@ -1,7 +1,11 @@
 # Test whether hibernation from partition works.
 
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; }, systemdStage1 ? false }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; },
+  systemdStage1 ? false
+}:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 
@@ -44,7 +48,12 @@ in makeTest {
 
   nodes = {
     # System configuration used for installing the installedConfig from above.
-    machine = { config, lib, pkgs, ... }:
+    machine = {
+        config,
+        lib,
+        pkgs,
+        ...
+      }:
       with lib; {
         imports = [
           ../modules/profiles/installation-device.nix

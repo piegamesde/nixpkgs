@@ -1,7 +1,28 @@
-{ lib, callPackage, buildPythonPackage, fetchPypi, installShellFiles, ansible
-, cryptography, jinja2, junit-xml, lxml, ncclient, packaging, paramiko, pexpect
-, psutil, pycrypto, pyyaml, requests, resolvelib, scp, windowsSupport ? false
-, pywinrm, xmltodict }:
+{
+  lib,
+  callPackage,
+  buildPythonPackage,
+  fetchPypi,
+  installShellFiles,
+  ansible,
+  cryptography,
+  jinja2,
+  junit-xml,
+  lxml,
+  ncclient,
+  packaging,
+  paramiko,
+  pexpect,
+  psutil,
+  pycrypto,
+  pyyaml,
+  requests,
+  resolvelib,
+  scp,
+  windowsSupport ? false,
+  pywinrm,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "ansible-core";

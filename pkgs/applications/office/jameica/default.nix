@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, makeDesktopItem, makeWrapper, wrapGAppsHook, ant
-, jdk, jre, gtk2, glib, xorg, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeDesktopItem,
+  makeWrapper,
+  wrapGAppsHook,
+  ant,
+  jdk,
+  jre,
+  gtk2,
+  glib,
+  xorg,
+  Cocoa,
+}:
 
 let
   _version = "2.10.2";

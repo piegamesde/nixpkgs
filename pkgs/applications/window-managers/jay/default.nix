@@ -1,4 +1,12 @@
-{ lib, rustPlatform, fetchFromGitHub, libinput, libxkbcommon, mesa, pango, udev
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  libinput,
+  libxkbcommon,
+  mesa,
+  pango,
+  udev,
 }:
 
 rustPlatform.buildRustPackage rec {

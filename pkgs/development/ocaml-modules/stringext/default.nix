@@ -1,6 +1,14 @@
-{ lib, fetchurl, ocaml, buildDunePackage, ounit, qtest
-# Optionally enable tests; test script use OCaml-4.01+ features
-, doCheck ? lib.versionAtLeast ocaml.version "4.08" }:
+{
+  lib,
+  fetchurl,
+  ocaml,
+  buildDunePackage,
+  ounit,
+  qtest
+  # Optionally enable tests; test script use OCaml-4.01+ features
+  ,
+  doCheck ? lib.versionAtLeast ocaml.version "4.08"
+}:
 
 let version = "1.6.0";
 

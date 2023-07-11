@@ -1,7 +1,33 @@
-{ lib, stdenv, fetchgit, dconf, gtksourceview3, at-spi2-core, gtksourceviewmm
-, boost, libepoxy, cmake, aspell, llvmPackages, libgit2, pkg-config, pcre
-, libXdmcp, libxkbcommon, libpthreadstubs, wrapGAppsHook, aspellDicts, gtkmm3
-, coreutils, glibc, dbus, openssl, libxml2, gnumake, ctags }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  dconf,
+  gtksourceview3,
+  at-spi2-core,
+  gtksourceviewmm,
+  boost,
+  libepoxy,
+  cmake,
+  aspell,
+  llvmPackages,
+  libgit2,
+  pkg-config,
+  pcre,
+  libXdmcp,
+  libxkbcommon,
+  libpthreadstubs,
+  wrapGAppsHook,
+  aspellDicts,
+  gtkmm3,
+  coreutils,
+  glibc,
+  dbus,
+  openssl,
+  libxml2,
+  gnumake,
+  ctags,
+}:
 
 stdenv.mkDerivation rec {
   pname = "juicipp";

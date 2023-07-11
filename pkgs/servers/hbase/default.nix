@@ -1,8 +1,20 @@
-{ lib, stdenv, fetchurl, makeWrapper, jdk8_headless, jdk11_headless, nixosTests
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  jdk8_headless,
+  jdk11_headless,
+  nixosTests,
 }:
 
 let
-  common = { version, hash, jdk ? jdk11_headless, tests }:
+  common = {
+      version,
+      hash,
+      jdk ? jdk11_headless,
+      tests,
+    }:
     stdenv.mkDerivation rec {
       pname = "hbase";
       inherit version;

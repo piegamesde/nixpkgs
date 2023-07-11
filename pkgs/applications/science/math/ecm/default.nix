@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, gmp, m4 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gmp,
+  m4,
+}:
 
 let
   pname = "ecm";

@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, google-cloud-storage, mock
-, pytestCheckHook, pythonOlder, smart-open, typer }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  google-cloud-storage,
+  mock,
+  pytestCheckHook,
+  pythonOlder,
+  smart-open,
+  typer,
+}:
 
 buildPythonPackage rec {
   pname = "pathy";

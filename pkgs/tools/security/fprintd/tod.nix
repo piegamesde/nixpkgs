@@ -1,4 +1,10 @@
-{ lib, fetchFromGitLab, fetchpatch, fprintd, libfprint-tod }:
+{
+  lib,
+  fetchFromGitLab,
+  fetchpatch,
+  fprintd,
+  libfprint-tod,
+}:
 
 (fprintd.override { libfprint = libfprint-tod; }).overrideAttrs (oldAttrs: rec {
   pname = "fprintd-tod";

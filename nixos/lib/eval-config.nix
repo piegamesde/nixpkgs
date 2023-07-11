@@ -11,21 +11,25 @@
 evalConfigArgs@{ # !!! system can be set modularly, would be nice to remove,
 #     however, removing or changing this default is too much
 #     of a breaking change. To set it modularly, pass `null`.
-system ? builtins.currentSystem
-, # !!! is this argument needed any more? The pkgs argument can
-# be set modularly anyway.
-pkgs ? null, # !!! what do we gain by making this configurable?
-#     we can add modules that are included in specialisations, regardless
-#     of inheritParentConfig.
-baseModules ? import ../modules/module-list.nix
-, # !!! See comment about args in lib/modules.nix
-extraArgs ? { }, # !!! See comment about args in lib/modules.nix
-specialArgs ? { }, modules, modulesLocation ?
-  (builtins.unsafeGetAttrPos "modules" evalConfigArgs).file or null
-, # !!! See comment about check in lib/modules.nix
-check ? true, prefix ? [ ], lib ? import ../../lib, extraModules ?
-  let e = builtins.getEnv "NIXOS_EXTRA_MODULE_PATH";
-  in if e == "" then [ ] else [ (import e) ] }:
+  system ?
+    builtins.currentSystem, # !!! is this argument needed any more? The pkgs argument can
+  # be set modularly anyway.
+  pkgs ? null, # !!! what do we gain by making this configurable?
+  #     we can add modules that are included in specialisations, regardless
+  #     of inheritParentConfig.
+  baseModules ? import
+    ../modules/module-list.nix, # !!! See comment about args in lib/modules.nix
+  extraArgs ? { }, # !!! See comment about args in lib/modules.nix
+  specialArgs ? { },
+  modules,
+  modulesLocation ? (builtins.unsafeGetAttrPos "modules"
+    evalConfigArgs).file or null, # !!! See comment about check in lib/modules.nix
+  check ? true,
+  prefix ? [ ],
+  lib ? import ../../lib,
+  extraModules ? let e = builtins.getEnv "NIXOS_EXTRA_MODULE_PATH";
+  in if e == "" then [ ] else [ (import e) ]
+}:
 
 let pkgs_ = pkgs;
 

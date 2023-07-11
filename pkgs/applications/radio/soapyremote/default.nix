@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, soapysdr, avahi }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  soapysdr,
+  avahi,
+}:
 
 let version = "0.5.2";
 

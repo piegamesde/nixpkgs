@@ -1,5 +1,13 @@
-{ stdenv, lib, rustPlatform, fetchFromGitHub, Security, DiskArbitration
-, Foundation, nixosTests }:
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  Security,
+  DiskArbitration,
+  Foundation,
+  nixosTests,
+}:
 
 let version = "1.1.0";
 in rustPlatform.buildRustPackage {

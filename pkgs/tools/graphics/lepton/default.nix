@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, git, glibc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  git,
+  glibc,
+}:
 
 stdenv.mkDerivation rec {
   version = "2019-08-20";

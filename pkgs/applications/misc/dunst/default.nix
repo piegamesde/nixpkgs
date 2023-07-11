@@ -1,7 +1,30 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, pkg-config, which, perl, jq
-, libXrandr, cairo, dbus, systemd, gdk-pixbuf, glib, libX11, libXScrnSaver
-, wayland, wayland-protocols, libXinerama, libnotify, pango, xorgproto, librsvg
-, testers, dunst }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  pkg-config,
+  which,
+  perl,
+  jq,
+  libXrandr,
+  cairo,
+  dbus,
+  systemd,
+  gdk-pixbuf,
+  glib,
+  libX11,
+  libXScrnSaver,
+  wayland,
+  wayland-protocols,
+  libXinerama,
+  libnotify,
+  pango,
+  xorgproto,
+  librsvg,
+  testers,
+  dunst,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dunst";

@@ -2,16 +2,22 @@
 # upstream providing a migration path. https://github.com/systemd/systemd/issues/12131
 
 import ./make-test-python.nix (let
-  common = { lib, ... }: {
-    # override the `false` value from the qemu-vm base profile
-    services.timesyncd.enable = lib.mkForce true;
-  };
+  common = {
+      lib,
+      ...
+    }: {
+      # override the `false` value from the qemu-vm base profile
+      services.timesyncd.enable = lib.mkForce true;
+    };
   mkVM = conf: { imports = [ conf common ]; };
 in {
   name = "systemd-timesyncd";
   nodes = {
     current = mkVM { };
-    pre1909 = mkVM ({ lib, ... }:
+    pre1909 = mkVM ({
+        lib,
+        ...
+      }:
       with lib; {
         # create the path that should be migrated by our activation script when
         # upgrading to a newer nixos version

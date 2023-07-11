@@ -1,12 +1,39 @@
-{ lib, stdenv, fetchFromGitHub, addOpenGLRunpath, wrapGAppsHook, cmake, glslang
-, nasm, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  addOpenGLRunpath,
+  wrapGAppsHook,
+  cmake,
+  glslang,
+  nasm,
+  pkg-config
 
-, SDL2, boost, cubeb, curl, fmt_9, glm, gtk3, imgui, libpng, libzip, libXrender
-, pugixml, rapidjson, vulkan-headers, wayland, wxGTK32, zarchive
+  ,
+  SDL2,
+  boost,
+  cubeb,
+  curl,
+  fmt_9,
+  glm,
+  gtk3,
+  imgui,
+  libpng,
+  libzip,
+  libXrender,
+  pugixml,
+  rapidjson,
+  vulkan-headers,
+  wayland,
+  wxGTK32,
+  zarchive
 
-, vulkan-loader
+  ,
+  vulkan-loader
 
-, nix-update-script }:
+  ,
+  nix-update-script,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cemu";

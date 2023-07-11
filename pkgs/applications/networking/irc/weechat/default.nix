@@ -1,11 +1,44 @@
-{ stdenv, fetchurl, lib, ncurses, openssl, aspell, gnutls, gettext, zlib, curl
-, pkg-config, libgcrypt, cmake, libobjc, libresolv, libiconv
-, asciidoctor # manpages
-, enableTests ? !stdenv.isDarwin, cpputest, guileSupport ? true, guile
-, luaSupport ? true, lua5, perlSupport ? true, perl, pythonSupport ? true
-, python3Packages, rubySupport ? true, ruby, tclSupport ? true, tcl
-, phpSupport ? !stdenv.isDarwin, php, systemd, libxml2, pcre2, libargon2
-, extraBuildInputs ? [ ] }:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  ncurses,
+  openssl,
+  aspell,
+  gnutls,
+  gettext,
+  zlib,
+  curl,
+  pkg-config,
+  libgcrypt,
+  cmake,
+  libobjc,
+  libresolv,
+  libiconv,
+  asciidoctor # manpages
+  ,
+  enableTests ? !stdenv.isDarwin,
+  cpputest,
+  guileSupport ? true,
+  guile,
+  luaSupport ? true,
+  lua5,
+  perlSupport ? true,
+  perl,
+  pythonSupport ? true,
+  python3Packages,
+  rubySupport ? true,
+  ruby,
+  tclSupport ? true,
+  tcl,
+  phpSupport ? !stdenv.isDarwin,
+  php,
+  systemd,
+  libxml2,
+  pcre2,
+  libargon2,
+  extraBuildInputs ? [ ]
+}:
 
 let
   inherit (python3Packages) python;

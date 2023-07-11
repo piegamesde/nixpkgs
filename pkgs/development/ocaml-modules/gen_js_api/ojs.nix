@@ -1,4 +1,8 @@
-{ buildDunePackage, gen_js_api, js_of_ocaml-compiler }:
+{
+  buildDunePackage,
+  gen_js_api,
+  js_of_ocaml-compiler,
+}:
 
 buildDunePackage rec {
   pname = "ojs";

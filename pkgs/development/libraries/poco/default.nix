@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, fetchpatch, cmake, pkg-config, zlib, pcre, expat
-, sqlite, openssl, unixODBC, libmysqlclient }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  zlib,
+  pcre,
+  expat,
+  sqlite,
+  openssl,
+  unixODBC,
+  libmysqlclient,
+}:
 
 stdenv.mkDerivation rec {
   pname = "poco";

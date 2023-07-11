@@ -1,5 +1,14 @@
-{ lib, mkYarnPackage, libsass, nodejs, python3, pkg-config, fetchFromGitHub
-, fetchYarnDeps, nixosTests }:
+{
+  lib,
+  mkYarnPackage,
+  libsass,
+  nodejs,
+  python3,
+  pkg-config,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  nixosTests,
+}:
 
 let
   pinData = lib.importJSON ./pin.json;

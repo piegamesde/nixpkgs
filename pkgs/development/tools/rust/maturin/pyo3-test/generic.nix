@@ -1,11 +1,20 @@
 # Derivation prototype, used by maturin and setuptools-rust
 # passthrough tests.
 
-{ lib, fetchFromGitHub, python, rustPlatform
+{
+  lib,
+  fetchFromGitHub,
+  python,
+  rustPlatform
 
-, nativeBuildInputs
+  ,
+  nativeBuildInputs
 
-, buildAndTestSubdir ? null, format ? "pyproject", preConfigure ? "" }:
+  ,
+  buildAndTestSubdir ? null,
+  format ? "pyproject",
+  preConfigure ? ""
+}:
 
 python.pkgs.buildPythonPackage rec {
   pname = "word-count";

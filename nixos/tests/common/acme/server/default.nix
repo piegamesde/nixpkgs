@@ -49,7 +49,12 @@
 #
 # Also make sure that whenever you use a resolver from a different test node
 # that it has to be started _before_ the ACME service.
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   testCerts = import ./snakeoil-certs.nix;
   domain = testCerts.domain;

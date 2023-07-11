@@ -1,4 +1,10 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, nose }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "nose-exclude";

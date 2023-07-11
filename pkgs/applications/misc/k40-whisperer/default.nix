@@ -1,5 +1,13 @@
-{ stdenv, makeWrapper, writeText, python3, fetchzip, inkscape, lib
-, udevGroup ? "k40" }:
+{
+  stdenv,
+  makeWrapper,
+  writeText,
+  python3,
+  fetchzip,
+  inkscape,
+  lib,
+  udevGroup ? "k40"
+}:
 
 let
   pythonEnv =

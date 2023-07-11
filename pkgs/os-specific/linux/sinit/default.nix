@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchgit, rcinit ? null, rcshutdown ? null, rcreboot ? null }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  rcinit ? null,
+  rcshutdown ? null,
+  rcreboot ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "sinit";

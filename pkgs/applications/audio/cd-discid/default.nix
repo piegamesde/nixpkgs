@@ -1,4 +1,9 @@
-{ fetchurl, lib, stdenv, IOKit ? null }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  IOKit ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "cd-discid";

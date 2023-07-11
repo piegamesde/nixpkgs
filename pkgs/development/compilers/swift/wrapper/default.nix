@@ -1,4 +1,10 @@
-{ lib, stdenv, swift, useSwiftDriver ? true, swift-driver }:
+{
+  lib,
+  stdenv,
+  swift,
+  useSwiftDriver ? true,
+  swift-driver,
+}:
 
 stdenv.mkDerivation (swift._wrapperParams // {
   pname = "swift-wrapper";

@@ -1,5 +1,8 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; }
+}:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -9,21 +12,25 @@ let
     makeTest {
       name = "matomo";
 
-      nodes.machine = { config, pkgs, ... }: {
-        services.matomo = {
-          package = package;
-          enable = true;
-          nginx = {
-            forceSSL = false;
-            enableACME = false;
+      nodes.machine = {
+          config,
+          pkgs,
+          ...
+        }: {
+          services.matomo = {
+            package = package;
+            enable = true;
+            nginx = {
+              forceSSL = false;
+              enableACME = false;
+            };
           };
+          services.mysql = {
+            enable = true;
+            package = pkgs.mariadb;
+          };
+          services.nginx.enable = true;
         };
-        services.mysql = {
-          enable = true;
-          package = pkgs.mariadb;
-        };
-        services.nginx.enable = true;
-      };
 
       testScript = ''
         start_all()

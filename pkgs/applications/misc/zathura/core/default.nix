@@ -1,6 +1,28 @@
-{ lib, stdenv, fetchurl, meson, ninja, wrapGAppsHook, pkg-config, appstream-glib
-, desktop-file-utils, python3, gtk, girara, gettext, libxml2, check, sqlite
-, glib, texlive, libintl, libseccomp, file, librsvg, gtk-mac-integration }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  wrapGAppsHook,
+  pkg-config,
+  appstream-glib,
+  desktop-file-utils,
+  python3,
+  gtk,
+  girara,
+  gettext,
+  libxml2,
+  check,
+  sqlite,
+  glib,
+  texlive,
+  libintl,
+  libseccomp,
+  file,
+  librsvg,
+  gtk-mac-integration,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "zathura";

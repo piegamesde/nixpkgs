@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, flex, libuuid, libx86emu, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  flex,
+  libuuid,
+  libx86emu,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hwinfo";

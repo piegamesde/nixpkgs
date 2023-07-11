@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, python, cmake, libnest2d, sip_4
-, clipper }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  cmake,
+  libnest2d,
+  sip_4,
+  clipper,
+}:
 
 buildPythonPackage rec {
   version = "4.12.0";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gtest, prometheus-cpp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gtest,
+  prometheus-cpp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gbenchmark";

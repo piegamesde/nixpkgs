@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, flit-core, z3, astroid
-, pytestCheckHook, hypothesis }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  flit-core,
+  z3,
+  astroid,
+  pytestCheckHook,
+  hypothesis,
+}:
 
 buildPythonPackage rec {
   pname = "deal-solver";

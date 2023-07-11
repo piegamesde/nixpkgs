@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, copyDesktopItems, makeDesktopItem, unzip, jre8
-, logOutput ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  copyDesktopItems,
+  makeDesktopItem,
+  unzip,
+  jre8,
+  logOutput ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "jquake";

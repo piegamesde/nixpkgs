@@ -1,6 +1,22 @@
-{ lib, stdenv, cmake, fetchFromGitHub, wrapQtAppsHook, qtmultimedia, qttools
-, qtdeclarative, qtnetworkauth, qtbase, makeWrapper, catch2, nodejs
-, libpulseaudio, openssl, rsync, typescript }:
+{
+  lib,
+  stdenv,
+  cmake,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+  qtmultimedia,
+  qttools,
+  qtdeclarative,
+  qtnetworkauth,
+  qtbase,
+  makeWrapper,
+  catch2,
+  nodejs,
+  libpulseaudio,
+  openssl,
+  rsync,
+  typescript,
+}:
 
 stdenv.mkDerivation rec {
   pname = "imgbrd-grabber";

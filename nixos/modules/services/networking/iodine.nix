@@ -1,6 +1,11 @@
 # NixOS module for iodine, ip over dns daemon
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

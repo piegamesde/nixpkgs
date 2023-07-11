@@ -1,4 +1,10 @@
-{ stdenv, fetchurl, lib, callPackage, libsForQt5 }:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  callPackage,
+  libsForQt5,
+}:
 
 let
   # Upstream replaces minor versions, so use archived URLs.

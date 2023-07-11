@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, asynctest, pytest-asyncio
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  asynctest,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "dynalite-devices";

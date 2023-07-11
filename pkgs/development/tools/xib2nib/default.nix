@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pugixml, boost, PlistCpp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pugixml,
+  boost,
+  PlistCpp,
+}:
 
 stdenv.mkDerivation {
   pname = "xib2nib";

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libffi, pkg-config, wayland-protocols
-, wayland, xorg, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libffi,
+  pkg-config,
+  wayland-protocols,
+  wayland,
+  xorg,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clipboard-jh";

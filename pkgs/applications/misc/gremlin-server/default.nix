@@ -1,4 +1,10 @@
-{ fetchzip, lib, stdenv, makeWrapper, openjdk }:
+{
+  fetchzip,
+  lib,
+  stdenv,
+  makeWrapper,
+  openjdk,
+}:
 stdenv.mkDerivation rec {
   pname = "gremlin-server";
   version = "3.5.2";

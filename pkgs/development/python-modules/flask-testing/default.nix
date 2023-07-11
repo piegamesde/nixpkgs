@@ -1,5 +1,13 @@
-{ lib, stdenv, blinker, pytestCheckHook, buildPythonPackage, fetchPypi, flask
-, pythonOlder }:
+{
+  lib,
+  stdenv,
+  blinker,
+  pytestCheckHook,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "flask-testing";

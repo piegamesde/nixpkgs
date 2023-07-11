@@ -1,5 +1,18 @@
-{ lib, stdenv, pythonOlder, rustPlatform, fetchFromGitHub, buildPythonPackage
-, cffi, libiconv, numpy, psutil, pytestCheckHook, python-dateutil, pytz, xxhash
+{
+  lib,
+  stdenv,
+  pythonOlder,
+  rustPlatform,
+  fetchFromGitHub,
+  buildPythonPackage,
+  cffi,
+  libiconv,
+  numpy,
+  psutil,
+  pytestCheckHook,
+  python-dateutil,
+  pytz,
+  xxhash,
 }:
 
 buildPythonPackage rec {

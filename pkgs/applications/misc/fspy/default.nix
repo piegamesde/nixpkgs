@@ -1,4 +1,8 @@
-{ appimageTools, lib, fetchurl }:
+{
+  appimageTools,
+  lib,
+  fetchurl,
+}:
 let
   pname = "fspy";
   version = "1.0.3";

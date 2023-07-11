@@ -1,5 +1,19 @@
-{ buildPackages, db, fetchurl, groff, gzip, lib, libiconv, libpipeline
-, makeWrapper, nixosTests, pkg-config, stdenv, zstd, autoreconfHook }:
+{
+  buildPackages,
+  db,
+  fetchurl,
+  groff,
+  gzip,
+  lib,
+  libiconv,
+  libpipeline,
+  makeWrapper,
+  nixosTests,
+  pkg-config,
+  stdenv,
+  zstd,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "man-db";

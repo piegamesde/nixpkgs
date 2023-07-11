@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, pybind11, re2, six }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  pybind11,
+  re2,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "google-re2";

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, meson, pkg-config, wayland-scanner, ninja
-, wayland, wayland-protocols, freetype, }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  pkg-config,
+  wayland-scanner,
+  ninja,
+  wayland,
+  wayland-protocols,
+  freetype,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sov";

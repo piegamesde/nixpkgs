@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, slurm }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  slurm,
+}:
 stdenv.mkDerivation rec {
   pname = "slurm-spank-x11";
   version = "0.2.5";

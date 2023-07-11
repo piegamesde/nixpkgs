@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, deprecation, hatchling, pythonOlder
-, packaging, pytestCheckHook, pytest-timeout, setuptools, tomlkit }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  deprecation,
+  hatchling,
+  pythonOlder,
+  packaging,
+  pytestCheckHook,
+  pytest-timeout,
+  setuptools,
+  tomlkit,
+}:
 
 buildPythonPackage rec {
   pname = "jupyter-packaging";

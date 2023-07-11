@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config, freerdp, openssl
-, libssh2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  freerdp,
+  openssl,
+  libssh2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "medusa-unstable";

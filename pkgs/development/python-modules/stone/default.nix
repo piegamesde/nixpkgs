@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, mock, ply, pytestCheckHook, six
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  ply,
+  pytestCheckHook,
+  six,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "stone";

@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, coreutils, sharutils, runtimeShell, version
-, sha256 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  coreutils,
+  sharutils,
+  runtimeShell,
+  version,
+  sha256,
+}:
 
 stdenv.mkDerivation {
   inherit version;

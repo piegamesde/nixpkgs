@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "infinity";

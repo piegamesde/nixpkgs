@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, setuptools-scm, wheel
-, pytestCheckHook, pytest-mock, pytest-sugar }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  setuptools-scm,
+  wheel,
+  pytestCheckHook,
+  pytest-mock,
+  pytest-sugar,
+}:
 
 buildPythonPackage rec {
   pname = "backports-cached-property";

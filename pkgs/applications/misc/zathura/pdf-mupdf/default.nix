@@ -1,6 +1,23 @@
-{ stdenv, lib, meson, ninja, fetchurl, cairo, girara, gtk-mac-integration, gumbo
-, jbig2dec, libjpeg, mupdf, openjpeg, pkg-config, zathura_core, tesseract
-, leptonica, mujs }:
+{
+  stdenv,
+  lib,
+  meson,
+  ninja,
+  fetchurl,
+  cairo,
+  girara,
+  gtk-mac-integration,
+  gumbo,
+  jbig2dec,
+  libjpeg,
+  mupdf,
+  openjpeg,
+  pkg-config,
+  zathura_core,
+  tesseract,
+  leptonica,
+  mujs,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.4.0";

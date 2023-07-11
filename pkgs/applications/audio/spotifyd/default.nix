@@ -1,6 +1,19 @@
-{ lib, fetchFromGitHub, rustPackages, pkg-config, openssl, withALSA ? true
-, alsa-lib, withPulseAudio ? false, libpulseaudio, withPortAudio ? false
-, portaudio, withMpris ? false, withKeyring ? false, dbus }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPackages,
+  pkg-config,
+  openssl,
+  withALSA ? true,
+  alsa-lib,
+  withPulseAudio ? false,
+  libpulseaudio,
+  withPortAudio ? false,
+  portaudio,
+  withMpris ? false,
+  withKeyring ? false,
+  dbus,
+}:
 
 rustPackages.rustPlatform.buildRustPackage rec {
   pname = "spotifyd";

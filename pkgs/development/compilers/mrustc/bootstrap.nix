@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchurl, mrustc, mrustc-minicargo, rust, llvm_12
-, llvmPackages_12, libffi, cmake, python3, zlib, libxml2, openssl, pkg-config
-, curl, which, time }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  mrustc,
+  mrustc-minicargo,
+  rust,
+  llvm_12,
+  llvmPackages_12,
+  libffi,
+  cmake,
+  python3,
+  zlib,
+  libxml2,
+  openssl,
+  pkg-config,
+  curl,
+  which,
+  time,
+}:
 
 let
   mrustcTargetVersion = "1.54";

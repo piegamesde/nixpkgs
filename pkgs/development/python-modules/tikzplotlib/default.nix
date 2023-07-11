@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, matplotlib, numpy, pillow, webcolors
-, flit-core, pytestCheckHook, pandas }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  matplotlib,
+  numpy,
+  pillow,
+  webcolors,
+  flit-core,
+  pytestCheckHook,
+  pandas,
+}:
 
 buildPythonPackage rec {
   pname = "tikzplotlib";

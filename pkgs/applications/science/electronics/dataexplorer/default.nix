@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, jdk, ant, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jdk,
+  ant,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dataexplorer";

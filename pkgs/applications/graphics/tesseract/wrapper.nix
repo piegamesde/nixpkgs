@@ -1,16 +1,26 @@
-{ lib, makeWrapper, tesseractBase, languages, runCommand, imagemagick
+{
+  lib,
+  makeWrapper,
+  tesseractBase,
+  languages,
+  runCommand,
+  imagemagick
 
-# A list of languages like [ "eng" "spa" … ] or `null` for all available languages
-, enableLanguages ? null
+  # A list of languages like [ "eng" "spa" … ] or `null` for all available languages
+  ,
+  enableLanguages ? null
 
-  # A list of files or a directory containing files
-, tessdata ? (if enableLanguages == null then
-  languages.all
-else
-  map (lang: languages.${lang}) enableLanguages)
+    # A list of files or a directory containing files
+  ,
+  tessdata ? (if enableLanguages == null then
+    languages.all
+  else
+    map (lang: languages.${lang}) enableLanguages)
 
-# This argument is obsolete
-, enableLanguagesHash ? null }:
+  # This argument is obsolete
+  ,
+  enableLanguagesHash ? null
+}:
 
 let
   tesseractWithData = tesseractBase.overrideAttrs (_: {

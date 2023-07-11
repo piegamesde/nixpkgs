@@ -1,6 +1,14 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; }, systemdStage1 ? false }:
-import ./make-test-python.nix ({ lib, pkgs, ... }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; },
+  systemdStage1 ? false
+}:
+import ./make-test-python.nix ({
+    lib,
+    pkgs,
+    ...
+  }:
   let
 
     keyfile = pkgs.writeText "luks-keyfile" ''
@@ -12,45 +20,48 @@ import ./make-test-python.nix ({ lib, pkgs, ... }:
   in {
     name = "initrd-luks-empty-passphrase";
 
-    nodes.machine = { pkgs, ... }: {
-      virtualisation = {
-        emptyDiskImages = [ 512 ];
-        useBootLoader = true;
-        useEFIBoot = true;
-      };
-
-      boot.loader.systemd-boot.enable = true;
-      boot.initrd.systemd = lib.mkIf systemdStage1 {
-        enable = true;
-        emergencyAccess = true;
-      };
-      environment.systemPackages = with pkgs; [ cryptsetup ];
-
-      specialisation.boot-luks-wrong-keyfile.configuration = {
-        boot.initrd.luks.devices = lib.mkVMOverride {
-          cryptroot = {
-            device = "/dev/vdb";
-            keyFile = "/etc/cryptroot.key";
-            tryEmptyPassphrase = true;
-            fallbackToPassword = !systemdStage1;
-          };
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        virtualisation = {
+          emptyDiskImages = [ 512 ];
+          useBootLoader = true;
+          useEFIBoot = true;
         };
-        virtualisation.rootDevice = "/dev/mapper/cryptroot";
-        boot.initrd.secrets."/etc/cryptroot.key" = keyfile;
-      };
 
-      specialisation.boot-luks-missing-keyfile.configuration = {
-        boot.initrd.luks.devices = lib.mkVMOverride {
-          cryptroot = {
-            device = "/dev/vdb";
-            keyFile = "/etc/cryptroot.key";
-            tryEmptyPassphrase = true;
-            fallbackToPassword = !systemdStage1;
-          };
+        boot.loader.systemd-boot.enable = true;
+        boot.initrd.systemd = lib.mkIf systemdStage1 {
+          enable = true;
+          emergencyAccess = true;
         };
-        virtualisation.rootDevice = "/dev/mapper/cryptroot";
+        environment.systemPackages = with pkgs; [ cryptsetup ];
+
+        specialisation.boot-luks-wrong-keyfile.configuration = {
+          boot.initrd.luks.devices = lib.mkVMOverride {
+            cryptroot = {
+              device = "/dev/vdb";
+              keyFile = "/etc/cryptroot.key";
+              tryEmptyPassphrase = true;
+              fallbackToPassword = !systemdStage1;
+            };
+          };
+          virtualisation.rootDevice = "/dev/mapper/cryptroot";
+          boot.initrd.secrets."/etc/cryptroot.key" = keyfile;
+        };
+
+        specialisation.boot-luks-missing-keyfile.configuration = {
+          boot.initrd.luks.devices = lib.mkVMOverride {
+            cryptroot = {
+              device = "/dev/vdb";
+              keyFile = "/etc/cryptroot.key";
+              tryEmptyPassphrase = true;
+              fallbackToPassword = !systemdStage1;
+            };
+          };
+          virtualisation.rootDevice = "/dev/mapper/cryptroot";
+        };
       };
-    };
 
     testScript = ''
       # Encrypt key with empty key so boot should try keyfile and then fallback to empty passphrase

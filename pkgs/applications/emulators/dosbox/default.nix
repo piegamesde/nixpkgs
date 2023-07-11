@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, autoreconfHook, SDL, SDL_net, SDL_sound
-, copyDesktopItems, graphicsmagick, libGL, libGLU, libpng, makeDesktopItem }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  SDL,
+  SDL_net,
+  SDL_sound,
+  copyDesktopItems,
+  graphicsmagick,
+  libGL,
+  libGLU,
+  libpng,
+  makeDesktopItem,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dosbox";

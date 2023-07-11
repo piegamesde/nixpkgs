@@ -1,5 +1,17 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, isPy27, numpy, scikit-learn
-, pytestCheckHook, torch, torchvision, tqdm, faiss }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy27,
+  numpy,
+  scikit-learn,
+  pytestCheckHook,
+  torch,
+  torchvision,
+  tqdm,
+  faiss,
+}:
 
 buildPythonPackage rec {
   pname = "pytorch-metric-learning";

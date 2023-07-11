@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, python3, perl, intltool, flex, texinfo, libiconv
-, libintl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3,
+  perl,
+  intltool,
+  flex,
+  texinfo,
+  libiconv,
+  libintl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "recode";

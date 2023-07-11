@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, which
-, makeWrapper, libpfm, zlib, python3Packages, procps, gdb, capnproto }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  which,
+  makeWrapper,
+  libpfm,
+  zlib,
+  python3Packages,
+  procps,
+  gdb,
+  capnproto,
+}:
 
 stdenv.mkDerivation rec {
   version = "5.6.0";

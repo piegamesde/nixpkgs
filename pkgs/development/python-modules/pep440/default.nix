@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, flit-core, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flit-core,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pep440";

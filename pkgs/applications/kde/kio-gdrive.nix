@@ -1,5 +1,16 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, kio, libkgapi
-, kcalendarcore, kcontacts, qtkeychain, libsecret, kaccounts-integration }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  kio,
+  libkgapi,
+  kcalendarcore,
+  kcontacts,
+  qtkeychain,
+  libsecret,
+  kaccounts-integration,
+}:
 
 mkDerivation {
   pname = "kio-gdrive";

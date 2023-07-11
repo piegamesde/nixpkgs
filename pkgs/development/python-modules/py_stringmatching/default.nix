@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, nose, numpy, pythonOlder, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  numpy,
+  pythonOlder,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "py-stringmatching";

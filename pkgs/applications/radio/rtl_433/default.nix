@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libusb1, rtl-sdr
-, soapysdr-with-plugins }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libusb1,
+  rtl-sdr,
+  soapysdr-with-plugins,
+}:
 
 stdenv.mkDerivation rec {
   version = "22.11";

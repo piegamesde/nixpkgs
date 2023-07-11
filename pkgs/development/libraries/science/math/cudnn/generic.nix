@@ -1,16 +1,32 @@
-{ stdenv, backendStdenv, lib, zlib, useCudatoolkitRunfile ? false, cudaVersion
-, cudaMajorVersion, cudatoolkit, # For cuda < 11
-libcublas ? null, # cuda <11 doesn't ship redist packages
-autoPatchelfHook, autoAddOpenGLRunpathHook, fetchurl,
-# The distributed version of CUDNN includes both dynamically liked .so files,
-# as well as statically linked .a files.  However, CUDNN is quite large
-# (multiple gigabytes), so you can save some space in your nix store by
-# removing the statically linked libraries if you are not using them.
-#
-# Setting this to true removes the statically linked .a files.
-# Setting this to false keeps these statically linked .a files.
-removeStatic ? false, }:
-{ version, url, hash, minCudaVersion, maxCudaVersion, }:
+{
+  stdenv,
+  backendStdenv,
+  lib,
+  zlib,
+  useCudatoolkitRunfile ? false,
+  cudaVersion,
+  cudaMajorVersion,
+  cudatoolkit, # For cuda < 11
+  libcublas ? null, # cuda <11 doesn't ship redist packages
+  autoPatchelfHook,
+  autoAddOpenGLRunpathHook,
+  fetchurl,
+  # The distributed version of CUDNN includes both dynamically liked .so files,
+  # as well as statically linked .a files.  However, CUDNN is quite large
+  # (multiple gigabytes), so you can save some space in your nix store by
+  # removing the statically linked libraries if you are not using them.
+  #
+  # Setting this to true removes the statically linked .a files.
+  # Setting this to false keeps these statically linked .a files.
+  removeStatic ? false,
+}:
+{
+  version,
+  url,
+  hash,
+  minCudaVersion,
+  maxCudaVersion,
+}:
 assert useCudatoolkitRunfile || (libcublas != null);
 let
   inherit (lib) lists strings trivial versions;

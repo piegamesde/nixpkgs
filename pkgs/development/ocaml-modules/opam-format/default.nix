@@ -1,4 +1,10 @@
-{ lib, buildDunePackage, unzip, opam-core, opam-file-format }:
+{
+  lib,
+  buildDunePackage,
+  unzip,
+  opam-core,
+  opam-file-format,
+}:
 
 buildDunePackage rec {
   pname = "opam-format";

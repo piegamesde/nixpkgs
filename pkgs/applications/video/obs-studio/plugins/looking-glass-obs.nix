@@ -1,4 +1,12 @@
-{ lib, stdenv, cmake, libbfd, SDL2, obs-studio, looking-glass-client }:
+{
+  lib,
+  stdenv,
+  cmake,
+  libbfd,
+  SDL2,
+  obs-studio,
+  looking-glass-client,
+}:
 
 stdenv.mkDerivation {
   pname = "looking-glass-obs";

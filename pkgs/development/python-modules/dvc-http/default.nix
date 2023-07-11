@@ -1,5 +1,14 @@
-{ lib, aiohttp-retry, buildPythonPackage, fetchFromGitHub, dvc-objects, fsspec
-, pythonOlder, pythonRelaxDepsHook, setuptools-scm }:
+{
+  lib,
+  aiohttp-retry,
+  buildPythonPackage,
+  fetchFromGitHub,
+  dvc-objects,
+  fsspec,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "dvc-http";

@@ -1,10 +1,31 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, appdirs, dungeon-eos
-, explorerscript, ndspy, pillow, setuptools, skytemple-rust, tilequant, pyyaml
-, pmdsky-debug-py, typing-extensions, pythonOlder
-, # optional dependancies for SpriteCollab
-aiohttp, lru-dict, graphql-core, gql, armips
-# tests
-, pytestCheckHook, parameterized, xmldiff }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  appdirs,
+  dungeon-eos,
+  explorerscript,
+  ndspy,
+  pillow,
+  setuptools,
+  skytemple-rust,
+  tilequant,
+  pyyaml,
+  pmdsky-debug-py,
+  typing-extensions,
+  pythonOlder, # optional dependancies for SpriteCollab
+  aiohttp,
+  lru-dict,
+  graphql-core,
+  gql,
+  armips
+  # tests
+  ,
+  pytestCheckHook,
+  parameterized,
+  xmldiff,
+}:
 
 buildPythonPackage rec {
   pname = "skytemple-files";

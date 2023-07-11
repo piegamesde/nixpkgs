@@ -1,7 +1,18 @@
-{ lib, stdenv, python27, callPackage, fetchFromGitHub, makeWrapper, # re2c deps
-autoreconfHook, # py-yajl deps
-git, # oil deps
-cmark, file, glibcLocales, six, typing }:
+{
+  lib,
+  stdenv,
+  python27,
+  callPackage,
+  fetchFromGitHub,
+  makeWrapper, # re2c deps
+  autoreconfHook, # py-yajl deps
+  git, # oil deps
+  cmark,
+  file,
+  glibcLocales,
+  six,
+  typing,
+}:
 
 rec {
   re2c = stdenv.mkDerivation rec {

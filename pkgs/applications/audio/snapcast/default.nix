@@ -1,6 +1,25 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, alsa-lib, asio, avahi
-, boost17x, flac, libogg, libvorbis, soxr, IOKit, AudioToolbox, aixlog, popl
-, pulseaudioSupport ? false, libpulseaudio, nixosTests }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  alsa-lib,
+  asio,
+  avahi,
+  boost17x,
+  flac,
+  libogg,
+  libvorbis,
+  soxr,
+  IOKit,
+  AudioToolbox,
+  aixlog,
+  popl,
+  pulseaudioSupport ? false,
+  libpulseaudio,
+  nixosTests,
+}:
 
 assert pulseaudioSupport -> libpulseaudio != null;
 

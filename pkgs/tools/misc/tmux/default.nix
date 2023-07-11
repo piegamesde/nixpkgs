@@ -1,8 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, bison, libevent
-, ncurses, pkg-config
-, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd
-, withUtf8proc ? true, utf8proc # gets Unicode updates faster than glibc
-, withUtempter ? stdenv.isLinux && !stdenv.hostPlatform.isMusl, libutempter }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  bison,
+  libevent,
+  ncurses,
+  pkg-config,
+  withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  systemd,
+  withUtf8proc ? true,
+  utf8proc # gets Unicode updates faster than glibc
+  ,
+  withUtempter ? stdenv.isLinux && !stdenv.hostPlatform.isMusl,
+  libutempter,
+}:
 
 let
 

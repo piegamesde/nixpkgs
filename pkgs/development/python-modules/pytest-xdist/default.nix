@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools-scm
-, pytestCheckHook, filelock, execnet, pytest, psutil, setproctitle }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools-scm,
+  pytestCheckHook,
+  filelock,
+  execnet,
+  pytest,
+  psutil,
+  setproctitle,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-xdist";

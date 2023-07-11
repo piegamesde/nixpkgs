@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, django, factory_boy, fetchFromGitHub
-, pylint-plugin-utils, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  django,
+  factory_boy,
+  fetchFromGitHub,
+  pylint-plugin-utils,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pylint-django";

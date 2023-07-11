@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitea, curl, openssl, nix-update-script, testers, snac2
+{
+  stdenv,
+  lib,
+  fetchFromGitea,
+  curl,
+  openssl,
+  nix-update-script,
+  testers,
+  snac2,
 }:
 
 stdenv.mkDerivation rec {

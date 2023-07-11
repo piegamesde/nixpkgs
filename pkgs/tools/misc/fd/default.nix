@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchFromGitHub, installShellFiles, testers, fd }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  testers,
+  fd,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "fd";

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, dateparser, fetchFromGitHub, haversine
-, pytestCheckHook, pythonOlder, requests, xmltodict }:
+{
+  lib,
+  buildPythonPackage,
+  dateparser,
+  fetchFromGitHub,
+  haversine,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "georss-client";

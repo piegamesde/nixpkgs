@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, qtbase, qtsvg, qttools, qmake, fixDarwinDylibNames }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  qtbase,
+  qtsvg,
+  qttools,
+  qmake,
+  fixDarwinDylibNames,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qwt";

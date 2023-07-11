@@ -1,5 +1,21 @@
-{ stdenv, lib, fetchurl, meson, ninja, pkg-config, glib, gobject-introspection
-, flex, bison, vala, gettext, gnome, gtk-doc, docbook_xsl, docbook_xml_dtd_43 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  glib,
+  gobject-introspection,
+  flex,
+  bison,
+  vala,
+  gettext,
+  gnome,
+  gtk-doc,
+  docbook_xsl,
+  docbook_xml_dtd_43,
+}:
 
 stdenv.mkDerivation rec {
   pname = "template-glib";

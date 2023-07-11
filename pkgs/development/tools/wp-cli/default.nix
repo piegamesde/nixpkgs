@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchurl, formats, installShellFiles, makeWrapper, php }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  formats,
+  installShellFiles,
+  makeWrapper,
+  php,
+}:
 
 let
   version = "2.6.0";

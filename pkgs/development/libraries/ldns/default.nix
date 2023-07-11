@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, openssl, perl, which, dns-root-data }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+  perl,
+  which,
+  dns-root-data,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ldns";

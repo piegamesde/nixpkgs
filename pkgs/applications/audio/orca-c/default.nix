@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchgit, ncurses, portmidi }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  ncurses,
+  portmidi,
+}:
 stdenv.mkDerivation {
   pname = "orca-c";
   version = "unstable-2021-02-13";

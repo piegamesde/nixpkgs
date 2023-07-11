@@ -1,7 +1,33 @@
-{ stdenv, lib, fetchpatch, fetchurl, vala, meson, ninja, libpwquality
-, pkg-config, gtk3, glib, glib-networking, wrapGAppsHook, itstool, gnupg
-, desktop-file-utils, libsoup_3, gnome, gpgme, python3, openldap, gcr, libsecret
-, avahi, p11-kit, openssh, gsettings-desktop-schemas, libhandy }:
+{
+  stdenv,
+  lib,
+  fetchpatch,
+  fetchurl,
+  vala,
+  meson,
+  ninja,
+  libpwquality,
+  pkg-config,
+  gtk3,
+  glib,
+  glib-networking,
+  wrapGAppsHook,
+  itstool,
+  gnupg,
+  desktop-file-utils,
+  libsoup_3,
+  gnome,
+  gpgme,
+  python3,
+  openldap,
+  gcr,
+  libsecret,
+  avahi,
+  p11-kit,
+  openssh,
+  gsettings-desktop-schemas,
+  libhandy,
+}:
 
 stdenv.mkDerivation rec {
   pname = "seahorse";

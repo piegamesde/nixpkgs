@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, fetchpatch, django
-, djangorestframework, python }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  fetchpatch,
+  django,
+  djangorestframework,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "django-taggit";

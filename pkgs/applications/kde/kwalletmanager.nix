@@ -1,5 +1,16 @@
-{ lib, mkDerivation, extra-cmake-modules, kdoctools, kauth, kcmutils
-, kconfigwidgets, kcoreaddons, kdbusaddons, kwallet, kxmlgui }:
+{
+  lib,
+  mkDerivation,
+  extra-cmake-modules,
+  kdoctools,
+  kauth,
+  kcmutils,
+  kconfigwidgets,
+  kcoreaddons,
+  kdbusaddons,
+  kwallet,
+  kxmlgui,
+}:
 
 mkDerivation {
   pname = "kwalletmanager";

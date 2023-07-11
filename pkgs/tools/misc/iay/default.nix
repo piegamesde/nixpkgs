@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, openssl, pkg-config, AppKit, Cocoa
-, Foundation, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  openssl,
+  pkg-config,
+  AppKit,
+  Cocoa,
+  Foundation,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "iay";

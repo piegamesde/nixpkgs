@@ -1,8 +1,25 @@
-{ stdenv, lib, fetchFromGitHub, cmake, fetchpatch, mesa, libGLU, glfw, libX11
-, libXi, libXcursor, libXrandr, libXinerama
-, alsaSupport ? stdenv.hostPlatform.isLinux, alsa-lib
-, pulseSupport ? stdenv.hostPlatform.isLinux, libpulseaudio, sharedLib ? true
-, includeEverything ? true, raylib-games }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  fetchpatch,
+  mesa,
+  libGLU,
+  glfw,
+  libX11,
+  libXi,
+  libXcursor,
+  libXrandr,
+  libXinerama,
+  alsaSupport ? stdenv.hostPlatform.isLinux,
+  alsa-lib,
+  pulseSupport ? stdenv.hostPlatform.isLinux,
+  libpulseaudio,
+  sharedLib ? true,
+  includeEverything ? true,
+  raylib-games,
+}:
 
 stdenv.mkDerivation rec {
   pname = "raylib";

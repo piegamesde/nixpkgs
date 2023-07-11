@@ -1,5 +1,11 @@
-{ stdenv, dwarf-therapist, dwarf-fortress, substituteAll, coreutils
-, wrapQtAppsHook }:
+{
+  stdenv,
+  dwarf-therapist,
+  dwarf-fortress,
+  substituteAll,
+  coreutils,
+  wrapQtAppsHook,
+}:
 
 let
   platformSlug = if stdenv.targetPlatform.is32bit then "linux32" else "linux64";

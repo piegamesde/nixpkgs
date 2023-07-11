@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, fetchFromGitLab, installShellFiles }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitLab,
+  installShellFiles,
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "dwt1-shell-color-scripts";

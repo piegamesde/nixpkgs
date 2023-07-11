@@ -1,6 +1,19 @@
-{ pname, channel, lib, writeScript, xidel, coreutils, gnused, gnugrep, curl
-, gnupg, runtimeShell, baseName ? "firefox"
-, basePath ? "pkgs/applications/networking/browsers/firefox-bin", baseUrl }:
+{
+  pname,
+  channel,
+  lib,
+  writeScript,
+  xidel,
+  coreutils,
+  gnused,
+  gnugrep,
+  curl,
+  gnupg,
+  runtimeShell,
+  baseName ? "firefox",
+  basePath ? "pkgs/applications/networking/browsers/firefox-bin",
+  baseUrl,
+}:
 
 let isBeta = channel != "release";
 

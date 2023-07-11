@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, rofi, mpc-cli, perl, util-linux
-, python3Packages, libnotify }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  rofi,
+  mpc-cli,
+  perl,
+  util-linux,
+  python3Packages,
+  libnotify,
+}:
 
 stdenv.mkDerivation {
   pname = "clerk";

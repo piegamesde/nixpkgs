@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, pythonAtLeast, coverage, nose
-, pbkdf2 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  pythonAtLeast,
+  coverage,
+  nose,
+  pbkdf2,
+}:
 
 buildPythonPackage rec {
   pname = "cryptacular";

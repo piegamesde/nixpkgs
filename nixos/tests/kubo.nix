@@ -1,32 +1,41 @@
-{ lib, ... }: {
+{
+  lib,
+  ...
+}: {
   name = "kubo";
   meta = with lib.maintainers; { maintainers = [ mguentner Luflosi ]; };
 
-  nodes.machine = { config, ... }: {
-    services.kubo = {
-      enable = true;
-      # Also will add a unix domain socket socket API address, see module.
-      startWhenNeeded = true;
-      settings.Addresses.API = "/ip4/127.0.0.1/tcp/2324";
-      dataDir = "/mnt/ipfs";
+  nodes.machine = {
+      config,
+      ...
+    }: {
+      services.kubo = {
+        enable = true;
+        # Also will add a unix domain socket socket API address, see module.
+        startWhenNeeded = true;
+        settings.Addresses.API = "/ip4/127.0.0.1/tcp/2324";
+        dataDir = "/mnt/ipfs";
+      };
+      users.users.alice = {
+        isNormalUser = true;
+        extraGroups = [ config.services.kubo.group ];
+      };
     };
-    users.users.alice = {
-      isNormalUser = true;
-      extraGroups = [ config.services.kubo.group ];
-    };
-  };
 
-  nodes.fuse = { config, ... }: {
-    services.kubo = {
-      enable = true;
-      autoMount = true;
+  nodes.fuse = {
+      config,
+      ...
+    }: {
+      services.kubo = {
+        enable = true;
+        autoMount = true;
+      };
+      users.users.alice = {
+        isNormalUser = true;
+        extraGroups = [ config.services.kubo.group ];
+      };
+      users.users.bob = { isNormalUser = true; };
     };
-    users.users.alice = {
-      isNormalUser = true;
-      extraGroups = [ config.services.kubo.group ];
-    };
-    users.users.bob = { isNormalUser = true; };
-  };
 
   testScript = ''
     start_all()

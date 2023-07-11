@@ -1,4 +1,10 @@
-{ lib, fetchFromGitLab, buildDunePackage, zarith, ff-sig }:
+{
+  lib,
+  fetchFromGitLab,
+  buildDunePackage,
+  zarith,
+  ff-sig,
+}:
 
 buildDunePackage rec {
   pname = "polynomial";

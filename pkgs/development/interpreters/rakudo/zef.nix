@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, rakudo, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rakudo,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zef";

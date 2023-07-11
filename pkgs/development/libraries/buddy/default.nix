@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, bison }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bison,
+}:
 
 stdenv.mkDerivation rec {
   pname = "buddy";

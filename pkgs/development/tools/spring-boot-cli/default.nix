@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchzip, jdk, makeWrapper, installShellFiles, coreutils }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  jdk,
+  makeWrapper,
+  installShellFiles,
+  coreutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "spring-boot-cli";

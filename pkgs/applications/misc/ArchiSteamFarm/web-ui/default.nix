@@ -1,4 +1,12 @@
-{ lib, pkgs, fetchFromGitHub, nodejs, nodePackages, stdenv, ArchiSteamFarm }:
+{
+  lib,
+  pkgs,
+  fetchFromGitHub,
+  nodejs,
+  nodePackages,
+  stdenv,
+  ArchiSteamFarm,
+}:
 
 let
   nodePackages = import ./node-composition.nix {

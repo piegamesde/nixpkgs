@@ -1,5 +1,16 @@
-{ python, pythonAtLeast, disabledIf, fetchurl, lib, stdenv, cmake, libxcrypt
-, ninja, qt5, shiboken2 }:
+{
+  python,
+  pythonAtLeast,
+  disabledIf,
+  fetchurl,
+  lib,
+  stdenv,
+  cmake,
+  libxcrypt,
+  ninja,
+  qt5,
+  shiboken2,
+}:
 
 # Only build when Python<=3.10
 # See https://bugreports.qt.io/browse/PYSIDE-1864

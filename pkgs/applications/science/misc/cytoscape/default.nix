@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, jre, makeWrapper, substituteAll, coreutils }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jre,
+  makeWrapper,
+  substituteAll,
+  coreutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cytoscape";

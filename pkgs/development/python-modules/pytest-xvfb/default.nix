@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, pyvirtualdisplay, isPy27 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  pyvirtualdisplay,
+  isPy27,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-xvfb";

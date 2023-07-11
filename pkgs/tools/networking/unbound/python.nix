@@ -1,4 +1,13 @@
-{ lib, stdenv, unbound, openssl, expat, libevent, swig, pythonPackages }:
+{
+  lib,
+  stdenv,
+  unbound,
+  openssl,
+  expat,
+  libevent,
+  swig,
+  pythonPackages,
+}:
 
 let inherit (pythonPackages) python;
 in stdenv.mkDerivation rec {

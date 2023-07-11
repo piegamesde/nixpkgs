@@ -1,4 +1,7 @@
-{ buildDunePackage, qcheck-ounit }:
+{
+  buildDunePackage,
+  qcheck-ounit,
+}:
 
 buildDunePackage {
   pname = "qcheck";

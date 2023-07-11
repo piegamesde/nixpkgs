@@ -1,7 +1,28 @@
-{ stdenv, fetchurl, fetchpatch, lib, pkg-config, util-linux, libcap, libtirpc
-, libevent, sqlite, libkrb5, kmod, libuuid, keyutils, lvm2, systemd, coreutils
-, tcp_wrappers, python3, buildPackages, nixosTests, rpcsvc-proto
-, enablePython ? true }:
+{
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  lib,
+  pkg-config,
+  util-linux,
+  libcap,
+  libtirpc,
+  libevent,
+  sqlite,
+  libkrb5,
+  kmod,
+  libuuid,
+  keyutils,
+  lvm2,
+  systemd,
+  coreutils,
+  tcp_wrappers,
+  python3,
+  buildPackages,
+  nixosTests,
+  rpcsvc-proto,
+  enablePython ? true
+}:
 
 let statdPath = lib.makeBinPath [ systemd util-linux coreutils ];
 

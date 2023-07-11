@@ -1,5 +1,14 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
-, numpy, pillow, setuptools }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  numpy,
+  pillow,
+  setuptools,
+}:
 
 let
   pname = "pydicom";

@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchPypi, buildPythonPackage, importlib-metadata, isPy3k, mock
-, pytestCheckHook, cloudpickle, pyinotify, macfsevents, toml, doit-py, pyflakes
-, configclass, mergedict }:
+{
+  lib,
+  stdenv,
+  fetchPypi,
+  buildPythonPackage,
+  importlib-metadata,
+  isPy3k,
+  mock,
+  pytestCheckHook,
+  cloudpickle,
+  pyinotify,
+  macfsevents,
+  toml,
+  doit-py,
+  pyflakes,
+  configclass,
+  mergedict,
+}:
 
 let
   doit = buildPythonPackage rec {

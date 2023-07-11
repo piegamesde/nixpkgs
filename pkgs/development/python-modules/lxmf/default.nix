@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, rns, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  rns,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "lxmf";

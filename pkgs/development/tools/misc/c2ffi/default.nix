@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, cmake, llvmPackages_11, unstableGitUpdater }:
+{
+  lib,
+  fetchFromGitHub,
+  cmake,
+  llvmPackages_11,
+  unstableGitUpdater,
+}:
 
 let
   c2ffiBranch = "llvm-11.0.0";

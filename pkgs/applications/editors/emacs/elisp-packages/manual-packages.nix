@@ -1,4 +1,7 @@
-{ lib, pkgs }:
+{
+  lib,
+  pkgs,
+}:
 
 self:
 let inherit (self) callPackage;

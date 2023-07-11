@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, m4, which, yasm, buildPackages }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  m4,
+  which,
+  yasm,
+  buildPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mpir";

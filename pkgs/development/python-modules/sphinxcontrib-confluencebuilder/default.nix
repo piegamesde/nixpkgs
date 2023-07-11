@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, docutils, sphinx, requests, jinja2 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  docutils,
+  sphinx,
+  requests,
+  jinja2,
+}:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-confluencebuilder";

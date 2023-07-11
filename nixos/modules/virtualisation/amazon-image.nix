@@ -4,7 +4,12 @@
 # also to reconfigure instances. However, we can't rename it because
 # existing "configuration.nix" files on EC2 instances refer to it.)
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

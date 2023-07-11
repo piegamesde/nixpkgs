@@ -1,4 +1,10 @@
-{ lib, stdenv, substitute, fetchurl, fetchpatch }:
+{
+  lib,
+  stdenv,
+  substitute,
+  fetchurl,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libamplsolver";

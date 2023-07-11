@@ -1,6 +1,26 @@
-{ lib, buildPythonPackage, capstone, crytic-compile, fetchFromGitHub
-, intervaltree, ply, prettytable, protobuf, pyelftools, pyevmasm, pysha3
-, pytestCheckHook, pythonOlder, pyyaml, rlp, stdenv, unicorn, wasm, yices, z3 }:
+{
+  lib,
+  buildPythonPackage,
+  capstone,
+  crytic-compile,
+  fetchFromGitHub,
+  intervaltree,
+  ply,
+  prettytable,
+  protobuf,
+  pyelftools,
+  pyevmasm,
+  pysha3,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  rlp,
+  stdenv,
+  unicorn,
+  wasm,
+  yices,
+  z3,
+}:
 
 buildPythonPackage rec {
   pname = "manticore";

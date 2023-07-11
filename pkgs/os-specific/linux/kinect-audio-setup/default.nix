@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchgit, requireFile, pkg-config, libusb1, p7zip }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  requireFile,
+  pkg-config,
+  libusb1,
+  p7zip,
+}:
 
 let
   # The last known good firmware package to have been tested

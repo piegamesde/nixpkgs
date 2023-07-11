@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, m4, cxx ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  m4,
+  cxx ? true
+}:
 
 let
   self = stdenv.mkDerivation rec {

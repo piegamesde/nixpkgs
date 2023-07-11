@@ -1,9 +1,22 @@
-{ lib, stdenv
+{
+  lib,
+  stdenv
 
-, coreutils, makeWrapper, sway-unwrapped, installShellFiles, wl-clipboard
-, libnotify, slurp, grim, jq, bash
+  ,
+  coreutils,
+  makeWrapper,
+  sway-unwrapped,
+  installShellFiles,
+  wl-clipboard,
+  libnotify,
+  slurp,
+  grim,
+  jq,
+  bash
 
-, python3Packages }:
+  ,
+  python3Packages,
+}:
 
 {
 

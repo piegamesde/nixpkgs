@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitLab, buildDunePackage, gmp, pkg-config
-, dune-configurator, zarith, integers, alcotest, bisect_ppx }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  buildDunePackage,
+  gmp,
+  pkg-config,
+  dune-configurator,
+  zarith,
+  integers,
+  alcotest,
+  bisect_ppx,
+}:
 
 buildDunePackage (rec {
   pname = "class_group_vdf";

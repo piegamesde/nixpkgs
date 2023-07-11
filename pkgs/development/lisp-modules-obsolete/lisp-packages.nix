@@ -1,4 +1,13 @@
-{ lib, stdenv, clwrapper, pkgs, sbcl, coreutils, nix, asdf }:
+{
+  lib,
+  stdenv,
+  clwrapper,
+  pkgs,
+  sbcl,
+  coreutils,
+  nix,
+  asdf,
+}:
 let
   lispPackages = rec {
     inherit lib pkgs clwrapper stdenv;

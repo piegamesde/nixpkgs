@@ -1,4 +1,11 @@
-{ stdenv, fetchurl, fetchpatch, ncurses ? null, perl ? null, lib }:
+{
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  ncurses ? null,
+  perl ? null,
+  lib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "liboping";

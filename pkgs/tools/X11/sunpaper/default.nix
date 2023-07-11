@@ -1,4 +1,11 @@
-{ lib, stdenvNoCC, fetchFromGitHub, sunwait, wallutils, rPackages }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  sunwait,
+  wallutils,
+  rPackages,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "sunpaper";

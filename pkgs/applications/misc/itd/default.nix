@@ -1,4 +1,9 @@
-{ stdenv, lib, buildGoModule, fetchFromGitea }:
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  fetchFromGitea,
+}:
 
 buildGoModule rec {
   pname = "itd";

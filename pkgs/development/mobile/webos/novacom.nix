@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, webos, cmake, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  webos,
+  cmake,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "novacom";

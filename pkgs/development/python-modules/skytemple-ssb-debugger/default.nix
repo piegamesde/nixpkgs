@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchFromGitHub, gobject-introspection, gtk3
-, gtksourceview4, wrapGAppsHook, nest-asyncio, pycairo, py-desmume
-, pygtkspellcheck, setuptools, skytemple-files, skytemple-icons }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gobject-introspection,
+  gtk3,
+  gtksourceview4,
+  wrapGAppsHook,
+  nest-asyncio,
+  pycairo,
+  py-desmume,
+  pygtkspellcheck,
+  setuptools,
+  skytemple-files,
+  skytemple-icons,
+}:
 
 buildPythonPackage rec {
   pname = "skytemple-ssb-debugger";

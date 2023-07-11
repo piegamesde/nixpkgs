@@ -1,6 +1,17 @@
-{ lib, version, buildPlatform, hostPlatform, targetPlatform
-, gnat-bootstrap ? null, langAda ? false, langJava ? false, langJit ? false
-, langGo, crossStageStatic, enableMultilib }:
+{
+  lib,
+  version,
+  buildPlatform,
+  hostPlatform,
+  targetPlatform,
+  gnat-bootstrap ? null,
+  langAda ? false,
+  langJava ? false,
+  langJit ? false,
+  langGo,
+  crossStageStatic,
+  enableMultilib,
+}:
 
 assert langJava -> lib.versionOlder version "7";
 assert langAda -> gnat-bootstrap != null;

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, backports-zoneinfo
-, python-dateutil, pytz, hypothesis, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  backports-zoneinfo,
+  python-dateutil,
+  pytz,
+  hypothesis,
+  pytest,
+}:
 
 buildPythonPackage rec {
   version = "5.0.4";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pbr, six, callPackage }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pbr,
+  six,
+  callPackage,
+}:
 
 buildPythonPackage rec {
   pname = "os-service-types";

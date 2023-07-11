@@ -1,4 +1,7 @@
-{ pkgs ? (import <nixpkgs> { }), variant }:
+{
+  pkgs ? (import <nixpkgs> { }),
+  variant,
+}:
 
 with pkgs;
 

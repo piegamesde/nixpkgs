@@ -1,5 +1,11 @@
-{ lib, stdenv, buildPackages, targetPackages, gobject-introspection-unwrapped
-, ... }@_args:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  targetPackages,
+  gobject-introspection-unwrapped,
+  ...
+}@_args:
 
 # to build, run
 # `nix build ".#pkgsCross.aarch64-multiplatform.buildPackages.gobject-introspection"`

@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchzip, cmake }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openfec";

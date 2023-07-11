@@ -1,4 +1,8 @@
-{ system ? builtins.currentSystem, config ? { }, networkExpr }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  networkExpr,
+}:
 
 let
   nodes = builtins.mapAttrs (vm: module: {

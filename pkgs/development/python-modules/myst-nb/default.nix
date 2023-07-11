@@ -1,6 +1,22 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, flit-core, importlib-metadata
-, ipython, jupyter-cache, nbclient, myst-parser, nbformat, pyyaml, sphinx
-, sphinx-togglebutton, typing-extensions, ipykernel, pythonRelaxDepsHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  flit-core,
+  importlib-metadata,
+  ipython,
+  jupyter-cache,
+  nbclient,
+  myst-parser,
+  nbformat,
+  pyyaml,
+  sphinx,
+  sphinx-togglebutton,
+  typing-extensions,
+  ipykernel,
+  pythonRelaxDepsHook,
+}:
 
 buildPythonPackage rec {
   pname = "myst-nb";

@@ -1,4 +1,11 @@
-{ qtModule, qtbase, libwebp, jasper, libmng, libtiff }:
+{
+  qtModule,
+  qtbase,
+  libwebp,
+  jasper,
+  libmng,
+  libtiff,
+}:
 
 qtModule {
   pname = "qtimageformats";

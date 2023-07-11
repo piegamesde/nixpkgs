@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libX11, libXaw }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
+  libXaw,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xbomb";

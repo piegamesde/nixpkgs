@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, freezegun, mock, pytestCheckHook
-, python-dateutil, pythonOlder, requests-mock, requests-oauthlib }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  freezegun,
+  mock,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  requests-mock,
+  requests-oauthlib,
+}:
 
 buildPythonPackage rec {
   pname = "fitbit";

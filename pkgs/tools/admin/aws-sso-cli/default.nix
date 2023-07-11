@@ -1,4 +1,10 @@
-{ buildGoModule, fetchFromGitHub, lib, makeWrapper, xdg-utils }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  makeWrapper,
+  xdg-utils,
+}:
 buildGoModule rec {
   pname = "aws-sso-cli";
   version = "1.9.10";

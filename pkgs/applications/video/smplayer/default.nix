@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, qmake, qtscript, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qmake,
+  qtscript,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "smplayer";

@@ -1,7 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder
 
-# tests
-, ipykernel, nbconvert, pytestCheckHook, typing-extensions }:
+  # tests
+  ,
+  ipykernel,
+  nbconvert,
+  pytestCheckHook,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "wasabi";

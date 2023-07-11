@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pycryptodomex
-, pytestCheckHook, requests, xmltodict }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pycryptodomex,
+  pytestCheckHook,
+  requests,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "huawei-lte-api";

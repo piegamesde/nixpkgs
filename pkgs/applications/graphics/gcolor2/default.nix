@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, fetchpatch, gtk2, perlPackages, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  gtk2,
+  perlPackages,
+  pkg-config,
+}:
 
 let version = "0.4";
 in stdenv.mkDerivation {

@@ -1,4 +1,7 @@
-{ fetchFromGitHub, skawarePackages }:
+{
+  fetchFromGitHub,
+  skawarePackages,
+}:
 
 with skawarePackages;
 let

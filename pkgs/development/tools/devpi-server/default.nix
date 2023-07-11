@@ -1,7 +1,29 @@
-{ lib, fetchFromGitHub, buildPythonApplication, isPy27, aiohttp, appdirs
-, beautifulsoup4, defusedxml, devpi-common, execnet, itsdangerous, nginx
-, packaging, passlib, platformdirs, pluggy, py, pyramid, pytestCheckHook
-, repoze_lru, setuptools, strictyaml, waitress, webtest }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonApplication,
+  isPy27,
+  aiohttp,
+  appdirs,
+  beautifulsoup4,
+  defusedxml,
+  devpi-common,
+  execnet,
+  itsdangerous,
+  nginx,
+  packaging,
+  passlib,
+  platformdirs,
+  pluggy,
+  py,
+  pyramid,
+  pytestCheckHook,
+  repoze_lru,
+  setuptools,
+  strictyaml,
+  waitress,
+  webtest,
+}:
 
 buildPythonApplication rec {
   pname = "devpi-server";

@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ lib, pkgs, ... }:
+import ./make-test-python.nix ({
+    lib,
+    pkgs,
+    ...
+  }:
 
   rec {
     name = "wordpress";

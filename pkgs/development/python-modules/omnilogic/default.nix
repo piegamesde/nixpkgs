@@ -1,4 +1,11 @@
-{ lib, aiohttp, xmltodict, buildPythonPackage, pythonOlder, fetchFromGitHub }:
+{
+  lib,
+  aiohttp,
+  xmltodict,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+}:
 
 buildPythonPackage rec {
   pname = "omnilogic";

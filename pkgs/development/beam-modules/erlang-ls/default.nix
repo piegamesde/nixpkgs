@@ -1,5 +1,15 @@
-{ fetchFromGitHub, fetchgit, fetchHex, rebar3Relx, buildRebar3, rebar3-proper
-, stdenv, writeScript, lib, erlang }:
+{
+  fetchFromGitHub,
+  fetchgit,
+  fetchHex,
+  rebar3Relx,
+  buildRebar3,
+  rebar3-proper,
+  stdenv,
+  writeScript,
+  lib,
+  erlang,
+}:
 let
   version = "0.46.2";
   owner = "erlang-ls";

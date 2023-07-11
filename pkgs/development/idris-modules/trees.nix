@@ -1,4 +1,10 @@
-{ build-idris-package, fetchFromGitHub, contrib, bi, lib }:
+{
+  build-idris-package,
+  fetchFromGitHub,
+  contrib,
+  bi,
+  lib,
+}:
 build-idris-package {
   pname = "trees";
   version = "2018-03-19";

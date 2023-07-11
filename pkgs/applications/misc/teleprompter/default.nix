@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, electron_10, makeDesktopItem, makeWrapper, nodePackages
-, autoPatchelfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  electron_10,
+  makeDesktopItem,
+  makeWrapper,
+  nodePackages,
+  autoPatchelfHook,
+}:
 
 let electron = electron_10;
 in stdenv.mkDerivation rec {

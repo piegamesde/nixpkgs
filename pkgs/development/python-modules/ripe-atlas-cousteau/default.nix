@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, jsonschema, pytestCheckHook
-, python-dateutil, python-socketio, pythonOlder, requests, websocket-client }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jsonschema,
+  pytestCheckHook,
+  python-dateutil,
+  python-socketio,
+  pythonOlder,
+  requests,
+  websocket-client,
+}:
 
 buildPythonPackage rec {
   pname = "ripe-atlas-cousteau";

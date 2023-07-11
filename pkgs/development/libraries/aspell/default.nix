@@ -1,9 +1,21 @@
-{ lib, stdenv, fetchurl, fetchpatch, fetchzip, perl, ncurses
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  fetchzip,
+  perl,
+  ncurses
 
-# for tests
-, aspell, glibc, runCommand
+  # for tests
+  ,
+  aspell,
+  glibc,
+  runCommand
 
-, searchNixProfiles ? true }:
+  ,
+  searchNixProfiles ? true
+}:
 
 let
 

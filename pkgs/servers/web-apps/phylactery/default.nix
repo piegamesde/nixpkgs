@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromSourcehut, nixosTests }:
+{
+  lib,
+  buildGoModule,
+  fetchFromSourcehut,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "phylactery";

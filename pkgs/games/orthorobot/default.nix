@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, love, zip, fetchpatch, makeWrapper
-, makeDesktopItem, copyDesktopItems }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  love,
+  zip,
+  fetchpatch,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+}:
 
 stdenv.mkDerivation rec {
   pname = "orthorobot";

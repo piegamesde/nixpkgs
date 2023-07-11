@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchgit, wrapGAppsHook, cairo, glib, gnome, gst_all_1, gtk3
-, intltool, libtool, pkg-config, which, xorg }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  wrapGAppsHook,
+  cairo,
+  glib,
+  gnome,
+  gst_all_1,
+  gtk3,
+  intltool,
+  libtool,
+  pkg-config,
+  which,
+  xorg,
+}:
 
 stdenv.mkDerivation {
   pname = "byzanz";

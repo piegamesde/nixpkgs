@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchpatch, fetchurl, fetchFromGitHub, cmake, libpng, SDL2
-, SDL2_mixer }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchurl,
+  fetchFromGitHub,
+  cmake,
+  libpng,
+  SDL2,
+  SDL2_mixer,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nxengine-evo";

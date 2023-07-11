@@ -1,4 +1,7 @@
-{ lib, bundlerApp }:
+{
+  lib,
+  bundlerApp,
+}:
 
 bundlerApp {
   pname = "xcode-install";

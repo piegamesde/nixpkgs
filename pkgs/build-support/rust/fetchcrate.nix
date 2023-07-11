@@ -1,6 +1,16 @@
-{ lib, fetchzip, fetchurl }:
+{
+  lib,
+  fetchzip,
+  fetchurl,
+}:
 
-{ crateName ? args.pname, pname ? null, version, unpack ? true, ... }@args:
+{
+  crateName ? args.pname,
+  pname ? null,
+  version,
+  unpack ? true,
+  ...
+}@args:
 
 assert pname == null || pname == crateName;
 

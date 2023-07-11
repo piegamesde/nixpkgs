@@ -1,5 +1,14 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, scikit-learn, scipy
-, pytestCheckHook, isPy27, fetchpatch }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  scikit-learn,
+  scipy,
+  pytestCheckHook,
+  isPy27,
+  fetchpatch,
+}:
 
 buildPythonPackage rec {
   pname = "bayesian-optimization";

@@ -1,4 +1,9 @@
-{ branch ? "mainline", libsForQt5, fetchFromGitHub, fetchurl }:
+{
+  branch ? "mainline",
+  libsForQt5,
+  fetchFromGitHub,
+  fetchurl,
+}:
 
 let
   # Mirror of https://api.yuzu-emu.org/gamedb, last updated 2022-08-13

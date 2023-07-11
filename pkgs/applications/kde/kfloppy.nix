@@ -1,4 +1,11 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, kcompletion, kxmlgui }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  kcompletion,
+  kxmlgui,
+}:
 
 mkDerivation {
   pname = "kfloppy";

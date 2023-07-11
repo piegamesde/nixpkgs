@@ -1,5 +1,18 @@
-{ lib, rustPlatform, fetchgit, pkg-config, protobuf, python3, wayland-scanner
-, libcap, libdrm, libepoxy, minijail, virglrenderer, wayland, wayland-protocols
+{
+  lib,
+  rustPlatform,
+  fetchgit,
+  pkg-config,
+  protobuf,
+  python3,
+  wayland-scanner,
+  libcap,
+  libdrm,
+  libepoxy,
+  minijail,
+  virglrenderer,
+  wayland,
+  wayland-protocols,
 }:
 
 rustPlatform.buildRustPackage rec {

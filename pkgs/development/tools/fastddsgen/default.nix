@@ -1,5 +1,15 @@
-{ lib, stdenv, runtimeShell, writeText, fetchFromGitHub, gradle_7, openjdk17
-, git, perl, cmake }:
+{
+  lib,
+  stdenv,
+  runtimeShell,
+  writeText,
+  fetchFromGitHub,
+  gradle_7,
+  openjdk17,
+  git,
+  perl,
+  cmake,
+}:
 let
   pname = "fastddsgen";
   version = "2.3.0";

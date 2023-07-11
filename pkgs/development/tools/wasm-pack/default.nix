@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, libressl, curl
-, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  libressl,
+  curl,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "wasm-pack";

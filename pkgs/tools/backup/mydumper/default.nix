@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, sphinx, glib, pcre
-, libmysqlclient, libressl, zlib, zstd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  sphinx,
+  glib,
+  pcre,
+  libmysqlclient,
+  libressl,
+  zlib,
+  zstd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mydumper";

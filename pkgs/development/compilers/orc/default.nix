@@ -1,9 +1,22 @@
-{ lib, stdenv, fetchurl, meson, ninja, file, docbook_xsl, gtk-doc ? null
-, buildDevDoc ? gtk-doc != null
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  file,
+  docbook_xsl,
+  gtk-doc ? null,
+  buildDevDoc ? gtk-doc != null
 
-  # for passthru.tests
-, gnuradio, gst_all_1, qt6, vips
+    # for passthru.tests
+  ,
+  gnuradio,
+  gst_all_1,
+  qt6,
+  vips
 
+  ,
 }:
 let inherit (lib) optional optionals;
 in stdenv.mkDerivation rec {

@@ -1,5 +1,12 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, freezegun, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  freezegun,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "ftputil";

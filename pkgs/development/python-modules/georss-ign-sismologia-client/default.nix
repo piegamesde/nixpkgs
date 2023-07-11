@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, georss-client, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  georss-client,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "georss-ign-sismologia-client";

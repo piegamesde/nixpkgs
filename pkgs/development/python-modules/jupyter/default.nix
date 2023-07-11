@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, notebook, qtconsole, jupyter_console
-, nbconvert, ipykernel, ipywidgets }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  notebook,
+  qtconsole,
+  jupyter_console,
+  nbconvert,
+  ipykernel,
+  ipywidgets,
+}:
 
 buildPythonPackage rec {
   version = "1.0.0";

@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, rustPlatform, stdenv, Security }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  stdenv,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "buildkite-test-collector-rust";

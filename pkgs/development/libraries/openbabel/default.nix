@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchFromGitHub, cmake, zlib, libxml2, eigen, python, cairo, pcre
-, pkg-config, swig, rapidjson }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  zlib,
+  libxml2,
+  eigen,
+  python,
+  cairo,
+  pcre,
+  pkg-config,
+  swig,
+  rapidjson,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openbabel";

@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, substituteAll, argcomplete, pyyaml, toml
-, xmltodict, jq, setuptools-scm, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  substituteAll,
+  argcomplete,
+  pyyaml,
+  toml,
+  xmltodict,
+  jq,
+  setuptools-scm,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "yq";

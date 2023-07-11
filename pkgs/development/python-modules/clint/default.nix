@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, python, mock, blessings, nose, pillow
-, args, pkgs }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  mock,
+  blessings,
+  nose,
+  pillow,
+  args,
+  pkgs,
+}:
 
 buildPythonPackage rec {
   pname = "clint";

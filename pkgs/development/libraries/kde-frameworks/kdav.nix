@@ -1,5 +1,12 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, kcoreaddons, kio
-, qtxmlpatterns, }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  kcoreaddons,
+  kio,
+  qtxmlpatterns,
+}:
 
 mkDerivation {
   pname = "kdav";

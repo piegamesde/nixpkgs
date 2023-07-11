@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitLab, fetchpatch, meson, ninja, pkg-config
-, gobject-introspection, wrapGAppsNoGuiHook, glib, coreutils, accountsservice
-, dbus, pam, polkit, glib-testing, python3, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  meson,
+  ninja,
+  pkg-config,
+  gobject-introspection,
+  wrapGAppsNoGuiHook,
+  glib,
+  coreutils,
+  accountsservice,
+  dbus,
+  pam,
+  polkit,
+  glib-testing,
+  python3,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "malcontent";

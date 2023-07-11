@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchurl, nixosTests, makeWrapper, openjdk11, which, gawk }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  nixosTests,
+  makeWrapper,
+  openjdk11,
+  which,
+  gawk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "neo4j";

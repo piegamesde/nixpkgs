@@ -12,8 +12,11 @@
 # - Wayland support (both for testing the existing terminals, and for testing wayland-only terminals like foot and havoc)
 # - Test keyboard input? (skipped for now, to eliminate the possibility of race conditions and focus issues)
 
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; }
+}:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -112,13 +115,22 @@ let
     xterm.pkg = p: p.xterm;
   };
 in mapAttrs (name:
-  { pkg, executable ? name, cmd ? "SHELL=$command ${executable}"
-  , colourTest ? true, pinkValue ? "#FF0087", kill ? false }:
+  {
+    pkg,
+    executable ? name,
+    cmd ? "SHELL=$command ${executable}",
+    colourTest ? true,
+    pinkValue ? "#FF0087",
+    kill ? false
+  }:
   makeTest {
     name = "terminal-emulator-${name}";
     meta = with pkgs.lib.maintainers; { maintainers = [ jjjollyjim ]; };
 
-    machine = { pkgsInner, ... }:
+    machine = {
+        pkgsInner,
+        ...
+      }:
 
       {
         imports = [ ./common/x11.nix ./common/user-account.nix ];
@@ -165,7 +177,10 @@ in mapAttrs (name:
     # We need imagemagick, though not tesseract
     enableOCR = true;
 
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let
       in ''
         with subtest("wait for x"):

@@ -1,5 +1,20 @@
-{ lib, mkDerivation, fetchFromGitHub, pkg-config, help2man, qmake, alsa-lib
-, libjack2, dbus, qtbase, qttools, qtx11extras, meson, python3, rtaudio, ninja
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  pkg-config,
+  help2man,
+  qmake,
+  alsa-lib,
+  libjack2,
+  dbus,
+  qtbase,
+  qttools,
+  qtx11extras,
+  meson,
+  python3,
+  rtaudio,
+  ninja,
 }:
 
 mkDerivation rec {

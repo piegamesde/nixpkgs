@@ -1,4 +1,8 @@
-{ stdenv, fetchFromGitHub, coreutils }:
+{
+  stdenv,
+  fetchFromGitHub,
+  coreutils,
+}:
 
 let
   yara = fetchFromGitHub {

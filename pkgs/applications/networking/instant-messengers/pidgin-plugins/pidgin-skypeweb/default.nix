@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, pidgin, json-glib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  pidgin,
+  json-glib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pidgin-skypeweb";

@@ -1,5 +1,16 @@
-{ lib, stdenv, cmake, fetchurl, python, blas, lapack, gfortran, suitesparse
-, lapackSupport ? true, kluSupport ? true }:
+{
+  lib,
+  stdenv,
+  cmake,
+  fetchurl,
+  python,
+  blas,
+  lapack,
+  gfortran,
+  suitesparse,
+  lapackSupport ? true,
+  kluSupport ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "sundials";

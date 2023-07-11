@@ -1,4 +1,12 @@
-{ stdenv, lib, pkgs, fzf, gawk, fetchFromGitHub, makeWrapper }:
+{
+  stdenv,
+  lib,
+  pkgs,
+  fzf,
+  gawk,
+  fetchFromGitHub,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sway-launcher-desktop";

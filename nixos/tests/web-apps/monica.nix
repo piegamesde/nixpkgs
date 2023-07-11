@@ -1,4 +1,7 @@
-import ../make-test-python.nix ({ pkgs, ... }:
+import ../make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
     cert = pkgs.runCommand "selfSignedCerts" {
       nativeBuildInputs = [ pkgs.openssl ];
@@ -11,19 +14,22 @@ import ../make-test-python.nix ({ pkgs, ... }:
     name = "monica";
 
     nodes = {
-      machine = { pkgs, ... }: {
-        services.monica = {
-          enable = true;
-          hostname = "localhost";
-          appKeyFile =
-            "${pkgs.writeText "keyfile" "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}";
-          nginx = {
-            forceSSL = true;
-            sslCertificate = "${cert}/cert.pem";
-            sslCertificateKey = "${cert}/key.pem";
+      machine = {
+          pkgs,
+          ...
+        }: {
+          services.monica = {
+            enable = true;
+            hostname = "localhost";
+            appKeyFile =
+              "${pkgs.writeText "keyfile" "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}";
+            nginx = {
+              forceSSL = true;
+              sslCertificate = "${cert}/cert.pem";
+              sslCertificateKey = "${cert}/key.pem";
+            };
           };
         };
-      };
     };
 
     testScript = ''

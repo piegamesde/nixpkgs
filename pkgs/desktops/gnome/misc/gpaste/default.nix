@@ -1,6 +1,23 @@
-{ stdenv, lib, fetchFromGitHub, gjs, glib, gobject-introspection, gtk3, gtk4
-, gcr_4, libadwaita, meson, mutter, ninja, pango, pkg-config, vala
-, desktop-file-utils, wrapGAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  gjs,
+  glib,
+  gobject-introspection,
+  gtk3,
+  gtk4,
+  gcr_4,
+  libadwaita,
+  meson,
+  mutter,
+  ninja,
+  pango,
+  pkg-config,
+  vala,
+  desktop-file-utils,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   version = "44.0";

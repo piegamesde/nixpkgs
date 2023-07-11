@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pygithub, python-gitlab }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pygithub,
+  python-gitlab,
+}:
 
 buildPythonPackage rec {
   pname = "criticality_score";

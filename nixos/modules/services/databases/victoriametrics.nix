@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let cfg = config.services.victoriametrics;
 in {
   options.services.victoriametrics = with lib; {

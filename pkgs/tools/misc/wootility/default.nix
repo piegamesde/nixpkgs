@@ -1,4 +1,11 @@
-{ appimageTools, fetchurl, lib, xorg, udev, wooting-udev-rules }:
+{
+  appimageTools,
+  fetchurl,
+  lib,
+  xorg,
+  udev,
+  wooting-udev-rules,
+}:
 let
   pname = "wootility";
   version = "3.5.12";

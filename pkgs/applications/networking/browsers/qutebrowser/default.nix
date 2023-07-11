@@ -1,9 +1,31 @@
-{ stdenv, lib, fetchurl, fetchzip, fetchFromGitHub, python3, wrapQtAppsHook
-, glib-networking, asciidoc, docbook_xml_dtd_45, docbook_xsl, libxml2, libxslt
-, gst_all_1 ? null, withPdfReader ? true, withMediaPlayback ? true
-, backend ? "webengine", pipewireSupport ? stdenv.isLinux, pipewire, qtwayland
-, mkDerivationWith ? null, qtbase ? null, qtwebengine ? null
-, wrapGAppsHook ? null, enableWideVine ? false, widevine-cdm }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchzip,
+  fetchFromGitHub,
+  python3,
+  wrapQtAppsHook,
+  glib-networking,
+  asciidoc,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  libxml2,
+  libxslt,
+  gst_all_1 ? null,
+  withPdfReader ? true,
+  withMediaPlayback ? true,
+  backend ? "webengine",
+  pipewireSupport ? stdenv.isLinux,
+  pipewire,
+  qtwayland,
+  mkDerivationWith ? null,
+  qtbase ? null,
+  qtwebengine ? null,
+  wrapGAppsHook ? null,
+  enableWideVine ? false,
+  widevine-cdm,
+}:
 let
   isQt6 = mkDerivationWith == null;
 

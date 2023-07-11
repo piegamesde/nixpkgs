@@ -1,6 +1,15 @@
-{ lib, stdenv, cmake, libtorch-bin, linkFarm, symlinkJoin
+{
+  lib,
+  stdenv,
+  cmake,
+  libtorch-bin,
+  linkFarm,
+  symlinkJoin
 
-, cudaSupport, cudaPackages ? { } }:
+  ,
+  cudaSupport,
+  cudaPackages ? { }
+}:
 let
   inherit (cudaPackages) cudatoolkit cudnn;
 

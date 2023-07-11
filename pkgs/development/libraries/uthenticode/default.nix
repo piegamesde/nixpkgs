@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, cmake, gtest, openssl, pe-parse }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  gtest,
+  openssl,
+  pe-parse,
+}:
 
 stdenv.mkDerivation rec {
   pname = "uthenticode";

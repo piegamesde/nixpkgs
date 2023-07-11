@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, imake, gccmakedep, libX11, libXext }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  imake,
+  gccmakedep,
+  libX11,
+  libXext,
+}:
 
 stdenv.mkDerivation rec {
   version_name = "1.2.hanami.6";

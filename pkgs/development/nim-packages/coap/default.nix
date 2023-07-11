@@ -1,4 +1,9 @@
-{ lib, buildNimPackage, fetchFromGitea, taps }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitea,
+  taps,
+}:
 
 buildNimPackage rec {
   pname = "coap";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, cmake, perl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "halibut";

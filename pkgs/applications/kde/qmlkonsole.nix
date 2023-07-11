@@ -1,9 +1,21 @@
-{ lib, mkDerivation
+{
+  lib,
+  mkDerivation
 
-, cmake, extra-cmake-modules
+  ,
+  cmake,
+  extra-cmake-modules
 
-, kconfig, ki18n, kirigami-addons, kirigami2, kcoreaddons, qtquickcontrols2
-, kwindowsystem, qmltermwidget }:
+  ,
+  kconfig,
+  ki18n,
+  kirigami-addons,
+  kirigami2,
+  kcoreaddons,
+  qtquickcontrols2,
+  kwindowsystem,
+  qmltermwidget,
+}:
 
 mkDerivation {
   pname = "qmlkonsole";

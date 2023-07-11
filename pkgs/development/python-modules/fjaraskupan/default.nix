@@ -1,5 +1,12 @@
-{ lib, bleak, buildPythonPackage, fetchFromGitHub, pytest-mock, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  bleak,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "fjaraskupan";

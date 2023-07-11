@@ -1,6 +1,21 @@
-{ lib, stdenv, buildPythonPackage, certifi, fastimport, fetchPypi, gevent
-, geventhttpclient, git, glibcLocales, gnupg, gpgme, paramiko, pytestCheckHook
-, pythonOlder, urllib3 }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  certifi,
+  fastimport,
+  fetchPypi,
+  gevent,
+  geventhttpclient,
+  git,
+  glibcLocales,
+  gnupg,
+  gpgme,
+  paramiko,
+  pytestCheckHook,
+  pythonOlder,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   version = "0.21.3";

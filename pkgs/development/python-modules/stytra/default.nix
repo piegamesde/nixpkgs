@@ -1,8 +1,35 @@
-{ lib, anytree, arrayqueues, av, buildPythonPackage, colorspacious, fetchPypi
-, flammkuchen, git, gitpython, imageio, imageio-ffmpeg, lightparam, matplotlib
-, nose, numba, numpy, opencv3, pandas, pims, pyqt5, pyqtgraph, pyserial
-, pytestCheckHook, pythonOlder, qdarkstyle, qimage2ndarray, scikitimage, scipy
-, tables }:
+{
+  lib,
+  anytree,
+  arrayqueues,
+  av,
+  buildPythonPackage,
+  colorspacious,
+  fetchPypi,
+  flammkuchen,
+  git,
+  gitpython,
+  imageio,
+  imageio-ffmpeg,
+  lightparam,
+  matplotlib,
+  nose,
+  numba,
+  numpy,
+  opencv3,
+  pandas,
+  pims,
+  pyqt5,
+  pyqtgraph,
+  pyserial,
+  pytestCheckHook,
+  pythonOlder,
+  qdarkstyle,
+  qimage2ndarray,
+  scikitimage,
+  scipy,
+  tables,
+}:
 
 buildPythonPackage rec {
   pname = "stytra";

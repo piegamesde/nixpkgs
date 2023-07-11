@@ -1,7 +1,31 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, hypothesis, setuptools-scm
-, six, attrs, py, setuptools, pytest-timeout, pytest-tornado, mock, tabulate
-, nbformat, jsonschema, pytestCheckHook, colorama, pygments, tornado, requests
-, gitpython, jupyter-server, jupyter-server-mathjax, notebook, jinja2 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  hypothesis,
+  setuptools-scm,
+  six,
+  attrs,
+  py,
+  setuptools,
+  pytest-timeout,
+  pytest-tornado,
+  mock,
+  tabulate,
+  nbformat,
+  jsonschema,
+  pytestCheckHook,
+  colorama,
+  pygments,
+  tornado,
+  requests,
+  gitpython,
+  jupyter-server,
+  jupyter-server-mathjax,
+  notebook,
+  jinja2,
+}:
 
 buildPythonPackage rec {
   pname = "nbdime";

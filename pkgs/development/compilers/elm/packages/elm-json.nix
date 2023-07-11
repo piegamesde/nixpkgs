@@ -1,4 +1,13 @@
-{ lib, curl, rustPlatform, fetchurl, openssl, stdenv, pkg-config, darwin }:
+{
+  lib,
+  curl,
+  rustPlatform,
+  fetchurl,
+  openssl,
+  stdenv,
+  pkg-config,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "elm-json";

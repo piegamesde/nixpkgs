@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pytest,
+}:
 
 buildPythonPackage rec {
   version = "1.1.0";

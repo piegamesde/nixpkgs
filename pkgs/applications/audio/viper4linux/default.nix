@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, gst_all_1, libviperfx, makeWrapper
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  gst_all_1,
+  libviperfx,
+  makeWrapper,
 }:
 let
   gstPluginPath = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0"

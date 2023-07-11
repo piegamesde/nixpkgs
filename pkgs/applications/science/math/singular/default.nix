@@ -1,10 +1,36 @@
-{ stdenv, fetchFromGitHub, gmp, bison, perl, ncurses, readline, coreutils
-, pkg-config, lib, autoreconfHook, buildPackages, sharutils, file, getconf
-, flint, ntl, cddlib, gfan, lrcalc, doxygen, graphviz, latex2html
-# upstream generates docs with texinfo 4. later versions of texinfo
-# use letters instead of numbers for post-appendix chapters, and we
-# want it to match the upstream format because sage depends on it.
-, texinfo4, texlive, enableDocs ? !stdenv.isDarwin, enableGfanlib ? true }:
+{
+  stdenv,
+  fetchFromGitHub,
+  gmp,
+  bison,
+  perl,
+  ncurses,
+  readline,
+  coreutils,
+  pkg-config,
+  lib,
+  autoreconfHook,
+  buildPackages,
+  sharutils,
+  file,
+  getconf,
+  flint,
+  ntl,
+  cddlib,
+  gfan,
+  lrcalc,
+  doxygen,
+  graphviz,
+  latex2html
+  # upstream generates docs with texinfo 4. later versions of texinfo
+  # use letters instead of numbers for post-appendix chapters, and we
+  # want it to match the upstream format because sage depends on it.
+  ,
+  texinfo4,
+  texlive,
+  enableDocs ? !stdenv.isDarwin,
+  enableGfanlib ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "singular";

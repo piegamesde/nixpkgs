@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, libpcap, coreutils }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libpcap,
+  coreutils,
+}:
 
 stdenv.mkDerivation {
   pname = "crackle";

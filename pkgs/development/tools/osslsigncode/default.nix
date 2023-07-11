@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, fetchpatch, pkg-config, curl, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  fetchpatch,
+  pkg-config,
+  curl,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "osslsigncode";

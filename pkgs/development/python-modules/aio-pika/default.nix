@@ -1,6 +1,18 @@
-{ lib, aiomisc-pytest, aiormq, buildPythonPackage, fetchFromGitHub, pamqp
-, poetry-core, pytestCheckHook, pythonOlder, setuptools, shortuuid
-, typing-extensions, yarl }:
+{
+  lib,
+  aiomisc-pytest,
+  aiormq,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pamqp,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  shortuuid,
+  typing-extensions,
+  yarl,
+}:
 
 buildPythonPackage rec {
   pname = "aio-pika";

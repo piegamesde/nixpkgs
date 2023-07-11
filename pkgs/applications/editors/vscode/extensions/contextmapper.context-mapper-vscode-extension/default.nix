@@ -1,4 +1,10 @@
-{ graphviz, jre, lib, makeWrapper, vscode-utils }:
+{
+  graphviz,
+  jre,
+  lib,
+  makeWrapper,
+  vscode-utils,
+}:
 
 vscode-utils.buildVscodeMarketplaceExtension rec {
   mktplcRef = {

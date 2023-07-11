@@ -1,7 +1,19 @@
-{ lib, stdenv, fetchurl, bison, buildPackages, pkgsBuildTarget }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bison,
+  buildPackages,
+  pkgsBuildTarget,
+}:
 
 let
-  mkJam = { pname, version, src, meta ? { } }:
+  mkJam = {
+      pname,
+      version,
+      src,
+      meta ? { }
+    }:
     stdenv.mkDerivation {
       inherit pname version src;
 

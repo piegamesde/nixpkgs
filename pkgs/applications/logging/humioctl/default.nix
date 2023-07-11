@@ -1,4 +1,9 @@
-{ buildGoModule, fetchFromGitHub, installShellFiles, lib }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  lib,
+}:
 
 let
   humioCtlVersion = "0.30.2";

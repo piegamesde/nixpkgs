@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, msrest, msrestazure, azure-common
-, azure-mgmt-nspkg, azure-mgmt-core }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  msrest,
+  msrestazure,
+  azure-common,
+  azure-mgmt-nspkg,
+  azure-mgmt-core,
+}:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-datamigration";

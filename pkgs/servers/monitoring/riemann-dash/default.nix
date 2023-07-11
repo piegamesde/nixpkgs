@@ -1,4 +1,8 @@
-{ bundlerApp, lib, bundlerUpdateScript }:
+{
+  bundlerApp,
+  lib,
+  bundlerUpdateScript,
+}:
 
 bundlerApp {
   pname = "riemann-dash";

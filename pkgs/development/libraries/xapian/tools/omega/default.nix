@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, pkg-config, xapian, perl, pcre2, zlib, libmagic }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  xapian,
+  perl,
+  pcre2,
+  zlib,
+  libmagic,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xapian-omega";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, aiodns, aiohttp
-, backports-zoneinfo, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  aiodns,
+  aiohttp,
+  backports-zoneinfo,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "forecast-solar";

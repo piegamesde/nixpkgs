@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools, six, pytestCheckHook
-, python-dateutil }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  six,
+  pytestCheckHook,
+  python-dateutil,
+}:
 
 buildPythonPackage rec {
   version = "0.8.1";

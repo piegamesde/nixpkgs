@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, testers, tbls }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  testers,
+  tbls,
+}:
 
 buildGoModule rec {
   pname = "tbls";

@@ -1,4 +1,10 @@
-{ lib, stdenv, perlPackages, fetchFromGitHub, shortenPerlShebang }:
+{
+  lib,
+  stdenv,
+  perlPackages,
+  fetchFromGitHub,
+  shortenPerlShebang,
+}:
 
 perlPackages.buildPerlPackage rec {
   pname = "pgtop";

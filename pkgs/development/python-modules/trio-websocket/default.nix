@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, async_generator, pytest-trio
-, pytestCheckHook, trio, trustme, wsproto }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  async_generator,
+  pytest-trio,
+  pytestCheckHook,
+  trio,
+  trustme,
+  wsproto,
+}:
 
 buildPythonPackage rec {
   pname = "trio-websocket";

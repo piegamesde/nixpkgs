@@ -1,4 +1,8 @@
-{ lib, haskellPackages, runCommand }:
+{
+  lib,
+  haskellPackages,
+  runCommand,
+}:
 
 let localRaw = haskellPackages.callPackage ./local/generated.nix { };
 in lib.recurseIntoAttrs rec {

@@ -1,5 +1,12 @@
-{ build-idris-package, fetchFromGitHub, effects, containers, lightyear, test
-, lib }:
+{
+  build-idris-package,
+  fetchFromGitHub,
+  effects,
+  containers,
+  lightyear,
+  test,
+  lib,
+}:
 build-idris-package {
   pname = "config";
   version = "2017-11-06";

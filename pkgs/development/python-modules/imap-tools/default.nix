@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, isPy27, fetchFromGitHub, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  isPy27,
+  fetchFromGitHub,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "imap-tools";

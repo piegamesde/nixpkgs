@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, isPy3k, fetchPypi, substituteAll, graphviz, coreutils
-, pkg-config, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  isPy3k,
+  fetchPypi,
+  substituteAll,
+  graphviz,
+  coreutils,
+  pkg-config,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "pygraphviz";

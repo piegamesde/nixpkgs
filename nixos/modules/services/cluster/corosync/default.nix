@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let cfg = config.services.corosync;
@@ -64,17 +69,21 @@ in {
 
       nodelist {
         ${
-          concatMapStrings ({ nodeid, name, ring_addrs }: ''
-            node {
-              nodeid: ${toString nodeid}
-              name: ${name}
-              ${
-                concatStrings (imap0 (i: addr: ''
-                  ring${toString i}_addr: ${addr}
-                '') ring_addrs)
+          concatMapStrings ({
+              nodeid,
+              name,
+              ring_addrs,
+            }: ''
+              node {
+                nodeid: ${toString nodeid}
+                name: ${name}
+                ${
+                  concatStrings (imap0 (i: addr: ''
+                    ring${toString i}_addr: ${addr}
+                  '') ring_addrs)
+                }
               }
-            }
-          '') cfg.nodelist
+            '') cfg.nodelist
         }
       }
 

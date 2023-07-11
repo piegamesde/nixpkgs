@@ -1,6 +1,23 @@
-{ lib, buildPythonPackage, fetchFromGitHub, numpy, scipy, pytestCheckHook
-, pytest-timeout, h5py, matplotlib, nibabel, pandas, scikit-learn, decorator
-, jinja2, pooch, tqdm, setuptools, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  scipy,
+  pytestCheckHook,
+  pytest-timeout,
+  h5py,
+  matplotlib,
+  nibabel,
+  pandas,
+  scikit-learn,
+  decorator,
+  jinja2,
+  pooch,
+  tqdm,
+  setuptools,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "mne-python";

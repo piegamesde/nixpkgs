@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchurl, cmake, perl, gnuplot }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  cmake,
+  perl,
+  gnuplot,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libcerf";

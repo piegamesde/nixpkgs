@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, dde-api }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  dde-api,
+}:
 
 stdenv.mkDerivation rec {
   pname = "deepin-wallpapers";

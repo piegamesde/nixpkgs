@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, gevent, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gevent,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "gipc";

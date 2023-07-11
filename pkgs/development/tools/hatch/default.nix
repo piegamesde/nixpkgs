@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchPypi, python3, git }:
+{
+  lib,
+  stdenv,
+  fetchPypi,
+  python3,
+  git,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "hatch";

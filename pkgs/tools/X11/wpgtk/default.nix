@@ -1,5 +1,13 @@
-{ lib, python3Packages, fetchFromGitHub, libxslt, gobject-introspection, gtk3
-, wrapGAppsHook, gnome }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  libxslt,
+  gobject-introspection,
+  gtk3,
+  wrapGAppsHook,
+  gnome,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "wpgtk";

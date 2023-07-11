@@ -1,6 +1,17 @@
-{ lib, stdenv, fetchurl, buildPackages, coreutils, pam, groff, sssd, nixosTests
-, sendmailPath ? "/run/wrappers/bin/sendmail", withInsults ? false
-, withSssd ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  buildPackages,
+  coreutils,
+  pam,
+  groff,
+  sssd,
+  nixosTests,
+  sendmailPath ? "/run/wrappers/bin/sendmail",
+  withInsults ? false,
+  withSssd ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "sudo";

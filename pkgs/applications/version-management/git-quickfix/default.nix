@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, libiconv, openssl, pkg-config, rustPlatform, stdenv
-, Security, SystemConfiguration }:
+{
+  lib,
+  fetchFromGitHub,
+  libiconv,
+  openssl,
+  pkg-config,
+  rustPlatform,
+  stdenv,
+  Security,
+  SystemConfiguration,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "git-quickfix";

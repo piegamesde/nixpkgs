@@ -1,7 +1,24 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, dtkwidget, qt5integration
-, qt5platform-plugins, dde-qt-dbus-factory, cmake, qtbase, qtsvg, qttools
-, qtx11extras, pkg-config, wrapQtAppsHook, at-spi2-core, libsecret, chrpath
-, lxqt }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  dde-qt-dbus-factory,
+  cmake,
+  qtbase,
+  qtsvg,
+  qttools,
+  qtx11extras,
+  pkg-config,
+  wrapQtAppsHook,
+  at-spi2-core,
+  libsecret,
+  chrpath,
+  lxqt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "deepin-terminal";

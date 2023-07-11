@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy27, pytestCheckHook, scipy
-, numpy, scikit-learn, pandas, matplotlib, joblib }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy27,
+  pytestCheckHook,
+  scipy,
+  numpy,
+  scikit-learn,
+  pandas,
+  matplotlib,
+  joblib,
+}:
 
 buildPythonPackage rec {
   pname = "mlxtend";

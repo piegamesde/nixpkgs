@@ -1,8 +1,23 @@
-{ stdenv, ghc, pkg-config, glibcLocales, cacert, stack, makeSetupHook, lib
+{
+  stdenv,
+  ghc,
+  pkg-config,
+  glibcLocales,
+  cacert,
+  stack,
+  makeSetupHook,
+  lib,
 }@depArgs:
 
-{ buildInputs ? [ ], nativeBuildInputs ? [ ], extraArgs ? [ ]
-, LD_LIBRARY_PATH ? [ ], ghc ? depArgs.ghc, stack ? depArgs.stack, ... }@args:
+{
+  buildInputs ? [ ],
+  nativeBuildInputs ? [ ],
+  extraArgs ? [ ],
+  LD_LIBRARY_PATH ? [ ],
+  ghc ? depArgs.ghc,
+  stack ? depArgs.stack,
+  ...
+}@args:
 
 let
 

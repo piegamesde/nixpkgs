@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, poetry-core
-, pytest-asyncio, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "discovery30303";

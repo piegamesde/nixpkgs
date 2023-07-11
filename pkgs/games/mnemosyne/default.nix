@@ -1,4 +1,10 @@
-{ lib, stdenv, python, fetchurl, anki }:
+{
+  lib,
+  stdenv,
+  python,
+  fetchurl,
+  anki,
+}:
 
 python.pkgs.buildPythonApplication rec {
   pname = "mnemosyne";

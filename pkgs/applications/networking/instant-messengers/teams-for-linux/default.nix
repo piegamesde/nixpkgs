@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, makeDesktopItem, copyDesktopItems
-, yarn, nodejs, fetchYarnDeps, fixup_yarn_lock, electron, libpulseaudio
-, pipewire, alsa-utils, which }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  yarn,
+  nodejs,
+  fetchYarnDeps,
+  fixup_yarn_lock,
+  electron,
+  libpulseaudio,
+  pipewire,
+  alsa-utils,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "teams-for-linux";

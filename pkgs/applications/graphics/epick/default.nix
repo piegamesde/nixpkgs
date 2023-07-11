@@ -1,5 +1,17 @@
-{ lib, rustPlatform, fetchFromGitHub, stdenv, pkg-config, expat, fontconfig
-, freetype, libGL, xorg, darwin, AppKit }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  stdenv,
+  pkg-config,
+  expat,
+  fontconfig,
+  freetype,
+  libGL,
+  xorg,
+  darwin,
+  AppKit,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "epick";

@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
 
   let
     remoteRepository = "/root/restic-backup";
@@ -39,54 +42,57 @@ import ./make-test-python.nix ({ pkgs, ... }:
     meta = with pkgs.lib.maintainers; { maintainers = [ bbigras i077 ]; };
 
     nodes = {
-      server = { pkgs, ... }: {
-        services.restic.backups = {
-          remotebackup = {
-            inherit passwordFile paths exclude pruneOpts backupPrepareCommand
-              backupCleanupCommand;
-            repository = remoteRepository;
-            initialize = true;
-          };
-          remote-from-file-backup = {
-            inherit passwordFile paths exclude pruneOpts;
-            initialize = true;
-            repositoryFile =
-              pkgs.writeText "repositoryFile" remoteFromFileRepository;
-          };
-          rclonebackup = {
-            inherit passwordFile paths exclude pruneOpts;
-            initialize = true;
-            repository = rcloneRepository;
-            rcloneConfig = {
-              type = "local";
-              one_file_system = true;
+      server = {
+          pkgs,
+          ...
+        }: {
+          services.restic.backups = {
+            remotebackup = {
+              inherit passwordFile paths exclude pruneOpts backupPrepareCommand
+                backupCleanupCommand;
+              repository = remoteRepository;
+              initialize = true;
             };
+            remote-from-file-backup = {
+              inherit passwordFile paths exclude pruneOpts;
+              initialize = true;
+              repositoryFile =
+                pkgs.writeText "repositoryFile" remoteFromFileRepository;
+            };
+            rclonebackup = {
+              inherit passwordFile paths exclude pruneOpts;
+              initialize = true;
+              repository = rcloneRepository;
+              rcloneConfig = {
+                type = "local";
+                one_file_system = true;
+              };
 
-            # This gets overridden by rcloneConfig.type
-            rcloneConfigFile = pkgs.writeText "rclone.conf" ''
-              [local]
-              type=ftp
-            '';
-          };
-          remoteprune = {
-            inherit passwordFile;
-            repository = remoteRepository;
-            pruneOpts = [ "--keep-last 1" ];
-          };
-          custompackage = {
-            inherit passwordFile paths;
-            repository = "some-fake-repository";
-            package = pkgs.writeShellScriptBin "restic" ''
-              echo "$@" >> /root/fake-restic.log;
-            '';
+              # This gets overridden by rcloneConfig.type
+              rcloneConfigFile = pkgs.writeText "rclone.conf" ''
+                [local]
+                type=ftp
+              '';
+            };
+            remoteprune = {
+              inherit passwordFile;
+              repository = remoteRepository;
+              pruneOpts = [ "--keep-last 1" ];
+            };
+            custompackage = {
+              inherit passwordFile paths;
+              repository = "some-fake-repository";
+              package = pkgs.writeShellScriptBin "restic" ''
+                echo "$@" >> /root/fake-restic.log;
+              '';
 
-            pruneOpts = [ "--keep-last 1" ];
-            checkOpts = [ "--some-check-option" ];
+              pruneOpts = [ "--keep-last 1" ];
+              checkOpts = [ "--some-check-option" ];
+            };
           };
+
+          environment.sessionVariables.RCLONE_CONFIG_LOCAL_TYPE = "local";
         };
-
-        environment.sessionVariables.RCLONE_CONFIG_LOCAL_TYPE = "local";
-      };
     };
 
     testScript = ''

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, makeWrapper, SDL, SDL_image }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  SDL,
+  SDL_image,
+}:
 
 stdenv.mkDerivation rec {
   pname = "airstrike-pre";

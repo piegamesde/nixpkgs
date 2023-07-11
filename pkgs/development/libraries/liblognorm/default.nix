@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, libestr, json_c, pcre, fastJson }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libestr,
+  json_c,
+  pcre,
+  fastJson,
+}:
 
 stdenv.mkDerivation rec {
   pname = "liblognorm";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, IOKit, cctools }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  IOKit,
+  cctools,
+}:
 
 stdenv.mkDerivation rec {
   pname = "unicorn";

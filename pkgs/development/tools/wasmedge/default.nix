@@ -1,5 +1,15 @@
-{ lib, fetchFromGitHub, llvmPackages, boost, cmake, gtest, spdlog, libxml2
-, libffi, Foundation }:
+{
+  lib,
+  fetchFromGitHub,
+  llvmPackages,
+  boost,
+  cmake,
+  gtest,
+  spdlog,
+  libxml2,
+  libffi,
+  Foundation,
+}:
 
 let stdenv = llvmPackages.stdenv;
 in stdenv.mkDerivation rec {

@@ -1,11 +1,47 @@
-{ stdenv, lib, fetchurl, pipewire, makeWrapper, xar, cpio
-# Dynamic libraries
-, alsa-lib, atk, at-spi2-atk, at-spi2-core, cairo, cups, dbus, expat, libdrm
-, libGL, fontconfig, freetype, gtk3, gdk-pixbuf, glib, mesa, nspr, nss, pango
-, wayland, xorg, libxkbcommon, udev, zlib, libkrb5
-# Runtime
-, coreutils, pciutils, procps, util-linux, pulseaudioSupport ? true
-, libpulseaudio }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pipewire,
+  makeWrapper,
+  xar,
+  cpio
+  # Dynamic libraries
+  ,
+  alsa-lib,
+  atk,
+  at-spi2-atk,
+  at-spi2-core,
+  cairo,
+  cups,
+  dbus,
+  expat,
+  libdrm,
+  libGL,
+  fontconfig,
+  freetype,
+  gtk3,
+  gdk-pixbuf,
+  glib,
+  mesa,
+  nspr,
+  nss,
+  pango,
+  wayland,
+  xorg,
+  libxkbcommon,
+  udev,
+  zlib,
+  libkrb5
+  # Runtime
+  ,
+  coreutils,
+  pciutils,
+  procps,
+  util-linux,
+  pulseaudioSupport ? true,
+  libpulseaudio,
+}:
 
 let
   inherit (stdenv.hostPlatform) system;

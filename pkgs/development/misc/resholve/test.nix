@@ -1,7 +1,32 @@
-{ lib, stdenv, callPackage, resholve, shunit2, fetchFromGitHub, coreutils
-, gnused, gnugrep, findutils, jq, bash, bats, libressl, openssl, python27, file
-, gettext, rSrc, runDemo ? false, binlore, sqlite, util-linux, gawk, rlwrap
-, gnutar, bc }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  resholve,
+  shunit2,
+  fetchFromGitHub,
+  coreutils,
+  gnused,
+  gnugrep,
+  findutils,
+  jq,
+  bash,
+  bats,
+  libressl,
+  openssl,
+  python27,
+  file,
+  gettext,
+  rSrc,
+  runDemo ? false,
+  binlore,
+  sqlite,
+  util-linux,
+  gawk,
+  rlwrap,
+  gnutar,
+  bc,
+}:
 
 let
   default_packages = [ bash file findutils gettext ];

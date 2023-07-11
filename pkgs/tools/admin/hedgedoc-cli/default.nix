@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, wget, jq, curl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  wget,
+  jq,
+  curl,
+}:
 
 let version = "1.0";
 in stdenv.mkDerivation {

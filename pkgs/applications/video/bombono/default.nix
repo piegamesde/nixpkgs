@@ -1,9 +1,30 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, fetchpatch, scons, boost172
-, dvdauthor, dvdplusrwtools, enca, cdrkit, ffmpeg_4, gettext, gtk2, gtkmm2
-, libdvdread, libxmlxx, mjpegtools, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  fetchpatch,
+  scons,
+  boost172,
+  dvdauthor,
+  dvdplusrwtools,
+  enca,
+  cdrkit,
+  ffmpeg_4,
+  gettext,
+  gtk2,
+  gtkmm2,
+  libdvdread,
+  libxmlxx,
+  mjpegtools,
+  wrapGAppsHook,
+}:
 
 let
-  fetchPatchFromAur = { name, sha256 }:
+  fetchPatchFromAur = {
+      name,
+      sha256,
+    }:
     fetchpatch {
       inherit name sha256;
       url =

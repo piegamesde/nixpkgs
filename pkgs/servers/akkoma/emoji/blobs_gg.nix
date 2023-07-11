@@ -1,4 +1,7 @@
-{ lib, fetchzip }:
+{
+  lib,
+  fetchzip,
+}:
 
 let rev = "e764ba00b9c34524e3ff3ffd19a44fa2a5c296a5";
 in fetchzip {

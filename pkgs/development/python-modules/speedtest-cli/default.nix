@@ -1,4 +1,8 @@
-{ lib, buildPythonPackage, fetchPypi }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+}:
 
 # cannot be built as pythonApplication because the library functions are
 # required for home-assistant

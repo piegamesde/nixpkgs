@@ -1,4 +1,10 @@
-{ config, options, pkgs, lib, ... }:
+{
+  config,
+  options,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -8,160 +14,168 @@ let
   opt = options.services.rspamd;
   postfixCfg = config.services.postfix;
 
-  bindSocketOpts = { options, config, ... }: {
-    options = {
-      socket = mkOption {
-        type = types.str;
-        example = "localhost:11333";
-        description = lib.mdDoc ''
-          Socket for this worker to listen on in a format acceptable by rspamd.
-        '';
+  bindSocketOpts = {
+      options,
+      config,
+      ...
+    }: {
+      options = {
+        socket = mkOption {
+          type = types.str;
+          example = "localhost:11333";
+          description = lib.mdDoc ''
+            Socket for this worker to listen on in a format acceptable by rspamd.
+          '';
+        };
+        mode = mkOption {
+          type = types.str;
+          default = "0644";
+          description = lib.mdDoc "Mode to set on unix socket";
+        };
+        owner = mkOption {
+          type = types.str;
+          default = "${cfg.user}";
+          description = lib.mdDoc "Owner to set on unix socket";
+        };
+        group = mkOption {
+          type = types.str;
+          default = "${cfg.group}";
+          description = lib.mdDoc "Group to set on unix socket";
+        };
+        rawEntry = mkOption {
+          type = types.str;
+          internal = true;
+        };
       };
-      mode = mkOption {
-        type = types.str;
-        default = "0644";
-        description = lib.mdDoc "Mode to set on unix socket";
-      };
-      owner = mkOption {
-        type = types.str;
-        default = "${cfg.user}";
-        description = lib.mdDoc "Owner to set on unix socket";
-      };
-      group = mkOption {
-        type = types.str;
-        default = "${cfg.group}";
-        description = lib.mdDoc "Group to set on unix socket";
-      };
-      rawEntry = mkOption {
-        type = types.str;
-        internal = true;
-      };
+      config.rawEntry = let
+        maybeOption = option:
+          optionalString options.${option}.isDefined
+          " ${option}=${config.${option}}";
+      in if (!(hasPrefix "/" config.socket)) then
+        "${config.socket}"
+      else
+        "${config.socket}${maybeOption "mode"}${maybeOption "owner"}${
+          maybeOption "group"
+        }";
     };
-    config.rawEntry = let
-      maybeOption = option:
-        optionalString options.${option}.isDefined
-        " ${option}=${config.${option}}";
-    in if (!(hasPrefix "/" config.socket)) then
-      "${config.socket}"
-    else
-      "${config.socket}${maybeOption "mode"}${maybeOption "owner"}${
-        maybeOption "group"
-      }";
-  };
 
   traceWarning = w: x: builtins.trace "[1;31mwarning: ${w}[0m" x;
 
-  workerOpts = { name, options, ... }: {
-    options = {
-      enable = mkOption {
-        type = types.nullOr types.bool;
-        default = null;
-        description = lib.mdDoc "Whether to run the rspamd worker.";
+  workerOpts = {
+      name,
+      options,
+      ...
+    }: {
+      options = {
+        enable = mkOption {
+          type = types.nullOr types.bool;
+          default = null;
+          description = lib.mdDoc "Whether to run the rspamd worker.";
+        };
+        name = mkOption {
+          type = types.nullOr types.str;
+          default = name;
+          description = lib.mdDoc "Name of the worker";
+        };
+        type = mkOption {
+          type = types.nullOr (types.enum [
+            "normal"
+            "controller"
+            "fuzzy"
+            "rspamd_proxy"
+            "lua"
+            "proxy"
+          ]);
+          description = lib.mdDoc ''
+            The type of this worker. The type `proxy` is
+            deprecated and only kept for backwards compatibility and should be
+            replaced with `rspamd_proxy`.
+          '';
+          apply = let
+            from = ''services.rspamd.workers."${name}".type'';
+            files = options.type.files;
+            warning = "The option `${from}` defined in ${
+                showFiles files
+              } has enum value `proxy` which has been renamed to `rspamd_proxy`";
+          in x: if x == "proxy" then traceWarning warning "rspamd_proxy" else x;
+        };
+        bindSockets = mkOption {
+          type = types.listOf
+            (types.either types.str (types.submodule bindSocketOpts));
+          default = [ ];
+          description = lib.mdDoc ''
+            List of sockets to listen, in format acceptable by rspamd
+          '';
+          example = [
+            {
+              socket = "/run/rspamd.sock";
+              mode = "0666";
+              owner = "rspamd";
+            }
+            "*:11333"
+          ];
+          apply = value:
+            map (each:
+              if (isString each) then
+                if (isUnixSocket each) then {
+                  socket = each;
+                  owner = cfg.user;
+                  group = cfg.group;
+                  mode = "0644";
+                  rawEntry = "${each}";
+                } else {
+                  socket = each;
+                  rawEntry = "${each}";
+                }
+              else
+                each) value;
+        };
+        count = mkOption {
+          type = types.nullOr types.int;
+          default = null;
+          description = lib.mdDoc ''
+            Number of worker instances to run
+          '';
+        };
+        includes = mkOption {
+          type = types.listOf types.str;
+          default = [ ];
+          description = lib.mdDoc ''
+            List of files to include in configuration
+          '';
+        };
+        extraConfig = mkOption {
+          type = types.lines;
+          default = "";
+          description = lib.mdDoc
+            "Additional entries to put verbatim into worker section of rspamd config file.";
+        };
       };
-      name = mkOption {
-        type = types.nullOr types.str;
-        default = name;
-        description = lib.mdDoc "Name of the worker";
-      };
-      type = mkOption {
-        type = types.nullOr (types.enum [
-          "normal"
-          "controller"
-          "fuzzy"
-          "rspamd_proxy"
-          "lua"
-          "proxy"
-        ]);
-        description = lib.mdDoc ''
-          The type of this worker. The type `proxy` is
-          deprecated and only kept for backwards compatibility and should be
-          replaced with `rspamd_proxy`.
-        '';
-        apply = let
-          from = ''services.rspamd.workers."${name}".type'';
-          files = options.type.files;
-          warning = "The option `${from}` defined in ${
-              showFiles files
-            } has enum value `proxy` which has been renamed to `rspamd_proxy`";
-        in x: if x == "proxy" then traceWarning warning "rspamd_proxy" else x;
-      };
-      bindSockets = mkOption {
-        type = types.listOf
-          (types.either types.str (types.submodule bindSocketOpts));
-        default = [ ];
-        description = lib.mdDoc ''
-          List of sockets to listen, in format acceptable by rspamd
-        '';
-        example = [
-          {
-            socket = "/run/rspamd.sock";
-            mode = "0666";
-            owner = "rspamd";
-          }
-          "*:11333"
-        ];
-        apply = value:
-          map (each:
-            if (isString each) then
-              if (isUnixSocket each) then {
-                socket = each;
-                owner = cfg.user;
-                group = cfg.group;
-                mode = "0644";
-                rawEntry = "${each}";
-              } else {
-                socket = each;
-                rawEntry = "${each}";
-              }
-            else
-              each) value;
-      };
-      count = mkOption {
-        type = types.nullOr types.int;
-        default = null;
-        description = lib.mdDoc ''
-          Number of worker instances to run
-        '';
-      };
-      includes = mkOption {
-        type = types.listOf types.str;
-        default = [ ];
-        description = lib.mdDoc ''
-          List of files to include in configuration
-        '';
-      };
-      extraConfig = mkOption {
-        type = types.lines;
-        default = "";
-        description = lib.mdDoc
-          "Additional entries to put verbatim into worker section of rspamd config file.";
-      };
+      config = mkIf (name == "normal" || name == "controller" || name == "fuzzy"
+        || name == "rspamd_proxy") {
+          type = mkDefault name;
+          includes = mkDefault [
+            "$CONFDIR/worker-${
+              if name == "rspamd_proxy" then "proxy" else name
+            }.inc"
+          ];
+          bindSockets = let
+            unixSocket = name: {
+              mode = "0660";
+              socket = "/run/rspamd/${name}.sock";
+              owner = cfg.user;
+              group = cfg.group;
+            };
+          in mkDefault (if name == "normal" then
+            [ (unixSocket "rspamd") ]
+          else if name == "controller" then
+            [ "localhost:11334" ]
+          else if name == "rspamd_proxy" then
+            [ (unixSocket "proxy") ]
+          else
+            [ ]);
+        };
     };
-    config = mkIf (name == "normal" || name == "controller" || name == "fuzzy"
-      || name == "rspamd_proxy") {
-        type = mkDefault name;
-        includes = mkDefault [
-          "$CONFDIR/worker-${
-            if name == "rspamd_proxy" then "proxy" else name
-          }.inc"
-        ];
-        bindSockets = let
-          unixSocket = name: {
-            mode = "0660";
-            socket = "/run/rspamd/${name}.sock";
-            owner = cfg.user;
-            group = cfg.group;
-          };
-        in mkDefault (if name == "normal" then
-          [ (unixSocket "rspamd") ]
-        else if name == "controller" then
-          [ "localhost:11334" ]
-        else if name == "rspamd_proxy" then
-          [ (unixSocket "proxy") ]
-        else
-          [ ]);
-      };
-  };
 
   isUnixSocket = socket:
     hasPrefix "/" (if (isString socket) then socket else socket.socket);
@@ -233,7 +247,11 @@ let
   }]);
 
   configFileModule = prefix:
-    { name, config, ... }: {
+    {
+      name,
+      config,
+      ...
+    }: {
       options = {
         enable = mkOption {
           type = types.bool;

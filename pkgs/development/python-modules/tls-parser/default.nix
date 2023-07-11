@@ -1,4 +1,10 @@
-{ lib, pythonOlder, fetchFromGitHub, buildPythonPackage, pytestCheckHook }:
+{
+  lib,
+  pythonOlder,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "tls-parser";

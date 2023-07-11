@@ -1,7 +1,24 @@
-{ mkDerivation, lib, stdenv, fetchFromGitHub, qmake, qttools, qttranslations
-, gdal, proj, qtsvg, qtwebengine, withGeoimage ? true, exiv2
-, withGpsdlib ? (!stdenv.isDarwin), gpsd, withLibproxy ? false, libproxy
-, withZbar ? false, zbar }:
+{
+  mkDerivation,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qmake,
+  qttools,
+  qttranslations,
+  gdal,
+  proj,
+  qtsvg,
+  qtwebengine,
+  withGeoimage ? true,
+  exiv2,
+  withGpsdlib ? (!stdenv.isDarwin),
+  gpsd,
+  withLibproxy ? false,
+  libproxy,
+  withZbar ? false,
+  zbar,
+}:
 
 mkDerivation rec {
   pname = "merkaartor";

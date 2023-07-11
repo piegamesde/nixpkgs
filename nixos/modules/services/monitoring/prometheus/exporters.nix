@@ -1,4 +1,10 @@
-{ config, pkgs, lib, options, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  options,
+  ...
+}:
 
 let
   inherit (lib)
@@ -87,81 +93,92 @@ let
       inherit config lib pkgs options;
     });
 
-  mkExporterOpts = ({ name, port }: {
-    enable = mkEnableOption (lib.mdDoc "the prometheus ${name} exporter");
-    port = mkOption {
-      type = types.port;
-      default = port;
-      description = lib.mdDoc ''
-        Port to listen on.
-      '';
-    };
-    listenAddress = mkOption {
-      type = types.str;
-      default = "0.0.0.0";
-      description = lib.mdDoc ''
-        Address to listen on.
-      '';
-    };
-    extraFlags = mkOption {
-      type = types.listOf types.str;
-      default = [ ];
-      description = lib.mdDoc ''
-        Extra commandline options to pass to the ${name} exporter.
-      '';
-    };
-    openFirewall = mkOption {
-      type = types.bool;
-      default = false;
-      description = lib.mdDoc ''
-        Open port in firewall for incoming connections.
-      '';
-    };
-    firewallFilter = mkOption {
-      type = types.nullOr types.str;
-      default = null;
-      example = literalExpression ''
-        "-i eth0 -p tcp -m tcp --dport ${toString port}"
-      '';
-      description = lib.mdDoc ''
-        Specify a filter for iptables to use when
-        {option}`services.prometheus.exporters.${name}.openFirewall`
-        is true. It is used as `ip46tables -I nixos-fw firewallFilter -j nixos-fw-accept`.
-      '';
-    };
-    user = mkOption {
-      type = types.str;
-      default = "${name}-exporter";
-      description = lib.mdDoc ''
-        User name under which the ${name} exporter shall be run.
-      '';
-    };
-    group = mkOption {
-      type = types.str;
-      default = "${name}-exporter";
-      description = lib.mdDoc ''
-        Group under which the ${name} exporter shall be run.
-      '';
-    };
-  });
+  mkExporterOpts = ({
+      name,
+      port,
+    }: {
+      enable = mkEnableOption (lib.mdDoc "the prometheus ${name} exporter");
+      port = mkOption {
+        type = types.port;
+        default = port;
+        description = lib.mdDoc ''
+          Port to listen on.
+        '';
+      };
+      listenAddress = mkOption {
+        type = types.str;
+        default = "0.0.0.0";
+        description = lib.mdDoc ''
+          Address to listen on.
+        '';
+      };
+      extraFlags = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        description = lib.mdDoc ''
+          Extra commandline options to pass to the ${name} exporter.
+        '';
+      };
+      openFirewall = mkOption {
+        type = types.bool;
+        default = false;
+        description = lib.mdDoc ''
+          Open port in firewall for incoming connections.
+        '';
+      };
+      firewallFilter = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        example = literalExpression ''
+          "-i eth0 -p tcp -m tcp --dport ${toString port}"
+        '';
+        description = lib.mdDoc ''
+          Specify a filter for iptables to use when
+          {option}`services.prometheus.exporters.${name}.openFirewall`
+          is true. It is used as `ip46tables -I nixos-fw firewallFilter -j nixos-fw-accept`.
+        '';
+      };
+      user = mkOption {
+        type = types.str;
+        default = "${name}-exporter";
+        description = lib.mdDoc ''
+          User name under which the ${name} exporter shall be run.
+        '';
+      };
+      group = mkOption {
+        type = types.str;
+        default = "${name}-exporter";
+        description = lib.mdDoc ''
+          Group under which the ${name} exporter shall be run.
+        '';
+      };
+    });
 
-  mkSubModule = { name, port, extraOpts, imports }: {
-    ${name} = mkOption {
-      type = types.submodule [
-        {
-          inherit imports;
-          options = (mkExporterOpts { inherit name port; } // extraOpts);
-        }
-        ({ config, ... }:
-          mkIf config.openFirewall {
-            firewallFilter =
-              mkDefault "-p tcp -m tcp --dport ${toString config.port}";
-          })
-      ];
-      internal = true;
-      default = { };
+  mkSubModule = {
+      name,
+      port,
+      extraOpts,
+      imports,
+    }: {
+      ${name} = mkOption {
+        type = types.submodule [
+          {
+            inherit imports;
+            options = (mkExporterOpts { inherit name port; } // extraOpts);
+          }
+          ({
+              config,
+              ...
+            }:
+            mkIf config.openFirewall {
+              firewallFilter =
+                mkDefault "-p tcp -m tcp --dport ${toString config.port}";
+            })
+        ];
+        internal = true;
+        default = { };
+      };
     };
-  };
 
   mkSubModules = (foldl' (a: b: a // b) { } (mapAttrsToList (name: opts:
     mkSubModule {
@@ -171,7 +188,11 @@ let
       imports = opts.imports or [ ];
     }) exporterOpts));
 
-  mkExporterConf = { name, conf, serviceOpts }:
+  mkExporterConf = {
+      name,
+      conf,
+      serviceOpts,
+    }:
     let enableDynamicUser = serviceOpts.serviceConfig.DynamicUser or true;
     in mkIf conf.enable {
       warnings = conf.warnings or [ ];

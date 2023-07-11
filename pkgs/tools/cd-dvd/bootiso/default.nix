@@ -1,6 +1,20 @@
-{ lib, stdenvNoCC, fetchFromGitHub, fetchpatch, bash, makeWrapper, bc, jq
-, coreutils, util-linux, wimlib, file, syslinux, busybox
-, gnugrep # We can't use busybox's 'grep' as it doesn't support perl '-P' expressions.
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  fetchpatch,
+  bash,
+  makeWrapper,
+  bc,
+  jq,
+  coreutils,
+  util-linux,
+  wimlib,
+  file,
+  syslinux,
+  busybox,
+  gnugrep # We can't use busybox's 'grep' as it doesn't support perl '-P' expressions.
+  ,
 }:
 
 stdenvNoCC.mkDerivation rec {

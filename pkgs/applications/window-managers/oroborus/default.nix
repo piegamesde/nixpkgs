@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchurl, freetype, fribidi, libICE, libSM, libXaw, libXext
-, libXft, libXinerama, libXmu, libXpm, libXrandr, libXrender, libXt, pkg-config
-, xorgproto }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  freetype,
+  fribidi,
+  libICE,
+  libSM,
+  libXaw,
+  libXext,
+  libXft,
+  libXinerama,
+  libXmu,
+  libXpm,
+  libXrandr,
+  libXrender,
+  libXt,
+  pkg-config,
+  xorgproto,
+}:
 
 stdenv.mkDerivation rec {
   pname = "oroborus";

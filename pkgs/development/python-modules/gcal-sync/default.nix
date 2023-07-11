@@ -1,5 +1,16 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, freezegun, ical, pydantic
-, pytest-aiohttp, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  freezegun,
+  ical,
+  pydantic,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "gcal-sync";

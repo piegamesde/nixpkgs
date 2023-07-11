@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, meson, ninja, pkg-config, python3, efl, nixosTests
-, directoryListingUpdater }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  efl,
+  nixosTests,
+  directoryListingUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "terminology";

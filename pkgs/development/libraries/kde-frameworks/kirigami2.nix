@@ -1,5 +1,11 @@
-{ mkDerivation, extra-cmake-modules, qtbase, qtquickcontrols2, qttranslations
-, qtgraphicaleffects }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  qtbase,
+  qtquickcontrols2,
+  qttranslations,
+  qtgraphicaleffects,
+}:
 
 mkDerivation {
   pname = "kirigami2";

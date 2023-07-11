@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, requests, uritemplate
-, python-dateutil, pyjwt, pytestCheckHook, betamax, betamax-matchers }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  requests,
+  uritemplate,
+  python-dateutil,
+  pyjwt,
+  pytestCheckHook,
+  betamax,
+  betamax-matchers,
+}:
 
 buildPythonPackage rec {
   pname = "github3.py";

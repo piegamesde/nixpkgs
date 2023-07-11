@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, darwin, abseil-cpp_202111, meson, ninja }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  darwin,
+  abseil-cpp_202111,
+  meson,
+  ninja,
+}:
 
 stdenv.mkDerivation rec {
   pname = "webrtc-audio-processing";

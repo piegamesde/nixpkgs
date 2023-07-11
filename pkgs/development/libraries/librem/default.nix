@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, zlib, openssl, libre, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zlib,
+  openssl,
+  libre,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   version = "2.10.0";

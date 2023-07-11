@@ -1,5 +1,13 @@
-{ rustPlatform, lib, fetchFromGitHub, ncurses, openssl, pkg-config, Security
-, stdenv }:
+{
+  rustPlatform,
+  lib,
+  fetchFromGitHub,
+  ncurses,
+  openssl,
+  pkg-config,
+  Security,
+  stdenv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "taizen";

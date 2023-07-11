@@ -1,11 +1,42 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, substituteAll, swaybg, meson, ninja
-, pkg-config, wayland-scanner, scdoc, wayland, libxkbcommon, pcre2, json_c
-, libevdev, pango, cairo, libinput, libcap, pam, gdk-pixbuf, librsvg
-, wlroots_0_16, wayland-protocols, libdrm, nixosTests
-# Used by the NixOS module:
-, isNixOS ? false, enableXWayland ? true, xorg
-, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd
-, dbusSupport ? true, dbus, trayEnabled ? systemdSupport && dbusSupport }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  substituteAll,
+  swaybg,
+  meson,
+  ninja,
+  pkg-config,
+  wayland-scanner,
+  scdoc,
+  wayland,
+  libxkbcommon,
+  pcre2,
+  json_c,
+  libevdev,
+  pango,
+  cairo,
+  libinput,
+  libcap,
+  pam,
+  gdk-pixbuf,
+  librsvg,
+  wlroots_0_16,
+  wayland-protocols,
+  libdrm,
+  nixosTests
+  # Used by the NixOS module:
+  ,
+  isNixOS ? false,
+  enableXWayland ? true,
+  xorg,
+  systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  systemd,
+  dbusSupport ? true,
+  dbus,
+  trayEnabled ? systemdSupport && dbusSupport
+}:
 
 # The "sd-bus-provider" meson option does not include a "none" option,
 # but it is silently ignored iff "-Dtray=disabled".  We use "basu"

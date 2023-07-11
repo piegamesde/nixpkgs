@@ -1,8 +1,34 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, kactivities, kconfig
-, kcrash, kdbusaddons, kguiaddons, kiconthemes, ki18n, kinit, kio, kitemmodels
-, kjobwidgets, knewstuff, knotifications, konsole, kparts, ktexteditor
-, kwindowsystem, kwallet, kxmlgui, libgit2, kuserfeedback, plasma-framework
-, qtscript, threadweaver, qtx11extras }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  kactivities,
+  kconfig,
+  kcrash,
+  kdbusaddons,
+  kguiaddons,
+  kiconthemes,
+  ki18n,
+  kinit,
+  kio,
+  kitemmodels,
+  kjobwidgets,
+  knewstuff,
+  knotifications,
+  konsole,
+  kparts,
+  ktexteditor,
+  kwindowsystem,
+  kwallet,
+  kxmlgui,
+  libgit2,
+  kuserfeedback,
+  plasma-framework,
+  qtscript,
+  threadweaver,
+  qtx11extras,
+}:
 
 mkDerivation {
   pname = "kate";

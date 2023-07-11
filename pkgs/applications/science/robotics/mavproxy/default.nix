@@ -1,5 +1,18 @@
-{ stdenv, lib, buildPythonApplication, fetchPypi, lxml, matplotlib, numpy
-, opencv4, pymavlink, pyserial, setuptools, wxPython_4_2, billiard, gnureadline
+{
+  stdenv,
+  lib,
+  buildPythonApplication,
+  fetchPypi,
+  lxml,
+  matplotlib,
+  numpy,
+  opencv4,
+  pymavlink,
+  pyserial,
+  setuptools,
+  wxPython_4_2,
+  billiard,
+  gnureadline,
 }:
 
 buildPythonApplication rec {

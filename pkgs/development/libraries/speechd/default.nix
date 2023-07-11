@@ -1,8 +1,36 @@
-{ stdenv, lib, substituteAll, pkg-config, fetchurl, python3Packages, gettext
-, itstool, libtool, texinfo, util-linux, autoreconfHook, glib, dotconf
-, libsndfile, withLibao ? true, libao, withPulse ? false, libpulseaudio
-, withAlsa ? false, alsa-lib, withOss ? false, withFlite ? true, flite
-, withEspeak ? true, espeak, sonic, pcaudiolib, mbrola, withPico ? true, svox }:
+{
+  stdenv,
+  lib,
+  substituteAll,
+  pkg-config,
+  fetchurl,
+  python3Packages,
+  gettext,
+  itstool,
+  libtool,
+  texinfo,
+  util-linux,
+  autoreconfHook,
+  glib,
+  dotconf,
+  libsndfile,
+  withLibao ? true,
+  libao,
+  withPulse ? false,
+  libpulseaudio,
+  withAlsa ? false,
+  alsa-lib,
+  withOss ? false,
+  withFlite ? true,
+  flite,
+  withEspeak ? true,
+  espeak,
+  sonic,
+  pcaudiolib,
+  mbrola,
+  withPico ? true,
+  svox,
+}:
 
 let inherit (python3Packages) python pyxdg wrapPython;
 in stdenv.mkDerivation rec {

@@ -1,4 +1,12 @@
-{ lib, buildGoModule, fetchurl, fetchFromGitHub, nixosTests, tzdata, wire }:
+{
+  lib,
+  buildGoModule,
+  fetchurl,
+  fetchFromGitHub,
+  nixosTests,
+  tzdata,
+  wire,
+}:
 
 buildGoModule rec {
   pname = "grafana";

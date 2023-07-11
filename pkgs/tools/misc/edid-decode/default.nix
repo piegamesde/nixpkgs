@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchgit, unstableGitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  unstableGitUpdater,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "edid-decode";

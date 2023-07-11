@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, ocaml, findlib, lambda-term, cppo, makeWrapper
-, buildDunePackage, zed, logs, lwt, react, lwt_react }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  findlib,
+  lambda-term,
+  cppo,
+  makeWrapper,
+  buildDunePackage,
+  zed,
+  logs,
+  lwt,
+  react,
+  lwt_react,
+}:
 
 let
   switch = if lib.versionAtLeast ocaml.version "4.08" then {

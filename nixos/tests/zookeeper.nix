@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
 
     perlEnv = pkgs.perl.withPackages (p: [ p.NetZooKeeper ]);
@@ -8,11 +11,13 @@ import ./make-test-python.nix ({ pkgs, ... }:
     meta = with pkgs.lib.maintainers; { maintainers = [ nequissimus ztzg ]; };
 
     nodes = {
-      server = { ... }: {
-        services.zookeeper = { enable = true; };
+      server = {
+          ...
+        }: {
+          services.zookeeper = { enable = true; };
 
-        networking.firewall.allowedTCPPorts = [ 2181 ];
-      };
+          networking.firewall.allowedTCPPorts = [ 2181 ];
+        };
     };
 
     testScript = ''

@@ -1,9 +1,39 @@
-{ stdenv, lib, fetchurl
-# Alphabetic ordering below
-, alsa-lib, at-spi2-atk, atk, autoPatchelfHook, cairo, curl, dbus, dconf, dpkg
-, fontconfig, gcc-unwrapped, gdk-pixbuf, glib, glibc, gsettings-desktop-schemas
-, gst_all_1, gtk2, gtk3, libpulseaudio, libudev0-shim, libdrm, makeWrapper, nspr
-, nss, pulseaudio, qt5, wrapGAppsHook, xkeyboard_config, xorg }:
+{
+  stdenv,
+  lib,
+  fetchurl
+  # Alphabetic ordering below
+  ,
+  alsa-lib,
+  at-spi2-atk,
+  atk,
+  autoPatchelfHook,
+  cairo,
+  curl,
+  dbus,
+  dconf,
+  dpkg,
+  fontconfig,
+  gcc-unwrapped,
+  gdk-pixbuf,
+  glib,
+  glibc,
+  gsettings-desktop-schemas,
+  gst_all_1,
+  gtk2,
+  gtk3,
+  libpulseaudio,
+  libudev0-shim,
+  libdrm,
+  makeWrapper,
+  nspr,
+  nss,
+  pulseaudio,
+  qt5,
+  wrapGAppsHook,
+  xkeyboard_config,
+  xorg,
+}:
 let
 
   # Note on fonts:

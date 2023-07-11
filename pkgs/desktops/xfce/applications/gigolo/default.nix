@@ -1,4 +1,9 @@
-{ lib, mkXfceDerivation, gtk3, glib }:
+{
+  lib,
+  mkXfceDerivation,
+  gtk3,
+  glib,
+}:
 
 mkXfceDerivation {
   category = "apps";

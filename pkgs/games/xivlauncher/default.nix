@@ -1,6 +1,20 @@
-{ lib, buildDotnetModule, fetchFromGitHub, dotnetCorePackages, SDL2, libsecret
-, glib, gnutls, aria2, steam-run, gst_all_1, copyDesktopItems, makeDesktopItem
-, makeWrapper, useSteamRun ? true }:
+{
+  lib,
+  buildDotnetModule,
+  fetchFromGitHub,
+  dotnetCorePackages,
+  SDL2,
+  libsecret,
+  glib,
+  gnutls,
+  aria2,
+  steam-run,
+  gst_all_1,
+  copyDesktopItems,
+  makeDesktopItem,
+  makeWrapper,
+  useSteamRun ? true
+}:
 
 let rev = "1.0.3";
 in buildDotnetModule rec {

@@ -1,5 +1,15 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, humanfriendly, verboselogs
-, capturer, pytestCheckHook, mock, util-linux }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  humanfriendly,
+  verboselogs,
+  capturer,
+  pytestCheckHook,
+  mock,
+  util-linux,
+}:
 
 buildPythonPackage rec {
   pname = "coloredlogs";

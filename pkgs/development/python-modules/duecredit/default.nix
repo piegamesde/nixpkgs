@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, pytest, pytestCheckHook, vcrpy
-, citeproc-py, requests, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  pytest,
+  pytestCheckHook,
+  vcrpy,
+  citeproc-py,
+  requests,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "duecredit";

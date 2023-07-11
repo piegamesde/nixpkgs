@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchzip, yasm, perl, cmake, pkg-config, python3
-, enableButteraugli ? true, libjxl, enableVmaf ? true, libvmaf }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  yasm,
+  perl,
+  cmake,
+  pkg-config,
+  python3,
+  enableButteraugli ? true,
+  libjxl,
+  enableVmaf ? true,
+  libvmaf,
+}:
 
 let isCross = stdenv.buildPlatform != stdenv.hostPlatform;
 in stdenv.mkDerivation rec {

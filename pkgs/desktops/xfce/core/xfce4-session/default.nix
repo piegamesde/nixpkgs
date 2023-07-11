@@ -1,5 +1,17 @@
-{ lib, mkXfceDerivation, polkit, exo, libxfce4util, libxfce4ui, xfconf, iceauth
-, gtk3, glib, libwnck, xfce4-session }:
+{
+  lib,
+  mkXfceDerivation,
+  polkit,
+  exo,
+  libxfce4util,
+  libxfce4ui,
+  xfconf,
+  iceauth,
+  gtk3,
+  glib,
+  libwnck,
+  xfce4-session,
+}:
 
 mkXfceDerivation {
   category = "xfce";

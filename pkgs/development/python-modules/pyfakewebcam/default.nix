@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, opencv4 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  opencv4,
+}:
 
 buildPythonPackage rec {
   pname = "pyfakewebcam";

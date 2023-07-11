@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildPythonPackage, python3Packages, pythonOlder }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  python3Packages,
+  pythonOlder,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "qpageview";

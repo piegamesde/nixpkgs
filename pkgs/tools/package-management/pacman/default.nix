@@ -1,16 +1,47 @@
-{ lib, stdenv, fetchpatch, fetchurl, asciidoc, binutils, coreutils, curl, gpgme
-, installShellFiles, libarchive, makeWrapper, meson, ninja, openssl, perl
-, pkg-config, zlib
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchurl,
+  asciidoc,
+  binutils,
+  coreutils,
+  curl,
+  gpgme,
+  installShellFiles,
+  libarchive,
+  makeWrapper,
+  meson,
+  ninja,
+  openssl,
+  perl,
+  pkg-config,
+  zlib
 
-# Compression tools in scripts/libmakepkg/util/compress.sh.in
-, gzip, bzip2, xz, zstd, lrzip, lzop, ncompress, lz4, lzip
+  # Compression tools in scripts/libmakepkg/util/compress.sh.in
+  ,
+  gzip,
+  bzip2,
+  xz,
+  zstd,
+  lrzip,
+  lzop,
+  ncompress,
+  lz4,
+  lzip
 
-# pacman-key runtime dependencies
-, gawk, gettext, gnugrep, gnupg
+  # pacman-key runtime dependencies
+  ,
+  gawk,
+  gettext,
+  gnugrep,
+  gnupg
 
-# Tells pacman where to find ALPM hooks provided by packages.
-# This path is very likely to be used in an Arch-like root.
-, sysHookDir ? "/usr/share/libalpm/hooks/" }:
+  # Tells pacman where to find ALPM hooks provided by packages.
+  # This path is very likely to be used in an Arch-like root.
+  ,
+  sysHookDir ? "/usr/share/libalpm/hooks/"
+}:
 
 stdenv.mkDerivation rec {
   pname = "pacman";

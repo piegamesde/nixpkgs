@@ -1,9 +1,39 @@
-{ lib, stdenv, fetchurl, makeWrapper, pkg-config, texinfo, cairo, gd, libcerf
-, pango, readline, zlib, withTeXLive ? false, texlive, withLua ? false, lua
-, withCaca ? false, libcaca, libX11 ? null, libXt ? null, libXpm ? null
-, libXaw ? null, aquaterm ? false, withWxGTK ? false, wxGTK32, Cocoa
-, fontconfig ? null, gnused ? null, coreutils ? null, withQt ? false
-, mkDerivation, qttools, qtbase, qtsvg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  pkg-config,
+  texinfo,
+  cairo,
+  gd,
+  libcerf,
+  pango,
+  readline,
+  zlib,
+  withTeXLive ? false,
+  texlive,
+  withLua ? false,
+  lua,
+  withCaca ? false,
+  libcaca,
+  libX11 ? null,
+  libXt ? null,
+  libXpm ? null,
+  libXaw ? null,
+  aquaterm ? false,
+  withWxGTK ? false,
+  wxGTK32,
+  Cocoa,
+  fontconfig ? null,
+  gnused ? null,
+  coreutils ? null,
+  withQt ? false,
+  mkDerivation,
+  qttools,
+  qtbase,
+  qtsvg,
+}:
 
 assert libX11 != null
   -> (fontconfig != null && gnused != null && coreutils != null);

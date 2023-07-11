@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, installShellFiles, pytestCheckHook
-, pythonAtLeast, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  installShellFiles,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "xkcdpass";

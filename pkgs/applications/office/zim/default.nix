@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, python3Packages, gtk3, gobject-introspection
-, wrapGAppsHook, gnome }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3Packages,
+  gtk3,
+  gobject-introspection,
+  wrapGAppsHook,
+  gnome,
+}:
 
 # TODO: Declare configuration options for the following optional dependencies:
 #  -  File stores: hg, git, bzr

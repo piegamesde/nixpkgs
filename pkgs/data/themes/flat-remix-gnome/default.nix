@@ -1,4 +1,10 @@
-{ stdenv, fetchFromGitHub, glib, lib, writeScriptBin }:
+{
+  stdenv,
+  fetchFromGitHub,
+  glib,
+  lib,
+  writeScriptBin,
+}:
 let
   # make install will use dconf to find desktop background file uri.
   # consider adding an args to allow specify pictures manually.

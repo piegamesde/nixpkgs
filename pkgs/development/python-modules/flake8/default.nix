@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, mccabe, pycodestyle
-, pyflakes, importlib-metadata, pythonAtLeast, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  mccabe,
+  pycodestyle,
+  pyflakes,
+  importlib-metadata,
+  pythonAtLeast,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "flake8";

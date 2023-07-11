@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, flex, bison, systemd, postgresql, openssl
-, libyaml }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  flex,
+  bison,
+  systemd,
+  postgresql,
+  openssl,
+  libyaml,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fluent-bit";

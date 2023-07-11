@@ -1,4 +1,9 @@
-{ lib, runCommandLocal, recurseIntoAttrs, installShellFiles }:
+{
+  lib,
+  runCommandLocal,
+  recurseIntoAttrs,
+  installShellFiles,
+}:
 
 let
   runTest = name: env: buildCommand:

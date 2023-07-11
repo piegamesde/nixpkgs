@@ -1,5 +1,15 @@
-{ lib, buildGoModule, fetchFromGitHub, nixosTests, bash, which, ffmpeg
-, makeWrapper, coreutils, ... }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nixosTests,
+  bash,
+  which,
+  ffmpeg,
+  makeWrapper,
+  coreutils,
+  ...
+}:
 
 buildGoModule rec {
   pname = "owncast";

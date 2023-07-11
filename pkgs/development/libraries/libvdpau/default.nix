@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, xorg, mesa, meson, ninja }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  xorg,
+  mesa,
+  meson,
+  ninja,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libvdpau";

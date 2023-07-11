@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, blas }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  blas,
+}:
 
 let suitesparseVersion = "7.0.1";
 in stdenv.mkDerivation rec {

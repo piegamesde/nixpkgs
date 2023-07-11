@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, chainer, fetchFromGitHub, hatchling, jupyter, keras
-#, mxnet
-, nbconvert, nbformat, nose, numpy, parameterized, pytestCheckHook, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  chainer,
+  fetchFromGitHub,
+  hatchling,
+  jupyter,
+  keras
+  #, mxnet
+  ,
+  nbconvert,
+  nbformat,
+  nose,
+  numpy,
+  parameterized,
+  pytestCheckHook,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

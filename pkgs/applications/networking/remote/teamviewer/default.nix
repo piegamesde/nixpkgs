@@ -1,6 +1,27 @@
-{ mkDerivation, lib, fetchurl, autoPatchelfHook, makeWrapper, xdg-utils, dbus
-, qtbase, qtwebengine, qtx11extras, getconf, glibc, libXrandr, libX11, libXext
-, libXdamage, libXtst, libSM, libXfixes, coreutils, wrapQtAppsHook, icu63 }:
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  makeWrapper,
+  xdg-utils,
+  dbus,
+  qtbase,
+  qtwebengine,
+  qtx11extras,
+  getconf,
+  glibc,
+  libXrandr,
+  libX11,
+  libXext,
+  libXdamage,
+  libXtst,
+  libSM,
+  libXfixes,
+  coreutils,
+  wrapQtAppsHook,
+  icu63,
+}:
 
 mkDerivation rec {
   pname = "teamviewer";

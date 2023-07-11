@@ -1,4 +1,9 @@
-{ callPackage, fetchFromGitHub, nixos, conmon }:
+{
+  callPackage,
+  fetchFromGitHub,
+  nixos,
+  conmon,
+}:
 let
   apptainer = callPackage (import ./generic.nix rec {
     pname = "apptainer";

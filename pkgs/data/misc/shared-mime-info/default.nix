@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitLab, fetchpatch, meson, ninja, pkg-config, gettext
-, itstool, libxml2, glib, shared-mime-info }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  fetchpatch,
+  meson,
+  ninja,
+  pkg-config,
+  gettext,
+  itstool,
+  libxml2,
+  glib,
+  shared-mime-info,
+}:
 
 stdenv.mkDerivation rec {
   pname = "shared-mime-info";

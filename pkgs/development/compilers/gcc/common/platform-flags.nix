@@ -1,4 +1,7 @@
-{ lib, targetPlatform }:
+{
+  lib,
+  targetPlatform,
+}:
 
 let
   isAarch64Darwin = targetPlatform.isDarwin && targetPlatform.isAarch64;

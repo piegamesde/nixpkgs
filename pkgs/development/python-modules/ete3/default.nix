@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, numpy, six
-, withTreeVisualization ? false, lxml, withXmlSupport ? false, pyqt4, pyqt5 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  numpy,
+  six,
+  withTreeVisualization ? false,
+  lxml,
+  withXmlSupport ? false,
+  pyqt4,
+  pyqt5,
+}:
 
 buildPythonPackage rec {
   pname = "ete3";

@@ -1,4 +1,10 @@
-{ mkDerivation, extra-cmake-modules, aspell, qtbase, qttools }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  aspell,
+  qtbase,
+  qttools,
+}:
 
 mkDerivation {
   pname = "sonnet";

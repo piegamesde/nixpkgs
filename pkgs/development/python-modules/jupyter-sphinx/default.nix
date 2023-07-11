@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, nbformat, sphinx, ipywidgets, pythonOlder
-, nbconvert }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nbformat,
+  sphinx,
+  ipywidgets,
+  pythonOlder,
+  nbconvert,
+}:
 
 buildPythonPackage rec {
   pname = "jupyter-sphinx";

@@ -1,4 +1,10 @@
-{ lib, stdenvNoCC, fetchFromGitHub, patsh, xorg }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  patsh,
+  xorg,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "sx";

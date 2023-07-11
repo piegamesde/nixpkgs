@@ -1,5 +1,17 @@
-{ lib, aiohttp, bidict, buildPythonPackage, fetchFromGitHub, mock, msgpack
-, pytestCheckHook, python-engineio, pythonOlder, requests, websocket-client }:
+{
+  lib,
+  aiohttp,
+  bidict,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  msgpack,
+  pytestCheckHook,
+  python-engineio,
+  pythonOlder,
+  requests,
+  websocket-client,
+}:
 
 buildPythonPackage rec {
   pname = "python-socketio";

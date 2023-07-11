@@ -1,4 +1,11 @@
-{ lib, fetchPypi, buildPythonPackage, cython, gfortran, pytestCheckHook, numpy
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  cython,
+  gfortran,
+  pytestCheckHook,
+  numpy,
 }:
 
 buildPythonPackage rec {

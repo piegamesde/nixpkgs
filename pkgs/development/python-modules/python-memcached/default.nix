@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, six, mock, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  six,
+  mock,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "python-memcached";

@@ -1,4 +1,12 @@
-{ fetchsvn, lib, stdenv, cmake, qt4, libGLU, libGL }:
+{
+  fetchsvn,
+  lib,
+  stdenv,
+  cmake,
+  qt4,
+  libGLU,
+  libGL,
+}:
 
 # ViTE 1.1 has several bugs, so use the SVN version.
 let

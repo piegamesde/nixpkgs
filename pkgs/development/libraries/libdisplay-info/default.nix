@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitLab, meson, pkg-config, ninja, python3, hwdata
-, edid-decode }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  pkg-config,
+  ninja,
+  python3,
+  hwdata,
+  edid-decode,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libdisplay-info";

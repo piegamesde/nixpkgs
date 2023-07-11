@@ -1,5 +1,17 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, setuptools
-, jinja2, pygments, markupsafe, astunparse, pytestCheckHook, hypothesis }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  setuptools,
+  jinja2,
+  pygments,
+  markupsafe,
+  astunparse,
+  pytestCheckHook,
+  hypothesis,
+}:
 
 buildPythonPackage rec {
   pname = "pdoc";

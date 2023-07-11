@@ -1,4 +1,11 @@
-{ lib, config, fetchFromGitHub, fetchFromGitLab, fetchpatch, marlin-calc }:
+{
+  lib,
+  config,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  fetchpatch,
+  marlin-calc,
+}:
 
 self: super:
 let

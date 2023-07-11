@@ -1,4 +1,11 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, pkg-config, libusb1 }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  pkg-config,
+  libusb1,
+}:
 
 buildGoModule rec {
   pname = "go-mtpfs";

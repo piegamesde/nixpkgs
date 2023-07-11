@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
     ifAddr = node: iface:
       (pkgs.lib.head
@@ -9,51 +12,60 @@ import ./make-test-python.nix ({ pkgs, ... }:
     meta = with pkgs.lib.maintainers; { maintainers = [ higebu ]; };
 
     nodes = {
-      node1 = { nodes, ... }: {
-        environment.systemPackages = [ pkgs.gobgp ];
-        networking.firewall.allowedTCPPorts = [ 179 ];
-        services.gobgpd = {
-          enable = true;
-          settings = {
-            global = {
-              config = {
-                as = 64512;
-                router-id = "192.168.255.1";
+      node1 = {
+          nodes,
+          ...
+        }: {
+          environment.systemPackages = [ pkgs.gobgp ];
+          networking.firewall.allowedTCPPorts = [ 179 ];
+          services.gobgpd = {
+            enable = true;
+            settings = {
+              global = {
+                config = {
+                  as = 64512;
+                  router-id = "192.168.255.1";
+                };
               };
+              neighbors = [{
+                config = {
+                  neighbor-address = ifAddr nodes.node2 "eth1";
+                  peer-as = 64513;
+                };
+              }];
             };
-            neighbors = [{
-              config = {
-                neighbor-address = ifAddr nodes.node2 "eth1";
-                peer-as = 64513;
-              };
-            }];
           };
         };
-      };
-      node2 = { nodes, ... }: {
-        environment.systemPackages = [ pkgs.gobgp ];
-        networking.firewall.allowedTCPPorts = [ 179 ];
-        services.gobgpd = {
-          enable = true;
-          settings = {
-            global = {
-              config = {
-                as = 64513;
-                router-id = "192.168.255.2";
+      node2 = {
+          nodes,
+          ...
+        }: {
+          environment.systemPackages = [ pkgs.gobgp ];
+          networking.firewall.allowedTCPPorts = [ 179 ];
+          services.gobgpd = {
+            enable = true;
+            settings = {
+              global = {
+                config = {
+                  as = 64513;
+                  router-id = "192.168.255.2";
+                };
               };
+              neighbors = [{
+                config = {
+                  neighbor-address = ifAddr nodes.node1 "eth1";
+                  peer-as = 64512;
+                };
+              }];
             };
-            neighbors = [{
-              config = {
-                neighbor-address = ifAddr nodes.node1 "eth1";
-                peer-as = 64512;
-              };
-            }];
           };
         };
-      };
     };
 
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let
         addr1 = ifAddr nodes.node1 "eth1";
         addr2 = ifAddr nodes.node2 "eth1";

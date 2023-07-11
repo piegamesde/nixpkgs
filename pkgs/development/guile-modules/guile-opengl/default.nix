@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, guile, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  guile,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "guile-opengl";

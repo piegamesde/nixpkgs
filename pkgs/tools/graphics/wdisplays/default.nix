@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, gtk3, libepoxy
-, wayland, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  gtk3,
+  libepoxy,
+  wayland,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wdisplays";

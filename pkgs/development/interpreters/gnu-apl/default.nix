@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, readline, gettext, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  readline,
+  gettext,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnu-apl";

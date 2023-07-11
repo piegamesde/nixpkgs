@@ -1,6 +1,25 @@
-{ akonadi-contacts, cmake, fetchFromGitLab, fetchsvn, gnupg, gpgme, kcontacts
-, kf5gpgmepp, lib, libsecret, mimetic, mkDerivation, pkg-config, qgpgme, qtbase
-, qtkeychain, qttools, qtwebkit, qttranslations, substituteAll, withI18n ? false
+{
+  akonadi-contacts,
+  cmake,
+  fetchFromGitLab,
+  fetchsvn,
+  gnupg,
+  gpgme,
+  kcontacts,
+  kf5gpgmepp,
+  lib,
+  libsecret,
+  mimetic,
+  mkDerivation,
+  pkg-config,
+  qgpgme,
+  qtbase,
+  qtkeychain,
+  qttools,
+  qtwebkit,
+  qttranslations,
+  substituteAll,
+  withI18n ? false
 }:
 
 let

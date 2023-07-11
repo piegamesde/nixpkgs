@@ -1,5 +1,12 @@
-{ buildDunePackage, dune-configurator, fetchFromGitHub, lib, SDL2, SDL2_ttf
-, tsdl }:
+{
+  buildDunePackage,
+  dune-configurator,
+  fetchFromGitHub,
+  lib,
+  SDL2,
+  SDL2_ttf,
+  tsdl,
+}:
 
 buildDunePackage rec {
   pname = "tsdl-ttf";

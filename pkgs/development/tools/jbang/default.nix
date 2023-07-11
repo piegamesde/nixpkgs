@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchzip, jdk, makeWrapper, coreutils, curl }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  jdk,
+  makeWrapper,
+  coreutils,
+  curl,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.106.3";

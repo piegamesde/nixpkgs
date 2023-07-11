@@ -1,5 +1,19 @@
-{ lib, stdenv, autoreconfHook, boost, db48, fetchFromGitHub, libevent, miniupnpc
-, openssl, pkg-config, zeromq, zlib, unixtools, python3 }:
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  boost,
+  db48,
+  fetchFromGitHub,
+  libevent,
+  miniupnpc,
+  openssl,
+  pkg-config,
+  zeromq,
+  zlib,
+  unixtools,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "particl-core";

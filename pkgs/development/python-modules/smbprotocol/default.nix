@@ -1,5 +1,14 @@
-{ lib, stdenv, buildPythonPackage, cryptography, fetchFromGitHub, pyspnego
-, pytest-mock, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  pyspnego,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "smbprotocol";

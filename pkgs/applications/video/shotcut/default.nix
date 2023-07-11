@@ -1,6 +1,24 @@
-{ lib, fetchFromGitHub, mkDerivation, SDL2, frei0r, ladspaPlugins, gettext, mlt
-, jack1, pkg-config, qtbase, qtmultimedia, qtx11extras, qtwebsockets
-, qtquickcontrols2, qtgraphicaleffects, qmake, qttools, gitUpdater }:
+{
+  lib,
+  fetchFromGitHub,
+  mkDerivation,
+  SDL2,
+  frei0r,
+  ladspaPlugins,
+  gettext,
+  mlt,
+  jack1,
+  pkg-config,
+  qtbase,
+  qtmultimedia,
+  qtx11extras,
+  qtwebsockets,
+  qtquickcontrols2,
+  qtgraphicaleffects,
+  qmake,
+  qttools,
+  gitUpdater,
+}:
 
 assert lib.versionAtLeast mlt.version "6.24.0";
 

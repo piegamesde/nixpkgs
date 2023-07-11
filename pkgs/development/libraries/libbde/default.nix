@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, fuse, ncurses, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fuse,
+  ncurses,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libbde";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, zlib, bzip2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  bzip2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cbc";

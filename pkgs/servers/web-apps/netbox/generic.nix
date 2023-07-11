@@ -1,5 +1,16 @@
-{ lib, fetchFromGitHub, fetchpatch, python3, version, hash, plugins ? ps: [ ]
-, extraPatches ? [ ], tests ? { }, maintainers ? [ ], eol ? false }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  python3,
+  version,
+  hash,
+  plugins ? ps: [ ],
+  extraPatches ? [ ],
+  tests ? { },
+  maintainers ? [ ],
+  eol ? false
+}:
 let
   py = python3 // {
     pkgs = python3.pkgs.overrideScope (self: super: {

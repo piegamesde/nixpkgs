@@ -1,4 +1,10 @@
-{ lib, stdenvNoCC, fetchFromGitHub, accent ? "Blue", variant ? "Frappe", }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  accent ? "Blue",
+  variant ? "Frappe",
+}:
 let pname = "catppuccin-kvantum";
 in lib.checkListOfEnum "${pname}: theme accent" [
   "Blue"

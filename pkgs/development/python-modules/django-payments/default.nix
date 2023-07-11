@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, braintree, cryptography, django
-, django-phonenumber-field, fetchFromGitHub, mercadopago, pythonOlder, requests
-, setuptools-scm, sphinx-rtd-theme, stripe, xmltodict }:
+{
+  lib,
+  buildPythonPackage,
+  braintree,
+  cryptography,
+  django,
+  django-phonenumber-field,
+  fetchFromGitHub,
+  mercadopago,
+  pythonOlder,
+  requests,
+  setuptools-scm,
+  sphinx-rtd-theme,
+  stripe,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "django-payments";

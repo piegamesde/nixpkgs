@@ -1,4 +1,7 @@
-{ lib, ... }: {
+{
+  lib,
+  ...
+}: {
   options.value = lib.mkOption {
     type = lib.types.oneOf [
       lib.types.int

@@ -1,4 +1,8 @@
-{ cfg, pkgs, lib }:
+{
+  cfg,
+  pkgs,
+  lib,
+}:
 let
   propertyXml = name: value:
     lib.optionalString (value != null) ''

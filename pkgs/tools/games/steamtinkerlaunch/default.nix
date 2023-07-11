@@ -1,5 +1,20 @@
-{ bash, gawk, git, gnugrep, fetchFromGitHub, installShellFiles, lib, makeWrapper
-, stdenv, unixtools, unzip, wget, xdotool, xorg, yad }:
+{
+  bash,
+  gawk,
+  git,
+  gnugrep,
+  fetchFromGitHub,
+  installShellFiles,
+  lib,
+  makeWrapper,
+  stdenv,
+  unixtools,
+  unzip,
+  wget,
+  xdotool,
+  xorg,
+  yad,
+}:
 
 stdenv.mkDerivation rec {
   pname = "steamtinkerlaunch";

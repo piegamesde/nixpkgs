@@ -1,6 +1,24 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, libX11, libXrandr
-, libXinerama, libXext, libXcursor, freetype, alsa-lib, libjack2, Cocoa, WebKit
-, MetalKit, simd, DiscRecording, CoreAudioKit }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libX11,
+  libXrandr,
+  libXinerama,
+  libXext,
+  libXcursor,
+  freetype,
+  alsa-lib,
+  libjack2,
+  Cocoa,
+  WebKit,
+  MetalKit,
+  simd,
+  DiscRecording,
+  CoreAudioKit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dexed";

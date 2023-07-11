@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, meson, pkg-config, ninja, glib, gtk3, nemo
-, python3, substituteAll }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  meson,
+  pkg-config,
+  ninja,
+  glib,
+  gtk3,
+  nemo,
+  python3,
+  substituteAll,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nemo-python";

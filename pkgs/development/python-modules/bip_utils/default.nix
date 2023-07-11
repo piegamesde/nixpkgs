@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, ecdsa, coincurve
-, pynacl, crcmod, ed25519-blake2b, py-sr25519-bindings, cbor2, pycryptodome }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  ecdsa,
+  coincurve,
+  pynacl,
+  crcmod,
+  ed25519-blake2b,
+  py-sr25519-bindings,
+  cbor2,
+  pycryptodome,
+}:
 
 buildPythonPackage rec {
   pname = "bip-utils";

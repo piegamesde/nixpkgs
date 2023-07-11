@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, nasm }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nasm,
+}:
 
 let
   arch = if stdenv.isi686 then

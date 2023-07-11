@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, importlib-metadata, packaging
-, setuptools, tomli, pytestCheckHook, build, pydantic, pytest-mock, git
-, mercurial }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  importlib-metadata,
+  packaging,
+  setuptools,
+  tomli,
+  pytestCheckHook,
+  build,
+  pydantic,
+  pytest-mock,
+  git,
+  mercurial,
+}:
 
 buildPythonPackage rec {
   pname = "versioningit";

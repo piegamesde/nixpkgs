@@ -1,5 +1,12 @@
-{ stdenvNoCC, lib, fetchFromGitHub, gtk3, papirus-icon-theme, flavor ? "mocha"
-, accent ? "blue" }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  gtk3,
+  papirus-icon-theme,
+  flavor ? "mocha",
+  accent ? "blue"
+}:
 let
   validAccents = [
     "blue"

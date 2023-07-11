@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, udev, libevdev, libconfig }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  udev,
+  libevdev,
+  libconfig,
+}:
 
 stdenv.mkDerivation rec {
   pname = "logiops";

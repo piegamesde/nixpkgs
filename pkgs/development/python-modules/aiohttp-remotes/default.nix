@@ -1,5 +1,13 @@
-{ lib, aiohttp, buildPythonPackage, fetchPypi, pytest-aiohttp, pytestCheckHook
-, pythonOlder, typing-extensions }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchPypi,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "aiohttp-remotes";

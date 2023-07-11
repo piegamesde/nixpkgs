@@ -1,5 +1,18 @@
-{ lib, stdenv, linuxHeaders, libopcodes, libopcodes_2_38, libbfd, libbfd_2_38
-, elfutils, readline, zlib, python3, bison, flex }:
+{
+  lib,
+  stdenv,
+  linuxHeaders,
+  libopcodes,
+  libopcodes_2_38,
+  libbfd,
+  libbfd_2_38,
+  elfutils,
+  readline,
+  zlib,
+  python3,
+  bison,
+  flex,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bpftools";

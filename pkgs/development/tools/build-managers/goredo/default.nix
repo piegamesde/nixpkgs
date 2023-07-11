@@ -1,4 +1,12 @@
-{ buildGoModule, fetchurl, lib, zstd, sharness, python3, perl }:
+{
+  buildGoModule,
+  fetchurl,
+  lib,
+  zstd,
+  sharness,
+  python3,
+  perl,
+}:
 
 buildGoModule rec {
   pname = "goredo";

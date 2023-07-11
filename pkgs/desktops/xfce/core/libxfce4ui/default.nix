@@ -1,5 +1,17 @@
-{ lib, mkXfceDerivation, gobject-introspection, vala, gtk3, libICE, libSM
-, libstartup_notification, libgtop, libepoxy, libxfce4util, xfconf }:
+{
+  lib,
+  mkXfceDerivation,
+  gobject-introspection,
+  vala,
+  gtk3,
+  libICE,
+  libSM,
+  libstartup_notification,
+  libgtop,
+  libepoxy,
+  libxfce4util,
+  xfconf,
+}:
 
 mkXfceDerivation {
   category = "xfce";

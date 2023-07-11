@@ -3,15 +3,21 @@
 # WebKitGTK (via Midori). The test checks that certificates issued by a custom
 # trusted CA are accepted but those from an unknown CA are rejected.
 
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; }
+}:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 
 let
   inherit (pkgs) lib;
 
-  makeCert = { caName, domain }:
+  makeCert = {
+      caName,
+      domain,
+    }:
     pkgs.runCommand "example-cert" { buildInputs = [ pkgs.gnutls ]; } ''
       mkdir $out
 
@@ -100,7 +106,10 @@ let
   curlTest = makeTest {
     name = "custom-ca-curl";
     meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-    nodes.machine = { ... }: webserverConfig;
+    nodes.machine = {
+        ...
+      }:
+      webserverConfig;
     testScript = ''
       with subtest("Good certificate is trusted in curl"):
           machine.wait_for_unit("nginx")
@@ -119,18 +128,21 @@ let
 
       enableOCR = true;
 
-      nodes.machine = { pkgs, ... }: {
-        imports =
-          [ ./common/user-account.nix ./common/x11.nix webserverConfig ];
+      nodes.machine = {
+          pkgs,
+          ...
+        }: {
+          imports =
+            [ ./common/user-account.nix ./common/x11.nix webserverConfig ];
 
-        # chromium-based browsers refuse to run as root
-        test-support.displayManager.auto.user = "alice";
+          # chromium-based browsers refuse to run as root
+          test-support.displayManager.auto.user = "alice";
 
-        # browsers may hang with the default memory
-        virtualisation.memorySize = 600;
+          # browsers may hang with the default memory
+          virtualisation.memorySize = 600;
 
-        environment.systemPackages = [ pkgs.xdotool pkgs.${browser} ];
-      };
+          environment.systemPackages = [ pkgs.xdotool pkgs.${browser} ];
+        };
 
       testScript = ''
         from typing import Tuple

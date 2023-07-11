@@ -3,7 +3,11 @@
 # Eve can eavesdrop the plaintext traffic between Alice and Bob, but once they
 # enable the secure tunnel Eve's spying becomes ineffective.
 
-import ./make-test-python.nix ({ lib, pkgs, ... }:
+import ./make-test-python.nix ({
+    lib,
+    pkgs,
+    ...
+  }:
 
   let
 
@@ -59,35 +63,41 @@ import ./make-test-python.nix ({ lib, pkgs, ... }:
     meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
     # Our protagonist
-    nodes.alice = { ... }:
+    nodes.alice = {
+        ...
+      }:
       {
         virtualisation.vlans = [ 1 ];
         networking = baseNetwork // addRoute "fd::a" "fd::b";
       } // tunnelConfig;
 
     # Her best friend
-    nodes.bob = { ... }:
+    nodes.bob = {
+        ...
+      }:
       {
         virtualisation.vlans = [ 2 ];
         networking = baseNetwork // addRoute "fd::b" "fd::a";
       } // tunnelConfig;
 
     # The malicious network operator
-    nodes.eve = { ... }: {
-      virtualisation.vlans = [ 1 2 ];
-      networking = lib.mkMerge [
-        baseNetwork
-        {
-          interfaces.br0.ipv6.addresses = [{
-            address = "fd::e";
-            prefixLength = 64;
-          }];
-          bridges.br0.interfaces = [ "eth1" "eth2" ];
-        }
-      ];
-      environment.systemPackages = [ pkgs.tcpdump ];
-      boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
-    };
+    nodes.eve = {
+        ...
+      }: {
+        virtualisation.vlans = [ 1 2 ];
+        networking = lib.mkMerge [
+          baseNetwork
+          {
+            interfaces.br0.ipv6.addresses = [{
+              address = "fd::e";
+              prefixLength = 64;
+            }];
+            bridges.br0.interfaces = [ "eth1" "eth2" ];
+          }
+        ];
+        environment.systemPackages = [ pkgs.tcpdump ];
+        boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
+      };
 
     testScript = ''
       def alice_to_bob(msg: str):

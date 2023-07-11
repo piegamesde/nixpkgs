@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, buildGoModule, libnotify, pcsclite, pkg-config
-, darwin }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  libnotify,
+  pcsclite,
+  pkg-config,
+  darwin,
+}:
 
 buildGoModule rec {
   pname = "yubikey-agent";

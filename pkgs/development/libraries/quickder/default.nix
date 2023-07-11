@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitLab, python3, cmake, doxygen, graphviz, quickmem
-, arpa2common, arpa2cm, ensureNewerSourcesForZipFilesHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  python3,
+  cmake,
+  doxygen,
+  graphviz,
+  quickmem,
+  arpa2common,
+  arpa2cm,
+  ensureNewerSourcesForZipFilesHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "quickder";

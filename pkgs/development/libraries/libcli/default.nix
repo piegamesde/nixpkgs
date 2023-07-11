@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libcli";

@@ -1,13 +1,27 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, wrapQtAppsHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  wrapQtAppsHook
 
-# propagates
-, pyasn1, pyasn1-modules, cxxfilt, msgpack, pycparser
+  # propagates
+  ,
+  pyasn1,
+  pyasn1-modules,
+  cxxfilt,
+  msgpack,
+  pycparser
 
-# extras: gui
-, pyqt5, pyqtwebengine
+  # extras: gui
+  ,
+  pyqt5,
+  pyqtwebengine
 
-# knobs
-, withGui ? false }:
+  # knobs
+  ,
+  withGui ? false
+}:
 
 buildPythonPackage rec {
   pname = "vivisect";

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, flit-core, configparser
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  flit-core,
+  configparser,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "entrypoints";

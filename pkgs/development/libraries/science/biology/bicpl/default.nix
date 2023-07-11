@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libminc, netpbm }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libminc,
+  netpbm,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bicpl";

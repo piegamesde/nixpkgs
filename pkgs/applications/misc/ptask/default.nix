@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, makeWrapper, gtk3, json_c, taskwarrior }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  makeWrapper,
+  gtk3,
+  json_c,
+  taskwarrior,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ptask";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, ronn, shocco }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ronn,
+  shocco,
+}:
 
 stdenv.mkDerivation rec {
   pname = "roundup";

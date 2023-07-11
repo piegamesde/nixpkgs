@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, parameterized, ply, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  parameterized,
+  ply,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyomo";

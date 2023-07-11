@@ -1,8 +1,39 @@
-{ lib, stdenv, fetchFromGitLab, gitUpdater, meson, ninja, pkg-config, python3
-, wrapGAppsHook, libadwaita, libhandy, libxkbcommon, libgudev, callaudiod
-, pulseaudio, evince, glib, gtk4, gnome, gnome-desktop, gcr, pam, systemd
-, upower, wayland, dbus, xvfb-run, phoc, feedbackd, networkmanager, polkit
-, libsecret, evolution-data-server, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  gitUpdater,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  wrapGAppsHook,
+  libadwaita,
+  libhandy,
+  libxkbcommon,
+  libgudev,
+  callaudiod,
+  pulseaudio,
+  evince,
+  glib,
+  gtk4,
+  gnome,
+  gnome-desktop,
+  gcr,
+  pam,
+  systemd,
+  upower,
+  wayland,
+  dbus,
+  xvfb-run,
+  phoc,
+  feedbackd,
+  networkmanager,
+  polkit,
+  libsecret,
+  evolution-data-server,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "phosh";

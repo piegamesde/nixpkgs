@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchzip, fpc, lang ? "en" }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  fpc,
+  lang ? "en"
+}:
 
 assert lib.assertOneOf "lang" lang [ "cn" "de" "en" "fr" "tr" ];
 

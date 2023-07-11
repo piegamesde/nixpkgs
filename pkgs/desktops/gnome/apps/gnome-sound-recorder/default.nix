@@ -1,6 +1,23 @@
-{ stdenv, lib, fetchurl, pkg-config, gettext, gobject-introspection
-, wrapGAppsHook, gjs, glib, gtk4, gdk-pixbuf, gst_all_1, gnome, meson, ninja
-, python3, desktop-file-utils, libadwaita }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  gettext,
+  gobject-introspection,
+  wrapGAppsHook,
+  gjs,
+  glib,
+  gtk4,
+  gdk-pixbuf,
+  gst_all_1,
+  gnome,
+  meson,
+  ninja,
+  python3,
+  desktop-file-utils,
+  libadwaita,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-sound-recorder";

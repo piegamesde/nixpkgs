@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, async-timeout, orjson
-, pythonOlder, requests, websocket-client, websockets }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiohttp,
+  async-timeout,
+  orjson,
+  pythonOlder,
+  requests,
+  websocket-client,
+  websockets,
+}:
 
 buildPythonPackage rec {
   pname = "sense-energy";

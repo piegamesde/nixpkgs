@@ -1,4 +1,9 @@
-{ buildPythonPackage, fetchPypi, lib, pandocfilters }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib,
+  pandocfilters,
+}:
 
 buildPythonPackage rec {
   pname = "pandoc-attributes";

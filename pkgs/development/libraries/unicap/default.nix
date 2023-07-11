@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, libusb-compat-0_1, libraw1394, dcraw, intltool, perl
-, v4l-utils }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libusb-compat-0_1,
+  libraw1394,
+  dcraw,
+  intltool,
+  perl,
+  v4l-utils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libunicap";

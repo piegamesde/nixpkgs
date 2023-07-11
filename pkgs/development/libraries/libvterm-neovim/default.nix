@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, perl, libtool }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  libtool,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libvterm-neovim";

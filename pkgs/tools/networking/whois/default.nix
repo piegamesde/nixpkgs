@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, perl, gettext, pkg-config, libidn2, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perl,
+  gettext,
+  pkg-config,
+  libidn2,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   version = "5.5.16";

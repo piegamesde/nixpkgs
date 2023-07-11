@@ -1,4 +1,10 @@
-{ lib, bundlerEnv, ruby, bundlerUpdateScript, nixosTests }:
+{
+  lib,
+  bundlerEnv,
+  ruby,
+  bundlerUpdateScript,
+  nixosTests,
+}:
 
 bundlerEnv {
   inherit ruby;

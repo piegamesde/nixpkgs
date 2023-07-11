@@ -1,7 +1,24 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, fontconfig, autoreconfHook
-, DiskArbitration, withJava ? false, jdk, ant, withAACS ? false, libaacs
-, withBDplus ? false, libbdplus, withMetadata ? true, libxml2, withFonts ? true
-, freetype }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  fontconfig,
+  autoreconfHook,
+  DiskArbitration,
+  withJava ? false,
+  jdk,
+  ant,
+  withAACS ? false,
+  libaacs,
+  withBDplus ? false,
+  libbdplus,
+  withMetadata ? true,
+  libxml2,
+  withFonts ? true,
+  freetype,
+}:
 
 # Info on how to use:
 # https://wiki.archlinux.org/index.php/BluRay

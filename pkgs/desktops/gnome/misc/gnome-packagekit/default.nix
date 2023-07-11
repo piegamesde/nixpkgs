@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, pkg-config, meson, ninja, gettext, gnome, packagekit
-, polkit, gtk3, systemd, wrapGAppsHook, desktop-file-utils }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  meson,
+  ninja,
+  gettext,
+  gnome,
+  packagekit,
+  polkit,
+  gtk3,
+  systemd,
+  wrapGAppsHook,
+  desktop-file-utils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-packagekit";

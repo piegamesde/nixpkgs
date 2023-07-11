@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, pkgs, pam, scdoc, gtk3, pkg-config
-, gtk-layer-shell, glib, wayland, wayland-scanner }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkgs,
+  pam,
+  scdoc,
+  gtk3,
+  pkg-config,
+  gtk-layer-shell,
+  glib,
+  wayland,
+  wayland-scanner,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gtklock";

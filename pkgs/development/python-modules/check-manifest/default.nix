@@ -1,5 +1,15 @@
-{ lib, breezy, build, buildPythonPackage, fetchPypi, git, pep517
-, pytestCheckHook, tomli, pythonOlder }:
+{
+  lib,
+  breezy,
+  build,
+  buildPythonPackage,
+  fetchPypi,
+  git,
+  pep517,
+  pytestCheckHook,
+  tomli,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "check-manifest";

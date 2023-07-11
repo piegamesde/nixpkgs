@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, unzip, libusb-compat-0_1 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  libusb-compat-0_1,
+}:
 
 let
   arch = if stdenv.hostPlatform.system == "i686-linux" then

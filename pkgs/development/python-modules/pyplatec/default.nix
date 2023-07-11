@@ -1,4 +1,9 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+}:
 
 buildPythonPackage rec {
   pname = "PyPlatec";

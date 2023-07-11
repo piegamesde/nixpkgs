@@ -1,8 +1,18 @@
-{ lib, buildPythonPackage, bootstrapped-pip, fetchFromGitHub, mock, scripttest
-, virtualenv, pretend, pytest
+{
+  lib,
+  buildPythonPackage,
+  bootstrapped-pip,
+  fetchFromGitHub,
+  mock,
+  scripttest,
+  virtualenv,
+  pretend,
+  pytest
 
-# coupled downsteam dependencies
-, pip-tools }:
+  # coupled downsteam dependencies
+  ,
+  pip-tools,
+}:
 
 buildPythonPackage rec {
   pname = "pip";

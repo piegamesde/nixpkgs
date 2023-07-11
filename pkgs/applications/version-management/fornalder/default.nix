@@ -1,4 +1,10 @@
-{ lib, rustPlatform, fetchFromGitHub, makeWrapper, gnuplot }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  makeWrapper,
+  gnuplot,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "fornalder";

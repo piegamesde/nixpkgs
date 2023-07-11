@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchzip, openjdk8, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  openjdk8,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kaitai-struct-compiler";

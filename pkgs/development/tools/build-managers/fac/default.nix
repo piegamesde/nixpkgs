@@ -1,4 +1,11 @@
-{ lib, stdenv, rustPlatform, fetchCrate, git, CoreServices }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchCrate,
+  git,
+  CoreServices,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "fac-build";

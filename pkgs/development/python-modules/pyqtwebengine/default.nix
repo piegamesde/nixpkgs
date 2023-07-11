@@ -1,5 +1,15 @@
-{ lib, stdenv, pythonPackages, pkg-config, qmake, qtbase, qtsvg, qtwebengine
-, wrapQtAppsHook, darwin }:
+{
+  lib,
+  stdenv,
+  pythonPackages,
+  pkg-config,
+  qmake,
+  qtbase,
+  qtsvg,
+  qtwebengine,
+  wrapQtAppsHook,
+  darwin,
+}:
 
 let
   inherit (pythonPackages)

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, stevedore, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  stevedore,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "plux";

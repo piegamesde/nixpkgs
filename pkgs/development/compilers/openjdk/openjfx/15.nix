@@ -1,6 +1,25 @@
-{ stdenv, lib, fetchFromGitHub, writeText, openjdk11_headless, gradle_6
-, pkg-config, perl, cmake, gperf, gtk3, libXtst, libXxf86vm, glib, alsa-lib
-, ffmpeg_4-headless, python3, ruby, withMedia ? true, withWebKit ? false }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  writeText,
+  openjdk11_headless,
+  gradle_6,
+  pkg-config,
+  perl,
+  cmake,
+  gperf,
+  gtk3,
+  libXtst,
+  libXxf86vm,
+  glib,
+  alsa-lib,
+  ffmpeg_4-headless,
+  python3,
+  ruby,
+  withMedia ? true,
+  withWebKit ? false
+}:
 
 let
   major = "15";

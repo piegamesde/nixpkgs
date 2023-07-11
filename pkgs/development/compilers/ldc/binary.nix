@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, curl, tzdata, autoPatchelfHook, fixDarwinDylibNames
-, libxml2, version, hashes }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  curl,
+  tzdata,
+  autoPatchelfHook,
+  fixDarwinDylibNames,
+  libxml2,
+  version,
+  hashes,
+}:
 
 let
   inherit (stdenv) hostPlatform;

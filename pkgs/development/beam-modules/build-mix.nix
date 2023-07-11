@@ -1,8 +1,27 @@
-{ stdenv, writeText, elixir, erlang, hex, lib }:
+{
+  stdenv,
+  writeText,
+  elixir,
+  erlang,
+  hex,
+  lib,
+}:
 
-{ name, version, src, buildInputs ? [ ], nativeBuildInputs ? [ ], beamDeps ? [ ]
-, propagatedBuildInputs ? [ ], postPatch ? "", compilePorts ? false, meta ? { }
-, enableDebugInfo ? false, mixEnv ? "prod", ... }@attrs:
+{
+  name,
+  version,
+  src,
+  buildInputs ? [ ],
+  nativeBuildInputs ? [ ],
+  beamDeps ? [ ],
+  propagatedBuildInputs ? [ ],
+  postPatch ? "",
+  compilePorts ? false,
+  meta ? { },
+  enableDebugInfo ? false,
+  mixEnv ? "prod",
+  ...
+}@attrs:
 
 let
   shell = drv:

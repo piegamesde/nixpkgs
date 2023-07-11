@@ -1,4 +1,11 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, augeas, cffi }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  augeas,
+  cffi,
+}:
 buildPythonPackage rec {
   pname = "augeas";
   version = "1.1.0";

@@ -1,6 +1,19 @@
-{ lib, stdenv, llvm_meta, fetch, substituteAll, cmake, libxml2, libllvm, version
-, clang-tools-extra_src, python3, buildLlvmTools, fixDarwinDylibNames
-, enableManpages ? false }:
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  fetch,
+  substituteAll,
+  cmake,
+  libxml2,
+  libllvm,
+  version,
+  clang-tools-extra_src,
+  python3,
+  buildLlvmTools,
+  fixDarwinDylibNames,
+  enableManpages ? false
+}:
 
 let
   self = stdenv.mkDerivation ({

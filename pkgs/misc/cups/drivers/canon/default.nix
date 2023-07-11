@@ -1,10 +1,37 @@
-{ lib, stdenv, fetchurl, unzip, autoconf, automake, libtool_1_5, makeWrapper
-, cups, jbigkit, glib, gtk3, gdk-pixbuf, pango, cairo, coreutils, atk
-, pkg-config, gnome2, libxml2, runtimeShell, proot, ghostscript, pkgs
-, pkgsi686Linux, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  autoconf,
+  automake,
+  libtool_1_5,
+  makeWrapper,
+  cups,
+  jbigkit,
+  glib,
+  gtk3,
+  gdk-pixbuf,
+  pango,
+  cairo,
+  coreutils,
+  atk,
+  pkg-config,
+  gnome2,
+  libxml2,
+  runtimeShell,
+  proot,
+  ghostscript,
+  pkgs,
+  pkgsi686Linux,
+  zlib,
+}:
 
 let
-  i686_NIX_GCC = pkgsi686Linux.callPackage ({ gcc }: gcc) { };
+  i686_NIX_GCC = pkgsi686Linux.callPackage ({
+      gcc,
+    }:
+    gcc) { };
   ld32 = if stdenv.hostPlatform.system == "x86_64-linux" then
     "${stdenv.cc}/nix-support/dynamic-linker-m32"
   else if stdenv.hostPlatform.system == "i686-linux" then

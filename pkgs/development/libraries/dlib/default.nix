@@ -1,9 +1,20 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, libpng, libjpeg
-, guiSupport ? false, libX11
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libpng,
+  libjpeg,
+  guiSupport ? false,
+  libX11
 
-# see http://dlib.net/compile.html
-, sse4Support ? stdenv.hostPlatform.sse4_1Support
-, avxSupport ? stdenv.hostPlatform.avxSupport, cudaSupport ? true }:
+  # see http://dlib.net/compile.html
+  ,
+  sse4Support ? stdenv.hostPlatform.sse4_1Support,
+  avxSupport ? stdenv.hostPlatform.avxSupport,
+  cudaSupport ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "dlib";

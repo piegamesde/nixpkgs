@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, python-dateutil, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python-dateutil,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "python-crontab";

@@ -1,5 +1,16 @@
-{ stdenv, lib, buildPythonPackage, cryptography, dask, distributed, docrep
-, fetchPypi, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  cryptography,
+  dask,
+  distributed,
+  docrep,
+  fetchPypi,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "dask-jobqueue";

@@ -1,4 +1,9 @@
-{ lib, unzip, opam, ocamlPackages }:
+{
+  lib,
+  unzip,
+  opam,
+  ocamlPackages,
+}:
 
 ocamlPackages.buildDunePackage {
   pname = "opam-installer";

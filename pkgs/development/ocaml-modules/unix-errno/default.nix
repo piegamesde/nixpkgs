@@ -1,4 +1,11 @@
-{ lib, buildDunePackage, fetchurl, ctypes, integers, result }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  ctypes,
+  integers,
+  result,
+}:
 
 buildDunePackage rec {
   pname = "unix-errno";

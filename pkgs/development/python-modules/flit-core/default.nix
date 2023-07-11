@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, callPackage, flit }:
+{
+  lib,
+  buildPythonPackage,
+  callPackage,
+  flit,
+}:
 
 buildPythonPackage rec {
   pname = "flit-core";

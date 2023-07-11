@@ -1,4 +1,7 @@
-{ lib, ... }: {
+{
+  lib,
+  ...
+}: {
   options = {
     key = lib.mkOption {
       type = lib.types.str;

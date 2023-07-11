@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, fftw }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  fftw,
+}:
 
 stdenv.mkDerivation rec {
   pname = "speexdsp";

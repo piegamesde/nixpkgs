@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, fetchYarnDeps, makeWrapper, matrix-sdk-crypto-nodejs
-, mkYarnPackage, nodejs }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  makeWrapper,
+  matrix-sdk-crypto-nodejs,
+  mkYarnPackage,
+  nodejs,
+}:
 
 let data = lib.importJSON ./pin.json;
 in mkYarnPackage rec {

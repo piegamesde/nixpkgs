@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, perl, perlPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perl,
+  perlPackages,
+}:
 
 perlPackages.buildPerlPackage {
   pname = "ninka";

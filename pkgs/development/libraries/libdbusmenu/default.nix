@@ -1,5 +1,20 @@
-{ stdenv, fetchurl, lib, file, pkg-config, intltool, glib, dbus-glib, json-glib
-, gobject-introspection, vala, gtkVersion ? null, gtk2, gtk3, testers }:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  file,
+  pkg-config,
+  intltool,
+  glib,
+  dbus-glib,
+  json-glib,
+  gobject-introspection,
+  vala,
+  gtkVersion ? null,
+  gtk2,
+  gtk3,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname =

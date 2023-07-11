@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, fontconfig, ocaml }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  fontconfig,
+  ocaml,
+}:
 
 stdenv.mkDerivation {
   pname = "ocaml-fontconfig";

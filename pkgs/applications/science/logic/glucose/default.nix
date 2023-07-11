@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, unzip, zlib, enableUnfree ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  zlib,
+  enableUnfree ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "glucose" + lib.optionalString enableUnfree "-syrup";

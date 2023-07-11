@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, poetry-core
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  poetry-core,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "python-pae";

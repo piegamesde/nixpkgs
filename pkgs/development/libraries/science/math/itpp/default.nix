@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, cmake, gtest, blas, fftw, liblapack, gfortran }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  gtest,
+  blas,
+  fftw,
+  liblapack,
+  gfortran,
+}:
 
 stdenv.mkDerivation rec {
   pname = "it++";

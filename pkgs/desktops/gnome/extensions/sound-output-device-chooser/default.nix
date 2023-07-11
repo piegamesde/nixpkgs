@@ -1,5 +1,12 @@
-{ lib, stdenv, substituteAll, fetchFromGitHub, fetchpatch, libpulseaudio
-, python3 }:
+{
+  lib,
+  stdenv,
+  substituteAll,
+  fetchFromGitHub,
+  fetchpatch,
+  libpulseaudio,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-sound-output-device-chooser";

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, backoff, yarl, aresponses
-, pytest-asyncio, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiohttp,
+  backoff,
+  yarl,
+  aresponses,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "aiomodernforms";

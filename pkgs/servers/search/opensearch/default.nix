@@ -1,5 +1,17 @@
-{ lib, stdenv, stdenvNoCC, fetchurl, makeWrapper, jre_headless, util-linux
-, gnugrep, coreutils, autoPatchelfHook, zlib, nixosTests }:
+{
+  lib,
+  stdenv,
+  stdenvNoCC,
+  fetchurl,
+  makeWrapper,
+  jre_headless,
+  util-linux,
+  gnugrep,
+  coreutils,
+  autoPatchelfHook,
+  zlib,
+  nixosTests,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "opensearch";

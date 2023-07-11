@@ -1,20 +1,62 @@
-{ stdenv, callPackage, lib, fetchurl, fetchpatch, fetchFromGitHub
-, installShellFiles, runCommand, runCommandCC, makeWrapper, recurseIntoAttrs
-# this package (through the fixpoint glass)
-, bazel_self, lr, xe, zip, unzip, bash, writeCBin, coreutils, which, gawk
-, gnused, gnutar, gnugrep, gzip, findutils
-# updater
-, python3, writeScript
-# Apple dependencies
-, cctools, libcxx, sigtool, CoreFoundation, CoreServices, Foundation
-# Allow to independently override the jdks used to build and run respectively
-, buildJdk, runJdk, runtimeShell
-# Downstream packages for tests
-, bazel-watcher
-# Always assume all markers valid (this is needed because we remove markers; they are non-deterministic).
-# Also, don't clean up environment variables (so that NIX_ environment variables are passed to compilers).
-, enableNixHacks ? false, gcc-unwrapped, autoPatchelfHook, file, substituteAll
-, writeTextFile }:
+{
+  stdenv,
+  callPackage,
+  lib,
+  fetchurl,
+  fetchpatch,
+  fetchFromGitHub,
+  installShellFiles,
+  runCommand,
+  runCommandCC,
+  makeWrapper,
+  recurseIntoAttrs
+  # this package (through the fixpoint glass)
+  ,
+  bazel_self,
+  lr,
+  xe,
+  zip,
+  unzip,
+  bash,
+  writeCBin,
+  coreutils,
+  which,
+  gawk,
+  gnused,
+  gnutar,
+  gnugrep,
+  gzip,
+  findutils
+  # updater
+  ,
+  python3,
+  writeScript
+  # Apple dependencies
+  ,
+  cctools,
+  libcxx,
+  sigtool,
+  CoreFoundation,
+  CoreServices,
+  Foundation
+  # Allow to independently override the jdks used to build and run respectively
+  ,
+  buildJdk,
+  runJdk,
+  runtimeShell
+  # Downstream packages for tests
+  ,
+  bazel-watcher
+  # Always assume all markers valid (this is needed because we remove markers; they are non-deterministic).
+  # Also, don't clean up environment variables (so that NIX_ environment variables are passed to compilers).
+  ,
+  enableNixHacks ? false,
+  gcc-unwrapped,
+  autoPatchelfHook,
+  file,
+  substituteAll,
+  writeTextFile,
+}:
 
 let
   version = "5.4.0";
@@ -241,8 +283,13 @@ in stdenv.mkDerivation rec {
         cp -R ${install_dir} $out
       '';
 
-    bazelTest =
-      { name, bazelScript, workspaceDir, bazelPkg, buildInputs ? [ ] }:
+    bazelTest = {
+        name,
+        bazelScript,
+        workspaceDir,
+        bazelPkg,
+        buildInputs ? [ ]
+      }:
       let be = extracted bazelPkg;
       in runLocal name { inherit buildInputs; } (
         # skip extraction caching on Darwin, because nobody knows how Darwin works

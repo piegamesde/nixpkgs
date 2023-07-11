@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, fetchFromGitHub, alembic, lz4, numpy, oauthlib
-, openpyxl, pandas, poetry-core, pyarrow, pytestCheckHook, pythonOlder
-, pythonRelaxDepsHook, sqlalchemy, thrift }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  alembic,
+  lz4,
+  numpy,
+  oauthlib,
+  openpyxl,
+  pandas,
+  poetry-core,
+  pyarrow,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  sqlalchemy,
+  thrift,
+}:
 
 buildPythonPackage rec {
   pname = "databricks-sql-connector";

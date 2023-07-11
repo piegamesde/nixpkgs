@@ -1,5 +1,15 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, setuptools, setuptools-scm
-, cocotb-bus, pytestCheckHook, swig, verilog }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  setuptools-scm,
+  cocotb-bus,
+  pytestCheckHook,
+  swig,
+  verilog,
+}:
 
 buildPythonPackage rec {
   pname = "cocotb";

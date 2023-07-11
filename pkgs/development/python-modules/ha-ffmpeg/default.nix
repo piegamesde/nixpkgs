@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, async-timeout }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  async-timeout,
+}:
 
 buildPythonPackage rec {
   pname = "ha-ffmpeg";

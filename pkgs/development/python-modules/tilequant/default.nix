@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, gitpython, click, ordered-set
-, pythonOlder, pillow, sortedcollections }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gitpython,
+  click,
+  ordered-set,
+  pythonOlder,
+  pillow,
+  sortedcollections,
+}:
 
 buildPythonPackage rec {
   pname = "tilequant";

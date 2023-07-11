@@ -1,4 +1,11 @@
-{ stdenv, fetchurl, libwmf, libpng, pkg-config, lib }:
+{
+  stdenv,
+  fetchurl,
+  libwmf,
+  libpng,
+  pkg-config,
+  lib,
+}:
 stdenv.mkDerivation {
   name = "winhelpcgi-1.0-rc3";
 

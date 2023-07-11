@@ -1,7 +1,27 @@
-{ stdenv, lib, fetchFromGitHub, buildGoPackage, wrapQtAppsHook, wrapGAppsHook
-, gtk3, pkg-config, deepin-gettext-tools, alsa-lib, go-dbus-factory
-, go-gir-generator, go-lib, libcanberra, libgudev, librsvg, poppler, pulseaudio
-, gdk-pixbuf-xlib, dbus, coreutils, deepin-desktop-base }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildGoPackage,
+  wrapQtAppsHook,
+  wrapGAppsHook,
+  gtk3,
+  pkg-config,
+  deepin-gettext-tools,
+  alsa-lib,
+  go-dbus-factory,
+  go-gir-generator,
+  go-lib,
+  libcanberra,
+  libgudev,
+  librsvg,
+  poppler,
+  pulseaudio,
+  gdk-pixbuf-xlib,
+  dbus,
+  coreutils,
+  deepin-desktop-base,
+}:
 
 buildGoPackage rec {
   pname = "dde-api";

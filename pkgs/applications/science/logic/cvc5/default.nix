@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, flex, cadical, symfpu, gmp
-, python3, gtest, libantlr3c, antlr3_4, boost, jdk }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  flex,
+  cadical,
+  symfpu,
+  gmp,
+  python3,
+  gtest,
+  libantlr3c,
+  antlr3_4,
+  boost,
+  jdk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cvc5";

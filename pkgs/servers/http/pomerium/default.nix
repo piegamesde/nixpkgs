@@ -1,5 +1,14 @@
-{ buildGoModule, fetchFromGitHub, callPackage, lib, envoy, mkYarnPackage
-, fetchYarnDeps, nixosTests, pomerium-cli }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  callPackage,
+  lib,
+  envoy,
+  mkYarnPackage,
+  fetchYarnDeps,
+  nixosTests,
+  pomerium-cli,
+}:
 
 let inherit (lib) concatStringsSep concatMap id mapAttrsToList;
 in buildGoModule rec {

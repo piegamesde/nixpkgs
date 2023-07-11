@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, blessed, docopt, pillow, requests
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  blessed,
+  docopt,
+  pillow,
+  requests,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pixcat";

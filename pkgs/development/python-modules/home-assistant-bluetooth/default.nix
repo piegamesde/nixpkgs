@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, cython, poetry-core
-, setuptools, bleak, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  cython,
+  poetry-core,
+  setuptools,
+  bleak,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "home-assistant-bluetooth";

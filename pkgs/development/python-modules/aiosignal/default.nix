@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, frozenlist, pytest-asyncio
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  frozenlist,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aiosignal";

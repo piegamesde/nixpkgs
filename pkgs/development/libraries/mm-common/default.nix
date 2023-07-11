@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, gnome, meson, python3, ninja }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gnome,
+  meson,
+  python3,
+  ninja,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mm-common";

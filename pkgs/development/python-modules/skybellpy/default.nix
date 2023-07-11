@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, colorlog, fetchFromGitHub, pytest-sugar
-, pytest-timeout, pytestCheckHook, pythonOlder, requests, requests-mock }:
+{
+  lib,
+  buildPythonPackage,
+  colorlog,
+  fetchFromGitHub,
+  pytest-sugar,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "skybellpy";

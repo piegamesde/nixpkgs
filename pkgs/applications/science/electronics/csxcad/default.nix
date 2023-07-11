@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, cmake, fparser, tinyxml, hdf5, cgal_5, vtk
-, boost, gmp, mpfr }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  fparser,
+  tinyxml,
+  hdf5,
+  cgal_5,
+  vtk,
+  boost,
+  gmp,
+  mpfr,
+}:
 
 stdenv.mkDerivation rec {
   pname = "csxcad";

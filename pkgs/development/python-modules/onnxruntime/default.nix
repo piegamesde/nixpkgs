@@ -1,6 +1,15 @@
-{ lib, buildPythonPackage, autoPatchelfHook, pythonRelaxDepsHook, onnxruntime
-, coloredlogs, numpy, packaging, oneDNN
+{
+  lib,
+  buildPythonPackage,
+  autoPatchelfHook,
+  pythonRelaxDepsHook,
+  onnxruntime,
+  coloredlogs,
+  numpy,
+  packaging,
+  oneDNN
 
+  ,
 }:
 
 # onnxruntime requires an older protobuf.

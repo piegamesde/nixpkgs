@@ -1,5 +1,14 @@
-{ lib, stdenvNoCC, fetchFromGitHub, gtk3, adwaita-icon-theme, breeze-icons
-, gnome-icon-theme, hicolor-icon-theme, gitUpdater }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gtk3,
+  adwaita-icon-theme,
+  breeze-icons,
+  gnome-icon-theme,
+  hicolor-icon-theme,
+  gitUpdater,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "numix-icon-theme";

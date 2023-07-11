@@ -1,6 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, blas, lapack, numpy, scipy
-# check inputs
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  blas,
+  lapack,
+  numpy,
+  scipy
+  # check inputs
+  ,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "scs";

@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, libXrandr, libX11 }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  libXrandr,
+  libX11,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "shotgun";

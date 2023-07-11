@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, flit-core, pythonOlder, typing-extensions
-, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flit-core,
+  pythonOlder,
+  typing-extensions,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "PyPDF2";

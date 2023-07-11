@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, ghostscript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ghostscript,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hmetis";

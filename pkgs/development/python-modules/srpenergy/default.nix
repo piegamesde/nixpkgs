@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, python-dateutil
-, requests, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  python-dateutil,
+  requests,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "srpenergy";

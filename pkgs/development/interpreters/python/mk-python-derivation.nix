@@ -1,86 +1,131 @@
 # Generic builder.
 
-{ lib, config, python, wrapPython, unzip, ensureNewerSourcesForZipFilesHook
-# Whether the derivation provides a Python module or not.
-, toPythonModule, namePrefix, update-python-libraries, setuptools, flitBuildHook
-, pipBuildHook, pipInstallHook, pythonCatchConflictsHook, pythonImportsCheckHook
-, pythonNamespacesHook, pythonOutputDistHook, pythonRemoveBinBytecodeHook
-, pythonRemoveTestsDirHook, setuptoolsBuildHook, setuptoolsCheckHook
-, wheelUnpackHook, eggUnpackHook, eggBuildHook, eggInstallHook }:
+{
+  lib,
+  config,
+  python,
+  wrapPython,
+  unzip,
+  ensureNewerSourcesForZipFilesHook
+  # Whether the derivation provides a Python module or not.
+  ,
+  toPythonModule,
+  namePrefix,
+  update-python-libraries,
+  setuptools,
+  flitBuildHook,
+  pipBuildHook,
+  pipInstallHook,
+  pythonCatchConflictsHook,
+  pythonImportsCheckHook,
+  pythonNamespacesHook,
+  pythonOutputDistHook,
+  pythonRemoveBinBytecodeHook,
+  pythonRemoveTestsDirHook,
+  setuptoolsBuildHook,
+  setuptoolsCheckHook,
+  wheelUnpackHook,
+  eggUnpackHook,
+  eggBuildHook,
+  eggInstallHook,
+}:
 
-{ name ? "${attrs.pname}-${attrs.version}"
+{
+  name ? "${attrs.pname}-${attrs.version}"
 
-  # Build-time dependencies for the package
-, nativeBuildInputs ? [ ]
+    # Build-time dependencies for the package
+  ,
+  nativeBuildInputs ? [ ]
 
-  # Run-time dependencies for the package
-, buildInputs ? [ ]
+    # Run-time dependencies for the package
+  ,
+  buildInputs ? [ ]
 
-  # Dependencies needed for running the checkPhase.
-  # These are added to buildInputs when doCheck = true.
-, checkInputs ? [ ], nativeCheckInputs ? [ ]
+    # Dependencies needed for running the checkPhase.
+    # These are added to buildInputs when doCheck = true.
+  ,
+  checkInputs ? [ ],
+  nativeCheckInputs ? [ ]
 
-  # propagate build dependencies so in case we have A -> B -> C,
-  # C can import package A propagated by B
-, propagatedBuildInputs ? [ ]
+    # propagate build dependencies so in case we have A -> B -> C,
+    # C can import package A propagated by B
+  ,
+  propagatedBuildInputs ? [ ]
 
-  # DEPRECATED: use propagatedBuildInputs
-, pythonPath ? [ ]
+    # DEPRECATED: use propagatedBuildInputs
+  ,
+  pythonPath ? [ ]
 
-  # Enabled to detect some (native)BuildInputs mistakes
-, strictDeps ? true
+    # Enabled to detect some (native)BuildInputs mistakes
+  ,
+  strictDeps ? true
 
-, outputs ? [
-  "out"
-]
+  ,
+  outputs ? [
+    "out"
+  ]
 
-# used to disable derivation, useful for specific python versions
-, disabled ? false
+  # used to disable derivation, useful for specific python versions
+  ,
+  disabled ? false
 
-  # Raise an error if two packages are installed with the same name
-  # TODO: For cross we probably need a different PYTHONPATH, or not
-  # add the runtime deps until after buildPhase.
-, catchConflicts ? (python.stdenv.hostPlatform == python.stdenv.buildPlatform)
+    # Raise an error if two packages are installed with the same name
+    # TODO: For cross we probably need a different PYTHONPATH, or not
+    # add the runtime deps until after buildPhase.
+  ,
+  catchConflicts ? (python.stdenv.hostPlatform == python.stdenv.buildPlatform)
 
-# Additional arguments to pass to the makeWrapper function, which wraps
-# generated binaries.
-, makeWrapperArgs ? [ ]
+  # Additional arguments to pass to the makeWrapper function, which wraps
+  # generated binaries.
+  ,
+  makeWrapperArgs ? [ ]
 
-  # Skip wrapping of python programs altogether
-, dontWrapPythonPrograms ? false
+    # Skip wrapping of python programs altogether
+  ,
+  dontWrapPythonPrograms ? false
 
-  # Don't use Pip to install a wheel
-  # Note this is actually a variable for the pipInstallPhase in pip's setupHook.
-  # It's included here to prevent an infinite recursion.
-, dontUsePipInstall ? false
+    # Don't use Pip to install a wheel
+    # Note this is actually a variable for the pipInstallPhase in pip's setupHook.
+    # It's included here to prevent an infinite recursion.
+  ,
+  dontUsePipInstall ? false
 
-  # Skip setting the PYTHONNOUSERSITE environment variable in wrapped programs
-, permitUserSite ? false
+    # Skip setting the PYTHONNOUSERSITE environment variable in wrapped programs
+  ,
+  permitUserSite ? false
 
-  # Remove bytecode from bin folder.
-  # When a Python script has the extension `.py`, bytecode is generated
-  # Typically, executables in bin have no extension, so no bytecode is generated.
-  # However, some packages do provide executables with extensions, and thus bytecode is generated.
-, removeBinBytecode ? true
+    # Remove bytecode from bin folder.
+    # When a Python script has the extension `.py`, bytecode is generated
+    # Typically, executables in bin have no extension, so no bytecode is generated.
+    # However, some packages do provide executables with extensions, and thus bytecode is generated.
+  ,
+  removeBinBytecode ? true
 
-  # Several package formats are supported.
-  # "setuptools" : Install a common setuptools/distutils based package. This builds a wheel.
-  # "wheel" : Install from a pre-compiled wheel.
-  # "flit" : Install a flit package. This builds a wheel.
-  # "pyproject": Install a package using a ``pyproject.toml`` file (PEP517). This builds a wheel.
-  # "egg": Install a package from an egg.
-  # "other" : Provide your own buildPhase and installPhase.
-, format ? "setuptools"
+    # Several package formats are supported.
+    # "setuptools" : Install a common setuptools/distutils based package. This builds a wheel.
+    # "wheel" : Install from a pre-compiled wheel.
+    # "flit" : Install a flit package. This builds a wheel.
+    # "pyproject": Install a package using a ``pyproject.toml`` file (PEP517). This builds a wheel.
+    # "egg": Install a package from an egg.
+    # "other" : Provide your own buildPhase and installPhase.
+  ,
+  format ? "setuptools"
 
-, meta ? { }
+  ,
+  meta ? { }
 
-, passthru ? { }
+  ,
+  passthru ? { }
 
-, doCheck ? config.doCheckByDefault or false
+  ,
+  doCheck ? config.doCheckByDefault or false
 
-, disabledTestPaths ? [ ]
+  ,
+  disabledTestPaths ? [ ]
 
-, ... }@attrs:
+  ,
+  ...
+}@attrs:
 
 let
   inherit (python) stdenv;

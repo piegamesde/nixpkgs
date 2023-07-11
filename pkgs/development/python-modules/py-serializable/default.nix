@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, defusedxml, fetchFromGitHub, lxml, poetry-core
-, pytestCheckHook, pythonOlder, xmldiff }:
+{
+  lib,
+  buildPythonPackage,
+  defusedxml,
+  fetchFromGitHub,
+  lxml,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  xmldiff,
+}:
 
 buildPythonPackage rec {
   pname = "py-serializable";

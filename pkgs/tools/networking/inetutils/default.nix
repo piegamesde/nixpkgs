@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchurl, ncurses, perl, help2man, apparmorRulesFromClosure
-, libxcrypt }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ncurses,
+  perl,
+  help2man,
+  apparmorRulesFromClosure,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "inetutils";

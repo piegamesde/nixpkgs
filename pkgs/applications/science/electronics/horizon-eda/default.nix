@@ -1,6 +1,26 @@
-{ stdenv, boost, coreutils, cppzmq, curl, libepoxy, fetchFromGitHub, glm, gtkmm3
-, lib, libarchive, libgit2, librsvg, libspnav, libuuid, opencascade-occt
-, pkg-config, podofo, python3, sqlite, wrapGAppsHook }:
+{
+  stdenv,
+  boost,
+  coreutils,
+  cppzmq,
+  curl,
+  libepoxy,
+  fetchFromGitHub,
+  glm,
+  gtkmm3,
+  lib,
+  libarchive,
+  libgit2,
+  librsvg,
+  libspnav,
+  libuuid,
+  opencascade-occt,
+  pkg-config,
+  podofo,
+  python3,
+  sqlite,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "horizon-eda";

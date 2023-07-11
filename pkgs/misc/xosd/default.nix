@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, libX11, libXext, libXt, xorgproto }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
+  libXext,
+  libXt,
+  xorgproto,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xosd";

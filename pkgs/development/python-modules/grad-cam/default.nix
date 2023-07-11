@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, matplotlib, numpy, opencv4
-, pillow, scikit-learn, torch, torchvision, ttach, tqdm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  matplotlib,
+  numpy,
+  opencv4,
+  pillow,
+  scikit-learn,
+  torch,
+  torchvision,
+  ttach,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "grad-cam";

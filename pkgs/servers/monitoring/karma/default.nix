@@ -1,5 +1,13 @@
-{ pkgs, lib, stdenv, buildGoModule, callPackage, fetchFromGitHub, nixosTests
-, nodejs_18 }:
+{
+  pkgs,
+  lib,
+  stdenv,
+  buildGoModule,
+  callPackage,
+  fetchFromGitHub,
+  nixosTests,
+  nodejs_18,
+}:
 
 let
   uiNodeDependencies = (import ./node-composition.nix {

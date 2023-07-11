@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, keyutils, libkrb5, openafs, perl
-, pkg-config, enableSetPAG ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  keyutils,
+  libkrb5,
+  openafs,
+  perl,
+  pkg-config,
+  enableSetPAG ? false
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "kstart";

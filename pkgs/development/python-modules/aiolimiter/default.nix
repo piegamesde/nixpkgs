@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, poetry-core
-, importlib-metadata, pytest-asyncio, pytestCheckHook, pythonOlder, toml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  poetry-core,
+  importlib-metadata,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  toml,
+}:
 
 buildPythonPackage rec {
   pname = "aiolimiter";

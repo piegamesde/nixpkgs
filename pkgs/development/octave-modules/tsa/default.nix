@@ -1,4 +1,9 @@
-{ buildOctavePackage, lib, fetchurl, nan # > 3.0.0
+{
+  buildOctavePackage,
+  lib,
+  fetchurl,
+  nan # > 3.0.0
+  ,
 }:
 
 buildOctavePackage rec {

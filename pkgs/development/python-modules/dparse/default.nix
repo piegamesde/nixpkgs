@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, toml, pyyaml, packaging
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  toml,
+  pyyaml,
+  packaging,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "dparse";

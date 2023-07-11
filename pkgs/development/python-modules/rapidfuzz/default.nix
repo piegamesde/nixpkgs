@@ -1,6 +1,21 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, cmake, cython_3
-, ninja, scikit-build, setuptools, numpy, hypothesis, pandas, pytestCheckHook
-, rapidfuzz-cpp, taskflow }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  cmake,
+  cython_3,
+  ninja,
+  scikit-build,
+  setuptools,
+  numpy,
+  hypothesis,
+  pandas,
+  pytestCheckHook,
+  rapidfuzz-cpp,
+  taskflow,
+}:
 
 buildPythonPackage rec {
   pname = "rapidfuzz";

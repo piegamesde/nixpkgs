@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, flit-core, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  flit-core,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "ordered-set";

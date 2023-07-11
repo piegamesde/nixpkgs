@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, alsa-lib, gtk2, libXrandr
-, libXScrnSaver, udev, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  alsa-lib,
+  gtk2,
+  libXrandr,
+  libXScrnSaver,
+  udev,
+  zlib,
+}:
 
 let name = "clonehero";
 in stdenv.mkDerivation rec {

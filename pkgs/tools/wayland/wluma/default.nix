@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, rustPlatform, vulkan-loader
-, pkg-config, udev, v4l-utils, llvmPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  rustPlatform,
+  vulkan-loader,
+  pkg-config,
+  udev,
+  v4l-utils,
+  llvmPackages,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "wluma";

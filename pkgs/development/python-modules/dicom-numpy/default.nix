@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, numpy
-, pydicom }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  numpy,
+  pydicom,
+}:
 
 buildPythonPackage rec {
   pname = "dicom-numpy";

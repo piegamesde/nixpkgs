@@ -1,4 +1,14 @@
-{ lib, stdenv, runtimeShell, fetchurl, unzip, mono, avrdude, gtk2, xdg-utils }:
+{
+  lib,
+  stdenv,
+  runtimeShell,
+  fetchurl,
+  unzip,
+  mono,
+  avrdude,
+  gtk2,
+  xdg-utils,
+}:
 
 stdenv.mkDerivation {
   pname = "avrdudess";

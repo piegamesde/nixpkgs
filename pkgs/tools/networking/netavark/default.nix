@@ -1,5 +1,12 @@
-{ lib, rustPlatform, fetchFromGitHub, installShellFiles, mandown, protobuf
-, nixosTests }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  mandown,
+  protobuf,
+  nixosTests,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "netavark";

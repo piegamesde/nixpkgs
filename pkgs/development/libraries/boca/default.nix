@@ -1,6 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config
 
-, expat, libcdio, libcdio-paranoia, libpulseaudio, smooth, uriparser, zlib }:
+  ,
+  expat,
+  libcdio,
+  libcdio-paranoia,
+  libpulseaudio,
+  smooth,
+  uriparser,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "BoCA";

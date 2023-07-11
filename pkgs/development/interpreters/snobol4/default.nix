@@ -1,5 +1,19 @@
-{ lib, fetchurl, stdenv, bzip2, gdbm, gnum4, gzip, libffi, openssl, readline
-, sqlite, tcl, xz, zlib }:
+{
+  lib,
+  fetchurl,
+  stdenv,
+  bzip2,
+  gdbm,
+  gnum4,
+  gzip,
+  libffi,
+  openssl,
+  readline,
+  sqlite,
+  tcl,
+  xz,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "snobol4";

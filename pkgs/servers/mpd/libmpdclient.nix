@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, fixDarwinDylibNames }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  fixDarwinDylibNames,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libmpdclient";

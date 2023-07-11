@@ -1,5 +1,14 @@
-{ lib, stdenv, autoreconfHook, buildPackages, fetchurl, flex, readline, ed
-, texinfo }:
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  buildPackages,
+  fetchurl,
+  flex,
+  readline,
+  ed,
+  texinfo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bc";

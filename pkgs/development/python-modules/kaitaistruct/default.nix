@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, fetchFromGitHub, brotli, lz4 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchFromGitHub,
+  brotli,
+  lz4,
+}:
 
 let
   kaitai_compress = fetchFromGitHub {

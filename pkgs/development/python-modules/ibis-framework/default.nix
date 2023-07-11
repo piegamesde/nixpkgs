@@ -1,15 +1,65 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, pythonOlder
-, pytestCheckHook, atpublic, bidict, black, clickhouse-cityhash
-, clickhouse-driver, dask, datafusion, db-dtypes, duckdb, duckdb-engine
-, filelock, geoalchemy2, geopandas, google-cloud-bigquery
-, google-cloud-bigquery-storage, graphviz-nox, hypothesis, importlib-resources
-, lz4, multipledispatch, numpy, packaging, pandas, parsy, poetry-core, polars
-, pooch, psycopg2, pyarrow, pydata-google-auth, pydruid, pymysql, pyspark
-, pytest-benchmark, pytest-httpserver, pytest-mock, pytest-randomly
-, pytest-snapshot, pytest-xdist, python-dateutil, pytz, regex, rich, rsync
-, shapely, snowflake-connector-python, snowflake-sqlalchemy, sqlalchemy
-, sqlalchemy-views, sqlglot, sqlite, toolz, trino-python-client
-, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pythonOlder,
+  pytestCheckHook,
+  atpublic,
+  bidict,
+  black,
+  clickhouse-cityhash,
+  clickhouse-driver,
+  dask,
+  datafusion,
+  db-dtypes,
+  duckdb,
+  duckdb-engine,
+  filelock,
+  geoalchemy2,
+  geopandas,
+  google-cloud-bigquery,
+  google-cloud-bigquery-storage,
+  graphviz-nox,
+  hypothesis,
+  importlib-resources,
+  lz4,
+  multipledispatch,
+  numpy,
+  packaging,
+  pandas,
+  parsy,
+  poetry-core,
+  polars,
+  pooch,
+  psycopg2,
+  pyarrow,
+  pydata-google-auth,
+  pydruid,
+  pymysql,
+  pyspark,
+  pytest-benchmark,
+  pytest-httpserver,
+  pytest-mock,
+  pytest-randomly,
+  pytest-snapshot,
+  pytest-xdist,
+  python-dateutil,
+  pytz,
+  regex,
+  rich,
+  rsync,
+  shapely,
+  snowflake-connector-python,
+  snowflake-sqlalchemy,
+  sqlalchemy,
+  sqlalchemy-views,
+  sqlglot,
+  sqlite,
+  toolz,
+  trino-python-client,
+  typing-extensions,
+}:
 let
   testBackends = [ "datafusion" "duckdb" "pandas" "sqlite" ];
 

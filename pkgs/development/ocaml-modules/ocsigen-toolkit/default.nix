@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, ocaml, findlib, opaline, calendar, eliom
-, js_of_ocaml-ppx_deriving_json }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  opaline,
+  calendar,
+  eliom,
+  js_of_ocaml-ppx_deriving_json,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocsigen-toolkit";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, intltool, pkg-config, gtk2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  intltool,
+  pkg-config,
+  gtk2,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.8.19";

@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchurl, linuxHeaders ? null, useBSDCompatHeaders ? true }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  linuxHeaders ? null,
+  useBSDCompatHeaders ? true
+}:
 let
   cdefs_h = fetchurl {
     name = "sys-cdefs.h";

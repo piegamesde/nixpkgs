@@ -1,4 +1,8 @@
-{ wxGTK, stdenv, newScope }:
+{
+  wxGTK,
+  stdenv,
+  newScope,
+}:
 let
   callPackage = newScope self;
 

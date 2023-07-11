@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, meson, ninja, vulkan-headers
-, vulkan-loader, mesa, wayland-protocols, wayland, glm, assimp, libxcb
-, xcbutilwm }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  meson,
+  ninja,
+  vulkan-headers,
+  vulkan-loader,
+  mesa,
+  wayland-protocols,
+  wayland,
+  glm,
+  assimp,
+  libxcb,
+  xcbutilwm,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vkmark";

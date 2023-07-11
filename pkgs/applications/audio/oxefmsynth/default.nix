@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, fetchzip, libX11 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchzip,
+  libX11,
+}:
 
 let
 

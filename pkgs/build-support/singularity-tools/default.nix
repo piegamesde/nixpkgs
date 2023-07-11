@@ -1,6 +1,18 @@
-{ runCommand, lib, stdenv, storeDir ? builtins.storeDir, writeScript
-, singularity, writeReferencesToFile, bash, vmTools, gawk, util-linux
-, runtimeShell, e2fsprogs }: rec {
+{
+  runCommand,
+  lib,
+  stdenv,
+  storeDir ? builtins.storeDir,
+  writeScript,
+  singularity,
+  writeReferencesToFile,
+  bash,
+  vmTools,
+  gawk,
+  util-linux,
+  runtimeShell,
+  e2fsprogs,
+}: rec {
   shellScript = name: text:
     writeScript name ''
       #!${runtimeShell}
@@ -8,9 +20,13 @@
       ${text}
     '';
 
-  mkLayer = { name, contents ? [ ]
-      # May be "apptainer" instead of "singularity"
-    , projectName ? (singularity.projectName or "singularity") }:
+  mkLayer = {
+      name,
+      contents ? [ ]
+        # May be "apptainer" instead of "singularity"
+      ,
+      projectName ? (singularity.projectName or "singularity")
+    }:
     runCommand "${projectName}-layer-${name}" { inherit contents; } ''
       mkdir $out
       for f in $contents ; do
@@ -19,10 +35,17 @@
     '';
 
   buildImage = let defaultSingularity = singularity;
-  in { name, contents ? [ ], diskSize ? 1024, runScript ? ''
-    #!${stdenv.shell}
-    exec /bin/sh'', runAsRoot ? null, memSize ? 512
-  , singularity ? defaultSingularity }:
+  in {
+    name,
+    contents ? [ ],
+    diskSize ? 1024,
+    runScript ? ''
+      #!${stdenv.shell}
+      exec /bin/sh'',
+    runAsRoot ? null,
+    memSize ? 512,
+    singularity ? defaultSingularity
+  }:
   let
     projectName = singularity.projectName or "singularity";
     layer = mkLayer {

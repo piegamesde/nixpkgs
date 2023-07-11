@@ -1,5 +1,14 @@
-{ config, elk7Version, enableUnfree ? true, lib, stdenv, fetchurl, makeWrapper
-, nixosTests, jre }:
+{
+  config,
+  elk7Version,
+  enableUnfree ? true,
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  nixosTests,
+  jre,
+}:
 
 let
   info = lib.splitString "-" stdenv.hostPlatform.system;

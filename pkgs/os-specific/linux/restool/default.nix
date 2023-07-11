@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, bash, coreutils, dtc, file, gawk, gnugrep
-, gnused, pandoc, which }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  bash,
+  coreutils,
+  dtc,
+  file,
+  gawk,
+  gnugrep,
+  gnused,
+  pandoc,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "restool";

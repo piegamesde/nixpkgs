@@ -1,4 +1,10 @@
-{ stdenv, lib, makeWrapper, perl, perlPackages }:
+{
+  stdenv,
+  lib,
+  makeWrapper,
+  perl,
+  perlPackages,
+}:
 
 stdenv.mkDerivation {
   name = "nix-generate-from-cpan-3";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, zlib, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  zlib,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "somatic-sniper";

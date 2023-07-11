@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchgit, autoreconfHook, pkg-config, ell, coreutils, docutils
-, readline, openssl, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  autoreconfHook,
+  pkg-config,
+  ell,
+  coreutils,
+  docutils,
+  readline,
+  openssl,
+  python3Packages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "iwd";

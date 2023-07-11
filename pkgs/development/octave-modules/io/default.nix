@@ -1,4 +1,11 @@
-{ buildOctavePackage, lib, fetchurl, enableJava, jdk, unzip }:
+{
+  buildOctavePackage,
+  lib,
+  fetchurl,
+  enableJava,
+  jdk,
+  unzip,
+}:
 
 buildOctavePackage rec {
   pname = "io";

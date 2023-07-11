@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, lua, boost, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  lua,
+  boost,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "luabind";

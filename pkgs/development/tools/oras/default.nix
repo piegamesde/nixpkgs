@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles, testers, oras }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  testers,
+  oras,
+}:
 
 buildGoModule rec {
   pname = "oras";

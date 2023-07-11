@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, cmake, gettext }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  gettext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dfc";

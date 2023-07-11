@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cffi, crc32c, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cffi,
+  crc32c,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "google-crc32c";

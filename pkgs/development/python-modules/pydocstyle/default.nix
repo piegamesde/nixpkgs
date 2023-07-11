@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core
-, snowballstemmer, tomli, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  snowballstemmer,
+  tomli,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pydocstyle";

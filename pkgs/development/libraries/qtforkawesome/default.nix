@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, cpp-utilities, qtutilities, qttools, qtbase
-, cmake, perl }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cpp-utilities,
+  qtutilities,
+  qttools,
+  qtbase,
+  cmake,
+  perl,
+}:
 
 let
   fork_awesome_release = fetchFromGitHub {

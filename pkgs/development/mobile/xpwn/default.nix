@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, zlib, libpng, bzip2, libusb-compat-0_1
-, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  zlib,
+  libpng,
+  bzip2,
+  libusb-compat-0_1,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xpwn";

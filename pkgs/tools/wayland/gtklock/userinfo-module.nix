@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, gtk3, glib, accountsservice }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  gtk3,
+  glib,
+  accountsservice,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gtklock-userinfo-module";

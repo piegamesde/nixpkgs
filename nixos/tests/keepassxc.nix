@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
 
   {
     name = "keepassxc";
@@ -7,7 +10,9 @@ import ./make-test-python.nix ({ pkgs, ... }:
       timeout = 1800;
     };
 
-    nodes.machine = { ... }:
+    nodes.machine = {
+        ...
+      }:
 
       {
         imports = [ ./common/user-account.nix ./common/x11.nix ];
@@ -27,7 +32,10 @@ import ./make-test-python.nix ({ pkgs, ... }:
 
     enableOCR = true;
 
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let aliceDo = cmd: ''machine.succeed("su - alice -c '${cmd}' >&2 &");'';
       in ''
         with subtest("Ensure X starts"):

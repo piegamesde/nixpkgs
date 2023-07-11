@@ -1,8 +1,42 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, texinfo, libXext, xorgproto, libX11
-, libXpm, libXt, libXcursor, alsa-lib, cmake, zlib, libpng, libvorbis
-, libXxf86dga, libXxf86misc, libXxf86vm, openal, libGLU, libGL, libjpeg, flac
-, libXi, libXfixes, freetype, libopus, libtheora, physfs, enet, pkg-config, gtk3
-, pcre, libpulseaudio, libpthreadstubs, libXdmcp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  texinfo,
+  libXext,
+  xorgproto,
+  libX11,
+  libXpm,
+  libXt,
+  libXcursor,
+  alsa-lib,
+  cmake,
+  zlib,
+  libpng,
+  libvorbis,
+  libXxf86dga,
+  libXxf86misc,
+  libXxf86vm,
+  openal,
+  libGLU,
+  libGL,
+  libjpeg,
+  flac,
+  libXi,
+  libXfixes,
+  freetype,
+  libopus,
+  libtheora,
+  physfs,
+  enet,
+  pkg-config,
+  gtk3,
+  pcre,
+  libpulseaudio,
+  libpthreadstubs,
+  libXdmcp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "allegro";

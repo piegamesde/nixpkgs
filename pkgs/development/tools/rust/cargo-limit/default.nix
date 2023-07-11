@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchFromGitHub, nix-update-script, stdenv, libiconv }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  nix-update-script,
+  stdenv,
+  libiconv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-limit";

@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, cookiecutter, networkx, pandas
-, tornado, tqdm, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  cookiecutter,
+  networkx,
+  pandas,
+  tornado,
+  tqdm,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "mesa";

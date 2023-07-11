@@ -1,5 +1,12 @@
-{ lib, stdenvNoCC, fetchFromGitHub, gitUpdater, gtk3, hicolor-icon-theme, jdupes
-, colorVariants ? [ ] # default: all
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gitUpdater,
+  gtk3,
+  hicolor-icon-theme,
+  jdupes,
+  colorVariants ? [ ] # default: all
 }:
 
 let pname = "vimix-icon-theme";

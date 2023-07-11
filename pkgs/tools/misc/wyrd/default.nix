@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, ocamlPackages, ncurses, remind }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocamlPackages,
+  ncurses,
+  remind,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.4.6";

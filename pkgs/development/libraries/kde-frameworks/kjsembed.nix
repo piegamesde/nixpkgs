@@ -1,4 +1,12 @@
-{ mkDerivation, extra-cmake-modules, kdoctools, qttools, ki18n, kjs, qtsvg, }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  kdoctools,
+  qttools,
+  ki18n,
+  kjs,
+  qtsvg,
+}:
 
 mkDerivation {
   pname = "kjsembed";

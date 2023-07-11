@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, buildPythonPackage, importlib-metadata
-, importlib-resources, setuptools, pythonOlder, pytestCheckHook }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  importlib-metadata,
+  importlib-resources,
+  setuptools,
+  pythonOlder,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "fake-useragent";

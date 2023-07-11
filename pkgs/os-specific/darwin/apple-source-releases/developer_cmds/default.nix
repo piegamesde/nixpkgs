@@ -1,4 +1,10 @@
-{ lib, appleDerivation, xcbuildHook, llvmPackages, makeWrapper }:
+{
+  lib,
+  appleDerivation,
+  xcbuildHook,
+  llvmPackages,
+  makeWrapper,
+}:
 
 appleDerivation {
   nativeBuildInputs = [ xcbuildHook makeWrapper ];

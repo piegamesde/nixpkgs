@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchFromBitbucket, cmake, copyDesktopItems, pkg-config
-, makeWrapper, zlib, bzip2, libjpeg, SDL2, SDL2_net, SDL2_mixer, gtk3 }:
+{
+  stdenv,
+  lib,
+  fetchFromBitbucket,
+  cmake,
+  copyDesktopItems,
+  pkg-config,
+  makeWrapper,
+  zlib,
+  bzip2,
+  libjpeg,
+  SDL2,
+  SDL2_net,
+  SDL2_mixer,
+  gtk3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ecwolf";

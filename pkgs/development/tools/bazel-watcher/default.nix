@@ -1,4 +1,13 @@
-{ buildBazelPackage, bazel_5, fetchFromGitHub, git, go, python3, lib, stdenv }:
+{
+  buildBazelPackage,
+  bazel_5,
+  fetchFromGitHub,
+  git,
+  go,
+  python3,
+  lib,
+  stdenv,
+}:
 
 let
   patches = [ ./use-go-in-path.patch ./fix-rules-go-3408.patch ];

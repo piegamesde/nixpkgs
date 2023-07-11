@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder, build
-, hatchling, tomli, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
+  build,
+  hatchling,
+  tomli,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "hatch-fancy-pypi-readme";

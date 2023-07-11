@@ -1,6 +1,26 @@
-{ lib, stdenv, cmake, doxygen, fetchFromGitHub, glib, glib-networking, gnutls
-, gpgme, hiredis, libgcrypt, libnet, libpcap, libssh, libuuid, libxcrypt
-, libxml2, paho-mqtt-c, pkg-config, zlib, freeradius }:
+{
+  lib,
+  stdenv,
+  cmake,
+  doxygen,
+  fetchFromGitHub,
+  glib,
+  glib-networking,
+  gnutls,
+  gpgme,
+  hiredis,
+  libgcrypt,
+  libnet,
+  libpcap,
+  libssh,
+  libuuid,
+  libxcrypt,
+  libxml2,
+  paho-mqtt-c,
+  pkg-config,
+  zlib,
+  freeradius,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gvm-libs";

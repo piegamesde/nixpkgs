@@ -1,7 +1,28 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, configobj, cython, dulwich
-, fastbencode, fastimport, libiconv, merge3, patiencediff, pyyaml, urllib3
-, breezy, launchpadlib, testtools, pythonOlder, installShellFiles, rustPlatform
-, setuptools-gettext, setuptools-rust, testers }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  configobj,
+  cython,
+  dulwich,
+  fastbencode,
+  fastimport,
+  libiconv,
+  merge3,
+  patiencediff,
+  pyyaml,
+  urllib3,
+  breezy,
+  launchpadlib,
+  testtools,
+  pythonOlder,
+  installShellFiles,
+  rustPlatform,
+  setuptools-gettext,
+  setuptools-rust,
+  testers,
+}:
 
 buildPythonPackage rec {
   pname = "breezy";

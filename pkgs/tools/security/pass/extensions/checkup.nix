@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, curl, findutils, gnugrep, gnused, shellcheck }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  curl,
+  findutils,
+  gnugrep,
+  gnused,
+  shellcheck,
+}:
 
 let
   pname = "pass-checkup";

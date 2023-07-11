@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, enum34, pyyaml, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  enum34,
+  pyyaml,
+  pytest,
+}:
 
 buildPythonPackage rec {
   version = "4.28.0";

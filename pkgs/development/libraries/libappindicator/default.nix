@@ -1,7 +1,27 @@
-{ stdenv, fetchgit, lib, pkg-config, autoreconfHook, glib, dbus-glib
-, gtkVersion ? "3", gtk2, libindicator-gtk2, libdbusmenu-gtk2, gtk3
-, libindicator-gtk3, libdbusmenu-gtk3, gtk-doc, vala, gobject-introspection
-, monoSupport ? false, mono, gtk-sharp-2_0, gtk-sharp-3_0, testers }:
+{
+  stdenv,
+  fetchgit,
+  lib,
+  pkg-config,
+  autoreconfHook,
+  glib,
+  dbus-glib,
+  gtkVersion ? "3",
+  gtk2,
+  libindicator-gtk2,
+  libdbusmenu-gtk2,
+  gtk3,
+  libindicator-gtk3,
+  libdbusmenu-gtk3,
+  gtk-doc,
+  vala,
+  gobject-introspection,
+  monoSupport ? false,
+  mono,
+  gtk-sharp-2_0,
+  gtk-sharp-3_0,
+  testers,
+}:
 
 let throwBadGtkVersion = throw "unknown GTK version ${gtkVersion}";
 

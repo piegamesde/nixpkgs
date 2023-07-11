@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, intltool, pkg-config, wrapGAppsHook, gssdp, gtk3, gupnp
+{
+  lib,
+  stdenv,
+  fetchurl,
+  intltool,
+  pkg-config,
+  wrapGAppsHook,
+  gssdp,
+  gtk3,
+  gupnp,
 }:
 
 stdenv.mkDerivation rec {

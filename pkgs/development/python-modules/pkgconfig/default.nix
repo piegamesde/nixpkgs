@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pkg-config
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pkg-config,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pkgconfig";

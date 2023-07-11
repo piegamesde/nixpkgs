@@ -1,6 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub
-#, pytestCheckHook
-, pythonOlder, pkg-config, gammu }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
+  #, pytestCheckHook
+  ,
+  pythonOlder,
+  pkg-config,
+  gammu,
+}:
 
 buildPythonPackage rec {
   pname = "python-gammu";

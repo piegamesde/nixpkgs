@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, click, click-default-group
-, incremental, jinja2, mock, pytestCheckHook, toml, twisted, setuptools
-, git # shells out to git
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  click,
+  click-default-group,
+  incremental,
+  jinja2,
+  mock,
+  pytestCheckHook,
+  toml,
+  twisted,
+  setuptools,
+  git # shells out to git
+  ,
 }:
 
 buildPythonPackage rec {

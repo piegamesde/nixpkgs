@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, meson, ninja, pidgin }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  pidgin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "purple-plugin-pack";

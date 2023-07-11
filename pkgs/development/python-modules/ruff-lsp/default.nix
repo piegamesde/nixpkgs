@@ -1,6 +1,17 @@
-{ lib, stdenv, pythonOlder, buildPythonPackage, fetchPypi, ruff, pygls
-, lsprotocol, hatchling, typing-extensions, unittestCheckHook
-, python-lsp-jsonrpc }:
+{
+  lib,
+  stdenv,
+  pythonOlder,
+  buildPythonPackage,
+  fetchPypi,
+  ruff,
+  pygls,
+  lsprotocol,
+  hatchling,
+  typing-extensions,
+  unittestCheckHook,
+  python-lsp-jsonrpc,
+}:
 
 buildPythonPackage rec {
   pname = "ruff-lsp";

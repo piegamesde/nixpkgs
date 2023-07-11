@@ -1,7 +1,20 @@
-{ writeScript, lib, xidel, common-updater-scripts, coreutils, gnused, gnugrep
-, curl, gnupg, attrPath, runtimeShell
-, baseUrl ? "https://archive.mozilla.org/pub/firefox/releases/"
-, versionPrefix ? "", versionSuffix ? "", versionKey ? "version" }:
+{
+  writeScript,
+  lib,
+  xidel,
+  common-updater-scripts,
+  coreutils,
+  gnused,
+  gnugrep,
+  curl,
+  gnupg,
+  attrPath,
+  runtimeShell,
+  baseUrl ? "https://archive.mozilla.org/pub/firefox/releases/",
+  versionPrefix ? "",
+  versionSuffix ? "",
+  versionKey ? "version"
+}:
 
 writeScript "update-${attrPath}" ''
   #!${runtimeShell}

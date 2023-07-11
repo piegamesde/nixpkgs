@@ -1,5 +1,11 @@
-{ lib, nixpkgsCompatibleLibstdcxx, nvccCompatibleCC, overrideCC, stdenv
-, wrapCCWith }:
+{
+  lib,
+  nixpkgsCompatibleLibstdcxx,
+  nvccCompatibleCC,
+  overrideCC,
+  stdenv,
+  wrapCCWith,
+}:
 
 let
   cc = wrapCCWith {

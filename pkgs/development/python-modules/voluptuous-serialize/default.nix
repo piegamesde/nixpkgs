@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
-, voluptuous }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  voluptuous,
+}:
 
 buildPythonPackage rec {
   pname = "voluptuous-serialize";

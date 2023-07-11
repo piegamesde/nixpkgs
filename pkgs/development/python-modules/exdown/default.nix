@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, isPy27, fetchPypi, pythonOlder, setuptools
-, importlib-metadata, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  isPy27,
+  fetchPypi,
+  pythonOlder,
+  setuptools,
+  importlib-metadata,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "exdown";

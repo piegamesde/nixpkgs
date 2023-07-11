@@ -1,4 +1,12 @@
-{ lib, mkXfceDerivation, gtk3, libnotify, libpulseaudio, keybinder3, xfconf }:
+{
+  lib,
+  mkXfceDerivation,
+  gtk3,
+  libnotify,
+  libpulseaudio,
+  keybinder3,
+  xfconf,
+}:
 
 mkXfceDerivation {
   category = "apps";

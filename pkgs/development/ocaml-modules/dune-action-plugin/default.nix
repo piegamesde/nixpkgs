@@ -1,4 +1,11 @@
-{ lib, buildDunePackage, dune_3, dune-glob, dune-private-libs, dune-rpc }:
+{
+  lib,
+  buildDunePackage,
+  dune_3,
+  dune-glob,
+  dune-private-libs,
+  dune-rpc,
+}:
 
 buildDunePackage rec {
   pname = "dune-action-plugin";

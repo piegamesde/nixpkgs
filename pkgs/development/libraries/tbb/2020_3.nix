@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, fixDarwinDylibNames }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  fixDarwinDylibNames,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tbb";

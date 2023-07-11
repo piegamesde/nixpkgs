@@ -1,5 +1,12 @@
-{ lib, boto3, buildPythonPackage, fetchFromGitHub, unittestCheckHook
-, pythonOlder, redis }:
+{
+  lib,
+  boto3,
+  buildPythonPackage,
+  fetchFromGitHub,
+  unittestCheckHook,
+  pythonOlder,
+  redis,
+}:
 
 buildPythonPackage rec {
   pname = "karton-core";

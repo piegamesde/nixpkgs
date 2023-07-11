@@ -1,4 +1,9 @@
-{ qtModule, qtbase, qtdeclarative, openssl }:
+{
+  qtModule,
+  qtbase,
+  qtdeclarative,
+  openssl,
+}:
 
 qtModule {
   pname = "qtquick3d";

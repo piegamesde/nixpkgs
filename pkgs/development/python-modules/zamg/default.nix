@@ -1,5 +1,12 @@
-{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
-, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "zamg";

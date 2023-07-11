@@ -6,7 +6,9 @@
 #     nix-build -A java-properties
 # See `structured` below.
 
-{ pkgs ? import ../../.. { } }:
+{
+  pkgs ? import ../../.. { }
+}:
 let
   inherit (pkgs.lib)
     mapAttrs mapAttrsToList isDerivation mergeAttrs foldl' attrValues

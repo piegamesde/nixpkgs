@@ -1,6 +1,22 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
-, google-auth, google-auth-oauthlib, google-cloud-storage, requests, decorator
-, fsspec, ujson, aiohttp, crcmod, pytest-timeout, pytest-vcr, vcrpy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  google-auth,
+  google-auth-oauthlib,
+  google-cloud-storage,
+  requests,
+  decorator,
+  fsspec,
+  ujson,
+  aiohttp,
+  crcmod,
+  pytest-timeout,
+  pytest-vcr,
+  vcrpy,
+}:
 
 buildPythonPackage rec {
   pname = "gcsfs";

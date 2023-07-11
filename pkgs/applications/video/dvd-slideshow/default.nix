@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchurl, writeScript, cdrtools, dvdauthor, ffmpeg, imagemagick
-, lame, mjpegtools, sox, transcode, vorbis-tools, runtimeShell }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  writeScript,
+  cdrtools,
+  dvdauthor,
+  ffmpeg,
+  imagemagick,
+  lame,
+  mjpegtools,
+  sox,
+  transcode,
+  vorbis-tools,
+  runtimeShell,
+}:
 
 let
   binPath = lib.makeBinPath [

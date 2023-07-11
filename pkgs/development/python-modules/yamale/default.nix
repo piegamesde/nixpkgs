@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, pyyaml
-, ruamel-yaml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  pyyaml,
+  ruamel-yaml,
+}:
 
 buildPythonPackage rec {
   pname = "yamale";

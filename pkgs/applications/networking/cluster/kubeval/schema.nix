@@ -1,4 +1,6 @@
-{ fetchFromGitHub }:
+{
+  fetchFromGitHub,
+}:
 # To cache schema as a package so network calls are not
 # necessary at runtime, allowing use in package builds you can use the following:
 

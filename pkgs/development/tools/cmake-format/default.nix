@@ -1,5 +1,14 @@
-{ lib, buildPythonApplication, fetchPypi, autopep8, flake8, jinja2, pylint
-, pyyaml, six }:
+{
+  lib,
+  buildPythonApplication,
+  fetchPypi,
+  autopep8,
+  flake8,
+  jinja2,
+  pylint,
+  pyyaml,
+  six,
+}:
 
 buildPythonApplication rec {
   pname = "cmake-format";

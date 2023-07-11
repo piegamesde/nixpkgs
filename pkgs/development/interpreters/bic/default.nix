@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, readline, autoreconfHook, autoconf-archive, gmp
-, flex, bison }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  readline,
+  autoreconfHook,
+  autoconf-archive,
+  gmp,
+  flex,
+  bison,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bic";

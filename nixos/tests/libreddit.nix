@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ lib, ... }:
+import ./make-test-python.nix ({
+    lib,
+    ...
+  }:
 
   with lib;
 

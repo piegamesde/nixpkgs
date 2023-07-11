@@ -1,6 +1,25 @@
-{ stdenv, lib, fetchurl, autoreconfHook, gtk-doc, vala, gobject-introspection
-, wrapGAppsHook, gsettings-desktop-schemas, gspell, gtksourceview4, libgee, tepl
-, amtk, gnome, glib, pkg-config, gettext, itstool, libxml2 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoreconfHook,
+  gtk-doc,
+  vala,
+  gobject-introspection,
+  wrapGAppsHook,
+  gsettings-desktop-schemas,
+  gspell,
+  gtksourceview4,
+  libgee,
+  tepl,
+  amtk,
+  gnome,
+  glib,
+  pkg-config,
+  gettext,
+  itstool,
+  libxml2,
+}:
 
 stdenv.mkDerivation rec {
   version = "3.44.0";

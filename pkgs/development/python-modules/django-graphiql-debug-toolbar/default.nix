@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, django
-, django-debug-toolbar, graphene-django, python }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  django,
+  django-debug-toolbar,
+  graphene-django,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "django-graphiql-debug-toolbar";

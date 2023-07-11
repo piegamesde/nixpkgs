@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, cython, fetchPypi, fetchpatch, numpy, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  cython,
+  fetchPypi,
+  fetchpatch,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "cftime";

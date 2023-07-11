@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, maven, javaPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  maven,
+  javaPackages,
+}:
 
 javaPackages.mavenfod rec {
   pname = "scim-for-keycloak";

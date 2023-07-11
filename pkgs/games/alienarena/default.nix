@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchsvn, pkg-config, libjpeg, libX11, libXxf86vm, curl, libogg
-, libvorbis, freetype, openal, libGL }:
+{
+  lib,
+  stdenv,
+  fetchsvn,
+  pkg-config,
+  libjpeg,
+  libX11,
+  libXxf86vm,
+  curl,
+  libogg,
+  libvorbis,
+  freetype,
+  openal,
+  libGL,
+}:
 
 stdenv.mkDerivation rec {
   pname = "alienarena";

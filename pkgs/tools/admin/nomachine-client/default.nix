@@ -1,5 +1,13 @@
-{ lib, stdenv, file, fetchurl, makeWrapper, autoPatchelfHook, jsoncpp
-, libpulseaudio }:
+{
+  lib,
+  stdenv,
+  file,
+  fetchurl,
+  makeWrapper,
+  autoPatchelfHook,
+  jsoncpp,
+  libpulseaudio,
+}:
 let
   versionMajor = "8.4";
   versionMinor = "2";

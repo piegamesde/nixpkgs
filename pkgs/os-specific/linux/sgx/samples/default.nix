@@ -1,6 +1,14 @@
-{ stdenv, lib, makeWrapper, sgx-sdk, sgx-psw, which
-# "SIM" or "HW"
-, sgxMode }:
+{
+  stdenv,
+  lib,
+  makeWrapper,
+  sgx-sdk,
+  sgx-psw,
+  which
+  # "SIM" or "HW"
+  ,
+  sgxMode,
+}:
 let
   isSimulation = sgxMode == "SIM";
   buildSample = name:

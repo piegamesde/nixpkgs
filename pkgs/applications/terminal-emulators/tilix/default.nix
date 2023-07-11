@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, python3, pkg-config, ldc, dconf
-, dbus, gsettings-desktop-schemas, desktop-file-utils, gettext, gtkd, libsecret
-, wrapGAppsHook, libunwind, appstream, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  python3,
+  pkg-config,
+  ldc,
+  dconf,
+  dbus,
+  gsettings-desktop-schemas,
+  desktop-file-utils,
+  gettext,
+  gtkd,
+  libsecret,
+  wrapGAppsHook,
+  libunwind,
+  appstream,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tilix";

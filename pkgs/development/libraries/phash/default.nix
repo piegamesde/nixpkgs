@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cimg, imagemagick }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cimg,
+  imagemagick,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pHash";

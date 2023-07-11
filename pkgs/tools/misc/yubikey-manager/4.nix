@@ -1,6 +1,15 @@
-{ python3Packages, fetchFromGitHub, lib, installShellFiles
-, yubikey-personalization, libu2f-host, libusb1, procps, stdenv
-, pyOpenSSLSupport ? !(stdenv.isDarwin && stdenv.isAarch64) }:
+{
+  python3Packages,
+  fetchFromGitHub,
+  lib,
+  installShellFiles,
+  yubikey-personalization,
+  libu2f-host,
+  libusb1,
+  procps,
+  stdenv,
+  pyOpenSSLSupport ? !(stdenv.isDarwin && stdenv.isAarch64)
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "yubikey-manager";

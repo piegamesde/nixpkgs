@@ -1,6 +1,29 @@
-{ lib, stdenv, fetchFromGitLab, fetchpatch, autoreconfHook, pkg-config, cairo
-, expat, flex, fontconfig, gd, gts, libdevil, libjpeg, libpng, libtool, pango
-, bash, bison, xorg, ApplicationServices, python3, fltk, exiv2, withXorg ? true
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  autoreconfHook,
+  pkg-config,
+  cairo,
+  expat,
+  flex,
+  fontconfig,
+  gd,
+  gts,
+  libdevil,
+  libjpeg,
+  libpng,
+  libtool,
+  pango,
+  bash,
+  bison,
+  xorg,
+  ApplicationServices,
+  python3,
+  fltk,
+  exiv2,
+  withXorg ? true
 }:
 
 let inherit (lib) optional optionals optionalString;

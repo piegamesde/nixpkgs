@@ -1,5 +1,15 @@
-{ stdenv, lib, pkgs, pkgsHostHost, makeWrapper, autoPatchelfHook
-, deployAndroidPackage, package, os, platform-tools }:
+{
+  stdenv,
+  lib,
+  pkgs,
+  pkgsHostHost,
+  makeWrapper,
+  autoPatchelfHook,
+  deployAndroidPackage,
+  package,
+  os,
+  platform-tools,
+}:
 
 let
   runtime_paths = lib.makeBinPath (with pkgsHostHost; [

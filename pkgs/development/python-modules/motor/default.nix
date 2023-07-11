@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, mockupdb, pymongo, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mockupdb,
+  pymongo,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "motor";

@@ -1,5 +1,15 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, stdenv
-, DiskArbitration, Foundation, IOKit, Security }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  stdenv,
+  DiskArbitration,
+  Foundation,
+  IOKit,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "keyscope";

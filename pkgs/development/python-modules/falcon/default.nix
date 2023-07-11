@@ -1,12 +1,33 @@
-{ lib, buildPythonPackage, pythonOlder, isPyPy, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  isPyPy,
+  fetchFromGitHub
 
-# build
-, cython, setuptools
+  # build
+  ,
+  cython,
+  setuptools
 
-# tests
-, aiofiles, cbor2, httpx, msgpack, mujson, orjson, pytest-asyncio
-, pytestCheckHook, pyyaml, rapidjson, requests, testtools, ujson, uvicorn
-, websockets }:
+  # tests
+  ,
+  aiofiles,
+  cbor2,
+  httpx,
+  msgpack,
+  mujson,
+  orjson,
+  pytest-asyncio,
+  pytestCheckHook,
+  pyyaml,
+  rapidjson,
+  requests,
+  testtools,
+  ujson,
+  uvicorn,
+  websockets,
+}:
 
 buildPythonPackage rec {
   pname = "falcon";

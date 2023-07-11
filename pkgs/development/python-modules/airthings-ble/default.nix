@@ -1,5 +1,12 @@
-{ lib, bleak, bleak-retry-connector, buildPythonPackage, fetchFromGitHub
-, poetry-core, pythonOlder }:
+{
+  lib,
+  bleak,
+  bleak-retry-connector,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "airthings-ble";

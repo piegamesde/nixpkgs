@@ -1,8 +1,29 @@
-{ lib, stdenv, fetchurl, perlPackages, makeWrapper, wrapGAppsHook, cairo
-, dblatex, gnumake, gobject-introspection, graphicsmagick
-, gsettings-desktop-schemas, gtk3, hicolor-icon-theme, libnotify, librsvg
-, libxslt, netpbm, opencv, pango, perl, pkg-config, poppler
-, auto-multiple-choice }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perlPackages,
+  makeWrapper,
+  wrapGAppsHook,
+  cairo,
+  dblatex,
+  gnumake,
+  gobject-introspection,
+  graphicsmagick,
+  gsettings-desktop-schemas,
+  gtk3,
+  hicolor-icon-theme,
+  libnotify,
+  librsvg,
+  libxslt,
+  netpbm,
+  opencv,
+  pango,
+  perl,
+  pkg-config,
+  poppler,
+  auto-multiple-choice,
+}:
 stdenv.mkDerivation (finalAttrs: rec {
   pname = "auto-multiple-choice";
   version = "1.5.2";

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchgit, alsa-lib, ladspaH, libjack2, fftw, zita-alsa-pcmi, qt5
-, pkg-config, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  alsa-lib,
+  ladspaH,
+  libjack2,
+  fftw,
+  zita-alsa-pcmi,
+  qt5,
+  pkg-config,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ams";

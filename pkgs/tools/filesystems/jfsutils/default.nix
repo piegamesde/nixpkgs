@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, fetchpatch, libuuid, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  libuuid,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jfsutils";

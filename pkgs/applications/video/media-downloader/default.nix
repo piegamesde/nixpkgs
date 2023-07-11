@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, wrapQtAppsHook, qtbase, aria2, ffmpeg
-, python3, yt-dlp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  wrapQtAppsHook,
+  qtbase,
+  aria2,
+  ffmpeg,
+  python3,
+  yt-dlp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "media-downloader";

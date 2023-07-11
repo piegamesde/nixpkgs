@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, gmp, mpfr, mpfi, libxml2, fplll }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gmp,
+  mpfr,
+  mpfi,
+  libxml2,
+  fplll,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sollya";

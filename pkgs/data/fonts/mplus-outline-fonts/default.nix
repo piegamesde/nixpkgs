@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, fetchurl, fetchFromGitHub }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  fetchFromGitHub,
+}:
 
 let pname = "mplus-outline-fonts";
 in {

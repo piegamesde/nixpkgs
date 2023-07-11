@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, hatch-vcs, hatchling, pythonOlder, sphinx
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hatch-vcs,
+  hatchling,
+  pythonOlder,
+  sphinx,
+  pytestCheckHook,
+}:
 
 let
   pname = "sphinx-autodoc-typehints";

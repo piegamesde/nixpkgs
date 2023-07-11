@@ -1,8 +1,27 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, click, click-log
-, click-threading, requests-toolbelt, requests, atomicwrites, hypothesis
-, pytestCheckHook, pytest-subtesthack, setuptools-scm, aiostream
-, aiohttp-oauthlib, aiohttp, pytest-asyncio, trustme, aioresponses, vdirsyncer
-, testers }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  click,
+  click-log,
+  click-threading,
+  requests-toolbelt,
+  requests,
+  atomicwrites,
+  hypothesis,
+  pytestCheckHook,
+  pytest-subtesthack,
+  setuptools-scm,
+  aiostream,
+  aiohttp-oauthlib,
+  aiohttp,
+  pytest-asyncio,
+  trustme,
+  aioresponses,
+  vdirsyncer,
+  testers,
+}:
 
 buildPythonPackage rec {
   pname = "vdirsyncer";

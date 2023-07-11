@@ -1,7 +1,32 @@
-{ lib, stdenv, autoPatchelfHook, requireFile, callPackage, makeWrapper, alsa-lib
-, dbus, fontconfig, freetype, gcc, glib, installShellFiles, libssh2, ncurses
-, opencv4, openssl, unixODBC, xkeyboard_config, xorg, zlib, libxml2, libuuid
-, lang ? "en", libGL, libGLU, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  autoPatchelfHook,
+  requireFile,
+  callPackage,
+  makeWrapper,
+  alsa-lib,
+  dbus,
+  fontconfig,
+  freetype,
+  gcc,
+  glib,
+  installShellFiles,
+  libssh2,
+  ncurses,
+  opencv4,
+  openssl,
+  unixODBC,
+  xkeyboard_config,
+  xorg,
+  zlib,
+  libxml2,
+  libuuid,
+  lang ? "en",
+  libGL,
+  libGLU,
+  wrapQtAppsHook,
+}:
 
 let
   l10n = import ./l10ns.nix {

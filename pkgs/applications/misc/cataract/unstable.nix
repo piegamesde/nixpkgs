@@ -1,4 +1,6 @@
-{ callPackage }:
+{
+  callPackage,
+}:
 
 callPackage ./build.nix {
   version = "unstable-2016-10-18";

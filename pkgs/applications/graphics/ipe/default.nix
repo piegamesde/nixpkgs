@@ -1,6 +1,24 @@
-{ lib, stdenv, makeDesktopItem, fetchurl, pkg-config, copyDesktopItems, cairo
-, freetype, ghostscript, gsl, libjpeg, libpng, libspiro, lua5, qtbase, texlive
-, wrapQtAppsHook, zlib, withTeXLive ? true }:
+{
+  lib,
+  stdenv,
+  makeDesktopItem,
+  fetchurl,
+  pkg-config,
+  copyDesktopItems,
+  cairo,
+  freetype,
+  ghostscript,
+  gsl,
+  libjpeg,
+  libpng,
+  libspiro,
+  lua5,
+  qtbase,
+  texlive,
+  wrapQtAppsHook,
+  zlib,
+  withTeXLive ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "ipe";

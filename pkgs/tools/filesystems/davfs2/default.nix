@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, neon, procps, substituteAll
-, zlib, wrapperDir ? "/run/wrappers/bin" }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+  neon,
+  procps,
+  substituteAll,
+  zlib,
+  wrapperDir ? "/run/wrappers/bin"
+}:
 
 stdenv.mkDerivation rec {
   pname = "davfs2";

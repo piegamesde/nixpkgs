@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, perl, gdb, cctools, xnu
-, bootstrap_cmds, writeScript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+  perl,
+  gdb,
+  cctools,
+  xnu,
+  bootstrap_cmds,
+  writeScript,
+}:
 
 stdenv.mkDerivation rec {
   pname = "valgrind";

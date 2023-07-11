@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, gnustep, libxkbcommon, makeWrapper, wayland
-, wayland-scanner, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gnustep,
+  libxkbcommon,
+  makeWrapper,
+  wayland,
+  wayland-scanner,
+  darwin,
+}:
 
 assert wayland.withLibraries;
 

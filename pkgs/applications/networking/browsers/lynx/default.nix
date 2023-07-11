@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPackages, fetchurl, pkg-config, ncurses, gzip
-, sslSupport ? true, openssl, nukeReferences, fetchpatch }:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  fetchurl,
+  pkg-config,
+  ncurses,
+  gzip,
+  sslSupport ? true,
+  openssl,
+  nukeReferences,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lynx";

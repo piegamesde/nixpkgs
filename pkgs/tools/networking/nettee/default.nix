@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchurl, cleanPackaging }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  cleanPackaging,
+}:
 
 let
   version = "0.3.4";

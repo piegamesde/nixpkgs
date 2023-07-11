@@ -1,5 +1,15 @@
-{ lib, fetchurl, buildDunePackage, ounit2, cstruct, dune-configurator, eqaf
-, pkg-config, withFreestanding ? false, ocaml-freestanding }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  ounit2,
+  cstruct,
+  dune-configurator,
+  eqaf,
+  pkg-config,
+  withFreestanding ? false,
+  ocaml-freestanding,
+}:
 
 buildDunePackage rec {
   minimalOCamlVersion = "4.08";

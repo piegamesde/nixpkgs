@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, feedparser, httpx, loca, markdownify, trio
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  feedparser,
+  httpx,
+  loca,
+  markdownify,
+  trio,
 }:
 
 buildPythonPackage rec {

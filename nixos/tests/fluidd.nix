@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ lib, ... }:
+import ./make-test-python.nix ({
+    lib,
+    ...
+  }:
 
   with lib;
 
@@ -6,7 +9,12 @@ import ./make-test-python.nix ({ lib, ... }:
     name = "fluidd";
     meta.maintainers = with maintainers; [ vtuan10 ];
 
-    nodes.machine = { pkgs, ... }: { services.fluidd = { enable = true; }; };
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        services.fluidd = { enable = true; };
+      };
 
     testScript = ''
       machine.start()

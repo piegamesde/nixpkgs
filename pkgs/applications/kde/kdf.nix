@@ -1,5 +1,15 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, kcmutils, ki18n
-, kiconthemes, kio, knotifications, kxmlgui, }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  kcmutils,
+  ki18n,
+  kiconthemes,
+  kio,
+  knotifications,
+  kxmlgui,
+}:
 
 mkDerivation {
   pname = "kdf";

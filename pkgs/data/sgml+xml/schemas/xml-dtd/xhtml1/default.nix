@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, libxml2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libxml2,
+}:
 
 stdenv.mkDerivation {
   pname = "xhtml1";

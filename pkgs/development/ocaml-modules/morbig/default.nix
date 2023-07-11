@@ -1,5 +1,13 @@
-{ lib, buildDunePackage, fetchFromGitHub, menhir, menhirLib, ppx_deriving_yojson
-, visitors, yojson }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  menhir,
+  menhirLib,
+  ppx_deriving_yojson,
+  visitors,
+  yojson,
+}:
 
 buildDunePackage rec {
   pname = "morbig";

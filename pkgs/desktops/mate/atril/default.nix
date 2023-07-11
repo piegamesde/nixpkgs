@@ -1,8 +1,30 @@
-{ lib, stdenv, fetchurl, pkg-config, gettext, gtk3, glib, libxml2, libsecret
-, poppler, itstool, hicolor-icon-theme, texlive, mate, wrapGAppsHook
-, enableEpub ? true, webkitgtk, enableDjvu ? true, djvulibre
-, enablePostScript ? true, libspectre, enableXps ? true, libgxps
-, enableImages ? false, mateUpdateScript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gettext,
+  gtk3,
+  glib,
+  libxml2,
+  libsecret,
+  poppler,
+  itstool,
+  hicolor-icon-theme,
+  texlive,
+  mate,
+  wrapGAppsHook,
+  enableEpub ? true,
+  webkitgtk,
+  enableDjvu ? true,
+  djvulibre,
+  enablePostScript ? true,
+  libspectre,
+  enableXps ? true,
+  libgxps,
+  enableImages ? false,
+  mateUpdateScript,
+}:
 
 stdenv.mkDerivation rec {
   pname = "atril";

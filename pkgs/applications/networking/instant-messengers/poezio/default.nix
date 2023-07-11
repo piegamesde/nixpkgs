@@ -1,6 +1,21 @@
-{ lib, aiodns, buildPythonApplication, cffi, fetchFromGitHub, mpd2, pkg-config
-, potr, pyasn1, pyasn1-modules, pyinotify, pytestCheckHook, pythonOlder
-, setuptools, slixmpp, typing-extensions }:
+{
+  lib,
+  aiodns,
+  buildPythonApplication,
+  cffi,
+  fetchFromGitHub,
+  mpd2,
+  pkg-config,
+  potr,
+  pyasn1,
+  pyasn1-modules,
+  pyinotify,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  slixmpp,
+  typing-extensions,
+}:
 
 buildPythonApplication rec {
   pname = "poezio";

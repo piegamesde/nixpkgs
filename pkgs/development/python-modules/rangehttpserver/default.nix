@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pytestCheckHook
-, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  pytestCheckHook,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "rangehttpserver";

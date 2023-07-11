@@ -1,7 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, nix-update-script, python3
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  nix-update-script,
+  python3
 
-# for passthru.tests
-, ninja, php, spamassassin }:
+  # for passthru.tests
+  ,
+  ninja,
+  php,
+  spamassassin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "re2c";

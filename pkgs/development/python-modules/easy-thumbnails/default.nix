@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, django, fetchPypi, pillow, pytestCheckHook
-, pythonOlder, reportlab, svglib }:
+{
+  lib,
+  buildPythonPackage,
+  django,
+  fetchPypi,
+  pillow,
+  pytestCheckHook,
+  pythonOlder,
+  reportlab,
+  svglib,
+}:
 
 buildPythonPackage rec {
   pname = "easy-thumbnails";

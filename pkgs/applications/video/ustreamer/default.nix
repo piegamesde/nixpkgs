@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, libbsd, libevent, libjpeg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libbsd,
+  libevent,
+  libjpeg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ustreamer";

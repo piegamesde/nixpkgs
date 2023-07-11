@@ -1,5 +1,14 @@
-{ lib, python3Packages, fetchFromGitHub, libwnck, gtk3, libnotify, wrapGAppsHook
-, gobject-introspection, substituteAll }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  libwnck,
+  gtk3,
+  libnotify,
+  wrapGAppsHook,
+  gobject-introspection,
+  substituteAll,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "xborders";

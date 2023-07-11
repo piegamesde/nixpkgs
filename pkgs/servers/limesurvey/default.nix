@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, writeText, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  writeText,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "limesurvey";

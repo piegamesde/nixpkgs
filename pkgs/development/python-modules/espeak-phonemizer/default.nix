@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, substituteAll, espeak-ng
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  substituteAll,
+  espeak-ng,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "espeak-phonemizer";

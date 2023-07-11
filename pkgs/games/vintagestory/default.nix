@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, makeWrapper, makeDesktopItem, copyDesktopItems, mono
-, xorg, gtk2, sqlite, openal, cairo, libGLU, SDL2, freealut }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  mono,
+  xorg,
+  gtk2,
+  sqlite,
+  openal,
+  cairo,
+  libGLU,
+  SDL2,
+  freealut,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vintagestory";

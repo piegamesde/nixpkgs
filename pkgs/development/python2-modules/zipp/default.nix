@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools-scm, pytest, pytest-flake8
-, more-itertools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  pytest,
+  pytest-flake8,
+  more-itertools,
+}:
 
 buildPythonPackage rec {
   pname = "zipp";

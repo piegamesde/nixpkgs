@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, twisted, whisper, txamqp, cachetools
-, urllib3 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  twisted,
+  whisper,
+  txamqp,
+  cachetools,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "carbon";

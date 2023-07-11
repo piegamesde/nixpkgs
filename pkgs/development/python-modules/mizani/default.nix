@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, matplotlib, palettable, pandas
-, pytestCheckHook, pythonOlder, scipy, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  matplotlib,
+  palettable,
+  pandas,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "mizani";

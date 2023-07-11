@@ -1,7 +1,18 @@
-{ stdenv, lib, fetchFromGitHub, ruby, makeWrapper, getent # /etc/passwd
-, ncurses # tput
-, binutils-unwrapped # strings
-, coreutils, findutils }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  ruby,
+  makeWrapper,
+  getent # /etc/passwd
+  ,
+  ncurses # tput
+  ,
+  binutils-unwrapped # strings
+  ,
+  coreutils,
+  findutils,
+}:
 
 # No gems used, so mkDerivation is fine.
 let

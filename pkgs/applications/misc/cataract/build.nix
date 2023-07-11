@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchgit, autoreconfHook, glib, pkg-config, libxml2, exiv2
-, imagemagick6, version, sha256, rev }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  autoreconfHook,
+  glib,
+  pkg-config,
+  libxml2,
+  exiv2,
+  imagemagick6,
+  version,
+  sha256,
+  rev,
+}:
 
 stdenv.mkDerivation {
   inherit version;

@@ -1,4 +1,12 @@
-{ fetchurl, lib, stdenv, unzip, ant, javac, jvm }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  unzip,
+  ant,
+  javac,
+  jvm,
+}:
 
 let
   xbeans = fetchurl {

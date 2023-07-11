@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, udev, darwin }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  udev,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libserialport";

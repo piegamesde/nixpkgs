@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, boltons, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  boltons,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "face";

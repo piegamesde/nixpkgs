@@ -1,8 +1,34 @@
-{ stdenv, rustPlatform, lib, fetchFromGitHub, ncurses, perl, pkg-config, python3
-, fontconfig, installShellFiles, openssl, libGL, libX11, libxcb, libxkbcommon
-, xcbutil, xcbutilimage, xcbutilkeysyms, xcbutilwm, wayland, zlib, CoreGraphics
-, Cocoa, Foundation, libiconv, UserNotifications, nixosTests, runCommand
-, vulkan-loader }:
+{
+  stdenv,
+  rustPlatform,
+  lib,
+  fetchFromGitHub,
+  ncurses,
+  perl,
+  pkg-config,
+  python3,
+  fontconfig,
+  installShellFiles,
+  openssl,
+  libGL,
+  libX11,
+  libxcb,
+  libxkbcommon,
+  xcbutil,
+  xcbutilimage,
+  xcbutilkeysyms,
+  xcbutilwm,
+  wayland,
+  zlib,
+  CoreGraphics,
+  Cocoa,
+  Foundation,
+  libiconv,
+  UserNotifications,
+  nixosTests,
+  runCommand,
+  vulkan-loader,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "wezterm";

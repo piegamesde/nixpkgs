@@ -1,5 +1,15 @@
-{ lib, assertpy, buildPythonPackage, fetchFromGitHub, lark, poetry-core
-, pytestCheckHook, pythonOlder, regex, typing-extensions }:
+{
+  lib,
+  assertpy,
+  buildPythonPackage,
+  fetchFromGitHub,
+  lark,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  regex,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "pycep-parser";

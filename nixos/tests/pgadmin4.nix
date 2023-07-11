@@ -1,33 +1,40 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   {
     name = "pgadmin4";
     meta.maintainers = with lib.maintainers; [ mkg20001 gador ];
 
-    nodes.machine = { pkgs, ... }: {
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
 
-      imports = [ ./common/user-account.nix ];
+        imports = [ ./common/user-account.nix ];
 
-      environment.systemPackages = with pkgs; [ curl pgadmin4-desktopmode ];
+        environment.systemPackages = with pkgs; [ curl pgadmin4-desktopmode ];
 
-      services.postgresql = {
-        enable = true;
-        authentication = ''
-          host    all             all             localhost               trust
-        '';
-        ensureUsers = [{
-          name = "postgres";
-          ensurePermissions = { "DATABASE \"postgres\"" = "ALL PRIVILEGES"; };
-        }];
+        services.postgresql = {
+          enable = true;
+          authentication = ''
+            host    all             all             localhost               trust
+          '';
+          ensureUsers = [{
+            name = "postgres";
+            ensurePermissions = { "DATABASE \"postgres\"" = "ALL PRIVILEGES"; };
+          }];
+        };
+
+        services.pgadmin = {
+          port = 5051;
+          enable = true;
+          initialEmail = "bruh@localhost.de";
+          initialPasswordFile = pkgs.writeText "pw" "bruh2012!";
+        };
       };
-
-      services.pgadmin = {
-        port = 5051;
-        enable = true;
-        initialEmail = "bruh@localhost.de";
-        initialPasswordFile = pkgs.writeText "pw" "bruh2012!";
-      };
-    };
 
     testScript = ''
       with subtest("Check pgadmin module"):

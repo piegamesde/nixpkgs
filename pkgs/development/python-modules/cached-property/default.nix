@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, pytestCheckHook
-, freezegun, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pytestCheckHook,
+  freezegun,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "cached-property";

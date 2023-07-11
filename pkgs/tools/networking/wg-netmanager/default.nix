@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, darwin, wireguard-go, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  darwin,
+  wireguard-go,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "wg-netmanager";

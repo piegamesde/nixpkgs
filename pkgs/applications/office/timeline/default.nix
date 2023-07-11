@@ -1,5 +1,12 @@
-{ lib, fetchurl, python3, gettext, makeDesktopItem, copyDesktopItems
-, wrapGAppsHook }:
+{
+  lib,
+  fetchurl,
+  python3,
+  gettext,
+  makeDesktopItem,
+  copyDesktopItems,
+  wrapGAppsHook,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "timeline";

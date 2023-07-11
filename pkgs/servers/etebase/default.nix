@@ -1,6 +1,19 @@
-{ lib, fetchFromGitHub, buildPythonPackage, aiofiles, django_3, fastapi, msgpack
-, pynacl, redis, typing-extensions, withLdap ? true, python-ldap
-, withPostgres ? true, psycopg2 }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  aiofiles,
+  django_3,
+  fastapi,
+  msgpack,
+  pynacl,
+  redis,
+  typing-extensions,
+  withLdap ? true,
+  python-ldap,
+  withPostgres ? true,
+  psycopg2,
+}:
 
 buildPythonPackage rec {
   pname = "etebase-server";

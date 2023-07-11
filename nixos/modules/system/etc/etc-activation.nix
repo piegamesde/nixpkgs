@@ -1,4 +1,8 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 let inherit (lib) stringAfter;
 in {
 

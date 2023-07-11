@@ -1,6 +1,18 @@
-{ lib, btrfs-progs, buildGoModule, fetchFromGitHub, glibc, gpgme
-, installShellFiles, libapparmor, libseccomp, libselinux, lvm2, pkg-config
-, nixosTests }:
+{
+  lib,
+  btrfs-progs,
+  buildGoModule,
+  fetchFromGitHub,
+  glibc,
+  gpgme,
+  installShellFiles,
+  libapparmor,
+  libseccomp,
+  libselinux,
+  lvm2,
+  pkg-config,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "cri-o";

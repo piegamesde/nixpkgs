@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, sphinx, requests, flit-core }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  sphinx,
+  requests,
+  flit-core,
+}:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-youtube";

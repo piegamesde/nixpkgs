@@ -1,4 +1,10 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, setuptools }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "py-tree-sitter";

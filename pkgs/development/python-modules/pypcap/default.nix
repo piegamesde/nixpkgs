@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, dpkt, fetchFromGitHub, libpcap, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  dpkt,
+  fetchFromGitHub,
+  libpcap,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pypcap";

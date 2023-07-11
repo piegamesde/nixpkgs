@@ -1,5 +1,17 @@
-{ lib, stdenv, mkDerivationWith, fetchFromGitHub, fetchpatch, doxygen, gtk3
-, libopenshot, python3, qtbase, qtsvg, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  mkDerivationWith,
+  fetchFromGitHub,
+  fetchpatch,
+  doxygen,
+  gtk3,
+  libopenshot,
+  python3,
+  qtbase,
+  qtsvg,
+  wrapGAppsHook,
+}:
 
 mkDerivationWith python3.pkgs.buildPythonApplication rec {
   pname = "openshot-qt";

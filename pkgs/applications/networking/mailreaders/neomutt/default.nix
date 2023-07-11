@@ -1,8 +1,38 @@
-{ lib, stdenv, fetchFromGitHub, gettext, makeWrapper, tcl, which, ncurses, perl
-, cyrus_sasl, gss, gpgme, libkrb5, libidn, libxml2, notmuch, openssl, lua, lmdb
-, libxslt, docbook_xsl, docbook_xml_dtd_42, w3m, mailcap, sqlite, zlib, lndir
-, pkg-config, zstd, enableZstd ? true, enableMixmaster ? false
-, enableLua ? false, withContrib ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gettext,
+  makeWrapper,
+  tcl,
+  which,
+  ncurses,
+  perl,
+  cyrus_sasl,
+  gss,
+  gpgme,
+  libkrb5,
+  libidn,
+  libxml2,
+  notmuch,
+  openssl,
+  lua,
+  lmdb,
+  libxslt,
+  docbook_xsl,
+  docbook_xml_dtd_42,
+  w3m,
+  mailcap,
+  sqlite,
+  zlib,
+  lndir,
+  pkg-config,
+  zstd,
+  enableZstd ? true,
+  enableMixmaster ? false,
+  enableLua ? false,
+  withContrib ? true
+}:
 
 stdenv.mkDerivation rec {
   version = "20230407";

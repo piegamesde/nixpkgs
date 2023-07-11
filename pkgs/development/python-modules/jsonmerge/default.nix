@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, jsonschema, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jsonschema,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "jsonmerge";

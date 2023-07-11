@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, gtk3, gnome, vte, libxml2
-, gtk-vnc, intltool, libsecret, itstool, wrapGAppsHook, librsvg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  gtk3,
+  gnome,
+  vte,
+  libxml2,
+  gtk-vnc,
+  intltool,
+  libsecret,
+  itstool,
+  wrapGAppsHook,
+  librsvg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vinagre";

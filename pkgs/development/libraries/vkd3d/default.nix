@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitLab, autoreconfHook, pkg-config, wine, flex, bison
-, vulkan-headers, spirv-headers, vulkan-loader }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  autoreconfHook,
+  pkg-config,
+  wine,
+  flex,
+  bison,
+  vulkan-headers,
+  spirv-headers,
+  vulkan-loader,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vkd3d";

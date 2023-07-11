@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, wrapQtAppsHook, qmake, qtmultimedia }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+  qmake,
+  qtmultimedia,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kristall";

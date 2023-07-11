@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3, ffmpeg }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  ffmpeg,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "pianotrans";

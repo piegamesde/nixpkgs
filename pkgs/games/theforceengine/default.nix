@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, SDL2, libdevil, rtaudio, rtmidi, glew, alsa-lib
-, cmake, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  libdevil,
+  rtaudio,
+  rtmidi,
+  glew,
+  alsa-lib,
+  cmake,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "theforceengine";

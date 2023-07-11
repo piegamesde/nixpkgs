@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, ocaml, findlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+}:
 
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
 "ocamlscript is not available for OCaml ${ocaml.version}"

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, bluez, libobjc, Foundation, IOBluetooth
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  bluez,
+  libobjc,
+  Foundation,
+  IOBluetooth,
 }:
 stdenv.mkDerivation rec {
 

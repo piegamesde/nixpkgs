@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, config, cudaSupport ? config.cudaSupport or false
-, cupy, fetchFromGitHub, filelock, mock, numpy, protobuf, pytestCheckHook
-, pythonOlder, six, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  config,
+  cudaSupport ? config.cudaSupport or false,
+  cupy,
+  fetchFromGitHub,
+  filelock,
+  mock,
+  numpy,
+  protobuf,
+  pytestCheckHook,
+  pythonOlder,
+  six,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "chainer";

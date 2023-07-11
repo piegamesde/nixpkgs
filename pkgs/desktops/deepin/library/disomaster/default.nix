@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, qmake, qttools, wrapQtAppsHook
-, libisoburn }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  qmake,
+  qttools,
+  wrapQtAppsHook,
+  libisoburn,
+}:
 
 stdenv.mkDerivation rec {
   pname = "disomaster";

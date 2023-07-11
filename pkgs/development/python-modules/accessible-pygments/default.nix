@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, pygments }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pygments,
+}:
 
 buildPythonPackage rec {
   pname = "accessible-pygments";

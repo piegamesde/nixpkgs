@@ -1,5 +1,17 @@
-{ lib, aiohttp, buildPythonPackage, dateparser, fetchFromGitHub, pytestCheckHook
-, pythonOlder, requests, requests-mock, six, ujson, websockets }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  dateparser,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-mock,
+  six,
+  ujson,
+  websockets,
+}:
 
 buildPythonPackage rec {
   pname = "python-binance";

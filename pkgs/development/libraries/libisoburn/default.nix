@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, acl, attr, zlib, libburn, libisofs }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  acl,
+  attr,
+  zlib,
+  libburn,
+  libisofs,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libisoburn";

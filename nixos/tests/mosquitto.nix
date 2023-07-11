@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   let
     port = 1888;
@@ -61,72 +65,78 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
     };
 
     nodes = let
-      client = { pkgs, ... }: {
-        environment.systemPackages = with pkgs; [ mosquitto ];
-      };
-    in {
-      server = { pkgs, ... }: {
-        networking.firewall.allowedTCPPorts = [ port tlsPort anonPort ];
-        services.mosquitto = {
-          enable = true;
-          settings = { sys_interval = 1; };
-          listeners = [
-            {
-              inherit port;
-              users = {
-                password_store = { inherit password; };
-                password_file = {
-                  passwordFile = pkgs.writeText "mqtt-password" password;
-                };
-                hashed_store = { inherit hashedPassword; };
-                hashed_file = {
-                  hashedPasswordFile =
-                    pkgs.writeText "mqtt-hashed-password" hashedPassword;
-                };
-
-                reader = {
-                  inherit password;
-                  acl = [
-                    "read ${topic}"
-                    "read $SYS/#" # so we always have something to read
-                  ];
-                };
-                writer = {
-                  inherit password;
-                  acl = [ "write ${topic}" ];
-                };
-              };
-            }
-            {
-              port = tlsPort;
-              users.client1 = { acl = [ "read $SYS/#" ]; };
-              settings = {
-                cafile = "${snakeOil}/ca.crt";
-                certfile = "${snakeOil}/server.crt";
-                keyfile = "${snakeOil}/server.key";
-                require_certificate = true;
-                use_identity_as_username = true;
-              };
-            }
-            {
-              port = anonPort;
-              omitPasswordAuth = true;
-              settings.allow_anonymous = true;
-              acl = [ "pattern read #" ];
-              users = {
-                anonWriter = {
-                  password = "<ignored>" + password;
-                  acl = [ "write ${topic}" ];
-                };
-              };
-            }
-            {
-              settings.bind_interface = "eth0";
-              port = bindTestPort;
-            }
-          ];
+      client = {
+          pkgs,
+          ...
+        }: {
+          environment.systemPackages = with pkgs; [ mosquitto ];
         };
-      };
+    in {
+      server = {
+          pkgs,
+          ...
+        }: {
+          networking.firewall.allowedTCPPorts = [ port tlsPort anonPort ];
+          services.mosquitto = {
+            enable = true;
+            settings = { sys_interval = 1; };
+            listeners = [
+              {
+                inherit port;
+                users = {
+                  password_store = { inherit password; };
+                  password_file = {
+                    passwordFile = pkgs.writeText "mqtt-password" password;
+                  };
+                  hashed_store = { inherit hashedPassword; };
+                  hashed_file = {
+                    hashedPasswordFile =
+                      pkgs.writeText "mqtt-hashed-password" hashedPassword;
+                  };
+
+                  reader = {
+                    inherit password;
+                    acl = [
+                      "read ${topic}"
+                      "read $SYS/#" # so we always have something to read
+                    ];
+                  };
+                  writer = {
+                    inherit password;
+                    acl = [ "write ${topic}" ];
+                  };
+                };
+              }
+              {
+                port = tlsPort;
+                users.client1 = { acl = [ "read $SYS/#" ]; };
+                settings = {
+                  cafile = "${snakeOil}/ca.crt";
+                  certfile = "${snakeOil}/server.crt";
+                  keyfile = "${snakeOil}/server.key";
+                  require_certificate = true;
+                  use_identity_as_username = true;
+                };
+              }
+              {
+                port = anonPort;
+                omitPasswordAuth = true;
+                settings.allow_anonymous = true;
+                acl = [ "pattern read #" ];
+                users = {
+                  anonWriter = {
+                    password = "<ignored>" + password;
+                    acl = [ "write ${topic}" ];
+                  };
+                };
+              }
+              {
+                settings.bind_interface = "eth0";
+                port = bindTestPort;
+              }
+            ];
+          };
+        };
 
       client1 = client;
       client2 = client;

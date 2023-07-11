@@ -3,8 +3,13 @@
 # client on the inside network, a server on the outside network, and a
 # router connected to both that performs Network Address Translation
 # for the client.
-import ./make-test-python.nix
-({ pkgs, lib, withFirewall, nftables ? false, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    withFirewall,
+    nftables ? false,
+    ...
+  }:
   let
     unit = if nftables then
       "nftables"
@@ -25,7 +30,11 @@ import ./make-test-python.nix
     meta = with pkgs.lib.maintainers; { maintainers = [ eelco rob ]; };
 
     nodes = {
-      client = { pkgs, nodes, ... }:
+      client = {
+          pkgs,
+          nodes,
+          ...
+        }:
         lib.mkMerge [{
           virtualisation.vlans = [ 1 ];
           networking.defaultGateway = (pkgs.lib.head
@@ -33,23 +42,32 @@ import ./make-test-python.nix
           networking.nftables.enable = nftables;
         }];
 
-      router = { ... }:
+      router = {
+          ...
+        }:
         lib.mkMerge [ routerBase { networking.nat.enable = true; } ];
 
-      routerDummyNoNat = { ... }:
+      routerDummyNoNat = {
+          ...
+        }:
         lib.mkMerge [ routerBase { networking.nat.enable = false; } ];
 
-      server = { ... }: {
-        virtualisation.vlans = [ 2 ];
-        networking.firewall.enable = false;
-        services.httpd.enable = true;
-        services.httpd.adminAddr = "foo@example.org";
-        services.vsftpd.enable = true;
-        services.vsftpd.anonymousUser = true;
-      };
+      server = {
+          ...
+        }: {
+          virtualisation.vlans = [ 2 ];
+          networking.firewall.enable = false;
+          services.httpd.enable = true;
+          services.httpd.adminAddr = "foo@example.org";
+          services.vsftpd.enable = true;
+          services.vsftpd.anonymousUser = true;
+        };
     };
 
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let
         routerDummyNoNatClosure =
           nodes.routerDummyNoNat.config.system.build.toplevel;

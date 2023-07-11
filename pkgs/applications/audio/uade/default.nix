@@ -1,7 +1,21 @@
-{ lib, stdenv, fetchFromGitLab, python3, pkg-config, which, makeWrapper, libao
-, bencodetools, sox, lame, flac, vorbis-tools
-# https://gitlab.com/uade-music-player/uade/-/issues/38
-, withWriteAudio ? !stdenv.hostPlatform.isDarwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  python3,
+  pkg-config,
+  which,
+  makeWrapper,
+  libao,
+  bencodetools,
+  sox,
+  lame,
+  flac,
+  vorbis-tools
+  # https://gitlab.com/uade-music-player/uade/-/issues/38
+  ,
+  withWriteAudio ? !stdenv.hostPlatform.isDarwin
+}:
 
 stdenv.mkDerivation rec {
   pname = "uade";

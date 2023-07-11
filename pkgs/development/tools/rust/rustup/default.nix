@@ -1,6 +1,20 @@
-{ stdenv, lib, runCommand, patchelf, fetchFromGitHub, rustPlatform
-, makeBinaryWrapper, pkg-config, openssl, curl, zlib, Security, CoreServices
-, libiconv, xz }:
+{
+  stdenv,
+  lib,
+  runCommand,
+  patchelf,
+  fetchFromGitHub,
+  rustPlatform,
+  makeBinaryWrapper,
+  pkg-config,
+  openssl,
+  curl,
+  zlib,
+  Security,
+  CoreServices,
+  libiconv,
+  xz,
+}:
 
 let
   libPath = lib.makeLibraryPath [

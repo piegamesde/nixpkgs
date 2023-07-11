@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, nimPackages, libX11, libXft, libXinerama }:
+{
+  lib,
+  fetchFromGitHub,
+  nimPackages,
+  libX11,
+  libXft,
+  libXinerama,
+}:
 nimPackages.buildNimPackage rec {
   pname = "nimdow";
   version = "0.7.36";

@@ -1,6 +1,22 @@
-{ lib, boto3, botocore, buildPythonPackage, click, configparser, fetchFromGitHub
-, fetchpatch, fido2, lxml, poetry-core, pyopenssl, pytestCheckHook, pythonOlder
-, requests, requests-kerberos, toml }:
+{
+  lib,
+  boto3,
+  botocore,
+  buildPythonPackage,
+  click,
+  configparser,
+  fetchFromGitHub,
+  fetchpatch,
+  fido2,
+  lxml,
+  poetry-core,
+  pyopenssl,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-kerberos,
+  toml,
+}:
 
 buildPythonPackage rec {
   pname = "aws-adfs";

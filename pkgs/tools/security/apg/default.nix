@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, openssl, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  openssl,
+  autoreconfHook,
+}:
 stdenv.mkDerivation rec {
   pname = "apg";
   version = "unstable-2015-01-29";

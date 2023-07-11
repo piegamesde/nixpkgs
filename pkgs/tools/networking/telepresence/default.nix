@@ -1,5 +1,18 @@
-{ lib, pythonPackages, fetchFromGitHub, makeWrapper, git, sshfs-fuse, torsocks
-, sshuttle, conntrack-tools, openssh, coreutils, iptables, bash }:
+{
+  lib,
+  pythonPackages,
+  fetchFromGitHub,
+  makeWrapper,
+  git,
+  sshfs-fuse,
+  torsocks,
+  sshuttle,
+  conntrack-tools,
+  openssh,
+  coreutils,
+  iptables,
+  bash,
+}:
 
 let
   sshuttle-telepresence = lib.overrideDerivation sshuttle (p: {

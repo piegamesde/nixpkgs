@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pip, pretend, pytestCheckHook, pythonOlder
-, virtualenv }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pip,
+  pretend,
+  pytestCheckHook,
+  pythonOlder,
+  virtualenv,
+}:
 
 buildPythonPackage rec {
   pname = "pip-api";

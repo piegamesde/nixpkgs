@@ -1,5 +1,15 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, buildPackages, installShellFiles
-, makeWrapper, enableCmount ? true, fuse, macfuse-stubs }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  buildPackages,
+  installShellFiles,
+  makeWrapper,
+  enableCmount ? true,
+  fuse,
+  macfuse-stubs,
+}:
 
 buildGoModule rec {
   pname = "rclone";

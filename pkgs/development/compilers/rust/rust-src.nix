@@ -1,4 +1,9 @@
-{ lib, runCommand, rustc, minimalContent ? true }:
+{
+  lib,
+  runCommand,
+  rustc,
+  minimalContent ? true
+}:
 
 runCommand "rust-src" { } ''
   tar -xzf ${rustc.src}

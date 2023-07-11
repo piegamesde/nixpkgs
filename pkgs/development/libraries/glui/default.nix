@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, freeglut, libGL, libGLU, libX11, libXext, libXi
-, libXmu }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  freeglut,
+  libGL,
+  libGLU,
+  libX11,
+  libXext,
+  libXi,
+  libXmu,
+}:
 
 stdenv.mkDerivation rec {
   pname = "glui";

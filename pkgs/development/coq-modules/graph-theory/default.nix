@@ -1,5 +1,14 @@
-{ lib, mkCoqDerivation, coq, mathcomp-algebra, mathcomp-finmap
-, mathcomp-fingroup, fourcolor, hierarchy-builder, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  mathcomp-algebra,
+  mathcomp-finmap,
+  mathcomp-fingroup,
+  fourcolor,
+  hierarchy-builder,
+  version ? null
+}:
 
 mkCoqDerivation {
   pname = "graph-theory";

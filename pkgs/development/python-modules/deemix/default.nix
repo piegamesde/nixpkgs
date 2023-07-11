@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, spotipy, click, pycryptodomex, mutagen
-, requests, deezer-py, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  spotipy,
+  click,
+  pycryptodomex,
+  mutagen,
+  requests,
+  deezer-py,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "deemix";

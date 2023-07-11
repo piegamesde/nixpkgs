@@ -1,4 +1,10 @@
-{ buildGoModule, fetchFromGitHub, lib, openssh, makeWrapper }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  openssh,
+  makeWrapper,
+}:
 
 buildGoModule rec {
   pname = "diskrsync";

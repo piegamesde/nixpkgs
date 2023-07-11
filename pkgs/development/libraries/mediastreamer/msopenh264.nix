@@ -1,5 +1,14 @@
-{ autoreconfHook, cmake, fetchFromGitLab, fetchpatch, mediastreamer, openh264
-, pkg-config, lib, stdenv }:
+{
+  autoreconfHook,
+  cmake,
+  fetchFromGitLab,
+  fetchpatch,
+  mediastreamer,
+  openh264,
+  pkg-config,
+  lib,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "msopenh264";

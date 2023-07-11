@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, jdk8, maven, makeWrapper, jre8_headless
-, pcsclite }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jdk8,
+  maven,
+  makeWrapper,
+  jre8_headless,
+  pcsclite,
+}:
 
 let
   jdk = jdk8;

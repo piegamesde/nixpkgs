@@ -1,7 +1,30 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, copyDesktopItems, makeDesktopItem
-, makeWrapper, alsa-lib, at-spi2-atk, atk, cairo, cups, dbus, gcc-unwrapped
-, gdk-pixbuf, glib, gtk3, libdrm, libnotify, libpulseaudio, libxkbcommon, mesa
-, nss, udev, xorg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  copyDesktopItems,
+  makeDesktopItem,
+  makeWrapper,
+  alsa-lib,
+  at-spi2-atk,
+  atk,
+  cairo,
+  cups,
+  dbus,
+  gcc-unwrapped,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  libdrm,
+  libnotify,
+  libpulseaudio,
+  libxkbcommon,
+  mesa,
+  nss,
+  udev,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "teamspeak5-client";

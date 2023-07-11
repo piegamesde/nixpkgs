@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, liblockfile }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  liblockfile,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lockfile-progs";

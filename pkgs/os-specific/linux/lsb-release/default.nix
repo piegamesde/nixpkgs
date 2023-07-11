@@ -1,4 +1,9 @@
-{ substituteAll, lib, coreutils, getopt }:
+{
+  substituteAll,
+  lib,
+  coreutils,
+  getopt,
+}:
 
 substituteAll {
   name = "lsb_release";

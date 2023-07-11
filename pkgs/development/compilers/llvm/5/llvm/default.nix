@@ -1,8 +1,26 @@
-{ lib, stdenv, llvm_meta, pkgsBuildBuild, fetch, fetchpatch, cmake, python3
-, libffi, enableGoldPlugin ? libbfd.hasPluginAPI, libbfd, libxml2, ncurses
-, version, release_version, zlib, buildLlvmTools, debugVersion ? false
-, enableManpages ? false, enableSharedLibraries ? !enableManpages
-, enablePolly ? false }:
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  pkgsBuildBuild,
+  fetch,
+  fetchpatch,
+  cmake,
+  python3,
+  libffi,
+  enableGoldPlugin ? libbfd.hasPluginAPI,
+  libbfd,
+  libxml2,
+  ncurses,
+  version,
+  release_version,
+  zlib,
+  buildLlvmTools,
+  debugVersion ? false,
+  enableManpages ? false,
+  enableSharedLibraries ? !enableManpages,
+  enablePolly ? false
+}:
 
 let
   inherit (lib) optional optionals optionalString;

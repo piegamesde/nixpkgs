@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, bzip2, enableNLS ? false, libnatspec }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bzip2,
+  enableNLS ? false,
+  libnatspec,
+}:
 
 stdenv.mkDerivation rec {
   pname = "unzip";

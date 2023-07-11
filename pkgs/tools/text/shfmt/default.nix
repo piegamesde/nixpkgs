@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles, scdoc }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  scdoc,
+}:
 
 buildGoModule rec {
   pname = "shfmt";

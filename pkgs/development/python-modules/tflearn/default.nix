@@ -1,4 +1,13 @@
-{ lib, fetchPypi, buildPythonPackage, pytest, scipy, h5py, pillow, tensorflow }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pytest,
+  scipy,
+  h5py,
+  pillow,
+  tensorflow,
+}:
 
 buildPythonPackage rec {
   pname = "tflearn";

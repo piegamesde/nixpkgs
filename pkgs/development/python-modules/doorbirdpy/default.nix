@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitLab, requests, pytestCheckHook
-, requests-mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitLab,
+  requests,
+  pytestCheckHook,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "doorbirdpy";

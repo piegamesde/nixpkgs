@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools, ledgercomm, packaging
-, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  ledgercomm,
+  packaging,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "ledger-bitcoin";

@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, fetchzip, stdenv }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchzip,
+  stdenv,
+}:
 
 rec {
   version = "1.15.0";

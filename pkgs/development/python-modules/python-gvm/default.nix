@@ -1,5 +1,15 @@
-{ lib, stdenv, buildPythonPackage, defusedxml, fetchFromGitHub, lxml, paramiko
-, poetry-core, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  defusedxml,
+  fetchFromGitHub,
+  lxml,
+  paramiko,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "python-gvm";

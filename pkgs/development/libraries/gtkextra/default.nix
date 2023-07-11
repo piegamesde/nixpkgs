@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchurl, pkg-config, gobject-introspection, file, gtk2, glib
-, cairo, atk, pango, libtiff, libpng, libjpeg }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  gobject-introspection,
+  file,
+  gtk2,
+  glib,
+  cairo,
+  atk,
+  pango,
+  libtiff,
+  libpng,
+  libjpeg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gtkextra";

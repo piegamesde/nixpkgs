@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "filecheck";

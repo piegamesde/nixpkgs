@@ -1,4 +1,10 @@
-{ lib, buildDunePackage, functoria, cmdliner, fmt }:
+{
+  lib,
+  buildDunePackage,
+  functoria,
+  cmdliner,
+  fmt,
+}:
 
 buildDunePackage {
   pname = "functoria-runtime";

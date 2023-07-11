@@ -1,4 +1,11 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, Cocoa, AppKit, installShellFiles
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  Cocoa,
+  AppKit,
+  installShellFiles,
 }:
 
 rustPlatform.buildRustPackage rec {

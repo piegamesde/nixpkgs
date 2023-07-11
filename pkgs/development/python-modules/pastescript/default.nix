@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, nose, python, pytestCheckHook, six, paste
-, pastedeploy, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  python,
+  pytestCheckHook,
+  six,
+  paste,
+  pastedeploy,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pastescript";

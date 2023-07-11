@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook
-, pythonOlder, termcolor }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  termcolor,
+}:
 
 buildPythonPackage rec {
   pname = "yaspin";

@@ -1,5 +1,13 @@
-{ buildPythonPackage, fetchPypi, lib, pytest, pytest-xdist, pytest-dependency
-, pytest-mock, pytestCheckHook }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib,
+  pytest,
+  pytest-xdist,
+  pytest-dependency,
+  pytest-mock,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-order";

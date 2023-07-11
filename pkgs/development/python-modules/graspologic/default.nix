@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, isPy27, fetchFromGitHub, pytestCheckHook, pytest-cov
-, hyppo, matplotlib, networkx, numpy, scikit-learn, scipy, seaborn }:
+{
+  lib,
+  buildPythonPackage,
+  isPy27,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pytest-cov,
+  hyppo,
+  matplotlib,
+  networkx,
+  numpy,
+  scikit-learn,
+  scipy,
+  seaborn,
+}:
 
 buildPythonPackage rec {
   pname = "graspologic";

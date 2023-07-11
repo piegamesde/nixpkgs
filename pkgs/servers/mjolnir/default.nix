@@ -1,4 +1,12 @@
-{ lib, nixosTests, stdenv, fetchFromGitHub, makeWrapper, nodejs, pkgs }:
+{
+  lib,
+  nixosTests,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  nodejs,
+  pkgs,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mjolnir";

@@ -1,7 +1,25 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, mkdocs-exclude
-, markdown-it-py, mdit-py-plugins, linkify-it-py, importlib-metadata, rich
-, typing-extensions, aiohttp, click, jinja2, msgpack, pytest-aiohttp
-, pytestCheckHook, pythonOlder, syrupy, time-machine }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  mkdocs-exclude,
+  markdown-it-py,
+  mdit-py-plugins,
+  linkify-it-py,
+  importlib-metadata,
+  rich,
+  typing-extensions,
+  aiohttp,
+  click,
+  jinja2,
+  msgpack,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+  syrupy,
+  time-machine,
+}:
 
 buildPythonPackage rec {
   pname = "textual";

@@ -1,6 +1,23 @@
-{ mkDerivation, lib, callPackage, fetchzip, fetchFromGitHub, cmake, pkg-config
-, ninja, copyDesktopItems, qtbase, qttools, opencv4, procps, eigen, libXdmcp
-, libevdev, makeDesktopItem, fetchurl, }:
+{
+  mkDerivation,
+  lib,
+  callPackage,
+  fetchzip,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  ninja,
+  copyDesktopItems,
+  qtbase,
+  qttools,
+  opencv4,
+  procps,
+  eigen,
+  libXdmcp,
+  libevdev,
+  makeDesktopItem,
+  fetchurl,
+}:
 let
   version = "2022.3.0";
 

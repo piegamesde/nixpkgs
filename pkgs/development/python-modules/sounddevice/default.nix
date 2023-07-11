@@ -1,5 +1,14 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, isPy27, cffi, numpy, portaudio
-, substituteAll }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  cffi,
+  numpy,
+  portaudio,
+  substituteAll,
+}:
 
 buildPythonPackage rec {
   pname = "sounddevice";

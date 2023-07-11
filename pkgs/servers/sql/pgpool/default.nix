@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, postgresql, openssl, libxcrypt
-, withPam ? stdenv.isLinux, pam }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  postgresql,
+  openssl,
+  libxcrypt,
+  withPam ? stdenv.isLinux,
+  pam,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pgpool-II";

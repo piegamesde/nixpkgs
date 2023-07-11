@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, buildGoModule, python3 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  python3,
+}:
 
 buildGoModule rec {
   pname = "cod";

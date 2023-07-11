@@ -1,4 +1,10 @@
-{ lib, buildPythonApplication, fetchPypi, ffmpeg, ffmpeg-progress-yield }:
+{
+  lib,
+  buildPythonApplication,
+  fetchPypi,
+  ffmpeg,
+  ffmpeg-progress-yield,
+}:
 
 buildPythonApplication rec {
   pname = "ffmpeg-normalize";

@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pytest-xdist
-, torchvision, pythonOlder, matplotlib, mock, packaging, torch, scikit-learn
-, tqdm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pytest-xdist,
+  torchvision,
+  pythonOlder,
+  matplotlib,
+  mock,
+  packaging,
+  torch,
+  scikit-learn,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "ignite";

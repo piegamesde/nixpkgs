@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, requireFile, openal, curl, libogg, libvorbis
-, SDL2, SDL2_image, zlib, clang, libtheora, unfree_assets ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  requireFile,
+  openal,
+  curl,
+  libogg,
+  libvorbis,
+  SDL2,
+  SDL2_image,
+  zlib,
+  clang,
+  libtheora,
+  unfree_assets ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "keeperrl";

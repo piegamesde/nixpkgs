@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cython, pexpect, python, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cython,
+  pexpect,
+  python,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

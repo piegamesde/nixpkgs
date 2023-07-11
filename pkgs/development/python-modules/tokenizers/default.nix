@@ -1,6 +1,21 @@
-{ lib, stdenv, buildPythonPackage, datasets, fetchFromGitHub, fetchurl, libiconv
-, numpy, openssl, pkg-config, pytestCheckHook, pythonOlder, requests
-, rustPlatform, Security, setuptools-rust }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  datasets,
+  fetchFromGitHub,
+  fetchurl,
+  libiconv,
+  numpy,
+  openssl,
+  pkg-config,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  rustPlatform,
+  Security,
+  setuptools-rust,
+}:
 
 let
   # See https://github.com/huggingface/tokenizers/blob/main/bindings/python/tests/utils.py for details

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, bdftopcf, libfaketime, xorg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bdftopcf,
+  libfaketime,
+  xorg,
+}:
 
 stdenv.mkDerivation {
   pname = "ucs-fonts";

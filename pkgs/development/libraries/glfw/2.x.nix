@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, libGLU, libGL, libX11, libXext }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libGLU,
+  libGL,
+  libX11,
+  libXext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "glfw";

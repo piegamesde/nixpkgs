@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, perl, CoreServices, ApplicationServices }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  CoreServices,
+  ApplicationServices,
+}:
 
 stdenv.mkDerivation rec {
   pname = "moarvm";

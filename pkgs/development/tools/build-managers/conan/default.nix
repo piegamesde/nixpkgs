@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, git, pkg-config, python3, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  git,
+  pkg-config,
+  python3,
+  zlib,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "conan";

@@ -1,5 +1,15 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, karchive, kcoreaddons
-, kfilemetadata, ktextwidgets, kwidgetsaddons, kio }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  karchive,
+  kcoreaddons,
+  kfilemetadata,
+  ktextwidgets,
+  kwidgetsaddons,
+  kio,
+}:
 
 mkDerivation {
   pname = "kfind";

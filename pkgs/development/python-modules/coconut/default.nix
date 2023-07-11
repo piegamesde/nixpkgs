@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cpyparsing, ipykernel, mypy, pexpect
-, pygments, pytestCheckHook, prompt-toolkit, tkinter, watchdog }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cpyparsing,
+  ipykernel,
+  mypy,
+  pexpect,
+  pygments,
+  pytestCheckHook,
+  prompt-toolkit,
+  tkinter,
+  watchdog,
+}:
 
 buildPythonPackage rec {
   pname = "coconut";

@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, gettext, pkg-config, wrapGAppsHook, anthy, ibus, glib
-, gobject-introspection, gtk3, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gettext,
+  pkg-config,
+  wrapGAppsHook,
+  anthy,
+  ibus,
+  glib,
+  gobject-introspection,
+  gtk3,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ibus-anthy";

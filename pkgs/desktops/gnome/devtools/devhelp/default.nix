@@ -1,6 +1,22 @@
-{ stdenv, lib, fetchurl, meson, ninja, pkg-config, gnome, gtk3, wrapGAppsHook
-, glib, gobject-introspection, gi-docgen, webkitgtk_4_1, gettext, itstool
-, gsettings-desktop-schemas, shared-mime-info }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  gnome,
+  gtk3,
+  wrapGAppsHook,
+  glib,
+  gobject-introspection,
+  gi-docgen,
+  webkitgtk_4_1,
+  gettext,
+  itstool,
+  gsettings-desktop-schemas,
+  shared-mime-info,
+}:
 
 stdenv.mkDerivation rec {
   pname = "devhelp";

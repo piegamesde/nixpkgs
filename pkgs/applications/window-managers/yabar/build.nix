@@ -1,6 +1,25 @@
-{ stdenv, fetchFromGitHub, cairo, gdk-pixbuf, libconfig, pango, pkg-config
-, xcbutilwm, alsa-lib, wirelesstools, asciidoc, libxslt, makeWrapper
-, docbook_xsl, configFile ? null, lib, rev, sha256, version, patches ? [ ] }:
+{
+  stdenv,
+  fetchFromGitHub,
+  cairo,
+  gdk-pixbuf,
+  libconfig,
+  pango,
+  pkg-config,
+  xcbutilwm,
+  alsa-lib,
+  wirelesstools,
+  asciidoc,
+  libxslt,
+  makeWrapper,
+  docbook_xsl,
+  configFile ? null,
+  lib,
+  rev,
+  sha256,
+  version,
+  patches ? [ ]
+}:
 
 stdenv.mkDerivation {
   pname = "yabar";

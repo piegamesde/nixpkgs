@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchPypi, buildPythonPackage, pythonOlder, lz4, keyring, pbkdf2
-, pycryptodomex, pyaes }:
+{
+  stdenv,
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder,
+  lz4,
+  keyring,
+  pbkdf2,
+  pycryptodomex,
+  pyaes,
+}:
 
 buildPythonPackage rec {
   pname = "browser-cookie3";

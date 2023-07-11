@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, requests, shapely
-, python-dateutil, pytz, importlib-metadata, numpy, dateparser, remotezip
-, pytestCheckHook, requests-mock, defusedxml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  requests,
+  shapely,
+  python-dateutil,
+  pytz,
+  importlib-metadata,
+  numpy,
+  dateparser,
+  remotezip,
+  pytestCheckHook,
+  requests-mock,
+  defusedxml,
+}:
 
 buildPythonPackage rec {
   pname = "asf-search";

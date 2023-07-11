@@ -1,4 +1,7 @@
-import ../make-test-python.nix ({ pkgs, ... }:
+import ../make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
     username = "custom_admin_username";
     # This will be used both for redis and postgresql
@@ -13,73 +16,80 @@ import ../make-test-python.nix ({ pkgs, ... }:
 
     nodes = {
       # The only thing the client needs to do is download a file.
-      client = { ... }: { };
+      client = {
+          ...
+        }:
+        { };
 
-      nextcloud = { config, pkgs, ... }: {
-        networking.firewall.allowedTCPPorts = [ 80 ];
+      nextcloud = {
+          config,
+          pkgs,
+          ...
+        }: {
+          networking.firewall.allowedTCPPorts = [ 80 ];
 
-        services.nextcloud = {
-          enable = true;
-          hostName = "nextcloud";
-          caching = {
-            apcu = false;
-            redis = true;
-            memcached = false;
+          services.nextcloud = {
+            enable = true;
+            hostName = "nextcloud";
+            caching = {
+              apcu = false;
+              redis = true;
+              memcached = false;
+            };
+            # This test also validates that we can use an "external" database
+            database.createLocally = false;
+            config = {
+              dbtype = "pgsql";
+              dbname = "nextcloud";
+              dbuser = username;
+              dbpassFile = passFile;
+              adminuser = username;
+              adminpassFile = passFile;
+            };
+            secretFile = "/etc/nextcloud-secrets.json";
+
+            extraOptions.redis = {
+              host = "/run/redis/redis.sock";
+              port = 0;
+              dbindex = 0;
+              timeout = 1.5;
+              # password handled via secretfile below
+            };
+            extraOptions.memcache = {
+              local = "OCMemcacheRedis";
+              locking = "OCMemcacheRedis";
+            };
           };
-          # This test also validates that we can use an "external" database
-          database.createLocally = false;
-          config = {
-            dbtype = "pgsql";
-            dbname = "nextcloud";
-            dbuser = username;
-            dbpassFile = passFile;
-            adminuser = username;
-            adminpassFile = passFile;
+
+          services.redis.servers."nextcloud".enable = true;
+          services.redis.servers."nextcloud".port = 6379;
+
+          systemd.services.nextcloud-setup = {
+            requires = [ "postgresql.service" ];
+            after = [ "postgresql.service" ];
           };
-          secretFile = "/etc/nextcloud-secrets.json";
 
-          extraOptions.redis = {
-            host = "/run/redis/redis.sock";
-            port = 0;
-            dbindex = 0;
-            timeout = 1.5;
-            # password handled via secretfile below
-          };
-          extraOptions.memcache = {
-            local = "OCMemcacheRedis";
-            locking = "OCMemcacheRedis";
-          };
-        };
+          services.postgresql = { enable = true; };
+          systemd.services.postgresql.postStart = pkgs.lib.mkAfter ''
+            password=$(cat ${passFile})
+            ${config.services.postgresql.package}/bin/psql <<EOF
+              CREATE ROLE ${username} WITH LOGIN PASSWORD '$password' CREATEDB;
+              CREATE DATABASE nextcloud;
+              GRANT ALL PRIVILEGES ON DATABASE nextcloud TO ${username};
+            EOF
+          '';
 
-        services.redis.servers."nextcloud".enable = true;
-        services.redis.servers."nextcloud".port = 6379;
-
-        systemd.services.nextcloud-setup = {
-          requires = [ "postgresql.service" ];
-          after = [ "postgresql.service" ];
-        };
-
-        services.postgresql = { enable = true; };
-        systemd.services.postgresql.postStart = pkgs.lib.mkAfter ''
-          password=$(cat ${passFile})
-          ${config.services.postgresql.package}/bin/psql <<EOF
-            CREATE ROLE ${username} WITH LOGIN PASSWORD '$password' CREATEDB;
-            CREATE DATABASE nextcloud;
-            GRANT ALL PRIVILEGES ON DATABASE nextcloud TO ${username};
-          EOF
-        '';
-
-        # This file is meant to contain secret options which should
-        # not go into the nix store. Here it is just used to set the
-        # databyse type to postgres.
-        environment.etc."nextcloud-secrets.json".text = ''
-          {
-            "redis": {
-              "password": "secret"
+          # This file is meant to contain secret options which should
+          # not go into the nix store. Here it is just used to set the
+          # databyse type to postgres.
+          environment.etc."nextcloud-secrets.json".text = ''
+            {
+              "redis": {
+                "password": "secret"
+              }
             }
-          }
-        '';
-      };
+          '';
+        };
     };
 
     testScript = let

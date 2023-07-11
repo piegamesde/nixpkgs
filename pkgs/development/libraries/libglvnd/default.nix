@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitLab, autoreconfHook, pkg-config, python3
-, addOpenGLRunpath, libX11, libXext, xorgproto }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  autoreconfHook,
+  pkg-config,
+  python3,
+  addOpenGLRunpath,
+  libX11,
+  libXext,
+  xorgproto,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libglvnd";

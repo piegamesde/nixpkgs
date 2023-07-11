@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, perl, perlPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  perl,
+  perlPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "timelapse-deflicker";

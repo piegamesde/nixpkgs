@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, lv2, fftwFloat, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  lv2,
+  fftwFloat,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "talentedhack";

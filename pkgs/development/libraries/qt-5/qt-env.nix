@@ -1,4 +1,7 @@
-{ buildEnv, qtbase }:
+{
+  buildEnv,
+  qtbase,
+}:
 name: paths:
 
 buildEnv {

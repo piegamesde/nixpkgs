@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, kernel, kmod }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  kernel,
+  kmod,
+}:
 
 stdenv.mkDerivation rec {
   pname = "v4l2loopback";

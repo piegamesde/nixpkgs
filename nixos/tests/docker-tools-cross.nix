@@ -2,7 +2,10 @@
 # tests that _include_ running the result are separate. That way, most people
 # can run the majority of the test suite without the extra setup.
 
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
 
     remoteSystem = if pkgs.stdenv.hostPlatform.system == "aarch64-linux" then
@@ -42,12 +45,14 @@ import ./make-test-python.nix ({ pkgs, ... }:
     meta = with pkgs.lib.maintainers; { maintainers = [ roberth ]; };
 
     nodes = {
-      docker = { ... }: {
-        virtualisation = {
-          diskSize = 2048;
-          docker.enable = true;
+      docker = {
+          ...
+        }: {
+          virtualisation = {
+            diskSize = 2048;
+            docker.enable = true;
+          };
         };
-      };
     };
 
     testScript = ''

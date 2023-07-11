@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "cfgv";

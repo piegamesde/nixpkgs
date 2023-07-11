@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, fastcore, packaging
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  fastcore,
+  packaging,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "ghapi";

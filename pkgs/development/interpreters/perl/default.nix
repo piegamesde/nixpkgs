@@ -1,18 +1,33 @@
-{ callPackage }:
+{
+  callPackage,
+}:
 
 let
   # Common passthru for all perl interpreters.
   # copied from lua
-  passthruFun = { overrides, perlOnBuildForBuild, perlOnBuildForHost
-    , perlOnBuildForTarget, perlOnHostForHost, perlOnTargetForTarget
-    , perlAttr ? null, self # is perlOnHostForTarget
+  passthruFun = {
+      overrides,
+      perlOnBuildForBuild,
+      perlOnBuildForHost,
+      perlOnBuildForTarget,
+      perlOnHostForHost,
+      perlOnTargetForTarget,
+      perlAttr ? null,
+      self # is perlOnHostForTarget
+      ,
     }:
     let
       perlPackages = callPackage
         # Function that when called
         # - imports perl-packages.nix
         # - adds spliced package sets to the package set
-        ({ stdenv, pkgs, perl, callPackage, makeScopeWithSplicing }:
+        ({
+            stdenv,
+            pkgs,
+            perl,
+            callPackage,
+            makeScopeWithSplicing,
+          }:
           let
             perlPackagesFun = callPackage ../../../top-level/perl-packages.nix {
               # allow 'perlPackages.override { pkgs = pkgs // { imagemagick = imagemagickBig; }; }' like in python3Packages

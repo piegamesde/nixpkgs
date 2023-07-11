@@ -1,5 +1,14 @@
-{ buildPackages, fetchFromGitHub, fetchurl, perl, buildLinux, libelf, util-linux
-, kernelPatches ? [ ], ... }@args:
+{
+  buildPackages,
+  fetchFromGitHub,
+  fetchurl,
+  perl,
+  buildLinux,
+  libelf,
+  util-linux,
+  kernelPatches ? [ ],
+  ...
+}@args:
 
 buildLinux (args // rec {
   version = "4.14.180-176";

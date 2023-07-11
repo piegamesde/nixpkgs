@@ -1,4 +1,8 @@
-{ lib, beamPackages, overrides ? (x: y: { }) }:
+{
+  lib,
+  beamPackages,
+  overrides ? (x: y: { })
+}:
 
 let
   buildRebar3 = lib.makeOverridable beamPackages.buildRebar3;

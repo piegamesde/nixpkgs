@@ -1,4 +1,8 @@
-{ buildDunePackage, mirage-block, logs }:
+{
+  buildDunePackage,
+  mirage-block,
+  logs,
+}:
 
 buildDunePackage rec {
   pname = "mirage-block-combinators";

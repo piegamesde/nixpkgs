@@ -1,4 +1,10 @@
-{ lib, elixir, fetchFromGitHub, fetchMixDeps, mixRelease }:
+{
+  lib,
+  elixir,
+  fetchFromGitHub,
+  fetchMixDeps,
+  mixRelease,
+}:
 # Based on the work of Hauleth
 # None of this would have happened without him
 

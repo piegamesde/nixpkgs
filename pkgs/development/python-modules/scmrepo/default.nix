@@ -1,6 +1,20 @@
-{ lib, asyncssh, buildPythonPackage, dulwich, fetchFromGitHub, fsspec, funcy
-, gitpython, pathspec, pygit2, pygtrie, pythonOlder, setuptools, setuptools-scm
-, shortuuid }:
+{
+  lib,
+  asyncssh,
+  buildPythonPackage,
+  dulwich,
+  fetchFromGitHub,
+  fsspec,
+  funcy,
+  gitpython,
+  pathspec,
+  pygit2,
+  pygtrie,
+  pythonOlder,
+  setuptools,
+  setuptools-scm,
+  shortuuid,
+}:
 
 buildPythonPackage rec {
   pname = "scmrepo";

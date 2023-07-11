@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchzip, testers }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  testers,
+}:
 let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, buildClient ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  buildClient ? true
+}:
 
 stdenv.mkDerivation rec {
   srcName = "bsd-finger";

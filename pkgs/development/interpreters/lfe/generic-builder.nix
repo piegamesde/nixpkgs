@@ -1,12 +1,27 @@
-{ lib, fetchFromGitHub, erlang, makeWrapper, coreutils, bash, buildRebar3
-, buildHex }:
+{
+  lib,
+  fetchFromGitHub,
+  erlang,
+  makeWrapper,
+  coreutils,
+  bash,
+  buildRebar3,
+  buildHex,
+}:
 
-{ baseName ? "lfe", version, maximumOTPVersion, sha256 ? null, rev ? version
-, src ? fetchFromGitHub {
-  inherit rev sha256;
-  owner = "rvirding";
-  repo = "lfe";
-}, patches ? [ ] }:
+{
+  baseName ? "lfe",
+  version,
+  maximumOTPVersion,
+  sha256 ? null,
+  rev ? version,
+  src ? fetchFromGitHub {
+    inherit rev sha256;
+    owner = "rvirding";
+    repo = "lfe";
+  },
+  patches ? [ ]
+}:
 
 let
   inherit (lib)

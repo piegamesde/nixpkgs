@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitLab, future, ifaddr, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitLab,
+  future,
+  ifaddr,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "yeelight";

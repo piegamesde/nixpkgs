@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, ncurses, libpcap, cmake, openssl, git, lksctp-tools }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  libpcap,
+  cmake,
+  openssl,
+  git,
+  lksctp-tools,
+}:
 
 stdenv.mkDerivation rec {
   version = "3.6.1";

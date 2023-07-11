@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest-asyncio, pytestCheckHook
-, pythonOlder, pyserial, sockio }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  pyserial,
+  sockio,
+}:
 
 buildPythonPackage rec {
   pname = "serialio";

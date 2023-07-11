@@ -1,14 +1,28 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core
 
-# propagates
-, importlib-resources, jsonschema, jsonschema-spec, lazy-object-proxy
-, openapi-schema-validator, pyyaml
+  # propagates
+  ,
+  importlib-resources,
+  jsonschema,
+  jsonschema-spec,
+  lazy-object-proxy,
+  openapi-schema-validator,
+  pyyaml
 
-# optional
-, requests
+  # optional
+  ,
+  requests
 
-# tests
-, mock, pytestCheckHook }:
+  # tests
+  ,
+  mock,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "openapi-spec-validator";

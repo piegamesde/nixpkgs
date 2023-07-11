@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, unzip, makeWrapper, flex, bison, ncurses, buddy, tecla
-, libsigsegv, gmpxx, cln, yices }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  makeWrapper,
+  flex,
+  bison,
+  ncurses,
+  buddy,
+  tecla,
+  libsigsegv,
+  gmpxx,
+  cln,
+  yices,
+}:
 
 let version = "3.3.1";
 

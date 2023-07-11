@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonAtLeast
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "frozendict";

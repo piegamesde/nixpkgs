@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, rtmpdump, php, wget, python3Packages, ffmpeg, testers
-, yle-dl }:
+{
+  lib,
+  fetchFromGitHub,
+  rtmpdump,
+  php,
+  wget,
+  python3Packages,
+  ffmpeg,
+  testers,
+  yle-dl,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "yle-dl";

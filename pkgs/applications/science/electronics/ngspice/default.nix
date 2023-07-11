@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, bison, flex, readline, libX11, libICE, libXaw, libXmu
-, libXext, libXt, fftw }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bison,
+  flex,
+  readline,
+  libX11,
+  libICE,
+  libXaw,
+  libXmu,
+  libXext,
+  libXt,
+  fftw,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ngspice";

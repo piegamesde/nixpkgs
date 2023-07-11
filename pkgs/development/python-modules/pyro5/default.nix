@@ -1,5 +1,12 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, serpent, pythonOlder
-, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  serpent,
+  pythonOlder,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pyro5";

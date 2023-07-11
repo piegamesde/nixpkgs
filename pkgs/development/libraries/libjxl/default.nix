@@ -1,6 +1,26 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, brotli, cmake, giflib, gperftools
-, gtest, libhwy, libjpeg, libpng, libwebp, openexr, pkg-config, zlib
-, buildDocs ? true, asciidoc, graphviz, doxygen, python3 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  brotli,
+  cmake,
+  giflib,
+  gperftools,
+  gtest,
+  libhwy,
+  libjpeg,
+  libpng,
+  libwebp,
+  openexr,
+  pkg-config,
+  zlib,
+  buildDocs ? true,
+  asciidoc,
+  graphviz,
+  doxygen,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libjxl";

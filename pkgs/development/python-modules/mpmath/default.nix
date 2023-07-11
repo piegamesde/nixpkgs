@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, setuptools-scm
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  setuptools-scm,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "mpmath";

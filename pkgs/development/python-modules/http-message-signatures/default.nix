@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, cryptography, fetchFromGitHub, http-sfv
-, pytestCheckHook, pythonOlder, setuptools-scm, requests }:
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  http-sfv,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "http-message-signatures";

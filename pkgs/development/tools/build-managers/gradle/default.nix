@@ -1,38 +1,54 @@
-{ jdk8, jdk11, jdk17 }:
+{
+  jdk8,
+  jdk11,
+  jdk17,
+}:
 
 rec {
   gen =
 
-    { version, nativeVersion, sha256,
+    {
+      version,
+      nativeVersion,
+      sha256,
 
-    # The default JDK/JRE that will be used for derived Gradle packages.
-    # A current LTS version of a JDK is a good choice.
-    defaultJava ? jdk8,
+      # The default JDK/JRE that will be used for derived Gradle packages.
+      # A current LTS version of a JDK is a good choice.
+      defaultJava ? jdk8,
 
-    # The platforms supported by this Gradle package.
-    # Gradle Native-Platform ships some binaries that
-    # are compatible only with specific platforms.
-    # As of 2022-04 this affects platform compatibility
-    # of multiple Gradle releases, so this is used as default.
-    # See https://github.com/gradle/native-platform#supported-platforms
-    platforms ? [
-      "aarch64-darwin"
-      "aarch64-linux"
-      "i686-windows"
-      "x86_64-cygwin"
-      "x86_64-darwin"
-      "x86_64-linux"
-      "x86_64-windows"
-    ] }:
+      # The platforms supported by this Gradle package.
+      # Gradle Native-Platform ships some binaries that
+      # are compatible only with specific platforms.
+      # As of 2022-04 this affects platform compatibility
+      # of multiple Gradle releases, so this is used as default.
+      # See https://github.com/gradle/native-platform#supported-platforms
+      platforms ? [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "i686-windows"
+        "x86_64-cygwin"
+        "x86_64-darwin"
+        "x86_64-linux"
+        "x86_64-windows"
+      ]
+    }:
 
-    { lib, stdenv, fetchurl, makeWrapper, unzip, ncurses5, ncurses6,
+    {
+      lib,
+      stdenv,
+      fetchurl,
+      makeWrapper,
+      unzip,
+      ncurses5,
+      ncurses6,
 
-    # The JDK/JRE used for running Gradle.
-    java ? defaultJava,
+      # The JDK/JRE used for running Gradle.
+      java ? defaultJava,
 
-    # Additional JDK/JREs to be registered as toolchains.
-    # See https://docs.gradle.org/current/userguide/toolchains.html
-    javaToolchains ? [ ] }:
+      # Additional JDK/JREs to be registered as toolchains.
+      # See https://docs.gradle.org/current/userguide/toolchains.html
+      javaToolchains ? [ ]
+    }:
 
     stdenv.mkDerivation rec {
       pname = "gradle";

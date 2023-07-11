@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchgit, fetchurl, libuuid, makeWrapper, mtools, nasm, perl
-, python3 }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  fetchurl,
+  libuuid,
+  makeWrapper,
+  mtools,
+  nasm,
+  perl,
+  python3,
+}:
 
 stdenv.mkDerivation {
   pname = "syslinux";

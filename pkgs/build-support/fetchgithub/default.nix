@@ -1,9 +1,24 @@
-{ lib, fetchgit, fetchzip }:
+{
+  lib,
+  fetchgit,
+  fetchzip,
+}:
 
-{ owner, repo, rev, name ? "source", fetchSubmodules ? false, leaveDotGit ? null
-, deepClone ? false, private ? false, forceFetchGit ? false
-, sparseCheckout ? [ ], githubBase ? "github.com", varPrefix ? null, meta ? { }
-, ... # For hash agility
+{
+  owner,
+  repo,
+  rev,
+  name ? "source",
+  fetchSubmodules ? false,
+  leaveDotGit ? null,
+  deepClone ? false,
+  private ? false,
+  forceFetchGit ? false,
+  sparseCheckout ? [ ],
+  githubBase ? "github.com",
+  varPrefix ? null,
+  meta ? { },
+  ... # For hash agility
 }@args:
 
 let

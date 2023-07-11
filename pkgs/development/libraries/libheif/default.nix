@@ -1,8 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, dav1d, rav1e
-, libde265, x265, libpng, libjpeg, libaom, gdk-pixbuf
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  dav1d,
+  rav1e,
+  libde265,
+  x265,
+  libpng,
+  libjpeg,
+  libaom,
+  gdk-pixbuf
 
-# for passthru.tests
-, gimp, imagemagick, imlib2Full, imv, vips }:
+  # for passthru.tests
+  ,
+  gimp,
+  imagemagick,
+  imlib2Full,
+  imv,
+  vips,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libheif";

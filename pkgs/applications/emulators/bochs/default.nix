@@ -1,7 +1,28 @@
-{ lib, stdenv, fetchurl, SDL2, curl, docbook_xml_dtd_45, docbook_xsl, gtk3
-, libGL, libGLU, libX11, libXpm, libobjc, libtool, ncurses, pkg-config, readline
-, wget, wxGTK, enableSDL2 ? true, enableTerm ? true, enableWx ? !stdenv.isDarwin
-, enableX11 ? !stdenv.isDarwin }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  SDL2,
+  curl,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  gtk3,
+  libGL,
+  libGLU,
+  libX11,
+  libXpm,
+  libobjc,
+  libtool,
+  ncurses,
+  pkg-config,
+  readline,
+  wget,
+  wxGTK,
+  enableSDL2 ? true,
+  enableTerm ? true,
+  enableWx ? !stdenv.isDarwin,
+  enableX11 ? !stdenv.isDarwin
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bochs";

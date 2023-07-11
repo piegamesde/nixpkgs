@@ -1,5 +1,8 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; }
+}:
 
 let
   inherit (import ../lib/testing-python.nix { inherit system pkgs; }) makeTest;
@@ -8,8 +11,11 @@ let
     withNetworkd = [ true false ];
     systemdStage1 = [ true false ];
   };
-in pkgs.lib.listToAttrs (builtins.map
-  ({ predictable, withNetworkd, systemdStage1 }: {
+in pkgs.lib.listToAttrs (builtins.map ({
+    predictable,
+    withNetworkd,
+    systemdStage1,
+  }: {
     name = pkgs.lib.optionalString (!predictable) "un" + "predictable"
       + pkgs.lib.optionalString withNetworkd "Networkd"
       + pkgs.lib.optionalString systemdStage1 "SystemdStage1";
@@ -20,7 +26,10 @@ in pkgs.lib.listToAttrs (builtins.map
         + pkgs.lib.optionalString systemdStage1 "-systemd-stage-1";
       meta = { };
 
-      nodes.machine = { lib, ... }:
+      nodes.machine = {
+          lib,
+          ...
+        }:
         let
           script = ''
             ip link

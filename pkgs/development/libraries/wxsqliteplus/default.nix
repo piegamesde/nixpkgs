@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, wxGTK, wxsqlite3, sqlite, Cocoa, setfile }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  wxGTK,
+  wxsqlite3,
+  sqlite,
+  Cocoa,
+  setfile,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wxsqliteplus";

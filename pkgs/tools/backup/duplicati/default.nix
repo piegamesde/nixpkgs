@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchzip, mono, sqlite, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  mono,
+  sqlite,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "duplicati";

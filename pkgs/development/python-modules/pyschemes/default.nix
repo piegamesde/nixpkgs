@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, fetchpatch }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  fetchpatch,
+}:
 
 buildPythonPackage rec {
   pname = "pyschemes";

@@ -1,6 +1,17 @@
-{ lib, python3, fetchFromGitHub, fetchYarnDeps, zlib, nixosTests
-, postgresqlTestHook, postgresql, yarn, fixup_yarn_lock, nodejs
-, server-mode ? true }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  zlib,
+  nixosTests,
+  postgresqlTestHook,
+  postgresql,
+  yarn,
+  fixup_yarn_lock,
+  nodejs,
+  server-mode ? true
+}:
 
 let
   pname = "pgadmin";

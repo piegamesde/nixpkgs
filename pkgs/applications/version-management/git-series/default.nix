@@ -1,5 +1,14 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, zlib, curl, libgit2
-, libssh2 }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  zlib,
+  curl,
+  libgit2,
+  libssh2,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "git-series";

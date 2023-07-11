@@ -1,4 +1,13 @@
-{ lib, stdenv, cmake, fetchFromGitLab, pkg-config, meson, ninja, glib, libusb1
+{
+  lib,
+  stdenv,
+  cmake,
+  fetchFromGitLab,
+  pkg-config,
+  meson,
+  ninja,
+  glib,
+  libusb1,
 }:
 
 stdenv.mkDerivation rec {

@@ -1,6 +1,20 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, wayland, wayland-protocols
-, libwpe, libwpe-fdo, glib-networking, webkitgtk, makeWrapper, wrapGAppsHook
-, gnome, gdk-pixbuf }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  wayland,
+  wayland-protocols,
+  libwpe,
+  libwpe-fdo,
+  glib-networking,
+  webkitgtk,
+  makeWrapper,
+  wrapGAppsHook,
+  gnome,
+  gdk-pixbuf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cog";

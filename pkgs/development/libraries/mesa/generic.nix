@@ -1,35 +1,65 @@
-{ version, hash }:
+{
+  version,
+  hash,
+}:
 
-{ stdenv, lib, fetchurl, fetchpatch, meson, pkg-config, ninja, intltool, bison
-, flex, file, python3Packages, wayland-scanner, expat, libdrm, xorg, wayland
-, wayland-protocols, openssl, llvmPackages_15, libffi, libomxil-bellagio
-, libva-minimal, libelf, libvdpau, libglvnd, libunwind, vulkan-loader, glslang
-, galliumDrivers ? if stdenv.isLinux then
-  [
-    "d3d12" # WSL emulated GPU (aka Dozen)
-    "nouveau" # Nvidia
-    "radeonsi" # new AMD (GCN+)
-    "r300" # very old AMD
-    "r600" # less old AMD
-    "swrast" # software renderer (aka LLVMPipe)
-    "svga" # VMWare virtualized GPU
-    "virgl" # QEMU virtualized GPU (aka VirGL)
-    "zink" # generic OpenGL over Vulkan, experimental
-  ] ++ lib.optionals (stdenv.isAarch64 || stdenv.isAarch32) [
-    "etnaviv" # Vivante GPU designs (mostly NXP/Marvell SoCs)
-    "freedreno" # Qualcomm Adreno (all Qualcomm SoCs)
-    "lima" # ARM Mali 4xx
-    "panfrost" # ARM Mali Midgard and up (T/G series)
-    "vc4" # Broadcom VC4 (Raspberry Pi 0-3)
-  ] ++ lib.optionals stdenv.isAarch64 [
-    "tegra" # Nvidia Tegra SoCs
-    "v3d" # Broadcom VC5 (Raspberry Pi 4)
-  ] ++ lib.optionals stdenv.hostPlatform.isx86 [
-    "iris" # new Intel, could work on non-x86 with PCIe cards, but doesn't build as of 22.3.4
-    "crocus" # Intel legacy, x86 only
-  ]
-else
-  [ "auto" ], vulkanDrivers ? if stdenv.isLinux then
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  meson,
+  pkg-config,
+  ninja,
+  intltool,
+  bison,
+  flex,
+  file,
+  python3Packages,
+  wayland-scanner,
+  expat,
+  libdrm,
+  xorg,
+  wayland,
+  wayland-protocols,
+  openssl,
+  llvmPackages_15,
+  libffi,
+  libomxil-bellagio,
+  libva-minimal,
+  libelf,
+  libvdpau,
+  libglvnd,
+  libunwind,
+  vulkan-loader,
+  glslang,
+  galliumDrivers ? if stdenv.isLinux then
+    [
+      "d3d12" # WSL emulated GPU (aka Dozen)
+      "nouveau" # Nvidia
+      "radeonsi" # new AMD (GCN+)
+      "r300" # very old AMD
+      "r600" # less old AMD
+      "swrast" # software renderer (aka LLVMPipe)
+      "svga" # VMWare virtualized GPU
+      "virgl" # QEMU virtualized GPU (aka VirGL)
+      "zink" # generic OpenGL over Vulkan, experimental
+    ] ++ lib.optionals (stdenv.isAarch64 || stdenv.isAarch32) [
+      "etnaviv" # Vivante GPU designs (mostly NXP/Marvell SoCs)
+      "freedreno" # Qualcomm Adreno (all Qualcomm SoCs)
+      "lima" # ARM Mali 4xx
+      "panfrost" # ARM Mali Midgard and up (T/G series)
+      "vc4" # Broadcom VC4 (Raspberry Pi 0-3)
+    ] ++ lib.optionals stdenv.isAarch64 [
+      "tegra" # Nvidia Tegra SoCs
+      "v3d" # Broadcom VC5 (Raspberry Pi 4)
+    ] ++ lib.optionals stdenv.hostPlatform.isx86 [
+      "iris" # new Intel, could work on non-x86 with PCIe cards, but doesn't build as of 22.3.4
+      "crocus" # Intel legacy, x86 only
+    ]
+  else
+    [ "auto" ],
+  vulkanDrivers ? if stdenv.isLinux then
     [
       "amd" # AMD (aka RADV)
       "microsoft-experimental" # WSL virtualized GPU (aka DZN/Dozen)
@@ -49,20 +79,32 @@ else
         "intel_hasvk" # Intel Haswell/Broadwell, "legacy" Vulkan driver (https://www.phoronix.com/news/Intel-HasVK-Drop-Dead-Code)
       ]
   else
-    [ "auto" ]
-, eglPlatforms ? [ "x11" ] ++ lib.optionals stdenv.isLinux [ "wayland" ]
-, vulkanLayers ? lib.optionals (!stdenv.isDarwin) [
-  "device-select"
-  "overlay"
-  "intel-nullhw"
-] # No Vulkan support on Darwin
-, OpenGL, Xplugin, withValgrind ?
-  lib.meta.availableOn stdenv.hostPlatform valgrind-light
-  && !valgrind-light.meta.broken, valgrind-light
-, enableGalliumNine ? stdenv.isLinux, enableOSMesa ? stdenv.isLinux
-, enableOpenCL ? stdenv.isLinux && stdenv.isx86_64
-, enablePatentEncumberedCodecs ? true, libclc, jdupes, rustc, rust-bindgen
-, spirv-llvm-translator, zstd, directx-headers, udev }:
+    [ "auto" ],
+  eglPlatforms ? [ "x11" ] ++ lib.optionals stdenv.isLinux [ "wayland" ],
+  vulkanLayers ? lib.optionals (!stdenv.isDarwin) [
+    "device-select"
+    "overlay"
+    "intel-nullhw"
+  ] # No Vulkan support on Darwin
+  ,
+  OpenGL,
+  Xplugin,
+  withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind-light
+    && !valgrind-light.meta.broken,
+  valgrind-light,
+  enableGalliumNine ? stdenv.isLinux,
+  enableOSMesa ? stdenv.isLinux,
+  enableOpenCL ? stdenv.isLinux && stdenv.isx86_64,
+  enablePatentEncumberedCodecs ? true,
+  libclc,
+  jdupes,
+  rustc,
+  rust-bindgen,
+  spirv-llvm-translator,
+  zstd,
+  directx-headers,
+  udev,
+}:
 
 /* * Packaging design:
    - The basic mesa ($out) contains headers and libraries (GLU is in libGLU now).

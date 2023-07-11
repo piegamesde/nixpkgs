@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, apacheHttpd, python3, libintl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  apacheHttpd,
+  python3,
+  libintl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mod_python";

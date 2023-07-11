@@ -1,4 +1,10 @@
-{ buildPythonPackage, fetchFromGitHub, hypothesis, lib, pytestCheckHook }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  hypothesis,
+  lib,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "json5";

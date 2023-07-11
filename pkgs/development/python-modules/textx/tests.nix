@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, click, gprof2dot, html5lib, jinja2, memory_profiler
-, psutil, pytestCheckHook, setuptools, textx, textx-data-dsl
-, textx-example-project, textx-flow-codegen, textx-flow-dsl, textx-types-dsl }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  gprof2dot,
+  html5lib,
+  jinja2,
+  memory_profiler,
+  psutil,
+  pytestCheckHook,
+  setuptools,
+  textx,
+  textx-data-dsl,
+  textx-example-project,
+  textx-flow-codegen,
+  textx-flow-dsl,
+  textx-types-dsl,
+}:
 
 buildPythonPackage {
   pname = "textx-tests";

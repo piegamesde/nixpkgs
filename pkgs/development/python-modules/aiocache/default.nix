@@ -1,4 +1,11 @@
-{ lib, aioredis, buildPythonPackage, fetchFromGitHub, msgpack, pythonOlder }:
+{
+  lib,
+  aioredis,
+  buildPythonPackage,
+  fetchFromGitHub,
+  msgpack,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aiocache";

@@ -1,5 +1,19 @@
-{ stdenv, fetchurl, fontconfig, freetype, lib, libICE, libSM, udev, libX11
-, libXcursor, libXext, libXfixes, libXrandr, libXrender }:
+{
+  stdenv,
+  fetchurl,
+  fontconfig,
+  freetype,
+  lib,
+  libICE,
+  libSM,
+  udev,
+  libX11,
+  libXcursor,
+  libXext,
+  libXfixes,
+  libXrandr,
+  libXrender,
+}:
 
 stdenv.mkDerivation rec {
   pname = "segger-ozone";

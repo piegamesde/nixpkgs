@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, psycopg, click, configobj
-, sqlparse }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  psycopg,
+  click,
+  configobj,
+  sqlparse,
+}:
 
 buildPythonPackage rec {
   pname = "pgspecial";

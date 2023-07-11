@@ -1,7 +1,28 @@
-{ backoff, sparqlwrapper, boto3, buildPythonPackage, fetchFromGitHub
-, gremlinpython, jsonpath-ng, lib, moto, openpyxl, opensearch-py, pandas, pg8000
-, poetry-core, progressbar2, pyarrow, pymysql, pyodbc, pytestCheckHook
-, pythonOlder, pythonRelaxDepsHook, redshift-connector, requests-aws4auth }:
+{
+  backoff,
+  sparqlwrapper,
+  boto3,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gremlinpython,
+  jsonpath-ng,
+  lib,
+  moto,
+  openpyxl,
+  opensearch-py,
+  pandas,
+  pg8000,
+  poetry-core,
+  progressbar2,
+  pyarrow,
+  pymysql,
+  pyodbc,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  redshift-connector,
+  requests-aws4auth,
+}:
 
 buildPythonPackage rec {
   pname = "awswrangler";

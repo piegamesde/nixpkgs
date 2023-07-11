@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, matchpy, pytestCheckHook
-, pythonOlder, pytools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  matchpy,
+  pytestCheckHook,
+  pythonOlder,
+  pytools,
+}:
 
 buildPythonPackage rec {
   pname = "pymbolic";

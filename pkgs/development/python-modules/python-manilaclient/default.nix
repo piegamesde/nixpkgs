@@ -1,7 +1,25 @@
-{ lib, buildPythonPackage, fetchPypi, installShellFiles, pbr, openstackdocstheme
-, oslo-config, oslo-log, oslo-serialization, oslo-utils, prettytable, requests
-, simplejson, sphinx, sphinxcontrib-programoutput, babel, osc-lib
-, python-keystoneclient, debtcollector, callPackage }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  installShellFiles,
+  pbr,
+  openstackdocstheme,
+  oslo-config,
+  oslo-log,
+  oslo-serialization,
+  oslo-utils,
+  prettytable,
+  requests,
+  simplejson,
+  sphinx,
+  sphinxcontrib-programoutput,
+  babel,
+  osc-lib,
+  python-keystoneclient,
+  debtcollector,
+  callPackage,
+}:
 
 buildPythonPackage rec {
   pname = "python-manilaclient";

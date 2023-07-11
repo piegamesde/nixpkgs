@@ -1,10 +1,19 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi
 
-# build time
-, setuptools-scm
+  # build time
+  ,
+  setuptools-scm
 
-# tests
-, pytestCheckHook, appdirs, packaging }:
+  # tests
+  ,
+  pytestCheckHook,
+  appdirs,
+  packaging,
+}:
 
 buildPythonPackage rec {
   pname = "path";

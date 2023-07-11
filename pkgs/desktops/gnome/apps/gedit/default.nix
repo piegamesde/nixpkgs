@@ -1,7 +1,31 @@
-{ stdenv, lib, meson, fetchurl, python3, pkg-config, gtk3, gtk-mac-integration
-, glib, amtk, tepl, libpeas, libxml2, gtksourceview4, gsettings-desktop-schemas
-, wrapGAppsHook, gtk-doc, docbook-xsl-nons, ninja, libsoup, gnome, gspell, perl
-, itstool, desktop-file-utils, vala }:
+{
+  stdenv,
+  lib,
+  meson,
+  fetchurl,
+  python3,
+  pkg-config,
+  gtk3,
+  gtk-mac-integration,
+  glib,
+  amtk,
+  tepl,
+  libpeas,
+  libxml2,
+  gtksourceview4,
+  gsettings-desktop-schemas,
+  wrapGAppsHook,
+  gtk-doc,
+  docbook-xsl-nons,
+  ninja,
+  libsoup,
+  gnome,
+  gspell,
+  perl,
+  itstool,
+  desktop-file-utils,
+  vala,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gedit";

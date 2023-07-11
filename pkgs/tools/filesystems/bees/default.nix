@@ -1,5 +1,15 @@
-{ lib, stdenv, runCommand, fetchFromGitHub, bash, btrfs-progs, coreutils
-, python3Packages, util-linux, nixosTests }:
+{
+  lib,
+  stdenv,
+  runCommand,
+  fetchFromGitHub,
+  bash,
+  btrfs-progs,
+  coreutils,
+  python3Packages,
+  util-linux,
+  nixosTests,
+}:
 
 let
 

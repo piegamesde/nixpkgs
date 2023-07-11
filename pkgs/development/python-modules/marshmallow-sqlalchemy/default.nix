@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, marshmallow, packaging
-, sqlalchemy, pytest-lazy-fixture, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  marshmallow,
+  packaging,
+  sqlalchemy,
+  pytest-lazy-fixture,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "marshmallow-sqlalchemy";

@@ -1,6 +1,20 @@
-{ lib, meson, ninja, pkg-config, gettext, fetchFromGitHub, python3
-, wrapGAppsHook, gtk3, glib, desktop-file-utils, appstream-glib, gnome
-, gobject-introspection, librsvg }:
+{
+  lib,
+  meson,
+  ninja,
+  pkg-config,
+  gettext,
+  fetchFromGitHub,
+  python3,
+  wrapGAppsHook,
+  gtk3,
+  glib,
+  desktop-file-utils,
+  appstream-glib,
+  gnome,
+  gobject-introspection,
+  librsvg,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "piper";

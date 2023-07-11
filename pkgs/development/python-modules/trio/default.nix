@@ -1,6 +1,24 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, attrs, sortedcontainers
-, async_generator, exceptiongroup, idna, outcome, pytestCheckHook, pyopenssl
-, trustme, sniffio, stdenv, jedi, astor, yapf, coreutils }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  attrs,
+  sortedcontainers,
+  async_generator,
+  exceptiongroup,
+  idna,
+  outcome,
+  pytestCheckHook,
+  pyopenssl,
+  trustme,
+  sniffio,
+  stdenv,
+  jedi,
+  astor,
+  yapf,
+  coreutils,
+}:
 
 buildPythonPackage rec {
   pname = "trio";

@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromBitbucket, pyparsing
-, matplotlib, latex2mathml, ziafont, ziamath, pytestCheckHook, nbval }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromBitbucket,
+  pyparsing,
+  matplotlib,
+  latex2mathml,
+  ziafont,
+  ziamath,
+  pytestCheckHook,
+  nbval,
+}:
 
 buildPythonPackage rec {
   pname = "schemdraw";

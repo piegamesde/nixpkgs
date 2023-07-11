@@ -1,7 +1,29 @@
-{ lib, appdirs, attrs, buildPythonPackage, bson, boto3, botocore, cattrs
-, exceptiongroup, fetchFromGitHub, itsdangerous, poetry-core, pymongo
-, pytestCheckHook, pythonOlder, pyyaml, redis, requests, requests-mock, rich
-, timeout-decorator, ujson, urllib3, url-normalize }:
+{
+  lib,
+  appdirs,
+  attrs,
+  buildPythonPackage,
+  bson,
+  boto3,
+  botocore,
+  cattrs,
+  exceptiongroup,
+  fetchFromGitHub,
+  itsdangerous,
+  poetry-core,
+  pymongo,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  redis,
+  requests,
+  requests-mock,
+  rich,
+  timeout-decorator,
+  ujson,
+  urllib3,
+  url-normalize,
+}:
 
 buildPythonPackage rec {
   pname = "requests-cache";

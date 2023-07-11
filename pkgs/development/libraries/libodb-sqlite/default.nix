@@ -1,5 +1,13 @@
-{ lib, stdenv, build2, fetchurl, libodb, sqlite
-, enableShared ? !stdenv.hostPlatform.isStatic, enableStatic ? !enableShared }:
+{
+  lib,
+  stdenv,
+  build2,
+  fetchurl,
+  libodb,
+  sqlite,
+  enableShared ? !stdenv.hostPlatform.isStatic,
+  enableStatic ? !enableShared
+}:
 stdenv.mkDerivation rec {
   pname = "libodb-sqlite";
   version = "2.5.0-b.23";

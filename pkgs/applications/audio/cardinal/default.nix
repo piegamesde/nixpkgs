@@ -1,7 +1,29 @@
-{ stdenv, fetchFromGitHub, fetchurl, cmake, dbus, file, freetype, jansson, lib
-, libGL, libX11, libXcursor, libXext, libXrandr, libarchive, libjack2, liblo
-, libsamplerate, libsndfile, makeWrapper, pkg-config, python3, speexdsp
-, libglvnd }:
+{
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  cmake,
+  dbus,
+  file,
+  freetype,
+  jansson,
+  lib,
+  libGL,
+  libX11,
+  libXcursor,
+  libXext,
+  libXrandr,
+  libarchive,
+  libjack2,
+  liblo,
+  libsamplerate,
+  libsndfile,
+  makeWrapper,
+  pkg-config,
+  python3,
+  speexdsp,
+  libglvnd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cardinal";

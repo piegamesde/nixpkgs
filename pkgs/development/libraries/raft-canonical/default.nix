@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, file, libuv, lz4
-, lxd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  file,
+  libuv,
+  lz4,
+  lxd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "raft-canonical";

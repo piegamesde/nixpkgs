@@ -1,6 +1,22 @@
-{ fetchFromGitLab, lib, stdenv, autoreconfHook, gtk-doc, pkg-config, intltool
-, gettext, glib, libxml2, zlib, bzip2, perl, gdk-pixbuf, libiconv, libintl
-, gnome }:
+{
+  fetchFromGitLab,
+  lib,
+  stdenv,
+  autoreconfHook,
+  gtk-doc,
+  pkg-config,
+  intltool,
+  gettext,
+  glib,
+  libxml2,
+  zlib,
+  bzip2,
+  perl,
+  gdk-pixbuf,
+  libiconv,
+  libintl,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgsf";

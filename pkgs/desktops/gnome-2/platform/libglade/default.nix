@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, gtk2, libxml2, gettext }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gtk2,
+  libxml2,
+  gettext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libglade";

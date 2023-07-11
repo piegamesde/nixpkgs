@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "opencontainers";

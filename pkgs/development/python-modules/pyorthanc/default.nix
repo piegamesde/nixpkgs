@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
-, poetry-core, httpx, pydicom }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  poetry-core,
+  httpx,
+  pydicom,
+}:
 
 buildPythonPackage rec {
   pname = "pyorthanc";

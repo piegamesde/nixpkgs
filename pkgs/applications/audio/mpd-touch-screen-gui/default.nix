@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, SDL2, SDL2_ttf
-, SDL2_image, boost, libmpdclient, libwtk-sdl2, icu, libconfig, dejavu_fonts }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  SDL2,
+  SDL2_ttf,
+  SDL2_image,
+  boost,
+  libmpdclient,
+  libwtk-sdl2,
+  icu,
+  libconfig,
+  dejavu_fonts,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mpd-touch-screen-gui";

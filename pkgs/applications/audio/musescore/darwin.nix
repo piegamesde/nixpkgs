@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchurl, undmg }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  undmg,
+}:
 
 let
   versionComponents = [ "4" "0" "1" ];

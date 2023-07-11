@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchurl, SDL, qt4 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  SDL,
+  qt4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tworld2";

@@ -1,5 +1,13 @@
-{ stdenv, buildPythonPackage, fetchFromGitHub, python, bootstrapped-pip, lib
-, pipInstallHook, setuptoolsBuildHook }:
+{
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  bootstrapped-pip,
+  lib,
+  pipInstallHook,
+  setuptoolsBuildHook,
+}:
 
 let
   pname = "setuptools";

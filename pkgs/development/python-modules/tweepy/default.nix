@@ -1,5 +1,17 @@
-{ lib, aiohttp, async-lru, buildPythonPackage, fetchFromGitHub, oauthlib
-, pytestCheckHook, pythonOlder, requests, requests-oauthlib, six, vcrpy }:
+{
+  lib,
+  aiohttp,
+  async-lru,
+  buildPythonPackage,
+  fetchFromGitHub,
+  oauthlib,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-oauthlib,
+  six,
+  vcrpy,
+}:
 
 buildPythonPackage rec {
   pname = "tweepy";

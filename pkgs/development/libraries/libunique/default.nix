@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, gtk2, dbus-glib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glib,
+  gtk2,
+  dbus-glib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libunique";

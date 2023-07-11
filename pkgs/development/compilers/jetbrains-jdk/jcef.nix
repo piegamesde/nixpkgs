@@ -1,11 +1,48 @@
-{ fetchFromGitHub, fetchurl, fetchzip, stdenv, cmake, python3, jdk17, git
-, libcef, rsync, lib, ant, ninja
+{
+  fetchFromGitHub,
+  fetchurl,
+  fetchzip,
+  stdenv,
+  cmake,
+  python3,
+  jdk17,
+  git,
+  libcef,
+  rsync,
+  lib,
+  ant,
+  ninja
 
-, debugBuild ? false
+  ,
+  debugBuild ? false
 
-, glib, nss, nspr, atk, at-spi2-atk, libdrm, expat, libxcb, libxkbcommon, libX11
-, libXcomposite, libXdamage, libXext, libXfixes, libXrandr, mesa, gtk3, pango
-, cairo, alsa-lib, dbus, at-spi2-core, cups, libxshmfence, udev }:
+  ,
+  glib,
+  nss,
+  nspr,
+  atk,
+  at-spi2-atk,
+  libdrm,
+  expat,
+  libxcb,
+  libxkbcommon,
+  libX11,
+  libXcomposite,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXrandr,
+  mesa,
+  gtk3,
+  pango,
+  cairo,
+  alsa-lib,
+  dbus,
+  at-spi2-core,
+  cups,
+  libxshmfence,
+  udev,
+}:
 
 assert !stdenv.isDarwin;
 # I can't test darwin

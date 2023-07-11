@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchurl, glibcLocales }:
+{
+  lib,
+  buildPythonPackage,
+  fetchurl,
+  glibcLocales,
+}:
 
 buildPythonPackage rec {
   pname = "rpmfluff";

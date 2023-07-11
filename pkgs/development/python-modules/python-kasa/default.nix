@@ -1,6 +1,17 @@
-{ lib, asyncclick, buildPythonPackage, fetchFromGitHub, importlib-metadata
-, pydantic, poetry-core, pytest-asyncio, pytest-mock, pytestCheckHook
-, pythonOlder, voluptuous }:
+{
+  lib,
+  asyncclick,
+  buildPythonPackage,
+  fetchFromGitHub,
+  importlib-metadata,
+  pydantic,
+  poetry-core,
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  voluptuous,
+}:
 
 buildPythonPackage rec {
   pname = "python-kasa";

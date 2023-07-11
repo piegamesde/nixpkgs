@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, glib, gtk2, pkg-config, popt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  glib,
+  gtk2,
+  pkg-config,
+  popt,
+}:
 
 let version = "0.9.2";
 

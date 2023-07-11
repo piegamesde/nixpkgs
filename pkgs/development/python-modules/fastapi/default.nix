@@ -1,6 +1,24 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pydantic, starlette, pytestCheckHook
-, pytest-asyncio, aiosqlite, databases, flask, httpx, hatchling, orjson, passlib
-, peewee, python-jose, sqlalchemy, trio, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pydantic,
+  starlette,
+  pytestCheckHook,
+  pytest-asyncio,
+  aiosqlite,
+  databases,
+  flask,
+  httpx,
+  hatchling,
+  orjson,
+  passlib,
+  peewee,
+  python-jose,
+  sqlalchemy,
+  trio,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "fastapi";

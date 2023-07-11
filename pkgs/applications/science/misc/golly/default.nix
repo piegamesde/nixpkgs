@@ -1,4 +1,15 @@
-{ lib, stdenv, fetchurl, wxGTK, perl, python3, zlib, libGLU, libGL, libX11, SDL2
+{
+  lib,
+  stdenv,
+  fetchurl,
+  wxGTK,
+  perl,
+  python3,
+  zlib,
+  libGLU,
+  libGL,
+  libX11,
+  SDL2,
 }:
 stdenv.mkDerivation rec {
   pname = "golly";

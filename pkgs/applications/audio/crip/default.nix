@@ -1,9 +1,24 @@
-{ lib, stdenv, fetchurl, makeWrapper
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper
 
-, perlPackages
+  ,
+  perlPackages
 
-, cdparanoia, coreutils, eject, flac, gnugrep, nano, sox, vorbis-tools
-, vorbisgain, which }:
+  ,
+  cdparanoia,
+  coreutils,
+  eject,
+  flac,
+  gnugrep,
+  nano,
+  sox,
+  vorbis-tools,
+  vorbisgain,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "crip";

@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, fetchFromGitHub, python, cython, setuptools
-, substituteAll, numpy, pandas, cramjam, fsspec, thrift, python-lzo
-, pytestCheckHook, pythonOlder, packaging }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  cython,
+  setuptools,
+  substituteAll,
+  numpy,
+  pandas,
+  cramjam,
+  fsspec,
+  thrift,
+  python-lzo,
+  pytestCheckHook,
+  pythonOlder,
+  packaging,
+}:
 
 buildPythonPackage rec {
   pname = "fastparquet";

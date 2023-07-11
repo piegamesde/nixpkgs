@@ -1,13 +1,27 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder
 
-# propagates
-, async-timeout, deprecated, importlib-metadata, packaging, typing-extensions
+  # propagates
+  ,
+  async-timeout,
+  deprecated,
+  importlib-metadata,
+  packaging,
+  typing-extensions
 
-# extras: hiredis
-, hiredis
+  # extras: hiredis
+  ,
+  hiredis
 
-# extras: ocsp
-, cryptography, pyopenssl, requests }:
+  # extras: ocsp
+  ,
+  cryptography,
+  pyopenssl,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "redis";

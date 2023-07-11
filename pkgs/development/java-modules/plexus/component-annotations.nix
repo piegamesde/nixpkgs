@@ -1,4 +1,6 @@
-{ fetchMaven }:
+{
+  fetchMaven,
+}:
 
 {
   plexusComponentAnnotations_1_5_5 = map (obj:

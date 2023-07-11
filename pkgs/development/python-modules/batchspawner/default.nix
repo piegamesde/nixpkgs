@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, jupyterhub, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jupyterhub,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "batchspawner";

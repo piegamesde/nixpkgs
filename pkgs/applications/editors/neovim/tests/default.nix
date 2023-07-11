@@ -1,6 +1,17 @@
 # run tests by building `neovim.tests`
-{ vimUtils, writeText, neovim, vimPlugins, lib, fetchFromGitHub, neovimUtils
-, wrapNeovimUnstable, neovim-unwrapped, fetchFromGitLab, runCommandLocal, pkgs
+{
+  vimUtils,
+  writeText,
+  neovim,
+  vimPlugins,
+  lib,
+  fetchFromGitHub,
+  neovimUtils,
+  wrapNeovimUnstable,
+  neovim-unwrapped,
+  fetchFromGitLab,
+  runCommandLocal,
+  pkgs,
 }:
 let
   inherit (neovimUtils) makeNeovimConfig;

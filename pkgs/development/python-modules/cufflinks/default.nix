@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, chart-studio, colorlover, ipython
-, ipywidgets, pytest, nose, numpy, pandas, six, statsmodels }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  chart-studio,
+  colorlover,
+  ipython,
+  ipywidgets,
+  pytest,
+  nose,
+  numpy,
+  pandas,
+  six,
+  statsmodels,
+}:
 
 buildPythonPackage rec {
   pname = "cufflinks";

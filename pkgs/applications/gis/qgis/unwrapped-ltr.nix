@@ -1,9 +1,47 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, ninja, flex, bison, proj, geos
-, sqlite, gsl, qwt, fcgi, python3, libspatialindex, libspatialite, postgresql
-, txt2tags, openssl, libzip, hdf5, netcdf, exiv2, protobuf, qtbase, qtsensors
-, qca-qt5, qtkeychain, qt3d, qscintilla, qtlocation, qtserialport, qtxmlpatterns
-, withGrass ? true, grass, withWebKit ? false, qtwebkit, pdal, zstd, makeWrapper
-, wrapGAppsHook, substituteAll }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  flex,
+  bison,
+  proj,
+  geos,
+  sqlite,
+  gsl,
+  qwt,
+  fcgi,
+  python3,
+  libspatialindex,
+  libspatialite,
+  postgresql,
+  txt2tags,
+  openssl,
+  libzip,
+  hdf5,
+  netcdf,
+  exiv2,
+  protobuf,
+  qtbase,
+  qtsensors,
+  qca-qt5,
+  qtkeychain,
+  qt3d,
+  qscintilla,
+  qtlocation,
+  qtserialport,
+  qtxmlpatterns,
+  withGrass ? true,
+  grass,
+  withWebKit ? false,
+  qtwebkit,
+  pdal,
+  zstd,
+  makeWrapper,
+  wrapGAppsHook,
+  substituteAll,
+}:
 
 let
 

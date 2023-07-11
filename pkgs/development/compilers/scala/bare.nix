@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, makeWrapper, jre, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  jre,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   version = "3.2.2";

@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromSourcehut, pkg-config, cmake, meson, ninja, gtk3
-, gtk-layer-shell, json_c, scdoc }:
+{
+  stdenv,
+  lib,
+  fetchFromSourcehut,
+  pkg-config,
+  cmake,
+  meson,
+  ninja,
+  gtk3,
+  gtk-layer-shell,
+  json_c,
+  scdoc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gtkgreet";

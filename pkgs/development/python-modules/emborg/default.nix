@@ -1,6 +1,22 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, pytestCheckHook
-, pythonOlder, borgbackup, appdirs, arrow, docopt, inform, nestedtext
-, parametrize-from-file, quantiphy, requests, shlib, voluptuous }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pytestCheckHook,
+  pythonOlder,
+  borgbackup,
+  appdirs,
+  arrow,
+  docopt,
+  inform,
+  nestedtext,
+  parametrize-from-file,
+  quantiphy,
+  requests,
+  shlib,
+  voluptuous,
+}:
 
 buildPythonPackage rec {
   pname = "emborg";

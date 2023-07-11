@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, python3, wafHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  python3,
+  wafHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pflask";

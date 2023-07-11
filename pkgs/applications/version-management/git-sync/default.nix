@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, coreutils, git, gnugrep, gnused, makeWrapper
-, inotify-tools }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  coreutils,
+  git,
+  gnugrep,
+  gnused,
+  makeWrapper,
+  inotify-tools,
+}:
 
 stdenv.mkDerivation rec {
   pname = "git-sync";

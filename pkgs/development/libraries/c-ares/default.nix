@@ -1,7 +1,16 @@
-{ lib, stdenv, fetchurl, writeTextDir, withCMake ? true, cmake
+{
+  lib,
+  stdenv,
+  fetchurl,
+  writeTextDir,
+  withCMake ? true,
+  cmake
 
-# sensitive downstream packages
-, curl, grpc # consumes cmake config
+  # sensitive downstream packages
+  ,
+  curl,
+  grpc # consumes cmake config
+  ,
 }:
 
 # Note: this package is used for bootstrapping fetchurl, and thus

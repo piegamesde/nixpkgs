@@ -1,6 +1,12 @@
 # Configuration for the pwdutils suite of tools: passwd, useradd, etc.
 
-{ config, lib, utils, pkgs, ... }:
+{
+  config,
+  lib,
+  utils,
+  pkgs,
+  ...
+}:
 
 with lib;
 

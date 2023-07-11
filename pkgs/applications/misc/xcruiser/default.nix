@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, gccmakedep, imake, libXt, libXaw, libXpm, libXext }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gccmakedep,
+  imake,
+  libXt,
+  libXaw,
+  libXpm,
+  libXext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xcruiser";

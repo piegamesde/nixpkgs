@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, python, fetchFromGitHub, sdcc, libusb1, crcmod }:
+{
+  lib,
+  buildPythonPackage,
+  python,
+  fetchFromGitHub,
+  sdcc,
+  libusb1,
+  crcmod,
+}:
 
 buildPythonPackage rec {
   pname = "fx2";

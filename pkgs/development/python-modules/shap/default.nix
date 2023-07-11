@@ -1,7 +1,30 @@
-{ lib, buildPythonPackage, fetchFromGitHub, writeText, isPy27, pytestCheckHook
-, pytest-mpl, numpy, scipy, scikit-learn, pandas, transformers, opencv4
-, lightgbm, catboost, pyspark, sentencepiece, tqdm, slicer, numba, matplotlib
-, nose, lime, cloudpickle, ipython }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  writeText,
+  isPy27,
+  pytestCheckHook,
+  pytest-mpl,
+  numpy,
+  scipy,
+  scikit-learn,
+  pandas,
+  transformers,
+  opencv4,
+  lightgbm,
+  catboost,
+  pyspark,
+  sentencepiece,
+  tqdm,
+  slicer,
+  numba,
+  matplotlib,
+  nose,
+  lime,
+  cloudpickle,
+  ipython,
+}:
 
 buildPythonPackage rec {
   pname = "shap";

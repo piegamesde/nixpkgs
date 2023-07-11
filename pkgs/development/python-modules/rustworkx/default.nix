@@ -1,5 +1,15 @@
-{ fetchFromGitHub, buildPythonPackage, rustPlatform, setuptools-rust, numpy
-, fixtures, networkx, libiconv, stdenv, lib }:
+{
+  fetchFromGitHub,
+  buildPythonPackage,
+  rustPlatform,
+  setuptools-rust,
+  numpy,
+  fixtures,
+  networkx,
+  libiconv,
+  stdenv,
+  lib,
+}:
 
 buildPythonPackage rec {
   pname = "rustworkx";

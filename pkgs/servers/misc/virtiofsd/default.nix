@@ -1,4 +1,11 @@
-{ lib, stdenv, rustPlatform, fetchFromGitLab, libcap_ng, libseccomp }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitLab,
+  libcap_ng,
+  libseccomp,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "virtiofsd";

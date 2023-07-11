@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchurl, buildDunePackage, ounit }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  buildDunePackage,
+  ounit,
+}:
 
 buildDunePackage rec {
   pname = "dtoa";

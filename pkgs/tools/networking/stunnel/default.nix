@@ -1,6 +1,12 @@
-{ lib, stdenv, fetchurl, openssl
-, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd
-, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+  systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  systemd,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "stunnel";

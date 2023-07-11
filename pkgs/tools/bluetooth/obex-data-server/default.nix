@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, pkg-config, libusb-compat-0_1, glib, dbus-glib, bluez
-, openobex, dbus }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libusb-compat-0_1,
+  glib,
+  dbus-glib,
+  bluez,
+  openobex,
+  dbus,
+}:
 
 stdenv.mkDerivation rec {
   pname = "obex-data-server";

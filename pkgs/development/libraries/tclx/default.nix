@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, tcl }:
+{
+  lib,
+  fetchFromGitHub,
+  tcl,
+}:
 
 tcl.mkTclDerivation rec {
   pname = "tclx";

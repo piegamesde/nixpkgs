@@ -1,4 +1,11 @@
-{ lib, stdenv, callPackage, fetchurl, makeWrapper, jre }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchurl,
+  makeWrapper,
+  jre,
+}:
 
 let
   # The version number here is whatever is reported by the RUBY_VERSION string

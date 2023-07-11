@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, makeWrapper, perf
-, nix-update-script, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  makeWrapper,
+  perf,
+  nix-update-script,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-flamegraph";

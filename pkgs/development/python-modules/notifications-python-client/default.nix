@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, docopt, fetchFromGitHub, freezegun, mock, pyjwt
-, pytest-mock, pytestCheckHook, pythonOlder, requests, requests-mock }:
+{
+  lib,
+  buildPythonPackage,
+  docopt,
+  fetchFromGitHub,
+  freezegun,
+  mock,
+  pyjwt,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "notifications-python-client";

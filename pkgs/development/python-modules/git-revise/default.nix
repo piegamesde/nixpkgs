@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, git, gnupg, fetchFromGitHub
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  git,
+  gnupg,
+  fetchFromGitHub,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "git-revise";

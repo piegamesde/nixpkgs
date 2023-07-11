@@ -1,4 +1,10 @@
-{ stdenv, lib, ShellCheck, haskell, pandoc }:
+{
+  stdenv,
+  lib,
+  ShellCheck,
+  haskell,
+  pandoc,
+}:
 
 # this wraps around the haskell package
 # and puts the documentation into place

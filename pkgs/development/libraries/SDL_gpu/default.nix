@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, SDL2, libGLU }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  SDL2,
+  libGLU,
+}:
 
 stdenv.mkDerivation {
   pname = "SDL_gpu-unstable";

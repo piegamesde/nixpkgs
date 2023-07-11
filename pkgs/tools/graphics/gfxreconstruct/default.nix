@@ -1,5 +1,20 @@
-{ stdenv, fetchFromGitHub, lib, cmake, makeWrapper, pkg-config, python3, wayland
-, libX11, libxcb, lz4, vulkan-loader, xcbutilkeysyms, zlib, zstd }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  cmake,
+  makeWrapper,
+  pkg-config,
+  python3,
+  wayland,
+  libX11,
+  libxcb,
+  lz4,
+  vulkan-loader,
+  xcbutilkeysyms,
+  zlib,
+  zstd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gfxreconstruct";

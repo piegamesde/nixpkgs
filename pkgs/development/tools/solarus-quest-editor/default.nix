@@ -1,6 +1,22 @@
-{ lib, mkDerivation, fetchFromGitLab, cmake, luajit, SDL2, SDL2_image, SDL2_ttf
-, physfs, fetchpatch, openal, libmodplug, libvorbis, solarus, qtbase, qttools
-, glm }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitLab,
+  cmake,
+  luajit,
+  SDL2,
+  SDL2_image,
+  SDL2_ttf,
+  physfs,
+  fetchpatch,
+  openal,
+  libmodplug,
+  libvorbis,
+  solarus,
+  qtbase,
+  qttools,
+  glm,
+}:
 
 mkDerivation rec {
   pname = "solarus-quest-editor";

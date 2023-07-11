@@ -1,4 +1,8 @@
-{ picom, lib, fetchFromGitHub }:
+{
+  picom,
+  lib,
+  fetchFromGitHub,
+}:
 
 picom.overrideAttrs (oldAttrs: rec {
   pname = "picom-jonaburg";

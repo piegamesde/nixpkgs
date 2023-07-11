@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchFromBitbucket, django }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromBitbucket,
+  django,
+}:
 
 buildPythonPackage rec {
   pname = "django-jquery-js";

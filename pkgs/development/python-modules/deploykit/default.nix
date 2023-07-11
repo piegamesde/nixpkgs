@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools, bash, openssh
-, pytestCheckHook, pythonOlder, stdenv }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  bash,
+  openssh,
+  pytestCheckHook,
+  pythonOlder,
+  stdenv,
+}:
 
 buildPythonPackage rec {
   pname = "deploykit";

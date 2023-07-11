@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, colorlog, pyyaml, fetchPypi, pythonOlder, requests }:
+{
+  lib,
+  buildPythonPackage,
+  colorlog,
+  pyyaml,
+  fetchPypi,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "lupupy";

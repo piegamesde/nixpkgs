@@ -1,4 +1,9 @@
-{ lib, pkgs, python3Packages, nixosTests }:
+{
+  lib,
+  pkgs,
+  python3Packages,
+  nixosTests,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "steck";

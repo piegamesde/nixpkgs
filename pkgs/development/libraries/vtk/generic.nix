@@ -1,11 +1,49 @@
-{ majorVersion, minorVersion, sourceSha256, patchesToFetch ? [ ] }:
-{ stdenv, lib, fetchurl, cmake, libGLU, libGL, libX11, xorgproto, libXt, libpng
-, libtiff, fetchpatch, enableQt ? false, qtbase, qtx11extras, qttools
-, qtdeclarative, qtEnv, enablePython ? false, python ? throw
-  "vtk: Python support requested, but no python interpreter was given."
-  # Darwin support
-, AGL, Cocoa, CoreServices, DiskArbitration, IOKit, CFNetwork, Security, GLUT
-, OpenGL, ApplicationServices, CoreText, IOSurface, ImageIO, xpc, libobjc }:
+{
+  majorVersion,
+  minorVersion,
+  sourceSha256,
+  patchesToFetch ? [ ]
+}:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  cmake,
+  libGLU,
+  libGL,
+  libX11,
+  xorgproto,
+  libXt,
+  libpng,
+  libtiff,
+  fetchpatch,
+  enableQt ? false,
+  qtbase,
+  qtx11extras,
+  qttools,
+  qtdeclarative,
+  qtEnv,
+  enablePython ? false,
+  python ? throw
+    "vtk: Python support requested, but no python interpreter was given."
+    # Darwin support
+  ,
+  AGL,
+  Cocoa,
+  CoreServices,
+  DiskArbitration,
+  IOKit,
+  CFNetwork,
+  Security,
+  GLUT,
+  OpenGL,
+  ApplicationServices,
+  CoreText,
+  IOSurface,
+  ImageIO,
+  xpc,
+  libobjc,
+}:
 
 let
   inherit (lib) optionalString optionals optional;

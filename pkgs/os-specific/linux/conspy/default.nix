@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, autoconf, automake, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoconf,
+  automake,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "conspy";

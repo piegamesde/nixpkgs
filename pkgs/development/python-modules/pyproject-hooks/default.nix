@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, flit-core, pytestCheckHook, pythonOlder
-, setuptools, testpath, tomli }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flit-core,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  testpath,
+  tomli,
+}:
 
 buildPythonPackage rec {
   pname = "pyproject-hooks";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, async-timeout, pysnmplib, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  async-timeout,
+  pysnmplib,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "atenpdu";

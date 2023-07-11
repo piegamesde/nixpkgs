@@ -1,10 +1,26 @@
-{ stdenv, lib, fetchurl, fetchFromGitHub, pkg-config, libGLU, libGL, SDL2
-, libpng, libvorbis, libogg, libmikmod
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchFromGitHub,
+  pkg-config,
+  libGLU,
+  libGL,
+  SDL2,
+  libpng,
+  libvorbis,
+  libogg,
+  libmikmod
 
-, use3DOVideos ? false, requireFile ? null, writeText ? null
-, haskellPackages ? null
+  ,
+  use3DOVideos ? false,
+  requireFile ? null,
+  writeText ? null,
+  haskellPackages ? null
 
-, useRemixPacks ? false }:
+  ,
+  useRemixPacks ? false
+}:
 
 assert use3DOVideos -> requireFile != null && writeText != null
   && haskellPackages != null;

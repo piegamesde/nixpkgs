@@ -1,4 +1,6 @@
-{ fetchMaven }:
+{
+  fetchMaven,
+}:
 
 {
   mavenPluginDescriptor_2_0_1 = map (obj:

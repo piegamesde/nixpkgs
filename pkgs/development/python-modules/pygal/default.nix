@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, lxml, cairosvg, pyquery, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  lxml,
+  cairosvg,
+  pyquery,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {

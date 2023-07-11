@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, typing-extensions, mypy-extensions
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  typing-extensions,
+  mypy-extensions,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "typing-inspect";

@@ -1,5 +1,17 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
-, pytest-benchmark, numpy, arrow, ruamel-yaml, lz4, cloudpickle }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  pytest-benchmark,
+  numpy,
+  arrow,
+  ruamel-yaml,
+  lz4,
+  cloudpickle,
+}:
 
 buildPythonPackage rec {
   pname = "construct";

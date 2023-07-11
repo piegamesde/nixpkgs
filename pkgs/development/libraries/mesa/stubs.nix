@@ -1,4 +1,10 @@
-{ stdenv, libglvnd, mesa, OpenGL, testers }:
+{
+  stdenv,
+  libglvnd,
+  mesa,
+  OpenGL,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libGL";

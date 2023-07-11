@@ -1,5 +1,13 @@
-{ lib, stdenv, buildGraalvmNativeImage, babashka, fetchurl, fetchFromGitHub
-, clojure, writeScript }:
+{
+  lib,
+  stdenv,
+  buildGraalvmNativeImage,
+  babashka,
+  fetchurl,
+  fetchFromGitHub,
+  clojure,
+  writeScript,
+}:
 
 buildGraalvmNativeImage rec {
   pname = "clojure-lsp";

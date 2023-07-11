@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitea, fetchYarnDeps, fixup_yarn_lock, yarn, nodejs
-, jpegoptim, oxipng, nodePackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitea,
+  fetchYarnDeps,
+  fixup_yarn_lock,
+  yarn,
+  nodejs,
+  jpegoptim,
+  oxipng,
+  nodePackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "akkoma-fe";

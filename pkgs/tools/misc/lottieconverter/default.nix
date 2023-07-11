@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libpng, rlottie, giflib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libpng,
+  rlottie,
+  giflib,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lottieconverter";

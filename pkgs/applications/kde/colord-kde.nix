@@ -1,7 +1,25 @@
-{ mkDerivation, lib, extra-cmake-modules, ki18n, kconfig, kconfigwidgets
-, kcoreaddons, kdbusaddons, kiconthemes, kcmutils, kio, knotifications
-, plasma-framework, kwidgetsaddons, kwindowsystem, kitemmodels, kitemviews
-, lcms2, libXrandr, qtx11extras }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  ki18n,
+  kconfig,
+  kconfigwidgets,
+  kcoreaddons,
+  kdbusaddons,
+  kiconthemes,
+  kcmutils,
+  kio,
+  knotifications,
+  plasma-framework,
+  kwidgetsaddons,
+  kwindowsystem,
+  kitemmodels,
+  kitemviews,
+  lcms2,
+  libXrandr,
+  qtx11extras,
+}:
 
 mkDerivation {
   pname = "colord-kde";

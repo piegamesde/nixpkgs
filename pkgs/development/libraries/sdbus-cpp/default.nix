@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, systemd, expat }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  systemd,
+  expat,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sdbus-cpp";

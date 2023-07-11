@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, aiodns, aiohttp, fetchPypi, gnupg, pyasn1
-, pyasn1-modules, pytestCheckHook, substituteAll, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  aiodns,
+  aiohttp,
+  fetchPypi,
+  gnupg,
+  pyasn1,
+  pyasn1-modules,
+  pytestCheckHook,
+  substituteAll,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "slixmpp";

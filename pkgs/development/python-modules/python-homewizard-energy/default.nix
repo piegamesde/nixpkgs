@@ -1,5 +1,16 @@
-{ lib, aiohttp, aresponses, awesomeversion, buildPythonPackage, fetchFromGitHub
-, poetry-core, protobuf, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  awesomeversion,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  protobuf,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "python-homewizard-energy";

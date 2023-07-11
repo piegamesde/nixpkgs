@@ -1,4 +1,10 @@
-{ stdenv, lib, python3, fetchFromGitHub, installShellFiles }:
+{
+  stdenv,
+  lib,
+  python3,
+  fetchFromGitHub,
+  installShellFiles,
+}:
 
 let
   version = "2.44.1";

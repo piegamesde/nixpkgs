@@ -3,7 +3,13 @@
 # the modules necessary to mount the root file system, then calls the
 # init in the root file system to start the second boot stage.
 
-{ config, lib, utils, pkgs, ... }:
+{
+  config,
+  lib,
+  utils,
+  pkgs,
+  ...
+}:
 
 with lib;
 

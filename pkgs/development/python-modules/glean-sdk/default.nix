@@ -1,6 +1,20 @@
-{ stdenv, lib, buildPythonPackage, cargo, cffi, fetchPypi, glean-parser, iso8601
-, pytest-localserver, pytestCheckHook, pythonOlder, rustc, rustPlatform, semver
-, setuptools-rust }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  cargo,
+  cffi,
+  fetchPypi,
+  glean-parser,
+  iso8601,
+  pytest-localserver,
+  pytestCheckHook,
+  pythonOlder,
+  rustc,
+  rustPlatform,
+  semver,
+  setuptools-rust,
+}:
 
 buildPythonPackage rec {
   pname = "glean-sdk";

@@ -1,4 +1,9 @@
-{ buildGoModule, fetchFromGitHub, go-rice, lib }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  go-rice,
+  lib,
+}:
 
 buildGoModule rec {
   pname = "linx-server";

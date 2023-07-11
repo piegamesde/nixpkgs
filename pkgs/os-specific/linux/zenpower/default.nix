@@ -1,4 +1,9 @@
-{ lib, stdenv, kernel, fetchFromGitea }:
+{
+  lib,
+  stdenv,
+  kernel,
+  fetchFromGitea,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zenpower";

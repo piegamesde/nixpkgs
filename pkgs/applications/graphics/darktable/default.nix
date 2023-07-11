@@ -1,11 +1,62 @@
-{ lib, stdenv, fetchurl, libsoup, graphicsmagick, json-glib, wrapGAppsHook
-, cairo, cmake, ninja, curl, perl, llvm_13, desktop-file-utils, exiv2, glib
-, glib-networking, ilmbase, gtk3, intltool, lcms2, lensfun, libX11, libexif
-, libgphoto2, libjpeg, libpng, librsvg, libtiff, libjxl, openexr_3, osm-gps-map
-, pkg-config, sqlite, libxslt, openjpeg, pugixml, colord, colord-gtk, libwebp
-, libsecret, gnome, SDL2, ocl-icd, pcre, gtk-mac-integration, isocodes
-, llvmPackages, gmic, libavif, icu, jasper, libheif, libaom, portmidi
-, fetchpatch, lua }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libsoup,
+  graphicsmagick,
+  json-glib,
+  wrapGAppsHook,
+  cairo,
+  cmake,
+  ninja,
+  curl,
+  perl,
+  llvm_13,
+  desktop-file-utils,
+  exiv2,
+  glib,
+  glib-networking,
+  ilmbase,
+  gtk3,
+  intltool,
+  lcms2,
+  lensfun,
+  libX11,
+  libexif,
+  libgphoto2,
+  libjpeg,
+  libpng,
+  librsvg,
+  libtiff,
+  libjxl,
+  openexr_3,
+  osm-gps-map,
+  pkg-config,
+  sqlite,
+  libxslt,
+  openjpeg,
+  pugixml,
+  colord,
+  colord-gtk,
+  libwebp,
+  libsecret,
+  gnome,
+  SDL2,
+  ocl-icd,
+  pcre,
+  gtk-mac-integration,
+  isocodes,
+  llvmPackages,
+  gmic,
+  libavif,
+  icu,
+  jasper,
+  libheif,
+  libaom,
+  portmidi,
+  fetchpatch,
+  lua,
+}:
 
 stdenv.mkDerivation rec {
   version = "4.2.0";

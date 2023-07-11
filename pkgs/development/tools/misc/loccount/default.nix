@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitLab, python3 }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitLab,
+  python3,
+}:
 buildGoModule rec {
   pname = "loccount";
   version = "2.15";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ncurses, libpulseaudio, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ncurses,
+  libpulseaudio,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ncpamixer";

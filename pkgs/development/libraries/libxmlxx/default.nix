@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, libxml2, glibmm, perl, gnome }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libxml2,
+  glibmm,
+  perl,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libxml++";

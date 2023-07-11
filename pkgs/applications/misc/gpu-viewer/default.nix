@@ -1,6 +1,22 @@
-{ lib, fetchFromGitHub, pkg-config, meson, ninja, gtk4, libadwaita
-, python3Packages, gobject-introspection, vulkan-tools, python3, wrapGAppsHook
-, gdk-pixbuf, lsb-release, glxinfo, vdpauinfo, clinfo }:
+{
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  meson,
+  ninja,
+  gtk4,
+  libadwaita,
+  python3Packages,
+  gobject-introspection,
+  vulkan-tools,
+  python3,
+  wrapGAppsHook,
+  gdk-pixbuf,
+  lsb-release,
+  glxinfo,
+  vdpauinfo,
+  clinfo,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "gpu-viewer";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  cmake,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocm-cmake";

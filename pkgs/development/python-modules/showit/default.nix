@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, numpy, matplotlib, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  matplotlib,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "showit";

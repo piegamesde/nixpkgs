@@ -1,5 +1,21 @@
-{ lib, stdenv, runtimeShell, pkg-config, gettext, ncurses, CoreFoundation, tiles
-, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, freetype, Cocoa, debug, useXdgDir }:
+{
+  lib,
+  stdenv,
+  runtimeShell,
+  pkg-config,
+  gettext,
+  ncurses,
+  CoreFoundation,
+  tiles,
+  SDL2,
+  SDL2_image,
+  SDL2_mixer,
+  SDL2_ttf,
+  freetype,
+  Cocoa,
+  debug,
+  useXdgDir,
+}:
 
 let
   inherit (lib) optionals optionalString;

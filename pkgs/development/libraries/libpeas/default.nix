@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchurl, meson, ninja, pkg-config, gettext, gi-docgen, gnome
-, glib, gtk3, gobject-introspection, python3, ncurses }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  gettext,
+  gi-docgen,
+  gnome,
+  glib,
+  gtk3,
+  gobject-introspection,
+  python3,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libpeas";

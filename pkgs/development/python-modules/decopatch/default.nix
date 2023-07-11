@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, makefun, setuptools-scm, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  makefun,
+  setuptools-scm,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "decopatch";

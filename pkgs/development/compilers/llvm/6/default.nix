@@ -1,8 +1,23 @@
-{ lowPrio, newScope, pkgs, lib, stdenv, cmake, gccForLibs, libxml2, python3, isl
-, fetchurl, overrideCC, wrapCCWith
-, buildLlvmTools # tools, but from the previous stage, for cross
-, targetLlvmLibraries # libraries, but from the next stage, for cross
-, targetLlvm }:
+{
+  lowPrio,
+  newScope,
+  pkgs,
+  lib,
+  stdenv,
+  cmake,
+  gccForLibs,
+  libxml2,
+  python3,
+  isl,
+  fetchurl,
+  overrideCC,
+  wrapCCWith,
+  buildLlvmTools # tools, but from the previous stage, for cross
+  ,
+  targetLlvmLibraries # libraries, but from the next stage, for cross
+  ,
+  targetLlvm,
+}:
 
 let
   release_version = "6.0.1";

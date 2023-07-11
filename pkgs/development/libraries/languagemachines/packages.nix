@@ -1,4 +1,6 @@
-{ pkgs }:
+{
+  pkgs,
+}:
 let
   inherit (pkgs) callPackage;
   icu = pkgs.icu60;

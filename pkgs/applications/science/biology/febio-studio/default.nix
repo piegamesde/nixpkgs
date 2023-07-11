@@ -1,7 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, cmake, zlib, libglvnd, libGLU, wrapQtAppsHook
-, sshSupport ? true, openssl, libssh, tetgenSupport ? true, tetgen
-, ffmpegSupport ? true, ffmpeg_4, dicomSupport ? false, dcmtk
-, withModelRepo ? true, withCadFeatures ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  zlib,
+  libglvnd,
+  libGLU,
+  wrapQtAppsHook,
+  sshSupport ? true,
+  openssl,
+  libssh,
+  tetgenSupport ? true,
+  tetgen,
+  ffmpegSupport ? true,
+  ffmpeg_4,
+  dicomSupport ? false,
+  dcmtk,
+  withModelRepo ? true,
+  withCadFeatures ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "febio-studio";

@@ -1,5 +1,9 @@
-{ pkgs ? import <nixpkgs> { }, nodejs ? pkgs.nodejs, yarn ? pkgs.yarn
-, allowAliases ? pkgs.config.allowAliases }@inputs:
+{
+  pkgs ? import <nixpkgs> { },
+  nodejs ? pkgs.nodejs,
+  yarn ? pkgs.yarn,
+  allowAliases ? pkgs.config.allowAliases
+}@inputs:
 
 let
   inherit (pkgs) stdenv lib callPackage git rsync runCommandLocal;
@@ -38,7 +42,10 @@ in rec {
   inherit getLicenseFromSpdxId;
 
   # Generates the yarn.nix from the yarn.lock file
-  mkYarnNix = { yarnLock, flags ? [ ] }:
+  mkYarnNix = {
+      yarnLock,
+      flags ? [ ]
+    }:
     pkgs.runCommand "yarn.nix" { }
     "${yarn2nix}/bin/yarn2nix --lockfile ${yarnLock} --no-patch --builtin-fetchgit ${
       lib.escapeShellArgs flags
@@ -52,16 +59,25 @@ in rec {
 
   defaultYarnFlags = [ "--offline" "--frozen-lockfile" "--ignore-engines" ];
 
-  mkYarnModules = { name ? "${pname}-${version}"
-    , # safe name and version, e.g. testcompany-one-modules-1.0.0
-    pname, # original name, e.g @testcompany/one
-    version, packageJSON, yarnLock, yarnNix ? mkYarnNix { inherit yarnLock; }
-    , offlineCache ? importOfflineCache yarnNix, yarnFlags ? [ ]
-    , ignoreScripts ? true, nodejs ? inputs.nodejs
-    , yarn ? inputs.yarn.override { nodejs = nodejs; }, pkgConfig ? { }
-    , preBuild ? "", postBuild ? "", workspaceDependencies ? [ ]
-    , # List of yarn packages
-    packageResolutions ? { }, }:
+  mkYarnModules = {
+      name ?
+        "${pname}-${version}", # safe name and version, e.g. testcompany-one-modules-1.0.0
+      pname, # original name, e.g @testcompany/one
+      version,
+      packageJSON,
+      yarnLock,
+      yarnNix ? mkYarnNix { inherit yarnLock; },
+      offlineCache ? importOfflineCache yarnNix,
+      yarnFlags ? [ ],
+      ignoreScripts ? true,
+      nodejs ? inputs.nodejs,
+      yarn ? inputs.yarn.override { nodejs = nodejs; },
+      pkgConfig ? { },
+      preBuild ? "",
+      postBuild ? "",
+      workspaceDependencies ? [ ], # List of yarn packages
+      packageResolutions ? { },
+    }:
     let
       extraNativeBuildInputs =
         lib.concatMap (key: pkgConfig.${key}.nativeBuildInputs or [ ])
@@ -158,10 +174,15 @@ in rec {
     ln -s "$node_modules" node_modules
   '';
 
-  mkYarnWorkspace = { src, packageJSON ? src + "/package.json"
-    , yarnLock ? src + "/yarn.lock", nodejs ? inputs.nodejs
-    , yarn ? inputs.yarn.override { nodejs = nodejs; }, packageOverrides ? { }
-    , ... }@attrs:
+  mkYarnWorkspace = {
+      src,
+      packageJSON ? src + "/package.json",
+      yarnLock ? src + "/yarn.lock",
+      nodejs ? inputs.nodejs,
+      yarn ? inputs.yarn.override { nodejs = nodejs; },
+      packageOverrides ? { },
+      ...
+    }@attrs:
     let
       package = lib.importJSON packageJSON;
 
@@ -235,14 +256,25 @@ in rec {
         }) packagePaths);
     in packages;
 
-  mkYarnPackage = { name ? null, src, packageJSON ? src + "/package.json"
-    , yarnLock ? src + "/yarn.lock", yarnNix ? mkYarnNix { inherit yarnLock; }
-    , offlineCache ? importOfflineCache yarnNix, nodejs ? inputs.nodejs
-    , yarn ? inputs.yarn.override { nodejs = nodejs; }, yarnFlags ? [ ]
-    , yarnPreBuild ? "", yarnPostBuild ? "", pkgConfig ? { }
-    , extraBuildInputs ? [ ], publishBinsFor ? null, workspaceDependencies ? [ ]
-    , # List of yarnPackages
-    packageResolutions ? { }, ... }@attrs:
+  mkYarnPackage = {
+      name ? null,
+      src,
+      packageJSON ? src + "/package.json",
+      yarnLock ? src + "/yarn.lock",
+      yarnNix ? mkYarnNix { inherit yarnLock; },
+      offlineCache ? importOfflineCache yarnNix,
+      nodejs ? inputs.nodejs,
+      yarn ? inputs.yarn.override { nodejs = nodejs; },
+      yarnFlags ? [ ],
+      yarnPreBuild ? "",
+      yarnPostBuild ? "",
+      pkgConfig ? { },
+      extraBuildInputs ? [ ],
+      publishBinsFor ? null,
+      workspaceDependencies ? [ ], # List of yarnPackages
+      packageResolutions ? { },
+      ...
+    }@attrs:
     let
       package = lib.importJSON packageJSON;
       pname = package.name;
@@ -388,7 +420,11 @@ in rec {
     src = let
       src = ./.;
 
-      mkFilter = { dirsToInclude, filesToInclude, root }:
+      mkFilter = {
+          dirsToInclude,
+          filesToInclude,
+          root,
+        }:
         path: type:
         let
           inherit (pkgs.lib)

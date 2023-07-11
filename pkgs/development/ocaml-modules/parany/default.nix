@@ -1,4 +1,11 @@
-{ lib, buildDunePackage, fetchFromGitHub, ocaml, cpu, domainslib }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  ocaml,
+  cpu,
+  domainslib,
+}:
 
 let
   params = if lib.versionAtLeast ocaml.version "5.00" then {

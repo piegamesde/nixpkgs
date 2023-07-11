@@ -1,4 +1,13 @@
-{ alcotest, buildDunePackage, ocaml, fetchzip, gcc, fmt, lib, uutf }:
+{
+  alcotest,
+  buildDunePackage,
+  ocaml,
+  fetchzip,
+  gcc,
+  fmt,
+  lib,
+  uutf,
+}:
 
 buildDunePackage rec {
   pname = "yuscii";

@@ -1,4 +1,10 @@
-{ stdenv, fetchurl, apacheHttpd, perl, nixosTests }:
+{
+  stdenv,
+  fetchurl,
+  apacheHttpd,
+  perl,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mod_perl";

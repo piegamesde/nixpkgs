@@ -1,5 +1,7 @@
 # Functions for copying sources to the Nix store.
-{ lib }:
+{
+  lib,
+}:
 
 let inherit (lib.strings) hasPrefix;
 
@@ -21,9 +23,11 @@ in {
         value = root + "/${file}";
       }) root-files;
       # Subdirectories of the root with a cabal file.
-      cabal-subdirs = builtins.filter
-        ({ name, value }: builtins.pathExists (value + "/${name}.cabal"))
-        root-files-with-paths;
+      cabal-subdirs = builtins.filter ({
+          name,
+          value,
+        }:
+        builtins.pathExists (value + "/${name}.cabal")) root-files-with-paths;
     in builtins.listToAttrs cabal-subdirs;
   /* Find the first directory containing a file matching 'pattern'
      upward from a given 'file'.

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, gtk2, poppler }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  gtk2,
+  poppler,
+}:
 
 stdenv.mkDerivation rec {
   pname = "epdfview";

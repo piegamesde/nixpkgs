@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, glib, Carbon, AppKit }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  glib,
+  Carbon,
+  AppKit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "liblqr-1";

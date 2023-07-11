@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, makeWrapper, bc, findutils, flac, lame, opusTools
-, procps, sox }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  bc,
+  findutils,
+  flac,
+  lame,
+  opusTools,
+  procps,
+  sox,
+}:
 
 stdenv.mkDerivation rec {
   pname = "caudec";

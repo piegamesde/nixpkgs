@@ -1,4 +1,8 @@
-{ lib, fetchzip, stdenv }:
+{
+  lib,
+  fetchzip,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cyberchef";

@@ -1,4 +1,13 @@
-{ stdenv, lib, meson, ninja, pkg-config, fetchFromGitHub, dleyna-core, glib }:
+{
+  stdenv,
+  lib,
+  meson,
+  ninja,
+  pkg-config,
+  fetchFromGitHub,
+  dleyna-core,
+  glib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dleyna-connector-dbus";

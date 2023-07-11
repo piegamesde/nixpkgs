@@ -1,5 +1,12 @@
-{ lib, buildGoModule, fetchFromGitHub, makeWrapper, nixosTests, openssh
-, fetchpatch }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  nixosTests,
+  openssh,
+  fetchpatch,
+}:
 buildGoModule rec {
   pname = "zrepl";
   version = "0.6.0";

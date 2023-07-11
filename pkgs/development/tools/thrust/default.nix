@@ -1,6 +1,28 @@
-{ lib, stdenv, fetchurl, buildEnv, makeWrapper, glib, alsa-lib, dbus, gtk2, atk
-, pango, freetype, fontconfig, gdk-pixbuf, cairo, cups, expat, nspr, gconf, nss
-, xorg, libcap, unzip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  buildEnv,
+  makeWrapper,
+  glib,
+  alsa-lib,
+  dbus,
+  gtk2,
+  atk,
+  pango,
+  freetype,
+  fontconfig,
+  gdk-pixbuf,
+  cairo,
+  cups,
+  expat,
+  nspr,
+  gconf,
+  nss,
+  xorg,
+  libcap,
+  unzip,
+}:
 
 let
   thrustEnv = buildEnv {

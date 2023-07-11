@@ -1,5 +1,12 @@
-{ lib, installShellFiles, python3, fetchFromGitHub, nix-update-script, testers
-, gimme-aws-creds }:
+{
+  lib,
+  installShellFiles,
+  python3,
+  fetchFromGitHub,
+  nix-update-script,
+  testers,
+  gimme-aws-creds,
+}:
 
 let
   python = python3.override {

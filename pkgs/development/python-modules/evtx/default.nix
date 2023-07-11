@@ -1,5 +1,13 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
-, rustPlatform, libiconv }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  rustPlatform,
+  libiconv,
+}:
 
 buildPythonPackage rec {
   pname = "evtx";

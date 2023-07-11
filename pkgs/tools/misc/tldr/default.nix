@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, curl, libzip, pkg-config, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  curl,
+  libzip,
+  pkg-config,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tldr";

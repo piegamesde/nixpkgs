@@ -1,7 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, alsa-lib, appstream-glib, cmake
-, desktop-file-utils, glib, gstreamer, gtk4, libadwaita, libxml2, meson, ninja
-, pkg-config, poppler, python3, rustPlatform, shared-mime-info, wrapGAppsHook4
-, AudioUnit }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  alsa-lib,
+  appstream-glib,
+  cmake,
+  desktop-file-utils,
+  glib,
+  gstreamer,
+  gtk4,
+  libadwaita,
+  libxml2,
+  meson,
+  ninja,
+  pkg-config,
+  poppler,
+  python3,
+  rustPlatform,
+  shared-mime-info,
+  wrapGAppsHook4,
+  AudioUnit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rnote";

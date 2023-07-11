@@ -1,5 +1,16 @@
-{ lib, stdenv, ps, coreutils, fetchurl, jdk, jre, ant, gettext, which
-, java-service-wrapper }:
+{
+  lib,
+  stdenv,
+  ps,
+  coreutils,
+  fetchurl,
+  jdk,
+  jre,
+  ant,
+  gettext,
+  which,
+  java-service-wrapper,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "i2p";

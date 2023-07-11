@@ -1,6 +1,9 @@
 # TODO(@Ericson2314): Remove `pkgs` param, which is only used for
 # `buildStackProject`, `justStaticExecutables` and `checkUnusedPackages`
-{ pkgs, lib }:
+{
+  pkgs,
+  lib,
+}:
 
 rec {
 
@@ -374,8 +377,11 @@ rec {
      of this check and a list of ignored package names that would otherwise
      cause false alarms.
   */
-  checkUnusedPackages = { ignoreEmptyImports ? false, ignoreMainModule ? false
-    , ignorePackages ? [ ] }:
+  checkUnusedPackages = {
+      ignoreEmptyImports ? false,
+      ignoreMainModule ? false,
+      ignorePackages ? [ ]
+    }:
     drv:
     overrideCabal (_drv: {
       postBuild = with lib;
@@ -399,7 +405,10 @@ rec {
   /* Override the sources for the package and optionally the version.
      This also takes of removing editedCabalFile.
   */
-  overrideSrc = { src, version ? null }:
+  overrideSrc = {
+      src,
+      version ? null
+    }:
     drv:
     overrideCabal (_: {
       inherit src;
@@ -437,8 +446,11 @@ rec {
   # Some information about which phases should be run.
   controlPhases = ghc:
     let inherit (ghcInfo ghc) isCross;
-    in { doCheck ? !isCross && (lib.versionOlder "7.4" ghc.version)
-    , doBenchmark ? false, ... }: {
+    in {
+      doCheck ? !isCross && (lib.versionOlder "7.4" ghc.version),
+      doBenchmark ? false,
+      ...
+    }: {
       inherit doCheck doBenchmark;
     };
 
@@ -446,7 +458,10 @@ rec {
   # package override set
   #
   # packagesFromDirectory : { directory : Directory, ... } -> HaskellPackageOverrideSet
-  packagesFromDirectory = { directory, ... }:
+  packagesFromDirectory = {
+      directory,
+      ...
+    }:
 
     self: super:
     let
@@ -526,7 +541,10 @@ rec {
           key = drv.outPath;
           val = drv;
         }) drvs;
-        operator = { val, ... }:
+        operator = {
+            val,
+            ...
+          }:
           if !lib.isDerivation val then
             [ ]
           else

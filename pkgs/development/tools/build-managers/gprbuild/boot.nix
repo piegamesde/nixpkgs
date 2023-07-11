@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, gnat, which, xmlada # for src
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  gnat,
+  which,
+  xmlada # for src
+  ,
 }:
 
 let

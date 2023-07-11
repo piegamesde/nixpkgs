@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, six, pyyaml, mock, pytestCheckHook, enum34
-, isPy3k }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  pyyaml,
+  mock,
+  pytestCheckHook,
+  enum34,
+  isPy3k,
+}:
 
 buildPythonPackage rec {
   pname = "ddt";

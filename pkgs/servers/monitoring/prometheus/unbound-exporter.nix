@@ -1,5 +1,13 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, openssl, pkg-config, nixosTests
-, Security }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  openssl,
+  pkg-config,
+  nixosTests,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "unbound-telemetry";

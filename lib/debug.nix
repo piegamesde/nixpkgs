@@ -12,7 +12,9 @@
      function as their first argument, which is applied
      to the traced value before it is printed.
 */
-{ lib }:
+{
+  lib,
+}:
 let
   inherit (lib)
     isInt attrNames isList isAttrs substring addErrorContext attrValues

@@ -1,5 +1,13 @@
-{ callPackage, lib, stdenv, appimageTools, autoPatchelfHook, desktop-file-utils
-, fetchurl, libsecret }:
+{
+  callPackage,
+  lib,
+  stdenv,
+  appimageTools,
+  autoPatchelfHook,
+  desktop-file-utils,
+  fetchurl,
+  libsecret,
+}:
 
 let
   srcjson = builtins.fromJSON (builtins.readFile ./src.json);

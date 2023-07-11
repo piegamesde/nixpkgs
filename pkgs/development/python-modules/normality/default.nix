@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, buildPythonPackage, text-unidecode, chardet, banal
-, pyicu, pytestCheckHook }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  text-unidecode,
+  chardet,
+  banal,
+  pyicu,
+  pytestCheckHook,
+}:
 buildPythonPackage rec {
   pname = "normality";
   version = "2.2.5";

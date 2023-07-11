@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, openssl, openwsman
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  openssl,
+  openwsman,
 }:
 
 stdenv.mkDerivation rec {

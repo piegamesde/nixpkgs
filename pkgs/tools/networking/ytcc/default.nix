@@ -1,4 +1,10 @@
-{ lib, python3Packages, fetchFromGitHub, gettext, installShellFiles }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  gettext,
+  installShellFiles,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "ytcc";

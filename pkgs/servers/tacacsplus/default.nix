@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, tcp_wrappers, flex, bison, perl, libnsl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  tcp_wrappers,
+  flex,
+  bison,
+  perl,
+  libnsl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tacacsplus";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, dnspython, sphinx, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  dnspython,
+  sphinx,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "localzone";

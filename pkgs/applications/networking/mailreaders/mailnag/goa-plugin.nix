@@ -1,5 +1,10 @@
-{ lib, fetchFromGitHub, python3Packages, gobject-introspection
-, gnome-online-accounts }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  gobject-introspection,
+  gnome-online-accounts,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "mailnag-goa-plugin";

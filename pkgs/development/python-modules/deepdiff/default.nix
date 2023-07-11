@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchFromGitHub, click, ordered-set, orjson
-, clevercsv, jsonpickle, numpy, pytestCheckHook, python-dateutil, pyyaml, toml
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  click,
+  ordered-set,
+  orjson,
+  clevercsv,
+  jsonpickle,
+  numpy,
+  pytestCheckHook,
+  python-dateutil,
+  pyyaml,
+  toml,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "deepdiff";

@@ -1,5 +1,13 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, curl, openssl
-, Security }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  curl,
+  openssl,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-tarpaulin";

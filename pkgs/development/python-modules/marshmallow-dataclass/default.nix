@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, marshmallow, marshmallow-enum
-, pytestCheckHook, pythonAtLeast, pythonOlder, typeguard, typing-inspect }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  marshmallow,
+  marshmallow-enum,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  typeguard,
+  typing-inspect,
+}:
 
 buildPythonPackage rec {
   pname = "marshmallow-dataclass";

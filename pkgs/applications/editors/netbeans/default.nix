@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, makeWrapper, makeDesktopItem, which, unzip, libicns
-, imagemagick, jdk, perl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  makeDesktopItem,
+  which,
+  unzip,
+  libicns,
+  imagemagick,
+  jdk,
+  perl,
+}:
 
 let
   version = "16";

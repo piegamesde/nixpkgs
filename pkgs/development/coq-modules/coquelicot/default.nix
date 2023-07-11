@@ -1,4 +1,11 @@
-{ lib, mkCoqDerivation, autoconf, coq, ssreflect, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  autoconf,
+  coq,
+  ssreflect,
+  version ? null
+}:
 
 mkCoqDerivation {
   pname = "coquelicot";

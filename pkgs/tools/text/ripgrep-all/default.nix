@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, makeWrapper, ffmpeg, pandoc
-, poppler_utils, ripgrep, Security, imagemagick, tesseract3 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  makeWrapper,
+  ffmpeg,
+  pandoc,
+  poppler_utils,
+  ripgrep,
+  Security,
+  imagemagick,
+  tesseract3,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "ripgrep-all";

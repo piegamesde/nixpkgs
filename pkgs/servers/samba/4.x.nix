@@ -1,15 +1,66 @@
-{ lib, stdenv, buildPackages, fetchurl, wafHook, pkg-config, bison, flex, perl
-, libxslt, docbook_xsl, fixDarwinDylibNames, docbook_xml_dtd_45, readline, popt
-, dbus, libbsd, libarchive, zlib, liburing, gnutls, systemd, samba, talloc
-, jansson, ldb, libtasn1, tdb, tevent, libxcrypt, cmocka, rpcsvc-proto, bash
-, python3Packages, nixosTests, libiconv
+{
+  lib,
+  stdenv,
+  buildPackages,
+  fetchurl,
+  wafHook,
+  pkg-config,
+  bison,
+  flex,
+  perl,
+  libxslt,
+  docbook_xsl,
+  fixDarwinDylibNames,
+  docbook_xml_dtd_45,
+  readline,
+  popt,
+  dbus,
+  libbsd,
+  libarchive,
+  zlib,
+  liburing,
+  gnutls,
+  systemd,
+  samba,
+  talloc,
+  jansson,
+  ldb,
+  libtasn1,
+  tdb,
+  tevent,
+  libxcrypt,
+  cmocka,
+  rpcsvc-proto,
+  bash,
+  python3Packages,
+  nixosTests,
+  libiconv
 
-, enableLDAP ? false, openldap, enablePrinting ? false, cups
-, enableProfiling ? true, enableMDNS ? false, avahi
-, enableDomainController ? false, gpgme, lmdb, enableRegedit ? true, ncurses
-, enableCephFS ? false, ceph, enableGlusterFS ? false, glusterfs, libuuid
-, enableAcl ? (!stdenv.isDarwin), acl, enableLibunwind ? (!stdenv.isDarwin)
-, libunwind, enablePam ? (!stdenv.isDarwin), pam }:
+  ,
+  enableLDAP ? false,
+  openldap,
+  enablePrinting ? false,
+  cups,
+  enableProfiling ? true,
+  enableMDNS ? false,
+  avahi,
+  enableDomainController ? false,
+  gpgme,
+  lmdb,
+  enableRegedit ? true,
+  ncurses,
+  enableCephFS ? false,
+  ceph,
+  enableGlusterFS ? false,
+  glusterfs,
+  libuuid,
+  enableAcl ? (!stdenv.isDarwin),
+  acl,
+  enableLibunwind ? (!stdenv.isDarwin),
+  libunwind,
+  enablePam ? (!stdenv.isDarwin),
+  pam,
+}:
 
 with lib;
 

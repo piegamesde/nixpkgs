@@ -1,4 +1,15 @@
-{ lib, stdenv, fetchgit, ant, jdk8, git, xorg, udev, libGL, libGLU }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  ant,
+  jdk8,
+  git,
+  xorg,
+  udev,
+  libGL,
+  libGLU,
+}:
 
 {
   jogl_2_3_2 = let

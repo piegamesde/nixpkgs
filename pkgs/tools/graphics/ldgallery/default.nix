@@ -1,5 +1,13 @@
-{ lib, pkgs, makeWrapper, haskellPackages, haskell, pandoc, imagemagick
-, CoreServices }:
+{
+  lib,
+  pkgs,
+  makeWrapper,
+  haskellPackages,
+  haskell,
+  pandoc,
+  imagemagick,
+  CoreServices,
+}:
 
 with lib;
 with haskell.lib.compose;

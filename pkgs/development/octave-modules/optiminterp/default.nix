@@ -1,4 +1,9 @@
-{ buildOctavePackage, lib, fetchurl, gfortran }:
+{
+  buildOctavePackage,
+  lib,
+  fetchurl,
+  gfortran,
+}:
 
 buildOctavePackage rec {
   pname = "optiminterp";

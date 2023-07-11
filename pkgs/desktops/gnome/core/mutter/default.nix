@@ -1,13 +1,69 @@
-{ fetchurl, runCommand, lib, stdenv, pkg-config, gnome, gettext
-, gobject-introspection, cairo, colord, lcms2, pango, json-glib
-, libstartup_notification, libcanberra, ninja, xvfb-run, libxcvt, libICE, libX11
-, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXtst
-, libxkbfile, xkeyboard_config, libxkbcommon, libXrender, libxcb, libXrandr
-, libXinerama, libXau, libinput, libdrm, gsettings-desktop-schemas, glib, atk
-, gtk4, fribidi, harfbuzz, gnome-desktop, pipewire, libgudev, libwacom, libSM
-, xwayland, mesa, meson, gnome-settings-daemon, xorgserver, python3
-, wrapGAppsHook4, gi-docgen, sysprof, libsysprof-capture, desktop-file-utils
-, libcap_ng, egl-wayland, graphene, wayland, wayland-protocols }:
+{
+  fetchurl,
+  runCommand,
+  lib,
+  stdenv,
+  pkg-config,
+  gnome,
+  gettext,
+  gobject-introspection,
+  cairo,
+  colord,
+  lcms2,
+  pango,
+  json-glib,
+  libstartup_notification,
+  libcanberra,
+  ninja,
+  xvfb-run,
+  libxcvt,
+  libICE,
+  libX11,
+  libXcomposite,
+  libXcursor,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXi,
+  libXtst,
+  libxkbfile,
+  xkeyboard_config,
+  libxkbcommon,
+  libXrender,
+  libxcb,
+  libXrandr,
+  libXinerama,
+  libXau,
+  libinput,
+  libdrm,
+  gsettings-desktop-schemas,
+  glib,
+  atk,
+  gtk4,
+  fribidi,
+  harfbuzz,
+  gnome-desktop,
+  pipewire,
+  libgudev,
+  libwacom,
+  libSM,
+  xwayland,
+  mesa,
+  meson,
+  gnome-settings-daemon,
+  xorgserver,
+  python3,
+  wrapGAppsHook4,
+  gi-docgen,
+  sysprof,
+  libsysprof-capture,
+  desktop-file-utils,
+  libcap_ng,
+  egl-wayland,
+  graphene,
+  wayland,
+  wayland-protocols,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mutter";

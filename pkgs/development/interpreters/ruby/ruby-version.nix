@@ -1,5 +1,7 @@
 # Contains the ruby version heuristics
-{ lib }:
+{
+  lib,
+}:
 
 let
   # The returned set should be immutable

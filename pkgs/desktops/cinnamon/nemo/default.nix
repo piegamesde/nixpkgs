@@ -1,7 +1,26 @@
-{ fetchFromGitHub, fetchpatch, glib, gobject-introspection, meson, ninja
-, pkg-config, lib, stdenv, wrapGAppsHook, libxml2, gtk3, gvfs, cinnamon-desktop
-, xapp, libexif, exempi, intltool, shared-mime-info, cinnamon-translations
-, libgsf }:
+{
+  fetchFromGitHub,
+  fetchpatch,
+  glib,
+  gobject-introspection,
+  meson,
+  ninja,
+  pkg-config,
+  lib,
+  stdenv,
+  wrapGAppsHook,
+  libxml2,
+  gtk3,
+  gvfs,
+  cinnamon-desktop,
+  xapp,
+  libexif,
+  exempi,
+  intltool,
+  shared-mime-info,
+  cinnamon-translations,
+  libgsf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nemo";

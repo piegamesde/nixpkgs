@@ -1,4 +1,10 @@
-{ lib, buildPythonApplication, fetchPypi, markdown, pygments }:
+{
+  lib,
+  buildPythonApplication,
+  fetchPypi,
+  markdown,
+  pygments,
+}:
 
 buildPythonApplication rec {
   version = "0.4.0";

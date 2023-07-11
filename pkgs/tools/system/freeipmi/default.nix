@@ -1,4 +1,12 @@
-{ buildPackages, fetchurl, lib, stdenv, libgcrypt, readline, libgpg-error }:
+{
+  buildPackages,
+  fetchurl,
+  lib,
+  stdenv,
+  libgcrypt,
+  readline,
+  libgpg-error,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.6.10";

@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, aiohttp
-, async-upnp-client, attrs, click, importlib-metadata }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  aiohttp,
+  async-upnp-client,
+  attrs,
+  click,
+  importlib-metadata,
+}:
 
 buildPythonPackage rec {
   pname = "python-songpal";

@@ -1,4 +1,11 @@
-{ fetchurl, lib, stdenv, ant, jdk, runtimeShell }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  ant,
+  jdk,
+  runtimeShell,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fop";

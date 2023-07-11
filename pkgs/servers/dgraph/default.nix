@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles, jemalloc, nodejs }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  jemalloc,
+  nodejs,
+}:
 
 buildGoModule rec {
   pname = "dgraph";

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, testers, bison, cadical, cbmc, cmake, flex
-, makeWrapper, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  testers,
+  bison,
+  cadical,
+  cbmc,
+  cmake,
+  flex,
+  makeWrapper,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cbmc";

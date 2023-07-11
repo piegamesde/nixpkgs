@@ -1,4 +1,12 @@
-{ stdenvNoCC, lib, fetchFromGitHub, bash, gnused, gawk, coreutils }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  bash,
+  gnused,
+  gawk,
+  coreutils,
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "optparse-bash-unstable";

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, requests, urllib3 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "unifiled";

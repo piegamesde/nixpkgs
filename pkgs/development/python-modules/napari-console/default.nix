@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, imageio, ipykernel, ipython
-, napari-plugin-engine, pythonOlder, qtconsole, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  imageio,
+  ipykernel,
+  ipython,
+  napari-plugin-engine,
+  pythonOlder,
+  qtconsole,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "napari-console";

@@ -1,5 +1,16 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, furl, jsonschema, nose
-, pytestCheckHook, pythonOlder, requests, xmltodict }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  furl,
+  jsonschema,
+  nose,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "pook";

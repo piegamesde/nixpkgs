@@ -1,4 +1,10 @@
-{ lib, castxml, fetchFromGitHub, buildPythonPackage, llvmPackages }:
+{
+  lib,
+  castxml,
+  fetchFromGitHub,
+  buildPythonPackage,
+  llvmPackages,
+}:
 buildPythonPackage rec {
   pname = "pygccxml";
   version = "2.2.1";

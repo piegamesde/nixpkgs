@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flit-core, flit-scm, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flit-core,
+  flit-scm,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "ssdp";

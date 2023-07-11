@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, pkg-config, meson, ninja, python3, pango, glibmm
-, cairomm, gnome, ApplicationServices }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  meson,
+  ninja,
+  python3,
+  pango,
+  glibmm,
+  cairomm,
+  gnome,
+  ApplicationServices,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pangomm";

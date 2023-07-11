@@ -1,5 +1,16 @@
-{ lib, fetchFromGitHub, pkgs, stdenv, rustPlatform, pkg-config, cmake, openssl
-, autoconf, automake, Security }:
+{
+  lib,
+  fetchFromGitHub,
+  pkgs,
+  stdenv,
+  rustPlatform,
+  pkg-config,
+  cmake,
+  openssl,
+  autoconf,
+  automake,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "hebbot";

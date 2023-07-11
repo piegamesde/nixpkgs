@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, scipy, numpy, numba, scikit-learn
-, pytest, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  scipy,
+  numpy,
+  numba,
+  scikit-learn,
+  pytest,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pygbm";

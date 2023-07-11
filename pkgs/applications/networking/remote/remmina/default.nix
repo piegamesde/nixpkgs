@@ -1,11 +1,48 @@
-{ lib, stdenv, fetchFromGitLab, cmake, ninja, pkg-config, wrapGAppsHook, glib
-, gtk3, gettext, libxkbfile, libX11, python3, freerdp, libssh, libgcrypt, gnutls
-, vte, pcre2, libdbusmenu-gtk3, libappindicator-gtk3, libvncserver
-, libpthreadstubs, libXdmcp, libxkbcommon, libsecret, libsoup_3, spice-protocol
-, spice-gtk, libepoxy, at-spi2-core, openssl, gsettings-desktop-schemas
-, json-glib, libsodium, webkitgtk_4_1, harfbuzz
-# The themes here are soft dependencies; only icons are missing without them.
-, gnome, withKf5Wallet ? true, libsForQt5, withLibsecret ? true, withVte ? true
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  cmake,
+  ninja,
+  pkg-config,
+  wrapGAppsHook,
+  glib,
+  gtk3,
+  gettext,
+  libxkbfile,
+  libX11,
+  python3,
+  freerdp,
+  libssh,
+  libgcrypt,
+  gnutls,
+  vte,
+  pcre2,
+  libdbusmenu-gtk3,
+  libappindicator-gtk3,
+  libvncserver,
+  libpthreadstubs,
+  libXdmcp,
+  libxkbcommon,
+  libsecret,
+  libsoup_3,
+  spice-protocol,
+  spice-gtk,
+  libepoxy,
+  at-spi2-core,
+  openssl,
+  gsettings-desktop-schemas,
+  json-glib,
+  libsodium,
+  webkitgtk_4_1,
+  harfbuzz
+  # The themes here are soft dependencies; only icons are missing without them.
+  ,
+  gnome,
+  withKf5Wallet ? true,
+  libsForQt5,
+  withLibsecret ? true,
+  withVte ? true
 }:
 
 stdenv.mkDerivation rec {

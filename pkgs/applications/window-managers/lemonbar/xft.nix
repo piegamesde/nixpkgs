@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, perl, libxcb, libXft }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perl,
+  libxcb,
+  libXft,
+}:
 
 stdenv.mkDerivation {
   pname = "lemonbar-xft";

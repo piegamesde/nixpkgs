@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, click, prompt-toolkit, pygments, requests
-, sqlparse }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  click,
+  prompt-toolkit,
+  pygments,
+  requests,
+  sqlparse,
+}:
 
 buildPythonPackage rec {
   pname = "clickhouse-cli";

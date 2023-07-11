@@ -1,12 +1,58 @@
-{ atk, cacert, dbus, cinnamon-control-center, cinnamon-desktop, cinnamon-menus
-, cinnamon-session, cinnamon-translations, cjs, evolution-data-server
-, fetchFromGitHub, gdk-pixbuf, gettext, libgnomekbd, glib, gobject-introspection
-, gsound, gtk3, intltool, json-glib, callPackage, libsoup
-, libstartup_notification, libXtst, libXdamage, mesa, muffin, networkmanager
-, pkg-config, polkit, lib, stdenv, wrapGAppsHook, libxml2, gtk-doc, gnome
-, python3, keybinder3, cairo, xapp, upower, nemo, libnotify, accountsservice
-, gnome-online-accounts, glib-networking, pciutils, timezonemap, libnma, meson
-, ninja, gst_all_1, perl }:
+{
+  atk,
+  cacert,
+  dbus,
+  cinnamon-control-center,
+  cinnamon-desktop,
+  cinnamon-menus,
+  cinnamon-session,
+  cinnamon-translations,
+  cjs,
+  evolution-data-server,
+  fetchFromGitHub,
+  gdk-pixbuf,
+  gettext,
+  libgnomekbd,
+  glib,
+  gobject-introspection,
+  gsound,
+  gtk3,
+  intltool,
+  json-glib,
+  callPackage,
+  libsoup,
+  libstartup_notification,
+  libXtst,
+  libXdamage,
+  mesa,
+  muffin,
+  networkmanager,
+  pkg-config,
+  polkit,
+  lib,
+  stdenv,
+  wrapGAppsHook,
+  libxml2,
+  gtk-doc,
+  gnome,
+  python3,
+  keybinder3,
+  cairo,
+  xapp,
+  upower,
+  nemo,
+  libnotify,
+  accountsservice,
+  gnome-online-accounts,
+  glib-networking,
+  pciutils,
+  timezonemap,
+  libnma,
+  meson,
+  ninja,
+  gst_all_1,
+  perl,
+}:
 
 let
   pythonEnv = python3.withPackages (pp:

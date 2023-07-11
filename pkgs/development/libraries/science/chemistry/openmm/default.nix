@@ -1,6 +1,21 @@
-{ stdenv, lib, fetchFromGitHub, cmake, gfortran, fftwSinglePrec, doxygen, swig
-, enablePython ? false, python3Packages, enableOpencl ? true, opencl-headers
-, ocl-icd, enableCuda ? false, cudaPackages, addOpenGLRunpath }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  gfortran,
+  fftwSinglePrec,
+  doxygen,
+  swig,
+  enablePython ? false,
+  python3Packages,
+  enableOpencl ? true,
+  opencl-headers,
+  ocl-icd,
+  enableCuda ? false,
+  cudaPackages,
+  addOpenGLRunpath,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openmm";

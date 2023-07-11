@@ -1,4 +1,11 @@
-{ lib, fetchPypi, buildPythonPackage, gnupg, setuptools, pytestCheckHook }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  gnupg,
+  setuptools,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pycoin";

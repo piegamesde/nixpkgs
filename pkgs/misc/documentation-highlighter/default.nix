@@ -1,4 +1,7 @@
-{ lib, runCommand }:
+{
+  lib,
+  runCommand,
+}:
 runCommand "documentation-highlighter" {
   meta = {
     description = "Highlight.js sources for the Nix Ecosystem's documentation";

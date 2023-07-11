@@ -1,5 +1,15 @@
-{ lib, stdenv, pkgs, rustPackages, fetchFromGitHub, rustPlatform, writers
-, nixosTests, CoreServices, Security }:
+{
+  lib,
+  stdenv,
+  pkgs,
+  rustPackages,
+  fetchFromGitHub,
+  rustPlatform,
+  writers,
+  nixosTests,
+  CoreServices,
+  Security,
+}:
 
 let
   # Run `eval $(nix-build -A lorri.updater)` after updating the revision!

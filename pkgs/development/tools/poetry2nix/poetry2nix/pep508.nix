@@ -1,4 +1,8 @@
-{ lib, stdenv, poetryLib }:
+{
+  lib,
+  stdenv,
+  poetryLib,
+}:
 python:
 let
   inherit (poetryLib) ireplace;

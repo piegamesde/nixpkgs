@@ -1,5 +1,12 @@
-{ stdenvNoCC, lib, fetchurl, mysql_jdbc ? null, enableSSO ? false
-, crowdProperties ? null, withMysql ? true }:
+{
+  stdenvNoCC,
+  lib,
+  fetchurl,
+  mysql_jdbc ? null,
+  enableSSO ? false,
+  crowdProperties ? null,
+  withMysql ? true
+}:
 
 assert withMysql -> (mysql_jdbc != null);
 

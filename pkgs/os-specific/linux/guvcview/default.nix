@@ -1,9 +1,31 @@
-{ config, lib, stdenv, fetchurl, intltool, pkg-config, portaudio, SDL2, ffmpeg_4
-, udev, libusb1, libv4l, alsa-lib, gsl, libpng, sfml
-, pulseaudioSupport ? config.pulseaudio or stdenv.isLinux, libpulseaudio ? null
-, useQt ? false, qtbase ? null, wrapQtAppsHook ? null
-  # can be turned off if used as a library
-, useGtk ? true, gtk3 ? null, wrapGAppsHook ? null }:
+{
+  config,
+  lib,
+  stdenv,
+  fetchurl,
+  intltool,
+  pkg-config,
+  portaudio,
+  SDL2,
+  ffmpeg_4,
+  udev,
+  libusb1,
+  libv4l,
+  alsa-lib,
+  gsl,
+  libpng,
+  sfml,
+  pulseaudioSupport ? config.pulseaudio or stdenv.isLinux,
+  libpulseaudio ? null,
+  useQt ? false,
+  qtbase ? null,
+  wrapQtAppsHook ? null
+    # can be turned off if used as a library
+  ,
+  useGtk ? true,
+  gtk3 ? null,
+  wrapGAppsHook ? null
+}:
 
 assert pulseaudioSupport -> libpulseaudio != null;
 

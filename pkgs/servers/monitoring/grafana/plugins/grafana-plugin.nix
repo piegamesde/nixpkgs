@@ -1,6 +1,17 @@
-{ stdenvNoCC, fetchurl, unzip }:
+{
+  stdenvNoCC,
+  fetchurl,
+  unzip,
+}:
 
-{ pname, version, zipHash, meta ? { }, passthru ? { }, ... }@args:
+{
+  pname,
+  version,
+  zipHash,
+  meta ? { },
+  passthru ? { },
+  ...
+}@args:
 stdenvNoCC.mkDerivation ({
   inherit pname version;
 

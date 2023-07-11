@@ -1,4 +1,10 @@
-{ buildDunePackage, ocaml_gettext, camomile, ounit, fileutils }:
+{
+  buildDunePackage,
+  ocaml_gettext,
+  camomile,
+  ounit,
+  fileutils,
+}:
 
 buildDunePackage {
   pname = "gettext-camomile";

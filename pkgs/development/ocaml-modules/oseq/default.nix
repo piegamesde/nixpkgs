@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, buildDunePackage, seq, containers, qcheck }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  seq,
+  containers,
+  qcheck,
+}:
 
 buildDunePackage rec {
   version = "0.4";

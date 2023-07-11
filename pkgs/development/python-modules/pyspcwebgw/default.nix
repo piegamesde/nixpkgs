@@ -1,5 +1,14 @@
-{ lib, aiohttp, aioresponses, asynccmd, buildPythonPackage, fetchFromGitHub
-, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  asynccmd,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyspcwebgw";

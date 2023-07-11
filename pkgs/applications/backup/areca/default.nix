@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, ant, jre, jdk, swt, acl, attr }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ant,
+  jre,
+  jdk,
+  swt,
+  acl,
+  attr,
+}:
 
 stdenv.mkDerivation rec {
   pname = "areca";

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, openssl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+}:
 let
   # Let's not pull the whole apache httpd package
   mime_file = fetchurl {

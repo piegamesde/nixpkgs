@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pyqt5, pytestCheckHook, pythonOlder
-, qtpy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyqt5,
+  pytestCheckHook,
+  pythonOlder,
+  qtpy,
+}:
 
 buildPythonPackage rec {
   pname = "qtawesome";

@@ -1,4 +1,11 @@
-{ lib, buildDunePackage, fetchurl, mirage-xen, parse-argv, lwt }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  mirage-xen,
+  parse-argv,
+  lwt,
+}:
 
 buildDunePackage rec {
   pname = "mirage-bootvar-xen";

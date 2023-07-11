@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, isPy3k, fetchPypi, wcwidth, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  isPy3k,
+  fetchPypi,
+  wcwidth,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "ftfy";

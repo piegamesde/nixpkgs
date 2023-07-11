@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, python3, fftw, libGL, libX11
-, libjack2, liblo, lv2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  python3,
+  fftw,
+  libGL,
+  libX11,
+  libjack2,
+  liblo,
+  lv2,
+}:
 
 stdenv.mkDerivation rec {
   # this is what upstream calls the package, see:

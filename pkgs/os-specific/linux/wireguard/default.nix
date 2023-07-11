@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchzip, kernel, perl, wireguard-tools, bc }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  kernel,
+  perl,
+  wireguard-tools,
+  bc,
+}:
 
 # wireguard upstreamed since 5.6 https://lists.zx2c4.com/pipermail/wireguard/2019-December/004704.html
 assert lib.versionOlder kernel.version "5.6";

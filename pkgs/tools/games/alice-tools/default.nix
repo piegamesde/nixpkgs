@@ -1,6 +1,23 @@
-{ stdenv, lib, gitUpdater, testers, fetchFromGitHub, meson, ninja, pkg-config
-, bison, flex, libiconv, libpng, libjpeg, libwebp, zlib, withGUI ? true
-, qtbase ? null, wrapQtAppsHook ? null }:
+{
+  stdenv,
+  lib,
+  gitUpdater,
+  testers,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  bison,
+  flex,
+  libiconv,
+  libpng,
+  libjpeg,
+  libwebp,
+  zlib,
+  withGUI ? true,
+  qtbase ? null,
+  wrapQtAppsHook ? null
+}:
 
 assert withGUI -> qtbase != null && wrapQtAppsHook != null;
 

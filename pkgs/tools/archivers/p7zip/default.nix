@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, enableUnfree ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  enableUnfree ? false
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "p7zip";

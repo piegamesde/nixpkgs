@@ -1,5 +1,17 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, numpy, scipy, six, pandas
-, pyyaml, matplotlib, numba, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  scipy,
+  six,
+  pandas,
+  pyyaml,
+  matplotlib,
+  numba,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "trackpy";

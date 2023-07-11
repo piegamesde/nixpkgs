@@ -1,6 +1,20 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, eventlet, oslo-config
-, oslo-context, oslo-serialization, oslo-utils, oslotest, pbr, pyinotify
-, python-dateutil, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  eventlet,
+  oslo-config,
+  oslo-context,
+  oslo-serialization,
+  oslo-utils,
+  oslotest,
+  pbr,
+  pyinotify,
+  python-dateutil,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "oslo-log";

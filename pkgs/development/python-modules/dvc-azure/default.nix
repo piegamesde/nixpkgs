@@ -1,5 +1,13 @@
-{ lib, adlfs, azure-identity, buildPythonPackage, fetchPypi, knack
-, pythonRelaxDepsHook, setuptools-scm }:
+{
+  lib,
+  adlfs,
+  azure-identity,
+  buildPythonPackage,
+  fetchPypi,
+  knack,
+  pythonRelaxDepsHook,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "dvc-azure";

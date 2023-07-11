@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, gtk3, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  gtk3,
+  Cocoa,
+}:
 
 let backend = if stdenv.isDarwin then "darwin" else "unix";
 

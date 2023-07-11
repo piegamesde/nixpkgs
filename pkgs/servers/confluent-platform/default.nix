@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchurl, fetchFromGitHub, jre, makeWrapper, bash, gnused }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchFromGitHub,
+  jre,
+  makeWrapper,
+  bash,
+  gnused,
+}:
 
 stdenv.mkDerivation rec {
   pname = "confluent-platform";

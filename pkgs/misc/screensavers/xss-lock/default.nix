@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, docutils, pkg-config, glib
-, libpthreadstubs, libXau, libXdmcp, xcbutil }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  docutils,
+  pkg-config,
+  glib,
+  libpthreadstubs,
+  libXau,
+  libXdmcp,
+  xcbutil,
+}:
 
 stdenv.mkDerivation {
   pname = "xss-lock";

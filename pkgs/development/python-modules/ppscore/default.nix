@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pandas, pytestCheckHook, pythonOlder
-, scikit-learn }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pandas,
+  pytestCheckHook,
+  pythonOlder,
+  scikit-learn,
+}:
 
 buildPythonPackage rec {
   pname = "ppscore";

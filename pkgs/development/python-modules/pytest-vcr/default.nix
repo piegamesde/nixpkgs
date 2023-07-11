@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest, vcrpy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest,
+  vcrpy,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-vcr";

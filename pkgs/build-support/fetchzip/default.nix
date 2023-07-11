@@ -5,15 +5,29 @@
 # (e.g. due to minor changes in the compression algorithm, or changes
 # in timestamps).
 
-{ lib, fetchurl, unzip, glibcLocalesUtf8 }:
+{
+  lib,
+  fetchurl,
+  unzip,
+  glibcLocalesUtf8,
+}:
 
 { # Optionally move the contents of the unpacked tree up one level.
-stripRoot ? true, url ? "", urls ? [ ], extraPostFetch ? "", postFetch ? ""
-, name ? "source", pname ? "", version ? "", nativeBuildInputs ? [ ]
-, # Allows to set the extension for the intermediate downloaded
-# file. This can be used as a hint for the unpackCmdHooks to select
-# an appropriate unpacking tool.
-extension ? null, ... }@args:
+  stripRoot ? true,
+  url ? "",
+  urls ? [ ],
+  extraPostFetch ? "",
+  postFetch ? "",
+  name ? "source",
+  pname ? "",
+  version ? "",
+  nativeBuildInputs ?
+    [ ], # Allows to set the extension for the intermediate downloaded
+  # file. This can be used as a hint for the unpackCmdHooks to select
+  # an appropriate unpacking tool.
+  extension ? null,
+  ...
+}@args:
 
 lib.warnIf (extraPostFetch != "")
 "use 'postFetch' instead of 'extraPostFetch' with 'fetchzip' and 'fetchFromGitHub'."

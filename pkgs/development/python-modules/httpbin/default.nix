@@ -1,5 +1,18 @@
-{ lib, brotlipy, buildPythonPackage, decorator, fetchpatch, fetchPypi, flask
-, flask-limiter, itsdangerous, markupsafe, raven, six, pytestCheckHook, werkzeug
+{
+  lib,
+  brotlipy,
+  buildPythonPackage,
+  decorator,
+  fetchpatch,
+  fetchPypi,
+  flask,
+  flask-limiter,
+  itsdangerous,
+  markupsafe,
+  raven,
+  six,
+  pytestCheckHook,
+  werkzeug,
 }:
 
 buildPythonPackage rec {

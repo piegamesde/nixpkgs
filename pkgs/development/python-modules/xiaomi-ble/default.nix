@@ -1,6 +1,17 @@
-{ lib, bleak-retry-connector, bluetooth-data-tools, bluetooth-sensor-state-data
-, buildPythonPackage, fetchFromGitHub, home-assistant-bluetooth, poetry-core
-, pycryptodomex, pytestCheckHook, pythonOlder, sensor-state-data }:
+{
+  lib,
+  bleak-retry-connector,
+  bluetooth-data-tools,
+  bluetooth-sensor-state-data,
+  buildPythonPackage,
+  fetchFromGitHub,
+  home-assistant-bluetooth,
+  poetry-core,
+  pycryptodomex,
+  pytestCheckHook,
+  pythonOlder,
+  sensor-state-data,
+}:
 
 buildPythonPackage rec {
   pname = "xiaomi-ble";

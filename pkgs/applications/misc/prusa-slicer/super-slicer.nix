@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, fetchpatch, makeDesktopItem, prusa-slicer }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  makeDesktopItem,
+  prusa-slicer,
+}:
 let
   appname = "SuperSlicer";
   pname = "super-slicer";
@@ -37,7 +43,11 @@ let
     };
   };
 
-  override = { version, sha256, patches }:
+  override = {
+      version,
+      sha256,
+      patches,
+    }:
     super: {
       inherit version pname patches;
 

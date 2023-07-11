@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, fuse, unrar }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  fuse,
+  unrar,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rar2fs";

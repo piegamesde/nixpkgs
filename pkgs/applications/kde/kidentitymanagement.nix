@@ -1,5 +1,17 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, kcompletion
-, kcoreaddons, kemoticons, kiconthemes, kio, kpimtextedit, ktextwidgets, kxmlgui
+{
+  mkDerivation,
+  lib,
+  kdepimTeam,
+  extra-cmake-modules,
+  kdoctools,
+  kcompletion,
+  kcoreaddons,
+  kemoticons,
+  kiconthemes,
+  kio,
+  kpimtextedit,
+  ktextwidgets,
+  kxmlgui,
 }:
 
 mkDerivation {

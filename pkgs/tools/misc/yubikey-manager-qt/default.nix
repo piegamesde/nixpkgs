@@ -1,6 +1,18 @@
-{ lib, mkDerivation, fetchurl, imagemagick, pcsclite, pyotherside, python3
-, qmake, qtbase, qtgraphicaleffects, qtquickcontrols2, yubikey-manager4
-, yubikey-personalization }:
+{
+  lib,
+  mkDerivation,
+  fetchurl,
+  imagemagick,
+  pcsclite,
+  pyotherside,
+  python3,
+  qmake,
+  qtbase,
+  qtgraphicaleffects,
+  qtquickcontrols2,
+  yubikey-manager4,
+  yubikey-personalization,
+}:
 
 mkDerivation rec {
   pname = "yubikey-manager-qt";

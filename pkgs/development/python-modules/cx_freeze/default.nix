@@ -1,5 +1,12 @@
-{ stdenv, lib, buildPythonPackage, pythonOlder, fetchPypi, ncurses
-, importlib-metadata }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  ncurses,
+  importlib-metadata,
+}:
 
 buildPythonPackage rec {
   pname = "cx-freeze";

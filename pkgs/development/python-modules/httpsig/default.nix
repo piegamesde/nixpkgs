@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools-scm, pycryptodome, requests
-, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  pycryptodome,
+  requests,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "httpsig";

@@ -1,5 +1,16 @@
-{ lib, stdenv, autoreconfHook, fetchurl, gcc, makeWrapper, pcre2, perl, ps
-, readline, tcp_wrappers }:
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  fetchurl,
+  gcc,
+  makeWrapper,
+  pcre2,
+  perl,
+  ps,
+  readline,
+  tcp_wrappers,
+}:
 
 stdenv.mkDerivation rec {
   pname = "atftp";

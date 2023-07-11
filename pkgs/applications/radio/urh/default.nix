@@ -1,5 +1,17 @@
-{ lib, fetchFromGitHub, python3Packages, hackrf, rtl-sdr, airspy, limesuite
-, libiio, libbladeRF, qt5, USRPSupport ? false, uhd }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  hackrf,
+  rtl-sdr,
+  airspy,
+  limesuite,
+  libiio,
+  libbladeRF,
+  qt5,
+  USRPSupport ? false,
+  uhd,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "urh";

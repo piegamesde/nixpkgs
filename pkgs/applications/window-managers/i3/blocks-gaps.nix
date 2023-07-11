@@ -1,15 +1,25 @@
-{ fetchFromGitHub, lib, stdenv, perl, makeWrapper, iproute2, acpi, sysstat
-, alsa-utils, scripts ? [
-  "bandwidth"
-  "battery"
-  "cpu_usage"
-  "disk"
-  "iface"
-  "load_average"
-  "memory"
-  "volume"
-  "wifi"
-] }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  perl,
+  makeWrapper,
+  iproute2,
+  acpi,
+  sysstat,
+  alsa-utils,
+  scripts ? [
+    "bandwidth"
+    "battery"
+    "cpu_usage"
+    "disk"
+    "iface"
+    "load_average"
+    "memory"
+    "volume"
+    "wifi"
+  ]
+}:
 
 with lib;
 

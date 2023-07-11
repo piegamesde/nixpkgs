@@ -1,7 +1,17 @@
-{ runCommandLocal, git, clang-tools, makeHardcodeGsettingsPatch }:
+{
+  runCommandLocal,
+  git,
+  clang-tools,
+  makeHardcodeGsettingsPatch,
+}:
 
 let
-  mkTest = { name, expected, src, schemaIdToVariableMapping, }:
+  mkTest = {
+      name,
+      expected,
+      src,
+      schemaIdToVariableMapping,
+    }:
 
     let
       patch =

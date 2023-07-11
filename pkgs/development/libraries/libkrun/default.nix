@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, rustPlatform, pkg-config, dtc, glibc
-, openssl, libiconv, libkrunfw, Hypervisor, sevVariant ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  rustPlatform,
+  pkg-config,
+  dtc,
+  glibc,
+  openssl,
+  libiconv,
+  libkrunfw,
+  Hypervisor,
+  sevVariant ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "libkrun";

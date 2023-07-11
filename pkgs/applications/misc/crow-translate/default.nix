@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchzip, substituteAll, cmake, extra-cmake-modules, qttools
-, kwayland, leptonica, tesseract4, qtmultimedia, qtx11extras, qttranslations
-, wrapQtAppsHook, gst_all_1, testers, crow-translate }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  substituteAll,
+  cmake,
+  extra-cmake-modules,
+  qttools,
+  kwayland,
+  leptonica,
+  tesseract4,
+  qtmultimedia,
+  qtx11extras,
+  qttranslations,
+  wrapQtAppsHook,
+  gst_all_1,
+  testers,
+  crow-translate,
+}:
 
 stdenv.mkDerivation rec {
   pname = "crow-translate";

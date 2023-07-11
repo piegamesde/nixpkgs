@@ -1,4 +1,12 @@
-{ lib, python3, xorg, argyllcms, wrapGAppsHook, gtk3, librsvg }:
+{
+  lib,
+  python3,
+  xorg,
+  argyllcms,
+  wrapGAppsHook,
+  gtk3,
+  librsvg,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "displaycal";

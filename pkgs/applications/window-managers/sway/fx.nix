@@ -1,4 +1,8 @@
-{ fetchFromGitHub, lib, sway-unwrapped }:
+{
+  fetchFromGitHub,
+  lib,
+  sway-unwrapped,
+}:
 
 sway-unwrapped.overrideAttrs (oldAttrs: rec {
   pname = "swayfx";

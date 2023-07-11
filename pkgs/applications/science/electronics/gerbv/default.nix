@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, gettext, libtool, automake
-, autoconf, cairo, gtk2-x11, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  gettext,
+  libtool,
+  automake,
+  autoconf,
+  cairo,
+  gtk2-x11,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gerbv";

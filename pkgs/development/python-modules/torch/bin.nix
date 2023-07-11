@@ -1,7 +1,27 @@
-{ lib, stdenv, buildPythonPackage, fetchurl, python, pythonAtLeast, pythonOlder
-, addOpenGLRunpath, cudaPackages, future, numpy, autoPatchelfHook, patchelf
-, pyyaml, requests, setuptools, typing-extensions, sympy, jinja2, networkx
-, filelock, openai-triton }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchurl,
+  python,
+  pythonAtLeast,
+  pythonOlder,
+  addOpenGLRunpath,
+  cudaPackages,
+  future,
+  numpy,
+  autoPatchelfHook,
+  patchelf,
+  pyyaml,
+  requests,
+  setuptools,
+  typing-extensions,
+  sympy,
+  jinja2,
+  networkx,
+  filelock,
+  openai-triton,
+}:
 
 let
   pyVerNoDot = builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion;

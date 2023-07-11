@@ -1,7 +1,30 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, boost, miniupnpc
-, openssl, unbound, zeromq, pcsclite, readline, libsodium, hidapi, randomx
-, rapidjson, easyloggingpp, CoreData, IOKit, PCSC, trezorSupport ? true, libusb1
-, protobuf, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  boost,
+  miniupnpc,
+  openssl,
+  unbound,
+  zeromq,
+  pcsclite,
+  readline,
+  libsodium,
+  hidapi,
+  randomx,
+  rapidjson,
+  easyloggingpp,
+  CoreData,
+  IOKit,
+  PCSC,
+  trezorSupport ? true,
+  libusb1,
+  protobuf,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "haven-cli";

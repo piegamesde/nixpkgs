@@ -1,7 +1,24 @@
-{ lib, buildPythonPackage, rustPlatform, setuptools, setuptools-rust, isPyPy
-, fetchPypi, pythonOlder, cffi, pytestCheckHook, libiconv, stdenv
-# for passthru.tests
-, asyncssh, django_4, fastapi, paramiko, twisted }:
+{
+  lib,
+  buildPythonPackage,
+  rustPlatform,
+  setuptools,
+  setuptools-rust,
+  isPyPy,
+  fetchPypi,
+  pythonOlder,
+  cffi,
+  pytestCheckHook,
+  libiconv,
+  stdenv
+  # for passthru.tests
+  ,
+  asyncssh,
+  django_4,
+  fastapi,
+  paramiko,
+  twisted,
+}:
 
 buildPythonPackage rec {
   pname = "bcrypt";

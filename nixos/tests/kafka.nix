@@ -1,5 +1,8 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; }
+}:
 
 with pkgs.lib;
 
@@ -10,26 +13,30 @@ let
       meta = with pkgs.lib.maintainers; { maintainers = [ nequissimus ]; };
 
       nodes = {
-        zookeeper1 = { ... }: {
-          services.zookeeper = { enable = true; };
+        zookeeper1 = {
+            ...
+          }: {
+            services.zookeeper = { enable = true; };
 
-          networking.firewall.allowedTCPPorts = [ 2181 ];
-        };
-        kafka = { ... }: {
-          services.apache-kafka = {
-            enable = true;
-            extraProperties = ''
-              offsets.topic.replication.factor = 1
-              zookeeper.session.timeout.ms = 600000
-            '';
-            package = kafkaPackage;
-            zookeeper = "zookeeper1:2181";
+            networking.firewall.allowedTCPPorts = [ 2181 ];
           };
+        kafka = {
+            ...
+          }: {
+            services.apache-kafka = {
+              enable = true;
+              extraProperties = ''
+                offsets.topic.replication.factor = 1
+                zookeeper.session.timeout.ms = 600000
+              '';
+              package = kafkaPackage;
+              zookeeper = "zookeeper1:2181";
+            };
 
-          networking.firewall.allowedTCPPorts = [ 9092 ];
-          # i686 tests: qemu-system-i386 can simulate max 2047MB RAM (not 2048)
-          virtualisation.memorySize = 2047;
-        };
+            networking.firewall.allowedTCPPorts = [ 9092 ];
+            # i686 tests: qemu-system-i386 can simulate max 2047MB RAM (not 2048)
+            virtualisation.memorySize = 2047;
+          };
       };
 
       testScript = ''

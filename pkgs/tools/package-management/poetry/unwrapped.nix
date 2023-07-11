@@ -1,10 +1,47 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub
-, installShellFiles, build, cachecontrol, cleo, crashtest, dulwich, filelock
-, html5lib, installer, jsonschema, keyring, lockfile, packaging, pexpect
-, pkginfo, platformdirs, poetry-core, poetry-plugin-export, pyproject-hooks
-, requests, requests-toolbelt, shellingham, tomlkit, trove-classifiers, urllib3
-, virtualenv, xattr, tomli, importlib-metadata, cachy, deepdiff, flatdict
-, pytestCheckHook, httpretty, pytest-mock, pytest-xdist, pythonAtLeast }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  installShellFiles,
+  build,
+  cachecontrol,
+  cleo,
+  crashtest,
+  dulwich,
+  filelock,
+  html5lib,
+  installer,
+  jsonschema,
+  keyring,
+  lockfile,
+  packaging,
+  pexpect,
+  pkginfo,
+  platformdirs,
+  poetry-core,
+  poetry-plugin-export,
+  pyproject-hooks,
+  requests,
+  requests-toolbelt,
+  shellingham,
+  tomlkit,
+  trove-classifiers,
+  urllib3,
+  virtualenv,
+  xattr,
+  tomli,
+  importlib-metadata,
+  cachy,
+  deepdiff,
+  flatdict,
+  pytestCheckHook,
+  httpretty,
+  pytest-mock,
+  pytest-xdist,
+  pythonAtLeast,
+}:
 
 buildPythonPackage rec {
   pname = "poetry";

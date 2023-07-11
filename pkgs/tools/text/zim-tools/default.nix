@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, docopt_cpp, file
-, gumbo, mustache-hpp, zimlib, zlib, gtest }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  docopt_cpp,
+  file,
+  gumbo,
+  mustache-hpp,
+  zimlib,
+  zlib,
+  gtest,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zim-tools";

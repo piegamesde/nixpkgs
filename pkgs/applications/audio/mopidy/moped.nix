@@ -1,4 +1,9 @@
-{ lib, pythonPackages, mopidy, glibcLocales }:
+{
+  lib,
+  pythonPackages,
+  mopidy,
+  glibcLocales,
+}:
 
 pythonPackages.buildPythonApplication rec {
   pname = "Mopidy-Moped";

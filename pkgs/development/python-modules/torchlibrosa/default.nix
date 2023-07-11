@@ -1,4 +1,12 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, fetchpatch, librosa, numpy, torch
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  librosa,
+  numpy,
+  torch,
 }:
 
 buildPythonPackage rec {

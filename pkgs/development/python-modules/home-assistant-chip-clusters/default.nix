@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, dacite }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  dacite,
+}:
 
 buildPythonPackage rec {
   pname = "home-assistant-chip-clusters";

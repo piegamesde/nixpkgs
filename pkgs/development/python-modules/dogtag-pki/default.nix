@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchPypi, buildPythonPackage, cryptography, python-ldap
-, requests, six }:
+{
+  stdenv,
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  cryptography,
+  python-ldap,
+  requests,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "dogtag-pki";

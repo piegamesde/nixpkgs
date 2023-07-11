@@ -1,4 +1,11 @@
-{ lib, mkXfceDerivation, libXtst, libxfce4ui, xfce4-panel, xfconf }:
+{
+  lib,
+  mkXfceDerivation,
+  libXtst,
+  libxfce4ui,
+  xfce4-panel,
+  xfconf,
+}:
 
 mkXfceDerivation {
   category = "panel-plugins";

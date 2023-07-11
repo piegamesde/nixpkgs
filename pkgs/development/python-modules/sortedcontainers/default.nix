@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+}:
 
 let
   sortedcontainers = buildPythonPackage rec {

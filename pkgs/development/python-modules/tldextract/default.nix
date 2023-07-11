@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, filelock, idna, pytest-mock
-, pytestCheckHook, pythonOlder, requests, requests-file, responses
-, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  filelock,
+  idna,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-file,
+  responses,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "tldextract";

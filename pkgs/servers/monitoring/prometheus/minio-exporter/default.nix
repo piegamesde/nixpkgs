@@ -1,4 +1,9 @@
-{ lib, buildGoPackage, fetchFromGitHub, fetchpatch }:
+{
+  lib,
+  buildGoPackage,
+  fetchFromGitHub,
+  fetchpatch,
+}:
 
 buildGoPackage rec {
   pname = "minio-exporter";

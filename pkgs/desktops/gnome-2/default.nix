@@ -1,4 +1,9 @@
-{ config, stdenv, pkgs, lib }:
+{
+  config,
+  stdenv,
+  pkgs,
+  lib,
+}:
 
 lib.makeScope pkgs.newScope (self:
   with self;

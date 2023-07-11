@@ -1,9 +1,40 @@
-{ lib, stdenv, wrapQtAppsHook, makeDesktopItem, fetchFromGitHub, cmake, qttools
-, pkg-config, qtbase, qtdeclarative, qtgraphicaleffects, qtmultimedia
-, qtxmlpatterns, qtquickcontrols, qtquickcontrols2, qtmacextras, monero-cli
-, miniupnpc, unbound, readline, boost, libunwind, libsodium, pcsclite, randomx
-, zeromq, libgcrypt, libgpg-error, hidapi, rapidjson, quirc
-, trezorSupport ? true, libusb1, protobuf, python3 }:
+{
+  lib,
+  stdenv,
+  wrapQtAppsHook,
+  makeDesktopItem,
+  fetchFromGitHub,
+  cmake,
+  qttools,
+  pkg-config,
+  qtbase,
+  qtdeclarative,
+  qtgraphicaleffects,
+  qtmultimedia,
+  qtxmlpatterns,
+  qtquickcontrols,
+  qtquickcontrols2,
+  qtmacextras,
+  monero-cli,
+  miniupnpc,
+  unbound,
+  readline,
+  boost,
+  libunwind,
+  libsodium,
+  pcsclite,
+  randomx,
+  zeromq,
+  libgcrypt,
+  libgpg-error,
+  hidapi,
+  rapidjson,
+  quirc,
+  trezorSupport ? true,
+  libusb1,
+  protobuf,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "monero-gui";

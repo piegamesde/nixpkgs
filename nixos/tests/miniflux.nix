@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   let
     port = 3142;
@@ -21,31 +25,37 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
     meta.maintainers = with pkgs.lib.maintainers; [ ];
 
     nodes = {
-      default = { ... }: {
-        services.miniflux = {
-          enable = true;
-          inherit adminCredentialsFile;
-        };
-      };
-
-      withoutSudo = { ... }: {
-        services.miniflux = {
-          enable = true;
-          inherit adminCredentialsFile;
-        };
-        security.sudo.enable = false;
-      };
-
-      customized = { ... }: {
-        services.miniflux = {
-          enable = true;
-          config = {
-            CLEANUP_FREQUENCY = "48";
-            LISTEN_ADDR = "localhost:${toString port}";
+      default = {
+          ...
+        }: {
+          services.miniflux = {
+            enable = true;
+            inherit adminCredentialsFile;
           };
-          adminCredentialsFile = customAdminCredentialsFile;
         };
-      };
+
+      withoutSudo = {
+          ...
+        }: {
+          services.miniflux = {
+            enable = true;
+            inherit adminCredentialsFile;
+          };
+          security.sudo.enable = false;
+        };
+
+      customized = {
+          ...
+        }: {
+          services.miniflux = {
+            enable = true;
+            config = {
+              CLEANUP_FREQUENCY = "48";
+              LISTEN_ADDR = "localhost:${toString port}";
+            };
+            adminCredentialsFile = customAdminCredentialsFile;
+          };
+        };
     };
     testScript = ''
       start_all()

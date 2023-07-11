@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, glib, systemd, udev
-, libevdev, gitMinimal, check, valgrind, swig, python3, json-glib, libunistring
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  glib,
+  systemd,
+  udev,
+  libevdev,
+  gitMinimal,
+  check,
+  valgrind,
+  swig,
+  python3,
+  json-glib,
+  libunistring,
 }:
 
 stdenv.mkDerivation rec {

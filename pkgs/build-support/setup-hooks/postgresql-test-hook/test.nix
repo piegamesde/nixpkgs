@@ -1,4 +1,8 @@
-{ postgresql, postgresqlTestHook, stdenv }:
+{
+  postgresql,
+  postgresqlTestHook,
+  stdenv,
+}:
 
 stdenv.mkDerivation {
   name = "postgresql-test-hook-test";

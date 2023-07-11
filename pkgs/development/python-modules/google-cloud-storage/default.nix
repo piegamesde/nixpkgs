@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, google-auth, google-cloud-core
-, google-cloud-iam, google-cloud-kms, google-cloud-testutils
-, google-resumable-media, mock, protobuf, pytestCheckHook, pythonOlder, requests
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-auth,
+  google-cloud-core,
+  google-cloud-iam,
+  google-cloud-kms,
+  google-cloud-testutils,
+  google-resumable-media,
+  mock,
+  protobuf,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
 }:
 
 buildPythonPackage rec {

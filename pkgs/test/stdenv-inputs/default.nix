@@ -1,4 +1,7 @@
-{ lib, stdenv }:
+{
+  lib,
+  stdenv,
+}:
 
 let
   foo = stdenv.mkDerivation {

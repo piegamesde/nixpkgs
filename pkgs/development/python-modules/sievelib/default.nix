@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, mock, pytestCheckHook, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  mock,
+  pytestCheckHook,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "sievelib";

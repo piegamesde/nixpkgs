@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, go-md2man, pkg-config, libcap
-, libseccomp, python3, systemd, yajl, nixosTests, criu }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  go-md2man,
+  pkg-config,
+  libcap,
+  libseccomp,
+  python3,
+  systemd,
+  yajl,
+  nixosTests,
+  criu,
+}:
 
 let
   # these tests require additional permissions

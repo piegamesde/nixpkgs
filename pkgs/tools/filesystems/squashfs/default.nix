@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, help2man, lz4, lzo, nixosTests
-, which, xz, zlib, zstd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  help2man,
+  lz4,
+  lzo,
+  nixosTests,
+  which,
+  xz,
+  zlib,
+  zstd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "squashfs";

@@ -1,14 +1,55 @@
-{ lib, stdenv, fetchFromGitHub, meson, pkg-config, ninja, wrapGAppsHook, wayland
-, wlroots, gtkmm3, libsigcxx, jsoncpp, scdoc, spdlog, gtk-layer-shell
-, howard-hinnant-date, libinotify-kqueue, libxkbcommon, evdevSupport ? true
-, libevdev, inputSupport ? true, libinput, jackSupport ? true, libjack2
-, mpdSupport ? true, libmpdclient, mprisSupport ? stdenv.isLinux
-, playerctl ? false, nlSupport ? true, libnl, pulseSupport ? true, libpulseaudio
-, rfkillSupport ? true, runTests ? true, catch2_3, sndioSupport ? true, sndio
-, swaySupport ? true, sway, traySupport ? true, libdbusmenu-gtk3
-, udevSupport ? true, udev, upowerSupport ? true, upower
-, wireplumberSupport ? true, wireplumber
-, withMediaPlayer ? mprisSupport && false, glib, gobject-introspection, python3
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  pkg-config,
+  ninja,
+  wrapGAppsHook,
+  wayland,
+  wlroots,
+  gtkmm3,
+  libsigcxx,
+  jsoncpp,
+  scdoc,
+  spdlog,
+  gtk-layer-shell,
+  howard-hinnant-date,
+  libinotify-kqueue,
+  libxkbcommon,
+  evdevSupport ? true,
+  libevdev,
+  inputSupport ? true,
+  libinput,
+  jackSupport ? true,
+  libjack2,
+  mpdSupport ? true,
+  libmpdclient,
+  mprisSupport ? stdenv.isLinux,
+  playerctl ? false,
+  nlSupport ? true,
+  libnl,
+  pulseSupport ? true,
+  libpulseaudio,
+  rfkillSupport ? true,
+  runTests ? true,
+  catch2_3,
+  sndioSupport ? true,
+  sndio,
+  swaySupport ? true,
+  sway,
+  traySupport ? true,
+  libdbusmenu-gtk3,
+  udevSupport ? true,
+  udev,
+  upowerSupport ? true,
+  upower,
+  wireplumberSupport ? true,
+  wireplumber,
+  withMediaPlayer ? mprisSupport && false,
+  glib,
+  gobject-introspection,
+  python3,
 }:
 
 stdenv.mkDerivation rec {

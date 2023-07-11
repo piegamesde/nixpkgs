@@ -1,4 +1,10 @@
-{ lib, mkXfceDerivation, gobject-introspection, gtk3, libxfce4ui, libxfce4util
+{
+  lib,
+  mkXfceDerivation,
+  gobject-introspection,
+  gtk3,
+  libxfce4ui,
+  libxfce4util,
 }:
 
 mkXfceDerivation {

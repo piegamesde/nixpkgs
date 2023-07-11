@@ -1,6 +1,20 @@
-{ lib, anyio, buildPythonPackage, certifi, fetchFromGitHub, h11, h2, pproxy
-, pytest-asyncio, pytest-httpbin, pytest-trio, pytestCheckHook, pythonOlder
-, sniffio, socksio }:
+{
+  lib,
+  anyio,
+  buildPythonPackage,
+  certifi,
+  fetchFromGitHub,
+  h11,
+  h2,
+  pproxy,
+  pytest-asyncio,
+  pytest-httpbin,
+  pytest-trio,
+  pytestCheckHook,
+  pythonOlder,
+  sniffio,
+  socksio,
+}:
 
 buildPythonPackage rec {
   pname = "httpcore";

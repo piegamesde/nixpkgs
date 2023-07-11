@@ -1,4 +1,8 @@
-{ lib, nodes, ... }:
+{
+  lib,
+  nodes,
+  ...
+}:
 
 let
   inherit (lib)
@@ -9,10 +13,18 @@ let
   nodeNumbers =
     listToAttrs (zipListsWith nameValuePair (attrNames nodes) (range 1 254));
 
-  networkModule = { config, nodes, pkgs, ... }:
+  networkModule = {
+      config,
+      nodes,
+      pkgs,
+      ...
+    }:
     let
       interfacesNumbered = zipLists config.virtualisation.vlans (range 1 255);
-      interfaces = forEach interfacesNumbered ({ fst, snd }:
+      interfaces = forEach interfacesNumbered ({
+          fst,
+          snd,
+        }:
         nameValuePair "eth${toString snd}" {
           ipv4.addresses = [{
             address = "192.168.${toString fst}.${
@@ -46,7 +58,10 @@ let
 
         virtualisation.qemu.options =
           let qemu-common = import ../qemu-common.nix { inherit lib pkgs; };
-          in flip concatMap interfacesNumbered ({ fst, snd }:
+          in flip concatMap interfacesNumbered ({
+              fst,
+              snd,
+            }:
             qemu-common.qemuNICFlags snd fst
             config.virtualisation.test.nodeNumber);
       };
@@ -60,44 +75,48 @@ let
       };
     };
 
-  nodeNumberModule = (regular@{ config, name, ... }: {
-    options = {
-      virtualisation.test.nodeName = mkOption {
-        internal = true;
-        default = name;
-        # We need to force this in specilisations, otherwise it'd be
-        # readOnly = true;
-        description = mdDoc ''
-          The `name` in `nodes.<name>`; stable across `specialisations`.
-        '';
-      };
-      virtualisation.test.nodeNumber = mkOption {
-        internal = true;
-        type = types.int;
-        readOnly = true;
-        default = nodeNumbers.${config.virtualisation.test.nodeName};
-        description = mdDoc ''
-          A unique number assigned for each node in `nodes`.
-        '';
-      };
+  nodeNumberModule = (regular@{
+      config,
+      name,
+      ...
+    }: {
+      options = {
+        virtualisation.test.nodeName = mkOption {
+          internal = true;
+          default = name;
+          # We need to force this in specilisations, otherwise it'd be
+          # readOnly = true;
+          description = mdDoc ''
+            The `name` in `nodes.<name>`; stable across `specialisations`.
+          '';
+        };
+        virtualisation.test.nodeNumber = mkOption {
+          internal = true;
+          type = types.int;
+          readOnly = true;
+          default = nodeNumbers.${config.virtualisation.test.nodeName};
+          description = mdDoc ''
+            A unique number assigned for each node in `nodes`.
+          '';
+        };
 
-      # specialisations override the `name` module argument,
-      # so we push the real `virtualisation.test.nodeName`.
-      specialisation = mkOption {
-        type = types.attrsOf (types.submodule {
-          options.configuration = mkOption {
-            type = types.submoduleWith {
-              modules = [{
-                config.virtualisation.test.nodeName =
-                  # assert regular.config.virtualisation.test.nodeName != "configuration";
-                  regular.config.virtualisation.test.nodeName;
-              }];
+        # specialisations override the `name` module argument,
+        # so we push the real `virtualisation.test.nodeName`.
+        specialisation = mkOption {
+          type = types.attrsOf (types.submodule {
+            options.configuration = mkOption {
+              type = types.submoduleWith {
+                modules = [{
+                  config.virtualisation.test.nodeName =
+                    # assert regular.config.virtualisation.test.nodeName != "configuration";
+                    regular.config.virtualisation.test.nodeName;
+                }];
+              };
             };
-          };
-        });
+          });
+        };
       };
-    };
-  });
+    });
 
 in {
   config = {

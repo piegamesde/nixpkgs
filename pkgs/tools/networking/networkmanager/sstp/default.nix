@@ -1,6 +1,23 @@
-{ stdenv, lib, fetchFromGitLab, autoreconfHook, file, glib, gnome, gtk3, gtk4
-, gettext, libnma, libnma-gtk4, libsecret, networkmanager, pkg-config, ppp, sstp
-, withGnome ? true }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  autoreconfHook,
+  file,
+  glib,
+  gnome,
+  gtk3,
+  gtk4,
+  gettext,
+  libnma,
+  libnma-gtk4,
+  libsecret,
+  networkmanager,
+  pkg-config,
+  ppp,
+  sstp,
+  withGnome ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "NetworkManager-sstp";

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, python-dateutil, docopt, fetchPypi, pytestCheckHook
-, pyyaml, ruamel-yaml, testfixtures }:
+{
+  lib,
+  buildPythonPackage,
+  python-dateutil,
+  docopt,
+  fetchPypi,
+  pytestCheckHook,
+  pyyaml,
+  ruamel-yaml,
+  testfixtures,
+}:
 
 buildPythonPackage rec {
   version = "1.8.0";

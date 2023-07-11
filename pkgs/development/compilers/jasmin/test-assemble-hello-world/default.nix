@@ -1,4 +1,8 @@
-{ stdenv, jasmin, jre }:
+{
+  stdenv,
+  jasmin,
+  jre,
+}:
 
 stdenv.mkDerivation {
   name = "jasmin-test-assemble-hello-world";

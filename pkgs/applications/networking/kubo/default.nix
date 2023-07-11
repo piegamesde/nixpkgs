@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchurl, nixosTests, openssl, pkg-config }:
+{
+  lib,
+  buildGoModule,
+  fetchurl,
+  nixosTests,
+  openssl,
+  pkg-config,
+}:
 
 buildGoModule rec {
   pname = "kubo";

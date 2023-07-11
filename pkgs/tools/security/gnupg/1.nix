@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, readline, bzip2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  readline,
+  bzip2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnupg";

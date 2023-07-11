@@ -1,5 +1,13 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch, substituteAll
-, file, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  substituteAll,
+  file,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "python-magic";

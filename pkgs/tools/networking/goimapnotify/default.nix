@@ -1,4 +1,9 @@
-{ buildGoModule, fetchFromGitLab, lib, runtimeShell }:
+{
+  buildGoModule,
+  fetchFromGitLab,
+  lib,
+  runtimeShell,
+}:
 
 buildGoModule rec {
   pname = "goimapnotify";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, nose, numpy, packaging, quantities
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  numpy,
+  packaging,
+  quantities,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "neo";

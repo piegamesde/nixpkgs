@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, hatchling
-, jupyter-events, jupyter-server, pytest-jupyter, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  hatchling,
+  jupyter-events,
+  jupyter-server,
+  pytest-jupyter,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "jupyter-server-fileid";

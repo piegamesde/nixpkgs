@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, jupyterhub }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  jupyterhub,
+}:
 
 buildPythonPackage rec {
   pname = "jupyterhub-tmpauthenticator";

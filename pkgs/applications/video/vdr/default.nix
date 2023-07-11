@@ -1,5 +1,19 @@
-{ stdenv, fetchgit, fontconfig, libjpeg, libcap, freetype, fribidi, pkg-config
-, gettext, systemd, perl, lib, enableSystemd ? true, enableBidi ? true }:
+{
+  stdenv,
+  fetchgit,
+  fontconfig,
+  libjpeg,
+  libcap,
+  freetype,
+  fribidi,
+  pkg-config,
+  gettext,
+  systemd,
+  perl,
+  lib,
+  enableSystemd ? true,
+  enableBidi ? true
+}:
 stdenv.mkDerivation rec {
 
   pname = "vdr";

@@ -1,13 +1,23 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder
 
-# build-system
-, cython, poetry-core, setuptools
+  # build-system
+  ,
+  cython,
+  poetry-core,
+  setuptools
 
-# propagates
-, cryptography
+  # propagates
+  ,
+  cryptography
 
-# tests
-, pytestCheckHook }:
+  # tests
+  ,
+  pytestCheckHook,
+}:
 
 let
   pname = "chacha20poly1305-reuseable";

@@ -1,5 +1,14 @@
-{ lib, stdenv, buildPackages, fetchurl, tcl, makeWrapper, autoreconfHook
-, fetchpatch, substituteAll }:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  fetchurl,
+  tcl,
+  makeWrapper,
+  autoreconfHook,
+  fetchpatch,
+  substituteAll,
+}:
 
 tcl.mkTclDerivation rec {
   pname = "expect";

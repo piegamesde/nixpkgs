@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, freezegun, isodate, lxml
-, pythonOlder, xmlsec }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  freezegun,
+  isodate,
+  lxml,
+  pythonOlder,
+  xmlsec,
+}:
 
 buildPythonPackage rec {
   pname = "python3-saml";

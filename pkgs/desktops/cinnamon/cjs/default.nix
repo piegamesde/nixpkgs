@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchFromGitHub, gobject-introspection, pkg-config, cairo, glib
-, readline, spidermonkey_78, meson, dbus, ninja, which, libxml2 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  gobject-introspection,
+  pkg-config,
+  cairo,
+  glib,
+  readline,
+  spidermonkey_78,
+  meson,
+  dbus,
+  ninja,
+  which,
+  libxml2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cjs";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest, which, lrzsz }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest,
+  which,
+  lrzsz,
+}:
 
 buildPythonPackage rec {
   pname = "xmodem";

@@ -1,4 +1,12 @@
-{ lib, fetchFromGitHub, rustPlatform, pkg-config, ncurses6, openssl, sqlite }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  ncurses6,
+  openssl,
+  sqlite,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "ncgopher";

@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, setuptools, setuptools-scm, cython
-, entrypoints, numpy, msgpack, py-cpuinfo, pytestCheckHook, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  setuptools,
+  setuptools-scm,
+  cython,
+  entrypoints,
+  numpy,
+  msgpack,
+  py-cpuinfo,
+  pytestCheckHook,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "numcodecs";

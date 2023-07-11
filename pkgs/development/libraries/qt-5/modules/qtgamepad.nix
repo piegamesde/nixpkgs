@@ -1,4 +1,12 @@
-{ lib, stdenv, qtModule, qtbase, qtdeclarative, GameController, pkg-config }:
+{
+  lib,
+  stdenv,
+  qtModule,
+  qtbase,
+  qtdeclarative,
+  GameController,
+  pkg-config,
+}:
 
 qtModule {
   pname = "qtgamepad";

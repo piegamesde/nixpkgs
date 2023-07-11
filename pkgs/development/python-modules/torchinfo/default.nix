@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder, torch
-, torchvision }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  torch,
+  torchvision,
+}:
 
 buildPythonPackage rec {
   pname = "torchinfo";

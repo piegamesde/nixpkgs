@@ -1,9 +1,37 @@
-{ lib, buildPythonPackage, fetchFromGitHub, dos2unix, pythonRelaxDepsHook
-, asn1crypto, astunparse, bincopy, bitstring, click, click-command-tree
-, click-option-group, cmsis-pack-manager, commentjson, crcmod, cryptography
-, deepmerge, fastjsonschema, hexdump, jinja2, libusbsio, oscrypto, pycryptodome
-, pylink-square, pyocd, pypemicro, pyserial, ruamel-yaml, sly, typing-extensions
-, pytestCheckHook, voluptuous }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  dos2unix,
+  pythonRelaxDepsHook,
+  asn1crypto,
+  astunparse,
+  bincopy,
+  bitstring,
+  click,
+  click-command-tree,
+  click-option-group,
+  cmsis-pack-manager,
+  commentjson,
+  crcmod,
+  cryptography,
+  deepmerge,
+  fastjsonschema,
+  hexdump,
+  jinja2,
+  libusbsio,
+  oscrypto,
+  pycryptodome,
+  pylink-square,
+  pyocd,
+  pypemicro,
+  pyserial,
+  ruamel-yaml,
+  sly,
+  typing-extensions,
+  pytestCheckHook,
+  voluptuous,
+}:
 
 buildPythonPackage rec {
   pname = "spsdk";

@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, colorclass, easygui, fetchFromGitHub
-, msoffcrypto-tool, olefile, pcodedmp, pyparsing, pytestCheckHook, pythonOlder
-, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  colorclass,
+  easygui,
+  fetchFromGitHub,
+  msoffcrypto-tool,
+  olefile,
+  pcodedmp,
+  pyparsing,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "oletools";

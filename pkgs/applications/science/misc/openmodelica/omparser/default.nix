@@ -1,4 +1,11 @@
-{ lib, pkg-config, jre8, libuuid, openmodelica, mkOpenModelicaDerivation }:
+{
+  lib,
+  pkg-config,
+  jre8,
+  libuuid,
+  openmodelica,
+  mkOpenModelicaDerivation,
+}:
 
 mkOpenModelicaDerivation rec {
   pname = "omparser";

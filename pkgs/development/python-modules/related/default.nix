@@ -1,5 +1,14 @@
-{ lib, attrs, buildPythonPackage, fetchPypi, future, pytestCheckHook
-, python-dateutil, pythonOlder, pyyaml }:
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  fetchPypi,
+  future,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "related";

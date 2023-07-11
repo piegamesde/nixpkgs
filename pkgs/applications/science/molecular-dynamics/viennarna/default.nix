@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, gsl, mpfr, perl, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gsl,
+  mpfr,
+  perl,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ViennaRNA";

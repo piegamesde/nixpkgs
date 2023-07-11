@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, packaging, poetry-core
-, pytestCheckHook, pythonOlder, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  packaging,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "newversion";

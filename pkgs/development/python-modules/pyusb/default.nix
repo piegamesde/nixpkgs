@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchPypi, buildPythonPackage, libusb1, setuptools-scm }:
+{
+  lib,
+  stdenv,
+  fetchPypi,
+  buildPythonPackage,
+  libusb1,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "pyusb";

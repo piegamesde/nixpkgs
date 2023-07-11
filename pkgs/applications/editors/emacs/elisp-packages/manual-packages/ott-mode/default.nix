@@ -1,4 +1,8 @@
-{ trivialBuild, ott, haskellPackages }:
+{
+  trivialBuild,
+  ott,
+  haskellPackages,
+}:
 
 trivialBuild {
   pname = "ott-mode";

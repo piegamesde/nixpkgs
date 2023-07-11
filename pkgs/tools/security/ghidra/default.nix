@@ -1,5 +1,14 @@
-{ stdenv, fetchzip, lib, makeWrapper, autoPatchelfHook, openjdk17, pam
-, makeDesktopItem, icoutils }:
+{
+  stdenv,
+  fetchzip,
+  lib,
+  makeWrapper,
+  autoPatchelfHook,
+  openjdk17,
+  pam,
+  makeDesktopItem,
+  icoutils,
+}:
 
 let
 

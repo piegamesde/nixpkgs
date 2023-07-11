@@ -1,5 +1,20 @@
-{ lib, fetchurl, cups, libssh, libXpm, nx-libs, openldap, openssh, qt5, qtbase
-, qtsvg, qtx11extras, qttools, phonon, pkg-config }:
+{
+  lib,
+  fetchurl,
+  cups,
+  libssh,
+  libXpm,
+  nx-libs,
+  openldap,
+  openssh,
+  qt5,
+  qtbase,
+  qtsvg,
+  qtx11extras,
+  qttools,
+  phonon,
+  pkg-config,
+}:
 
 qt5.mkDerivation rec {
   pname = "x2goclient";

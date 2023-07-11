@@ -1,4 +1,7 @@
-{ callPackage, ... }@args:
+{
+  callPackage,
+  ...
+}@args:
 let
   unwrapped = callPackage ./unwrapped.nix (removeAttrs args [ "callPackage" ]);
   kodiPackages =

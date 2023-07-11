@@ -1,9 +1,37 @@
-{ stdenv, lib, fetchurl, perl, pkg-config, systemd, openssl, bzip2, zlib, lz4
-, inotify-tools, pam, libcap, coreutils, clucene_core_2, icu, openldap
-, libsodium, libstemmer, cyrus_sasl, nixosTests, fetchpatch
-# Auth modules
-, withMySQL ? false, libmysqlclient, withPgSQL ? false, postgresql
-, withSQLite ? true, sqlite, withLua ? false, lua5_3 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  perl,
+  pkg-config,
+  systemd,
+  openssl,
+  bzip2,
+  zlib,
+  lz4,
+  inotify-tools,
+  pam,
+  libcap,
+  coreutils,
+  clucene_core_2,
+  icu,
+  openldap,
+  libsodium,
+  libstemmer,
+  cyrus_sasl,
+  nixosTests,
+  fetchpatch
+  # Auth modules
+  ,
+  withMySQL ? false,
+  libmysqlclient,
+  withPgSQL ? false,
+  postgresql,
+  withSQLite ? true,
+  sqlite,
+  withLua ? false,
+  lua5_3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dovecot";

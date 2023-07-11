@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, click, fetchFromGitHub, jsonschema, poetry-core
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  jsonschema,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "archspec";

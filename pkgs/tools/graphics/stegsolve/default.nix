@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, jre, makeWrapper, copyDesktopItems, makeDesktopItem }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jre,
+  makeWrapper,
+  copyDesktopItems,
+  makeDesktopItem,
+}:
 
 stdenv.mkDerivation rec {
   pname = "stegsolve";

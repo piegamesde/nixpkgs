@@ -1,6 +1,24 @@
-{ lib, stdenv, callPackage, fetchFromGitHub, runCommandLocal, makeWrapper
-, substituteAll, sbcl, bash, which, perl, hostname, openssl, glucose, minisat
-, abc-verifier, z3, python3, certifyBooks ? true }@args:
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchFromGitHub,
+  runCommandLocal,
+  makeWrapper,
+  substituteAll,
+  sbcl,
+  bash,
+  which,
+  perl,
+  hostname,
+  openssl,
+  glucose,
+  minisat,
+  abc-verifier,
+  z3,
+  python3,
+  certifyBooks ? true
+}@args:
 
 let
   # Disable immobile space so we don't run out of memory on large books, and

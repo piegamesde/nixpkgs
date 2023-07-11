@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, freezegun, pillow, pytestCheckHook
-, python-dateutil, text-unidecode, ukpostcodeparser, validators }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  freezegun,
+  pillow,
+  pytestCheckHook,
+  python-dateutil,
+  text-unidecode,
+  ukpostcodeparser,
+  validators,
+}:
 
 buildPythonPackage rec {
   pname = "faker";

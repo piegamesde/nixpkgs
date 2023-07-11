@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, django, sly, mock
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  django,
+  sly,
+  mock,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "scim2-filter-parser";

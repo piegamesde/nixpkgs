@@ -1,4 +1,11 @@
-{ rustPlatform, fetchFromGitHub, pkg-config, dbus, protobuf, lib }:
+{
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  dbus,
+  protobuf,
+  lib,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "pbpctrl";

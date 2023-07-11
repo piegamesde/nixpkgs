@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitLab, isPy3k, pytestCheckHook, baseline }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitLab,
+  isPy3k,
+  pytestCheckHook,
+  baseline,
+}:
 
 buildPythonPackage rec {
   pname = "plum-py";

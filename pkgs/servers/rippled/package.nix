@@ -1,4 +1,7 @@
-{ self, fetchurl ? null }:
+{
+  self,
+  fetchurl ? null
+}:
 
 {
   by-spec."abbrev"."1" = self.by-version."abbrev"."1.0.5";

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, stdenv, packaging
-, setuptools, importlib-resources, dbus-next }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  stdenv,
+  packaging,
+  setuptools,
+  importlib-resources,
+  dbus-next,
+}:
 
 buildPythonPackage rec {
   pname = "desktop-notifier";

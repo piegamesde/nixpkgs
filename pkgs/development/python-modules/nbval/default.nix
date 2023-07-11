@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, coverage, ipykernel
-, jupyter-client, nbformat, pytestCheckHook, pytest, six, glibcLocales
-, matplotlib, sympy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  coverage,
+  ipykernel,
+  jupyter-client,
+  nbformat,
+  pytestCheckHook,
+  pytest,
+  six,
+  glibcLocales,
+  matplotlib,
+  sympy,
+}:
 
 buildPythonPackage rec {
   pname = "nbval";

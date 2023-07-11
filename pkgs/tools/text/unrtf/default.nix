@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, autoconf, automake, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoconf,
+  automake,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "unrtf";

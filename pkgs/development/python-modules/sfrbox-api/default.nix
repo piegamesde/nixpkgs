@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, click, defusedxml, fetchFromGitHub, httpx
-, poetry-core, pydantic, pytest-asyncio, pytestCheckHook, pythonOlder, respx }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  defusedxml,
+  fetchFromGitHub,
+  httpx,
+  poetry-core,
+  pydantic,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  respx,
+}:
 
 buildPythonPackage rec {
   pname = "sfrbox-api";

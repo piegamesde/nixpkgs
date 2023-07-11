@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchpatch, fetchPypi }:
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchPypi,
+}:
 
 buildPythonPackage rec {
   pname = "fn";

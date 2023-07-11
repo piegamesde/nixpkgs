@@ -1,8 +1,23 @@
-{ lib, stdenv, fetchurl, cairo, meson, ninja, pkg-config, gstreamer
-, gst-plugins-base, gst-plugins-bad, gst-rtsp-server, python3
-, gobject-introspection, json-glib
-# Checks meson.is_cross_build(), so even canExecute isn't enough.
-, enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform, hotdoc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cairo,
+  meson,
+  ninja,
+  pkg-config,
+  gstreamer,
+  gst-plugins-base,
+  gst-plugins-bad,
+  gst-rtsp-server,
+  python3,
+  gobject-introspection,
+  json-glib
+  # Checks meson.is_cross_build(), so even canExecute isn't enough.
+  ,
+  enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform,
+  hotdoc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gst-devtools";

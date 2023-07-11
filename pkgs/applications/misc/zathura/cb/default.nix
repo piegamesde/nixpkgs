@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchurl, meson, ninja, pkg-config, zathura_core, girara, gettext
-, libarchive }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  zathura_core,
+  girara,
+  gettext,
+  libarchive,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zathura-cb";

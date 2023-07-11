@@ -1,5 +1,13 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, stdenv, CoreServices
-, Security }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  stdenv,
+  CoreServices,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "railway";

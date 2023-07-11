@@ -1,9 +1,20 @@
-{ lib, rustPlatform, fetchFromGitHub, nix-gitignore, makeWrapper, stdenv, darwin
-, callPackage
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  nix-gitignore,
+  makeWrapper,
+  stdenv,
+  darwin,
+  callPackage
 
-# runtime dependencies
-, nix # for nix-prefetch-url
-, nix-prefetch-git, git # for git ls-remote
+  # runtime dependencies
+  ,
+  nix # for nix-prefetch-url
+  ,
+  nix-prefetch-git,
+  git # for git ls-remote
+  ,
 }:
 
 let

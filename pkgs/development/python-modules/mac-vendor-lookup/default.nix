@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, aiofiles, aiohttp }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiofiles,
+  aiohttp,
+}:
 
 buildPythonPackage rec {
   pname = "mac-vendor-lookup";

@@ -1,7 +1,28 @@
-{ lib, stdenv, fetchurl, pkg-config, bison, flex, asciidoc, libxslt
-, findXMLCatalogs, docbook_xml_dtd_45, docbook_xsl, libmnl, libnftnl, libpcap
-, gmp, jansson, libedit, autoreconfHook, withDebugSymbols ? false
-, withPython ? false, python3, withXtables ? true, iptables }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  bison,
+  flex,
+  asciidoc,
+  libxslt,
+  findXMLCatalogs,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  libmnl,
+  libnftnl,
+  libpcap,
+  gmp,
+  jansson,
+  libedit,
+  autoreconfHook,
+  withDebugSymbols ? false,
+  withPython ? false,
+  python3,
+  withXtables ? true,
+  iptables,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.0.7";

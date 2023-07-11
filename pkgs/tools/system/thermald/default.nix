@@ -1,6 +1,22 @@
-{ autoconf, autoconf-archive, automake, dbus, dbus-glib, docbook_xml_dtd_412
-, docbook-xsl-nons, fetchFromGitHub, gtk-doc, libevdev, libtool, libxml2, xz
-, pkg-config, lib, stdenv, upower }:
+{
+  autoconf,
+  autoconf-archive,
+  automake,
+  dbus,
+  dbus-glib,
+  docbook_xml_dtd_412,
+  docbook-xsl-nons,
+  fetchFromGitHub,
+  gtk-doc,
+  libevdev,
+  libtool,
+  libxml2,
+  xz,
+  pkg-config,
+  lib,
+  stdenv,
+  upower,
+}:
 
 stdenv.mkDerivation rec {
   pname = "thermald";

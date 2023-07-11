@@ -1,4 +1,10 @@
-{ lib, stdenv, pkgs, fetchFromGitHub, nodejs ? pkgs.nodejs_14 }:
+{
+  lib,
+  stdenv,
+  pkgs,
+  fetchFromGitHub,
+  nodejs ? pkgs.nodejs_14
+}:
 
 stdenv.mkDerivation rec {
   pname = "ariang";

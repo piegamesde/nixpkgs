@@ -1,4 +1,10 @@
-{ lib, python3, fetchFromGitHub, glibcLocales, libnotify }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  glibcLocales,
+  libnotify,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "zulip-term";

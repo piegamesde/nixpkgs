@@ -1,7 +1,10 @@
 # This tests parsedmarc by sending a report to its monitored email
 # address and reading the results out of Elasticsearch.
 
-{ pkgs, ... }@args:
+{
+  pkgs,
+  ...
+}@args:
 let
   inherit (import ../../lib/testing-python.nix args) makeTest;
   inherit (pkgs) lib;
@@ -56,33 +59,38 @@ in {
     name = "parsedmarc-local-mail";
     meta = with lib.maintainers; { maintainers = [ talyz ]; };
 
-    nodes.parsedmarc = { nodes, ... }: {
-      virtualisation.memorySize = 2048;
+    nodes.parsedmarc = {
+        nodes,
+        ...
+      }: {
+        virtualisation.memorySize = 2048;
 
-      services.postfix = {
-        enableSubmission = true;
-        enableSubmissions = true;
-        submissionsOptions = {
-          smtpd_sasl_auth_enable = "yes";
-          smtpd_client_restrictions = "permit";
-        };
-      };
-
-      services.parsedmarc = {
-        enable = true;
-        provision = {
-          geoIp = false;
-          localMail = {
-            enable = true;
-            hostname = "localhost";
+        services.postfix = {
+          enableSubmission = true;
+          enableSubmissions = true;
+          submissionsOptions = {
+            smtpd_sasl_auth_enable = "yes";
+            smtpd_client_restrictions = "permit";
           };
         };
+
+        services.parsedmarc = {
+          enable = true;
+          provision = {
+            geoIp = false;
+            localMail = {
+              enable = true;
+              hostname = "localhost";
+            };
+          };
+        };
+
+        environment.systemPackages = [ (sendEmail "dmarc@localhost") pkgs.jq ];
       };
 
-      environment.systemPackages = [ (sendEmail "dmarc@localhost") pkgs.jq ];
-    };
-
-    testScript = { nodes }:
+    testScript = {
+        nodes,
+      }:
       let
         esPort = toString nodes.parsedmarc.config.services.elasticsearch.port;
         valueObject = lib.optionalString (lib.versionAtLeast
@@ -120,68 +128,76 @@ in {
     meta = with lib.maintainers; { maintainers = [ talyz ]; };
 
     nodes = {
-      parsedmarc = { nodes, ... }: {
-        virtualisation.memorySize = 2048;
+      parsedmarc = {
+          nodes,
+          ...
+        }: {
+          virtualisation.memorySize = 2048;
 
-        security.pki.certificateFiles = [ certs.ca.cert ];
+          security.pki.certificateFiles = [ certs.ca.cert ];
 
-        networking.extraHosts = ''
-          127.0.0.1 ${parsedmarcDomain}
-          ${nodes.mail.config.networking.primaryIPAddress} ${mailDomain}
-        '';
+          networking.extraHosts = ''
+            127.0.0.1 ${parsedmarcDomain}
+            ${nodes.mail.config.networking.primaryIPAddress} ${mailDomain}
+          '';
 
-        services.parsedmarc = {
-          enable = true;
-          provision.geoIp = false;
-          settings.imap = {
-            host = mailDomain;
-            port = 993;
-            ssl = true;
-            user = "alice";
-            password = "${pkgs.writeText "imap-password" "foobar"}";
+          services.parsedmarc = {
+            enable = true;
+            provision.geoIp = false;
+            settings.imap = {
+              host = mailDomain;
+              port = 993;
+              ssl = true;
+              user = "alice";
+              password = "${pkgs.writeText "imap-password" "foobar"}";
+            };
           };
+
+          environment.systemPackages = [ pkgs.jq ];
         };
 
-        environment.systemPackages = [ pkgs.jq ];
-      };
+      mail = {
+          nodes,
+          ...
+        }: {
+          imports = [ ../common/user-account.nix ];
 
-      mail = { nodes, ... }: {
-        imports = [ ../common/user-account.nix ];
+          networking.extraHosts = ''
+            127.0.0.1 ${mailDomain}
+            ${nodes.parsedmarc.config.networking.primaryIPAddress} ${parsedmarcDomain}
+          '';
 
-        networking.extraHosts = ''
-          127.0.0.1 ${mailDomain}
-          ${nodes.parsedmarc.config.networking.primaryIPAddress} ${parsedmarcDomain}
-        '';
-
-        services.dovecot2 = {
-          enable = true;
-          protocols = [ "imap" ];
-          sslCACert = "${certs.ca.cert}";
-          sslServerCert = "${certs.${mailDomain}.cert}";
-          sslServerKey = "${certs.${mailDomain}.key}";
-        };
-
-        services.postfix = {
-          enable = true;
-          origin = mailDomain;
-          config = {
-            myhostname = mailDomain;
-            mydestination = mailDomain;
+          services.dovecot2 = {
+            enable = true;
+            protocols = [ "imap" ];
+            sslCACert = "${certs.ca.cert}";
+            sslServerCert = "${certs.${mailDomain}.cert}";
+            sslServerKey = "${certs.${mailDomain}.key}";
           };
-          enableSubmission = true;
-          enableSubmissions = true;
-          submissionsOptions = {
-            smtpd_sasl_auth_enable = "yes";
-            smtpd_client_restrictions = "permit";
-          };
-        };
-        environment.systemPackages = [ (sendEmail "alice@${mailDomain}") ];
 
-        networking.firewall.allowedTCPPorts = [ 993 ];
-      };
+          services.postfix = {
+            enable = true;
+            origin = mailDomain;
+            config = {
+              myhostname = mailDomain;
+              mydestination = mailDomain;
+            };
+            enableSubmission = true;
+            enableSubmissions = true;
+            submissionsOptions = {
+              smtpd_sasl_auth_enable = "yes";
+              smtpd_client_restrictions = "permit";
+            };
+          };
+          environment.systemPackages = [ (sendEmail "alice@${mailDomain}") ];
+
+          networking.firewall.allowedTCPPorts = [ 993 ];
+        };
     };
 
-    testScript = { nodes }:
+    testScript = {
+        nodes,
+      }:
       let
         esPort = toString nodes.parsedmarc.config.services.elasticsearch.port;
         valueObject = lib.optionalString (lib.versionAtLeast

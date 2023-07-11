@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, readline, bc, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  readline,
+  bc,
+  python3Packages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bcal";

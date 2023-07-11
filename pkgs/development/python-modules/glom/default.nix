@@ -1,5 +1,15 @@
-{ lib, attrs, boltons, buildPythonPackage, face, fetchPypi, pytestCheckHook
-, pythonAtLeast, pythonOlder, pyyaml }:
+{
+  lib,
+  attrs,
+  boltons,
+  buildPythonPackage,
+  face,
+  fetchPypi,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "glom";

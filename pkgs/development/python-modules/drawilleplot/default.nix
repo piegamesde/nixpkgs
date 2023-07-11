@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, drawille, matplotlib }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  drawille,
+  matplotlib,
+}:
 
 buildPythonPackage rec {
   pname = "drawilleplot";

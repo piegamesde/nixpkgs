@@ -1,8 +1,23 @@
-{ mkDerivation, lib, stdenv, fetchFromGitHub, pkg-config, boost
-, libtorrent-rasterbar, qtbase, qttools, qtsvg, debugSupport ? false
-, guiSupport ? true, dbus ? null # GUI (disable to run headless)
-, webuiSupport ? true # WebUI
-, trackerSearch ? true, python3 ? null }:
+{
+  mkDerivation,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  boost,
+  libtorrent-rasterbar,
+  qtbase,
+  qttools,
+  qtsvg,
+  debugSupport ? false,
+  guiSupport ? true,
+  dbus ? null # GUI (disable to run headless)
+  ,
+  webuiSupport ? true # WebUI
+  ,
+  trackerSearch ? true,
+  python3 ? null
+}:
 
 assert guiSupport -> (dbus != null);
 assert trackerSearch -> (python3 != null);

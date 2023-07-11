@@ -1,4 +1,10 @@
-{ lib, callPackage, buildPythonPackage, fetchFromGitHub, mkdocs, pytestCheckHook
+{
+  lib,
+  callPackage,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mkdocs,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {

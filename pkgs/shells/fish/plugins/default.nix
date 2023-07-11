@@ -1,4 +1,8 @@
-{ lib, newScope, config }:
+{
+  lib,
+  newScope,
+  config,
+}:
 
 lib.makeScope newScope (self:
   with self;

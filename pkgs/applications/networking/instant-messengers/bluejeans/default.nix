@@ -1,8 +1,43 @@
-{ stdenv, lib, fetchurl, rpmextract, libnotify, libuuid, cairo, cups, pango
-, fontconfig, udev, dbus, gtk3, atk, at-spi2-atk, expat, gdk-pixbuf, freetype
-, nspr, glib, nss, libX11, libXrandr, libXrender, libXtst, libXdamage, libxcb
-, libXcursor, libXi, libXext, libXfixes, libXft, libXcomposite, libXScrnSaver
-, alsa-lib, pulseaudio, makeWrapper, xdg-utils }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  rpmextract,
+  libnotify,
+  libuuid,
+  cairo,
+  cups,
+  pango,
+  fontconfig,
+  udev,
+  dbus,
+  gtk3,
+  atk,
+  at-spi2-atk,
+  expat,
+  gdk-pixbuf,
+  freetype,
+  nspr,
+  glib,
+  nss,
+  libX11,
+  libXrandr,
+  libXrender,
+  libXtst,
+  libXdamage,
+  libxcb,
+  libXcursor,
+  libXi,
+  libXext,
+  libXfixes,
+  libXft,
+  libXcomposite,
+  libXScrnSaver,
+  alsa-lib,
+  pulseaudio,
+  makeWrapper,
+  xdg-utils,
+}:
 
 let
   getFirst = n: v:

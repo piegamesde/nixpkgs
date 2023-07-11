@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, qmake, qttools, pkg-config, wrapQtAppsHook
-, dtkwidget, qtsvg, xorg, qtbase }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  qmake,
+  qttools,
+  pkg-config,
+  wrapQtAppsHook,
+  dtkwidget,
+  qtsvg,
+  xorg,
+  qtbase,
+}:
 
 stdenv.mkDerivation rec {
   pname = "deepin-picker";

@@ -1,4 +1,7 @@
-{ lib, version, }:
+{
+  lib,
+  version,
+}:
 
 with lib; {
   homepage = "https://gcc.gnu.org/";

@@ -1,5 +1,15 @@
-{ lib, stdenv, buildPythonPackage, dnspython, fetchFromGitHub, iana-etc
-, libredirect, pytestCheckHook, pythonOlder, pythonRelaxDepsHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  dnspython,
+  fetchFromGitHub,
+  iana-etc,
+  libredirect,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+}:
 
 buildPythonPackage rec {
   pname = "ipwhois";

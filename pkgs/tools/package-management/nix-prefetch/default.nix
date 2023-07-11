@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, installShellFiles, makeWrapper
-, asciidoc, docbook_xml_dtd_45, git, docbook_xsl, libxml2, libxslt, coreutils
-, gawk, gnugrep, gnused, jq, nix }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  installShellFiles,
+  makeWrapper,
+  asciidoc,
+  docbook_xml_dtd_45,
+  git,
+  docbook_xsl,
+  libxml2,
+  libxslt,
+  coreutils,
+  gawk,
+  gnugrep,
+  gnused,
+  jq,
+  nix,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nix-prefetch";

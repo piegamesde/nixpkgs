@@ -1,6 +1,23 @@
-{ stdenv, lib, fetchurl, meson, ninja, pkg-config, wrapGAppsHook4, fontconfig
-, glib, gsettings-desktop-schemas, gtk4, libadwaita, gnome-desktop
-, xdg-desktop-portal, wayland, gnome, librsvg, webp-pixbuf-loader }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  wrapGAppsHook4,
+  fontconfig,
+  glib,
+  gsettings-desktop-schemas,
+  gtk4,
+  libadwaita,
+  gnome-desktop,
+  xdg-desktop-portal,
+  wayland,
+  gnome,
+  librsvg,
+  webp-pixbuf-loader,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xdg-desktop-portal-gnome";

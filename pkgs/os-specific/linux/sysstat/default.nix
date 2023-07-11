@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, gettext, bzip2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gettext,
+  bzip2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sysstat";

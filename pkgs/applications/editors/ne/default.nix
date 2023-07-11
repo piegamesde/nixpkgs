@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, ncurses, texinfo, texlive, perl, ghostscript }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ncurses,
+  texinfo,
+  texlive,
+  perl,
+  ghostscript,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ne";

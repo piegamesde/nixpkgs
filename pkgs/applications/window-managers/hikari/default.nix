@@ -1,11 +1,29 @@
-{ lib, stdenv, fetchzip, pkg-config, bmake, cairo, glib, libevdev, libinput
-, libxkbcommon, linux-pam, pango, pixman, libucl, wayland, wayland-protocols
-, wlroots, mesa, features ? {
-  gammacontrol = true;
-  layershell = true;
-  screencopy = true;
-  xwayland = true;
-} }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  pkg-config,
+  bmake,
+  cairo,
+  glib,
+  libevdev,
+  libinput,
+  libxkbcommon,
+  linux-pam,
+  pango,
+  pixman,
+  libucl,
+  wayland,
+  wayland-protocols,
+  wlroots,
+  mesa,
+  features ? {
+    gammacontrol = true;
+    layershell = true;
+    screencopy = true;
+    xwayland = true;
+  }
+}:
 
 stdenv.mkDerivation rec {
   pname = "hikari";

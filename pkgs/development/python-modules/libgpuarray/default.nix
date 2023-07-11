@@ -1,6 +1,21 @@
-{ stdenv, lib, addOpenGLRunpath, buildPythonPackage, fetchFromGitHub, cmake
-, cython, numpy, six, nose, mako, cudaSupport ? false, cudaPackages
-, openclSupport ? true, ocl-icd, clblas }:
+{
+  stdenv,
+  lib,
+  addOpenGLRunpath,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cmake,
+  cython,
+  numpy,
+  six,
+  nose,
+  mako,
+  cudaSupport ? false,
+  cudaPackages,
+  openclSupport ? true,
+  ocl-icd,
+  clblas,
+}:
 
 buildPythonPackage rec {
   pname = "libgpuarray";

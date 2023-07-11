@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, blessings, fetchFromGitHub, invoke, pythonOlder
-, releases, semantic-version, tabulate, tqdm, twine }:
+{
+  lib,
+  buildPythonPackage,
+  blessings,
+  fetchFromGitHub,
+  invoke,
+  pythonOlder,
+  releases,
+  semantic-version,
+  tabulate,
+  tqdm,
+  twine,
+}:
 
 buildPythonPackage rec {
   pname = "invocations";

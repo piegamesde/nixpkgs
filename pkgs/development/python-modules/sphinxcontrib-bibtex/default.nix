@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, oset, pybtex, pybtex-docutils
-, sphinx }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  oset,
+  pybtex,
+  pybtex-docutils,
+  sphinx,
+}:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-bibtex";

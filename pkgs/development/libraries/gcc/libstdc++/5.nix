@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, fetchpatch, flex, bison, file }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  flex,
+  bison,
+  file,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libstdc++5";

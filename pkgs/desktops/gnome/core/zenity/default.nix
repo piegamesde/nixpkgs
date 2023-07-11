@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchurl, meson, ninja, pkg-config, libxml2, gnome, gtk4, gettext
-, libadwaita, itstool, wrapGAppsHook4 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  libxml2,
+  gnome,
+  gtk4,
+  gettext,
+  libadwaita,
+  itstool,
+  wrapGAppsHook4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zenity";

@@ -1,8 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, curl, boost, liboauth
-, jsoncpp, htmlcxx, rhash, tinyxml-2, help2man, wrapQtAppsHook, qtbase
-, qtwebengine, testers, lgogdownloader
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  curl,
+  boost,
+  liboauth,
+  jsoncpp,
+  htmlcxx,
+  rhash,
+  tinyxml-2,
+  help2man,
+  wrapQtAppsHook,
+  qtbase,
+  qtwebengine,
+  testers,
+  lgogdownloader
 
-, enableGui ? true }:
+  ,
+  enableGui ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "lgogdownloader";

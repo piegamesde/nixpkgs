@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, pythonOlder, pkg-config, pkgconfig, setuptools-scm
-, wheel, libdeltachat, cffi, imap-tools, requests, pluggy, setuptools
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  pkg-config,
+  pkgconfig,
+  setuptools-scm,
+  wheel,
+  libdeltachat,
+  cffi,
+  imap-tools,
+  requests,
+  pluggy,
+  setuptools,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "deltachat";

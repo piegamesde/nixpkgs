@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, libX11, libSM, SDL, libGLU, libGL, expat, SDL_ttf
-, SDL_image, zlib, libXxf86misc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
+  libSM,
+  SDL,
+  libGLU,
+  libGL,
+  expat,
+  SDL_ttf,
+  SDL_image,
+  zlib,
+  libXxf86misc,
+}:
 stdenv.mkDerivation rec {
   pname = "xpilot-ng";
   version = "4.7.3";

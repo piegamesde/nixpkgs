@@ -1,4 +1,7 @@
-{ lib, requireFile }:
+{
+  lib,
+  requireFile,
+}:
 
 # To calculate the hash of an installer, use a command like this:
 #
@@ -134,15 +137,21 @@ let
     }
   ];
 
-in lib.flip map versions ({ version, lang, language, sha256, installer }: {
-  inherit version lang;
-  src = requireFile {
-    name = installer;
-    message = ''
-      This nix expression requires that ${installer} is
-      already part of the store. Find the file on your Mathematica CD
-      and add it to the nix store with nix-store --add-fixed sha256 <FILE>.
-    '';
-    inherit sha256;
-  };
-})
+in lib.flip map versions ({
+    version,
+    lang,
+    language,
+    sha256,
+    installer,
+  }: {
+    inherit version lang;
+    src = requireFile {
+      name = installer;
+      message = ''
+        This nix expression requires that ${installer} is
+        already part of the store. Find the file on your Mathematica CD
+        and add it to the nix store with nix-store --add-fixed sha256 <FILE>.
+      '';
+      inherit sha256;
+    };
+  })

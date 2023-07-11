@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libX11, libXinerama }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
+  libXinerama,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libfakeXinerama";

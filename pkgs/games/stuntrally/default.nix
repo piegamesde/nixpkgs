@@ -1,5 +1,22 @@
-{ lib, fetchFromGitHub, stdenv, cmake, boost, ogre, mygui, ois, SDL2, libvorbis
-, pkg-config, makeWrapper, enet, libXcursor, bullet, openal, tinyxml, tinyxml-2
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  cmake,
+  boost,
+  ogre,
+  mygui,
+  ois,
+  SDL2,
+  libvorbis,
+  pkg-config,
+  makeWrapper,
+  enet,
+  libXcursor,
+  bullet,
+  openal,
+  tinyxml,
+  tinyxml-2,
 }:
 
 let

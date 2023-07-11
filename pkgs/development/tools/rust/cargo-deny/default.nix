@@ -1,5 +1,16 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, libgit2_1_5, openssl, zlib
-, zstd, stdenv, curl, darwin }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  libgit2_1_5,
+  openssl,
+  zlib,
+  zstd,
+  stdenv,
+  curl,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-deny";

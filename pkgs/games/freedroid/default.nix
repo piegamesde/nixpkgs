@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, makeDesktopItem, copyDesktopItems, imagemagick
-, autoreconfHook, SDL, SDL_mixer, SDL_image, SDL_gfx, libvorbis, libjpeg, libpng
-, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeDesktopItem,
+  copyDesktopItems,
+  imagemagick,
+  autoreconfHook,
+  SDL,
+  SDL_mixer,
+  SDL_image,
+  SDL_gfx,
+  libvorbis,
+  libjpeg,
+  libpng,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "freedroid";

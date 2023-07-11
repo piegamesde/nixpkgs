@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pyasn1, pyopenssl }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyasn1,
+  pyopenssl,
+}:
 
 buildPythonPackage rec {
   version = "0.5.1";

@@ -1,6 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, installShellFiles, boost, zlib, openssl
-, upnpSupport ? true, miniupnpc, aesniSupport ? stdenv.hostPlatform.aesSupport
-, avxSupport ? stdenv.hostPlatform.avxSupport }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  installShellFiles,
+  boost,
+  zlib,
+  openssl,
+  upnpSupport ? true,
+  miniupnpc,
+  aesniSupport ? stdenv.hostPlatform.aesSupport,
+  avxSupport ? stdenv.hostPlatform.avxSupport
+}:
 
 stdenv.mkDerivation rec {
   pname = "i2pd";

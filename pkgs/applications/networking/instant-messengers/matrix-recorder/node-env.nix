@@ -1,6 +1,14 @@
 # This file originates from node2nix
 
-{ lib, stdenv, nodejs, python2, util-linux, libtool, runCommand, writeTextFile
+{
+  lib,
+  stdenv,
+  nodejs,
+  python2,
+  util-linux,
+  libtool,
+  runCommand,
+  writeTextFile,
 }:
 
 let
@@ -19,7 +27,12 @@ let
   '';
 
   # Function that generates a TGZ file from a NPM project
-  buildNodeSourceDist = { name, version, src, ... }:
+  buildNodeSourceDist = {
+      name,
+      version,
+      src,
+      ...
+    }:
 
     stdenv.mkDerivation {
       name = "node-tarball-${name}-${version}";
@@ -37,7 +50,9 @@ let
       '';
     };
 
-  includeDependencies = { dependencies }:
+  includeDependencies = {
+      dependencies,
+    }:
     lib.optionalString (dependencies != [ ]) (lib.concatMapStrings
       (dependency: ''
         # Bundle the dependencies of the package
@@ -54,53 +69,62 @@ let
       '') dependencies);
 
   # Recursively composes the dependencies of a package
-  composePackage = { name, packageName, src, dependencies ? [ ], ... }@args: ''
-    DIR=$(pwd)
-    cd $TMPDIR
+  composePackage = {
+      name,
+      packageName,
+      src,
+      dependencies ? [ ],
+      ...
+    }@args: ''
+      DIR=$(pwd)
+      cd $TMPDIR
 
-    unpackFile ${src}
+      unpackFile ${src}
 
-    # Make the base dir in which the target dependency resides first
-    mkdir -p "$(dirname "$DIR/${packageName}")"
+      # Make the base dir in which the target dependency resides first
+      mkdir -p "$(dirname "$DIR/${packageName}")"
 
-    if [ -f "${src}" ]
-    then
-        # Figure out what directory has been unpacked
-        packageDir="$(find . -maxdepth 1 -type d | tail -1)"
+      if [ -f "${src}" ]
+      then
+          # Figure out what directory has been unpacked
+          packageDir="$(find . -maxdepth 1 -type d | tail -1)"
 
-        # Restore write permissions to make building work
-        find "$packageDir" -type d -exec chmod u+x {} \;
-        chmod -R u+w "$packageDir"
+          # Restore write permissions to make building work
+          find "$packageDir" -type d -exec chmod u+x {} \;
+          chmod -R u+w "$packageDir"
 
-        # Move the extracted tarball into the output folder
-        mv "$packageDir" "$DIR/${packageName}"
-    elif [ -d "${src}" ]
-    then
-        # Get a stripped name (without hash) of the source directory.
-        # On old nixpkgs it's already set internally.
-        if [ -z "$strippedName" ]
-        then
-            strippedName="$(stripHash ${src})"
-        fi
+          # Move the extracted tarball into the output folder
+          mv "$packageDir" "$DIR/${packageName}"
+      elif [ -d "${src}" ]
+      then
+          # Get a stripped name (without hash) of the source directory.
+          # On old nixpkgs it's already set internally.
+          if [ -z "$strippedName" ]
+          then
+              strippedName="$(stripHash ${src})"
+          fi
 
-        # Restore write permissions to make building work
-        chmod -R u+w "$strippedName"
+          # Restore write permissions to make building work
+          chmod -R u+w "$strippedName"
 
-        # Move the extracted directory into the output folder
-        mv "$strippedName" "$DIR/${packageName}"
-    fi
+          # Move the extracted directory into the output folder
+          mv "$strippedName" "$DIR/${packageName}"
+      fi
 
-    # Unset the stripped name to not confuse the next unpack step
-    unset strippedName
+      # Unset the stripped name to not confuse the next unpack step
+      unset strippedName
 
-    # Include the dependencies of the package
-    cd "$DIR/${packageName}"
-    ${includeDependencies { inherit dependencies; }}
-    cd ..
-    ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
-  '';
+      # Include the dependencies of the package
+      cd "$DIR/${packageName}"
+      ${includeDependencies { inherit dependencies; }}
+      cd ..
+      ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
+    '';
 
-  pinpointDependencies = { dependencies, production }:
+  pinpointDependencies = {
+      dependencies,
+      production,
+    }:
     let
       pinpointDependenciesFromPackageJSON = writeTextFile {
         name = "pinpointDependencies.js";
@@ -177,8 +201,12 @@ let
   # dependencies in the package.json file to the versions that are actually
   # being used.
 
-  pinpointDependenciesOfPackage =
-    { packageName, dependencies ? [ ], production ? true, ... }@args: ''
+  pinpointDependenciesOfPackage = {
+      packageName,
+      dependencies ? [ ],
+      production ? true,
+      ...
+    }@args: ''
       if [ -d "${packageName}" ]
       then
           cd "${packageName}"
@@ -321,8 +349,13 @@ let
     '';
   };
 
-  prepareAndInvokeNPM =
-    { packageName, bypassCache, reconstructLock, npmFlags, production }:
+  prepareAndInvokeNPM = {
+      packageName,
+      bypassCache,
+      reconstructLock,
+      npmFlags,
+      production,
+    }:
     let
       forceOfflineFlag = if bypassCache then
         "--offline"
@@ -384,11 +417,23 @@ let
     '';
 
   # Builds and composes an NPM package including all its dependencies
-  buildNodePackage = { name, packageName, version, dependencies ? [ ]
-    , buildInputs ? [ ], production ? true, npmFlags ? ""
-    , dontNpmInstall ? false, bypassCache ? false, reconstructLock ? false
-    , preRebuild ? "", dontStrip ? true, unpackPhase ? "true"
-    , buildPhase ? "true", ... }@args:
+  buildNodePackage = {
+      name,
+      packageName,
+      version,
+      dependencies ? [ ],
+      buildInputs ? [ ],
+      production ? true,
+      npmFlags ? "",
+      dontNpmInstall ? false,
+      bypassCache ? false,
+      reconstructLock ? false,
+      preRebuild ? "",
+      dontStrip ? true,
+      unpackPhase ? "true",
+      buildPhase ? "true",
+      ...
+    }@args:
 
     let
       extraArgs = removeAttrs args [
@@ -454,10 +499,23 @@ let
     } // extraArgs);
 
   # Builds a development shell
-  buildNodeShell = { name, packageName, version, src, dependencies ? [ ]
-    , buildInputs ? [ ], production ? true, npmFlags ? ""
-    , dontNpmInstall ? false, bypassCache ? false, reconstructLock ? false
-    , dontStrip ? true, unpackPhase ? "true", buildPhase ? "true", ... }@args:
+  buildNodeShell = {
+      name,
+      packageName,
+      version,
+      src,
+      dependencies ? [ ],
+      buildInputs ? [ ],
+      production ? true,
+      npmFlags ? "",
+      dontNpmInstall ? false,
+      bypassCache ? false,
+      reconstructLock ? false,
+      dontStrip ? true,
+      unpackPhase ? "true",
+      buildPhase ? "true",
+      ...
+    }@args:
 
     let
       extraArgs = removeAttrs args [ "name" "dependencies" "buildInputs" ];

@@ -1,26 +1,51 @@
-{ lib, writeTextFile, buildPackages }:
+{
+  lib,
+  writeTextFile,
+  buildPackages,
+}:
 
 # All possible values as defined by the spec, version 1.4.
 # Please keep in spec order for easier maintenance.
 # When adding a new value, don't forget to update the Version field below!
 # See https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html
-lib.makeOverridable ({ name # The name of the desktop file
-  , type ? "Application"
-    # version is hardcoded
-  , desktopName # The name of the application
-  , genericName ? null, noDisplay ? null, comment ? null, icon ? null
-    # we don't support the Hidden key - if you don't need something, just don't install it
-  , onlyShowIn ? [ ], notShowIn ? [ ], dbusActivatable ? null, tryExec ? null
-  , exec ? null, path ? null, terminal ? null
-  , actions ? { } # An attrset of [internal name] -> { name, exec?, icon? }
-  , mimeTypes ?
-    [ ] # The spec uses "MimeType" as singular, use plural here to signify list-ness
-  , categories ? [ ], implements ? [ ], keywords ? [ ], startupNotify ? null
-  , startupWMClass ? null, url ? null, prefersNonDefaultGPU ? null
-    # not supported until version 1.5, which is not supported by our desktop-file-utils as of 2022-02-23
-    # , singleMainWindow ? null
-  , extraConfig ?
-    { } # Additional values to be added literally to the final item, e.g. vendor extensions
+lib.makeOverridable ({
+    name # The name of the desktop file
+    ,
+    type ? "Application"
+      # version is hardcoded
+    ,
+    desktopName # The name of the application
+    ,
+    genericName ? null,
+    noDisplay ? null,
+    comment ? null,
+    icon ? null
+      # we don't support the Hidden key - if you don't need something, just don't install it
+    ,
+    onlyShowIn ? [ ],
+    notShowIn ? [ ],
+    dbusActivatable ? null,
+    tryExec ? null,
+    exec ? null,
+    path ? null,
+    terminal ? null,
+    actions ? { } # An attrset of [internal name] -> { name, exec?, icon? }
+    ,
+    mimeTypes ?
+      [ ] # The spec uses "MimeType" as singular, use plural here to signify list-ness
+    ,
+    categories ? [ ],
+    implements ? [ ],
+    keywords ? [ ],
+    startupNotify ? null,
+    startupWMClass ? null,
+    url ? null,
+    prefersNonDefaultGPU ? null
+      # not supported until version 1.5, which is not supported by our desktop-file-utils as of 2022-02-23
+      # , singleMainWindow ? null
+    ,
+    extraConfig ?
+      { } # Additional values to be added literally to the final item, e.g. vendor extensions
   }:
   let
     # There are multiple places in the FDO spec that make "boolean" values actually tristate,
@@ -98,11 +123,15 @@ lib.makeOverridable ({ name # The name of the desktop file
     mainSectionRendered = renderSection "Desktop Entry" mainSection;
 
     # Convert from javaCase names as used in Nix to PascalCase as used in the spec.
-    preprocessAction = { name, icon ? null, exec ? null }: {
-      "Name" = name;
-      "Icon" = icon;
-      "Exec" = exec;
-    };
+    preprocessAction = {
+        name,
+        icon ? null,
+        exec ? null
+      }: {
+        "Name" = name;
+        "Icon" = icon;
+        "Exec" = exec;
+      };
     renderAction = name: attrs:
       renderSection "Desktop Action ${name}" (preprocessAction attrs);
     actionsRendered = lib.mapAttrsToList renderAction actions;

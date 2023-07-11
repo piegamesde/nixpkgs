@@ -1,6 +1,9 @@
 # Do not use overrides in this file to add  `meta.mainProgram` to packges. Use `./main-programs.nix`
 # instead.
-{ pkgs, nodejs }:
+{
+  pkgs,
+  nodejs,
+}:
 
 let
   inherit (pkgs)

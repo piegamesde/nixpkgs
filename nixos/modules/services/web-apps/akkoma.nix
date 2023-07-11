@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
@@ -120,7 +125,11 @@ let
           format.lib.mkRaw (erlAddr addr);
     }] cfg.config));
 
-  writeShell = { name, text, runtimeInputs ? [ ] }:
+  writeShell = {
+      name,
+      text,
+      runtimeInputs ? [ ]
+    }:
     pkgs.writeShellApplication { inherit name text runtimeInputs; }
     + "/bin/${name}";
 

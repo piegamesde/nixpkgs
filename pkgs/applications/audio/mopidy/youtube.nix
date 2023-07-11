@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3, mopidy }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  mopidy,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "mopidy-youtube";

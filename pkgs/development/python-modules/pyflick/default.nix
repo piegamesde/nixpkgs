@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, aiohttp, python-dateutil }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  aiohttp,
+  python-dateutil,
+}:
 
 buildPythonPackage rec {
   pname = "pyflick";

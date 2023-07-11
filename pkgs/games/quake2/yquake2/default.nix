@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, buildEnv, makeWrapper, SDL2, libGL, curl
-, openalSupport ? true, openal, Cocoa, OpenAL }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildEnv,
+  makeWrapper,
+  SDL2,
+  libGL,
+  curl,
+  openalSupport ? true,
+  openal,
+  Cocoa,
+  OpenAL,
+}:
 
 let
   mkFlag = b: if b then "yes" else "no";

@@ -1,7 +1,32 @@
-{ lib, buildDotnetModule, dotnetCorePackages, stdenvNoCC, fetchFromGitHub
-, wrapGAppsHook, libX11, libgdiplus, ffmpeg, openal, libsoundio, sndio
-, pulseaudio, gtk3, gdk-pixbuf, vulkan-loader, libICE, libSM, libXi, libXcursor
-, libXext, libXrandr, fontconfig, glew, libGL, SDL2, SDL2_mixer }:
+{
+  lib,
+  buildDotnetModule,
+  dotnetCorePackages,
+  stdenvNoCC,
+  fetchFromGitHub,
+  wrapGAppsHook,
+  libX11,
+  libgdiplus,
+  ffmpeg,
+  openal,
+  libsoundio,
+  sndio,
+  pulseaudio,
+  gtk3,
+  gdk-pixbuf,
+  vulkan-loader,
+  libICE,
+  libSM,
+  libXi,
+  libXcursor,
+  libXext,
+  libXrandr,
+  fontconfig,
+  glew,
+  libGL,
+  SDL2,
+  SDL2_mixer,
+}:
 
 buildDotnetModule rec {
   pname = "ryujinx";

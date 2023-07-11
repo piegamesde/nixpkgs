@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, pytest, pylint, six, pytest-runner
-, toml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  pytest,
+  pylint,
+  six,
+  pytest-runner,
+  toml,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-pylint";

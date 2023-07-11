@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, cmake, pkg-config, darwin }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  pkg-config,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libdiscid";

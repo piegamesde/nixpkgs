@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitLab, meson, ninja, pkg-config, llvmPackages
-, gobject-introspection, glib, unstableGitUpdater }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+  llvmPackages,
+  gobject-introspection,
+  glib,
+  unstableGitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tartan";

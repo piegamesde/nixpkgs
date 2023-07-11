@@ -1,6 +1,24 @@
-{ stdenv, fetchzip, jam, unzip, libX11, libXxf86vm, libXrandr, libXinerama
-, libXrender, libXext, libtiff, libjpeg, libpng, libXScrnSaver, writeText
-, libXdmcp, libXau, lib, openssl }:
+{
+  stdenv,
+  fetchzip,
+  jam,
+  unzip,
+  libX11,
+  libXxf86vm,
+  libXrandr,
+  libXinerama,
+  libXrender,
+  libXext,
+  libtiff,
+  libjpeg,
+  libpng,
+  libXScrnSaver,
+  writeText,
+  libXdmcp,
+  libXau,
+  lib,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "argyllcms";

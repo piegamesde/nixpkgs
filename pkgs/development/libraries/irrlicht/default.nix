@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchzip, libGLU, libGL, libXrandr, libX11, libXxf86vm, zlib }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  libGLU,
+  libGL,
+  libXrandr,
+  libX11,
+  libXxf86vm,
+  zlib,
+}:
 
 let common = import ./common.nix { inherit fetchzip; };
 

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder, pdm-pep517
-, sybil, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
+  pdm-pep517,
+  sybil,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "atpublic";

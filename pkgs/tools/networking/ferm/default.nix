@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, makeWrapper, perl, iptables, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  perl,
+  iptables,
+  nixosTests,
+}:
 
 let inherit (lib.versions) majorMinor;
 in stdenv.mkDerivation rec {

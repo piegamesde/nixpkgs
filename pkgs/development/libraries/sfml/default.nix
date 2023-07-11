@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, libX11, freetype, libjpeg
-, openal, flac, libvorbis, glew, libXrandr, libXrender, udev, xcbutilimage
-, IOKit, Foundation, AppKit, OpenAL }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  libX11,
+  freetype,
+  libjpeg,
+  openal,
+  flac,
+  libvorbis,
+  glew,
+  libXrandr,
+  libXrender,
+  udev,
+  xcbutilimage,
+  IOKit,
+  Foundation,
+  AppKit,
+  OpenAL,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sfml";

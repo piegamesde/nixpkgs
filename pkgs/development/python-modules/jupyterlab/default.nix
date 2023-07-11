@@ -1,6 +1,22 @@
-{ lib, buildPythonPackage, fetchPypi, ipython, packaging, tornado, jupyter-core
-, jupyterlab_server, jupyter-server, jupyter-server-ydoc, notebook, jinja2
-, tomli, pythonOlder, jupyter-packaging, pythonRelaxDepsHook, nbclassic }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  ipython,
+  packaging,
+  tornado,
+  jupyter-core,
+  jupyterlab_server,
+  jupyter-server,
+  jupyter-server-ydoc,
+  notebook,
+  jinja2,
+  tomli,
+  pythonOlder,
+  jupyter-packaging,
+  pythonRelaxDepsHook,
+  nbclassic,
+}:
 
 buildPythonPackage rec {
   pname = "jupyterlab";

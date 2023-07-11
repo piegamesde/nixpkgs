@@ -1,5 +1,14 @@
-{ cmake, fetchFromGitHub, fetchpatch, json_c, libpcap, ncurses, lib, stdenv
-, libtirpc }:
+{
+  cmake,
+  fetchFromGitHub,
+  fetchpatch,
+  json_c,
+  libpcap,
+  ncurses,
+  lib,
+  stdenv,
+  libtirpc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nfstrace";

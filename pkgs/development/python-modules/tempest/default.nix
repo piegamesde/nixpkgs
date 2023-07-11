@@ -1,8 +1,33 @@
-{ lib, buildPythonPackage, defusedxml, fetchPypi, pbr, cliff, jsonschema
-, testtools, paramiko, netaddr, oslo-concurrency, oslo-config, oslo-log, stestr
-, oslo-serialization, oslo-utils, fixtures, pythonOlder, pyyaml, subunit
-, stevedore, prettytable, urllib3, debtcollector, hacking, oslotest, bash
-, python }:
+{
+  lib,
+  buildPythonPackage,
+  defusedxml,
+  fetchPypi,
+  pbr,
+  cliff,
+  jsonschema,
+  testtools,
+  paramiko,
+  netaddr,
+  oslo-concurrency,
+  oslo-config,
+  oslo-log,
+  stestr,
+  oslo-serialization,
+  oslo-utils,
+  fixtures,
+  pythonOlder,
+  pyyaml,
+  subunit,
+  stevedore,
+  prettytable,
+  urllib3,
+  debtcollector,
+  hacking,
+  oslotest,
+  bash,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "tempest";

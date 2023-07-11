@@ -1,5 +1,14 @@
-{ lib, attrs, buildPythonPackage, fetchFromGitHub, pythonOlder, pygtrie, orjson
-, python, setuptools-scm }:
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pygtrie,
+  orjson,
+  python,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "sqltrie";

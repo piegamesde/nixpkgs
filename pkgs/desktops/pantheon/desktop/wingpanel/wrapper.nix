@@ -1,7 +1,17 @@
-{ lib, wrapGAppsHook, glib, stdenv, xorg, wingpanel, wingpanelIndicators
-, switchboard-with-plugs, indicators ? null
-  # Only useful to disable for development testing.
-, useDefaultIndicators ? true }:
+{
+  lib,
+  wrapGAppsHook,
+  glib,
+  stdenv,
+  xorg,
+  wingpanel,
+  wingpanelIndicators,
+  switchboard-with-plugs,
+  indicators ? null
+    # Only useful to disable for development testing.
+  ,
+  useDefaultIndicators ? true
+}:
 
 let
   selectedIndicators = if indicators == null then

@@ -1,7 +1,34 @@
-{ lib, stdenv, fetchFromGitHub, asciidoctor, autoreconfHook, cairo, fontconfig
-, freetype, fribidi, libSM, libX11, libXcursor, libXft, libXi, libXinerama
-, libXpm, libXrandr, libXt, libevent, libintl, libpng, librsvg, libstroke
-, libxslt, perl, pkg-config, python3Packages, readline, sharutils }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  asciidoctor,
+  autoreconfHook,
+  cairo,
+  fontconfig,
+  freetype,
+  fribidi,
+  libSM,
+  libX11,
+  libXcursor,
+  libXft,
+  libXi,
+  libXinerama,
+  libXpm,
+  libXrandr,
+  libXt,
+  libevent,
+  libintl,
+  libpng,
+  librsvg,
+  libstroke,
+  libxslt,
+  perl,
+  pkg-config,
+  python3Packages,
+  readline,
+  sharutils,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fvwm3";

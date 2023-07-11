@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, attrs, beautifulsoup4, requests, future
-, pyyaml, jsonlines, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  attrs,
+  beautifulsoup4,
+  requests,
+  future,
+  pyyaml,
+  jsonlines,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "cloudflare";

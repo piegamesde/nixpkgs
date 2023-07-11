@@ -5,27 +5,48 @@
 # script that sets up the right environment variables so that the
 # compiler and the linker just "work".
 
-{ name ? "", lib, stdenvNoCC, bintools ? null, libc ? null, coreutils ? null
-, shell ? stdenvNoCC.shell, gnugrep ? null, netbsd ? null, netbsdCross ? null
-, sharedLibraryLoader ? if libc == null then
-  null
-else if stdenvNoCC.targetPlatform.isNetBSD then
-  if !(targetPackages ? netbsdCross) then
-    netbsd.ld_elf_so
-  else if libc != targetPackages.netbsdCross.headers then
-    targetPackages.netbsdCross.ld_elf_so
-  else
+{
+  name ? "",
+  lib,
+  stdenvNoCC,
+  bintools ? null,
+  libc ? null,
+  coreutils ? null,
+  shell ? stdenvNoCC.shell,
+  gnugrep ? null,
+  netbsd ? null,
+  netbsdCross ? null,
+  sharedLibraryLoader ? if libc == null then
     null
-else
-  lib.getLib libc, nativeTools, noLibc ? false, nativeLibc, nativePrefix ? ""
-, propagateDoc ? bintools != null && bintools ? man, extraPackages ? [ ]
-, extraBuildCommands ? "", isGNU ? bintools.isGNU or false
-, isLLVM ? bintools.isLLVM or false, isCCTools ? bintools.isCCTools or false
-, buildPackages ? { }, targetPackages ? { }, useMacosReexportHack ? false
-, wrapGas ? false
+  else if stdenvNoCC.targetPlatform.isNetBSD then
+    if !(targetPackages ? netbsdCross) then
+      netbsd.ld_elf_so
+    else if libc != targetPackages.netbsdCross.headers then
+      targetPackages.netbsdCross.ld_elf_so
+    else
+      null
+  else
+    lib.getLib libc,
+  nativeTools,
+  noLibc ? false,
+  nativeLibc,
+  nativePrefix ? "",
+  propagateDoc ? bintools != null && bintools ? man,
+  extraPackages ? [ ],
+  extraBuildCommands ? "",
+  isGNU ? bintools.isGNU or false,
+  isLLVM ? bintools.isLLVM or false,
+  isCCTools ? bintools.isCCTools or false,
+  buildPackages ? { },
+  targetPackages ? { },
+  useMacosReexportHack ? false,
+  wrapGas ? false
 
-  # Darwin code signing support utilities
-, postLinkSignHook ? null, signingUtils ? null }:
+    # Darwin code signing support utilities
+  ,
+  postLinkSignHook ? null,
+  signingUtils ? null
+}:
 
 with lib;
 

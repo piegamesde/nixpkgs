@@ -1,5 +1,13 @@
-{ lib, stdenvNoCC, fetchFromGitHub, gitUpdater, gtk3, hicolor-icon-theme, jdupes
-, schemeVariants ? [ ], colorVariants ? [ ] # default is blue
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gitUpdater,
+  gtk3,
+  hicolor-icon-theme,
+  jdupes,
+  schemeVariants ? [ ],
+  colorVariants ? [ ] # default is blue
 }:
 
 let pname = "colloid-icon-theme";

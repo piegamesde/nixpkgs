@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, faker, fetchFromGitHub, mock, six, pytestCheckHook
-, pythonOlder, zstd, stdenv }:
+{
+  lib,
+  buildPythonPackage,
+  faker,
+  fetchFromGitHub,
+  mock,
+  six,
+  pytestCheckHook,
+  pythonOlder,
+  zstd,
+  stdenv,
+}:
 
 buildPythonPackage rec {
   pname = "pymemcache";

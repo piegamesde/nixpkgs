@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, nix-update-script, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  nix-update-script,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "editline";

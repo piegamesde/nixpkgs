@@ -1,5 +1,20 @@
-{ lib, stdenv, pkg-config, luajit, openssl, fetchurl, libpcap, pcre, libdnet
-, daq, zlib, flex, bison, makeWrapper, libtirpc }:
+{
+  lib,
+  stdenv,
+  pkg-config,
+  luajit,
+  openssl,
+  fetchurl,
+  libpcap,
+  pcre,
+  libdnet,
+  daq,
+  zlib,
+  flex,
+  bison,
+  makeWrapper,
+  libtirpc,
+}:
 
 stdenv.mkDerivation rec {
   version = "2.9.20";

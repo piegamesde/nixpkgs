@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, bash, coreutils, gdb, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  bash,
+  coreutils,
+  gdb,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "procdump";

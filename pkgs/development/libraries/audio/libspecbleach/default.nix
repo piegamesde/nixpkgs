@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, fftwFloat }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  fftwFloat,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libspecbleach";

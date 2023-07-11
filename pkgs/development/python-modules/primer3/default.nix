@@ -1,4 +1,12 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, cython, gcc, click }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cython,
+  gcc,
+  click,
+}:
 
 buildPythonPackage rec {
   pname = "primer3";

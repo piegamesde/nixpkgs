@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchzip, util-linux, jq, mtools }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  util-linux,
+  jq,
+  mtools,
+}:
 
 stdenv.mkDerivation rec {
   pname = "memtest86-efi";

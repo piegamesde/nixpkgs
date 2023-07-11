@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, gnustep, re2c, openldap, openssl
-, openvpn }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  gnustep,
+  re2c,
+  openldap,
+  openssl,
+  openvpn,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openvpn-auth-ldap";

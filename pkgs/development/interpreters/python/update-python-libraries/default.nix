@@ -1,4 +1,10 @@
-{ python3, runCommand, git, nix, nix-prefetch-git }:
+{
+  python3,
+  runCommand,
+  git,
+  nix,
+  nix-prefetch-git,
+}:
 
 runCommand "update-python-libraries" {
   buildInputs = [

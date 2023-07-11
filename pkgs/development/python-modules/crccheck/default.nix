@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy3k,
+  unittestCheckHook,
+}:
 
 let
   pname = "crccheck";

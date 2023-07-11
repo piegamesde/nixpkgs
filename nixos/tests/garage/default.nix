@@ -1,11 +1,20 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../../.. { inherit system config; }
+}:
 with pkgs.lib;
 
 let
   mkNode = package:
-    { replicationMode, publicV6Address ? "::1" }:
-    { pkgs, ... }: {
+    {
+      replicationMode,
+      publicV6Address ? "::1"
+    }:
+    {
+      pkgs,
+      ...
+    }: {
       networking.interfaces.eth1.ipv6.addresses = [{
         address = publicV6Address;
         prefixLength = 64;

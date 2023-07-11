@@ -1,5 +1,15 @@
-{ fetchurl, lib, stdenv, gtk, pkg-config, libofx, intltool, wrapGAppsHook
-, libsoup, gnome }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  gtk,
+  pkg-config,
+  libofx,
+  intltool,
+  wrapGAppsHook,
+  libsoup,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "homebank";

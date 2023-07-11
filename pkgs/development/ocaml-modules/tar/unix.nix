@@ -1,4 +1,10 @@
-{ lib, buildDunePackage, tar, cstruct-lwt, lwt }:
+{
+  lib,
+  buildDunePackage,
+  tar,
+  cstruct-lwt,
+  lwt,
+}:
 
 buildDunePackage rec {
   pname = "tar-unix";

@@ -1,5 +1,16 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, atk, cairo, gdk-pixbuf, glib
-, gtk3, openssl, pango }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  atk,
+  cairo,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  openssl,
+  pango,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "noaa-apt";

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, xorgproto, libxcb, autoreconfHook
-, json-glib, gtk-doc, which, gobject-introspection }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  xorgproto,
+  libxcb,
+  autoreconfHook,
+  json-glib,
+  gtk-doc,
+  which,
+  gobject-introspection,
+}:
 
 stdenv.mkDerivation rec {
   pname = "i3ipc-glib";

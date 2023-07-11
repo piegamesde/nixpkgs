@@ -1,5 +1,14 @@
-{ lib, rustPlatform, fetchCrate, makeWrapper, ktlint, yapf, rubocop, rustfmt
-, nix-update-script }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  makeWrapper,
+  ktlint,
+  yapf,
+  rubocop,
+  rustfmt,
+  nix-update-script,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "uniffi-bindgen";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder, git
-, hatchling, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
+  git,
+  hatchling,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "hatch-vcs";

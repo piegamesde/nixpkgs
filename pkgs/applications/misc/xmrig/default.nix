@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, cmake, libuv, libmicrohttpd, openssl, hwloc
-, donateLevel ? 0, darwin }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  libuv,
+  libmicrohttpd,
+  openssl,
+  hwloc,
+  donateLevel ? 0,
+  darwin,
+}:
 
 let inherit (darwin.apple_sdk_11_0.frameworks) Carbon CoreServices OpenCL;
 in stdenv.mkDerivation rec {

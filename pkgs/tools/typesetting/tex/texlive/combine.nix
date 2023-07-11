@@ -1,9 +1,13 @@
 params:
 with params;
 # combine =
-args@{ pkgFilter ?
-  (pkg: pkg.tlType == "run" || pkg.tlType == "bin" || pkg.pname == "core")
-, extraName ? "combined", extraVersion ? "", ... }:
+args@{
+  pkgFilter ?
+    (pkg: pkg.tlType == "run" || pkg.tlType == "bin" || pkg.pname == "core"),
+  extraName ? "combined",
+  extraVersion ? "",
+  ...
+}:
 let
   pkgSet = removeAttrs args [ "pkgFilter" "extraName" "extraVersion" ] // {
     # include a fake "core" package

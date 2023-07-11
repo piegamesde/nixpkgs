@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchurl, libvorbis, libogg, libtheora, SDL, libXft, SDL_image
-, zlib, libX11, libpng, openal, runtimeShell, requireFile
-, commercialVersion ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libvorbis,
+  libogg,
+  libtheora,
+  SDL,
+  libXft,
+  SDL_image,
+  zlib,
+  libX11,
+  libpng,
+  openal,
+  runtimeShell,
+  requireFile,
+  commercialVersion ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "andyetitmoves";

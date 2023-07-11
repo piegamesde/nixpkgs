@@ -1,5 +1,15 @@
-{ lib, asynctest, buildPythonPackage, fetchFromGitHub, pyserial
-, pyserial-asyncio, pytest-asyncio, pytestCheckHook, pythonOlder, zigpy }:
+{
+  lib,
+  asynctest,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyserial,
+  pyserial-asyncio,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  zigpy,
+}:
 
 buildPythonPackage rec {
   pname = "zigpy-deconz";

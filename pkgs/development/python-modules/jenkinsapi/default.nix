@@ -1,5 +1,17 @@
-{ lib, stdenv, buildPythonPackage, pythonAtLeast, fetchPypi, mock, pytest
-, pytest-mock, pytz, requests, requests-kerberos, toml }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonAtLeast,
+  fetchPypi,
+  mock,
+  pytest,
+  pytest-mock,
+  pytz,
+  requests,
+  requests-kerberos,
+  toml,
+}:
 
 buildPythonPackage rec {
   pname = "jenkinsapi";

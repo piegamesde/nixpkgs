@@ -1,6 +1,26 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, fetchpatch, cython
-, setuptools-scm, geos, proj, matplotlib, numpy, pyproj, pyshp, shapely, owslib
-, pillow, gdal, scipy, fontconfig, pytest-mpl, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  fetchpatch,
+  cython,
+  setuptools-scm,
+  geos,
+  proj,
+  matplotlib,
+  numpy,
+  pyproj,
+  pyshp,
+  shapely,
+  owslib,
+  pillow,
+  gdal,
+  scipy,
+  fontconfig,
+  pytest-mpl,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "cartopy";

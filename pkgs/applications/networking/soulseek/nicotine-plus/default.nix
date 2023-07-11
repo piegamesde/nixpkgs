@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, wrapGAppsHook, gdk-pixbuf, gettext
-, gobject-introspection, gtk3, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  wrapGAppsHook,
+  gdk-pixbuf,
+  gettext,
+  gobject-introspection,
+  gtk3,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "nicotine-plus";

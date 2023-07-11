@@ -1,4 +1,11 @@
-{ lib, fetchurl, buildDunePackage, ocaml, csexp, sexplib0 }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  ocaml,
+  csexp,
+  sexplib0,
+}:
 
 # for compat with ocaml-lsp
 let

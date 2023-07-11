@@ -1,15 +1,56 @@
-{ lib, stdenv, fetchzip, fetchpatch, makeWrapper, nixosTests, pkg-config, file
-, linuxHeaders, openssl, pcre, perlPackages, python3, xz, zlib, catch2
-# recommended dependencies
-, withHwloc ? true, hwloc, withCurl ? true, curl, withCurses ? true, ncurses
-, withCap ? stdenv.isLinux, libcap, withUnwind ? stdenv.isLinux, libunwind
-# optional dependencies
-, withBrotli ? false, brotli, withCjose ? false, cjose, withGeoIP ? false, geoip
-, withHiredis ? false, hiredis, withImageMagick ? false, imagemagick
-, withJansson ? false, jansson, withKyotoCabinet ? false, kyotocabinet
-, withLuaJIT ? false, luajit, withMaxmindDB ? false, libmaxminddb
-# optional features
-, enableWCCP ? false }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  fetchpatch,
+  makeWrapper,
+  nixosTests,
+  pkg-config,
+  file,
+  linuxHeaders,
+  openssl,
+  pcre,
+  perlPackages,
+  python3,
+  xz,
+  zlib,
+  catch2
+  # recommended dependencies
+  ,
+  withHwloc ? true,
+  hwloc,
+  withCurl ? true,
+  curl,
+  withCurses ? true,
+  ncurses,
+  withCap ? stdenv.isLinux,
+  libcap,
+  withUnwind ? stdenv.isLinux,
+  libunwind
+  # optional dependencies
+  ,
+  withBrotli ? false,
+  brotli,
+  withCjose ? false,
+  cjose,
+  withGeoIP ? false,
+  geoip,
+  withHiredis ? false,
+  hiredis,
+  withImageMagick ? false,
+  imagemagick,
+  withJansson ? false,
+  jansson,
+  withKyotoCabinet ? false,
+  kyotocabinet,
+  withLuaJIT ? false,
+  luajit,
+  withMaxmindDB ? false,
+  libmaxminddb
+  # optional features
+  ,
+  enableWCCP ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "trafficserver";

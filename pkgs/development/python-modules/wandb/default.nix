@@ -1,11 +1,53 @@
-{ lib, stdenv, appdirs, azure-core, bokeh, boto3, buildPythonPackage, click
-, docker_pycreds, fetchFromGitHub, flask, git, gitpython, google-cloud-compute
-, google-cloud-storage, hypothesis, jsonref, jsonschema, keras, kubernetes
-, matplotlib, mlflow, nbclient, nbformat, pandas, parameterized, pathtools
-, promise, protobuf, psutil, pydantic, pytest-mock, pytest-xdist
-, pytestCheckHook, pythonOlder, pythonRelaxDepsHook, pyyaml, requests, responses
-, scikit-learn, sentry-sdk, setproctitle, setuptools, shortuuid, substituteAll
-, tensorflow, torch, tqdm }:
+{
+  lib,
+  stdenv,
+  appdirs,
+  azure-core,
+  bokeh,
+  boto3,
+  buildPythonPackage,
+  click,
+  docker_pycreds,
+  fetchFromGitHub,
+  flask,
+  git,
+  gitpython,
+  google-cloud-compute,
+  google-cloud-storage,
+  hypothesis,
+  jsonref,
+  jsonschema,
+  keras,
+  kubernetes,
+  matplotlib,
+  mlflow,
+  nbclient,
+  nbformat,
+  pandas,
+  parameterized,
+  pathtools,
+  promise,
+  protobuf,
+  psutil,
+  pydantic,
+  pytest-mock,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  pyyaml,
+  requests,
+  responses,
+  scikit-learn,
+  sentry-sdk,
+  setproctitle,
+  setuptools,
+  shortuuid,
+  substituteAll,
+  tensorflow,
+  torch,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "wandb";

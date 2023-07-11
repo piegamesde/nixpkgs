@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, msrest, azure-common
-, azure-mgmt-core }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  msrest,
+  azure-common,
+  azure-mgmt-core,
+}:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-msi";

@@ -1,7 +1,30 @@
-{ lib, stdenv, buildPythonApplication, substituteAll, fetchFromGitHub, isPy3k
-, colorama, flask, flask-httpauth, flask-socketio, cepa, psutil, pyqt5, pycrypto
-, pynacl, pyside2, pysocks, pytestCheckHook, qrcode, qt5, requests, unidecode
-, tor, obfs4, snowflake }:
+{
+  lib,
+  stdenv,
+  buildPythonApplication,
+  substituteAll,
+  fetchFromGitHub,
+  isPy3k,
+  colorama,
+  flask,
+  flask-httpauth,
+  flask-socketio,
+  cepa,
+  psutil,
+  pyqt5,
+  pycrypto,
+  pynacl,
+  pyside2,
+  pysocks,
+  pytestCheckHook,
+  qrcode,
+  qt5,
+  requests,
+  unidecode,
+  tor,
+  obfs4,
+  snowflake,
+}:
 
 let
   version = "2.6";

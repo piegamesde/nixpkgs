@@ -1,4 +1,13 @@
-{ stdenv, lib, cmake, coreutils, python3, git, fetchFromGitHub, ninja }:
+{
+  stdenv,
+  lib,
+  cmake,
+  coreutils,
+  python3,
+  git,
+  fetchFromGitHub,
+  ninja,
+}:
 
 let pythonEnv = python3.withPackages (ps: [ ps.psutil ]);
 in stdenv.mkDerivation rec {

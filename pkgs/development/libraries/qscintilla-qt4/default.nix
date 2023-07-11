@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchurl, unzip, qt4, qmake4Hook }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  unzip,
+  qt4,
+  qmake4Hook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qscintilla-qt4";

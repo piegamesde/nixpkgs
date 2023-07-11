@@ -1,7 +1,15 @@
-{ haskell, lib
+{
+  haskell,
+  lib
 
-# The following are only needed for the passthru.tests:
-, cacert, git, nodejs, purescript, runCommand }:
+  # The following are only needed for the passthru.tests:
+  ,
+  cacert,
+  git,
+  nodejs,
+  purescript,
+  runCommand,
+}:
 
 let
   spago = lib.pipe haskell.packages.ghc90.spago [

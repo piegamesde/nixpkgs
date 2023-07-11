@@ -1,4 +1,11 @@
-{ lib, callPackage, mkYarnPackage, fetchYarnDeps, fetchFromGitHub, nodejs }:
+{
+  lib,
+  callPackage,
+  mkYarnPackage,
+  fetchYarnDeps,
+  fetchFromGitHub,
+  nodejs,
+}:
 
 mkYarnPackage rec {
   pname = "matrix-alertmanager";

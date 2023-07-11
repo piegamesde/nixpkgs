@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, fetchpatch, SDL, freetype }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  SDL,
+  freetype,
+}:
 
 stdenv.mkDerivation rec {
   pname = "SDL_ttf";

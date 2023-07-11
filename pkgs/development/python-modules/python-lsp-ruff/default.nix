@@ -1,5 +1,13 @@
-{ lib, pythonOlder, buildPythonPackage, fetchPypi, ruff, lsprotocol
-, python-lsp-server, tomli }:
+{
+  lib,
+  pythonOlder,
+  buildPythonPackage,
+  fetchPypi,
+  ruff,
+  lsprotocol,
+  python-lsp-server,
+  tomli,
+}:
 
 buildPythonPackage rec {
   pname = "python-lsp-ruff";

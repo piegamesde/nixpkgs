@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPackages, fetchurl, fetchpatch, autoreconfHook, which
-, pkg-config, perl, guile, libxml2 }:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+  which,
+  pkg-config,
+  perl,
+  guile,
+  libxml2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "autogen";
@@ -11,7 +22,12 @@ stdenv.mkDerivation rec {
   };
 
   patches = let
-    dp = { ver ? "1%255.18.16-4", pname, name ? (pname + ".diff"), sha256 }:
+    dp = {
+        ver ? "1%255.18.16-4",
+        pname,
+        name ? (pname + ".diff"),
+        sha256,
+      }:
       fetchurl {
         url = "https://salsa.debian.org/debian/autogen/-/raw/debian/${ver}"
           + "/debian/patches/${pname}.diff?inline=false";

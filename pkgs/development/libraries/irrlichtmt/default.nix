@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake, zlib, libpng, libjpeg, libGL, libX11
-, withTouchSupport ? false, libXi, libXext, Cocoa, Kernel }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  zlib,
+  libpng,
+  libjpeg,
+  libGL,
+  libX11,
+  withTouchSupport ? false,
+  libXi,
+  libXext,
+  Cocoa,
+  Kernel,
+}:
 stdenv.mkDerivation rec {
   pname = "irrlichtmt";
   version = "1.9.0mt10";

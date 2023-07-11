@@ -1,5 +1,15 @@
-{ lib, botocore, buildPythonPackage, docutils, fetchFromGitHub, mock
-, pytestCheckHook, pythonOlder, stdenv, wheel }:
+{
+  lib,
+  botocore,
+  buildPythonPackage,
+  docutils,
+  fetchFromGitHub,
+  mock,
+  pytestCheckHook,
+  pythonOlder,
+  stdenv,
+  wheel,
+}:
 
 buildPythonPackage rec {
   pname = "s3transfer";

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, jre, git, gradle_7, perl
-, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  jre,
+  git,
+  gradle_7,
+  perl,
+  makeWrapper,
+}:
 
 let
   pname = "ma1sd";

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, freetype, fontconfig, libICE, libX11, libXp, libXau
-, libXext, libXt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  freetype,
+  fontconfig,
+  libICE,
+  libX11,
+  libXp,
+  libXau,
+  libXext,
+  libXt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lesstif";

@@ -1,6 +1,18 @@
-{ lib, stdenv, makeWrapper, fetchurl, which, pkg-config, libjpeg, ocamlPackages
-, awscli2, curl, ffmpeg, youtube-dl
-, runtimePackages ? [ awscli2 curl ffmpeg youtube-dl ] }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  fetchurl,
+  which,
+  pkg-config,
+  libjpeg,
+  ocamlPackages,
+  awscli2,
+  curl,
+  ffmpeg,
+  youtube-dl,
+  runtimePackages ? [ awscli2 curl ffmpeg youtube-dl ]
+}:
 
 let
   pname = "liquidsoap";

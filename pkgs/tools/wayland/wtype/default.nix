@@ -1,8 +1,17 @@
-{ lib, stdenv, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchFromGitHub
 
-, meson, ninja, pkg-config
+  ,
+  meson,
+  ninja,
+  pkg-config
 
-, libxkbcommon, wayland }:
+  ,
+  libxkbcommon,
+  wayland,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wtype";

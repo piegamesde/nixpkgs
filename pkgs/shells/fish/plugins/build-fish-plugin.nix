@@ -1,19 +1,33 @@
-{ stdenv, lib, writeScript, wrapFish }:
+{
+  stdenv,
+  lib,
+  writeScript,
+  wrapFish,
+}:
 
-attrs@{ pname, version, src,
+attrs@{
+  pname,
+  version,
+  src,
 
-name ? "fishplugin-${pname}-${version}", unpackPhase ? "", configurePhase ? ":"
-, buildPhase ? ":", preInstall ? "", postInstall ? "",
+  name ? "fishplugin-${pname}-${version}",
+  unpackPhase ? "",
+  configurePhase ? ":",
+  buildPhase ? ":",
+  preInstall ? "",
+  postInstall ? "",
 
-nativeCheckInputs ? [ ],
-# plugin packages to add to the vendor paths of the test fish shell
-checkPlugins ? [ ],
-# vendor directories to add to the function path of the test fish shell
-checkFunctionDirs ? [ ],
-# test script to be executed in a fish shell
-checkPhase ? "", doCheck ? checkPhase != "",
+  nativeCheckInputs ? [ ],
+  # plugin packages to add to the vendor paths of the test fish shell
+  checkPlugins ? [ ],
+  # vendor directories to add to the function path of the test fish shell
+  checkFunctionDirs ? [ ],
+  # test script to be executed in a fish shell
+  checkPhase ? "",
+  doCheck ? checkPhase != "",
 
-... }:
+  ...
+}:
 
 let
   # Do not pass attributes that are only relevant to buildFishPlugin to mkDerivation.

@@ -1,13 +1,26 @@
-{ stdenv, lib, fetchurl
+{
+  stdenv,
+  lib,
+  fetchurl
 
-# build time
-, autoreconfHook, pkg-config
+  # build time
+  ,
+  autoreconfHook,
+  pkg-config
 
-# runtime
-, boost, libmysqlclient, log4cplus, openssl, postgresql, python3
+  # runtime
+  ,
+  boost,
+  libmysqlclient,
+  log4cplus,
+  openssl,
+  postgresql,
+  python3
 
-# tests
-, nixosTests }:
+  # tests
+  ,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kea";

@@ -6,8 +6,21 @@
    be almost as much code as the function itself.
 */
 
-{ config, stdenv, lib, buildPackages, pkgs, darwin, fetchurl, fetchpatch
-, fetchFromGitHub, fetchFromGitLab, perl, shortenPerlShebang, nixosTests }:
+{
+  config,
+  stdenv,
+  lib,
+  buildPackages,
+  pkgs,
+  darwin,
+  fetchurl,
+  fetchpatch,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  perl,
+  shortenPerlShebang,
+  nixosTests,
+}:
 
 self:
 

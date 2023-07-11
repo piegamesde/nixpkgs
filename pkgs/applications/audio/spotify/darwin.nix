@@ -1,4 +1,11 @@
-{ stdenv, pname, meta, fetchurl, undmg, lib }:
+{
+  stdenv,
+  pname,
+  meta,
+  fetchurl,
+  undmg,
+  lib,
+}:
 
 stdenv.mkDerivation {
   inherit pname;

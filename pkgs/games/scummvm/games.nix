@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchurl, makeDesktopItem, unzip, writeText, scummvm
-, runtimeShell }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  makeDesktopItem,
+  unzip,
+  writeText,
+  scummvm,
+  runtimeShell,
+}:
 
 let
   desktopItem = name: short: long: description:
@@ -23,8 +31,16 @@ let
         ${code}
     '';
 
-  generic = { plong, pshort, pcode, description, version, files
-    , docs ? [ "readme.txt" ], ... }@attrs:
+  generic = {
+      plong,
+      pshort,
+      pcode,
+      description,
+      version,
+      files,
+      docs ? [ "readme.txt" ],
+      ...
+    }@attrs:
     let
       attrs' = builtins.removeAttrs attrs [
         "plong"

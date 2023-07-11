@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, python3, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  wrapQtAppsHook,
+}:
 
 let inherit (python3.pkgs) wrapPython pyqt5;
 in stdenv.mkDerivation rec {

@@ -1,4 +1,10 @@
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -65,27 +71,29 @@ let
     "DEVICESCAN ${notifyOpts}${cfg.defaults.autodetected}"}
   '';
 
-  smartdDeviceOpts = { ... }: {
+  smartdDeviceOpts = {
+      ...
+    }: {
 
-    options = {
+      options = {
 
-      device = mkOption {
-        example = "/dev/sda";
-        type = types.str;
-        description = lib.mdDoc "Location of the device.";
-      };
+        device = mkOption {
+          example = "/dev/sda";
+          type = types.str;
+          description = lib.mdDoc "Location of the device.";
+        };
 
-      options = mkOption {
-        default = "";
-        example = "-d sat";
-        type = types.separatedString " ";
-        description =
-          lib.mdDoc "Options that determine how smartd monitors the device.";
+        options = mkOption {
+          default = "";
+          example = "-d sat";
+          type = types.separatedString " ";
+          description =
+            lib.mdDoc "Options that determine how smartd monitors the device.";
+        };
+
       };
 
     };
-
-  };
 
 in {
   ###### interface

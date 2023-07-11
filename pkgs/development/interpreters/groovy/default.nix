@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, unzip, which, makeWrapper, jdk }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  which,
+  makeWrapper,
+  jdk,
+}:
 
 # at runtime, need jdk
 

@@ -1,5 +1,15 @@
-{ stdenv, lib, src, pkg-config, tcl, libXft, patches ? [ ]
-, enableAqua ? stdenv.isDarwin, darwin, ... }:
+{
+  stdenv,
+  lib,
+  src,
+  pkg-config,
+  tcl,
+  libXft,
+  patches ? [ ],
+  enableAqua ? stdenv.isDarwin,
+  darwin,
+  ...
+}:
 
 tcl.mkTclDerivation {
   pname = "tk";

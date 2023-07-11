@@ -1,4 +1,10 @@
-{ buildPythonPackage, fetchzip, isPy3k, lib, mkdocs }:
+{
+  buildPythonPackage,
+  fetchzip,
+  isPy3k,
+  lib,
+  mkdocs,
+}:
 
 buildPythonPackage rec {
   pname = "mkdocs-gitlab-plugin";

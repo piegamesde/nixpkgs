@@ -1,7 +1,23 @@
-{ lib, stdenv, fetchurl, cmake, pkg-config, SDL2, libvorbis, libogg, libjpeg
-, libpng, freetype, glew, tinyxml, openal, freealut, readline, gcc-unwrapped
-, enableSoundtrack ?
-  false # Enable the "Open Clonk Soundtrack - Explorers Journey" by David Oerther
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  pkg-config,
+  SDL2,
+  libvorbis,
+  libogg,
+  libjpeg,
+  libpng,
+  freetype,
+  glew,
+  tinyxml,
+  openal,
+  freealut,
+  readline,
+  gcc-unwrapped,
+  enableSoundtrack ?
+    false # Enable the "Open Clonk Soundtrack - Explorers Journey" by David Oerther
 }:
 
 let

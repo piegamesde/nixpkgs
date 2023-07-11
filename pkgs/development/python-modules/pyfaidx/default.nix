@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, nose, numpy, setuptools, setuptools-scm
-, six, glibcLocales, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  numpy,
+  setuptools,
+  setuptools-scm,
+  six,
+  glibcLocales,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pyfaidx";

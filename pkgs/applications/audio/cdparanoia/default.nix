@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, fetchpatch, updateAutotoolsGnuConfigScriptsHook
-, autoreconfHook, IOKit, Carbon }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  updateAutotoolsGnuConfigScriptsHook,
+  autoreconfHook,
+  IOKit,
+  Carbon,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cdparanoia-III";

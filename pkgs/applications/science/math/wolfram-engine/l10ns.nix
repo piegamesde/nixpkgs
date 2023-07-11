@@ -1,4 +1,9 @@
-{ lib, requireFile, lang, majorVersion ? null }:
+{
+  lib,
+  requireFile,
+  lang,
+  majorVersion ? null
+}:
 
 let
   allVersions = with lib;
@@ -26,21 +31,27 @@ let
         sha256 = "10cpwllz9plxz22iqdh6xgkxqphl9s9nq8ax16pafjll6j9kqy1q";
         installer = "WolframEngine_13.0.0_LINUX.sh";
       }
-    ] ({ version, lang, language, sha256, installer }: {
-      inherit version lang;
-      name = "wolfram-engine-${version}"
-        + optionalString (lang != "en") "-${lang}";
-      src = requireFile {
-        name = installer;
-        message = ''
-          This nix expression requires that ${installer} is
-          already part of the store. Download the file from
-          https://www.wolfram.com/engine/ and add it to the nix store
-          with nix-store --add-fixed sha256 <FILE>.
-        '';
-        inherit sha256;
-      };
-    });
+    ] ({
+        version,
+        lang,
+        language,
+        sha256,
+        installer,
+      }: {
+        inherit version lang;
+        name = "wolfram-engine-${version}"
+          + optionalString (lang != "en") "-${lang}";
+        src = requireFile {
+          name = installer;
+          message = ''
+            This nix expression requires that ${installer} is
+            already part of the store. Download the file from
+            https://www.wolfram.com/engine/ and add it to the nix store
+            with nix-store --add-fixed sha256 <FILE>.
+          '';
+          inherit sha256;
+        };
+      });
   minVersion = with lib;
     if majorVersion == null then
       elemAt (builtins.splitVersion (elemAt allVersions 0).version) 0

@@ -1,9 +1,20 @@
-{ lib, fetchFromGitHub, cacert, openssl, nixosTests, python310, fetchpatch }:
+{
+  lib,
+  fetchFromGitHub,
+  cacert,
+  openssl,
+  nixosTests,
+  python310,
+  fetchpatch,
+}:
 
 let
-  dropDevOutput = { outputs, ... }: {
-    outputs = lib.filter (x: x != "doc") outputs;
-  };
+  dropDevOutput = {
+      outputs,
+      ...
+    }: {
+      outputs = lib.filter (x: x != "doc") outputs;
+    };
 
   python3' = python310.override {
     packageOverrides = self: super: {
@@ -92,8 +103,12 @@ let
           hash = "sha256-D762GA04OpGG0NbtlU4AQq2fGODo3giLK0GdUmkn0ZY=";
         };
       });
-      sqlsoup = super.sqlsoup.overrideAttrs
-        ({ meta ? { }, ... }: { meta = meta // { broken = false; }; });
+      sqlsoup = super.sqlsoup.overrideAttrs ({
+          meta ? { },
+          ...
+        }: {
+          meta = meta // { broken = false; };
+        });
       click = super.click.overridePythonAttrs (old: rec {
         version = "7.1.2";
         src = old.src.override {

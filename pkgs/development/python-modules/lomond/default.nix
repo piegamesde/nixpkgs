@@ -1,10 +1,21 @@
-{ buildPythonPackage, fetchFromGitHub, lib, pythonAtLeast, pythonOlder
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  pythonAtLeast,
+  pythonOlder
 
-# runtime
-, six
+  # runtime
+  ,
+  six
 
-# tests
-, freezegun, pytest-mock, pytestCheckHook, tornado_4 }:
+  # tests
+  ,
+  freezegun,
+  pytest-mock,
+  pytestCheckHook,
+  tornado_4,
+}:
 
 buildPythonPackage rec {
   pname = "lomond";

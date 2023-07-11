@@ -1,5 +1,16 @@
-{ lib, aiomisc-pytest, buildPythonPackage, fetchFromGitHub, pythonOlder
-, pytestCheckHook, pamqp, yarl, setuptools, poetry-core, aiomisc }:
+{
+  lib,
+  aiomisc-pytest,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  pamqp,
+  yarl,
+  setuptools,
+  poetry-core,
+  aiomisc,
+}:
 
 buildPythonPackage rec {
   pname = "aiormq";

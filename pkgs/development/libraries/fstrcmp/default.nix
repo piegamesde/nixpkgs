@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchzip, libtool, ghostscript, groff, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  libtool,
+  ghostscript,
+  groff,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fstrcmp";

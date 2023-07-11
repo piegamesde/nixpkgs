@@ -1,6 +1,17 @@
-{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
-, pydantic, pytest-aiohttp, pytest-asyncio, pytest-cov, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pydantic,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytest-cov,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aionotion";

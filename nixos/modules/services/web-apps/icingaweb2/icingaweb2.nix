@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.services.icingaweb2;
@@ -182,8 +187,11 @@ in {
             (mapAttrsToList (name: path: { inherit name path; })
               cfg.libraryPaths));
         };
-        phpPackage = pkgs.php.withExtensions
-          ({ enabled, all }: [ all.imagick ] ++ enabled);
+        phpPackage = pkgs.php.withExtensions ({
+            enabled,
+            all,
+          }:
+          [ all.imagick ] ++ enabled);
         phpOptions = ''
           date.timezone = "${cfg.timezone}"
         '';

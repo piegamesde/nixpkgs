@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, libX11, libXft, freetype, patches ? [ ]
-, extraLibs ? [ ] }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  libX11,
+  libXft,
+  freetype,
+  patches ? [ ],
+  extraLibs ? [ ]
+}:
 
 stdenv.mkDerivation rec {
   pname = "herbe";

@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitLab, xorgproto, motif, libX11, libXt, libXpm, bison
-, flex, automake, autoconf, libtool }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  xorgproto,
+  motif,
+  libX11,
+  libXt,
+  libXpm,
+  bison,
+  flex,
+  automake,
+  autoconf,
+  libtool,
+}:
 
 stdenv.mkDerivation rec {
   pname = "alliance";

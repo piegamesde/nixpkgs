@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, fetchpatch, vala, gobject-introspection, intltool
-, python3, glib, pkg-config, libgee, json-glib, marisa, libkkc-data }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  vala,
+  gobject-introspection,
+  intltool,
+  python3,
+  glib,
+  pkg-config,
+  libgee,
+  json-glib,
+  marisa,
+  libkkc-data,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libkkc";

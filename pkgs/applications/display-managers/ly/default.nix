@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, linux-pam }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  linux-pam,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ly";

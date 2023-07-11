@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools, psutil, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  psutil,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "portpicker";

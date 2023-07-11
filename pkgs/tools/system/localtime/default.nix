@@ -1,4 +1,9 @@
-{ buildGoModule, fetchFromGitHub, lib, m4 }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  m4,
+}:
 
 buildGoModule {
   pname = "localtime";

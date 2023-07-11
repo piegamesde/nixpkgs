@@ -1,7 +1,26 @@
-{ stdenv, lib, buildPackages, buildGoModule, fetchFromGitHub, makeWrapper
-, substituteAll, llvmPackages, go, libffi, zlib, ncurses, libxml2, xar
-, wasi-libc, avrgcc, binaryen, avrdude, gdb, openocd
-, tinygoTests ? [ "smoketest" ] }:
+{
+  stdenv,
+  lib,
+  buildPackages,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  substituteAll,
+  llvmPackages,
+  go,
+  libffi,
+  zlib,
+  ncurses,
+  libxml2,
+  xar,
+  wasi-libc,
+  avrgcc,
+  binaryen,
+  avrdude,
+  gdb,
+  openocd,
+  tinygoTests ? [ "smoketest" ]
+}:
 
 let
   llvmMajor = lib.versions.major llvm.version;

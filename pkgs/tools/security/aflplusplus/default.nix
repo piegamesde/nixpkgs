@@ -1,5 +1,21 @@
-{ lib, stdenv, stdenvNoCC, fetchFromGitHub, callPackage, makeWrapper, clang
-, llvm, gcc, which, libcgroup, python, perl, gmp, file, wine ? null, fetchpatch
+{
+  lib,
+  stdenv,
+  stdenvNoCC,
+  fetchFromGitHub,
+  callPackage,
+  makeWrapper,
+  clang,
+  llvm,
+  gcc,
+  which,
+  libcgroup,
+  python,
+  perl,
+  gmp,
+  file,
+  wine ? null,
+  fetchpatch,
 }:
 
 # wine fuzzing is only known to work for win32 binaries, and using a mixture of

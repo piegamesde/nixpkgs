@@ -1,6 +1,18 @@
-{ lib, aiofiles, asyncio-mqtt, awesomeversion, buildPythonPackage, click
-, fetchFromGitHub, marshmallow, poetry-core, pyserial-asyncio, pytest-asyncio
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiofiles,
+  asyncio-mqtt,
+  awesomeversion,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  marshmallow,
+  poetry-core,
+  pyserial-asyncio,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aiomysensors";

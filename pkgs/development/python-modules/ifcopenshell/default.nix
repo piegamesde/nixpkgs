@@ -1,5 +1,18 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, gcc10, cmake, boost17x, icu
-, swig, pcre, opencascade-occt, opencollada, libxml2 }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gcc10,
+  cmake,
+  boost17x,
+  icu,
+  swig,
+  pcre,
+  opencascade-occt,
+  opencollada,
+  libxml2,
+}:
 
 buildPythonPackage rec {
   pname = "ifcopenshell";

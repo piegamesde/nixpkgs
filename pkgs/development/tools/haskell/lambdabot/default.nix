@@ -1,6 +1,15 @@
-{ lib, haskellLib, makeWrapper, haskellPackages, mueval, withDjinn ? true
-, aspell ? null, packages ? (pkgs: [ ]), modules ? "oldDefaultModules"
-, configuration ? "[]" }:
+{
+  lib,
+  haskellLib,
+  makeWrapper,
+  haskellPackages,
+  mueval,
+  withDjinn ? true,
+  aspell ? null,
+  packages ? (pkgs: [ ]),
+  modules ? "oldDefaultModules",
+  configuration ? "[]"
+}:
 
 let
   allPkgs = pkgs:

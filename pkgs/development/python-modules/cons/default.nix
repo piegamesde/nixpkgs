@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, logical-unification, py
-, pytestCheckHook, pytest-html }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  logical-unification,
+  py,
+  pytestCheckHook,
+  pytest-html,
+}:
 
 buildPythonPackage rec {
   pname = "cons";

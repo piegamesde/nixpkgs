@@ -1,4 +1,10 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, matrix-synapse }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  matrix-synapse,
+}:
 
 buildPythonPackage rec {
   pname = "matrix-synapse-mjolnir-antispam";

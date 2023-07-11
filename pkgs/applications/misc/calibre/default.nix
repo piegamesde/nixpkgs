@@ -1,8 +1,35 @@
-{ lib, stdenv, fetchurl, cmake, fetchpatch, fontconfig, hunspell, hyphen, icu
-, imagemagick, libjpeg, libmtp, libpng, libstemmer, libuchardet, libusb1
-, pkg-config, podofo, poppler_utils, python3Packages, qmake, qtbase, qtwayland
-, removeReferencesTo, speechd, sqlite, wrapQtAppsHook, xdg-utils, wrapGAppsHook
-, unrarSupport ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  fetchpatch,
+  fontconfig,
+  hunspell,
+  hyphen,
+  icu,
+  imagemagick,
+  libjpeg,
+  libmtp,
+  libpng,
+  libstemmer,
+  libuchardet,
+  libusb1,
+  pkg-config,
+  podofo,
+  poppler_utils,
+  python3Packages,
+  qmake,
+  qtbase,
+  qtwayland,
+  removeReferencesTo,
+  speechd,
+  sqlite,
+  wrapQtAppsHook,
+  xdg-utils,
+  wrapGAppsHook,
+  unrarSupport ? false
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "calibre";

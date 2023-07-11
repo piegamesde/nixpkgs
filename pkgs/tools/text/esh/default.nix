@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, asciidoctor, gawk, gnused, runtimeShell }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  asciidoctor,
+  gawk,
+  gnused,
+  runtimeShell,
+}:
 
 stdenv.mkDerivation rec {
   pname = "esh";

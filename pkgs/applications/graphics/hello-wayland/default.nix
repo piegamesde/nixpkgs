@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, imagemagick, pkg-config, wayland
-, wayland-protocols, unstableGitUpdater }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  imagemagick,
+  pkg-config,
+  wayland,
+  wayland-protocols,
+  unstableGitUpdater,
+}:
 
 stdenv.mkDerivation {
   pname = "hello-wayland";

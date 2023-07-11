@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, appimageTools, makeWrapper, electron, xorg, pipewire }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  appimageTools,
+  makeWrapper,
+  electron,
+  xorg,
+  pipewire,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jitsi-meet-electron";

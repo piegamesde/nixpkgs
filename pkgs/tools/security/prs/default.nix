@@ -1,5 +1,17 @@
-{ lib, rustPlatform, fetchFromGitLab, installShellFiles, pkg-config, python3
-, dbus, glib, gpgme, gtk3, libxcb, libxkbcommon }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitLab,
+  installShellFiles,
+  pkg-config,
+  python3,
+  dbus,
+  glib,
+  gpgme,
+  gtk3,
+  libxcb,
+  libxkbcommon,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "prs";

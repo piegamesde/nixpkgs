@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja, pkg-config, cyclonedds
-, libmysqlclient, mariadb, mbedtls, sqlite, zeromq }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  pkg-config,
+  cyclonedds,
+  libmysqlclient,
+  mariadb,
+  mbedtls,
+  sqlite,
+  zeromq,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "nanomq";

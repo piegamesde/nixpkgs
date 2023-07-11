@@ -1,6 +1,22 @@
-{ lib, stdenv, darwin, fetchurl, makeWrapper, pkg-config, poppler_utils
-, gitMinimal, harfbuzz, icu, fontconfig, lua, libiconv, makeFontsConf, gentium
-, runCommand, sile }:
+{
+  lib,
+  stdenv,
+  darwin,
+  fetchurl,
+  makeWrapper,
+  pkg-config,
+  poppler_utils,
+  gitMinimal,
+  harfbuzz,
+  icu,
+  fontconfig,
+  lua,
+  libiconv,
+  makeFontsConf,
+  gentium,
+  runCommand,
+  sile,
+}:
 
 let
   luaEnv = lua.withPackages (ps:

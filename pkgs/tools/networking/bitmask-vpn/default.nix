@@ -1,7 +1,30 @@
-{ lib, stdenv, fetchFromGitLab, mkDerivation, buildGoModule, wrapQtAppsHook
-, python3Packages, pkg-config, openvpn, cmake, qmake, which, iproute2, iptables
-, procps, qmltermwidget, qtbase, qtdeclarative, qtinstaller, qtquickcontrols
-, qtquickcontrols2, qttools, CoreFoundation, Security, provider ? "riseup" }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  mkDerivation,
+  buildGoModule,
+  wrapQtAppsHook,
+  python3Packages,
+  pkg-config,
+  openvpn,
+  cmake,
+  qmake,
+  which,
+  iproute2,
+  iptables,
+  procps,
+  qmltermwidget,
+  qtbase,
+  qtdeclarative,
+  qtinstaller,
+  qtquickcontrols,
+  qtquickcontrols2,
+  qttools,
+  CoreFoundation,
+  Security,
+  provider ? "riseup"
+}:
 let
   version = "0.21.6";
 

@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, cython, nose, matplotlib
-, nibabel, numpy, scipy, sympy, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  cython,
+  nose,
+  matplotlib,
+  nibabel,
+  numpy,
+  scipy,
+  sympy,
+  python,
+}:
 
 buildPythonPackage rec {
   version = "0.5.0";

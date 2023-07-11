@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, libX11, libXinerama }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  libX11,
+  libXinerama,
+}:
 
 let rpathLibs = [ libXinerama libX11 ];
 

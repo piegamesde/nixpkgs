@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, buildGoModule, makeWrapper, cacert, moreutils
-, jq, git, pkg-config, yarn, python3, esbuild, nodejs_16, libsecret, xorg
-, ripgrep, AppKit, Cocoa, Security, cctools }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildGoModule,
+  makeWrapper,
+  cacert,
+  moreutils,
+  jq,
+  git,
+  pkg-config,
+  yarn,
+  python3,
+  esbuild,
+  nodejs_16,
+  libsecret,
+  xorg,
+  ripgrep,
+  AppKit,
+  Cocoa,
+  Security,
+  cctools,
+}:
 
 let
   system = stdenv.hostPlatform.system;

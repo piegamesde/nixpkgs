@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools-scm, pytestCheckHook, enrich }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  pytestCheckHook,
+  enrich,
+}:
 
 buildPythonPackage rec {
   pname = "subprocess-tee";

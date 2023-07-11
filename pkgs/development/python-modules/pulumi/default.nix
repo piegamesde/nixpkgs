@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, protobuf, dill, grpcio, pulumi
-, isPy27, semver, pytestCheckHook, pyyaml, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  protobuf,
+  dill,
+  grpcio,
+  pulumi,
+  isPy27,
+  semver,
+  pytestCheckHook,
+  pyyaml,
+  six,
+}:
 buildPythonPackage rec {
   inherit (pulumi) version src;
 

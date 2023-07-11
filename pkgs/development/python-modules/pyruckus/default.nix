@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pexpect, python-slugify, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pexpect,
+  python-slugify,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

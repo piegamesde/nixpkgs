@@ -1,5 +1,16 @@
-{ lib, mkXfceDerivation, glib, gtk3, libcanberra-gtk3, libnotify, libxfce4ui
-, libxfce4util, sqlite, xfce4-panel, xfconf }:
+{
+  lib,
+  mkXfceDerivation,
+  glib,
+  gtk3,
+  libcanberra-gtk3,
+  libnotify,
+  libxfce4ui,
+  libxfce4util,
+  sqlite,
+  xfce4-panel,
+  xfconf,
+}:
 
 mkXfceDerivation {
   category = "apps";

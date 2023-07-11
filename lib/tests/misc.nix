@@ -13,7 +13,10 @@ let
   };
   testingDeepThrow = expr: testingThrow (builtins.deepSeq expr expr);
 
-  testSanitizeDerivationName = { name, expected }:
+  testSanitizeDerivationName = {
+      name,
+      expected,
+    }:
     let
       drv = derivation {
         name = strings.sanitizeDerivationName name;
@@ -142,7 +145,14 @@ in runTests {
   };
 
   testFunctionArgsFunctor = {
-    expr = functionArgs { __functor = self: { a, b }: null; };
+    expr = functionArgs {
+      __functor = self:
+        {
+          a,
+          b,
+        }:
+        null;
+    };
     expected = {
       a = false;
       b = false;
@@ -902,7 +912,11 @@ in runTests {
       path = /. + "/foo";
       null_ = null;
       function = x: x;
-      functionArgs = { arg ? 4, foo }: arg;
+      functionArgs = {
+          arg ? 4,
+          foo,
+        }:
+        arg;
       list = [ 3 4 function [ false ] ];
       emptylist = [ ];
       attrs = {
@@ -962,7 +976,14 @@ in runTests {
   };
 
   testWithRecursionDealsWithFunctors = let
-    functor = { __functor = self: { a, b, }: null; };
+    functor = {
+      __functor = self:
+        {
+          a,
+          b,
+        }:
+        null;
+    };
     a = {
       value = "1234";
       b = functor;
@@ -1232,15 +1253,21 @@ in runTests {
 
   testFreeformOptions = {
     expr = let
-      submodule = { lib, ... }: {
-        freeformType = lib.types.attrsOf
-          (lib.types.submodule { options.bar = lib.mkOption { }; });
-        options.bar = lib.mkOption { };
-      };
+      submodule = {
+          lib,
+          ...
+        }: {
+          freeformType = lib.types.attrsOf
+            (lib.types.submodule { options.bar = lib.mkOption { }; });
+          options.bar = lib.mkOption { };
+        };
 
-      module = { lib, ... }: {
-        options.foo = lib.mkOption { type = lib.types.submodule submodule; };
-      };
+      module = {
+          lib,
+          ...
+        }: {
+          options.foo = lib.mkOption { type = lib.types.submodule submodule; };
+        };
 
       options = (evalModules { modules = [ module ]; }).options;
 

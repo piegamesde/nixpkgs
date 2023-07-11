@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, django, django-js-asset, fetchFromGitHub, python
-, setuptools-scm, django-extensions, selenium, pillow }:
+{
+  lib,
+  buildPythonPackage,
+  django,
+  django-js-asset,
+  fetchFromGitHub,
+  python,
+  setuptools-scm,
+  django-extensions,
+  selenium,
+  pillow,
+}:
 
 buildPythonPackage rec {
   pname = "django-ckeditor";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, coreutils, pkg-config, glib, jsoncpp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  coreutils,
+  pkg-config,
+  glib,
+  jsoncpp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libevdevc";

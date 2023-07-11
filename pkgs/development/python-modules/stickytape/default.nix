@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, nose, pytestCheckHook, pythonOlder
-, spur }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  nose,
+  pytestCheckHook,
+  pythonOlder,
+  spur,
+}:
 
 buildPythonPackage rec {
   pname = "stickytape";

@@ -1,8 +1,18 @@
-{ name-prefix ? "temurin", brand-name ? "Eclipse Temurin", sourcePerArch
-, knownVulnerabilities ? [ ] }:
+{
+  name-prefix ? "temurin",
+  brand-name ? "Eclipse Temurin",
+  sourcePerArch,
+  knownVulnerabilities ? [ ]
+}:
 
-{ swingSupport ? true # not used for now
-, lib, stdenv, fetchurl, setJavaClassPath }:
+{
+  swingSupport ? true # not used for now
+  ,
+  lib,
+  stdenv,
+  fetchurl,
+  setJavaClassPath,
+}:
 
 let
   cpuName = stdenv.hostPlatform.parsed.cpu.name;

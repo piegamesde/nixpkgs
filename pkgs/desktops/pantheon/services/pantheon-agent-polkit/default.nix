@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, pkg-config, meson, ninja
-, vala, gtk3, libgee, granite, polkit, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  pkg-config,
+  meson,
+  ninja,
+  vala,
+  gtk3,
+  libgee,
+  granite,
+  polkit,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pantheon-agent-polkit";

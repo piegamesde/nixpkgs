@@ -1,6 +1,20 @@
-{ stdenv, stdenvNoCC, lib, gitUpdater, fetchFromGitHub, fetchurl, cairo
-, nixosTests, pkg-config, pngquant, which, imagemagick, zopfli, buildPackages
-, variants ? [ ] }:
+{
+  stdenv,
+  stdenvNoCC,
+  lib,
+  gitUpdater,
+  fetchFromGitHub,
+  fetchurl,
+  cairo,
+  nixosTests,
+  pkg-config,
+  pngquant,
+  which,
+  imagemagick,
+  zopfli,
+  buildPackages,
+  variants ? [ ]
+}:
 let
   notoLongDescription = ''
     When text is rendered by a computer, sometimes characters are
@@ -14,7 +28,11 @@ let
     weights, and freely available to all.
   '';
 in rec {
-  mkNoto = { pname, variants ? [ ], longDescription ? notoLongDescription }:
+  mkNoto = {
+      pname,
+      variants ? [ ],
+      longDescription ? notoLongDescription
+    }:
     stdenvNoCC.mkDerivation rec {
       inherit pname;
       version = "23.5.1";
@@ -71,7 +89,12 @@ in rec {
       };
     };
 
-  mkNotoCJK = { typeface, version, rev, sha256 }:
+  mkNotoCJK = {
+      typeface,
+      version,
+      rev,
+      sha256,
+    }:
     stdenvNoCC.mkDerivation {
       pname = "noto-fonts-cjk-${lib.toLower typeface}";
       inherit version;

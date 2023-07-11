@@ -1,8 +1,24 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, fetchpatch, setuptools
-, setuptools-scm, pyvcd, jinja2, importlib-resources, importlib-metadata, git
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  fetchpatch,
+  setuptools,
+  setuptools-scm,
+  pyvcd,
+  jinja2,
+  importlib-resources,
+  importlib-metadata,
+  git
 
-# for tests
-, pytestCheckHook, symbiyosys, yices, yosys }:
+  # for tests
+  ,
+  pytestCheckHook,
+  symbiyosys,
+  yices,
+  yosys,
+}:
 
 buildPythonPackage rec {
   pname = "amaranth";

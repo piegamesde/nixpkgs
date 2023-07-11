@@ -1,4 +1,6 @@
-{ lib }:
+{
+  lib,
+}:
 let inherit (builtins) head tail isList isAttrs isInt attrNames;
 
 in with lib.lists;
@@ -83,7 +85,10 @@ rec {
         in (val != null) && (val != false)) (tail x))))) condList));
 
   # This function has O(n^2) performance.
-  uniqList = { inputList, acc ? [ ] }:
+  uniqList = {
+      inputList,
+      acc ? [ ]
+    }:
     let
       go = xs: acc:
         if xs == [ ] then
@@ -95,8 +100,12 @@ rec {
           in y ++ go (tail xs) (y ++ acc);
     in go inputList acc;
 
-  uniqListExt =
-    { inputList, outputList ? [ ], getter ? (x: x), compare ? (x: y: x == y) }:
+  uniqListExt = {
+      inputList,
+      outputList ? [ ],
+      getter ? (x: x),
+      compare ? (x: y: x == y)
+    }:
     if inputList == [ ] then
       outputList
     else
@@ -119,7 +128,10 @@ rec {
     else
       condConcat name (tail (tail list)) checker;
 
-  lazyGenericClosure = { startSet, operator }:
+  lazyGenericClosure = {
+      startSet,
+      operator,
+    }:
     let
       work = list: doneKeys: result:
         if list == [ ] then
@@ -223,9 +235,10 @@ rec {
   # merging buildPhase doesn't really make sense. The cases will be rare where appending /prefixing will fit your needs?
   # in these cases the first buildPhase will override the second one
   # ! deprecated, use mergeAttrByFunc instead
-  mergeAttrsNoOverride =
-    { mergeLists ? [ "buildInputs" "propagatedBuildInputs" ]
-    , overrideSnd ? [ "buildPhase" ] }:
+  mergeAttrsNoOverride = {
+      mergeLists ? [ "buildInputs" "propagatedBuildInputs" ],
+      overrideSnd ? [ "buildPhase" ]
+    }:
     attrs1: attrs2:
     foldr (n: set:
       setAttr set n (if set ? ${n} then # merge

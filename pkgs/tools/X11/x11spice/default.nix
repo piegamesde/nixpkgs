@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitLab, autoreconfHook, pkg-config, xorg, gtk2, spice
-, spice-protocol }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  autoreconfHook,
+  pkg-config,
+  xorg,
+  gtk2,
+  spice,
+  spice-protocol,
+}:
 
 stdenv.mkDerivation rec {
   pname = "x11spice";

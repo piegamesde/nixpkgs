@@ -1,5 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, which, pkg-config, SDL2, libGL, openalSoft, curl
-, speex, opusfile, libogg, libvorbis, libopus, libjpeg, mumble, freetype }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  which,
+  pkg-config,
+  SDL2,
+  libGL,
+  openalSoft,
+  curl,
+  speex,
+  opusfile,
+  libogg,
+  libvorbis,
+  libopus,
+  libjpeg,
+  mumble,
+  freetype,
+}:
 
 stdenv.mkDerivation {
   pname = "ioquake3";

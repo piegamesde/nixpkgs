@@ -1,4 +1,11 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub, installShellFiles, testers, k9s
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  testers,
+  k9s,
 }:
 
 buildGoModule rec {

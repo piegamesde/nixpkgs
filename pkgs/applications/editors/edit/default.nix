@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchgit, unzip, pkg-config, ncurses, libX11, libXft, cwebbin }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  unzip,
+  pkg-config,
+  ncurses,
+  libX11,
+  libXft,
+  cwebbin,
+}:
 
 stdenv.mkDerivation {
   pname = "edit-nightly";

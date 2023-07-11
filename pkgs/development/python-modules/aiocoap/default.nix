@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pygments
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pygments,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aiocoap";

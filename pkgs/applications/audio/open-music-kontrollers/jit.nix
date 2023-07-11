@@ -1,4 +1,10 @@
-{ callPackage, lv2, fontconfig, libvterm-neovim, ... }@args:
+{
+  callPackage,
+  lv2,
+  fontconfig,
+  libvterm-neovim,
+  ...
+}@args:
 
 callPackage ./generic.nix (args // rec {
   pname = "jit";

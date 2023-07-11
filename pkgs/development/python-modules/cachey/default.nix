@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, typing-extensions, heapdict
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  typing-extensions,
+  heapdict,
+  pytestCheckHook,
+  pythonOlder,
+}:
 buildPythonPackage rec {
   pname = "cachey";
   version = "0.2.1";

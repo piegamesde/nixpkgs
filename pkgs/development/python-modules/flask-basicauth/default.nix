@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, flask, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  flask,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "flask-basicauth";

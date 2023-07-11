@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, makeDesktopItem, copyDesktopItems
-, testers, opensupaplex, SDL2, SDL2_mixer }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  makeDesktopItem,
+  copyDesktopItems,
+  testers,
+  opensupaplex,
+  SDL2,
+  SDL2_mixer,
+}:
 
 let
   # Doesn't seem to be included in tagged releases, but does exist on master.

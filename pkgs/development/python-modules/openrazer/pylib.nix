@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, dbus-python, fetchFromGitHub, numpy, openrazer-daemon
+{
+  lib,
+  buildPythonPackage,
+  dbus-python,
+  fetchFromGitHub,
+  numpy,
+  openrazer-daemon,
 }:
 
 let common = import ./common.nix { inherit lib fetchFromGitHub; };

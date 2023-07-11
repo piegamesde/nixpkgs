@@ -1,4 +1,11 @@
-{ lib, stdenvNoCC, fetchurl, makeWrapper, jdk11_headless, nixosTests }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  makeWrapper,
+  jdk11_headless,
+  nixosTests,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "komga";

@@ -18,8 +18,14 @@ lib: pkgs: actuallySplice:
 
 let
 
-  spliceReal = { pkgsBuildBuild, pkgsBuildHost, pkgsBuildTarget, pkgsHostHost
-    , pkgsHostTarget, pkgsTargetTarget }:
+  spliceReal = {
+      pkgsBuildBuild,
+      pkgsBuildHost,
+      pkgsBuildTarget,
+      pkgsHostHost,
+      pkgsHostTarget,
+      pkgsTargetTarget,
+    }:
     let
       mash =
         # Other pkgs sets
@@ -99,8 +105,14 @@ let
       };
     in lib.listToAttrs (map merge (lib.attrNames mash));
 
-  splicePackages = { pkgsBuildBuild, pkgsBuildHost, pkgsBuildTarget
-    , pkgsHostHost, pkgsHostTarget, pkgsTargetTarget }@args:
+  splicePackages = {
+      pkgsBuildBuild,
+      pkgsBuildHost,
+      pkgsBuildTarget,
+      pkgsHostHost,
+      pkgsHostTarget,
+      pkgsTargetTarget,
+    }@args:
     if actuallySplice then spliceReal args else pkgsHostTarget;
 
   splicedPackages = splicePackages {

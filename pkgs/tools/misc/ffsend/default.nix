@@ -1,9 +1,19 @@
-{ lib, stdenv, fetchFromGitLab, rustPlatform, pkg-config, openssl
-, installShellFiles, Security, AppKit
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  installShellFiles,
+  Security,
+  AppKit
 
-, x11Support ? stdenv.isLinux || stdenv.hostPlatform.isBSD, xclip ? null
-, xsel ? null
-, preferXsel ? false # if true and xsel is non-null, use it instead of xclip
+  ,
+  x11Support ? stdenv.isLinux || stdenv.hostPlatform.isBSD,
+  xclip ? null,
+  xsel ? null,
+  preferXsel ? false # if true and xsel is non-null, use it instead of xclip
 }:
 
 let usesX11 = stdenv.isLinux || stdenv.isBSD;

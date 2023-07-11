@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, pkg-config, gettext, gtk3, libsoup, tzdata
-, mateUpdateScript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gettext,
+  gtk3,
+  libsoup,
+  tzdata,
+  mateUpdateScript,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libmateweather";

@@ -1,5 +1,17 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, xorg, stdenv, python3
-, libsixel, CoreFoundation, Security, AppKit, }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  xorg,
+  stdenv,
+  python3,
+  libsixel,
+  CoreFoundation,
+  Security,
+  AppKit,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "youtube-tui";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, bson, pytestCheckHook
-, pyyaml, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  bson,
+  pytestCheckHook,
+  pyyaml,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "pymarshal";

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, boost, libxml2, pkg-config, docbook2x, curl
-, autoreconfHook, cppunit }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  boost,
+  libxml2,
+  pkg-config,
+  docbook2x,
+  curl,
+  autoreconfHook,
+  cppunit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libcmis";

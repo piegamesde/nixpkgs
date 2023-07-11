@@ -1,10 +1,18 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   format = pkgs.formats.json { };
-  commonOptions = { pkgName, flavour ? pkgName }:
+  commonOptions = {
+      pkgName,
+      flavour ? pkgName
+    }:
     mkOption {
       default = { };
       description = mdDoc ''
@@ -12,81 +20,88 @@ let
         Creates independent `${flavour}-''${name}.service` systemd units for each instance defined here.
       '';
       type = with types;
-        attrsOf (submodule ({ name, ... }: {
-          options = {
-            enable = mkEnableOption (mdDoc "this ${flavour} instance") // {
-              default = true;
-            };
-
-            package = mkPackageOptionMD pkgs pkgName { };
-
-            user = mkOption {
-              type = types.str;
-              default = "root";
-              description = mdDoc ''
-                User under which this instance runs.
-              '';
-            };
-
-            group = mkOption {
-              type = types.str;
-              default = "root";
-              description = mdDoc ''
-                Group under which this instance runs.
-              '';
-            };
-
-            settings = mkOption {
-              type = types.submodule {
-                freeformType = format.type;
-
-                options = {
-                  pid_file = mkOption {
-                    default = "/run/${flavour}/${name}.pid";
-                    type = types.str;
-                    description = mdDoc ''
-                      Path to use for the pid file.
-                    '';
-                  };
-
-                  template = mkOption {
-                    default = [ ];
-                    type = with types; listOf (attrsOf anything);
-                    description = let
-                      upstreamDocs = if flavour == "vault-agent" then
-                        "https://developer.hashicorp.com/vault/docs/agent/template"
-                      else
-                        "https://github.com/hashicorp/consul-template/blob/main/docs/configuration.md#templates";
-                    in mdDoc ''
-                      Template section of ${flavour}.
-                      Refer to <${upstreamDocs}> for supported values.
-                    '';
-                  };
-                };
+        attrsOf (submodule ({
+            name,
+            ...
+          }: {
+            options = {
+              enable = mkEnableOption (mdDoc "this ${flavour} instance") // {
+                default = true;
               };
 
-              default = { };
+              package = mkPackageOptionMD pkgs pkgName { };
 
-              description = let
-                upstreamDocs = if flavour == "vault-agent" then
-                  "https://developer.hashicorp.com/vault/docs/agent#configuration-file-options"
-                else
-                  "https://github.com/hashicorp/consul-template/blob/main/docs/configuration.md#configuration-file";
-              in mdDoc ''
-                Free-form settings written directly to the `config.json` file.
-                Refer to <${upstreamDocs}> for supported values.
+              user = mkOption {
+                type = types.str;
+                default = "root";
+                description = mdDoc ''
+                  User under which this instance runs.
+                '';
+              };
 
-                ::: {.note}
-                Resulting format is JSON not HCL.
-                Refer to <https://www.hcl2json.com/> if you are unsure how to convert HCL options to JSON.
-                :::
-              '';
+              group = mkOption {
+                type = types.str;
+                default = "root";
+                description = mdDoc ''
+                  Group under which this instance runs.
+                '';
+              };
+
+              settings = mkOption {
+                type = types.submodule {
+                  freeformType = format.type;
+
+                  options = {
+                    pid_file = mkOption {
+                      default = "/run/${flavour}/${name}.pid";
+                      type = types.str;
+                      description = mdDoc ''
+                        Path to use for the pid file.
+                      '';
+                    };
+
+                    template = mkOption {
+                      default = [ ];
+                      type = with types; listOf (attrsOf anything);
+                      description = let
+                        upstreamDocs = if flavour == "vault-agent" then
+                          "https://developer.hashicorp.com/vault/docs/agent/template"
+                        else
+                          "https://github.com/hashicorp/consul-template/blob/main/docs/configuration.md#templates";
+                      in mdDoc ''
+                        Template section of ${flavour}.
+                        Refer to <${upstreamDocs}> for supported values.
+                      '';
+                    };
+                  };
+                };
+
+                default = { };
+
+                description = let
+                  upstreamDocs = if flavour == "vault-agent" then
+                    "https://developer.hashicorp.com/vault/docs/agent#configuration-file-options"
+                  else
+                    "https://github.com/hashicorp/consul-template/blob/main/docs/configuration.md#configuration-file";
+                in mdDoc ''
+                  Free-form settings written directly to the `config.json` file.
+                  Refer to <${upstreamDocs}> for supported values.
+
+                  ::: {.note}
+                  Resulting format is JSON not HCL.
+                  Refer to <https://www.hcl2json.com/> if you are unsure how to convert HCL options to JSON.
+                  :::
+                '';
+              };
             };
-          };
-        }));
+          }));
     };
 
-  createAgentInstance = { instance, name, flavour }:
+  createAgentInstance = {
+      instance,
+      name,
+      flavour,
+    }:
     let configFile = format.generate "${name}.json" instance.settings;
     in mkIf (instance.enable) {
       description = "${flavour} daemon - ${name}";

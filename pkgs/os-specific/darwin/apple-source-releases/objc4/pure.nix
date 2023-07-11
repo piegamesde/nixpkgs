@@ -1,4 +1,11 @@
-{ stdenv, fetchapplesource, libauto, launchd, libc_old, libunwind }:
+{
+  stdenv,
+  fetchapplesource,
+  libauto,
+  launchd,
+  libc_old,
+  libunwind,
+}:
 
 stdenv.mkDerivation rec {
   version = "551.1";

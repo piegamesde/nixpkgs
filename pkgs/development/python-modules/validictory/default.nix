@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, pythonAtLeast, fetchPypi }:
+{
+  lib,
+  buildPythonPackage,
+  pythonAtLeast,
+  fetchPypi,
+}:
 
 buildPythonPackage rec {
   pname = "validictory";

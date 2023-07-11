@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, goocanvas2, gtkmm3, gnome }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  goocanvas2,
+  gtkmm3,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "goocanvasmm";

@@ -1,5 +1,16 @@
-{ lib, mkXfceDerivation, gtk3, libxfce4ui, vte, xfconf, pcre2, libxslt
-, docbook_xml_dtd_45, docbook_xsl, nixosTests }:
+{
+  lib,
+  mkXfceDerivation,
+  gtk3,
+  libxfce4ui,
+  vte,
+  xfconf,
+  pcre2,
+  libxslt,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  nixosTests,
+}:
 
 mkXfceDerivation {
   category = "apps";

@@ -1,6 +1,18 @@
-{ stdenv, lib, fetchFromGitHub, dtkwidget, qt5integration, qt5platform-plugins
-, dde-qt-dbus-factory, pkg-config, cmake, qttools, wrapQtAppsHook, polkit-qt
-, qtbase }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  dde-qt-dbus-factory,
+  pkg-config,
+  cmake,
+  qttools,
+  wrapQtAppsHook,
+  polkit-qt,
+  qtbase,
+}:
 stdenv.mkDerivation rec {
   pname = "dde-polkit-agent";
   version = "5.5.22";

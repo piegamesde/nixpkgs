@@ -1,9 +1,39 @@
-{ lib, stdenv, fetchurl, nixosTests, copyDesktopItems, makeDesktopItem
-, makeWrapper, wrapGAppsHook, gobject-introspection
-, jre # old or modded versions of the game may require Java 8 (https://aur.archlinux.org/packages/minecraft-launcher/#pinned-674960)
-, xorg, zlib, nss, nspr, fontconfig, pango, cairo, expat, alsa-lib, cups, dbus
-, atk, gtk3-x11, gtk2-x11, gdk-pixbuf, glib, curl, freetype, libpulseaudio
-, libuuid, systemd, flite ? null, libXxf86vm ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  nixosTests,
+  copyDesktopItems,
+  makeDesktopItem,
+  makeWrapper,
+  wrapGAppsHook,
+  gobject-introspection,
+  jre # old or modded versions of the game may require Java 8 (https://aur.archlinux.org/packages/minecraft-launcher/#pinned-674960)
+  ,
+  xorg,
+  zlib,
+  nss,
+  nspr,
+  fontconfig,
+  pango,
+  cairo,
+  expat,
+  alsa-lib,
+  cups,
+  dbus,
+  atk,
+  gtk3-x11,
+  gtk2-x11,
+  gdk-pixbuf,
+  glib,
+  curl,
+  freetype,
+  libpulseaudio,
+  libuuid,
+  systemd,
+  flite ? null,
+  libXxf86vm ? null
+}:
 let
   desktopItem = makeDesktopItem {
     name = "minecraft-launcher";

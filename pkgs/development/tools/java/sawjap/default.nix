@@ -1,4 +1,7 @@
-{ stdenv, ocamlPackages }:
+{
+  stdenv,
+  ocamlPackages,
+}:
 
 let inherit (ocamlPackages) ocaml findlib sawja;
 

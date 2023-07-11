@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, check, flex
-, pkg-config, which, elfutils, libelf, libffi, llvm, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  check,
+  flex,
+  pkg-config,
+  which,
+  elfutils,
+  libelf,
+  libffi,
+  llvm,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nvc";

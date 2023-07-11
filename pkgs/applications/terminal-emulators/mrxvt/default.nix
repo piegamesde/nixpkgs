@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, libX11, libXft, libXi, xorgproto, libSM, libICE
-, freetype, pkg-config, which, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
+  libXft,
+  libXi,
+  xorgproto,
+  libSM,
+  libICE,
+  freetype,
+  pkg-config,
+  which,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mrxvt";

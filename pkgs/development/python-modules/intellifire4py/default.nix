@@ -1,5 +1,16 @@
-{ lib, aenum, aiohttp, asynctest, buildPythonPackage, fetchFromGitHub, pydantic
-, pytest-mock, pytestCheckHook, pythonOlder, requests }:
+{
+  lib,
+  aenum,
+  aiohttp,
+  asynctest,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pydantic,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "intellifire4py";

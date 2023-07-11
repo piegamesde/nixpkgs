@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, sphinxHook, sphinx }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  sphinxHook,
+  sphinx,
+}:
 
 buildPythonPackage rec {
   pname = "sphinx-prompt";

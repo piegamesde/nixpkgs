@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, meson, ninja, glib
-, gtk4, libadwaita, wrapGAppsHook4, appstream-glib, desktop-file-utils }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  meson,
+  ninja,
+  glib,
+  gtk4,
+  libadwaita,
+  wrapGAppsHook4,
+  appstream-glib,
+  desktop-file-utils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "eyedropper";

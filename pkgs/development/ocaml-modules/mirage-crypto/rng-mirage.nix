@@ -1,6 +1,17 @@
-{ buildDunePackage, mirage-crypto-rng, duration, cstruct, mirage-runtime
-, mirage-time, mirage-clock, mirage-unix, mirage-time-unix, mirage-clock-unix
-, logs, lwt }:
+{
+  buildDunePackage,
+  mirage-crypto-rng,
+  duration,
+  cstruct,
+  mirage-runtime,
+  mirage-time,
+  mirage-clock,
+  mirage-unix,
+  mirage-time-unix,
+  mirage-clock-unix,
+  logs,
+  lwt,
+}:
 
 buildDunePackage rec {
   pname = "mirage-crypto-rng-mirage";

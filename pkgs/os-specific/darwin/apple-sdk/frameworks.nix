@@ -2,7 +2,11 @@
 # Epic weird knot-tying happening here.
 # TODO: clean up the process for generating this and include it
 
-{ frameworks, libs, libobjc, }:
+{
+  frameworks,
+  libs,
+  libobjc,
+}:
 
 with frameworks;
 with libs; {

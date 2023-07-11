@@ -1,4 +1,13 @@
-{ lib, fetchurl, buildDunePackage, bigstringaf, hmap, httpaf, lwt, sexplib0 }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  bigstringaf,
+  hmap,
+  httpaf,
+  lwt,
+  sexplib0,
+}:
 
 buildDunePackage rec {
   pname = "rock";

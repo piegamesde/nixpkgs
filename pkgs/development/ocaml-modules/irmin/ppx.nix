@@ -1,4 +1,11 @@
-{ lib, fetchurl, buildDunePackage, ppxlib, ppx_repr, logs }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  ppxlib,
+  ppx_repr,
+  logs,
+}:
 
 buildDunePackage rec {
   pname = "ppx_irmin";

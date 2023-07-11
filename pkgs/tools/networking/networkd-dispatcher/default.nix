@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitLab, python3Packages, asciidoc, makeWrapper, iw }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  python3Packages,
+  asciidoc,
+  makeWrapper,
+  iw,
+}:
 
 stdenv.mkDerivation rec {
   pname = "networkd-dispatcher";

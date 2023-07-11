@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchpatch, fetchFromGitHub, autoreconfHook, pkg-config, dbus
-, json_c, ncurses, connman }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  dbus,
+  json_c,
+  ncurses,
+  connman,
+}:
 
 stdenv.mkDerivation {
   pname = "connman-ncurses";

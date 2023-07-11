@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, six, setuptools
-, pytestCheckHook, httpbin, requests, wsgiprox, multidict }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  six,
+  setuptools,
+  pytestCheckHook,
+  httpbin,
+  requests,
+  wsgiprox,
+  multidict,
+}:
 
 buildPythonPackage rec {
   pname = "warcio";

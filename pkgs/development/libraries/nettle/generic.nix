@@ -1,7 +1,15 @@
-{ lib, stdenv, buildPackages, gmp, gnum4
+{
+  lib,
+  stdenv,
+  buildPackages,
+  gmp,
+  gnum4
 
-# Version specific args
-, version, src }:
+  # Version specific args
+  ,
+  version,
+  src,
+}:
 
 stdenv.mkDerivation {
   pname = "nettle";

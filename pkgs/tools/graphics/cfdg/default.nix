@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, libpng, bison, flex, ffmpeg, icu }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libpng,
+  bison,
+  flex,
+  ffmpeg,
+  icu,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cfdg";

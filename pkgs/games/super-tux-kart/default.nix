@@ -1,7 +1,32 @@
-{ lib, stdenv, fetchFromGitHub, fetchsvn, cmake, pkg-config, makeWrapper, SDL2
-, glew, openal, OpenAL, libvorbis, libogg, curl, freetype, libjpeg, libpng
-, harfbuzz, mcpp, wiiuse, angelscript, libopenglrecorder, sqlite, Cocoa, IOKit
-, libsamplerate, shaderc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchsvn,
+  cmake,
+  pkg-config,
+  makeWrapper,
+  SDL2,
+  glew,
+  openal,
+  OpenAL,
+  libvorbis,
+  libogg,
+  curl,
+  freetype,
+  libjpeg,
+  libpng,
+  harfbuzz,
+  mcpp,
+  wiiuse,
+  angelscript,
+  libopenglrecorder,
+  sqlite,
+  Cocoa,
+  IOKit,
+  libsamplerate,
+  shaderc,
+}:
 let
   assets = fetchsvn {
     url = "https://svn.code.sf.net/p/supertuxkart/code/stk-assets";

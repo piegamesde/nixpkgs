@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitLab, xorg, autoreconfHook, pkg-config, xorg-autoconf
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  xorg,
+  autoreconfHook,
+  pkg-config,
+  xorg-autoconf,
 }:
 
 stdenv.mkDerivation rec {

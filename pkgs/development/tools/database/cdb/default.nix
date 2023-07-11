@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchurl, fetchFromGitHub }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchFromGitHub,
+}:
 
 let
   version = "0.75";

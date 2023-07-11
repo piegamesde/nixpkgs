@@ -1,4 +1,12 @@
-{ lib, stdenv, callPackage, cmake, ninja, useSwift ? true, swift }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  cmake,
+  ninja,
+  useSwift ? true,
+  swift,
+}:
 
 let sources = callPackage ../sources.nix { };
 in stdenv.mkDerivation {

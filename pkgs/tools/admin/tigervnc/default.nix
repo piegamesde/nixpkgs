@@ -1,6 +1,28 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, xorg, xkeyboard_config, zlib
-, libjpeg_turbo, pixman, fltk, cmake, gettext, libtool, libGLU, gnutls, gawk
-, pam, nettle, xterm, openssh, perl, makeWrapper, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  xorg,
+  xkeyboard_config,
+  zlib,
+  libjpeg_turbo,
+  pixman,
+  fltk,
+  cmake,
+  gettext,
+  libtool,
+  libGLU,
+  gnutls,
+  gawk,
+  pam,
+  nettle,
+  xterm,
+  openssh,
+  perl,
+  makeWrapper,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.12.0";

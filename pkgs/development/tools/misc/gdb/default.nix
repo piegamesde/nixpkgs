@@ -1,23 +1,48 @@
-{ lib, stdenv, targetPackages
+{
+  lib,
+  stdenv,
+  targetPackages
 
-# Build time
-, fetchurl, fetchpatch, pkg-config, perl, texinfo, setupDebugInfoDirs
-, buildPackages
+  # Build time
+  ,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  perl,
+  texinfo,
+  setupDebugInfoDirs,
+  buildPackages
 
-# Run time
-, ncurses, readline, gmp, mpfr, expat, libipt, zlib, zstd, dejagnu
-, sourceHighlight
+  # Run time
+  ,
+  ncurses,
+  readline,
+  gmp,
+  mpfr,
+  expat,
+  libipt,
+  zlib,
+  zstd,
+  dejagnu,
+  sourceHighlight
 
-, pythonSupport ? stdenv.hostPlatform == stdenv.buildPlatform
-  && !stdenv.hostPlatform.isCygwin, python3 ? null
-, enableDebuginfod ? lib.meta.availableOn stdenv.hostPlatform elfutils, elfutils
-, guile ? null, hostCpuOnly ? false, safePaths ? [
-  # $debugdir:$datadir/auto-load are whitelisted by default by GDB
-  "$debugdir"
-  "$datadir/auto-load"
-  # targetPackages so we get the right libc when cross-compiling and using buildPackages.gdb
-  targetPackages.stdenv.cc.cc.lib
-], writeScript }:
+  ,
+  pythonSupport ? stdenv.hostPlatform == stdenv.buildPlatform
+    && !stdenv.hostPlatform.isCygwin,
+  python3 ? null,
+  enableDebuginfod ? lib.meta.availableOn stdenv.hostPlatform elfutils,
+  elfutils,
+  guile ? null,
+  hostCpuOnly ? false,
+  safePaths ? [
+    # $debugdir:$datadir/auto-load are whitelisted by default by GDB
+    "$debugdir"
+    "$datadir/auto-load"
+    # targetPackages so we get the right libc when cross-compiling and using buildPackages.gdb
+    targetPackages.stdenv.cc.cc.lib
+  ],
+  writeScript,
+}:
 
 let
   basename = "gdb";

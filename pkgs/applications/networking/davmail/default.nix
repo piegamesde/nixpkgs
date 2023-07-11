@@ -1,5 +1,18 @@
-{ stdenv, fetchurl, lib, makeWrapper, unzip, glib, gtk2, gtk3, jre, libXtst
-, zulu, preferGtk3 ? true, preferZulu ? true }:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  makeWrapper,
+  unzip,
+  glib,
+  gtk2,
+  gtk3,
+  jre,
+  libXtst,
+  zulu,
+  preferGtk3 ? true,
+  preferZulu ? true
+}:
 
 let
   rev = 3390;

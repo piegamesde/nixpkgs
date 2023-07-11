@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, asciidoc, pkg-config, xmlto
-, docbook_xsl, docbook_xml_dtd_45, libxslt, json_c, kmod, which, util-linux
-, udev, keyutils }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  asciidoc,
+  pkg-config,
+  xmlto,
+  docbook_xsl,
+  docbook_xml_dtd_45,
+  libxslt,
+  json_c,
+  kmod,
+  which,
+  util-linux,
+  udev,
+  keyutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libndctl";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, pytestCheckHook, pandas, torch
-, scipy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  pytestCheckHook,
+  pandas,
+  torch,
+  scipy,
+}:
 
 buildPythonPackage rec {
   pname = "slicer";

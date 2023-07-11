@@ -1,7 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, runtimeShell, nixosTests, fetchpatch
-, autoreconfHook, bison, flex, docbook_xml_dtd_45, docbook_xsl, itstool, libxml2
-, libxslt, libxcrypt, glibcCross ? null, pam ? null
-, withTcb ? lib.meta.availableOn stdenv.hostPlatform tcb, tcb }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  runtimeShell,
+  nixosTests,
+  fetchpatch,
+  autoreconfHook,
+  bison,
+  flex,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  itstool,
+  libxml2,
+  libxslt,
+  libxcrypt,
+  glibcCross ? null,
+  pam ? null,
+  withTcb ? lib.meta.availableOn stdenv.hostPlatform tcb,
+  tcb,
+}:
 let
   glibc = if stdenv.hostPlatform != stdenv.buildPlatform then
     glibcCross

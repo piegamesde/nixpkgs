@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools-scm, pytest, jinja2, matplotlib
-, nose, pillow, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  pytest,
+  jinja2,
+  matplotlib,
+  nose,
+  pillow,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-mpl";

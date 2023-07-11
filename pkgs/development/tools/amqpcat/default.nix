@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, crystal, openssl, testers, amqpcat }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  crystal,
+  openssl,
+  testers,
+  amqpcat,
+}:
 
 crystal.buildCrystalPackage rec {
   pname = "amqpcat";

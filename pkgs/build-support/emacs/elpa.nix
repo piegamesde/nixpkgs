@@ -1,10 +1,23 @@
 # builder for Emacs packages built for packages.el
 
-{ lib, stdenv, emacs, texinfo, writeText, gcc }:
+{
+  lib,
+  stdenv,
+  emacs,
+  texinfo,
+  writeText,
+  gcc,
+}:
 
 with lib;
 
-{ pname, version, src, meta ? { }, ... }@args:
+{
+  pname,
+  version,
+  src,
+  meta ? { },
+  ...
+}@args:
 
 let
 

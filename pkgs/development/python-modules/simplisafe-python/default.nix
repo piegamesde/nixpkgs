@@ -1,6 +1,22 @@
-{ lib, aiohttp, aresponses, backoff, beautifulsoup4, buildPythonPackage
-, docutils, fetchFromGitHub, poetry-core, pytest-aiohttp, pytest-asyncio
-, pytestCheckHook, pythonOlder, pytz, types-pytz, voluptuous, websockets }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  backoff,
+  beautifulsoup4,
+  buildPythonPackage,
+  docutils,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  types-pytz,
+  voluptuous,
+  websockets,
+}:
 
 buildPythonPackage rec {
   pname = "simplisafe-python";

@@ -1,5 +1,22 @@
-{ fetchurl, lib, stdenv, zlib, bzip2, libgcrypt, gdbm, gperf, tdb, gnutls, db
-, libuuid, lzo, pkg-config, guile, rpcsvc-proto, libtirpc }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  zlib,
+  bzip2,
+  libgcrypt,
+  gdbm,
+  gperf,
+  tdb,
+  gnutls,
+  db,
+  libuuid,
+  lzo,
+  pkg-config,
+  guile,
+  rpcsvc-proto,
+  libtirpc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libchop";

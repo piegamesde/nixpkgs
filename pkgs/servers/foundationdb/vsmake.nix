@@ -1,9 +1,21 @@
 # This builder is for FoundationDB's original, somewhat strange visual studio +
 # make build system. In FoundationDB 6.1 and later, there's a new CMake system
 # (which will eventually become the default version.)
-{ gcc6Stdenv, lib, fetchurl, fetchFromGitHub
+{
+  gcc6Stdenv,
+  lib,
+  fetchurl,
+  fetchFromGitHub
 
-, which, m4, python2, openjdk, mono, libressl, ... }:
+  ,
+  which,
+  m4,
+  python2,
+  openjdk,
+  mono,
+  libressl,
+  ...
+}:
 
 let
   # hysterical raisins dictate a version of boost this old. however,
@@ -22,19 +34,27 @@ let
     installPhase = "mkdir -p $out/include && cp -R boost $out/include/";
   };
 
-  makeFdb = { version, branch, sha256
+  makeFdb = {
+      version,
+      branch,
+      sha256
 
-    # the revision can be inferred from the fdb tagging policy
-    , rev ? "refs/tags/${version}"
+      # the revision can be inferred from the fdb tagging policy
+      ,
+      rev ? "refs/tags/${version}"
 
-      # in theory newer versions of fdb support newer boost versions, but they
-      # don't :( maybe one day
-    , boost ? boost152
+        # in theory newer versions of fdb support newer boost versions, but they
+        # don't :( maybe one day
+      ,
+      boost ? boost152
 
-      # if an release is unofficial/a prerelease, then make sure this is set
-    , officialRelease ? true
+        # if an release is unofficial/a prerelease, then make sure this is set
+      ,
+      officialRelease ? true
 
-    , patches ? [ ] }:
+      ,
+      patches ? [ ]
+    }:
     gcc6Stdenv.mkDerivation {
       pname = "foundationdb";
       inherit version;

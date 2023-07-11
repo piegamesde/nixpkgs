@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, meson, ninja, boost, curl
-, libgcrypt, libmpdclient, systemd }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  meson,
+  ninja,
+  boost,
+  curl,
+  libgcrypt,
+  libmpdclient,
+  systemd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mpdscribble";

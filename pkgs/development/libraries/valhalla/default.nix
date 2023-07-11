@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, zlib, curl, protobuf
-, prime-server, boost, sqlite, libspatialite, luajit, geos39, python3, zeromq }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  zlib,
+  curl,
+  protobuf,
+  prime-server,
+  boost,
+  sqlite,
+  libspatialite,
+  luajit,
+  geos39,
+  python3,
+  zeromq,
+}:
 
 stdenv.mkDerivation rec {
   pname = "valhalla";

@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, nose, pytz, six, versiontools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  pytz,
+  six,
+  versiontools,
+}:
 
 buildPythonPackage rec {
   pname = "sampledata";

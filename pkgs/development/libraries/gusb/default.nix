@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchurl, substituteAll, meson, ninja, pkg-config, gettext
-, gobject-introspection, gtk-doc, docbook_xsl, docbook_xml_dtd_412
-, docbook_xml_dtd_44, python3, glib, libusb1, vala, hwdata }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  substituteAll,
+  meson,
+  ninja,
+  pkg-config,
+  gettext,
+  gobject-introspection,
+  gtk-doc,
+  docbook_xsl,
+  docbook_xml_dtd_412,
+  docbook_xml_dtd_44,
+  python3,
+  glib,
+  libusb1,
+  vala,
+  hwdata,
+}:
 
 let
   pythonEnv = python3.pythonForBuild.withPackages (ps: with ps; [ setuptools ]);

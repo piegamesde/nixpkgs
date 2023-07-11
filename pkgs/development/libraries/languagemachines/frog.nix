@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, automake, autoconf, bzip2, libtar, libtool, pkg-config
-, autoconf-archive, libxml2, icu, languageMachines }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  automake,
+  autoconf,
+  bzip2,
+  libtar,
+  libtool,
+  pkg-config,
+  autoconf-archive,
+  libxml2,
+  icu,
+  languageMachines,
+}:
 
 let release = lib.importJSON ./release-info/LanguageMachines-frog.json;
 

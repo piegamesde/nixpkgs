@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, qt5, git, cmake, pkg-config
-, makeWrapper }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  qt5,
+  git,
+  cmake,
+  pkg-config,
+  makeWrapper,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "panopticon";

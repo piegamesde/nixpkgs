@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, isPy3k, daemonize, dbus-python, fetchFromGitHub
-, gobject-introspection, gtk3, makeWrapper, pygobject3, pyudev, setproctitle
-, wrapGAppsHook }:
+{
+  lib,
+  buildPythonPackage,
+  isPy3k,
+  daemonize,
+  dbus-python,
+  fetchFromGitHub,
+  gobject-introspection,
+  gtk3,
+  makeWrapper,
+  pygobject3,
+  pyudev,
+  setproctitle,
+  wrapGAppsHook,
+}:
 
 let common = import ./common.nix { inherit lib fetchFromGitHub; };
 in buildPythonPackage (common // {

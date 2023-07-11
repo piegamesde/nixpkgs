@@ -1,17 +1,68 @@
-{ config, stdenv, fetchurl, lib, acpica-tools, dev86, pam, libxslt, libxml2
-, wrapQtAppsHook, libX11, xorgproto, libXext, libXcursor, libXmu, libIDL, SDL
-, libcap, libGL, libpng, glib, lvm2, libXrandr, libXinerama, libopus, qtbase
-, qtx11extras, qttools, qtsvg, qtwayland, pkg-config, which, docbook_xsl
-, docbook_xml_dtd_43, alsa-lib, curl, libvpx, nettools, dbus, substituteAll
-, gsoap, zlib, yasm, glslang
-# If open-watcom-bin is not passed, VirtualBox will fall back to use
-# the shipped alternative sources (assembly).
-, open-watcom-bin, makeself, perl, javaBindings ? true
-, jdk # Almost doesn't affect closure size
-, pythonBindings ? false, python3, extensionPack ? null, fakeroot
-, pulseSupport ? config.pulseaudio or stdenv.isLinux, libpulseaudio
-, enableHardening ? false, headless ? false, enable32bitGuests ? true
-, enableWebService ? false }:
+{
+  config,
+  stdenv,
+  fetchurl,
+  lib,
+  acpica-tools,
+  dev86,
+  pam,
+  libxslt,
+  libxml2,
+  wrapQtAppsHook,
+  libX11,
+  xorgproto,
+  libXext,
+  libXcursor,
+  libXmu,
+  libIDL,
+  SDL,
+  libcap,
+  libGL,
+  libpng,
+  glib,
+  lvm2,
+  libXrandr,
+  libXinerama,
+  libopus,
+  qtbase,
+  qtx11extras,
+  qttools,
+  qtsvg,
+  qtwayland,
+  pkg-config,
+  which,
+  docbook_xsl,
+  docbook_xml_dtd_43,
+  alsa-lib,
+  curl,
+  libvpx,
+  nettools,
+  dbus,
+  substituteAll,
+  gsoap,
+  zlib,
+  yasm,
+  glslang
+  # If open-watcom-bin is not passed, VirtualBox will fall back to use
+  # the shipped alternative sources (assembly).
+  ,
+  open-watcom-bin,
+  makeself,
+  perl,
+  javaBindings ? true,
+  jdk # Almost doesn't affect closure size
+  ,
+  pythonBindings ? false,
+  python3,
+  extensionPack ? null,
+  fakeroot,
+  pulseSupport ? config.pulseaudio or stdenv.isLinux,
+  libpulseaudio,
+  enableHardening ? false,
+  headless ? false,
+  enable32bitGuests ? true,
+  enableWebService ? false
+}:
 
 with lib;
 

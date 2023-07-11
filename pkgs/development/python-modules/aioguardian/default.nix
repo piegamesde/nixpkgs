@@ -1,6 +1,18 @@
-{ lib, aiohttp, async-timeout, asyncio-dgram, buildPythonPackage, docutils
-, fetchFromGitHub, poetry-core, pytest-aiohttp, pytest-asyncio, pytestCheckHook
-, pythonOlder, voluptuous }:
+{
+  lib,
+  aiohttp,
+  async-timeout,
+  asyncio-dgram,
+  buildPythonPackage,
+  docutils,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  voluptuous,
+}:
 
 buildPythonPackage rec {
   pname = "aioguardian";

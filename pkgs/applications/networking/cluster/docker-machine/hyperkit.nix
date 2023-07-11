@@ -1,4 +1,8 @@
-{ lib, buildGoModule, minikube }:
+{
+  lib,
+  buildGoModule,
+  minikube,
+}:
 
 buildGoModule rec {
   inherit (minikube)

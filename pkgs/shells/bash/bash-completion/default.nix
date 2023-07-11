@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, perl, ps, python3Packages
-, bashInteractive }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+  perl,
+  ps,
+  python3Packages,
+  bashInteractive,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bash-completion";

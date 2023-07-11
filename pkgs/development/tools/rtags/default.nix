@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, cmake, llvmPackages, openssl
-, apple_sdk, emacs, pkg-config }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  llvmPackages,
+  openssl,
+  apple_sdk,
+  emacs,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rtags";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchzip, libpcap, glib, pkg-config, libnet }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  libpcap,
+  glib,
+  pkg-config,
+  libnet,
+}:
 stdenv.mkDerivation {
   pname = "libnids";
   version = "1.24";

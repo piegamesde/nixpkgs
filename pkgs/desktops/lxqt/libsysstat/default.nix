@@ -1,5 +1,13 @@
-{ stdenv, lib, mkDerivation, fetchFromGitHub, cmake, qtbase, lxqt-build-tools
-, gitUpdater }:
+{
+  stdenv,
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  qtbase,
+  lxqt-build-tools,
+  gitUpdater,
+}:
 
 mkDerivation rec {
   pname = "libsysstat";

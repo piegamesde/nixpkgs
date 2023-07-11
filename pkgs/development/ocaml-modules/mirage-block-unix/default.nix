@@ -1,5 +1,15 @@
-{ lib, fetchurl, buildDunePackage, cstruct-lwt, diet, logs, mirage-block, ounit2
-, rresult, uri }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  cstruct-lwt,
+  diet,
+  logs,
+  mirage-block,
+  ounit2,
+  rresult,
+  uri,
+}:
 
 buildDunePackage rec {
   pname = "mirage-block-unix";

@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, jre, jdk, gradle_6, makeDesktopItem
-, copyDesktopItems, perl, writeText, runtimeShell }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  jre,
+  jdk,
+  gradle_6,
+  makeDesktopItem,
+  copyDesktopItems,
+  perl,
+  writeText,
+  runtimeShell,
+}:
 
 let
   pname = "jd-gui";

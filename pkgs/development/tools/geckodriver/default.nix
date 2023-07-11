@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, rustPlatform, stdenv, Security, libiconv }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  stdenv,
+  Security,
+  libiconv,
+}:
 
 rustPlatform.buildRustPackage rec {
   version = "0.33.0";

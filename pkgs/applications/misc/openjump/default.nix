@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, unzip, makeWrapper, coreutils, gawk, which, gnugrep
-, findutils, jdk }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  makeWrapper,
+  coreutils,
+  gawk,
+  which,
+  gnugrep,
+  findutils,
+  jdk,
+}:
 
 stdenv.mkDerivation {
   pname = "openjump";

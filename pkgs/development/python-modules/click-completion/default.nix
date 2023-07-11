@@ -1,7 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27
 
-# propagates
-, click, jinja2, shellingham, six }:
+  # propagates
+  ,
+  click,
+  jinja2,
+  shellingham,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "click-completion";

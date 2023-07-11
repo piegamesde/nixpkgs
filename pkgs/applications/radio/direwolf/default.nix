@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, alsa-lib, espeak, gpsd, hamlib, perl
-, python3, udev }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  alsa-lib,
+  espeak,
+  gpsd,
+  hamlib,
+  perl,
+  python3,
+  udev,
+}:
 
 with lib;
 

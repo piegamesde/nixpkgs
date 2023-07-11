@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, installShellFiles, libiconv
-, libmpdclient, meson, ninja, pkg-config, sphinx }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  installShellFiles,
+  libiconv,
+  libmpdclient,
+  meson,
+  ninja,
+  pkg-config,
+  sphinx,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mpc";

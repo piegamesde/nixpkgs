@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, click, fetchPypi, google-auth, packaging, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  click,
+  fetchPypi,
+  google-auth,
+  packaging,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

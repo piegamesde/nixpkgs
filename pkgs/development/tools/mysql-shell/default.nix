@@ -1,7 +1,38 @@
-{ lib, stdenv, pkg-config, cmake, fetchurl, git, cctools, developer_cmds
-, DarwinTools, makeWrapper, CoreServices, bison, openssl, protobuf, curl, zlib
-, libssh, zstd, lz4, boost, readline, libtirpc, rpcsvc-proto, libedit, libevent
-, icu, re2, ncurses, libfido2, python3, cyrus_sasl, openldap, antlr }:
+{
+  lib,
+  stdenv,
+  pkg-config,
+  cmake,
+  fetchurl,
+  git,
+  cctools,
+  developer_cmds,
+  DarwinTools,
+  makeWrapper,
+  CoreServices,
+  bison,
+  openssl,
+  protobuf,
+  curl,
+  zlib,
+  libssh,
+  zstd,
+  lz4,
+  boost,
+  readline,
+  libtirpc,
+  rpcsvc-proto,
+  libedit,
+  libevent,
+  icu,
+  re2,
+  ncurses,
+  libfido2,
+  python3,
+  cyrus_sasl,
+  openldap,
+  antlr,
+}:
 
 let pythonDeps = with python3.pkgs; [ certifi paramiko pyyaml ];
 in stdenv.mkDerivation rec {

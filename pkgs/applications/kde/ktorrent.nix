@@ -1,6 +1,21 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, karchive, kcmutils, kcrash
-, kdnssd, ki18n, knotifications, knotifyconfig, kplotting, kross, libgcrypt
-, libktorrent, taglib }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  karchive,
+  kcmutils,
+  kcrash,
+  kdnssd,
+  ki18n,
+  knotifications,
+  knotifyconfig,
+  kplotting,
+  kross,
+  libgcrypt,
+  libktorrent,
+  taglib,
+}:
 
 mkDerivation {
   pname = "ktorrent";

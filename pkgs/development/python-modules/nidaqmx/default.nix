@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, six, numpy, pytestCheckHook, pykka
-, enum34, pythonOlder, pythonAtLeast }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  six,
+  numpy,
+  pytestCheckHook,
+  pykka,
+  enum34,
+  pythonOlder,
+  pythonAtLeast,
+}:
 
 # Note we currently do not patch the path to the drivers
 # because those are not available in Nixpkgs.

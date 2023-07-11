@@ -1,6 +1,28 @@
-{ lib, stdenv, fetchurl, glib, libX11, gst_all_1, libepoxy, pango, cairo
-, gdk-pixbuf, e2fsprogs, libkrb5, libva, openssl, pcsclite, gtk3, libselinux
-, libxml2, libffi, python3Packages, cpio, autoPatchelfHook, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  glib,
+  libX11,
+  gst_all_1,
+  libepoxy,
+  pango,
+  cairo,
+  gdk-pixbuf,
+  e2fsprogs,
+  libkrb5,
+  libva,
+  openssl,
+  pcsclite,
+  gtk3,
+  libselinux,
+  libxml2,
+  libffi,
+  python3Packages,
+  cpio,
+  autoPatchelfHook,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nice-dcv-client";

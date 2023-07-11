@@ -1,7 +1,27 @@
-{ lib, stdenv, buildEnv, fetchFromGitHub, fetchYarnDeps, fixup_yarn_lock
-, installShellFiles, lame, mpv-unwrapped, ninja, nodejs, nodejs-slim, protobuf
-, python3, qt6, rsync, rustPlatform, writeShellScriptBin, yarn, swift, AVKit
-, CoreAudio }:
+{
+  lib,
+  stdenv,
+  buildEnv,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  fixup_yarn_lock,
+  installShellFiles,
+  lame,
+  mpv-unwrapped,
+  ninja,
+  nodejs,
+  nodejs-slim,
+  protobuf,
+  python3,
+  qt6,
+  rsync,
+  rustPlatform,
+  writeShellScriptBin,
+  yarn,
+  swift,
+  AVKit,
+  CoreAudio,
+}:
 
 let
   pname = "anki";

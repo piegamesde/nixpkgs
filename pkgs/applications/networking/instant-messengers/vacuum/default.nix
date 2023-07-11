@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, qt4, qmake4Hook, openssl, xorgproto, libX11
-, libXScrnSaver, xz, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qt4,
+  qmake4Hook,
+  openssl,
+  xorgproto,
+  libX11,
+  libXScrnSaver,
+  xz,
+  zlib,
+}:
 stdenv.mkDerivation {
   pname = "vacuum-im";
   version = "1.3.0.20160104";

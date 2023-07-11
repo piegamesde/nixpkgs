@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, qt4, cmake, libjpeg, libtiff, boost }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qt4,
+  cmake,
+  libjpeg,
+  libtiff,
+  boost,
+}:
 
 stdenv.mkDerivation rec {
   pname = "scantailor";

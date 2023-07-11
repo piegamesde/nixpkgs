@@ -1,7 +1,27 @@
-{ fetchurl, fetchpatch, lib, stdenv, pkg-config, libdaemon, dbus, perlPackages
-, libpcap, expat, gettext, glib, libiconv, libevent, nixosTests
-, gtk3Support ? false, gtk3, qt5, qt5Support ? false, withLibdnssdCompat ? false
-, python ? null, withPython ? false }:
+{
+  fetchurl,
+  fetchpatch,
+  lib,
+  stdenv,
+  pkg-config,
+  libdaemon,
+  dbus,
+  perlPackages,
+  libpcap,
+  expat,
+  gettext,
+  glib,
+  libiconv,
+  libevent,
+  nixosTests,
+  gtk3Support ? false,
+  gtk3,
+  qt5,
+  qt5Support ? false,
+  withLibdnssdCompat ? false,
+  python ? null,
+  withPython ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "avahi${lib.optionalString withLibdnssdCompat "-compat"}";

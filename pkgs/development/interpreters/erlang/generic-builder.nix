@@ -1,27 +1,84 @@
-{ pkgs, lib, stdenv, fetchFromGitHub, makeWrapper, gawk, gnum4, gnused, libxml2
-, libxslt, ncurses, openssl, perl, autoconf, openjdk11 ? null # javacSupport
-, unixODBC ? null # odbcSupport
-, libGL ? null, libGLU ? null, wxGTK ? null, xorg ? null, parallelBuild ? false
-, systemd, wxSupport ? true, systemdSupport ?
-  lib.meta.availableOn stdenv.hostPlatform systemd # systemd support in epmd
-  # updateScript deps
-, writeScript, common-updater-scripts, coreutils, git }:
-{ baseName ? "erlang", version, sha256 ? null, rev ? "OTP-${version}", src ?
-  fetchFromGitHub {
+{
+  pkgs,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  gawk,
+  gnum4,
+  gnused,
+  libxml2,
+  libxslt,
+  ncurses,
+  openssl,
+  perl,
+  autoconf,
+  openjdk11 ? null # javacSupport
+  ,
+  unixODBC ? null # odbcSupport
+  ,
+  libGL ? null,
+  libGLU ? null,
+  wxGTK ? null,
+  xorg ? null,
+  parallelBuild ? false,
+  systemd,
+  wxSupport ? true,
+  systemdSupport ? lib.meta.availableOn stdenv.hostPlatform
+    systemd # systemd support in epmd
+    # updateScript deps
+  ,
+  writeScript,
+  common-updater-scripts,
+  coreutils,
+  git,
+}:
+{
+  baseName ? "erlang",
+  version,
+  sha256 ? null,
+  rev ? "OTP-${version}",
+  src ? fetchFromGitHub {
     inherit rev sha256;
     owner = "erlang";
     repo = "otp";
-  }, enableHipe ? true, enableDebugInfo ? false, enableThreads ? true
-, enableSmpSupport ? true, enableKernelPoll ? true, javacSupport ? false
-, javacPackages ? [ openjdk11 ], odbcSupport ? false
-, odbcPackages ? [ unixODBC ], opensslPackage ? openssl
-, wxPackages ? [ libGL libGLU wxGTK xorg.libX11 ], preUnpack ? ""
-, postUnpack ? "", patches ? [ ], patchPhase ? "", prePatch ? "", postPatch ? ""
-, configureFlags ? [ ], configurePhase ? "", preConfigure ? ""
-, postConfigure ? "", buildPhase ? "", preBuild ? "", postBuild ? ""
-, installPhase ? "", preInstall ? "", postInstall ? ""
-, installTargets ? [ "install" "install-docs" ], checkPhase ? "", preCheck ? ""
-, postCheck ? "", fixupPhase ? "", preFixup ? "", postFixup ? "", meta ? { } }:
+  },
+  enableHipe ? true,
+  enableDebugInfo ? false,
+  enableThreads ? true,
+  enableSmpSupport ? true,
+  enableKernelPoll ? true,
+  javacSupport ? false,
+  javacPackages ? [ openjdk11 ],
+  odbcSupport ? false,
+  odbcPackages ? [ unixODBC ],
+  opensslPackage ? openssl,
+  wxPackages ? [ libGL libGLU wxGTK xorg.libX11 ],
+  preUnpack ? "",
+  postUnpack ? "",
+  patches ? [ ],
+  patchPhase ? "",
+  prePatch ? "",
+  postPatch ? "",
+  configureFlags ? [ ],
+  configurePhase ? "",
+  preConfigure ? "",
+  postConfigure ? "",
+  buildPhase ? "",
+  preBuild ? "",
+  postBuild ? "",
+  installPhase ? "",
+  preInstall ? "",
+  postInstall ? "",
+  installTargets ? [ "install" "install-docs" ],
+  checkPhase ? "",
+  preCheck ? "",
+  postCheck ? "",
+  fixupPhase ? "",
+  preFixup ? "",
+  postFixup ? "",
+  meta ? { }
+}:
 
 assert wxSupport -> (if stdenv.isDarwin then
   wxGTK != null

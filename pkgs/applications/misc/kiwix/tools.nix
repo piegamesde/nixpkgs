@@ -1,4 +1,13 @@
-{ lib, fetchFromGitHub, icu, libkiwix, meson, ninja, pkg-config, stdenv }:
+{
+  lib,
+  fetchFromGitHub,
+  icu,
+  libkiwix,
+  meson,
+  ninja,
+  pkg-config,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kiwix-tools";

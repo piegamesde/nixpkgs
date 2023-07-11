@@ -1,4 +1,11 @@
-{ buildGoModule, fetchFromGitHub, installShellFiles, lib, pscale, testers }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  lib,
+  pscale,
+  testers,
+}:
 
 buildGoModule rec {
   pname = "pscale";

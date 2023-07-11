@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchurl, writeShellScript, SDL, SDL_mixer, makeDesktopItem
-, copyDesktopItems, runtimeShell, buildShareware ? false }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  writeShellScript,
+  SDL,
+  SDL_mixer,
+  makeDesktopItem,
+  copyDesktopItems,
+  runtimeShell,
+  buildShareware ? false
+}:
 
 let
   # Allow the game to be launched from a user's PATH and load the game data from the user's home directory.

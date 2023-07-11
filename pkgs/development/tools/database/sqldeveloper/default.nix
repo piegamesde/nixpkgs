@@ -1,4 +1,12 @@
-{ lib, stdenv, makeDesktopItem, makeWrapper, requireFile, unzip, jdk }:
+{
+  lib,
+  stdenv,
+  makeDesktopItem,
+  makeWrapper,
+  requireFile,
+  unzip,
+  jdk,
+}:
 
 let
   version = "20.4.0.379.2205";

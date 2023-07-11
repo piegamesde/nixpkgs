@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, python3, zip }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  zip,
+}:
 let
   version = "1.1.0";
   sha256 = "sha256-563xOz63vto19yuaHtReV1dSw6BgNf+CLtS3lrPnaoc=";

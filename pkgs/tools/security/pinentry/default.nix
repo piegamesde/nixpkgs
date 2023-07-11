@@ -1,8 +1,25 @@
-{ fetchurl, mkDerivation, fetchpatch, stdenv, lib, pkg-config, autoreconfHook
-, wrapGAppsHook, libgpg-error, libassuan, qtbase, wrapQtAppsHook, ncurses, gtk2
-, gcr, withLibsecret ? true, libsecret, enabledFlavors ?
-  [ "curses" "tty" "gtk2" "emacs" ] ++ lib.optionals stdenv.isLinux [ "gnome3" ]
-  ++ lib.optionals (!stdenv.isDarwin) [ "qt" ] }:
+{
+  fetchurl,
+  mkDerivation,
+  fetchpatch,
+  stdenv,
+  lib,
+  pkg-config,
+  autoreconfHook,
+  wrapGAppsHook,
+  libgpg-error,
+  libassuan,
+  qtbase,
+  wrapQtAppsHook,
+  ncurses,
+  gtk2,
+  gcr,
+  withLibsecret ? true,
+  libsecret,
+  enabledFlavors ? [ "curses" "tty" "gtk2" "emacs" ]
+    ++ lib.optionals stdenv.isLinux [ "gnome3" ]
+    ++ lib.optionals (!stdenv.isDarwin) [ "qt" ]
+}:
 
 assert lib.isList enabledFlavors && enabledFlavors != [ ];
 

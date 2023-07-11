@@ -1,10 +1,23 @@
-{ lib, stdenv, buildPackages, fetchurl, fetchpatch, runCommand, autoreconfHook
-, autoconf, automake, libtool, bash,
-# Enabling python support while cross compiling would be possible, but
-# the configure script tries executing python to gather info instead of
-# relying on python3-config exclusively
-enablePython ? stdenv.hostPlatform == stdenv.buildPlatform, python3, swig
-, linuxHeaders ? stdenv.cc.libc.linuxHeaders }:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  fetchurl,
+  fetchpatch,
+  runCommand,
+  autoreconfHook,
+  autoconf,
+  automake,
+  libtool,
+  bash,
+  # Enabling python support while cross compiling would be possible, but
+  # the configure script tries executing python to gather info instead of
+  # relying on python3-config exclusively
+  enablePython ? stdenv.hostPlatform == stdenv.buildPlatform,
+  python3,
+  swig,
+  linuxHeaders ? stdenv.cc.libc.linuxHeaders
+}:
 
 stdenv.mkDerivation rec {
   pname = "audit";

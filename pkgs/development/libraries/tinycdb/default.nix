@@ -1,4 +1,8 @@
-{ stdenv, lib, fetchurl }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+}:
 let
   isCross = stdenv.buildPlatform != stdenv.hostPlatform;
   cross = "${stdenv.hostPlatform.config}";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, zlib, bzip2, bison, flex }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  bzip2,
+  bison,
+  flex,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mairix";

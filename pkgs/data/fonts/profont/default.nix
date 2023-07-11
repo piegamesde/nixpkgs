@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchzip, xorg }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  xorg,
+}:
 
 stdenv.mkDerivation {
   pname = "profont";

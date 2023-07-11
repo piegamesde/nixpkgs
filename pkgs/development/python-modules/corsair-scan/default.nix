@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, click, fetchFromGitHub, mock, pytestCheckHook
-, pythonOlder, requests, tldextract, urllib3, validators }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  mock,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  tldextract,
+  urllib3,
+  validators,
+}:
 
 buildPythonPackage rec {
   pname = "corsair-scan";

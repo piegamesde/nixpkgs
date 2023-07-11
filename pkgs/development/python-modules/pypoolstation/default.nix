@@ -1,4 +1,11 @@
-{ lib, aiohttp, backoff, buildPythonPackage, fetchPypi, poetry-core, pythonOlder
+{
+  lib,
+  aiohttp,
+  backoff,
+  buildPythonPackage,
+  fetchPypi,
+  poetry-core,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

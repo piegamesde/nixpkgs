@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, libxkbcommon, pkg-config, wayland-protocols
-, wayland-scanner, wayland }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libxkbcommon,
+  pkg-config,
+  wayland-protocols,
+  wayland-scanner,
+  wayland,
+}:
 
 stdenv.mkDerivation rec {
   pname = "havoc";

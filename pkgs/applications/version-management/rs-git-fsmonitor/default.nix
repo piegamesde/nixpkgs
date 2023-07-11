@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, rustPlatform, makeWrapper, watchman }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  makeWrapper,
+  watchman,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rs-git-fsmonitor";

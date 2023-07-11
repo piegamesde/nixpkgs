@@ -1,10 +1,51 @@
-{ lib, stdenv, mkDerivation, fetchFromGitHub, cmake, ninja, gitpython, boost
-, coin3d, eigen, gfortran, gts, hdf5, libGLU, libXmu, libf2c, libredwg, libspnav
-, matplotlib, medfile, mpi, ode, opencascade-occt, pivy, pkg-config, ply
-, pycollada, pyside2, pyside2-tools, python, pyyaml, qtbase, qttools
-, qtwebengine, qtx11extras, qtxmlpatterns, scipy, shiboken2, soqt
-, spaceNavSupport ? stdenv.isLinux, swig, vtk, wrapQtAppsHook, wrapGAppsHook
-, xercesc, zlib }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  gitpython,
+  boost,
+  coin3d,
+  eigen,
+  gfortran,
+  gts,
+  hdf5,
+  libGLU,
+  libXmu,
+  libf2c,
+  libredwg,
+  libspnav,
+  matplotlib,
+  medfile,
+  mpi,
+  ode,
+  opencascade-occt,
+  pivy,
+  pkg-config,
+  ply,
+  pycollada,
+  pyside2,
+  pyside2-tools,
+  python,
+  pyyaml,
+  qtbase,
+  qttools,
+  qtwebengine,
+  qtx11extras,
+  qtxmlpatterns,
+  scipy,
+  shiboken2,
+  soqt,
+  spaceNavSupport ? stdenv.isLinux,
+  swig,
+  vtk,
+  wrapQtAppsHook,
+  wrapGAppsHook,
+  xercesc,
+  zlib,
+}:
 
 mkDerivation rec {
   pname = "freecad";

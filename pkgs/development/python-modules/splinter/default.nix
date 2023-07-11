@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, isPy27, fetchFromGitHub, urllib3, selenium, cssselect
-, django, flask, lxml, pytestCheckHook, zope-testbrowser }:
+{
+  lib,
+  buildPythonPackage,
+  isPy27,
+  fetchFromGitHub,
+  urllib3,
+  selenium,
+  cssselect,
+  django,
+  flask,
+  lxml,
+  pytestCheckHook,
+  zope-testbrowser,
+}:
 
 buildPythonPackage rec {
   pname = "splinter";

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, astropy, astropy-helpers
-, pillow }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  astropy,
+  astropy-helpers,
+  pillow,
+}:
 
 buildPythonPackage rec {
   pname = "pyavm";

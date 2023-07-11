@@ -1,5 +1,13 @@
-{ lib, authlib, buildPythonPackage, fetchFromGitHub, httpx, pytestCheckHook
-, pythonOlder, setuptools }:
+{
+  lib,
+  authlib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  httpx,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "aiosenz";

@@ -1,4 +1,12 @@
-{ lib, nimPackages, fetchFromGitHub, fetchpatch, makeWrapper, pcre, tinycc }:
+{
+  lib,
+  nimPackages,
+  fetchFromGitHub,
+  fetchpatch,
+  makeWrapper,
+  pcre,
+  tinycc,
+}:
 
 nimPackages.buildNimPackage {
   pname = "nrpl";

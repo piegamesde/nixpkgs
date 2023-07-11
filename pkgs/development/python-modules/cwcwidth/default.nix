@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, cython, pytestCheckHook, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cython,
+  pytestCheckHook,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "cwcwidth";

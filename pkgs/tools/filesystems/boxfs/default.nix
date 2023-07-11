@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, curl, fuse, libxml2, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  curl,
+  fuse,
+  libxml2,
+  pkg-config,
+}:
 
 let
   srcs = {

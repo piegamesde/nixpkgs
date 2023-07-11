@@ -1,5 +1,15 @@
-{ lib, python3, fetchFromGitHub, wrapGAppsHook, cinnamon, glib, gspell, gtk3
-, gobject-introspection, gitUpdater }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  wrapGAppsHook,
+  cinnamon,
+  glib,
+  gspell,
+  gtk3,
+  gobject-introspection,
+  gitUpdater,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "sticky";

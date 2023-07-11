@@ -1,4 +1,12 @@
-{ kernel, stdenv, kmod, lib, fetchzip, fetchpatch, dos2unix }:
+{
+  kernel,
+  stdenv,
+  kmod,
+  lib,
+  fetchzip,
+  fetchpatch,
+  dos2unix,
+}:
 stdenv.mkDerivation {
   pname = "ax99100";
   version = "1.8.0";

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -108,41 +113,45 @@ in {
       '';
 
       type = with types;
-        attrsOf (submodule ({ name, config, ... }: {
-          options = {
+        attrsOf (submodule ({
+            name,
+            config,
+            ...
+          }: {
+            options = {
 
-            enable = mkOption {
-              type = types.bool;
-              default = true;
-              description = lib.mdDoc ''
-                Whether this runtime directory should be generated.  This
-                option allows specific runtime files to be disabled.
-              '';
+              enable = mkOption {
+                type = types.bool;
+                default = true;
+                description = lib.mdDoc ''
+                  Whether this runtime directory should be generated.  This
+                  option allows specific runtime files to be disabled.
+                '';
+              };
+
+              target = mkOption {
+                type = types.str;
+                description = lib.mdDoc ''
+                  Name of symlink.  Defaults to the attribute
+                  name.
+                '';
+              };
+
+              text = mkOption {
+                default = null;
+                type = types.nullOr types.lines;
+                description = lib.mdDoc "Text of the file.";
+              };
+
+              source = mkOption {
+                type = types.path;
+                description = lib.mdDoc "Path of the source file.";
+              };
+
             };
 
-            target = mkOption {
-              type = types.str;
-              description = lib.mdDoc ''
-                Name of symlink.  Defaults to the attribute
-                name.
-              '';
-            };
-
-            text = mkOption {
-              default = null;
-              type = types.nullOr types.lines;
-              description = lib.mdDoc "Text of the file.";
-            };
-
-            source = mkOption {
-              type = types.path;
-              description = lib.mdDoc "Path of the source file.";
-            };
-
-          };
-
-          config.target = mkDefault name;
-        }));
+            config.target = mkDefault name;
+          }));
 
     };
   };

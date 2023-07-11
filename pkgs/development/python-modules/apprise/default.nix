@@ -1,6 +1,22 @@
-{ lib, babel, buildPythonPackage, click, cryptography, fetchPypi, gntp
-, installShellFiles, markdown, paho-mqtt, pytest-mock, pytest-xdist
-, pytestCheckHook, pythonOlder, pyyaml, requests, requests-oauthlib }:
+{
+  lib,
+  babel,
+  buildPythonPackage,
+  click,
+  cryptography,
+  fetchPypi,
+  gntp,
+  installShellFiles,
+  markdown,
+  paho-mqtt,
+  pytest-mock,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  requests,
+  requests-oauthlib,
+}:
 
 buildPythonPackage rec {
   pname = "apprise";

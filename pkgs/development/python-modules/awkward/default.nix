@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, awkward-cpp
-, hatch-fancy-pypi-readme, hatchling, numba, numpy, packaging, typing-extensions
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  awkward-cpp,
+  hatch-fancy-pypi-readme,
+  hatchling,
+  numba,
+  numpy,
+  packaging,
+  typing-extensions,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "awkward";

@@ -1,6 +1,27 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, fetchpatch, cmake, unzip, zip, file
-, curl, glew, libGL, SDL2, SDL2_image, zlib, freetype, imagemagick, openal
-, opusfile, libogg, Cocoa, libXext }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  unzip,
+  zip,
+  file,
+  curl,
+  glew,
+  libGL,
+  SDL2,
+  SDL2_image,
+  zlib,
+  freetype,
+  imagemagick,
+  openal,
+  opusfile,
+  libogg,
+  Cocoa,
+  libXext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openspades";

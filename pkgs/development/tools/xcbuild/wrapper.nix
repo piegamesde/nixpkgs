@@ -1,9 +1,19 @@
-{ lib, stdenv, makeWrapper, writeText, writeTextFile, runCommand, callPackage
-, CoreServices, ImageIO, CoreGraphics
-, xcodePlatform ? stdenv.targetPlatform.xcodePlatform or "MacOSX"
-, xcodeVer ? stdenv.targetPlatform.xcodeVer or "9.4.1"
-, sdkVer ? stdenv.targetPlatform.darwinSdkVersion or "10.12"
-, productBuildVer ? null }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  writeText,
+  writeTextFile,
+  runCommand,
+  callPackage,
+  CoreServices,
+  ImageIO,
+  CoreGraphics,
+  xcodePlatform ? stdenv.targetPlatform.xcodePlatform or "MacOSX",
+  xcodeVer ? stdenv.targetPlatform.xcodeVer or "9.4.1",
+  sdkVer ? stdenv.targetPlatform.darwinSdkVersion or "10.12",
+  productBuildVer ? null
+}:
 
 let
 

@@ -1,11 +1,48 @@
-{ lib, stdenv, fetchurl, meson, ninja, pkg-config, gettext, libxml2, appstream
-, desktop-file-utils, glib, gtk3, pango, atk, gdk-pixbuf, shared-mime-info
-, itstool, gnome, poppler, ghostscriptX, djvulibre, libspectre, libarchive
-, libhandy, libsecret, wrapGAppsHook, librsvg, gobject-introspection, yelp-tools
-, gspell, adwaita-icon-theme, gsettings-desktop-schemas, gnome-desktop, dbus
-, texlive, gst_all_1, gi-docgen, supportMultimedia ? true # PDF multimedia
-, libgxps, supportXPS ? true # Open XML Paper Specification via libgxps
-, withLibsecret ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  gettext,
+  libxml2,
+  appstream,
+  desktop-file-utils,
+  glib,
+  gtk3,
+  pango,
+  atk,
+  gdk-pixbuf,
+  shared-mime-info,
+  itstool,
+  gnome,
+  poppler,
+  ghostscriptX,
+  djvulibre,
+  libspectre,
+  libarchive,
+  libhandy,
+  libsecret,
+  wrapGAppsHook,
+  librsvg,
+  gobject-introspection,
+  yelp-tools,
+  gspell,
+  adwaita-icon-theme,
+  gsettings-desktop-schemas,
+  gnome-desktop,
+  dbus,
+  texlive,
+  gst_all_1,
+  gi-docgen,
+  supportMultimedia ? true # PDF multimedia
+  ,
+  libgxps,
+  supportXPS ? true # Open XML Paper Specification via libgxps
+  ,
+  withLibsecret ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "evince";

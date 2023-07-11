@@ -1,5 +1,14 @@
-{ lib, mkDerivation, extra-cmake-modules, shared-mime-info, kconfig, kdoctools
-, kio, ktextwidgets, libkdegames }:
+{
+  lib,
+  mkDerivation,
+  extra-cmake-modules,
+  shared-mime-info,
+  kconfig,
+  kdoctools,
+  kio,
+  ktextwidgets,
+  libkdegames,
+}:
 
 mkDerivation {
   pname = "palapeli";

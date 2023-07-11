@@ -1,11 +1,23 @@
-{ lib, stdenv, writeText, fetchurl, buildcatrust, blacklist ? [ ]
-, extraCertificateFiles ? [ ], extraCertificateStrings ? [ ]
+{
+  lib,
+  stdenv,
+  writeText,
+  fetchurl,
+  buildcatrust,
+  blacklist ? [ ],
+  extraCertificateFiles ? [ ],
+  extraCertificateStrings ? [ ]
 
-  # Used by update.sh
-, nssOverride ? null
+    # Used by update.sh
+  ,
+  nssOverride ? null
 
-  # Used for tests only
-, runCommand, cacert, openssl }:
+    # Used for tests only
+  ,
+  runCommand,
+  cacert,
+  openssl,
+}:
 
 let
   blocklist = writeText "cacert-blocklist.txt" (lib.concatStringsSep "\n"

@@ -1,4 +1,10 @@
-{ lib, stdenv, appimageTools, desktop-file-utils, fetchurl }:
+{
+  lib,
+  stdenv,
+  appimageTools,
+  desktop-file-utils,
+  fetchurl,
+}:
 
 let
   version = "2023.4.117";

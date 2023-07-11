@@ -1,9 +1,23 @@
-{ lib, stdenv, runCommandLocal, buildEnv, writeText, writeShellScriptBin, pkgs
-, pkgsi686Linux }:
+{
+  lib,
+  stdenv,
+  runCommandLocal,
+  buildEnv,
+  writeText,
+  writeShellScriptBin,
+  pkgs,
+  pkgsi686Linux,
+}:
 
-{ name ? null, profile ? "", targetPkgs ? pkgs: [ ], multiPkgs ? pkgs: [ ]
-, extraBuildCommands ? "", extraBuildCommandsMulti ? ""
-, extraOutputsToInstall ? [ ] }@args:
+{
+  name ? null,
+  profile ? "",
+  targetPkgs ? pkgs: [ ],
+  multiPkgs ? pkgs: [ ],
+  extraBuildCommands ? "",
+  extraBuildCommandsMulti ? "",
+  extraOutputsToInstall ? [ ]
+}@args:
 
 # HOWTO:
 # All packages (most likely programs) returned from targetPkgs will only be

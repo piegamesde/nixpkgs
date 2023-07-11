@@ -1,5 +1,17 @@
-{ lib, pythonAtLeast, pythonOlder, buildPythonPackage, fetchPypi, stdenv
-, numpydoc, pytestCheckHook, lz4, setuptools, sphinx, psutil }:
+{
+  lib,
+  pythonAtLeast,
+  pythonOlder,
+  buildPythonPackage,
+  fetchPypi,
+  stdenv,
+  numpydoc,
+  pytestCheckHook,
+  lz4,
+  setuptools,
+  sphinx,
+  psutil,
+}:
 
 buildPythonPackage rec {
   pname = "joblib";

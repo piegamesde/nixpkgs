@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, hypothesis, six
-, strict-rfc3339 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  hypothesis,
+  six,
+  strict-rfc3339,
+}:
 
 buildPythonPackage rec {
   pname = "rfc3339-validator";

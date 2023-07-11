@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, colorama, fetchFromGitHub, online-judge-api-client
-, requests }:
+{
+  lib,
+  buildPythonPackage,
+  colorama,
+  fetchFromGitHub,
+  online-judge-api-client,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "online-judge-tools";

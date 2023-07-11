@@ -1,4 +1,12 @@
-{ lib, bundlerApp, bundlerUpdateScript, makeWrapper, git, gnutar, gzip }:
+{
+  lib,
+  bundlerApp,
+  bundlerUpdateScript,
+  makeWrapper,
+  git,
+  gnutar,
+  gzip,
+}:
 
 bundlerApp {
   pname = "r10k";

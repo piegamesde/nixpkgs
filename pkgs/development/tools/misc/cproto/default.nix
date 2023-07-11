@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, flex, bison }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  flex,
+  bison,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cproto";

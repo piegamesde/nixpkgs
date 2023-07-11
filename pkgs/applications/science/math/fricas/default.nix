@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, sbcl, libX11, libXpm, libICE, libSM, libXt, libXau
-, libXdmcp }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  sbcl,
+  libX11,
+  libXpm,
+  libICE,
+  libSM,
+  libXt,
+  libXau,
+  libXdmcp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fricas";

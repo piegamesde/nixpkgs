@@ -1,5 +1,16 @@
-{ lib, rustPlatform, fetchFromGitHub, cmake, pkg-config, stdenv, libiconv
-, Security, SystemConfiguration, curl, openssl }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  stdenv,
+  libiconv,
+  Security,
+  SystemConfiguration,
+  curl,
+  openssl,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "gitoxide";

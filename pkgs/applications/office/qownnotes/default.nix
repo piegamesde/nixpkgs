@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, qmake, qttools, qtbase, qtdeclarative, qtsvg, qtwayland
-, qtwebsockets, qt5compat, makeWrapper, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  qmake,
+  qttools,
+  qtbase,
+  qtdeclarative,
+  qtsvg,
+  qtwayland,
+  qtwebsockets,
+  qt5compat,
+  makeWrapper,
+  wrapQtAppsHook,
+}:
 
 let
   pname = "qownnotes";

@@ -1,8 +1,17 @@
-{ stdenvNoCC, lib, type }:
+{
+  stdenvNoCC,
+  lib,
+  type,
+}:
 
 assert lib.elem type [ "mod" "soundpack" "tileset" ];
 
-{ modName, version, src, ... }@args:
+{
+  modName,
+  version,
+  src,
+  ...
+}@args:
 
 stdenvNoCC.mkDerivation (args // rec {
   pname = args.pname or "cataclysm-dda-${type}-${modName}";

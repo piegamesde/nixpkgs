@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, base36, chacha20poly1305-reuseable, cryptography
-, fetchFromGitHub, h11, orjson, pyqrcode, pytest-asyncio, pytest-timeout
-, pytestCheckHook, pythonOlder, zeroconf }:
+{
+  lib,
+  buildPythonPackage,
+  base36,
+  chacha20poly1305-reuseable,
+  cryptography,
+  fetchFromGitHub,
+  h11,
+  orjson,
+  pyqrcode,
+  pytest-asyncio,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonOlder,
+  zeroconf,
+}:
 
 buildPythonPackage rec {
   pname = "hap-python";

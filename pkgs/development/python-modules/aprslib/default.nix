@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, mox3, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  mox3,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "aprslib";

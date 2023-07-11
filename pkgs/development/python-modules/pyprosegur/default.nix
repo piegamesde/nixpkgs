@@ -1,5 +1,13 @@
-{ lib, aiofiles, aiohttp, backoff, buildPythonPackage, click, fetchFromGitHub
-, pythonOlder }:
+{
+  lib,
+  aiofiles,
+  aiohttp,
+  backoff,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyprosegur";

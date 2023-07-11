@@ -1,10 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder
 
-# propagates
-, importlib-resources, pyyaml
+  # propagates
+  ,
+  importlib-resources,
+  pyyaml
 
-# tests
-, pytestCheckHook }:
+  # tests
+  ,
+  pytestCheckHook,
+}:
 
 let
   pname = "hassil";

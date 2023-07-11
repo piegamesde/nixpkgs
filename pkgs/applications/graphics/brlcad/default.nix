@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, fontconfig, libX11, libXi, freetype, mesa
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  fontconfig,
+  libX11,
+  libXi,
+  freetype,
+  mesa,
 }:
 
 stdenv.mkDerivation rec {

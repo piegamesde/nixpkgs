@@ -1,5 +1,14 @@
-{ lib, fetchurl, stdenv, ocaml, findlib, ocamlbuild, ctypes, mariadb
-, libmysqlclient }:
+{
+  lib,
+  fetchurl,
+  stdenv,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  ctypes,
+  mariadb,
+  libmysqlclient,
+}:
 
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.07")
 "mariadb is not available for OCaml ${ocaml.version}"

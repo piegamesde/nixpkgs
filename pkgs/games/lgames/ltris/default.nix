@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, SDL, SDL_mixer, directoryListingUpdater }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  SDL,
+  SDL_mixer,
+  directoryListingUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ltris";

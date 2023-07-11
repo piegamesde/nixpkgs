@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, installShellFiles, DiskArbitration
-, Foundation, libiconv, Security, git }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  installShellFiles,
+  DiskArbitration,
+  Foundation,
+  libiconv,
+  Security,
+  git,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "delta";

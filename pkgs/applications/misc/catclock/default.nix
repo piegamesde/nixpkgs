@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, motif, xorg, withAudioTracking ? false
-, libpulseaudio, aubio }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  motif,
+  xorg,
+  withAudioTracking ? false,
+  libpulseaudio,
+  aubio,
+}:
 
 stdenv.mkDerivation {
   pname = "catclock";

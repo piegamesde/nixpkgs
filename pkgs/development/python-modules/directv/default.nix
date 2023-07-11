@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, yarl, aresponses
-, pytest-asyncio, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiohttp,
+  yarl,
+  aresponses,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "directv";

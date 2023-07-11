@@ -1,7 +1,26 @@
-{ stdenv, lib, fetchFromGitLab, meson, ninja, rustPlatform, pkg-config, glib
-, gtk4, gtksourceview5, libadwaita, gstreamer, gst-plugins-base, gst-plugins-bad
-, libsecret, desktop-file-utils, appstream-glib, openssl, pipewire, libshumate
-, wrapGAppsHook4 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  rustPlatform,
+  pkg-config,
+  glib,
+  gtk4,
+  gtksourceview5,
+  libadwaita,
+  gstreamer,
+  gst-plugins-base,
+  gst-plugins-bad,
+  libsecret,
+  desktop-file-utils,
+  appstream-glib,
+  openssl,
+  pipewire,
+  libshumate,
+  wrapGAppsHook4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fractal-next";

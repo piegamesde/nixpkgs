@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchurl, pkg-config, autoreconfHook, glib, libarchive, libticonv
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  autoreconfHook,
+  glib,
+  libarchive,
+  libticonv,
 }:
 
 stdenv.mkDerivation rec {

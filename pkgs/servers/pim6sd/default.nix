@@ -1,4 +1,11 @@
-{ stdenv, fetchFromGitHub, lib, autoreconfHook, bison, flex }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  autoreconfHook,
+  bison,
+  flex,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pim6sd";

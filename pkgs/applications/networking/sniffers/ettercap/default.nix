@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch2, cmake, libpcap, libnet, zlib, curl
-, pcre, openssl, ncurses, glib, gtk3, atk, pango, flex, bison, geoip, harfbuzz
-, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch2,
+  cmake,
+  libpcap,
+  libnet,
+  zlib,
+  curl,
+  pcre,
+  openssl,
+  ncurses,
+  glib,
+  gtk3,
+  atk,
+  pango,
+  flex,
+  bison,
+  geoip,
+  harfbuzz,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ettercap";

@@ -1,4 +1,13 @@
-{ fetchurl, lib, stdenv, libjpeg, libpng, libtiff, perl, cmake }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  libjpeg,
+  libpng,
+  libtiff,
+  perl,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libpano13";

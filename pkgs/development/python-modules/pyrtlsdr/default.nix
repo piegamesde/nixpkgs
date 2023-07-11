@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, rtl-sdr, m2r }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  rtl-sdr,
+  m2r,
+}:
 
 buildPythonPackage rec {
   pname = "pyrtlsdr";

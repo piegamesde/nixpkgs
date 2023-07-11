@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, libcdio-paranoia, cddiscid, wget, which, vorbis-tools
-, id3v2, eyeD3, lame, flac, glyr, perlPackages, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libcdio-paranoia,
+  cddiscid,
+  wget,
+  which,
+  vorbis-tools,
+  id3v2,
+  eyeD3,
+  lame,
+  flac,
+  glyr,
+  perlPackages,
+  makeWrapper,
+}:
 
 let version = "2.9.3";
 in stdenv.mkDerivation {

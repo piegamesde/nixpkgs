@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchzip, wxGTK32, zlib, zstd }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  wxGTK32,
+  zlib,
+  zstd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "urbackup-client";

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake, rocm-smi
-, hip, gtest, chrpath, buildTests ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  cmake,
+  rocm-cmake,
+  rocm-smi,
+  hip,
+  gtest,
+  chrpath,
+  buildTests ? false
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rccl";

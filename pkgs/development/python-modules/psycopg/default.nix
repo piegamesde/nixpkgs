@@ -1,20 +1,43 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch, fetchurl
-, pythonOlder, substituteAll
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchurl,
+  pythonOlder,
+  substituteAll
 
-# build
-, postgresql, setuptools
+  # build
+  ,
+  postgresql,
+  setuptools
 
-# propagates
-, backports-zoneinfo, typing-extensions
+  # propagates
+  ,
+  backports-zoneinfo,
+  typing-extensions
 
-# psycopg-c
-, cython_3, tomli
+  # psycopg-c
+  ,
+  cython_3,
+  tomli
 
-# docs
-, furo, shapely, sphinxHook, sphinx-autodoc-typehints
+  # docs
+  ,
+  furo,
+  shapely,
+  sphinxHook,
+  sphinx-autodoc-typehints
 
-# tests
-, anyio, pproxy, pytest-randomly, pytestCheckHook, postgresqlTestHook }:
+  # tests
+  ,
+  anyio,
+  pproxy,
+  pytest-randomly,
+  pytestCheckHook,
+  postgresqlTestHook,
+}:
 
 let
   pname = "psycopg";

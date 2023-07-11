@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, dpkg, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jitsi-meet-prosody";

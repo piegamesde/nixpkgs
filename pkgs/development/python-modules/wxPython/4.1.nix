@@ -1,9 +1,49 @@
-{ lib, stdenv, fetchPypi, fetchpatch, buildPythonPackage, setuptools, which
-, pkg-config, python, isPy27, doxygen, cairo, ncurses, pango, wxGTK, gtk3, AGL
-, AudioToolbox, AVFoundation, AVKit, Carbon, Cocoa, CoreFoundation, CoreMedia
-, IOKit, Kernel, OpenGL, Security, WebKit, pillow, numpy, six, libXinerama
-, libSM, libXxf86vm, libXtst, libGLU, libGL, xorgproto, gst_all_1, libglvnd
-, mesa, webkitgtk, autoPatchelfHook }:
+{
+  lib,
+  stdenv,
+  fetchPypi,
+  fetchpatch,
+  buildPythonPackage,
+  setuptools,
+  which,
+  pkg-config,
+  python,
+  isPy27,
+  doxygen,
+  cairo,
+  ncurses,
+  pango,
+  wxGTK,
+  gtk3,
+  AGL,
+  AudioToolbox,
+  AVFoundation,
+  AVKit,
+  Carbon,
+  Cocoa,
+  CoreFoundation,
+  CoreMedia,
+  IOKit,
+  Kernel,
+  OpenGL,
+  Security,
+  WebKit,
+  pillow,
+  numpy,
+  six,
+  libXinerama,
+  libSM,
+  libXxf86vm,
+  libXtst,
+  libGLU,
+  libGL,
+  xorgproto,
+  gst_all_1,
+  libglvnd,
+  mesa,
+  webkitgtk,
+  autoPatchelfHook,
+}:
 let dynamic-linker = stdenv.cc.bintools.dynamicLinker;
 in buildPythonPackage rec {
   pname = "wxPython";

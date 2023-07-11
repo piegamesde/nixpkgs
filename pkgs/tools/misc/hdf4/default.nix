@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchpatch, fetchurl, fixDarwinDylibNames, cmake, libjpeg
-, uselibtirpc ? stdenv.isLinux, libtirpc, zlib, szipSupport ? false, szip
-, javaSupport ? false, jdk }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchurl,
+  fixDarwinDylibNames,
+  cmake,
+  libjpeg,
+  uselibtirpc ? stdenv.isLinux,
+  libtirpc,
+  zlib,
+  szipSupport ? false,
+  szip,
+  javaSupport ? false,
+  jdk,
+}:
 stdenv.mkDerivation rec {
   pname = "hdf";
   version = "4.2.15";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, which, procps, kbd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  which,
+  procps,
+  kbd,
+}:
 
 stdenv.mkDerivation {
   pname = "logkeys";

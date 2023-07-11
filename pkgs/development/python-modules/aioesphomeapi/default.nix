@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, async-timeout, mock, noiseprotocol
-, protobuf, pytest-asyncio, pytestCheckHook, pythonOlder, zeroconf }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  async-timeout,
+  mock,
+  noiseprotocol,
+  protobuf,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  zeroconf,
+}:
 
 buildPythonPackage rec {
   pname = "aioesphomeapi";

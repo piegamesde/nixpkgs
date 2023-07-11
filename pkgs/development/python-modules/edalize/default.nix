@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, coreutils, jinja2, pandas, pyparsing
-, pytestCheckHook, pythonOlder, which, yosys }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  coreutils,
+  jinja2,
+  pandas,
+  pyparsing,
+  pytestCheckHook,
+  pythonOlder,
+  which,
+  yosys,
+}:
 
 buildPythonPackage rec {
   pname = "edalize";

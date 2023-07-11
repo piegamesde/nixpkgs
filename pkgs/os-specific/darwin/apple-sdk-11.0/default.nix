@@ -1,5 +1,16 @@
-{ stdenvNoCC, fetchurl, newScope, lib, pkgs, stdenv, overrideCC, xar, cpio
-, python3, pbzx }:
+{
+  stdenvNoCC,
+  fetchurl,
+  newScope,
+  lib,
+  pkgs,
+  stdenv,
+  overrideCC,
+  xar,
+  cpio,
+  python3,
+  pbzx,
+}:
 
 let
   mkSusDerivation = args:

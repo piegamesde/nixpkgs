@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools, multipledispatch, numpy
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  multipledispatch,
+  numpy,
 }:
 
 buildPythonPackage rec {

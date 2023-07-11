@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, libxml2, gtk3-x11, libXt, libXpm }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libxml2,
+  gtk3-x11,
+  libXt,
+  libXpm,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xsnow";

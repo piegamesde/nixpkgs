@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, python, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python,
+  cmake,
+}:
 
 let pyEnv = python.withPackages (ps: [ ps.setuptools ]);
 in stdenv.mkDerivation rec {

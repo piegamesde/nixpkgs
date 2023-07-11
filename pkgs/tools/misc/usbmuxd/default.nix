@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libimobiledevice
-, libusb1 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  libimobiledevice,
+  libusb1,
+}:
 
 stdenv.mkDerivation rec {
   pname = "usbmuxd";

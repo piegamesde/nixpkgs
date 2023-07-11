@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchurl, makeWrapper, makeDesktopItem
-# sweethome3d 6.5.2 does not yet fully build&run with jdk 9 and later?
-, jdk8, jre8, ant, gtk3, gsettings-desktop-schemas, sweethome3dApp, unzip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  makeDesktopItem
+  # sweethome3d 6.5.2 does not yet fully build&run with jdk 9 and later?
+  ,
+  jdk8,
+  jre8,
+  ant,
+  gtk3,
+  gsettings-desktop-schemas,
+  sweethome3dApp,
+  unzip,
+}:
 
 let
 
@@ -16,8 +29,15 @@ let
     installPhase = "cp -r . $out";
   };
 
-  mkEditorProject =
-    { pname, module, version, src, license, description, desktopName }:
+  mkEditorProject = {
+      pname,
+      module,
+      version,
+      src,
+      license,
+      description,
+      desktopName,
+    }:
 
     stdenv.mkDerivation rec {
       application = sweethome3dApp;

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitLab, meson, ninja, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zix";

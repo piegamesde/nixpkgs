@@ -1,5 +1,12 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch, libsodium
-, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  libsodium,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "libnacl";

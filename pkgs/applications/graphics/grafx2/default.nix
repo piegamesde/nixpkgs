@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, SDL, SDL_image, SDL_ttf, fontconfig, libpng, libtiff
-, lua5, pkg-config, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  SDL,
+  SDL_image,
+  SDL_ttf,
+  fontconfig,
+  libpng,
+  libtiff,
+  lua5,
+  pkg-config,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   version = "2.8.3091";

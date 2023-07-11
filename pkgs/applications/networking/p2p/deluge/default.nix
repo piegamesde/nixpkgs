@@ -1,12 +1,25 @@
-{ lib, fetchurl, intltool, libtorrent-rasterbar, python3Packages, gtk3, glib
-, gobject-introspection, librsvg, wrapGAppsHook }:
+{
+  lib,
+  fetchurl,
+  intltool,
+  libtorrent-rasterbar,
+  python3Packages,
+  gtk3,
+  glib,
+  gobject-introspection,
+  librsvg,
+  wrapGAppsHook,
+}:
 
 let
   inherit (lib) optionals;
 
   pypkgs = python3Packages;
 
-  generic = { pname, withGUI }:
+  generic = {
+      pname,
+      withGUI,
+    }:
     pypkgs.buildPythonPackage rec {
       inherit pname;
       version = "2.1.1";

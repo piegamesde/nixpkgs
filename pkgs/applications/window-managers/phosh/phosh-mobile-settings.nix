@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitLab, gitUpdater, meson, ninja, pkg-config
-, wrapGAppsHook, desktop-file-utils, feedbackd, gtk4, libadwaita, lm_sensors
-, phoc, phosh, wayland-protocols }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  gitUpdater,
+  meson,
+  ninja,
+  pkg-config,
+  wrapGAppsHook,
+  desktop-file-utils,
+  feedbackd,
+  gtk4,
+  libadwaita,
+  lm_sensors,
+  phoc,
+  phosh,
+  wayland-protocols,
+}:
 
 stdenv.mkDerivation rec {
   pname = "phosh-mobile-settings";

@@ -1,5 +1,17 @@
-{ lib, stdenv, blas, lapack, openfst, icu, pkg-config, fetchFromGitHub, python3
-, openblas, zlib, gfortran }:
+{
+  lib,
+  stdenv,
+  blas,
+  lapack,
+  openfst,
+  icu,
+  pkg-config,
+  fetchFromGitHub,
+  python3,
+  openblas,
+  zlib,
+  gfortran,
+}:
 
 let
   old-openfst = openfst.overrideAttrs (prev: {

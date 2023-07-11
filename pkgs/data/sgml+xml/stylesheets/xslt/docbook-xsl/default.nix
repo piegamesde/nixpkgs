@@ -1,9 +1,23 @@
-{ lib, stdenv, substituteAll, fetchurl, fetchpatch, findXMLCatalogs
-, writeScriptBin, ruby, bash, withManOptDedupPatch ? false }:
+{
+  lib,
+  stdenv,
+  substituteAll,
+  fetchurl,
+  fetchpatch,
+  findXMLCatalogs,
+  writeScriptBin,
+  ruby,
+  bash,
+  withManOptDedupPatch ? false
+}:
 
 let
 
-  common = { pname, sha256, suffix ? "" }:
+  common = {
+      pname,
+      sha256,
+      suffix ? ""
+    }:
     let
       legacySuffix = if suffix == "-nons" then "" else "-ns";
       self = stdenv.mkDerivation rec {

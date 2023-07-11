@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, eigen, hdf5
-, mpiSupport ? hdf5.mpiSupport, mpi ? hdf5.mpi }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  eigen,
+  hdf5,
+  mpiSupport ? hdf5.mpiSupport,
+  mpi ? hdf5.mpi
+}:
 
 assert mpiSupport -> mpi != null;
 

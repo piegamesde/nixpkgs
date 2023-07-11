@@ -1,10 +1,21 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, openssl
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl
 
-# darwin
-, Security
+  # darwin
+  ,
+  Security
 
-# tests
-, firefox-esr-unwrapped, firefox-unwrapped, thunderbird-unwrapped }:
+  # tests
+  ,
+  firefox-esr-unwrapped,
+  firefox-unwrapped,
+  thunderbird-unwrapped,
+}:
 
 let
   pname = "dump_syms";

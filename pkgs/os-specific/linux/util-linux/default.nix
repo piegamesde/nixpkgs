@@ -1,7 +1,24 @@
-{ lib, stdenv, fetchurl, pkg-config, zlib, shadow, capabilitiesSupport ? true
-, libcap_ng, libxcrypt, ncursesSupport ? true, ncurses, pamSupport ? true, pam
-, systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd
-, nlsSupport ? true, translateManpages ? true, po4a, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  zlib,
+  shadow,
+  capabilitiesSupport ? true,
+  libcap_ng,
+  libxcrypt,
+  ncursesSupport ? true,
+  ncurses,
+  pamSupport ? true,
+  pam,
+  systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  systemd,
+  nlsSupport ? true,
+  translateManpages ? true,
+  po4a,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation rec {
   pname = "util-linux"

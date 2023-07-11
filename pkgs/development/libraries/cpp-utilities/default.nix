@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, cmake, cppunit, iconv }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  cppunit,
+  iconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cpp-utilities";

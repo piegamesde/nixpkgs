@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchCrate, rustPlatform, pkg-config, openssl, installShellFiles
-, Security, curl }:
+{
+  lib,
+  stdenv,
+  fetchCrate,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  installShellFiles,
+  Security,
+  curl,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "sheldon";

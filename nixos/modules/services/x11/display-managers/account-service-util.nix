@@ -1,4 +1,11 @@
-{ accountsservice, glib, gobject-introspection, python3, wrapGAppsHook, lib }:
+{
+  accountsservice,
+  glib,
+  gobject-introspection,
+  python3,
+  wrapGAppsHook,
+  lib,
+}:
 
 python3.pkgs.buildPythonApplication {
   name = "set-session";

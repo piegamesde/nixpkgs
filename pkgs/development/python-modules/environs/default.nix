@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, dj-database-url, dj-email-url, django-cache-url
-, fetchFromGitHub, marshmallow, pytestCheckHook, python-dotenv, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  dj-database-url,
+  dj-email-url,
+  django-cache-url,
+  fetchFromGitHub,
+  marshmallow,
+  pytestCheckHook,
+  python-dotenv,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "environs";

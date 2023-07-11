@@ -1,5 +1,14 @@
-{ lib, stdenv, makeWrapper, makeDesktopItem, copyDesktopItems, fetchFromGitHub
-, pkg-config, SDL2, SDL2_image }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  fetchFromGitHub,
+  pkg-config,
+  SDL2,
+  SDL2_image,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sdlpop";

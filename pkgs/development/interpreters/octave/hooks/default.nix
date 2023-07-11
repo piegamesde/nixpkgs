@@ -1,5 +1,10 @@
 # Hooks for building Octave packages.
-{ octave, lib, callPackage, makeSetupHook }:
+{
+  octave,
+  lib,
+  callPackage,
+  makeSetupHook,
+}:
 
 rec {
   writeRequiredOctavePackagesHook = callPackage ({ }:

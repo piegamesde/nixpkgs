@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, argon2-cffi, bcrypt, cryptography
-, pytestCheckHook, pythonOlder, pytest-xdist }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  argon2-cffi,
+  bcrypt,
+  cryptography,
+  pytestCheckHook,
+  pythonOlder,
+  pytest-xdist,
+}:
 
 buildPythonPackage rec {
   pname = "passlib";

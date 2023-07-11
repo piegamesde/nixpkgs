@@ -1,4 +1,8 @@
-{ stdenv, lib, callPackage }:
+{
+  stdenv,
+  lib,
+  callPackage,
+}:
 let src = (callPackage ./sources.nix { }).stable;
 in stdenv.mkDerivation {
   pname = "wine-fonts";

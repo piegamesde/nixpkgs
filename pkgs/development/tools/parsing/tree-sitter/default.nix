@@ -1,9 +1,28 @@
-{ lib, stdenv, fetchgit, fetchFromGitHub, fetchurl, writeShellScript, runCommand
-, which, formats, rustPlatform, jq, nix-prefetch-git, xe, curl, emscripten
-, Security, callPackage, linkFarm, CoreServices
-, enableShared ? !stdenv.hostPlatform.isStatic
-, enableStatic ? stdenv.hostPlatform.isStatic, webUISupport ? false
-, extraGrammars ? { } }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  fetchFromGitHub,
+  fetchurl,
+  writeShellScript,
+  runCommand,
+  which,
+  formats,
+  rustPlatform,
+  jq,
+  nix-prefetch-git,
+  xe,
+  curl,
+  emscripten,
+  Security,
+  callPackage,
+  linkFarm,
+  CoreServices,
+  enableShared ? !stdenv.hostPlatform.isStatic,
+  enableStatic ? stdenv.hostPlatform.isStatic,
+  webUISupport ? false,
+  extraGrammars ? { }
+}:
 
 let
   # to update:

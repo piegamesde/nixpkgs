@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pamqp, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pamqp,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aioamqp";

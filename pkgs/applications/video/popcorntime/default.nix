@@ -1,6 +1,19 @@
-{ autoPatchelfHook, fetchurl, gcc-unwrapped, gsettings-desktop-schemas, gtk3
-, lib, makeDesktopItem, makeWrapper, nwjs, stdenv, unzip, udev, wrapGAppsHook
-, copyDesktopItems }:
+{
+  autoPatchelfHook,
+  fetchurl,
+  gcc-unwrapped,
+  gsettings-desktop-schemas,
+  gtk3,
+  lib,
+  makeDesktopItem,
+  makeWrapper,
+  nwjs,
+  stdenv,
+  unzip,
+  udev,
+  wrapGAppsHook,
+  copyDesktopItems,
+}:
 
 stdenv.mkDerivation rec {
   pname = "popcorntime";

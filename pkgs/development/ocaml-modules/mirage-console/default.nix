@@ -1,4 +1,10 @@
-{ lib, fetchurl, buildDunePackage, lwt, mirage-flow }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  lwt,
+  mirage-flow,
+}:
 
 buildDunePackage rec {
   pname = "mirage-console";

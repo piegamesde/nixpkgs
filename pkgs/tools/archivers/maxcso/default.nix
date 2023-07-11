@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, libuv, lz4, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libuv,
+  lz4,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "maxcso";

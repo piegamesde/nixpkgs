@@ -1,7 +1,24 @@
-{ stdenv, lib, nixosTests, nix-update-script, buildGoModule, fetchFromGitHub
-, installShellFiles, pkg-config, gtk3, libayatana-appindicator, libX11
-, libXcursor, libXxf86vm, Cocoa, IOKit, Kernel, UserNotifications, WebKit
-, ui ? false }:
+{
+  stdenv,
+  lib,
+  nixosTests,
+  nix-update-script,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  pkg-config,
+  gtk3,
+  libayatana-appindicator,
+  libX11,
+  libXcursor,
+  libXxf86vm,
+  Cocoa,
+  IOKit,
+  Kernel,
+  UserNotifications,
+  WebKit,
+  ui ? false
+}:
 let
   modules = if ui then {
     "client/ui" = "netbird-ui";

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitLab, pkg-config, meson, ninja, vala, glib, gsignond
-, gobject-introspection }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  pkg-config,
+  meson,
+  ninja,
+  vala,
+  glib,
+  gsignond,
+  gobject-introspection,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gsignond-plugin-mail";

@@ -1,8 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, qmake, nix-update-script, substituteAll, qtbase
-, qttools, qttranslations, qtlocation ? null # qt5 only
-, qtpositioning ? null # qt6 only
-, qtpbfimageplugin, qtserialport, qtsvg, qt5compat ? null # qt6 only
-, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qmake,
+  nix-update-script,
+  substituteAll,
+  qtbase,
+  qttools,
+  qttranslations,
+  qtlocation ? null # qt5 only
+  ,
+  qtpositioning ? null # qt6 only
+  ,
+  qtpbfimageplugin,
+  qtserialport,
+  qtsvg,
+  qt5compat ? null # qt6 only
+  ,
+  wrapQtAppsHook,
+}:
 
 let isQt6 = lib.versions.major qtbase.version == "6";
 

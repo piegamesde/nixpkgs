@@ -1,4 +1,12 @@
-{ lib, stdenv, requireFile, unzip, rlwrap, bash, zlib }:
+{
+  lib,
+  stdenv,
+  requireFile,
+  unzip,
+  rlwrap,
+  bash,
+  zlib,
+}:
 
 assert (stdenv.hostPlatform.system == "i686-linux");
 

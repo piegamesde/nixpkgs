@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, aspell, boost, expat, intltool, pkg-config, libxml2
-, libxslt, pcre2, wxGTK32, xercesc, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  aspell,
+  boost,
+  expat,
+  intltool,
+  pkg-config,
+  libxml2,
+  libxslt,
+  pcre2,
+  wxGTK32,
+  xercesc,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xmlcopyeditor";

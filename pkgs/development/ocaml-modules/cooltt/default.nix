@@ -1,6 +1,23 @@
-{ lib, fetchFromGitHub, fetchurl, buildDunePackage, bwd, cmdliner, containers
-, ezjsonm, findlib, menhir, menhirLib, ppx_deriving, ppxlib, uuseg, uutf
-, yuujinchou, ounit2, qcheck }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  buildDunePackage,
+  bwd,
+  cmdliner,
+  containers,
+  ezjsonm,
+  findlib,
+  menhir,
+  menhirLib,
+  ppx_deriving,
+  ppxlib,
+  uuseg,
+  uutf,
+  yuujinchou,
+  ounit2,
+  qcheck,
+}:
 
 let
   bantorra = buildDunePackage rec {

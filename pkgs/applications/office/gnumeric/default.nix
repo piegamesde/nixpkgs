@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, pkg-config, intltool, perlPackages, goffice, gnome
-, wrapGAppsHook, gtk3, bison, python3Packages, itstool }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  intltool,
+  perlPackages,
+  goffice,
+  gnome,
+  wrapGAppsHook,
+  gtk3,
+  bison,
+  python3Packages,
+  itstool,
+}:
 
 let inherit (python3Packages) python pygobject3;
 in stdenv.mkDerivation rec {

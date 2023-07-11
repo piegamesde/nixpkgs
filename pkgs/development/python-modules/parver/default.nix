@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools, attrs
-, pytestCheckHook, hypothesis, pretend, arpeggio, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools,
+  attrs,
+  pytestCheckHook,
+  hypothesis,
+  pretend,
+  arpeggio,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "parver";

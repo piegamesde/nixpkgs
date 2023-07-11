@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, sassc, gtk3, inkscape, optipng
-, gtk-engine-murrine, gdk-pixbuf, librsvg, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  sassc,
+  gtk3,
+  inkscape,
+  optipng,
+  gtk-engine-murrine,
+  gdk-pixbuf,
+  librsvg,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pop-gtk-theme";

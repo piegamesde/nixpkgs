@@ -1,4 +1,9 @@
-{ stdenv, linuxHeaders, parentWrapperDir, debug ? false }:
+{
+  stdenv,
+  linuxHeaders,
+  parentWrapperDir,
+  debug ? false
+}:
 # For testing:
 # $ nix-build -E 'with import <nixpkgs> {}; pkgs.callPackage ./wrapper.nix { parentWrapperDir = "/run/wrappers"; debug = true; }'
 stdenv.mkDerivation {

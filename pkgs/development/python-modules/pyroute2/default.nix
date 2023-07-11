@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, importlib-metadata, mitogen, pythonOlder
-, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  importlib-metadata,
+  mitogen,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "pyroute2";

@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitLab, qtserialport, cmake, wrapQtAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  qtserialport,
+  cmake,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cutecom";

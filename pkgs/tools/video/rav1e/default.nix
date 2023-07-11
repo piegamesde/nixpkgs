@@ -1,5 +1,18 @@
-{ lib, rust, stdenv, rustPlatform, fetchCrate, pkg-config, cargo-c, libgit2
-, nasm, zlib, libiconv, Security, buildPackages }:
+{
+  lib,
+  rust,
+  stdenv,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  cargo-c,
+  libgit2,
+  nasm,
+  zlib,
+  libiconv,
+  Security,
+  buildPackages,
+}:
 
 let
   rustTargetPlatformSpec = rust.toRustTargetSpec stdenv.hostPlatform;

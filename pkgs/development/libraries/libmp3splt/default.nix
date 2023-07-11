@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, libtool, libmad, libid3tag }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libtool,
+  libmad,
+  libid3tag,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libmp3splt";

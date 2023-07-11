@@ -13,11 +13,25 @@
 #   * https://github.com/google/jax/issues/971#issuecomment-508216439
 #   * https://github.com/google/jax/issues/5723#issuecomment-913038780
 
-{ absl-py, addOpenGLRunpath, autoPatchelfHook, buildPythonPackage, config
-, cudnn ? cudaPackages.cudnn, fetchurl, flatbuffers, isPy39, lib, python, scipy
-, stdenv
-# Options:
-, cudaSupport ? config.cudaSupport or false, cudaPackages ? { } }:
+{
+  absl-py,
+  addOpenGLRunpath,
+  autoPatchelfHook,
+  buildPythonPackage,
+  config,
+  cudnn ? cudaPackages.cudnn,
+  fetchurl,
+  flatbuffers,
+  isPy39,
+  lib,
+  python,
+  scipy,
+  stdenv
+  # Options:
+  ,
+  cudaSupport ? config.cudaSupport or false,
+  cudaPackages ? { }
+}:
 
 let inherit (cudaPackages) cudatoolkit cudnn;
 

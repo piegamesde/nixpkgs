@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, httpx, pyspnego, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  httpx,
+  pyspnego,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

@@ -1,4 +1,6 @@
-{ fetchurl }:
+{
+  fetchurl,
+}:
 
 {
   mxu11x0_4 = {

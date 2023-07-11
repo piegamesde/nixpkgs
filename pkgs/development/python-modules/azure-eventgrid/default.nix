@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, msrest, azure-common, azure-core
-, msrestazure, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  msrest,
+  azure-common,
+  azure-core,
+  msrestazure,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "azure-eventgrid";

@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, mono, libmediainfo, sqlite, curl, makeWrapper, icu
-, dotnet-runtime, openssl, nixosTests, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  mono,
+  libmediainfo,
+  sqlite,
+  curl,
+  makeWrapper,
+  icu,
+  dotnet-runtime,
+  openssl,
+  nixosTests,
+  zlib,
+}:
 
 let
   os = if stdenv.isDarwin then "osx" else "linux";

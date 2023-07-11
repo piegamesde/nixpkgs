@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromSourcehut, rustPlatform }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  rustPlatform,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "wayout";

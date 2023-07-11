@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, cmake, libsodium, ncurses, libopus, msgpack, libvpx
-, check, libconfig, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  libsodium,
+  ncurses,
+  libopus,
+  msgpack,
+  libvpx,
+  check,
+  libconfig,
+  pkg-config,
+}:
 
 let buildToxAV = !stdenv.isAarch32;
 in stdenv.mkDerivation rec {

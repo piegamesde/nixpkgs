@@ -1,6 +1,18 @@
-{ lib, stdenvNoCC, rustPlatform, fetchFromGitHub, buildNpmPackage, perl
-, pkg-config, glib, webkitgtk, libappindicator-gtk3, libayatana-appindicator
-, cairo, openssl }:
+{
+  lib,
+  stdenvNoCC,
+  rustPlatform,
+  fetchFromGitHub,
+  buildNpmPackage,
+  perl,
+  pkg-config,
+  glib,
+  webkitgtk,
+  libappindicator-gtk3,
+  libayatana-appindicator,
+  cairo,
+  openssl,
+}:
 
 let
   version = "4.7.8";

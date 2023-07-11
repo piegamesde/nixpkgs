@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, glib, jre, unzip, makeWrapper, makeDesktopItem
-, copyDesktopItems, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  glib,
+  jre,
+  unzip,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  wrapGAppsHook,
+}:
 
 let
   icon = fetchurl {

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, protobuf, googleapis-common-protos
-, pytestCheckHook, pytz }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  protobuf,
+  googleapis-common-protos,
+  pytestCheckHook,
+  pytz,
+}:
 
 buildPythonPackage rec {
   pname = "proto-plus";

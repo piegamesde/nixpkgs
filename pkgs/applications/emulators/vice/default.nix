@@ -1,6 +1,28 @@
-{ lib, stdenv, fetchurl, bison, flex, perl, libpng, giflib, libjpeg, alsa-lib
-, readline, libGLU, libGL, libXaw, pkg-config, gtk2, SDL, SDL_image
-, autoreconfHook, makeDesktopItem, dos2unix, xa, file }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bison,
+  flex,
+  perl,
+  libpng,
+  giflib,
+  libjpeg,
+  alsa-lib,
+  readline,
+  libGLU,
+  libGL,
+  libXaw,
+  pkg-config,
+  gtk2,
+  SDL,
+  SDL_image,
+  autoreconfHook,
+  makeDesktopItem,
+  dos2unix,
+  xa,
+  file,
+}:
 
 let
   desktopItems = [

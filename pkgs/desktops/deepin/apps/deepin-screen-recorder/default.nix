@@ -1,7 +1,30 @@
-{ stdenv, lib, fetchFromGitHub, qmake, pkg-config, qttools, wrapQtAppsHook
-, dtkwidget, qt5integration, dde-qt-dbus-factory, dde-dock, qtbase, qtmultimedia
-, qtx11extras, image-editor, gsettings-qt, xorg, libusb1, libv4l, ffmpeg
-, ffmpegthumbnailer, portaudio, kwayland, udev, gst_all_1 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  qmake,
+  pkg-config,
+  qttools,
+  wrapQtAppsHook,
+  dtkwidget,
+  qt5integration,
+  dde-qt-dbus-factory,
+  dde-dock,
+  qtbase,
+  qtmultimedia,
+  qtx11extras,
+  image-editor,
+  gsettings-qt,
+  xorg,
+  libusb1,
+  libv4l,
+  ffmpeg,
+  ffmpegthumbnailer,
+  portaudio,
+  kwayland,
+  udev,
+  gst_all_1,
+}:
 stdenv.mkDerivation rec {
   pname = "deepin-screen-recorder";
   version = "5.12.1";

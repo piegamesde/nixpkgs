@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, libxml2, gtk-doc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glib,
+  libxml2,
+  gtk-doc,
+}:
 
 let
   pname = "gdome2";

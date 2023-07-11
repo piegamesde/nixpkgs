@@ -1,13 +1,25 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder
 
-# native
-, poetry-core
+  # native
+  ,
+  poetry-core
 
-# propagated
-, blessed, python-editor, readchar
+  # propagated
+  ,
+  blessed,
+  python-editor,
+  readchar
 
-# tests
-, pytest-mock, pytestCheckHook, pexpect }:
+  # tests
+  ,
+  pytest-mock,
+  pytestCheckHook,
+  pexpect,
+}:
 
 buildPythonPackage rec {
   pname = "inquirer";

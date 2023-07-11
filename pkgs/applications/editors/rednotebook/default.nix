@@ -1,6 +1,17 @@
-{ lib, buildPythonApplication, fetchFromGitHub, gdk-pixbuf, glib
-, gobject-introspection, gtk3, gtksourceview, pango, webkitgtk, pygobject3
-, pyyaml }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  gdk-pixbuf,
+  glib,
+  gobject-introspection,
+  gtk3,
+  gtksourceview,
+  pango,
+  webkitgtk,
+  pygobject3,
+  pyyaml,
+}:
 
 buildPythonApplication rec {
   pname = "rednotebook";

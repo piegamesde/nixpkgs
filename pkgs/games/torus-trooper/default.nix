@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchpatch, fetchurl, unzip, gdc, SDL, SDL_mixer, bulletml }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchurl,
+  unzip,
+  gdc,
+  SDL,
+  SDL_mixer,
+  bulletml,
+}:
 
 let
   debianPatch = patchname: hash:

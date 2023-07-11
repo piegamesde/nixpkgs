@@ -1,4 +1,10 @@
-{ lib, pkgs, config, options, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  options,
+  ...
+}:
 
 let
   cfg = config.services.nifi;

@@ -1,5 +1,18 @@
-{ stdenv, autoPatchelfHook, curl, dpkg, fetchurl, gcc, lib, libGLU, libcork
-, makeDesktopItem, qt5, quazip, zlib }:
+{
+  stdenv,
+  autoPatchelfHook,
+  curl,
+  dpkg,
+  fetchurl,
+  gcc,
+  lib,
+  libGLU,
+  libcork,
+  makeDesktopItem,
+  qt5,
+  quazip,
+  zlib,
+}:
 stdenv.mkDerivation rec {
   pname = "ideamaker";
   version = "4.0.1";

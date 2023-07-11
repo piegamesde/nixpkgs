@@ -1,4 +1,11 @@
-{ lib, aiohttp, attrs, buildPythonPackage, fetchFromGitHub, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  attrs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "eternalegypt";

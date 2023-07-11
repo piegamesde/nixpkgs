@@ -1,5 +1,17 @@
-{ lib, beautifulsoup4, buildPythonPackage, fetchPypi, pastedeploy, pyquery
-, pytestCheckHook, pythonOlder, six, waitress, webob, wsgiproxy2 }:
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  fetchPypi,
+  pastedeploy,
+  pyquery,
+  pytestCheckHook,
+  pythonOlder,
+  six,
+  waitress,
+  webob,
+  wsgiproxy2,
+}:
 
 buildPythonPackage rec {
   pname = "webtest";

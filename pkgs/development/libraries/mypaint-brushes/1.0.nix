@@ -1,4 +1,11 @@
-{ lib, stdenv, autoconf, automake, fetchFromGitHub, pkg-config }:
+{
+  lib,
+  stdenv,
+  autoconf,
+  automake,
+  fetchFromGitHub,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mypaint-brushes";

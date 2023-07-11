@@ -1,6 +1,19 @@
-{ lib, fetchFromGitLab, buildDunePackage, ppx_hash, either, ezjsonm, zarith
-, zarith_stubs_js ? null, hex, json-data-encoding, json-data-encoding-bson
-, alcotest, crowbar, ppx_expect }:
+{
+  lib,
+  fetchFromGitLab,
+  buildDunePackage,
+  ppx_hash,
+  either,
+  ezjsonm,
+  zarith,
+  zarith_stubs_js ? null,
+  hex,
+  json-data-encoding,
+  json-data-encoding-bson,
+  alcotest,
+  crowbar,
+  ppx_expect,
+}:
 
 buildDunePackage rec {
   pname = "data-encoding";

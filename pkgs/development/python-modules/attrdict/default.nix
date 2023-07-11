@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, coverage, pythonOlder, nose
-, pytestCheckHook, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  coverage,
+  pythonOlder,
+  nose,
+  pytestCheckHook,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "attrdict";

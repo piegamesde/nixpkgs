@@ -1,6 +1,11 @@
 # Module for the IPv6 Router Advertisement Daemon.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

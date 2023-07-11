@@ -1,6 +1,22 @@
-{ stdenv, lib, fetchFromGitHub, dtkwidget, qt5integration, qt5platform-plugins
-, udisks2-qt5, cmake, qtbase, qttools, pkg-config, kcodecs, karchive
-, wrapQtAppsHook, minizip, libzip, libarchive }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  udisks2-qt5,
+  cmake,
+  qtbase,
+  qttools,
+  pkg-config,
+  kcodecs,
+  karchive,
+  wrapQtAppsHook,
+  minizip,
+  libzip,
+  libarchive,
+}:
 
 stdenv.mkDerivation rec {
   pname = "deepin-compressor";

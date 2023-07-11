@@ -1,4 +1,10 @@
-{ stdenv, lib, callPackage, buildMozillaMach, nixosTests }:
+{
+  stdenv,
+  lib,
+  callPackage,
+  buildMozillaMach,
+  nixosTests,
+}:
 
 let librewolf-src = callPackage ./librewolf.nix { };
 in ((buildMozillaMach rec {

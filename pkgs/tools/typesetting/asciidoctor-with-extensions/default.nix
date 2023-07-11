@@ -1,5 +1,11 @@
-{ lib, bundlerApp, bundlerUpdateScript, makeWrapper, withJava ? true
-, jre # Used by asciidoctor-diagram for ditaa and PlantUML
+{
+  lib,
+  bundlerApp,
+  bundlerUpdateScript,
+  makeWrapper,
+  withJava ? true,
+  jre # Used by asciidoctor-diagram for ditaa and PlantUML
+  ,
 }:
 
 let path = lib.makeBinPath (lib.optional withJava jre);

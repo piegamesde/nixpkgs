@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, pyrect }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyrect,
+}:
 buildPythonPackage rec {
   pname = "PyGetWindow";
   version = "0.0.9";

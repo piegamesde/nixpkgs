@@ -1,5 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, go-bindata, go-bindata-assetfs
-, nixosTests }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  go-bindata,
+  go-bindata-assetfs,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "documize-community";

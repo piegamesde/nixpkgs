@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isodate, pytestCheckHook
-, pythonOlder, pyyaml, requests, responses, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isodate,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  requests,
+  responses,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "pysolcast";

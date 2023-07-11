@@ -1,5 +1,14 @@
-{ lib, stdenv, rustPlatform, python3, perl, openssl, Security, fetchFromGitHub
-, pkg-config }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  python3,
+  perl,
+  openssl,
+  Security,
+  fetchFromGitHub,
+  pkg-config,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "s3rs";

@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchFromGitLab, meson, ninja, pkg-config, gnome, gnome-desktop
-, glib, gtk3, wayland, wayland-protocols, libbsd, libxml2, libxkbcommon
-, rustPlatform, feedbackd, wrapGAppsHook, fetchpatch, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+  gnome,
+  gnome-desktop,
+  glib,
+  gtk3,
+  wayland,
+  wayland-protocols,
+  libbsd,
+  libxml2,
+  libxkbcommon,
+  rustPlatform,
+  feedbackd,
+  wrapGAppsHook,
+  fetchpatch,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "squeekboard";

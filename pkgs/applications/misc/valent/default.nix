@@ -1,7 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, desktop-file-utils, meson, ninja, pkg-config
-, vala, wrapGAppsHook4, evolution-data-server-gtk4, glib, glib-networking
-, gnutls, gst_all_1, json-glib, libadwaita, libpeas, libportal-gtk4, pulseaudio
-, sqlite }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  desktop-file-utils,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  wrapGAppsHook4,
+  evolution-data-server-gtk4,
+  glib,
+  glib-networking,
+  gnutls,
+  gst_all_1,
+  json-glib,
+  libadwaita,
+  libpeas,
+  libportal-gtk4,
+  pulseaudio,
+  sqlite,
+}:
 
 stdenv.mkDerivation rec {
   pname = "valent";

@@ -1,5 +1,14 @@
-{ lib, perl, buildEnv, makeWrapper, extraLibs ? [ ], extraOutputsToInstall ? [ ]
-, postBuild ? "", ignoreCollisions ? false, requiredPerlModules }:
+{
+  lib,
+  perl,
+  buildEnv,
+  makeWrapper,
+  extraLibs ? [ ],
+  extraOutputsToInstall ? [ ],
+  postBuild ? "",
+  ignoreCollisions ? false,
+  requiredPerlModules,
+}:
 
 # Create a perl executable that knows about additional packages.
 let

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, audiofile, libtiff, buildPackages, fetchpatch
-, autoreconfHook, callPackage }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  audiofile,
+  libtiff,
+  buildPackages,
+  fetchpatch,
+  autoreconfHook,
+  callPackage,
+}:
 
 (callPackage ./common.nix { }).overrideAttrs (_: rec {
   version = "0.0.6";

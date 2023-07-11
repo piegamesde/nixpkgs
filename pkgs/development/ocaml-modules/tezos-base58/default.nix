@@ -1,4 +1,11 @@
-{ buildDunePackage, fetchurl, lib, zarith, digestif, fmt }:
+{
+  buildDunePackage,
+  fetchurl,
+  lib,
+  zarith,
+  digestif,
+  fmt,
+}:
 
 buildDunePackage rec {
   pname = "tezos-base58";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, gtk3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  gtk3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "usbview";

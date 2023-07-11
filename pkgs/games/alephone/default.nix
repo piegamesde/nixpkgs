@@ -1,7 +1,32 @@
-{ lib, stdenv, fetchurl, boost, curl, ffmpeg_4, icoutils, libGLU, libmad, libogg
-, libpng, libsndfile, libvorbis, lua, pkg-config, SDL2, SDL2_image, SDL2_net
-, SDL2_ttf, smpeg, speex, zziplib, zlib, makeWrapper, makeDesktopItem, unzip
-, alephone }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  boost,
+  curl,
+  ffmpeg_4,
+  icoutils,
+  libGLU,
+  libmad,
+  libogg,
+  libpng,
+  libsndfile,
+  libvorbis,
+  lua,
+  pkg-config,
+  SDL2,
+  SDL2_image,
+  SDL2_net,
+  SDL2_ttf,
+  smpeg,
+  speex,
+  zziplib,
+  zlib,
+  makeWrapper,
+  makeDesktopItem,
+  unzip,
+  alephone,
+}:
 
 let
   self = stdenv.mkDerivation rec {
@@ -64,8 +89,15 @@ let
   };
 
 in self // {
-  makeWrapper = { pname, desktopName, version, zip, meta
-    , icon ? alephone.icons + "/alephone.png", ... }@extraArgs:
+  makeWrapper = {
+      pname,
+      desktopName,
+      version,
+      zip,
+      meta,
+      icon ? alephone.icons + "/alephone.png",
+      ...
+    }@extraArgs:
     stdenv.mkDerivation ({
       inherit pname version;
 

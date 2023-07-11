@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, vala, gobject-introspection
-, gtk-doc, docbook_xsl, docbook_xml_dtd_412, glib, libxml2, libsoup, gnome
-, buildPackages, Foundation, AppKit }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  vala,
+  gobject-introspection,
+  gtk-doc,
+  docbook_xsl,
+  docbook_xml_dtd_412,
+  glib,
+  libxml2,
+  libsoup,
+  gnome,
+  buildPackages,
+  Foundation,
+  AppKit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgrss";

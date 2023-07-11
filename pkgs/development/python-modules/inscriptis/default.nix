@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, lxml, pytestCheckHook, pythonOlder
-, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  lxml,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "inscriptis";

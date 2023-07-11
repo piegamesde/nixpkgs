@@ -1,11 +1,49 @@
-{ config, lib, stdenv, fetchFromGitHub, addOpenGLRunpath, cmake, fdk_aac
-, ffmpeg_4, jansson, libjack2, libxkbcommon, libpthreadstubs, libXdmcp, qtbase
-, qtsvg, speex, libv4l, x264, curl, wayland, xorg, pkg-config, libvlc, mbedtls
-, wrapGAppsHook, scriptingSupport ? true, luajit, swig, python3
-, alsaSupport ? stdenv.isLinux, alsa-lib
-, pulseaudioSupport ? config.pulseaudio or stdenv.isLinux, libpulseaudio, libcef
-, pciutils, pipewireSupport ? stdenv.isLinux, pipewire, libdrm, libajantv2
-, librist, libva, srt, qtwayland, wrapQtAppsHook }:
+{
+  config,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  addOpenGLRunpath,
+  cmake,
+  fdk_aac,
+  ffmpeg_4,
+  jansson,
+  libjack2,
+  libxkbcommon,
+  libpthreadstubs,
+  libXdmcp,
+  qtbase,
+  qtsvg,
+  speex,
+  libv4l,
+  x264,
+  curl,
+  wayland,
+  xorg,
+  pkg-config,
+  libvlc,
+  mbedtls,
+  wrapGAppsHook,
+  scriptingSupport ? true,
+  luajit,
+  swig,
+  python3,
+  alsaSupport ? stdenv.isLinux,
+  alsa-lib,
+  pulseaudioSupport ? config.pulseaudio or stdenv.isLinux,
+  libpulseaudio,
+  libcef,
+  pciutils,
+  pipewireSupport ? stdenv.isLinux,
+  pipewire,
+  libdrm,
+  libajantv2,
+  librist,
+  libva,
+  srt,
+  qtwayland,
+  wrapQtAppsHook,
+}:
 
 let inherit (lib) optional optionals;
 

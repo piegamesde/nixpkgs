@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, python, qmake, qtwebengine
-, qtxmlpatterns, qttools, unzip }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  python,
+  qmake,
+  qtwebengine,
+  qtxmlpatterns,
+  qttools,
+  unzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "python-qt";

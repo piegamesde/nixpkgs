@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, ruby, bash, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ruby,
+  bash,
+  ncurses,
+}:
 let rubyEnv = ruby.withPackages (ps: with ps; [ ansi ]);
 in stdenv.mkDerivation rec {
   pname = "taoup";

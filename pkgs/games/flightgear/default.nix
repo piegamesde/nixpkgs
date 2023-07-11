@@ -1,7 +1,39 @@
-{ lib, stdenv, fetchurl, wrapQtAppsHook, freeglut, freealut, libGLU, libGL
-, libICE, libjpeg, openal, openscenegraph, plib, libSM, libunwind, libX11
-, xorgproto, libXext, libXi, libXmu, libXt, simgear, zlib, boost, cmake, libpng
-, udev, fltk13, apr, makeDesktopItem, qtbase, qtdeclarative, glew, curl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  wrapQtAppsHook,
+  freeglut,
+  freealut,
+  libGLU,
+  libGL,
+  libICE,
+  libjpeg,
+  openal,
+  openscenegraph,
+  plib,
+  libSM,
+  libunwind,
+  libX11,
+  xorgproto,
+  libXext,
+  libXi,
+  libXmu,
+  libXt,
+  simgear,
+  zlib,
+  boost,
+  cmake,
+  libpng,
+  udev,
+  fltk13,
+  apr,
+  makeDesktopItem,
+  qtbase,
+  qtdeclarative,
+  glew,
+  curl,
+}:
 
 let
   version = "2020.3.17";

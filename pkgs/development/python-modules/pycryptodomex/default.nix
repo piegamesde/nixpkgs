@@ -1,4 +1,6 @@
-{ pycryptodome }:
+{
+  pycryptodome,
+}:
 
 (pycryptodome.overrideAttrs (oldAttrs: rec {
   pname = "pycryptodomex";

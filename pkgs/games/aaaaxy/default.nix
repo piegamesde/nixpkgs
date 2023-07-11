@@ -1,6 +1,20 @@
-{ lib, fetchFromGitHub, buildGoModule, alsa-lib, libglvnd, libX11, libXcursor
-, libXext, libXi, libXinerama, libXrandr, libXxf86vm, go-licenses, pkg-config
-, nixosTests }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  alsa-lib,
+  libglvnd,
+  libX11,
+  libXcursor,
+  libXext,
+  libXi,
+  libXinerama,
+  libXrandr,
+  libXxf86vm,
+  go-licenses,
+  pkg-config,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "aaaaxy";

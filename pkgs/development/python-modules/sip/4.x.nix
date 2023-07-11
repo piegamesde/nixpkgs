@@ -1,5 +1,12 @@
-{ lib, fetchurl, buildPythonPackage, python, isPyPy, pythonAtLeast
-, sip-module ? "sip" }:
+{
+  lib,
+  fetchurl,
+  buildPythonPackage,
+  python,
+  isPyPy,
+  pythonAtLeast,
+  sip-module ? "sip"
+}:
 
 buildPythonPackage rec {
   pname = sip-module;

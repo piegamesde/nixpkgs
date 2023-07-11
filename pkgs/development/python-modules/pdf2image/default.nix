@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pillow, poppler_utils, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pillow,
+  poppler_utils,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pdf2image";

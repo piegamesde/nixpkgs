@@ -1,5 +1,17 @@
-{ lib, fetchFromSourcehut, buildGoModule, buildPythonPackage, srht, redis
-, celery, pyyaml, markdown, ansi2html, python, unzip }:
+{
+  lib,
+  fetchFromSourcehut,
+  buildGoModule,
+  buildPythonPackage,
+  srht,
+  redis,
+  celery,
+  pyyaml,
+  markdown,
+  ansi2html,
+  python,
+  unzip,
+}:
 let
   version = "0.83.0";
 

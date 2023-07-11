@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, pytest, pytest-cov
-, pytestCheckHook, numpy, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  pytest,
+  pytest-cov,
+  pytestCheckHook,
+  numpy,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-astropy-header";

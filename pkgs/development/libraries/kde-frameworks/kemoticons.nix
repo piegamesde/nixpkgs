@@ -1,4 +1,11 @@
-{ mkDerivation, extra-cmake-modules, karchive, kcoreaddons, kservice, qtbase, }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  karchive,
+  kcoreaddons,
+  kservice,
+  qtbase,
+}:
 
 mkDerivation {
   pname = "kemoticons";

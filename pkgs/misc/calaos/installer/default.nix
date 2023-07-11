@@ -1,4 +1,12 @@
-{ mkDerivation, lib, stdenv, fetchFromGitHub, qmake, qttools, qtbase }:
+{
+  mkDerivation,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qmake,
+  qttools,
+  qtbase,
+}:
 
 mkDerivation rec {
   pname = "calaos_installer";

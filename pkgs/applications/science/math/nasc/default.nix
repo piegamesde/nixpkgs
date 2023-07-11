@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, python3, meson, ninja, vala, gtk3
-, glib, pantheon, gtksourceview, libgee, nix-update-script, webkitgtk
-, libqalculate, intltool, gnuplot, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  python3,
+  meson,
+  ninja,
+  vala,
+  gtk3,
+  glib,
+  pantheon,
+  gtksourceview,
+  libgee,
+  nix-update-script,
+  webkitgtk,
+  libqalculate,
+  intltool,
+  gnuplot,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nasc";

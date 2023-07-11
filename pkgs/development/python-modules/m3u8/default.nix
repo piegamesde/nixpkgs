@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, requests, iso8601
-, bottle, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  requests,
+  iso8601,
+  bottle,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "m3u8";

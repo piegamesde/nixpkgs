@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, libftdi, infnoise, testers }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  libftdi,
+  infnoise,
+  testers,
+}:
 
 stdenv.mkDerivation rec {
   pname = "infnoise";

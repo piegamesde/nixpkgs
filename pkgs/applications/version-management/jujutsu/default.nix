@@ -1,5 +1,18 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, stdenv, dbus, sqlite
-, Security, SystemConfiguration, libiconv, testers, jujutsu }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  stdenv,
+  dbus,
+  sqlite,
+  Security,
+  SystemConfiguration,
+  libiconv,
+  testers,
+  jujutsu,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "jujutsu";

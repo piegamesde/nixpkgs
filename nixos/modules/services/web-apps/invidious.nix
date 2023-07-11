@@ -1,4 +1,10 @@
-{ lib, config, pkgs, options, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  options,
+  ...
+}:
 let
   cfg = config.services.invidious;
   # To allow injecting secrets with jq, json (instead of yaml) is used

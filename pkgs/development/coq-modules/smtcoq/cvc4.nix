@@ -1,5 +1,17 @@
-{ lib, stdenv, cln, fetchurl, gmp, gnumake42, swig, pkg-config, libantlr3c
-, boost, autoreconfHook, python3 }:
+{
+  lib,
+  stdenv,
+  cln,
+  fetchurl,
+  gmp,
+  gnumake42,
+  swig,
+  pkg-config,
+  libantlr3c,
+  boost,
+  autoreconfHook,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cvc4";

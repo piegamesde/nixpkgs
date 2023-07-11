@@ -1,6 +1,17 @@
-{ lib, buildPythonApplication, fetchFromGitHub, wrapGAppsHook
-, gobject-introspection, gtk3, docutils, gtksourceview, gtkspell3, librsvg
-, pygobject3, webkitgtk }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  wrapGAppsHook,
+  gobject-introspection,
+  gtk3,
+  docutils,
+  gtksourceview,
+  gtkspell3,
+  librsvg,
+  pygobject3,
+  webkitgtk,
+}:
 
 buildPythonApplication rec {
   pname = "formiko";

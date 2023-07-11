@@ -1,5 +1,17 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, pkg-config, bzip2, lz4
-, rocksdb_6_23, snappy, zeromq, zlib, nixosTests }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  pkg-config,
+  bzip2,
+  lz4,
+  rocksdb_6_23,
+  snappy,
+  zeromq,
+  zlib,
+  nixosTests,
+}:
 
 let rocksdb = rocksdb_6_23;
 in buildGoModule rec {

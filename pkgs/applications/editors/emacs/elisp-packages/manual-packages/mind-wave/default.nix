@@ -1,4 +1,9 @@
-{ lib, pkgs, melpaBuild, substituteAll }:
+{
+  lib,
+  pkgs,
+  melpaBuild,
+  substituteAll,
+}:
 # To use this package with emacs-overlay:
 # nixpkgs.overlays = [
 #   inputs.emacs-overlay.overlay

@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchzip, ocaml, findlib, ocamlbuild }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  ocaml,
+  findlib,
+  ocamlbuild,
+}:
 
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.02")
 "semver is not available on OCaml older than 4.02"

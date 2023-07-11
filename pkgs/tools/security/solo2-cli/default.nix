@@ -1,5 +1,17 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, installShellFiles, pkg-config
-, pcsclite, udev, PCSC, IOKit, CoreFoundation, AppKit }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  pkg-config,
+  pcsclite,
+  udev,
+  PCSC,
+  IOKit,
+  CoreFoundation,
+  AppKit,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "solo2-cli";

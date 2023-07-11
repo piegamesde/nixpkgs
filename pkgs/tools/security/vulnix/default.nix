@@ -1,4 +1,9 @@
-{ lib, python3Packages, nix, ronn }:
+{
+  lib,
+  python3Packages,
+  nix,
+  ronn,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "vulnix";

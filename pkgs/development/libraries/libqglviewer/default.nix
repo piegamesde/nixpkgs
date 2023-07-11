@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, qmake, qtbase, libGLU, AGL }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  qmake,
+  qtbase,
+  libGLU,
+  AGL,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libqglviewer";

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, p7zip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  p7zip,
+}:
 stdenv.mkDerivation rec {
   pname = "win-virtio";
   version = "0.1.196-1";
@@ -19,7 +24,10 @@ stdenv.mkDerivation rec {
 
   installPhase = let
     copy = arch: version:
-      { input, output }:
+      {
+        input,
+        output,
+      }:
       "mkdir -p $out/${arch}/${output}; cp ${input}/${version}/${arch}/* $out/${arch}/${output}/.";
     virtio = [
       {

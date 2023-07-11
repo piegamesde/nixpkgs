@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, alsa-lib, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  alsa-lib,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "speech_tools";

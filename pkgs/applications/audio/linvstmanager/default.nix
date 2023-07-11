@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, qtbase, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  qtbase,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "linvstmanager";

@@ -1,6 +1,9 @@
 let
-  opensearchTest = import ./make-test-python.nix
-    ({ pkgs, lib, extraSettings ? { } }: {
+  opensearchTest = import ./make-test-python.nix ({
+      pkgs,
+      lib,
+      extraSettings ? { }
+    }: {
       name = "opensearch";
       meta.maintainers = with pkgs.lib.maintainers; [ shyim ];
 

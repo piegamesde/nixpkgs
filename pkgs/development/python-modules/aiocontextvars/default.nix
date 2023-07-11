@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pytest-asyncio
-, isPy27 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pytest-asyncio,
+  isPy27,
+}:
 
 buildPythonPackage rec {
   pname = "aiocontextvars";

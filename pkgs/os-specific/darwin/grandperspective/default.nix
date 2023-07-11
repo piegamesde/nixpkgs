@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchurl, undmg, ... }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  undmg,
+  ...
+}:
 
 stdenv.mkDerivation rec {
   version = "3.0.1";

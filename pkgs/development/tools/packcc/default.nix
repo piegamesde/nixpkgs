@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, bats, uncrustify, testers, packcc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bats,
+  uncrustify,
+  testers,
+  packcc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "packcc";

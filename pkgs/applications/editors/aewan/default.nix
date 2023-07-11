@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, fetchpatch, zlib, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  zlib,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "aewan";

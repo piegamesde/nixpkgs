@@ -1,4 +1,9 @@
-{ webcord, substituteAll, callPackage, lib }:
+{
+  webcord,
+  substituteAll,
+  callPackage,
+  lib,
+}:
 webcord.overrideAttrs (old: {
   patches = (old.patches or [ ]) ++ [
     (substituteAll {

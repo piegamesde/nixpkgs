@@ -1,4 +1,9 @@
-{ buildPythonPackage, fetchPypi, lib, lxml }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib,
+  lxml,
+}:
 
 buildPythonPackage rec {
   pname = "xmljson";

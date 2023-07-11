@@ -1,6 +1,25 @@
-{ lib, clangStdenv, fetchFromGitHub, fetchurl, fetchpatch, fetchgit
-, python3Packages, ninja, pkg-config, protobuf, zinnia, qt5, fcitx5, jsoncpp
-, gtest, which, gtk2, unzip, abseil-cpp, breakpad }:
+{
+  lib,
+  clangStdenv,
+  fetchFromGitHub,
+  fetchurl,
+  fetchpatch,
+  fetchgit,
+  python3Packages,
+  ninja,
+  pkg-config,
+  protobuf,
+  zinnia,
+  qt5,
+  fcitx5,
+  jsoncpp,
+  gtest,
+  which,
+  gtk2,
+  unzip,
+  abseil-cpp,
+  breakpad,
+}:
 let
   inherit (python3Packages) python gyp six;
   utdic = fetchurl {

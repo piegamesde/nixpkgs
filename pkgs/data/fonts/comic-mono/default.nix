@@ -1,4 +1,8 @@
-{ lib, stdenvNoCC, fetchFromGitHub }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "comic-mono-font";

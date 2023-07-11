@@ -1,4 +1,9 @@
-{ lib, mkCoqDerivation, mathcomp, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  mathcomp,
+  version ? null
+}:
 
 mkCoqDerivation {
   pname = "odd-order";

@@ -1,11 +1,38 @@
-{ bdbSupport ? true # build support for Berkeley DB repositories
-, httpServer ? false # build Apache DAV module
-, httpSupport ? true # client must support http
-, pythonBindings ? false, perlBindings ? false, javahlBindings ? false
-, saslSupport ? false, lib, stdenv, fetchurl, apr, aprutil, zlib, sqlite
-, openssl, lz4, utf8proc, CoreServices, Security, autoconf, libtool
-, apacheHttpd ? null, expat, swig ? null, jdk ? null, python3 ? null
-, py3c ? null, perl ? null, sasl ? null, serf ? null }:
+{
+  bdbSupport ? true # build support for Berkeley DB repositories
+  ,
+  httpServer ? false # build Apache DAV module
+  ,
+  httpSupport ? true # client must support http
+  ,
+  pythonBindings ? false,
+  perlBindings ? false,
+  javahlBindings ? false,
+  saslSupport ? false,
+  lib,
+  stdenv,
+  fetchurl,
+  apr,
+  aprutil,
+  zlib,
+  sqlite,
+  openssl,
+  lz4,
+  utf8proc,
+  CoreServices,
+  Security,
+  autoconf,
+  libtool,
+  apacheHttpd ? null,
+  expat,
+  swig ? null,
+  jdk ? null,
+  python3 ? null,
+  py3c ? null,
+  perl ? null,
+  sasl ? null,
+  serf ? null
+}:
 
 assert bdbSupport -> aprutil.bdbSupport;
 assert httpServer -> apacheHttpd != null;
@@ -17,7 +44,11 @@ let
   needsAutogen = stdenv.hostPlatform.isDarwin
     && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11";
 
-  common = { version, sha256, extraPatches ? [ ] }:
+  common = {
+      version,
+      sha256,
+      extraPatches ? [ ]
+    }:
     stdenv.mkDerivation (rec {
       inherit version;
       pname = "subversion${

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, cxxtools, zlib, openssl, zip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cxxtools,
+  zlib,
+  openssl,
+  zip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tntnet";

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, six, certauth }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  six,
+  certauth,
+}:
 
 buildPythonPackage rec {
   pname = "wsgiprox";

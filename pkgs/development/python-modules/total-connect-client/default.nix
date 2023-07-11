@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
-, setuptools, zeep }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  zeep,
+}:
 
 buildPythonPackage rec {
   pname = "total-connect-client";

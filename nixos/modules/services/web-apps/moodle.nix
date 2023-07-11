@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkDefault mkEnableOption mkForce mkIf mkMerge mkOption types;
@@ -73,7 +78,10 @@ let
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "pgsql";
 
   phpExt = pkgs.php81.buildEnv {
-    extensions = { all, ... }:
+    extensions = {
+        all,
+        ...
+      }:
       with all; [
         iconv
         mbstring

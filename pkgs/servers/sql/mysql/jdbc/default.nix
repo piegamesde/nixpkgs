@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, ant, unzip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ant,
+  unzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mysql-connector-java";

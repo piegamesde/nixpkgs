@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja, pkg-config, zlib, xz, bzip2
-, zchunk, zstd, expat, withRpm ? !stdenv.isDarwin, rpm, db }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  pkg-config,
+  zlib,
+  xz,
+  bzip2,
+  zchunk,
+  zstd,
+  expat,
+  withRpm ? !stdenv.isDarwin,
+  rpm,
+  db,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.7.24";

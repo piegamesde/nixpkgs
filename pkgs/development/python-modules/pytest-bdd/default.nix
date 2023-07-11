@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, mako, parse, parse-type, poetry-core
-, pytest, pytestCheckHook, pythonOlder, setuptools, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mako,
+  parse,
+  parse-type,
+  poetry-core,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-bdd";

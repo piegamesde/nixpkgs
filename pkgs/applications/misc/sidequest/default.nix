@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchurl, buildFHSEnv, makeDesktopItem, makeWrapper, atomEnv
-, libuuid, libxkbcommon, libxshmfence, at-spi2-atk, icu, openssl, zlib }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  buildFHSEnv,
+  makeDesktopItem,
+  makeWrapper,
+  atomEnv,
+  libuuid,
+  libxkbcommon,
+  libxshmfence,
+  at-spi2-atk,
+  icu,
+  openssl,
+  zlib,
+}:
 let
   pname = "sidequest";
   version = "0.10.33";

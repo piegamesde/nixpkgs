@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, sqlalchemy, setuptools-scm
-, setuptools, sphinx, pytestCheckHook, pytest-sugar, pymysql, psycopg2
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  sqlalchemy,
+  setuptools-scm,
+  setuptools,
+  sphinx,
+  pytestCheckHook,
+  pytest-sugar,
+  pymysql,
+  psycopg2,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "sqlalchemy-jsonfield";

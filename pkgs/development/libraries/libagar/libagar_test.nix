@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, bsdbuild, libagar, perl, libjpeg, libpng, openssl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bsdbuild,
+  libagar,
+  perl,
+  libjpeg,
+  libpng,
+  openssl,
+}:
 
 let srcs = import ./srcs.nix { inherit fetchurl; };
 in stdenv.mkDerivation {

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, libewf, afflib, openssl, zlib
-, openjdk, perl, ant }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  libewf,
+  afflib,
+  openssl,
+  zlib,
+  openjdk,
+  perl,
+  ant,
+}:
 
 stdenv.mkDerivation rec {
   version = "4.12.0";

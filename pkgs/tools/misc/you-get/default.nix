@@ -1,4 +1,10 @@
-{ lib, python3, substituteAll, ffmpeg, installShellFiles }:
+{
+  lib,
+  python3,
+  substituteAll,
+  ffmpeg,
+  installShellFiles,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "you-get";

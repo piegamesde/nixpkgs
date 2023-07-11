@@ -1,8 +1,19 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, importlib-metadata
-, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  importlib-metadata,
+  pytestCheckHook
 
-# large-rebuild downstream dependencies and applications
-, flask, black, magic-wormhole, mitmproxy, typer }:
+  # large-rebuild downstream dependencies and applications
+  ,
+  flask,
+  black,
+  magic-wormhole,
+  mitmproxy,
+  typer,
+}:
 
 buildPythonPackage rec {
   pname = "click";

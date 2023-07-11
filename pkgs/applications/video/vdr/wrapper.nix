@@ -1,4 +1,10 @@
-{ symlinkJoin, lib, makeWrapper, vdr, plugins ? [ ] }:
+{
+  symlinkJoin,
+  lib,
+  makeWrapper,
+  vdr,
+  plugins ? [ ]
+}:
 let
 
   makeXinePluginPath = l:

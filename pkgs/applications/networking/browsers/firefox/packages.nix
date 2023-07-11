@@ -1,4 +1,11 @@
-{ stdenv, lib, callPackage, fetchurl, fetchpatch, nixosTests, buildMozillaMach
+{
+  stdenv,
+  lib,
+  callPackage,
+  fetchurl,
+  fetchpatch,
+  nixosTests,
+  buildMozillaMach,
 }:
 
 {

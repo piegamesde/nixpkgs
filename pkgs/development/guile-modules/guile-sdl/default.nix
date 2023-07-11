@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, SDL, SDL_image, SDL_mixer, SDL_ttf, buildEnv, guile
-, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  SDL,
+  SDL_image,
+  SDL_mixer,
+  SDL_ttf,
+  buildEnv,
+  guile,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "guile-sdl";

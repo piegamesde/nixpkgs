@@ -1,4 +1,8 @@
-{ openapi-generator-cli, fetchurl, runCommand }:
+{
+  openapi-generator-cli,
+  fetchurl,
+  runCommand,
+}:
 
 runCommand "openapi-generator-cli-test" {
   nativeBuildInputs = [ openapi-generator-cli ];

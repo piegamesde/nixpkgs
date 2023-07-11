@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, static ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  static ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "libjpeg";

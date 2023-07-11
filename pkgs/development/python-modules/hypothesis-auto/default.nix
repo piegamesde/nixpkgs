@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, hypothesis, poetry-core
-, pydantic, pytest, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  hypothesis,
+  poetry-core,
+  pydantic,
+  pytest,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "hypothesis-auto";

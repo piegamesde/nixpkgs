@@ -1,70 +1,86 @@
-{ lib, localSystem, crossSystem, config, overlays, crossOverlays ? [ ]
-, bootstrapLlvmVersion ? "11.1.0"
-  # Allow passing in bootstrap files directly so we can test the stdenv bootstrap process when changing the bootstrap tools
-, bootstrapFiles ? if localSystem.isAarch64 then
-  let
-    fetch = { file, sha256, executable ? true }:
-      import <nix/fetchurl.nix> {
-        url =
-          "http://tarballs.nixos.org/stdenv-darwin/aarch64/20acd4c4f14040485f40e55c0a76c186aa8ca4f3/${file}";
-        inherit (localSystem) system;
-        inherit sha256 executable;
+{
+  lib,
+  localSystem,
+  crossSystem,
+  config,
+  overlays,
+  crossOverlays ? [ ],
+  bootstrapLlvmVersion ? "11.1.0"
+    # Allow passing in bootstrap files directly so we can test the stdenv bootstrap process when changing the bootstrap tools
+  ,
+  bootstrapFiles ? if localSystem.isAarch64 then
+    let
+      fetch = {
+          file,
+          sha256,
+          executable ? true
+        }:
+        import <nix/fetchurl.nix> {
+          url =
+            "http://tarballs.nixos.org/stdenv-darwin/aarch64/20acd4c4f14040485f40e55c0a76c186aa8ca4f3/${file}";
+          inherit (localSystem) system;
+          inherit sha256 executable;
+        };
+    in {
+      sh = fetch {
+        file = "sh";
+        sha256 = "17m3xrlbl99j3vm7rzz3ghb47094dyddrbvs2a6jalczvmx7spnj";
       };
-  in {
-    sh = fetch {
-      file = "sh";
-      sha256 = "17m3xrlbl99j3vm7rzz3ghb47094dyddrbvs2a6jalczvmx7spnj";
-    };
-    bzip2 = fetch {
-      file = "bzip2";
-      sha256 = "1khs8s5klf76plhlvlc1ma838r8pc1qigk9f5bdycwgbn0nx240q";
-    };
-    mkdir = fetch {
-      file = "mkdir";
-      sha256 = "1m9nk90paazl93v43myv2ay68c1arz39pqr7lk5ddbgb177hgg8a";
-    };
-    cpio = fetch {
-      file = "cpio";
-      sha256 = "17pxq61yjjvyd738fy9f392hc9cfzkl612sdr9rxr3v0dgvm8y09";
-    };
-    tarball = fetch {
-      file = "bootstrap-tools.cpio.bz2";
-      sha256 = "1v2332k33akm6mrm4bj749rxnnmc2pkbgcslmd0bbkf76bz2ildy";
-      executable = false;
-    };
-  }
-else
-  let
-    fetch = { file, sha256, executable ? true }:
-      import <nix/fetchurl.nix> {
-        url =
-          "http://tarballs.nixos.org/stdenv-darwin/x86_64/c253216595572930316f2be737dc288a1da22558/${file}";
-        inherit (localSystem) system;
-        inherit sha256 executable;
+      bzip2 = fetch {
+        file = "bzip2";
+        sha256 = "1khs8s5klf76plhlvlc1ma838r8pc1qigk9f5bdycwgbn0nx240q";
       };
-  in {
-    sh = fetch {
-      file = "sh";
-      sha256 = "sha256-igMAVEfumFv/LUNTGfNi2nSehgTNIP4Sg+f3L7u6SMA=";
-    };
-    bzip2 = fetch {
-      file = "bzip2";
-      sha256 = "sha256-K3rhkJZipudT1Jgh+l41Y/fNsMkrPtiAsNRDha/lpZI=";
-    };
-    mkdir = fetch {
-      file = "mkdir";
-      sha256 = "sha256-VddFELwLDJGNADKB1fWwWPBtIAlEUgJv2hXRmC4NEeM=";
-    };
-    cpio = fetch {
-      file = "cpio";
-      sha256 = "sha256-SWkwvLaFyV44kLKL2nx720SvcL4ej/p2V/bX3uqAGO0=";
-    };
-    tarball = fetch {
-      file = "bootstrap-tools.cpio.bz2";
-      sha256 = "sha256-kRC/bhCmlD4L7KAvJQgcukk7AinkMz4IwmG1rqlh5tA=";
-      executable = false;
-    };
-  } }:
+      mkdir = fetch {
+        file = "mkdir";
+        sha256 = "1m9nk90paazl93v43myv2ay68c1arz39pqr7lk5ddbgb177hgg8a";
+      };
+      cpio = fetch {
+        file = "cpio";
+        sha256 = "17pxq61yjjvyd738fy9f392hc9cfzkl612sdr9rxr3v0dgvm8y09";
+      };
+      tarball = fetch {
+        file = "bootstrap-tools.cpio.bz2";
+        sha256 = "1v2332k33akm6mrm4bj749rxnnmc2pkbgcslmd0bbkf76bz2ildy";
+        executable = false;
+      };
+    }
+  else
+    let
+      fetch = {
+          file,
+          sha256,
+          executable ? true
+        }:
+        import <nix/fetchurl.nix> {
+          url =
+            "http://tarballs.nixos.org/stdenv-darwin/x86_64/c253216595572930316f2be737dc288a1da22558/${file}";
+          inherit (localSystem) system;
+          inherit sha256 executable;
+        };
+    in {
+      sh = fetch {
+        file = "sh";
+        sha256 = "sha256-igMAVEfumFv/LUNTGfNi2nSehgTNIP4Sg+f3L7u6SMA=";
+      };
+      bzip2 = fetch {
+        file = "bzip2";
+        sha256 = "sha256-K3rhkJZipudT1Jgh+l41Y/fNsMkrPtiAsNRDha/lpZI=";
+      };
+      mkdir = fetch {
+        file = "mkdir";
+        sha256 = "sha256-VddFELwLDJGNADKB1fWwWPBtIAlEUgJv2hXRmC4NEeM=";
+      };
+      cpio = fetch {
+        file = "cpio";
+        sha256 = "sha256-SWkwvLaFyV44kLKL2nx720SvcL4ej/p2V/bX3uqAGO0=";
+      };
+      tarball = fetch {
+        file = "bootstrap-tools.cpio.bz2";
+        sha256 = "sha256-kRC/bhCmlD4L7KAvJQgcukk7AinkMz4IwmG1rqlh5tA=";
+        executable = false;
+      };
+    }
+}:
 
 assert crossSystem == localSystem;
 
@@ -116,9 +132,15 @@ in rec {
   });
 
   stageFun = step: last:
-    { shell ? "${bootstrapTools}/bin/bash", overrides ? (self: super: { })
-    , extraPreHook ? "", extraNativeBuildInputs, extraBuildInputs, libcxx
-    , allowedRequisites ? null }:
+    {
+      shell ? "${bootstrapTools}/bin/bash",
+      overrides ? (self: super: { }),
+      extraPreHook ? "",
+      extraNativeBuildInputs,
+      extraBuildInputs,
+      libcxx,
+      allowedRequisites ? null
+    }:
     let
       name = "bootstrap-stage${toString step}";
 
@@ -158,28 +180,34 @@ in rec {
       cc = if last == null then
         "/dev/null"
       else
-        mkCC ({ cc, ... }: {
-          extraPackages = [
-            last.pkgs."${finalLlvmPackages}".libcxxabi
-            last.pkgs."${finalLlvmPackages}".compiler-rt
-          ];
-          extraBuildCommands = mkExtraBuildCommands cc;
-        });
+        mkCC ({
+            cc,
+            ...
+          }: {
+            extraPackages = [
+              last.pkgs."${finalLlvmPackages}".libcxxabi
+              last.pkgs."${finalLlvmPackages}".compiler-rt
+            ];
+            extraBuildCommands = mkExtraBuildCommands cc;
+          });
 
       ccNoLibcxx = if last == null then
         "/dev/null"
       else
-        mkCC ({ cc, ... }: {
-          libcxx = null;
-          extraPackages = [ last.pkgs."${finalLlvmPackages}".compiler-rt ];
-          extraBuildCommands = ''
-            echo "-rtlib=compiler-rt" >> $out/nix-support/cc-cflags
-            echo "-B${
-              last.pkgs."${finalLlvmPackages}".compiler-rt
-            }/lib" >> $out/nix-support/cc-cflags
-            echo "-nostdlib++" >> $out/nix-support/cc-cflags
-          '' + mkExtraBuildCommands cc;
-        });
+        mkCC ({
+            cc,
+            ...
+          }: {
+            libcxx = null;
+            extraPackages = [ last.pkgs."${finalLlvmPackages}".compiler-rt ];
+            extraBuildCommands = ''
+              echo "-rtlib=compiler-rt" >> $out/nix-support/cc-cflags
+              echo "-B${
+                last.pkgs."${finalLlvmPackages}".compiler-rt
+              }/lib" >> $out/nix-support/cc-cflags
+              echo "-nostdlib++" >> $out/nix-support/cc-cflags
+            '' + mkExtraBuildCommands cc;
+          });
 
       thisStdenv = import ../generic {
         name = "${name}-stdenv-darwin";

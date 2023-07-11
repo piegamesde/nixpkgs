@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchurl, pkg-config, python3Packages, wrapGAppsHook, atk, dbus
-, evemu, frame, gdk-pixbuf, gobject-introspection, grail, gtk3, xorg, pango
-, xorgserver }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  python3Packages,
+  wrapGAppsHook,
+  atk,
+  dbus,
+  evemu,
+  frame,
+  gdk-pixbuf,
+  gobject-introspection,
+  grail,
+  gtk3,
+  xorg,
+  pango,
+  xorgserver,
+}:
 
 stdenv.mkDerivation rec {
   pname = "geis";

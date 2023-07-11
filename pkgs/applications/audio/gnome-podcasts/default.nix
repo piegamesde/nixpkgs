@@ -1,6 +1,25 @@
-{ stdenv, lib, rustPlatform, fetchFromGitLab, fetchpatch, meson, ninja, gettext
-, python3, pkg-config, glib, libhandy, gtk3, appstream-glib, desktop-file-utils
-, dbus, openssl, sqlite, gst_all_1, wrapGAppsHook }:
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  fetchFromGitLab,
+  fetchpatch,
+  meson,
+  ninja,
+  gettext,
+  python3,
+  pkg-config,
+  glib,
+  libhandy,
+  gtk3,
+  appstream-glib,
+  desktop-file-utils,
+  dbus,
+  openssl,
+  sqlite,
+  gst_all_1,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-podcasts";

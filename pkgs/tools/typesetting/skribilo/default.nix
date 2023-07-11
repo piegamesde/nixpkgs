@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchurl, fig2dev, gettext, ghostscript, guile, guile-lib
-, guile-reader, imagemagick, makeWrapper, pkg-config, ploticus
-, enableEmacs ? false, emacs, enableLout ? true, lout, enableTex ? true, tex }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fig2dev,
+  gettext,
+  ghostscript,
+  guile,
+  guile-lib,
+  guile-reader,
+  imagemagick,
+  makeWrapper,
+  pkg-config,
+  ploticus,
+  enableEmacs ? false,
+  emacs,
+  enableLout ? true,
+  lout,
+  enableTex ? true,
+  tex,
+}:
 
 let inherit (lib) optional;
 in stdenv.mkDerivation (finalAttrs: {

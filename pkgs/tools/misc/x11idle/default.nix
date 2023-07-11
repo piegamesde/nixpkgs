@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libXScrnSaver, libX11 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libXScrnSaver,
+  libX11,
+}:
 
 stdenv.mkDerivation rec {
   version = "9.2.4";

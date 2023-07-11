@@ -1,7 +1,32 @@
-{ lib, stdenv, fetchFromGitHub, appstream, coreutils, curl, desktop-file-utils
-, glib, gnugrep, gobject-introspection, gtk3, html2text, libgee, libxml2, meson
-, ninja, pantheon, pkg-config, poppler, poppler_utils, python3, sqlite, unar
-, unzip, vala, webkitgtk, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  appstream,
+  coreutils,
+  curl,
+  desktop-file-utils,
+  glib,
+  gnugrep,
+  gobject-introspection,
+  gtk3,
+  html2text,
+  libgee,
+  libxml2,
+  meson,
+  ninja,
+  pantheon,
+  pkg-config,
+  poppler,
+  poppler_utils,
+  python3,
+  sqlite,
+  unar,
+  unzip,
+  vala,
+  webkitgtk,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bookworm";

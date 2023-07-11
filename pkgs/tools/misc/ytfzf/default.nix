@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, coreutils, curl, dmenu, fzf, gnused
-, jq, mpv, ueberzug, yt-dlp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  coreutils,
+  curl,
+  dmenu,
+  fzf,
+  gnused,
+  jq,
+  mpv,
+  ueberzug,
+  yt-dlp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ytfzf";

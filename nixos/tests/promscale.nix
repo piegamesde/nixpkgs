@@ -1,8 +1,11 @@
 # mostly copied from ./timescaledb.nix which was copied from ./postgresql.nix
 # as it seemed unapproriate to test additional extensions for postgresql there.
 
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; }
+}:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -19,18 +22,22 @@ let
       name = postgresql-name;
       meta = with pkgs.lib.maintainers; { maintainers = [ anpin ]; };
 
-      nodes.machine = { config, pkgs, ... }: {
-        services.postgresql = {
-          enable = true;
-          package = postgresql-package;
-          extraPlugins = with postgresql-package.pkgs; [
-            timescaledb
-            promscale_extension
-          ];
-          settings = { shared_preload_libraries = "timescaledb, promscale"; };
+      nodes.machine = {
+          config,
+          pkgs,
+          ...
+        }: {
+          services.postgresql = {
+            enable = true;
+            package = postgresql-package;
+            extraPlugins = with postgresql-package.pkgs; [
+              timescaledb
+              promscale_extension
+            ];
+            settings = { shared_preload_libraries = "timescaledb, promscale"; };
+          };
+          environment.systemPackages = with pkgs; [ promscale ];
         };
-        environment.systemPackages = with pkgs; [ promscale ];
-      };
 
       testScript = ''
         machine.start()

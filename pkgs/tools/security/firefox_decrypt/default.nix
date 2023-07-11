@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, stdenvNoCC, nss, wrapPython, nix-update-script }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenvNoCC,
+  nss,
+  wrapPython,
+  nix-update-script,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "firefox_decrypt";

@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, ocaml, findlib, camlp4, ocamlbuild, erm_xml
-, mirage-crypto, mirage-crypto-rng, base64 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  camlp4,
+  ocamlbuild,
+  erm_xml,
+  mirage-crypto,
+  mirage-crypto-rng,
+  base64,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.3+20220404";

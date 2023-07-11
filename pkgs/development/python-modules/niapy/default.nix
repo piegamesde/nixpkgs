@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, matplotlib, numpy, openpyxl, pandas
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  matplotlib,
+  numpy,
+  openpyxl,
+  pandas,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "niapy";

@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, fetchpatch, scons, pkg-config, SDL2
-, SDL2_image, SDL2_mixer, libGLU, libGL, libpng, physfs }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  fetchpatch,
+  scons,
+  pkg-config,
+  SDL2,
+  SDL2_image,
+  SDL2_mixer,
+  libGLU,
+  libGL,
+  libpng,
+  physfs,
+}:
 
 let
   music = fetchurl {

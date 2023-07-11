@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, enum-compat, fetchFromGitHub, pytestCheckHook
-, unicodecsv, six }:
+{
+  lib,
+  buildPythonPackage,
+  enum-compat,
+  fetchFromGitHub,
+  pytestCheckHook,
+  unicodecsv,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "python-registry";

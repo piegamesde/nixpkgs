@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromSourcehut, zig, river, wayland, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  zig,
+  river,
+  wayland,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rivercarro";

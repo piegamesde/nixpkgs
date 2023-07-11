@@ -1,5 +1,12 @@
-{ lib, aiohttp, aioresponses, aiounittest, buildPythonPackage, fetchFromGitHub
-, pytestCheckHook }:
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  aiounittest,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "airly";

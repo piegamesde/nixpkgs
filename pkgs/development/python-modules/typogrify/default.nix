@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, smartypants }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  smartypants,
+}:
 
 buildPythonPackage rec {
   pname = "typogrify";

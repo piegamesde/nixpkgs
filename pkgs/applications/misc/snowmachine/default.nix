@@ -1,4 +1,11 @@
-{ buildPythonPackage, lib, click, colorama, fetchPypi, setuptools-git }:
+{
+  buildPythonPackage,
+  lib,
+  click,
+  colorama,
+  fetchPypi,
+  setuptools-git,
+}:
 
 buildPythonPackage rec {
   pname = "snowmachine";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, requests, ciso8601, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  ciso8601,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "dwdwfsapi";

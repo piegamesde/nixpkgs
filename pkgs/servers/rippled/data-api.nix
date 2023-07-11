@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, nodePackages }:
+{
+  lib,
+  fetchFromGitHub,
+  nodePackages,
+}:
 
 with lib;
 

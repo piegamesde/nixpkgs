@@ -1,5 +1,14 @@
-{ fetchFromGitLab, gobject-introspection, gtk4, lib, meson, ninja, python3
-, stdenv, testers }:
+{
+  fetchFromGitLab,
+  gobject-introspection,
+  gtk4,
+  lib,
+  meson,
+  ninja,
+  python3,
+  stdenv,
+  testers,
+}:
 stdenv.mkDerivation (finalAttrs: {
   pname = "blueprint-compiler";
   version = "0.6.0";

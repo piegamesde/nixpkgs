@@ -1,5 +1,13 @@
-{ fetchFromGitHub, lib, stdenv, python3, gtk3, libwnck, gobject-introspection
-, wrapGAppsHook }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  python3,
+  gtk3,
+  libwnck,
+  gobject-introspection,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clipster";

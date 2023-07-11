@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, qmake, qtquickcontrols2, qtserialport, qtsvg
-, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qmake,
+  qtquickcontrols2,
+  qtserialport,
+  qtsvg,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "serial-studio";

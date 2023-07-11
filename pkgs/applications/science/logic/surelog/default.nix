@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake, python3, pkg-config, libuuid, openjdk
-, gperftools, gtest, uhdm, antlr4, flatbuffers, capnproto }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  python3,
+  pkg-config,
+  libuuid,
+  openjdk,
+  gperftools,
+  gtest,
+  uhdm,
+  antlr4,
+  flatbuffers,
+  capnproto,
+}:
 
 stdenv.mkDerivation rec {
   pname = "surelog";

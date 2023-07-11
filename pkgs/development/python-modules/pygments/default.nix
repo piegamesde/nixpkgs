@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, docutils, lxml, pytestCheckHook
-, wcag-contrast-ratio }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  docutils,
+  lxml,
+  pytestCheckHook,
+  wcag-contrast-ratio,
+}:
 
 let
   pygments = buildPythonPackage rec {

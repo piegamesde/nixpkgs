@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, azure-mgmt-core, azure-mgmt-common, msrest
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  azure-mgmt-core,
+  azure-mgmt-common,
+  msrest,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-resource";

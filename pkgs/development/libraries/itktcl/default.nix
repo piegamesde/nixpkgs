@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, tcl, tk, incrtcl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  tcl,
+  tk,
+  incrtcl,
+}:
 
 tcl.mkTclDerivation rec {
   pname = "itk-tcl";

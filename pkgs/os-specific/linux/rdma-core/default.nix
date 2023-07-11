@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, docutils, pandoc, ethtool
-, iproute2, libnl, udev, python3, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  docutils,
+  pandoc,
+  ethtool,
+  iproute2,
+  libnl,
+  udev,
+  python3,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rdma-core";

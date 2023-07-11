@@ -1,10 +1,51 @@
-{ stdenv, lib, fetchurl, meson, ninja, wrapGAppsHook, pkg-config, gettext
-, itstool, libvirt-glib, glib, gobject-introspection, libxml2, gtk3, libvirt
-, spice-gtk, appstream-glib, spice-protocol, libhandy, libsoup_3, libosinfo
-, systemd, vala, libcap, yajl, gmp, gdbm, cyrus_sasl, gnome, librsvg
-, desktop-file-utils, mtools, cdrkit, libcdio, libusb1, libarchive, acl
-, libgudev, libcap_ng, numactl, libapparmor, json-glib, webkitgtk_4_1, vte
-, glib-networking, qemu-utils }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  wrapGAppsHook,
+  pkg-config,
+  gettext,
+  itstool,
+  libvirt-glib,
+  glib,
+  gobject-introspection,
+  libxml2,
+  gtk3,
+  libvirt,
+  spice-gtk,
+  appstream-glib,
+  spice-protocol,
+  libhandy,
+  libsoup_3,
+  libosinfo,
+  systemd,
+  vala,
+  libcap,
+  yajl,
+  gmp,
+  gdbm,
+  cyrus_sasl,
+  gnome,
+  librsvg,
+  desktop-file-utils,
+  mtools,
+  cdrkit,
+  libcdio,
+  libusb1,
+  libarchive,
+  acl,
+  libgudev,
+  libcap_ng,
+  numactl,
+  libapparmor,
+  json-glib,
+  webkitgtk_4_1,
+  vte,
+  glib-networking,
+  qemu-utils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-boxes";

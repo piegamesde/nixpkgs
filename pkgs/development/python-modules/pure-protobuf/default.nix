@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, setuptools-scm, toml
-, pytestCheckHook, pytest-benchmark, hatch-vcs, hatchling }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  setuptools-scm,
+  toml,
+  pytestCheckHook,
+  pytest-benchmark,
+  hatch-vcs,
+  hatchling,
+}:
 
 buildPythonPackage rec {
   pname = "pure-protobuf";

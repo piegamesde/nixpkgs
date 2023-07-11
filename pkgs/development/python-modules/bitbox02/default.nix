@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, base58, ecdsa, hidapi, noiseprotocol
-, protobuf, semver, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  base58,
+  ecdsa,
+  hidapi,
+  noiseprotocol,
+  protobuf,
+  semver,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "bitbox02";

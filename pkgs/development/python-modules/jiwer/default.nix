@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pythonRelaxDepsHook
-, rapidfuzz, click }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pythonRelaxDepsHook,
+  rapidfuzz,
+  click,
+}:
 
 buildPythonPackage rec {
   pname = "jiwer";

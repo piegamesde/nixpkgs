@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, ncurses, libpcap, automake, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  libpcap,
+  automake,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "iftop";

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-runtime
-, rocm-thunk, roctracer, numactl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  cmake,
+  rocm-runtime,
+  rocm-thunk,
+  roctracer,
+  numactl,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocprofiler";

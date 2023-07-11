@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, imake, gccmakedep, libX11, libXaw, libXext, libXmu
-, libXpm, libXxf86vm }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  imake,
+  gccmakedep,
+  libX11,
+  libXaw,
+  libXext,
+  libXmu,
+  libXpm,
+  libXxf86vm,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xbrightness";

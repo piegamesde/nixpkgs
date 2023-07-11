@@ -1,5 +1,15 @@
-{ gnustep, lib, fetchFromGitHub, fetchpatch, libxml2, openssl, openldap, mariadb
-, libmysqlclient, postgresql }:
+{
+  gnustep,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  libxml2,
+  openssl,
+  openldap,
+  mariadb,
+  libmysqlclient,
+  postgresql,
+}:
 
 gnustep.stdenv.mkDerivation rec {
   pname = "sope";

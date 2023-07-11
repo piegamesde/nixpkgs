@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, aiocoap, dtlssocket
-, pydantic, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  aiocoap,
+  dtlssocket,
+  pydantic,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pytradfri";

@@ -1,22 +1,34 @@
-{ lib, stdenv, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+}:
 
 {
 # : string
-pname
-# : string
-, version
-# : string
-, sha256
-# : string
-, description
-# : list Maintainer
-, maintainers
-# : license
-, license ? lib.licenses.isc
+  pname
   # : string
-, owner ? "flexibeast"
+  ,
+  version
   # : string
-, rev ? "v${version}" }:
+  ,
+  sha256
+  # : string
+  ,
+  description
+  # : list Maintainer
+  ,
+  maintainers
+  # : license
+  ,
+  license ? lib.licenses.isc
+    # : string
+  ,
+  owner ? "flexibeast"
+    # : string
+  ,
+  rev ? "v${version}"
+}:
 
 let
   manDir = "${placeholder "out"}/share/man";

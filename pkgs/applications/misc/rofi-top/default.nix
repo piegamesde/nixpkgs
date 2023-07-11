@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, cairo, glib
-, gobject-introspection, libgtop, pkg-config, rofi-unwrapped, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  cairo,
+  glib,
+  gobject-introspection,
+  libgtop,
+  pkg-config,
+  rofi-unwrapped,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rofi-top";

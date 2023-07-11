@@ -1,5 +1,14 @@
-{ mkDerivation, lib, fetchurl, cmake, pkg-config, qttools, qtx11extras
-, drumstick, docbook-xsl-nons }:
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  cmake,
+  pkg-config,
+  qttools,
+  qtx11extras,
+  drumstick,
+  docbook-xsl-nons,
+}:
 
 mkDerivation rec {
   pname = "vmpk";

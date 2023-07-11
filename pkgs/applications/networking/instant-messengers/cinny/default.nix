@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, writeText, jq, conf ? { } }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  writeText,
+  jq,
+  conf ? { }
+}:
 
 let
   configOverrides =

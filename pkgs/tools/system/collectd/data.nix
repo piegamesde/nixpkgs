@@ -1,4 +1,7 @@
-{ stdenv, collectd }:
+{
+  stdenv,
+  collectd,
+}:
 
 stdenv.mkDerivation {
   pname = "collectd-data";

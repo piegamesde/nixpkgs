@@ -1,14 +1,50 @@
-{ stdenv, lib, pythonOlder, buildPythonPackage, fetchFromGitHub, rustPlatform
-# Python requirements
-, dill, numpy, networkx, ply, psutil, python-constraint, python-dateutil
-, retworkx, scipy, scikit-quant ? null, setuptools-rust, stevedore, symengine
-, sympy, tweedledum, withVisualization ? false
-  # Python visualization requirements, optional
-, ipywidgets, matplotlib, pillow, pydot, pygments, pylatexenc, seaborn
-# Crosstalk-adaptive layout pass
-, withCrosstalkPass ? false, z3
-# test requirements
-, ddt, hypothesis, nbformat, nbconvert, pytestCheckHook, python }:
+{
+  stdenv,
+  lib,
+  pythonOlder,
+  buildPythonPackage,
+  fetchFromGitHub,
+  rustPlatform
+  # Python requirements
+  ,
+  dill,
+  numpy,
+  networkx,
+  ply,
+  psutil,
+  python-constraint,
+  python-dateutil,
+  retworkx,
+  scipy,
+  scikit-quant ? null,
+  setuptools-rust,
+  stevedore,
+  symengine,
+  sympy,
+  tweedledum,
+  withVisualization ? false
+    # Python visualization requirements, optional
+  ,
+  ipywidgets,
+  matplotlib,
+  pillow,
+  pydot,
+  pygments,
+  pylatexenc,
+  seaborn
+  # Crosstalk-adaptive layout pass
+  ,
+  withCrosstalkPass ? false,
+  z3
+  # test requirements
+  ,
+  ddt,
+  hypothesis,
+  nbformat,
+  nbconvert,
+  pytestCheckHook,
+  python,
+}:
 
 let
   visualizationPackages =

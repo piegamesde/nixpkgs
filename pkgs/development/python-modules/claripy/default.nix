@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, setuptools, cachetools, decorator, fetchFromGitHub
-, future, pysmt, pythonOlder, pytestCheckHook, z3 }:
+{
+  lib,
+  buildPythonPackage,
+  setuptools,
+  cachetools,
+  decorator,
+  fetchFromGitHub,
+  future,
+  pysmt,
+  pythonOlder,
+  pytestCheckHook,
+  z3,
+}:
 
 buildPythonPackage rec {
   pname = "claripy";

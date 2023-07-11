@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, wayland-scanner, scdoc
-, makeWrapper, wlroots, wayland, wayland-protocols, pixman, libxkbcommon
-, systemd, libGL, libX11, mesa, xwayland ? null, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  wayland-scanner,
+  scdoc,
+  makeWrapper,
+  wlroots,
+  wayland,
+  wayland-protocols,
+  pixman,
+  libxkbcommon,
+  systemd,
+  libGL,
+  libX11,
+  mesa,
+  xwayland ? null,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cage";

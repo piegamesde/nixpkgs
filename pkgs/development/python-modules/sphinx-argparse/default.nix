@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, sphinx }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  sphinx,
+}:
 
 buildPythonPackage rec {
   pname = "sphinx-argparse";

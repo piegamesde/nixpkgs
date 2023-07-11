@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 buildGoModule {
   pname = "honeytrap";
   version = "unstable-2020-12-10";

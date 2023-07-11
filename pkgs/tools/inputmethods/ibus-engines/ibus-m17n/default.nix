@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, ibus, gtk3, m17n_lib
-, m17n_db, gettext, python3, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  ibus,
+  gtk3,
+  m17n_lib,
+  m17n_db,
+  gettext,
+  python3,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ibus-m17n";

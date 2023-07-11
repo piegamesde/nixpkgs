@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, m4, pkg-config, tcl, bzip2, elfutils, libarchive
-, libbsd, xz, openssl, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  m4,
+  pkg-config,
+  tcl,
+  bzip2,
+  elfutils,
+  libarchive,
+  libbsd,
+  xz,
+  openssl,
+  zlib,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "pkg";

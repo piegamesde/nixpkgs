@@ -1,5 +1,14 @@
-{ lib, beautifulsoup4, buildPythonPackage, fetchFromGitHub, poetry-core
-, pythonOlder, pythonRelaxDepsHook, rapidfuzz, requests }:
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  rapidfuzz,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "syncedlyrics";

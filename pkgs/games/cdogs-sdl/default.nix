@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, SDL2, SDL2_image, SDL2_mixer, cmake
-, gtk3-x11, python3, protobuf }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  SDL2,
+  SDL2_image,
+  SDL2_mixer,
+  cmake,
+  gtk3-x11,
+  python3,
+  protobuf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cdogs-sdl";

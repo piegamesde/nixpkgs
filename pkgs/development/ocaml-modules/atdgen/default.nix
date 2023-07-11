@@ -1,5 +1,14 @@
-{ buildDunePackage, alcotest, atd, atdgen-codec-runtime, atdgen-runtime, biniou
-, re, yojson, python3 }:
+{
+  buildDunePackage,
+  alcotest,
+  atd,
+  atdgen-codec-runtime,
+  atdgen-runtime,
+  biniou,
+  re,
+  yojson,
+  python3,
+}:
 
 buildDunePackage {
   pname = "atdgen";

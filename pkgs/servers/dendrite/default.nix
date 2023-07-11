@@ -1,5 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, nixosTests, postgresql
-, postgresqlTestHook }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nixosTests,
+  postgresql,
+  postgresqlTestHook,
+}:
 
 buildGoModule rec {
   pname = "matrix-dendrite";

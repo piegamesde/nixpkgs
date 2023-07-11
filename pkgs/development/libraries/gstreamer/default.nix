@@ -1,6 +1,20 @@
-{ callPackage, AVFoundation, AudioToolbox, Cocoa, CoreFoundation, CoreMedia
-, CoreServices, CoreVideo, DiskArbitration, Foundation, IOKit, MediaToolbox
-, OpenGL, VideoToolbox, ipu6ep-camera-hal }:
+{
+  callPackage,
+  AVFoundation,
+  AudioToolbox,
+  Cocoa,
+  CoreFoundation,
+  CoreMedia,
+  CoreServices,
+  CoreVideo,
+  DiskArbitration,
+  Foundation,
+  IOKit,
+  MediaToolbox,
+  OpenGL,
+  VideoToolbox,
+  ipu6ep-camera-hal,
+}:
 
 {
   gstreamer = callPackage ./core { inherit Cocoa CoreServices; };

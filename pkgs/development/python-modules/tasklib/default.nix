@@ -1,4 +1,9 @@
-{ lib, pythonPackages, taskwarrior, writeShellScriptBin }:
+{
+  lib,
+  pythonPackages,
+  taskwarrior,
+  writeShellScriptBin,
+}:
 
 with pythonPackages;
 

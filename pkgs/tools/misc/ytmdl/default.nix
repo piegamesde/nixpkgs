@@ -1,4 +1,9 @@
-{ lib, python3Packages, yt-dlp, ffmpeg }:
+{
+  lib,
+  python3Packages,
+  yt-dlp,
+  ffmpeg,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "ytmdl";

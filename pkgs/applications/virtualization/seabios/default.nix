@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchgit, acpica-tools, python3 }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  acpica-tools,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
 

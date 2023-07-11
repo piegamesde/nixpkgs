@@ -1,6 +1,9 @@
 # This test runs simple etcd cluster
 
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
 
     runWithOpenSSL = file: cmd:
@@ -100,36 +103,42 @@ import ./make-test-python.nix ({ pkgs, ... }:
     meta = with pkgs.lib.maintainers; { maintainers = [ offline ]; };
 
     nodes = {
-      node1 = { ... }: {
-        require = [ nodeConfig ];
-        services.etcd = {
-          initialCluster =
-            [ "node1=https://node1:2380" "node2=https://node2:2380" ];
-          initialAdvertisePeerUrls = [ "https://node1:2380" ];
+      node1 = {
+          ...
+        }: {
+          require = [ nodeConfig ];
+          services.etcd = {
+            initialCluster =
+              [ "node1=https://node1:2380" "node2=https://node2:2380" ];
+            initialAdvertisePeerUrls = [ "https://node1:2380" ];
+          };
         };
-      };
 
-      node2 = { ... }: {
-        require = [ nodeConfig ];
-        services.etcd = {
-          initialCluster =
-            [ "node1=https://node1:2380" "node2=https://node2:2380" ];
-          initialAdvertisePeerUrls = [ "https://node2:2380" ];
+      node2 = {
+          ...
+        }: {
+          require = [ nodeConfig ];
+          services.etcd = {
+            initialCluster =
+              [ "node1=https://node1:2380" "node2=https://node2:2380" ];
+            initialAdvertisePeerUrls = [ "https://node2:2380" ];
+          };
         };
-      };
 
-      node3 = { ... }: {
-        require = [ nodeConfig ];
-        services.etcd = {
-          initialCluster = [
-            "node1=https://node1:2380"
-            "node2=https://node2:2380"
-            "node3=https://node3:2380"
-          ];
-          initialAdvertisePeerUrls = [ "https://node3:2380" ];
-          initialClusterState = "existing";
+      node3 = {
+          ...
+        }: {
+          require = [ nodeConfig ];
+          services.etcd = {
+            initialCluster = [
+              "node1=https://node1:2380"
+              "node2=https://node2:2380"
+              "node3=https://node3:2380"
+            ];
+            initialAdvertisePeerUrls = [ "https://node3:2380" ];
+            initialClusterState = "existing";
+          };
         };
-      };
     };
 
     testScript = ''

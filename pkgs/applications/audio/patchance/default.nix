@@ -1,4 +1,12 @@
-{ lib, fetchurl, buildPythonApplication, libjack2, pyqt5, qttools, which }:
+{
+  lib,
+  fetchurl,
+  buildPythonApplication,
+  libjack2,
+  pyqt5,
+  qttools,
+  which,
+}:
 
 buildPythonApplication rec {
   pname = "patchance";

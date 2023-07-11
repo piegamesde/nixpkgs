@@ -1,5 +1,15 @@
-{ lib, glib, cairo, libuuid, pango, gdk-pixbuf, gtk3, stdenv, fetchurl
-, autoPatchelfHook }:
+{
+  lib,
+  glib,
+  cairo,
+  libuuid,
+  pango,
+  gdk-pixbuf,
+  gtk3,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libsciter";

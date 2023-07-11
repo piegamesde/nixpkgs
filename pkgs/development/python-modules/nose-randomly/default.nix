@@ -1,4 +1,11 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, nose, numpy }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  numpy,
+}:
 
 buildPythonPackage rec {
   pname = "nose-randomly";

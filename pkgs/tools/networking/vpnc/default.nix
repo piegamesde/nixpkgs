@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, makeWrapper, pkg-config, perl, gawk
-, gnutls, libgcrypt, openresolv, vpnc-scripts, opensslSupport ? false
-, openssl # Distributing this is a GPL violation.
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  makeWrapper,
+  pkg-config,
+  perl,
+  gawk,
+  gnutls,
+  libgcrypt,
+  openresolv,
+  vpnc-scripts,
+  opensslSupport ? false,
+  openssl # Distributing this is a GPL violation.
+  ,
 }:
 
 stdenv.mkDerivation {

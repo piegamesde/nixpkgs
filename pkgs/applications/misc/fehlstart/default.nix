@@ -1,4 +1,11 @@
-{ lib, stdenv, pkg-config, gtk2, keybinder, fetchFromGitLab }:
+{
+  lib,
+  stdenv,
+  pkg-config,
+  gtk2,
+  keybinder,
+  fetchFromGitLab,
+}:
 
 stdenv.mkDerivation {
   pname = "fehlstart";

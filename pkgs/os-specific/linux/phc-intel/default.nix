@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, kernel, which }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  kernel,
+  which,
+}:
 
 # Don't bother with older versions, though some might even work:
 assert lib.versionAtLeast kernel.version "4.10";

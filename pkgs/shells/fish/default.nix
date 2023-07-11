@@ -1,21 +1,46 @@
-{ stdenv, lib, fetchurl, fetchpatch, coreutils, which, gnused, gnugrep, groff
-, gawk, man-db, getent, libiconv, pcre2, gettext, ncurses, python3, cmake
-, fishPlugins, procps
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  coreutils,
+  which,
+  gnused,
+  gnugrep,
+  groff,
+  gawk,
+  man-db,
+  getent,
+  libiconv,
+  pcre2,
+  gettext,
+  ncurses,
+  python3,
+  cmake,
+  fishPlugins,
+  procps
 
-# used to generate autocompletions from manpages and for configuration editing in the browser
-, usePython ? true
+  # used to generate autocompletions from manpages and for configuration editing in the browser
+  ,
+  usePython ? true
 
-, runCommand, writeText, nixosTests, nix-update-script, useOperatingSystemEtc ?
-  true
-  # An optional string containing Fish code that initializes the environment.
-  # This is run at the very beginning of initialization. If it sets $NIX_PROFILES
-  # then Fish will use that to configure its function, completion, and conf.d paths.
-  # For example:
-  #   fishEnvPreInit = "source /etc/fish/my-env-preinit.fish";
-  # It can also be a function that takes one argument, which is a function that
-  # takes a path to a bash file and converts it to fish. For example:
-  #   fishEnvPreInit = source: source "${nix}/etc/profile.d/nix-daemon.sh";
-, fishEnvPreInit ? null }:
+  ,
+  runCommand,
+  writeText,
+  nixosTests,
+  nix-update-script,
+  useOperatingSystemEtc ? true
+    # An optional string containing Fish code that initializes the environment.
+    # This is run at the very beginning of initialization. If it sets $NIX_PROFILES
+    # then Fish will use that to configure its function, completion, and conf.d paths.
+    # For example:
+    #   fishEnvPreInit = "source /etc/fish/my-env-preinit.fish";
+    # It can also be a function that takes one argument, which is a function that
+    # takes a path to a bash file and converts it to fish. For example:
+    #   fishEnvPreInit = source: source "${nix}/etc/profile.d/nix-daemon.sh";
+  ,
+  fishEnvPreInit ? null
+}:
 let
   etcConfigAppendix = writeText "config.fish.appendix" ''
     ############### ↓ Nix hook for sourcing /etc/fish/config.fish ↓ ###############

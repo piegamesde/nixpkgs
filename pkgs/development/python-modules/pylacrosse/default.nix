@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, mock, nose, pyserial
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  nose,
+  pyserial,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pylacrosse";

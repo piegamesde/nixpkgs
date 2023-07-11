@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools-scm, setuptools
-, wcwidth, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools-scm,
+  setuptools,
+  wcwidth,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   version = "0.9.0";

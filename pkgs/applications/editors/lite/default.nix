@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, SDL2, lua52Packages, pkg-config, makeWrapper
-, openlibm }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  lua52Packages,
+  pkg-config,
+  makeWrapper,
+  openlibm,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lite";

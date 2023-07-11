@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, pkg-config, texinfo, bison
-, flex, zlib, elfutils, gmp, ncurses, expat }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  pkg-config,
+  texinfo,
+  bison,
+  flex,
+  zlib,
+  elfutils,
+  gmp,
+  ncurses,
+  expat,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocgdb";

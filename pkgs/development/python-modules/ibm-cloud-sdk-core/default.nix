@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, pyjwt, pytestCheckHook, python-dateutil
-, pythonOlder, requests, responses }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyjwt,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  requests,
+  responses,
+}:
 
 buildPythonPackage rec {
   pname = "ibm-cloud-sdk-core";

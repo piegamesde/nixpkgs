@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, curl, libxml2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  curl,
+  libxml2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xmlrpc-c";

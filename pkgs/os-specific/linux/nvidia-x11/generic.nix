@@ -1,25 +1,53 @@
-{ version, url ? null, sha256_32bit ? null, sha256_64bit, sha256_aarch64 ? null
-, openSha256 ? null, settingsSha256, settingsVersion ? version
-, persistencedSha256, persistencedVersion ? version, useGLVND ? true
-, useProfiles ? true, preferGtk2 ? false, settings32Bit ? false
-, ibtSupport ? false
+{
+  version,
+  url ? null,
+  sha256_32bit ? null,
+  sha256_64bit,
+  sha256_aarch64 ? null,
+  openSha256 ? null,
+  settingsSha256,
+  settingsVersion ? version,
+  persistencedSha256,
+  persistencedVersion ? version,
+  useGLVND ? true,
+  useProfiles ? true,
+  preferGtk2 ? false,
+  settings32Bit ? false,
+  ibtSupport ? false
 
-, prePatch ? "", postPatch ? null, patches ? [ ], broken ? false
-, brokenOpen ? broken }@args:
+  ,
+  prePatch ? "",
+  postPatch ? null,
+  patches ? [ ],
+  broken ? false,
+  brokenOpen ? broken
+}@args:
 
-{ lib, stdenv, callPackage, pkgs, pkgsi686Linux, fetchurl, kernel ? null, perl
-, nukeReferences, which, libarchive
-, # Whether to build the libraries only (i.e. not the kernel module or
-# nvidia-settings).  Used to support 32-bit binaries on 64-bit
-# Linux.
-libsOnly ? false
-, # don't include the bundled 32-bit libraries on 64-bit platforms,
-# even if it’s in downloaded binary
-disable32Bit ? stdenv.hostPlatform.system == "aarch64-linux"
-  # 32 bit libs only version of this package
-, lib32 ? null
-  # Whether to extract the GSP firmware
-, firmware ? openSha256 != null }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  pkgs,
+  pkgsi686Linux,
+  fetchurl,
+  kernel ? null,
+  perl,
+  nukeReferences,
+  which,
+  libarchive, # Whether to build the libraries only (i.e. not the kernel module or
+  # nvidia-settings).  Used to support 32-bit binaries on 64-bit
+  # Linux.
+  libsOnly ?
+    false, # don't include the bundled 32-bit libraries on 64-bit platforms,
+  # even if it’s in downloaded binary
+  disable32Bit ? stdenv.hostPlatform.system == "aarch64-linux"
+    # 32 bit libs only version of this package
+  ,
+  lib32 ? null
+    # Whether to extract the GSP firmware
+  ,
+  firmware ? openSha256 != null
+}:
 
 with lib;
 

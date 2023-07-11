@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchFromGitLab, cmake, pkg-config, libdrm, libGL, atkmm, pcre
-, gtkmm3, pugixml, mesa, pciutils }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  cmake,
+  pkg-config,
+  libdrm,
+  libGL,
+  atkmm,
+  pcre,
+  gtkmm3,
+  pugixml,
+  mesa,
+  pciutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "adriconf";

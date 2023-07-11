@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchurl, flex, bison, linuxHeaders, libtirpc, mount, umount
-, nfs-utils, e2fsprogs, libxml2, libkrb5, kmod, openldap, sssd, cyrus_sasl
-, openssl, rpcsvc-proto, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  flex,
+  bison,
+  linuxHeaders,
+  libtirpc,
+  mount,
+  umount,
+  nfs-utils,
+  e2fsprogs,
+  libxml2,
+  libkrb5,
+  kmod,
+  openldap,
+  sssd,
+  cyrus_sasl,
+  openssl,
+  rpcsvc-proto,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   version = "5.1.6";

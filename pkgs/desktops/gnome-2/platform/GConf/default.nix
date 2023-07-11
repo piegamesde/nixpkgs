@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, pkg-config, dbus-glib, glib, ORBit2, libxml2, polkit
-, python3, intltool }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  dbus-glib,
+  glib,
+  ORBit2,
+  libxml2,
+  polkit,
+  python3,
+  intltool,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gconf";

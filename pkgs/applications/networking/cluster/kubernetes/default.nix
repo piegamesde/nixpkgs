@@ -1,13 +1,24 @@
-{ lib, buildGoModule, fetchFromGitHub, which, makeWrapper, rsync
-, installShellFiles, runtimeShell, kubectl, nixosTests
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  which,
+  makeWrapper,
+  rsync,
+  installShellFiles,
+  runtimeShell,
+  kubectl,
+  nixosTests
 
-, components ? [
-  "cmd/kubelet"
-  "cmd/kube-apiserver"
-  "cmd/kube-controller-manager"
-  "cmd/kube-proxy"
-  "cmd/kube-scheduler"
-] }:
+  ,
+  components ? [
+    "cmd/kubelet"
+    "cmd/kube-apiserver"
+    "cmd/kube-controller-manager"
+    "cmd/kube-proxy"
+    "cmd/kube-scheduler"
+  ]
+}:
 
 buildGoModule rec {
   pname = "kubernetes";

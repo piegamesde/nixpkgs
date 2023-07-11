@@ -1,6 +1,17 @@
-{ lib, fetchFromGitHub, buildPythonPackage, playwright, playwright-driver
-, pytest, pytest-base-url, pytestCheckHook, python-slugify, pythonOlder
-, setuptools-scm, django }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  playwright,
+  playwright-driver,
+  pytest,
+  pytest-base-url,
+  pytestCheckHook,
+  python-slugify,
+  pythonOlder,
+  setuptools-scm,
+  django,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-playwright";

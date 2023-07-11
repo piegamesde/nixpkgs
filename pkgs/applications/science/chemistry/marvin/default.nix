@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, dpkg, makeWrapper, coreutils, gawk, gnugrep, gnused
-, jre }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  makeWrapper,
+  coreutils,
+  gawk,
+  gnugrep,
+  gnused,
+  jre,
+}:
 
 with lib;
 

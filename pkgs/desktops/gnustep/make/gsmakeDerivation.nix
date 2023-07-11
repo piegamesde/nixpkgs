@@ -1,5 +1,14 @@
-{ lib, stdenv, make, makeWrapper, which }:
-{ nativeBuildInputs ? [ ], ... }@args:
+{
+  lib,
+  stdenv,
+  make,
+  makeWrapper,
+  which,
+}:
+{
+  nativeBuildInputs ? [ ],
+  ...
+}@args:
 stdenv.mkDerivation (args // {
   nativeBuildInputs = [ makeWrapper make which ] ++ nativeBuildInputs;
 

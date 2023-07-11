@@ -1,6 +1,10 @@
 # Vagrant + VirtualBox
 
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 
 {
   imports = [ ./vagrant-guest.nix ./virtualbox-image.nix ];

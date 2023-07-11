@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, ncurses, ocamlPackages }:
+{
+  lib,
+  fetchFromGitHub,
+  ncurses,
+  ocamlPackages,
+}:
 
 with ocamlPackages;
 buildDunePackage rec {

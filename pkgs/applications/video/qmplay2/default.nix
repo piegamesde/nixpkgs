@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, alsa-lib, cmake, ffmpeg, game-music-emu, libXv
-, libass, libcddb, libcdio, libpulseaudio, libsidplayfp, libva, pkg-config
-, qtbase, qttools, taglib, vulkan-headers, vulkan-tools, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  alsa-lib,
+  cmake,
+  ffmpeg,
+  game-music-emu,
+  libXv,
+  libass,
+  libcddb,
+  libcdio,
+  libpulseaudio,
+  libsidplayfp,
+  libva,
+  pkg-config,
+  qtbase,
+  qttools,
+  taglib,
+  vulkan-headers,
+  vulkan-tools,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qmplay2";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, httpx, pythonOlder, zeep }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  httpx,
+  pythonOlder,
+  zeep,
+}:
 
 buildPythonPackage rec {
   pname = "onvif-zeep-async";

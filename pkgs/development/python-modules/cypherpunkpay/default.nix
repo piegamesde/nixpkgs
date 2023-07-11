@@ -1,7 +1,27 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, poetry-core, apscheduler
-, bitstring, cffi, ecdsa, monero, pypng, pyqrcode, pyramid, pyramid_jinja2
-, pysocks, requests, tzlocal, waitress, yoyo-migrations, pytestCheckHook
-, pytest-cov, webtest }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  apscheduler,
+  bitstring,
+  cffi,
+  ecdsa,
+  monero,
+  pypng,
+  pyqrcode,
+  pyramid,
+  pyramid_jinja2,
+  pysocks,
+  requests,
+  tzlocal,
+  waitress,
+  yoyo-migrations,
+  pytestCheckHook,
+  pytest-cov,
+  webtest,
+}:
 
 buildPythonPackage rec {
   pname = "cypherpunkpay";

@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, fetchpatch, texinfo, perl, python3, makeWrapper
-, autoreconfHook, rlwrap ? null, tk ? null, gnuplot ? null, lisp-compiler }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  texinfo,
+  perl,
+  python3,
+  makeWrapper,
+  autoreconfHook,
+  rlwrap ? null,
+  tk ? null,
+  gnuplot ? null,
+  lisp-compiler,
+}:
 
 let
   # Allow to remove some executables from the $PATH of the wrapped binary

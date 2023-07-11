@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, knightos-scas, readline, SDL2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  knightos-scas,
+  readline,
+  SDL2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "z80e";

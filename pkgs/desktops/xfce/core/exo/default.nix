@@ -1,5 +1,14 @@
-{ lib, mkXfceDerivation, docbook_xsl, glib, libxslt, gtk3, libxfce4ui
-, libxfce4util, perl }:
+{
+  lib,
+  mkXfceDerivation,
+  docbook_xsl,
+  glib,
+  libxslt,
+  gtk3,
+  libxfce4ui,
+  libxfce4util,
+  perl,
+}:
 
 mkXfceDerivation {
   category = "xfce";

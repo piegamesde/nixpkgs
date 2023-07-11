@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, packaging, pyparsing
-, pytestCheckHook, pythonOlder, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  packaging,
+  pyparsing,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "pip-requirements-parser";

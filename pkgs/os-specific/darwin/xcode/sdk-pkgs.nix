@@ -1,6 +1,17 @@
-{ stdenv, clang-unwrapped, binutils-unwrapped, runCommand
+{
+  stdenv,
+  clang-unwrapped,
+  binutils-unwrapped,
+  runCommand
 
-, wrapBintoolsWith, wrapCCWith, buildIosSdk, targetIosSdkPkgs, xcode, lib }:
+  ,
+  wrapBintoolsWith,
+  wrapCCWith,
+  buildIosSdk,
+  targetIosSdkPkgs,
+  xcode,
+  lib,
+}:
 
 let
 

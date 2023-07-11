@@ -1,5 +1,19 @@
-{ cmake, fetchFromGitHub, glew, glfw, jazz2-content, lib, libGL, libopenmpt
-, libvorbis, openal, SDL2, stdenv, xorg, zlib }:
+{
+  cmake,
+  fetchFromGitHub,
+  glew,
+  glfw,
+  jazz2-content,
+  lib,
+  libGL,
+  libopenmpt,
+  libvorbis,
+  openal,
+  SDL2,
+  stdenv,
+  xorg,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jazz2";

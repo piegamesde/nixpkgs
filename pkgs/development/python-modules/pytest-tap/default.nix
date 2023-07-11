@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytest, tappy
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytest,
+  tappy,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-tap";

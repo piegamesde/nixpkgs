@@ -1,5 +1,15 @@
-{ lib, stdenv, aiohttp, buildPythonPackage, ed25519, fetchFromGitHub
-, nats-server, pytestCheckHook, pythonOlder, uvloop }:
+{
+  lib,
+  stdenv,
+  aiohttp,
+  buildPythonPackage,
+  ed25519,
+  fetchFromGitHub,
+  nats-server,
+  pytestCheckHook,
+  pythonOlder,
+  uvloop,
+}:
 
 buildPythonPackage rec {
   pname = "nats-py";

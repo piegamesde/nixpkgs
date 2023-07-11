@@ -1,5 +1,18 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, geopy, imageio, lxml
-, pandas, pillow, pytestCheckHook, python-dateutil, pythonOlder, voluptuous }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  geopy,
+  imageio,
+  lxml,
+  pandas,
+  pillow,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  voluptuous,
+}:
 
 buildPythonPackage rec {
   pname = "env-canada";

@@ -1,5 +1,14 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, colorama, libunwind, pytz
-, requests, six }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  colorama,
+  libunwind,
+  pytz,
+  requests,
+  six,
+}:
 
 buildPythonPackage rec {
   version = "0.4.15";

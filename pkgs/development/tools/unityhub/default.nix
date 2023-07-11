@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, dpkg, makeWrapper, buildFHSEnv, extraPkgs ? pkgs: [ ]
-, extraLibs ? pkgs: [ ] }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  makeWrapper,
+  buildFHSEnv,
+  extraPkgs ? pkgs: [ ],
+  extraLibs ? pkgs: [ ]
+}:
 
 stdenv.mkDerivation rec {
   pname = "unityhub";

@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, vala
-, pkg-config, desktop-file-utils, glib, gtk4, json-glib, libadwaita, libgee
-, wrapGAppsHook4 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  meson,
+  ninja,
+  vala,
+  pkg-config,
+  desktop-file-utils,
+  glib,
+  gtk4,
+  json-glib,
+  libadwaita,
+  libgee,
+  wrapGAppsHook4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "khronos";

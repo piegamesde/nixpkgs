@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, gitpython, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  gitpython,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "git-sweep";

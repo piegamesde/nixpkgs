@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, fltk, alsa-lib, freetype, libXrandr, libXinerama
-, libXcursor, lv2, libjack2, cmake, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fltk,
+  alsa-lib,
+  freetype,
+  libXrandr,
+  libXinerama,
+  libXcursor,
+  lv2,
+  libjack2,
+  cmake,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ensemble-chorus";

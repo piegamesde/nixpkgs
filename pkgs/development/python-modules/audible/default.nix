@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, buildPythonPackage, beautifulsoup4, httpx, pbkdf2
-, pillow, pyaes, rsa }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  beautifulsoup4,
+  httpx,
+  pbkdf2,
+  pillow,
+  pyaes,
+  rsa,
+}:
 
 buildPythonPackage rec {
   pname = "audible";

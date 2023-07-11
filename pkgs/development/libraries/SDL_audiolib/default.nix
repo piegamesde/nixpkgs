@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, SDL2, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  SDL2,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "SDL_audiolib";

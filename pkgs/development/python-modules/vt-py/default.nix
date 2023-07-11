@@ -1,5 +1,13 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pytest-asyncio
-, pytest-httpserver, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytest-httpserver,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "vt-py";

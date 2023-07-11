@@ -1,4 +1,11 @@
-{ callPackage, lib, stdenv, fetchurl, jre, makeWrapper }:
+{
+  callPackage,
+  lib,
+  stdenv,
+  fetchurl,
+  jre,
+  makeWrapper,
+}:
 
 let
   this = stdenv.mkDerivation rec {

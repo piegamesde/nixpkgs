@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, kernel, kmod }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  kernel,
+  kmod,
+}:
 
 let kerneldir = "lib/modules/${kernel.modDirVersion}";
 in stdenv.mkDerivation rec {

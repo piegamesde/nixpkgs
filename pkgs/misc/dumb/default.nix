@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, allegro, SDL2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  allegro,
+  SDL2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dumb";

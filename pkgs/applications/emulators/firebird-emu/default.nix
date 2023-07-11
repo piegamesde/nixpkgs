@@ -1,4 +1,11 @@
-{ mkDerivation, lib, fetchFromGitHub, qmake, qtbase, qtdeclarative }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  qmake,
+  qtbase,
+  qtdeclarative,
+}:
 
 mkDerivation rec {
   pname = "firebird-emu";

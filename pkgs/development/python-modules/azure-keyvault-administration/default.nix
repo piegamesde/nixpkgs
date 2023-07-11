@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, azure-common, azure-core
-, msrest, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  azure-common,
+  azure-core,
+  msrest,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "azure-keyvault-administration";

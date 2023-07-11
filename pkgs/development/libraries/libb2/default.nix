@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, libtool, pkg-config, testers }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  libtool,
+  pkg-config,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libb2";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, future, mock, nose, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  future,
+  mock,
+  nose,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "python-ipmi";

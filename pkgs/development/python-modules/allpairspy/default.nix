@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, six, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "allpairspy";

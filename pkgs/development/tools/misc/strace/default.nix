@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, perl, libunwind, buildPackages, gitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  libunwind,
+  buildPackages,
+  gitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "strace";

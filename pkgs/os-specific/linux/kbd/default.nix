@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, nixosTests, autoreconfHook, pkg-config, flex, check
-, pam, coreutils, gzip, bzip2, xz, zstd }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  nixosTests,
+  autoreconfHook,
+  pkg-config,
+  flex,
+  check,
+  pam,
+  coreutils,
+  gzip,
+  bzip2,
+  xz,
+  zstd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kbd";

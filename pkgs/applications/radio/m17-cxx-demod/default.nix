@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, boost, codec2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  boost,
+  codec2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "m17-cxx-demod";

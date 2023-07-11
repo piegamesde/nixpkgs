@@ -1,5 +1,14 @@
-{ lib, rustPlatform, fetchFromGitHub, installShellFiles, pkg-config, bzip2, xz
-, zlib, zstd }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  pkg-config,
+  bzip2,
+  xz,
+  zlib,
+  zstd,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "ouch";

@@ -1,5 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, SDL2, autoreconfHook, freetype, gettext, glib
-, gtk2, libGL, libGLU, libmpeg2, lua, openal, pkg-config, zip, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  autoreconfHook,
+  freetype,
+  gettext,
+  glib,
+  gtk2,
+  libGL,
+  libGLU,
+  libmpeg2,
+  lua,
+  openal,
+  pkg-config,
+  zip,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fs-uae";

@@ -1,6 +1,15 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, cmake, ninja, scikit-build
-# Check Inputs
-, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  scikit-build
+  # Check Inputs
+  ,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "tweedledum";

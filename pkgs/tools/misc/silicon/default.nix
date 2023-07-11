@@ -1,6 +1,23 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, cmake, llvmPackages
-, expat, freetype, libxcb, python3, libiconv, AppKit, CoreText, Security
-, fira-code, fontconfig, harfbuzz }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  llvmPackages,
+  expat,
+  freetype,
+  libxcb,
+  python3,
+  libiconv,
+  AppKit,
+  CoreText,
+  Security,
+  fira-code,
+  fontconfig,
+  harfbuzz,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "silicon";

@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, cmake, python3, libX11, libXxf86vm, libXrandr
-, vulkan-headers, libGL, vulkan-loader, wayland, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  python3,
+  libX11,
+  libXxf86vm,
+  libXrandr,
+  vulkan-headers,
+  libGL,
+  vulkan-loader,
+  wayland,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openxr-loader";

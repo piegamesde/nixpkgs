@@ -1,5 +1,14 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, xcbuild, cython, libusb1, udev
-, darwin }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  xcbuild,
+  cython,
+  libusb1,
+  udev,
+  darwin,
+}:
 
 buildPythonPackage rec {
   pname = "hidapi";

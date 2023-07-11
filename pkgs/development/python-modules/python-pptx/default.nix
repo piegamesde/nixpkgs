@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, lxml, xlsxwriter, pillow }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  lxml,
+  xlsxwriter,
+  pillow,
+}:
 buildPythonPackage rec {
   pname = "python-pptx";
   version = "0.6.21";

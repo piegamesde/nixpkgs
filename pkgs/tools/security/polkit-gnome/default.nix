@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, polkit, gtk3, pkg-config, intltool }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  polkit,
+  gtk3,
+  pkg-config,
+  intltool,
+}:
 stdenv.mkDerivation rec {
   pname = "polkit-gnome";
   version = "0.105";

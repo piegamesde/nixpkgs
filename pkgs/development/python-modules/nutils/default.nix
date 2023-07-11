@@ -1,5 +1,14 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, numpy, treelog, stringly
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  treelog,
+  stringly,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "nutils";

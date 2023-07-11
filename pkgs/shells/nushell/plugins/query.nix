@@ -1,4 +1,11 @@
-{ stdenv, lib, rustPlatform, nushell, nix-update-script, IOKit, CoreFoundation
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  nushell,
+  nix-update-script,
+  IOKit,
+  CoreFoundation,
 }:
 
 let pname = "nushell_plugin_query";

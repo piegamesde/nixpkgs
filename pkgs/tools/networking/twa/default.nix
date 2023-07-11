@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, bash, curl, dnsutils, gawk, jq
-, ncurses, netcat }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  bash,
+  curl,
+  dnsutils,
+  gawk,
+  jq,
+  ncurses,
+  netcat,
+}:
 
 stdenv.mkDerivation rec {
   pname = "twa";

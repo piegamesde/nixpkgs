@@ -1,18 +1,59 @@
-{ lib, stdenv, fetchurl, pkg-config, ncurses, db, popt, libtool, libiconv
-, CoreServices
-# Sound sub-systems
-, alsaSupport ? (!stdenv.isDarwin), alsa-lib, pulseSupport ? true, libpulseaudio
-, autoreconfHook, jackSupport ? true, libjack2, ossSupport ? true
-  # Audio formats
-, aacSupport ? true, faad2, libid3tag, flacSupport ? true, flac
-, midiSupport ? true, timidity, modplugSupport ? true, libmodplug
-, mp3Support ? true, libmad, musepackSupport ? true, libmpc, libmpcdec, taglib
-, vorbisSupport ? true, libvorbis, speexSupport ? true, speex
-, ffmpegSupport ? true, ffmpeg_4, sndfileSupport ? true, libsndfile
-, wavpackSupport ? true, wavpack
-# Misc
-, curlSupport ? true, curl, samplerateSupport ? true, libsamplerate
-, withDebug ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  ncurses,
+  db,
+  popt,
+  libtool,
+  libiconv,
+  CoreServices
+  # Sound sub-systems
+  ,
+  alsaSupport ? (!stdenv.isDarwin),
+  alsa-lib,
+  pulseSupport ? true,
+  libpulseaudio,
+  autoreconfHook,
+  jackSupport ? true,
+  libjack2,
+  ossSupport ? true
+    # Audio formats
+  ,
+  aacSupport ? true,
+  faad2,
+  libid3tag,
+  flacSupport ? true,
+  flac,
+  midiSupport ? true,
+  timidity,
+  modplugSupport ? true,
+  libmodplug,
+  mp3Support ? true,
+  libmad,
+  musepackSupport ? true,
+  libmpc,
+  libmpcdec,
+  taglib,
+  vorbisSupport ? true,
+  libvorbis,
+  speexSupport ? true,
+  speex,
+  ffmpegSupport ? true,
+  ffmpeg_4,
+  sndfileSupport ? true,
+  libsndfile,
+  wavpackSupport ? true,
+  wavpack
+  # Misc
+  ,
+  curlSupport ? true,
+  curl,
+  samplerateSupport ? true,
+  libsamplerate,
+  withDebug ? false
+}:
 
 stdenv.mkDerivation rec {
 

@@ -1,4 +1,12 @@
-{ lib, fetchPypi, buildPythonPackage, normality, mypy, coverage, nose }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  normality,
+  mypy,
+  coverage,
+  nose,
+}:
 buildPythonPackage rec {
   pname = "fingerprints";
   version = "1.1.0";

@@ -17,18 +17,100 @@
 # This separates "what to build" (the exact gem versions) from "how to build"
 # (to make gems behave if necessary).
 
-{ lib, fetchurl, writeScript, ruby, libkrb5, libxml2, libxslt, python2, stdenv
-, which, libiconv, postgresql, v8, clang, sqlite, zlib, imagemagick, lasem
-, pkg-config, ncurses, xapian, gpgme, util-linux, tzdata, icu, libffi, cmake
-, libssh2, openssl, openssl_1_1, libmysqlclient, git, perl, pcre, pcre2
-, gecode_3, curl, msgpack, libsodium, snappy, libossp_uuid, lxc, libpcap, xorg
-, gtk2, buildRubyGem, cairo, re2, rake, gobject-introspection, gdk-pixbuf
-, zeromq, czmq, graphicsmagick, libcxx, file, libvirt, glib, vips, taglib
-, libopus, linux-pam, libidn, protobuf, fribidi, harfbuzz, bison, flex, pango
-, python3, patchelf, binutils, freetds, wrapGAppsHook, atk, bundler, libsass
-, libexif, libselinux, libsepol, shared-mime-info, libthai, libdatrie
-, CoreServices, DarwinTools, cctools, libtool, discount, exiv2, libmaxminddb
-, libyaml, autoSignDarwinBinariesHook }@args:
+{
+  lib,
+  fetchurl,
+  writeScript,
+  ruby,
+  libkrb5,
+  libxml2,
+  libxslt,
+  python2,
+  stdenv,
+  which,
+  libiconv,
+  postgresql,
+  v8,
+  clang,
+  sqlite,
+  zlib,
+  imagemagick,
+  lasem,
+  pkg-config,
+  ncurses,
+  xapian,
+  gpgme,
+  util-linux,
+  tzdata,
+  icu,
+  libffi,
+  cmake,
+  libssh2,
+  openssl,
+  openssl_1_1,
+  libmysqlclient,
+  git,
+  perl,
+  pcre,
+  pcre2,
+  gecode_3,
+  curl,
+  msgpack,
+  libsodium,
+  snappy,
+  libossp_uuid,
+  lxc,
+  libpcap,
+  xorg,
+  gtk2,
+  buildRubyGem,
+  cairo,
+  re2,
+  rake,
+  gobject-introspection,
+  gdk-pixbuf,
+  zeromq,
+  czmq,
+  graphicsmagick,
+  libcxx,
+  file,
+  libvirt,
+  glib,
+  vips,
+  taglib,
+  libopus,
+  linux-pam,
+  libidn,
+  protobuf,
+  fribidi,
+  harfbuzz,
+  bison,
+  flex,
+  pango,
+  python3,
+  patchelf,
+  binutils,
+  freetds,
+  wrapGAppsHook,
+  atk,
+  bundler,
+  libsass,
+  libexif,
+  libselinux,
+  libsepol,
+  shared-mime-info,
+  libthai,
+  libdatrie,
+  CoreServices,
+  DarwinTools,
+  cctools,
+  libtool,
+  discount,
+  exiv2,
+  libmaxminddb,
+  libyaml,
+  autoSignDarwinBinariesHook,
+}@args:
 
 let
   rainbow_rake = buildRubyGem {
@@ -535,10 +617,12 @@ in {
 
   rainbow = attrs: { buildInputs = [ rainbow_rake ]; };
 
-  rbczmq = { ... }: {
-    buildInputs = [ zeromq czmq ];
-    buildFlags = [ "--with-system-libs" ];
-  };
+  rbczmq = {
+      ...
+    }: {
+      buildInputs = [ zeromq czmq ];
+      buildFlags = [ "--with-system-libs" ];
+    };
 
   rbnacl = spec:
     if lib.versionOlder spec.version "6.0.0" then {

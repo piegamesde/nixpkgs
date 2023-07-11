@@ -1,5 +1,16 @@
-{ lib, aiohttp, aioresponses, buildPythonPackage, click, fetchFromGitHub
-, pydantic, poetry-core, pytestCheckHook, pythonOlder, yarl }:
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  pydantic,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  yarl,
+}:
 
 buildPythonPackage rec {
   pname = "aiortm";

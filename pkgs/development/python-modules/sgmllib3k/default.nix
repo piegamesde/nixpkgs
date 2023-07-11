@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy27, pytestCheckHook
-, pythonAtLeast }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy27,
+  pytestCheckHook,
+  pythonAtLeast,
+}:
 
 buildPythonPackage rec {
   pname = "sgmllib3k";

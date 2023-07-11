@@ -1,7 +1,26 @@
-{ lib, fetchFromGitHub, fetchpatch, mkDerivation, qtbase, qtsvg, qtserialport
-, qtwebengine, qtmultimedia, qttools, qtconnectivity, qtcharts
-, libusb-compat-0_1, gsl, blas, bison, flex, zlib, qmake, makeDesktopItem
-, wrapQtAppsHook }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  mkDerivation,
+  qtbase,
+  qtsvg,
+  qtserialport,
+  qtwebengine,
+  qtmultimedia,
+  qttools,
+  qtconnectivity,
+  qtcharts,
+  libusb-compat-0_1,
+  gsl,
+  blas,
+  bison,
+  flex,
+  zlib,
+  qmake,
+  makeDesktopItem,
+  wrapQtAppsHook,
+}:
 
 let
   desktopItem = makeDesktopItem {

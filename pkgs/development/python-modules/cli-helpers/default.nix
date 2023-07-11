@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, backports_csv, configobj
-, mock, pytestCheckHook, pygments, tabulate, terminaltables, wcwidth }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  backports_csv,
+  configobj,
+  mock,
+  pytestCheckHook,
+  pygments,
+  tabulate,
+  terminaltables,
+  wcwidth,
+}:
 
 buildPythonPackage rec {
   pname = "cli-helpers";

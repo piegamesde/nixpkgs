@@ -1,10 +1,18 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   {
     name = "shiori";
     meta.maintainers = with lib.maintainers; [ minijackson ];
 
-    nodes.machine = { ... }: { services.shiori.enable = true; };
+    nodes.machine = {
+        ...
+      }: {
+        services.shiori.enable = true;
+      };
 
     testScript = let
       authJSON = pkgs.writeText "auth.json" (builtins.toJSON {

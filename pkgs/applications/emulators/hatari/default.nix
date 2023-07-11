@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, zlib, SDL, cmake }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  SDL,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hatari";

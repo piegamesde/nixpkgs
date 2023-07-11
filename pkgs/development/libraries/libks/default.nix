@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, libuuid, openssl
-, libossp_uuid }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  libuuid,
+  openssl,
+  libossp_uuid,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libks";

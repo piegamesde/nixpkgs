@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, numpy, scipy, six, paramz
-, matplotlib, cython, nose }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  scipy,
+  six,
+  paramz,
+  matplotlib,
+  cython,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "GPy";

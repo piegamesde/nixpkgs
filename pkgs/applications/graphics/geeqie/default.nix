@@ -1,8 +1,36 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, meson, ninja, xxd, gettext, intltool
-, gtk3, lcms2, exiv2, libchamplain, clutter-gtk, ffmpegthumbnailer, fbida
-, libarchive, djvulibre, libheif, openjpeg, libjxl, libraw, lua5_3, poppler
-, gspell, libtiff, libwebp, wrapGAppsHook, fetchpatch, doxygen
-, nix-update-script }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  meson,
+  ninja,
+  xxd,
+  gettext,
+  intltool,
+  gtk3,
+  lcms2,
+  exiv2,
+  libchamplain,
+  clutter-gtk,
+  ffmpegthumbnailer,
+  fbida,
+  libarchive,
+  djvulibre,
+  libheif,
+  openjpeg,
+  libjxl,
+  libraw,
+  lua5_3,
+  poppler,
+  gspell,
+  libtiff,
+  libwebp,
+  wrapGAppsHook,
+  fetchpatch,
+  doxygen,
+  nix-update-script,
+}:
 
 stdenv.mkDerivation rec {
   pname = "geeqie";

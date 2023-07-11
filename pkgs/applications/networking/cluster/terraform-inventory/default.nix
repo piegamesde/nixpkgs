@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, testers, terraform-inventory }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  testers,
+  terraform-inventory,
+}:
 
 buildGoModule rec {
   pname = "terraform-inventory";

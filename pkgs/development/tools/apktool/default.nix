@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, makeWrapper, jre, build-tools }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  jre,
+  build-tools,
+}:
 
 stdenv.mkDerivation rec {
   pname = "apktool";

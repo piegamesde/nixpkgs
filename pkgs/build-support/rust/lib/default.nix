@@ -1,4 +1,6 @@
-{ lib }:
+{
+  lib,
+}:
 
 rec {
   # https://doc.rust-lang.org/reference/conditional-compilation.html#target_arch

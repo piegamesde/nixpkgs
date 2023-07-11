@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, dnspython, fetchFromGitHub, idna, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  dnspython,
+  fetchFromGitHub,
+  idna,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "email-validator";

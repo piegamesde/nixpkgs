@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, levenshtein, pytesseract, opencv4
-, fuzzywuzzy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  levenshtein,
+  pytesseract,
+  opencv4,
+  fuzzywuzzy,
+}:
 
 buildPythonPackage rec {
   pname = "videocr";

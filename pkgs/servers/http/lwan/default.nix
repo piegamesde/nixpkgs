@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, zlib, cmake
-, enableJemalloc ? !stdenv.hostPlatform.isMusl, jemalloc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  zlib,
+  cmake,
+  enableJemalloc ? !stdenv.hostPlatform.isMusl,
+  jemalloc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lwan";

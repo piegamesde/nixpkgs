@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, libsndfile, libsamplerate, liblo
-, libjack2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  libsndfile,
+  libsamplerate,
+  liblo,
+  libjack2,
+}:
 
 stdenv.mkDerivation {
   pname = "dirt";

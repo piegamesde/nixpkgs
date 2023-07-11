@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchurl, ocaml, findlib, ocamlbuild, topkg, ctypes, result, SDL2
-, pkg-config, AudioToolbox, Cocoa, CoreAudio, CoreVideo, ForceFeedback }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  topkg,
+  ctypes,
+  result,
+  SDL2,
+  pkg-config,
+  AudioToolbox,
+  Cocoa,
+  CoreAudio,
+  CoreVideo,
+  ForceFeedback,
+}:
 
 if lib.versionOlder ocaml.version "4.03" then
   throw "tsdl is not available for OCaml ${ocaml.version}"

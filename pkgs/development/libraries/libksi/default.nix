@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, openssl, curl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  openssl,
+  curl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libksi";

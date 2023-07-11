@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchurl, readline, xorg, mpi, cmake, bison, flex, git, perl, gsl
-, xcbuild, python3, useMpi ? false, useIv ? true, useCore ? false
-, useRx3d ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  readline,
+  xorg,
+  mpi,
+  cmake,
+  bison,
+  flex,
+  git,
+  perl,
+  gsl,
+  xcbuild,
+  python3,
+  useMpi ? false,
+  useIv ? true,
+  useCore ? false,
+  useRx3d ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "neuron";

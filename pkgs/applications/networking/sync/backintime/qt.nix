@@ -1,4 +1,8 @@
-{ mkDerivation, backintime-common, python3 }:
+{
+  mkDerivation,
+  backintime-common,
+  python3,
+}:
 
 let python' = python3.withPackages (ps: with ps; [ pyqt5 backintime-common ]);
 in mkDerivation {

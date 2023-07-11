@@ -1,11 +1,36 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, fetchpatch
-, duet, matplotlib, networkx, numpy, pandas, requests, scipy, sortedcontainers
-, sympy, tqdm, typing-extensions
-# Contrib requirements
-, withContribRequires ? false, autoray ? null, opt-einsum, ply, pylatex ? null
-, pyquil ? null, quimb ? null
-  # test inputs
-, pytestCheckHook, freezegun, pytest-asyncio }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  fetchpatch,
+  duet,
+  matplotlib,
+  networkx,
+  numpy,
+  pandas,
+  requests,
+  scipy,
+  sortedcontainers,
+  sympy,
+  tqdm,
+  typing-extensions
+  # Contrib requirements
+  ,
+  withContribRequires ? false,
+  autoray ? null,
+  opt-einsum,
+  ply,
+  pylatex ? null,
+  pyquil ? null,
+  quimb ? null
+    # test inputs
+  ,
+  pytestCheckHook,
+  freezegun,
+  pytest-asyncio,
+}:
 
 buildPythonPackage rec {
   pname = "cirq-core";

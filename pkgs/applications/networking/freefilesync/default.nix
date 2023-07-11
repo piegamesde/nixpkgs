@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, copyDesktopItems, pkg-config
-, wrapGAppsHook, unzip, curl, glib, gtk3, libssh2, openssl, wxGTK32, gitUpdater
-, makeDesktopItem }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  copyDesktopItems,
+  pkg-config,
+  wrapGAppsHook,
+  unzip,
+  curl,
+  glib,
+  gtk3,
+  libssh2,
+  openssl,
+  wxGTK32,
+  gitUpdater,
+  makeDesktopItem,
+}:
 
 stdenv.mkDerivation rec {
   pname = "freefilesync";

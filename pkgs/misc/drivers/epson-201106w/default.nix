@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, rpmextract, autoreconfHook, file, libjpeg, cups }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  rpmextract,
+  autoreconfHook,
+  file,
+  libjpeg,
+  cups,
+}:
 
 let
   version = "1.0.1";

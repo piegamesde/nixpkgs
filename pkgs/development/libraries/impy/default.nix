@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, libpng, zlib, giflib
-, libjpeg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  libpng,
+  zlib,
+  giflib,
+  libjpeg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "impy";

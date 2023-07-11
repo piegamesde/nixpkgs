@@ -1,5 +1,12 @@
-{ lib, autoreconfHook, fetchPypi, buildPythonPackage, cython, pariSupport ? true
-, pari # for interfacing with the PARI/GP signal handler
+{
+  lib,
+  autoreconfHook,
+  fetchPypi,
+  buildPythonPackage,
+  cython,
+  pariSupport ? true,
+  pari # for interfacing with the PARI/GP signal handler
+  ,
 }:
 
 assert pariSupport -> pari != null;

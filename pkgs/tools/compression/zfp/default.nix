@@ -1,7 +1,20 @@
-{ cmake, cudatoolkit, fetchFromGitHub, gfortran, lib, llvmPackages
-, python3Packages, stdenv, enableCfp ? true, enableCuda ? false, enableFortran ?
-  builtins.elem stdenv.targetPlatform.system gfortran.meta.platforms
-, enableOpenMP ? true, enablePython ? true, enableUtilities ? true }:
+{
+  cmake,
+  cudatoolkit,
+  fetchFromGitHub,
+  gfortran,
+  lib,
+  llvmPackages,
+  python3Packages,
+  stdenv,
+  enableCfp ? true,
+  enableCuda ? false,
+  enableFortran ?
+    builtins.elem stdenv.targetPlatform.system gfortran.meta.platforms,
+  enableOpenMP ? true,
+  enablePython ? true,
+  enableUtilities ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "zfp";

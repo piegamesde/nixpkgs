@@ -1,12 +1,50 @@
-{ stdenv, pkgs, makeWrapper, runCommand, lib, writeShellScript, fetchFromGitHub
-, bundlerEnv, callPackage
+{
+  stdenv,
+  pkgs,
+  makeWrapper,
+  runCommand,
+  lib,
+  writeShellScript,
+  fetchFromGitHub,
+  bundlerEnv,
+  callPackage
 
-, ruby_3_2, replace, gzip, gnutar, git, cacert, util-linux, gawk, nettools
-, imagemagick, optipng, pngquant, libjpeg, jpegoptim, gifsicle, jhead, oxipng
-, libpsl, redis, postgresql, which, brotli, procps, rsync, icu, fetchYarnDeps
-, yarn, fixup_yarn_lock, nodePackages, nodejs_16, dart-sass-embedded
+  ,
+  ruby_3_2,
+  replace,
+  gzip,
+  gnutar,
+  git,
+  cacert,
+  util-linux,
+  gawk,
+  nettools,
+  imagemagick,
+  optipng,
+  pngquant,
+  libjpeg,
+  jpegoptim,
+  gifsicle,
+  jhead,
+  oxipng,
+  libpsl,
+  redis,
+  postgresql,
+  which,
+  brotli,
+  procps,
+  rsync,
+  icu,
+  fetchYarnDeps,
+  yarn,
+  fixup_yarn_lock,
+  nodePackages,
+  nodejs_16,
+  dart-sass-embedded
 
-, plugins ? [ ] }@args:
+  ,
+  plugins ? [ ]
+}@args:
 
 let
   version = "3.1.0.beta4";
@@ -54,8 +92,16 @@ let
     UNICORN_LISTENER = "/run/discourse/sockets/unicorn.sock";
   };
 
-  mkDiscoursePlugin = { name ? null, pname ? null, version ? null, meta ? null
-    , bundlerEnvArgs ? { }, preserveGemsDir ? false, src, ... }@args:
+  mkDiscoursePlugin = {
+      name ? null,
+      pname ? null,
+      version ? null,
+      meta ? null,
+      bundlerEnvArgs ? { },
+      preserveGemsDir ? false,
+      src,
+      ...
+    }@args:
     let
       rubyEnv =
         bundlerEnv (bundlerEnvArgs // { inherit name pname version ruby; });

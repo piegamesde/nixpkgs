@@ -1,6 +1,19 @@
-{ buildPythonPackage, lib, libffi, isPy3k, pyasn1, clint, ndg-httpsclient
-, protobuf, requests, args, matlink-gpapi, pyaxmlparser, setuptools
-, fetchFromGitHub }:
+{
+  buildPythonPackage,
+  lib,
+  libffi,
+  isPy3k,
+  pyasn1,
+  clint,
+  ndg-httpsclient,
+  protobuf,
+  requests,
+  args,
+  matlink-gpapi,
+  pyaxmlparser,
+  setuptools,
+  fetchFromGitHub,
+}:
 
 buildPythonPackage rec {
   pname = "gplaycli";

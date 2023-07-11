@@ -1,5 +1,17 @@
-{ buildGoModule, fetchFromGitHub, fetchurl, fetchpatch, go-bindata, lib
-, llvmPackages, perl, pkg-config, rustPlatform, stdenv, libiconv }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  fetchurl,
+  fetchpatch,
+  go-bindata,
+  lib,
+  llvmPackages,
+  perl,
+  pkg-config,
+  rustPlatform,
+  stdenv,
+  libiconv,
+}:
 
 let
   version = "2.5.1";

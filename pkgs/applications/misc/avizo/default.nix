@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, vala, gtk3, glib
-, gtk-layer-shell, dbus, dbus-glib, librsvg, gobject-introspection, gdk-pixbuf
-, wrapGAppsHook, pamixer, brightnessctl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  gtk3,
+  glib,
+  gtk-layer-shell,
+  dbus,
+  dbus-glib,
+  librsvg,
+  gobject-introspection,
+  gdk-pixbuf,
+  wrapGAppsHook,
+  pamixer,
+  brightnessctl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "avizo";

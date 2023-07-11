@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, rns, fetchFromGitHub, lxmf, urwid, pythonOlder
-, qrcode }:
+{
+  lib,
+  buildPythonPackage,
+  rns,
+  fetchFromGitHub,
+  lxmf,
+  urwid,
+  pythonOlder,
+  qrcode,
+}:
 
 buildPythonPackage rec {
   pname = "nomadnet";

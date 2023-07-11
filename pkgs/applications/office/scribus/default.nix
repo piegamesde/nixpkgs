@@ -1,7 +1,30 @@
-{ boost, cairo, cmake, cups, fetchurl, fetchpatch, fontconfig, freetype
-, harfbuzzFull, hunspell, lcms2, libjpeg, libtiff, libxml2, mkDerivation, pixman
-, pkg-config, podofo, poppler, poppler_data, python3, qtbase, qtimageformats
-, qttools, lib }:
+{
+  boost,
+  cairo,
+  cmake,
+  cups,
+  fetchurl,
+  fetchpatch,
+  fontconfig,
+  freetype,
+  harfbuzzFull,
+  hunspell,
+  lcms2,
+  libjpeg,
+  libtiff,
+  libxml2,
+  mkDerivation,
+  pixman,
+  pkg-config,
+  podofo,
+  poppler,
+  poppler_data,
+  python3,
+  qtbase,
+  qtimageformats,
+  qttools,
+  lib,
+}:
 
 let pythonEnv = python3.withPackages (ps: [ ps.pillow ps.tkinter ]);
 in mkDerivation rec {

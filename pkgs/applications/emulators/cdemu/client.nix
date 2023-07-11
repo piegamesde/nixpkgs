@@ -1,4 +1,9 @@
-{ callPackage, python3Packages, intltool, makeWrapper }:
+{
+  callPackage,
+  python3Packages,
+  intltool,
+  makeWrapper,
+}:
 let
   pkg = import ./base.nix {
     version = "3.2.5";

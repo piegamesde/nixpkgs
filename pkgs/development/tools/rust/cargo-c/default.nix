@@ -1,5 +1,15 @@
-{ lib, rustPlatform, fetchCrate, pkg-config, curl, openssl, stdenv
-, CoreFoundation, libiconv, Security }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  curl,
+  openssl,
+  stdenv,
+  CoreFoundation,
+  libiconv,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-c";

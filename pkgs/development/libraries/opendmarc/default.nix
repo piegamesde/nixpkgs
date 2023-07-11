@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, libmilter, perl, perlPackages
-, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  libmilter,
+  perl,
+  perlPackages,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "opendmarc";

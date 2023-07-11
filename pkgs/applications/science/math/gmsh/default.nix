@@ -1,5 +1,22 @@
-{ lib, stdenv, fetchurl, cmake, blas, lapack, gfortran, gmm, fltk, libjpeg, zlib
-, libGL, libGLU, xorg, opencascade-occt, python ? null, enablePython ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  blas,
+  lapack,
+  gfortran,
+  gmm,
+  fltk,
+  libjpeg,
+  zlib,
+  libGL,
+  libGLU,
+  xorg,
+  opencascade-occt,
+  python ? null,
+  enablePython ? false
+}:
 
 assert (!blas.isILP64) && (!lapack.isILP64);
 assert enablePython -> (python != null);

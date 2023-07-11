@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, setuptools, flask
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  setuptools,
+  flask,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "flask-httpauth";

@@ -1,4 +1,7 @@
-{ lib, skawarePackages }:
+{
+  lib,
+  skawarePackages,
+}:
 
 with skawarePackages;
 

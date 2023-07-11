@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, zlibSupport ? true, zlib, sslSupport ? true, openssl
-, idnSupport ? true, libidn }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlibSupport ? true,
+  zlib,
+  sslSupport ? true,
+  openssl,
+  idnSupport ? true,
+  libidn,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gloox";

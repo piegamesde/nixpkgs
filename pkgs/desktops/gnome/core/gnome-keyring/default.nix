@@ -1,7 +1,27 @@
-{ lib, stdenv, fetchurl, pkg-config, dbus, libgcrypt, pam, python3, glib
-, libxslt, gettext, gcr, autoreconfHook, libcap_ng, libselinux, p11-kit, openssh
-, wrapGAppsHook, docbook-xsl-nons, docbook_xml_dtd_43, gnome
-, useWrappedDaemon ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  dbus,
+  libgcrypt,
+  pam,
+  python3,
+  glib,
+  libxslt,
+  gettext,
+  gcr,
+  autoreconfHook,
+  libcap_ng,
+  libselinux,
+  p11-kit,
+  openssh,
+  wrapGAppsHook,
+  docbook-xsl-nons,
+  docbook_xml_dtd_43,
+  gnome,
+  useWrappedDaemon ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-keyring";

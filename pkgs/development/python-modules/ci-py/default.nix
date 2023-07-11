@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, pytest, pytest-runner
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  pytest,
+  pytest-runner,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   version = "1.0.0";

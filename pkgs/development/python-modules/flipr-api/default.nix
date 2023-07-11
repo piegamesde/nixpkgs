@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, requests-mock
-, pythonOlder, pytest-asyncio, pytestCheckHook, python-dateutil, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  requests-mock,
+  pythonOlder,
+  pytest-asyncio,
+  pytestCheckHook,
+  python-dateutil,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "flipr-api";

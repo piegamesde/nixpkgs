@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, six, pythonOlder, scandir ? null
-, glibcLocales, mock, typing }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  pythonOlder,
+  scandir ? null,
+  glibcLocales,
+  mock,
+  typing,
+}:
 
 buildPythonPackage rec {
   pname = "pathlib2";

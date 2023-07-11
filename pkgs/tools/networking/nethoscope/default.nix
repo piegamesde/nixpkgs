@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, alsa-lib, libpcap
-, expect }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  alsa-lib,
+  libpcap,
+  expect,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "nethoscope";

@@ -1,5 +1,13 @@
-{ lib, brotli, buildPythonPackage, django, fetchFromGitHub, pytestCheckHook
-, pythonOlder, requests }:
+{
+  lib,
+  brotli,
+  buildPythonPackage,
+  django,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "whitenoise";

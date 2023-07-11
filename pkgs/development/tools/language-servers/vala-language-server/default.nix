@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
-, scdoc, gnome-builder, glib, libgee, json-glib, jsonrpc-glib, vala }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  nix-update-script,
+  meson,
+  ninja,
+  pkg-config,
+  scdoc,
+  gnome-builder,
+  glib,
+  libgee,
+  json-glib,
+  jsonrpc-glib,
+  vala,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vala-language-server";

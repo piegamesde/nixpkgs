@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, kernel, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  kernel,
+  nixosTests,
+}:
 
 let tag = "0.3.1";
 in stdenv.mkDerivation {

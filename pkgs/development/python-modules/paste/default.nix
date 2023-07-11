@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonAtLeast
-, pythonOlder, setuptools, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  setuptools,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "paste";

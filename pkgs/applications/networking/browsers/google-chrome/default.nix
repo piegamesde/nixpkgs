@@ -1,49 +1,115 @@
-{ lib, stdenv, patchelf, makeWrapper
+{
+  lib,
+  stdenv,
+  patchelf,
+  makeWrapper
 
-# Linked dynamic libraries.
-, glib, fontconfig, freetype, pango, cairo, libX11, libXi, atk, nss, nspr
-, libXcursor, libXext, libXfixes, libXrender, libXScrnSaver, libXcomposite
-, libxcb, alsa-lib, libXdamage, libXtst, libXrandr, libxshmfence, expat, cups
-, dbus, gtk3, gtk4, gdk-pixbuf, gcc-unwrapped, at-spi2-atk, at-spi2-core
-, libkrb5, libdrm, libglvnd, mesa, libxkbcommon, pipewire
-, wayland # ozone/wayland
+  # Linked dynamic libraries.
+  ,
+  glib,
+  fontconfig,
+  freetype,
+  pango,
+  cairo,
+  libX11,
+  libXi,
+  atk,
+  nss,
+  nspr,
+  libXcursor,
+  libXext,
+  libXfixes,
+  libXrender,
+  libXScrnSaver,
+  libXcomposite,
+  libxcb,
+  alsa-lib,
+  libXdamage,
+  libXtst,
+  libXrandr,
+  libxshmfence,
+  expat,
+  cups,
+  dbus,
+  gtk3,
+  gtk4,
+  gdk-pixbuf,
+  gcc-unwrapped,
+  at-spi2-atk,
+  at-spi2-core,
+  libkrb5,
+  libdrm,
+  libglvnd,
+  mesa,
+  libxkbcommon,
+  pipewire,
+  wayland # ozone/wayland
 
-# Command line programs
-, coreutils
+  # Command line programs
+  ,
+  coreutils
 
-# command line arguments which are always set e.g "--disable-gpu"
-, commandLineArgs ? ""
+  # command line arguments which are always set e.g "--disable-gpu"
+  ,
+  commandLineArgs ? ""
 
-  # Will crash without.
-, systemd
+    # Will crash without.
+  ,
+  systemd
 
-# Loaded at runtime.
-, libexif, pciutils
+  # Loaded at runtime.
+  ,
+  libexif,
+  pciutils
 
-# Additional dependencies according to other distros.
-## Ubuntu
-, liberation_ttf, curl, util-linux, xdg-utils, wget
-## Arch Linux.
-, flac, harfbuzz, icu, libpng, libopus, snappy, speechd
-## Gentoo
-, bzip2, libcap
+  # Additional dependencies according to other distros.
+  ## Ubuntu
+  ,
+  liberation_ttf,
+  curl,
+  util-linux,
+  xdg-utils,
+  wget
+  ## Arch Linux.
+  ,
+  flac,
+  harfbuzz,
+  icu,
+  libpng,
+  libopus,
+  snappy,
+  speechd
+  ## Gentoo
+  ,
+  bzip2,
+  libcap
 
-# Which distribution channel to use.
-, channel ? "stable"
+  # Which distribution channel to use.
+  ,
+  channel ? "stable"
 
-  # Necessary for USB audio devices.
-, pulseSupport ? true, libpulseaudio
+    # Necessary for USB audio devices.
+  ,
+  pulseSupport ? true,
+  libpulseaudio
 
-# Only needed for getting information about upstream binaries
-, chromium
+  # Only needed for getting information about upstream binaries
+  ,
+  chromium
 
-, gsettings-desktop-schemas, gnome
+  ,
+  gsettings-desktop-schemas,
+  gnome
 
-# For video acceleration via VA-API (--enable-features=VaapiVideoDecoder)
-, libvaSupport ? true, libva
+  # For video acceleration via VA-API (--enable-features=VaapiVideoDecoder)
+  ,
+  libvaSupport ? true,
+  libva
 
-# For Vulkan support (--enable-features=Vulkan)
-, addOpenGLRunpath }:
+  # For Vulkan support (--enable-features=Vulkan)
+  ,
+  addOpenGLRunpath,
+}:
 
 let
   opusWithCustomModes = libopus.override { withCustomModes = true; };

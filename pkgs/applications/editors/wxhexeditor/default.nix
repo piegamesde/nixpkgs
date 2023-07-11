@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoconf, automake, gettext, libtool
-, python3, wxGTK, openmp, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoconf,
+  automake,
+  gettext,
+  libtool,
+  python3,
+  wxGTK,
+  openmp,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wxHexEditor";

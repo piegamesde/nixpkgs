@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, peewee, wtforms, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  peewee,
+  wtforms,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "wtf-peewee";

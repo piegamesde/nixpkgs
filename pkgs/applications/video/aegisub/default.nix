@@ -1,19 +1,59 @@
-{ lib, config, stdenv, fetchFromGitHub, boost, cmake, expat, harfbuzz, ffmpeg
-, ffms, fftw, fontconfig, freetype, fribidi, glib, icu, intltool, libGL, libGLU
-, libX11, libass, libiconv, libuchardet, luajit, pcre, pkg-config, which
-, wrapGAppsHook, wxGTK, zlib
+{
+  lib,
+  config,
+  stdenv,
+  fetchFromGitHub,
+  boost,
+  cmake,
+  expat,
+  harfbuzz,
+  ffmpeg,
+  ffms,
+  fftw,
+  fontconfig,
+  freetype,
+  fribidi,
+  glib,
+  icu,
+  intltool,
+  libGL,
+  libGLU,
+  libX11,
+  libass,
+  libiconv,
+  libuchardet,
+  luajit,
+  pcre,
+  pkg-config,
+  which,
+  wrapGAppsHook,
+  wxGTK,
+  zlib
 
-, spellcheckSupport ? true, hunspell ? null
+  ,
+  spellcheckSupport ? true,
+  hunspell ? null
 
-, openalSupport ? false, openal ? null
+  ,
+  openalSupport ? false,
+  openal ? null
 
-, alsaSupport ? stdenv.isLinux, alsa-lib ? null
+  ,
+  alsaSupport ? stdenv.isLinux,
+  alsa-lib ? null
 
-, pulseaudioSupport ? config.pulseaudio or stdenv.isLinux, libpulseaudio ? null
+  ,
+  pulseaudioSupport ? config.pulseaudio or stdenv.isLinux,
+  libpulseaudio ? null
 
-, portaudioSupport ? false, portaudio ? null
+  ,
+  portaudioSupport ? false,
+  portaudio ? null
 
-, useBundledLuaJIT ? false, darwin }:
+  ,
+  useBundledLuaJIT ? false,
+  darwin,
+}:
 
 assert spellcheckSupport -> (hunspell != null);
 assert openalSupport -> (openal != null);

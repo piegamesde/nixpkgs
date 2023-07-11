@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, ant, jdk, commonsBsf, commonsLogging, bsh }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ant,
+  jdk,
+  commonsBsf,
+  commonsLogging,
+  bsh,
+}:
 
 let
   version = "5.2.0";

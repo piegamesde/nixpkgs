@@ -1,5 +1,13 @@
-{ lib, mkDerivation, propagate, extra-cmake-modules, kcoreaddons, qttools
-, enablePolkit ? true, polkit-qt }:
+{
+  lib,
+  mkDerivation,
+  propagate,
+  extra-cmake-modules,
+  kcoreaddons,
+  qttools,
+  enablePolkit ? true,
+  polkit-qt,
+}:
 
 mkDerivation {
   pname = "kauth";

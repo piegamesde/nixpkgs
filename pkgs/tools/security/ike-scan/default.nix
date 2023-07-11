@@ -1,5 +1,13 @@
-{ lib, autoconf, automake, autoreconfHook, fetchFromGitHub, fetchpatch, openssl
-, stdenv }:
+{
+  lib,
+  autoconf,
+  automake,
+  autoreconfHook,
+  fetchFromGitHub,
+  fetchpatch,
+  openssl,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ike-scan";

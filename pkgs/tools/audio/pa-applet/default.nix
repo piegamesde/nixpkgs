@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, libpulseaudio, pkg-config, gtk3, glibc, autoconf
-, automake, libnotify, libX11, xf86inputevdev }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libpulseaudio,
+  pkg-config,
+  gtk3,
+  glibc,
+  autoconf,
+  automake,
+  libnotify,
+  libX11,
+  xf86inputevdev,
+}:
 
 stdenv.mkDerivation {
   pname = "pa-applet";

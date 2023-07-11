@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, autoconf, bison, boost, flex, texinfo, zlib
-, gputils ? null, excludePorts ? [ ] }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoconf,
+  bison,
+  boost,
+  flex,
+  texinfo,
+  zlib,
+  gputils ? null,
+  excludePorts ? [ ]
+}:
 
 let
   # choices: mcs51 z80 z180 r2k r3ka gbz80 tlcs90 ds390 ds400 pic14 pic16 hc08 s08 stm8

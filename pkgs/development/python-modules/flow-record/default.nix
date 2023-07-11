@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, elasticsearch, fetchFromGitHub, lz4, msgpack
-, pytestCheckHook, pythonOlder, setuptools, setuptools-scm, wheel, zstandard }:
+{
+  lib,
+  buildPythonPackage,
+  elasticsearch,
+  fetchFromGitHub,
+  lz4,
+  msgpack,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  setuptools-scm,
+  wheel,
+  zstandard,
+}:
 
 buildPythonPackage rec {
   pname = "flow-record";

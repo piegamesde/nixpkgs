@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, zlib, autoreconfHook, pkg-config, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zlib,
+  autoreconfHook,
+  pkg-config,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vcftools";

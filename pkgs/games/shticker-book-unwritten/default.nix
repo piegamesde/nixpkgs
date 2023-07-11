@@ -1,4 +1,8 @@
-{ buildFHSEnv, callPackage, lib }:
+{
+  buildFHSEnv,
+  callPackage,
+  lib,
+}:
 let
 
   shticker-book-unwritten-unwrapped = callPackage ./unwrapped.nix { };

@@ -1,5 +1,15 @@
-{ lib, ninja, meson, fetchFromGitLab, systemd, libgudev, pkg-config, glib
-, python3, gobject-introspection }:
+{
+  lib,
+  ninja,
+  meson,
+  fetchFromGitLab,
+  systemd,
+  libgudev,
+  pkg-config,
+  glib,
+  python3,
+  gobject-introspection,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "switcheroo-control";

@@ -1,5 +1,13 @@
-{ lib, stdenv, buildPackages, autoreconfHook, bison, binutils-unwrapped_2_38
-, libiberty, libbfd_2_38 }:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  autoreconfHook,
+  bison,
+  binutils-unwrapped_2_38,
+  libiberty,
+  libbfd_2_38,
+}:
 
 stdenv.mkDerivation {
   pname = "libopcodes";

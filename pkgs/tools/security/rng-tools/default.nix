@@ -1,9 +1,28 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, libtool, pkg-config, psmisc
-, argp-standalone, openssl, jitterentropy, withJitterEntropy ? true
-  # WARNING: DO NOT USE BEACON GENERATED VALUES AS SECRET CRYPTOGRAPHIC KEYS
-  # https://www.nist.gov/programs-projects/nist-randomness-beacon
-, curl, jansson, libxml2, withNistBeacon ? false, libp11, opensc
-, withPkcs11 ? true, rtl-sdr, withRtlsdr ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  libtool,
+  pkg-config,
+  psmisc,
+  argp-standalone,
+  openssl,
+  jitterentropy,
+  withJitterEntropy ? true
+    # WARNING: DO NOT USE BEACON GENERATED VALUES AS SECRET CRYPTOGRAPHIC KEYS
+    # https://www.nist.gov/programs-projects/nist-randomness-beacon
+  ,
+  curl,
+  jansson,
+  libxml2,
+  withNistBeacon ? false,
+  libp11,
+  opensc,
+  withPkcs11 ? true,
+  rtl-sdr,
+  withRtlsdr ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "rng-tools";

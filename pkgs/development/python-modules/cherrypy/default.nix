@@ -1,7 +1,27 @@
-{ lib, stdenv, buildPythonPackage, cheroot, fetchPypi, jaraco_collections
-, more-itertools, objgraph, path, portend, pyopenssl, pytest-forked
-, pytest-services, pytestCheckHook, python-memcached, pythonAtLeast, pythonOlder
-, requests-toolbelt, routes, setuptools-scm, simplejson, zc_lockfile }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  cheroot,
+  fetchPypi,
+  jaraco_collections,
+  more-itertools,
+  objgraph,
+  path,
+  portend,
+  pyopenssl,
+  pytest-forked,
+  pytest-services,
+  pytestCheckHook,
+  python-memcached,
+  pythonAtLeast,
+  pythonOlder,
+  requests-toolbelt,
+  routes,
+  setuptools-scm,
+  simplejson,
+  zc_lockfile,
+}:
 
 buildPythonPackage rec {
   pname = "cherrypy";

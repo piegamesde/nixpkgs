@@ -1,5 +1,16 @@
-{ lib, mkDerivation, fetchurl, cmake, extra-cmake-modules, karchive
-, kconfigwidgets, kcoreaddons, ki18n, kxmlgui, qtkeychain }:
+{
+  lib,
+  mkDerivation,
+  fetchurl,
+  cmake,
+  extra-cmake-modules,
+  karchive,
+  kconfigwidgets,
+  kcoreaddons,
+  ki18n,
+  kxmlgui,
+  qtkeychain,
+}:
 mkDerivation rec {
   pname = "ktextaddons";
   version = "1.2.0";

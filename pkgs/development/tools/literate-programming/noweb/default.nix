@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, nawk, groff, icon-lang, useIcon ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nawk,
+  groff,
+  icon-lang,
+  useIcon ? true
+}:
 
 stdenv.mkDerivation (finalAttrs: rec {
   pname = "noweb";

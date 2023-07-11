@@ -1,4 +1,9 @@
-{ stdenvNoCC, lib, glibc, musl }:
+{
+  stdenvNoCC,
+  lib,
+  glibc,
+  musl,
+}:
 
 let
   libc = if stdenvNoCC.targetPlatform.isMusl then musl else glibc;

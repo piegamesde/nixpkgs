@@ -1,5 +1,12 @@
-{ lib, buildPackages, buildGoModule, fetchFromGitHub, esbuild, buildNpmPackage
-, fetchFromGitea }:
+{
+  lib,
+  buildPackages,
+  buildGoModule,
+  fetchFromGitHub,
+  esbuild,
+  buildNpmPackage,
+  fetchFromGitea,
+}:
 
 let
   esbuild' = buildPackages.esbuild.override {

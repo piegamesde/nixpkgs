@@ -1,6 +1,19 @@
-{ stdenv, lib, fetchFromGitHub, ocaml, findlib, ocsigen-toolkit, pgocaml_ppx
-, safepass, yojson, cohttp-lwt-unix, eliom, resource-pooling, ocamlnet
-, ocsigen-ppx-rpc }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  ocsigen-toolkit,
+  pgocaml_ppx,
+  safepass,
+  yojson,
+  cohttp-lwt-unix,
+  eliom,
+  resource-pooling,
+  ocamlnet,
+  ocsigen-ppx-rpc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-ocsigen-start";

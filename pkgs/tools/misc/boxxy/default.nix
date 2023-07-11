@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, oniguruma, stdenv }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  oniguruma,
+  stdenv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "boxxy";

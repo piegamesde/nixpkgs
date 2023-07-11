@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest, future, pyparsing }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest,
+  future,
+  pyparsing,
+}:
 
 buildPythonPackage {
   pname = "kinparse";

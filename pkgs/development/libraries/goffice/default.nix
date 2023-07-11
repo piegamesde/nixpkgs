@@ -1,5 +1,22 @@
-{ fetchurl, lib, stdenv, pkg-config, intltool, glib, gtk3, lasem, libgsf
-, libxml2, libxslt, cairo, pango, librsvg, gnome, autoreconfHook, gtk-doc }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  pkg-config,
+  intltool,
+  glib,
+  gtk3,
+  lasem,
+  libgsf,
+  libxml2,
+  libxslt,
+  cairo,
+  pango,
+  librsvg,
+  gnome,
+  autoreconfHook,
+  gtk-doc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "goffice";

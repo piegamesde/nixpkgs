@@ -1,5 +1,13 @@
-{ mkDerivation, extra-cmake-modules, kcompletion, kconfig, ki18n, kio, phonon
-, qtbase, }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  kcompletion,
+  kconfig,
+  ki18n,
+  kio,
+  phonon,
+  qtbase,
+}:
 
 mkDerivation {
   pname = "knotifyconfig";

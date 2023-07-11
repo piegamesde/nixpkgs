@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, ocaml, findlib, ocamlbuild }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  ocamlbuild,
+}:
 
 if lib.versionOlder ocaml.version "4.02" then
   throw "erm_xml is not available for OCaml ${ocaml.version}"

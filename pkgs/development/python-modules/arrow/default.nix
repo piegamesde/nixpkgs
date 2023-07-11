@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, python-dateutil
-, typing-extensions, pytestCheckHook, pytest-mock, pytz, simplejson }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  python-dateutil,
+  typing-extensions,
+  pytestCheckHook,
+  pytest-mock,
+  pytz,
+  simplejson,
+}:
 
 buildPythonPackage rec {
   pname = "arrow";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, pythonAtLeast, fetchPypi, nose, forbiddenfruit }:
+{
+  lib,
+  buildPythonPackage,
+  pythonAtLeast,
+  fetchPypi,
+  nose,
+  forbiddenfruit,
+}:
 
 buildPythonPackage rec {
   version = "0.1.2";

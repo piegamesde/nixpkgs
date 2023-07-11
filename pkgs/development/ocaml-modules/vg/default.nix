@@ -1,7 +1,20 @@
-{ stdenv, lib, fetchurl, ocaml, findlib, ocamlbuild, topkg, uchar, result, gg
-, uutf, otfm, js_of_ocaml, js_of_ocaml-ppx, pdfBackend ? true
-, # depends on uutf and otfm
-htmlcBackend ? true # depends on js_of_ocaml
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  topkg,
+  uchar,
+  result,
+  gg,
+  uutf,
+  otfm,
+  js_of_ocaml,
+  js_of_ocaml-ppx,
+  pdfBackend ? true, # depends on uutf and otfm
+  htmlcBackend ? true # depends on js_of_ocaml
 }:
 
 let

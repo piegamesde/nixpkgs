@@ -1,6 +1,23 @@
-{ lib, absl-py, blas, buildPythonPackage, etils, fetchFromGitHub, jaxlib
-, jaxlib-bin, lapack, matplotlib, numpy, opt-einsum, pytestCheckHook
-, pytest-xdist, pythonOlder, scipy, stdenv, typing-extensions }:
+{
+  lib,
+  absl-py,
+  blas,
+  buildPythonPackage,
+  etils,
+  fetchFromGitHub,
+  jaxlib,
+  jaxlib-bin,
+  lapack,
+  matplotlib,
+  numpy,
+  opt-einsum,
+  pytestCheckHook,
+  pytest-xdist,
+  pythonOlder,
+  scipy,
+  stdenv,
+  typing-extensions,
+}:
 
 let
   usingMKL = blas.implementation == "mkl" || lapack.implementation == "mkl";

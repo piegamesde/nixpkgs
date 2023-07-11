@@ -1,7 +1,27 @@
-{ stdenv, lib, makeWrapper, dpkg, fetchurl, autoPatchelfHook, curl, libkrb5
-, lttng-ust, libpulseaudio, gtk3, openssl_1_1, icu70, webkitgtk, librsvg
-, gdk-pixbuf, libsoup, glib-networking, graphicsmagick_q16, libva, libusb1
-, hiredis }:
+{
+  stdenv,
+  lib,
+  makeWrapper,
+  dpkg,
+  fetchurl,
+  autoPatchelfHook,
+  curl,
+  libkrb5,
+  lttng-ust,
+  libpulseaudio,
+  gtk3,
+  openssl_1_1,
+  icu70,
+  webkitgtk,
+  librsvg,
+  gdk-pixbuf,
+  libsoup,
+  glib-networking,
+  graphicsmagick_q16,
+  libva,
+  libusb1,
+  hiredis,
+}:
 
 stdenv.mkDerivation rec {
   pname = "aws-workspaces";

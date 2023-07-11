@@ -1,4 +1,10 @@
-{ buildGoModule, fetchFromGitHub, stdenv, lib, installShellFiles }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  stdenv,
+  lib,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "fly";

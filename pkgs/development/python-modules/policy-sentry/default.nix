@@ -1,5 +1,15 @@
-{ lib, beautifulsoup4, buildPythonPackage, click, fetchFromGitHub
-, pytestCheckHook, pythonOlder, pyyaml, requests, schema }:
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  requests,
+  schema,
+}:
 
 buildPythonPackage rec {
   pname = "policy-sentry";

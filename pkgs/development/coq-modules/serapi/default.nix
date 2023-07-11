@@ -1,4 +1,10 @@
-{ lib, fetchzip, mkCoqDerivation, coq, version ? null }:
+{
+  lib,
+  fetchzip,
+  mkCoqDerivation,
+  coq,
+  version ? null
+}:
 
 let
   release = {

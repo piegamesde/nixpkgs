@@ -1,6 +1,19 @@
-{ config, lib, stdenv, fetchurl, zlib, pkg-config, mpg123, libogg, libvorbis
-, portaudio, libsndfile, flac
-, usePulseAudio ? config.pulseaudio or stdenv.isLinux, libpulseaudio }:
+{
+  config,
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  pkg-config,
+  mpg123,
+  libogg,
+  libvorbis,
+  portaudio,
+  libsndfile,
+  flac,
+  usePulseAudio ? config.pulseaudio or stdenv.isLinux,
+  libpulseaudio,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libopenmpt";

@@ -1,4 +1,11 @@
-{ lib, buildDunePackage, fetchurl, bigarray-compat, fmt, alcotest, bigstringaf
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  bigarray-compat,
+  fmt,
+  alcotest,
+  bigstringaf,
 }:
 
 buildDunePackage rec {

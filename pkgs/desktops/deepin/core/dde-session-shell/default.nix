@@ -1,8 +1,29 @@
-{ stdenv, lib, fetchFromGitHub, linkFarm, dtkwidget, qt5integration
-, qt5platform-plugins, dde-qt-dbus-factory, cmake, pkg-config, qttools
-, qtx11extras, wrapQtAppsHook, wrapGAppsHook, gsettings-qt, lightdm_qt
-, linux-pam, xorg, kwayland, gtest, xkeyboard_config, dbus, qtbase
-, dde-session-shell }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  linkFarm,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  dde-qt-dbus-factory,
+  cmake,
+  pkg-config,
+  qttools,
+  qtx11extras,
+  wrapQtAppsHook,
+  wrapGAppsHook,
+  gsettings-qt,
+  lightdm_qt,
+  linux-pam,
+  xorg,
+  kwayland,
+  gtest,
+  xkeyboard_config,
+  dbus,
+  qtbase,
+  dde-session-shell,
+}:
 stdenv.mkDerivation rec {
   pname = "dde-session-shell";
   version = "5.6.4";

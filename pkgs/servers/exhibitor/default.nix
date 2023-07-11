@@ -1,4 +1,12 @@
-{ fetchFromGitHub, maven, jdk, makeWrapper, lib, stdenv, ... }:
+{
+  fetchFromGitHub,
+  maven,
+  jdk,
+  makeWrapper,
+  lib,
+  stdenv,
+  ...
+}:
 stdenv.mkDerivation rec {
   pname = "exhibitor";
   version = "1.5.6";

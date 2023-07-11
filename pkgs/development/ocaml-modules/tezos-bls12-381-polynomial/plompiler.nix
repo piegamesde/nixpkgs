@@ -1,6 +1,20 @@
-{ lib, buildDunePackage, hacl-star, bls12-381, bls12-381-hash
-, tezos-bls12-381-polynomial, polynomial, data-encoding, hex, stdint, ff, mec
-, alcotest, qcheck-alcotest, bisect_ppx }:
+{
+  lib,
+  buildDunePackage,
+  hacl-star,
+  bls12-381,
+  bls12-381-hash,
+  tezos-bls12-381-polynomial,
+  polynomial,
+  data-encoding,
+  hex,
+  stdint,
+  ff,
+  mec,
+  alcotest,
+  qcheck-alcotest,
+  bisect_ppx,
+}:
 
 buildDunePackage rec {
   pname = "tezos-plompiler";

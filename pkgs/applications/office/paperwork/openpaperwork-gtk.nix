@@ -1,10 +1,21 @@
-{ buildPythonPackage, lib, fetchFromGitLab
+{
+  buildPythonPackage,
+  lib,
+  fetchFromGitLab
 
-, isPy3k, isPyPy
+  ,
+  isPy3k,
+  isPyPy
 
-, openpaperwork-core, pillow, pygobject3, distro
+  ,
+  openpaperwork-core,
+  pillow,
+  pygobject3,
+  distro
 
-, pkgs }:
+  ,
+  pkgs,
+}:
 
 buildPythonPackage rec {
   pname = "openpaperwork-gtk";

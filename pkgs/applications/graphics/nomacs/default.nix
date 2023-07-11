@@ -1,8 +1,25 @@
-{ stdenv, lib, mkDerivation, fetchFromGitHub, fetchpatch, cmake, pkg-config
+{
+  stdenv,
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config
 
-, qtbase, qttools, qtsvg, qtimageformats
+  ,
+  qtbase,
+  qttools,
+  qtsvg,
+  qtimageformats
 
-, exiv2, opencv4, libraw, libtiff, quazip }:
+  ,
+  exiv2,
+  opencv4,
+  libraw,
+  libtiff,
+  quazip,
+}:
 
 mkDerivation rec {
   pname = "nomacs";

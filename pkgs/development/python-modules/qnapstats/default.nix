@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, requests, xmltodict, responses
-, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  xmltodict,
+  responses,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "qnapstats";

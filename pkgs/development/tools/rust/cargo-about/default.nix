@@ -1,4 +1,12 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, zstd, stdenv, darwin }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  zstd,
+  stdenv,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-about";

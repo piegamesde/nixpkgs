@@ -1,6 +1,12 @@
-{ stdenv, runCommand, fetchurl, zlib
+{
+  stdenv,
+  runCommand,
+  fetchurl,
+  zlib
 
-, version }:
+  ,
+  version,
+}:
 
 assert stdenv.hostPlatform.libc == "glibc";
 

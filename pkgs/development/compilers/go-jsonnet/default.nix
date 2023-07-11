@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, testers, go-jsonnet }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  testers,
+  go-jsonnet,
+}:
 
 buildGoModule rec {
   pname = "go-jsonnet";

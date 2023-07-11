@@ -1,14 +1,64 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, wayland-scanner, boost
-, fontconfig, ibus, libXcursor, libXft, libcanberra_kde, libpulseaudio
-, libxkbfile, xf86inputevdev, xf86inputsynaptics, xinput, xkeyboard_config
-, xorgserver, util-linux, wayland, wayland-protocols, accounts-qt, qtdeclarative
-, qtquickcontrols, qtquickcontrols2, qtsvg, qtx11extras, attica, baloo
-, kaccounts-integration, kactivities, kactivities-stats, kauth, kcmutils
-, kdbusaddons, kdeclarative, kded, kdelibs4support, kemoticons, kglobalaccel
-, ki18n, kitemmodels, knewstuff, knotifications, knotifyconfig, kpeople, krunner
-, kscreenlocker, kwallet, kwin, phonon, plasma-framework, plasma-workspace
-, qqc2-desktop-style, xf86inputlibinput, glib, gsettings-desktop-schemas
-, runCommandLocal, makeWrapper }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  wayland-scanner,
+  boost,
+  fontconfig,
+  ibus,
+  libXcursor,
+  libXft,
+  libcanberra_kde,
+  libpulseaudio,
+  libxkbfile,
+  xf86inputevdev,
+  xf86inputsynaptics,
+  xinput,
+  xkeyboard_config,
+  xorgserver,
+  util-linux,
+  wayland,
+  wayland-protocols,
+  accounts-qt,
+  qtdeclarative,
+  qtquickcontrols,
+  qtquickcontrols2,
+  qtsvg,
+  qtx11extras,
+  attica,
+  baloo,
+  kaccounts-integration,
+  kactivities,
+  kactivities-stats,
+  kauth,
+  kcmutils,
+  kdbusaddons,
+  kdeclarative,
+  kded,
+  kdelibs4support,
+  kemoticons,
+  kglobalaccel,
+  ki18n,
+  kitemmodels,
+  knewstuff,
+  knotifications,
+  knotifyconfig,
+  kpeople,
+  krunner,
+  kscreenlocker,
+  kwallet,
+  kwin,
+  phonon,
+  plasma-framework,
+  plasma-workspace,
+  qqc2-desktop-style,
+  xf86inputlibinput,
+  glib,
+  gsettings-desktop-schemas,
+  runCommandLocal,
+  makeWrapper,
+}:
 
 mkDerivation {
   pname = "plasma-desktop";

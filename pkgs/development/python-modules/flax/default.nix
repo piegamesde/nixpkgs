@@ -1,6 +1,20 @@
-{ buildPythonPackage, fetchFromGitHub, jaxlib, jax, keras, lib, matplotlib
-, msgpack, numpy, optax, pytest-xdist, pytestCheckHook, tensorflow, fetchpatch
-, rich }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  jaxlib,
+  jax,
+  keras,
+  lib,
+  matplotlib,
+  msgpack,
+  numpy,
+  optax,
+  pytest-xdist,
+  pytestCheckHook,
+  tensorflow,
+  fetchpatch,
+  rich,
+}:
 
 buildPythonPackage rec {
   pname = "flax";

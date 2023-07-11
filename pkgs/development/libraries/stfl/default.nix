@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, ncurses, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "stfl";

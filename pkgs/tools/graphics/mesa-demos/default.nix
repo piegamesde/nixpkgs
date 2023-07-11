@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchurl, freeglut, glew, libGL, libGLU, libX11, libXext, mesa
-, meson, ninja, pkg-config, wayland, wayland-protocols, vulkan-loader
-, libxkbcommon, libdecor, glslang }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  freeglut,
+  glew,
+  libGL,
+  libGLU,
+  libX11,
+  libXext,
+  mesa,
+  meson,
+  ninja,
+  pkg-config,
+  wayland,
+  wayland-protocols,
+  vulkan-loader,
+  libxkbcommon,
+  libdecor,
+  glslang,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mesa-demos";

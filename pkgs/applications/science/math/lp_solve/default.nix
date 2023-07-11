@@ -1,5 +1,11 @@
-{ lib, stdenv, fetchurl, cctools, fixDarwinDylibNames
-, autoSignDarwinBinariesHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cctools,
+  fixDarwinDylibNames,
+  autoSignDarwinBinariesHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lp_solve";

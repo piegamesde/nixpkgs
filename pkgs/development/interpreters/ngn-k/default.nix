@@ -1,6 +1,12 @@
-{ lib, stdenv, stdenvNoLibs, fetchFromGitea, runtimeShell
-, doCheck ? withLibc && stdenv.hostPlatform == stdenv.buildPlatform
-, withLibc ? true }:
+{
+  lib,
+  stdenv,
+  stdenvNoLibs,
+  fetchFromGitea,
+  runtimeShell,
+  doCheck ? withLibc && stdenv.hostPlatform == stdenv.buildPlatform,
+  withLibc ? true
+}:
 
 let
   # k itself can be compiled with -ffreestanding, but tests require a libc;

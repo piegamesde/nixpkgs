@@ -1,5 +1,13 @@
-{ buildPythonPackage, lib, fetchFromGitHub, click, numpy, pyparsing, pytest
-, hypothesis }:
+{
+  buildPythonPackage,
+  lib,
+  fetchFromGitHub,
+  click,
+  numpy,
+  pyparsing,
+  pytest,
+  hypothesis,
+}:
 
 buildPythonPackage rec {
   pname = "snuggs";

@@ -1,4 +1,10 @@
-{ config, lib, pkgs, utils, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  utils,
+  ...
+}:
 
 with lib;
 
@@ -10,242 +16,246 @@ in {
     description = lib.mdDoc ''
       Periodic backups to create with Restic.
     '';
-    type = types.attrsOf (types.submodule ({ config, name, ... }: {
-      options = {
-        passwordFile = mkOption {
-          type = types.str;
-          description = lib.mdDoc ''
-            Read the repository password from a file.
-          '';
-          example = "/etc/nixos/restic-password";
-        };
+    type = types.attrsOf (types.submodule ({
+        config,
+        name,
+        ...
+      }: {
+        options = {
+          passwordFile = mkOption {
+            type = types.str;
+            description = lib.mdDoc ''
+              Read the repository password from a file.
+            '';
+            example = "/etc/nixos/restic-password";
+          };
 
-        environmentFile = mkOption {
-          type = with types; nullOr str;
-          # added on 2021-08-28, s3CredentialsFile should
-          # be removed in the future (+ remember the warning)
-          default = config.s3CredentialsFile;
-          description = lib.mdDoc ''
-            file containing the credentials to access the repository, in the
-            format of an EnvironmentFile as described by systemd.exec(5)
-          '';
-        };
+          environmentFile = mkOption {
+            type = with types; nullOr str;
+            # added on 2021-08-28, s3CredentialsFile should
+            # be removed in the future (+ remember the warning)
+            default = config.s3CredentialsFile;
+            description = lib.mdDoc ''
+              file containing the credentials to access the repository, in the
+              format of an EnvironmentFile as described by systemd.exec(5)
+            '';
+          };
 
-        s3CredentialsFile = mkOption {
-          type = with types; nullOr str;
-          default = null;
-          description = lib.mdDoc ''
-            file containing the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
-            for an S3-hosted repository, in the format of an EnvironmentFile
-            as described by systemd.exec(5)
-          '';
-        };
+          s3CredentialsFile = mkOption {
+            type = with types; nullOr str;
+            default = null;
+            description = lib.mdDoc ''
+              file containing the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
+              for an S3-hosted repository, in the format of an EnvironmentFile
+              as described by systemd.exec(5)
+            '';
+          };
 
-        rcloneOptions = mkOption {
-          type = with types; nullOr (attrsOf (oneOf [ str bool ]));
-          default = null;
-          description = lib.mdDoc ''
-            Options to pass to rclone to control its behavior.
-            See <https://rclone.org/docs/#options> for
-            available options. When specifying option names, strip the
-            leading `--`. To set a flag such as
-            `--drive-use-trash`, which does not take a value,
-            set the value to the Boolean `true`.
-          '';
-          example = {
-            bwlimit = "10M";
-            drive-use-trash = "true";
+          rcloneOptions = mkOption {
+            type = with types; nullOr (attrsOf (oneOf [ str bool ]));
+            default = null;
+            description = lib.mdDoc ''
+              Options to pass to rclone to control its behavior.
+              See <https://rclone.org/docs/#options> for
+              available options. When specifying option names, strip the
+              leading `--`. To set a flag such as
+              `--drive-use-trash`, which does not take a value,
+              set the value to the Boolean `true`.
+            '';
+            example = {
+              bwlimit = "10M";
+              drive-use-trash = "true";
+            };
+          };
+
+          rcloneConfig = mkOption {
+            type = with types; nullOr (attrsOf (oneOf [ str bool ]));
+            default = null;
+            description = lib.mdDoc ''
+              Configuration for the rclone remote being used for backup.
+              See the remote's specific options under rclone's docs at
+              <https://rclone.org/docs/>. When specifying
+              option names, use the "config" name specified in the docs.
+              For example, to set `--b2-hard-delete` for a B2
+              remote, use `hard_delete = true` in the
+              attribute set.
+              Warning: Secrets set in here will be world-readable in the Nix
+              store! Consider using the `rcloneConfigFile`
+              option instead to specify secret values separately. Note that
+              options set here will override those set in the config file.
+            '';
+            example = {
+              type = "b2";
+              account = "xxx";
+              key = "xxx";
+              hard_delete = true;
+            };
+          };
+
+          rcloneConfigFile = mkOption {
+            type = with types; nullOr path;
+            default = null;
+            description = lib.mdDoc ''
+              Path to the file containing rclone configuration. This file
+              must contain configuration for the remote specified in this backup
+              set and also must be readable by root. Options set in
+              `rcloneConfig` will override those set in this
+              file.
+            '';
+          };
+
+          repository = mkOption {
+            type = with types; nullOr str;
+            default = null;
+            description = lib.mdDoc ''
+              repository to backup to.
+            '';
+            example = "sftp:backup@192.168.1.100:/backups/${name}";
+          };
+
+          repositoryFile = mkOption {
+            type = with types; nullOr path;
+            default = null;
+            description = lib.mdDoc ''
+              Path to the file containing the repository location to backup to.
+            '';
+          };
+
+          paths = mkOption {
+            type = types.nullOr (types.listOf types.str);
+            default = null;
+            description = lib.mdDoc ''
+              Which paths to backup.  If null or an empty array, no
+              backup command will be run.  This can be used to create a
+              prune-only job.
+            '';
+            example = [ "/var/lib/postgresql" "/home/user/backup" ];
+          };
+
+          exclude = mkOption {
+            type = types.listOf types.str;
+            default = [ ];
+            description = lib.mdDoc ''
+              Patterns to exclude when backing up. See
+              https://restic.readthedocs.io/en/latest/040_backup.html#excluding-files for
+              details on syntax.
+            '';
+            example = [ "/var/cache" "/home/*/.cache" ".git" ];
+          };
+
+          timerConfig = mkOption {
+            type = types.attrsOf unitOption;
+            default = { OnCalendar = "daily"; };
+            description = lib.mdDoc ''
+              When to run the backup. See {manpage}`systemd.timer(5)` for details.
+            '';
+            example = {
+              OnCalendar = "00:05";
+              RandomizedDelaySec = "5h";
+            };
+          };
+
+          user = mkOption {
+            type = types.str;
+            default = "root";
+            description = lib.mdDoc ''
+              As which user the backup should run.
+            '';
+            example = "postgresql";
+          };
+
+          extraBackupArgs = mkOption {
+            type = types.listOf types.str;
+            default = [ ];
+            description = lib.mdDoc ''
+              Extra arguments passed to restic backup.
+            '';
+            example = [ "--exclude-file=/etc/nixos/restic-ignore" ];
+          };
+
+          extraOptions = mkOption {
+            type = types.listOf types.str;
+            default = [ ];
+            description = lib.mdDoc ''
+              Extra extended options to be passed to the restic --option flag.
+            '';
+            example = [
+              "sftp.command='ssh backup@192.168.1.100 -i /home/user/.ssh/id_rsa -s sftp'"
+            ];
+          };
+
+          initialize = mkOption {
+            type = types.bool;
+            default = false;
+            description = lib.mdDoc ''
+              Create the repository if it doesn't exist.
+            '';
+          };
+
+          pruneOpts = mkOption {
+            type = types.listOf types.str;
+            default = [ ];
+            description = lib.mdDoc ''
+              A list of options (--keep-\* et al.) for 'restic forget
+              --prune', to automatically prune old snapshots.  The
+              'forget' command is run *after* the 'backup' command, so
+              keep that in mind when constructing the --keep-\* options.
+            '';
+            example = [
+              "--keep-daily 7"
+              "--keep-weekly 5"
+              "--keep-monthly 12"
+              "--keep-yearly 75"
+            ];
+          };
+
+          checkOpts = mkOption {
+            type = types.listOf types.str;
+            default = [ ];
+            description = lib.mdDoc ''
+              A list of options for 'restic check', which is run after
+              pruning.
+            '';
+            example = [ "--with-cache" ];
+          };
+
+          dynamicFilesFrom = mkOption {
+            type = with types; nullOr str;
+            default = null;
+            description = lib.mdDoc ''
+              A script that produces a list of files to back up.  The
+              results of this command are given to the '--files-from'
+              option.
+            '';
+            example = "find /home/matt/git -type d -name .git";
+          };
+
+          backupPrepareCommand = mkOption {
+            type = with types; nullOr str;
+            default = null;
+            description = lib.mdDoc ''
+              A script that must run before starting the backup process.
+            '';
+          };
+
+          backupCleanupCommand = mkOption {
+            type = with types; nullOr str;
+            default = null;
+            description = lib.mdDoc ''
+              A script that must run after finishing the backup process.
+            '';
+          };
+
+          package = mkOption {
+            type = types.package;
+            default = pkgs.restic;
+            defaultText = literalExpression "pkgs.restic";
+            description = lib.mdDoc ''
+              Restic package to use.
+            '';
           };
         };
-
-        rcloneConfig = mkOption {
-          type = with types; nullOr (attrsOf (oneOf [ str bool ]));
-          default = null;
-          description = lib.mdDoc ''
-            Configuration for the rclone remote being used for backup.
-            See the remote's specific options under rclone's docs at
-            <https://rclone.org/docs/>. When specifying
-            option names, use the "config" name specified in the docs.
-            For example, to set `--b2-hard-delete` for a B2
-            remote, use `hard_delete = true` in the
-            attribute set.
-            Warning: Secrets set in here will be world-readable in the Nix
-            store! Consider using the `rcloneConfigFile`
-            option instead to specify secret values separately. Note that
-            options set here will override those set in the config file.
-          '';
-          example = {
-            type = "b2";
-            account = "xxx";
-            key = "xxx";
-            hard_delete = true;
-          };
-        };
-
-        rcloneConfigFile = mkOption {
-          type = with types; nullOr path;
-          default = null;
-          description = lib.mdDoc ''
-            Path to the file containing rclone configuration. This file
-            must contain configuration for the remote specified in this backup
-            set and also must be readable by root. Options set in
-            `rcloneConfig` will override those set in this
-            file.
-          '';
-        };
-
-        repository = mkOption {
-          type = with types; nullOr str;
-          default = null;
-          description = lib.mdDoc ''
-            repository to backup to.
-          '';
-          example = "sftp:backup@192.168.1.100:/backups/${name}";
-        };
-
-        repositoryFile = mkOption {
-          type = with types; nullOr path;
-          default = null;
-          description = lib.mdDoc ''
-            Path to the file containing the repository location to backup to.
-          '';
-        };
-
-        paths = mkOption {
-          type = types.nullOr (types.listOf types.str);
-          default = null;
-          description = lib.mdDoc ''
-            Which paths to backup.  If null or an empty array, no
-            backup command will be run.  This can be used to create a
-            prune-only job.
-          '';
-          example = [ "/var/lib/postgresql" "/home/user/backup" ];
-        };
-
-        exclude = mkOption {
-          type = types.listOf types.str;
-          default = [ ];
-          description = lib.mdDoc ''
-            Patterns to exclude when backing up. See
-            https://restic.readthedocs.io/en/latest/040_backup.html#excluding-files for
-            details on syntax.
-          '';
-          example = [ "/var/cache" "/home/*/.cache" ".git" ];
-        };
-
-        timerConfig = mkOption {
-          type = types.attrsOf unitOption;
-          default = { OnCalendar = "daily"; };
-          description = lib.mdDoc ''
-            When to run the backup. See {manpage}`systemd.timer(5)` for details.
-          '';
-          example = {
-            OnCalendar = "00:05";
-            RandomizedDelaySec = "5h";
-          };
-        };
-
-        user = mkOption {
-          type = types.str;
-          default = "root";
-          description = lib.mdDoc ''
-            As which user the backup should run.
-          '';
-          example = "postgresql";
-        };
-
-        extraBackupArgs = mkOption {
-          type = types.listOf types.str;
-          default = [ ];
-          description = lib.mdDoc ''
-            Extra arguments passed to restic backup.
-          '';
-          example = [ "--exclude-file=/etc/nixos/restic-ignore" ];
-        };
-
-        extraOptions = mkOption {
-          type = types.listOf types.str;
-          default = [ ];
-          description = lib.mdDoc ''
-            Extra extended options to be passed to the restic --option flag.
-          '';
-          example = [
-            "sftp.command='ssh backup@192.168.1.100 -i /home/user/.ssh/id_rsa -s sftp'"
-          ];
-        };
-
-        initialize = mkOption {
-          type = types.bool;
-          default = false;
-          description = lib.mdDoc ''
-            Create the repository if it doesn't exist.
-          '';
-        };
-
-        pruneOpts = mkOption {
-          type = types.listOf types.str;
-          default = [ ];
-          description = lib.mdDoc ''
-            A list of options (--keep-\* et al.) for 'restic forget
-            --prune', to automatically prune old snapshots.  The
-            'forget' command is run *after* the 'backup' command, so
-            keep that in mind when constructing the --keep-\* options.
-          '';
-          example = [
-            "--keep-daily 7"
-            "--keep-weekly 5"
-            "--keep-monthly 12"
-            "--keep-yearly 75"
-          ];
-        };
-
-        checkOpts = mkOption {
-          type = types.listOf types.str;
-          default = [ ];
-          description = lib.mdDoc ''
-            A list of options for 'restic check', which is run after
-            pruning.
-          '';
-          example = [ "--with-cache" ];
-        };
-
-        dynamicFilesFrom = mkOption {
-          type = with types; nullOr str;
-          default = null;
-          description = lib.mdDoc ''
-            A script that produces a list of files to back up.  The
-            results of this command are given to the '--files-from'
-            option.
-          '';
-          example = "find /home/matt/git -type d -name .git";
-        };
-
-        backupPrepareCommand = mkOption {
-          type = with types; nullOr str;
-          default = null;
-          description = lib.mdDoc ''
-            A script that must run before starting the backup process.
-          '';
-        };
-
-        backupCleanupCommand = mkOption {
-          type = with types; nullOr str;
-          default = null;
-          description = lib.mdDoc ''
-            A script that must run after finishing the backup process.
-          '';
-        };
-
-        package = mkOption {
-          type = types.package;
-          default = pkgs.restic;
-          defaultText = literalExpression "pkgs.restic";
-          description = lib.mdDoc ''
-            Restic package to use.
-          '';
-        };
-      };
-    }));
+      }));
     default = { };
     example = {
       localbackup = {

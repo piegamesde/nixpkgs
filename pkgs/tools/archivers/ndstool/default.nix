@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ndstool";

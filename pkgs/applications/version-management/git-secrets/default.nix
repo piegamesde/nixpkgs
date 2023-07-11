@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, git, coreutils }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  git,
+  coreutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "git-secrets";

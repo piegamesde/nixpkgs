@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, makeWrapper, python2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  python2,
+}:
 
 stdenv.mkDerivation {
   pname = "ecryptfs-helper";

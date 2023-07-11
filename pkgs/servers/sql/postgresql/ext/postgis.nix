@@ -1,5 +1,20 @@
-{ fetchurl, lib, stdenv, perl, libxml2, postgresql, geos, proj, gdal, json_c
-, pkg-config, file, protobufc, libiconv, nixosTests }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  perl,
+  libxml2,
+  postgresql,
+  geos,
+  proj,
+  gdal,
+  json_c,
+  pkg-config,
+  file,
+  protobufc,
+  libiconv,
+  nixosTests,
+}:
 stdenv.mkDerivation rec {
   pname = "postgis";
   version = "3.3.2";

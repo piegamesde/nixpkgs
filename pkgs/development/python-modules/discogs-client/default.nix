@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, requests, oauthlib, python-dateutil
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  oauthlib,
+  python-dateutil,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "discogs-client";

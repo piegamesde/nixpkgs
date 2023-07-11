@@ -1,7 +1,24 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, extra-cmake-modules, fcitx5
-, fcitx5-qt, qtx11extras, qtquickcontrols2, kwidgetsaddons, kdeclarative
-, kirigami2, isocodes, xkeyboardconfig, libxkbfile, libXdmcp, plasma5Packages
-, plasma-framework, kcmSupport ? true }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  fcitx5,
+  fcitx5-qt,
+  qtx11extras,
+  qtquickcontrols2,
+  kwidgetsaddons,
+  kdeclarative,
+  kirigami2,
+  isocodes,
+  xkeyboardconfig,
+  libxkbfile,
+  libXdmcp,
+  plasma5Packages,
+  plasma-framework,
+  kcmSupport ? true
+}:
 
 mkDerivation rec {
   pname = "fcitx5-configtool";

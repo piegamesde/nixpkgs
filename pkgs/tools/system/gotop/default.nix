@@ -1,4 +1,11 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, installShellFiles, IOKit }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  IOKit,
+}:
 
 buildGoModule rec {
   pname = "gotop";

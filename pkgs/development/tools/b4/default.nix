@@ -1,4 +1,8 @@
-{ lib, python3Packages, patatt }:
+{
+  lib,
+  python3Packages,
+  patatt,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "b4";

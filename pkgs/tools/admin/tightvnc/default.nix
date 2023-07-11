@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchurl, zlib, libjpeg, imake, gccmakedep, libXaw, libXext
-, libXmu, libXp, libXpm, perl, xauth, fontDirectories, openssh }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  libjpeg,
+  imake,
+  gccmakedep,
+  libXaw,
+  libXext,
+  libXmu,
+  libXp,
+  libXpm,
+  perl,
+  xauth,
+  fontDirectories,
+  openssh,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tightvnc";

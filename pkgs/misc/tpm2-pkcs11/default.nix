@@ -1,6 +1,24 @@
-{ stdenv, lib, fetchFromGitHub, substituteAll, pkg-config, autoreconfHook
-, autoconf-archive, makeWrapper, patchelf, tpm2-tss, tpm2-tools, opensc, openssl
-, sqlite, python3, glibc, libyaml, abrmdSupport ? true, tpm2-abrmd ? null }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  substituteAll,
+  pkg-config,
+  autoreconfHook,
+  autoconf-archive,
+  makeWrapper,
+  patchelf,
+  tpm2-tss,
+  tpm2-tools,
+  opensc,
+  openssl,
+  sqlite,
+  python3,
+  glibc,
+  libyaml,
+  abrmdSupport ? true,
+  tpm2-abrmd ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "tpm2-pkcs11";

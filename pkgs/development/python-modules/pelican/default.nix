@@ -1,7 +1,31 @@
-{ lib, beautifulsoup4, blinker, buildPythonPackage, docutils, feedgenerator
-, fetchFromGitHub, git, glibcLocales, jinja2, lxml, markdown, markupsafe, mock
-, pytestCheckHook, pandoc, pillow, pygments, python-dateutil, pythonOlder, pytz
-, rich, pytest-xdist, six, typogrify, unidecode }:
+{
+  lib,
+  beautifulsoup4,
+  blinker,
+  buildPythonPackage,
+  docutils,
+  feedgenerator,
+  fetchFromGitHub,
+  git,
+  glibcLocales,
+  jinja2,
+  lxml,
+  markdown,
+  markupsafe,
+  mock,
+  pytestCheckHook,
+  pandoc,
+  pillow,
+  pygments,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+  rich,
+  pytest-xdist,
+  six,
+  typogrify,
+  unidecode,
+}:
 
 buildPythonPackage rec {
   pname = "pelican";

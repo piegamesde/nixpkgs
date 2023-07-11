@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, makeWrapper, libzen, libmediainfo, jre8 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  libzen,
+  libmediainfo,
+  jre8,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ums";

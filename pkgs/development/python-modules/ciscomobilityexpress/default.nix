@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, requests, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "ciscomobilityexpress";

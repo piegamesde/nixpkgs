@@ -1,6 +1,23 @@
-{ lib, buildDunePackage, fetchFromGitLab, camlzip, ocamlgraph, parmap, re
-, stdlib-shims, base64, bz2, extlib, cudf, dpkg, git, ocaml, ounit, python39
-, python39Packages }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitLab,
+  camlzip,
+  ocamlgraph,
+  parmap,
+  re,
+  stdlib-shims,
+  base64,
+  bz2,
+  extlib,
+  cudf,
+  dpkg,
+  git,
+  ocaml,
+  ounit,
+  python39,
+  python39Packages,
+}:
 
 buildDunePackage rec {
   pname = "dose3";

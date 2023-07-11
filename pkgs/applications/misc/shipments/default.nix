@@ -1,5 +1,17 @@
-{ desktop-file-utils, fetchurl, gobject-introspection, gtk3, lib, libhandy
-, meson, ninja, pkg-config, python3, stdenv, wrapGAppsHook }:
+{
+  desktop-file-utils,
+  fetchurl,
+  gobject-introspection,
+  gtk3,
+  lib,
+  libhandy,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  stdenv,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "shipments";

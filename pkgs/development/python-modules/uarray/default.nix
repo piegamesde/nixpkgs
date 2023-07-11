@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, matchpy, numpy
-, astunparse, typing-extensions, pytestCheckHook, pytest-cov }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  matchpy,
+  numpy,
+  astunparse,
+  typing-extensions,
+  pytestCheckHook,
+  pytest-cov,
+}:
 
 buildPythonPackage rec {
   pname = "uarray";

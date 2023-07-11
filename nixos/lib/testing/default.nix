@@ -1,12 +1,17 @@
-{ lib }:
+{
+  lib,
+}:
 let
 
   evalTest = module: lib.evalModules { modules = testModules ++ [ module ]; };
   runTest = module:
-    (evalTest ({ config, ... }: {
-      imports = [ module ];
-      result = config.test;
-    })).config.result;
+    (evalTest ({
+        config,
+        ...
+      }: {
+        imports = [ module ];
+        result = config.test;
+      })).config.result;
 
   testModules = [
     ./call-test.nix

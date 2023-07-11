@@ -1,6 +1,27 @@
-{ stdenv, lib, fetchFromGitLab, nix-update-script, meson, ninja, gettext
-, python3, rustPlatform, pkg-config, gtksourceview4, glib, libhandy_0, gtk3
-, dbus, openssl, sqlite, gst_all_1, cairo, gdk-pixbuf, gspell, wrapGAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  nix-update-script,
+  meson,
+  ninja,
+  gettext,
+  python3,
+  rustPlatform,
+  pkg-config,
+  gtksourceview4,
+  glib,
+  libhandy_0,
+  gtk3,
+  dbus,
+  openssl,
+  sqlite,
+  gst_all_1,
+  cairo,
+  gdk-pixbuf,
+  gspell,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fractal";

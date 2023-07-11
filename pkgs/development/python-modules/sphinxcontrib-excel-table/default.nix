@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, sphinx, openpyxl }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  sphinx,
+  openpyxl,
+}:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-excel-table";

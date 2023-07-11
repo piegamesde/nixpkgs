@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, requests, simplejson, fake-useragent
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  simplejson,
+  fake-useragent,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyatome";

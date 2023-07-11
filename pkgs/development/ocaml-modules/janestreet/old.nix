@@ -1,4 +1,10 @@
-{ self, super, lib, stdenv, openssl }:
+{
+  self,
+  super,
+  lib,
+  stdenv,
+  openssl,
+}:
 
 let
   inherit (super)

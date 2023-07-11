@@ -1,5 +1,12 @@
-{ lib, beautifulsoup4, buildPythonPackage, fetchFromGitHub, python-dateutil
-, pythonOlder, requests }:
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python-dateutil,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "socid-extractor";

@@ -1,4 +1,13 @@
-{ lib, buildPythonPackage, fetchgit, isPy3k, pyusb, pybluez, pytest, git }:
+{
+  lib,
+  buildPythonPackage,
+  fetchgit,
+  isPy3k,
+  pyusb,
+  pybluez,
+  pytest,
+  git,
+}:
 
 buildPythonPackage rec {
   version = "3.0.1";

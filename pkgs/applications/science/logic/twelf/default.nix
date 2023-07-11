@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, smlnj, rsync }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  smlnj,
+  rsync,
+}:
 
 stdenv.mkDerivation rec {
   pname = "twelf";

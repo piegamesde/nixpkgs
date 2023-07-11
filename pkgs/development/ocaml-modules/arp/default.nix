@@ -1,7 +1,26 @@
-{ lib, stdenv, buildDunePackage, fetchurl, cstruct, duration, ethernet, ipaddr
-, logs, lwt, macaddr, mirage-profile, mirage-time, alcotest, mirage-clock-unix
-, mirage-flow, mirage-random, mirage-random-test, mirage-time-unix
-, mirage-vnetif, bisect_ppx }:
+{
+  lib,
+  stdenv,
+  buildDunePackage,
+  fetchurl,
+  cstruct,
+  duration,
+  ethernet,
+  ipaddr,
+  logs,
+  lwt,
+  macaddr,
+  mirage-profile,
+  mirage-time,
+  alcotest,
+  mirage-clock-unix,
+  mirage-flow,
+  mirage-random,
+  mirage-random-test,
+  mirage-time-unix,
+  mirage-vnetif,
+  bisect_ppx,
+}:
 
 buildDunePackage rec {
   pname = "arp";

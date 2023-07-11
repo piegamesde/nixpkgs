@@ -1,5 +1,19 @@
-{ lib, appdirs, beautifulsoup4, buildPythonPackage, colorlog, fetchFromGitHub
-, git, jsonschema, lxml, markdown, python, requests, substituteAll, toml }:
+{
+  lib,
+  appdirs,
+  beautifulsoup4,
+  buildPythonPackage,
+  colorlog,
+  fetchFromGitHub,
+  git,
+  jsonschema,
+  lxml,
+  markdown,
+  python,
+  requests,
+  substituteAll,
+  toml,
+}:
 
 let
   # NOTE This is needed to download & run another Python program internally in

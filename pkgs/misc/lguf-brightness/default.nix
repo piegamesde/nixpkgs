@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libusb1, ncurses5 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libusb1,
+  ncurses5,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lguf-brightness";

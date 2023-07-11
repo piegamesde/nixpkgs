@@ -1,8 +1,25 @@
-{ config, lib, stdenv, fetchFromGitHub, cmake, pkg-config, xorg, libGLU, libGL
-, glew, ocl-icd, python3, cudaSupport ? config.cudaSupport or false, cudatoolkit
-# For visibility mostly. The whole approach to cuda architectures and capabilities
-# will be reworked soon.
-, cudaArch ? "compute_37", openclSupport ? !cudaSupport, darwin }:
+{
+  config,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  xorg,
+  libGLU,
+  libGL,
+  glew,
+  ocl-icd,
+  python3,
+  cudaSupport ? config.cudaSupport or false,
+  cudatoolkit
+  # For visibility mostly. The whole approach to cuda architectures and capabilities
+  # will be reworked soon.
+  ,
+  cudaArch ? "compute_37",
+  openclSupport ? !cudaSupport,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "opensubdiv";

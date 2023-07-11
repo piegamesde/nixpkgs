@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, libtool, libxml2, cppunit, boost, apr, aprutil, db
-, expat }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libtool,
+  libxml2,
+  cppunit,
+  boost,
+  apr,
+  aprutil,
+  db,
+  expat,
+}:
 
 stdenv.mkDerivation rec {
   pname = "log4cxx";

@@ -1,4 +1,12 @@
-{ darwin, fetchCrate, lib, openssl, pkg-config, rustPlatform, stdenv }:
+{
+  darwin,
+  fetchCrate,
+  lib,
+  openssl,
+  pkg-config,
+  rustPlatform,
+  stdenv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "ttfb";

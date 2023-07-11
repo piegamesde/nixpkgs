@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, case, fetchPypi, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  case,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "vine";

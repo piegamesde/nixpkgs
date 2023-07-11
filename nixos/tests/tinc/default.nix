@@ -1,4 +1,7 @@
-import ../make-test-python.nix ({ lib, ... }:
+import ../make-test-python.nix ({
+    lib,
+    ...
+  }:
   let
     snakeoil-keys = import ./snakeoil-keys.nix;
 
@@ -11,7 +14,10 @@ import ../make-test-python.nix ({ lib, ... }:
       in (builtins.head subnets).address;
 
     makeTincHost = name:
-      { subnet, extraConfig ? { } }:
+      {
+        subnet,
+        extraConfig ? { }
+      }:
       lib.mkMerge [
         {
           subnets = [{ address = subnet; }];
@@ -23,7 +29,10 @@ import ../make-test-python.nix ({ lib, ... }:
         extraConfig
       ];
 
-    makeTincNode = { config, ... }:
+    makeTincNode = {
+        config,
+        ...
+      }:
       name: extraConfig:
       lib.mkMerge [
         {
@@ -80,7 +89,9 @@ import ../make-test-python.nix ({ lib, ... }:
 
     nodes = {
 
-      static = { ... }@args:
+      static = {
+          ...
+        }@args:
         makeTincNode args "static" {
           virtualisation.vlans = [ 1 2 ];
 
@@ -95,10 +106,14 @@ import ../make-test-python.nix ({ lib, ... }:
           }];
         };
 
-      dynamic1 = { ... }@args:
+      dynamic1 = {
+          ...
+        }@args:
         makeTincNode args "dynamic1" { virtualisation.vlans = [ 1 ]; };
 
-      dynamic2 = { ... }@args:
+      dynamic2 = {
+          ...
+        }@args:
         makeTincNode args "dynamic2" { virtualisation.vlans = [ 2 ]; };
 
     };

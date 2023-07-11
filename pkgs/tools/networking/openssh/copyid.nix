@@ -1,4 +1,7 @@
-{ runCommand, openssh }:
+{
+  runCommand,
+  openssh,
+}:
 
 runCommand "ssh-copy-id-${openssh.version}" {
   meta = openssh.meta // {

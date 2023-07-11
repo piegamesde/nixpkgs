@@ -1,4 +1,9 @@
-{ buildPythonPackage, lib, fetchPypi, scipy }:
+{
+  buildPythonPackage,
+  lib,
+  fetchPypi,
+  scipy,
+}:
 
 buildPythonPackage rec {
   pname = "rmsd";

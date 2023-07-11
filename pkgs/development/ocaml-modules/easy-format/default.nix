@@ -1,4 +1,9 @@
-{ lib, fetchurl, ocaml, buildDunePackage }:
+{
+  lib,
+  fetchurl,
+  ocaml,
+  buildDunePackage,
+}:
 
 let
   params = if lib.versionAtLeast ocaml.version "4.08" then {

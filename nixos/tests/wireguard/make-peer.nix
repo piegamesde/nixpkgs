@@ -1,5 +1,12 @@
-{ lib, ... }:
-{ ip4, ip6, extraConfig }:
+{
+  lib,
+  ...
+}:
+{
+  ip4,
+  ip6,
+  extraConfig,
+}:
 lib.mkMerge [
   {
     boot.kernel.sysctl = {

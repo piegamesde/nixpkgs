@@ -1,5 +1,18 @@
-{ lib, argcomplete, buildPythonPackage, fetchFromGitHub, pythonOlder, colored
-, packaging, paramiko, pytz, pyyaml, rich, sshpubkeys, pytestCheckHook }:
+{
+  lib,
+  argcomplete,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  colored,
+  packaging,
+  paramiko,
+  pytz,
+  pyyaml,
+  rich,
+  sshpubkeys,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "ssh-mitm";

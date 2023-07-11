@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, fetchpatch, libvdpau, libGLU, libGL, libva, pkg-config
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  libvdpau,
+  libGLU,
+  libGL,
+  libva,
+  pkg-config,
 }:
 
 stdenv.mkDerivation rec {

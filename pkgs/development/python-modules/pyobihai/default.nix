@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, defusedxml, fetchPypi, pythonOlder, requests }:
+{
+  lib,
+  buildPythonPackage,
+  defusedxml,
+  fetchPypi,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "pyobihai";

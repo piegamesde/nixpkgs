@@ -1,4 +1,11 @@
-{ lib, buildPythonApplication, fetchFromGitHub, lxml, setuptools, six }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  lxml,
+  setuptools,
+  six,
+}:
 
 buildPythonApplication rec {
   pname = "xmldiff";

@@ -1,9 +1,18 @@
-{ pkgs, lib }:
+{
+  pkgs,
+  lib,
+}:
 let
   inherit (pkgs) stdenv;
 
-  mkPluginDrv = { self, plugins, drv, postInstall ? "", nativeBuildInputs ? [ ]
-    , buildInputs ? [ ] }:
+  mkPluginDrv = {
+      self,
+      plugins,
+      drv,
+      postInstall ? "",
+      nativeBuildInputs ? [ ],
+      buildInputs ? [ ]
+    }:
     let env = self.python.withPackages (ps: plugins);
     in stdenv.mkDerivation {
       pname = drv.pname + "-with-plugins";
@@ -48,8 +57,13 @@ in {
 
   # Provide the `withPlugins` function
   toPluginAble = self:
-    { drv, finalDrv, postInstall ? "", nativeBuildInputs ? [ ]
-    , buildInputs ? [ ] }:
+    {
+      drv,
+      finalDrv,
+      postInstall ? "",
+      nativeBuildInputs ? [ ],
+      buildInputs ? [ ]
+    }:
     drv.overridePythonAttrs (old: {
       passthru = old.passthru // {
         withPlugins = pluginFn:

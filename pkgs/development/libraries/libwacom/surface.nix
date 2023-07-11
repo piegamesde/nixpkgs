@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, libwacom }:
+{
+  lib,
+  fetchFromGitHub,
+  libwacom,
+}:
 
 let
   libwacom-surface = fetchFromGitHub {

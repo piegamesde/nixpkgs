@@ -1,5 +1,13 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, cffi, numpy, libsamplerate
-, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cffi,
+  numpy,
+  libsamplerate,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "samplerate";

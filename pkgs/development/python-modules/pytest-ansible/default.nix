@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, ansible-core, coreutils, coverage
-, pytest, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  ansible-core,
+  coreutils,
+  coverage,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-ansible";

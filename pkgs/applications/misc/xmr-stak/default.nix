@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchpatch, fetchFromGitHub, cmake, libmicrohttpd, openssl
-, opencl-headers, ocl-icd, hwloc, devDonationLevel ? "0.0", openclSupport ? true
+{
+  stdenv,
+  lib,
+  fetchpatch,
+  fetchFromGitHub,
+  cmake,
+  libmicrohttpd,
+  openssl,
+  opencl-headers,
+  ocl-icd,
+  hwloc,
+  devDonationLevel ? "0.0",
+  openclSupport ? true
 }:
 
 stdenv.mkDerivation rec {

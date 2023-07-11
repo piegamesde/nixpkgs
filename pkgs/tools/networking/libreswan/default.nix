@@ -1,8 +1,39 @@
-{ lib, stdenv, fetchurl, nixosTests, pkg-config, systemd, gmp, unbound, bison
-, flex, pam, libevent, libcap_ng, libxcrypt, curl, nspr, bash, runtimeShell
-, iproute2, iptables, procps, coreutils, gnused, gawk, nss, which, python3
-, libselinux, ldns, xmlto, docbook_xml_dtd_412, docbook_xsl, findXMLCatalogs
-, dns-root-data }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  nixosTests,
+  pkg-config,
+  systemd,
+  gmp,
+  unbound,
+  bison,
+  flex,
+  pam,
+  libevent,
+  libcap_ng,
+  libxcrypt,
+  curl,
+  nspr,
+  bash,
+  runtimeShell,
+  iproute2,
+  iptables,
+  procps,
+  coreutils,
+  gnused,
+  gawk,
+  nss,
+  which,
+  python3,
+  libselinux,
+  ldns,
+  xmlto,
+  docbook_xml_dtd_412,
+  docbook_xsl,
+  findXMLCatalogs,
+  dns-root-data,
+}:
 
 let
   # Tools needed by ipsec scripts

@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, automake, autoconf, libtool, flex, bison
-, texinfo, fetchpatch, pkgsStatic, withNcurses ? true, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  automake,
+  autoconf,
+  libtool,
+  flex,
+  bison,
+  texinfo,
+  fetchpatch,
+  pkgsStatic,
+  withNcurses ? true,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gpm";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libspf2";

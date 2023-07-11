@@ -1,7 +1,26 @@
-{ stdenv, lib, fetchurl, fetchpatch, meson, ninja, pkg-config, gnome, glib, gtk4
-, desktop-file-utils, wrapGAppsHook4, gettext, itstool, libadwaita, libxml2
-, libxslt, docbook-xsl-nons, docbook_xml_dtd_43, systemd
-, gsettings-desktop-schemas }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  meson,
+  ninja,
+  pkg-config,
+  gnome,
+  glib,
+  gtk4,
+  desktop-file-utils,
+  wrapGAppsHook4,
+  gettext,
+  itstool,
+  libadwaita,
+  libxml2,
+  libxslt,
+  docbook-xsl-nons,
+  docbook_xml_dtd_43,
+  systemd,
+  gsettings-desktop-schemas,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-logs";

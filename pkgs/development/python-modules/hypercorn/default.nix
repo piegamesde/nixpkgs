@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, typing-extensions
-, wsproto, toml, h2, priority, mock, poetry-core, pytest-asyncio, pytest-trio
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  typing-extensions,
+  wsproto,
+  toml,
+  h2,
+  priority,
+  mock,
+  poetry-core,
+  pytest-asyncio,
+  pytest-trio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "Hypercorn";

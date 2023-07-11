@@ -1,4 +1,8 @@
-{ lib, pkgs, stdenvNoCC }:
+{
+  lib,
+  pkgs,
+  stdenvNoCC,
+}:
 
 let
   tests = let

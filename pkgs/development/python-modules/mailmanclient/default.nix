@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, requests, typing-extensions
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  requests,
+  typing-extensions,
 }:
 
 buildPythonPackage rec {

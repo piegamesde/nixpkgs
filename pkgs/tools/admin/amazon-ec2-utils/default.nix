@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, curl, gawk, python3, installShellFiles }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  curl,
+  gawk,
+  python3,
+  installShellFiles,
+}:
 stdenv.mkDerivation rec {
   pname = "amazon-ec2-utils";
   version = "2.0";

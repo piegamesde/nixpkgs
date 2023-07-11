@@ -1,12 +1,44 @@
-{ stdenv, lib, fetchFromGitHub, wrapQtAppsHook, makeDesktopItem
-, copyDesktopItems, cmake, pkg-config, catch2_3, qtbase, qtsvg, qttools, qwt
-, qscintilla, kissfftFloat, crossguid, reproc, platform-folders, ruby, erlang
-, elixir, beamPackages, alsa-lib, rtmidi, boost, aubio, jack2
-, supercollider-with-sc3-plugins, parallel
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+  makeDesktopItem,
+  copyDesktopItems,
+  cmake,
+  pkg-config,
+  catch2_3,
+  qtbase,
+  qtsvg,
+  qttools,
+  qwt,
+  qscintilla,
+  kissfftFloat,
+  crossguid,
+  reproc,
+  platform-folders,
+  ruby,
+  erlang,
+  elixir,
+  beamPackages,
+  alsa-lib,
+  rtmidi,
+  boost,
+  aubio,
+  jack2,
+  supercollider-with-sc3-plugins,
+  parallel
 
-, withTauWidget ? false, qtwebengine
+  ,
+  withTauWidget ? false,
+  qtwebengine
 
-, withImGui ? false, gl3w, SDL2, fmt }:
+  ,
+  withImGui ? false,
+  gl3w,
+  SDL2,
+  fmt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sonic-pi";

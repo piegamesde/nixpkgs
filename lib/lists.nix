@@ -1,6 +1,8 @@
 # General list operations.
 
-{ lib }:
+{
+  lib,
+}:
 let
   inherit (lib.strings) toInt;
   inherit (lib.trivial) compare min;
@@ -490,7 +492,10 @@ in rec {
       len = length list;
       first = head list;
       pivot' = n:
-        acc@{ left, right }:
+        acc@{
+          left,
+          right,
+        }:
         let
           el = elemAt list n;
           next = pivot' (n + 1);

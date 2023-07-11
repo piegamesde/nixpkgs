@@ -1,4 +1,10 @@
-{ lib, mkCoqDerivation, coq, python27, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  python27,
+  version ? null
+}:
 
 mkCoqDerivation rec {
   pname = "fiat";

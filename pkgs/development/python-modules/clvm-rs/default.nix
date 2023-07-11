@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, buildPythonPackage, rustPlatform, pythonOlder
-, openssl, perl, pkgs }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  rustPlatform,
+  pythonOlder,
+  openssl,
+  perl,
+  pkgs,
+}:
 
 buildPythonPackage rec {
   pname = "clvm_rs";

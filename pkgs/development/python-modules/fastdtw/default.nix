@@ -1,6 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, cython, numpy
-# Check Inputs
-, pytestCheckHook, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  cython,
+  numpy
+  # Check Inputs
+  ,
+  pytestCheckHook,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "fastdtw";

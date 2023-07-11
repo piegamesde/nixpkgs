@@ -1,8 +1,24 @@
-{ lib, stdenv, autoPatchelfHook, graalvm-ce, makeWrapper, perl, unzip, zlib
-, libxcrypt-legacy
-# extra params
-, product, javaVersion, extraBuildInputs ? [ ], extraNativeBuildInputs ? [ ]
-, graalvmPhases ? { }, meta ? { }, passthru ? { }, ... }@args:
+{
+  lib,
+  stdenv,
+  autoPatchelfHook,
+  graalvm-ce,
+  makeWrapper,
+  perl,
+  unzip,
+  zlib,
+  libxcrypt-legacy
+  # extra params
+  ,
+  product,
+  javaVersion,
+  extraBuildInputs ? [ ],
+  extraNativeBuildInputs ? [ ],
+  graalvmPhases ? { },
+  meta ? { },
+  passthru ? { },
+  ...
+}@args:
 
 let
   extraArgs = builtins.removeAttrs args [

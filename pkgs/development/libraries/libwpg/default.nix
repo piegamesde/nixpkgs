@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, libwpd, zlib, librevenge }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libwpd,
+  zlib,
+  librevenge,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libwpg";

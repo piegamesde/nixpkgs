@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, texinfo, buildPackages, pkgsStatic }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  texinfo,
+  buildPackages,
+  pkgsStatic,
+}:
 
 stdenv.mkDerivation rec {
   pname = "indent";

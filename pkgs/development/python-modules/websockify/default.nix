@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, jwcrypto, numpy, pytestCheckHook
-, pythonOlder, redis, requests, simplejson }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jwcrypto,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  redis,
+  requests,
+  simplejson,
+}:
 
 buildPythonPackage rec {
   pname = "websockify";

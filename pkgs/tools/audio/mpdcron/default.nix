@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, pkg-config, glib
-, libdaemon, libmpdclient, curl, sqlite, bundlerEnv, libnotify, pandoc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  libtool,
+  pkg-config,
+  glib,
+  libdaemon,
+  libmpdclient,
+  curl,
+  sqlite,
+  bundlerEnv,
+  libnotify,
+  pandoc,
+}:
 
 let
   gemEnv = bundlerEnv {

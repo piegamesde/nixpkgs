@@ -1,7 +1,34 @@
-{ stdenv, lib, fetchFromGitHub, fetchurl, fetchpatch, substituteAll, cmake
-, makeWrapper, pkg-config, curl, ffmpeg, glib, libjpeg, libselinux, libsepol
-, mp4v2, libmysqlclient, mariadb, pcre, perl, perlPackages, polkit
-, util-linuxMinimal, x264, zlib, coreutils, procps, psmisc, nixosTests }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  fetchpatch,
+  substituteAll,
+  cmake,
+  makeWrapper,
+  pkg-config,
+  curl,
+  ffmpeg,
+  glib,
+  libjpeg,
+  libselinux,
+  libsepol,
+  mp4v2,
+  libmysqlclient,
+  mariadb,
+  pcre,
+  perl,
+  perlPackages,
+  polkit,
+  util-linuxMinimal,
+  x264,
+  zlib,
+  coreutils,
+  procps,
+  psmisc,
+  nixosTests,
+}:
 
 # NOTES:
 #

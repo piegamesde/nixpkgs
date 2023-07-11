@@ -1,8 +1,30 @@
-{ stdenv, lib, addOpenGLRunpath, alsa-lib, autoPatchelfHook, cairo, fetchurl
-, flac, gcc12, gssdp, gupnp, gupnp-av, lame, libgmpris, libusb-compat-0_1
-, llvmPackages_14, meson, mpg123, ninja, rpmextract, wavpack
+{
+  stdenv,
+  lib,
+  addOpenGLRunpath,
+  alsa-lib,
+  autoPatchelfHook,
+  cairo,
+  fetchurl,
+  flac,
+  gcc12,
+  gssdp,
+  gupnp,
+  gupnp-av,
+  lame,
+  libgmpris,
+  libusb-compat-0_1,
+  llvmPackages_14,
+  meson,
+  mpg123,
+  ninja,
+  rpmextract,
+  wavpack
 
-, callPackage, rygel ? null }@inputs:
+  ,
+  callPackage,
+  rygel ? null
+}@inputs:
 let
   # FIXME: Replace with gnome.rygel once hqplayerd releases a new version.
   rygel-hqplayerd = inputs.rygel or (callPackage ./rygel.nix { });

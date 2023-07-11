@@ -1,7 +1,13 @@
-{ lib, stdenv, fetchurl, darwin
+{
+  lib,
+  stdenv,
+  fetchurl,
+  darwin
 
-# Build runit-init as a static binary
-, static ? false }:
+  # Build runit-init as a static binary
+  ,
+  static ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "runit";

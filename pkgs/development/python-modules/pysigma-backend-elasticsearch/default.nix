@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pysigma
-, pytestCheckHook, pythonOlder, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pysigma,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "pysigma-backend-elasticsearch";

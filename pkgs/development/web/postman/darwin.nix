@@ -1,4 +1,11 @@
-{ stdenvNoCC, fetchurl, unzip, pname, version, meta }:
+{
+  stdenvNoCC,
+  fetchurl,
+  unzip,
+  pname,
+  version,
+  meta,
+}:
 
 let
   appName = "Postman.app";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, guile, autoconf, flex, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  guile,
+  autoconf,
+  flex,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.1.11";

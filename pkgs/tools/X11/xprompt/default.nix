@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, writeText, fontconfig, libX11, libXft
-, libXinerama, conf ? null, nix-update-script }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  writeText,
+  fontconfig,
+  libX11,
+  libXft,
+  libXinerama,
+  conf ? null,
+  nix-update-script,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xprompt";

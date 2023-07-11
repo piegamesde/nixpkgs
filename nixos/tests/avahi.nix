@@ -1,8 +1,13 @@
-{ system ? builtins.currentSystem, config ? { }, pkgs ? import ../.. {
-  inherit system config;
-}
-# bool: whether to use networkd in the tests
-, networkd ? false }@args:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. {
+    inherit system config;
+  }
+  # bool: whether to use networkd in the tests
+  ,
+  networkd ? false
+}@args:
 
 # Test whether `avahi-daemon' and `libnss-mdns' work as expected.
 import ./make-test-python.nix {
@@ -10,7 +15,9 @@ import ./make-test-python.nix {
   meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
 
   nodes = let
-    cfg = { ... }:
+    cfg = {
+        ...
+      }:
       {
         services.avahi = {
           enable = true;

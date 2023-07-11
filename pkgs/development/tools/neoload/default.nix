@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, writeTextFile, jre, makeWrapper, fontsConf
-, licenseAccepted ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  writeTextFile,
+  jre,
+  makeWrapper,
+  fontsConf,
+  licenseAccepted ? false
+}:
 
 # If you happen to use this software on the XMonad window manager, you will have issues with
 # grey windows, no resizing, menus not showing and other glitches.

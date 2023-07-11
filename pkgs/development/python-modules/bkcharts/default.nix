@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, pandas }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  pandas,
+}:
 
 buildPythonPackage rec {
   pname = "bkcharts";

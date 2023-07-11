@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, aiohttp, async-timeout, pillow, fetchPypi
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  aiohttp,
+  async-timeout,
+  pillow,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "python-family-hub-local";

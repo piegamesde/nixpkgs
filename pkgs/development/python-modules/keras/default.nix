@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, pytest-cov, pytest-xdist, six
-, numpy, scipy, pyyaml, h5py, keras-applications, keras-preprocessing }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  pytest-cov,
+  pytest-xdist,
+  six,
+  numpy,
+  scipy,
+  pyyaml,
+  h5py,
+  keras-applications,
+  keras-preprocessing,
+}:
 
 buildPythonPackage rec {
   pname = "keras";

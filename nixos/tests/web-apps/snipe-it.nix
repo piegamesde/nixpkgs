@@ -7,7 +7,10 @@
    Scenarios NOT covered by this test (but perhaps in the future):
    - Sending and receiving emails
 */
-{ pkgs, ... }:
+{
+  pkgs,
+  ...
+}:
 let siteName = "NixOS Snipe-IT Test Instance";
 in {
   name = "snipe-it";
@@ -15,40 +18,46 @@ in {
   meta.maintainers = with pkgs.lib.maintainers; [ yayayayaka ];
 
   nodes = {
-    snipeit = { ... }: {
-      services.snipe-it = {
-        enable = true;
-        appKeyFile = toString (pkgs.writeText "snipe-it-app-key"
-          "uTqGUN5GUmUrh/zSAYmhyzRk62pnpXICyXv9eeITI8k=");
-        hostName = "localhost";
-        database.createLocally = true;
-        mail = {
-          driver = "smtp";
-          encryption = "tls";
-          host = "localhost";
-          port = 1025;
-          from.name = "Snipe-IT NixOS test";
-          from.address = "snipe-it@localhost";
-          replyTo.address = "snipe-it@localhost";
-          user = "snipe-it@localhost";
-          passwordFile = toString
-            (pkgs.writeText "snipe-it-mail-pass" "a-secure-mail-password");
+    snipeit = {
+        ...
+      }: {
+        services.snipe-it = {
+          enable = true;
+          appKeyFile = toString (pkgs.writeText "snipe-it-app-key"
+            "uTqGUN5GUmUrh/zSAYmhyzRk62pnpXICyXv9eeITI8k=");
+          hostName = "localhost";
+          database.createLocally = true;
+          mail = {
+            driver = "smtp";
+            encryption = "tls";
+            host = "localhost";
+            port = 1025;
+            from.name = "Snipe-IT NixOS test";
+            from.address = "snipe-it@localhost";
+            replyTo.address = "snipe-it@localhost";
+            user = "snipe-it@localhost";
+            passwordFile = toString
+              (pkgs.writeText "snipe-it-mail-pass" "a-secure-mail-password");
+          };
         };
       };
-    };
   };
 
-  testScript = { nodes }:
+  testScript = {
+      nodes,
+    }:
     let
       backupPath =
         "${nodes.snipeit.services.snipe-it.dataDir}/storage/app/backups";
 
       # Snipe-IT has been installed successfully if the site name shows up on the login page
-      checkLoginPage = { shouldSucceed ? true }: ''
-        snipeit.${
-          if shouldSucceed then "succeed" else "fail"
-        }("""curl http://localhost/login | grep '${siteName}'""")
-      '';
+      checkLoginPage = {
+          shouldSucceed ? true
+        }: ''
+          snipeit.${
+            if shouldSucceed then "succeed" else "fail"
+          }("""curl http://localhost/login | grep '${siteName}'""")
+        '';
     in ''
       start_all()
 

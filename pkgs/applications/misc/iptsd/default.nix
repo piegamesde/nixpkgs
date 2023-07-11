@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, cmake, meson, ninja, pkg-config, cli11, eigen
-, fmt, hidrd, inih, microsoft_gsl, spdlog, systemd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  meson,
+  ninja,
+  pkg-config,
+  cli11,
+  eigen,
+  fmt,
+  hidrd,
+  inih,
+  microsoft_gsl,
+  spdlog,
+  systemd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "iptsd";

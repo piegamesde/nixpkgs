@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, docopt, fetchFromGitHub, jdk11, psutil, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  docopt,
+  fetchFromGitHub,
+  jdk11,
+  psutil,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

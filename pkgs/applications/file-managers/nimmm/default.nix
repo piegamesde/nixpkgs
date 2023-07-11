@@ -1,4 +1,11 @@
-{ lib, nimPackages, fetchFromGitHub, nim, termbox, pcre }:
+{
+  lib,
+  nimPackages,
+  fetchFromGitHub,
+  nim,
+  termbox,
+  pcre,
+}:
 
 nimPackages.buildNimPackage rec {
   pname = "nimmm";

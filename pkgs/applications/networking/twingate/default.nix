@@ -1,5 +1,15 @@
-{ autoPatchelfHook, curl, dpkg, dbus, fetchurl, lib, libnl, udev, cryptsetup
-, stdenv }:
+{
+  autoPatchelfHook,
+  curl,
+  dpkg,
+  dbus,
+  fetchurl,
+  lib,
+  libnl,
+  udev,
+  cryptsetup,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "twingate";

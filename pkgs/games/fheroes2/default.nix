@@ -1,7 +1,20 @@
-{ stdenv, lib, fetchFromGitHub, imagemagick, gettext, glibcLocalesUtf8, libpng
-, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, zlib
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  imagemagick,
+  gettext,
+  glibcLocalesUtf8,
+  libpng,
+  SDL2,
+  SDL2_image,
+  SDL2_mixer,
+  SDL2_ttf,
+  zlib
 
-, gitUpdater }:
+  ,
+  gitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fheroes2";

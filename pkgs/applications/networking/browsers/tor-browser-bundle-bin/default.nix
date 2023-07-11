@@ -1,34 +1,71 @@
-{ lib, stdenv, fetchurl, makeDesktopItem, writeText
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeDesktopItem,
+  writeText
 
-# Common run-time dependencies
-, zlib
+  # Common run-time dependencies
+  ,
+  zlib
 
-# libxul run-time dependencies
-, atk, cairo, dbus, dbus-glib, fontconfig, freetype, gdk-pixbuf, glib, gtk3
-, libxcb, libX11, libXext, libXrender, libXt, pango
+  # libxul run-time dependencies
+  ,
+  atk,
+  cairo,
+  dbus,
+  dbus-glib,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  libxcb,
+  libX11,
+  libXext,
+  libXrender,
+  libXt,
+  pango
 
-, audioSupport ? mediaSupport, pulseaudioSupport ? mediaSupport, libpulseaudio
-, apulse, alsa-lib
+  ,
+  audioSupport ? mediaSupport,
+  pulseaudioSupport ? mediaSupport,
+  libpulseaudio,
+  apulse,
+  alsa-lib
 
-# Media support (implies audio support)
-, mediaSupport ? true, ffmpeg
+  # Media support (implies audio support)
+  ,
+  mediaSupport ? true,
+  ffmpeg
 
-, gmp
+  ,
+  gmp
 
-# Wrapper runtime
-, coreutils, glibcLocales, gnome, runtimeShell, shared-mime-info
-, gsettings-desktop-schemas
+  # Wrapper runtime
+  ,
+  coreutils,
+  glibcLocales,
+  gnome,
+  runtimeShell,
+  shared-mime-info,
+  gsettings-desktop-schemas
 
-# Hardening
-, graphene-hardened-malloc
-# Whether to use graphene-hardened-malloc
-, useHardenedMalloc ? true
+  # Hardening
+  ,
+  graphene-hardened-malloc
+  # Whether to use graphene-hardened-malloc
+  ,
+  useHardenedMalloc ? true
 
-  # Whether to disable multiprocess support
-, disableContentSandbox ? false
+    # Whether to disable multiprocess support
+  ,
+  disableContentSandbox ? false
 
-  # Extra preferences
-, extraPrefs ? "" }:
+    # Extra preferences
+  ,
+  extraPrefs ? ""
+}:
 
 let
   libPath = lib.makeLibraryPath libPkgs;

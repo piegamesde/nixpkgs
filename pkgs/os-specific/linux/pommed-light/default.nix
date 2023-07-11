@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, pciutils, libconfuse, alsa-lib
-, audiofile, pkg-config, zlib, eject }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  pciutils,
+  libconfuse,
+  alsa-lib,
+  audiofile,
+  pkg-config,
+  zlib,
+  eject,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pommed-light";

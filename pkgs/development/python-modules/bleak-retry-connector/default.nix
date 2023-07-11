@@ -1,5 +1,16 @@
-{ lib, async-timeout, bleak, bluetooth-adapters, dbus-fast, buildPythonPackage
-, fetchFromGitHub, poetry-core, pytestCheckHook, pythonOlder, pytest-asyncio }:
+{
+  lib,
+  async-timeout,
+  bleak,
+  bluetooth-adapters,
+  dbus-fast,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  pytest-asyncio,
+}:
 
 buildPythonPackage rec {
   pname = "bleak-retry-connector";

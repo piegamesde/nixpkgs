@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, certifi, charset-normalizer, fetchFromGitHub, idna
-, lxml, pytest-mock, pytestCheckHook, pythonOlder, requests, responses, urllib3
+{
+  lib,
+  buildPythonPackage,
+  certifi,
+  charset-normalizer,
+  fetchFromGitHub,
+  idna,
+  lxml,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  responses,
+  urllib3,
 }:
 
 buildPythonPackage rec {

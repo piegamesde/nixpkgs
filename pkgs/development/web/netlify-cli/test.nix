@@ -1,4 +1,11 @@
-{ curl, darwin, lib, netlify-cli, runCommand, stdenv, }:
+{
+  curl,
+  darwin,
+  lib,
+  netlify-cli,
+  runCommand,
+  stdenv,
+}:
 
 runCommand "netlify-cli-test" {
   nativeBuildInputs = [ netlify-cli curl ]

@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, buildGoModule, fetchpatch }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  fetchpatch,
+}:
 buildGoModule rec {
   pname = "starlark";
   version = "unstable-2023-01-12";

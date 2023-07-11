@@ -1,9 +1,24 @@
 # https://nim-lang.github.io/Nim/packaging.html
 # https://nim-lang.org/docs/nimc.html
 
-{ lib, callPackage, buildPackages, stdenv, fetchurl, fetchgit, fetchFromGitHub
-, makeWrapper, openssl, pcre, readline, boehmgc, sqlite, nim-unwrapped
-, nimble-unwrapped, Security }:
+{
+  lib,
+  callPackage,
+  buildPackages,
+  stdenv,
+  fetchurl,
+  fetchgit,
+  fetchFromGitHub,
+  makeWrapper,
+  openssl,
+  pcre,
+  readline,
+  boehmgc,
+  sqlite,
+  nim-unwrapped,
+  nimble-unwrapped,
+  Security,
+}:
 
 let
   parseCpu = platform:

@@ -1,6 +1,20 @@
-{ lib, testers, stdenv, fetchFromGitHub, fetchpatch, openssl, libsamplerate
-, swig, alsa-lib, AppKit, CoreFoundation, Security, python3
-, pythonSupport ? true, runCommand }:
+{
+  lib,
+  testers,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  openssl,
+  libsamplerate,
+  swig,
+  alsa-lib,
+  AppKit,
+  CoreFoundation,
+  Security,
+  python3,
+  pythonSupport ? true,
+  runCommand,
+}:
 stdenv.mkDerivation (finalAttrs: {
   pname = "pjsip";
   version = "2.13";

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, nose, pytestCheckHook, pythonOlder
-, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  nose,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "braintree";

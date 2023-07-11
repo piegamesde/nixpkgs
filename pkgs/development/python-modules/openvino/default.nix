@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, openvino-native, numpy, python }:
+{
+  lib,
+  buildPythonPackage,
+  openvino-native,
+  numpy,
+  python,
+}:
 
 buildPythonPackage {
   pname = "openvino";

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, pkg-config, desktop-file-utils, SDL, gtk3
-, gsettings-desktop-schemas, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  desktop-file-utils,
+  SDL,
+  gtk3,
+  gsettings-desktop-schemas,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sfxr";

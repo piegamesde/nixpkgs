@@ -1,7 +1,34 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, SDL2, SDL2_image, SDL2_net, alsa-lib
-, copyDesktopItems, fluidsynth, glib, gtest, iir1, libGL, libGLU, libjack2
-, libmt32emu, libogg, libpng, libpulseaudio, libslirp, libsndfile
-, makeDesktopItem, makeWrapper, meson, ninja, opusfile, pkg-config, speexdsp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  SDL2,
+  SDL2_image,
+  SDL2_net,
+  alsa-lib,
+  copyDesktopItems,
+  fluidsynth,
+  glib,
+  gtest,
+  iir1,
+  libGL,
+  libGLU,
+  libjack2,
+  libmt32emu,
+  libogg,
+  libpng,
+  libpulseaudio,
+  libslirp,
+  libsndfile,
+  makeDesktopItem,
+  makeWrapper,
+  meson,
+  ninja,
+  opusfile,
+  pkg-config,
+  speexdsp,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "dosbox-staging";

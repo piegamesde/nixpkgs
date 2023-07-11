@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, withJitSealloc ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  withJitSealloc ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "pcre2";

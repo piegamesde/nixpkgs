@@ -1,4 +1,11 @@
-{ fetchurl, bash, glibc, lib, stdenv, installShellFiles }:
+{
+  fetchurl,
+  bash,
+  glibc,
+  lib,
+  stdenv,
+  installShellFiles,
+}:
 
 let
   man-pages = fetchurl {

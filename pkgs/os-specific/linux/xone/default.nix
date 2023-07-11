@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, kernel, fetchurl }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  kernel,
+  fetchurl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xone";

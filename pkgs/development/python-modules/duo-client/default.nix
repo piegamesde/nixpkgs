@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, freezegun, mock, nose2, pytz
-, setuptools, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  freezegun,
+  mock,
+  nose2,
+  pytz,
+  setuptools,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "duo-client";

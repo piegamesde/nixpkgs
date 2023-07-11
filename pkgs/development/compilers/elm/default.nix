@@ -1,4 +1,8 @@
-{ pkgs, lib, makeWrapper }:
+{
+  pkgs,
+  lib,
+  makeWrapper,
+}:
 
 let
 

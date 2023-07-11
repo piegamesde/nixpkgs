@@ -1,7 +1,17 @@
-{ lib, stdenv, llvm_meta, cmake, fetch, libcxx, libunwind, llvm, version
-, enableShared ? !stdenv.hostPlatform.isStatic
-, standalone ? stdenv.hostPlatform.useLLVM or false
-, withLibunwind ? !stdenv.isDarwin && !stdenv.hostPlatform.isWasm }:
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  cmake,
+  fetch,
+  libcxx,
+  libunwind,
+  llvm,
+  version,
+  enableShared ? !stdenv.hostPlatform.isStatic,
+  standalone ? stdenv.hostPlatform.useLLVM or false,
+  withLibunwind ? !stdenv.isDarwin && !stdenv.hostPlatform.isWasm
+}:
 
 stdenv.mkDerivation {
   pname = "libcxxabi";

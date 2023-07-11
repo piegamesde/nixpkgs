@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, isPyPy, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPyPy,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "yapf";

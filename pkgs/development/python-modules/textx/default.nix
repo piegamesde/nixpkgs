@@ -1,6 +1,22 @@
-{ lib, buildPythonPackage, python, fetchFromGitHub, mkdocs, twine, arpeggio
-, click, future, setuptools, callPackage, gprof2dot, html5lib, jinja2
-, memory_profiler, psutil, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  python,
+  fetchFromGitHub,
+  mkdocs,
+  twine,
+  arpeggio,
+  click,
+  future,
+  setuptools,
+  callPackage,
+  gprof2dot,
+  html5lib,
+  jinja2,
+  memory_profiler,
+  psutil,
+  pytestCheckHook,
+}:
 
 let
   textx = buildPythonPackage rec {

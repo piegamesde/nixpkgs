@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, buildPythonPackage, numpy, cython, scipy, scikit-learn
-, matplotlib, pytestCheckHook }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  numpy,
+  cython,
+  scipy,
+  scikit-learn,
+  matplotlib,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "scikit-learn-extra";

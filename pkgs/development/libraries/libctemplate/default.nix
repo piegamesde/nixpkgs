@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, python3, autoconf, automake, libtool }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  autoconf,
+  automake,
+  libtool,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ctemplate";

@@ -1,4 +1,9 @@
-{ lib, octave, makeSetupHook, makeWrapper }:
+{
+  lib,
+  octave,
+  makeSetupHook,
+  makeWrapper,
+}:
 
 # Defined in trivial-builders.nix
 # Imported as wrapOctave in octave/default.nix and passed to octave's buildEnv

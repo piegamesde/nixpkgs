@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 with types;
@@ -51,13 +56,170 @@ let
   timestampType = stringContainingStrings [ "%Y" "%m" "%d" "%H" "%M" "%S" ];
 
   destType = srcConfig:
-    submodule ({ name, ... }: {
+    submodule ({
+        name,
+        ...
+      }: {
+        options = {
+
+          label = mkOption {
+            type = str;
+            description = lib.mdDoc
+              "Label for this destination. Defaults to the attribute name.";
+          };
+
+          plan = mkOption {
+            type = str;
+            description = lib.mdDoc planDescription;
+            example = planExample;
+          };
+
+          dataset = mkOption {
+            type = str;
+            description = lib.mdDoc "Dataset name to send snapshots to.";
+            example = "tank/main";
+          };
+
+          host = mkOption {
+            type = nullOr str;
+            description = lib.mdDoc ''
+              Host to use for the destination dataset. Can be prefixed with
+              `user@` to specify the ssh user.
+            '';
+            default = null;
+            example = "john@example.com";
+          };
+
+          presend = mkOption {
+            type = nullOr str;
+            description = lib.mdDoc ''
+              Command to run before sending the snapshot to the destination.
+              Intended to run a remote script via {command}`ssh` on the
+              destination, e.g. to bring up a backup disk or server or to put a
+              zpool online/offline. See also {option}`postsend`.
+            '';
+            default = null;
+            example = "ssh root@bserv zpool import -Nf tank";
+          };
+
+          postsend = mkOption {
+            type = nullOr str;
+            description = lib.mdDoc ''
+              Command to run after sending the snapshot to the destination.
+              Intended to run a remote script via {command}`ssh` on the
+              destination, e.g. to bring up a backup disk or server or to put a
+              zpool online/offline. See also {option}`presend`.
+            '';
+            default = null;
+            example = "ssh root@bserv zpool export tank";
+          };
+        };
+
+        config = {
+          label = mkDefault name;
+          plan = mkDefault srcConfig.plan;
+        };
+      });
+
+  srcType = submodule ({
+      name,
+      config,
+      ...
+    }: {
       options = {
 
-        label = mkOption {
-          type = str;
-          description = lib.mdDoc
-            "Label for this destination. Defaults to the attribute name.";
+        enable = mkOption {
+          type = bool;
+          description = lib.mdDoc "Whether to enable this source.";
+          default = true;
+        };
+
+        recursive = mkOption {
+          type = bool;
+          description = lib.mdDoc "Whether to do recursive snapshots.";
+          default = false;
+        };
+
+        mbuffer = {
+          enable = mkOption {
+            type = bool;
+            description = lib.mdDoc "Whether to use {command}`mbuffer`.";
+            default = false;
+          };
+
+          port = mkOption {
+            type = nullOr ints.u16;
+            description = lib.mdDoc ''
+              Port to use for {command}`mbuffer`.
+
+              If this is null, it will run {command}`mbuffer` through
+              ssh.
+
+              If this is not null, it will run {command}`mbuffer`
+              directly through TCP, which is not encrypted but faster. In that
+              case the given port needs to be open on the destination host.
+            '';
+            default = null;
+          };
+
+          size = mkOption {
+            type = mbufferSizeType;
+            description = lib.mdDoc ''
+              The size for {command}`mbuffer`.
+              Supports the units b, k, M, G.
+            '';
+            default = "1G";
+            example = "128M";
+          };
+        };
+
+        presnap = mkOption {
+          type = nullOr str;
+          description = lib.mdDoc ''
+            Command to run before snapshots are taken on the source dataset,
+            e.g. for database locking/flushing. See also
+            {option}`postsnap`.
+          '';
+          default = null;
+          example = literalExpression ''
+            '''''${pkgs.mariadb}/bin/mysql -e "set autocommit=0;flush tables with read lock;\\! ''${pkgs.coreutils}/bin/sleep 600" &  ''${pkgs.coreutils}/bin/echo $! > /tmp/mariadblock.pid ; sleep 10'''
+          '';
+        };
+
+        postsnap = mkOption {
+          type = nullOr str;
+          description = lib.mdDoc ''
+            Command to run after snapshots are taken on the source dataset,
+            e.g. for database unlocking. See also {option}`presnap`.
+          '';
+          default = null;
+          example = literalExpression ''
+            "''${pkgs.coreutils}/bin/kill `''${pkgs.coreutils}/bin/cat /tmp/mariadblock.pid`;''${pkgs.coreutils}/bin/rm /tmp/mariadblock.pid"
+          '';
+        };
+
+        timestampFormat = mkOption {
+          type = timestampType;
+          description = lib.mdDoc ''
+            The timestamp format to use for constructing snapshot names.
+            The syntax is `strftime`-like. The string must
+            consist of the mandatory `%Y %m %d %H %M %S`.
+            Optionally  `- _ . :`  characters as well as any
+            alphanumeric character are allowed. If suffixed by a
+            `Z`, times will be in UTC.
+          '';
+          default = "%Y-%m-%d-%H%M%S";
+          example = "znapzend-%m.%d.%Y-%H%M%SZ";
+        };
+
+        sendDelay = mkOption {
+          type = int;
+          description = lib.mdDoc ''
+            Specify delay (in seconds) before sending snaps to the destination.
+            May be useful if you want to control sending time.
+          '';
+          default = 0;
+          example = 60;
         };
 
         plan = mkOption {
@@ -68,183 +230,33 @@ let
 
         dataset = mkOption {
           type = str;
-          description = lib.mdDoc "Dataset name to send snapshots to.";
-          example = "tank/main";
+          description = lib.mdDoc "The dataset to use for this source.";
+          example = "tank/home";
         };
 
-        host = mkOption {
-          type = nullOr str;
-          description = lib.mdDoc ''
-            Host to use for the destination dataset. Can be prefixed with
-            `user@` to specify the ssh user.
+        destinations = mkOption {
+          type = attrsOf (destType config);
+          description = lib.mdDoc "Additional destinations.";
+          default = { };
+          example = literalExpression ''
+            {
+              local = {
+                dataset = "btank/backup";
+                presend = "zpool import -N btank";
+                postsend = "zpool export btank";
+              };
+              remote = {
+                host = "john@example.com";
+                dataset = "tank/john";
+              };
+            };
           '';
-          default = null;
-          example = "john@example.com";
-        };
-
-        presend = mkOption {
-          type = nullOr str;
-          description = lib.mdDoc ''
-            Command to run before sending the snapshot to the destination.
-            Intended to run a remote script via {command}`ssh` on the
-            destination, e.g. to bring up a backup disk or server or to put a
-            zpool online/offline. See also {option}`postsend`.
-          '';
-          default = null;
-          example = "ssh root@bserv zpool import -Nf tank";
-        };
-
-        postsend = mkOption {
-          type = nullOr str;
-          description = lib.mdDoc ''
-            Command to run after sending the snapshot to the destination.
-            Intended to run a remote script via {command}`ssh` on the
-            destination, e.g. to bring up a backup disk or server or to put a
-            zpool online/offline. See also {option}`presend`.
-          '';
-          default = null;
-          example = "ssh root@bserv zpool export tank";
         };
       };
 
-      config = {
-        label = mkDefault name;
-        plan = mkDefault srcConfig.plan;
-      };
+      config = { dataset = mkDefault name; };
+
     });
-
-  srcType = submodule ({ name, config, ... }: {
-    options = {
-
-      enable = mkOption {
-        type = bool;
-        description = lib.mdDoc "Whether to enable this source.";
-        default = true;
-      };
-
-      recursive = mkOption {
-        type = bool;
-        description = lib.mdDoc "Whether to do recursive snapshots.";
-        default = false;
-      };
-
-      mbuffer = {
-        enable = mkOption {
-          type = bool;
-          description = lib.mdDoc "Whether to use {command}`mbuffer`.";
-          default = false;
-        };
-
-        port = mkOption {
-          type = nullOr ints.u16;
-          description = lib.mdDoc ''
-            Port to use for {command}`mbuffer`.
-
-            If this is null, it will run {command}`mbuffer` through
-            ssh.
-
-            If this is not null, it will run {command}`mbuffer`
-            directly through TCP, which is not encrypted but faster. In that
-            case the given port needs to be open on the destination host.
-          '';
-          default = null;
-        };
-
-        size = mkOption {
-          type = mbufferSizeType;
-          description = lib.mdDoc ''
-            The size for {command}`mbuffer`.
-            Supports the units b, k, M, G.
-          '';
-          default = "1G";
-          example = "128M";
-        };
-      };
-
-      presnap = mkOption {
-        type = nullOr str;
-        description = lib.mdDoc ''
-          Command to run before snapshots are taken on the source dataset,
-          e.g. for database locking/flushing. See also
-          {option}`postsnap`.
-        '';
-        default = null;
-        example = literalExpression ''
-          '''''${pkgs.mariadb}/bin/mysql -e "set autocommit=0;flush tables with read lock;\\! ''${pkgs.coreutils}/bin/sleep 600" &  ''${pkgs.coreutils}/bin/echo $! > /tmp/mariadblock.pid ; sleep 10'''
-        '';
-      };
-
-      postsnap = mkOption {
-        type = nullOr str;
-        description = lib.mdDoc ''
-          Command to run after snapshots are taken on the source dataset,
-          e.g. for database unlocking. See also {option}`presnap`.
-        '';
-        default = null;
-        example = literalExpression ''
-          "''${pkgs.coreutils}/bin/kill `''${pkgs.coreutils}/bin/cat /tmp/mariadblock.pid`;''${pkgs.coreutils}/bin/rm /tmp/mariadblock.pid"
-        '';
-      };
-
-      timestampFormat = mkOption {
-        type = timestampType;
-        description = lib.mdDoc ''
-          The timestamp format to use for constructing snapshot names.
-          The syntax is `strftime`-like. The string must
-          consist of the mandatory `%Y %m %d %H %M %S`.
-          Optionally  `- _ . :`  characters as well as any
-          alphanumeric character are allowed. If suffixed by a
-          `Z`, times will be in UTC.
-        '';
-        default = "%Y-%m-%d-%H%M%S";
-        example = "znapzend-%m.%d.%Y-%H%M%SZ";
-      };
-
-      sendDelay = mkOption {
-        type = int;
-        description = lib.mdDoc ''
-          Specify delay (in seconds) before sending snaps to the destination.
-          May be useful if you want to control sending time.
-        '';
-        default = 0;
-        example = 60;
-      };
-
-      plan = mkOption {
-        type = str;
-        description = lib.mdDoc planDescription;
-        example = planExample;
-      };
-
-      dataset = mkOption {
-        type = str;
-        description = lib.mdDoc "The dataset to use for this source.";
-        example = "tank/home";
-      };
-
-      destinations = mkOption {
-        type = attrsOf (destType config);
-        description = lib.mdDoc "Additional destinations.";
-        default = { };
-        example = literalExpression ''
-          {
-            local = {
-              dataset = "btank/backup";
-              presend = "zpool import -N btank";
-              postsend = "zpool export btank";
-            };
-            remote = {
-              host = "john@example.com";
-              dataset = "tank/john";
-            };
-          };
-        '';
-      };
-    };
-
-    config = { dataset = mkDefault name; };
-
-  });
 
   ### Generating the configuration from here
 

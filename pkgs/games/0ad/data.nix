@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, zeroad-unwrapped }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zeroad-unwrapped,
+}:
 
 stdenv.mkDerivation rec {
   pname = "0ad-data";

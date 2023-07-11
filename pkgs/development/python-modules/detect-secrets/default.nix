@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub, gibberish-detector, mock, pkgs
-, pyahocorasick, pytestCheckHook, pythonOlder, pyyaml, requests, responses
-, unidiff }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gibberish-detector,
+  mock,
+  pkgs,
+  pyahocorasick,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  requests,
+  responses,
+  unidiff,
+}:
 
 buildPythonPackage rec {
   pname = "detect-secrets";

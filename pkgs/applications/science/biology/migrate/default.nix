@@ -1,4 +1,11 @@
-{ stdenv, lib, gccStdenv, fetchurl, zlib, mpi }:
+{
+  stdenv,
+  lib,
+  gccStdenv,
+  fetchurl,
+  zlib,
+  mpi,
+}:
 
 gccStdenv.mkDerivation rec {
   version = "3.7.2";

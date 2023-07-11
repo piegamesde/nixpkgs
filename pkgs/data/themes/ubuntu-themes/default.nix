@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, fetchpatch, gnome-icon-theme, gnome, gtk-engine-murrine
-, gtk3, hicolor-icon-theme, humanity-icon-theme, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  gnome-icon-theme,
+  gnome,
+  gtk-engine-murrine,
+  gtk3,
+  hicolor-icon-theme,
+  humanity-icon-theme,
+  python3Packages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ubuntu-themes";

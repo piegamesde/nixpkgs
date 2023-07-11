@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, paramiko, pytestCheckHook
-, pythonOlder, requests, requests-toolbelt, responses }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  paramiko,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-toolbelt,
+  responses,
+}:
 
 buildPythonPackage rec {
   pname = "proxmoxer";

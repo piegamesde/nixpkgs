@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchpatch, fetchPypi, arrow, freezegun, jinja2
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchPypi,
+  arrow,
+  freezegun,
+  jinja2,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "jinja2-time";

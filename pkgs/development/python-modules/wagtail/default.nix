@@ -1,7 +1,26 @@
-{ anyascii, beautifulsoup4, buildPythonPackage, callPackage, django
-, django-filter, django-modelcluster, django-taggit, django_treebeard
-, djangorestframework, draftjs-exporter, fetchPypi, html5lib, l18n, lib
-, openpyxl, permissionedforms, pillow, requests, telepath, willow }:
+{
+  anyascii,
+  beautifulsoup4,
+  buildPythonPackage,
+  callPackage,
+  django,
+  django-filter,
+  django-modelcluster,
+  django-taggit,
+  django_treebeard,
+  djangorestframework,
+  draftjs-exporter,
+  fetchPypi,
+  html5lib,
+  l18n,
+  lib,
+  openpyxl,
+  permissionedforms,
+  pillow,
+  requests,
+  telepath,
+  willow,
+}:
 
 buildPythonPackage rec {
   pname = "wagtail";

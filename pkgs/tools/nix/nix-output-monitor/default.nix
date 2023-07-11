@@ -1,4 +1,10 @@
-{ haskell, expect, haskellPackages, installShellFiles, lib }:
+{
+  haskell,
+  expect,
+  haskellPackages,
+  installShellFiles,
+  lib,
+}:
 let
   inherit (haskell.lib.compose) justStaticExecutables overrideCabal;
   overrides = {

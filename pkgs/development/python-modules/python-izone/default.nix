@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, aiohttp, netifaces
-, pytest-aio, pytest-asyncio, pytestCheckHook, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  aiohttp,
+  netifaces,
+  pytest-aio,
+  pytest-asyncio,
+  pytestCheckHook,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "python-izone";

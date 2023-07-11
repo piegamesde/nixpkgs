@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, libconfuse, gettext }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  libconfuse,
+  gettext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "genimage";

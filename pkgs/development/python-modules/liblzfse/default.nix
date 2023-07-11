@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, lzfse }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  lzfse,
+}:
 buildPythonPackage rec {
   pname = "pyliblzfse";
   version = "0.4.1";

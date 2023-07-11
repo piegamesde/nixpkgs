@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, ocaml, findlib, topkg, ocamlbuild }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  findlib,
+  topkg,
+  ocamlbuild,
+}:
 
 let
   homepage = "https://erratique.ch/software/gg";

@@ -1,5 +1,19 @@
-{ lib, asyauth, asysocks, buildPythonPackage, colorama, fetchPypi, minikerberos
-, prompt-toolkit, pycryptodomex, pythonOlder, six, tqdm, winacl, winsspi }:
+{
+  lib,
+  asyauth,
+  asysocks,
+  buildPythonPackage,
+  colorama,
+  fetchPypi,
+  minikerberos,
+  prompt-toolkit,
+  pycryptodomex,
+  pythonOlder,
+  six,
+  tqdm,
+  winacl,
+  winsspi,
+}:
 
 buildPythonPackage rec {
   pname = "aiosmb";

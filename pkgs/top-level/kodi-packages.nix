@@ -1,4 +1,10 @@
-{ config, lib, newScope, kodi, libretro }:
+{
+  config,
+  lib,
+  newScope,
+  kodi,
+  libretro,
+}:
 
 with lib;
 

@@ -1,4 +1,9 @@
-{ lib, appimageTools, fetchurl, nodePackages }:
+{
+  lib,
+  appimageTools,
+  fetchurl,
+  nodePackages,
+}:
 let
   pname = "flexoptix-app";
   version = "5.13.4";
@@ -33,7 +38,10 @@ in appimageTools.wrapAppImage {
   src = appimageContents;
 
   multiPkgs = null; # no 32bit needed
-  extraPkgs = { pkgs, ... }@args:
+  extraPkgs = {
+      pkgs,
+      ...
+    }@args:
     [ pkgs.hidapi ] ++ appimageTools.defaultFhsEnvArgs.multiPkgs args;
 
   extraInstallCommands = ''

@@ -1,6 +1,23 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, hatchling, hatch-vcs, numpy
-, packaging, importlib-resources, pydicom, pillow, h5py, scipy, git
-, pytest-doctestplus, pytest-httpserver, pytest-xdist, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  hatchling,
+  hatch-vcs,
+  numpy,
+  packaging,
+  importlib-resources,
+  pydicom,
+  pillow,
+  h5py,
+  scipy,
+  git,
+  pytest-doctestplus,
+  pytest-httpserver,
+  pytest-xdist,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "nibabel";

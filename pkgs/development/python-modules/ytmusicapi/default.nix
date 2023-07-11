@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, requests, setuptools
-, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  requests,
+  setuptools,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "ytmusicapi";

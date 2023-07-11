@@ -1,9 +1,27 @@
-{ mkDerivation, lib, fetchFromGitHub, fetchpatch
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  fetchpatch
 
-, anthy, hunspell, libchewing, libpinyin, maliit-framework, pcre, presage
-, qtfeedback, qtmultimedia, qtquickcontrols2, qtgraphicaleffects
+  ,
+  anthy,
+  hunspell,
+  libchewing,
+  libpinyin,
+  maliit-framework,
+  pcre,
+  presage,
+  qtfeedback,
+  qtmultimedia,
+  qtquickcontrols2,
+  qtgraphicaleffects
 
-, cmake, pkg-config, wrapGAppsHook }:
+  ,
+  cmake,
+  pkg-config,
+  wrapGAppsHook,
+}:
 
 mkDerivation rec {
   pname = "maliit-keyboard";

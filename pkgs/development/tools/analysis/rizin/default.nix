@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchurl, pkg-config, libusb-compat-0_1, readline, libewf, perl
-, zlib, openssl, libuv, file, libzip, lz4, xxHash, meson, python3, cmake, ninja
-, capstone, tree-sitter }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libusb-compat-0_1,
+  readline,
+  libewf,
+  perl,
+  zlib,
+  openssl,
+  libuv,
+  file,
+  libzip,
+  lz4,
+  xxHash,
+  meson,
+  python3,
+  cmake,
+  ninja,
+  capstone,
+  tree-sitter,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rizin";

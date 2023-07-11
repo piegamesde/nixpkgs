@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, cliff, fixtures, future, pbr, subunit
-, testtools, voluptuous, callPackage }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cliff,
+  fixtures,
+  future,
+  pbr,
+  subunit,
+  testtools,
+  voluptuous,
+  callPackage,
+}:
 
 buildPythonPackage rec {
   pname = "stestr";

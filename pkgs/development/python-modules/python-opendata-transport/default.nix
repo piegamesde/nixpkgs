@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, aiohttp, urllib3, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  aiohttp,
+  urllib3,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "python-opendata-transport";

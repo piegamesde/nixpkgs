@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, makeWrapper, lua52Packages, libXft
-, ncurses, ninja, readline, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  makeWrapper,
+  lua52Packages,
+  libXft,
+  ncurses,
+  ninja,
+  readline,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wordgrinder";

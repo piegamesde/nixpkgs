@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchgit, xorgproto, libX11, libXft, customConfig ? null
-, patches ? [ ] }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  xorgproto,
+  libX11,
+  libXft,
+  customConfig ? null,
+  patches ? [ ]
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "tabbed";

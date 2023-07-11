@@ -1,5 +1,12 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
-, sysctl }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  sysctl,
+}:
 
 buildPythonPackage rec {
   pname = "py-cpuinfo";

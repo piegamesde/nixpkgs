@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, chardet, attrs, commoncode
-, pytestCheckHook, setuptools-scm, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  chardet,
+  attrs,
+  commoncode,
+  pytestCheckHook,
+  setuptools-scm,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "debian-inspector";

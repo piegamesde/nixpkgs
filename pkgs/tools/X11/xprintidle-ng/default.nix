@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, libX11, libXScrnSaver, libXext, gnulib, autoconf
-, automake, libtool, gettext, pkg-config, git, perl, texinfo, help2man }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libX11,
+  libXScrnSaver,
+  libXext,
+  gnulib,
+  autoconf,
+  automake,
+  libtool,
+  gettext,
+  pkg-config,
+  git,
+  perl,
+  texinfo,
+  help2man,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xprintidle-ng";

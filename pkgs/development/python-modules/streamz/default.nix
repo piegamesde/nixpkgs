@@ -1,6 +1,23 @@
-{ stdenv, lib, buildPythonPackage, confluent-kafka, distributed, fetchpatch
-, fetchPypi, flaky, graphviz, networkx, pytest-asyncio, pytestCheckHook
-, pythonOlder, requests, six, toolz, tornado, zict }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  confluent-kafka,
+  distributed,
+  fetchpatch,
+  fetchPypi,
+  flaky,
+  graphviz,
+  networkx,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  six,
+  toolz,
+  tornado,
+  zict,
+}:
 
 buildPythonPackage rec {
   pname = "streamz";

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, atomEnv, systemd, pulseaudio, libxshmfence, libnotify
-, libappindicator-gtk3, wrapGAppsHook, autoPatchelfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  atomEnv,
+  systemd,
+  pulseaudio,
+  libxshmfence,
+  libnotify,
+  libappindicator-gtk3,
+  wrapGAppsHook,
+  autoPatchelfHook,
+}:
 
 let
 

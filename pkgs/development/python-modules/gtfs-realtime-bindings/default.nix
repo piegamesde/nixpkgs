@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, protobuf, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  protobuf,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "gtfs-realtime-bindings";

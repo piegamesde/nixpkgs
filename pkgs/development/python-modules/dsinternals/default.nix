@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pycryptodomex, pyopenssl
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pycryptodomex,
+  pyopenssl,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "dsinternals";

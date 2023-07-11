@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, plan9port, darwin, ... }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  plan9port,
+  darwin,
+  ...
+}:
 
 stdenv.mkDerivation rec {
   pname = "osxsnarf";

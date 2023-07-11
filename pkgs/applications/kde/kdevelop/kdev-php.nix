@@ -1,5 +1,13 @@
-{ mkDerivation, lib, cmake, extra-cmake-modules, threadweaver, ktexteditor
-, kdevelop-unwrapped, kdevelop-pg-qt }:
+{
+  mkDerivation,
+  lib,
+  cmake,
+  extra-cmake-modules,
+  threadweaver,
+  ktexteditor,
+  kdevelop-unwrapped,
+  kdevelop-pg-qt,
+}:
 
 mkDerivation rec {
   pname = "kdev-php";

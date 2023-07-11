@@ -1,5 +1,15 @@
-{ lib, writeScript, common-updater-scripts, bash, coreutils, curl, gnugrep
-, gnupg, gnused, nix }:
+{
+  lib,
+  writeScript,
+  common-updater-scripts,
+  bash,
+  coreutils,
+  curl,
+  gnugrep,
+  gnupg,
+  gnused,
+  nix,
+}:
 
 let
   downloadPageUrl = "https://download.electrum.org";

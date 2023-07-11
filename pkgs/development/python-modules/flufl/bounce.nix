@@ -1,4 +1,10 @@
-{ buildPythonPackage, fetchPypi, atpublic, zope_interface, nose2 }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  atpublic,
+  zope_interface,
+  nose2,
+}:
 
 buildPythonPackage rec {
   pname = "flufl.bounce";

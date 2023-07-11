@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, curl, libxml2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  curl,
+  libxml2,
+}:
 
 stdenv.mkDerivation {
   pname = "libs3";

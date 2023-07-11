@@ -1,5 +1,16 @@
-{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
-, pydantic, pytest-aiohttp, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pydantic,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aiopurpleair";

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, doxygen, mandoc, meson, ninja, pkg-config, python3
-, sphinx, writeScript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  doxygen,
+  mandoc,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  sphinx,
+  writeScript,
+}:
 
 stdenv.mkDerivation rec {
   pname = "serd";

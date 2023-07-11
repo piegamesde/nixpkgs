@@ -1,5 +1,14 @@
-{ lib, rustPlatform, fetchFromGitea, pkg-config, stdenv, openssl, libiconv
-, sqlite, Security }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitea,
+  pkg-config,
+  stdenv,
+  openssl,
+  libiconv,
+  sqlite,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "listenbrainz-mpd";

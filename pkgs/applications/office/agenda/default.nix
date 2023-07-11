@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, pantheon, meson, ninja
-, python3, pkg-config, vala, gettext, glib, gtk3, libgee, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  pantheon,
+  meson,
+  ninja,
+  python3,
+  pkg-config,
+  vala,
+  gettext,
+  glib,
+  gtk3,
+  libgee,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "agenda";

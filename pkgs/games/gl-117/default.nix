@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, libGLU, libGL, SDL, freeglut, SDL_mixer, autoconf
-, automake, libtool }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libGLU,
+  libGL,
+  SDL,
+  freeglut,
+  SDL_mixer,
+  autoconf,
+  automake,
+  libtool,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gl-117";

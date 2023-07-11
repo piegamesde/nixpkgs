@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, glfw, pkg-config, libXrandr, libXdamage, libXext
-, libXrender, libXinerama, libXcursor, libXxf86vm, libXi, libX11, libGLU
-, python3Packages, ensureNewerSourcesForZipFilesHook, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  glfw,
+  pkg-config,
+  libXrandr,
+  libXdamage,
+  libXext,
+  libXrender,
+  libXinerama,
+  libXcursor,
+  libXxf86vm,
+  libXi,
+  libX11,
+  libGLU,
+  python3Packages,
+  ensureNewerSourcesForZipFilesHook,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "glslviewer";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, gtk_engines }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  gtk_engines,
+}:
 
 stdenv.mkDerivation {
   version = "2016-08-16";

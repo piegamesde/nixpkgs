@@ -1,9 +1,51 @@
-{ lib, stdenv, buildPackages, fetchFromGitLab, pkg-config, pcre2, perl, flex
-, bison, gettext, libpcap, libnl, c-ares, gnutls, libgcrypt, libgpg-error
-, libmaxminddb, libopus, bcg729, spandsp3, libkrb5, speexdsp, libsmi, lz4
-, snappy, zstd, minizip, sbc, openssl, lua5, python3, libcap, glib, libssh
-, nghttp2, zlib, cmake, ninja, makeWrapper, wrapGAppsHook, withQt ? true
-, qt5 ? null, ApplicationServices, SystemConfiguration, gmp, asciidoctor }:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  fetchFromGitLab,
+  pkg-config,
+  pcre2,
+  perl,
+  flex,
+  bison,
+  gettext,
+  libpcap,
+  libnl,
+  c-ares,
+  gnutls,
+  libgcrypt,
+  libgpg-error,
+  libmaxminddb,
+  libopus,
+  bcg729,
+  spandsp3,
+  libkrb5,
+  speexdsp,
+  libsmi,
+  lz4,
+  snappy,
+  zstd,
+  minizip,
+  sbc,
+  openssl,
+  lua5,
+  python3,
+  libcap,
+  glib,
+  libssh,
+  nghttp2,
+  zlib,
+  cmake,
+  ninja,
+  makeWrapper,
+  wrapGAppsHook,
+  withQt ? true,
+  qt5 ? null,
+  ApplicationServices,
+  SystemConfiguration,
+  gmp,
+  asciidoctor,
+}:
 
 assert withQt -> qt5 != null;
 

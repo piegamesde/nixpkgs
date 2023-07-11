@@ -1,7 +1,27 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cython, glibcLocales, matplotlib
-, monty, networkx, numpy, palettable, pandas, plotly, pybtex, pydispatcher
-, pythonOlder, requests, ruamel-yaml, scipy, spglib, sympy, tabulate
-, uncertainties }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cython,
+  glibcLocales,
+  matplotlib,
+  monty,
+  networkx,
+  numpy,
+  palettable,
+  pandas,
+  plotly,
+  pybtex,
+  pydispatcher,
+  pythonOlder,
+  requests,
+  ruamel-yaml,
+  scipy,
+  spglib,
+  sympy,
+  tabulate,
+  uncertainties,
+}:
 
 buildPythonPackage rec {
   pname = "pymatgen";

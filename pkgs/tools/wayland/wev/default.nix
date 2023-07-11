@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromSourcehut, pkg-config, scdoc, wayland-scanner, wayland
-, wayland-protocols, libxkbcommon }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  pkg-config,
+  scdoc,
+  wayland-scanner,
+  wayland,
+  wayland-protocols,
+  libxkbcommon,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wev";

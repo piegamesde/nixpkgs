@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, buildPythonPackage, pytest, pythonOlder, xclip
-, xvfb-run }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pytest,
+  pythonOlder,
+  xclip,
+  xvfb-run,
+}:
 
 buildPythonPackage rec {
   pname = "pyclip";

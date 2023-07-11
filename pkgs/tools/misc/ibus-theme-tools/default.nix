@@ -1,4 +1,9 @@
-{ lib, python3Packages, fetchFromGitHub, gettext }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  gettext,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "ibus-theme-tools";

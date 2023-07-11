@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, testers, kubeswitch }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  testers,
+  kubeswitch,
+}:
 
 buildGoModule rec {
   pname = "kubeswitch";

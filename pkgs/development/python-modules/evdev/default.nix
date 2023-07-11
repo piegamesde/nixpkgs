@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, linuxHeaders, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  linuxHeaders,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "evdev";

@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, cmake }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+}:
 
 # This was originally called mkl-dnn, then it was renamed to dnnl, and it has
 # just recently been renamed again to oneDNN. See here for details:

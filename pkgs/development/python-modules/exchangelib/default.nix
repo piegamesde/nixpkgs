@@ -1,8 +1,30 @@
-{ lib, backports-zoneinfo, buildPythonPackage, cached-property, defusedxml
-, dnspython, fetchFromGitHub, fetchpatch, flake8, isodate, lxml, oauthlib
-, psutil, pygments, python-dateutil, pythonOlder, pytz, pyyaml, requests
-, requests_ntlm, requests-oauthlib, requests-kerberos, requests-mock, tzdata
-, tzlocal }:
+{
+  lib,
+  backports-zoneinfo,
+  buildPythonPackage,
+  cached-property,
+  defusedxml,
+  dnspython,
+  fetchFromGitHub,
+  fetchpatch,
+  flake8,
+  isodate,
+  lxml,
+  oauthlib,
+  psutil,
+  pygments,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+  pyyaml,
+  requests,
+  requests_ntlm,
+  requests-oauthlib,
+  requests-kerberos,
+  requests-mock,
+  tzdata,
+  tzlocal,
+}:
 
 buildPythonPackage rec {
   pname = "exchangelib";

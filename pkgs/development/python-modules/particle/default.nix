@@ -1,6 +1,18 @@
-{ lib, attrs, buildPythonPackage, fetchFromGitHub, fetchPypi, hatch-vcs
-, hatchling, hepunits, pandas, pytestCheckHook, pythonOlder, setuptools-scm
-, tabulate }:
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchPypi,
+  hatch-vcs,
+  hatchling,
+  hepunits,
+  pandas,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  tabulate,
+}:
 
 buildPythonPackage rec {
   pname = "particle";

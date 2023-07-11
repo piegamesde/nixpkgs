@@ -1,4 +1,9 @@
-{ lib, python3, netcat-openbsd, nix-update-script }:
+{
+  lib,
+  python3,
+  netcat-openbsd,
+  nix-update-script,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "flashfocus";

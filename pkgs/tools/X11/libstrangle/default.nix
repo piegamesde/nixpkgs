@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitLab, libGL, libX11 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  libGL,
+  libX11,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libstrangle";

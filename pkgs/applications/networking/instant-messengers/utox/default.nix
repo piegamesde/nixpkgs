@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, check, cmake, pkg-config, libtoxcore
-, filter-audio, dbus, libvpx, libX11, openal, freetype, libv4l, libXrender
-, fontconfig, libXext, libXft, libsodium, libopus }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  check,
+  cmake,
+  pkg-config,
+  libtoxcore,
+  filter-audio,
+  dbus,
+  libvpx,
+  libX11,
+  openal,
+  freetype,
+  libv4l,
+  libXrender,
+  fontconfig,
+  libXext,
+  libXft,
+  libsodium,
+  libopus,
+}:
 
 stdenv.mkDerivation rec {
   pname = "utox";

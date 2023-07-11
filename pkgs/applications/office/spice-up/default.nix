@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
-, python3, vala, wrapGAppsHook, glib, gtk3, json-glib, libevdev, libgee
-, libgudev, libsoup, pantheon }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  vala,
+  wrapGAppsHook,
+  glib,
+  gtk3,
+  json-glib,
+  libevdev,
+  libgee,
+  libgudev,
+  libsoup,
+  pantheon,
+}:
 
 stdenv.mkDerivation rec {
   pname = "spice-up";

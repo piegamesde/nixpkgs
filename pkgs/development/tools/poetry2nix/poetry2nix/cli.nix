@@ -1,4 +1,8 @@
-{ pkgs ? import <nixpkgs> { }, lib ? pkgs.lib, version }:
+{
+  pkgs ? import <nixpkgs> { },
+  lib ? pkgs.lib,
+  version,
+}:
 let inherit (pkgs) python3;
 in pkgs.stdenv.mkDerivation {
   pname = "poetry2nix";

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, qtbase, qttools
-, CoreFoundation, Security, libsecret }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  qtbase,
+  qttools,
+  CoreFoundation,
+  Security,
+  libsecret,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qtkeychain";

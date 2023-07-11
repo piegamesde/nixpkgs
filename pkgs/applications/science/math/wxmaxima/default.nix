@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, wrapGAppsHook, cmake, gettext, maxima, wxGTK
-, gnome, glib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  wrapGAppsHook,
+  cmake,
+  gettext,
+  maxima,
+  wxGTK,
+  gnome,
+  glib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wxmaxima";

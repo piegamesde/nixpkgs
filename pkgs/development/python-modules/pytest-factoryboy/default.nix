@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, factory_boy, fetchFromGitHub, inflection, mock
-, pytest, pytestcache, pytestCheckHook, pytest-cov }:
+{
+  lib,
+  buildPythonPackage,
+  factory_boy,
+  fetchFromGitHub,
+  inflection,
+  mock,
+  pytest,
+  pytestcache,
+  pytestCheckHook,
+  pytest-cov,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-factoryboy";

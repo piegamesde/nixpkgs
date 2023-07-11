@@ -1,7 +1,24 @@
-{ lib, buildPythonPackage, celery, dash-core-components, dash-html-components
-, dash-table, diskcache, fetchFromGitHub, flask, flask-compress, mock
-, multiprocess, plotly, psutil, pytest-mock, pytestCheckHook, pythonOlder
-, pyyaml, redis }:
+{
+  lib,
+  buildPythonPackage,
+  celery,
+  dash-core-components,
+  dash-html-components,
+  dash-table,
+  diskcache,
+  fetchFromGitHub,
+  flask,
+  flask-compress,
+  mock,
+  multiprocess,
+  plotly,
+  psutil,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  redis,
+}:
 
 buildPythonPackage rec {
   pname = "dash";

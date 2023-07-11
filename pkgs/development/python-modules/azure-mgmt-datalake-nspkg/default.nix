@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, azure-mgmt-nspkg }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  azure-mgmt-nspkg,
+}:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-datalake-nspkg";

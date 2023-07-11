@@ -1,7 +1,35 @@
-{ alsa-lib, cmake, fetchFromGitHub, fmt, gettext, glib, gtk3, harfbuzz, lib
-, libaio, libpcap, libpng, libpulseaudio, libsamplerate, libXdmcp, openssl, pcre
-, perl, pkg-config, portaudio, SDL2, soundtouch, stdenv, udev, vulkan-headers
-, vulkan-loader, wrapGAppsHook, wxGTK, zlib, wayland }:
+{
+  alsa-lib,
+  cmake,
+  fetchFromGitHub,
+  fmt,
+  gettext,
+  glib,
+  gtk3,
+  harfbuzz,
+  lib,
+  libaio,
+  libpcap,
+  libpng,
+  libpulseaudio,
+  libsamplerate,
+  libXdmcp,
+  openssl,
+  pcre,
+  perl,
+  pkg-config,
+  portaudio,
+  SDL2,
+  soundtouch,
+  stdenv,
+  udev,
+  vulkan-headers,
+  vulkan-loader,
+  wrapGAppsHook,
+  wxGTK,
+  zlib,
+  wayland,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pcsx2";

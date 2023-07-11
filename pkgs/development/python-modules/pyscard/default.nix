@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchpatch, fetchPypi, buildPythonPackage, swig, pcsclite, PCSC
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchPypi,
+  buildPythonPackage,
+  swig,
+  pcsclite,
+  PCSC,
 }:
 
 let

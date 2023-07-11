@@ -1,9 +1,26 @@
-{ lib, stdenvNoCC, gitRepo, cacert, copyPathsToStore }:
+{
+  lib,
+  stdenvNoCC,
+  gitRepo,
+  cacert,
+  copyPathsToStore,
+}:
 
-{ name, manifest, rev ? "HEAD", sha256
-# Optional parameters:
-, repoRepoURL ? "", repoRepoRev ? "", referenceDir ? "", manifestName ? ""
-, localManifests ? [ ], createMirror ? false, useArchive ? false }:
+{
+  name,
+  manifest,
+  rev ? "HEAD",
+  sha256
+  # Optional parameters:
+  ,
+  repoRepoURL ? "",
+  repoRepoRev ? "",
+  referenceDir ? "",
+  manifestName ? "",
+  localManifests ? [ ],
+  createMirror ? false,
+  useArchive ? false
+}:
 
 assert repoRepoRev != "" -> repoRepoURL != "";
 assert createMirror -> !useArchive;

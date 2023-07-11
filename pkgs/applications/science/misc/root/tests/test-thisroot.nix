@@ -1,4 +1,13 @@
-{ lib, runCommand, root, bash, fish, ksh, tcsh, zsh }:
+{
+  lib,
+  runCommand,
+  root,
+  bash,
+  fish,
+  ksh,
+  tcsh,
+  zsh,
+}:
 runCommand "test-thisroot" {
   meta = with lib; {
     description = "Test for root thisroot.* sourcing";

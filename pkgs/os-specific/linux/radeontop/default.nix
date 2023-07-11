@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, gettext, makeWrapper, ncurses
-, libdrm, libpciaccess, libxcb }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  gettext,
+  makeWrapper,
+  ncurses,
+  libdrm,
+  libpciaccess,
+  libxcb,
+}:
 
 stdenv.mkDerivation rec {
   pname = "radeontop";

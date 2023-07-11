@@ -1,5 +1,15 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, openssl, CoreServices
-, Security, libiconv, SystemConfiguration }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  CoreServices,
+  Security,
+  libiconv,
+  SystemConfiguration,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-udeps";

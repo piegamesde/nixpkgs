@@ -1,4 +1,12 @@
-{ coreutils, fetchurl, gnugrep, lib, makeWrapper, moreutils, stdenvNoCC }:
+{
+  coreutils,
+  fetchurl,
+  gnugrep,
+  lib,
+  makeWrapper,
+  moreutils,
+  stdenvNoCC,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "zstxtns-utils";

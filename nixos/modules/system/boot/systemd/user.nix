@@ -1,4 +1,10 @@
-{ config, lib, pkgs, utils, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  utils,
+  ...
+}:
 with utils;
 with systemdUtils.unitOptions;
 with lib;
@@ -33,7 +39,10 @@ let
     "xdg-desktop-autostart.target"
   ] ++ config.systemd.additionalUpstreamUserUnits;
 
-  writeTmpfiles = { rules, user ? null }:
+  writeTmpfiles = {
+      rules,
+      user ? null
+    }:
     let suffix = if user == null then "" else "-${user}";
     in pkgs.writeTextFile {
       name = "nixos-user-tmpfiles.d${suffix}";

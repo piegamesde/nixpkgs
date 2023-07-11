@@ -1,7 +1,31 @@
-{ lib, babel, buildPythonPackage, cssselect, feedparser, fetchPypi, gdata, gnupg
-, google-api-python-client, html2text, libyaml, lxml, mechanize, nose
-, pdfminer-six, pillow, prettytable, pyqt5, pytestCheckHook, python-dateutil
-, pythonOlder, pyyaml, requests, simplejson, termcolor, unidecode }:
+{
+  lib,
+  babel,
+  buildPythonPackage,
+  cssselect,
+  feedparser,
+  fetchPypi,
+  gdata,
+  gnupg,
+  google-api-python-client,
+  html2text,
+  libyaml,
+  lxml,
+  mechanize,
+  nose,
+  pdfminer-six,
+  pillow,
+  prettytable,
+  pyqt5,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pyyaml,
+  requests,
+  simplejson,
+  termcolor,
+  unidecode,
+}:
 
 buildPythonPackage rec {
   pname = "weboob";

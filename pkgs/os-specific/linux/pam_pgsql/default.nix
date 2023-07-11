@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, postgresql
-, libgcrypt, pam, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  postgresql,
+  libgcrypt,
+  pam,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pam_pgsql";

@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+}:
 
 #This package is auto-generated. It could totally be possible to generate it from upstream, but seems unecessary
 buildPythonPackage rec {

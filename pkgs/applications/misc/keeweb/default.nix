@@ -1,6 +1,27 @@
-{ lib, stdenv, fetchurl, undmg, dpkg, autoPatchelfHook, wrapGAppsHook
-, makeWrapper, alsa-lib, at-spi2-atk, gdk-pixbuf, glibc, nss, udev, xorg, gnome
-, mesa, gtk3, libusb1, libsecret, libappindicator, xdotool }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  undmg,
+  dpkg,
+  autoPatchelfHook,
+  wrapGAppsHook,
+  makeWrapper,
+  alsa-lib,
+  at-spi2-atk,
+  gdk-pixbuf,
+  glibc,
+  nss,
+  udev,
+  xorg,
+  gnome,
+  mesa,
+  gtk3,
+  libusb1,
+  libsecret,
+  libappindicator,
+  xdotool,
+}:
 let
   pname = "keeweb";
   version = "1.18.7";

@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, addOpenGLRunpath, cudatoolkit
-, pkg-config, sha256 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  addOpenGLRunpath,
+  cudatoolkit,
+  pkg-config,
+  sha256,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cuda-samples";

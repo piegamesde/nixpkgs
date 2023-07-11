@@ -1,4 +1,7 @@
-{ lib, pkgs }:
+{
+  lib,
+  pkgs,
+}:
 
 with pkgs;
 
@@ -41,7 +44,11 @@ rec {
     import ./debian-build.nix
     ({ inherit lib stdenv vmTools checkinstall; } // args);
 
-  aggregate = { name, constituents, meta ? { } }:
+  aggregate = {
+      name,
+      constituents,
+      meta ? { }
+    }:
     pkgs.runCommand name {
       inherit constituents meta;
       preferLocalBuild = true;
@@ -75,8 +82,14 @@ rec {
          src = ./.;
        };
   */
-  channel =
-    { name, src, constituents ? [ ], meta ? { }, isNixOS ? true, ... }@args:
+  channel = {
+      name,
+      src,
+      constituents ? [ ],
+      meta ? { },
+      isNixOS ? true,
+      ...
+    }@args:
     stdenv.mkDerivation ({
       preferLocalBuild = true;
       _hydraAggregate = true;

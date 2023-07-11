@@ -1,9 +1,48 @@
-{ stdenv, lib, fetchpatch, fetchFromGitHub, bash, pkg-config, autoconf, cpio
-, file, which, unzip, zip, perl, cups, freetype, harfbuzz, alsa-lib, libjpeg
-, giflib, libpng, zlib, lcms2, libX11, libICE, libXrender, libXext, libXt
-, libXtst, libXi, libXinerama, libXcursor, libXrandr, fontconfig
-, openjdk11-bootstrap, setJavaClassPath, headless ? false, enableJavaFX ? false
-, openjfx, enableGnome2 ? true, gtk3, gnome_vfs, glib, GConf }:
+{
+  stdenv,
+  lib,
+  fetchpatch,
+  fetchFromGitHub,
+  bash,
+  pkg-config,
+  autoconf,
+  cpio,
+  file,
+  which,
+  unzip,
+  zip,
+  perl,
+  cups,
+  freetype,
+  harfbuzz,
+  alsa-lib,
+  libjpeg,
+  giflib,
+  libpng,
+  zlib,
+  lcms2,
+  libX11,
+  libICE,
+  libXrender,
+  libXext,
+  libXt,
+  libXtst,
+  libXi,
+  libXinerama,
+  libXcursor,
+  libXrandr,
+  fontconfig,
+  openjdk11-bootstrap,
+  setJavaClassPath,
+  headless ? false,
+  enableJavaFX ? false,
+  openjfx,
+  enableGnome2 ? true,
+  gtk3,
+  gnome_vfs,
+  glib,
+  GConf,
+}:
 
 let
   major = "11";

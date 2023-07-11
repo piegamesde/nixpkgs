@@ -1,7 +1,11 @@
 # Common configuration for virtual machines running under QEMU (using
 # virtio).
 
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 
 {
   boot.initrd.availableKernelModules = [

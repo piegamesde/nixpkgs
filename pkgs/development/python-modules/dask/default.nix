@@ -1,8 +1,34 @@
-{ lib, stdenv, arrow-cpp, bokeh, buildPythonPackage, click, cloudpickle
-, distributed, fastparquet, fetchFromGitHub, fetchpatch, fsspec
-, importlib-metadata, jinja2, numpy, packaging, pandas, partd, pyarrow
-, pytest-rerunfailures, pytest-xdist, pytestCheckHook, pythonOlder, pyyaml
-, scipy, setuptools, toolz, versioneer, zarr }:
+{
+  lib,
+  stdenv,
+  arrow-cpp,
+  bokeh,
+  buildPythonPackage,
+  click,
+  cloudpickle,
+  distributed,
+  fastparquet,
+  fetchFromGitHub,
+  fetchpatch,
+  fsspec,
+  importlib-metadata,
+  jinja2,
+  numpy,
+  packaging,
+  pandas,
+  partd,
+  pyarrow,
+  pytest-rerunfailures,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  scipy,
+  setuptools,
+  toolz,
+  versioneer,
+  zarr,
+}:
 
 buildPythonPackage rec {
   pname = "dask";

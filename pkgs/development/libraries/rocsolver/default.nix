@@ -1,7 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake, rocblas
-, hip, fmt, gtest, gfortran, lapack-reference, buildTests ? false
-, buildBenchmarks ? false
-, gpuTargets ? [ ] # gpuTargets = [ "gfx803" "gfx900" "gfx906:xnack-" ]
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  cmake,
+  rocm-cmake,
+  rocblas,
+  hip,
+  fmt,
+  gtest,
+  gfortran,
+  lapack-reference,
+  buildTests ? false,
+  buildBenchmarks ? false,
+  gpuTargets ? [ ] # gpuTargets = [ "gfx803" "gfx900" "gfx906:xnack-" ]
 }:
 
 stdenv.mkDerivation (finalAttrs: {

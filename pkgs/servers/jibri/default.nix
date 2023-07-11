@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, dpkg, jdk11_headless, makeWrapper, writeText, xorg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  jdk11_headless,
+  makeWrapper,
+  writeText,
+  xorg,
+}:
 
 let
   xorgModulePaths = writeText "module-paths" ''

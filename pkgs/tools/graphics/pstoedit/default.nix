@@ -1,5 +1,18 @@
-{ stdenv, fetchurl, pkg-config, darwin, lib, zlib, ghostscript, imagemagick
-, plotutils, gd, libjpeg, libwebp, libiconv }:
+{
+  stdenv,
+  fetchurl,
+  pkg-config,
+  darwin,
+  lib,
+  zlib,
+  ghostscript,
+  imagemagick,
+  plotutils,
+  gd,
+  libjpeg,
+  libwebp,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pstoedit";

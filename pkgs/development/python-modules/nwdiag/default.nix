@@ -1,5 +1,13 @@
-{ lib, blockdiag, fetchFromGitHub, buildPythonPackage, nose, pytestCheckHook
-, setuptools, pythonOlder }:
+{
+  lib,
+  blockdiag,
+  fetchFromGitHub,
+  buildPythonPackage,
+  nose,
+  pytestCheckHook,
+  setuptools,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "nwdiag";

@@ -1,5 +1,21 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, meson, ninja, pkg-config, dpdk
-, libbsd, libpcap, lua5_3, numactl, util-linux, gtk2, which, withGtk ? false }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  meson,
+  ninja,
+  pkg-config,
+  dpdk,
+  libbsd,
+  libpcap,
+  lua5_3,
+  numactl,
+  util-linux,
+  gtk2,
+  which,
+  withGtk ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "pktgen";

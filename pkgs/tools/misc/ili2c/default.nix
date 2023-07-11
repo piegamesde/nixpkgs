@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, jdk8, ant, makeWrapper, jre8 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jdk8,
+  ant,
+  makeWrapper,
+  jre8,
+}:
 
 let
   jdk = jdk8;

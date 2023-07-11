@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, bundlerEnv, ruby, makeWrapper, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bundlerEnv,
+  ruby,
+  makeWrapper,
+  nixosTests,
+}:
 
 let
   version = "4.2.10";

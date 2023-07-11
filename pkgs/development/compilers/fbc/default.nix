@@ -1,5 +1,18 @@
-{ stdenv, buildPackages, lib, fetchzip, fetchpatch, gpm, libffi, libGL, libX11
-, libXext, libXpm, libXrandr, ncurses }:
+{
+  stdenv,
+  buildPackages,
+  lib,
+  fetchzip,
+  fetchpatch,
+  gpm,
+  libffi,
+  libGL,
+  libX11,
+  libXext,
+  libXpm,
+  libXrandr,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fbc";

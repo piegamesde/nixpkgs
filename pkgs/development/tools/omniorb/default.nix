@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, pkg-config, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
 

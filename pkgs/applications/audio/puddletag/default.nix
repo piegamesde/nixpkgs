@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3, wrapQtAppsHook }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  wrapQtAppsHook,
+}:
 
 # As of 2.1, puddletag has started pinning versions of all dependencies that it
 # was built against which is an issue as the chances of us having the exact same

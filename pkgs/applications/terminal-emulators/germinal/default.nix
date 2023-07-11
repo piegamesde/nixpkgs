@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, appstream-glib, dbus
-, pango, pcre2, tmux, vte, wrapGAppsHook, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  appstream-glib,
+  dbus,
+  pango,
+  pcre2,
+  tmux,
+  vte,
+  wrapGAppsHook,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "germinal";

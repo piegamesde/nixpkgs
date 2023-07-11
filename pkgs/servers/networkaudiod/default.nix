@@ -1,4 +1,11 @@
-{ stdenv, autoPatchelfHook, dpkg, fetchurl, lib, alsa-lib }:
+{
+  stdenv,
+  autoPatchelfHook,
+  dpkg,
+  fetchurl,
+  lib,
+  alsa-lib,
+}:
 let
   inherit (stdenv.targetPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, apfel, applgrid, lhapdf, root5
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  apfel,
+  applgrid,
+  lhapdf,
+  root5,
 }:
 
 stdenv.mkDerivation rec {

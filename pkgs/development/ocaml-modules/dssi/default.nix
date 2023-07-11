@@ -1,4 +1,11 @@
-{ lib, buildDunePackage, fetchFromGitHub, dune-configurator, ladspa, alsa-lib }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  dune-configurator,
+  ladspa,
+  alsa-lib,
+}:
 
 buildDunePackage rec {
   pname = "dssi";

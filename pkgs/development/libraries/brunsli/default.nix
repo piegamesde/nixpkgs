@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, brotli }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  brotli,
+}:
 
 stdenv.mkDerivation rec {
   pname = "brunsli";

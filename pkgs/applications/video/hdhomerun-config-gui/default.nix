@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, libhdhomerun, pkg-config, gtk2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libhdhomerun,
+  pkg-config,
+  gtk2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hdhomerun-config-gui";

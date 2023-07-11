@@ -1,4 +1,8 @@
-{ buildGoPackage, lib, fetchFromGitHub }:
+{
+  buildGoPackage,
+  lib,
+  fetchFromGitHub,
+}:
 
 # TODO(yl): should we package https://github.com/remyoudompheng/go-misc instead of
 # the standalone extract of deadcode from it?

@@ -1,4 +1,10 @@
-{ buildNpmPackage, fetchFromGitHub, lib, substituteAll, esbuild, buildGoModule
+{
+  buildNpmPackage,
+  fetchFromGitHub,
+  lib,
+  substituteAll,
+  esbuild,
+  buildGoModule,
 }:
 buildNpmPackage rec {
   pname = "vencord-web-extension";

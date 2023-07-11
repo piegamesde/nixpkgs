@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, appimageTools }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  appimageTools,
+}:
 
 let
   pname = "nrfconnect";

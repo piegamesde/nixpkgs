@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, python3, makeWrapper, libxml2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3,
+  makeWrapper,
+  libxml2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "doclifter";

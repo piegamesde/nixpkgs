@@ -1,4 +1,12 @@
-{ stdenvNoCC, lib, wrapGAppsHook, gdk-pixbuf, librsvg, xorg, shared-mime-info }:
+{
+  stdenvNoCC,
+  lib,
+  wrapGAppsHook,
+  gdk-pixbuf,
+  librsvg,
+  xorg,
+  shared-mime-info,
+}:
 
 timeshift-unwrapped: runtimeDeps:
 stdenvNoCC.mkDerivation {

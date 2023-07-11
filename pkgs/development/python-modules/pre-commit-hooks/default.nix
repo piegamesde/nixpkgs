@@ -1,5 +1,14 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, git, pytestCheckHook
-, pythonOlder, ruamel-yaml, tomli }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  git,
+  pytestCheckHook,
+  pythonOlder,
+  ruamel-yaml,
+  tomli,
+}:
 
 buildPythonPackage rec {
   pname = "pre-commit-hooks";

@@ -1,5 +1,20 @@
-{ stdenv, lib, fetchFromGitHub, cmake, boost, gmp, mpfr, libedit, python3, gpgme
-, installShellFiles, texinfo, gnused, usePython ? false, gpgmeSupport ? false }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  gmp,
+  mpfr,
+  libedit,
+  python3,
+  gpgme,
+  installShellFiles,
+  texinfo,
+  gnused,
+  usePython ? false,
+  gpgmeSupport ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "ledger";

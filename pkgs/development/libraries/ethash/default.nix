@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gbenchmark, gtest }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gbenchmark,
+  gtest,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ethash";

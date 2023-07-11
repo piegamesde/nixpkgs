@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, unzip, makeWrapper, jre_headless }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  makeWrapper,
+  jre_headless,
+}:
 
 stdenv.mkDerivation rec {
   pname = "maestro";

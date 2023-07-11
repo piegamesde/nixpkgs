@@ -1,5 +1,12 @@
-{ lib, boolean-py, buildPythonPackage, fetchFromGitHub, pytestCheckHook
-, pythonOlder, setuptools-scm }:
+{
+  lib,
+  boolean-py,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "license-expression";

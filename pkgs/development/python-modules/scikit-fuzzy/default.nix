@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, isPy27, fetchFromGitHub, matplotlib, networkx, nose
-, numpy, scipy, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  isPy27,
+  fetchFromGitHub,
+  matplotlib,
+  networkx,
+  nose,
+  numpy,
+  scipy,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "scikit-fuzzy";

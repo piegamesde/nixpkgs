@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub, asn1crypto, autoconf, automake, cffi
-, libtool, pkg-config, pytestCheckHook, python, pythonOlder, secp256k1 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  asn1crypto,
+  autoconf,
+  automake,
+  cffi,
+  libtool,
+  pkg-config,
+  pytestCheckHook,
+  python,
+  pythonOlder,
+  secp256k1,
+}:
 
 buildPythonPackage rec {
   pname = "coincurve";

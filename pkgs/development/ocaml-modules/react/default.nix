@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, ocaml, findlib, topkg, ocamlbuild }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  findlib,
+  topkg,
+  ocamlbuild,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml-react";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+}:
 stdenv.mkDerivation rec {
   pname = "directx-headers";
   version = "1.610.0";

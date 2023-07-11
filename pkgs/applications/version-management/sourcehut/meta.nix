@@ -1,6 +1,24 @@
-{ lib, fetchFromSourcehut, buildPythonPackage, buildGoModule, pgpy, srht, redis
-, bcrypt, qrcode, stripe, zxcvbn, alembic, pystache, dnspython, sshpubkeys
-, weasyprint, prometheus-client, python, unzip }:
+{
+  lib,
+  fetchFromSourcehut,
+  buildPythonPackage,
+  buildGoModule,
+  pgpy,
+  srht,
+  redis,
+  bcrypt,
+  qrcode,
+  stripe,
+  zxcvbn,
+  alembic,
+  pystache,
+  dnspython,
+  sshpubkeys,
+  weasyprint,
+  prometheus-client,
+  python,
+  unzip,
+}:
 let
   version = "0.61.3";
 

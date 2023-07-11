@@ -1,4 +1,9 @@
-{ lib, buildPythonApplication, fetchPypi, python3Packages }:
+{
+  lib,
+  buildPythonApplication,
+  fetchPypi,
+  python3Packages,
+}:
 
 buildPythonApplication rec {
   pname = "remarkable-mouse";

@@ -1,4 +1,10 @@
-{ stdenvNoCC, lib, fetchFromGitHub, makeWrapper, wget }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  wget,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "distrobox";

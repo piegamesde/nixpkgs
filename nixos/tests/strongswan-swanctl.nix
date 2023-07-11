@@ -16,7 +16,10 @@
 # See the NixOS manual for how to run this test:
 # https://nixos.org/nixos/manual/index.html#sec-running-nixos-tests-interactively
 
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
 
   let
     allowESP = "iptables --insert INPUT --protocol ESP --jump ACCEPT";
@@ -34,15 +37,20 @@ import ./make-test-python.nix ({ pkgs, ... }:
     meta.maintainers = with pkgs.lib.maintainers; [ basvandijk ];
     nodes = {
 
-      alice = { ... }: {
-        virtualisation.vlans = [ 0 ];
-        networking = {
-          dhcpcd.enable = false;
-          defaultGateway = "192.168.0.3";
+      alice = {
+          ...
+        }: {
+          virtualisation.vlans = [ 0 ];
+          networking = {
+            dhcpcd.enable = false;
+            defaultGateway = "192.168.0.3";
+          };
         };
-      };
 
-      moon = { config, ... }:
+      moon = {
+          config,
+          ...
+        }:
         let strongswan = config.services.strongswan-swanctl.package;
         in {
           virtualisation.vlans = [ 0 1 ];
@@ -90,7 +98,10 @@ import ./make-test-python.nix ({ pkgs, ... }:
           };
         };
 
-      carol = { config, ... }:
+      carol = {
+          config,
+          ...
+        }:
         let strongswan = config.services.strongswan-swanctl.package;
         in {
           virtualisation.vlans = [ 1 ];

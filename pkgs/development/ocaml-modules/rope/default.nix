@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchurl, ocaml, findlib, ocamlbuild, dune_2, benchmark }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  dune_2,
+  benchmark,
+}:
 
 let
   param = if lib.versionAtLeast ocaml.version "4.03" then rec {

@@ -1,5 +1,14 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, openssl, curl, sqlite
-, Security }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  curl,
+  sqlite,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "nix-index";

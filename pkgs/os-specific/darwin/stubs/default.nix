@@ -1,4 +1,8 @@
-{ lib, writeScriptBin, runtimeShell }:
+{
+  lib,
+  writeScriptBin,
+  runtimeShell,
+}:
 
 let
   fake = name:

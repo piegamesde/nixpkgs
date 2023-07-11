@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, git, gnused }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  git,
+  gnused,
+}:
 
 stdenv.mkDerivation rec {
   pname = "git-reparent";

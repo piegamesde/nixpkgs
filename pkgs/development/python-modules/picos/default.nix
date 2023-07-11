@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitLab, numpy, cvxopt, python, networkx }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitLab,
+  numpy,
+  cvxopt,
+  python,
+  networkx,
+}:
 
 buildPythonPackage rec {
   pname = "picos";

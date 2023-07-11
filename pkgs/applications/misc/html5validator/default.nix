@@ -1,4 +1,10 @@
-{ buildPythonApplication, fetchFromGitHub, nose, openjdk, lib }:
+{
+  buildPythonApplication,
+  fetchFromGitHub,
+  nose,
+  openjdk,
+  lib,
+}:
 
 buildPythonApplication rec {
   pname = "html5validator";

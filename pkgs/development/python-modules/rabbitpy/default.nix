@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, mock, nose, pamqp }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  nose,
+  pamqp,
+}:
 
 buildPythonPackage rec {
   version = "2.0.1";

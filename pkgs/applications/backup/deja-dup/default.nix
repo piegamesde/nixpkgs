@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchFromGitLab, substituteAll, meson, ninja, pkg-config, vala
-, gettext, itstool, desktop-file-utils, glib, gtk4, coreutils, libsoup_3
-, libsecret, libadwaita, wrapGAppsHook4, libgpg-error, json-glib, duplicity }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  substituteAll,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  gettext,
+  itstool,
+  desktop-file-utils,
+  glib,
+  gtk4,
+  coreutils,
+  libsoup_3,
+  libsecret,
+  libadwaita,
+  wrapGAppsHook4,
+  libgpg-error,
+  json-glib,
+  duplicity,
+}:
 
 stdenv.mkDerivation rec {
   pname = "deja-dup";

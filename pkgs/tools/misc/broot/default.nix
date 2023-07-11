@@ -1,5 +1,18 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, installShellFiles, makeWrapper
-, pkg-config, libgit2, oniguruma, libiconv, Security, xorg, zlib, buildPackages
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  makeWrapper,
+  pkg-config,
+  libgit2,
+  oniguruma,
+  libiconv,
+  Security,
+  xorg,
+  zlib,
+  buildPackages,
 }:
 
 rustPlatform.buildRustPackage rec {

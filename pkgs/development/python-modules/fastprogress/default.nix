@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "fastprogress";

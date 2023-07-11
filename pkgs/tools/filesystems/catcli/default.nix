@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildPythonApplication, docopt, anytree }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonApplication,
+  docopt,
+  anytree,
+}:
 
 buildPythonApplication rec {
 

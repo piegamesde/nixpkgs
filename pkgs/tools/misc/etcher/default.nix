@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, gcc-unwrapped, dpkg, util-linux, bash, makeWrapper
-, electron }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gcc-unwrapped,
+  dpkg,
+  util-linux,
+  bash,
+  makeWrapper,
+  electron,
+}:
 
 let
   inherit (stdenv.hostPlatform) system;

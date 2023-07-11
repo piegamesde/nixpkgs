@@ -1,4 +1,7 @@
-{ callPackage, runtimeShell }:
+{
+  callPackage,
+  runtimeShell,
+}:
 
 (callPackage ./build.nix {
   version = "a4da4dfac44d1bbc6986c5c76fea45a60ebdd8e5";

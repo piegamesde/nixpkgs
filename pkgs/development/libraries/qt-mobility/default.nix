@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, qt4, libX11, coreutils, bluez, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qt4,
+  libX11,
+  coreutils,
+  bluez,
+  perl,
+}:
 # possible additional dependencies: pulseaudio udev networkmanager immerson qmf
 
 stdenv.mkDerivation rec {

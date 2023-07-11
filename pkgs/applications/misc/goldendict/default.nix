@@ -1,8 +1,35 @@
-{ lib, stdenv, mkDerivation, fetchFromGitHub, pkg-config, libXtst, libvorbis
-, hunspell, lzo, xz, bzip2, libiconv, qtbase, qtsvg, qtwebkit, qtx11extras
-, qttools, qmake, withCC ? true, opencc, withEpwing ? true, libeb
-, withExtraTiff ? true, libtiff, withFFmpeg ? true, libao, ffmpeg
-, withMultimedia ? true, withZim ? true, zstd }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchFromGitHub,
+  pkg-config,
+  libXtst,
+  libvorbis,
+  hunspell,
+  lzo,
+  xz,
+  bzip2,
+  libiconv,
+  qtbase,
+  qtsvg,
+  qtwebkit,
+  qtx11extras,
+  qttools,
+  qmake,
+  withCC ? true,
+  opencc,
+  withEpwing ? true,
+  libeb,
+  withExtraTiff ? true,
+  libtiff,
+  withFFmpeg ? true,
+  libao,
+  ffmpeg,
+  withMultimedia ? true,
+  withZim ? true,
+  zstd,
+}:
 
 mkDerivation rec {
   pname = "goldendict";

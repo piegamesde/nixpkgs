@@ -1,4 +1,12 @@
-{ absl-py, buildPythonPackage, contextlib2, fetchPypi, fetchurl, lib, pyyaml }:
+{
+  absl-py,
+  buildPythonPackage,
+  contextlib2,
+  fetchPypi,
+  fetchurl,
+  lib,
+  pyyaml,
+}:
 
 let
   requirements = fetchurl {

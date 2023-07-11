@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
-, python3, vala, wrapGAppsHook, glib, granite, gst_all_1, gtk3, libcanberra
-, libgee, libhandy }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  vala,
+  wrapGAppsHook,
+  glib,
+  granite,
+  gst_all_1,
+  gtk3,
+  libcanberra,
+  libgee,
+  libhandy,
+}:
 
 stdenv.mkDerivation rec {
   pname = "elementary-camera";

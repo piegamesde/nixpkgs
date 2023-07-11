@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, humanfriendly, verboselogs
-, coloredlogs, pytest, pytest-cov }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  humanfriendly,
+  verboselogs,
+  coloredlogs,
+  pytest,
+  pytest-cov,
+}:
 
 buildPythonPackage rec {
   pname = "property-manager";

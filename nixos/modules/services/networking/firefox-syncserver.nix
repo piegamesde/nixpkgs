@@ -1,4 +1,10 @@
-{ config, pkgs, lib, options, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  options,
+  ...
+}:
 
 let
   cfg = config.services.firefox-syncserver;

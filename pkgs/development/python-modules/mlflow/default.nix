@@ -1,9 +1,41 @@
-{ lib, alembic, buildPythonPackage, click, cloudpickle, databricks-cli, docker
-, entrypoints, fetchpatch, fetchPypi, flask, gitpython, gorilla, gunicorn
-, importlib-metadata, markdown, matplotlib, numpy, packaging, pandas
-, prometheus-flask-exporter, protobuf, python-dateutil, pythonOlder
-, pythonRelaxDepsHook, pyarrow, pytz, pyyaml, querystring_parser, requests
-, scikit-learn, scipy, shap, simplejson, sqlalchemy, sqlparse }:
+{
+  lib,
+  alembic,
+  buildPythonPackage,
+  click,
+  cloudpickle,
+  databricks-cli,
+  docker,
+  entrypoints,
+  fetchpatch,
+  fetchPypi,
+  flask,
+  gitpython,
+  gorilla,
+  gunicorn,
+  importlib-metadata,
+  markdown,
+  matplotlib,
+  numpy,
+  packaging,
+  pandas,
+  prometheus-flask-exporter,
+  protobuf,
+  python-dateutil,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  pyarrow,
+  pytz,
+  pyyaml,
+  querystring_parser,
+  requests,
+  scikit-learn,
+  scipy,
+  shap,
+  simplejson,
+  sqlalchemy,
+  sqlparse,
+}:
 
 buildPythonPackage rec {
   pname = "mlflow";

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, automake, autoconf, readline, libX11, bluez
-, SDL2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  automake,
+  autoconf,
+  readline,
+  libX11,
+  bluez,
+  SDL2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "X11basic";

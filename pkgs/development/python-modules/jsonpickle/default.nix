@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, setuptools-scm, toml
-, importlib-metadata }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  setuptools-scm,
+  toml,
+  importlib-metadata,
+}:
 
 buildPythonPackage rec {
   pname = "jsonpickle";

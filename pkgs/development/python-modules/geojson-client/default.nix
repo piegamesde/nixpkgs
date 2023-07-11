@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, geojson, haversine, pytz, requests
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  geojson,
+  haversine,
+  pytz,
+  requests,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "geojson-client";

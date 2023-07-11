@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, git, makeWrapper, openssl, coreutils, util-linux
-, gnugrep, gnused, gawk }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  git,
+  makeWrapper,
+  openssl,
+  coreutils,
+  util-linux,
+  gnugrep,
+  gnused,
+  gawk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "transcrypt";

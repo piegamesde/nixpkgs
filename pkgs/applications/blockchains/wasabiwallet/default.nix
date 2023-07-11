@@ -1,5 +1,19 @@
-{ lib, stdenv, autoPatchelfHook, makeWrapper, fetchurl, makeDesktopItem, curl
-, dotnetCorePackages, lttng-ust_2_12, fontconfig, krb5, openssl, xorg, zlib }:
+{
+  lib,
+  stdenv,
+  autoPatchelfHook,
+  makeWrapper,
+  fetchurl,
+  makeDesktopItem,
+  curl,
+  dotnetCorePackages,
+  lttng-ust_2_12,
+  fontconfig,
+  krb5,
+  openssl,
+  xorg,
+  zlib,
+}:
 
 let
   dotnet-runtime = dotnetCorePackages.runtime_6_0;

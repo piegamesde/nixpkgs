@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, alsa-lib, autoPatchelfHook, dpkg, gtk3, makeWrapper
-, mesa, nss, systemd, xorg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  alsa-lib,
+  autoPatchelfHook,
+  dpkg,
+  gtk3,
+  makeWrapper,
+  mesa,
+  nss,
+  systemd,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "join-desktop";

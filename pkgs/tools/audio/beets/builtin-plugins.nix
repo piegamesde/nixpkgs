@@ -1,5 +1,17 @@
-{ stdenv, aacgain, essentia-extractor, ffmpeg, flac, imagemagick, keyfinder-cli
-, lib, mp3gain, mp3val, python3Packages, ... }: {
+{
+  stdenv,
+  aacgain,
+  essentia-extractor,
+  ffmpeg,
+  flac,
+  imagemagick,
+  keyfinder-cli,
+  lib,
+  mp3gain,
+  mp3val,
+  python3Packages,
+  ...
+}: {
   absubmit = {
     enable =
       lib.elem stdenv.hostPlatform.system essentia-extractor.meta.platforms;

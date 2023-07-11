@@ -27,7 +27,9 @@
         nix-build lib/tests/teams.nix
 */
 
-{ lib }:
+{
+  lib,
+}:
 with lib.maintainers; {
   acme = {
     members = [ aanderse andrew-d arianvp emily flokli m1cr0man ];

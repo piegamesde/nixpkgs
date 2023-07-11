@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, cython, numpy
-, pytestCheckHook, scipy }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  cython,
+  numpy,
+  pytestCheckHook,
+  scipy,
+}:
 
 buildPythonPackage rec {
   pname = "quadprog";

@@ -1,5 +1,14 @@
-{ stdenv, lib, rustPlatform, fetchFromGitHub, Cocoa, CoreServices, Foundation
-, rust, libiconv }:
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  Cocoa,
+  CoreServices,
+  Foundation,
+  rust,
+  libiconv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-watch";

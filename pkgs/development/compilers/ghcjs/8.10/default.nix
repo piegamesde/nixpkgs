@@ -1,7 +1,27 @@
-{ stdenv, pkgsHostHost, callPackage, fetchgit, fetchpatch, ghcjsSrcJson ? null
-, ghcjsSrc ? fetchgit (lib.importJSON ghcjsSrcJson), bootPkgs, stage0
-, haskellLib, cabal-install, nodejs, makeWrapper, xorg, gmp, pkg-config, gcc
-, lib, ghcjsDepOverrides ? (_: _: { }), haskell, linkFarm, buildPackages }:
+{
+  stdenv,
+  pkgsHostHost,
+  callPackage,
+  fetchgit,
+  fetchpatch,
+  ghcjsSrcJson ? null,
+  ghcjsSrc ? fetchgit (lib.importJSON ghcjsSrcJson),
+  bootPkgs,
+  stage0,
+  haskellLib,
+  cabal-install,
+  nodejs,
+  makeWrapper,
+  xorg,
+  gmp,
+  pkg-config,
+  gcc,
+  lib,
+  ghcjsDepOverrides ? (_: _: { }),
+  haskell,
+  linkFarm,
+  buildPackages,
+}:
 
 let
   passthru = {

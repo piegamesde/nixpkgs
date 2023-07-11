@@ -1,5 +1,13 @@
-{ lib, buildPythonApplication, fetchPypi, commandparse, dnspython, ldap3
-, termcolor, tqdm }:
+{
+  lib,
+  buildPythonApplication,
+  fetchPypi,
+  commandparse,
+  dnspython,
+  ldap3,
+  termcolor,
+  tqdm,
+}:
 
 buildPythonApplication rec {
   pname = "ldeep";

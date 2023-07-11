@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, ffmpeg_4, libjpeg, libpng
-, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  ffmpeg_4,
+  libjpeg,
+  libpng,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "harvid";

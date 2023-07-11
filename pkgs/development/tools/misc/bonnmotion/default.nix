@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchzip, substituteAll, bash, jre }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  substituteAll,
+  bash,
+  jre,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bonnmotion";

@@ -1,4 +1,10 @@
-{ lib, buildDunePackage, fetchFromGitHub, result, seq }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  result,
+  seq,
+}:
 
 buildDunePackage rec {
   pname = "tiny_httpd";

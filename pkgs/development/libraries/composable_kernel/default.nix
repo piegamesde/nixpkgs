@@ -1,7 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, unstableGitUpdater, runCommand, cmake
-, rocm-cmake, hip, openmp, clang-tools-extra, gtest, buildTests ? false
-, buildExamples ? false
-, gpuTargets ? [ ] # gpuTargets = [ "gfx803" "gfx900" "gfx1030" ... ]
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  unstableGitUpdater,
+  runCommand,
+  cmake,
+  rocm-cmake,
+  hip,
+  openmp,
+  clang-tools-extra,
+  gtest,
+  buildTests ? false,
+  buildExamples ? false,
+  gpuTargets ? [ ] # gpuTargets = [ "gfx803" "gfx900" "gfx1030" ... ]
 }:
 
 let

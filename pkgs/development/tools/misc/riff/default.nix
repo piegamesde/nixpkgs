@@ -1,5 +1,13 @@
-{ lib, rustPlatform, fetchFromGitHub, makeWrapper, pkg-config, openssl, stdenv
-, darwin }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  makeWrapper,
+  pkg-config,
+  openssl,
+  stdenv,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "riff";

@@ -1,4 +1,11 @@
-{ runCommand, squashfsTools, closureInfo, lib, jq, writeText }:
+{
+  runCommand,
+  squashfsTools,
+  closureInfo,
+  lib,
+  jq,
+  writeText,
+}:
 
 {
 # The meta parameter is the contents of the `snap.yaml`, NOT the
@@ -15,13 +22,17 @@
 # Note: unsquashfs'ing an existing snap from the store can be helpful
 # for determining what you you're missing.
 #
-meta }:
+  meta,
+}:
 let
   snap_yaml = let
     # Validate the snap's meta contains a name.
     # Also: automatically set the `base` parameter and the layout for
     # the `/nix` bind.
-    validate = { name, ... }@args:
+    validate = {
+        name,
+        ...
+      }@args:
       args // {
         # Combine the provided arguments with the required options.
 

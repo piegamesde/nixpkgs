@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchurl, ncurses, autoreconfHook }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ncurses,
+  autoreconfHook,
+}:
 stdenv.mkDerivation rec {
   pname = "xstow";
   version = "1.1.0";

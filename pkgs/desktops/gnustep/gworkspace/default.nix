@@ -1,4 +1,11 @@
-{ back, base, gui, gsmakeDerivation, fetchurl, system_preferences }:
+{
+  back,
+  base,
+  gui,
+  gsmakeDerivation,
+  fetchurl,
+  system_preferences,
+}:
 let version = "1.0.0";
 in gsmakeDerivation {
   name = "gworkspace-${version}";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, guile, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  guile,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "guile-commonmark";

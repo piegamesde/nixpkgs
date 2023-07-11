@@ -1,13 +1,34 @@
-{ version, hash }:
+{
+  version,
+  hash,
+}:
 
-{ lib, stdenv, fetchurl, pkg-config, coreutils, libuuid, libaio, substituteAll
-, enableCmdlib ? false, enableDmeventd ? false
-, udevSupport ? !stdenv.hostPlatform.isStatic, udev, onlyLib ?
-  stdenv.hostPlatform.isStatic
-  # Otherwise we have a infinity recursion during static compilation
-, enableUtilLinux ? !stdenv.hostPlatform.isStatic, util-linux, enableVDO ? false
-, vdo, enableMdadm ? false, mdadm, enableMultipath ? false, multipath-tools
-, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  coreutils,
+  libuuid,
+  libaio,
+  substituteAll,
+  enableCmdlib ? false,
+  enableDmeventd ? false,
+  udevSupport ? !stdenv.hostPlatform.isStatic,
+  udev,
+  onlyLib ? stdenv.hostPlatform.isStatic
+    # Otherwise we have a infinity recursion during static compilation
+  ,
+  enableUtilLinux ? !stdenv.hostPlatform.isStatic,
+  util-linux,
+  enableVDO ? false,
+  vdo,
+  enableMdadm ? false,
+  mdadm,
+  enableMultipath ? false,
+  multipath-tools,
+  nixosTests,
+}:
 
 # configure: error: --enable-dmeventd requires --enable-cmdlib to be used as well
 assert enableDmeventd -> enableCmdlib;

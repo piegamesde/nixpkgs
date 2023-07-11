@@ -1,7 +1,25 @@
-{ lib, stdenv, rustPlatform, fetchCrate, pkg-config, cmake, fontconfig, libGL
-, xorg, libxkbcommon, wayland
-# Darwin Frameworks
-, AppKit, CoreGraphics, CoreServices, CoreText, Foundation, libiconv, OpenGL }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  cmake,
+  fontconfig,
+  libGL,
+  xorg,
+  libxkbcommon,
+  wayland
+  # Darwin Frameworks
+  ,
+  AppKit,
+  CoreGraphics,
+  CoreServices,
+  CoreText,
+  Foundation,
+  libiconv,
+  OpenGL,
+}:
 
 let
   rpathLibs = [

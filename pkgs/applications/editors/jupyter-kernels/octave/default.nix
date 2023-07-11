@@ -1,4 +1,12 @@
-{ stdenv, callPackage, runCommand, makeWrapper, octave, imagemagick, python3 }:
+{
+  stdenv,
+  callPackage,
+  runCommand,
+  makeWrapper,
+  octave,
+  imagemagick,
+  python3,
+}:
 
 # To test:
 # $(nix-build -E 'with import <nixpkgs> {}; jupyter.override { definitions = { octave = octave-kernel.definition; }; }')/bin/jupyter-notebook

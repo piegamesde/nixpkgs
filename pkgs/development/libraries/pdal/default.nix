@@ -1,8 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, openscenegraph
-, curl, gdal, hdf5-cpp, LASzip
-, enableE57 ? lib.meta.availableOn stdenv.hostPlatform libe57format
-, libe57format, libgeotiff, libtiff, libxml2, postgresql, tiledb, xercesc, zlib
-, zstd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  openscenegraph,
+  curl,
+  gdal,
+  hdf5-cpp,
+  LASzip,
+  enableE57 ? lib.meta.availableOn stdenv.hostPlatform libe57format,
+  libe57format,
+  libgeotiff,
+  libtiff,
+  libxml2,
+  postgresql,
+  tiledb,
+  xercesc,
+  zlib,
+  zstd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pdal";

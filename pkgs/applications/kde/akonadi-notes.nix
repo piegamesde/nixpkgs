@@ -1,5 +1,16 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi
-, kcompletion, ki18n, kitemmodels, kmime, kxmlgui }:
+{
+  mkDerivation,
+  lib,
+  kdepimTeam,
+  extra-cmake-modules,
+  kdoctools,
+  akonadi,
+  kcompletion,
+  ki18n,
+  kitemmodels,
+  kmime,
+  kxmlgui,
+}:
 
 mkDerivation {
   pname = "akonadi-notes";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, jre, unzip, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jre,
+  unzip,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "snpeff";

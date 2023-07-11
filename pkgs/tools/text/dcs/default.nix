@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, yuicompressor, zopfli, stdenv }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  yuicompressor,
+  zopfli,
+  stdenv,
+}:
 buildGoModule {
   pname = "dcs";
   version = "unstable-2021-04-07";

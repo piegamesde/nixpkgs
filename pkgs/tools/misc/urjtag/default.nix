@@ -1,7 +1,23 @@
-{ lib, stdenv, fetchurl, autoconf, automake, autoreconfHook, gettext, libftdi1
-, libtool, libusb-compat-0_1, makeWrapper, pkg-config, readline, which
-, bsdlSupport ? true, jedecSupport ? true, staplSupport ? true
-, svfSupport ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoconf,
+  automake,
+  autoreconfHook,
+  gettext,
+  libftdi1,
+  libtool,
+  libusb-compat-0_1,
+  makeWrapper,
+  pkg-config,
+  readline,
+  which,
+  bsdlSupport ? true,
+  jedecSupport ? true,
+  staplSupport ? true,
+  svfSupport ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "urjtag";

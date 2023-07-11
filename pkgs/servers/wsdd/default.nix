@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, installShellFiles, makeWrapper, nixosTests
-, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  installShellFiles,
+  makeWrapper,
+  nixosTests,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wsdd";

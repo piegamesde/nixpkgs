@@ -1,6 +1,18 @@
-{ lib, fetchFromGitHub, installShellFiles, makeWrapper, buildGoModule
-, fetchYarnDeps, fixup_yarn_lock, pkg-config, nodejs, yarn, nodePackages
-, python3, terraform }:
+{
+  lib,
+  fetchFromGitHub,
+  installShellFiles,
+  makeWrapper,
+  buildGoModule,
+  fetchYarnDeps,
+  fixup_yarn_lock,
+  pkg-config,
+  nodejs,
+  yarn,
+  nodePackages,
+  python3,
+  terraform,
+}:
 
 buildGoModule rec {
   pname = "coder";

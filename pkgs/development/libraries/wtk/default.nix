@@ -1,4 +1,10 @@
-{ lib, stdenv, requireFile, unzip, xorg }:
+{
+  lib,
+  stdenv,
+  requireFile,
+  unzip,
+  xorg,
+}:
 
 assert stdenv.hostPlatform.system == "i686-linux";
 

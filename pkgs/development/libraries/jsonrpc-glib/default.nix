@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchurl, meson, ninja, glib, json-glib, pkg-config
-, gobject-introspection, vala, gi-docgen, gnome }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  glib,
+  json-glib,
+  pkg-config,
+  gobject-introspection,
+  vala,
+  gi-docgen,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jsonrpc-glib";

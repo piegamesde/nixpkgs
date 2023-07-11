@@ -1,5 +1,14 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, ki18n, kio, libkdegames
-, kconfig, knotifyconfig }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  ki18n,
+  kio,
+  libkdegames,
+  kconfig,
+  knotifyconfig,
+}:
 
 mkDerivation {
   pname = "kdiamond";

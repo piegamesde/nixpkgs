@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, installShellFiles, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  installShellFiles,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "doctest";

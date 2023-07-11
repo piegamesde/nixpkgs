@@ -1,8 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-cmake, hip, openmp
-, gtest, rocblas, texlive, doxygen, sphinx, python3Packages, buildDocs ? true
-, buildTests ? false, buildExtendedTests ? false, buildBenchmarks ? false
-, buildSamples ? false, gpuTargets ?
-  [ ] # gpuTargets = [ "gfx908:xnack-" "gfx90a:xnack-" "gfx90a:xnack+" ... ]
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  cmake,
+  rocm-cmake,
+  hip,
+  openmp,
+  gtest,
+  rocblas,
+  texlive,
+  doxygen,
+  sphinx,
+  python3Packages,
+  buildDocs ? true,
+  buildTests ? false,
+  buildExtendedTests ? false,
+  buildBenchmarks ? false,
+  buildSamples ? false,
+  gpuTargets ?
+    [ ] # gpuTargets = [ "gfx908:xnack-" "gfx90a:xnack-" "gfx90a:xnack+" ... ]
 }:
 
 let

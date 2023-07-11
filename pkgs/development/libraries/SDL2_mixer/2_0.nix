@@ -1,4 +1,9 @@
-{ fetchurl, lzwolf, SDL2_mixer, timidity }:
+{
+  fetchurl,
+  lzwolf,
+  SDL2_mixer,
+  timidity,
+}:
 
 SDL2_mixer.overrideAttrs (oa: rec {
   version = "2.0.4";

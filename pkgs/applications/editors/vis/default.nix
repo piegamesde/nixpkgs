@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, makeWrapper, copyDesktopItems
-, makeDesktopItem, ncurses, libtermkey, lua, tre, acl, libselinux }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  makeWrapper,
+  copyDesktopItems,
+  makeDesktopItem,
+  ncurses,
+  libtermkey,
+  lua,
+  tre,
+  acl,
+  libselinux,
+}:
 
 let luaEnv = lua.withPackages (ps: [ ps.lpeg ]);
 in stdenv.mkDerivation rec {

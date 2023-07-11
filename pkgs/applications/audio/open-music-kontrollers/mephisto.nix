@@ -1,5 +1,14 @@
-{ callPackage, faust, fontconfig, cmake, libvterm-neovim, libevdev, libglvnd
-, fira-code, ... }@args:
+{
+  callPackage,
+  faust,
+  fontconfig,
+  cmake,
+  libvterm-neovim,
+  libevdev,
+  libglvnd,
+  fira-code,
+  ...
+}@args:
 
 callPackage ./generic.nix (args // rec {
   pname = "mephisto";

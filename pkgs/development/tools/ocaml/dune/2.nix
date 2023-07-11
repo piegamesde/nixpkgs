@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, ocaml, findlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  findlib,
+}:
 
 if lib.versionOlder ocaml.version "4.08" then
   throw "dune 2 is not available for OCaml ${ocaml.version}"

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, python, isPy27, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  isPy27,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "querystring_parser";

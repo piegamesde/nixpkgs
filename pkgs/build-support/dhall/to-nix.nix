@@ -15,7 +15,11 @@
     Note that this uses "import from derivation", meaning that Nix will perform
     a build during the evaluation phase if you use this `dhallToNix` utility
 */
-{ stdenv, dhall-nix, writeText }:
+{
+  stdenv,
+  dhall-nix,
+  writeText,
+}:
 
 let
   dhallToNix = code:

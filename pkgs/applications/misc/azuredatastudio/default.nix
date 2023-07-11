@@ -1,6 +1,26 @@
-{ stdenv, lib, fetchurl, copyDesktopItems, makeDesktopItem, makeWrapper, libuuid
-, libunwind, libxkbcommon, icu, openssl, zlib, curl, at-spi2-core, at-spi2-atk
-, gnutar, atomEnv, libkrb5, libdrm, mesa, xorg }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  copyDesktopItems,
+  makeDesktopItem,
+  makeWrapper,
+  libuuid,
+  libunwind,
+  libxkbcommon,
+  icu,
+  openssl,
+  zlib,
+  curl,
+  at-spi2-core,
+  at-spi2-atk,
+  gnutar,
+  atomEnv,
+  libkrb5,
+  libdrm,
+  mesa,
+  xorg,
+}:
 
 # from justinwoo/azuredatastudio-nix
 # https://github.com/justinwoo/azuredatastudio-nix/blob/537c48aa3981cd1a82d5d6e508ab7e7393b3d7c8/default.nix

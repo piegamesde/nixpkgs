@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, dvc, dvc-studio-client, fetchFromGitHub, funcy
-, pytestCheckHook, pythonOlder, ruamel-yaml, scmrepo, setuptools-scm, tabulate
+{
+  lib,
+  buildPythonPackage,
+  dvc,
+  dvc-studio-client,
+  fetchFromGitHub,
+  funcy,
+  pytestCheckHook,
+  pythonOlder,
+  ruamel-yaml,
+  scmrepo,
+  setuptools-scm,
+  tabulate,
 }:
 
 buildPythonPackage rec {

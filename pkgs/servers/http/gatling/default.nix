@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, libowfat, libcap, zlib, openssl, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libowfat,
+  libcap,
+  zlib,
+  openssl,
+  libxcrypt,
+}:
 
 let version = "0.16";
 in stdenv.mkDerivation rec {

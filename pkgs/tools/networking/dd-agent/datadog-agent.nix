@@ -1,7 +1,17 @@
-{ lib, stdenv, cmake, buildGo118Module, makeWrapper, fetchFromGitHub
-, pythonPackages, pkg-config, systemd, hostname
-, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
-, extraTags ? [ ] }:
+{
+  lib,
+  stdenv,
+  cmake,
+  buildGo118Module,
+  makeWrapper,
+  fetchFromGitHub,
+  pythonPackages,
+  pkg-config,
+  systemd,
+  hostname,
+  withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  extraTags ? [ ]
+}:
 
 let
   # keep this in sync with github.com/DataDog/agent-payload dependency

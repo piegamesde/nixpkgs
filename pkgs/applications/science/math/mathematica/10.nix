@@ -1,11 +1,35 @@
-{ lib, patchelf, requireFile, stdenv
-# arguments from default.nix
-, lang, meta, name, src, version
-# dependencies
-, alsa-lib, coreutils, cudaPackages, fontconfig, freetype, gcc, glib, libuuid
-, libxml2, ncurses, opencv2, openssl, unixODBC, xorg
-# options
-, cudaSupport }:
+{
+  lib,
+  patchelf,
+  requireFile,
+  stdenv
+  # arguments from default.nix
+  ,
+  lang,
+  meta,
+  name,
+  src,
+  version
+  # dependencies
+  ,
+  alsa-lib,
+  coreutils,
+  cudaPackages,
+  fontconfig,
+  freetype,
+  gcc,
+  glib,
+  libuuid,
+  libxml2,
+  ncurses,
+  opencv2,
+  openssl,
+  unixODBC,
+  xorg
+  # options
+  ,
+  cudaSupport,
+}:
 
 let
   platform = if stdenv.hostPlatform.system == "i686-linux"

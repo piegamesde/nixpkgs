@@ -1,5 +1,18 @@
-{ agg, fetchFromGitHub, Foundation, freetype, lib, lua5_4, meson, ninja, pcre2
-, pkg-config, reproc, SDL2, stdenv }:
+{
+  agg,
+  fetchFromGitHub,
+  Foundation,
+  freetype,
+  lib,
+  lua5_4,
+  meson,
+  ninja,
+  pcre2,
+  pkg-config,
+  reproc,
+  SDL2,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lite-xl";

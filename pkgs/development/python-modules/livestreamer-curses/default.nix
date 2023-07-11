@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPyPy, livestreamer }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPyPy,
+  livestreamer,
+}:
 
 buildPythonPackage rec {
   pname = "livestreamer-curses";

@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, cython, fastrlock, numpy, wheel
-, pytestCheckHook, mock, setuptools, cudaPackages, addOpenGLRunpath, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cython,
+  fastrlock,
+  numpy,
+  wheel,
+  pytestCheckHook,
+  mock,
+  setuptools,
+  cudaPackages,
+  addOpenGLRunpath,
+  pythonOlder,
 }:
 
 let inherit (cudaPackages) cudatoolkit cudnn cutensor nccl;

@@ -1,7 +1,26 @@
-{ lib, stdenv, runtimeShell, fetchurl, autoPatchelfHook, wrapGAppsHook, dpkg
-, atomEnv, libuuid, libappindicator-gtk3, pulseaudio, at-spi2-atk, coreutils
-, gawk, xdg-utils, systemd, nodePackages, xar, cpio, makeWrapper
-, enableRectOverlay ? false }:
+{
+  lib,
+  stdenv,
+  runtimeShell,
+  fetchurl,
+  autoPatchelfHook,
+  wrapGAppsHook,
+  dpkg,
+  atomEnv,
+  libuuid,
+  libappindicator-gtk3,
+  pulseaudio,
+  at-spi2-atk,
+  coreutils,
+  gawk,
+  xdg-utils,
+  systemd,
+  nodePackages,
+  xar,
+  cpio,
+  makeWrapper,
+  enableRectOverlay ? false
+}:
 
 let
   pname = "teams";

@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, coreutils, pkg-config, perl, lvm2, libaio
-, readline, systemd, liburcu, json_c, linuxHeaders, cmocka, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  coreutils,
+  pkg-config,
+  perl,
+  lvm2,
+  libaio,
+  readline,
+  systemd,
+  liburcu,
+  json_c,
+  linuxHeaders,
+  cmocka,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "multipath-tools";

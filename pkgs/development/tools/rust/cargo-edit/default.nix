@@ -1,5 +1,13 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, zlib, stdenv
-, Security }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  zlib,
+  stdenv,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-edit";

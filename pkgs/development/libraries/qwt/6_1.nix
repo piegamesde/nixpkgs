@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, qtbase, qtsvg, qttools, qmake }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  qtbase,
+  qtsvg,
+  qttools,
+  qmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qwt";

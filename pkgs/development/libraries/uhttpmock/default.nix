@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchFromGitLab, meson, mesonEmulatorHook, ninja, pkg-config
-, gobject-introspection, vala, gtk-doc, docbook-xsl-nons, glib, libsoup }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  pkg-config,
+  gobject-introspection,
+  vala,
+  gtk-doc,
+  docbook-xsl-nons,
+  glib,
+  libsoup,
+}:
 
 stdenv.mkDerivation rec {
   pname = "uhttpmock";

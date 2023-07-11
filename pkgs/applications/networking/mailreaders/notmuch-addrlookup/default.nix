@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, glib, notmuch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  glib,
+  notmuch,
+}:
 
 let version = "10";
 in stdenv.mkDerivation {

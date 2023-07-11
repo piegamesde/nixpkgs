@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, apacheAnt, jdk, unzip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  apacheAnt,
+  jdk,
+  unzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "axis2";

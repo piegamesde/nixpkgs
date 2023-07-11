@@ -1,11 +1,33 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, flit-core
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  flit-core
 
-# tests
-, chex, jaxlib, pytest-subtests, pytest-xdist, pytestCheckHook, yapf
+  # tests
+  ,
+  chex,
+  jaxlib,
+  pytest-subtests,
+  pytest-xdist,
+  pytestCheckHook,
+  yapf
 
-# optional
-, jupyter, mediapy, numpy, importlib-resources, typing-extensions, zipp, absl-py
-, tqdm, dm-tree, jax, tensorflow }:
+  # optional
+  ,
+  jupyter,
+  mediapy,
+  numpy,
+  importlib-resources,
+  typing-extensions,
+  zipp,
+  absl-py,
+  tqdm,
+  dm-tree,
+  jax,
+  tensorflow,
+}:
 
 buildPythonPackage rec {
   pname = "etils";

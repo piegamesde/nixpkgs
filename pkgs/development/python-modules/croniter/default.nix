@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, python-dateutil, pytestCheckHook, pytz
-, tzlocal }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python-dateutil,
+  pytestCheckHook,
+  pytz,
+  tzlocal,
+}:
 
 buildPythonPackage rec {
   pname = "croniter";

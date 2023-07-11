@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -80,7 +85,11 @@ let
     };
 
   # removes NixOS special and unused attributes
-  sensorToConf = { type, query, ... }@args:
+  sensorToConf = {
+      type,
+      query,
+      ...
+    }@args:
     (filterAttrs (k: v: v != null && !(elem k [ "type" "query" ])) args) // {
       "${type}" = query;
     };

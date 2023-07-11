@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, requests, requests-toolbelt
-, requests-oauthlib, six, pytestCheckHook, responses, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  requests-toolbelt,
+  requests-oauthlib,
+  six,
+  pytestCheckHook,
+  responses,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "flickrapi";

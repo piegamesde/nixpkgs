@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools-scm, pytestCheckHook, cython
-, pythonImportsCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  pytestCheckHook,
+  cython,
+  pythonImportsCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "openstep-plist";

@@ -1,5 +1,15 @@
-{ stdenv, lib, wrapQtAppsHook, qtbase, qttools, fio, cmake, kauth
-, extra-cmake-modules, fetchFromGitHub }:
+{
+  stdenv,
+  lib,
+  wrapQtAppsHook,
+  qtbase,
+  qttools,
+  fio,
+  cmake,
+  kauth,
+  extra-cmake-modules,
+  fetchFromGitHub,
+}:
 stdenv.mkDerivation rec {
   name = "kdiskmark";
   version = "3.0.0";

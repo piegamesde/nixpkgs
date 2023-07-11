@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, nix }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  nix,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rnix-lsp";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchzip, which, ocaml, ocamlbuild }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  which,
+  ocaml,
+  ocamlbuild,
+}:
 
 if lib.versionAtLeast ocaml.version "4.15" then
   throw "camlp4 is not available for OCaml ${ocaml.version}"

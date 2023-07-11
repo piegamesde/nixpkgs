@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, pkg-config, gettext, gtk3, dbus-glib, libXScrnSaver
-, libnotify, libxml2, pam, systemd, mate, wrapGAppsHook, mateUpdateScript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gettext,
+  gtk3,
+  dbus-glib,
+  libXScrnSaver,
+  libnotify,
+  libxml2,
+  pam,
+  systemd,
+  mate,
+  wrapGAppsHook,
+  mateUpdateScript,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mate-screensaver";

@@ -1,4 +1,9 @@
-{ lib, bundlerApp, ruby, bundlerUpdateScript }:
+{
+  lib,
+  bundlerApp,
+  ruby,
+  bundlerUpdateScript,
+}:
 
 bundlerApp {
   pname = "colorls";

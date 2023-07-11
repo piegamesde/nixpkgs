@@ -1,9 +1,35 @@
-{ config, stdenv, lib, fetchFromGitHub, fetchurl, cmake, boost, gflags, glog
-, hdf5-cpp, opencv3, protobuf, doxygen, blas, Accelerate, CoreGraphics
-, CoreVideo, lmdbSupport ? true, lmdb, leveldbSupport ? true, leveldb, snappy
-, cudaSupport ? config.cudaSupport or false, cudaPackages ? { }
-, cudnnSupport ? cudaSupport, ncclSupport ? false, pythonSupport ? false
-, python ? null, numpy ? null, substituteAll }:
+{
+  config,
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  cmake,
+  boost,
+  gflags,
+  glog,
+  hdf5-cpp,
+  opencv3,
+  protobuf,
+  doxygen,
+  blas,
+  Accelerate,
+  CoreGraphics,
+  CoreVideo,
+  lmdbSupport ? true,
+  lmdb,
+  leveldbSupport ? true,
+  leveldb,
+  snappy,
+  cudaSupport ? config.cudaSupport or false,
+  cudaPackages ? { },
+  cudnnSupport ? cudaSupport,
+  ncclSupport ? false,
+  pythonSupport ? false,
+  python ? null,
+  numpy ? null,
+  substituteAll,
+}:
 
 let
   inherit (cudaPackages) cudatoolkit nccl;

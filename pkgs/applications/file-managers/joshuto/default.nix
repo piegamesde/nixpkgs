@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchFromGitHub, stdenv, SystemConfiguration, Foundation }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  stdenv,
+  SystemConfiguration,
+  Foundation,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "joshuto";

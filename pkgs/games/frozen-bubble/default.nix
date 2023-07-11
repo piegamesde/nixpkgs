@@ -1,5 +1,15 @@
-{ lib, fetchurl, perlPackages, pkg-config, SDL, SDL_mixer, SDL_Pango, glib
-, copyDesktopItems, makeDesktopItem }:
+{
+  lib,
+  fetchurl,
+  perlPackages,
+  pkg-config,
+  SDL,
+  SDL_mixer,
+  SDL_Pango,
+  glib,
+  copyDesktopItems,
+  makeDesktopItem,
+}:
 perlPackages.buildPerlModule {
   pname = "frozen-bubble";
   version = "2.212";

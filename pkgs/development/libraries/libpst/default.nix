@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, autoreconfHook, bzip2, doxygen, gettext, imagemagick
-, libgsf, pkg-config, xmlto }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  bzip2,
+  doxygen,
+  gettext,
+  imagemagick,
+  libgsf,
+  pkg-config,
+  xmlto,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libpst";

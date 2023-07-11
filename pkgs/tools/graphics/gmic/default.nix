@@ -1,6 +1,29 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, cimg, cmake, common-updater-scripts
-, coreutils, curl, fftw, gmic-qt, gnugrep, gnused, graphicsmagick, jq, libjpeg
-, libpng, libtiff, ninja, opencv, openexr, pkg-config, writeShellScript, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  cimg,
+  cmake,
+  common-updater-scripts,
+  coreutils,
+  curl,
+  fftw,
+  gmic-qt,
+  gnugrep,
+  gnused,
+  graphicsmagick,
+  jq,
+  libjpeg,
+  libpng,
+  libtiff,
+  ninja,
+  opencv,
+  openexr,
+  pkg-config,
+  writeShellScript,
+  zlib,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gmic";

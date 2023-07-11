@@ -1,4 +1,8 @@
-import ../make-test-python.nix ({ pkgs, lib, ... }:
+import ../make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   let
     testOnlySSHCredentials = pkgs.runCommand "pam-ussh-test-ca" {
@@ -36,29 +40,31 @@ import ../make-test-python.nix ({ pkgs, lib, ... }:
     name = "pam-ussh";
     meta.maintainers = with lib.maintainers; [ lukegb ];
 
-    machine = { ... }: {
-      users.users.alice = {
-        isNormalUser = true;
-        extraGroups = [ "wheel" ];
-      };
-      users.users.bob = {
-        isNormalUser = true;
-        extraGroups = [ "wheel" ];
-      };
+    machine = {
+        ...
+      }: {
+        users.users.alice = {
+          isNormalUser = true;
+          extraGroups = [ "wheel" ];
+        };
+        users.users.bob = {
+          isNormalUser = true;
+          extraGroups = [ "wheel" ];
+        };
 
-      security.pam.ussh = {
-        enable = true;
-        authorizedPrincipals = "root";
-        caFile = "${testOnlySSHCredentials}/ca.pub";
-      };
+        security.pam.ussh = {
+          enable = true;
+          authorizedPrincipals = "root";
+          caFile = "${testOnlySSHCredentials}/ca.pub";
+        };
 
-      security.sudo = {
-        enable = true;
-        extraConfig = ''
-          Defaults lecture="never"
-        '';
+        security.sudo = {
+          enable = true;
+          extraConfig = ''
+            Defaults lecture="never"
+          '';
+        };
       };
-    };
 
     testScript = ''
       with subtest("alice should be allowed to escalate to root"):

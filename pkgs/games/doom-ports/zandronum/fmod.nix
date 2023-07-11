@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchurl, alsa-lib, libpulseaudio, undmg }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  alsa-lib,
+  libpulseaudio,
+  undmg,
+}:
 
 let
   bits = lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") "64";

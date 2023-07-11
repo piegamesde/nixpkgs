@@ -1,5 +1,16 @@
-{ lib, asn1crypto, attrs, buildPythonPackage, cryptography, fetchFromGitHub
-, pyserial, pytestCheckHook, python-dateutil, pythonOlder, typing-extensions }:
+{
+  lib,
+  asn1crypto,
+  attrs,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  pyserial,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "dlms-cosem";

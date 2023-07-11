@@ -1,6 +1,23 @@
-{ fetchurl, fontconfig, freetype, glib, gsettings-desktop-schemas, gtk3, jdk11
-, lib, libX11, libXrender, libXtst, makeDesktopItem, makeWrapper
-, shared-mime-info, stdenv, unzip, webkitgtk, zlib }:
+{
+  fetchurl,
+  fontconfig,
+  freetype,
+  glib,
+  gsettings-desktop-schemas,
+  gtk3,
+  jdk11,
+  lib,
+  libX11,
+  libXrender,
+  libXtst,
+  makeDesktopItem,
+  makeWrapper,
+  shared-mime-info,
+  stdenv,
+  unzip,
+  webkitgtk,
+  zlib,
+}:
 
 let
   pVersion = "1.13.0.20220615";

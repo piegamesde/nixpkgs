@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, rust, rustPlatform, cargo-c, python3
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  rust,
+  rustPlatform,
+  cargo-c,
+  python3,
 }:
 
 let rustTargetPlatformSpec = rust.toRustTargetSpec stdenv.hostPlatform;

@@ -1,5 +1,12 @@
-{ stdenv, lib, fetchurl, deliantra-maps, deliantra-arch, deliantra-server
-, symlinkJoin }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  deliantra-maps,
+  deliantra-arch,
+  deliantra-server,
+  symlinkJoin,
+}:
 
 symlinkJoin rec {
   name = "deliantra-data-${version}";

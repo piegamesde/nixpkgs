@@ -1,15 +1,81 @@
-{ lib, stdenv, fetchurl, python3Packages, docutils, help2man, installShellFiles
-, fetchpatch, abootimg, acl, apksigcopier, apksigner, apktool
-, binutils-unwrapped-all-targets, bzip2, cbfstool, cdrkit, colord, colordiff
-, coreutils, cpio, db, diffutils, dtc, e2fsprogs, enjarify, file, findutils
-, fontforge-fonttools, ffmpeg, fpc, gettext, ghc, ghostscriptX, giflib, gnumeric
-, gnupg, gnutar, gzip, html2text, hdf5, imagemagick, jdk, libarchive, libcaca
-, llvm, lz4, mono, ocaml, oggvideotools, openssh, openssl, pdftk, pgpdump
-, poppler_utils, procyon, qemu, R, radare2, sng, sqlite, squashfsTools, tcpdump
-, ubootTools, odt2txt, unzip, wabt, xmlbeans, xxd, xz, zip, zstd, enableBloat ?
-  false
-  # updater only
-, writeScript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3Packages,
+  docutils,
+  help2man,
+  installShellFiles,
+  fetchpatch,
+  abootimg,
+  acl,
+  apksigcopier,
+  apksigner,
+  apktool,
+  binutils-unwrapped-all-targets,
+  bzip2,
+  cbfstool,
+  cdrkit,
+  colord,
+  colordiff,
+  coreutils,
+  cpio,
+  db,
+  diffutils,
+  dtc,
+  e2fsprogs,
+  enjarify,
+  file,
+  findutils,
+  fontforge-fonttools,
+  ffmpeg,
+  fpc,
+  gettext,
+  ghc,
+  ghostscriptX,
+  giflib,
+  gnumeric,
+  gnupg,
+  gnutar,
+  gzip,
+  html2text,
+  hdf5,
+  imagemagick,
+  jdk,
+  libarchive,
+  libcaca,
+  llvm,
+  lz4,
+  mono,
+  ocaml,
+  oggvideotools,
+  openssh,
+  openssl,
+  pdftk,
+  pgpdump,
+  poppler_utils,
+  procyon,
+  qemu,
+  R,
+  radare2,
+  sng,
+  sqlite,
+  squashfsTools,
+  tcpdump,
+  ubootTools,
+  odt2txt,
+  unzip,
+  wabt,
+  xmlbeans,
+  xxd,
+  xz,
+  zip,
+  zstd,
+  enableBloat ? false
+    # updater only
+  ,
+  writeScript,
+}:
 
 # Note: when upgrading this package, please run the list-missing-tools.sh script as described below!
 python3Packages.buildPythonApplication rec {

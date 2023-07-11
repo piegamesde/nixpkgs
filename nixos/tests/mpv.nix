@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ lib, ... }:
+import ./make-test-python.nix ({
+    lib,
+    ...
+  }:
 
   with lib;
 
@@ -7,14 +10,17 @@ import ./make-test-python.nix ({ lib, ... }:
     name = "mpv";
     meta.maintainers = with maintainers; [ zopieux ];
 
-    nodes.machine = { pkgs, ... }: {
-      environment.systemPackages = [
-        pkgs.curl
-        (pkgs.wrapMpv pkgs.mpv-unwrapped {
-          scripts = [ pkgs.mpvScripts.simple-mpv-webui ];
-        })
-      ];
-    };
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        environment.systemPackages = [
+          pkgs.curl
+          (pkgs.wrapMpv pkgs.mpv-unwrapped {
+            scripts = [ pkgs.mpvScripts.simple-mpv-webui ];
+          })
+        ];
+      };
 
     testScript = ''
       machine.execute("set -m; mpv --script-opts=webui-port=${port} --idle=yes >&2 &")

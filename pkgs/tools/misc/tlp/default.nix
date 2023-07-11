@@ -1,8 +1,30 @@
-{ stdenv, lib, checkbashisms, coreutils, ethtool, fetchFromGitHub, gawk, gnugrep
-, gnused, hdparm, iw, kmod, makeWrapper, pciutils, perl, perlcritic, shellcheck
-, smartmontools, systemd, util-linux, x86_energy_perf_policy
-# RDW only works with NetworkManager, and thus is optional with default off
-, enableRDW ? false, networkmanager }:
+{
+  stdenv,
+  lib,
+  checkbashisms,
+  coreutils,
+  ethtool,
+  fetchFromGitHub,
+  gawk,
+  gnugrep,
+  gnused,
+  hdparm,
+  iw,
+  kmod,
+  makeWrapper,
+  pciutils,
+  perl,
+  perlcritic,
+  shellcheck,
+  smartmontools,
+  systemd,
+  util-linux,
+  x86_energy_perf_policy
+  # RDW only works with NetworkManager, and thus is optional with default off
+  ,
+  enableRDW ? false,
+  networkmanager,
+}:
 stdenv.mkDerivation rec {
   pname = "tlp";
   version = "1.5.0";

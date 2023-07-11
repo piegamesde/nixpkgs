@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, colorlog, fetchPypi, pythonOlder, pyserial }:
+{
+  lib,
+  buildPythonPackage,
+  colorlog,
+  fetchPypi,
+  pythonOlder,
+  pyserial,
+}:
 
 buildPythonPackage rec {
   pname = "pypca";

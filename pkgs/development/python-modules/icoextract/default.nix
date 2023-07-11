@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pefile, pillow }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pefile,
+  pillow,
+}:
 
 buildPythonPackage rec {
   pname = "icoextract";

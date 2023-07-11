@@ -1,6 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, fftw, fftwFloat, python3, datatype ? "double"
-, withTools ? false, libpng, enableStatic ? stdenv.hostPlatform.isStatic
-, enableOpenmp ? false, llvmPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fftw,
+  fftwFloat,
+  python3,
+  datatype ? "double",
+  withTools ? false,
+  libpng,
+  enableStatic ? stdenv.hostPlatform.isStatic,
+  enableOpenmp ? false,
+  llvmPackages,
+}:
 let
   py = python3.withPackages (ps: with ps; [ numpy ]);
   option = cond: if cond then "1" else "0";

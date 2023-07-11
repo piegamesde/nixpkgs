@@ -1,5 +1,16 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, openssl, Security, libiconv
-, pkg-config, protobuf, which, buildPackages }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  openssl,
+  Security,
+  libiconv,
+  pkg-config,
+  protobuf,
+  which,
+  buildPackages,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "quill";

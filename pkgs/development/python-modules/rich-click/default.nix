@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, click, fetchFromGitHub, pythonOlder, rich, typer }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  pythonOlder,
+  rich,
+  typer,
+}:
 
 buildPythonPackage rec {
   pname = "rich-click";

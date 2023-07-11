@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPackages, fetchurl, zlib, bzip2, perl, cpio, gawk, coreutils
-, ApplicationServices }:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  fetchurl,
+  zlib,
+  bzip2,
+  perl,
+  cpio,
+  gawk,
+  coreutils,
+  ApplicationServices,
+}:
 
 stdenv.mkDerivation rec {
   pname = "blast";

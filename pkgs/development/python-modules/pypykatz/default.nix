@@ -1,5 +1,16 @@
-{ lib, aesedb, aiosmb, aiowinreg, buildPythonPackage, fetchPypi, minidump
-, minikerberos, msldap, pythonOlder, winsspi }:
+{
+  lib,
+  aesedb,
+  aiosmb,
+  aiowinreg,
+  buildPythonPackage,
+  fetchPypi,
+  minidump,
+  minikerberos,
+  msldap,
+  pythonOlder,
+  winsspi,
+}:
 
 buildPythonPackage rec {
   pname = "pypykatz";

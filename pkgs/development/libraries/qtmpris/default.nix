@@ -1,4 +1,10 @@
-{ lib, mkDerivation, fetchFromGitHub, qmake, qtbase }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  qmake,
+  qtbase,
+}:
 
 mkDerivation rec {
   pname = "qtmpris";

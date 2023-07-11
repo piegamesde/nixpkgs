@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, ocamlPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocamlPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rml";

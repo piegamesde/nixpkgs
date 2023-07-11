@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libGL, libX11 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libGL,
+  libX11,
+}:
 
 stdenv.mkDerivation rec {
   pname = "glxinfo";

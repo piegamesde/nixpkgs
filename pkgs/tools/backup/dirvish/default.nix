@@ -1,4 +1,11 @@
-{ fetchurl, lib, stdenv, makeWrapper, perl, perlPackages }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  makeWrapper,
+  perl,
+  perlPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dirvish";

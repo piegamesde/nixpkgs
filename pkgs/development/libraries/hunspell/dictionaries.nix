@@ -1,10 +1,28 @@
 # hunspell dictionaries
 
-{ lib, stdenv, fetchurl, fetchzip, fetchFromGitHub, unzip, coreutils, bash
-, which, zip, ispell, perl, hunspell }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchzip,
+  fetchFromGitHub,
+  unzip,
+  coreutils,
+  bash,
+  which,
+  zip,
+  ispell,
+  perl,
+  hunspell,
+}:
 
 let
-  mkDict = { pname, readmeFile, dictFileName, ... }@args:
+  mkDict = {
+      pname,
+      readmeFile,
+      dictFileName,
+      ...
+    }@args:
     stdenv.mkDerivation ({
       inherit pname;
       installPhase = ''
@@ -24,7 +42,11 @@ let
       '';
     } // args);
 
-  mkDictFromRla = { shortName, shortDescription, dictFileName }:
+  mkDictFromRla = {
+      shortName,
+      shortDescription,
+      dictFileName,
+    }:
     mkDict rec {
       inherit dictFileName;
       version = "2.5";
@@ -60,7 +82,11 @@ let
       '';
     };
 
-  mkDictFromDSSO = { shortName, shortDescription, dictFileName }:
+  mkDictFromDSSO = {
+      shortName,
+      shortDescription,
+      dictFileName,
+    }:
     mkDict rec {
       inherit dictFileName;
       version = "2.40";
@@ -106,8 +132,13 @@ let
       '';
     };
 
-  mkDictFromDicollecte = { shortName, shortDescription, longDescription
-    , dictFileName, isDefault ? false }:
+  mkDictFromDicollecte = {
+      shortName,
+      shortDescription,
+      longDescription,
+      dictFileName,
+      isDefault ? false
+    }:
     mkDict rec {
       inherit dictFileName;
       version = "5.3";
@@ -140,8 +171,13 @@ let
       '';
     };
 
-  mkDictFromWordlist =
-    { shortName, shortDescription, srcFileName, dictFileName, src }:
+  mkDictFromWordlist = {
+      shortName,
+      shortDescription,
+      srcFileName,
+      dictFileName,
+      src,
+    }:
     mkDict rec {
       inherit src srcFileName dictFileName;
       version = "2018.04.16";
@@ -168,7 +204,12 @@ let
       '';
     };
 
-  mkDictFromLinguistico = { shortName, shortDescription, dictFileName, src }:
+  mkDictFromLinguistico = {
+      shortName,
+      shortDescription,
+      dictFileName,
+      src,
+    }:
     mkDict rec {
       inherit src dictFileName;
       version = "2.4";
@@ -192,8 +233,13 @@ let
       '';
     };
 
-  mkDictFromXuxen =
-    { shortName, srcs, shortDescription, longDescription, dictFileName }:
+  mkDictFromXuxen = {
+      shortName,
+      srcs,
+      shortDescription,
+      longDescription,
+      dictFileName,
+    }:
     stdenv.mkDerivation rec {
       pname = "hunspell-dict-${shortName}-xuxen";
       version = "5-2015.11.10";
@@ -224,7 +270,11 @@ let
       };
     };
 
-  mkDictFromJ3e = { shortName, shortDescription, dictFileName }:
+  mkDictFromJ3e = {
+      shortName,
+      shortDescription,
+      dictFileName,
+    }:
     stdenv.mkDerivation rec {
       pname = "hunspell-dict-${shortName}-j3e";
       version = "20161207";
@@ -261,8 +311,14 @@ let
       };
     };
 
-  mkDictFromLibreOffice = { shortName, shortDescription, dictFileName, license
-    , readmeFile ? "README_${dictFileName}.txt", sourceRoot ? dictFileName }:
+  mkDictFromLibreOffice = {
+      shortName,
+      shortDescription,
+      dictFileName,
+      license,
+      readmeFile ? "README_${dictFileName}.txt",
+      sourceRoot ? dictFileName
+    }:
     mkDict rec {
       pname = "hunspell-dict-${shortName}-libreoffice";
       version = "6.3.0.4";

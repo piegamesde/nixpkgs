@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, isPy3k, fetchPypi, requests, zeroconf
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  isPy3k,
+  fetchPypi,
+  requests,
+  zeroconf,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "netdisco";

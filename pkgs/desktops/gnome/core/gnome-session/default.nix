@@ -1,7 +1,33 @@
-{ fetchurl, lib, stdenv, substituteAll, meson, ninja, pkg-config, gnome, glib
-, gtk3, gsettings-desktop-schemas, gnome-desktop, dbus, json-glib, libICE, xmlto
-, docbook_xsl, docbook_xml_dtd_412, python3, libxslt, gettext, makeWrapper
-, systemd, xorg, libepoxy, bash, gnome-session-ctl, gnomeShellSupport ? true }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  substituteAll,
+  meson,
+  ninja,
+  pkg-config,
+  gnome,
+  glib,
+  gtk3,
+  gsettings-desktop-schemas,
+  gnome-desktop,
+  dbus,
+  json-glib,
+  libICE,
+  xmlto,
+  docbook_xsl,
+  docbook_xml_dtd_412,
+  python3,
+  libxslt,
+  gettext,
+  makeWrapper,
+  systemd,
+  xorg,
+  libepoxy,
+  bash,
+  gnome-session-ctl,
+  gnomeShellSupport ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-session";

@@ -1,4 +1,9 @@
-{ buildPythonPackage, fetchPypi, lib, unittestCheckHook }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "opencensus-context";

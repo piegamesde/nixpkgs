@@ -1,7 +1,36 @@
-{ lib, stdenv, cairo, curl, fetchurl, freealut, gdk-pixbuf, git, glib, gnome2
-, graphviz, gtk2-x11, interpreter, libGL, libGLU, libogg, librsvg, libvorbis
-, makeWrapper, ncurses, openal, openssl, pango, pcre, runCommand, runtimeShell
-, tzdata, udis86, unzip, writeScriptBin, zlib }:
+{
+  lib,
+  stdenv,
+  cairo,
+  curl,
+  fetchurl,
+  freealut,
+  gdk-pixbuf,
+  git,
+  glib,
+  gnome2,
+  graphviz,
+  gtk2-x11,
+  interpreter,
+  libGL,
+  libGLU,
+  libogg,
+  librsvg,
+  libvorbis,
+  makeWrapper,
+  ncurses,
+  openal,
+  openssl,
+  pango,
+  pcre,
+  runCommand,
+  runtimeShell,
+  tzdata,
+  udis86,
+  unzip,
+  writeScriptBin,
+  zlib,
+}:
 let
   runtimeLibs = [
     cairo
@@ -23,20 +52,24 @@ let
     zlib
   ];
 
-  wrapFactorScript = { from, to ? false, runtimeLibs }: ''
-    # Set Gdk pixbuf loaders file to the one from the build dependencies here
-    unset GDK_PIXBUF_MODULE_FILE
-    # Defined in gdk-pixbuf setup hook
-    findGdkPixbufLoaders "${librsvg}"
+  wrapFactorScript = {
+      from,
+      to ? false,
+      runtimeLibs,
+    }: ''
+      # Set Gdk pixbuf loaders file to the one from the build dependencies here
+      unset GDK_PIXBUF_MODULE_FILE
+      # Defined in gdk-pixbuf setup hook
+      findGdkPixbufLoaders "${librsvg}"
 
-    ${if to then "makeWrapper ${from} ${to}" else "wrapProgram ${from}"} \
-      --set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE" \
-      --argv0 factor \
-      --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib:${
-        lib.makeLibraryPath runtimeLibs
-      } \
-      --prefix PATH : ${lib.makeBinPath [ graphviz ]}
-  '';
+      ${if to then "makeWrapper ${from} ${to}" else "wrapProgram ${from}"} \
+        --set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE" \
+        --argv0 factor \
+        --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib:${
+          lib.makeLibraryPath runtimeLibs
+        } \
+        --prefix PATH : ${lib.makeBinPath [ graphviz ]}
+    '';
 
   wrapFactor = runtimeLibs:
     runCommand (lib.appendToName "with-libs" interpreter).name {

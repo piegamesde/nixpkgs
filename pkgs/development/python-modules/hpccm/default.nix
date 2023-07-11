@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, buildPythonPackage, six, archspec, pytestCheckHook
-, pytest-xdist }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  six,
+  archspec,
+  pytestCheckHook,
+  pytest-xdist,
+}:
 
 buildPythonPackage rec {
   pname = "hpccm";

@@ -1,6 +1,17 @@
-{ stable, branch, version, sha256Hash, mkOverride }:
+{
+  stable,
+  branch,
+  version,
+  sha256Hash,
+  mkOverride,
+}:
 
-{ lib, python3, fetchFromGitHub, wrapQtAppsHook }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+}:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "gns3-gui";

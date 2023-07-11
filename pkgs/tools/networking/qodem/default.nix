@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, ncurses, SDL, gpm, miniupnpc
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  ncurses,
+  SDL,
+  gpm,
+  miniupnpc,
 }:
 
 stdenv.mkDerivation rec {

@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libusb1, readline
-, libimobiledevice-glue }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  libusb1,
+  readline,
+  libimobiledevice-glue,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libirecovery";

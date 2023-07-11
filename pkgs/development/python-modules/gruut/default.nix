@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, callPackage, fetchFromGitHub, babel, gruut-ipa
-, dateparser, jsonlines, num2words, python-crfsuite, python, networkx
-, glibcLocales, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  callPackage,
+  fetchFromGitHub,
+  babel,
+  gruut-ipa,
+  dateparser,
+  jsonlines,
+  num2words,
+  python-crfsuite,
+  python,
+  networkx,
+  glibcLocales,
+  pytestCheckHook,
+}:
 
 let
   langPkgs =

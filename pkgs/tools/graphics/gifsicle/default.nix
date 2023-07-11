@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, xorgproto, libXt, libX11, gifview ? false
-, static ? stdenv.hostPlatform.isStatic }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  xorgproto,
+  libXt,
+  libX11,
+  gifview ? false,
+  static ? stdenv.hostPlatform.isStatic
+}:
 
 stdenv.mkDerivation rec {
   pname = "gifsicle";

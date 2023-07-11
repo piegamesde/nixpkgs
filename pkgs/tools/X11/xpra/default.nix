@@ -1,8 +1,42 @@
-{ lib, fetchurl, substituteAll, pkg-config, runCommand, writeText, wrapGAppsHook
-, withNvenc ? false, atk, cairo, cudatoolkit, ffmpeg, gdk-pixbuf, getopt, glib
-, gobject-introspection, gst_all_1, gtk3, libfakeXinerama, librsvg, libvpx
-, libwebp, lz4, nv-codec-headers-10, nvidia_x11 ? null, pam, pandoc, pango
-, pulseaudio, python3, util-linux, which, x264, x265, xauth, xorg, xorgserver }:
+{
+  lib,
+  fetchurl,
+  substituteAll,
+  pkg-config,
+  runCommand,
+  writeText,
+  wrapGAppsHook,
+  withNvenc ? false,
+  atk,
+  cairo,
+  cudatoolkit,
+  ffmpeg,
+  gdk-pixbuf,
+  getopt,
+  glib,
+  gobject-introspection,
+  gst_all_1,
+  gtk3,
+  libfakeXinerama,
+  librsvg,
+  libvpx,
+  libwebp,
+  lz4,
+  nv-codec-headers-10,
+  nvidia_x11 ? null,
+  pam,
+  pandoc,
+  pango,
+  pulseaudio,
+  python3,
+  util-linux,
+  which,
+  x264,
+  x265,
+  xauth,
+  xorg,
+  xorgserver,
+}:
 
 let
   inherit (python3.pkgs) cython buildPythonApplication;

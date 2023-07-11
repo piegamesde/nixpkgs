@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, libnl, popt, gnugrep }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libnl,
+  popt,
+  gnugrep,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ipvsadm";

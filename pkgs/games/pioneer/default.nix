@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, assimp, curl, freetype
-#, glew
-, libGL, libGLU, libpng, libsigcxx, libvorbis, lua5_2, mesa, SDL2, SDL2_image }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  assimp,
+  curl,
+  freetype
+  #, glew
+  ,
+  libGL,
+  libGLU,
+  libpng,
+  libsigcxx,
+  libvorbis,
+  lua5_2,
+  mesa,
+  SDL2,
+  SDL2_image,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pioneer";

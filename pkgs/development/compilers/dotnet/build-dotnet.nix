@@ -1,11 +1,32 @@
-{ type, version, srcs, packages ? null }:
+{
+  type,
+  version,
+  srcs,
+  packages ? null
+}:
 
 assert builtins.elem type [ "aspnetcore" "runtime" "sdk" ];
 assert if type == "sdk" then packages != null else true;
 
-{ lib, stdenv, fetchurl, writeText, autoPatchelfHook, makeWrapper, libunwind
-, icu, libuuid, zlib, libkrb5, curl, lttng-ust_2_12, testers, runCommand
-, writeShellScript, mkNugetDeps }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  writeText,
+  autoPatchelfHook,
+  makeWrapper,
+  libunwind,
+  icu,
+  libuuid,
+  zlib,
+  libkrb5,
+  curl,
+  lttng-ust_2_12,
+  testers,
+  runCommand,
+  writeShellScript,
+  mkNugetDeps,
+}:
 
 let
   pname = if type == "aspnetcore" then

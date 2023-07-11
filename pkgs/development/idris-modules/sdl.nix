@@ -1,4 +1,11 @@
-{ build-idris-package, fetchFromGitHub, effects, lib, SDL, SDL_gfx }:
+{
+  build-idris-package,
+  fetchFromGitHub,
+  effects,
+  lib,
+  SDL,
+  SDL_gfx,
+}:
 build-idris-package {
   pname = "sdl";
   version = "2017-03-24";

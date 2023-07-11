@@ -1,5 +1,12 @@
-{ lib, mkDerivation, fetchFromGitHub, qmake, qtbase, qtmultimedia
-, qttranslations }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  qmake,
+  qtbase,
+  qtmultimedia,
+  qttranslations,
+}:
 
 mkDerivation {
   pname = "qgo";

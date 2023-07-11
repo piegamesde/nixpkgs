@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, makeDesktopItem, copyDesktopItems, openal
-, pkg-config, libogg, libvorbis, SDL2, SDL2_image, makeWrapper, zlib, file
-, client ? true, server ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeDesktopItem,
+  copyDesktopItems,
+  openal,
+  pkg-config,
+  libogg,
+  libvorbis,
+  SDL2,
+  SDL2_image,
+  makeWrapper,
+  zlib,
+  file,
+  client ? true,
+  server ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "assaultcube";

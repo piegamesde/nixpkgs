@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, flit-core, matplotlib, numpy, pandas
-, pytestCheckHook, pythonOlder, scipy, tabulate }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flit-core,
+  matplotlib,
+  numpy,
+  pandas,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+  tabulate,
+}:
 
 buildPythonPackage rec {
   pname = "acoustics";

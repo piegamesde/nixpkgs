@@ -1,20 +1,43 @@
-{ lib, stdenv, fetchurl, gfortran, perl, libnl, rdma-core, zlib, numactl
-, libevent, hwloc, targetPackages, symlinkJoin, libpsm2, libfabric, pmix, ucx
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gfortran,
+  perl,
+  libnl,
+  rdma-core,
+  zlib,
+  numactl,
+  libevent,
+  hwloc,
+  targetPackages,
+  symlinkJoin,
+  libpsm2,
+  libfabric,
+  pmix,
+  ucx
 
-# Enable CUDA support
-, cudaSupport ? false, cudatoolkit
+  # Enable CUDA support
+  ,
+  cudaSupport ? false,
+  cudatoolkit
 
-# Enable the Sun Grid Engine bindings
-, enableSGE ? false
+  # Enable the Sun Grid Engine bindings
+  ,
+  enableSGE ? false
 
-  # Pass PATH/LD_LIBRARY_PATH to point to current mpirun by default
-, enablePrefix ? false
+    # Pass PATH/LD_LIBRARY_PATH to point to current mpirun by default
+  ,
+  enablePrefix ? false
 
-  # Enable libfabric support (necessary for Omnipath networks) on x86_64 linux
-, fabricSupport ? stdenv.isLinux && stdenv.isx86_64
+    # Enable libfabric support (necessary for Omnipath networks) on x86_64 linux
+  ,
+  fabricSupport ? stdenv.isLinux && stdenv.isx86_64
 
-  # Enable Fortran support
-, fortranSupport ? true }:
+    # Enable Fortran support
+  ,
+  fortranSupport ? true
+}:
 
 let
   cudatoolkit_joined = symlinkJoin {

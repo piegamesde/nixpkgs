@@ -1,5 +1,19 @@
-{ lib, mkDerivation, fetchFromGitHub, gnuradio, cmake, pkg-config, swig, python
-, logLib, mpir, thrift, boost, gmp, icu }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  gnuradio,
+  cmake,
+  pkg-config,
+  swig,
+  python,
+  logLib,
+  mpir,
+  thrift,
+  boost,
+  gmp,
+  icu,
+}:
 
 let
   version = {

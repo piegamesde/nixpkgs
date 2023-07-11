@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, cmake, cln, gmp, git, swig, pkg-config, readline
-, libantlr3c, boost, jdk, python3, antlr3_4 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  cln,
+  gmp,
+  git,
+  swig,
+  pkg-config,
+  readline,
+  libantlr3c,
+  boost,
+  jdk,
+  python3,
+  antlr3_4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cvc4";

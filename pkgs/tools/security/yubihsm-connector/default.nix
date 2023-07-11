@@ -1,4 +1,10 @@
-{ lib, libusb1, buildGoModule, fetchFromGitHub, pkg-config }:
+{
+  lib,
+  libusb1,
+  buildGoModule,
+  fetchFromGitHub,
+  pkg-config,
+}:
 
 buildGoModule rec {
   pname = "yubihsm-connector";

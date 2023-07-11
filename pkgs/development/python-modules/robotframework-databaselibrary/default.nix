@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, robotframework }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  robotframework,
+}:
 
 buildPythonPackage rec {
   version = "1.2.4";

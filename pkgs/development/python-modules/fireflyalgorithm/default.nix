@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, numpy, poetry-core, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "FireflyAlgorithm";

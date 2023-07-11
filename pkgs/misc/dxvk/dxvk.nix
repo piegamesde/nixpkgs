@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, glslang, meson, ninja, windows, dxvkVersion
-, spirv-headers, vulkan-headers, SDL2, glfw, pkgsBuildHost, sdl2Support ? true
-, glfwSupport ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  glslang,
+  meson,
+  ninja,
+  windows,
+  dxvkVersion,
+  spirv-headers,
+  vulkan-headers,
+  SDL2,
+  glfw,
+  pkgsBuildHost,
+  sdl2Support ? true,
+  glfwSupport ? false
+}:
 
 # SDL2 and GLFW support are mutually exclusive.
 assert !sdl2Support || !glfwSupport;

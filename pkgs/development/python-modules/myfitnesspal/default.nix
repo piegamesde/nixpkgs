@@ -1,6 +1,22 @@
-{ lib, fetchPypi, buildPythonPackage, blessed, browser-cookie3, keyring
-, keyrings-alt, lxml, measurement, python-dateutil, requests, rich
-, typing-extensions, pytestCheckHook, mock, nose, pythonOlder }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  blessed,
+  browser-cookie3,
+  keyring,
+  keyrings-alt,
+  lxml,
+  measurement,
+  python-dateutil,
+  requests,
+  rich,
+  typing-extensions,
+  pytestCheckHook,
+  mock,
+  nose,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "myfitnesspal";

@@ -1,5 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, rofi-unwrapped, wayland-scanner
-, wayland-protocols, wayland }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rofi-unwrapped,
+  wayland-scanner,
+  wayland-protocols,
+  wayland,
+}:
 
 rofi-unwrapped.overrideAttrs (oldAttrs: rec {
   pname = "rofi-wayland-unwrapped";

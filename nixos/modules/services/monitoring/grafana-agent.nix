@@ -1,4 +1,10 @@
-{ lib, pkgs, config, generators, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  generators,
+  ...
+}:
 with lib;
 let
   cfg = config.services.grafana-agent;

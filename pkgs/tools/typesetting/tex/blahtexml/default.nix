@@ -1,4 +1,11 @@
-{ fetchFromGitHub, lib, stdenv, libiconv, texlive, xercesc }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  libiconv,
+  texlive,
+  xercesc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "blahtexml";

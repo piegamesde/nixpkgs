@@ -1,6 +1,29 @@
-{ lib, stdenv, darwin, mkDerivation, fetchgit, gnuradio, cmake, pkg-config
-, logLib, libsndfile, mpir, boost, gmp, thrift, fftwFloat, python, swig, uhd
-, icu, airspy, hackrf, libbladeRF, rtl-sdr, soapysdr-with-plugins }:
+{
+  lib,
+  stdenv,
+  darwin,
+  mkDerivation,
+  fetchgit,
+  gnuradio,
+  cmake,
+  pkg-config,
+  logLib,
+  libsndfile,
+  mpir,
+  boost,
+  gmp,
+  thrift,
+  fftwFloat,
+  python,
+  swig,
+  uhd,
+  icu,
+  airspy,
+  hackrf,
+  libbladeRF,
+  rtl-sdr,
+  soapysdr-with-plugins,
+}:
 
 let
   version = {

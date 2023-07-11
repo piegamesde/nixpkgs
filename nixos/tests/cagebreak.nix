@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
 
   let
     cagebreakConfigfile = pkgs.writeText "config" ''
@@ -10,7 +14,10 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
     name = "cagebreak";
     meta = with pkgs.lib.maintainers; { maintainers = [ berbiche ]; };
 
-    nodes.machine = { config, ... }:
+    nodes.machine = {
+        config,
+        ...
+      }:
       let alice = config.users.users.alice;
       in {
         # Automatically login on tty1 as a normal user:
@@ -38,7 +45,10 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
 
     enableOCR = true;
 
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let
         user = nodes.machine.config.users.users.alice;
         XDG_RUNTIME_DIR = "/run/user/${toString user.uid}";

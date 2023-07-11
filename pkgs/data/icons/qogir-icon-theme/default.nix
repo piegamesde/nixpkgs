@@ -1,6 +1,14 @@
-{ lib, stdenvNoCC, fetchFromGitHub, gitUpdater, gtk3, hicolor-icon-theme, jdupes
-, colorVariants ? [ ] # default is all
-, themeVariants ? [ ] # default is all
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gitUpdater,
+  gtk3,
+  hicolor-icon-theme,
+  jdupes,
+  colorVariants ? [ ] # default is all
+  ,
+  themeVariants ? [ ] # default is all
 }:
 
 let pname = "qogir-icon-theme";

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder
-, teamcity-messages, testtools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
+  teamcity-messages,
+  testtools,
+}:
 
 buildPythonPackage rec {
   pname = "flexmock";

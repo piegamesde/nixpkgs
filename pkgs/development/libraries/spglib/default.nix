@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, cmake, openmp }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  openmp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "spglib";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, azure-common, azure-mgmt-core
-, msrest, msrestazure }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  azure-common,
+  azure-mgmt-core,
+  msrest,
+  msrestazure,
+}:
 
 buildPythonPackage rec {
   version = "4.0.0";

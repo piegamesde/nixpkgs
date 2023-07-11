@@ -1,4 +1,8 @@
-{ lib, newScope, wayfirePlugins }:
+{
+  lib,
+  newScope,
+  wayfirePlugins,
+}:
 
 lib.makeExtensible (self:
   with self; {

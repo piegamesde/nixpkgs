@@ -1,6 +1,22 @@
-{ mkDerivation, extra-cmake-modules, wrapGAppsHook, glib, gtk2, gtk3, karchive
-, kcmutils, kconfigwidgets, ki18n, kiconthemes, kio, knewstuff
-, gsettings-desktop-schemas, xsettingsd, kdecoration, sass }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  wrapGAppsHook,
+  glib,
+  gtk2,
+  gtk3,
+  karchive,
+  kcmutils,
+  kconfigwidgets,
+  ki18n,
+  kiconthemes,
+  kio,
+  knewstuff,
+  gsettings-desktop-schemas,
+  xsettingsd,
+  kdecoration,
+  sass,
+}:
 
 mkDerivation {
   pname = "kde-gtk-config";

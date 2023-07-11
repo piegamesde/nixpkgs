@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, ponyc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ponyc,
+}:
 
 stdenv.mkDerivation (rec {
   pname = "corral";

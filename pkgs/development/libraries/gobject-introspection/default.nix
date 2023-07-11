@@ -1,8 +1,29 @@
-{ stdenv, lib, fetchurl, glib, flex, bison, meson, ninja, gtk-doc
-, docbook-xsl-nons, docbook_xml_dtd_43, docbook_xml_dtd_45, pkg-config, libffi
-, python3, cctools, cairo, gnome, substituteAll, buildPackages
-, gobject-introspection-unwrapped, nixStoreDir ? builtins.storeDir
-, x11Support ? true, testers }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  glib,
+  flex,
+  bison,
+  meson,
+  ninja,
+  gtk-doc,
+  docbook-xsl-nons,
+  docbook_xml_dtd_43,
+  docbook_xml_dtd_45,
+  pkg-config,
+  libffi,
+  python3,
+  cctools,
+  cairo,
+  gnome,
+  substituteAll,
+  buildPackages,
+  gobject-introspection-unwrapped,
+  nixStoreDir ? builtins.storeDir,
+  x11Support ? true,
+  testers,
+}:
 
 # now that gobject-introspection creates large .gir files (eg gtk3 case)
 # it may be worth thinking about using multiple derivation outputs

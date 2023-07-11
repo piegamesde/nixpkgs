@@ -1,5 +1,16 @@
-{ cmake, fetchFromGitHub, makeWrapper, opencv3, lib, stdenv, ocl-icd
-, opencl-headers, OpenCL, cudaSupport ? false, cudatoolkit ? null }:
+{
+  cmake,
+  fetchFromGitHub,
+  makeWrapper,
+  opencv3,
+  lib,
+  stdenv,
+  ocl-icd,
+  opencl-headers,
+  OpenCL,
+  cudaSupport ? false,
+  cudatoolkit ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "waifu2x-converter-cpp";

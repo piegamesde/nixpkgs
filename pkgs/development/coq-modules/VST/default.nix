@@ -1,4 +1,11 @@
-{ lib, mkCoqDerivation, coq, compcert, ITree, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  compcert,
+  ITree,
+  version ? null
+}:
 
 # A few modules that are not built and installed by default
 #  but that may be useful to some users.

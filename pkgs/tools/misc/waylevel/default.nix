@@ -1,4 +1,10 @@
-{ lib, fetchFromSourcehut, makeWrapper, rustPlatform, wayland }:
+{
+  lib,
+  fetchFromSourcehut,
+  makeWrapper,
+  rustPlatform,
+  wayland,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "waylevel";
   version = "1.0.0";

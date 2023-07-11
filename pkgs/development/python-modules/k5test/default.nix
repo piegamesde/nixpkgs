@@ -1,5 +1,14 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, substituteAll, krb5, findutils
-, which, pythonOlder }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  substituteAll,
+  krb5,
+  findutils,
+  which,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "k5test";

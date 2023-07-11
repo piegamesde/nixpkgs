@@ -1,4 +1,10 @@
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -86,78 +92,82 @@ let
     { "command": "log_level", "severity": "${cfg.logLevel}" }
   '' + cfg.extraConfig;
 
-  portOptions = { name, ... }: {
-    options = {
-      name = mkOption {
-        internal = true;
-        default = name;
-      };
-
-      ip = mkOption {
-        default = "127.0.0.1";
-        description = lib.mdDoc "Ip where rippled listens.";
-        type = types.str;
-      };
-
-      port = mkOption {
-        description = lib.mdDoc "Port where rippled listens.";
-        type = types.port;
-      };
-
-      protocol = mkOption {
-        description = lib.mdDoc "Protocols expose by rippled.";
-        type = types.listOf (types.enum [ "http" "https" "ws" "wss" "peer" ]);
-      };
-
-      user = mkOption {
-        description = lib.mdDoc
-          "When set, these credentials will be required on HTTP/S requests.";
-        type = types.str;
-        default = "";
-      };
-
-      password = mkOption {
-        description = lib.mdDoc
-          "When set, these credentials will be required on HTTP/S requests.";
-        type = types.str;
-        default = "";
-      };
-
-      admin = mkOption {
-        description = lib.mdDoc "A comma-separated list of admin IP addresses.";
-        type = types.listOf types.str;
-        default = [ "127.0.0.1" ];
-      };
-
-      ssl = {
-        key = mkOption {
-          description = lib.mdDoc ''
-            Specifies the filename holding the SSL key in PEM format.
-          '';
-          default = null;
-          type = types.nullOr types.path;
+  portOptions = {
+      name,
+      ...
+    }: {
+      options = {
+        name = mkOption {
+          internal = true;
+          default = name;
         };
 
-        cert = mkOption {
-          description = lib.mdDoc ''
-            Specifies the path to the SSL certificate file in PEM format.
-            This is not needed if the chain includes it.
-          '';
-          default = null;
-          type = types.nullOr types.path;
+        ip = mkOption {
+          default = "127.0.0.1";
+          description = lib.mdDoc "Ip where rippled listens.";
+          type = types.str;
         };
 
-        chain = mkOption {
-          description = lib.mdDoc ''
-            If you need a certificate chain, specify the path to the
-            certificate chain here. The chain may include the end certificate.
-          '';
-          default = null;
-          type = types.nullOr types.path;
+        port = mkOption {
+          description = lib.mdDoc "Port where rippled listens.";
+          type = types.port;
+        };
+
+        protocol = mkOption {
+          description = lib.mdDoc "Protocols expose by rippled.";
+          type = types.listOf (types.enum [ "http" "https" "ws" "wss" "peer" ]);
+        };
+
+        user = mkOption {
+          description = lib.mdDoc
+            "When set, these credentials will be required on HTTP/S requests.";
+          type = types.str;
+          default = "";
+        };
+
+        password = mkOption {
+          description = lib.mdDoc
+            "When set, these credentials will be required on HTTP/S requests.";
+          type = types.str;
+          default = "";
+        };
+
+        admin = mkOption {
+          description =
+            lib.mdDoc "A comma-separated list of admin IP addresses.";
+          type = types.listOf types.str;
+          default = [ "127.0.0.1" ];
+        };
+
+        ssl = {
+          key = mkOption {
+            description = lib.mdDoc ''
+              Specifies the filename holding the SSL key in PEM format.
+            '';
+            default = null;
+            type = types.nullOr types.path;
+          };
+
+          cert = mkOption {
+            description = lib.mdDoc ''
+              Specifies the path to the SSL certificate file in PEM format.
+              This is not needed if the chain includes it.
+            '';
+            default = null;
+            type = types.nullOr types.path;
+          };
+
+          chain = mkOption {
+            description = lib.mdDoc ''
+              If you need a certificate chain, specify the path to the
+              certificate chain here. The chain may include the end certificate.
+            '';
+            default = null;
+            type = types.nullOr types.path;
+          };
         };
       };
     };
-  };
 
   dbOptions = {
     options = {

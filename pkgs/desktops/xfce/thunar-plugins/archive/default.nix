@@ -1,4 +1,13 @@
-{ lib, mkXfceDerivation, gtk3, thunar, exo, libxfce4util, intltool, gettext }:
+{
+  lib,
+  mkXfceDerivation,
+  gtk3,
+  thunar,
+  exo,
+  libxfce4util,
+  intltool,
+  gettext,
+}:
 
 mkXfceDerivation {
   category = "thunar-plugins";

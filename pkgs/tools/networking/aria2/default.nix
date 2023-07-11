@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, openssl, c-ares
-, libxml2, sqlite, zlib, libssh2, cppunit, sphinx, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  openssl,
+  c-ares,
+  libxml2,
+  sqlite,
+  zlib,
+  libssh2,
+  cppunit,
+  sphinx,
+  Security,
+}:
 
 stdenv.mkDerivation rec {
   pname = "aria2";

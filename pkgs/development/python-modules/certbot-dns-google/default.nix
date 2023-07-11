@@ -1,5 +1,12 @@
-{ buildPythonPackage, acme, certbot, google-api-python-client, oauth2client
-, pytestCheckHook, pythonOlder }:
+{
+  buildPythonPackage,
+  acme,
+  certbot,
+  google-api-python-client,
+  oauth2client,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "certbot-dns-google";

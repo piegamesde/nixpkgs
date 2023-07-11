@@ -1,7 +1,26 @@
-{ stdenv, mkDerivation, lib, fetchFromGitHub, fetchpatch, cmake
-, extra-cmake-modules, pkg-config, libpthreadstubs, libxcb, libXdmcp, qtsvg
-, qttools, qtwebengine, qtx11extras, qtwayland, wrapQtAppsHook, kwallet
-, kpurpose, karchive, kio }:
+{
+  stdenv,
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  extra-cmake-modules,
+  pkg-config,
+  libpthreadstubs,
+  libxcb,
+  libXdmcp,
+  qtsvg,
+  qttools,
+  qtwebengine,
+  qtx11extras,
+  qtwayland,
+  wrapQtAppsHook,
+  kwallet,
+  kpurpose,
+  karchive,
+  kio,
+}:
 
 mkDerivation rec {
   pname = "falkon";

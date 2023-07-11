@@ -1,4 +1,8 @@
-{ appimageTools, lib, fetchurl }:
+{
+  appimageTools,
+  lib,
+  fetchurl,
+}:
 let
   pname = "nuclear";
   version = "0.6.6";

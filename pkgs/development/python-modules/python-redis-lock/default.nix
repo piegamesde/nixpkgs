@@ -1,6 +1,18 @@
-{ lib, stdenv, buildPythonPackage, eventlet, fetchPypi, gevent, pkgs
-, process-tests, pytestCheckHook, pythonOlder, redis, withDjango ? false
-, django-redis }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  eventlet,
+  fetchPypi,
+  gevent,
+  pkgs,
+  process-tests,
+  pytestCheckHook,
+  pythonOlder,
+  redis,
+  withDjango ? false,
+  django-redis,
+}:
 
 buildPythonPackage rec {
   pname = "python-redis-lock";

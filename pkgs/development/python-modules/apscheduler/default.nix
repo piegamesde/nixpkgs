@@ -1,6 +1,21 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, gevent, pytest-asyncio
-, pytest-tornado, pytestCheckHook, pythonOlder, pytz, setuptools, setuptools-scm
-, six, tornado, twisted, tzlocal }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  gevent,
+  pytest-asyncio,
+  pytest-tornado,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  setuptools,
+  setuptools-scm,
+  six,
+  tornado,
+  twisted,
+  tzlocal,
+}:
 
 buildPythonPackage rec {
   pname = "apscheduler";

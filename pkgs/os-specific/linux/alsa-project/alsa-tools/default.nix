@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, alsa-lib, fltk13, gtk2, gtk3, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  alsa-lib,
+  fltk13,
+  gtk2,
+  gtk3,
+  pkg-config,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "alsa-tools";

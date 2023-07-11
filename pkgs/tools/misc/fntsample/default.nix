@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, cmake, pkg-config, cairo, fontconfig
-, freetype, glib, libXdmcp, makeWrapper, pango, pcre, perlPackages }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  cairo,
+  fontconfig,
+  freetype,
+  glib,
+  libXdmcp,
+  makeWrapper,
+  pango,
+  pcre,
+  perlPackages,
+}:
 
 let
   ucd-blocks = fetchurl {

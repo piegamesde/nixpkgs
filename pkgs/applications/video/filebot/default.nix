@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, coreutils, openjdk17, makeWrapper, autoPatchelfHook
-, zlib, libzen, libmediainfo, curlWithGnuTls, libmms, glib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  coreutils,
+  openjdk17,
+  makeWrapper,
+  autoPatchelfHook,
+  zlib,
+  libzen,
+  libmediainfo,
+  curlWithGnuTls,
+  libmms,
+  glib,
+}:
 
 let
   lanterna = fetchurl {

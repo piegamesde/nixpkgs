@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, SDL, SDL_image, libjack2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  SDL,
+  SDL_image,
+  libjack2,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.9.3";

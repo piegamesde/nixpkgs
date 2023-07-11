@@ -1,7 +1,24 @@
-{ lib, stdenv, fetchurl, removeReferencesTo, cppSupport ? false
-, fortranSupport ? false, fortran, zlibSupport ? true, zlib, szipSupport ? false
-, szip, mpiSupport ? false, mpi, enableShared ? !stdenv.hostPlatform.isStatic
-, javaSupport ? false, jdk, usev110Api ? false, threadsafe ? false, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  removeReferencesTo,
+  cppSupport ? false,
+  fortranSupport ? false,
+  fortran,
+  zlibSupport ? true,
+  zlib,
+  szipSupport ? false,
+  szip,
+  mpiSupport ? false,
+  mpi,
+  enableShared ? !stdenv.hostPlatform.isStatic,
+  javaSupport ? false,
+  jdk,
+  usev110Api ? false,
+  threadsafe ? false,
+  python3,
+}:
 
 # cpp and mpi options are mutually exclusive
 # (--enable-unsupported could be used to force the build)

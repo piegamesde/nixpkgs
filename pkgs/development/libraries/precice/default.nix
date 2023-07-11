@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gcc, boost, eigen, libxml2, mpi, python3
-, petsc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gcc,
+  boost,
+  eigen,
+  libxml2,
+  mpi,
+  python3,
+  petsc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "precice";

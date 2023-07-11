@@ -1,5 +1,13 @@
-{ stdenv, fetchurl, sane-backends, qtbase, qtsvg, autoPatchelfHook, lib
-, wrapQtAppsHook }:
+{
+  stdenv,
+  fetchurl,
+  sane-backends,
+  qtbase,
+  qtsvg,
+  autoPatchelfHook,
+  lib,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "masterpdfeditor4";

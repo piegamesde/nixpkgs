@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, fetchpatch, python, buildPythonPackage, pkg-config
-, glib, isPy3k, pythonAtLeast }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  python,
+  buildPythonPackage,
+  pkg-config,
+  glib,
+  isPy3k,
+  pythonAtLeast,
+}:
 
 buildPythonPackage rec {
   pname = "pygobject";

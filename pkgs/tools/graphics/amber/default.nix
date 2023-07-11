@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, cctools, python3
-, vulkan-headers, vulkan-loader }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  cctools,
+  python3,
+  vulkan-headers,
+  vulkan-loader,
+}:
 let
   glslang = fetchFromGitHub {
     owner = "KhronosGroup";

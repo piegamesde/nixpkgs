@@ -1,4 +1,10 @@
-{ mkDerivation, fetchurl, lib, php, makeWrapper }:
+{
+  mkDerivation,
+  fetchurl,
+  lib,
+  php,
+  makeWrapper,
+}:
 
 let
   pname = "phpcbf";

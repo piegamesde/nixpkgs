@@ -1,9 +1,28 @@
-{ lib, stdenv, callPackage, fetchFromGitHub, cmake, cppunit, pkg-config, curl
-, fuse, libkrb5, libuuid, libxcrypt, libxml2, openssl, readline, systemd, voms
-, zlib, enableTests ? stdenv.isLinux
-  # If not null, the builder will
-  # move "$out/etc" to "$out/etc.orig" and symlink "$out/etc" to externalEtc.
-, externalEtc ? "/etc" }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchFromGitHub,
+  cmake,
+  cppunit,
+  pkg-config,
+  curl,
+  fuse,
+  libkrb5,
+  libuuid,
+  libxcrypt,
+  libxml2,
+  openssl,
+  readline,
+  systemd,
+  voms,
+  zlib,
+  enableTests ? stdenv.isLinux
+    # If not null, the builder will
+    # move "$out/etc" to "$out/etc.orig" and symlink "$out/etc" to externalEtc.
+  ,
+  externalEtc ? "/etc"
+}:
 
 stdenv.mkDerivation rec {
   pname = "xrootd";

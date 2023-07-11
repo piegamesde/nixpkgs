@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, ppp }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ppp,
+}:
 let
 in stdenv.mkDerivation rec {
   pname = "rp-pppoe";

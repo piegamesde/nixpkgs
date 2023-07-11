@@ -1,8 +1,21 @@
-{ pkgsBuildBuild, go, buildGoModule, stdenv, lib, procps, fetchFromGitHub
-, nixosTests, autoSignDarwinBinariesHook }:
+{
+  pkgsBuildBuild,
+  go,
+  buildGoModule,
+  stdenv,
+  lib,
+  procps,
+  fetchFromGitHub,
+  nixosTests,
+  autoSignDarwinBinariesHook,
+}:
 
 let
-  common = { stname, target, postInstall ? "" }:
+  common = {
+      stname,
+      target,
+      postInstall ? ""
+    }:
     buildGoModule rec {
       pname = stname;
       version = "1.23.4";

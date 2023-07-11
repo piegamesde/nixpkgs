@@ -1,21 +1,58 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake
-# Remove gcc and python references
-, removeReferencesTo, pkg-config, volk, cppunit, swig, orc, boost, log4cpp, mpir
-, doxygen, python, codec2, gsm, thrift, fftwFloat, alsa-lib, libjack2, CoreAudio
-, uhd, SDL, gsl, cppzmq
-# Needed only if qt-gui is disabled, from some reason
-, icu
-# GUI related
-, gtk3, pango, gobject-introspection, cairo, qt5, libsForQt5
-# Features available to override, the list of them is in featuresInfo. They
-# are all turned on by default.
-, features ? { }
-  # If one wishes to use a different src or name for a very custom build
-, overrideSrc ? { }, pname ? "gnuradio", versionAttr ? {
-  major = "3.8";
-  minor = "5";
-  patch = "0";
-} }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake
+  # Remove gcc and python references
+  ,
+  removeReferencesTo,
+  pkg-config,
+  volk,
+  cppunit,
+  swig,
+  orc,
+  boost,
+  log4cpp,
+  mpir,
+  doxygen,
+  python,
+  codec2,
+  gsm,
+  thrift,
+  fftwFloat,
+  alsa-lib,
+  libjack2,
+  CoreAudio,
+  uhd,
+  SDL,
+  gsl,
+  cppzmq
+  # Needed only if qt-gui is disabled, from some reason
+  ,
+  icu
+  # GUI related
+  ,
+  gtk3,
+  pango,
+  gobject-introspection,
+  cairo,
+  qt5,
+  libsForQt5
+  # Features available to override, the list of them is in featuresInfo. They
+  # are all turned on by default.
+  ,
+  features ? { }
+    # If one wishes to use a different src or name for a very custom build
+  ,
+  overrideSrc ? { },
+  pname ? "gnuradio",
+  versionAttr ? {
+    major = "3.8";
+    minor = "5";
+    patch = "0";
+  }
+}:
 
 let
   sourceSha256 = "sha256-p4VFjTE0GXmdA7QGhWSUzO/WxJ+8Dq3JEnOABtQtJUU=";

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 
 let
@@ -78,8 +83,16 @@ let
   # This is the fork of the original dnscrypt-proxy maintained by Dyne.org.
   # dnscrypt-proxy2 doesn't provide the `--test` feature that is needed to
   # correctly implement key rotation of dnscrypt-wrapper ephemeral keys.
-  dnscrypt-proxy1 = pkgs.callPackage ({ stdenv, fetchFromGitHub, autoreconfHook
-    , pkg-config, libsodium, ldns, openssl, systemd }:
+  dnscrypt-proxy1 = pkgs.callPackage ({
+      stdenv,
+      fetchFromGitHub,
+      autoreconfHook,
+      pkg-config,
+      libsodium,
+      ldns,
+      openssl,
+      systemd,
+    }:
 
     stdenv.mkDerivation rec {
       pname = "dnscrypt-proxy";

@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, jdk, jre, gradle, bash, coreutils
-, substituteAll, nixosTests, perl, fetchpatch, writeText }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  jdk,
+  jre,
+  gradle,
+  bash,
+  coreutils,
+  substituteAll,
+  nixosTests,
+  perl,
+  fetchpatch,
+  writeText,
+}:
 
 let
   version = "01497";

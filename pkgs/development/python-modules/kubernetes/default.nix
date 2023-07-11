@@ -1,11 +1,29 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder
 
-# propgatedBuildInputs
-, adal, certifi, google-auth, python-dateutil, pyyaml, requests
-, requests-oauthlib, setuptools, six, urllib3, websocket-client
+  # propgatedBuildInputs
+  ,
+  adal,
+  certifi,
+  google-auth,
+  python-dateutil,
+  pyyaml,
+  requests,
+  requests-oauthlib,
+  setuptools,
+  six,
+  urllib3,
+  websocket-client
 
-# tests
-, pytestCheckHook, mock }:
+  # tests
+  ,
+  pytestCheckHook,
+  mock,
+}:
 
 buildPythonPackage rec {
   pname = "kubernetes";

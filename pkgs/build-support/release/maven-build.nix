@@ -1,6 +1,17 @@
-{ stdenv, lib, name, src, doTest ? true, doTestCompile ? true, doJavadoc ? false
-, doCheckstyle ? false, doRelease ? false, includeTestClasses ? true
-, extraMvnFlags ? "", ... }@args:
+{
+  stdenv,
+  lib,
+  name,
+  src,
+  doTest ? true,
+  doTestCompile ? true,
+  doJavadoc ? false,
+  doCheckstyle ? false,
+  doRelease ? false,
+  includeTestClasses ? true,
+  extraMvnFlags ? "",
+  ...
+}@args:
 
 let
   mvnFlags = lib.escapeShellArgs [

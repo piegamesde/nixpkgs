@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromSourcehut, zig, libX11, libXfixes }:
+{
+  stdenv,
+  lib,
+  fetchFromSourcehut,
+  zig,
+  libX11,
+  libXfixes,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clipbuzz";

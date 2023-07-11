@@ -1,4 +1,12 @@
-{ lib, stdenv, rustPlatform, python3, fetchFromGitHub, pkg-config, openssl }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  python3,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rust-synapse-compress-state";

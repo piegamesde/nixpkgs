@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, gobject-introspection, gtk3, pyenchant
-, pygobject3 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  gobject-introspection,
+  gtk3,
+  pyenchant,
+  pygobject3,
+}:
 
 buildPythonPackage rec {
   pname = "pygtkspellcheck";

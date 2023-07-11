@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, fetchpatch, bison, flex, autoconf, automake, openssl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  bison,
+  flex,
+  autoconf,
+  automake,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bip";

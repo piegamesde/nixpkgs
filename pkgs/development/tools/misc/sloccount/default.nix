@@ -1,4 +1,10 @@
-{ fetchurl, lib, stdenv, perl, makeWrapper }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  perl,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sloccount";

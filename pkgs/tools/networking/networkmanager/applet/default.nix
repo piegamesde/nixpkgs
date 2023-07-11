@@ -1,7 +1,28 @@
-{ lib, stdenv, fetchurl, meson, ninja, gettext, pkg-config, networkmanager
-, gnome, libsecret, polkit, modemmanager, libnma, glib-networking
-, gsettings-desktop-schemas, libgudev, jansson, wrapGAppsHook
-, gobject-introspection, python3, gtk3, libappindicator-gtk3, glib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  gettext,
+  pkg-config,
+  networkmanager,
+  gnome,
+  libsecret,
+  polkit,
+  modemmanager,
+  libnma,
+  glib-networking,
+  gsettings-desktop-schemas,
+  libgudev,
+  jansson,
+  wrapGAppsHook,
+  gobject-introspection,
+  python3,
+  gtk3,
+  libappindicator-gtk3,
+  glib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "network-manager-applet";

@@ -1,4 +1,10 @@
-{ stdenv, lib, makeWrapper, ghcWithPackages, packages ? (_: [ ]) }:
+{
+  stdenv,
+  lib,
+  makeWrapper,
+  ghcWithPackages,
+  packages ? (_: [ ])
+}:
 let
   blucontrolEnv = ghcWithPackages (self: [ self.blucontrol ] ++ packages self);
 in stdenv.mkDerivation {

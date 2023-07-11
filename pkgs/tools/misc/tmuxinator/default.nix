@@ -1,4 +1,9 @@
-{ lib, buildRubyGem, ruby, installShellFiles }:
+{
+  lib,
+  buildRubyGem,
+  ruby,
+  installShellFiles,
+}:
 
 # Cannot use bundleEnv because bundleEnv create stub with
 # BUNDLE_FROZEN='1' environment variable set, which broke everything

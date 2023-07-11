@@ -1,5 +1,16 @@
-{ lib, asynctest, buildPythonPackage, fetchFromGitHub, fetchpatch, pyserial
-, pyserial-asyncio, pytest-asyncio, pytestCheckHook, pythonOlder, zigpy }:
+{
+  lib,
+  asynctest,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pyserial,
+  pyserial-asyncio,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  zigpy,
+}:
 
 buildPythonPackage rec {
   pname = "zigpy-xbee";

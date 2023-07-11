@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchurl, autoPatchelfHook, dpkg, wrapGAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  dpkg,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "quickgui";

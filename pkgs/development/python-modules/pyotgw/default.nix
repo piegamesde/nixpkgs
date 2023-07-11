@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pyserial-asyncio, pytest-asyncio
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyserial-asyncio,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyotgw";

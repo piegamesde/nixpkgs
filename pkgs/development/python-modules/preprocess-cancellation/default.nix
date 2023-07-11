@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, setuptools
-, shapely, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  setuptools,
+  shapely,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "preprocess-cancellation";

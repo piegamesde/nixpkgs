@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, libcap, acl, oniguruma }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libcap,
+  acl,
+  oniguruma,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bfs";

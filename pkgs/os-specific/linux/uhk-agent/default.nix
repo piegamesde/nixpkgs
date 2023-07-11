@@ -1,4 +1,8 @@
-{ appimageTools, lib, fetchurl }:
+{
+  appimageTools,
+  lib,
+  fetchurl,
+}:
 let
   pname = "uhk-agent";
   version = "2.1.2";

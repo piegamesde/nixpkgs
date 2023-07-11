@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, fixtures, pbr, subunit, callPackage }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fixtures,
+  pbr,
+  subunit,
+  callPackage,
+}:
 
 buildPythonPackage rec {
   pname = "oslotest";

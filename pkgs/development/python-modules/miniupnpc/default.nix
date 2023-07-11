@@ -1,4 +1,11 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, cctools, which }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cctools,
+  which,
+}:
 
 buildPythonPackage rec {
   pname = "miniupnpc";

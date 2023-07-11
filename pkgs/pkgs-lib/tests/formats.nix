@@ -1,4 +1,6 @@
-{ pkgs }:
+{
+  pkgs,
+}:
 let inherit (pkgs) lib formats;
 in with lib;
 let
@@ -18,7 +20,10 @@ let
     in formatSet.generate "test-format-file" config;
 
   runBuildTest = name:
-    { drv, expected }:
+    {
+      drv,
+      expected,
+    }:
     pkgs.runCommand name {
       passAsFile = [ "expected" ];
       inherit expected drv;

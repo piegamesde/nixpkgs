@@ -1,8 +1,36 @@
-{ lib, stdenv, buildPackages, fetchzip, appleDerivation', xnu, Libc, Libm
-, libdispatch, Libinfo, dyld, Csu, architecture, libclosure, CarbonHeaders
-, ncurses, CommonCrypto, copyfile, removefile, libresolvHeaders, libresolv
-, Libnotify, libplatform, libpthread, mDNSResponder, launchd, libutilHeaders
-, hfsHeaders, darwin-stubs, headersOnly ? false, withLibresolv ? !headersOnly }:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  fetchzip,
+  appleDerivation',
+  xnu,
+  Libc,
+  Libm,
+  libdispatch,
+  Libinfo,
+  dyld,
+  Csu,
+  architecture,
+  libclosure,
+  CarbonHeaders,
+  ncurses,
+  CommonCrypto,
+  copyfile,
+  removefile,
+  libresolvHeaders,
+  libresolv,
+  Libnotify,
+  libplatform,
+  libpthread,
+  mDNSResponder,
+  launchd,
+  libutilHeaders,
+  hfsHeaders,
+  darwin-stubs,
+  headersOnly ? false,
+  withLibresolv ? !headersOnly
+}:
 
 let
   darling.src = fetchzip {

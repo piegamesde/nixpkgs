@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, libv4l }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  libv4l,
+}:
 stdenv.mkDerivation rec {
   pname = "openimajgrabber";
   version = "1.3.10";

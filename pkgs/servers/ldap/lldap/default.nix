@@ -1,4 +1,11 @@
-{ fetchFromGitHub, fetchzip, lib, lldap, nixosTests, rustPlatform }:
+{
+  fetchFromGitHub,
+  fetchzip,
+  lib,
+  lldap,
+  nixosTests,
+  rustPlatform,
+}:
 
 let
   # We cannot build the wasm frontend from source, as the

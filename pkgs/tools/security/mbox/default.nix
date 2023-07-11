@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, openssl, which }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  openssl,
+  which,
+}:
 
 stdenv.mkDerivation {
   pname = "mbox";

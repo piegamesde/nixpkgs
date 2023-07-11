@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, common-updater-scripts, coreutils, git, gnused
-, makeWrapper, nix, nixfmt, openjdk, writeScript, nixosTests, jq, cacert, curl
+{
+  lib,
+  stdenv,
+  fetchurl,
+  common-updater-scripts,
+  coreutils,
+  git,
+  gnused,
+  makeWrapper,
+  nix,
+  nixfmt,
+  openjdk,
+  writeScript,
+  nixosTests,
+  jq,
+  cacert,
+  curl,
 }:
 
 stdenv.mkDerivation rec {

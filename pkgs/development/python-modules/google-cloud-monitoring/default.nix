@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, google-api-core, google-cloud-testutils
-, mock, proto-plus, pandas, pytestCheckHook, pytest-asyncio, protobuf
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  google-cloud-testutils,
+  mock,
+  proto-plus,
+  pandas,
+  pytestCheckHook,
+  pytest-asyncio,
+  protobuf,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "google-cloud-monitoring";

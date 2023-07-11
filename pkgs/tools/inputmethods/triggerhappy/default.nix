@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, perl, systemd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  perl,
+  systemd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "triggerhappy";

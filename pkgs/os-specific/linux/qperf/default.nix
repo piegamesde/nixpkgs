@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, autoconf, automake, perl, rdma-core
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  autoconf,
+  automake,
+  perl,
+  rdma-core,
 }:
 
 stdenv.mkDerivation rec {

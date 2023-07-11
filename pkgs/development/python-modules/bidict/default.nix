@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools, sphinx, hypothesis, py
-, pytest-xdist, pytestCheckHook, pytest-benchmark, sortedcollections
-, sortedcontainers, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  sphinx,
+  hypothesis,
+  py,
+  pytest-xdist,
+  pytestCheckHook,
+  pytest-benchmark,
+  sortedcollections,
+  sortedcontainers,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "bidict";

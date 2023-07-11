@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, cryptography, fetchFromGitHub, pykerberos, pyspnego
-, pytest-mock, pytestCheckHook, pythonOlder, requests }:
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  pykerberos,
+  pyspnego,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "requests-kerberos";

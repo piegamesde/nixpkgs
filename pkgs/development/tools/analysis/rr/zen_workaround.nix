@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchzip, kernel }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  kernel,
+}:
 
 /* The python script shouldn't be needed for users of this kernel module.
    https://github.com/rr-debugger/rr/blob/master/scripts/zen_workaround.py

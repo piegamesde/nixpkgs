@@ -1,4 +1,8 @@
-{ fetchzip, lib, stdenvNoCC }:
+{
+  fetchzip,
+  lib,
+  stdenvNoCC,
+}:
 
 /* This cannot be built from source as it requires entitlements and
    for that it needs to be code signed. Automatic updates will have

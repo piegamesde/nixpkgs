@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchgit, perl, gnutar, zlib, bzip2, xz, zstd, libmd, makeWrapper
-, coreutils, autoreconfHook, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  perl,
+  gnutar,
+  zlib,
+  bzip2,
+  xz,
+  zstd,
+  libmd,
+  makeWrapper,
+  coreutils,
+  autoreconfHook,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dpkg";

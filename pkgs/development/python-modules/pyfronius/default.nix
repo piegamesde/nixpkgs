@@ -1,5 +1,12 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, fetchpatch, pythonOlder
-, pytestCheckHook }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pythonOlder,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pyfronius";

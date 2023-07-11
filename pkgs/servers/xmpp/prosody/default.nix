@@ -1,8 +1,23 @@
-{ stdenv, fetchurl, lib, libidn, openssl, makeWrapper, fetchhg, icu, lua
-, nixosTests, withLibevent ? true, withDBI ? true
-  # use withExtraLibs to add additional dependencies of community modules
-, withExtraLibs ? [ ], withExtraLuaPackages ? _: [ ]
-, withOnlyInstalledCommunityModules ? [ ], withCommunityModules ? [ ] }:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  libidn,
+  openssl,
+  makeWrapper,
+  fetchhg,
+  icu,
+  lua,
+  nixosTests,
+  withLibevent ? true,
+  withDBI ? true
+    # use withExtraLibs to add additional dependencies of community modules
+  ,
+  withExtraLibs ? [ ],
+  withExtraLuaPackages ? _: [ ],
+  withOnlyInstalledCommunityModules ? [ ],
+  withCommunityModules ? [ ]
+}:
 
 with lib;
 

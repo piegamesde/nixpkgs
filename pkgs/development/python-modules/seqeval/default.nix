@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, numpy, scikit-learn, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  scikit-learn,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {

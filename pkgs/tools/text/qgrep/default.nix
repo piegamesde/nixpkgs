@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, CoreServices, CoreFoundation, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  CoreServices,
+  CoreFoundation,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.1";

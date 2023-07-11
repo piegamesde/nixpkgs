@@ -1,4 +1,10 @@
-{ lib, fetchPypi, buildPythonPackage, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "python-sql";

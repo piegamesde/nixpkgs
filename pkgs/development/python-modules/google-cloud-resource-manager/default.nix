@@ -1,6 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, google-api-core, google-cloud-core
-, grpc-google-iam-v1, proto-plus, protobuf, pytest-asyncio, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  google-cloud-core,
+  grpc-google-iam-v1,
+  proto-plus,
+  protobuf,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "google-cloud-resource-manager";

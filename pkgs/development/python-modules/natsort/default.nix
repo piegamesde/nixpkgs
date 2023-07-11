@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fastnumbers, fetchPypi, glibcLocales, hypothesis
-, pyicu, pytest-mock, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fastnumbers,
+  fetchPypi,
+  glibcLocales,
+  hypothesis,
+  pyicu,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "natsort";

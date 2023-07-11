@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, ocaml, findlib, ocamlbuild }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  ocamlbuild,
+}:
 
 if lib.versionOlder ocaml.version "4.08" then
   throw "wasm is not available for OCaml ${ocaml.version}"

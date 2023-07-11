@@ -1,5 +1,14 @@
-{ mkDerivation, lib, fetchFromGitLab, qmake, qtcharts, qtsvg, marble
-, qtwebengine, ldutils }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitLab,
+  qmake,
+  qtcharts,
+  qtsvg,
+  marble,
+  qtwebengine,
+  ldutils,
+}:
 
 mkDerivation rec {
   pname = "zombietrackergps";

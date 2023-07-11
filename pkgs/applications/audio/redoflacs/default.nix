@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, installShellFiles, flac, sox }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  installShellFiles,
+  flac,
+  sox,
+}:
 
 stdenv.mkDerivation rec {
   pname = "redoflacs";

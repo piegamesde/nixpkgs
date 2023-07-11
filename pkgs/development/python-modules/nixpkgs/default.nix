@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pbr, pythonix, pythonAtLeast }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pbr,
+  pythonix,
+  pythonAtLeast,
+}:
 
 buildPythonPackage rec {
   pname = "nixpkgs";

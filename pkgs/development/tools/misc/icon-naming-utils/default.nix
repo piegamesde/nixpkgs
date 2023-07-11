@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, perl, librsvg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  librsvg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "icon-naming-utils";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook
-, python-gvm, pythonAtLeast, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  python-gvm,
+  pythonAtLeast,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "gvm-tools";

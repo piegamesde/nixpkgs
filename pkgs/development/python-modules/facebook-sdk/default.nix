@@ -1,4 +1,10 @@
-{ pkgs, buildPythonPackage, fetchPypi, requests, python }:
+{
+  pkgs,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "facebook-sdk";

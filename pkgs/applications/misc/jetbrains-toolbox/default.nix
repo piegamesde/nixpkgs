@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchzip, copyDesktopItems, makeDesktopItem, makeWrapper
-, runCommand, appimageTools, patchelf }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  copyDesktopItems,
+  makeDesktopItem,
+  makeWrapper,
+  runCommand,
+  appimageTools,
+  patchelf,
+}:
 let
   pname = "jetbrains-toolbox";
   version = "1.28.0.15158";

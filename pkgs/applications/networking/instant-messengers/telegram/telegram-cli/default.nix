@@ -1,6 +1,21 @@
-{ stdenv, fetchFromGitHub, fetchpatch, jansson, lib, libconfig, libevent
-, libgcrypt, lua, lua53Packages, makeWrapper, openssl, pkg-config, python3
-, readline, zlib }:
+{
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  jansson,
+  lib,
+  libconfig,
+  libevent,
+  libgcrypt,
+  lua,
+  lua53Packages,
+  makeWrapper,
+  openssl,
+  pkg-config,
+  python3,
+  readline,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "telegram-cli";

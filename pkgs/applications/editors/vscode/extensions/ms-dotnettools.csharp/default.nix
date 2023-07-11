@@ -1,4 +1,13 @@
-{ lib, fetchurl, vscode-utils, patchelf, icu, stdenv, openssl, coreutils }:
+{
+  lib,
+  fetchurl,
+  vscode-utils,
+  patchelf,
+  icu,
+  stdenv,
+  openssl,
+  coreutils,
+}:
 let
   inherit (stdenv.hostPlatform) system;
 

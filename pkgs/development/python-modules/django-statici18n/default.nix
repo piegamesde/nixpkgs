@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, django, django-appconf
-, pytest-django, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  django,
+  django-appconf,
+  pytest-django,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "django-statici18n";

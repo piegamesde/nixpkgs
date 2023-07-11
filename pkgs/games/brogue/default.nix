@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, fetchpatch, SDL, ncurses, libtcod, makeDesktopItem }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  SDL,
+  ncurses,
+  libtcod,
+  makeDesktopItem,
+}:
 
 stdenv.mkDerivation rec {
   pname = "brogue";

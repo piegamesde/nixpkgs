@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, django, djangorestframework, fetchPypi, pyjwt
-, python-jose, pythonOlder, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  django,
+  djangorestframework,
+  fetchPypi,
+  pyjwt,
+  python-jose,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "djangorestframework-simplejwt";

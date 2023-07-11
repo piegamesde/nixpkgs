@@ -1,4 +1,10 @@
-{ stdenv, lib, go, ceph, fetchFromGitHub }:
+{
+  stdenv,
+  lib,
+  go,
+  ceph,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ceph-csi";

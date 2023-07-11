@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 let
   arch = if stdenv.hostPlatform.system == "x86_64-linux" then

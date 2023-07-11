@@ -1,4 +1,9 @@
-{ lib, python3Packages, git, mercurial }:
+{
+  lib,
+  python3Packages,
+  git,
+  mercurial,
+}:
 
 with python3Packages;
 

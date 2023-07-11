@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchurl, fetchpatch, wrapGAppsHook4, cargo, desktop-file-utils
-, meson, ninja, pkg-config, rustc, gdk-pixbuf, glib, gtk4, gtksourceview5
-, libadwaita, darwin }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  wrapGAppsHook4,
+  cargo,
+  desktop-file-utils,
+  meson,
+  ninja,
+  pkg-config,
+  rustc,
+  gdk-pixbuf,
+  glib,
+  gtk4,
+  gtksourceview5,
+  libadwaita,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "icon-library";

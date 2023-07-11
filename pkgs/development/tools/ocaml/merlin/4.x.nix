@@ -1,5 +1,19 @@
-{ lib, substituteAll, fetchurl, ocaml, dune_3, buildDunePackage, yojson, csexp
-, merlin-lib, dot-merlin-reader, jq, menhir, menhirLib, menhirSdk }:
+{
+  lib,
+  substituteAll,
+  fetchurl,
+  ocaml,
+  dune_3,
+  buildDunePackage,
+  yojson,
+  csexp,
+  merlin-lib,
+  dot-merlin-reader,
+  jq,
+  menhir,
+  menhirLib,
+  menhirSdk,
+}:
 
 let
   merlinVersion =

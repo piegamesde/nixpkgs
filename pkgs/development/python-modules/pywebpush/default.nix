@@ -1,5 +1,17 @@
-{ lib, fetchPypi, buildPythonPackage, cryptography, http-ece, py-vapid, requests
-, six, coverage, flake8, mock, pytestCheckHook }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  cryptography,
+  http-ece,
+  py-vapid,
+  requests,
+  six,
+  coverage,
+  flake8,
+  mock,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pywebpush";

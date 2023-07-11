@@ -1,7 +1,26 @@
-{ stdenv, lib, fetchurl, fetchpatch, meson, mesonEmulatorHook, ninja, pkg-config
-, gettext, vala, glib, liboauth, gtk3, gtk-doc, docbook-xsl-nons
-, docbook_xml_dtd_43, libxml2, gnome, gobject-introspection, libsoup_3
-, totem-pl-parser }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  pkg-config,
+  gettext,
+  vala,
+  glib,
+  liboauth,
+  gtk3,
+  gtk-doc,
+  docbook-xsl-nons,
+  docbook_xml_dtd_43,
+  libxml2,
+  gnome,
+  gobject-introspection,
+  libsoup_3,
+  totem-pl-parser,
+}:
 
 stdenv.mkDerivation rec {
   pname = "grilo";

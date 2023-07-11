@@ -1,6 +1,22 @@
-{ lib, stdenv, desktop-file-utils, nix-update-script, fetchFromGitHub, flatpak
-, gettext, glib, granite7, gtk4, meson, ninja, pkg-config, python3, vala
-, libxml2, wrapGAppsHook4 }:
+{
+  lib,
+  stdenv,
+  desktop-file-utils,
+  nix-update-script,
+  fetchFromGitHub,
+  flatpak,
+  gettext,
+  glib,
+  granite7,
+  gtk4,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  vala,
+  libxml2,
+  wrapGAppsHook4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sideload";

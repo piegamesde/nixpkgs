@@ -1,5 +1,13 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
-, cython, numpy }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  cython,
+  numpy,
+}:
 
 buildPythonPackage rec {
   pname = "pylibjpeg-libjpeg";

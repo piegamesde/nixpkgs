@@ -1,6 +1,22 @@
-{ stdenv, lib, fetchFromGitHub, gnat, gprbuild, gnatcoll-core, component
-# component dependencies
-, gmp, libiconv, xz, gcc-unwrapped, readline, zlib, python3, ncurses }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  gnat,
+  gprbuild,
+  gnatcoll-core,
+  component
+  # component dependencies
+  ,
+  gmp,
+  libiconv,
+  xz,
+  gcc-unwrapped,
+  readline,
+  zlib,
+  python3,
+  ncurses,
+}:
 
 let
   # omit python (2.7), no need to introduce a

@@ -1,6 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config
 
-, gtk3, curl, libxml2 }:
+  ,
+  gtk3,
+  curl,
+  libxml2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "smooth";

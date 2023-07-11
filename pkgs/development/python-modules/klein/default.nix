@@ -1,6 +1,21 @@
-{ lib, stdenv, attrs, buildPythonPackage, fetchFromGitHub, hyperlink, hypothesis
-, incremental, python, pythonOlder, treq, tubes, twisted, typing-extensions
-, werkzeug, zope_interface }:
+{
+  lib,
+  stdenv,
+  attrs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  hyperlink,
+  hypothesis,
+  incremental,
+  python,
+  pythonOlder,
+  treq,
+  tubes,
+  twisted,
+  typing-extensions,
+  werkzeug,
+  zope_interface,
+}:
 
 buildPythonPackage rec {
   pname = "klein";

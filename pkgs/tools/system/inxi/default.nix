@@ -1,11 +1,35 @@
-{ lib, stdenv, fetchFromGitHub, perl, perlPackages, makeWrapper, ps
-, dnsutils # dig is recommended for multiple categories
-, withRecommends ?
-  false # Install (almost) all recommended tools (see --recommends)
-, withRecommendedSystemPrograms ? withRecommends, util-linuxMinimal, dmidecode
-, file, hddtemp, iproute2, ipmitool, usbutils, kmod, lm_sensors, smartmontools
-, binutils, tree, upower, pciutils
-, withRecommendedDisplayInformationPrograms ? withRecommends, glxinfo, xorg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perl,
+  perlPackages,
+  makeWrapper,
+  ps,
+  dnsutils # dig is recommended for multiple categories
+  ,
+  withRecommends ?
+    false # Install (almost) all recommended tools (see --recommends)
+  ,
+  withRecommendedSystemPrograms ? withRecommends,
+  util-linuxMinimal,
+  dmidecode,
+  file,
+  hddtemp,
+  iproute2,
+  ipmitool,
+  usbutils,
+  kmod,
+  lm_sensors,
+  smartmontools,
+  binutils,
+  tree,
+  upower,
+  pciutils,
+  withRecommendedDisplayInformationPrograms ? withRecommends,
+  glxinfo,
+  xorg,
+}:
 
 let
   prefixPath = programs: "--prefix PATH ':' '${lib.makeBinPath programs}'";

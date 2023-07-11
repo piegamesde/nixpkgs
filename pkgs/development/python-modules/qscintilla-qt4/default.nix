@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, isPy3k, isPyPy, pkgs, python, pyqt4 }:
+{
+  lib,
+  buildPythonPackage,
+  isPy3k,
+  isPyPy,
+  pkgs,
+  python,
+  pyqt4,
+}:
 
 buildPythonPackage {
   pname = "qscintilla-qt4";

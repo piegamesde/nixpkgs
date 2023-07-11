@@ -1,9 +1,35 @@
-{ lib, stdenv, fetchurl, adns, curl, gettext, gmp, gnutls, libextractor
-, libgcrypt, libgnurl, libidn, libmicrohttpd, libtool, libunistring, makeWrapper
-, ncurses, pkg-config, libxml2, sqlite, zlib, libpulseaudio, libopus, libogg
-, jansson, libsodium
+{
+  lib,
+  stdenv,
+  fetchurl,
+  adns,
+  curl,
+  gettext,
+  gmp,
+  gnutls,
+  libextractor,
+  libgcrypt,
+  libgnurl,
+  libidn,
+  libmicrohttpd,
+  libtool,
+  libunistring,
+  makeWrapper,
+  ncurses,
+  pkg-config,
+  libxml2,
+  sqlite,
+  zlib,
+  libpulseaudio,
+  libopus,
+  libogg,
+  jansson,
+  libsodium
 
-, postgresqlSupport ? true, postgresql }:
+  ,
+  postgresqlSupport ? true,
+  postgresql,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnunet";

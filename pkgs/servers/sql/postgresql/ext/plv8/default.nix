@@ -1,6 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, v8, perl, postgresql
-# For test
-, runCommand, coreutils, gnugrep }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  v8,
+  perl,
+  postgresql
+  # For test
+  ,
+  runCommand,
+  coreutils,
+  gnugrep,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "plv8";

@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitLab, autoreconfHook, intltool, itstool, pkg-config
-, vala, glib, graphviz, yelp-tools, gtk3, lrzsz }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  autoreconfHook,
+  intltool,
+  itstool,
+  pkg-config,
+  vala,
+  glib,
+  graphviz,
+  yelp-tools,
+  gtk3,
+  lrzsz,
+}:
 
 stdenv.mkDerivation rec {
   pname = "moserial";

@@ -1,7 +1,29 @@
-{ lib, stdenv, fetchFromGitLab, gitUpdater, pkg-config, meson, ninja, libevdev
-, mtdev, udev, libwacom, documentationSupport ? false, doxygen, graphviz
-, runCommand, eventGUISupport ? false, cairo, glib, gtk3, testsSupport ? false
-, check, valgrind, python3, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  gitUpdater,
+  pkg-config,
+  meson,
+  ninja,
+  libevdev,
+  mtdev,
+  udev,
+  libwacom,
+  documentationSupport ? false,
+  doxygen,
+  graphviz,
+  runCommand,
+  eventGUISupport ? false,
+  cairo,
+  glib,
+  gtk3,
+  testsSupport ? false,
+  check,
+  valgrind,
+  python3,
+  nixosTests,
+}:
 
 let
   mkFlag = optSet: flag: "-D${flag}=${lib.boolToString optSet}";

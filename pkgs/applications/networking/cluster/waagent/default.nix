@@ -1,8 +1,19 @@
-{ fetchFromGitHub, findutils, gnugrep, gnused, iproute2, iptables, lib, nettools
-, # for hostname
-openssh, openssl, parted, procps, # for pidof,
-python3, shadow, # for useradd, usermod
-util-linux, # for (u)mount, fdisk, sfdisk, mkswap
+{
+  fetchFromGitHub,
+  findutils,
+  gnugrep,
+  gnused,
+  iproute2,
+  iptables,
+  lib,
+  nettools, # for hostname
+  openssh,
+  openssl,
+  parted,
+  procps, # for pidof,
+  python3,
+  shadow, # for useradd, usermod
+  util-linux, # for (u)mount, fdisk, sfdisk, mkswap
 }:
 
 let inherit (lib) makeBinPath;

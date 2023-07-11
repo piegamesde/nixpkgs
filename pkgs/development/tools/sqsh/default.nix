@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, autoreconfHook, freetds, readline, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  freetds,
+  readline,
+  libiconv,
+}:
 
 let mainVersion = "2.5";
 

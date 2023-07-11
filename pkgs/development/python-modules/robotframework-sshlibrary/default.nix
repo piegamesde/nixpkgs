@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, robotframework, paramiko, scp }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  robotframework,
+  paramiko,
+  scp,
+}:
 
 buildPythonPackage rec {
   version = "3.8.0";

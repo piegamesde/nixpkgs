@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, installShellFiles
-, setuptools, docopt, hidapi, pyusb, smbus-cffi, i2c-tools, pytestCheckHook
-, colorlog, crcmod, pillow }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  installShellFiles,
+  setuptools,
+  docopt,
+  hidapi,
+  pyusb,
+  smbus-cffi,
+  i2c-tools,
+  pytestCheckHook,
+  colorlog,
+  crcmod,
+  pillow,
+}:
 
 buildPythonPackage rec {
   pname = "liquidctl";

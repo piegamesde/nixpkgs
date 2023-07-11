@@ -1,7 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, unstableGitUpdater, dosbox
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  unstableGitUpdater,
+  dosbox
 
-# Docs cause an immense increase in build time, up to 2 additional hours
-, withDocs ? false, ghostscript, withGUI ? false }:
+  # Docs cause an immense increase in build time, up to 2 additional hours
+  ,
+  withDocs ? false,
+  ghostscript,
+  withGUI ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "${passthru.prettyName}-unwrapped";

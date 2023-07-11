@@ -1,5 +1,16 @@
-{ lib, buildGoModule, fetchFromGitHub, libX11, libXcursor, libXmu, libXpm
-, libheif, pkg-config, wayland, xbitmaps }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  libX11,
+  libXcursor,
+  libXmu,
+  libXpm,
+  libheif,
+  pkg-config,
+  wayland,
+  xbitmaps,
+}:
 
 buildGoModule rec {
   pname = "wallutils";

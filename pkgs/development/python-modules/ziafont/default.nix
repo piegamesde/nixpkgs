@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromBitbucket, pytestCheckHook
-, nbval }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromBitbucket,
+  pytestCheckHook,
+  nbval,
+}:
 
 buildPythonPackage rec {
   pname = "ziafont";

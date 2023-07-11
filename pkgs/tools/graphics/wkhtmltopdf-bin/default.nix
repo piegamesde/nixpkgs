@@ -1,5 +1,21 @@
-{ lib, autoPatchelfHook, cpio, freetype, zlib, openssl, dpkg, fetchurl
-, gcc-unwrapped, libjpeg8, libpng, fontconfig, stdenv, wkhtmltopdf, xar, xorg }:
+{
+  lib,
+  autoPatchelfHook,
+  cpio,
+  freetype,
+  zlib,
+  openssl,
+  dpkg,
+  fetchurl,
+  gcc-unwrapped,
+  libjpeg8,
+  libpng,
+  fontconfig,
+  stdenv,
+  wkhtmltopdf,
+  xar,
+  xorg,
+}:
 
 let
   darwinAttrs = rec {

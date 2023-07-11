@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, openssl, zlib, pcre, libxcrypt, libxml2, libxslt
-, substituteAll, gd, geoip, gperftools, jemalloc, nixosTests, withDebug ? false
-, withMail ? false, withStream ? false, modules ? [ ], ... }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  openssl,
+  zlib,
+  pcre,
+  libxcrypt,
+  libxml2,
+  libxslt,
+  substituteAll,
+  gd,
+  geoip,
+  gperftools,
+  jemalloc,
+  nixosTests,
+  withDebug ? false,
+  withMail ? false,
+  withStream ? false,
+  modules ? [ ],
+  ...
+}:
 
 with lib;
 

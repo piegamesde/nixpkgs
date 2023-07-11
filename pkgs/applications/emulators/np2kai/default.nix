@@ -1,16 +1,42 @@
-{ stdenv, lib, fetchFromGitHub, enable16Bit ? true, enable32Bit ? true
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  enable16Bit ? true,
+  enable32Bit ? true
 
-, enableSDL ? true, withSDLVersion ? "2", SDL, SDL_ttf, SDL_mixer, SDL2
-, SDL2_ttf, SDL2_mixer
+  ,
+  enableSDL ? true,
+  withSDLVersion ? "2",
+  SDL,
+  SDL_ttf,
+  SDL_mixer,
+  SDL2,
+  SDL2_ttf,
+  SDL2_mixer
 
-, enableX11 ? stdenv.hostPlatform.isLinux, automake, autoconf, autoconf-archive
-, libtool, pkg-config, unzip, gtk2, libusb1, libXxf86vm, nasm, libICE, libSM
+  ,
+  enableX11 ? stdenv.hostPlatform.isLinux,
+  automake,
+  autoconf,
+  autoconf-archive,
+  libtool,
+  pkg-config,
+  unzip,
+  gtk2,
+  libusb1,
+  libXxf86vm,
+  nasm,
+  libICE,
+  libSM
 
-# HAXM build succeeds but the binary segfaults, seemingly due to the missing HAXM kernel module
-# Enable once there is a HAXM kernel module option in NixOS? Or somehow bind it to the system kernel having HAXM?
-# Or leave it disabled by default?
-# https://github.com/intel/haxm/blob/master/docs/manual-linux.md
-, enableHAXM ? false }:
+  # HAXM build succeeds but the binary segfaults, seemingly due to the missing HAXM kernel module
+  # Enable once there is a HAXM kernel module option in NixOS? Or somehow bind it to the system kernel having HAXM?
+  # Or leave it disabled by default?
+  # https://github.com/intel/haxm/blob/master/docs/manual-linux.md
+  ,
+  enableHAXM ? false
+}:
 
 assert lib.assertMsg (enable16Bit || enable32Bit)
   "Must enable 16-Bit and/or 32-Bit system variant.";

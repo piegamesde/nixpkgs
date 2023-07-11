@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, unzip, cmake, libGLU, libGL }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  unzip,
+  cmake,
+  libGLU,
+  libGL,
+}:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${date}";

@@ -1,4 +1,8 @@
-{ lib, python, fetchFromGitHub }:
+{
+  lib,
+  python,
+  fetchFromGitHub,
+}:
 with python.pkgs;
 buildPythonApplication rec {
   pname = "deepTools";

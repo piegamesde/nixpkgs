@@ -1,5 +1,12 @@
-{ lib, buildKodiAddon, fetchzip, addonUpdateScript, six, requests
-, inputstreamhelper }:
+{
+  lib,
+  buildKodiAddon,
+  fetchzip,
+  addonUpdateScript,
+  six,
+  requests,
+  inputstreamhelper,
+}:
 
 buildKodiAddon rec {
   pname = "youtube";

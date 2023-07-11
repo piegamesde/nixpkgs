@@ -1,14 +1,36 @@
-{ __splicedPackages, callPackage, config, darwin, db, lib, libffiBoot
-, makeScopeWithSplicing, pythonPackagesExtensions, stdenv }:
+{
+  __splicedPackages,
+  callPackage,
+  config,
+  darwin,
+  db,
+  lib,
+  libffiBoot,
+  makeScopeWithSplicing,
+  pythonPackagesExtensions,
+  stdenv,
+}:
 
 (let
 
   # Common passthru for all Python interpreters.
-  passthruFun = { implementation, libPrefix, executable, sourceVersion
-    , pythonVersion, packageOverrides, sitePackages, hasDistutilsCxxPatch
-    , pythonOnBuildForBuild, pythonOnBuildForHost, pythonOnBuildForTarget
-    , pythonOnHostForHost, pythonOnTargetForTarget, pythonAttr ? null
-    , self # is pythonOnHostForTarget
+  passthruFun = {
+      implementation,
+      libPrefix,
+      executable,
+      sourceVersion,
+      pythonVersion,
+      packageOverrides,
+      sitePackages,
+      hasDistutilsCxxPatch,
+      pythonOnBuildForBuild,
+      pythonOnBuildForHost,
+      pythonOnBuildForTarget,
+      pythonOnHostForHost,
+      pythonOnTargetForTarget,
+      pythonAttr ? null,
+      self # is pythonOnHostForTarget
+      ,
     }:
     let
       pythonPackages = let
@@ -32,7 +54,12 @@
         # - imports python-packages.nix
         # - adds spliced package sets to the package set
         # - applies overrides from `packageOverrides` and `pythonPackagesOverlays`.
-        ({ pkgs, stdenv, python, overrides }:
+        ({
+            pkgs,
+            stdenv,
+            python,
+            overrides,
+          }:
           let
             pythonPackagesFun = import ./python-packages-base.nix {
               inherit stdenv pkgs lib;

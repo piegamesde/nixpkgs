@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, bison, cmake, flex, pkg-config, boost
-, icu, libstemmer, mariadb-connector-c, re2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  bison,
+  cmake,
+  flex,
+  pkg-config,
+  boost,
+  icu,
+  libstemmer,
+  mariadb-connector-c,
+  re2,
+}:
 let
   columnar = stdenv.mkDerivation rec {
     pname = "columnar";

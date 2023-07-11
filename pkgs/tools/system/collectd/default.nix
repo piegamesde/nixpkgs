@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, fetchpatch, darwin, callPackage, autoreconfHook
-, pkg-config, libtool, nixosTests, ... }@args:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  darwin,
+  callPackage,
+  autoreconfHook,
+  pkg-config,
+  libtool,
+  nixosTests,
+  ...
+}@args:
 let plugins = callPackage ./plugins.nix args;
 in stdenv.mkDerivation rec {
   version = "5.12.0";

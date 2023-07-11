@@ -1,9 +1,36 @@
-{ lib, stdenv, fetchurl, flex, bison, python3, autoreconfHook, gnulib, libtool
-, bash, gettext, ncurses, libusb-compat-0_1, freetype, qemu, lvm2, unifont
-, pkg-config, buildPackages, fetchpatch, pkgsBuildBuild, nixosTests
-, fuse # only needed for grub-mount
-, runtimeShell, zfs ? null, efiSupport ? false, zfsSupport ? false
-, xenSupport ? false, kbdcompSupport ? false, ckbcomp }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  flex,
+  bison,
+  python3,
+  autoreconfHook,
+  gnulib,
+  libtool,
+  bash,
+  gettext,
+  ncurses,
+  libusb-compat-0_1,
+  freetype,
+  qemu,
+  lvm2,
+  unifont,
+  pkg-config,
+  buildPackages,
+  fetchpatch,
+  pkgsBuildBuild,
+  nixosTests,
+  fuse # only needed for grub-mount
+  ,
+  runtimeShell,
+  zfs ? null,
+  efiSupport ? false,
+  zfsSupport ? false,
+  xenSupport ? false,
+  kbdcompSupport ? false,
+  ckbcomp,
+}:
 
 let
   pcSystems = {

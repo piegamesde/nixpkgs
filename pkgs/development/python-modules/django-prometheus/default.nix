@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, prometheus-client
-, pytest-django, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  prometheus-client,
+  pytest-django,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "django-prometheus";

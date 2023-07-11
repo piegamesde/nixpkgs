@@ -1,5 +1,17 @@
-{ callPackage, lib, stdenv, chicken, makeWrapper }:
-{ name, src, buildInputs ? [ ], chickenInstallFlags ? [ ], cscOptions ? [ ], ...
+{
+  callPackage,
+  lib,
+  stdenv,
+  chicken,
+  makeWrapper,
+}:
+{
+  name,
+  src,
+  buildInputs ? [ ],
+  chickenInstallFlags ? [ ],
+  cscOptions ? [ ],
+  ...
 }@args:
 
 let

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, SDL, SDL_image, SDL_ttf, gtk3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  SDL,
+  SDL_image,
+  SDL_ttf,
+  gtk3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hivelytracker";

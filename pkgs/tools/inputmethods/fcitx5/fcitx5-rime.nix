@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, extra-cmake-modules, gettext
-, fcitx5, librime, rime-data, symlinkJoin, rimeDataPkgs ? [ rime-data ] }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  extra-cmake-modules,
+  gettext,
+  fcitx5,
+  librime,
+  rime-data,
+  symlinkJoin,
+  rimeDataPkgs ? [ rime-data ]
+}:
 
 stdenv.mkDerivation rec {
   pname = "fcitx5-rime";

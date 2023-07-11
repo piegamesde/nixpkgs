@@ -1,5 +1,15 @@
-{ lib, aiohttp, aioresponses, buildPythonPackage, fetchFromGitHub
-, pytest-asyncio, pytest-raises, pytestCheckHook, pythonOlder, xmltodict }:
+{
+  lib,
+  aiohttp,
+  aioresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytest-raises,
+  pytestCheckHook,
+  pythonOlder,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "aioemonitor";

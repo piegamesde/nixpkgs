@@ -1,5 +1,12 @@
-{ lib, fetchFromSourcehut, rustPlatform, pkg-config, libxkbcommon, makeWrapper
-, slurp }:
+{
+  lib,
+  fetchFromSourcehut,
+  rustPlatform,
+  pkg-config,
+  libxkbcommon,
+  makeWrapper,
+  slurp,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "shotman";

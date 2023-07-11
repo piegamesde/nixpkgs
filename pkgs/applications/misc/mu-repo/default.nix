@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, buildPythonApplication, pytestCheckHook, git, testers
-, mu-repo }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonApplication,
+  pytestCheckHook,
+  git,
+  testers,
+  mu-repo,
+}:
 
 buildPythonApplication rec {
   pname = "mu-repo";

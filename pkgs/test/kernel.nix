@@ -3,7 +3,10 @@
 #
 # make sure to use NON EXISTING kernel settings else they may conflict with
 # common-config.nix
-{ lib, pkgs }:
+{
+  lib,
+  pkgs,
+}:
 
 with lib;
 with kernel;

@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, cmake, python, pkg-config, libxml2, glib
-, openssl, zchunk, curl, check, gpgme }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  python,
+  pkg-config,
+  libxml2,
+  glib,
+  openssl,
+  zchunk,
+  curl,
+  check,
+  gpgme,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.15.1";

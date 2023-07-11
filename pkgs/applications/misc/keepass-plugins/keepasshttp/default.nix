@@ -1,4 +1,10 @@
-{ lib, stdenv, buildEnv, fetchFromGitHub, mono }:
+{
+  lib,
+  stdenv,
+  buildEnv,
+  fetchFromGitHub,
+  mono,
+}:
 
 let
   version = "1.8.4.2";

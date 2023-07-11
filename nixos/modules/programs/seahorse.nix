@@ -1,6 +1,11 @@
 # Seahorse.
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 

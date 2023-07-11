@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, nix, makeWrapper, fetchpatch }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nix,
+  makeWrapper,
+  fetchpatch,
+}:
 
 buildGoModule rec {
   pname = "nc4nix";

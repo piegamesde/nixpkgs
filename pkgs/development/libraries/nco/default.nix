@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, netcdf, netcdfcxx4, gsl, udunits, antlr2, which
-, curl, flex, coreutils, libtool }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  netcdf,
+  netcdfcxx4,
+  gsl,
+  udunits,
+  antlr2,
+  which,
+  curl,
+  flex,
+  coreutils,
+  libtool,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nco";

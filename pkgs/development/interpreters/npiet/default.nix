@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, gd, giflib, groff, libpng, tk }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gd,
+  giflib,
+  groff,
+  libpng,
+  tk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "npiet";

@@ -1,4 +1,10 @@
-{ lib, ruby, defaultGemConfig, test, should }:
+{
+  lib,
+  ruby,
+  defaultGemConfig,
+  test,
+  should,
+}:
 let
   testConfigs = {
     inherit lib;

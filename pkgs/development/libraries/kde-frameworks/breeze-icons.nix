@@ -1,4 +1,10 @@
-{ mkDerivation, extra-cmake-modules, gtk3, qtsvg, hicolor-icon-theme }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  gtk3,
+  qtsvg,
+  hicolor-icon-theme,
+}:
 
 mkDerivation {
   pname = "breeze-icons";

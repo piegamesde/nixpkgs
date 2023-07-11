@@ -1,4 +1,11 @@
-{ lib, pkgs, newScope, darwin, llvmPackages_latest, overrideCC }:
+{
+  lib,
+  pkgs,
+  newScope,
+  darwin,
+  llvmPackages_latest,
+  overrideCC,
+}:
 
 let
   self = rec {

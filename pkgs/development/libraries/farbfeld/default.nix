@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, makeWrapper, file, libpng, libjpeg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  file,
+  libpng,
+  libjpeg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "farbfeld";

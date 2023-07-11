@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, fetchgit, fetchHex, erlang, makeWrapper
-, writeScript, common-updater-scripts, coreutils, git, gnused, nix, rebar3-nix
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchgit,
+  fetchHex,
+  erlang,
+  makeWrapper,
+  writeScript,
+  common-updater-scripts,
+  coreutils,
+  git,
+  gnused,
+  nix,
+  rebar3-nix,
 }:
 
 let
@@ -99,7 +112,11 @@ let
   # Alias rebar3 so we can use it as default parameter below
   _rebar3 = rebar3;
 
-  rebar3WithPlugins = { plugins ? [ ], globalPlugins ? [ ], rebar3 ? _rebar3 }:
+  rebar3WithPlugins = {
+      plugins ? [ ],
+      globalPlugins ? [ ],
+      rebar3 ? _rebar3
+    }:
     let
       pluginLibDirs =
         map (p: "${p}/lib/erlang/lib") (lib.unique (plugins ++ globalPlugins));

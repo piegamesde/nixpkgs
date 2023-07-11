@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pathspec, pytestCheckHook, pythonOlder
-, pyyaml, stdenv }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pathspec,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  stdenv,
+}:
 
 buildPythonPackage rec {
   pname = "yamllint";

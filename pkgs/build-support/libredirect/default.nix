@@ -1,4 +1,10 @@
-{ lib, stdenv, bintools-unwrapped, llvmPackages_13, coreutils }:
+{
+  lib,
+  stdenv,
+  bintools-unwrapped,
+  llvmPackages_13,
+  coreutils,
+}:
 
 if stdenv.hostPlatform.isStatic then
   throw ''

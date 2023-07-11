@@ -1,5 +1,16 @@
-{ llvmPackages, lib, fetchFromGitHub, cmake, libpng, libjpeg, mesa, eigen
-, openblas, blas, lapack }:
+{
+  llvmPackages,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  libpng,
+  libjpeg,
+  mesa,
+  eigen,
+  openblas,
+  blas,
+  lapack,
+}:
 
 assert blas.implementation == "openblas" && lapack.implementation == "openblas";
 

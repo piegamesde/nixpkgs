@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchurl, asciidoc, asciidoctor, autoconf, automake, cmake
-, docbook_xsl, fftw, fftwFloat, gfortran, libtool, libusb1, qtbase, qtmultimedia
-, qtserialport, qttools, boost, texinfo, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  asciidoc,
+  asciidoctor,
+  autoconf,
+  automake,
+  cmake,
+  docbook_xsl,
+  fftw,
+  fftwFloat,
+  gfortran,
+  libtool,
+  libusb1,
+  qtbase,
+  qtmultimedia,
+  qtserialport,
+  qttools,
+  boost,
+  texinfo,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wsjtx";

@@ -1,4 +1,9 @@
-{ lib, nimPackages, fetchFromGitea, raylib }:
+{
+  lib,
+  nimPackages,
+  fetchFromGitea,
+  raylib,
+}:
 
 nimPackages.buildNimPackage rec {
   pname = "snekim";

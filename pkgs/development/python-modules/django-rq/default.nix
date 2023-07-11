@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, isPy27, fetchFromGitHub, django, redis, rq
-, sentry-sdk }:
+{
+  lib,
+  buildPythonPackage,
+  isPy27,
+  fetchFromGitHub,
+  django,
+  redis,
+  rq,
+  sentry-sdk,
+}:
 
 buildPythonPackage rec {
   pname = "django-rq";

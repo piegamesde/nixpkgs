@@ -1,11 +1,30 @@
-{ lib, stdenv, fetchFromGitHub, cmake, bash, gnugrep, fixDarwinDylibNames, file
-, fetchpatch, legacySupport ? false, static ? stdenv.hostPlatform.isStatic
-  # these need to be ran on the host, thus disable when cross-compiling
-, buildContrib ? stdenv.hostPlatform == stdenv.buildPlatform
-, doCheck ? stdenv.hostPlatform == stdenv.buildPlatform, nix-update-script
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  bash,
+  gnugrep,
+  fixDarwinDylibNames,
+  file,
+  fetchpatch,
+  legacySupport ? false,
+  static ? stdenv.hostPlatform.isStatic
+    # these need to be ran on the host, thus disable when cross-compiling
+  ,
+  buildContrib ? stdenv.hostPlatform == stdenv.buildPlatform,
+  doCheck ? stdenv.hostPlatform == stdenv.buildPlatform,
+  nix-update-script
 
-# for passthru.tests
-, libarchive, rocksdb, arrow-cpp, libzip, curl, python3Packages, haskellPackages
+  # for passthru.tests
+  ,
+  libarchive,
+  rocksdb,
+  arrow-cpp,
+  libzip,
+  curl,
+  python3Packages,
+  haskellPackages,
 }:
 
 stdenv.mkDerivation rec {

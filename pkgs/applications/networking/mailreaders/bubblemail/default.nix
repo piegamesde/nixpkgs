@@ -1,6 +1,21 @@
-{ lib, fetchFromGitLab, gettext, gtk3, python3Packages, gdk-pixbuf, libnotify
-, gst_all_1, libsecret, wrapGAppsHook, gsettings-desktop-schemas
-, gnome-online-accounts, glib, gobject-introspection, folks, bash }:
+{
+  lib,
+  fetchFromGitLab,
+  gettext,
+  gtk3,
+  python3Packages,
+  gdk-pixbuf,
+  libnotify,
+  gst_all_1,
+  libsecret,
+  wrapGAppsHook,
+  gsettings-desktop-schemas,
+  gnome-online-accounts,
+  glib,
+  gobject-introspection,
+  folks,
+  bash,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "bubblemail";

@@ -1,4 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, cmake, openssl, boost, zlib, icu, rippled }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  openssl,
+  boost,
+  zlib,
+  icu,
+  rippled,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rippled-validator-keys-tool";

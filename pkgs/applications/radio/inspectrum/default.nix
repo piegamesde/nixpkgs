@@ -1,5 +1,14 @@
-{ lib, gnuradio3_8Minimal, thrift, fetchFromGitHub, pkg-config, cmake, fftwFloat
-, qt5, liquid-dsp }:
+{
+  lib,
+  gnuradio3_8Minimal,
+  thrift,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  fftwFloat,
+  qt5,
+  liquid-dsp,
+}:
 
 gnuradio3_8Minimal.pkgs.mkDerivation rec {
   pname = "inspectrum";

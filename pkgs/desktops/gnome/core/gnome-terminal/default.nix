@@ -1,7 +1,32 @@
-{ stdenv, lib, fetchFromGitLab, meson, ninja, pkg-config, python3, libxml2
-, gnome, gitUpdater, nautilus, glib, gtk4, gtk3, gsettings-desktop-schemas, vte
-, gettext, which, libuuid, vala, desktop-file-utils, itstool, wrapGAppsHook
-, pcre2, libxslt, docbook-xsl-nons, nixosTests }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  libxml2,
+  gnome,
+  gitUpdater,
+  nautilus,
+  glib,
+  gtk4,
+  gtk3,
+  gsettings-desktop-schemas,
+  vte,
+  gettext,
+  which,
+  libuuid,
+  vala,
+  desktop-file-utils,
+  itstool,
+  wrapGAppsHook,
+  pcre2,
+  libxslt,
+  docbook-xsl-nons,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-terminal";

@@ -1,29 +1,39 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../../.. { inherit system config; }
+}:
 
 with import ../../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 
 let
-  writefreelyTest = { name, type }:
+  writefreelyTest = {
+      name,
+      type,
+    }:
     makeTest {
       name = "writefreely-${name}";
 
-      nodes.machine = { config, pkgs, ... }: {
-        services.writefreely = {
-          enable = true;
-          host = "localhost:3000";
-          admin.name = "nixos";
+      nodes.machine = {
+          config,
+          pkgs,
+          ...
+        }: {
+          services.writefreely = {
+            enable = true;
+            host = "localhost:3000";
+            admin.name = "nixos";
 
-          database = {
-            inherit type;
-            createLocally = type == "mysql";
-            passwordFile = pkgs.writeText "db-pass" "pass";
+            database = {
+              inherit type;
+              createLocally = type == "mysql";
+              passwordFile = pkgs.writeText "db-pass" "pass";
+            };
+
+            settings.server.port = 3000;
           };
-
-          settings.server.port = 3000;
         };
-      };
 
       testScript = ''
         start_all()

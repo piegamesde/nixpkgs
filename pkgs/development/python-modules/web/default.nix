@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, cheroot, dbutils
-, mysqlclient, pymysql, mysql-connector, psycopg2 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  cheroot,
+  dbutils,
+  mysqlclient,
+  pymysql,
+  mysql-connector,
+  psycopg2,
+}:
 
 buildPythonPackage rec {
   version = "0.62";

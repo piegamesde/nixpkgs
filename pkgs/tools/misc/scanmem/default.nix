@@ -1,4 +1,12 @@
-{ lib, stdenv, autoconf, automake, intltool, libtool, fetchFromGitHub, readline
+{
+  lib,
+  stdenv,
+  autoconf,
+  automake,
+  intltool,
+  libtool,
+  fetchFromGitHub,
+  readline,
 }:
 
 stdenv.mkDerivation rec {

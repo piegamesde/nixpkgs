@@ -1,5 +1,12 @@
-{ lib, callPackage, fetchFromGitHub, rustPlatform, pkg-config, protobuf
-, elfutils }:
+{
+  lib,
+  callPackage,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  protobuf,
+  elfutils,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "router";

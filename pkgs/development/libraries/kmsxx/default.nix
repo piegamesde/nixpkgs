@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, cmake, pkg-config, libdrm, fmt
-, libevdev, withPython ? false, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  cmake,
+  pkg-config,
+  libdrm,
+  fmt,
+  libevdev,
+  withPython ? false,
+  python3Packages,
+}:
 
 stdenv.mkDerivation {
   pname = "kmsxx";

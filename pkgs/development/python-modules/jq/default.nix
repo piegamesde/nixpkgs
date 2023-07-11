@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cython, jq, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cython,
+  jq,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "jq";

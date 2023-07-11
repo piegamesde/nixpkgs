@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, luaPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  luaPackages,
+}:
 
 stdenv.mkDerivation {
   pname = "nelua";

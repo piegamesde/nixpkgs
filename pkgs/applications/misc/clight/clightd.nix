@@ -1,7 +1,31 @@
-{ lib, stdenv, fetchFromGitHub, dbus, cmake, pkg-config, glib, udev, polkit
-, libusb1, libjpeg, libmodule, pcre, libXdmcp, util-linux, libpthreadstubs
-, enableDdc ? true, ddcutil, enableDpms ? true, libXext, enableGamma ? true
-, libdrm, libXrandr, wayland, enableScreen ? true, enableYoctolight ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  dbus,
+  cmake,
+  pkg-config,
+  glib,
+  udev,
+  polkit,
+  libusb1,
+  libjpeg,
+  libmodule,
+  pcre,
+  libXdmcp,
+  util-linux,
+  libpthreadstubs,
+  enableDdc ? true,
+  ddcutil,
+  enableDpms ? true,
+  libXext,
+  enableGamma ? true,
+  libdrm,
+  libXrandr,
+  wayland,
+  enableScreen ? true,
+  enableYoctolight ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "clightd";

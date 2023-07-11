@@ -1,4 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, cython, nose, pytest, numpy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  cython,
+  nose,
+  pytest,
+  numpy,
+}:
 
 buildPythonPackage rec {
   pname = "PyWavelets";

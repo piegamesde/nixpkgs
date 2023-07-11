@@ -4,13 +4,37 @@
    Check for any minor version changes.
 */
 
-{ makeScopeWithSplicing, generateSplicesForMkScope, lib, stdenv, fetchurl
-, fetchgit, fetchpatch, fetchFromGitHub, makeSetupHook, makeWrapper, bison
-, cups ? null, harfbuzz, libGL, perl, python3, gstreamer, gst-plugins-base, gtk3
-, dconf, darwin, buildPackages
+{
+  makeScopeWithSplicing,
+  generateSplicesForMkScope,
+  lib,
+  stdenv,
+  fetchurl,
+  fetchgit,
+  fetchpatch,
+  fetchFromGitHub,
+  makeSetupHook,
+  makeWrapper,
+  bison,
+  cups ? null,
+  harfbuzz,
+  libGL,
+  perl,
+  python3,
+  gstreamer,
+  gst-plugins-base,
+  gtk3,
+  dconf,
+  darwin,
+  buildPackages
 
-# options
-, developerBuild ? false, decryptSslTraffic ? false, debug ? false, config }:
+  # options
+  ,
+  developerBuild ? false,
+  decryptSslTraffic ? false,
+  debug ? false,
+  config,
+}:
 
 let
 

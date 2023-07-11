@@ -1,4 +1,7 @@
-{ newScope, darwin }:
+{
+  newScope,
+  darwin,
+}:
 
 let
   callPackage = newScope self;

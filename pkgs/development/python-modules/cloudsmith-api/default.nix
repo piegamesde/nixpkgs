@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, certifi, fetchPypi, python-dateutil, pythonOlder, six
-, urllib3 }:
+{
+  lib,
+  buildPythonPackage,
+  certifi,
+  fetchPypi,
+  python-dateutil,
+  pythonOlder,
+  six,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "cloudsmith-api";

@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchFromGitHub, cmake, cfitsio, libusb1, zlib, boost, libev
-, libnova, curl, libjpeg, gsl, fftw }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  cfitsio,
+  libusb1,
+  zlib,
+  boost,
+  libev,
+  libnova,
+  curl,
+  libjpeg,
+  gsl,
+  fftw,
+}:
 
 stdenv.mkDerivation rec {
   pname = "indilib";

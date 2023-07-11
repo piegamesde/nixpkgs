@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, git, mercurial, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  git,
+  mercurial,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fast-export";

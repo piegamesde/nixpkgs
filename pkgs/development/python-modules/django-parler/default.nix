@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, django, fetchFromGitHub, pytest, pytest-django
-, pythonOlder, python }:
+{
+  lib,
+  buildPythonPackage,
+  django,
+  fetchFromGitHub,
+  pytest,
+  pytest-django,
+  pythonOlder,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "django-parler";

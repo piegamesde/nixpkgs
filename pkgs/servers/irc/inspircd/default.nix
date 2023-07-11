@@ -53,11 +53,30 @@ let
       "ssl_gnutls"
     ] ++ lib.optionals (compatible lib stdenv.cc.libc) libcModules;
 
-in { lib, stdenv, fetchFromGitHub, nixosTests, perl, pkg-config, libargon2
-, openldap, postgresql, libmysqlclient, pcre, pcre2, tre, re2, sqlite, gnutls
-, libmaxminddb, openssl, mbedtls
-# For a full list of module names, see https://docs.inspircd.org/packaging/
-, extraModules ? compatibleModules lib stdenv }:
+in {
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nixosTests,
+  perl,
+  pkg-config,
+  libargon2,
+  openldap,
+  postgresql,
+  libmysqlclient,
+  pcre,
+  pcre2,
+  tre,
+  re2,
+  sqlite,
+  gnutls,
+  libmaxminddb,
+  openssl,
+  mbedtls
+  # For a full list of module names, see https://docs.inspircd.org/packaging/
+  ,
+  extraModules ? compatibleModules lib stdenv
+}:
 
 let
   extras = {

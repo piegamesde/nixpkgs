@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, rocm-smi, rocm-runtime
-, libcap, grpc, protobuf, openssl, doxygen, graphviz, texlive, gtest
-, buildDocs ? true, buildTests ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  cmake,
+  rocm-smi,
+  rocm-runtime,
+  libcap,
+  grpc,
+  protobuf,
+  openssl,
+  doxygen,
+  graphviz,
+  texlive,
+  gtest,
+  buildDocs ? true,
+  buildTests ? false
+}:
 
 let
   latex = lib.optionalAttrs buildDocs texlive.combine {

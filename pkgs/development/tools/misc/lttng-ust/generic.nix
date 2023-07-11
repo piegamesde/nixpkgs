@@ -1,6 +1,17 @@
-{ version, sha256 }:
+{
+  version,
+  sha256,
+}:
 
-{ lib, stdenv, fetchurl, pkg-config, liburcu, numactl, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  liburcu,
+  numactl,
+  python3,
+}:
 
 # NOTE:
 #   ./configure ...

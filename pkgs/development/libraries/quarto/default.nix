@@ -1,6 +1,18 @@
-{ stdenv, lib, pandoc, esbuild, deno, fetchurl, nodePackages, rWrapper
-, rPackages, extraRPackages ? [ ], makeWrapper, python3
-, extraPythonPackages ? ps: with ps; [ ] }:
+{
+  stdenv,
+  lib,
+  pandoc,
+  esbuild,
+  deno,
+  fetchurl,
+  nodePackages,
+  rWrapper,
+  rPackages,
+  extraRPackages ? [ ],
+  makeWrapper,
+  python3,
+  extraPythonPackages ? ps: with ps; [ ]
+}:
 
 stdenv.mkDerivation rec {
   pname = "quarto";

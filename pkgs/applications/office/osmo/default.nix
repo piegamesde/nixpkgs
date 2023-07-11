@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, pkg-config, gtk3, libxml2, gettext, libical, libnotify
-, libarchive, gspell, webkitgtk, libgringotts, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gtk3,
+  libxml2,
+  gettext,
+  libical,
+  libnotify,
+  libarchive,
+  gspell,
+  webkitgtk,
+  libgringotts,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "osmo";

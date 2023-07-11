@@ -1,4 +1,11 @@
-{ lib, stdenv, writers, adoptopenjdk-jre-bin, fetchurl, makeWrapper }:
+{
+  lib,
+  stdenv,
+  writers,
+  adoptopenjdk-jre-bin,
+  fetchurl,
+  makeWrapper,
+}:
 stdenv.mkDerivation rec {
   pname = "cgoban";
   version = "3.5.23";

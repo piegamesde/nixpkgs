@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, addOpenGLRunpath, makeWrapper
-, ocl-icd, vulkan-loader }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  addOpenGLRunpath,
+  makeWrapper,
+  ocl-icd,
+  vulkan-loader,
+}:
 
 stdenv.mkDerivation rec {
   pname = "geekbench";

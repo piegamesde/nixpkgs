@@ -1,4 +1,10 @@
-{ pkgs, buildPythonPackage, fetchPypi, azure-core, typing-extensions }:
+{
+  pkgs,
+  buildPythonPackage,
+  fetchPypi,
+  azure-core,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   version = "1.3.2";

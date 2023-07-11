@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libX11, glfw, makeWrapper
-, libXrandr, libXinerama, libXcursor, gtk3, ffmpeg-full, AppKit, Carbon, Cocoa
-, CoreAudio, CoreMIDI, CoreServices, Kernel }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libX11,
+  glfw,
+  makeWrapper,
+  libXrandr,
+  libXinerama,
+  libXcursor,
+  gtk3,
+  ffmpeg-full,
+  AppKit,
+  Carbon,
+  Cocoa,
+  CoreAudio,
+  CoreMIDI,
+  CoreServices,
+  Kernel,
+}:
 
 stdenv.mkDerivation rec {
   pname = "MIDIVisualizer";

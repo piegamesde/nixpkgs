@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -19,7 +24,11 @@ let
     }));
   };
   exportSections = mapAttrs (_:
-    { path, allowAddresses, extraOptions }:
+    {
+      path,
+      allowAddresses,
+      extraOptions,
+    }:
     extraOptions // {
       exportname = path;
     } // (optionalAttrs (allowAddresses != null) {
@@ -30,8 +39,12 @@ let
     ${lib.generators.toINI { } genericSection}
     ${lib.generators.toINI { } exportSections}
   '';
-  splitLists = partition (path: hasPrefix "/dev/" path)
-    (mapAttrsToList (_: { path, ... }: path) cfg.server.exports);
+  splitLists = partition (path: hasPrefix "/dev/" path) (mapAttrsToList (_:
+    {
+      path,
+      ...
+    }:
+    path) cfg.server.exports);
   allowedDevices = splitLists.right;
   boundPaths = splitLists.wrong;
 in {

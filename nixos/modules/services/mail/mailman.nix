@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }: # mailman.nix
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: # mailman.nix
 
 with lib;
 

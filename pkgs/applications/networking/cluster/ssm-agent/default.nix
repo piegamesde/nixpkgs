@@ -1,6 +1,17 @@
-{ lib, writeShellScriptBin, buildGoPackage, makeWrapper, fetchFromGitHub
-, fetchpatch, coreutils, nettools, dmidecode, util-linux, bashInteractive
-, overrideEtc ? true }:
+{
+  lib,
+  writeShellScriptBin,
+  buildGoPackage,
+  makeWrapper,
+  fetchFromGitHub,
+  fetchpatch,
+  coreutils,
+  nettools,
+  dmidecode,
+  util-linux,
+  bashInteractive,
+  overrideEtc ? true
+}:
 
 let
   # Tests use lsb_release, so we mock it (the SSM agent used to not

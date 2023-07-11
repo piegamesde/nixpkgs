@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchzip, fltk, zlib, xdg-utils, xorg, libjpeg, libGLU }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  fltk,
+  zlib,
+  xdg-utils,
+  xorg,
+  libjpeg,
+  libGLU,
+}:
 
 stdenv.mkDerivation rec {
   pname = "eureka-editor";

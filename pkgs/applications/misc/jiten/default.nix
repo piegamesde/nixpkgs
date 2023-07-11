@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, python3, bash, makeWrapper, kanjidraw, pcre, sqlite
-, nodejs }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  bash,
+  makeWrapper,
+  kanjidraw,
+  pcre,
+  sqlite,
+  nodejs,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "jiten";

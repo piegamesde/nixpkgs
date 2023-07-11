@@ -1,8 +1,34 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi
-, akonadi-notes, kcalendarcore, kcmutils, kcrash, kdbusaddons
-, kidentitymanagement, kldap, kmailtransport, knewstuff, knotifications
-, knotifyconfig, kparts, kross, ktexteditor, kuserfeedback, kwallet, libkdepim
-, libkleo, pimcommon, qttools, karchive, mailcommon, messagelib }:
+{
+  mkDerivation,
+  lib,
+  kdepimTeam,
+  extra-cmake-modules,
+  kdoctools,
+  akonadi,
+  akonadi-notes,
+  kcalendarcore,
+  kcmutils,
+  kcrash,
+  kdbusaddons,
+  kidentitymanagement,
+  kldap,
+  kmailtransport,
+  knewstuff,
+  knotifications,
+  knotifyconfig,
+  kparts,
+  kross,
+  ktexteditor,
+  kuserfeedback,
+  kwallet,
+  libkdepim,
+  libkleo,
+  pimcommon,
+  qttools,
+  karchive,
+  mailcommon,
+  messagelib,
+}:
 
 mkDerivation {
   pname = "pim-data-exporter";

@@ -1,5 +1,8 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; }
+}:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 
@@ -8,13 +11,16 @@ builtins.listToAttrs (builtins.map (nginxName: {
   value = makeTest {
     name = "nginx-variant-${nginxName}";
 
-    nodes.machine = { pkgs, ... }: {
-      services.nginx = {
-        enable = true;
-        virtualHosts.localhost.locations."/".return = "200 'foo'";
-        package = pkgs."${nginxName}";
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        services.nginx = {
+          enable = true;
+          virtualHosts.localhost.locations."/".return = "200 'foo'";
+          package = pkgs."${nginxName}";
+        };
       };
-    };
 
     testScript = ''
       machine.wait_for_unit("nginx")

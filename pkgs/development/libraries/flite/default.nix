@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, alsa-lib, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  alsa-lib,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "flite";

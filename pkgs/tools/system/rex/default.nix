@@ -1,4 +1,12 @@
-{ pkgs, lib, fetchurl, perlPackages, rsync, installShellFiles, ... }:
+{
+  pkgs,
+  lib,
+  fetchurl,
+  perlPackages,
+  rsync,
+  installShellFiles,
+  ...
+}:
 
 perlPackages.buildPerlPackage rec {
   pname = "Rex";

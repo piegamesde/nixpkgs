@@ -1,4 +1,12 @@
-{ lib, buildPackages, fetchzip, perl, buildLinux, nixosTests, ... }@args:
+{
+  lib,
+  buildPackages,
+  fetchzip,
+  perl,
+  buildLinux,
+  nixosTests,
+  ...
+}@args:
 
 with lib;
 

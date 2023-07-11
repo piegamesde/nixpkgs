@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, python3, makeWrapper, nixosTests }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  makeWrapper,
+  nixosTests,
+}:
 let
   # Seahub 8.x.x does not support django-webpack-loader >=1.x.x
   python = python3.override {

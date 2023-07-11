@@ -1,4 +1,11 @@
-{ lib, mkCoqDerivation, coq, version ? null, ssreflect, deriving }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  version ? null,
+  ssreflect,
+  deriving,
+}:
 
 (mkCoqDerivation {
   pname = "extructures";

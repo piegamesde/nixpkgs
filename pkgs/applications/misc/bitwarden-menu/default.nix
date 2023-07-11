@@ -1,4 +1,10 @@
-{ lib, buildPythonApplication, fetchPypi, pynput, xdg }:
+{
+  lib,
+  buildPythonApplication,
+  fetchPypi,
+  pynput,
+  xdg,
+}:
 
 buildPythonApplication rec {
   pname = "bitwarden-menu";

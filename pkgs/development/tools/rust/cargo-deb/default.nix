@@ -1,4 +1,10 @@
-{ lib, rustPlatform, fetchFromGitHub, makeWrapper, dpkg }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  makeWrapper,
+  dpkg,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-deb";

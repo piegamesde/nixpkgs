@@ -1,7 +1,27 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, wrapGAppsHook, makeWrapper
-, pixman, libpthreadstubs, gtkmm3, libXau, libXdmcp, lcms2, libiptcdata, fftw
-, expat, pcre, libsigcxx, lensfun, librsvg, libcanberra-gtk3
-, gtk-mac-integration }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  wrapGAppsHook,
+  makeWrapper,
+  pixman,
+  libpthreadstubs,
+  gtkmm3,
+  libXau,
+  libXdmcp,
+  lcms2,
+  libiptcdata,
+  fftw,
+  expat,
+  pcre,
+  libsigcxx,
+  lensfun,
+  librsvg,
+  libcanberra-gtk3,
+  gtk-mac-integration,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rawtherapee";

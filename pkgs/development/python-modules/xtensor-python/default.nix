@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cmake, gtest, xtensor, pybind11
-, numpy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cmake,
+  gtest,
+  xtensor,
+  pybind11,
+  numpy,
+}:
 
 buildPythonPackage rec {
   pname = "xtensor-python";

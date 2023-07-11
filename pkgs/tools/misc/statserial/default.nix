@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, ncurses, glibc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ncurses,
+  glibc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "statserial";

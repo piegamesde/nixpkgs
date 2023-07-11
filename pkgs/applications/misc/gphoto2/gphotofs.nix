@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, libtool, pkg-config, libgphoto2, fuse, glib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libtool,
+  pkg-config,
+  libgphoto2,
+  fuse,
+  glib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gphoto2fs";

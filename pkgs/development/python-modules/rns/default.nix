@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, cryptography, fetchFromGitHub, netifaces, pyserial
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  netifaces,
+  pyserial,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "rns";

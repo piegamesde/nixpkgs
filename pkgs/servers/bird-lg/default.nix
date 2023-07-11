@@ -1,6 +1,14 @@
-{ buildGoModule, fetchFromGitHub, lib, symlinkJoin }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  symlinkJoin,
+}:
 let
-  generic = { modRoot, vendorSha256 }:
+  generic = {
+      modRoot,
+      vendorSha256,
+    }:
     buildGoModule rec {
       pname = "bird-lg-${modRoot}";
       version = "1.2.0";

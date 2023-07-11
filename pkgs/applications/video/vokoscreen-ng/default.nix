@@ -1,8 +1,26 @@
-{ lib, mkDerivation, fetchFromGitHub, pkg-config, qmake, qttools, gstreamer
-, libX11, pulseaudio, qtbase, qtmultimedia, qtx11extras
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  pkg-config,
+  qmake,
+  qttools,
+  gstreamer,
+  libX11,
+  pulseaudio,
+  qtbase,
+  qtmultimedia,
+  qtx11extras
 
-, gst-plugins-base, gst-plugins-good, gst-plugins-bad, gst-plugins-ugly, wayland
-, pipewire, wrapQtAppsHook }:
+  ,
+  gst-plugins-base,
+  gst-plugins-good,
+  gst-plugins-bad,
+  gst-plugins-ugly,
+  wayland,
+  pipewire,
+  wrapQtAppsHook,
+}:
 
 mkDerivation rec {
   pname = "vokoscreen-ng";

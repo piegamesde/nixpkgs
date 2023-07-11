@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pycares, pythonOlder, typing }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pycares,
+  pythonOlder,
+  typing,
+}:
 
 buildPythonPackage rec {
   pname = "aiodns";

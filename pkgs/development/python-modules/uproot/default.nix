@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, awkward, hatchling
-, importlib-metadata, numpy, packaging, pytestCheckHook, lz4, pytest-timeout
-, scikit-hep-testdata, xxhash, zstandard }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  awkward,
+  hatchling,
+  importlib-metadata,
+  numpy,
+  packaging,
+  pytestCheckHook,
+  lz4,
+  pytest-timeout,
+  scikit-hep-testdata,
+  xxhash,
+  zstandard,
+}:
 
 buildPythonPackage rec {
   pname = "uproot";

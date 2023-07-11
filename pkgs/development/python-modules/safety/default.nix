@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, pythonRelaxDepsHook
-, setuptools, click, requests, packaging, dparse, ruamel-yaml, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  pythonRelaxDepsHook,
+  setuptools,
+  click,
+  requests,
+  packaging,
+  dparse,
+  ruamel-yaml,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {

@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake
-, static ? stdenv.hostPlatform.isStatic, cxxStandard ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  static ? stdenv.hostPlatform.isStatic,
+  cxxStandard ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "abseil-cpp";

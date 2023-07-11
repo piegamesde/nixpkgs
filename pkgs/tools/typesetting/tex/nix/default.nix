@@ -2,10 +2,18 @@ pkgs:
 
 rec {
 
-  runLaTeX = { rootFile, generatePDF ? true # generate PDF, not DVI
-    , generatePS ? false # generate PS in addition to DVI
-    , extraFiles ? [ ], compressBlanksInIndex ? true, packages ? [ ]
-    , texPackages ? { }, copySources ? false }:
+  runLaTeX = {
+      rootFile,
+      generatePDF ? true # generate PDF, not DVI
+      ,
+      generatePS ? false # generate PS in addition to DVI
+      ,
+      extraFiles ? [ ],
+      compressBlanksInIndex ? true,
+      packages ? [ ],
+      texPackages ? { },
+      copySources ? false
+    }:
 
     assert generatePDF -> !generatePS;
 
@@ -33,12 +41,17 @@ rec {
   # Dependencies are other LaTeX source files (e.g. included using
   # \input{}), images (e.g. \includegraphics{}), bibliographies, and
   # so on.
-  findLaTeXIncludes = { rootFile }:
+  findLaTeXIncludes = {
+      rootFile,
+    }:
 
     builtins.genericClosure {
       startSet = [{ key = rootFile; }];
 
-      operator = { key, ... }:
+      operator = {
+          key,
+          ...
+        }:
 
         let
 
@@ -74,12 +87,18 @@ rec {
         in pkgs.lib.foldr foundDeps [ ] deps;
     };
 
-  findLhs2TeXIncludes = { lib, rootFile }:
+  findLhs2TeXIncludes = {
+      lib,
+      rootFile,
+    }:
 
     builtins.genericClosure {
       startSet = [{ key = rootFile; }];
 
-      operator = { key, ... }:
+      operator = {
+          key,
+          ...
+        }:
 
         let
 
@@ -91,7 +110,9 @@ rec {
         (map (x: dirOf key + ("/" + x)) deps);
     };
 
-  dot2pdf = { dotGraph }:
+  dot2pdf = {
+      dotGraph,
+    }:
 
     pkgs.stdenv.mkDerivation {
       name = "pdf";
@@ -100,7 +121,9 @@ rec {
       buildInputs = [ pkgs.perl pkgs.graphviz ];
     };
 
-  dot2ps = { dotGraph }:
+  dot2ps = {
+      dotGraph,
+    }:
 
     pkgs.stdenv.mkDerivation {
       name = "ps";
@@ -109,7 +132,10 @@ rec {
       buildInputs = [ pkgs.perl pkgs.graphviz pkgs.ghostscript ];
     };
 
-  lhs2tex = { source, flags ? null }:
+  lhs2tex = {
+      source,
+      flags ? null
+    }:
     pkgs.stdenv.mkDerivation {
       name = "tex";
       builder = ./lhs2tex.sh;
@@ -129,7 +155,11 @@ rec {
 
   # Wrap a piece of TeX code in a document.  Useful when generating
   # inline images from TeX code.
-  wrapSimpleTeX = { preamble ? null, body, name ? baseNameOf (toString body) }:
+  wrapSimpleTeX = {
+      preamble ? null,
+      body,
+      name ? baseNameOf (toString body)
+    }:
 
     pkgs.stdenv.mkDerivation {
       inherit name preamble body;
@@ -146,7 +176,9 @@ rec {
 
   # Convert a Postscript file to a PNG image, trimming it so that
   # there is no unnecessary surrounding whitespace.
-  postscriptToPNG = { postscript }:
+  postscriptToPNG = {
+      postscript,
+    }:
 
     pkgs.stdenv.mkDerivation {
       name = "png";
@@ -176,7 +208,11 @@ rec {
     };
 
   # Convert a piece of TeX code to a PNG image.
-  simpleTeXToPNG = { preamble ? null, body, packages ? [ ] }:
+  simpleTeXToPNG = {
+      preamble ? null,
+      body,
+      packages ? [ ]
+    }:
 
     postscriptToPNG {
       postscript = runLaTeX {
@@ -188,7 +224,11 @@ rec {
     };
 
   # Convert a piece of TeX code to a PDF.
-  simpleTeXToPDF = { preamble ? null, body, packages ? [ ] }:
+  simpleTeXToPDF = {
+      preamble ? null,
+      body,
+      packages ? [ ]
+    }:
 
     runLaTeX {
       rootFile = wrapSimpleTeX { inherit body preamble; };

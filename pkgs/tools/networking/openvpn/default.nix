@@ -1,11 +1,28 @@
-{ lib, stdenv, fetchurl, pkg-config, iproute2, lzo, openssl, pam
-, useSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd
-, update-systemd-resolved, util-linux, pkcs11Support ? false, pkcs11helper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  iproute2,
+  lzo,
+  openssl,
+  pam,
+  useSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
+  systemd,
+  update-systemd-resolved,
+  util-linux,
+  pkcs11Support ? false,
+  pkcs11helper,
+}:
 
 let
   inherit (lib) versionOlder optional optionals optionalString;
 
-  generic = { version, sha256, extraBuildInputs ? [ ] }:
+  generic = {
+      version,
+      sha256,
+      extraBuildInputs ? [ ]
+    }:
     let withIpRoute = stdenv.isLinux && (versionOlder version "2.5.4");
     in stdenv.mkDerivation rec {
       pname = "openvpn";

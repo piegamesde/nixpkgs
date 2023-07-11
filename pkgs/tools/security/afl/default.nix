@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, callPackage, makeWrapper, clang, llvm, which
-, libcgroup }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  callPackage,
+  makeWrapper,
+  clang,
+  llvm,
+  which,
+  libcgroup,
+}:
 
 let
   afl-qemu = callPackage ./qemu.nix { inherit afl; };

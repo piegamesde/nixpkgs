@@ -1,7 +1,16 @@
-{ buildGoModule, fetchFromGitHub, lib }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+}:
 
 let
-  generic = { subPackages, pname, postInstall ? "", mainProgram }:
+  generic = {
+      subPackages,
+      pname,
+      postInstall ? "",
+      mainProgram,
+    }:
     buildGoModule rec {
       inherit pname;
       version = "6.9.2";

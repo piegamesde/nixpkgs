@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, ifaddr, lxml, poetry-core
-, pytest-vcr, pytestCheckHook, pythonOlder, requests, urllib3 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  ifaddr,
+  lxml,
+  poetry-core,
+  pytest-vcr,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "pywemo";

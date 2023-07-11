@@ -1,5 +1,12 @@
-{ lib, gitUpdater, buildPythonApplication, fetchFromGitHub, pythonOlder
-, setuptools, requests }:
+{
+  lib,
+  gitUpdater,
+  buildPythonApplication,
+  fetchFromGitHub,
+  pythonOlder,
+  setuptools,
+  requests,
+}:
 
 buildPythonApplication rec {
   pname = "gogdl";

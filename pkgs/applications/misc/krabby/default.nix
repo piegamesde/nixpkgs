@@ -1,4 +1,8 @@
-{ lib, rustPlatform, fetchCrate }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "krabby";
   version = "0.1.6";

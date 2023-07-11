@@ -1,5 +1,12 @@
-{ lib, fetchFromGitea, buildPythonApplication, pbr, requests, setuptools
-, gitUpdater }:
+{
+  lib,
+  fetchFromGitea,
+  buildPythonApplication,
+  pbr,
+  requests,
+  setuptools,
+  gitUpdater,
+}:
 
 buildPythonApplication rec {
   pname = "git-review";

@@ -1,5 +1,17 @@
-{ lib, attrs, buildPythonPackage, cattrs, click, click-option-group, fetchPypi
-, hatchling, pytestCheckHook, pythonOlder, tomli, typing-extensions }:
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  cattrs,
+  click,
+  click-option-group,
+  fetchPypi,
+  hatchling,
+  pytestCheckHook,
+  pythonOlder,
+  tomli,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "typed-settings";

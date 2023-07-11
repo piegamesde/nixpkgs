@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest-mock, pytestCheckHook
-, python-socks, pythonOlder, tldextract, whodap }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-mock,
+  pytestCheckHook,
+  python-socks,
+  pythonOlder,
+  tldextract,
+  whodap,
+}:
 
 buildPythonPackage rec {
   pname = "asyncwhois";

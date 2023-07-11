@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, h5py }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  h5py,
+}:
 
 buildPythonPackage rec {
   pname = "Keras_Applications";

@@ -1,5 +1,10 @@
 # Nagios system/network monitoring daemon.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

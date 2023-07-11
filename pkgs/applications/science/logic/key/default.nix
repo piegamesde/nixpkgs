@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, jdk, gradle_7, perl, jre, makeWrapper, makeDesktopItem
-, copyDesktopItems, testers, key }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jdk,
+  gradle_7,
+  perl,
+  jre,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  testers,
+  key,
+}:
 
 let
   pname = "key";

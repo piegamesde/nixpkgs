@@ -1,5 +1,18 @@
-{ lib, fetchFromGitHub, rustPlatform, stdenv, installShellFiles, pkg-config
-, libiconv, openssl, DiskArbitration, Foundation, mandown, zellij, testers }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  stdenv,
+  installShellFiles,
+  pkg-config,
+  libiconv,
+  openssl,
+  DiskArbitration,
+  Foundation,
+  mandown,
+  zellij,
+  testers,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "zellij";

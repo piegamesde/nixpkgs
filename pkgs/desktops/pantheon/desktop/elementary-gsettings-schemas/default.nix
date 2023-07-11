@@ -1,6 +1,18 @@
-{ lib, runCommand, mutter, elementary-default-settings, glib, gala, epiphany
-, gnome-settings-daemon, gtk3, elementary-dock, gsettings-desktop-schemas
-, extraGSettingsOverrides ? "", extraGSettingsOverridePackages ? [ ] }:
+{
+  lib,
+  runCommand,
+  mutter,
+  elementary-default-settings,
+  glib,
+  gala,
+  epiphany,
+  gnome-settings-daemon,
+  gtk3,
+  elementary-dock,
+  gsettings-desktop-schemas,
+  extraGSettingsOverrides ? "",
+  extraGSettingsOverridePackages ? [ ]
+}:
 
 let
 

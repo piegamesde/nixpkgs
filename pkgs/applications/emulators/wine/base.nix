@@ -1,7 +1,29 @@
-{ stdenv, lib, pkgArches, callPackage, makeSetupHook, pname, version, src
-, mingwGccs, monos, geckos, platforms, bison, flex, fontforge, makeWrapper
-, pkg-config, nixosTests, supportFlags, patches, moltenvk, buildScript ? null
-, configureFlags ? [ ], mainProgram ? "wine" }:
+{
+  stdenv,
+  lib,
+  pkgArches,
+  callPackage,
+  makeSetupHook,
+  pname,
+  version,
+  src,
+  mingwGccs,
+  monos,
+  geckos,
+  platforms,
+  bison,
+  flex,
+  fontforge,
+  makeWrapper,
+  pkg-config,
+  nixosTests,
+  supportFlags,
+  patches,
+  moltenvk,
+  buildScript ? null,
+  configureFlags ? [ ],
+  mainProgram ? "wine"
+}:
 
 with import ./util.nix { inherit lib; };
 

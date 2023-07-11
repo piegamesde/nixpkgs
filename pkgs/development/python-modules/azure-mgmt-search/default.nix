@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, msrest, azure-common, azure-mgmt-core
-, pythonOlder, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  msrest,
+  azure-common,
+  azure-mgmt-core,
+  pythonOlder,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-search";

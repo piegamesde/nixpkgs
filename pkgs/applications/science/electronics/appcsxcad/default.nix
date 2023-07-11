@@ -1,5 +1,18 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, csxcad, qcsxcad, hdf5, vtkWithQt5
-, qtbase, fparser, tinyxml, cgal, boost }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  csxcad,
+  qcsxcad,
+  hdf5,
+  vtkWithQt5,
+  qtbase,
+  fparser,
+  tinyxml,
+  cgal,
+  boost,
+}:
 
 mkDerivation {
   pname = "appcsxcad";

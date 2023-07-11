@@ -1,8 +1,36 @@
-{ mkDerivation, fetchpatch, ansi-terminal, ansi-wl-pprint, base, binary
-, bytestring, Cabal, cmark, containers, directory, elm-format, fetchgit
-, filepath, free, HUnit, indents, json, mtl, optparse-applicative, parsec
-, process, QuickCheck, quickcheck-io, split, lib, tasty, tasty-golden
-, tasty-hunit, tasty-quickcheck, text }:
+{
+  mkDerivation,
+  fetchpatch,
+  ansi-terminal,
+  ansi-wl-pprint,
+  base,
+  binary,
+  bytestring,
+  Cabal,
+  cmark,
+  containers,
+  directory,
+  elm-format,
+  fetchgit,
+  filepath,
+  free,
+  HUnit,
+  indents,
+  json,
+  mtl,
+  optparse-applicative,
+  parsec,
+  process,
+  QuickCheck,
+  quickcheck-io,
+  split,
+  lib,
+  tasty,
+  tasty-golden,
+  tasty-hunit,
+  tasty-quickcheck,
+  text,
+}:
 mkDerivation {
   pname = "elm-instrument";
   version = "0.0.7";

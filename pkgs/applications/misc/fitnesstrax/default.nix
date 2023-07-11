@@ -1,4 +1,11 @@
-{ fetchFromGitHub, glib, gtk3, lib, rustPlatform, wrapGAppsHook }:
+{
+  fetchFromGitHub,
+  glib,
+  gtk3,
+  lib,
+  rustPlatform,
+  wrapGAppsHook,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "fitnesstrax";

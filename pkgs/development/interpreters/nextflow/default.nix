@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, makeWrapper, openjdk17, wget, which, gnused, gawk
-, coreutils, buildFHSEnv }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  openjdk17,
+  wget,
+  which,
+  gnused,
+  gawk,
+  coreutils,
+  buildFHSEnv,
+}:
 
 let
   nextflow = stdenv.mkDerivation rec {

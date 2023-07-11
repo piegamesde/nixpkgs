@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchurl, pkg-config, wrapGAppsHook, intltool, libgpod, libxml2
-, curl, flac, gnome, gtk3, gettext, perlPackages, flex, libid3tag, gdl
-, libvorbis, gdk-pixbuf }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  wrapGAppsHook,
+  intltool,
+  libgpod,
+  libxml2,
+  curl,
+  flac,
+  gnome,
+  gtk3,
+  gettext,
+  perlPackages,
+  flex,
+  libid3tag,
+  gdl,
+  libvorbis,
+  gdk-pixbuf,
+}:
 
 stdenv.mkDerivation rec {
   version = "2.1.5";

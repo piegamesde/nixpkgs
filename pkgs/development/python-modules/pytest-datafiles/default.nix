@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, py, pytest, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  py,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-datafiles";

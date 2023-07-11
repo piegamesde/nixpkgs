@@ -1,12 +1,38 @@
-{ stdenv, runCommand, ruby, lib, rsync, defaultGemConfig, buildRubyGem, buildEnv
-, makeBinaryWrapper, bundler }@defs:
+{
+  stdenv,
+  runCommand,
+  ruby,
+  lib,
+  rsync,
+  defaultGemConfig,
+  buildRubyGem,
+  buildEnv,
+  makeBinaryWrapper,
+  bundler,
+}@defs:
 
-{ name ? null, pname ? null, mainGemName ? null, gemdir ? null, gemfile ? null
-, lockfile ? null, gemset ? null, ruby ? defs.ruby
-, copyGemFiles ? false # Copy gem files instead of symlinking
-, gemConfig ? defaultGemConfig, postBuild ? null, document ? [ ], meta ? { }
-, groups ? null, ignoreCollisions ? false, nativeBuildInputs ? [ ]
-, buildInputs ? [ ], extraConfigPaths ? [ ], ... }@args:
+{
+  name ? null,
+  pname ? null,
+  mainGemName ? null,
+  gemdir ? null,
+  gemfile ? null,
+  lockfile ? null,
+  gemset ? null,
+  ruby ? defs.ruby,
+  copyGemFiles ? false # Copy gem files instead of symlinking
+  ,
+  gemConfig ? defaultGemConfig,
+  postBuild ? null,
+  document ? [ ],
+  meta ? { },
+  groups ? null,
+  ignoreCollisions ? false,
+  nativeBuildInputs ? [ ],
+  buildInputs ? [ ],
+  extraConfigPaths ? [ ],
+  ...
+}@args:
 
 assert name == null -> pname != null;
 
@@ -48,7 +74,10 @@ let
 
   pname' = if pname != null then pname else name;
 
-  copyIfBundledByPath = { bundledByPath ? false, ... }:
+  copyIfBundledByPath = {
+      bundledByPath ? false,
+      ...
+    }:
     (lib.optionalString bundledByPath
       (assert gemFiles.gemdir != null; "cp -a ${gemFiles.gemdir}/* $out/") # */
     );

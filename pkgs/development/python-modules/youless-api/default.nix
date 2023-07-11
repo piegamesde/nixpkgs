@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromBitbucket, pythonOlder, certifi, chardet
-, idna, nose, requests, urllib3 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromBitbucket,
+  pythonOlder,
+  certifi,
+  chardet,
+  idna,
+  nose,
+  requests,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "youless-api";

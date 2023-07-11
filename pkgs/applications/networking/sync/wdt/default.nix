@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, cmake, folly, boost, gflags, glog, openssl
-, double-conversion, fmt, unstableGitUpdater }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  folly,
+  boost,
+  gflags,
+  glog,
+  openssl,
+  double-conversion,
+  fmt,
+  unstableGitUpdater,
+}:
 
 stdenv.mkDerivation {
   pname = "wdt";

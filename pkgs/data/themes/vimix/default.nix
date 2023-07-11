@@ -1,8 +1,21 @@
-{ lib, stdenvNoCC, fetchFromGitHub, gnome-shell, gtk-engine-murrine, gtk_engines
-, jdupes, sassc, gitUpdater, themeVariants ? [ ] # default: doder (blue)
-, colorVariants ? [ ] # default: all
-, sizeVariants ? [ ] # default: standard
-, tweaks ? [ ] }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gnome-shell,
+  gtk-engine-murrine,
+  gtk_engines,
+  jdupes,
+  sassc,
+  gitUpdater,
+  themeVariants ? [ ] # default: doder (blue)
+  ,
+  colorVariants ? [ ] # default: all
+  ,
+  sizeVariants ? [ ] # default: standard
+  ,
+  tweaks ? [ ]
+}:
 
 let pname = "vimix-gtk-themes";
 

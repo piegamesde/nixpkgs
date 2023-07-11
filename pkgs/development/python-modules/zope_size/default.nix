@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, zope_i18nmessageid, zope_interface }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  zope_i18nmessageid,
+  zope_interface,
+}:
 
 buildPythonPackage rec {
   pname = "zope.size";

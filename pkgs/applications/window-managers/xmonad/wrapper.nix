@@ -1,4 +1,10 @@
-{ stdenv, ghcWithPackages, xmessage, makeWrapper, packages }:
+{
+  stdenv,
+  ghcWithPackages,
+  xmessage,
+  makeWrapper,
+  packages,
+}:
 
 let xmonadEnv = ghcWithPackages (self: [ self.xmonad ] ++ packages self);
 in stdenv.mkDerivation {

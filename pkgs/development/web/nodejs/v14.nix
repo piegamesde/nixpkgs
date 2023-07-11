@@ -1,4 +1,11 @@
-{ callPackage, python3, lib, stdenv, openssl, enableNpm ? true }:
+{
+  callPackage,
+  python3,
+  lib,
+  stdenv,
+  openssl,
+  enableNpm ? true
+}:
 
 let
   buildNodejs = callPackage ./nodejs.nix {

@@ -1,5 +1,9 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; }, lib ? pkgs.lib }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; },
+  lib ? pkgs.lib
+}:
 
 let
 
@@ -15,16 +19,19 @@ let
       };
 
       nodes = {
-        ${backend} = { pkgs, ... }: {
-          virtualisation.oci-containers = {
-            inherit backend;
-            containers.nginx = {
-              image = "nginx-container";
-              imageFile = pkgs.dockerTools.examples.nginx;
-              ports = [ "8181:80" ];
+        ${backend} = {
+            pkgs,
+            ...
+          }: {
+            virtualisation.oci-containers = {
+              inherit backend;
+              containers.nginx = {
+                image = "nginx-container";
+                imageFile = pkgs.dockerTools.examples.nginx;
+                ports = [ "8181:80" ];
+              };
             };
           };
-        };
       };
 
       testScript = ''

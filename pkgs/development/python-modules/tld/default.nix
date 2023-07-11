@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, factory_boy, faker, fetchPypi, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  factory_boy,
+  faker,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "tld";

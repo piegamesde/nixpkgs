@@ -1,11 +1,30 @@
-{ lib, stdenv, fetchurl, autoreconfHook, buildPackages, libiconv, perl, texinfo
-, xz, gmpSupport ? true, gmp, aclSupport ? stdenv.isLinux, acl
-, attrSupport ? stdenv.isLinux, attr, selinuxSupport ? false, libselinux
-, libsepol
-# No openssl in default version, so openssl-induced rebuilds aren't too big.
-# It makes *sum functions significantly faster.
-, minimal ? true, withOpenssl ? !minimal, openssl, withPrefix ? false
-, singleBinary ? "symlinks" # you can also pass "shebangs" or false
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  buildPackages,
+  libiconv,
+  perl,
+  texinfo,
+  xz,
+  gmpSupport ? true,
+  gmp,
+  aclSupport ? stdenv.isLinux,
+  acl,
+  attrSupport ? stdenv.isLinux,
+  attr,
+  selinuxSupport ? false,
+  libselinux,
+  libsepol
+  # No openssl in default version, so openssl-induced rebuilds aren't too big.
+  # It makes *sum functions significantly faster.
+  ,
+  minimal ? true,
+  withOpenssl ? !minimal,
+  openssl,
+  withPrefix ? false,
+  singleBinary ? "symlinks" # you can also pass "shebangs" or false
 }:
 
 # Note: this package is used for bootstrapping fetchurl, and thus cannot use

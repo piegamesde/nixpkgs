@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, markdown, mkdocs, pytestCheckHook
-, pdm-pep517, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  markdown,
+  mkdocs,
+  pytestCheckHook,
+  pdm-pep517,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "mkdocs-autorefs";

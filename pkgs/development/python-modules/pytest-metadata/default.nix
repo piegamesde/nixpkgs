@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, poetry-core, pytest, pytestCheckHook
-, pythonOlder, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  poetry-core,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-metadata";

@@ -1,4 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, python, isPy27, enum34, attrs, pytz }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  isPy27,
+  enum34,
+  attrs,
+  pytz,
+}:
 
 buildPythonPackage rec {
   pname = "serpent";

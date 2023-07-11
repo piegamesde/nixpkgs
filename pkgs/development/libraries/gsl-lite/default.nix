@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja, installCompatHeader ? false
-, installLegacyHeaders ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  installCompatHeader ? false,
+  installLegacyHeaders ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "gsl-lite";

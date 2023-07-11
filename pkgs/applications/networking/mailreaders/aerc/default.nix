@@ -1,5 +1,15 @@
-{ lib, buildGoModule, fetchFromSourcehut, ncurses, notmuch, scdoc, python3, w3m
-, dante, gawk }:
+{
+  lib,
+  buildGoModule,
+  fetchFromSourcehut,
+  ncurses,
+  notmuch,
+  scdoc,
+  python3,
+  w3m,
+  dante,
+  gawk,
+}:
 
 buildGoModule rec {
   pname = "aerc";

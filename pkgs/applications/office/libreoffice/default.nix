@@ -1,48 +1,160 @@
-{ stdenv, fetchurl, lib, substituteAll, pam, python3, libxslt, perl, ArchiveZip
-, box2d, gettext, IOCompress, zlib, libjpeg, expat, freetype, libwpd, libxml2
-, db, curl, fontconfig, libsndfile, neon, bison, flex, zip, unzip, gtk3
-, libmspack, getopt, file, cairo, which, icu, boost, jdk17, ant, cups, xorg
-, fontforge, jre17_minimal, openssl, gperf, cppunit, poppler, util-linux
-, librsvg, libGLU, libGL, bsh, CoinMP, libwps, libabw, libmysqlclient, autoconf
-, automake, openldap, bash, hunspell, librdf_redland, nss, nspr, libwpg
-, dbus-glib, clucene_core, libcdr, lcms, unixODBC, mdds, sane-backends, mythes
-, libexttextcat, libvisio, fontsConf, pkg-config, bluez5, libtool, carlito
-, libatomic_ops, graphite2, harfbuzz, libodfgen, libzmf, librevenge, libe-book
-, libmwaw, glm, gst_all_1, gdb, commonsLogging, librdf_rasqal, gnome, glib
-, ncurses, libepoxy, gpgme, libwebp, abseil-cpp, langs ? [
-  "ar"
-  "ca"
-  "cs"
-  "da"
-  "de"
-  "en-GB"
-  "en-US"
-  "eo"
-  "es"
-  "fr"
-  "hu"
-  "it"
-  "ja"
-  "nl"
-  "pl"
-  "pt"
-  "pt-BR"
-  "ro"
-  "ru"
-  "sl"
-  "tr"
-  "uk"
-  "zh-CN"
-], withHelp ? true, kdeIntegration ? false, mkDerivation ? null, qtbase ? null
-, qtx11extras ? null, qtwayland ? null, ki18n ? null, kconfig ? null
-, kcoreaddons ? null, kio ? null, kwindowsystem ? null, variant ? "fresh"
-, symlinkJoin, postgresql
-# The rest are used only in passthru, for the wrapper
-, kauth ? null, kcompletion ? null, kconfigwidgets ? null, kglobalaccel ? null
-, kitemviews ? null, knotifications ? null, ktextwidgets ? null
-, kwidgetsaddons ? null, kxmlgui ? null, phonon ? null, qtdeclarative ? null
-, qtquickcontrols ? null, qtsvg ? null, qttools ? null, solid ? null
-, sonnet ? null }@args:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  substituteAll,
+  pam,
+  python3,
+  libxslt,
+  perl,
+  ArchiveZip,
+  box2d,
+  gettext,
+  IOCompress,
+  zlib,
+  libjpeg,
+  expat,
+  freetype,
+  libwpd,
+  libxml2,
+  db,
+  curl,
+  fontconfig,
+  libsndfile,
+  neon,
+  bison,
+  flex,
+  zip,
+  unzip,
+  gtk3,
+  libmspack,
+  getopt,
+  file,
+  cairo,
+  which,
+  icu,
+  boost,
+  jdk17,
+  ant,
+  cups,
+  xorg,
+  fontforge,
+  jre17_minimal,
+  openssl,
+  gperf,
+  cppunit,
+  poppler,
+  util-linux,
+  librsvg,
+  libGLU,
+  libGL,
+  bsh,
+  CoinMP,
+  libwps,
+  libabw,
+  libmysqlclient,
+  autoconf,
+  automake,
+  openldap,
+  bash,
+  hunspell,
+  librdf_redland,
+  nss,
+  nspr,
+  libwpg,
+  dbus-glib,
+  clucene_core,
+  libcdr,
+  lcms,
+  unixODBC,
+  mdds,
+  sane-backends,
+  mythes,
+  libexttextcat,
+  libvisio,
+  fontsConf,
+  pkg-config,
+  bluez5,
+  libtool,
+  carlito,
+  libatomic_ops,
+  graphite2,
+  harfbuzz,
+  libodfgen,
+  libzmf,
+  librevenge,
+  libe-book,
+  libmwaw,
+  glm,
+  gst_all_1,
+  gdb,
+  commonsLogging,
+  librdf_rasqal,
+  gnome,
+  glib,
+  ncurses,
+  libepoxy,
+  gpgme,
+  libwebp,
+  abseil-cpp,
+  langs ? [
+    "ar"
+    "ca"
+    "cs"
+    "da"
+    "de"
+    "en-GB"
+    "en-US"
+    "eo"
+    "es"
+    "fr"
+    "hu"
+    "it"
+    "ja"
+    "nl"
+    "pl"
+    "pt"
+    "pt-BR"
+    "ro"
+    "ru"
+    "sl"
+    "tr"
+    "uk"
+    "zh-CN"
+  ],
+  withHelp ? true,
+  kdeIntegration ? false,
+  mkDerivation ? null,
+  qtbase ? null,
+  qtx11extras ? null,
+  qtwayland ? null,
+  ki18n ? null,
+  kconfig ? null,
+  kcoreaddons ? null,
+  kio ? null,
+  kwindowsystem ? null,
+  variant ? "fresh",
+  symlinkJoin,
+  postgresql
+  # The rest are used only in passthru, for the wrapper
+  ,
+  kauth ? null,
+  kcompletion ? null,
+  kconfigwidgets ? null,
+  kglobalaccel ? null,
+  kitemviews ? null,
+  knotifications ? null,
+  ktextwidgets ? null,
+  kwidgetsaddons ? null,
+  kxmlgui ? null,
+  phonon ? null,
+  qtdeclarative ? null,
+  qtquickcontrols ? null,
+  qtsvg ? null,
+  qttools ? null,
+  solid ? null,
+  sonnet ? null
+}@args:
 
 assert builtins.elem variant [ "fresh" "still" ];
 

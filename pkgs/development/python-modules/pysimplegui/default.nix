@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, tkinter, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  tkinter,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pysimplegui";

@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, dpkg, alsa-lib, freetype, libglvnd
-, mesa, curl, libXcursor, libXinerama, libXrandr, libXrender, libjack2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  dpkg,
+  alsa-lib,
+  freetype,
+  libglvnd,
+  mesa,
+  curl,
+  libXcursor,
+  libXinerama,
+  libXrandr,
+  libXrender,
+  libjack2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tonelib-metal";

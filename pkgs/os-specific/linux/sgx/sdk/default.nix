@@ -1,7 +1,32 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, fetchzip, autoconf, automake
-, binutils, callPackage, cmake, file, gdb, git, libtool, linkFarmFromDrvs, nasm
-, ocaml, ocamlPackages, openssl_1_1, perl, python3, texinfo, validatePkgConfig
-, writeShellApplication, writeShellScript, writeText, debug ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchzip,
+  autoconf,
+  automake,
+  binutils,
+  callPackage,
+  cmake,
+  file,
+  gdb,
+  git,
+  libtool,
+  linkFarmFromDrvs,
+  nasm,
+  ocaml,
+  ocamlPackages,
+  openssl_1_1,
+  perl,
+  python3,
+  texinfo,
+  validatePkgConfig,
+  writeShellApplication,
+  writeShellScript,
+  writeText,
+  debug ? false
+}:
 stdenv.mkDerivation rec {
   pname = "sgx-sdk";
   # Version as given in se_version.h

@@ -1,5 +1,12 @@
-{ lib, callPackage, buildNpmPackage, fetchurl, python3, playwright-driver
-, makeWrapper }:
+{
+  lib,
+  callPackage,
+  buildNpmPackage,
+  fetchurl,
+  python3,
+  playwright-driver,
+  makeWrapper,
+}:
 let
   driver = playwright-driver;
   browsers = playwright-driver.browsers;

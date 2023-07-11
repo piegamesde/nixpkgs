@@ -1,5 +1,17 @@
-{ lib, asciidoc, fetchFromGitHub, gobject-introspection, gtk3, installShellFiles
-, libappindicator-gtk3, libnotify, librsvg, python3, udisks2, wrapGAppsHook }:
+{
+  lib,
+  asciidoc,
+  fetchFromGitHub,
+  gobject-introspection,
+  gtk3,
+  installShellFiles,
+  libappindicator-gtk3,
+  libnotify,
+  librsvg,
+  python3,
+  udisks2,
+  wrapGAppsHook,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "udiskie";

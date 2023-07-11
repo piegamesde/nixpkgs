@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, postgresql, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  postgresql,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pgmanage";

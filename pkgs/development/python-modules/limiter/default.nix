@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, strenum, token-bucket
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  strenum,
+  token-bucket,
 }:
 
 buildPythonPackage rec {

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, gfortran, blas, lapack }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gfortran,
+  blas,
+  lapack,
+}:
 
 stdenv.mkDerivation rec {
   pname = "JAGS";

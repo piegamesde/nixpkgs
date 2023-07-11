@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, chardet, diff-match-patch, django, fetchFromGitHub
-, psycopg2, python, pythonOlder, pytz, tablib }:
+{
+  lib,
+  buildPythonPackage,
+  chardet,
+  diff-match-patch,
+  django,
+  fetchFromGitHub,
+  psycopg2,
+  python,
+  pythonOlder,
+  pytz,
+  tablib,
+}:
 
 buildPythonPackage rec {
   pname = "django-import-export";

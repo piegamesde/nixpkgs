@@ -1,9 +1,16 @@
-{ lib, mkCoqDerivation, coq, callPackage }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  callPackage,
+}:
 
 let
   mkContrib = pname: coqs: param:
     let
-      contribVersion = { version ? null }:
+      contribVersion = {
+          version ? null
+        }:
         mkCoqDerivation ({
           inherit pname version;
           owner = "coq-contribs";

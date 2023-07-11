@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitLab, autoreconfHook, makeWrapper, pkg-config, lrzsz
-, ncurses, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  autoreconfHook,
+  makeWrapper,
+  pkg-config,
+  lrzsz,
+  ncurses,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "minicom";

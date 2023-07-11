@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flit-core, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flit-core,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-raisin";

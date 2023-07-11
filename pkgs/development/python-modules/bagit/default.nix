@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, gettext, mock, pytestCheckHook
-, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gettext,
+  mock,
+  pytestCheckHook,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "bagit";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, dbus, glib, pkg-config, expat }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dbus,
+  glib,
+  pkg-config,
+  expat,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dbus-cplusplus";

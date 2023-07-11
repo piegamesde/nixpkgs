@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, numpy, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "opytimark";

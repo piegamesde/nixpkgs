@@ -1,4 +1,10 @@
-{ lib, stdenv, libxml2, libxslt, fetchhg }:
+{
+  lib,
+  stdenv,
+  libxml2,
+  libxslt,
+  fetchhg,
+}:
 
 # Upstream maintains documentation (sources of https://nginx.org) in separate
 # mercurial repository, which do not correspond to particular git commit, but at

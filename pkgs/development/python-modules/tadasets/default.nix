@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, matplotlib, pytest, scipy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  matplotlib,
+  pytest,
+  scipy,
+}:
 
 buildPythonPackage rec {
   pname = "tadasets";

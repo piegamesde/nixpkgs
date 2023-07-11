@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, packaging, pytest, pytestCheckHook
-, pythonOlder, setuptools, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  packaging,
+  pytest,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-doctestplus";

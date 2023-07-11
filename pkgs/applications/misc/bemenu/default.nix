@@ -1,7 +1,25 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, cairo, libxkbcommon, pango, fribidi
-, harfbuzz, pcre, pkg-config, scdoc, ncursesSupport ? true, ncurses
-, waylandSupport ? true, wayland, wayland-protocols, wayland-scanner
-, x11Support ? true, xorg }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  cairo,
+  libxkbcommon,
+  pango,
+  fribidi,
+  harfbuzz,
+  pcre,
+  pkg-config,
+  scdoc,
+  ncursesSupport ? true,
+  ncurses,
+  waylandSupport ? true,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  x11Support ? true,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bemenu";

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, cmake, boost, gmp, htslib, zlib, xz
-, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  gmp,
+  htslib,
+  zlib,
+  xz,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "octopus";

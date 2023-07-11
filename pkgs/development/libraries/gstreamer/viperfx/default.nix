@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, wrapGAppsHook, gst_all_1, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  wrapGAppsHook,
+  gst_all_1,
+  cmake,
+}:
 stdenv.mkDerivation rec {
   pname = "gst-plugins-viperfx";
   version = "unstable-2020-9-20";

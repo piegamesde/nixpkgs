@@ -1,4 +1,10 @@
-{ fetchFromGitHub, fetchpatch, lib, which, ocamlPackages }:
+{
+  fetchFromGitHub,
+  fetchpatch,
+  lib,
+  which,
+  ocamlPackages,
+}:
 
 let
   pname = "alt-ergo";

@@ -1,11 +1,62 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, cmake, makeWrapper, wrapGAppsHook
-, pkg-config, python3, gettext, file, libvorbis, libmad, libjack2, lv2, lilv
-, mpg123, serd, sord, sqlite, sratom, suil, libsndfile, soxr, flac, lame
-, twolame, expat, libid3tag, libopus, libuuid, ffmpeg_4, soundtouch, pcre
-, portaudio # given up fighting their portaudio.patch?
-, portmidi, linuxHeaders, alsa-lib, at-spi2-core, dbus, libepoxy, libXdmcp
-, libXtst, libpthreadstubs, libsbsms_2_3_0, libselinux, libsepol, libxkbcommon
-, util-linux, wavpack, wxGTK32, gtk3, libpng, libjpeg, AppKit, CoreAudioKit }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  makeWrapper,
+  wrapGAppsHook,
+  pkg-config,
+  python3,
+  gettext,
+  file,
+  libvorbis,
+  libmad,
+  libjack2,
+  lv2,
+  lilv,
+  mpg123,
+  serd,
+  sord,
+  sqlite,
+  sratom,
+  suil,
+  libsndfile,
+  soxr,
+  flac,
+  lame,
+  twolame,
+  expat,
+  libid3tag,
+  libopus,
+  libuuid,
+  ffmpeg_4,
+  soundtouch,
+  pcre,
+  portaudio # given up fighting their portaudio.patch?
+  ,
+  portmidi,
+  linuxHeaders,
+  alsa-lib,
+  at-spi2-core,
+  dbus,
+  libepoxy,
+  libXdmcp,
+  libXtst,
+  libpthreadstubs,
+  libsbsms_2_3_0,
+  libselinux,
+  libsepol,
+  libxkbcommon,
+  util-linux,
+  wavpack,
+  wxGTK32,
+  gtk3,
+  libpng,
+  libjpeg,
+  AppKit,
+  CoreAudioKit,
+}:
 
 # TODO
 # 1. detach sbsms

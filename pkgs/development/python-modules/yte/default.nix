@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, dpath, fetchFromGitHub, plac, poetry-core
-, pytestCheckHook, pythonOlder, pyyaml }:
+{
+  lib,
+  buildPythonPackage,
+  dpath,
+  fetchFromGitHub,
+  plac,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "yte";

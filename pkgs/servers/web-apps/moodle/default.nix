@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, writeText, plugins ? [ ], nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  writeText,
+  plugins ? [ ],
+  nixosTests,
+}:
 
 let
   version = "4.1.2";

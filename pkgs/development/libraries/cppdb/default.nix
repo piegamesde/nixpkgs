@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, cmake, sqlite, libmysqlclient, postgresql, unixODBC }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  sqlite,
+  libmysqlclient,
+  postgresql,
+  unixODBC,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cppdb";

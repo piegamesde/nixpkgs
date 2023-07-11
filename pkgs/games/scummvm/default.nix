@@ -1,6 +1,30 @@
-{ lib, stdenv, fetchFromGitHub, nasm, alsa-lib, curl, flac, fluidsynth, freetype
-, libjpeg, libmad, libmpeg2, libogg, libtheora, libvorbis, libGLU, libGL, SDL2
-, zlib, Cocoa, AudioToolbox, Carbon, CoreMIDI, AudioUnit, cctools }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nasm,
+  alsa-lib,
+  curl,
+  flac,
+  fluidsynth,
+  freetype,
+  libjpeg,
+  libmad,
+  libmpeg2,
+  libogg,
+  libtheora,
+  libvorbis,
+  libGLU,
+  libGL,
+  SDL2,
+  zlib,
+  Cocoa,
+  AudioToolbox,
+  Carbon,
+  CoreMIDI,
+  AudioUnit,
+  cctools,
+}:
 
 stdenv.mkDerivation rec {
   pname = "scummvm";

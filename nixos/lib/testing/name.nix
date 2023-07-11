@@ -1,4 +1,7 @@
-{ lib, ... }:
+{
+  lib,
+  ...
+}:
 let inherit (lib) mkOption types mdDoc;
 in {
   options.name = mkOption {

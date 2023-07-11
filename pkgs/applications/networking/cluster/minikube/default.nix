@@ -1,5 +1,15 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, installShellFiles, pkg-config
-, which, libvirt, vmnet, makeWrapper }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  pkg-config,
+  which,
+  libvirt,
+  vmnet,
+  makeWrapper,
+}:
 
 buildGoModule rec {
   pname = "minikube";

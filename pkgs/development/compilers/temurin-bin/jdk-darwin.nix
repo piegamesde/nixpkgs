@@ -1,4 +1,7 @@
-{ lib, callPackage }:
+{
+  lib,
+  callPackage,
+}:
 
 let
   sources = (lib.importJSON ./sources.json).hotspot.mac;

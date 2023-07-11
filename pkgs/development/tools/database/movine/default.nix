@@ -1,5 +1,15 @@
-{ rustPlatform, fetchFromGitHub, lib, stdenv, pkg-config, postgresql, sqlite
-, openssl, Security, libiconv }:
+{
+  rustPlatform,
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  pkg-config,
+  postgresql,
+  sqlite,
+  openssl,
+  Security,
+  libiconv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "movine";

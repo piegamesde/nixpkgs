@@ -1,4 +1,12 @@
-{ stdenv, lib, pkg-config, openssl, fetchFromGitHub, rustPlatform, darwin }:
+{
+  stdenv,
+  lib,
+  pkg-config,
+  openssl,
+  fetchFromGitHub,
+  rustPlatform,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "hydra-cli";

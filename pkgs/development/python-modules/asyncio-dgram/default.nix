@@ -1,5 +1,12 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pytest-asyncio
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "asyncio-dgram";

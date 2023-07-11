@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fsspec, oci, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fsspec,
+  oci,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "ocifs";

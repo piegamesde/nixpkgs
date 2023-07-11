@@ -1,5 +1,13 @@
-{ rustPlatform, fetchFromGitHub, lib, openssl, pkg-config, stdenv, Security
-, SystemConfiguration }:
+{
+  rustPlatform,
+  fetchFromGitHub,
+  lib,
+  openssl,
+  pkg-config,
+  stdenv,
+  Security,
+  SystemConfiguration,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "sentry-cli";
   version = "2.17.5";

@@ -1,4 +1,10 @@
-{ lib, mkCoqDerivation, autoreconfHook, coq, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  autoreconfHook,
+  coq,
+  version ? null
+}:
 
 let hasWarning = lib.versionAtLeast coq.ocamlPackages.ocaml.version "4.08";
 

@@ -1,12 +1,33 @@
-{ stdenv, lib, kernel, fetchurl, pkg-config, meson, ninja, makeWrapper, libbsd
-, numactl, libbpf, zlib, libelf, jansson, openssl, libpcap, rdma-core, doxygen
-, python3, pciutils, withExamples ? [ ], shared ? false, machine ?
-  (if stdenv.isx86_64 then
+{
+  stdenv,
+  lib,
+  kernel,
+  fetchurl,
+  pkg-config,
+  meson,
+  ninja,
+  makeWrapper,
+  libbsd,
+  numactl,
+  libbpf,
+  zlib,
+  libelf,
+  jansson,
+  openssl,
+  libpcap,
+  rdma-core,
+  doxygen,
+  python3,
+  pciutils,
+  withExamples ? [ ],
+  shared ? false,
+  machine ? (if stdenv.isx86_64 then
     "nehalem"
   else if stdenv.isAarch64 then
     "generic"
   else
-    null) }:
+    null)
+}:
 
 let
   mod = kernel != null;

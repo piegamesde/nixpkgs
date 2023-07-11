@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitLab, wayland-scanner }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  wayland-scanner,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wlr-protocols";

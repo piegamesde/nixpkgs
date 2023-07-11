@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchurl, ocaml, findlib, camlp4 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ocaml,
+  findlib,
+  camlp4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml-config-file";

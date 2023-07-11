@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pexpect, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pexpect,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "argcomplete";

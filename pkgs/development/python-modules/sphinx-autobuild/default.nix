@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, colorama, sphinx, livereload }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  colorama,
+  sphinx,
+  livereload,
+}:
 
 buildPythonPackage rec {
   pname = "sphinx-autobuild";

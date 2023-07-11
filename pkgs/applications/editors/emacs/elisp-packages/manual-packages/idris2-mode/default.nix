@@ -1,4 +1,10 @@
-{ lib, trivialBuild, fetchFromGitHub, emacs, prop-menu }:
+{
+  lib,
+  trivialBuild,
+  fetchFromGitHub,
+  emacs,
+  prop-menu,
+}:
 
 trivialBuild rec {
   pname = "idris2-mode";

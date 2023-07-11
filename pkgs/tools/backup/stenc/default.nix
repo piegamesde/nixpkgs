@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, gitUpdater, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gitUpdater,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "stenc";

@@ -1,6 +1,14 @@
-{ fetchzip, lib }:
+{
+  fetchzip,
+  lib,
+}:
 
-{ url, rev, name ? "source", ... }@args:
+{
+  url,
+  rev,
+  name ? "source",
+  ...
+}@args:
 
 fetchzip ({
   inherit name;

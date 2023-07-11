@@ -1,5 +1,18 @@
-{ lib, stdenv, autoreconfHook, pkg-config, fetchurl, expat, gpgme, libgcrypt
-, libxml2, libxslt, gnutls, curl, docbook_xsl }:
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  pkg-config,
+  fetchurl,
+  expat,
+  gpgme,
+  libgcrypt,
+  libxml2,
+  libxslt,
+  gnutls,
+  curl,
+  docbook_xsl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libdatovka";

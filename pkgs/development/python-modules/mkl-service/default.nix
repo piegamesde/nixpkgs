@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cython, mkl, nose, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cython,
+  mkl,
+  nose,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "mkl-service";

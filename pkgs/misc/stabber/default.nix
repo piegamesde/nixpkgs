@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, glib, expat
-, libmicrohttpd, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  glib,
+  expat,
+  libmicrohttpd,
+  darwin,
+}:
 
 with lib;
 

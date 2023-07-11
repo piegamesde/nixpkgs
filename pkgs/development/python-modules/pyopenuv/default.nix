@@ -1,6 +1,17 @@
-{ lib, aiohttp, aresponses, backoff, buildPythonPackage, fetchFromGitHub
-, fetchpatch, poetry-core, pytest-aiohttp, pytest-asyncio, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  backoff,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  poetry-core,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyopenuv";

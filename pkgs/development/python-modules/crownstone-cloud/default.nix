@@ -1,5 +1,14 @@
-{ lib, aiohttp, asynctest, buildPythonPackage, fetchFromGitHub, fetchpatch
-, certifi, pythonOlder, pytestCheckHook }:
+{
+  lib,
+  aiohttp,
+  asynctest,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  certifi,
+  pythonOlder,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "crownstone-cloud";

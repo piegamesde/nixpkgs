@@ -1,16 +1,61 @@
-{ fetchurl, lib, stdenv, buildPackages, curl, openssl, zlib, expat, perlPackages
-, python3, gettext, cpio, gnugrep, gnused, gawk
-, coreutils # needed at runtime by git-filter-branch etc
-, openssh, pcre2, bash, asciidoc, texinfo, xmlto, docbook2x, docbook_xsl
-, docbook_xml_dtd_45, libxslt, tcl, tk, makeWrapper, libiconv
-, svnSupport ? false, subversionClient, perlLibs, smtpPerlLibs
-, perlSupport ? stdenv.buildPlatform == stdenv.hostPlatform, nlsSupport ? true
-, osxkeychainSupport ? stdenv.isDarwin, guiSupport ? false, withManual ? true
-, pythonSupport ? true, withpcre2 ? true, sendEmailSupport ? perlSupport
-, Security, CoreServices, nixosTests, withLibsecret ? false, pkg-config, glib
-, libsecret, gzip # needed at runtime by gitweb.cgi
-, withSsh ? false, doInstallCheck ? !stdenv.isDarwin # extremely slow on darwin
-, tests }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  buildPackages,
+  curl,
+  openssl,
+  zlib,
+  expat,
+  perlPackages,
+  python3,
+  gettext,
+  cpio,
+  gnugrep,
+  gnused,
+  gawk,
+  coreutils # needed at runtime by git-filter-branch etc
+  ,
+  openssh,
+  pcre2,
+  bash,
+  asciidoc,
+  texinfo,
+  xmlto,
+  docbook2x,
+  docbook_xsl,
+  docbook_xml_dtd_45,
+  libxslt,
+  tcl,
+  tk,
+  makeWrapper,
+  libiconv,
+  svnSupport ? false,
+  subversionClient,
+  perlLibs,
+  smtpPerlLibs,
+  perlSupport ? stdenv.buildPlatform == stdenv.hostPlatform,
+  nlsSupport ? true,
+  osxkeychainSupport ? stdenv.isDarwin,
+  guiSupport ? false,
+  withManual ? true,
+  pythonSupport ? true,
+  withpcre2 ? true,
+  sendEmailSupport ? perlSupport,
+  Security,
+  CoreServices,
+  nixosTests,
+  withLibsecret ? false,
+  pkg-config,
+  glib,
+  libsecret,
+  gzip # needed at runtime by gitweb.cgi
+  ,
+  withSsh ? false,
+  doInstallCheck ? !stdenv.isDarwin # extremely slow on darwin
+  ,
+  tests,
+}:
 
 assert osxkeychainSupport -> stdenv.isDarwin;
 assert sendEmailSupport -> perlSupport;

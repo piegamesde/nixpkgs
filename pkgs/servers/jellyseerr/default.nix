@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, mkYarnPackage, nodejs, sqlite
-, fetchYarnDeps, python3, pkg-config, glib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  mkYarnPackage,
+  nodejs,
+  sqlite,
+  fetchYarnDeps,
+  python3,
+  pkg-config,
+  glib,
+}:
 
 let pin = lib.importJSON ./pin.json;
 

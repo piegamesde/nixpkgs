@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, pkg-config, expat, buildsystem, libparserutils
-, libwapcaplet, libhubbub }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  expat,
+  buildsystem,
+  libparserutils,
+  libwapcaplet,
+  libhubbub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "netsurf-${libname}";

@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, azure-mgmt-common, azure-mgmt-core
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  azure-mgmt-common,
+  azure-mgmt-core,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-compute";

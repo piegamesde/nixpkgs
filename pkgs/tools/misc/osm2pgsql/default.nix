@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, cmake, expat, fmt, proj, bzip2, zlib, boost
-, postgresql, withLuaJIT ? false, lua, luajit, libosmium, protozero, rapidjson
-, testers }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  expat,
+  fmt,
+  proj,
+  bzip2,
+  zlib,
+  boost,
+  postgresql,
+  withLuaJIT ? false,
+  lua,
+  luajit,
+  libosmium,
+  protozero,
+  rapidjson,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "osm2pgsql";

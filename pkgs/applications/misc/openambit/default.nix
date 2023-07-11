@@ -1,5 +1,16 @@
-{ cmake, fetchFromGitHub, fetchpatch, lib, libusb1, mkDerivation, python3
-, qtbase, qttools, udev, zlib }:
+{
+  cmake,
+  fetchFromGitHub,
+  fetchpatch,
+  lib,
+  libusb1,
+  mkDerivation,
+  python3,
+  qtbase,
+  qttools,
+  udev,
+  zlib,
+}:
 
 mkDerivation rec {
   pname = "openambit";

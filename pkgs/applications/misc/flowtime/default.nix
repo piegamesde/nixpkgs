@@ -1,6 +1,20 @@
-{ stdenv, lib, fetchFromGitHub, vala, meson, ninja, wrapGAppsHook4, libadwaita
-, libxml2, libgee, gst_all_1, gobject-introspection, desktop-file-utils, glib
-, pkg-config }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  vala,
+  meson,
+  ninja,
+  wrapGAppsHook4,
+  libadwaita,
+  libxml2,
+  libgee,
+  gst_all_1,
+  gobject-introspection,
+  desktop-file-utils,
+  glib,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "flowtime";

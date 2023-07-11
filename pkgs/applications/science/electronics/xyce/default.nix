@@ -1,10 +1,37 @@
-{ stdenv, fetchFromGitHub, fetchgit, lib, autoconf, automake, bison, blas, flex
-, fftw, gfortran, lapack, libtool_2, mpi, suitesparse, trilinos, withMPI ? false
-  # for doc
-, texlive, pandoc, enableDocs ? true
-  # for tests
-, bash, bc, openssh # required by MPI
-, perl, perlPackages, python3, enableTests ? true }:
+{
+  stdenv,
+  fetchFromGitHub,
+  fetchgit,
+  lib,
+  autoconf,
+  automake,
+  bison,
+  blas,
+  flex,
+  fftw,
+  gfortran,
+  lapack,
+  libtool_2,
+  mpi,
+  suitesparse,
+  trilinos,
+  withMPI ? false
+    # for doc
+  ,
+  texlive,
+  pandoc,
+  enableDocs ? true
+    # for tests
+  ,
+  bash,
+  bc,
+  openssh # required by MPI
+  ,
+  perl,
+  perlPackages,
+  python3,
+  enableTests ? true
+}:
 
 assert withMPI -> trilinos.withMPI;
 

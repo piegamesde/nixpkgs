@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, ocaml, findlib, which, sedlex, easy-format, xmlm
-, base64 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  which,
+  sedlex,
+  easy-format,
+  xmlm,
+  base64,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.6.16";

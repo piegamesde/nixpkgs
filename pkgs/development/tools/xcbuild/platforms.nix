@@ -1,4 +1,11 @@
-{ stdenv, runCommand, lib, sdks, xcodePlatform, writeText }:
+{
+  stdenv,
+  runCommand,
+  lib,
+  sdks,
+  xcodePlatform,
+  writeText,
+}:
 
 let
 

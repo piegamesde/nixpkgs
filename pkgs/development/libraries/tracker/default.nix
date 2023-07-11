@@ -1,9 +1,34 @@
-{ stdenv, lib, fetchurl, gettext, meson, ninja, pkg-config, asciidoc
-, gobject-introspection, buildPackages
-, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages, vala
-, python3, gi-docgen, graphviz, libxml2, glib, wrapGAppsNoGuiHook, sqlite
-, libstemmer, gnome, icu, libuuid, libsoup, libsoup_3, json-glib, systemd, dbus
-, writeText }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  gettext,
+  meson,
+  ninja,
+  pkg-config,
+  asciidoc,
+  gobject-introspection,
+  buildPackages,
+  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
+  vala,
+  python3,
+  gi-docgen,
+  graphviz,
+  libxml2,
+  glib,
+  wrapGAppsNoGuiHook,
+  sqlite,
+  libstemmer,
+  gnome,
+  icu,
+  libuuid,
+  libsoup,
+  libsoup_3,
+  json-glib,
+  systemd,
+  dbus,
+  writeText,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tracker";

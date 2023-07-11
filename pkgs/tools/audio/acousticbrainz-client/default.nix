@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3Packages, essentia-extractor }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  essentia-extractor,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "acousticbrainz-client";

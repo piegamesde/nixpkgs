@@ -1,6 +1,22 @@
-{ stdenv, lib, fetchurl, substituteAll, meson, ninja, nixosTests, pkg-config
-, glib, gettext, makeWrapper, gnutls, p11-kit, libproxy, gnome
-, gsettings-desktop-schemas, bash }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  substituteAll,
+  meson,
+  ninja,
+  nixosTests,
+  pkg-config,
+  glib,
+  gettext,
+  makeWrapper,
+  gnutls,
+  p11-kit,
+  libproxy,
+  gnome,
+  gsettings-desktop-schemas,
+  bash,
+}:
 
 stdenv.mkDerivation rec {
   pname = "glib-networking";

@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, wrapQtAppsHook, qtbase
-, libpng, giflib, libjpeg, impy }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  wrapQtAppsHook,
+  qtbase,
+  libpng,
+  giflib,
+  libjpeg,
+  impy,
+}:
 
 stdenv.mkDerivation rec {
   pname = "evilpixie";

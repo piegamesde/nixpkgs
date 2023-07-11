@@ -1,8 +1,35 @@
-{ stdenv, callPackage, fetchFromGitHub, fetchurl, fetchpatch, lib, substituteAll
-# Dependencies
-, boehmgc, coreutils, git, gmp, hostname, libatomic_ops, libevent, libiconv
-, libxml2, libyaml, libffi, llvmPackages, makeWrapper, openssl, pcre2, pcre
-, pkg-config, readline, tzdata, which, zlib }:
+{
+  stdenv,
+  callPackage,
+  fetchFromGitHub,
+  fetchurl,
+  fetchpatch,
+  lib,
+  substituteAll
+  # Dependencies
+  ,
+  boehmgc,
+  coreutils,
+  git,
+  gmp,
+  hostname,
+  libatomic_ops,
+  libevent,
+  libiconv,
+  libxml2,
+  libyaml,
+  libffi,
+  llvmPackages,
+  makeWrapper,
+  openssl,
+  pcre2,
+  pcre,
+  pkg-config,
+  readline,
+  tzdata,
+  which,
+  zlib,
+}:
 
 # We need to keep around at least the latest version released with a stable
 # NixOS
@@ -33,7 +60,11 @@ let
         toString rel
       }-${arch}.tar.gz";
 
-  genericBinary = { version, sha256s, rel ? 1 }:
+  genericBinary = {
+      version,
+      sha256s,
+      rel ? 1
+    }:
     stdenv.mkDerivation rec {
       pname = "crystal-binary";
       inherit version;
@@ -52,8 +83,14 @@ let
       meta.platforms = lib.attrNames sha256s;
     };
 
-  generic = ({ version, sha256, binary, doCheck ? true, extraBuildInputs ? [ ]
-    , buildFlags ? [ "all" "docs" "release=1" ] }:
+  generic = ({
+      version,
+      sha256,
+      binary,
+      doCheck ? true,
+      extraBuildInputs ? [ ],
+      buildFlags ? [ "all" "docs" "release=1" ]
+    }:
     lib.fix (compiler:
       stdenv.mkDerivation (finalAttrs: {
         pname = "crystal";

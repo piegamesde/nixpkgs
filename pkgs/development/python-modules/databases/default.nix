@@ -1,5 +1,16 @@
-{ lib, aiomysql, aiopg, aiosqlite, asyncmy, asyncpg, buildPythonPackage
-, fetchFromGitHub, pytestCheckHook, pythonOlder, sqlalchemy }:
+{
+  lib,
+  aiomysql,
+  aiopg,
+  aiosqlite,
+  asyncmy,
+  asyncpg,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  sqlalchemy,
+}:
 
 buildPythonPackage rec {
   pname = "databases";

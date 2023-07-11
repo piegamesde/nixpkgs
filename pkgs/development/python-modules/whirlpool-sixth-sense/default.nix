@@ -1,5 +1,16 @@
-{ lib, aioconsole, aiohttp, buildPythonPackage, fetchFromGitHub, pytest-asyncio
-, pytest-mock, pytestCheckHook, pythonOlder, setuptools, websockets }:
+{
+  lib,
+  aioconsole,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  websockets,
+}:
 
 buildPythonPackage rec {
   pname = "whirlpool-sixth-sense";

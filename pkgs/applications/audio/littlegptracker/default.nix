@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, unstableGitUpdater, SDL, jack2, Foundation }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  unstableGitUpdater,
+  SDL,
+  jack2,
+  Foundation,
+}:
 
 stdenv.mkDerivation rec {
   pname = "littlegptracker";

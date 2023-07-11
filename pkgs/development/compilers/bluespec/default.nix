@@ -1,6 +1,28 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, autoconf, automake, fontconfig, libX11
-, perl, flex, bison, pkg-config, tcl, tk, xorg, yices, zlib, ghc, gmp-static
-, verilog, asciidoctor, tex, which }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  autoconf,
+  automake,
+  fontconfig,
+  libX11,
+  perl,
+  flex,
+  bison,
+  pkg-config,
+  tcl,
+  tk,
+  xorg,
+  yices,
+  zlib,
+  ghc,
+  gmp-static,
+  verilog,
+  asciidoctor,
+  tex,
+  which,
+}:
 
 let
   ghcWithPackages =

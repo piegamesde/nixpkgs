@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, blinker, flask }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  blinker,
+  flask,
+}:
 
 buildPythonPackage rec {
   pname = "raven";

@@ -1,10 +1,24 @@
-{ lib, buildPythonPackage, fetchFromGitHub, django
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  django
 
-# optionals
-, bleach, docutils, markdown, pygments, python-creole, smartypants, textile
+  # optionals
+  ,
+  bleach,
+  docutils,
+  markdown,
+  pygments,
+  python-creole,
+  smartypants,
+  textile
 
-# tests
-, pytest-django, pytestCheckHook }:
+  # tests
+  ,
+  pytest-django,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "django-markup";

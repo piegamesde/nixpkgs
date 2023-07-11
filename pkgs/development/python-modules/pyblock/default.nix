@@ -1,4 +1,10 @@
-{ lib, stdenv, python, pkgs, isPy3k }:
+{
+  lib,
+  stdenv,
+  python,
+  pkgs,
+  isPy3k,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pyblock";

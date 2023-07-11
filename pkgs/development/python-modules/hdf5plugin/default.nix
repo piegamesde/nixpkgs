@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchFromGitHub, h5py }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  h5py,
+}:
 
 buildPythonPackage rec {
   pname = "hdf5plugin";

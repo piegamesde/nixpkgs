@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, libuuid, libselinux
-, e2fsprogs }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  libuuid,
+  libselinux,
+  e2fsprogs,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nilfs-utils";

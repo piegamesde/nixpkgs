@@ -1,4 +1,9 @@
-{ lib, ruby_3_0, bundlerApp, fetchpatch }:
+{
+  lib,
+  ruby_3_0,
+  bundlerApp,
+  fetchpatch,
+}:
 
 bundlerApp {
   pname = "3llo";

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, flake8, six, pythonOlder
-, importlib-metadata }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flake8,
+  six,
+  pythonOlder,
+  importlib-metadata,
+}:
 
 buildPythonPackage rec {
   pname = "orderedmultidict";

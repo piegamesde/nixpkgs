@@ -1,5 +1,17 @@
-{ lib, stdenv, libgcrypt, curl, gnutls, pkg-config, libiconv, libintl, version
-, src, meta ? { }, fetchpatch }:
+{
+  lib,
+  stdenv,
+  libgcrypt,
+  curl,
+  gnutls,
+  pkg-config,
+  libiconv,
+  libintl,
+  version,
+  src,
+  meta ? { },
+  fetchpatch,
+}:
 
 let meta_ = meta;
 

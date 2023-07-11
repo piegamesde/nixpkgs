@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitLab, fetchpatch, python3, librsync, ncftp, gnupg
-, gnutar, par2cmdline, util-linux, rsync, makeWrapper, gettext }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  python3,
+  librsync,
+  ncftp,
+  gnupg,
+  gnutar,
+  par2cmdline,
+  util-linux,
+  rsync,
+  makeWrapper,
+  gettext,
+}:
 let
   pythonPackages = python3.pkgs;
   inherit (lib.versions) majorMinor splitVersion;

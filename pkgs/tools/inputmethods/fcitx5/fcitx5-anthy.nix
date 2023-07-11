@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, cmake, extra-cmake-modules, pkg-config, fcitx5, anthy
-, gettext }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  extra-cmake-modules,
+  pkg-config,
+  fcitx5,
+  anthy,
+  gettext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fcitx5-anthy";

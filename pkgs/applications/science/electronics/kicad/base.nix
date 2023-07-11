@@ -1,14 +1,62 @@
-{ lib, stdenv, cmake, libGLU, libGL, zlib, wxGTK, gtk3, libX11, gettext, glew
-, glm, cairo, curl, openssl, boost, pkg-config, doxygen, graphviz, pcre
-, libpthreadstubs, libXdmcp, unixODBC
+{
+  lib,
+  stdenv,
+  cmake,
+  libGLU,
+  libGL,
+  zlib,
+  wxGTK,
+  gtk3,
+  libX11,
+  gettext,
+  glew,
+  glm,
+  cairo,
+  curl,
+  openssl,
+  boost,
+  pkg-config,
+  doxygen,
+  graphviz,
+  pcre,
+  libpthreadstubs,
+  libXdmcp,
+  unixODBC
 
-, util-linux, libselinux, libsepol, libthai, libdatrie, libxkbcommon, libepoxy
-, dbus, at-spi2-core, libXtst, pcre2, libdeflate
+  ,
+  util-linux,
+  libselinux,
+  libsepol,
+  libthai,
+  libdatrie,
+  libxkbcommon,
+  libepoxy,
+  dbus,
+  at-spi2-core,
+  libXtst,
+  pcre2,
+  libdeflate
 
-, swig4, python, wxPython, opencascade-occt, libngspice, valgrind
+  ,
+  swig4,
+  python,
+  wxPython,
+  opencascade-occt,
+  libngspice,
+  valgrind
 
-, stable, baseName, kicadSrc, kicadVersion, withNgspice, withScripting, withI18n
-, debug, sanitizeAddress, sanitizeThreads }:
+  ,
+  stable,
+  baseName,
+  kicadSrc,
+  kicadVersion,
+  withNgspice,
+  withScripting,
+  withI18n,
+  debug,
+  sanitizeAddress,
+  sanitizeThreads,
+}:
 
 assert lib.assertMsg (!(sanitizeAddress && sanitizeThreads))
   "'sanitizeAddress' and 'sanitizeThreads' are mutually exclusive, use one.";

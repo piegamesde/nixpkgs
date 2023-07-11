@@ -1,4 +1,7 @@
-{ appleDerivation', stdenv }:
+{
+  appleDerivation',
+  stdenv,
+}:
 
 appleDerivation' stdenv {
   dontBuild = true;

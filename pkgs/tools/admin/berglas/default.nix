@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 let
   skipTests = {

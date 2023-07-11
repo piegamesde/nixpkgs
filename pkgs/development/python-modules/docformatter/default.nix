@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core
-, charset-normalizer, tomli, untokenize, mock, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  charset-normalizer,
+  tomli,
+  untokenize,
+  mock,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "docformatter";

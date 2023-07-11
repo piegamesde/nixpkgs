@@ -1,4 +1,13 @@
-{ lib, buildDunePackage, irmin, irmin-test, fmt, logs, lwt, alcotest }:
+{
+  lib,
+  buildDunePackage,
+  irmin,
+  irmin-test,
+  fmt,
+  logs,
+  lwt,
+  alcotest,
+}:
 
 buildDunePackage rec {
 

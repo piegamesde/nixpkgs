@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, python3, udev, systemd }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  python3,
+  udev,
+  systemd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "media-player-info";

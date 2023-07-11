@@ -1,5 +1,14 @@
-{ lib, olefile, buildPythonPackage, fetchFromGitHub, poetry-core, cryptography
-, pytestCheckHook, pythonOlder, setuptools }:
+{
+  lib,
+  olefile,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  cryptography,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "msoffcrypto-tool";

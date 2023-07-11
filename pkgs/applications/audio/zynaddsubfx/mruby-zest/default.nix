@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, bison, pkg-config, rake, ruby, libGL, libuv
-, libX11 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bison,
+  pkg-config,
+  rake,
+  ruby,
+  libGL,
+  libuv,
+  libX11,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mruby-zest";

@@ -1,4 +1,8 @@
-{ runCommand, openjdk, nukeReferences }:
+{
+  runCommand,
+  openjdk,
+  nukeReferences,
+}:
 
 runCommand "${openjdk.name}-bootstrap.tar.xz" { } ''
   mkdir -pv openjdk-bootstrap/lib

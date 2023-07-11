@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -138,259 +143,264 @@ let
     fi
   '';
 
-  siteOpts = { lib, name, config, ... }: {
-    options = {
-      package = mkOption {
-        type = types.package;
-        default = pkgs.wordpress;
-        defaultText = literalExpression "pkgs.wordpress";
-        description = lib.mdDoc "Which WordPress package to use.";
-      };
-
-      uploadsDir = mkOption {
-        type = types.path;
-        default = "/var/lib/wordpress/${name}/uploads";
-        description = lib.mdDoc ''
-          This directory is used for uploads of pictures. The directory passed here is automatically
-          created and permissions adjusted as required.
-        '';
-      };
-
-      fontsDir = mkOption {
-        type = types.path;
-        default = "/var/lib/wordpress/${name}/fonts";
-        description = lib.mdDoc ''
-          This directory is used to download fonts from a remote location, e.g.
-          to host google fonts locally.
-        '';
-      };
-
-      plugins = mkOption {
-        type = with types;
-          coercedTo (listOf path) (l:
-            warn "setting this option with a list is deprecated" listToAttrs
-            (map (p:
-              nameValuePair (p.name or (throw "${p} does not have a name")) p)
-              l)) (attrsOf path);
-        default = { };
-        description = lib.mdDoc ''
-          Path(s) to respective plugin(s) which are copied from the 'plugins' directory.
-
-          ::: {.note}
-          These plugins need to be packaged before use, see example.
-          :::
-        '';
-        example = literalExpression ''
-          {
-            inherit (pkgs.wordpressPackages.plugins) embed-pdf-viewer-plugin;
-          }
-        '';
-      };
-
-      themes = mkOption {
-        type = with types;
-          coercedTo (listOf path) (l:
-            warn "setting this option with a list is deprecated" listToAttrs
-            (map (p:
-              nameValuePair (p.name or (throw "${p} does not have a name")) p)
-              l)) (attrsOf path);
-        default = {
-          inherit (pkgs.wordpressPackages.themes) twentytwentythree;
+  siteOpts = {
+      lib,
+      name,
+      config,
+      ...
+    }: {
+      options = {
+        package = mkOption {
+          type = types.package;
+          default = pkgs.wordpress;
+          defaultText = literalExpression "pkgs.wordpress";
+          description = lib.mdDoc "Which WordPress package to use.";
         };
-        defaultText = literalExpression
-          "{ inherit (pkgs.wordpressPackages.themes) twentytwentythree; }";
-        description = lib.mdDoc ''
-          Path(s) to respective theme(s) which are copied from the 'theme' directory.
 
-          ::: {.note}
-          These themes need to be packaged before use, see example.
-          :::
-        '';
-        example = literalExpression ''
-          {
-            inherit (pkgs.wordpressPackages.themes) responsive-theme;
-          }
-        '';
-      };
+        uploadsDir = mkOption {
+          type = types.path;
+          default = "/var/lib/wordpress/${name}/uploads";
+          description = lib.mdDoc ''
+            This directory is used for uploads of pictures. The directory passed here is automatically
+            created and permissions adjusted as required.
+          '';
+        };
 
-      languages = mkOption {
-        type = types.listOf types.path;
-        default = [ ];
-        description = lib.mdDoc ''
-          List of path(s) to respective language(s) which are copied from the 'languages' directory.
-        '';
-        example = literalExpression ''
-          [(
-            # Let's package the German language.
-            # For other languages try to replace language and country code in the download URL with your desired one.
-            # Reference https://translate.wordpress.org for available translations and
-            # codes.
-            language-de = pkgs.stdenv.mkDerivation {
-              name = "language-de";
-              src = pkgs.fetchurl {
-                url = "https://de.wordpress.org/wordpress-''${pkgs.wordpress.version}-de_DE.tar.gz";
-                # Name is required to invalidate the hash when wordpress is updated
-                name = "wordpress-''${pkgs.wordpress.version}-language-de"
-                sha256 = "sha256-dlas0rXTSV4JAl8f/UyMbig57yURRYRhTMtJwF9g8h0=";
+        fontsDir = mkOption {
+          type = types.path;
+          default = "/var/lib/wordpress/${name}/fonts";
+          description = lib.mdDoc ''
+            This directory is used to download fonts from a remote location, e.g.
+            to host google fonts locally.
+          '';
+        };
+
+        plugins = mkOption {
+          type = with types;
+            coercedTo (listOf path) (l:
+              warn "setting this option with a list is deprecated" listToAttrs
+              (map (p:
+                nameValuePair (p.name or (throw "${p} does not have a name")) p)
+                l)) (attrsOf path);
+          default = { };
+          description = lib.mdDoc ''
+            Path(s) to respective plugin(s) which are copied from the 'plugins' directory.
+
+            ::: {.note}
+            These plugins need to be packaged before use, see example.
+            :::
+          '';
+          example = literalExpression ''
+            {
+              inherit (pkgs.wordpressPackages.plugins) embed-pdf-viewer-plugin;
+            }
+          '';
+        };
+
+        themes = mkOption {
+          type = with types;
+            coercedTo (listOf path) (l:
+              warn "setting this option with a list is deprecated" listToAttrs
+              (map (p:
+                nameValuePair (p.name or (throw "${p} does not have a name")) p)
+                l)) (attrsOf path);
+          default = {
+            inherit (pkgs.wordpressPackages.themes) twentytwentythree;
+          };
+          defaultText = literalExpression
+            "{ inherit (pkgs.wordpressPackages.themes) twentytwentythree; }";
+          description = lib.mdDoc ''
+            Path(s) to respective theme(s) which are copied from the 'theme' directory.
+
+            ::: {.note}
+            These themes need to be packaged before use, see example.
+            :::
+          '';
+          example = literalExpression ''
+            {
+              inherit (pkgs.wordpressPackages.themes) responsive-theme;
+            }
+          '';
+        };
+
+        languages = mkOption {
+          type = types.listOf types.path;
+          default = [ ];
+          description = lib.mdDoc ''
+            List of path(s) to respective language(s) which are copied from the 'languages' directory.
+          '';
+          example = literalExpression ''
+            [(
+              # Let's package the German language.
+              # For other languages try to replace language and country code in the download URL with your desired one.
+              # Reference https://translate.wordpress.org for available translations and
+              # codes.
+              language-de = pkgs.stdenv.mkDerivation {
+                name = "language-de";
+                src = pkgs.fetchurl {
+                  url = "https://de.wordpress.org/wordpress-''${pkgs.wordpress.version}-de_DE.tar.gz";
+                  # Name is required to invalidate the hash when wordpress is updated
+                  name = "wordpress-''${pkgs.wordpress.version}-language-de"
+                  sha256 = "sha256-dlas0rXTSV4JAl8f/UyMbig57yURRYRhTMtJwF9g8h0=";
+                };
+                installPhase = "mkdir -p $out; cp -r ./wp-content/languages/* $out/";
               };
-              installPhase = "mkdir -p $out; cp -r ./wp-content/languages/* $out/";
-            };
-          )];
-        '';
-      };
-
-      database = {
-        host = mkOption {
-          type = types.str;
-          default = "localhost";
-          description = lib.mdDoc "Database host address.";
-        };
-
-        port = mkOption {
-          type = types.port;
-          default = 3306;
-          description = lib.mdDoc "Database host port.";
-        };
-
-        name = mkOption {
-          type = types.str;
-          default = "wordpress";
-          description = lib.mdDoc "Database name.";
-        };
-
-        user = mkOption {
-          type = types.str;
-          default = "wordpress";
-          description = lib.mdDoc "Database user.";
-        };
-
-        passwordFile = mkOption {
-          type = types.nullOr types.path;
-          default = null;
-          example = "/run/keys/wordpress-dbpassword";
-          description = lib.mdDoc ''
-            A file containing the password corresponding to
-            {option}`database.user`.
+            )];
           '';
         };
 
-        tablePrefix = mkOption {
-          type = types.str;
-          default = "wp_";
-          description = lib.mdDoc ''
-            The $table_prefix is the value placed in the front of your database tables.
-            Change the value if you want to use something other than wp_ for your database
-            prefix. Typically this is changed if you are installing multiple WordPress blogs
-            in the same database.
+        database = {
+          host = mkOption {
+            type = types.str;
+            default = "localhost";
+            description = lib.mdDoc "Database host address.";
+          };
 
-            See <https://codex.wordpress.org/Editing_wp-config.php#table_prefix>.
+          port = mkOption {
+            type = types.port;
+            default = 3306;
+            description = lib.mdDoc "Database host port.";
+          };
+
+          name = mkOption {
+            type = types.str;
+            default = "wordpress";
+            description = lib.mdDoc "Database name.";
+          };
+
+          user = mkOption {
+            type = types.str;
+            default = "wordpress";
+            description = lib.mdDoc "Database user.";
+          };
+
+          passwordFile = mkOption {
+            type = types.nullOr types.path;
+            default = null;
+            example = "/run/keys/wordpress-dbpassword";
+            description = lib.mdDoc ''
+              A file containing the password corresponding to
+              {option}`database.user`.
+            '';
+          };
+
+          tablePrefix = mkOption {
+            type = types.str;
+            default = "wp_";
+            description = lib.mdDoc ''
+              The $table_prefix is the value placed in the front of your database tables.
+              Change the value if you want to use something other than wp_ for your database
+              prefix. Typically this is changed if you are installing multiple WordPress blogs
+              in the same database.
+
+              See <https://codex.wordpress.org/Editing_wp-config.php#table_prefix>.
+            '';
+          };
+
+          socket = mkOption {
+            type = types.nullOr types.path;
+            default = null;
+            defaultText = literalExpression "/run/mysqld/mysqld.sock";
+            description = lib.mdDoc
+              "Path to the unix socket file to use for authentication.";
+          };
+
+          createLocally = mkOption {
+            type = types.bool;
+            default = true;
+            description =
+              lib.mdDoc "Create the database and database user locally.";
+          };
+        };
+
+        virtualHost = mkOption {
+          type = types.submodule
+            (import ../web-servers/apache-httpd/vhost-options.nix);
+          example = literalExpression ''
+            {
+              adminAddr = "webmaster@example.org";
+              forceSSL = true;
+              enableACME = true;
+            }
+          '';
+          description = lib.mdDoc ''
+            Apache configuration can be done by adapting {option}`services.httpd.virtualHosts`.
           '';
         };
 
-        socket = mkOption {
-          type = types.nullOr types.path;
-          default = null;
-          defaultText = literalExpression "/run/mysqld/mysqld.sock";
-          description =
-            lib.mdDoc "Path to the unix socket file to use for authentication.";
+        poolConfig = mkOption {
+          type = with types; attrsOf (oneOf [ str int bool ]);
+          default = {
+            "pm" = "dynamic";
+            "pm.max_children" = 32;
+            "pm.start_servers" = 2;
+            "pm.min_spare_servers" = 2;
+            "pm.max_spare_servers" = 4;
+            "pm.max_requests" = 500;
+          };
+          description = lib.mdDoc ''
+            Options for the WordPress PHP pool. See the documentation on `php-fpm.conf`
+            for details on configuration directives.
+          '';
         };
 
-        createLocally = mkOption {
-          type = types.bool;
-          default = true;
-          description =
-            lib.mdDoc "Create the database and database user locally.";
+        settings = mkOption {
+          type = types.attrsOf types.anything;
+          default = { };
+          description = lib.mdDoc ''
+            Structural Wordpress configuration.
+            Refer to <https://developer.wordpress.org/apis/wp-config-php>
+            for details and supported values.
+          '';
+          example = literalExpression ''
+            {
+              WP_DEFAULT_THEME = "twentytwentytwo";
+              WP_SITEURL = "https://example.org";
+              WP_HOME = "https://example.org";
+              WP_DEBUG = true;
+              WP_DEBUG_DISPLAY = true;
+              WPLANG = "de_DE";
+              FORCE_SSL_ADMIN = true;
+              AUTOMATIC_UPDATER_DISABLED = true;
+            }
+          '';
         };
-      };
 
-      virtualHost = mkOption {
-        type = types.submodule
-          (import ../web-servers/apache-httpd/vhost-options.nix);
-        example = literalExpression ''
-          {
-            adminAddr = "webmaster@example.org";
-            forceSSL = true;
-            enableACME = true;
-          }
-        '';
-        description = lib.mdDoc ''
-          Apache configuration can be done by adapting {option}`services.httpd.virtualHosts`.
-        '';
-      };
-
-      poolConfig = mkOption {
-        type = with types; attrsOf (oneOf [ str int bool ]);
-        default = {
-          "pm" = "dynamic";
-          "pm.max_children" = 32;
-          "pm.start_servers" = 2;
-          "pm.min_spare_servers" = 2;
-          "pm.max_spare_servers" = 4;
-          "pm.max_requests" = 500;
+        mergedConfig = mkOption {
+          readOnly = true;
+          default = mergeConfig config;
+          defaultText = literalExpression ''
+            {
+              DISALLOW_FILE_EDIT = true;
+              AUTOMATIC_UPDATER_DISABLED = true;
+            }
+          '';
+          description = lib.mdDoc ''
+            Read only representation of the final configuration.
+          '';
         };
-        description = lib.mdDoc ''
-          Options for the WordPress PHP pool. See the documentation on `php-fpm.conf`
-          for details on configuration directives.
-        '';
+
+        extraConfig = mkOption {
+          type = types.lines;
+          default = "";
+          description = lib.mdDoc ''
+            Any additional text to be appended to the wp-config.php
+            configuration file. This is a PHP script. For configuration
+            settings, see <https://codex.wordpress.org/Editing_wp-config.php>.
+
+            **Note**: Please pass structured settings via
+            `services.wordpress.sites.${name}.settings` instead.
+          '';
+          example = ''
+            @ini_set( 'log_errors', 'Off' );
+            @ini_set( 'display_errors', 'On' );
+          '';
+        };
+
       };
 
-      settings = mkOption {
-        type = types.attrsOf types.anything;
-        default = { };
-        description = lib.mdDoc ''
-          Structural Wordpress configuration.
-          Refer to <https://developer.wordpress.org/apis/wp-config-php>
-          for details and supported values.
-        '';
-        example = literalExpression ''
-          {
-            WP_DEFAULT_THEME = "twentytwentytwo";
-            WP_SITEURL = "https://example.org";
-            WP_HOME = "https://example.org";
-            WP_DEBUG = true;
-            WP_DEBUG_DISPLAY = true;
-            WPLANG = "de_DE";
-            FORCE_SSL_ADMIN = true;
-            AUTOMATIC_UPDATER_DISABLED = true;
-          }
-        '';
-      };
-
-      mergedConfig = mkOption {
-        readOnly = true;
-        default = mergeConfig config;
-        defaultText = literalExpression ''
-          {
-            DISALLOW_FILE_EDIT = true;
-            AUTOMATIC_UPDATER_DISABLED = true;
-          }
-        '';
-        description = lib.mdDoc ''
-          Read only representation of the final configuration.
-        '';
-      };
-
-      extraConfig = mkOption {
-        type = types.lines;
-        default = "";
-        description = lib.mdDoc ''
-          Any additional text to be appended to the wp-config.php
-          configuration file. This is a PHP script. For configuration
-          settings, see <https://codex.wordpress.org/Editing_wp-config.php>.
-
-          **Note**: Please pass structured settings via
-          `services.wordpress.sites.${name}.settings` instead.
-        '';
-        example = ''
-          @ini_set( 'log_errors', 'Off' );
-          @ini_set( 'display_errors', 'On' );
-        '';
-      };
-
+      config.virtualHost.hostName = mkDefault name;
     };
-
-    config.virtualHost.hostName = mkDefault name;
-  };
 in {
   # interface
   options = {

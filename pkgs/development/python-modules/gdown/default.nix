@@ -1,5 +1,15 @@
-{ lib, beautifulsoup4, buildPythonPackage, fetchPypi, filelock, requests, tqdm
-, setuptools, six, pythonOlder }:
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  fetchPypi,
+  filelock,
+  requests,
+  tqdm,
+  setuptools,
+  six,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "gdown";

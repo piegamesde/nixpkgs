@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, go-bindata, installShellFiles }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  go-bindata,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "waypoint";

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, docutils, readme_renderer, packaging
-, pygments, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  docutils,
+  readme_renderer,
+  packaging,
+  pygments,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "restview";

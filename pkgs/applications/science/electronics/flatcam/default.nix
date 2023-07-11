@@ -1,4 +1,12 @@
-{ lib, stdenv, python3, fetchFromBitbucket, fetchpatch, substituteAll, geos }:
+{
+  lib,
+  stdenv,
+  python3,
+  fetchFromBitbucket,
+  fetchpatch,
+  substituteAll,
+  geos,
+}:
 
 let
   python = python3.override {

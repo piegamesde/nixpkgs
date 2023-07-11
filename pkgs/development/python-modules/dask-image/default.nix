@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPythonPackage, dask, fetchPypi, numpy, pims, pytestCheckHook
-, pythonOlder, scikitimage, scipy }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  dask,
+  fetchPypi,
+  numpy,
+  pims,
+  pytestCheckHook,
+  pythonOlder,
+  scikitimage,
+  scipy,
+}:
 
 buildPythonPackage rec {
   pname = "dask-image";

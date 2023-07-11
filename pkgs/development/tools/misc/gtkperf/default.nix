@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, gtk2, pkg-config, libintl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gtk2,
+  pkg-config,
+  libintl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gtkperf";

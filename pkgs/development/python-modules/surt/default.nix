@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, six, tldextract, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  six,
+  tldextract,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "surt";

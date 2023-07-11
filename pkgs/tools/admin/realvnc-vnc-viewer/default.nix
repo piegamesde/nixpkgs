@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, rpmextract, libX11, libXext }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  rpmextract,
+  libX11,
+  libXext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "realvnc-vnc-viewer";

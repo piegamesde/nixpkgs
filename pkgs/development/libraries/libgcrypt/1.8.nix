@@ -1,7 +1,17 @@
-{ lib, stdenv, fetchurl, libgpg-error, enableCapabilities ? false, libcap
-, buildPackages
-# for passthru.tests
-, gnupg, libotr, rsyslog }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libgpg-error,
+  enableCapabilities ? false,
+  libcap,
+  buildPackages
+  # for passthru.tests
+  ,
+  gnupg,
+  libotr,
+  rsyslog,
+}:
 
 assert enableCapabilities -> stdenv.isLinux;
 

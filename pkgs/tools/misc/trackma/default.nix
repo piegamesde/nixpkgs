@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, python3, wrapGAppsHook, gobject-introspection
-, glib, gtk3, qt5, makeDesktopItem, copyDesktopItems, withCurses ? false
-, withGTK ? false, withQT ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  wrapGAppsHook,
+  gobject-introspection,
+  glib,
+  gtk3,
+  qt5,
+  makeDesktopItem,
+  copyDesktopItems,
+  withCurses ? false,
+  withGTK ? false,
+  withQT ? false
+}:
 let
   mkDesktopItem = name: desktopName: comment: terminal:
     makeDesktopItem {

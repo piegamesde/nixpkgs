@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, kernel, bc }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  kernel,
+  bc,
+}:
 
 with lib;
 

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, coreutils, ocaml-ng, zlib, pcre, neko, mbedtls_2
-, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  coreutils,
+  ocaml-ng,
+  zlib,
+  pcre,
+  neko,
+  mbedtls_2,
+  Security,
+}:
 
 let
   ocamlDependencies = version:
@@ -35,7 +45,11 @@ let
       --replace '"neko"' '"${neko}/bin/neko"'
   '';
 
-  generic = { sha256, version, prePatch ? defaultPatch }:
+  generic = {
+      sha256,
+      version,
+      prePatch ? defaultPatch
+    }:
     stdenv.mkDerivation {
       pname = "haxe";
       inherit version;

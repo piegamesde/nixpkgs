@@ -1,6 +1,20 @@
-{ lib, acme, aiohttp, atomicwrites-homeassistant, attrs, buildPythonPackage
-, fetchFromGitHub, pycognito, pytest-aiohttp, pytest-timeout, pytestCheckHook
-, pythonOlder, snitun, syrupy, xmltodict }:
+{
+  lib,
+  acme,
+  aiohttp,
+  atomicwrites-homeassistant,
+  attrs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pycognito,
+  pytest-aiohttp,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonOlder,
+  snitun,
+  syrupy,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "hass-nabucasa";

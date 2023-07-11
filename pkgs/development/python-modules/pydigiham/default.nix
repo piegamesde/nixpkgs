@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, python, digiham, csdr, pycsdr
-, codecserver }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  digiham,
+  csdr,
+  pycsdr,
+  codecserver,
+}:
 
 buildPythonPackage rec {
   pname = "pydigiham";

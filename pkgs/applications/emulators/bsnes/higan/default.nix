@@ -1,8 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, SDL2, alsa-lib, gtk3, gtksourceview3, libGL
-, libGLU, libX11, libXv, libao, libpulseaudio, openal, pkg-config, runtimeShell
-, udev
-# Darwin dependencies
-, libicns, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  alsa-lib,
+  gtk3,
+  gtksourceview3,
+  libGL,
+  libGLU,
+  libX11,
+  libXv,
+  libao,
+  libpulseaudio,
+  openal,
+  pkg-config,
+  runtimeShell,
+  udev
+  # Darwin dependencies
+  ,
+  libicns,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "higan";

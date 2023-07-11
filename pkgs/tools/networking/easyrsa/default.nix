@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, openssl, makeWrapper, runtimeShell }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  openssl,
+  makeWrapper,
+  runtimeShell,
+}:
 
 stdenv.mkDerivation rec {
   pname = "easyrsa";

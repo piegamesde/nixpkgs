@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, numpy, libsndfile, cffi
-, isPyPy, stdenv }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  numpy,
+  libsndfile,
+  cffi,
+  isPyPy,
+  stdenv,
+}:
 
 buildPythonPackage rec {
   pname = "soundfile";

@@ -1,4 +1,12 @@
-{ lib, ocaml, buildDunePackage, fetchurl, seq, stdlib-shims, ncurses }:
+{
+  lib,
+  ocaml,
+  buildDunePackage,
+  fetchurl,
+  seq,
+  stdlib-shims,
+  ncurses,
+}:
 
 buildDunePackage rec {
   minimalOCamlVersion = "4.04";

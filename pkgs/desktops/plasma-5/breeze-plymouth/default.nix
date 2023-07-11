@@ -1,6 +1,18 @@
-{ mkDerivation, lib, extra-cmake-modules, plymouth, imagemagick, netpbm, perl
-, logoName ? null, logoFile ? null, osName ? null, osVersion ? null
-, topColor ? "black", bottomColor ? "black" }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  plymouth,
+  imagemagick,
+  netpbm,
+  perl,
+  logoName ? null,
+  logoFile ? null,
+  osName ? null,
+  osVersion ? null,
+  topColor ? "black",
+  bottomColor ? "black"
+}:
 
 let
   validColors = [

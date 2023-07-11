@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, intltool, itstool, gtk3, libxml2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  intltool,
+  itstool,
+  gtk3,
+  libxml2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pioneers";

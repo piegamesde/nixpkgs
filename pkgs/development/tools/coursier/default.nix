@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, makeWrapper, jre, writeScript, common-updater-scripts
-, coreutils, git, gnused, nix, nixfmt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  jre,
+  writeScript,
+  common-updater-scripts,
+  coreutils,
+  git,
+  gnused,
+  nix,
+  nixfmt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "coursier";

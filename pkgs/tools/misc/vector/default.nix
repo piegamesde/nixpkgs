@@ -1,25 +1,47 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, rustPlatform, pkg-config
-, llvmPackages, openssl, protobuf, rdkafka, oniguruma, zstd, Security, libiconv
-, coreutils, CoreServices, tzdata, cmake, perl, git
-# nix has a problem with the `?` in the feature list
-# enabling kafka will produce a vector with no features at all
-, enableKafka ? false
-  # TODO investigate adding "vrl-cli" and various "vendor-*"
-  # "disk-buffer" is using leveldb TODO: investigate how useful
-  # it would be, perhaps only for massive scale?
-, features ? ([
-  "api"
-  "api-client"
-  "enrichment-tables"
-  "sinks"
-  "sources"
-  "transforms"
-  "vrl-cli"
-]
-# the second feature flag is passed to the rdkafka dependency
-# building on linux fails without this feature flag (both x86_64 and AArch64)
-  ++ lib.optionals enableKafka [ "rdkafka?/gssapi-vendored" ]
-  ++ lib.optional stdenv.targetPlatform.isUnix "unix"), nix-update-script }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  rustPlatform,
+  pkg-config,
+  llvmPackages,
+  openssl,
+  protobuf,
+  rdkafka,
+  oniguruma,
+  zstd,
+  Security,
+  libiconv,
+  coreutils,
+  CoreServices,
+  tzdata,
+  cmake,
+  perl,
+  git
+  # nix has a problem with the `?` in the feature list
+  # enabling kafka will produce a vector with no features at all
+  ,
+  enableKafka ? false
+    # TODO investigate adding "vrl-cli" and various "vendor-*"
+    # "disk-buffer" is using leveldb TODO: investigate how useful
+    # it would be, perhaps only for massive scale?
+  ,
+  features ? ([
+    "api"
+    "api-client"
+    "enrichment-tables"
+    "sinks"
+    "sources"
+    "transforms"
+    "vrl-cli"
+  ]
+  # the second feature flag is passed to the rdkafka dependency
+  # building on linux fails without this feature flag (both x86_64 and AArch64)
+    ++ lib.optionals enableKafka [ "rdkafka?/gssapi-vendored" ]
+    ++ lib.optional stdenv.targetPlatform.isUnix "unix"),
+  nix-update-script,
+}:
 
 let
   pname = "vector";

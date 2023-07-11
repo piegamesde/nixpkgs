@@ -1,4 +1,13 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, ruby, which, runCommand, darwin }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  ruby,
+  which,
+  runCommand,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rbspy";

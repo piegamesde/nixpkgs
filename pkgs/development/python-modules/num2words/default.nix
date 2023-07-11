@@ -1,4 +1,11 @@
-{ buildPythonPackage, lib, fetchPypi, docopt, delegator-py, pytest }:
+{
+  buildPythonPackage,
+  lib,
+  fetchPypi,
+  docopt,
+  delegator-py,
+  pytest,
+}:
 
 buildPythonPackage rec {
   version = "0.5.12";

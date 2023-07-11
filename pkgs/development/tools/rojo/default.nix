@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, openssl, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  darwin,
+}:
 
 let inherit (darwin.apple_sdk.frameworks) CoreServices;
 in rustPlatform.buildRustPackage rec {

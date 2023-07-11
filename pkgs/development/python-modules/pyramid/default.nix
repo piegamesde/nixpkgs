@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, fetchPypi, webtest, zope_component, hupper
-, pastedeploy, plaster, plaster-pastedeploy, repoze_lru, translationstring
-, venusian, webob, zope_deprecation, zope_interface, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  webtest,
+  zope_component,
+  hupper,
+  pastedeploy,
+  plaster,
+  plaster-pastedeploy,
+  repoze_lru,
+  translationstring,
+  venusian,
+  webob,
+  zope_deprecation,
+  zope_interface,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyramid";

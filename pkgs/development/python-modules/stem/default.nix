@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, python, mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  mock,
+}:
 
 buildPythonPackage rec {
   pname = "stem";

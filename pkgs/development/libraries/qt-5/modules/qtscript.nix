@@ -1,4 +1,8 @@
-{ qtModule, qtbase, qttools }:
+{
+  qtModule,
+  qtbase,
+  qttools,
+}:
 
 qtModule {
   pname = "qtscript";

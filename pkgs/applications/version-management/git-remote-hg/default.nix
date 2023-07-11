@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, python3Packages, asciidoc, xmlto, docbook_xsl
-, docbook_xml_dtd_45, libxslt, libxml2 }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  asciidoc,
+  xmlto,
+  docbook_xsl,
+  docbook_xml_dtd_45,
+  libxslt,
+  libxml2,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "git-remote-hg";

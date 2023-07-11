@@ -1,5 +1,13 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, poetry-core
-, pytestCheckHook, pythonOlder, urllib3 }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "freebox-api";

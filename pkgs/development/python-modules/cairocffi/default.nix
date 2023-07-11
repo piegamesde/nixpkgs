@@ -1,7 +1,25 @@
 # FIXME: make gdk-pixbuf dependency optional
-{ stdenv, buildPythonPackage, pythonOlder, fetchPypi, lib, substituteAll
-, makeFontsConf, freefont_ttf, pikepdf, pytest, glibcLocales, cairo, cffi, numpy
-, withXcffib ? false, xcffib, python, glib, gdk-pixbuf }:
+{
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  lib,
+  substituteAll,
+  makeFontsConf,
+  freefont_ttf,
+  pikepdf,
+  pytest,
+  glibcLocales,
+  cairo,
+  cffi,
+  numpy,
+  withXcffib ? false,
+  xcffib,
+  python,
+  glib,
+  gdk-pixbuf,
+}:
 
 buildPythonPackage rec {
   pname = "cairocffi";

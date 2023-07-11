@@ -1,18 +1,30 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
 
-  let client = { pkgs, ... }: { environment.systemPackages = [ pkgs.upterm ]; };
+  let
+    client = {
+        pkgs,
+        ...
+      }: {
+        environment.systemPackages = [ pkgs.upterm ];
+      };
   in {
     name = "uptermd";
     meta = with pkgs.lib.maintainers; { maintainers = [ fleaz ]; };
 
     nodes = {
-      server = { config, ... }: {
-        services.uptermd = {
-          enable = true;
-          openFirewall = true;
-          port = 1337;
+      server = {
+          config,
+          ...
+        }: {
+          services.uptermd = {
+            enable = true;
+            openFirewall = true;
+            port = 1337;
+          };
         };
-      };
       client1 = client;
       client2 = client;
     };

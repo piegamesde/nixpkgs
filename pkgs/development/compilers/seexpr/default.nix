@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libpng, zlib, qt4, bison, flex, libGLU
-, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libpng,
+  zlib,
+  qt4,
+  bison,
+  flex,
+  libGLU,
+  python3Packages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "seexpr";

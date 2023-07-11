@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, ocamlPackages, perl, zlib, db }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocamlPackages,
+  perl,
+  zlib,
+  db,
+}:
 
 let inherit (ocamlPackages) ocaml findlib cryptokit num;
 

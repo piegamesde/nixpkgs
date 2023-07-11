@@ -1,6 +1,25 @@
-{ lib, gcc12Stdenv, cmake, llvm, fetchFromGitHub, mbedtls, gtk3, pkg-config
-, capstone, dbus, libGLU, glfw3, file, perl, python3, jansson, curl, fmt_8
-, nlohmann_json, yara }:
+{
+  lib,
+  gcc12Stdenv,
+  cmake,
+  llvm,
+  fetchFromGitHub,
+  mbedtls,
+  gtk3,
+  pkg-config,
+  capstone,
+  dbus,
+  libGLU,
+  glfw3,
+  file,
+  perl,
+  python3,
+  jansson,
+  curl,
+  fmt_8,
+  nlohmann_json,
+  yara,
+}:
 
 let
   # when bumping the version, check if imhex has gotten support for the capstone version in nixpkgs

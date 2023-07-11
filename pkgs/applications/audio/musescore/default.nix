@@ -1,8 +1,35 @@
-{ mkDerivation, lib, fetchFromGitHub, fetchpatch, cmake, pkg-config, ninja
-, alsa-lib, freetype, libjack2, lame, libogg, libpulseaudio, libsndfile
-, libvorbis, portaudio, portmidi, qtbase, qtdeclarative, qtgraphicaleffects
-, flac, qtquickcontrols2, qtscript, qtsvg, qttools, qtwebengine, qtxmlpatterns
-, qtnetworkauth, qtx11extras, nixosTests }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  ninja,
+  alsa-lib,
+  freetype,
+  libjack2,
+  lame,
+  libogg,
+  libpulseaudio,
+  libsndfile,
+  libvorbis,
+  portaudio,
+  portmidi,
+  qtbase,
+  qtdeclarative,
+  qtgraphicaleffects,
+  flac,
+  qtquickcontrols2,
+  qtscript,
+  qtsvg,
+  qttools,
+  qtwebengine,
+  qtxmlpatterns,
+  qtnetworkauth,
+  qtx11extras,
+  nixosTests,
+}:
 
 mkDerivation rec {
   pname = "musescore";

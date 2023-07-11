@@ -1,4 +1,12 @@
-{ stdenv, lib, gnat, gprbuild, fetchFromGitHub, xmlada, which }:
+{
+  stdenv,
+  lib,
+  gnat,
+  gprbuild,
+  fetchFromGitHub,
+  xmlada,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnatcoll-core";

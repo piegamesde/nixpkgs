@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest, bashlex, click, shutilwhich
-, gcc, coreutils }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest,
+  bashlex,
+  click,
+  shutilwhich,
+  gcc,
+  coreutils,
+}:
 
 buildPythonPackage rec {
   pname = "compiledb";

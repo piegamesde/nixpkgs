@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchFromGitHub, itstool, meson, ninja, pkg-config, wrapGAppsHook
-, gtk3, gtksourceview, gtkspell3, webkitgtk, pandoc }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  itstool,
+  meson,
+  ninja,
+  pkg-config,
+  wrapGAppsHook,
+  gtk3,
+  gtksourceview,
+  gtkspell3,
+  webkitgtk,
+  pandoc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "marker";

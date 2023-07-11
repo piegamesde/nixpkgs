@@ -1,4 +1,10 @@
-{ config, lib, pkgs, utils, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  utils,
+  ...
+}:
 
 let
   xcfg = config.services.xserver;

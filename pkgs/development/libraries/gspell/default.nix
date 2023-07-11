@@ -1,5 +1,20 @@
-{ stdenv, lib, buildPackages, fetchurl, pkg-config, libxml2, autoreconfHook
-, gtk-doc, glib, gtk3, enchant2, icu, vala, gobject-introspection, gnome }:
+{
+  stdenv,
+  lib,
+  buildPackages,
+  fetchurl,
+  pkg-config,
+  libxml2,
+  autoreconfHook,
+  gtk-doc,
+  glib,
+  gtk3,
+  enchant2,
+  icu,
+  vala,
+  gobject-introspection,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gspell";

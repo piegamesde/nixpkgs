@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, nix-update-script, substituteAll
-, pkg-config, meson, ninja, vala, gtk3, granite, networkmanager, libnma
-, wingpanel, libgee }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  nix-update-script,
+  substituteAll,
+  pkg-config,
+  meson,
+  ninja,
+  vala,
+  gtk3,
+  granite,
+  networkmanager,
+  libnma,
+  wingpanel,
+  libgee,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wingpanel-indicator-network";

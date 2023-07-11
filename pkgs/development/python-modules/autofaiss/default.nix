@@ -1,5 +1,17 @@
-{ buildPythonPackage, embedding-reader, faiss, fetchFromGitHub, fire, fsspec
-, lib, numpy, pyarrow, pytestCheckHook, pythonRelaxDepsHook, pythonOlder }:
+{
+  buildPythonPackage,
+  embedding-reader,
+  faiss,
+  fetchFromGitHub,
+  fire,
+  fsspec,
+  lib,
+  numpy,
+  pyarrow,
+  pytestCheckHook,
+  pythonRelaxDepsHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "autofaiss";

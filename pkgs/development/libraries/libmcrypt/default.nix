@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, darwin, disablePosixThreads ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  darwin,
+  disablePosixThreads ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "libmcrypt";

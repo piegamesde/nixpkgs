@@ -1,6 +1,22 @@
-{ lib, stdenv, buildNpmPackage, fetchFromGitHub, pkg-config, python3, pixman
-, libpng, libjpeg, librsvg, giflib, cairo, pango, nodePackages, makeWrapper
-, CoreText, nix-update-script }:
+{
+  lib,
+  stdenv,
+  buildNpmPackage,
+  fetchFromGitHub,
+  pkg-config,
+  python3,
+  pixman,
+  libpng,
+  libjpeg,
+  librsvg,
+  giflib,
+  cairo,
+  pango,
+  nodePackages,
+  makeWrapper,
+  CoreText,
+  nix-update-script,
+}:
 
 buildNpmPackage rec {
   pname = "lv_img_conv";

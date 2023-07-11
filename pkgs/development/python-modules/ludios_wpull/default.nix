@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, chardet, dnspython, html5-parser
-, lxml, namedlist, sqlalchemy, tornado, yapsy, pythonAtLeast }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  chardet,
+  dnspython,
+  html5-parser,
+  lxml,
+  namedlist,
+  sqlalchemy,
+  tornado,
+  yapsy,
+  pythonAtLeast,
+}:
 
 buildPythonPackage rec {
   pname = "ludios_wpull";

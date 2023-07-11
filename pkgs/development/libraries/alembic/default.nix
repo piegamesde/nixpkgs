@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, openexr, hdf5-threadsafe, ilmbase }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  openexr,
+  hdf5-threadsafe,
+  ilmbase,
+}:
 
 stdenv.mkDerivation rec {
   pname = "alembic";

@@ -1,7 +1,29 @@
-{ lib, stdenv, buildPythonPackage, debugger, fetchPypi, mako, packaging, pysocks
-, pygments, ropgadget, capstone, colored-traceback, paramiko, pip, psutil
-, pyelftools, pyserial, python-dateutil, requests, rpyc, tox, unicorn
-, intervaltree, installShellFiles }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  debugger,
+  fetchPypi,
+  mako,
+  packaging,
+  pysocks,
+  pygments,
+  ropgadget,
+  capstone,
+  colored-traceback,
+  paramiko,
+  pip,
+  psutil,
+  pyelftools,
+  pyserial,
+  python-dateutil,
+  requests,
+  rpyc,
+  tox,
+  unicorn,
+  intervaltree,
+  installShellFiles,
+}:
 
 let debuggerName = lib.strings.getName debugger;
 in buildPythonPackage rec {

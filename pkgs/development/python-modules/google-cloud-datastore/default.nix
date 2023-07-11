@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, google-api-core, google-cloud-core
-, google-cloud-testutils, libcst, mock, proto-plus, protobuf, pytest-asyncio
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  google-cloud-core,
+  google-cloud-testutils,
+  libcst,
+  mock,
+  proto-plus,
+  protobuf,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "google-cloud-datastore";

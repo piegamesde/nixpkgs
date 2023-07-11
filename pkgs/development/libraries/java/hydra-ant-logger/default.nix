@@ -1,4 +1,10 @@
-{ fetchFromGitHub, lib, stdenv, ant, jdk }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  ant,
+  jdk,
+}:
 
 stdenv.mkDerivation {
   pname = "hydra-ant-logger";

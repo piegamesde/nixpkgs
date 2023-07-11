@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, fuse, libarchive }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  fuse,
+  libarchive,
+}:
 
 stdenv.mkDerivation rec {
   pname = "archivemount";

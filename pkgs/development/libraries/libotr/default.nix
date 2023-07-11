@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libgcrypt, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libgcrypt,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libotr";

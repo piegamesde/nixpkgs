@@ -1,7 +1,31 @@
-{ lib, stdenv, asciidoc, boost, cmake, curl, docbook_xsl, docbook_xsl_ns
-, fetchurl, freetype, glew, jdk, libdevil, libGL, libGLU, libunwind, libvorbis
-, makeWrapper, minizip, openal, p7zip, python3, SDL2, xorg, xz, zlib
-, withAI ? true # support for AI Interfaces and Skirmish AIs
+{
+  lib,
+  stdenv,
+  asciidoc,
+  boost,
+  cmake,
+  curl,
+  docbook_xsl,
+  docbook_xsl_ns,
+  fetchurl,
+  freetype,
+  glew,
+  jdk,
+  libdevil,
+  libGL,
+  libGLU,
+  libunwind,
+  libvorbis,
+  makeWrapper,
+  minizip,
+  openal,
+  p7zip,
+  python3,
+  SDL2,
+  xorg,
+  xz,
+  zlib,
+  withAI ? true # support for AI Interfaces and Skirmish AIs
 }:
 
 stdenv.mkDerivation rec {

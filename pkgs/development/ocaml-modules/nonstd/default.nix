@@ -1,4 +1,9 @@
-{ lib, fetchzip, buildDunePackage, ocaml }:
+{
+  lib,
+  fetchzip,
+  buildDunePackage,
+  ocaml,
+}:
 
 lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
 "nonstd is not available for OCaml ≥ 5.0"

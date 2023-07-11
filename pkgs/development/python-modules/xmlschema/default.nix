@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, elementpath, jinja2, lxml
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  elementpath,
+  jinja2,
+  lxml,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "xmlschema";

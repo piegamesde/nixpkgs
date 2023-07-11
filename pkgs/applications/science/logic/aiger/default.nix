@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, picosat }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  picosat,
+}:
 
 stdenv.mkDerivation rec {
   pname = "aiger";

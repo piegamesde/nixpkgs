@@ -1,4 +1,11 @@
-{ stdenv, lib, glibcLocales, unzip, hasktags, ctags }: {
+{
+  stdenv,
+  lib,
+  glibcLocales,
+  unzip,
+  hasktags,
+  ctags,
+}: {
   # optional srcDir
   annotatedWithSourceAndTagInfo = x:
     (x ? passthru && x.passthru ? sourceWithTags || x ? meta && x.meta
@@ -15,8 +22,13 @@
 
   # createTagFiles =  [ { name  = "my_tag_name_without_suffix", tagCmd = "ctags -R . -o \$TAG_FILE"; } ]
   # tag command must create file named $TAG_FILE
-  sourceWithTagsDerivation =
-    { name, src, srcDir ? ".", tagSuffix ? "_tags", createTagFiles ? [ ] }:
+  sourceWithTagsDerivation = {
+      name,
+      src,
+      srcDir ? ".",
+      tagSuffix ? "_tags",
+      createTagFiles ? [ ]
+    }:
     stdenv.mkDerivation {
       phases = "unpackPhase buildPhase";
       inherit src srcDir tagSuffix;

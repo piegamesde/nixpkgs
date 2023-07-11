@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, fetchpatch, pythonPackages }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  pythonPackages,
+}:
 
 pythonPackages.buildPythonApplication rec {
   pname = "cpuset";

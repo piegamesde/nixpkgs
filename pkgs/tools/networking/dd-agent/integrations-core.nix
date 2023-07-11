@@ -33,7 +33,11 @@
 #
 # [1]: https://github.com/DataDog/integrations-core
 
-{ pkgs, python, extraIntegrations ? { } }:
+{
+  pkgs,
+  python,
+  extraIntegrations ? { }
+}:
 
 with pkgs.lib;
 
@@ -47,7 +51,10 @@ let
   version = "7.38.0";
 
   # Build helper to build a single datadog integration package.
-  buildIntegration = { pname, ... }@args:
+  buildIntegration = {
+      pname,
+      ...
+    }@args:
     python.pkgs.buildPythonPackage (args // {
       inherit src version;
       name = "datadog-integration-${pname}-${version}";

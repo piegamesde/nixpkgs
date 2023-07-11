@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libosip, sqlite }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libosip,
+  sqlite,
+}:
 
 stdenv.mkDerivation rec {
   pname = "siproxd";

@@ -1,5 +1,14 @@
-{ python3Packages, lib, fetchFromGitHub, makeDesktopItem, wrapGAppsHook, gtk3
-, gobject-introspection, sox, pulseaudio }:
+{
+  python3Packages,
+  lib,
+  fetchFromGitHub,
+  makeDesktopItem,
+  wrapGAppsHook,
+  gtk3,
+  gobject-introspection,
+  sox,
+  pulseaudio,
+}:
 let
   desktopItem = makeDesktopItem {
     name = "lyrebird";

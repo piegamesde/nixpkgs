@@ -1,28 +1,56 @@
-{ stdenv, lib, fetchurl, openssl, nettle, expat, libevent, libsodium, protobufc
-, hiredis, python ? null, swig, dns-root-data, pkg-config, makeWrapper
-, symlinkJoin, bison, nixosTests
-#
-# By default unbound will not be built with systemd support. Unbound is a very
-# commmon dependency. The transitive dependency closure of systemd also
-# contains unbound.
-# Since most (all?) (lib)unbound users outside of the unbound daemon usage do
-# not need the systemd integration it is likely best to just default to no
-# systemd integration.
-# For the daemon use-case, that needs to notify systemd, use `unbound-with-systemd`.
-#
-, withSystemd ? false, systemd ? null
-  # optionally support DNS-over-HTTPS as a server
-, withDoH ? false, withECS ? false, withDNSCrypt ? false, withDNSTAP ? false
-, withTFO ? false, withRedis ? false
-  # Avoid .lib depending on lib.getLib openssl
-  # The build gets a little hacky, so in some cases we disable this approach.
-, withSlimLib ? stdenv.isLinux && !stdenv.hostPlatform.isMusl && !withDNSTAP
-  # enable support for python plugins in unbound: note this is distinct from pyunbound
-  # see https://unbound.docs.nlnetlabs.nl/en/latest/developer/python-modules.html
-, withPythonModule ? false, libnghttp2
+{
+  stdenv,
+  lib,
+  fetchurl,
+  openssl,
+  nettle,
+  expat,
+  libevent,
+  libsodium,
+  protobufc,
+  hiredis,
+  python ? null,
+  swig,
+  dns-root-data,
+  pkg-config,
+  makeWrapper,
+  symlinkJoin,
+  bison,
+  nixosTests
+  #
+  # By default unbound will not be built with systemd support. Unbound is a very
+  # commmon dependency. The transitive dependency closure of systemd also
+  # contains unbound.
+  # Since most (all?) (lib)unbound users outside of the unbound daemon usage do
+  # not need the systemd integration it is likely best to just default to no
+  # systemd integration.
+  # For the daemon use-case, that needs to notify systemd, use `unbound-with-systemd`.
+  #
+  ,
+  withSystemd ? false,
+  systemd ? null
+    # optionally support DNS-over-HTTPS as a server
+  ,
+  withDoH ? false,
+  withECS ? false,
+  withDNSCrypt ? false,
+  withDNSTAP ? false,
+  withTFO ? false,
+  withRedis ? false
+    # Avoid .lib depending on lib.getLib openssl
+    # The build gets a little hacky, so in some cases we disable this approach.
+  ,
+  withSlimLib ? stdenv.isLinux && !stdenv.hostPlatform.isMusl && !withDNSTAP
+    # enable support for python plugins in unbound: note this is distinct from pyunbound
+    # see https://unbound.docs.nlnetlabs.nl/en/latest/developer/python-modules.html
+  ,
+  withPythonModule ? false,
+  libnghttp2
 
-# for passthru.tests
-, gnutls }:
+  # for passthru.tests
+  ,
+  gnutls,
+}:
 
 stdenv.mkDerivation rec {
   pname = "unbound";

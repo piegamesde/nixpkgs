@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, isPyPy, python, coverage
-, buildPackages }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  isPyPy,
+  python,
+  coverage,
+  buildPackages,
+}:
 
 buildPythonPackage rec {
   version = "1.3.7";

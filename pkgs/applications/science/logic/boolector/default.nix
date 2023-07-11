@@ -1,5 +1,15 @@
-{ stdenv, fetchFromGitHub, lib, python3, fetchpatch, cmake, lingeling
-, btor2tools, gtest, gmp }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  python3,
+  fetchpatch,
+  cmake,
+  lingeling,
+  btor2tools,
+  gtest,
+  gmp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "boolector";

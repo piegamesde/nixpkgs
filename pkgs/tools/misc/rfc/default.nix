@@ -1,4 +1,11 @@
-{ lib, stdenvNoCC, fetchFromGitHub, curl, installShellFiles, makeWrapper }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  curl,
+  installShellFiles,
+  makeWrapper,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "rfc";

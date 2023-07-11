@@ -1,4 +1,8 @@
-{ lib, fetchFromGitea, rustPlatform }:
+{
+  lib,
+  fetchFromGitea,
+  rustPlatform,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "wgautomesh";
   version = "0.1.0";

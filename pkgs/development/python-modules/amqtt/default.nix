@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, docopt, fetchFromGitHub, fetchpatch, hypothesis
-, passlib, poetry-core, pytest-logdog, pytest-asyncio, pytestCheckHook
-, pythonOlder, pyyaml, setuptools, transitions, websockets }:
+{
+  lib,
+  buildPythonPackage,
+  docopt,
+  fetchFromGitHub,
+  fetchpatch,
+  hypothesis,
+  passlib,
+  poetry-core,
+  pytest-logdog,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  setuptools,
+  transitions,
+  websockets,
+}:
 
 buildPythonPackage rec {
   pname = "amqtt";

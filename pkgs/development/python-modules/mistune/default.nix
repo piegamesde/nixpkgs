@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "mistune";

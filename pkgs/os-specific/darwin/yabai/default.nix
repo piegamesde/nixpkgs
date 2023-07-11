@@ -1,7 +1,22 @@
-{ lib, stdenv, stdenvNoCC, fetchFromGitHub, fetchzip, writeShellScript
-, installShellFiles, testers, yabai, xxd, xcodebuild
-# These all need to be from SDK 11.0 or later starting with yabai 5.0.0
-, Carbon, Cocoa, ScriptingBridge, SkyLight }:
+{
+  lib,
+  stdenv,
+  stdenvNoCC,
+  fetchFromGitHub,
+  fetchzip,
+  writeShellScript,
+  installShellFiles,
+  testers,
+  yabai,
+  xxd,
+  xcodebuild
+  # These all need to be from SDK 11.0 or later starting with yabai 5.0.0
+  ,
+  Carbon,
+  Cocoa,
+  ScriptingBridge,
+  SkyLight,
+}:
 
 let
   pname = "yabai";

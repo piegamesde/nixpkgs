@@ -1,5 +1,18 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, pkg-config, makeWrapper, boost
-, xercesc, qtbase, qttools, qtwebengine, qtxmlpatterns, python3Packages }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  makeWrapper,
+  boost,
+  xercesc,
+  qtbase,
+  qttools,
+  qtwebengine,
+  qtxmlpatterns,
+  python3Packages,
+}:
 
 mkDerivation rec {
   pname = "sigil";

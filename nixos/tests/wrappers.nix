@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
     userUid = 1000;
     usersGid = 100;
@@ -11,40 +14,44 @@ import ./make-test-python.nix ({ pkgs, ... }:
   in {
     name = "wrappers";
 
-    nodes.machine = { config, pkgs, ... }: {
-      ids.gids.users = usersGid;
+    nodes.machine = {
+        config,
+        pkgs,
+        ...
+      }: {
+        ids.gids.users = usersGid;
 
-      users.users = {
-        regular = {
-          uid = userUid;
-          isNormalUser = true;
+        users.users = {
+          regular = {
+            uid = userUid;
+            isNormalUser = true;
+          };
+        };
+
+        security.wrappers = {
+          suidRoot = {
+            owner = "root";
+            group = "root";
+            setuid = true;
+            source = "${busybox pkgs}/bin/busybox";
+            program = "suid_root_busybox";
+          };
+          sgidRoot = {
+            owner = "root";
+            group = "root";
+            setgid = true;
+            source = "${busybox pkgs}/bin/busybox";
+            program = "sgid_root_busybox";
+          };
+          withChown = {
+            owner = "root";
+            group = "root";
+            source = "${pkgs.libcap}/bin/capsh";
+            program = "capsh_with_chown";
+            capabilities = "cap_chown+ep";
+          };
         };
       };
-
-      security.wrappers = {
-        suidRoot = {
-          owner = "root";
-          group = "root";
-          setuid = true;
-          source = "${busybox pkgs}/bin/busybox";
-          program = "suid_root_busybox";
-        };
-        sgidRoot = {
-          owner = "root";
-          group = "root";
-          setgid = true;
-          source = "${busybox pkgs}/bin/busybox";
-          program = "sgid_root_busybox";
-        };
-        withChown = {
-          owner = "root";
-          group = "root";
-          source = "${pkgs.libcap}/bin/capsh";
-          program = "capsh_with_chown";
-          capabilities = "cap_chown+ep";
-        };
-      };
-    };
 
     testScript = ''
       def cmd_as_regular(cmd):

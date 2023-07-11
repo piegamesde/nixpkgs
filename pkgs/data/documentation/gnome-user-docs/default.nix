@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, gettext, gnome, itstool, libxml2, yelp-tools }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gettext,
+  gnome,
+  itstool,
+  libxml2,
+  yelp-tools,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-user-docs";

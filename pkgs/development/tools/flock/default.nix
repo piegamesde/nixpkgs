@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, autoreconfHook, ronn }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  ronn,
+}:
 
 stdenv.mkDerivation rec {
   pname = "flock";

@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pythonAtLeast
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pythonAtLeast,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "dugong";

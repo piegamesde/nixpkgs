@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, substituteAll, ipcalc, iproute2
-, util-linux, coreutils, ethtool, gnugrep, gnused, nvme-cli }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  substituteAll,
+  ipcalc,
+  iproute2,
+  util-linux,
+  coreutils,
+  ethtool,
+  gnugrep,
+  gnused,
+  nvme-cli,
+}:
 
 stdenv.mkDerivation rec {
   pname = "google-guest-configs";

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config, ninja, libevdev, libev
-, udev }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  ninja,
+  libevdev,
+  libev,
+  udev,
+}:
 
 stdenv.mkDerivation rec {
   pname = "illum";

@@ -1,5 +1,18 @@
-{ lib, stdenv, graalvmCEPackages, gcc, glibc, javaVersion, musl, src, version
-, writeShellScriptBin, zlib, useMusl ? false, extraCLibs ? [ ] }:
+{
+  lib,
+  stdenv,
+  graalvmCEPackages,
+  gcc,
+  glibc,
+  javaVersion,
+  musl,
+  src,
+  version,
+  writeShellScriptBin,
+  zlib,
+  useMusl ? false,
+  extraCLibs ? [ ]
+}:
 
 assert useMusl -> stdenv.isLinux;
 let

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, flit-core, pretend, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flit-core,
+  pretend,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 let
   packaging = buildPythonPackage rec {

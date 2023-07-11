@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, findutils, fixDarwinDylibNames, sslSupport ? true
-, openssl, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  findutils,
+  fixDarwinDylibNames,
+  sslSupport ? true,
+  openssl,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libevent";

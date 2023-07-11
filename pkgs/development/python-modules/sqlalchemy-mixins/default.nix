@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, nose, pytestCheckHook, pythonOlder
-, six, sqlalchemy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  nose,
+  pytestCheckHook,
+  pythonOlder,
+  six,
+  sqlalchemy,
+}:
 
 buildPythonPackage rec {
   pname = "sqlalchemy-mixins";

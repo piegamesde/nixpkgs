@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, testers }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bzip3";

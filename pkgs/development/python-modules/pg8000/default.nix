@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, importlib-metadata, passlib
-, python-dateutil, pythonOlder, scramp, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  importlib-metadata,
+  passlib,
+  python-dateutil,
+  pythonOlder,
+  scramp,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "pg8000";

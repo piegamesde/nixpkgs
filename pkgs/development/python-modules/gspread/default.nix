@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, requests, google-auth
-, google-auth-oauthlib, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  google-auth,
+  google-auth-oauthlib,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "gspread";

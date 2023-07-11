@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, cmake, blas, lapack, superlu, hdf5 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  blas,
+  lapack,
+  superlu,
+  hdf5,
+}:
 
 stdenv.mkDerivation rec {
   pname = "armadillo";

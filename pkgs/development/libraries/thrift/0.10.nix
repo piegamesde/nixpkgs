@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, boost, zlib, libevent, openssl, python3, pkg-config
-, bison, flex }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  boost,
+  zlib,
+  libevent,
+  openssl,
+  python3,
+  pkg-config,
+  bison,
+  flex,
+}:
 
 stdenv.mkDerivation rec {
   pname = "thrift";

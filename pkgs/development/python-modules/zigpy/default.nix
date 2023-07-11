@@ -1,6 +1,20 @@
-{ lib, aiohttp, aiosqlite, buildPythonPackage, crccheck, cryptography, freezegun
-, fetchFromGitHub, pycryptodome, pyserial-asyncio, pytest-asyncio
-, pytest-timeout, pytestCheckHook, pythonOlder, voluptuous }:
+{
+  lib,
+  aiohttp,
+  aiosqlite,
+  buildPythonPackage,
+  crccheck,
+  cryptography,
+  freezegun,
+  fetchFromGitHub,
+  pycryptodome,
+  pyserial-asyncio,
+  pytest-asyncio,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonOlder,
+  voluptuous,
+}:
 
 buildPythonPackage rec {
   pname = "zigpy";

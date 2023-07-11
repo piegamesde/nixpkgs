@@ -1,4 +1,7 @@
-{ pkgs, haskellLib }:
+{
+  pkgs,
+  haskellLib,
+}:
 
 with haskellLib;
 

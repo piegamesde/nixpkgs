@@ -1,7 +1,21 @@
-{ lib, stdenv, makeWrapper, makeDesktopItem, fetchurl, jdk11, jdk8 }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  makeDesktopItem,
+  fetchurl,
+  jdk11,
+  jdk8,
+}:
 
 let
-  generic = { version, sha256, platform ? "", jdk, ... }@attrs:
+  generic = {
+      version,
+      sha256,
+      platform ? "",
+      jdk,
+      ...
+    }@attrs:
     let
       desktopItem = makeDesktopItem {
         categories = [ "Network" "Development" "WebDevelopment" "Java" ];

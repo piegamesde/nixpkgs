@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, elkhound, ocaml-ng, perl, which, gnumake42 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  elkhound,
+  ocaml-ng,
+  perl,
+  which,
+  gnumake42,
+}:
 
 let
   # 1. Needs ocaml >= 4.04 and <= 4.11 (patched against 4.14)

@@ -1,6 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, gfortran, python3, amd-blis
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gfortran,
+  python3,
+  amd-blis
 
-, withOpenMP ? true, blas64 ? false }:
+  ,
+  withOpenMP ? true,
+  blas64 ? false
+}:
 
 # right now only LP64 is supported
 assert !blas64;

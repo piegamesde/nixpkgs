@@ -1,10 +1,15 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
 
   {
     name = "plasma5";
     meta = with pkgs.lib.maintainers; { maintainers = [ ttuegel ]; };
 
-    nodes.machine = { ... }:
+    nodes.machine = {
+        ...
+      }:
 
       {
         imports = [ ./common/user-account.nix ];
@@ -23,7 +28,10 @@ import ./make-test-python.nix ({ pkgs, ... }:
           true; # needed for the factl test, /dev/snd/* exists without them but udev doesn't care then
       };
 
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let
         user = nodes.machine.config.users.users.alice;
         xdo = "${pkgs.xdotool}/bin/xdotool";

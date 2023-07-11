@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, makeDesktopItem, makeWrapper, symlinkJoin
-, writeShellScriptBin, wine }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeDesktopItem,
+  makeWrapper,
+  symlinkJoin,
+  writeShellScriptBin,
+  wine,
+}:
 
 let
   inherit (lib) last splitString;

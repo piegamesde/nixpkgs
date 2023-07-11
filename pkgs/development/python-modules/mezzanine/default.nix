@@ -1,7 +1,24 @@
-{ lib, beautifulsoup4, bleach, buildPythonPackage, chardet, django
-, django_contrib_comments, fetchPypi, filebrowser_safe, future, grappelli_safe
-, isPyPy, pep8, pillow, pyflakes, pythonOlder, requests, requests-oauthlib
-, tzlocal }:
+{
+  lib,
+  beautifulsoup4,
+  bleach,
+  buildPythonPackage,
+  chardet,
+  django,
+  django_contrib_comments,
+  fetchPypi,
+  filebrowser_safe,
+  future,
+  grappelli_safe,
+  isPyPy,
+  pep8,
+  pillow,
+  pyflakes,
+  pythonOlder,
+  requests,
+  requests-oauthlib,
+  tzlocal,
+}:
 
 buildPythonPackage rec {
   pname = "mezzanine";

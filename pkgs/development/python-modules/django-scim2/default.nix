@@ -1,10 +1,21 @@
-{ lib, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
 
-# propagates
-, django, python-dateutil, scim2-filter-parser, gssapi, python-ldap, sssd
+  # propagates
+  ,
+  django,
+  python-dateutil,
+  scim2-filter-parser,
+  gssapi,
+  python-ldap,
+  sssd
 
-# tests
-, mock }:
+  # tests
+  ,
+  mock,
+}:
 
 buildPythonPackage rec {
   pname = "django-scim2";

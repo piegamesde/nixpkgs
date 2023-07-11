@@ -1,6 +1,18 @@
-{ lib, attrs, buildPythonPackage, commoncode, fetchPypi, packaging, pyparsing
-, pytestCheckHook, pythonOlder, saneyaml, semantic-version, semver
-, setuptools-scm }:
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  commoncode,
+  fetchPypi,
+  packaging,
+  pyparsing,
+  pytestCheckHook,
+  pythonOlder,
+  saneyaml,
+  semantic-version,
+  semver,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "univers";

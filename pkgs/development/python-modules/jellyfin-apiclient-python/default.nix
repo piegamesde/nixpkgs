@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, certifi, fetchPypi, pythonOlder, requests, urllib3
-, websocket-client }:
+{
+  lib,
+  buildPythonPackage,
+  certifi,
+  fetchPypi,
+  pythonOlder,
+  requests,
+  urllib3,
+  websocket-client,
+}:
 
 buildPythonPackage rec {
   pname = "jellyfin-apiclient-python";

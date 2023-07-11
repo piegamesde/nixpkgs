@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, snap7, fetchFromGitHub, setuptools, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  snap7,
+  fetchFromGitHub,
+  setuptools,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "python-snap7";

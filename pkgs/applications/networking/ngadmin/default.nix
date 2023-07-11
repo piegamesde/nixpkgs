@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, readline, withReadline ? true
-, enableEmu ? true, enableSpy ? true }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  readline,
+  withReadline ? true,
+  enableEmu ? true,
+  enableSpy ? true
+}:
 
 stdenv.mkDerivation {
   pname = "ngadmin";

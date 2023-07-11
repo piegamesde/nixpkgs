@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, ninja, openssl, libuv, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  ninja,
+  openssl,
+  libuv,
+  zlib,
 }:
 
 stdenv.mkDerivation rec {

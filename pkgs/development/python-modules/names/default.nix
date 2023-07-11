@@ -1,7 +1,12 @@
-{ buildPythonPackage, fetchFromGitHub, lib
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib
 
-# pythonPackages
-, pytest }:
+  # pythonPackages
+  ,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "names";

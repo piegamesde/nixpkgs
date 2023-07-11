@@ -1,5 +1,15 @@
-{ stdenv, fetchFromGitHub, fetchurl, lib, curl, nlohmann_json, openssl
-, pkg-config, linkFarmFromDrvs, callPackage }:
+{
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  lib,
+  curl,
+  nlohmann_json,
+  openssl,
+  pkg-config,
+  linkFarmFromDrvs,
+  callPackage,
+}:
 
 let
   # Although those headers are also included in the source of `sgx-psw`, the `azure-dcap-client` build needs specific versions

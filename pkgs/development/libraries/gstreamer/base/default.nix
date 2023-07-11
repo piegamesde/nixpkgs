@@ -1,15 +1,51 @@
-{ stdenv, fetchurl, lib, pkg-config, meson, ninja, gettext, python3, gstreamer
-, graphene, orc, pango, libtheora, libintl, libopus, isocodes, libjpeg, libpng
-, libvisual, tremor # provides 'virbisidec'
-, libGL, gobject-introspection, enableX11 ? stdenv.isLinux, libXext, libXi
-, libXv, enableWayland ? stdenv.isLinux, wayland, wayland-protocols
-, enableAlsa ? stdenv.isLinux, alsa-lib
-# TODO: fix once x86_64-darwin sdk updated
-, enableCocoa ? (stdenv.isDarwin && stdenv.isAarch64), Cocoa, OpenGL
-, enableGl ? (enableX11 || enableWayland || enableCocoa)
-, enableCdparanoia ? (!stdenv.isDarwin), cdparanoia, glib, testers
-# Checks meson.is_cross_build(), so even canExecute isn't enough.
-, enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform, hotdoc }:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  pkg-config,
+  meson,
+  ninja,
+  gettext,
+  python3,
+  gstreamer,
+  graphene,
+  orc,
+  pango,
+  libtheora,
+  libintl,
+  libopus,
+  isocodes,
+  libjpeg,
+  libpng,
+  libvisual,
+  tremor # provides 'virbisidec'
+  ,
+  libGL,
+  gobject-introspection,
+  enableX11 ? stdenv.isLinux,
+  libXext,
+  libXi,
+  libXv,
+  enableWayland ? stdenv.isLinux,
+  wayland,
+  wayland-protocols,
+  enableAlsa ? stdenv.isLinux,
+  alsa-lib
+  # TODO: fix once x86_64-darwin sdk updated
+  ,
+  enableCocoa ? (stdenv.isDarwin && stdenv.isAarch64),
+  Cocoa,
+  OpenGL,
+  enableGl ? (enableX11 || enableWayland || enableCocoa),
+  enableCdparanoia ? (!stdenv.isDarwin),
+  cdparanoia,
+  glib,
+  testers
+  # Checks meson.is_cross_build(), so even canExecute isn't enough.
+  ,
+  enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform,
+  hotdoc,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gst-plugins-base";

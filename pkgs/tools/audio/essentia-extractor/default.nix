@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 let
   arch_table = {
     "x86_64-linux" = "linux-x86_64";

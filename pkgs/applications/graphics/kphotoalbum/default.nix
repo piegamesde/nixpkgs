@@ -1,6 +1,21 @@
-{ mkDerivation, fetchurl, lib, extra-cmake-modules, kdoctools, wrapGAppsHook
-, exiv2, ffmpeg, libkdcraw, phonon, libvlc, kconfig, kiconthemes, kio, kinit
-, kpurpose }:
+{
+  mkDerivation,
+  fetchurl,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  wrapGAppsHook,
+  exiv2,
+  ffmpeg,
+  libkdcraw,
+  phonon,
+  libvlc,
+  kconfig,
+  kiconthemes,
+  kio,
+  kinit,
+  kpurpose,
+}:
 
 mkDerivation rec {
   pname = "kphotoalbum";

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, python-lsp-server, isort }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python-lsp-server,
+  isort,
+}:
 
 buildPythonPackage rec {
   pname = "pyls-isort";

@@ -1,18 +1,35 @@
-{ lib, stdenv, fetchurl, jre, fetchFromGitHub, cmake, ninja, pkg-config
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jre,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  pkg-config
 
-# darwin only
-, CoreFoundation ? null
+  # darwin only
+  ,
+  CoreFoundation ? null
 
-  # ANTLR 4.8 & 4.9
-, libuuid
+    # ANTLR 4.8 & 4.9
+  ,
+  libuuid
 
-# ANTLR 4.9
-, utf8cpp }:
+  # ANTLR 4.9
+  ,
+  utf8cpp,
+}:
 
 let
 
-  mkAntlr = { version, sourceSha256, jarSha256, extraCppBuildInputs ? [ ]
-    , extraCppCmakeFlags ? [ ] }: rec {
+  mkAntlr = {
+      version,
+      sourceSha256,
+      jarSha256,
+      extraCppBuildInputs ? [ ],
+      extraCppCmakeFlags ? [ ]
+    }: rec {
       source = fetchFromGitHub {
         owner = "antlr";
         repo = "antlr4";

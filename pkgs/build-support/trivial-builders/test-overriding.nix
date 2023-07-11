@@ -4,8 +4,16 @@
 # to disable extglob in `writeShellScript`.
 #
 # Run using `nix-build -A tests.trivial-builders.overriding`.
-{ lib, stdenv, runtimeShell, runCommand, callPackage, writeShellScript
-, writeTextFile, writeShellScriptBin }:
+{
+  lib,
+  stdenv,
+  runtimeShell,
+  runCommand,
+  callPackage,
+  writeShellScript,
+  writeTextFile,
+  writeShellScriptBin,
+}:
 
 let
   extglobScript = ''
@@ -19,7 +27,9 @@ let
     writeShellScript "test-trivial-overriding-${case}" extglobScript;
 
   callPackageCase = case:
-    callPackage ({ writeShellScript }:
+    callPackage ({
+        writeShellScript,
+      }:
       writeShellScript "test-trivial-callpackage-overriding-${case}"
       extglobScript) { };
 

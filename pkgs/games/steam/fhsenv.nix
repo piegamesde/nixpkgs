@@ -1,11 +1,23 @@
-{ lib, stdenv, writeShellScript, buildFHSEnv, steam, glxinfo-i686
-, steam-runtime-wrapped, steam-runtime-wrapped-i686 ? null
-, extraPkgs ? pkgs: [ ] # extra packages to add to targetPkgs
-, extraLibraries ? pkgs: [ ] # extra packages to add to multiPkgs
-, extraProfile ? "" # string to append to profile
-, extraArgs ? "" # arguments to always pass to steam
-, extraEnv ? { } # Environment variables to pass to Steam
-, withGameSpecificLibraries ? true # exclude game specific libraries
+{
+  lib,
+  stdenv,
+  writeShellScript,
+  buildFHSEnv,
+  steam,
+  glxinfo-i686,
+  steam-runtime-wrapped,
+  steam-runtime-wrapped-i686 ? null,
+  extraPkgs ? pkgs: [ ] # extra packages to add to targetPkgs
+  ,
+  extraLibraries ? pkgs: [ ] # extra packages to add to multiPkgs
+  ,
+  extraProfile ? "" # string to append to profile
+  ,
+  extraArgs ? "" # arguments to always pass to steam
+  ,
+  extraEnv ? { } # Environment variables to pass to Steam
+  ,
+  withGameSpecificLibraries ? true # exclude game specific libraries
 }:
 
 let

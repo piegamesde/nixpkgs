@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, cryptography, fetchFromGitHub, pytestCheckHook
-, pythonOlder, xmldiff }:
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  xmldiff,
+}:
 
 buildPythonPackage rec {
   pname = "psrpcore";

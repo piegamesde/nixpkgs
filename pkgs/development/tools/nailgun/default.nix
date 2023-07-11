@@ -1,5 +1,13 @@
-{ lib, stdenv, stdenvNoCC, fetchMavenArtifact, fetchFromGitHub, jre, makeWrapper
-, symlinkJoin }:
+{
+  lib,
+  stdenv,
+  stdenvNoCC,
+  fetchMavenArtifact,
+  fetchFromGitHub,
+  jre,
+  makeWrapper,
+  symlinkJoin,
+}:
 
 let
   version = "1.0.0";

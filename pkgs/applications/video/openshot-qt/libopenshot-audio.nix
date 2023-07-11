@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, alsa-lib, cmake, doxygen, libX11
-, libXcursor, libXext, libXft, libXinerama, libXrandr, pkg-config, zlib
-, Accelerate, AGL, Cocoa, Foundation }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  alsa-lib,
+  cmake,
+  doxygen,
+  libX11,
+  libXcursor,
+  libXext,
+  libXft,
+  libXinerama,
+  libXrandr,
+  pkg-config,
+  zlib,
+  Accelerate,
+  AGL,
+  Cocoa,
+  Foundation,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libopenshot-audio";

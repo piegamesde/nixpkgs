@@ -1,4 +1,11 @@
-{ stdenv, lib, haskellPackages, fetchpatch, haskell, removeReferencesTo }:
+{
+  stdenv,
+  lib,
+  haskellPackages,
+  fetchpatch,
+  haskell,
+  removeReferencesTo,
+}:
 
 let static = haskell.lib.compose.justStaticExecutables haskellPackages.pandoc;
 

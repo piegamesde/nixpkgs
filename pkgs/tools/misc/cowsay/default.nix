@@ -1,5 +1,14 @@
-{ lib, stdenv, perl, fetchFromGitHub, fetchpatch, makeWrapper, nix-update-script
-, testers, cowsay }:
+{
+  lib,
+  stdenv,
+  perl,
+  fetchFromGitHub,
+  fetchpatch,
+  makeWrapper,
+  nix-update-script,
+  testers,
+  cowsay,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cowsay";

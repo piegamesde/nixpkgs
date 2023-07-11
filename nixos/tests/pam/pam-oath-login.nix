@@ -1,4 +1,6 @@
-import ../make-test-python.nix ({ ... }:
+import ../make-test-python.nix ({
+    ...
+  }:
 
   let
     oathSnakeoilSecret = "cdd4083ef8ff1fa9178c6d46bfb1a3";
@@ -21,34 +23,36 @@ import ../make-test-python.nix ({ ... }:
   in {
     name = "pam-oath-login";
 
-    nodes.machine = { ... }: {
-      security.pam.oath = { enable = true; };
+    nodes.machine = {
+        ...
+      }: {
+        security.pam.oath = { enable = true; };
 
-      users.users.alice = {
-        isNormalUser = true;
-        name = "alice";
-        uid = 1000;
-        hashedPassword = hashedAlicePassword;
-        extraGroups = [ "wheel" ];
-        createHome = true;
-        home = "/home/alice";
-      };
-
-      systemd.services.setupOathSnakeoilFile = {
-        wantedBy = [ "default.target" ];
-        before = [ "default.target" ];
-        unitConfig = {
-          type = "oneshot";
-          RemainAfterExit = true;
+        users.users.alice = {
+          isNormalUser = true;
+          name = "alice";
+          uid = 1000;
+          hashedPassword = hashedAlicePassword;
+          extraGroups = [ "wheel" ];
+          createHome = true;
+          home = "/home/alice";
         };
-        script = ''
-          touch /etc/users.oath
-          chmod 600 /etc/users.oath
-          chown root /etc/users.oath
-          echo "HOTP/E/6 alice - ${oathSnakeoilSecret}" > /etc/users.oath
-        '';
+
+        systemd.services.setupOathSnakeoilFile = {
+          wantedBy = [ "default.target" ];
+          before = [ "default.target" ];
+          unitConfig = {
+            type = "oneshot";
+            RemainAfterExit = true;
+          };
+          script = ''
+            touch /etc/users.oath
+            chmod 600 /etc/users.oath
+            chown root /etc/users.oath
+            echo "HOTP/E/6 alice - ${oathSnakeoilSecret}" > /etc/users.oath
+          '';
+        };
       };
-    };
 
     testScript = ''
       def switch_to_tty(tty_number):

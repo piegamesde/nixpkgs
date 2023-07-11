@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, libjack2, fftwFloat, gtk2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libjack2,
+  fftwFloat,
+  gtk2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "spectrojack";

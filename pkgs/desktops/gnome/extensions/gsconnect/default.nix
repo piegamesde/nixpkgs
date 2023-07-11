@@ -1,7 +1,26 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, substituteAll, openssl, gsound
-, meson, ninja, pkg-config, gobject-introspection, wrapGAppsHook, glib
-, glib-networking, gtk3, openssh, gnome, evolution-data-server-gtk4, gjs
-, nixosTests, desktop-file-utils }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  substituteAll,
+  openssl,
+  gsound,
+  meson,
+  ninja,
+  pkg-config,
+  gobject-introspection,
+  wrapGAppsHook,
+  glib,
+  glib-networking,
+  gtk3,
+  openssh,
+  gnome,
+  evolution-data-server-gtk4,
+  gjs,
+  nixosTests,
+  desktop-file-utils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-gsconnect";

@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, python3, perl, blast, autoPatchelfHook, zlib, bzip2
-, glib, libxml2, coreutils }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3,
+  perl,
+  blast,
+  autoPatchelfHook,
+  zlib,
+  bzip2,
+  glib,
+  libxml2,
+  coreutils,
+}:
 let
   pname = "blast-bin";
   version = "2.13.0";

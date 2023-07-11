@@ -1,4 +1,10 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+}:
 
 let
   pname = "ephemeral-port-reserve";

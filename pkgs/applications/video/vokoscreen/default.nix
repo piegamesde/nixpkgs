@@ -1,5 +1,18 @@
-{ lib, fetchFromGitHub, mkDerivation, pkg-config, qtbase, qttools, qmake
-, qtmultimedia, qtx11extras, alsa-lib, libv4l, libXrandr, ffmpeg }:
+{
+  lib,
+  fetchFromGitHub,
+  mkDerivation,
+  pkg-config,
+  qtbase,
+  qttools,
+  qmake,
+  qtmultimedia,
+  qtx11extras,
+  alsa-lib,
+  libv4l,
+  libXrandr,
+  ffmpeg,
+}:
 
 mkDerivation rec {
 

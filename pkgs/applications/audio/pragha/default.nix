@@ -1,14 +1,48 @@
-{ lib, intltool, mkDerivation, installShellFiles, pkg-config, fetchFromGitHub
-, dbus-glib, desktop-file-utils, hicolor-icon-theme, pcre, qtbase, sqlite
-, taglib, zlib, gtk3, libpeas, libcddb, libcdio, gst_all_1
-, withGstPlugins ? true, glyr, withGlyr ? true, liblastfmSF, withLastfm ? true
-, libcdio-paranoia, withCD ? true, keybinder3, withKeybinder ? false, libnotify
-, withLibnotify ? false, libsoup, withLibsoup ? false, libgudev
-, withGudev ? false # experimental
-, libmtp, withMtp ? false # experimental
-, xfce, withXfce4ui ? false, totem-pl-parser, withTotemPlParser ? false
-  # , grilo, withGrilo ? false
-  # , rygel, withRygel ? true
+{
+  lib,
+  intltool,
+  mkDerivation,
+  installShellFiles,
+  pkg-config,
+  fetchFromGitHub,
+  dbus-glib,
+  desktop-file-utils,
+  hicolor-icon-theme,
+  pcre,
+  qtbase,
+  sqlite,
+  taglib,
+  zlib,
+  gtk3,
+  libpeas,
+  libcddb,
+  libcdio,
+  gst_all_1,
+  withGstPlugins ? true,
+  glyr,
+  withGlyr ? true,
+  liblastfmSF,
+  withLastfm ? true,
+  libcdio-paranoia,
+  withCD ? true,
+  keybinder3,
+  withKeybinder ? false,
+  libnotify,
+  withLibnotify ? false,
+  libsoup,
+  withLibsoup ? false,
+  libgudev,
+  withGudev ? false # experimental
+  ,
+  libmtp,
+  withMtp ? false # experimental
+  ,
+  xfce,
+  withXfce4ui ? false,
+  totem-pl-parser,
+  withTotemPlParser ? false
+    # , grilo, withGrilo ? false
+    # , rygel, withRygel ? true
 }:
 
 assert withGlyr -> withLastfm;

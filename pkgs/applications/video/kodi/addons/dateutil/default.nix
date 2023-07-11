@@ -1,4 +1,10 @@
-{ lib, buildKodiAddon, fetchzip, addonUpdateScript, six }:
+{
+  lib,
+  buildKodiAddon,
+  fetchzip,
+  addonUpdateScript,
+  six,
+}:
 
 buildKodiAddon rec {
   pname = "dateutil";

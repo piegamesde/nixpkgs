@@ -1,9 +1,24 @@
-{ stdenv, lib, fetchFromGitea, pkg-config, meson, ninja, scdoc, freetype
-, fontconfig, pixman, tllist, check
-# Text shaping methods to enable, empty list disables all text shaping.
-# See `availableShapingTypes` or upstream meson_options.txt for available types.
-, withShapingTypes ? [ "grapheme" "run" ], harfbuzz, utf8proc
-, fcft # for passthru.tests
+{
+  stdenv,
+  lib,
+  fetchFromGitea,
+  pkg-config,
+  meson,
+  ninja,
+  scdoc,
+  freetype,
+  fontconfig,
+  pixman,
+  tllist,
+  check
+  # Text shaping methods to enable, empty list disables all text shaping.
+  # See `availableShapingTypes` or upstream meson_options.txt for available types.
+  ,
+  withShapingTypes ? [ "grapheme" "run" ],
+  harfbuzz,
+  utf8proc,
+  fcft # for passthru.tests
+  ,
 }:
 
 let

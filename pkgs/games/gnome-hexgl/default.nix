@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, ninja, meson, pkg-config, gthree, gsound
-, libepoxy, gtk3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ninja,
+  meson,
+  pkg-config,
+  gthree,
+  gsound,
+  libepoxy,
+  gtk3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-hexgl";

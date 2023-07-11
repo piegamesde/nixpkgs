@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, imagemagick, libdvdread, libxml2, freetype, fribidi
-, libpng, zlib, pkg-config, flex, bison }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  imagemagick,
+  libdvdread,
+  libxml2,
+  freetype,
+  fribidi,
+  libpng,
+  zlib,
+  pkg-config,
+  flex,
+  bison,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dvdauthor";

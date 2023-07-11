@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, lv2, pkg-config, python3, wafHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  lv2,
+  pkg-config,
+  python3,
+  wafHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fomp";

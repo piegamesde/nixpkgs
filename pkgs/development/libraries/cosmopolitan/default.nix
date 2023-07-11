@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, unzip, bintools-unwrapped, coreutils
-, substituteAll }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  unzip,
+  bintools-unwrapped,
+  coreutils,
+  substituteAll,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cosmopolitan";

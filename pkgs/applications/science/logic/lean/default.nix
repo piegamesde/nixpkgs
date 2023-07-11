@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gmp, coreutils }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gmp,
+  coreutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lean";

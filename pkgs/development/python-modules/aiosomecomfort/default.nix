@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, prettytable, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiohttp,
+  prettytable,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aiosomecomfort";

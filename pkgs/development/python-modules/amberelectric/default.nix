@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pytest-mock, pytestCheckHook
-, python-dateutil, pythonOlder, urllib3 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest-mock,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "amberelectric";

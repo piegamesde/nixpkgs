@@ -1,4 +1,9 @@
-{ buildOctavePackage, lib, fetchurl, blas }:
+{
+  buildOctavePackage,
+  lib,
+  fetchurl,
+  blas,
+}:
 
 buildOctavePackage rec {
   pname = "nan";

@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchurl, autoreconfHook, gdk-pixbuf-xlib, gettext, gtk2, libICE
-, libSM, libxcrypt, libXinerama, libXrandr, libXtst, librep, makeWrapper, pango
-, pkg-config, rep-gtk, texinfo, which }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  gdk-pixbuf-xlib,
+  gettext,
+  gtk2,
+  libICE,
+  libSM,
+  libxcrypt,
+  libXinerama,
+  libXrandr,
+  libXtst,
+  librep,
+  makeWrapper,
+  pango,
+  pkg-config,
+  rep-gtk,
+  texinfo,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sawfish";

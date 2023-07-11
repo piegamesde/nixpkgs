@@ -1,8 +1,36 @@
-{ lib, babel, buildPythonPackage, click, deprecated, exifread, fetchFromGitHub
-, filetype, flask, importlib-metadata, inifile, jinja2, markupsafe, marshmallow
-, marshmallow-dataclass, mistune, pip, pyopenssl, pytest-click, pytest-mock
-, pytest-pylint, pytestCheckHook, python, pythonOlder, python-slugify, pytz
-, requests, setuptools, typing-inspect, watchdog, werkzeug }:
+{
+  lib,
+  babel,
+  buildPythonPackage,
+  click,
+  deprecated,
+  exifread,
+  fetchFromGitHub,
+  filetype,
+  flask,
+  importlib-metadata,
+  inifile,
+  jinja2,
+  markupsafe,
+  marshmallow,
+  marshmallow-dataclass,
+  mistune,
+  pip,
+  pyopenssl,
+  pytest-click,
+  pytest-mock,
+  pytest-pylint,
+  pytestCheckHook,
+  python,
+  pythonOlder,
+  python-slugify,
+  pytz,
+  requests,
+  setuptools,
+  typing-inspect,
+  watchdog,
+  werkzeug,
+}:
 
 buildPythonPackage rec {
   pname = "lektor";

@@ -1,7 +1,21 @@
-{ lib, buildPythonPackage, fetchPypi, attrs, hypothesis, pytest
-, pytest-arraydiff, pytest-astropy-header, pytest-cov, pytest-doctestplus
-, pytest-filter-subpackage, pytest-mock, pytest-openfiles, pytest-remotedata
-, setuptools-scm, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  attrs,
+  hypothesis,
+  pytest,
+  pytest-arraydiff,
+  pytest-astropy-header,
+  pytest-cov,
+  pytest-doctestplus,
+  pytest-filter-subpackage,
+  pytest-mock,
+  pytest-openfiles,
+  pytest-remotedata,
+  setuptools-scm,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-astropy";

@@ -1,43 +1,89 @@
-{ lib, stdenv, fetchPypi, writeText, buildPythonPackage, pythonOlder
+{
+  lib,
+  stdenv,
+  fetchPypi,
+  writeText,
+  buildPythonPackage,
+  pythonOlder
 
-# https://github.com/matplotlib/matplotlib/blob/main/doc/devel/dependencies.rst
-# build-system
-, pkg-config, pybind11, setuptools, setuptools-scm
+  # https://github.com/matplotlib/matplotlib/blob/main/doc/devel/dependencies.rst
+  # build-system
+  ,
+  pkg-config,
+  pybind11,
+  setuptools,
+  setuptools-scm
 
-# native libraries
-, ffmpeg-headless, fontconfig, freetype, imagemagick, qhull
+  # native libraries
+  ,
+  ffmpeg-headless,
+  fontconfig,
+  freetype,
+  imagemagick,
+  qhull
 
-# propagates
-, contourpy, cycler, fonttools, kiwisolver, numpy, packaging, pillow, pyparsing
-, python-dateutil
+  # propagates
+  ,
+  contourpy,
+  cycler,
+  fonttools,
+  kiwisolver,
+  numpy,
+  packaging,
+  pillow,
+  pyparsing,
+  python-dateutil
 
-# optional
-, importlib-resources
+  # optional
+  ,
+  importlib-resources
 
-# GTK3
-, enableGtk3 ? false, cairo, gobject-introspection, gtk3, pycairo, pygobject3
+  # GTK3
+  ,
+  enableGtk3 ? false,
+  cairo,
+  gobject-introspection,
+  gtk3,
+  pycairo,
+  pygobject3
 
-# Tk
-, enableTk ? !stdenv.isDarwin # darwin has its own "MacOSX" backend
-, tcl, tk, tkinter
+  # Tk
+  ,
+  enableTk ? !stdenv.isDarwin # darwin has its own "MacOSX" backend
+  ,
+  tcl,
+  tk,
+  tkinter
 
-# Ghostscript
-, enableGhostscript ? true, ghostscript
+  # Ghostscript
+  ,
+  enableGhostscript ? true,
+  ghostscript
 
-# Qt
-, enableQt ? false, pyqt5
+  # Qt
+  ,
+  enableQt ? false,
+  pyqt5
 
-# Webagg
-, enableWebagg ? false, tornado
+  # Webagg
+  ,
+  enableWebagg ? false,
+  tornado
 
-# nbagg
-, enableNbagg ? false, ipykernel
+  # nbagg
+  ,
+  enableNbagg ? false,
+  ipykernel
 
-# darwin
-, Cocoa
+  # darwin
+  ,
+  Cocoa
 
-# required for headless detection
-, libX11, wayland }:
+  # required for headless detection
+  ,
+  libX11,
+  wayland,
+}:
 
 let interactive = enableTk || enableGtk3 || enableQt;
 

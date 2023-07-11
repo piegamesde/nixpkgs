@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pefile, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pefile,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "autoit-ripper";

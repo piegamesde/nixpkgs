@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, gfortran, lhapdf, python3, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  gfortran,
+  lhapdf,
+  python3,
+  zlib,
 }:
 
 stdenv.mkDerivation rec {

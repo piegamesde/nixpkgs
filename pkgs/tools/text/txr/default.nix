@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, coreutils, libffi }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  coreutils,
+  libffi,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "txr";

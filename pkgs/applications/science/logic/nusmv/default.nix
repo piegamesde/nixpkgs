@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchurl, autoPatchelfHook }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "NuSMV";

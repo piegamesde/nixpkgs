@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, cmake, opentracing-cpp, protobuf
-, enableGrpc ? false, grpc, openssl }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  opentracing-cpp,
+  protobuf,
+  enableGrpc ? false,
+  grpc,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lightstep-tracer-cpp";

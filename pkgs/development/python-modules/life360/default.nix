@@ -1,5 +1,11 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "life360";

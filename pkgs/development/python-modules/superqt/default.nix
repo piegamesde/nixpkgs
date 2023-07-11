@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools-scm, pyqt5, qtpy
-, typing-extensions, pytestCheckHook, pygments }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools-scm,
+  pyqt5,
+  qtpy,
+  typing-extensions,
+  pytestCheckHook,
+  pygments,
+}:
 
 buildPythonPackage rec {
   pname = "superqt";

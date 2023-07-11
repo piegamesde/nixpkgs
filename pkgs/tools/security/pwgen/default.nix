@@ -1,4 +1,9 @@
-{ lib, stdenv, autoreconfHook, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pwgen";

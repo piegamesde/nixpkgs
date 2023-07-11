@@ -1,4 +1,8 @@
-{ jazz2, lib, runCommand }:
+{
+  jazz2,
+  lib,
+  runCommand,
+}:
 
 runCommand "jazz2-content" {
   inherit (jazz2) version src;

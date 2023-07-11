@@ -1,6 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, cmake, enableVTK ? true, vtk
-, ApplicationServices, Cocoa, libiconv, enablePython ? false, python ? null
-, swig }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  enableVTK ? true,
+  vtk,
+  ApplicationServices,
+  Cocoa,
+  libiconv,
+  enablePython ? false,
+  python ? null,
+  swig,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gdcm";

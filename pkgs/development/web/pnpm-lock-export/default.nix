@@ -1,4 +1,8 @@
-{ lib, buildNpmPackage, fetchFromGitHub }:
+{
+  lib,
+  buildNpmPackage,
+  fetchFromGitHub,
+}:
 buildNpmPackage rec {
   pname = "pnpm-lock-export";
   version = "0.4.0";

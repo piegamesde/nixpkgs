@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, python, mohawk, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  mohawk,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "requests-hawk";

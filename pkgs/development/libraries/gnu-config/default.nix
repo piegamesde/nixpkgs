@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 let
   rev = "63acb96f92473ceb5e21d873d7c0aee266b3d6d3";

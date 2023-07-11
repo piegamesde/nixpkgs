@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, future }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  future,
+}:
 
 buildPythonPackage rec {
 

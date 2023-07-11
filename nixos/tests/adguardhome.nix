@@ -2,44 +2,55 @@
   name = "adguardhome";
 
   nodes = {
-    nullConf = { ... }: { services.adguardhome = { enable = true; }; };
-
-    emptyConf = { lib, ... }: {
-      services.adguardhome = {
-        enable = true;
-        settings = { };
+    nullConf = {
+        ...
+      }: {
+        services.adguardhome = { enable = true; };
       };
-    };
 
-    declarativeConf = { ... }: {
-      services.adguardhome = {
-        enable = true;
+    emptyConf = {
+        lib,
+        ...
+      }: {
+        services.adguardhome = {
+          enable = true;
+          settings = { };
+        };
+      };
 
-        mutableSettings = false;
-        settings = {
-          schema_version = 0;
-          dns = {
-            bind_host = "0.0.0.0";
-            bootstrap_dns = "127.0.0.1";
+    declarativeConf = {
+        ...
+      }: {
+        services.adguardhome = {
+          enable = true;
+
+          mutableSettings = false;
+          settings = {
+            schema_version = 0;
+            dns = {
+              bind_host = "0.0.0.0";
+              bootstrap_dns = "127.0.0.1";
+            };
           };
         };
       };
-    };
 
-    mixedConf = { ... }: {
-      services.adguardhome = {
-        enable = true;
+    mixedConf = {
+        ...
+      }: {
+        services.adguardhome = {
+          enable = true;
 
-        mutableSettings = true;
-        settings = {
-          schema_version = 0;
-          dns = {
-            bind_host = "0.0.0.0";
-            bootstrap_dns = "127.0.0.1";
+          mutableSettings = true;
+          settings = {
+            schema_version = 0;
+            dns = {
+              bind_host = "0.0.0.0";
+              bootstrap_dns = "127.0.0.1";
+            };
           };
         };
       };
-    };
   };
 
   testScript = ''

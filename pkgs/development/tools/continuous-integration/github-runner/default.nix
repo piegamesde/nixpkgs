@@ -1,6 +1,19 @@
-{ autoPatchelfHook, autoSignDarwinBinariesHook, buildDotnetModule
-, dotnetCorePackages, fetchFromGitHub, fetchpatch, git, glibc, glibcLocales, lib
-, nixosTests, nodejs_16, stdenv, which }:
+{
+  autoPatchelfHook,
+  autoSignDarwinBinariesHook,
+  buildDotnetModule,
+  dotnetCorePackages,
+  fetchFromGitHub,
+  fetchpatch,
+  git,
+  glibc,
+  glibcLocales,
+  lib,
+  nixosTests,
+  nodejs_16,
+  stdenv,
+  which,
+}:
 buildDotnetModule rec {
   pname = "github-runner";
   version = "2.304.0";

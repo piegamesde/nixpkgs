@@ -1,11 +1,53 @@
-{ stdenv, lib, fetchurl, substituteAll, pkg-config, gnome
-, _experimental-update-script-combinators, python3, gobject-introspection
-, gettext, libsoup_3, libxml2, libsecret, icu, sqlite, tzdata, libcanberra-gtk3
-, p11-kit, db, nspr, nss, libical, gperf, wrapGAppsHook, glib-networking, pcre
-, vala, cmake, ninja, libkrb5, openldap, enableOAuth2 ? stdenv.isLinux
-, webkitgtk_4_1, webkitgtk_6_0, libaccounts-glib, json-glib, glib, gtk3, gtk4
-, withGtk3 ? true, withGtk4 ? false, libphonenumber, gnome-online-accounts
-, libgweather, boost, protobuf, libiconv, makeHardcodeGsettingsPatch }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  substituteAll,
+  pkg-config,
+  gnome,
+  _experimental-update-script-combinators,
+  python3,
+  gobject-introspection,
+  gettext,
+  libsoup_3,
+  libxml2,
+  libsecret,
+  icu,
+  sqlite,
+  tzdata,
+  libcanberra-gtk3,
+  p11-kit,
+  db,
+  nspr,
+  nss,
+  libical,
+  gperf,
+  wrapGAppsHook,
+  glib-networking,
+  pcre,
+  vala,
+  cmake,
+  ninja,
+  libkrb5,
+  openldap,
+  enableOAuth2 ? stdenv.isLinux,
+  webkitgtk_4_1,
+  webkitgtk_6_0,
+  libaccounts-glib,
+  json-glib,
+  glib,
+  gtk3,
+  gtk4,
+  withGtk3 ? true,
+  withGtk4 ? false,
+  libphonenumber,
+  gnome-online-accounts,
+  libgweather,
+  boost,
+  protobuf,
+  libiconv,
+  makeHardcodeGsettingsPatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "evolution-data-server";

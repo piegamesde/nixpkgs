@@ -1,10 +1,28 @@
-{ lib, stdenv, fetchurl, fetchpatch
-# native
-, meson, ninja, pkg-config, gettext, desktop-file-utils, appstream-glib
-, wrapGAppsHook, python3
-# Not native
-, gst_all_1, gsettings-desktop-schemas, gtk3, glib, networkmanager
-, libpulseaudio, pipewire }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch
+  # native
+  ,
+  meson,
+  ninja,
+  pkg-config,
+  gettext,
+  desktop-file-utils,
+  appstream-glib,
+  wrapGAppsHook,
+  python3
+  # Not native
+  ,
+  gst_all_1,
+  gsettings-desktop-schemas,
+  gtk3,
+  glib,
+  networkmanager,
+  libpulseaudio,
+  pipewire,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-network-displays";

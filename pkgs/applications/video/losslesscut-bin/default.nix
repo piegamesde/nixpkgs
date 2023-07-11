@@ -1,4 +1,9 @@
-{ lib, stdenv, callPackage, buildPackages }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  buildPackages,
+}:
 
 let
   pname = "losslesscut";

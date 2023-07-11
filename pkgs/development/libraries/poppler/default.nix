@@ -1,9 +1,40 @@
-{ lib, stdenv, fetchurl, fetchFromGitLab, cairo, cmake, pcre, boost
-, cups-filters, curl, fontconfig, freetype, inkscape, lcms, libiconv, libintl
-, libjpeg, ninja, openjpeg, pkg-config, python3, scribus, texlive, zlib
-, withData ? true, poppler_data, qt5Support ? false, qt6Support ? false
-, qtbase ? null, introspectionSupport ? false, gobject-introspection ? null
-, utils ? false, nss ? null, minimal ? false, suffix ? "glib" }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitLab,
+  cairo,
+  cmake,
+  pcre,
+  boost,
+  cups-filters,
+  curl,
+  fontconfig,
+  freetype,
+  inkscape,
+  lcms,
+  libiconv,
+  libintl,
+  libjpeg,
+  ninja,
+  openjpeg,
+  pkg-config,
+  python3,
+  scribus,
+  texlive,
+  zlib,
+  withData ? true,
+  poppler_data,
+  qt5Support ? false,
+  qt6Support ? false,
+  qtbase ? null,
+  introspectionSupport ? false,
+  gobject-introspection ? null,
+  utils ? false,
+  nss ? null,
+  minimal ? false,
+  suffix ? "glib"
+}:
 
 let
   mkFlag = optset: flag: "-DENABLE_${flag}=${if optset then "on" else "off"}";

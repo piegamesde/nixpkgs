@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, fetchpatch, cmake }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libunarr";

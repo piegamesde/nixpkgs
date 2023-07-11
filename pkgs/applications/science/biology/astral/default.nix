@@ -1,4 +1,12 @@
-{ lib, stdenvNoCC, fetchFromGitHub, jdk8, makeWrapper, jre8, zip }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  jdk8,
+  makeWrapper,
+  jre8,
+  zip,
+}:
 let
   jdk = jdk8;
   jre = jre8;

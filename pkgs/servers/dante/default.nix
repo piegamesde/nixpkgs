@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, pam, libkrb5, cyrus_sasl
-, miniupnpc, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+  pam,
+  libkrb5,
+  cyrus_sasl,
+  miniupnpc,
+  libxcrypt,
+}:
 
 let
   remove_getaddrinfo_checks = stdenv.hostPlatform.isMips64

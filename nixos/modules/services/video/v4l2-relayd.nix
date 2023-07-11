@@ -1,4 +1,10 @@
-{ config, lib, pkgs, utils, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  utils,
+  ...
+}:
 let
 
   inherit (lib)
@@ -18,86 +24,89 @@ let
     gstreamer.out
   ]);
 
-  instanceOpts = { name, ... }: {
-    options = {
-      enable = mkEnableOption (lib.mdDoc "this v4l2-relayd instance");
+  instanceOpts = {
+      name,
+      ...
+    }: {
+      options = {
+        enable = mkEnableOption (lib.mdDoc "this v4l2-relayd instance");
 
-      name = mkOption {
-        type = types.str;
-        default = name;
-        description = lib.mdDoc ''
-          The name of the instance.
-        '';
-      };
+        name = mkOption {
+          type = types.str;
+          default = name;
+          description = lib.mdDoc ''
+            The name of the instance.
+          '';
+        };
 
-      cardLabel = mkOption {
-        type = types.str;
-        description = lib.mdDoc ''
-          The name the camera will show up as.
-        '';
-      };
-
-      extraPackages = mkOption {
-        type = with types; listOf package;
-        default = [ ];
-        description = lib.mdDoc ''
-          Extra packages to add to {env}`GST_PLUGIN_PATH` for the instance.
-        '';
-      };
-
-      input = {
-        pipeline = mkOption {
+        cardLabel = mkOption {
           type = types.str;
           description = lib.mdDoc ''
-            The gstreamer-pipeline to use for the input-stream.
+            The name the camera will show up as.
           '';
         };
 
-        format = mkOption {
-          type = types.str;
-          default = "YUY2";
+        extraPackages = mkOption {
+          type = with types; listOf package;
+          default = [ ];
           description = lib.mdDoc ''
-            The video-format to read from input-stream.
+            Extra packages to add to {env}`GST_PLUGIN_PATH` for the instance.
           '';
         };
 
-        width = mkOption {
-          type = types.ints.positive;
-          default = 1280;
-          description = lib.mdDoc ''
-            The width to read from input-stream.
-          '';
+        input = {
+          pipeline = mkOption {
+            type = types.str;
+            description = lib.mdDoc ''
+              The gstreamer-pipeline to use for the input-stream.
+            '';
+          };
+
+          format = mkOption {
+            type = types.str;
+            default = "YUY2";
+            description = lib.mdDoc ''
+              The video-format to read from input-stream.
+            '';
+          };
+
+          width = mkOption {
+            type = types.ints.positive;
+            default = 1280;
+            description = lib.mdDoc ''
+              The width to read from input-stream.
+            '';
+          };
+
+          height = mkOption {
+            type = types.ints.positive;
+            default = 720;
+            description = lib.mdDoc ''
+              The height to read from input-stream.
+            '';
+          };
+
+          framerate = mkOption {
+            type = types.ints.positive;
+            default = 30;
+            description = lib.mdDoc ''
+              The framerate to read from input-stream.
+            '';
+          };
         };
 
-        height = mkOption {
-          type = types.ints.positive;
-          default = 720;
-          description = lib.mdDoc ''
-            The height to read from input-stream.
-          '';
+        output = {
+          format = mkOption {
+            type = types.str;
+            default = "YUY2";
+            description = lib.mdDoc ''
+              The video-format to write to output-stream.
+            '';
+          };
         };
 
-        framerate = mkOption {
-          type = types.ints.positive;
-          default = 30;
-          description = lib.mdDoc ''
-            The framerate to read from input-stream.
-          '';
-        };
       };
-
-      output = {
-        format = mkOption {
-          type = types.str;
-          default = "YUY2";
-          description = lib.mdDoc ''
-            The video-format to write to output-stream.
-          '';
-        };
-      };
-
     };
-  };
 
 in {
 

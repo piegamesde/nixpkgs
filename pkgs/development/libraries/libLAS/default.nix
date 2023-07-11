@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, fetchpatch, boost, cmake, gdal, libgeotiff, libtiff
-, LASzip2, fixDarwinDylibNames }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  boost,
+  cmake,
+  gdal,
+  libgeotiff,
+  libtiff,
+  LASzip2,
+  fixDarwinDylibNames,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libLAS";

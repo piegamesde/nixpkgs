@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, pkgs, stdenv, nodejs }:
+{
+  lib,
+  fetchFromGitHub,
+  pkgs,
+  stdenv,
+  nodejs,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jellyfin-web";

@@ -1,4 +1,12 @@
-{ lib, blinker, buildPythonPackage, fetchPypi, flask, pythonOlder, webob }:
+{
+  lib,
+  blinker,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  pythonOlder,
+  webob,
+}:
 
 buildPythonPackage rec {
   pname = "bugsnag";

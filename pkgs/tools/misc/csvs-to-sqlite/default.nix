@@ -1,4 +1,8 @@
-{ lib, python3, fetchFromGitHub }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+}:
 
 let
   # csvs-to-sqlite is currently not compatible with Click 8. See the following

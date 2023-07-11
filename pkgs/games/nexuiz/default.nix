@@ -1,8 +1,26 @@
-{ lib, stdenv, fetchurl, # required for both
-unzip, zlib, curl, libjpeg, libpng, libvorbis, libtheora, libogg, libmodplug
-, # glx
-libX11, libGLU, libGL, libXpm, libXext, libXxf86vm, libXxf86dga, alsa-lib, # sdl
-SDL }:
+{
+  lib,
+  stdenv,
+  fetchurl, # required for both
+  unzip,
+  zlib,
+  curl,
+  libjpeg,
+  libpng,
+  libvorbis,
+  libtheora,
+  libogg,
+  libmodplug, # glx
+  libX11,
+  libGLU,
+  libGL,
+  libXpm,
+  libXext,
+  libXxf86vm,
+  libXxf86dga,
+  alsa-lib, # sdl
+  SDL,
+}:
 
 let
   version = "2.5.2";

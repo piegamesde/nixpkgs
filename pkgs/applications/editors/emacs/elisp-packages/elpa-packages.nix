@@ -19,7 +19,15 @@
    formats commits for you.
 */
 
-{ lib, stdenv, texinfo, writeText, gcc, pkgs, buildPackages }:
+{
+  lib,
+  stdenv,
+  texinfo,
+  writeText,
+  gcc,
+  pkgs,
+  buildPackages,
+}:
 
 self:
 let
@@ -39,7 +47,9 @@ let
   # Use custom elpa url fetcher with fallback/uncompress
   fetchurl = buildPackages.callPackage ./fetchelpa.nix { };
 
-  generateElpa = lib.makeOverridable ({ generated ? ./elpa-generated.nix }:
+  generateElpa = lib.makeOverridable ({
+      generated ? ./elpa-generated.nix
+    }:
     let
 
       imported = import generated {

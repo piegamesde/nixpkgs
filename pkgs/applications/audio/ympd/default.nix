@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libmpdclient, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libmpdclient,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ympd";

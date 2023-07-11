@@ -1,5 +1,16 @@
-{ lib, mkDerivation, cmake, extra-cmake-modules, kconfig, kcoreaddons, ki18n
-, kirigami2, mauikit, mauikit-filebrowsing, qmltermwidget }:
+{
+  lib,
+  mkDerivation,
+  cmake,
+  extra-cmake-modules,
+  kconfig,
+  kcoreaddons,
+  ki18n,
+  kirigami2,
+  mauikit,
+  mauikit-filebrowsing,
+  qmltermwidget,
+}:
 
 mkDerivation {
   pname = "station";

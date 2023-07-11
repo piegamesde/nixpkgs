@@ -1,4 +1,11 @@
-{ stdenvNoCC, lib, fetchFromGitHub, gtk3, xcursorgen, papirus-icon-theme }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  gtk3,
+  xcursorgen,
+  papirus-icon-theme,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "deepin-icon-theme";

@@ -1,4 +1,7 @@
-{ lib, grafana-loki }:
+{
+  lib,
+  grafana-loki,
+}:
 
 grafana-loki.overrideAttrs (o: {
   pname = "promtail";

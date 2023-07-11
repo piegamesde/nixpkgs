@@ -1,13 +1,20 @@
-{ lib, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
 
-# native
-, setuptools-scm
+  # native
+  ,
+  setuptools-scm
 
-# propagated
-, django
+  # propagated
+  ,
+  django
 
-# tests
-, python }:
+  # tests
+  ,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "django-widget-tweaks";

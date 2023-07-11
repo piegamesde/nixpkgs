@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, requests
-, requests-mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  requests,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "swisshydrodata";

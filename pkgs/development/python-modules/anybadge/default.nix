@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, packaging, pytestCheckHook
-, pythonOlder, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  packaging,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "anybadge";

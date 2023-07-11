@@ -1,8 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, buildPythonPackage, six, lxml, pytestCheckHook
-, doFullCheck ? false # weird filenames cause issues on some filesystems
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPythonPackage,
+  six,
+  lxml,
+  pytestCheckHook,
+  doFullCheck ? false # weird filenames cause issues on some filesystems
 
-  # for passthru.tests
-, jpylyzer }:
+    # for passthru.tests
+  ,
+  jpylyzer,
+}:
 
 let
   # unclear relationship between test-files version and jpylyzer version.

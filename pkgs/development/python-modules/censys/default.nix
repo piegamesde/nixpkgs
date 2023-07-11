@@ -1,6 +1,20 @@
-{ lib, backoff, buildPythonPackage, fetchFromGitHub, importlib-metadata
-, parameterized, poetry-core, pytest-mock, pytestCheckHook, pythonOlder
-, pythonRelaxDepsHook, requests, requests-mock, responses, rich }:
+{
+  lib,
+  backoff,
+  buildPythonPackage,
+  fetchFromGitHub,
+  importlib-metadata,
+  parameterized,
+  poetry-core,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  requests,
+  requests-mock,
+  responses,
+  rich,
+}:
 
 buildPythonPackage rec {
   pname = "censys";

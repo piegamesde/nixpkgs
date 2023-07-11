@@ -1,7 +1,26 @@
-{ lib, buildPythonPackage, python, fetchpatch, fetchFromGitHub, addOpenGLRunpath
-, cmake, cudaPackages, llvmPackages, pybind11, gtest, zlib, ncurses, libxml2
-, lit, filelock, torchWithRocm, pytest, pytestCheckHook, pythonRelaxDepsHook
-, pkgsTargetTarget }:
+{
+  lib,
+  buildPythonPackage,
+  python,
+  fetchpatch,
+  fetchFromGitHub,
+  addOpenGLRunpath,
+  cmake,
+  cudaPackages,
+  llvmPackages,
+  pybind11,
+  gtest,
+  zlib,
+  ncurses,
+  libxml2,
+  lit,
+  filelock,
+  torchWithRocm,
+  pytest,
+  pytestCheckHook,
+  pythonRelaxDepsHook,
+  pkgsTargetTarget,
+}:
 
 let
   pname = "triton";

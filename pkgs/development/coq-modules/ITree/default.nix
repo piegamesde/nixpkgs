@@ -1,4 +1,11 @@
-{ lib, mkCoqDerivation, coq, version ? null, paco, coq-ext-lib }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  version ? null,
+  paco,
+  coq-ext-lib,
+}:
 
 mkCoqDerivation rec {
   pname = "InteractionTrees";

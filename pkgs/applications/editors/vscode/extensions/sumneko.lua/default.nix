@@ -1,4 +1,8 @@
-{ lib, vscode-utils, lua-language-server }:
+{
+  lib,
+  vscode-utils,
+  lua-language-server,
+}:
 
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {

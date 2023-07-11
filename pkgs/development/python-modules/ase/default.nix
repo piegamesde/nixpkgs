@@ -1,5 +1,15 @@
-{ lib, fetchPypi, buildPythonPackage, isPy27, numpy, scipy, matplotlib, flask
-, pillow, psycopg2 }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  isPy27,
+  numpy,
+  scipy,
+  matplotlib,
+  flask,
+  pillow,
+  psycopg2,
+}:
 
 buildPythonPackage rec {
   pname = "ase";

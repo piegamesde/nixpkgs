@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, gensim, numpy, pandas, pyfume, scipy
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  gensim,
+  numpy,
+  pandas,
+  pyfume,
+  scipy,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "fuzzytm";

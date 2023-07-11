@@ -1,8 +1,28 @@
-{ stdenv, lib, bc, bison, dtc, fetchFromGitHub, fetchpatch, fetchurl, flex
-, gnutls, libuuid, meson-tools, ncurses, openssl, swig, which
-, armTrustedFirmwareAllwinner, armTrustedFirmwareAllwinnerH6
-, armTrustedFirmwareAllwinnerH616, armTrustedFirmwareRK3328
-, armTrustedFirmwareRK3399, armTrustedFirmwareS905, buildPackages }:
+{
+  stdenv,
+  lib,
+  bc,
+  bison,
+  dtc,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchurl,
+  flex,
+  gnutls,
+  libuuid,
+  meson-tools,
+  ncurses,
+  openssl,
+  swig,
+  which,
+  armTrustedFirmwareAllwinner,
+  armTrustedFirmwareAllwinnerH6,
+  armTrustedFirmwareAllwinnerH616,
+  armTrustedFirmwareRK3328,
+  armTrustedFirmwareRK3399,
+  armTrustedFirmwareS905,
+  buildPackages,
+}:
 
 let
   defaultVersion = "2023.01";
@@ -10,9 +30,18 @@ let
     url = "ftp://ftp.denx.de/pub/u-boot/u-boot-${defaultVersion}.tar.bz2";
     hash = "sha256-aUI7rTgPiaCRZjbonm3L0uRRLVhDCNki0QOdHkMxlQ8=";
   };
-  buildUBoot = lib.makeOverridable ({ version ? null, src ? null, filesToInstall
-    , installDir ? "$out", defconfig, extraConfig ? "", extraPatches ? [ ]
-    , extraMakeFlags ? [ ], extraMeta ? { }, ... }@args:
+  buildUBoot = lib.makeOverridable ({
+      version ? null,
+      src ? null,
+      filesToInstall,
+      installDir ? "$out",
+      defconfig,
+      extraConfig ? "",
+      extraPatches ? [ ],
+      extraMakeFlags ? [ ],
+      extraMeta ? { },
+      ...
+    }@args:
     stdenv.mkDerivation ({
       pname = "uboot-${defconfig}";
 

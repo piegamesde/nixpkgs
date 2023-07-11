@@ -1,4 +1,9 @@
-{ lib, fetchurl, gnustep, llvmPackages_9 }:
+{
+  lib,
+  fetchurl,
+  gnustep,
+  llvmPackages_9,
+}:
 
 let
   # Earlier llvm than 9 segfaults

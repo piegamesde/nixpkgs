@@ -1,6 +1,19 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, makeWrapper, AppKit
-, CoreFoundation, CoreGraphics, CoreVideo, Foundation, Metal, QuartzCore, xorg
-, vulkan-loader }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  makeWrapper,
+  AppKit,
+  CoreFoundation,
+  CoreGraphics,
+  CoreVideo,
+  Foundation,
+  Metal,
+  QuartzCore,
+  xorg,
+  vulkan-loader,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "binocle";

@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, meson, pkg-config, ninja, glib, gtk3, nemo
-, gnome }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  meson,
+  pkg-config,
+  ninja,
+  glib,
+  gtk3,
+  nemo,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nemo-fileroller";

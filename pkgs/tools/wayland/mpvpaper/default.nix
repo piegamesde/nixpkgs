@@ -1,6 +1,21 @@
-{ stdenv, lib, meson, cmake, ninja, wlroots, wayland, wayland-protocols
-, wayland-scanner, egl-wayland, glew-egl, mpv, pkg-config, fetchFromGitHub
-, makeWrapper, installShellFiles }:
+{
+  stdenv,
+  lib,
+  meson,
+  cmake,
+  ninja,
+  wlroots,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  egl-wayland,
+  glew-egl,
+  mpv,
+  pkg-config,
+  fetchFromGitHub,
+  makeWrapper,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mpvpaper";

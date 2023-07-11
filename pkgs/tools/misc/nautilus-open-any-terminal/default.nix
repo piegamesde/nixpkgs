@@ -1,6 +1,18 @@
-{ lib, pkg-config, dbus, dconf, fetchFromGitHub, glib, gnome
-, gobject-introspection, gsettings-desktop-schemas, gtk3, python3, substituteAll
-, wrapGAppsHook }:
+{
+  lib,
+  pkg-config,
+  dbus,
+  dconf,
+  fetchFromGitHub,
+  glib,
+  gnome,
+  gobject-introspection,
+  gsettings-desktop-schemas,
+  gtk3,
+  python3,
+  substituteAll,
+  wrapGAppsHook,
+}:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "nautilus-open-any-terminal";

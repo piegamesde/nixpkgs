@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder, pytest, pysha3
-, safe-pysha3, pycryptodome }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pythonOlder,
+  pytest,
+  pysha3,
+  safe-pysha3,
+  pycryptodome,
+}:
 
 buildPythonPackage rec {
   pname = "eth-hash";

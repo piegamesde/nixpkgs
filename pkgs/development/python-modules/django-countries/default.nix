@@ -1,13 +1,24 @@
-{ lib, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
 
-# build
-, setuptools
+  # build
+  ,
+  setuptools
 
-# propagates
-, asgiref, typing-extensions
+  # propagates
+  ,
+  asgiref,
+  typing-extensions
 
-# tests
-, django, djangorestframework, graphene-django, pytestCheckHook, pytest-django
+  # tests
+  ,
+  django,
+  djangorestframework,
+  graphene-django,
+  pytestCheckHook,
+  pytest-django,
 }:
 
 buildPythonPackage rec {

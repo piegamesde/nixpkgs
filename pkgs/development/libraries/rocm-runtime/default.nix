@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, pkg-config, cmake, xxd
-, rocm-device-libs, rocm-thunk, libelf, libdrm, numactl, valgrind, libxml2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  pkg-config,
+  cmake,
+  xxd,
+  rocm-device-libs,
+  rocm-thunk,
+  libelf,
+  libdrm,
+  numactl,
+  valgrind,
+  libxml2,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocm-runtime";

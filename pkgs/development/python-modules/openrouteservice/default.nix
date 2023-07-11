@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, responses, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  responses,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "openrouteservice";

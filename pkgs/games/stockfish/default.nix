@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+}:
 
 let
   # The x86-64-modern may need to be refined further in the future

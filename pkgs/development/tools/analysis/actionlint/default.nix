@@ -1,5 +1,13 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles, makeWrapper
-, python3Packages, ronn, shellcheck }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  makeWrapper,
+  python3Packages,
+  ronn,
+  shellcheck,
+}:
 
 buildGoModule rec {
   pname = "actionlint";

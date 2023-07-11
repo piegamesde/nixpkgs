@@ -1,6 +1,25 @@
-{ stdenv, lib, fetchurl, fetchFromGitHub, cmake, pkg-config, boost, openssl
-, unbound, pcsclite, readline, libsodium, hidapi, rapidjson, curl, sqlite
-, trezorSupport ? true, libusb1, protobuf, python3 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  boost,
+  openssl,
+  unbound,
+  pcsclite,
+  readline,
+  libsodium,
+  hidapi,
+  rapidjson,
+  curl,
+  sqlite,
+  trezorSupport ? true,
+  libusb1,
+  protobuf,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "oxen";

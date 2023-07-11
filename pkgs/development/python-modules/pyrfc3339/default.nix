@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pytz, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytz,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "pyRFC3339";

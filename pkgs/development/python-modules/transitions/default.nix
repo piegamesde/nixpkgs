@@ -1,5 +1,17 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, pythonAtLeast, six, pygraphviz
-, pytestCheckHook, mock, graphviz, pycodestyle, fontconfig }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pythonAtLeast,
+  six,
+  pygraphviz,
+  pytestCheckHook,
+  mock,
+  graphviz,
+  pycodestyle,
+  fontconfig,
+}:
 
 buildPythonPackage rec {
   pname = "transitions";

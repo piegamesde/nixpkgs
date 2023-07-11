@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, ocaml, findlib, ocamlbuild, camlp4, menhir
-, menhirLib, yojson, ulex, pprint, fix, functory }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  camlp4,
+  menhir,
+  menhirLib,
+  yojson,
+  ulex,
+  pprint,
+  fix,
+  functory,
+}:
 
 if lib.versionAtLeast ocaml.version "4.06" then
   throw "mezzo is not available for OCaml ${ocaml.version}"

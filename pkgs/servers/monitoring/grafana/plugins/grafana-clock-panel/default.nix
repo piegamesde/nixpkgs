@@ -1,4 +1,7 @@
-{ grafanaPlugin, lib }:
+{
+  grafanaPlugin,
+  lib,
+}:
 
 grafanaPlugin rec {
   pname = "grafana-clock-panel";

@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchurl, meson, ninja, pkg-config, libxslt, docbook-xsl-nons
-, docbook_xml_dtd_43, dbus, glib }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  libxslt,
+  docbook-xsl-nons,
+  docbook_xml_dtd_43,
+  dbus,
+  glib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xdg-dbus-proxy";

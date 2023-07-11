@@ -1,4 +1,8 @@
-{ lib, stdenv, llvmPackages }:
+{
+  lib,
+  stdenv,
+  llvmPackages,
+}:
 
 let unwrapped = llvmPackages.clang-unwrapped;
 

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libpulseaudio, libX11 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libpulseaudio,
+  libX11,
+}:
 
 stdenv.mkDerivation rec {
   pname = "multimon-ng";

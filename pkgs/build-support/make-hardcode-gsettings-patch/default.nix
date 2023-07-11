@@ -1,4 +1,9 @@
-{ runCommand, git, coccinelle, python3, }:
+{
+  runCommand,
+  git,
+  coccinelle,
+  python3,
+}:
 
 /* Can be used as part of an update script to automatically create a patch
    hardcoding the path of all GSettings schemas in C code.
@@ -27,7 +32,10 @@
    hardcodes looking for `org.gnome.evolution` into `@EVOLUTION_SCHEMA_PATH@`.
    All schemas must be listed.
 */
-{ src, schemaIdToVariableMapping, }:
+{
+  src,
+  schemaIdToVariableMapping,
+}:
 
 runCommand "hardcode-gsettings.patch" {
   inherit src;

@@ -1,4 +1,10 @@
-{ lib, rustPlatform, fetchFromGitHub, darwin, stdenv }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  darwin,
+  stdenv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "iamb";

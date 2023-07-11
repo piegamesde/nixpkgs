@@ -1,4 +1,9 @@
-{ stdenv, gnupg, coreutils, writeScript }:
+{
+  stdenv,
+  gnupg,
+  coreutils,
+  writeScript,
+}:
 
 stdenv.mkDerivation {
   pname = "gnupg1compat";

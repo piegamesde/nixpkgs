@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, ninja, makeWrapper, CoreFoundation, Foundation
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ninja,
+  makeWrapper,
+  CoreFoundation,
+  Foundation,
 }:
 
 stdenv.mkDerivation rec {

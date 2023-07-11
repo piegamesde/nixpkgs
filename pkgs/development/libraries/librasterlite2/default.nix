@@ -1,7 +1,33 @@
-{ lib, stdenv, fetchurl, pkg-config, validatePkgConfig, cairo, curl, fontconfig
-, freetype, freexl, geos, giflib, libgeotiff, libjpeg, libpng, librttopo
-, libspatialite, libtiff, libwebp, libxml2, lz4, minizip, openjpeg, pixman, proj
-, sqlite, zstd, ApplicationServices }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  validatePkgConfig,
+  cairo,
+  curl,
+  fontconfig,
+  freetype,
+  freexl,
+  geos,
+  giflib,
+  libgeotiff,
+  libjpeg,
+  libpng,
+  librttopo,
+  libspatialite,
+  libtiff,
+  libwebp,
+  libxml2,
+  lz4,
+  minizip,
+  openjpeg,
+  pixman,
+  proj,
+  sqlite,
+  zstd,
+  ApplicationServices,
+}:
 
 stdenv.mkDerivation rec {
   pname = "librasterlite2";

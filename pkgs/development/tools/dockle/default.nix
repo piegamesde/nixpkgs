@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, pkg-config, btrfs-progs, lvm2 }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  pkg-config,
+  btrfs-progs,
+  lvm2,
+}:
 
 buildGoModule rec {
   pname = "dockle";

@@ -1,4 +1,10 @@
-{ stdenv, fetchFromGitHub, coreutils, autoreconfHook, smlnj }:
+{
+  stdenv,
+  fetchFromGitHub,
+  coreutils,
+  autoreconfHook,
+  smlnj,
+}:
 
 let rev = "7376cb20ba5285a6b076a73c821e4743809c1d9d";
 in stdenv.mkDerivation {

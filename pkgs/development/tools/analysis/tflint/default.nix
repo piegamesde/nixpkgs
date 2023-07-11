@@ -1,5 +1,13 @@
-{ lib, buildGoModule, fetchFromGitHub, runCommand, makeWrapper, tflint
-, tflint-plugins, symlinkJoin }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  runCommand,
+  makeWrapper,
+  tflint,
+  tflint-plugins,
+  symlinkJoin,
+}:
 
 buildGoModule rec {
   pname = "tflint";

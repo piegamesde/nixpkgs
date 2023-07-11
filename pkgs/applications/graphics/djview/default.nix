@@ -1,5 +1,16 @@
-{ lib, stdenv, mkDerivation, fetchurl, pkg-config, djvulibre, qtbase, qttools
-, xorg, libtiff, darwin }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchurl,
+  pkg-config,
+  djvulibre,
+  qtbase,
+  qttools,
+  xorg,
+  libtiff,
+  darwin,
+}:
 
 mkDerivation rec {
   pname = "djview";

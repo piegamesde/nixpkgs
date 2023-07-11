@@ -1,29 +1,38 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
-  opts = { name, config, ... }: {
-    options = {
-      enable = mkOption {
-        default = true;
-        type = types.bool;
-        example = true;
-        description = lib.mdDoc "Whether to enable proxy for this bucket";
-      };
-      bucketName = mkOption {
-        type = types.str;
-        default = name;
-        example = "my-bucket-name";
-        description = lib.mdDoc "Name of Google storage bucket";
-      };
-      address = mkOption {
-        type = types.str;
-        example = "localhost:3000";
-        description = lib.mdDoc "The address of the proxy.";
+  opts = {
+      name,
+      config,
+      ...
+    }: {
+      options = {
+        enable = mkOption {
+          default = true;
+          type = types.bool;
+          example = true;
+          description = lib.mdDoc "Whether to enable proxy for this bucket";
+        };
+        bucketName = mkOption {
+          type = types.str;
+          default = name;
+          example = "my-bucket-name";
+          description = lib.mdDoc "Name of Google storage bucket";
+        };
+        address = mkOption {
+          type = types.str;
+          example = "localhost:3000";
+          description = lib.mdDoc "The address of the proxy.";
+        };
       };
     };
-  };
   enabledProxies =
     lib.filterAttrs (n: v: v.enable) config.services.nix-store-gcs-proxy;
   mapProxies = function:

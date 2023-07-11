@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, lit, llvm, spirv-headers
-, spirv-tools }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  lit,
+  llvm,
+  spirv-headers,
+  spirv-tools,
+}:
 
 let
   llvmMajor = lib.versions.major llvm.version;

@@ -1,9 +1,45 @@
-{ lib, stdenv, fetchFromGitLab, fetchpatch, itstool, libxml2, meson, ninja, perl
-, python3, pkgconf, wrapGAppsHook, at-spi2-core, dbus, elfutils, libepoxy
-, gexiv2, glib, gobject-introspection, gst-plugins-base, gstreamer, gtk3, lcms2
-, libdatrie, libgphoto2, libgudev, libpeas, libraw, libselinux, libsepol
-, libthai, libunwind, libxkbcommon, orc, pcre, pcre2, udev, util-linux, xorg
-, zstd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  itstool,
+  libxml2,
+  meson,
+  ninja,
+  perl,
+  python3,
+  pkgconf,
+  wrapGAppsHook,
+  at-spi2-core,
+  dbus,
+  elfutils,
+  libepoxy,
+  gexiv2,
+  glib,
+  gobject-introspection,
+  gst-plugins-base,
+  gstreamer,
+  gtk3,
+  lcms2,
+  libdatrie,
+  libgphoto2,
+  libgudev,
+  libpeas,
+  libraw,
+  libselinux,
+  libsepol,
+  libthai,
+  libunwind,
+  libxkbcommon,
+  orc,
+  pcre,
+  pcre2,
+  udev,
+  util-linux,
+  xorg,
+  zstd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "entangle";

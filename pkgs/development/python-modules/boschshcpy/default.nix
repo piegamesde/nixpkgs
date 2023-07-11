@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, cryptography, fetchFromGitHub, getmac, pythonOlder
-, requests, zeroconf }:
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  getmac,
+  pythonOlder,
+  requests,
+  zeroconf,
+}:
 
 buildPythonPackage rec {
   pname = "boschshcpy";

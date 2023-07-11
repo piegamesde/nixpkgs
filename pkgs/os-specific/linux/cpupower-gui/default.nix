@@ -1,7 +1,27 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, buildPythonApplication
-, appstream-glib, dbus-python, desktop-file-utils, gettext, glib
-, gobject-introspection, gtk3, hicolor-icon-theme, libappindicator, libhandy
-, meson, ninja, pkg-config, pygobject3, pyxdg, systemd, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  buildPythonApplication,
+  appstream-glib,
+  dbus-python,
+  desktop-file-utils,
+  gettext,
+  glib,
+  gobject-introspection,
+  gtk3,
+  hicolor-icon-theme,
+  libappindicator,
+  libhandy,
+  meson,
+  ninja,
+  pkg-config,
+  pygobject3,
+  pyxdg,
+  systemd,
+  wrapGAppsHook,
+}:
 
 buildPythonApplication rec {
   pname = "cpupower-gui";

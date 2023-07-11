@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -81,7 +86,10 @@ let
   # Compile single Device Tree overlay source
   # file (.dts) into its compiled variant (.dtbo)
   compileDTS = name: f:
-    pkgs.callPackage ({ stdenv, dtc }:
+    pkgs.callPackage ({
+        stdenv,
+        dtc,
+      }:
       stdenv.mkDerivation {
         name = "${name}-dtbo";
 

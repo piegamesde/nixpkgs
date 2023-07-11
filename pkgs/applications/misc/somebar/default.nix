@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromSourcehut, meson, ninja, pkg-config, wayland, pango
-, wayland-protocols, wayland-scanner, conf ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  meson,
+  ninja,
+  pkg-config,
+  wayland,
+  pango,
+  wayland-protocols,
+  wayland-scanner,
+  conf ? null
+}:
 
 let
   # There is a configuration in src/config.def.hpp, which we use by default

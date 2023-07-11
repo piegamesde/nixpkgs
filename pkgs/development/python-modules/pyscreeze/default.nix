@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pillow, xlib, xvfb-run, scrot }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pillow,
+  xlib,
+  xvfb-run,
+  scrot,
+}:
 buildPythonPackage rec {
   pname = "PyScreeze";
   version = "0.1.26";

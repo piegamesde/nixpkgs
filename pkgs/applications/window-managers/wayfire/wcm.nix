@@ -1,6 +1,21 @@
-{ stdenv, lib, fetchFromGitHub, meson, ninja, pkg-config, wayland, wrapGAppsHook
-, wayfire, wf-shell, wf-config, wayland-scanner, wayland-protocols, gtk3
-, libevdev, libxml2 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  wayland,
+  wrapGAppsHook,
+  wayfire,
+  wf-shell,
+  wf-config,
+  wayland-scanner,
+  wayland-protocols,
+  gtk3,
+  libevdev,
+  libxml2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wcm";

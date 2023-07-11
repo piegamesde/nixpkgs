@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, fetchpatch, gettext, ncurses, gtkGUI ? false
-, pkg-config, gtk2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  gettext,
+  ncurses,
+  gtkGUI ? false,
+  pkg-config,
+  gtk2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "aumix";

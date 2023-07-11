@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, cmake, SDL2, SDL2_mixer, freetype, libGL
-, libiconv, libpng, libvlc, libvorbis, openal, python3, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  SDL2,
+  SDL2_mixer,
+  freetype,
+  libGL,
+  libiconv,
+  libpng,
+  libvlc,
+  libvorbis,
+  openal,
+  python3,
+  zlib,
+}:
 
 let
   # the GLES backend on rpi is untested as I don't have the hardware

@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, buildPythonPackage, dawg-python, docopt, pytestCheckHook
-, pymorphy3-dicts-ru, pymorphy3-dicts-uk }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  dawg-python,
+  docopt,
+  pytestCheckHook,
+  pymorphy3-dicts-ru,
+  pymorphy3-dicts-uk,
+}:
 
 buildPythonPackage rec {
   pname = "pymorphy3";

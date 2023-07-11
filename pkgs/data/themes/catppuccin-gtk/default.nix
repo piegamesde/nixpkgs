@@ -1,6 +1,18 @@
-{ lib, stdenvNoCC, fetchFromGitHub, gtk3, colloid-gtk-theme, gnome-themes-extra
-, gtk-engine-murrine, python3, sassc, accents ? [ "blue" ], size ? "standard"
-, tweaks ? [ ], variant ? "frappe" }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gtk3,
+  colloid-gtk-theme,
+  gnome-themes-extra,
+  gtk-engine-murrine,
+  python3,
+  sassc,
+  accents ? [ "blue" ],
+  size ? "standard",
+  tweaks ? [ ],
+  variant ? "frappe"
+}:
 let
   validAccents = [
     "blue"

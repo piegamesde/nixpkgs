@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, dateparser, defusedxml, fetchFromGitHub, fiona
-, geomet, geopandas, kml2geojson, pyshp, pythonOlder, pyyaml, regex, requests
-, shapely, scikit-learn }:
+{
+  lib,
+  buildPythonPackage,
+  dateparser,
+  defusedxml,
+  fetchFromGitHub,
+  fiona,
+  geomet,
+  geopandas,
+  kml2geojson,
+  pyshp,
+  pythonOlder,
+  pyyaml,
+  regex,
+  requests,
+  shapely,
+  scikit-learn,
+}:
 
 buildPythonPackage rec {
   pname = "wktutils";

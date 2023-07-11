@@ -1,146 +1,162 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
   let inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
   in {
     name = "systemd-networkd-vrf";
     meta.maintainers = with lib.maintainers; [ ma27 ];
 
     nodes = {
-      client = { pkgs, ... }: {
-        virtualisation.vlans = [ 1 2 ];
+      client = {
+          pkgs,
+          ...
+        }: {
+          virtualisation.vlans = [ 1 2 ];
 
-        networking = {
-          useDHCP = false;
-          useNetworkd = true;
-          firewall.checkReversePath = "loose";
-        };
-
-        systemd.network = {
-          enable = true;
-
-          netdevs."10-vrf1" = {
-            netdevConfig = {
-              Kind = "vrf";
-              Name = "vrf1";
-              MTUBytes = "1300";
-            };
-            vrfConfig.Table = 23;
-          };
-          netdevs."10-vrf2" = {
-            netdevConfig = {
-              Kind = "vrf";
-              Name = "vrf2";
-              MTUBytes = "1300";
-            };
-            vrfConfig.Table = 42;
+          networking = {
+            useDHCP = false;
+            useNetworkd = true;
+            firewall.checkReversePath = "loose";
           };
 
-          networks."10-vrf1" = {
-            matchConfig.Name = "vrf1";
-            networkConfig.IPForward = "yes";
-            routes = [{
-              routeConfig = {
-                Destination = "192.168.1.2";
-                Metric = 100;
+          systemd.network = {
+            enable = true;
+
+            netdevs."10-vrf1" = {
+              netdevConfig = {
+                Kind = "vrf";
+                Name = "vrf1";
+                MTUBytes = "1300";
               };
-            }];
-          };
-          networks."10-vrf2" = {
-            matchConfig.Name = "vrf2";
-            networkConfig.IPForward = "yes";
-            routes = [{
-              routeConfig = {
-                Destination = "192.168.2.3";
-                Metric = 100;
+              vrfConfig.Table = 23;
+            };
+            netdevs."10-vrf2" = {
+              netdevConfig = {
+                Kind = "vrf";
+                Name = "vrf2";
+                MTUBytes = "1300";
               };
-            }];
-          };
-
-          networks."10-eth1" = {
-            matchConfig.Name = "eth1";
-            linkConfig.RequiredForOnline = "no";
-            networkConfig = {
-              VRF = "vrf1";
-              Address = "192.168.1.1";
-              IPForward = "yes";
+              vrfConfig.Table = 42;
             };
-          };
-          networks."10-eth2" = {
-            matchConfig.Name = "eth2";
-            linkConfig.RequiredForOnline = "no";
-            networkConfig = {
-              VRF = "vrf2";
-              Address = "192.168.2.1";
-              IPForward = "yes";
+
+            networks."10-vrf1" = {
+              matchConfig.Name = "vrf1";
+              networkConfig.IPForward = "yes";
+              routes = [{
+                routeConfig = {
+                  Destination = "192.168.1.2";
+                  Metric = 100;
+                };
+              }];
             };
-          };
-        };
-      };
-
-      node1 = { pkgs, ... }: {
-        virtualisation.vlans = [ 1 ];
-        networking = {
-          useDHCP = false;
-          useNetworkd = true;
-        };
-
-        services.openssh.enable = true;
-        users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
-
-        systemd.network = {
-          enable = true;
-
-          networks."10-eth1" = {
-            matchConfig.Name = "eth1";
-            linkConfig.RequiredForOnline = "no";
-            networkConfig = {
-              Address = "192.168.1.2";
-              IPForward = "yes";
+            networks."10-vrf2" = {
+              matchConfig.Name = "vrf2";
+              networkConfig.IPForward = "yes";
+              routes = [{
+                routeConfig = {
+                  Destination = "192.168.2.3";
+                  Metric = 100;
+                };
+              }];
             };
-          };
-        };
-      };
 
-      node2 = { pkgs, ... }: {
-        virtualisation.vlans = [ 2 ];
-        networking = {
-          useDHCP = false;
-          useNetworkd = true;
-        };
-
-        systemd.network = {
-          enable = true;
-
-          networks."10-eth2" = {
-            matchConfig.Name = "eth2";
-            linkConfig.RequiredForOnline = "no";
-            networkConfig = {
-              Address = "192.168.2.3";
-              IPForward = "yes";
+            networks."10-eth1" = {
+              matchConfig.Name = "eth1";
+              linkConfig.RequiredForOnline = "no";
+              networkConfig = {
+                VRF = "vrf1";
+                Address = "192.168.1.1";
+                IPForward = "yes";
+              };
+            };
+            networks."10-eth2" = {
+              matchConfig.Name = "eth2";
+              linkConfig.RequiredForOnline = "no";
+              networkConfig = {
+                VRF = "vrf2";
+                Address = "192.168.2.1";
+                IPForward = "yes";
+              };
             };
           };
         };
-      };
 
-      node3 = { pkgs, ... }: {
-        virtualisation.vlans = [ 2 ];
-        networking = {
-          useDHCP = false;
-          useNetworkd = true;
-        };
+      node1 = {
+          pkgs,
+          ...
+        }: {
+          virtualisation.vlans = [ 1 ];
+          networking = {
+            useDHCP = false;
+            useNetworkd = true;
+          };
 
-        systemd.network = {
-          enable = true;
+          services.openssh.enable = true;
+          users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
 
-          networks."10-eth2" = {
-            matchConfig.Name = "eth2";
-            linkConfig.RequiredForOnline = "no";
-            networkConfig = {
-              Address = "192.168.2.4";
-              IPForward = "yes";
+          systemd.network = {
+            enable = true;
+
+            networks."10-eth1" = {
+              matchConfig.Name = "eth1";
+              linkConfig.RequiredForOnline = "no";
+              networkConfig = {
+                Address = "192.168.1.2";
+                IPForward = "yes";
+              };
             };
           };
         };
-      };
+
+      node2 = {
+          pkgs,
+          ...
+        }: {
+          virtualisation.vlans = [ 2 ];
+          networking = {
+            useDHCP = false;
+            useNetworkd = true;
+          };
+
+          systemd.network = {
+            enable = true;
+
+            networks."10-eth2" = {
+              matchConfig.Name = "eth2";
+              linkConfig.RequiredForOnline = "no";
+              networkConfig = {
+                Address = "192.168.2.3";
+                IPForward = "yes";
+              };
+            };
+          };
+        };
+
+      node3 = {
+          pkgs,
+          ...
+        }: {
+          virtualisation.vlans = [ 2 ];
+          networking = {
+            useDHCP = false;
+            useNetworkd = true;
+          };
+
+          systemd.network = {
+            enable = true;
+
+            networks."10-eth2" = {
+              matchConfig.Name = "eth2";
+              linkConfig.RequiredForOnline = "no";
+              networkConfig = {
+                Address = "192.168.2.4";
+                IPForward = "yes";
+              };
+            };
+          };
+        };
     };
 
     testScript = ''

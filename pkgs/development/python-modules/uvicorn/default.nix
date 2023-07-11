@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, callPackage, fetchFromGitHub, click, h11, httptools
-, python-dotenv, pyyaml, typing-extensions, uvloop, watchfiles, websockets
-, hatchling, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  callPackage,
+  fetchFromGitHub,
+  click,
+  h11,
+  httptools,
+  python-dotenv,
+  pyyaml,
+  typing-extensions,
+  uvloop,
+  watchfiles,
+  websockets,
+  hatchling,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "uvicorn";

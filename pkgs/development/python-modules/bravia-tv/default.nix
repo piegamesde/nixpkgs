@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "bravia-tv";

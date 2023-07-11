@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, docutils, requests, pytestCheckHook
-, testpath, responses, flit-core, tomli-w }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  docutils,
+  requests,
+  pytestCheckHook,
+  testpath,
+  responses,
+  flit-core,
+  tomli-w,
+}:
 
 # Flit is actually an application to build universal wheels.
 # It requires Python 3 and should eventually be moved outside of

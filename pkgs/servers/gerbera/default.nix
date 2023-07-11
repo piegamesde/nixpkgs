@@ -1,13 +1,45 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, nixosTests
-# required
-, libiconv, libupnp, libuuid, pugixml, spdlog, sqlite, zlib
-# options
-, enableMysql ? false, libmysqlclient, enableDuktape ? true, duktape
-, enableCurl ? true, curl, enableTaglib ? true, taglib, enableLibmagic ? true
-, file, enableLibmatroska ? true, libmatroska, libebml, enableAvcodec ? false
-, ffmpeg, enableLibexif ? true, libexif, enableExiv2 ? false, exiv2
-, enableFFmpegThumbnailer ? false, ffmpegthumbnailer, enableInotifyTools ? true
-, inotify-tools }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  nixosTests
+  # required
+  ,
+  libiconv,
+  libupnp,
+  libuuid,
+  pugixml,
+  spdlog,
+  sqlite,
+  zlib
+  # options
+  ,
+  enableMysql ? false,
+  libmysqlclient,
+  enableDuktape ? true,
+  duktape,
+  enableCurl ? true,
+  curl,
+  enableTaglib ? true,
+  taglib,
+  enableLibmagic ? true,
+  file,
+  enableLibmatroska ? true,
+  libmatroska,
+  libebml,
+  enableAvcodec ? false,
+  ffmpeg,
+  enableLibexif ? true,
+  libexif,
+  enableExiv2 ? false,
+  exiv2,
+  enableFFmpegThumbnailer ? false,
+  ffmpegthumbnailer,
+  enableInotifyTools ? true,
+  inotify-tools,
+}:
 
 let
   libupnp' = libupnp.overrideAttrs (super: rec {

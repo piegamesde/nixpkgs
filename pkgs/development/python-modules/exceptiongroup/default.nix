@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flit-scm, pytestCheckHook
-, pythonOlder, pythonAtLeast }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flit-scm,
+  pytestCheckHook,
+  pythonOlder,
+  pythonAtLeast,
+}:
 
 buildPythonPackage rec {
   pname = "exceptiongroup";

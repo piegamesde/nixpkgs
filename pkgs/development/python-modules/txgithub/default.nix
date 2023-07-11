@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pyopenssl, twisted, service-identity }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyopenssl,
+  twisted,
+  service-identity,
+}:
 
 buildPythonPackage rec {
   pname = "txgithub";

@@ -10,7 +10,12 @@
 # - figure out a less awkward way to patch sources
 #   (have to build from src directly for SLIME to work, so can't just patch sources in place)
 
-{ pkgs, lib, stdenv, ... }:
+{
+  pkgs,
+  lib,
+  stdenv,
+  ...
+}:
 
 let
 
@@ -45,7 +50,13 @@ let
     } else
       ff;
 
-  buildAsdf = { asdf, pkg, program, flags, faslExt }:
+  buildAsdf = {
+      asdf,
+      pkg,
+      program,
+      flags,
+      faslExt,
+    }:
     stdenv.mkDerivation {
       inherit (asdf) pname version;
       dontUnpack = true;
@@ -64,54 +75,58 @@ let
   #
   # Wrapper around stdenv.mkDerivation for building ASDF systems.
   #
-  build-asdf-system = makeOverridableLispPackage ({ pname, version, src ? null
-    , patches ? [ ],
+  build-asdf-system = makeOverridableLispPackage ({
+      pname,
+      version,
+      src ? null,
+      patches ? [ ],
 
-    # Native libraries, will be appended to the library path
-    nativeLibs ? [ ],
+      # Native libraries, will be appended to the library path
+      nativeLibs ? [ ],
 
-    # Java libraries for ABCL, will be appended to the class path
-    javaLibs ? [ ],
+      # Java libraries for ABCL, will be appended to the class path
+      javaLibs ? [ ],
 
-    # Lisp dependencies
-    # these should be packages built with `build-asdf-system`
-    # TODO(kasper): use propagatedBuildInputs
-    lispLibs ? [ ],
+      # Lisp dependencies
+      # these should be packages built with `build-asdf-system`
+      # TODO(kasper): use propagatedBuildInputs
+      lispLibs ? [ ],
 
-    # Derivation containing the CL implementation package
-    pkg,
+      # Derivation containing the CL implementation package
+      pkg,
 
-    # Name of the Lisp executable
-    program ? pkg.meta.mainProgram or pkg.pname,
+      # Name of the Lisp executable
+      program ? pkg.meta.mainProgram or pkg.pname,
 
-    # General flags to the Lisp executable
-    flags ? [ ],
+      # General flags to the Lisp executable
+      flags ? [ ],
 
-    # Extension for implementation-dependent FASL files
-    faslExt,
+      # Extension for implementation-dependent FASL files
+      faslExt,
 
-    # ASDF amalgamation file to use
-    # Created in build/asdf.lisp by `make` in ASDF source tree
-    asdf,
+      # ASDF amalgamation file to use
+      # Created in build/asdf.lisp by `make` in ASDF source tree
+      asdf,
 
-    # Some libraries have multiple systems under one project, for
-    # example, cffi has cffi-grovel, cffi-toolchain etc.  By
-    # default, only the `pname` system is build.
-    #
-    # .asd's not listed in `systems` are removed in
-    # installPhase. This prevents asdf from referring to uncompiled
-    # systems on run time.
-    #
-    # Also useful when the pname is different than the system name,
-    # such as when using reverse domain naming.
-    systems ? [ pname ],
+      # Some libraries have multiple systems under one project, for
+      # example, cffi has cffi-grovel, cffi-toolchain etc.  By
+      # default, only the `pname` system is build.
+      #
+      # .asd's not listed in `systems` are removed in
+      # installPhase. This prevents asdf from referring to uncompiled
+      # systems on run time.
+      #
+      # Also useful when the pname is different than the system name,
+      # such as when using reverse domain naming.
+      systems ? [ pname ],
 
-    # The .asd files that this package provides
-    # TODO(kasper): remove
-    asds ? systems,
+      # The .asd files that this package provides
+      # TODO(kasper): remove
+      asds ? systems,
 
-    # Other args to mkDerivation
-    ... }@args:
+      # Other args to mkDerivation
+      ...
+    }@args:
 
     stdenv.mkDerivation (rec {
       inherit pname version nativeLibs javaLibs lispLibs systems asds pkg
@@ -251,8 +266,13 @@ let
       '';
     });
 
-  wrapLisp = { pkg, faslExt, program ? pkg.meta.mainProgram or pkg.pname
-    , flags ? [ ], asdf ? pkgs.asdf_3_3, packageOverrides ? (self: super: { })
+  wrapLisp = {
+      pkg,
+      faslExt,
+      program ? pkg.meta.mainProgram or pkg.pname,
+      flags ? [ ],
+      asdf ? pkgs.asdf_3_3,
+      packageOverrides ? (self: super: { })
     }:
     let
       spec = { inherit pkg faslExt program flags asdf; };

@@ -1,6 +1,11 @@
 # NixOS module for hans, ip over icmp daemon
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

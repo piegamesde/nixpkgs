@@ -1,4 +1,10 @@
-{ buildPythonPackage, lib, fetchFromGitHub, mock, unittestCheckHook }:
+{
+  buildPythonPackage,
+  lib,
+  fetchFromGitHub,
+  mock,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "arxiv2bib";

@@ -1,7 +1,29 @@
-{ fetchFromGitHub, lib, stdenv, pkg-config, autoreconfHook, wrapQtAppsHook
-, openssl, db48, boost, zlib, miniupnpc, gmp, qrencode, glib, protobuf, yasm
-, libevent, util-linux, qtbase, qttools, enableUpnp ? false
-, disableWallet ? false, disableDaemon ? false, withGui ? false }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  pkg-config,
+  autoreconfHook,
+  wrapQtAppsHook,
+  openssl,
+  db48,
+  boost,
+  zlib,
+  miniupnpc,
+  gmp,
+  qrencode,
+  glib,
+  protobuf,
+  yasm,
+  libevent,
+  util-linux,
+  qtbase,
+  qttools,
+  enableUpnp ? false,
+  disableWallet ? false,
+  disableDaemon ? false,
+  withGui ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "pivx";

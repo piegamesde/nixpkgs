@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, kernel }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  kernel,
+}:
 let
   version = "1.0.13";
   sha256 = "162hhmnww8z9k0795ffs8v3f61hlfm375law156sk5l08if19a4r";

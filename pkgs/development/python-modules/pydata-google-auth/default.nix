@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, google-auth, google-auth-oauthlib
-, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  google-auth,
+  google-auth-oauthlib,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "pydata-google-auth";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, git, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  git,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "topgit";

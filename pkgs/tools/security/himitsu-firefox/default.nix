@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromSourcehut, hare, himitsu, zip }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  hare,
+  himitsu,
+  zip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "himitsu-firefox";

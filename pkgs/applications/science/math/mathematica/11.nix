@@ -1,12 +1,40 @@
-{ lib, patchelf, requireFile, stdenv
-# arguments from default.nix
-, lang, meta, name, src, version
-# dependencies
-, alsa-lib, coreutils, cudaPackages, dbus, fontconfig, freetype, gcc, glib
-, libGL, libGLU, libuuid, libxml2, ncurses, opencv2, openssl, unixODBC
-, xkeyboard_config, xorg, zlib
-# options
-, cudaSupport }:
+{
+  lib,
+  patchelf,
+  requireFile,
+  stdenv
+  # arguments from default.nix
+  ,
+  lang,
+  meta,
+  name,
+  src,
+  version
+  # dependencies
+  ,
+  alsa-lib,
+  coreutils,
+  cudaPackages,
+  dbus,
+  fontconfig,
+  freetype,
+  gcc,
+  glib,
+  libGL,
+  libGLU,
+  libuuid,
+  libxml2,
+  ncurses,
+  opencv2,
+  openssl,
+  unixODBC,
+  xkeyboard_config,
+  xorg,
+  zlib
+  # options
+  ,
+  cudaSupport,
+}:
 
 stdenv.mkDerivation rec {
   inherit meta name src version;

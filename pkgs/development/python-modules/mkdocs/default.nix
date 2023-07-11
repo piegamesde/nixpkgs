@@ -1,16 +1,33 @@
 {
 # eval time deps
-lib, buildPythonPackage, fetchFromGitHub, pythonOlder
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder
 
-# buildtime
-, hatchling
+  # buildtime
+  ,
+  hatchling
 
-# runtime deps
-, click, ghp-import, importlib-metadata, jinja2, markdown, mergedeep, packaging
-, pyyaml, pyyaml-env-tag, watchdog
+  # runtime deps
+  ,
+  click,
+  ghp-import,
+  importlib-metadata,
+  jinja2,
+  markdown,
+  mergedeep,
+  packaging,
+  pyyaml,
+  pyyaml-env-tag,
+  watchdog
 
-# testing deps
-, babel, mock, unittestCheckHook }:
+  # testing deps
+  ,
+  babel,
+  mock,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "mkdocs";

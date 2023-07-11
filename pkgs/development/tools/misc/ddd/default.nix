@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, motif, ncurses, libX11, libXt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  motif,
+  ncurses,
+  libX11,
+  libXt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ddd";

@@ -1,6 +1,17 @@
-{ lib, aiohttp, async-timeout, buildPythonPackage, fetchFromGitHub, gql
-, graphql-subscription-manager, pytest-asyncio, pytestCheckHook, python-dateutil
-, pythonOlder, pytz }:
+{
+  lib,
+  aiohttp,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  gql,
+  graphql-subscription-manager,
+  pytest-asyncio,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+}:
 
 buildPythonPackage rec {
   pname = "pytibber";

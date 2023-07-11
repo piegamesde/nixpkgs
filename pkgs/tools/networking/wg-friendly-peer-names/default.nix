@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchFromGitHub, wireguard-tools }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  wireguard-tools,
+}:
 
 stdenv.mkDerivation {
   pname = "wg-friendly-peer-names";

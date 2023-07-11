@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitLab, git, bash }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  git,
+  bash,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.3.0";

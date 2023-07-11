@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchgit, python3, coreutils }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  python3,
+  coreutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "acpilight";

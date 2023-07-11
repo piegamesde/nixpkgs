@@ -1,5 +1,17 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, setuptools-scm, pytestCheckHook
-, pytest-asyncio, pytest-timeout, numpy, pandas, rich, tkinter }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  pytestCheckHook,
+  pytest-asyncio,
+  pytest-timeout,
+  numpy,
+  pandas,
+  rich,
+  tkinter,
+}:
 
 buildPythonPackage rec {
   pname = "tqdm";

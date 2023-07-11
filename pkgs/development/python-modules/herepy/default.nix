@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, requests
-, pytestCheckHook, responses }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  requests,
+  pytestCheckHook,
+  responses,
+}:
 
 buildPythonPackage rec {
   pname = "herepy";

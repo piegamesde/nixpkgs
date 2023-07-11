@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pyramid, simplejson, six, venusian }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyramid,
+  simplejson,
+  six,
+  venusian,
+}:
 
 buildPythonPackage rec {
   pname = "cornice";

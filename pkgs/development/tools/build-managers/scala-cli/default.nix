@@ -1,5 +1,15 @@
-{ stdenv, coreutils, lib, installShellFiles, zlib, autoPatchelfHook, fetchurl
-, makeWrapper, callPackage, jre }:
+{
+  stdenv,
+  coreutils,
+  lib,
+  installShellFiles,
+  zlib,
+  autoPatchelfHook,
+  fetchurl,
+  makeWrapper,
+  callPackage,
+  jre,
+}:
 
 let
   pname = "scala-cli";

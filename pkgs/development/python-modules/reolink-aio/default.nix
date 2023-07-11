@@ -1,5 +1,14 @@
-{ lib, aiohttp, aiounittest, buildPythonPackage, fetchFromGitHub, ffmpeg-python
-, pytestCheckHook, pythonOlder, requests }:
+{
+  lib,
+  aiohttp,
+  aiounittest,
+  buildPythonPackage,
+  fetchFromGitHub,
+  ffmpeg-python,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "reolink-aio";

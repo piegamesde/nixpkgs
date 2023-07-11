@@ -1,4 +1,8 @@
-{ lib, fetchurl, python3Packages }:
+{
+  lib,
+  fetchurl,
+  python3Packages,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "hyp-server";

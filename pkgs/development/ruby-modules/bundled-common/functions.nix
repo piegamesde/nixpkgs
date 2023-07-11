@@ -1,12 +1,21 @@
-{ lib, gemConfig, ... }:
+{
+  lib,
+  gemConfig,
+  ...
+}:
 
 let
   inherit (lib)
     attrValues concatMap converge filterAttrs getAttrs intersectLists;
 
 in rec {
-  bundlerFiles =
-    { gemfile ? null, lockfile ? null, gemset ? null, gemdir ? null, ... }: {
+  bundlerFiles = {
+      gemfile ? null,
+      lockfile ? null,
+      gemset ? null,
+      gemdir ? null,
+      ...
+    }: {
       inherit gemdir;
 
       gemfile = if gemfile == null then
@@ -25,7 +34,11 @@ in rec {
         gemset;
     };
 
-  filterGemset = { ruby, groups, ... }:
+  filterGemset = {
+      ruby,
+      groups,
+      ...
+    }:
     gemset:
     let
       platformGems = filterAttrs (_: platformMatches ruby) gemset;
@@ -38,7 +51,11 @@ in rec {
         in gems // deps;
     in converge expandDependencies directlyMatchingGems;
 
-  platformMatches = { rubyEngine, version, ... }:
+  platformMatches = {
+      rubyEngine,
+      version,
+      ...
+    }:
     attrs:
     (!(attrs ? platforms) || builtins.length attrs.platforms == 0
       || builtins.any (platform:
@@ -56,17 +73,30 @@ in rec {
     else
       attrs);
 
-  genStubsScript = { lib, ruby, confFiles, bundler, groups, binPaths, ... }: ''
-    ${ruby}/bin/ruby ${./gen-bin-stubs.rb} \
-      "${ruby}/bin/ruby" \
-      "${confFiles}/Gemfile" \
-      "$out/${ruby.gemPath}" \
-      "${bundler}/${ruby.gemPath}/gems/bundler-${bundler.version}" \
-      ${lib.escapeShellArg binPaths} \
-      ${lib.escapeShellArg groups}
-  '';
+  genStubsScript = {
+      lib,
+      ruby,
+      confFiles,
+      bundler,
+      groups,
+      binPaths,
+      ...
+    }: ''
+      ${ruby}/bin/ruby ${./gen-bin-stubs.rb} \
+        "${ruby}/bin/ruby" \
+        "${confFiles}/Gemfile" \
+        "$out/${ruby.gemPath}" \
+        "${bundler}/${ruby.gemPath}/gems/bundler-${bundler.version}" \
+        ${lib.escapeShellArg binPaths} \
+        ${lib.escapeShellArg groups}
+    '';
 
-  pathDerivation = { gemName, version, path, ... }:
+  pathDerivation = {
+      gemName,
+      version,
+      path,
+      ...
+    }:
     let
       res = {
         type = "derivation";

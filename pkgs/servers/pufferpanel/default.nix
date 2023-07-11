@@ -1,5 +1,12 @@
-{ lib, buildGoModule, fetchFromGitHub, makeWrapper, fetchzip, fetchpatch
-, pathDeps ? [ ] }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  fetchzip,
+  fetchpatch,
+  pathDeps ? [ ]
+}:
 
 buildGoModule rec {
   pname = "pufferpanel";

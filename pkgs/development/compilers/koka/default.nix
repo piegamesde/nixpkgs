@@ -1,7 +1,32 @@
-{ stdenv, pkgsHostTarget, cmake, makeWrapper, mkDerivation, fetchFromGitHub
-, alex, array, base, bytestring, cond, containers, directory, extra, filepath
-, hpack, hspec, hspec-core, isocline, json, lib, mtl, parsec, process
-, regex-compat, text, time }:
+{
+  stdenv,
+  pkgsHostTarget,
+  cmake,
+  makeWrapper,
+  mkDerivation,
+  fetchFromGitHub,
+  alex,
+  array,
+  base,
+  bytestring,
+  cond,
+  containers,
+  directory,
+  extra,
+  filepath,
+  hpack,
+  hspec,
+  hspec-core,
+  isocline,
+  json,
+  lib,
+  mtl,
+  parsec,
+  process,
+  regex-compat,
+  text,
+  time,
+}:
 
 let
   version = "2.4.0";

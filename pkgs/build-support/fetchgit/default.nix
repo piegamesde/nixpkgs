@@ -1,4 +1,10 @@
-{ lib, stdenvNoCC, git, git-lfs, cacert }:
+{
+  lib,
+  stdenvNoCC,
+  git,
+  git-lfs,
+  cacert,
+}:
 let
   urlToName = url: rev:
     let
@@ -15,18 +21,31 @@ let
     in "${
       if matched == null then base else builtins.head matched
     }${appendShort}";
-in { url, rev ? "HEAD", md5 ? "", sha256 ? "", hash ? ""
-, leaveDotGit ? deepClone, fetchSubmodules ? true, deepClone ? false
-, branchName ? null, sparseCheckout ? [ ], nonConeMode ? false
-, name ? urlToName url rev
-, # Shell code executed after the file has been fetched
-# successfully. This can do things like check or transform the file.
-postFetch ? "", preferLocalBuild ? true, fetchLFS ? false
-, # Shell code to build a netrc file for BASIC auth
-netrcPhase ? null
-, # Impure env vars (https://nixos.org/nix/manual/#sec-advanced-attributes)
-# needed for netrcPhase
-netrcImpureEnvVars ? [ ], meta ? { }, allowedRequisites ? null }:
+in {
+  url,
+  rev ? "HEAD",
+  md5 ? "",
+  sha256 ? "",
+  hash ? "",
+  leaveDotGit ? deepClone,
+  fetchSubmodules ? true,
+  deepClone ? false,
+  branchName ? null,
+  sparseCheckout ? [ ],
+  nonConeMode ? false,
+  name ?
+    urlToName url rev, # Shell code executed after the file has been fetched
+  # successfully. This can do things like check or transform the file.
+  postFetch ? "",
+  preferLocalBuild ? true,
+  fetchLFS ? false, # Shell code to build a netrc file for BASIC auth
+  netrcPhase ?
+    null, # Impure env vars (https://nixos.org/nix/manual/#sec-advanced-attributes)
+  # needed for netrcPhase
+  netrcImpureEnvVars ? [ ],
+  meta ? { },
+  allowedRequisites ? null
+}:
 
 /* NOTE:
    fetchgit has one problem: git fetch only works for refs.

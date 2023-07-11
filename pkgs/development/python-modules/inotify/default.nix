@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchFromGitHub, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "inotify";

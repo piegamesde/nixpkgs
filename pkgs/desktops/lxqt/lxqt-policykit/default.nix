@@ -1,6 +1,22 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, pkg-config, lxqt-build-tools
-, qtbase, qttools, qtx11extras, qtsvg, polkit, polkit-qt, kwindowsystem, liblxqt
-, libqtxdg, pcre, gitUpdater }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  lxqt-build-tools,
+  qtbase,
+  qttools,
+  qtx11extras,
+  qtsvg,
+  polkit,
+  polkit-qt,
+  kwindowsystem,
+  liblxqt,
+  libqtxdg,
+  pcre,
+  gitUpdater,
+}:
 
 mkDerivation rec {
   pname = "lxqt-policykit";

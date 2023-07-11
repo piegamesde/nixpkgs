@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, cython, fetchFromGitHub, poetry-core, pythonOlder
-, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  cython,
+  fetchFromGitHub,
+  poetry-core,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "asyncmy";

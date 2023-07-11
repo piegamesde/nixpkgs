@@ -1,4 +1,12 @@
-{ lib, buildDunePackage, fetchurl, alcotest, fmt, menhir, re }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  alcotest,
+  fmt,
+  menhir,
+  re,
+}:
 
 buildDunePackage rec {
   pname = "graphql_parser";

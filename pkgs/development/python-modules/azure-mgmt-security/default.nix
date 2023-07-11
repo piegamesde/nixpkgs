@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, azure-common, azure-mgmt-core, msrest
-, msrestazure, pythonOlder, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  azure-common,
+  azure-mgmt-core,
+  msrest,
+  msrestazure,
+  pythonOlder,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-security";

@@ -1,6 +1,23 @@
-{ lib, stdenv, automat, buildPythonPackage, cryptography, fetchPypi, geoip, idna
-, incremental, lsof, mock, pyopenssl, pytestCheckHook, python, pythonOlder
-, service-identity, twisted, zope_interface }:
+{
+  lib,
+  stdenv,
+  automat,
+  buildPythonPackage,
+  cryptography,
+  fetchPypi,
+  geoip,
+  idna,
+  incremental,
+  lsof,
+  mock,
+  pyopenssl,
+  pytestCheckHook,
+  python,
+  pythonOlder,
+  service-identity,
+  twisted,
+  zope_interface,
+}:
 
 buildPythonPackage rec {
   pname = "txtorcon";

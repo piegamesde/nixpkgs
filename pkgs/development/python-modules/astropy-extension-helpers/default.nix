@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, findutils, pytestCheckHook, pythonOlder
-, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  findutils,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "extension-helpers";

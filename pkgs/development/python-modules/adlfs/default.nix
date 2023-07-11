@@ -1,5 +1,14 @@
-{ lib, aiohttp, azure-core, azure-datalake-store, azure-identity
-, azure-storage-blob, buildPythonPackage, fetchFromGitHub, fsspec, pythonOlder
+{
+  lib,
+  aiohttp,
+  azure-core,
+  azure-datalake-store,
+  azure-identity,
+  azure-storage-blob,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fsspec,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

@@ -1,5 +1,20 @@
-{ lib, stdenv, bzip2, cmake, doxygen, fetchurl, fuse, libevent, xz, openssl
-, pkg-config, systemd, tcp_wrappers, zlib, c-ares }:
+{
+  lib,
+  stdenv,
+  bzip2,
+  cmake,
+  doxygen,
+  fetchurl,
+  fuse,
+  libevent,
+  xz,
+  openssl,
+  pkg-config,
+  systemd,
+  tcp_wrappers,
+  zlib,
+  c-ares,
+}:
 
 stdenv.mkDerivation rec {
   pname = "apt-cacher-ng";

@@ -1,6 +1,24 @@
-{ lib, mkDerivation, cmake, elfutils, extra-cmake-modules, fetchFromGitHub
-, kconfigwidgets, ki18n, kio, kitemmodels, kitemviews, kparts, kwindowsystem
-, libelf, qtbase, threadweaver, qtx11extras, zstd, kddockwidgets, rustc-demangle
+{
+  lib,
+  mkDerivation,
+  cmake,
+  elfutils,
+  extra-cmake-modules,
+  fetchFromGitHub,
+  kconfigwidgets,
+  ki18n,
+  kio,
+  kitemmodels,
+  kitemviews,
+  kparts,
+  kwindowsystem,
+  libelf,
+  qtbase,
+  threadweaver,
+  qtx11extras,
+  zstd,
+  kddockwidgets,
+  rustc-demangle,
 }:
 
 mkDerivation rec {

@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, mpir, gmp, mpfr, flint, arb, antic }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  mpir,
+  gmp,
+  mpfr,
+  flint,
+  arb,
+  antic,
+}:
 
 stdenv.mkDerivation rec {
   pname = "calcium";

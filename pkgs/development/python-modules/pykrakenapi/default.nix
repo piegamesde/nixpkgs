@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, krakenex, pandas }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  krakenex,
+  pandas,
+}:
 
 buildPythonPackage rec {
   pname = "pykrakenapi";

@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, varint, base58, netaddr
-, idna, py-cid, py-multicodec, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  varint,
+  base58,
+  netaddr,
+  idna,
+  py-cid,
+  py-multicodec,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "py-multiaddr";

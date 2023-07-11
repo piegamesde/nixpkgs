@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchgit, pkg-config, writeText, libX11, libXau, libXdmcp
-, conf ? null, patches ? [ ] }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  pkg-config,
+  writeText,
+  libX11,
+  libXau,
+  libXdmcp,
+  conf ? null,
+  patches ? [ ]
+}:
 
 stdenv.mkDerivation rec {
   pname = "slstatus";

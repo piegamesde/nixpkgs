@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, python3, m4, cairo, libX11, mesa_glu, ncurses, tcl
-, tcsh, tk }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3,
+  m4,
+  cairo,
+  libX11,
+  mesa_glu,
+  ncurses,
+  tcl,
+  tcsh,
+  tk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "magic-vlsi";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchgit, cmake, pkg-config, libftdi1, popt }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  cmake,
+  pkg-config,
+  libftdi1,
+  popt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sd-mux-ctrl-unstable";

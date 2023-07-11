@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 # TODO: This may file may need additional review, eg which configuartions to
 # expose to the user.

@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitLab, meson, ninja, pkg-config, glib, gtk3, libsoup
-, keybinder3, gst_all_1, wrapGAppsHook, appstream-glib, desktop-file-utils }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  meson,
+  ninja,
+  pkg-config,
+  glib,
+  gtk3,
+  libsoup,
+  keybinder3,
+  gst_all_1,
+  wrapGAppsHook,
+  appstream-glib,
+  desktop-file-utils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "goodvibes";

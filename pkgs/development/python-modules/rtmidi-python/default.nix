@@ -1,5 +1,14 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, cython, alsa-lib, CoreAudio
-, CoreMIDI, CoreServices }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  cython,
+  alsa-lib,
+  CoreAudio,
+  CoreMIDI,
+  CoreServices,
+}:
 
 buildPythonPackage rec {
   pname = "rtmidi-python";

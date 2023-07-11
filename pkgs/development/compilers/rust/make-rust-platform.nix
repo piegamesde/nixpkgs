@@ -1,7 +1,18 @@
-{ buildPackages, callPackage, cargo-auditable, stdenv, runCommand }@prev:
+{
+  buildPackages,
+  callPackage,
+  cargo-auditable,
+  stdenv,
+  runCommand,
+}@prev:
 
-{ rustc, cargo, cargo-auditable ? prev.cargo-auditable, stdenv ? prev.stdenv
-, ... }:
+{
+  rustc,
+  cargo,
+  cargo-auditable ? prev.cargo-auditable,
+  stdenv ? prev.stdenv,
+  ...
+}:
 
 rec {
   rust = { inherit rustc cargo; };

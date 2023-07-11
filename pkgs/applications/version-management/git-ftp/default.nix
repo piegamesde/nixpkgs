@@ -1,5 +1,21 @@
-{ lib, resholve, fetchFromGitHub, fetchpatch, bash, coreutils, git, gnugrep
-, gawk, curl, hostname, gnused, findutils, lftp, pandoc, man }:
+{
+  lib,
+  resholve,
+  fetchFromGitHub,
+  fetchpatch,
+  bash,
+  coreutils,
+  git,
+  gnugrep,
+  gawk,
+  curl,
+  hostname,
+  gnused,
+  findutils,
+  lftp,
+  pandoc,
+  man,
+}:
 
 resholve.mkDerivation rec {
   pname = "git-ftp";

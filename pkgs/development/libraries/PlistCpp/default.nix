@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, NSPlist, pugixml }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  NSPlist,
+  pugixml,
+}:
 
 stdenv.mkDerivation {
   pname = "PlistCpp";

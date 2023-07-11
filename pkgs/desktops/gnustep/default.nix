@@ -1,4 +1,7 @@
-{ newScope, llvmPackages }:
+{
+  newScope,
+  llvmPackages,
+}:
 
 let
   callPackage = newScope self;

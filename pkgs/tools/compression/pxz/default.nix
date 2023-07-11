@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, testers, pxz, xz }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  testers,
+  pxz,
+  xz,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pxz";

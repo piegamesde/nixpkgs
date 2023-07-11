@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, gtk3, pcre2, glib, desktop-file-utils, meson
-, ninja, pkg-config, wrapGAppsHook, gettext, icu }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gtk3,
+  pcre2,
+  glib,
+  desktop-file-utils,
+  meson,
+  ninja,
+  pkg-config,
+  wrapGAppsHook,
+  gettext,
+  icu,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fsearch";

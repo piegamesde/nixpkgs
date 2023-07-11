@@ -1,6 +1,24 @@
-{ stdenv, lib, makeWrapper, fetchurl, makeDesktopItem, copyDesktopItems
-, autoPatchelfHook, openjdk, gtk3, gsettings-desktop-schemas, writeScript, bash
-, gnugrep, tor, zlib, openimajgrabber, hwi, imagemagick, gzip }:
+{
+  stdenv,
+  lib,
+  makeWrapper,
+  fetchurl,
+  makeDesktopItem,
+  copyDesktopItems,
+  autoPatchelfHook,
+  openjdk,
+  gtk3,
+  gsettings-desktop-schemas,
+  writeScript,
+  bash,
+  gnugrep,
+  tor,
+  zlib,
+  openimajgrabber,
+  hwi,
+  imagemagick,
+  gzip,
+}:
 
 let
   pname = "sparrow";

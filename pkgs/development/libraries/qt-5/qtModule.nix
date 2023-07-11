@@ -1,8 +1,16 @@
-{ lib, mkDerivation, perl }:
+{
+  lib,
+  mkDerivation,
+  perl,
+}:
 
 let inherit (lib) licenses maintainers platforms;
 
-in { self, srcs, patches }:
+in {
+  self,
+  srcs,
+  patches,
+}:
 
 args:
 

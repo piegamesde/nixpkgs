@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, libdaemon, bison, flex, check }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libdaemon,
+  bison,
+  flex,
+  check,
+}:
 
 stdenv.mkDerivation rec {
   pname = "radvd";

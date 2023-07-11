@@ -1,5 +1,15 @@
-{ lib, bleach, buildPythonPackage, cmarkgfm, docutils, fetchPypi, mock, pygments
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  bleach,
+  buildPythonPackage,
+  cmarkgfm,
+  docutils,
+  fetchPypi,
+  mock,
+  pygments,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "readme-renderer";

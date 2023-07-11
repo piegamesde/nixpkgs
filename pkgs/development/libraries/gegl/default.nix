@@ -1,8 +1,40 @@
-{ lib, stdenv, fetchurl, pkg-config, vala, gobject-introspection, gtk-doc
-, docbook-xsl-nons, docbook_xml_dtd_43, glib, babl, libpng, llvmPackages, cairo
-, libjpeg, librsvg, lensfun, libspiro, maxflow, netsurf, pango, poly2tri-c
-, poppler, bzip2, json-glib, gettext, meson, ninja, libraw, gexiv2, libwebp
-, luajit, openexr, OpenCL, suitesparse }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  vala,
+  gobject-introspection,
+  gtk-doc,
+  docbook-xsl-nons,
+  docbook_xml_dtd_43,
+  glib,
+  babl,
+  libpng,
+  llvmPackages,
+  cairo,
+  libjpeg,
+  librsvg,
+  lensfun,
+  libspiro,
+  maxflow,
+  netsurf,
+  pango,
+  poly2tri-c,
+  poppler,
+  bzip2,
+  json-glib,
+  gettext,
+  meson,
+  ninja,
+  libraw,
+  gexiv2,
+  libwebp,
+  luajit,
+  openexr,
+  OpenCL,
+  suitesparse,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gegl";

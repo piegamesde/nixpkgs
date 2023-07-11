@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, irctokens, pendulum
-, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  irctokens,
+  pendulum,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "ircstates";

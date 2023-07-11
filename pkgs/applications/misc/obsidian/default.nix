@@ -1,5 +1,15 @@
-{ stdenv, fetchurl, lib, makeWrapper, electron, makeDesktopItem, graphicsmagick
-, writeScript, undmg, unzip }:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  makeWrapper,
+  electron,
+  makeDesktopItem,
+  graphicsmagick,
+  writeScript,
+  undmg,
+  unzip,
+}:
 let
   inherit (stdenv.hostPlatform) system;
   pname = "obsidian";

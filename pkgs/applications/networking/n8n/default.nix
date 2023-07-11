@@ -1,4 +1,10 @@
-{ pkgs, nodejs_16, stdenv, lib, nixosTests }:
+{
+  pkgs,
+  nodejs_16,
+  stdenv,
+  lib,
+  nixosTests,
+}:
 
 let
   nodePackages = import ./node-composition.nix {

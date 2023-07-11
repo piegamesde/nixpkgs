@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, zlib, libtiff, libxml2, openssl, libiconv
-, libpng, cmake, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zlib,
+  libtiff,
+  libxml2,
+  openssl,
+  libiconv,
+  libpng,
+  cmake,
+  fetchpatch,
+}:
 
 with lib;
 stdenv.mkDerivation rec {

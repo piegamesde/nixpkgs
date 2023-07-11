@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, gfortran, hoppet, lhapdf, root5, zlib, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gfortran,
+  hoppet,
+  lhapdf,
+  root5,
+  zlib,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "applgrid";

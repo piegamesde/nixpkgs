@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, kernel }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  kernel,
+}:
 
 let rev = "ee299797bcd54d5b8c58d2da8576c54cea1a03a2";
 in stdenv.mkDerivation rec {

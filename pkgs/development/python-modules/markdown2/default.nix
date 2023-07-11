@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, python, pygments }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  pygments,
+}:
 
 buildPythonPackage rec {
   pname = "markdown2";

@@ -1,5 +1,16 @@
-{ lib, stdenv, testers, fetchFromGitHub, zlib, libpng, libjpeg
-, SystemConfiguration, Foundation, pkg-config, htmldoc }:
+{
+  lib,
+  stdenv,
+  testers,
+  fetchFromGitHub,
+  zlib,
+  libpng,
+  libjpeg,
+  SystemConfiguration,
+  Foundation,
+  pkg-config,
+  htmldoc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "htmldoc";

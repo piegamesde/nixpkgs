@@ -1,4 +1,10 @@
-{ lib, buildDunePackage, fetchFromGitHub, stdune, dyn }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  stdune,
+  dyn,
+}:
 
 buildDunePackage rec {
   pname = "fiber";

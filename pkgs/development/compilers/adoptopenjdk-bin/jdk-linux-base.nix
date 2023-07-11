@@ -1,12 +1,33 @@
-{ sourcePerArch, knownVulnerabilities ? [ ] }:
+{
+  sourcePerArch,
+  knownVulnerabilities ? [ ]
+}:
 
-{ stdenv, lib, fetchurl, autoPatchelfHook, makeWrapper, setJavaClassPath
-# minimum dependencies
-, alsa-lib, fontconfig, freetype, libffi, xorg, zlib
-# runtime dependencies
-, cups
-# runtime dependencies for GTK+ Look and Feel
-, gtkSupport ? true, cairo, glib, gtk3 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  makeWrapper,
+  setJavaClassPath
+  # minimum dependencies
+  ,
+  alsa-lib,
+  fontconfig,
+  freetype,
+  libffi,
+  xorg,
+  zlib
+  # runtime dependencies
+  ,
+  cups
+  # runtime dependencies for GTK+ Look and Feel
+  ,
+  gtkSupport ? true,
+  cairo,
+  glib,
+  gtk3,
+}:
 
 let
   cpuName = stdenv.hostPlatform.parsed.cpu.name;

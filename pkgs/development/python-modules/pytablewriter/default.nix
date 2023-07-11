@@ -1,6 +1,20 @@
-{ buildPythonPackage, fetchFromGitHub, lib, dataproperty, mbstrdecoder
-, pathvalidate, setuptools, tabledata, tcolorpy, typepy, pytestCheckHook, pyyaml
-, toml, elasticsearch, dominate }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  dataproperty,
+  mbstrdecoder,
+  pathvalidate,
+  setuptools,
+  tabledata,
+  tcolorpy,
+  typepy,
+  pytestCheckHook,
+  pyyaml,
+  toml,
+  elasticsearch,
+  dominate,
+}:
 
 buildPythonPackage rec {
   pname = "pytablewriter";

@@ -1,10 +1,32 @@
-{ rustcVersion, rustcSha256, enableRustcDev ? true, bootstrapVersion
-, bootstrapHashes, selectRustPackage, rustcPatches ? [ ], llvmBootstrapForDarwin
-, llvmShared, llvmSharedForBuild, llvmSharedForHost, llvmSharedForTarget
-, llvmPackages # Exposed through rustc for LTO in Firefox
+{
+  rustcVersion,
+  rustcSha256,
+  enableRustcDev ? true,
+  bootstrapVersion,
+  bootstrapHashes,
+  selectRustPackage,
+  rustcPatches ? [ ],
+  llvmBootstrapForDarwin,
+  llvmShared,
+  llvmSharedForBuild,
+  llvmSharedForHost,
+  llvmSharedForTarget,
+  llvmPackages # Exposed through rustc for LTO in Firefox
+  ,
 }:
-{ stdenv, lib, buildPackages, newScope, callPackage, CoreFoundation, Security
-, SystemConfiguration, pkgsBuildTarget, pkgsBuildBuild, makeRustPlatform }:
+{
+  stdenv,
+  lib,
+  buildPackages,
+  newScope,
+  callPackage,
+  CoreFoundation,
+  Security,
+  SystemConfiguration,
+  pkgsBuildTarget,
+  pkgsBuildBuild,
+  makeRustPlatform,
+}:
 
 let
   # Use `import` to make sure no packages sneak in here.

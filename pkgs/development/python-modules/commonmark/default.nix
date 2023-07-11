@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, glibcLocales, future }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  glibcLocales,
+  future,
+}:
 
 buildPythonPackage rec {
   pname = "commonmark";

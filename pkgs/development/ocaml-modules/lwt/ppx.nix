@@ -1,4 +1,9 @@
-{ fetchFromGitHub, buildDunePackage, lwt, ppxlib }:
+{
+  fetchFromGitHub,
+  buildDunePackage,
+  lwt,
+  ppxlib,
+}:
 
 buildDunePackage {
   pname = "lwt_ppx";

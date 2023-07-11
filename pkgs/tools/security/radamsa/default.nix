@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, fetchFromGitLab, bash }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitLab,
+  bash,
+}:
 
 let
   # Fetch explicitly, otherwise build will try to do so

@@ -1,6 +1,30 @@
-{ stdenv, fetchurl, dpkg, xorg, glib, libGLU, libGL, libpulseaudio, zlib, dbus
-, fontconfig, freetype, gtk3, pango, makeWrapper, python3Packages, lib, libcap
-, lsof, curl, libuuid, cups, mesa, xz, libxkbcommon }:
+{
+  stdenv,
+  fetchurl,
+  dpkg,
+  xorg,
+  glib,
+  libGLU,
+  libGL,
+  libpulseaudio,
+  zlib,
+  dbus,
+  fontconfig,
+  freetype,
+  gtk3,
+  pango,
+  makeWrapper,
+  python3Packages,
+  lib,
+  libcap,
+  lsof,
+  curl,
+  libuuid,
+  cups,
+  mesa,
+  xz,
+  libxkbcommon,
+}:
 
 let
   all_data = lib.importJSON ./data.json;

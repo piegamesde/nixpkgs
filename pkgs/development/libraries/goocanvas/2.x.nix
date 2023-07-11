@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, pkg-config, gettext, gtk-doc, gobject-introspection
-, python3, gtk3, cairo, glib, gnome }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gettext,
+  gtk-doc,
+  gobject-introspection,
+  python3,
+  gtk3,
+  cairo,
+  glib,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "goocanvas";

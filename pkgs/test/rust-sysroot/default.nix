@@ -1,4 +1,9 @@
-{ lib, rust, rustPlatform, fetchFromGitHub }:
+{
+  lib,
+  rust,
+  rustPlatform,
+  fetchFromGitHub,
+}:
 
 let
   mkBlogOsTest = target:

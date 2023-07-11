@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest-asyncio, pytest-httpserver
-, pytestCheckHook, pythonOlder, requests, toml, types-toml, typing-extensions
-, urllib3 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytest-httpserver,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  toml,
+  types-toml,
+  typing-extensions,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "responses";

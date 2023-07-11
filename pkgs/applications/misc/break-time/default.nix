@@ -1,5 +1,14 @@
-{ fetchFromGitHub, glib, gtk3, openssl, pkg-config, python3, rustPlatform, lib
-, wrapGAppsHook }:
+{
+  fetchFromGitHub,
+  glib,
+  gtk3,
+  openssl,
+  pkg-config,
+  python3,
+  rustPlatform,
+  lib,
+  wrapGAppsHook,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "break-time";

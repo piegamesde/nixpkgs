@@ -1,4 +1,10 @@
-{ buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, lib }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  lib,
+}:
 
 buildPythonPackage rec {
   pname = "prodict";

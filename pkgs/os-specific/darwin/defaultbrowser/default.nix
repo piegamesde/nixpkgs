@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, Foundation }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  Foundation,
+}:
 
 stdenv.mkDerivation rec {
   pname = "defaultbrowser";

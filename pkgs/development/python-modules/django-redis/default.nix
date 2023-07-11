@@ -1,10 +1,25 @@
-{ lib, fetchFromGitHub, pythonAtLeast, pythonOlder, buildPythonPackage
+{
+  lib,
+  fetchFromGitHub,
+  pythonAtLeast,
+  pythonOlder,
+  buildPythonPackage
 
-# propagated
-, django, hiredis, lz4, msgpack, redis
+  # propagated
+  ,
+  django,
+  hiredis,
+  lz4,
+  msgpack,
+  redis
 
-# testing
-, pkgs, pytest-django, pytest-mock, pytestCheckHook }:
+  # testing
+  ,
+  pkgs,
+  pytest-django,
+  pytest-mock,
+  pytestCheckHook,
+}:
 
 let
   pname = "django-redis";

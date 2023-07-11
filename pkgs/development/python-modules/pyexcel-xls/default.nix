@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, pyexcel-io, xlrd, xlwt, nose, pyexcel
-, mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyexcel-io,
+  xlrd,
+  xlwt,
+  nose,
+  pyexcel,
+  mock,
+}:
 
 buildPythonPackage rec {
   pname = "pyexcel-xls";

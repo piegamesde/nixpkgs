@@ -1,5 +1,14 @@
-{ lib, stdenv, runCommand, buildEnv, vscode, vscode-utils, makeWrapper
-, writeTextFile, vscodeExtensions ? [ ] }:
+{
+  lib,
+  stdenv,
+  runCommand,
+  buildEnv,
+  vscode,
+  vscode-utils,
+  makeWrapper,
+  writeTextFile,
+  vscodeExtensions ? [ ]
+}:
 
 /* `vscodeExtensions`
    :  A set of vscode extensions to be installed alongside the editor. Here's a an

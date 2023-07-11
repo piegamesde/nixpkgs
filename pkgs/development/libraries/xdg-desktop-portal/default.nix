@@ -1,7 +1,30 @@
-{ lib, acl, autoreconfHook, dbus, fetchFromGitHub, flatpak, fuse3, bubblewrap
-, systemdMinimal, geoclue2, glib, gsettings-desktop-schemas, json-glib
-, libportal, libxml2, nixosTests, pipewire, gdk-pixbuf, librsvg, python3
-, pkg-config, stdenv, runCommand, wrapGAppsHook, enableGeoLocation ? true }:
+{
+  lib,
+  acl,
+  autoreconfHook,
+  dbus,
+  fetchFromGitHub,
+  flatpak,
+  fuse3,
+  bubblewrap,
+  systemdMinimal,
+  geoclue2,
+  glib,
+  gsettings-desktop-schemas,
+  json-glib,
+  libportal,
+  libxml2,
+  nixosTests,
+  pipewire,
+  gdk-pixbuf,
+  librsvg,
+  python3,
+  pkg-config,
+  stdenv,
+  runCommand,
+  wrapGAppsHook,
+  enableGeoLocation ? true
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "xdg-desktop-portal";

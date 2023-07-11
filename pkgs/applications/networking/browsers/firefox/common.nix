@@ -1,86 +1,169 @@
-{ pname, version, meta, updateScript ? null, binaryName ? "firefox"
-, application ? "browser", applicationName ? "Mozilla Firefox", branding ? null
-, src, unpackPhase ? null, extraPatches ? [ ], extraPostPatch ? ""
-, extraNativeBuildInputs ? [ ], extraConfigureFlags ? [ ]
-, extraBuildInputs ? [ ], extraMakeFlags ? [ ], extraPassthru ? { }, tests ? [ ]
+{
+  pname,
+  version,
+  meta,
+  updateScript ? null,
+  binaryName ? "firefox",
+  application ? "browser",
+  applicationName ? "Mozilla Firefox",
+  branding ? null,
+  src,
+  unpackPhase ? null,
+  extraPatches ? [ ],
+  extraPostPatch ? "",
+  extraNativeBuildInputs ? [ ],
+  extraConfigureFlags ? [ ],
+  extraBuildInputs ? [ ],
+  extraMakeFlags ? [ ],
+  extraPassthru ? { },
+  tests ? [ ]
 }:
 
-{ lib, pkgs, stdenv, fetchpatch, patchelf
+{
+  lib,
+  pkgs,
+  stdenv,
+  fetchpatch,
+  patchelf
 
-# build time
-, autoconf, cargo, dump_syms, makeWrapper, mimalloc, nodejs, perl, pkg-config
-, pkgsCross # wasm32 rlbox
-, python3, runCommand, rustc, rust-cbindgen, rustPlatform, unzip, which
-, wrapGAppsHook
+  # build time
+  ,
+  autoconf,
+  cargo,
+  dump_syms,
+  makeWrapper,
+  mimalloc,
+  nodejs,
+  perl,
+  pkg-config,
+  pkgsCross # wasm32 rlbox
+  ,
+  python3,
+  runCommand,
+  rustc,
+  rust-cbindgen,
+  rustPlatform,
+  unzip,
+  which,
+  wrapGAppsHook
 
-# runtime
-, bzip2, dbus, dbus-glib, file, fontconfig, freetype, glib, gnum4, gtk3, icu
-, libGL, libGLU, libevent, libffi, libjpeg, libpng, libstartup_notification
-, libvpx, libwebp, nasm, nspr, nss_esr, nss_latest, pango, xorg, zip, zlib
-, pkgsBuildBuild
+  # runtime
+  ,
+  bzip2,
+  dbus,
+  dbus-glib,
+  file,
+  fontconfig,
+  freetype,
+  glib,
+  gnum4,
+  gtk3,
+  icu,
+  libGL,
+  libGLU,
+  libevent,
+  libffi,
+  libjpeg,
+  libpng,
+  libstartup_notification,
+  libvpx,
+  libwebp,
+  nasm,
+  nspr,
+  nss_esr,
+  nss_latest,
+  pango,
+  xorg,
+  zip,
+  zlib,
+  pkgsBuildBuild
 
-# optionals
+  # optionals
 
-## debugging
+  ## debugging
 
-, debugBuild ? false
+  ,
+  debugBuild ? false
 
-  # On 32bit platforms, we disable adding "-g" for easier linking.
-, enableDebugSymbols ? !stdenv.is32bit
+    # On 32bit platforms, we disable adding "-g" for easier linking.
+  ,
+  enableDebugSymbols ? !stdenv.is32bit
 
-  ## optional libraries
+    ## optional libraries
 
-, alsaSupport ? stdenv.isLinux, alsa-lib, ffmpegSupport ? true
-, gssSupport ? true, libkrb5, jackSupport ? stdenv.isLinux, libjack2
-, jemallocSupport ? !stdenv.hostPlatform.isMusl, jemalloc, ltoSupport ?
-  (stdenv.isLinux && stdenv.is64bit && !stdenv.hostPlatform.isRiscV), overrideCC
-, buildPackages
-, pgoSupport ? (stdenv.isLinux && stdenv.hostPlatform == stdenv.buildPlatform)
-, xvfb-run, pipewireSupport ? waylandSupport && webrtcSupport
-, pulseaudioSupport ? stdenv.isLinux, libpulseaudio
-, sndioSupport ? stdenv.isLinux, sndio, waylandSupport ? true, libxkbcommon
-, libdrm
+  ,
+  alsaSupport ? stdenv.isLinux,
+  alsa-lib,
+  ffmpegSupport ? true,
+  gssSupport ? true,
+  libkrb5,
+  jackSupport ? stdenv.isLinux,
+  libjack2,
+  jemallocSupport ? !stdenv.hostPlatform.isMusl,
+  jemalloc,
+  ltoSupport ?
+    (stdenv.isLinux && stdenv.is64bit && !stdenv.hostPlatform.isRiscV),
+  overrideCC,
+  buildPackages,
+  pgoSupport ? (stdenv.isLinux && stdenv.hostPlatform == stdenv.buildPlatform),
+  xvfb-run,
+  pipewireSupport ? waylandSupport && webrtcSupport,
+  pulseaudioSupport ? stdenv.isLinux,
+  libpulseaudio,
+  sndioSupport ? stdenv.isLinux,
+  sndio,
+  waylandSupport ? true,
+  libxkbcommon,
+  libdrm
 
-## privacy-related options
+  ## privacy-related options
 
-, privacySupport ? false
+  ,
+  privacySupport ? false
 
-  # WARNING: NEVER set any of the options below to `true` by default.
-  # Set to `!privacySupport` or `false`.
+    # WARNING: NEVER set any of the options below to `true` by default.
+    # Set to `!privacySupport` or `false`.
 
-, crashreporterSupport ? !privacySupport && !stdenv.hostPlatform.isRiscV
-  && !stdenv.hostPlatform.isMusl, curl, geolocationSupport ? !privacySupport
-, googleAPISupport ? geolocationSupport, mlsAPISupport ? geolocationSupport
-, webrtcSupport ? !privacySupport && !stdenv.hostPlatform.isRiscV
+  ,
+  crashreporterSupport ? !privacySupport && !stdenv.hostPlatform.isRiscV
+    && !stdenv.hostPlatform.isMusl,
+  curl,
+  geolocationSupport ? !privacySupport,
+  googleAPISupport ? geolocationSupport,
+  mlsAPISupport ? geolocationSupport,
+  webrtcSupport ? !privacySupport && !stdenv.hostPlatform.isRiscV
 
-  # digital rights managemewnt
+    # digital rights managemewnt
 
-  # This flag controls whether Firefox will show the nagbar, that allows
-  # users at runtime the choice to enable Widevine CDM support when a site
-  # requests it.
-  # Controlling the nagbar and widevine CDM at runtime is possible by setting
-  # `browser.eme.ui.enabled` and `media.gmp-widevinecdm.enabled` accordingly
-, drmSupport ? true
+    # This flag controls whether Firefox will show the nagbar, that allows
+    # users at runtime the choice to enable Widevine CDM support when a site
+    # requests it.
+    # Controlling the nagbar and widevine CDM at runtime is possible by setting
+    # `browser.eme.ui.enabled` and `media.gmp-widevinecdm.enabled` accordingly
+  ,
+  drmSupport ? true
 
-  # As stated by Sylvestre Ledru (@sylvestre) on Nov 22, 2017 at
-  # https://github.com/NixOS/nixpkgs/issues/31843#issuecomment-346372756 we
-  # have permission to use the official firefox branding.
-  #
-  # For purposes of documentation the statement of @sylvestre:
-  # > As the person who did part of the work described in the LWN article
-  # > and release manager working for Mozilla, I can confirm the statement
-  # > that I made in
-  # > https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=815006
-  # >
-  # > @garbas shared with me the list of patches applied for the Nix package.
-  # > As they are just for portability and tiny modifications, they don't
-  # > alter the experience of the product. In parallel, Rok also shared the
-  # > build options. They seem good (even if I cannot judge the quality of the
-  # > packaging of the underlying dependencies like sqlite, png, etc).
-  # > Therefor, as long as you keep the patch queue sane and you don't alter
-  # > the experience of Firefox users, you won't have any issues using the
-  # > official branding.
-, enableOfficialBranding ? true }:
+    # As stated by Sylvestre Ledru (@sylvestre) on Nov 22, 2017 at
+    # https://github.com/NixOS/nixpkgs/issues/31843#issuecomment-346372756 we
+    # have permission to use the official firefox branding.
+    #
+    # For purposes of documentation the statement of @sylvestre:
+    # > As the person who did part of the work described in the LWN article
+    # > and release manager working for Mozilla, I can confirm the statement
+    # > that I made in
+    # > https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=815006
+    # >
+    # > @garbas shared with me the list of patches applied for the Nix package.
+    # > As they are just for portability and tiny modifications, they don't
+    # > alter the experience of the product. In parallel, Rok also shared the
+    # > build options. They seem good (even if I cannot judge the quality of the
+    # > packaging of the underlying dependencies like sqlite, png, etc).
+    # > Therefor, as long as you keep the patch queue sane and you don't alter
+    # > the experience of Firefox users, you won't have any issues using the
+    # > official branding.
+  ,
+  enableOfficialBranding ? true
+}:
 
 assert stdenv.cc.libc or null != null;
 assert pipewireSupport -> !waylandSupport || !webrtcSupport -> throw

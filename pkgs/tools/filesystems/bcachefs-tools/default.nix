@@ -1,7 +1,28 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, docutils, libuuid, libscrypt
-, libsodium, keyutils, liburcu, zlib, libaio, zstd, lz4, python3Packages
-, util-linux, udev, valgrind, nixosTests, makeWrapper, getopt, fuse3
-, fuseSupport ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  docutils,
+  libuuid,
+  libscrypt,
+  libsodium,
+  keyutils,
+  liburcu,
+  zlib,
+  libaio,
+  zstd,
+  lz4,
+  python3Packages,
+  util-linux,
+  udev,
+  valgrind,
+  nixosTests,
+  makeWrapper,
+  getopt,
+  fuse3,
+  fuseSupport ? false
+}:
 
 stdenv.mkDerivation {
   pname = "bcachefs-tools";

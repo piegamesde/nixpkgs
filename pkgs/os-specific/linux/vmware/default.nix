@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, kernel, kmod, gnugrep, vmware-workstation }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  kernel,
+  kmod,
+  gnugrep,
+  vmware-workstation,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vmware-modules";

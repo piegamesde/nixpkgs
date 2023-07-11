@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, nix-update-script, testers, sptlrx }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nix-update-script,
+  testers,
+  sptlrx,
+}:
 
 buildGoModule rec {
   pname = "sptlrx";

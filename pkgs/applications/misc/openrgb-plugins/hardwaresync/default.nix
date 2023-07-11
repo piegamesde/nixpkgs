@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitLab, fetchpatch, qtbase, openrgb, glib, libgtop
-, lm_sensors, qmake, pkg-config, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  qtbase,
+  openrgb,
+  glib,
+  libgtop,
+  lm_sensors,
+  qmake,
+  pkg-config,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openrgb-plugin-hardwaresync";

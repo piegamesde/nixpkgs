@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, gettext, which }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gettext,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "linux_logo";

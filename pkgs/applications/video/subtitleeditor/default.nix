@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, intltool, file
-, desktop-file-utils, enchant, gtk3, gtkmm3, gst_all_1, hicolor-icon-theme
-, libsigcxx, libxmlxx, xdg-utils, isocodes, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  intltool,
+  file,
+  desktop-file-utils,
+  enchant,
+  gtk3,
+  gtkmm3,
+  gst_all_1,
+  hicolor-icon-theme,
+  libsigcxx,
+  libxmlxx,
+  xdg-utils,
+  isocodes,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "subtitleeditor";

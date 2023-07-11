@@ -1,5 +1,17 @@
-{ lib, stdenv, buildPythonPackage, CoreServices, eventlet, fetchpatch, fetchPypi
-, flaky, pytest-timeout, pytestCheckHook, pythonOlder, pyyaml }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  CoreServices,
+  eventlet,
+  fetchpatch,
+  fetchPypi,
+  flaky,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "watchdog";

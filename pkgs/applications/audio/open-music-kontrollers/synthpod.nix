@@ -1,5 +1,19 @@
-{ callPackage, lilv, libjack2, alsa-lib, zita-alsa-pcmi, libxcb, xcbutilxrm
-, sratom, gtk2, qt5, libvterm-neovim, robodoc, cmake, ... }@args:
+{
+  callPackage,
+  lilv,
+  libjack2,
+  alsa-lib,
+  zita-alsa-pcmi,
+  libxcb,
+  xcbutilxrm,
+  sratom,
+  gtk2,
+  qt5,
+  libvterm-neovim,
+  robodoc,
+  cmake,
+  ...
+}@args:
 
 callPackage ./generic.nix (args // rec {
   pname = "synthpod";

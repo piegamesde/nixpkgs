@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config, cmake, gtest, valgrind
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  cmake,
+  gtest,
+  valgrind,
 }:
 
 stdenv.mkDerivation rec {

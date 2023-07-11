@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
-, poetry-core, tomlkit, typer, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  poetry-core,
+  tomlkit,
+  typer,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "pipenv-poetry-migrate";

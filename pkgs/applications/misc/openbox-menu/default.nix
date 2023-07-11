@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, gtk2, menu-cache }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glib,
+  gtk2,
+  menu-cache,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openbox-menu";

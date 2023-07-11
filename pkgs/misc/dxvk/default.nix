@@ -1,4 +1,11 @@
-{ lib, stdenvNoCC, fetchFromGitHub, pkgsCross, stdenv, bash }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  pkgsCross,
+  stdenv,
+  bash,
+}:
 
 stdenvNoCC.mkDerivation (finalAttrs:
   let

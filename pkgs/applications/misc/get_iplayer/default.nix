@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, atomicparsley, flvstreamer, ffmpeg, makeWrapper, perl
-, perlPackages, rtmpdump }:
+{
+  lib,
+  fetchFromGitHub,
+  atomicparsley,
+  flvstreamer,
+  ffmpeg,
+  makeWrapper,
+  perl,
+  perlPackages,
+  rtmpdump,
+}:
 
 perlPackages.buildPerlPackage rec {
   pname = "get_iplayer";

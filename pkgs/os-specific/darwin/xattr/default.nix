@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, buildPythonPackage, python, ed, unifdef }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPythonPackage,
+  python,
+  ed,
+  unifdef,
+}:
 
 buildPythonPackage rec {
   pname = "xattr";

@@ -1,6 +1,10 @@
 # This file defines the composition for CRAN (R) packages.
 
-{ R, pkgs, overrides }:
+{
+  R,
+  pkgs,
+  overrides,
+}:
 
 let
   inherit (pkgs) cacert fetchurl stdenv lib;
@@ -15,14 +19,26 @@ let
   #
   # some packages, e.g. cncaGUI, require X running while installation,
   # so that we use xvfb-run if requireX is true.
-  mkDerive = { mkHomepage, mkUrls, hydraPlatforms ? null }:
+  mkDerive = {
+      mkHomepage,
+      mkUrls,
+      hydraPlatforms ? null
+    }:
     args:
     let hydraPlatforms' = hydraPlatforms;
-    in lib.makeOverridable ({ name, version, sha256, depends ? [ ]
-      , doCheck ? true, requireX ? false, broken ? false
-      , platforms ? R.meta.platforms, hydraPlatforms ?
-        if hydraPlatforms' != null then hydraPlatforms' else platforms
-      , maintainers ? [ ] }:
+    in lib.makeOverridable ({
+        name,
+        version,
+        sha256,
+        depends ? [ ],
+        doCheck ? true,
+        requireX ? false,
+        broken ? false,
+        platforms ? R.meta.platforms,
+        hydraPlatforms ?
+          if hydraPlatforms' != null then hydraPlatforms' else platforms,
+        maintainers ? [ ]
+      }:
       buildRPackage {
         name = "${name}-${version}";
         src = fetchurl {
@@ -43,39 +59,67 @@ let
   # from the name, version, sha256, and optional per-package arguments above
   #
   deriveBioc = mkDerive {
-    mkHomepage = { name, biocVersion, ... }:
+    mkHomepage = {
+        name,
+        biocVersion,
+        ...
+      }:
       "https://bioconductor.org/packages/${biocVersion}/bioc/html/${name}.html";
-    mkUrls = { name, version, biocVersion }: [
-      "mirror://bioc/${biocVersion}/bioc/src/contrib/${name}_${version}.tar.gz"
-      "mirror://bioc/${biocVersion}/bioc/src/contrib/Archive/${name}/${name}_${version}.tar.gz"
-      "mirror://bioc/${biocVersion}/bioc/src/contrib/Archive/${name}_${version}.tar.gz"
-    ];
+    mkUrls = {
+        name,
+        version,
+        biocVersion,
+      }: [
+        "mirror://bioc/${biocVersion}/bioc/src/contrib/${name}_${version}.tar.gz"
+        "mirror://bioc/${biocVersion}/bioc/src/contrib/Archive/${name}/${name}_${version}.tar.gz"
+        "mirror://bioc/${biocVersion}/bioc/src/contrib/Archive/${name}_${version}.tar.gz"
+      ];
   };
   deriveBiocAnn = mkDerive {
-    mkHomepage = { name, ... }:
+    mkHomepage = {
+        name,
+        ...
+      }:
       "http://www.bioconductor.org/packages/${name}.html";
-    mkUrls = { name, version, biocVersion }:
+    mkUrls = {
+        name,
+        version,
+        biocVersion,
+      }:
       [
         "mirror://bioc/${biocVersion}/data/annotation/src/contrib/${name}_${version}.tar.gz"
       ];
     hydraPlatforms = [ ];
   };
   deriveBiocExp = mkDerive {
-    mkHomepage = { name, ... }:
+    mkHomepage = {
+        name,
+        ...
+      }:
       "http://www.bioconductor.org/packages/${name}.html";
-    mkUrls = { name, version, biocVersion }:
+    mkUrls = {
+        name,
+        version,
+        biocVersion,
+      }:
       [
         "mirror://bioc/${biocVersion}/data/experiment/src/contrib/${name}_${version}.tar.gz"
       ];
     hydraPlatforms = [ ];
   };
   deriveCran = mkDerive {
-    mkHomepage = { name, ... }:
+    mkHomepage = {
+        name,
+        ...
+      }:
       "https://cran.r-project.org/web/packages/${name}/";
-    mkUrls = { name, version }: [
-      "mirror://cran/${name}_${version}.tar.gz"
-      "mirror://cran/Archive/${name}/${name}_${version}.tar.gz"
-    ];
+    mkUrls = {
+        name,
+        version,
+      }: [
+        "mirror://cran/${name}_${version}.tar.gz"
+        "mirror://cran/Archive/${name}/${name}_${version}.tar.gz"
+      ];
   };
 
   # Overrides package definitions with nativeBuildInputs.

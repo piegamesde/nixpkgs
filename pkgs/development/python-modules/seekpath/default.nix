@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, numpy, future, spglib
-, glibcLocales, pytest, scipy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  numpy,
+  future,
+  spglib,
+  glibcLocales,
+  pytest,
+  scipy,
+}:
 
 buildPythonPackage rec {
   pname = "seekpath";

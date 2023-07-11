@@ -1,4 +1,10 @@
-{ qtModule, qtbase, qtdeclarative, qtwebsockets, openssl }:
+{
+  qtModule,
+  qtbase,
+  qtdeclarative,
+  qtwebsockets,
+  openssl,
+}:
 
 qtModule {
   pname = "qtwebchannel";

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
-, setuptools-scm, wrapt }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  wrapt,
+}:
 
 buildPythonPackage rec {
   pname = "deprecat";

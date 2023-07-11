@@ -1,11 +1,51 @@
-{ buildPythonPackage, cloudpickle, crcmod, cython, dill, fastavro, fasteners
-, fetchFromGitHub, fetchpatch, freezegun, grpcio, grpcio-tools, hdfs, httplib2
-, hypothesis, lib, mock, mypy-protobuf, numpy, objsize, orjson, pandas
-, parameterized, proto-plus, protobuf, psycopg2, pyarrow, pydot, pyhamcrest
-, pymongo, pytest-xdist, pytestCheckHook, python, python-dateutil
-, pythonRelaxDepsHook, pytz, pyyaml, regex, requests, requests-mock
-, scikit-learn, sqlalchemy, tenacity, testcontainers, typing-extensions
-, zstandard }:
+{
+  buildPythonPackage,
+  cloudpickle,
+  crcmod,
+  cython,
+  dill,
+  fastavro,
+  fasteners,
+  fetchFromGitHub,
+  fetchpatch,
+  freezegun,
+  grpcio,
+  grpcio-tools,
+  hdfs,
+  httplib2,
+  hypothesis,
+  lib,
+  mock,
+  mypy-protobuf,
+  numpy,
+  objsize,
+  orjson,
+  pandas,
+  parameterized,
+  proto-plus,
+  protobuf,
+  psycopg2,
+  pyarrow,
+  pydot,
+  pyhamcrest,
+  pymongo,
+  pytest-xdist,
+  pytestCheckHook,
+  python,
+  python-dateutil,
+  pythonRelaxDepsHook,
+  pytz,
+  pyyaml,
+  regex,
+  requests,
+  requests-mock,
+  scikit-learn,
+  sqlalchemy,
+  tenacity,
+  testcontainers,
+  typing-extensions,
+  zstandard,
+}:
 
 buildPythonPackage rec {
   pname = "apache-beam";

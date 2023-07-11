@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, qttools, qtmultimedia, liblo
-, gst_all_1, qmake, pkg-config, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  qttools,
+  qtmultimedia,
+  liblo,
+  gst_all_1,
+  qmake,
+  pkg-config,
+  wrapQtAppsHook,
+}:
 
 with stdenv;
 

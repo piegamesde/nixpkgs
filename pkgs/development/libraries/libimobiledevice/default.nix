@@ -1,6 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, gnutls, libgcrypt
-, libplist, libtasn1, libusbmuxd, libimobiledevice-glue, SystemConfiguration
-, CoreFoundation }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  gnutls,
+  libgcrypt,
+  libplist,
+  libtasn1,
+  libusbmuxd,
+  libimobiledevice-glue,
+  SystemConfiguration,
+  CoreFoundation,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libimobiledevice";

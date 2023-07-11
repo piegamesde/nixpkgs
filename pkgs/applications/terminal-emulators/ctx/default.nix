@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchgit, SDL2, alsa-lib, babl, curl, libdrm # Not documented
-, pkg-config, enableFb ? false, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  SDL2,
+  alsa-lib,
+  babl,
+  curl,
+  libdrm # Not documented
+  ,
+  pkg-config,
+  enableFb ? false,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ctx";

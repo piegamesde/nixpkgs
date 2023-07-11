@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, cmake, libtool, pkg-config, zlib
-, openssl, libevent, ncurses, ruby, msgpack, libssh, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  cmake,
+  libtool,
+  pkg-config,
+  zlib,
+  openssl,
+  libevent,
+  ncurses,
+  ruby,
+  msgpack,
+  libssh,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tmate-ssh-server";

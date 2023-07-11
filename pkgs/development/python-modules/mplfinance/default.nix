@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, matplotlib, pandas }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  matplotlib,
+  pandas,
+}:
 
 buildPythonPackage rec {
   pname = "mplfinance";

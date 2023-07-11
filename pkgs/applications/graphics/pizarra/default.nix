@@ -1,5 +1,17 @@
-{ lib, fetchFromGitLab, rustPlatform, cargo, pkg-config, binutils-unwrapped
-, gtk3-x11, atk, glib, librsvg, gdk-pixbuf, wrapGAppsHook }:
+{
+  lib,
+  fetchFromGitLab,
+  rustPlatform,
+  cargo,
+  pkg-config,
+  binutils-unwrapped,
+  gtk3-x11,
+  atk,
+  glib,
+  librsvg,
+  gdk-pixbuf,
+  wrapGAppsHook,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "pizarra";

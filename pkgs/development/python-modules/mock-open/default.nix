@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, pythonOlder, mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pythonOlder,
+  mock,
+}:
 
 buildPythonPackage rec {
   pname = "mock-open";

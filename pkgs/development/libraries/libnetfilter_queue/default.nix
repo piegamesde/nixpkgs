@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, libmnl, libnfnetlink }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libmnl,
+  libnfnetlink,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.0.5";

@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, flex, bison, pkg-config, glib, libxml2, popt, intltool
-, ORBit2, procps }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  flex,
+  bison,
+  pkg-config,
+  glib,
+  libxml2,
+  popt,
+  intltool,
+  ORBit2,
+  procps,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libbonobo";

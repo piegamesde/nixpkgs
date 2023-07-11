@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, bash, wget, makeWrapper }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  bash,
+  wget,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ipfetch";

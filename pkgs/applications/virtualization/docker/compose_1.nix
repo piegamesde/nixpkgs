@@ -1,7 +1,29 @@
-{ lib, buildPythonApplication, fetchPypi, pythonOlder, installShellFiles, mock
-, pytest, nose, pyyaml, colorama, docopt, dockerpty, docker, jsonschema
-, requests, six, texttable, websocket-client, cached-property, enum34
-, functools32, paramiko, distro, python-dotenv }:
+{
+  lib,
+  buildPythonApplication,
+  fetchPypi,
+  pythonOlder,
+  installShellFiles,
+  mock,
+  pytest,
+  nose,
+  pyyaml,
+  colorama,
+  docopt,
+  dockerpty,
+  docker,
+  jsonschema,
+  requests,
+  six,
+  texttable,
+  websocket-client,
+  cached-property,
+  enum34,
+  functools32,
+  paramiko,
+  distro,
+  python-dotenv,
+}:
 
 buildPythonApplication rec {
   version = "1.29.2";

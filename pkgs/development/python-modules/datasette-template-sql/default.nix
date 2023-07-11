@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, datasette, fetchFromGitHub, pytest-asyncio
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  datasette,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "datasette-template-sql";

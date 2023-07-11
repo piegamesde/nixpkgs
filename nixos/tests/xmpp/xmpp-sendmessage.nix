@@ -1,4 +1,9 @@
-{ writeScriptBin, writeText, python3, connectTo ? "localhost" }:
+{
+  writeScriptBin,
+  writeText,
+  python3,
+  connectTo ? "localhost"
+}:
 let
   dummyFile = writeText "dummy-file" ''
     Dear dog,

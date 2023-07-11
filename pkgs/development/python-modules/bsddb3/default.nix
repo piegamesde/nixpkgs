@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pkgs, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pkgs,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "bsddb3";

@@ -1,5 +1,14 @@
-{ lib, fetchFromGitLab, wrapGAppsHook, xorg, gobject-introspection, gtk3
-, libappindicator-gtk3, slop, python3 }:
+{
+  lib,
+  fetchFromGitLab,
+  wrapGAppsHook,
+  xorg,
+  gobject-introspection,
+  gtk3,
+  libappindicator-gtk3,
+  slop,
+  python3,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "screenkey";

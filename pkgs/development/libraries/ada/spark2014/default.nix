@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, gnat12, gnatcoll-core, gprbuild, python3, ocaml
-, ocamlPackages, makeWrapper }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  gnat12,
+  gnatcoll-core,
+  gprbuild,
+  python3,
+  ocaml,
+  ocamlPackages,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "spark2014";

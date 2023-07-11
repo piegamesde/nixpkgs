@@ -1,4 +1,9 @@
-{ lib, python3Packages, fetchurl, git }:
+{
+  lib,
+  python3Packages,
+  fetchurl,
+  git,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "nox";

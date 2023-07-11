@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, curl, libevent, libsearpc
-, libuuid, pkg-config, python3, sqlite, vala }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  curl,
+  libevent,
+  libsearpc,
+  libuuid,
+  pkg-config,
+  python3,
+  sqlite,
+  vala,
+}:
 
 stdenv.mkDerivation rec {
   pname = "seafile-shared";

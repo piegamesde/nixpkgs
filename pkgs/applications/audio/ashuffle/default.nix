@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, meson, ninja, libmpdclient
-, yaml-cpp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  meson,
+  ninja,
+  libmpdclient,
+  yaml-cpp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ashuffle";

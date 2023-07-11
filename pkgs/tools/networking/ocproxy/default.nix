@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, libevent }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  libevent,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.60";

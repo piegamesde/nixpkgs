@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, llvmPackages, makeWrapper, libiconv }:
+{
+  lib,
+  fetchFromGitHub,
+  llvmPackages,
+  makeWrapper,
+  libiconv,
+}:
 
 let inherit (llvmPackages) stdenv;
 in stdenv.mkDerivation rec {

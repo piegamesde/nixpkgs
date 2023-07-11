@@ -1,5 +1,18 @@
-{ lib, fetchFromGitHub, buildPythonPackage, cython, git, pkgconfig
-, setuptools-scm, future, numpy, pyusb, mock, pytestCheckHook, zipp }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  cython,
+  git,
+  pkgconfig,
+  setuptools-scm,
+  future,
+  numpy,
+  pyusb,
+  mock,
+  pytestCheckHook,
+  zipp,
+}:
 
 ## Usage
 # In NixOS, add the package to services.udev.packages for non-root plugdev

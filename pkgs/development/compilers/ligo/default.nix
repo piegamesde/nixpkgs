@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitLab, git, coq, ocamlPackages, cacert, ocaml-crunch
-, jq, mustache-go, yaml2json, tezos-rust-libs }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  git,
+  coq,
+  ocamlPackages,
+  cacert,
+  ocaml-crunch,
+  jq,
+  mustache-go,
+  yaml2json,
+  tezos-rust-libs,
+}:
 
 ocamlPackages.buildDunePackage rec {
   pname = "ligo";

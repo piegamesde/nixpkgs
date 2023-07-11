@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, python3, dict, glibcLocales }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3,
+  dict,
+  glibcLocales,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dict-db-wiktionary";

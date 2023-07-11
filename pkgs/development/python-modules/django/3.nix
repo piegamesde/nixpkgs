@@ -1,5 +1,18 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, substituteAll, geos39, gdal
-, asgiref, pytz, sqlparse, tzdata, pythonOlder, withGdal ? false }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  substituteAll,
+  geos39,
+  gdal,
+  asgiref,
+  pytz,
+  sqlparse,
+  tzdata,
+  pythonOlder,
+  withGdal ? false
+}:
 
 buildPythonPackage rec {
   pname = "django";

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, docbook2x, libarchive, libcap_ng
-, lzo, zstd, docbook_xml_dtd_45 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  docbook2x,
+  libarchive,
+  libcap_ng,
+  lzo,
+  zstd,
+  docbook_xml_dtd_45,
+}:
 
 stdenv.mkDerivation rec {
   pname = "icecream";

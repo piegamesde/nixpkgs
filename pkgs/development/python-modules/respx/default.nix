@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, httpcore, httpx, flask
-, pytest-asyncio, pytestCheckHook, starlette, trio }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  httpcore,
+  httpx,
+  flask,
+  pytest-asyncio,
+  pytestCheckHook,
+  starlette,
+  trio,
+}:
 
 buildPythonPackage rec {
   pname = "respx";

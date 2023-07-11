@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, cabextract }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cabextract,
+}:
 
 let
   fonts = [
@@ -60,7 +65,10 @@ in stdenv.mkDerivation {
   pname = "corefonts";
   version = "1";
 
-  exes = map ({ name, sha256 }:
+  exes = map ({
+      name,
+      sha256,
+    }:
     fetchurl {
       url = "mirror://sourceforge/corefonts/${name}32.exe";
       inherit sha256;

@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
-, pytest-asyncio, pretend, freezegun, hatch-fancy-pypi-readme, hatch-vcs
-, hatchling, simplejson, typing-extensions, pythonAtLeast }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  pytest-asyncio,
+  pretend,
+  freezegun,
+  hatch-fancy-pypi-readme,
+  hatch-vcs,
+  hatchling,
+  simplejson,
+  typing-extensions,
+  pythonAtLeast,
+}:
 
 buildPythonPackage rec {
   pname = "structlog";

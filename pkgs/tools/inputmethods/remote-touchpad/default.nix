@@ -1,4 +1,12 @@
-{ buildGoModule, fetchFromGitHub, lib, libXi, libXrandr, libXt, libXtst }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  libXi,
+  libXrandr,
+  libXt,
+  libXtst,
+}:
 
 buildGoModule rec {
   pname = "remote-touchpad";

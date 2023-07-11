@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, python3, fuse, pkg-config, libpcap, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  fuse,
+  pkg-config,
+  libpcap,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "moosefs";

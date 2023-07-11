@@ -1,5 +1,12 @@
-{ stdenv, lib, fetchurl, makeWrapper, makeDesktopItem, copyDesktopItems
-, electron }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  electron,
+}:
 
 let
   version = "0.13.0";

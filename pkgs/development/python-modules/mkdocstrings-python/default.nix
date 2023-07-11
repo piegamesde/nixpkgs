@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, griffe, mkdocs-material
-, mkdocstrings, pdm-pep517, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  griffe,
+  mkdocs-material,
+  mkdocstrings,
+  pdm-pep517,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "mkdocstrings-python";

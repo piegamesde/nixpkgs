@@ -1,5 +1,15 @@
-{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
-, pydantic, pytestCheckHook, pytest-asyncio, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pydantic,
+  pytestCheckHook,
+  pytest-asyncio,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pytraccar";

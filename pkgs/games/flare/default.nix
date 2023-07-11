@@ -1,4 +1,10 @@
-{ lib, buildEnv, callPackage, makeWrapper, Cocoa }:
+{
+  lib,
+  buildEnv,
+  callPackage,
+  makeWrapper,
+  Cocoa,
+}:
 
 buildEnv {
   name = "flare-1.14";

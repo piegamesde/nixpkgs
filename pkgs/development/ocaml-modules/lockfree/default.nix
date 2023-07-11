@@ -1,4 +1,11 @@
-{ lib, fetchurl, buildDunePackage, dscheck, qcheck, qcheck-alcotest }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  dscheck,
+  qcheck,
+  qcheck-alcotest,
+}:
 
 buildDunePackage rec {
   pname = "lockfree";

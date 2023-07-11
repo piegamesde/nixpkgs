@@ -1,4 +1,8 @@
-{ stdenv, fetchFromGitHub, fetchpatch }:
+{
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+}:
 
 # This file is responsible for fetching the sage source and adding necessary patches.
 # It does not actually build anything, it just copies the patched sources to $out.
@@ -13,8 +17,15 @@ let
   # We don't use sage's own build system (which builds all its
   # dependencies), so we exclude changes to "build/" from patches by
   # default to avoid conflicts.
-  fetchSageDiff = { base, name, rev, sha256, squashed ? false
-    , excludes ? [ "build/*" ], ... }@args:
+  fetchSageDiff = {
+      base,
+      name,
+      rev,
+      sha256,
+      squashed ? false,
+      excludes ? [ "build/*" ],
+      ...
+    }@args:
     (fetchpatch ({
       inherit name sha256 excludes;
 

@@ -1,4 +1,11 @@
-{ buildPythonPackage, fetchFromGitHub, callPackage, lib, jmp, tabulate, jaxlib
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  callPackage,
+  lib,
+  jmp,
+  tabulate,
+  jaxlib,
 }:
 
 buildPythonPackage rec {

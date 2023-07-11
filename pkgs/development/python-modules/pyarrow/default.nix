@@ -1,7 +1,26 @@
-{ lib, stdenv, buildPythonPackage, python, pythonAtLeast, pythonOlder, arrow-cpp
-, cffi, cloudpickle, cmake, cython, fsspec, hypothesis, numpy, pandas
-, pytestCheckHook, pytest-lazy-fixture, pkg-config, scipy, fetchpatch
-, setuptools-scm }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  python,
+  pythonAtLeast,
+  pythonOlder,
+  arrow-cpp,
+  cffi,
+  cloudpickle,
+  cmake,
+  cython,
+  fsspec,
+  hypothesis,
+  numpy,
+  pandas,
+  pytestCheckHook,
+  pytest-lazy-fixture,
+  pkg-config,
+  scipy,
+  fetchpatch,
+  setuptools-scm,
+}:
 
 let zero_or_one = cond: if cond then 1 else 0;
 

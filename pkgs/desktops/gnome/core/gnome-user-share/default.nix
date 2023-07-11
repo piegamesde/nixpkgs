@@ -1,5 +1,20 @@
-{ stdenv, lib, gettext, meson, ninja, fetchurl, apacheHttpd, pkg-config, glib
-, libxml2, systemd, wrapGAppsHook, itstool, mod_dnssd, gnome }:
+{
+  stdenv,
+  lib,
+  gettext,
+  meson,
+  ninja,
+  fetchurl,
+  apacheHttpd,
+  pkg-config,
+  glib,
+  libxml2,
+  systemd,
+  wrapGAppsHook,
+  itstool,
+  mod_dnssd,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-user-share";

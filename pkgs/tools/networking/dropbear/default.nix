@@ -1,6 +1,14 @@
-{ lib, stdenv, fetchurl, glibc, zlib, libxcrypt
-, enableStatic ? stdenv.hostPlatform.isStatic, enableSCP ? false
-, sftpPath ? "/run/current-system/sw/libexec/sftp-server" }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  glibc,
+  zlib,
+  libxcrypt,
+  enableStatic ? stdenv.hostPlatform.isStatic,
+  enableSCP ? false,
+  sftpPath ? "/run/current-system/sw/libexec/sftp-server"
+}:
 
 let
   # NOTE: DROPBEAR_PATH_SSH_PROGRAM is only necessary when enableSCP is true,

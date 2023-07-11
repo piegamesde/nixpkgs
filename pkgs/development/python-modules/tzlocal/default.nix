@@ -1,5 +1,13 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, pytz-deprecation-shim
-, pytest-mock, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  pytz-deprecation-shim,
+  pytest-mock,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "tzlocal";

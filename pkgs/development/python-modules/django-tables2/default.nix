@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, django, tablib, python
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  django,
+  tablib,
+  python,
 }:
 
 buildPythonPackage rec {

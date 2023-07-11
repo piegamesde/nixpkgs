@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, inkscape, xcursorgen }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  inkscape,
+  xcursorgen,
+}:
 stdenv.mkDerivation {
   pname = "volantes-cursors";
   version = "2022-08-27";

@@ -1,5 +1,14 @@
-{ stdenv, lib, google-cloud-sdk, system, snapshotPath, autoPatchelfHook, python3
-, libxcrypt-legacy, ... }:
+{
+  stdenv,
+  lib,
+  google-cloud-sdk,
+  system,
+  snapshotPath,
+  autoPatchelfHook,
+  python3,
+  libxcrypt-legacy,
+  ...
+}:
 
 let
   # Mapping from GCS component architecture names to Nix archictecture names
@@ -35,15 +44,25 @@ let
   # `snapshot`, but only contains a single component.  These files are
   # installed with google-cloud-sdk to let it know which components are
   # available.
-  snapshotFromComponent = { component, revision, schema_version, version }:
+  snapshotFromComponent = {
+      component,
+      revision,
+      schema_version,
+      version,
+    }:
     builtins.toJSON {
       components = [ component ];
       inherit revision schema_version version;
     };
 
   # Generate a set of components from a JSON file describing these components
-  componentsFromSnapshot =
-    { components, revision, schema_version, version, ... }:
+  componentsFromSnapshot = {
+      components,
+      revision,
+      schema_version,
+      version,
+      ...
+    }:
     lib.fix (self:
       builtins.listToAttrs (builtins.map (component: {
         name = component.id;
@@ -58,7 +77,12 @@ let
     # Component derivations that can be used as dependencies
     components:
     # This component's snapshot
-    { component, revision, schema_version, version }@attrs:
+    {
+      component,
+      revision,
+      schema_version,
+      version,
+    }@attrs:
     let
       baseUrl = builtins.dirOf schema_version.url;
       # Architectures supported by this component.  Defaults to all available
@@ -92,19 +116,28 @@ let
     builtins.filter (drv: builtins.elem system drv.meta.platforms);
 
   # Make a google-cloud-sdk component
-  mkComponent = { pname, version
-    # Source tarball, if any
-    , src ? ""
-      # Checksum for the source tarball, if there is a source
-    , sha256 ? ""
-      # Other components this one depends on
-    , dependencies ? [ ]
-      # Short text describing the component
-    , description ? ""
-      # Platforms supported
-    , platforms ? lib.platforms.all
-      # The snapshot corresponding to this component
-    , snapshot }:
+  mkComponent = {
+      pname,
+      version
+      # Source tarball, if any
+      ,
+      src ? ""
+        # Checksum for the source tarball, if there is a source
+      ,
+      sha256 ? ""
+        # Other components this one depends on
+      ,
+      dependencies ? [ ]
+        # Short text describing the component
+      ,
+      description ? ""
+        # Platforms supported
+      ,
+      platforms ? lib.platforms.all
+        # The snapshot corresponding to this component
+      ,
+      snapshot,
+    }:
     stdenv.mkDerivation {
       inherit pname version snapshot;
       src = lib.optionalString (src != "") (builtins.fetchurl {

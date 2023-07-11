@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, gitMinimal, docutils }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gitMinimal,
+  docutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "git-hub";

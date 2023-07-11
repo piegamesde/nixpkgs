@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, tcl, usb-modeswitch }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  tcl,
+  usb-modeswitch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "usb-modeswitch-data";

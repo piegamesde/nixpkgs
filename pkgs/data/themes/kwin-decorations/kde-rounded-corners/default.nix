@@ -1,5 +1,15 @@
-{ stdenv, fetchFromGitHub, cmake, extra-cmake-modules, wrapQtAppsHook, kwin
-, kdelibs4support, libepoxy, libxcb, lib }:
+{
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  wrapQtAppsHook,
+  kwin,
+  kdelibs4support,
+  libepoxy,
+  libxcb,
+  lib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kde-rounded-corners";

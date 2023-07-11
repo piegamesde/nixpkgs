@@ -1,4 +1,10 @@
-{ lib, stdenv, python3, python3Minimal, runCommand }:
+{
+  lib,
+  stdenv,
+  python3,
+  python3Minimal,
+  runCommand,
+}:
 
 let
   # python3Minimal can't be overridden with packages on Darwin, due to a missing framework.

@@ -1,4 +1,11 @@
-{ lib, pythonAtLeast, buildPythonPackage, fetchPypi, nose, coverage }:
+{
+  lib,
+  pythonAtLeast,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  coverage,
+}:
 
 buildPythonPackage rec {
   pname = "globre";

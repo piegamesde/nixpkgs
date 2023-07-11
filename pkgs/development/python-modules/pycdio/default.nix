@@ -1,4 +1,12 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, setuptools, nose, pkgs }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  nose,
+  pkgs,
+}:
 
 buildPythonPackage rec {
   pname = "pycdio";

@@ -1,4 +1,7 @@
-{ lib, ... }: {
+{
+  lib,
+  ...
+}: {
   options = {
     proto = lib.mkOption {
       type = lib.types.enum [ "h2" "http/1.1" ];

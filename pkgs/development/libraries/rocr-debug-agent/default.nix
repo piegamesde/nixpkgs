@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, hip, git, rocdbgapi
-, rocm-runtime, elfutils }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  cmake,
+  hip,
+  git,
+  rocdbgapi,
+  rocm-runtime,
+  elfutils,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocr-debug-agent";

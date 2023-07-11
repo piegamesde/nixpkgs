@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, libX11, libXt, libXext, libXaw }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
+  libXt,
+  libXext,
+  libXaw,
+}:
 
 stdenv.mkDerivation rec {
   pname = "darcnes";

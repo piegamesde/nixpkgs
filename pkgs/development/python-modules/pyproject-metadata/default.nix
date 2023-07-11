@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, packaging, pytestCheckHook, pythonOlder
-, setuptools, tomli, wheel }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  packaging,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  tomli,
+  wheel,
+}:
 
 buildPythonPackage rec {
   pname = "pyproject-metadata";

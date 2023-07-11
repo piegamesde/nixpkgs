@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, ocamlPackages, makeWrapper, libGLU, libGL, freeglut
-, mpfr, gmp, pkgsHostTarget }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocamlPackages,
+  makeWrapper,
+  libGLU,
+  libGL,
+  freeglut,
+  mpfr,
+  gmp,
+  pkgsHostTarget,
+}:
 
 let inherit (pkgsHostTarget.targetPackages.stdenv) cc;
 

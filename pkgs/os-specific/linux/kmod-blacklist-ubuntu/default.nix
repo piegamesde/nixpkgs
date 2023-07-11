@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 let version = "28-1ubuntu4"; # impish 2021-06-24
 

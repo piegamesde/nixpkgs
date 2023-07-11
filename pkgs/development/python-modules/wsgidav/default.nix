@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, cheroot, fetchFromGitHub, pytestCheckHook
-, pythonOlder, defusedxml, jinja2, json5, python-pam, pyyaml, requests
-, setuptools, webtest }:
+{
+  lib,
+  buildPythonPackage,
+  cheroot,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  defusedxml,
+  jinja2,
+  json5,
+  python-pam,
+  pyyaml,
+  requests,
+  setuptools,
+  webtest,
+}:
 
 buildPythonPackage rec {
   pname = "wsgidav";

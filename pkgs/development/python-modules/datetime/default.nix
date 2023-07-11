@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytz, zope_interface }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pytz,
+  zope_interface,
+}:
 
 buildPythonPackage rec {
   pname = "datetime";

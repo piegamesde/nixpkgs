@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, gcc-arm-embedded, pkg-config, python3, hidapi
-, libftdi1, libusb1 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  gcc-arm-embedded,
+  pkg-config,
+  python3,
+  hidapi,
+  libftdi1,
+  libusb1,
+}:
 
 stdenv.mkDerivation rec {
   pname = "blackmagic";

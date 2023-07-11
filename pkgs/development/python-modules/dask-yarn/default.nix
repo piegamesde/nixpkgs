@@ -1,5 +1,15 @@
-{ lib, stdenv, buildPythonPackage, dask, distributed, fetchFromGitHub, grpcio
-, pytestCheckHook, pythonOlder, skein }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  dask,
+  distributed,
+  fetchFromGitHub,
+  grpcio,
+  pytestCheckHook,
+  pythonOlder,
+  skein,
+}:
 
 buildPythonPackage rec {
   pname = "dask-yarn";

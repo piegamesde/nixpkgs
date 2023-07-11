@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+}:
 
 buildPythonPackage rec {
   pname = "dpcontracts";

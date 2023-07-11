@@ -1,5 +1,16 @@
-{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, geojson
-, haversine, mock, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  geojson,
+  haversine,
+  mock,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aio-geojson-client";

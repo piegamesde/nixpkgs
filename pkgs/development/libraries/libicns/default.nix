@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, libpng, openjpeg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+  libpng,
+  openjpeg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libicns";

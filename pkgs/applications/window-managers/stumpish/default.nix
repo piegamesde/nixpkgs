@@ -1,4 +1,13 @@
-{ lib, stdenv, substituteAll, fetchFromGitHub, gnused, ncurses, xorg, rlwrap }:
+{
+  lib,
+  stdenv,
+  substituteAll,
+  fetchFromGitHub,
+  gnused,
+  ncurses,
+  xorg,
+  rlwrap,
+}:
 
 stdenv.mkDerivation {
   pname = "stumpish";

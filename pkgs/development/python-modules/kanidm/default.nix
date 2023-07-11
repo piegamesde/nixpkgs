@@ -1,13 +1,26 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  pythonOlder
 
-# build
-, poetry-core
+  # build
+  ,
+  poetry-core
 
-# propagates
-, aiohttp, pydantic, toml
+  # propagates
+  ,
+  aiohttp,
+  pydantic,
+  toml
 
-# tests
-, pytest-asyncio, pytest-mock, pytestCheckHook }:
+  # tests
+  ,
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
+}:
 
 let
   pname = "kanidm";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, gettext, emacs }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gettext,
+  emacs,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cflow";

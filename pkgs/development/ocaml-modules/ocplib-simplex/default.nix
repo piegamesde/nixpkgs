@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, ocaml, findlib }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  ocaml,
+  findlib,
+}:
 
 let
   pname = "ocplib-simplex";

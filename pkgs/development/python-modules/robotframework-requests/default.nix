@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, lxml, pytestCheckHook, pythonOlder
-, requests, robotframework }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  lxml,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  robotframework,
+}:
 
 buildPythonPackage rec {
   pname = "robotframework-requests";

@@ -1,5 +1,12 @@
-{ mkDerivation, lib, extra-cmake-modules, akonadi-calendar, boost
-, kontactinterface, krunner }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  akonadi-calendar,
+  boost,
+  kontactinterface,
+  krunner,
+}:
 
 mkDerivation {
   pname = "zanshin";

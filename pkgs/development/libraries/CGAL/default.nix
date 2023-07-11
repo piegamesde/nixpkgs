@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, gmp, mpfr }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  gmp,
+  mpfr,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cgal";

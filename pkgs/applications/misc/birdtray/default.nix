@@ -1,6 +1,16 @@
-{ mkDerivation, lib, fetchFromGitHub
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub
 
-, cmake, pkg-config, qtbase, qttools, qtx11extras, qttranslations }:
+  ,
+  cmake,
+  pkg-config,
+  qtbase,
+  qttools,
+  qtx11extras,
+  qttranslations,
+}:
 
 mkDerivation rec {
   pname = "birdtray";

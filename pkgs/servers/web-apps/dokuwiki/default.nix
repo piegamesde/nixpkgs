@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, writeText, nixosTests, dokuwiki }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  writeText,
+  nixosTests,
+  dokuwiki,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dokuwiki";
@@ -50,9 +57,15 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    combine = { basePackage ? dokuwiki, plugins ? [ ], templates ? [ ]
-      , localConfig ? null, pluginsConfig ? null, aclConfig ? null
-      , pname ? (p: "${p.pname}-combined") }:
+    combine = {
+        basePackage ? dokuwiki,
+        plugins ? [ ],
+        templates ? [ ],
+        localConfig ? null,
+        pluginsConfig ? null,
+        aclConfig ? null,
+        pname ? (p: "${p.pname}-combined")
+      }:
       let isNotEmpty = x: lib.optionalString (!builtins.elem x [ null "" ]);
       in basePackage.overrideAttrs (prev: {
         pname = if builtins.isFunction pname then pname prev else pname;

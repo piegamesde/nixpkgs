@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitLab, substituteAll, installShellFiles, qmake, qttools
-, qtsvg, qttranslations, qtxmlpatterns, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  substituteAll,
+  installShellFiles,
+  qmake,
+  qttools,
+  qtsvg,
+  qttranslations,
+  qtxmlpatterns,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "valentina";

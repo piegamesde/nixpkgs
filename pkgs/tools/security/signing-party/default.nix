@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchFromGitLab, autoconf, automake, makeWrapper, python3, perl
-, perlPackages, libmd, gnupg, which, getopt, libpaper, nettools, qprint
-, sendmailPath ? "/run/wrappers/bin/sendmail" }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  autoconf,
+  automake,
+  makeWrapper,
+  python3,
+  perl,
+  perlPackages,
+  libmd,
+  gnupg,
+  which,
+  getopt,
+  libpaper,
+  nettools,
+  qprint,
+  sendmailPath ? "/run/wrappers/bin/sendmail"
+}:
 
 let
   # All runtime dependencies from the CPAN graph:

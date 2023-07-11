@@ -1,4 +1,8 @@
-{ lib, stdenv, dotnetfx }:
+{
+  lib,
+  stdenv,
+  dotnetfx,
+}:
 
 let
   dotnetenv = {

@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, ninja, cmake, python3, llvmPackages
-, spirv-llvm-translator }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ninja,
+  cmake,
+  python3,
+  llvmPackages,
+  spirv-llvm-translator,
+}:
 
 let
   llvm = llvmPackages.llvm;

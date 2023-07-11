@@ -1,8 +1,32 @@
-{ lib, buildPythonPackage, coloredlogs, deprecation, fetchFromGitHub
-, ghostscript, img2pdf, importlib-resources, jbig2enc, packaging, pdfminer-six
-, pikepdf, pillow, pluggy, pngquant, pytest-xdist, pytestCheckHook, pythonOlder
-, reportlab, setuptools, setuptools-scm, substituteAll, tesseract, tqdm
-, typing-extensions, unpaper, installShellFiles }:
+{
+  lib,
+  buildPythonPackage,
+  coloredlogs,
+  deprecation,
+  fetchFromGitHub,
+  ghostscript,
+  img2pdf,
+  importlib-resources,
+  jbig2enc,
+  packaging,
+  pdfminer-six,
+  pikepdf,
+  pillow,
+  pluggy,
+  pngquant,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  reportlab,
+  setuptools,
+  setuptools-scm,
+  substituteAll,
+  tesseract,
+  tqdm,
+  typing-extensions,
+  unpaper,
+  installShellFiles,
+}:
 
 buildPythonPackage rec {
   pname = "ocrmypdf";

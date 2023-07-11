@@ -1,9 +1,36 @@
-{ mkDerivation, lib, extra-cmake-modules, kdoctools, ki18n, xcb-util-cursor
-, kconfig, kcoreaddons, kdbusaddons, kdeclarative, kio, kipi-plugins
-, knotifications, kscreen, kwidgetsaddons, kwindowsystem, kxmlgui, libkipi
-, qtx11extras, knewstuff, kwayland, qttools, kcolorpicker, kimageannotator
-, qcoro, qtquickcontrols2, wayland, plasma-wayland-protocols, kpurpose
-, kpipewire, wrapGAppsHook }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  ki18n,
+  xcb-util-cursor,
+  kconfig,
+  kcoreaddons,
+  kdbusaddons,
+  kdeclarative,
+  kio,
+  kipi-plugins,
+  knotifications,
+  kscreen,
+  kwidgetsaddons,
+  kwindowsystem,
+  kxmlgui,
+  libkipi,
+  qtx11extras,
+  knewstuff,
+  kwayland,
+  qttools,
+  kcolorpicker,
+  kimageannotator,
+  qcoro,
+  qtquickcontrols2,
+  wayland,
+  plasma-wayland-protocols,
+  kpurpose,
+  kpipewire,
+  wrapGAppsHook,
+}:
 
 mkDerivation {
   pname = "spectacle";

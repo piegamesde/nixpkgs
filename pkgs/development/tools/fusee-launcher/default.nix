@@ -1,4 +1,11 @@
-{ lib, stdenv, python3Packages, python3, fetchFromGitHub, pkgsCross, makeWrapper
+{
+  lib,
+  stdenv,
+  python3Packages,
+  python3,
+  fetchFromGitHub,
+  pkgsCross,
+  makeWrapper,
 }:
 
 stdenv.mkDerivation {

@@ -1,6 +1,9 @@
 # vendored from src/get-nix-license.nix
 
-{ lib, writeText }:
+{
+  lib,
+  writeText,
+}:
 
 let
   inherit (lib)

@@ -1,4 +1,6 @@
-{ stdenv }:
+{
+  stdenv,
+}:
 # srcOnly is a utility builder that only fetches and unpacks the given `src`,
 # maybe pathings it in the process with the optional `patches` and
 # `buildInputs` attributes.

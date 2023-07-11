@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, gmp4, ncurses, zlib, clang }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gmp4,
+  ncurses,
+  zlib,
+  clang,
+}:
 
 let
   libPath =

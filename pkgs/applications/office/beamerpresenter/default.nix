@@ -1,11 +1,33 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, wrapGAppsHook, wrapQtAppsHook
-, gst_all_1, qtbase, qtmultimedia, qttools, qtwayland, zlib
-# only required when using poppler
-, poppler
-# only required when using mupdf
-, freetype, gumbo, jbig2dec, mupdf, openjpeg
-# choose renderer: mupdf or poppler or both (not recommended)
-, usePoppler ? false, useMupdf ? true, useExternalRenderer ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  wrapGAppsHook,
+  wrapQtAppsHook,
+  gst_all_1,
+  qtbase,
+  qtmultimedia,
+  qttools,
+  qtwayland,
+  zlib
+  # only required when using poppler
+  ,
+  poppler
+  # only required when using mupdf
+  ,
+  freetype,
+  gumbo,
+  jbig2dec,
+  mupdf,
+  openjpeg
+  # choose renderer: mupdf or poppler or both (not recommended)
+  ,
+  usePoppler ? false,
+  useMupdf ? true,
+  useExternalRenderer ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "beamerpresenter";

@@ -1,5 +1,14 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, installShellFiles, libxml2
-, openssl, stdenv, curl }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  installShellFiles,
+  libxml2,
+  openssl,
+  stdenv,
+  curl,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "hurl";

@@ -1,6 +1,16 @@
-{ lib, mkCoqDerivation, recurseIntoAttrs, mathcomp, mathcomp-finmap
-, mathcomp-bigenough, hierarchy-builder, single ? false, coqPackages, coq
-, version ? null }@args:
+{
+  lib,
+  mkCoqDerivation,
+  recurseIntoAttrs,
+  mathcomp,
+  mathcomp-finmap,
+  mathcomp-bigenough,
+  hierarchy-builder,
+  single ? false,
+  coqPackages,
+  coq,
+  version ? null
+}@args:
 with builtins // lib;
 let
   repo = "analysis";

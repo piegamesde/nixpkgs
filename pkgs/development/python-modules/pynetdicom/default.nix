@@ -1,5 +1,14 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pydicom, pyfakefs
-, pytestCheckHook, sqlalchemy, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pydicom,
+  pyfakefs,
+  pytestCheckHook,
+  sqlalchemy,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pynetdicom";

@@ -1,7 +1,30 @@
-{ config, lib, fetchurl, callPackage, vscode-utils, asciidoctor, nodePackages
-, python3Packages, jdk, llvmPackages_8, llvmPackages_14, nixpkgs-fmt, protobuf
-, jq, shellcheck, moreutils, racket, clojure-lsp, alejandra, millet, shfmt
-, typst-lsp, autoPatchelfHook, zlib, stdenv }:
+{
+  config,
+  lib,
+  fetchurl,
+  callPackage,
+  vscode-utils,
+  asciidoctor,
+  nodePackages,
+  python3Packages,
+  jdk,
+  llvmPackages_8,
+  llvmPackages_14,
+  nixpkgs-fmt,
+  protobuf,
+  jq,
+  shellcheck,
+  moreutils,
+  racket,
+  clojure-lsp,
+  alejandra,
+  millet,
+  shfmt,
+  typst-lsp,
+  autoPatchelfHook,
+  zlib,
+  stdenv,
+}:
 
 let
   inherit (vscode-utils) buildVscodeMarketplaceExtension;

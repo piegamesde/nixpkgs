@@ -1,5 +1,20 @@
-{ stdenv, fetchurl, fetchzip, lib, emptyDirectory, linkFarm, symlinkJoin, jam
-, libcxx, libcxxabi, openssl, xcbuild, CoreServices, Foundation, Security }:
+{
+  stdenv,
+  fetchurl,
+  fetchzip,
+  lib,
+  emptyDirectory,
+  linkFarm,
+  symlinkJoin,
+  jam,
+  libcxx,
+  libcxxabi,
+  openssl,
+  xcbuild,
+  CoreServices,
+  Foundation,
+  Security,
+}:
 
 let
   opensslStatic = openssl.override { static = true; };

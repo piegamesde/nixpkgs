@@ -1,4 +1,10 @@
-{ fetchzip, lib, rustPlatform, installShellFiles, makeWrapper }:
+{
+  fetchzip,
+  lib,
+  rustPlatform,
+  installShellFiles,
+  makeWrapper,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "helix";

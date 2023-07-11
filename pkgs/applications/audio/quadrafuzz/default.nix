@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, boost, cairo, lv2, pkg-config }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  boost,
+  cairo,
+  lv2,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "quadrafuzz";

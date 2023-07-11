@@ -1,5 +1,12 @@
-{ lib, fetchPypi, buildPythonPackage, pytestCheckHook, isPy3k
-, backports_functools_lru_cache, setuptools }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pytestCheckHook,
+  isPy3k,
+  backports_functools_lru_cache,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "wcwidth";

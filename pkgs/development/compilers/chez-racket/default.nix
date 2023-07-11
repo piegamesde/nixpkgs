@@ -1,4 +1,8 @@
-{ stdenv, buildPackages, callPackage }:
+{
+  stdenv,
+  buildPackages,
+  callPackage,
+}:
 
 let
   chezArch = if stdenv.hostPlatform.isAarch then

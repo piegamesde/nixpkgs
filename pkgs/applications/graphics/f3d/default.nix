@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, vtk_9, libX11, libGL, Cocoa, OpenGL }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  vtk_9,
+  libX11,
+  libGL,
+  Cocoa,
+  OpenGL,
+}:
 
 stdenv.mkDerivation rec {
   pname = "f3d";

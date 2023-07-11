@@ -1,5 +1,12 @@
-{ lib, ansicolors, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder
-, textwrap3 }:
+{
+  lib,
+  ansicolors,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
+  textwrap3,
+}:
 
 buildPythonPackage rec {
   pname = "ansiwrap";

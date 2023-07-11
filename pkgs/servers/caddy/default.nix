@@ -1,5 +1,12 @@
-{ lib, buildGoModule, fetchFromGitHub, nixosTests, caddy, testers
-, installShellFiles }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nixosTests,
+  caddy,
+  testers,
+  installShellFiles,
+}:
 let
   version = "2.6.4";
   dist = fetchFromGitHub {

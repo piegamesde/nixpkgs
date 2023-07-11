@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchpatch, fetchFromGitHub, ncurses, python3, cunit, dpdk
-, libaio, libbsd, libuuid, numactl, openssl, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchFromGitHub,
+  ncurses,
+  python3,
+  cunit,
+  dpdk,
+  libaio,
+  libbsd,
+  libuuid,
+  numactl,
+  openssl,
+  fetchurl,
+}:
 
 let
   # The old version has some CVEs howver they should not affect SPDK's usage of the framework: https://github.com/NixOS/nixpkgs/pull/171648#issuecomment-1121964568

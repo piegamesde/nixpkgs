@@ -1,5 +1,14 @@
-{ lib, clangStdenv, fetchFromGitHub, autoreconfHook, pkg-config
-, libimobiledevice, libusb1, avahi, clang }:
+{
+  lib,
+  clangStdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  libimobiledevice,
+  libusb1,
+  avahi,
+  clang,
+}:
 let
 
   libgeneral = clangStdenv.mkDerivation rec {

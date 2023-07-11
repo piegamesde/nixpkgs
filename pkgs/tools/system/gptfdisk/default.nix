@@ -1,4 +1,13 @@
-{ fetchurl, lib, stdenv, libuuid, popt, icu, ncurses, nixosTests }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  libuuid,
+  popt,
+  icu,
+  ncurses,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gptfdisk";

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, kernel }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  kernel,
+}:
 
 stdenv.mkDerivation rec {
   name = "it87-${version}-${kernel.version}";

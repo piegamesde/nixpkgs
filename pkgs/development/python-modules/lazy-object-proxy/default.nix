@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "lazy-object-proxy";

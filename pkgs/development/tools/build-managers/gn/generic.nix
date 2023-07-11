@@ -1,6 +1,20 @@
-{ stdenv, lib, fetchgit, darwin, writeText, ninja, python3, ... }:
+{
+  stdenv,
+  lib,
+  fetchgit,
+  darwin,
+  writeText,
+  ninja,
+  python3,
+  ...
+}:
 
-{ rev, revNum, version, sha256 }:
+{
+  rev,
+  revNum,
+  version,
+  sha256,
+}:
 
 let
   revShort = builtins.substring 0 7 rev;

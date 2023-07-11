@@ -1,4 +1,12 @@
-{ lib, fetchFromGitHub, python3, dbus, gnupg, coreutils, nixosTests }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  dbus,
+  gnupg,
+  coreutils,
+  nixosTests,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "pass-secret-service";

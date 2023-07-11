@@ -1,4 +1,10 @@
-{ lib, buildPythonApplication, fetchPypi, pythonOlder, requests }:
+{
+  lib,
+  buildPythonApplication,
+  fetchPypi,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonApplication rec {
   pname = "apc-temp-fetch";

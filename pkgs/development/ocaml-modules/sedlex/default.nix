@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, fetchurl, buildDunePackage, ocaml, gen, ppxlib, uchar
-, ppx_expect }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchurl,
+  buildDunePackage,
+  ocaml,
+  gen,
+  ppxlib,
+  uchar,
+  ppx_expect,
+}:
 
 let
   param = if lib.versionAtLeast ppxlib.version "0.26.0" then

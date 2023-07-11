@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, cpio, xar, undmg, libtapi, DiskArbitration }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cpio,
+  xar,
+  undmg,
+  libtapi,
+  DiskArbitration,
+}:
 
 stdenv.mkDerivation rec {
   pname = "macfuse-stubs";

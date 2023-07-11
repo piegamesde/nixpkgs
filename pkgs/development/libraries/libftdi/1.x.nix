@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchgit, cmake, pkg-config, libusb1, libconfuse
-, cppSupport ? true, boost, pythonSupport ? true, python3, swig
-, docSupport ? true, doxygen, graphviz }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  cmake,
+  pkg-config,
+  libusb1,
+  libconfuse,
+  cppSupport ? true,
+  boost,
+  pythonSupport ? true,
+  python3,
+  swig,
+  docSupport ? true,
+  doxygen,
+  graphviz,
+}:
 
 let
   inherit (lib) optionals optionalString;

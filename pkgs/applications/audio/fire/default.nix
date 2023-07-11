@@ -1,6 +1,25 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, catch2, libX11, libXrandr
-, libXinerama, libXext, libXcursor, freetype, alsa-lib, Cocoa, WebKit
-, CoreServices, DiscRecording, CoreAudioKit, MetalKit, simd }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  catch2,
+  libX11,
+  libXrandr,
+  libXinerama,
+  libXext,
+  libXcursor,
+  freetype,
+  alsa-lib,
+  Cocoa,
+  WebKit,
+  CoreServices,
+  DiscRecording,
+  CoreAudioKit,
+  MetalKit,
+  simd,
+}:
 
 let
   # FetchContent replacement, check CMakeLists.txt for requested versions (Nixpkgs' Catch2 works)

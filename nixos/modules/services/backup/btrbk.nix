@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   inherit (lib)
     concatLists concatMap concatMapStringsSep concatStringsSep filterAttrs
@@ -13,7 +18,10 @@ let
   # 2. Sections that may contain (1).
   # 3. Sections that may contain (1) or (2).
   # 4. Etc.
-  prioOf = { name, value }:
+  prioOf = {
+      name,
+      value,
+    }:
     if !isAttrs value then
       0 # Leaf options.
     else
@@ -31,7 +39,10 @@ let
     in concatMap genPair sortedPairs;
   genSection = sec: secName: value:
     [ "${sec} ${secName}" ] ++ map (x: " " + x) (genConfig value);
-  genPair = { name, value }:
+  genPair = {
+      name,
+      value,
+    }:
     if !isAttrs value then
       [ "${name} ${value}" ]
     else

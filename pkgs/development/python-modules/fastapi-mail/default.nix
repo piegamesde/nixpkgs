@@ -1,6 +1,22 @@
-{ lib, aioredis, aiosmtplib, blinker, buildPythonPackage, email-validator
-, fakeredis, fastapi, fetchFromGitHub, httpx, jinja2, poetry-core, pydantic
-, pytest-asyncio, pytestCheckHook, python-multipart, pythonOlder }:
+{
+  lib,
+  aioredis,
+  aiosmtplib,
+  blinker,
+  buildPythonPackage,
+  email-validator,
+  fakeredis,
+  fastapi,
+  fetchFromGitHub,
+  httpx,
+  jinja2,
+  poetry-core,
+  pydantic,
+  pytest-asyncio,
+  pytestCheckHook,
+  python-multipart,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "fastapi-mail";

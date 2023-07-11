@@ -1,5 +1,8 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; }
+}:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -10,9 +13,13 @@ in {
     name = "gemstash-works";
     meta = common_meta;
 
-    nodes.machine = { config, pkgs, ... }: {
-      services.gemstash = { enable = true; };
-    };
+    nodes.machine = {
+        config,
+        pkgs,
+        ...
+      }: {
+        services.gemstash = { enable = true; };
+      };
 
     # gemstash responds to http requests
     testScript = ''
@@ -27,13 +34,17 @@ in {
     name = "gemstash-custom-port";
     meta = common_meta;
 
-    nodes.machine = { config, pkgs, ... }: {
-      services.gemstash = {
-        enable = true;
-        openFirewall = true;
-        settings = { bind = "tcp://0.0.0.0:12345"; };
+    nodes.machine = {
+        config,
+        pkgs,
+        ...
+      }: {
+        services.gemstash = {
+          enable = true;
+          openFirewall = true;
+          settings = { bind = "tcp://0.0.0.0:12345"; };
+        };
       };
-    };
 
     # gemstash responds to http requests
     testScript = ''

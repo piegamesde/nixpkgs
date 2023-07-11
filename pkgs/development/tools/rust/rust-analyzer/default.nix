@@ -1,5 +1,16 @@
-{ lib, stdenv, callPackage, fetchFromGitHub, rustPlatform, CoreServices, cmake
-, libiconv, useMimalloc ? false, doCheck ? true, nix-update-script }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchFromGitHub,
+  rustPlatform,
+  CoreServices,
+  cmake,
+  libiconv,
+  useMimalloc ? false,
+  doCheck ? true,
+  nix-update-script,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rust-analyzer-unwrapped";

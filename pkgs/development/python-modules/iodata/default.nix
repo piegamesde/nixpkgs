@@ -1,4 +1,13 @@
-{ buildPythonPackage, lib, fetchFromGitHub, numpy, scipy, attrs, cython, nose }:
+{
+  buildPythonPackage,
+  lib,
+  fetchFromGitHub,
+  numpy,
+  scipy,
+  attrs,
+  cython,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "iodata";

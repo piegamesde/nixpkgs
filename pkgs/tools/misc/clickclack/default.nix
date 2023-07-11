@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromSourcehut, SDL2 }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  SDL2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clickclack";

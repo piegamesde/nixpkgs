@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, libgamemode32, meson, ninja
-, pkg-config, dbus, inih, systemd, appstream, makeWrapper, findutils, gawk
-, procps }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  libgamemode32,
+  meson,
+  ninja,
+  pkg-config,
+  dbus,
+  inih,
+  systemd,
+  appstream,
+  makeWrapper,
+  findutils,
+  gawk,
+  procps,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gamemode";

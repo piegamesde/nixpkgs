@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pam, openssl, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pam,
+  openssl,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "duo-unix";

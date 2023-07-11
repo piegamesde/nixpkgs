@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, cryptography, fetchFromGitHub, mypy, pyjwt
-, pytestCheckHook, pythonOlder, requests, responses, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  mypy,
+  pyjwt,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  responses,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "globus-sdk";

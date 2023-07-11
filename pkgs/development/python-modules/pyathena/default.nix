@@ -1,5 +1,14 @@
-{ lib, boto3, botocore, buildPythonPackage, fetchPypi, fsspec, pandas
-, pythonOlder, tenacity }:
+{
+  lib,
+  boto3,
+  botocore,
+  buildPythonPackage,
+  fetchPypi,
+  fsspec,
+  pandas,
+  pythonOlder,
+  tenacity,
+}:
 
 buildPythonPackage rec {
   pname = "pyathena";

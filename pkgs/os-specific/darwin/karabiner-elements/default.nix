@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, cpio, xar, undmg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cpio,
+  xar,
+  undmg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "karabiner-elements";

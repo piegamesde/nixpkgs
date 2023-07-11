@@ -1,5 +1,14 @@
-{ lib, stdenvNoCC, fetchurl, undmg, pname, version, hash, isAarch64
-, metaCommon ? { } }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  undmg,
+  pname,
+  version,
+  hash,
+  isAarch64,
+  metaCommon ? { }
+}:
 
 let
   pname = "losslesscut";

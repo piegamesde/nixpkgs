@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromSourcehut, binutils-unwrapped, harePackages, makeWrapper
-, qbe, scdoc, substituteAll }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  binutils-unwrapped,
+  harePackages,
+  makeWrapper,
+  qbe,
+  scdoc,
+  substituteAll,
+}:
 
 let inherit (harePackages) harec;
 in stdenv.mkDerivation (finalAttrs: {

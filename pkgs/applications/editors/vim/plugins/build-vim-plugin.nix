@@ -1,4 +1,9 @@
-{ lib, stdenv, rtpPath, toVimPlugin }:
+{
+  lib,
+  stdenv,
+  rtpPath,
+  toVimPlugin,
+}:
 
 rec {
   addRtp = drv:
@@ -8,10 +13,20 @@ rec {
       overrideAttrs = f: addRtp (drv.overrideAttrs f);
     };
 
-  buildVimPlugin = { name ? "${attrs.pname}-${attrs.version}"
-    , namePrefix ? "vimplugin-", src, unpackPhase ? "", configurePhase ? ""
-    , buildPhase ? "", preInstall ? "", postInstall ? "", path ? "."
-    , addonInfo ? null, meta ? { }, ... }@attrs:
+  buildVimPlugin = {
+      name ? "${attrs.pname}-${attrs.version}",
+      namePrefix ? "vimplugin-",
+      src,
+      unpackPhase ? "",
+      configurePhase ? "",
+      buildPhase ? "",
+      preInstall ? "",
+      postInstall ? "",
+      path ? ".",
+      addonInfo ? null,
+      meta ? { },
+      ...
+    }@attrs:
     let
       drv = stdenv.mkDerivation (attrs // {
         name = namePrefix + name;

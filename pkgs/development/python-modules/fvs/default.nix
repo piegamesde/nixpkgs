@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, orjson }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  orjson,
+}:
 
 buildPythonPackage rec {
   pname = "fvs";

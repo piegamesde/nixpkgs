@@ -1,4 +1,8 @@
-{ lib, buildFishPlugin, fetchFromGitHub, }:
+{
+  lib,
+  buildFishPlugin,
+  fetchFromGitHub,
+}:
 buildFishPlugin rec {
   pname = "bobthefish";
   version = "unstable-2022-08-02";

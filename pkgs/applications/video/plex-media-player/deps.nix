@@ -1,4 +1,6 @@
-{ fetchurl }:
+{
+  fetchurl,
+}:
 
 rec {
   webClientBuildId = "183-045db5be50e175";

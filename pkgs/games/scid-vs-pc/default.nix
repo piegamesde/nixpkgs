@@ -1,4 +1,13 @@
-{ lib, fetchurl, tcl, tk, libX11, zlib, makeWrapper, makeDesktopItem }:
+{
+  lib,
+  fetchurl,
+  tcl,
+  tk,
+  libX11,
+  zlib,
+  makeWrapper,
+  makeDesktopItem,
+}:
 
 tcl.mkTclDerivation rec {
   pname = "scid-vs-pc";

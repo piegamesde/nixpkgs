@@ -1,5 +1,15 @@
-{ mkDerivation, stdenv, lib, qtbase, qtsvg, libglvnd, libX11, libXi, fetchurl
-, makeDesktopItem }:
+{
+  mkDerivation,
+  stdenv,
+  lib,
+  qtbase,
+  qtsvg,
+  libglvnd,
+  libX11,
+  libXi,
+  fetchurl,
+  makeDesktopItem,
+}:
 let
   desktopItem = makeDesktopItem {
     name = "Write";

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, camel-converter, fetchFromGitHub, pythonOlder
-, setuptools, requests }:
+{
+  lib,
+  buildPythonPackage,
+  camel-converter,
+  fetchFromGitHub,
+  pythonOlder,
+  setuptools,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "meilisearch";

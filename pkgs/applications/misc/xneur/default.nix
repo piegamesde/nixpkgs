@@ -1,6 +1,21 @@
-{ stdenv, lib, fetchurl, fetchpatch, autoreconfHook, intltool, pkg-config
-, wrapGAppsHook, enchant, gdk-pixbuf, glib, gst_all_1, libnotify, pcre, xorg
-, xosd }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+  intltool,
+  pkg-config,
+  wrapGAppsHook,
+  enchant,
+  gdk-pixbuf,
+  glib,
+  gst_all_1,
+  libnotify,
+  pcre,
+  xorg,
+  xosd,
+}:
 
 stdenv.mkDerivation {
   pname = "xneur";

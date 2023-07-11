@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, cmake, openssl, perl, pkg-config, python3
-, rustPlatform, sqlcipher, sqlite, fixDarwinDylibNames, CoreFoundation, Security
-, SystemConfiguration, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  openssl,
+  perl,
+  pkg-config,
+  python3,
+  rustPlatform,
+  sqlcipher,
+  sqlite,
+  fixDarwinDylibNames,
+  CoreFoundation,
+  Security,
+  SystemConfiguration,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libdeltachat";

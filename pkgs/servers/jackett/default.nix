@@ -1,5 +1,12 @@
-{ lib, stdenv, buildDotnetModule, fetchFromGitHub, dotnetCorePackages, openssl
-, mono }:
+{
+  lib,
+  stdenv,
+  buildDotnetModule,
+  fetchFromGitHub,
+  dotnetCorePackages,
+  openssl,
+  mono,
+}:
 
 buildDotnetModule rec {
   pname = "jackett";

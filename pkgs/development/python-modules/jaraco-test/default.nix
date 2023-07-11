@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, setuptools, setuptools-scm
-, toml, jaraco_functools, jaraco-context, more-itertools, jaraco_collections
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  setuptools,
+  setuptools-scm,
+  toml,
+  jaraco_functools,
+  jaraco-context,
+  more-itertools,
+  jaraco_collections,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "jaraco-test";

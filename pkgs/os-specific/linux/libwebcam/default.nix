@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, cmake, pkg-config, libxml2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  pkg-config,
+  libxml2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libwebcam";

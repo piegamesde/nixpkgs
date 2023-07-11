@@ -1,5 +1,12 @@
-{ lib, aiohttp, buildPythonPackage, click, fetchFromGitHub, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pykostalpiko";

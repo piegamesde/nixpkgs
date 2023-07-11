@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitea, cmake, pkg-config, lz4, pugixml, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitea,
+  cmake,
+  pkg-config,
+  lz4,
+  pugixml,
+  zlib,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libxisf";

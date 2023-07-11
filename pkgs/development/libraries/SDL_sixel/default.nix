@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, libsixel }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  libsixel,
+}:
 
 stdenv.mkDerivation {
   pname = "SDL_sixel";

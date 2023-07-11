@@ -1,5 +1,17 @@
-{ mkXfceDerivation, lib, python3, intltool, gettext, gtk3, libxfce4ui
-, libxfce4util, pango, harfbuzz, gdk-pixbuf, atk }:
+{
+  mkXfceDerivation,
+  lib,
+  python3,
+  intltool,
+  gettext,
+  gtk3,
+  libxfce4ui,
+  libxfce4util,
+  pango,
+  harfbuzz,
+  gdk-pixbuf,
+  atk,
+}:
 
 let
   pythonEnv = python3.withPackages (ps: [ ps.pygobject3 ]);

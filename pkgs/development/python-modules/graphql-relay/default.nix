@@ -1,15 +1,26 @@
-{ lib, buildPythonPackage, fetchPypi
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi
 
-, pythonOlder
+  ,
+  pythonOlder
 
-# build
-, poetry-core
+  # build
+  ,
+  poetry-core
 
-# runtime
-, graphql-core, typing-extensions
+  # runtime
+  ,
+  graphql-core,
+  typing-extensions
 
-# tests
-, pytest-asyncio, pytest-describe, pytestCheckHook }:
+  # tests
+  ,
+  pytest-asyncio,
+  pytest-describe,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "graphql-relay";

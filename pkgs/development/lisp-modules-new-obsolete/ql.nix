@@ -1,4 +1,9 @@
-{ pkgs, build-asdf-system, fixup ? pkgs.lib.id, ... }:
+{
+  pkgs,
+  build-asdf-system,
+  fixup ? pkgs.lib.id,
+  ...
+}:
 
 with pkgs;
 with lib;

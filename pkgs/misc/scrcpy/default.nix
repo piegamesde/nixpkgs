@@ -1,7 +1,22 @@
-{ lib, stdenv, fetchpatch, fetchurl, fetchFromGitHub, makeWrapper, meson, ninja
-, pkg-config, runtimeShell, installShellFiles
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchurl,
+  fetchFromGitHub,
+  makeWrapper,
+  meson,
+  ninja,
+  pkg-config,
+  runtimeShell,
+  installShellFiles
 
-, platform-tools, ffmpeg, libusb1, SDL2 }:
+  ,
+  platform-tools,
+  ffmpeg,
+  libusb1,
+  SDL2,
+}:
 
 let
   version = "2.0";

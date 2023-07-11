@@ -1,5 +1,15 @@
-{ bazel, bazelTest, stdenv, darwin, lib, runLocal, runtimeShell, writeScript
-, writeText, distDir }:
+{
+  bazel,
+  bazelTest,
+  stdenv,
+  darwin,
+  lib,
+  runLocal,
+  runtimeShell,
+  writeScript,
+  writeText,
+  distDir,
+}:
 
 let
   toolsBazel = writeScript "bazel" ''

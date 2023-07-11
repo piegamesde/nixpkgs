@@ -1,5 +1,14 @@
-{ lib, betamax, buildPythonPackage, fetchpatch, fetchPypi, mock, pyopenssl
-, pytestCheckHook, requests }:
+{
+  lib,
+  betamax,
+  buildPythonPackage,
+  fetchpatch,
+  fetchPypi,
+  mock,
+  pyopenssl,
+  pytestCheckHook,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "requests-toolbelt";

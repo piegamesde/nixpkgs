@@ -1,7 +1,16 @@
-{ lib, stdenv, unzip, fetchurl }:
+{
+  lib,
+  stdenv,
+  unzip,
+  fetchurl,
+}:
 
 let
-  maple-font = { pname, sha256, desc }:
+  maple-font = {
+      pname,
+      sha256,
+      desc,
+    }:
     stdenv.mkDerivation rec {
 
       inherit pname desc;

@@ -1,6 +1,20 @@
-{ stdenvNoCC, lib, fetchFromGitHub, ffmpeg, yt-dlp, libsecret, python3
-, pkg-config, nodejs, electron, makeWrapper, makeDesktopItem, copyDesktopItems
-, yarn2nix-moretea, chromium }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  ffmpeg,
+  yt-dlp,
+  libsecret,
+  python3,
+  pkg-config,
+  nodejs,
+  electron,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  yarn2nix-moretea,
+  chromium,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "Sharedown";

@@ -1,4 +1,14 @@
-{ stdenv, fetchurl, perl, icu, zlib, gmp, lib, nqp, removeReferencesTo }:
+{
+  stdenv,
+  fetchurl,
+  perl,
+  icu,
+  zlib,
+  gmp,
+  lib,
+  nqp,
+  removeReferencesTo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rakudo";

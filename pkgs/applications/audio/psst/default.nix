@@ -1,5 +1,18 @@
-{ lib, fetchFromGitHub, rustPlatform, alsa-lib, atk, cairo, dbus, gdk-pixbuf
-, glib, gtk3, pango, pkg-config, makeDesktopItem }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  alsa-lib,
+  atk,
+  cairo,
+  dbus,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  pango,
+  pkg-config,
+  makeDesktopItem,
+}:
 
 let
   desktopItem = makeDesktopItem {

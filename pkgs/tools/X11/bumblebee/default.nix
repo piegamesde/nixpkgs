@@ -16,15 +16,36 @@
 #
 # To use at startup, see hardware.bumblebee options.
 
-{ stdenv, lib, fetchurl, fetchpatch, pkg-config, help2man, makeWrapper, glib
-, libbsd, libX11, xorgserver, kmod, xf86videonouveau, nvidia_x11, virtualgl
-, libglvnd, automake111x, autoconf
-# The below should only be non-null in a x86_64 system. On a i686
-# system the above nvidia_x11 and virtualgl will be the i686 packages.
-# TODO: Confusing. Perhaps use "SubArch" instead of i686?
-, nvidia_x11_i686 ? null, libglvnd_i686 ? null, useDisplayDevice ? false
-, extraNvidiaDeviceOptions ? "", extraNouveauDeviceOptions ? ""
-, useNvidia ? true }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  help2man,
+  makeWrapper,
+  glib,
+  libbsd,
+  libX11,
+  xorgserver,
+  kmod,
+  xf86videonouveau,
+  nvidia_x11,
+  virtualgl,
+  libglvnd,
+  automake111x,
+  autoconf
+  # The below should only be non-null in a x86_64 system. On a i686
+  # system the above nvidia_x11 and virtualgl will be the i686 packages.
+  # TODO: Confusing. Perhaps use "SubArch" instead of i686?
+  ,
+  nvidia_x11_i686 ? null,
+  libglvnd_i686 ? null,
+  useDisplayDevice ? false,
+  extraNvidiaDeviceOptions ? "",
+  extraNouveauDeviceOptions ? "",
+  useNvidia ? true
+}:
 
 let
   nvidia_x11s = [ nvidia_x11 ] ++ lib.optional nvidia_x11.useGLVND libglvnd

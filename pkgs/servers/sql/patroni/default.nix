@@ -1,4 +1,9 @@
-{ lib, pythonPackages, fetchFromGitHub, nixosTests }:
+{
+  lib,
+  pythonPackages,
+  fetchFromGitHub,
+  nixosTests,
+}:
 
 pythonPackages.buildPythonApplication rec {
   pname = "patroni";

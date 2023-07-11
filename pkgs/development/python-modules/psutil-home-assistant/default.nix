@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, psutil, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  psutil,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "psutil-home-assistant";

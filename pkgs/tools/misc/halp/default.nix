@@ -1,5 +1,13 @@
-{ lib, rustPlatform, fetchFromGitHub, installShellFiles, stdenv, darwin
-, unixtools, rust }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  stdenv,
+  darwin,
+  unixtools,
+  rust,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "halp";

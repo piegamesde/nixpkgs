@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, gfortran, imake, makedepend, motif, xorg, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gfortran,
+  imake,
+  makedepend,
+  motif,
+  xorg,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation rec {
   version = "2006";

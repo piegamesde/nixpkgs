@@ -1,15 +1,50 @@
-{ config, lib, stdenv, fetchurl, zlib, lzo, libtasn1, nettle, pkg-config, lzip
-, perl, gmp, autoconf, automake, libidn2, libiconv, unbound, dns-root-data
-, gettext, util-linux
-, cxxBindings ? !stdenv.hostPlatform.isStatic # tries to link libstdc++.so
-, tpmSupport ? false, trousers, which, nettools, libunistring
-, withP11-kit ? !stdenv.hostPlatform.isStatic, p11-kit
-, Security # darwin Security.framework
-# certificate compression - only zlib now, more possible: zstd, brotli
+{
+  config,
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  lzo,
+  libtasn1,
+  nettle,
+  pkg-config,
+  lzip,
+  perl,
+  gmp,
+  autoconf,
+  automake,
+  libidn2,
+  libiconv,
+  unbound,
+  dns-root-data,
+  gettext,
+  util-linux,
+  cxxBindings ? !stdenv.hostPlatform.isStatic # tries to link libstdc++.so
+  ,
+  tpmSupport ? false,
+  trousers,
+  which,
+  nettools,
+  libunistring,
+  withP11-kit ? !stdenv.hostPlatform.isStatic,
+  p11-kit,
+  Security # darwin Security.framework
+  # certificate compression - only zlib now, more possible: zstd, brotli
 
-# for passthru.tests
-, curlWithGnuTls, emacs, ffmpeg, haskellPackages, knot-resolver, ngtcp2-gnutls
-, ocamlPackages, python3Packages, qemu, rsyslog, samba }:
+  # for passthru.tests
+  ,
+  curlWithGnuTls,
+  emacs,
+  ffmpeg,
+  haskellPackages,
+  knot-resolver,
+  ngtcp2-gnutls,
+  ocamlPackages,
+  python3Packages,
+  qemu,
+  rsyslog,
+  samba,
+}:
 
 let
 

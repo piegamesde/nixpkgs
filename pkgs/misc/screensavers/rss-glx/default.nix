@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, autoconf, pkg-config, libX11, libXext, libGLU, libGL
-, imagemagick6, libtiff, bzip2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoconf,
+  pkg-config,
+  libX11,
+  libXext,
+  libGLU,
+  libGL,
+  imagemagick6,
+  libtiff,
+  bzip2,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.9.1";

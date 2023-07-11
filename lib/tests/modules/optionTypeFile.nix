@@ -1,4 +1,8 @@
-{ config, lib, ... }: {
+{
+  config,
+  lib,
+  ...
+}: {
 
   _file = "optionTypeFile.nix";
 

@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, installShellFiles, mock, openstacksdk, pbr
-, python-keystoneclient, pythonOlder, stestr }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  installShellFiles,
+  mock,
+  openstacksdk,
+  pbr,
+  python-keystoneclient,
+  pythonOlder,
+  stestr,
+}:
 
 buildPythonPackage rec {
   pname = "python-swiftclient";

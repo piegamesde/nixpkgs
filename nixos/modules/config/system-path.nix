@@ -1,7 +1,12 @@
 # This module defines the packages that appear in
 # /run/current-system/sw.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

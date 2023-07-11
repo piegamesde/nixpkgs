@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, libftdi1, libusb1, udev
-, hidapi, zlib }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libftdi1,
+  libusb1,
+  udev,
+  hidapi,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openfpgaloader";

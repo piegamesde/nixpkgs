@@ -1,4 +1,11 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, testers, kubedog }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  testers,
+  kubedog,
+}:
 
 buildGoModule rec {
   pname = "kubedog";

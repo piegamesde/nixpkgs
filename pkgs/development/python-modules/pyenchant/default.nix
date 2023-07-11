@@ -1,4 +1,11 @@
-{ lib, stdenv, buildPythonPackage, isPy27, fetchPypi, enchant2 }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  isPy27,
+  fetchPypi,
+  enchant2,
+}:
 
 buildPythonPackage rec {
   pname = "pyenchant";

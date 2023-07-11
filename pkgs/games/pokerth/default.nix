@@ -1,6 +1,25 @@
-{ lib, mkDerivation, fetchFromGitHub, runCommand, fetchpatch, patchutils, qmake
-, qtbase, SDL, SDL_mixer, boost, curl, gsasl, libgcrypt, libircclient, protobuf
-, sqlite, wrapQtAppsHook, tinyxml2, target ? "client" }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  runCommand,
+  fetchpatch,
+  patchutils,
+  qmake,
+  qtbase,
+  SDL,
+  SDL_mixer,
+  boost,
+  curl,
+  gsasl,
+  libgcrypt,
+  libircclient,
+  protobuf,
+  sqlite,
+  wrapQtAppsHook,
+  tinyxml2,
+  target ? "client"
+}:
 
 let
   hiDPI = fetchpatch {

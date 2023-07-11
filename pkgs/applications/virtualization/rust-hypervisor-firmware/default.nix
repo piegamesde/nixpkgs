@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, makeRustPlatform, hostPlatform, targetPlatform, lld }:
+{
+  lib,
+  fetchFromGitHub,
+  makeRustPlatform,
+  hostPlatform,
+  targetPlatform,
+  lld,
+}:
 
 let
   arch = targetPlatform.qemuArch;

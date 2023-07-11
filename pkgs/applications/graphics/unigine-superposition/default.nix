@@ -1,7 +1,32 @@
-{ lib, glib, stdenv, dbus, freetype, fontconfig, zlib, qtquickcontrols2
-, libXinerama, libxcb, libSM, libXi, libglvnd, libXext, libXrandr, mailspring
-, libX11, libICE, libXrender, autoPatchelfHook, makeWrapper, mkDerivation
-, xkeyboard_config, fetchurl, buildFHSEnv, openal, makeDesktopItem }:
+{
+  lib,
+  glib,
+  stdenv,
+  dbus,
+  freetype,
+  fontconfig,
+  zlib,
+  qtquickcontrols2,
+  libXinerama,
+  libxcb,
+  libSM,
+  libXi,
+  libglvnd,
+  libXext,
+  libXrandr,
+  mailspring,
+  libX11,
+  libICE,
+  libXrender,
+  autoPatchelfHook,
+  makeWrapper,
+  mkDerivation,
+  xkeyboard_config,
+  fetchurl,
+  buildFHSEnv,
+  openal,
+  makeDesktopItem,
+}:
 
 let
 

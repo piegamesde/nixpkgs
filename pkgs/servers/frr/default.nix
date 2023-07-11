@@ -1,14 +1,38 @@
-{ lib, stdenv, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchFromGitHub
 
-# build time
-, autoreconfHook, flex, bison, perl, pkg-config, texinfo
+  # build time
+  ,
+  autoreconfHook,
+  flex,
+  bison,
+  perl,
+  pkg-config,
+  texinfo
 
-# runtime
-, c-ares, json_c, libcap, libelf, libunwind, libyang, net-snmp, openssl, pam
-, pcre2, python3, readline, rtrlib
+  # runtime
+  ,
+  c-ares,
+  json_c,
+  libcap,
+  libelf,
+  libunwind,
+  libyang,
+  net-snmp,
+  openssl,
+  pam,
+  pcre2,
+  python3,
+  readline,
+  rtrlib
 
-# tests
-, nettools, nixosTests }:
+  # tests
+  ,
+  nettools,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "frr";

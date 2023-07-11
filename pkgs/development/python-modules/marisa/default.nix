@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, marisa, swig }:
+{
+  lib,
+  buildPythonPackage,
+  marisa,
+  swig,
+}:
 
 buildPythonPackage rec {
   pname = "marisa";

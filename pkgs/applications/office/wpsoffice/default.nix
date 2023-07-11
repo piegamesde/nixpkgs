@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchurl, dpkg, wrapGAppsHook, wrapQtAppsHook, autoPatchelfHook
-, alsa-lib, libtool, nspr, mesa, libtiff, cups, udev, xorg, makeWrapper
-, useChineseVersion ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  wrapGAppsHook,
+  wrapQtAppsHook,
+  autoPatchelfHook,
+  alsa-lib,
+  libtool,
+  nspr,
+  mesa,
+  libtiff,
+  cups,
+  udev,
+  xorg,
+  makeWrapper,
+  useChineseVersion ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "wpsoffice";

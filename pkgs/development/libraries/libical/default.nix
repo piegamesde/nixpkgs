@@ -1,8 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, pkgsBuildBuild, pkgsBuildHost, cmake, glib, icu
-, libxml2, ninja, perl, pkg-config, libical, python3, tzdata
-, fixDarwinDylibNames
-, withIntrospection ? stdenv.hostPlatform.emulatorAvailable pkgsBuildHost
-, gobject-introspection, vala }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkgsBuildBuild,
+  pkgsBuildHost,
+  cmake,
+  glib,
+  icu,
+  libxml2,
+  ninja,
+  perl,
+  pkg-config,
+  libical,
+  python3,
+  tzdata,
+  fixDarwinDylibNames,
+  withIntrospection ? stdenv.hostPlatform.emulatorAvailable pkgsBuildHost,
+  gobject-introspection,
+  vala,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libical";

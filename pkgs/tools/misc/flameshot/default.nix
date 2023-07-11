@@ -1,5 +1,13 @@
-{ mkDerivation, lib, fetchFromGitHub, qtbase, cmake, qttools, qtsvg
-, nix-update-script }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  qtbase,
+  cmake,
+  qttools,
+  qtsvg,
+  nix-update-script,
+}:
 
 mkDerivation rec {
   pname = "flameshot";

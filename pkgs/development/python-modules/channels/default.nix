@@ -1,5 +1,16 @@
-{ lib, asgiref, buildPythonPackage, daphne, django, fetchFromGitHub
-, async-timeout, pytest-asyncio, pytest-django, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  asgiref,
+  buildPythonPackage,
+  daphne,
+  django,
+  fetchFromGitHub,
+  async-timeout,
+  pytest-asyncio,
+  pytest-django,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "channels";

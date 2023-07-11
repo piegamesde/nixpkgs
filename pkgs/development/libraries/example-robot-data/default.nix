@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pythonSupport ? false, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pythonSupport ? false,
+  python3Packages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "example-robot-data";

@@ -1,6 +1,18 @@
-{ lib, stdenv, buildPythonPackage, cryptography, fetchFromGitHub, isPy27, mock
-, pyparsing, pytest-forked, pytest-randomly, pytest-timeout, pytestCheckHook
-, six }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  isPy27,
+  mock,
+  pyparsing,
+  pytest-forked,
+  pytest-randomly,
+  pytest-timeout,
+  pytestCheckHook,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "httplib2";

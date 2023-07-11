@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, pkg-config, libpcap
-, guile, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  pkg-config,
+  libpcap,
+  guile,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "junkie";

@@ -1,4 +1,10 @@
-{ appleDerivation, xcbuildHook, xpc, dtrace, xnu }:
+{
+  appleDerivation,
+  xcbuildHook,
+  xpc,
+  dtrace,
+  xnu,
+}:
 
 appleDerivation {
   nativeBuildInputs = [ xcbuildHook dtrace ];

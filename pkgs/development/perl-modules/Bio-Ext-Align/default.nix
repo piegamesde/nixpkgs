@@ -1,4 +1,8 @@
-{ lib, buildPerlPackage, fetchFromGitHub }:
+{
+  lib,
+  buildPerlPackage,
+  fetchFromGitHub,
+}:
 
 buildPerlPackage rec {
   pname = "BioExtAlign";

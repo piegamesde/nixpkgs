@@ -1,6 +1,21 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi
-, akonadi-mime, karchive, kcompletion, kconfig, kcoreaddons, ki18n, kmime
-, kxmlgui, libkdepim, pimcommon }:
+{
+  mkDerivation,
+  lib,
+  kdepimTeam,
+  extra-cmake-modules,
+  kdoctools,
+  akonadi,
+  akonadi-mime,
+  karchive,
+  kcompletion,
+  kconfig,
+  kcoreaddons,
+  ki18n,
+  kmime,
+  kxmlgui,
+  libkdepim,
+  pimcommon,
+}:
 
 mkDerivation {
   pname = "mailimporter";

@@ -1,4 +1,10 @@
-{ lib, mkCoqDerivation, coq, ssreflect, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  ssreflect,
+  version ? null
+}:
 
 mkCoqDerivation {
   pname = "reglang";

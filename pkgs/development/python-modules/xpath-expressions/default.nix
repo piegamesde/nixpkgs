@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, lxml, poetry-core, pythonOlder
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  lxml,
+  poetry-core,
+  pythonOlder,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "xpath-expressions";

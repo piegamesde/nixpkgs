@@ -1,7 +1,28 @@
-{ lib, buildPythonPackage, fetchFromGitHub, importlib-metadata, ipython, lark
-, networkx, numpy, poetry-core, pytest-asyncio, pytest-freezegun, pytest-httpx
-, pytest-mock, pytestCheckHook, pythonAtLeast, pythonOlder, pythonRelaxDepsHook
-, qcs-api-client, respx, retry, rpcq, scipy, types-python-dateutil, types-retry
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  importlib-metadata,
+  ipython,
+  lark,
+  networkx,
+  numpy,
+  poetry-core,
+  pytest-asyncio,
+  pytest-freezegun,
+  pytest-httpx,
+  pytest-mock,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  qcs-api-client,
+  respx,
+  retry,
+  rpcq,
+  scipy,
+  types-python-dateutil,
+  types-retry,
 }:
 
 buildPythonPackage rec {

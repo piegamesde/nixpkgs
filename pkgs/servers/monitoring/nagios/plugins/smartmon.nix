@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, python3, smartmontools }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  smartmontools,
+}:
 
 stdenv.mkDerivation rec {
   pname = "check_smartmon";

@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, pkg-config, boost, glibmm
-, gtkmm2, gerbv, librsvg, bash, fetchpatch }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  boost,
+  glibmm,
+  gtkmm2,
+  gerbv,
+  librsvg,
+  bash,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pcb2gcode";

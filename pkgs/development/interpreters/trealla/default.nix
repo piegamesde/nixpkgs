@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, readline, openssl, libffi, valgrind
-, withThread ? true, withSSL ? true, xxd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  readline,
+  openssl,
+  libffi,
+  valgrind,
+  withThread ? true,
+  withSSL ? true,
+  xxd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "trealla";

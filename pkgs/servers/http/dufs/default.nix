@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, Security, openssl, pkg-config }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  Security,
+  openssl,
+  pkg-config,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "dufs";

@@ -1,8 +1,20 @@
-{ stdenv, lib, fetchurl, fetchpatch, alsa-lib, AudioUnit, CoreServices }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  alsa-lib,
+  AudioUnit,
+  CoreServices,
+}:
 
 let
 
-  fetchDebianPatch = { name, debname, sha256 }:
+  fetchDebianPatch = {
+      name,
+      debname,
+      sha256,
+    }:
     fetchpatch {
       inherit sha256 name;
       url =

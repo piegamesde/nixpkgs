@@ -1,5 +1,13 @@
-{ lib, mkDerivation, cmake, extra-cmake-modules, kconfig, kio, mauikit
-, syntax-highlighting }:
+{
+  lib,
+  mkDerivation,
+  cmake,
+  extra-cmake-modules,
+  kconfig,
+  kio,
+  mauikit,
+  syntax-highlighting,
+}:
 
 mkDerivation {
   pname = "mauikit-texteditor";

@@ -1,5 +1,15 @@
-{ lib, stdenv, cmake, fetchFromGitHub, python3, flex, bison, qt5, CoreServices
-, libiconv }:
+{
+  lib,
+  stdenv,
+  cmake,
+  fetchFromGitHub,
+  python3,
+  flex,
+  bison,
+  qt5,
+  CoreServices,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "doxygen";

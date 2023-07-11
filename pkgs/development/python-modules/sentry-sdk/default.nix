@@ -1,9 +1,43 @@
-{ lib, stdenv, aiohttp, apache-beam, asttokens, blinker, botocore, bottle
-, buildPythonPackage, celery, certifi, chalice, django, executing, falcon
-, fetchFromGitHub, flask, flask-login, gevent, httpx, jsonschema, mock
-, pure-eval, pyramid, pyrsistent, pyspark, pytest-forked, pytest-localserver
-, pytest-watch, pytestCheckHook, pythonOlder, rq, sanic, sqlalchemy, tornado
-, trytond, urllib3, werkzeug }:
+{
+  lib,
+  stdenv,
+  aiohttp,
+  apache-beam,
+  asttokens,
+  blinker,
+  botocore,
+  bottle,
+  buildPythonPackage,
+  celery,
+  certifi,
+  chalice,
+  django,
+  executing,
+  falcon,
+  fetchFromGitHub,
+  flask,
+  flask-login,
+  gevent,
+  httpx,
+  jsonschema,
+  mock,
+  pure-eval,
+  pyramid,
+  pyrsistent,
+  pyspark,
+  pytest-forked,
+  pytest-localserver,
+  pytest-watch,
+  pytestCheckHook,
+  pythonOlder,
+  rq,
+  sanic,
+  sqlalchemy,
+  tornado,
+  trytond,
+  urllib3,
+  werkzeug,
+}:
 
 buildPythonPackage rec {
   pname = "sentry-sdk";

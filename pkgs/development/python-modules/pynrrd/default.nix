@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, numpy, nptyping
-, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  numpy,
+  nptyping,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "pynrrd";

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, boost, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  boost,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "starspace";

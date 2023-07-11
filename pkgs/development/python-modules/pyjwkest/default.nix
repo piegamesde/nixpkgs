@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, future, pycryptodomex, pytest, requests
-, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  future,
+  pycryptodomex,
+  pytest,
+  requests,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "pyjwkest";

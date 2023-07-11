@@ -1,5 +1,16 @@
-{ lib, mkDerivation, fetchFromGitLab, fetchpatch, cmake, pkg-config, qtbase
-, qttools, qpdf, podofo, imagemagick }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitLab,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  qtbase,
+  qttools,
+  qpdf,
+  podofo,
+  imagemagick,
+}:
 
 mkDerivation rec {
   pname = "pdfmixtool";

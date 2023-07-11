@@ -1,5 +1,17 @@
-{ stdenv, fetchFromGitHub, lib, meson, ninja, pkg-config, libdrm, libGL
-, gst_all_1, nv-codec-headers-11, libva, addOpenGLRunpath }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  meson,
+  ninja,
+  pkg-config,
+  libdrm,
+  libGL,
+  gst_all_1,
+  nv-codec-headers-11,
+  libva,
+  addOpenGLRunpath,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nvidia-vaapi-driver";

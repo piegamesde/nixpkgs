@@ -1,6 +1,22 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, gitUpdater, cmake, pkg-config
-, ffmpeg, libGLU, alsa-lib, libX11, libXrandr, sndio, qtbase, qtsvg, qttools
-, wrapQtAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  gitUpdater,
+  cmake,
+  pkg-config,
+  ffmpeg,
+  libGLU,
+  alsa-lib,
+  libX11,
+  libXrandr,
+  sndio,
+  qtbase,
+  qtsvg,
+  qttools,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "punes";

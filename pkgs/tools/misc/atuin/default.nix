@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, installShellFiles, rustPlatform, libiconv
-, Security, SystemConfiguration, xvfb-run, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  installShellFiles,
+  rustPlatform,
+  libiconv,
+  Security,
+  SystemConfiguration,
+  xvfb-run,
+  nixosTests,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "atuin";

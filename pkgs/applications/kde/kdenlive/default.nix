@@ -1,9 +1,40 @@
-{ mkDerivation, lib, extra-cmake-modules, breeze-icons, breeze-qt5, kdoctools
-, kconfig, kcrash, kguiaddons, kiconthemes, ki18n, kinit, kdbusaddons
-, knotifications, knewstuff, karchive, knotifyconfig, kplotting, ktextwidgets
-, mlt, shared-mime-info, libv4l, kfilemetadata, ffmpeg-full, frei0r
-, phonon-backend-gstreamer, qtdeclarative, qtmultimedia, qtnetworkauth
-, qtquickcontrols2, qtscript, rttr, kpurpose, kdeclarative, wrapGAppsHook }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  breeze-icons,
+  breeze-qt5,
+  kdoctools,
+  kconfig,
+  kcrash,
+  kguiaddons,
+  kiconthemes,
+  ki18n,
+  kinit,
+  kdbusaddons,
+  knotifications,
+  knewstuff,
+  karchive,
+  knotifyconfig,
+  kplotting,
+  ktextwidgets,
+  mlt,
+  shared-mime-info,
+  libv4l,
+  kfilemetadata,
+  ffmpeg-full,
+  frei0r,
+  phonon-backend-gstreamer,
+  qtdeclarative,
+  qtmultimedia,
+  qtnetworkauth,
+  qtquickcontrols2,
+  qtscript,
+  rttr,
+  kpurpose,
+  kdeclarative,
+  wrapGAppsHook,
+}:
 
 mkDerivation {
   pname = "kdenlive";

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, six, random2 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  random2,
+}:
 
 buildPythonPackage rec {
   pname = "pysol-cards";

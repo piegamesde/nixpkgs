@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, spglib, numpy, scipy, matplotlib, ase
-, netcdf4, pytest, pythonOlder, cython, cmake }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  spglib,
+  numpy,
+  scipy,
+  matplotlib,
+  ase,
+  netcdf4,
+  pytest,
+  pythonOlder,
+  cython,
+  cmake,
+}:
 
 buildPythonPackage rec {
   pname = "boltztrap2";

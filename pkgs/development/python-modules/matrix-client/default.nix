@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, requests, responses
-, urllib3 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  requests,
+  responses,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "matrix-client";

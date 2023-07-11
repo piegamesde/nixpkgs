@@ -1,11 +1,22 @@
-{ lib, stdenv, fetchzip }@args:
+{
+  lib,
+  stdenv,
+  fetchzip,
+}@args:
 let lib' = lib;
 in let lib = import ../extra-lib.nix { lib = lib'; };
 in with builtins;
 with lib;
 let
-  default-fetcher = { domain ? "github.com", owner ? "", repo, rev
-    , name ? "source", sha256 ? null, ... }@args:
+  default-fetcher = {
+      domain ? "github.com",
+      owner ? "",
+      repo,
+      rev,
+      name ? "source",
+      sha256 ? null,
+      ...
+    }@args:
     let
       ext = if args ? sha256 then "zip" else "tar.gz";
       fmt = if args ? sha256 then "zip" else "tarball";
@@ -38,7 +49,12 @@ let
         else
           fetchTarball x;
     in fetch { inherit url; };
-in { fetcher ? default-fetcher, location, release ? { }, releaseRev ? (v: v), }:
+in {
+  fetcher ? default-fetcher,
+  location,
+  release ? { },
+  releaseRev ? (v: v),
+}:
 let
   isVersion = x: isString x && match "^/.*" x == null && release ? ${x};
   shortVersion = x:

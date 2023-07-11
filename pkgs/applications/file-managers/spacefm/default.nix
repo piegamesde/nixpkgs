@@ -1,6 +1,22 @@
-{ pkgs, fetchFromGitHub, lib, stdenv, gtk3, udev, desktop-file-utils
-, shared-mime-info, intltool, pkg-config, wrapGAppsHook, ffmpegthumbnailer
-, jmtpfs, ifuseSupport ? false, ifuse ? null, lsof, udisks2 }:
+{
+  pkgs,
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  gtk3,
+  udev,
+  desktop-file-utils,
+  shared-mime-info,
+  intltool,
+  pkg-config,
+  wrapGAppsHook,
+  ffmpegthumbnailer,
+  jmtpfs,
+  ifuseSupport ? false,
+  ifuse ? null,
+  lsof,
+  udisks2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "spacefm";

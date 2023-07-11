@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools, aiohttp }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  aiohttp,
+}:
 
 buildPythonPackage rec {
   pname = "esphome-dashboard-api";

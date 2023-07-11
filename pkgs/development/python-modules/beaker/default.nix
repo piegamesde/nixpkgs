@@ -1,6 +1,24 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, glibcLocales, nose, pylibmc
-, python-memcached, redis, pymongo, mock, webtest, sqlalchemy, pycrypto
-, cryptography, isPy27, isPy3k, funcsigs ? null, pycryptopp ? null }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  glibcLocales,
+  nose,
+  pylibmc,
+  python-memcached,
+  redis,
+  pymongo,
+  mock,
+  webtest,
+  sqlalchemy,
+  pycrypto,
+  cryptography,
+  isPy27,
+  isPy3k,
+  funcsigs ? null,
+  pycryptopp ? null
+}:
 
 buildPythonPackage rec {
   pname = "Beaker";

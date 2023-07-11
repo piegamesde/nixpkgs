@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, gym
-, torch, tensorboard, tqdm, packaging }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  gym,
+  torch,
+  tensorboard,
+  tqdm,
+  packaging,
+}:
 
 buildPythonPackage rec {
   pname = "skrl";

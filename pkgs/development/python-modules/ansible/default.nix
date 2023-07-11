@@ -1,8 +1,24 @@
-{ lib, pythonOlder, buildPythonPackage, fetchPypi, jsonschema, jxmlease
-, ncclient, netaddr, paramiko, pynetbox, scp, textfsm, ttp, xmltodict
+{
+  lib,
+  pythonOlder,
+  buildPythonPackage,
+  fetchPypi,
+  jsonschema,
+  jxmlease,
+  ncclient,
+  netaddr,
+  paramiko,
+  pynetbox,
+  scp,
+  textfsm,
+  ttp,
+  xmltodict
 
-# optionals
-, withJunos ? false, withNetbox ? false }:
+  # optionals
+  ,
+  withJunos ? false,
+  withNetbox ? false
+}:
 
 let
   pname = "ansible";

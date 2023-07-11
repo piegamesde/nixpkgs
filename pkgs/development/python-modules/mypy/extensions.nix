@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, buildPythonPackage, typing, pytestCheckHook
-, pythonAtLeast, pythonOlder }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  typing,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "mypy-extensions";

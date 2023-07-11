@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, wrapGAppsHook, libxml2, gtk
-, libSM, shared-mime-info }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  wrapGAppsHook,
+  libxml2,
+  gtk,
+  libSM,
+  shared-mime-info,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rox-filer";

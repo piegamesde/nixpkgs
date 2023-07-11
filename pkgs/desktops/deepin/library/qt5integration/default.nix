@@ -1,5 +1,20 @@
-{ stdenv, lib, fetchFromGitHub, dtkwidget, qmake, qtbase, qtsvg, pkg-config
-, wrapQtAppsHook, qtx11extras, qt5platform-plugins, lxqt, mtdev, xorg, gtest }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  dtkwidget,
+  qmake,
+  qtbase,
+  qtsvg,
+  pkg-config,
+  wrapQtAppsHook,
+  qtx11extras,
+  qt5platform-plugins,
+  lxqt,
+  mtdev,
+  xorg,
+  gtest,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qt5integration";

@@ -1,8 +1,26 @@
-{ lib, stdenv, fetchurl, python3, bzip2, zlib, gmp, boost
-# Passed by version specific builders
-, baseVersion, revision, sha256, sourceExtension ? "tar.xz"
-, extraConfigureFlags ? "", extraPatches ? [ ], postPatch ? null
-, knownVulnerabilities ? [ ], CoreServices, Security, ... }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3,
+  bzip2,
+  zlib,
+  gmp,
+  boost
+  # Passed by version specific builders
+  ,
+  baseVersion,
+  revision,
+  sha256,
+  sourceExtension ? "tar.xz",
+  extraConfigureFlags ? "",
+  extraPatches ? [ ],
+  postPatch ? null,
+  knownVulnerabilities ? [ ],
+  CoreServices,
+  Security,
+  ...
+}:
 
 stdenv.mkDerivation rec {
   pname = "botan";

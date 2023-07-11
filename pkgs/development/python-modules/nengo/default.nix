@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, buildPythonPackage, numpy, scipySupport ? false, scipy
-, scikitSupport ? false, scikit-learn }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  numpy,
+  scipySupport ? false,
+  scipy,
+  scikitSupport ? false,
+  scikit-learn,
+}:
 
 buildPythonPackage rec {
   pname = "nengo";

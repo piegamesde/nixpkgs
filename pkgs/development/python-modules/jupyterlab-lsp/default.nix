@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, jupyterlab, jupyter-lsp }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jupyterlab,
+  jupyter-lsp,
+}:
 
 buildPythonPackage rec {
   pname = "jupyterlab-lsp";

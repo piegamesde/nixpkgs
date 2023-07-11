@@ -1,4 +1,8 @@
-{ lib, fetchurl, buildGoModule }:
+{
+  lib,
+  fetchurl,
+  buildGoModule,
+}:
 
 buildGoModule rec {
   pname = "harmonist";

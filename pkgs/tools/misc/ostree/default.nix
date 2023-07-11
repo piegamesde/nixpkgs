@@ -1,9 +1,42 @@
-{ stdenv, lib, fetchurl, fetchpatch, substituteAll, pkg-config, gtk-doc
-, gobject-introspection, gjs, nixosTests, curl, glib, systemd, xz, e2fsprogs
-, libsoup, glib-networking, wrapGAppsNoGuiHook, gpgme, which, makeWrapper
-, autoconf, automake, libtool, fuse3, util-linuxMinimal, libselinux, libsodium
-, libarchive, libcap, bzip2, bison, libxslt, docbook-xsl-nons
-, docbook_xml_dtd_42, openssl, python3 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  substituteAll,
+  pkg-config,
+  gtk-doc,
+  gobject-introspection,
+  gjs,
+  nixosTests,
+  curl,
+  glib,
+  systemd,
+  xz,
+  e2fsprogs,
+  libsoup,
+  glib-networking,
+  wrapGAppsNoGuiHook,
+  gpgme,
+  which,
+  makeWrapper,
+  autoconf,
+  automake,
+  libtool,
+  fuse3,
+  util-linuxMinimal,
+  libselinux,
+  libsodium,
+  libarchive,
+  libcap,
+  bzip2,
+  bison,
+  libxslt,
+  docbook-xsl-nons,
+  docbook_xml_dtd_42,
+  openssl,
+  python3,
+}:
 
 let testPython = (python3.withPackages (p: with p; [ pyyaml ]));
 in stdenv.mkDerivation rec {

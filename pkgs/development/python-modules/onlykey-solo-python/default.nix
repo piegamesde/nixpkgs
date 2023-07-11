@@ -1,5 +1,16 @@
-{ buildPythonPackage, click, ecdsa, fetchpatch, fetchPypi, fido2, intelhex, lib
-, pyserial, pyusb, requests }:
+{
+  buildPythonPackage,
+  click,
+  ecdsa,
+  fetchpatch,
+  fetchPypi,
+  fido2,
+  intelhex,
+  lib,
+  pyserial,
+  pyusb,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "onlykey-solo-python";

@@ -1,4 +1,9 @@
-{ lib, buildDunePackage, cppo, ocamlbuild }:
+{
+  lib,
+  buildDunePackage,
+  cppo,
+  ocamlbuild,
+}:
 
 if lib.versionOlder (lib.getVersion cppo) "1.6" then
   cppo

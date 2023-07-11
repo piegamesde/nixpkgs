@@ -1,4 +1,6 @@
-{ lib }:
+{
+  lib,
+}:
 # helper functions for packaging programs with plugin systems
 {
 

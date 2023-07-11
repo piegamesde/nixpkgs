@@ -1,5 +1,14 @@
-{ lib, aioresponses, buildPythonPackage, orjson, fetchFromGitHub
-, pytestCheckHook, pythonOlder, requests, requests-mock }:
+{
+  lib,
+  aioresponses,
+  buildPythonPackage,
+  orjson,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "nexia";

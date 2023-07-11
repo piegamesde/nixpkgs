@@ -1,4 +1,6 @@
-{ lib }:
+{
+  lib,
+}:
 
 rec {
   # gcc.arch to its features (as in /proc/cpuinfo)

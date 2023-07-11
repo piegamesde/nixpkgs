@@ -1,6 +1,21 @@
-{ lib, rustPlatform, fetchFromGitHub, cmake, pkg-config, makeWrapper, bzip2
-, fontconfig, freetype, libGL, libX11, libXcursor, libXrandr, libXi, gnome
-, libsForQt5 }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  makeWrapper,
+  bzip2,
+  fontconfig,
+  freetype,
+  libGL,
+  libX11,
+  libXcursor,
+  libXrandr,
+  libXi,
+  gnome,
+  libsForQt5,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "ludusavi";

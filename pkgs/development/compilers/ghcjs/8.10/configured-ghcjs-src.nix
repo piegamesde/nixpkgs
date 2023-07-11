@@ -1,8 +1,22 @@
-{ perl, autoconf, automake, python3, gcc, cabal-install, runCommand, fetchpatch
+{
+  perl,
+  autoconf,
+  automake,
+  python3,
+  gcc,
+  cabal-install,
+  runCommand,
+  fetchpatch
 
-, ghc, happy, alex
+  ,
+  ghc,
+  happy,
+  alex
 
-, ghcjsSrc, version }:
+  ,
+  ghcjsSrc,
+  version,
+}:
 
 runCommand "configured-ghcjs-src" {
   nativeBuildInputs =

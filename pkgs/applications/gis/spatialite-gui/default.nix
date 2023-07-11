@@ -1,7 +1,32 @@
-{ lib, stdenv, fetchurl, pkg-config, desktopToDarwinBundle, curl, freexl, geos
-, librasterlite2, librttopo, libspatialite, libwebp, libxlsxwriter, libxml2, lz4
-, minizip, openjpeg, postgresql, proj, sqlite, virtualpg, wxGTK, xz, zstd
-, Carbon, Cocoa, IOKit }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  desktopToDarwinBundle,
+  curl,
+  freexl,
+  geos,
+  librasterlite2,
+  librttopo,
+  libspatialite,
+  libwebp,
+  libxlsxwriter,
+  libxml2,
+  lz4,
+  minizip,
+  openjpeg,
+  postgresql,
+  proj,
+  sqlite,
+  virtualpg,
+  wxGTK,
+  xz,
+  zstd,
+  Carbon,
+  Cocoa,
+  IOKit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "spatialite-gui";

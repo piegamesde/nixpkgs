@@ -1,9 +1,22 @@
-{ lib, stdenvNoCC, fetchFromGitHub, gitUpdater, gnome-themes-extra
-, gtk-engine-murrine, jdupes, sassc, themeVariants ? [ ] # default: blue
-, colorVariants ? [ ] # default: all
-, sizeVariants ? [ ] # default: standard
-, tweaks ? [ ], wallpapers ? false, withGrub ? false
-, grubScreens ? [ ] # default: 1080p
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gitUpdater,
+  gnome-themes-extra,
+  gtk-engine-murrine,
+  jdupes,
+  sassc,
+  themeVariants ? [ ] # default: blue
+  ,
+  colorVariants ? [ ] # default: all
+  ,
+  sizeVariants ? [ ] # default: standard
+  ,
+  tweaks ? [ ],
+  wallpapers ? false,
+  withGrub ? false,
+  grubScreens ? [ ] # default: 1080p
 }:
 
 let pname = "graphite-gtk-theme";

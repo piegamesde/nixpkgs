@@ -1,4 +1,11 @@
-{ lib, aiohttp, buildPythonPackage, cryptography, fetchPypi, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  cryptography,
+  fetchPypi,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pymazda";

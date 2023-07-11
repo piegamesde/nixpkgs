@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, sendmailPath ? "/run/wrappers/bin/sendmail" }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  sendmailPath ? "/run/wrappers/bin/sendmail"
+}:
 
 stdenv.mkDerivation rec {
   pname = "ts";

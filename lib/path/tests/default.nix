@@ -1,10 +1,15 @@
-{ nixpkgs ? ../../.., system ? builtins.currentSystem, pkgs ? import nixpkgs {
-  config = { };
-  overlays = [ ];
-  inherit system;
-}, libpath ? ../..,
-# Random seed
-seed ? null, }:
+{
+  nixpkgs ? ../../..,
+  system ? builtins.currentSystem,
+  pkgs ? import nixpkgs {
+    config = { };
+    overlays = [ ];
+    inherit system;
+  },
+  libpath ? ../..,
+  # Random seed
+  seed ? null,
+}:
 pkgs.runCommand "lib-path-tests" {
   nativeBuildInputs = with pkgs; [ nix jq bc ];
 } ''

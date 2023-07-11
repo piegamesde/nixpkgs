@@ -1,4 +1,9 @@
-{ lib, fetchPypi, buildPythonPackage, numpy }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  numpy,
+}:
 
 buildPythonPackage rec {
   pname = "plyfile";

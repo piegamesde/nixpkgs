@@ -1,9 +1,16 @@
 let mirrors = import ./mirrors.nix;
 
-in { system }:
+in {
+  system,
+}:
 
-{ url ? builtins.head urls, urls ? [ ], sha256 ? "", hash ? ""
-, name ? baseNameOf (toString url) }:
+{
+  url ? builtins.head urls,
+  urls ? [ ],
+  sha256 ? "",
+  hash ? "",
+  name ? baseNameOf (toString url)
+}:
 
 # assert exactly one hash is set
 assert hash != "" || sha256 != "";

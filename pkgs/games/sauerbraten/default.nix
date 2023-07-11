@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchzip, SDL2, SDL2_image, SDL2_mixer, zlib, makeWrapper
-, copyDesktopItems, makeDesktopItem }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  SDL2,
+  SDL2_image,
+  SDL2_mixer,
+  zlib,
+  makeWrapper,
+  copyDesktopItems,
+  makeDesktopItem,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sauerbraten";

@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchurl, cmake, pkg-config, util-linux, libGL, freetype, pugixml
-, SDL2, SDL2_image, openal, libogg, libvorbis, libGLU, synfigstudio, inkscape
-, imagemagick, pngquant, xz }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  pkg-config,
+  util-linux,
+  libGL,
+  freetype,
+  pugixml,
+  SDL2,
+  SDL2_image,
+  openal,
+  libogg,
+  libvorbis,
+  libGLU,
+  synfigstudio,
+  inkscape,
+  imagemagick,
+  pngquant,
+  xz,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hikounomizu";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, libX11, libXinerama, libXft, zlib, patches ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
+  libXinerama,
+  libXft,
+  zlib,
+  patches ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "dmenu";

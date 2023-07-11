@@ -1,6 +1,22 @@
-{ lib, buildPythonPackage, capstone, fetchFromGitHub, fetchPypi, gevent
-, keystone-engine, multiprocess, pefile, pyelftools, pythonOlder, python-fx
-, python-registry, pyyaml, questionary, termcolor, unicorn }:
+{
+  lib,
+  buildPythonPackage,
+  capstone,
+  fetchFromGitHub,
+  fetchPypi,
+  gevent,
+  keystone-engine,
+  multiprocess,
+  pefile,
+  pyelftools,
+  pythonOlder,
+  python-fx,
+  python-registry,
+  pyyaml,
+  questionary,
+  termcolor,
+  unicorn,
+}:
 
 buildPythonPackage rec {
   pname = "qiling";

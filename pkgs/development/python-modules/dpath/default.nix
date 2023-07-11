@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, hypothesis, pythonOlder, mock, nose2
-, pytestCheckHook, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hypothesis,
+  pythonOlder,
+  mock,
+  nose2,
+  pytestCheckHook,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "dpath";

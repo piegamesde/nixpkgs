@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, sqlite, pkg-config, dovecot
-, libtool, xapian, icu64 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  sqlite,
+  pkg-config,
+  dovecot,
+  libtool,
+  xapian,
+  icu64,
+}:
 stdenv.mkDerivation rec {
   pname = "dovecot-fts-xapian";
   version = "1.5.5";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, substituteAll, glib, gettext, xorg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  substituteAll,
+  glib,
+  gettext,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-no-title-bar";

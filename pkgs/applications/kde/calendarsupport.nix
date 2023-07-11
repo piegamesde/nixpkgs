@@ -1,6 +1,20 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi
-, akonadi-calendar, akonadi-mime, akonadi-notes, kcalutils, kholidays
-, kidentitymanagement, kmime, pimcommon, qttools, }:
+{
+  mkDerivation,
+  lib,
+  kdepimTeam,
+  extra-cmake-modules,
+  kdoctools,
+  akonadi,
+  akonadi-calendar,
+  akonadi-mime,
+  akonadi-notes,
+  kcalutils,
+  kholidays,
+  kidentitymanagement,
+  kmime,
+  pimcommon,
+  qttools,
+}:
 
 mkDerivation {
   pname = "calendarsupport";

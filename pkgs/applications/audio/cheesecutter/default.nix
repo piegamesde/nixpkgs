@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, acme, ldc, patchelf, SDL }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  acme,
+  ldc,
+  patchelf,
+  SDL,
+}:
 stdenv.mkDerivation rec {
   pname = "cheesecutter";
   version = "unstable-2021-02-27";

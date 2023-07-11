@@ -1,9 +1,52 @@
-{ stdenv, lib, fetchFromGitea, fetchpatch, cmake, wxGTK32, gtk3, pkg-config
-, python3, gettext, glib, file, lame, libvorbis, libmad, libjack2, lv2, lilv
-, makeWrapper, serd, sord, sqlite, sratom, suil, alsa-lib, libsndfile, soxr
-, flac, twolame, expat, libid3tag, libopus, ffmpeg_5, soundtouch, pcre
-, portaudio, linuxHeaders, at-spi2-core, dbus, libepoxy, libXdmcp, libXtst
-, libpthreadstubs, libselinux, libsepol, libxkbcommon, util-linux }:
+{
+  stdenv,
+  lib,
+  fetchFromGitea,
+  fetchpatch,
+  cmake,
+  wxGTK32,
+  gtk3,
+  pkg-config,
+  python3,
+  gettext,
+  glib,
+  file,
+  lame,
+  libvorbis,
+  libmad,
+  libjack2,
+  lv2,
+  lilv,
+  makeWrapper,
+  serd,
+  sord,
+  sqlite,
+  sratom,
+  suil,
+  alsa-lib,
+  libsndfile,
+  soxr,
+  flac,
+  twolame,
+  expat,
+  libid3tag,
+  libopus,
+  ffmpeg_5,
+  soundtouch,
+  pcre,
+  portaudio,
+  linuxHeaders,
+  at-spi2-core,
+  dbus,
+  libepoxy,
+  libXdmcp,
+  libXtst,
+  libpthreadstubs,
+  libselinux,
+  libsepol,
+  libxkbcommon,
+  util-linux,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tenacity";

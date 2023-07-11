@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, gtk3, xsettingsd }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  gtk3,
+  xsettingsd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "font-config-info";

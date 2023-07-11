@@ -1,4 +1,12 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, qtbase, qttools, gitUpdater }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  qtbase,
+  qttools,
+  gitUpdater,
+}:
 
 mkDerivation rec {
   pname = "qlipper";

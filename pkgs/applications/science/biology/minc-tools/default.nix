@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, cmake, makeWrapper, flex, bison, perl
-, TextFormat, libminc, libjpeg, nifticlib, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  makeWrapper,
+  flex,
+  bison,
+  perl,
+  TextFormat,
+  libminc,
+  libjpeg,
+  nifticlib,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "minc-tools";

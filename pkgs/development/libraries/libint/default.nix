@@ -1,49 +1,77 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, python3, perl
-, gmpxx, mpfr, boost, eigen, gfortran, cmake
-, enableFMA ? stdenv.hostPlatform.fmaSupport, enableFortran ? true, enableSSE ?
-  (!enableFortran) && stdenv.hostPlatform.isx86_64
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  libtool,
+  python3,
+  perl,
+  gmpxx,
+  mpfr,
+  boost,
+  eigen,
+  gfortran,
+  cmake,
+  enableFMA ? stdenv.hostPlatform.fmaSupport,
+  enableFortran ? true,
+  enableSSE ? (!enableFortran) && stdenv.hostPlatform.isx86_64
 
-  # Maximum angular momentum of basis functions
-  # 7 is required for def2/J auxiliary basis on 3d metals upwards
-, maxAm ? 7
+    # Maximum angular momentum of basis functions
+    # 7 is required for def2/J auxiliary basis on 3d metals upwards
+  ,
+  maxAm ? 7
 
-  # ERI derivative order for 4-, 3- and 2-centre ERIs.
-  # 2nd derivatives are defaults and allow gradients Hessians with density fitting
-  # Setting them to zero disables derivatives.
-, eriDeriv ? 2, eri3Deriv ? 2, eri2Deriv ? 2
+    # ERI derivative order for 4-, 3- and 2-centre ERIs.
+    # 2nd derivatives are defaults and allow gradients Hessians with density fitting
+    # Setting them to zero disables derivatives.
+  ,
+  eriDeriv ? 2,
+  eri3Deriv ? 2,
+  eri2Deriv ? 2
 
-  # Angular momentum for derivatives of ERIs. Takes a list of length $DERIV_ORD+1.
-  # Starting from index 0, each index i specifies the supported angular momentum
-  # for the derivative order i, e.g. [6,5,4] supports ERIs for l=6, their first
-  # derivatives for l=5 and their second derivatives for l=4.
-, eriAm ? (builtins.genList (i: maxAm - 1 - i) (eriDeriv + 1))
-, eri3Am ? (builtins.genList (i: maxAm - i) (eri2Deriv + 1)), eri2Am ?
-  (builtins.genList (i: maxAm - i) (eri2Deriv + 1))
+    # Angular momentum for derivatives of ERIs. Takes a list of length $DERIV_ORD+1.
+    # Starting from index 0, each index i specifies the supported angular momentum
+    # for the derivative order i, e.g. [6,5,4] supports ERIs for l=6, their first
+    # derivatives for l=5 and their second derivatives for l=4.
+  ,
+  eriAm ? (builtins.genList (i: maxAm - 1 - i) (eriDeriv + 1)),
+  eri3Am ? (builtins.genList (i: maxAm - i) (eri2Deriv + 1)),
+  eri2Am ? (builtins.genList (i: maxAm - i) (eri2Deriv + 1))
 
   # Same as above for optimised code. Higher optimisations take a long time.
-, eriOptAm ? (builtins.genList (i: maxAm - 3 - i) (eriDeriv + 1))
-, eri3OptAm ? (builtins.genList (i: maxAm - 3 - i) (eri2Deriv + 1)), eri2OptAm ?
-  (builtins.genList (i: maxAm - 3 - i) (eri2Deriv + 1))
+  ,
+  eriOptAm ? (builtins.genList (i: maxAm - 3 - i) (eriDeriv + 1)),
+  eri3OptAm ? (builtins.genList (i: maxAm - 3 - i) (eri2Deriv + 1)),
+  eri2OptAm ? (builtins.genList (i: maxAm - 3 - i) (eri2Deriv + 1))
 
   # One-Electron integrals of all kinds including multipole integrals.
   # Libint does not build them and their derivatives by default.
-, enableOneBody ? false, oneBodyDerivOrd ? 2, multipoleOrd ?
-  4 # Maximum order of multipole integrals, 4=octopoles
+  ,
+  enableOneBody ? false,
+  oneBodyDerivOrd ? 2,
+  multipoleOrd ? 4 # Maximum order of multipole integrals, 4=octopoles
 
-  # Whether to enable generic code if angular momentum is unsupported
-, enableGeneric ? true
+    # Whether to enable generic code if angular momentum is unsupported
+  ,
+  enableGeneric ? true
 
-  # Support integrals over contracted Gaussian
-, enableContracted ? true
+    # Support integrals over contracted Gaussian
+  ,
+  enableContracted ? true
 
-  # Spherical harmonics/Cartesian orbital conventions
-, cartGaussOrd ?
-  "standard" # Ordering of Cartesian basis functions, "standard" is CCA
-, shGaussOrd ?
-  "standard" # Ordering of spherical harmonic basis functions. "standard" is -l to +l, "guassian" is 0, 1, -1, 2, -2, ...
-, shellSet ? "standard"
-, eri3PureSh ? false # Transformation of 3-centre ERIs into spherical harmonics
-, eri2PureSh ? false # Transformation of 2-centre ERIs into spherical harmonics
+    # Spherical harmonics/Cartesian orbital conventions
+  ,
+  cartGaussOrd ?
+    "standard" # Ordering of Cartesian basis functions, "standard" is CCA
+  ,
+  shGaussOrd ?
+    "standard" # Ordering of spherical harmonic basis functions. "standard" is -l to +l, "guassian" is 0, 1, -1, 2, -2, ...
+  ,
+  shellSet ? "standard",
+  eri3PureSh ? false # Transformation of 3-centre ERIs into spherical harmonics
+  ,
+  eri2PureSh ? false # Transformation of 2-centre ERIs into spherical harmonics
 }:
 
 # Check that Fortran bindings are not used together with SIMD real type

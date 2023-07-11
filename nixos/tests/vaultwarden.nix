@@ -1,5 +1,8 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; }
+}:
 
 # These tests will:
 #  * Set up a vaultwarden server
@@ -29,7 +32,10 @@ let
       meta = { maintainers = with pkgs.lib.maintainers; [ jjjollyjim ]; };
 
       nodes = {
-        server = { pkgs, ... }:
+        server = {
+            pkgs,
+            ...
+          }:
           let
             backendConfig = {
               mysql = {
@@ -149,9 +155,12 @@ let
             }
           ];
 
-        client = { pkgs, ... }: {
-          environment.systemPackages = [ pkgs.bitwarden-cli ];
-        };
+        client = {
+            pkgs,
+            ...
+          }: {
+            environment.systemPackages = [ pkgs.bitwarden-cli ];
+          };
       };
 
       testScript = ''

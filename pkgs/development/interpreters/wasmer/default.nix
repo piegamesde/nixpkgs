@@ -1,6 +1,17 @@
-{ stdenv, lib, rustPlatform, fetchFromGitHub, llvmPackages, libffi, libxml2
-, CoreFoundation, SystemConfiguration, Security, withLLVM ? !stdenv.isDarwin
-, withSinglepass ? !(stdenv.isDarwin && stdenv.isx86_64) }:
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  llvmPackages,
+  libffi,
+  libxml2,
+  CoreFoundation,
+  SystemConfiguration,
+  Security,
+  withLLVM ? !stdenv.isDarwin,
+  withSinglepass ? !(stdenv.isDarwin && stdenv.isx86_64)
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "wasmer";

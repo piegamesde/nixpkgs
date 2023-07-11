@@ -1,4 +1,11 @@
-{ mkDerivation, makeDesktopItem, python3, fetchurl, lib, pulseaudio }:
+{
+  mkDerivation,
+  makeDesktopItem,
+  python3,
+  fetchurl,
+  lib,
+  pulseaudio,
+}:
 
 let
   desktopItem = makeDesktopItem {

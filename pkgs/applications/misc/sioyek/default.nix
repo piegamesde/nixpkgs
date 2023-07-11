@@ -1,5 +1,20 @@
-{ lib, stdenv, installShellFiles, fetchFromGitHub, freetype, gumbo, harfbuzz
-, jbig2dec, mujs, mupdf, openjpeg, qt3d, qtbase, qmake, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  installShellFiles,
+  fetchFromGitHub,
+  freetype,
+  gumbo,
+  harfbuzz,
+  jbig2dec,
+  mujs,
+  mupdf,
+  openjpeg,
+  qt3d,
+  qtbase,
+  qmake,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "sioyek";

@@ -1,4 +1,10 @@
-{ lib, buildNimPackage, fetchFromGitHub, libui, pkg-config }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+  libui,
+  pkg-config,
+}:
 
 buildNimPackage rec {
   pname = "ui";

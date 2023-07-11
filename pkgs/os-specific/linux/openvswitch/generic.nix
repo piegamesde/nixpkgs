@@ -1,8 +1,28 @@
-{ version, hash }:
+{
+  version,
+  hash,
+}:
 
-{ lib, stdenv, fetchurl, autoconf, automake, installShellFiles, iproute2
-, kernel ? null, libcap_ng, libtool, openssl, perl, pkg-config, procps, python3
-, sphinxHook, util-linux, which }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoconf,
+  automake,
+  installShellFiles,
+  iproute2,
+  kernel ? null,
+  libcap_ng,
+  libtool,
+  openssl,
+  perl,
+  pkg-config,
+  procps,
+  python3,
+  sphinxHook,
+  util-linux,
+  which,
+}:
 
 let _kernel = kernel;
 in stdenv.mkDerivation rec {

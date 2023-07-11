@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, ant, jdk, jre, makeWrapper }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  ant,
+  jdk,
+  jre,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "javacc";

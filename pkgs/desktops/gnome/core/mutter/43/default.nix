@@ -1,11 +1,54 @@
-{ fetchurl, runCommand, lib, fetchpatch, stdenv, pkg-config, gnome, gettext
-, gobject-introspection, cairo, colord, lcms2, pango, json-glib
-, libstartup_notification, libcanberra, ninja, xvfb-run, xkeyboard_config
-, libxcvt, libxkbfile, libXdamage, libxkbcommon, libXtst, libinput, libdrm
-, gsettings-desktop-schemas, glib, gtk3, gnome-desktop, pipewire, libgudev
-, libwacom, xwayland, mesa, meson, gnome-settings-daemon, xorgserver, python3
-, wrapGAppsHook, gi-docgen, sysprof, libsysprof-capture, desktop-file-utils
-, libcap_ng, egl-wayland, graphene, wayland, wayland-protocols }:
+{
+  fetchurl,
+  runCommand,
+  lib,
+  fetchpatch,
+  stdenv,
+  pkg-config,
+  gnome,
+  gettext,
+  gobject-introspection,
+  cairo,
+  colord,
+  lcms2,
+  pango,
+  json-glib,
+  libstartup_notification,
+  libcanberra,
+  ninja,
+  xvfb-run,
+  xkeyboard_config,
+  libxcvt,
+  libxkbfile,
+  libXdamage,
+  libxkbcommon,
+  libXtst,
+  libinput,
+  libdrm,
+  gsettings-desktop-schemas,
+  glib,
+  gtk3,
+  gnome-desktop,
+  pipewire,
+  libgudev,
+  libwacom,
+  xwayland,
+  mesa,
+  meson,
+  gnome-settings-daemon,
+  xorgserver,
+  python3,
+  wrapGAppsHook,
+  gi-docgen,
+  sysprof,
+  libsysprof-capture,
+  desktop-file-utils,
+  libcap_ng,
+  egl-wayland,
+  graphene,
+  wayland,
+  wayland-protocols,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mutter";

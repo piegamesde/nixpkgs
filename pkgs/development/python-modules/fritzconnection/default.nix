@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook
-, requests }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pytestCheckHook,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "fritzconnection";

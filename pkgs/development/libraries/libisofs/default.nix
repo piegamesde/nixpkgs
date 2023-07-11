@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, acl, attr, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  acl,
+  attr,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libisofs";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, doxygen, installShellFiles, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  doxygen,
+  installShellFiles,
+  zlib,
 }:
 
 stdenv.mkDerivation rec {

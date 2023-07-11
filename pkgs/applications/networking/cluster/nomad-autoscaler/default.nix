@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, buildGoModule, buildEnv }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  buildEnv,
+}:
 
 let
   package = buildGoModule rec {

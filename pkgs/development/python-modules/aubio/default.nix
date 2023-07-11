@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, numpy, pytestCheckHook, stdenv
-, darwin }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  pytestCheckHook,
+  stdenv,
+  darwin,
+}:
 
 buildPythonPackage rec {
   pname = "aubio";

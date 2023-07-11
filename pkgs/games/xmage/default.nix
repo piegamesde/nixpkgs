@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, jdk8, unzip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jdk8,
+  unzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xmage";

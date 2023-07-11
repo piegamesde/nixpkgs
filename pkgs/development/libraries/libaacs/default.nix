@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, libgcrypt, libgpg-error, bison, flex }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libgcrypt,
+  libgpg-error,
+  bison,
+  flex,
+}:
 
 # library that allows libbluray to play AACS protected bluray disks
 # libaacs does not infringe DRM's right or copyright. See the legal page of the website for more info.

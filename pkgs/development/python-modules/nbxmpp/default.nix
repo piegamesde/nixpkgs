@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitLab, gobject-introspection
-, idna, libsoup_3, precis-i18n, pygobject3, pyopenssl, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitLab,
+  gobject-introspection,
+  idna,
+  libsoup_3,
+  precis-i18n,
+  pygobject3,
+  pyopenssl,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "nbxmpp";

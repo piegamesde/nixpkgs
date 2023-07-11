@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, fetchCrate, fetchpatch, rustPlatform
-, installShellFiles, pkg-config, openssl, python3, libxcb, AppKit, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchCrate,
+  fetchpatch,
+  rustPlatform,
+  installShellFiles,
+  pkg-config,
+  openssl,
+  python3,
+  libxcb,
+  AppKit,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "spotify-tui";

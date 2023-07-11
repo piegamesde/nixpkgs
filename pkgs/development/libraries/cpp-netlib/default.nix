@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cpp-netlib";

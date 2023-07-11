@@ -1,26 +1,70 @@
 config:
-{ lib, stdenv, cmake, pkg-config, which
+{
+  lib,
+  stdenv,
+  cmake,
+  pkg-config,
+  which
 
-# Xen
-, bison, bzip2, checkpolicy, dev86, figlet, flex, gettext, glib, acpica-tools
-, libaio, libiconv, libuuid, ncurses, openssl, perl, xz, yajl, zlib
-, python3Packages
+  # Xen
+  ,
+  bison,
+  bzip2,
+  checkpolicy,
+  dev86,
+  figlet,
+  flex,
+  gettext,
+  glib,
+  acpica-tools,
+  libaio,
+  libiconv,
+  libuuid,
+  ncurses,
+  openssl,
+  perl,
+  xz,
+  yajl,
+  zlib,
+  python3Packages
 
-# Xen Optional
-, ocamlPackages
+  # Xen Optional
+  ,
+  ocamlPackages
 
-# Scripts
-, coreutils, gawk, gnused, gnugrep, diffutils, multipath-tools, iproute2
-, inetutils, iptables, bridge-utils, openvswitch, nbd, drbd, util-linux, procps
-, systemd
+  # Scripts
+  ,
+  coreutils,
+  gawk,
+  gnused,
+  gnugrep,
+  diffutils,
+  multipath-tools,
+  iproute2,
+  inetutils,
+  iptables,
+  bridge-utils,
+  openvswitch,
+  nbd,
+  drbd,
+  util-linux,
+  procps,
+  systemd
 
-# Documentation
-# python3Packages.markdown
-, fig2dev, ghostscript, texinfo, pandoc
+  # Documentation
+  # python3Packages.markdown
+  ,
+  fig2dev,
+  ghostscript,
+  texinfo,
+  pandoc
 
-, binutils-unwrapped
+  ,
+  binutils-unwrapped
 
-, ... }@args:
+  ,
+  ...
+}@args:
 
 with lib;
 

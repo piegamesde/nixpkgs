@@ -1,5 +1,14 @@
-{ lib, stdenv, autoreconfHook, fetchFromGitHub, gettext, libmaxminddb, ncurses
-, openssl, withGeolocation ? true }:
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  fetchFromGitHub,
+  gettext,
+  libmaxminddb,
+  ncurses,
+  openssl,
+  withGeolocation ? true
+}:
 
 stdenv.mkDerivation rec {
   version = "1.7.2";

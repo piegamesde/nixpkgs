@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, nasm, SDL, zlib, libpng, ncurses, libGLU, libGL
-, makeDesktopItem }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nasm,
+  SDL,
+  zlib,
+  libpng,
+  ncurses,
+  libGLU,
+  libGL,
+  makeDesktopItem,
+}:
 
 let
   desktopItem = makeDesktopItem {

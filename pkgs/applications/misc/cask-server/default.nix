@@ -1,4 +1,11 @@
-{ lib, pkgs, mkDerivation, fetchFromGitHub, cmake, extra-cmake-modules }:
+{
+  lib,
+  pkgs,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+}:
 
 mkDerivation rec {
   pname = "cask-server";

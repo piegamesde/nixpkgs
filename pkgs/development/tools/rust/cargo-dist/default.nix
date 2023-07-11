@@ -1,4 +1,12 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, bzip2, stdenv, rustup }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  bzip2,
+  stdenv,
+  rustup,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-dist";

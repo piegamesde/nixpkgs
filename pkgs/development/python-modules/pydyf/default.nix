@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, flit-core, ghostscript, pillow
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flit-core,
+  ghostscript,
+  pillow,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pydyf";

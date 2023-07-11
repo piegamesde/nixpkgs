@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, fixDarwinDylibNames, unzip, libaio
-, makeWrapper, odbcSupport ? true, unixODBC }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  fixDarwinDylibNames,
+  unzip,
+  libaio,
+  makeWrapper,
+  odbcSupport ? true,
+  unixODBC,
+}:
 
 assert odbcSupport -> unixODBC != null;
 

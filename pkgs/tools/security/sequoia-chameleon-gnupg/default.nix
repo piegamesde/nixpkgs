@@ -1,5 +1,13 @@
-{ lib, stdenv, rustPlatform, fetchFromGitLab, pkg-config, nettle, openssl
-, darwin }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitLab,
+  pkg-config,
+  nettle,
+  openssl,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "sequoia-chameleon-gnupg";

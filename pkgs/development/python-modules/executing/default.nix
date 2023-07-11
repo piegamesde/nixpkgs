@@ -1,5 +1,15 @@
-{ lib, asttokens, buildPythonPackage, fetchFromGitHub, littleutils
-, pytestCheckHook, pythonAtLeast, pythonOlder, rich, setuptools-scm }:
+{
+  lib,
+  asttokens,
+  buildPythonPackage,
+  fetchFromGitHub,
+  littleutils,
+  pytestCheckHook,
+  pythonAtLeast,
+  pythonOlder,
+  rich,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "executing";

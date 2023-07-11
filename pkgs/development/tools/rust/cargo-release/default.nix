@@ -1,5 +1,15 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, libgit2_1_5, openssl, stdenv
-, curl, darwin, git }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  libgit2_1_5,
+  openssl,
+  stdenv,
+  curl,
+  darwin,
+  git,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-release";

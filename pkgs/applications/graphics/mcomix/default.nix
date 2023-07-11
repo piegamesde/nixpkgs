@@ -1,8 +1,21 @@
-{ lib, fetchurl, gdk-pixbuf, gobject-introspection, gtk3, mcomix, python3
-, testers, wrapGAppsHook
+{
+  lib,
+  fetchurl,
+  gdk-pixbuf,
+  gobject-introspection,
+  gtk3,
+  mcomix,
+  python3,
+  testers,
+  wrapGAppsHook
 
-# Recommended Dependencies:
-, lhasa, mupdf, p7zip, unrar, unrarSupport ? false # unfree software
+  # Recommended Dependencies:
+  ,
+  lhasa,
+  mupdf,
+  p7zip,
+  unrar,
+  unrarSupport ? false # unfree software
 }:
 
 python3.pkgs.buildPythonApplication rec {

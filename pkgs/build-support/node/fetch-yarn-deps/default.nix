@@ -1,5 +1,16 @@
-{ stdenv, lib, makeWrapper, coreutils, nix-prefetch-git, fetchurl, nodejs-slim
-, prefetch-yarn-deps, cacert, callPackage, nix }:
+{
+  stdenv,
+  lib,
+  makeWrapper,
+  coreutils,
+  nix-prefetch-git,
+  fetchurl,
+  nodejs-slim,
+  prefetch-yarn-deps,
+  cacert,
+  callPackage,
+  nix,
+}:
 
 let
   yarnpkg-lockfile-tar = fetchurl {
@@ -42,7 +53,13 @@ in {
   };
 
   fetchYarnDeps = let
-    f = { name ? "offline", src ? null, hash ? "", sha256 ? "", ... }@args:
+    f = {
+        name ? "offline",
+        src ? null,
+        hash ? "",
+        sha256 ? "",
+        ...
+      }@args:
       let
         hash_ = if hash != "" then {
           outputHashAlgo = null;

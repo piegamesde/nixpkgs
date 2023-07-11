@@ -1,4 +1,10 @@
-{ lib, buildDunePackage, fetchFromGitHub, dune-configurator, posix-socket, srt
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  dune-configurator,
+  posix-socket,
+  srt,
 }:
 
 buildDunePackage rec {

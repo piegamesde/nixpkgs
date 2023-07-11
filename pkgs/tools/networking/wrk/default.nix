@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, luajit, openssl, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  luajit,
+  openssl,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wrk";

@@ -1,5 +1,17 @@
-{ lib, runCommandLocal, runtimeShell, substituteAll, nix, coreutils, jq, yq
-, curl, gnugrep, gawk, dotnet-sdk }:
+{
+  lib,
+  runCommandLocal,
+  runtimeShell,
+  substituteAll,
+  nix,
+  coreutils,
+  jq,
+  yq,
+  curl,
+  gnugrep,
+  gawk,
+  dotnet-sdk,
+}:
 
 runCommandLocal "nuget-to-nix" {
   script = substituteAll {

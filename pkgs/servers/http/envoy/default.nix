@@ -1,8 +1,24 @@
-{ lib, bazel_5, bazel-gazelle, buildBazelPackage, fetchFromGitHub, stdenv, cmake
-, gn, go, jdk, ninja, patchelf, python3, linuxHeaders, nixosTests
+{
+  lib,
+  bazel_5,
+  bazel-gazelle,
+  buildBazelPackage,
+  fetchFromGitHub,
+  stdenv,
+  cmake,
+  gn,
+  go,
+  jdk,
+  ninja,
+  patchelf,
+  python3,
+  linuxHeaders,
+  nixosTests
 
-# v8 (upstream default), wavm, wamr, wasmtime, disabled
-, wasmRuntime ? "wamr" }:
+  # v8 (upstream default), wavm, wamr, wasmtime, disabled
+  ,
+  wasmRuntime ? "wamr"
+}:
 
 let
   srcVer = {

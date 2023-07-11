@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, psutil, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  psutil,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "cloudpickle";

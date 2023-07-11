@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchurl, SDL2, SDL2_net, alsa-lib, flac, freeglut, libGL, libGLU
-, libX11, libcdio, libjack2, libsamplerate, libsndfile, pkg-config, zlib
-, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  SDL2,
+  SDL2_net,
+  alsa-lib,
+  flac,
+  freeglut,
+  libGL,
+  libGLU,
+  libX11,
+  libcdio,
+  libjack2,
+  libsamplerate,
+  libsndfile,
+  pkg-config,
+  zlib,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mednafen";

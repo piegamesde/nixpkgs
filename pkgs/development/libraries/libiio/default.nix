@@ -1,6 +1,21 @@
-{ stdenv, fetchFromGitHub, cmake, flex, bison, libxml2, python, libusb1
-, avahiSupport ? true, avahi, libaio, runtimeShell, lib, pkg-config, CFNetwork
-, CoreServices }:
+{
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  flex,
+  bison,
+  libxml2,
+  python,
+  libusb1,
+  avahiSupport ? true,
+  avahi,
+  libaio,
+  runtimeShell,
+  lib,
+  pkg-config,
+  CFNetwork,
+  CoreServices,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libiio";

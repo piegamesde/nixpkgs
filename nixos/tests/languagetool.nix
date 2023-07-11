@@ -1,13 +1,19 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
   let port = 8082;
   in {
     name = "languagetool";
     meta = with lib.maintainers; { maintainers = [ fbeffa ]; };
 
-    nodes.machine = { ... }: {
-      services.languagetool.enable = true;
-      services.languagetool.port = port;
-    };
+    nodes.machine = {
+        ...
+      }: {
+        services.languagetool.enable = true;
+        services.languagetool.port = port;
+      };
 
     testScript = ''
       machine.start()

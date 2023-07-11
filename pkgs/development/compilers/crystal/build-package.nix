@@ -1,17 +1,37 @@
-{ stdenv, lib, crystal, pcre2, shards, git, pkg-config, which, linkFarm
-, fetchgit, fetchFromGitHub, installShellFiles, removeReferencesTo }:
+{
+  stdenv,
+  lib,
+  crystal,
+  pcre2,
+  shards,
+  git,
+  pkg-config,
+  which,
+  linkFarm,
+  fetchgit,
+  fetchFromGitHub,
+  installShellFiles,
+  removeReferencesTo,
+}:
 
 {
 # Some projects do not include a lock file, so you can pass one
-lockFile ? null
-  # Generate shards.nix with `nix-shell -p crystal2nix --run crystal2nix` in the projects root
-, shardsFile ? null
-  # We support different builders. To make things more straight forward, make it
-  # user selectable instead of trying to autodetect
-, format ? "make", installManPages ? true
-  # Specify binaries to build in the form { foo.src = "src/foo.cr"; }
-  # The default `crystal build` options can be overridden with { foo.options = [ "--optionname" ]; }
-, crystalBinaries ? { }, enableParallelBuilding ? true, ... }@args:
+  lockFile ? null
+    # Generate shards.nix with `nix-shell -p crystal2nix --run crystal2nix` in the projects root
+  ,
+  shardsFile ? null
+    # We support different builders. To make things more straight forward, make it
+    # user selectable instead of trying to autodetect
+  ,
+  format ? "make",
+  installManPages ? true
+    # Specify binaries to build in the form { foo.src = "src/foo.cr"; }
+    # The default `crystal build` options can be overridden with { foo.options = [ "--optionname" ]; }
+  ,
+  crystalBinaries ? { },
+  enableParallelBuilding ? true,
+  ...
+}@args:
 
 assert (builtins.elem format [ "make" "crystal" "shards" ]);
 let

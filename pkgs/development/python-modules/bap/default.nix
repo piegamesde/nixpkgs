@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, bap, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  bap,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "bap";

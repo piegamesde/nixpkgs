@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core
-, pytestCheckHook, pytest-mock }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  pytest-mock,
+}:
 
 buildPythonPackage rec {
   pname = "pykka";

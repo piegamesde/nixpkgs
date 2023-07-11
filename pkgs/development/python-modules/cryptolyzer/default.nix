@@ -1,5 +1,15 @@
-{ lib, attrs, buildPythonPackage, certvalidator, cryptoparser, fetchPypi
-, pythonOlder, requests, six, urllib3 }:
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  certvalidator,
+  cryptoparser,
+  fetchPypi,
+  pythonOlder,
+  requests,
+  six,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "cryptolyzer";

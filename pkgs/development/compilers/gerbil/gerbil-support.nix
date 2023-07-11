@@ -1,4 +1,10 @@
-{ pkgs, lib, gccStdenv, callPackage, fetchFromGitHub }:
+{
+  pkgs,
+  lib,
+  gccStdenv,
+  callPackage,
+  fetchFromGitHub,
+}:
 # See ../gambit/build.nix regarding gccStdenv
 
 rec {
@@ -18,11 +24,22 @@ rec {
     builtins.concatStringsSep ":" (map (x: x + "/gerbil/lib") gerbilInputs);
 
   # Use this function to create a Gerbil library. See gerbil-utils as an example.
-  gerbilPackage = { pname, version, src, meta, gerbil-package, git-version ? ""
-    , version-path ? "", gerbil ? pkgs.gerbil-unstable
-    , gambit-params ? pkgs.gambit-support.stable-params, gerbilInputs ? [ ]
-    , nativeBuildInputs ? [ ], buildInputs ? [ ], buildScript ? "./build.ss"
-    , softwareName ? "" }:
+  gerbilPackage = {
+      pname,
+      version,
+      src,
+      meta,
+      gerbil-package,
+      git-version ? "",
+      version-path ? "",
+      gerbil ? pkgs.gerbil-unstable,
+      gambit-params ? pkgs.gambit-support.stable-params,
+      gerbilInputs ? [ ],
+      nativeBuildInputs ? [ ],
+      buildInputs ? [ ],
+      buildScript ? "./build.ss",
+      softwareName ? ""
+    }:
     let buildInputs_ = buildInputs;
     in gccStdenv.mkDerivation rec {
       inherit src meta pname version nativeBuildInputs;

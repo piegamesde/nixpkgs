@@ -1,16 +1,43 @@
-{ stdenv, lib, fetchurl, doxygen, extra-cmake-modules, graphviz, kdoctools
-, wrapQtAppsHook, autoPatchelfHook
+{
+  stdenv,
+  lib,
+  fetchurl,
+  doxygen,
+  extra-cmake-modules,
+  graphviz,
+  kdoctools,
+  wrapQtAppsHook,
+  autoPatchelfHook
 
-, akonadi, alkimia, aqbanking, gmp, gwenhywfar, kactivities, karchive, kcmutils
-, kcontacts, qtwebengine, kdiagram, kholidays, kidentitymanagement, kitemmodels
-, libical, libofx, qgpgme
+  ,
+  akonadi,
+  alkimia,
+  aqbanking,
+  gmp,
+  gwenhywfar,
+  kactivities,
+  karchive,
+  kcmutils,
+  kcontacts,
+  qtwebengine,
+  kdiagram,
+  kholidays,
+  kidentitymanagement,
+  kitemmodels,
+  libical,
+  libofx,
+  qgpgme
 
-, sqlcipher
+  ,
+  sqlcipher
 
-# Needed for running tests:
-, xvfb-run
+  # Needed for running tests:
+  ,
+  xvfb-run
 
-, python3 }:
+  ,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kmymoney";

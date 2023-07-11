@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchurl, buildDunePackage, ocaml, dune-configurator, pkg-config
-, cairo, ApplicationServices }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  buildDunePackage,
+  ocaml,
+  dune-configurator,
+  pkg-config,
+  cairo,
+  ApplicationServices,
+}:
 
 buildDunePackage rec {
   pname = "cairo2";

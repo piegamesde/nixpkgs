@@ -1,5 +1,14 @@
-{ lib, stdenv, makeWrapper, awscli, jq, unixtools, fetchFromGitHub
-, installShellFiles, bashInteractive }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  awscli,
+  jq,
+  unixtools,
+  fetchFromGitHub,
+  installShellFiles,
+  bashInteractive,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bash-my-aws";

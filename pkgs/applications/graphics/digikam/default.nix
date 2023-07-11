@@ -1,23 +1,72 @@
-{ mkDerivation, lib, fetchurl, cmake, doxygen, extra-cmake-modules
-, wrapGAppsHook
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  cmake,
+  doxygen,
+  extra-cmake-modules,
+  wrapGAppsHook
 
-# For `digitaglinktree`
-, perl, sqlite
+  # For `digitaglinktree`
+  ,
+  perl,
+  sqlite
 
-, qtbase, qtxmlpatterns, qtsvg, qtwebengine
+  ,
+  qtbase,
+  qtxmlpatterns,
+  qtsvg,
+  qtwebengine
 
-, akonadi-contacts, kcalendarcore, kconfigwidgets, kcoreaddons, kdoctools
-, kfilemetadata, knotifications, knotifyconfig, ktextwidgets, kwidgetsaddons
-, kxmlgui
+  ,
+  akonadi-contacts,
+  kcalendarcore,
+  kconfigwidgets,
+  kcoreaddons,
+  kdoctools,
+  kfilemetadata,
+  knotifications,
+  knotifyconfig,
+  ktextwidgets,
+  kwidgetsaddons,
+  kxmlgui
 
-, bison, boost, eigen, exiv2, ffmpeg_4, flex, graphviz, imagemagick, lcms2
-, lensfun, libgphoto2, libkipi, libksane, liblqr1, libqtav, libusb1, marble
-, libGL, libGLU, opencv, pcre, threadweaver, x265, jasper
+  ,
+  bison,
+  boost,
+  eigen,
+  exiv2,
+  ffmpeg_4,
+  flex,
+  graphviz,
+  imagemagick,
+  lcms2,
+  lensfun,
+  libgphoto2,
+  libkipi,
+  libksane,
+  liblqr1,
+  libqtav,
+  libusb1,
+  marble,
+  libGL,
+  libGLU,
+  opencv,
+  pcre,
+  threadweaver,
+  x265,
+  jasper
 
-# For panorama and focus stacking
-, enblend-enfuse, hugin, gnumake
+  # For panorama and focus stacking
+  ,
+  enblend-enfuse,
+  hugin,
+  gnumake
 
-, breeze-icons, oxygen }:
+  ,
+  breeze-icons,
+  oxygen,
+}:
 
 mkDerivation rec {
   pname = "digikam";

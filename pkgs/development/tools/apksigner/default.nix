@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchgit, openjdk17_headless, gradle_7, perl, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  openjdk17_headless,
+  gradle_7,
+  perl,
+  makeWrapper,
+}:
 let gradle = gradle_7;
 in stdenv.mkDerivation rec {
   pname = "apksigner";

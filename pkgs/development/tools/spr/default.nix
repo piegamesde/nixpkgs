@@ -1,4 +1,10 @@
-{ lib, rustPlatform, fetchCrate, Security, stdenv }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  Security,
+  stdenv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "spr";

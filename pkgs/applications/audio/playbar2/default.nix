@@ -1,5 +1,12 @@
-{ lib, stdenv, cmake, extra-cmake-modules, plasma-framework, kwindowsystem
-, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  cmake,
+  extra-cmake-modules,
+  plasma-framework,
+  kwindowsystem,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "playbar2";

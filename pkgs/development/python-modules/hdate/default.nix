@@ -1,5 +1,13 @@
-{ lib, astral, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook
-, pythonOlder, pytz }:
+{
+  lib,
+  astral,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+}:
 
 buildPythonPackage rec {
   pname = "hdate";

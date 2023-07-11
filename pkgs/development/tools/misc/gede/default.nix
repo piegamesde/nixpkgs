@@ -1,4 +1,13 @@
-{ mkDerivation, lib, fetchurl, makeWrapper, python3, qmake, ctags, gdb }:
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  makeWrapper,
+  python3,
+  qmake,
+  ctags,
+  gdb,
+}:
 
 mkDerivation rec {
   pname = "gede";

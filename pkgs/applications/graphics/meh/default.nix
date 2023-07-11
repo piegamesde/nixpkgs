@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, libX11, libXext, libjpeg, libpng, giflib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libX11,
+  libXext,
+  libjpeg,
+  libpng,
+  giflib,
+}:
 
 stdenv.mkDerivation {
   pname = "meh";

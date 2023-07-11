@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, ssdeep, pefile }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  ssdeep,
+  pefile,
+}:
 buildPythonPackage rec {
   pname = "pyimpfuzzy";
   version = "0.5";

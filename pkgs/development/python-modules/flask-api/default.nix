@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, flask, markdown }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  flask,
+  markdown,
+}:
 
 buildPythonPackage rec {
   pname = "Flask-API";

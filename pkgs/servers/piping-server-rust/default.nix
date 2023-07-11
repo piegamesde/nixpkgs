@@ -1,4 +1,11 @@
-{ lib, rustPlatform, fetchFromGitHub, stdenv, CoreServices, Security }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  stdenv,
+  CoreServices,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "piping-server-rust";

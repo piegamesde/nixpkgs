@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, metakernel, svgwrite, ipywidgets
-, cairosvg, numpy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  metakernel,
+  svgwrite,
+  ipywidgets,
+  cairosvg,
+  numpy,
+}:
 
 buildPythonPackage rec {
   pname = "calysto";

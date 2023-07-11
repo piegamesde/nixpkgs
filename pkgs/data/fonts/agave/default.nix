@@ -1,4 +1,8 @@
-{ lib, fetchurl, stdenv }:
+{
+  lib,
+  fetchurl,
+  stdenv,
+}:
 
 let
   pname = "agave";

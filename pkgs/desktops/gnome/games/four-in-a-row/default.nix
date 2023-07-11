@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchurl, pkg-config, gnome, gtk3, wrapGAppsHook, gettext, meson
-, gsound, librsvg, itstool, vala, python3, ninja, desktop-file-utils }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gnome,
+  gtk3,
+  wrapGAppsHook,
+  gettext,
+  meson,
+  gsound,
+  librsvg,
+  itstool,
+  vala,
+  python3,
+  ninja,
+  desktop-file-utils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "four-in-a-row";

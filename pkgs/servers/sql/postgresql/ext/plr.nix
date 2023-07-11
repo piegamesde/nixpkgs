@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, R, postgresql }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  R,
+  postgresql,
+}:
 
 stdenv.mkDerivation rec {
   pname = "plr";

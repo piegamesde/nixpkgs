@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, flit-core, httpx, pytest-asyncio
-, pytest-mock, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flit-core,
+  httpx,
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "zeversolarlocal";

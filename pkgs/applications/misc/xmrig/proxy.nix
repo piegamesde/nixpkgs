@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, cmake, libuv, libmicrohttpd, openssl, darwin }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  libuv,
+  libmicrohttpd,
+  openssl,
+  darwin,
+}:
 
 let inherit (darwin.apple_sdk_11_0.frameworks) CoreServices IOKit;
 in stdenv.mkDerivation rec {

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, zlib, bzip2, xz }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zlib,
+  bzip2,
+  xz,
+}:
 
 stdenv.mkDerivation rec {
   pname = "freebayes";

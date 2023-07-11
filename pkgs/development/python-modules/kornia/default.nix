@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
-, packaging, torch }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  packaging,
+  torch,
+}:
 
 buildPythonPackage rec {
   pname = "kornia";

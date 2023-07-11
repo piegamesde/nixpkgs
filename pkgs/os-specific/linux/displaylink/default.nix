@@ -1,5 +1,15 @@
-{ stdenv, lib, unzip, util-linux, libusb1, evdi, systemd, makeWrapper
-, requireFile, substituteAll }:
+{
+  stdenv,
+  lib,
+  unzip,
+  util-linux,
+  libusb1,
+  evdi,
+  systemd,
+  makeWrapper,
+  requireFile,
+  substituteAll,
+}:
 let
   arch = if stdenv.hostPlatform.system == "x86_64-linux" then
     "x64"

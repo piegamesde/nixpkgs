@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, python3Packages, wmctrl, qtbase, mkDerivationWith }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  wmctrl,
+  qtbase,
+  mkDerivationWith,
+}:
 
 {
   stable = throw

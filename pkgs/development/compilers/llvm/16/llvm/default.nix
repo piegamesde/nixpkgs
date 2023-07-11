@@ -1,16 +1,42 @@
-{ lib, stdenv, llvm_meta, pkgsBuildBuild, monorepoSrc, runCommand, fetchpatch
-, cmake, darwin, ninja, python3, python3Packages, libffi
-# TODO: Gold plugin on LLVM16 has a severe memory corruption bug: https://github.com/llvm/llvm-project/issues/61350.
-, enableGoldPlugin ? false, libbfd, libpfm, libxml2, ncurses, version
-, release_version, zlib, which, sysctl, buildLlvmTools, debugVersion ? false
-, doCheck ? (!stdenv.isx86_32 # TODO: why
-) && (!stdenv.hostPlatform.isMusl)
-  && (stdenv.hostPlatform == stdenv.buildPlatform), enableManpages ? false
-, enableSharedLibraries ? !stdenv.hostPlatform.isStatic, enablePFM ?
-  stdenv.isLinux # PFM only supports Linux
-  # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
-  # broken for the armv7l builder
-  && !stdenv.hostPlatform.isAarch, enablePolly ? true }@args:
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  pkgsBuildBuild,
+  monorepoSrc,
+  runCommand,
+  fetchpatch,
+  cmake,
+  darwin,
+  ninja,
+  python3,
+  python3Packages,
+  libffi
+  # TODO: Gold plugin on LLVM16 has a severe memory corruption bug: https://github.com/llvm/llvm-project/issues/61350.
+  ,
+  enableGoldPlugin ? false,
+  libbfd,
+  libpfm,
+  libxml2,
+  ncurses,
+  version,
+  release_version,
+  zlib,
+  which,
+  sysctl,
+  buildLlvmTools,
+  debugVersion ? false,
+  doCheck ? (!stdenv.isx86_32 # TODO: why
+  ) && (!stdenv.hostPlatform.isMusl)
+    && (stdenv.hostPlatform == stdenv.buildPlatform),
+  enableManpages ? false,
+  enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
+  enablePFM ? stdenv.isLinux # PFM only supports Linux
+    # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
+    # broken for the armv7l builder
+    && !stdenv.hostPlatform.isAarch,
+  enablePolly ? true
+}@args:
 
 let
   inherit (lib) optional optionals optionalString;

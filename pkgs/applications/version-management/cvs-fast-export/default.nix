@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, makeWrapper, asciidoc, docbook_xml_dtd_45, docbook_xsl
-, coreutils, cvs, diffutils, findutils, git, python3, rsync }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  asciidoc,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  coreutils,
+  cvs,
+  diffutils,
+  findutils,
+  git,
+  python3,
+  rsync,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cvs-fast-export";

@@ -1,4 +1,9 @@
-{ buildPythonPackage, lib, fetchFromGitHub, nose }:
+{
+  buildPythonPackage,
+  lib,
+  fetchFromGitHub,
+  nose,
+}:
 buildPythonPackage rec {
   pname = "d2to1";
   version = "0.2.12.post1";

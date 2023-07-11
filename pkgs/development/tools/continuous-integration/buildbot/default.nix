@@ -1,4 +1,8 @@
-{ python3, recurseIntoAttrs, callPackage }:
+{
+  python3,
+  recurseIntoAttrs,
+  callPackage,
+}:
 let
   python = python3.override {
     packageOverrides = self: super: {

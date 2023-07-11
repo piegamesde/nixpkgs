@@ -1,4 +1,9 @@
-{ lib, buildDunePackage, fetchurl, ocaml }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  ocaml,
+}:
 
 buildDunePackage (rec {
   pname = "result";

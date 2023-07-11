@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, gtk3, gnome
-, gsettings-desktop-schemas, wrapGAppsHook, xorg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glib,
+  gtk3,
+  gnome,
+  gsettings-desktop-schemas,
+  wrapGAppsHook,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mousetweaks";

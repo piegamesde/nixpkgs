@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchzip, fetchpatch, makeWrapper, makeDesktopItem
-, copyDesktopItems, tk, groff, rman }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  fetchpatch,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  tk,
+  groff,
+  rman,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tkman";

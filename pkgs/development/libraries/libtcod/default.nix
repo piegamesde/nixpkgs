@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromBitbucket, cmake, SDL, libGLU, libGL, upx, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromBitbucket,
+  cmake,
+  SDL,
+  libGLU,
+  libGL,
+  upx,
+  zlib,
+}:
 
 stdenv.mkDerivation {
 

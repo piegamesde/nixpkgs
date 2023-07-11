@@ -1,7 +1,20 @@
-{ lib, symlinkJoin, melpaBuild, fetchFromGitHub, rustPlatform, writeText, clang
-, llvmPackages
+{
+  lib,
+  symlinkJoin,
+  melpaBuild,
+  fetchFromGitHub,
+  rustPlatform,
+  writeText,
+  clang,
+  llvmPackages
 
-, runtimeShell, writeScript, python3, nix-prefetch-github, nix }:
+  ,
+  runtimeShell,
+  writeScript,
+  python3,
+  nix-prefetch-github,
+  nix,
+}:
 
 let
 

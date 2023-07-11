@@ -1,5 +1,13 @@
-{ mkDerivation, lib, extra-cmake-modules, qtquickcontrols2, kcoreaddons, kconfig
-, ki18n, kirigami2 }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  qtquickcontrols2,
+  kcoreaddons,
+  kconfig,
+  ki18n,
+  kirigami2,
+}:
 
 mkDerivation {
   pname = "telly-skout";

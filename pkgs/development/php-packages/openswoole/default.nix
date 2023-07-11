@@ -1,4 +1,12 @@
-{ lib, stdenv, buildPecl, php, valgrind, pcre2, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  buildPecl,
+  php,
+  valgrind,
+  pcre2,
+  fetchFromGitHub,
+}:
 
 let
   pname = "openswoole";

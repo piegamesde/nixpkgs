@@ -1,4 +1,10 @@
-{ lib, fetchPypi, buildPythonPackage, mergedict, pytestCheckHook }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  mergedict,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "configclass";

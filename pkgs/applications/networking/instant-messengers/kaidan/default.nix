@@ -1,6 +1,21 @@
-{ mkDerivation, lib, fetchFromGitLab, cmake, extra-cmake-modules, pkg-config
-, qtquickcontrols2, qtmultimedia, qtlocation, qqc2-desktop-style, kirigami2
-, knotifications, zxing-cpp, qxmpp, sonnet, gst_all_1 }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitLab,
+  cmake,
+  extra-cmake-modules,
+  pkg-config,
+  qtquickcontrols2,
+  qtmultimedia,
+  qtlocation,
+  qqc2-desktop-style,
+  kirigami2,
+  knotifications,
+  zxing-cpp,
+  qxmpp,
+  sonnet,
+  gst_all_1,
+}:
 
 mkDerivation rec {
   pname = "kaidan";

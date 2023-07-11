@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, six, nose, coverage }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  nose,
+  coverage,
+}:
 
 buildPythonPackage rec {
   pname = "aadict";

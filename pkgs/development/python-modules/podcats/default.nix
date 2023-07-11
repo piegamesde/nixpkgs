@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flask, mutagen }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flask,
+  mutagen,
+}:
 
 buildPythonPackage rec {
   pname = "podcats";

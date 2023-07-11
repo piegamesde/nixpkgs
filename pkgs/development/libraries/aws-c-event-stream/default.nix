@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, aws-c-cal, aws-c-common, aws-c-io
-, aws-checksums, nix, s2n-tls, libexecinfo }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  aws-c-cal,
+  aws-c-common,
+  aws-c-io,
+  aws-checksums,
+  nix,
+  s2n-tls,
+  libexecinfo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "aws-c-event-stream";

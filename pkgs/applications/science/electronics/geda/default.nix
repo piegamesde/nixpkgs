@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, guile, gtk2, flex, gawk, perl
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  guile,
+  gtk2,
+  flex,
+  gawk,
+  perl,
 }:
 
 stdenv.mkDerivation {

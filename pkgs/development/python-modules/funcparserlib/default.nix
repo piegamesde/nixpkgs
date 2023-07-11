@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, python, pytestCheckHook
-, pythonOlder, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  python,
+  pytestCheckHook,
+  pythonOlder,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "funcparserlib";

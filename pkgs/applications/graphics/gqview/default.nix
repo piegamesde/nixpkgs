@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, gtk2, libpng }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gtk2,
+  libpng,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gqview";

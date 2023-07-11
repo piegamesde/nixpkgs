@@ -1,4 +1,11 @@
-{ lib, buildNimPackage, fetchFromGitHub, rocksdb, stew, tempfile }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromGitHub,
+  rocksdb,
+  stew,
+  tempfile,
+}:
 
 buildNimPackage rec {
   pname = "rocksdb";

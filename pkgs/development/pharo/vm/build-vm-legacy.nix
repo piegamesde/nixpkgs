@@ -1,7 +1,30 @@
-{ lib, stdenv, fetchurl, cmake, bash, unzip, glibc, openssl, gcc, libGLU, libGL
-, freetype, xorg, alsa-lib, cairo, libuuid, libnsl, makeWrapper, ... }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  bash,
+  unzip,
+  glibc,
+  openssl,
+  gcc,
+  libGLU,
+  libGL,
+  freetype,
+  xorg,
+  alsa-lib,
+  cairo,
+  libuuid,
+  libnsl,
+  makeWrapper,
+  ...
+}:
 
-{ name, src, ... }:
+{
+  name,
+  src,
+  ...
+}:
 
 stdenv.mkDerivation rec {
 

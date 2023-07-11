@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, vapoursynth, nasm
-, fftwFloat }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  vapoursynth,
+  nasm,
+  fftwFloat,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vapoursynth-mvtools";

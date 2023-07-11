@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, wrapGAppsHook4, cargo, desktop-file-utils, meson, ninja
-, pkg-config, rustc, glib, gtk4, libadwaita, libxml2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  wrapGAppsHook4,
+  cargo,
+  desktop-file-utils,
+  meson,
+  ninja,
+  pkg-config,
+  rustc,
+  glib,
+  gtk4,
+  libadwaita,
+  libxml2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "symbolic-preview";

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -8,36 +13,39 @@ let
 
   cfg = config.services.cjdns;
 
-  connectToSubmodule = { ... }: {
-    options = {
-      password = mkOption {
-        type = types.str;
-        description =
-          lib.mdDoc "Authorized password to the opposite end of the tunnel.";
-      };
-      login = mkOption {
-        default = "";
-        type = types.str;
-        description = lib.mdDoc "(optional) name your peer has for you";
-      };
-      peerName = mkOption {
-        default = "";
-        type = types.str;
-        description = lib.mdDoc "(optional) human-readable name for peer";
-      };
-      publicKey = mkOption {
-        type = types.str;
-        description = lib.mdDoc "Public key at the opposite end of the tunnel.";
-      };
-      hostname = mkOption {
-        default = "";
-        example = "foobar.hype";
-        type = types.str;
-        description = lib.mdDoc
-          "Optional hostname to add to /etc/hosts; prevents reverse lookup failures.";
+  connectToSubmodule = {
+      ...
+    }: {
+      options = {
+        password = mkOption {
+          type = types.str;
+          description =
+            lib.mdDoc "Authorized password to the opposite end of the tunnel.";
+        };
+        login = mkOption {
+          default = "";
+          type = types.str;
+          description = lib.mdDoc "(optional) name your peer has for you";
+        };
+        peerName = mkOption {
+          default = "";
+          type = types.str;
+          description = lib.mdDoc "(optional) human-readable name for peer";
+        };
+        publicKey = mkOption {
+          type = types.str;
+          description =
+            lib.mdDoc "Public key at the opposite end of the tunnel.";
+        };
+        hostname = mkOption {
+          default = "";
+          example = "foobar.hype";
+          type = types.str;
+          description = lib.mdDoc
+            "Optional hostname to add to /etc/hosts; prevents reverse lookup failures.";
+        };
       };
     };
-  };
 
   # Additional /etc/hosts entries for peers with an associated hostname
   cjdnsExtraHosts = pkgs.runCommand "cjdns-hosts" { } ''

@@ -1,5 +1,15 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, cython, geos
-, setuptools, numpy, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  cython,
+  geos,
+  setuptools,
+  numpy,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "shapely";

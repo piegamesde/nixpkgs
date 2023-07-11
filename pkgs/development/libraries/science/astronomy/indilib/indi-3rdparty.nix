@@ -1,6 +1,28 @@
-{ stdenv, lib, cmake, cfitsio, libusb1, zlib, boost, libnova, curl, libjpeg, gsl
-, fftw, indilib, libgphoto2, libraw, libftdi1, libdc1394, gpsd, ffmpeg, version
-, src, withFirmware ? false, firmware ? null }:
+{
+  stdenv,
+  lib,
+  cmake,
+  cfitsio,
+  libusb1,
+  zlib,
+  boost,
+  libnova,
+  curl,
+  libjpeg,
+  gsl,
+  fftw,
+  indilib,
+  libgphoto2,
+  libraw,
+  libftdi1,
+  libdc1394,
+  gpsd,
+  ffmpeg,
+  version,
+  src,
+  withFirmware ? false,
+  firmware ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "indi-3rdparty";

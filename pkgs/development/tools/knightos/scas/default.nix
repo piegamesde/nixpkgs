@@ -1,4 +1,12 @@
-{ fetchFromGitHub, lib, stdenv, cmake, buildPackages, asciidoc, libxslt }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  cmake,
+  buildPackages,
+  asciidoc,
+  libxslt,
+}:
 
 let isCrossCompiling = stdenv.hostPlatform != stdenv.buildPlatform;
 

@@ -1,7 +1,17 @@
-{ lib, stdenv, fetchurl, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  nixosTests,
+}:
 
 let
-  generic = { version, sha256, eol ? false, extraVulnerabilities ? [ ] }:
+  generic = {
+      version,
+      sha256,
+      eol ? false,
+      extraVulnerabilities ? [ ]
+    }:
     let major = lib.versions.major version;
     in stdenv.mkDerivation rec {
       pname = "nextcloud";

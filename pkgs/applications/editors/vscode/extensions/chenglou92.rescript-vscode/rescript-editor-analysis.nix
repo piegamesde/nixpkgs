@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, bash, ocaml, dune_3, version }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bash,
+  ocaml,
+  dune_3,
+  version,
+}:
 
 stdenv.mkDerivation {
   pname = "rescript-editor-analysis";

@@ -1,4 +1,11 @@
-{ fetchurl, formats, glibcLocales, jdk, lib, stdenv }:
+{
+  fetchurl,
+  formats,
+  glibcLocales,
+  jdk,
+  lib,
+  stdenv,
+}:
 
 # This test primarily tests correct escaping.
 # See also testJavaProperties in

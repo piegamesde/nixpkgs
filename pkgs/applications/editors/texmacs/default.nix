@@ -1,7 +1,27 @@
-{ lib, mkDerivation, callPackage, fetchurl, guile_1_8, qtbase, xmodmap, which
-, freetype, libjpeg, sqlite, tex ? null, aspell ? null, git ? null
-, python3 ? null, cmake, pkg-config, ghostscriptX ? null, extraFonts ? false
-, chineseFonts ? false, japaneseFonts ? false, koreanFonts ? false }:
+{
+  lib,
+  mkDerivation,
+  callPackage,
+  fetchurl,
+  guile_1_8,
+  qtbase,
+  xmodmap,
+  which,
+  freetype,
+  libjpeg,
+  sqlite,
+  tex ? null,
+  aspell ? null,
+  git ? null,
+  python3 ? null,
+  cmake,
+  pkg-config,
+  ghostscriptX ? null,
+  extraFonts ? false,
+  chineseFonts ? false,
+  japaneseFonts ? false,
+  koreanFonts ? false
+}:
 
 let
   pname = "TeXmacs";

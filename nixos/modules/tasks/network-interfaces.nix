@@ -1,4 +1,11 @@
-{ config, options, lib, pkgs, utils, ... }:
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  utils,
+  ...
+}:
 
 with lib;
 with utils;
@@ -24,7 +31,12 @@ let
   slaveIfs =
     map (i: cfg.interfaces.${i}) (filter (i: cfg.interfaces ? ${i}) slaves);
 
-  rstpBridges = flip filterAttrs cfg.bridges (_: { rstp, ... }: rstp);
+  rstpBridges = flip filterAttrs cfg.bridges (_:
+    {
+      rstp,
+      ...
+    }:
+    rstp);
 
   needsMstpd = rstpBridges != { };
 
@@ -141,296 +153,305 @@ let
 
   gatewayCoerce = address: { inherit address; };
 
-  gatewayOpts = { ... }: {
+  gatewayOpts = {
+      ...
+    }: {
 
-    options = {
+      options = {
 
-      address = mkOption {
-        type = types.str;
-        description = lib.mdDoc "The default gateway address.";
-      };
+        address = mkOption {
+          type = types.str;
+          description = lib.mdDoc "The default gateway address.";
+        };
 
-      interface = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        example = "enp0s3";
-        description = lib.mdDoc "The default gateway interface.";
-      };
+        interface = mkOption {
+          type = types.nullOr types.str;
+          default = null;
+          example = "enp0s3";
+          description = lib.mdDoc "The default gateway interface.";
+        };
 
-      metric = mkOption {
-        type = types.nullOr types.int;
-        default = null;
-        example = 42;
-        description = lib.mdDoc "The default gateway metric/preference.";
+        metric = mkOption {
+          type = types.nullOr types.int;
+          default = null;
+          example = 42;
+          description = lib.mdDoc "The default gateway metric/preference.";
+        };
+
       };
 
     };
 
-  };
+  interfaceOpts = {
+      name,
+      ...
+    }: {
 
-  interfaceOpts = { name, ... }: {
+      options = {
+        name = mkOption {
+          example = "eth0";
+          type = types.str;
+          description = lib.mdDoc "Name of the interface.";
+        };
 
-    options = {
-      name = mkOption {
-        example = "eth0";
-        type = types.str;
-        description = lib.mdDoc "Name of the interface.";
-      };
+        tempAddress = mkOption {
+          type = types.enum (lib.attrNames tempaddrValues);
+          default = cfg.tempAddresses;
+          defaultText = literalExpression "config.networking.tempAddresses";
+          description = lib.mdDoc ''
+            When IPv6 is enabled with SLAAC, this option controls the use of
+            temporary address (aka privacy extensions) on this
+            interface. This is used to reduce tracking.
 
-      tempAddress = mkOption {
-        type = types.enum (lib.attrNames tempaddrValues);
-        default = cfg.tempAddresses;
-        defaultText = literalExpression "config.networking.tempAddresses";
-        description = lib.mdDoc ''
-          When IPv6 is enabled with SLAAC, this option controls the use of
-          temporary address (aka privacy extensions) on this
-          interface. This is used to reduce tracking.
+            See also the global option
+            [](#opt-networking.tempAddresses), which
+            applies to all interfaces where this is not set.
 
-          See also the global option
-          [](#opt-networking.tempAddresses), which
-          applies to all interfaces where this is not set.
+            Possible values are:
+            ${tempaddrDoc}
+          '';
+        };
 
-          Possible values are:
-          ${tempaddrDoc}
-        '';
-      };
+        useDHCP = mkOption {
+          type = types.nullOr types.bool;
+          default = null;
+          description = lib.mdDoc ''
+            Whether this interface should be configured with dhcp.
+            Null implies the old behavior which depends on whether ip addresses
+            are specified or not.
+          '';
+        };
 
-      useDHCP = mkOption {
-        type = types.nullOr types.bool;
-        default = null;
-        description = lib.mdDoc ''
-          Whether this interface should be configured with dhcp.
-          Null implies the old behavior which depends on whether ip addresses
-          are specified or not.
-        '';
-      };
+        ipv4.addresses = mkOption {
+          default = [ ];
+          example = [
+            {
+              address = "10.0.0.1";
+              prefixLength = 16;
+            }
+            {
+              address = "192.168.1.1";
+              prefixLength = 24;
+            }
+          ];
+          type = with types; listOf (submodule (addrOpts 4));
+          description = lib.mdDoc ''
+            List of IPv4 addresses that will be statically assigned to the interface.
+          '';
+        };
 
-      ipv4.addresses = mkOption {
-        default = [ ];
-        example = [
-          {
-            address = "10.0.0.1";
-            prefixLength = 16;
-          }
-          {
-            address = "192.168.1.1";
-            prefixLength = 24;
-          }
-        ];
-        type = with types; listOf (submodule (addrOpts 4));
-        description = lib.mdDoc ''
-          List of IPv4 addresses that will be statically assigned to the interface.
-        '';
-      };
+        ipv6.addresses = mkOption {
+          default = [ ];
+          example = [
+            {
+              address = "fdfd:b3f0:482::1";
+              prefixLength = 48;
+            }
+            {
+              address = "2001:1470:fffd:2098::e006";
+              prefixLength = 64;
+            }
+          ];
+          type = with types; listOf (submodule (addrOpts 6));
+          description = lib.mdDoc ''
+            List of IPv6 addresses that will be statically assigned to the interface.
+          '';
+        };
 
-      ipv6.addresses = mkOption {
-        default = [ ];
-        example = [
-          {
-            address = "fdfd:b3f0:482::1";
-            prefixLength = 48;
-          }
-          {
-            address = "2001:1470:fffd:2098::e006";
-            prefixLength = 64;
-          }
-        ];
-        type = with types; listOf (submodule (addrOpts 6));
-        description = lib.mdDoc ''
-          List of IPv6 addresses that will be statically assigned to the interface.
-        '';
-      };
+        ipv4.routes = mkOption {
+          default = [ ];
+          example = [
+            {
+              address = "10.0.0.0";
+              prefixLength = 16;
+            }
+            {
+              address = "192.168.2.0";
+              prefixLength = 24;
+              via = "192.168.1.1";
+            }
+          ];
+          type = with types; listOf (submodule (routeOpts 4));
+          description = lib.mdDoc ''
+            List of extra IPv4 static routes that will be assigned to the interface.
 
-      ipv4.routes = mkOption {
-        default = [ ];
-        example = [
-          {
-            address = "10.0.0.0";
-            prefixLength = 16;
-          }
-          {
-            address = "192.168.2.0";
-            prefixLength = 24;
-            via = "192.168.1.1";
-          }
-        ];
-        type = with types; listOf (submodule (routeOpts 4));
-        description = lib.mdDoc ''
-          List of extra IPv4 static routes that will be assigned to the interface.
+            ::: {.warning}
+            If the route type is the default `unicast`, then the scope
+            is set differently depending on the value of {option}`networking.useNetworkd`:
+            the script-based backend sets it to `link`, while networkd sets
+            it to `global`.
+            :::
 
-          ::: {.warning}
-          If the route type is the default `unicast`, then the scope
-          is set differently depending on the value of {option}`networking.useNetworkd`:
-          the script-based backend sets it to `link`, while networkd sets
-          it to `global`.
-          :::
+            If you want consistency between the two implementations,
+            set the scope of the route manually with
+            `networking.interfaces.eth0.ipv4.routes = [{ options.scope = "global"; }]`
+            for example.
+          '';
+        };
 
-          If you want consistency between the two implementations,
-          set the scope of the route manually with
-          `networking.interfaces.eth0.ipv4.routes = [{ options.scope = "global"; }]`
-          for example.
-        '';
-      };
+        ipv6.routes = mkOption {
+          default = [ ];
+          example = [
+            {
+              address = "fdfd:b3f0::";
+              prefixLength = 48;
+            }
+            {
+              address = "2001:1470:fffd:2098::";
+              prefixLength = 64;
+              via = "fdfd:b3f0::1";
+            }
+          ];
+          type = with types; listOf (submodule (routeOpts 6));
+          description = lib.mdDoc ''
+            List of extra IPv6 static routes that will be assigned to the interface.
+          '';
+        };
 
-      ipv6.routes = mkOption {
-        default = [ ];
-        example = [
-          {
-            address = "fdfd:b3f0::";
-            prefixLength = 48;
-          }
-          {
-            address = "2001:1470:fffd:2098::";
-            prefixLength = 64;
-            via = "fdfd:b3f0::1";
-          }
-        ];
-        type = with types; listOf (submodule (routeOpts 6));
-        description = lib.mdDoc ''
-          List of extra IPv6 static routes that will be assigned to the interface.
-        '';
-      };
+        macAddress = mkOption {
+          default = null;
+          example = "00:11:22:33:44:55";
+          type = types.nullOr (types.str);
+          description = lib.mdDoc ''
+            MAC address of the interface. Leave empty to use the default.
+          '';
+        };
 
-      macAddress = mkOption {
-        default = null;
-        example = "00:11:22:33:44:55";
-        type = types.nullOr (types.str);
-        description = lib.mdDoc ''
-          MAC address of the interface. Leave empty to use the default.
-        '';
-      };
+        mtu = mkOption {
+          default = null;
+          example = 9000;
+          type = types.nullOr types.int;
+          description = lib.mdDoc ''
+            MTU size for packets leaving the interface. Leave empty to use the default.
+          '';
+        };
 
-      mtu = mkOption {
-        default = null;
-        example = 9000;
-        type = types.nullOr types.int;
-        description = lib.mdDoc ''
-          MTU size for packets leaving the interface. Leave empty to use the default.
-        '';
-      };
-
-      virtual = mkOption {
-        default = false;
-        type = types.bool;
-        description = lib.mdDoc ''
-          Whether this interface is virtual and should be created by tunctl.
-          This is mainly useful for creating bridges between a host and a virtual
-          network such as VPN or a virtual machine.
-        '';
-      };
-
-      virtualOwner = mkOption {
-        default = "root";
-        type = types.str;
-        description = lib.mdDoc ''
-          In case of a virtual device, the user who owns it.
-        '';
-      };
-
-      virtualType = mkOption {
-        default = if hasPrefix "tun" name then "tun" else "tap";
-        defaultText =
-          literalExpression ''if hasPrefix "tun" name then "tun" else "tap"'';
-        type = with types; enum [ "tun" "tap" ];
-        description = lib.mdDoc ''
-          The type of interface to create.
-          The default is TUN for an interface name starting
-          with "tun", otherwise TAP.
-        '';
-      };
-
-      proxyARP = mkOption {
-        default = false;
-        type = types.bool;
-        description = lib.mdDoc ''
-          Turn on proxy_arp for this device.
-          This is mainly useful for creating pseudo-bridges between a real
-          interface and a virtual network such as VPN or a virtual machine for
-          interfaces that don't support real bridging (most wlan interfaces).
-          As ARP proxying acts slightly above the link-layer, below-ip traffic
-          isn't bridged, so things like DHCP won't work. The advantage above
-          using NAT lies in the fact that no IP addresses are shared, so all
-          hosts are reachable/routeable.
-
-          WARNING: turns on ip-routing, so if you have multiple interfaces, you
-          should think of the consequence and setup firewall rules to limit this.
-        '';
-      };
-
-      wakeOnLan = {
-        enable = mkOption {
-          type = types.bool;
+        virtual = mkOption {
           default = false;
-          description = lib.mdDoc "Whether to enable wol on this interface.";
+          type = types.bool;
+          description = lib.mdDoc ''
+            Whether this interface is virtual and should be created by tunctl.
+            This is mainly useful for creating bridges between a host and a virtual
+            network such as VPN or a virtual machine.
+          '';
+        };
+
+        virtualOwner = mkOption {
+          default = "root";
+          type = types.str;
+          description = lib.mdDoc ''
+            In case of a virtual device, the user who owns it.
+          '';
+        };
+
+        virtualType = mkOption {
+          default = if hasPrefix "tun" name then "tun" else "tap";
+          defaultText =
+            literalExpression ''if hasPrefix "tun" name then "tun" else "tap"'';
+          type = with types; enum [ "tun" "tap" ];
+          description = lib.mdDoc ''
+            The type of interface to create.
+            The default is TUN for an interface name starting
+            with "tun", otherwise TAP.
+          '';
+        };
+
+        proxyARP = mkOption {
+          default = false;
+          type = types.bool;
+          description = lib.mdDoc ''
+            Turn on proxy_arp for this device.
+            This is mainly useful for creating pseudo-bridges between a real
+            interface and a virtual network such as VPN or a virtual machine for
+            interfaces that don't support real bridging (most wlan interfaces).
+            As ARP proxying acts slightly above the link-layer, below-ip traffic
+            isn't bridged, so things like DHCP won't work. The advantage above
+            using NAT lies in the fact that no IP addresses are shared, so all
+            hosts are reachable/routeable.
+
+            WARNING: turns on ip-routing, so if you have multiple interfaces, you
+            should think of the consequence and setup firewall rules to limit this.
+          '';
+        };
+
+        wakeOnLan = {
+          enable = mkOption {
+            type = types.bool;
+            default = false;
+            description = lib.mdDoc "Whether to enable wol on this interface.";
+          };
+        };
+      };
+
+      config = { name = mkDefault name; };
+
+      # Renamed or removed options
+      imports = let defined = x: x != "_mkMergedOptionModule";
+      in [
+        (mkChangedOptionModule [ "preferTempAddress" ] [ "tempAddress" ]
+          (config:
+            let bool = getAttrFromPath [ "preferTempAddress" ] config;
+            in if bool then "default" else "enabled"))
+        (mkRenamedOptionModule [ "ip4" ] [ "ipv4" "addresses" ])
+        (mkRenamedOptionModule [ "ip6" ] [ "ipv6" "addresses" ])
+        (mkRemovedOptionModule [ "subnetMask" ] ''
+          Supply a prefix length instead; use option
+          networking.interfaces.<name>.ipv{4,6}.addresses'')
+        (mkMergedOptionModule [ [ "ipAddress" ] [ "prefixLength" ] ] [
+          "ipv4"
+          "addresses"
+        ] (cfg:
+          with cfg;
+          optional (defined ipAddress && defined prefixLength) {
+            address = ipAddress;
+            prefixLength = prefixLength;
+          }))
+        (mkMergedOptionModule [ [ "ipv6Address" ] [ "ipv6PrefixLength" ] ] [
+          "ipv6"
+          "addresses"
+        ] (cfg:
+          with cfg;
+          optional (defined ipv6Address && defined ipv6PrefixLength) {
+            address = ipv6Address;
+            prefixLength = ipv6PrefixLength;
+          }))
+
+        ({
+          options.warnings = options.warnings;
+          options.assertions = options.assertions;
+        })
+      ];
+
+    };
+
+  vswitchInterfaceOpts = {
+      name,
+      ...
+    }: {
+
+      options = {
+
+        name = mkOption {
+          description = lib.mdDoc "Name of the interface";
+          example = "eth0";
+          type = types.str;
+        };
+
+        vlan = mkOption {
+          description = lib.mdDoc "Vlan tag to apply to interface";
+          example = 10;
+          type = types.nullOr types.int;
+          default = null;
+        };
+
+        type = mkOption {
+          description = lib.mdDoc "Openvswitch type to assign to interface";
+          example = "internal";
+          type = types.nullOr types.str;
+          default = null;
         };
       };
     };
-
-    config = { name = mkDefault name; };
-
-    # Renamed or removed options
-    imports = let defined = x: x != "_mkMergedOptionModule";
-    in [
-      (mkChangedOptionModule [ "preferTempAddress" ] [ "tempAddress" ] (config:
-        let bool = getAttrFromPath [ "preferTempAddress" ] config;
-        in if bool then "default" else "enabled"))
-      (mkRenamedOptionModule [ "ip4" ] [ "ipv4" "addresses" ])
-      (mkRenamedOptionModule [ "ip6" ] [ "ipv6" "addresses" ])
-      (mkRemovedOptionModule [ "subnetMask" ] ''
-        Supply a prefix length instead; use option
-        networking.interfaces.<name>.ipv{4,6}.addresses'')
-      (mkMergedOptionModule [ [ "ipAddress" ] [ "prefixLength" ] ] [
-        "ipv4"
-        "addresses"
-      ] (cfg:
-        with cfg;
-        optional (defined ipAddress && defined prefixLength) {
-          address = ipAddress;
-          prefixLength = prefixLength;
-        }))
-      (mkMergedOptionModule [ [ "ipv6Address" ] [ "ipv6PrefixLength" ] ] [
-        "ipv6"
-        "addresses"
-      ] (cfg:
-        with cfg;
-        optional (defined ipv6Address && defined ipv6PrefixLength) {
-          address = ipv6Address;
-          prefixLength = ipv6PrefixLength;
-        }))
-
-      ({
-        options.warnings = options.warnings;
-        options.assertions = options.assertions;
-      })
-    ];
-
-  };
-
-  vswitchInterfaceOpts = { name, ... }: {
-
-    options = {
-
-      name = mkOption {
-        description = lib.mdDoc "Name of the interface";
-        example = "eth0";
-        type = types.str;
-      };
-
-      vlan = mkOption {
-        description = lib.mdDoc "Vlan tag to apply to interface";
-        example = 10;
-        type = types.nullOr types.int;
-        default = null;
-      };
-
-      type = mkOption {
-        description = lib.mdDoc "Openvswitch type to assign to interface";
-        example = "internal";
-        type = types.nullOr types.str;
-        default = null;
-      };
-    };
-  };
 
   hexChars = stringToCharacters "0123456789abcdef";
 
@@ -452,9 +473,12 @@ let
         "generate IPv6 temporary addresses and use these as source addresses in routing";
     };
   };
-  tempaddrDoc = concatStringsSep "\n" (mapAttrsToList
-    (name: { description, ... }: ''- `"${name}"` to ${description};'')
-    tempaddrValues);
+  tempaddrDoc = concatStringsSep "\n" (mapAttrsToList (name:
+    {
+      description,
+      ...
+    }:
+    ''- `"${name}"` to ${description};'') tempaddrValues);
 
   hostidFile = pkgs.runCommand "gen-hostid" { preferLocalBuild = true; } ''
     hi="${cfg.hostId}"

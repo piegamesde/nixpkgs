@@ -1,6 +1,17 @@
-{ stdenv, lib, makeSetupHook, makeWrapper, gobject-introspection
-, isGraphical ? true, gtk3, librsvg, dconf, callPackage, wrapGAppsHook
-, targetPackages }:
+{
+  stdenv,
+  lib,
+  makeSetupHook,
+  makeWrapper,
+  gobject-introspection,
+  isGraphical ? true,
+  gtk3,
+  librsvg,
+  dconf,
+  callPackage,
+  wrapGAppsHook,
+  targetPackages,
+}:
 
 makeSetupHook {
   name = "wrap-gapps-hook";

@@ -1,9 +1,27 @@
-{ stdenv, fetchFromGitLab, fetchpatch, lib, darwin, git, nettle
-, nix-update-script
-# Use the same llvmPackages version as Rust
-, llvmPackages_12, cargo, rustc, rustPlatform, pkg-config, glib, openssl, sqlite
-, capnproto, ensureNewerSourcesForZipFilesHook, pythonSupport ? true
-, pythonPackages ? null }:
+{
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  lib,
+  darwin,
+  git,
+  nettle,
+  nix-update-script
+  # Use the same llvmPackages version as Rust
+  ,
+  llvmPackages_12,
+  cargo,
+  rustc,
+  rustPlatform,
+  pkg-config,
+  glib,
+  openssl,
+  sqlite,
+  capnproto,
+  ensureNewerSourcesForZipFilesHook,
+  pythonSupport ? true,
+  pythonPackages ? null
+}:
 
 assert pythonSupport -> pythonPackages != null;
 

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -74,151 +79,155 @@ let
       '';
     };
 
-  siteOpts = { lib, name, ... }: {
-    options = {
+  siteOpts = {
+      lib,
+      name,
+      ...
+    }: {
+      options = {
 
-      enable = mkEnableOption (lib.mdDoc "InvoicePlane web application");
+        enable = mkEnableOption (lib.mdDoc "InvoicePlane web application");
 
-      stateDir = mkOption {
-        type = types.path;
-        default = "/var/lib/invoiceplane/${name}";
-        description = lib.mdDoc ''
-          This directory is used for uploads of attachments and cache.
-          The directory passed here is automatically created and permissions
-          adjusted as required.
-        '';
-      };
-
-      database = {
-        host = mkOption {
-          type = types.str;
-          default = "localhost";
-          description = lib.mdDoc "Database host address.";
-        };
-
-        port = mkOption {
-          type = types.port;
-          default = 3306;
-          description = lib.mdDoc "Database host port.";
-        };
-
-        name = mkOption {
-          type = types.str;
-          default = "invoiceplane";
-          description = lib.mdDoc "Database name.";
-        };
-
-        user = mkOption {
-          type = types.str;
-          default = "invoiceplane";
-          description = lib.mdDoc "Database user.";
-        };
-
-        passwordFile = mkOption {
-          type = types.nullOr types.path;
-          default = null;
-          example = "/run/keys/invoiceplane-dbpassword";
+        stateDir = mkOption {
+          type = types.path;
+          default = "/var/lib/invoiceplane/${name}";
           description = lib.mdDoc ''
-            A file containing the password corresponding to
-            {option}`database.user`.
+            This directory is used for uploads of attachments and cache.
+            The directory passed here is automatically created and permissions
+            adjusted as required.
           '';
         };
 
-        createLocally = mkOption {
-          type = types.bool;
-          default = true;
-          description =
-            lib.mdDoc "Create the database and database user locally.";
+        database = {
+          host = mkOption {
+            type = types.str;
+            default = "localhost";
+            description = lib.mdDoc "Database host address.";
+          };
+
+          port = mkOption {
+            type = types.port;
+            default = 3306;
+            description = lib.mdDoc "Database host port.";
+          };
+
+          name = mkOption {
+            type = types.str;
+            default = "invoiceplane";
+            description = lib.mdDoc "Database name.";
+          };
+
+          user = mkOption {
+            type = types.str;
+            default = "invoiceplane";
+            description = lib.mdDoc "Database user.";
+          };
+
+          passwordFile = mkOption {
+            type = types.nullOr types.path;
+            default = null;
+            example = "/run/keys/invoiceplane-dbpassword";
+            description = lib.mdDoc ''
+              A file containing the password corresponding to
+              {option}`database.user`.
+            '';
+          };
+
+          createLocally = mkOption {
+            type = types.bool;
+            default = true;
+            description =
+              lib.mdDoc "Create the database and database user locally.";
+          };
         };
-      };
 
-      invoiceTemplates = mkOption {
-        type = types.listOf types.path;
-        default = [ ];
-        description = lib.mdDoc ''
-          List of path(s) to respective template(s) which are copied from the 'invoice_templates/pdf' directory.
+        invoiceTemplates = mkOption {
+          type = types.listOf types.path;
+          default = [ ];
+          description = lib.mdDoc ''
+            List of path(s) to respective template(s) which are copied from the 'invoice_templates/pdf' directory.
 
-          ::: {.note}
-          These templates need to be packaged before use, see example.
-          :::
-        '';
-        example = literalExpression ''
-          let
-            # Let's package an example template
-            template-vtdirektmarketing = pkgs.stdenv.mkDerivation {
-              name = "vtdirektmarketing";
-              # Download the template from a public repository
-              src = pkgs.fetchgit {
-                url = "https://git.project-insanity.org/onny/invoiceplane-vtdirektmarketing.git";
-                sha256 = "1hh0q7wzsh8v8x03i82p6qrgbxr4v5fb05xylyrpp975l8axyg2z";
+            ::: {.note}
+            These templates need to be packaged before use, see example.
+            :::
+          '';
+          example = literalExpression ''
+            let
+              # Let's package an example template
+              template-vtdirektmarketing = pkgs.stdenv.mkDerivation {
+                name = "vtdirektmarketing";
+                # Download the template from a public repository
+                src = pkgs.fetchgit {
+                  url = "https://git.project-insanity.org/onny/invoiceplane-vtdirektmarketing.git";
+                  sha256 = "1hh0q7wzsh8v8x03i82p6qrgbxr4v5fb05xylyrpp975l8axyg2z";
+                };
+                sourceRoot = ".";
+                # Installing simply means copying template php file to the output directory
+                installPhase = ""
+                  mkdir -p $out
+                  cp invoiceplane-vtdirektmarketing/vtdirektmarketing.php $out/
+                "";
               };
-              sourceRoot = ".";
-              # Installing simply means copying template php file to the output directory
-              installPhase = ""
-                mkdir -p $out
-                cp invoiceplane-vtdirektmarketing/vtdirektmarketing.php $out/
-              "";
-            };
-          # And then pass this package to the template list like this:
-          in [ template-vtdirektmarketing ]
-        '';
-      };
-
-      poolConfig = mkOption {
-        type = with types; attrsOf (oneOf [ str int bool ]);
-        default = {
-          "pm" = "dynamic";
-          "pm.max_children" = 32;
-          "pm.start_servers" = 2;
-          "pm.min_spare_servers" = 2;
-          "pm.max_spare_servers" = 4;
-          "pm.max_requests" = 500;
-        };
-        description = lib.mdDoc ''
-          Options for the InvoicePlane PHP pool. See the documentation on `php-fpm.conf`
-          for details on configuration directives.
-        '';
-      };
-
-      extraConfig = mkOption {
-        type = types.nullOr types.lines;
-        default = null;
-        example = ''
-          SETUP_COMPLETED=true
-          DISABLE_SETUP=true
-          IP_URL=https://invoice.example.com
-        '';
-        description = lib.mdDoc ''
-          InvoicePlane configuration. Refer to
-          <https://github.com/InvoicePlane/InvoicePlane/blob/master/ipconfig.php.example>
-          for details on supported values.
-        '';
-      };
-
-      cron = {
-
-        enable = mkOption {
-          type = types.bool;
-          default = false;
-          description = lib.mdDoc ''
-            Enable cron service which periodically runs Invoiceplane tasks.
-            Requires key taken from the administration page. Refer to
-            <https://wiki.invoiceplane.com/en/1.0/modules/recurring-invoices>
-            on how to configure it.
+            # And then pass this package to the template list like this:
+            in [ template-vtdirektmarketing ]
           '';
         };
 
-        key = mkOption {
-          type = types.str;
-          description =
-            lib.mdDoc "Cron key taken from the administration page.";
+        poolConfig = mkOption {
+          type = with types; attrsOf (oneOf [ str int bool ]);
+          default = {
+            "pm" = "dynamic";
+            "pm.max_children" = 32;
+            "pm.start_servers" = 2;
+            "pm.min_spare_servers" = 2;
+            "pm.max_spare_servers" = 4;
+            "pm.max_requests" = 500;
+          };
+          description = lib.mdDoc ''
+            Options for the InvoicePlane PHP pool. See the documentation on `php-fpm.conf`
+            for details on configuration directives.
+          '';
+        };
+
+        extraConfig = mkOption {
+          type = types.nullOr types.lines;
+          default = null;
+          example = ''
+            SETUP_COMPLETED=true
+            DISABLE_SETUP=true
+            IP_URL=https://invoice.example.com
+          '';
+          description = lib.mdDoc ''
+            InvoicePlane configuration. Refer to
+            <https://github.com/InvoicePlane/InvoicePlane/blob/master/ipconfig.php.example>
+            for details on supported values.
+          '';
+        };
+
+        cron = {
+
+          enable = mkOption {
+            type = types.bool;
+            default = false;
+            description = lib.mdDoc ''
+              Enable cron service which periodically runs Invoiceplane tasks.
+              Requires key taken from the administration page. Refer to
+              <https://wiki.invoiceplane.com/en/1.0/modules/recurring-invoices>
+              on how to configure it.
+            '';
+          };
+
+          key = mkOption {
+            type = types.str;
+            description =
+              lib.mdDoc "Cron key taken from the administration page.";
+          };
+
         };
 
       };
 
     };
-
-  };
 in {
   # interface
   options = {

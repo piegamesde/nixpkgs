@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitLab, substituteAll, autoreconfHook, iodine, intltool
-, pkg-config, networkmanager, libsecret, gtk3, withGnome ? true, gnome
-, fetchpatch, libnma, glib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  substituteAll,
+  autoreconfHook,
+  iodine,
+  intltool,
+  pkg-config,
+  networkmanager,
+  libsecret,
+  gtk3,
+  withGnome ? true,
+  gnome,
+  fetchpatch,
+  libnma,
+  glib,
+}:
 
 let
   pname = "NetworkManager-iodine";

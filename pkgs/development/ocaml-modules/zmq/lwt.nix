@@ -1,4 +1,8 @@
-{ buildDunePackage, zmq, ocaml_lwt }:
+{
+  buildDunePackage,
+  zmq,
+  ocaml_lwt,
+}:
 
 buildDunePackage {
   pname = "zmq-lwt";

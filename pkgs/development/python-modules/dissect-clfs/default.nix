@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, dissect-cstruct, fetchFromGitHub, setuptools
-, setuptools-scm, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  dissect-cstruct,
+  fetchFromGitHub,
+  setuptools,
+  setuptools-scm,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "dissect-clfs";

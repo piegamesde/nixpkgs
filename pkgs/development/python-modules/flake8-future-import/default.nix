@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy27, isPy38, isPy39
-, pythonAtLeast, flake8, six, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy27,
+  isPy38,
+  isPy39,
+  pythonAtLeast,
+  flake8,
+  six,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "flake8-future-import";

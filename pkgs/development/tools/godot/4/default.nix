@@ -1,10 +1,38 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, autoPatchelfHook, installShellFiles
-, scons, vulkan-loader, libGL, libX11, libXcursor, libXinerama, libXext
-, libXrandr, libXrender, libXi, libXfixes, libxkbcommon, alsa-lib, libpulseaudio
-, dbus, speechd, fontconfig, udev, withPlatform ? "linuxbsd"
-, withTarget ? "editor", withPrecision ? "single", withPulseaudio ? true
-, withDbus ? true, withSpeechd ? true, withFontconfig ? true, withUdev ? true
-, withTouch ? true }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  autoPatchelfHook,
+  installShellFiles,
+  scons,
+  vulkan-loader,
+  libGL,
+  libX11,
+  libXcursor,
+  libXinerama,
+  libXext,
+  libXrandr,
+  libXrender,
+  libXi,
+  libXfixes,
+  libxkbcommon,
+  alsa-lib,
+  libpulseaudio,
+  dbus,
+  speechd,
+  fontconfig,
+  udev,
+  withPlatform ? "linuxbsd",
+  withTarget ? "editor",
+  withPrecision ? "single",
+  withPulseaudio ? true,
+  withDbus ? true,
+  withSpeechd ? true,
+  withFontconfig ? true,
+  withUdev ? true,
+  withTouch ? true
+}:
 
 assert lib.asserts.assertOneOf "withPrecision" withPrecision [
   "single"

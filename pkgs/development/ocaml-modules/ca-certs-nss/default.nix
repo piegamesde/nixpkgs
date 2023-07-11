@@ -1,5 +1,17 @@
-{ lib, buildDunePackage, fetchurl, mirage-crypto, mirage-clock, x509, logs, fmt
-, bos, astring, cmdliner, alcotest }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  mirage-crypto,
+  mirage-clock,
+  x509,
+  logs,
+  fmt,
+  bos,
+  astring,
+  cmdliner,
+  alcotest,
+}:
 
 buildDunePackage rec {
   pname = "ca-certs-nss";

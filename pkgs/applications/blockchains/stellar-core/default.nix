@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, libtool, automake, pkg-config, git
-, bison, flex, postgresql, ripgrep, libunwind }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  libtool,
+  automake,
+  pkg-config,
+  git,
+  bison,
+  flex,
+  postgresql,
+  ripgrep,
+  libunwind,
+}:
 
 stdenv.mkDerivation rec {
   pname = "stellar-core";

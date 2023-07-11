@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, ocaml, findlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-twt";

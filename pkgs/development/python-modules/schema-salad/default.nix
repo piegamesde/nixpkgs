@@ -1,5 +1,17 @@
-{ lib, black, buildPythonPackage, fetchPypi, setuptools-scm, cachecontrol
-, lockfile, mistune, rdflib, ruamel-yaml, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  black,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools-scm,
+  cachecontrol,
+  lockfile,
+  mistune,
+  rdflib,
+  ruamel-yaml,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "schema-salad";

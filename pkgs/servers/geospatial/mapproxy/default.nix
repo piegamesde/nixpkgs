@@ -1,4 +1,8 @@
-{ lib, pkgs, python3 }:
+{
+  lib,
+  pkgs,
+  python3,
+}:
 
 with python3.pkgs;
 buildPythonApplication rec {

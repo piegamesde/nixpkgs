@@ -1,6 +1,19 @@
-{ lib, stdenv, llvm_meta, version, monorepoSrc, runCommand, cmake, ninja
-, python3, xcbuild, libllvm, libcxxabi, libxcrypt
-, doFakeLibgcc ? stdenv.hostPlatform.isFreeBSD }:
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  version,
+  monorepoSrc,
+  runCommand,
+  cmake,
+  ninja,
+  python3,
+  xcbuild,
+  libllvm,
+  libcxxabi,
+  libxcrypt,
+  doFakeLibgcc ? stdenv.hostPlatform.isFreeBSD
+}:
 
 let
 

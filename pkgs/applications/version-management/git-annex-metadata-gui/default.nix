@@ -1,4 +1,11 @@
-{ lib, buildPythonApplication, fetchFromGitHub, pyqt5, qt5, git-annex-adapter }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  pyqt5,
+  qt5,
+  git-annex-adapter,
+}:
 
 buildPythonApplication rec {
   pname = "git-annex-metadata-gui";

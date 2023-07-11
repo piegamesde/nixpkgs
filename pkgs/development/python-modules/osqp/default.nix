@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, cmake, cvxopt, fetchPypi, future, numpy
-, pytestCheckHook, pythonOlder, qdldl, scipy, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  cmake,
+  cvxopt,
+  fetchPypi,
+  future,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  qdldl,
+  scipy,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "osqp";

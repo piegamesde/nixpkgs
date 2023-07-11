@@ -1,10 +1,21 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, fetchpatch
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  fetchpatch
 
-# docs
-, python, sphinx, sphinx-rtd-theme
+  # docs
+  ,
+  python,
+  sphinx,
+  sphinx-rtd-theme
 
-# tests
-, hypothesis, pytestCheckHook }:
+  # tests
+  ,
+  hypothesis,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "mutagen";

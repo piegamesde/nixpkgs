@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, fetchpatch, autoconf, gtkmm3, glib, pdftk, pkg-config
-, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoconf,
+  gtkmm3,
+  glib,
+  pdftk,
+  pkg-config,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pdfchain";
@@ -16,7 +26,10 @@ stdenv.mkDerivation rec {
   buildInputs = [ gtkmm3 pdftk glib ];
 
   patches = let
-    fetchDebianPatch = { name, sha256 }:
+    fetchDebianPatch = {
+        name,
+        sha256,
+      }:
       fetchpatch {
         url =
           "https://salsa.debian.org/debian/pdfchain/raw/2d29107756a3194fb522bdea8e9b9e393b15a8f3/debian/patches/${name}";

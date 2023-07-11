@@ -1,4 +1,10 @@
-{ clangStdenv, cmake, fetchFromGitHub, lib, zlib }:
+{
+  clangStdenv,
+  cmake,
+  fetchFromGitHub,
+  lib,
+  zlib,
+}:
 let
   pname = "HdrHistogram_c";
   version = "0.11.5";

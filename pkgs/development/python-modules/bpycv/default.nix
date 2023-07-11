@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, fetchFromGitHub, fetchurl, writeText
-, blender, minexr, beautifulsoup4, zcs, requests, opencv3, boxx }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchFromGitHub,
+  fetchurl,
+  writeText,
+  blender,
+  minexr,
+  beautifulsoup4,
+  zcs,
+  requests,
+  opencv3,
+  boxx,
+}:
 
 buildPythonPackage rec {
   pname = "bpycv";

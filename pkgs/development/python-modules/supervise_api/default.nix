@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, substituteAll, supervise, isPy3k
-, whichcraft, util-linux }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  substituteAll,
+  supervise,
+  isPy3k,
+  whichcraft,
+  util-linux,
+}:
 
 buildPythonPackage rec {
   pname = "supervise_api";

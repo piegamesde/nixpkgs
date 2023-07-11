@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, gwenhywfar, pcsclite, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gwenhywfar,
+  pcsclite,
+  zlib,
+}:
 
 let inherit ((import ./sources.nix).libchipcard) hash releaseId version;
 in stdenv.mkDerivation rec {

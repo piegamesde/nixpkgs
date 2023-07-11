@@ -1,8 +1,21 @@
-{ lib, stdenv, ocaml_oasis, ocaml, findlib, ocamlbuild }:
+{
+  lib,
+  stdenv,
+  ocaml_oasis,
+  ocaml,
+  findlib,
+  ocamlbuild,
+}:
 
-{ pname, version, nativeBuildInputs ? [ ]
-, meta ? { platforms = ocaml.meta.platforms or [ ]; }
-, minimumOCamlVersion ? null, createFindlibDestdir ? true, dontStrip ? true, ...
+{
+  pname,
+  version,
+  nativeBuildInputs ? [ ],
+  meta ? { platforms = ocaml.meta.platforms or [ ]; },
+  minimumOCamlVersion ? null,
+  createFindlibDestdir ? true,
+  dontStrip ? true,
+  ...
 }@args:
 
 if args ? minimumOCamlVersion

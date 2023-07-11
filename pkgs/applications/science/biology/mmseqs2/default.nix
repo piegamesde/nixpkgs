@@ -1,7 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake, xxd, perl, installShellFiles
-, enableAvx2 ? stdenv.hostPlatform.avx2Support
-, enableSse4_1 ? stdenv.hostPlatform.sse4_1Support, enableMpi ? false, mpi
-, openmp, zlib, bzip2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  xxd,
+  perl,
+  installShellFiles,
+  enableAvx2 ? stdenv.hostPlatform.avx2Support,
+  enableSse4_1 ? stdenv.hostPlatform.sse4_1Support,
+  enableMpi ? false,
+  mpi,
+  openmp,
+  zlib,
+  bzip2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mmseqs2";

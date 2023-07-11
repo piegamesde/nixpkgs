@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, pkg-config, buildDunePackage, dune-configurator, gtk3
-, cairo2, camlp-streams }:
+{
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  buildDunePackage,
+  dune-configurator,
+  gtk3,
+  cairo2,
+  camlp-streams,
+}:
 
 buildDunePackage rec {
   version = "3.1.3";

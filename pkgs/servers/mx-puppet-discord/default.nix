@@ -1,5 +1,17 @@
-{ stdenv, fetchFromGitLab, pkgs, lib, nodejs_14, pkg-config, libjpeg, pixman
-, cairo, pango, which, postgresql }:
+{
+  stdenv,
+  fetchFromGitLab,
+  pkgs,
+  lib,
+  nodejs_14,
+  pkg-config,
+  libjpeg,
+  pixman,
+  cairo,
+  pango,
+  which,
+  postgresql,
+}:
 
 let
   nodejs = nodejs_14;

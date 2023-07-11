@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, poppler }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  poppler,
+}:
 
 stdenv.mkDerivation {
   pname = "leela";

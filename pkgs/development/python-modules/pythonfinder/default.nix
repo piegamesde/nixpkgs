@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook, attrs
-, cached-property, click, packaging, pytest-cov, pytest-timeout, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pytestCheckHook,
+  attrs,
+  cached-property,
+  click,
+  packaging,
+  pytest-cov,
+  pytest-timeout,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "pythonfinder";

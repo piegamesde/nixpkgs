@@ -1,4 +1,10 @@
-{ stdenv, lib, hunspell, makeWrapper, dicts ? [ ] }:
+{
+  stdenv,
+  lib,
+  hunspell,
+  makeWrapper,
+  dicts ? [ ]
+}:
 let searchPath = lib.makeSearchPath "share/hunspell" dicts;
 in stdenv.mkDerivation {
   name = (lib.appendToName "with-dicts" hunspell).name;

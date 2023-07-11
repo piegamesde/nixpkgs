@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pycryptodome, enlighten, zstandard
-, withGUI ? true, kivy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pycryptodome,
+  enlighten,
+  zstandard,
+  withGUI ? true,
+  kivy,
+}:
 
 buildPythonPackage rec {
   pname = "nsz";

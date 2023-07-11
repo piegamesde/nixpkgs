@@ -1,4 +1,14 @@
-{ stdenv, lib, fetchurl, pkg-config, libcdio, libxml2, popt, libiconv, darwin }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  libcdio,
+  libxml2,
+  popt,
+  libiconv,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vcdimager";

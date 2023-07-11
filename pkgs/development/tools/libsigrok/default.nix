@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchurl, pkg-config, libzip, glib, libusb1, libftdi1, check
-, libserialport, doxygen, glibmm, python, hidapi, libieee1284, bluez
-, sigrok-firmware-fx2lafw }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libzip,
+  glib,
+  libusb1,
+  libftdi1,
+  check,
+  libserialport,
+  doxygen,
+  glibmm,
+  python,
+  hidapi,
+  libieee1284,
+  bluez,
+  sigrok-firmware-fx2lafw,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libsigrok";

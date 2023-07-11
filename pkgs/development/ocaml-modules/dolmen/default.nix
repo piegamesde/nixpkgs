@@ -1,4 +1,11 @@
-{ lib, fetchurl, buildDunePackage, menhir, menhirLib, fmt }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  menhir,
+  menhirLib,
+  fmt,
+}:
 
 buildDunePackage rec {
   pname = "dolmen";

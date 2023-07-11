@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, drawio-headless, fetchPypi, pythonOlder, mkdocs
-, beautifulsoup4 }:
+{
+  lib,
+  buildPythonPackage,
+  drawio-headless,
+  fetchPypi,
+  pythonOlder,
+  mkdocs,
+  beautifulsoup4,
+}:
 
 buildPythonPackage rec {
   pname = "mkdocs-swagger-ui-tag";

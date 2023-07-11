@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, twisted, qtpy, pyqt5 }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  twisted,
+  qtpy,
+  pyqt5,
+}:
 
 buildPythonPackage rec {
   pname = "qreactor-unstable";

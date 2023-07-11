@@ -1,6 +1,13 @@
-{ lib, pythonOlder, buildPythonPackage, fetchFromGitHub, pkutils
-# Check Inputs
-, nose }:
+{
+  lib,
+  pythonOlder,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pkutils
+  # Check Inputs
+  ,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "pygogo";

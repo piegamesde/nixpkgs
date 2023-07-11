@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, botocore, jmespath, s3transfer
-, setuptools, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  botocore,
+  jmespath,
+  s3transfer,
+  setuptools,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "boto3";

@@ -1,4 +1,10 @@
-{ lib, fetchPypi, buildPythonPackage, scrapy, bsddb3 }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  scrapy,
+  bsddb3,
+}:
 
 buildPythonPackage rec {
   pname = "scrapy-deltafetch";

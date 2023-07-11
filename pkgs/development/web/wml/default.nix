@@ -1,4 +1,11 @@
-{ lib, fetchurl, perlPackages, ncurses, lynx, makeWrapper }:
+{
+  lib,
+  fetchurl,
+  perlPackages,
+  ncurses,
+  lynx,
+  makeWrapper,
+}:
 
 perlPackages.buildPerlPackage {
   pname = "wml";

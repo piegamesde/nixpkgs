@@ -1,5 +1,13 @@
-{ lib, anyio, buildPythonPackage, fetchFromGitHub, setuptools-scm
-, pytestCheckHook, pythonOlder, trio }:
+{
+  lib,
+  anyio,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools-scm,
+  pytestCheckHook,
+  pythonOlder,
+  trio,
+}:
 
 buildPythonPackage rec {
   pname = "asyncclick";

@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, fftwSinglePrec, libsndfile
-, volk }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  fftwSinglePrec,
+  libsndfile,
+  volk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sigutils";

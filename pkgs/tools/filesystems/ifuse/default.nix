@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, fuse, usbmuxd
-, libimobiledevice }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  fuse,
+  usbmuxd,
+  libimobiledevice,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ifuse";

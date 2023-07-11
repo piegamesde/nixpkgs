@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromSourcehut, bearssl, scdoc }:
+{
+  stdenv,
+  lib,
+  fetchFromSourcehut,
+  bearssl,
+  scdoc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gmni";

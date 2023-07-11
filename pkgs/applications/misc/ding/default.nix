@@ -1,5 +1,17 @@
-{ aspell, aspellDicts_de, aspellDicts_en, buildEnv, fetchurl, fortune, gnugrep
-, makeWrapper, lib, stdenv, tk, tre }:
+{
+  aspell,
+  aspellDicts_de,
+  aspellDicts_en,
+  buildEnv,
+  fetchurl,
+  fortune,
+  gnugrep,
+  makeWrapper,
+  lib,
+  stdenv,
+  tk,
+  tre,
+}:
 let
   aspellEnv = buildEnv {
     name = "env-ding-aspell";

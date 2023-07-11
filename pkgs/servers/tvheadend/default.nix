@@ -1,11 +1,31 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch
 
-# buildtime
-, makeWrapper, pkg-config, python3, which
+  # buildtime
+  ,
+  makeWrapper,
+  pkg-config,
+  python3,
+  which
 
-# runtime
-, avahi, bzip2, dbus, dtv-scan-tables, ffmpeg_4, gettext, gnutar, gzip, libiconv
-, openssl, uriparser, zlib }:
+  # runtime
+  ,
+  avahi,
+  bzip2,
+  dbus,
+  dtv-scan-tables,
+  ffmpeg_4,
+  gettext,
+  gnutar,
+  gzip,
+  libiconv,
+  openssl,
+  uriparser,
+  zlib,
+}:
 
 let version = "4.2.8";
 in stdenv.mkDerivation {

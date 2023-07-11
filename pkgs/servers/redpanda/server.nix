@@ -1,7 +1,33 @@
-{ abseil-cpp, avro-cpp, callPackage, ccache, cmake, crc32c, croaring, ctre, curl
-, dpdk, git, lib, llvmPackages_14, llvm_14, ninja, p11-kit, pkg-config, procps
-, protobuf3_21, python3, snappy, src, unzip, version, writeShellScriptBin
-, xxHash, zip, zstd }:
+{
+  abseil-cpp,
+  avro-cpp,
+  callPackage,
+  ccache,
+  cmake,
+  crc32c,
+  croaring,
+  ctre,
+  curl,
+  dpdk,
+  git,
+  lib,
+  llvmPackages_14,
+  llvm_14,
+  ninja,
+  p11-kit,
+  pkg-config,
+  procps,
+  protobuf3_21,
+  python3,
+  snappy,
+  src,
+  unzip,
+  version,
+  writeShellScriptBin,
+  xxHash,
+  zip,
+  zstd,
+}:
 let
   pname = "redpanda";
   pythonPackages = p: with p; [ jinja2 ];

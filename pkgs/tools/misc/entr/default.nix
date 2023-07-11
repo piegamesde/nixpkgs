@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, coreutils }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  coreutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "entr";

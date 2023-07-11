@@ -1,7 +1,32 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, autoreconfHook, pkg-config
-, gfortran, mpi, blas, lapack, fftw, hdf5-mpi, swig, gsl, harminv, libctl
-, libGDSII, openssh, guile, python, numpy, scipy, matplotlib, h5py-mpi, cython
-, autograd, mpi4py }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  gfortran,
+  mpi,
+  blas,
+  lapack,
+  fftw,
+  hdf5-mpi,
+  swig,
+  gsl,
+  harminv,
+  libctl,
+  libGDSII,
+  openssh,
+  guile,
+  python,
+  numpy,
+  scipy,
+  matplotlib,
+  h5py-mpi,
+  cython,
+  autograd,
+  mpi4py,
+}:
 
 assert !blas.isILP64;
 assert !lapack.isILP64;

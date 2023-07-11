@@ -1,8 +1,23 @@
-{ fetchFromGitHub, lib, makeWrapper, stdenv
+{
+  fetchFromGitHub,
+  lib,
+  makeWrapper,
+  stdenv
 
-# Dependencies (@see https://github.com/pavanjadhaw/betterlockscreen/blob/master/shell.nix)
-, bc, coreutils, dbus, dunst, i3lock-color, gawk, gnugrep, gnused, imagemagick
-, procps, xorg }:
+  # Dependencies (@see https://github.com/pavanjadhaw/betterlockscreen/blob/master/shell.nix)
+  ,
+  bc,
+  coreutils,
+  dbus,
+  dunst,
+  i3lock-color,
+  gawk,
+  gnugrep,
+  gnused,
+  imagemagick,
+  procps,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "betterlockscreen";

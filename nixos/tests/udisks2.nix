@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
 
   let
 
@@ -11,16 +14,18 @@ import ./make-test-python.nix ({ pkgs, ... }:
     name = "udisks2";
     meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
 
-    nodes.machine = { ... }: {
-      services.udisks2.enable = true;
-      imports = [ ./common/user-account.nix ];
+    nodes.machine = {
+        ...
+      }: {
+        services.udisks2.enable = true;
+        imports = [ ./common/user-account.nix ];
 
-      security.polkit.extraConfig = ''
-        polkit.addRule(function(action, subject) {
-          if (subject.user == "alice") return "yes";
-        });
-      '';
-    };
+        security.polkit.extraConfig = ''
+          polkit.addRule(function(action, subject) {
+            if (subject.user == "alice") return "yes";
+          });
+        '';
+      };
 
     testScript = ''
       import lzma

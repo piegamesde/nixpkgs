@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, python3, makeWrapper, libarchive }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  makeWrapper,
+  libarchive,
+}:
 
 let pythonEnv = python3.withPackages (ps: with ps; [ cheetah3 lxml ]);
 in stdenv.mkDerivation rec {

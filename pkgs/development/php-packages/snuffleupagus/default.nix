@@ -1,4 +1,11 @@
-{ buildPecl, lib, php, fetchFromGitHub, pcre2, fetchpatch }:
+{
+  buildPecl,
+  lib,
+  php,
+  fetchFromGitHub,
+  pcre2,
+  fetchpatch,
+}:
 
 buildPecl rec {
   pname = "snuffleupagus";

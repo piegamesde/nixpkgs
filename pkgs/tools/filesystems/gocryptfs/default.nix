@@ -1,5 +1,15 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, fuse, makeWrapper, openssl
-, pandoc, pkg-config, libfido2 }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  fuse,
+  makeWrapper,
+  openssl,
+  pandoc,
+  pkg-config,
+  libfido2,
+}:
 
 buildGoModule rec {
   pname = "gocryptfs";

@@ -1,5 +1,18 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, fetchpatch, numpy, scipy
-, cython, networkx, joblib, pandas, nose, pyyaml }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  numpy,
+  scipy,
+  cython,
+  networkx,
+  joblib,
+  pandas,
+  nose,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "pomegranate";

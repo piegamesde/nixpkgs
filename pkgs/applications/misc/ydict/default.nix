@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildGoModule, makeWrapper, mpg123 }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  makeWrapper,
+  mpg123,
+}:
 
 buildGoModule rec {
   pname = "ydict";

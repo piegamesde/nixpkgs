@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libuuid, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libuuid,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "reiserfsprogs";

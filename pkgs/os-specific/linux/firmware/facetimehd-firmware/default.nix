@@ -1,4 +1,11 @@
-{ lib, stdenvNoCC, fetchurl, cpio, xz, pkgs }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  cpio,
+  xz,
+  pkgs,
+}:
 
 let
 

@@ -1,4 +1,11 @@
-{ lib, buildDunePackage, fetchzip, cstruct, mirage-crypto, alcotest }:
+{
+  lib,
+  buildDunePackage,
+  fetchzip,
+  cstruct,
+  mirage-crypto,
+  alcotest,
+}:
 
 buildDunePackage rec {
   pname = "pbkdf";

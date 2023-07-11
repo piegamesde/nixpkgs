@@ -1,11 +1,31 @@
-{ lib, stdenv, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchFromGitHub
 
-, cmake, gettext, wrapGAppsHook, pkg-config
+  ,
+  cmake,
+  gettext,
+  wrapGAppsHook,
+  pkg-config
 
-, glib, gsettings-desktop-schemas, gtk3, librsvg, libsndfile, libxml2, libzip
-, pcre, poppler, portaudio, zlib
-# plugins
-, withLua ? true, lua }:
+  ,
+  glib,
+  gsettings-desktop-schemas,
+  gtk3,
+  librsvg,
+  libsndfile,
+  libxml2,
+  libzip,
+  pcre,
+  poppler,
+  portaudio,
+  zlib
+  # plugins
+  ,
+  withLua ? true,
+  lua,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xournalpp";

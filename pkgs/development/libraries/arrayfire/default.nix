@@ -1,6 +1,28 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, opencl-clhpp, ocl-icd, fftw
-, fftwFloat, blas, lapack, boost, mesa, libGLU, libGL, freeimage, python3, clfft
-, clblas, doxygen, buildDocs ? false, cudaSupport ? false, cudatoolkit }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  opencl-clhpp,
+  ocl-icd,
+  fftw,
+  fftwFloat,
+  blas,
+  lapack,
+  boost,
+  mesa,
+  libGLU,
+  libGL,
+  freeimage,
+  python3,
+  clfft,
+  clblas,
+  doxygen,
+  buildDocs ? false,
+  cudaSupport ? false,
+  cudatoolkit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "arrayfire";

@@ -1,13 +1,24 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder
 
-# build time
-, setuptools-scm
+  # build time
+  ,
+  setuptools-scm
 
-# runtime
-, pytz, jaraco_functools
+  # runtime
+  ,
+  pytz,
+  jaraco_functools
 
-# tests
-, freezegun, pytest-freezegun, pytestCheckHook }:
+  # tests
+  ,
+  freezegun,
+  pytest-freezegun,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "tempora";

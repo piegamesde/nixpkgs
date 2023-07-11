@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, getconf }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  getconf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libfixposix";

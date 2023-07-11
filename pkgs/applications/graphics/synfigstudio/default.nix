@@ -1,8 +1,32 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  wrapGAppsHook
 
-, boost, cairo, gettext, glibmm, gtk3, gtkmm3, libjack2, libsigcxx, libxmlxx
-, mlt, pango, imagemagick, intltool, gnome, harfbuzz, freetype, fribidi, openexr
-, fftw }:
+  ,
+  boost,
+  cairo,
+  gettext,
+  glibmm,
+  gtk3,
+  gtkmm3,
+  libjack2,
+  libsigcxx,
+  libxmlxx,
+  mlt,
+  pango,
+  imagemagick,
+  intltool,
+  gnome,
+  harfbuzz,
+  freetype,
+  fribidi,
+  openexr,
+  fftw,
+}:
 
 let
   version = "1.5.1";

@@ -1,6 +1,21 @@
-{ fetchFromGitHub, gdk-pixbuf, gobject-introspection, gtk3, intltool, meson
-, ninja, pkg-config, pulseaudio, python3, lib, stdenv, xkeyboard_config, xorg
-, wrapGAppsHook, glib }:
+{
+  fetchFromGitHub,
+  gdk-pixbuf,
+  gobject-introspection,
+  gtk3,
+  intltool,
+  meson,
+  ninja,
+  pkg-config,
+  pulseaudio,
+  python3,
+  lib,
+  stdenv,
+  xkeyboard_config,
+  xorg,
+  wrapGAppsHook,
+  glib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cinnamon-desktop";

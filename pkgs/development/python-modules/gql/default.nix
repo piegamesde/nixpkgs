@@ -1,7 +1,25 @@
-{ lib, aiofiles, aiohttp, backoff, botocore, buildPythonPackage, fetchFromGitHub
-, graphql-core, mock, parse, pytest-asyncio, pytest-console-scripts
-, pytestCheckHook, pythonOlder, requests, requests-toolbelt, urllib3, vcrpy
-, websockets, yarl }:
+{
+  lib,
+  aiofiles,
+  aiohttp,
+  backoff,
+  botocore,
+  buildPythonPackage,
+  fetchFromGitHub,
+  graphql-core,
+  mock,
+  parse,
+  pytest-asyncio,
+  pytest-console-scripts,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-toolbelt,
+  urllib3,
+  vcrpy,
+  websockets,
+  yarl,
+}:
 
 buildPythonPackage rec {
   pname = "gql";

@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, dpkg, atkmm, cairo, cairomm, gtk3
-, gtkmm3, libnotify, libsecret, pangomm, xorg, libpulseaudio, librsvg, libzip
-, openssl, webkitgtk, libappindicator-gtk3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  dpkg,
+  atkmm,
+  cairo,
+  cairomm,
+  gtk3,
+  gtkmm3,
+  libnotify,
+  libsecret,
+  pangomm,
+  xorg,
+  libpulseaudio,
+  librsvg,
+  libzip,
+  openssl,
+  webkitgtk,
+  libappindicator-gtk3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "trillian-im";

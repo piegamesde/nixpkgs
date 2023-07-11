@@ -1,5 +1,14 @@
-{ lib, python3Packages, fetchFromGitHub, fetchpatch, gettext, chromaprint, qt5
-, enablePlayback ? true, gst_all_1 }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  fetchpatch,
+  gettext,
+  chromaprint,
+  qt5,
+  enablePlayback ? true,
+  gst_all_1,
+}:
 
 let
   pythonPackages = python3Packages;

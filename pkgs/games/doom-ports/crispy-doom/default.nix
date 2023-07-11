@@ -1,5 +1,14 @@
-{ lib, stdenv, autoreconfHook, pkg-config, SDL2, SDL2_mixer, SDL2_net
-, fetchFromGitHub, python3 }:
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  pkg-config,
+  SDL2,
+  SDL2_mixer,
+  SDL2_net,
+  fetchFromGitHub,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "crispy-doom";

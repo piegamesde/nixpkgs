@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, espeak-ng, onnxruntime
-, pcaudiolib, larynx-train }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  espeak-ng,
+  onnxruntime,
+  pcaudiolib,
+  larynx-train,
+}:
 
 let
   pname = "larynx";

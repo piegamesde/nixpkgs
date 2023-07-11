@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, fasteners, jinja2, pbr, python-jenkins
-, pyyaml, six, stevedore }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fasteners,
+  jinja2,
+  pbr,
+  python-jenkins,
+  pyyaml,
+  six,
+  stevedore,
+}:
 
 buildPythonPackage rec {
   pname = "jenkins-job-builder";

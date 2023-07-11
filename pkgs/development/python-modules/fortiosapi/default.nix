@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, oyaml, packaging, paramiko, pexpect
-, pythonOlder, requests, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  oyaml,
+  packaging,
+  paramiko,
+  pexpect,
+  pythonOlder,
+  requests,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "fortiosapi";

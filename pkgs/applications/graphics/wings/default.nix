@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, fetchpatch, erlang, cl, libGL, libGLU, runtimeShell }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  erlang,
+  cl,
+  libGL,
+  libGLU,
+  runtimeShell,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wings";

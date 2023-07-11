@@ -1,9 +1,40 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config, qt5, cmake, avahi, boost
-, libopus, libsndfile, protobuf, speex, libcap, alsa-lib, python3, rnnoise
-, nixosTests, poco, flac, libogg, libvorbis, grpcSupport ? false, grpc, which
-, iceSupport ? true, zeroc-ice, jackSupport ? false, libjack2
-, pipewireSupport ? true, pipewire, pulseSupport ? true, libpulseaudio
-, speechdSupport ? false, speechd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  qt5,
+  cmake,
+  avahi,
+  boost,
+  libopus,
+  libsndfile,
+  protobuf,
+  speex,
+  libcap,
+  alsa-lib,
+  python3,
+  rnnoise,
+  nixosTests,
+  poco,
+  flac,
+  libogg,
+  libvorbis,
+  grpcSupport ? false,
+  grpc,
+  which,
+  iceSupport ? true,
+  zeroc-ice,
+  jackSupport ? false,
+  libjack2,
+  pipewireSupport ? true,
+  pipewire,
+  pulseSupport ? true,
+  libpulseaudio,
+  speechdSupport ? false,
+  speechd,
+}:
 
 let
   generic = overrides: source:

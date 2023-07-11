@@ -1,5 +1,15 @@
-{ lib, stdenv, pkgs, fetchurl, wrapGAppsHook }:
-let libPathNative = { packages }: lib.makeLibraryPath packages;
+{
+  lib,
+  stdenv,
+  pkgs,
+  fetchurl,
+  wrapGAppsHook,
+}:
+let
+  libPathNative = {
+      packages,
+    }:
+    lib.makeLibraryPath packages;
 in stdenv.mkDerivation rec {
   pname = "rocketchat-desktop";
   version = "3.8.11";

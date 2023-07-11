@@ -1,8 +1,16 @@
-{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook
 
-, doCheck ?
-  true # test suite depends on dejagnu which cannot be used during bootstrapping
-, dejagnu }:
+  ,
+  doCheck ?
+    true # test suite depends on dejagnu which cannot be used during bootstrapping
+  ,
+  dejagnu,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libffi";

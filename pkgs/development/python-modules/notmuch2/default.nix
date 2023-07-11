@@ -1,6 +1,13 @@
-{ stdenv, lib
+{
+  stdenv,
+  lib
 
-, buildPythonPackage, notmuch, python, cffi }:
+  ,
+  buildPythonPackage,
+  notmuch,
+  python,
+  cffi,
+}:
 
 buildPythonPackage {
   pname = "notmuch2";

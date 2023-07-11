@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, buildNpmPackage }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  buildNpmPackage,
+}:
 let
   version = "0.3.6";
   src = fetchFromGitHub {

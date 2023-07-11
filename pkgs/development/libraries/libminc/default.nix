@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, zlib, netcdf, nifticlib, hdf5 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  zlib,
+  netcdf,
+  nifticlib,
+  hdf5,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libminc";

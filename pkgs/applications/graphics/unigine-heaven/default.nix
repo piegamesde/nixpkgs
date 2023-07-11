@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchurl, makeWrapper, libX11, libXext, libXrandr, freetype
-, fontconfig, libXrender, libXinerama, autoPatchelfHook, libglvnd, openal
-, imagemagick, makeDesktopItem }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  libX11,
+  libXext,
+  libXrandr,
+  freetype,
+  fontconfig,
+  libXrender,
+  libXinerama,
+  autoPatchelfHook,
+  libglvnd,
+  openal,
+  imagemagick,
+  makeDesktopItem,
+}:
 let
   version = "4.0";
 

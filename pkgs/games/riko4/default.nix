@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, SDL2, libGLU, luajit, curl, curlpp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  SDL2,
+  libGLU,
+  luajit,
+  curl,
+  curlpp,
+}:
 
 let
   # Newer versions of sdl-gpu don't work with Riko4 (corrupted graphics),

@@ -1,4 +1,9 @@
-{ stdenvNoCC, lib, fetchFromGitHub, gettext }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  gettext,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "folder-color-switcher";

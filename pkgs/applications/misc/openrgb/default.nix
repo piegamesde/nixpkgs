@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitLab, qmake, wrapQtAppsHook, libusb1, hidapi
-, pkg-config, coreutils, mbedtls_2, qtbase, qttools, symlinkJoin, openrgb }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  qmake,
+  wrapQtAppsHook,
+  libusb1,
+  hidapi,
+  pkg-config,
+  coreutils,
+  mbedtls_2,
+  qtbase,
+  qttools,
+  symlinkJoin,
+  openrgb,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openrgb";

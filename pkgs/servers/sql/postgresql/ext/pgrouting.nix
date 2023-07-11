@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, postgresql, perl, cmake, boost }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  postgresql,
+  perl,
+  cmake,
+  boost,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pgrouting";

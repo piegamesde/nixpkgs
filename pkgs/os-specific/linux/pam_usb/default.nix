@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, makeWrapper, dbus, libxml2, pam, pkg-config, pmount
-, python2Packages, writeScript, runtimeShell }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  dbus,
+  libxml2,
+  pam,
+  pkg-config,
+  pmount,
+  python2Packages,
+  writeScript,
+  runtimeShell,
+}:
 
 let
 

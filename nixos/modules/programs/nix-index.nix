@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let cfg = config.programs.nix-index;
 in {
   options.programs.nix-index = with lib; {

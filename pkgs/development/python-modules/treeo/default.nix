@@ -1,4 +1,11 @@
-{ buildPythonPackage, fetchFromGitHub, fetchpatch, jax, jaxlib, lib, poetry-core
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  jax,
+  jaxlib,
+  lib,
+  poetry-core,
 }:
 
 buildPythonPackage rec {

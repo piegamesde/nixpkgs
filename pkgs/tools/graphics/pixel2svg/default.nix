@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchurl, python310Packages }:
+{
+  lib,
+  buildPythonPackage,
+  fetchurl,
+  python310Packages,
+}:
 
 python310Packages.buildPythonPackage rec {
   pname = "pixel2svg";

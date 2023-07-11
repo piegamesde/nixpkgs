@@ -1,7 +1,20 @@
-{ stdenv, lib, fetchurl, meson, ninja, pkg-config, python3, gettext
-, gobject-introspection, gst-plugins-base, gst-plugins-bad
-# Checks meson.is_cross_build(), so even canExecute isn't enough.
-, enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform, hotdoc }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  gettext,
+  gobject-introspection,
+  gst-plugins-base,
+  gst-plugins-bad
+  # Checks meson.is_cross_build(), so even canExecute isn't enough.
+  ,
+  enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform,
+  hotdoc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gst-rtsp-server";

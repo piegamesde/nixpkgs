@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, html5lib, pytestCheckHook
-, pythonOlder, regex }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  html5lib,
+  pytestCheckHook,
+  pythonOlder,
+  regex,
+}:
 
 buildPythonPackage rec {
   pname = "textile";

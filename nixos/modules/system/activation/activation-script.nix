@@ -1,5 +1,10 @@
 # generate the script used to activate the configuration.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

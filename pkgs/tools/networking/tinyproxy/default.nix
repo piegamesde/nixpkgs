@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, perl
-, withDebug ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  perl,
+  withDebug ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "tinyproxy";

@@ -1,10 +1,15 @@
-{ lib, pkgs }:
+{
+  lib,
+  pkgs,
+}:
 let
   inherit (lib) types;
   inherit (types) attrsOf oneOf coercedTo str bool int float package;
 in {
-  javaProperties =
-    { comment ? "Generated with Nix", boolToString ? lib.boolToString }: {
+  javaProperties = {
+      comment ? "Generated with Nix",
+      boolToString ? lib.boolToString
+    }: {
 
       # Design note:
       # A nested representation of inevitably leads to bad UX:

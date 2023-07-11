@@ -1,6 +1,19 @@
-{ stdenv, lib, fetchFromGitHub, cmake, extra-cmake-modules, krunner
-, kconfigwidgets, ktextwidgets, kservice, ki18n, translate-shell, qtbase
-, qtdeclarative, qtlocation }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  krunner,
+  kconfigwidgets,
+  ktextwidgets,
+  kservice,
+  ki18n,
+  translate-shell,
+  qtbase,
+  qtdeclarative,
+  qtlocation,
+}:
 
 stdenv.mkDerivation rec {
   pname = "krunner-translator";

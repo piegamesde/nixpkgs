@@ -1,4 +1,13 @@
-{ cmake, fetchFromGitHub, fetchpatch, sqlite, postgresql, boost, lib, stdenv }:
+{
+  cmake,
+  fetchFromGitHub,
+  fetchpatch,
+  sqlite,
+  postgresql,
+  boost,
+  lib,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "soci";

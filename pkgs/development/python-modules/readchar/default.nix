@@ -1,7 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
 
-# tests
-, pytestCheckHook, pexpect }:
+  # tests
+  ,
+  pytestCheckHook,
+  pexpect,
+}:
 
 buildPythonPackage rec {
   pname = "readchar";

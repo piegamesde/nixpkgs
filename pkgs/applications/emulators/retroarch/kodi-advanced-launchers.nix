@@ -1,4 +1,10 @@
-{ stdenv, pkgs, lib, runtimeShell, cores ? [ ] }:
+{
+  stdenv,
+  pkgs,
+  lib,
+  runtimeShell,
+  cores ? [ ]
+}:
 
 let
 

@@ -1,7 +1,30 @@
-{ lib, stdenv, binutils, elfutils, fetchurl, glib, libcap, libmicrohttpd, libnl
-, libpcap, libusb1, libwebsockets, lm_sensors, networkmanager, pcre, pkg-config
-, openssl, protobuf, protobufc, python3, sqlite, withNetworkManager ? false
-, withPython ? true, withSensors ? false, zlib }:
+{
+  lib,
+  stdenv,
+  binutils,
+  elfutils,
+  fetchurl,
+  glib,
+  libcap,
+  libmicrohttpd,
+  libnl,
+  libpcap,
+  libusb1,
+  libwebsockets,
+  lm_sensors,
+  networkmanager,
+  pcre,
+  pkg-config,
+  openssl,
+  protobuf,
+  protobufc,
+  python3,
+  sqlite,
+  withNetworkManager ? false,
+  withPython ? true,
+  withSensors ? false,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kismet";

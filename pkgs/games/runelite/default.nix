@@ -1,4 +1,13 @@
-{ pkgs, lib, stdenv, makeDesktopItem, fetchurl, unzip, makeWrapper, xorg, jre,
+{
+  pkgs,
+  lib,
+  stdenv,
+  makeDesktopItem,
+  fetchurl,
+  unzip,
+  makeWrapper,
+  xorg,
+  jre,
 }:
 
 stdenv.mkDerivation rec {

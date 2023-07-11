@@ -1,4 +1,8 @@
-{ buildOpenRAMod, fetchFromGitHub, postFetch }:
+{
+  buildOpenRAMod,
+  fetchFromGitHub,
+  postFetch,
+}:
 
 let
   unsafeBuildOpenRAMod = attrs: name:

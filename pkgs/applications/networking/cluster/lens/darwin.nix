@@ -1,4 +1,9 @@
-{ lib, stdenv, undmg, fetchurl }:
+{
+  lib,
+  stdenv,
+  undmg,
+  fetchurl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lens";

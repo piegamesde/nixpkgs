@@ -1,7 +1,27 @@
-{ lib, stdenv, fetchFromGitHub, asciidoc, docbook_xml_dtd_45, docbook_xsl
-, freetype, judy, libGL, libconfig, libdrm, libxml2, libxslt, libXcomposite
-, libXdamage, libXext, libXinerama, libXrandr, libXrender, libXres, pcre
-, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  asciidoc,
+  docbook_xml_dtd_45,
+  docbook_xsl,
+  freetype,
+  judy,
+  libGL,
+  libconfig,
+  libdrm,
+  libxml2,
+  libxslt,
+  libXcomposite,
+  libXdamage,
+  libXext,
+  libXinerama,
+  libXrandr,
+  libXrender,
+  libXres,
+  pcre,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "neocomp";

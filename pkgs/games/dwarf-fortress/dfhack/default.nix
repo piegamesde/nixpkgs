@@ -1,6 +1,23 @@
-{ stdenv, buildEnv, lib, fetchFromGitHub, fetchpatch, cmake, writeScriptBin
-, perl, XMLLibXML, XMLLibXSLT, zlib, ruby, enableStoneSense ? false, allegro5
-, libGLU, libGL, SDL, dfVersion }:
+{
+  stdenv,
+  buildEnv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  writeScriptBin,
+  perl,
+  XMLLibXML,
+  XMLLibXSLT,
+  zlib,
+  ruby,
+  enableStoneSense ? false,
+  allegro5,
+  libGLU,
+  libGL,
+  SDL,
+  dfVersion,
+}:
 
 with lib;
 

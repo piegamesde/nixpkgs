@@ -1,7 +1,30 @@
-{ gcc9Stdenv, fetchurl, autoconf, automake, pkg-config, lib, perl, flex, bison
-, readline, libexif, x11Support ? true, SDL, svgSupport ? true, inkscape
-, asciiArtSupport ? true, aalib, gifSupport ? true, giflib, tiffSupport ? true
-, libtiff, jpegSupport ? true, libjpeg, pngSupport ? true, libpng }:
+{
+  gcc9Stdenv,
+  fetchurl,
+  autoconf,
+  automake,
+  pkg-config,
+  lib,
+  perl,
+  flex,
+  bison,
+  readline,
+  libexif,
+  x11Support ? true,
+  SDL,
+  svgSupport ? true,
+  inkscape,
+  asciiArtSupport ? true,
+  aalib,
+  gifSupport ? true,
+  giflib,
+  tiffSupport ? true,
+  libtiff,
+  jpegSupport ? true,
+  libjpeg,
+  pngSupport ? true,
+  libpng,
+}:
 
 gcc9Stdenv.mkDerivation rec {
   pname = "fim";

@@ -1,5 +1,20 @@
-{ alcotest-lwt, buildDunePackage, ocaml, dune-site, fetchurl, gluten-lwt-unix
-, lib, logs, lwt_ssl, magic-mime, mrmime, pecu, psq, ssl, uri }:
+{
+  alcotest-lwt,
+  buildDunePackage,
+  ocaml,
+  dune-site,
+  fetchurl,
+  gluten-lwt-unix,
+  lib,
+  logs,
+  lwt_ssl,
+  magic-mime,
+  mrmime,
+  pecu,
+  psq,
+  ssl,
+  uri,
+}:
 
 lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
 "piaf is not available for OCaml ${ocaml.version}"

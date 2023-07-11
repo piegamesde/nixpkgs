@@ -1,6 +1,21 @@
-{ stdenv, fetchzip, fetchurl, fetchFromGitHub, lib, gradle_7, perl, makeWrapper
-, openjdk17, unzip, makeDesktopItem, autoPatchelfHook, icoutils, xcbuild
-, protobuf3_17, libredirect }:
+{
+  stdenv,
+  fetchzip,
+  fetchurl,
+  fetchFromGitHub,
+  lib,
+  gradle_7,
+  perl,
+  makeWrapper,
+  openjdk17,
+  unzip,
+  makeDesktopItem,
+  autoPatchelfHook,
+  icoutils,
+  xcbuild,
+  protobuf3_17,
+  libredirect,
+}:
 
 let
   pkg_path = "$out/lib/ghidra";

@@ -1,4 +1,10 @@
-{ lib, stdenvNoCC, fetchFromGitHub, python3, makeBinaryWrapper }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  python3,
+  makeBinaryWrapper,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "extism-cli";

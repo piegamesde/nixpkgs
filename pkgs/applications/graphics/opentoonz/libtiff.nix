@@ -10,7 +10,16 @@
 # because the main libtiff builds with cmake and this version of libtiff was
 # forked before libtiff gained CMake build capability (added in libtiff-4.0.5).
 
-{ lib, fetchFromGitHub, stdenv, pkg-config, zlib, libjpeg, xz, libtiff, }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  pkg-config,
+  zlib,
+  libjpeg,
+  xz,
+  libtiff,
+}:
 
 let source = import ./source.nix { inherit fetchFromGitHub; };
 

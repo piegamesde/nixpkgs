@@ -1,4 +1,10 @@
-{ lib, fetchPypi, buildPythonPackage, wrapt, pytestCheckHook }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  wrapt,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "deprecated";

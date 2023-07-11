@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pyserial, asyncserial, jinja2, migen
-, numpy }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyserial,
+  asyncserial,
+  jinja2,
+  migen,
+  numpy,
+}:
 
 buildPythonPackage rec {
   pname = "misoc";

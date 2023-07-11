@@ -1,6 +1,19 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, dtkwidget, cmake, qttools
-, pkg-config, wrapQtAppsHook, opencv, freeimage, libmediainfo, ffmpegthumbnailer
-, pcre }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  dtkwidget,
+  cmake,
+  qttools,
+  pkg-config,
+  wrapQtAppsHook,
+  opencv,
+  freeimage,
+  libmediainfo,
+  ffmpegthumbnailer,
+  pcre,
+}:
 
 stdenv.mkDerivation rec {
   pname = "image-editor";

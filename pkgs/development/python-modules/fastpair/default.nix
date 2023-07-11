@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest-runner, pytest, scipy
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-runner,
+  pytest,
+  scipy,
+  pytestCheckHook,
+}:
 
 buildPythonPackage {
   pname = "fastpair";

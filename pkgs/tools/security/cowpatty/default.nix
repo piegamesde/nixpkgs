@@ -1,4 +1,12 @@
-{ lib, stdenv, clang, fetchFromGitHub, installShellFiles, openssl, libpcap }:
+{
+  lib,
+  stdenv,
+  clang,
+  fetchFromGitHub,
+  installShellFiles,
+  openssl,
+  libpcap,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cowpatty";

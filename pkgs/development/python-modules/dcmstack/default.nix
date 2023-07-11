@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
-, nibabel, pydicom, pylibjpeg-libjpeg }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  nibabel,
+  pydicom,
+  pylibjpeg-libjpeg,
+}:
 
 buildPythonPackage rec {
   pname = "dcmstack";

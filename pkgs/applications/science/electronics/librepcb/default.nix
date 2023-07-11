@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, qtbase, qttools, cmake, wrapQtAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  qtbase,
+  qttools,
+  cmake,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "librepcb";

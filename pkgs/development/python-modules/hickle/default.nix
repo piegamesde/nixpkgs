@@ -1,5 +1,16 @@
-{ buildPythonPackage, fetchPypi, pythonOlder, h5py, numpy, dill, astropy, scipy
-, pandas, pytestCheckHook, lib }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  h5py,
+  numpy,
+  dill,
+  astropy,
+  scipy,
+  pandas,
+  pytestCheckHook,
+  lib,
+}:
 
 buildPythonPackage rec {
   pname = "hickle";

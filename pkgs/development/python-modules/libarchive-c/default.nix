@@ -1,5 +1,13 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, libarchive, glibcLocales
-, mock, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  libarchive,
+  glibcLocales,
+  mock,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "libarchive-c";

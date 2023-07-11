@@ -1,4 +1,10 @@
-{ stdenv, ghcWithPackages, makeWrapper, packages, lib }:
+{
+  stdenv,
+  ghcWithPackages,
+  makeWrapper,
+  packages,
+  lib,
+}:
 
 let
   hyperHaskellEnv =

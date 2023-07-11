@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchPypi, buildPythonPackage, pytest, numpy, cython }:
+{
+  stdenv,
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pytest,
+  numpy,
+  cython,
+}:
 
 buildPythonPackage rec {
   pname = "imagecodecs-lite";

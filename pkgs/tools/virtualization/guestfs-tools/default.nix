@@ -1,7 +1,30 @@
-{ lib, stdenv, fetchurl, bash-completion, bison, cdrkit, cpio, curl, flex
-, getopt, gnupg, hivex, jansson, libguestfs-with-appliance, libvirt, libxml2
-, makeWrapper, ncurses, ocamlPackages, openssl, pcre2, perlPackages, pkg-config
-, qemu, xz }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bash-completion,
+  bison,
+  cdrkit,
+  cpio,
+  curl,
+  flex,
+  getopt,
+  gnupg,
+  hivex,
+  jansson,
+  libguestfs-with-appliance,
+  libvirt,
+  libxml2,
+  makeWrapper,
+  ncurses,
+  ocamlPackages,
+  openssl,
+  pcre2,
+  perlPackages,
+  pkg-config,
+  qemu,
+  xz,
+}:
 
 stdenv.mkDerivation rec {
   pname = "guestfs-tools";

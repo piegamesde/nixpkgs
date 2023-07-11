@@ -1,6 +1,18 @@
-{ cmake, fetchFromGitLab, lib, libnotify, mkDerivation, pkg-config, qtbase
-, qtdeclarative, qtgraphicaleffects, qtquickcontrols2, qttools, qtwebengine
-, stdenv }:
+{
+  cmake,
+  fetchFromGitLab,
+  lib,
+  libnotify,
+  mkDerivation,
+  pkg-config,
+  qtbase,
+  qtdeclarative,
+  qtgraphicaleffects,
+  qtquickcontrols2,
+  qttools,
+  qtwebengine,
+  stdenv,
+}:
 
 mkDerivation rec {
   pname = "MellowPlayer";

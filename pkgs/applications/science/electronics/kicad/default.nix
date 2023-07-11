@@ -1,10 +1,33 @@
-{ lib, stdenv, fetchFromGitLab, gnome, dconf, wxGTK32, gtk3, makeWrapper
-, gsettings-desktop-schemas, hicolor-icon-theme, callPackage, callPackages
-, librsvg, cups
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  gnome,
+  dconf,
+  wxGTK32,
+  gtk3,
+  makeWrapper,
+  gsettings-desktop-schemas,
+  hicolor-icon-theme,
+  callPackage,
+  callPackages,
+  librsvg,
+  cups
 
-, pname ? "kicad", stable ? true, withNgspice ? !stdenv.isDarwin, libngspice
-, withScripting ? true, python3, debug ? false, sanitizeAddress ? false
-, sanitizeThreads ? false, with3d ? true, withI18n ? true, srcs ? { } }:
+  ,
+  pname ? "kicad",
+  stable ? true,
+  withNgspice ? !stdenv.isDarwin,
+  libngspice,
+  withScripting ? true,
+  python3,
+  debug ? false,
+  sanitizeAddress ? false,
+  sanitizeThreads ? false,
+  with3d ? true,
+  withI18n ? true,
+  srcs ? { }
+}:
 
 # The `srcs` parameter can be used to override the kicad source code
 # and all libraries, which are otherwise inaccessible

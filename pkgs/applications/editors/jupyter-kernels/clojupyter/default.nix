@@ -1,5 +1,13 @@
-{ pkgs, stdenv, lib, jre, fetchFromGitHub, writeShellScript, runCommand
-, imagemagick }:
+{
+  pkgs,
+  stdenv,
+  lib,
+  jre,
+  fetchFromGitHub,
+  writeShellScript,
+  runCommand,
+  imagemagick,
+}:
 
 # To test:
 # $(nix-build --no-out-link -E 'with import <nixpkgs> {}; jupyter.override { definitions = { clojure = clojupyter.definition; }; }')/bin/jupyter-notebook

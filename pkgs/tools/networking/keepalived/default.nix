@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, nixosTests, file, libmnl, libnftnl, libnl
-, net-snmp, openssl, pkg-config, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nixosTests,
+  file,
+  libmnl,
+  libnftnl,
+  libnl,
+  net-snmp,
+  openssl,
+  pkg-config,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "keepalived";

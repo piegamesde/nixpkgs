@@ -1,4 +1,8 @@
-{ fetchurl, lib, stdenv }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+}:
 
 stdenv.mkDerivation ({
   version = "3.8";

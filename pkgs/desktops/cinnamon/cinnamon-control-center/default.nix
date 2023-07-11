@@ -1,8 +1,38 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, glib, gettext, cinnamon-desktop
-, gtk3, libnotify, libxml2, gnome-online-accounts, colord, polkit, libxkbfile
-, cinnamon-menus, libgnomekbd, libxklavier, networkmanager, libgudev, libwacom
-, gnome, wrapGAppsHook, tzdata, glibc, libnma, modemmanager, xorg, gdk-pixbuf
-, meson, ninja, cinnamon-translations, python3, upower }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  glib,
+  gettext,
+  cinnamon-desktop,
+  gtk3,
+  libnotify,
+  libxml2,
+  gnome-online-accounts,
+  colord,
+  polkit,
+  libxkbfile,
+  cinnamon-menus,
+  libgnomekbd,
+  libxklavier,
+  networkmanager,
+  libgudev,
+  libwacom,
+  gnome,
+  wrapGAppsHook,
+  tzdata,
+  glibc,
+  libnma,
+  modemmanager,
+  xorg,
+  gdk-pixbuf,
+  meson,
+  ninja,
+  cinnamon-translations,
+  python3,
+  upower,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cinnamon-control-center";

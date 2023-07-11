@@ -1,4 +1,9 @@
-{ buildPecl, lib, pcre2, fetchFromGitHub }:
+{
+  buildPecl,
+  lib,
+  pcre2,
+  fetchFromGitHub,
+}:
 
 let version = "5.1.22";
 in buildPecl {

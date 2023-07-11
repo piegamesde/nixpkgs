@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, fetchpatch, makeWrapper, clang, haskellPackages }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  makeWrapper,
+  clang,
+  haskellPackages,
+}:
 
 haskellPackages.mkDerivation rec {
   pname = "carp";

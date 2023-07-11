@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, cython, fetchFromGitHub, fetchurl, gcc, graphviz
-, pytestCheckHook, pythonOlder, sphinx }:
+{
+  lib,
+  buildPythonPackage,
+  cython,
+  fetchFromGitHub,
+  fetchurl,
+  gcc,
+  graphviz,
+  pytestCheckHook,
+  pythonOlder,
+  sphinx,
+}:
 
 buildPythonPackage rec {
   pname = "sphinx-automodapi";

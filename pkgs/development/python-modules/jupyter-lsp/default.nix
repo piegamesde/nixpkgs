@@ -1,4 +1,10 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, jupyter-server }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jupyter-server,
+}:
 
 buildPythonPackage rec {
   pname = "jupyter-lsp";

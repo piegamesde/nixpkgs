@@ -1,6 +1,19 @@
-{ pkgs, linuxKernel, config, buildPackages, callPackage, makeOverridable
-, recurseIntoAttrs, dontRecurseIntoAttrs, stdenv, stdenvNoCC, newScope, lib
-, fetchurl, gcc10Stdenv }:
+{
+  pkgs,
+  linuxKernel,
+  config,
+  buildPackages,
+  callPackage,
+  makeOverridable,
+  recurseIntoAttrs,
+  dontRecurseIntoAttrs,
+  stdenv,
+  stdenvNoCC,
+  newScope,
+  lib,
+  fetchurl,
+  gcc10Stdenv,
+}:
 
 # When adding a kernel:
 # - Update packageAliases.linux_latest to the latest version
@@ -719,16 +732,25 @@ in {
 
   manualConfig = callPackage ../os-specific/linux/kernel/manual-config.nix { };
 
-  customPackage = { version, src, modDirVersion ? lib.versions.pad 3 version
-    , configfile, allowImportFromDerivation ? true }:
+  customPackage = {
+      version,
+      src,
+      modDirVersion ? lib.versions.pad 3 version,
+      configfile,
+      allowImportFromDerivation ? true
+    }:
     recurseIntoAttrs (packagesFor (manualConfig {
       inherit version src modDirVersion configfile allowImportFromDerivation;
     }));
 
   # Derive one of the default .config files
-  linuxConfig = { src, kernelPatches ? [ ]
-    , version ? (builtins.parseDrvName src.name).version
-    , makeTarget ? "defconfig", name ? "kernel.config", }:
+  linuxConfig = {
+      src,
+      kernelPatches ? [ ],
+      version ? (builtins.parseDrvName src.name).version,
+      makeTarget ? "defconfig",
+      name ? "kernel.config",
+    }:
     stdenvNoCC.mkDerivation {
       inherit name src;
       depsBuildBuild = [ buildPackages.stdenv.cc ]

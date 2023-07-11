@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, scipy, protobuf, onnx, scikit-learn
-, onnxconverter-common, onnxruntime, pandas, unittestCheckHook
-, pythonRelaxDepsHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  scipy,
+  protobuf,
+  onnx,
+  scikit-learn,
+  onnxconverter-common,
+  onnxruntime,
+  pandas,
+  unittestCheckHook,
+  pythonRelaxDepsHook,
+}:
 
 buildPythonPackage rec {
   pname = "skl2onnx";

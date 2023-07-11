@@ -1,4 +1,13 @@
-{ lib, stdenv, util-linux, coreutils, fetchurl, groff, system-sendmail, udev }:
+{
+  lib,
+  stdenv,
+  util-linux,
+  coreutils,
+  fetchurl,
+  groff,
+  system-sendmail,
+  udev,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mdadm";

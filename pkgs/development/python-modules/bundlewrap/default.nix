@@ -1,6 +1,21 @@
-{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder, cryptography, jinja2
-, mako, passlib, pytest, pyyaml, requests, rtoml, setuptools, tomlkit
-, librouteros, pytestCheckHook }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pythonOlder,
+  cryptography,
+  jinja2,
+  mako,
+  passlib,
+  pytest,
+  pyyaml,
+  requests,
+  rtoml,
+  setuptools,
+  tomlkit,
+  librouteros,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "bundlewrap";

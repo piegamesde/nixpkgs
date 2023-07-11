@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, lv2, libX11, libGL, libGLU, mesa, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  lv2,
+  libX11,
+  libGL,
+  libGLU,
+  mesa,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "aether-lv2";

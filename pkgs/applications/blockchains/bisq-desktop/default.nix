@@ -1,5 +1,19 @@
-{ stdenv, lib, makeWrapper, fetchurl, makeDesktopItem, copyDesktopItems
-, imagemagick, openjdk11, dpkg, writeScript, bash, tor, zip, xz }:
+{
+  stdenv,
+  lib,
+  makeWrapper,
+  fetchurl,
+  makeDesktopItem,
+  copyDesktopItems,
+  imagemagick,
+  openjdk11,
+  dpkg,
+  writeScript,
+  bash,
+  tor,
+  zip,
+  xz,
+}:
 
 let
   bisq-launcher = writeScript "bisq-launcher" ''

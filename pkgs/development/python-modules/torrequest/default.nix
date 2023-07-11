@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, requests, pysocks, stem }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  pysocks,
+  stem,
+}:
 
 buildPythonPackage rec {
   pname = "torrequest";

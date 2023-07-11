@@ -1,7 +1,31 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi
-, akonadi-search, grantlee, grantleetheme, kcmutils, kcompletion, kcrash
-, kdbusaddons, ki18n, kontactinterface, kparts, kpimtextedit, kuserfeedback
-, kxmlgui, libkdepim, libkleo, mailcommon, pimcommon, prison, qgpgme, qtbase, }:
+{
+  mkDerivation,
+  lib,
+  kdepimTeam,
+  extra-cmake-modules,
+  kdoctools,
+  akonadi,
+  akonadi-search,
+  grantlee,
+  grantleetheme,
+  kcmutils,
+  kcompletion,
+  kcrash,
+  kdbusaddons,
+  ki18n,
+  kontactinterface,
+  kparts,
+  kpimtextedit,
+  kuserfeedback,
+  kxmlgui,
+  libkdepim,
+  libkleo,
+  mailcommon,
+  pimcommon,
+  prison,
+  qgpgme,
+  qtbase,
+}:
 
 mkDerivation {
   pname = "kaddressbook";

@@ -1,9 +1,36 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, meson, ninja, cairo, git
-, hyprland-protocols, jq, libdrm, libinput, libxcb, libxkbcommon, mesa, pango
-, pciutils, systemd, udis86, wayland, wayland-protocols, wayland-scanner
-, wlroots, xcbutilwm, xwayland, debug ? false, enableXWayland ? true
-, hidpiXWayland ? false, legacyRenderer ? false, nvidiaPatches ? false
-, withSystemd ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  meson,
+  ninja,
+  cairo,
+  git,
+  hyprland-protocols,
+  jq,
+  libdrm,
+  libinput,
+  libxcb,
+  libxkbcommon,
+  mesa,
+  pango,
+  pciutils,
+  systemd,
+  udis86,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+  wlroots,
+  xcbutilwm,
+  xwayland,
+  debug ? false,
+  enableXWayland ? true,
+  hidpiXWayland ? false,
+  legacyRenderer ? false,
+  nvidiaPatches ? false,
+  withSystemd ? true
+}:
 let
   assertXWayland = lib.assertMsg (hidpiXWayland -> enableXWayland) ''
     Hyprland: cannot have hidpiXWayland when enableXWayland is false.

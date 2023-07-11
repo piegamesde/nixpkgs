@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, autoreconfHook, intltool, pkg-config, gtk3, SDL2, xorg
-, wrapGAppsHook, libcdio, nasm, ffmpeg_4, file, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  intltool,
+  pkg-config,
+  gtk3,
+  SDL2,
+  xorg,
+  wrapGAppsHook,
+  libcdio,
+  nasm,
+  ffmpeg_4,
+  file,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pcsxr";

@@ -1,4 +1,11 @@
-{ stdenv, lib, Carbon, fetchzip, libGL, libX11 }:
+{
+  stdenv,
+  lib,
+  Carbon,
+  fetchzip,
+  libGL,
+  libX11,
+}:
 
 stdenv.mkDerivation {
   pname = "soil";

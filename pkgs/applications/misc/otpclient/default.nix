@@ -1,6 +1,23 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, gtk3, wrapGAppsHook, jansson
-, libgcrypt, libzip, libpng, libcotp, protobuf, protobufc, qrencode, libsecret
-, libuuid, zbar }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  gtk3,
+  wrapGAppsHook,
+  jansson,
+  libgcrypt,
+  libzip,
+  libpng,
+  libcotp,
+  protobuf,
+  protobufc,
+  qrencode,
+  libsecret,
+  libuuid,
+  zbar,
+}:
 
 stdenv.mkDerivation rec {
   pname = "otpclient";

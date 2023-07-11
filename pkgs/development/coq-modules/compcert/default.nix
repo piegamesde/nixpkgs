@@ -1,5 +1,17 @@
-{ lib, fetchzip, mkCoqDerivation, coq, flocq, compcert, ocamlPackages
-, fetchpatch, makeWrapper, coq2html, stdenv, tools ? stdenv.cc, version ? null
+{
+  lib,
+  fetchzip,
+  mkCoqDerivation,
+  coq,
+  flocq,
+  compcert,
+  ocamlPackages,
+  fetchpatch,
+  makeWrapper,
+  coq2html,
+  stdenv,
+  tools ? stdenv.cc,
+  version ? null
 }:
 
 let

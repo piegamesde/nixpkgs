@@ -1,6 +1,17 @@
-{ lib, buildDunePackage, dune-configurator, pkg-config, fetchFromGitHub
-, callPackage, ffmpeg-base ? callPackage ./base.nix { }, ffmpeg-avutil
-, ffmpeg-avcodec, ffmpeg, stdenv, VideoToolbox }:
+{
+  lib,
+  buildDunePackage,
+  dune-configurator,
+  pkg-config,
+  fetchFromGitHub,
+  callPackage,
+  ffmpeg-base ? callPackage ./base.nix { },
+  ffmpeg-avutil,
+  ffmpeg-avcodec,
+  ffmpeg,
+  stdenv,
+  VideoToolbox,
+}:
 
 buildDunePackage {
   pname = "ffmpeg-swresample";

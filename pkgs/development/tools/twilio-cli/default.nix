@@ -1,4 +1,10 @@
-{ lib, stdenvNoCC, nodejs, fetchzip, testers }:
+{
+  lib,
+  stdenvNoCC,
+  nodejs,
+  fetchzip,
+  testers,
+}:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "twilio-cli";

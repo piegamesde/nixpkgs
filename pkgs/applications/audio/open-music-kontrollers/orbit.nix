@@ -1,4 +1,8 @@
-{ callPackage, zlib, ... }@args:
+{
+  callPackage,
+  zlib,
+  ...
+}@args:
 
 callPackage ./generic.nix (args // rec {
   pname = "orbit";

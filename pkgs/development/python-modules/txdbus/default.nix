@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, six, twisted }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  twisted,
+}:
 
 buildPythonPackage rec {
   pname = "txdbus";

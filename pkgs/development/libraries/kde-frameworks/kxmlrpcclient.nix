@@ -1,4 +1,9 @@
-{ mkDerivation, extra-cmake-modules, ki18n, kio }:
+{
+  mkDerivation,
+  extra-cmake-modules,
+  ki18n,
+  kio,
+}:
 
 mkDerivation {
   pname = "kxmlrpcclient";

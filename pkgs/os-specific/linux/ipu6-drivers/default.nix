@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, ivsc-driver, kernel }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ivsc-driver,
+  kernel,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ipu6-drivers";

@@ -1,10 +1,18 @@
 # based on the passed vscode will stdout a nix expression with the installed vscode extensions
-{ lib, vscodeDefault, writeShellScriptBin }:
+{
+  lib,
+  vscodeDefault,
+  writeShellScriptBin,
+}:
 
 ##User input
-{ vscode ? vscodeDefault, extensionsToIgnore ? [ ]
-  # will use those extensions to get sha256 if still exists when executed.
-, extensions ? [ ] }:
+{
+  vscode ? vscodeDefault,
+  extensionsToIgnore ? [ ]
+    # will use those extensions to get sha256 if still exists when executed.
+  ,
+  extensions ? [ ]
+}:
 let mktplcExtRefToFetchArgs = import ./mktplcExtRefToFetchArgs.nix;
 in writeShellScriptBin "vscodeExts2nix" ''
   echo '['

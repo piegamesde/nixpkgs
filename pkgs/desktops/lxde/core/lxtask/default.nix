@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, intltool, gtk3, libintl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  intltool,
+  gtk3,
+  libintl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lxtask";

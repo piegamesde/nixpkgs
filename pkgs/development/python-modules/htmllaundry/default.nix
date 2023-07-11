@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, nose, six, lxml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  six,
+  lxml,
+}:
 
 buildPythonPackage rec {
   pname = "htmllaundry";

@@ -1,4 +1,12 @@
-{ lib, callPackage, autoconf, hexdump, perl, python3, wineUnstable }:
+{
+  lib,
+  callPackage,
+  autoconf,
+  hexdump,
+  perl,
+  python3,
+  wineUnstable,
+}:
 
 with callPackage ./util.nix { };
 

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, jre8, unzip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  jre8,
+  unzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "galen";

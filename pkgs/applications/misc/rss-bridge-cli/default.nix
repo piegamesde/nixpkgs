@@ -1,7 +1,15 @@
-{ lib, writeShellScriptBin, rss-bridge, php }:
+{
+  lib,
+  writeShellScriptBin,
+  rss-bridge,
+  php,
+}:
 
 let
-  phpWithExts = (php.withExtensions ({ all, ... }:
+  phpWithExts = (php.withExtensions ({
+      all,
+      ...
+    }:
     with all; [
       curl
       filter

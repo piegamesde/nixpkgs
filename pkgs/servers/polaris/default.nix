@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, polaris-web }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  polaris-web,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "polaris";

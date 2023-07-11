@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, nodejs, python3, callPackage, removeReferencesTo
-, pkg-config, libsecret, xcbuild, Security, AppKit, fetchNpmDeps, npmHooks }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nodejs,
+  python3,
+  callPackage,
+  removeReferencesTo,
+  pkg-config,
+  libsecret,
+  xcbuild,
+  Security,
+  AppKit,
+  fetchNpmDeps,
+  npmHooks,
+}:
 
 let pinData = lib.importJSON ./pin.json;
 

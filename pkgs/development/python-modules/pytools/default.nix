@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, decorator, numpy
-, platformdirs, typing-extensions, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  decorator,
+  numpy,
+  platformdirs,
+  typing-extensions,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pytools";

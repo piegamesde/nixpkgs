@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, rustPlatform, pkg-config, openssl, stdenv, CoreServices
-, Security }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  stdenv,
+  CoreServices,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "inherd-quake";

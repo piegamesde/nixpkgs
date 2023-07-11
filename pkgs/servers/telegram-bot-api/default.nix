@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gperf, openssl, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gperf,
+  openssl,
+  zlib,
+}:
 
 stdenv.mkDerivation {
   pname = "telegram-bot-api";

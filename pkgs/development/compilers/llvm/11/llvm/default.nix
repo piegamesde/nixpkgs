@@ -1,14 +1,33 @@
-{ lib, stdenv, llvm_meta, pkgsBuildBuild, fetch, fetchpatch, cmake, python3
-, libffi, enableGoldPlugin ? libbfd.hasPluginAPI, libbfd, libpfm, libxml2
-, ncurses, version, release_version, zlib, buildLlvmTools, debugVersion ? false
-, doCheck ? stdenv.isLinux && (!stdenv.isx86_32)
-  && (!stdenv.hostPlatform.isMusl) && (!stdenv.hostPlatform.isRiscV)
-  && (stdenv.hostPlatform == stdenv.buildPlatform), enableManpages ? false
-, enableSharedLibraries ? !stdenv.hostPlatform.isStatic
-  # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
-  # broken for the armv7l builder
-, enablePFM ? stdenv.isLinux && !stdenv.hostPlatform.isAarch
-, enablePolly ? false # TODO should be on by default
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  pkgsBuildBuild,
+  fetch,
+  fetchpatch,
+  cmake,
+  python3,
+  libffi,
+  enableGoldPlugin ? libbfd.hasPluginAPI,
+  libbfd,
+  libpfm,
+  libxml2,
+  ncurses,
+  version,
+  release_version,
+  zlib,
+  buildLlvmTools,
+  debugVersion ? false,
+  doCheck ? stdenv.isLinux && (!stdenv.isx86_32)
+    && (!stdenv.hostPlatform.isMusl) && (!stdenv.hostPlatform.isRiscV)
+    && (stdenv.hostPlatform == stdenv.buildPlatform),
+  enableManpages ? false,
+  enableSharedLibraries ? !stdenv.hostPlatform.isStatic
+    # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
+    # broken for the armv7l builder
+  ,
+  enablePFM ? stdenv.isLinux && !stdenv.hostPlatform.isAarch,
+  enablePolly ? false # TODO should be on by default
 }:
 
 let

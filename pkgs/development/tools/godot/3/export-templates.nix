@@ -1,4 +1,7 @@
-{ godot, lib }:
+{
+  godot,
+  lib,
+}:
 
 # https://docs.godotengine.org/en/stable/development/compiling/compiling_for_x11.html#building-export-templates
 godot.overrideAttrs (oldAttrs: rec {

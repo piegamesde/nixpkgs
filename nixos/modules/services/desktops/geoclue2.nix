@@ -1,6 +1,11 @@
 # GeoClue 2 daemon.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -14,42 +19,51 @@ let
 
   defaultWhitelist = [ "gnome-shell" "io.elementary.desktop.agent-geoclue2" ];
 
-  appConfigModule = types.submodule ({ name, ... }: {
-    options = {
-      desktopID = mkOption {
-        type = types.str;
-        description = lib.mdDoc "Desktop ID of the application.";
+  appConfigModule = types.submodule ({
+      name,
+      ...
+    }: {
+      options = {
+        desktopID = mkOption {
+          type = types.str;
+          description = lib.mdDoc "Desktop ID of the application.";
+        };
+
+        isAllowed = mkOption {
+          type = types.bool;
+          description = lib.mdDoc ''
+            Whether the application will be allowed access to location information.
+          '';
+        };
+
+        isSystem = mkOption {
+          type = types.bool;
+          description = lib.mdDoc ''
+            Whether the application is a system component or not.
+          '';
+        };
+
+        users = mkOption {
+          type = types.listOf types.str;
+          default = [ ];
+          description = lib.mdDoc ''
+            List of UIDs of all users for which this application is allowed location
+            info access, Defaults to an empty string to allow it for all users.
+          '';
+        };
       };
 
-      isAllowed = mkOption {
-        type = types.bool;
-        description = lib.mdDoc ''
-          Whether the application will be allowed access to location information.
-        '';
-      };
-
-      isSystem = mkOption {
-        type = types.bool;
-        description = lib.mdDoc ''
-          Whether the application is a system component or not.
-        '';
-      };
-
-      users = mkOption {
-        type = types.listOf types.str;
-        default = [ ];
-        description = lib.mdDoc ''
-          List of UIDs of all users for which this application is allowed location
-          info access, Defaults to an empty string to allow it for all users.
-        '';
-      };
-    };
-
-    config.desktopID = mkDefault name;
-  });
+      config.desktopID = mkDefault name;
+    });
 
   appConfigToINICompatible = _:
-    { desktopID, isAllowed, isSystem, users, ... }: {
+    {
+      desktopID,
+      isAllowed,
+      isSystem,
+      users,
+      ...
+    }: {
       name = desktopID;
       value = {
         allowed = isAllowed;

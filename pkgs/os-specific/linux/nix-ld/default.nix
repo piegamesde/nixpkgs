@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  nixosTests,
+}:
 let
   libDir = if builtins.elem stdenv.system [
     "x86_64-linux"

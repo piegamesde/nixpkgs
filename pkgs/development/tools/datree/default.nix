@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles, testers, datree }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  testers,
+  datree,
+}:
 
 buildGoModule rec {
   pname = "datree";

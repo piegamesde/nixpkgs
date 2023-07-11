@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy27, clikit, poetry-core
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy27,
+  clikit,
+  poetry-core,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   version = "5.1.1";

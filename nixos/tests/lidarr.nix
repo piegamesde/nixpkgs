@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ lib, ... }:
+import ./make-test-python.nix ({
+    lib,
+    ...
+  }:
 
   with lib;
 
@@ -6,7 +9,12 @@ import ./make-test-python.nix ({ lib, ... }:
     name = "lidarr";
     meta.maintainers = with maintainers; [ etu ];
 
-    nodes.machine = { pkgs, ... }: { services.lidarr.enable = true; };
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        services.lidarr.enable = true;
+      };
 
     testScript = ''
       start_all()

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fuse, readline, libgcrypt, gmp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fuse,
+  readline,
+  libgcrypt,
+  gmp,
+}:
 
 stdenv.mkDerivation {
   pname = "afpfs-ng";

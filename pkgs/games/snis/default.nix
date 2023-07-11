@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, coreutils, portaudio, libbsd, libpng
-, libvorbis, SDL2, makeWrapper, lua5_2, glew, openssl, picotts, alsa-utils
-, espeak-classic, sox, libopus, openscad, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  coreutils,
+  portaudio,
+  libbsd,
+  libpng,
+  libvorbis,
+  SDL2,
+  makeWrapper,
+  lua5_2,
+  glew,
+  openssl,
+  picotts,
+  alsa-utils,
+  espeak-classic,
+  sox,
+  libopus,
+  openscad,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation {
   pname = "snis_launcher";

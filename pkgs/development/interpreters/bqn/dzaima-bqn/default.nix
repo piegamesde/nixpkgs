@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, jdk, makeWrapper, buildNativeImage ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jdk,
+  makeWrapper,
+  buildNativeImage ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "dbqn" + lib.optionalString buildNativeImage "-native";

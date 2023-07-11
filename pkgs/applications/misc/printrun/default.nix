@@ -1,4 +1,10 @@
-{ lib, python3Packages, fetchFromGitHub, glib, wrapGAppsHook }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  glib,
+  wrapGAppsHook,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "printrun";

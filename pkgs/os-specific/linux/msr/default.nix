@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchzip, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation rec {
   pname = "msr";

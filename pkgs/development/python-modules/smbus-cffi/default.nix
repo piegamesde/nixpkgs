@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, cffi, py, pytestCheckHook, pyserial
-, fetchpatch }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cffi,
+  py,
+  pytestCheckHook,
+  pyserial,
+  fetchpatch,
+}:
 
 buildPythonPackage rec {
   pname = "smbus-cffi";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, libSM, libX11, libXt, libffi, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libSM,
+  libX11,
+  libXt,
+  libffi,
+  ncurses,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "yabasic";

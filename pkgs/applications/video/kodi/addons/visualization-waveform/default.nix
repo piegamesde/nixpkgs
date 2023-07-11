@@ -1,4 +1,12 @@
-{ lib, rel, buildKodiBinaryAddon, fetchFromGitHub, pkg-config, glm, libGL }:
+{
+  lib,
+  rel,
+  buildKodiBinaryAddon,
+  fetchFromGitHub,
+  pkg-config,
+  glm,
+  libGL,
+}:
 
 buildKodiBinaryAddon rec {
   pname = "visualization-waveform";

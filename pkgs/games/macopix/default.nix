@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, gtk, openssl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  gtk,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "macopix";

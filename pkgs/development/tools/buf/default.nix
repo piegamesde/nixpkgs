@@ -1,5 +1,13 @@
-{ lib, buildGoModule, fetchFromGitHub, protobuf, git, testers, buf
-, installShellFiles }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  protobuf,
+  git,
+  testers,
+  buf,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "buf";

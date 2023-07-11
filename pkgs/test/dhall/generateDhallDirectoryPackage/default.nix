@@ -1,4 +1,7 @@
-{ dhallPackages, fetchFromGitHub }:
+{
+  dhallPackages,
+  fetchFromGitHub,
+}:
 
 # This file tests that dhallPackages.generateDhallDirectoryPackage works.
 #

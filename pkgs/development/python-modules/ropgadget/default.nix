@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, capstone, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  capstone,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "ropgadget";

@@ -1,6 +1,20 @@
-{ stdenv, lib, cmake, fetchFromGitHub, pkg-config, fftwFloat, mbedtls, boost
-, lksctp-tools, libconfig, pcsclite, uhd, soapysdr-with-plugins, libbladeRF
-, zeromq }:
+{
+  stdenv,
+  lib,
+  cmake,
+  fetchFromGitHub,
+  pkg-config,
+  fftwFloat,
+  mbedtls,
+  boost,
+  lksctp-tools,
+  libconfig,
+  pcsclite,
+  uhd,
+  soapysdr-with-plugins,
+  libbladeRF,
+  zeromq,
+}:
 
 stdenv.mkDerivation rec {
   pname = "srsran";

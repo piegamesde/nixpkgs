@@ -1,8 +1,38 @@
-{ stdenv, lib, fetchurl, fetchpatch, gnome, pkg-config, meson, ninja, exiv2
-, libheif, libjpeg, libtiff, gst_all_1, libraw, libsoup, libsecret, glib, gtk3
-, gsettings-desktop-schemas, libchamplain, librsvg, libwebp, json-glib
-, webkitgtk, lcms2, bison, flex, clutter-gtk, wrapGAppsHook, shared-mime-info
-, python3, desktop-file-utils, itstool }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  gnome,
+  pkg-config,
+  meson,
+  ninja,
+  exiv2,
+  libheif,
+  libjpeg,
+  libtiff,
+  gst_all_1,
+  libraw,
+  libsoup,
+  libsecret,
+  glib,
+  gtk3,
+  gsettings-desktop-schemas,
+  libchamplain,
+  librsvg,
+  libwebp,
+  json-glib,
+  webkitgtk,
+  lcms2,
+  bison,
+  flex,
+  clutter-gtk,
+  wrapGAppsHook,
+  shared-mime-info,
+  python3,
+  desktop-file-utils,
+  itstool,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gthumb";

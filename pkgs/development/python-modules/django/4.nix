@@ -1,20 +1,50 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, pythonOlder, substituteAll
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  substituteAll
 
-# build
-, setuptools
+  # build
+  ,
+  setuptools
 
-# patched in
-, geos, gdal, withGdal ? false
+  # patched in
+  ,
+  geos,
+  gdal,
+  withGdal ? false
 
-  # propagates
-, asgiref, sqlparse
+    # propagates
+  ,
+  asgiref,
+  sqlparse
 
-# extras
-, argon2-cffi, bcrypt
+  # extras
+  ,
+  argon2-cffi,
+  bcrypt
 
-# tests
-, aiosmtpd, docutils, geoip2, jinja2, numpy, pillow, pylibmc, pymemcache, python
-, pywatchman, pyyaml, pytz, redis, selenium, tblib, tzdata }:
+  # tests
+  ,
+  aiosmtpd,
+  docutils,
+  geoip2,
+  jinja2,
+  numpy,
+  pillow,
+  pylibmc,
+  pymemcache,
+  python,
+  pywatchman,
+  pyyaml,
+  pytz,
+  redis,
+  selenium,
+  tblib,
+  tzdata,
+}:
 
 buildPythonPackage rec {
   pname = "Django";

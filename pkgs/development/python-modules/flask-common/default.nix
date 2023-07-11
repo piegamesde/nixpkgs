@@ -1,5 +1,15 @@
-{ lib, fetchPypi, buildPythonPackage, crayons, flask, flask-caching, gunicorn
-, maya, meinheld, whitenoise }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  crayons,
+  flask,
+  flask-caching,
+  gunicorn,
+  maya,
+  meinheld,
+  whitenoise,
+}:
 
 buildPythonPackage rec {
   pname = "Flask-Common";

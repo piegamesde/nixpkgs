@@ -1,4 +1,7 @@
-{ runCommand, vega-lite }:
+{
+  runCommand,
+  vega-lite,
+}:
 
 let inherit (vega-lite) packageName version;
 

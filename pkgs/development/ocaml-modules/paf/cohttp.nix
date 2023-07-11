@@ -1,6 +1,21 @@
-{ lib, buildDunePackage, paf, cohttp-lwt, domain-name, httpaf, ipaddr
-, alcotest-lwt, fmt, logs, mirage-crypto-rng, mirage-time-unix, tcpip, uri, lwt
-, astring }:
+{
+  lib,
+  buildDunePackage,
+  paf,
+  cohttp-lwt,
+  domain-name,
+  httpaf,
+  ipaddr,
+  alcotest-lwt,
+  fmt,
+  logs,
+  mirage-crypto-rng,
+  mirage-time-unix,
+  tcpip,
+  uri,
+  lwt,
+  astring,
+}:
 
 buildDunePackage {
   pname = "paf-cohttp";

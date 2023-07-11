@@ -1,5 +1,15 @@
-{ lib, fetchFromGitHub, buildDunePackage, ocaml, ocaml-syntax-shims, alcotest
-, result, bigstringaf, ppx_let, gitUpdater }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  ocaml,
+  ocaml-syntax-shims,
+  alcotest,
+  result,
+  bigstringaf,
+  ppx_let,
+  gitUpdater,
+}:
 
 buildDunePackage rec {
   pname = "angstrom";

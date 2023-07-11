@@ -1,5 +1,24 @@
-{ lib, stdenv, fetchurl, perl, gmp, mpfr, flint, boost, bliss, ppl, singular
-, cddlib, lrs, nauty, ninja, ant, openjdk, perlPackages, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  gmp,
+  mpfr,
+  flint,
+  boost,
+  bliss,
+  ppl,
+  singular,
+  cddlib,
+  lrs,
+  nauty,
+  ninja,
+  ant,
+  openjdk,
+  perlPackages,
+  makeWrapper,
+}:
 
 # polymake compiles its own version of sympol and atint because we
 # don't have those packages. other missing optional dependencies:

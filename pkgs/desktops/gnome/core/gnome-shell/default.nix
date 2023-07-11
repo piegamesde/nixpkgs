@@ -1,14 +1,68 @@
-{ fetchurl, fetchpatch, substituteAll, lib, stdenv, meson, ninja, pkg-config
-, gnome, json-glib, gettext, libsecret, python3, polkit, networkmanager, gtk-doc
-, docbook-xsl-nons, at-spi2-core, libstartup_notification, unzip
-, shared-mime-info, libgweather, librsvg, webp-pixbuf-loader, geoclue2, perl
-, docbook_xml_dtd_45, desktop-file-utils, libpulseaudio, libical
-, gobject-introspection, wrapGAppsHook, libxslt, gcr_4, accountsservice
-, gdk-pixbuf, gdm, upower, ibus, libnma-gtk4, libgnomekbd, gnome-desktop
-, gsettings-desktop-schemas, gnome-keyring, glib, gjs, mutter
-, evolution-data-server-gtk4, gtk3, gtk4, libadwaita, sassc, systemd, pipewire
-, gst_all_1, adwaita-icon-theme, gnome-bluetooth, gnome-clocks
-, gnome-settings-daemon, gnome-autoar, asciidoc, bash-completion, mesa }:
+{
+  fetchurl,
+  fetchpatch,
+  substituteAll,
+  lib,
+  stdenv,
+  meson,
+  ninja,
+  pkg-config,
+  gnome,
+  json-glib,
+  gettext,
+  libsecret,
+  python3,
+  polkit,
+  networkmanager,
+  gtk-doc,
+  docbook-xsl-nons,
+  at-spi2-core,
+  libstartup_notification,
+  unzip,
+  shared-mime-info,
+  libgweather,
+  librsvg,
+  webp-pixbuf-loader,
+  geoclue2,
+  perl,
+  docbook_xml_dtd_45,
+  desktop-file-utils,
+  libpulseaudio,
+  libical,
+  gobject-introspection,
+  wrapGAppsHook,
+  libxslt,
+  gcr_4,
+  accountsservice,
+  gdk-pixbuf,
+  gdm,
+  upower,
+  ibus,
+  libnma-gtk4,
+  libgnomekbd,
+  gnome-desktop,
+  gsettings-desktop-schemas,
+  gnome-keyring,
+  glib,
+  gjs,
+  mutter,
+  evolution-data-server-gtk4,
+  gtk3,
+  gtk4,
+  libadwaita,
+  sassc,
+  systemd,
+  pipewire,
+  gst_all_1,
+  adwaita-icon-theme,
+  gnome-bluetooth,
+  gnome-clocks,
+  gnome-settings-daemon,
+  gnome-autoar,
+  asciidoc,
+  bash-completion,
+  mesa,
+}:
 
 let pythonEnv = python3.withPackages (ps: with ps; [ pygobject3 ]);
 in stdenv.mkDerivation rec {

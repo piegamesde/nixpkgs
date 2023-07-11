@@ -1,4 +1,11 @@
-{ lib, mkDerivation, cmake, extra-cmake-modules, qtbase, kactivities }:
+{
+  lib,
+  mkDerivation,
+  cmake,
+  extra-cmake-modules,
+  qtbase,
+  kactivities,
+}:
 mkDerivation {
 
   pname = "kapptemplate";

@@ -1,5 +1,13 @@
-{ lib, boost, fetchFromGitHub, libsodium, nix, pkg-config, rustPlatform
-, nix-update-script }:
+{
+  lib,
+  boost,
+  fetchFromGitHub,
+  libsodium,
+  nix,
+  pkg-config,
+  rustPlatform,
+  nix-update-script,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "harmonia";

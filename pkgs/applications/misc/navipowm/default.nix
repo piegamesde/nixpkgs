@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, qt4, qmake4Hook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  qt4,
+  qmake4Hook,
+}:
 stdenv.mkDerivation rec {
   pname = "navipowm";
   version = "0.2.4";

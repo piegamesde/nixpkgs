@@ -1,4 +1,11 @@
-{ lib, fetchPypi, buildPythonPackage, setuptools-scm, pyyaml, pytestCheckHook }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  setuptools-scm,
+  pyyaml,
+  pytestCheckHook,
+}:
 buildPythonPackage rec {
   pname = "saneyaml";
   version = "0.6.0";

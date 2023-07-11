@@ -1,4 +1,10 @@
-{ fetchurl, lib, stdenv, unzip, fixDarwinDylibNames }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  unzip,
+  fixDarwinDylibNames,
+}:
 
 let
   versionMajor = "1";

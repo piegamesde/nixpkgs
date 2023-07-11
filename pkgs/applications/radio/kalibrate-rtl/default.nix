@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, fftw, rtl-sdr
-, libusb1 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  fftw,
+  rtl-sdr,
+  libusb1,
+}:
 
 stdenv.mkDerivation {
   pname = "kalibrate-rtl";

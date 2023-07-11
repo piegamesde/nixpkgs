@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, django, fetchFromGitHub, poetry-core, python
-, pythonOlder, ua-parser }:
+{
+  lib,
+  buildPythonPackage,
+  django,
+  fetchFromGitHub,
+  poetry-core,
+  python,
+  pythonOlder,
+  ua-parser,
+}:
 
 buildPythonPackage rec {
   pname = "django-sesame";

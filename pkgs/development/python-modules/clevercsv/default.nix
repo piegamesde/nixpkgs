@@ -1,14 +1,26 @@
-{ lib, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
 
-# propagates
-, chardet, regex, packaging
+  # propagates
+  ,
+  chardet,
+  regex,
+  packaging
 
-# optionals
-, faust-cchardet, pandas, tabview
-# TODO: , wilderness
+  # optionals
+  ,
+  faust-cchardet,
+  pandas,
+  tabview
+  # TODO: , wilderness
 
-# tests
-, python, pytestCheckHook }:
+  # tests
+  ,
+  python,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "clevercsv";

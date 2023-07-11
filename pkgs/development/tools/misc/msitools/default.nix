@@ -1,5 +1,22 @@
-{ lib, stdenv, fetchurl, fetchpatch, meson, ninja, vala, gobject-introspection
-, perl, bison, gettext, glib, pkg-config, libgsf, gcab, bzip2, gnome }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  meson,
+  ninja,
+  vala,
+  gobject-introspection,
+  perl,
+  bison,
+  gettext,
+  glib,
+  pkg-config,
+  libgsf,
+  gcab,
+  bzip2,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "msitools";

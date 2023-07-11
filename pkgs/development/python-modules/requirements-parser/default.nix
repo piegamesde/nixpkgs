@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook
-, pythonOlder, setuptools, types-setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  types-setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "requirements-parser";

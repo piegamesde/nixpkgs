@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, libgcrypt }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libgcrypt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libcotp";

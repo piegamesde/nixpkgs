@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, libssh }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libssh,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sshping";

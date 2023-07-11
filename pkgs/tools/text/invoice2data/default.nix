@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, ghostscript, imagemagick, poppler_utils, python3
-, tesseract5 }:
+{
+  lib,
+  fetchFromGitHub,
+  ghostscript,
+  imagemagick,
+  poppler_utils,
+  python3,
+  tesseract5,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "invoice2data";

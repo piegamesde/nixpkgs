@@ -1,8 +1,44 @@
-{ alsa-lib, at-spi2-atk, at-spi2-core, atk, autoPatchelfHook, cairo, cups, curl
-, dbus, dnsmasq, dpkg, expat, fetchurl, gdk-pixbuf, glib, gtk3, icu, iproute2
-, krb5, lib, libdrm, libsecret, libuuid, libxcb, libxkbcommon, lttng-ust
-, makeWrapper, mesa, networkmanager, nspr, nss, openssl, pango, python3, stdenv
-, systemd, xdg-utils, xorg, zlib }:
+{
+  alsa-lib,
+  at-spi2-atk,
+  at-spi2-core,
+  atk,
+  autoPatchelfHook,
+  cairo,
+  cups,
+  curl,
+  dbus,
+  dnsmasq,
+  dpkg,
+  expat,
+  fetchurl,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  icu,
+  iproute2,
+  krb5,
+  lib,
+  libdrm,
+  libsecret,
+  libuuid,
+  libxcb,
+  libxkbcommon,
+  lttng-ust,
+  makeWrapper,
+  mesa,
+  networkmanager,
+  nspr,
+  nss,
+  openssl,
+  pango,
+  python3,
+  stdenv,
+  systemd,
+  xdg-utils,
+  xorg,
+  zlib,
+}:
 
 let
   deps = [

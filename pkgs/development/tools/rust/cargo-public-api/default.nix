@@ -1,4 +1,12 @@
-{ lib, rustPlatform, fetchCrate, pkg-config, openssl, stdenv, darwin }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  openssl,
+  stdenv,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-public-api";

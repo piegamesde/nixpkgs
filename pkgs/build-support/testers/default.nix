@@ -1,4 +1,12 @@
-{ pkgs, buildPackages, lib, callPackage, runCommand, stdenv, substituteAll, }:
+{
+  pkgs,
+  buildPackages,
+  lib,
+  callPackage,
+  runCommand,
+  stdenv,
+  substituteAll,
+}:
 # Documentation is in doc/builders/testers.chapter.md
 {
   # See https://nixos.org/manual/nixpkgs/unstable/#tester-testBuildFailure
@@ -24,7 +32,11 @@
 
   # See https://nixos.org/manual/nixpkgs/unstable/#tester-testEqualContents
   # or doc/builders/testers.chapter.md
-  testEqualContents = { assertion, actual, expected, }:
+  testEqualContents = {
+      assertion,
+      actual,
+      expected,
+    }:
     runCommand "equal-contents-${lib.strings.toLower assertion}" {
       inherit assertion actual expected;
     } ''
@@ -59,9 +71,13 @@
 
   # See https://nixos.org/manual/nixpkgs/unstable/#tester-testVersion
   # or doc/builders/testers.chapter.md
-  testVersion = { package, command ?
-      "${package.meta.mainProgram or package.pname or package.name} --version"
-    , version ? package.version, }:
+  testVersion = {
+      package,
+      command ? "${
+          package.meta.mainProgram or package.pname or package.name
+        } --version",
+      version ? package.version,
+    }:
     runCommand "${package.name}-test-version" {
       nativeBuildInputs = [ package ];
       meta.timeout = 60;
@@ -111,8 +127,14 @@
     nixosTesting = (import ../../../nixos/lib/testing-python.nix {
       inherit (stdenv.hostPlatform) system;
       inherit pkgs;
-      extraConfigurations =
-        [ ({ lib, ... }: { config.nixpkgs.pkgs = lib.mkDefault pkgs; }) ];
+      extraConfigurations = [
+        ({
+            lib,
+            ...
+          }: {
+            config.nixpkgs.pkgs = lib.mkDefault pkgs;
+          })
+      ];
     });
   in test:
   let

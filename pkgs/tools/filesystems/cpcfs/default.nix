@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, ncurses, readline, ronn }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  ncurses,
+  readline,
+  ronn,
+}:
 
 stdenv.mkDerivation rec {
 

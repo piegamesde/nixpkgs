@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, xorg, boost, gtest }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  xorg,
+  boost,
+  gtest,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xlayoutdisplay";

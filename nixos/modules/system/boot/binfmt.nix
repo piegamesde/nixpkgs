@@ -1,12 +1,26 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (lib) mkOption mkDefault types optionalString stringAfter;
 
   cfg = config.boot.binfmt;
 
   makeBinfmtLine = name:
-    { recognitionType, offset, magicOrExtension, mask, preserveArgvZero
-    , openBinary, matchCredentials, fixBinary, ... }:
+    {
+      recognitionType,
+      offset,
+      magicOrExtension,
+      mask,
+      preserveArgvZero,
+      openBinary,
+      matchCredentials,
+      fixBinary,
+      ...
+    }:
     let
       type = if recognitionType == "magic" then "M" else "E";
       offset' = toString offset;
@@ -22,7 +36,11 @@ let
     in ":${name}:${type}:${offset'}:${magicOrExtension}:${mask'}:${interpreter}:${flags}";
 
   activationSnippet = name:
-    { interpreter, wrapInterpreterInShell, ... }:
+    {
+      interpreter,
+      wrapInterpreterInShell,
+      ...
+    }:
     if wrapInterpreterInShell then ''
       rm -f /run/binfmt/${name}
       cat > /run/binfmt/${name} << 'EOF'
@@ -214,114 +232,117 @@ in {
           See https://www.kernel.org/doc/html/latest/admin-guide/binfmt-misc.html for more details.
         '';
 
-        type = types.attrsOf (types.submodule ({ config, ... }: {
-          options = {
-            recognitionType = mkOption {
-              default = "magic";
-              description = lib.mdDoc
-                "Whether to recognize executables by magic number or extension.";
-              type = types.enum [ "magic" "extension" ];
+        type = types.attrsOf (types.submodule ({
+            config,
+            ...
+          }: {
+            options = {
+              recognitionType = mkOption {
+                default = "magic";
+                description = lib.mdDoc
+                  "Whether to recognize executables by magic number or extension.";
+                type = types.enum [ "magic" "extension" ];
+              };
+
+              offset = mkOption {
+                default = null;
+                description = lib.mdDoc
+                  "The byte offset of the magic number used for recognition.";
+                type = types.nullOr types.int;
+              };
+
+              magicOrExtension = mkOption {
+                description =
+                  lib.mdDoc "The magic number or extension to match on.";
+                type = types.str;
+              };
+
+              mask = mkOption {
+                default = null;
+                description = lib.mdDoc
+                  "A mask to be ANDed with the byte sequence of the file before matching";
+                type = types.nullOr types.str;
+              };
+
+              interpreter = mkOption {
+                description = lib.mdDoc ''
+                  The interpreter to invoke to run the program.
+
+                  Note that the actual registration will point to
+                  /run/binfmt/''${name}, so the kernel interpreter length
+                  limit doesn't apply.
+                '';
+                type = types.path;
+              };
+
+              preserveArgvZero = mkOption {
+                default = false;
+                description = lib.mdDoc ''
+                  Whether to pass the original argv[0] to the interpreter.
+
+                  See the description of the 'P' flag in the kernel docs
+                  for more details;
+                '';
+                type = types.bool;
+              };
+
+              openBinary = mkOption {
+                default = config.matchCredentials;
+                description = lib.mdDoc ''
+                  Whether to pass the binary to the interpreter as an open
+                  file descriptor, instead of a path.
+                '';
+                type = types.bool;
+              };
+
+              matchCredentials = mkOption {
+                default = false;
+                description = lib.mdDoc ''
+                  Whether to launch with the credentials and security
+                  token of the binary, not the interpreter (e.g. setuid
+                  bit).
+
+                  See the description of the 'C' flag in the kernel docs
+                  for more details.
+
+                  Implies/requires openBinary = true.
+                '';
+                type = types.bool;
+              };
+
+              fixBinary = mkOption {
+                default = false;
+                description = lib.mdDoc ''
+                  Whether to open the interpreter file as soon as the
+                  registration is loaded, rather than waiting for a
+                  relevant file to be invoked.
+
+                  See the description of the 'F' flag in the kernel docs
+                  for more details.
+                '';
+                type = types.bool;
+              };
+
+              wrapInterpreterInShell = mkOption {
+                default = true;
+                description = lib.mdDoc ''
+                  Whether to wrap the interpreter in a shell script.
+
+                  This allows a shell command to be set as the interpreter.
+                '';
+                type = types.bool;
+              };
+
+              interpreterSandboxPath = mkOption {
+                internal = true;
+                default = null;
+                description = lib.mdDoc ''
+                  Path of the interpreter to expose in the build sandbox.
+                '';
+                type = types.nullOr types.path;
+              };
             };
-
-            offset = mkOption {
-              default = null;
-              description = lib.mdDoc
-                "The byte offset of the magic number used for recognition.";
-              type = types.nullOr types.int;
-            };
-
-            magicOrExtension = mkOption {
-              description =
-                lib.mdDoc "The magic number or extension to match on.";
-              type = types.str;
-            };
-
-            mask = mkOption {
-              default = null;
-              description = lib.mdDoc
-                "A mask to be ANDed with the byte sequence of the file before matching";
-              type = types.nullOr types.str;
-            };
-
-            interpreter = mkOption {
-              description = lib.mdDoc ''
-                The interpreter to invoke to run the program.
-
-                Note that the actual registration will point to
-                /run/binfmt/''${name}, so the kernel interpreter length
-                limit doesn't apply.
-              '';
-              type = types.path;
-            };
-
-            preserveArgvZero = mkOption {
-              default = false;
-              description = lib.mdDoc ''
-                Whether to pass the original argv[0] to the interpreter.
-
-                See the description of the 'P' flag in the kernel docs
-                for more details;
-              '';
-              type = types.bool;
-            };
-
-            openBinary = mkOption {
-              default = config.matchCredentials;
-              description = lib.mdDoc ''
-                Whether to pass the binary to the interpreter as an open
-                file descriptor, instead of a path.
-              '';
-              type = types.bool;
-            };
-
-            matchCredentials = mkOption {
-              default = false;
-              description = lib.mdDoc ''
-                Whether to launch with the credentials and security
-                token of the binary, not the interpreter (e.g. setuid
-                bit).
-
-                See the description of the 'C' flag in the kernel docs
-                for more details.
-
-                Implies/requires openBinary = true.
-              '';
-              type = types.bool;
-            };
-
-            fixBinary = mkOption {
-              default = false;
-              description = lib.mdDoc ''
-                Whether to open the interpreter file as soon as the
-                registration is loaded, rather than waiting for a
-                relevant file to be invoked.
-
-                See the description of the 'F' flag in the kernel docs
-                for more details.
-              '';
-              type = types.bool;
-            };
-
-            wrapInterpreterInShell = mkOption {
-              default = true;
-              description = lib.mdDoc ''
-                Whether to wrap the interpreter in a shell script.
-
-                This allows a shell command to be set as the interpreter.
-              '';
-              type = types.bool;
-            };
-
-            interpreterSandboxPath = mkOption {
-              internal = true;
-              default = null;
-              description = lib.mdDoc ''
-                Path of the interpreter to expose in the build sandbox.
-              '';
-              type = types.nullOr types.path;
-            };
-          };
-        }));
+          }));
       };
 
       emulatedSystems = mkOption {
@@ -340,7 +361,10 @@ in {
   config = {
     boot.binfmt.registrations = builtins.listToAttrs (map (system: {
       name = system;
-      value = { config, ... }:
+      value = {
+          config,
+          ...
+        }:
         let
           interpreter = getEmulator system;
           qemuArch = getQemuArch system;

@@ -1,5 +1,15 @@
-{ lib, pkgs, stdenv, fetchFromGitHub, mypy, python3, nix, git, makeWrapper
-, runtimeShell }:
+{
+  lib,
+  pkgs,
+  stdenv,
+  fetchFromGitHub,
+  mypy,
+  python3,
+  nix,
+  git,
+  makeWrapper,
+  runtimeShell,
+}:
 let
   self = stdenv.mkDerivation rec {
     pname = "nix-pin";
@@ -23,7 +33,9 @@ let
     '';
     passthru = let defaults = import "${self}/share/nix/defaults.nix";
     in {
-      api = { pinConfig ? defaults.pinConfig }:
+      api = {
+          pinConfig ? defaults.pinConfig
+        }:
         let
           impl = import "${self}/share/nix/api.nix" { inherit pkgs pinConfig; };
         in { inherit (impl) augmentedPkgs pins callPackage; };

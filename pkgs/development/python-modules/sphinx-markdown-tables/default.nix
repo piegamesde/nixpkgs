@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, sphinx, markdown }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  sphinx,
+  markdown,
+}:
 
 buildPythonPackage rec {
   pname = "sphinx-markdown-tables";

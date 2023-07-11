@@ -1,4 +1,10 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, AppKit }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  AppKit,
+}:
 
 buildGoModule rec {
   pname = "saml2aws";

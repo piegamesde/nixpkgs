@@ -1,7 +1,28 @@
-{ stdenv, lib, fetchurl, fetchpatch, fetchFromGitLab, bundlerEnv, ruby_2_7
-, tzdata, git, nettools, nixosTests, nodejs, openssl, gitlabEnterprise ? false
-, callPackage, yarn, fixup_yarn_lock, replace, file, cacert, fetchYarnDeps
-, makeWrapper, pkg-config }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  fetchFromGitLab,
+  bundlerEnv,
+  ruby_2_7,
+  tzdata,
+  git,
+  nettools,
+  nixosTests,
+  nodejs,
+  openssl,
+  gitlabEnterprise ? false,
+  callPackage,
+  yarn,
+  fixup_yarn_lock,
+  replace,
+  file,
+  cacert,
+  fetchYarnDeps,
+  makeWrapper,
+  pkg-config,
+}:
 
 let
   data = lib.importJSON ./data.json;

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, faust2jaqt, faust2lv2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  faust2jaqt,
+  faust2lv2,
+}:
 stdenv.mkDerivation rec {
   pname = "mooSpace";
   version = "unstable-2020-06-10";

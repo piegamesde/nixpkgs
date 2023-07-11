@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, qmake, qtbase, qtscript
-, qtsvg, substituteAll, unzip, wrapQtAppsHook, zip }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  qmake,
+  qtbase,
+  qtscript,
+  qtsvg,
+  substituteAll,
+  unzip,
+  wrapQtAppsHook,
+  zip,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "vym";

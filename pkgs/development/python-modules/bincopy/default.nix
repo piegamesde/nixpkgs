@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, argparse-addons, humanfriendly, pyelftools
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  argparse-addons,
+  humanfriendly,
+  pyelftools,
 }:
 
 buildPythonPackage rec {

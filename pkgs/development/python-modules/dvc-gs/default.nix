@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, dvc-objects, fetchPypi, gcsfs, pythonRelaxDepsHook
-, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  dvc-objects,
+  fetchPypi,
+  gcsfs,
+  pythonRelaxDepsHook,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "dvc-gs";

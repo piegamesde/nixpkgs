@@ -1,14 +1,23 @@
 # This module provides configuration for the PAM (Pluggable
 # Authentication Modules) system.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
   parentConfig = config;
 
-  pamOpts = { config, name, ... }:
+  pamOpts = {
+      config,
+      name,
+      ...
+    }:
     let cfg = config;
     in let config = parentConfig;
     in {
@@ -727,57 +736,63 @@ let
 
   # Create a limits.conf(5) file.
   makeLimitsConf = limits:
-    pkgs.writeText "limits.conf" (concatMapStrings
-      ({ domain, type, item, value }: ''
+    pkgs.writeText "limits.conf" (concatMapStrings ({
+        domain,
+        type,
+        item,
+        value,
+      }: ''
         ${domain} ${type} ${item} ${toString value}
       '') limits);
 
   limitsType = with lib.types;
-    listOf (submodule ({ ... }: {
-      options = {
-        domain = mkOption {
-          description =
-            lib.mdDoc "Username, groupname, or wildcard this limit applies to";
-          example = "@wheel";
-          type = str;
-        };
+    listOf (submodule ({
+        ...
+      }: {
+        options = {
+          domain = mkOption {
+            description = lib.mdDoc
+              "Username, groupname, or wildcard this limit applies to";
+            example = "@wheel";
+            type = str;
+          };
 
-        type = mkOption {
-          description = lib.mdDoc "Type of this limit";
-          type = enum [ "-" "hard" "soft" ];
-          default = "-";
-        };
+          type = mkOption {
+            description = lib.mdDoc "Type of this limit";
+            type = enum [ "-" "hard" "soft" ];
+            default = "-";
+          };
 
-        item = mkOption {
-          description = lib.mdDoc "Item this limit applies to";
-          type = enum [
-            "core"
-            "data"
-            "fsize"
-            "memlock"
-            "nofile"
-            "rss"
-            "stack"
-            "cpu"
-            "nproc"
-            "as"
-            "maxlogins"
-            "maxsyslogins"
-            "priority"
-            "locks"
-            "sigpending"
-            "msgqueue"
-            "nice"
-            "rtprio"
-          ];
-        };
+          item = mkOption {
+            description = lib.mdDoc "Item this limit applies to";
+            type = enum [
+              "core"
+              "data"
+              "fsize"
+              "memlock"
+              "nofile"
+              "rss"
+              "stack"
+              "cpu"
+              "nproc"
+              "as"
+              "maxlogins"
+              "maxsyslogins"
+              "priority"
+              "locks"
+              "sigpending"
+              "msgqueue"
+              "nice"
+              "rtprio"
+            ];
+          };
 
-        value = mkOption {
-          description = lib.mdDoc "Value of this limit";
-          type = oneOf [ str int ];
+          value = mkOption {
+            description = lib.mdDoc "Value of this limit";
+            type = oneOf [ str int ];
+          };
         };
-      };
-    }));
+      }));
 
   motd = if config.users.motdFile == null then
     pkgs.writeText "motd" config.users.motd

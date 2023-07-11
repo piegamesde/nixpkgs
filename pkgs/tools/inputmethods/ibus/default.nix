@@ -1,10 +1,41 @@
-{ lib, stdenv, substituteAll, fetchFromGitHub, fetchpatch, autoreconfHook
-, gettext, makeWrapper, pkg-config, vala, wrapGAppsHook, dbus, systemd
-, dconf ? null, glib, gdk-pixbuf, gobject-introspection, gtk2, gtk3, gtk4
-, gtk-doc, runCommand, isocodes, cldr-annotations, unicode-character-database
-, unicode-emoji, python3, json-glib, libnotify ? null, enableUI ? true
-, withWayland ? false, libxkbcommon, wayland, buildPackages, runtimeShell
-, nixosTests }:
+{
+  lib,
+  stdenv,
+  substituteAll,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  gettext,
+  makeWrapper,
+  pkg-config,
+  vala,
+  wrapGAppsHook,
+  dbus,
+  systemd,
+  dconf ? null,
+  glib,
+  gdk-pixbuf,
+  gobject-introspection,
+  gtk2,
+  gtk3,
+  gtk4,
+  gtk-doc,
+  runCommand,
+  isocodes,
+  cldr-annotations,
+  unicode-character-database,
+  unicode-emoji,
+  python3,
+  json-glib,
+  libnotify ? null,
+  enableUI ? true,
+  withWayland ? false,
+  libxkbcommon,
+  wayland,
+  buildPackages,
+  runtimeShell,
+  nixosTests,
+}:
 
 let
   python3Runtime = python3.withPackages (ps: with ps; [ pygobject3 ]);

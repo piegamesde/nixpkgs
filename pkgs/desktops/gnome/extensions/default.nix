@@ -1,4 +1,9 @@
-{ lib, callPackage, callPackages, config }:
+{
+  lib,
+  callPackage,
+  callPackages,
+  config,
+}:
 let
   buildShellExtension = callPackage ./buildGnomeExtension.nix { };
 

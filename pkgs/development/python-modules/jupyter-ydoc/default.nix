@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, hatch-nodejs-version, hatchling, y-py
-, pytestCheckHook, websockets, ypy-websocket }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  hatch-nodejs-version,
+  hatchling,
+  y-py,
+  pytestCheckHook,
+  websockets,
+  ypy-websocket,
+}:
 
 buildPythonPackage rec {
   pname = "jupyter-ydoc";

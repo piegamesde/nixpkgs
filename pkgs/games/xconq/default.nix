@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, cpio, xorgproto, libX11, libXmu, libXaw, libXt, tcl, tk
-, libXext, fontconfig, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cpio,
+  xorgproto,
+  libX11,
+  libXmu,
+  libXaw,
+  libXt,
+  tcl,
+  tk,
+  libXext,
+  fontconfig,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xconq";

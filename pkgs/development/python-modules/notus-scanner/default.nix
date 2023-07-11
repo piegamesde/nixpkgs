@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, paho-mqtt, poetry-core, psutil
-, pytestCheckHook, python-gnupg, pythonOlder, pythonRelaxDepsHook, sentry-sdk
-, tomli }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  paho-mqtt,
+  poetry-core,
+  psutil,
+  pytestCheckHook,
+  python-gnupg,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  sentry-sdk,
+  tomli,
+}:
 
 buildPythonPackage rec {
   pname = "notus-scanner";

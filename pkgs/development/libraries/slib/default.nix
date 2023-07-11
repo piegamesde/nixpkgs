@@ -1,4 +1,11 @@
-{ fetchurl, lib, stdenv, unzip, scheme, texinfo }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  unzip,
+  scheme,
+  texinfo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "slib";

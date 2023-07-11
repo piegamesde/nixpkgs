@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, beautifulsoup4, enum-compat
-, pyserial, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  beautifulsoup4,
+  enum-compat,
+  pyserial,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "enocean";

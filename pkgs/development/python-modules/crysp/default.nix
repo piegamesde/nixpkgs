@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, grandalf, matplotlib
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  grandalf,
+  matplotlib,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "crysp";

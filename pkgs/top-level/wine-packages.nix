@@ -1,4 +1,9 @@
-{ stdenv, config, callPackage, wineBuild }:
+{
+  stdenv,
+  config,
+  callPackage,
+  wineBuild,
+}:
 
 rec {
   fonts = callPackage ../applications/emulators/wine/fonts.nix { };

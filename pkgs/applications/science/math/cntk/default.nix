@@ -1,7 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, cmake, fetchpatch, openblas, blas, lapack
-, opencv3, libzip, boost, protobuf, mpi, onebitSGDSupport ? false
-, cudaSupport ? false, cudaPackages ? { }, addOpenGLRunpath, cudatoolkit
-, nvidia_x11, cudnnSupport ? cudaSupport }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  fetchpatch,
+  openblas,
+  blas,
+  lapack,
+  opencv3,
+  libzip,
+  boost,
+  protobuf,
+  mpi,
+  onebitSGDSupport ? false,
+  cudaSupport ? false,
+  cudaPackages ? { },
+  addOpenGLRunpath,
+  cudatoolkit,
+  nvidia_x11,
+  cudnnSupport ? cudaSupport
+}:
 
 let inherit (cudaPackages) cudatoolkit cudnn;
 

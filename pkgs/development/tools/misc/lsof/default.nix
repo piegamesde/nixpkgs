@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, buildPackages, perl, which, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPackages,
+  perl,
+  which,
+  ncurses,
+}:
 
 let dialect = with lib; last (splitString "-" stdenv.hostPlatform.system);
 

@@ -1,5 +1,12 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pytestCheckHook
-, pythonOlder, pytz }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+}:
 
 buildPythonPackage rec {
   pname = "pyclimacell";

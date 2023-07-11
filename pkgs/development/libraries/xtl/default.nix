@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, doctest, gtest }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  doctest,
+  gtest,
+}:
 stdenv.mkDerivation rec {
   pname = "xtl";
   version = "0.7.5";

@@ -1,5 +1,13 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchpatch, darwin, libiconv, alsa-lib
-, stdenv }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchpatch,
+  darwin,
+  libiconv,
+  alsa-lib,
+  stdenv,
+}:
 
 buildGoModule rec {
   pname = "sampler";

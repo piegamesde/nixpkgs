@@ -1,4 +1,11 @@
-{ lib, stdenvNoCC, fetchurl, installShellFiles, testers, mas }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  installShellFiles,
+  testers,
+  mas,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "mas";

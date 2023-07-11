@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, qtbase, qmake, wrapQtAppsHook
-, trousers }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  qtbase,
+  qmake,
+  wrapQtAppsHook,
+  trousers,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.8.1";

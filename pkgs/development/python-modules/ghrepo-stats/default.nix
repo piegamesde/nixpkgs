@@ -1,5 +1,12 @@
-{ lib, beautifulsoup4, buildPythonPackage, fetchFromGitHub, matplotlib, pygithub
-, pythonOlder }:
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  fetchFromGitHub,
+  matplotlib,
+  pygithub,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "ghrepo-stats";

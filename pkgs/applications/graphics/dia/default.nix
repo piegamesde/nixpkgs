@@ -1,8 +1,26 @@
-{ lib, stdenv, fetchFromGitLab, appstream-glib, cmake, dblatex
-, desktop-file-utils, graphene, gtk2, gtk-mac-integration-gtk2, intltool
-, libxml2, libxslt, meson, ninja, pkg-config, poppler, python3
-# Building with docs are failing in unstable-2022-12-14
-, withDocs ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  appstream-glib,
+  cmake,
+  dblatex,
+  desktop-file-utils,
+  graphene,
+  gtk2,
+  gtk-mac-integration-gtk2,
+  intltool,
+  libxml2,
+  libxslt,
+  meson,
+  ninja,
+  pkg-config,
+  poppler,
+  python3
+  # Building with docs are failing in unstable-2022-12-14
+  ,
+  withDocs ? false
+}:
 
 stdenv.mkDerivation {
   pname = "dia";

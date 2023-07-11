@@ -1,4 +1,9 @@
-{ mkDerivation, lib, extra-cmake-modules, kio }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  kio,
+}:
 
 mkDerivation {
   pname = "kdegraphics-mobipocket";

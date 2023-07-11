@@ -1,7 +1,10 @@
 # A module containing the base imports and overrides that
 # are always applied in NixOS VM tests, unconditionally,
 # even in `inheritParentConfig = false` specialisations.
-{ lib, ... }:
+{
+  lib,
+  ...
+}:
 let inherit (lib) mkForce;
 in {
   imports = [

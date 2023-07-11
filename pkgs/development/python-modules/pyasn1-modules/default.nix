@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pyasn1, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyasn1,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "pyasn1-modules";

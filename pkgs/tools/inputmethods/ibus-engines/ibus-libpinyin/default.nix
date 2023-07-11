@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, gettext, pkg-config
-, wrapGAppsHook, sqlite, libpinyin, db, ibus, glib, gtk3, python3, lua, opencc
-, libsoup, json-glib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  gettext,
+  pkg-config,
+  wrapGAppsHook,
+  sqlite,
+  libpinyin,
+  db,
+  ibus,
+  glib,
+  gtk3,
+  python3,
+  lua,
+  opencc,
+  libsoup,
+  json-glib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ibus-libpinyin";

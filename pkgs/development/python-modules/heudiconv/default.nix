@@ -1,5 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, pytest, mock, dcm2niix, nibabel
-, pydicom, nipype, dcmstack, etelemetry, filelock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  pytest,
+  mock,
+  dcm2niix,
+  nibabel,
+  pydicom,
+  nipype,
+  dcmstack,
+  etelemetry,
+  filelock,
+}:
 
 buildPythonPackage rec {
   version = "0.12.2";

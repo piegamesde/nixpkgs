@@ -1,5 +1,13 @@
-{ lib, mkDerivation, fetchurl, autoPatchelfHook, hidapi, readline, qtsvg
-, qtxmlpatterns }:
+{
+  lib,
+  mkDerivation,
+  fetchurl,
+  autoPatchelfHook,
+  hidapi,
+  readline,
+  qtsvg,
+  qtxmlpatterns,
+}:
 
 mkDerivation rec {
   pname = "flirc";

@@ -1,11 +1,27 @@
-{ lib, buildDunePackage, camlp5, ocaml, menhir, menhirLib, atdgen, stdlib-shims
-, re, perl, ncurses, ppxlib, ppx_deriving, ppxlib_0_15, ppx_deriving_0_15
-, coqPackages, version ? if lib.versionAtLeast ocaml.version "4.08" then
-  "1.16.5"
-else if lib.versionAtLeast ocaml.version "4.07" then
-  "1.15.2"
-else
-  "1.14.1" }:
+{
+  lib,
+  buildDunePackage,
+  camlp5,
+  ocaml,
+  menhir,
+  menhirLib,
+  atdgen,
+  stdlib-shims,
+  re,
+  perl,
+  ncurses,
+  ppxlib,
+  ppx_deriving,
+  ppxlib_0_15,
+  ppx_deriving_0_15,
+  coqPackages,
+  version ? if lib.versionAtLeast ocaml.version "4.08" then
+    "1.16.5"
+  else if lib.versionAtLeast ocaml.version "4.07" then
+    "1.15.2"
+  else
+    "1.14.1"
+}:
 
 let
   fetched = coqPackages.metaFetch ({

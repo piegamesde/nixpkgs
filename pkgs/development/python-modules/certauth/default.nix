@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pyopenssl, tldextract
-, pytestCheckHook, pytest-cov }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyopenssl,
+  tldextract,
+  pytestCheckHook,
+  pytest-cov,
+}:
 
 buildPythonPackage rec {
   pname = "certauth";

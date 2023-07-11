@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
-, colorama, intervaltree, json5, pyyaml, scipy, tqdm, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  colorama,
+  intervaltree,
+  json5,
+  pyyaml,
+  scipy,
+  tqdm,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "graphtage";

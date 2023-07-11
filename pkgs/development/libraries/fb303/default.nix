@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchFromGitHub, cmake, glog, folly, fmt_8, boost, fbthrift, zlib
-, fizz, libsodium, wangle, python3 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  glog,
+  folly,
+  fmt_8,
+  boost,
+  fbthrift,
+  zlib,
+  fizz,
+  libsodium,
+  wangle,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fb303";

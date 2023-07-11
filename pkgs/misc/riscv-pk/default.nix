@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, payload ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  payload ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "riscv-pk";

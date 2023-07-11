@@ -1,4 +1,6 @@
-{ lib }:
+{
+  lib,
+}:
 
 let
   inherit (lib)
@@ -57,16 +59,19 @@ in rec {
      config (as the proper arguments need to be replicated at each call to
      evalModules) and the less declarative the module set is.
   */
-  evalModules = evalModulesArgs@{ modules, prefix ? [ ]
-    , # This should only be used for special arguments that need to be evaluated
-    # when resolving module structure (like in imports). For everything else,
-    # there's _module.args. If specialArgs.modulesPath is defined it will be
-    # used as the base path for disabledModules.
-    specialArgs ? { }
-    , # This would be remove in the future, Prefer _module.args option instead.
-    args ? { }
-    , # This would be remove in the future, Prefer _module.check option instead.
-    check ? true }:
+  evalModules = evalModulesArgs@{
+      modules,
+      prefix ?
+        [ ], # This should only be used for special arguments that need to be evaluated
+      # when resolving module structure (like in imports). For everything else,
+      # there's _module.args. If specialArgs.modulesPath is defined it will be
+      # used as the base path for disabledModules.
+      specialArgs ?
+        { }, # This would be remove in the future, Prefer _module.args option instead.
+      args ?
+        { }, # This would be remove in the future, Prefer _module.check option instead.
+      check ? true
+    }:
     let
       withWarnings = x:
         lib.warnIf (evalModulesArgs ? args)
@@ -280,8 +285,11 @@ in rec {
 
       checked = builtins.seq checkUnmatched;
 
-      extendModules =
-        extendArgs@{ modules ? [ ], specialArgs ? { }, prefix ? [ ], }:
+      extendModules = extendArgs@{
+          modules ? [ ],
+          specialArgs ? { },
+          prefix ? [ ],
+        }:
         evalModules (evalModulesArgs // {
           modules = regularModules ++ modules;
           specialArgs = evalModulesArgs.specialArgs or { } // specialArgs;
@@ -374,7 +382,10 @@ in rec {
     # Filters a structure as emitted by collectStructuredModules by removing all disabled
     # modules recursively. It returns the final list of unique-by-key modules
     filterModules = modulesPath:
-      { disabled, modules }:
+      {
+        disabled,
+        modules,
+      }:
       let
         moduleKey = file: m:
           if isString m then
@@ -404,9 +415,11 @@ in rec {
               toString file
             }` is none of that, but is of type ${builtins.typeOf m}.";
 
-        disabledKeys =
-          concatMap ({ file, disabled }: map (moduleKey file) disabled)
-          disabled;
+        disabledKeys = concatMap ({
+            file,
+            disabled,
+          }:
+          map (moduleKey file) disabled) disabled;
         keyFilter = filter (attrs: !elem attrs.key disabledKeys);
       in map (attrs: attrs.module) (builtins.genericClosure {
         startSet = keyFilter modules;
@@ -481,7 +494,12 @@ in rec {
       };
 
   applyModuleArgsIfFunction = key: f:
-    args@{ config, options, lib, ... }:
+    args@{
+      config,
+      options,
+      lib,
+      ...
+    }:
     if isFunction f then
       let
         # Module arguments are resolved in a strict manner when attribute set
@@ -1065,7 +1083,10 @@ in rec {
      replacementInstructions SHOULD be provided!
   */
   mkRemovedOptionModule = optionName: replacementInstructions:
-    { options, ... }: {
+    {
+      options,
+      ...
+    }: {
       options = setAttrByPath optionName (mkOption {
         visible = false;
         apply = x:
@@ -1111,14 +1132,14 @@ in rec {
 
   mkRenamedOptionModuleWith = {
     # Old option path as list of strings.
-    from,
-    # New option path as list of strings.
-    to,
+      from,
+      # New option path as list of strings.
+      to,
 
-    /* Release number of the first release that contains the rename, ignoring backports.
-       Set it to the upcoming release, matching the nixpkgs/.version file.
-    */
-    sinceRelease,
+      /* Release number of the first release that contains the rename, ignoring backports.
+         Set it to the upcoming release, matching the nixpkgs/.version file.
+      */
+      sinceRelease,
 
     }:
     doRename {
@@ -1160,7 +1181,11 @@ in rec {
      x.y.z to the result of the merge function
   */
   mkMergedOptionModule = from: to: mergeFn:
-    { config, options, ... }: {
+    {
+      config,
+      options,
+      ...
+    }: {
       options = foldl' recursiveUpdate { } (map (path:
         setAttrByPath path (mkOption {
           visible = false;
@@ -1249,9 +1274,20 @@ in rec {
   mkDerivedConfig = opt: f:
     mkOverride (opt.highestPrio or defaultOverridePriority) (f opt.value);
 
-  doRename =
-    { from, to, visible, warn, use, withPriority ? true, markdown ? false }:
-    { config, options, ... }:
+  doRename = {
+      from,
+      to,
+      visible,
+      warn,
+      use,
+      withPriority ? true,
+      markdown ? false
+    }:
+    {
+      config,
+      options,
+      ...
+    }:
     let
       fromOpt = getAttrFromPath from options;
       toOf = attrByPath to

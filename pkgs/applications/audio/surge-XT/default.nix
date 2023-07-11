@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, alsa-lib, freetype, libjack2
-, lv2, libX11, libXcursor, libXext, libXinerama, libXrandr }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  alsa-lib,
+  freetype,
+  libjack2,
+  lv2,
+  libX11,
+  libXcursor,
+  libXext,
+  libXinerama,
+  libXrandr,
+}:
 
 let
   juce-lv2 = stdenv.mkDerivation {

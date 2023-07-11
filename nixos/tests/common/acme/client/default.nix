@@ -1,4 +1,9 @@
-{ lib, nodes, pkgs, ... }:
+{
+  lib,
+  nodes,
+  pkgs,
+  ...
+}:
 let
   caCert = nodes.acme.test-support.acme.caCert;
   caDomain = nodes.acme.test-support.acme.caDomain;

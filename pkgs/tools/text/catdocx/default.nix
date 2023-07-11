@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, unzip, catdoc }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  unzip,
+  catdoc,
+}:
 
 stdenv.mkDerivation {
   pname = "catdocx";

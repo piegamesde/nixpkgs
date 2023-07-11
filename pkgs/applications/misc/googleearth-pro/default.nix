@@ -1,13 +1,38 @@
-{ lib, stdenv, mkDerivation, fetchurl, freetype, glib, libGL, libGLU, libSM
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchurl,
+  freetype,
+  glib,
+  libGL,
+  libGLU,
+  libSM
 
-, libXrender, libX11
+  ,
+  libXrender,
+  libX11
 
-, libxcb, sqlite, zlib, fontconfig, dpkg, libproxy, libxml2, gst_all_1, dbus
-, makeWrapper
+  ,
+  libxcb,
+  sqlite,
+  zlib,
+  fontconfig,
+  dpkg,
+  libproxy,
+  libxml2,
+  gst_all_1,
+  dbus,
+  makeWrapper
 
-, cups, alsa-lib
+  ,
+  cups,
+  alsa-lib
 
-, xkeyboardconfig, autoPatchelfHook }:
+  ,
+  xkeyboardconfig,
+  autoPatchelfHook,
+}:
 let
   arch = if stdenv.hostPlatform.system == "x86_64-linux" then
     "amd64"

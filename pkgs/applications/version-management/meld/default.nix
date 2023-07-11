@@ -1,6 +1,21 @@
-{ lib, fetchurl, gettext, itstool, python3, meson, ninja, wrapGAppsHook, libxml2
-, pkg-config, desktop-file-utils, gobject-introspection, gtk3, gtksourceview4
-, gnome, gsettings-desktop-schemas }:
+{
+  lib,
+  fetchurl,
+  gettext,
+  itstool,
+  python3,
+  meson,
+  ninja,
+  wrapGAppsHook,
+  libxml2,
+  pkg-config,
+  desktop-file-utils,
+  gobject-introspection,
+  gtk3,
+  gtksourceview4,
+  gnome,
+  gsettings-desktop-schemas,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "meld";

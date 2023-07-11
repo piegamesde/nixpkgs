@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, python3Packages, glibcLocales, coreutils, git }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  glibcLocales,
+  coreutils,
+  git,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "xonsh";

@@ -1,5 +1,14 @@
-{ lib, stdenvNoCC, fetchurl, makeWrapper, copyDesktopItems, makeDesktopItem
-, unzip, imagemagick, jre }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  makeWrapper,
+  copyDesktopItems,
+  makeDesktopItem,
+  unzip,
+  imagemagick,
+  jre,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "mars-mips";

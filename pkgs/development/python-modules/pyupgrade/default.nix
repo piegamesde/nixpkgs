@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
-, tokenize-rt }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  tokenize-rt,
+}:
 
 buildPythonPackage rec {
   pname = "pyupgrade";

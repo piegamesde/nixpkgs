@@ -1,15 +1,47 @@
-{ lib, stdenv, buildPythonPackage, setuptools, pythonOlder, fetchPypi
-, substituteAll
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  setuptools,
+  pythonOlder,
+  fetchPypi,
+  substituteAll
 
-# build
-, autoPatchelfHook, attrdict, doxygen, pkg-config, python, sip, which
+  # build
+  ,
+  autoPatchelfHook,
+  attrdict,
+  doxygen,
+  pkg-config,
+  python,
+  sip,
+  which
 
-# runtime
-, cairo, gst_all_1, gtk3, libGL, libGLU, libSM, libXinerama, libXtst, libXxf86vm
-, libglvnd, mesa, pango, SDL, webkitgtk, wxGTK, xorgproto
+  # runtime
+  ,
+  cairo,
+  gst_all_1,
+  gtk3,
+  libGL,
+  libGLU,
+  libSM,
+  libXinerama,
+  libXtst,
+  libXxf86vm,
+  libglvnd,
+  mesa,
+  pango,
+  SDL,
+  webkitgtk,
+  wxGTK,
+  xorgproto
 
-# propagates
-, numpy, pillow, six }:
+  # propagates
+  ,
+  numpy,
+  pillow,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "wxPython";

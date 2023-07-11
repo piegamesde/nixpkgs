@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
-, python3, vala, gtk3, libgee, pantheon }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  vala,
+  gtk3,
+  libgee,
+  pantheon,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pantheon-tweaks";

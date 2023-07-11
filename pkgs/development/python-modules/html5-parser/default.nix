@@ -1,5 +1,15 @@
-{ lib, beautifulsoup4, buildPythonPackage, chardet, fetchFromGitHub, lxml
-, pkg-config, pkgs, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  beautifulsoup4,
+  buildPythonPackage,
+  chardet,
+  fetchFromGitHub,
+  lxml,
+  pkg-config,
+  pkgs,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "html5-parser";

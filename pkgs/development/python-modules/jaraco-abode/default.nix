@@ -1,8 +1,28 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, fetchPypi, setuptools
-, setuptools-scm, requests, lomond, colorlog, keyring, requests-toolbelt
-, jaraco_collections, jaraco-context, jaraco_classes, jaraco-net, more-itertools
-, importlib-resources, bx-py-utils, platformdirs, jaraco_itertools
-, pytestCheckHook, requests-mock }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  fetchPypi,
+  setuptools,
+  setuptools-scm,
+  requests,
+  lomond,
+  colorlog,
+  keyring,
+  requests-toolbelt,
+  jaraco_collections,
+  jaraco-context,
+  jaraco_classes,
+  jaraco-net,
+  more-itertools,
+  importlib-resources,
+  bx-py-utils,
+  platformdirs,
+  jaraco_itertools,
+  pytestCheckHook,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "jaraco-abode";

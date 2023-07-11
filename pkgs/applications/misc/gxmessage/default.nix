@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, gtk3, intltool, pkg-config, texinfo }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gtk3,
+  intltool,
+  pkg-config,
+  texinfo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gxmessage";

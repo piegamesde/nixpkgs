@@ -1,7 +1,29 @@
-{ lib, stdenv, fetchurl, unzip, makeWrapper, libX11, zlib, libSM, libICE
-, libXext, freetype, libXrender, fontconfig, libXft, libXinerama, libXfixes
-, libXScrnSaver, libnotify, glib, gtk3, libappindicator-gtk3, curl
-, writeShellScript, common-updater-scripts }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  makeWrapper,
+  libX11,
+  zlib,
+  libSM,
+  libICE,
+  libXext,
+  freetype,
+  libXrender,
+  fontconfig,
+  libXft,
+  libXinerama,
+  libXfixes,
+  libXScrnSaver,
+  libnotify,
+  glib,
+  gtk3,
+  libappindicator-gtk3,
+  curl,
+  writeShellScript,
+  common-updater-scripts,
+}:
 
 let
   url =

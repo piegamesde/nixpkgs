@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, fetchpatch, pytest
-, pytest-asyncio, pytestCheckHook, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  fetchpatch,
+  pytest,
+  pytest-asyncio,
+  pytestCheckHook,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-mock";

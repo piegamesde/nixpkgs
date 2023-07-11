@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, bison, flex, pam }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bison,
+  flex,
+  pam,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gradm";

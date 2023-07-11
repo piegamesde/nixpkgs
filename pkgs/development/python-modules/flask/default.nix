@@ -1,7 +1,23 @@
-{ lib, buildPythonPackage, fetchPypi, asgiref, click, importlib-metadata
-, itsdangerous, jinja2, python-dotenv, werkzeug, pytestCheckHook, pythonOlder
-# used in passthru.tests
-, flask-limiter, flask-restful, flask-restx, moto }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  asgiref,
+  click,
+  importlib-metadata,
+  itsdangerous,
+  jinja2,
+  python-dotenv,
+  werkzeug,
+  pytestCheckHook,
+  pythonOlder
+  # used in passthru.tests
+  ,
+  flask-limiter,
+  flask-restful,
+  flask-restx,
+  moto,
+}:
 
 buildPythonPackage rec {
   pname = "flask";

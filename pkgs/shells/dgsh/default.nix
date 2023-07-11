@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, automake, pkg-config, libtool, check
-, bison, git, gperf, perl, texinfo, help2man, gettext, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  pkg-config,
+  libtool,
+  check,
+  bison,
+  git,
+  gperf,
+  perl,
+  texinfo,
+  help2man,
+  gettext,
+  ncurses,
+}:
 
 stdenv.mkDerivation {
   pname = "dgsh-unstable";

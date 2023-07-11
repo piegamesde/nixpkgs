@@ -1,5 +1,15 @@
-{ stdenv, lib, callPackage, fetchFromGitHub, rustPlatform, installShellFiles
-, tinycc, libiconv, darwin, librusty_v8 ? callPackage ./librusty_v8.nix { } }:
+{
+  stdenv,
+  lib,
+  callPackage,
+  fetchFromGitHub,
+  rustPlatform,
+  installShellFiles,
+  tinycc,
+  libiconv,
+  darwin,
+  librusty_v8 ? callPackage ./librusty_v8.nix { }
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "deno";

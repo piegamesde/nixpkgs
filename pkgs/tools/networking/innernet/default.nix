@@ -1,5 +1,16 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, llvmPackages, sqlite
-, installShellFiles, Security, libiconv, innernet, testers }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  llvmPackages,
+  sqlite,
+  installShellFiles,
+  Security,
+  libiconv,
+  innernet,
+  testers,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "innernet";

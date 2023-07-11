@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, Security, cmake, pkg-config, asio, nettle
-, gnutls, msgpack, readline, libargon2, jsoncpp, restinio, http-parser, openssl
-, fmt, enableProxyServerAndClient ? false, enablePushNotifications ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  Security,
+  cmake,
+  pkg-config,
+  asio,
+  nettle,
+  gnutls,
+  msgpack,
+  readline,
+  libargon2,
+  jsoncpp,
+  restinio,
+  http-parser,
+  openssl,
+  fmt,
+  enableProxyServerAndClient ? false,
+  enablePushNotifications ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "opendht";

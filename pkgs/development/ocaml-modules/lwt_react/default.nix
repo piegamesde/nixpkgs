@@ -1,4 +1,11 @@
-{ lib, buildDunePackage, fetchFromGitHub, cppo, lwt, react }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  cppo,
+  lwt,
+  react,
+}:
 
 buildDunePackage {
   pname = "lwt_react";

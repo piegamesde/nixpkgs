@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, httplib2, mock, coverage }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  httplib2,
+  mock,
+  coverage,
+}:
 
 buildPythonPackage rec {
   pname = "oauth2";

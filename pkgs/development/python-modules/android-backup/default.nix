@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pycrypto, pythonOlder, enum34
-, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pycrypto,
+  pythonOlder,
+  enum34,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "android-backup";

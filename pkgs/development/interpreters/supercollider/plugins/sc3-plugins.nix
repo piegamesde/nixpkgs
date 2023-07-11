@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchurl, cmake, supercollider, fftw, gitUpdater }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  cmake,
+  supercollider,
+  fftw,
+  gitUpdater,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sc3-plugins";

@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, unstableGitUpdater, cmake, pkg-config, zlib
-, libvgm, inih }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  unstableGitUpdater,
+  cmake,
+  pkg-config,
+  zlib,
+  libvgm,
+  inih,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vgmplay-libvgm";

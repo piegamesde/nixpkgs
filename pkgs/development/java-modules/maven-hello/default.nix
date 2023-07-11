@@ -1,4 +1,10 @@
-{ lib, pkgs, mavenbuild, maven, jdk8 }:
+{
+  lib,
+  pkgs,
+  mavenbuild,
+  maven,
+  jdk8,
+}:
 
 with pkgs.javaPackages;
 
@@ -7,8 +13,14 @@ let
   mavenbuild-jdk8 =
     mavenbuild.override { maven = maven.override { jdk = jdk8; }; };
 in rec {
-  mavenHelloRec =
-    { mavenDeps, mavenbuild, sha512, version, skipTests ? true, quiet ? true }:
+  mavenHelloRec = {
+      mavenDeps,
+      mavenbuild,
+      sha512,
+      version,
+      skipTests ? true,
+      quiet ? true
+    }:
     mavenbuild {
       inherit mavenDeps sha512 version skipTests quiet;
 

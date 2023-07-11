@@ -1,4 +1,10 @@
-{ lib, stdenv, requireFile, avahi, obs-studio-plugins }:
+{
+  lib,
+  stdenv,
+  requireFile,
+  avahi,
+  obs-studio-plugins,
+}:
 
 let versionJSON = builtins.fromJSON (builtins.readFile ./version.json);
 in stdenv.mkDerivation rec {

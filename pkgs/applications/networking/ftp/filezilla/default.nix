@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchurl, autoreconfHook, dbus, gettext, gnutls, libfilezilla
-, libidn, nettle, pkg-config, pugixml, sqlite, tinyxml, wrapGAppsHook, wxGTK32
-, gtk3, xdg-utils }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  dbus,
+  gettext,
+  gnutls,
+  libfilezilla,
+  libidn,
+  nettle,
+  pkg-config,
+  pugixml,
+  sqlite,
+  tinyxml,
+  wrapGAppsHook,
+  wxGTK32,
+  gtk3,
+  xdg-utils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "filezilla";

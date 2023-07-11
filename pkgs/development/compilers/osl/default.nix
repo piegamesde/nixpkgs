@@ -1,5 +1,22 @@
-{ stdenv, lib, fetchFromGitHub, cmake, clang, libclang, zlib, openexr
-, openimageio, llvm, boost, flex, bison, partio, pugixml, util-linux, python3 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  clang,
+  libclang,
+  zlib,
+  openexr,
+  openimageio,
+  llvm,
+  boost,
+  flex,
+  bison,
+  partio,
+  pugixml,
+  util-linux,
+  python3,
+}:
 
 let
 

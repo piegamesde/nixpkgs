@@ -1,7 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
 
-# pythonPackages
-, pytestCheckHook, pythonOlder, pyyaml }:
+  # pythonPackages
+  ,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "oyaml";

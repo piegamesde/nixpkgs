@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, mock, git, cherrypy, gevent
-, tornado }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  mock,
+  git,
+  cherrypy,
+  gevent,
+  tornado,
+}:
 
 buildPythonPackage rec {
   pname = "ws4py";

@@ -1,4 +1,9 @@
-{ lib, python3, fetchFromGitHub, nixosTests }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  nixosTests,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "radicale";

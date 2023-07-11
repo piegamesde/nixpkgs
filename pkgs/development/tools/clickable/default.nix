@@ -1,5 +1,16 @@
-{ lib, fetchFromGitLab, buildPythonPackage, cookiecutter, requests, pyyaml
-, jsonschema, argcomplete, pytestCheckHook, watchdog, stdenv }:
+{
+  lib,
+  fetchFromGitLab,
+  buildPythonPackage,
+  cookiecutter,
+  requests,
+  pyyaml,
+  jsonschema,
+  argcomplete,
+  pytestCheckHook,
+  watchdog,
+  stdenv,
+}:
 
 buildPythonPackage rec {
   pname = "clickable";

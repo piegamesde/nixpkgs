@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pbr, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pbr,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "lockfile";

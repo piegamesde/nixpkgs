@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, zlib, perl, perlPackages, openmp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  zlib,
+  perl,
+  perlPackages,
+  openmp,
+}:
 
 stdenv.mkDerivation rec {
   version = "4.8.1";

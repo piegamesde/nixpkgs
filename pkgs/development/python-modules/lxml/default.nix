@@ -1,5 +1,14 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, cython, libxml2, libxslt
-, zlib, xcodebuild }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cython,
+  libxml2,
+  libxslt,
+  zlib,
+  xcodebuild,
+}:
 
 buildPythonPackage rec {
   pname = "lxml";

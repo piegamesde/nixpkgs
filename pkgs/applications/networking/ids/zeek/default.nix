@@ -1,6 +1,26 @@
-{ lib, stdenv, callPackage, fetchurl, cmake, flex, bison, spicy-parser-generator
-, openssl, libkqueue, libpcap, zlib, file, curl, libmaxminddb, gperftools
-, python3, swig, gettext, coreutils, ncurses }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchurl,
+  cmake,
+  flex,
+  bison,
+  spicy-parser-generator,
+  openssl,
+  libkqueue,
+  libpcap,
+  zlib,
+  file,
+  curl,
+  libmaxminddb,
+  gperftools,
+  python3,
+  swig,
+  gettext,
+  coreutils,
+  ncurses,
+}:
 
 let broker = callPackage ./broker { };
 in stdenv.mkDerivation rec {

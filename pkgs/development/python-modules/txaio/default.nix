@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, mock, pytest-asyncio, pytestCheckHook
-, pythonOlder, twisted, zope_interface }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  mock,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  twisted,
+  zope_interface,
+}:
 
 buildPythonPackage rec {
   pname = "txaio";

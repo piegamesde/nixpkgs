@@ -1,5 +1,15 @@
-{ stdenv, lib, gitUpdater, fetchFromGitHub, fetchpatch, cmake, pkg-config, boost
-, gtest, wayland }:
+{
+  stdenv,
+  lib,
+  gitUpdater,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  boost,
+  gtest,
+  wayland,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wlcs";

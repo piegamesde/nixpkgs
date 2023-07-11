@@ -1,4 +1,8 @@
-{ callPackage, lib, stdenv }:
+{
+  callPackage,
+  lib,
+  stdenv,
+}:
 let
   examples-shell = callPackage ./examples/shell.nix { };
   examples-shell-with-emulator =

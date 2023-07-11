@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchurl, isPy3k, setuptools, colorama, six
-, texttable, tqdm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchurl,
+  isPy3k,
+  setuptools,
+  colorama,
+  six,
+  texttable,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "rbtools";

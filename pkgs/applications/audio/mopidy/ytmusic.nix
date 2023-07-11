@@ -1,4 +1,8 @@
-{ lib, python3, mopidy }:
+{
+  lib,
+  python3,
+  mopidy,
+}:
 
 let
   python = python3.override {

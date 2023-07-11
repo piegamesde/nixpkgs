@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, SDL2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  SDL2,
+}:
 
 #TODO: tests
 

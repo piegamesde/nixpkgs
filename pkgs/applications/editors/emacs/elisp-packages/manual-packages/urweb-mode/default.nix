@@ -1,4 +1,10 @@
-{ lib, trivialBuild, urweb, cl-lib, flycheck }:
+{
+  lib,
+  trivialBuild,
+  urweb,
+  cl-lib,
+  flycheck,
+}:
 
 trivialBuild {
   pname = "urweb-mode";

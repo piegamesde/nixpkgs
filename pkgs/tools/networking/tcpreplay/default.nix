@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, libpcap, tcpdump, Carbon, CoreServices }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libpcap,
+  tcpdump,
+  Carbon,
+  CoreServices,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tcpreplay";

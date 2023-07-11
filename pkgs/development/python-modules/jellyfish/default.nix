@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, pytest, unicodecsv }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  pytest,
+  unicodecsv,
+}:
 
 buildPythonPackage rec {
   pname = "jellyfish";

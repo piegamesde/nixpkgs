@@ -1,7 +1,16 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, installShellFiles, pkg-config
-, libxcb, openssl
-# Darwin dependencies
-, AppKit }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  pkg-config,
+  libxcb,
+  openssl
+  # Darwin dependencies
+  ,
+  AppKit,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "didyoumean";

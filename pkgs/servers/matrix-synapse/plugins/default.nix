@@ -1,4 +1,6 @@
-{ callPackage }:
+{
+  callPackage,
+}:
 
 {
   matrix-http-rendezvous-synapse = callPackage ./rendezvous.nix { };

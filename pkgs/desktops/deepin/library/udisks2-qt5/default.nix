@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, qmake, pkg-config, wrapQtAppsHook, udisks }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  qmake,
+  pkg-config,
+  wrapQtAppsHook,
+  udisks,
+}:
 
 stdenv.mkDerivation rec {
   pname = "udisks2-qt5";

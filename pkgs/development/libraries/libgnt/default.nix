@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchurl, meson, ninja, pkg-config, gtk-doc, docbook-xsl-nons
-, glib, ncurses, libxml2, buildDocs ? true }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  gtk-doc,
+  docbook-xsl-nons,
+  glib,
+  ncurses,
+  libxml2,
+  buildDocs ? true
+}:
 stdenv.mkDerivation rec {
   pname = "libgnt";
   version = "2.14.1";

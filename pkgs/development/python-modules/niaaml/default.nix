@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, niapy, numpy, pandas, poetry-core
-, scikit-learn, toml-adapt, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  niapy,
+  numpy,
+  pandas,
+  poetry-core,
+  scikit-learn,
+  toml-adapt,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "niaaml";

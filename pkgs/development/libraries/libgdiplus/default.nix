@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, glib, cairo, Carbon, fontconfig
-, libtiff, giflib, libjpeg, libpng, libXrender, libexif, autoreconfHook
-, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  glib,
+  cairo,
+  Carbon,
+  fontconfig,
+  libtiff,
+  giflib,
+  libjpeg,
+  libpng,
+  libXrender,
+  libexif,
+  autoreconfHook,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgdiplus";

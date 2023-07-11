@@ -1,9 +1,34 @@
-{ lib, stdenv, fetchFromGitHub, nixosTests, which, pcre2, withPython3 ? true
-, python3, ncurses, withPHP81 ? true, php81, withPHP82 ? false, php82
-, withPerl534 ? false, perl534, withPerl536 ? true, perl536
-, withPerldevel ? false, perldevel, withRuby_2_7 ? true, ruby_2_7
-, withRuby_3_0 ? false, ruby_3_0, withRuby_3_1 ? false, ruby_3_1, withSSL ? true
-, openssl ? null, withIPv6 ? true, withDebug ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nixosTests,
+  which,
+  pcre2,
+  withPython3 ? true,
+  python3,
+  ncurses,
+  withPHP81 ? true,
+  php81,
+  withPHP82 ? false,
+  php82,
+  withPerl534 ? false,
+  perl534,
+  withPerl536 ? true,
+  perl536,
+  withPerldevel ? false,
+  perldevel,
+  withRuby_2_7 ? true,
+  ruby_2_7,
+  withRuby_3_0 ? false,
+  ruby_3_0,
+  withRuby_3_1 ? false,
+  ruby_3_1,
+  withSSL ? true,
+  openssl ? null,
+  withIPv6 ? true,
+  withDebug ? false
+}:
 
 with lib;
 

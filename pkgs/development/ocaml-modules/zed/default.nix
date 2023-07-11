@@ -1,5 +1,16 @@
-{ lib, buildDunePackage, fetchFromGitHub, ocaml, react, charInfo_width, result
-, uchar, uutf, uucp, uuseg }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  ocaml,
+  react,
+  charInfo_width,
+  result,
+  uchar,
+  uutf,
+  uucp,
+  uuseg,
+}:
 
 let
   switch = if lib.versionAtLeast ocaml.version "4.08" then {

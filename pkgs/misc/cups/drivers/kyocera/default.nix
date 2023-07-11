@@ -1,4 +1,10 @@
-{ lib, stdenv, cups, fetchzip, patchPpdFilesHook }:
+{
+  lib,
+  stdenv,
+  cups,
+  fetchzip,
+  patchPpdFilesHook,
+}:
 
 let
   platform = if stdenv.hostPlatform.system == "x86_64-linux" then

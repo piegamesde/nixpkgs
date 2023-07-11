@@ -1,4 +1,9 @@
-{ supportedSystems, nixpkgs, pkgs, nix }:
+{
+  supportedSystems,
+  nixpkgs,
+  pkgs,
+  nix,
+}:
 
 pkgs.runCommand "nixpkgs-release-checks" {
   src = nixpkgs;

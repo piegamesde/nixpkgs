@@ -1,5 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, which, zip, wxGTK, gtk3, sfml
-, fluidsynth, curl, freeimage, ftgl, glew, lua, mpg123 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  which,
+  zip,
+  wxGTK,
+  gtk3,
+  sfml,
+  fluidsynth,
+  curl,
+  freeimage,
+  ftgl,
+  glew,
+  lua,
+  mpg123,
+}:
 
 stdenv.mkDerivation rec {
   pname = "slade";

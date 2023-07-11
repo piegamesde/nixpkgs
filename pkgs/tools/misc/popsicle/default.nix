@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, glib, pkg-config, gdk-pixbuf, gtk3
-, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  glib,
+  pkg-config,
+  gdk-pixbuf,
+  gtk3,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "popsicle";

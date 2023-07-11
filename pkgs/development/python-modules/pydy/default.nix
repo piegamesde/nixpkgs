@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, nose, cython, numpy, scipy, sympy
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  cython,
+  numpy,
+  scipy,
+  sympy,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pydy";

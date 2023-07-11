@@ -1,6 +1,21 @@
-{ lib, aiohttp, aioredis, buildPythonPackage, coloredlogs, fastapi
-, fetchFromGitHub, pillow, psutil, pytestCheckHook, pythonOlder, redis, requests
-, ujson, uvicorn, watchdog }:
+{
+  lib,
+  aiohttp,
+  aioredis,
+  buildPythonPackage,
+  coloredlogs,
+  fastapi,
+  fetchFromGitHub,
+  pillow,
+  psutil,
+  pytestCheckHook,
+  pythonOlder,
+  redis,
+  requests,
+  ujson,
+  uvicorn,
+  watchdog,
+}:
 
 buildPythonPackage rec {
   pname = "pytelegrambotapi";

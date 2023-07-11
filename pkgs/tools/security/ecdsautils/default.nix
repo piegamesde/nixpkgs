@@ -1,4 +1,8 @@
-{ lib, stdenv, pkgs }:
+{
+  lib,
+  stdenv,
+  pkgs,
+}:
 
 let
   pname = "ecdsautils";

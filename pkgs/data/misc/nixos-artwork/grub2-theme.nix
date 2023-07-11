@@ -1,4 +1,6 @@
-{ fetchzip }:
+{
+  fetchzip,
+}:
 fetchzip {
   url =
     "https://github.com/NixOS/nixos-artwork/releases/download/bootloader-18.09-pre/grub2-installer.tar.bz2";

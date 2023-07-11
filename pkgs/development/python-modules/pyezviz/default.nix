@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, paho-mqtt, pandas, pycryptodome
-, pythonOlder, requests, xmltodict }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  paho-mqtt,
+  pandas,
+  pycryptodome,
+  pythonOlder,
+  requests,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "pyezviz";

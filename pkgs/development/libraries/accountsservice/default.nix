@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchurl, substituteAll, pkg-config, glib, shadow
-, gobject-introspection, polkit, systemd, coreutils, meson, mesonEmulatorHook
-, dbus, ninja, python3, vala, gettext, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  substituteAll,
+  pkg-config,
+  glib,
+  shadow,
+  gobject-introspection,
+  polkit,
+  systemd,
+  coreutils,
+  meson,
+  mesonEmulatorHook,
+  dbus,
+  ninja,
+  python3,
+  vala,
+  gettext,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "accountsservice";

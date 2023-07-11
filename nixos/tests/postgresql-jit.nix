@@ -1,5 +1,8 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; }
+}:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 
@@ -11,17 +14,21 @@ let
     makeTest {
       name = "${packageName}";
       meta.maintainers = with lib.maintainers; [ ma27 ];
-      nodes.machine = { pkgs, lib, ... }: {
-        services.postgresql = {
-          enable = true;
-          enableJIT = true;
-          package = pkgs.${packageName};
-          initialScript = pkgs.writeText "init.sql" ''
-            create table demo (id int);
-            insert into demo (id) select generate_series(1, 5);
-          '';
+      nodes.machine = {
+          pkgs,
+          lib,
+          ...
+        }: {
+          services.postgresql = {
+            enable = true;
+            enableJIT = true;
+            package = pkgs.${packageName};
+            initialScript = pkgs.writeText "init.sql" ''
+              create table demo (id int);
+              insert into demo (id) select generate_series(1, 5);
+            '';
+          };
         };
-      };
       testScript = ''
         machine.start()
         machine.wait_for_unit("postgresql.service")

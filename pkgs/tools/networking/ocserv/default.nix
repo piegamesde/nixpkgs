@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitLab, autoreconfHook, pkg-config, nettle, gnutls
-, libev, protobufc, guile, geoip, libseccomp, gperf, readline, lz4, libgssglue
-, ronn, pam, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  autoreconfHook,
+  pkg-config,
+  nettle,
+  gnutls,
+  libev,
+  protobufc,
+  guile,
+  geoip,
+  libseccomp,
+  gperf,
+  readline,
+  lz4,
+  libgssglue,
+  ronn,
+  pam,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocserv";

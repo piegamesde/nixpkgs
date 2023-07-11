@@ -1,6 +1,28 @@
-{ aspell, audiofile, gsmakeDerivation, cups, fetchzip, fetchpatch, gmp, gnutls
-, libffi, binutils-unwrapped, libjpeg, libtiff, libpng, giflib, libxml2, libxslt
-, libiconv, libobjc, libgcrypt, icu, pkg-config, portaudio, libiberty }:
+{
+  aspell,
+  audiofile,
+  gsmakeDerivation,
+  cups,
+  fetchzip,
+  fetchpatch,
+  gmp,
+  gnutls,
+  libffi,
+  binutils-unwrapped,
+  libjpeg,
+  libtiff,
+  libpng,
+  giflib,
+  libxml2,
+  libxslt,
+  libiconv,
+  libobjc,
+  libgcrypt,
+  icu,
+  pkg-config,
+  portaudio,
+  libiberty,
+}:
 gsmakeDerivation rec {
   pname = "gnustep-base";
   version = "1.28.0";

@@ -1,5 +1,24 @@
-{ lib, stdenv, mkDerivation, fetchurl, cmake, doxygen, graphviz, boost, cgal_5
-, gdal, glew, gmp, libGL, libGLU, mpfr, proj, python3, qtxmlpatterns, qwt }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchurl,
+  cmake,
+  doxygen,
+  graphviz,
+  boost,
+  cgal_5,
+  gdal,
+  glew,
+  gmp,
+  libGL,
+  libGLU,
+  mpfr,
+  proj,
+  python3,
+  qtxmlpatterns,
+  qwt,
+}:
 
 let
   python = python3.withPackages (ps: with ps; [ numpy ]);

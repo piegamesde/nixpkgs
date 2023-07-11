@@ -1,6 +1,11 @@
 # NixOS module for atftpd TFTP server
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, matplotlib, numpy, packaging }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  matplotlib,
+  numpy,
+  packaging,
+}:
 
 buildPythonPackage rec {
   pname = "adjusttext";

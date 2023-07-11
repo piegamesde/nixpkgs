@@ -1,5 +1,17 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, cyrus_sasl
-, ki18n, kio, kmbox, libsecret, openldap, qtkeychain }:
+{
+  mkDerivation,
+  lib,
+  kdepimTeam,
+  extra-cmake-modules,
+  kdoctools,
+  cyrus_sasl,
+  ki18n,
+  kio,
+  kmbox,
+  libsecret,
+  openldap,
+  qtkeychain,
+}:
 
 mkDerivation {
   pname = "kldap";

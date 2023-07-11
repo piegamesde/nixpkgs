@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, mimalloc, ninja, openssl, zlib, testers
-, mold }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  mimalloc,
+  ninja,
+  openssl,
+  zlib,
+  testers,
+  mold,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mold";

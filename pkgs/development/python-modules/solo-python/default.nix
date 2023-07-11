@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, click, cryptography
-, ecdsa, fido2, intelhex, pyserial, pyusb, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  click,
+  cryptography,
+  ecdsa,
+  fido2,
+  intelhex,
+  pyserial,
+  pyusb,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "solo-python";

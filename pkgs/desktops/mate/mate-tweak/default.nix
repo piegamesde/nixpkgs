@@ -1,5 +1,17 @@
-{ lib, fetchFromGitHub, python3Packages, intltool, mate, libnotify, gtk3
-, gdk-pixbuf, gobject-introspection, wrapGAppsHook, glib, gitUpdater }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  intltool,
+  mate,
+  libnotify,
+  gtk3,
+  gdk-pixbuf,
+  gobject-introspection,
+  wrapGAppsHook,
+  glib,
+  gitUpdater,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "mate-tweak";

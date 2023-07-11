@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy27, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy27,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "pypubsub";

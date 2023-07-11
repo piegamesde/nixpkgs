@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, python3, runCommand, makeWrapper, stress-ng }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  runCommand,
+  makeWrapper,
+  stress-ng,
+}:
 
 lib.fix (self:
   stdenv.mkDerivation rec {

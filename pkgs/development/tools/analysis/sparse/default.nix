@@ -1,5 +1,15 @@
-{ callPackage, fetchurl, lib, stdenv, gtk3, pkg-config, libxml2, llvm, perl
-, sqlite }:
+{
+  callPackage,
+  fetchurl,
+  lib,
+  stdenv,
+  gtk3,
+  pkg-config,
+  libxml2,
+  llvm,
+  perl,
+  sqlite,
+}:
 
 let
   GCC_BASE =

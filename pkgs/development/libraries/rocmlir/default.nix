@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, cmake, ninja, hip, rocminfo
-, git, libxml2, libedit, zlib, ncurses, python3, buildRockCompiler ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  cmake,
+  ninja,
+  hip,
+  rocminfo,
+  git,
+  libxml2,
+  libedit,
+  zlib,
+  ncurses,
+  python3,
+  buildRockCompiler ? false
+}:
 
 # Theoretically, we could have our MLIR have an output
 # with the source and built objects so that we can just

@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, libjpeg, libmcrypt, libmhash
-, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  libjpeg,
+  libmcrypt,
+  libmhash,
+  zlib,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "steghide";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchzip, autoreconfHook, dos2unix, doxygen, freeimage, libpgf }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  autoreconfHook,
+  dos2unix,
+  doxygen,
+  freeimage,
+  libpgf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pgf";

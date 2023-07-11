@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, ddt, fetchPypi, igraph, igraph-c, pythonOlder
-, setuptools-scm, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  ddt,
+  fetchPypi,
+  igraph,
+  igraph-c,
+  pythonOlder,
+  setuptools-scm,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "leidenalg";

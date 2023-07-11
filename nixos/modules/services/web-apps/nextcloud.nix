@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -11,7 +16,10 @@ let
   inherit (cfg) datadir;
 
   phpPackage = cfg.phpPackage.buildEnv {
-    extensions = { enabled, all }:
+    extensions = {
+        enabled,
+        all,
+      }:
       (with all;
       # disable default openssl extension
         (lib.filter (e: e.pname != "php-openssl") enabled)
@@ -937,7 +945,11 @@ in {
             ''}
           '';
           occInstallCmd = let
-            mkExport = { arg, value }: "export ${arg}=${value}";
+            mkExport = {
+                arg,
+                value,
+              }:
+              "export ${arg}=${value}";
             dbpass = {
               arg = "DBPASS";
               value = if c.dbpassFile != null then

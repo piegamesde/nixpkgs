@@ -1,5 +1,11 @@
-{ lib, inkscape, symlinkJoin, makeWrapper, inkscapeExtensions ? [ ]
-, inkscape-extensions }:
+{
+  lib,
+  inkscape,
+  symlinkJoin,
+  makeWrapper,
+  inkscapeExtensions ? [ ],
+  inkscape-extensions,
+}:
 
 let
   allExtensions =

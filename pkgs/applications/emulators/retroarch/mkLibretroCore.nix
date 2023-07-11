@@ -1,11 +1,22 @@
-{ lib, stdenv, core, makeWrapper, retroarch, zlib
-, makefile ? "Makefile.libretro", extraBuildInputs ? [ ]
-, extraNativeBuildInputs ? [ ]
-  # Location of resulting RetroArch core on $out
-, libretroCore ? "/lib/retroarch/cores"
-  # The core filename is derivated from the core name
-  # Setting `normalizeCore` to `true` will convert `-` to `_` on the core filename
-, normalizeCore ? true, ... }@args:
+{
+  lib,
+  stdenv,
+  core,
+  makeWrapper,
+  retroarch,
+  zlib,
+  makefile ? "Makefile.libretro",
+  extraBuildInputs ? [ ],
+  extraNativeBuildInputs ? [ ]
+    # Location of resulting RetroArch core on $out
+  ,
+  libretroCore ? "/lib/retroarch/cores"
+    # The core filename is derivated from the core name
+    # Setting `normalizeCore` to `true` will convert `-` to `_` on the core filename
+  ,
+  normalizeCore ? true,
+  ...
+}@args:
 
 let
   d2u = if normalizeCore then (lib.replaceStrings [ "-" ] [ "_" ]) else (x: x);

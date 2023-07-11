@@ -1,9 +1,36 @@
-{ buildPythonPackage, fetchPypi, futures ? null, isPy27, isPyPy, jinja2, lib
-, mock, numpy, nodejs, packaging, pillow
-#, pytestCheckHook#
-, pytest, python-dateutil, pyyaml, selenium, six, substituteAll, tornado
-, typing-extensions, pytz, flaky, networkx, beautifulsoup4, requests, nbconvert
-, icalendar, pandas, pythonImportsCheckHook }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  futures ? null,
+  isPy27,
+  isPyPy,
+  jinja2,
+  lib,
+  mock,
+  numpy,
+  nodejs,
+  packaging,
+  pillow
+  #, pytestCheckHook#
+  ,
+  pytest,
+  python-dateutil,
+  pyyaml,
+  selenium,
+  six,
+  substituteAll,
+  tornado,
+  typing-extensions,
+  pytz,
+  flaky,
+  networkx,
+  beautifulsoup4,
+  requests,
+  nbconvert,
+  icalendar,
+  pandas,
+  pythonImportsCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "bokeh";

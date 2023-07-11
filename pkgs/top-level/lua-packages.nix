@@ -6,7 +6,12 @@
    be almost as must code as the function itself.
 */
 
-{ pkgs, stdenv, lib, lua }:
+{
+  pkgs,
+  stdenv,
+  lib,
+  lua,
+}:
 
 self:
 
@@ -58,7 +63,9 @@ in rec {
   luarocks-nix =
     callPackage ../development/tools/misc/luarocks/luarocks-nix.nix { };
 
-  lua-resty-core = callPackage ({ fetchFromGitHub }:
+  lua-resty-core = callPackage ({
+      fetchFromGitHub,
+    }:
     buildLuaPackage rec {
       pname = "lua-resty-core";
       version = "0.1.24";
@@ -80,7 +87,9 @@ in rec {
       };
     }) { };
 
-  lua-resty-lrucache = callPackage ({ fetchFromGitHub }:
+  lua-resty-lrucache = callPackage ({
+      fetchFromGitHub,
+    }:
     buildLuaPackage rec {
       pname = "lua-resty-lrucache";
       version = "0.13";
@@ -100,7 +109,11 @@ in rec {
       };
     }) { };
 
-  luxio = callPackage ({ fetchurl, which, pkg-config }:
+  luxio = callPackage ({
+      fetchurl,
+      which,
+      pkg-config,
+    }:
     buildLuaPackage rec {
       pname = "luxio";
       version = "13";
@@ -141,7 +154,9 @@ in rec {
     inherit (pkgs.darwin.apple_sdk.frameworks) AppKit;
   };
 
-  vicious = callPackage ({ fetchFromGitHub }:
+  vicious = callPackage ({
+      fetchFromGitHub,
+    }:
     stdenv.mkDerivation rec {
       pname = "vicious";
       version = "2.6.0";

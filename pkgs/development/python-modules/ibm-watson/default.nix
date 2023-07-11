@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, fetchFromGitHub, responses, pytestCheckHook
-, python-dotenv, pytest-rerunfailures, requests, python-dateutil
-, websocket-client, ibm-cloud-sdk-core, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  responses,
+  pytestCheckHook,
+  python-dotenv,
+  pytest-rerunfailures,
+  requests,
+  python-dateutil,
+  websocket-client,
+  ibm-cloud-sdk-core,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "ibm-watson";

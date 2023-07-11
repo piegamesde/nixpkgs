@@ -1,13 +1,54 @@
-{ stdenv, lib, buildPythonApplication, fetchFromGitHub
-# python requirements
-, beautifulsoup4, boto3, faker, fonttools, h5py, importlib-metadata, lxml
-, matplotlib, numpy, odfpy, openpyxl, pandas, pdfminer-six, praw, psutil
-, psycopg2, pyarrow, pyshp, pypng, python-dateutil, pyyaml, requests, seaborn
-, setuptools, sh, tabulate, urllib3, vobject, wcwidth, xlrd, xlwt, zstandard
-, zulip
-# other
-, git, withPcap ? true, dpkt, dnslib, withXclip ? stdenv.isLinux, xclip, testers
-, visidata }:
+{
+  stdenv,
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub
+  # python requirements
+  ,
+  beautifulsoup4,
+  boto3,
+  faker,
+  fonttools,
+  h5py,
+  importlib-metadata,
+  lxml,
+  matplotlib,
+  numpy,
+  odfpy,
+  openpyxl,
+  pandas,
+  pdfminer-six,
+  praw,
+  psutil,
+  psycopg2,
+  pyarrow,
+  pyshp,
+  pypng,
+  python-dateutil,
+  pyyaml,
+  requests,
+  seaborn,
+  setuptools,
+  sh,
+  tabulate,
+  urllib3,
+  vobject,
+  wcwidth,
+  xlrd,
+  xlwt,
+  zstandard,
+  zulip
+  # other
+  ,
+  git,
+  withPcap ? true,
+  dpkt,
+  dnslib,
+  withXclip ? stdenv.isLinux,
+  xclip,
+  testers,
+  visidata,
+}:
 buildPythonApplication rec {
   pname = "visidata";
   version = "2.11";

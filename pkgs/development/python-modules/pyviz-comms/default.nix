@@ -1,4 +1,10 @@
-{ buildPythonPackage, fetchPypi, lib, param, panel }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib,
+  param,
+  panel,
+}:
 
 buildPythonPackage rec {
   pname = "pyviz_comms";

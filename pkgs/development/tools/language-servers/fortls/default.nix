@@ -1,4 +1,10 @@
-{ buildPythonApplication, lib, fetchFromGitHub, setuptools-scm, json5, packaging
+{
+  buildPythonApplication,
+  lib,
+  fetchFromGitHub,
+  setuptools-scm,
+  json5,
+  packaging,
 }:
 
 buildPythonApplication rec {

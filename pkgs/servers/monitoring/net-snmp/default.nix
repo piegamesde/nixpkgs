@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, removeReferencesTo, file
-, openssl, perl, perlPackages, nettools, withPerlTools ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+  removeReferencesTo,
+  file,
+  openssl,
+  perl,
+  perlPackages,
+  nettools,
+  withPerlTools ? false
+}:
 let
 
   perlWithPkgs = perl.withPackages (ps: with ps; [ JSON TermReadKey Tk ]);

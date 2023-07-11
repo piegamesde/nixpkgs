@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, python, pytest, sortedcontainers }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python,
+  pytest,
+  sortedcontainers,
+}:
 
 buildPythonPackage rec {
   version = "3.1.0";

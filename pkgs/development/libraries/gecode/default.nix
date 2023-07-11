@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, bison, flex, perl, gmp, mpfr, qtbase
-, enableGist ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  bison,
+  flex,
+  perl,
+  gmp,
+  mpfr,
+  qtbase,
+  enableGist ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "gecode";

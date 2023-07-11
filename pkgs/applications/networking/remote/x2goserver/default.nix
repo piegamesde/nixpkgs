@@ -1,6 +1,31 @@
-{ stdenv, lib, fetchurl, perlPackages, makeWrapper, perl, which, nx-libs
-, util-linux, coreutils, glibc, gawk, gnused, gnugrep, findutils, xorg, nettools
-, iproute2, bc, procps, psmisc, lsof, pwgen, openssh, sshfs, bash }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  perlPackages,
+  makeWrapper,
+  perl,
+  which,
+  nx-libs,
+  util-linux,
+  coreutils,
+  glibc,
+  gawk,
+  gnused,
+  gnugrep,
+  findutils,
+  xorg,
+  nettools,
+  iproute2,
+  bc,
+  procps,
+  psmisc,
+  lsof,
+  pwgen,
+  openssh,
+  sshfs,
+  bash,
+}:
 
 let
   pname = "x2goserver";

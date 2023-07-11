@@ -1,7 +1,31 @@
-{ lib, stdenv, substituteAll, fetchFromGitHub, meson, mesonEmulatorHook, ninja
-, pkg-config, gettext, xmlto, docbook-xsl-nons, docbook_xml_dtd_45, libxslt
-, libstemmer, glib, xapian, libxml2, libxmlb, libyaml, gobject-introspection
-, pcre, itstool, gperf, vala, curl, nixosTests }:
+{
+  lib,
+  stdenv,
+  substituteAll,
+  fetchFromGitHub,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  pkg-config,
+  gettext,
+  xmlto,
+  docbook-xsl-nons,
+  docbook_xml_dtd_45,
+  libxslt,
+  libstemmer,
+  glib,
+  xapian,
+  libxml2,
+  libxmlb,
+  libyaml,
+  gobject-introspection,
+  pcre,
+  itstool,
+  gperf,
+  vala,
+  curl,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "appstream";

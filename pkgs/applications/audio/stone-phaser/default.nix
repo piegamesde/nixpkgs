@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, xorg, cairo, lv2, libjack2, mesa, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  xorg,
+  cairo,
+  lv2,
+  libjack2,
+  mesa,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "stone-phaser";

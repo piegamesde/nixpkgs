@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder, cmake, cython
-, pytestCheckHook, rapidfuzz, rapidfuzz-cpp, scikit-build }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  cmake,
+  cython,
+  pytestCheckHook,
+  rapidfuzz,
+  rapidfuzz-cpp,
+  scikit-build,
+}:
 
 buildPythonPackage rec {
   pname = "levenshtein";

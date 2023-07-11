@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, importlib-metadata, psutil }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  importlib-metadata,
+  psutil,
+}:
 
 buildPythonPackage rec {
   pname = "helpdev";

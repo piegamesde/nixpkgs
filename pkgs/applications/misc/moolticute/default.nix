@@ -1,5 +1,14 @@
-{ lib, mkDerivation, fetchFromGitHub, libusb1, pkg-config, qmake, qtbase
-, qttools, qtwebsockets }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  libusb1,
+  pkg-config,
+  qmake,
+  qtbase,
+  qttools,
+  qtwebsockets,
+}:
 
 mkDerivation rec {
   pname = "moolticute";

@@ -1,10 +1,20 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub
 
-# propagates
-, importlib-metadata
+  # propagates
+  ,
+  importlib-metadata
 
-# tests
-, editables, git, pytestCheckHook, setuptools }:
+  # tests
+  ,
+  editables,
+  git,
+  pytestCheckHook,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "pdm-backend";

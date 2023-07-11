@@ -1,20 +1,111 @@
-{ lib, stdenv, fetchurl, substituteAll, meson, ninja, gettext, pkg-config
-, python3, gst-plugins-base, orc, gstreamer, gobject-introspection
-, enableZbar ? false, faacSupport ? false, faac, faad2, ldacbt, libass, libkate
-, lrdf, ladspaH, lcms2, libnice, webrtc-audio-processing
-, webrtc-audio-processing_1, lilv, lv2, serd, sord, sratom, libbs2b, libmodplug
-, libmpeg2, libmicrodns, openjpeg, libopus, librsvg, bluez, chromaprint, curl
-, directfb, fdk_aac, flite, gsm, json-glib, libaom, libdc1394, libde265, libdrm
-, libdvdnav, libdvdread, libgudev, qrencode, libsndfile, libusb1, neon, openal
-, opencv4, openexr_3, openh264, libopenmpt, pango, rtmpdump, sbc, soundtouch
-, spandsp, srtp, zbar, wayland-protocols, wildmidi, fluidsynth, libva, libvdpau
-, wayland, libwebp, xvidcore, gnutls, mjpegtools, libGLU, libGL
-, addOpenGLRunpath, gtk3, libintl, game-music-emu, openssl, x265, libxml2, srt
-, vo-aacenc, libfreeaptx, zxing-cpp, VideoToolbox, AudioToolbox, AVFoundation
-, Cocoa, CoreMedia, CoreVideo, Foundation, MediaToolbox, enableGplPlugins ? true
-, bluezSupport ? stdenv.isLinux
-  # Checks meson.is_cross_build(), so even canExecute isn't enough.
-, enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform, hotdoc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  substituteAll,
+  meson,
+  ninja,
+  gettext,
+  pkg-config,
+  python3,
+  gst-plugins-base,
+  orc,
+  gstreamer,
+  gobject-introspection,
+  enableZbar ? false,
+  faacSupport ? false,
+  faac,
+  faad2,
+  ldacbt,
+  libass,
+  libkate,
+  lrdf,
+  ladspaH,
+  lcms2,
+  libnice,
+  webrtc-audio-processing,
+  webrtc-audio-processing_1,
+  lilv,
+  lv2,
+  serd,
+  sord,
+  sratom,
+  libbs2b,
+  libmodplug,
+  libmpeg2,
+  libmicrodns,
+  openjpeg,
+  libopus,
+  librsvg,
+  bluez,
+  chromaprint,
+  curl,
+  directfb,
+  fdk_aac,
+  flite,
+  gsm,
+  json-glib,
+  libaom,
+  libdc1394,
+  libde265,
+  libdrm,
+  libdvdnav,
+  libdvdread,
+  libgudev,
+  qrencode,
+  libsndfile,
+  libusb1,
+  neon,
+  openal,
+  opencv4,
+  openexr_3,
+  openh264,
+  libopenmpt,
+  pango,
+  rtmpdump,
+  sbc,
+  soundtouch,
+  spandsp,
+  srtp,
+  zbar,
+  wayland-protocols,
+  wildmidi,
+  fluidsynth,
+  libva,
+  libvdpau,
+  wayland,
+  libwebp,
+  xvidcore,
+  gnutls,
+  mjpegtools,
+  libGLU,
+  libGL,
+  addOpenGLRunpath,
+  gtk3,
+  libintl,
+  game-music-emu,
+  openssl,
+  x265,
+  libxml2,
+  srt,
+  vo-aacenc,
+  libfreeaptx,
+  zxing-cpp,
+  VideoToolbox,
+  AudioToolbox,
+  AVFoundation,
+  Cocoa,
+  CoreMedia,
+  CoreVideo,
+  Foundation,
+  MediaToolbox,
+  enableGplPlugins ? true,
+  bluezSupport ? stdenv.isLinux
+    # Checks meson.is_cross_build(), so even canExecute isn't enough.
+  ,
+  enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform,
+  hotdoc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gst-plugins-bad";

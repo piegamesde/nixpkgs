@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, pytestCheckHook, hypothesis
-, levenshtein }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  pytestCheckHook,
+  hypothesis,
+  levenshtein,
+}:
 
 buildPythonPackage rec {
   pname = "thefuzz";

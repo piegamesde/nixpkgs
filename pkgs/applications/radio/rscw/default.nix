@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, fftw, gtk2, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fftw,
+  gtk2,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rscw";

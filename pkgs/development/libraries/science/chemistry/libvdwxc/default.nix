@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitLab, gfortran, autoreconfHook, fftwMpi, mpi }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  gfortran,
+  autoreconfHook,
+  fftwMpi,
+  mpi,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libvdwxc";

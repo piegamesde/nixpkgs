@@ -1,11 +1,39 @@
-{ pname, version, src, branch, compat-list
+{
+  pname,
+  version,
+  src,
+  branch,
+  compat-list
 
-, lib, stdenv, fetchFromGitHub, cmake, boost17x, pkg-config, libusb1, zstd
-, libressl, enableSdl2 ? true, SDL2, enableQt ? true, qtbase, qtmultimedia
-, wrapQtAppsHook, enableQtTranslation ? enableQt, qttools
-, enableWebService ? true, enableCubeb ? true, libpulseaudio
-, enableFfmpegAudioDecoder ? true, enableFfmpegVideoDumper ? true, ffmpeg_4
-, useDiscordRichPresence ? true, rapidjson, enableFdk ? false, fdk_aac }:
+  ,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost17x,
+  pkg-config,
+  libusb1,
+  zstd,
+  libressl,
+  enableSdl2 ? true,
+  SDL2,
+  enableQt ? true,
+  qtbase,
+  qtmultimedia,
+  wrapQtAppsHook,
+  enableQtTranslation ? enableQt,
+  qttools,
+  enableWebService ? true,
+  enableCubeb ? true,
+  libpulseaudio,
+  enableFfmpegAudioDecoder ? true,
+  enableFfmpegVideoDumper ? true,
+  ffmpeg_4,
+  useDiscordRichPresence ? true,
+  rapidjson,
+  enableFdk ? false,
+  fdk_aac,
+}:
 assert lib.assertMsg (!enableFfmpegAudioDecoder || !enableFdk)
   "Can't enable both enableFfmpegAudioDecoder and enableFdk";
 

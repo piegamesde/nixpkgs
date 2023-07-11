@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, glib, gettext, xorg, pkg-config, wrapGAppsHook
-, ibus, gtk3, go }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  glib,
+  gettext,
+  xorg,
+  pkg-config,
+  wrapGAppsHook,
+  ibus,
+  gtk3,
+  go,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ibus-bamboo";

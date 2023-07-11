@@ -1,5 +1,20 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, swig, xcbuild, mupdf
-, freetype, harfbuzz, openjpeg, jbig2dec, libjpeg_turbo, gumbo, memstreamHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  swig,
+  xcbuild,
+  mupdf,
+  freetype,
+  harfbuzz,
+  openjpeg,
+  jbig2dec,
+  libjpeg_turbo,
+  gumbo,
+  memstreamHook,
+}:
 
 buildPythonPackage rec {
   pname = "pymupdf";

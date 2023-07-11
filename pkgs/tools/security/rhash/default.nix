@@ -1,5 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, which
-, enableStatic ? stdenv.hostPlatform.isStatic }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  which,
+  enableStatic ? stdenv.hostPlatform.isStatic
+}:
 
 stdenv.mkDerivation rec {
   version = "1.4.3";

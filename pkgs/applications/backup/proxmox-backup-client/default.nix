@@ -1,5 +1,18 @@
-{ lib, fetchgit, rustPlatform, pkg-config, openssl, fuse3, libuuid, acl
-, libxcrypt, git, installShellFiles, sphinx, stdenv, }:
+{
+  lib,
+  fetchgit,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  fuse3,
+  libuuid,
+  acl,
+  libxcrypt,
+  git,
+  installShellFiles,
+  sphinx,
+  stdenv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "proxmox-backup-client";

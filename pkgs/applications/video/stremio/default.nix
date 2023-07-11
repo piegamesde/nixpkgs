@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, qmake, wrapQtAppsHook, mpv
-, qtwebengine, qtwebchannel, nodejs }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  qmake,
+  wrapQtAppsHook,
+  mpv,
+  qtwebengine,
+  qtwebchannel,
+  nodejs,
+}:
 
 stdenv.mkDerivation rec {
   pname = "stremio-shell";

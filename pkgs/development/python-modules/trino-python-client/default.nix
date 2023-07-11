@@ -1,12 +1,25 @@
-{ lib, buildPythonPackage, fetchFromGitHub
-# build
-, setuptools
-# required
-, pytz, requests, tzlocal
-# optional
-, requests-kerberos, sqlalchemy, keyring
-# tests
-, pytestCheckHook, httpretty }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
+  # build
+  ,
+  setuptools
+  # required
+  ,
+  pytz,
+  requests,
+  tzlocal
+  # optional
+  ,
+  requests-kerberos,
+  sqlalchemy,
+  keyring
+  # tests
+  ,
+  pytestCheckHook,
+  httpretty,
+}:
 
 buildPythonPackage rec {
   pname = "trino-python-client";

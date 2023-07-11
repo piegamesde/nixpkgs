@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, jinja2, mistune, pygments, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jinja2,
+  mistune,
+  pygments,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "mrkd";

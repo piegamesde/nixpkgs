@@ -1,4 +1,11 @@
-{ lib, buildPythonApplication, fetchPypi, dropbox, annexremote, humanfriendly }:
+{
+  lib,
+  buildPythonApplication,
+  fetchPypi,
+  dropbox,
+  annexremote,
+  humanfriendly,
+}:
 
 buildPythonApplication rec {
   pname = "git-annex-remote-dbx";

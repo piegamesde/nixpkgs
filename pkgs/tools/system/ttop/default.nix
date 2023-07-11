@@ -1,4 +1,8 @@
-{ lib, nimPackages, fetchFromGitHub }:
+{
+  lib,
+  nimPackages,
+  fetchFromGitHub,
+}:
 
 nimPackages.buildNimPackage rec {
   pname = "ttop";

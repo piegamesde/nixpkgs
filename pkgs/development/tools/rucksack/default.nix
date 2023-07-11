@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, liblaxjson, cmake, freeimage }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  liblaxjson,
+  cmake,
+  freeimage,
+}:
 
 stdenv.mkDerivation rec {
   version = "3.1.0";

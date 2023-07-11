@@ -1,6 +1,24 @@
-{ lib, buildPythonPackage, fetchPypi, cython, lockfile, cachecontrol, decorator
-, h5py, ipython, matplotlib, natsort, numpy, pandas, scipy, hdmedians
-, scikit-learn, coverage, python, isPy3k }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cython,
+  lockfile,
+  cachecontrol,
+  decorator,
+  h5py,
+  ipython,
+  matplotlib,
+  natsort,
+  numpy,
+  pandas,
+  scipy,
+  hdmedians,
+  scikit-learn,
+  coverage,
+  python,
+  isPy3k,
+}:
 
 buildPythonPackage rec {
   version = "0.5.8";

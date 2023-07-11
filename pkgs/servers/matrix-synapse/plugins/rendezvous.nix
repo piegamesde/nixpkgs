@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchPypi, rustPlatform
-, setuptools-rust }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchPypi,
+  rustPlatform,
+  setuptools-rust,
+}:
 
 buildPythonPackage rec {
   pname = "matrix-http-rendezvous-synapse";

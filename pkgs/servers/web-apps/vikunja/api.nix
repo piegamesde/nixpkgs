@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitea, mage, writeShellScriptBin, nixosTests }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitea,
+  mage,
+  writeShellScriptBin,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "vikunja-api";

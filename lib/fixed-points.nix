@@ -1,4 +1,7 @@
-{ lib, ... }: rec {
+{
+  lib,
+  ...
+}: rec {
   # Compute the fixed point of the given function `f`, which is usually an
   # attribute set that expects its final, non-recursive representation as an
   # argument:

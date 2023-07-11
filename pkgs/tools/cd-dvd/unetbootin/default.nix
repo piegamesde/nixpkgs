@@ -1,5 +1,18 @@
-{ lib, stdenv, coreutils, fetchFromGitHub, mtools, p7zip, wrapQtAppsHook, qtbase
-, qttools, qmake, syslinux, util-linux, which }:
+{
+  lib,
+  stdenv,
+  coreutils,
+  fetchFromGitHub,
+  mtools,
+  p7zip,
+  wrapQtAppsHook,
+  qtbase,
+  qttools,
+  qmake,
+  syslinux,
+  util-linux,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "unetbootin";

@@ -1,7 +1,28 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, python3Packages, ffmpeg, flac
-, libjxl, librsvg, gobject-introspection, gtk3, kissfft, libnotify
-, libsamplerate, libvorbis, miniaudio, mpg123, libopenmpt, opusfile, wavpack
-, pango, pulseaudio, withDiscordRPC ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  python3Packages,
+  ffmpeg,
+  flac,
+  libjxl,
+  librsvg,
+  gobject-introspection,
+  gtk3,
+  kissfft,
+  libnotify,
+  libsamplerate,
+  libvorbis,
+  miniaudio,
+  mpg123,
+  libopenmpt,
+  opusfile,
+  wavpack,
+  pango,
+  pulseaudio,
+  withDiscordRPC ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "tauon";

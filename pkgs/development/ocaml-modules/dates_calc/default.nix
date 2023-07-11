@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildDunePackage, alcotest, qcheck }:
+{
+  lib,
+  fetchFromGitHub,
+  buildDunePackage,
+  alcotest,
+  qcheck,
+}:
 
 buildDunePackage rec {
   pname = "dates_calc";

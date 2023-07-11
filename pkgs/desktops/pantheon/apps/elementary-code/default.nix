@@ -1,7 +1,31 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, nix-update-script, appstream
-, desktop-file-utils, meson, ninja, pkg-config, polkit, python3, vala
-, wrapGAppsHook, editorconfig-core-c, granite, gtk3, gtksourceview4, gtkspell3
-, libgee, libgit2-glib, libhandy, libpeas, libsoup, vte, ctags }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  nix-update-script,
+  appstream,
+  desktop-file-utils,
+  meson,
+  ninja,
+  pkg-config,
+  polkit,
+  python3,
+  vala,
+  wrapGAppsHook,
+  editorconfig-core-c,
+  granite,
+  gtk3,
+  gtksourceview4,
+  gtkspell3,
+  libgee,
+  libgit2-glib,
+  libhandy,
+  libpeas,
+  libsoup,
+  vte,
+  ctags,
+}:
 
 stdenv.mkDerivation rec {
   pname = "elementary-code";

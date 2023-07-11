@@ -1,4 +1,10 @@
-{ stdenv, fetchFromGitHub, lib, python3, nixosTests }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  python3,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "knot-exporter";

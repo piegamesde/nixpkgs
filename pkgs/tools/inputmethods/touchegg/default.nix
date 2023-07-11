@@ -1,6 +1,21 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, nix-update-script, systemd, libinput
-, pugixml, cairo, xorg, gtk3-x11, pcre, pkg-config, cmake, pantheon
-, withPantheon ? false }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  nix-update-script,
+  systemd,
+  libinput,
+  pugixml,
+  cairo,
+  xorg,
+  gtk3-x11,
+  pcre,
+  pkg-config,
+  cmake,
+  pantheon,
+  withPantheon ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "touchegg";

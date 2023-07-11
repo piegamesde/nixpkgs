@@ -1,5 +1,15 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, iconv, pytestCheckHook
-, pythonOlder, requests, json-stream-rs-tokenizer, setuptools }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  iconv,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  json-stream-rs-tokenizer,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "json-stream";

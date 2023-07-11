@@ -2,7 +2,12 @@
    together. This avoids version conflicts where each is using a diferent
    version of each-other.
 */
-{ buildEnv, ruby, bundler, bundix }:
+{
+  buildEnv,
+  ruby,
+  bundler,
+  bundix,
+}:
 let
   bundler_ = bundler.override { ruby = ruby; };
   bundix_ = bundix.override { bundler = bundler_; };

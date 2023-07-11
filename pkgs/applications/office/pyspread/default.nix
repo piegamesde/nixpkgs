@@ -1,4 +1,11 @@
-{ lib, copyDesktopItems, makeDesktopItem, python3, qtsvg, wrapQtAppsHook }:
+{
+  lib,
+  copyDesktopItems,
+  makeDesktopItem,
+  python3,
+  qtsvg,
+  wrapQtAppsHook,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "pyspread";

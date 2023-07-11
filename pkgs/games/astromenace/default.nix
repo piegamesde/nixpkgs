@@ -1,5 +1,20 @@
-{ fetchurl, lib, stdenv, cmake, xorg, libGLU, libGL, SDL, openal, fontconfig
-, freealut, freetype, libogg, libvorbis, runtimeShell }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  cmake,
+  xorg,
+  libGLU,
+  libGL,
+  SDL,
+  openal,
+  fontconfig,
+  freealut,
+  freetype,
+  libogg,
+  libvorbis,
+  runtimeShell,
+}:
 
 stdenv.mkDerivation rec {
   pname = "astromenace";

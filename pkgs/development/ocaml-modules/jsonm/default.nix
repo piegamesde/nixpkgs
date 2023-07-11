@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchurl, ocaml, findlib, ocamlbuild, topkg, uutf }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ocaml,
+  findlib,
+  ocamlbuild,
+  topkg,
+  uutf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-jsonm";

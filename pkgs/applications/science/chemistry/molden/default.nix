@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, which, gfortran, libGLU, xorg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  which,
+  gfortran,
+  libGLU,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   version = "6.3";

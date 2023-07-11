@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchurl, meson, mesonEmulatorHook, ninja, pkg-config, vala
-, gtk-doc, docbook_xsl, docbook_xml_dtd_412, glib, gdk-pixbuf
-, gobject-introspection, gnome }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  pkg-config,
+  vala,
+  gtk-doc,
+  docbook_xsl,
+  docbook_xml_dtd_412,
+  glib,
+  gdk-pixbuf,
+  gobject-introspection,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libmediaart";

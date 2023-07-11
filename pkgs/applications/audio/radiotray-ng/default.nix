@@ -1,21 +1,45 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config
-# Transport
-, curl
-# Libraries
-, boost, jsoncpp, libbsd, pcre
-# GUI/Desktop
-, dbus, glibmm, gsettings-desktop-schemas, hicolor-icon-theme
-, libappindicator-gtk3, libnotify, libxdg_basedir, wxGTK
-# GStreamer
-, gst_all_1
-# User-agent info
-, lsb-release
-# rt2rtng
-, python3
-# Testing
-, gtest
-# Fixup
-, wrapGAppsHook, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config
+  # Transport
+  ,
+  curl
+  # Libraries
+  ,
+  boost,
+  jsoncpp,
+  libbsd,
+  pcre
+  # GUI/Desktop
+  ,
+  dbus,
+  glibmm,
+  gsettings-desktop-schemas,
+  hicolor-icon-theme,
+  libappindicator-gtk3,
+  libnotify,
+  libxdg_basedir,
+  wxGTK
+  # GStreamer
+  ,
+  gst_all_1
+  # User-agent info
+  ,
+  lsb-release
+  # rt2rtng
+  ,
+  python3
+  # Testing
+  ,
+  gtest
+  # Fixup
+  ,
+  wrapGAppsHook,
+  makeWrapper,
+}:
 
 let
   gstInputs = with gst_all_1; [

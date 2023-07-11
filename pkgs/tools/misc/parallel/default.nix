@@ -1,4 +1,12 @@
-{ fetchurl, lib, stdenv, perl, makeWrapper, procps, coreutils }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  perl,
+  makeWrapper,
+  procps,
+  coreutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "parallel";

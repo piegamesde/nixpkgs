@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, gtkmm2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glib,
+  gtkmm2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nitrogen";

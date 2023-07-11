@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, jsonrpc-base
-, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  aiohttp,
+  jsonrpc-base,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "jsonrpc-websocket";

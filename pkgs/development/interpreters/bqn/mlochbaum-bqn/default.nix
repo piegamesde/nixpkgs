@@ -1,4 +1,10 @@
-{ lib, stdenvNoCC, fetchFromGitHub, makeWrapper, nodejs }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  makeWrapper,
+  nodejs,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "bqn";

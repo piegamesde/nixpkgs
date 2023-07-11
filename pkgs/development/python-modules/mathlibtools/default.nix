@@ -1,5 +1,18 @@
-{ lib, atomicwrites, buildPythonPackage, click, fetchPypi, gitpython, networkx
-, pydot, pygithub, pythonOlder, pyyaml, toml, tqdm }:
+{
+  lib,
+  atomicwrites,
+  buildPythonPackage,
+  click,
+  fetchPypi,
+  gitpython,
+  networkx,
+  pydot,
+  pygithub,
+  pythonOlder,
+  pyyaml,
+  toml,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "mathlibtools";

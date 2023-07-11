@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, llvm_12, ncurses, readline, zlib, libxml2
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  llvm_12,
+  ncurses,
+  readline,
+  zlib,
+  libxml2,
 }:
 
 stdenv.mkDerivation {

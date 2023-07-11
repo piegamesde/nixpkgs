@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, ocaml, findlib, astring, pprint }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  ocaml,
+  findlib,
+  astring,
+  pprint,
+}:
 
 if lib.versionOlder ocaml.version "4.02" then
   throw "ocp-ocamlres is not available for OCaml ${ocaml.version}"

@@ -1,20 +1,26 @@
-import ./make-test-python.nix ({ lib, ... }:
+import ./make-test-python.nix ({
+    lib,
+    ...
+  }:
   with lib;
 
   {
     name = "tor";
     meta.maintainers = with maintainers; [ joachifm ];
 
-    nodes.client = { pkgs, ... }: {
-      boot.kernelParams = [ "audit=0" "apparmor=0" "quiet" ];
-      networking.firewall.enable = false;
-      networking.useDHCP = false;
+    nodes.client = {
+        pkgs,
+        ...
+      }: {
+        boot.kernelParams = [ "audit=0" "apparmor=0" "quiet" ];
+        networking.firewall.enable = false;
+        networking.useDHCP = false;
 
-      environment.systemPackages = with pkgs; [ netcat ];
-      services.tor.enable = true;
-      services.tor.client.enable = true;
-      services.tor.settings.ControlPort = 9051;
-    };
+        environment.systemPackages = with pkgs; [ netcat ];
+        services.tor.enable = true;
+        services.tor.client.enable = true;
+        services.tor.settings.ControlPort = 9051;
+      };
 
     testScript = ''
       client.wait_for_unit("tor.service")

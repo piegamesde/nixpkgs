@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, laszip, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  laszip,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "laspy";

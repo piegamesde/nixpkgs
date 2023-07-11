@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchurl, gawk, enableSSO ? false, makeWrapper }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  gawk,
+  enableSSO ? false,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "atlassian-jira";

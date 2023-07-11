@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pyopenssl, pythonOlder, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyopenssl,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "netio";

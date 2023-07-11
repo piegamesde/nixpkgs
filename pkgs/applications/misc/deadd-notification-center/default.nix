@@ -1,4 +1,10 @@
-{ mkDerivation, haskellPackages, fetchFromGitHub, lib, writeText }:
+{
+  mkDerivation,
+  haskellPackages,
+  fetchFromGitHub,
+  lib,
+  writeText,
+}:
 
 let
   # deadd-notification-center.service

@@ -1,5 +1,16 @@
-{ lib, fetchFromGitHub, buildPythonPackage, numpy, absl-py, dm-tree, wrapt
-, tensorflow, tensorflow-probability, pytestCheckHook, nose }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  numpy,
+  absl-py,
+  dm-tree,
+  wrapt,
+  tensorflow,
+  tensorflow-probability,
+  pytestCheckHook,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "trfl";

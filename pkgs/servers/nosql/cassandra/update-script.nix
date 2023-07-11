@@ -1,4 +1,11 @@
-{ git, lib, runtimeShell, writeScript, generation, gnupg }:
+{
+  git,
+  lib,
+  runtimeShell,
+  writeScript,
+  generation,
+  gnupg,
+}:
 let
   inherit (lib) makeBinPath;
   filename = lib.strings.replaceStrings [ "_" ] [ "." ] generation + ".json";

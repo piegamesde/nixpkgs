@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitLab, desktop-file-utils, shared-mime-info, ninja
-, pkg-config, libiconv, libX11, libXcursor, libXext, libXi, freetype, fontconfig
-, libjpeg, libpng, libtiff, libwebp, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  desktop-file-utils,
+  shared-mime-info,
+  ninja,
+  pkg-config,
+  libiconv,
+  libX11,
+  libXcursor,
+  libXext,
+  libXi,
+  freetype,
+  fontconfig,
+  libjpeg,
+  libpng,
+  libtiff,
+  libwebp,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "azpainter";

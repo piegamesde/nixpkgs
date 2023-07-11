@@ -1,5 +1,13 @@
-{ lib, bleak, bleak-retry-connector, buildPythonPackage, cryptography
-, fetchFromGitHub, pythonOlder, setuptools }:
+{
+  lib,
+  bleak,
+  bleak-retry-connector,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "py-dormakaba-dkey";

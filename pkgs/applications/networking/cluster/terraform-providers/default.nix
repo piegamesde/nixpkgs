@@ -1,27 +1,48 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, fetchFromGitLab, callPackage
-, config, writeShellScript
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  callPackage,
+  config,
+  writeShellScript
 
-, cdrtools # libvirt
+  ,
+  cdrtools # libvirt
+  ,
 }:
 let
   # Our generic constructor to build new providers.
   #
   # Is designed to combine with the terraform.withPlugins implementation.
-  mkProvider = lib.makeOverridable ({ owner, repo, rev, spdx ? "UNSET"
-    , version ? lib.removePrefix "v" rev
-    , hash ? throw "use hash instead of sha256" # added 2202/09
-    , vendorHash ?
-      throw "use vendorHash instead of vendorSha256" # added 2202/09
-    , deleteVendor ? false, proxyVendor ? false
-    , mkProviderFetcher ? fetchFromGitHub, mkProviderGoModule ? buildGoModule
-      # "https://registry.terraform.io/providers/vancluever/acme"
-    , homepage ? ""
-      # "registry.terraform.io/vancluever/acme"
-    , provider-source-address ?
-      lib.replaceStrings [ "https://registry" ".io/providers" ] [
-        "registry"
-        ".io"
-      ] homepage, ... }@attrs:
+  mkProvider = lib.makeOverridable ({
+      owner,
+      repo,
+      rev,
+      spdx ? "UNSET",
+      version ? lib.removePrefix "v" rev,
+      hash ? throw "use hash instead of sha256" # added 2202/09
+      ,
+      vendorHash ?
+        throw "use vendorHash instead of vendorSha256" # added 2202/09
+      ,
+      deleteVendor ? false,
+      proxyVendor ? false,
+      mkProviderFetcher ? fetchFromGitHub,
+      mkProviderGoModule ? buildGoModule
+        # "https://registry.terraform.io/providers/vancluever/acme"
+      ,
+      homepage ? ""
+        # "registry.terraform.io/vancluever/acme"
+      ,
+      provider-source-address ?
+        lib.replaceStrings [ "https://registry" ".io/providers" ] [
+          "registry"
+          ".io"
+        ] homepage,
+      ...
+    }@attrs:
     assert lib.stringLength provider-source-address > 0;
     mkProviderGoModule {
       pname = repo;

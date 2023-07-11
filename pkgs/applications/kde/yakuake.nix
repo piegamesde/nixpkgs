@@ -1,6 +1,22 @@
-{ mkDerivation, lib, kdoctools, extra-cmake-modules, karchive, kcrash
-, kdbusaddons, ki18n, kiconthemes, knewstuff, knotifications, knotifyconfig
-, konsole, kparts, kwayland, kwindowsystem, qtx11extras }:
+{
+  mkDerivation,
+  lib,
+  kdoctools,
+  extra-cmake-modules,
+  karchive,
+  kcrash,
+  kdbusaddons,
+  ki18n,
+  kiconthemes,
+  knewstuff,
+  knotifications,
+  knotifyconfig,
+  konsole,
+  kparts,
+  kwayland,
+  kwindowsystem,
+  qtx11extras,
+}:
 
 mkDerivation {
   pname = "yakuake";

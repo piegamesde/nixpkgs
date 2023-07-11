@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchurl, bundlerEnv, alsa-utils, atk, copyDesktopItems
-, gobject-introspection, gtk2, ruby, libicns, libnotify, makeDesktopItem, which
-, wrapGAppsHook, writeText }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bundlerEnv,
+  alsa-utils,
+  atk,
+  copyDesktopItems,
+  gobject-introspection,
+  gtk2,
+  ruby,
+  libicns,
+  libnotify,
+  makeDesktopItem,
+  which,
+  wrapGAppsHook,
+  writeText,
+}:
 
 let
   # NOTE: $out may have different values depending on context
@@ -29,7 +44,9 @@ let
     copyGemFiles = true;
   };
 
-  mkDesktopItem = { description }:
+  mkDesktopItem = {
+      description,
+    }:
     makeDesktopItem {
       name = "mikutter";
       desktopName = "mikutter";
@@ -40,7 +57,9 @@ let
       keywords = [ "Mastodon" ];
     };
 
-  mkInfoPlist = { version }:
+  mkInfoPlist = {
+      version,
+    }:
     writeText "Info.plist" (lib.generators.toPlist { } {
       CFBundleName = "mikutter";
       CFBundleDisplayName = "mikutter";

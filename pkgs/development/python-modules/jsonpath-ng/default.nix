@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, decorator, fetchFromGitHub, ply, pytestCheckHook, six
+{
+  lib,
+  buildPythonPackage,
+  decorator,
+  fetchFromGitHub,
+  ply,
+  pytestCheckHook,
+  six,
 }:
 
 buildPythonPackage rec {

@@ -1,9 +1,28 @@
-{ stdenv, lib, fetchFromGitHub, fetchzip, rustPlatform, bootstrap_cmds
-, DiskArbitration, Foundation, cmake, libiconv, openssl, perl, pkg-config }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchzip,
+  rustPlatform,
+  bootstrap_cmds,
+  DiskArbitration,
+  Foundation,
+  cmake,
+  libiconv,
+  openssl,
+  perl,
+  pkg-config,
+}:
 
 let
-  fetchNpmPackage =
-    { name, version, hash, js_prod_file, js_dev_file, ... }@args:
+  fetchNpmPackage = {
+      name,
+      version,
+      hash,
+      js_prod_file,
+      js_dev_file,
+      ...
+    }@args:
     let
       package = fetchzip {
         url = "https://registry.npmjs.org/${name}/-/${
@@ -34,10 +53,13 @@ let
           src = extra_file.src;
           dst = "${static}/${extra_file.dst}";
         };
-    in lib.concatStringsSep "\n" (lib.forEach files ({ src, dst }: ''
-      mkdir -p "${dirOf dst}"
-      cp "${package}/${src}" "${dst}"
-    ''));
+    in lib.concatStringsSep "\n" (lib.forEach files ({
+        src,
+        dst,
+      }: ''
+        mkdir -p "${dirOf dst}"
+        cp "${package}/${src}" "${dst}"
+      ''));
 
   npmPackages = import ./npm_deps.nix;
 in rustPlatform.buildRustPackage rec {

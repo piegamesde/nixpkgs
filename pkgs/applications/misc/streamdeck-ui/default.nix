@@ -1,5 +1,14 @@
-{ lib, python3Packages, fetchFromGitHub, fetchpatch, copyDesktopItems
-, wrapQtAppsHook, writeText, makeDesktopItem, xvfb-run }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  fetchpatch,
+  copyDesktopItems,
+  wrapQtAppsHook,
+  writeText,
+  makeDesktopItem,
+  xvfb-run,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "streamdeck-ui";

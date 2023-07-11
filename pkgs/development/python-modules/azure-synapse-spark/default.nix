@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, azure-common, azure-core, msrest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  azure-common,
+  azure-core,
+  msrest,
+}:
 
 buildPythonPackage rec {
   pname = "azure-synapse-spark";

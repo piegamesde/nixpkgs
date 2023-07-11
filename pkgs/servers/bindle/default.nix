@@ -1,4 +1,12 @@
-{ lib, rustPlatform, fetchFromGitHub, stdenv, Security, pkg-config, openssl }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  stdenv,
+  Security,
+  pkg-config,
+  openssl,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "bindle";

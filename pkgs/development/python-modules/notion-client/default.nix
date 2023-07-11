@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, anyio
-, httpx, pytest-asyncio, pytest-vcr }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  anyio,
+  httpx,
+  pytest-asyncio,
+  pytest-vcr,
+}:
 
 buildPythonPackage rec {
   pname = "notion-client";

@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, fetchzip, version ? "3.300" }:
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+  version ? "3.300"
+}:
 
 let
   new = lib.versionAtLeast version "3.000";

@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, dpkg, buildFHSEnv, glibc, glib, openssl, tpm2-tss, gtk3
-, gnome, polkit, polkit_gnome }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  buildFHSEnv,
+  glibc,
+  glib,
+  openssl,
+  tpm2-tss,
+  gtk3,
+  gnome,
+  polkit,
+  polkit_gnome,
+}:
 
 let
   pname = "beyond-identity";

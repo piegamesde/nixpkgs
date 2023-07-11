@@ -1,6 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, python, fixDarwinDylibNames
-, javaBindings ? false, ocamlBindings ? false, pythonBindings ? true, jdk ? null
-, ocaml ? null, findlib ? null, zarith ? null, writeScript }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python,
+  fixDarwinDylibNames,
+  javaBindings ? false,
+  ocamlBindings ? false,
+  pythonBindings ? true,
+  jdk ? null,
+  ocaml ? null,
+  findlib ? null,
+  zarith ? null,
+  writeScript,
+}:
 
 assert javaBindings -> jdk != null;
 assert ocamlBindings -> ocaml != null && findlib != null && zarith != null;
@@ -8,7 +20,12 @@ assert ocamlBindings -> ocaml != null && findlib != null && zarith != null;
 with lib;
 
 let
-  common = { version, sha256, patches ? [ ], tag ? "z3" }:
+  common = {
+      version,
+      sha256,
+      patches ? [ ],
+      tag ? "z3"
+    }:
     stdenv.mkDerivation rec {
       pname = "z3";
       inherit version sha256 patches;

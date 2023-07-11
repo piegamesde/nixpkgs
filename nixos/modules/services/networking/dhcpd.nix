@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -70,36 +75,38 @@ let
       };
     };
 
-  machineOpts = { ... }: {
+  machineOpts = {
+      ...
+    }: {
 
-    options = {
+      options = {
 
-      hostName = mkOption {
-        type = types.str;
-        example = "foo";
-        description = lib.mdDoc ''
-          Hostname which is assigned statically to the machine.
-        '';
+        hostName = mkOption {
+          type = types.str;
+          example = "foo";
+          description = lib.mdDoc ''
+            Hostname which is assigned statically to the machine.
+          '';
+        };
+
+        ethernetAddress = mkOption {
+          type = types.str;
+          example = "00:16:76:9a:32:1d";
+          description = lib.mdDoc ''
+            MAC address of the machine.
+          '';
+        };
+
+        ipAddress = mkOption {
+          type = types.str;
+          example = "192.168.1.10";
+          description = lib.mdDoc ''
+            IP address of the machine.
+          '';
+        };
+
       };
-
-      ethernetAddress = mkOption {
-        type = types.str;
-        example = "00:16:76:9a:32:1d";
-        description = lib.mdDoc ''
-          MAC address of the machine.
-        '';
-      };
-
-      ipAddress = mkOption {
-        type = types.str;
-        example = "192.168.1.10";
-        description = lib.mdDoc ''
-          IP address of the machine.
-        '';
-      };
-
     };
-  };
 
   dhcpConfig = postfix: {
 

@@ -1,18 +1,32 @@
-{ stdenvNoCC, lib, makeSetupHook, dart, git, cacert, jq }:
+{
+  stdenvNoCC,
+  lib,
+  makeSetupHook,
+  dart,
+  git,
+  cacert,
+  jq,
+}:
 
 {
 # The output hash of the dependencies for this project.
-vendorHash ? ""
-  # Commands to run once before using Dart or pub.
-, sdkSetupScript ? ""
-  # Commands to run to populate the pub cache.
-, pubGetScript ? "dart pub get"
-  # A path to a pubspec.lock file to use instead of the one in the source directory.
-, pubspecLockFile ? null
-  # Arguments used in the derivation that builds the Dart package.
-  # Passing these is recommended to ensure that the same steps are made to prepare the sources in both this
-  # derivation and the one that builds the Dart package.
-, buildDrvArgs ? { }, ... }@args:
+  vendorHash ? ""
+    # Commands to run once before using Dart or pub.
+  ,
+  sdkSetupScript ? ""
+    # Commands to run to populate the pub cache.
+  ,
+  pubGetScript ? "dart pub get"
+    # A path to a pubspec.lock file to use instead of the one in the source directory.
+  ,
+  pubspecLockFile ? null
+    # Arguments used in the derivation that builds the Dart package.
+    # Passing these is recommended to ensure that the same steps are made to prepare the sources in both this
+    # derivation and the one that builds the Dart package.
+  ,
+  buildDrvArgs ? { },
+  ...
+}@args:
 
 # This is a fixed-output derivation and setup hook that can be used to fetch dependencies for Dart projects.
 # It is designed to be placed in the nativeBuildInputs of a derivation that builds a Dart package.

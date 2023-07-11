@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, poetry-core, pythonRelaxDepsHook, click
-, colorama, flask, requests, yt-dlp, progress }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  poetry-core,
+  pythonRelaxDepsHook,
+  click,
+  colorama,
+  flask,
+  requests,
+  yt-dlp,
+  progress,
+}:
 
 buildPythonPackage rec {
   pname = "yark";

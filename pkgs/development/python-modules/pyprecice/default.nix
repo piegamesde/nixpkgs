@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, cython, fetchFromGitHub, mpi4py, numpy, precice
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  cython,
+  fetchFromGitHub,
+  mpi4py,
+  numpy,
+  precice,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyprecice";

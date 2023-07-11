@@ -1,30 +1,51 @@
-{ version, engineVersion, patches, dart, src, includedEngineArtifacts ? {
-  common = [ "flutter_patched_sdk" "flutter_patched_sdk_product" ];
-  platform = {
-    android = lib.optionalAttrs stdenv.hostPlatform.isx86_64
-      ((lib.genAttrs [ "arm" "arm64" "x64" ]
-        (architecture: [ "profile" "release" ])) // {
-          x86 = [ "jit-release" ];
-        });
-    linux = lib.optionals stdenv.hostPlatform.isLinux (lib.genAttrs
-      ((lib.optional stdenv.hostPlatform.isx86_64 "x64")
-        ++ (lib.optional stdenv.hostPlatform.isAarch64 "arm64"))
-      (architecture: [ "debug" "profile" "release" ]));
-  };
-}
+{
+  version,
+  engineVersion,
+  patches,
+  dart,
+  src,
+  includedEngineArtifacts ? {
+    common = [ "flutter_patched_sdk" "flutter_patched_sdk_product" ];
+    platform = {
+      android = lib.optionalAttrs stdenv.hostPlatform.isx86_64
+        ((lib.genAttrs [ "arm" "arm64" "x64" ]
+          (architecture: [ "profile" "release" ])) // {
+            x86 = [ "jit-release" ];
+          });
+      linux = lib.optionals stdenv.hostPlatform.isLinux (lib.genAttrs
+        ((lib.optional stdenv.hostPlatform.isx86_64 "x64")
+          ++ (lib.optional stdenv.hostPlatform.isAarch64 "arm64"))
+        (architecture: [ "debug" "profile" "release" ]));
+    };
+  }
 
-, lib, callPackage, stdenv, runCommandLocal, symlinkJoin, lndir, git, which }:
+  ,
+  lib,
+  callPackage,
+  stdenv,
+  runCommandLocal,
+  symlinkJoin,
+  lndir,
+  git,
+  which,
+}:
 
 let
   engineArtifactDirectory = let
     engineArtifacts = callPackage ./engine-artifacts { inherit engineVersion; };
   in runCommandLocal "flutter-engine-artifacts-${version}" { } (let
-    mkCommonArtifactLinkCommand = { artifact }: ''
-      mkdir -p $out/common
-      ${lndir}/bin/lndir -silent ${artifact} $out/common
-    '';
-    mkPlatformArtifactLinkCommand =
-      { artifact, os, architecture, variant ? null }:
+    mkCommonArtifactLinkCommand = {
+        artifact,
+      }: ''
+        mkdir -p $out/common
+        ${lndir}/bin/lndir -silent ${artifact} $out/common
+      '';
+    mkPlatformArtifactLinkCommand = {
+        artifact,
+        os,
+        architecture,
+        variant ? null
+      }:
       let
         artifactDirectory = "${os}-${architecture}${
             lib.optionalString (variant != null) "-${variant}"

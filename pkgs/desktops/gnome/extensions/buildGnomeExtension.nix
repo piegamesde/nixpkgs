@@ -1,17 +1,27 @@
-{ pkgs, lib, stdenv, fetchzip }:
+{
+  pkgs,
+  lib,
+  stdenv,
+  fetchzip,
+}:
 
 let
 
   buildGnomeExtension = {
     # Every gnome extension has a UUID. It's the name of the extension folder once unpacked
     # and can always be found in the metadata.json of every extension.
-    uuid, name, pname, description,
-    # extensions.gnome.org extension URL
-    link,
-    # Extension version numbers are integers
-    version, sha256,
-    # Hex-encoded string of JSON bytes
-    metadata, }:
+      uuid,
+      name,
+      pname,
+      description,
+      # extensions.gnome.org extension URL
+      link,
+      # Extension version numbers are integers
+      version,
+      sha256,
+      # Hex-encoded string of JSON bytes
+      metadata,
+    }:
 
     stdenv.mkDerivation {
       pname = "gnome-shell-extension-${pname}";

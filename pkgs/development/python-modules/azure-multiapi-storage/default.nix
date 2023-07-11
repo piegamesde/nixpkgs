@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, azure-common, azure-core, msrest
-, msrestazure, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  azure-common,
+  azure-core,
+  msrest,
+  msrestazure,
+  requests,
+}:
 
 buildPythonPackage rec {
   version = "1.0.0";

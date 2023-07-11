@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitLab, makeWrapper, pkg-config, file, scdoc, openssl
-, zlib, busybox, apk-tools, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  makeWrapper,
+  pkg-config,
+  file,
+  scdoc,
+  openssl,
+  zlib,
+  busybox,
+  apk-tools,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "abuild";

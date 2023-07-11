@@ -1,6 +1,21 @@
-{ lib, stdenv, brotlicffi, buildPythonPackage, certifi, chardet
-, charset-normalizer, fetchPypi, fetchpatch, idna, pysocks, pytest-mock
-, pytest-xdist, pytestCheckHook, pythonOlder, urllib3 }:
+{
+  lib,
+  stdenv,
+  brotlicffi,
+  buildPythonPackage,
+  certifi,
+  chardet,
+  charset-normalizer,
+  fetchPypi,
+  fetchpatch,
+  idna,
+  pysocks,
+  pytest-mock,
+  pytest-xdist,
+  pytestCheckHook,
+  pythonOlder,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "requests";

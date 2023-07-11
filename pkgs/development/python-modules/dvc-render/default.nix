@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, funcy, matplotlib, tabulate
-, pytestCheckHook, pytest-mock, pytest-test-utils, pythonOlder, setuptools-scm
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  funcy,
+  matplotlib,
+  tabulate,
+  pytestCheckHook,
+  pytest-mock,
+  pytest-test-utils,
+  pythonOlder,
+  setuptools-scm,
 }:
 
 buildPythonPackage rec {

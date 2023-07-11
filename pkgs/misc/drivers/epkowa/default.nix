@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchurl, fetchpatch, makeWrapper, symlinkJoin, pkg-config
-, libtool, gtk2, libxml2, libxslt, libusb-compat-0_1, sane-backends, rpm, cpio
-, getopt, autoPatchelfHook, gcc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  makeWrapper,
+  symlinkJoin,
+  pkg-config,
+  libtool,
+  gtk2,
+  libxml2,
+  libxslt,
+  libusb-compat-0_1,
+  sane-backends,
+  rpm,
+  cpio,
+  getopt,
+  autoPatchelfHook,
+  gcc,
+}:
 let
   common_meta = {
     homepage = "http://download.ebz.epson.net/dsc/search/01/search/?OSC=LX";

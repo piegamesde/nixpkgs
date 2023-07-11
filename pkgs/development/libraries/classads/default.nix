@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pcre }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pcre,
+}:
 
 stdenv.mkDerivation rec {
   pname = "classads";

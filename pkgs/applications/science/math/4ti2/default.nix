@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, glpk, gmp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  glpk,
+  gmp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "4ti2";

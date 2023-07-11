@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchpatch, fetchPypi, pytestCheckHook
-, python-dateutil, pythonAtLeast, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchPypi,
+  pytestCheckHook,
+  python-dateutil,
+  pythonAtLeast,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "freezegun";

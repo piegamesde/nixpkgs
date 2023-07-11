@@ -1,6 +1,19 @@
-{ stdenv, lib, fetchFromGitHub, cmake, qttools, pkg-config, qtbase
-, wrapQtAppsHook, dtkwidget, qt5integration, qt5platform-plugins, libuuid
-, parted, partclone }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  qttools,
+  pkg-config,
+  qtbase,
+  wrapQtAppsHook,
+  dtkwidget,
+  qt5integration,
+  qt5platform-plugins,
+  libuuid,
+  parted,
+  partclone,
+}:
 
 stdenv.mkDerivation rec {
   pname = "deepin-clone";

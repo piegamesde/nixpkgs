@@ -1,4 +1,11 @@
-{ lib, mkXfceDerivation, gobject-introspection, gtk3, gtksourceview4, gspell }:
+{
+  lib,
+  mkXfceDerivation,
+  gobject-introspection,
+  gtk3,
+  gtksourceview4,
+  gspell,
+}:
 
 mkXfceDerivation {
   category = "apps";

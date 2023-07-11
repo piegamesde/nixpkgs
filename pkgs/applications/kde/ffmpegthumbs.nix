@@ -1,4 +1,11 @@
-{ mkDerivation, lib, extra-cmake-modules, ffmpeg_4, kio, taglib }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  ffmpeg_4,
+  kio,
+  taglib,
+}:
 
 mkDerivation {
   pname = "ffmpegthumbs";

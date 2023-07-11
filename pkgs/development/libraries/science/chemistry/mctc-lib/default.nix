@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, gfortran, pkg-config, json-fortran, cmake }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  gfortran,
+  pkg-config,
+  json-fortran,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mctc-lib";

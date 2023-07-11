@@ -1,6 +1,15 @@
-{ lib, bleak-retry-connector, bluetooth-data-tools, bluetooth-sensor-state-data
-, buildPythonPackage, fetchFromGitHub, home-assistant-bluetooth, poetry-core
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  bleak-retry-connector,
+  bluetooth-data-tools,
+  bluetooth-sensor-state-data,
+  buildPythonPackage,
+  fetchFromGitHub,
+  home-assistant-bluetooth,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "oralb-ble";

@@ -1,4 +1,9 @@
-{ lib, stdenv, libX11, fetchurl }:
+{
+  lib,
+  stdenv,
+  libX11,
+  fetchurl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "worker";

@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, rustPlatform, AppKit, Cocoa, Foundation
-, installShellFiles }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  AppKit,
+  Cocoa,
+  Foundation,
+  installShellFiles,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "topgrade";

@@ -1,11 +1,37 @@
-{ stdenv, lib, pythonOlder, buildPythonPackage, fetchFromGitHub, fetchpatch
-# C Inputs
-, blas, catch2, cmake, cython, fmt, muparserx, ninja, nlohmann_json, spdlog
-# Python Inputs
-, cvxpy, numpy, pybind11, scikit-build
-# Check Inputs
-, pytestCheckHook, ddt, fixtures, pytest-timeout, qiskit-terra, setuptools
-, testtools }:
+{
+  stdenv,
+  lib,
+  pythonOlder,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch
+  # C Inputs
+  ,
+  blas,
+  catch2,
+  cmake,
+  cython,
+  fmt,
+  muparserx,
+  ninja,
+  nlohmann_json,
+  spdlog
+  # Python Inputs
+  ,
+  cvxpy,
+  numpy,
+  pybind11,
+  scikit-build
+  # Check Inputs
+  ,
+  pytestCheckHook,
+  ddt,
+  fixtures,
+  pytest-timeout,
+  qiskit-terra,
+  setuptools,
+  testtools,
+}:
 
 buildPythonPackage rec {
   pname = "qiskit-aer";

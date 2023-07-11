@@ -1,4 +1,9 @@
-{ lib, fetchFromSourcehut, buildGoModule, unzip }:
+{
+  lib,
+  fetchFromSourcehut,
+  buildGoModule,
+  unzip,
+}:
 
 buildGoModule (rec {
   pname = "pagessrht";

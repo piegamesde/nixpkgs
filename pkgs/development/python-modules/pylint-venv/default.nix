@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pylint-venv";

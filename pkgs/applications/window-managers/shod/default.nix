@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, writeText, fontconfig, libX11, libXft
-, libXinerama, libXpm, libXrender, conf ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  writeText,
+  fontconfig,
+  libX11,
+  libXft,
+  libXinerama,
+  libXpm,
+  libXrender,
+  conf ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "shod";

@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, httpx, protobuf
-, pytest-asyncio, pytest-httpx, pytest-mock, pytestCheckHook, pythonOlder
-, setuptools-scm, zeroconf }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  httpx,
+  protobuf,
+  pytest-asyncio,
+  pytest-httpx,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+  zeroconf,
+}:
 
 buildPythonPackage rec {
   pname = "devolo-plc-api";

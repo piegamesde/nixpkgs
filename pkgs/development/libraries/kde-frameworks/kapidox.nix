@@ -1,4 +1,8 @@
-{ mkDerivation, python3, qtbase }:
+{
+  mkDerivation,
+  python3,
+  qtbase,
+}:
 
 mkDerivation {
   pname = "kapidox";

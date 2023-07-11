@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, jedi, pygments, urwid, urwid-readline
-, pytest-mock, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jedi,
+  pygments,
+  urwid,
+  urwid-readline,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pudb";

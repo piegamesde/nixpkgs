@@ -1,5 +1,13 @@
-{ lib, stdenv, makeWrapper, openjdk, gtk2, xorg, glibcLocales
-, releasePath ? null }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  openjdk,
+  gtk2,
+  xorg,
+  glibcLocales,
+  releasePath ? null
+}:
 
 # To use this package, you need to download your own cplex installer from IBM
 # and override the releasePath attribute to point to the location of the file.

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, git }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  git,
+}:
 
 # Changing the variables CPPFLAGS and BUILD_CONFIG_NAME can be done by
 # overriding the same-named attributes. See ./presets.nix for examples.

@@ -1,4 +1,10 @@
-{ back, base, gui, gsmakeDerivation, fetchurl }:
+{
+  back,
+  base,
+  gui,
+  gsmakeDerivation,
+  fetchurl,
+}:
 let version = "1.2.0";
 in gsmakeDerivation {
   name = "system_preferences-${version}";

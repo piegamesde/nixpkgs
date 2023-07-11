@@ -1,4 +1,11 @@
-{ buildOctavePackage, stdenv, lib, fetchurl, pkg-config, ffmpeg_4 }:
+{
+  buildOctavePackage,
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  ffmpeg_4,
+}:
 
 buildOctavePackage rec {
   pname = "video";

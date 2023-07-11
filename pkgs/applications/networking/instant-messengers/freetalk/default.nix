@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, guile, pkg-config, glib, loudmouth
-, gmp, libidn, readline, libtool, libunwind, ncurses, curl, jansson, texinfo
-, automake, autoconf }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  guile,
+  pkg-config,
+  glib,
+  loudmouth,
+  gmp,
+  libidn,
+  readline,
+  libtool,
+  libunwind,
+  ncurses,
+  curl,
+  jansson,
+  texinfo,
+  automake,
+  autoconf,
+}:
 stdenv.mkDerivation rec {
   pname = "freetalk";
   version = "4.1";

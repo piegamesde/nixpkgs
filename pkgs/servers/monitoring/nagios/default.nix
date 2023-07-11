@@ -1,4 +1,15 @@
-{ lib, stdenv, fetchurl, perl, php, gd, libpng, zlib, unzip, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  php,
+  gd,
+  libpng,
+  zlib,
+  unzip,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nagios";

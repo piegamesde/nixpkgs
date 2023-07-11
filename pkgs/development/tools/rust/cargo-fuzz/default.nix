@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, rustPlatform, stdenv, libiconv }:
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  stdenv,
+  libiconv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-fuzz";

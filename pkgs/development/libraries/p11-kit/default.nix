@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, docbook-xsl-nons, gtk-doc
-, installShellFiles, libxslt # for xsltproc
-, pkg-config, which, libffi, libiconv, libintl, libtasn1 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  docbook-xsl-nons,
+  gtk-doc,
+  installShellFiles,
+  libxslt # for xsltproc
+  ,
+  pkg-config,
+  which,
+  libffi,
+  libiconv,
+  libintl,
+  libtasn1,
+}:
 
 stdenv.mkDerivation rec {
   pname = "p11-kit";

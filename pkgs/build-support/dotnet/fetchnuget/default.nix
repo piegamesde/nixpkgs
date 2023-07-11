@@ -1,8 +1,17 @@
-{ fetchurl, buildDotnetPackage, unzip }:
+{
+  fetchurl,
+  buildDotnetPackage,
+  unzip,
+}:
 
-attrs@{ pname, version
-, url ? "https://www.nuget.org/api/v2/package/${pname}/${version}", sha256 ? ""
-, md5 ? "", ... }:
+attrs@{
+  pname,
+  version,
+  url ? "https://www.nuget.org/api/v2/package/${pname}/${version}",
+  sha256 ? "",
+  md5 ? "",
+  ...
+}:
 if md5 != "" then
   throw "fetchnuget does not support md5 anymore, please use sha256"
 else

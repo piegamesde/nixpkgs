@@ -1,7 +1,26 @@
-{ lib, buildPythonPackage, cryptography, defusedxml, fetchFromGitHub, fetchPypi
-, importlib-resources, poetry-core, pyasn1, pymongo, pyopenssl, pytestCheckHook
-, python-dateutil, pythonOlder, pytz, requests, responses, setuptools
-, substituteAll, xmlschema, xmlsec }:
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  defusedxml,
+  fetchFromGitHub,
+  fetchPypi,
+  importlib-resources,
+  poetry-core,
+  pyasn1,
+  pymongo,
+  pyopenssl,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pytz,
+  requests,
+  responses,
+  setuptools,
+  substituteAll,
+  xmlschema,
+  xmlsec,
+}:
 
 let
   pymongo3 = pymongo.overridePythonAttrs (old: rec {

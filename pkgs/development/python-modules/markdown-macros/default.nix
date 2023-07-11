@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, markdown }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  markdown,
+}:
 
 buildPythonPackage rec {
   pname = "markdown-macros";

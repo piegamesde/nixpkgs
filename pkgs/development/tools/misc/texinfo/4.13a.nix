@@ -1,4 +1,10 @@
-{ stdenv, fetchurl, texinfo, ncurses, xz }:
+{
+  stdenv,
+  fetchurl,
+  texinfo,
+  ncurses,
+  xz,
+}:
 
 stdenv.mkDerivation rec {
   pname = "texinfo";

@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, deprecated, fetchFromGitHub, etcd3, hiro, packaging
-, pymemcache, pymongo, pytest-asyncio, pytest-lazy-fixture, pytestCheckHook
-, pythonOlder, redis, setuptools, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  deprecated,
+  fetchFromGitHub,
+  etcd3,
+  hiro,
+  packaging,
+  pymemcache,
+  pymongo,
+  pytest-asyncio,
+  pytest-lazy-fixture,
+  pytestCheckHook,
+  pythonOlder,
+  redis,
+  setuptools,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "limits";

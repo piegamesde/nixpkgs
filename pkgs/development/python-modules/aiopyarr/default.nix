@@ -1,5 +1,15 @@
-{ lib, aiohttp, aresponses, buildPythonPackage, ciso8601, fetchFromGitHub
-, orjson, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  ciso8601,
+  fetchFromGitHub,
+  orjson,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aiopyarr";

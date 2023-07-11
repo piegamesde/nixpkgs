@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pam, bison, flex, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pam,
+  bison,
+  flex,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libcgroup";

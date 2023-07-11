@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, libXext, Xaw3d, ghostscriptX, perl, pkg-config
-, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libXext,
+  Xaw3d,
+  ghostscriptX,
+  perl,
+  pkg-config,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gv";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, gmp, mpir, cddlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gmp,
+  mpir,
+  cddlib,
+}:
 stdenv.mkDerivation rec {
   pname = "gfan";
   version = "0.6.2";

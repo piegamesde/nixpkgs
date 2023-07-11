@@ -1,16 +1,30 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch
 
-# build-system
-, poetry-core
+  # build-system
+  ,
+  poetry-core
 
-# docs
-, furo, sphinxHook
+  # docs
+  ,
+  furo,
+  sphinxHook
 
-# runtime
-, babel, flask, jinja2, pytz
+  # runtime
+  ,
+  babel,
+  flask,
+  jinja2,
+  pytz
 
-# tests
-, pytest-mock, pytestCheckHook }:
+  # tests
+  ,
+  pytest-mock,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "flask-babel";

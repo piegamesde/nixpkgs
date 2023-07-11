@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, openssl, cryptography
-, pytestCheckHook, pretend, sphinxHook, sphinx-rtd-theme, flaky }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  openssl,
+  cryptography,
+  pytestCheckHook,
+  pretend,
+  sphinxHook,
+  sphinx-rtd-theme,
+  flaky,
+}:
 
 buildPythonPackage rec {
   pname = "pyopenssl";

@@ -1,4 +1,11 @@
-{ lib, stdenv, buildPythonApplication, pkgsBuildTarget, python, minijail }:
+{
+  lib,
+  stdenv,
+  buildPythonApplication,
+  pkgsBuildTarget,
+  python,
+  minijail,
+}:
 
 let targetClang = pkgsBuildTarget.targetPackages.clangStdenv.cc;
 

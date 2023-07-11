@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, kernel }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  kernel,
+}:
 
 let srcs = import (./srcs.nix) { inherit fetchurl; };
 in stdenv.mkDerivation rec {

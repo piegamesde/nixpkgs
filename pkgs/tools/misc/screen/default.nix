@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, ncurses, libxcrypt, utmp
-, pam ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  autoreconfHook,
+  ncurses,
+  libxcrypt,
+  utmp,
+  pam ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "screen";

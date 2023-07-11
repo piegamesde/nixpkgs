@@ -1,4 +1,11 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, pkgs, pillow }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pkgs,
+  pillow,
+}:
 
 buildPythonPackage rec {
   pname = "pyopengl";

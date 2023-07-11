@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, environs, fetchFromGitHub, poetry-core, pytest-mock
-, pytest-vcr, pytestCheckHook, pythonOlder, requests, tornado }:
+{
+  lib,
+  buildPythonPackage,
+  environs,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-mock,
+  pytest-vcr,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  tornado,
+}:
 
 buildPythonPackage rec {
   pname = "deezer-python";

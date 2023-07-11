@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, flake8, pycodestyle, pylama
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flake8,
+  pycodestyle,
+  pylama,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "flake8-import-order";

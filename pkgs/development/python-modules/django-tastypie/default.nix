@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, python-dateutil, python-mimeparse
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python-dateutil,
+  python-mimeparse,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "django-tastypie";

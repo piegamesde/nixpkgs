@@ -1,5 +1,15 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, libiconv, openssl, pkg-config
-, xclip, AppKit, Security }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  libiconv,
+  openssl,
+  pkg-config,
+  xclip,
+  AppKit,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "gitui";

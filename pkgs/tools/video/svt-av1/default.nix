@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitLab, gitUpdater, cmake, nasm }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  gitUpdater,
+  cmake,
+  nasm,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "svt-av1";

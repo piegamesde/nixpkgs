@@ -1,7 +1,24 @@
-{ lib, stdenv, fetchurl, meson, ninja, pkg-config, libxml2, json-glib, glib
-, gettext, libsoup_3, gi-docgen, gobject-introspection, python3, tzdata
-, geocode-glib_2, vala, gnome
-, withIntrospection ? stdenv.buildPlatform == stdenv.hostPlatform }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  pkg-config,
+  libxml2,
+  json-glib,
+  glib,
+  gettext,
+  libsoup_3,
+  gi-docgen,
+  gobject-introspection,
+  python3,
+  tzdata,
+  geocode-glib_2,
+  vala,
+  gnome,
+  withIntrospection ? stdenv.buildPlatform == stdenv.hostPlatform
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgweather";

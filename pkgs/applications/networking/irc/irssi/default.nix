@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, glib, libgcrypt, libintl, libotr, libtool, meson
-, ncurses, ninja, openssl, perl, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  glib,
+  libgcrypt,
+  libintl,
+  libotr,
+  libtool,
+  meson,
+  ncurses,
+  ninja,
+  openssl,
+  perl,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "irssi";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, gmp, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  gmp,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "fastecdsa";

@@ -1,4 +1,10 @@
-{ lib, fetchPypi, buildPythonPackage, acme, certbot }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  acme,
+  certbot,
+}:
 
 buildPythonPackage rec {
   pname = "certbot-dns-inwx";

@@ -1,20 +1,102 @@
-{ stdenv, lib, src, patches ? [ ], version, coreutils, bison, flex, gdb, gperf
-, lndir, perl, pkg-config, python3, which, cmake, ninja, ccache, xmlstarlet
-, libproxy, xorg, zstd, double-conversion, util-linux, systemd
-, systemdSupport ? stdenv.isLinux, libb2, md4c, mtdev, lksctp-tools, libselinux
-, libsepol, vulkan-headers, vulkan-loader, libthai, libdrm, libdatrie, lttng-ust
-, libepoxy, libiconv, dbus, fontconfig, freetype, glib, harfbuzz, icu, libX11
-, libXcomposite, libXext, libXi, libXrender, libinput, libjpeg, libpng, libxcb
-, libxkbcommon, libxml2, libxslt, openssl, pcre, pcre2, sqlite, udev, xcbutil
-, xcbutilimage, xcbutilkeysyms, xcbutilrenderutil, xcbutilwm, zlib, at-spi2-core
-, unixODBC, unixODBCDrivers
-# darwin
-, moveBuildTree, xcbuild, AGL, AVFoundation, AppKit, Contacts, CoreBluetooth
-, EventKit, GSS, MetalKit
-# optional dependencies
-, cups, libmysqlclient, postgresql, withGtk3 ? false, dconf, gtk3
-# options
-, libGLSupported ? stdenv.isLinux, libGL, debug ? false, developerBuild ? false
+{
+  stdenv,
+  lib,
+  src,
+  patches ? [ ],
+  version,
+  coreutils,
+  bison,
+  flex,
+  gdb,
+  gperf,
+  lndir,
+  perl,
+  pkg-config,
+  python3,
+  which,
+  cmake,
+  ninja,
+  ccache,
+  xmlstarlet,
+  libproxy,
+  xorg,
+  zstd,
+  double-conversion,
+  util-linux,
+  systemd,
+  systemdSupport ? stdenv.isLinux,
+  libb2,
+  md4c,
+  mtdev,
+  lksctp-tools,
+  libselinux,
+  libsepol,
+  vulkan-headers,
+  vulkan-loader,
+  libthai,
+  libdrm,
+  libdatrie,
+  lttng-ust,
+  libepoxy,
+  libiconv,
+  dbus,
+  fontconfig,
+  freetype,
+  glib,
+  harfbuzz,
+  icu,
+  libX11,
+  libXcomposite,
+  libXext,
+  libXi,
+  libXrender,
+  libinput,
+  libjpeg,
+  libpng,
+  libxcb,
+  libxkbcommon,
+  libxml2,
+  libxslt,
+  openssl,
+  pcre,
+  pcre2,
+  sqlite,
+  udev,
+  xcbutil,
+  xcbutilimage,
+  xcbutilkeysyms,
+  xcbutilrenderutil,
+  xcbutilwm,
+  zlib,
+  at-spi2-core,
+  unixODBC,
+  unixODBCDrivers
+  # darwin
+  ,
+  moveBuildTree,
+  xcbuild,
+  AGL,
+  AVFoundation,
+  AppKit,
+  Contacts,
+  CoreBluetooth,
+  EventKit,
+  GSS,
+  MetalKit
+  # optional dependencies
+  ,
+  cups,
+  libmysqlclient,
+  postgresql,
+  withGtk3 ? false,
+  dconf,
+  gtk3
+  # options
+  ,
+  libGLSupported ? stdenv.isLinux,
+  libGL,
+  debug ? false,
+  developerBuild ? false
 }:
 
 let debugSymbols = debug || developerBuild;

@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, pkg-config, wget, unzip, sqlite, which, lua
-, installShellFiles, makeWrapper }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  wget,
+  unzip,
+  sqlite,
+  which,
+  lua,
+  installShellFiles,
+  makeWrapper,
+}:
 let luaEnv = lua.withPackages (p: with p; [ luasql-sqlite3 luautf8 ]);
 in stdenv.mkDerivation rec {
   pname = "openrussian-cli";

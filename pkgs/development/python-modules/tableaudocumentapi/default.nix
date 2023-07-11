@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, lxml, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  lxml,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "tableaudocumentapi";

@@ -1,4 +1,10 @@
-{ build-asdf-system, spec, quicklispPackagesFor, pkgs, ... }:
+{
+  build-asdf-system,
+  spec,
+  quicklispPackagesFor,
+  pkgs,
+  ...
+}:
 
 let
 

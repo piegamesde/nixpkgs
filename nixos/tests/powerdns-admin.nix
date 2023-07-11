@@ -1,6 +1,9 @@
 # Test powerdns-admin
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; }
+}:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -17,7 +20,11 @@ let
         maintainers = [ Flakebi zhaofengli ];
       };
 
-      nodes.server = { pkgs, config, ... }:
+      nodes.server = {
+          pkgs,
+          config,
+          ...
+        }:
         mkMerge ([{
           services.powerdns-admin = {
             enable = true;

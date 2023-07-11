@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitLab, fetchpatch, pytestCheckHook
-, pythonOlder, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitLab,
+  fetchpatch,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "tololib";

@@ -1,8 +1,27 @@
-{ stdenv, lib, fetchurl, glib, meson, ninja, pkg-config, gettext, libxslt
-, python3, docbook-xsl-nons, docbook_xml_dtd_42, libgcrypt
-, gobject-introspection, buildPackages
-, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages, vala
-, gi-docgen, gnome, gjs, libintl, dbus }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  glib,
+  meson,
+  ninja,
+  pkg-config,
+  gettext,
+  libxslt,
+  python3,
+  docbook-xsl-nons,
+  docbook_xml_dtd_42,
+  libgcrypt,
+  gobject-introspection,
+  buildPackages,
+  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
+  vala,
+  gi-docgen,
+  gnome,
+  gjs,
+  libintl,
+  dbus,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libsecret";

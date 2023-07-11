@@ -1,6 +1,18 @@
-{ lib, apsw, buildPythonPackage, cython, fetchFromGitHub, flask, python, sqlite
-, withMysql ? false, mysql-connector, withPostgres ? false, psycopg2
-, pythonOlder }:
+{
+  lib,
+  apsw,
+  buildPythonPackage,
+  cython,
+  fetchFromGitHub,
+  flask,
+  python,
+  sqlite,
+  withMysql ? false,
+  mysql-connector,
+  withPostgres ? false,
+  psycopg2,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "peewee";

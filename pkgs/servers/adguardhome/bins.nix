@@ -1,4 +1,7 @@
-{ fetchurl, fetchzip }: {
+{
+  fetchurl,
+  fetchzip,
+}: {
   x86_64-darwin = fetchzip {
     sha256 = "sha256-ygf5D8s1Yv9J1mVDAZrW9Q/4scQopQ547TfHG+fFwoU=";
     url =

@@ -1,7 +1,24 @@
-{ lib, buildNpmPackage, copyDesktopItems, electron_22, buildGoModule, esbuild
-, fetchFromGitHub, fetchpatch, libdeltachat, makeDesktopItem, makeWrapper
-, noto-fonts-emoji, pkg-config, python3, roboto, rustPlatform, sqlcipher, stdenv
-, CoreServices }:
+{
+  lib,
+  buildNpmPackage,
+  copyDesktopItems,
+  electron_22,
+  buildGoModule,
+  esbuild,
+  fetchFromGitHub,
+  fetchpatch,
+  libdeltachat,
+  makeDesktopItem,
+  makeWrapper,
+  noto-fonts-emoji,
+  pkg-config,
+  python3,
+  roboto,
+  rustPlatform,
+  sqlcipher,
+  stdenv,
+  CoreServices,
+}:
 
 let
   libdeltachat' = libdeltachat.overrideAttrs (old: rec {

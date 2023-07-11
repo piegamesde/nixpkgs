@@ -1,4 +1,8 @@
-{ callPackage, texinfo, perl }:
+{
+  callPackage,
+  texinfo,
+  perl,
+}:
 
 callPackage ./common.nix { } {
   pname = "glibc-info";

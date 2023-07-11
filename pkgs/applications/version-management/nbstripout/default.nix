@@ -1,4 +1,10 @@
-{ lib, python3, coreutils, git, mercurial }:
+{
+  lib,
+  python3,
+  coreutils,
+  git,
+  mercurial,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   version = "0.6.1";

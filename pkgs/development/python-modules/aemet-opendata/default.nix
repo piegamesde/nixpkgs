@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, geopy, requests
-, urllib3 }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  geopy,
+  requests,
+  urllib3,
+}:
 
 buildPythonPackage rec {
   pname = "aemet-opendata";

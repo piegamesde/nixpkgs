@@ -45,12 +45,17 @@
      nix-build maintainers/scripts/haskell/test-configurations.nix \
        --arg skipBinaryGHCs false --keep-going
 */
-{ files ? [
-  "configuration-common.nix"
-  "configuration-nix.nix"
-  "configuration-ghc-8.10.x.nix"
-], nixpkgsPath ? ../../.., config ? { allowBroken = true; }
-, skipEvalErrors ? true, skipBinaryGHCs ? true }:
+{
+  files ? [
+    "configuration-common.nix"
+    "configuration-nix.nix"
+    "configuration-ghc-8.10.x.nix"
+  ],
+  nixpkgsPath ? ../../..,
+  config ? { allowBroken = true; },
+  skipEvalErrors ? true,
+  skipBinaryGHCs ? true
+}:
 
 let
   pkgs = import nixpkgsPath { inherit config; };

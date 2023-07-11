@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, callPackage, stuffbin, nixosTests }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  callPackage,
+  stuffbin,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "listmonk";

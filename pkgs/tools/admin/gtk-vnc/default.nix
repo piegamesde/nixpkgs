@@ -1,7 +1,27 @@
-{ lib, stdenv, fetchurl, meson, ninja, gobject-introspection, gnutls, cairo
-, glib, pkg-config, cyrus_sasl, pulseaudioSupport ? stdenv.isLinux
-, libpulseaudio, libgcrypt, gtk3, vala, gettext, perl, python3, gnome
-, gdk-pixbuf, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  ninja,
+  gobject-introspection,
+  gnutls,
+  cairo,
+  glib,
+  pkg-config,
+  cyrus_sasl,
+  pulseaudioSupport ? stdenv.isLinux,
+  libpulseaudio,
+  libgcrypt,
+  gtk3,
+  vala,
+  gettext,
+  perl,
+  python3,
+  gnome,
+  gdk-pixbuf,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gtk-vnc";

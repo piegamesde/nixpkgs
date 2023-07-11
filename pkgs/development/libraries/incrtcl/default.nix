@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, writeText, tcl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  writeText,
+  tcl,
+}:
 
 tcl.mkTclDerivation rec {
   pname = "incrtcl";

@@ -1,16 +1,31 @@
-{ lib, buildPythonPackage, fetchPypi, buildbot
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  buildbot
 
-# patch
-, coreutils
+  # patch
+  ,
+  coreutils
 
-# propagates
-, autobahn, future, msgpack, twisted
+  # propagates
+  ,
+  autobahn,
+  future,
+  msgpack,
+  twisted
 
-# tests
-, mock, parameterized, psutil, setuptoolsTrial
+  # tests
+  ,
+  mock,
+  parameterized,
+  psutil,
+  setuptoolsTrial
 
-# passthru
-, nixosTests }:
+  # passthru
+  ,
+  nixosTests,
+}:
 
 buildPythonPackage (rec {
   pname = "buildbot-worker";

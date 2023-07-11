@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, pkg-config, libX11, libpng, libjpeg, expat, libXaw
-, bison, libtool, fontconfig, pango, gd, libwebp }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libX11,
+  libpng,
+  libjpeg,
+  expat,
+  libXaw,
+  bison,
+  libtool,
+  fontconfig,
+  pango,
+  gd,
+  libwebp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "graphviz";

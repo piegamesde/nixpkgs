@@ -1,5 +1,17 @@
-{ pkgs, lib, stdenv, fetchzip, ncurses, libX11, libXaw, libXt, libXext, libXmu
-, makeWrapper, writeScript }:
+{
+  pkgs,
+  lib,
+  stdenv,
+  fetchzip,
+  ncurses,
+  libX11,
+  libXaw,
+  libXt,
+  libXext,
+  libXmu,
+  makeWrapper,
+  writeScript,
+}:
 
 let
   setup = writeScript "setup" ''

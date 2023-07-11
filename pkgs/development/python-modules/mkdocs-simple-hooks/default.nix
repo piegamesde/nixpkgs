@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, isPy3k, fetchFromGitHub, mkdocs, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  isPy3k,
+  fetchFromGitHub,
+  mkdocs,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "mkdocs-simple-hooks";

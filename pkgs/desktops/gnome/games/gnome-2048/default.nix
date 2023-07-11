@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, fetchpatch, wrapGAppsHook, meson, vala, pkg-config
-, ninja, itstool, clutter-gtk, libgee, libgnome-games-support, gnome, gtk3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  wrapGAppsHook,
+  meson,
+  vala,
+  pkg-config,
+  ninja,
+  itstool,
+  clutter-gtk,
+  libgee,
+  libgnome-games-support,
+  gnome,
+  gtk3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-twenty-forty-eight";

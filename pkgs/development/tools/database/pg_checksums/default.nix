@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, libxslt, docbook_xsl, postgresql }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libxslt,
+  docbook_xsl,
+  postgresql,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pg_checksums";

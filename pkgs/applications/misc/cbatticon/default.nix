@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, gettext, glib, gtk3, libnotify
-, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  gettext,
+  glib,
+  gtk3,
+  libnotify,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cbatticon";

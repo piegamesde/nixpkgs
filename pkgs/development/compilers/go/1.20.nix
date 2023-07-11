@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchurl, tzdata, substituteAll, iana-etc, Security, Foundation
-, xcbuild, mailcap, buildPackages, pkgsBuildTarget, threadsCross, testers
-, skopeo, buildGo120Module }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  tzdata,
+  substituteAll,
+  iana-etc,
+  Security,
+  Foundation,
+  xcbuild,
+  mailcap,
+  buildPackages,
+  pkgsBuildTarget,
+  threadsCross,
+  testers,
+  skopeo,
+  buildGo120Module,
+}:
 
 let
   useGccGoBootstrap = stdenv.buildPlatform.isMusl

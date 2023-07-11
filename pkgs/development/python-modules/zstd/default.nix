@@ -1,4 +1,12 @@
-{ lib, pkg-config, fetchPypi, buildPythonPackage, buildPackages, zstd, pytest }:
+{
+  lib,
+  pkg-config,
+  fetchPypi,
+  buildPythonPackage,
+  buildPackages,
+  zstd,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "zstd";

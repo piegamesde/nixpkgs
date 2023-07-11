@@ -1,4 +1,9 @@
-{ lib, perlPackages, fetchFromGitHub, installShellFiles }:
+{
+  lib,
+  perlPackages,
+  fetchFromGitHub,
+  installShellFiles,
+}:
 
 perlPackages.buildPerlPackage rec {
   pname = "wakeonlan";

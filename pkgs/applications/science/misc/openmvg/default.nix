@@ -1,7 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, cereal, openmp
-, libjpeg ? null, zlib ? null, libpng ? null, eigen ? null, libtiff ? null
-, ceres-solver, enableShared ? !stdenv.hostPlatform.isStatic
-, enableExamples ? false, enableDocs ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  cereal,
+  openmp,
+  libjpeg ? null,
+  zlib ? null,
+  libpng ? null,
+  eigen ? null,
+  libtiff ? null,
+  ceres-solver,
+  enableShared ? !stdenv.hostPlatform.isStatic,
+  enableExamples ? false,
+  enableDocs ? false
+}:
 
 stdenv.mkDerivation rec {
   version = "unstable-2022-12-30";

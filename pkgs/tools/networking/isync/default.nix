@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, pkg-config, perl, openssl, db, cyrus_sasl, zlib
-, Security }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  perl,
+  openssl,
+  db,
+  cyrus_sasl,
+  zlib,
+  Security,
+}:
 
 stdenv.mkDerivation rec {
   pname = "isync";

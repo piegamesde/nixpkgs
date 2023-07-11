@@ -1,5 +1,14 @@
-{ lib, aio-georss-client, aresponses, buildPythonPackage, dateparser
-, fetchFromGitHub, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aio-georss-client,
+  aresponses,
+  buildPythonPackage,
+  dateparser,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aio-georss-gdacs";

@@ -1,4 +1,9 @@
-{ lib, python3Packages, jpegoptim, optipng }:
+{
+  lib,
+  python3Packages,
+  jpegoptim,
+  optipng,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "sacad";

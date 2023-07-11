@@ -4,7 +4,13 @@
 #   3. Build this package `nix-build -A psitransfer`
 #   4. Profit
 
-{ stdenv, pkgs, lib, nodejs_14, fetchzip }:
+{
+  stdenv,
+  pkgs,
+  lib,
+  nodejs_14,
+  fetchzip,
+}:
 
 let
   # nodejs_16 fails with ENOTCACHED

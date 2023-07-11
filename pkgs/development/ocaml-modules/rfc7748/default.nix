@@ -1,6 +1,13 @@
-{ lib, buildDunePackage, fetchFromGitHub, ocaml
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  ocaml
 
-, ounit, zarith }:
+  ,
+  ounit,
+  zarith,
+}:
 
 buildDunePackage rec {
   pname = "rfc7748";

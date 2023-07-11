@@ -1,4 +1,10 @@
-{ lib, buildDunePackage, fetchurl, stdlib-shims, ounit }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  stdlib-shims,
+  ounit,
+}:
 
 buildDunePackage rec {
   pname = "diet";

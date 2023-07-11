@@ -1,4 +1,11 @@
-{ lib, stdenvNoLibs, buildPackages, gcc, glibc, libiberty }:
+{
+  lib,
+  stdenvNoLibs,
+  buildPackages,
+  gcc,
+  glibc,
+  libiberty,
+}:
 
 stdenvNoLibs.mkDerivation rec {
   pname = "libgcc";

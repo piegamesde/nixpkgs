@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, coreutils, binutils-unwrapped }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  coreutils,
+  binutils-unwrapped,
+}:
 
 stdenv.mkDerivation rec {
   pname = "spectre-meltdown-checker";

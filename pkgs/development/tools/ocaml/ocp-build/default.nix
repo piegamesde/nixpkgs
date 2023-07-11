@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, ocaml, findlib, ncurses
-, cmdliner_1_0, re }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  ocaml,
+  findlib,
+  ncurses,
+  cmdliner_1_0,
+  re,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-ocp-build";

@@ -1,5 +1,14 @@
-{ lib, stdenv, mkDerivation, fetchFromGitHub, cmake, qtsvg, qtwebengine
-, qttranslations, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  qtsvg,
+  qtwebengine,
+  qttranslations,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pageedit";

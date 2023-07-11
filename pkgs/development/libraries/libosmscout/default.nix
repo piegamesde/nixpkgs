@@ -1,5 +1,13 @@
-{ lib, mkDerivation, fetchFromGitHub, cmake, pkg-config, marisa, qttools
-, qtlocation }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  marisa,
+  qttools,
+  qtlocation,
+}:
 
 mkDerivation rec {
   pname = "libosmscout";

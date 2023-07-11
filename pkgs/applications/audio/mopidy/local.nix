@@ -1,4 +1,10 @@
-{ stdenv, lib, mopidy, python3Packages, fetchpatch }:
+{
+  stdenv,
+  lib,
+  mopidy,
+  python3Packages,
+  fetchpatch,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "Mopidy-Local";

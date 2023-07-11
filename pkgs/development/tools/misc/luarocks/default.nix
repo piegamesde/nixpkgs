@@ -1,9 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, curl, makeWrapper, which, unzip, lua
-, file, nix-prefetch-git
-# for 'luarocks pack'
-, zip, nix-update-script
-# some packages need to be compiled with cmake
-, cmake, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  curl,
+  makeWrapper,
+  which,
+  unzip,
+  lua,
+  file,
+  nix-prefetch-git
+  # for 'luarocks pack'
+  ,
+  zip,
+  nix-update-script
+  # some packages need to be compiled with cmake
+  ,
+  cmake,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "luarocks";

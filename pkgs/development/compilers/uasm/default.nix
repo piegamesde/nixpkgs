@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, testers, uasm }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  testers,
+  uasm,
+}:
 
 stdenv.mkDerivation rec {
   pname = "uasm";

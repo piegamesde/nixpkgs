@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let cfg = config.services.keter;
 in {
   meta = { maintainers = with lib.maintainers; [ jappie ]; };

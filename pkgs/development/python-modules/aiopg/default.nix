@@ -1,4 +1,10 @@
-{ lib, async-timeout, buildPythonPackage, fetchFromGitHub, psycopg2, pythonOlder
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  psycopg2,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

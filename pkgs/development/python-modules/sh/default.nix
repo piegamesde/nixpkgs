@@ -1,5 +1,15 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, poetry-core, python, lsof
-, glibcLocales, coreutils, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  python,
+  lsof,
+  glibcLocales,
+  coreutils,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "sh";

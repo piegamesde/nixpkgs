@@ -1,4 +1,9 @@
-{ lib, python3, glibcLocales, docker-compose_1 }:
+{
+  lib,
+  python3,
+  glibcLocales,
+  docker-compose_1,
+}:
 let
   docker_compose = changeVersion (with localPython.pkgs;
     docker-compose_1.override {

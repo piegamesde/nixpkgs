@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3Packages, installShellFiles }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  installShellFiles,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "zpool-iostat-viz";

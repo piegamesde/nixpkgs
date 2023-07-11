@@ -1,5 +1,17 @@
-{ lib, boost, fetchFromGitHub, installShellFiles, mkDerivation, muparser
-, pkg-config, qmake, qtbase, qtsvg, qttools, runtimeShell }:
+{
+  lib,
+  boost,
+  fetchFromGitHub,
+  installShellFiles,
+  mkDerivation,
+  muparser,
+  pkg-config,
+  qmake,
+  qtbase,
+  qtsvg,
+  qttools,
+  runtimeShell,
+}:
 
 mkDerivation rec {
   pname = "librecad";

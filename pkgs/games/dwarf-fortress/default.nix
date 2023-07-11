@@ -1,5 +1,16 @@
-{ stdenv, stdenvNoCC, gccStdenv, lib, recurseIntoAttrs, libsForQt5, newScope
-, texlive, perlPackages, jdk8, jre8 }:
+{
+  stdenv,
+  stdenvNoCC,
+  gccStdenv,
+  lib,
+  recurseIntoAttrs,
+  libsForQt5,
+  newScope,
+  texlive,
+  perlPackages,
+  jdk8,
+  jre8,
+}:
 
 # To whomever it may concern:
 #

@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, installShellFiles, jdk, rlwrap, makeWrapper
-, writeScript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  installShellFiles,
+  jdk,
+  rlwrap,
+  makeWrapper,
+  writeScript,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clojure";

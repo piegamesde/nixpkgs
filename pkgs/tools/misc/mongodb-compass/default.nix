@@ -1,7 +1,36 @@
-{ alsa-lib, at-spi2-atk, at-spi2-core, atk, cairo, cups, curl, dbus, dpkg, expat
-, fetchurl, fontconfig, freetype, gdk-pixbuf, glib, gtk3, lib, libdrm, libnotify
-, libsecret, libuuid, libxcb, libxkbcommon, mesa, nspr, nss, pango, stdenv
-, systemd, wrapGAppsHook, xorg, }:
+{
+  alsa-lib,
+  at-spi2-atk,
+  at-spi2-core,
+  atk,
+  cairo,
+  cups,
+  curl,
+  dbus,
+  dpkg,
+  expat,
+  fetchurl,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  lib,
+  libdrm,
+  libnotify,
+  libsecret,
+  libuuid,
+  libxcb,
+  libxkbcommon,
+  mesa,
+  nspr,
+  nss,
+  pango,
+  stdenv,
+  systemd,
+  wrapGAppsHook,
+  xorg,
+}:
 
 let
   version = "1.36.4";

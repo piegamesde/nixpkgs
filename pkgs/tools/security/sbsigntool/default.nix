@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchgit, autoconf, automake, pkg-config, help2man, openssl
-, libuuid, gnu-efi, libbfd }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  autoconf,
+  automake,
+  pkg-config,
+  help2man,
+  openssl,
+  libuuid,
+  gnu-efi,
+  libbfd,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sbsigntool";

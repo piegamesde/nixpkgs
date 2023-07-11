@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchzip, pkg-config, libressl, memstreamHook }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  pkg-config,
+  libressl,
+  memstreamHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "notemap";

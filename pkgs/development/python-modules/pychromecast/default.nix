@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, casttube, fetchPypi, pythonOlder, protobuf, requests
-, zeroconf }:
+{
+  lib,
+  buildPythonPackage,
+  casttube,
+  fetchPypi,
+  pythonOlder,
+  protobuf,
+  requests,
+  zeroconf,
+}:
 
 buildPythonPackage rec {
   pname = "pychromecast";

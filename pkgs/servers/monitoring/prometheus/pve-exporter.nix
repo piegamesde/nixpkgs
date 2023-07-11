@@ -1,4 +1,8 @@
-{ lib, python3, nixosTests }:
+{
+  lib,
+  python3,
+  nixosTests,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "prometheus-pve-exporter";

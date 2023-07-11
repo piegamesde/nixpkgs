@@ -1,6 +1,22 @@
-{ lib, stdenv, buildGoModule, fetchurl, makeWrapper, git, bash, gitea, gzip
-, openssh, pam, sqliteSupport ? true, pamSupport ? true, runCommand, brotli
-, xorg, nixosTests }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchurl,
+  makeWrapper,
+  git,
+  bash,
+  gitea,
+  gzip,
+  openssh,
+  pam,
+  sqliteSupport ? true,
+  pamSupport ? true,
+  runCommand,
+  brotli,
+  xorg,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "gitea";

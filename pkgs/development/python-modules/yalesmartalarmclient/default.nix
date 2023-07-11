@@ -1,4 +1,11 @@
-{ lib, backoff, buildPythonPackage, fetchFromGitHub, requests, pythonOlder }:
+{
+  lib,
+  backoff,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "yalesmartalarmclient";

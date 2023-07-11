@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, python-dateutil, jmespath, docutils
-, urllib3, pytestCheckHook, jsonschema }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  python-dateutil,
+  jmespath,
+  docutils,
+  urllib3,
+  pytestCheckHook,
+  jsonschema,
+}:
 
 buildPythonPackage rec {
   pname = "botocore";

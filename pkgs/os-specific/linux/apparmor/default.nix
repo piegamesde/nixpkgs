@@ -1,11 +1,37 @@
-{ stdenv, lib, fetchFromGitLab, fetchpatch, makeWrapper, autoreconfHook
-, pkg-config, which, flex, bison, linuxHeaders ? stdenv.cc.libc.linuxHeaders
-, gawk, withPerl ? stdenv.hostPlatform == stdenv.buildPlatform
-  && lib.meta.availableOn stdenv.hostPlatform perl, perl, withPython ?
-  stdenv.hostPlatform == stdenv.buildPlatform
-  && lib.meta.availableOn stdenv.hostPlatform python3, python3, swig, ncurses
-, pam, libnotify, buildPackages, coreutils, bash, gnugrep, gnused, kmod
-, writeShellScript, closureInfo, runCommand, libxcrypt }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  fetchpatch,
+  makeWrapper,
+  autoreconfHook,
+  pkg-config,
+  which,
+  flex,
+  bison,
+  linuxHeaders ? stdenv.cc.libc.linuxHeaders,
+  gawk,
+  withPerl ? stdenv.hostPlatform == stdenv.buildPlatform
+    && lib.meta.availableOn stdenv.hostPlatform perl,
+  perl,
+  withPython ? stdenv.hostPlatform == stdenv.buildPlatform
+    && lib.meta.availableOn stdenv.hostPlatform python3,
+  python3,
+  swig,
+  ncurses,
+  pam,
+  libnotify,
+  buildPackages,
+  coreutils,
+  bash,
+  gnugrep,
+  gnused,
+  kmod,
+  writeShellScript,
+  closureInfo,
+  runCommand,
+  libxcrypt,
+}:
 
 let
   apparmor-version = "3.1.3";
@@ -292,19 +318,22 @@ let
   #   include "${apparmorRulesFromClosure { } [ pkgs.hello ]}"
   apparmorRulesFromClosure =
     { # The store path of the derivation is given in $path
-    additionalRules ? [ ]
-      # TODO: factorize here some other common paths
-      # that may emerge from use cases.
-    , baseRules ? [
-      "r $path"
-      "r $path/etc/**"
-      "r $path/share/**"
-      # Note that not all libraries are prefixed with "lib",
-      # eg. glibc-2.30/lib/ld-2.30.so
-      "mr $path/lib/**.so*"
-      # eg. glibc-2.30/lib/gconv/gconv-modules
-      "r $path/lib/**"
-    ], name ? "" }:
+      additionalRules ? [ ]
+        # TODO: factorize here some other common paths
+        # that may emerge from use cases.
+      ,
+      baseRules ? [
+        "r $path"
+        "r $path/etc/**"
+        "r $path/share/**"
+        # Note that not all libraries are prefixed with "lib",
+        # eg. glibc-2.30/lib/ld-2.30.so
+        "mr $path/lib/**.so*"
+        # eg. glibc-2.30/lib/gconv/gconv-modules
+        "r $path/lib/**"
+      ],
+      name ? ""
+    }:
     rootPaths:
     runCommand
     ("apparmor-closure-rules" + lib.optionalString (name != "") "-${name}")

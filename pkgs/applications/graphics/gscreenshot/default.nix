@@ -1,6 +1,21 @@
-{ lib, fetchFromGitHub, python3Packages, gettext, gobject-introspection, gtk3
-, wrapGAppsHook, xdg-utils, scrot, slop, xclip, grim, slurp, wl-clipboard
-, waylandSupport ? true, x11Support ? true }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  gettext,
+  gobject-introspection,
+  gtk3,
+  wrapGAppsHook,
+  xdg-utils,
+  scrot,
+  slop,
+  xclip,
+  grim,
+  slurp,
+  wl-clipboard,
+  waylandSupport ? true,
+  x11Support ? true
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "gscreenshot";

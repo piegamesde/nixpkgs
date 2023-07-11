@@ -1,15 +1,36 @@
-{ callPackage, stdenv, lib, fetchurl, ruby, writeText, licenseAccepted ? false
+{
+  callPackage,
+  stdenv,
+  lib,
+  fetchurl,
+  ruby,
+  writeText,
+  licenseAccepted ? false
 }:
 
-{ cmdLineToolsVersion ? "8.0", toolsVersion ? "26.1.1"
-, platformToolsVersion ? "33.0.3", buildToolsVersions ? [ "33.0.1" ]
-, includeEmulator ? false, emulatorVersion ? "31.3.14", platformVersions ? [ ]
-, includeSources ? false, includeSystemImages ? false
-, systemImageTypes ? [ "google_apis_playstore" ]
-, abiVersions ? [ "armeabi-v7a" "arm64-v8a" ], cmakeVersions ? [ ]
-, includeNDK ? false, ndkVersion ? "25.1.8937393", ndkVersions ? [ ndkVersion ]
-, useGoogleAPIs ? false, useGoogleTVAddOns ? false, includeExtras ? [ ]
-, repoJson ? ./repo.json, repoXmls ? null, extraLicenses ? [ ] }:
+{
+  cmdLineToolsVersion ? "8.0",
+  toolsVersion ? "26.1.1",
+  platformToolsVersion ? "33.0.3",
+  buildToolsVersions ? [ "33.0.1" ],
+  includeEmulator ? false,
+  emulatorVersion ? "31.3.14",
+  platformVersions ? [ ],
+  includeSources ? false,
+  includeSystemImages ? false,
+  systemImageTypes ? [ "google_apis_playstore" ],
+  abiVersions ? [ "armeabi-v7a" "arm64-v8a" ],
+  cmakeVersions ? [ ],
+  includeNDK ? false,
+  ndkVersion ? "25.1.8937393",
+  ndkVersions ? [ ndkVersion ],
+  useGoogleAPIs ? false,
+  useGoogleTVAddOns ? false,
+  includeExtras ? [ ],
+  repoJson ? ./repo.json,
+  repoXmls ? null,
+  extraLicenses ? [ ]
+}:
 
 let
   # Determine the Android os identifier from Nix's system identifier
@@ -22,7 +43,11 @@ let
     "No Android SDK tarballs are available for system architecture: ${stdenv.system}";
 
   # Uses mkrepo.rb to create a repo spec.
-  mkRepoJson = { packages ? [ ], images ? [ ], addons ? [ ] }:
+  mkRepoJson = {
+      packages ? [ ],
+      images ? [ ],
+      addons ? [ ]
+    }:
     let
       mkRepoRuby = (ruby.withPackages (pkgs: with pkgs; [ slop nokogiri ]));
       mkRepoRubyArguments = lib.lists.flatten [
@@ -97,8 +122,14 @@ let
 in rec {
   deployAndroidPackages =
     callPackage ./deploy-androidpackages.nix { inherit stdenv lib mkLicenses; };
-  deployAndroidPackage = ({ package, os ? null, buildInputs ? [ ]
-    , patchInstructions ? "", meta ? { }, ... }@args:
+  deployAndroidPackage = ({
+      package,
+      os ? null,
+      buildInputs ? [ ],
+      patchInstructions ? "",
+      meta ? { },
+      ...
+    }@args:
     let
       extraParams =
         removeAttrs args [ "package" "os" "buildInputs" "patchInstructions" ];
@@ -246,7 +277,10 @@ in rec {
     }) platformVersions;
 
   # Function that automatically links all plugins for which multiple versions can coexist
-  linkPlugins = { name, plugins }:
+  linkPlugins = {
+      name,
+      plugins,
+    }:
     lib.optionalString (plugins != [ ]) ''
       mkdir -p ${name}
       ${lib.concatMapStrings (plugin: ''
@@ -255,7 +289,11 @@ in rec {
     '';
 
   # Function that automatically links all NDK plugins.
-  linkNdkPlugins = { name, plugins, rootName ? name }:
+  linkNdkPlugins = {
+      name,
+      plugins,
+      rootName ? name
+    }:
     lib.optionalString (plugins != [ ]) ''
       mkdir -p ${rootName}
       ${lib.concatMapStrings (plugin: ''
@@ -264,18 +302,29 @@ in rec {
     '';
 
   # Function that automatically links the default NDK plugin.
-  linkNdkPlugin = { name, plugin, check }:
+  linkNdkPlugin = {
+      name,
+      plugin,
+      check,
+    }:
     lib.optionalString check ''
       ln -s ${plugin}/libexec/android-sdk/${name} ${name}
     '';
 
   # Function that automatically links a plugin for which only one version exists
-  linkPlugin = { name, plugin, check ? true }:
+  linkPlugin = {
+      name,
+      plugin,
+      check ? true
+    }:
     lib.optionalString check ''
       ln -s ${plugin}/libexec/android-sdk/${name} ${name}
     '';
 
-  linkSystemImages = { images, check }:
+  linkSystemImages = {
+      images,
+      check,
+    }:
     lib.optionalString check ''
       mkdir -p system-images
       ${lib.concatMapStrings (system-image: ''
@@ -287,7 +336,11 @@ in rec {
     '';
 
   # Links all plugins related to a requested platform
-  linkPlatformPlugins = { name, plugins, check }:
+  linkPlatformPlugins = {
+      name,
+      plugins,
+      check,
+    }:
     lib.optionalString check ''
       mkdir -p ${name}
       ${lib.concatMapStrings (plugin: ''

@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, ocaml, zlib, which, eprover, makeWrapper, coq }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  zlib,
+  which,
+  eprover,
+  makeWrapper,
+  coq,
+}:
 stdenv.mkDerivation rec {
   pname = "satallax";
   version = "2.7";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, mock, smbus-cffi, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  smbus-cffi,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "bme680";

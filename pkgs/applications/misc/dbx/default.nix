@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, git, python3 }:
+{
+  lib,
+  fetchFromGitHub,
+  git,
+  python3,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "dbx";

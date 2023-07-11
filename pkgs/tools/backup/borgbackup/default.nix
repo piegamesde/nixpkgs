@@ -1,5 +1,19 @@
-{ lib, stdenv, acl, e2fsprogs, libb2, lz4, openssh, openssl, python3, xxHash
-, zstd, installShellFiles, nixosTests, fetchpatch }:
+{
+  lib,
+  stdenv,
+  acl,
+  e2fsprogs,
+  libb2,
+  lz4,
+  openssh,
+  openssl,
+  python3,
+  xxHash,
+  zstd,
+  installShellFiles,
+  nixosTests,
+  fetchpatch,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "borgbackup";

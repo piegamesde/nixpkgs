@@ -1,4 +1,12 @@
-{ fetchFromGitHub, lib, stdenv, coin3d, qtbase, cmake, pkg-config }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  coin3d,
+  qtbase,
+  cmake,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "soqt";

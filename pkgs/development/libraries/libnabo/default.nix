@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, eigen, boost }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  eigen,
+  boost,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.0.7";

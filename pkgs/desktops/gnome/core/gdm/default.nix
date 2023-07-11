@@ -1,8 +1,38 @@
-{ lib, stdenv, fetchurl, fetchpatch, substituteAll, meson, ninja, rsync
-, pkg-config, glib, itstool, libxml2, xorg, accountsservice, libX11, gnome
-, systemd, dconf, gtk3, libcanberra-gtk3, pam, libgudev, libselinux, keyutils
-, audit, gobject-introspection, plymouth, librsvg, coreutils, xorgserver
-, xwayland, dbus, nixos-icons }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  substituteAll,
+  meson,
+  ninja,
+  rsync,
+  pkg-config,
+  glib,
+  itstool,
+  libxml2,
+  xorg,
+  accountsservice,
+  libX11,
+  gnome,
+  systemd,
+  dconf,
+  gtk3,
+  libcanberra-gtk3,
+  pam,
+  libgudev,
+  libselinux,
+  keyutils,
+  audit,
+  gobject-introspection,
+  plymouth,
+  librsvg,
+  coreutils,
+  xorgserver,
+  xwayland,
+  dbus,
+  nixos-icons,
+}:
 
 let
 

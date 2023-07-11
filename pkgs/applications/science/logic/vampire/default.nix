@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, z3, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  z3,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vampire";

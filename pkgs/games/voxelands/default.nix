@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchFromGitLab, bzip2, cmake, expat, freetype, irrlicht, libICE
-, libGL, libGLU, libSM, libX11, libXext, libXxf86vm, libjpeg, libpng, libvorbis
-, openal, pkg-config, sqlite }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  bzip2,
+  cmake,
+  expat,
+  freetype,
+  irrlicht,
+  libICE,
+  libGL,
+  libGLU,
+  libSM,
+  libX11,
+  libXext,
+  libXxf86vm,
+  libjpeg,
+  libpng,
+  libvorbis,
+  openal,
+  pkg-config,
+  sqlite,
+}:
 
 stdenv.mkDerivation rec {
   pname = "voxelands";

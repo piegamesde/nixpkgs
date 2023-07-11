@@ -1,6 +1,17 @@
-{ lib, async-timeout, bleak, bleak-retry-connector, buildPythonPackage
-, cryptography, fetchFromGitHub, lru-dict, poetry-core, pytest-asyncio
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  async-timeout,
+  bleak,
+  bleak-retry-connector,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  lru-dict,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "yalexs-ble";

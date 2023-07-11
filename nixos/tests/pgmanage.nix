@@ -1,4 +1,7 @@
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
     role = "test";
     password = "secret";
@@ -7,24 +10,28 @@ import ./make-test-python.nix ({ pkgs, ... }:
     name = "pgmanage";
     meta = with pkgs.lib.maintainers; { maintainers = [ basvandijk ]; };
     nodes = {
-      one = { config, pkgs, ... }: {
-        services = {
-          postgresql = {
-            enable = true;
-            initialScript = pkgs.writeText "pg-init-script" ''
-              CREATE ROLE ${role} SUPERUSER LOGIN PASSWORD '${password}';
-            '';
-          };
-          pgmanage = {
-            enable = true;
-            connections = {
-              ${conn} = "hostaddr=127.0.0.1 port=${
-                  toString config.services.postgresql.port
-                } dbname=postgres";
+      one = {
+          config,
+          pkgs,
+          ...
+        }: {
+          services = {
+            postgresql = {
+              enable = true;
+              initialScript = pkgs.writeText "pg-init-script" ''
+                CREATE ROLE ${role} SUPERUSER LOGIN PASSWORD '${password}';
+              '';
+            };
+            pgmanage = {
+              enable = true;
+              connections = {
+                ${conn} = "hostaddr=127.0.0.1 port=${
+                    toString config.services.postgresql.port
+                  } dbname=postgres";
+              };
             };
           };
         };
-      };
     };
 
     testScript = ''

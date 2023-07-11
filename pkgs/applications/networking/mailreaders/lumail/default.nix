@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchurl, pkg-config, lua, file, ncurses, gmime, pcre-cpp, perl
-, perlPackages, makeWrapper, debugBuild ? false
-, alternativeGlobalConfigFilePath ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  lua,
+  file,
+  ncurses,
+  gmime,
+  pcre-cpp,
+  perl,
+  perlPackages,
+  makeWrapper,
+  debugBuild ? false,
+  alternativeGlobalConfigFilePath ? null
+}:
 
 let
   version = "3.1";

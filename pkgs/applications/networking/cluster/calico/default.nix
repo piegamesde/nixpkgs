@@ -1,7 +1,15 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 builtins.mapAttrs (pname:
-  { doCheck ? true, mainProgram ? pname, subPackages }:
+  {
+    doCheck ? true,
+    mainProgram ? pname,
+    subPackages,
+  }:
   buildGoModule rec {
     inherit pname;
     version = "3.25.1";

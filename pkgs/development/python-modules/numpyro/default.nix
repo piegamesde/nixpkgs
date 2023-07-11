@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, jax, jaxlib, multipledispatch, numpy
-, pytestCheckHook, pythonOlder, tqdm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  jax,
+  jaxlib,
+  multipledispatch,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "numpyro";

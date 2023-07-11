@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, git, nodejs, python3 }:
+{
+  lib,
+  fetchFromGitHub,
+  git,
+  nodejs,
+  python3,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "cwltool";

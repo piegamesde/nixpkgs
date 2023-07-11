@@ -1,7 +1,15 @@
-{ buildPythonPackage, fetchPypi, lib, isPy27
+{
+  buildPythonPackage,
+  fetchPypi,
+  lib,
+  isPy27
 
-# pythonPackages
-, msal, pathlib2, portalocker }:
+  # pythonPackages
+  ,
+  msal,
+  pathlib2,
+  portalocker,
+}:
 
 buildPythonPackage rec {
   pname = "msal-extensions";

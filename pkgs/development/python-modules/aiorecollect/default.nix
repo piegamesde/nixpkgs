@@ -1,5 +1,15 @@
-{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, freezegun
-, poetry-core, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  buildPythonPackage,
+  fetchFromGitHub,
+  freezegun,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aiorecollect";

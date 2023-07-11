@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, substituteAll, cmake, curl, nasm
-, libopenmpt, p7zip, game-music-emu, libpng, SDL2, SDL2_mixer, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  substituteAll,
+  cmake,
+  curl,
+  nasm,
+  libopenmpt,
+  p7zip,
+  game-music-emu,
+  libpng,
+  SDL2,
+  SDL2_mixer,
+  zlib,
+}:
 
 let
 

@@ -1,4 +1,9 @@
-{ cert, group, groups, user }: {
+{
+  cert,
+  group,
+  groups,
+  user,
+}: {
   assertion = cert.group == group
     || builtins.any (u: u == user) groups.${cert.group}.members;
   message =

@@ -1,7 +1,27 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, cairo, fontconfig, freetype
-, fribidi, libXcursor, libXft, libXinerama, libXpm, libXt, libpng, librsvg
-, libstroke, libxslt, perl, pkg-config, python3Packages, readline
-, enableGestures ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  cairo,
+  fontconfig,
+  freetype,
+  fribidi,
+  libXcursor,
+  libXft,
+  libXinerama,
+  libXpm,
+  libXt,
+  libpng,
+  librsvg,
+  libstroke,
+  libxslt,
+  perl,
+  pkg-config,
+  python3Packages,
+  readline,
+  enableGestures ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "fvwm";

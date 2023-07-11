@@ -1,8 +1,33 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, linkFarm, substituteAll
-, elementary-greeter, pkg-config, meson, ninja, vala, desktop-file-utils, gtk3
-, granite, libgee, libhandy, gnome-settings-daemon, mesa, mutter
-, elementary-icon-theme, wingpanel-with-indicators, elementary-gtk-theme
-, nixos-artwork, lightdm, gdk-pixbuf, dbus, accountsservice, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  linkFarm,
+  substituteAll,
+  elementary-greeter,
+  pkg-config,
+  meson,
+  ninja,
+  vala,
+  desktop-file-utils,
+  gtk3,
+  granite,
+  libgee,
+  libhandy,
+  gnome-settings-daemon,
+  mesa,
+  mutter,
+  elementary-icon-theme,
+  wingpanel-with-indicators,
+  elementary-gtk-theme,
+  nixos-artwork,
+  lightdm,
+  gdk-pixbuf,
+  dbus,
+  accountsservice,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "elementary-greeter";

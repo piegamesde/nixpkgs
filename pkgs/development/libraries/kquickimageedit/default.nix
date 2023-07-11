@@ -1,4 +1,9 @@
-{ lib, mkDerivation, fetchFromGitLab, extra-cmake-modules }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitLab,
+  extra-cmake-modules,
+}:
 
 mkDerivation rec {
   pname = "kquickimageeditor";

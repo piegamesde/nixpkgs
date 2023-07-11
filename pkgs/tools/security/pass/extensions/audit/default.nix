@@ -1,4 +1,12 @@
-{ lib, stdenv, pass, fetchFromGitHub, pythonPackages, makeWrapper, gnupg }:
+{
+  lib,
+  stdenv,
+  pass,
+  fetchFromGitHub,
+  pythonPackages,
+  makeWrapper,
+  gnupg,
+}:
 
 let
   pythonEnv = pythonPackages.python.withPackages

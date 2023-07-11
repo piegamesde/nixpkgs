@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, sparrow3d, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  sparrow3d,
+  zlib,
+}:
 
 stdenv.mkDerivation {
   pname = "hase";

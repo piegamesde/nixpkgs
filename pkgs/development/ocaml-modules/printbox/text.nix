@@ -1,4 +1,10 @@
-{ buildDunePackage, printbox, uucp, uutf, mdx }:
+{
+  buildDunePackage,
+  printbox,
+  uucp,
+  uutf,
+  mdx,
+}:
 
 buildDunePackage {
   pname = "printbox-text";

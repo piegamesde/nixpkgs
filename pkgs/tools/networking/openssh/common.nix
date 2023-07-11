@@ -1,14 +1,38 @@
-{ pname, version, extraDesc ? "", src, extraPatches ? [ ]
-, extraNativeBuildInputs ? [ ], extraConfigureFlags ? [ ], extraMeta ? { } }:
+{
+  pname,
+  version,
+  extraDesc ? "",
+  src,
+  extraPatches ? [ ],
+  extraNativeBuildInputs ? [ ],
+  extraConfigureFlags ? [ ],
+  extraMeta ? { }
+}:
 
-{ lib, stdenv
-# This *is* correct, though unusual. as a way of getting krb5-config from the
-# package without splicing See: https://github.com/NixOS/nixpkgs/pull/107606
-, pkgs, fetchurl, fetchpatch, zlib, openssl, libedit, pkg-config, pam
-, libredirect, etcDir ? null, withKerberos ? true, libkrb5, libfido2, hostname
-, nixosTests
-, withFIDO ? stdenv.hostPlatform.isUnix && !stdenv.hostPlatform.isMusl
-, linkOpenssl ? true }:
+{
+  lib,
+  stdenv
+  # This *is* correct, though unusual. as a way of getting krb5-config from the
+  # package without splicing See: https://github.com/NixOS/nixpkgs/pull/107606
+  ,
+  pkgs,
+  fetchurl,
+  fetchpatch,
+  zlib,
+  openssl,
+  libedit,
+  pkg-config,
+  pam,
+  libredirect,
+  etcDir ? null,
+  withKerberos ? true,
+  libkrb5,
+  libfido2,
+  hostname,
+  nixosTests,
+  withFIDO ? stdenv.hostPlatform.isUnix && !stdenv.hostPlatform.isMusl,
+  linkOpenssl ? true
+}:
 
 stdenv.mkDerivation rec {
   inherit pname version src;

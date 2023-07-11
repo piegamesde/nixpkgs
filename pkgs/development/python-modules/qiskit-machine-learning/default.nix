@@ -1,9 +1,26 @@
-{ lib, pythonOlder, pythonAtLeast, buildPythonPackage, fetchFromGitHub
-, fetchpatch
-# Python Inputs
-, fastdtw, numpy, psutil, qiskit-terra, scikit-learn, sparse, torch
-# Check Inputs
-, pytestCheckHook, ddt, pytest-timeout, qiskit-aer }:
+{
+  lib,
+  pythonOlder,
+  pythonAtLeast,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch
+  # Python Inputs
+  ,
+  fastdtw,
+  numpy,
+  psutil,
+  qiskit-terra,
+  scikit-learn,
+  sparse,
+  torch
+  # Check Inputs
+  ,
+  pytestCheckHook,
+  ddt,
+  pytest-timeout,
+  qiskit-aer,
+}:
 
 buildPythonPackage rec {
   pname = "qiskit-machine-learning";

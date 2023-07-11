@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, python, pyyaml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "yacs";

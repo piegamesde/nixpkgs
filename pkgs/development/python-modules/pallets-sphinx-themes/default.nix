@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, sphinx, packaging }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  sphinx,
+  packaging,
+}:
 
 buildPythonPackage rec {
   pname = "pallets-sphinx-themes";

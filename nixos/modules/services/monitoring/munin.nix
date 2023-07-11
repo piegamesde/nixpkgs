@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 # TODO: support munin-async
 # TODO: LWP/Pg perl libs aren't recognized

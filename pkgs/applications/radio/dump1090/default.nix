@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, libbladeRF, libusb1, ncurses
-, rtl-sdr, hackrf, limesuite }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  libbladeRF,
+  libusb1,
+  ncurses,
+  rtl-sdr,
+  hackrf,
+  limesuite,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dump1090";

@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, autoreconfHook, pkg-config, libcap
-, ncurses, jansson, withGtk ? false, gtk3 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  pkg-config,
+  libcap,
+  ncurses,
+  jansson,
+  withGtk ? false,
+  gtk3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mtr${lib.optionalString withGtk "-gui"}";

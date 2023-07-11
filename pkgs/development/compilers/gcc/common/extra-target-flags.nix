@@ -1,4 +1,11 @@
-{ lib, stdenv, crossStageStatic, langD ? false, libcCross, threadsCross }:
+{
+  lib,
+  stdenv,
+  crossStageStatic,
+  langD ? false,
+  libcCross,
+  threadsCross,
+}:
 
 let inherit (stdenv) hostPlatform targetPlatform;
 

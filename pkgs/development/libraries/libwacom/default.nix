@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, meson, ninja, glib, pkg-config, udev, libgudev
-, python3, valgrind }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  glib,
+  pkg-config,
+  udev,
+  libgudev,
+  python3,
+  valgrind,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libwacom";

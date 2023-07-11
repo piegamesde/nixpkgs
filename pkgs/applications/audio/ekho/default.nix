@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, libsndfile, libpulseaudio }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libsndfile,
+  libpulseaudio,
+}:
 
 let version = "5.8.2";
 in stdenv.mkDerivation rec {

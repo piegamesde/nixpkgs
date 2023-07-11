@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchurl, fetchpatch, makeWrapper, pkg-config, gettext
-, imagemagick, curl, libpng, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, xercesc
-, xdg-utils, hicolor-icon-theme }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  makeWrapper,
+  pkg-config,
+  gettext,
+  imagemagick,
+  curl,
+  libpng,
+  SDL2,
+  SDL2_image,
+  SDL2_mixer,
+  SDL2_ttf,
+  xercesc,
+  xdg-utils,
+  hicolor-icon-theme,
+}:
 stdenv.mkDerivation rec {
   pname = "enigma";
   version = "1.30";

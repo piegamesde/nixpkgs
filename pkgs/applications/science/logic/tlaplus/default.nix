@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, makeWrapper, adoptopenjdk-bin, jre }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  adoptopenjdk-bin,
+  jre,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tlaplus";

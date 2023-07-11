@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, six, enum34 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  enum34,
+}:
 
 buildPythonPackage rec {
   pname = "gin-config";

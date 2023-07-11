@@ -1,4 +1,12 @@
-{ lib, pythonPackages, qscintilla, qtbase, qmake, qtmacextras, stdenv }:
+{
+  lib,
+  pythonPackages,
+  qscintilla,
+  qtbase,
+  qmake,
+  qtmacextras,
+  stdenv,
+}:
 
 let
   inherit (pythonPackages)

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, sip, pyqt-builder, qt6Packages
-, pythonOlder, pyqt6, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  sip,
+  pyqt-builder,
+  qt6Packages,
+  pythonOlder,
+  pyqt6,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "PyQt6_Charts";

@@ -1,4 +1,10 @@
-{ lib, python3, fetchFromGitHub, groff, less }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  groff,
+  less,
+}:
 let
   py = python3.override {
     packageOverrides = self: super: {

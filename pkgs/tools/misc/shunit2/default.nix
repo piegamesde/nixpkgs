@@ -1,5 +1,14 @@
-{ lib, resholve, fetchFromGitHub, bash, coreutils, gnused, gnugrep, findutils
-, ncurses }:
+{
+  lib,
+  resholve,
+  fetchFromGitHub,
+  bash,
+  coreutils,
+  gnused,
+  gnugrep,
+  findutils,
+  ncurses,
+}:
 
 resholve.mkDerivation rec {
   pname = "shunit2";

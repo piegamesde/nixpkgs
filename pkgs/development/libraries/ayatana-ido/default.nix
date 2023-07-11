@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, gtk3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  gtk3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ayatana-ido";

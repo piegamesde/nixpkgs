@@ -1,4 +1,12 @@
-{ lib, fetchFromGitHub, ocamlPackages, buildOasisPackage, ounit, extlib, num }:
+{
+  lib,
+  fetchFromGitHub,
+  ocamlPackages,
+  buildOasisPackage,
+  ounit,
+  extlib,
+  num,
+}:
 
 buildOasisPackage rec {
   pname = "tcslib";

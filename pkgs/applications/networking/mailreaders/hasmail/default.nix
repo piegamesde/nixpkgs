@@ -1,4 +1,12 @@
-{ lib, buildGoModule, fetchFromGitHub, pkg-config, pango, cairo, gtk2 }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  pkg-config,
+  pango,
+  cairo,
+  gtk2,
+}:
 
 buildGoModule rec {
   pname = "hasmail-unstable";

@@ -1,5 +1,13 @@
-{ lib, stdenv, callPackage, withLinuxHeaders ? true, profilingLibraries ? false
-, withGd ? false, withLibcrypt ? false, buildPackages }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  withLinuxHeaders ? true,
+  profilingLibraries ? false,
+  withGd ? false,
+  withLibcrypt ? false,
+  buildPackages,
+}:
 
 let
   gdCflags = [

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, p7zip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  p7zip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "win-qemu";

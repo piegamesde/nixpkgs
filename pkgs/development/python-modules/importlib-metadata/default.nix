@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools, setuptools-scm
-, typing-extensions, toml, zipp }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  setuptools,
+  setuptools-scm,
+  typing-extensions,
+  toml,
+  zipp,
+}:
 
 buildPythonPackage rec {
   pname = "importlib-metadata";

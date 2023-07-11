@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, freeglut, libGLU, libGL }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  freeglut,
+  libGLU,
+  libGL,
+}:
 
 stdenv.mkDerivation {
   pname = "newtonwars";

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytest-mockito
-, pytestCheckHook, robotframework }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pytest-mockito,
+  pytestCheckHook,
+  robotframework,
+}:
 
 buildPythonPackage rec {
   pname = "robotframework-pythonlibcore";

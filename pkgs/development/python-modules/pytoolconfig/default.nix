@@ -1,19 +1,36 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder
 
-# build
-, pdm-pep517
+  # build
+  ,
+  pdm-pep517
 
-# docs
-, docutils, sphinxHook, sphinx-rtd-theme, sphinx-autodoc-typehints
+  # docs
+  ,
+  docutils,
+  sphinxHook,
+  sphinx-rtd-theme,
+  sphinx-autodoc-typehints
 
-# runtime
-, tomli, packaging
+  # runtime
+  ,
+  tomli,
+  packaging
 
-# optionals
-, pydantic, platformdirs, sphinx, tabulate
+  # optionals
+  ,
+  pydantic,
+  platformdirs,
+  sphinx,
+  tabulate
 
-# tests
-, pytestCheckHook }:
+  # tests
+  ,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pytoolconfig";

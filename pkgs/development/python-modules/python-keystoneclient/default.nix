@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, keystoneauth1, openssl, oslo-config
-, oslo-serialization, pbr, pythonOlder, requests-mock, stestr, testresources
-, testscenarios }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  keystoneauth1,
+  openssl,
+  oslo-config,
+  oslo-serialization,
+  pbr,
+  pythonOlder,
+  requests-mock,
+  stestr,
+  testresources,
+  testscenarios,
+}:
 
 buildPythonPackage rec {
   pname = "python-keystoneclient";

@@ -1,5 +1,13 @@
-{ lib, rustPlatform, fetchFromGitHub, installShellFiles, pkg-config, openssl
-, stdenv, Security }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  installShellFiles,
+  pkg-config,
+  openssl,
+  stdenv,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "findomain";

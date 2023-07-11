@@ -1,5 +1,17 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, expat, fontconfig, freetype
-, libGL, libxkbcommon, pipewire, wayland, xorg }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  expat,
+  fontconfig,
+  freetype,
+  libGL,
+  libxkbcommon,
+  pipewire,
+  wayland,
+  xorg,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "pw-viz";

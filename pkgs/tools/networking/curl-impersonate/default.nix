@@ -1,5 +1,11 @@
 # TODO: It should be possible to build this from source, but it's currently a lot faster to just package the binaries.
-{ lib, stdenv, fetchzip, zlib, autoPatchelfHook }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  zlib,
+  autoPatchelfHook,
+}:
 stdenv.mkDerivation rec {
   pname = "curl-impersonate-bin";
   version = "v0.5.3";

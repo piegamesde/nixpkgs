@@ -1,4 +1,10 @@
-{ lib, stdenv, rustPlatform, fetchCrate, fixDarwinDylibNames }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchCrate,
+  fixDarwinDylibNames,
+}:
 
 let pin = lib.importJSON ./pin.json;
 

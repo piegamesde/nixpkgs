@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchzip, autoPatchelfHook, makeWrapper, mono, openal, libGL }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  autoPatchelfHook,
+  makeWrapper,
+  mono,
+  openal,
+  libGL,
+}:
 
 stdenv.mkDerivation rec {
   pname = "famistudio";

@@ -1,5 +1,14 @@
-{ lib, git, dotnetCorePackages, glibcLocales, buildDotnetModule, fetchFromGitHub
-, bintools, stdenv, mono }:
+{
+  lib,
+  git,
+  dotnetCorePackages,
+  glibcLocales,
+  buildDotnetModule,
+  fetchFromGitHub,
+  bintools,
+  stdenv,
+  mono,
+}:
 
 buildDotnetModule rec {
   pname = "EventStore";

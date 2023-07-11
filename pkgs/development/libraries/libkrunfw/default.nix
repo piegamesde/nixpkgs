@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, flex, bison, bc, elfutils, python3
-, sevVariant ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  flex,
+  bison,
+  bc,
+  elfutils,
+  python3,
+  sevVariant ? false
+}:
 
 assert sevVariant -> stdenv.isx86_64;
 stdenv.mkDerivation rec {

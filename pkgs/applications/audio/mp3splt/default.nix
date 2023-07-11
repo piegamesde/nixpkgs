@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, pkg-config, libmp3splt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libmp3splt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mp3splt";

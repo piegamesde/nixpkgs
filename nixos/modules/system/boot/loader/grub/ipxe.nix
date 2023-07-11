@@ -1,6 +1,11 @@
 # This module adds a scripted iPXE entry to the GRUB boot menu.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

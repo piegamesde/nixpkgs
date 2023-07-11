@@ -1,5 +1,13 @@
-{ lib, asn1crypto, asysocks, buildPythonPackage, fetchPypi, minikerberos
-, pythonOlder, unicrypto }:
+{
+  lib,
+  asn1crypto,
+  asysocks,
+  buildPythonPackage,
+  fetchPypi,
+  minikerberos,
+  pythonOlder,
+  unicrypto,
+}:
 
 buildPythonPackage rec {
   pname = "asyauth";

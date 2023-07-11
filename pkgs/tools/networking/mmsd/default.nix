@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchgit, autoreconfHook, pkg-config, glib, dbus }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  autoreconfHook,
+  pkg-config,
+  glib,
+  dbus,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mmsd";

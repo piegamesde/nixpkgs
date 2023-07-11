@@ -1,7 +1,20 @@
-{ lib, stdenv, fetchurl, pkg-config, libpng, glib # just passthru
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libpng,
+  glib # just passthru
 
-# for passthru.tests
-, cairo, qemu, scribus, tigervnc, wlroots, xwayland }:
+  # for passthru.tests
+  ,
+  cairo,
+  qemu,
+  scribus,
+  tigervnc,
+  wlroots,
+  xwayland,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pixman";

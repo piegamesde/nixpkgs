@@ -1,4 +1,13 @@
-{ lib, mkXfceDerivation, gtk3, libical, libnotify, libxfce4ui, popt, tzdata }:
+{
+  lib,
+  mkXfceDerivation,
+  gtk3,
+  libical,
+  libnotify,
+  libxfce4ui,
+  popt,
+  tzdata,
+}:
 
 mkXfceDerivation {
   category = "apps";

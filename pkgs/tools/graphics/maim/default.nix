@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, zlib, libpng, libjpeg
-, libwebp, libGLU, libGL, glm, libX11, libXext, libXfixes, libXrandr
-, libXcomposite, slop, icu }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  zlib,
+  libpng,
+  libjpeg,
+  libwebp,
+  libGLU,
+  libGL,
+  glm,
+  libX11,
+  libXext,
+  libXfixes,
+  libXrandr,
+  libXcomposite,
+  slop,
+  icu,
+}:
 
 stdenv.mkDerivation rec {
   pname = "maim";

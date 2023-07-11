@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, django, faker, fetchPypi, flask, flask-sqlalchemy
-, mongoengine, pytestCheckHook, sqlalchemy }:
+{
+  lib,
+  buildPythonPackage,
+  django,
+  faker,
+  fetchPypi,
+  flask,
+  flask-sqlalchemy,
+  mongoengine,
+  pytestCheckHook,
+  sqlalchemy,
+}:
 
 buildPythonPackage rec {
   pname = "factory-boy";

@@ -1,9 +1,43 @@
-{ lib, stdenv, fetchurl, substituteAll, pkg-config, meson, ninja, gettext, gnome
-, wrapGAppsHook4, packagekit, ostree, glib, appstream, libsoup_3, libadwaita
-, polkit, isocodes, gspell, libxslt, gobject-introspection, flatpak, fwupd, gtk4
-, gsettings-desktop-schemas, gnome-desktop, libgudev, libxmlb, malcontent
-, json-glib, libsecret, valgrind-light, docbook-xsl-nons, docbook_xml_dtd_42
-, docbook_xml_dtd_43, gtk-doc, desktop-file-utils, libsysprof-capture, gst_all_1
+{
+  lib,
+  stdenv,
+  fetchurl,
+  substituteAll,
+  pkg-config,
+  meson,
+  ninja,
+  gettext,
+  gnome,
+  wrapGAppsHook4,
+  packagekit,
+  ostree,
+  glib,
+  appstream,
+  libsoup_3,
+  libadwaita,
+  polkit,
+  isocodes,
+  gspell,
+  libxslt,
+  gobject-introspection,
+  flatpak,
+  fwupd,
+  gtk4,
+  gsettings-desktop-schemas,
+  gnome-desktop,
+  libgudev,
+  libxmlb,
+  malcontent,
+  json-glib,
+  libsecret,
+  valgrind-light,
+  docbook-xsl-nons,
+  docbook_xml_dtd_42,
+  docbook_xml_dtd_43,
+  gtk-doc,
+  desktop-file-utils,
+  libsysprof-capture,
+  gst_all_1,
 }:
 
 let withFwupd = stdenv.hostPlatform.isx86;

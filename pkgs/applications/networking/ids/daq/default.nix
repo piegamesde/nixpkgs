@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, flex, bison, libpcap, libdnet, libnfnetlink
-, libnetfilter_queue }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  flex,
+  bison,
+  libpcap,
+  libdnet,
+  libnfnetlink,
+  libnetfilter_queue,
+}:
 
 stdenv.mkDerivation rec {
   pname = "daq";

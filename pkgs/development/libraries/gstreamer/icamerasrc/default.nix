@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, gst_all_1
-, ipu6-camera-hal, libdrm }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  gst_all_1,
+  ipu6-camera-hal,
+  libdrm,
+}:
 
 stdenv.mkDerivation rec {
   pname = "icamerasrc-${ipu6-camera-hal.ipuVersion}";

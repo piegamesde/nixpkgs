@@ -1,7 +1,18 @@
-{ lib, stdenv, fetchurl, pkg-config, libgcrypt, libgpg-error, libtasn1
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libgcrypt,
+  libgpg-error,
+  libtasn1
 
-# Optional Dependencies
-, pam ? null, libidn ? null, gnutls ? null }:
+  # Optional Dependencies
+  ,
+  pam ? null,
+  libidn ? null,
+  gnutls ? null
+}:
 
 let
   shouldUsePkg = pkg:

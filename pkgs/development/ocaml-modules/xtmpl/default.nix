@@ -1,4 +1,12 @@
-{ lib, buildDunePackage, fetchFromGitLab, iri, re, sedlex, uutf }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitLab,
+  iri,
+  re,
+  sedlex,
+  uutf,
+}:
 
 buildDunePackage rec {
   pname = "xtmpl";

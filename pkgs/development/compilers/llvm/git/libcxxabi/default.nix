@@ -1,6 +1,18 @@
-{ lib, stdenv, llvm_meta, cmake, ninja, python3, monorepoSrc, runCommand
-, fetchpatch, cxx-headers, libunwind, version
-, enableShared ? !stdenv.hostPlatform.isStatic }:
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  cmake,
+  ninja,
+  python3,
+  monorepoSrc,
+  runCommand,
+  fetchpatch,
+  cxx-headers,
+  libunwind,
+  version,
+  enableShared ? !stdenv.hostPlatform.isStatic
+}:
 
 stdenv.mkDerivation rec {
   pname = "libcxxabi";

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, freeglut, libX11, libXt, libXmu, libXi, libXext, libGL
-, libGLU }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  freeglut,
+  libX11,
+  libXt,
+  libXmu,
+  libXi,
+  libXext,
+  libGL,
+  libGLU,
+}:
 stdenv.mkDerivation rec {
   pname = "gle";
   version = "3.1.0";

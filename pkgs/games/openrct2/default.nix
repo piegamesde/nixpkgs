@@ -1,8 +1,33 @@
-{ lib, stdenv, fetchFromGitHub
+{
+  lib,
+  stdenv,
+  fetchFromGitHub
 
-, SDL2, cmake, curl, discord-rpc, duktape, flac, fontconfig, freetype
-, gbenchmark, icu, jansson, libGLU, libiconv, libogg, libpng, libpthreadstubs
-, libvorbis, libzip, nlohmann_json, openssl, pkg-config, speexdsp, zlib }:
+  ,
+  SDL2,
+  cmake,
+  curl,
+  discord-rpc,
+  duktape,
+  flac,
+  fontconfig,
+  freetype,
+  gbenchmark,
+  icu,
+  jansson,
+  libGLU,
+  libiconv,
+  libogg,
+  libpng,
+  libpthreadstubs,
+  libvorbis,
+  libzip,
+  nlohmann_json,
+  openssl,
+  pkg-config,
+  speexdsp,
+  zlib,
+}:
 
 let
   openrct2-version = "0.4.4";

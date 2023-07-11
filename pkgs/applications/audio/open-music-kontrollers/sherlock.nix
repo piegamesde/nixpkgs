@@ -1,4 +1,9 @@
-{ callPackage, sratom, flex, ... }@args:
+{
+  callPackage,
+  sratom,
+  flex,
+  ...
+}@args:
 
 callPackage ./generic.nix (args // rec {
   pname = "sherlock";

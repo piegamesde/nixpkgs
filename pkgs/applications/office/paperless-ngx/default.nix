@@ -1,6 +1,21 @@
-{ lib, fetchFromGitHub, buildNpmPackage, nixosTests, gettext, python3
-, ghostscript, imagemagickBig, jbig2enc, optipng, pngquant, qpdf, tesseract5
-, unpaper, poppler_utils, liberation_ttf }:
+{
+  lib,
+  fetchFromGitHub,
+  buildNpmPackage,
+  nixosTests,
+  gettext,
+  python3,
+  ghostscript,
+  imagemagickBig,
+  jbig2enc,
+  optipng,
+  pngquant,
+  qpdf,
+  tesseract5,
+  unpaper,
+  poppler_utils,
+  liberation_ttf,
+}:
 
 let
   version = "1.14.4";

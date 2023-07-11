@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, logilab-common, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  logilab-common,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "logilab-constraint";

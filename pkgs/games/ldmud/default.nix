@@ -1,8 +1,31 @@
-{ lib, fetchFromGitHub, stdenv, autoreconfHook, pkg-config, bison, libiconv
-, pcre, libgcrypt, libxcrypt, json_c, libxml2, ipv6Support ? false
-, mccpSupport ? false, zlib, mysqlSupport ? false, libmysqlclient
-, postgresSupport ? false, postgresql, sqliteSupport ? false, sqlite
-, tlsSupport ? false, openssl, pythonSupport ? false, python310, ... }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  autoreconfHook,
+  pkg-config,
+  bison,
+  libiconv,
+  pcre,
+  libgcrypt,
+  libxcrypt,
+  json_c,
+  libxml2,
+  ipv6Support ? false,
+  mccpSupport ? false,
+  zlib,
+  mysqlSupport ? false,
+  libmysqlclient,
+  postgresSupport ? false,
+  postgresql,
+  sqliteSupport ? false,
+  sqlite,
+  tlsSupport ? false,
+  openssl,
+  pythonSupport ? false,
+  python310,
+  ...
+}:
 
 stdenv.mkDerivation rec {
   pname = "ldmud";

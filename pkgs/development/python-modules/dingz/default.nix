@@ -1,5 +1,12 @@
-{ lib, aiohttp, async-timeout, buildPythonPackage, click, fetchFromGitHub
-, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  async-timeout,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "dingz";

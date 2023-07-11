@@ -1,7 +1,14 @@
 # This function builds an RPM from a source tarball that contains a
 # RPM spec file (i.e., one that can be built using `rpmbuild -ta').
 
-{ name ? "rpm-build", diskImage, src, lib, vmTools, ... }@args:
+{
+  name ? "rpm-build",
+  diskImage,
+  src,
+  lib,
+  vmTools,
+  ...
+}@args:
 
 vmTools.buildRPM (
 

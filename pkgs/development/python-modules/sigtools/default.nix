@@ -1,5 +1,15 @@
-{ lib, attrs, buildPythonPackage, fetchPypi, mock, pythonOlder, repeated-test
-, setuptools-scm, sphinx, unittestCheckHook }:
+{
+  lib,
+  attrs,
+  buildPythonPackage,
+  fetchPypi,
+  mock,
+  pythonOlder,
+  repeated-test,
+  setuptools-scm,
+  sphinx,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "sigtools";

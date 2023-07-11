@@ -1,7 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, installShellFiles, libX11, libinput, libxcb
-, libxkbcommon, pixman, pkg-config, substituteAll, wayland-scanner, wayland
-, wayland-protocols, wlroots_0_16, writeText, xcbutilwm, xwayland
-, enableXWayland ? true, conf ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  installShellFiles,
+  libX11,
+  libinput,
+  libxcb,
+  libxkbcommon,
+  pixman,
+  pkg-config,
+  substituteAll,
+  wayland-scanner,
+  wayland,
+  wayland-protocols,
+  wlroots_0_16,
+  writeText,
+  xcbutilwm,
+  xwayland,
+  enableXWayland ? true,
+  conf ? null
+}:
 
 let wlroots = wlroots_0_16;
 in stdenv.mkDerivation (finalAttrs: {

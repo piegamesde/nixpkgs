@@ -1,5 +1,15 @@
-{ stdenv, fetchurl, lib, pkg-config, glib, gtk2, libticonv, libtifiles2
-, libticables2, libticalcs2 }:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  pkg-config,
+  glib,
+  gtk2,
+  libticonv,
+  libtifiles2,
+  libticables2,
+  libticalcs2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tilem";

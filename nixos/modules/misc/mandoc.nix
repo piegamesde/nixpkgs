@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   makewhatis = "${lib.getBin cfg.package}/bin/makewhatis";

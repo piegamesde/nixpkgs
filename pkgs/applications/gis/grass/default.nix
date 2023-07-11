@@ -1,7 +1,34 @@
-{ lib, stdenv, fetchFromGitHub, flex, bison, pkg-config, zlib, libtiff, libpng
-, fftw, cairo, readline, ffmpeg, makeWrapper, wxGTK32, libiconv, netcdf, blas
-, proj, gdal, geos, sqlite, postgresql, libmysqlclient, python3Packages
-, proj-datumgrid, zstd, pdal, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  flex,
+  bison,
+  pkg-config,
+  zlib,
+  libtiff,
+  libpng,
+  fftw,
+  cairo,
+  readline,
+  ffmpeg,
+  makeWrapper,
+  wxGTK32,
+  libiconv,
+  netcdf,
+  blas,
+  proj,
+  gdal,
+  geos,
+  sqlite,
+  postgresql,
+  libmysqlclient,
+  python3Packages,
+  proj-datumgrid,
+  zstd,
+  pdal,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "grass";

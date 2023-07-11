@@ -1,4 +1,11 @@
-{ mkDerivation, lib, extra-cmake-modules, qtbase, ki18n, sane-backends }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  qtbase,
+  ki18n,
+  sane-backends,
+}:
 
 mkDerivation {
   pname = "ksanecore";

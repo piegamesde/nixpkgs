@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, atk, glibmm_2_68, pkg-config, gnome, meson, ninja
-, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  atk,
+  glibmm_2_68,
+  pkg-config,
+  gnome,
+  meson,
+  ninja,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "atkmm";

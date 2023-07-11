@@ -1,5 +1,13 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, substituteAll, setuptools-scm
-, freetype, pytestCheckHook }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  substituteAll,
+  setuptools-scm,
+  freetype,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "freetype-py";

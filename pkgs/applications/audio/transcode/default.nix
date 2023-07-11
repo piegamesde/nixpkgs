@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchurl, flac, lame, zlib, libjpeg, libvorbis, libtheora
-, libxml2, lzo, libdvdread, pkg-config, x264, libmpeg2, xvidcore }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  flac,
+  lame,
+  zlib,
+  libjpeg,
+  libvorbis,
+  libtheora,
+  libxml2,
+  lzo,
+  libdvdread,
+  pkg-config,
+  x264,
+  libmpeg2,
+  xvidcore,
+}:
 
 stdenv.mkDerivation rec {
   pname = "transcode";

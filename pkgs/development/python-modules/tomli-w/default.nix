@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, callPackage, fetchFromGitHub, flit-core }:
+{
+  lib,
+  buildPythonPackage,
+  callPackage,
+  fetchFromGitHub,
+  flit-core,
+}:
 
 buildPythonPackage rec {
   pname = "tomli-w";

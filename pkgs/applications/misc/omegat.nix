@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, unzip, jdk, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  jdk,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation {
   version = "4.3.0";

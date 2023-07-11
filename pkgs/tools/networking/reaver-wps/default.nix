@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, libpcap, sqlite, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libpcap,
+  sqlite,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.4";

@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, pkg-config, makeWrapper, libsndfile, jack2, libGLU
-, libGL, lv2, cairo, ladspaH, php, libXrandr }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  makeWrapper,
+  libsndfile,
+  jack2,
+  libGLU,
+  libGL,
+  lv2,
+  cairo,
+  ladspaH,
+  php,
+  libXrandr,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lsp-plugins";

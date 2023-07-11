@@ -1,7 +1,33 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest, mock, bokeh, plotly, chainer
-, xgboost, mpi4py, lightgbm, keras, mxnet, scikit-optimize, tensorflow, cma
-, sqlalchemy, numpy, scipy, six, cliff, colorlog, pandas, alembic, tqdm, typing
-, pythonOlder, isPy27 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest,
+  mock,
+  bokeh,
+  plotly,
+  chainer,
+  xgboost,
+  mpi4py,
+  lightgbm,
+  keras,
+  mxnet,
+  scikit-optimize,
+  tensorflow,
+  cma,
+  sqlalchemy,
+  numpy,
+  scipy,
+  six,
+  cliff,
+  colorlog,
+  pandas,
+  alembic,
+  tqdm,
+  typing,
+  pythonOlder,
+  isPy27,
+}:
 
 buildPythonPackage rec {
   pname = "optuna";

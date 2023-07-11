@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchFromGitHub, ffmpeg }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  ffmpeg,
+}:
 
 buildPythonPackage rec {
   pname = "get-video-properties";

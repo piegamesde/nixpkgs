@@ -1,6 +1,9 @@
 # The test template is taken from the `./keymap.nix`
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; } }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; }
+}:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 
@@ -24,7 +27,10 @@ let
   '';
 
   mkKeyboardTest = name:
-    { settings, test }:
+    {
+      settings,
+      test,
+    }:
     with pkgs.lib;
     makeTest {
       inherit name;

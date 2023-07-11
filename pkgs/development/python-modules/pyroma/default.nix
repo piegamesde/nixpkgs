@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, docutils, python, pygments
-, setuptools, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  docutils,
+  python,
+  pygments,
+  setuptools,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "pyroma";

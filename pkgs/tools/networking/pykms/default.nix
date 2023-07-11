@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, python3, writeText, writeShellScript, sqlite }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  writeText,
+  writeShellScript,
+  sqlite,
+}:
 let
   pypkgs = python3.pkgs;
 

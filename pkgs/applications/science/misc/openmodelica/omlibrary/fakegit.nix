@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchgit, bash }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  bash,
+}:
 let
   mkscript = path: text: ''
     mkdir -pv `dirname ${path}`

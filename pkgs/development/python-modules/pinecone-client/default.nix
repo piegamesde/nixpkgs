@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, pyyaml, python-dateutil, urllib3
-, tqdm, dnspython, requests, typing-extensions, loguru }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  pyyaml,
+  python-dateutil,
+  urllib3,
+  tqdm,
+  dnspython,
+  requests,
+  typing-extensions,
+  loguru,
+}:
 buildPythonPackage rec {
   pname = "pinecone-client";
   version = "2.2.1";

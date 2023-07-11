@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, makeWrapper, perlPackages }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  perlPackages,
+}:
 
 let version = "1.1";
 in stdenv.mkDerivation {

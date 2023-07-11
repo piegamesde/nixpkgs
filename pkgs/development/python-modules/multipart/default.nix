@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "multipart";

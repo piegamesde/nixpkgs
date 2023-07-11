@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, jdk11, gradle, makeWrapper, perl, writeText }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jdk11,
+  gradle,
+  makeWrapper,
+  perl,
+  writeText,
+}:
 
 let
   pname = "aeron";

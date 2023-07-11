@@ -1,5 +1,18 @@
-{ lib, mkXfceDerivation, exo, garcon, gobject-introspection, gtk3
-, libdbusmenu-gtk3, libwnck, libxfce4ui, libxfce4util, tzdata, vala, xfconf }:
+{
+  lib,
+  mkXfceDerivation,
+  exo,
+  garcon,
+  gobject-introspection,
+  gtk3,
+  libdbusmenu-gtk3,
+  libwnck,
+  libxfce4ui,
+  libxfce4util,
+  tzdata,
+  vala,
+  xfconf,
+}:
 
 mkXfceDerivation {
   category = "xfce";

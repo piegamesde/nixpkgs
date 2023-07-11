@@ -1,5 +1,15 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, libgit2, openssl, zlib, stdenv
-, darwin, git }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  libgit2,
+  openssl,
+  zlib,
+  stdenv,
+  darwin,
+  git,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-semver-checks";

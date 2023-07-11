@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, sqlite, postgresql, zlib, acl, ncurses, openssl
-, readline, CoreFoundation, IOKit }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  sqlite,
+  postgresql,
+  zlib,
+  acl,
+  ncurses,
+  openssl,
+  readline,
+  CoreFoundation,
+  IOKit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bacula";

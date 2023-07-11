@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, aws-c-cal, aws-c-common, nix, s2n-tls
-, Security }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  aws-c-cal,
+  aws-c-common,
+  nix,
+  s2n-tls,
+  Security,
+}:
 
 stdenv.mkDerivation rec {
   pname = "aws-c-io";

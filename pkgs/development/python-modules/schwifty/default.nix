@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, importlib-resources, importlib-metadata
-, iso3166, pycountry, pytestCheckHook, pytest-cov, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  importlib-resources,
+  importlib-metadata,
+  iso3166,
+  pycountry,
+  pytestCheckHook,
+  pytest-cov,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "schwifty";

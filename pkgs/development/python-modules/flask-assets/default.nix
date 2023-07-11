@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, flask, webassets, flask_script, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  webassets,
+  flask_script,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "Flask-Assets";

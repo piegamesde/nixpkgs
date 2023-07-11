@@ -1,6 +1,24 @@
-{ stdenv, lib, fetchFromGitHub, cmake, ninja, python, withGocode ? true, gocode
-, withGodef ? true, godef, withGotools ? true, gotools, withTypescript ? true
-, nodePackages, abseil-cpp, boost, llvmPackages, fixDarwinDylibNames, Cocoa }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  python,
+  withGocode ? true,
+  gocode,
+  withGodef ? true,
+  godef,
+  withGotools ? true,
+  gotools,
+  withTypescript ? true,
+  nodePackages,
+  abseil-cpp,
+  boost,
+  llvmPackages,
+  fixDarwinDylibNames,
+  Cocoa,
+}:
 
 stdenv.mkDerivation {
   pname = "ycmd";

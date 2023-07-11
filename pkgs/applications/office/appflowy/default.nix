@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchzip, autoPatchelfHook, makeWrapper, copyDesktopItems
-, makeDesktopItem, gtk3, openssl_1_1, xdg-user-dirs, keybinder3 }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  autoPatchelfHook,
+  makeWrapper,
+  copyDesktopItems,
+  makeDesktopItem,
+  gtk3,
+  openssl_1_1,
+  xdg-user-dirs,
+  keybinder3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "appflowy";

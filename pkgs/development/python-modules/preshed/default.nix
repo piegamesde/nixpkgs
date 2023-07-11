@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, cymem, cython, python, fetchPypi, murmurhash
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  cymem,
+  cython,
+  python,
+  fetchPypi,
+  murmurhash,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "preshed";

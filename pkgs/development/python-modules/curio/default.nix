@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, pytestCheckHook, sphinx, stdenv }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  pytestCheckHook,
+  sphinx,
+  stdenv,
+}:
 
 buildPythonPackage rec {
   pname = "curio";

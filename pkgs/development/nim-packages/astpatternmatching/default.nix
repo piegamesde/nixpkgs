@@ -1,4 +1,6 @@
-{ fetchFromGitHub }:
+{
+  fetchFromGitHub,
+}:
 
 fetchFromGitHub {
   owner = "krux02";

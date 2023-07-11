@@ -1,5 +1,21 @@
-{ buildPythonPackage, meson, ninja, pkg-config, tblite, numpy, simple-dftd3
-, cffi, gfortran, blas, lapack, mctc-lib, mstore, toml-f, multicharge, dftd4 }:
+{
+  buildPythonPackage,
+  meson,
+  ninja,
+  pkg-config,
+  tblite,
+  numpy,
+  simple-dftd3,
+  cffi,
+  gfortran,
+  blas,
+  lapack,
+  mctc-lib,
+  mstore,
+  toml-f,
+  multicharge,
+  dftd4,
+}:
 
 buildPythonPackage {
   inherit (tblite) pname version src meta;

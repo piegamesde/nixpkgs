@@ -1,4 +1,9 @@
-{ stdenv, fetchurl, lib, autoPatchelfHook }:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  autoPatchelfHook,
+}:
 
 let
   # Upstream replaces minor versions, so use cached URLs.

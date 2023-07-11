@@ -1,5 +1,20 @@
-{ lib, bokeh, buildPythonPackage, colorcet, fetchPypi, ipython, matplotlib
-, notebook, numpy, pandas, panel, param, pythonOlder, pyviz-comms, scipy }:
+{
+  lib,
+  bokeh,
+  buildPythonPackage,
+  colorcet,
+  fetchPypi,
+  ipython,
+  matplotlib,
+  notebook,
+  numpy,
+  pandas,
+  panel,
+  param,
+  pythonOlder,
+  pyviz-comms,
+  scipy,
+}:
 
 buildPythonPackage rec {
   pname = "holoviews";

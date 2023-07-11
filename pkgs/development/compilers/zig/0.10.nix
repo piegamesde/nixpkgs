@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, coreutils, llvmPackages, libxml2, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  coreutils,
+  llvmPackages,
+  libxml2,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zig";

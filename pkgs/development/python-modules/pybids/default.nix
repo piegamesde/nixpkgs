@@ -1,6 +1,22 @@
-{ buildPythonPackage, lib, fetchPypi, fetchpatch, formulaic, click, num2words
-, numpy, scipy, pandas, nibabel, patsy, bids-validator, sqlalchemy
-, pytestCheckHook, versioneer, pythonRelaxDepsHook }:
+{
+  buildPythonPackage,
+  lib,
+  fetchPypi,
+  fetchpatch,
+  formulaic,
+  click,
+  num2words,
+  numpy,
+  scipy,
+  pandas,
+  nibabel,
+  patsy,
+  bids-validator,
+  sqlalchemy,
+  pytestCheckHook,
+  versioneer,
+  pythonRelaxDepsHook,
+}:
 
 buildPythonPackage rec {
   version = "0.15.6";

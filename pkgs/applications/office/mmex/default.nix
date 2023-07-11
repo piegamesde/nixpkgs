@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gettext, git, makeWrapper, lsb-release
-, pkg-config, wrapGAppsHook, curl, sqlite, wxGTK32, gtk3, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gettext,
+  git,
+  makeWrapper,
+  lsb-release,
+  pkg-config,
+  wrapGAppsHook,
+  curl,
+  sqlite,
+  wxGTK32,
+  gtk3,
+  darwin,
+}:
 
 stdenv.mkDerivation rec {
   pname = "money-manager-ex";

@@ -1,5 +1,15 @@
-{ mkDerivation, lib, extra-cmake-modules, cmake, kdbusaddons, ki18n
-, kconfigwidgets, kcrash, kxmlgui, libkdegames }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  cmake,
+  kdbusaddons,
+  ki18n,
+  kconfigwidgets,
+  kcrash,
+  kxmlgui,
+  libkdegames,
+}:
 
 mkDerivation {
   pname = "kspaceduel";

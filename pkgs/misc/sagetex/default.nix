@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, texlive }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  texlive,
+}:
 
 stdenv.mkDerivation (finalAttrs: rec {
   pname = "sagetex";

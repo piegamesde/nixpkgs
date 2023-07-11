@@ -1,5 +1,12 @@
-{ lib, buildPythonApplication, fetchPypi, requests, twitch-python, pytz
-, python-dateutil }:
+{
+  lib,
+  buildPythonApplication,
+  fetchPypi,
+  requests,
+  twitch-python,
+  pytz,
+  python-dateutil,
+}:
 
 buildPythonApplication rec {
   pname = "twitch-chat-downloader";

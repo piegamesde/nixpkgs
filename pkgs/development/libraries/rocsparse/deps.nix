@@ -1,4 +1,8 @@
-{ fetchzip, mirror1, mirror2 }:
+{
+  fetchzip,
+  mirror1,
+  mirror2,
+}:
 
 {
   matrix-01 = fetchzip {

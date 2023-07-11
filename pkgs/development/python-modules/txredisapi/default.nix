@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, nixosTests, six, twisted }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  nixosTests,
+  six,
+  twisted,
+}:
 
 buildPythonPackage rec {
   pname = "txredisapi";

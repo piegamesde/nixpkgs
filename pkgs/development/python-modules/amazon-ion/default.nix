@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, jsonconversion, six, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  jsonconversion,
+  six,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "amazon-ion";

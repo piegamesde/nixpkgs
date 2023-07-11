@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchFromGitHub, cmake, libusb1, pkg-config, freeglut, libGLU
-, libGL, libXi, libXmu, GLUT, Cocoa }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  libusb1,
+  pkg-config,
+  freeglut,
+  libGLU,
+  libGL,
+  libXi,
+  libXmu,
+  GLUT,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "freenect";

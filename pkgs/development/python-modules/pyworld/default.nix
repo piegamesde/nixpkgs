@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, cython }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  cython,
+}:
 
 buildPythonPackage rec {
   pname = "pyworld";

@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, ninja, pkg-config
-, python3Packages, boost, rapidjson, qtbase, qtsvg, igraph, spdlog
-, wrapQtAppsHook, graphviz, llvmPackages, z3, fmt_8, suitesparse }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  ninja,
+  pkg-config,
+  python3Packages,
+  boost,
+  rapidjson,
+  qtbase,
+  qtsvg,
+  igraph,
+  spdlog,
+  wrapQtAppsHook,
+  graphviz,
+  llvmPackages,
+  z3,
+  fmt_8,
+  suitesparse,
+}:
 
 let
   igraph' = igraph.overrideAttrs (old: rec {

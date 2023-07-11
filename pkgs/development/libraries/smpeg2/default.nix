@@ -1,5 +1,14 @@
-{ lib, stdenv, autoconf, automake, darwin, fetchFromGitHub, makeWrapper
-, pkg-config, SDL2 }:
+{
+  lib,
+  stdenv,
+  autoconf,
+  automake,
+  darwin,
+  fetchFromGitHub,
+  makeWrapper,
+  pkg-config,
+  SDL2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "smpeg2";

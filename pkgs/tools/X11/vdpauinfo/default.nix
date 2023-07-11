@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, libvdpau }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  libvdpau,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vdpauinfo";

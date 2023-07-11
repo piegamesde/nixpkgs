@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, appimageTools, makeWrapper, electron, git
-, nix-update-script }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  appimageTools,
+  makeWrapper,
+  electron,
+  git,
+  nix-update-script,
+}:
 
 stdenv.mkDerivation rec {
   pname = "logseq";

@@ -1,6 +1,14 @@
 # This file originates from composer2nix
 
-{ stdenv, lib, writeTextFile, fetchurl, php, unzip, phpPackages }:
+{
+  stdenv,
+  lib,
+  writeTextFile,
+  fetchurl,
+  php,
+  unzip,
+  phpPackages,
+}:
 
 let
   inherit (phpPackages) composer;
@@ -10,7 +18,10 @@ let
       type != "directory" || (baseNameOf path != ".git" && baseNameOf path
         != ".git" && baseNameOf path != ".svn")) src;
 
-  buildZipPackage = { name, src }:
+  buildZipPackage = {
+      name,
+      src,
+    }:
     stdenv.mkDerivation {
       inherit name src;
       nativeBuildInputs = [ unzip ];
@@ -24,10 +35,21 @@ let
       '';
     };
 
-  buildPackage = { name, src, packages ? { }, devPackages ? { }
-    , buildInputs ? [ ], symlinkDependencies ? false, executable ? false
-    , removeComposerArtifacts ? false, postInstall ? "", noDev ? false
-    , composerExtraArgs ? "", unpackPhase ? "true", buildPhase ? "true", ...
+  buildPackage = {
+      name,
+      src,
+      packages ? { },
+      devPackages ? { },
+      buildInputs ? [ ],
+      symlinkDependencies ? false,
+      executable ? false,
+      removeComposerArtifacts ? false,
+      postInstall ? "",
+      noDev ? false,
+      composerExtraArgs ? "",
+      unpackPhase ? "true",
+      buildPhase ? "true",
+      ...
     }@args:
 
     let

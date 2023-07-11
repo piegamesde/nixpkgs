@@ -1,8 +1,32 @@
-{ lib, fetchFromGitHub, python3, intltool, file, wrapGAppsHook, gtk-vnc, vte
-, avahi, dconf, gobject-introspection, libvirt-glib, system-libvirt
-, gsettings-desktop-schemas, libosinfo, gnome, gtksourceview4, docutils, cpio
-, e2fsprogs, findutils, gzip, cdrtools, xorriso, fetchpatch, spiceSupport ? true
-, spice-gtk ? null }:
+{
+  lib,
+  fetchFromGitHub,
+  python3,
+  intltool,
+  file,
+  wrapGAppsHook,
+  gtk-vnc,
+  vte,
+  avahi,
+  dconf,
+  gobject-introspection,
+  libvirt-glib,
+  system-libvirt,
+  gsettings-desktop-schemas,
+  libosinfo,
+  gnome,
+  gtksourceview4,
+  docutils,
+  cpio,
+  e2fsprogs,
+  findutils,
+  gzip,
+  cdrtools,
+  xorriso,
+  fetchpatch,
+  spiceSupport ? true,
+  spice-gtk ? null
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "virt-manager";

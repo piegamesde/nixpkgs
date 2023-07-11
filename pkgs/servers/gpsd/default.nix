@@ -1,16 +1,40 @@
-{ stdenv, lib, fetchurl
+{
+  stdenv,
+  lib,
+  fetchurl
 
-# nativeBuildInputs
-, scons, pkg-config
+  # nativeBuildInputs
+  ,
+  scons,
+  pkg-config
 
-# buildInputs
-, dbus, libusb1, ncurses, pps-tools, python3Packages
+  # buildInputs
+  ,
+  dbus,
+  libusb1,
+  ncurses,
+  pps-tools,
+  python3Packages
 
-# optional deps for GUI packages
-, guiSupport ? true, dbus-glib, libX11, libXt, libXpm, libXaw, libXext
-, gobject-introspection, pango, gdk-pixbuf, atk, wrapGAppsHook
+  # optional deps for GUI packages
+  ,
+  guiSupport ? true,
+  dbus-glib,
+  libX11,
+  libXt,
+  libXpm,
+  libXaw,
+  libXext,
+  gobject-introspection,
+  pango,
+  gdk-pixbuf,
+  atk,
+  wrapGAppsHook
 
-, gpsdUser ? "gpsd", gpsdGroup ? "dialout" }:
+  ,
+  gpsdUser ? "gpsd",
+  gpsdGroup ? "dialout"
+}:
 
 stdenv.mkDerivation rec {
   pname = "gpsd";

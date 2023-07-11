@@ -1,5 +1,14 @@
-{ mkDerivation, lib, fetchFromGitHub, pkg-config, cmake, qtbase, qttools
-, qtx11extras, poppler }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  qtbase,
+  qttools,
+  qtx11extras,
+  poppler,
+}:
 
 mkDerivation rec {
   pname = "qcomicbook";

@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, automake, pkg-config, cairo
-, ghostscript, ngspice, tcl, tk, xorg, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  automake,
+  pkg-config,
+  cairo,
+  ghostscript,
+  ngspice,
+  tcl,
+  tk,
+  xorg,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   version = "3.10.37";

@@ -1,5 +1,14 @@
-{ lib, pkgs, rustPlatform, fetchFromGitHub, pkg-config, openssl, zlib, stdenv
-, pam }:
+{
+  lib,
+  pkgs,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  openssl,
+  zlib,
+  stdenv,
+  pam,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "shavee";

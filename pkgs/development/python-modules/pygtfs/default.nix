@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, docopt, fetchPypi, nose, pytz, pythonOlder
-, setuptools-scm, six, sqlalchemy }:
+{
+  lib,
+  buildPythonPackage,
+  docopt,
+  fetchPypi,
+  nose,
+  pytz,
+  pythonOlder,
+  setuptools-scm,
+  six,
+  sqlalchemy,
+}:
 
 buildPythonPackage rec {
   pname = "pygtfs";

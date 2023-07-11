@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, flex, bison, xmlto, docbook_xsl
-, docbook_xml_dtd_44, swig, perl, python3 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  flex,
+  bison,
+  xmlto,
+  docbook_xsl,
+  docbook_xml_dtd_44,
+  swig,
+  perl,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "comedilib";

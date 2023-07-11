@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, google-api-python-client, oauth2client
-, pyopenssl, pyyaml, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-python-client,
+  oauth2client,
+  pyopenssl,
+  pyyaml,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pydrive2";

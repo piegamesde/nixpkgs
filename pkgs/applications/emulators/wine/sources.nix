@@ -1,4 +1,6 @@
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { }
+}:
 ## we default to importing <nixpkgs> here, so that you can use
 ## a simple shell command to insert new hashes into this file
 ## e.g. with emacs C-u M-x shell-command
@@ -7,11 +9,28 @@
 
 # here we wrap fetchurl and fetchFromGitHub, in order to be able to pass additional args around it
 let
-  fetchurl = args@{ url, hash, ... }:
+  fetchurl = args@{
+      url,
+      hash,
+      ...
+    }:
     pkgs.fetchurl { inherit url hash; } // args;
-  fetchFromGitHub = args@{ owner, repo, rev, hash, ... }:
+  fetchFromGitHub = args@{
+      owner,
+      repo,
+      rev,
+      hash,
+      ...
+    }:
     pkgs.fetchFromGitHub { inherit owner repo rev hash; } // args;
-  fetchFromGitLab = args@{ domain, owner, repo, rev, hash, ... }:
+  fetchFromGitLab = args@{
+      domain,
+      owner,
+      repo,
+      rev,
+      hash,
+      ...
+    }:
     pkgs.fetchFromGitLab { inherit domain owner repo rev hash; } // args;
 
   updateScriptPreamble = ''

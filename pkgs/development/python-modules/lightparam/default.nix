@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, ipython, ipywidgets, numpy
-, pyqt5 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy3k,
+  ipython,
+  ipywidgets,
+  numpy,
+  pyqt5,
+}:
 
 buildPythonPackage rec {
   pname = "lightparam";

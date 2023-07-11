@@ -1,4 +1,8 @@
-{ buildDunePackage, faraday, lwt }:
+{
+  buildDunePackage,
+  faraday,
+  lwt,
+}:
 
 buildDunePackage rec {
   pname = "faraday-lwt";

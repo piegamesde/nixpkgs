@@ -1,6 +1,17 @@
-{ lib, aiohttp, auth0-python, buildPythonPackage, fetchFromGitHub, poetry-core
-, pyjwt, pytest-aiohttp, pytestCheckHook, python-dateutil, pythonOlder
-, pythonRelaxDepsHook }:
+{
+  lib,
+  aiohttp,
+  auth0-python,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pyjwt,
+  pytest-aiohttp,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pythonRelaxDepsHook,
+}:
 
 buildPythonPackage rec {
   pname = "aiobiketrax";

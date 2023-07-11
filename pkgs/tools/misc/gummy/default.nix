@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, testers, gummy, cmake, libX11, libXext
-, sdbus-cpp, udev, coreutils }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  testers,
+  gummy,
+  cmake,
+  libX11,
+  libXext,
+  sdbus-cpp,
+  udev,
+  coreutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gummy";

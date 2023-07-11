@@ -1,5 +1,16 @@
-{ lib, fetchFromGitHub, python3Packages, wrapGAppsHook, gobject-introspection
-, gtk3, keybinder3, xdotool, pango, gdk-pixbuf, atk }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  wrapGAppsHook,
+  gobject-introspection,
+  gtk3,
+  keybinder3,
+  xdotool,
+  pango,
+  gdk-pixbuf,
+  atk,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "emote";

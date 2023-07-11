@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchPypi, buildPythonPackage, zope_testrunner, manuel, docutils
-, pygments }:
+{
+  lib,
+  stdenv,
+  fetchPypi,
+  buildPythonPackage,
+  zope_testrunner,
+  manuel,
+  docutils,
+  pygments,
+}:
 
 buildPythonPackage rec {
   pname = "ZConfig";

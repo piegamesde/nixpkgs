@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools, numpy, scipy, gpy, emcee
-, nose, cython }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  numpy,
+  scipy,
+  gpy,
+  emcee,
+  nose,
+  cython,
+}:
 
 buildPythonPackage rec {
   pname = "GPyOpt";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, runCommand, substituteAll, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  runCommand,
+  substituteAll,
+  cmake,
+}:
 
 let
   rocm_version = with lib;

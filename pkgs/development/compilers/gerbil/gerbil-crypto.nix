@@ -1,4 +1,11 @@
-{ pkgs, lib, fetchFromGitHub, gerbil-unstable, gerbil-support, gambit-support }:
+{
+  pkgs,
+  lib,
+  fetchFromGitHub,
+  gerbil-unstable,
+  gerbil-support,
+  gambit-support,
+}:
 
 gerbil-support.gerbilPackage {
   pname = "gerbil-crypto";

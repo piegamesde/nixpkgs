@@ -1,7 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, cmake, cmocka
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  cmocka
 
-# for passthru.tests
-, libfido2, mysql80, openssh, systemd }:
+  # for passthru.tests
+  ,
+  libfido2,
+  mysql80,
+  openssh,
+  systemd,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libcbor";

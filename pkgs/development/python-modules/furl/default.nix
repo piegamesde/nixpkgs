@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, flake8, orderedmultidict, pytestCheckHook
-, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flake8,
+  orderedmultidict,
+  pytestCheckHook,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "furl";

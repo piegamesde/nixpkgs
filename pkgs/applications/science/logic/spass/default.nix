@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, bison, flex }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bison,
+  flex,
+}:
 
 let
   baseVersion = "3";

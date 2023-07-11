@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools, callPackage }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  callPackage,
+}:
 
 buildPythonPackage rec {
   pname = "pbr";

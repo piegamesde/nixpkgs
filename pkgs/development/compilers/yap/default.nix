@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, readline, gmp, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  readline,
+  gmp,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   version = "6.3.3";

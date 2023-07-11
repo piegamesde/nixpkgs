@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchurl, pkg-config, meson, ninja, gettext
-, gobject-introspection, gtk-doc, docbook_xsl, docbook_xml_dtd_412, glib, gupnp
-, gnome }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  meson,
+  ninja,
+  gettext,
+  gobject-introspection,
+  gtk-doc,
+  docbook_xsl,
+  docbook_xml_dtd_412,
+  glib,
+  gupnp,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gupnp-igd";

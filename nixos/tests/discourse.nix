@@ -3,7 +3,12 @@
 #  2. sending a private message to the admin user through the API
 #  3. replying to that message via email.
 
-import ./make-test-python.nix ({ pkgs, lib, package ? pkgs.discourse, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    package ? pkgs.discourse,
+    ...
+  }:
   let
     certs = import ./common/acme/server/snakeoil-certs.nix;
     clientDomain = "client.fake.domain";
@@ -21,133 +26,142 @@ import ./make-test-python.nix ({ pkgs, lib, package ? pkgs.discourse, ... }:
     name = "discourse";
     meta = with pkgs.lib.maintainers; { maintainers = [ talyz ]; };
 
-    nodes.discourse = { nodes, ... }: {
-      virtualisation.memorySize = 2048;
-      virtualisation.cores = 4;
-      virtualisation.useNixStoreImage = true;
-      virtualisation.writableStore = false;
+    nodes.discourse = {
+        nodes,
+        ...
+      }: {
+        virtualisation.memorySize = 2048;
+        virtualisation.cores = 4;
+        virtualisation.useNixStoreImage = true;
+        virtualisation.writableStore = false;
 
-      imports = [ common/user-account.nix ];
+        imports = [ common/user-account.nix ];
 
-      security.pki.certificateFiles = [ certs.ca.cert ];
+        security.pki.certificateFiles = [ certs.ca.cert ];
 
-      networking.extraHosts = ''
-        127.0.0.1 ${discourseDomain}
-        ${nodes.client.networking.primaryIPAddress} ${clientDomain}
-      '';
+        networking.extraHosts = ''
+          127.0.0.1 ${discourseDomain}
+          ${nodes.client.networking.primaryIPAddress} ${clientDomain}
+        '';
 
-      services.postfix = {
-        enableSubmission = true;
-        enableSubmissions = true;
-        submissionsOptions = {
-          smtpd_sasl_auth_enable = "yes";
-          smtpd_client_restrictions = "permit";
-        };
-      };
-
-      environment.systemPackages = [ pkgs.jq ];
-
-      services.postgresql.package = pkgs.postgresql_13;
-
-      services.discourse = {
-        enable = true;
-        inherit admin package;
-        hostname = discourseDomain;
-        sslCertificate = "${certs.${discourseDomain}.cert}";
-        sslCertificateKey = "${certs.${discourseDomain}.key}";
-        secretKeyBaseFile = "${pkgs.writeText "secret-key-base" secretKeyBase}";
-        enableACME = false;
-        mail.outgoing.serverAddress = clientDomain;
-        mail.incoming.enable = true;
-        siteSettings = {
-          posting = {
-            min_post_length = 5;
-            min_first_post_length = 5;
-            min_personal_message_post_length = 5;
+        services.postfix = {
+          enableSubmission = true;
+          enableSubmissions = true;
+          submissionsOptions = {
+            smtpd_sasl_auth_enable = "yes";
+            smtpd_client_restrictions = "permit";
           };
         };
-        unicornTimeout = 900;
-      };
 
-      networking.firewall.allowedTCPPorts = [ 25 465 ];
-    };
+        environment.systemPackages = [ pkgs.jq ];
 
-    nodes.client = { nodes, ... }: {
-      imports = [ common/user-account.nix ];
+        services.postgresql.package = pkgs.postgresql_13;
 
-      security.pki.certificateFiles = [ certs.ca.cert ];
-
-      networking.extraHosts = ''
-        127.0.0.1 ${clientDomain}
-        ${nodes.discourse.networking.primaryIPAddress} ${discourseDomain}
-      '';
-
-      services.dovecot2 = {
-        enable = true;
-        protocols = [ "imap" ];
-        modules = [ pkgs.dovecot_pigeonhole ];
-      };
-
-      services.postfix = {
-        enable = true;
-        origin = clientDomain;
-        relayDomains = [ clientDomain ];
-        config = {
-          compatibility_level = "2";
-          smtpd_banner = "ESMTP server";
-          myhostname = clientDomain;
-          mydestination = clientDomain;
+        services.discourse = {
+          enable = true;
+          inherit admin package;
+          hostname = discourseDomain;
+          sslCertificate = "${certs.${discourseDomain}.cert}";
+          sslCertificateKey = "${certs.${discourseDomain}.key}";
+          secretKeyBaseFile =
+            "${pkgs.writeText "secret-key-base" secretKeyBase}";
+          enableACME = false;
+          mail.outgoing.serverAddress = clientDomain;
+          mail.incoming.enable = true;
+          siteSettings = {
+            posting = {
+              min_post_length = 5;
+              min_first_post_length = 5;
+              min_personal_message_post_length = 5;
+            };
+          };
+          unicornTimeout = 900;
         };
+
+        networking.firewall.allowedTCPPorts = [ 25 465 ];
       };
 
-      environment.systemPackages = let
-        replyToEmail = pkgs.writeScriptBin "reply-to-email" ''
-          #!${pkgs.python3.interpreter}
-          import imaplib
-          import smtplib
-          import ssl
-          import email.header
-          from email import message_from_bytes
-          from email.message import EmailMessage
+    nodes.client = {
+        nodes,
+        ...
+      }: {
+        imports = [ common/user-account.nix ];
 
-          with imaplib.IMAP4('localhost') as imap:
-              imap.login('alice', 'foobar')
-              imap.select()
-              status, data = imap.search(None, 'ALL')
-              assert status == 'OK'
+        security.pki.certificateFiles = [ certs.ca.cert ];
 
-              nums = data[0].split()
-              assert len(nums) == 1
-
-              status, msg_data = imap.fetch(nums[0], '(RFC822)')
-              assert status == 'OK'
-
-          msg = email.message_from_bytes(msg_data[0][1])
-          subject = str(email.header.make_header(email.header.decode_header(msg['Subject'])))
-          reply_to = email.header.decode_header(msg['Reply-To'])[0][0]
-          message_id = email.header.decode_header(msg['Message-ID'])[0][0]
-          date = email.header.decode_header(msg['Date'])[0][0]
-
-          ctx = ssl.create_default_context()
-          with smtplib.SMTP_SSL(host='${discourseDomain}', context=ctx) as smtp:
-              reply = EmailMessage()
-              reply['Subject'] = 'Re: ' + subject
-              reply['To'] = reply_to
-              reply['From'] = 'alice@${clientDomain}'
-              reply['In-Reply-To'] = message_id
-              reply['References'] = message_id
-              reply['Date'] = date
-              reply.set_content("Test reply.")
-
-              smtp.send_message(reply)
-              smtp.quit()
+        networking.extraHosts = ''
+          127.0.0.1 ${clientDomain}
+          ${nodes.discourse.networking.primaryIPAddress} ${discourseDomain}
         '';
-      in [ replyToEmail ];
 
-      networking.firewall.allowedTCPPorts = [ 25 ];
-    };
+        services.dovecot2 = {
+          enable = true;
+          protocols = [ "imap" ];
+          modules = [ pkgs.dovecot_pigeonhole ];
+        };
 
-    testScript = { nodes }:
+        services.postfix = {
+          enable = true;
+          origin = clientDomain;
+          relayDomains = [ clientDomain ];
+          config = {
+            compatibility_level = "2";
+            smtpd_banner = "ESMTP server";
+            myhostname = clientDomain;
+            mydestination = clientDomain;
+          };
+        };
+
+        environment.systemPackages = let
+          replyToEmail = pkgs.writeScriptBin "reply-to-email" ''
+            #!${pkgs.python3.interpreter}
+            import imaplib
+            import smtplib
+            import ssl
+            import email.header
+            from email import message_from_bytes
+            from email.message import EmailMessage
+
+            with imaplib.IMAP4('localhost') as imap:
+                imap.login('alice', 'foobar')
+                imap.select()
+                status, data = imap.search(None, 'ALL')
+                assert status == 'OK'
+
+                nums = data[0].split()
+                assert len(nums) == 1
+
+                status, msg_data = imap.fetch(nums[0], '(RFC822)')
+                assert status == 'OK'
+
+            msg = email.message_from_bytes(msg_data[0][1])
+            subject = str(email.header.make_header(email.header.decode_header(msg['Subject'])))
+            reply_to = email.header.decode_header(msg['Reply-To'])[0][0]
+            message_id = email.header.decode_header(msg['Message-ID'])[0][0]
+            date = email.header.decode_header(msg['Date'])[0][0]
+
+            ctx = ssl.create_default_context()
+            with smtplib.SMTP_SSL(host='${discourseDomain}', context=ctx) as smtp:
+                reply = EmailMessage()
+                reply['Subject'] = 'Re: ' + subject
+                reply['To'] = reply_to
+                reply['From'] = 'alice@${clientDomain}'
+                reply['In-Reply-To'] = message_id
+                reply['References'] = message_id
+                reply['Date'] = date
+                reply.set_content("Test reply.")
+
+                smtp.send_message(reply)
+                smtp.quit()
+          '';
+        in [ replyToEmail ];
+
+        networking.firewall.allowedTCPPorts = [ 25 ];
+      };
+
+    testScript = {
+        nodes,
+      }:
       let
         request = builtins.toJSON {
           title = "Private message";

@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchgit, autoreconfHook, ffmpeg, flac, libvorbis, libogg
-, libid3tag, libexif, libjpeg, sqlite, gettext, nixosTests, zlib }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  autoreconfHook,
+  ffmpeg,
+  flac,
+  libvorbis,
+  libogg,
+  libid3tag,
+  libexif,
+  libjpeg,
+  sqlite,
+  gettext,
+  nixosTests,
+  zlib,
+}:
 
 let
   pname = "minidlna";

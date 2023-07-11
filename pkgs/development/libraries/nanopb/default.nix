@@ -1,5 +1,14 @@
-{ callPackage, cmake, fetchFromGitHub, lib, protobuf, python3, stdenv
-, buildPackages, mallocBuild ? false }:
+{
+  callPackage,
+  cmake,
+  fetchFromGitHub,
+  lib,
+  protobuf,
+  python3,
+  stdenv,
+  buildPackages,
+  mallocBuild ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "nanopb";

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, easyprocess, path, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  easyprocess,
+  path,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "entrypoint2";

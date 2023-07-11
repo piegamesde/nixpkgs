@@ -1,5 +1,12 @@
-{ buildDotnetModule, dotnetCorePackages, fetchFromGitHub, lib, stdenv
-, runCommand, expect }:
+{
+  buildDotnetModule,
+  dotnetCorePackages,
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  runCommand,
+  expect,
+}:
 let inherit (dotnetCorePackages) sdk_6_0 runtime_6_0;
 in let
   finalPackage = buildDotnetModule rec {

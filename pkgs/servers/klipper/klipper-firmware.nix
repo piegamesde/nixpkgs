@@ -1,6 +1,20 @@
-{ stdenv, lib, pkg-config, pkgsCross, bintools-unwrapped, libffi, libusb1
-, wxGTK32, python3, gcc-arm-embedded, klipper, avrdude, stm32flash, mcu ? "mcu"
-, firmwareConfig ? ./simulator.cfg }:
+{
+  stdenv,
+  lib,
+  pkg-config,
+  pkgsCross,
+  bintools-unwrapped,
+  libffi,
+  libusb1,
+  wxGTK32,
+  python3,
+  gcc-arm-embedded,
+  klipper,
+  avrdude,
+  stm32flash,
+  mcu ? "mcu",
+  firmwareConfig ? ./simulator.cfg
+}:
 stdenv.mkDerivation rec {
   name = "klipper-firmware-${mcu}-${version}";
   version = klipper.version;

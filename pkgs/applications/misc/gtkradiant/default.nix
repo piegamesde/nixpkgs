@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, fetchsvn, scons, pkg-config, python3, glib
-, libxml2, gtk2, libGLU, gnome2, runCommand, writeScriptBin, runtimeShell
-, makeDesktopItem, copyDesktopItems }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchsvn,
+  scons,
+  pkg-config,
+  python3,
+  glib,
+  libxml2,
+  gtk2,
+  libGLU,
+  gnome2,
+  runCommand,
+  writeScriptBin,
+  runtimeShell,
+  makeDesktopItem,
+  copyDesktopItems,
+}:
 
 let
   q3Pack = fetchsvn {

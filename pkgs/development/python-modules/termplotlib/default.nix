@@ -1,5 +1,14 @@
-{ lib, substituteAll, buildPythonPackage, fetchFromGitHub, pytestCheckHook
-, exdown, numpy, gnuplot, setuptools }:
+{
+  lib,
+  substituteAll,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  exdown,
+  numpy,
+  gnuplot,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "termplotlib";

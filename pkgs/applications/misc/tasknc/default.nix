@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, makeWrapper, perl, ncurses5
-, taskwarrior }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  makeWrapper,
+  perl,
+  ncurses5,
+  taskwarrior,
+}:
 
 stdenv.mkDerivation rec {
   version = "2020-12-17";

@@ -1,9 +1,49 @@
-{ stdenv, lib, fetchurl, asciidoc, docbook-xsl-nons, docbook_xml_dtd_45, gettext
-, itstool, libxslt, gexiv2, tracker, meson, ninja, pkg-config, vala
-, wrapGAppsNoGuiHook, bzip2, dbus, exempi, giflib, glib, gnome, gst_all_1, icu
-, json-glib, libcue, libexif, libgsf, libgxps, libiptcdata, libjpeg, libosinfo
-, libpng, libseccomp, libtiff, libuuid, libxml2, networkmanager, poppler
-, systemd, taglib, upower, totem-pl-parser, e2fsprogs }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  asciidoc,
+  docbook-xsl-nons,
+  docbook_xml_dtd_45,
+  gettext,
+  itstool,
+  libxslt,
+  gexiv2,
+  tracker,
+  meson,
+  ninja,
+  pkg-config,
+  vala,
+  wrapGAppsNoGuiHook,
+  bzip2,
+  dbus,
+  exempi,
+  giflib,
+  glib,
+  gnome,
+  gst_all_1,
+  icu,
+  json-glib,
+  libcue,
+  libexif,
+  libgsf,
+  libgxps,
+  libiptcdata,
+  libjpeg,
+  libosinfo,
+  libpng,
+  libseccomp,
+  libtiff,
+  libuuid,
+  libxml2,
+  networkmanager,
+  poppler,
+  systemd,
+  taglib,
+  upower,
+  totem-pl-parser,
+  e2fsprogs,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tracker-miners";

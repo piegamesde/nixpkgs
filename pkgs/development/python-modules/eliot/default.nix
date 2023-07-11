@@ -1,6 +1,18 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, aiocontextvars, boltons
-, hypothesis, pyrsistent, pytestCheckHook, setuptools, six, testtools
-, zope_interface }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  aiocontextvars,
+  boltons,
+  hypothesis,
+  pyrsistent,
+  pytestCheckHook,
+  setuptools,
+  six,
+  testtools,
+  zope_interface,
+}:
 
 buildPythonPackage rec {
   pname = "eliot";

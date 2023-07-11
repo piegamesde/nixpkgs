@@ -1,4 +1,11 @@
-{ lib, buildDotnetModule, dotnetCorePackages, fetchFromGitHub, zlib, openssl }:
+{
+  lib,
+  buildDotnetModule,
+  dotnetCorePackages,
+  fetchFromGitHub,
+  zlib,
+  openssl,
+}:
 
 buildDotnetModule rec {
   pname = "ps3-disc-dumper";

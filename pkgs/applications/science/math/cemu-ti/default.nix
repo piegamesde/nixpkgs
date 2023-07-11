@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, qmake, pkg-config, wrapQtAppsHook, libarchive
-, libpng }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  qmake,
+  pkg-config,
+  wrapQtAppsHook,
+  libarchive,
+  libpng,
+}:
 
 stdenv.mkDerivation rec {
   pname = "CEmu";

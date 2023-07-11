@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -41,140 +46,145 @@ let
   in concatStringsSep "\n" (mapAttrsToList mkEntry cfg.config) + "\n"
   + cfg.extraConfig;
 
-  masterCfOptions = { options, config, name, ... }: {
-    options = {
-      name = mkOption {
-        type = types.str;
-        default = name;
-        example = "smtp";
-        description = lib.mdDoc ''
-          The name of the service to run. Defaults to the attribute set key.
-        '';
+  masterCfOptions = {
+      options,
+      config,
+      name,
+      ...
+    }: {
+      options = {
+        name = mkOption {
+          type = types.str;
+          default = name;
+          example = "smtp";
+          description = lib.mdDoc ''
+            The name of the service to run. Defaults to the attribute set key.
+          '';
+        };
+
+        type = mkOption {
+          type = types.enum [ "inet" "unix" "unix-dgram" "fifo" "pass" ];
+          default = "unix";
+          example = "inet";
+          description = lib.mdDoc "The type of the service";
+        };
+
+        private = mkOption {
+          type = types.bool;
+          example = false;
+          description = lib.mdDoc ''
+            Whether the service's sockets and storage directory is restricted to
+            be only available via the mail system. If `null` is
+            given it uses the postfix default `true`.
+          '';
+        };
+
+        privileged = mkOption {
+          type = types.bool;
+          example = true;
+          description = lib.mdDoc "";
+        };
+
+        chroot = mkOption {
+          type = types.bool;
+          example = true;
+          description = lib.mdDoc ''
+            Whether the service is chrooted to have only access to the
+            {option}`services.postfix.queueDir` and the closure of
+            store paths specified by the {option}`program` option.
+          '';
+        };
+
+        wakeup = mkOption {
+          type = types.int;
+          example = 60;
+          description = lib.mdDoc ''
+            Automatically wake up the service after the specified number of
+            seconds. If `0` is given, never wake the service
+            up.
+          '';
+        };
+
+        wakeupUnusedComponent = mkOption {
+          type = types.bool;
+          example = false;
+          description = lib.mdDoc ''
+            If set to `false` the component will only be woken
+            up if it is used. This is equivalent to postfix' notion of adding a
+            question mark behind the wakeup time in
+            {file}`master.cf`
+          '';
+        };
+
+        maxproc = mkOption {
+          type = types.int;
+          example = 1;
+          description = lib.mdDoc ''
+            The maximum number of processes to spawn for this service. If the
+            value is `0` it doesn't have any limit. If
+            `null` is given it uses the postfix default of
+            `100`.
+          '';
+        };
+
+        command = mkOption {
+          type = types.str;
+          default = name;
+          example = "smtpd";
+          description = lib.mdDoc ''
+            A program name specifying a Postfix service/daemon process.
+            By default it's the attribute {option}`name`.
+          '';
+        };
+
+        args = mkOption {
+          type = types.listOf types.str;
+          default = [ ];
+          example = [ "-o" "smtp_helo_timeout=5" ];
+          description = lib.mdDoc ''
+            Arguments to pass to the {option}`command`. There is no shell
+            processing involved and shell syntax is passed verbatim to the
+            process.
+          '';
+        };
+
+        rawEntry = mkOption {
+          type = types.listOf types.str;
+          default = [ ];
+          internal = true;
+          description = lib.mdDoc ''
+            The raw configuration line for the {file}`master.cf`.
+          '';
+        };
       };
 
-      type = mkOption {
-        type = types.enum [ "inet" "unix" "unix-dgram" "fifo" "pass" ];
-        default = "unix";
-        example = "inet";
-        description = lib.mdDoc "The type of the service";
-      };
+      config.rawEntry = let
+        mkBool = bool: if bool then "y" else "n";
+        mkArg = arg: "${optionalString (hasPrefix "-" arg) "\n  "}${arg}";
 
-      private = mkOption {
-        type = types.bool;
-        example = false;
-        description = lib.mdDoc ''
-          Whether the service's sockets and storage directory is restricted to
-          be only available via the mail system. If `null` is
-          given it uses the postfix default `true`.
-        '';
-      };
+        maybeOption = fun: option:
+          if options.${option}.isDefined then fun config.${option} else "-";
 
-      privileged = mkOption {
-        type = types.bool;
-        example = true;
-        description = lib.mdDoc "";
-      };
+        # This is special, because we have two options for this value.
+        wakeup = let
+          wakeupDefined = options.wakeup.isDefined;
+          wakeupUCDefined = options.wakeupUnusedComponent.isDefined;
+          finalValue = toString config.wakeup
+            + optionalString (wakeupUCDefined && !config.wakeupUnusedComponent)
+            "?";
+        in if wakeupDefined then finalValue else "-";
 
-      chroot = mkOption {
-        type = types.bool;
-        example = true;
-        description = lib.mdDoc ''
-          Whether the service is chrooted to have only access to the
-          {option}`services.postfix.queueDir` and the closure of
-          store paths specified by the {option}`program` option.
-        '';
-      };
-
-      wakeup = mkOption {
-        type = types.int;
-        example = 60;
-        description = lib.mdDoc ''
-          Automatically wake up the service after the specified number of
-          seconds. If `0` is given, never wake the service
-          up.
-        '';
-      };
-
-      wakeupUnusedComponent = mkOption {
-        type = types.bool;
-        example = false;
-        description = lib.mdDoc ''
-          If set to `false` the component will only be woken
-          up if it is used. This is equivalent to postfix' notion of adding a
-          question mark behind the wakeup time in
-          {file}`master.cf`
-        '';
-      };
-
-      maxproc = mkOption {
-        type = types.int;
-        example = 1;
-        description = lib.mdDoc ''
-          The maximum number of processes to spawn for this service. If the
-          value is `0` it doesn't have any limit. If
-          `null` is given it uses the postfix default of
-          `100`.
-        '';
-      };
-
-      command = mkOption {
-        type = types.str;
-        default = name;
-        example = "smtpd";
-        description = lib.mdDoc ''
-          A program name specifying a Postfix service/daemon process.
-          By default it's the attribute {option}`name`.
-        '';
-      };
-
-      args = mkOption {
-        type = types.listOf types.str;
-        default = [ ];
-        example = [ "-o" "smtp_helo_timeout=5" ];
-        description = lib.mdDoc ''
-          Arguments to pass to the {option}`command`. There is no shell
-          processing involved and shell syntax is passed verbatim to the
-          process.
-        '';
-      };
-
-      rawEntry = mkOption {
-        type = types.listOf types.str;
-        default = [ ];
-        internal = true;
-        description = lib.mdDoc ''
-          The raw configuration line for the {file}`master.cf`.
-        '';
-      };
+      in [
+        config.name
+        config.type
+        (maybeOption mkBool "private")
+        (maybeOption (b: mkBool (!b)) "privileged")
+        (maybeOption mkBool "chroot")
+        wakeup
+        (maybeOption toString "maxproc")
+        (config.command + " " + concatMapStringsSep " " mkArg config.args)
+      ];
     };
-
-    config.rawEntry = let
-      mkBool = bool: if bool then "y" else "n";
-      mkArg = arg: "${optionalString (hasPrefix "-" arg) "\n  "}${arg}";
-
-      maybeOption = fun: option:
-        if options.${option}.isDefined then fun config.${option} else "-";
-
-      # This is special, because we have two options for this value.
-      wakeup = let
-        wakeupDefined = options.wakeup.isDefined;
-        wakeupUCDefined = options.wakeupUnusedComponent.isDefined;
-        finalValue = toString config.wakeup
-          + optionalString (wakeupUCDefined && !config.wakeupUnusedComponent)
-          "?";
-      in if wakeupDefined then finalValue else "-";
-
-    in [
-      config.name
-      config.type
-      (maybeOption mkBool "private")
-      (maybeOption (b: mkBool (!b)) "privileged")
-      (maybeOption mkBool "chroot")
-      wakeup
-      (maybeOption toString "maxproc")
-      (config.command + " " + concatMapStringsSep " " mkArg config.args)
-    ];
-  };
 
   masterCfContent = let
 
@@ -223,23 +233,25 @@ let
   in formattedLabels + "\n" + concatMapStringsSep "\n" formatLine masterCf
   + "\n" + cfg.extraMasterConf;
 
-  headerCheckOptions = { ... }: {
-    options = {
-      pattern = mkOption {
-        type = types.str;
-        default = "/^.*/";
-        example = "/^X-Mailer:/";
-        description = lib.mdDoc "A regexp pattern matching the header";
-      };
-      action = mkOption {
-        type = types.str;
-        default = "DUNNO";
-        example = "BCC mail@example.com";
-        description =
-          lib.mdDoc "The action to be executed when the pattern is matched";
+  headerCheckOptions = {
+      ...
+    }: {
+      options = {
+        pattern = mkOption {
+          type = types.str;
+          default = "/^.*/";
+          example = "/^X-Mailer:/";
+          description = lib.mdDoc "A regexp pattern matching the header";
+        };
+        action = mkOption {
+          type = types.str;
+          default = "DUNNO";
+          example = "BCC mail@example.com";
+          description =
+            lib.mdDoc "The action to be executed when the pattern is matched";
+        };
       };
     };
-  };
 
   headerChecks =
     concatStringsSep "\n" (map (x: "${x.pattern} ${x.action}") cfg.headerChecks)

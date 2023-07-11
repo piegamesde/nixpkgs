@@ -1,7 +1,30 @@
-{ lib, fetchFromGitHub, makeDesktopItem, copyDesktopItems, makeWrapper
-, rustPlatform, cmake, yasm, nasm, pkg-config, clang, gtk3, xdotool, libxcb
-, libXfixes, alsa-lib, pulseaudio, libXtst, libvpx, libyuv, libopus, libsciter
-, llvmPackages, wrapGAppsHook, writeText }:
+{
+  lib,
+  fetchFromGitHub,
+  makeDesktopItem,
+  copyDesktopItems,
+  makeWrapper,
+  rustPlatform,
+  cmake,
+  yasm,
+  nasm,
+  pkg-config,
+  clang,
+  gtk3,
+  xdotool,
+  libxcb,
+  libXfixes,
+  alsa-lib,
+  pulseaudio,
+  libXtst,
+  libvpx,
+  libyuv,
+  libopus,
+  libsciter,
+  llvmPackages,
+  wrapGAppsHook,
+  writeText,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rustdesk";

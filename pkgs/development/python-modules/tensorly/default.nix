@@ -1,5 +1,13 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, numpy, pytestCheckHook
-, pythonOlder, scipy }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  numpy,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+}:
 
 buildPythonPackage rec {
   pname = "tensorly";

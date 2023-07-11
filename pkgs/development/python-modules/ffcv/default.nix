@@ -1,5 +1,16 @@
-{ buildPythonPackage, fetchFromGitHub, lib, libjpeg, numba, opencv4, pandas
-, pkg-config, pytorch-pfn-extras, terminaltables, tqdm }:
+{
+  buildPythonPackage,
+  fetchFromGitHub,
+  lib,
+  libjpeg,
+  numba,
+  opencv4,
+  pandas,
+  pkg-config,
+  pytorch-pfn-extras,
+  terminaltables,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "ffcv";

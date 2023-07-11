@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchFromGitHub, freezegun, graphql-core, opentracing
-, pytest-asyncio, pytest-mock, pytestCheckHook, pythonOlder, snapshottest
-, starlette, typing-extensions, werkzeug }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  freezegun,
+  graphql-core,
+  opentracing,
+  pytest-asyncio,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  snapshottest,
+  starlette,
+  typing-extensions,
+  werkzeug,
+}:
 
 buildPythonPackage rec {
   pname = "ariadne";

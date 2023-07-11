@@ -1,5 +1,15 @@
-{ lib, fetchFromGitHub, buildPythonPackage, setuptools-scm, pyserial, pyusb
-, pyvisa, typing-extensions, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  setuptools-scm,
+  pyserial,
+  pyusb,
+  pyvisa,
+  typing-extensions,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyvisa-py";

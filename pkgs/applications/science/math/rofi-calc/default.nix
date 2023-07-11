@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, rofi-unwrapped
-, libqalculate, glib, cairo, gobject-introspection, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  rofi-unwrapped,
+  libqalculate,
+  glib,
+  cairo,
+  gobject-introspection,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rofi-calc";

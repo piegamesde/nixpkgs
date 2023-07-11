@@ -1,4 +1,11 @@
-{ rustPlatform, lib, fetchurl, openssl, pkg-config, systemd }:
+{
+  rustPlatform,
+  lib,
+  fetchurl,
+  openssl,
+  pkg-config,
+  systemd,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "pr-tracker";

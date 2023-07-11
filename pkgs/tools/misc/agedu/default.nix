@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchgit, cmake, halibut }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  cmake,
+  halibut,
+}:
 let
   date = "20211129";
   rev = "8cd63c5";

@@ -1,6 +1,24 @@
-{ lib, stdenv, mkDerivation, fetchFromGitHub, fetchpatch, clipper, cmake, cups
-, doxygen, gdal, ninja, proj, qtimageformats, qtlocation, qtsensors, qttools
-, qttranslations, substituteAll, zlib }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchFromGitHub,
+  fetchpatch,
+  clipper,
+  cmake,
+  cups,
+  doxygen,
+  gdal,
+  ninja,
+  proj,
+  qtimageformats,
+  qtlocation,
+  qtsensors,
+  qttools,
+  qttranslations,
+  substituteAll,
+  zlib,
+}:
 
 mkDerivation rec {
   pname = "OpenOrienteering-Mapper";

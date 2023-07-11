@@ -1,6 +1,21 @@
-{ lib, buildGoModule, buildFHSEnv, binutils, dejavu_fonts, pkg-config
-, fetchFromGitHub, roboto, writeScript, xorg, libglvnd, addOpenGLRunpath
-, makeWrapper, gcc, go, flutter }:
+{
+  lib,
+  buildGoModule,
+  buildFHSEnv,
+  binutils,
+  dejavu_fonts,
+  pkg-config,
+  fetchFromGitHub,
+  roboto,
+  writeScript,
+  xorg,
+  libglvnd,
+  addOpenGLRunpath,
+  makeWrapper,
+  gcc,
+  go,
+  flutter,
+}:
 
 let
   pname = "hover";

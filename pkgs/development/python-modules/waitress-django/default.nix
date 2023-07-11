@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, django, waitress }:
+{
+  lib,
+  buildPythonPackage,
+  django,
+  waitress,
+}:
 
 buildPythonPackage {
   pname = "waitress-django";

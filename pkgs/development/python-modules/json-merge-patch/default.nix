@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, fetchpatch }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fetchpatch,
+}:
 
 buildPythonPackage rec {
   pname = "json-merge-patch";

@@ -1,5 +1,16 @@
-{ lib, fetchFromGitHub, buildPythonApplication, qt5, legendary-gl, pypresence
-, pyqt5, python, qtawesome, requests, typing-extensions }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonApplication,
+  qt5,
+  legendary-gl,
+  pypresence,
+  pyqt5,
+  python,
+  qtawesome,
+  requests,
+  typing-extensions,
+}:
 
 buildPythonApplication rec {
   pname = "rare";

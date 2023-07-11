@@ -1,4 +1,9 @@
-{ stdenv, runtimeShell, lib, fetchzip }:
+{
+  stdenv,
+  runtimeShell,
+  lib,
+  fetchzip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "terminal-notifier";

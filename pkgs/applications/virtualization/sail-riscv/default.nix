@@ -1,4 +1,13 @@
-{ stdenv, fetchFromGitHub, fetchpatch, lib, arch, ocamlPackages, ocaml, zlib, z3
+{
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  lib,
+  arch,
+  ocamlPackages,
+  ocaml,
+  zlib,
+  z3,
 }:
 
 stdenv.mkDerivation rec {

@@ -1,4 +1,11 @@
-{ lib, mkCoqDerivation, coq, aac-tactics, mathcomp, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  aac-tactics,
+  mathcomp,
+  version ? null
+}:
 
 mkCoqDerivation {
   pname = "relation-algebra";

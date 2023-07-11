@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, glib, pkg-config, perl, gettext, gobject-introspection
-, gnome, gtk-doc, deterministic-uname }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  glib,
+  pkg-config,
+  perl,
+  gettext,
+  gobject-introspection,
+  gnome,
+  gtk-doc,
+  deterministic-uname,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgtop";

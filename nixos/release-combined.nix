@@ -2,12 +2,16 @@
 # and nixos-14.04). The channel is updated every time the ‘tested’ job
 # succeeds, and all other jobs have finished (they may fail).
 
-{ nixpkgs ? {
-  outPath = (import ../lib).cleanSource ./..;
-  revCount = 56789;
-  shortRev = "gfedcba";
-}, stableBranch ? false, supportedSystems ? [ "aarch64-linux" "x86_64-linux" ]
-, limitedSupportedSystems ? [ "i686-linux" ] }:
+{
+  nixpkgs ? {
+    outPath = (import ../lib).cleanSource ./..;
+    revCount = 56789;
+    shortRev = "gfedcba";
+  },
+  stableBranch ? false,
+  supportedSystems ? [ "aarch64-linux" "x86_64-linux" ],
+  limitedSupportedSystems ? [ "i686-linux" ]
+}:
 
 let
 

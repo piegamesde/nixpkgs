@@ -1,4 +1,9 @@
-{ dos2unix, fetchurl, lib, stdenv }:
+{
+  dos2unix,
+  fetchurl,
+  lib,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mkclean";

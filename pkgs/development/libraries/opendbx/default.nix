@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, readline, libmysqlclient, postgresql, sqlite }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  readline,
+  libmysqlclient,
+  postgresql,
+  sqlite,
+}:
 
 let inherit (lib) getDev;
 

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, libX11, libXft, libclthreads, libclxclient, libjack2
-, libpng, libsndfile, zita-resampler }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
+  libXft,
+  libclthreads,
+  libclxclient,
+  libjack2,
+  libpng,
+  libsndfile,
+  zita-resampler,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ebumeter";

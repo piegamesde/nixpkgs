@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, nose, mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  nose,
+  mock,
+}:
 
 buildPythonPackage rec {
   pname = "uvcclient";

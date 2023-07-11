@@ -1,7 +1,27 @@
-{ stdenv, lib, buildPythonPackage, fetchPypi, isPy3k, installShellFiles, attrs
-, click, construct, construct-classes, ecdsa, hidapi, libusb1, mnemonic, pillow
-, protobuf, requests, shamir-mnemonic, simple-rlp, typing-extensions
-, trezor-udev-rules, pytestCheckHook }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  installShellFiles,
+  attrs,
+  click,
+  construct,
+  construct-classes,
+  ecdsa,
+  hidapi,
+  libusb1,
+  mnemonic,
+  pillow,
+  protobuf,
+  requests,
+  shamir-mnemonic,
+  simple-rlp,
+  typing-extensions,
+  trezor-udev-rules,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "trezor";

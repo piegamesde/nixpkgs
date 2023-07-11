@@ -1,4 +1,10 @@
-{ fetchurl, lib, stdenv, bash, perl }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  bash,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rush";

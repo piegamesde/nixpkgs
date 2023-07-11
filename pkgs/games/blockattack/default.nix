@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, boost
-, cmake, gettext, physfs, pkg-config, zip }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  SDL2_image,
+  SDL2_mixer,
+  SDL2_ttf,
+  boost,
+  cmake,
+  gettext,
+  physfs,
+  pkg-config,
+  zip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "blockattack";

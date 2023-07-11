@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder, setuptools
-, wheel }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  wheel,
+}:
 
 buildPythonPackage rec {
   pname = "tree-sitter";

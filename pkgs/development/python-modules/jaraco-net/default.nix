@@ -1,9 +1,33 @@
-{ lib, stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, setuptools
-, setuptools-scm, more-itertools, beautifulsoup4, mechanize, keyring, requests
-, feedparser, jaraco_text, jaraco_logging, jaraco-email, jaraco_functools
-, jaraco_collections, path, python-dateutil, pathvalidate, jsonpickle
-, ifconfig-parser, pytestCheckHook, cherrypy, importlib-resources, pyparsing
-, requests-mock }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  setuptools,
+  setuptools-scm,
+  more-itertools,
+  beautifulsoup4,
+  mechanize,
+  keyring,
+  requests,
+  feedparser,
+  jaraco_text,
+  jaraco_logging,
+  jaraco-email,
+  jaraco_functools,
+  jaraco_collections,
+  path,
+  python-dateutil,
+  pathvalidate,
+  jsonpickle,
+  ifconfig-parser,
+  pytestCheckHook,
+  cherrypy,
+  importlib-resources,
+  pyparsing,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "jaraco-net";

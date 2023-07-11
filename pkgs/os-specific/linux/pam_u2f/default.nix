@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pkg-config, libfido2, pam, openssl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libfido2,
+  pam,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pam_u2f";

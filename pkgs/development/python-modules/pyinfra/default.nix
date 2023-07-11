@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, click, colorama, configparser, distro
-, fetchFromGitHub, gevent, jinja2, paramiko, pytestCheckHook, python-dateutil
-, pythonOlder, pywinrm, pyyaml, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  colorama,
+  configparser,
+  distro,
+  fetchFromGitHub,
+  gevent,
+  jinja2,
+  paramiko,
+  pytestCheckHook,
+  python-dateutil,
+  pythonOlder,
+  pywinrm,
+  pyyaml,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "pyinfra";

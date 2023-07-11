@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, systemd, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  systemd,
+  pkg-config,
+}:
 
 stdenv.mkDerivation {
   version = "1.06";

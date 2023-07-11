@@ -1,4 +1,8 @@
-{ jdk, jre, pkgs }:
+{
+  jdk,
+  jre,
+  pkgs,
+}:
 
 # 'Hello world' Java application derivation for use in tests
 let

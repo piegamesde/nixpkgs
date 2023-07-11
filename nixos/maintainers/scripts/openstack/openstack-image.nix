@@ -1,6 +1,11 @@
 # nix-build '<nixpkgs/nixos>' -A config.system.build.openstackImage --arg configuration "{ imports = [ ./nixos/maintainers/scripts/openstack/openstack-image.nix ]; }"
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let copyChannel = true;
 in {
   imports = [ ../../../modules/virtualisation/openstack-config.nix ]

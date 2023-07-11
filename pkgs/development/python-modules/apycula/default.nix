@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, setuptools-scm, numpy, pandas
-, pillow, crcmod, openpyxl }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  setuptools-scm,
+  numpy,
+  pandas,
+  pillow,
+  crcmod,
+  openpyxl,
+}:
 
 buildPythonPackage rec {
   pname = "apycula";

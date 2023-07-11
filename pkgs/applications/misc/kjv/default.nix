@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, readline }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  readline,
+}:
 
 let
   patchPrefix =

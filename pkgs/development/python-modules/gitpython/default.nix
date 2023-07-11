@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, ddt, fetchFromGitHub, gitdb, pkgs, pythonOlder
-, substituteAll, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  ddt,
+  fetchFromGitHub,
+  gitdb,
+  pkgs,
+  pythonOlder,
+  substituteAll,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "gitpython";

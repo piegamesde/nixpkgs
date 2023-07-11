@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libpcap, boost }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libpcap,
+  boost,
+}:
 
 stdenv.mkDerivation rec {
   pname = "usbtop";

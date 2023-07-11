@@ -1,5 +1,15 @@
-{ lib, buildDunePackage, fetchurl, xmlm, lwt, logs, fmt, cstruct, cmdliner
-, alcotest-lwt }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  xmlm,
+  lwt,
+  logs,
+  fmt,
+  cstruct,
+  cmdliner,
+  alcotest-lwt,
+}:
 
 buildDunePackage rec {
   pname = "wayland";

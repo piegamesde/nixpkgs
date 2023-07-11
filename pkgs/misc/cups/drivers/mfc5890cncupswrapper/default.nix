@@ -1,5 +1,17 @@
-{ lib, findutils, stdenv, fetchurl, dpkg, makeWrapper, coreutils, gnugrep
-, gnused, mfc5890cnlpr, pkgsi686Linux, psutils }:
+{
+  lib,
+  findutils,
+  stdenv,
+  fetchurl,
+  dpkg,
+  makeWrapper,
+  coreutils,
+  gnugrep,
+  gnused,
+  mfc5890cnlpr,
+  pkgsi686Linux,
+  psutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mfc5890cncupswrapper";

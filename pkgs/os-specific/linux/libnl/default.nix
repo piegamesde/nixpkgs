@@ -1,5 +1,16 @@
-{ stdenv, file, lib, fetchFromGitHub, autoreconfHook, bison, flex, pkg-config
-, pythonSupport ? false, swig ? null, python ? null }:
+{
+  stdenv,
+  file,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  bison,
+  flex,
+  pkg-config,
+  pythonSupport ? false,
+  swig ? null,
+  python ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "libnl";

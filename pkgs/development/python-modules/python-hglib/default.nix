@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, mercurial, nose }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  mercurial,
+  nose,
+}:
 
 buildPythonPackage rec {
   pname = "python-hglib";

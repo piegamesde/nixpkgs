@@ -1,4 +1,8 @@
-{ appimageTools, fetchurl, lib }:
+{
+  appimageTools,
+  fetchurl,
+  lib,
+}:
 
 let
   pname = "Sylk";

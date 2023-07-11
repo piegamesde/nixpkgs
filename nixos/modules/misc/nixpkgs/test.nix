@@ -1,4 +1,9 @@
-{ evalMinimalConfig, pkgs, lib, stdenv }:
+{
+  evalMinimalConfig,
+  pkgs,
+  lib,
+  stdenv,
+}:
 let
   eval = mod: evalMinimalConfig { imports = [ ../nixpkgs.nix mod ]; };
   withHost = eval { nixpkgs.hostPlatform = "aarch64-linux"; };

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, mono, dbus-sharp-1_0
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  mono,
+  dbus-sharp-1_0,
 }:
 
 stdenv.mkDerivation rec {

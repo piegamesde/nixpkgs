@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, trousers, openssl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  trousers,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tpm-quote-tools";

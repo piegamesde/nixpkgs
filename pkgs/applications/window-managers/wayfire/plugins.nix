@@ -1,4 +1,7 @@
-{ newScope, wayfire }:
+{
+  newScope,
+  wayfire,
+}:
 
 let
   self = with self; {

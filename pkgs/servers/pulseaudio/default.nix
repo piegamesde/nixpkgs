@@ -1,33 +1,78 @@
-{ lib, stdenv, fetchurl, fetchpatch, pkg-config, libsndfile, libtool
-, makeWrapper, perlPackages, xorg, libcap, alsa-lib, glib, dconf, avahi
-, libjack2, libasyncns, lirc, dbus, sbc, bluez5, udev, openssl, fftwFloat, soxr
-, speexdsp, systemd, webrtc-audio-processing, gst_all_1, check, libintl, meson
-, ninja, m4, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  libsndfile,
+  libtool,
+  makeWrapper,
+  perlPackages,
+  xorg,
+  libcap,
+  alsa-lib,
+  glib,
+  dconf,
+  avahi,
+  libjack2,
+  libasyncns,
+  lirc,
+  dbus,
+  sbc,
+  bluez5,
+  udev,
+  openssl,
+  fftwFloat,
+  soxr,
+  speexdsp,
+  systemd,
+  webrtc-audio-processing,
+  gst_all_1,
+  check,
+  libintl,
+  meson,
+  ninja,
+  m4,
+  wrapGAppsHook
 
-, x11Support ? false
+  ,
+  x11Support ? false
 
-, useSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
+  ,
+  useSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
 
-, # Whether to support the JACK sound system as a backend.
-jackaudioSupport ? false
+  , # Whether to support the JACK sound system as a backend.
+  jackaudioSupport ? false
 
-, # Whether to build the OSS wrapper ("padsp").
-ossWrapper ? true
+  , # Whether to build the OSS wrapper ("padsp").
+  ossWrapper ? true
 
-, airtunesSupport ? false
+  ,
+  airtunesSupport ? false
 
-, bluetoothSupport ? stdenv.isLinux, advancedBluetoothCodecs ? false
+  ,
+  bluetoothSupport ? stdenv.isLinux,
+  advancedBluetoothCodecs ? false
 
-, remoteControlSupport ? false
+  ,
+  remoteControlSupport ? false
 
-, zeroconfSupport ? false
+  ,
+  zeroconfSupport ? false
 
-, alsaSupport ? stdenv.isLinux, udevSupport ? stdenv.isLinux
+  ,
+  alsaSupport ? stdenv.isLinux,
+  udevSupport ? stdenv.isLinux
 
-, # Whether to build only the library.
-libOnly ? false
+  , # Whether to build only the library.
+  libOnly ? false
 
-, AudioUnit, Cocoa, CoreServices, CoreAudio }:
+  ,
+  AudioUnit,
+  Cocoa,
+  CoreServices,
+  CoreAudio,
+}:
 
 stdenv.mkDerivation rec {
   pname = "${lib.optionalString libOnly "lib"}pulseaudio";

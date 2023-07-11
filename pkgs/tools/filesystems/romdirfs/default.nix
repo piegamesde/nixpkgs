@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, fuse }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  fuse,
+}:
 
 stdenv.mkDerivation rec {
   pname = "romdirfs";

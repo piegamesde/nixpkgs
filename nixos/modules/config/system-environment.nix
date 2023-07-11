@@ -1,6 +1,12 @@
 # This module defines a system-wide environment that will be
 # initialised by pam_env (that is, not only in shells).
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 
 with lib;
 

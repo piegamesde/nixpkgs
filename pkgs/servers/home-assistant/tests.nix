@@ -1,4 +1,7 @@
-{ lib, home-assistant }:
+{
+  lib,
+  home-assistant,
+}:
 
 let
   # some components' tests have additional dependencies

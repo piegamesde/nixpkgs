@@ -1,5 +1,17 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, flit-core, matplotlib
-, pytest-xdist, pytestCheckHook, numpy, pandas, pythonOlder, scipy }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  flit-core,
+  matplotlib,
+  pytest-xdist,
+  pytestCheckHook,
+  numpy,
+  pandas,
+  pythonOlder,
+  scipy,
+}:
 
 buildPythonPackage rec {
   pname = "seaborn";

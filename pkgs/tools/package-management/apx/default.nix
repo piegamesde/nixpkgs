@@ -1,5 +1,12 @@
-{ lib, buildGoModule, fetchFromGitHub, makeWrapper, installShellFiles, docker
-, distrobox }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  installShellFiles,
+  docker,
+  distrobox,
+}:
 
 buildGoModule rec {
   pname = "apx";

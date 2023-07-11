@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, attrs, requests, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  attrs,
+  requests,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "pyqwikswitch";

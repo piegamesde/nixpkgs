@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, isPy3k, isPyPy
-, unittestCheckHook, pythonAtLeast }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  isPy3k,
+  isPyPy,
+  unittestCheckHook,
+  pythonAtLeast,
+}:
 
 let testDir = if isPy3k then "src" else "python2";
 

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest-runner, scikitimage }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-runner,
+  scikitimage,
+}:
 
 buildPythonPackage {
   pname = "image-match";

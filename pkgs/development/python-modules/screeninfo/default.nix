@@ -1,5 +1,15 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, libX11, libXinerama
-, libXrandr, poetry-core, pytestCheckHook, pythonOlder }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  libX11,
+  libXinerama,
+  libXrandr,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "screeninfo";

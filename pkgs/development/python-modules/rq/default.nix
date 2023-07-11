@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder, click, redis }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pythonOlder,
+  click,
+  redis,
+}:
 
 buildPythonPackage rec {
   pname = "rq";

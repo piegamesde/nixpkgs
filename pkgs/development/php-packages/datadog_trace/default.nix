@@ -1,4 +1,11 @@
-{ buildPecl, curl, fetchFromGitHub, lib, pcre2, php }:
+{
+  buildPecl,
+  curl,
+  fetchFromGitHub,
+  lib,
+  pcre2,
+  php,
+}:
 
 buildPecl rec {
   pname = "ddtrace";

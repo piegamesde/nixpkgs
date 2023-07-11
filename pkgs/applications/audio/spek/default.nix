@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, intltool, pkg-config, ffmpeg
-, wxGTK32, gtk3, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  intltool,
+  pkg-config,
+  ffmpeg,
+  wxGTK32,
+  gtk3,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "spek";

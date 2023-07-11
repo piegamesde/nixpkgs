@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildGoModule, callPackage, enableWebui ? true }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  callPackage,
+  enableWebui ? true
+}:
 
 buildGoModule rec {
   pname = "rmfakecloud";

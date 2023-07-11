@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, libX11, libXext, libXrandr, libXrender, xorgproto
-, patches ? [ ] }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
+  libXext,
+  libXrandr,
+  libXrender,
+  xorgproto,
+  patches ? [ ]
+}:
 
 stdenv.mkDerivation rec {
   pname = "evilwm";

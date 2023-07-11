@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, expat, libaio, boost }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  expat,
+  libaio,
+  boost,
+}:
 
 stdenv.mkDerivation rec {
   pname = "thin-provisioning-tools";

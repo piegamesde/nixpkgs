@@ -1,6 +1,25 @@
-{ lib, buildDunePackage, fetchFromGitLab, ocaml, fmt, lwt_ppx, menhir, ocf_ppx
-, ppx_blob, xtmpl_ppx, dune-build-info, dune-site, higlo, logs, lwt, ocf, ptime
-, uri, uutf, xtmpl }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitLab,
+  ocaml,
+  fmt,
+  lwt_ppx,
+  menhir,
+  ocf_ppx,
+  ppx_blob,
+  xtmpl_ppx,
+  dune-build-info,
+  dune-site,
+  higlo,
+  logs,
+  lwt,
+  ocf,
+  ptime,
+  uri,
+  uutf,
+  xtmpl,
+}:
 
 if lib.versionAtLeast ocaml.version "4.13" then
   throw "stog is not available for OCaml ${ocaml.version}"

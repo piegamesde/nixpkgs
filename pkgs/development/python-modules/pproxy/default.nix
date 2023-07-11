@@ -1,4 +1,11 @@
-{ lib, isPy27, buildPythonPackage, fetchFromGitHub, pycryptodome, uvloop }:
+{
+  lib,
+  isPy27,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pycryptodome,
+  uvloop,
+}:
 
 buildPythonPackage rec {
   pname = "pproxy";

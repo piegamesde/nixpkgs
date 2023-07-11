@@ -1,4 +1,8 @@
-{ lib, python3Packages, fetchFromGitHub }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+}:
 
 with python3Packages;
 buildPythonApplication rec {

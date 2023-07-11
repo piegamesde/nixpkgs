@@ -1,4 +1,12 @@
-{ lib, rustPlatform, fetchCrate, pkg-config, gtk4, stdenv, darwin }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  gtk4,
+  stdenv,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "process-viewer";

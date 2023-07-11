@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchPypi, google-api-core, google-cloud-testutils
-, grpc-google-iam-v1, grpcio, grpcio-status, libcst, proto-plus, protobuf
-, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  google-cloud-testutils,
+  grpc-google-iam-v1,
+  grpcio,
+  grpcio-status,
+  libcst,
+  proto-plus,
+  protobuf,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "google-cloud-pubsub";

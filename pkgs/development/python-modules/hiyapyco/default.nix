@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pyyaml, jinja2 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pyyaml,
+  jinja2,
+}:
 
 buildPythonPackage rec {
   pname = "hiyapyco";

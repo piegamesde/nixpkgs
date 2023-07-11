@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+}:
 
 # Although we copy in the udev rules here, you probably just want to use
 # logitech-udev-rules instead of adding this to services.udev.packages on NixOS

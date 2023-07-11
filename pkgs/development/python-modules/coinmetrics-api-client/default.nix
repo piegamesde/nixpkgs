@@ -1,6 +1,19 @@
-{ lib, buildPythonPackage, fetchPypi, nix-update-script, orjson, pandas
-, poetry-core, pytestCheckHook, pytest-mock, pythonOlder, python-dateutil
-, requests, typer, websocket-client }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nix-update-script,
+  orjson,
+  pandas,
+  poetry-core,
+  pytestCheckHook,
+  pytest-mock,
+  pythonOlder,
+  python-dateutil,
+  requests,
+  typer,
+  websocket-client,
+}:
 
 buildPythonPackage rec {
   pname = "coinmetrics-api-client";

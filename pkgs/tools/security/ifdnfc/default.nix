@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, pcsclite, autoreconfHook, libnfc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  pcsclite,
+  autoreconfHook,
+  libnfc,
+}:
 
 stdenv.mkDerivation {
   pname = "ifdnfc";

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, uthash, xcbutil
-, xcbutilkeysyms, xorgproto }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  uthash,
+  xcbutil,
+  xcbutilkeysyms,
+  xorgproto,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xcb-imdkit";

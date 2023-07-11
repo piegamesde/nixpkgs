@@ -1,4 +1,10 @@
-{ lib, fetchFromSourcehut, rustPlatform, pkg-config, openssl, }:
+{
+  lib,
+  fetchFromSourcehut,
+  rustPlatform,
+  pkg-config,
+  openssl,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "eidolon";

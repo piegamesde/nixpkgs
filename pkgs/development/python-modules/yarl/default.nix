@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, pythonAtLeast, pythonOlder, idna
-, multidict, typing-extensions, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonAtLeast,
+  pythonOlder,
+  idna,
+  multidict,
+  typing-extensions,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "yarl";

@@ -1,5 +1,17 @@
-{ lib, stdenv, buildPackages, fetchurl, fetchpatch, pkg-config, libuuid, gettext
-, texinfo, fuse, shared ? !stdenv.hostPlatform.isStatic, e2fsprogs, runCommand
+{
+  lib,
+  stdenv,
+  buildPackages,
+  fetchurl,
+  fetchpatch,
+  pkg-config,
+  libuuid,
+  gettext,
+  texinfo,
+  fuse,
+  shared ? !stdenv.hostPlatform.isStatic,
+  e2fsprogs,
+  runCommand,
 }:
 
 stdenv.mkDerivation rec {

@@ -1,8 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, enableStatic ? stdenv.hostPlatform.isStatic
-, enableShared ? !enableStatic
-  # Multi-threading with OpenMP is disabled by default
-  # more info on https://www.cryptopp.com/wiki/OpenMP
-, withOpenMP ? false, llvmPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  enableStatic ? stdenv.hostPlatform.isStatic,
+  enableShared ? !enableStatic
+    # Multi-threading with OpenMP is disabled by default
+    # more info on https://www.cryptopp.com/wiki/OpenMP
+  ,
+  withOpenMP ? false,
+  llvmPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "crypto++";

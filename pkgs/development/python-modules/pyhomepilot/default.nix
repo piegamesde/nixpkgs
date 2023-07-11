@@ -1,4 +1,10 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyhomepilot";

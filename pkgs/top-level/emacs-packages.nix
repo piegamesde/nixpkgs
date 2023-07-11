@@ -20,34 +20,55 @@
    (package-initialize)
 */
 
-{ pkgs', emacs', makeScope, makeOverridable, dontRecurseIntoAttrs }:
+{
+  pkgs',
+  emacs',
+  makeScope,
+  makeOverridable,
+  dontRecurseIntoAttrs,
+}:
 
 let
 
-  mkElpaPackages = { pkgs, lib }:
+  mkElpaPackages = {
+      pkgs,
+      lib,
+    }:
     import ../applications/editors/emacs/elisp-packages/elpa-packages.nix {
       inherit (pkgs) stdenv texinfo writeText gcc pkgs buildPackages;
       inherit lib;
     };
 
-  mkNongnuPackages = { pkgs, lib }:
+  mkNongnuPackages = {
+      pkgs,
+      lib,
+    }:
     import ../applications/editors/emacs/elisp-packages/nongnu-packages.nix {
       inherit (pkgs) buildPackages;
       inherit lib;
     };
 
   # Contains both melpa stable & unstable
-  melpaGeneric = { pkgs, lib }:
+  melpaGeneric = {
+      pkgs,
+      lib,
+    }:
     import ../applications/editors/emacs/elisp-packages/melpa-packages.nix {
       inherit lib pkgs;
     };
 
-  mkManualPackages = { pkgs, lib }:
+  mkManualPackages = {
+      pkgs,
+      lib,
+    }:
     import ../applications/editors/emacs/elisp-packages/manual-packages.nix {
       inherit lib pkgs;
     };
 
-  emacsWithPackages = { pkgs, lib }:
+  emacsWithPackages = {
+      pkgs,
+      lib,
+    }:
     import ../build-support/emacs/wrapper.nix {
       inherit (pkgs) makeWrapper runCommand gcc;
       inherit (pkgs.xorg) lndir;
@@ -55,12 +76,15 @@ let
     };
 
 in makeScope pkgs'.newScope (self:
-  makeOverridable ({ pkgs ? pkgs', lib ? pkgs.lib
-    , elpaPackages ? mkElpaPackages { inherit pkgs lib; } self
-    , nongnuPackages ? mkNongnuPackages { inherit pkgs lib; } self
-    , melpaStablePackages ? melpaGeneric { inherit pkgs lib; } "stable" self
-    , melpaPackages ? melpaGeneric { inherit pkgs lib; } "unstable" self
-    , manualPackages ? mkManualPackages { inherit pkgs lib; } self }:
+  makeOverridable ({
+      pkgs ? pkgs',
+      lib ? pkgs.lib,
+      elpaPackages ? mkElpaPackages { inherit pkgs lib; } self,
+      nongnuPackages ? mkNongnuPackages { inherit pkgs lib; } self,
+      melpaStablePackages ? melpaGeneric { inherit pkgs lib; } "stable" self,
+      melpaPackages ? melpaGeneric { inherit pkgs lib; } "unstable" self,
+      manualPackages ? mkManualPackages { inherit pkgs lib; } self
+    }:
     ({ } // elpaPackages // {
       inherit elpaPackages;
     } // nongnuPackages // {

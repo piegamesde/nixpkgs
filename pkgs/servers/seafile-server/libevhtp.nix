@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, cmake, libevent }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  libevent,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libevhtp";

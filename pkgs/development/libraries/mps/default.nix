@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, autoreconfHook, sqlite }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  sqlite,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mps";

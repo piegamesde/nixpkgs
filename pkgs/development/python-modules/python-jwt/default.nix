@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, cryptography, freezegun
-, pytestCheckHook, pytest-cov }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  cryptography,
+  freezegun,
+  pytestCheckHook,
+  pytest-cov,
+}:
 
 buildPythonPackage rec {
   pname = "jwt";

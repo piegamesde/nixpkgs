@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, appimageTools, makeWrapper, electron_22 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  appimageTools,
+  makeWrapper,
+  electron_22,
+}:
 
 stdenv.mkDerivation rec {
   pname = "blockbench-electron";

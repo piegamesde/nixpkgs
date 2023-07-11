@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchgit, cmake, pkgconfig, python, mpi ? null }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  cmake,
+  pkgconfig,
+  python,
+  mpi ? null
+}:
 
 let
   components = {

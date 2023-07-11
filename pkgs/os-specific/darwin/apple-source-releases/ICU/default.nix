@@ -1,4 +1,10 @@
-{ appleDerivation, lib, stdenv, buildPackages, python3 }:
+{
+  appleDerivation,
+  lib,
+  stdenv,
+  buildPackages,
+  python3,
+}:
 
 let
   formatVersionNumeric = version:

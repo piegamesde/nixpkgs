@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, ruby, bundlerEnv }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ruby,
+  bundlerEnv,
+}:
 let
 
   # To create Gemfile.lock and gemset.nix

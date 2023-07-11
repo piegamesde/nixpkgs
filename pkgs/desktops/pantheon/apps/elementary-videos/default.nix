@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, pkg-config, meson, ninja
-, vala, python3, gtk3, granite, libgee, libhandy, clutter-gst, clutter-gtk
-, gst_all_1, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  pkg-config,
+  meson,
+  ninja,
+  vala,
+  python3,
+  gtk3,
+  granite,
+  libgee,
+  libhandy,
+  clutter-gst,
+  clutter-gtk,
+  gst_all_1,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "elementary-videos";

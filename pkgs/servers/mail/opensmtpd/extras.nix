@@ -1,7 +1,25 @@
-{ lib, stdenv, fetchurl, openssl, libevent, libasr, ncurses, pkg-config, lua5
-, perl, libmysqlclient, postgresql, sqlite, hiredis, enableLua ? true
-, enablePerl ? true, enableMysql ? true, enablePostgres ? true
-, enableSqlite ? true, enableRedis ? true, }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  openssl,
+  libevent,
+  libasr,
+  ncurses,
+  pkg-config,
+  lua5,
+  perl,
+  libmysqlclient,
+  postgresql,
+  sqlite,
+  hiredis,
+  enableLua ? true,
+  enablePerl ? true,
+  enableMysql ? true,
+  enablePostgres ? true,
+  enableSqlite ? true,
+  enableRedis ? true,
+}:
 
 stdenv.mkDerivation rec {
   pname = "opensmtpd-extras";

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let cfg = config.services.tts;
 
@@ -7,49 +12,51 @@ in {
     let inherit (lib) literalExpression mkOption mdDoc mkEnableOption types;
     in {
       servers = mkOption {
-        type = types.attrsOf (types.submodule ({ ... }: {
-          options = {
-            enable = mkEnableOption (mdDoc "Coqui TTS server");
+        type = types.attrsOf (types.submodule ({
+            ...
+          }: {
+            options = {
+              enable = mkEnableOption (mdDoc "Coqui TTS server");
 
-            port = mkOption {
-              type = types.port;
-              example = 5000;
-              description = mdDoc ''
-                Port to bind the TTS server to.
-              '';
+              port = mkOption {
+                type = types.port;
+                example = 5000;
+                description = mdDoc ''
+                  Port to bind the TTS server to.
+                '';
+              };
+
+              model = mkOption {
+                type = types.nullOr types.str;
+                default = "tts_models/en/ljspeech/tacotron2-DDC";
+                example = null;
+                description = mdDoc ''
+                  Name of the model to download and use for speech synthesis.
+
+                  Check `tts-server --list_models` for possible values.
+
+                  Set to `null` to use a custom model.
+                '';
+              };
+
+              useCuda = mkOption {
+                type = types.bool;
+                default = false;
+                example = true;
+                description = mdDoc ''
+                  Whether to offload computation onto a CUDA compatible GPU.
+                '';
+              };
+
+              extraArgs = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+                description = mdDoc ''
+                  Extra arguments to pass to the server commandline.
+                '';
+              };
             };
-
-            model = mkOption {
-              type = types.nullOr types.str;
-              default = "tts_models/en/ljspeech/tacotron2-DDC";
-              example = null;
-              description = mdDoc ''
-                Name of the model to download and use for speech synthesis.
-
-                Check `tts-server --list_models` for possible values.
-
-                Set to `null` to use a custom model.
-              '';
-            };
-
-            useCuda = mkOption {
-              type = types.bool;
-              default = false;
-              example = true;
-              description = mdDoc ''
-                Whether to offload computation onto a CUDA compatible GPU.
-              '';
-            };
-
-            extraArgs = mkOption {
-              type = types.listOf types.str;
-              default = [ ];
-              description = mdDoc ''
-                Extra arguments to pass to the server commandline.
-              '';
-            };
-          };
-        }));
+          }));
         default = { };
         example = literalExpression ''
           {

@@ -1,10 +1,31 @@
-{ lib, stdenv, fetchurl, fetchpatch, python3Packages, makeWrapper, gettext
-, installShellFiles, re2Support ? true
-, rustSupport ? stdenv.hostPlatform.isLinux, rustPlatform, fullBuild ? false
-, gitSupport ? fullBuild, guiSupport ? fullBuild, tk
-, highlightSupport ? fullBuild, ApplicationServices
-# test dependencies
-, runCommand, unzip, which, sqlite, git, cacert, gnupg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  python3Packages,
+  makeWrapper,
+  gettext,
+  installShellFiles,
+  re2Support ? true,
+  rustSupport ? stdenv.hostPlatform.isLinux,
+  rustPlatform,
+  fullBuild ? false,
+  gitSupport ? fullBuild,
+  guiSupport ? fullBuild,
+  tk,
+  highlightSupport ? fullBuild,
+  ApplicationServices
+  # test dependencies
+  ,
+  runCommand,
+  unzip,
+  which,
+  sqlite,
+  git,
+  cacert,
+  gnupg,
+}:
 
 let
   inherit (python3Packages) docutils python fb-re2 pygit2 pygments;
@@ -89,7 +110,11 @@ let
     };
   };
 
-  makeTests = { mercurial ? self, nameSuffix ? "", flags ? "" }:
+  makeTests = {
+      mercurial ? self,
+      nameSuffix ? "",
+      flags ? ""
+    }:
     runCommand "${mercurial.pname}${nameSuffix}-tests" {
       inherit (mercurial) src;
 

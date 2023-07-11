@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libminc, bicpl, arguments, pcre-cpp }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libminc,
+  bicpl,
+  arguments,
+  pcre-cpp,
+}:
 
 stdenv.mkDerivation rec {
   pname = "oobicpl";

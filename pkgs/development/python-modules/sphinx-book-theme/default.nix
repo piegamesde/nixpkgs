@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, sphinx, pydata-sphinx-theme
-, jupyter-book }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  sphinx,
+  pydata-sphinx-theme,
+  jupyter-book,
+}:
 
 buildPythonPackage rec {
   pname = "sphinx-book-theme";

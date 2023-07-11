@@ -1,5 +1,17 @@
-{ newScope, lib, fetchFromGitHub, callPackage, buildDunePackage, atdgen, junit
-, qcheck-core, re, reason, reason-native, fetchpatch }:
+{
+  newScope,
+  lib,
+  fetchFromGitHub,
+  callPackage,
+  buildDunePackage,
+  atdgen,
+  junit,
+  qcheck-core,
+  re,
+  reason,
+  reason-native,
+  fetchpatch,
+}:
 
 let
   generic = (somePath:

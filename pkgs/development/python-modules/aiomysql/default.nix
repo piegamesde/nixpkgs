@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pymysql, pythonOlder, setuptools-scm
-, setuptools-scm-git-archive }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pymysql,
+  pythonOlder,
+  setuptools-scm,
+  setuptools-scm-git-archive,
+}:
 
 buildPythonPackage rec {
   pname = "aiomysql";

@@ -1,5 +1,13 @@
-{ lib, stdenv, buildPackages, fetchFromGitHub, fetchpatch, pkg-config, popt
-, mandoc }:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  popt,
+  mandoc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "efivar";

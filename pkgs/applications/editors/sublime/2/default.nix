@@ -1,4 +1,13 @@
-{ fetchurl, lib, stdenv, glib, xorg, cairo, gtk2, makeDesktopItem }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  glib,
+  xorg,
+  cairo,
+  gtk2,
+  makeDesktopItem,
+}:
 let libPath = lib.makeLibraryPath [ glib xorg.libX11 gtk2 cairo ];
 
 in stdenv.mkDerivation rec {

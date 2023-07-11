@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, file, findutils, binutils-unwrapped
-, glibc, coreutils, sysctl, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  file,
+  findutils,
+  binutils-unwrapped,
+  glibc,
+  coreutils,
+  sysctl,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "checksec";

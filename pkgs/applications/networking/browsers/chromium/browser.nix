@@ -1,5 +1,11 @@
-{ lib, mkChromiumDerivation, channel, chromiumVersionAtLeast, enableWideVine
-, ungoogled }:
+{
+  lib,
+  mkChromiumDerivation,
+  channel,
+  chromiumVersionAtLeast,
+  enableWideVine,
+  ungoogled,
+}:
 
 mkChromiumDerivation (base: rec {
   name = "chromium-browser";

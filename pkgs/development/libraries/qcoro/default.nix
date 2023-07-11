@@ -1,5 +1,14 @@
-{ stdenv, gcc12Stdenv, lib, fetchFromGitHub, cmake, libpthreadstubs, qtbase
-, qtwebsockets, wrapQtAppsHook }:
+{
+  stdenv,
+  gcc12Stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  libpthreadstubs,
+  qtbase,
+  qtwebsockets,
+  wrapQtAppsHook,
+}:
 
 gcc12Stdenv.mkDerivation rec {
   pname = "qcoro";

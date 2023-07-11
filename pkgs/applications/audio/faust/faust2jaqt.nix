@@ -1,4 +1,11 @@
-{ faust, jack2, qt4, libsndfile, alsa-lib, which }:
+{
+  faust,
+  jack2,
+  qt4,
+  libsndfile,
+  alsa-lib,
+  which,
+}:
 
 faust.wrapWithBuildEnv {
 

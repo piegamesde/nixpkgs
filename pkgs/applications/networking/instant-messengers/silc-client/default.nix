@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, perl, pkg-config, glib, ncurses, enablePlugin ? false
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  pkg-config,
+  glib,
+  ncurses,
+  enablePlugin ? false
 }:
 
 # Enabling the plugin and using it with a recent irssi, segafults on join:

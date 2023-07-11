@@ -1,8 +1,16 @@
-{ lib, libfprint, fetchFromGitLab }:
+{
+  lib,
+  libfprint,
+  fetchFromGitLab,
+}:
 
 # for the curious, "tod" means "Touch OEM Drivers" meaning it can load
 # external .so's.
-libfprint.overrideAttrs ({ postPatch ? "", mesonFlags ? [ ], ... }:
+libfprint.overrideAttrs ({
+    postPatch ? "",
+    mesonFlags ? [ ],
+    ...
+  }:
   let version = "1.90.7+git20210222+tod1";
   in {
     pname = "libfprint-tod";

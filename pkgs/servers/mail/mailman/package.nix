@@ -1,4 +1,12 @@
-{ lib, fetchpatch, python3, docutils, sphinx, postfix, lynx }:
+{
+  lib,
+  fetchpatch,
+  python3,
+  docutils,
+  sphinx,
+  postfix,
+  lynx,
+}:
 
 with python3.pkgs;
 

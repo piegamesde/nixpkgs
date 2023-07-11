@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, pkg-config, qtbase
-, qtimageformats, qtwebengine, qtx11extras ? null # qt5 only
-, libarchive, libXdmcp, libpthreadstubs, wrapQtAppsHook, xcbutilkeysyms }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  pkg-config,
+  qtbase,
+  qtimageformats,
+  qtwebengine,
+  qtx11extras ? null # qt5 only
+  ,
+  libarchive,
+  libXdmcp,
+  libpthreadstubs,
+  wrapQtAppsHook,
+  xcbutilkeysyms,
+}:
 
 let isQt5 = lib.versions.major qtbase.version == "5";
 

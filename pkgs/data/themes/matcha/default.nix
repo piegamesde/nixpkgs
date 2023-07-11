@@ -1,6 +1,15 @@
-{ lib, stdenvNoCC, fetchFromGitHub, gdk-pixbuf, gtk-engine-murrine, jdupes
-, librsvg, gitUpdater, colorVariants ? [ ] # default: all
-, themeVariants ? [ ] # default: blue
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gdk-pixbuf,
+  gtk-engine-murrine,
+  jdupes,
+  librsvg,
+  gitUpdater,
+  colorVariants ? [ ] # default: all
+  ,
+  themeVariants ? [ ] # default: blue
 }:
 
 let pname = "matcha-gtk-theme";

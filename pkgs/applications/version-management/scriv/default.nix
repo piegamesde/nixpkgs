@@ -1,4 +1,12 @@
-{ lib, python3, fetchPypi, pandoc, git, scriv, testers }:
+{
+  lib,
+  python3,
+  fetchPypi,
+  pandoc,
+  git,
+  scriv,
+  testers,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "scriv";

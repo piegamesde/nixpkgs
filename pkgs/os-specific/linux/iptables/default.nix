@@ -1,6 +1,20 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, pruneLibtoolFiles, flex
-, bison, libmnl, libnetfilter_conntrack, libnfnetlink, libnftnl, libpcap
-, nftablesCompat ? true, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  pruneLibtoolFiles,
+  flex,
+  bison,
+  libmnl,
+  libnetfilter_conntrack,
+  libnfnetlink,
+  libnftnl,
+  libpcap,
+  nftablesCompat ? true,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.8.9";

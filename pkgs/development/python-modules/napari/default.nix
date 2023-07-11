@@ -1,9 +1,41 @@
-{ lib, mkDerivationWith, appdirs, app-model, buildPythonPackage, cachey, certifi
-, dask, docstring-parser, fetchFromGitHub, imageio, jsonschema, magicgui
-, napari-console, napari-npe2, napari-svg, numpydoc, pint, psutil, pydantic
-, pyopengl, pillow, pythonOlder, pyyaml, scikitimage, scipy, setuptools-scm
-, sphinx, superqt, tifffile, toolz, tqdm, typing-extensions, vispy
-, wrapQtAppsHook, wrapt }:
+{
+  lib,
+  mkDerivationWith,
+  appdirs,
+  app-model,
+  buildPythonPackage,
+  cachey,
+  certifi,
+  dask,
+  docstring-parser,
+  fetchFromGitHub,
+  imageio,
+  jsonschema,
+  magicgui,
+  napari-console,
+  napari-npe2,
+  napari-svg,
+  numpydoc,
+  pint,
+  psutil,
+  pydantic,
+  pyopengl,
+  pillow,
+  pythonOlder,
+  pyyaml,
+  scikitimage,
+  scipy,
+  setuptools-scm,
+  sphinx,
+  superqt,
+  tifffile,
+  toolz,
+  tqdm,
+  typing-extensions,
+  vispy,
+  wrapQtAppsHook,
+  wrapt,
+}:
 
 mkDerivationWith buildPythonPackage rec {
   pname = "napari";

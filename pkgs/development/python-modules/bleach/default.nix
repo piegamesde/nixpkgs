@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, six, html5lib, setuptools
-, tinycss2, packaging, pythonOlder, webencodings }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  six,
+  html5lib,
+  setuptools,
+  tinycss2,
+  packaging,
+  pythonOlder,
+  webencodings,
+}:
 
 buildPythonPackage rec {
   pname = "bleach";

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, inflection, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  inflection,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "sleepyq";

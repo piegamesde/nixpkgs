@@ -1,6 +1,23 @@
-{ lib, buildPythonPackage, fetchFromGitHub, apispec, boto3, cachetools, click
-, localstack-client, localstack-ext, plux, psutil, python-dotenv, pyyaml
-, packaging, requests, rich, semver, tailer }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  apispec,
+  boto3,
+  cachetools,
+  click,
+  localstack-client,
+  localstack-ext,
+  plux,
+  psutil,
+  python-dotenv,
+  pyyaml,
+  packaging,
+  requests,
+  rich,
+  semver,
+  tailer,
+}:
 
 buildPythonPackage rec {
   pname = "localstack";

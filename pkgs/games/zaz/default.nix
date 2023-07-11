@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, pkg-config, SDL, SDL_image, mesa, libtheora, libvorbis
-, libogg, ftgl, freetype }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  SDL,
+  SDL_image,
+  mesa,
+  libtheora,
+  libvorbis,
+  libogg,
+  ftgl,
+  freetype,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zaz";

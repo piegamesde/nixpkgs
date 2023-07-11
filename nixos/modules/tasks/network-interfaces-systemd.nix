@@ -1,4 +1,10 @@
-{ config, lib, utils, pkgs, ... }:
+{
+  config,
+  lib,
+  utils,
+  pkgs,
+  ...
+}:
 
 with utils;
 with lib;
@@ -185,12 +191,18 @@ in {
             "networking.defaultGateway6.interface is not supported by networkd.";
         }
       ] ++ flip mapAttrsToList cfg.bridges (n:
-        { rstp, ... }: {
+        {
+          rstp,
+          ...
+        }: {
           assertion = !rstp;
           message =
             "networking.bridges.${n}.rstp is not supported by networkd.";
         }) ++ flip mapAttrsToList cfg.fooOverUDP (n:
-          { local, ... }: {
+          {
+            local,
+            ...
+          }: {
             assertion = local == null;
             message =
               "networking.fooOverUDP.${n}.local is not supported by networkd.";

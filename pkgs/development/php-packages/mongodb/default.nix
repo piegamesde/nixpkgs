@@ -1,5 +1,16 @@
-{ stdenv, buildPecl, lib, pcre2, pkg-config, cyrus_sasl, icu64, openssl, snappy
-, zlib, darwin }:
+{
+  stdenv,
+  buildPecl,
+  lib,
+  pcre2,
+  pkg-config,
+  cyrus_sasl,
+  icu64,
+  openssl,
+  snappy,
+  zlib,
+  darwin,
+}:
 
 buildPecl {
   pname = "mongodb";

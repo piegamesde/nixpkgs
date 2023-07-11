@@ -1,4 +1,9 @@
-{ buildGoModule, fetchFromGitHub, lib, patchResolver ? true }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  patchResolver ? true
+}:
 
 buildGoModule rec {
   pname = "summon";

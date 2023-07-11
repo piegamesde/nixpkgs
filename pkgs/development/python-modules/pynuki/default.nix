@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pynacl, pythonOlder
-, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pynacl,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "pynuki";

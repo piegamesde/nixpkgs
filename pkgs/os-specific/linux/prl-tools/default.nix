@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, bbe, makeWrapper, p7zip, perl, undmg
-, dbus-glib, glib, xorg, zlib, kernel, bash, cups, gawk, netcat, timetrap
-, util-linux }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  bbe,
+  makeWrapper,
+  p7zip,
+  perl,
+  undmg,
+  dbus-glib,
+  glib,
+  xorg,
+  zlib,
+  kernel,
+  bash,
+  cups,
+  gawk,
+  netcat,
+  timetrap,
+  util-linux,
+}:
 
 let
   kernelVersion = kernel.modDirVersion;

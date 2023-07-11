@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, click, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  click,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "vsure";

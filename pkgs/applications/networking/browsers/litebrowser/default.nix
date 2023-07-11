@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, gtk3, gtkmm3, curl, poco
-, gumbo # litehtml dependency
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  gtk3,
+  gtkmm3,
+  curl,
+  poco,
+  gumbo # litehtml dependency
+  ,
 }:
 
 stdenv.mkDerivation {

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchpatch, fetchurl, SDL, SDL_mixer, bulletml }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchurl,
+  SDL,
+  SDL_mixer,
+  bulletml,
+}:
 
 let
   version = "0.23a";

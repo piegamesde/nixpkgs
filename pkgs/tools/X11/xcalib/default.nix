@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, libX11, libXxf86vm, libXext, libXrandr }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libX11,
+  libXxf86vm,
+  libXext,
+  libXrandr,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xcalib";

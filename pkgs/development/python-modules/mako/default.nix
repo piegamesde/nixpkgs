@@ -1,13 +1,25 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, isPyPy
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  isPyPy
 
-# propagates
-, markupsafe
+  # propagates
+  ,
+  markupsafe
 
-# extras: Babel
-, babel
+  # extras: Babel
+  ,
+  babel
 
-# tests
-, mock, pytestCheckHook, lingua, chameleon }:
+  # tests
+  ,
+  mock,
+  pytestCheckHook,
+  lingua,
+  chameleon,
+}:
 
 buildPythonPackage rec {
   pname = "mako";

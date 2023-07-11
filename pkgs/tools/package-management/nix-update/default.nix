@@ -1,5 +1,12 @@
-{ lib, python3, fetchFromGitHub, nix, nix-prefetch-git, nixpkgs-fmt
-, nixpkgs-review }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  nix,
+  nix-prefetch-git,
+  nixpkgs-fmt,
+  nixpkgs-review,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "nix-update";

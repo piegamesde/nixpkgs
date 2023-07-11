@@ -10,7 +10,10 @@
 # `dhallPackageToNix` utility.  It is not possible to use `dhallPackageToNix`
 # in Nixpkgs, since the Nixpkgs Hydra doesn't allow IFD.
 
-{ stdenv, dhall-nix }:
+{
+  stdenv,
+  dhall-nix,
+}:
 
 dhallPackage:
 let

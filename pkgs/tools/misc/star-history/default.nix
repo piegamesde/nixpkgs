@@ -1,4 +1,12 @@
-{ lib, rustPlatform, fetchCrate, pkg-config, openssl, stdenv, Security }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  openssl,
+  stdenv,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "star-history";

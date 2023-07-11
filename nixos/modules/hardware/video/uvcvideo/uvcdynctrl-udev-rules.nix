@@ -1,4 +1,10 @@
-{ buildEnv, libwebcam, makeWrapper, runCommand, drivers ? [ ], udevDebug ? false
+{
+  buildEnv,
+  libwebcam,
+  makeWrapper,
+  runCommand,
+  drivers ? [ ],
+  udevDebug ? false
 }:
 
 let

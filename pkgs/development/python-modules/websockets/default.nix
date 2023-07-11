@@ -1,5 +1,11 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, unittestCheckHook
-, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  unittestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "websockets";

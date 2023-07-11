@@ -1,10 +1,29 @@
-{ lib, mkDerivation
+{
+  lib,
+  mkDerivation
 
-, fetchurl, cmake, extra-cmake-modules
+  ,
+  fetchurl,
+  cmake,
+  extra-cmake-modules
 
-, exiv2, kconfig, kcoreaddons, kdeclarative, kfilemetadata, kguiaddons, ki18n
-, kio, kirigami2, knotifications, kpurpose, kquickimageedit, qtgraphicaleffects
-, qtlocation, qtquickcontrols2 }:
+  ,
+  exiv2,
+  kconfig,
+  kcoreaddons,
+  kdeclarative,
+  kfilemetadata,
+  kguiaddons,
+  ki18n,
+  kio,
+  kirigami2,
+  knotifications,
+  kpurpose,
+  kquickimageedit,
+  qtgraphicaleffects,
+  qtlocation,
+  qtquickcontrols2,
+}:
 
 let
   # URLs snapshotted through

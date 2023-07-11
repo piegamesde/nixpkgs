@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, glibcLocales
-, importlib-resources, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  glibcLocales,
+  importlib-resources,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "netaddr";

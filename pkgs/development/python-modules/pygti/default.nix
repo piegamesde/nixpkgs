@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, setuptools-scm, aiohttp
-, pytz, voluptuous }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  setuptools-scm,
+  aiohttp,
+  pytz,
+  voluptuous,
+}:
 
 buildPythonPackage rec {
   pname = "pygti";

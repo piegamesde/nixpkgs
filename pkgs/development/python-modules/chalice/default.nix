@@ -1,7 +1,27 @@
-{ lib, attrs, botocore, buildPythonPackage, click, fetchFromGitHub, hypothesis
-, inquirer, jmespath, mock, mypy-extensions, pip, pytestCheckHook, pythonOlder
-, pyyaml, requests, setuptools, six, typing-extensions, watchdog
-, websocket-client, wheel }:
+{
+  lib,
+  attrs,
+  botocore,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  hypothesis,
+  inquirer,
+  jmespath,
+  mock,
+  mypy-extensions,
+  pip,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  requests,
+  setuptools,
+  six,
+  typing-extensions,
+  watchdog,
+  websocket-client,
+  wheel,
+}:
 
 buildPythonPackage rec {
   pname = "chalice";

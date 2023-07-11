@@ -1,5 +1,14 @@
-{ lib, bitcoinlib, buildPythonPackage, fetchFromGitHub, git, gitpython
-, pycryptodomex, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  bitcoinlib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  git,
+  gitpython,
+  pycryptodomex,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "opentimestamps";

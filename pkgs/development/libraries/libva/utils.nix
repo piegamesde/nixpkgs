@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, libdrm, libva, libX11
-, libXext, libXfixes, wayland }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  libdrm,
+  libva,
+  libX11,
+  libXext,
+  libXfixes,
+  wayland,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libva-utils";

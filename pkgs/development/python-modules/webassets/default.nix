@@ -1,4 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, pyyaml, nose, jinja2, mock, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyyaml,
+  nose,
+  jinja2,
+  mock,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "webassets";

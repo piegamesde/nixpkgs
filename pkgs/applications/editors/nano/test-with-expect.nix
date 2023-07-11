@@ -1,4 +1,10 @@
-{ nano, expect, runCommand, writeScriptBin, runtimeShell }:
+{
+  nano,
+  expect,
+  runCommand,
+  writeScriptBin,
+  runtimeShell,
+}:
 
 let
   expect-script = writeScriptBin "expect-script" ''

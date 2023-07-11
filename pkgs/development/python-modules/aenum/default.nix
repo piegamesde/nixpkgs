@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pyparsing, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyparsing,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aenum";

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, azure-common, msrest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  azure-common,
+  msrest,
+}:
 
 buildPythonPackage rec {
   pname = "azure-applicationinsights";

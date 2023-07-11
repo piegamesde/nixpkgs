@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, wrapio }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  wrapio,
+}:
 
 buildPythonPackage rec {
   pname = "survey";

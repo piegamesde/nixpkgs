@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, coreutils, gawk, git, gnugrep
-, ncurses, util-linux }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  coreutils,
+  gawk,
+  git,
+  gnugrep,
+  ncurses,
+  util-linux,
+}:
 
 stdenv.mkDerivation rec {
   pname = "git-quick-stats";

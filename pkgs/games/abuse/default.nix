@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchurl, makeDesktopItem, copyDesktopItems, SDL, SDL_mixer
-, freepats }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeDesktopItem,
+  copyDesktopItems,
+  SDL,
+  SDL_mixer,
+  freepats,
+}:
 
 stdenv.mkDerivation rec {
   pname = "abuse";

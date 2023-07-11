@@ -2,8 +2,11 @@
 # cd path/to/nixpkgs
 # NIXPKGS_ALLOW_UNFREE=1 nix-build -A nixosTests.elk.unfree.ELK-6
 
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../.. { inherit system config; }, }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../.. { inherit system config; },
+}:
 
 let
   inherit (pkgs) lib;
@@ -17,142 +20,146 @@ let
         maintainers = [ eelco offline basvandijk ];
       };
       nodes = {
-        one = { pkgs, lib, ... }: {
-          # Not giving the machine at least 2060MB results in elasticsearch failing with the following error:
-          #
-          #   OpenJDK 64-Bit Server VM warning:
-          #     INFO: os::commit_memory(0x0000000085330000, 2060255232, 0)
-          #     failed; error='Cannot allocate memory' (errno=12)
-          #
-          #   There is insufficient memory for the Java Runtime Environment to continue.
-          #   Native memory allocation (mmap) failed to map 2060255232 bytes for committing reserved memory.
-          #
-          # When setting this to 2500 I got "Kernel panic - not syncing: Out of
-          # memory: compulsory panic_on_oom is enabled" so lets give it even a
-          # bit more room:
-          virtualisation.memorySize = 3000;
+        one = {
+            pkgs,
+            lib,
+            ...
+          }: {
+            # Not giving the machine at least 2060MB results in elasticsearch failing with the following error:
+            #
+            #   OpenJDK 64-Bit Server VM warning:
+            #     INFO: os::commit_memory(0x0000000085330000, 2060255232, 0)
+            #     failed; error='Cannot allocate memory' (errno=12)
+            #
+            #   There is insufficient memory for the Java Runtime Environment to continue.
+            #   Native memory allocation (mmap) failed to map 2060255232 bytes for committing reserved memory.
+            #
+            # When setting this to 2500 I got "Kernel panic - not syncing: Out of
+            # memory: compulsory panic_on_oom is enabled" so lets give it even a
+            # bit more room:
+            virtualisation.memorySize = 3000;
 
-          # For querying JSON objects returned from elasticsearch and kibana.
-          environment.systemPackages = [ pkgs.jq ];
+            # For querying JSON objects returned from elasticsearch and kibana.
+            environment.systemPackages = [ pkgs.jq ];
 
-          services = {
+            services = {
 
-            journalbeat = {
-              enable = elk ? journalbeat;
-              package = elk.journalbeat;
-              extraConfig = pkgs.lib.mkOptionDefault (''
-                logging:
-                  to_syslog: true
-                  level: warning
-                  metrics.enabled: false
-                output.elasticsearch:
-                  hosts: [ "127.0.0.1:9200" ]
-                journalbeat.inputs:
-                - paths: []
-                  seek: cursor
-              '');
-            };
-
-            filebeat = {
-              enable = elk ? filebeat;
-              package = elk.filebeat;
-              inputs.journald.id = "everything";
-
-              inputs.log = {
-                enabled = true;
-                paths = [ "/var/lib/filebeat/test" ];
+              journalbeat = {
+                enable = elk ? journalbeat;
+                package = elk.journalbeat;
+                extraConfig = pkgs.lib.mkOptionDefault (''
+                  logging:
+                    to_syslog: true
+                    level: warning
+                    metrics.enabled: false
+                  output.elasticsearch:
+                    hosts: [ "127.0.0.1:9200" ]
+                  journalbeat.inputs:
+                  - paths: []
+                    seek: cursor
+                '');
               };
 
-              settings = { logging.level = "info"; };
-            };
+              filebeat = {
+                enable = elk ? filebeat;
+                package = elk.filebeat;
+                inputs.journald.id = "everything";
 
-            metricbeat = {
-              enable = true;
-              package = elk.metricbeat;
-              modules.system = {
-                metricsets = [
-                  "cpu"
-                  "load"
-                  "memory"
-                  "network"
-                  "process"
-                  "process_summary"
-                  "uptime"
-                  "socket_summary"
-                ];
-                enabled = true;
-                period = "5s";
-                processes = [ ".*" ];
-                cpu.metrics = [ "percentages" "normalized_percentages" ];
-                core.metrics = [ "percentages" ];
+                inputs.log = {
+                  enabled = true;
+                  paths = [ "/var/lib/filebeat/test" ];
+                };
+
+                settings = { logging.level = "info"; };
               };
-              settings = {
-                output.elasticsearch = { hosts = [ "127.0.0.1:9200" ]; };
+
+              metricbeat = {
+                enable = true;
+                package = elk.metricbeat;
+                modules.system = {
+                  metricsets = [
+                    "cpu"
+                    "load"
+                    "memory"
+                    "network"
+                    "process"
+                    "process_summary"
+                    "uptime"
+                    "socket_summary"
+                  ];
+                  enabled = true;
+                  period = "5s";
+                  processes = [ ".*" ];
+                  cpu.metrics = [ "percentages" "normalized_percentages" ];
+                  core.metrics = [ "percentages" ];
+                };
+                settings = {
+                  output.elasticsearch = { hosts = [ "127.0.0.1:9200" ]; };
+                };
               };
-            };
 
-            logstash = {
-              enable = true;
-              package = elk.logstash;
-              inputConfig = ''
-                exec { command => "echo -n flowers" interval => 1 type => "test" }
-                exec { command => "echo -n dragons" interval => 1 type => "test" }
-              '';
-              filterConfig = ''
-                if [message] =~ /dragons/ {
-                  drop {}
-                }
-              '';
-              outputConfig = ''
-                file {
-                  path => "/tmp/logstash.out"
-                  codec => line { format => "%{message}" }
-                }
-                elasticsearch {
-                  hosts => [ "${esUrl}" ]
-                }
-              '';
-            };
+              logstash = {
+                enable = true;
+                package = elk.logstash;
+                inputConfig = ''
+                  exec { command => "echo -n flowers" interval => 1 type => "test" }
+                  exec { command => "echo -n dragons" interval => 1 type => "test" }
+                '';
+                filterConfig = ''
+                  if [message] =~ /dragons/ {
+                    drop {}
+                  }
+                '';
+                outputConfig = ''
+                  file {
+                    path => "/tmp/logstash.out"
+                    codec => line { format => "%{message}" }
+                  }
+                  elasticsearch {
+                    hosts => [ "${esUrl}" ]
+                  }
+                '';
+              };
 
-            elasticsearch = {
-              enable = true;
-              package = elk.elasticsearch;
-            };
+              elasticsearch = {
+                enable = true;
+                package = elk.elasticsearch;
+              };
 
-            kibana = {
-              enable = true;
-              package = elk.kibana;
-            };
+              kibana = {
+                enable = true;
+                package = elk.kibana;
+              };
 
-            elasticsearch-curator = {
-              enable = true;
-              actionYAML = ''
-                ---
-                actions:
-                  1:
-                    action: delete_indices
-                    description: >-
-                      Delete indices older than 1 second (based on index name), for logstash-
-                      prefixed indices. Ignore the error if the filter does not result in an
-                      actionable list of indices (ignore_empty_list) and exit cleanly.
-                    options:
-                      allow_ilm_indices: true
-                      ignore_empty_list: True
-                      disable_action: False
-                    filters:
-                    - filtertype: pattern
-                      kind: prefix
-                      value: logstash-
-                    - filtertype: age
-                      source: name
-                      direction: older
-                      timestring: '%Y.%m.%d'
-                      unit: seconds
-                      unit_count: 1
-              '';
+              elasticsearch-curator = {
+                enable = true;
+                actionYAML = ''
+                  ---
+                  actions:
+                    1:
+                      action: delete_indices
+                      description: >-
+                        Delete indices older than 1 second (based on index name), for logstash-
+                        prefixed indices. Ignore the error if the filter does not result in an
+                        actionable list of indices (ignore_empty_list) and exit cleanly.
+                      options:
+                        allow_ilm_indices: true
+                        ignore_empty_list: True
+                        disable_action: False
+                      filters:
+                      - filtertype: pattern
+                        kind: prefix
+                        value: logstash-
+                      - filtertype: age
+                        source: name
+                        direction: older
+                        timestring: '%Y.%m.%d'
+                        unit: seconds
+                        unit_count: 1
+                '';
+              };
             };
           };
-        };
       };
 
       passthru.elkPackages = elk;

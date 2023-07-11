@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchzip, mkDerivation, appimageTools, autoPatchelfHook
-, desktop-file-utils, imagemagick, qtmultimedia }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  mkDerivation,
+  appimageTools,
+  autoPatchelfHook,
+  desktop-file-utils,
+  imagemagick,
+  qtmultimedia,
+}:
 
 mkDerivation rec {
   pname = "soulseekqt";

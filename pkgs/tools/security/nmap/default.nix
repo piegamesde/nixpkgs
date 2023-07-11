@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, fetchpatch, libpcap, pkg-config, openssl, lua5_3, pcre
-, libssh2, libX11 ? null, gtk2 ? null, makeWrapper ? null, withLua ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  libpcap,
+  pkg-config,
+  openssl,
+  lua5_3,
+  pcre,
+  libssh2,
+  libX11 ? null,
+  gtk2 ? null,
+  makeWrapper ? null,
+  withLua ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "nmap";

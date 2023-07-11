@@ -1,11 +1,39 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, rustPlatform, nixosTests
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  rustPlatform,
+  nixosTests
 
-, cmake, installShellFiles, makeWrapper, ncurses, pkg-config, python3
+  ,
+  cmake,
+  installShellFiles,
+  makeWrapper,
+  ncurses,
+  pkg-config,
+  python3
 
-, expat, fontconfig, freetype, libGL, xorg, libxkbcommon, wayland, xdg-utils
+  ,
+  expat,
+  fontconfig,
+  freetype,
+  libGL,
+  xorg,
+  libxkbcommon,
+  wayland,
+  xdg-utils
 
-# Darwin Frameworks
-, AppKit, CoreGraphics, CoreServices, CoreText, Foundation, libiconv, OpenGL }:
+  # Darwin Frameworks
+  ,
+  AppKit,
+  CoreGraphics,
+  CoreServices,
+  CoreText,
+  Foundation,
+  libiconv,
+  OpenGL,
+}:
 let
   rpathLibs = [
     expat

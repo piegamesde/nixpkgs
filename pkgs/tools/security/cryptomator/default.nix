@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, autoPatchelfHook, fuse, jffi, maven, jdk, jre
-, makeShellWrapper, glib, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoPatchelfHook,
+  fuse,
+  jffi,
+  maven,
+  jdk,
+  jre,
+  makeShellWrapper,
+  glib,
+  wrapGAppsHook,
+}:
 
 let
   pname = "cryptomator";

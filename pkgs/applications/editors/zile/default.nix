@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, boehmgc, glib, help2man, libgee, ncurses, perl
-, pkg-config, vala }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  boehmgc,
+  glib,
+  help2man,
+  libgee,
+  ncurses,
+  perl,
+  pkg-config,
+  vala,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zile";

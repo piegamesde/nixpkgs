@@ -1,4 +1,10 @@
-{ stdenv, buildGoModule, fetchFromGitHub, lib, nixosTests }:
+{
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "ghostunnel";

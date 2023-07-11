@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, coreutils, bashInteractive }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  coreutils,
+  bashInteractive,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.2.0";

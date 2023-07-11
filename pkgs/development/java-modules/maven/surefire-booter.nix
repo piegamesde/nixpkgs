@@ -1,4 +1,6 @@
-{ fetchMaven }:
+{
+  fetchMaven,
+}:
 
 {
   mavenSurefireBooter_2_12_4 = map (obj:

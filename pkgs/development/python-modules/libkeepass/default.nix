@@ -1,4 +1,11 @@
-{ lib, fetchPypi, buildPythonPackage, lxml, pycryptodome, colorama }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  lxml,
+  pycryptodome,
+  colorama,
+}:
 
 buildPythonPackage rec {
   pname = "libkeepass";

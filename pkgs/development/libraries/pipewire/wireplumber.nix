@@ -1,9 +1,22 @@
-{ lib, stdenv, fetchFromGitLab, nix-update-script, # base build deps
-meson, pkg-config, ninja, # docs build deps
-python3, doxygen, graphviz, # GI build deps
-gobject-introspection, # runtime deps
-glib, systemd, lua5_4, pipewire, # options
-enableDocs ? true, enableGI ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  nix-update-script, # base build deps
+  meson,
+  pkg-config,
+  ninja, # docs build deps
+  python3,
+  doxygen,
+  graphviz, # GI build deps
+  gobject-introspection, # runtime deps
+  glib,
+  systemd,
+  lua5_4,
+  pipewire, # options
+  enableDocs ? true,
+  enableGI ? true
+}:
 let mesonEnableFeature = b: if b then "enabled" else "disabled";
 in stdenv.mkDerivation rec {
   pname = "wireplumber";

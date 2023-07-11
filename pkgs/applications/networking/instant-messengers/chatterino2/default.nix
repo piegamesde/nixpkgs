@@ -1,5 +1,19 @@
-{ stdenv, lib, cmake, pkg-config, fetchFromGitHub, qtbase, qtsvg, qtmultimedia
-, qtimageformats, qttools, boost, openssl, wrapQtAppsHook, libsecret }:
+{
+  stdenv,
+  lib,
+  cmake,
+  pkg-config,
+  fetchFromGitHub,
+  qtbase,
+  qtsvg,
+  qtmultimedia,
+  qtimageformats,
+  qttools,
+  boost,
+  openssl,
+  wrapQtAppsHook,
+  libsecret,
+}:
 
 stdenv.mkDerivation rec {
   pname = "chatterino2";

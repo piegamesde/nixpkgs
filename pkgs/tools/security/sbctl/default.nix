@@ -1,5 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles, asciidoc
-, databasePath ? "/etc/secureboot" }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  asciidoc,
+  databasePath ? "/etc/secureboot"
+}:
 
 buildGoModule rec {
   pname = "sbctl";

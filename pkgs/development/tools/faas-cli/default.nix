@@ -1,5 +1,14 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, makeWrapper, git
-, installShellFiles, testers, faas-cli }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  git,
+  installShellFiles,
+  testers,
+  faas-cli,
+}:
 let
   faasPlatform = platform:
     let cpuName = platform.parsed.cpu.name;

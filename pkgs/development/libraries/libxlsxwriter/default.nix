@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, minizip, python3, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  minizip,
+  python3,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libxlsxwriter";

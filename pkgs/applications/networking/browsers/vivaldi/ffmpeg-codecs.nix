@@ -1,4 +1,9 @@
-{ dpkg, fetchurl, lib, stdenv }:
+{
+  dpkg,
+  fetchurl,
+  lib,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "chromium-codecs-ffmpeg-extra";

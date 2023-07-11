@@ -1,5 +1,14 @@
-{ lib, stdenv, aiobotocore, aiohttp, buildPythonPackage, docutils, fetchPypi
-, fsspec, pythonOlder }:
+{
+  lib,
+  stdenv,
+  aiobotocore,
+  aiohttp,
+  buildPythonPackage,
+  docutils,
+  fetchPypi,
+  fsspec,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "s3fs";

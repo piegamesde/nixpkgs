@@ -1,60 +1,86 @@
-{ lib, stdenv, pkgsBuildTarget, pkgsHostTarget, targetPackages
+{
+  lib,
+  stdenv,
+  pkgsBuildTarget,
+  pkgsHostTarget,
+  targetPackages
 
-# build-tools
-, bootPkgs, autoconf, automake, coreutils, fetchurl, perl, python3, m4, sphinx
-, xattr, autoSignDarwinBinariesHook, bash, fetchpatch
+  # build-tools
+  ,
+  bootPkgs,
+  autoconf,
+  automake,
+  coreutils,
+  fetchurl,
+  perl,
+  python3,
+  m4,
+  sphinx,
+  xattr,
+  autoSignDarwinBinariesHook,
+  bash,
+  fetchpatch
 
-, libiconv ? null, ncurses, glibcLocales ? null
+  ,
+  libiconv ? null,
+  ncurses,
+  glibcLocales ? null
 
-, # GHC can be built with system libffi or a bundled one.
-libffi ? null
+  , # GHC can be built with system libffi or a bundled one.
+  libffi ? null
 
-, useLLVM ? !(stdenv.targetPlatform.isx86 || stdenv.targetPlatform.isPower
-  || stdenv.targetPlatform.isSparc)
-, # LLVM is conceptually a run-time-only depedendency, but for
-# non-x86, we need LLVM to bootstrap later stages, so it becomes a
-# build-time dependency too.
-buildTargetLlvmPackages, llvmPackages
+  ,
+  useLLVM ? !(stdenv.targetPlatform.isx86 || stdenv.targetPlatform.isPower
+    || stdenv.targetPlatform.isSparc), # LLVM is conceptually a run-time-only depedendency, but for
+  # non-x86, we need LLVM to bootstrap later stages, so it becomes a
+  # build-time dependency too.
+  buildTargetLlvmPackages,
+  llvmPackages
 
-, # If enabled, GHC will be built with the GPL-free but slightly slower native
-# bignum backend instead of the faster but GPLed gmp backend.
-enableNativeBignum ? !(lib.meta.availableOn stdenv.hostPlatform gmp
-  && lib.meta.availableOn stdenv.targetPlatform gmp), gmp
+  , # If enabled, GHC will be built with the GPL-free but slightly slower native
+  # bignum backend instead of the faster but GPLed gmp backend.
+  enableNativeBignum ? !(lib.meta.availableOn stdenv.hostPlatform gmp
+    && lib.meta.availableOn stdenv.targetPlatform gmp),
+  gmp
 
-, # If enabled, use -fPIC when compiling static libs.
-enableRelocatedStaticLibs ? stdenv.targetPlatform != stdenv.hostPlatform
+  , # If enabled, use -fPIC when compiling static libs.
+  enableRelocatedStaticLibs ? stdenv.targetPlatform != stdenv.hostPlatform
 
-  # aarch64 outputs otherwise exceed 2GB limit
-, enableProfiledLibs ? !stdenv.targetPlatform.isAarch64
+    # aarch64 outputs otherwise exceed 2GB limit
+  ,
+  enableProfiledLibs ? !stdenv.targetPlatform.isAarch64
 
-, # Whether to build dynamic libs for the standard library (on the target
-# platform). Static libs are always built.
-enableShared ? with stdenv.targetPlatform;
-  !isWindows && !useiOSPrebuilt && !isStatic
+  , # Whether to build dynamic libs for the standard library (on the target
+  # platform). Static libs are always built.
+  enableShared ? with stdenv.targetPlatform;
+    !isWindows && !useiOSPrebuilt && !isStatic
 
-, # Whether to build terminfo.
-enableTerminfo ? !stdenv.targetPlatform.isWindows
+  , # Whether to build terminfo.
+  enableTerminfo ? !stdenv.targetPlatform.isWindows
 
-, # What flavour to build. An empty string indicates no
-# specific flavour and falls back to ghc default values.
-ghcFlavour ? lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-  (if useLLVM then "perf-cross" else "perf-cross-ncg")
+  , # What flavour to build. An empty string indicates no
+  # specific flavour and falls back to ghc default values.
+  ghcFlavour ? lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
+    (if useLLVM then "perf-cross" else "perf-cross-ncg")
 
-, # Whether to build sphinx documentation.
-enableDocs ? (
-  # Docs disabled for musl and cross because it's a large task to keep
-  # all `sphinx` dependencies building in those environments.
-  # `sphinx` pullls in among others:
-  # Ruby, Python, Perl, Rust, OpenGL, Xorg, gtk, LLVM.
-  (stdenv.targetPlatform == stdenv.hostPlatform) && !stdenv.hostPlatform.isMusl)
+  , # Whether to build sphinx documentation.
+  enableDocs ? (
+    # Docs disabled for musl and cross because it's a large task to keep
+    # all `sphinx` dependencies building in those environments.
+    # `sphinx` pullls in among others:
+    # Ruby, Python, Perl, Rust, OpenGL, Xorg, gtk, LLVM.
+    (stdenv.targetPlatform == stdenv.hostPlatform)
+    && !stdenv.hostPlatform.isMusl)
 
-, enableHaddockProgram ?
-# Disabled for cross; see note [HADDOCK_DOCS].
-  (stdenv.targetPlatform == stdenv.hostPlatform)
+  ,
+  enableHaddockProgram ?
+  # Disabled for cross; see note [HADDOCK_DOCS].
+    (stdenv.targetPlatform == stdenv.hostPlatform)
 
-, # Whether to disable the large address space allocator
-# necessary fix for iOS: https://www.reddit.com/r/haskell/comments/4ttdz1/building_an_osxi386_to_iosarm64_cross_compiler/d5qvd67/
-disableLargeAddressSpace ? stdenv.targetPlatform.isiOS }:
+  , # Whether to disable the large address space allocator
+  # necessary fix for iOS: https://www.reddit.com/r/haskell/comments/4ttdz1/building_an_osxi386_to_iosarm64_cross_compiler/d5qvd67/
+  disableLargeAddressSpace ? stdenv.targetPlatform.isiOS
+}:
 
 assert !enableNativeBignum -> gmp != null;
 

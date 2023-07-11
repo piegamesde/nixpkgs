@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, perl, flex, bison, python3, autoconf, which
-, cmake, help2man, makeWrapper, glibcLocales }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perl,
+  flex,
+  bison,
+  python3,
+  autoconf,
+  which,
+  cmake,
+  help2man,
+  makeWrapper,
+  glibcLocales,
+}:
 
 stdenv.mkDerivation rec {
   pname = "verilator";

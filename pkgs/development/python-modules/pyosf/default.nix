@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPy27, pytest-runner, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPy27,
+  pytest-runner,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "pyosf";

@@ -1,6 +1,16 @@
-{ lib, buildPythonPackage, certifi, circuitbreaker, cryptography
-, fetchFromGitHub, pyopenssl, python-dateutil, pythonOlder, pythonRelaxDepsHook
-, pytz }:
+{
+  lib,
+  buildPythonPackage,
+  certifi,
+  circuitbreaker,
+  cryptography,
+  fetchFromGitHub,
+  pyopenssl,
+  python-dateutil,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  pytz,
+}:
 
 buildPythonPackage rec {
   pname = "oci";

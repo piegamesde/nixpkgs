@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, coreutils, grim, gawk, jq, swaylock, imagemagick
-, getopt, fontconfig, wmctrl, makeWrapper, bash }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  coreutils,
+  grim,
+  gawk,
+  jq,
+  swaylock,
+  imagemagick,
+  getopt,
+  fontconfig,
+  wmctrl,
+  makeWrapper,
+  bash,
+}:
 
 let
   depsPath = lib.makeBinPath [

@@ -1,6 +1,15 @@
-{ writeShellScript, nix, curl, gzip, xmlstarlet, common-updater-scripts }:
+{
+  writeShellScript,
+  nix,
+  curl,
+  gzip,
+  xmlstarlet,
+  common-updater-scripts,
+}:
 
-{ attrPath }:
+{
+  attrPath,
+}:
 
 let
   url = "http://mirrors.kodi.tv/addons/nexus/addons.xml.gz";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, zlib, perl, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  perl,
+  nixosTests,
+}:
 
 let
   # Name of an UTF-8 locale _always_ present at runtime, used for UTF-8 support

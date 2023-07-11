@@ -1,9 +1,25 @@
-{ lib, buildPythonPackage, isPyPy, fetchFromGitHub, attrs, exceptiongroup
-, pexpect, doCheck ? true, pytestCheckHook, pytest-xdist, sortedcontainers
-, pythonOlder, sphinxHook, sphinx-rtd-theme, sphinx-hoverxref
-, sphinx-codeautolink, tzdata
-# Used to break internal dependency loop.
-, enableDocumentation ? true }:
+{
+  lib,
+  buildPythonPackage,
+  isPyPy,
+  fetchFromGitHub,
+  attrs,
+  exceptiongroup,
+  pexpect,
+  doCheck ? true,
+  pytestCheckHook,
+  pytest-xdist,
+  sortedcontainers,
+  pythonOlder,
+  sphinxHook,
+  sphinx-rtd-theme,
+  sphinx-hoverxref,
+  sphinx-codeautolink,
+  tzdata
+  # Used to break internal dependency loop.
+  ,
+  enableDocumentation ? true
+}:
 
 buildPythonPackage rec {
   pname = "hypothesis";

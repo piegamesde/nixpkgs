@@ -1,4 +1,9 @@
-{ lib, clang, fetchFromGitHub, buildGoModule }:
+{
+  lib,
+  clang,
+  fetchFromGitHub,
+  buildGoModule,
+}:
 buildGoModule rec {
   pname = "dae";
   version = "0.1.7";

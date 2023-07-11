@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, eigen, urdfdom
-, pythonSupport ? false, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  eigen,
+  urdfdom,
+  pythonSupport ? false,
+  python3Packages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pinocchio";

@@ -1,4 +1,12 @@
-{ lib, stdenv, graalvmCEPackages, graalvm-ce, javaVersion, src, version }:
+{
+  lib,
+  stdenv,
+  graalvmCEPackages,
+  graalvm-ce,
+  javaVersion,
+  src,
+  version,
+}:
 
 graalvmCEPackages.buildGraalvmProduct rec {
   inherit src javaVersion version;

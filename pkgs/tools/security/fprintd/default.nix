@@ -1,7 +1,30 @@
-{ lib, stdenv, fetchFromGitLab, fetchpatch, pkg-config, gobject-introspection
-, meson, ninja, perl, gettext, cairo, gtk-doc, libxslt, docbook-xsl-nons
-, docbook_xml_dtd_412, fetchurl, glib, gusb, dbus, polkit, nss, pam, systemd
-, libfprint, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  pkg-config,
+  gobject-introspection,
+  meson,
+  ninja,
+  perl,
+  gettext,
+  cairo,
+  gtk-doc,
+  libxslt,
+  docbook-xsl-nons,
+  docbook_xml_dtd_412,
+  fetchurl,
+  glib,
+  gusb,
+  dbus,
+  polkit,
+  nss,
+  pam,
+  systemd,
+  libfprint,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fprintd";

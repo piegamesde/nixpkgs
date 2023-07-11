@@ -1,8 +1,38 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, pkg-config, cmake, extra-cmake-modules
-, cairo, pango, fribidi, fmt, wayland, systemd, wayland-protocols, json_c
-, isocodes, xkeyboard_config, enchant, gdk-pixbuf, libGL, libevent, libuuid
-, libselinux, libXdmcp, libsepol, libxkbcommon, libthai, libdatrie
-, xcbutilkeysyms, pcre, xcbutilwm, xcb-imdkit, libxkbfile }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  extra-cmake-modules,
+  cairo,
+  pango,
+  fribidi,
+  fmt,
+  wayland,
+  systemd,
+  wayland-protocols,
+  json_c,
+  isocodes,
+  xkeyboard_config,
+  enchant,
+  gdk-pixbuf,
+  libGL,
+  libevent,
+  libuuid,
+  libselinux,
+  libXdmcp,
+  libsepol,
+  libxkbcommon,
+  libthai,
+  libdatrie,
+  xcbutilkeysyms,
+  pcre,
+  xcbutilwm,
+  xcb-imdkit,
+  libxkbfile,
+}:
 let
   enDictVer = "20121020";
   enDict = fetchurl {

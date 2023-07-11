@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools, babel, translationstring
-, iso8601, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  babel,
+  translationstring,
+  iso8601,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "colander";

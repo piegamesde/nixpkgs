@@ -1,7 +1,30 @@
-{ stdenv, lib, fetchurl, meson, ninja, gettext, pkg-config, wrapGAppsHook4
-, itstool, desktop-file-utils, vala, gobject-introspection, libxml2, gtk4, glib
-, gsound, sound-theme-freedesktop, gsettings-desktop-schemas, gnome-desktop
-, geocode-glib_2, gnome, gdk-pixbuf, geoclue2, libgweather, libadwaita }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  meson,
+  ninja,
+  gettext,
+  pkg-config,
+  wrapGAppsHook4,
+  itstool,
+  desktop-file-utils,
+  vala,
+  gobject-introspection,
+  libxml2,
+  gtk4,
+  glib,
+  gsound,
+  sound-theme-freedesktop,
+  gsettings-desktop-schemas,
+  gnome-desktop,
+  geocode-glib_2,
+  gnome,
+  gdk-pixbuf,
+  geoclue2,
+  libgweather,
+  libadwaita,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnome-clocks";

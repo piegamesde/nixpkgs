@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, cmake, boost, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  boost,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "avro-c++";

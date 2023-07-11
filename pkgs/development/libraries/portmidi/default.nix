@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, unzip, cmake, alsa-lib, Carbon, CoreAudio
-, CoreFoundation, CoreMIDI, CoreServices }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  unzip,
+  cmake,
+  alsa-lib,
+  Carbon,
+  CoreAudio,
+  CoreFoundation,
+  CoreMIDI,
+  CoreServices,
+}:
 
 stdenv.mkDerivation rec {
   pname = "portmidi";

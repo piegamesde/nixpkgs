@@ -1,6 +1,20 @@
-{ mkDerivation, lib, fetchurl, fetchgit, fetchpatch, qtbase, qtquickcontrols
-, qtscript, qtdeclarative, qmake, llvmPackages_8, elfutils, perf
-, withDocumentation ? false, withClangPlugins ? true }:
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  fetchgit,
+  fetchpatch,
+  qtbase,
+  qtquickcontrols,
+  qtscript,
+  qtdeclarative,
+  qmake,
+  llvmPackages_8,
+  elfutils,
+  perf,
+  withDocumentation ? false,
+  withClangPlugins ? true
+}:
 
 let
   # Fetch clang from qt vendor, this contains submodules like this:

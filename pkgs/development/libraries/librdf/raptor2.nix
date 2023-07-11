@@ -1,5 +1,17 @@
-{ lib, stdenv, libxml2, libxslt, pkg-config, cmake, fetchFromGitHub, perl, bison
-, flex, fetchpatch, static ? stdenv.hostPlatform.isStatic }:
+{
+  lib,
+  stdenv,
+  libxml2,
+  libxslt,
+  pkg-config,
+  cmake,
+  fetchFromGitHub,
+  perl,
+  bison,
+  flex,
+  fetchpatch,
+  static ? stdenv.hostPlatform.isStatic
+}:
 
 stdenv.mkDerivation rec {
   pname = "raptor2";

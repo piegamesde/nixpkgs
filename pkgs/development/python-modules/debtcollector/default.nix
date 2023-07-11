@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, pbr, six, wrapt, callPackage }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pbr,
+  six,
+  wrapt,
+  callPackage,
+}:
 
 buildPythonPackage rec {
   pname = "debtcollector";

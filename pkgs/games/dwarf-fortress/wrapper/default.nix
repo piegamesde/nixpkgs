@@ -1,14 +1,37 @@
-{ stdenv, lib, buildEnv, substituteAll, runCommand, coreutils, gawk
-, dwarf-fortress, dwarf-therapist, enableDFHack ? false, dfhack
-, enableSoundSense ? false, soundSense, jdk, enableStoneSense ? false
-, enableTWBT ? false, twbt, themes ? { }, theme ? null, extraPackages ? [ ]
-  # General config options:
-, enableIntro ? true, enableTruetype ? null # defaults to 24, see init.txt
-, enableFPS ? false, enableTextMode ? false, enableSound ? true
-  # An attribute set of settings to override in data/init/*.txt.
-  # For example, `init.FOO = true;` is translated to `[FOO:YES]` in init.txt
-, settings ? { }
-  # TODO world-gen.txt, interface.txt require special logic
+{
+  stdenv,
+  lib,
+  buildEnv,
+  substituteAll,
+  runCommand,
+  coreutils,
+  gawk,
+  dwarf-fortress,
+  dwarf-therapist,
+  enableDFHack ? false,
+  dfhack,
+  enableSoundSense ? false,
+  soundSense,
+  jdk,
+  enableStoneSense ? false,
+  enableTWBT ? false,
+  twbt,
+  themes ? { },
+  theme ? null,
+  extraPackages ? [ ]
+    # General config options:
+  ,
+  enableIntro ? true,
+  enableTruetype ? null # defaults to 24, see init.txt
+  ,
+  enableFPS ? false,
+  enableTextMode ? false,
+  enableSound ? true
+    # An attribute set of settings to override in data/init/*.txt.
+    # For example, `init.FOO = true;` is translated to `[FOO:YES]` in init.txt
+  ,
+  settings ? { }
+    # TODO world-gen.txt, interface.txt require special logic
 }:
 
 let

@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchurl, runtimeShell, makeWrapper, oraclejre
-, antialiasFont ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  runtimeShell,
+  makeWrapper,
+  oraclejre,
+  antialiasFont ? true
+}:
 
 stdenv.mkDerivation {
   pname = "docear";

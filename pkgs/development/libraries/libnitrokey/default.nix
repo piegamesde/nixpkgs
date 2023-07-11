@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, hidapi, libusb1 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  hidapi,
+  libusb1,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libnitrokey";

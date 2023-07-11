@@ -1,6 +1,24 @@
-{ lib, stdenv, fetchFromGitLab, fetchpatch, appstream-glib, dbus
-, desktop-file-utils, git, glib, gtk4, libadwaita, meson, ninja, openssl
-, pkg-config, rustPlatform, sqlite, transmission, wrapGAppsHook4 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  appstream-glib,
+  dbus,
+  desktop-file-utils,
+  git,
+  glib,
+  gtk4,
+  libadwaita,
+  meson,
+  ninja,
+  openssl,
+  pkg-config,
+  rustPlatform,
+  sqlite,
+  transmission,
+  wrapGAppsHook4,
+}:
 
 let
   patchedTransmission = transmission.overrideAttrs (oldAttrs: {

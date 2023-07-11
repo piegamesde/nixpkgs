@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, pkg-config, intltool, gtk2, libX11, xrandr
-, withGtk3 ? false, gtk3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  intltool,
+  gtk2,
+  libX11,
+  xrandr,
+  withGtk3 ? false,
+  gtk3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lxrandr";

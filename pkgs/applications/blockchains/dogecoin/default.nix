@@ -1,8 +1,30 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, db5, openssl, boost
-, zlib, miniupnpc, libevent, protobuf, qtbase ? null, wrapQtAppsHook ? null
-, qttools ? null, qmake ? null, qrencode, withGui, withUpnp ? true
-, withUtils ? true, withWallet ? true, withZmq ? true, zeromq, util-linux ? null
-, Cocoa ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  db5,
+  openssl,
+  boost,
+  zlib,
+  miniupnpc,
+  libevent,
+  protobuf,
+  qtbase ? null,
+  wrapQtAppsHook ? null,
+  qttools ? null,
+  qmake ? null,
+  qrencode,
+  withGui,
+  withUpnp ? true,
+  withUtils ? true,
+  withWallet ? true,
+  withZmq ? true,
+  zeromq,
+  util-linux ? null,
+  Cocoa ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "dogecoin" + lib.optionalString (!withGui) "d";

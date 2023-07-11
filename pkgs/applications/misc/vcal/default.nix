@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchurl, perl }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vcal";

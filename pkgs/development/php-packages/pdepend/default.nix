@@ -1,4 +1,10 @@
-{ stdenv, fetchurl, makeWrapper, lib, php }:
+{
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  lib,
+  php,
+}:
 
 let
   pname = "pdepend";

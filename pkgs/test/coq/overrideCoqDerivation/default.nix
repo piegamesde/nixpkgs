@@ -1,4 +1,9 @@
-{ lib, coq, mkCoqPackages, runCommand }:
+{
+  lib,
+  coq,
+  mkCoqPackages,
+  runCommand,
+}:
 
 let
 

@@ -1,5 +1,14 @@
-{ lib, fetchFromGitHub, stdenv, bitlbee, autoconf, automake, libtool, pkg-config
-, json-glib }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  bitlbee,
+  autoconf,
+  automake,
+  libtool,
+  pkg-config,
+  json-glib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bitlbee-facebook";

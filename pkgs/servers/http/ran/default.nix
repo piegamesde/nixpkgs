@@ -1,4 +1,11 @@
-{ buildGoModule, fetchFromGitHub, lib, runCommand, ran, curl }:
+{
+  buildGoModule,
+  fetchFromGitHub,
+  lib,
+  runCommand,
+  ran,
+  curl,
+}:
 
 buildGoModule rec {
   pname = "ran";

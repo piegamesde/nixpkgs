@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, nixosTests, perl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  nixosTests,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fakechroot";

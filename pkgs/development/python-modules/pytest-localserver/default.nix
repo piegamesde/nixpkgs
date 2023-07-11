@@ -1,4 +1,11 @@
-{ lib, aiosmtpd, buildPythonPackage, fetchPypi, werkzeug, pythonOlder }:
+{
+  lib,
+  aiosmtpd,
+  buildPythonPackage,
+  fetchPypi,
+  werkzeug,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-localserver";

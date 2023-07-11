@@ -1,5 +1,19 @@
-{ stdenv, fetchFromGitHub, lib, go, pkg-config, libX11, libXcursor, libXrandr
-, libXinerama, libXi, libXext, libXxf86vm, libGL, nixosTests }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  go,
+  pkg-config,
+  libX11,
+  libXcursor,
+  libXrandr,
+  libXinerama,
+  libXi,
+  libXext,
+  libXxf86vm,
+  libGL,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "darktile";

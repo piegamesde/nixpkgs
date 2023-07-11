@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, dask, distributed, mpi4py, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  dask,
+  distributed,
+  mpi4py,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "dask-mpi";

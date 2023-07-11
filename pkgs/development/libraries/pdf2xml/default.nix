@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libxpdf, libxml2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libxpdf,
+  libxml2,
+}:
 
 stdenv.mkDerivation {
   name = "pdf2xml";

@@ -1,4 +1,9 @@
-import ../make-test-python.nix ({ pkgs, lib, k3s, ... }:
+import ../make-test-python.nix ({
+    pkgs,
+    lib,
+    k3s,
+    ...
+  }:
   let
     imageEnv = pkgs.buildEnv {
       name = "k3s-pause-image-env";
@@ -26,40 +31,43 @@ import ../make-test-python.nix ({ pkgs, lib, k3s, ... }:
     name = "${k3s.name}-single-node";
     meta = with pkgs.lib.maintainers; { maintainers = [ euank ]; };
 
-    nodes.machine = { pkgs, ... }: {
-      environment.systemPackages = with pkgs; [ k3s gzip ];
+    nodes.machine = {
+        pkgs,
+        ...
+      }: {
+        environment.systemPackages = with pkgs; [ k3s gzip ];
 
-      # k3s uses enough resources the default vm fails.
-      virtualisation.memorySize = 1536;
-      virtualisation.diskSize = 4096;
+        # k3s uses enough resources the default vm fails.
+        virtualisation.memorySize = 1536;
+        virtualisation.diskSize = 4096;
 
-      services.k3s.enable = true;
-      services.k3s.role = "server";
-      services.k3s.package = k3s;
-      # Slightly reduce resource usage
-      services.k3s.extraFlags = builtins.toString [
-        "--disable"
-        "coredns"
-        "--disable"
-        "local-storage"
-        "--disable"
-        "metrics-server"
-        "--disable"
-        "servicelb"
-        "--disable"
-        "traefik"
-        "--pause-image"
-        "test.local/pause:local"
-      ];
+        services.k3s.enable = true;
+        services.k3s.role = "server";
+        services.k3s.package = k3s;
+        # Slightly reduce resource usage
+        services.k3s.extraFlags = builtins.toString [
+          "--disable"
+          "coredns"
+          "--disable"
+          "local-storage"
+          "--disable"
+          "metrics-server"
+          "--disable"
+          "servicelb"
+          "--disable"
+          "traefik"
+          "--pause-image"
+          "test.local/pause:local"
+        ];
 
-      users.users = {
-        noprivs = {
-          isNormalUser = true;
-          description = "Can't access k3s by default";
-          password = "*";
+        users.users = {
+          noprivs = {
+            isNormalUser = true;
+            description = "Can't access k3s by default";
+            password = "*";
+          };
         };
       };
-    };
 
     testScript = ''
       start_all()

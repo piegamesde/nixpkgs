@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "udis86";

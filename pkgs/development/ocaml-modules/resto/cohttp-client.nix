@@ -1,4 +1,11 @@
-{ buildDunePackage, resto, resto-directory, resto-cohttp, uri, lwt }:
+{
+  buildDunePackage,
+  resto,
+  resto-directory,
+  resto-cohttp,
+  uri,
+  lwt,
+}:
 
 buildDunePackage {
   pname = "resto-cohttp-client";

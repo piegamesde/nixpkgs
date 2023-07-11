@@ -1,7 +1,34 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, buildPackages, pkg-config, meson
-, ninja, libusb-compat-0_1, readline, libewf, perl, zlib, openssl, libuv, file
-, libzip, xxHash, gtk2, vte, gtkdialog, python3, ruby, lua, lz4, capstone
-, useX11 ? false, rubyBindings ? false, luaBindings ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  buildPackages,
+  pkg-config,
+  meson,
+  ninja,
+  libusb-compat-0_1,
+  readline,
+  libewf,
+  perl,
+  zlib,
+  openssl,
+  libuv,
+  file,
+  libzip,
+  xxHash,
+  gtk2,
+  vte,
+  gtkdialog,
+  python3,
+  ruby,
+  lua,
+  lz4,
+  capstone,
+  useX11 ? false,
+  rubyBindings ? false,
+  luaBindings ? false
+}:
 
 let
   # FIXME: Compare revision with

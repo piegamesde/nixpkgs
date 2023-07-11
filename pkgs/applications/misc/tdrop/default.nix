@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, makeWrapper, xwininfo, xdotool, xprop, gawk
-, coreutils, gnugrep, procps }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  xwininfo,
+  xdotool,
+  xprop,
+  gawk,
+  coreutils,
+  gnugrep,
+  procps,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tdrop";

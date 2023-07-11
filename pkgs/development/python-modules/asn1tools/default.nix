@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, bitstruct, diskcache, prompt-toolkit
-, pyparsing, python, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  bitstruct,
+  diskcache,
+  prompt-toolkit,
+  pyparsing,
+  python,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "asn1tools";

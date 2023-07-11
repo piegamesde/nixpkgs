@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config, which, zlib, openssl
-, libarchive }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  which,
+  zlib,
+  openssl,
+  libarchive,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xbps";

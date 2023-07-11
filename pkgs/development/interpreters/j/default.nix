@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, bc, libedit, readline
-, avxSupport ? stdenv.hostPlatform.avxSupport }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bc,
+  libedit,
+  readline,
+  avxSupport ? stdenv.hostPlatform.avxSupport
+}:
 
 stdenv.mkDerivation rec {
   pname = "j";

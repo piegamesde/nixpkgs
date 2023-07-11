@@ -1,7 +1,21 @@
-{ lib, stdenv, fetchurl, glib, meson, ninja, nixosTests, pkg-config, gettext
-, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
-, buildPackages, gobject-introspection, gi-docgen, libxslt, fixDarwinDylibNames
-, gnome }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  glib,
+  meson,
+  ninja,
+  nixosTests,
+  pkg-config,
+  gettext,
+  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
+  buildPackages,
+  gobject-introspection,
+  gi-docgen,
+  libxslt,
+  fixDarwinDylibNames,
+  gnome,
+}:
 
 stdenv.mkDerivation rec {
   pname = "json-glib";

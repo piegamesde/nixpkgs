@@ -1,5 +1,14 @@
-{ stdenv, lib, buildFHSEnv, copyDesktopItems, dpkg, lndir, makeDesktopItem
-, makeWrapper, requireFile }:
+{
+  stdenv,
+  lib,
+  buildFHSEnv,
+  copyDesktopItems,
+  dpkg,
+  lndir,
+  makeDesktopItem,
+  makeWrapper,
+  requireFile,
+}:
 
 let
   version = "7.3.1";

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, libX11, libXinerama, libXft, writeText, patches ? [ ]
-, conf ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libX11,
+  libXinerama,
+  libXft,
+  writeText,
+  patches ? [ ],
+  conf ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "dwm";

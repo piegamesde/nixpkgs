@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, rustPlatform, cmake, pkg-config, openssl
-, oniguruma, CoreServices, installShellFiles, libsass, zola, testers }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rustPlatform,
+  cmake,
+  pkg-config,
+  openssl,
+  oniguruma,
+  CoreServices,
+  installShellFiles,
+  libsass,
+  zola,
+  testers,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "zola";

@@ -1,5 +1,16 @@
-{ stdenv, fetchzip, applyPatches, ... }:
-{ url, sha256, patches ? [ ], name ? null, version ? null }:
+{
+  stdenv,
+  fetchzip,
+  applyPatches,
+  ...
+}:
+{
+  url,
+  sha256,
+  patches ? [ ],
+  name ? null,
+  version ? null
+}:
 if name != null || version != null then
   throw ''
     `pkgs.fetchNextcloudApp` has been changed to use `fetchzip`.

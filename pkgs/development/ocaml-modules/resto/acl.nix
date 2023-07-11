@@ -1,4 +1,9 @@
-{ lib, buildDunePackage, resto, uri }:
+{
+  lib,
+  buildDunePackage,
+  resto,
+  uri,
+}:
 
 buildDunePackage {
   pname = "resto-acl";

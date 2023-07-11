@@ -1,4 +1,11 @@
-{ fetchFromGitHub, buildGoModule, lib, installShellFiles, libgit2, pkg-config }:
+{
+  fetchFromGitHub,
+  buildGoModule,
+  lib,
+  installShellFiles,
+  libgit2,
+  pkg-config,
+}:
 buildGoModule rec {
   pname = "turbogit";
   version = "3.1.1";

@@ -1,4 +1,10 @@
-{ config, lib, pkgs, utils, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  utils,
+  ...
+}:
 
 with utils.systemdUtils.unitOptions;
 with utils.systemdUtils.lib;
@@ -2692,47 +2698,55 @@ let
 
   };
 
-  networkConfig = { config, ... }: {
-    config = {
-      matchConfig = optionalAttrs (config.name != null) { Name = config.name; };
-      networkConfig =
-        optionalAttrs (config.DHCP != null) { DHCP = config.DHCP; }
-        // optionalAttrs (config.domains != null) {
-          Domains = concatStringsSep " " config.domains;
+  networkConfig = {
+      config,
+      ...
+    }: {
+      config = {
+        matchConfig =
+          optionalAttrs (config.name != null) { Name = config.name; };
+        networkConfig =
+          optionalAttrs (config.DHCP != null) { DHCP = config.DHCP; }
+          // optionalAttrs (config.domains != null) {
+            Domains = concatStringsSep " " config.domains;
+          };
+      };
+    };
+
+  networkdConfig = {
+      config,
+      ...
+    }: {
+      options = {
+        routeTables = mkOption {
+          default = { };
+          example = { foo = 27; };
+          type = with types; attrsOf int;
+          description = lib.mdDoc ''
+            Defines route table names as an attrset of name to number.
+            See {manpage}`networkd.conf(5)` for details.
+          '';
         };
-    };
-  };
 
-  networkdConfig = { config, ... }: {
-    options = {
-      routeTables = mkOption {
-        default = { };
-        example = { foo = 27; };
-        type = with types; attrsOf int;
-        description = lib.mdDoc ''
-          Defines route table names as an attrset of name to number.
-          See {manpage}`networkd.conf(5)` for details.
-        '';
+        addRouteTablesToIPRoute2 = mkOption {
+          default = true;
+          example = false;
+          type = types.bool;
+          description = lib.mdDoc ''
+            If true and routeTables are set, then the specified route tables
+            will also be installed into /etc/iproute2/rt_tables.
+          '';
+        };
       };
 
-      addRouteTablesToIPRoute2 = mkOption {
-        default = true;
-        example = false;
-        type = types.bool;
-        description = lib.mdDoc ''
-          If true and routeTables are set, then the specified route tables
-          will also be installed into /etc/iproute2/rt_tables.
-        '';
+      config = {
+        networkConfig = optionalAttrs (config.routeTables != { }) {
+          RouteTable =
+            mapAttrsToList (name: number: "${name}:${toString number}")
+            config.routeTables;
+        };
       };
     };
-
-    config = {
-      networkConfig = optionalAttrs (config.routeTables != { }) {
-        RouteTable = mapAttrsToList (name: number: "${name}:${toString number}")
-          config.routeTables;
-      };
-    };
-  };
 
   commonMatchText = def:
     optionalString (def.matchConfig != { }) ''
@@ -3035,11 +3049,15 @@ let
       default = { };
       internal = true;
       type = with types;
-        attrsOf (submodule ({ name, config, ... }: {
-          options =
-            mapAttrs (_: x: x // { internal = true; }) concreteUnitOptions;
-          config = { unit = mkDefault (makeUnit name config); };
-        }));
+        attrsOf (submodule ({
+            name,
+            config,
+            ...
+          }: {
+            options =
+              mapAttrs (_: x: x // { internal = true; }) concreteUnitOptions;
+            config = { unit = mkDefault (makeUnit name config); };
+          }));
     };
 
     wait-online = {

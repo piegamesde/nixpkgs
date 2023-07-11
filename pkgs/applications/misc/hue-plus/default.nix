@@ -1,4 +1,10 @@
-{ python3Packages, fetchFromGitHub, lib, wrapQtAppsHook, qtbase }:
+{
+  python3Packages,
+  fetchFromGitHub,
+  lib,
+  wrapQtAppsHook,
+  qtbase,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "hue-plus";

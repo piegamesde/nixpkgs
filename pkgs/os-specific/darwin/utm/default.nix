@@ -1,4 +1,10 @@
-{ lib, undmg, makeWrapper, fetchurl, stdenvNoCC }:
+{
+  lib,
+  undmg,
+  makeWrapper,
+  fetchurl,
+  stdenvNoCC,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "utm";

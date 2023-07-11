@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, cryptography, types-pyopenssl }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cryptography,
+  types-pyopenssl,
+}:
 
 buildPythonPackage rec {
   pname = "types-redis";

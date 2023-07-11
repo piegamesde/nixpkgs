@@ -1,49 +1,136 @@
-{ lib, stdenv
+{
+  lib,
+  stdenv
 
-# nixpkgs functions
-, buildGoModule, buildVimPluginFrom2Nix, fetchFromGitHub, fetchFromSourcehut
-, fetchpatch, fetchurl, substituteAll
+  # nixpkgs functions
+  ,
+  buildGoModule,
+  buildVimPluginFrom2Nix,
+  fetchFromGitHub,
+  fetchFromSourcehut,
+  fetchpatch,
+  fetchurl,
+  substituteAll
 
-# Language dependencies
-, python3, rustPlatform
+  # Language dependencies
+  ,
+  python3,
+  rustPlatform
 
-# Misc dependencies
-, Cocoa, code-minimap, dasht, direnv, fish, fzf, gawk, git, gnome, himalaya
-, htop, jq, khard, languagetool, llvmPackages, meson, nim, nodePackages
-, openscad, pandoc, parinfer-rust, phpactor, ripgrep, skim, sqlite, statix
-, stylish-haskell, tabnine, taskwarrior, tmux, tup, vim, which, xkb-switch, ycmd
-, zoxide, nodejs, xdotool, xorg, zathura, zsh
+  # Misc dependencies
+  ,
+  Cocoa,
+  code-minimap,
+  dasht,
+  direnv,
+  fish,
+  fzf,
+  gawk,
+  git,
+  gnome,
+  himalaya,
+  htop,
+  jq,
+  khard,
+  languagetool,
+  llvmPackages,
+  meson,
+  nim,
+  nodePackages,
+  openscad,
+  pandoc,
+  parinfer-rust,
+  phpactor,
+  ripgrep,
+  skim,
+  sqlite,
+  statix,
+  stylish-haskell,
+  tabnine,
+  taskwarrior,
+  tmux,
+  tup,
+  vim,
+  which,
+  xkb-switch,
+  ycmd,
+  zoxide,
+  nodejs,
+  xdotool,
+  xorg,
+  zathura,
+  zsh
 
-# command-t dependencies
-, getconf, ruby
+  # command-t dependencies
+  ,
+  getconf,
+  ruby
 
-# cpsm dependencies
-, boost, cmake, icu, ncurses
+  # cpsm dependencies
+  ,
+  boost,
+  cmake,
+  icu,
+  ncurses
 
-# LanguageClient-neovim dependencies
-, CoreFoundation, CoreServices
+  # LanguageClient-neovim dependencies
+  ,
+  CoreFoundation,
+  CoreServices
 
-# nvim-treesitter dependencies
-, callPackage
+  # nvim-treesitter dependencies
+  ,
+  callPackage
 
-# sg.nvim dependencies
-, darwin
+  # sg.nvim dependencies
+  ,
+  darwin
 
-# sved dependencies
-, glib, gobject-introspection, wrapGAppsHook
+  # sved dependencies
+  ,
+  glib,
+  gobject-introspection,
+  wrapGAppsHook
 
-# sniprun dependencies
-, bashInteractive, coreutils, curl, gnugrep, gnused, makeWrapper, procps
+  # sniprun dependencies
+  ,
+  bashInteractive,
+  coreutils,
+  curl,
+  gnugrep,
+  gnused,
+  makeWrapper,
+  procps
 
-# sg-nvim dependencies
-, openssl, pkg-config
+  # sg-nvim dependencies
+  ,
+  openssl,
+  pkg-config
 
-# vim-go dependencies
-, asmfmt, delve, errcheck, go-motion, go-tools, gocode, gocode-gomod, godef
-, gogetdoc, golangci-lint, golint, gomodifytags, gopls, gotags, gotools, iferr
-, impl, reftools
-# must be lua51Packages
-, luaPackages }:
+  # vim-go dependencies
+  ,
+  asmfmt,
+  delve,
+  errcheck,
+  go-motion,
+  go-tools,
+  gocode,
+  gocode-gomod,
+  godef,
+  gogetdoc,
+  golangci-lint,
+  golint,
+  gomodifytags,
+  gopls,
+  gotags,
+  gotools,
+  iferr,
+  impl,
+  reftools
+  # must be lua51Packages
+  ,
+  luaPackages,
+}:
 
 self: super:
 {

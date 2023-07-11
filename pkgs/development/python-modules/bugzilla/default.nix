@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, requests, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "bugzilla";

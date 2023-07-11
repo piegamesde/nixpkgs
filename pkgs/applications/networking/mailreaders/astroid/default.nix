@@ -1,13 +1,34 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, gnome, gmime3
-, webkitgtk, ronn, libsass, notmuch, boost, wrapGAppsHook, glib-networking
-, protobuf, gtkmm3, libpeas, gsettings-desktop-schemas, gobject-introspection
-, python3
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  gnome,
+  gmime3,
+  webkitgtk,
+  ronn,
+  libsass,
+  notmuch,
+  boost,
+  wrapGAppsHook,
+  glib-networking,
+  protobuf,
+  gtkmm3,
+  libpeas,
+  gsettings-desktop-schemas,
+  gobject-introspection,
+  python3
 
-# vim to be used, should support the GUI mode.
-, vim
+  # vim to be used, should support the GUI mode.
+  ,
+  vim
 
-# additional python3 packages to be available within plugins
-, extraPythonPackages ? [ ] }:
+  # additional python3 packages to be available within plugins
+  ,
+  extraPythonPackages ? [ ]
+}:
 
 stdenv.mkDerivation rec {
   pname = "astroid";

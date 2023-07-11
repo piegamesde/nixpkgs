@@ -1,5 +1,16 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, fetchpatch, mock
-, parameterized, pyelftools, pytestCheckHook, pythonOlder, six }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  mock,
+  parameterized,
+  pyelftools,
+  pytestCheckHook,
+  pythonOlder,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "aws-lambda-builders";

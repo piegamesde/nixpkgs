@@ -1,5 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, buildPythonPackage, rustPlatform
-, setuptools-rust, unittestCheckHook }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  rustPlatform,
+  setuptools-rust,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "gb-io";

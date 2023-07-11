@@ -1,4 +1,11 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pebble";

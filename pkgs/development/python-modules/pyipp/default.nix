@@ -1,6 +1,18 @@
-{ lib, aiohttp, aresponses, awesomeversion, backoff, buildPythonPackage
-, deepmerge, fetchFromGitHub, poetry-core, pytest-asyncio, pytestCheckHook
-, pythonOlder, yarl }:
+{
+  lib,
+  aiohttp,
+  aresponses,
+  awesomeversion,
+  backoff,
+  buildPythonPackage,
+  deepmerge,
+  fetchFromGitHub,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  yarl,
+}:
 
 buildPythonPackage rec {
   pname = "pyipp";

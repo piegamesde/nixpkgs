@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, future, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  future,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "parsedatetime";

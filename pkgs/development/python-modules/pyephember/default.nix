@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, paho-mqtt, pythonOlder, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  paho-mqtt,
+  pythonOlder,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "pyephember";

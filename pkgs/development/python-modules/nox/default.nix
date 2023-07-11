@@ -1,6 +1,20 @@
-{ lib, argcomplete, buildPythonPackage, colorlog, fetchFromGitHub, fetchpatch
-, setuptools, importlib-metadata, jinja2, packaging, pytestCheckHook
-, pythonOlder, tox, typing-extensions, virtualenv }:
+{
+  lib,
+  argcomplete,
+  buildPythonPackage,
+  colorlog,
+  fetchFromGitHub,
+  fetchpatch,
+  setuptools,
+  importlib-metadata,
+  jinja2,
+  packaging,
+  pytestCheckHook,
+  pythonOlder,
+  tox,
+  typing-extensions,
+  virtualenv,
+}:
 
 buildPythonPackage rec {
   pname = "nox";

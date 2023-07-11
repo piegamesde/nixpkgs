@@ -1,8 +1,19 @@
-{ lib, python3, fetchFromGitHub
+{
+  lib,
+  python3,
+  fetchFromGitHub
 
-, bubblewrap, nix-output-monitor, cacert, git, nix
+  ,
+  bubblewrap,
+  nix-output-monitor,
+  cacert,
+  git,
+  nix
 
-, withSandboxSupport ? false, withNom ? false }:
+  ,
+  withSandboxSupport ? false,
+  withNom ? false
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "nixpkgs-review";

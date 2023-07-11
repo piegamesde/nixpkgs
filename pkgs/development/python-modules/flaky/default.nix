@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, mock, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  mock,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "flaky";

@@ -1,4 +1,10 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, libpcap }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  libpcap,
+}:
 
 buildGoModule rec {
   pname = "dnsmonster";

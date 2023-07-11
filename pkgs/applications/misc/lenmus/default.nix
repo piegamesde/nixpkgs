@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, makeWrapper
-, boost, portmidi, sqlite, freetype, libpng, pngpp, zlib, wxGTK32, wxsqlite3
-, fluidsynth, fontconfig, darwin, soundfont-fluid, openlilylib-fonts }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  makeWrapper,
+  boost,
+  portmidi,
+  sqlite,
+  freetype,
+  libpng,
+  pngpp,
+  zlib,
+  wxGTK32,
+  wxsqlite3,
+  fluidsynth,
+  fontconfig,
+  darwin,
+  soundfont-fluid,
+  openlilylib-fonts,
+}:
 
 let inherit (darwin.apple_sdk.frameworks) Cocoa;
 in stdenv.mkDerivation rec {

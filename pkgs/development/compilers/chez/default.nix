@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, coreutils, cctools, ncurses, libiconv, libX11
-, libuuid }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  coreutils,
+  cctools,
+  ncurses,
+  libiconv,
+  libX11,
+  libuuid,
+}:
 
 stdenv.mkDerivation rec {
   pname = "chez-scheme";

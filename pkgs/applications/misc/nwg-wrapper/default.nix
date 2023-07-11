@@ -1,5 +1,13 @@
-{ lib, python3Packages, fetchFromGitHub, gtk-layer-shell, gtk3
-, gobject-introspection, wrapGAppsHook, wlr-randr }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  gtk-layer-shell,
+  gtk3,
+  gobject-introspection,
+  wrapGAppsHook,
+  wlr-randr,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "nwg-wrapper";

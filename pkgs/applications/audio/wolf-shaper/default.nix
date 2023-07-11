@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, libjack2, lv2, xorg, liblo, libGL, libXcursor
-, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libjack2,
+  lv2,
+  xorg,
+  liblo,
+  libGL,
+  libXcursor,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wolf-shaper";

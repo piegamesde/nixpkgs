@@ -1,4 +1,12 @@
-{ lib, pkgs, stdenv, newScope, nim, fetchFromGitHub, buildPackages }:
+{
+  lib,
+  pkgs,
+  stdenv,
+  newScope,
+  nim,
+  fetchFromGitHub,
+  buildPackages,
+}:
 
 lib.makeScope newScope (self:
   let callPackage = self.callPackage;

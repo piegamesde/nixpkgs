@@ -1,6 +1,15 @@
-{ runCommand, pkg-config, gdk-pixbuf, lib, stdenv, buildPackages, }:
+{
+  runCommand,
+  pkg-config,
+  gdk-pixbuf,
+  lib,
+  stdenv,
+  buildPackages,
+}:
 
-{ extraLoaders, }:
+{
+  extraLoaders,
+}:
 
 let
   # Get packages to generate the cache for. We always include gdk-pixbuf.

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libminc, bicpl, freeglut, mesa_glu, GLUT
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libminc,
+  bicpl,
+  freeglut,
+  mesa_glu,
+  GLUT,
 }:
 
 stdenv.mkDerivation rec {

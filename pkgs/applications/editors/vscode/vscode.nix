@@ -1,4 +1,10 @@
-{ stdenv, lib, callPackage, fetchurl, isInsiders ? false, commandLineArgs ? ""
+{
+  stdenv,
+  lib,
+  callPackage,
+  fetchurl,
+  isInsiders ? false,
+  commandLineArgs ? ""
 }:
 
 let

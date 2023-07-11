@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, aiohttp
-, pytest, pytest-asyncio, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  aiohttp,
+  pytest,
+  pytest-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-mockservers";

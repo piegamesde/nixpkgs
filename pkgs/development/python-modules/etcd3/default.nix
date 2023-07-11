@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, etcd, fetchFromGitHub, grpcio, hypothesis, mock
-, pifpaf, protobuf, pytestCheckHook, six, tenacity }:
+{
+  lib,
+  buildPythonPackage,
+  etcd,
+  fetchFromGitHub,
+  grpcio,
+  hypothesis,
+  mock,
+  pifpaf,
+  protobuf,
+  pytestCheckHook,
+  six,
+  tenacity,
+}:
 
 buildPythonPackage rec {
   pname = "etcd3";

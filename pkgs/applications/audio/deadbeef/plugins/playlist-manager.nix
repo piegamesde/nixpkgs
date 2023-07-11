@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, deadbeef, gtk3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  deadbeef,
+  gtk3,
+}:
 
 stdenv.mkDerivation {
   pname = "deadbeef-playlist-manager-plugin";

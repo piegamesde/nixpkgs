@@ -1,8 +1,21 @@
-{ pkgs, lib, stdenv, fetchFromGitHub, python3Packages, ffmpeg, makeWrapper
-, nixosTests
+{
+  pkgs,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+  ffmpeg,
+  makeWrapper,
+  nixosTests
 
-# For the update script
-, coreutils, curl, nix-prefetch-git, jq, nodePackages }:
+  # For the update script
+  ,
+  coreutils,
+  curl,
+  nix-prefetch-git,
+  jq,
+  nodePackages,
+}:
 let
   nodejs = pkgs.nodejs_14;
   nodeEnv = import ../../../development/node-packages/node-env.nix {

@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, elk7Version, buildGoModule, libpcap, nixosTests, systemd
-, config }:
+{
+  lib,
+  fetchFromGitHub,
+  elk7Version,
+  buildGoModule,
+  libpcap,
+  nixosTests,
+  systemd,
+  config,
+}:
 
 let
   beat = package: extraArgs:

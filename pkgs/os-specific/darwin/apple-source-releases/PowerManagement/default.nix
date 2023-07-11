@@ -1,4 +1,8 @@
-{ appleDerivation, xcbuildHook, IOKit }:
+{
+  appleDerivation,
+  xcbuildHook,
+  IOKit,
+}:
 
 appleDerivation {
   nativeBuildInputs = [ xcbuildHook ];

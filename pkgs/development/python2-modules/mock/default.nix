@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, funcsigs, six, pbr
-, unittestCheckHook, pytest }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  funcsigs,
+  six,
+  pbr,
+  unittestCheckHook,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "mock";

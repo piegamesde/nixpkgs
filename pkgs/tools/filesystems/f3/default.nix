@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromGitHub, parted, systemd, argp-standalone }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  parted,
+  systemd,
+  argp-standalone,
+}:
 
 stdenv.mkDerivation rec {
   pname = "f3";

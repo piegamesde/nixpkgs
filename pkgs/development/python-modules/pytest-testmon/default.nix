@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, coverage, fetchFromGitHub, poetry-core, pytest
-, pythonOlder, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  coverage,
+  fetchFromGitHub,
+  poetry-core,
+  pytest,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-testmon";

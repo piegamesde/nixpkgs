@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -137,7 +142,11 @@ let
     };
 
   # utility function around makeWrapper
-  mkWrapperDrv = { original, name, set ? { } }:
+  mkWrapperDrv = {
+      original,
+      name,
+      set ? { }
+    }:
     pkgs.runCommand "${name}-wrapper" {
       nativeBuildInputs = [ pkgs.makeWrapper ];
     } (with lib; ''
@@ -283,7 +292,11 @@ in {
       };
     '';
     type = types.attrsOf (types.submodule (let globalConfig = config;
-    in { name, config, ... }: {
+    in {
+      name,
+      config,
+      ...
+    }: {
       options = {
 
         paths = mkOption {
@@ -671,85 +684,87 @@ in {
       i.e. `user@machine:.` is enough. (Note colon and dot.)
     '';
     default = { };
-    type = types.attrsOf (types.submodule ({ ... }: {
-      options = {
-        path = mkOption {
-          type = types.path;
-          description = lib.mdDoc ''
-            Where to store the backups. Note that the directory
-            is created automatically, with correct permissions.
-          '';
-          default = "/var/lib/borgbackup";
-        };
+    type = types.attrsOf (types.submodule ({
+        ...
+      }: {
+        options = {
+          path = mkOption {
+            type = types.path;
+            description = lib.mdDoc ''
+              Where to store the backups. Note that the directory
+              is created automatically, with correct permissions.
+            '';
+            default = "/var/lib/borgbackup";
+          };
 
-        user = mkOption {
-          type = types.str;
-          description = lib.mdDoc ''
-            The user {command}`borg serve` is run as.
-            User or group needs write permission
-            for the specified {option}`path`.
-          '';
-          default = "borg";
-        };
+          user = mkOption {
+            type = types.str;
+            description = lib.mdDoc ''
+              The user {command}`borg serve` is run as.
+              User or group needs write permission
+              for the specified {option}`path`.
+            '';
+            default = "borg";
+          };
 
-        group = mkOption {
-          type = types.str;
-          description = lib.mdDoc ''
-            The group {command}`borg serve` is run as.
-            User or group needs write permission
-            for the specified {option}`path`.
-          '';
-          default = "borg";
-        };
+          group = mkOption {
+            type = types.str;
+            description = lib.mdDoc ''
+              The group {command}`borg serve` is run as.
+              User or group needs write permission
+              for the specified {option}`path`.
+            '';
+            default = "borg";
+          };
 
-        authorizedKeys = mkOption {
-          type = with types; listOf str;
-          description = lib.mdDoc ''
-            Public SSH keys that are given full write access to this repository.
-            You should use a different SSH key for each repository you write to, because
-            the specified keys are restricted to running {command}`borg serve`
-            and can only access this single repository.
-          '';
-          default = [ ];
-        };
+          authorizedKeys = mkOption {
+            type = with types; listOf str;
+            description = lib.mdDoc ''
+              Public SSH keys that are given full write access to this repository.
+              You should use a different SSH key for each repository you write to, because
+              the specified keys are restricted to running {command}`borg serve`
+              and can only access this single repository.
+            '';
+            default = [ ];
+          };
 
-        authorizedKeysAppendOnly = mkOption {
-          type = with types; listOf str;
-          description = lib.mdDoc ''
-            Public SSH keys that can only be used to append new data (archives) to the repository.
-            Note that archives can still be marked as deleted and are subsequently removed from disk
-            upon accessing the repo with full write access, e.g. when pruning.
-          '';
-          default = [ ];
-        };
+          authorizedKeysAppendOnly = mkOption {
+            type = with types; listOf str;
+            description = lib.mdDoc ''
+              Public SSH keys that can only be used to append new data (archives) to the repository.
+              Note that archives can still be marked as deleted and are subsequently removed from disk
+              upon accessing the repo with full write access, e.g. when pruning.
+            '';
+            default = [ ];
+          };
 
-        allowSubRepos = mkOption {
-          type = types.bool;
-          description = lib.mdDoc ''
-            Allow clients to create repositories in subdirectories of the
-            specified {option}`path`. These can be accessed using
-            `user@machine:path/to/subrepo`. Note that a
-            {option}`quota` applies to repositories independently.
-            Therefore, if this is enabled, clients can create multiple
-            repositories and upload an arbitrary amount of data.
-          '';
-          default = false;
-        };
+          allowSubRepos = mkOption {
+            type = types.bool;
+            description = lib.mdDoc ''
+              Allow clients to create repositories in subdirectories of the
+              specified {option}`path`. These can be accessed using
+              `user@machine:path/to/subrepo`. Note that a
+              {option}`quota` applies to repositories independently.
+              Therefore, if this is enabled, clients can create multiple
+              repositories and upload an arbitrary amount of data.
+            '';
+            default = false;
+          };
 
-        quota = mkOption {
-          # See the definition of parse_file_size() in src/borg/helpers/parseformat.py
-          type = with types; nullOr (strMatching "[[:digit:].]+[KMGTP]?");
-          description = lib.mdDoc ''
-            Storage quota for the repository. This quota is ensured for all
-            sub-repositories if {option}`allowSubRepos` is enabled
-            but not for the overall storage space used.
-          '';
-          default = null;
-          example = "100G";
-        };
+          quota = mkOption {
+            # See the definition of parse_file_size() in src/borg/helpers/parseformat.py
+            type = with types; nullOr (strMatching "[[:digit:].]+[KMGTP]?");
+            description = lib.mdDoc ''
+              Storage quota for the repository. This quota is ensured for all
+              sub-repositories if {option}`allowSubRepos` is enabled
+              but not for the overall storage space used.
+            '';
+            default = null;
+            example = "100G";
+          };
 
-      };
-    }));
+        };
+      }));
   };
 
   ###### implementation

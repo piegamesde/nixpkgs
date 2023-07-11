@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, sphinx, actdiag, blockdiag, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  sphinx,
+  actdiag,
+  blockdiag,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-actdiag";

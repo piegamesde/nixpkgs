@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, substituteAll, pname, version, url, sha256, homepage }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  substituteAll,
+  pname,
+  version,
+  url,
+  sha256,
+  homepage,
+}:
 
 stdenv.mkDerivation rec {
   inherit pname version;

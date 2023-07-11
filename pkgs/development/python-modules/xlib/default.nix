@@ -1,5 +1,17 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, six, setuptools-scm, xorg
-, python, mock, nose, pytestCheckHook, util-linux }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  six,
+  setuptools-scm,
+  xorg,
+  python,
+  mock,
+  nose,
+  pytestCheckHook,
+  util-linux,
+}:
 
 buildPythonPackage rec {
   pname = "xlib";

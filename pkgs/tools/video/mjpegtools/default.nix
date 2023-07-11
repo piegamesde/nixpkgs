@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchurl, gtk2, libdv, libjpeg, libpng, libX11, pkg-config, SDL
-, SDL_gfx, withMinimal ? true }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  gtk2,
+  libdv,
+  libjpeg,
+  libpng,
+  libX11,
+  pkg-config,
+  SDL,
+  SDL_gfx,
+  withMinimal ? true
+}:
 
 # TODO:
 # - make dependencies optional

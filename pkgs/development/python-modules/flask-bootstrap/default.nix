@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, flask, visitor, dominate }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  visitor,
+  dominate,
+}:
 
 buildPythonPackage rec {
   pname = "Flask-Bootstrap";

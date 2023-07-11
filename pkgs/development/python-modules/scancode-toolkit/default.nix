@@ -1,13 +1,63 @@
-{ lib, attrs, beautifulsoup4, bitarray, boolean-py, buildPythonPackage, chardet
-, click, colorama, commoncode, container-inspector, debian-inspector, dparse2
-, extractcode, extractcode-7z, extractcode-libarchive, fasteners, fetchPypi
-, fingerprints, ftfy, gemfileparser, html5lib, importlib-metadata, intbitset
-, jaraco_functools, javaproperties, jinja2, jsonstreams, license-expression
-, lxml, markupsafe, packageurl-python, packaging, parameter-expansion-patched
-, pefile, pip-requirements-parser, pkginfo2, pluggy, plugincode, publicsuffix2
-, pyahocorasick, pycryptodome, pygmars, pygments, pymaven-patch, pytestCheckHook
-, pythonOlder, requests, saneyaml, spdx-tools, text-unidecode, toml, typecode
-, typecode-libmagic, typing, urlpy, xmltodict, zipp }:
+{
+  lib,
+  attrs,
+  beautifulsoup4,
+  bitarray,
+  boolean-py,
+  buildPythonPackage,
+  chardet,
+  click,
+  colorama,
+  commoncode,
+  container-inspector,
+  debian-inspector,
+  dparse2,
+  extractcode,
+  extractcode-7z,
+  extractcode-libarchive,
+  fasteners,
+  fetchPypi,
+  fingerprints,
+  ftfy,
+  gemfileparser,
+  html5lib,
+  importlib-metadata,
+  intbitset,
+  jaraco_functools,
+  javaproperties,
+  jinja2,
+  jsonstreams,
+  license-expression,
+  lxml,
+  markupsafe,
+  packageurl-python,
+  packaging,
+  parameter-expansion-patched,
+  pefile,
+  pip-requirements-parser,
+  pkginfo2,
+  pluggy,
+  plugincode,
+  publicsuffix2,
+  pyahocorasick,
+  pycryptodome,
+  pygmars,
+  pygments,
+  pymaven-patch,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  saneyaml,
+  spdx-tools,
+  text-unidecode,
+  toml,
+  typecode,
+  typecode-libmagic,
+  typing,
+  urlpy,
+  xmltodict,
+  zipp,
+}:
 
 buildPythonPackage rec {
   pname = "scancode-toolkit";

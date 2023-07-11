@@ -1,4 +1,10 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, keystone }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  keystone,
+}:
 
 buildPythonPackage rec {
   pname = "keystone-engine";

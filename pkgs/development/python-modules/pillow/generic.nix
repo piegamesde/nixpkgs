@@ -1,4 +1,12 @@
-{ pname, version, disabled, src, patches ? [ ], meta, passthru ? { }, ...
+{
+  pname,
+  version,
+  disabled,
+  src,
+  patches ? [ ],
+  meta,
+  passthru ? { },
+  ...
 }@args:
 
 with args;

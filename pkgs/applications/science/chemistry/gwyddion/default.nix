@@ -1,10 +1,37 @@
-{ lib, stdenv, fetchurl, gtk2, pkg-config, fftw, file, pythonSupport ? false
-, python2Packages, gnome2, openexrSupport ? true, openexr, libzipSupport ? true
-, libzip, libxml2Support ? true, libxml2, libwebpSupport ? true, libwebp,
-# libXmu is not used if libunique is.
-libXmuSupport ? false, xorg, libxsltSupport ? true, libxslt, fitsSupport ? true
-, cfitsio, zlibSupport ? true, zlib, libuniqueSupport ? true, libunique
-, libpngSupport ? true, libpng, openglSupport ? !stdenv.isDarwin }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gtk2,
+  pkg-config,
+  fftw,
+  file,
+  pythonSupport ? false,
+  python2Packages,
+  gnome2,
+  openexrSupport ? true,
+  openexr,
+  libzipSupport ? true,
+  libzip,
+  libxml2Support ? true,
+  libxml2,
+  libwebpSupport ? true,
+  libwebp,
+  # libXmu is not used if libunique is.
+  libXmuSupport ? false,
+  xorg,
+  libxsltSupport ? true,
+  libxslt,
+  fitsSupport ? true,
+  cfitsio,
+  zlibSupport ? true,
+  zlib,
+  libuniqueSupport ? true,
+  libunique,
+  libpngSupport ? true,
+  libpng,
+  openglSupport ? !stdenv.isDarwin
+}:
 
 let inherit (python2Packages) pygtk pygobject2 python;
 

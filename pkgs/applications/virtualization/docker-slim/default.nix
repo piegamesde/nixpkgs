@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, makeBinaryWrapper }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  makeBinaryWrapper,
+}:
 
 buildGoModule rec {
   pname = "docker-slim";

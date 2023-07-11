@@ -1,5 +1,16 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, pythonOlder, rustPlatform
-, setuptools-rust, libiconv, requests, regex, blobfile }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  rustPlatform,
+  setuptools-rust,
+  libiconv,
+  requests,
+  regex,
+  blobfile,
+}:
 let
   pname = "tiktoken";
   version = "0.3.3";

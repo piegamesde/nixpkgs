@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, ldap3, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  ldap3,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "sectools";

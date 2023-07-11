@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pygments, six, wcwidth
-, pytestCheckHook, pyte, ptyprocess, pexpect }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pygments,
+  six,
+  wcwidth,
+  pytestCheckHook,
+  pyte,
+  ptyprocess,
+  pexpect,
+}:
 
 buildPythonPackage rec {
   pname = "lineedit";

@@ -1,5 +1,18 @@
-{ lib, aniso8601, blinker, buildPythonPackage, fetchPypi, flask, mock, nose
-, pytestCheckHook, pythonOlder, pytz, six, werkzeug }:
+{
+  lib,
+  aniso8601,
+  blinker,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  mock,
+  nose,
+  pytestCheckHook,
+  pythonOlder,
+  pytz,
+  six,
+  werkzeug,
+}:
 
 buildPythonPackage rec {
   pname = "flask-restful";

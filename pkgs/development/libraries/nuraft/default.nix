@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost172, asio, openssl, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost172,
+  asio,
+  openssl,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nuraft";

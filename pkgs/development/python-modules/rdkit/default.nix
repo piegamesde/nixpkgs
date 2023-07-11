@@ -1,6 +1,22 @@
-{ lib, buildPythonPackage, fetchFromGitHub, cmake, comic-neue, boost, catch2
-, inchi, cairo, eigen, python, rapidjson, maeparser, coordgenlibs, numpy, pandas
-, pillow }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cmake,
+  comic-neue,
+  boost,
+  catch2,
+  inchi,
+  cairo,
+  eigen,
+  python,
+  rapidjson,
+  maeparser,
+  coordgenlibs,
+  numpy,
+  pandas,
+  pillow,
+}:
 let
   external = {
     avalon = fetchFromGitHub {

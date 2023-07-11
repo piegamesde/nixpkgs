@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, zig, wayland, pkg-config, scdoc, xwayland
-, wayland-protocols, wlroots_0_16, libxkbcommon, pixman, udev, libevdev
-, libinput, libGL, libX11, xwaylandSupport ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zig,
+  wayland,
+  pkg-config,
+  scdoc,
+  xwayland,
+  wayland-protocols,
+  wlroots_0_16,
+  libxkbcommon,
+  pixman,
+  udev,
+  libevdev,
+  libinput,
+  libGL,
+  libX11,
+  xwaylandSupport ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "river";

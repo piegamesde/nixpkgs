@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, regex, langcodes, ftfy, msgpack, mecab-python3, jieba
-, pytestCheckHook, isPy27, fetchFromGitHub }:
+{
+  lib,
+  buildPythonPackage,
+  regex,
+  langcodes,
+  ftfy,
+  msgpack,
+  mecab-python3,
+  jieba,
+  pytestCheckHook,
+  isPy27,
+  fetchFromGitHub,
+}:
 
 buildPythonPackage rec {
   pname = "wordfreq";

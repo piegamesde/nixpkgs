@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, boost, doxygen, gperf, pkg-config, librevenge, libxml2
-, perl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  boost,
+  doxygen,
+  gperf,
+  pkg-config,
+  librevenge,
+  libxml2,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libabw";

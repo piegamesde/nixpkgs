@@ -1,4 +1,9 @@
-{ haskell, haskellPackages, lib, runCommand }:
+{
+  haskell,
+  haskellPackages,
+  lib,
+  runCommand,
+}:
 
 let
   dconf2nix = haskell.lib.compose.justStaticExecutables

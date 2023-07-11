@@ -1,9 +1,40 @@
-{ lib, stdenv, callPackage, fetchFromGitHub, fetchurl, fetchpatch
-, autoPatchelfHook, makeWrapper, buildNpmPackage, cmake, avahi, libevdev
-, libpulseaudio, xorg, libxcb, openssl, libopus, ffmpeg_5-full, boost
-, pkg-config, libdrm, wayland, libffi, libcap, mesa, curl, libva, libvdpau
-, numactl, amf-headers, svt-av1, vulkan-loader, libappindicator
-, cudaSupport ? false, cudaPackages ? { } }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchFromGitHub,
+  fetchurl,
+  fetchpatch,
+  autoPatchelfHook,
+  makeWrapper,
+  buildNpmPackage,
+  cmake,
+  avahi,
+  libevdev,
+  libpulseaudio,
+  xorg,
+  libxcb,
+  openssl,
+  libopus,
+  ffmpeg_5-full,
+  boost,
+  pkg-config,
+  libdrm,
+  wayland,
+  libffi,
+  libcap,
+  mesa,
+  curl,
+  libva,
+  libvdpau,
+  numactl,
+  amf-headers,
+  svt-av1,
+  vulkan-loader,
+  libappindicator,
+  cudaSupport ? false,
+  cudaPackages ? { }
+}:
 let
   libcbs = callPackage ./libcbs.nix { };
   # get cmake file used to find external ffmpeg from previous sunshine version

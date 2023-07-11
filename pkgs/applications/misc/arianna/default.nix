@@ -1,7 +1,22 @@
-{ lib, mkDerivation, fetchFromGitLab, cmake, extra-cmake-modules, pkg-config
-, baloo, kfilemetadata, kirigami2, kirigami-addons, kquickcharts
-, plasma-framework, qqc2-desktop-style, qtbase, qtquickcontrols2, qtwebsockets
-, qtwebengine }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitLab,
+  cmake,
+  extra-cmake-modules,
+  pkg-config,
+  baloo,
+  kfilemetadata,
+  kirigami2,
+  kirigami-addons,
+  kquickcharts,
+  plasma-framework,
+  qqc2-desktop-style,
+  qtbase,
+  qtquickcontrols2,
+  qtwebsockets,
+  qtwebengine,
+}:
 
 mkDerivation rec {
   pname = "arianna";

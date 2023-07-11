@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, mock
-, pytest-cov, coverage, future, futures ? null, ujson }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  mock,
+  pytest-cov,
+  coverage,
+  future,
+  futures ? null,
+  ujson,
+}:
 
 buildPythonPackage rec {
   pname = "python-jsonrpc-server";

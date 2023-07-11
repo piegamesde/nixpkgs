@@ -1,4 +1,11 @@
-{ lib, mkCoqDerivation, coq, serapi, makeWrapper, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  coq,
+  serapi,
+  makeWrapper,
+  version ? null
+}:
 
 mkCoqDerivation rec {
   pname = "coq-lsp";

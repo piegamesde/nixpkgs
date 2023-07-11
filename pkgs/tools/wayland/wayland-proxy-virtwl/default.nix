@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, ocamlPackages, pkg-config, libdrm }:
+{
+  lib,
+  fetchFromGitHub,
+  ocamlPackages,
+  pkg-config,
+  libdrm,
+}:
 
 ocamlPackages.buildDunePackage rec {
   pname = "wayland-proxy-virtwl";

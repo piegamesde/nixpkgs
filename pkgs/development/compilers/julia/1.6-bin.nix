@@ -1,4 +1,9 @@
-{ autoPatchelfHook, fetchurl, lib, stdenv }:
+{
+  autoPatchelfHook,
+  fetchurl,
+  lib,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "julia-bin";

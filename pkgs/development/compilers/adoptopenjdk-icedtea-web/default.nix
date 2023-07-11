@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cargo, rustc, autoreconfHook, jdk, glib
-, xulrunner, zip, pkg-config, npapi_sdk, bash, bc }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cargo,
+  rustc,
+  autoreconfHook,
+  jdk,
+  glib,
+  xulrunner,
+  zip,
+  pkg-config,
+  npapi_sdk,
+  bash,
+  bc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "adoptopenjdk-icedtea-web";

@@ -1,11 +1,60 @@
-{ aiohttp, aiohttp-cors, aiorwlock, aiosignal, attrs, autoPatchelfHook
-, buildBazelPackage, buildPythonPackage, fetchPypi, click, cloudpickle, colorama
-, colorful, cython, dm-tree, fastapi, filelock, frozenlist, fsspec, gpustat
-, grpc, grpcio, gym, jsonschema, lib, lz4, matplotlib, msgpack, numpy
-, opencensus, packaging, pandas, py-spy, prometheus-client, protobuf3_20, psutil
-, pyarrow, pydantic, python, pythonAtLeast, pythonOlder, pythonRelaxDepsHook
-, pyyaml, redis, requests, scikitimage, scipy, setproctitle, smart-open
-, starlette, stdenv, tabulate, tensorboardx, uvicorn, virtualenv }:
+{
+  aiohttp,
+  aiohttp-cors,
+  aiorwlock,
+  aiosignal,
+  attrs,
+  autoPatchelfHook,
+  buildBazelPackage,
+  buildPythonPackage,
+  fetchPypi,
+  click,
+  cloudpickle,
+  colorama,
+  colorful,
+  cython,
+  dm-tree,
+  fastapi,
+  filelock,
+  frozenlist,
+  fsspec,
+  gpustat,
+  grpc,
+  grpcio,
+  gym,
+  jsonschema,
+  lib,
+  lz4,
+  matplotlib,
+  msgpack,
+  numpy,
+  opencensus,
+  packaging,
+  pandas,
+  py-spy,
+  prometheus-client,
+  protobuf3_20,
+  psutil,
+  pyarrow,
+  pydantic,
+  python,
+  pythonAtLeast,
+  pythonOlder,
+  pythonRelaxDepsHook,
+  pyyaml,
+  redis,
+  requests,
+  scikitimage,
+  scipy,
+  setproctitle,
+  smart-open,
+  starlette,
+  stdenv,
+  tabulate,
+  tensorboardx,
+  uvicorn,
+  virtualenv,
+}:
 
 let
   pname = "ray";

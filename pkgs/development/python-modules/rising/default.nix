@@ -1,6 +1,18 @@
-{ stdenv, lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook
-, pythonRelaxDepsHook, dill, lightning-utilities, numpy, torch, threadpoolctl
-, tqdm }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonRelaxDepsHook,
+  dill,
+  lightning-utilities,
+  numpy,
+  torch,
+  threadpoolctl,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "rising";

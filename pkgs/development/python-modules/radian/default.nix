@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pyte, pexpect
-, ptyprocess, jedi, git, lineedit, prompt-toolkit, pygments, rchitect, six, R
-, rPackages }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pyte,
+  pexpect,
+  ptyprocess,
+  jedi,
+  git,
+  lineedit,
+  prompt-toolkit,
+  pygments,
+  rchitect,
+  six,
+  R,
+  rPackages,
+}:
 
 buildPythonPackage rec {
   pname = "radian";

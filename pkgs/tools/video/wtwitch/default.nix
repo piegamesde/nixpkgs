@@ -1,6 +1,24 @@
-{ bash, coreutils-prefixed, curl, fetchFromGitHub, gnused, gnugrep
-, installShellFiles, jq, lib, makeWrapper, mplayer, mpv, ncurses, procps, scdoc
-, stdenv, streamlink, sudo, vlc }:
+{
+  bash,
+  coreutils-prefixed,
+  curl,
+  fetchFromGitHub,
+  gnused,
+  gnugrep,
+  installShellFiles,
+  jq,
+  lib,
+  makeWrapper,
+  mplayer,
+  mpv,
+  ncurses,
+  procps,
+  scdoc,
+  stdenv,
+  streamlink,
+  sudo,
+  vlc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wtwitch";

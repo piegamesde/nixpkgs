@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchsvn, jdk, jre, ant, swt, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchsvn,
+  jdk,
+  jre,
+  ant,
+  swt,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vuze";

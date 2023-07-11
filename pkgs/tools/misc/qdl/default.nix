@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, libxml2, systemd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libxml2,
+  systemd,
+}:
 
 stdenv.mkDerivation {
   pname = "qdl";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, qmake4Hook, unzip, qt4 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  qmake4Hook,
+  unzip,
+  qt4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qmetro";

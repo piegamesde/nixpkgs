@@ -1,4 +1,9 @@
-{ runCommand, gawk, extensions, makeWrapper }:
+{
+  runCommand,
+  gawk,
+  extensions,
+  makeWrapper,
+}:
 
 runCommand "gawk-with-extensions" {
   nativeBuildInputs = [ makeWrapper ];

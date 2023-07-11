@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "webcolors";

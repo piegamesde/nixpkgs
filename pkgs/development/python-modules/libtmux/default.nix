@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, buildPythonPackage, poetry-core
-, pytest-rerunfailures, pytestCheckHook, procps, tmux, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPythonPackage,
+  poetry-core,
+  pytest-rerunfailures,
+  pytestCheckHook,
+  procps,
+  tmux,
+  ncurses,
+}:
 
 buildPythonPackage rec {
   pname = "libtmux";

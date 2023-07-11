@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, pkg-config, perl, unzip, autoPatchelfHook, ncurses
-, SDL2, alsa-lib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  perl,
+  unzip,
+  autoPatchelfHook,
+  ncurses,
+  SDL2,
+  alsa-lib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "syncterm";

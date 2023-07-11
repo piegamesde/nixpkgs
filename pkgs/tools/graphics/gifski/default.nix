@@ -1,4 +1,10 @@
-{ lib, rustPlatform, fetchFromGitHub, stdenv, pkg-config }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  stdenv,
+  pkg-config,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "gifski";

@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, cmake, qtbase, makeShellWrapper, wrapQtAppsHook
-, hyprland, grim, slurp, wayland }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  qtbase,
+  makeShellWrapper,
+  wrapQtAppsHook,
+  hyprland,
+  grim,
+  slurp,
+  wayland,
+}:
 let source = import ./source.nix { inherit lib fetchFromGitHub wayland; };
 in stdenv.mkDerivation {
   pname = "hyprland-share-picker";

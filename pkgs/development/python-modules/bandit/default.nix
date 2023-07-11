@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, pythonOlder, gitpython, pbr
-, pyyaml, rich, stevedore }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  pythonOlder,
+  gitpython,
+  pbr,
+  pyyaml,
+  rich,
+  stevedore,
+}:
 
 buildPythonPackage rec {
   pname = "bandit";

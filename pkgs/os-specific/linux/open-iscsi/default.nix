@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchFromGitHub, meson, pkg-config, ninja, perl, util-linux
-, open-isns, openssl, kmod, systemd, runtimeShell, nixosTests }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  meson,
+  pkg-config,
+  ninja,
+  perl,
+  util-linux,
+  open-isns,
+  openssl,
+  kmod,
+  systemd,
+  runtimeShell,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "open-iscsi";

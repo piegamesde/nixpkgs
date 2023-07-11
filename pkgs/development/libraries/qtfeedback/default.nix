@@ -1,4 +1,12 @@
-{ lib, mkDerivation, fetchFromGitHub, perl, qmake, qtbase, qtdeclarative }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  perl,
+  qmake,
+  qtbase,
+  qtdeclarative,
+}:
 
 mkDerivation rec {
   pname = "qtfeedback";

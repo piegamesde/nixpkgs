@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchCrate, rustPlatform, pkg-config, libsodium, openssl, xxHash
-, darwin, gitImportSupport ? true, libgit2 ? null }:
+{
+  lib,
+  stdenv,
+  fetchCrate,
+  rustPlatform,
+  pkg-config,
+  libsodium,
+  openssl,
+  xxHash,
+  darwin,
+  gitImportSupport ? true,
+  libgit2 ? null
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "pijul";

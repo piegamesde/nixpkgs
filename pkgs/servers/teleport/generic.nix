@@ -1,10 +1,34 @@
-{ lib, buildGoModule, rustPlatform, fetchFromGitHub, fetchYarnDeps, makeWrapper
-, CoreFoundation, AppKit, libfido2, nodejs, openssl, pkg-config, Security
-, stdenv, xdg-utils, yarn, yarn2nix-moretea, nixosTests
+{
+  lib,
+  buildGoModule,
+  rustPlatform,
+  fetchFromGitHub,
+  fetchYarnDeps,
+  makeWrapper,
+  CoreFoundation,
+  AppKit,
+  libfido2,
+  nodejs,
+  openssl,
+  pkg-config,
+  Security,
+  stdenv,
+  xdg-utils,
+  yarn,
+  yarn2nix-moretea,
+  nixosTests
 
-, withRdpClient ? true
+  ,
+  withRdpClient ? true
 
-, version, hash, vendorHash, cargoHash ? null, cargoLock ? null, yarnHash }:
+  ,
+  version,
+  hash,
+  vendorHash,
+  cargoHash ? null,
+  cargoLock ? null,
+  yarnHash,
+}:
 let
   # This repo has a private submodule "e" which fetchgit cannot handle without failing.
   src = fetchFromGitHub {

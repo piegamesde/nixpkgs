@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchzip }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+}:
 
 let arch = "amd64";
 in stdenv.mkDerivation rec {

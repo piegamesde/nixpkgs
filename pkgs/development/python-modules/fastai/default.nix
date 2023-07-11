@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, fetchPypi, fastprogress, fastcore, fastdownload
-, torch, torchvision, matplotlib, pillow, scikit-learn, scipy, spacy, pandas
-, requests, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fastprogress,
+  fastcore,
+  fastdownload,
+  torch,
+  torchvision,
+  matplotlib,
+  pillow,
+  scikit-learn,
+  scipy,
+  spacy,
+  pandas,
+  requests,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "fastai";

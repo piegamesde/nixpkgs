@@ -1,7 +1,25 @@
-{ lib, stdenv, arc4, asn1crypto, asn1tools, asyauth, asysocks
-, buildPythonPackage, colorama, fetchFromGitHub, iconv, minikerberos, pillow
-, pyperclip, pythonOlder, rustPlatform, setuptools-rust, tqdm, unicrypto
-, winsspi }:
+{
+  lib,
+  stdenv,
+  arc4,
+  asn1crypto,
+  asn1tools,
+  asyauth,
+  asysocks,
+  buildPythonPackage,
+  colorama,
+  fetchFromGitHub,
+  iconv,
+  minikerberos,
+  pillow,
+  pyperclip,
+  pythonOlder,
+  rustPlatform,
+  setuptools-rust,
+  tqdm,
+  unicrypto,
+  winsspi,
+}:
 
 buildPythonPackage rec {
   pname = "aardwolf";

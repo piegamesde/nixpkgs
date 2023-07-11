@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, python3Packages, prometheus-alertmanager, fetchpatch
-, runCommand, prometheus-xmpp-alerts }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  prometheus-alertmanager,
+  fetchpatch,
+  runCommand,
+  prometheus-xmpp-alerts,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "prometheus-xmpp-alerts";

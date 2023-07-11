@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, isPy27, fetchPypi, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  isPy27,
+  fetchPypi,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "lazr.uri";

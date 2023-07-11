@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, opensp, pkg-config, libxml2, curl, autoconf
-, automake, libtool, gengetopt, libiconv }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  opensp,
+  pkg-config,
+  libxml2,
+  curl,
+  autoconf,
+  automake,
+  libtool,
+  gengetopt,
+  libiconv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libofx";

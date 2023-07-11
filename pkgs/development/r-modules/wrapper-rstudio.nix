@@ -1,5 +1,14 @@
-{ lib, runCommand, R, rstudio, makeWrapper, wrapQtAppsHook, recommendedPackages
-, packages, fontconfig }:
+{
+  lib,
+  runCommand,
+  R,
+  rstudio,
+  makeWrapper,
+  wrapQtAppsHook,
+  recommendedPackages,
+  packages,
+  fontconfig,
+}:
 
 runCommand (rstudio.name + "-wrapper") {
   preferLocalBuild = true;

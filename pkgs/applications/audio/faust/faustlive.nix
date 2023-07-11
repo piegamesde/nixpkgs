@@ -1,6 +1,30 @@
-{ lib, stdenv, fetchFromGitHub, llvm_10, qt5, qrencode, libmicrohttpd, libjack2
-, alsa-lib, faust, curl, bc, coreutils, which, libsndfile, flac, libogg
-, libvorbis, libopus, pkg-config, libxcb, cmake, gnutls, libtasn1, p11-kit }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  llvm_10,
+  qt5,
+  qrencode,
+  libmicrohttpd,
+  libjack2,
+  alsa-lib,
+  faust,
+  curl,
+  bc,
+  coreutils,
+  which,
+  libsndfile,
+  flac,
+  libogg,
+  libvorbis,
+  libopus,
+  pkg-config,
+  libxcb,
+  cmake,
+  gnutls,
+  libtasn1,
+  p11-kit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "faustlive";

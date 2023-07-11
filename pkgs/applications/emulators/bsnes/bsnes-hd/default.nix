@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, wrapGAppsHook, libX11, libXv, udev
-, SDL2, gtk3, gtksourceview3, alsa-lib, libao, openal, libpulseaudio, libicns
-, makeWrapper, darwin }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  wrapGAppsHook,
+  libX11,
+  libXv,
+  udev,
+  SDL2,
+  gtk3,
+  gtksourceview3,
+  alsa-lib,
+  libao,
+  openal,
+  libpulseaudio,
+  libicns,
+  makeWrapper,
+  darwin,
+}:
 
 let inherit (darwin.apple_sdk_11_0.frameworks) Cocoa OpenAL;
 in stdenv.mkDerivation {

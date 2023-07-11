@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, raylib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  raylib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "raylib-games";

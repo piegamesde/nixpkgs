@@ -1,4 +1,9 @@
-{ appimageTools, lib, fetchurl, libsecret }:
+{
+  appimageTools,
+  lib,
+  fetchurl,
+  libsecret,
+}:
 
 let
   pname = "electron-mail";

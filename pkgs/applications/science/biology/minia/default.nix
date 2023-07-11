@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, hdf5, boost }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  hdf5,
+  boost,
+}:
 
 stdenv.mkDerivation rec {
   pname = "minia";

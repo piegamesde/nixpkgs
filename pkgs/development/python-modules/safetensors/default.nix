@@ -1,5 +1,17 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, fetchpatch, h5py, numpy
-, pythonOlder, pytestCheckHook, rustPlatform, setuptools-rust, torch, libiconv
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  h5py,
+  numpy,
+  pythonOlder,
+  pytestCheckHook,
+  rustPlatform,
+  setuptools-rust,
+  torch,
+  libiconv,
 }:
 
 buildPythonPackage rec {

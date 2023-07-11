@@ -1,6 +1,19 @@
-{ lib, stdenv, buildPythonPackage, fetchFromGitHub, cython, certifi, CFNetwork
-, cmake, CoreFoundation, libcxxabi, openssl, Security, pytestCheckHook
-, pytest-asyncio }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchFromGitHub,
+  cython,
+  certifi,
+  CFNetwork,
+  cmake,
+  CoreFoundation,
+  libcxxabi,
+  openssl,
+  Security,
+  pytestCheckHook,
+  pytest-asyncio,
+}:
 
 buildPythonPackage rec {
   pname = "uamqp";

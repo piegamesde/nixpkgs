@@ -1,7 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, requests, python
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  requests,
+  python
 
-# For tests/setup.py
-, pytest, pytest-runner, requests-mock }:
+  # For tests/setup.py
+  ,
+  pytest,
+  pytest-runner,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "packet-python";

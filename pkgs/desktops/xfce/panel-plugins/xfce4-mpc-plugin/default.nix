@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, pkg-config, intltool, libxfce4util, xfce4-panel
-, libxfce4ui, glib, gtk3, gitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  intltool,
+  libxfce4util,
+  xfce4-panel,
+  libxfce4ui,
+  glib,
+  gtk3,
+  gitUpdater,
+}:
 
 let category = "panel-plugins";
 

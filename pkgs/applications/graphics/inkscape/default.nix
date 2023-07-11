@@ -1,9 +1,46 @@
-{ stdenv, lib, boehmgc, boost, cairo, cmake, fetchurl, gettext, ghostscript
-, glib, glibmm, gsl, gspell, gtk-mac-integration, gtkmm3, gdk-pixbuf
-, imagemagick, lcms, lib2geom, libcdr, libexif, libpng, librevenge, librsvg
-, libsigcxx, libsoup, libvisio, libwpg, libXft, libxml2, libxslt, ninja
-, perlPackages, pkg-config, poppler, popt, potrace, python3, substituteAll
-, wrapGAppsHook, zlib }:
+{
+  stdenv,
+  lib,
+  boehmgc,
+  boost,
+  cairo,
+  cmake,
+  fetchurl,
+  gettext,
+  ghostscript,
+  glib,
+  glibmm,
+  gsl,
+  gspell,
+  gtk-mac-integration,
+  gtkmm3,
+  gdk-pixbuf,
+  imagemagick,
+  lcms,
+  lib2geom,
+  libcdr,
+  libexif,
+  libpng,
+  librevenge,
+  librsvg,
+  libsigcxx,
+  libsoup,
+  libvisio,
+  libwpg,
+  libXft,
+  libxml2,
+  libxslt,
+  ninja,
+  perlPackages,
+  pkg-config,
+  poppler,
+  popt,
+  potrace,
+  python3,
+  substituteAll,
+  wrapGAppsHook,
+  zlib,
+}:
 let
   python3Env = python3.withPackages (ps:
     with ps;

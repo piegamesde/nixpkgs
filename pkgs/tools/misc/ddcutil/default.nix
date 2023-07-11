@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, glib, i2c-tools
-, udev, kmod, libgudev, libusb1, libdrm, xorg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  glib,
+  i2c-tools,
+  udev,
+  kmod,
+  libgudev,
+  libusb1,
+  libdrm,
+  xorg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ddcutil";

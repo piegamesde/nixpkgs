@@ -1,5 +1,15 @@
-{ lib, fetchFromGitHub, makeWrapper, perlPackages, flac, faad2, sox, lame
-, monkeysAudio, wavpack }:
+{
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  perlPackages,
+  flac,
+  faad2,
+  sox,
+  lame,
+  monkeysAudio,
+  wavpack,
+}:
 
 perlPackages.buildPerlPackage rec {
   pname = "slimserver";

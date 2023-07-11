@@ -1,4 +1,6 @@
-{ maintainer }:
+{
+  maintainer,
+}:
 let
   pkgs = import ./../../default.nix { };
   maintainer_ = pkgs.lib.maintainers.${maintainer};

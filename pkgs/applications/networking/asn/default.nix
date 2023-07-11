@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, curl, whois, bind, mtr, jq, ipcalc
-, grepcidr, nmap, aha }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  curl,
+  whois,
+  bind,
+  mtr,
+  jq,
+  ipcalc,
+  grepcidr,
+  nmap,
+  aha,
+}:
 
 stdenv.mkDerivation rec {
   pname = "asn";

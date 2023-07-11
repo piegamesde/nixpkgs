@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, fetchpatch, SDL, autoreconfHook, glib, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  SDL,
+  autoreconfHook,
+  glib,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libvisual";

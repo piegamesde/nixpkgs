@@ -1,10 +1,31 @@
-{ autoPatchelfHook, lib, python, buildPythonPackage, poetryLib, evalPep508 }:
-{ name, version, pos ? __curPos, files, source, dependencies ? { }
-, pythonPackages, python-versions, pwd, sourceSpec
-, supportedExtensions ? lib.importJSON ./extensions.json, preferWheels ? false
-, ... }:
+{
+  autoPatchelfHook,
+  lib,
+  python,
+  buildPythonPackage,
+  poetryLib,
+  evalPep508,
+}:
+{
+  name,
+  version,
+  pos ? __curPos,
+  files,
+  source,
+  dependencies ? { },
+  pythonPackages,
+  python-versions,
+  pwd,
+  sourceSpec,
+  supportedExtensions ? lib.importJSON ./extensions.json,
+  preferWheels ? false,
+  ...
+}:
 
-pythonPackages.callPackage ({ preferWheel ? preferWheels, ... }@args:
+pythonPackages.callPackage ({
+    preferWheel ? preferWheels,
+    ...
+  }@args:
   let
     inherit (python) stdenv;
     inherit (poetryLib)

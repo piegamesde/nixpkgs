@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, perl, coreutils }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  perl,
+  coreutils,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libfaketime";

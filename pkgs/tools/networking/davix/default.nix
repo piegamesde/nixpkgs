@@ -1,11 +1,29 @@
-{ lib, stdenv, fetchurl, cmake, pkg-config, openssl, libxml2, boost, python3
-, libuuid, curl, gsoap, Security, enableTools ? true
-  # Use libcurl instead of libneon
-  # Note that the libneon used is bundled in the project
-  # See https://github.com/cern-fts/davix/issues/23
-, defaultToLibcurl ? false, enableIpv6 ? true, enableTcpNodelay ? true
-  # Build davix_copy.so
-, enableThirdPartyCopy ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  pkg-config,
+  openssl,
+  libxml2,
+  boost,
+  python3,
+  libuuid,
+  curl,
+  gsoap,
+  Security,
+  enableTools ? true
+    # Use libcurl instead of libneon
+    # Note that the libneon used is bundled in the project
+    # See https://github.com/cern-fts/davix/issues/23
+  ,
+  defaultToLibcurl ? false,
+  enableIpv6 ? true,
+  enableTcpNodelay ? true
+    # Build davix_copy.so
+  ,
+  enableThirdPartyCopy ? false
+}:
 
 let boolToUpper = b: lib.toUpper (lib.boolToString b);
 in stdenv.mkDerivation rec {

@@ -1,16 +1,36 @@
-{ stdenv, lib, buildEnv, writeShellScriptBin, fetchurl, vscode, unzip, jq }:
+{
+  stdenv,
+  lib,
+  buildEnv,
+  writeShellScriptBin,
+  fetchurl,
+  vscode,
+  unzip,
+  jq,
+}:
 let
-  buildVscodeExtension = a@{ name, src,
-    # Same as "Unique Identifier" on the extension's web page.
-    # For the moment, only serve as unique extension dir.
-    vscodeExtPublisher, vscodeExtName, vscodeExtUniqueId, configurePhase ? ''
-      runHook preConfigure
-      runHook postConfigure
-    '', buildPhase ? ''
-      runHook preBuild
-      runHook postBuild
-    '', dontPatchELF ? true, dontStrip ? true, nativeBuildInputs ? [ ]
-    , passthru ? { }, ... }:
+  buildVscodeExtension = a@{
+      name,
+      src,
+      # Same as "Unique Identifier" on the extension's web page.
+      # For the moment, only serve as unique extension dir.
+      vscodeExtPublisher,
+      vscodeExtName,
+      vscodeExtUniqueId,
+      configurePhase ? ''
+        runHook preConfigure
+        runHook postConfigure
+      '',
+      buildPhase ? ''
+        runHook preBuild
+        runHook postBuild
+      '',
+      dontPatchELF ? true,
+      dontStrip ? true,
+      nativeBuildInputs ? [ ],
+      passthru ? { },
+      ...
+    }:
     stdenv.mkDerivation ((removeAttrs a [ "vscodeExtUniqueId" ]) // {
 
       name = "vscode-extension-${name}";
@@ -40,8 +60,13 @@ let
   fetchVsixFromVscodeMarketplace = mktplcExtRef:
     fetchurl (import ./mktplcExtRefToFetchArgs.nix mktplcExtRef);
 
-  buildVscodeMarketplaceExtension =
-    a@{ name ? "", src ? null, vsix ? null, mktplcRef, ... }:
+  buildVscodeMarketplaceExtension = a@{
+      name ? "",
+      src ? null,
+      vsix ? null,
+      mktplcRef,
+      ...
+    }:
     assert "" == name;
     assert null == src;
     buildVscodeExtension ((removeAttrs a [ "mktplcRef" "vsix" ]) // {

@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, setuptools-scm
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  setuptools-scm,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pygmars";

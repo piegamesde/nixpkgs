@@ -1,6 +1,20 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi
-, akonadi-mime, kcalendarcore, kcmutils, kcontacts, kcoreaddons, kmime, krunner
-, qtbase, xapian }:
+{
+  mkDerivation,
+  lib,
+  kdepimTeam,
+  extra-cmake-modules,
+  kdoctools,
+  akonadi,
+  akonadi-mime,
+  kcalendarcore,
+  kcmutils,
+  kcontacts,
+  kcoreaddons,
+  kmime,
+  krunner,
+  qtbase,
+  xapian,
+}:
 
 mkDerivation {
   pname = "akonadi-search";

@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, vala, meson, ninja
-, pkg-config, pantheon, python3, gettext, glib, gtk3, libgee, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  vala,
+  meson,
+  ninja,
+  pkg-config,
+  pantheon,
+  python3,
+  gettext,
+  glib,
+  gtk3,
+  libgee,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "appeditor";

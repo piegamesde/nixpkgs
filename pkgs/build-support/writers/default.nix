@@ -1,5 +1,14 @@
-{ pkgs, config, buildPackages, lib, stdenv, libiconv, mkNugetDeps, mkNugetSource
-, gixy }:
+{
+  pkgs,
+  config,
+  buildPackages,
+  lib,
+  stdenv,
+  libiconv,
+  mkNugetDeps,
+  mkNugetSource,
+  gixy,
+}:
 
 let
   aliases =
@@ -12,7 +21,10 @@ let
     # Examples:
     #   writeBash = makeScriptWriter { interpreter = "${pkgs.bash}/bin/bash"; }
     #   makeScriptWriter { interpreter = "${pkgs.dash}/bin/dash"; } "hello" "echo hello world"
-    makeScriptWriter = { interpreter, check ? "" }:
+    makeScriptWriter = {
+        interpreter,
+        check ? ""
+      }:
       nameOrPath: content:
       assert lib.or (types.path.check nameOrPath)
         (builtins.match "([0-9A-Za-z._])[0-9A-Za-z._-]*" nameOrPath != null);
@@ -69,7 +81,10 @@ let
     #
     # Examples:
     #   writeSimpleC = makeBinWriter { compileScript = name: "gcc -o $out $contentPath"; }
-    makeBinWriter = { compileScript, strip ? true }:
+    makeBinWriter = {
+        compileScript,
+        strip ? true
+      }:
       nameOrPath: content:
       assert lib.or (types.path.check nameOrPath)
         (builtins.match "([0-9A-Za-z._])[0-9A-Za-z._-]*" nameOrPath != null);
@@ -150,8 +165,13 @@ let
     #     main = launchMissiles
     #   '';
     writeHaskell = name:
-      { libraries ? [ ], ghc ? pkgs.ghc, ghcArgs ? [ ], threadedRuntime ? true
-      , strip ? true }:
+      {
+        libraries ? [ ],
+        ghc ? pkgs.ghc,
+        ghcArgs ? [ ],
+        threadedRuntime ? true,
+        strip ? true
+      }:
       let
         appendIfNotSet = el: list:
           if elem el list then list else list ++ [ el ];
@@ -175,7 +195,11 @@ let
     writeHaskellBin = name: writeHaskell "/bin/${name}";
 
     writeRust = name:
-      { rustc ? pkgs.rustc, rustcArgs ? [ ], strip ? true }:
+      {
+        rustc ? pkgs.rustc,
+        rustcArgs ? [ ],
+        strip ? true
+      }:
       let
         darwinArgs =
           lib.optionals stdenv.isDarwin [ "-L${lib.getLib libiconv}/lib" ];
@@ -202,7 +226,9 @@ let
     #     console.log(result.code);
     #   ''
     writeJS = name:
-      { libraries ? [ ] }:
+      {
+        libraries ? [ ]
+      }:
       content:
       let
         node-env = pkgs.buildEnv {
@@ -247,7 +273,9 @@ let
     #     print "Howdy!\n" if true;
     #   ''
     writePerl = name:
-      { libraries ? [ ] }:
+      {
+        libraries ? [ ]
+      }:
       makeScriptWriter {
         interpreter = "${pkgs.perl.withPackages (p: libraries)}/bin/perl";
       } name;
@@ -259,7 +287,10 @@ let
     # which validates the script with flake8 at build time. If any libraries are specified,
     # python.withPackages is used as interpreter, otherwise the "bare" python is used.
     makePythonWriter = python: pythonPackages: buildPythonPackages: name:
-      { libraries ? [ ], flakeIgnore ? [ ] }:
+      {
+        libraries ? [ ],
+        flakeIgnore ? [ ]
+      }:
       let
         ignoreAttribute = optionalString (flakeIgnore != [ ])
           "--ignore ${concatMapStringsSep "," escapeShellArg flakeIgnore}";
@@ -327,8 +358,11 @@ let
     # writePyPy3Bin takes the same arguments as writePyPy3 but outputs a directory (like writeScriptBin)
     writePyPy3Bin = name: writePyPy3 "/bin/${name}";
 
-    makeFSharpWriter =
-      { dotnet-sdk ? pkgs.dotnet-sdk, fsi-flags ? "", libraries ? _: [ ] }:
+    makeFSharpWriter = {
+        dotnet-sdk ? pkgs.dotnet-sdk,
+        fsi-flags ? "",
+        libraries ? _: [ ]
+      }:
       nameOrPath:
       let
         fname = last (builtins.split "/" nameOrPath);

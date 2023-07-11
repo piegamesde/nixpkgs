@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, automake, autoconf, libtool, autoreconfHook, gmpxx }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  automake,
+  autoconf,
+  libtool,
+  autoreconfHook,
+  gmpxx,
+}:
 stdenv.mkDerivation rec {
   pname = "givaro";
   version = "3.8.0";

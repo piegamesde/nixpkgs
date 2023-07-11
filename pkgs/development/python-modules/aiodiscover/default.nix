@@ -1,5 +1,16 @@
-{ lib, async-timeout, buildPythonPackage, dnspython, fetchFromGitHub, ifaddr
-, netifaces, pyroute2, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  dnspython,
+  fetchFromGitHub,
+  ifaddr,
+  netifaces,
+  pyroute2,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "aiodiscover";

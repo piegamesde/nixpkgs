@@ -1,7 +1,24 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, pythonOlder, python
-, py-multiaddr, requests, pytestCheckHook, pytest-cov, pytest-dependency
-, pytest-localserver, pytest-mock, pytest-order, pytest-cid, mock, kubo, httpx
-, httpcore }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  python,
+  py-multiaddr,
+  requests,
+  pytestCheckHook,
+  pytest-cov,
+  pytest-dependency,
+  pytest-localserver,
+  pytest-mock,
+  pytest-order,
+  pytest-cid,
+  mock,
+  kubo,
+  httpx,
+  httpcore,
+}:
 
 buildPythonPackage rec {
   pname = "ipfshttpclient";

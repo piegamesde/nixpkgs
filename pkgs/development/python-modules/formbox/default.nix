@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromSourcehut, bleach, markdown }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromSourcehut,
+  bleach,
+  markdown,
+}:
 
 buildPythonPackage rec {
   pname = "formbox";

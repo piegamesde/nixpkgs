@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, gfortran, blas, lapack, eigen
-, useMpi ? false, mpi, openssh }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  gfortran,
+  blas,
+  lapack,
+  eigen,
+  useMpi ? false,
+  mpi,
+  openssh,
+}:
 
 # MPI version can only be built with LP64 interface.
 # See https://github.com/opencollab/arpack-ng#readme

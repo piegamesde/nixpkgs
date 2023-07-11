@@ -1,5 +1,16 @@
-{ buildPythonApplication, drawio-headless, fetchFromGitHub, lib, pandoc
-, pandocfilters, runCommand, runtimeShell, texlive, writeScriptBin, xvfb-run }:
+{
+  buildPythonApplication,
+  drawio-headless,
+  fetchFromGitHub,
+  lib,
+  pandoc,
+  pandocfilters,
+  runCommand,
+  runtimeShell,
+  texlive,
+  writeScriptBin,
+  xvfb-run,
+}:
 
 let
   version = "1.1";

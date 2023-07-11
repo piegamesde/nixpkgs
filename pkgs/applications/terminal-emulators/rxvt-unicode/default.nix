@@ -1,7 +1,26 @@
-{ lib, stdenv, fetchurl, fetchpatch, makeDesktopItem, libX11, libXt, libXft
-, libXrender, ncurses, fontconfig, freetype, pkg-config, gdk-pixbuf, perl
-, libptytty, perlSupport ? true, gdkPixbufSupport ? true, unicode3Support ? true
-, emojiSupport ? false, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  makeDesktopItem,
+  libX11,
+  libXt,
+  libXft,
+  libXrender,
+  ncurses,
+  fontconfig,
+  freetype,
+  pkg-config,
+  gdk-pixbuf,
+  perl,
+  libptytty,
+  perlSupport ? true,
+  gdkPixbufSupport ? true,
+  unicode3Support ? true,
+  emojiSupport ? false,
+  nixosTests,
+}:
 
 let
   pname = "rxvt-unicode";
@@ -18,7 +37,12 @@ let
     categories = [ "System" "TerminalEmulator" ];
   };
 
-  fetchPatchFromAUR = { package, name, rev, sha256 }:
+  fetchPatchFromAUR = {
+      package,
+      name,
+      rev,
+      sha256,
+    }:
     fetchpatch rec {
       url =
         "https://aur.archlinux.org/cgit/aur.git/plain/${name}?h=${package}&id=${rev}";

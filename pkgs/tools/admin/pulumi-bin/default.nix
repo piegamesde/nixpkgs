@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, autoPatchelfHook, makeWrapper, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  makeWrapper,
+  installShellFiles,
+}:
 
 let data = import ./data.nix { };
 in stdenv.mkDerivation {

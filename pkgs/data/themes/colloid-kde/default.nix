@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, fetchFromGitHub, gitUpdater }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gitUpdater,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "colloid-kde";

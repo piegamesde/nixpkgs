@@ -1,5 +1,13 @@
-{ lib, buildGoModule, fetchFromGitHub, stdenv, makeWrapper, gitMinimal, testers
-, gitsign }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  stdenv,
+  makeWrapper,
+  gitMinimal,
+  testers,
+  gitsign,
+}:
 
 buildGoModule rec {
   pname = "gitsign";

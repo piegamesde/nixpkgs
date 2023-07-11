@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, substituteAll, cmake, pkg-config, ffmpeg, libX11
-, drmSupport ? true, libdrm, notifySupport ? true, libnotify
-, pulseaudioSupport ? true, libpulseaudio }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  substituteAll,
+  cmake,
+  pkg-config,
+  ffmpeg,
+  libX11,
+  drmSupport ? true,
+  libdrm,
+  notifySupport ? true,
+  libnotify,
+  pulseaudioSupport ? true,
+  libpulseaudio,
+}:
 
 stdenv.mkDerivation rec {
   pname = "replay-sorcery";

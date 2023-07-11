@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, py, pytest-benchmark, pytest-mock
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  py,
+  pytest-benchmark,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "getmac";

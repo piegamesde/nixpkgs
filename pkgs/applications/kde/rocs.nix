@@ -1,6 +1,21 @@
-{ mkDerivation, lib, extra-cmake-modules, boost, qtbase, qtscript
-, qtquickcontrols, qtxmlpatterns, grantlee, kdoctools, karchive, kxmlgui, kcrash
-, kdeclarative, ktexteditor, kguiaddons }:
+{
+  mkDerivation,
+  lib,
+  extra-cmake-modules,
+  boost,
+  qtbase,
+  qtscript,
+  qtquickcontrols,
+  qtxmlpatterns,
+  grantlee,
+  kdoctools,
+  karchive,
+  kxmlgui,
+  kcrash,
+  kdeclarative,
+  ktexteditor,
+  kguiaddons,
+}:
 
 mkDerivation {
   pname = "rocs";

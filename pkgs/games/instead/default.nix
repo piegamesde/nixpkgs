@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, SDL2, SDL2_ttf, SDL2_image, SDL2_mixer, pkg-config, lua
-, zlib, unzip }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  SDL2,
+  SDL2_ttf,
+  SDL2_image,
+  SDL2_mixer,
+  pkg-config,
+  lua,
+  zlib,
+  unzip,
+}:
 
 let
   # I took several games at random from https://instead.syscall.ru/games/

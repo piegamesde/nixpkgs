@@ -1,9 +1,39 @@
-{ productVersion, patchVersion, sha256, jceName, sha256JCE }:
+{
+  productVersion,
+  patchVersion,
+  sha256,
+  jceName,
+  sha256JCE,
+}:
 
-{ swingSupport ? true, lib, stdenv, requireFile, makeWrapper, unzip, file
-, xorg ? null, installjdk ? true, pluginSupport ? true, installjce ? false
-, config, glib, libxml2, ffmpeg, libxslt, libGL, freetype, fontconfig, gtk2
-, pango, cairo, alsa-lib, atk, gdk-pixbuf, setJavaClassPath }:
+{
+  swingSupport ? true,
+  lib,
+  stdenv,
+  requireFile,
+  makeWrapper,
+  unzip,
+  file,
+  xorg ? null,
+  installjdk ? true,
+  pluginSupport ? true,
+  installjce ? false,
+  config,
+  glib,
+  libxml2,
+  ffmpeg,
+  libxslt,
+  libGL,
+  freetype,
+  fontconfig,
+  gtk2,
+  pango,
+  cairo,
+  alsa-lib,
+  atk,
+  gdk-pixbuf,
+  setJavaClassPath,
+}:
 
 assert swingSupport -> xorg != null;
 

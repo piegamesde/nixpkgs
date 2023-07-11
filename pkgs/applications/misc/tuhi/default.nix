@@ -1,6 +1,17 @@
-{ lib, pkg-config, python3Packages, meson, ninja, appstream-glib
-, desktop-file-utils, glib, gtk3, gobject-introspection, wrapGAppsHook
-, fetchFromGitHub }:
+{
+  lib,
+  pkg-config,
+  python3Packages,
+  meson,
+  ninja,
+  appstream-glib,
+  desktop-file-utils,
+  glib,
+  gtk3,
+  gobject-introspection,
+  wrapGAppsHook,
+  fetchFromGitHub,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "tuhi";

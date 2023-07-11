@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pyasn1, pycrypto }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyasn1,
+  pycrypto,
+}:
 
 buildPythonPackage rec {
   pname = "python-keyczar";

@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchFromGitHub, meson, ninja, pkg-config, wayland-scanner
-, wayfire, wf-config, alsa-lib, gtkmm3, gtk-layer-shell, pulseaudio }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  wayland-scanner,
+  wayfire,
+  wf-config,
+  alsa-lib,
+  gtkmm3,
+  gtk-layer-shell,
+  pulseaudio,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wf-shell";

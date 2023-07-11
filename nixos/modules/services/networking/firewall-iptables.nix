@@ -29,7 +29,12 @@
    complete firewall (in the default configuration).
 */
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

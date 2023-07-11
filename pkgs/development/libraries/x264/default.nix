@@ -1,5 +1,11 @@
-{ stdenv, lib, fetchFromGitLab, fetchpatch, nasm
-, enableShared ? !stdenv.hostPlatform.isStatic }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  fetchpatch,
+  nasm,
+  enableShared ? !stdenv.hostPlatform.isStatic
+}:
 
 stdenv.mkDerivation rec {
   pname = "x264";

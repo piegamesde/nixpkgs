@@ -1,4 +1,11 @@
-{ lib, buildDunePackage, fetchurl, ocaml, cmdliner, ptime }:
+{
+  lib,
+  buildDunePackage,
+  fetchurl,
+  ocaml,
+  cmdliner,
+  ptime,
+}:
 
 buildDunePackage rec {
 

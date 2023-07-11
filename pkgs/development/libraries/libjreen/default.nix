@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, cmake, qt4, pkg-config, gsasl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  qt4,
+  pkg-config,
+  gsasl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libjreen";

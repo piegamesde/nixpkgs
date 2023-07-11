@@ -1,4 +1,11 @@
-{ lib, mkDerivation, fetchFromGitHub, qmake, qtbase, qtwebengine }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  qmake,
+  qtbase,
+  qtwebengine,
+}:
 
 mkDerivation rec {
   pname = "vnote";

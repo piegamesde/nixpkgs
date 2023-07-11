@@ -1,5 +1,15 @@
-{ lib, aiohttp, bitstruct, buildPythonPackage, cryptography, fetchFromGitHub
-, pytestCheckHook, pythonOlder, setuptools, voluptuous }:
+{
+  lib,
+  aiohttp,
+  bitstruct,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools,
+  voluptuous,
+}:
 
 buildPythonPackage rec {
   pname = "python-otbr-api";

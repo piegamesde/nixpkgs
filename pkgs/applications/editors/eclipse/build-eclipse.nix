@@ -1,9 +1,32 @@
-{ lib, stdenv, makeDesktopItem, freetype, fontconfig, libX11, libXrender, zlib
-, jdk, glib, glib-networking, gtk, libXtst, libsecret, gsettings-desktop-schemas
-, webkitgtk, makeWrapper, perl, ... }:
+{
+  lib,
+  stdenv,
+  makeDesktopItem,
+  freetype,
+  fontconfig,
+  libX11,
+  libXrender,
+  zlib,
+  jdk,
+  glib,
+  glib-networking,
+  gtk,
+  libXtst,
+  libsecret,
+  gsettings-desktop-schemas,
+  webkitgtk,
+  makeWrapper,
+  perl,
+  ...
+}:
 
-{ name, src ? builtins.getAttr stdenv.hostPlatform.system sources
-, sources ? null, description, productVersion }:
+{
+  name,
+  src ? builtins.getAttr stdenv.hostPlatform.system sources,
+  sources ? null,
+  description,
+  productVersion,
+}:
 
 stdenv.mkDerivation rec {
   inherit name src;

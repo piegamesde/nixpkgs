@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, black, pytest, setuptools-scm, toml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  black,
+  pytest,
+  setuptools-scm,
+  toml,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-black";

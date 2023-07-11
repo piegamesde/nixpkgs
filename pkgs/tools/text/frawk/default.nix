@@ -1,5 +1,13 @@
-{ lib, rustPlatform, fetchCrate, libxml2, ncurses, zlib
-, features ? [ "default" ], llvmPackages_12 }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  libxml2,
+  ncurses,
+  zlib,
+  features ? [ "default" ],
+  llvmPackages_12,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "frawk";

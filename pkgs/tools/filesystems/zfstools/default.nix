@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, ruby, zfs }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ruby,
+  zfs,
+}:
 
 stdenv.mkDerivation rec {
   pname = "zfstools";

@@ -1,4 +1,11 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, makeWrapper, roboto }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  roboto,
+}:
 
 buildGoModule rec {
   pname = "deckmaster";

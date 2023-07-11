@@ -1,4 +1,8 @@
-{ lib, fetchurl, lilypond }:
+{
+  lib,
+  fetchurl,
+  lilypond,
+}:
 
 lilypond.overrideAttrs (oldAttrs: rec {
   version = "2.25.3";

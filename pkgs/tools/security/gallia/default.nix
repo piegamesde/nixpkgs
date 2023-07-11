@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, python3, cacert }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  cacert,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "gallia";

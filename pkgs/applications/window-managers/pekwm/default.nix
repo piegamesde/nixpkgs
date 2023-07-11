@@ -1,5 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, awk, grep, sed, runtimeShell, cmake, libXext
-, libXft, libXinerama, libXpm, libXrandr, libjpeg, libpng, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  awk,
+  grep,
+  sed,
+  runtimeShell,
+  cmake,
+  libXext,
+  libXft,
+  libXinerama,
+  libXpm,
+  libXrandr,
+  libjpeg,
+  libpng,
+  pkg-config,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "pekwm";

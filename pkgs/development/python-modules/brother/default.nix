@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, dacite, pysnmplib, pytest-asyncio
-, pytest-error-for-skips, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  dacite,
+  pysnmplib,
+  pytest-asyncio,
+  pytest-error-for-skips,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "brother";

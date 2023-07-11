@@ -1,4 +1,9 @@
-{ stdenv, mate, glib, wrapGAppsHook }:
+{
+  stdenv,
+  mate,
+  glib,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation {
   pname = "${mate.mate-settings-daemon.pname}-wrapped";

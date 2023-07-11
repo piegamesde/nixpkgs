@@ -1,7 +1,26 @@
-{ lib, buildPythonPackage, aiohttp, bitarray, chacha20poly1305-reuseable
-, cryptography, deepdiff, fetchFromGitHub, mediafile, miniaudio, netifaces
-, protobuf, pytest-aiohttp, pytest-asyncio, pytest-timeout, pytestCheckHook
-, pythonRelaxDepsHook, pythonOlder, requests, srptools, zeroconf }:
+{
+  lib,
+  buildPythonPackage,
+  aiohttp,
+  bitarray,
+  chacha20poly1305-reuseable,
+  cryptography,
+  deepdiff,
+  fetchFromGitHub,
+  mediafile,
+  miniaudio,
+  netifaces,
+  protobuf,
+  pytest-aiohttp,
+  pytest-asyncio,
+  pytest-timeout,
+  pytestCheckHook,
+  pythonRelaxDepsHook,
+  pythonOlder,
+  requests,
+  srptools,
+  zeroconf,
+}:
 
 buildPythonPackage rec {
   pname = "pyatv";

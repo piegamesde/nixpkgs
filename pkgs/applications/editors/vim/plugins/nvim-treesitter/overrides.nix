@@ -1,4 +1,10 @@
-{ lib, callPackage, tree-sitter, neovim, runCommand }:
+{
+  lib,
+  callPackage,
+  tree-sitter,
+  neovim,
+  runCommand,
+}:
 
 self: super:
 

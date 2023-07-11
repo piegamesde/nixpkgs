@@ -1,5 +1,12 @@
-{ buildGoModule, fetchFromSourcehut, lib, jq, installShellFiles, makeWrapper
-, scdoc }:
+{
+  buildGoModule,
+  fetchFromSourcehut,
+  lib,
+  jq,
+  installShellFiles,
+  makeWrapper,
+  scdoc,
+}:
 
 buildGoModule rec {
   pname = "ijq";

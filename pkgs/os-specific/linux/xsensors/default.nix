@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchurl, gtk2, pkg-config, lm_sensors }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  gtk2,
+  pkg-config,
+  lm_sensors,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xsensors";

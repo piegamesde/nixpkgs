@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, setuptools
-, pytestCheckHook, multidict, xmljson }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  setuptools,
+  pytestCheckHook,
+  multidict,
+  xmljson,
+}:
 
 buildPythonPackage rec {
   pname = "latex2mathml";

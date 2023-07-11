@@ -1,5 +1,12 @@
-{ symlinkJoin, lib, makeWrapper, nemo, nemoExtensions, extensions ? [ ]
-, useDefaultExtensions ? true }:
+{
+  symlinkJoin,
+  lib,
+  makeWrapper,
+  nemo,
+  nemoExtensions,
+  extensions ? [ ],
+  useDefaultExtensions ? true
+}:
 
 let
   selectedExtensions = extensions

@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchurl, ant, jre, jdk, makeWrapper }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  ant,
+  jre,
+  jdk,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "abcl";

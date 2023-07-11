@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, torch, ninja, scipy, which, pybind11
-, pytest-xdist, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  torch,
+  ninja,
+  scipy,
+  which,
+  pybind11,
+  pytest-xdist,
+  pytestCheckHook,
+}:
 
 let
   linePatch = ''

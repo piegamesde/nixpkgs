@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, promscale, testers }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  promscale,
+  testers,
+}:
 
 buildGoModule rec {
   pname = "promscale";

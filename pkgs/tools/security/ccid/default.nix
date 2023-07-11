@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, pcsclite, pkg-config, libusb1, perl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pcsclite,
+  pkg-config,
+  libusb1,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ccid";

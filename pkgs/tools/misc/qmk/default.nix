@@ -1,5 +1,14 @@
-{ lib, python3, pkgsCross, avrdude, dfu-programmer, dfu-util, gcc-arm-embedded
-, gnumake, teensy-loader-cli }:
+{
+  lib,
+  python3,
+  pkgsCross,
+  avrdude,
+  dfu-programmer,
+  dfu-util,
+  gcc-arm-embedded,
+  gnumake,
+  teensy-loader-cli,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "qmk";

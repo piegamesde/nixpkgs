@@ -1,4 +1,10 @@
-{ stdenvNoCC, lib, fetchurl, mysql_jdbc, withMysql ? true }:
+{
+  stdenvNoCC,
+  lib,
+  fetchurl,
+  mysql_jdbc,
+  withMysql ? true
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "atlassian-bamboo";

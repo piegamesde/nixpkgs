@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, libpng, libjpeg, libogg, libvorbis, freetype, smpeg
-, SDL, SDL_image, SDL_mixer, SDL_ttf }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libpng,
+  libjpeg,
+  libogg,
+  libvorbis,
+  freetype,
+  smpeg,
+  SDL,
+  SDL_image,
+  SDL_mixer,
+  SDL_ttf,
+}:
 
 stdenv.mkDerivation {
   pname = "onscripter-en";

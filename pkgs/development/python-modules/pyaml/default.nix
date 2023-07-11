@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pyyaml, unidecode }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pyyaml,
+  unidecode,
+}:
 
 buildPythonPackage rec {
   pname = "pyaml";

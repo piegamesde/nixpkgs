@@ -1,6 +1,25 @@
-{ lib, stdenv, cmake, pkg-config, libmicrohttpd, curl, openssl, jsoncpp, libxml2
-, gst_all_1, boost, websocketpp, libadwaita, gtkmm4, libsecret, fetchFromGitLab
-, makeWrapper, xdg-utils, youtube-dl, ffmpeg }:
+{
+  lib,
+  stdenv,
+  cmake,
+  pkg-config,
+  libmicrohttpd,
+  curl,
+  openssl,
+  jsoncpp,
+  libxml2,
+  gst_all_1,
+  boost,
+  websocketpp,
+  libadwaita,
+  gtkmm4,
+  libsecret,
+  fetchFromGitLab,
+  makeWrapper,
+  xdg-utils,
+  youtube-dl,
+  ffmpeg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "headlines";

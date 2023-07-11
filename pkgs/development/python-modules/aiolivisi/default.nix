@@ -1,5 +1,13 @@
-{ lib, aiohttp, buildPythonPackage, fetchPypi, pydantic, pytestCheckHook
-, pythonOlder, websockets }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchPypi,
+  pydantic,
+  pytestCheckHook,
+  pythonOlder,
+  websockets,
+}:
 
 buildPythonPackage rec {
   pname = "aiolivisi";

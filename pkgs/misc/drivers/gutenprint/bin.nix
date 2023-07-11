@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, rpm, cpio, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  rpm,
+  cpio,
+  zlib,
+}:
 
 /* usage: (sorry, its still impure but works!)
 

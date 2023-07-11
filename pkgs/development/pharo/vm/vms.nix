@@ -1,6 +1,28 @@
-{ cmake, lib, stdenv, fetchurl, bash, unzip, glibc, openssl, gcc, libgit2
-, libGLU, libGL, freetype, xorg, alsa-lib, cairo, libuuid, autoreconfHook, gcc48
-, fetchFromGitHub, makeWrapper, runtimeShell, libnsl }@args:
+{
+  cmake,
+  lib,
+  stdenv,
+  fetchurl,
+  bash,
+  unzip,
+  glibc,
+  openssl,
+  gcc,
+  libgit2,
+  libGLU,
+  libGL,
+  freetype,
+  xorg,
+  alsa-lib,
+  cairo,
+  libuuid,
+  autoreconfHook,
+  gcc48,
+  fetchFromGitHub,
+  makeWrapper,
+  runtimeShell,
+  libnsl,
+}@args:
 
 let
   pharo-vm-build = import ./build-vm.nix args;

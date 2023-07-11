@@ -1,4 +1,12 @@
-{ stdenv, lib, bashInteractive, curl, fetchFromGitHub, json_c, nixosTests, pam
+{
+  stdenv,
+  lib,
+  bashInteractive,
+  curl,
+  fetchFromGitHub,
+  json_c,
+  nixosTests,
+  pam,
 }:
 
 stdenv.mkDerivation rec {

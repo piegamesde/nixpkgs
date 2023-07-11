@@ -1,5 +1,15 @@
-{ lib, mkDerivation, extra-cmake-modules, wrapQtAppsHook, kdoctools, kcoreaddons
-, kxmlgui, kio, phonon, taglib }:
+{
+  lib,
+  mkDerivation,
+  extra-cmake-modules,
+  wrapQtAppsHook,
+  kdoctools,
+  kcoreaddons,
+  kxmlgui,
+  kio,
+  phonon,
+  taglib,
+}:
 
 mkDerivation {
   pname = "juk";

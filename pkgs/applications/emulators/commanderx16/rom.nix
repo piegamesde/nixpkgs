@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, cc65, python3 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cc65,
+  python3,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "x16-rom";

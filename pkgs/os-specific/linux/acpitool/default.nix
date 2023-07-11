@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+}:
 
 let
   acpitool-patch-051-4 = params:

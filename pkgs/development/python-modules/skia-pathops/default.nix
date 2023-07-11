@@ -1,5 +1,18 @@
-{ lib, stdenv, buildPythonPackage, cython, ninja, setuptools-scm, setuptools
-, fetchPypi, gn, pytestCheckHook, xcodebuild, ApplicationServices, OpenGL }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  cython,
+  ninja,
+  setuptools-scm,
+  setuptools,
+  fetchPypi,
+  gn,
+  pytestCheckHook,
+  xcodebuild,
+  ApplicationServices,
+  OpenGL,
+}:
 
 buildPythonPackage rec {
   pname = "skia-pathops";

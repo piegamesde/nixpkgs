@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchpatch, fetchFromGitHub, cmake, gmp, mpfr, python3, jemalloc
-, ninja, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchFromGitHub,
+  cmake,
+  gmp,
+  mpfr,
+  python3,
+  jemalloc,
+  ninja,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation {
   pname = "lean2";

@@ -1,8 +1,26 @@
-{ lib, stdenv, fetchurl, pkg-config, libevent, libiconv, openssl, pcre, zlib
-, odbcSupport ? true, unixODBC
-, snmpSupport ? stdenv.buildPlatform == stdenv.hostPlatform, net-snmp
-, sshSupport ? true, libssh2, sqliteSupport ? false, sqlite
-, mysqlSupport ? false, libmysqlclient, postgresqlSupport ? false, postgresql }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libevent,
+  libiconv,
+  openssl,
+  pcre,
+  zlib,
+  odbcSupport ? true,
+  unixODBC,
+  snmpSupport ? stdenv.buildPlatform == stdenv.hostPlatform,
+  net-snmp,
+  sshSupport ? true,
+  libssh2,
+  sqliteSupport ? false,
+  sqlite,
+  mysqlSupport ? false,
+  libmysqlclient,
+  postgresqlSupport ? false,
+  postgresql,
+}:
 
 # ensure exactly one database type is selected
 assert mysqlSupport -> !postgresqlSupport && !sqliteSupport;
@@ -10,7 +28,11 @@ assert postgresqlSupport -> !mysqlSupport && !sqliteSupport;
 assert sqliteSupport -> !mysqlSupport && !postgresqlSupport;
 
 let inherit (lib) optional optionalString;
-in import ./versions.nix ({ version, sha256, ... }:
+in import ./versions.nix ({
+    version,
+    sha256,
+    ...
+  }:
   stdenv.mkDerivation {
     pname = "zabbix-proxy";
     inherit version;

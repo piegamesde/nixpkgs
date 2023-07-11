@@ -1,15 +1,44 @@
-{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, curl, libevent, libiconv
-, libxml2, openssl, pcre, zlib, jabberSupport ? true, iksemel
-, ldapSupport ? true, openldap, odbcSupport ? true, unixODBC, snmpSupport ? true
-, net-snmp, sshSupport ? true, libssh2, mysqlSupport ? false, libmysqlclient
-, postgresqlSupport ? false, postgresql, ipmiSupport ? false, openipmi }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  curl,
+  libevent,
+  libiconv,
+  libxml2,
+  openssl,
+  pcre,
+  zlib,
+  jabberSupport ? true,
+  iksemel,
+  ldapSupport ? true,
+  openldap,
+  odbcSupport ? true,
+  unixODBC,
+  snmpSupport ? true,
+  net-snmp,
+  sshSupport ? true,
+  libssh2,
+  mysqlSupport ? false,
+  libmysqlclient,
+  postgresqlSupport ? false,
+  postgresql,
+  ipmiSupport ? false,
+  openipmi,
+}:
 
 # ensure exactly one primary database type is selected
 assert mysqlSupport -> !postgresqlSupport;
 assert postgresqlSupport -> !mysqlSupport;
 
 let inherit (lib) optional optionalString;
-in import ./versions.nix ({ version, sha256, ... }:
+in import ./versions.nix ({
+    version,
+    sha256,
+    ...
+  }:
   stdenv.mkDerivation {
     pname = "zabbix-server";
     inherit version;

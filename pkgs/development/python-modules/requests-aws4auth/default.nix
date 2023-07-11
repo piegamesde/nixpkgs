@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, httpx, pytestCheckHook, python
-, pythonOlder, requests, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  httpx,
+  pytestCheckHook,
+  python,
+  pythonOlder,
+  requests,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "requests-aws4auth";

@@ -1,4 +1,9 @@
-{ lib, fetchFromGitLab, buildDunePackage, bls12-381 }:
+{
+  lib,
+  fetchFromGitLab,
+  buildDunePackage,
+  bls12-381,
+}:
 
 buildDunePackage rec {
   pname = "bls12-381-hash";

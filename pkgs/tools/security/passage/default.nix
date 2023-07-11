@@ -1,8 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, makeBinaryWrapper, bash, age, git ? null
-, xclip ? null
-  # Used to pretty-print list of all stored passwords, but is not needed to fetch
-  # or store password by its name. Most users would want this dependency.
-, tree ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeBinaryWrapper,
+  bash,
+  age,
+  git ? null,
+  xclip ? null
+    # Used to pretty-print list of all stored passwords, but is not needed to fetch
+    # or store password by its name. Most users would want this dependency.
+  ,
+  tree ? null
+}:
 
 stdenv.mkDerivation {
   pname = "passage";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, runtimeShell, traceDeps ? false, bash }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  runtimeShell,
+  traceDeps ? false,
+  bash,
+}:
 
 let
   traceLog = "/tmp/steam-trace-dependencies.log";

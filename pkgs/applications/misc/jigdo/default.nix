@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, db, gtk2, bzip2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  db,
+  gtk2,
+  bzip2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jigdo";

@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, intltool, pkg-config, glib, polkit, cups, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  intltool,
+  pkg-config,
+  glib,
+  polkit,
+  cups,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.2.6";

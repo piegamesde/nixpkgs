@@ -1,8 +1,23 @@
-{ ocamlPackages, fetchFromGitHub, lib, zlib, pkg-config, cacert, gmp, libev
-, autoconf, sqlite, stdenv }:
+{
+  ocamlPackages,
+  fetchFromGitHub,
+  lib,
+  zlib,
+  pkg-config,
+  cacert,
+  gmp,
+  libev,
+  autoconf,
+  sqlite,
+  stdenv,
+}:
 let
-  mkCombyPackage =
-    { pname, extraBuildInputs ? [ ], extraNativeInputs ? [ ], preBuild ? "" }:
+  mkCombyPackage = {
+      pname,
+      extraBuildInputs ? [ ],
+      extraNativeInputs ? [ ],
+      preBuild ? ""
+    }:
     ocamlPackages.buildDunePackage rec {
       inherit pname preBuild;
       version = "1.8.1";

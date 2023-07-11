@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, opencv3 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  opencv3,
+}:
 
 buildPythonPackage rec {
   version = "0.5.4";

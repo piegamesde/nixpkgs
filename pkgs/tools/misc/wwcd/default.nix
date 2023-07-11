@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchFromSourcehut, autoreconfHook, pkg-config, check }:
+{
+  stdenv,
+  lib,
+  fetchFromSourcehut,
+  autoreconfHook,
+  pkg-config,
+  check,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wwcd";

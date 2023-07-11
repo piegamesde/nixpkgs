@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, emacs, texlive, ghostscript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  emacs,
+  texlive,
+  ghostscript,
+}:
 
 let
   auctex = stdenv.mkDerivation (rec {

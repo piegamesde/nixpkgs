@@ -1,10 +1,21 @@
-{ callPackage, symlinkJoin, makeWrapper, lib, rxvt-unicode-unwrapped
-, rxvt-unicode-plugins, perlPackages, nixosTests, configure ?
-  { availablePlugins, ... }: {
-    plugins = builtins.attrValues availablePlugins;
-    extraDeps = [ ];
-    perlDeps = [ ];
-  } }:
+{
+  callPackage,
+  symlinkJoin,
+  makeWrapper,
+  lib,
+  rxvt-unicode-unwrapped,
+  rxvt-unicode-plugins,
+  perlPackages,
+  nixosTests,
+  configure ? {
+      availablePlugins,
+      ...
+    }: {
+      plugins = builtins.attrValues availablePlugins;
+      extraDeps = [ ];
+      perlDeps = [ ];
+    }
+}:
 
 let
   availablePlugins = rxvt-unicode-plugins;
@@ -22,7 +33,10 @@ let
   # extra dependencies and perl dependencies.
   # This provides simple way to customize urxvt using
   # the `.override` mechanism.
-  wrapper = { configure, ... }:
+  wrapper = {
+      configure,
+      ...
+    }:
     let
       config = configure { inherit availablePlugins; };
       plugins = config.plugins or (builtins.attrValues availablePlugins);

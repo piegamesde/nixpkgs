@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, gobject-introspection, wrapGAppsHook, python3
-, ibus }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gobject-introspection,
+  wrapGAppsHook,
+  python3,
+  ibus,
+}:
 
 let
   python = python3.withPackages

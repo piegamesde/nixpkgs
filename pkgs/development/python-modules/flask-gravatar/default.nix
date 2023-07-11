@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, flask, pytestCheckHook, pygments }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  pytestCheckHook,
+  pygments,
+}:
 
 buildPythonPackage rec {
   pname = "flask-gravatar";

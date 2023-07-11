@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchurl, unzip, autoPatchelfHook }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  unzip,
+  autoPatchelfHook,
+}:
 
 let archPostfix = lib.optionalString (stdenv.is64bit && !stdenv.isDarwin) "_64";
 in stdenv.mkDerivation rec {

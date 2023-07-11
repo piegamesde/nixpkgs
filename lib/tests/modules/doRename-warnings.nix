@@ -1,4 +1,8 @@
-{ lib, config, ... }: {
+{
+  lib,
+  config,
+  ...
+}: {
   imports = [
     (lib.doRename {
       from = [ "a" "b" ];

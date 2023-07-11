@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, libusb-compat-0_1, Security, IOKit, libobjc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libusb-compat-0_1,
+  Security,
+  IOKit,
+  libobjc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libftdi";

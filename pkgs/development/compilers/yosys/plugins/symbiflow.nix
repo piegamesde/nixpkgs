@@ -1,5 +1,20 @@
-{ fetchFromGitHub, gtest, lib, python3, readline, stdenv, yosys, zlib
-, yosys-symbiflow, uhdm, capnproto, surelog, antlr4, flatbuffers, pkg-config }:
+{
+  fetchFromGitHub,
+  gtest,
+  lib,
+  python3,
+  readline,
+  stdenv,
+  yosys,
+  zlib,
+  yosys-symbiflow,
+  uhdm,
+  capnproto,
+  surelog,
+  antlr4,
+  flatbuffers,
+  pkg-config,
+}:
 let
 
   version = "1.20230425";

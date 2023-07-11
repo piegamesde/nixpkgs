@@ -1,5 +1,17 @@
-{ lib, fetchFromSourcehut, buildGoModule, buildPythonPackage, srht, asyncpg
-, aiosmtpd, pygit2, emailthreads, redis, python, unzip }:
+{
+  lib,
+  fetchFromSourcehut,
+  buildGoModule,
+  buildPythonPackage,
+  srht,
+  asyncpg,
+  aiosmtpd,
+  pygit2,
+  emailthreads,
+  redis,
+  python,
+  unzip,
+}:
 
 buildPythonPackage rec {
   pname = "listssrht";

@@ -1,5 +1,19 @@
-{ lib, apptools, buildPythonPackage, envisage, fetchPypi, numpy, packaging
-, pyface, pygments, pyqt5, pythonOlder, traitsui, vtk, wrapQtAppsHook }:
+{
+  lib,
+  apptools,
+  buildPythonPackage,
+  envisage,
+  fetchPypi,
+  numpy,
+  packaging,
+  pyface,
+  pygments,
+  pyqt5,
+  pythonOlder,
+  traitsui,
+  vtk,
+  wrapQtAppsHook,
+}:
 
 buildPythonPackage rec {
   pname = "mayavi";

@@ -1,6 +1,17 @@
-{ fetchFromGitLab, hyprland, wlroots, xwayland, fetchpatch, lib, libdisplay-info
-, libliftoff, hwdata, hidpiXWayland ? true, enableXWayland ? true
-, nvidiaPatches ? false }:
+{
+  fetchFromGitLab,
+  hyprland,
+  wlroots,
+  xwayland,
+  fetchpatch,
+  lib,
+  libdisplay-info,
+  libliftoff,
+  hwdata,
+  hidpiXWayland ? true,
+  enableXWayland ? true,
+  nvidiaPatches ? false
+}:
 let
   libdisplay-info-new = libdisplay-info.overrideAttrs (old: {
     version = "0.1.1+date=2023-03-02";

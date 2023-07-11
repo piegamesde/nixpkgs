@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, fetchFromGitHub, oscSupport ? false }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  oscSupport ? false
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "mpv-youtube-quality";

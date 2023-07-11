@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchurl, dpkg, autoPatchelfHook, makeWrapper, copyDesktopItems
-, makeDesktopItem, dbus, nftables }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  dpkg,
+  autoPatchelfHook,
+  makeWrapper,
+  copyDesktopItems,
+  makeDesktopItem,
+  dbus,
+  nftables,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cloudflare-warp";

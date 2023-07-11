@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, fetchpatch, ocamlPackages, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  ocamlPackages,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mldonkey";

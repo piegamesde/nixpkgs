@@ -1,5 +1,17 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub, writeShellScriptBin, runtimeShell
-, installShellFiles, ncurses, perl, glibcLocales, testers, fzf }:
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  writeShellScriptBin,
+  runtimeShell,
+  installShellFiles,
+  ncurses,
+  perl,
+  glibcLocales,
+  testers,
+  fzf,
+}:
 
 let
   # on Linux, wrap perl in the bash completion scripts with the glibc locales,

@@ -1,6 +1,22 @@
-{ stdenv, lib, fetchFromGitHub, nix-update-script, cmake, pkg-config, fribidi
-, harfbuzz, libwebp, mpg123, SDL2, the-foundation, AppKit, zip
-, enableTUI ? false, ncurses, sealcurses }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  nix-update-script,
+  cmake,
+  pkg-config,
+  fribidi,
+  harfbuzz,
+  libwebp,
+  mpg123,
+  SDL2,
+  the-foundation,
+  AppKit,
+  zip,
+  enableTUI ? false,
+  ncurses,
+  sealcurses,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lagrange";

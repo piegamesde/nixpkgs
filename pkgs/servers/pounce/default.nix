@@ -1,4 +1,11 @@
-{ lib, stdenv, libressl, fetchzip, pkg-config, libxcrypt }:
+{
+  lib,
+  stdenv,
+  libressl,
+  fetchzip,
+  pkg-config,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pounce";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitLab, cmake, boost, properties-cpp, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  cmake,
+  boost,
+  properties-cpp,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "process-cpp";

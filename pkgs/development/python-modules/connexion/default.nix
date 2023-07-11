@@ -1,7 +1,26 @@
-{ lib, aiohttp, aiohttp-jinja2, aiohttp-remotes, aiohttp-swagger
-, buildPythonPackage, clickclick, decorator, fetchFromGitHub, flask, inflection
-, jsonschema, openapi-spec-validator, packaging, pytest-aiohttp, pytestCheckHook
-, pythonOlder, pyyaml, requests, swagger-ui-bundle, testfixtures }:
+{
+  lib,
+  aiohttp,
+  aiohttp-jinja2,
+  aiohttp-remotes,
+  aiohttp-swagger,
+  buildPythonPackage,
+  clickclick,
+  decorator,
+  fetchFromGitHub,
+  flask,
+  inflection,
+  jsonschema,
+  openapi-spec-validator,
+  packaging,
+  pytest-aiohttp,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  requests,
+  swagger-ui-bundle,
+  testfixtures,
+}:
 
 buildPythonPackage rec {
   pname = "connexion";

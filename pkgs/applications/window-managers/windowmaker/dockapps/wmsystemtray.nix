@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, libX11, libXpm, libXext, libXfixes, libXmu
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libX11,
+  libXpm,
+  libXext,
+  libXfixes,
+  libXmu,
 }:
 
 stdenv.mkDerivation rec {

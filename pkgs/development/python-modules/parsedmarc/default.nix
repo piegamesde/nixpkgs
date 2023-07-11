@@ -1,11 +1,39 @@
-{ buildPythonPackage, fetchPypi, fetchurl, lib, nixosTests, python, pythonOlder
+{
+  buildPythonPackage,
+  fetchPypi,
+  fetchurl,
+  lib,
+  nixosTests,
+  python,
+  pythonOlder
 
-# pythonPackages
-, hatchling, dnspython, expiringdict, publicsuffix2, xmltodict, geoip2, urllib3
-, requests, imapclient, dateparser, mailsuite, elasticsearch, elasticsearch-dsl
-, kafka-python, tqdm, lxml, boto3, msgraph-core, azure-identity, google-api-core
-, google-api-python-client, google-auth, google-auth-httplib2
-, google-auth-oauthlib }:
+  # pythonPackages
+  ,
+  hatchling,
+  dnspython,
+  expiringdict,
+  publicsuffix2,
+  xmltodict,
+  geoip2,
+  urllib3,
+  requests,
+  imapclient,
+  dateparser,
+  mailsuite,
+  elasticsearch,
+  elasticsearch-dsl,
+  kafka-python,
+  tqdm,
+  lxml,
+  boto3,
+  msgraph-core,
+  azure-identity,
+  google-api-core,
+  google-api-python-client,
+  google-auth,
+  google-auth-httplib2,
+  google-auth-oauthlib,
+}:
 
 let
   dashboard = fetchurl {

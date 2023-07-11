@@ -1,4 +1,9 @@
-{ lib, mkDerivation, fetchFromGitHub, ghc }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  ghc,
+}:
 
 mkDerivation rec {
   pname = "cubical";

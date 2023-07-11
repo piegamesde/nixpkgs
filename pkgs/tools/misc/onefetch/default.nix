@@ -1,5 +1,17 @@
-{ lib, rustPlatform, fetchFromGitHub, cmake, installShellFiles, pkg-config, zstd
-, stdenv, CoreFoundation, libresolv, Security, git }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  cmake,
+  installShellFiles,
+  pkg-config,
+  zstd,
+  stdenv,
+  CoreFoundation,
+  libresolv,
+  Security,
+  git,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "onefetch";

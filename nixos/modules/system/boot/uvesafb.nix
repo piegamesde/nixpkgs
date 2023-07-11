@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.boot.uvesafb;
   inherit (lib) mkIf mkEnableOption mkOption mdDoc types;

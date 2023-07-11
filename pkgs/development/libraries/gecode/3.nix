@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, fetchpatch, perl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gecode";

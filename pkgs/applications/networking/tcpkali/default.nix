@@ -1,4 +1,10 @@
-{ lib, stdenv, autoreconfHook, fetchFromGitHub, bison }:
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  fetchFromGitHub,
+  bison,
+}:
 
 let version = "1.1.1";
 

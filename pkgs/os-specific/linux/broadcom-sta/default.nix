@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, kernel }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  kernel,
+}:
 
 let
   version = "6.30.223.271";

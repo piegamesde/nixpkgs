@@ -1,6 +1,26 @@
-{ lib, stdenv, fetchFromGitHub, nix-update-script, vala, meson, ninja
-, pkg-config, pantheon, gettext, wrapGAppsHook, python3, desktop-file-utils
-, gtk3, glib, libgee, libgda, gtksourceview, libxml2, libsecret, libssh2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  vala,
+  meson,
+  ninja,
+  pkg-config,
+  pantheon,
+  gettext,
+  wrapGAppsHook,
+  python3,
+  desktop-file-utils,
+  gtk3,
+  glib,
+  libgee,
+  libgda,
+  gtksourceview,
+  libxml2,
+  libsecret,
+  libssh2,
+}:
 
 let
   sqlGda = libgda.override {

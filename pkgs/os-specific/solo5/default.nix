@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, dosfstools, libseccomp, makeWrapper, mtools, parted
-, pkg-config, qemu, syslinux, util-linux }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dosfstools,
+  libseccomp,
+  makeWrapper,
+  mtools,
+  parted,
+  pkg-config,
+  qemu,
+  syslinux,
+  util-linux,
+}:
 
 let
   version = "0.8.0";
@@ -62,8 +74,11 @@ in stdenv.mkDerivation {
     homepage = "https://github.com/solo5/solo5";
     license = licenses.isc;
     maintainers = [ maintainers.ehmry ];
-    platforms = builtins.map ({ arch, os }: "${arch}-${os}")
-      (cartesianProductOfSets {
+    platforms = builtins.map ({
+        arch,
+        os,
+      }:
+      "${arch}-${os}") (cartesianProductOfSets {
         arch = [ "aarch64" "x86_64" ];
         os = [ "freebsd" "genode" "linux" "openbsd" ];
       });

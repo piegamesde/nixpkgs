@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, numpy, pytest, pyyaml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  numpy,
+  pytest,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "spglib";

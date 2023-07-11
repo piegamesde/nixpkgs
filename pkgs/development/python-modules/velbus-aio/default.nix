@@ -1,5 +1,13 @@
-{ lib, backoff, buildPythonPackage, fetchFromGitHub, pythonOlder, pyserial
-, pyserial-asyncio, pytestCheckHook }:
+{
+  lib,
+  backoff,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pyserial,
+  pyserial-asyncio,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "velbus-aio";

@@ -1,6 +1,21 @@
-{ lib, buildPythonPackage, fetchFromGitHub, blurhash, cryptography, decorator
-, http-ece, python-dateutil, python-magic, pytz, requests, six, pytestCheckHook
-, pytest-mock, pytest-vcr, requests-mock }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  blurhash,
+  cryptography,
+  decorator,
+  http-ece,
+  python-dateutil,
+  python-magic,
+  pytz,
+  requests,
+  six,
+  pytestCheckHook,
+  pytest-mock,
+  pytest-vcr,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "mastodon-py";

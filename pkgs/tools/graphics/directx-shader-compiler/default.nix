@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ninja, python3, git }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  python3,
+  git,
+}:
 
 stdenv.mkDerivation rec {
   pname = "directx-shader-compiler";

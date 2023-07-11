@@ -1,9 +1,17 @@
-{ lib, stdenvNoCC, fetchurl, symlinkJoin }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  symlinkJoin,
+}:
 
 let
   version = "15.0";
 
-  fetchData = { suffix, hash }:
+  fetchData = {
+      suffix,
+      hash,
+    }:
     stdenvNoCC.mkDerivation {
       pname = "unicode-emoji-${suffix}";
       inherit version;

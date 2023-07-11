@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, pkg-config, glib, libxml2, flex, bison, vips, gtk2
-, fftw, gsl, goffice, libgsf, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  glib,
+  libxml2,
+  flex,
+  bison,
+  vips,
+  gtk2,
+  fftw,
+  gsl,
+  goffice,
+  libgsf,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "nip2";

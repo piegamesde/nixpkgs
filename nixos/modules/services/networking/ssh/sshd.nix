@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -384,138 +389,141 @@ in {
                     UseDns = true;
                     PasswordAuthentication = false;
                   }'';
-        type = types.submodule ({ name, ... }: {
-          freeformType = settingsFormat.type;
-          options = {
-            LogLevel = mkOption {
-              type = types.enum [
-                "QUIET"
-                "FATAL"
-                "ERROR"
-                "INFO"
-                "VERBOSE"
-                "DEBUG"
-                "DEBUG1"
-                "DEBUG2"
-                "DEBUG3"
-              ];
-              default = "INFO"; # upstream default
-              description = lib.mdDoc ''
-                Gives the verbosity level that is used when logging messages from sshd(8). Logging with a DEBUG level
-                violates the privacy of users and is not recommended.
-              '';
-            };
-            UseDns = mkOption {
-              type = types.bool;
-              # apply if cfg.useDns then "yes" else "no"
-              default = false;
-              description = lib.mdDoc ''
-                Specifies whether sshd(8) should look up the remote host name, and to check that the resolved host name for
-                the remote IP address maps back to the very same IP address.
-                If this option is set to no (the default) then only addresses and not host names may be used in
-                ~/.ssh/authorized_keys from and sshd_config Match Host directives.
-              '';
-            };
-            X11Forwarding = mkOption {
-              type = types.bool;
-              default = false;
-              description = lib.mdDoc ''
-                Whether to allow X11 connections to be forwarded.
-              '';
-            };
-            PasswordAuthentication = mkOption {
-              type = types.bool;
-              default = true;
-              description = lib.mdDoc ''
-                Specifies whether password authentication is allowed.
-              '';
-            };
-            PermitRootLogin = mkOption {
-              default = "prohibit-password";
-              type = types.enum [
-                "yes"
-                "without-password"
-                "prohibit-password"
-                "forced-commands-only"
-                "no"
-              ];
-              description = lib.mdDoc ''
-                Whether the root user can login using ssh.
-              '';
-            };
-            KbdInteractiveAuthentication = mkOption {
-              type = types.bool;
-              default = true;
-              description = lib.mdDoc ''
-                Specifies whether keyboard-interactive authentication is allowed.
-              '';
-            };
-            GatewayPorts = mkOption {
-              type = types.str;
-              default = "no";
-              description = lib.mdDoc ''
-                Specifies whether remote hosts are allowed to connect to
-                ports forwarded for the client.  See
-                {manpage}`sshd_config(5)`.
-              '';
-            };
-            KexAlgorithms = mkOption {
-              type = types.listOf types.str;
-              default = [
-                "sntrup761x25519-sha512@openssh.com"
-                "curve25519-sha256"
-                "curve25519-sha256@libssh.org"
-                "diffie-hellman-group-exchange-sha256"
-              ];
-              description = lib.mdDoc ''
-                Allowed key exchange algorithms
+        type = types.submodule ({
+            name,
+            ...
+          }: {
+            freeformType = settingsFormat.type;
+            options = {
+              LogLevel = mkOption {
+                type = types.enum [
+                  "QUIET"
+                  "FATAL"
+                  "ERROR"
+                  "INFO"
+                  "VERBOSE"
+                  "DEBUG"
+                  "DEBUG1"
+                  "DEBUG2"
+                  "DEBUG3"
+                ];
+                default = "INFO"; # upstream default
+                description = lib.mdDoc ''
+                  Gives the verbosity level that is used when logging messages from sshd(8). Logging with a DEBUG level
+                  violates the privacy of users and is not recommended.
+                '';
+              };
+              UseDns = mkOption {
+                type = types.bool;
+                # apply if cfg.useDns then "yes" else "no"
+                default = false;
+                description = lib.mdDoc ''
+                  Specifies whether sshd(8) should look up the remote host name, and to check that the resolved host name for
+                  the remote IP address maps back to the very same IP address.
+                  If this option is set to no (the default) then only addresses and not host names may be used in
+                  ~/.ssh/authorized_keys from and sshd_config Match Host directives.
+                '';
+              };
+              X11Forwarding = mkOption {
+                type = types.bool;
+                default = false;
+                description = lib.mdDoc ''
+                  Whether to allow X11 connections to be forwarded.
+                '';
+              };
+              PasswordAuthentication = mkOption {
+                type = types.bool;
+                default = true;
+                description = lib.mdDoc ''
+                  Specifies whether password authentication is allowed.
+                '';
+              };
+              PermitRootLogin = mkOption {
+                default = "prohibit-password";
+                type = types.enum [
+                  "yes"
+                  "without-password"
+                  "prohibit-password"
+                  "forced-commands-only"
+                  "no"
+                ];
+                description = lib.mdDoc ''
+                  Whether the root user can login using ssh.
+                '';
+              };
+              KbdInteractiveAuthentication = mkOption {
+                type = types.bool;
+                default = true;
+                description = lib.mdDoc ''
+                  Specifies whether keyboard-interactive authentication is allowed.
+                '';
+              };
+              GatewayPorts = mkOption {
+                type = types.str;
+                default = "no";
+                description = lib.mdDoc ''
+                  Specifies whether remote hosts are allowed to connect to
+                  ports forwarded for the client.  See
+                  {manpage}`sshd_config(5)`.
+                '';
+              };
+              KexAlgorithms = mkOption {
+                type = types.listOf types.str;
+                default = [
+                  "sntrup761x25519-sha512@openssh.com"
+                  "curve25519-sha256"
+                  "curve25519-sha256@libssh.org"
+                  "diffie-hellman-group-exchange-sha256"
+                ];
+                description = lib.mdDoc ''
+                  Allowed key exchange algorithms
 
-                Uses the lower bound recommended in both
-                <https://stribika.github.io/2015/01/04/secure-secure-shell.html>
-                and
-                <https://infosec.mozilla.org/guidelines/openssh#modern-openssh-67>
-              '';
-            };
-            Macs = mkOption {
-              type = types.listOf types.str;
-              default = [
-                "hmac-sha2-512-etm@openssh.com"
-                "hmac-sha2-256-etm@openssh.com"
-                "umac-128-etm@openssh.com"
-                "hmac-sha2-512"
-                "hmac-sha2-256"
-                "umac-128@openssh.com"
-              ];
-              description = lib.mdDoc ''
-                Allowed MACs
+                  Uses the lower bound recommended in both
+                  <https://stribika.github.io/2015/01/04/secure-secure-shell.html>
+                  and
+                  <https://infosec.mozilla.org/guidelines/openssh#modern-openssh-67>
+                '';
+              };
+              Macs = mkOption {
+                type = types.listOf types.str;
+                default = [
+                  "hmac-sha2-512-etm@openssh.com"
+                  "hmac-sha2-256-etm@openssh.com"
+                  "umac-128-etm@openssh.com"
+                  "hmac-sha2-512"
+                  "hmac-sha2-256"
+                  "umac-128@openssh.com"
+                ];
+                description = lib.mdDoc ''
+                  Allowed MACs
 
-                Defaults to recommended settings from both
-                <https://stribika.github.io/2015/01/04/secure-secure-shell.html>
-                and
-                <https://infosec.mozilla.org/guidelines/openssh#modern-openssh-67>
-              '';
-            };
-            Ciphers = mkOption {
-              type = types.listOf types.str;
-              default = [
-                "chacha20-poly1305@openssh.com"
-                "aes256-gcm@openssh.com"
-                "aes128-gcm@openssh.com"
-                "aes256-ctr"
-                "aes192-ctr"
-                "aes128-ctr"
-              ];
-              description = lib.mdDoc ''
-                Allowed ciphers
+                  Defaults to recommended settings from both
+                  <https://stribika.github.io/2015/01/04/secure-secure-shell.html>
+                  and
+                  <https://infosec.mozilla.org/guidelines/openssh#modern-openssh-67>
+                '';
+              };
+              Ciphers = mkOption {
+                type = types.listOf types.str;
+                default = [
+                  "chacha20-poly1305@openssh.com"
+                  "aes256-gcm@openssh.com"
+                  "aes128-gcm@openssh.com"
+                  "aes256-ctr"
+                  "aes192-ctr"
+                  "aes128-ctr"
+                ];
+                description = lib.mdDoc ''
+                  Allowed ciphers
 
-                Defaults to recommended settings from both
-                <https://stribika.github.io/2015/01/04/secure-secure-shell.html>
-                and
-                <https://infosec.mozilla.org/guidelines/openssh#modern-openssh-67>
-              '';
+                  Defaults to recommended settings from both
+                  <https://stribika.github.io/2015/01/04/secure-secure-shell.html>
+                  and
+                  <https://infosec.mozilla.org/guidelines/openssh#modern-openssh-67>
+                '';
+              };
             };
-          };
-        });
+          });
       };
 
       extraConfig = mkOption {
@@ -669,11 +677,15 @@ in {
         Port ${toString port}
       '') cfg.ports}
 
-      ${concatMapStrings ({ port, addr, ... }: ''
-        ListenAddress ${addr}${
-          optionalString (port != null) (":" + toString port)
-        }
-      '') cfg.listenAddresses}
+      ${concatMapStrings ({
+          port,
+          addr,
+          ...
+        }: ''
+          ListenAddress ${addr}${
+            optionalString (port != null) (":" + toString port)
+          }
+        '') cfg.listenAddresses}
 
       ${optionalString cfgc.setXAuthLocation ''
         XAuthLocation ${pkgs.xorg.xauth}/bin/xauth
@@ -699,10 +711,13 @@ in {
       assertion =
         if cfg.settings.X11Forwarding then cfgc.setXAuthLocation else true;
       message = "cannot enable X11 forwarding without setting xauth location";
-    }] ++ forEach cfg.listenAddresses ({ addr, ... }: {
-      assertion = addr != null;
-      message = "addr must be specified in each listenAddresses entry";
-    });
+    }] ++ forEach cfg.listenAddresses ({
+        addr,
+        ...
+      }: {
+        assertion = addr != null;
+        message = "addr must be specified in each listenAddresses entry";
+      });
 
   };
 

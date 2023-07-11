@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pytest-asyncio, pytestCheckHook
-, pythonOlder, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "aioshutil";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, gitUpdater, cmake, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gitUpdater,
+  cmake,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "yaml-cpp";

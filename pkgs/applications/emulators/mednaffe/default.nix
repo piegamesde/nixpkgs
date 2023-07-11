@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, pkg-config, mednafen, gtk3
-, wrapGAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  mednafen,
+  gtk3,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mednaffe";

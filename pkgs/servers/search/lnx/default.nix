@@ -1,4 +1,11 @@
-{ stdenv, lib, rustPlatform, fetchFromGitHub, DiskArbitration, Foundation }:
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  DiskArbitration,
+  Foundation,
+}:
 
 # unstable was chosen because of an added Cargo.lock
 # revert to stable for the version after 0.9.0

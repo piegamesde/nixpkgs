@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, vulkan-headers, vulkan-loader, glslang
-, opencv, protobuf }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  vulkan-headers,
+  vulkan-loader,
+  glslang,
+  opencv,
+  protobuf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ncnn";

@@ -1,8 +1,22 @@
-{ lib, stdenv, nim, nim_builder }:
+{
+  lib,
+  stdenv,
+  nim,
+  nim_builder,
+}:
 
-{ strictDeps ? true, depsBuildBuild ? [ ], nativeBuildInputs ? [ ]
-, configurePhase ? null, buildPhase ? null, checkPhase ? null
-, installPhase ? null, enableParallelBuilding ? true, meta ? { }, ... }@attrs:
+{
+  strictDeps ? true,
+  depsBuildBuild ? [ ],
+  nativeBuildInputs ? [ ],
+  configurePhase ? null,
+  buildPhase ? null,
+  checkPhase ? null,
+  installPhase ? null,
+  enableParallelBuilding ? true,
+  meta ? { },
+  ...
+}@attrs:
 
 stdenv.mkDerivation (attrs // {
   inherit strictDeps enableParallelBuilding;

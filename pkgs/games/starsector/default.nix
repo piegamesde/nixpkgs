@@ -1,5 +1,16 @@
-{ lib, fetchzip, libXxf86vm, makeWrapper, openal, openjdk, stdenv, xorg
-, copyDesktopItems, makeDesktopItem, writeScript }:
+{
+  lib,
+  fetchzip,
+  libXxf86vm,
+  makeWrapper,
+  openal,
+  openjdk,
+  stdenv,
+  xorg,
+  copyDesktopItems,
+  makeDesktopItem,
+  writeScript,
+}:
 
 stdenv.mkDerivation rec {
   pname = "starsector";

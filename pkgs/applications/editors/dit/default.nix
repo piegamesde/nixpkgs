@@ -1,4 +1,11 @@
-{ lib, fetchurl, stdenv, libiconv, ncurses, lua }:
+{
+  lib,
+  fetchurl,
+  stdenv,
+  libiconv,
+  ncurses,
+  lua,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dit";

@@ -1,5 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, setuptools
-, unittestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  setuptools,
+  unittestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "bitstring";

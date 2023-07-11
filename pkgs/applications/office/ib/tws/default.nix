@@ -1,4 +1,9 @@
-{ lib, stdenv, requireFile, jdk }:
+{
+  lib,
+  stdenv,
+  requireFile,
+  jdk,
+}:
 
 stdenv.mkDerivation rec {
   version = "9542";

@@ -1,10 +1,43 @@
-{ lib, stdenv, pkg-config, glib, libxml2, expat, ApplicationServices, Foundation
-, python3, fetchFromGitHub, meson, ninja, gtk-doc, docbook-xsl-nons
-, gobject-introspection
-# Optional dependencies
-, libjpeg, libexif, librsvg, poppler, libgsf, libtiff, fftw, lcms2, libpng
-, libimagequant, imagemagick, pango, orc, matio, cfitsio, libwebp, openexr
-, openjpeg, libjxl, openslide, libheif }:
+{
+  lib,
+  stdenv,
+  pkg-config,
+  glib,
+  libxml2,
+  expat,
+  ApplicationServices,
+  Foundation,
+  python3,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  gtk-doc,
+  docbook-xsl-nons,
+  gobject-introspection
+  # Optional dependencies
+  ,
+  libjpeg,
+  libexif,
+  librsvg,
+  poppler,
+  libgsf,
+  libtiff,
+  fftw,
+  lcms2,
+  libpng,
+  libimagequant,
+  imagemagick,
+  pango,
+  orc,
+  matio,
+  cfitsio,
+  libwebp,
+  openexr,
+  openjpeg,
+  libjxl,
+  openslide,
+  libheif,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vips";

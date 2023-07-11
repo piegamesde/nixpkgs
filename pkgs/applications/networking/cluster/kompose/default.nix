@@ -1,5 +1,13 @@
-{ lib, buildGoModule, fetchFromGitHub, fetchpatch, installShellFiles, testers
-, kompose, git }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchpatch,
+  installShellFiles,
+  testers,
+  kompose,
+  git,
+}:
 
 buildGoModule rec {
   pname = "kompose";

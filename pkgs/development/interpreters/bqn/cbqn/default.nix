@@ -1,8 +1,20 @@
-{ callPackage, lib, stdenv, stdenvNoCC, fetchFromGitHub, fixDarwinDylibNames
-, genBytecode ? false, bqn-path ? null, mbqn-source ? null, enableReplxx ? false
-, enableSingeli ? stdenv.hostPlatform.avx2Support, enableLibcbqn ?
-  ((stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin)
-    && !enableReplxx), libffi, pkg-config }:
+{
+  callPackage,
+  lib,
+  stdenv,
+  stdenvNoCC,
+  fetchFromGitHub,
+  fixDarwinDylibNames,
+  genBytecode ? false,
+  bqn-path ? null,
+  mbqn-source ? null,
+  enableReplxx ? false,
+  enableSingeli ? stdenv.hostPlatform.avx2Support,
+  enableLibcbqn ? ((stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin)
+    && !enableReplxx),
+  libffi,
+  pkg-config,
+}:
 
 let
   cbqn-bytecode-submodule =

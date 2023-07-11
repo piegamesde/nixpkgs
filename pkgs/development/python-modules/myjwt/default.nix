@@ -1,6 +1,22 @@
-{ lib, stdenv, buildPythonPackage, click, colorama, cryptography, exrex
-, fetchFromGitHub, poetry-core, pyopenssl, pyperclip, pytest-mock
-, pytestCheckHook, pythonOlder, questionary, requests, requests-mock }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  click,
+  colorama,
+  cryptography,
+  exrex,
+  fetchFromGitHub,
+  poetry-core,
+  pyopenssl,
+  pyperclip,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  questionary,
+  requests,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "myjwt";

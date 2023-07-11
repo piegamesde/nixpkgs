@@ -1,5 +1,16 @@
-{ lib, awkward, buildPythonPackage, dask, fetchFromGitHub, hatch-vcs, hatchling
-, pyarrow, pytestCheckHook, pythonOlder, pythonRelaxDepsHook }:
+{
+  lib,
+  awkward,
+  buildPythonPackage,
+  dask,
+  fetchFromGitHub,
+  hatch-vcs,
+  hatchling,
+  pyarrow,
+  pytestCheckHook,
+  pythonOlder,
+  pythonRelaxDepsHook,
+}:
 
 buildPythonPackage rec {
   pname = "dask-awkward";

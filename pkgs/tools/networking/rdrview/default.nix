@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, libxml2, curl, libseccomp, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libxml2,
+  curl,
+  libseccomp,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation {
   pname = "rdrview";

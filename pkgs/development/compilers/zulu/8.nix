@@ -1,11 +1,28 @@
-{ stdenv, lib, fetchurl, autoPatchelfHook, unzip, makeWrapper, setJavaClassPath
-, zulu
-# minimum dependencies
-, alsa-lib, fontconfig, freetype, xorg
-# runtime dependencies
-, cups
-# runtime dependencies for GTK+ Look and Feel
-, gtkSupport ? stdenv.isLinux, cairo, glib, gtk3 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  unzip,
+  makeWrapper,
+  setJavaClassPath,
+  zulu
+  # minimum dependencies
+  ,
+  alsa-lib,
+  fontconfig,
+  freetype,
+  xorg
+  # runtime dependencies
+  ,
+  cups
+  # runtime dependencies for GTK+ Look and Feel
+  ,
+  gtkSupport ? stdenv.isLinux,
+  cairo,
+  glib,
+  gtk3,
+}:
 
 let
   version = "8.68.0.19";

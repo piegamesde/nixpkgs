@@ -1,5 +1,12 @@
-{ lib, rustPlatform, fetchFromGitHub, gitUpdater, common-updater-scripts
-, makeWrapper, rr }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  gitUpdater,
+  common-updater-scripts,
+  makeWrapper,
+  rr,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-rr";

@@ -1,6 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, callPackage, cc ? stdenv.cc, cmake, coreutils
-, libxml2, lto ? !stdenv.isDarwin, makeWrapper, openssl, pcre2, pony-corral
-, python3, substituteAll, which, z3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  callPackage,
+  cc ? stdenv.cc,
+  cmake,
+  coreutils,
+  libxml2,
+  lto ? !stdenv.isDarwin,
+  makeWrapper,
+  openssl,
+  pcre2,
+  pony-corral,
+  python3,
+  substituteAll,
+  which,
+  z3,
+}:
 
 stdenv.mkDerivation (rec {
   pname = "ponyc";

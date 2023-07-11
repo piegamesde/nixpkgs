@@ -1,4 +1,10 @@
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.networking.openconnect;

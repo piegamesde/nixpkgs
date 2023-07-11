@@ -1,5 +1,16 @@
-{ lib, mkDerivation, fetchurl, qtbase, qtscript, qtwebengine, qmake, zlib
-, pkg-config, poppler, wrapGAppsHook }:
+{
+  lib,
+  mkDerivation,
+  fetchurl,
+  qtbase,
+  qtscript,
+  qtwebengine,
+  qmake,
+  zlib,
+  pkg-config,
+  poppler,
+  wrapGAppsHook,
+}:
 
 mkDerivation rec {
   pname = "texmaker";

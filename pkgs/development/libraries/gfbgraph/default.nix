@@ -1,5 +1,19 @@
-{ stdenv, lib, fetchurl, pkg-config, glib, librest, gnome-online-accounts, gnome
-, libsoup, json-glib, gobject-introspection, gtk-doc, pkgs, docbook-xsl-nons }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  pkg-config,
+  glib,
+  librest,
+  gnome-online-accounts,
+  gnome,
+  libsoup,
+  json-glib,
+  gobject-introspection,
+  gtk-doc,
+  pkgs,
+  docbook-xsl-nons,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gfbgraph";

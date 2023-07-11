@@ -1,4 +1,8 @@
-{ appimageTools, lib, fetchurl }:
+{
+  appimageTools,
+  lib,
+  fetchurl,
+}:
 
 appimageTools.wrapType2 rec {
   pname = "cider";

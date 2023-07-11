@@ -1,4 +1,9 @@
-{ stdenv, makeWrapper, neovim, neovim-qt-unwrapped }:
+{
+  stdenv,
+  makeWrapper,
+  neovim,
+  neovim-qt-unwrapped,
+}:
 
 let unwrapped = neovim-qt-unwrapped;
 in stdenv.mkDerivation {

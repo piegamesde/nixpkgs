@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, libibmad, openssl, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libibmad,
+  openssl,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mstflint";

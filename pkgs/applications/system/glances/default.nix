@@ -1,8 +1,25 @@
-{ stdenv, buildPythonApplication, fetchFromGitHub, fetchpatch, isPyPy, lib
-, defusedxml, future, ujson, packaging, psutil, setuptools
-# Optional dependencies:
-, bottle, pysnmp, hddtemp, netifaces # IP module
-, py-cpuinfo }:
+{
+  stdenv,
+  buildPythonApplication,
+  fetchFromGitHub,
+  fetchpatch,
+  isPyPy,
+  lib,
+  defusedxml,
+  future,
+  ujson,
+  packaging,
+  psutil,
+  setuptools
+  # Optional dependencies:
+  ,
+  bottle,
+  pysnmp,
+  hddtemp,
+  netifaces # IP module
+  ,
+  py-cpuinfo,
+}:
 
 buildPythonApplication rec {
   pname = "glances";

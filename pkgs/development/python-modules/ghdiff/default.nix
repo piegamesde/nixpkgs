@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, zope_testrunner, six, chardet }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  zope_testrunner,
+  six,
+  chardet,
+}:
 
 buildPythonPackage rec {
   pname = "ghdiff";

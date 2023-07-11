@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchFromGitHub, runCommand, unzip, meson, ninja, pkg-config
-, qtbase, qttools, wrapQtAppsHook, luajit }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  runCommand,
+  unzip,
+  meson,
+  ninja,
+  pkg-config,
+  qtbase,
+  qttools,
+  wrapQtAppsHook,
+  luajit,
+}:
 let
   dataVersion = "2.29.0";
   frontendVersion = "unstable-2023-04-09";

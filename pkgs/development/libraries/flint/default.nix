@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, gmp, mpir, mpfr, ntl, openblas ? null, blas, lapack
-, withBlas ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gmp,
+  mpir,
+  mpfr,
+  ntl,
+  openblas ? null,
+  blas,
+  lapack,
+  withBlas ? true
+}:
 
 assert withBlas -> openblas != null && blas.implementation == "openblas"
   && lapack.implementation == "openblas";

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, httpx, pytest-asyncio
-, pytest-httpserver, pytestCheckHook, python-slugify, python-status, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  httpx,
+  pytest-asyncio,
+  pytest-httpserver,
+  pytestCheckHook,
+  python-slugify,
+  python-status,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {

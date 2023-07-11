@@ -1,16 +1,31 @@
 # generic builder for Emacs packages
 
-{ lib, stdenv, emacs, texinfo, writeText, gcc, ... }:
+{
+  lib,
+  stdenv,
+  emacs,
+  texinfo,
+  writeText,
+  gcc,
+  ...
+}:
 
 with lib;
 
-{ pname, version ? null
+{
+  pname,
+  version ? null
 
-, buildInputs ? [ ], packageRequires ? [ ]
+  ,
+  buildInputs ? [ ],
+  packageRequires ? [ ]
 
-, meta ? { }
+  ,
+  meta ? { }
 
-, ... }@args:
+  ,
+  ...
+}@args:
 
 let
 

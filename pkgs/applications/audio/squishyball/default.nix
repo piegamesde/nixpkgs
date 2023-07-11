@@ -1,5 +1,16 @@
-{ lib, stdenv, autoreconfHook, fetchFromGitLab, fetchpatch, flac, libao
-, libvorbis, ncurses, opusfile, pkg-config }:
+{
+  lib,
+  stdenv,
+  autoreconfHook,
+  fetchFromGitLab,
+  fetchpatch,
+  flac,
+  libao,
+  libvorbis,
+  ncurses,
+  opusfile,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "squishyball";

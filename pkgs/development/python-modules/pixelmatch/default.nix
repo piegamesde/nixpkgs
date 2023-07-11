@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchgit, pillow, poetry-core, pytest-benchmark
-, pytest-mypy, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchgit,
+  pillow,
+  poetry-core,
+  pytest-benchmark,
+  pytest-mypy,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pixelmatch";

@@ -1,5 +1,12 @@
-{ lib, async-timeout, bitstring, buildPythonPackage, fetchFromGitHub
-, poetry-core, pyserial-asyncio }:
+{
+  lib,
+  async-timeout,
+  bitstring,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pyserial-asyncio,
+}:
 
 buildPythonPackage rec {
   pname = "pysml";

@@ -1,4 +1,11 @@
-{ lib, stdenv, pkg-config, darwin, fetchurl, SDL2 }:
+{
+  lib,
+  stdenv,
+  pkg-config,
+  darwin,
+  fetchurl,
+  SDL2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "SDL2_net";

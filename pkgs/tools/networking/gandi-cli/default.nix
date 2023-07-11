@@ -1,4 +1,12 @@
-{ lib, buildPythonApplication, click, fetchFromGitHub, ipy, pyyaml, requests }:
+{
+  lib,
+  buildPythonApplication,
+  click,
+  fetchFromGitHub,
+  ipy,
+  pyyaml,
+  requests,
+}:
 
 buildPythonApplication rec {
   pname = "gandi-cli";

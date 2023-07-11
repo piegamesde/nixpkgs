@@ -1,4 +1,11 @@
-{ pkgs, lib, poetryLib, pyProject, python, editablePackageSources }:
+{
+  pkgs,
+  lib,
+  poetryLib,
+  pyProject,
+  python,
+  editablePackageSources,
+}:
 let
   name = poetryLib.normalizePackageName pyProject.tool.poetry.name;
 

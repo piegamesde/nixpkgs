@@ -1,5 +1,13 @@
-{ stdenvNoCC, lib, fetchzip, jre, makeDesktopItem, copyDesktopItems, makeWrapper
-, extraJavaArgs ? "-Xms512M -Xmx2000M" }:
+{
+  stdenvNoCC,
+  lib,
+  fetchzip,
+  jre,
+  makeDesktopItem,
+  copyDesktopItems,
+  makeWrapper,
+  extraJavaArgs ? "-Xms512M -Xmx2000M"
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "gprojector";

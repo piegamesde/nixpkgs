@@ -1,5 +1,11 @@
-{ lib, fetchPypi, buildPythonPackage, pythonOlder, setuptools-scm
-, pytestCheckHook }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  pythonOlder,
+  setuptools-scm,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "screed";

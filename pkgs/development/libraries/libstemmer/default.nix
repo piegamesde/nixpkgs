@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, perl, buildPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perl,
+  buildPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libstemmer";

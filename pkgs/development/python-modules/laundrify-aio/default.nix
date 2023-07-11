@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, aiohttp, pyjwt }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  aiohttp,
+  pyjwt,
+}:
 
 buildPythonPackage rec {
   pname = "laundrify-aio";

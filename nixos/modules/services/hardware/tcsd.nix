@@ -1,6 +1,12 @@
 # tcsd daemon.
 
-{ config, options, pkgs, lib, ... }:
+{
+  config,
+  options,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 let

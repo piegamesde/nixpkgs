@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, leptonica, zlib, libwebp, giflib
-, libjpeg, libpng, libtiff, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  leptonica,
+  zlib,
+  libwebp,
+  giflib,
+  libjpeg,
+  libpng,
+  libtiff,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jbig2enc";

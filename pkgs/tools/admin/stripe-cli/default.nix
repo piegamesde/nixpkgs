@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles, stdenv }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  stdenv,
+}:
 
 buildGoModule rec {
   pname = "stripe-cli";

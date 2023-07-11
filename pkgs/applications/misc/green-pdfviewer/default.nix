@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, poppler, pkg-config, gdk-pixbuf, SDL, gtk2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  poppler,
+  pkg-config,
+  gdk-pixbuf,
+  SDL,
+  gtk2,
+}:
 
 stdenv.mkDerivation {
   pname = "green-pdfviewer";

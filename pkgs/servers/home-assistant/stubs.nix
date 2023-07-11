@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, home-assistant, python
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  home-assistant,
+  python,
 }:
 
 buildPythonPackage rec {

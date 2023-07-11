@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, cython, pytest
-, importlib-resources, numpy }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  cython,
+  pytest,
+  importlib-resources,
+  numpy,
+}:
 
 buildPythonPackage rec {
   pname = "pyjet";

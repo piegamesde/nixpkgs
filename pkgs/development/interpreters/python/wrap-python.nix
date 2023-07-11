@@ -1,4 +1,9 @@
-{ lib, python, makePythonHook, makeWrapper }:
+{
+  lib,
+  python,
+  makePythonHook,
+  makeWrapper,
+}:
 
 makePythonHook {
   name = "wrap-python-hook";

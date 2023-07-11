@@ -1,4 +1,11 @@
-{ lib, pkgs, mavenbuild, fetchMaven, maven, jdk8 }:
+{
+  lib,
+  pkgs,
+  mavenbuild,
+  fetchMaven,
+  maven,
+  jdk8,
+}:
 
 with pkgs.javaPackages;
 
@@ -8,7 +15,11 @@ let
   mavenbuild-jdk8 =
     mavenbuild.override { maven = maven.override { jdk = jdk8; }; };
 in rec {
-  junitGen = { mavenDeps, sha512, version }:
+  junitGen = {
+      mavenDeps,
+      sha512,
+      version,
+    }:
     mavenbuild-jdk8 {
       inherit mavenDeps sha512 version;
 

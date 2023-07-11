@@ -1,5 +1,14 @@
-{ lib, buildDunePackage, fetchFromGitHub, dune-configurator, alsa, ao, mad
-, pulseaudio, theora }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  dune-configurator,
+  alsa,
+  ao,
+  mad,
+  pulseaudio,
+  theora,
+}:
 
 buildDunePackage rec {
   pname = "mm";

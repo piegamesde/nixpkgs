@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+}:
 stdenv.mkDerivation rec {
   pname = "libuinputplus";
   version = "2021-04-02";

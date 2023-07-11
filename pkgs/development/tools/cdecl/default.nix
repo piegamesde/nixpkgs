@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, bison, flex, readline, ncurses, gnused }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bison,
+  flex,
+  readline,
+  ncurses,
+  gnused,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cdecl";

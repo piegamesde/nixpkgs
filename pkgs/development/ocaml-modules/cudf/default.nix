@@ -1,5 +1,17 @@
-{ lib, fetchurl, stdenv, ocaml, ocamlbuild, findlib, extlib, glib, perl
-, pkg-config, stdlib-shims, ounit }:
+{
+  lib,
+  fetchurl,
+  stdenv,
+  ocaml,
+  ocamlbuild,
+  findlib,
+  extlib,
+  glib,
+  perl,
+  pkg-config,
+  stdlib-shims,
+  ounit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-cudf";

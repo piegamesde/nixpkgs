@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, sassc, gtk3, gnome, gdk-pixbuf
-, librsvg, gtk-engine-murrine }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  sassc,
+  gtk3,
+  gnome,
+  gdk-pixbuf,
+  librsvg,
+  gtk-engine-murrine,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lounge-gtk-theme";

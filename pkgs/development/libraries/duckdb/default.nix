@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, ninja, openssl, openjdk11
-, unixODBC, withJdbc ? false, withOdbc ? false }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  ninja,
+  openssl,
+  openjdk11,
+  unixODBC,
+  withJdbc ? false,
+  withOdbc ? false
+}:
 
 let enableFeature = yes: if yes then "ON" else "OFF";
 in stdenv.mkDerivation rec {

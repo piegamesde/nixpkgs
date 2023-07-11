@@ -1,4 +1,6 @@
-{ callPackage }:
+{
+  callPackage,
+}:
 
 let common = opts: callPackage (import ./common.nix opts);
 in {

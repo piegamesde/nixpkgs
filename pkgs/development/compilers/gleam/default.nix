@@ -1,5 +1,14 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, git, pkg-config, openssl, Security
-, libiconv }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  git,
+  pkg-config,
+  openssl,
+  Security,
+  libiconv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "gleam";

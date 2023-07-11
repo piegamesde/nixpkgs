@@ -1,4 +1,10 @@
-{ lib, buildPythonApplication, fetchFromGitHub, python-dotenv, pyyaml }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  python-dotenv,
+  pyyaml,
+}:
 
 buildPythonApplication rec {
   version = "1.0.6";

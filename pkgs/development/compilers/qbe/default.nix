@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchzip, callPackage }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  callPackage,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qbe";

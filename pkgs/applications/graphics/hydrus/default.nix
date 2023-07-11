@@ -1,5 +1,15 @@
-{ lib, fetchFromGitHub, wrapQtAppsHook, miniupnpc, ffmpeg
-, enableSwftools ? false, swftools, python3Packages, qtbase, qtcharts }:
+{
+  lib,
+  fetchFromGitHub,
+  wrapQtAppsHook,
+  miniupnpc,
+  ffmpeg,
+  enableSwftools ? false,
+  swftools,
+  python3Packages,
+  qtbase,
+  qtcharts,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "hydrus";

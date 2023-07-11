@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, afl, python2, zlib, pkg-config, glib, perl, texinfo
-, libuuid, flex, bison, pixman, autoconf }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  afl,
+  python2,
+  zlib,
+  pkg-config,
+  glib,
+  perl,
+  texinfo,
+  libuuid,
+  flex,
+  bison,
+  pixman,
+  autoconf,
+}:
 
 let
   cpuTarget = if stdenv.hostPlatform.system == "x86_64-linux" then

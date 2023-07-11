@@ -1,5 +1,15 @@
-{ fetchgit, installShellFiles, lib, libftdi1, libgpiod, libjaylink, libusb1
-, pciutils, pkg-config, stdenv }:
+{
+  fetchgit,
+  installShellFiles,
+  lib,
+  libftdi1,
+  libgpiod,
+  libjaylink,
+  libusb1,
+  pciutils,
+  pkg-config,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "flashrom-stable";

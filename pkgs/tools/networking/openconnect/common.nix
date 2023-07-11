@@ -1,10 +1,28 @@
-{ version, src }:
+{
+  version,
+  src,
+}:
 
-{ lib, stdenv, pkg-config, gnutls, p11-kit, openssl, useOpenSSL ? false, gmp
-, libxml2, stoken, zlib, vpnc-scripts, PCSC, useDefaultExternalBrowser ?
-  stdenv.isLinux && stdenv.buildPlatform
-  == stdenv.hostPlatform # xdg-utils doesn't cross-compile
-, xdg-utils, autoreconfHook }:
+{
+  lib,
+  stdenv,
+  pkg-config,
+  gnutls,
+  p11-kit,
+  openssl,
+  useOpenSSL ? false,
+  gmp,
+  libxml2,
+  stoken,
+  zlib,
+  vpnc-scripts,
+  PCSC,
+  useDefaultExternalBrowser ? stdenv.isLinux && stdenv.buildPlatform
+    == stdenv.hostPlatform # xdg-utils doesn't cross-compile
+  ,
+  xdg-utils,
+  autoreconfHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openconnect";

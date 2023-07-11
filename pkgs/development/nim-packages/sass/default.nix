@@ -1,4 +1,8 @@
-{ buildNimPackage, fetchFromGitHub, libsass }:
+{
+  buildNimPackage,
+  fetchFromGitHub,
+  libsass,
+}:
 
 buildNimPackage rec {
   pname = "sass";

@@ -1,5 +1,14 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, home-assistant-bluetooth
-, mac-vendor-lookup, poetry-core, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  home-assistant-bluetooth,
+  mac-vendor-lookup,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "ibeacon-ble";

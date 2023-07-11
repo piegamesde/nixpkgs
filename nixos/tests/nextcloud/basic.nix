@@ -1,6 +1,13 @@
-args@{ pkgs, nextcloudVersion ? 22, ... }:
+args@{
+  pkgs,
+  nextcloudVersion ? 22,
+  ...
+}:
 
-(import ../make-test-python.nix ({ pkgs, ... }:
+(import ../make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
     adminpass = "notproduction";
     adminuser = "root";
@@ -10,25 +17,31 @@ args@{ pkgs, nextcloudVersion ? 22, ... }:
 
     nodes = rec {
       # The only thing the client needs to do is download a file.
-      client = { ... }: {
-        services.davfs2.enable = true;
-        system.activationScripts.davfs2-secrets = ''
-          echo "http://nextcloud/remote.php/webdav/ ${adminuser} ${adminpass}" > /tmp/davfs2-secrets
-          chmod 600 /tmp/davfs2-secrets
-        '';
-        virtualisation.fileSystems = {
-          "/mnt/dav" = {
-            device = "http://nextcloud/remote.php/webdav/";
-            fsType = "davfs";
-            options = let
-              davfs2Conf =
-                (pkgs.writeText "davfs2.conf" "secrets /tmp/davfs2-secrets");
-            in [ "conf=${davfs2Conf}" "x-systemd.automount" "noauto" ];
+      client = {
+          ...
+        }: {
+          services.davfs2.enable = true;
+          system.activationScripts.davfs2-secrets = ''
+            echo "http://nextcloud/remote.php/webdav/ ${adminuser} ${adminpass}" > /tmp/davfs2-secrets
+            chmod 600 /tmp/davfs2-secrets
+          '';
+          virtualisation.fileSystems = {
+            "/mnt/dav" = {
+              device = "http://nextcloud/remote.php/webdav/";
+              fsType = "davfs";
+              options = let
+                davfs2Conf =
+                  (pkgs.writeText "davfs2.conf" "secrets /tmp/davfs2-secrets");
+              in [ "conf=${davfs2Conf}" "x-systemd.automount" "noauto" ];
+            };
           };
         };
-      };
 
-      nextcloud = { config, pkgs, ... }:
+      nextcloud = {
+          config,
+          pkgs,
+          ...
+        }:
         let cfg = config;
         in {
           networking.firewall.allowedTCPPorts = [ 80 ];
@@ -60,14 +73,22 @@ args@{ pkgs, nextcloudVersion ? 22, ... }:
           environment.systemPackages = [ cfg.services.nextcloud.occ ];
         };
 
-      nextcloudWithoutMagick = args@{ config, pkgs, lib, ... }:
+      nextcloudWithoutMagick = args@{
+          config,
+          pkgs,
+          lib,
+          ...
+        }:
         lib.mkMerge [
           (nextcloud args)
           { services.nextcloud.enableImagemagick = false; }
         ];
     };
 
-    testScript = { nodes, ... }:
+    testScript = {
+        nodes,
+        ...
+      }:
       let
         withRcloneEnv = pkgs.writeScript "with-rclone-env" ''
           #!${pkgs.runtimeShell}

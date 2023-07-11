@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, meson, pkg-config, wayland-scanner, ninja, cairo
-, libinput, pango, wayland, wayland-protocols, libxkbcommon }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  pkg-config,
+  wayland-scanner,
+  ninja,
+  cairo,
+  libinput,
+  pango,
+  wayland,
+  wayland-protocols,
+  libxkbcommon,
+}:
 
 stdenv.mkDerivation rec {
   pname = "wshowkeys-unstable";

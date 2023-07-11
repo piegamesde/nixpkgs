@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libffi, libxml2, zlib, withManual ? true
-, withHTML ? true, llvmPackages, python3 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libffi,
+  libxml2,
+  zlib,
+  withManual ? true,
+  withHTML ? true,
+  llvmPackages,
+  python3,
+}:
 
 let
   inherit (llvmPackages) libclang llvm;

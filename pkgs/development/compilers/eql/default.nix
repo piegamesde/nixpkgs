@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchgit, qt4, ecl, xorgserver, xkbcomp, xkeyboard_config }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  qt4,
+  ecl,
+  xorgserver,
+  xkbcomp,
+  xkeyboard_config,
+}:
 
 stdenv.mkDerivation rec {
   version = "unstable-2012-12-10";

@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core
-, pytestCheckHook, pycodestyle, pyyaml }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  pytestCheckHook,
+  pycodestyle,
+  pyyaml,
+}:
 
 buildPythonPackage rec {
   pname = "tinydb";

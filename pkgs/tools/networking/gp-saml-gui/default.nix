@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, buildPythonPackage, webkitgtk, wrapGAppsHook
-, glib-networking, gobject-introspection, openconnect, pygobject3, requests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPythonPackage,
+  webkitgtk,
+  wrapGAppsHook,
+  glib-networking,
+  gobject-introspection,
+  openconnect,
+  pygobject3,
+  requests,
+}:
 buildPythonPackage rec {
   pname = "gp-saml-gui";
   version = "0.1";

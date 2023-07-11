@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, gfortran, blas, lapack }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  gfortran,
+  blas,
+  lapack,
+}:
 
 assert !blas.isILP64;
 assert !lapack.isILP64;

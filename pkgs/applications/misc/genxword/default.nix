@@ -1,5 +1,13 @@
-{ lib, python3, fetchFromGitHub, gettext, gobject-introspection, wrapGAppsHook
-, pango, gtksourceview3 }:
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  gettext,
+  gobject-introspection,
+  wrapGAppsHook,
+  pango,
+  gtksourceview3,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "genxword";

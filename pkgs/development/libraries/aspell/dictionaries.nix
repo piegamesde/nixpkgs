@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, aspell, which, writeScript }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  aspell,
+  which,
+  writeScript,
+}:
 
 /* HOWTO:
 
@@ -33,7 +40,11 @@ let
   /* Function to compile an Aspell dictionary.  Fortunately, they all
      build in the exact same way.
   */
-  buildDict = { shortName, fullName, ... }@args:
+  buildDict = {
+      shortName,
+      fullName,
+      ...
+    }@args:
 
     stdenv.mkDerivation ({
       name = "aspell-dict-${shortName}";
@@ -55,8 +66,14 @@ let
       } // (args.meta or { });
     } // removeAttrs args [ "meta" ]);
 
-  buildOfficialDict =
-    { language, version, filename, fullName, sha256, ... }@args:
+  buildOfficialDict = {
+      language,
+      version,
+      filename,
+      fullName,
+      sha256,
+      ...
+    }@args:
     let
       buildArgs = {
         shortName = "${language}-${version}";
@@ -130,7 +147,10 @@ let
     in buildDict buildArgs;
 
   # Function to compile txt dict files into Aspell dictionaries.
-  buildTxtDict = { langInputs ? [ ], ... }@args:
+  buildTxtDict = {
+      langInputs ? [ ],
+      ...
+    }@args:
     buildDict ({
       propagatedUserEnvPackages = langInputs;
 

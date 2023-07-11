@@ -1,4 +1,11 @@
-{ lib, stdenvNoCC, fetchFromGitHub, makeWrapper, jq, glow }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  makeWrapper,
+  jq,
+  glow,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "xdg-ninja";

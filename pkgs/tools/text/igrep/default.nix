@@ -1,4 +1,12 @@
-{ lib, rustPlatform, fetchFromGitHub, stdenv, Security, testers, igrep }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  stdenv,
+  Security,
+  testers,
+  igrep,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "igrep";

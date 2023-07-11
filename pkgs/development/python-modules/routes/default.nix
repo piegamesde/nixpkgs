@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, repoze_lru, six, soupsieve, webob }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  repoze_lru,
+  six,
+  soupsieve,
+  webob,
+}:
 
 buildPythonPackage rec {
   pname = "routes";

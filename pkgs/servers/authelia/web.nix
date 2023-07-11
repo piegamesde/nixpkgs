@@ -1,4 +1,7 @@
-{ buildNpmPackage, fetchFromGitHub }:
+{
+  buildNpmPackage,
+  fetchFromGitHub,
+}:
 
 let
   inherit (import ./sources.nix { inherit fetchFromGitHub; })

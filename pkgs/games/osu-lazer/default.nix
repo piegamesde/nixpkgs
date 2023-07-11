@@ -1,6 +1,20 @@
-{ lib, stdenvNoCC, buildDotnetModule, fetchFromGitHub, makeDesktopItem
-, copyDesktopItems, ffmpeg, alsa-lib, SDL2, lttng-ust, numactl
-, dotnetCorePackages, libglvnd, xorg, udev }:
+{
+  lib,
+  stdenvNoCC,
+  buildDotnetModule,
+  fetchFromGitHub,
+  makeDesktopItem,
+  copyDesktopItems,
+  ffmpeg,
+  alsa-lib,
+  SDL2,
+  lttng-ust,
+  numactl,
+  dotnetCorePackages,
+  libglvnd,
+  xorg,
+  udev,
+}:
 
 buildDotnetModule rec {
   pname = "osu-lazer";

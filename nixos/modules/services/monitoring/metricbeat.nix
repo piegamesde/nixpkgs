@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) attrValues literalExpression mkEnableOption mkIf mkOption types;
@@ -37,21 +42,24 @@ in {
           See <https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-modules.html>.
         '';
         default = { };
-        type = types.attrsOf (types.submodule ({ name, ... }: {
-          freeformType = settingsFormat.type;
-          options = {
-            module = mkOption {
-              type = types.str;
-              default = name;
-              description = lib.mdDoc ''
-                The name of the module.
+        type = types.attrsOf (types.submodule ({
+            name,
+            ...
+          }: {
+            freeformType = settingsFormat.type;
+            options = {
+              module = mkOption {
+                type = types.str;
+                default = name;
+                description = lib.mdDoc ''
+                  The name of the module.
 
-                Look for the value after `module:` on the individual
-                module pages linked from <https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-modules.html>.
-              '';
+                  Look for the value after `module:` on the individual
+                  module pages linked from <https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-modules.html>.
+                '';
+              };
             };
-          };
-        }));
+          }));
         example = {
           system = {
             metricsets = [

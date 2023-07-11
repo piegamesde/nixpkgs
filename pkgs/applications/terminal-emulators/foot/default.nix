@@ -1,9 +1,32 @@
-{ stdenv, lib, fetchFromGitea, fetchurl, runCommand, fcft, freetype, pixman
-, libxkbcommon, fontconfig, wayland, meson, ninja, ncurses, scdoc, tllist
-, wayland-protocols, wayland-scanner, pkg-config, utf8proc
-, allowPgo ? !stdenv.hostPlatform.isMusl, python3 # for PGO
-# for clang stdenv check
-, foot, llvmPackages, llvmPackages_latest }:
+{
+  stdenv,
+  lib,
+  fetchFromGitea,
+  fetchurl,
+  runCommand,
+  fcft,
+  freetype,
+  pixman,
+  libxkbcommon,
+  fontconfig,
+  wayland,
+  meson,
+  ninja,
+  ncurses,
+  scdoc,
+  tllist,
+  wayland-protocols,
+  wayland-scanner,
+  pkg-config,
+  utf8proc,
+  allowPgo ? !stdenv.hostPlatform.isMusl,
+  python3 # for PGO
+  # for clang stdenv check
+  ,
+  foot,
+  llvmPackages,
+  llvmPackages_latest,
+}:
 
 let
   version = "1.14.0";

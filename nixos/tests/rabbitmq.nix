@@ -1,6 +1,9 @@
 # This test runs rabbitmq and checks if rabbitmq is up and running.
 
-import ./make-test-python.nix ({ pkgs, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    ...
+  }:
   let
     # in real life, you would keep this out of your repo and deploy it to a safe
     # location using safe means.

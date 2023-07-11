@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchurl, cups, dpkg, gnused, makeWrapper, ghostscript, file
-, a2ps, coreutils, gawk }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cups,
+  dpkg,
+  gnused,
+  makeWrapper,
+  ghostscript,
+  file,
+  a2ps,
+  coreutils,
+  gawk,
+}:
 
 let
   version = "3.0.1-1";

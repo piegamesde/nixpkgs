@@ -1,4 +1,11 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub, makeWrapper, iproute2, nettools
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  iproute2,
+  nettools,
 }:
 
 buildGoModule rec {

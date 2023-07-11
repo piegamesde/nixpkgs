@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, writeText, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  writeText,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mediawiki";

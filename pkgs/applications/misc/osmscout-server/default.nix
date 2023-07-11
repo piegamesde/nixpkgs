@@ -1,6 +1,24 @@
-{ lib, mkDerivation, fetchFromGitHub, pkg-config, qmake, qttools, kirigami2
-, qtquickcontrols2, qtlocation, libosmscout, valhalla, libpostal, osrm-backend
-, protobuf, libmicrohttpd, sqlite, marisa, kyotocabinet, boost }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  pkg-config,
+  qmake,
+  qttools,
+  kirigami2,
+  qtquickcontrols2,
+  qtlocation,
+  libosmscout,
+  valhalla,
+  libpostal,
+  osrm-backend,
+  protobuf,
+  libmicrohttpd,
+  sqlite,
+  marisa,
+  kyotocabinet,
+  boost,
+}:
 
 let
   date = fetchFromGitHub {

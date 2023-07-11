@@ -1,6 +1,17 @@
-{ lib, buildPythonPackage, pythonOlder, fetchPypi, google-api-python-client
-, google-auth-oauthlib, jupyterhub, mwoauth, pyjwt, pytest-asyncio
-, pytestCheckHook, requests-mock }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchPypi,
+  google-api-python-client,
+  google-auth-oauthlib,
+  jupyterhub,
+  mwoauth,
+  pyjwt,
+  pytest-asyncio,
+  pytestCheckHook,
+  requests-mock,
+}:
 
 buildPythonPackage rec {
   pname = "oauthenticator";

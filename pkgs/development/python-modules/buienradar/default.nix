@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, docopt, pytz, requests
-, setuptools, vincenty, xmltodict, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  docopt,
+  pytz,
+  requests,
+  setuptools,
+  vincenty,
+  xmltodict,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "buienradar";

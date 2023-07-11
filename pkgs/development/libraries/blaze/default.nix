@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromBitbucket, cmake, blas, lapack-reference }:
+{
+  lib,
+  stdenv,
+  fetchFromBitbucket,
+  cmake,
+  blas,
+  lapack-reference,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "blaze";

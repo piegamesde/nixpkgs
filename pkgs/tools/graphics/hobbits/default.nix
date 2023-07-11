@@ -1,5 +1,16 @@
-{ lib, stdenv, mkDerivation, fetchFromGitHub, cmake, pkg-config, pffft, libpcap
-, libusb1, python3, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  pffft,
+  libpcap,
+  libusb1,
+  python3,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "hobbits";

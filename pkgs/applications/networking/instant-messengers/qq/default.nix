@@ -1,7 +1,27 @@
-{ alsa-lib, cups, dpkg, fetchurl, gjs, glib, gtk3, lib, libappindicator, libdrm
-, libgcrypt, libkrb5, mesa # for libgbm
-, nss, xorg, systemd, stdenv, vips, at-spi2-core, autoPatchelfHook
-, wrapGAppsHook }:
+{
+  alsa-lib,
+  cups,
+  dpkg,
+  fetchurl,
+  gjs,
+  glib,
+  gtk3,
+  lib,
+  libappindicator,
+  libdrm,
+  libgcrypt,
+  libkrb5,
+  mesa # for libgbm
+  ,
+  nss,
+  xorg,
+  systemd,
+  stdenv,
+  vips,
+  at-spi2-core,
+  autoPatchelfHook,
+  wrapGAppsHook,
+}:
 
 let
   version = "3.1.1-11223";

@@ -3,8 +3,21 @@
 #
 # https://github.com/Chinachu/node-aribts/blob/af84dbbbd81ea80b946e538083b64b5b2dc7e8f2/package.json#L26
 
-{ lib, stdenvNoCC, bash, fetchFromGitHub, gitUpdater, jq, makeWrapper
-, mkYarnPackage, which, writers, v4l-utils, yarn, yarn2nix }:
+{
+  lib,
+  stdenvNoCC,
+  bash,
+  fetchFromGitHub,
+  gitUpdater,
+  jq,
+  makeWrapper,
+  mkYarnPackage,
+  which,
+  writers,
+  v4l-utils,
+  yarn,
+  yarn2nix,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "mirakurun";

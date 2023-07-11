@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchurl, isPyPy, isPy3k }:
+{
+  lib,
+  buildPythonPackage,
+  fetchurl,
+  isPyPy,
+  isPy3k,
+}:
 
 buildPythonPackage rec {
   version = "0.4.10";

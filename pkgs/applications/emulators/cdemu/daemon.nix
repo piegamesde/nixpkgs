@@ -1,4 +1,10 @@
-{ callPackage, glib, libao, intltool, libmirage }:
+{
+  callPackage,
+  glib,
+  libao,
+  intltool,
+  libmirage,
+}:
 let
   pkg = import ./base.nix {
     version = "3.2.5";

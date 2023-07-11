@@ -1,4 +1,11 @@
-{ stdenv, lib, python3, fetchFromGitHub, fetchPypi, git, spdx-license-list-data
+{
+  stdenv,
+  lib,
+  python3,
+  fetchFromGitHub,
+  fetchPypi,
+  git,
+  spdx-license-list-data,
 }:
 
 with python3.pkgs;

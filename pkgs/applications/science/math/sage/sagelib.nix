@@ -1,14 +1,79 @@
-{ sage-src, env-locations, perl, buildPythonPackage, m4, arb, blas, lapack
-, brial, cliquer, cypari2, cysignals, cython, lisp-compiler, eclib, ecm, flint
-, gd, giac, givaro, glpk, gsl, iml, jinja2, libpng, lcalc, lrcalc, gap, linbox
-, m4ri, m4rie, memory-allocator, libmpc, mpfi, ntl, numpy, pari
-, pkgconfig # the python module, not the pkg-config alias
-, pkg-config, planarity, ppl, primecountpy, python, ratpoints, readline
-, rankwidth, symmetrica, zn_poly, fflas-ffpack, boost, singular, pip
-, jupyter-core, sage-setup, libhomfly, libbraiding, gmpy2, pplpy, sqlite
-, jupyter-client, ipywidgets, mpmath, rpy2, fpylll, scipy, sympy, matplotlib
-, pillow, ipykernel, networkx, ptyprocess, lrcalc-python
-, sphinx # TODO: this is in setup.cfg, should we override it?
+{
+  sage-src,
+  env-locations,
+  perl,
+  buildPythonPackage,
+  m4,
+  arb,
+  blas,
+  lapack,
+  brial,
+  cliquer,
+  cypari2,
+  cysignals,
+  cython,
+  lisp-compiler,
+  eclib,
+  ecm,
+  flint,
+  gd,
+  giac,
+  givaro,
+  glpk,
+  gsl,
+  iml,
+  jinja2,
+  libpng,
+  lcalc,
+  lrcalc,
+  gap,
+  linbox,
+  m4ri,
+  m4rie,
+  memory-allocator,
+  libmpc,
+  mpfi,
+  ntl,
+  numpy,
+  pari,
+  pkgconfig # the python module, not the pkg-config alias
+  ,
+  pkg-config,
+  planarity,
+  ppl,
+  primecountpy,
+  python,
+  ratpoints,
+  readline,
+  rankwidth,
+  symmetrica,
+  zn_poly,
+  fflas-ffpack,
+  boost,
+  singular,
+  pip,
+  jupyter-core,
+  sage-setup,
+  libhomfly,
+  libbraiding,
+  gmpy2,
+  pplpy,
+  sqlite,
+  jupyter-client,
+  ipywidgets,
+  mpmath,
+  rpy2,
+  fpylll,
+  scipy,
+  sympy,
+  matplotlib,
+  pillow,
+  ipykernel,
+  networkx,
+  ptyprocess,
+  lrcalc-python,
+  sphinx # TODO: this is in setup.cfg, should we override it?
+  ,
 }:
 
 assert (!blas.isILP64) && (!lapack.isILP64);

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools, numpy, tqdm, pytestCheckHook
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  numpy,
+  tqdm,
+  pytestCheckHook,
 }:
 
 buildPythonPackage rec {

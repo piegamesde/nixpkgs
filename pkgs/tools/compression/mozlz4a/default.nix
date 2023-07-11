@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, python3, runtimeShell }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3,
+  runtimeShell,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mozlz4a";

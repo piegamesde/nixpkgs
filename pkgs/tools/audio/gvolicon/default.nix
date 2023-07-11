@@ -1,5 +1,16 @@
-{ lib, stdenv, makeWrapper, alsa-lib, pkg-config, fetchFromGitHub, gtk3, gnome
-, gdk-pixbuf, librsvg, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  alsa-lib,
+  pkg-config,
+  fetchFromGitHub,
+  gtk3,
+  gnome,
+  gdk-pixbuf,
+  librsvg,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation {
   pname = "gvolicon";

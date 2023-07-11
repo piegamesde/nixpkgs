@@ -1,4 +1,11 @@
-{ lib, fetchFromGitHub, gobject-introspection, gtk3, python3, wrapGAppsHook }:
+{
+  lib,
+  fetchFromGitHub,
+  gobject-introspection,
+  gtk3,
+  python3,
+  wrapGAppsHook,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "gshogi";

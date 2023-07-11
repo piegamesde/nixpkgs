@@ -1,14 +1,30 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, pythonOlder
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder
 
-# build
-, autoPatchelfHook
+  # build
+  ,
+  autoPatchelfHook
 
-# runtime
-, openssl_1_1
+  # runtime
+  ,
+  openssl_1_1
 
-# propagates
-, coloredlogs, construct, dacite, rich, pyyaml, ipdb, deprecation, mobly
-, pygobject3 }:
+  # propagates
+  ,
+  coloredlogs,
+  construct,
+  dacite,
+  rich,
+  pyyaml,
+  ipdb,
+  deprecation,
+  mobly,
+  pygobject3,
+}:
 
 buildPythonPackage rec {
   pname = "home-assistant-chip-core";

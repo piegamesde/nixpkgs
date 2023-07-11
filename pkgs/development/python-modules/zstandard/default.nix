@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, cffi, hypothesis, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cffi,
+  hypothesis,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "zstandard";

@@ -1,4 +1,8 @@
-{ lib, fetchgit, formats }:
+{
+  lib,
+  fetchgit,
+  formats,
+}:
 with lib;
 let json = formats.json { };
 in rec {

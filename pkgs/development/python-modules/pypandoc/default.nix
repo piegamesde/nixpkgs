@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pandoc, pandocfilters, pythonOlder
-, substituteAll, texlive }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pandoc,
+  pandocfilters,
+  pythonOlder,
+  substituteAll,
+  texlive,
+}:
 
 buildPythonPackage rec {
   pname = "pypandoc";

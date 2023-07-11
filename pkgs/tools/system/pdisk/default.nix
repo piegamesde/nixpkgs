@@ -1,5 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, fetchpatch, installShellFiles, libbsd
-, CoreFoundation, IOKit }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  installShellFiles,
+  libbsd,
+  CoreFoundation,
+  IOKit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pdisk";

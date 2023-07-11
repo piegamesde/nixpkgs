@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchurl, makeWrapper, pkg-config, kronosnet, nss, nspr, libqb
-, systemd, dbus, rdma-core, libstatgrab, net-snmp, enableDbus ? false
-, enableInfiniBandRdma ? false, enableMonitoring ? false, enableSnmp ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  pkg-config,
+  kronosnet,
+  nss,
+  nspr,
+  libqb,
+  systemd,
+  dbus,
+  rdma-core,
+  libstatgrab,
+  net-snmp,
+  enableDbus ? false,
+  enableInfiniBandRdma ? false,
+  enableMonitoring ? false,
+  enableSnmp ? false
+}:
 
 with lib;
 

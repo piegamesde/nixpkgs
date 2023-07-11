@@ -1,5 +1,18 @@
-{ lib, stdenv, cmake, boost, bison, flex, fetchFromGitHub, perl, python3
-, python3Packages, zlib, minisat, cryptominisat }:
+{
+  lib,
+  stdenv,
+  cmake,
+  boost,
+  bison,
+  flex,
+  fetchFromGitHub,
+  perl,
+  python3,
+  python3Packages,
+  zlib,
+  minisat,
+  cryptominisat,
+}:
 
 stdenv.mkDerivation rec {
   pname = "stp";

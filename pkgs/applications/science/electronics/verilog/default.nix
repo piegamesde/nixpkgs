@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, autoconf, bison, bzip2, flex, gperf, ncurses
-, perl, readline, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoconf,
+  bison,
+  bzip2,
+  flex,
+  gperf,
+  ncurses,
+  perl,
+  readline,
+  zlib,
+}:
 
 let
   # iverilog-test has been merged to the main iverilog main source tree

@@ -55,10 +55,21 @@
    and show you a shell with a prefixed prompt.
 */
 
-{ mkDerivation, substituteAll, pkgs }:
-{ stdenv ? pkgs.stdenv, name, buildInputs ? [ ], propagatedBuildInputs ? [ ]
-, gcc ? stdenv.cc, extraCmds ? "", cleanupCmds ? ""
-, shell ? "${pkgs.bashInteractive}/bin/bash --norc" }:
+{
+  mkDerivation,
+  substituteAll,
+  pkgs,
+}:
+{
+  stdenv ? pkgs.stdenv,
+  name,
+  buildInputs ? [ ],
+  propagatedBuildInputs ? [ ],
+  gcc ? stdenv.cc,
+  extraCmds ? "",
+  cleanupCmds ? "",
+  shell ? "${pkgs.bashInteractive}/bin/bash --norc"
+}:
 
 mkDerivation {
   inherit buildInputs propagatedBuildInputs;

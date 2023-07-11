@@ -1,4 +1,9 @@
-{ stdenvNoCC, lib, fetchFromGitHub, makeFontsConf }:
+{
+  stdenvNoCC,
+  lib,
+  fetchFromGitHub,
+  makeFontsConf,
+}:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "uosc";

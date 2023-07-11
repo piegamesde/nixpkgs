@@ -1,4 +1,10 @@
-{ lib, stdenv, poetryLib, python, isLinux ? stdenv.isLinux }:
+{
+  lib,
+  stdenv,
+  poetryLib,
+  python,
+  isLinux ? stdenv.isLinux
+}:
 let
   inherit (lib.strings)
     escapeRegex hasPrefix hasSuffix hasInfix splitString removePrefix
@@ -57,7 +63,11 @@ let
       ++ (findBestMatches vs candidates);
 
   # x = "cpXX" | "py2" | "py3" | "py2.py3"
-  isPyVersionCompatible = pyver@{ major, minor, tags }:
+  isPyVersionCompatible = pyver@{
+      major,
+      minor,
+      tags,
+    }:
     x:
     let
       isCompat = m:

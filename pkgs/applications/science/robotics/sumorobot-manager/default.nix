@@ -1,5 +1,14 @@
-{ lib, stdenv, python3, qt5, fetchFromGitHub, wrapPython, pyqt5, pyserial
-, dos2unix }:
+{
+  lib,
+  stdenv,
+  python3,
+  qt5,
+  fetchFromGitHub,
+  wrapPython,
+  pyqt5,
+  pyserial,
+  dos2unix,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sumorobot-manager";

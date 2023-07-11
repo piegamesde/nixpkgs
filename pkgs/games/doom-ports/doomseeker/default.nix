@@ -1,5 +1,17 @@
-{ lib, stdenv, mkDerivation, cmake, fetchFromBitbucket, pkg-config, qtbase
-, qttools, qtmultimedia, zlib, bzip2, xxd }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  cmake,
+  fetchFromBitbucket,
+  pkg-config,
+  qtbase,
+  qttools,
+  qtmultimedia,
+  zlib,
+  bzip2,
+  xxd,
+}:
 
 mkDerivation {
   pname = "doomseeker";

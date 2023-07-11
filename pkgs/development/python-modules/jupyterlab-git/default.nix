@@ -1,6 +1,20 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, git, jupyter-server
-, jupyter-packaging, jupyterlab, nbdime, nbformat, pexpect, pytest-asyncio
-, pytest-tornasync, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  git,
+  jupyter-server,
+  jupyter-packaging,
+  jupyterlab,
+  nbdime,
+  nbformat,
+  pexpect,
+  pytest-asyncio,
+  pytest-tornasync,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "jupyterlab-git";

@@ -1,4 +1,8 @@
-{ stdenv, lib, fetchurl }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+}:
 
 let
   os = if stdenv.isDarwin then "macos" else "linux";

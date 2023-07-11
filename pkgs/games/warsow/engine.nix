@@ -1,5 +1,21 @@
-{ stdenv, lib, substituteAll, fetchurl, cmake, libogg, libvorbis, libtheora
-, curl, freetype, libjpeg, libpng, SDL2, libGL, openal, zlib }:
+{
+  stdenv,
+  lib,
+  substituteAll,
+  fetchurl,
+  cmake,
+  libogg,
+  libvorbis,
+  libtheora,
+  curl,
+  freetype,
+  libjpeg,
+  libpng,
+  SDL2,
+  libGL,
+  openal,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "warsow-engine";

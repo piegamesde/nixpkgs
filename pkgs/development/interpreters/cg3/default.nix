@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, runCommand, dieHook, cmake, icu, boost }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  runCommand,
+  dieHook,
+  cmake,
+  icu,
+  boost,
+}:
 
 let
   cg3 = stdenv.mkDerivation rec {

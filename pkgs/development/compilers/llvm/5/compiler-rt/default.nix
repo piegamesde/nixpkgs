@@ -1,5 +1,15 @@
-{ lib, stdenv, llvm_meta, version, fetch, cmake, python3, libllvm, libcxxabi
-, doFakeLibgcc ? stdenv.hostPlatform.isFreeBSD }:
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  version,
+  fetch,
+  cmake,
+  python3,
+  libllvm,
+  libcxxabi,
+  doFakeLibgcc ? stdenv.hostPlatform.isFreeBSD
+}:
 
 let
 

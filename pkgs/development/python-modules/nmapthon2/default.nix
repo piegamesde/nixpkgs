@@ -1,5 +1,11 @@
-{ lib, appdirs, buildPythonPackage, fetchFromGitHub, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  appdirs,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "nmapthon2";

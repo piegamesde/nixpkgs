@@ -1,5 +1,18 @@
-{ lib, mkDerivation, fetchFromGitHub, pkg-config, symlinkJoin, qmake
-, diffPlugins, qtbase, qtmultimedia, taglib, libmediainfo, libzen, libbass }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  pkg-config,
+  symlinkJoin,
+  qmake,
+  diffPlugins,
+  qtbase,
+  qtmultimedia,
+  taglib,
+  libmediainfo,
+  libzen,
+  libbass,
+}:
 
 let
   version = "2019-04-23";

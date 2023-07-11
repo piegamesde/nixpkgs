@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, fetchpatch, hatchling
-, platformdirs, traitlets, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  fetchpatch,
+  hatchling,
+  platformdirs,
+  traitlets,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "jupyter-core";

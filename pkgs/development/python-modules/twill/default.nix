@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, lxml, requests, pyparsing, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  lxml,
+  requests,
+  pyparsing,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "twill";

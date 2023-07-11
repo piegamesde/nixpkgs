@@ -1,4 +1,10 @@
-{ coq, mkCoqDerivation, mathcomp, lib, version ? null }:
+{
+  coq,
+  mkCoqDerivation,
+  mathcomp,
+  lib,
+  version ? null
+}:
 
 mkCoqDerivation {
 

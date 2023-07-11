@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, futures ? null, gevent, mock
-, pytestCheckHook, tornado, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  futures ? null,
+  gevent,
+  mock,
+  pytestCheckHook,
+  tornado,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "opentracing";

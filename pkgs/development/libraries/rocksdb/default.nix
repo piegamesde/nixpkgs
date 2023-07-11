@@ -1,7 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, ninja, bzip2, lz4, snappy
-, zlib, zstd, windows, enableJemalloc ? false, jemalloc, enableLite ? false
-, enableShared ? !stdenv.hostPlatform.isStatic
-, sse42Support ? stdenv.hostPlatform.sse4_2Support }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  ninja,
+  bzip2,
+  lz4,
+  snappy,
+  zlib,
+  zstd,
+  windows,
+  enableJemalloc ? false,
+  jemalloc,
+  enableLite ? false,
+  enableShared ? !stdenv.hostPlatform.isStatic,
+  sse42Support ? stdenv.hostPlatform.sse4_2Support
+}:
 
 stdenv.mkDerivation rec {
   pname = "rocksdb";

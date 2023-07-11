@@ -1,6 +1,25 @@
-{ stdenv, fetchzip, lib, wrapGAppsHook, xdg-utils, which, alsa-lib, atk, cairo
-, fontconfig, gdk-pixbuf, glib, gst_all_1, gtk3, libSM, libX11, libXtst
-, libpng12, pango, zlib }:
+{
+  stdenv,
+  fetchzip,
+  lib,
+  wrapGAppsHook,
+  xdg-utils,
+  which,
+  alsa-lib,
+  atk,
+  cairo,
+  fontconfig,
+  gdk-pixbuf,
+  glib,
+  gst_all_1,
+  gtk3,
+  libSM,
+  libX11,
+  libXtst,
+  libpng12,
+  pango,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "transcribe";

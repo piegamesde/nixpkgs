@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchurl, fetchzip, jdk11, unzip, makeWrapper, makeDesktopItem
-, copyDesktopItems }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchzip,
+  jdk11,
+  unzip,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+}:
 
 stdenv.mkDerivation rec {
   pname = "conduktor";

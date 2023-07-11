@@ -1,5 +1,14 @@
-{ version, lib, stdenv, pkgsCross, testers, cloudflared, runCommand, wine
-, wine64 }:
+{
+  version,
+  lib,
+  stdenv,
+  pkgsCross,
+  testers,
+  cloudflared,
+  runCommand,
+  wine,
+  wine64,
+}:
 
 let inherit (stdenv) buildPlatform;
 in {

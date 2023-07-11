@@ -1,11 +1,27 @@
-{ lib, stdenv
-# The unwrapped libreoffice derivation
-, unwrapped, makeWrapper, xorg # for lndir
-, runCommand, substituteAll
-# For Emulating wrapGAppsHook
-, gsettings-desktop-schemas, hicolor-icon-theme, dconf, librsvg, gdk-pixbuf
-# Configuration options for the wrapper
-, extraMakeWrapperArgs ? [ ], dbusVerify ? stdenv.isLinux, dbus }:
+{
+  lib,
+  stdenv
+  # The unwrapped libreoffice derivation
+  ,
+  unwrapped,
+  makeWrapper,
+  xorg # for lndir
+  ,
+  runCommand,
+  substituteAll
+  # For Emulating wrapGAppsHook
+  ,
+  gsettings-desktop-schemas,
+  hicolor-icon-theme,
+  dconf,
+  librsvg,
+  gdk-pixbuf
+  # Configuration options for the wrapper
+  ,
+  extraMakeWrapperArgs ? [ ],
+  dbusVerify ? stdenv.isLinux,
+  dbus,
+}:
 
 let
   inherit (unwrapped.srcs.primary) major minor;

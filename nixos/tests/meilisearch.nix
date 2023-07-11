@@ -1,4 +1,8 @@
-import ./make-test-python.nix ({ pkgs, lib, ... }:
+import ./make-test-python.nix ({
+    pkgs,
+    lib,
+    ...
+  }:
   let
     listenAddress = "127.0.0.1";
     listenPort = 7700;
@@ -14,13 +18,15 @@ import ./make-test-python.nix ({ pkgs, lib, ... }:
     name = "meilisearch";
     meta.maintainers = with lib.maintainers; [ Br1ght0ne ];
 
-    nodes.machine = { ... }: {
-      environment.systemPackages = with pkgs; [ curl jq ];
-      services.meilisearch = {
-        enable = true;
-        inherit listenAddress listenPort;
+    nodes.machine = {
+        ...
+      }: {
+        environment.systemPackages = with pkgs; [ curl jq ];
+        services.meilisearch = {
+          enable = true;
+          inherit listenAddress listenPort;
+        };
       };
-    };
 
     testScript = ''
       import json

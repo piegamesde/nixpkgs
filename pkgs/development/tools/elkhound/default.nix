@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, bison, cmake, flex, perl }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  bison,
+  cmake,
+  flex,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "elkhound";

@@ -1,5 +1,13 @@
-{ lib, buildGoModule, fetchFromGitHub, asciidoctor, installShellFiles, git
-, testers, git-lfs }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  asciidoctor,
+  installShellFiles,
+  git,
+  testers,
+  git-lfs,
+}:
 
 buildGoModule rec {
   pname = "git-lfs";

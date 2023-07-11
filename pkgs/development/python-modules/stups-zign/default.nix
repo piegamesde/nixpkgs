@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, stups-tokens
-, stups-cli-support, pytest, pytest-cov, isPy3k }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  stups-tokens,
+  stups-cli-support,
+  pytest,
+  pytest-cov,
+  isPy3k,
+}:
 
 buildPythonPackage rec {
   pname = "stups-zign";

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages, x11vnc, xrandr, libGL, qt5 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+  x11vnc,
+  xrandr,
+  libGL,
+  qt5,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "virtscreen";

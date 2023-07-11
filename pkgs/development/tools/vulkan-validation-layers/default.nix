@@ -1,6 +1,22 @@
-{ lib, callPackage, stdenv, fetchFromGitHub, cmake, pkg-config, jq, glslang
-, libffi, libX11, libXau, libxcb, libXdmcp, libXrandr, spirv-headers
-, vulkan-headers, wayland }:
+{
+  lib,
+  callPackage,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  jq,
+  glslang,
+  libffi,
+  libX11,
+  libXau,
+  libxcb,
+  libXdmcp,
+  libXrandr,
+  spirv-headers,
+  vulkan-headers,
+  wayland,
+}:
 
 let
   robin-hood-hashing = callPackage ./robin-hood-hashing.nix { };

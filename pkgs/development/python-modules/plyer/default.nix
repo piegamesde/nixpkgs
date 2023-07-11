@@ -1,5 +1,13 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, fetchpatch, keyring, mock
-, pytestCheckHook }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  keyring,
+  mock,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "plyer";

@@ -1,8 +1,27 @@
-{ lib, stdenv, callPackage, cmake, ninja, git, swift, swiftpm2nix, Foundation
-, XCTest, sqlite, ncurses, substituteAll, runCommandLocal, makeWrapper
-, DarwinTools # sw_vers
-, cctools # vtool
-, xcbuild, CryptoKit, LocalAuthentication }:
+{
+  lib,
+  stdenv,
+  callPackage,
+  cmake,
+  ninja,
+  git,
+  swift,
+  swiftpm2nix,
+  Foundation,
+  XCTest,
+  sqlite,
+  ncurses,
+  substituteAll,
+  runCommandLocal,
+  makeWrapper,
+  DarwinTools # sw_vers
+  ,
+  cctools # vtool
+  ,
+  xcbuild,
+  CryptoKit,
+  LocalAuthentication,
+}:
 
 let
 

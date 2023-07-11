@@ -1,4 +1,6 @@
-{ ... }:
+{
+  ...
+}:
 
 {
   imports = [ ./user-account.nix ];

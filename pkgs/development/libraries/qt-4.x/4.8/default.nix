@@ -1,14 +1,61 @@
-{ stdenv, lib, fetchurl, fetchpatch, substituteAll, libXrender, libXinerama
-, libXcursor, libXv, libXext, libXfixes, libXrandr, libSM, freetype, fontconfig
-, zlib, libjpeg, libpng, libmng, which, libGLU, openssl, dbus, cups, pkg-config
-, libtiff, glib, icu, libmysqlclient, postgresql, sqlite, perl, coreutils, libXi
-, alsa-lib, libGLSupported ?
-  lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms
-, gtkStyle ? stdenv.hostPlatform == stdenv.buildPlatform, gtk2, gdk-pixbuf
-, gnomeStyle ? false, libgnomeui, GConf, gnome_vfs, developerBuild ? false
-, docs ? false, examples ? false, demos ? false
-  # darwin support
-, libobjc, ApplicationServices, OpenGL, Cocoa, AGL, libcxx }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  substituteAll,
+  libXrender,
+  libXinerama,
+  libXcursor,
+  libXv,
+  libXext,
+  libXfixes,
+  libXrandr,
+  libSM,
+  freetype,
+  fontconfig,
+  zlib,
+  libjpeg,
+  libpng,
+  libmng,
+  which,
+  libGLU,
+  openssl,
+  dbus,
+  cups,
+  pkg-config,
+  libtiff,
+  glib,
+  icu,
+  libmysqlclient,
+  postgresql,
+  sqlite,
+  perl,
+  coreutils,
+  libXi,
+  alsa-lib,
+  libGLSupported ?
+    lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
+  gtkStyle ? stdenv.hostPlatform == stdenv.buildPlatform,
+  gtk2,
+  gdk-pixbuf,
+  gnomeStyle ? false,
+  libgnomeui,
+  GConf,
+  gnome_vfs,
+  developerBuild ? false,
+  docs ? false,
+  examples ? false,
+  demos ? false
+    # darwin support
+  ,
+  libobjc,
+  ApplicationServices,
+  OpenGL,
+  Cocoa,
+  AGL,
+  libcxx,
+}:
 
 # TODO:
 #  * move some plugins (e.g., SQL plugins) to dedicated derivations to avoid

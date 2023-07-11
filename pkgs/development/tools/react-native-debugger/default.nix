@@ -1,7 +1,33 @@
-{ lib, stdenv, fetchurl, unzip, cairo, xorg, gdk-pixbuf, fontconfig, pango
-, gnome, atk, at-spi2-atk, at-spi2-core, gtk3, glib, freetype, dbus, nss, nspr
-, alsa-lib, cups, expat, udev, makeDesktopItem, libdrm, libxkbcommon, mesa
-, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  cairo,
+  xorg,
+  gdk-pixbuf,
+  fontconfig,
+  pango,
+  gnome,
+  atk,
+  at-spi2-atk,
+  at-spi2-core,
+  gtk3,
+  glib,
+  freetype,
+  dbus,
+  nss,
+  nspr,
+  alsa-lib,
+  cups,
+  expat,
+  udev,
+  makeDesktopItem,
+  libdrm,
+  libxkbcommon,
+  mesa,
+  makeWrapper,
+}:
 
 let
   rpath = lib.makeLibraryPath [

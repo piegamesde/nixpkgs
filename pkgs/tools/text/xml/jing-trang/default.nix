@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, jre_headless, jdk_headless, ant, saxon }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jre_headless,
+  jdk_headless,
+  ant,
+  saxon,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jing-trang";

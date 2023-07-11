@@ -1,10 +1,26 @@
-{ lib, stdenv, fetchurl, autoconf269, automake, libtool
-# libs
-, cjson, db, gmp, libxml2, ncurses
-# docs
-, help2man, texinfo, texlive
-# test
-, writeText }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoconf269,
+  automake,
+  libtool
+  # libs
+  ,
+  cjson,
+  db,
+  gmp,
+  libxml2,
+  ncurses
+  # docs
+  ,
+  help2man,
+  texinfo,
+  texlive
+  # test
+  ,
+  writeText,
+}:
 
 stdenv.mkDerivation rec {
   pname = "gnu-cobol";

@@ -1,8 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, cmake, curl, openssl, zlib, aws-crt-cpp
-, CoreAudio, AudioToolbox
-, # Allow building a limited set of APIs, e.g. ["s3" "ec2"].
-apis ? [ "*" ], # Whether to enable AWS' custom memory management.
-customMemoryManagement ? true }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  curl,
+  openssl,
+  zlib,
+  aws-crt-cpp,
+  CoreAudio,
+  AudioToolbox, # Allow building a limited set of APIs, e.g. ["s3" "ec2"].
+  apis ? [ "*" ], # Whether to enable AWS' custom memory management.
+  customMemoryManagement ? true
+}:
 
 let
   host_os = if stdenv.hostPlatform.isDarwin then

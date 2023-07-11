@@ -1,8 +1,21 @@
-args@{ lib, stdenv, clwrapper, baseName, packageName ? baseName, parasites ? [ ]
-, buildSystems ? ([ packageName ] ++ parasites), version ? "latest", src
-, description, deps, buildInputs ? [ ], meta ? { }, overrides ? (x: { })
-, propagatedBuildInputs ? [ ]
-, asdFilesToKeep ? [ (builtins.concatStringsSep "" [ packageName ".asd" ]) ] }:
+args@{
+  lib,
+  stdenv,
+  clwrapper,
+  baseName,
+  packageName ? baseName,
+  parasites ? [ ],
+  buildSystems ? ([ packageName ] ++ parasites),
+  version ? "latest",
+  src,
+  description,
+  deps,
+  buildInputs ? [ ],
+  meta ? { },
+  overrides ? (x: { }),
+  propagatedBuildInputs ? [ ],
+  asdFilesToKeep ? [ (builtins.concatStringsSep "" [ packageName ".asd" ]) ]
+}:
 let
   deployConfigScript = ''
     outhash="$out"

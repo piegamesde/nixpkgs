@@ -1,13 +1,63 @@
-{ lib, fetchFromGitHub, fetchpatch, callPackage, pkg-config, cmake, ninja
-, python3, wrapGAppsHook, wrapQtAppsHook, extra-cmake-modules, qtbase, qtwayland
-, qtsvg, qtimageformats, qt5compat, gtk3, libdbusmenu, lz4, xxHash, ffmpeg
-, openalSoft, minizip, libopus, alsa-lib, libpulseaudio, pipewire, range-v3
-, tl-expected, hunspell, glibmm_2_68, webkitgtk_6_0, jemalloc, rnnoise, protobuf
-, abseil-cpp
-# Transitive dependencies:
-, util-linuxMinimal, pcre, libpthreadstubs, libXdamage, libXdmcp, libselinux
-, libsepol, libepoxy, at-spi2-core, libXtst, libthai, libdatrie, xdg-utils, xorg
-, libsysprof-capture, libpsl, brotli, microsoft_gsl, rlottie, stdenv }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  callPackage,
+  pkg-config,
+  cmake,
+  ninja,
+  python3,
+  wrapGAppsHook,
+  wrapQtAppsHook,
+  extra-cmake-modules,
+  qtbase,
+  qtwayland,
+  qtsvg,
+  qtimageformats,
+  qt5compat,
+  gtk3,
+  libdbusmenu,
+  lz4,
+  xxHash,
+  ffmpeg,
+  openalSoft,
+  minizip,
+  libopus,
+  alsa-lib,
+  libpulseaudio,
+  pipewire,
+  range-v3,
+  tl-expected,
+  hunspell,
+  glibmm_2_68,
+  webkitgtk_6_0,
+  jemalloc,
+  rnnoise,
+  protobuf,
+  abseil-cpp
+  # Transitive dependencies:
+  ,
+  util-linuxMinimal,
+  pcre,
+  libpthreadstubs,
+  libXdamage,
+  libXdmcp,
+  libselinux,
+  libsepol,
+  libepoxy,
+  at-spi2-core,
+  libXtst,
+  libthai,
+  libdatrie,
+  xdg-utils,
+  xorg,
+  libsysprof-capture,
+  libpsl,
+  brotli,
+  microsoft_gsl,
+  rlottie,
+  stdenv,
+}:
 
 # Main reference:
 # - This package was originally based on the Arch package but all patches are now upstreamed:

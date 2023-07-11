@@ -1,7 +1,31 @@
-{ lib, stdenv, fetchFromGitHub, testers, wrapGAppsHook, bash-completion, dbus
-, dbus-glib, fish, gdk-pixbuf, glib, gobject-introspection, gtk-layer-shell
-, gtk3, json-glib, libgee, libhandy, libpulseaudio, librsvg, meson, ninja
-, pkg-config, python3, scdoc, vala, xvfb-run }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  testers,
+  wrapGAppsHook,
+  bash-completion,
+  dbus,
+  dbus-glib,
+  fish,
+  gdk-pixbuf,
+  glib,
+  gobject-introspection,
+  gtk-layer-shell,
+  gtk3,
+  json-glib,
+  libgee,
+  libhandy,
+  libpulseaudio,
+  librsvg,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  scdoc,
+  vala,
+  xvfb-run,
+}:
 
 stdenv.mkDerivation (finalAttrs: rec {
   pname = "SwayNotificationCenter";

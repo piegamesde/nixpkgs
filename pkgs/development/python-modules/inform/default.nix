@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, flit-core, arrow, six, hypothesis
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  flit-core,
+  arrow,
+  six,
+  hypothesis,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "inform";

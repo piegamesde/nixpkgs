@@ -1,7 +1,20 @@
-{ version, sha256, patches ? [ ], patchFlags ? [ ] }:
-{ stdenv, lib, fetchurl, fixDarwinDylibNames
-# Cross-compiled icu4c requires a build-root of a native compile
-, buildRootOnly ? false, nativeBuildRoot, testers }:
+{
+  version,
+  sha256,
+  patches ? [ ],
+  patchFlags ? [ ]
+}:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fixDarwinDylibNames
+  # Cross-compiled icu4c requires a build-root of a native compile
+  ,
+  buildRootOnly ? false,
+  nativeBuildRoot,
+  testers,
+}:
 
 let
   pname = "icu4c";

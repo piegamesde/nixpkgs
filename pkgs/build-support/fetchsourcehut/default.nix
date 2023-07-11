@@ -1,7 +1,19 @@
-{ fetchgit, fetchhg, fetchzip, lib }:
+{
+  fetchgit,
+  fetchhg,
+  fetchzip,
+  lib,
+}:
 
-{ owner, repo, rev, domain ? "sr.ht", vc ? "git", name ? "source"
-, fetchSubmodules ? false, ... # For hash agility
+{
+  owner,
+  repo,
+  rev,
+  domain ? "sr.ht",
+  vc ? "git",
+  name ? "source",
+  fetchSubmodules ? false,
+  ... # For hash agility
 }@args:
 
 with lib;

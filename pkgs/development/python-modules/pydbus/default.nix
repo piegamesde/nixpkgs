@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, pygobject3 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pygobject3,
+}:
 
 buildPythonPackage rec {
   pname = "pydbus";

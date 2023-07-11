@@ -1,7 +1,15 @@
-{ pkgs ? import <nixpkgs> { }, lib ? pkgs.lib }:
+{
+  pkgs ? import <nixpkgs> { },
+  lib ? pkgs.lib
+}:
 
 let
-  addBuildSystem = { self, drv, attr, extraAttrs ? [ ] }:
+  addBuildSystem = {
+      self,
+      drv,
+      attr,
+      extraAttrs ? [ ]
+    }:
     let
       buildSystem = if builtins.isAttrs attr then
         let
@@ -931,8 +939,10 @@ in lib.composeManyExtensions [
         '';
       });
 
-      libvirt-python = super.libvirt-python.overridePythonAttrs
-        ({ nativeBuildInputs ? [ ], ... }: {
+      libvirt-python = super.libvirt-python.overridePythonAttrs ({
+          nativeBuildInputs ? [ ],
+          ...
+        }: {
           nativeBuildInputs = nativeBuildInputs ++ [ pkg-config ];
           propagatedBuildInputs = [ pkgs.libvirt ];
         });
@@ -2181,8 +2191,11 @@ in lib.composeManyExtensions [
       # the complexity manageable for now.
       tokenizers = super.tokenizers.override { preferWheel = true; };
 
-      torch = lib.makeOverridable ({ enableCuda ? false
-        , cudatoolkit ? pkgs.cudatoolkit_10_1, pkg ? super.torch }:
+      torch = lib.makeOverridable ({
+          enableCuda ? false,
+          cudatoolkit ? pkgs.cudatoolkit_10_1,
+          pkg ? super.torch
+        }:
         pkg.overrideAttrs (old: {
           preConfigure = if (!enableCuda) then ''
             export USE_CUDA=0
@@ -2204,8 +2217,11 @@ in lib.composeManyExtensions [
             [ self.numpy self.future self.typing-extensions ];
         })) { };
 
-      torchvision = lib.makeOverridable ({ enableCuda ? false
-        , cudatoolkit ? pkgs.cudatoolkit_10_1, pkg ? super.torchvision }:
+      torchvision = lib.makeOverridable ({
+          enableCuda ? false,
+          cudatoolkit ? pkgs.cudatoolkit_10_1,
+          pkg ? super.torchvision
+        }:
         pkg.overrideAttrs (old: {
 
           # without that autoPatchelfHook will fail because cudatoolkit is not in LD_LIBRARY_PATH

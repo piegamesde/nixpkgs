@@ -1,6 +1,22 @@
-{ lib, buildPythonPackage, fetchPypi, curtsies, cwcwidth, greenlet, jedi
-, pygments, pytestCheckHook, pythonOlder, pyperclip, pyxdg, requests
-, substituteAll, typing-extensions, urwid, watchdog }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  curtsies,
+  cwcwidth,
+  greenlet,
+  jedi,
+  pygments,
+  pytestCheckHook,
+  pythonOlder,
+  pyperclip,
+  pyxdg,
+  requests,
+  substituteAll,
+  typing-extensions,
+  urwid,
+  watchdog,
+}:
 
 buildPythonPackage rec {
   pname = "bpython";

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, click, fetchFromGitHub, pytest-asyncio
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  click,
+  fetchFromGitHub,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pywizlight";

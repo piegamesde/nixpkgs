@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitLab, tetex }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  tetex,
+}:
 
 stdenv.mkDerivation {
   pname = "mmixware";

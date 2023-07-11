@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, freeglut, lapack, libusb1
-, blas, zlib, eigen }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  freeglut,
+  lapack,
+  libusb1,
+  blas,
+  zlib,
+  eigen,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libsurvive";

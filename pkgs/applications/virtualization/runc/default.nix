@@ -1,5 +1,18 @@
-{ lib, fetchFromGitHub, buildGoModule, go-md2man, installShellFiles, pkg-config
-, which, libapparmor, libseccomp, libselinux, makeWrapper, procps, nixosTests }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  go-md2man,
+  installShellFiles,
+  pkg-config,
+  which,
+  libapparmor,
+  libseccomp,
+  libselinux,
+  makeWrapper,
+  procps,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "runc";

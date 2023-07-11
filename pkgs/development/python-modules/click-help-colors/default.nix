@@ -1,4 +1,10 @@
-{ lib, fetchPypi, buildPythonPackage, click, pytestCheckHook }:
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  click,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "click-help-colors";

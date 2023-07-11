@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, gmp, jpcre2, pcre2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gmp,
+  jpcre2,
+  pcre2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "rnm";

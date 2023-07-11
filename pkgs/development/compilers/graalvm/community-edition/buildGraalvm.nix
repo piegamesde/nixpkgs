@@ -1,7 +1,26 @@
-{ lib, stdenv, alsa-lib, autoPatchelfHook, cairo, cups, darwin, fontconfig, glib
-, gtk3, makeWrapper, setJavaClassPath, unzip, xorg, zlib
-# extra params
-, javaVersion, meta ? { }, products ? [ ], gtkSupport ? stdenv.isLinux, ...
+{
+  lib,
+  stdenv,
+  alsa-lib,
+  autoPatchelfHook,
+  cairo,
+  cups,
+  darwin,
+  fontconfig,
+  glib,
+  gtk3,
+  makeWrapper,
+  setJavaClassPath,
+  unzip,
+  xorg,
+  zlib
+  # extra params
+  ,
+  javaVersion,
+  meta ? { },
+  products ? [ ],
+  gtkSupport ? stdenv.isLinux,
+  ...
 }@args:
 
 let

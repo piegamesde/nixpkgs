@@ -1,5 +1,12 @@
-{ lib, buildPythonApplication, fetchFromGitHub, configargparse, setuptools
-, poetry-core, rbw }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  configargparse,
+  setuptools,
+  poetry-core,
+  rbw,
+}:
 
 buildPythonApplication rec {
   pname = "rofi-rbw";

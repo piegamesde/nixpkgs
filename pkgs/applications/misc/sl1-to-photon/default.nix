@@ -1,5 +1,13 @@
-{ lib, buildPythonApplication, fetchFromGitHub, pillow, pyside2, numpy
-, pyphotonfile, shiboken2 }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  pillow,
+  pyside2,
+  numpy,
+  pyphotonfile,
+  shiboken2,
+}:
 let version = "0.1.3";
 in buildPythonApplication rec {
   pname = "sl1-to-photon";

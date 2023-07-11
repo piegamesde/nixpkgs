@@ -1,6 +1,10 @@
-{ system ? builtins.currentSystem, config ? { }
-, pkgs ? import ../../.. { inherit system config; }, lib ? pkgs.lib
-, kernelVersionsToTest ? [ "4.19" "5.4" "5.10" "5.15" "latest" ] }:
+{
+  system ? builtins.currentSystem,
+  config ? { },
+  pkgs ? import ../../.. { inherit system config; },
+  lib ? pkgs.lib,
+  kernelVersionsToTest ? [ "4.19" "5.4" "5.10" "5.15" "latest" ]
+}:
 
 # For quickly running a test, the nixosTests.lvm2.lvm-thinpool-linux-latest attribute is recommended
 let

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, alsa-lib, audiofile, gtk2, libxml2 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  alsa-lib,
+  audiofile,
+  gtk2,
+  libxml2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "soundmodem";

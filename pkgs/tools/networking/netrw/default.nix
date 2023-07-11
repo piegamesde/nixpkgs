@@ -1,5 +1,11 @@
-{ lib, stdenv, fetchurl, checksumType ? "built-in", libmhash ? null
-, openssl ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  checksumType ? "built-in",
+  libmhash ? null,
+  openssl ? null
+}:
 
 assert checksumType == "mhash" -> libmhash != null;
 assert checksumType == "openssl" -> openssl != null;

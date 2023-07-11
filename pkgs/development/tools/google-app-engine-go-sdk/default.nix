@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchzip, python3Packages, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  python3Packages,
+  makeWrapper,
+}:
 
 with python3Packages;
 

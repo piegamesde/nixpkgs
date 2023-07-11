@@ -1,10 +1,24 @@
-{ lib, stdenv, fetchurl, fetchpatch
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch
 
-# dependencies
-, cyrus_sasl, db, groff, libsodium, libtool, openssl, systemdMinimal, libxcrypt
+  # dependencies
+  ,
+  cyrus_sasl,
+  db,
+  groff,
+  libsodium,
+  libtool,
+  openssl,
+  systemdMinimal,
+  libxcrypt
 
-# passthru
-, nixosTests }:
+  # passthru
+  ,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openldap";

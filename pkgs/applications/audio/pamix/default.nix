@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config, cmake, libpulseaudio
-, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  cmake,
+  libpulseaudio,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pamix";

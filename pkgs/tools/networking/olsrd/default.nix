@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, bison, flex }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  bison,
+  flex,
+}:
 
 stdenv.mkDerivation rec {
   pname = "olsrd";

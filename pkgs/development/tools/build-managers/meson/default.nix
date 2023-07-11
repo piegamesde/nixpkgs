@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchpatch, installShellFiles, ninja, pkg-config, python3, zlib
-, coreutils, substituteAll, Foundation, OpenGL, AppKit, Cocoa, libxcrypt }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  installShellFiles,
+  ninja,
+  pkg-config,
+  python3,
+  zlib,
+  coreutils,
+  substituteAll,
+  Foundation,
+  OpenGL,
+  AppKit,
+  Cocoa,
+  libxcrypt,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "meson";

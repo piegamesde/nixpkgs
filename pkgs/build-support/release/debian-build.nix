@@ -1,10 +1,19 @@
 # This function compiles a source tarball in a virtual machine image
 # that contains a Debian-like (i.e. dpkg-based) OS.
 
-{ name ? "debian-build", diskImage, src, lib, stdenv, vmTools, checkinstall
-, fsTranslation ? false, # Features provided by this package.
-debProvides ? [ ], # Features required by this package.
-debRequires ? [ ], ... }@args:
+{
+  name ? "debian-build",
+  diskImage,
+  src,
+  lib,
+  stdenv,
+  vmTools,
+  checkinstall,
+  fsTranslation ? false, # Features provided by this package.
+  debProvides ? [ ], # Features required by this package.
+  debRequires ? [ ],
+  ...
+}@args:
 
 vmTools.runInLinuxImage (stdenv.mkDerivation (
 

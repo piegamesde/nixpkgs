@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchpatch, fetchPypi, flake8, mock, pep8
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchpatch,
+  fetchPypi,
+  flake8,
+  mock,
+  pep8,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "flake8-polyfill";

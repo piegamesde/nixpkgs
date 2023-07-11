@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, simdExtensions ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  simdExtensions ? null
+}:
 
 with rec {
   # SIMD instruction sets to compile for. If none are specified by the user,

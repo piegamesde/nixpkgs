@@ -1,5 +1,13 @@
-{ lib, writeText, writeCBin, writeShellScript, makeWrapper, runCommand, which
-, ... }:
+{
+  lib,
+  writeText,
+  writeCBin,
+  writeShellScript,
+  makeWrapper,
+  runCommand,
+  which,
+  ...
+}:
 
 let
   # Testfiles
@@ -23,7 +31,11 @@ let
     echo "$@"
   '';
 
-  mkWrapperBinary = { name, args, wrapped ? wrappedBinaryVar }:
+  mkWrapperBinary = {
+      name,
+      args,
+      wrapped ? wrappedBinaryVar
+    }:
     runCommand name { nativeBuildInputs = [ makeWrapper ]; } ''
       mkdir -p $out/bin
       makeWrapper "${wrapped}" "$out/bin/${name}" ${lib.escapeShellArgs args}

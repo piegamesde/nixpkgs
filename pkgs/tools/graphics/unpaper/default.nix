@@ -1,16 +1,27 @@
-{ lib, stdenv, fetchurl
+{
+  lib,
+  stdenv,
+  fetchurl
 
-# build
-, meson, ninja, pkg-config
+  # build
+  ,
+  meson,
+  ninja,
+  pkg-config
 
-# docs
-, sphinx
+  # docs
+  ,
+  sphinx
 
-# runtime
-, buildPackages, ffmpeg_5-headless
+  # runtime
+  ,
+  buildPackages,
+  ffmpeg_5-headless
 
-# tests
-, nixosTests }:
+  # tests
+  ,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "unpaper";

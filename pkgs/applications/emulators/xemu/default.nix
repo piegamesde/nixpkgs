@@ -1,7 +1,30 @@
-{ lib, stdenv, fetchFromGitHub, SDL2, SDL2_image, copyDesktopItems, gettext
-, glib, gtk3, libGLU, libdrm, libepoxy, libpcap, libsamplerate, makeDesktopItem
-, mesa, meson, ninja, openssl, perl, pkg-config, python3, vte, which
-, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  SDL2_image,
+  copyDesktopItems,
+  gettext,
+  glib,
+  gtk3,
+  libGLU,
+  libdrm,
+  libepoxy,
+  libpcap,
+  libsamplerate,
+  makeDesktopItem,
+  mesa,
+  meson,
+  ninja,
+  openssl,
+  perl,
+  pkg-config,
+  python3,
+  vte,
+  which,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "xemu";

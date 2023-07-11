@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, makeWrapper, hadoop, jre, bash }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  hadoop,
+  jre,
+  bash,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pig";

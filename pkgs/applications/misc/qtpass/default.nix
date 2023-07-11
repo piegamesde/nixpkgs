@@ -1,5 +1,18 @@
-{ lib, mkDerivation, fetchFromGitHub, git, gnupg, pass, pwgen, qrencode
-, fetchpatch, qtbase, qtsvg, qttools, qmake }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  git,
+  gnupg,
+  pass,
+  pwgen,
+  qrencode,
+  fetchpatch,
+  qtbase,
+  qtsvg,
+  qttools,
+  qmake,
+}:
 
 mkDerivation rec {
   pname = "qtpass";

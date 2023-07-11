@@ -1,4 +1,10 @@
-{ lib, pkg-config, libappindicator-gtk3, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  pkg-config,
+  libappindicator-gtk3,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "systrayhelper";

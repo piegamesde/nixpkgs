@@ -1,5 +1,14 @@
-{ lib, python2, poetry2nix, docbook_xsl_ns, openssh, cacert
-, nixopsAzurePackages ? [ ], fetchurl, fetchpatch }:
+{
+  lib,
+  python2,
+  poetry2nix,
+  docbook_xsl_ns,
+  openssh,
+  cacert,
+  nixopsAzurePackages ? [ ],
+  fetchurl,
+  fetchpatch,
+}:
 
 let
   inherit (poetry2nix.mkPoetryPackages {

@@ -1,7 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, python
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  python
 
-# python dependencies
-, awacs, cfn-flip, typing-extensions }:
+  # python dependencies
+  ,
+  awacs,
+  cfn-flip,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "troposphere";

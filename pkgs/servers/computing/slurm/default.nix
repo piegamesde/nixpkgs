@@ -1,9 +1,40 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, libtool, curl, python3, munge, perl
-, pam, shadow, coreutils, dbus, libbpf, ncurses, libmysqlclient, lua, hwloc
-, numactl, readline, freeipmi, xorg, lz4, rdma-core, nixosTests, pmix, libjwt
-, libyaml, json_c, http-parser
-# enable internal X11 support via libssh2
-, enableX11 ? true, enableGtk2 ? false, gtk2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  libtool,
+  curl,
+  python3,
+  munge,
+  perl,
+  pam,
+  shadow,
+  coreutils,
+  dbus,
+  libbpf,
+  ncurses,
+  libmysqlclient,
+  lua,
+  hwloc,
+  numactl,
+  readline,
+  freeipmi,
+  xorg,
+  lz4,
+  rdma-core,
+  nixosTests,
+  pmix,
+  libjwt,
+  libyaml,
+  json_c,
+  http-parser
+  # enable internal X11 support via libssh2
+  ,
+  enableX11 ? true,
+  enableGtk2 ? false,
+  gtk2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "slurm";

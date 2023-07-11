@@ -1,5 +1,15 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, kiconthemes
-, kparts, kwindowsystem, kxmlgui, qtx11extras }:
+{
+  mkDerivation,
+  lib,
+  kdepimTeam,
+  extra-cmake-modules,
+  kdoctools,
+  kiconthemes,
+  kparts,
+  kwindowsystem,
+  kxmlgui,
+  qtx11extras,
+}:
 
 mkDerivation {
   pname = "kontactinterface";

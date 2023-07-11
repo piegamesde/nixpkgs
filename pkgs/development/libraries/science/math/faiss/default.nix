@@ -1,13 +1,31 @@
-{ lib, config, fetchFromGitHub, symlinkJoin, stdenv, cmake, cudaPackages ? { }
-, cudaSupport ? config.cudaSupport or false, nvidia-thrust
-, useThrustSourceBuild ? true, pythonSupport ? true, pythonPackages
-, llvmPackages, boost, blas, swig, addOpenGLRunpath, optLevel ? let
-  optLevels = lib.optionals stdenv.hostPlatform.avx2Support [ "avx2" ]
-    ++ lib.optionals stdenv.hostPlatform.sse4_1Support [ "sse4" ]
-    ++ [ "generic" ];
-  # Choose the maximum available optimization level
-in builtins.head optLevels, faiss # To run demos in the tests
-, runCommand }@inputs:
+{
+  lib,
+  config,
+  fetchFromGitHub,
+  symlinkJoin,
+  stdenv,
+  cmake,
+  cudaPackages ? { },
+  cudaSupport ? config.cudaSupport or false,
+  nvidia-thrust,
+  useThrustSourceBuild ? true,
+  pythonSupport ? true,
+  pythonPackages,
+  llvmPackages,
+  boost,
+  blas,
+  swig,
+  addOpenGLRunpath,
+  optLevel ? let
+    optLevels = lib.optionals stdenv.hostPlatform.avx2Support [ "avx2" ]
+      ++ lib.optionals stdenv.hostPlatform.sse4_1Support [ "sse4" ]
+      ++ [ "generic" ];
+    # Choose the maximum available optimization level
+  in builtins.head optLevels,
+  faiss # To run demos in the tests
+  ,
+  runCommand,
+}@inputs:
 
 assert cudaSupport -> nvidia-thrust.cudaSupport;
 

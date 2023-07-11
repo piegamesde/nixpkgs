@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, cmake, removeReferencesTo }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  removeReferencesTo,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.6.3";

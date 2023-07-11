@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, libtool, gettext }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libtool,
+  gettext,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cpufrequtils";

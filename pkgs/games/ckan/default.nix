@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, makeWrapper, mono, gtk2, curl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  mono,
+  gtk2,
+  curl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ckan";

@@ -1,4 +1,8 @@
-{ test, lib, ... }: {
+{
+  test,
+  lib,
+  ...
+}: {
   equal = expected: actual:
     if actual == expected then
       (test.passed "= ${toString expected}")

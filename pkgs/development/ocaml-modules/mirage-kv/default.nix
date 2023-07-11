@@ -1,4 +1,11 @@
-{ lib, fetchurl, buildDunePackage, fmt, lwt, alcotest }:
+{
+  lib,
+  fetchurl,
+  buildDunePackage,
+  fmt,
+  lwt,
+  alcotest,
+}:
 
 buildDunePackage rec {
   pname = "mirage-kv";

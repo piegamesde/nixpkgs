@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchPypi, twisted, passlib, pyparsing
-, service-identity, six, zope_interface, pythonOlder, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  twisted,
+  passlib,
+  pyparsing,
+  service-identity,
+  six,
+  zope_interface,
+  pythonOlder,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "ldaptor";

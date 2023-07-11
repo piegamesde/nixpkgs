@@ -1,4 +1,12 @@
-{ mkDerivation, lib, fetchFromGitHub, pkg-config, qtscript, qmake, libjack2 }:
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  qtscript,
+  qmake,
+  libjack2,
+}:
 
 mkDerivation rec {
   pname = "jamulus";

@@ -1,5 +1,15 @@
-{ lib, amqtt, buildPythonPackage, fetchFromGitHub, orjson, paho-mqtt
-, poetry-core, pytest-asyncio, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  amqtt,
+  buildPythonPackage,
+  fetchFromGitHub,
+  orjson,
+  paho-mqtt,
+  poetry-core,
+  pytest-asyncio,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "roombapy";

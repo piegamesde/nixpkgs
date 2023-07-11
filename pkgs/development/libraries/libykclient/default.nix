@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, help2man, curl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  help2man,
+  curl,
+}:
 
 stdenv.mkDerivation {
   pname = "libykclient";

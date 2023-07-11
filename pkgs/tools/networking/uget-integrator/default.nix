@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, uget, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  uget,
+  python3Packages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "uget-integrator";

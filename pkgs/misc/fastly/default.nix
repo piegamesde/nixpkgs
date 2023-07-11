@@ -1,5 +1,13 @@
-{ lib, fetchurl, fetchFromGitHub, installShellFiles, buildGoModule, go
-, makeWrapper, viceroy }:
+{
+  lib,
+  fetchurl,
+  fetchFromGitHub,
+  installShellFiles,
+  buildGoModule,
+  go,
+  makeWrapper,
+  viceroy,
+}:
 
 buildGoModule rec {
   pname = "fastly";

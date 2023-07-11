@@ -1,5 +1,19 @@
-{ fetchurl, lib, stdenv, libtool, gettext, zlib, readline, gsasl, guile, python3
-, pcre, libffi, groff, libxcrypt }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  libtool,
+  gettext,
+  zlib,
+  readline,
+  gsasl,
+  guile,
+  python3,
+  pcre,
+  libffi,
+  groff,
+  libxcrypt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dico";

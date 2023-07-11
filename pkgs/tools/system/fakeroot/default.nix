@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, fetchpatch, getopt, libcap, gnused, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  getopt,
+  libcap,
+  gnused,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   version = "1.29";

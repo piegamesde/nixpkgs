@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, poetry-core, fetchFromGitHub, pytestCheckHook
-, pythonOlder, click }:
+{
+  lib,
+  buildPythonPackage,
+  poetry-core,
+  fetchFromGitHub,
+  pytestCheckHook,
+  pythonOlder,
+  click,
+}:
 
 buildPythonPackage rec {
   pname = "kml2geojson";

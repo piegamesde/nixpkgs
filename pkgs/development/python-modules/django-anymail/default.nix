@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, six, requests, django, boto3, python
-, mock, pytestCheckHook, pytest-django }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  six,
+  requests,
+  django,
+  boto3,
+  python,
+  mock,
+  pytestCheckHook,
+  pytest-django,
+}:
 
 buildPythonPackage rec {
   pname = "django-anymail";

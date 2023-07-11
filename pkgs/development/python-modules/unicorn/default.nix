@@ -1,4 +1,10 @@
-{ lib, stdenv, buildPythonPackage, setuptools, unicorn-emu }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  setuptools,
+  unicorn-emu,
+}:
 
 buildPythonPackage rec {
   pname = "unicorn";

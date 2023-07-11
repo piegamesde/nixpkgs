@@ -1,5 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, buildDotnetModule, dotnetCorePackages
-, unstableGitUpdater }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildDotnetModule,
+  dotnetCorePackages,
+  unstableGitUpdater,
+}:
 
 buildDotnetModule rec {
   pname = "formula-dotnet";

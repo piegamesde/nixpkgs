@@ -1,5 +1,21 @@
-{ buildPythonPackage, lib, fetchFromGitLab, writeTextFile, fetchurl, blas
-, lapack, mpi, scalapack, libxc, libvdwxc, which, ase, numpy, scipy, pyyaml }:
+{
+  buildPythonPackage,
+  lib,
+  fetchFromGitLab,
+  writeTextFile,
+  fetchurl,
+  blas,
+  lapack,
+  mpi,
+  scalapack,
+  libxc,
+  libvdwxc,
+  which,
+  ase,
+  numpy,
+  scipy,
+  pyyaml,
+}:
 
 assert lib.asserts.assertMsg (!blas.isILP64)
   "A 32 bit integer implementation of BLAS is required.";

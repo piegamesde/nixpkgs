@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, base58
-, py-multibase, py-multicodec, morphys, py-multihash, hypothesis }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  pytestCheckHook,
+  base58,
+  py-multibase,
+  py-multicodec,
+  morphys,
+  py-multihash,
+  hypothesis,
+}:
 
 buildPythonPackage rec {
   pname = "py-cid";

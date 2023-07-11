@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, flex, bison, libmhash, zlib, acl, attr, libselinux
-, pcre }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  flex,
+  bison,
+  libmhash,
+  zlib,
+  acl,
+  attr,
+  libselinux,
+  pcre,
+}:
 
 stdenv.mkDerivation rec {
   pname = "aide";

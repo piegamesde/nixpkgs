@@ -1,6 +1,18 @@
-{ lib, stdenv, cython, async-timeout, buildPythonPackage, fetchFromGitHub
-, ifaddr, poetry-core, pytest-asyncio, pytest-timeout, pythonOlder
-, pytestCheckHook, setuptools }:
+{
+  lib,
+  stdenv,
+  cython,
+  async-timeout,
+  buildPythonPackage,
+  fetchFromGitHub,
+  ifaddr,
+  poetry-core,
+  pytest-asyncio,
+  pytest-timeout,
+  pythonOlder,
+  pytestCheckHook,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "zeroconf";

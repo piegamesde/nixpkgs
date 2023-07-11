@@ -1,4 +1,13 @@
-{ lib, stdenv, runCommand, fetchFromGitHub, ninja, nodejs, python3, ... }:
+{
+  lib,
+  stdenv,
+  runCommand,
+  fetchFromGitHub,
+  ninja,
+  nodejs,
+  python3,
+  ...
+}:
 let build-bs-platform = import ./build-bs-platform.nix;
 in (build-bs-platform rec {
   inherit lib stdenv runCommand fetchFromGitHub ninja nodejs python3;

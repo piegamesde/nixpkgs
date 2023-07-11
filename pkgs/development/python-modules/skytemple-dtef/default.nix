@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pillow, pytestCheckHook, pythonOlder
-, skytemple-files }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pillow,
+  pytestCheckHook,
+  pythonOlder,
+  skytemple-files,
+}:
 
 buildPythonPackage rec {
   pname = "skytemple-dtef";

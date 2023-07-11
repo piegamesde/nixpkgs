@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 # openafsMod, openafsBin, mkCellServDB
 with import ./lib.nix { inherit config lib pkgs; };

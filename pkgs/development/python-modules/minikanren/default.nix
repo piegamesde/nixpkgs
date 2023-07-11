@@ -1,5 +1,16 @@
-{ lib, buildPythonPackage, fetchFromGitHub, toolz, cons, multipledispatch
-, etuples, logical-unification, py, pytestCheckHook, pytest-html }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  toolz,
+  cons,
+  multipledispatch,
+  etuples,
+  logical-unification,
+  py,
+  pytestCheckHook,
+  pytest-html,
+}:
 
 buildPythonPackage rec {
   pname = "minikanren";

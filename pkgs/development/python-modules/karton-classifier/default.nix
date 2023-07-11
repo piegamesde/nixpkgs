@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, chardet, fetchFromGitHub, karton-core
-, pytestCheckHook, python-magic, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  chardet,
+  fetchFromGitHub,
+  karton-core,
+  pytestCheckHook,
+  python-magic,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "karton-classifier";

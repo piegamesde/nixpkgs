@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pytest, pytest-flakes, tox }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pytest,
+  pytest-flakes,
+  tox,
+}:
 
 buildPythonPackage rec {
   pname = "pytest-quickcheck";

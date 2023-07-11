@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchurl, fetchpatch, acl, autoreconfHook, avahi, db, ed
-, libevent, libgcrypt, libiconv, libtirpc, openssl, pam, perl, pkg-config
-, python3 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  acl,
+  autoreconfHook,
+  avahi,
+  db,
+  ed,
+  libevent,
+  libgcrypt,
+  libiconv,
+  libtirpc,
+  openssl,
+  pam,
+  perl,
+  pkg-config,
+  python3,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "netatalk";

@@ -1,5 +1,14 @@
-{ buildPythonPackage, cryptography, django, django-appconf, fetchFromGitHub, lib
-, python, pythonOlder, setuptools }:
+{
+  buildPythonPackage,
+  cryptography,
+  django,
+  django-appconf,
+  fetchFromGitHub,
+  lib,
+  python,
+  pythonOlder,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "django-cryptography";

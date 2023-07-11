@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, gtest, fmt, cmake, ninja, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gtest,
+  fmt,
+  cmake,
+  ninja,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ericw-tools";

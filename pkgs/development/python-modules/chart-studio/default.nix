@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchFromGitHub, mock, nose, plotly, pytest, requests
-, retrying, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  mock,
+  nose,
+  plotly,
+  pytest,
+  requests,
+  retrying,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "chart-studio";

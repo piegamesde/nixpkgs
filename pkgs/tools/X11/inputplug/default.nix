@@ -1,4 +1,11 @@
-{ fetchCrate, installShellFiles, lib, libbsd, pkg-config, rustPlatform }:
+{
+  fetchCrate,
+  installShellFiles,
+  lib,
+  libbsd,
+  pkg-config,
+  rustPlatform,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "inputplug";

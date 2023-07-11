@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, Carbon, Cocoa, CoreWLAN, DisplayServices
-, SkyLight }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  Carbon,
+  Cocoa,
+  CoreWLAN,
+  DisplayServices,
+  SkyLight,
+}:
 
 let
   inherit (stdenv.hostPlatform) system;

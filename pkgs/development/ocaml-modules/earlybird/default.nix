@@ -1,6 +1,22 @@
-{ lib, fetchFromGitHub, ocaml, buildDunePackage, cmdliner, dap, fmt, iter, logs
-, lru, lwt_ppx, lwt_react, menhir, menhirLib, path_glob, ppx_deriving_yojson
-, gitUpdater }:
+{
+  lib,
+  fetchFromGitHub,
+  ocaml,
+  buildDunePackage,
+  cmdliner,
+  dap,
+  fmt,
+  iter,
+  logs,
+  lru,
+  lwt_ppx,
+  lwt_react,
+  menhir,
+  menhirLib,
+  path_glob,
+  ppx_deriving_yojson,
+  gitUpdater,
+}:
 
 if lib.versionAtLeast ocaml.version "4.13" then
   throw "earlybird is not available for OCaml ${ocaml.version}"

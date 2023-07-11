@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, protobuf, grpcio, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  protobuf,
+  grpcio,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "grpcio-tools";

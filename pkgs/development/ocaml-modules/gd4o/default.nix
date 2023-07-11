@@ -1,4 +1,15 @@
-{ lib, stdenv, fetchurl, ocaml, gd, freetype, findlib, zlib, libpng, libjpeg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  ocaml,
+  gd,
+  freetype,
+  findlib,
+  zlib,
+  libpng,
+  libjpeg,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-gd4o";

@@ -1,5 +1,16 @@
-{ lib, stdenv, autoconf, automake, fetchFromGitHub, glib, intltool, json_c
-, libtool, pkg-config, python3 }:
+{
+  lib,
+  stdenv,
+  autoconf,
+  automake,
+  fetchFromGitHub,
+  glib,
+  intltool,
+  json_c,
+  libtool,
+  pkg-config,
+  python3,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libmypaint";

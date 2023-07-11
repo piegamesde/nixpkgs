@@ -1,8 +1,20 @@
-{ lib, rustPlatform, fetchFromGitHub, stdenv, installShellFiles
-, installShellCompletions ? stdenv.hostPlatform == stdenv.buildPlatform
-, installManPages ? stdenv.hostPlatform == stdenv.buildPlatform, pkg-config
-, Security, libiconv, openssl, notmuch, withImapBackend ? true
-, withNotmuchBackend ? false, withSmtpSender ? true }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  stdenv,
+  installShellFiles,
+  installShellCompletions ? stdenv.hostPlatform == stdenv.buildPlatform,
+  installManPages ? stdenv.hostPlatform == stdenv.buildPlatform,
+  pkg-config,
+  Security,
+  libiconv,
+  openssl,
+  notmuch,
+  withImapBackend ? true,
+  withNotmuchBackend ? false,
+  withSmtpSender ? true
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "himalaya";

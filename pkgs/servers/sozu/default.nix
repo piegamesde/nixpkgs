@@ -1,4 +1,10 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, darwin }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  darwin,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "sozu";

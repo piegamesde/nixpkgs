@@ -1,6 +1,17 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, grantlee
-, kcalendarcore, kconfig, kontactinterface, kcoreaddons, kidentitymanagement
-, kpimtextedit, }:
+{
+  mkDerivation,
+  lib,
+  kdepimTeam,
+  extra-cmake-modules,
+  kdoctools,
+  grantlee,
+  kcalendarcore,
+  kconfig,
+  kontactinterface,
+  kcoreaddons,
+  kidentitymanagement,
+  kpimtextedit,
+}:
 
 mkDerivation {
   pname = "kcalutils";

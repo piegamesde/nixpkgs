@@ -1,14 +1,64 @@
-{ lib, stdenv, requireFile, makeWrapper, autoPatchelfHook, wrapGAppsHook, which
-, more, file, atk, alsa-lib, cairo, fontconfig, gdk-pixbuf, glib, webkitgtk
-, gtk2-x11, gtk3, heimdal, krb5, libsoup, libvorbis, speex, openssl, zlib, xorg
-, pango, gtk2, gnome2, mesa, nss, nspr, gtk_engines, freetype, dconf, libpng12
-, libxml2, libjpeg, libredirect, tzdata, cacert, systemd, libcxxabi, libcxx
-, e2fsprogs, symlinkJoin, libpulseaudio, pcsclite, glib-networking
-, llvmPackages_12
+{
+  lib,
+  stdenv,
+  requireFile,
+  makeWrapper,
+  autoPatchelfHook,
+  wrapGAppsHook,
+  which,
+  more,
+  file,
+  atk,
+  alsa-lib,
+  cairo,
+  fontconfig,
+  gdk-pixbuf,
+  glib,
+  webkitgtk,
+  gtk2-x11,
+  gtk3,
+  heimdal,
+  krb5,
+  libsoup,
+  libvorbis,
+  speex,
+  openssl,
+  zlib,
+  xorg,
+  pango,
+  gtk2,
+  gnome2,
+  mesa,
+  nss,
+  nspr,
+  gtk_engines,
+  freetype,
+  dconf,
+  libpng12,
+  libxml2,
+  libjpeg,
+  libredirect,
+  tzdata,
+  cacert,
+  systemd,
+  libcxxabi,
+  libcxx,
+  e2fsprogs,
+  symlinkJoin,
+  libpulseaudio,
+  pcsclite,
+  glib-networking,
+  llvmPackages_12
 
-, homepage, version, prefix, hash
+  ,
+  homepage,
+  version,
+  prefix,
+  hash
 
-, extraCerts ? [ ] }:
+  ,
+  extraCerts ? [ ]
+}:
 
 let
   openssl' = symlinkJoin {

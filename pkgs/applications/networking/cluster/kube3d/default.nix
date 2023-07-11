@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, installShellFiles, k3sVersion ? null }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  k3sVersion ? null
+}:
 
 let
   hasVPrefix = ver: (builtins.elemAt (lib.stringToCharacters ver) 0) == "v";

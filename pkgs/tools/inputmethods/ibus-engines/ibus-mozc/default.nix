@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, which, ninja, pkg-config, protobuf, ibus, gtk2
-, zinnia, qt5, libxcb, tegaki-zinnia-japanese, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  which,
+  ninja,
+  pkg-config,
+  protobuf,
+  ibus,
+  gtk2,
+  zinnia,
+  qt5,
+  libxcb,
+  tegaki-zinnia-japanese,
+  python3Packages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ibus-mozc";

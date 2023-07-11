@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, rpmextract, makeWrapper, patchelf, qt4, zlib, libX11
-, libXt, libSM, libICE, libXext, libGLU, libGL }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  rpmextract,
+  makeWrapper,
+  patchelf,
+  qt4,
+  zlib,
+  libX11,
+  libXt,
+  libSM,
+  libICE,
+  libXext,
+  libGLU,
+  libGL,
+}:
 
 with lib;
 stdenv.mkDerivation {

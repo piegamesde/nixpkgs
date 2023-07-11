@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitLab, fetchpatch, rustPlatform, desktop-file-utils
-, meson, ninja, pkg-config, wrapGAppsHook, python3, git, glib, gtk4, gst_all_1
-, libadwaita }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  fetchpatch,
+  rustPlatform,
+  desktop-file-utils,
+  meson,
+  ninja,
+  pkg-config,
+  wrapGAppsHook,
+  python3,
+  git,
+  glib,
+  gtk4,
+  gst_all_1,
+  libadwaita,
+}:
 
 stdenv.mkDerivation rec {
   pname = "solanum";

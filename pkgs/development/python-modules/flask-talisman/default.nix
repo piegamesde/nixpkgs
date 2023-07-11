@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, flask, six, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  flask,
+  six,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "flask-talisman";

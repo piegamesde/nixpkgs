@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, gtk2, libexif, pkg-config, texinfo }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  gtk2,
+  libexif,
+  pkg-config,
+  texinfo,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xzgv";

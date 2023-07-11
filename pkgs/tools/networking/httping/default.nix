@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, fftw ? null, gettext, libintl
-, ncurses, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  fftw ? null,
+  gettext,
+  libintl,
+  ncurses,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "httping";

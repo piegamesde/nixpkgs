@@ -1,5 +1,20 @@
-{ lib, stdenv, llvm_meta, monorepoSrc, runCommand, cmake, ninja, llvm
-, targetLlvm, lit, clang-unwrapped, perl, pkg-config, xcbuild, version }:
+{
+  lib,
+  stdenv,
+  llvm_meta,
+  monorepoSrc,
+  runCommand,
+  cmake,
+  ninja,
+  llvm,
+  targetLlvm,
+  lit,
+  clang-unwrapped,
+  perl,
+  pkg-config,
+  xcbuild,
+  version,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openmp";

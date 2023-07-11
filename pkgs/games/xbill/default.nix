@@ -1,5 +1,15 @@
-{ stdenv, lib, makeDesktopItem, copyDesktopItems, fetchurl, libX11, libXpm
-, libXt, motif, ... }:
+{
+  stdenv,
+  lib,
+  makeDesktopItem,
+  copyDesktopItems,
+  fetchurl,
+  libX11,
+  libXpm,
+  libXt,
+  motif,
+  ...
+}:
 
 stdenv.mkDerivation rec {
   pname = "xbill";

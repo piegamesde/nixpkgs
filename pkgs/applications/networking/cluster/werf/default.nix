@@ -1,5 +1,13 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, installShellFiles, btrfs-progs
-, testers, werf }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  installShellFiles,
+  btrfs-progs,
+  testers,
+  werf,
+}:
 
 buildGoModule rec {
   pname = "werf";

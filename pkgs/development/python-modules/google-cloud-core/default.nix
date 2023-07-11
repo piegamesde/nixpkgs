@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, google-api-core, google-auth, grpcio, mock
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  google-api-core,
+  google-auth,
+  grpcio,
+  mock,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "google-cloud-core";

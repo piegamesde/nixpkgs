@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, unbound, openssl, boost, lmdb
-, miniupnpc, readline, git, libsodium, rapidjson, cppzmq }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  unbound,
+  openssl,
+  boost,
+  lmdb,
+  miniupnpc,
+  readline,
+  git,
+  libsodium,
+  rapidjson,
+  cppzmq,
+}:
 
 stdenv.mkDerivation rec {
   pname = "masari";

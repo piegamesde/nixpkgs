@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, pkg-config, libX11, libXft, libXinerama, libXpm }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libX11,
+  libXft,
+  libXinerama,
+  libXpm,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dzen2";

@@ -1,5 +1,15 @@
-{ lib, rustPlatform, fetchCrate, pkg-config, openssl, stdenv, curl
-, CoreFoundation, Security, SystemConfiguration }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  pkg-config,
+  openssl,
+  stdenv,
+  curl,
+  CoreFoundation,
+  Security,
+  SystemConfiguration,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-outdated";

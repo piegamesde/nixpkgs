@@ -1,4 +1,11 @@
-{ lib, stdenv, buildPackages, kernel, pciutils, gettext }:
+{
+  lib,
+  stdenv,
+  buildPackages,
+  kernel,
+  pciutils,
+  gettext,
+}:
 
 stdenv.mkDerivation {
   pname = "cpupower";

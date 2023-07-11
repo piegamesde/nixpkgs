@@ -1,6 +1,20 @@
-{ lib, stdenv, buildPythonPackage, substituteAll, fetchPypi, cython, fontconfig
-, freetype-py, hsluv, kiwisolver, libGL, numpy, pythonOlder, setuptools-scm
-, setuptools-scm-git-archive }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  substituteAll,
+  fetchPypi,
+  cython,
+  fontconfig,
+  freetype-py,
+  hsluv,
+  kiwisolver,
+  libGL,
+  numpy,
+  pythonOlder,
+  setuptools-scm,
+  setuptools-scm-git-archive,
+}:
 
 buildPythonPackage rec {
   pname = "vispy";

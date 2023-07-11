@@ -1,6 +1,24 @@
-{ lib, mkDerivation, fetchFromGitHub, fetchpatch, cmake, pkg-config, glib
-, lxqt-build-tools, qtbase, qtx11extras, qttools, qtsvg, kwindowsystem
-, libkscreen, liblxqt, libqtxdg, xkeyboard_config, xorg, gitUpdater }:
+{
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  pkg-config,
+  glib,
+  lxqt-build-tools,
+  qtbase,
+  qtx11extras,
+  qttools,
+  qtsvg,
+  kwindowsystem,
+  libkscreen,
+  liblxqt,
+  libqtxdg,
+  xkeyboard_config,
+  xorg,
+  gitUpdater,
+}:
 
 mkDerivation rec {
   pname = "lxqt-config";

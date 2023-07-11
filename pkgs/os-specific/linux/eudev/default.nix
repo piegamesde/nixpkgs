@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, gperf, kmod, pkg-config
-, util-linux }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  gperf,
+  kmod,
+  pkg-config,
+  util-linux,
+}:
 
 stdenv.mkDerivation rec {
   pname = "eudev";

@@ -1,6 +1,22 @@
-{ stdenv, lib, fetchFromGitLab, gitUpdater, pkg-config, itstool, gtk3
-, wrapGAppsHook, meson, librsvg, libxml2, desktop-file-utils, guile
-, libcanberra-gtk3, ninja, appstream-glib, yelp-tools }:
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  gitUpdater,
+  pkg-config,
+  itstool,
+  gtk3,
+  wrapGAppsHook,
+  meson,
+  librsvg,
+  libxml2,
+  desktop-file-utils,
+  guile,
+  libcanberra-gtk3,
+  ninja,
+  appstream-glib,
+  yelp-tools,
+}:
 
 stdenv.mkDerivation rec {
   pname = "aisleriot";

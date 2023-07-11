@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, pythonOlder, eventlet
-, gevent, pytestCheckHook, setuptools }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  pythonOlder,
+  eventlet,
+  gevent,
+  pytestCheckHook,
+  setuptools,
+}:
 
 buildPythonPackage rec {
   pname = "gunicorn";

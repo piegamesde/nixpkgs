@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, azure-common, azure-storage-common, isPy3k
-, futures ? null }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  azure-common,
+  azure-storage-common,
+  isPy3k,
+  futures ? null
+}:
 
 buildPythonPackage rec {
   pname = "azure-storage-file";

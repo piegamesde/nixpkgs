@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gtest, openssl, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gtest,
+  openssl,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jesec-libtorrent";

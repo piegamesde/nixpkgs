@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, emoji, fetchFromGitHub, numpy, protobuf, pythonOlder
-, requests, six, torch, tqdm, transformers }:
+{
+  lib,
+  buildPythonPackage,
+  emoji,
+  fetchFromGitHub,
+  numpy,
+  protobuf,
+  pythonOlder,
+  requests,
+  six,
+  torch,
+  tqdm,
+  transformers,
+}:
 
 buildPythonPackage rec {
   pname = "stanza";

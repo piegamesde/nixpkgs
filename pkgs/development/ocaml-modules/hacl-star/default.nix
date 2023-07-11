@@ -1,5 +1,14 @@
-{ lib, buildDunePackage, hacl-star-raw, zarith, cppo, alcotest
-, secp256k1-internal, qcheck-core, cstruct }:
+{
+  lib,
+  buildDunePackage,
+  hacl-star-raw,
+  zarith,
+  cppo,
+  alcotest,
+  secp256k1-internal,
+  qcheck-core,
+  cstruct,
+}:
 
 buildDunePackage {
   pname = "hacl-star";

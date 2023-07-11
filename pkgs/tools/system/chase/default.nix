@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, libatomic_ops, boehmgc }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  libatomic_ops,
+  boehmgc,
+}:
 
 stdenv.mkDerivation rec {
   pname = "chase";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, lcms2, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  lcms2,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libraw";

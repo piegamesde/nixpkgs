@@ -1,5 +1,13 @@
-{ fetchFromGitHub, gcc, lib, libnl, libpcap, pkg-config, stdenv
-, writeShellScriptBin }:
+{
+  fetchFromGitHub,
+  gcc,
+  lib,
+  libnl,
+  libpcap,
+  pkg-config,
+  stdenv,
+  writeShellScriptBin,
+}:
 stdenv.mkDerivation rec {
   pname = "nmrpflash";
   version = "0.9.20";

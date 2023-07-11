@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, fetchpatch, tcl, tk }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  tcl,
+  tk,
+}:
 
 tcl.mkTclDerivation {
   version = "8.4.3";

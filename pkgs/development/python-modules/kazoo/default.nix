@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, six, eventlet, gevent, nose, mock
-, coverage, pkgs }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  six,
+  eventlet,
+  gevent,
+  nose,
+  mock,
+  coverage,
+  pkgs,
+}:
 
 buildPythonPackage rec {
   pname = "kazoo";

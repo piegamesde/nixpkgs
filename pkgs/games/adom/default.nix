@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchurl, patchelf, zlib, libmad, libpng12, libcaca, libGLU
-, libGL, alsa-lib, libpulseaudio, xorg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  patchelf,
+  zlib,
+  libmad,
+  libpng12,
+  libcaca,
+  libGLU,
+  libGL,
+  alsa-lib,
+  libpulseaudio,
+  xorg,
+}:
 
 let
 

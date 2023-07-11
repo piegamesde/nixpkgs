@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, cmake, openssl, pkg-config, qtbase }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  openssl,
+  pkg-config,
+  qtbase,
+}:
 
 stdenv.mkDerivation rec {
   pname = "qca-qt5";

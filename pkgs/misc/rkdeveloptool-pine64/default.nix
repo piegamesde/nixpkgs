@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchurl, meson, pkg-config, libusb1, scdoc, ninja, cmake }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  meson,
+  pkg-config,
+  libusb1,
+  scdoc,
+  ninja,
+  cmake,
+}:
 
 let rev = "cce7d2a5c4efd4e7727c440868141229354b327b";
 in stdenv.mkDerivation {

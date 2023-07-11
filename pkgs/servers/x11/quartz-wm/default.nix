@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, xorg, pixman, pkg-config, AppKit, Foundation, Xplugin
+{
+  lib,
+  stdenv,
+  fetchurl,
+  xorg,
+  pixman,
+  pkg-config,
+  AppKit,
+  Foundation,
+  Xplugin,
 }:
 
 let version = "1.3.1";

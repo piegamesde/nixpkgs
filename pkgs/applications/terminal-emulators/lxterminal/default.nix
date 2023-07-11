@@ -1,6 +1,21 @@
-{ lib, stdenv, fetchFromGitHub, automake, autoconf, intltool, pkg-config, gtk3
-, vte, wrapGAppsHook, libxslt, docbook_xml_dtd_412, docbook_xsl, libxml2
-, findXMLCatalogs, nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  automake,
+  autoconf,
+  intltool,
+  pkg-config,
+  gtk3,
+  vte,
+  wrapGAppsHook,
+  libxslt,
+  docbook_xml_dtd_412,
+  docbook_xsl,
+  libxml2,
+  findXMLCatalogs,
+  nixosTests,
+}:
 
 stdenv.mkDerivation rec {
   pname = "lxterminal";

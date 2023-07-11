@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, bleak, pyyaml
-, voluptuous, pytestCheckHook, pytest-asyncio, poetry-core }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  bleak,
+  pyyaml,
+  voluptuous,
+  pytestCheckHook,
+  pytest-asyncio,
+  poetry-core,
+}:
 
 buildPythonPackage rec {
   pname = "idasen";

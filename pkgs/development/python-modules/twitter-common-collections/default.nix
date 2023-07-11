@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchPypi, twitter-common-lang }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  twitter-common-lang,
+}:
 
 buildPythonPackage rec {
   pname = "twitter.common.collections";

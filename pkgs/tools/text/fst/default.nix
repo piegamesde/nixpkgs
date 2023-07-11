@@ -1,4 +1,10 @@
-{ lib, rustPlatform, fetchCrate, stdenv, libiconv }:
+{
+  lib,
+  rustPlatform,
+  fetchCrate,
+  stdenv,
+  libiconv,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "fst";

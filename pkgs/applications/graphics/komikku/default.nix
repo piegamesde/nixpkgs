@@ -1,6 +1,22 @@
-{ lib, fetchFromGitLab, fetchpatch, desktop-file-utils, gettext, glib
-, gobject-introspection, gtk4, libadwaita, libnotify, webkitgtk_6_0, meson
-, ninja, pkg-config, python3, wrapGAppsHook4, nix-update-script }:
+{
+  lib,
+  fetchFromGitLab,
+  fetchpatch,
+  desktop-file-utils,
+  gettext,
+  glib,
+  gobject-introspection,
+  gtk4,
+  libadwaita,
+  libnotify,
+  webkitgtk_6_0,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  wrapGAppsHook4,
+  nix-update-script,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "komikku";

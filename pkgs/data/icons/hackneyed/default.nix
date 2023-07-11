@@ -1,4 +1,11 @@
-{ lib, fetchzip, stdenvNoCC, fetchFromGitLab, xcursorgen, imagemagick6, inkscape
+{
+  lib,
+  fetchzip,
+  stdenvNoCC,
+  fetchFromGitLab,
+  xcursorgen,
+  imagemagick6,
+  inkscape,
 }:
 
 stdenvNoCC.mkDerivation rec {

@@ -1,4 +1,8 @@
-{ lib, python3, nix-update-script }:
+{
+  lib,
+  python3,
+  nix-update-script,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "shell_gpt";

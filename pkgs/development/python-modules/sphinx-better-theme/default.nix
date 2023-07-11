@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchFromGitHub, sphinxHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  sphinxHook,
+}:
 
 buildPythonPackage rec {
   pname = "sphinx-better-theme";

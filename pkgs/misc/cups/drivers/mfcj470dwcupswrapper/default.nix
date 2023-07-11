@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, mfcj470dwlpr, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  mfcj470dwlpr,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mfcj470dw-cupswrapper";

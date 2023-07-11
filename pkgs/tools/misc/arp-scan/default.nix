@@ -1,5 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, libpcap, makeWrapper
-, perlPackages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  libpcap,
+  makeWrapper,
+  perlPackages,
+}:
 
 stdenv.mkDerivation rec {
   pname = "arp-scan";

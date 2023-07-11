@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, txt2man, which }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  txt2man,
+  which,
+}:
 
 stdenv.mkDerivation rec {
   pname = "retry";

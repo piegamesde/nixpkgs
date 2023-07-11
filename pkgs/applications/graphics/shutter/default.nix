@@ -1,6 +1,18 @@
-{ lib, stdenv, fetchFromGitHub, perlPackages, wrapGAppsHook, imagemagick
-, gdk-pixbuf, librsvg, hicolor-icon-theme, procps, libwnck, libappindicator-gtk3
-, xdg-utils }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perlPackages,
+  wrapGAppsHook,
+  imagemagick,
+  gdk-pixbuf,
+  librsvg,
+  hicolor-icon-theme,
+  procps,
+  libwnck,
+  libappindicator-gtk3,
+  xdg-utils,
+}:
 
 let
   perlModules = with perlPackages; [

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pciutils, libx86, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pciutils,
+  libx86,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vbetool";

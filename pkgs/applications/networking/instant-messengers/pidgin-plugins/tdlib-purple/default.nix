@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, libwebp, pidgin, tdlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+  libwebp,
+  pidgin,
+  tdlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tdlib-purple";

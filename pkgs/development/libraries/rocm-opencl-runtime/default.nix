@@ -1,5 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, rocmUpdateScript, addOpenGLRunpath, cmake
-, rocm-comgr, rocm-runtime, rocclr, glew, libX11, numactl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  rocmUpdateScript,
+  addOpenGLRunpath,
+  cmake,
+  rocm-comgr,
+  rocm-runtime,
+  rocclr,
+  glew,
+  libX11,
+  numactl,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocm-opencl-runtime";

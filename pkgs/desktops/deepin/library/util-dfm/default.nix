@@ -1,5 +1,16 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, qtbase, libmediainfo
-, libsecret, libisoburn, libuuid, udisks }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  qtbase,
+  libmediainfo,
+  libsecret,
+  libisoburn,
+  libuuid,
+  udisks,
+}:
 
 stdenv.mkDerivation rec {
   pname = "util-dfm";

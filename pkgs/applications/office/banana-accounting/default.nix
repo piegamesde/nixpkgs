@@ -1,5 +1,18 @@
-{ autoPatchelfHook, cairo, config, e2fsprogs, fetchurl, gmp, gtk3, libGL, libX11
-, lib, stdenv, libgcrypt, wrapGAppsHook }:
+{
+  autoPatchelfHook,
+  cairo,
+  config,
+  e2fsprogs,
+  fetchurl,
+  gmp,
+  gtk3,
+  libGL,
+  libX11,
+  lib,
+  stdenv,
+  libgcrypt,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation {
   pname = "banana-accounting";

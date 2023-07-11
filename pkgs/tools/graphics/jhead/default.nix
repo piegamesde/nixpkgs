@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, libjpeg, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libjpeg,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jhead";

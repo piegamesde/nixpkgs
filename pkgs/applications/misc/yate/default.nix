@@ -1,4 +1,11 @@
-{ stdenv, fetchurl, lib, qt4, openssl, pkg-config }:
+{
+  stdenv,
+  fetchurl,
+  lib,
+  qt4,
+  openssl,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "yate";

@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, googleapis-common-protos, grpcio, protobuf
-, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  googleapis-common-protos,
+  grpcio,
+  protobuf,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "grpcio-status";

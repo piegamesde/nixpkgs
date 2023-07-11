@@ -1,5 +1,12 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, requests, pytestCheckHook
-, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  requests,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "heatzypy";

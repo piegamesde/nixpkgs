@@ -1,7 +1,25 @@
-{ stdenv, lib, buildPythonPackage, fetchFromGitHub, pythonOlder, astroid, dill
-, isort, mccabe, platformdirs, requests, setuptools, tomli, tomlkit
-, typing-extensions, gitpython, py, pytest-timeout, pytest-xdist
-, pytestCheckHook }:
+{
+  stdenv,
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  astroid,
+  dill,
+  isort,
+  mccabe,
+  platformdirs,
+  requests,
+  setuptools,
+  tomli,
+  tomlkit,
+  typing-extensions,
+  gitpython,
+  py,
+  pytest-timeout,
+  pytest-xdist,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "pylint";

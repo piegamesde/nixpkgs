@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, openssl, libX11, krb5, libXcursor, libtasn1
-, nettle, gnutls, pkg-config, autoreconfHook, libiconv
-, enableCredssp ? (!stdenv.isDarwin) }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  openssl,
+  libX11,
+  krb5,
+  libXcursor,
+  libtasn1,
+  nettle,
+  gnutls,
+  pkg-config,
+  autoreconfHook,
+  libiconv,
+  enableCredssp ? (!stdenv.isDarwin)
+}:
 
 stdenv.mkDerivation (rec {
   pname = "rdesktop";

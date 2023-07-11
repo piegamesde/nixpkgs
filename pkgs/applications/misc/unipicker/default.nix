@@ -1,4 +1,10 @@
-{ stdenv, fetchFromGitHub, lib, fzf, xclip }:
+{
+  stdenv,
+  fetchFromGitHub,
+  lib,
+  fzf,
+  xclip,
+}:
 
 stdenv.mkDerivation rec {
   pname = "unipicker";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchFromGitHub, parse, pytestCheckHook, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  parse,
+  pytestCheckHook,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "parse-type";

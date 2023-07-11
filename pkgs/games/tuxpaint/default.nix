@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchurl, SDL, SDL_gfx, SDL_image, SDL_ttf, SDL_mixer, libpng
-, libimagequant, cairo, librsvg, gettext, libpaper, fribidi, pkg-config, gperf
-, imagemagick }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  SDL,
+  SDL_gfx,
+  SDL_image,
+  SDL_ttf,
+  SDL_mixer,
+  libpng,
+  libimagequant,
+  cairo,
+  librsvg,
+  gettext,
+  libpaper,
+  fribidi,
+  pkg-config,
+  gperf,
+  imagemagick,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.9.28";

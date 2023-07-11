@@ -1,6 +1,22 @@
-{ stdenv, lib, rustPlatform, fetchFromGitHub, fetchpatch, pkg-config, python3
-, openssl, libgpg-error, gpgme, xorg, nettle, llvmPackages, clang, AppKit
-, Security, installShellFiles }:
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  fetchpatch,
+  pkg-config,
+  python3,
+  openssl,
+  libgpg-error,
+  gpgme,
+  xorg,
+  nettle,
+  llvmPackages,
+  clang,
+  AppKit,
+  Security,
+  installShellFiles,
+}:
 
 rustPlatform.buildRustPackage rec {
   version = "0.6.4";

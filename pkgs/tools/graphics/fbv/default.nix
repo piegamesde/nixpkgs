@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, fetchpatch, getopt, libjpeg, libpng12, giflib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  getopt,
+  libjpeg,
+  libpng12,
+  giflib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fbv";

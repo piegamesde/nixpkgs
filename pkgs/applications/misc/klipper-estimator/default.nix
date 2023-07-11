@@ -1,5 +1,13 @@
-{ lib, fetchFromGitHub, stdenv, rustPlatform, pkg-config, openssl, libgit2
-, Security }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  libgit2,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "klipper-estimator";

@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, django, fetchPypi, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  django,
+  fetchPypi,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "django-webpack-loader";

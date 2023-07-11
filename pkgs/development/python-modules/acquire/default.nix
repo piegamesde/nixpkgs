@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, defusedxml, dissect-cstruct, dissect-target
-, fetchFromGitHub, minio, pycryptodome, pytestCheckHook, pythonOlder, requests
-, requests-toolbelt, rich, setuptools, setuptools-scm }:
+{
+  lib,
+  buildPythonPackage,
+  defusedxml,
+  dissect-cstruct,
+  dissect-target,
+  fetchFromGitHub,
+  minio,
+  pycryptodome,
+  pytestCheckHook,
+  pythonOlder,
+  requests,
+  requests-toolbelt,
+  rich,
+  setuptools,
+  setuptools-scm,
+}:
 
 buildPythonPackage rec {
   pname = "acquire";

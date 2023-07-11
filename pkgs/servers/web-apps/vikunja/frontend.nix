@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchurl, unzip, nixosTests, ... }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  unzip,
+  nixosTests,
+  ...
+}:
 
 stdenv.mkDerivation rec {
   pname = "vikunja-frontend";

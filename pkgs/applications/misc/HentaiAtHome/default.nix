@@ -1,5 +1,13 @@
-{ buildPackages, fetchzip, javaOpts ? "-XX:+UseZGC", jdk, jre_headless, lib
-, makeWrapper, stdenvNoCC, }:
+{
+  buildPackages,
+  fetchzip,
+  javaOpts ? "-XX:+UseZGC",
+  jdk,
+  jre_headless,
+  lib,
+  makeWrapper,
+  stdenvNoCC,
+}:
 stdenvNoCC.mkDerivation rec {
   pname = "HentaiAtHome";
   version = "1.6.1";

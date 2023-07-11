@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, pkg-config, apacheHttpd, openssl, openldap, apr
-, aprutil }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  apacheHttpd,
+  openssl,
+  openldap,
+  apr,
+  aprutil,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mod_ca";

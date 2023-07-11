@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pytest-mock
-, pytestCheckHook, pythonOlder, six }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  six,
+}:
 
 buildPythonPackage rec {
   pname = "headerparser";

@@ -1,8 +1,35 @@
-{ lib, stdenv, fetchurl, nixosTests, bash-completion, glib, polkit, pkg-config
-, gettext, gusb, lcms2, sqlite, systemd, dbus, gobject-introspection, argyllcms
-, meson, mesonEmulatorHook, ninja, vala, libgudev, wrapGAppsNoGuiHook
-, shared-mime-info, sane-backends, docbook_xsl, docbook_xsl_ns
-, docbook_xml_dtd_412, gtk-doc, libxslt, enableDaemon ? true }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  nixosTests,
+  bash-completion,
+  glib,
+  polkit,
+  pkg-config,
+  gettext,
+  gusb,
+  lcms2,
+  sqlite,
+  systemd,
+  dbus,
+  gobject-introspection,
+  argyllcms,
+  meson,
+  mesonEmulatorHook,
+  ninja,
+  vala,
+  libgudev,
+  wrapGAppsNoGuiHook,
+  shared-mime-info,
+  sane-backends,
+  docbook_xsl,
+  docbook_xsl_ns,
+  docbook_xml_dtd_412,
+  gtk-doc,
+  libxslt,
+  enableDaemon ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "colord";

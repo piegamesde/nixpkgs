@@ -1,5 +1,16 @@
-{ lib, jre8, qmake, qtbase, qttools, qtwebkit, qtxmlpatterns, binutils
-, wrapQtAppsHook, openmodelica, mkOpenModelicaDerivation }:
+{
+  lib,
+  jre8,
+  qmake,
+  qtbase,
+  qttools,
+  qtwebkit,
+  qtxmlpatterns,
+  binutils,
+  wrapQtAppsHook,
+  openmodelica,
+  mkOpenModelicaDerivation,
+}:
 with openmodelica;
 mkOpenModelicaDerivation rec {
   pname = "omedit";

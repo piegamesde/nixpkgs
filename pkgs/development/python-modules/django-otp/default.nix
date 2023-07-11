@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, django, freezegun, pythonOlder
-, qrcode }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  django,
+  freezegun,
+  pythonOlder,
+  qrcode,
+}:
 
 buildPythonPackage rec {
   pname = "django-otp";

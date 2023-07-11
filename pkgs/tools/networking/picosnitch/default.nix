@@ -1,4 +1,8 @@
-{ lib, python3, bcc }:
+{
+  lib,
+  python3,
+  bcc,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "picosnitch";

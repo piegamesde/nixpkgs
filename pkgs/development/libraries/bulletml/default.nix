@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchpatch, fetchurl, bison, perl }:
+{
+  lib,
+  stdenv,
+  fetchpatch,
+  fetchurl,
+  bison,
+  perl,
+}:
 
 let
   version = "0.0.6";

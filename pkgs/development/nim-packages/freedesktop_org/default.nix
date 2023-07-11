@@ -1,4 +1,9 @@
-{ lib, buildNimPackage, fetchFromSourcehut, fetchFromGitHub }:
+{
+  lib,
+  buildNimPackage,
+  fetchFromSourcehut,
+  fetchFromGitHub,
+}:
 
 let
   # freedesktop_org requires a fork of configparser

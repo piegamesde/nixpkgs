@@ -1,8 +1,37 @@
-{ mkDerivation, fetchurl, lib, extra-cmake-modules, kdoctools, wrapGAppsHook
-, kconfig, kcrash, kinit, kpmcore, polkit-qt, cryptsetup, lvm2, mdadm
-, smartmontools, systemdMinimal, util-linux, btrfs-progs, dosfstools, e2fsprogs
-, exfat, f2fs-tools, fatresize, hfsprogs, jfsutils, nilfs-utils, ntfs3g
-, reiser4progs, reiserfsprogs, udftools, xfsprogs, zfs }:
+{
+  mkDerivation,
+  fetchurl,
+  lib,
+  extra-cmake-modules,
+  kdoctools,
+  wrapGAppsHook,
+  kconfig,
+  kcrash,
+  kinit,
+  kpmcore,
+  polkit-qt,
+  cryptsetup,
+  lvm2,
+  mdadm,
+  smartmontools,
+  systemdMinimal,
+  util-linux,
+  btrfs-progs,
+  dosfstools,
+  e2fsprogs,
+  exfat,
+  f2fs-tools,
+  fatresize,
+  hfsprogs,
+  jfsutils,
+  nilfs-utils,
+  ntfs3g,
+  reiser4progs,
+  reiserfsprogs,
+  udftools,
+  xfsprogs,
+  zfs,
+}:
 
 let
   # External programs are resolved by `partition-manager` and then

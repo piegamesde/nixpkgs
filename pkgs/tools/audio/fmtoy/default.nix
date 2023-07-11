@@ -1,5 +1,14 @@
-{ stdenv, lib, fetchFromGitHub, unstableGitUpdater, dos2unix, pkg-config, zlib
-, alsa-lib, libjack2 }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  unstableGitUpdater,
+  dos2unix,
+  pkg-config,
+  zlib,
+  alsa-lib,
+  libjack2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fmtoy";

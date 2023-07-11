@@ -1,4 +1,13 @@
-{ lib, stdenv, qmake, qtbase, perl, php, kcachegrind, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  qmake,
+  qtbase,
+  perl,
+  php,
+  kcachegrind,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation {
   pname = "qcachegrind";

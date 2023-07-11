@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, python3, SDL2, bzip2
-, curl, fftwFloat, lua, luajit, zlib, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  python3,
+  SDL2,
+  bzip2,
+  curl,
+  fftwFloat,
+  lua,
+  luajit,
+  zlib,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "the-powder-toy";

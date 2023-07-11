@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, fetchPypi, cython, jinja2, numpy, pyparsing
-, setuptools, sympy, pytest, pytest-xdist, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  cython,
+  jinja2,
+  numpy,
+  pyparsing,
+  setuptools,
+  sympy,
+  pytest,
+  pytest-xdist,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "brian2";

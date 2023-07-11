@@ -1,4 +1,9 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pymaging }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pymaging,
+}:
 
 buildPythonPackage {
   pname = "pymaging-png";

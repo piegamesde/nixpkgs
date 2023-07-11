@@ -1,5 +1,13 @@
-{ lib, buildGoModule, fetchFromGitHub, makeWrapper, mercurial, git, openssh
-, nixosTests }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  mercurial,
+  git,
+  openssh,
+  nixosTests,
+}:
 
 buildGoModule rec {
   pname = "hound";

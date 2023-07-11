@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, jdk, gradle_7, makeDesktopItem, copyDesktopItems
-, perl, writeText, runtimeShell, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  jdk,
+  gradle_7,
+  makeDesktopItem,
+  copyDesktopItems,
+  perl,
+  writeText,
+  runtimeShell,
+  makeWrapper,
+}:
 let
   pname = "scenic-view";
   version = "11.0.2";

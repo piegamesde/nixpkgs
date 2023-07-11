@@ -1,5 +1,12 @@
-{ lib, buildDunePackage, fetchFromGitHub, dune-configurator, pkg-config, taglib
-, zlib }:
+{
+  lib,
+  buildDunePackage,
+  fetchFromGitHub,
+  dune-configurator,
+  pkg-config,
+  taglib,
+  zlib,
+}:
 
 buildDunePackage rec {
   pname = "taglib";

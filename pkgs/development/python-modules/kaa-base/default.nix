@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, isPyPy, isPy3k, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPyPy,
+  isPy3k,
+  python,
+}:
 
 buildPythonPackage rec {
   version = "0.99.2dev-384-2b73caca";

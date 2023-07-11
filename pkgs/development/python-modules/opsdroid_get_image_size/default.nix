@@ -1,4 +1,8 @@
-{ lib, buildPythonPackage, fetchPypi }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+}:
 
 buildPythonPackage rec {
   pname = "opsdroid_get_image_size";

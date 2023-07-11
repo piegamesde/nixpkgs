@@ -1,6 +1,11 @@
 # Module for VirtualBox guests.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 

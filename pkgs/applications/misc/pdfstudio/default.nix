@@ -8,8 +8,16 @@
 # - year identifies the year portion of the version, defaults to most recent year.
 # - pname is either "pdfstudio${year}" or "pdfstudioviewer".
 
-{ lib, stdenv, program ? "pdfstudio", year ? "2022", fetchurl, callPackage
-, jdk11, jdk17 }:
+{
+  lib,
+  stdenv,
+  program ? "pdfstudio",
+  year ? "2022",
+  fetchurl,
+  callPackage,
+  jdk11,
+  jdk17,
+}:
 let
   longDescription = ''
     PDF Studio is an easy to use, full-featured PDF editing software. This is the standard/pro edition, which requires a license. For the free PDF Studio Viewer see the package pdfstudioviewer.

@@ -1,5 +1,20 @@
-{ lib, buildPythonPackage, codepy, cgen, colorama, fetchFromGitHub, genpy, islpy
-, mako, numpy, pymbolic, pyopencl, pyrsistent, pythonOlder, pytools }:
+{
+  lib,
+  buildPythonPackage,
+  codepy,
+  cgen,
+  colorama,
+  fetchFromGitHub,
+  genpy,
+  islpy,
+  mako,
+  numpy,
+  pymbolic,
+  pyopencl,
+  pyrsistent,
+  pythonOlder,
+  pytools,
+}:
 
 buildPythonPackage rec {
   pname = "loopy";

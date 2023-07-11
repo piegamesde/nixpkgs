@@ -1,10 +1,55 @@
-{ abiCompat ? null, callPackage, lib, stdenv, makeWrapper, fetchurl, fetchpatch
-, fetchFromGitLab, buildPackages, substitute, automake, autoconf, libiconv
-, libtool, intltool, freetype, tradcpp, fontconfig, meson, ninja, ed, fontforge
-, libGL, spice-protocol, zlib, libGLU, dbus, libunwind, libdrm, netbsd
-, ncompress, mesa, udev, bootstrap_cmds, bison, flex, clangStdenv
-, autoreconfHook, mcpp, libepoxy, openssl, pkg-config, llvm, libxslt, libxcrypt
-, ApplicationServices, Carbon, Cocoa, Xplugin, xorg }:
+{
+  abiCompat ? null,
+  callPackage,
+  lib,
+  stdenv,
+  makeWrapper,
+  fetchurl,
+  fetchpatch,
+  fetchFromGitLab,
+  buildPackages,
+  substitute,
+  automake,
+  autoconf,
+  libiconv,
+  libtool,
+  intltool,
+  freetype,
+  tradcpp,
+  fontconfig,
+  meson,
+  ninja,
+  ed,
+  fontforge,
+  libGL,
+  spice-protocol,
+  zlib,
+  libGLU,
+  dbus,
+  libunwind,
+  libdrm,
+  netbsd,
+  ncompress,
+  mesa,
+  udev,
+  bootstrap_cmds,
+  bison,
+  flex,
+  clangStdenv,
+  autoreconfHook,
+  mcpp,
+  libepoxy,
+  openssl,
+  pkg-config,
+  llvm,
+  libxslt,
+  libxcrypt,
+  ApplicationServices,
+  Carbon,
+  Cocoa,
+  Xplugin,
+  xorg,
+}:
 
 let
   inherit (stdenv) isDarwin;
@@ -17,25 +62,28 @@ let
     pkg.overrideAttrs (attrs: { meta = attrs.meta // { broken = isDarwin; }; });
 in self: super:
 {
-  wrapWithXFileSearchPathHook = callPackage
-    ({ makeBinaryWrapper, makeSetupHook, writeScript }:
-      makeSetupHook {
-        name = "wrapWithXFileSearchPathHook";
-        propagatedBuildInputs = [ makeBinaryWrapper ];
-      } (writeScript "wrapWithXFileSearchPathHook.sh" ''
-        wrapWithXFileSearchPath() {
-          paths=(
-            "$out/share/X11/%T/%N"
-            "$out/include/X11/%T/%N"
-            "${xorg.xbitmaps}/include/X11/%T/%N"
-          )
-          for exe in $out/bin/*; do
-            wrapProgram "$exe" \
-              --suffix XFILESEARCHPATH : $(IFS=:; echo "''${paths[*]}")
-          done
-        }
-        postInstallHooks+=(wrapWithXFileSearchPath)
-      '')) { };
+  wrapWithXFileSearchPathHook = callPackage ({
+      makeBinaryWrapper,
+      makeSetupHook,
+      writeScript,
+    }:
+    makeSetupHook {
+      name = "wrapWithXFileSearchPathHook";
+      propagatedBuildInputs = [ makeBinaryWrapper ];
+    } (writeScript "wrapWithXFileSearchPathHook.sh" ''
+      wrapWithXFileSearchPath() {
+        paths=(
+          "$out/share/X11/%T/%N"
+          "$out/include/X11/%T/%N"
+          "${xorg.xbitmaps}/include/X11/%T/%N"
+        )
+        for exe in $out/bin/*; do
+          wrapProgram "$exe" \
+            --suffix XFILESEARCHPATH : $(IFS=:; echo "''${paths[*]}")
+        done
+      }
+      postInstallHooks+=(wrapWithXFileSearchPath)
+    '')) { };
 
   bdftopcf = super.bdftopcf.overrideAttrs
     (attrs: { buildInputs = attrs.buildInputs ++ [ xorg.xorgproto ]; });
@@ -539,7 +587,9 @@ in self: super:
 
   # xkeyboardconfig variant extensible with custom layouts.
   # See nixos/modules/services/x11/extra-layouts.nix
-  xkeyboardconfig_custom = { layouts ? { } }:
+  xkeyboardconfig_custom = {
+      layouts ? { }
+    }:
     let
       patchIn = name: layout:
         with layout;

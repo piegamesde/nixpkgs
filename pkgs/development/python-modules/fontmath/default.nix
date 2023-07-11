@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, isPy27, fonttools, setuptools-scm, pytest
-, pytest-runner }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy27,
+  fonttools,
+  setuptools-scm,
+  pytest,
+  pytest-runner,
+}:
 
 buildPythonPackage rec {
   pname = "fontMath";

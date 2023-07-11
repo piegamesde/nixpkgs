@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, fetchpatch, pidgin, telepathy-glib, python3, glib
-, dbus-glib, pkg-config, libxslt }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  pidgin,
+  telepathy-glib,
+  python3,
+  glib,
+  dbus-glib,
+  pkg-config,
+  libxslt,
+}:
 
 stdenv.mkDerivation rec {
   pname = "telepathy-haze";

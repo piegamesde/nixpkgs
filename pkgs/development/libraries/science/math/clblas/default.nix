@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gfortran, blas, boost, python3, ocl-icd
-, opencl-headers, Accelerate, CoreGraphics, CoreVideo, OpenCL }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gfortran,
+  blas,
+  boost,
+  python3,
+  ocl-icd,
+  opencl-headers,
+  Accelerate,
+  CoreGraphics,
+  CoreVideo,
+  OpenCL,
+}:
 
 stdenv.mkDerivation rec {
   pname = "clblas";

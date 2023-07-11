@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchurl, pkg-config, fontconfig, freetype, libX11, libXft
-, ncurses, writeText, conf ? null, patches ? [ ], extraLibs ? [ ], nixosTests }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  fontconfig,
+  freetype,
+  libX11,
+  libXft,
+  ncurses,
+  writeText,
+  conf ? null,
+  patches ? [ ],
+  extraLibs ? [ ],
+  nixosTests,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "st";

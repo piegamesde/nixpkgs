@@ -1,6 +1,16 @@
-{ buildPythonPackage, fetchPypi, pythonOlder, lib, setuptools-scm
-, pytestCheckHook, typing-extensions, sphinxHook, sphinx-autodoc-typehints
-, sphinx-rtd-theme, glibcLocales }:
+{
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  lib,
+  setuptools-scm,
+  pytestCheckHook,
+  typing-extensions,
+  sphinxHook,
+  sphinx-autodoc-typehints,
+  sphinx-rtd-theme,
+  glibcLocales,
+}:
 
 buildPythonPackage rec {
   pname = "typeguard";

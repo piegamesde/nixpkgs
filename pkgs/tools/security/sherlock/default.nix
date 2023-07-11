@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, python3, makeWrapper }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  python3,
+  makeWrapper,
+}:
 let
   pyenv = python3.withPackages (pp:
     with pp; [

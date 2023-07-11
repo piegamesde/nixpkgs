@@ -1,9 +1,20 @@
-{ lib, stdenv, maven }:
+{
+  lib,
+  stdenv,
+  maven,
+}:
 
-{ src, patches ? [ ], pname, version
-, mvnSha256 ? "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
-, mvnHash ? "sha256-${mvnSha256}", mvnFetchExtraArgs ? { }, mvnParameters ? ""
-, ... }@args:
+{
+  src,
+  patches ? [ ],
+  pname,
+  version,
+  mvnSha256 ? "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+  mvnHash ? "sha256-${mvnSha256}",
+  mvnFetchExtraArgs ? { },
+  mvnParameters ? "",
+  ...
+}@args:
 
 # originally extracted from dbeaver
 # created to allow using maven packages in the same style as rust

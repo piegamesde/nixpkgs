@@ -1,4 +1,12 @@
-{ lib, buildNpmPackage, fetchFromGitHub, git, nixosTests, nodejs_16, python3 }:
+{
+  lib,
+  buildNpmPackage,
+  fetchFromGitHub,
+  git,
+  nixosTests,
+  nodejs_16,
+  python3,
+}:
 
 let
   buildNpmPackage' = buildNpmPackage.override { nodejs = nodejs_16; };

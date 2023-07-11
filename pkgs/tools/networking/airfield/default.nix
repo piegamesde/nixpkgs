@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, pkgs, makeWrapper, buildEnv, nodejs
-, runtimeShell }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkgs,
+  makeWrapper,
+  buildEnv,
+  nodejs,
+  runtimeShell,
+}:
 
 let
   nodePackages = import ./node.nix {

@@ -2,33 +2,45 @@
 #   "generate"
 # See https://github.com/kolloch/crate2nix for more info.
 
-{ nixpkgs ? <nixpkgs>, pkgs ? import nixpkgs { config = { }; }, lib ? pkgs.lib
-, stdenv ? pkgs.stdenv, buildRustCrateForPkgs ? if buildRustCrate != null then
-  lib.warn
-  "crate2nix: Passing `buildRustCrate` as argument to Cargo.nix is deprecated. If you don't customize `buildRustCrate`, replace `callPackage ./Cargo.nix {}` by `import ./Cargo.nix { inherit pkgs; }`, and if you need to customize `buildRustCrate`, use `buildRustCrateForPkgs` instead."
-  (_: buildRustCrate)
-else
-  pkgs:
-  pkgs.buildRustCrate
-  # Deprecated
-, buildRustCrate ? null
-  # This is used as the `crateOverrides` argument for `buildRustCrate`.
-, defaultCrateOverrides ? pkgs.defaultCrateOverrides
-  # The features to enable for the root_crate or the workspace_members.
-, rootFeatures ? [
-  "default"
-]
-# If true, throw errors instead of issueing deprecation warnings.
-, strictDeprecation ? false
-  # Used for conditional compilation based on CPU feature detection.
-, targetFeatures ? [ ]
-  # Whether to perform release builds: longer compile times, faster binaries.
-, release ? true
-  # Additional crate2nix configuration if it exists.
-, crateConfig ? if builtins.pathExists ./crate-config.nix then
-  pkgs.callPackage ./crate-config.nix { }
-else
-  { } }:
+{
+  nixpkgs ? <nixpkgs>,
+  pkgs ? import nixpkgs { config = { }; },
+  lib ? pkgs.lib,
+  stdenv ? pkgs.stdenv,
+  buildRustCrateForPkgs ? if buildRustCrate != null then
+    lib.warn
+    "crate2nix: Passing `buildRustCrate` as argument to Cargo.nix is deprecated. If you don't customize `buildRustCrate`, replace `callPackage ./Cargo.nix {}` by `import ./Cargo.nix { inherit pkgs; }`, and if you need to customize `buildRustCrate`, use `buildRustCrateForPkgs` instead."
+    (_: buildRustCrate)
+  else
+    pkgs:
+    pkgs.buildRustCrate
+    # Deprecated
+  ,
+  buildRustCrate ? null
+    # This is used as the `crateOverrides` argument for `buildRustCrate`.
+  ,
+  defaultCrateOverrides ? pkgs.defaultCrateOverrides
+    # The features to enable for the root_crate or the workspace_members.
+  ,
+  rootFeatures ? [
+    "default"
+  ]
+  # If true, throw errors instead of issueing deprecation warnings.
+  ,
+  strictDeprecation ? false
+    # Used for conditional compilation based on CPU feature detection.
+  ,
+  targetFeatures ? [ ]
+    # Whether to perform release builds: longer compile times, faster binaries.
+  ,
+  release ? true
+    # Additional crate2nix configuration if it exists.
+  ,
+  crateConfig ? if builtins.pathExists ./crate-config.nix then
+    pkgs.callPackage ./crate-config.nix { }
+  else
+    { }
+}:
 
 rec {
   #
@@ -567,12 +579,20 @@ rec {
             name = "libc";
             packageId = "libc";
             usesDefaultFeatures = false;
-            target = { target, features }: (target."unix" or false);
+            target = {
+                target,
+                features,
+              }:
+              (target."unix" or false);
           }
           {
             name = "wasi";
             packageId = "wasi";
-            target = { target, features }: (target."os" == "wasi");
+            target = {
+                target,
+                features,
+              }:
+              (target."os" == "wasi");
           }
         ];
         features = {
@@ -926,7 +946,10 @@ rec {
         dependencies = [{
           name = "libc";
           packageId = "libc";
-          target = { target, features }:
+          target = {
+              target,
+              features,
+            }:
             ((target."os" == "macos") || (target."os" == "freebsd"));
         }];
 
@@ -1040,7 +1063,11 @@ rec {
           {
             name = "vcpkg";
             packageId = "vcpkg";
-            target = { target, features }: (target."env" == "msvc");
+            target = {
+                target,
+                features,
+              }:
+              (target."env" == "msvc");
           }
         ];
         features = {
@@ -1222,14 +1249,22 @@ rec {
             packageId = "libc";
             optional = true;
             usesDefaultFeatures = false;
-            target = { target, features }: (target."unix" or false);
+            target = {
+                target,
+                features,
+              }:
+              (target."unix" or false);
           }
           {
             name = "rand_chacha";
             packageId = "rand_chacha";
             optional = true;
             usesDefaultFeatures = false;
-            target = { target, features }: (!(target."os" == "emscripten"));
+            target = {
+                target,
+                features,
+              }:
+              (!(target."os" == "emscripten"));
           }
           {
             name = "rand_core";
@@ -1239,7 +1274,11 @@ rec {
             name = "rand_hc";
             packageId = "rand_hc";
             optional = true;
-            target = { target, features }: (target."os" == "emscripten");
+            target = {
+                target,
+                features,
+              }:
+              (target."os" == "emscripten");
           }
         ];
         devDependencies = [{
@@ -1425,7 +1464,10 @@ rec {
             name = "libc";
             packageId = "libc";
             usesDefaultFeatures = false;
-            target = { target, features }:
+            target = {
+                target,
+                features,
+              }:
               ((target."os" == "android") || (target."os" == "linux"));
           }
           {
@@ -1433,7 +1475,10 @@ rec {
             packageId = "once_cell";
             optional = true;
             usesDefaultFeatures = false;
-            target = { target, features }:
+            target = {
+                target,
+                features,
+              }:
               ((target."os" == "android") || (target."os" == "linux"));
             features = [ "std" ];
           }
@@ -1441,7 +1486,10 @@ rec {
             name = "once_cell";
             packageId = "once_cell";
             usesDefaultFeatures = false;
-            target = { target, features }:
+            target = {
+                target,
+                features,
+              }:
               ((target."os" == "dragonfly") || (target."os" == "freebsd")
                 || (target."os" == "illumos") || (target."os" == "netbsd")
                 || (target."os" == "openbsd") || (target."os" == "solaris"));
@@ -1451,7 +1499,10 @@ rec {
             name = "spin";
             packageId = "spin";
             usesDefaultFeatures = false;
-            target = { target, features }:
+            target = {
+                target,
+                features,
+              }:
               ((target."arch" == "x86") || (target."arch" == "x86_64")
                 || (((target."arch" == "aarch64") || (target."arch" == "arm"))
                   && ((target."os" == "android") || (target."os" == "fuchsia")
@@ -1465,7 +1516,10 @@ rec {
             name = "web-sys";
             packageId = "web-sys";
             usesDefaultFeatures = false;
-            target = { target, features }:
+            target = {
+                target,
+                features,
+              }:
               ((target."arch" == "wasm32") && (target."vendor" == "unknown")
                 && (target."os" == "unknown") && (target."env" == ""));
             features = [ "Crypto" "Window" ];
@@ -1474,7 +1528,11 @@ rec {
             name = "winapi";
             packageId = "winapi";
             usesDefaultFeatures = false;
-            target = { target, features }: (target."os" == "windows");
+            target = {
+                target,
+                features,
+              }:
+              (target."os" == "windows");
             features = [ "ntsecapi" "wtypesbase" ];
           }
         ];
@@ -1487,7 +1545,10 @@ rec {
           name = "libc";
           packageId = "libc";
           usesDefaultFeatures = false;
-          target = { target, features }:
+          target = {
+              target,
+              features,
+            }:
             ((target."unix" or false) || (target."windows" or false));
         }];
         features = {
@@ -1785,12 +1846,20 @@ rec {
           {
             name = "libc";
             packageId = "libc";
-            target = { target, features }: (target."family" == "unix");
+            target = {
+                target,
+                features,
+              }:
+              (target."family" == "unix");
           }
           {
             name = "num_threads";
             packageId = "num_threads";
-            target = { target, features }: (target."family" == "unix");
+            target = {
+                target,
+                features,
+              }:
+              (target."family" == "unix");
           }
           {
             name = "time-macros";
@@ -2776,13 +2845,19 @@ rec {
           {
             name = "winapi-i686-pc-windows-gnu";
             packageId = "winapi-i686-pc-windows-gnu";
-            target = { target, features }:
+            target = {
+                target,
+                features,
+              }:
               (stdenv.hostPlatform.config == "i686-pc-windows-gnu");
           }
           {
             name = "winapi-x86_64-pc-windows-gnu";
             packageId = "winapi-x86_64-pc-windows-gnu";
-            target = { target, features }:
+            target = {
+                target,
+                features,
+              }:
               (stdenv.hostPlatform.config == "x86_64-pc-windows-gnu");
           }
         ];
@@ -3002,8 +3077,14 @@ rec {
        testCrateFlags: list of flags to pass to the test executable
        testInputs: list of packages that should be available during test execution
     */
-    crateWithTest =
-      { crate, testCrate, testCrateFlags, testInputs, testPreRun, testPostRun }:
+    crateWithTest = {
+        crate,
+        testCrate,
+        testCrateFlags,
+        testInputs,
+        testPreRun,
+        testPostRun,
+      }:
       assert builtins.typeOf testCrateFlags == "list";
       assert builtins.typeOf testInputs == "list";
       assert builtins.typeOf testPreRun == "string";
@@ -3068,15 +3149,30 @@ rec {
       '';
 
     # A restricted overridable version of builtRustCratesWithFeatures.
-    buildRustCrateWithFeatures = { packageId, features ? rootFeatures
-      , crateOverrides ? defaultCrateOverrides, buildRustCrateForPkgsFunc ? null
-      , runTests ? false, testCrateFlags ? [ ], testInputs ? [ ]
-        # Any command to run immediatelly before a test is executed.
-      , testPreRun ? ""
-        # Any command run immediatelly after a test is executed.
-      , testPostRun ? "" }:
-      lib.makeOverridable ({ features, crateOverrides, runTests, testCrateFlags
-        , testInputs, testPreRun, testPostRun }:
+    buildRustCrateWithFeatures = {
+        packageId,
+        features ? rootFeatures,
+        crateOverrides ? defaultCrateOverrides,
+        buildRustCrateForPkgsFunc ? null,
+        runTests ? false,
+        testCrateFlags ? [ ],
+        testInputs ? [ ]
+          # Any command to run immediatelly before a test is executed.
+        ,
+        testPreRun ? ""
+          # Any command run immediatelly after a test is executed.
+        ,
+        testPostRun ? ""
+      }:
+      lib.makeOverridable ({
+          features,
+          crateOverrides,
+          runTests,
+          testCrateFlags,
+          testInputs,
+          testPreRun,
+          testPostRun,
+        }:
         let
           buildRustCrateForPkgsFuncOverriden =
             if buildRustCrateForPkgsFunc != null then
@@ -3117,8 +3213,14 @@ rec {
     /* Returns an attr set with packageId mapped to the result of buildRustCrateForPkgsFunc
        for the corresponding crate.
     */
-    builtRustCratesWithFeatures = { packageId, features, crateConfigs ? crates
-      , buildRustCrateForPkgsFunc, runTests, target ? defaultTarget }@args:
+    builtRustCratesWithFeatures = {
+        packageId,
+        features,
+        crateConfigs ? crates,
+        buildRustCrateForPkgsFunc,
+        runTests,
+        target ? defaultTarget
+      }@args:
       assert (builtins.isAttrs crateConfigs);
       assert (builtins.isString packageId);
       assert (builtins.isList features);
@@ -3216,8 +3318,12 @@ rec {
       in builtByPackageIdByPkgs;
 
     # Returns the actual derivations for the given dependencies.
-    dependencyDerivations =
-      { buildByPackageId, features, dependencies, target }:
+    dependencyDerivations = {
+        buildByPackageId,
+        features,
+        dependencies,
+        target,
+      }:
       assert (builtins.isList features);
       assert (builtins.isList dependencies);
       assert (builtins.isAttrs target);
@@ -3241,7 +3347,10 @@ rec {
         val;
 
     # Returns various tools to debug a crate.
-    debugCrate = { packageId, target ? defaultTarget }:
+    debugCrate = {
+        packageId,
+        target ? defaultTarget
+      }:
       assert (builtins.isString packageId);
       let
         debug = rec {
@@ -3273,7 +3382,11 @@ rec {
 
        This is useful for verifying the feature resolution in crate2nix.
     */
-    diffDefaultPackageFeatures = { crateConfigs ? crates, packageId, target }:
+    diffDefaultPackageFeatures = {
+        crateConfigs ? crates,
+        packageId,
+        target,
+      }:
       assert (builtins.isAttrs crateConfigs);
       let
         prefixValues = prefix: lib.mapAttrs (n: v: { "${prefix}" = v; });
@@ -3301,12 +3414,19 @@ rec {
        If multiple paths to a dependency enable different features, the
        corresponding feature sets are merged. Features in rust are additive.
     */
-    mergePackageFeatures = { crateConfigs ? crates, packageId
-      , rootPackageId ? packageId, features ? rootFeatures
-      , dependencyPath ? [ crates.${packageId}.crateName ]
-      , featuresByPackageId ? { }, target
-      # Adds devDependencies to the crate with rootPackageId.
-      , runTests ? false, ... }@args:
+    mergePackageFeatures = {
+        crateConfigs ? crates,
+        packageId,
+        rootPackageId ? packageId,
+        features ? rootFeatures,
+        dependencyPath ? [ crates.${packageId}.crateName ],
+        featuresByPackageId ? { },
+        target
+        # Adds devDependencies to the crate with rootPackageId.
+        ,
+        runTests ? false,
+        ...
+      }@args:
       assert (builtins.isAttrs crateConfigs);
       assert (builtins.isString packageId);
       assert (builtins.isString rootPackageId);
@@ -3339,7 +3459,10 @@ rec {
               map depWithResolvedFeatures enabledDependencies;
             foldOverCache = op: lib.foldl op cache directDependencies;
           in foldOverCache (cache:
-            { packageId, features }:
+            {
+              packageId,
+              features,
+            }:
             let
               cacheFeatures = cache.${packageId} or [ ];
               combinedFeatures = sortedUnique (cacheFeatures ++ features);
@@ -3365,7 +3488,11 @@ rec {
       in cacheWithAll;
 
     # Returns the enabled dependencies given the enabled features.
-    filterEnabledDependencies = { dependencies, features, target }:
+    filterEnabledDependencies = {
+        dependencies,
+        features,
+        target,
+      }:
       assert (builtins.isList dependencies);
       assert (builtins.isList features);
       assert (builtins.isAttrs target);

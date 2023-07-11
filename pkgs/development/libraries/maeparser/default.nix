@@ -1,4 +1,11 @@
-{ fetchFromGitHub, lib, stdenv, boost, zlib, cmake }:
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+  boost,
+  zlib,
+  cmake,
+}:
 
 stdenv.mkDerivation rec {
   pname = "maeparser";

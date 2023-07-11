@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, glib, libpulseaudio }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  glib,
+  libpulseaudio,
+}:
 
 with lib;
 

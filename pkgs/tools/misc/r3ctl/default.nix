@@ -1,5 +1,14 @@
-{ lib, qt5, qtbase, qtsvg, qtx11extras, qttools, qtwebsockets, qtmultimedia
-, fetchFromGitHub }:
+{
+  lib,
+  qt5,
+  qtbase,
+  qtsvg,
+  qtx11extras,
+  qttools,
+  qtwebsockets,
+  qtmultimedia,
+  fetchFromGitHub,
+}:
 
 qt5.mkDerivation rec {
   pname = "r3ctl";

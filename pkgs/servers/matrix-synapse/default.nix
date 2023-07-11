@@ -1,6 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, python3, openssl, rustPlatform
-, enableSystemd ? lib.meta.availableOn stdenv.hostPlatform python3.pkgs.systemd
-, nixosTests, enableRedis ? true, callPackage }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  openssl,
+  rustPlatform,
+  enableSystemd ? lib.meta.availableOn stdenv.hostPlatform python3.pkgs.systemd,
+  nixosTests,
+  enableRedis ? true,
+  callPackage,
+}:
 
 let
   plugins = python3.pkgs.callPackage ./plugins { };

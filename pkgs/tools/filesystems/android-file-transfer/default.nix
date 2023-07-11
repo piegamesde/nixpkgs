@@ -1,5 +1,16 @@
-{ lib, stdenv, mkDerivation, fetchFromGitHub, cmake, fuse, readline, pkg-config
-, qtbase, qttools, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  fuse,
+  readline,
+  pkg-config,
+  qtbase,
+  qttools,
+  wrapQtAppsHook,
+}:
 
 mkDerivation rec {
   pname = "android-file-transfer";

@@ -1,8 +1,30 @@
-{ lib, stdenv, mkRustcDepArgs, mkRustcFeatureArgs, needUnstableCLI, rust }:
+{
+  lib,
+  stdenv,
+  mkRustcDepArgs,
+  mkRustcFeatureArgs,
+  needUnstableCLI,
+  rust,
+}:
 
-{ crateName, dependencies, crateFeatures, crateRenames, libName, release
-, libPath, crateType, metadata, crateBin, hasCrateBin, extraRustcOpts, verbose
-, colors, buildTests, codegenUnits }:
+{
+  crateName,
+  dependencies,
+  crateFeatures,
+  crateRenames,
+  libName,
+  release,
+  libPath,
+  crateType,
+  metadata,
+  crateBin,
+  hasCrateBin,
+  extraRustcOpts,
+  verbose,
+  colors,
+  buildTests,
+  codegenUnits,
+}:
 
 let
   baseRustcOpts = [

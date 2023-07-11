@@ -1,15 +1,47 @@
-{ mkDerivation, lib, fetchFromGitHub, cmake, pkg-config, qtbase, qtsvg, qttools
-, perl
+{
+  mkDerivation,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  qtbase,
+  qtsvg,
+  qttools,
+  perl
 
-# Cantata doesn't build with cdparanoia enabled so we disable that
-# default for now until I (or someone else) figure it out.
-, withCdda ? false, cdparanoia, withCddb ? false, libcddb, withLame ? false
-, lame, withMusicbrainz ? false, libmusicbrainz5
+  # Cantata doesn't build with cdparanoia enabled so we disable that
+  # default for now until I (or someone else) figure it out.
+  ,
+  withCdda ? false,
+  cdparanoia,
+  withCddb ? false,
+  libcddb,
+  withLame ? false,
+  lame,
+  withMusicbrainz ? false,
+  libmusicbrainz5
 
-, withTaglib ? true, taglib, taglib_extras, withHttpStream ? true, qtmultimedia
-, withReplaygain ? true, ffmpeg, speex, mpg123, withMtp ? true, libmtp
-, withOnlineServices ? true, withDevices ? true, udisks2, withDynamic ? true
-, withHttpServer ? true, withLibVlc ? false, libvlc, withStreams ? true }:
+  ,
+  withTaglib ? true,
+  taglib,
+  taglib_extras,
+  withHttpStream ? true,
+  qtmultimedia,
+  withReplaygain ? true,
+  ffmpeg,
+  speex,
+  mpg123,
+  withMtp ? true,
+  libmtp,
+  withOnlineServices ? true,
+  withDevices ? true,
+  udisks2,
+  withDynamic ? true,
+  withHttpServer ? true,
+  withLibVlc ? false,
+  libvlc,
+  withStreams ? true
+}:
 
 # Inter-dependencies.
 assert withCddb -> withCdda && withTaglib;

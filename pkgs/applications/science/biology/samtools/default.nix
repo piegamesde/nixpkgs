@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, fetchpatch, zlib, htslib, perl, ncurses ? null }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchpatch,
+  zlib,
+  htslib,
+  perl,
+  ncurses ? null
+}:
 
 stdenv.mkDerivation rec {
   pname = "samtools";

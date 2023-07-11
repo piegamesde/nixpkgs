@@ -1,6 +1,13 @@
-{ version, sha256 }:
+{
+  version,
+  sha256,
+}:
 
-{ fetchurl, python, lib }:
+{
+  fetchurl,
+  python,
+  lib,
+}:
 
 python.pkgs.buildPythonApplication rec {
   pname = "scons";

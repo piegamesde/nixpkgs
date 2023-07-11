@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, poetry-core, pytest
-, colored, invoke }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  poetry-core,
+  pytest,
+  colored,
+  invoke,
+}:
 
 buildPythonPackage rec {
   pname = "syrupy";

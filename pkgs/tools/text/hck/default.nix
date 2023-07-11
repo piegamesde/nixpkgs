@@ -1,4 +1,9 @@
-{ lib, rustPlatform, fetchFromGitHub, cmake }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  cmake,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "hck";

@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, cryptography, fetchFromGitHub, httpx, pytest-aiohttp
-, pytest-mock, pytestCheckHook, pythonOlder, respx }:
+{
+  lib,
+  buildPythonPackage,
+  cryptography,
+  fetchFromGitHub,
+  httpx,
+  pytest-aiohttp,
+  pytest-mock,
+  pytestCheckHook,
+  pythonOlder,
+  respx,
+}:
 
 buildPythonPackage rec {
   pname = "ha-philipsjs";

@@ -1,4 +1,11 @@
-{ lib, buildPythonPackage, fetchPypi, pythonOlder, websockets, requests }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  websockets,
+  requests,
+}:
 
 buildPythonPackage rec {
   pname = "mattermostdriver";

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, django, fetchFromGitHub, python3-openid, pythonOlder
-, requests, requests-oauthlib, pyjwt }:
+{
+  lib,
+  buildPythonPackage,
+  django,
+  fetchFromGitHub,
+  python3-openid,
+  pythonOlder,
+  requests,
+  requests-oauthlib,
+  pyjwt,
+}:
 
 buildPythonPackage rec {
   pname = "django-allauth";

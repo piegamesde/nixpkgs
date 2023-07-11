@@ -1,4 +1,7 @@
-{ lib, runCommand }:
+{
+  lib,
+  runCommand,
+}:
 
 rec {
   runTest = name: body:

@@ -1,7 +1,27 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, cookiecutter, filelock
-, huggingface-hub, importlib-metadata, regex, requests, numpy, packaging
-, tensorflow, sagemaker, ftfy, protobuf, scikit-learn, pillow, pyyaml, torch
-, tokenizers, tqdm }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  cookiecutter,
+  filelock,
+  huggingface-hub,
+  importlib-metadata,
+  regex,
+  requests,
+  numpy,
+  packaging,
+  tensorflow,
+  sagemaker,
+  ftfy,
+  protobuf,
+  scikit-learn,
+  pillow,
+  pyyaml,
+  torch,
+  tokenizers,
+  tqdm,
+}:
 
 buildPythonPackage rec {
   pname = "transformers";

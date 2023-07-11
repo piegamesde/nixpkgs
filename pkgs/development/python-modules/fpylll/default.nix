@@ -1,5 +1,18 @@
-{ stdenv, lib, fetchFromGitHub, buildPythonPackage, pkgconfig, gmp, pari, mpfr
-, fplll, cython, cysignals, numpy, pytest }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pkgconfig,
+  gmp,
+  pari,
+  mpfr,
+  fplll,
+  cython,
+  cysignals,
+  numpy,
+  pytest,
+}:
 
 buildPythonPackage rec {
   pname = "fpylll";

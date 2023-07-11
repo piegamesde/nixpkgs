@@ -1,10 +1,40 @@
-{ lib, asn1crypto, buildPythonPackage, defusedxml, dissect-cim, dissect-clfs
-, dissect-cstruct, dissect-esedb, dissect-etl, dissect-eventlog
-, dissect-evidence, dissect-extfs, dissect-fat, dissect-ffs, dissect-hypervisor
-, dissect-ntfs, dissect-regf, dissect-sql, dissect-thumbcache, dissect-util
-, dissect-volume, dissect-xfs, fetchFromGitHub, flow-record, fusepy, ipython
-, pycryptodome, pytestCheckHook, pythonOlder, pyyaml, setuptools, setuptools-scm
-, structlog, yara-python, zstandard }:
+{
+  lib,
+  asn1crypto,
+  buildPythonPackage,
+  defusedxml,
+  dissect-cim,
+  dissect-clfs,
+  dissect-cstruct,
+  dissect-esedb,
+  dissect-etl,
+  dissect-eventlog,
+  dissect-evidence,
+  dissect-extfs,
+  dissect-fat,
+  dissect-ffs,
+  dissect-hypervisor,
+  dissect-ntfs,
+  dissect-regf,
+  dissect-sql,
+  dissect-thumbcache,
+  dissect-util,
+  dissect-volume,
+  dissect-xfs,
+  fetchFromGitHub,
+  flow-record,
+  fusepy,
+  ipython,
+  pycryptodome,
+  pytestCheckHook,
+  pythonOlder,
+  pyyaml,
+  setuptools,
+  setuptools-scm,
+  structlog,
+  yara-python,
+  zstandard,
+}:
 
 buildPythonPackage rec {
   pname = "dissect-target";

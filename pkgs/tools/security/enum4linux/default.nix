@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, samba, perl, openldap }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  samba,
+  perl,
+  openldap,
+}:
 
 stdenv.mkDerivation rec {
   pname = "enum4linux";

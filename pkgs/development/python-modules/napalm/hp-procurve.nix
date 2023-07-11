@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, setuptools, napalm, netmiko
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  napalm,
+  netmiko,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "napalm-hp-procurve";

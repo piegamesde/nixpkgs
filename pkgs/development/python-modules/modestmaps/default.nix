@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchPypi, pillow, isPy27 }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  pillow,
+  isPy27,
+}:
 
 buildPythonPackage rec {
   pname = "ModestMaps";

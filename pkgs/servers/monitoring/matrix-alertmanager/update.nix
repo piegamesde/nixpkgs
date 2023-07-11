@@ -1,5 +1,15 @@
-{ lib, writeShellScript, coreutils, jq, common-updater-scripts, curl, wget
-, gnugrep, yarn, prefetch-yarn-deps }:
+{
+  lib,
+  writeShellScript,
+  coreutils,
+  jq,
+  common-updater-scripts,
+  curl,
+  wget,
+  gnugrep,
+  yarn,
+  prefetch-yarn-deps,
+}:
 
 writeShellScript "update-matrix-alertmanager" ''
   set -xe

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, libuuid, cacert, Foundation, readline }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libuuid,
+  cacert,
+  Foundation,
+  readline,
+}:
 
 stdenv.mkDerivation rec {
   pname = "premake5";

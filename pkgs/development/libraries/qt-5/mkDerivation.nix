@@ -1,4 +1,8 @@
-{ lib, debug, wrapQtAppsHook }:
+{
+  lib,
+  debug,
+  wrapQtAppsHook,
+}:
 
 let inherit (lib) optional;
 

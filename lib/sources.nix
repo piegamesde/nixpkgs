@@ -1,5 +1,7 @@
 # Functions for copying sources to the Nix store.
-{ lib }:
+{
+  lib,
+}:
 
 # Tested in lib/tests/sources.sh
 let
@@ -68,17 +70,18 @@ let
   */
   cleanSourceWith = {
     # A path or cleanSourceWith result to filter and/or rename.
-    src,
-    # Optional with default value: constant true (include everything)
-    # The function will be combined with the && operator such
-    # that src.filter is called lazily.
-    # For implementing a filter, see
-    # https://nixos.org/nix/manual/#builtin-filterSource
-    # Type: A function (path -> type -> bool)
-    filter ? _path: _type: true,
-    # Optional name to use as part of the store path.
-    # This defaults to `src.name` or otherwise `"source"`.
-    name ? null }:
+      src,
+      # Optional with default value: constant true (include everything)
+      # The function will be combined with the && operator such
+      # that src.filter is called lazily.
+      # For implementing a filter, see
+      # https://nixos.org/nix/manual/#builtin-filterSource
+      # Type: A function (path -> type -> bool)
+      filter ? _path: _type: true,
+      # Optional name to use as part of the store path.
+      # This defaults to `src.name` or otherwise `"source"`.
+      name ? null
+    }:
     let orig = toSourceAttributes src;
     in fromSourceAttributes {
       inherit (orig) origSrc;
@@ -245,14 +248,18 @@ let
   # fromSourceAttributes : SourceAttrs -> Source
   #
   # Inverse of toSourceAttributes for Source objects.
-  fromSourceAttributes = { origSrc, filter, name }: {
-    _isLibCleanSourceWith = true;
-    inherit origSrc filter name;
-    outPath = builtins.path {
-      inherit filter name;
-      path = origSrc;
+  fromSourceAttributes = {
+      origSrc,
+      filter,
+      name,
+    }: {
+      _isLibCleanSourceWith = true;
+      inherit origSrc filter name;
+      outPath = builtins.path {
+        inherit filter name;
+        path = origSrc;
+      };
     };
-  };
 
 in {
   inherit pathType pathIsDirectory pathIsRegularFile

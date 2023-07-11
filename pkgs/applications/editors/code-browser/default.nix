@@ -1,6 +1,19 @@
-{ lib, stdenv, fetchurl, copper, python3, pkg-config, withQt ? false
-, qtbase ? null, wrapQtAppsHook ? null, withGtk2 ? false, gtk2, withGtk3 ? false
-, gtk3, mkDerivation ? stdenv.mkDerivation }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  copper,
+  python3,
+  pkg-config,
+  withQt ? false,
+  qtbase ? null,
+  wrapQtAppsHook ? null,
+  withGtk2 ? false,
+  gtk2,
+  withGtk3 ? false,
+  gtk3,
+  mkDerivation ? stdenv.mkDerivation
+}:
 let onlyOneEnabled = xs: 1 == builtins.length (builtins.filter lib.id xs);
 in assert onlyOneEnabled [ withQt withGtk2 withGtk3 ];
 mkDerivation rec {

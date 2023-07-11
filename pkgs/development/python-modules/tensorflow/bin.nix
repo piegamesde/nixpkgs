@@ -1,9 +1,42 @@
-{ stdenv, lib, fetchurl, buildPythonPackage, isPy3k, pythonOlder, pythonAtLeast
-, astor, gast, google-pasta, wrapt, numpy, six, termcolor, packaging, protobuf
-, absl-py, grpcio, mock, scipy, wheel, jax, opt-einsum, backports_weakref
-, tensorflow-estimator-bin, tensorboard, cudaSupport ? false, cudaPackages ? { }
-, zlib, python, keras-applications, keras-preprocessing, addOpenGLRunpath
-, astunparse, flatbuffers, h5py, typing-extensions }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  buildPythonPackage,
+  isPy3k,
+  pythonOlder,
+  pythonAtLeast,
+  astor,
+  gast,
+  google-pasta,
+  wrapt,
+  numpy,
+  six,
+  termcolor,
+  packaging,
+  protobuf,
+  absl-py,
+  grpcio,
+  mock,
+  scipy,
+  wheel,
+  jax,
+  opt-einsum,
+  backports_weakref,
+  tensorflow-estimator-bin,
+  tensorboard,
+  cudaSupport ? false,
+  cudaPackages ? { },
+  zlib,
+  python,
+  keras-applications,
+  keras-preprocessing,
+  addOpenGLRunpath,
+  astunparse,
+  flatbuffers,
+  h5py,
+  typing-extensions,
+}:
 
 # We keep this binary build for two reasons:
 # - the source build doesn't work on Darwin.

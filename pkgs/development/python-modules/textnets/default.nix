@@ -1,6 +1,23 @@
-{ lib, buildPythonPackage, cairocffi, cython, fetchPypi, igraph, leidenalg
-, pandas, poetry-core, pytestCheckHook, pythonOlder, scipy, setuptools, spacy
-, en_core_web_sm, toolz, tqdm, wasabi }:
+{
+  lib,
+  buildPythonPackage,
+  cairocffi,
+  cython,
+  fetchPypi,
+  igraph,
+  leidenalg,
+  pandas,
+  poetry-core,
+  pytestCheckHook,
+  pythonOlder,
+  scipy,
+  setuptools,
+  spacy,
+  en_core_web_sm,
+  toolz,
+  tqdm,
+  wasabi,
+}:
 
 buildPythonPackage rec {
   pname = "textnets";

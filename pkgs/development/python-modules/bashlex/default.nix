@@ -1,4 +1,10 @@
-{ lib, buildPythonPackage, fetchFromGitHub, python, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "bashlex";

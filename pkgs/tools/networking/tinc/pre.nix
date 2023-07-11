@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, texinfo, ncurses
-, readline, zlib, lzo, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  autoreconfHook,
+  texinfo,
+  ncurses,
+  readline,
+  zlib,
+  lzo,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tinc";

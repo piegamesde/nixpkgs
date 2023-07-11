@@ -1,5 +1,17 @@
-{ lib, aiohttp, buildPythonPackage, colorlog, cryptography, fetchFromGitHub, go
-, pykerberos, pythonOlder, skein, sqlalchemy, traitlets }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  colorlog,
+  cryptography,
+  fetchFromGitHub,
+  go,
+  pykerberos,
+  pythonOlder,
+  skein,
+  sqlalchemy,
+  traitlets,
+}:
 
 buildPythonPackage rec {
   pname = "dask-gateway-server";

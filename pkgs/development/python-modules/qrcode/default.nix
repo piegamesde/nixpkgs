@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchPypi, setuptools, pillow, pypng
-, typing-extensions, mock, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  setuptools,
+  pillow,
+  pypng,
+  typing-extensions,
+  mock,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "qrcode";

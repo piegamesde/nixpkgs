@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, flex, bison, bluez, libnl, libxcrypt, pkg-config
-, withBluez ? false, withRemote ? false }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  flex,
+  bison,
+  bluez,
+  libnl,
+  libxcrypt,
+  pkg-config,
+  withBluez ? false,
+  withRemote ? false
+}:
 
 stdenv.mkDerivation rec {
   pname = "libpcap";

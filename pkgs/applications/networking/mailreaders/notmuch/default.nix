@@ -1,6 +1,30 @@
-{ fetchurl, lib, stdenv, pkg-config, gnupg, xapian, gmime3, talloc, zlib
-, doxygen, perl, texinfo, notmuch, pythonPackages, emacs, ruby, testers, which
-, dtach, openssl, bash, gdb, man, withEmacs ? true, withRuby ? true }:
+{
+  fetchurl,
+  lib,
+  stdenv,
+  pkg-config,
+  gnupg,
+  xapian,
+  gmime3,
+  talloc,
+  zlib,
+  doxygen,
+  perl,
+  texinfo,
+  notmuch,
+  pythonPackages,
+  emacs,
+  ruby,
+  testers,
+  which,
+  dtach,
+  openssl,
+  bash,
+  gdb,
+  man,
+  withEmacs ? true,
+  withRuby ? true
+}:
 
 stdenv.mkDerivation rec {
   pname = "notmuch";

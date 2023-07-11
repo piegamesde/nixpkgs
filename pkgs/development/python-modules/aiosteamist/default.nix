@@ -1,5 +1,12 @@
-{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, poetry-core, pythonOlder
-, xmltodict }:
+{
+  lib,
+  aiohttp,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pythonOlder,
+  xmltodict,
+}:
 
 buildPythonPackage rec {
   pname = "aiosteamist";

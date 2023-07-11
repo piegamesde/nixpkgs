@@ -1,4 +1,9 @@
-{ buildOctavePackage, lib, fetchurl, instrument-control, arduino-core-unwrapped
+{
+  buildOctavePackage,
+  lib,
+  fetchurl,
+  instrument-control,
+  arduino-core-unwrapped,
 }:
 
 buildOctavePackage rec {

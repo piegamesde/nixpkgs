@@ -1,5 +1,13 @@
-{ lib, buildPythonPackage, fetchPypi, nose, pytestCheckHook, decorator
-, setuptools, pythonOlder }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  nose,
+  pytestCheckHook,
+  decorator,
+  setuptools,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "networkx";

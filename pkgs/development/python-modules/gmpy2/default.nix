@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, isPyPy, gmp, mpfr, libmpc }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  isPyPy,
+  gmp,
+  mpfr,
+  libmpc,
+}:
 
 let
   pname = "gmpy2";

@@ -1,4 +1,13 @@
-{ stdenv, lib, fetchFromGitHub, cmake, fftw, qtbase, qmake, wrapQtAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  cmake,
+  fftw,
+  qtbase,
+  qmake,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "smartdeblur";

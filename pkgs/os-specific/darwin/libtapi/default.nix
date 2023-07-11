@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkgsBuildBuild, cmake, python3, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkgsBuildBuild,
+  cmake,
+  python3,
+  ncurses,
+}:
 
 stdenv.mkDerivation {
   pname = "libtapi";

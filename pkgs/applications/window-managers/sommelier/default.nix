@@ -1,5 +1,18 @@
-{ lib, stdenv, fetchzip, meson, ninja, pkg-config, wayland-scanner, libxkbcommon
-, mesa, pixman, xorg, wayland, gtest }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+  meson,
+  ninja,
+  pkg-config,
+  wayland-scanner,
+  libxkbcommon,
+  mesa,
+  pixman,
+  xorg,
+  wayland,
+  gtest,
+}:
 
 stdenv.mkDerivation {
   pname = "sommelier";

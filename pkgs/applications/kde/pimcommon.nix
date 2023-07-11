@@ -1,9 +1,37 @@
-{ mkDerivation, lib, kdepimTeam, extra-cmake-modules, kdoctools, akonadi
-, akonadi-contacts, akonadi-mime, akonadi-search, grantlee, karchive, kcmutils
-, kcodecs, kcompletion, kconfig, kconfigwidgets, kcontacts, kdbusaddons
-, kiconthemes, kimap, kio, kitemmodels, kjobwidgets, kldap, knewstuff
-, kpimtextedit, kpurpose, kwallet, kwindowsystem, libkdepim, qtwebengine
-, ktextaddons }:
+{
+  mkDerivation,
+  lib,
+  kdepimTeam,
+  extra-cmake-modules,
+  kdoctools,
+  akonadi,
+  akonadi-contacts,
+  akonadi-mime,
+  akonadi-search,
+  grantlee,
+  karchive,
+  kcmutils,
+  kcodecs,
+  kcompletion,
+  kconfig,
+  kconfigwidgets,
+  kcontacts,
+  kdbusaddons,
+  kiconthemes,
+  kimap,
+  kio,
+  kitemmodels,
+  kjobwidgets,
+  kldap,
+  knewstuff,
+  kpimtextedit,
+  kpurpose,
+  kwallet,
+  kwindowsystem,
+  libkdepim,
+  qtwebengine,
+  ktextaddons,
+}:
 
 mkDerivation {
   pname = "pimcommon";

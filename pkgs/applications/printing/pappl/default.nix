@@ -1,5 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, avahi, cups, gnutls, libjpeg, libpng
-, libusb1, pkg-config, withPAMSupport ? true, pam, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  avahi,
+  cups,
+  gnutls,
+  libjpeg,
+  libpng,
+  libusb1,
+  pkg-config,
+  withPAMSupport ? true,
+  pam,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "pappl";

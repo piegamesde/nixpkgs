@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, makeWrapper, jre_headless, gnused }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  jre_headless,
+  gnused,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ktlint";

@@ -1,7 +1,30 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, substituteAll, isPyPy
-, python, pillow, pycairo, pkg-config, boost, cairo, harfbuzz, icu, libjpeg
-, libpng, libtiff, libwebp, mapnik, proj, zlib, libxml2, sqlite, nose
-, pytestCheckHook }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  substituteAll,
+  isPyPy,
+  python,
+  pillow,
+  pycairo,
+  pkg-config,
+  boost,
+  cairo,
+  harfbuzz,
+  icu,
+  libjpeg,
+  libpng,
+  libtiff,
+  libwebp,
+  mapnik,
+  proj,
+  zlib,
+  libxml2,
+  sqlite,
+  nose,
+  pytestCheckHook,
+}:
 
 buildPythonPackage rec {
   pname = "python-mapnik";

@@ -1,5 +1,19 @@
-{ libopus, opusfile, libopusenc, libogg, libctb, gsmlib, lua, curl, ffmpeg
-, libmysqlclient, postgresql, spandsp3, sofia_sip, libks }:
+{
+  libopus,
+  opusfile,
+  libopusenc,
+  libogg,
+  libctb,
+  gsmlib,
+  lua,
+  curl,
+  ffmpeg,
+  libmysqlclient,
+  postgresql,
+  spandsp3,
+  sofia_sip,
+  libks,
+}:
 
 let
 

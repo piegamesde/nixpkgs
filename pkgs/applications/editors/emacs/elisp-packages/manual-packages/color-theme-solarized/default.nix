@@ -1,4 +1,10 @@
-{ lib, trivialBuild, fetchFromGitHub, emacs, color-theme }:
+{
+  lib,
+  trivialBuild,
+  fetchFromGitHub,
+  emacs,
+  color-theme,
+}:
 
 trivialBuild {
   pname = "color-theme-solarized";

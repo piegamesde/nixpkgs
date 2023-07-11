@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchurl, autoPatchelfHook, pkg-config, dpkg, openssl, webkitgtk
-, libappindicator, wrapGAppsHook }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  pkg-config,
+  dpkg,
+  openssl,
+  webkitgtk,
+  libappindicator,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   name = "holochain-launcher";

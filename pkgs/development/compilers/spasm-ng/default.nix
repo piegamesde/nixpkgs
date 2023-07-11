@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, gcc, gmp, openssl, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gcc,
+  gmp,
+  openssl,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "spasm-ng";

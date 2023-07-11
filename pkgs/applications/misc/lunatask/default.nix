@@ -1,4 +1,8 @@
-{ lib, appimageTools, fetchurl }:
+{
+  lib,
+  appimageTools,
+  fetchurl,
+}:
 
 let
   version = "1.6.4";

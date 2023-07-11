@@ -1,6 +1,24 @@
-{ stdenv, lib, meson, ninja, pkg-config, fetchFromGitLab, fetchpatch, python3
-, umockdev, gobject-introspection, dbus, asciidoc, libxml2, libxslt
-, docbook_xml_dtd_45, docbook-xsl-nons, glib, systemd, polkit }:
+{
+  stdenv,
+  lib,
+  meson,
+  ninja,
+  pkg-config,
+  fetchFromGitLab,
+  fetchpatch,
+  python3,
+  umockdev,
+  gobject-introspection,
+  dbus,
+  asciidoc,
+  libxml2,
+  libxslt,
+  docbook_xml_dtd_45,
+  docbook-xsl-nons,
+  glib,
+  systemd,
+  polkit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bolt";

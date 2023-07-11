@@ -1,5 +1,14 @@
-{ stdenv, autoreconfHook, fetchFromGitHub, gtk-sharp-3_0, lib, libxslt, mono
-, pkg-config, webkitgtk, }:
+{
+  stdenv,
+  autoreconfHook,
+  fetchFromGitHub,
+  gtk-sharp-3_0,
+  lib,
+  libxslt,
+  mono,
+  pkg-config,
+  webkitgtk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "webkit2-sharp";

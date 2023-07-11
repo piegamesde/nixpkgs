@@ -1,5 +1,17 @@
-{ stdenv, lib, fetchurl, cmake, libGLU, libGL, pkg-config, libpulseaudio
-, extra-cmake-modules, qtbase, qttools, debug ? false }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  cmake,
+  libGLU,
+  libGL,
+  pkg-config,
+  libpulseaudio,
+  extra-cmake-modules,
+  qtbase,
+  qttools,
+  debug ? false
+}:
 
 let
   soname = "phonon4qt5";

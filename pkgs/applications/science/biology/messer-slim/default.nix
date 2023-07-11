@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gcc, gcc-unwrapped }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gcc,
+  gcc-unwrapped,
+}:
 
 stdenv.mkDerivation rec {
   version = "4.0.1";

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, fftwSinglePrec, libsndfile
-, sigutils, soapysdr-with-plugins, libxml2, volk }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  fftwSinglePrec,
+  libsndfile,
+  sigutils,
+  soapysdr-with-plugins,
+  libxml2,
+  volk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "suscan";

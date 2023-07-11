@@ -1,6 +1,12 @@
-{ pkgs }:
+{
+  pkgs,
+}:
 
-{ buildInputs ? [ ], generated, ... }@attrs:
+{
+  buildInputs ? [ ],
+  generated,
+  ...
+}@attrs:
 
 let
   # Fetches the bower packages. `generated` should be the result of a

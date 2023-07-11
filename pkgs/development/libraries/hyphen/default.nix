@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, perl, ... }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perl,
+  ...
+}:
 
 let
   version = "2.8.8";

@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchurl, copyDesktopItems, libX11, libXpm, libpng
-, makeDesktopItem, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  copyDesktopItems,
+  libX11,
+  libXpm,
+  libpng,
+  makeDesktopItem,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ace-of-penguins";

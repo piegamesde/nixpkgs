@@ -1,5 +1,17 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, astor, asttokens
-, asyncstdlib, deal, dpcontracts, numpy, pytestCheckHook, typing-extensions }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  astor,
+  asttokens,
+  asyncstdlib,
+  deal,
+  dpcontracts,
+  numpy,
+  pytestCheckHook,
+  typing-extensions,
+}:
 
 buildPythonPackage rec {
   pname = "icontract";

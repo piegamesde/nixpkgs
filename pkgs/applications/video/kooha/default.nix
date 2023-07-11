@@ -1,6 +1,23 @@
-{ lib, stdenv, fetchFromGitHub, appstream-glib, desktop-file-utils, glib
-, gst_all_1, pipewire, gtk4, libadwaita, libpulseaudio, librsvg, meson, ninja
-, pkg-config, rustPlatform, wayland, wrapGAppsHook4 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  appstream-glib,
+  desktop-file-utils,
+  glib,
+  gst_all_1,
+  pipewire,
+  gtk4,
+  libadwaita,
+  libpulseaudio,
+  librsvg,
+  meson,
+  ninja,
+  pkg-config,
+  rustPlatform,
+  wayland,
+  wrapGAppsHook4,
+}:
 
 stdenv.mkDerivation rec {
   pname = "kooha";

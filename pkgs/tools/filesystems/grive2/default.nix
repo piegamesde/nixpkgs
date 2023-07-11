@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, yajl, cmake, libgcrypt, curl, expat
-, boost, libiberty }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  yajl,
+  cmake,
+  libgcrypt,
+  curl,
+  expat,
+  boost,
+  libiberty,
+}:
 
 stdenv.mkDerivation rec {
   version = "0.5.3";

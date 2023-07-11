@@ -1,11 +1,57 @@
-{ stdenv, lib, fetchurl, substituteAll, autoreconfHook, pkg-config, intltool
-, babl, gegl, gtk2, glib, gdk-pixbuf, isocodes, pango, cairo, freetype
-, fontconfig, lcms, libpng, libjpeg, libjxl, poppler, poppler_data, libtiff
-, libmng, librsvg, libwmf, zlib, libzip, ghostscript, aalib, shared-mime-info
-, libexif, gettext, makeWrapper, gtk-doc, xorg, glib-networking, libmypaint
-, gexiv2, harfbuzz, mypaint-brushes1, libwebp, libheif, libgudev, openexr
-, desktopToDarwinBundle, AppKit, Cocoa, gtk-mac-integration-gtk2
-, withPython ? false, python2 }:
+{
+  stdenv,
+  lib,
+  fetchurl,
+  substituteAll,
+  autoreconfHook,
+  pkg-config,
+  intltool,
+  babl,
+  gegl,
+  gtk2,
+  glib,
+  gdk-pixbuf,
+  isocodes,
+  pango,
+  cairo,
+  freetype,
+  fontconfig,
+  lcms,
+  libpng,
+  libjpeg,
+  libjxl,
+  poppler,
+  poppler_data,
+  libtiff,
+  libmng,
+  librsvg,
+  libwmf,
+  zlib,
+  libzip,
+  ghostscript,
+  aalib,
+  shared-mime-info,
+  libexif,
+  gettext,
+  makeWrapper,
+  gtk-doc,
+  xorg,
+  glib-networking,
+  libmypaint,
+  gexiv2,
+  harfbuzz,
+  mypaint-brushes1,
+  libwebp,
+  libheif,
+  libgudev,
+  openexr,
+  desktopToDarwinBundle,
+  AppKit,
+  Cocoa,
+  gtk-mac-integration-gtk2,
+  withPython ? false,
+  python2,
+}:
 
 let python = python2.withPackages (pp: [ pp.pygtk ]);
 in stdenv.mkDerivation (finalAttrs: {

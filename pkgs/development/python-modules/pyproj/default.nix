@@ -1,6 +1,20 @@
-{ lib, buildPythonPackage, fetchFromGitHub, python, proj, pythonOlder
-, substituteAll, cython, pytestCheckHook, mock, certifi, numpy, shapely, pandas
-, xarray }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  python,
+  proj,
+  pythonOlder,
+  substituteAll,
+  cython,
+  pytestCheckHook,
+  mock,
+  certifi,
+  numpy,
+  shapely,
+  pandas,
+  xarray,
+}:
 
 buildPythonPackage rec {
   pname = "pyproj";

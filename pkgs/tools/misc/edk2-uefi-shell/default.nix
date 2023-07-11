@@ -1,4 +1,12 @@
-{ lib, stdenv, edk2, llvmPackages, util-linux, nasm, python3 }:
+{
+  lib,
+  stdenv,
+  edk2,
+  llvmPackages,
+  util-linux,
+  nasm,
+  python3,
+}:
 edk2.mkDerivation "ShellPkg/ShellPkg.dsc" (finalAttrs: {
   pname = "edk2-uefi-shell";
   inherit (edk2) version;

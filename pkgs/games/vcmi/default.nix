@@ -1,6 +1,29 @@
-{ lib, stdenv, fetchFromGitHub, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, boost
-, cmake, ffmpeg, fuzzylite, innoextract, luajit, minizip, ninja, pkg-config
-, python3, qtbase, qttools, tbb, unshield, wrapQtAppsHook, zlib, testers, vcmi
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  SDL2,
+  SDL2_image,
+  SDL2_mixer,
+  SDL2_ttf,
+  boost,
+  cmake,
+  ffmpeg,
+  fuzzylite,
+  innoextract,
+  luajit,
+  minizip,
+  ninja,
+  pkg-config,
+  python3,
+  qtbase,
+  qttools,
+  tbb,
+  unshield,
+  wrapQtAppsHook,
+  zlib,
+  testers,
+  vcmi,
 }:
 
 stdenv.mkDerivation rec {

@@ -1,8 +1,24 @@
-{ lib, buildPythonPackage, fetchFromGitHub
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub
 
-, flask, limits, ordered-set, rich, typing-extensions
+  ,
+  flask,
+  limits,
+  ordered-set,
+  rich,
+  typing-extensions
 
-, asgiref, hiro, pymemcache, pytest-mock, pytestCheckHook, redis, pymongo }:
+  ,
+  asgiref,
+  hiro,
+  pymemcache,
+  pytest-mock,
+  pytestCheckHook,
+  redis,
+  pymongo,
+}:
 
 buildPythonPackage rec {
   pname = "flask-limiter";

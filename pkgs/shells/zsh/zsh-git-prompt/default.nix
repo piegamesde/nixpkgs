@@ -24,10 +24,22 @@
 # More details are in share/doc/zsh-git-prompt/README.md, once
 # installed.
 #
-{ fetchFromGitHub, python3, git, lib, haskellPackages }:
+{
+  fetchFromGitHub,
+  python3,
+  git,
+  lib,
+  haskellPackages,
+}:
 
-haskellPackages.callPackage
-({ mkDerivation, base, HUnit, parsec, process, QuickCheck }:
+haskellPackages.callPackage ({
+    mkDerivation,
+    base,
+    HUnit,
+    parsec,
+    process,
+    QuickCheck,
+  }:
   mkDerivation rec {
     pname = "zsh-git-prompt";
     version = "0.4z"; # While we await a real 0.5 release.

@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, buildPythonPackage, setuptools-scm, cython
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  setuptools-scm,
+  cython,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "pyclipper";

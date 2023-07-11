@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, automake, autoconf }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  automake,
+  autoconf,
+}:
 
 stdenv.mkDerivation rec {
   pname = "avr-libc";

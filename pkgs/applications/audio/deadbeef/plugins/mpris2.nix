@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, deadbeef, autoreconfHook, pkg-config, glib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  deadbeef,
+  autoreconfHook,
+  pkg-config,
+  glib,
+}:
 
 let
   pname = "deadbeef-mpris2-plugin";

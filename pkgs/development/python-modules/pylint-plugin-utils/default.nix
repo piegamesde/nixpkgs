@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, pylint, pytestCheckHook, pythonOlder
-, toml }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pylint,
+  pytestCheckHook,
+  pythonOlder,
+  toml,
+}:
 
 buildPythonPackage rec {
   pname = "pylint-plugin-utils";

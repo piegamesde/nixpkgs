@@ -1,5 +1,16 @@
-{ mkDerivation, lib, stdenv, fetchFromGitHub, nix-update-script, qmake
-, pkg-config, qtbase, qtmultimedia, libvorbis, rtmidi }:
+{
+  mkDerivation,
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  qmake,
+  pkg-config,
+  qtbase,
+  qtmultimedia,
+  libvorbis,
+  rtmidi,
+}:
 
 mkDerivation rec {
   pname = "ptcollab";

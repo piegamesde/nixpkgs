@@ -1,4 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, autoreconfHook, which, ocaml, findlib }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoreconfHook,
+  which,
+  ocaml,
+  findlib,
+}:
 
 if lib.versionOlder ocaml.version "4.02" then
   throw "bitv is not available for OCaml ${ocaml.version}"

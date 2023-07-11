@@ -1,5 +1,18 @@
-{ mkDerivation, lib, fetchurl, extra-cmake-modules, kdoctools, wrapGAppsHook
-, karchive, kconfig, kcrash, kguiaddons, kinit, kparts, kwindowsystem }:
+{
+  mkDerivation,
+  lib,
+  fetchurl,
+  extra-cmake-modules,
+  kdoctools,
+  wrapGAppsHook,
+  karchive,
+  kconfig,
+  kcrash,
+  kguiaddons,
+  kinit,
+  kparts,
+  kwindowsystem,
+}:
 
 mkDerivation rec {
   pname = "krusader";

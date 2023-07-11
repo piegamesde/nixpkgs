@@ -1,4 +1,10 @@
-{ config, lib, options, pkgs, ... }:
+{
+  config,
+  lib,
+  options,
+  pkgs,
+  ...
+}:
 
 with builtins;
 with lib;
@@ -80,26 +86,29 @@ let
     oneOf [
       port
       (enum [ "auto" ])
-      (submodule ({ config, ... }: {
-        options = {
-          addr = optionAddress;
-          port = optionPort;
-          flags = optionFlags;
-          SessionGroup = mkOption {
-            type = nullOr int;
-            default = null;
+      (submodule ({
+          config,
+          ...
+        }: {
+          options = {
+            addr = optionAddress;
+            port = optionPort;
+            flags = optionFlags;
+            SessionGroup = mkOption {
+              type = nullOr int;
+              default = null;
+            };
+          } // genAttrs isolateFlags (name:
+            mkOption {
+              type = types.bool;
+              default = false;
+            });
+          config = {
+            flags = filter (name: config.${name} == true) isolateFlags
+              ++ optional (config.SessionGroup != null)
+              "SessionGroup=${toString config.SessionGroup}";
           };
-        } // genAttrs isolateFlags (name:
-          mkOption {
-            type = types.bool;
-            default = false;
-          });
-        config = {
-          flags = filter (name: config.${name} == true) isolateFlags
-            ++ optional (config.SessionGroup != null)
-            "SessionGroup=${toString config.SessionGroup}";
-        };
-      }))
+        }))
     ];
   optionIsolablePorts = optionName:
     mkOption {
@@ -138,28 +147,31 @@ let
     in with types;
     oneOf [
       port
-      (submodule ({ config, ... }: {
-        options = {
-          unix = optionUnix;
-          addr = optionAddress;
-          port = optionPort;
-          flags = optionFlags;
-          SessionGroup = mkOption {
-            type = nullOr int;
-            default = null;
-          };
-        } // genAttrs flags (name:
-          mkOption {
-            type = types.bool;
-            default = false;
-          });
-        config =
-          mkIf doConfig { # Only add flags in SOCKSPort to avoid duplicates
-            flags = filter (name: config.${name} == true) flags
-              ++ optional (config.SessionGroup != null)
-              "SessionGroup=${toString config.SessionGroup}";
-          };
-      }))
+      (submodule ({
+          config,
+          ...
+        }: {
+          options = {
+            unix = optionUnix;
+            addr = optionAddress;
+            port = optionPort;
+            flags = optionFlags;
+            SessionGroup = mkOption {
+              type = nullOr int;
+              default = null;
+            };
+          } // genAttrs flags (name:
+            mkOption {
+              type = types.bool;
+              default = false;
+            });
+          config =
+            mkIf doConfig { # Only add flags in SOCKSPort to avoid duplicates
+              flags = filter (name: config.${name} == true) flags
+                ++ optional (config.SessionGroup != null)
+                "SessionGroup=${toString config.SessionGroup}";
+            };
+        }))
     ];
   optionFlags = mkOption {
     type = with types; listOf str;
@@ -176,7 +188,10 @@ let
           (listOf (oneOf [
             port
             (enum [ "auto" ])
-            (submodule ({ config, ... }:
+            (submodule ({
+                config,
+                ...
+              }:
               let flags = [ "IPv4Only" "IPv6Only" "NoAdvertise" "NoListen" ];
               in {
                 options = {
@@ -447,21 +462,25 @@ in {
               clientAuthorizations = [ "/run/keys/tor/alice.prv.x25519" ];
             };
           };
-          type = types.attrsOf (types.submodule ({ name, config, ... }: {
-            options.clientAuthorizations = mkOption {
-              description = lib.mdDoc ''
-                Clients' authorizations for a v3 onion service,
-                as a list of files containing each one private key, in the format:
-                ```
-                descriptor:x25519:<base32-private-key>
-                ```
-                ${descriptionGeneric "_client_authorization"}
-              '';
-              type = with types; listOf path;
-              default = [ ];
-              example = [ "/run/keys/tor/alice.prv.x25519" ];
-            };
-          }));
+          type = types.attrsOf (types.submodule ({
+              name,
+              config,
+              ...
+            }: {
+              options.clientAuthorizations = mkOption {
+                description = lib.mdDoc ''
+                  Clients' authorizations for a v3 onion service,
+                  as a list of files containing each one private key, in the format:
+                  ```
+                  descriptor:x25519:<base32-private-key>
+                  ```
+                  ${descriptionGeneric "_client_authorization"}
+                '';
+                type = with types; listOf path;
+                default = [ ];
+                example = [ "/run/keys/tor/alice.prv.x25519" ];
+              };
+            }));
         };
       };
 
@@ -578,161 +597,173 @@ in {
               ];
             };
           };
-          type = types.attrsOf (types.submodule ({ name, config, ... }: {
-            options.path = mkOption {
-              type = types.path;
-              description = lib.mdDoc ''
-                Path where to store the data files of the hidden service.
-                If the {option}`secretKey` is null
-                this defaults to `${stateDir}/onion/$onion`,
-                otherwise to `${runDir}/onion/$onion`.
-              '';
-            };
-            options.secretKey = mkOption {
-              type = with types; nullOr path;
-              default = null;
-              example =
-                "/run/keys/tor/onion/expyuzz4wqqyqhjn/hs_ed25519_secret_key";
-              description = lib.mdDoc ''
-                Secret key of the onion service.
-                If null, Tor reuses any preexisting secret key (in {option}`path`)
-                or generates a new one.
-                The associated public key and hostname are deterministically regenerated
-                from this file if they do not exist.
-              '';
-            };
-            options.authorizeClient = mkOption {
-              description =
-                lib.mdDoc (descriptionGeneric "HiddenServiceAuthorizeClient");
-              default = null;
-              type = types.nullOr (types.submodule ({ ... }: {
-                options = {
-                  authType = mkOption {
-                    type = types.enum [ "basic" "stealth" ];
-                    description = lib.mdDoc ''
-                      Either `"basic"` for a general-purpose authorization protocol
-                      or `"stealth"` for a less scalable protocol
-                      that also hides service activity from unauthorized clients.
-                    '';
-                  };
-                  clientNames = mkOption {
-                    type = with types;
-                      nonEmptyListOf (strMatching "[A-Za-z0-9+-_]+");
-                    description = lib.mdDoc ''
-                      Only clients that are listed here are authorized to access the hidden service.
-                      Generated authorization data can be found in {file}`${stateDir}/onion/$name/hostname`.
-                      Clients need to put this authorization data in their configuration file using
-                      [](#opt-services.tor.settings.HidServAuth).
-                    '';
-                  };
-                };
-              }));
-            };
-            options.authorizedClients = mkOption {
-              description = lib.mdDoc ''
-                Authorized clients for a v3 onion service,
-                as a list of public key, in the format:
-                ```
-                descriptor:x25519:<base32-public-key>
-                ```
-                ${descriptionGeneric "_client_authorization"}
-              '';
-              type = with types; listOf str;
-              default = [ ];
-              example = [
-                "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-              ];
-            };
-            options.map = mkOption {
-              description = lib.mdDoc (descriptionGeneric "HiddenServicePort");
-              type = with types;
-                listOf (oneOf [
-                  port
-                  (submodule ({ ... }: {
+          type = types.attrsOf (types.submodule ({
+              name,
+              config,
+              ...
+            }: {
+              options.path = mkOption {
+                type = types.path;
+                description = lib.mdDoc ''
+                  Path where to store the data files of the hidden service.
+                  If the {option}`secretKey` is null
+                  this defaults to `${stateDir}/onion/$onion`,
+                  otherwise to `${runDir}/onion/$onion`.
+                '';
+              };
+              options.secretKey = mkOption {
+                type = with types; nullOr path;
+                default = null;
+                example =
+                  "/run/keys/tor/onion/expyuzz4wqqyqhjn/hs_ed25519_secret_key";
+                description = lib.mdDoc ''
+                  Secret key of the onion service.
+                  If null, Tor reuses any preexisting secret key (in {option}`path`)
+                  or generates a new one.
+                  The associated public key and hostname are deterministically regenerated
+                  from this file if they do not exist.
+                '';
+              };
+              options.authorizeClient = mkOption {
+                description =
+                  lib.mdDoc (descriptionGeneric "HiddenServiceAuthorizeClient");
+                default = null;
+                type = types.nullOr (types.submodule ({
+                    ...
+                  }: {
                     options = {
-                      port = optionPort;
-                      target = mkOption {
-                        default = null;
-                        type = nullOr (submodule ({ ... }: {
-                          options = {
-                            unix = optionUnix;
-                            addr = optionAddress;
-                            port = optionPort;
-                          };
-                        }));
+                      authType = mkOption {
+                        type = types.enum [ "basic" "stealth" ];
+                        description = lib.mdDoc ''
+                          Either `"basic"` for a general-purpose authorization protocol
+                          or `"stealth"` for a less scalable protocol
+                          that also hides service activity from unauthorized clients.
+                        '';
+                      };
+                      clientNames = mkOption {
+                        type = with types;
+                          nonEmptyListOf (strMatching "[A-Za-z0-9+-_]+");
+                        description = lib.mdDoc ''
+                          Only clients that are listed here are authorized to access the hidden service.
+                          Generated authorization data can be found in {file}`${stateDir}/onion/$name/hostname`.
+                          Clients need to put this authorization data in their configuration file using
+                          [](#opt-services.tor.settings.HidServAuth).
+                        '';
                       };
                     };
-                  }))
-                ]);
-              apply = map (v:
-                if isInt v then {
-                  port = v;
-                  target = null;
-                } else
-                  v);
-            };
-            options.version = mkOption {
-              description =
-                lib.mdDoc (descriptionGeneric "HiddenServiceVersion");
-              type = with types; nullOr (enum [ 2 3 ]);
-              default = null;
-            };
-            options.settings = mkOption {
-              description = lib.mdDoc ''
-                Settings of the onion service.
-                ${descriptionGeneric "_hidden_service_options"}
-              '';
-              default = { };
-              type = types.submodule {
-                freeformType = with types;
-                  (attrsOf (nullOr (oneOf [ str int bool (listOf str) ]))) // {
-                    description = "settings option";
-                  };
-                options.HiddenServiceAllowUnknownPorts =
-                  optionBool "HiddenServiceAllowUnknownPorts";
-                options.HiddenServiceDirGroupReadable =
-                  optionBool "HiddenServiceDirGroupReadable";
-                options.HiddenServiceExportCircuitID = mkOption {
-                  description = lib.mdDoc
-                    (descriptionGeneric "HiddenServiceExportCircuitID");
-                  type = with types; nullOr (enum [ "haproxy" ]);
-                  default = null;
-                };
-                options.HiddenServiceMaxStreams = mkOption {
-                  description =
-                    lib.mdDoc (descriptionGeneric "HiddenServiceMaxStreams");
-                  type = with types; nullOr (ints.between 0 65535);
-                  default = null;
-                };
-                options.HiddenServiceMaxStreamsCloseCircuit =
-                  optionBool "HiddenServiceMaxStreamsCloseCircuit";
-                options.HiddenServiceNumIntroductionPoints = mkOption {
-                  description = lib.mdDoc
-                    (descriptionGeneric "HiddenServiceNumIntroductionPoints");
-                  type = with types; nullOr (ints.between 0 20);
-                  default = null;
-                };
-                options.HiddenServiceSingleHopMode =
-                  optionBool "HiddenServiceSingleHopMode";
-                options.RendPostPeriod = optionString "RendPostPeriod";
+                  }));
               };
-            };
-            config = {
-              path = mkDefault
-                ((if config.secretKey == null then stateDir else runDir)
-                  + "/onion/${name}");
-              settings.HiddenServiceVersion = config.version;
-              settings.HiddenServiceAuthorizeClient =
-                if config.authorizeClient != null then
-                  config.authorizeClient.authType + " "
-                  + concatStringsSep "," config.authorizeClient.clientNames
-                else
-                  null;
-              settings.HiddenServicePort = map
-                (p: mkValueString "" p.port + " " + mkValueString "" p.target)
-                config.map;
-            };
-          }));
+              options.authorizedClients = mkOption {
+                description = lib.mdDoc ''
+                  Authorized clients for a v3 onion service,
+                  as a list of public key, in the format:
+                  ```
+                  descriptor:x25519:<base32-public-key>
+                  ```
+                  ${descriptionGeneric "_client_authorization"}
+                '';
+                type = with types; listOf str;
+                default = [ ];
+                example = [
+                  "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+                ];
+              };
+              options.map = mkOption {
+                description =
+                  lib.mdDoc (descriptionGeneric "HiddenServicePort");
+                type = with types;
+                  listOf (oneOf [
+                    port
+                    (submodule ({
+                        ...
+                      }: {
+                        options = {
+                          port = optionPort;
+                          target = mkOption {
+                            default = null;
+                            type = nullOr (submodule ({
+                                ...
+                              }: {
+                                options = {
+                                  unix = optionUnix;
+                                  addr = optionAddress;
+                                  port = optionPort;
+                                };
+                              }));
+                          };
+                        };
+                      }))
+                  ]);
+                apply = map (v:
+                  if isInt v then {
+                    port = v;
+                    target = null;
+                  } else
+                    v);
+              };
+              options.version = mkOption {
+                description =
+                  lib.mdDoc (descriptionGeneric "HiddenServiceVersion");
+                type = with types; nullOr (enum [ 2 3 ]);
+                default = null;
+              };
+              options.settings = mkOption {
+                description = lib.mdDoc ''
+                  Settings of the onion service.
+                  ${descriptionGeneric "_hidden_service_options"}
+                '';
+                default = { };
+                type = types.submodule {
+                  freeformType = with types;
+                    (attrsOf (nullOr (oneOf [ str int bool (listOf str) ])))
+                    // {
+                      description = "settings option";
+                    };
+                  options.HiddenServiceAllowUnknownPorts =
+                    optionBool "HiddenServiceAllowUnknownPorts";
+                  options.HiddenServiceDirGroupReadable =
+                    optionBool "HiddenServiceDirGroupReadable";
+                  options.HiddenServiceExportCircuitID = mkOption {
+                    description = lib.mdDoc
+                      (descriptionGeneric "HiddenServiceExportCircuitID");
+                    type = with types; nullOr (enum [ "haproxy" ]);
+                    default = null;
+                  };
+                  options.HiddenServiceMaxStreams = mkOption {
+                    description =
+                      lib.mdDoc (descriptionGeneric "HiddenServiceMaxStreams");
+                    type = with types; nullOr (ints.between 0 65535);
+                    default = null;
+                  };
+                  options.HiddenServiceMaxStreamsCloseCircuit =
+                    optionBool "HiddenServiceMaxStreamsCloseCircuit";
+                  options.HiddenServiceNumIntroductionPoints = mkOption {
+                    description = lib.mdDoc
+                      (descriptionGeneric "HiddenServiceNumIntroductionPoints");
+                    type = with types; nullOr (ints.between 0 20);
+                    default = null;
+                  };
+                  options.HiddenServiceSingleHopMode =
+                    optionBool "HiddenServiceSingleHopMode";
+                  options.RendPostPeriod = optionString "RendPostPeriod";
+                };
+              };
+              config = {
+                path = mkDefault
+                  ((if config.secretKey == null then stateDir else runDir)
+                    + "/onion/${name}");
+                settings.HiddenServiceVersion = config.version;
+                settings.HiddenServiceAuthorizeClient =
+                  if config.authorizeClient != null then
+                    config.authorizeClient.authType + " "
+                    + concatStringsSep "," config.authorizeClient.clientNames
+                  else
+                    null;
+                settings.HiddenServicePort = map
+                  (p: mkValueString "" p.port + " " + mkValueString "" p.target)
+                  config.map;
+              };
+            }));
         };
       };
 
@@ -809,7 +840,10 @@ in {
                 (listOf (oneOf [
                   port
                   (enum [ "auto" ])
-                  (submodule ({ config, ... }:
+                  (submodule ({
+                      config,
+                      ...
+                    }:
                     let
                       flags =
                         [ "GroupWritable" "RelaxDirModeCheck" "WorldWritable" ];
@@ -896,12 +930,14 @@ in {
               nullOr (oneOf [
                 port
                 (enum [ "auto" ])
-                (submodule ({ ... }: {
-                  options = {
-                    addr = optionAddress;
-                    port = optionPort;
-                  };
-                }))
+                (submodule ({
+                    ...
+                  }: {
+                    options = {
+                      addr = optionAddress;
+                      port = optionPort;
+                    };
+                  }))
               ]);
             apply = p: if isInt p || isString p then { port = p; } else p;
           };
@@ -1013,19 +1049,21 @@ in {
               lib.mdDoc (descriptionGeneric "ServerTransportPlugin");
             default = null;
             type = with types;
-              nullOr (submodule ({ ... }: {
-                options = {
-                  transports = mkOption {
-                    description = lib.mdDoc "List of pluggable transports.";
-                    type = listOf str;
-                    example = [ "obfs2" "obfs3" "obfs4" "scramblesuit" ];
+              nullOr (submodule ({
+                  ...
+                }: {
+                  options = {
+                    transports = mkOption {
+                      description = lib.mdDoc "List of pluggable transports.";
+                      type = listOf str;
+                      example = [ "obfs2" "obfs3" "obfs4" "scramblesuit" ];
+                    };
+                    exec = mkOption {
+                      type = types.str;
+                      description = lib.mdDoc "Command of pluggable transport.";
+                    };
                   };
-                  exec = mkOption {
-                    type = types.str;
-                    description = lib.mdDoc "Command of pluggable transport.";
-                  };
-                };
-              }));
+                }));
           };
           options.ShutdownWaitLength = mkOption {
             type = types.int;

@@ -1,5 +1,16 @@
-{ lib, stdenv, fetchurl, libtool, perl, pkg-config, python3, zlib, gnutls
-, libidn2, libunistring }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  libtool,
+  perl,
+  pkg-config,
+  python3,
+  zlib,
+  gnutls,
+  libidn2,
+  libunistring,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libgnurl";

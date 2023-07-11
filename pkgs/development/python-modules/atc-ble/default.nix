@@ -1,5 +1,14 @@
-{ lib, bluetooth-sensor-state-data, buildPythonPackage, fetchFromGitHub
-, poetry-core, pycryptodomex, pytestCheckHook, pythonOlder, sensor-state-data }:
+{
+  lib,
+  bluetooth-sensor-state-data,
+  buildPythonPackage,
+  fetchFromGitHub,
+  poetry-core,
+  pycryptodomex,
+  pytestCheckHook,
+  pythonOlder,
+  sensor-state-data,
+}:
 
 buildPythonPackage rec {
   pname = "atc-ble";

@@ -1,5 +1,17 @@
-{ lib, buildPythonApplication, fetchFromGitHub, setuptools-scm, setuptools, vdf
-, bash, steam-run, winetricks, yad, pytestCheckHook, nix-update-script }:
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  setuptools-scm,
+  setuptools,
+  vdf,
+  bash,
+  steam-run,
+  winetricks,
+  yad,
+  pytestCheckHook,
+  nix-update-script,
+}:
 
 buildPythonApplication rec {
   pname = "protontricks";

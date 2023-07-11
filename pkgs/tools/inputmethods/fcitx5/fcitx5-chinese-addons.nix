@@ -1,6 +1,21 @@
-{ lib, mkDerivation, fetchurl, fetchFromGitHub, cmake, extra-cmake-modules
-, boost, libime, fcitx5, fcitx5-qt, fcitx5-lua, qtwebengine, opencc, curl, fmt
-, luaSupport ? true }:
+{
+  lib,
+  mkDerivation,
+  fetchurl,
+  fetchFromGitHub,
+  cmake,
+  extra-cmake-modules,
+  boost,
+  libime,
+  fcitx5,
+  fcitx5-qt,
+  fcitx5-lua,
+  qtwebengine,
+  opencc,
+  curl,
+  fmt,
+  luaSupport ? true
+}:
 
 let
   pyStrokeVer = "20121124";

@@ -1,6 +1,24 @@
-{ lib, python3Packages, gtk3, cairo, gnome, librsvg, xvfb-run, dbus, libnotify
-, wrapGAppsHook, fetchFromGitLab, which, gettext, gobject-introspection
-, gdk-pixbuf, texlive, imagemagick, perlPackages, writeScript }:
+{
+  lib,
+  python3Packages,
+  gtk3,
+  cairo,
+  gnome,
+  librsvg,
+  xvfb-run,
+  dbus,
+  libnotify,
+  wrapGAppsHook,
+  fetchFromGitLab,
+  which,
+  gettext,
+  gobject-introspection,
+  gdk-pixbuf,
+  texlive,
+  imagemagick,
+  perlPackages,
+  writeScript,
+}:
 
 let
   documentation_deps = [

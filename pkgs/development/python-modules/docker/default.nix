@@ -1,5 +1,17 @@
-{ lib, stdenv, buildPythonPackage, fetchPypi, pythonOlder, packaging, paramiko
-, pytestCheckHook, requests, setuptools-scm, urllib3, websocket-client }:
+{
+  lib,
+  stdenv,
+  buildPythonPackage,
+  fetchPypi,
+  pythonOlder,
+  packaging,
+  paramiko,
+  pytestCheckHook,
+  requests,
+  setuptools-scm,
+  urllib3,
+  websocket-client,
+}:
 
 buildPythonPackage rec {
   pname = "docker";

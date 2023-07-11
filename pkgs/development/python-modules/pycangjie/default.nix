@@ -1,5 +1,16 @@
-{ lib, fetchFromGitHub, bash, autoconf, automake, libtool, pkg-config
-, libcangjie, sqlite, buildPythonPackage, cython }:
+{
+  lib,
+  fetchFromGitHub,
+  bash,
+  autoconf,
+  automake,
+  libtool,
+  pkg-config,
+  libcangjie,
+  sqlite,
+  buildPythonPackage,
+  cython,
+}:
 
 buildPythonPackage {
   pname = "pycangjie";

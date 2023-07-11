@@ -1,4 +1,8 @@
-{ lib, stdenvNoCC, fetchzip }:
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+}:
 
 let
   fonts = {
@@ -60,7 +64,12 @@ let
   };
 
   mkpkg = pname:
-    { version, file, hash, description }:
+    {
+      version,
+      file,
+      hash,
+      description,
+    }:
     stdenvNoCC.mkDerivation rec {
       inherit pname version;
 

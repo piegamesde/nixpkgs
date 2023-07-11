@@ -1,4 +1,11 @@
-{ lib, fetchurl, sqlite, pkg-config, buildDunePackage, dune-configurator }:
+{
+  lib,
+  fetchurl,
+  sqlite,
+  pkg-config,
+  buildDunePackage,
+  dune-configurator,
+}:
 
 buildDunePackage rec {
   pname = "sqlite3";

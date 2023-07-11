@@ -1,5 +1,17 @@
-{ lib, async-timeout, buildPythonPackage, fetchPypi, imageio, imutils
-, pythonOlder, requests, urllib3, tqdm, validators, yarl }:
+{
+  lib,
+  async-timeout,
+  buildPythonPackage,
+  fetchPypi,
+  imageio,
+  imutils,
+  pythonOlder,
+  requests,
+  urllib3,
+  tqdm,
+  validators,
+  yarl,
+}:
 
 buildPythonPackage rec {
   pname = "dremel3dpy";

@@ -1,5 +1,13 @@
-{ lib, aiohttp, awesomeversion, buildPythonPackage, fetchPypi, hatchling
-, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  aiohttp,
+  awesomeversion,
+  buildPythonPackage,
+  fetchPypi,
+  hatchling,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "tplink-omada-client";

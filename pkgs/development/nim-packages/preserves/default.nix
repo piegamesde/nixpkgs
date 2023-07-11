@@ -1,4 +1,10 @@
-{ lib, stdenv, buildNimPackage, fetchFromGitea, npeg }:
+{
+  lib,
+  stdenv,
+  buildNimPackage,
+  fetchFromGitea,
+  npeg,
+}:
 
 buildNimPackage rec {
   pname = "preserves";

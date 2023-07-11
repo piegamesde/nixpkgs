@@ -1,4 +1,7 @@
-{ lib, buildManPages }:
+{
+  lib,
+  buildManPages,
+}:
 
 buildManPages {
   pname = "execline-man-pages";

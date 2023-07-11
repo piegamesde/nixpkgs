@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, callPackage }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  callPackage,
+}:
 
 let
   # Probably a bug in some FreeDict release files, but easier to trivially

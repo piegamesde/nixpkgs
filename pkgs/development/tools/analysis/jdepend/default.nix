@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, ant, jdk, runtimeShell }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  ant,
+  jdk,
+  runtimeShell,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jdepend";

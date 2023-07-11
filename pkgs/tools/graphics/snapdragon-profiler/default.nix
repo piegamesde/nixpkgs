@@ -1,15 +1,30 @@
-{ lib, stdenv, makeWrapper, makeDesktopItem, copyDesktopItems, icoutils, mono
-, jre, androidenv, gtk-sharp-2_0, gtk2, libcxx, libcxxabi, coreutils
-, requireFile, archive ? requireFile {
-  name = "snapdragonprofiler_external_linux.tar.gz";
-  message = ''
-    This nix expression requires that "snapdragonprofiler_external_linux.tar.gz" is
-    already part of the store. To get this archive, you need to download it from:
-      https://developer.qualcomm.com/software/snapdragon-profiler
-    and add it to the nix store with nix-store --add-fixed sha256 <FILE>.
-  '';
-  sha256 = "c6731c417ca39fa9b0f190bd80c99b1603cf97d23becab9e47db6beafd6206b7";
-} }:
+{
+  lib,
+  stdenv,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+  icoutils,
+  mono,
+  jre,
+  androidenv,
+  gtk-sharp-2_0,
+  gtk2,
+  libcxx,
+  libcxxabi,
+  coreutils,
+  requireFile,
+  archive ? requireFile {
+    name = "snapdragonprofiler_external_linux.tar.gz";
+    message = ''
+      This nix expression requires that "snapdragonprofiler_external_linux.tar.gz" is
+      already part of the store. To get this archive, you need to download it from:
+        https://developer.qualcomm.com/software/snapdragon-profiler
+      and add it to the nix store with nix-store --add-fixed sha256 <FILE>.
+    '';
+    sha256 = "c6731c417ca39fa9b0f190bd80c99b1603cf97d23becab9e47db6beafd6206b7";
+  }
+}:
 
 stdenv.mkDerivation rec {
   pname = "snapdragon-profiler";

@@ -1,4 +1,12 @@
-{ lib, buildPythonPackage, fetchPypi, isPy3k, cython, numpy, srsly }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  isPy3k,
+  cython,
+  numpy,
+  srsly,
+}:
 
 buildPythonPackage rec {
   pname = "spacy-pkuseg";

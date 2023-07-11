@@ -1,4 +1,9 @@
-{ stdenv, lib, fetchgit, ncurses }:
+{
+  stdenv,
+  lib,
+  fetchgit,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "sfeed";

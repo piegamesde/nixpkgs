@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, fetchPypi, ansible-core, flaky, pytest-mock
-, pytestCheckHook, pyyaml, setuptools-scm, subprocess-tee }:
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  ansible-core,
+  flaky,
+  pytest-mock,
+  pytestCheckHook,
+  pyyaml,
+  setuptools-scm,
+  subprocess-tee,
+}:
 
 buildPythonPackage rec {
   pname = "ansible-compat";

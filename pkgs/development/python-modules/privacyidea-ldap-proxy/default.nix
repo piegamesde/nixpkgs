@@ -1,5 +1,12 @@
-{ lib, buildPythonPackage, fetchFromGitHub, twisted, ldaptor, configobj
-, fetchpatch }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  twisted,
+  ldaptor,
+  configobj,
+  fetchpatch,
+}:
 
 buildPythonPackage rec {
   pname = "privacyidea-ldap-proxy";

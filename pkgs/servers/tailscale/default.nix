@@ -1,5 +1,15 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, makeWrapper, iptables, iproute2
-, procps, shadow, getent }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  iptables,
+  iproute2,
+  procps,
+  shadow,
+  getent,
+}:
 
 buildGoModule rec {
   pname = "tailscale";

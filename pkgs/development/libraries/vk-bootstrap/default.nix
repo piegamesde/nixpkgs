@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, vulkan-headers, glfw, catch2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  vulkan-headers,
+  glfw,
+  catch2,
+}:
 
 stdenv.mkDerivation rec {
   pname = "vk-bootstrap";

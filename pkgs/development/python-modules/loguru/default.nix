@@ -1,5 +1,16 @@
-{ lib, stdenv, aiocontextvars, buildPythonPackage, colorama, fetchpatch
-, fetchFromGitHub, freezegun, mypy, pytestCheckHook, pythonOlder }:
+{
+  lib,
+  stdenv,
+  aiocontextvars,
+  buildPythonPackage,
+  colorama,
+  fetchpatch,
+  fetchFromGitHub,
+  freezegun,
+  mypy,
+  pytestCheckHook,
+  pythonOlder,
+}:
 
 buildPythonPackage rec {
   pname = "loguru";

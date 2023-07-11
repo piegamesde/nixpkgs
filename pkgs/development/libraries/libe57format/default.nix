@@ -1,4 +1,13 @@
-{ lib, stdenv, cmake, fetchpatch, fetchFromGitHub, boost, xercesc, icu, }:
+{
+  lib,
+  stdenv,
+  cmake,
+  fetchpatch,
+  fetchFromGitHub,
+  boost,
+  xercesc,
+  icu,
+}:
 
 stdenv.mkDerivation rec {
   pname = "libe57format";

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchurl, fetchFromGitHub, php, which, makeWrapper, bash
-, coreutils, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchFromGitHub,
+  php,
+  which,
+  makeWrapper,
+  bash,
+  coreutils,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "drush";

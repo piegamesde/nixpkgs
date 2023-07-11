@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, zlib, bzip2, jansson, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zlib,
+  bzip2,
+  jansson,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bedops";

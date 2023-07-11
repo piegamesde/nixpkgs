@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, itk_5_2, Cocoa }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  itk_5_2,
+  Cocoa,
+}:
 
 stdenv.mkDerivation rec {
   pname = "c3d";

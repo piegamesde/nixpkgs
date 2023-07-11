@@ -1,7 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, removeReferencesTo
-, alsaSupport ? !stdenv.isDarwin, alsa-lib, dbusSupport ? !stdenv.isDarwin, dbus
-, pipewireSupport ? !stdenv.isDarwin, pipewire, pulseSupport ? !stdenv.isDarwin
-, libpulseaudio, CoreServices, AudioUnit, AudioToolbox }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  removeReferencesTo,
+  alsaSupport ? !stdenv.isDarwin,
+  alsa-lib,
+  dbusSupport ? !stdenv.isDarwin,
+  dbus,
+  pipewireSupport ? !stdenv.isDarwin,
+  pipewire,
+  pulseSupport ? !stdenv.isDarwin,
+  libpulseaudio,
+  CoreServices,
+  AudioUnit,
+  AudioToolbox,
+}:
 
 stdenv.mkDerivation rec {
   pname = "openal-soft";

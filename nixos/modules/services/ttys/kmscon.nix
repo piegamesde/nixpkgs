@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   inherit (lib) mapAttrs mkIf mkOption optional optionals types;
 

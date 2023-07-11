@@ -1,4 +1,10 @@
-{ lib, writeTextFile, runtimeShell, drawio, xvfb-run }:
+{
+  lib,
+  writeTextFile,
+  runtimeShell,
+  drawio,
+  xvfb-run,
+}:
 
 writeTextFile {
   name = "${drawio.pname}-headless-${drawio.version}";

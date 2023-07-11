@@ -1,5 +1,22 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, which, perl, autoconf, automake
-, libtool, openssl, systemd, pam, fuse, libjpeg, libopus, nasm, xorg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  which,
+  perl,
+  autoconf,
+  automake,
+  libtool,
+  openssl,
+  systemd,
+  pam,
+  fuse,
+  libjpeg,
+  libopus,
+  nasm,
+  xorg,
+}:
 
 let
   xorgxrdp = stdenv.mkDerivation rec {

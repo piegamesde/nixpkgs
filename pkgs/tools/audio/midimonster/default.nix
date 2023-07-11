@@ -1,5 +1,20 @@
-{ lib, stdenv, fetchurl, zlib, fetchFromGitHub, gnumake, gcc, pkg-config, lua5_4
-, openssl, jack1, python3, alsa-lib, ncurses, libevdev }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  zlib,
+  fetchFromGitHub,
+  gnumake,
+  gcc,
+  pkg-config,
+  lua5_4,
+  openssl,
+  jack1,
+  python3,
+  alsa-lib,
+  ncurses,
+  libevdev,
+}:
 
 stdenv.mkDerivation rec {
   pname = "midimonster";

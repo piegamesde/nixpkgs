@@ -1,4 +1,10 @@
-{ lib, mkCoqDerivation, which, coq, version ? null }:
+{
+  lib,
+  mkCoqDerivation,
+  which,
+  coq,
+  version ? null
+}:
 
 with builtins;
 with lib;

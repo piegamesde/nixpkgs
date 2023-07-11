@@ -1,5 +1,15 @@
-{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, httpx
-, pytest-asyncio, pytest-httpx, pytestCheckHook, yarl }:
+{
+  lib,
+  buildPythonPackage,
+  pythonOlder,
+  fetchFromGitHub,
+  poetry-core,
+  httpx,
+  pytest-asyncio,
+  pytest-httpx,
+  pytestCheckHook,
+  yarl,
+}:
 
 buildPythonPackage rec {
   pname = "netdata";

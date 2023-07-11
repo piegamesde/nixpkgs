@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, pkg-config, fuse, xz }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  pkg-config,
+  fuse,
+  xz,
+}:
 
 stdenv.mkDerivation rec {
   pname = "avfs";

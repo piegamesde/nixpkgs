@@ -1,5 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, qtbase, qtquick1, qmake, qtmultimedia, utmp
-, fetchpatch }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qtbase,
+  qtquick1,
+  qmake,
+  qtmultimedia,
+  utmp,
+  fetchpatch,
+}:
 
 stdenv.mkDerivation {
   version = "2018-11-24";

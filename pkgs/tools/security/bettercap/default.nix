@@ -1,5 +1,14 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, pkg-config, libpcap, libnfnetlink
-, libnetfilter_queue, libusb1 }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  pkg-config,
+  libpcap,
+  libnfnetlink,
+  libnetfilter_queue,
+  libusb1,
+}:
 
 buildGoModule rec {
   pname = "bettercap";

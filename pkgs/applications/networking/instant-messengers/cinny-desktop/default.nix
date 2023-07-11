@@ -1,5 +1,14 @@
-{ stdenv, lib, dpkg, fetchurl, autoPatchelfHook, glib-networking, openssl
-, webkitgtk, wrapGAppsHook }:
+{
+  stdenv,
+  lib,
+  dpkg,
+  fetchurl,
+  autoPatchelfHook,
+  glib-networking,
+  openssl,
+  webkitgtk,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "cinny-desktop";

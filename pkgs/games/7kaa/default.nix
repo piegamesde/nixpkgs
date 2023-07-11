@@ -1,5 +1,19 @@
-{ lib, stdenv, gccStdenv, autoreconfHook, pkg-config, fetchurl, fetchFromGitHub
-, openal, libtool, enet, SDL2, curl, gettext, libiconv }:
+{
+  lib,
+  stdenv,
+  gccStdenv,
+  autoreconfHook,
+  pkg-config,
+  fetchurl,
+  fetchFromGitHub,
+  openal,
+  libtool,
+  enet,
+  SDL2,
+  curl,
+  gettext,
+  libiconv,
+}:
 
 let
   pname = "7kaa";

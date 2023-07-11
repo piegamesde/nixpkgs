@@ -1,4 +1,9 @@
-{ stdenv, lib, buildGoModule, fetchFromGitHub }:
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 let bins = [ "regbot" "regctl" "regsync" ];
 

@@ -1,4 +1,11 @@
-{ qtModule, lib, stdenv, qtbase, qtdeclarative, bluez }:
+{
+  qtModule,
+  lib,
+  stdenv,
+  qtbase,
+  qtdeclarative,
+  bluez,
+}:
 
 qtModule {
   pname = "qtconnectivity";

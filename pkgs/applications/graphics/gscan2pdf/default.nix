@@ -1,10 +1,26 @@
-{ lib, fetchurl, perlPackages, wrapGAppsHook,
-# libs
-librsvg, sane-backends, sane-frontends,
-# runtime dependencies
-imagemagick, libtiff, djvulibre, poppler_utils, ghostscript, unpaper, pdftk,
-# test dependencies
-xvfb-run, liberation_ttf, file, tesseract }:
+{
+  lib,
+  fetchurl,
+  perlPackages,
+  wrapGAppsHook,
+  # libs
+  librsvg,
+  sane-backends,
+  sane-frontends,
+  # runtime dependencies
+  imagemagick,
+  libtiff,
+  djvulibre,
+  poppler_utils,
+  ghostscript,
+  unpaper,
+  pdftk,
+  # test dependencies
+  xvfb-run,
+  liberation_ttf,
+  file,
+  tesseract,
+}:
 
 with lib;
 

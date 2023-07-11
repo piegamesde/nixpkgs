@@ -1,6 +1,25 @@
-{ lib, stdenv, fetchurl, makeWrapper, pkg-config, nasm, makeDesktopItem
-, alsa-lib, flac, gtk2, libvorbis, libvpx, libGLU, libGL, SDL2, SDL2_mixer, AGL
-, Cocoa, GLUT, OpenGL }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  makeWrapper,
+  pkg-config,
+  nasm,
+  makeDesktopItem,
+  alsa-lib,
+  flac,
+  gtk2,
+  libvorbis,
+  libvpx,
+  libGLU,
+  libGL,
+  SDL2,
+  SDL2_mixer,
+  AGL,
+  Cocoa,
+  GLUT,
+  OpenGL,
+}:
 
 let
   desktopItem = makeDesktopItem {

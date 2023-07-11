@@ -1,5 +1,15 @@
-{ stdenv, lib, fetchFromGitHub, meson, ninja, gobject-introspection, gmime3
-, libxml2, libsoup, pkg-config }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  gobject-introspection,
+  gmime3,
+  libxml2,
+  libsoup,
+  pkg-config,
+}:
 
 stdenv.mkDerivation rec {
   pname = "xplayer-plparser";

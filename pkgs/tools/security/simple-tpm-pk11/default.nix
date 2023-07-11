@@ -1,5 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, trousers, openssl, opencryptoki, autoreconfHook
-, libtool }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  trousers,
+  openssl,
+  opencryptoki,
+  autoreconfHook,
+  libtool,
+}:
 
 stdenv.mkDerivation rec {
   pname = "simple-tpm-pk11";

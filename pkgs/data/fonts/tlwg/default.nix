@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, autoconf-archive, fontforge }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  autoconf-archive,
+  fontforge,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tlwg";

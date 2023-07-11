@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, libX11, libXtst, pkg-config, xorgproto, libXi }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libX11,
+  libXtst,
+  pkg-config,
+  xorgproto,
+  libXi,
+}:
 
 stdenv.mkDerivation rec {
   pname = "ksuperkey";

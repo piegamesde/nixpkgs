@@ -1,6 +1,28 @@
-{ lib, stdenv, nix-update-script, appstream, dbus, fetchFromGitHub, flatpak
-, glib, granite, gtk3, json-glib, libgee, libhandy, libsoup, libxml2, meson
-, ninja, packagekit, pkg-config, python3, vala, polkit, wrapGAppsHook }:
+{
+  lib,
+  stdenv,
+  nix-update-script,
+  appstream,
+  dbus,
+  fetchFromGitHub,
+  flatpak,
+  glib,
+  granite,
+  gtk3,
+  json-glib,
+  libgee,
+  libhandy,
+  libsoup,
+  libxml2,
+  meson,
+  ninja,
+  packagekit,
+  pkg-config,
+  python3,
+  vala,
+  polkit,
+  wrapGAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "appcenter";

@@ -1,5 +1,14 @@
-{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, numpy, scipy, deap
-, scikit-learn, python }:
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  fetchpatch,
+  numpy,
+  scipy,
+  deap,
+  scikit-learn,
+  python,
+}:
 
 buildPythonPackage rec {
   pname = "sklearn-deap";

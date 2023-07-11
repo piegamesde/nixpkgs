@@ -1,4 +1,13 @@
-{ bash, coreutils, fetchFromGitHub, git, lib, makeWrapper, ncurses, stdenv }:
+{
+  bash,
+  coreutils,
+  fetchFromGitHub,
+  git,
+  lib,
+  makeWrapper,
+  ncurses,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "dockstarter";

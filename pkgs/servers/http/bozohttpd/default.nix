@@ -1,7 +1,22 @@
-{ lib, stdenv, fetchurl, bmake, groff, inetutils, wget, openssl, libxcrypt
-, minimal ? false, userSupport ? !minimal, cgiSupport ? !minimal
-, dirIndexSupport ? !minimal, dynamicContentSupport ? !minimal
-, sslSupport ? !minimal, luaSupport ? !minimal, lua, htpasswdSupport ? !minimal
+{
+  lib,
+  stdenv,
+  fetchurl,
+  bmake,
+  groff,
+  inetutils,
+  wget,
+  openssl,
+  libxcrypt,
+  minimal ? false,
+  userSupport ? !minimal,
+  cgiSupport ? !minimal,
+  dirIndexSupport ? !minimal,
+  dynamicContentSupport ? !minimal,
+  sslSupport ? !minimal,
+  luaSupport ? !minimal,
+  lua,
+  htpasswdSupport ? !minimal
 }:
 
 let inherit (lib) optional optionals;

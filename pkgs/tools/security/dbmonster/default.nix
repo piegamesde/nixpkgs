@@ -1,5 +1,13 @@
-{ lib, aircrack-ng, fetchFromGitHub, iproute2, networkmanager, python3, tshark
-, wirelesstools }:
+{
+  lib,
+  aircrack-ng,
+  fetchFromGitHub,
+  iproute2,
+  networkmanager,
+  python3,
+  tshark,
+  wirelesstools,
+}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "dbmonster";

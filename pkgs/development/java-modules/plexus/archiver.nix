@@ -1,4 +1,6 @@
-{ fetchMaven }:
+{
+  fetchMaven,
+}:
 
 {
   plexusArchiver_1_0_alpha7 = map (obj:
