@@ -109,59 +109,59 @@ let
     throw "Skype for linux is not supported on ${stdenv.hostPlatform.system}";
 
 in
-  stdenv.mkDerivation {
-    pname = "skypeforlinux";
-    inherit version;
+stdenv.mkDerivation {
+  pname = "skypeforlinux";
+  inherit version;
 
-    system = "x86_64-linux";
+  system = "x86_64-linux";
 
-    inherit src;
+  inherit src;
 
-    nativeBuildInputs = [
-      wrapGAppsHook
-      glib # For setup hook populating GSETTINGS_SCHEMA_PATH
+  nativeBuildInputs = [
+    wrapGAppsHook
+    glib # For setup hook populating GSETTINGS_SCHEMA_PATH
+  ];
+
+  buildInputs = [ dpkg ];
+
+  dontUnpack = true;
+  installPhase = ''
+    mkdir -p $out
+    dpkg -x $src $out
+    cp -av $out/usr/* $out
+    rm -rf $out/opt $out/usr
+    rm $out/bin/skypeforlinux
+
+    ln -s "$out/share/skypeforlinux/skypeforlinux" "$out/bin/skypeforlinux"
+
+    # Otherwise it looks "suspicious"
+    chmod -R g-w $out
+  '';
+
+  postFixup = ''
+    for file in $(find $out -type f \( -perm /0111 -o -name \*.so\* -or -name \*.node\* \) ); do
+      patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" "$file" || true
+      patchelf --set-rpath ${rpath}:$out/share/skypeforlinux $file || true
+    done
+
+    # Fix the desktop link
+    substituteInPlace $out/share/applications/skypeforlinux.desktop \
+      --replace /usr/bin/ ""
+    substituteInPlace $out/share/applications/skypeforlinux-share.desktop \
+      --replace /usr/bin/ ""
+    substituteInPlace $out/share/kservices5/ServiceMenus/skypeforlinux.desktop \
+      --replace /usr/bin/ ""
+  '';
+
+  meta = with lib; {
+    description = "Linux client for skype";
+    homepage = "https://www.skype.com";
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    license = licenses.unfree;
+    maintainers = with maintainers; [
+      panaeon
+      jraygauthier
     ];
-
-    buildInputs = [ dpkg ];
-
-    dontUnpack = true;
-    installPhase = ''
-      mkdir -p $out
-      dpkg -x $src $out
-      cp -av $out/usr/* $out
-      rm -rf $out/opt $out/usr
-      rm $out/bin/skypeforlinux
-
-      ln -s "$out/share/skypeforlinux/skypeforlinux" "$out/bin/skypeforlinux"
-
-      # Otherwise it looks "suspicious"
-      chmod -R g-w $out
-    '';
-
-    postFixup = ''
-      for file in $(find $out -type f \( -perm /0111 -o -name \*.so\* -or -name \*.node\* \) ); do
-        patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" "$file" || true
-        patchelf --set-rpath ${rpath}:$out/share/skypeforlinux $file || true
-      done
-
-      # Fix the desktop link
-      substituteInPlace $out/share/applications/skypeforlinux.desktop \
-        --replace /usr/bin/ ""
-      substituteInPlace $out/share/applications/skypeforlinux-share.desktop \
-        --replace /usr/bin/ ""
-      substituteInPlace $out/share/kservices5/ServiceMenus/skypeforlinux.desktop \
-        --replace /usr/bin/ ""
-    '';
-
-    meta = with lib; {
-      description = "Linux client for skype";
-      homepage = "https://www.skype.com";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-      license = licenses.unfree;
-      maintainers = with maintainers; [
-        panaeon
-        jraygauthier
-      ];
-      platforms = [ "x86_64-linux" ];
-    };
-  }
+    platforms = [ "x86_64-linux" ];
+  };
+}

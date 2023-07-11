@@ -103,13 +103,13 @@ let
     let
       extracted = extractCommands 0 commands;
     in
-      [
-        "sh"
-        "-c"
-        (lib.concatMapStringsSep ";" escapeShellArgs' extracted.commands)
-        # We need paths as separate arguments so that update.nix can ensure they refer to the local directory
-        # rather than a store path.
-      ] ++ extracted.paths
+    [
+      "sh"
+      "-c"
+      (lib.concatMapStringsSep ";" escapeShellArgs' extracted.commands)
+      # We need paths as separate arguments so that update.nix can ensure they refer to the local directory
+      # rather than a store path.
+    ] ++ extracted.paths
   ;
 in rec {
   /* normalize : UpdateScript → UpdateScript
@@ -154,23 +154,23 @@ in rec {
           supportedFeatures == [ ]);
 
     in
-      assert lib.assertMsg (lib.all validateFeatures scripts)
-        "Combining update scripts with features enabled (other than a single script with “commit” and all other with “silent”) is currently unsupported.";
-      assert lib.assertMsg (builtins.length (lib.unique (builtins.map ({
-          attrPath ? null,
+    assert lib.assertMsg (lib.all validateFeatures scripts)
+      "Combining update scripts with features enabled (other than a single script with “commit” and all other with “silent”) is currently unsupported.";
+    assert lib.assertMsg (builtins.length (lib.unique (builtins.map ({
+        attrPath ? null,
+        ...
+      }:
+      attrPath) scripts)) == 1)
+      "Combining update scripts with different attr paths is currently unsupported.";
+
+    {
+      command = commandsToShellInvocation (builtins.map ({
+          command,
           ...
         }:
-        attrPath) scripts)) == 1)
-        "Combining update scripts with different attr paths is currently unsupported.";
-
-      {
-        command = commandsToShellInvocation (builtins.map ({
-            command,
-            ...
-          }:
-          command) scripts);
-        supportedFeatures = lib.optionals hasCommitSupport [ "commit" ];
-      }
+        command) scripts);
+      supportedFeatures = lib.optionals hasCommitSupport [ "commit" ];
+    }
   ;
 
   /* copyAttrOutputToFile : String → FilePath → UpdateScript

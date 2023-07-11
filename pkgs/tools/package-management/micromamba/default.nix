@@ -34,47 +34,47 @@ let
     ];
   });
 in
-  stdenv.mkDerivation rec {
-    pname = "micromamba";
-    version = "1.2.0";
+stdenv.mkDerivation rec {
+  pname = "micromamba";
+  version = "1.2.0";
 
-    src = fetchFromGitHub {
-      owner = "mamba-org";
-      repo = "mamba";
-      rev = "micromamba-" + version;
-      sha256 = "sha256-KGlH5i/lI6c1Jj1ttAOrip8BKECaea5D202TJMcFDmM=";
-    };
+  src = fetchFromGitHub {
+    owner = "mamba-org";
+    repo = "mamba";
+    rev = "micromamba-" + version;
+    sha256 = "sha256-KGlH5i/lI6c1Jj1ttAOrip8BKECaea5D202TJMcFDmM=";
+  };
 
-    nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake ];
 
-    buildInputs = [
-      bzip2
-      cli11
-      nlohmann_json
-      curl
-      libarchive
-      yaml-cpp
-      libsolv'
-      reproc
-      spdlog
-      termcolor
-      ghc_filesystem
-      python3
-      tl-expected
-    ];
+  buildInputs = [
+    bzip2
+    cli11
+    nlohmann_json
+    curl
+    libarchive
+    yaml-cpp
+    libsolv'
+    reproc
+    spdlog
+    termcolor
+    ghc_filesystem
+    python3
+    tl-expected
+  ];
 
-    cmakeFlags = [
-      "-DBUILD_LIBMAMBA=ON"
-      "-DBUILD_SHARED=ON"
-      "-DBUILD_MICROMAMBA=ON"
-      # "-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON"
-    ];
+  cmakeFlags = [
+    "-DBUILD_LIBMAMBA=ON"
+    "-DBUILD_SHARED=ON"
+    "-DBUILD_MICROMAMBA=ON"
+    # "-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON"
+  ];
 
-    meta = with lib; {
-      description = "Reimplementation of the conda package manager";
-      homepage = "https://github.com/mamba-org/mamba";
-      license = licenses.bsd3;
-      platforms = platforms.all;
-      maintainers = with maintainers; [ mausch ];
-    };
-  }
+  meta = with lib; {
+    description = "Reimplementation of the conda package manager";
+    homepage = "https://github.com/mamba-org/mamba";
+    license = licenses.bsd3;
+    platforms = platforms.all;
+    maintainers = with maintainers; [ mausch ];
+  };
+}

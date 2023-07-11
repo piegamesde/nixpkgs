@@ -284,15 +284,15 @@ in rec {
       # Before 23.05, paths would be copied to the store before converting them
       # to strings and comparing. This was surprising and confusing.
     in
-      warnIf (isPath suffix) ''
-        lib.strings.hasSuffix: The first argument (${
-          toString suffix
-        }) is a path value, but only strings are supported.
-            There is almost certainly a bug in the calling code, since this function always returns `false` in such a case.
-            This function also copies the path to the Nix store, which may not be what you want.
-            This behavior is deprecated and will throw an error in the future.''
-      (lenContent >= lenSuffix
-        && substring (lenContent - lenSuffix) lenContent content == suffix)
+    warnIf (isPath suffix) ''
+      lib.strings.hasSuffix: The first argument (${
+        toString suffix
+      }) is a path value, but only strings are supported.
+          There is almost certainly a bug in the calling code, since this function always returns `false` in such a case.
+          This function also copies the path to the Nix store, which may not be what you want.
+          This behavior is deprecated and will throw an error in the future.''
+    (lenContent >= lenSuffix
+      && substring (lenContent - lenSuffix) lenContent content == suffix)
   ;
 
   /* Determine whether a string contains the given infix
@@ -475,9 +475,9 @@ in rec {
     ];
     toEscape = builtins.removeAttrs asciiTable unreserved;
   in
-    replaceStrings (builtins.attrNames toEscape)
-    (lib.mapAttrsToList (_: c: "%${fixedWidthString 2 "0" (lib.toHexString c)}")
-      toEscape)
+  replaceStrings (builtins.attrNames toEscape)
+  (lib.mapAttrsToList (_: c: "%${fixedWidthString 2 "0" (lib.toHexString c)}")
+    toEscape)
   ;
 
   /* Quote string to be used safely within the Bourne shell.
@@ -683,7 +683,7 @@ in rec {
       splits = builtins.filter builtins.isString
         (builtins.split (escapeRegex (toString sep)) (toString s));
     in
-      map (addContextFrom s) splits
+    map (addContextFrom s) splits
   ;
 
   /* Return a string without the specified prefix, if the prefix matches.
@@ -831,7 +831,7 @@ in rec {
       filename = lib.last components;
       name = head (splitString sep filename);
     in
-      assert name != filename; name
+    assert name != filename; name
   ;
 
   /* Create a -D<feature>=<value> string that can be passed to typical Meson
@@ -975,16 +975,16 @@ in rec {
       strw = lib.stringLength str;
       reqWidth = width - (lib.stringLength filler);
     in
-      assert lib.assertMsg (strw <= width)
-        "fixedWidthString: requested string length (${
-          toString width
-        }) must not be shorter than actual length (${toString strw})";
-      if
-        strw == width
-      then
-        str
-      else
-        filler + fixedWidthString reqWidth filler str
+    assert lib.assertMsg (strw <= width)
+      "fixedWidthString: requested string length (${
+        toString width
+      }) must not be shorter than actual length (${toString strw})";
+    if
+      strw == width
+    then
+      str
+    else
+      filler + fixedWidthString reqWidth filler str
   ;
 
   /* Format a number adding leading zeroes up to fixed width.
@@ -1010,8 +1010,8 @@ in rec {
       result = toString float;
       precise = float == fromJSON result;
     in
-      lib.warnIf (!precise)
-      "Imprecise conversion from float to string ${result}" result
+    lib.warnIf (!precise) "Imprecise conversion from float to string ${result}"
+    result
   ;
 
   /* Soft-deprecated function. While the original implementation is available as
@@ -1061,7 +1061,7 @@ in rec {
       let
         str = toString x;
       in
-        substring 0 1 str == "/" && dirOf str == storeDir
+      substring 0 1 str == "/" && dirOf str == storeDir
     else
       false;
 
@@ -1196,7 +1196,7 @@ in rec {
         relativePaths = removeComments lines;
         absolutePaths = map (path: rootPath + "/${path}") relativePaths;
       in
-        absolutePaths
+      absolutePaths
     );
 
   /* Read the contents of a file removing the trailing \n
@@ -1226,42 +1226,42 @@ in rec {
   sanitizeDerivationName = let
     okRegex = match "[[:alnum:]+_?=-][[:alnum:]+._?=-]*";
   in
-    string:
-    # First detect the common case of already valid strings, to speed those up
-    if
-      stringLength string <= 207 && okRegex string != null
-    then
-      unsafeDiscardStringContext string
-    else
-      lib.pipe string [
-        # Get rid of string context. This is safe under the assumption that the
-        # resulting string is only used as a derivation name
-        unsafeDiscardStringContext
-        # Strip all leading "."
-        (x: elemAt (match "\\.*(.*)" x) 0)
-        # Split out all invalid characters
-        # https://github.com/NixOS/nix/blob/2.3.2/src/libstore/store-api.cc#L85-L112
-        # https://github.com/NixOS/nix/blob/2242be83c61788b9c0736a92bb0b5c7bbfc40803/nix-rust/src/store/path.rs#L100-L125
-        (split "[^[:alnum:]+._?=-]+")
-        # Replace invalid character ranges with a "-"
-        (concatMapStrings (s:
-          if
-            lib.isList s
-          then
-            "-"
-          else
-            s))
-        # Limit to 211 characters (minus 4 chars for ".drv")
-        (x: substring (lib.max (stringLength x - 207) 0) (-1) x)
-        # If the result is empty, replace it with "unknown"
-        (x:
-          if
-            stringLength x == 0
-          then
-            "unknown"
-          else
-            x)
-      ]
+  string:
+  # First detect the common case of already valid strings, to speed those up
+  if
+    stringLength string <= 207 && okRegex string != null
+  then
+    unsafeDiscardStringContext string
+  else
+    lib.pipe string [
+      # Get rid of string context. This is safe under the assumption that the
+      # resulting string is only used as a derivation name
+      unsafeDiscardStringContext
+      # Strip all leading "."
+      (x: elemAt (match "\\.*(.*)" x) 0)
+      # Split out all invalid characters
+      # https://github.com/NixOS/nix/blob/2.3.2/src/libstore/store-api.cc#L85-L112
+      # https://github.com/NixOS/nix/blob/2242be83c61788b9c0736a92bb0b5c7bbfc40803/nix-rust/src/store/path.rs#L100-L125
+      (split "[^[:alnum:]+._?=-]+")
+      # Replace invalid character ranges with a "-"
+      (concatMapStrings (s:
+        if
+          lib.isList s
+        then
+          "-"
+        else
+          s))
+      # Limit to 211 characters (minus 4 chars for ".drv")
+      (x: substring (lib.max (stringLength x - 207) 0) (-1) x)
+      # If the result is empty, replace it with "unknown"
+      (x:
+        if
+          stringLength x == 0
+        then
+          "unknown"
+        else
+          x)
+    ]
   ;
 
   /* Computes the Levenshtein distance between two strings.
@@ -1302,7 +1302,7 @@ in rec {
           lib.min (lib.min (d (i - 1) j + 1) (d i (j - 1) + 1))
           (d (i - 1) (j - 1) + c);
     in
-      d (stringLength a) (stringLength b)
+    d (stringLength a) (stringLength b)
   ;
 
   # Returns the length of the prefix common to both strings.
@@ -1319,7 +1319,7 @@ in rec {
         else
           i;
     in
-      go 0
+    go 0
   ;
 
   # Returns the length of the suffix common to both strings.
@@ -1337,7 +1337,7 @@ in rec {
         else
           i;
     in
-      go 0
+    go 0
   ;
 
   /* Returns whether the levenshtein distance between two strings is at most some value
@@ -1403,37 +1403,37 @@ in rec {
         xinfix == yinfix || xdelr == ydell || xdell == ydelr;
 
   in
-    k:
-    if
-      k <= 0
-    then
-      a: b: a == b
-    else
-      let
-        f = a: b:
-          let
-            alen = stringLength a;
-            blen = stringLength b;
-            prelen = commonPrefixLength a b;
-            suflen = commonSuffixLength a b;
-            presuflen = prelen + suflen;
-            ainfix = substring prelen (alen - presuflen) a;
-            binfix = substring prelen (blen - presuflen) b;
-            # Make a be the bigger string
-          in if
-            alen < blen
-          then
-            f b a
-            # If a has over k more characters than b, even with k deletes on a, b can't be reached
-          else if alen - blen > k then
-            false
-          else if k == 1 then
-            infixDifferAtMost1 ainfix binfix
-          else if k == 2 then
-            infixDifferAtMost2 ainfix binfix
-          else
-            levenshtein ainfix binfix <= k;
-      in
-        f
+  k:
+  if
+    k <= 0
+  then
+    a: b: a == b
+  else
+    let
+      f = a: b:
+        let
+          alen = stringLength a;
+          blen = stringLength b;
+          prelen = commonPrefixLength a b;
+          suflen = commonSuffixLength a b;
+          presuflen = prelen + suflen;
+          ainfix = substring prelen (alen - presuflen) a;
+          binfix = substring prelen (blen - presuflen) b;
+          # Make a be the bigger string
+        in if
+          alen < blen
+        then
+          f b a
+          # If a has over k more characters than b, even with k deletes on a, b can't be reached
+        else if alen - blen > k then
+          false
+        else if k == 1 then
+          infixDifferAtMost1 ainfix binfix
+        else if k == 2 then
+          infixDifferAtMost2 ainfix binfix
+        else
+          levenshtein ainfix binfix <= k;
+    in
+    f
   ;
 }

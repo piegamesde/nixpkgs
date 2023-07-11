@@ -45,33 +45,33 @@ let
     startupNotify = false;
   };
 in
-  stdenv.mkDerivation {
-    inherit pname version src appimage;
+stdenv.mkDerivation {
+  inherit pname version src appimage;
 
-    nativeBuildInputs = [
-      makeWrapper
-      copyDesktopItems
-    ];
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+  ];
 
-    installPhase = ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      install -Dm644 ${appimageContents}/.DirIcon $out/share/icons/hicolor/scalable/apps/jetbrains-toolbox.svg
-      makeWrapper ${appimage}/bin/${pname}-${version} $out/bin/${pname} --append-flags "--update-failed"
+    install -Dm644 ${appimageContents}/.DirIcon $out/share/icons/hicolor/scalable/apps/jetbrains-toolbox.svg
+    makeWrapper ${appimage}/bin/${pname}-${version} $out/bin/${pname} --append-flags "--update-failed"
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
-    desktopItems = [ desktopItem ];
+  desktopItems = [ desktopItem ];
 
-    # Disabling the tests, this seems to be very difficult to test this app.
-    doCheck = false;
+  # Disabling the tests, this seems to be very difficult to test this app.
+  doCheck = false;
 
-    meta = with lib; {
-      description = "Jetbrains Toolbox";
-      homepage = "https://jetbrains.com/";
-      license = licenses.unfree;
-      maintainers = with maintainers; [ AnatolyPopov ];
-      platforms = [ "x86_64-linux" ];
-    };
-  }
+  meta = with lib; {
+    description = "Jetbrains Toolbox";
+    homepage = "https://jetbrains.com/";
+    license = licenses.unfree;
+    maintainers = with maintainers; [ AnatolyPopov ];
+    platforms = [ "x86_64-linux" ];
+  };
+}

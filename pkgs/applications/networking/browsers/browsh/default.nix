@@ -18,38 +18,38 @@ let
   };
 
 in
-  buildGoModule rec {
-    inherit version;
+buildGoModule rec {
+  inherit version;
 
-    pname = "browsh";
+  pname = "browsh";
 
-    sourceRoot = "source/interfacer";
+  sourceRoot = "source/interfacer";
 
-    src = fetchFromGitHub {
-      owner = "browsh-org";
-      repo = "browsh";
-      rev = "v${version}";
-      sha256 = "sha256-/tH1w6qi+rimsqtk8Y8AYljU3X4vbmoDtV07piWSBdw=";
-    };
+  src = fetchFromGitHub {
+    owner = "browsh-org";
+    repo = "browsh";
+    rev = "v${version}";
+    sha256 = "sha256-/tH1w6qi+rimsqtk8Y8AYljU3X4vbmoDtV07piWSBdw=";
+  };
 
-    vendorSha256 = "sha256-eCvV3UuM/JtCgMqvwvqWF3bpOmPSos5Pfhu6ETaS58c=";
+  vendorSha256 = "sha256-eCvV3UuM/JtCgMqvwvqWF3bpOmPSos5Pfhu6ETaS58c=";
 
-    preBuild = ''
-      cp "${webext}" src/browsh/browsh.xpi
-    '';
+  preBuild = ''
+    cp "${webext}" src/browsh/browsh.xpi
+  '';
 
-    # Tests require network access
-    doCheck = false;
+  # Tests require network access
+  doCheck = false;
 
-    meta = with lib; {
-      description =
-        "A fully-modern text-based browser, rendering to TTY and browsers";
-      homepage = "https://www.brow.sh/";
-      maintainers = with maintainers; [
-        kalbasit
-        siraben
-      ];
-      license = lib.licenses.lgpl21;
-      platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    };
-  }
+  meta = with lib; {
+    description =
+      "A fully-modern text-based browser, rendering to TTY and browsers";
+    homepage = "https://www.brow.sh/";
+    maintainers = with maintainers; [
+      kalbasit
+      siraben
+    ];
+    license = lib.licenses.lgpl21;
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
+  };
+}

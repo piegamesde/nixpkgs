@@ -21,44 +21,44 @@ let
   };
 
 in
-  stdenv.mkDerivation {
-    pname = "ocaml${ocaml.version}-astring";
-    inherit (param) version;
+stdenv.mkDerivation {
+  pname = "ocaml${ocaml.version}-astring";
+  inherit (param) version;
 
-    src = fetchurl {
-      url =
-        "https://erratique.ch/software/astring/releases/astring-${param.version}.tbz";
-      inherit (param) sha256;
-    };
+  src = fetchurl {
+    url =
+      "https://erratique.ch/software/astring/releases/astring-${param.version}.tbz";
+    inherit (param) sha256;
+  };
 
-    nativeBuildInputs = [
-      ocaml
-      findlib
-      ocamlbuild
-      topkg
-    ];
-    buildInputs = [ topkg ];
+  nativeBuildInputs = [
+    ocaml
+    findlib
+    ocamlbuild
+    topkg
+  ];
+  buildInputs = [ topkg ];
 
-    strictDeps = true;
+  strictDeps = true;
 
-    inherit (topkg) buildPhase installPhase;
+  inherit (topkg) buildPhase installPhase;
 
-    meta = {
-      homepage = "https://erratique.ch/software/astring";
-      description = "Alternative String module for OCaml";
-      longDescription = ''
-        Astring exposes an alternative String module for OCaml. This module tries
-        to balance minimality and expressiveness for basic, index-free, string
-        processing and provides types and functions for substrings, string sets
-        and string maps.
+  meta = {
+    homepage = "https://erratique.ch/software/astring";
+    description = "Alternative String module for OCaml";
+    longDescription = ''
+      Astring exposes an alternative String module for OCaml. This module tries
+      to balance minimality and expressiveness for basic, index-free, string
+      processing and provides types and functions for substrings, string sets
+      and string maps.
 
-        Remaining compatible with the OCaml String module is a non-goal.
-        The String module exposed by Astring has exception safe functions, removes
-        deprecated and rarely used functions, alters some signatures and names,
-        adds a few missing functions and fully exploits OCaml's newfound string
-        immutability.
-      '';
-      license = lib.licenses.isc;
-      maintainers = with lib.maintainers; [ sternenseemann ];
-    };
-  }
+      Remaining compatible with the OCaml String module is a non-goal.
+      The String module exposed by Astring has exception safe functions, removes
+      deprecated and rarely used functions, alters some signatures and names,
+      adds a few missing functions and fully exploits OCaml's newfound string
+      immutability.
+    '';
+    license = lib.licenses.isc;
+    maintainers = with lib.maintainers; [ sternenseemann ];
+  };
+}

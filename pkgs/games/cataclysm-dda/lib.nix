@@ -38,6 +38,6 @@ rec {
         };
       });
     in
-      self
+    self
   ;
 }

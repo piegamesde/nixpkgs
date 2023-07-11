@@ -66,9 +66,9 @@ let
     '';
   });
 in
-  buildFHSEnv {
-    name = "${attrs.toolName}-${attrs.version}";
-    runScript = "${pkg.outPath}/bin/${attrs.toolName}";
-  } // {
-    inherit (pkg) meta name;
-  }
+buildFHSEnv {
+  name = "${attrs.toolName}-${attrs.version}";
+  runScript = "${pkg.outPath}/bin/${attrs.toolName}";
+} // {
+  inherit (pkg) meta name;
+}

@@ -39,7 +39,7 @@ let
       pairs = mapAttrsToList (name: value: { inherit name value; }) set;
       sortedPairs = sort (a: b: prioOf a < prioOf b) pairs;
     in
-      concatMap genPair sortedPairs
+    concatMap genPair sortedPairs
   ;
   genSection = sec: secName: value:
     [ "${sec} ${secName}" ] ++ map (x: " " + x) (genConfig value);
@@ -133,7 +133,7 @@ in {
                     description = "instances of this type recursively";
                   }));
                 in
-                  t
+                t
                 ;
                 default = { };
                 example = {
@@ -265,13 +265,13 @@ in {
           }.${cfg.ioSchedulingClass};
           sudo_doas_flag = "--${sudo_doas}";
         in
-          ''
-            command="${pkgs.util-linux}/bin/ionice -t -c ${
-              toString ioniceClass
-            } ${
-              optionalString (cfg.niceness >= 1)
-              "${pkgs.coreutils}/bin/nice -n ${toString cfg.niceness}"
-            } ${pkgs.btrbk}/share/btrbk/scripts/ssh_filter_btrbk.sh ${sudo_doas_flag} ${options}" ${v.key}''
+        ''
+          command="${pkgs.util-linux}/bin/ionice -t -c ${
+            toString ioniceClass
+          } ${
+            optionalString (cfg.niceness >= 1)
+            "${pkgs.coreutils}/bin/nice -n ${toString cfg.niceness}"
+          } ${pkgs.btrbk}/share/btrbk/scripts/ssh_filter_btrbk.sh ${sudo_doas_flag} ${options}" ${v.key}''
       ) cfg.sshAccess;
     };
     users.groups.btrbk = { };

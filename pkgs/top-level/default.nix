@@ -139,4 +139,4 @@ in let
   pkgs = boot stages;
 
 in
-  checked pkgs
+checked pkgs

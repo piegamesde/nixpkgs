@@ -44,9 +44,9 @@ stdenv.mkDerivation rec {
   preConfigure = let
     isCross = stdenv.hostPlatform != stdenv.buildPlatform;
   in
-    lib.optionalString isCross ''
-      export HELP2MAN=true
-    ''
+  lib.optionalString isCross ''
+    export HELP2MAN=true
+  ''
   ;
 
   configureFlags = [ "--with-ncurses-include-dir=${ncurses.dev}/include" ]

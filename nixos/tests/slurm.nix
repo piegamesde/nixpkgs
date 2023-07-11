@@ -48,10 +48,10 @@ import ./make-test-python.nix ({
         }
       '';
     in
-      pkgs.runCommand "mpitest" { } ''
-        mkdir -p $out/bin
-        ${pkgs.openmpi}/bin/mpicc ${mpitestC} -o $out/bin/mpitest
-      ''
+    pkgs.runCommand "mpitest" { } ''
+      mkdir -p $out/bin
+      ${pkgs.openmpi}/bin/mpicc ${mpitestC} -o $out/bin/mpitest
+    ''
     ;
   in {
     name = "slurm";

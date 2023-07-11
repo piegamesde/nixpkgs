@@ -88,66 +88,66 @@ let
   };
 
 in
-  stdenv.mkDerivation rec {
-    pname = "dbus-broker";
-    version = "32";
+stdenv.mkDerivation rec {
+  pname = "dbus-broker";
+  version = "32";
 
-    src = fetchFromGitHub {
-      owner = "bus1";
-      repo = "dbus-broker";
-      rev = "v${version}";
-      hash = "sha256-PVdRyg/t6D3HjSHeap5L8AiEm39iSO5qXohLw2UAUYY=";
-    };
+  src = fetchFromGitHub {
+    owner = "bus1";
+    repo = "dbus-broker";
+    rev = "v${version}";
+    hash = "sha256-PVdRyg/t6D3HjSHeap5L8AiEm39iSO5qXohLw2UAUYY=";
+  };
 
-    patches = [ ./paths.patch ];
+  patches = [ ./paths.patch ];
 
-    nativeBuildInputs = [
-      docutils
-      meson
-      ninja
-      pkg-config
-    ];
+  nativeBuildInputs = [
+    docutils
+    meson
+    ninja
+    pkg-config
+  ];
 
-    buildInputs = [
-      c-dvar
-      c-ini
-      c-list
-      c-rbtree
-      c-shquote
-      c-stdaux
-      c-utf8
-      dbus
-      linuxHeaders
-      systemd
-    ];
+  buildInputs = [
+    c-dvar
+    c-ini
+    c-list
+    c-rbtree
+    c-shquote
+    c-stdaux
+    c-utf8
+    dbus
+    linuxHeaders
+    systemd
+  ];
 
-    mesonFlags = [
-      # while we technically support 4.9 and 4.14, the NixOS module will throw an
-      # error when using a kernel that's too old
-      "-D=linux-4-17=true"
-      "-D=system-console-users=gdm,sddm,lightdm"
-    ];
+  mesonFlags = [
+    # while we technically support 4.9 and 4.14, the NixOS module will throw an
+    # error when using a kernel that's too old
+    "-D=linux-4-17=true"
+    "-D=system-console-users=gdm,sddm,lightdm"
+  ];
 
-    PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR =
-      "${placeholder "out"}/lib/systemd/system";
-    PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR =
-      "${placeholder "out"}/lib/systemd/user";
-    PKG_CONFIG_SYSTEMD_CATALOGDIR = "${placeholder "out"}/lib/systemd/catalog";
+  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR =
+    "${placeholder "out"}/lib/systemd/system";
+  PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR =
+    "${placeholder "out"}/lib/systemd/user";
+  PKG_CONFIG_SYSTEMD_CATALOGDIR = "${placeholder "out"}/lib/systemd/catalog";
 
-    postInstall = ''
-      install -Dm444 $src/README.md $out/share/doc/dbus-broker/README
+  postInstall = ''
+    install -Dm444 $src/README.md $out/share/doc/dbus-broker/README
 
-      sed -i $out/lib/systemd/{system,user}/dbus-broker.service \
-        -e 's,^ExecReload.*busctl,ExecReload=${systemd}/bin/busctl,'
-    '';
+    sed -i $out/lib/systemd/{system,user}/dbus-broker.service \
+      -e 's,^ExecReload.*busctl,ExecReload=${systemd}/bin/busctl,'
+  '';
 
-    doCheck = true;
+  doCheck = true;
 
-    meta = with lib; {
-      description = "Linux D-Bus Message Broker";
-      homepage = "https://github.com/bus1/dbus-broker/wiki";
-      license = licenses.asl20;
-      maintainers = with maintainers; [ peterhoeg ];
-      platforms = platforms.linux;
-    };
-  }
+  meta = with lib; {
+    description = "Linux D-Bus Message Broker";
+    homepage = "https://github.com/bus1/dbus-broker/wiki";
+    license = licenses.asl20;
+    maintainers = with maintainers; [ peterhoeg ];
+    platforms = platforms.linux;
+  };
+}

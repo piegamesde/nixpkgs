@@ -39,12 +39,10 @@ buildGoModule rec {
         paths = [ actualPlugins ];
       };
     in
-      runCommand "tflint-with-plugins" {
-        nativeBuildInputs = [ makeWrapper ];
-      } ''
-        makeWrapper ${tflint}/bin/tflint $out/bin/tflint \
-          --set TFLINT_PLUGIN_DIR "${pluginDir}"
-      ''
+    runCommand "tflint-with-plugins" { nativeBuildInputs = [ makeWrapper ]; } ''
+      makeWrapper ${tflint}/bin/tflint $out/bin/tflint \
+        --set TFLINT_PLUGIN_DIR "${pluginDir}"
+    ''
   ;
 
   meta = with lib; {

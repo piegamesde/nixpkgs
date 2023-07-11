@@ -123,58 +123,58 @@ let
     }
   ];
 in
-  stdenv.mkDerivation {
-    pname = "smlnj";
-    inherit version;
+stdenv.mkDerivation {
+  pname = "smlnj";
+  inherit version;
 
-    inherit sources;
+  inherit sources;
 
-    patchPhase = ''
-      sed -i '/PATH=/d' config/_arch-n-opsys base/runtime/config/gen-posix-names.sh
-      echo SRCARCHIVEURL="file:/$TMP" > config/srcarchiveurl
-      patch --verbose config/_heap2exec ${./heap2exec.diff}
-    '' + lib.optionalString stdenv.isDarwin ''
-      # Locate standard headers like <unistd.h>
-      substituteInPlace base/runtime/config/gen-posix-names.sh \
-        --replace "\$SDK_PATH/usr" "${Libsystem}"
-    '';
+  patchPhase = ''
+    sed -i '/PATH=/d' config/_arch-n-opsys base/runtime/config/gen-posix-names.sh
+    echo SRCARCHIVEURL="file:/$TMP" > config/srcarchiveurl
+    patch --verbose config/_heap2exec ${./heap2exec.diff}
+  '' + lib.optionalString stdenv.isDarwin ''
+    # Locate standard headers like <unistd.h>
+    substituteInPlace base/runtime/config/gen-posix-names.sh \
+      --replace "\$SDK_PATH/usr" "${Libsystem}"
+  '';
 
-    unpackPhase = ''
-      for s in $sources; do
-        b=$(basename $s)
-        cp $s ''${b#*-}
-      done
-      unpackFile config.tgz
-      mkdir base
-      ./config/unpack $TMP runtime
-    '';
+  unpackPhase = ''
+    for s in $sources; do
+      b=$(basename $s)
+      cp $s ''${b#*-}
+    done
+    unpackFile config.tgz
+    mkdir base
+    ./config/unpack $TMP runtime
+  '';
 
-    buildPhase = ''
-      ./config/install.sh -default ${arch}
-    '';
+  buildPhase = ''
+    ./config/install.sh -default ${arch}
+  '';
 
-    installPhase = ''
-      mkdir -pv $out
-      cp -rv bin lib $out
+  installPhase = ''
+    mkdir -pv $out
+    cp -rv bin lib $out
 
-      cd $out/bin
-      for i in *; do
-        sed -i "2iSMLNJ_HOME=$out/" $i
-      done
-    '';
+    cd $out/bin
+    for i in *; do
+      sed -i "2iSMLNJ_HOME=$out/" $i
+    done
+  '';
 
-    meta = with lib; {
-      description = "Standard ML of New Jersey, a compiler";
-      homepage = "http://smlnj.org";
-      license = licenses.bsd3;
-      platforms = [
-        "x86_64-linux"
-        "i686-linux"
-        "x86_64-darwin"
-      ];
-      maintainers = with maintainers; [ thoughtpolice ];
-      mainProgram = "sml";
-      # never built on x86_64-darwin since first introduction in nixpkgs
-      broken = stdenv.isDarwin && stdenv.isx86_64;
-    };
-  }
+  meta = with lib; {
+    description = "Standard ML of New Jersey, a compiler";
+    homepage = "http://smlnj.org";
+    license = licenses.bsd3;
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+      "x86_64-darwin"
+    ];
+    maintainers = with maintainers; [ thoughtpolice ];
+    mainProgram = "sml";
+    # never built on x86_64-darwin since first introduction in nixpkgs
+    broken = stdenv.isDarwin && stdenv.isx86_64;
+  };
+}

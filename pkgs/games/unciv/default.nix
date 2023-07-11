@@ -24,42 +24,42 @@ let
   ];
 
 in
-  stdenv.mkDerivation rec {
-    pname = "unciv";
-    version = "4.6.8";
+stdenv.mkDerivation rec {
+  pname = "unciv";
+  version = "4.6.8";
 
-    src = fetchurl {
-      url =
-        "https://github.com/yairm210/Unciv/releases/download/${version}/Unciv.jar";
-      hash = "sha256-ECj94r/0jEB9xzlX5A8q4jvOr92yRsTpD4IkxXMF2EM=";
-    };
+  src = fetchurl {
+    url =
+      "https://github.com/yairm210/Unciv/releases/download/${version}/Unciv.jar";
+    hash = "sha256-ECj94r/0jEB9xzlX5A8q4jvOr92yRsTpD4IkxXMF2EM=";
+  };
 
-    dontUnpack = true;
+  dontUnpack = true;
 
-    nativeBuildInputs = [
-      copyDesktopItems
-      makeWrapper
-    ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    makeWrapper
+  ];
 
-    installPhase = ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      makeWrapper ${jre}/bin/java $out/bin/unciv \
-        --prefix LD_LIBRARY_PATH : ${envLibPath} \
-        --prefix PATH : ${lib.makeBinPath [ jre ]} \
-        --add-flags "-jar ${src}"
+    makeWrapper ${jre}/bin/java $out/bin/unciv \
+      --prefix LD_LIBRARY_PATH : ${envLibPath} \
+      --prefix PATH : ${lib.makeBinPath [ jre ]} \
+      --add-flags "-jar ${src}"
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
-    desktopItems = [ desktopItem ];
+  desktopItems = [ desktopItem ];
 
-    meta = with lib; {
-      description = "An open-source Android/Desktop remake of Civ V";
-      homepage = "https://github.com/yairm210/Unciv";
-      maintainers = with maintainers; [ tex ];
-      sourceProvenance = with sourceTypes; [ binaryBytecode ];
-      license = licenses.mpl20;
-      platforms = platforms.all;
-    };
-  }
+  meta = with lib; {
+    description = "An open-source Android/Desktop remake of Civ V";
+    homepage = "https://github.com/yairm210/Unciv";
+    maintainers = with maintainers; [ tex ];
+    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    license = licenses.mpl20;
+    platforms = platforms.all;
+  };
+}

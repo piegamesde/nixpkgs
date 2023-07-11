@@ -23,50 +23,50 @@ let
     sha256 = "0ad0sjhmzx61a763d2ali4vkj8aa1sbknnldks7xlf4gy83jfrbl";
   };
 in
-  stdenv.mkDerivation rec {
-    pname = "biboumi";
-    version = "9.0";
+stdenv.mkDerivation rec {
+  pname = "biboumi";
+  version = "9.0";
 
-    src = fetchurl {
-      url = "https://git.louiz.org/biboumi/snapshot/biboumi-${version}.tar.xz";
-      sha256 = "1jvygri165aknmvlinx3jb8cclny6cxdykjf8dp0a3l3228rmzqy";
-    };
+  src = fetchurl {
+    url = "https://git.louiz.org/biboumi/snapshot/biboumi-${version}.tar.xz";
+    sha256 = "1jvygri165aknmvlinx3jb8cclny6cxdykjf8dp0a3l3228rmzqy";
+  };
 
-    patches = [ ./catch.patch ];
+  patches = [ ./catch.patch ];
 
-    nativeBuildInputs = [
-      cmake
-      pkg-config
-      python3Packages.sphinx
-    ];
-    buildInputs = [
-      libuuid
-      expat
-      sqlite
-      libiconv
-      libidn
-      botan2
-      systemd
-      udns
-    ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3Packages.sphinx
+  ];
+  buildInputs = [
+    libuuid
+    expat
+    sqlite
+    libiconv
+    libidn
+    botan2
+    systemd
+    udns
+  ];
 
-    buildFlags = [
-      "all"
-      "man"
-    ];
+  buildFlags = [
+    "all"
+    "man"
+  ];
 
-    preConfigure = ''
-      substituteInPlace CMakeLists.txt --replace /etc/biboumi $out/etc/biboumi
-      cp ${louiz_catch}/single_include/catch.hpp tests/
-    '';
+  preConfigure = ''
+    substituteInPlace CMakeLists.txt --replace /etc/biboumi $out/etc/biboumi
+    cp ${louiz_catch}/single_include/catch.hpp tests/
+  '';
 
-    doCheck = true;
+  doCheck = true;
 
-    meta = with lib; {
-      description = "Modern XMPP IRC gateway";
-      platforms = platforms.unix;
-      homepage = "https://lab.louiz.org/louiz/biboumi";
-      license = licenses.zlib;
-      maintainers = [ maintainers.woffs ];
-    };
-  }
+  meta = with lib; {
+    description = "Modern XMPP IRC gateway";
+    platforms = platforms.unix;
+    homepage = "https://lab.louiz.org/louiz/biboumi";
+    license = licenses.zlib;
+    maintainers = [ maintainers.woffs ];
+  };
+}

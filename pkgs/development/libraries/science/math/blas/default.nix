@@ -38,9 +38,9 @@ stdenv.mkDerivation rec {
     else
       stdenv.hostPlatform.extensions.sharedLibrary;
   in
-    lib.optionalString blas64 ''
-      ln -s $out/lib/libblas64${canonicalExtension} $out/lib/libblas${canonicalExtension}
-    ''
+  lib.optionalString blas64 ''
+    ln -s $out/lib/libblas64${canonicalExtension} $out/lib/libblas${canonicalExtension}
+  ''
   ;
 
   preFixup = lib.optionalString stdenv.isDarwin ''

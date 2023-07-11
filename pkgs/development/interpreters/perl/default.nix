@@ -53,7 +53,7 @@ let
             keep = self: { };
             extra = spliced0: { };
           in
-            makeScopeWithSplicing otherSplices keep extra perlPackagesFun
+          makeScopeWithSplicing otherSplices keep extra perlPackagesFun
         ) { perl = self; };
     in rec {
       buildEnv = callPackage ./wrapper.nix {

@@ -38,26 +38,26 @@ let
 
   linkFarmFromAttrs = linkFarm "linkFarmFromAttrs" { inherit foo hello; };
 in
-  runCommand "test-linkFarm" { } ''
-    function assertPathEquals() {
-      local a b;
-      a="$(realpath "$1")"
-      b="$(realpath "$2")"
-      if [ "$a" != "$b" ]; then
-        echo "path mismatch!"
-        echo "a: $1 -> $a"
-        echo "b: $2 -> $b"
-        exit 1
-      fi
-    }
+runCommand "test-linkFarm" { } ''
+  function assertPathEquals() {
+    local a b;
+    a="$(realpath "$1")"
+    b="$(realpath "$2")"
+    if [ "$a" != "$b" ]; then
+      echo "path mismatch!"
+      echo "a: $1 -> $a"
+      echo "b: $2 -> $b"
+      exit 1
+    fi
+  }
 
-    assertPathEquals "${linkFarmFromList}/foo" "${foo}"
-    assertPathEquals "${linkFarmFromList}/hello" "${hello}"
+  assertPathEquals "${linkFarmFromList}/foo" "${foo}"
+  assertPathEquals "${linkFarmFromList}/hello" "${hello}"
 
-    assertPathEquals "${linkFarmWithRepeats}/foo" "${hello}"
-    assertPathEquals "${linkFarmWithRepeats}/hello" "${hello}"
+  assertPathEquals "${linkFarmWithRepeats}/foo" "${hello}"
+  assertPathEquals "${linkFarmWithRepeats}/hello" "${hello}"
 
-    assertPathEquals "${linkFarmFromAttrs}/foo" "${foo}"
-    assertPathEquals "${linkFarmFromAttrs}/hello" "${hello}"
-    touch $out
-  ''
+  assertPathEquals "${linkFarmFromAttrs}/foo" "${foo}"
+  assertPathEquals "${linkFarmFromAttrs}/hello" "${hello}"
+  touch $out
+''

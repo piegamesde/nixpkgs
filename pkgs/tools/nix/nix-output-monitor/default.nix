@@ -23,7 +23,7 @@ let
   nom-pkg-with-scope = nom-pkg.overrideScope
     (hfinal: hprev: { hermes-json = hfinal.hermes-json_0_2_0_1; });
 in
-  lib.pipe nom-pkg-with-scope [
-    (overrideCabal overrides)
-    justStaticExecutables
-  ]
+lib.pipe nom-pkg-with-scope [
+  (overrideCabal overrides)
+  justStaticExecutables
+]

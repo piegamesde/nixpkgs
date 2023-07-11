@@ -95,12 +95,12 @@ let
       });
 
 in
-  lib.listToAttrs (map (arch: lib.nameValuePair arch (common arch { })) [
-    "i386"
-    "x64"
-    "arm"
-    "aarch64"
-    "riscv"
-    "ppc64"
-    "nds32le"
-  ])
+lib.listToAttrs (map (arch: lib.nameValuePair arch (common arch { })) [
+  "i386"
+  "x64"
+  "arm"
+  "aarch64"
+  "riscv"
+  "ppc64"
+  "nds32le"
+])

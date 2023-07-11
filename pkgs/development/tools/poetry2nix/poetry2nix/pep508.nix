@@ -29,34 +29,34 @@ let
         else
           acc.startPos;
       in
-        acc // {
-          inherit startPos;
-          exprs = acc.exprs ++ [ (substr acc.exprPos (acc.pos - 1) acc.expr) ];
-          pos = posNew;
-          openP = acc.openP + 1;
-        }
+      acc // {
+        inherit startPos;
+        exprs = acc.exprs ++ [ (substr acc.exprPos (acc.pos - 1) acc.expr) ];
+        pos = posNew;
+        openP = acc.openP + 1;
+      }
       )
     else if c == ")" then
       (let
         openP = acc.openP - 1;
         exprs = findSubExpressions (substr acc.startPos acc.pos acc.expr);
       in
-        acc // {
-          inherit openP;
-          pos = acc.pos + 1;
-          exprs = if
-            openP == 0
-          then
-            acc.exprs ++ [ exprs ]
-          else
-            acc.exprs;
-          exprPos = if
-            openP == 0
-          then
-            acc.pos + 1
-          else
-            acc.exprPos;
-        }
+      acc // {
+        inherit openP;
+        pos = acc.pos + 1;
+        exprs = if
+          openP == 0
+        then
+          acc.exprs ++ [ exprs ]
+        else
+          acc.exprs;
+        exprPos = if
+          openP == 0
+        then
+          acc.pos + 1
+        else
+          acc.exprPos;
+      }
       )
     else
       acc // { pos = acc.pos + 1; });
@@ -76,7 +76,7 @@ let
       tailExpr = (substr acc.exprPos acc.pos expr);
       tailExprs = if tailExpr != "" then [ tailExpr ] else [ ];
     in
-      acc.exprs ++ tailExprs
+    acc.exprs ++ tailExprs
   ;
   parseExpressions = exprs:
     let
@@ -106,12 +106,12 @@ let
       parse = expr:
         builtins.filter (x: x != null) (builtins.map mapfn (splitCond expr));
     in
-      builtins.foldl' (acc: v:
-        acc ++ (if
-          builtins.typeOf v == "string"
-        then
-          parse v
-        else [ (parseExpressions v) ])) [ ] exprs
+    builtins.foldl' (acc: v:
+      acc ++ (if
+        builtins.typeOf v == "string"
+      then
+        parse v
+      else [ (parseExpressions v) ])) [ ] exprs
   ;
 
   # Transform individual expressions to structured expressions
@@ -137,14 +137,14 @@ let
         platform_python_implementation = let
           impl = python.passthru.implementation;
         in
-          (if
-            impl == "cpython"
-          then
-            "CPython"
-          else if impl == "pypy" then
-            "PyPy"
-          else
-            throw "Unsupported implementation ${impl}")
+        (if
+          impl == "cpython"
+        then
+          "CPython"
+        else if impl == "pypy" then
+          "PyPy"
+        else
+          throw "Unsupported implementation ${impl}")
         ;
         platform_release = ""; # Field not reproducible
         platform_system = (if
@@ -249,7 +249,7 @@ let
             upperConstraint = builtins.concatStringsSep "."
               (ireplace (builtins.length pruned - 1) upper pruned);
           in
-            op.">=" v c && op."<" v upperConstraint
+          op.">=" v c && op."<" v upperConstraint
         ;
         "===" = x: y: x == y;
         "in" = x: y:
@@ -257,7 +257,7 @@ let
             values = builtins.filter (x: builtins.typeOf x == "string")
               (builtins.split " " (unmarshal y));
           in
-            builtins.elem (unmarshal x) values
+          builtins.elem (unmarshal x) values
         ;
       };
     in if
@@ -305,22 +305,22 @@ let
               cond = "and";
             } v;
           in
-            acc // { value = cond."${acc.cond}" acc.value ret.value; }
+          acc // { value = cond."${acc.cond}" acc.value ret.value; }
           )
         else
           throw "Unsupported type");
     in
-      (builtins.foldl' reduceExpressionsFun {
-        value = true;
-        cond = "and";
-      } exprs).value
+    (builtins.foldl' reduceExpressionsFun {
+      value = true;
+      cond = "and";
+    } exprs).value
   ;
 in
-  e:
-  builtins.foldl' (acc: v: v acc) e [
-    findSubExpressions
-    parseExpressions
-    transformExpressions
-    evalExpressions
-    reduceExpressions
-  ]
+e:
+builtins.foldl' (acc: v: v acc) e [
+  findSubExpressions
+  parseExpressions
+  transformExpressions
+  evalExpressions
+  reduceExpressions
+]

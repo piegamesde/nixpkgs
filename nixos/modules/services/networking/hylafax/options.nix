@@ -39,7 +39,7 @@ let
         else
           "No") (coercedTo int (toString) str);
     in
-      attrsOf (coercedTo innerType lib.singleton (listOf innerType))
+    attrsOf (coercedTo innerType lib.singleton (listOf innerType))
   ;
 
   cfg = config.services.hylafax;
@@ -107,7 +107,7 @@ let
     c.faxqConfig = importDefaultConfig ./faxq-default.nix;
     c.hfaxdConfig = importDefaultConfig ./hfaxd-default.nix;
   in
-    c
+  c
   ;
 
   localConfig = let
@@ -121,7 +121,7 @@ let
       };
     c.commonModemConfig = c.faxqConfig;
   in
-    c
+  c
   ;
 
 in {

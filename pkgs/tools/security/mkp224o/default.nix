@@ -43,20 +43,20 @@ stdenv.mkDerivation rec {
       }
     ];
   in
-    lib.concatMapStrings ({
-        suffix,
-        configureFlags,
-      }: ''
-        install -D ${
-          stdenv.mkDerivation {
-            name = "mkp224o-${suffix}-${version}";
-            inherit version src configureFlags;
-            nativeBuildInputs = [ autoreconfHook ];
-            buildInputs = [ libsodium ];
-            installPhase = "install -D mkp224o $out";
-          }
-        } $out/bin/mkp224o-${suffix}
-      '') variants
+  lib.concatMapStrings ({
+      suffix,
+      configureFlags,
+    }: ''
+      install -D ${
+        stdenv.mkDerivation {
+          name = "mkp224o-${suffix}-${version}";
+          inherit version src configureFlags;
+          nativeBuildInputs = [ autoreconfHook ];
+          buildInputs = [ libsodium ];
+          installPhase = "install -D mkp224o $out";
+        }
+      } $out/bin/mkp224o-${suffix}
+    '') variants
   ;
 
   meta = with lib; {

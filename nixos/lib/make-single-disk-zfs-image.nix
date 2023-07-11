@@ -90,16 +90,16 @@ let
   channelSources = let
     nixpkgs = lib.cleanSource pkgs.path;
   in
-    pkgs.runCommand "nixos-${config.system.nixos.version}" { } ''
-      mkdir -p $out
-      cp -prd ${nixpkgs.outPath} $out/nixos
-      chmod -R u+w $out/nixos
-      if [ ! -e $out/nixos/nixpkgs ]; then
-        ln -s . $out/nixos/nixpkgs
-      fi
-      rm -rf $out/nixos/.git
-      echo -n ${config.system.nixos.versionSuffix} > $out/nixos/.version-suffix
-    ''
+  pkgs.runCommand "nixos-${config.system.nixos.version}" { } ''
+    mkdir -p $out
+    cp -prd ${nixpkgs.outPath} $out/nixos
+    chmod -R u+w $out/nixos
+    if [ ! -e $out/nixos/nixpkgs ]; then
+      ln -s . $out/nixos/nixpkgs
+    fi
+    rm -rf $out/nixos/.git
+    echo -n ${config.system.nixos.versionSuffix} > $out/nixos/.version-suffix
+  ''
   ;
 
   closureInfo = pkgs.closureInfo {
@@ -143,10 +143,10 @@ let
       let
         properties = stringifyProperties "-o" (value.properties or { });
       in
-        "zfs create -p ${properties} ${name}"
+      "zfs create -p ${properties} ${name}"
     ;
   in
-    lib.concatMapStringsSep "\n" cmd sorted
+  lib.concatMapStringsSep "\n" cmd sorted
   ;
 
   mountDatasets = let
@@ -167,7 +167,7 @@ let
         mount -t zfs ${name} /mnt${lib.escapeShellArg value.mount}
       '';
   in
-    lib.concatMapStringsSep "\n" cmd sorted
+  lib.concatMapStringsSep "\n" cmd sorted
   ;
 
   unmountDatasets = let
@@ -187,36 +187,36 @@ let
         umount /mnt${lib.escapeShellArg value.mount}
       '';
   in
-    lib.concatMapStringsSep "\n" cmd sorted
+  lib.concatMapStringsSep "\n" cmd sorted
   ;
 
   fileSystemsCfgFile = let
     mountable = lib.filterAttrs (_: value: hasDefinedMount value) datasets;
   in
-    pkgs.runCommand "filesystem-config.nix" {
-      buildInputs = with pkgs; [
-        jq
-        nixpkgs-fmt
-      ];
-      filesystems = builtins.toJSON {
-        fileSystems = lib.mapAttrs' (dataset: attrs: {
-          name = attrs.mount;
-          value = {
-            fsType = "zfs";
-            device = "${dataset}";
-          };
-        }) mountable;
-      };
-      passAsFile = [ "filesystems" ];
-    } ''
-      (
-        echo "builtins.fromJSON '''"
-        jq . < "$filesystemsPath"
-        echo "'''"
-      ) > $out
+  pkgs.runCommand "filesystem-config.nix" {
+    buildInputs = with pkgs; [
+      jq
+      nixpkgs-fmt
+    ];
+    filesystems = builtins.toJSON {
+      fileSystems = lib.mapAttrs' (dataset: attrs: {
+        name = attrs.mount;
+        value = {
+          fsType = "zfs";
+          device = "${dataset}";
+        };
+      }) mountable;
+    };
+    passAsFile = [ "filesystems" ];
+  } ''
+    (
+      echo "builtins.fromJSON '''"
+      jq . < "$filesystemsPath"
+      echo "'''"
+    ) > $out
 
-      nixpkgs-fmt $out
-    ''
+    nixpkgs-fmt $out
+  ''
   ;
 
   mergedConfig = if
@@ -329,4 +329,4 @@ let
     zpool export ${rootPoolName}
   '');
 in
-  image
+image

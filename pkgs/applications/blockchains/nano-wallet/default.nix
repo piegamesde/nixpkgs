@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     };
     optionToFlag = name: value: "-D${name}=${value}";
   in
-    lib.mapAttrsToList optionToFlag options
+  lib.mapAttrsToList optionToFlag options
   ;
 
   nativeBuildInputs = [

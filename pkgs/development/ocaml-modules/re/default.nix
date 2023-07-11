@@ -19,29 +19,29 @@ let
   };
 
 in
-  buildDunePackage (rec {
-    pname = "re";
-    version = version_sha.version;
+buildDunePackage (rec {
+  pname = "re";
+  version = version_sha.version;
 
-    minimalOCamlVersion = "4.02";
+  minimalOCamlVersion = "4.02";
 
-    src = fetchurl {
-      url =
-        "https://github.com/ocaml/ocaml-re/releases/download/${version}/re-${version}.tbz";
-      sha256 = version_sha.sha256;
-    };
+  src = fetchurl {
+    url =
+      "https://github.com/ocaml/ocaml-re/releases/download/${version}/re-${version}.tbz";
+    sha256 = version_sha.sha256;
+  };
 
-    buildInputs = lib.optional doCheck ounit;
-    propagatedBuildInputs = [ seq ];
-    doCheck = lib.versionAtLeast ocaml.version "4.04";
+  buildInputs = lib.optional doCheck ounit;
+  propagatedBuildInputs = [ seq ];
+  doCheck = lib.versionAtLeast ocaml.version "4.04";
 
-    meta = {
-      homepage = "https://github.com/ocaml/ocaml-re";
-      description =
-        "Pure OCaml regular expressions, with support for Perl and POSIX-style strings";
-      license = lib.licenses.lgpl2;
-      maintainers = with lib.maintainers; [ vbgl ];
-    };
-  } // lib.optionalAttrs (!lib.versionAtLeast ocaml.version "4.08") {
-    duneVersion = "1";
-  })
+  meta = {
+    homepage = "https://github.com/ocaml/ocaml-re";
+    description =
+      "Pure OCaml regular expressions, with support for Perl and POSIX-style strings";
+    license = lib.licenses.lgpl2;
+    maintainers = with lib.maintainers; [ vbgl ];
+  };
+} // lib.optionalAttrs (!lib.versionAtLeast ocaml.version "4.08") {
+  duneVersion = "1";
+})

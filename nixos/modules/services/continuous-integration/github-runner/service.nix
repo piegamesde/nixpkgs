@@ -203,18 +203,18 @@ in {
           }} "$WORK_DIRECTORY/"
         '';
       in
-        map (x:
-          "${x} ${
-            escapeShellArgs [
-              stateDir
-              workDir
-              logsDir
-            ]
-          }") [
-            "+${unconfigureRunner}" # runs as root
-            configureRunner
-            setupWorkDir
+      map (x:
+        "${x} ${
+          escapeShellArgs [
+            stateDir
+            workDir
+            logsDir
           ]
+        }") [
+          "+${unconfigureRunner}" # runs as root
+          configureRunner
+          setupWorkDir
+        ]
       ;
 
       # If running in ephemeral mode, restart the service on-exit (i.e., successful de-registration of the runner)

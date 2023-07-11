@@ -172,9 +172,9 @@ in {
           '');
 
     in
-      script.overrideAttrs (old: {
-        meta = (old.meta or { }) // { platforms = lib.platforms.darwin; };
-      })
+    script.overrideAttrs (old: {
+      meta = (old.meta or { }) // { platforms = lib.platforms.darwin; };
+    })
     ;
 
     system = {

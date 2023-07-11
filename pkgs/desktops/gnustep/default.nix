@@ -22,4 +22,4 @@ let
   };
 
 in
-  self
+self

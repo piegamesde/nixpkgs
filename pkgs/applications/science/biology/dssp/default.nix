@@ -19,31 +19,31 @@ let
   });
 
 in
-  stdenv.mkDerivation rec {
-    pname = "dssp";
-    version = "4.2.2.1";
+stdenv.mkDerivation rec {
+  pname = "dssp";
+  version = "4.2.2.1";
 
-    src = fetchFromGitHub {
-      owner = "PDB-REDO";
-      repo = pname;
-      rev = "v${version}";
-      sha256 = "sha256-vmGvC5d8LTo+pcY9sxwj0d6JvH8Lyk+QSOZo5raBci4=";
-    };
+  src = fetchFromGitHub {
+    owner = "PDB-REDO";
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "sha256-vmGvC5d8LTo+pcY9sxwj0d6JvH8Lyk+QSOZo5raBci4=";
+  };
 
-    nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake ];
 
-    buildInputs = [
-      libcifpp'
-      libmcfp
-      zlib
-    ];
+  buildInputs = [
+    libcifpp'
+    libmcfp
+    zlib
+  ];
 
-    meta = with lib; {
-      description =
-        "Calculate the most likely secondary structure assignment given the 3D structure of a protein";
-      homepage = "https://github.com/PDB-REDO/dssp";
-      license = licenses.bsd2;
-      maintainers = with maintainers; [ natsukium ];
-      platforms = platforms.unix;
-    };
-  }
+  meta = with lib; {
+    description =
+      "Calculate the most likely secondary structure assignment given the 3D structure of a protein";
+    homepage = "https://github.com/PDB-REDO/dssp";
+    license = licenses.bsd2;
+    maintainers = with maintainers; [ natsukium ];
+    platforms = platforms.unix;
+  };
+}

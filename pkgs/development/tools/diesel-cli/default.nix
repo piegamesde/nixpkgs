@@ -25,67 +25,67 @@ let
   inherit (lib) optional optionals optionalString;
 
 in
-  rustPlatform.buildRustPackage rec {
-    pname = "diesel-cli";
-    version = "2.0.1";
+rustPlatform.buildRustPackage rec {
+  pname = "diesel-cli";
+  version = "2.0.1";
 
-    src = fetchCrate {
-      inherit version;
-      crateName = "diesel_cli";
-      sha256 = "sha256-IHxK5hI0RYNFQQe/Kfao0Zw8L3bs1gdN1xwmO4kKi08=";
-    };
+  src = fetchCrate {
+    inherit version;
+    crateName = "diesel_cli";
+    sha256 = "sha256-IHxK5hI0RYNFQQe/Kfao0Zw8L3bs1gdN1xwmO4kKi08=";
+  };
 
-    cargoSha256 = "sha256-KoTeDzUk/KbUx+4NLVifX3yehm4V13LJ/YUmzoUSuDM=";
+  cargoSha256 = "sha256-KoTeDzUk/KbUx+4NLVifX3yehm4V13LJ/YUmzoUSuDM=";
 
-    nativeBuildInputs = [
-      installShellFiles
-      pkg-config
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+  ];
+
+  buildInputs = [ openssl ] ++ optional stdenv.isDarwin Security
+    ++ optional (stdenv.isDarwin && mysqlSupport) libiconv
+    ++ optional sqliteSupport sqlite ++ optional postgresqlSupport postgresql
+    ++ optionals mysqlSupport [
+      mariadb
+      zlib
     ];
 
-    buildInputs = [ openssl ] ++ optional stdenv.isDarwin Security
-      ++ optional (stdenv.isDarwin && mysqlSupport) libiconv
-      ++ optional sqliteSupport sqlite ++ optional postgresqlSupport postgresql
-      ++ optionals mysqlSupport [
-        mariadb
-        zlib
-      ];
+  buildNoDefaultFeatures = true;
+  buildFeatures = optional sqliteSupport "sqlite"
+    ++ optional postgresqlSupport "postgres" ++ optional mysqlSupport "mysql";
 
-    buildNoDefaultFeatures = true;
-    buildFeatures = optional sqliteSupport "sqlite"
-      ++ optional postgresqlSupport "postgres" ++ optional mysqlSupport "mysql";
+  checkPhase = ''
+    runHook preCheck
+  '' + optionalString sqliteSupport ''
+    cargo check --features sqlite
+  '' + optionalString postgresqlSupport ''
+    cargo check --features postgres
+  '' + optionalString mysqlSupport ''
+    cargo check --features mysql
+  '' + ''
+    runHook postCheck
+  '';
 
-    checkPhase = ''
-      runHook preCheck
-    '' + optionalString sqliteSupport ''
-      cargo check --features sqlite
-    '' + optionalString postgresqlSupport ''
-      cargo check --features postgres
-    '' + optionalString mysqlSupport ''
-      cargo check --features mysql
-    '' + ''
-      runHook postCheck
-    '';
+  postInstall = ''
+    installShellCompletion --cmd diesel \
+      --bash <($out/bin/diesel completions bash) \
+      --fish <($out/bin/diesel completions fish) \
+      --zsh <($out/bin/diesel completions zsh)
+  '';
 
-    postInstall = ''
-      installShellCompletion --cmd diesel \
-        --bash <($out/bin/diesel completions bash) \
-        --fish <($out/bin/diesel completions fish) \
-        --zsh <($out/bin/diesel completions zsh)
-    '';
+  # Fix the build with mariadb, which otherwise shows "error adding symbols:
+  # DSO missing from command line" errors for libz and libssl.
+  NIX_LDFLAGS = optionalString mysqlSupport "-lz -lssl -lcrypto";
 
-    # Fix the build with mariadb, which otherwise shows "error adding symbols:
-    # DSO missing from command line" errors for libz and libssl.
-    NIX_LDFLAGS = optionalString mysqlSupport "-lz -lssl -lcrypto";
-
-    meta = with lib; {
-      description =
-        "Database tool for working with Rust projects that use Diesel";
-      homepage = "https://github.com/diesel-rs/diesel/tree/master/diesel_cli";
-      license = with licenses; [
-        mit
-        asl20
-      ];
-      maintainers = with maintainers; [ ];
-      mainProgram = "diesel";
-    };
-  }
+  meta = with lib; {
+    description =
+      "Database tool for working with Rust projects that use Diesel";
+    homepage = "https://github.com/diesel-rs/diesel/tree/master/diesel_cli";
+    license = with licenses; [
+      mit
+      asl20
+    ];
+    maintainers = with maintainers; [ ];
+    mainProgram = "diesel";
+  };
+}

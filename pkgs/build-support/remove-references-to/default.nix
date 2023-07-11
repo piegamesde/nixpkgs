@@ -17,30 +17,30 @@ let
     && stdenv.targetPlatform.isAarch64;
 
 in
-  stdenv.mkDerivation {
-    name = "remove-references-to";
+stdenv.mkDerivation {
+  name = "remove-references-to";
 
-    dontUnpack = true;
-    dontConfigure = true;
-    dontBuild = true;
+  dontUnpack = true;
+  dontConfigure = true;
+  dontBuild = true;
 
-    installPhase = ''
-      mkdir -p $out/bin
-      substituteAll ${./remove-references-to.sh} $out/bin/remove-references-to
-      chmod a+x $out/bin/remove-references-to
-    '';
+  installPhase = ''
+    mkdir -p $out/bin
+    substituteAll ${./remove-references-to.sh} $out/bin/remove-references-to
+    chmod a+x $out/bin/remove-references-to
+  '';
 
-    postFixup = lib.optionalString darwinCodeSign ''
-      mkdir -p $out/nix-support
-      substituteAll ${./darwin-sign-fixup.sh} $out/nix-support/setup-hooks.sh
-    '';
+  postFixup = lib.optionalString darwinCodeSign ''
+    mkdir -p $out/nix-support
+    substituteAll ${./darwin-sign-fixup.sh} $out/nix-support/setup-hooks.sh
+  '';
 
-    inherit (builtins) storeDir;
-    shell = lib.getBin shell + (shell.shellPath or "");
-    signingUtils = if
-      darwinCodeSign
-    then
-      signingUtils
-    else
-      null;
-  }
+  inherit (builtins) storeDir;
+  shell = lib.getBin shell + (shell.shellPath or "");
+  signingUtils = if
+    darwinCodeSign
+  then
+    signingUtils
+  else
+    null;
+}

@@ -34,31 +34,31 @@ let
   });
 
 in
-  package.override rec {
-    pname = "snipe-it";
-    version = "6.1.0";
+package.override rec {
+  pname = "snipe-it";
+  version = "6.1.0";
 
-    src = fetchFromGitHub {
-      owner = "snipe";
-      repo = pname;
-      rev = "v${version}";
-      sha256 = "0c8cjywhyiywfav2syjkah777qj5f1jrckgri70ypqyxbwgb4rpm";
-    };
+  src = fetchFromGitHub {
+    owner = "snipe";
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "0c8cjywhyiywfav2syjkah777qj5f1jrckgri70ypqyxbwgb4rpm";
+  };
 
-    passthru.tests = nixosTests.snipe-it;
+  passthru.tests = nixosTests.snipe-it;
 
-    meta = with lib; {
-      description = "A free open source IT asset/license management system";
-      longDescription = ''
-        Snipe-IT was made for IT asset management, to enable IT departments to track
-        who has which laptop, when it was purchased, which software licenses and accessories
-        are available, and so on.
-        Details for snipe-it can be found on the official website at https://snipeitapp.com/.
-      '';
-      homepage = "https://snipeitapp.com/";
-      changelog = "https://github.com/snipe/snipe-it/releases/tag/v${version}";
-      license = licenses.agpl3Only;
-      maintainers = with maintainers; [ yayayayaka ];
-      platforms = platforms.linux;
-    };
-  }
+  meta = with lib; {
+    description = "A free open source IT asset/license management system";
+    longDescription = ''
+      Snipe-IT was made for IT asset management, to enable IT departments to track
+      who has which laptop, when it was purchased, which software licenses and accessories
+      are available, and so on.
+      Details for snipe-it can be found on the official website at https://snipeitapp.com/.
+    '';
+    homepage = "https://snipeitapp.com/";
+    changelog = "https://github.com/snipe/snipe-it/releases/tag/v${version}";
+    license = licenses.agpl3Only;
+    maintainers = with maintainers; [ yayayayaka ];
+    platforms = platforms.linux;
+  };
+}

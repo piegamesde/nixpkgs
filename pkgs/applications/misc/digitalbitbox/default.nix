@@ -49,91 +49,91 @@ let
   copyUdevRuleToOutput = name: rule:
     "cp ${writeText name rule} $out/etc/udev/rules.d/${name}";
 in
-  mkDerivation rec {
-    pname = "digitalbitbox";
-    version = "3.0.0";
+mkDerivation rec {
+  pname = "digitalbitbox";
+  version = "3.0.0";
 
-    src = fetchFromGitHub {
-      owner = "digitalbitbox";
-      repo = "dbb-app";
-      rev = "v${version}";
-      sha256 = "ig3+TdYv277D9GVnkRSX6nc6D6qruUOw/IQdQCK6FoA=";
-    };
+  src = fetchFromGitHub {
+    owner = "digitalbitbox";
+    repo = "dbb-app";
+    rev = "v${version}";
+    sha256 = "ig3+TdYv277D9GVnkRSX6nc6D6qruUOw/IQdQCK6FoA=";
+  };
 
-    nativeBuildInputs = with lib; [
-      autoreconfHook
-      curl
-      git
-      makeWrapper
-      pkg-config
-      qttools
-    ];
+  nativeBuildInputs = with lib; [
+    autoreconfHook
+    curl
+    git
+    makeWrapper
+    pkg-config
+    qttools
+  ];
 
-    buildInputs = [
-      libevent
-      libtool
-      udev
-      libusb1
-      qrencode
+  buildInputs = [
+    libevent
+    libtool
+    udev
+    libusb1
+    qrencode
 
-      qtbase
-      qtwebsockets
-      qtmultimedia
-    ];
+    qtbase
+    qtwebsockets
+    qtmultimedia
+  ];
 
-    LUPDATE = "${qttools.dev}/bin/lupdate";
-    LRELEASE = "${qttools.dev}/bin/lrelease";
-    MOC = "${qtbase.dev}/bin/moc";
-    QTDIR = qtbase.dev;
-    RCC = "${qtbase.dev}/bin/rcc";
-    UIC = "${qtbase.dev}/bin/uic";
+  LUPDATE = "${qttools.dev}/bin/lupdate";
+  LRELEASE = "${qttools.dev}/bin/lrelease";
+  MOC = "${qtbase.dev}/bin/moc";
+  QTDIR = qtbase.dev;
+  RCC = "${qtbase.dev}/bin/rcc";
+  UIC = "${qtbase.dev}/bin/uic";
 
-    configureFlags = [ "--enable-libusb" ];
+  configureFlags = [ "--enable-libusb" ];
 
-    hardeningDisable = [ "format" ];
+  hardeningDisable = [ "format" ];
 
-    qtWrapperArgs = [ "--prefix LD_LIBRARY_PATH : $out/lib" ];
+  qtWrapperArgs = [ "--prefix LD_LIBRARY_PATH : $out/lib" ];
 
-    postInstall = ''
-      mkdir -p "$out/lib"
-      cp src/libbtc/.libs/*.so* $out/lib
-      cp src/libbtc/src/secp256k1/.libs/*.so* $out/lib
-      cp src/hidapi/libusb/.libs/*.so* $out/lib
-      cp src/univalue/.libs/*.so* $out/lib
+  postInstall = ''
+    mkdir -p "$out/lib"
+    cp src/libbtc/.libs/*.so* $out/lib
+    cp src/libbtc/src/secp256k1/.libs/*.so* $out/lib
+    cp src/hidapi/libusb/.libs/*.so* $out/lib
+    cp src/univalue/.libs/*.so* $out/lib
 
-      # [RPATH][patchelf] Avoid forbidden reference error
-      rm -rf $PWD
+    # [RPATH][patchelf] Avoid forbidden reference error
+    rm -rf $PWD
 
-      # Provide udev rules as documented in https://digitalbitbox.com/start_linux
-      mkdir -p "$out/etc/udev/rules.d"
-      ${copyUdevRuleToOutput "51-hid-digitalbox.rules" udevRule51}
-      ${copyUdevRuleToOutput "52-hid-digitalbox.rules" udevRule52}
+    # Provide udev rules as documented in https://digitalbitbox.com/start_linux
+    mkdir -p "$out/etc/udev/rules.d"
+    ${copyUdevRuleToOutput "51-hid-digitalbox.rules" udevRule51}
+    ${copyUdevRuleToOutput "52-hid-digitalbox.rules" udevRule52}
+  '';
+
+  enableParallelBuilding = true;
+
+  meta = with lib; {
+    description =
+      "A QT based application for the Digital Bitbox hardware wallet";
+    longDescription = ''
+      Digital Bitbox provides dbb-app, a GUI tool, and dbb-cli, a CLI tool, to manage Digital Bitbox devices.
+
+      This package will only install the dbb-app and dbb-cli, however; in order for these applications to identify and access Digital Bitbox devices, one may want to enable the digitalbitbox hardware module by adding
+
+          hardware.digitalbitbox.enable = true;
+
+      to the configuration which is equivalent to adding this package to the udev.packages list.
+
+
+      The easiest way to use the digitalbitbox package in NixOS is by adding
+
+          programs.digitalbitbox.enable = true;
+
+      to the configuration which installs the package and enables the hardware module.
     '';
-
-    enableParallelBuilding = true;
-
-    meta = with lib; {
-      description =
-        "A QT based application for the Digital Bitbox hardware wallet";
-      longDescription = ''
-        Digital Bitbox provides dbb-app, a GUI tool, and dbb-cli, a CLI tool, to manage Digital Bitbox devices.
-
-        This package will only install the dbb-app and dbb-cli, however; in order for these applications to identify and access Digital Bitbox devices, one may want to enable the digitalbitbox hardware module by adding
-
-            hardware.digitalbitbox.enable = true;
-
-        to the configuration which is equivalent to adding this package to the udev.packages list.
-
-
-        The easiest way to use the digitalbitbox package in NixOS is by adding
-
-            programs.digitalbitbox.enable = true;
-
-        to the configuration which installs the package and enables the hardware module.
-      '';
-      homepage = "https://digitalbitbox.com/";
-      license = licenses.mit;
-      maintainers = with maintainers; [ vidbina ];
-      platforms = platforms.linux;
-    };
-  }
+    homepage = "https://digitalbitbox.com/";
+    license = licenses.mit;
+    maintainers = with maintainers; [ vidbina ];
+    platforms = platforms.linux;
+  };
+}

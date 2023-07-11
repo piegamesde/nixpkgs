@@ -87,27 +87,27 @@ with lib;
     baseType =
       types.strMatching "^$|^[[:alnum:]]([[:alnum:]_-]{0,61}[[:alnum:]])?$";
   in
-    mkOption {
-      type = if
-        includeNameDefault
-      then
-        baseType
-      else
-        types.nullOr baseType;
-      description = lib.mdDoc ''
-        Name of the runner to configure. Defaults to the hostname.
-
-        Changing this option triggers a new runner registration.
-      '';
-      example = "nixos";
-    } // (if
+  mkOption {
+    type = if
       includeNameDefault
-    then {
-      default = config.networking.hostName;
-      defaultText = literalExpression "config.networking.hostName";
-    } else {
-      default = null;
-    })
+    then
+      baseType
+    else
+      types.nullOr baseType;
+    description = lib.mdDoc ''
+      Name of the runner to configure. Defaults to the hostname.
+
+      Changing this option triggers a new runner registration.
+    '';
+    example = "nixos";
+  } // (if
+    includeNameDefault
+  then {
+    default = config.networking.hostName;
+    defaultText = literalExpression "config.networking.hostName";
+  } else {
+    default = null;
+  })
   ;
 
   runnerGroup = mkOption {

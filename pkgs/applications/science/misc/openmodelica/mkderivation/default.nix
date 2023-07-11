@@ -90,25 +90,25 @@ let
   installFlags = "-i " + appendByAttr "installFlags" " " pkg;
 
 in
-  stdenv.mkDerivation (pkg // {
-    inherit omtarget postPatch preAutoreconf configureFlags configurePhase
-      preBuild makeFlags installFlags;
+stdenv.mkDerivation (pkg // {
+  inherit omtarget postPatch preAutoreconf configureFlags configurePhase
+    preBuild makeFlags installFlags;
 
-    src = fetchgit (import ./src-main.nix);
-    version = "1.18.0";
+  src = fetchgit (import ./src-main.nix);
+  version = "1.18.0";
 
-    nativeBuildInputs = getAttrDef "nativeBuildInputs" [ ] pkg ++ [
-      autoconf
-      automake
-      libtool
-      cmake
-      autoreconfHook
-    ];
+  nativeBuildInputs = getAttrDef "nativeBuildInputs" [ ] pkg ++ [
+    autoconf
+    automake
+    libtool
+    cmake
+    autoreconfHook
+  ];
 
-    buildInputs = getAttrDef "buildInputs" [ ] pkg
-      ++ lib.optional ifDeps joinedDeps;
+  buildInputs = getAttrDef "buildInputs" [ ] pkg
+    ++ lib.optional ifDeps joinedDeps;
 
-    dontUseCmakeConfigure = true;
+  dontUseCmakeConfigure = true;
 
-    hardeningDisable = [ "format" ];
-  })
+  hardeningDisable = [ "format" ];
+})

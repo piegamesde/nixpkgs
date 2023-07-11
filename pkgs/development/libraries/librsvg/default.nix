@@ -189,10 +189,10 @@ stdenv.mkDerivation rec {
         supportedFeatures = [ "silent" ];
       };
     in
-      _experimental-update-script-combinators.sequence [
-        updateSource
-        updateLockfile
-      ]
+    _experimental-update-script-combinators.sequence [
+      updateSource
+      updateLockfile
+    ]
     ;
   };
 

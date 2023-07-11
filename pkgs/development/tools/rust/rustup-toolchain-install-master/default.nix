@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
         --subst-var libPath
     '';
   in
-    lib.optionals stdenv.isLinux [ patchelfPatch ]
+  lib.optionals stdenv.isLinux [ patchelfPatch ]
   ;
 
   nativeBuildInputs = [ pkg-config ];

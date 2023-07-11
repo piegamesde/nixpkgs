@@ -46,7 +46,7 @@ import ./make-test-python.nix ({
               '';
             };
           in
-            "${osrm-data}/${filename}.osrm"
+          "${osrm-data}/${filename}.osrm"
           ;
         };
 

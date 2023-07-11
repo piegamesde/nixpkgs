@@ -70,7 +70,7 @@ in {
           let
             coerce = bits: { inherit bits; };
           in
-            attrsOf (coercedTo int coerce (submodule paramsSubmodule))
+          attrsOf (coercedTo int coerce (submodule paramsSubmodule))
         ;
         default = { };
         example = lib.literalExpression "{ nginx.bits = 3072; }";

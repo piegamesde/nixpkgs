@@ -224,127 +224,127 @@ rec {
         paths = plugins;
       };
     in
-      buildGoPackage (lib.optionalAttrs (!clientOnly) {
-        # allow overrides of docker components
-        # TODO: move packages out of the let...in into top-level to allow proper overrides
-        inherit docker-runc docker-containerd docker-proxy docker-tini moby;
-      } // rec {
-        pname = "docker";
-        inherit version;
+    buildGoPackage (lib.optionalAttrs (!clientOnly) {
+      # allow overrides of docker components
+      # TODO: move packages out of the let...in into top-level to allow proper overrides
+      inherit docker-runc docker-containerd docker-proxy docker-tini moby;
+    } // rec {
+      pname = "docker";
+      inherit version;
 
-        src = fetchFromGitHub {
-          owner = "docker";
-          repo = "cli";
-          rev = cliRev;
-          hash = cliHash;
-        };
+      src = fetchFromGitHub {
+        owner = "docker";
+        repo = "cli";
+        rev = cliRev;
+        hash = cliHash;
+      };
 
-        goPackagePath = "github.com/docker/cli";
+      goPackagePath = "github.com/docker/cli";
 
-        nativeBuildInputs = [
-          makeWrapper
-          pkg-config
-          go-md2man
-          go
-          libtool
-          installShellFiles
+      nativeBuildInputs = [
+        makeWrapper
+        pkg-config
+        go-md2man
+        go
+        libtool
+        installShellFiles
+      ];
+      buildInputs = lib.optional (!clientOnly) sqlite
+        ++ lib.optional withLvm lvm2 ++ lib.optional withBtrfs btrfs-progs
+        ++ lib.optional withSystemd systemd
+        ++ lib.optional withSeccomp libseccomp ++ plugins;
+
+      postPatch = ''
+        patchShebangs man scripts/build/
+        substituteInPlace ./scripts/build/.variables --replace "set -eu" ""
+      '' + lib.optionalString (plugins != [ ]) ''
+        substituteInPlace ./cli-plugins/manager/manager_unix.go --replace /usr/libexec/docker/cli-plugins \
+            "${pluginsRef}/libexec/docker/cli-plugins"
+      '';
+
+      # Keep eyes on BUILDTIME format - https://github.com/docker/cli/blob/${version}/scripts/build/.variables
+      buildPhase = ''
+        export GOCACHE="$TMPDIR/go-cache"
+
+        cd ./go/src/${goPackagePath}
+        # Mimic AUTO_GOPATH
+        mkdir -p .gopath/src/github.com/docker/
+        ln -sf $PWD .gopath/src/github.com/docker/cli
+        export GOPATH="$PWD/.gopath:$GOPATH"
+        export GITCOMMIT="${cliRev}"
+        export VERSION="${version}"
+        export BUILDTIME="1970-01-01T00:00:00Z"
+        source ./scripts/build/.variables
+        export CGO_ENABLED=1
+        go build -tags pkcs11 --ldflags "$GO_LDFLAGS" github.com/docker/cli/cmd/docker
+        cd -
+      '';
+
+      outputs = [
+        "out"
+        "man"
+      ];
+
+      installPhase = ''
+        cd ./go/src/${goPackagePath}
+        install -Dm755 ./docker $out/libexec/docker/docker
+
+        makeWrapper $out/libexec/docker/docker $out/bin/docker \
+          --prefix PATH : "$out/libexec/docker:$extraPath"
+      '' + lib.optionalString (!clientOnly) ''
+        # symlink docker daemon to docker cli derivation
+        ln -s ${moby}/bin/dockerd $out/bin/dockerd
+        ln -s ${moby}/bin/dockerd-rootless $out/bin/dockerd-rootless
+
+        # systemd
+        mkdir -p $out/etc/systemd/system
+        ln -s ${moby}/etc/systemd/system/docker.service $out/etc/systemd/system/docker.service
+        ln -s ${moby}/etc/systemd/system/docker.socket $out/etc/systemd/system/docker.socket
+      '' + ''
+        # completion (cli)
+        installShellCompletion --bash ./contrib/completion/bash/docker
+        installShellCompletion --fish ./contrib/completion/fish/docker.fish
+        installShellCompletion --zsh  ./contrib/completion/zsh/_docker
+      '' + lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
+        # Generate man pages from cobra commands
+        echo "Generate man pages from cobra"
+        mkdir -p ./man/man1
+        go build -o ./gen-manpages github.com/docker/cli/man
+        ./gen-manpages --root . --target ./man/man1
+      '' + ''
+        # Generate legacy pages from markdown
+        echo "Generate legacy manpages"
+        ./man/md2man-all.sh -q
+
+        installManPage man/*/*.[1-9]
+      '';
+
+      passthru = {
+        # Exposed for tarsum build on non-linux systems (build-support/docker/default.nix)
+        inherit moby-src;
+        tests = lib.optionals (!clientOnly) { inherit (nixosTests) docker; };
+      };
+
+      meta = with lib; {
+        homepage = "https://www.docker.com/";
+        description =
+          "An open source project to pack, ship and run any application as a lightweight container";
+        longDescription = ''
+          Docker is a platform designed to help developers build, share, and run modern applications.
+
+          To enable the docker daemon on NixOS, set the `virtualisation.docker.enable` option to `true`.
+        '';
+        license = licenses.asl20;
+        maintainers = with maintainers; [
+          offline
+          tailhook
+          vdemeester
+          periklis
+          mikroskeem
+          maxeaubrey
         ];
-        buildInputs = lib.optional (!clientOnly) sqlite
-          ++ lib.optional withLvm lvm2 ++ lib.optional withBtrfs btrfs-progs
-          ++ lib.optional withSystemd systemd
-          ++ lib.optional withSeccomp libseccomp ++ plugins;
-
-        postPatch = ''
-          patchShebangs man scripts/build/
-          substituteInPlace ./scripts/build/.variables --replace "set -eu" ""
-        '' + lib.optionalString (plugins != [ ]) ''
-          substituteInPlace ./cli-plugins/manager/manager_unix.go --replace /usr/libexec/docker/cli-plugins \
-              "${pluginsRef}/libexec/docker/cli-plugins"
-        '';
-
-        # Keep eyes on BUILDTIME format - https://github.com/docker/cli/blob/${version}/scripts/build/.variables
-        buildPhase = ''
-          export GOCACHE="$TMPDIR/go-cache"
-
-          cd ./go/src/${goPackagePath}
-          # Mimic AUTO_GOPATH
-          mkdir -p .gopath/src/github.com/docker/
-          ln -sf $PWD .gopath/src/github.com/docker/cli
-          export GOPATH="$PWD/.gopath:$GOPATH"
-          export GITCOMMIT="${cliRev}"
-          export VERSION="${version}"
-          export BUILDTIME="1970-01-01T00:00:00Z"
-          source ./scripts/build/.variables
-          export CGO_ENABLED=1
-          go build -tags pkcs11 --ldflags "$GO_LDFLAGS" github.com/docker/cli/cmd/docker
-          cd -
-        '';
-
-        outputs = [
-          "out"
-          "man"
-        ];
-
-        installPhase = ''
-          cd ./go/src/${goPackagePath}
-          install -Dm755 ./docker $out/libexec/docker/docker
-
-          makeWrapper $out/libexec/docker/docker $out/bin/docker \
-            --prefix PATH : "$out/libexec/docker:$extraPath"
-        '' + lib.optionalString (!clientOnly) ''
-          # symlink docker daemon to docker cli derivation
-          ln -s ${moby}/bin/dockerd $out/bin/dockerd
-          ln -s ${moby}/bin/dockerd-rootless $out/bin/dockerd-rootless
-
-          # systemd
-          mkdir -p $out/etc/systemd/system
-          ln -s ${moby}/etc/systemd/system/docker.service $out/etc/systemd/system/docker.service
-          ln -s ${moby}/etc/systemd/system/docker.socket $out/etc/systemd/system/docker.socket
-        '' + ''
-          # completion (cli)
-          installShellCompletion --bash ./contrib/completion/bash/docker
-          installShellCompletion --fish ./contrib/completion/fish/docker.fish
-          installShellCompletion --zsh  ./contrib/completion/zsh/_docker
-        '' + lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
-          # Generate man pages from cobra commands
-          echo "Generate man pages from cobra"
-          mkdir -p ./man/man1
-          go build -o ./gen-manpages github.com/docker/cli/man
-          ./gen-manpages --root . --target ./man/man1
-        '' + ''
-          # Generate legacy pages from markdown
-          echo "Generate legacy manpages"
-          ./man/md2man-all.sh -q
-
-          installManPage man/*/*.[1-9]
-        '';
-
-        passthru = {
-          # Exposed for tarsum build on non-linux systems (build-support/docker/default.nix)
-          inherit moby-src;
-          tests = lib.optionals (!clientOnly) { inherit (nixosTests) docker; };
-        };
-
-        meta = with lib; {
-          homepage = "https://www.docker.com/";
-          description =
-            "An open source project to pack, ship and run any application as a lightweight container";
-          longDescription = ''
-            Docker is a platform designed to help developers build, share, and run modern applications.
-
-            To enable the docker daemon on NixOS, set the `virtualisation.docker.enable` option to `true`.
-          '';
-          license = licenses.asl20;
-          maintainers = with maintainers; [
-            offline
-            tailhook
-            vdemeester
-            periklis
-            mikroskeem
-            maxeaubrey
-          ];
-        };
-      })
+      };
+    })
   ;
 
   # Get revisions from

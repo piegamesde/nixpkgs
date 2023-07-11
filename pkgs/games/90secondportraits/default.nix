@@ -28,42 +28,42 @@ let
   };
 
 in
-  stdenv.mkDerivation {
-    name = "${pname}-${version}";
+stdenv.mkDerivation {
+  name = "${pname}-${version}";
 
-    src = fetchurl {
-      url =
-        "https://github.com/SimonLarsen/90-Second-Portraits/releases/download/${version}/${pname}-${version}.love";
-      sha256 = "0jj3k953r6vb02212gqcgqpb4ima87gnqgls43jmylxq2mcm33h5";
-    };
+  src = fetchurl {
+    url =
+      "https://github.com/SimonLarsen/90-Second-Portraits/releases/download/${version}/${pname}-${version}.love";
+    sha256 = "0jj3k953r6vb02212gqcgqpb4ima87gnqgls43jmylxq2mcm33h5";
+  };
 
-    nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [
-      lua
-      love
-    ];
+  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [
+    lua
+    love
+  ];
 
-    dontUnpack = true;
+  dontUnpack = true;
 
-    installPhase = ''
-      mkdir -p $out/bin
-      mkdir -p $out/share/games/lovegames
+  installPhase = ''
+    mkdir -p $out/bin
+    mkdir -p $out/share/games/lovegames
 
-      cp -v $src $out/share/games/lovegames/${pname}.love
+    cp -v $src $out/share/games/lovegames/${pname}.love
 
-      makeWrapper ${love}/bin/love $out/bin/${pname} --add-flags $out/share/games/lovegames/${pname}.love
+    makeWrapper ${love}/bin/love $out/bin/${pname} --add-flags $out/share/games/lovegames/${pname}.love
 
-      chmod +x $out/bin/${pname}
-      mkdir -p $out/share/applications
-      ln -s ${desktopItem}/share/applications/* $out/share/applications/
-    '';
+    chmod +x $out/bin/${pname}
+    mkdir -p $out/share/applications
+    ln -s ${desktopItem}/share/applications/* $out/share/applications/
+  '';
 
-    meta = with lib; {
-      description = "A silly speed painting game";
-      maintainers = with maintainers; [ leenaars ];
-      platforms = platforms.linux;
-      license = licenses.free;
-      downloadPage = "http://tangramgames.dk/games/90secondportraits";
-    };
+  meta = with lib; {
+    description = "A silly speed painting game";
+    maintainers = with maintainers; [ leenaars ];
+    platforms = platforms.linux;
+    license = licenses.free;
+    downloadPage = "http://tangramgames.dk/games/90secondportraits";
+  };
 
-  }
+}

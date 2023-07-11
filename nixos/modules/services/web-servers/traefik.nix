@@ -23,7 +23,7 @@ let
         emptyValue.value = { };
       };
     in
-      valueType
+    valueType
   ;
   dynamicConfigFile = if
     cfg.dynamicConfigFile == null

@@ -133,9 +133,8 @@ in rec {
         else
           v;
     in
-      trace
-      (generators.toPretty { allowPrettyValues = true; } (modify depth snip x))
-      y
+    trace
+    (generators.toPretty { allowPrettyValues = true; } (modify depth snip x)) y
   ;
 
   /* A combination of `traceVal` and `traceSeq` that applies a
@@ -180,11 +179,11 @@ in rec {
     let
       res = f v;
     in
-      lib.traceSeqN (depth + 1) {
-        fn = name;
-        from = v;
-        to = res;
-      } res
+    lib.traceSeqN (depth + 1) {
+      fn = name;
+      from = v;
+      to = res;
+    } res
   ;
 
   # -- TESTING --

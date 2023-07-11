@@ -43,22 +43,22 @@ let
 
         deps = ruby.withPackages (g: [ g.${name} ]);
       in
-        stdenv.mkDerivation {
-          name = "test-gem-${ruby.name}-${name}";
-          buildInputs = [ deps ];
-          buildCommand = ''
-            INLINEDIR=$PWD ruby ${test}
-            touch $out
-          '';
-        }
+      stdenv.mkDerivation {
+        name = "test-gem-${ruby.name}-${name}";
+        buildInputs = [ deps ];
+        buildCommand = ''
+          INLINEDIR=$PWD ruby ${test}
+          touch $out
+        '';
+      }
     ) ruby.gems;
 in
-  stdenv.mkDerivation {
-    name = "test-all-ruby-gems";
-    buildInputs = builtins.foldl' (sum: ruby:
-      sum ++ [ (testWrapper ruby) ] ++ (builtins.attrValues (tests ruby))) [ ]
-      rubyVersions;
-    buildCommand = ''
-      touch $out
-    '';
-  }
+stdenv.mkDerivation {
+  name = "test-all-ruby-gems";
+  buildInputs = builtins.foldl' (sum: ruby:
+    sum ++ [ (testWrapper ruby) ] ++ (builtins.attrValues (tests ruby))) [ ]
+    rubyVersions;
+  buildCommand = ''
+    touch $out
+  '';
+}

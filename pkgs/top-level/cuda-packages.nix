@@ -90,4 +90,4 @@ let
   ]);
 
 in
-  (scope.overrideScope' composedExtension)
+(scope.overrideScope' composedExtension)

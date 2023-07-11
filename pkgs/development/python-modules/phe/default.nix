@@ -14,29 +14,29 @@ let
   version = "1.5.0";
 
 in
-  buildPythonPackage {
+buildPythonPackage {
+  inherit pname version;
+
+  # https://github.com/n1analytics/python-paillier/issues/51
+  disabled = isPyPy || !isPy3k;
+
+  src = fetchPypi {
     inherit pname version;
+    hash = "sha256-mS+3CR0kJ/DZczlG+PNQrN1NHQEgV/Kq02S6eflwM5w=";
+  };
 
-    # https://github.com/n1analytics/python-paillier/issues/51
-    disabled = isPyPy || !isPy3k;
+  buildInputs = [
+    click
+    gmpy2
+    numpy
+  ];
 
-    src = fetchPypi {
-      inherit pname version;
-      hash = "sha256-mS+3CR0kJ/DZczlG+PNQrN1NHQEgV/Kq02S6eflwM5w=";
-    };
+  # 29/233 tests fail
+  doCheck = false;
 
-    buildInputs = [
-      click
-      gmpy2
-      numpy
-    ];
-
-    # 29/233 tests fail
-    doCheck = false;
-
-    meta = with lib; {
-      description = "A library for Partially Homomorphic Encryption in Python";
-      homepage = "https://github.com/n1analytics/python-paillier";
-      license = licenses.gpl3;
-    };
-  }
+  meta = with lib; {
+    description = "A library for Partially Homomorphic Encryption in Python";
+    homepage = "https://github.com/n1analytics/python-paillier";
+    license = licenses.gpl3;
+  };
+}

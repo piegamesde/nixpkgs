@@ -26,62 +26,62 @@ let
   };
 
 in
-  stdenv.mkDerivation {
-    pname = "libtorrent-rasterbar";
-    inherit version;
+stdenv.mkDerivation {
+  pname = "libtorrent-rasterbar";
+  inherit version;
 
-    src = fetchFromGitHub {
-      owner = "arvidn";
-      repo = "libtorrent";
-      rev = "v${version}";
-      sha256 = "05qm8mcyxsnb6zb8nckln1gkk8ncwzfhsz7d7p3fhx6gdsc8j71b";
-    };
+  src = fetchFromGitHub {
+    owner = "arvidn";
+    repo = "libtorrent";
+    rev = "v${version}";
+    sha256 = "05qm8mcyxsnb6zb8nckln1gkk8ncwzfhsz7d7p3fhx6gdsc8j71b";
+  };
 
-    enableParallelBuilding = true;
+  enableParallelBuilding = true;
 
-    nativeBuildInputs = [
-      automake
-      autoconf
-      libtool
-      pkg-config
-    ];
+  nativeBuildInputs = [
+    automake
+    autoconf
+    libtool
+    pkg-config
+  ];
 
-    buildInputs = [
-      boostPython
-      openssl
-      zlib
-      python
-      libiconv
-      ncurses
-    ] ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
+  buildInputs = [
+    boostPython
+    openssl
+    zlib
+    python
+    libiconv
+    ncurses
+  ] ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
 
-    preConfigure = "./autotool.sh";
+  preConfigure = "./autotool.sh";
 
-    postInstall = ''
-      moveToOutput "include" "$dev"
-      moveToOutput "lib/${python.libPrefix}" "$python"
-    '';
+  postInstall = ''
+    moveToOutput "include" "$dev"
+    moveToOutput "lib/${python.libPrefix}" "$python"
+  '';
 
-    outputs = [
-      "out"
-      "dev"
-      "python"
-    ];
+  outputs = [
+    "out"
+    "dev"
+    "python"
+  ];
 
-    configureFlags = [
-      "--enable-python-binding"
-      "--with-libiconv=yes"
-      "--with-boost=${boostPython.dev}"
-      "--with-boost-libdir=${boostPython.out}/lib"
-    ];
+  configureFlags = [
+    "--enable-python-binding"
+    "--with-libiconv=yes"
+    "--with-boost=${boostPython.dev}"
+    "--with-boost-libdir=${boostPython.out}/lib"
+  ];
 
-    meta = with lib; {
-      homepage = "https://libtorrent.org/";
-      description =
-        "A C++ BitTorrent implementation focusing on efficiency and scalability";
-      license = licenses.bsd3;
-      maintainers = [ ];
-      broken = stdenv.isDarwin;
-      platforms = platforms.unix;
-    };
-  }
+  meta = with lib; {
+    homepage = "https://libtorrent.org/";
+    description =
+      "A C++ BitTorrent implementation focusing on efficiency and scalability";
+    license = licenses.bsd3;
+    maintainers = [ ];
+    broken = stdenv.isDarwin;
+    platforms = platforms.unix;
+  };
+}

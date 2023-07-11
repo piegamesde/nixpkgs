@@ -323,10 +323,10 @@ in {
         recordedFileExtension = lib.mkDefault ".m2ts";
       };
     in
-      lib.mkMerge [
-        defaultSettings
-        (lib.mkIf cfg.usePreconfiguredStreaming streamingConfig)
-      ]
+    lib.mkMerge [
+      defaultSettings
+      (lib.mkIf cfg.usePreconfiguredStreaming streamingConfig)
+    ]
     ;
 
     systemd.tmpfiles.rules = [

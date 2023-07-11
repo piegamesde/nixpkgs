@@ -168,10 +168,10 @@ stdenv.mkDerivation rec {
         "evolution-data-server.hardcodeGsettingsPatch"
         ./hardcode-gsettings.patch;
     in
-      _experimental-update-script-combinators.sequence [
-        updateSource
-        updatePatch
-      ]
+    _experimental-update-script-combinators.sequence [
+      updateSource
+      updatePatch
+    ]
     ;
   };
 

@@ -33,69 +33,69 @@ let
       gtk3
     ]);
 in
-  stdenv.mkDerivation rec {
-    pname = "gwe";
-    version = "0.15.5";
+stdenv.mkDerivation rec {
+  pname = "gwe";
+  version = "0.15.5";
 
-    src = fetchFromGitLab {
-      owner = "leinardi";
-      repo = pname;
-      rev = version;
-      sha256 = "sha256-bey/G+muDZsMMU3lVdNS6E/BnAJr29zLPE0MMT4sh1c=";
-    };
+  src = fetchFromGitLab {
+    owner = "leinardi";
+    repo = pname;
+    rev = version;
+    sha256 = "sha256-bey/G+muDZsMMU3lVdNS6E/BnAJr29zLPE0MMT4sh1c=";
+  };
 
-    prePatch = ''
-      patchShebangs scripts/{make_local_manifest,meson_post_install}.py
+  prePatch = ''
+    patchShebangs scripts/{make_local_manifest,meson_post_install}.py
 
-      substituteInPlace gwe/repository/nvidia_repository.py \
-        --replace "from py3nvml import py3nvml" "import pynvml" \
-        --replace "py3nvml.py3nvml" "pynvml" \
-        --replace "py3nvml" "pynvml"
-    '';
+    substituteInPlace gwe/repository/nvidia_repository.py \
+      --replace "from py3nvml import py3nvml" "import pynvml" \
+      --replace "py3nvml.py3nvml" "pynvml" \
+      --replace "py3nvml" "pynvml"
+  '';
 
-    nativeBuildInputs = [
-      wrapGAppsHook
-      pkg-config
-      meson
-      ninja
-      cmake
-      gobject-introspection
-      desktop-file-utils
-      pythonEnv
-    ];
+  nativeBuildInputs = [
+    wrapGAppsHook
+    pkg-config
+    meson
+    ninja
+    cmake
+    gobject-introspection
+    desktop-file-utils
+    pythonEnv
+  ];
 
-    buildInputs = [
-      gtk3
-      libdazzle
-      libappindicator-gtk3
-      libnotify
-    ];
+  buildInputs = [
+    gtk3
+    libdazzle
+    libappindicator-gtk3
+    libnotify
+  ];
 
-    postInstall = ''
-      mv $out/bin/gwe $out/lib/gwe-bin
+  postInstall = ''
+    mv $out/bin/gwe $out/lib/gwe-bin
 
-      makeWrapper ${pythonEnv}/bin/python $out/bin/gwe \
-        --add-flags "$out/lib/gwe-bin" \
-        --prefix LD_LIBRARY_PATH : "/run/opengl-driver/lib" \
-        --prefix PATH : "${
-          builtins.concatStringsSep ":" [
-            (lib.makeBinPath [
-              nvidia_x11
-              nvidia_x11.settings
-            ])
-            "/run/wrappers/bin"
-          ]
-        }" \
-        --unset "SHELL" \
-        ''${gappsWrapperArgs[@]}
-    '';
+    makeWrapper ${pythonEnv}/bin/python $out/bin/gwe \
+      --add-flags "$out/lib/gwe-bin" \
+      --prefix LD_LIBRARY_PATH : "/run/opengl-driver/lib" \
+      --prefix PATH : "${
+        builtins.concatStringsSep ":" [
+          (lib.makeBinPath [
+            nvidia_x11
+            nvidia_x11.settings
+          ])
+          "/run/wrappers/bin"
+        ]
+      }" \
+      --unset "SHELL" \
+      ''${gappsWrapperArgs[@]}
+  '';
 
-    meta = with lib; {
-      description =
-        "System utility designed to provide information, control the fans and overclock your NVIDIA card";
-      homepage = "https://gitlab.com/leinardi/gwe";
-      platforms = platforms.linux;
-      license = licenses.gpl3Only;
-      maintainers = [ maintainers.ivar ];
-    };
-  }
+  meta = with lib; {
+    description =
+      "System utility designed to provide information, control the fans and overclock your NVIDIA card";
+    homepage = "https://gitlab.com/leinardi/gwe";
+    platforms = platforms.linux;
+    license = licenses.gpl3Only;
+    maintainers = [ maintainers.ivar ];
+  };
+}

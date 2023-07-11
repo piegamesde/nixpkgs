@@ -45,45 +45,45 @@ let
   potr = python3Packages.potr.overridePythonAttrs
     (oldAttrs: { propagatedBuildInputs = [ pycrypto ]; });
 in
-  stdenv.mkDerivation rec {
-    pname = "weechat-otr";
-    version = "1.9.2";
+stdenv.mkDerivation rec {
+  pname = "weechat-otr";
+  version = "1.9.2";
 
-    src = fetchFromGitHub {
-      repo = pname;
-      owner = "mmb";
-      rev = "v${version}";
-      sha256 = "1lngv98y6883vk8z2628cl4d5y8jxy39w8245gjdvshl8g18k5s2";
-    };
+  src = fetchFromGitHub {
+    repo = pname;
+    owner = "mmb";
+    rev = "v${version}";
+    sha256 = "1lngv98y6883vk8z2628cl4d5y8jxy39w8245gjdvshl8g18k5s2";
+  };
 
-    patches = [ (substituteAll {
-      src = ./libpath.patch;
-      env = "${
-          buildEnv {
-            name = "weechat-otr-env";
-            paths = [
-              potr
-              pycrypto
-            ];
-          }
-        }/${python3Packages.python.sitePackages}";
-    }) ];
+  patches = [ (substituteAll {
+    src = ./libpath.patch;
+    env = "${
+        buildEnv {
+          name = "weechat-otr-env";
+          paths = [
+            potr
+            pycrypto
+          ];
+        }
+      }/${python3Packages.python.sitePackages}";
+  }) ];
 
-    passthru.scripts = [ "weechat_otr.py" ];
+  passthru.scripts = [ "weechat_otr.py" ];
 
-    installPhase = ''
-      mkdir -p $out/share
-      cp weechat_otr.py $out/share/weechat_otr.py
-    '';
+  installPhase = ''
+    mkdir -p $out/share
+    cp weechat_otr.py $out/share/weechat_otr.py
+  '';
 
-    meta = with lib; {
-      homepage = "https://github.com/mmb/weechat-otr";
-      license = licenses.gpl3;
-      maintainers = with maintainers; [ oxzi ];
-      description = "WeeChat script for Off-the-Record messaging";
-      knownVulnerabilities = [
-        "There is no upstream release since 2018-03."
-        "Utilizes deprecated and vulnerable pycrypto library with Debian patches from 2020-04."
-      ];
-    };
-  }
+  meta = with lib; {
+    homepage = "https://github.com/mmb/weechat-otr";
+    license = licenses.gpl3;
+    maintainers = with maintainers; [ oxzi ];
+    description = "WeeChat script for Off-the-Record messaging";
+    knownVulnerabilities = [
+      "There is no upstream release since 2018-03."
+      "Utilizes deprecated and vulnerable pycrypto library with Debian patches from 2020-04."
+    ];
+  };
+}

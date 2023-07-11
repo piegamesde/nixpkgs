@@ -82,22 +82,22 @@ with lib;
       };
 
   in
-    mkIf cfg.enable {
-      assertions = [ {
-        assertion = (cfg.settingsFile == null) != (cfg.settings == null);
-        message =
-          "Either but not both `settingsFile` and `settings` should be specified for xray.";
-      } ];
+  mkIf cfg.enable {
+    assertions = [ {
+      assertion = (cfg.settingsFile == null) != (cfg.settings == null);
+      message =
+        "Either but not both `settingsFile` and `settings` should be specified for xray.";
+    } ];
 
-      systemd.services.xray = {
-        description = "xray Daemon";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig = {
-          DynamicUser = true;
-          ExecStart = "${cfg.package}/bin/xray -config ${settingsFile}";
-        };
+    systemd.services.xray = {
+      description = "xray Daemon";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        DynamicUser = true;
+        ExecStart = "${cfg.package}/bin/xray -config ${settingsFile}";
       };
-    }
+    };
+  }
   ;
 }

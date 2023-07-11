@@ -41,8 +41,7 @@ let
         }/bin/${name}.sh '%e'" >> $fn
       '';
     in
-      concatStringsSep "\n"
-      (mapAttrsToList f (canonicalHandlers // cfg.handlers))
+    concatStringsSep "\n" (mapAttrsToList f (canonicalHandlers // cfg.handlers))
     }
   '';
 

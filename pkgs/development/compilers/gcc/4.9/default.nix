@@ -241,187 +241,187 @@ let
 
   # We need all these X libraries when building AWT with GTK.
 in
-  assert x11Support -> (filter (x: x == null) ([
-    gtk2
-    libart_lgpl
-  ] ++ xlibs)) == [ ];
+assert x11Support -> (filter (x: x == null) ([
+  gtk2
+  libart_lgpl
+] ++ xlibs)) == [ ];
 
-  stdenv.mkDerivation ({
-    pname = "${crossNameAddon}${name}";
-    inherit version;
+stdenv.mkDerivation ({
+  pname = "${crossNameAddon}${name}";
+  inherit version;
 
-    builder = ../builder.sh;
+  builder = ../builder.sh;
 
-    src = fetchurl {
-      url = "mirror://gnu/gcc/gcc-${version}/gcc-${version}.tar.bz2";
-      sha256 = "14l06m7nvcvb0igkbip58x59w3nq6315k6jcz3wr9ch1rn9d44bc";
-    };
+  src = fetchurl {
+    url = "mirror://gnu/gcc/gcc-${version}/gcc-${version}.tar.bz2";
+    sha256 = "14l06m7nvcvb0igkbip58x59w3nq6315k6jcz3wr9ch1rn9d44bc";
+  };
 
-    inherit patches;
+  inherit patches;
 
-    hardeningDisable = [
-      "format"
-      "pie"
-    ];
+  hardeningDisable = [
+    "format"
+    "pie"
+  ];
 
-    # When targeting darwin, libgcc_ext.10.{4,5}.dylib are created as
-    # MH_DYLIB_STUB files, which install_name_tool can't change, so we
-    # get a cycle between $out and $lib.
-    outputs = if
-      langJava || langGo || targetPlatform.isDarwin
-    then [
-      "out"
-      "man"
-      "info"
-    ] else [
-      "out"
-      "lib"
-      "man"
-      "info"
-    ];
-    setOutputFlags = false;
-    NIX_NO_SELF_RPATH = true;
+  # When targeting darwin, libgcc_ext.10.{4,5}.dylib are created as
+  # MH_DYLIB_STUB files, which install_name_tool can't change, so we
+  # get a cycle between $out and $lib.
+  outputs = if
+    langJava || langGo || targetPlatform.isDarwin
+  then [
+    "out"
+    "man"
+    "info"
+  ] else [
+    "out"
+    "lib"
+    "man"
+    "info"
+  ];
+  setOutputFlags = false;
+  NIX_NO_SELF_RPATH = true;
 
-    libc_dev = stdenv.cc.libc_dev;
+  libc_dev = stdenv.cc.libc_dev;
 
-    postPatch = if
-      targetPlatform != hostPlatform || stdenv.cc.libc != null
-    then
-    # On NixOS, use the right path to the dynamic linker instead of
-    # `/lib/ld*.so'.
-      let
-        libc = if
-          libcCross != null
-        then
-          libcCross
-        else
-          stdenv.cc.libc;
-      in ''
-        echo "fixing the \`GLIBC_DYNAMIC_LINKER' and \`UCLIBC_DYNAMIC_LINKER' macros..."
-                  for header in "gcc/config/"*-gnu.h "gcc/config/"*"/"*.h
-                  do
-                    grep -q LIBC_DYNAMIC_LINKER "$header" || continue
-                    echo "  fixing \`$header'..."
-                    sed -i "$header" \
-                        -e 's|define[[:blank:]]*\([UCG]\+\)LIBC_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define \1LIBC_DYNAMIC_LINKER\2 "${libc.out}\3"|g'
-                  done
-      ''
-    else
-      null;
-
-    inherit noSysDirs staticCompiler langJava crossStageStatic libcCross
-      crossMingw;
-
-    inherit (callFile ../common/dependencies.nix { })
-      depsBuildBuild nativeBuildInputs depsBuildTarget buildInputs
-      depsTargetTarget;
-
-    preConfigure = callFile ../common/pre-configure.nix { };
-
-    dontDisableStatic = true;
-
-    configurePlatforms = [
-      "build"
-      "host"
-      "target"
-    ];
-
-    configureFlags = callFile ../common/configure-flags.nix { };
-
-    targetConfig = if
-      targetPlatform != hostPlatform
-    then
-      targetPlatform.config
-    else
-      null;
-
-    buildFlags =
-      optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
-      (if
-        profiledCompiler
+  postPatch = if
+    targetPlatform != hostPlatform || stdenv.cc.libc != null
+  then
+  # On NixOS, use the right path to the dynamic linker instead of
+  # `/lib/ld*.so'.
+    let
+      libc = if
+        libcCross != null
       then
-        "profiledbootstrap"
+        libcCross
       else
-        "bootstrap");
+        stdenv.cc.libc;
+    in ''
+      echo "fixing the \`GLIBC_DYNAMIC_LINKER' and \`UCLIBC_DYNAMIC_LINKER' macros..."
+                for header in "gcc/config/"*-gnu.h "gcc/config/"*"/"*.h
+                do
+                  grep -q LIBC_DYNAMIC_LINKER "$header" || continue
+                  echo "  fixing \`$header'..."
+                  sed -i "$header" \
+                      -e 's|define[[:blank:]]*\([UCG]\+\)LIBC_DYNAMIC_LINKER\([0-9]*\)[[:blank:]]"\([^\"]\+\)"$|define \1LIBC_DYNAMIC_LINKER\2 "${libc.out}\3"|g'
+                done
+    ''
+  else
+    null;
 
-    inherit (callFile ../common/strip-attributes.nix { })
-      stripDebugList stripDebugListTarget preFixup;
+  inherit noSysDirs staticCompiler langJava crossStageStatic libcCross
+    crossMingw;
 
-    doCheck =
-      false; # requires a lot of tools, causes a dependency cycle for stdenv
+  inherit (callFile ../common/dependencies.nix { })
+    depsBuildBuild nativeBuildInputs depsBuildTarget buildInputs
+    depsTargetTarget;
 
-    # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
-    ${
-      if
-        hostPlatform.system == "x86_64-solaris"
-      then
-        "CC"
-      else
-        null
-    } = "gcc -m64";
+  preConfigure = callFile ../common/pre-configure.nix { };
 
-    # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
-    # library headers and binaries, regarless of the language being compiled.
-    #
-    # Note: When building the Java AWT GTK peer, the build system doesn't honor
-    # `--with-gmp' et al., e.g., when building
-    # `libjava/classpath/native/jni/java-math/gnu_java_math_GMP.c', so we just add
-    # them to $CPATH and $LIBRARY_PATH in this case.
-    #
-    # Likewise, the LTO code doesn't find zlib.
-    #
-    # Cross-compiling, we need gcc not to read ./specs in order to build the g++
-    # compiler (after the specs for the cross-gcc are created). Having
-    # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
+  dontDisableStatic = true;
 
-    CPATH = optionals (targetPlatform == hostPlatform)
-      (makeSearchPathOutput "dev" "include" ([ ] ++ optional (zlib != null) zlib
-        ++ optional langJava boehmgc ++ optionals javaAwtGtk xlibs
-        ++ optionals javaAwtGtk [
-          gmp
-          mpfr
-        ]));
+  configurePlatforms = [
+    "build"
+    "host"
+    "target"
+  ];
 
-    LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (makeLibraryPath
-      ([ ] ++ optional (zlib != null) zlib ++ optional langJava boehmgc
-        ++ optionals javaAwtGtk xlibs ++ optionals javaAwtGtk [
-          gmp
-          mpfr
-        ]));
+  configureFlags = callFile ../common/configure-flags.nix { };
 
-    inherit (callFile ../common/extra-target-flags.nix { })
-      EXTRA_FLAGS_FOR_TARGET EXTRA_LDFLAGS_FOR_TARGET;
+  targetConfig = if
+    targetPlatform != hostPlatform
+  then
+    targetPlatform.config
+  else
+    null;
 
-    passthru = {
-      inherit langC langCC langObjC langObjCpp langFortran langGo version;
-      isGNU = true;
-      hardeningUnsupportedFlags = [ "fortify3" ];
-    };
+  buildFlags =
+    optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
+    (if
+      profiledCompiler
+    then
+      "profiledbootstrap"
+    else
+      "bootstrap");
 
-    enableParallelBuilding = true;
-    inherit enableShared enableMultilib;
+  inherit (callFile ../common/strip-attributes.nix { })
+    stripDebugList stripDebugListTarget preFixup;
 
-    meta = {
-      inherit (callFile ../common/meta.nix { })
-        homepage license description longDescription platforms maintainers;
-      badPlatforms = [ "aarch64-darwin" ];
-    };
-  }
+  doCheck =
+    false; # requires a lot of tools, causes a dependency cycle for stdenv
 
-    // optionalAttrs (targetPlatform != hostPlatform && targetPlatform.libc
-      == "msvcrt" && crossStageStatic) {
-        makeFlags = [
-          "all-gcc"
-          "all-target-libgcc"
-        ];
-        installTargets = "install-gcc install-target-libgcc";
-      }
+  # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
+  ${
+    if
+      hostPlatform.system == "x86_64-solaris"
+    then
+      "CC"
+    else
+      null
+  } = "gcc -m64";
 
-    // optionalAttrs (enableMultilib) { dontMoveLib64 = true; }
+  # Setting $CPATH and $LIBRARY_PATH to make sure both `gcc' and `xgcc' find the
+  # library headers and binaries, regarless of the language being compiled.
+  #
+  # Note: When building the Java AWT GTK peer, the build system doesn't honor
+  # `--with-gmp' et al., e.g., when building
+  # `libjava/classpath/native/jni/java-math/gnu_java_math_GMP.c', so we just add
+  # them to $CPATH and $LIBRARY_PATH in this case.
+  #
+  # Likewise, the LTO code doesn't find zlib.
+  #
+  # Cross-compiling, we need gcc not to read ./specs in order to build the g++
+  # compiler (after the specs for the cross-gcc are created). Having
+  # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
 
-    // optionalAttrs (langJava) {
-      postFixup = ''
-        target="$(echo "$out/libexec/gcc"/*/*/ecj*)"
-        patchelf --set-rpath "$(patchelf --print-rpath "$target"):$out/lib" "$target"
-      '';
-    })
+  CPATH = optionals (targetPlatform == hostPlatform)
+    (makeSearchPathOutput "dev" "include" ([ ] ++ optional (zlib != null) zlib
+      ++ optional langJava boehmgc ++ optionals javaAwtGtk xlibs
+      ++ optionals javaAwtGtk [
+        gmp
+        mpfr
+      ]));
+
+  LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (makeLibraryPath
+    ([ ] ++ optional (zlib != null) zlib ++ optional langJava boehmgc
+      ++ optionals javaAwtGtk xlibs ++ optionals javaAwtGtk [
+        gmp
+        mpfr
+      ]));
+
+  inherit (callFile ../common/extra-target-flags.nix { })
+    EXTRA_FLAGS_FOR_TARGET EXTRA_LDFLAGS_FOR_TARGET;
+
+  passthru = {
+    inherit langC langCC langObjC langObjCpp langFortran langGo version;
+    isGNU = true;
+    hardeningUnsupportedFlags = [ "fortify3" ];
+  };
+
+  enableParallelBuilding = true;
+  inherit enableShared enableMultilib;
+
+  meta = {
+    inherit (callFile ../common/meta.nix { })
+      homepage license description longDescription platforms maintainers;
+    badPlatforms = [ "aarch64-darwin" ];
+  };
+}
+
+  // optionalAttrs (targetPlatform != hostPlatform && targetPlatform.libc
+    == "msvcrt" && crossStageStatic) {
+      makeFlags = [
+        "all-gcc"
+        "all-target-libgcc"
+      ];
+      installTargets = "install-gcc install-target-libgcc";
+    }
+
+  // optionalAttrs (enableMultilib) { dontMoveLib64 = true; }
+
+  // optionalAttrs (langJava) {
+    postFixup = ''
+      target="$(echo "$out/libexec/gcc"/*/*/ecj*)"
+      patchelf --set-rpath "$(patchelf --print-rpath "$target"):$out/lib" "$target"
+    '';
+  })

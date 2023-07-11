@@ -11,7 +11,7 @@ recursiveUpdate lib (rec {
       let
         n = length (splitVersion v0);
       in
-        op (truncate n v) (truncate n v0)
+      op (truncate n v) (truncate n v0)
     ;
   in rec {
 
@@ -104,7 +104,7 @@ recursiveUpdate lib (rec {
           else
             loop vv (v ++ [ hd ]) tl);
     in
-      loop [ ] [ ] l
+    loop [ ] [ ] l
   ;
 
   pred = {
@@ -181,10 +181,10 @@ recursiveUpdate lib (rec {
         else
           all (equal true) (zipListsWith compare cl.cases var);
     in
-      switch-if (map (cl: {
-        cond = combine cl var;
-        inherit (cl) out;
-      }) clauses) default
+    switch-if (map (cl: {
+      cond = combine cl var;
+      inherit (cl) out;
+    }) clauses) default
   ;
 
   /* Override arguments to mkCoqDerivation for a Coq library.

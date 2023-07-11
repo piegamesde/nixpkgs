@@ -27,32 +27,32 @@ let
   else
     "gnu";
 in
-  linux.override {
-    argsOverride = {
-      modDirVersion = "${linux.modDirVersion}-${versionPrefix}";
-      isLibre = true;
+linux.override {
+  argsOverride = {
+    modDirVersion = "${linux.modDirVersion}-${versionPrefix}";
+    isLibre = true;
 
-      src = stdenv.mkDerivation {
-        name = "${linux.name}-libre-src";
-        src = linux.src;
-        buildPhase = ''
-          # --force flag to skip empty files after deblobbing
-          ${scripts}/${majorMinor}/deblob-${majorMinor} --force \
-              ${major} ${minor} ${patch}
-        '';
-        checkPhase = ''
-          ${scripts}/deblob-check
-        '';
-        installPhase = ''
-          cp -r . "$out"
-        '';
-      };
-
-      passthru.updateScript = ./update-libre.sh;
-
-      maintainers = with lib.maintainers; [
-        qyliss
-        ivar
-      ];
+    src = stdenv.mkDerivation {
+      name = "${linux.name}-libre-src";
+      src = linux.src;
+      buildPhase = ''
+        # --force flag to skip empty files after deblobbing
+        ${scripts}/${majorMinor}/deblob-${majorMinor} --force \
+            ${major} ${minor} ${patch}
+      '';
+      checkPhase = ''
+        ${scripts}/deblob-check
+      '';
+      installPhase = ''
+        cp -r . "$out"
+      '';
     };
-  }
+
+    passthru.updateScript = ./update-libre.sh;
+
+    maintainers = with lib.maintainers; [
+      qyliss
+      ivar
+    ];
+  };
+}

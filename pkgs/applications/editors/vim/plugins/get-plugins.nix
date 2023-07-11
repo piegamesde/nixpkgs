@@ -23,4 +23,4 @@ let
       null;
   checksums = lib.mapAttrs getChecksum generated;
 in
-  lib.filterAttrs (n: v: v != null) checksums
+lib.filterAttrs (n: v: v != null) checksums

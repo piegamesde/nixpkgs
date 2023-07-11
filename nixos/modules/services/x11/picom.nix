@@ -34,7 +34,7 @@ let
         else
           "=";
       in
-        "${escape [ sep ] k}${sep}${mkValueString v};"
+      "${escape [ sep ] k}${sep}${mkValueString v};"
     );
 
   # This serializes a Nix expression to the libconfig format.
@@ -321,22 +321,22 @@ in {
         };
 
       in
-        mkOption {
-          type = topLevel;
-          default = { };
-          example = literalExpression ''
-            blur =
-              { method = "gaussian";
-                size = 10;
-                deviation = 5.0;
-              };
-          '';
-          description = lib.mdDoc ''
-            Picom settings. Use this option to configure Picom settings not exposed
-            in a NixOS option or to bypass one.  For the available options see the
-            CONFIGURATION FILES section at `picom(1)`.
-          '';
-        }
+      mkOption {
+        type = topLevel;
+        default = { };
+        example = literalExpression ''
+          blur =
+            { method = "gaussian";
+              size = 10;
+              deviation = 5.0;
+            };
+        '';
+        description = lib.mdDoc ''
+          Picom settings. Use this option to configure Picom settings not exposed
+          in a NixOS option or to bypass one.  For the available options see the
+          CONFIGURATION FILES section at `picom(1)`.
+        '';
+      }
     ;
   };
 

@@ -42,27 +42,27 @@ let
       false)) (name: name) ("") pkgs;
 
 in
-  pkgs.stdenv.mkDerivation {
-    name = "nixpkgs-update-script";
-    buildInputs = [ pkgs.hydra-check ];
-    buildCommand = ''
-      echo ""
-      echo "----------------------------------------------------------------"
-      echo ""
-      echo "nix-shell maintainers/scripts/check-hydra-by-maintainer.nix --argstr maintainer SuperSandro2000"
-      echo ""
-      echo "----------------------------------------------------------------"
-      exit 1
-    '';
-    shellHook = ''
-      unset shellHook # do not contaminate nested shells
-      echo "Please stand by"
-      echo nix-shell -p hydra-check --run "hydra-check ${
-        builtins.concatStringsSep " " packages
-      }"
-      nix-shell -p hydra-check --run "hydra-check ${
-        builtins.concatStringsSep " " packages
-      }"
-      exit $?
-    '';
-  }
+pkgs.stdenv.mkDerivation {
+  name = "nixpkgs-update-script";
+  buildInputs = [ pkgs.hydra-check ];
+  buildCommand = ''
+    echo ""
+    echo "----------------------------------------------------------------"
+    echo ""
+    echo "nix-shell maintainers/scripts/check-hydra-by-maintainer.nix --argstr maintainer SuperSandro2000"
+    echo ""
+    echo "----------------------------------------------------------------"
+    exit 1
+  '';
+  shellHook = ''
+    unset shellHook # do not contaminate nested shells
+    echo "Please stand by"
+    echo nix-shell -p hydra-check --run "hydra-check ${
+      builtins.concatStringsSep " " packages
+    }"
+    nix-shell -p hydra-check --run "hydra-check ${
+      builtins.concatStringsSep " " packages
+    }"
+    exit $?
+  '';
+}

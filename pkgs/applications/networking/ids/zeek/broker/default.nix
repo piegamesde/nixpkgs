@@ -42,59 +42,59 @@ let
     '';
   });
 in
-  stdenv.mkDerivation {
-    pname = "zeek-broker";
-    version = "unstable-2023-02-01";
-    outputs = [
-      "out"
-      "py"
-    ];
+stdenv.mkDerivation {
+  pname = "zeek-broker";
+  version = "unstable-2023-02-01";
+  outputs = [
+    "out"
+    "py"
+  ];
 
-    strictDeps = true;
+  strictDeps = true;
 
-    src = fetchFromGitHub {
-      owner = "zeek";
-      repo = "broker";
-      rev = "bc0205ce1fc06ddb91abb6744cb79c7eb846c23e";
-      hash = "sha256-bmyitJg3kRyIXm09IupLwZXbiGZfikkHcRcIexkS4/g=";
-    };
-    postUnpack = ''
-      rmdir $sourceRoot/cmake $sourceRoot/3rdparty
-      ln -s ${src-cmake} ''${sourceRoot}/cmake
-      ln -s ${src-3rdparty} ''${sourceRoot}/3rdparty
+  src = fetchFromGitHub {
+    owner = "zeek";
+    repo = "broker";
+    rev = "bc0205ce1fc06ddb91abb6744cb79c7eb846c23e";
+    hash = "sha256-bmyitJg3kRyIXm09IupLwZXbiGZfikkHcRcIexkS4/g=";
+  };
+  postUnpack = ''
+    rmdir $sourceRoot/cmake $sourceRoot/3rdparty
+    ln -s ${src-cmake} ''${sourceRoot}/cmake
+    ln -s ${src-3rdparty} ''${sourceRoot}/3rdparty
 
-      # Refuses to build the bindings unless this file is present, but never
-      # actually uses it.
-      touch $sourceRoot/bindings/python/3rdparty/pybind11/CMakeLists.txt
-    '';
+    # Refuses to build the bindings unless this file is present, but never
+    # actually uses it.
+    touch $sourceRoot/bindings/python/3rdparty/pybind11/CMakeLists.txt
+  '';
 
-    patches = [ ./0001-Fix-include-path-in-exported-CMake-targets.patch ];
+  patches = [ ./0001-Fix-include-path-in-exported-CMake-targets.patch ];
 
-    nativeBuildInputs = [ cmake ];
-    buildInputs = [
-      openssl
-      python3.pkgs.pybind11
-    ];
-    propagatedBuildInputs = [ caf' ];
+  nativeBuildInputs = [ cmake ];
+  buildInputs = [
+    openssl
+    python3.pkgs.pybind11
+  ];
+  propagatedBuildInputs = [ caf' ];
 
-    cmakeFlags = [
-      "-DCAF_ROOT=${caf'}"
-      "-DENABLE_STATIC_ONLY:BOOL=${
-        if
-          isStatic
-        then
-          "ON"
-        else
-          "OFF"
-      }"
-      "-DPY_MOD_INSTALL_DIR=${placeholder "py"}/${python3.sitePackages}/"
-    ];
+  cmakeFlags = [
+    "-DCAF_ROOT=${caf'}"
+    "-DENABLE_STATIC_ONLY:BOOL=${
+      if
+        isStatic
+      then
+        "ON"
+      else
+        "OFF"
+    }"
+    "-DPY_MOD_INSTALL_DIR=${placeholder "py"}/${python3.sitePackages}/"
+  ];
 
-    meta = with lib; {
-      description = "Zeek's Messaging Library";
-      homepage = "https://github.com/zeek/broker";
-      license = licenses.bsd3;
-      platforms = platforms.unix;
-      maintainers = with maintainers; [ tobim ];
-    };
-  }
+  meta = with lib; {
+    description = "Zeek's Messaging Library";
+    homepage = "https://github.com/zeek/broker";
+    license = licenses.bsd3;
+    platforms = platforms.unix;
+    maintainers = with maintainers; [ tobim ];
+  };
+}

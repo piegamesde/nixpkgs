@@ -41,23 +41,23 @@ rec {
     let
       newDrv = derivation (drv.drvAttrs // (f drv));
     in
-      lib.flip (extendDerivation (builtins.seq drv.drvPath true)) newDrv ({
-        meta = drv.meta or { };
-        passthru = if
-          drv ? passthru
-        then
-          drv.passthru
-        else
-          { };
-      } // (drv.passthru or { }) //
-        # TODO(@Artturin): remove before release 23.05 and only have __spliced.
-        (lib.optionalAttrs (drv ? crossDrv && drv ? nativeDrv) {
-          crossDrv = overrideDerivation drv.crossDrv f;
-          nativeDrv = overrideDerivation drv.nativeDrv f;
-        }) // lib.optionalAttrs (drv ? __spliced) {
-          __spliced = { } // (lib.mapAttrs (_: sDrv: overrideDerivation sDrv f)
-            drv.__spliced);
-        })
+    lib.flip (extendDerivation (builtins.seq drv.drvPath true)) newDrv ({
+      meta = drv.meta or { };
+      passthru = if
+        drv ? passthru
+      then
+        drv.passthru
+      else
+        { };
+    } // (drv.passthru or { }) //
+      # TODO(@Artturin): remove before release 23.05 and only have __spliced.
+      (lib.optionalAttrs (drv ? crossDrv && drv ? nativeDrv) {
+        crossDrv = overrideDerivation drv.crossDrv f;
+        nativeDrv = overrideDerivation drv.nativeDrv f;
+      }) // lib.optionalAttrs (drv ? __spliced) {
+        __spliced = { }
+          // (lib.mapAttrs (_: sDrv: overrideDerivation sDrv f) drv.__spliced);
+      })
   ;
 
   /* `makeOverridable` takes a function from attribute set to attribute set and
@@ -210,8 +210,8 @@ rec {
           else
             "<unknown location>";
         in
-          ''Function called without required argument "${arg}" at ''
-          + "${loc'}${prettySuggestions (getSuggestions arg)}"
+        ''Function called without required argument "${arg}" at ''
+        + "${loc'}${prettySuggestions (getSuggestions arg)}"
       ;
 
       # Only show the error for the first missing argument
@@ -279,10 +279,10 @@ rec {
 
       outputsList = map outputToAttrListElement outputs;
     in
-      commonAttrs // {
-        drvPath = assert condition; drv.drvPath;
-        outPath = assert condition; drv.outPath;
-      }
+    commonAttrs // {
+      drvPath = assert condition; drv.drvPath;
+      outPath = assert condition; drv.outPath;
+    }
   ;
 
   /* Strip a derivation of all non-essential attributes, returning
@@ -348,7 +348,7 @@ rec {
         packages = f;
       };
     in
-      self
+    self
   ;
 
   /* Like the above, but aims to support cross compilation. It's still ugly, but
@@ -377,7 +377,7 @@ rec {
         packages = f;
       };
     in
-      self
+    self
   ;
 
 }

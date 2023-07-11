@@ -21,88 +21,88 @@ let
   pname = "qogir-theme";
 
 in
-  lib.checkListOfEnum "${pname}: theme variants" [
-    "default"
-    "manjaro"
-    "ubuntu"
-    "all"
-  ] themeVariants lib.checkListOfEnum "${pname}: color variants" [
-    "standard"
-    "light"
-    "dark"
-  ] colorVariants lib.checkListOfEnum "${pname}: tweaks" [
-    "image"
-    "square"
-    "round"
-  ] tweaks
+lib.checkListOfEnum "${pname}: theme variants" [
+  "default"
+  "manjaro"
+  "ubuntu"
+  "all"
+] themeVariants lib.checkListOfEnum "${pname}: color variants" [
+  "standard"
+  "light"
+  "dark"
+] colorVariants lib.checkListOfEnum "${pname}: tweaks" [
+  "image"
+  "square"
+  "round"
+] tweaks
 
-  stdenv.mkDerivation rec {
-    inherit pname;
-    version = "2023-02-27";
+stdenv.mkDerivation rec {
+  inherit pname;
+  version = "2023-02-27";
 
-    src = fetchFromGitHub {
-      owner = "vinceliuice";
-      repo = pname;
-      rev = version;
-      sha256 = "oBUBSPlOCBEaRRFK5ZyoGlk+gwcE8LtdwxvL+iTfuMA=";
-    };
+  src = fetchFromGitHub {
+    owner = "vinceliuice";
+    repo = pname;
+    rev = version;
+    sha256 = "oBUBSPlOCBEaRRFK5ZyoGlk+gwcE8LtdwxvL+iTfuMA=";
+  };
 
-    nativeBuildInputs = [
-      jdupes
-      sassc
-      which
+  nativeBuildInputs = [
+    jdupes
+    sassc
+    which
+  ];
+
+  buildInputs = [
+    gdk-pixbuf # pixbuf engine for Gtk2
+    gnome-themes-extra # adwaita engine for Gtk2
+    librsvg # pixbuf loader for svg
+  ];
+
+  propagatedUserEnvPkgs = [ gtk-engine-murrine # murrine engine for Gtk2
     ];
 
-    buildInputs = [
-      gdk-pixbuf # pixbuf engine for Gtk2
-      gnome-themes-extra # adwaita engine for Gtk2
-      librsvg # pixbuf loader for svg
-    ];
+  postPatch = ''
+    patchShebangs install.sh clean-old-theme.sh
+  '';
 
-    propagatedUserEnvPkgs = [ gtk-engine-murrine # murrine engine for Gtk2
-      ];
+  installPhase = ''
+    runHook preInstall
 
-    postPatch = ''
-      patchShebangs install.sh clean-old-theme.sh
-    '';
+    mkdir -p $out/share/themes
 
-    installPhase = ''
-      runHook preInstall
+    name= HOME="$TMPDIR" ./install.sh \
+      ${
+        lib.optionalString (themeVariants != [ ]) "--theme "
+        + builtins.toString themeVariants
+      } \
+      ${
+        lib.optionalString (colorVariants != [ ]) "--color "
+        + builtins.toString colorVariants
+      } \
+      ${
+        lib.optionalString (tweaks != [ ]) "--tweaks "
+        + builtins.toString tweaks
+      } \
+      --dest $out/share/themes
 
-      mkdir -p $out/share/themes
+    mkdir -p $out/share/doc/${pname}
+    cp -a src/firefox $out/share/doc/${pname}
 
-      name= HOME="$TMPDIR" ./install.sh \
-        ${
-          lib.optionalString (themeVariants != [ ]) "--theme "
-          + builtins.toString themeVariants
-        } \
-        ${
-          lib.optionalString (colorVariants != [ ]) "--color "
-          + builtins.toString colorVariants
-        } \
-        ${
-          lib.optionalString (tweaks != [ ]) "--tweaks "
-          + builtins.toString tweaks
-        } \
-        --dest $out/share/themes
+    rm $out/share/themes/*/{AUTHORS,COPYING}
 
-      mkdir -p $out/share/doc/${pname}
-      cp -a src/firefox $out/share/doc/${pname}
+    jdupes --quiet --link-soft --recurse $out/share
 
-      rm $out/share/themes/*/{AUTHORS,COPYING}
+    runHook postInstall
+  '';
 
-      jdupes --quiet --link-soft --recurse $out/share
+  passthru.updateScript = gitUpdater { };
 
-      runHook postInstall
-    '';
-
-    passthru.updateScript = gitUpdater { };
-
-    meta = with lib; {
-      description = "Flat Design theme for GTK based desktop environments";
-      homepage = "https://github.com/vinceliuice/Qogir-theme";
-      license = licenses.gpl3Only;
-      platforms = platforms.unix;
-      maintainers = [ maintainers.romildo ];
-    };
-  }
+  meta = with lib; {
+    description = "Flat Design theme for GTK based desktop environments";
+    homepage = "https://github.com/vinceliuice/Qogir-theme";
+    license = licenses.gpl3Only;
+    platforms = platforms.unix;
+    maintainers = [ maintainers.romildo ];
+  };
+}

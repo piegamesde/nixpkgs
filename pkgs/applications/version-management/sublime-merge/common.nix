@@ -137,70 +137,70 @@ in let
     };
   };
 in
-  stdenv.mkDerivation (rec {
-    pname = pnameBase;
-    version = buildVersion;
+stdenv.mkDerivation (rec {
+  pname = pnameBase;
+  version = buildVersion;
 
-    dontUnpack = true;
+  dontUnpack = true;
 
-    ${primaryBinary} = binaryPackage;
+  ${primaryBinary} = binaryPackage;
 
-    nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeWrapper ];
 
-    installPhase = ''
-      mkdir -p "$out/bin"
-      makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
-    '' + builtins.concatStringsSep "" (map (binaryAlias: ''
-      ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
-    '') primaryBinaryAliases) + ''
-      mkdir -p "$out/share/applications"
-      substitute "''$${primaryBinary}/${primaryBinary}.desktop" "$out/share/applications/${primaryBinary}.desktop" --replace "/opt/${primaryBinary}/${primaryBinary}" "${primaryBinary}"
-      for directory in ''$${primaryBinary}/Icon/*; do
-        size=$(basename $directory)
-        mkdir -p "$out/share/icons/hicolor/$size/apps"
-        ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
-      done
-    '';
+  installPhase = ''
+    mkdir -p "$out/bin"
+    makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
+  '' + builtins.concatStringsSep "" (map (binaryAlias: ''
+    ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
+  '') primaryBinaryAliases) + ''
+    mkdir -p "$out/share/applications"
+    substitute "''$${primaryBinary}/${primaryBinary}.desktop" "$out/share/applications/${primaryBinary}.desktop" --replace "/opt/${primaryBinary}/${primaryBinary}" "${primaryBinary}"
+    for directory in ''$${primaryBinary}/Icon/*; do
+      size=$(basename $directory)
+      mkdir -p "$out/share/icons/hicolor/$size/apps"
+      ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
+    done
+  '';
 
-    passthru = {
-      updateScript = let
-        script = writeShellScript "${pnameBase}-update-script" ''
-          set -o errexit
-          PATH=${
-            lib.makeBinPath [
-              common-updater-scripts
-              curl
-              gnugrep
-            ]
-          }
+  passthru = {
+    updateScript = let
+      script = writeShellScript "${pnameBase}-update-script" ''
+        set -o errexit
+        PATH=${
+          lib.makeBinPath [
+            common-updater-scripts
+            curl
+            gnugrep
+          ]
+        }
 
-          versionFile=$1
-          latestVersion=$(curl -s ${versionUrl} | grep -Po '(?<=<p class="latest"><i>Version:</i> Build )([0-9]+)')
+        versionFile=$1
+        latestVersion=$(curl -s ${versionUrl} | grep -Po '(?<=<p class="latest"><i>Version:</i> Build )([0-9]+)')
 
-          if [[ "${buildVersion}" = "$latestVersion" ]]; then
-              echo "The new version same as the old version."
-              exit 0
-          fi
+        if [[ "${buildVersion}" = "$latestVersion" ]]; then
+            echo "The new version same as the old version."
+            exit 0
+        fi
 
-          for platform in ${lib.escapeShellArgs meta.platforms}; do
-              # The script will not perform an update when the version attribute is up to date from previous platform run
-              # We need to clear it before each run
-              update-source-version "${packageAttribute}.${primaryBinary}" 0 "${lib.fakeSha256}" --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
-              update-source-version "${packageAttribute}.${primaryBinary}" "$latestVersion" --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
-          done
-        '';
-      in [
-        script
-        versionFile
-      ] ;
-    };
+        for platform in ${lib.escapeShellArgs meta.platforms}; do
+            # The script will not perform an update when the version attribute is up to date from previous platform run
+            # We need to clear it before each run
+            update-source-version "${packageAttribute}.${primaryBinary}" 0 "${lib.fakeSha256}" --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
+            update-source-version "${packageAttribute}.${primaryBinary}" "$latestVersion" --file="$versionFile" --version-key=buildVersion --source-key="sources.$platform"
+        done
+      '';
+    in [
+      script
+      versionFile
+    ] ;
+  };
 
-    meta = with lib; {
-      description = "Git client from the makers of Sublime Text";
-      homepage = "https://www.sublimemerge.com";
-      maintainers = with maintainers; [ zookatron ];
-      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-      license = licenses.unfree;
-      platforms = [ "x86_64-linux" ];
-    };
-  })
+  meta = with lib; {
+    description = "Git client from the makers of Sublime Text";
+    homepage = "https://www.sublimemerge.com";
+    maintainers = with maintainers; [ zookatron ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = licenses.unfree;
+    platforms = [ "x86_64-linux" ];
+  };
+})

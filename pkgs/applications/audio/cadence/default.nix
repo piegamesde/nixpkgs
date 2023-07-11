@@ -86,16 +86,16 @@ mkDerivation rec {
         "cadence-session-start" = "cadence_session_start.py";
       };
   in
-    lib.mapAttrsToList (script: source: ''
-      rm -f ${script}
-      makeQtWrapper ${source} ${script} \
-        --prefix PATH : "${
-          lib.makeBinPath [
-            jack_capture # cadence-render
-            pulseaudioFull # cadence, cadence-session-start
-          ]
-        }"
-    '') scriptAndSource
+  lib.mapAttrsToList (script: source: ''
+    rm -f ${script}
+    makeQtWrapper ${source} ${script} \
+      --prefix PATH : "${
+        lib.makeBinPath [
+          jack_capture # cadence-render
+          pulseaudioFull # cadence, cadence-session-start
+        ]
+      }"
+  '') scriptAndSource
   ;
 
   meta = {

@@ -137,119 +137,119 @@ let
 
   # this really is the daemon game engine, the game itself is in the assets
 in
-  stdenv.mkDerivation rec {
-    pname = "unvanquished";
-    inherit version src binary-deps-version;
+stdenv.mkDerivation rec {
+  pname = "unvanquished";
+  inherit version src binary-deps-version;
 
-    preConfigure = ''
-      TARGET="linux-amd64-default_${binary-deps-version}"
-      mkdir daemon/external_deps/"$TARGET"
-      cp -r ${unvanquished-binary-deps}/* daemon/external_deps/"$TARGET"/
-      chmod +w -R daemon/external_deps/"$TARGET"/
-    '';
+  preConfigure = ''
+    TARGET="linux-amd64-default_${binary-deps-version}"
+    mkdir daemon/external_deps/"$TARGET"
+    cp -r ${unvanquished-binary-deps}/* daemon/external_deps/"$TARGET"/
+    chmod +w -R daemon/external_deps/"$TARGET"/
+  '';
 
-    nativeBuildInputs = [
-      cmake
-      unvanquished-binary-deps
-      copyDesktopItems
-    ];
+  nativeBuildInputs = [
+    cmake
+    unvanquished-binary-deps
+    copyDesktopItems
+  ];
 
-    buildInputs = [
-      gmp
-      libGL
-      zlib
-      ncurses
-      geoip
-      lua5
-      nettle
-      curl
-      SDL2
-      freetype
-      glew
-      openal
-      libopus
-      opusfile
-      libogg
-      libvorbis
-      libjpeg
-      libwebp
-      libpng
-    ];
+  buildInputs = [
+    gmp
+    libGL
+    zlib
+    ncurses
+    geoip
+    lua5
+    nettle
+    curl
+    SDL2
+    freetype
+    glew
+    openal
+    libopus
+    opusfile
+    libogg
+    libvorbis
+    libjpeg
+    libwebp
+    libpng
+  ];
 
-    cmakeFlags = [
-      "-DBUILD_CGAME=NO"
-      "-DBUILD_SGAME=NO"
-      "-DUSE_HARDENING=TRUE"
-      "-DUSE_LTO=TRUE"
-      "-DOpenGL_GL_PREFERENCE=LEGACY" # https://github.com/DaemonEngine/Daemon/issues/474
-    ];
+  cmakeFlags = [
+    "-DBUILD_CGAME=NO"
+    "-DBUILD_SGAME=NO"
+    "-DUSE_HARDENING=TRUE"
+    "-DUSE_LTO=TRUE"
+    "-DOpenGL_GL_PREFERENCE=LEGACY" # https://github.com/DaemonEngine/Daemon/issues/474
+  ];
 
-    desktopItems = [
-      (makeDesktopItem {
-        name = "net.unvanquished.Unvanquished.desktop";
-        desktopName = "Unvanquished";
-        comment = "FPS/RTS Game - Aliens vs. Humans";
-        icon = "unvanquished";
-        exec = "unvanquished";
-        categories = [
-          "Game"
-          "ActionGame"
-          "StrategyGame"
-        ];
-        prefersNonDefaultGPU = true;
-      })
-      (makeDesktopItem {
-        name = "net.unvanquished.UnvanquishedProtocolHandler.desktop";
-        desktopName = "Unvanquished (protocol handler)";
-        noDisplay = true;
-        exec = "unvanquished -connect %u";
-        mimeTypes = [ "x-scheme-handler/unv" ];
-        prefersNonDefaultGPU = true;
-      })
-    ];
-
-    installPhase = ''
-      runHook preInstall
-
-      for f in daemon daemon-tty daemonded nacl_loader nacl_helper_bootstrap; do
-        install -Dm0755 -t $out/lib/ $f
-      done
-      install -Dm0644 -t $out/lib/ irt_core-amd64.nexe
-
-      mkdir $out/bin/
-      ${wrapBinary "daemon" "unvanquished"}
-      ${wrapBinary "daemon-tty" "unvanquished-tty"}
-      ${wrapBinary "daemonded" "unvanquished-server"}
-
-      for d in ${src}/dist/icons/*; do
-        install -Dm0644 -t $out/share/icons/hicolor/$(basename $d)/apps/ $d/unvanquished.png
-      done
-
-      runHook postInstall
-    '';
-
-    meta = {
-      homepage = "https://unvanquished.net/";
-      downloadPage = "https://unvanquished.net/download/";
-      description = "A fast paced, first person strategy game";
-      # don't replace the following lib.licenses.zlib with just "zlib",
-      # or you would end up with the package instead
-      license = with lib.licenses; [
-        mit
-        gpl3Plus
-        lib.licenses.zlib
-        bsd3 # engine
-        cc-by-sa-25
-        cc-by-sa-30
-        cc-by-30
-        cc-by-sa-40
-        cc0 # assets
+  desktopItems = [
+    (makeDesktopItem {
+      name = "net.unvanquished.Unvanquished.desktop";
+      desktopName = "Unvanquished";
+      comment = "FPS/RTS Game - Aliens vs. Humans";
+      icon = "unvanquished";
+      exec = "unvanquished";
+      categories = [
+        "Game"
+        "ActionGame"
+        "StrategyGame"
       ];
-      sourceProvenance = with lib.sourceTypes; [
-        fromSource
-        binaryNativeCode # unvanquished-binary-deps
-      ];
-      maintainers = with lib.maintainers; [ afontain ];
-      platforms = [ "x86_64-linux" ];
-    };
-  }
+      prefersNonDefaultGPU = true;
+    })
+    (makeDesktopItem {
+      name = "net.unvanquished.UnvanquishedProtocolHandler.desktop";
+      desktopName = "Unvanquished (protocol handler)";
+      noDisplay = true;
+      exec = "unvanquished -connect %u";
+      mimeTypes = [ "x-scheme-handler/unv" ];
+      prefersNonDefaultGPU = true;
+    })
+  ];
+
+  installPhase = ''
+    runHook preInstall
+
+    for f in daemon daemon-tty daemonded nacl_loader nacl_helper_bootstrap; do
+      install -Dm0755 -t $out/lib/ $f
+    done
+    install -Dm0644 -t $out/lib/ irt_core-amd64.nexe
+
+    mkdir $out/bin/
+    ${wrapBinary "daemon" "unvanquished"}
+    ${wrapBinary "daemon-tty" "unvanquished-tty"}
+    ${wrapBinary "daemonded" "unvanquished-server"}
+
+    for d in ${src}/dist/icons/*; do
+      install -Dm0644 -t $out/share/icons/hicolor/$(basename $d)/apps/ $d/unvanquished.png
+    done
+
+    runHook postInstall
+  '';
+
+  meta = {
+    homepage = "https://unvanquished.net/";
+    downloadPage = "https://unvanquished.net/download/";
+    description = "A fast paced, first person strategy game";
+    # don't replace the following lib.licenses.zlib with just "zlib",
+    # or you would end up with the package instead
+    license = with lib.licenses; [
+      mit
+      gpl3Plus
+      lib.licenses.zlib
+      bsd3 # engine
+      cc-by-sa-25
+      cc-by-sa-30
+      cc-by-30
+      cc-by-sa-40
+      cc0 # assets
+    ];
+    sourceProvenance = with lib.sourceTypes; [
+      fromSource
+      binaryNativeCode # unvanquished-binary-deps
+    ];
+    maintainers = with lib.maintainers; [ afontain ];
+    platforms = [ "x86_64-linux" ];
+  };
+}

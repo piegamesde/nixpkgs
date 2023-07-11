@@ -29,83 +29,83 @@ let
   };
 
 in
-  buildGoModule {
-    pname = "ncdns";
-    version = "unstable-2022-10-07";
+buildGoModule {
+  pname = "ncdns";
+  version = "unstable-2022-10-07";
 
-    src = x509;
+  src = x509;
 
-    vendorSha256 = "sha256-ENtTnDsz5WhRz1kiqnWQ5vyEpZtgi7ZeYvksffgW78k=";
+  vendorSha256 = "sha256-ENtTnDsz5WhRz1kiqnWQ5vyEpZtgi7ZeYvksffgW78k=";
 
-    # Override the go-modules fetcher derivation to apply
-    # upstream's patch of the crypto/x509 library.
-    modBuildPhase = ''
-      go mod init github.com/namecoin/x509-compressed
-      go generate ./...
-      go mod tidy
+  # Override the go-modules fetcher derivation to apply
+  # upstream's patch of the crypto/x509 library.
+  modBuildPhase = ''
+    go mod init github.com/namecoin/x509-compressed
+    go generate ./...
+    go mod tidy
 
-      cd ncdns
-      go mod init github.com/namecoin/ncdns
-      go mod edit \
-        -replace github.com/coreos/go-systemd=github.com/coreos/go-systemd/v22@latest \
-        -replace github.com/namecoin/x509-compressed=$NIX_BUILD_TOP/source
-      go mod tidy
-    '';
+    cd ncdns
+    go mod init github.com/namecoin/ncdns
+    go mod edit \
+      -replace github.com/coreos/go-systemd=github.com/coreos/go-systemd/v22@latest \
+      -replace github.com/namecoin/x509-compressed=$NIX_BUILD_TOP/source
+    go mod tidy
+  '';
 
-    # Copy over the lockfiles as well, because the source
-    # doesn't contain it. The fixed-output derivation is
-    # probably not reproducible anyway.
-    modInstallPhase = ''
-      mv -t vendor go.mod go.sum
-      cp -r --reflink=auto vendor "$out"
-    '';
+  # Copy over the lockfiles as well, because the source
+  # doesn't contain it. The fixed-output derivation is
+  # probably not reproducible anyway.
+  modInstallPhase = ''
+    mv -t vendor go.mod go.sum
+    cp -r --reflink=auto vendor "$out"
+  '';
 
-    buildInputs = [ libcap ];
+  buildInputs = [ libcap ];
 
-    # The fetcher derivation must run with a different
-    # $sourceRoot, but buildGoModule doesn't allow that,
-    # so we use this ugly hack.
-    unpackPhase = ''
-      runHook preUnpack
+  # The fetcher derivation must run with a different
+  # $sourceRoot, but buildGoModule doesn't allow that,
+  # so we use this ugly hack.
+  unpackPhase = ''
+    runHook preUnpack
 
-      unpackFile "$src"
-      sourceRoot=$PWD/source/ncdns
-      chmod -R u+w -- "$sourceRoot"
-      cd $sourceRoot
+    unpackFile "$src"
+    sourceRoot=$PWD/source/ncdns
+    chmod -R u+w -- "$sourceRoot"
+    cd $sourceRoot
 
-      runHook postUpack
-    '';
+    runHook postUpack
+  '';
 
-    # Same as above: can't use `patches` because that would
-    # be also applied to the fetcher derivation, thus failing.
-    patchPhase = ''
-      runHook prePatch
-      patch -p1 < ${./fix-tpl-path.patch}
-      runHook postPatch
-    '';
+  # Same as above: can't use `patches` because that would
+  # be also applied to the fetcher derivation, thus failing.
+  patchPhase = ''
+    runHook prePatch
+    patch -p1 < ${./fix-tpl-path.patch}
+    runHook postPatch
+  '';
 
-    preBuild = ''
-      chmod -R u+w vendor
-      mv -t . vendor/go.{mod,sum}
-    '';
+  preBuild = ''
+    chmod -R u+w vendor
+    mv -t . vendor/go.{mod,sum}
+  '';
 
-    preCheck = ''
-      # needed to run the ncdns test suite
-      ln -s $PWD/vendor ../../go/src
-    '';
+  preCheck = ''
+    # needed to run the ncdns test suite
+    ln -s $PWD/vendor ../../go/src
+  '';
 
-    postInstall = ''
-      mkdir -p "$out/share"
-      cp -r _doc "$out/share/doc"
-      cp -r _tpl "$out/share/tpl"
-    '';
+  postInstall = ''
+    mkdir -p "$out/share"
+    cp -r _doc "$out/share/doc"
+    cp -r _tpl "$out/share/tpl"
+  '';
 
-    passthru.tests.ncdns = nixosTests.ncdns;
+  passthru.tests.ncdns = nixosTests.ncdns;
 
-    meta = with lib; {
-      description = "Namecoin to DNS bridge daemon";
-      homepage = "https://github.com/namecoin/ncdns";
-      license = licenses.gpl3Plus;
-      maintainers = with maintainers; [ rnhmjoj ];
-    };
-  }
+  meta = with lib; {
+    description = "Namecoin to DNS bridge daemon";
+    homepage = "https://github.com/namecoin/ncdns";
+    license = licenses.gpl3Plus;
+    maintainers = with maintainers; [ rnhmjoj ];
+  };
+}

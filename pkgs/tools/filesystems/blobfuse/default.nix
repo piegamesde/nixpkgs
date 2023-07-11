@@ -43,34 +43,34 @@ let
     ];
   };
 in
-  stdenv.mkDerivation rec {
-    pname = "blobfuse";
-    inherit version src;
+stdenv.mkDerivation rec {
+  pname = "blobfuse";
+  inherit version src;
 
-    env.NIX_CFLAGS_COMPILE = toString [
-      # Needed with GCC 12
-      "-Wno-error=deprecated-declarations"
-      "-Wno-error=catch-value"
-    ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    # Needed with GCC 12
+    "-Wno-error=deprecated-declarations"
+    "-Wno-error=catch-value"
+  ];
 
-    buildInputs = [
-      curl
-      gnutls
-      libgcrypt
-      libuuid
-      fuse
-      boost
-      cpplite
-    ];
-    nativeBuildInputs = [
-      cmake
-      pkg-config
-    ];
+  buildInputs = [
+    curl
+    gnutls
+    libgcrypt
+    libuuid
+    fuse
+    boost
+    cpplite
+  ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-    meta = with lib; {
-      description = "Mount an Azure Blob storage as filesystem through FUSE";
-      license = licenses.mit;
-      maintainers = with maintainers; [ jbgi ];
-      platforms = platforms.linux;
-    };
-  }
+  meta = with lib; {
+    description = "Mount an Azure Blob storage as filesystem through FUSE";
+    license = licenses.mit;
+    maintainers = with maintainers; [ jbgi ];
+    platforms = platforms.linux;
+  };
+}

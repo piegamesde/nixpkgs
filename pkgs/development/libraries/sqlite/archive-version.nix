@@ -6,4 +6,4 @@ let
   minor = lib.concatMapStrings (lib.fixedWidthNumber 2) (lib.tail fragments);
 
 in
-  major + minor + "00"
+major + minor + "00"

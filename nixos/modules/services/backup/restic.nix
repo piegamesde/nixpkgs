@@ -342,66 +342,66 @@ in {
           else
             v;
       in
-        nameValuePair "restic-backups-${name}" ({
-          environment = {
-            RESTIC_CACHE_DIR = "%C/restic-backups-${name}";
-            RESTIC_PASSWORD_FILE = backup.passwordFile;
-            RESTIC_REPOSITORY = backup.repository;
-            RESTIC_REPOSITORY_FILE = backup.repositoryFile;
-          } // optionalAttrs (backup.rcloneOptions != null) (mapAttrs'
+      nameValuePair "restic-backups-${name}" ({
+        environment = {
+          RESTIC_CACHE_DIR = "%C/restic-backups-${name}";
+          RESTIC_PASSWORD_FILE = backup.passwordFile;
+          RESTIC_REPOSITORY = backup.repository;
+          RESTIC_REPOSITORY_FILE = backup.repositoryFile;
+        } // optionalAttrs (backup.rcloneOptions != null) (mapAttrs'
+          (name: value:
+            nameValuePair (rcloneAttrToOpt name) (toRcloneVal value))
+          backup.rcloneOptions)
+          // optionalAttrs (backup.rcloneConfigFile != null) {
+            RCLONE_CONFIG = backup.rcloneConfigFile;
+          } // optionalAttrs (backup.rcloneConfig != null) (mapAttrs'
             (name: value:
-              nameValuePair (rcloneAttrToOpt name) (toRcloneVal value))
-            backup.rcloneOptions)
-            // optionalAttrs (backup.rcloneConfigFile != null) {
-              RCLONE_CONFIG = backup.rcloneConfigFile;
-            } // optionalAttrs (backup.rcloneConfig != null) (mapAttrs'
-              (name: value:
-                nameValuePair (rcloneAttrToConf name) (toRcloneVal value))
-              backup.rcloneConfig);
-          path = [ pkgs.openssh ];
-          restartIfChanged = false;
-          serviceConfig = {
-            Type = "oneshot";
-            ExecStart = (optionals (backupPaths != "") [ "${resticCmd} backup ${
-                concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)
-              } ${backupPaths}" ]) ++ pruneCmd;
-            User = backup.user;
-            RuntimeDirectory = "restic-backups-${name}";
-            CacheDirectory = "restic-backups-${name}";
-            CacheDirectoryMode = "0700";
-            PrivateTmp = true;
-          } // optionalAttrs (backup.environmentFile != null) {
-            EnvironmentFile = backup.environmentFile;
-          };
-        } // optionalAttrs (backup.initialize || backup.dynamicFilesFrom != null
-          || backup.backupPrepareCommand != null) {
-            preStart = ''
-              ${optionalString (backup.backupPrepareCommand != null) ''
-                ${pkgs.writeScript "backupPrepareCommand"
-                backup.backupPrepareCommand}
-              ''}
-              ${optionalString (backup.initialize) ''
-                ${resticCmd} snapshots || ${resticCmd} init
+              nameValuePair (rcloneAttrToConf name) (toRcloneVal value))
+            backup.rcloneConfig);
+        path = [ pkgs.openssh ];
+        restartIfChanged = false;
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = (optionals (backupPaths != "") [ "${resticCmd} backup ${
+              concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)
+            } ${backupPaths}" ]) ++ pruneCmd;
+          User = backup.user;
+          RuntimeDirectory = "restic-backups-${name}";
+          CacheDirectory = "restic-backups-${name}";
+          CacheDirectoryMode = "0700";
+          PrivateTmp = true;
+        } // optionalAttrs (backup.environmentFile != null) {
+          EnvironmentFile = backup.environmentFile;
+        };
+      } // optionalAttrs (backup.initialize || backup.dynamicFilesFrom != null
+        || backup.backupPrepareCommand != null) {
+          preStart = ''
+            ${optionalString (backup.backupPrepareCommand != null) ''
+              ${pkgs.writeScript "backupPrepareCommand"
+              backup.backupPrepareCommand}
+            ''}
+            ${optionalString (backup.initialize) ''
+              ${resticCmd} snapshots || ${resticCmd} init
+            ''}
+            ${optionalString (backup.dynamicFilesFrom != null) ''
+              ${
+                pkgs.writeScript "dynamicFilesFromScript"
+                backup.dynamicFilesFrom
+              } > ${filesFromTmpFile}
+            ''}
+          '';
+        } // optionalAttrs (backup.dynamicFilesFrom != null
+          || backup.backupCleanupCommand != null) {
+            postStop = ''
+              ${optionalString (backup.backupCleanupCommand != null) ''
+                ${pkgs.writeScript "backupCleanupCommand"
+                backup.backupCleanupCommand}
               ''}
               ${optionalString (backup.dynamicFilesFrom != null) ''
-                ${
-                  pkgs.writeScript "dynamicFilesFromScript"
-                  backup.dynamicFilesFrom
-                } > ${filesFromTmpFile}
+                rm ${filesFromTmpFile}
               ''}
             '';
-          } // optionalAttrs (backup.dynamicFilesFrom != null
-            || backup.backupCleanupCommand != null) {
-              postStop = ''
-                ${optionalString (backup.backupCleanupCommand != null) ''
-                  ${pkgs.writeScript "backupCleanupCommand"
-                  backup.backupCleanupCommand}
-                ''}
-                ${optionalString (backup.dynamicFilesFrom != null) ''
-                  rm ${filesFromTmpFile}
-                ''}
-              '';
-            })
+          })
     ) config.services.restic.backups;
     systemd.timers = mapAttrs' (name: backup:
       nameValuePair "restic-backups-${name}" {

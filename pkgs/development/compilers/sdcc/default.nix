@@ -20,60 +20,60 @@ let
   ]);
 
 in
-  stdenv.mkDerivation rec {
-    pname = "sdcc";
-    version = "4.2.0";
+stdenv.mkDerivation rec {
+  pname = "sdcc";
+  version = "4.2.0";
 
-    src = fetchurl {
-      url = "mirror://sourceforge/sdcc/sdcc-src-${version}.tar.bz2";
-      sha256 = "sha256-tJuuHSO81gV6gsT/5WE/nNDLz9HpQOnYTEv+nfCowFM=";
-    };
+  src = fetchurl {
+    url = "mirror://sourceforge/sdcc/sdcc-src-${version}.tar.bz2";
+    sha256 = "sha256-tJuuHSO81gV6gsT/5WE/nNDLz9HpQOnYTEv+nfCowFM=";
+  };
 
-    enableParallelBuilding = true;
+  enableParallelBuilding = true;
 
-    buildInputs = [
-      boost
-      gputils
-      texinfo
-      zlib
-    ];
+  buildInputs = [
+    boost
+    gputils
+    texinfo
+    zlib
+  ];
 
-    nativeBuildInputs = [
-      autoconf
-      bison
-      flex
-    ];
+  nativeBuildInputs = [
+    autoconf
+    bison
+    flex
+  ];
 
-    configureFlags = map (f: "--disable-${f}-port") excludedPorts;
+  configureFlags = map (f: "--disable-${f}-port") excludedPorts;
 
-    preConfigure = ''
-      if test -n "''${dontStrip-}"; then
-        export STRIP=none
-      fi
+  preConfigure = ''
+    if test -n "''${dontStrip-}"; then
+      export STRIP=none
+    fi
+  '';
+
+  meta = with lib; {
+    description = "Small Device C Compiler";
+    longDescription = ''
+      SDCC is a retargettable, optimizing ANSI - C compiler suite that targets
+      the Intel MCS51 based microprocessors (8031, 8032, 8051, 8052, etc.), Maxim
+      (formerly Dallas) DS80C390 variants, Freescale (formerly Motorola) HC08 based
+      (hc08, s08) and Zilog Z80 based MCUs (z80, z180, gbz80, Rabbit 2000/3000,
+      Rabbit 3000A). Work is in progress on supporting the Microchip PIC16 and
+      PIC18 targets. It can be retargeted for other microprocessors.
     '';
-
-    meta = with lib; {
-      description = "Small Device C Compiler";
-      longDescription = ''
-        SDCC is a retargettable, optimizing ANSI - C compiler suite that targets
-        the Intel MCS51 based microprocessors (8031, 8032, 8051, 8052, etc.), Maxim
-        (formerly Dallas) DS80C390 variants, Freescale (formerly Motorola) HC08 based
-        (hc08, s08) and Zilog Z80 based MCUs (z80, z180, gbz80, Rabbit 2000/3000,
-        Rabbit 3000A). Work is in progress on supporting the Microchip PIC16 and
-        PIC18 targets. It can be retargeted for other microprocessors.
-      '';
-      homepage = "https://sdcc.sourceforge.net/";
-      license = with licenses;
-        if
-          (gputils == null)
-        then
-          gpl2Plus
-        else
-          unfreeRedistributable;
-      maintainers = with maintainers; [
-        bjornfor
-        yorickvp
-      ];
-      platforms = platforms.all;
-    };
-  }
+    homepage = "https://sdcc.sourceforge.net/";
+    license = with licenses;
+      if
+        (gputils == null)
+      then
+        gpl2Plus
+      else
+        unfreeRedistributable;
+    maintainers = with maintainers; [
+      bjornfor
+      yorickvp
+    ];
+    platforms = platforms.all;
+  };
+}

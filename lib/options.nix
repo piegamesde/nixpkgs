@@ -154,37 +154,37 @@ in rec {
         attrByPath default' (throw "${defaultPath} cannot be found in pkgs")
         pkgs;
     in
-      mkOption {
-        defaultText = literalExpression ("pkgs." + defaultPath);
-        type = lib.types.package;
-        description = "The ${name'} package to use." + (if
-          extraDescription == ""
+    mkOption {
+      defaultText = literalExpression ("pkgs." + defaultPath);
+      type = lib.types.package;
+      description = "The ${name'} package to use." + (if
+        extraDescription == ""
+      then
+        ""
+      else
+        " ") + extraDescription;
+      ${
+        if
+          default != null
         then
-          ""
+          "default"
         else
-          " ") + extraDescription;
-        ${
-          if
-            default != null
-          then
-            "default"
-          else
-            null
-        } = defaultValue;
-        ${
-          if
-            example != null
-          then
-            "example"
-          else
-            null
-        } = literalExpression (if
-          isList example
+          null
+      } = defaultValue;
+      ${
+        if
+          example != null
         then
-          "pkgs." + concatStringsSep "." example
+          "example"
         else
-          example);
-      }
+          null
+      } = literalExpression (if
+        isList example
+      then
+        "pkgs." + concatStringsSep "." example
+      else
+        example);
+    }
   ;
 
   # Like mkPackageOption, but emit an mdDoc description instead of DocBook.
@@ -192,7 +192,7 @@ in rec {
     let
       option = mkPackageOption pkgs name extra;
     in
-      option // { description = lib.mdDoc option.description; }
+    option // { description = lib.mdDoc option.description; }
   ;
 
   /* This option accepts anything, but it does not produce any result.
@@ -357,7 +357,7 @@ in rec {
         # To find infinite recursion in NixOS option docs:
         # builtins.trace opt.loc
       in
-        [ docOption ] ++ optionals subOptionsVisible subOptions
+      [ docOption ] ++ optionals subOptionsVisible subOptions
     ) (collect isOption options);
 
   /* This function recursively removes all derivation attributes from
@@ -494,7 +494,7 @@ in rec {
         else
           lib.strings.escapeNixIdentifier part;
     in
-      (concatStringsSep ".") (map escapeOptionPart parts)
+    (concatStringsSep ".") (map escapeOptionPart parts)
   ;
   showFiles = files: concatStringsSep " and " (map (f: "`${f}'") files);
 

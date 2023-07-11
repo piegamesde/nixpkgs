@@ -163,4 +163,4 @@ let
     });
 
 in
-  listToAttrs (map makeGiteaTest supportedDbTypes)
+listToAttrs (map makeGiteaTest supportedDbTypes)

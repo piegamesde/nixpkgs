@@ -75,120 +75,120 @@ let
     noDisplay = true;
   };
 in
-  stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
 
-    pname = "azuredatastudio";
-    version = "1.35.1";
+  pname = "azuredatastudio";
+  version = "1.35.1";
 
-    desktopItems = [
-      desktopItem
-      urlHandlerDesktopItem
-    ];
+  desktopItems = [
+    desktopItem
+    urlHandlerDesktopItem
+  ];
 
-    src = fetchurl {
-      name = "${pname}-${version}.tar.gz";
-      url =
-        "https://azuredatastudio-update.azurewebsites.net/${version}/linux-x64/stable";
-      sha256 = "sha256-b/ha+81TlffnvSENzaePvfFugcKJffvjRU7y+x60OuQ=";
-    };
+  src = fetchurl {
+    name = "${pname}-${version}.tar.gz";
+    url =
+      "https://azuredatastudio-update.azurewebsites.net/${version}/linux-x64/stable";
+    sha256 = "sha256-b/ha+81TlffnvSENzaePvfFugcKJffvjRU7y+x60OuQ=";
+  };
 
-    nativeBuildInputs = [
-      makeWrapper
-      copyDesktopItems
-    ];
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+  ];
 
-    buildInputs = [
+  buildInputs = [
+    libuuid
+    at-spi2-core
+    at-spi2-atk
+  ];
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/share/pixmaps
+    cp ${targetPath}/resources/app/resources/linux/code.png $out/share/pixmaps/azuredatastudio.png
+
+    runHook postInstall
+  '';
+
+  # change this to azuredatastudio-insiders for insiders releases
+  edition = "azuredatastudio";
+  targetPath = "$out/${edition}";
+
+  unpackPhase = ''
+    mkdir -p ${targetPath}
+    ${gnutar}/bin/tar xf $src --strip 1 -C ${targetPath}
+  '';
+
+  sqltoolsserviceRpath = lib.makeLibraryPath [
+    stdenv.cc.cc
+    libunwind
+    libuuid
+    icu
+    openssl
+    zlib
+    curl
+  ];
+
+  # this will most likely need to be updated when azuredatastudio's version changes
+  sqltoolsservicePath =
+    "${targetPath}/resources/app/extensions/mssql/sqltoolsservice/Linux/3.0.0-release.215";
+
+  rpath = lib.concatStringsSep ":" [
+    atomEnv.libPath
+    (lib.makeLibraryPath [
       libuuid
       at-spi2-core
       at-spi2-atk
-    ];
+      stdenv.cc.cc.lib
+      libkrb5
+      libdrm
+      libxkbcommon
+      mesa
+      xorg.libxshmfence
+    ])
+    targetPath
+    sqltoolsserviceRpath
+  ];
 
-    installPhase = ''
-      runHook preInstall
-
-      mkdir -p $out/share/pixmaps
-      cp ${targetPath}/resources/app/resources/linux/code.png $out/share/pixmaps/azuredatastudio.png
-
-      runHook postInstall
-    '';
-
-    # change this to azuredatastudio-insiders for insiders releases
-    edition = "azuredatastudio";
-    targetPath = "$out/${edition}";
-
-    unpackPhase = ''
-      mkdir -p ${targetPath}
-      ${gnutar}/bin/tar xf $src --strip 1 -C ${targetPath}
-    '';
-
-    sqltoolsserviceRpath = lib.makeLibraryPath [
-      stdenv.cc.cc
-      libunwind
-      libuuid
-      icu
-      openssl
-      zlib
-      curl
-    ];
-
-    # this will most likely need to be updated when azuredatastudio's version changes
-    sqltoolsservicePath =
-      "${targetPath}/resources/app/extensions/mssql/sqltoolsservice/Linux/3.0.0-release.215";
-
-    rpath = lib.concatStringsSep ":" [
-      atomEnv.libPath
-      (lib.makeLibraryPath [
-        libuuid
-        at-spi2-core
-        at-spi2-atk
-        stdenv.cc.cc.lib
-        libkrb5
-        libdrm
-        libxkbcommon
-        mesa
-        xorg.libxshmfence
-      ])
-      targetPath
-      sqltoolsserviceRpath
-    ];
-
-    fixupPhase = ''
-      fix_sqltoolsservice()
-      {
-        mv ${sqltoolsservicePath}/$1 ${sqltoolsservicePath}/$1_old
-        patchelf \
-          --set-interpreter "${stdenv.cc.bintools.dynamicLinker}" \
-          ${sqltoolsservicePath}/$1_old
-
-        makeWrapper \
-          ${sqltoolsservicePath}/$1_old \
-          ${sqltoolsservicePath}/$1 \
-          --set LD_LIBRARY_PATH ${sqltoolsserviceRpath}
-      }
-
-      fix_sqltoolsservice MicrosoftSqlToolsServiceLayer
-      fix_sqltoolsservice MicrosoftSqlToolsCredentials
-      fix_sqltoolsservice SqlToolsResourceProviderService
-
+  fixupPhase = ''
+    fix_sqltoolsservice()
+    {
+      mv ${sqltoolsservicePath}/$1 ${sqltoolsservicePath}/$1_old
       patchelf \
         --set-interpreter "${stdenv.cc.bintools.dynamicLinker}" \
-        ${targetPath}/${edition}
+        ${sqltoolsservicePath}/$1_old
 
-      mkdir -p $out/bin
       makeWrapper \
-        ${targetPath}/bin/${edition} \
-        $out/bin/azuredatastudio \
-        --set LD_LIBRARY_PATH ${rpath}
-    '';
+        ${sqltoolsservicePath}/$1_old \
+        ${sqltoolsservicePath}/$1 \
+        --set LD_LIBRARY_PATH ${sqltoolsserviceRpath}
+    }
 
-    meta = {
-      maintainers = with lib.maintainers; [ xavierzwirtz ];
-      description =
-        "A data management tool that enables working with SQL Server, Azure SQL DB and SQL DW";
-      homepage =
-        "https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio";
-      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-      license = lib.licenses.unfreeRedistributable;
-      platforms = [ "x86_64-linux" ];
-    };
-  }
+    fix_sqltoolsservice MicrosoftSqlToolsServiceLayer
+    fix_sqltoolsservice MicrosoftSqlToolsCredentials
+    fix_sqltoolsservice SqlToolsResourceProviderService
+
+    patchelf \
+      --set-interpreter "${stdenv.cc.bintools.dynamicLinker}" \
+      ${targetPath}/${edition}
+
+    mkdir -p $out/bin
+    makeWrapper \
+      ${targetPath}/bin/${edition} \
+      $out/bin/azuredatastudio \
+      --set LD_LIBRARY_PATH ${rpath}
+  '';
+
+  meta = {
+    maintainers = with lib.maintainers; [ xavierzwirtz ];
+    description =
+      "A data management tool that enables working with SQL Server, Azure SQL DB and SQL DW";
+    homepage =
+      "https://docs.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio";
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.unfreeRedistributable;
+    platforms = [ "x86_64-linux" ];
+  };
+}

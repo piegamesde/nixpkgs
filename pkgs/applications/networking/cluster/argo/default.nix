@@ -37,63 +37,63 @@ let
     ];
   };
 in
-  buildGoModule rec {
-    pname = "argo";
-    version = "3.4.7";
+buildGoModule rec {
+  pname = "argo";
+  version = "3.4.7";
 
-    src = fetchFromGitHub {
-      owner = "argoproj";
-      repo = "argo";
-      rev = "refs/tags/v${version}";
-      hash = "sha256-jvrt8CwYkeZky5xg9a2U/CuenoBe86yX31x2iCb/7EY=";
-    };
+  src = fetchFromGitHub {
+    owner = "argoproj";
+    repo = "argo";
+    rev = "refs/tags/v${version}";
+    hash = "sha256-jvrt8CwYkeZky5xg9a2U/CuenoBe86yX31x2iCb/7EY=";
+  };
 
-    vendorHash = "sha256-6vHZxBcmhu6s3qQSX0iNIAR0hvXQB/bbpTA1/R08pj0=";
+  vendorHash = "sha256-6vHZxBcmhu6s3qQSX0iNIAR0hvXQB/bbpTA1/R08pj0=";
 
-    doCheck = false;
+  doCheck = false;
 
-    subPackages = [ "cmd/argo" ];
+  subPackages = [ "cmd/argo" ];
 
-    nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [ installShellFiles ];
 
-    preBuild = ''
-      mkdir -p ui/dist/app
-      echo "Built without static files" > ui/dist/app/index.html
+  preBuild = ''
+    mkdir -p ui/dist/app
+    echo "Built without static files" > ui/dist/app/index.html
 
-      ${staticfiles}/bin/staticfiles -o server/static/files.go ui/dist/app
-    '';
+    ${staticfiles}/bin/staticfiles -o server/static/files.go ui/dist/app
+  '';
 
-    ldflags = [
-      "-s"
-      "-w"
-      "-X github.com/argoproj/argo-workflows/v3.buildDate=unknown"
-      "-X github.com/argoproj/argo-workflows/v3.gitCommit=${src.rev}"
-      "-X github.com/argoproj/argo-workflows/v3.gitTag=${src.rev}"
-      "-X github.com/argoproj/argo-workflows/v3.gitTreeState=clean"
-      "-X github.com/argoproj/argo-workflows/v3.version=${version}"
-    ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/argoproj/argo-workflows/v3.buildDate=unknown"
+    "-X github.com/argoproj/argo-workflows/v3.gitCommit=${src.rev}"
+    "-X github.com/argoproj/argo-workflows/v3.gitTag=${src.rev}"
+    "-X github.com/argoproj/argo-workflows/v3.gitTreeState=clean"
+    "-X github.com/argoproj/argo-workflows/v3.version=${version}"
+  ];
 
-    postInstall = ''
-      for shell in bash zsh; do
-        ${
-          if
-            (stdenv.buildPlatform == stdenv.hostPlatform)
-          then
-            "$out/bin/argo"
-          else
-            "${pkgsBuildBuild.argo}/bin/argo"
-        } completion $shell > argo.$shell
-        installShellCompletion argo.$shell
-      done
-    '';
+  postInstall = ''
+    for shell in bash zsh; do
+      ${
+        if
+          (stdenv.buildPlatform == stdenv.hostPlatform)
+        then
+          "$out/bin/argo"
+        else
+          "${pkgsBuildBuild.argo}/bin/argo"
+      } completion $shell > argo.$shell
+      installShellCompletion argo.$shell
+    done
+  '';
 
-    meta = with lib; {
-      description = "Container native workflow engine for Kubernetes";
-      homepage = "https://github.com/argoproj/argo";
-      changelog =
-        "https://github.com/argoproj/argo-workflows/blob/v${version}/CHANGELOG.md";
-      license = licenses.asl20;
-      maintainers = with maintainers; [ groodt ];
-      platforms = platforms.unix;
-    };
-  }
+  meta = with lib; {
+    description = "Container native workflow engine for Kubernetes";
+    homepage = "https://github.com/argoproj/argo";
+    changelog =
+      "https://github.com/argoproj/argo-workflows/blob/v${version}/CHANGELOG.md";
+    license = licenses.asl20;
+    maintainers = with maintainers; [ groodt ];
+    platforms = platforms.unix;
+  };
+}

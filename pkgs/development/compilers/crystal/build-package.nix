@@ -81,91 +81,89 @@ let
     ]);
 
 in
-  stdenv.mkDerivation (mkDerivationArgs // {
+stdenv.mkDerivation (mkDerivationArgs // {
 
-    configurePhase = args.configurePhase or lib.concatStringsSep "\n"
-      ([ "runHook preConfigure" ]
-        ++ lib.optional (lockFile != null) "cp ${lockFile} ./shard.lock"
-        ++ lib.optionals (shardsFile != null) [
-          "test -e lib || mkdir lib"
-          "for d in ${crystalLib}/*; do ln -s $d lib/; done"
-          "cp shard.lock lib/.shards.info"
-        ] ++ [ "runHook postConfigure" ]);
+  configurePhase = args.configurePhase or lib.concatStringsSep "\n"
+    ([ "runHook preConfigure" ]
+      ++ lib.optional (lockFile != null) "cp ${lockFile} ./shard.lock"
+      ++ lib.optionals (shardsFile != null) [
+        "test -e lib || mkdir lib"
+        "for d in ${crystalLib}/*; do ln -s $d lib/; done"
+        "cp shard.lock lib/.shards.info"
+      ] ++ [ "runHook postConfigure" ]);
 
-    CRFLAGS = lib.concatStringsSep " " defaultOptions;
+  CRFLAGS = lib.concatStringsSep " " defaultOptions;
 
-    PREFIX = placeholder "out";
+  PREFIX = placeholder "out";
 
-    inherit enableParallelBuilding;
-    strictDeps = true;
-    buildInputs = args.buildInputs or [ ] ++ [ crystal ]
-      ++ lib.optional (lib.versionAtLeast crystal.version "1.8") pcre2;
+  inherit enableParallelBuilding;
+  strictDeps = true;
+  buildInputs = args.buildInputs or [ ] ++ [ crystal ]
+    ++ lib.optional (lib.versionAtLeast crystal.version "1.8") pcre2;
 
-    nativeBuildInputs = args.nativeBuildInputs or [ ] ++ [
-      crystal
-      git
-      installShellFiles
-      removeReferencesTo
-      pkg-config
-      which
-    ] ++ lib.optional (format != "crystal") shards;
+  nativeBuildInputs = args.nativeBuildInputs or [ ] ++ [
+    crystal
+    git
+    installShellFiles
+    removeReferencesTo
+    pkg-config
+    which
+  ] ++ lib.optional (format != "crystal") shards;
 
-    buildPhase = args.buildPhase or (lib.concatStringsSep "\n"
-      ([ "runHook preBuild" ] ++ lib.optional (format == "make")
-        "make \${buildTargets:-build} $makeFlags"
-        ++ lib.optionals (format == "crystal")
-        (lib.mapAttrsToList mkCrystalBuildArgs crystalBinaries)
-        ++ lib.optional (format == "shards")
-        "shards build --local --production ${
-          lib.concatStringsSep " " (args.options or defaultOptions)
-        }" ++ [ "runHook postBuild" ]));
+  buildPhase = args.buildPhase or (lib.concatStringsSep "\n"
+    ([ "runHook preBuild" ] ++ lib.optional (format == "make")
+      "make \${buildTargets:-build} $makeFlags"
+      ++ lib.optionals (format == "crystal")
+      (lib.mapAttrsToList mkCrystalBuildArgs crystalBinaries)
+      ++ lib.optional (format == "shards") "shards build --local --production ${
+        lib.concatStringsSep " " (args.options or defaultOptions)
+      }" ++ [ "runHook postBuild" ]));
 
-    installPhase = args.installPhase or (lib.concatStringsSep "\n"
-      ([ "runHook preInstall" ] ++ lib.optional (format == "make")
-        "make \${installTargets:-install} $installFlags"
-        ++ lib.optionals (format == "crystal") (map (bin: ''
-          install -Dm555 ${
-            lib.escapeShellArgs [
-              bin
-              "${placeholder "out"}/bin/${bin}"
-            ]
-          }
-        '') (lib.attrNames crystalBinaries))
-        ++ lib.optional (format == "shards") "install -Dm555 bin/* -t $out/bin"
-        ++ [ ''
-          for f in README* *.md LICENSE; do
-            test -f $f && install -Dm444 $f -t $out/share/doc/${args.pname}
-          done
-        '' ] ++ (lib.optional installManPages ''
-          if [ -d man ]; then
-            installManPage man/*.?
-          fi
-        '') ++ [
-          "remove-references-to -t ${lib.getLib crystal} $out/bin/*"
-          "runHook postInstall"
-        ]));
-
-    doCheck = args.doCheck or true;
-
-    checkPhase = args.checkPhase or (lib.concatStringsSep "\n"
-      ([ "runHook preCheck" ] ++ lib.optional (format == "make")
-        "make \${checkTarget:-test} $checkFlags"
-        ++ lib.optional (format != "make")
-        "crystal \${checkTarget:-spec} $checkFlags"
-        ++ [ "runHook postCheck" ]));
-
-    doInstallCheck = args.doInstallCheck or true;
-
-    installCheckPhase = args.installCheckPhase or ''
-      for f in $out/bin/*; do
-        if [ $f == $out/bin/*.dwarf ]; then
-          continue
+  installPhase = args.installPhase or (lib.concatStringsSep "\n"
+    ([ "runHook preInstall" ] ++ lib.optional (format == "make")
+      "make \${installTargets:-install} $installFlags"
+      ++ lib.optionals (format == "crystal") (map (bin: ''
+        install -Dm555 ${
+          lib.escapeShellArgs [
+            bin
+            "${placeholder "out"}/bin/${bin}"
+          ]
+        }
+      '') (lib.attrNames crystalBinaries))
+      ++ lib.optional (format == "shards") "install -Dm555 bin/* -t $out/bin"
+      ++ [ ''
+        for f in README* *.md LICENSE; do
+          test -f $f && install -Dm444 $f -t $out/share/doc/${args.pname}
+        done
+      '' ] ++ (lib.optional installManPages ''
+        if [ -d man ]; then
+          installManPage man/*.?
         fi
-        $f --help > /dev/null
-      done
-    '';
+      '') ++ [
+        "remove-references-to -t ${lib.getLib crystal} $out/bin/*"
+        "runHook postInstall"
+      ]));
 
-    meta = args.meta or { } // {
-      platforms = args.meta.platforms or crystal.meta.platforms;
-    };
-  })
+  doCheck = args.doCheck or true;
+
+  checkPhase = args.checkPhase or (lib.concatStringsSep "\n"
+    ([ "runHook preCheck" ] ++ lib.optional (format == "make")
+      "make \${checkTarget:-test} $checkFlags"
+      ++ lib.optional (format != "make")
+      "crystal \${checkTarget:-spec} $checkFlags" ++ [ "runHook postCheck" ]));
+
+  doInstallCheck = args.doInstallCheck or true;
+
+  installCheckPhase = args.installCheckPhase or ''
+    for f in $out/bin/*; do
+      if [ $f == $out/bin/*.dwarf ]; then
+        continue
+      fi
+      $f --help > /dev/null
+    done
+  '';
+
+  meta = args.meta or { } // {
+    platforms = args.meta.platforms or crystal.meta.platforms;
+  };
+})

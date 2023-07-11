@@ -31,12 +31,12 @@ let
   phpModuleName = let
     majorVersion = lib.versions.major (lib.getVersion php);
   in
-    (if
-      majorVersion == "8"
-    then
-      "php"
-    else
-      "php${majorVersion}")
+  (if
+    majorVersion == "8"
+  then
+    "php"
+  else
+    "php${majorVersion}")
   ;
 
   mod_perl = pkgs.apacheHttpdPackages.mod_perl.override { apacheHttpd = pkg; };
@@ -229,60 +229,60 @@ let
         </Directory>
       '';
     in
-      optionalString (listen != [ ]) ''
-        <VirtualHost ${
-          concatMapStringsSep " "
-          (listen: "${listen.ip}:${toString listen.port}") listen
-        }>
-            ServerName ${hostOpts.hostName}
-            ${
-              concatMapStrings (alias: ''
-                ServerAlias ${alias}
-              '') hostOpts.serverAliases
-            }
-            ${optionalString (adminAddr != null) "ServerAdmin ${adminAddr}"}
-            <IfModule mod_ssl.c>
-                SSLEngine off
-            </IfModule>
-            ${acmeChallenge}
-            ${
-              if
-                hostOpts.forceSSL
-              then ''
-                <IfModule mod_rewrite.c>
-                    RewriteEngine on
-                    RewriteCond %{REQUEST_URI} !^/.well-known/acme-challenge [NC]
-                    RewriteCond %{HTTPS} off
-                    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
-                </IfModule>
-              '' else
-                mkVHostCommonConf hostOpts
-            }
-        </VirtualHost>
-      '' + optionalString (listenSSL != [ ]) ''
-        <VirtualHost ${
-          concatMapStringsSep " "
-          (listen: "${listen.ip}:${toString listen.port}") listenSSL
-        }>
-            ServerName ${hostOpts.hostName}
-            ${
-              concatMapStrings (alias: ''
-                ServerAlias ${alias}
-              '') hostOpts.serverAliases
-            }
-            ${optionalString (adminAddr != null) "ServerAdmin ${adminAddr}"}
-            SSLEngine on
-            SSLCertificateFile ${sslServerCert}
-            SSLCertificateKeyFile ${sslServerKey}
-            ${
-              optionalString (sslServerChain != null)
-              "SSLCertificateChainFile ${sslServerChain}"
-            }
-            ${optionalString hostOpts.http2 "Protocols h2 h2c http/1.1"}
-            ${acmeChallenge}
-            ${mkVHostCommonConf hostOpts}
-        </VirtualHost>
-      ''
+    optionalString (listen != [ ]) ''
+      <VirtualHost ${
+        concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}")
+        listen
+      }>
+          ServerName ${hostOpts.hostName}
+          ${
+            concatMapStrings (alias: ''
+              ServerAlias ${alias}
+            '') hostOpts.serverAliases
+          }
+          ${optionalString (adminAddr != null) "ServerAdmin ${adminAddr}"}
+          <IfModule mod_ssl.c>
+              SSLEngine off
+          </IfModule>
+          ${acmeChallenge}
+          ${
+            if
+              hostOpts.forceSSL
+            then ''
+              <IfModule mod_rewrite.c>
+                  RewriteEngine on
+                  RewriteCond %{REQUEST_URI} !^/.well-known/acme-challenge [NC]
+                  RewriteCond %{HTTPS} off
+                  RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+              </IfModule>
+            '' else
+              mkVHostCommonConf hostOpts
+          }
+      </VirtualHost>
+    '' + optionalString (listenSSL != [ ]) ''
+      <VirtualHost ${
+        concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}")
+        listenSSL
+      }>
+          ServerName ${hostOpts.hostName}
+          ${
+            concatMapStrings (alias: ''
+              ServerAlias ${alias}
+            '') hostOpts.serverAliases
+          }
+          ${optionalString (adminAddr != null) "ServerAdmin ${adminAddr}"}
+          SSLEngine on
+          SSLCertificateFile ${sslServerCert}
+          SSLCertificateKeyFile ${sslServerKey}
+          ${
+            optionalString (sslServerChain != null)
+            "SSLCertificateChainFile ${sslServerChain}"
+          }
+          ${optionalString hostOpts.http2 "Protocols h2 h2c http/1.1"}
+          ${acmeChallenge}
+          ${mkVHostCommonConf hostOpts}
+      </VirtualHost>
+    ''
   ;
 
   mkVHostCommonConf = hostOpts:
@@ -371,7 +371,7 @@ let
           </Directory>
         '';
       in
-        concatMapStrings makeDirConf hostOpts.servedDirs
+      concatMapStrings makeDirConf hostOpts.servedDirs
       }
 
       ${mkLocations hostOpts.locations}
@@ -408,7 +408,7 @@ let
         }";
       uniqueListen = uniqList { inputList = map toStr listenInfo; };
     in
-      concatStringsSep "\n" uniqueListen
+    concatStringsSep "\n" uniqueListen
     }
 
     User ${cfg.user}
@@ -427,9 +427,9 @@ let
           throw
           "Expecting either a string or attribute set including a name and path.";
     in
-      concatMapStringsSep "\n"
-      (module: "LoadModule ${module.name}_module ${module.path}")
-      (unique (map mkModule modules))
+    concatMapStringsSep "\n"
+    (module: "LoadModule ${module.name}_module ${module.path}")
+    (unique (map mkModule modules))
     }
 
     AddHandler type-map var
@@ -881,38 +881,38 @@ in {
         let
           hasRoot = hostOpts.acmeRoot != null;
         in
-          nameValuePair hostOpts.hostName {
-            group = mkDefault cfg.group;
-            # if acmeRoot is null inherit config.security.acme
-            # Since config.security.acme.certs.<cert>.webroot's own default value
-            # should take precedence set priority higher than mkOptionDefault
-            webroot = mkOverride (if
-              hasRoot
-            then
-              1000
-            else
-              2000) hostOpts.acmeRoot;
-            # Also nudge dnsProvider to null in case it is inherited
-            dnsProvider = mkOverride (if
-              hasRoot
-            then
-              1000
-            else
-              2000) null;
-            extraDomainNames = hostOpts.serverAliases;
-            # Use the vhost-specific email address if provided, otherwise let
-            # security.acme.email or security.acme.certs.<cert>.email be used.
-            email = mkOverride 2000 (if
-              hostOpts.adminAddr != null
-            then
-              hostOpts.adminAddr
-            else
-              cfg.adminAddr);
-            # Filter for enableACME-only vhosts. Don't want to create dud certs
-          }
+        nameValuePair hostOpts.hostName {
+          group = mkDefault cfg.group;
+          # if acmeRoot is null inherit config.security.acme
+          # Since config.security.acme.certs.<cert>.webroot's own default value
+          # should take precedence set priority higher than mkOptionDefault
+          webroot = mkOverride (if
+            hasRoot
+          then
+            1000
+          else
+            2000) hostOpts.acmeRoot;
+          # Also nudge dnsProvider to null in case it is inherited
+          dnsProvider = mkOverride (if
+            hasRoot
+          then
+            1000
+          else
+            2000) null;
+          extraDomainNames = hostOpts.serverAliases;
+          # Use the vhost-specific email address if provided, otherwise let
+          # security.acme.email or security.acme.certs.<cert>.email be used.
+          email = mkOverride 2000 (if
+            hostOpts.adminAddr != null
+          then
+            hostOpts.adminAddr
+          else
+            cfg.adminAddr);
+          # Filter for enableACME-only vhosts. Don't want to create dud certs
+        }
       ) (filter (hostOpts: hostOpts.useACMEHost == null) acmeEnabledVhosts);
     in
-      listToAttrs acmePairs
+    listToAttrs acmePairs
     ;
 
     # httpd requires a stable path to the configuration file for reloads
@@ -1054,29 +1054,29 @@ in {
       sslTargets =
         map (certName: "acme-finished-${certName}.target") dependentCertNames;
     in
-      mkIf (sslServices != [ ]) {
-        wantedBy = sslServices ++ [ "multi-user.target" ];
-        # Before the finished targets, after the renew services.
-        # This service might be needed for HTTP-01 challenges, but we only want to confirm
-        # certs are updated _after_ config has been reloaded.
-        before = sslTargets;
-        after = sslServices;
-        restartTriggers = [ cfg.configFile ];
-        # Block reloading if not all certs exist yet.
-        # Happens when config changes add new vhosts/certs.
-        unitConfig.ConditionPathExists =
-          map (certName: certs.${certName}.directory + "/fullchain.pem")
-          dependentCertNames;
-        serviceConfig = {
-          Type = "oneshot";
-          TimeoutSec = 60;
-          ExecCondition =
-            "/run/current-system/systemd/bin/systemctl -q is-active httpd.service";
-          ExecStartPre = "${pkg}/bin/httpd -f /etc/httpd/httpd.conf -t";
-          ExecStart =
-            "/run/current-system/systemd/bin/systemctl reload httpd.service";
-        };
-      }
+    mkIf (sslServices != [ ]) {
+      wantedBy = sslServices ++ [ "multi-user.target" ];
+      # Before the finished targets, after the renew services.
+      # This service might be needed for HTTP-01 challenges, but we only want to confirm
+      # certs are updated _after_ config has been reloaded.
+      before = sslTargets;
+      after = sslServices;
+      restartTriggers = [ cfg.configFile ];
+      # Block reloading if not all certs exist yet.
+      # Happens when config changes add new vhosts/certs.
+      unitConfig.ConditionPathExists =
+        map (certName: certs.${certName}.directory + "/fullchain.pem")
+        dependentCertNames;
+      serviceConfig = {
+        Type = "oneshot";
+        TimeoutSec = 60;
+        ExecCondition =
+          "/run/current-system/systemd/bin/systemctl -q is-active httpd.service";
+        ExecStartPre = "${pkg}/bin/httpd -f /etc/httpd/httpd.conf -t";
+        ExecStart =
+          "/run/current-system/systemd/bin/systemctl reload httpd.service";
+      };
+    }
     ;
 
   };

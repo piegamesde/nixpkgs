@@ -48,4 +48,4 @@ let
       callPackage ./example.nix { openapi-generator-cli = this; };
   };
 in
-  this
+this

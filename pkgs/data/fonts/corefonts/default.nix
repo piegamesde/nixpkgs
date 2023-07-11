@@ -62,82 +62,82 @@ let
     sha256 = "1aqbcnl032g2hd7iy56cs022g47scb0jxxp3mm206x1yqc90vs1c";
   };
 in
-  stdenv.mkDerivation {
-    pname = "corefonts";
-    version = "1";
+stdenv.mkDerivation {
+  pname = "corefonts";
+  version = "1";
 
-    exes = map ({
-        name,
-        sha256,
-      }:
-      fetchurl {
-        url = "mirror://sourceforge/corefonts/${name}32.exe";
-        inherit sha256;
-      }) fonts;
+  exes = map ({
+      name,
+      sha256,
+    }:
+    fetchurl {
+      url = "mirror://sourceforge/corefonts/${name}32.exe";
+      inherit sha256;
+    }) fonts;
 
-    nativeBuildInputs = [ cabextract ];
+  nativeBuildInputs = [ cabextract ];
 
-    buildCommand = ''
-      for i in $exes; do
-        cabextract --lowercase $i
-      done
-      cabextract --lowercase viewer1.cab
+  buildCommand = ''
+    for i in $exes; do
+      cabextract --lowercase $i
+    done
+    cabextract --lowercase viewer1.cab
 
-      # rename to more standard names
-      mv andalemo.ttf  Andale_Mono.ttf
-      mv ariblk.ttf    Arial_Black.ttf
-      mv arial.ttf     Arial.ttf
-      mv arialbd.ttf   Arial_Bold.ttf
-      mv arialbi.ttf   Arial_Bold_Italic.ttf
-      mv ariali.ttf    Arial_Italic.ttf
-      mv comic.ttf     Comic_Sans_MS.ttf
-      mv comicbd.ttf   Comic_Sans_MS_Bold.ttf
-      mv cour.ttf      Courier_New.ttf
-      mv courbd.ttf    Courier_New_Bold.ttf
-      mv couri.ttf     Courier_New_Italic.ttf
-      mv courbi.ttf    Courier_New_Bold_Italic.ttf
-      mv georgia.ttf   Georgia.ttf
-      mv georgiab.ttf  Georgia_Bold.ttf
-      mv georgiai.ttf  Georgia_Italic.ttf
-      mv georgiaz.ttf  Georgia_Bold_Italic.ttf
-      mv impact.ttf    Impact.ttf
-      mv tahoma.ttf    Tahoma.ttf
-      mv times.ttf     Times_New_Roman.ttf
-      mv timesbd.ttf   Times_New_Roman_Bold.ttf
-      mv timesbi.ttf   Times_New_Roman_Bold_Italic.ttf
-      mv timesi.ttf    Times_New_Roman_Italic.ttf
-      mv trebuc.ttf    Trebuchet_MS.ttf
-      mv trebucbd.ttf  Trebuchet_MS_Bold.ttf
-      mv trebucit.ttf  Trebuchet_MS_Italic.ttf
-      mv trebucbi.ttf  Trebuchet_MS_Italic.ttf
-      mv verdana.ttf   Verdana.ttf
-      mv verdanab.ttf  Verdana_Bold.ttf
-      mv verdanai.ttf  Verdana_Italic.ttf
-      mv verdanaz.ttf  Verdana_Bold_Italic.ttf
-      mv webdings.ttf  Webdings.ttf
+    # rename to more standard names
+    mv andalemo.ttf  Andale_Mono.ttf
+    mv ariblk.ttf    Arial_Black.ttf
+    mv arial.ttf     Arial.ttf
+    mv arialbd.ttf   Arial_Bold.ttf
+    mv arialbi.ttf   Arial_Bold_Italic.ttf
+    mv ariali.ttf    Arial_Italic.ttf
+    mv comic.ttf     Comic_Sans_MS.ttf
+    mv comicbd.ttf   Comic_Sans_MS_Bold.ttf
+    mv cour.ttf      Courier_New.ttf
+    mv courbd.ttf    Courier_New_Bold.ttf
+    mv couri.ttf     Courier_New_Italic.ttf
+    mv courbi.ttf    Courier_New_Bold_Italic.ttf
+    mv georgia.ttf   Georgia.ttf
+    mv georgiab.ttf  Georgia_Bold.ttf
+    mv georgiai.ttf  Georgia_Italic.ttf
+    mv georgiaz.ttf  Georgia_Bold_Italic.ttf
+    mv impact.ttf    Impact.ttf
+    mv tahoma.ttf    Tahoma.ttf
+    mv times.ttf     Times_New_Roman.ttf
+    mv timesbd.ttf   Times_New_Roman_Bold.ttf
+    mv timesbi.ttf   Times_New_Roman_Bold_Italic.ttf
+    mv timesi.ttf    Times_New_Roman_Italic.ttf
+    mv trebuc.ttf    Trebuchet_MS.ttf
+    mv trebucbd.ttf  Trebuchet_MS_Bold.ttf
+    mv trebucit.ttf  Trebuchet_MS_Italic.ttf
+    mv trebucbi.ttf  Trebuchet_MS_Italic.ttf
+    mv verdana.ttf   Verdana.ttf
+    mv verdanab.ttf  Verdana_Bold.ttf
+    mv verdanai.ttf  Verdana_Italic.ttf
+    mv verdanaz.ttf  Verdana_Bold_Italic.ttf
+    mv webdings.ttf  Webdings.ttf
 
-      install -m444 -Dt $out/share/fonts/truetype *.ttf
+    install -m444 -Dt $out/share/fonts/truetype *.ttf
 
-      # Also put the EULA there to be on the safe side.
-      cp ${eula} $out/share/fonts/truetype/eula.html
+    # Also put the EULA there to be on the safe side.
+    cp ${eula} $out/share/fonts/truetype/eula.html
 
-      # Set up no-op font configs to override any aliases set up by other packages.
-      mkdir -p $out/etc/fonts/conf.d
-      for name in Andale-Mono Arial-Black Arial Comic-Sans-MS \
-                  Courier-New Georgia Impact Times-New-Roman \
-                  Trebuchet Verdana Webdings ; do
-        substitute ${./no-op.conf} $out/etc/fonts/conf.d/30-''${name,,}.conf \
-          --subst-var-by fontname "''${name//-/ }"
-      done
-    '';
+    # Set up no-op font configs to override any aliases set up by other packages.
+    mkdir -p $out/etc/fonts/conf.d
+    for name in Andale-Mono Arial-Black Arial Comic-Sans-MS \
+                Courier-New Georgia Impact Times-New-Roman \
+                Trebuchet Verdana Webdings ; do
+      substitute ${./no-op.conf} $out/etc/fonts/conf.d/30-''${name,,}.conf \
+        --subst-var-by fontname "''${name//-/ }"
+    done
+  '';
 
-    meta = with lib; {
-      homepage = "https://corefonts.sourceforge.net/";
-      description = "Microsoft's TrueType core fonts for the Web";
-      platforms = platforms.all;
-      license = licenses.unfreeRedistributable;
-      # Set a non-zero priority to allow easy overriding of the
-      # fontconfig configuration files.
-      priority = 5;
-    };
-  }
+  meta = with lib; {
+    homepage = "https://corefonts.sourceforge.net/";
+    description = "Microsoft's TrueType core fonts for the Web";
+    platforms = platforms.all;
+    license = licenses.unfreeRedistributable;
+    # Set a non-zero priority to allow easy overriding of the
+    # fontconfig configuration files.
+    priority = 5;
+  };
+}

@@ -64,23 +64,23 @@ let
   src = let
     base = "https://downloads.slack-edge.com";
   in
-    {
-      x86_64-darwin = fetchurl {
-        url =
-          "${base}/releases/macos/${version}/prod/x64/Slack-${version}-macOS.dmg";
-        sha256 = x86_64-darwin-sha256;
-      };
-      x86_64-linux = fetchurl {
-        url =
-          "${base}/releases/linux/${version}/prod/x64/slack-desktop-${version}-amd64.deb";
-        sha256 = x86_64-linux-sha256;
-      };
-      aarch64-darwin = fetchurl {
-        url =
-          "${base}/releases/macos/${version}/prod/arm64/Slack-${version}-macOS.dmg";
-        sha256 = aarch64-darwin-sha256;
-      };
-    }.${system} or throwSystem
+  {
+    x86_64-darwin = fetchurl {
+      url =
+        "${base}/releases/macos/${version}/prod/x64/Slack-${version}-macOS.dmg";
+      sha256 = x86_64-darwin-sha256;
+    };
+    x86_64-linux = fetchurl {
+      url =
+        "${base}/releases/linux/${version}/prod/x64/slack-desktop-${version}-amd64.deb";
+      sha256 = x86_64-linux-sha256;
+    };
+    aarch64-darwin = fetchurl {
+      url =
+        "${base}/releases/macos/${version}/prod/arm64/Slack-${version}-macOS.dmg";
+      sha256 = aarch64-darwin-sha256;
+    };
+  }.${system} or throwSystem
   ;
 
   meta = with lib; {

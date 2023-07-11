@@ -110,22 +110,22 @@ import ./make-test-python.nix ({
           system = "x86_64-linux";
         }).config;
       in
-        import (pkgs.path + "/nixos/lib/make-disk-image.nix") {
-          inherit pkgs lib config;
-          diskSize = 16000;
-          format = "qcow2-compressed";
-          contents = [ {
-            source = pkgs.writeText "gitconfig" ''
-              [user]
-                name = builds.sr.ht
-                email = build@sr.ht
-            '';
-            target = "/home/build/.gitconfig";
-            user = "build";
-            group = "users";
-            mode = "644";
-          } ];
-        }
+      import (pkgs.path + "/nixos/lib/make-disk-image.nix") {
+        inherit pkgs lib config;
+        diskSize = 16000;
+        format = "qcow2-compressed";
+        contents = [ {
+          source = pkgs.writeText "gitconfig" ''
+            [user]
+              name = builds.sr.ht
+              email = build@sr.ht
+          '';
+          target = "/home/build/.gitconfig";
+          user = "build";
+          group = "users";
+          mode = "644";
+        } ];
+      }
       ;
     };
 

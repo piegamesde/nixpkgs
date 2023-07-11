@@ -15,25 +15,25 @@ let
   appimageContents = appimageTools.extractType2 { inherit pname src version; };
 
 in
-  appimageTools.wrapType2 {
-    inherit pname src version;
+appimageTools.wrapType2 {
+  inherit pname src version;
 
-    extraPkgs = pkgs:
-      (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ [ pkgs.libsecret ];
+  extraPkgs = pkgs:
+    (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ [ pkgs.libsecret ];
 
-    extraInstallCommands = ''
-      mv $out/bin/${pname}-${version} $out/bin/${pname}
-      install -m 444 -D ${appimageContents}/buttercup.desktop -t $out/share/applications
-      substituteInPlace $out/share/applications/buttercup.desktop \
-        --replace 'Exec=AppRun' 'Exec=${pname}'
-      cp -r ${appimageContents}/usr/share/icons $out/share
-    '';
+  extraInstallCommands = ''
+    mv $out/bin/${pname}-${version} $out/bin/${pname}
+    install -m 444 -D ${appimageContents}/buttercup.desktop -t $out/share/applications
+    substituteInPlace $out/share/applications/buttercup.desktop \
+      --replace 'Exec=AppRun' 'Exec=${pname}'
+    cp -r ${appimageContents}/usr/share/icons $out/share
+  '';
 
-    meta = with lib; {
-      description = "Cross-Platform Passwords & Secrets Vault";
-      homepage = "https://buttercup.pw";
-      license = licenses.gpl3Only;
-      maintainers = with maintainers; [ wolfangaukang ];
-      platforms = [ "x86_64-linux" ];
-    };
-  }
+  meta = with lib; {
+    description = "Cross-Platform Passwords & Secrets Vault";
+    homepage = "https://buttercup.pw";
+    license = licenses.gpl3Only;
+    maintainers = with maintainers; [ wolfangaukang ];
+    platforms = [ "x86_64-linux" ];
+  };
+}

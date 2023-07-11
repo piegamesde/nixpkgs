@@ -58,12 +58,12 @@ stdenv.mkDerivation rec {
         gst-libav
       ]);
   in
-    toString [
-      # This flag should be picked up through pkg-config, but it isn't.
-      "-I${gst_all_1.gstreamer.dev}/lib/gstreamer-1.0/include"
+  toString [
+    # This flag should be picked up through pkg-config, but it isn't.
+    "-I${gst_all_1.gstreamer.dev}/lib/gstreamer-1.0/include"
 
-      ''-DGST_PLUGIN_PATH_1_0="${gstPluginPaths}"''
-    ]
+    ''-DGST_PLUGIN_PATH_1_0="${gstPluginPaths}"''
+  ]
   ;
 
   buildInputs = with gst_all_1; [

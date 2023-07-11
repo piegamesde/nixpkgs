@@ -50,39 +50,39 @@ let
     fi
   '';
 in
-  symlinkJoin {
-    name = "sway-${sway.version}";
+symlinkJoin {
+  name = "sway-${sway.version}";
 
-    paths = (optional withBaseWrapper baseWrapper) ++ [ sway ];
+  paths = (optional withBaseWrapper baseWrapper) ++ [ sway ];
 
-    strictDeps = false;
-    nativeBuildInputs = [ makeWrapper ]
-      ++ (optional withGtkWrapper wrapGAppsHook);
+  strictDeps = false;
+  nativeBuildInputs = [ makeWrapper ]
+    ++ (optional withGtkWrapper wrapGAppsHook);
 
-    buildInputs = optionals withGtkWrapper [
-      gdk-pixbuf
-      glib
-      gtk3
-    ];
+  buildInputs = optionals withGtkWrapper [
+    gdk-pixbuf
+    glib
+    gtk3
+  ];
 
-    # We want to run wrapProgram manually
-    dontWrapGApps = true;
+  # We want to run wrapProgram manually
+  dontWrapGApps = true;
 
-    postBuild = ''
-      ${optionalString withGtkWrapper "gappsWrapperArgsHook"}
+  postBuild = ''
+    ${optionalString withGtkWrapper "gappsWrapperArgsHook"}
 
-      wrapProgram $out/bin/sway \
-        ${optionalString withGtkWrapper ''"''${gappsWrapperArgs[@]}"''} \
-        ${
-          optionalString (extraOptions != [ ])
-          "${concatMapStrings (x: " --add-flags " + x) extraOptions}"
-        }
-    '';
+    wrapProgram $out/bin/sway \
+      ${optionalString withGtkWrapper ''"''${gappsWrapperArgs[@]}"''} \
+      ${
+        optionalString (extraOptions != [ ])
+        "${concatMapStrings (x: " --add-flags " + x) extraOptions}"
+      }
+  '';
 
-    passthru = {
-      inherit (sway.passthru) tests;
-      providedSessions = [ "sway" ];
-    };
+  passthru = {
+    inherit (sway.passthru) tests;
+    providedSessions = [ "sway" ];
+  };
 
-    inherit (sway) meta;
-  }
+  inherit (sway) meta;
+}

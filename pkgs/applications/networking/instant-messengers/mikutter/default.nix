@@ -134,12 +134,12 @@ stdenv.mkDerivation rec {
   postInstall = let
     infoPlist = mkInfoPlist { inherit version; };
   in
-    lib.optionalString stdenv.isDarwin ''
-      mkdir -p ${appBinDir} ${appResourceDir}
-      install -Dm644 ${infoPlist} ${appPrefixDir}/Info.plist
-      ln -s $out/bin/mikutter ${appBinDir}/mikutter
-      png2icns ${appResourceDir}/mikutter.icns ${iconPath}
-    ''
+  lib.optionalString stdenv.isDarwin ''
+    mkdir -p ${appBinDir} ${appResourceDir}
+    install -Dm644 ${infoPlist} ${appPrefixDir}/Info.plist
+    ln -s $out/bin/mikutter ${appBinDir}/mikutter
+    png2icns ${appResourceDir}/mikutter.icns ${iconPath}
+  ''
   ;
 
   installCheckPhase = ''

@@ -36,7 +36,7 @@ let
       isOdd = n: lib.trivial.mod n 2 != 0;
       patch = lib.toInt (lib.versions.patch version);
     in
-      isOdd patch
+    isOdd patch
   ;
 
   makeFdb = {
@@ -189,4 +189,4 @@ let
       };
     };
 in
-  makeFdb
+makeFdb

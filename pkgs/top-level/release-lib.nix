@@ -53,35 +53,35 @@ rec {
       pkgs_x86_64_cygwin = packageSet' { system = "x86_64-cygwin"; };
 
     in
-      system:
-      if
-        system == "x86_64-linux"
-      then
-        pkgs_x86_64_linux
-      else if system == "i686-linux" then
-        pkgs_i686_linux
-      else if system == "aarch64-linux" then
-        pkgs_aarch64_linux
-      else if system == "riscv64-linux" then
-        pkgs_riscv64_linux
-      else if system == "aarch64-darwin" then
-        pkgs_aarch64_darwin
-      else if system == "armv6l-linux" then
-        pkgs_armv6l_linux
-      else if system == "armv7l-linux" then
-        pkgs_armv7l_linux
-      else if system == "x86_64-darwin" then
-        pkgs_x86_64_darwin
-      else if system == "x86_64-freebsd" then
-        pkgs_x86_64_freebsd
-      else if system == "i686-freebsd" then
-        pkgs_i686_freebsd
-      else if system == "i686-cygwin" then
-        pkgs_i686_cygwin
-      else if system == "x86_64-cygwin" then
-        pkgs_x86_64_cygwin
-      else
-        abort "unsupported system type: ${system}"
+    system:
+    if
+      system == "x86_64-linux"
+    then
+      pkgs_x86_64_linux
+    else if system == "i686-linux" then
+      pkgs_i686_linux
+    else if system == "aarch64-linux" then
+      pkgs_aarch64_linux
+    else if system == "riscv64-linux" then
+      pkgs_riscv64_linux
+    else if system == "aarch64-darwin" then
+      pkgs_aarch64_darwin
+    else if system == "armv6l-linux" then
+      pkgs_armv6l_linux
+    else if system == "armv7l-linux" then
+      pkgs_armv7l_linux
+    else if system == "x86_64-darwin" then
+      pkgs_x86_64_darwin
+    else if system == "x86_64-freebsd" then
+      pkgs_x86_64_freebsd
+    else if system == "i686-freebsd" then
+      pkgs_i686_freebsd
+    else if system == "i686-cygwin" then
+      pkgs_i686_cygwin
+    else if system == "x86_64-cygwin" then
+      pkgs_x86_64_cygwin
+    else
+      abort "unsupported system type: ${system}"
   ;
 
   pkgsFor = pkgsForCross null;
@@ -96,18 +96,18 @@ rec {
         });
     native = mkPkgsFor null;
   in
-    crossSystem:
-    let
-      candidate = examplesByConfig.${crossSystem.config} or null;
-    in if
-      crossSystem == null
-    then
-      native
-    else if candidate != null
-    && lib.matchAttrs crossSystem candidate.crossSystem then
-      candidate.pkgsFor
-    else
-      mkPkgsFor crossSystem
+  crossSystem:
+  let
+    candidate = examplesByConfig.${crossSystem.config} or null;
+  in if
+    crossSystem == null
+  then
+    native
+  else if candidate != null
+  && lib.matchAttrs crossSystem candidate.crossSystem then
+    candidate.pkgsFor
+  else
+    mkPkgsFor crossSystem
   ; # uncached fallback
 
   # Given a list of 'meta.platforms'-style patterns, return the sublist of
@@ -119,17 +119,16 @@ rec {
     supportedPlatforms =
       map (system: lib.systems.elaborate { inherit system; }) supportedSystems;
   in
-    metaPatterns:
-    let
-      anyMatch = platform:
-        lib.any (lib.meta.platformMatch platform) metaPatterns;
-      matchingPlatforms = lib.filter anyMatch supportedPlatforms;
-    in
-      map ({
-          system,
-          ...
-        }:
-        system) matchingPlatforms
+  metaPatterns:
+  let
+    anyMatch = platform: lib.any (lib.meta.platformMatch platform) metaPatterns;
+    matchingPlatforms = lib.filter anyMatch supportedPlatforms;
+  in
+  map ({
+      system,
+      ...
+    }:
+    system) matchingPlatforms
   ;
 
   assertTrue = bool:

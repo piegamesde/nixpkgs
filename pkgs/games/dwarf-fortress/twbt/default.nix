@@ -52,46 +52,46 @@ let
     throw "[TWBT] Unsupported Dwarf Fortress version: ${dfVersion}";
 
 in
-  stdenvNoCC.mkDerivation rec {
-    pname = "twbt";
-    version = release.twbtRelease;
+stdenvNoCC.mkDerivation rec {
+  pname = "twbt";
+  version = release.twbtRelease;
 
-    src = fetchurl {
-      url = if
-        version == "6.xx"
-      then
-        "https://github.com/thurin/df-twbt/releases/download/${release.dfhackRelease}/twbt-${version}-linux64-${release.dfhackRelease}.zip"
-      else
-        "https://github.com/mifki/df-twbt/releases/download/v${version}/twbt-${version}-linux.zip";
-      sha256 = release.sha256;
-    };
+  src = fetchurl {
+    url = if
+      version == "6.xx"
+    then
+      "https://github.com/thurin/df-twbt/releases/download/${release.dfhackRelease}/twbt-${version}-linux64-${release.dfhackRelease}.zip"
+    else
+      "https://github.com/mifki/df-twbt/releases/download/v${version}/twbt-${version}-linux.zip";
+    sha256 = release.sha256;
+  };
 
-    sourceRoot = ".";
+  sourceRoot = ".";
 
-    outputs = [
-      "lib"
-      "art"
-      "out"
+  outputs = [
+    "lib"
+    "art"
+    "out"
+  ];
+
+  nativeBuildInputs = [ unzip ];
+
+  installPhase = ''
+    mkdir -p $lib/hack/{plugins,lua} $art/data/art
+    cp -a */twbt.plug.so $lib/hack/plugins/
+    cp -a *.lua $lib/hack/lua/
+    cp -a *.png $art/data/art/
+  '';
+
+  meta = with lib; {
+    description =
+      "A plugin for Dwarf Fortress / DFHack that improves various aspects the game interface.";
+    maintainers = with maintainers; [
+      Baughn
+      numinit
     ];
-
-    nativeBuildInputs = [ unzip ];
-
-    installPhase = ''
-      mkdir -p $lib/hack/{plugins,lua} $art/data/art
-      cp -a */twbt.plug.so $lib/hack/plugins/
-      cp -a *.lua $lib/hack/lua/
-      cp -a *.png $art/data/art/
-    '';
-
-    meta = with lib; {
-      description =
-        "A plugin for Dwarf Fortress / DFHack that improves various aspects the game interface.";
-      maintainers = with maintainers; [
-        Baughn
-        numinit
-      ];
-      license = licenses.mit;
-      platforms = platforms.linux;
-      homepage = "https://github.com/mifki/df-twbt";
-    };
-  }
+    license = licenses.mit;
+    platforms = platforms.linux;
+    homepage = "https://github.com/mifki/df-twbt";
+  };
+}

@@ -92,7 +92,7 @@ let
       let
         dotted = concatStringsSep "." path;
       in
-        throw "Can't find option definitions for path `${dotted}'."
+      throw "Can't find option definitions for path `${dotted}'."
     ;
     findPkiDefinitions = path: attrs:
       let
@@ -106,10 +106,10 @@ let
           else
             findPkiDefinitions newPath val;
       in
-        flatten (mapAttrsToList mkSublist attrs)
+      flatten (mapAttrsToList mkSublist attrs)
     ;
   in
-    all (x: x == null) (findPkiDefinitions [ ] manualPkiOptions)
+  all (x: x == null) (findPkiDefinitions [ ] manualPkiOptions)
   ;
 
   orgOptions = {
@@ -187,12 +187,12 @@ in {
           url =
             "https://nixos.org/manual/nixos/stable/index.html#module-services-taskserver";
         in
-          lib.mdDoc ''
-            Whether to enable the Taskwarrior server.
+        lib.mdDoc ''
+          Whether to enable the Taskwarrior server.
 
-            More instructions about NixOS in conjunction with Taskserver can be
-            found [in the NixOS manual](${url}).
-          ''
+          More instructions about NixOS in conjunction with Taskserver can be
+          found [in the NixOS manual](${url}).
+        ''
         ;
       };
 
@@ -221,10 +221,10 @@ in {
         description = let
           url = "https://gnutls.org/manual/html_node/Priority-Strings.html";
         in
-          lib.mdDoc ''
-            List of GnuTLS ciphers to use. See the GnuTLS documentation about
-            priority strings at <${url}> for full details.
-          ''
+        lib.mdDoc ''
+          List of GnuTLS ciphers to use. See the GnuTLS documentation about
+          priority strings at <${url}> for full details.
+        ''
         ;
       };
 
@@ -428,10 +428,10 @@ in {
                   recurse newPath val
                 else [ "${mkKey newPath}=${scalar}" ];
             in
-              concatLists (mapAttrsToList mapper attrs)
+            concatLists (mapAttrsToList mapper attrs)
           ;
         in
-          recurse [ ]
+        recurse [ ]
         ;
       };
     };
@@ -552,7 +552,7 @@ in {
           jsonFile = pkgs.writeText "orgs.json" jsonOrgs;
           helperTool = "${nixos-taskserver}/bin/nixos-taskserver";
         in
-          "${helperTool} process-json '${jsonFile}'"
+        "${helperTool} process-json '${jsonFile}'"
         ;
 
         serviceConfig = {
@@ -560,7 +560,7 @@ in {
             mkCfgFlag = flag: escapeShellArg "--${flag}";
             cfgFlags = concatMapStringsSep " " mkCfgFlag cfg.config;
           in
-            "@${taskd} taskd server ${cfgFlags}"
+          "@${taskd} taskd server ${cfgFlags}"
           ;
           ExecReload = "${pkgs.coreutils}/bin/kill -USR1 $MAINPID";
           Restart = "on-failure";

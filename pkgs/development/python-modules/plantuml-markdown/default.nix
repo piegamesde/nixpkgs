@@ -45,13 +45,13 @@ buildPythonPackage rec {
       ```
     '';
   in
-    runCommand "plantuml-markdown-example-doc" {
-      nativeBuildInputs = [ plantuml-markdown ];
-    } ''
-      markdown_py -x plantuml_markdown ${exampleDoc} > $out
+  runCommand "plantuml-markdown-example-doc" {
+    nativeBuildInputs = [ plantuml-markdown ];
+  } ''
+    markdown_py -x plantuml_markdown ${exampleDoc} > $out
 
-      ! grep -q "Error" $out
-    ''
+    ! grep -q "Error" $out
+  ''
   ;
 
   meta = with lib; {

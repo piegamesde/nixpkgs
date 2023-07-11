@@ -98,12 +98,12 @@ in {
             lib.optionalString (!isSocket) dbHost
           }${dbName}${lib.optionalString isSocket dbHost}";
       in
-        lib.optionalString (dbPass != "") ''
-          export DATABASE_PASSWORD="$(<"${cfg.dbpassFile}")"
-        '' + ''
-          export DATABASE_URL="${dbUrl}"
-          ${cfg.package}/bin/notify_push '${config.services.nextcloud.datadir}/config/config.php'
-        ''
+      lib.optionalString (dbPass != "") ''
+        export DATABASE_PASSWORD="$(<"${cfg.dbpassFile}")"
+      '' + ''
+        export DATABASE_URL="${dbUrl}"
+        ${cfg.package}/bin/notify_push '${config.services.nextcloud.datadir}/config/config.php'
+      ''
       ;
       serviceConfig = {
         User = "nextcloud";

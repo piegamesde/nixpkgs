@@ -18,4 +18,4 @@ let
     } );
   extensible-self = lib.makeExtensible (lib.extends overrides inside);
 in
-  extensible-self
+extensible-self

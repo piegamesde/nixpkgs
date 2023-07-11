@@ -51,23 +51,23 @@ let
           let
             config = nodes.${m'};
           in
-            optionalString (config.networking.primaryIPAddress != "")
-            ("${config.networking.primaryIPAddress} "
-              + optionalString (config.networking.domain != null)
-              "${config.networking.hostName}.${config.networking.domain} " + ''
-                ${config.networking.hostName}
-              '')
+          optionalString (config.networking.primaryIPAddress != "")
+          ("${config.networking.primaryIPAddress} "
+            + optionalString (config.networking.domain != null)
+            "${config.networking.hostName}.${config.networking.domain} " + ''
+              ${config.networking.hostName}
+            '')
         );
 
         virtualisation.qemu.options = let
           qemu-common = import ../qemu-common.nix { inherit lib pkgs; };
         in
-          flip concatMap interfacesNumbered ({
-              fst,
-              snd,
-            }:
-            qemu-common.qemuNICFlags snd fst
-            config.virtualisation.test.nodeNumber)
+        flip concatMap interfacesNumbered ({
+            fst,
+            snd,
+          }:
+          qemu-common.qemuNICFlags snd fst
+          config.virtualisation.test.nodeNumber)
         ;
       };
 

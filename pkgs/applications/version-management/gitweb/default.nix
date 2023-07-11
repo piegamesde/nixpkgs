@@ -20,12 +20,11 @@ let
     sha256 = "17hypq6jvhy6zhh26lp3nyi52npfd5wy5752k6sq0shk4na2acqi";
   };
 in
-  buildEnv {
-    name = "gitweb-${lib.getVersion git}";
+buildEnv {
+  name = "gitweb-${lib.getVersion git}";
 
-    ignoreCollisions = true;
-    paths = lib.optional gitwebTheme gitwebThemeSrc
-      ++ [ "${git}/share/gitweb" ];
+  ignoreCollisions = true;
+  paths = lib.optional gitwebTheme gitwebThemeSrc ++ [ "${git}/share/gitweb" ];
 
-    meta = git.meta // { maintainers = with lib.maintainers; [ ]; };
-  }
+  meta = git.meta // { maintainers = with lib.maintainers; [ ]; };
+}

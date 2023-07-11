@@ -187,4 +187,4 @@ let
   else
     unwrapped.overrideAttrs (_: { inherit passthru; });
 in
-  self
+self

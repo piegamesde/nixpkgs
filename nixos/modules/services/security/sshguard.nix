@@ -24,10 +24,10 @@ let
     else
       "sshg-fw-ipset";
   in
-    pkgs.writeText "sshguard.conf" ''
-      BACKEND="${pkgs.sshguard}/libexec/${backend}"
-      LOGREADER="LANG=C ${config.systemd.package}/bin/journalctl ${args}"
-    ''
+  pkgs.writeText "sshguard.conf" ''
+    BACKEND="${pkgs.sshguard}/libexec/${backend}"
+    LOGREADER="LANG=C ${config.systemd.package}/bin/journalctl ${args}"
+  ''
   ;
 
 in {
@@ -178,7 +178,7 @@ in {
               "-b ${toString cfg.blacklist_threshold}:${cfg.blacklist_file}")
           ] ++ (map (name: "-w ${escapeShellArg name}") cfg.whitelist));
         in
-          "${pkgs.sshguard}/bin/sshguard ${args}"
+        "${pkgs.sshguard}/bin/sshguard ${args}"
         ;
         Restart = "always";
         ProtectSystem = "strict";

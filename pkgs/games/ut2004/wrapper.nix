@@ -47,14 +47,14 @@ let
   };
 
 in
-  runCommand "ut2004" { nativeBuildInputs = [ makeWrapper ]; } ''
-    mkdir -p $out/bin
-    for i in ${game}/System/*-bin; do
-      name="$(basename "$i")"
-      makeWrapper $i $out/bin/''${name%-bin} \
-        --chdir "${game}/System"
-    done
+runCommand "ut2004" { nativeBuildInputs = [ makeWrapper ]; } ''
+  mkdir -p $out/bin
+  for i in ${game}/System/*-bin; do
+    name="$(basename "$i")"
+    makeWrapper $i $out/bin/''${name%-bin} \
+      --chdir "${game}/System"
+  done
 
-    mkdir -p $out/share/applications
-    ln -s ${desktop}/share/applications/* $out/share/applications
-  ''
+  mkdir -p $out/share/applications
+  ln -s ${desktop}/share/applications/* $out/share/applications
+''

@@ -73,9 +73,9 @@ let
     else
       generatedPrometheusYml;
   in
-    promtoolCheck "check config ${
-      lib.optionalString (cfg.checkConfig == "syntax-only") "--syntax-only"
-    }" "prometheus.yml" yml
+  promtoolCheck "check config ${
+    lib.optionalString (cfg.checkConfig == "syntax-only") "--syntax-only"
+  }" "prometheus.yml" yml
   ;
 
   cmdlineArgs = cfg.extraFlags ++ [

@@ -83,7 +83,7 @@ let
         deps'."${x}"
       ]) (lib.attrNames deps');
     in
-      lib.escapeShellArgs substArgs
+    lib.escapeShellArgs substArgs
   ;
 
   framework = name: deps:

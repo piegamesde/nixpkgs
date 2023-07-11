@@ -50,4 +50,4 @@ let
       chmod +x $out/bin/bindgen
     '';
 in
-  self
+self

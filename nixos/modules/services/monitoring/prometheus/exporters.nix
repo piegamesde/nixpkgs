@@ -196,62 +196,62 @@ let
     let
       enableDynamicUser = serviceOpts.serviceConfig.DynamicUser or true;
     in
-      mkIf conf.enable {
-        warnings = conf.warnings or [ ];
-        users.users."${name}-exporter" =
-          (mkIf (conf.user == "${name}-exporter" && !enableDynamicUser) {
-            description = "Prometheus ${name} exporter service user";
-            isSystemUser = true;
-            inherit (conf) group;
-          });
-        users.groups =
-          (mkIf (conf.group == "${name}-exporter" && !enableDynamicUser) {
-            "${name}-exporter" = { };
-          });
-        networking.firewall.extraCommands = mkIf conf.openFirewall
-          (concatStrings [
-            "ip46tables -A nixos-fw ${conf.firewallFilter} "
-            "-m comment --comment ${name}-exporter -j nixos-fw-accept"
-          ]);
-        systemd.services."prometheus-${name}-exporter" = mkMerge ([
-          {
-            wantedBy = [ "multi-user.target" ];
-            after = [ "network.target" ];
-            serviceConfig.Restart = mkDefault "always";
-            serviceConfig.PrivateTmp = mkDefault true;
-            serviceConfig.WorkingDirectory = mkDefault /tmp;
-            serviceConfig.DynamicUser = mkDefault enableDynamicUser;
-            serviceConfig.User = mkDefault conf.user;
-            serviceConfig.Group = conf.group;
-            # Hardening
-            serviceConfig.CapabilityBoundingSet = mkDefault [ "" ];
-            serviceConfig.DeviceAllow = [ "" ];
-            serviceConfig.LockPersonality = true;
-            serviceConfig.MemoryDenyWriteExecute = true;
-            serviceConfig.NoNewPrivileges = true;
-            serviceConfig.PrivateDevices = mkDefault true;
-            serviceConfig.ProtectClock = mkDefault true;
-            serviceConfig.ProtectControlGroups = true;
-            serviceConfig.ProtectHome = true;
-            serviceConfig.ProtectHostname = true;
-            serviceConfig.ProtectKernelLogs = true;
-            serviceConfig.ProtectKernelModules = true;
-            serviceConfig.ProtectKernelTunables = true;
-            serviceConfig.ProtectSystem = mkDefault "strict";
-            serviceConfig.RemoveIPC = true;
-            serviceConfig.RestrictAddressFamilies = [
-              "AF_INET"
-              "AF_INET6"
-            ];
-            serviceConfig.RestrictNamespaces = true;
-            serviceConfig.RestrictRealtime = true;
-            serviceConfig.RestrictSUIDSGID = true;
-            serviceConfig.SystemCallArchitectures = "native";
-            serviceConfig.UMask = "0077";
-          }
-          serviceOpts
+    mkIf conf.enable {
+      warnings = conf.warnings or [ ];
+      users.users."${name}-exporter" =
+        (mkIf (conf.user == "${name}-exporter" && !enableDynamicUser) {
+          description = "Prometheus ${name} exporter service user";
+          isSystemUser = true;
+          inherit (conf) group;
+        });
+      users.groups =
+        (mkIf (conf.group == "${name}-exporter" && !enableDynamicUser) {
+          "${name}-exporter" = { };
+        });
+      networking.firewall.extraCommands = mkIf conf.openFirewall
+        (concatStrings [
+          "ip46tables -A nixos-fw ${conf.firewallFilter} "
+          "-m comment --comment ${name}-exporter -j nixos-fw-accept"
         ]);
-      }
+      systemd.services."prometheus-${name}-exporter" = mkMerge ([
+        {
+          wantedBy = [ "multi-user.target" ];
+          after = [ "network.target" ];
+          serviceConfig.Restart = mkDefault "always";
+          serviceConfig.PrivateTmp = mkDefault true;
+          serviceConfig.WorkingDirectory = mkDefault /tmp;
+          serviceConfig.DynamicUser = mkDefault enableDynamicUser;
+          serviceConfig.User = mkDefault conf.user;
+          serviceConfig.Group = conf.group;
+          # Hardening
+          serviceConfig.CapabilityBoundingSet = mkDefault [ "" ];
+          serviceConfig.DeviceAllow = [ "" ];
+          serviceConfig.LockPersonality = true;
+          serviceConfig.MemoryDenyWriteExecute = true;
+          serviceConfig.NoNewPrivileges = true;
+          serviceConfig.PrivateDevices = mkDefault true;
+          serviceConfig.ProtectClock = mkDefault true;
+          serviceConfig.ProtectControlGroups = true;
+          serviceConfig.ProtectHome = true;
+          serviceConfig.ProtectHostname = true;
+          serviceConfig.ProtectKernelLogs = true;
+          serviceConfig.ProtectKernelModules = true;
+          serviceConfig.ProtectKernelTunables = true;
+          serviceConfig.ProtectSystem = mkDefault "strict";
+          serviceConfig.RemoveIPC = true;
+          serviceConfig.RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+          ];
+          serviceConfig.RestrictNamespaces = true;
+          serviceConfig.RestrictRealtime = true;
+          serviceConfig.RestrictSUIDSGID = true;
+          serviceConfig.SystemCallArchitectures = "native";
+          serviceConfig.UMask = "0077";
+        }
+        serviceOpts
+      ]);
+    }
   ;
 in {
 

@@ -223,24 +223,23 @@ stdenv.mkDerivation (finalAttrs: {
       else
         "OFF";
   in
-    [
-      "-DENABLE_INTROSPECTION=ON"
-      "-DPORT=GTK"
-      "-DUSE_LIBHYPHEN=OFF"
-      "-DUSE_SOUP2=${cmakeBool (lib.versions.major libsoup.version == "2")}"
-      "-DUSE_LIBSECRET=${cmakeBool withLibsecret}"
-    ] ++ lib.optionals stdenv.isDarwin [
-      "-DENABLE_GAMEPAD=OFF"
-      "-DENABLE_GTKDOC=OFF"
-      "-DENABLE_MINIBROWSER=OFF"
-      "-DENABLE_QUARTZ_TARGET=ON"
-      "-DENABLE_X11_TARGET=OFF"
-      "-DUSE_APPLE_ICU=OFF"
-      "-DUSE_OPENGL_OR_ES=OFF"
-    ]
-    ++ lib.optionals (lib.versionAtLeast gtk3.version "4.0") [ "-DUSE_GTK4=ON" ]
-    ++ lib.optionals (!systemdSupport) [ "-DENABLE_JOURNALD_LOG=OFF" ]
-    ++ lib.optionals (stdenv.isLinux && enableGLES) [ "-DENABLE_GLES2=ON" ]
+  [
+    "-DENABLE_INTROSPECTION=ON"
+    "-DPORT=GTK"
+    "-DUSE_LIBHYPHEN=OFF"
+    "-DUSE_SOUP2=${cmakeBool (lib.versions.major libsoup.version == "2")}"
+    "-DUSE_LIBSECRET=${cmakeBool withLibsecret}"
+  ] ++ lib.optionals stdenv.isDarwin [
+    "-DENABLE_GAMEPAD=OFF"
+    "-DENABLE_GTKDOC=OFF"
+    "-DENABLE_MINIBROWSER=OFF"
+    "-DENABLE_QUARTZ_TARGET=ON"
+    "-DENABLE_X11_TARGET=OFF"
+    "-DUSE_APPLE_ICU=OFF"
+    "-DUSE_OPENGL_OR_ES=OFF"
+  ] ++ lib.optionals (lib.versionAtLeast gtk3.version "4.0") [ "-DUSE_GTK4=ON" ]
+  ++ lib.optionals (!systemdSupport) [ "-DENABLE_JOURNALD_LOG=OFF" ]
+  ++ lib.optionals (stdenv.isLinux && enableGLES) [ "-DENABLE_GLES2=ON" ]
   ;
 
   postPatch = ''

@@ -34,4 +34,4 @@ let
       fi
     '';
 in
-  lib.mapAttrs mkImpureDrv commands
+lib.mapAttrs mkImpureDrv commands

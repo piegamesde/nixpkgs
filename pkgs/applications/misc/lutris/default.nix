@@ -76,84 +76,84 @@ let
     util-linux
   ];
 in
-  buildPythonApplication rec {
-    pname = "lutris-unwrapped";
-    version = "0.5.12";
+buildPythonApplication rec {
+  pname = "lutris-unwrapped";
+  version = "0.5.12";
 
-    src = fetchFromGitHub {
-      owner = "lutris";
-      repo = "lutris";
-      rev = "refs/tags/v${version}";
-      sha256 = "sha256-rsiXm7L/M85ot6NrTyy//lMRFlLPJYve9y6Erg9Ugxg=";
-    };
+  src = fetchFromGitHub {
+    owner = "lutris";
+    repo = "lutris";
+    rev = "refs/tags/v${version}";
+    sha256 = "sha256-rsiXm7L/M85ot6NrTyy//lMRFlLPJYve9y6Erg9Ugxg=";
+  };
 
-    nativeBuildInputs = [
-      wrapGAppsHook
-      gobject-introspection
-    ];
-    buildInputs = [
-      atk
-      gdk-pixbuf
-      glib-networking
-      gnome-desktop
-      gtk3
-      libnotify
-      pango
-      webkitgtk
-    ] ++ (with gst_all_1; [
-      gst-libav
-      gst-plugins-bad
-      gst-plugins-base
-      gst-plugins-good
-      gst-plugins-ugly
-      gstreamer
-    ]);
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gobject-introspection
+  ];
+  buildInputs = [
+    atk
+    gdk-pixbuf
+    glib-networking
+    gnome-desktop
+    gtk3
+    libnotify
+    pango
+    webkitgtk
+  ] ++ (with gst_all_1; [
+    gst-libav
+    gst-plugins-bad
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-ugly
+    gstreamer
+  ]);
 
-    # See `install_requires` in https://github.com/lutris/lutris/blob/master/setup.py
-    propagatedBuildInputs = [
-      certifi
-      dbus-python
-      distro
-      evdev
-      lxml
-      pillow
-      pygobject3
-      pypresence
-      pyyaml
-      requests
-    ];
+  # See `install_requires` in https://github.com/lutris/lutris/blob/master/setup.py
+  propagatedBuildInputs = [
+    certifi
+    dbus-python
+    distro
+    evdev
+    lxml
+    pillow
+    pygobject3
+    pypresence
+    pyyaml
+    requests
+  ];
 
-    postPatch = ''
-      substituteInPlace lutris/util/magic.py \
-        --replace "'libmagic.so.1'" "'${lib.getLib file}/lib/libmagic.so.1'"
-    '';
+  postPatch = ''
+    substituteInPlace lutris/util/magic.py \
+      --replace "'libmagic.so.1'" "'${lib.getLib file}/lib/libmagic.so.1'"
+  '';
 
-    nativeCheckInputs = [
-      xvfb-run
-      nose2
-      flake8
-    ] ++ requiredTools;
-    checkPhase = ''
-      runHook preCheck
+  nativeCheckInputs = [
+    xvfb-run
+    nose2
+    flake8
+  ] ++ requiredTools;
+  checkPhase = ''
+    runHook preCheck
 
-      export HOME=$PWD
-      xvfb-run -s '-screen 0 800x600x24' make test
+    export HOME=$PWD
+    xvfb-run -s '-screen 0 800x600x24' make test
 
-      runHook postCheck
-    '';
+    runHook postCheck
+  '';
 
-    # avoid double wrapping
-    dontWrapGApps = true;
-    makeWrapperArgs = [
-      "--prefix PATH : ${lib.makeBinPath requiredTools}"
-      "\${gappsWrapperArgs[@]}"
-    ];
+  # avoid double wrapping
+  dontWrapGApps = true;
+  makeWrapperArgs = [
+    "--prefix PATH : ${lib.makeBinPath requiredTools}"
+    "\${gappsWrapperArgs[@]}"
+  ];
 
-    meta = with lib; {
-      homepage = "https://lutris.net";
-      description = "Open Source gaming platform for GNU/Linux";
-      license = licenses.gpl3Plus;
-      maintainers = with maintainers; [ Madouura ];
-      platforms = platforms.linux;
-    };
-  }
+  meta = with lib; {
+    homepage = "https://lutris.net";
+    description = "Open Source gaming platform for GNU/Linux";
+    license = licenses.gpl3Plus;
+    maintainers = with maintainers; [ Madouura ];
+    platforms = platforms.linux;
+  };
+}

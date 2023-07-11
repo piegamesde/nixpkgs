@@ -24,11 +24,11 @@ let
   hasLocalPostgresDB = let
     args = cfg.settings.database.args;
   in
-    usePostgresql && (!(args ? host) || (elem args.host [
-      "localhost"
-      "127.0.0.1"
-      "::1"
-    ]))
+  usePostgresql && (!(args ? host) || (elem args.host [
+    "localhost"
+    "127.0.0.1"
+    "::1"
+  ]))
   ;
 
   registerNewMatrixUser = let
@@ -49,22 +49,22 @@ let
     else
       "http";
   in
-    pkgs.writeShellScriptBin "matrix-synapse-register_new_matrix_user" ''
-      exec ${cfg.package}/bin/register_new_matrix_user \
-        $@ \
-        ${
-          lib.concatMapStringsSep " " (x: "-c ${x}")
-          ([ configFile ] ++ cfg.extraConfigFiles)
-        } \
-        "${listenerProtocol}://${
-          if
-            (isIpv6 bindAddress)
-          then
-            "[${bindAddress}]"
-          else
-            "${bindAddress}"
-        }:${builtins.toString listener.port}/"
-    ''
+  pkgs.writeShellScriptBin "matrix-synapse-register_new_matrix_user" ''
+    exec ${cfg.package}/bin/register_new_matrix_user \
+      $@ \
+      ${
+        lib.concatMapStringsSep " " (x: "-c ${x}")
+        ([ configFile ] ++ cfg.extraConfigFiles)
+      } \
+      "${listenerProtocol}://${
+        if
+          (isIpv6 bindAddress)
+        then
+          "[${bindAddress}]"
+        else
+          "${bindAddress}"
+      }:${builtins.toString listener.port}/"
+  ''
   ;
 in {
 

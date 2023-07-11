@@ -20,66 +20,66 @@ let
     ln -s "${bluez.test}/test/pbap-client" "$out/bin/pbap-client"
   '';
 in
-  buildPythonPackage rec {
-    pname = "python-dbusmock";
-    version = "0.28.7";
+buildPythonPackage rec {
+  pname = "python-dbusmock";
+  version = "0.28.7";
 
-    src = fetchFromGitHub {
-      owner = "martinpitt";
-      repo = pname;
-      rev = "refs/tags/${version}";
-      hash = "sha256-AxRgoXPiFFFHQSj5/jU55hwWzHtutfjmD2IKGxYwd0A=";
-    };
+  src = fetchFromGitHub {
+    owner = "martinpitt";
+    repo = pname;
+    rev = "refs/tags/${version}";
+    hash = "sha256-AxRgoXPiFFFHQSj5/jU55hwWzHtutfjmD2IKGxYwd0A=";
+  };
 
-    SETUPTOOLS_SCM_PRETEND_VERSION = version;
+  SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-    nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [ setuptools-scm ];
 
-    propagatedBuildInputs = [ dbus-python ];
+  propagatedBuildInputs = [ dbus-python ];
 
-    nativeCheckInputs = [
-      dbus
-      pygobject3
-      bluez
-      pbap-client
-      networkmanager
-      nose
-    ];
+  nativeCheckInputs = [
+    dbus
+    pygobject3
+    bluez
+    pbap-client
+    networkmanager
+    nose
+  ];
 
-    # TODO: Get the rest of these tests running?
-    NOSE_EXCLUDE = lib.concatStringsSep "," [
-      "test_bluez4" # NixOS ships BlueZ5
-      # These appear to fail because they're expecting to run in an Ubuntu chroot?
-      "test_everything" # BlueZ5 OBEX
-      "test_polkitd"
-      "test_consolekit"
-      "test_api"
-      "test_logind"
-      "test_notification_daemon"
-      "test_ofono"
-      "test_gnome_screensaver"
-      "test_cli"
-      "test_timedated"
-      "test_upower"
-      # needs glib
-      "test_accounts_service"
-      # needs dbus-daemon active
-      "test_systemd"
-      # Very slow, consider disabling?
-      # "test_networkmanager"
-    ];
+  # TODO: Get the rest of these tests running?
+  NOSE_EXCLUDE = lib.concatStringsSep "," [
+    "test_bluez4" # NixOS ships BlueZ5
+    # These appear to fail because they're expecting to run in an Ubuntu chroot?
+    "test_everything" # BlueZ5 OBEX
+    "test_polkitd"
+    "test_consolekit"
+    "test_api"
+    "test_logind"
+    "test_notification_daemon"
+    "test_ofono"
+    "test_gnome_screensaver"
+    "test_cli"
+    "test_timedated"
+    "test_upower"
+    # needs glib
+    "test_accounts_service"
+    # needs dbus-daemon active
+    "test_systemd"
+    # Very slow, consider disabling?
+    # "test_networkmanager"
+  ];
 
-    checkPhase = ''
-      runHook preCheck
-      nosetests -v
-      runHook postCheck
-    '';
+  checkPhase = ''
+    runHook preCheck
+    nosetests -v
+    runHook postCheck
+  '';
 
-    meta = with lib; {
-      description = "Mock D-Bus objects for tests";
-      homepage = "https://github.com/martinpitt/python-dbusmock";
-      license = licenses.lgpl3Plus;
-      maintainers = with maintainers; [ callahad ];
-      platforms = platforms.linux;
-    };
-  }
+  meta = with lib; {
+    description = "Mock D-Bus objects for tests";
+    homepage = "https://github.com/martinpitt/python-dbusmock";
+    license = licenses.lgpl3Plus;
+    maintainers = with maintainers; [ callahad ];
+    platforms = platforms.linux;
+  };
+}

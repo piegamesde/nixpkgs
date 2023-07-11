@@ -467,7 +467,7 @@ in {
           CREATE EXTENSION IF NOT EXISTS unaccent;
         '';
       in
-        "${config.services.postgresql.package}/bin/psql -f ${psqlSetupCommands}"
+      "${config.services.postgresql.package}/bin/psql -f ${psqlSetupCommands}"
       ;
 
       serviceConfig = {

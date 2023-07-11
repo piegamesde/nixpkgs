@@ -45,15 +45,15 @@ buildPythonPackage rec {
       };
     }.${stdenv.system} or (throw "Unsupported system");
   in
-    fetchPypi {
-      pname = "home_assistant_chip_core";
-      inherit version format;
-      dist = "cp37";
-      python = "cp37";
-      abi = "abi3";
-      platform = "manylinux_2_31_${system.name}";
-      hash = system.hash;
-    }
+  fetchPypi {
+    pname = "home_assistant_chip_core";
+    inherit version format;
+    dist = "cp37";
+    python = "cp37";
+    abi = "abi3";
+    platform = "manylinux_2_31_${system.name}";
+    hash = system.hash;
+  }
   ;
 
   nativeBuildInputs = [ autoPatchelfHook ];

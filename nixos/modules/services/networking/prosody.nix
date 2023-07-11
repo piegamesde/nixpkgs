@@ -824,7 +824,7 @@ in {
         }
       ];
     in
-      errors
+    errors
     ;
 
     environment.systemPackages = [ cfg.package ];

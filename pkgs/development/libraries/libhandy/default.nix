@@ -126,11 +126,11 @@ stdenv.mkDerivation rec {
     glade = let
       libhandyWithGlade = libhandy.override { enableGlade = true; };
     in
-      runCommand "${libhandy.name}-glade" { } ''
-        cp -r "${libhandyWithGlade.glade}" "$out"
-        chmod -R +w "$out"
-        sed -e "s#${libhandyWithGlade.out}#${libhandy.out}#g" -e "s#${libhandyWithGlade.glade}#$out#g" -i $(find "$out" -type f)
-      ''
+    runCommand "${libhandy.name}-glade" { } ''
+      cp -r "${libhandyWithGlade.glade}" "$out"
+      chmod -R +w "$out"
+      sed -e "s#${libhandyWithGlade.out}#${libhandy.out}#g" -e "s#${libhandyWithGlade.glade}#$out#g" -i $(find "$out" -type f)
+    ''
     ;
   };
 

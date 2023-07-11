@@ -95,51 +95,51 @@ let
   });
 
 in
-  stdenv.mkDerivation {
-    pname = "gnome-inform7";
-    version = "unstable-2021-04-06";
-    src = fetchFromGitHub {
-      owner = "ptomato";
-      repo = "gnome-inform7";
-      # build from revision in the GTK3 branch as mainline requires webkit-1.0
-      rev = "c37e045c159692aae2e4e79b917e5f96cfefa66a";
-      sha256 = "Q4xoITs3AYXhvpWaABRAvJaUWTtUl8lYQ1k9zX7FrNw=";
-    };
-    nativeBuildInputs = [
-      meson
-      ninja
-      pkg-config
-      inform7
-      python3
-      desktop-file-utils
-      wrapGAppsHook
-    ];
-    buildInputs = [
-      gettext
-      libossp_uuid
-      gtk3
-      gtksourceview3
-      gspell
-      webkitgtk
-      libxml2
-      goocanvas2
-      libplist
-      ratify
-      chimara
-    ];
-    preConfigure = ''
-      cp ${inform7}/libexec/ni ./src/ni
-      patchShebangs build-aux/* src/generate-resource-xml.{py,sh}
-    '';
+stdenv.mkDerivation {
+  pname = "gnome-inform7";
+  version = "unstable-2021-04-06";
+  src = fetchFromGitHub {
+    owner = "ptomato";
+    repo = "gnome-inform7";
+    # build from revision in the GTK3 branch as mainline requires webkit-1.0
+    rev = "c37e045c159692aae2e4e79b917e5f96cfefa66a";
+    sha256 = "Q4xoITs3AYXhvpWaABRAvJaUWTtUl8lYQ1k9zX7FrNw=";
+  };
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    inform7
+    python3
+    desktop-file-utils
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    gettext
+    libossp_uuid
+    gtk3
+    gtksourceview3
+    gspell
+    webkitgtk
+    libxml2
+    goocanvas2
+    libplist
+    ratify
+    chimara
+  ];
+  preConfigure = ''
+    cp ${inform7}/libexec/ni ./src/ni
+    patchShebangs build-aux/* src/generate-resource-xml.{py,sh}
+  '';
 
-    meta = with lib; {
-      description = "Inform 7 for the Gnome platform";
-      longDescription = ''
-        This version of Inform 7 for the Gnome platform was created by Philip Chimento, based on a design by Graham Nelson and Andrew Hunter.
-      '';
-      homepage = "https://github.com/ptomato/gnome-inform7";
-      license = licenses.gpl3Only;
-      maintainers = [ maintainers.fitzgibbon ];
-      platforms = platforms.linux;
-    };
-  }
+  meta = with lib; {
+    description = "Inform 7 for the Gnome platform";
+    longDescription = ''
+      This version of Inform 7 for the Gnome platform was created by Philip Chimento, based on a design by Graham Nelson and Andrew Hunter.
+    '';
+    homepage = "https://github.com/ptomato/gnome-inform7";
+    license = licenses.gpl3Only;
+    maintainers = [ maintainers.fitzgibbon ];
+    platforms = platforms.linux;
+  };
+}

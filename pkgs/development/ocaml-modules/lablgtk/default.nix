@@ -44,44 +44,44 @@ let
     throw "lablgtk is not available for OCaml ${ocaml.version}";
 
 in
-  stdenv.mkDerivation {
-    pname = "ocaml${ocaml.version}-lablgtk";
-    inherit (param) version src env;
+stdenv.mkDerivation {
+  pname = "ocaml${ocaml.version}-lablgtk";
+  inherit (param) version src env;
 
-    # gnumake42: https://github.com/garrigue/lablgtk/issues/162
-    nativeBuildInputs = [
-      pkg-config
-      ocaml
-      findlib
-      gnumake42
+  # gnumake42: https://github.com/garrigue/lablgtk/issues/162
+  nativeBuildInputs = [
+    pkg-config
+    ocaml
+    findlib
+    gnumake42
+  ];
+  buildInputs = [
+    gtk2
+    libgnomecanvas
+    gtksourceview
+  ] ++ param.buildInputs or [ ];
+
+  configureFlags =
+    [ "--with-libdir=$(out)/lib/ocaml/${ocaml.version}/site-lib" ];
+  buildFlags = [ "world" ];
+
+  preInstall = ''
+    mkdir -p $out/lib/ocaml/${ocaml.version}/site-lib
+    export OCAMLPATH=$out/lib/ocaml/${ocaml.version}/site-lib/:$OCAMLPATH
+  '';
+
+  dontStrip = true;
+
+  meta = with lib; {
+    description = "An OCaml interface to GTK";
+    homepage = "http://lablgtk.forge.ocamlcore.org/";
+    license = licenses.lgpl21Plus;
+    maintainers = with maintainers; [
+      maggesi
+      roconnor
+      vbgl
     ];
-    buildInputs = [
-      gtk2
-      libgnomecanvas
-      gtksourceview
-    ] ++ param.buildInputs or [ ];
-
-    configureFlags =
-      [ "--with-libdir=$(out)/lib/ocaml/${ocaml.version}/site-lib" ];
-    buildFlags = [ "world" ];
-
-    preInstall = ''
-      mkdir -p $out/lib/ocaml/${ocaml.version}/site-lib
-      export OCAMLPATH=$out/lib/ocaml/${ocaml.version}/site-lib/:$OCAMLPATH
-    '';
-
-    dontStrip = true;
-
-    meta = with lib; {
-      description = "An OCaml interface to GTK";
-      homepage = "http://lablgtk.forge.ocamlcore.org/";
-      license = licenses.lgpl21Plus;
-      maintainers = with maintainers; [
-        maggesi
-        roconnor
-        vbgl
-      ];
-      mainProgram = "lablgtk2";
-      inherit (ocaml.meta) platforms;
-    };
-  }
+    mainProgram = "lablgtk2";
+    inherit (ocaml.meta) platforms;
+  };
+}

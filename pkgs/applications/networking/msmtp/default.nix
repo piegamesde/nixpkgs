@@ -142,12 +142,12 @@ let
   };
 
 in
-  symlinkJoin {
-    name = "msmtp-${version}";
-    inherit version meta;
-    paths = [
-      binaries
-      scripts
-    ];
-    passthru = { inherit binaries scripts; };
-  }
+symlinkJoin {
+  name = "msmtp-${version}";
+  inherit version meta;
+  paths = [
+    binaries
+    scripts
+  ];
+  passthru = { inherit binaries scripts; };
+}

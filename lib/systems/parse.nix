@@ -838,7 +838,7 @@ in rec {
       };
 
     in
-      mkSystem parsed
+    mkSystem parsed
   ;
 
   mkSystemFromString = s:
@@ -875,7 +875,7 @@ in rec {
         kernel.execFormat.name;
       optAbi = lib.optionalString (abi != abis.unknown) "-${abi.name}";
     in
-      "${cpu.name}-${vendor.name}-${kernelName kernel}${optExecFormat}${optAbi}"
+    "${cpu.name}-${vendor.name}-${kernelName kernel}${optExecFormat}${optAbi}"
   ;
 
   ################################################################################

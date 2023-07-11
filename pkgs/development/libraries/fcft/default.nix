@@ -32,65 +32,64 @@ let
   ];
 
 in
-  stdenv.mkDerivation rec {
-    pname = "fcft";
-    version = "3.1.5";
+stdenv.mkDerivation rec {
+  pname = "fcft";
+  version = "3.1.5";
 
-    src = fetchFromGitea {
-      domain = "codeberg.org";
-      owner = "dnkl";
-      repo = "fcft";
-      rev = version;
-      sha256 = "sha256-3gsaXnflGiGOpIkqDQe5u6x8d18x67/dc4Hh1iU89+o=";
-    };
+  src = fetchFromGitea {
+    domain = "codeberg.org";
+    owner = "dnkl";
+    repo = "fcft";
+    rev = version;
+    sha256 = "sha256-3gsaXnflGiGOpIkqDQe5u6x8d18x67/dc4Hh1iU89+o=";
+  };
 
-    depsBuildBuild = [ pkg-config ];
-    nativeBuildInputs = [
-      pkg-config
-      meson
-      ninja
-      scdoc
+  depsBuildBuild = [ pkg-config ];
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    scdoc
+  ];
+  buildInputs = [
+    freetype
+    fontconfig
+    pixman
+    tllist
+  ] ++ lib.optionals (withShapingTypes != [ ]) [ harfbuzz ]
+    ++ lib.optionals (builtins.elem "run" withShapingTypes) [ utf8proc ];
+  nativeCheckInputs = [ check ];
+
+  mesonBuildType = "release";
+  mesonFlags = builtins.map
+    (t: lib.mesonEnable "${t}-shaping" (lib.elem t withShapingTypes))
+    availableShapingTypes;
+
+  doCheck = true;
+
+  outputs = [
+    "out"
+    "doc"
+    "man"
+  ];
+
+  passthru.tests = {
+    noShaping = fcft.override { withShapingTypes = [ ]; };
+    onlyGraphemeShaping = fcft.override { withShapingTypes = [ "grapheme" ]; };
+  };
+
+  meta = with lib; {
+    homepage = "https://codeberg.org/dnkl/fcft";
+    changelog = "https://codeberg.org/dnkl/fcft/releases/tag/${version}";
+    description = "Simple library for font loading and glyph rasterization";
+    maintainers = with maintainers; [
+      fionera
+      sternenseemann
     ];
-    buildInputs = [
-      freetype
-      fontconfig
-      pixman
-      tllist
-    ] ++ lib.optionals (withShapingTypes != [ ]) [ harfbuzz ]
-      ++ lib.optionals (builtins.elem "run" withShapingTypes) [ utf8proc ];
-    nativeCheckInputs = [ check ];
-
-    mesonBuildType = "release";
-    mesonFlags = builtins.map
-      (t: lib.mesonEnable "${t}-shaping" (lib.elem t withShapingTypes))
-      availableShapingTypes;
-
-    doCheck = true;
-
-    outputs = [
-      "out"
-      "doc"
-      "man"
+    license = with licenses; [
+      mit
+      zlib
     ];
-
-    passthru.tests = {
-      noShaping = fcft.override { withShapingTypes = [ ]; };
-      onlyGraphemeShaping =
-        fcft.override { withShapingTypes = [ "grapheme" ]; };
-    };
-
-    meta = with lib; {
-      homepage = "https://codeberg.org/dnkl/fcft";
-      changelog = "https://codeberg.org/dnkl/fcft/releases/tag/${version}";
-      description = "Simple library for font loading and glyph rasterization";
-      maintainers = with maintainers; [
-        fionera
-        sternenseemann
-      ];
-      license = with licenses; [
-        mit
-        zlib
-      ];
-      platforms = with platforms; linux;
-    };
-  }
+    platforms = with platforms; linux;
+  };
+}

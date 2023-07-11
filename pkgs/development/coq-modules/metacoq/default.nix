@@ -142,12 +142,12 @@ let
             ++ optional requiresOcamlStdlibShims coq.ocamlPackages.stdlib-shims;
         } );
     in
-      derivation
+    derivation
   ;
 in
-  metacoq_ (if
-    single
-  then
-    "single"
-  else
-    "all")
+metacoq_ (if
+  single
+then
+  "single"
+else
+  "all")

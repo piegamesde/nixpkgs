@@ -99,30 +99,30 @@ let
       archiveBasename =
         lib.removeSuffix ".${(lib.last (lib.splitString "." archive))}" archive;
     in
-      stdenv.mkDerivation ({
-        pname = "flutter-artifact${
-            lib.optionalString (platform != null) "-${artifactDirectory}"
-          }-${archiveBasename}";
-        version = engineVersion;
+    stdenv.mkDerivation ({
+      pname = "flutter-artifact${
+          lib.optionalString (platform != null) "-${artifactDirectory}"
+        }-${archiveBasename}";
+      version = engineVersion;
 
-        src = fetchzip {
-          url =
-            "https://storage.googleapis.com/flutter_infra_release/flutter/${engineVersion}${
-              lib.optionalString (platform != null) "/${artifactDirectory}"
-            }/${archive}";
-          stripRoot = false;
-          hash = (if
-            artifactDirectory == null
-          then
-            hashes
-          else
-            hashes.${artifactDirectory}).${archive};
-        };
+      src = fetchzip {
+        url =
+          "https://storage.googleapis.com/flutter_infra_release/flutter/${engineVersion}${
+            lib.optionalString (platform != null) "/${artifactDirectory}"
+          }/${archive}";
+        stripRoot = false;
+        hash = (if
+          artifactDirectory == null
+        then
+          hashes
+        else
+          hashes.${artifactDirectory}).${archive};
+      };
 
-        nativeBuildInputs = [ autoPatchelfHook ];
+      nativeBuildInputs = [ autoPatchelfHook ];
 
-        installPhase = "cp -r . $out";
-      } // args)
+      installPhase = "cp -r . $out";
+    } // args)
   ;
 
   artifactDerivations = {
@@ -141,4 +141,4 @@ let
       }) architectures) artifacts.platform;
   };
 in
-  artifactDerivations
+artifactDerivations

@@ -65,7 +65,7 @@ in rec {
     url = let
       version = "0.1";
     in
-      "mirror://sourceforge/freedict/jpn-eng/${version}/freedict-jpn-eng-${version}.dictd.tar.xz"
+    "mirror://sourceforge/freedict/jpn-eng/${version}/freedict-jpn-eng-${version}.dictd.tar.xz"
     ;
     sha256 = "sha256-juJBoEq7EztLZzOomc7uoZhXVaQPKoUvIxxPLB0xByc=";
   }) "jpn-eng" "jpn-eng" "ja_JP";
@@ -73,7 +73,7 @@ in rec {
     url = let
       version = "2022.04.06";
     in
-      "https://download.freedict.org/dictionaries/eng-jpn/${version}/freedict-eng-jpn-${version}.dictd.tar.xz"
+    "https://download.freedict.org/dictionaries/eng-jpn/${version}/freedict-eng-jpn-${version}.dictd.tar.xz"
     ;
     sha256 = "sha256-kfRT2kgbV3XKarCr4mqDRT5A1jR8M8APky5M5MFYatE=";
   }) "eng-jpn" "eng-jpn" "en_UK";

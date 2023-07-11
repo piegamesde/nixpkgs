@@ -53,9 +53,9 @@
     additionalMaintainers = with lib.maintainers; [ cdepillabout ];
     allMaintainers = oldMaintainers ++ additionalMaintainers;
   in
-    oldMeta // {
-      maintainers = allMaintainers;
-      inherit (cabal-install.meta) platforms;
-    }
+  oldMeta // {
+    maintainers = allMaintainers;
+    inherit (cabal-install.meta) platforms;
+  }
   ;
 })

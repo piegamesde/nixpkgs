@@ -80,7 +80,7 @@ in rec {
               value = 1;
             } ]) ([ predefined.${entry} ] ++ tail todo);
     in
-      (f { } arg).result
+    (f { } arg).result
   ;
 
   textClosureMap = f: predefined: names:

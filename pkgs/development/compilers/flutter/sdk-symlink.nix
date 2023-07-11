@@ -26,4 +26,4 @@ let
     };
   };
 in
-  self
+self

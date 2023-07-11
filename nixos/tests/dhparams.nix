@@ -67,7 +67,7 @@ import ./make-test-python.nix {
         let
           node = "gen${toString gen}";
         in
-          nodes.machine.config.specialisation.${node}.configuration.security.dhparams.params.${name}.path
+        nodes.machine.config.specialisation.${node}.configuration.security.dhparams.params.${name}.path
       ;
 
       switchToGeneration = gen:

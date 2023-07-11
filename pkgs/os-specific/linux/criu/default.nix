@@ -110,14 +110,14 @@ stdenv.mkDerivation rec {
       "mips" = "mips";
     };
   in
-    [
-      "PREFIX=$(out)"
-      "ASCIIDOC=${buildPackages.asciidoc}/bin/asciidoc"
-      "XMLTO=${buildPackages.xmlto}/bin/xmlto"
-    ] ++ (lib.optionals (stdenv.buildPlatform != stdenv.targetPlatform) [
-      "ARCH=${linuxArchMapping."${stdenv.targetPlatform.linuxArch}"}"
-      "CROSS_COMPILE=${stdenv.targetPlatform.config}-"
-    ])
+  [
+    "PREFIX=$(out)"
+    "ASCIIDOC=${buildPackages.asciidoc}/bin/asciidoc"
+    "XMLTO=${buildPackages.xmlto}/bin/xmlto"
+  ] ++ (lib.optionals (stdenv.buildPlatform != stdenv.targetPlatform) [
+    "ARCH=${linuxArchMapping."${stdenv.targetPlatform.linuxArch}"}"
+    "CROSS_COMPILE=${stdenv.targetPlatform.config}-"
+  ])
   ;
 
   outputs = [

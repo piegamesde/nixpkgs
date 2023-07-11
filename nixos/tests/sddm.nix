@@ -77,4 +77,4 @@ let
     };
   };
 in
-  lib.mapAttrs (lib.const makeTest) tests
+lib.mapAttrs (lib.const makeTest) tests

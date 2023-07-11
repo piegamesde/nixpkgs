@@ -24,7 +24,7 @@ let
           "sha256"
         ])));
     in
-      lib.makeOverridable contribVersion { }
+    lib.makeOverridable contribVersion { }
   ;
 in {
   aac-tactics = mkContrib "aac-tactics" [

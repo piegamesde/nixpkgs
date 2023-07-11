@@ -226,21 +226,21 @@ let
           };
 
         in
-          writeTextFile {
-            name = "gnome-flashback-${wmName}-xsession";
-            destination = "/share/xsessions/gnome-flashback-${wmName}.desktop";
-            text = ''
-              [Desktop Entry]
-              Name=GNOME Flashback (${wmLabel})
-              Comment=This session logs you into GNOME Flashback with ${wmLabel}
-              Exec=${executable}
-              TryExec=${wmCommand}
-              Type=Application
-              DesktopNames=GNOME-Flashback;GNOME;
-            '';
-          } // {
-            providedSessions = [ "gnome-flashback-${wmName}" ];
-          }
+        writeTextFile {
+          name = "gnome-flashback-${wmName}-xsession";
+          destination = "/share/xsessions/gnome-flashback-${wmName}.desktop";
+          text = ''
+            [Desktop Entry]
+            Name=GNOME Flashback (${wmLabel})
+            Comment=This session logs you into GNOME Flashback with ${wmLabel}
+            Exec=${executable}
+            TryExec=${wmCommand}
+            Type=Application
+            DesktopNames=GNOME-Flashback;GNOME;
+          '';
+        } // {
+          providedSessions = [ "gnome-flashback-${wmName}" ];
+        }
       ;
 
       mkSystemdTargetForWm = {
@@ -265,4 +265,4 @@ let
     };
   };
 in
-  gnome-flashback
+gnome-flashback

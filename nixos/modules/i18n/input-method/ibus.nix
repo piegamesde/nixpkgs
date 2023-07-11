@@ -56,7 +56,7 @@ in {
           engines = concatStringsSep ", "
             (map (name: "`${name}`") (attrNames enginesDrv));
         in
-          lib.mdDoc "Enabled IBus engines. Available engines are: ${engines}."
+        lib.mdDoc "Enabled IBus engines. Available engines are: ${engines}."
         ;
       };
       panel = mkOption {

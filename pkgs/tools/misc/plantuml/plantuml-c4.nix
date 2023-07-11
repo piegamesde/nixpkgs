@@ -50,41 +50,41 @@ let
           --add-flags ${lib.escapeShellArg includeFlag}
       '';
   in
-    plantuml.override { jre = postFixedJre; }
+  plantuml.override { jre = postFixedJre; }
   ;
 
 in
-  stdenv.mkDerivation rec {
-    pname = "plantuml-c4";
-    version = "unstable-2022-08-21";
+stdenv.mkDerivation rec {
+  pname = "plantuml-c4";
+  version = "unstable-2022-08-21";
 
-    nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeWrapper ];
 
-    buildCommand = ''
-      mkdir -p $out/bin
+  buildCommand = ''
+    mkdir -p $out/bin
 
-      makeWrapper ${plantumlWithExtraPath}/bin/plantuml $out/bin/plantuml \
-        --add-flags "-DRELATIVE_INCLUDE=\"${c4-lib}\""
+    makeWrapper ${plantumlWithExtraPath}/bin/plantuml $out/bin/plantuml \
+      --add-flags "-DRELATIVE_INCLUDE=\"${c4-lib}\""
 
-      $out/bin/plantuml -help
-    '';
+    $out/bin/plantuml -help
+  '';
 
-    passthru.tests.example-c4-diagram = runCommand "c4-plantuml-sample.png" {
-      nativeBuildInputs = [ plantuml-c4 ];
-    } ''
-      sed 's/https:.*\///' "${c4-lib}/samples/C4_Context Diagram Sample - enterprise.puml" > sample.puml
-      plantuml sample.puml -o $out
+  passthru.tests.example-c4-diagram = runCommand "c4-plantuml-sample.png" {
+    nativeBuildInputs = [ plantuml-c4 ];
+  } ''
+    sed 's/https:.*\///' "${c4-lib}/samples/C4_Context Diagram Sample - enterprise.puml" > sample.puml
+    plantuml sample.puml -o $out
 
-      sed 's/!include ..\//!include /' ${sprites}/examples/complex-example.puml > sprites.puml
-      plantuml sprites.puml -o $out
-    '';
+    sed 's/!include ..\//!include /' ${sprites}/examples/complex-example.puml > sprites.puml
+    plantuml sprites.puml -o $out
+  '';
 
-    meta = with lib; {
-      description =
-        "PlantUML bundled with C4-Plantuml and plantuml sprites library";
-      homepage = "https://github.com/plantuml-stdlib/C4-PlantUML";
-      license = licenses.mit;
-      maintainers = with maintainers; [ tfc ];
-      platforms = platforms.unix;
-    };
-  }
+  meta = with lib; {
+    description =
+      "PlantUML bundled with C4-Plantuml and plantuml sprites library";
+    homepage = "https://github.com/plantuml-stdlib/C4-PlantUML";
+    license = licenses.mit;
+    maintainers = with maintainers; [ tfc ];
+    platforms = platforms.unix;
+  };
+}

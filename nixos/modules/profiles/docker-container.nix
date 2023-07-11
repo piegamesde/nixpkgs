@@ -42,7 +42,7 @@ in {
         mkdir -p proc sys dev etc
       '';
     in
-      script
+    script
     ;
   };
 

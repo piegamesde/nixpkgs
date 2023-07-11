@@ -106,74 +106,74 @@ let
   scopePkgs = lib.mapAttrs scopePkg sources;
 
 in
-  stdenv.mkDerivation rec {
-    pname = "picoscope";
-    inherit (sources.picoscope) version;
+stdenv.mkDerivation rec {
+  pname = "picoscope";
+  inherit (sources.picoscope) version;
 
-    src = fetchurl { inherit (sources.picoscope) url sha256; };
+  src = fetchurl { inherit (sources.picoscope) url sha256; };
 
-    nativeBuildInputs = [
-      dpkg
-      makeWrapper
-    ];
-    buildInputs = [
-      gtk-sharp-3_0
-      mono
+  nativeBuildInputs = [
+    dpkg
+    makeWrapper
+  ];
+  buildInputs = [
+    gtk-sharp-3_0
+    mono
+    glib
+    libusb1
+    zlib
+  ];
+
+  unpackCmd = "dpkg-deb -x $src .";
+  sourceRoot = ".";
+  scopeLibs = lib.attrVals (map (x: "lib${x}") scopes) scopePkgs;
+  MONO_PATH = "${gtk-sharp-3_0}/lib/mono/gtk-sharp-3.0:" + (lib.makeLibraryPath
+    ([
       glib
+      gtk3-x11
+      gtk-sharp-3_0
       libusb1
       zlib
-    ];
+      libpicoipp
+    ] ++ scopeLibs));
 
-    unpackCmd = "dpkg-deb -x $src .";
-    sourceRoot = ".";
-    scopeLibs = lib.attrVals (map (x: "lib${x}") scopes) scopePkgs;
-    MONO_PATH = "${gtk-sharp-3_0}/lib/mono/gtk-sharp-3.0:"
-      + (lib.makeLibraryPath ([
-        glib
-        gtk3-x11
-        gtk-sharp-3_0
-        libusb1
-        zlib
-        libpicoipp
-      ] ++ scopeLibs));
+  installPhase = ''
+    runHook preInstall
+    mkdir -p $out/
+    cp -dr usr/share $out/share
+    cp -dr opt/picoscope/* $out/
+    makeWrapper "$(command -v mono)" $out/bin/picoscope \
+      --add-flags $out/lib/PicoScope.GTK.exe \
+      --prefix MONO_PATH : "$MONO_PATH" \
+      --prefix LD_LIBRARY_PATH : "$MONO_PATH" \
+      --set LANG C
+    runHook postInstall
+  '';
 
-    installPhase = ''
-      runHook preInstall
-      mkdir -p $out/
-      cp -dr usr/share $out/share
-      cp -dr opt/picoscope/* $out/
-      makeWrapper "$(command -v mono)" $out/bin/picoscope \
-        --add-flags $out/lib/PicoScope.GTK.exe \
-        --prefix MONO_PATH : "$MONO_PATH" \
-        --prefix LD_LIBRARY_PATH : "$MONO_PATH" \
-        --set LANG C
-      runHook postInstall
-    '';
+  # usage:
+  # services.udev.packages = [ pkgs.picoscope.rules ];
+  # users.groups.pico = {};
+  # users.users.you.extraGroups = [ "pico" ];
+  passthru.rules = lib.writeTextDir "lib/udev/rules.d/95-pico.rules" ''
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="0ce9", MODE="664",GROUP="pico"
+  '';
 
-    # usage:
-    # services.udev.packages = [ pkgs.picoscope.rules ];
-    # users.groups.pico = {};
-    # users.users.you.extraGroups = [ "pico" ];
-    passthru.rules = lib.writeTextDir "lib/udev/rules.d/95-pico.rules" ''
-      SUBSYSTEMS=="usb", ATTRS{idVendor}=="0ce9", MODE="664",GROUP="pico"
-    '';
+  meta = with lib;
+    shared_meta lib // {
+      description =
+        "Oscilloscope application that works with all PicoScope models";
+      longDescription = ''
+        PicoScope for Linux is a powerful oscilloscope application that works
+        with all PicoScope models. The most important features from PicoScope
+        for Windows are included—scope, spectrum analyzer, advanced triggers,
+        automated measurements, interactive zoom, persistence modes and signal
+        generator control. More features are being added all the time.
 
-    meta = with lib;
-      shared_meta lib // {
-        description =
-          "Oscilloscope application that works with all PicoScope models";
-        longDescription = ''
-          PicoScope for Linux is a powerful oscilloscope application that works
-          with all PicoScope models. The most important features from PicoScope
-          for Windows are included—scope, spectrum analyzer, advanced triggers,
-          automated measurements, interactive zoom, persistence modes and signal
-          generator control. More features are being added all the time.
-
-          Waveform captures can be saved for off-line analysis, and shared with
-          PicoScope for Linux, PicoScope for macOS and PicoScope for Windows
-          users, or exported in text, CSV and MathWorks MATLAB 4 formats.
-        '';
-        sourceProvenance = with sourceTypes; [ binaryBytecode ];
-      };
-  }
+        Waveform captures can be saved for off-line analysis, and shared with
+        PicoScope for Linux, PicoScope for macOS and PicoScope for Windows
+        users, or exported in text, CSV and MathWorks MATLAB 4 formats.
+      '';
+      sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    };
+}
 

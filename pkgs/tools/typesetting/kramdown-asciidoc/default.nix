@@ -35,4 +35,4 @@ let
     };
   };
 in
-  app
+app

@@ -263,7 +263,7 @@ in {
             firmwareConfig = cfg.firmwares."${mcu}".configFile;
           }) firmwares;
       in
-        [ klipper-genconf ] ++ firmwareFlasher ++ attrValues firmwares
+      [ klipper-genconf ] ++ firmwareFlasher ++ attrValues firmwares
     ;
   };
   meta.maintainers = [ maintainers.cab404 ];

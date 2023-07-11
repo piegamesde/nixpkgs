@@ -20,7 +20,7 @@ let
         authors = [ "Test <test@example.com>" ];
       } // args;
     in
-      buildRustCrate p
+    buildRustCrate p
   ;
   mkHostCrate = mkCrate buildRustCrate;
 
@@ -103,42 +103,42 @@ let
         };
 
     in
-      assert expectedTestOutputs != null -> hasTests;
-      assert hasTests -> expectedTestOutputs != null;
+    assert expectedTestOutputs != null -> hasTests;
+    assert hasTests -> expectedTestOutputs != null;
 
-      runCommand "run-buildRustCrate-${crateName}-test" {
-        nativeBuildInputs = [ crate ];
-      } (if
-        !hasTests
-      then ''
-        ${lib.concatMapStringsSep "\n" (binary:
-          # Can't actually run the binary when cross-compiling
-          (lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
-            "type ") + binary) binaries}
-        ${lib.optionalString isLib ''
-          test -e ${crate}/lib/*.rlib || exit 1
-          ${
-            lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
-            "test -x "
-          } \
-            ${libTestBinary}/bin/run-test-${crateName}
-        ''}
-        touch $out
-      '' else if stdenv.hostPlatform == stdenv.buildPlatform then ''
-        for file in ${crate}/tests/*; do
-          $file 2>&1 >> $out
-        done
-        set -e
-        ${lib.concatMapStringsSep "\n" (o:
-          ''
-            grep '${o}' $out || {  echo 'output "${o}" not found in:'; cat $out; exit 23; }'')
-        expectedTestOutputs}
-      '' else ''
-        for file in ${crate}/tests/*; do
-          test -x "$file"
-        done
-        touch "$out"
-      '')
+    runCommand "run-buildRustCrate-${crateName}-test" {
+      nativeBuildInputs = [ crate ];
+    } (if
+      !hasTests
+    then ''
+      ${lib.concatMapStringsSep "\n" (binary:
+        # Can't actually run the binary when cross-compiling
+        (lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
+          "type ") + binary) binaries}
+      ${lib.optionalString isLib ''
+        test -e ${crate}/lib/*.rlib || exit 1
+        ${
+          lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
+          "test -x "
+        } \
+          ${libTestBinary}/bin/run-test-${crateName}
+      ''}
+      touch $out
+    '' else if stdenv.hostPlatform == stdenv.buildPlatform then ''
+      for file in ${crate}/tests/*; do
+        $file 2>&1 >> $out
+      done
+      set -e
+      ${lib.concatMapStringsSep "\n" (o:
+        ''
+          grep '${o}' $out || {  echo 'output "${o}" not found in:'; cat $out; exit 23; }'')
+      expectedTestOutputs}
+    '' else ''
+      for file in ${crate}/tests/*; do
+        test -x "$file"
+      done
+      touch "$out"
+    '')
   ;
 
   /* Returns a derivation that asserts that the crate specified by `crateArgs`
@@ -184,31 +184,31 @@ let
         '' ;
       };
     in
-      runCommand "assert-outputs-${name}" { } (''
-        local actualFiles=$(mktemp)
+    runCommand "assert-outputs-${name}" { } (''
+      local actualFiles=$(mktemp)
 
-        cd "${crateOutput}"
-        find . -type f \
-          | sort \
-      ''
-        # sed out the hash because it differs per platform
-        + ''
-            | sed -E -e 's/-[0-9a-fA-F]{10}\.rlib/-HASH.rlib/g' \
-            > "$actualFiles"
-          diff -q ${expectedFilesFile} "$actualFiles" > /dev/null || {
-            echo -e "\033[0;1;31mERROR: Difference in expected output files in ${crateOutput} \033[0m" >&2
-            echo === Got:
-            sed -e 's/^/  /' $actualFiles
-            echo === Expected:
-            sed -e 's/^/  /' ${expectedFilesFile}
-            echo === Diff:
-            diff -u ${expectedFilesFile} $actualFiles |\
-              tail -n +3 |\
-              sed -e 's/^/  /'
-            exit 1
-          }
-          touch $out
-        '')
+      cd "${crateOutput}"
+      find . -type f \
+        | sort \
+    ''
+      # sed out the hash because it differs per platform
+      + ''
+          | sed -E -e 's/-[0-9a-fA-F]{10}\.rlib/-HASH.rlib/g' \
+          > "$actualFiles"
+        diff -q ${expectedFilesFile} "$actualFiles" > /dev/null || {
+          echo -e "\033[0;1;31mERROR: Difference in expected output files in ${crateOutput} \033[0m" >&2
+          echo === Got:
+          sed -e 's/^/  /' $actualFiles
+          echo === Expected:
+          sed -e 's/^/  /' ${expectedFilesFile}
+          echo === Diff:
+          diff -u ${expectedFilesFile} $actualFiles |\
+            tail -n +3 |\
+            sed -e 's/^/  /'
+          exit 1
+        }
+        touch $out
+      '')
   ;
 
 in rec {
@@ -552,17 +552,16 @@ in rec {
                 inherit text;
               };
             in
-              runCommandCC name { } ''
-                mkdir -p $out/lib
-                # Note: On darwin (which defaults to clang) we have to add
-                # `-undefined dynamic_lookup` as otherwise the compilation fails.
-                $CC -shared \
-                  ${
-                    lib.optionalString stdenv.isDarwin
-                    "-undefined dynamic_lookup"
-                  } \
-                  -o $out/lib/${name}${stdenv.hostPlatform.extensions.sharedLibrary} ${src}
-              ''
+            runCommandCC name { } ''
+              mkdir -p $out/lib
+              # Note: On darwin (which defaults to clang) we have to add
+              # `-undefined dynamic_lookup` as otherwise the compilation fails.
+              $CC -shared \
+                ${
+                  lib.optionalString stdenv.isDarwin "-undefined dynamic_lookup"
+                } \
+                -o $out/lib/${name}${stdenv.hostPlatform.extensions.sharedLibrary} ${src}
+            ''
           ;
           b = compile "libb" ''
             #include <stdio.h>
@@ -618,9 +617,9 @@ in rec {
         withoutCargoTomlSearch =
           builtins.removeAttrs rustCargoTomlInSubDir [ "workspace_member" ];
       in
-        withoutCargoTomlSearch // {
-          expectedTestOutputs = [ "test ignore_main ... ok" ];
-        }
+      withoutCargoTomlSearch // {
+        expectedTestOutputs = [ "test ignore_main ... ok" ];
+      }
       ;
       procMacroInPrelude = {
         procMacro = true;
@@ -643,122 +642,122 @@ in rec {
       (value // lib.optionalAttrs (!value ? crateName) { crateName = key; }))
       cases;
   in
-    tests // rec {
+  tests // rec {
 
-      crateBinWithPathOutputs = assertOutputs {
-        name = "crateBinWithPath";
-        crateArgs = {
-          crateBin = [ {
-            name = "test_binary1";
-            path = "src/foobar.rs";
-          } ];
-          src = mkBin "src/foobar.rs";
-        };
-        expectedFiles = [ "./bin/test_binary1" ];
+    crateBinWithPathOutputs = assertOutputs {
+      name = "crateBinWithPath";
+      crateArgs = {
+        crateBin = [ {
+          name = "test_binary1";
+          path = "src/foobar.rs";
+        } ];
+        src = mkBin "src/foobar.rs";
       };
+      expectedFiles = [ "./bin/test_binary1" ];
+    };
 
-      crateBinWithPathOutputsDebug = assertOutputs {
-        name = "crateBinWithPath";
-        crateArgs = {
-          release = false;
-          crateBin = [ {
-            name = "test_binary1";
-            path = "src/foobar.rs";
-          } ];
-          src = mkBin "src/foobar.rs";
-        };
-        expectedFiles = [ "./bin/test_binary1" ]
-          ++ lib.optionals stdenv.isDarwin [
-            # On Darwin, the debug symbols are in a separate directory.
-            "./bin/test_binary1.dSYM/Contents/Info.plist"
-            "./bin/test_binary1.dSYM/Contents/Resources/DWARF/test_binary1"
-          ];
+    crateBinWithPathOutputsDebug = assertOutputs {
+      name = "crateBinWithPath";
+      crateArgs = {
+        release = false;
+        crateBin = [ {
+          name = "test_binary1";
+          path = "src/foobar.rs";
+        } ];
+        src = mkBin "src/foobar.rs";
       };
-
-      crateBinNoPath1Outputs = assertOutputs {
-        name = "crateBinNoPath1";
-        crateArgs = {
-          crateBin = [ { name = "my-binary2"; } ];
-          src = mkBin "src/my_binary2.rs";
-        };
-        expectedFiles = [ "./bin/my-binary2" ];
-      };
-
-      crateLibOutputs = assertOutputs {
-        name = "crateLib";
-        output = "lib";
-        crateArgs = {
-          libName = "test_lib";
-          type = [ "rlib" ];
-          libPath = "src/lib.rs";
-          src = mkLib "src/lib.rs";
-        };
-        expectedFiles = [
-          "./nix-support/propagated-build-inputs"
-          "./lib/libtest_lib-HASH.rlib"
-          "./lib/link"
+      expectedFiles = [ "./bin/test_binary1" ]
+        ++ lib.optionals stdenv.isDarwin [
+          # On Darwin, the debug symbols are in a separate directory.
+          "./bin/test_binary1.dSYM/Contents/Info.plist"
+          "./bin/test_binary1.dSYM/Contents/Resources/DWARF/test_binary1"
         ];
+    };
+
+    crateBinNoPath1Outputs = assertOutputs {
+      name = "crateBinNoPath1";
+      crateArgs = {
+        crateBin = [ { name = "my-binary2"; } ];
+        src = mkBin "src/my_binary2.rs";
       };
+      expectedFiles = [ "./bin/my-binary2" ];
+    };
 
-      crateLibOutputsDebug = assertOutputs {
-        name = "crateLib";
-        output = "lib";
-        crateArgs = {
-          release = false;
-          libName = "test_lib";
-          type = [ "rlib" ];
-          libPath = "src/lib.rs";
-          src = mkLib "src/lib.rs";
-        };
-        expectedFiles = [
-          "./nix-support/propagated-build-inputs"
-          "./lib/libtest_lib-HASH.rlib"
-          "./lib/link"
-        ];
+    crateLibOutputs = assertOutputs {
+      name = "crateLib";
+      output = "lib";
+      crateArgs = {
+        libName = "test_lib";
+        type = [ "rlib" ];
+        libPath = "src/lib.rs";
+        src = mkLib "src/lib.rs";
       };
+      expectedFiles = [
+        "./nix-support/propagated-build-inputs"
+        "./lib/libtest_lib-HASH.rlib"
+        "./lib/link"
+      ];
+    };
 
-      brotliTest = let
-        pkg = brotliCrates.brotli_2_5_0 { };
-      in
-        runCommand "run-brotli-test-cmd" { nativeBuildInputs = [ pkg ]; } (if
-          stdenv.hostPlatform == stdenv.buildPlatform
-        then ''
-          ${pkg}/bin/brotli -c ${pkg}/bin/brotli > /dev/null && touch $out
-        '' else ''
-          test -x '${pkg}/bin/brotli' && touch $out
-        '')
-      ;
-      allocNoStdLibTest = let
-        pkg = brotliCrates.alloc_no_stdlib_1_3_0 { };
-      in
-        runCommand "run-alloc-no-stdlib-test-cmd" {
-          nativeBuildInputs = [ pkg ];
-        } ''
-          test -e ${pkg}/bin/example && touch $out
-        ''
-      ;
-      brotliDecompressorTest = let
-        pkg = brotliCrates.brotli_decompressor_1_3_1 { };
-      in
-        runCommand "run-brotli-decompressor-test-cmd" {
-          nativeBuildInputs = [ pkg ];
-        } ''
-          test -e ${pkg}/bin/brotli-decompressor && touch $out
-        ''
-      ;
+    crateLibOutputsDebug = assertOutputs {
+      name = "crateLib";
+      output = "lib";
+      crateArgs = {
+        release = false;
+        libName = "test_lib";
+        type = [ "rlib" ];
+        libPath = "src/lib.rs";
+        src = mkLib "src/lib.rs";
+      };
+      expectedFiles = [
+        "./nix-support/propagated-build-inputs"
+        "./lib/libtest_lib-HASH.rlib"
+        "./lib/link"
+      ];
+    };
 
-      rcgenTest = let
-        pkg = rcgenCrates.rootCrate.build;
-      in
-        runCommand "run-rcgen-test-cmd" { nativeBuildInputs = [ pkg ]; } (if
-          stdenv.hostPlatform == stdenv.buildPlatform
-        then ''
-          ${pkg}/bin/rcgen && touch $out
-        '' else ''
-          test -x '${pkg}/bin/rcgen' && touch $out
-        '')
-      ;
-    }
+    brotliTest = let
+      pkg = brotliCrates.brotli_2_5_0 { };
+    in
+    runCommand "run-brotli-test-cmd" { nativeBuildInputs = [ pkg ]; } (if
+      stdenv.hostPlatform == stdenv.buildPlatform
+    then ''
+      ${pkg}/bin/brotli -c ${pkg}/bin/brotli > /dev/null && touch $out
+    '' else ''
+      test -x '${pkg}/bin/brotli' && touch $out
+    '')
+    ;
+    allocNoStdLibTest = let
+      pkg = brotliCrates.alloc_no_stdlib_1_3_0 { };
+    in
+    runCommand "run-alloc-no-stdlib-test-cmd" {
+      nativeBuildInputs = [ pkg ];
+    } ''
+      test -e ${pkg}/bin/example && touch $out
+    ''
+    ;
+    brotliDecompressorTest = let
+      pkg = brotliCrates.brotli_decompressor_1_3_1 { };
+    in
+    runCommand "run-brotli-decompressor-test-cmd" {
+      nativeBuildInputs = [ pkg ];
+    } ''
+      test -e ${pkg}/bin/brotli-decompressor && touch $out
+    ''
+    ;
+
+    rcgenTest = let
+      pkg = rcgenCrates.rootCrate.build;
+    in
+    runCommand "run-rcgen-test-cmd" { nativeBuildInputs = [ pkg ]; } (if
+      stdenv.hostPlatform == stdenv.buildPlatform
+    then ''
+      ${pkg}/bin/rcgen && touch $out
+    '' else ''
+      test -x '${pkg}/bin/rcgen' && touch $out
+    '')
+    ;
+  }
   ;
   test = releaseTools.aggregate {
     name = "buildRustCrate-tests";

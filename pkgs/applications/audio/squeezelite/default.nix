@@ -30,68 +30,67 @@ let
   binName = "squeezelite${optionalString pulseSupport "-pulse"}";
 
 in
-  stdenv.mkDerivation {
-    # the nixos module uses the pname as the binary name
-    pname = binName;
-    # versions are specified in `squeezelite.h`
-    # see https://github.com/ralph-irving/squeezelite/issues/29
-    version = "1.9.9.1430";
+stdenv.mkDerivation {
+  # the nixos module uses the pname as the binary name
+  pname = binName;
+  # versions are specified in `squeezelite.h`
+  # see https://github.com/ralph-irving/squeezelite/issues/29
+  version = "1.9.9.1430";
 
-    src = fetchFromGitHub {
-      owner = "ralph-irving";
-      repo = "squeezelite";
-      rev = "663db8f64d73dceca6a2a18cdb705ad846daa272";
-      hash = "sha256-PROb6d5ixO7lk/7wsjh2vkPkPgAvd6x+orQOY078IAs=";
-    };
+  src = fetchFromGitHub {
+    owner = "ralph-irving";
+    repo = "squeezelite";
+    rev = "663db8f64d73dceca6a2a18cdb705ad846daa272";
+    hash = "sha256-PROb6d5ixO7lk/7wsjh2vkPkPgAvd6x+orQOY078IAs=";
+  };
 
-    buildInputs = [
-      flac
-      libmad
-      libvorbis
-      mpg123
-    ] ++ lib.singleton (if
-      pulseSupport
-    then
-      libpulseaudio
-    else
-      alsa-lib) ++ optional faad2Support faad2 ++ optional ffmpegSupport ffmpeg
-      ++ optional opusSupport opusfile ++ optional resampleSupport soxr
-      ++ optional sslSupport openssl;
+  buildInputs = [
+    flac
+    libmad
+    libvorbis
+    mpg123
+  ] ++ lib.singleton (if
+    pulseSupport
+  then
+    libpulseaudio
+  else
+    alsa-lib) ++ optional faad2Support faad2 ++ optional ffmpegSupport ffmpeg
+    ++ optional opusSupport opusfile ++ optional resampleSupport soxr
+    ++ optional sslSupport openssl;
 
-    enableParallelBuilding = true;
+  enableParallelBuilding = true;
 
-    postPatch = ''
-      substituteInPlace opus.c \
-        --replace "<opusfile.h>" "<opus/opusfile.h>"
-    '';
+  postPatch = ''
+    substituteInPlace opus.c \
+      --replace "<opusfile.h>" "<opus/opusfile.h>"
+  '';
 
-    EXECUTABLE = binName;
+  EXECUTABLE = binName;
 
-    OPTS = [
-      "-DLINKALL"
-      "-DGPIO"
-    ] ++ optional dsdSupport "-DDSD" ++ optional (!faad2Support) "-DNO_FAAD"
-      ++ optional ffmpegSupport "-DFFMPEG" ++ optional opusSupport "-DOPUS"
-      ++ optional pulseSupport "-DPULSEAUDIO"
-      ++ optional resampleSupport "-DRESAMPLE"
-      ++ optional sslSupport "-DUSE_SSL";
+  OPTS = [
+    "-DLINKALL"
+    "-DGPIO"
+  ] ++ optional dsdSupport "-DDSD" ++ optional (!faad2Support) "-DNO_FAAD"
+    ++ optional ffmpegSupport "-DFFMPEG" ++ optional opusSupport "-DOPUS"
+    ++ optional pulseSupport "-DPULSEAUDIO"
+    ++ optional resampleSupport "-DRESAMPLE" ++ optional sslSupport "-DUSE_SSL";
 
-    installPhase = ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      install -Dm555 -t $out/bin                   ${binName}
-      install -Dm444 -t $out/share/doc/squeezelite *.txt *.md
+    install -Dm555 -t $out/bin                   ${binName}
+    install -Dm444 -t $out/share/doc/squeezelite *.txt *.md
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
-    passthru.updateScript = ./update.sh;
+  passthru.updateScript = ./update.sh;
 
-    meta = with lib; {
-      description = "Lightweight headless squeezebox client emulator";
-      homepage = "https://github.com/ralph-irving/squeezelite";
-      license = with licenses; [ gpl3Plus ] ++ optional dsdSupport bsd2;
-      maintainers = with maintainers; [ adamcstephens ];
-      platforms = platforms.linux;
-    };
-  }
+  meta = with lib; {
+    description = "Lightweight headless squeezebox client emulator";
+    homepage = "https://github.com/ralph-irving/squeezelite";
+    license = with licenses; [ gpl3Plus ] ++ optional dsdSupport bsd2;
+    maintainers = with maintainers; [ adamcstephens ];
+    platforms = platforms.linux;
+  };
+}

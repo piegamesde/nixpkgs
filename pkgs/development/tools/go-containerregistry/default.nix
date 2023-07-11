@@ -11,48 +11,48 @@ let
   ];
 
 in
-  buildGoModule rec {
-    pname = "go-containerregistry";
-    version = "0.14.0";
+buildGoModule rec {
+  pname = "go-containerregistry";
+  version = "0.14.0";
 
-    src = fetchFromGitHub {
-      owner = "google";
-      repo = pname;
-      rev = "v${version}";
-      sha256 = "sha256-rnlxvvHZYkWgmRP++ZRFHt2B6ZBdG1jojg/+9FYqJ4w=";
-    };
-    vendorHash = null;
+  src = fetchFromGitHub {
+    owner = "google";
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "sha256-rnlxvvHZYkWgmRP++ZRFHt2B6ZBdG1jojg/+9FYqJ4w=";
+  };
+  vendorHash = null;
 
-    subPackages = [
-      "cmd/crane"
-      "cmd/gcrane"
-    ];
+  subPackages = [
+    "cmd/crane"
+    "cmd/gcrane"
+  ];
 
-    outputs = [ "out" ] ++ bins;
+  outputs = [ "out" ] ++ bins;
 
-    ldflags = let
-      t = "github.com/google/go-containerregistry";
-    in [
-      "-s"
-      "-w"
-      "-X ${t}/cmd/crane/cmd.Version=v${version}"
-      "-X ${t}/pkg/v1/remote/transport.Version=${version}"
-    ] ;
+  ldflags = let
+    t = "github.com/google/go-containerregistry";
+  in [
+    "-s"
+    "-w"
+    "-X ${t}/cmd/crane/cmd.Version=v${version}"
+    "-X ${t}/pkg/v1/remote/transport.Version=${version}"
+  ] ;
 
-    postInstall = lib.concatStringsSep "\n" (map (bin: ''
-      mkdir -p ''$${bin}/bin &&
-      mv $out/bin/${bin} ''$${bin}/bin/ &&
-      ln -s ''$${bin}/bin/${bin} $out/bin/
-    '') bins);
+  postInstall = lib.concatStringsSep "\n" (map (bin: ''
+    mkdir -p ''$${bin}/bin &&
+    mv $out/bin/${bin} ''$${bin}/bin/ &&
+    ln -s ''$${bin}/bin/${bin} $out/bin/
+  '') bins);
 
-    # NOTE: no tests
-    doCheck = false;
+  # NOTE: no tests
+  doCheck = false;
 
-    meta = with lib; {
-      description =
-        "Tools for interacting with remote images and registries including crane and gcrane";
-      homepage = "https://github.com/google/go-containerregistry";
-      license = licenses.asl20;
-      maintainers = with maintainers; [ yurrriq ];
-    };
-  }
+  meta = with lib; {
+    description =
+      "Tools for interacting with remote images and registries including crane and gcrane";
+    homepage = "https://github.com/google/go-containerregistry";
+    license = licenses.asl20;
+    maintainers = with maintainers; [ yurrriq ];
+  };
+}

@@ -40,69 +40,69 @@ let
     };
   };
 in
-  python.pkgs.buildPythonApplication rec {
-    pname = "gimme-aws-creds";
-    version =
-      "2.6.0"; # N.B: if you change this, check if overrides are still up-to-date
-    format = "setuptools";
+python.pkgs.buildPythonApplication rec {
+  pname = "gimme-aws-creds";
+  version =
+    "2.6.0"; # N.B: if you change this, check if overrides are still up-to-date
+  format = "setuptools";
 
-    src = fetchFromGitHub {
-      owner = "Nike-Inc";
-      repo = "gimme-aws-creds";
-      rev = "v${version}";
-      hash = "sha256-ojbof0Pf5oer3gFC4AlrRJICSJsQYHBQR8M+WV3VwQs=";
+  src = fetchFromGitHub {
+    owner = "Nike-Inc";
+    repo = "gimme-aws-creds";
+    rev = "v${version}";
+    hash = "sha256-ojbof0Pf5oer3gFC4AlrRJICSJsQYHBQR8M+WV3VwQs=";
+  };
+
+  nativeBuildInputs = with python.pkgs; [
+    installShellFiles
+    pythonRelaxDepsHook
+  ];
+
+  pythonRemoveDeps = [ "configparser" ];
+
+  propagatedBuildInputs = with python.pkgs; [
+    boto3
+    fido2
+    beautifulsoup4
+    ctap-keyring-device
+    requests
+    okta
+    pyjwt
+  ];
+
+  checkInputs = with python.pkgs; [
+    pytestCheckHook
+    responses
+  ];
+
+  disabledTests = [ "test_build_factor_name_webauthn_registered" ];
+
+  pythonImportsCheck = [ "gimme_aws_creds" ];
+
+  postInstall = ''
+    rm $out/bin/gimme-aws-creds.cmd
+    chmod +x $out/bin/gimme-aws-creds
+    installShellCompletion --bash --name gimme-aws-creds $out/bin/gimme-aws-creds-autocomplete.sh
+    rm $out/bin/gimme-aws-creds-autocomplete.sh
+  '';
+
+  passthru = {
+    inherit python;
+    updateScript = nix-update-script { attrPath = pname; };
+    tests.version = testers.testVersion {
+      package = gimme-aws-creds;
+      command =
+        ''touch tmp.conf && OKTA_CONFIG="tmp.conf" gimme-aws-creds --version'';
+      version = "gimme-aws-creds ${version}";
     };
+  };
 
-    nativeBuildInputs = with python.pkgs; [
-      installShellFiles
-      pythonRelaxDepsHook
-    ];
-
-    pythonRemoveDeps = [ "configparser" ];
-
-    propagatedBuildInputs = with python.pkgs; [
-      boto3
-      fido2
-      beautifulsoup4
-      ctap-keyring-device
-      requests
-      okta
-      pyjwt
-    ];
-
-    checkInputs = with python.pkgs; [
-      pytestCheckHook
-      responses
-    ];
-
-    disabledTests = [ "test_build_factor_name_webauthn_registered" ];
-
-    pythonImportsCheck = [ "gimme_aws_creds" ];
-
-    postInstall = ''
-      rm $out/bin/gimme-aws-creds.cmd
-      chmod +x $out/bin/gimme-aws-creds
-      installShellCompletion --bash --name gimme-aws-creds $out/bin/gimme-aws-creds-autocomplete.sh
-      rm $out/bin/gimme-aws-creds-autocomplete.sh
-    '';
-
-    passthru = {
-      inherit python;
-      updateScript = nix-update-script { attrPath = pname; };
-      tests.version = testers.testVersion {
-        package = gimme-aws-creds;
-        command = ''
-          touch tmp.conf && OKTA_CONFIG="tmp.conf" gimme-aws-creds --version'';
-        version = "gimme-aws-creds ${version}";
-      };
-    };
-
-    meta = with lib; {
-      homepage = "https://github.com/Nike-Inc/gimme-aws-creds";
-      changelog = "https://github.com/Nike-Inc/gimme-aws-creds/releases";
-      description =
-        "A CLI that utilizes Okta IdP via SAML to acquire temporary AWS credentials";
-      license = licenses.asl20;
-      maintainers = with maintainers; [ dennajort ];
-    };
-  }
+  meta = with lib; {
+    homepage = "https://github.com/Nike-Inc/gimme-aws-creds";
+    changelog = "https://github.com/Nike-Inc/gimme-aws-creds/releases";
+    description =
+      "A CLI that utilizes Okta IdP via SAML to acquire temporary AWS credentials";
+    license = licenses.asl20;
+    maintainers = with maintainers; [ dennajort ];
+  };
+}

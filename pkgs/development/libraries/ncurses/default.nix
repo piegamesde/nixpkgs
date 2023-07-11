@@ -189,7 +189,7 @@ stdenv.mkDerivation (finalAttrs: {
         "panel"
       ] ++ lib.optional withCxx "ncurses++";
     in
-      base ++ lib.optionals unicodeSupport (map (p: p + "w") base)
+    base ++ lib.optionals unicodeSupport (map (p: p + "w") base)
     ;
     platforms = platforms.all;
   };

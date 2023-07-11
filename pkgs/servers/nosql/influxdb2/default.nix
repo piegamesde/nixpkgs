@@ -67,69 +67,69 @@ let
   };
 
 in
-  buildGoModule {
-    pname = "influxdb";
-    version = version;
-    inherit src;
+buildGoModule {
+  pname = "influxdb";
+  version = version;
+  inherit src;
 
-    nativeBuildInputs = [
-      go-bindata
-      pkg-config
-      perl
+  nativeBuildInputs = [
+    go-bindata
+    pkg-config
+    perl
+  ];
+
+  vendorSha256 = "sha256-02x+HsWkng7OnKVSfkQR8LL1Qk42Bdrw0IMtBpS7xQc=";
+  subPackages = [
+    "cmd/influxd"
+    "cmd/telemetryd"
+  ];
+
+  PKG_CONFIG_PATH = "${flux}/pkgconfig";
+
+  postPatch = ''
+    # use go-bindata from environment
+    substituteInPlace static/static.go \
+      --replace 'go run github.com/kevinburke/go-bindata/' ""
+  '';
+
+  # Check that libflux and the UI are at the right version, and embed
+  # the UI assets into the Go source tree.
+  preBuild = ''
+    (
+      flux_ver=$(grep github.com/influxdata/flux go.mod | awk '{print $2}')
+      if [ "$flux_ver" != "v${libflux_version}" ]; then
+        echo "go.mod wants libflux $flux_ver, but nix derivation provides ${libflux_version}"
+        exit 1
+      fi
+
+      ui_ver=$(egrep 'UI_RELEASE=".*"' scripts/fetch-ui-assets.sh | cut -d'"' -f2)
+      if [ "$ui_ver" != "${ui_version}" ]; then
+        echo "scripts/fetch-ui-assets.sh wants UI $ui_ver, but nix derivation provides ${ui_version}"
+        exit 1
+      fi
+    )
+
+    mkdir -p static/data
+    tar -xzf ${ui} -C static/data
+    pushd static
+    go generate
+    popd
+  '';
+
+  tags = [ "assets" ];
+
+  ldflags = [
+    "-X main.commit=v${version}"
+    "-X main.version=${version}"
+  ];
+
+  meta = with lib; {
+    description = "An open-source distributed time series database";
+    license = licenses.mit;
+    homepage = "https://influxdata.com/";
+    maintainers = with maintainers; [
+      abbradar
+      danderson
     ];
-
-    vendorSha256 = "sha256-02x+HsWkng7OnKVSfkQR8LL1Qk42Bdrw0IMtBpS7xQc=";
-    subPackages = [
-      "cmd/influxd"
-      "cmd/telemetryd"
-    ];
-
-    PKG_CONFIG_PATH = "${flux}/pkgconfig";
-
-    postPatch = ''
-      # use go-bindata from environment
-      substituteInPlace static/static.go \
-        --replace 'go run github.com/kevinburke/go-bindata/' ""
-    '';
-
-    # Check that libflux and the UI are at the right version, and embed
-    # the UI assets into the Go source tree.
-    preBuild = ''
-      (
-        flux_ver=$(grep github.com/influxdata/flux go.mod | awk '{print $2}')
-        if [ "$flux_ver" != "v${libflux_version}" ]; then
-          echo "go.mod wants libflux $flux_ver, but nix derivation provides ${libflux_version}"
-          exit 1
-        fi
-
-        ui_ver=$(egrep 'UI_RELEASE=".*"' scripts/fetch-ui-assets.sh | cut -d'"' -f2)
-        if [ "$ui_ver" != "${ui_version}" ]; then
-          echo "scripts/fetch-ui-assets.sh wants UI $ui_ver, but nix derivation provides ${ui_version}"
-          exit 1
-        fi
-      )
-
-      mkdir -p static/data
-      tar -xzf ${ui} -C static/data
-      pushd static
-      go generate
-      popd
-    '';
-
-    tags = [ "assets" ];
-
-    ldflags = [
-      "-X main.commit=v${version}"
-      "-X main.version=${version}"
-    ];
-
-    meta = with lib; {
-      description = "An open-source distributed time series database";
-      license = licenses.mit;
-      homepage = "https://influxdata.com/";
-      maintainers = with maintainers; [
-        abbradar
-        danderson
-      ];
-    };
-  }
+  };
+}

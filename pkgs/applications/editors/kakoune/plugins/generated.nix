@@ -238,4 +238,4 @@ let
 
   });
 in
-  lib.fix' (lib.extends overrides packages)
+lib.fix' (lib.extends overrides packages)

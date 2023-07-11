@@ -34,31 +34,31 @@ let
     '';
   };
 in
-  buildGoModule rec {
-    inherit pname version src;
+buildGoModule rec {
+  inherit pname version src;
 
-    vendorHash = "sha256-bvisI589Gq9IdyJEqI+uzs3iDPOTUkq95P3n/KoFhF0=";
+  vendorHash = "sha256-bvisI589Gq9IdyJEqI+uzs3iDPOTUkq95P3n/KoFhF0=";
 
-    subPackages = [ "cmd/torq" ];
+  subPackages = [ "cmd/torq" ];
 
-    ldflags = [
-      "-s"
-      "-w"
-      "-X github.com/lncapital/torq/build.version=v${version}"
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/lncapital/torq/build.version=v${version}"
+  ];
+
+  postInstall = ''
+    mkdir -p $out/web/build
+    cp -r ${web}/* $out/web/build/
+  '';
+
+  meta = with lib; {
+    description = "Capital management tool for lightning network nodes";
+    license = licenses.mit;
+    homepage = "https://github.com/lncapital/torq";
+    maintainers = with maintainers; [
+      mmilata
+      prusnak
     ];
-
-    postInstall = ''
-      mkdir -p $out/web/build
-      cp -r ${web}/* $out/web/build/
-    '';
-
-    meta = with lib; {
-      description = "Capital management tool for lightning network nodes";
-      license = licenses.mit;
-      homepage = "https://github.com/lncapital/torq";
-      maintainers = with maintainers; [
-        mmilata
-        prusnak
-      ];
-    };
-  }
+  };
+}

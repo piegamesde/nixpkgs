@@ -48,8 +48,8 @@ let
           toString value);
     mkEntry = name: value: "${escape name} =${mkVal value}";
   in
-    concatStringsSep "\n" (mapAttrsToList mkEntry cfg.config) + "\n"
-    + cfg.extraConfig
+  concatStringsSep "\n" (mapAttrsToList mkEntry cfg.config) + "\n"
+  + cfg.extraConfig
   ;
 
   masterCfOptions = {
@@ -250,7 +250,7 @@ let
         let
           columnLengths = map stringLength line;
         in
-          zipListsWith max acc columnLengths
+        zipListsWith max acc columnLengths
       ;
       # We need to handle the last column specially here, because it's
       # open-ended (command + args).
@@ -259,7 +259,7 @@ let
         labelDefaults
       ] ++ (map (l: init l ++ [ "" ]) masterCf);
     in
-      foldr foldLine (genList (const 0) (length labels)) lines
+    foldr foldLine (genList (const 0) (length labels)) lines
     ;
 
     # Pad a string with spaces from the right (opposite of fixedWidthString).
@@ -268,7 +268,7 @@ let
         padWidth = width - stringLength str;
         padding = concatStrings (genList (const " ") padWidth);
       in
-        str + optionalString (padWidth > 0) padding
+      str + optionalString (padWidth > 0) padding
     ;
 
     # It's + 2 here, because that's the amount of spacing between columns.
@@ -285,12 +285,12 @@ let
         sep
       ];
     in
-      concatStringsSep "\n" lines
+    concatStringsSep "\n" lines
     ;
 
   in
-    formattedLabels + "\n" + concatMapStringsSep "\n" formatLine masterCf + "\n"
-    + cfg.extraMasterConf
+  formattedLabels + "\n" + concatMapStringsSep "\n" formatLine masterCf + "\n"
+  + cfg.extraMasterConf
   ;
 
   headerCheckOptions = {
@@ -320,11 +320,11 @@ let
   aliases = let
     separator = optionalString (cfg.aliasMapType == "hash") ":";
   in
-    optionalString (cfg.postmasterAlias != "") ''
-      postmaster${separator} ${cfg.postmasterAlias}
-    '' + optionalString (cfg.rootAlias != "") ''
-      root${separator} ${cfg.rootAlias}
-    '' + cfg.extraAliases
+  optionalString (cfg.postmasterAlias != "") ''
+    postmaster${separator} ${cfg.postmasterAlias}
+  '' + optionalString (cfg.rootAlias != "") ''
+    root${separator} ${cfg.rootAlias}
+  '' + cfg.extraAliases
   ;
 
   aliasesFile = pkgs.writeText "postfix-aliases" aliases;
@@ -1037,7 +1037,7 @@ in {
               (opt + "=" + val)
             ];
           in
-            concatLists (mapAttrsToList mkKeyVal cfg.submissionOptions)
+          concatLists (mapAttrsToList mkKeyVal cfg.submissionOptions)
           ;
         };
       } // optionalAttrs cfg.enableSmtp {
@@ -1075,7 +1075,7 @@ in {
               smtpd_tls_security_level = "encrypt";
             };
           in
-            concatLists (mapAttrsToList mkKeyVal submissionsOptions)
+          concatLists (mapAttrsToList mkKeyVal submissionsOptions)
           ;
         };
       };

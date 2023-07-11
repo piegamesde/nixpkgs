@@ -18,7 +18,7 @@ let
     matches = builtins.elemAt splits 1;
     elem = builtins.head matches;
   in
-    elem
+  elem
   ;
 
   # this must be updated anytime this package is updated.
@@ -62,7 +62,7 @@ let
     genericName = onlykey.packageName;
   };
 in
-  runCommand "${onlykey.packageName}-${onlykey.version}" { } ''
-    mkdir -p $out/bin
-    ln -s ${script} $out/bin/onlykey
-  ''
+runCommand "${onlykey.packageName}-${onlykey.version}" { } ''
+  mkdir -p $out/bin
+  ln -s ${script} $out/bin/onlykey
+''

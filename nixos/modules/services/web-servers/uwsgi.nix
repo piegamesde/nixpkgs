@@ -72,7 +72,7 @@ let
                   envs.right;
                 paths = oldPaths ++ [ "${pythonEnv}/bin" ];
               in
-                [ "PATH=${concatStringsSep ":" paths}" ] ++ envs.wrong
+              [ "PATH=${concatStringsSep ":" paths}" ] ++ envs.wrong
             ;
           }
         else if isEmperor then
@@ -96,7 +96,7 @@ let
       };
 
     in
-      pkgs.writeTextDir "${name}.json" (builtins.toJSON uwsgiCfg)
+    pkgs.writeTextDir "${name}.json" (builtins.toJSON uwsgiCfg)
   ;
 
 in {
@@ -142,7 +142,7 @@ in {
               emptyValue.value = { };
             };
           in
-            valueType
+          valueType
         ;
         default = { type = "normal"; };
         example = literalExpression ''

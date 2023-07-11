@@ -117,25 +117,23 @@ let
     removed = name: date:
       throw "the ${name} terraform provider removed from nixpkgs on ${date}";
   in
-    lib.optionalAttrs config.allowAliases {
-      b2 = removed "b2" "2022/06";
-      checkpoint = removed "checkpoint" "2022/11";
-      dome9 = removed "dome9" "2022/08";
-      ksyun = removed "ksyun" "2023/04";
-      logicmonitor = license "logicmonitor" "2022/11";
-      ncloud = removed "ncloud" "2022/08";
-      nsxt = license "nsxt" "2022/11";
-      opc = archived "opc" "2022/05";
-      oraclepaas = archived "oraclepaas" "2022/05";
-      panos = removed "panos" "2022/05";
-      template = archived "template" "2022/05";
-      vercel = license "vercel" "2022/11";
-    }
+  lib.optionalAttrs config.allowAliases {
+    b2 = removed "b2" "2022/06";
+    checkpoint = removed "checkpoint" "2022/11";
+    dome9 = removed "dome9" "2022/08";
+    ksyun = removed "ksyun" "2023/04";
+    logicmonitor = license "logicmonitor" "2022/11";
+    ncloud = removed "ncloud" "2022/08";
+    nsxt = license "nsxt" "2022/11";
+    opc = archived "opc" "2022/05";
+    oraclepaas = archived "oraclepaas" "2022/05";
+    panos = removed "panos" "2022/05";
+    template = archived "template" "2022/05";
+    vercel = license "vercel" "2022/11";
+  }
   ;
 
   # excluding aliases, used by terraform-full
   actualProviders = automated-providers // special-providers;
 in
-  actualProviders // removed-providers // {
-    inherit actualProviders mkProvider;
-  }
+actualProviders // removed-providers // { inherit actualProviders mkProvider; }

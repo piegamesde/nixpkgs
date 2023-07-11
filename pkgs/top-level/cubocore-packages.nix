@@ -121,4 +121,4 @@ let
         };
     };
 in
-  lib.makeScope newScope packages
+lib.makeScope newScope packages

@@ -39,16 +39,16 @@ let
   };
 
 in
-  stdenv.mkDerivation {
-    inherit pname version src;
+stdenv.mkDerivation {
+  inherit pname version src;
 
-    makeFlags = [ "MANPATH=${manDir}" ];
+  makeFlags = [ "MANPATH=${manDir}" ];
 
-    dontBuild = true;
+  dontBuild = true;
 
-    meta = with lib; {
-      inherit description license maintainers;
-      inherit (src.meta) homepage;
-      platforms = platforms.all;
-    };
-  }
+  meta = with lib; {
+    inherit description license maintainers;
+    inherit (src.meta) homepage;
+    platforms = platforms.all;
+  };
+}

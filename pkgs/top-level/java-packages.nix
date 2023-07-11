@@ -73,14 +73,14 @@ in {
         let
           openjdk = callPackage path-darwin { };
         in
-          openjdk // { headless = openjdk; }
+        openjdk // { headless = openjdk; }
     ;
 
     mkOpenjdkLinuxOnly = path-linux: args:
       let
         openjdk = callPackage path-linux (gnomeArgs // args);
       in
-        openjdk // { headless = openjdk.override { headless = true; }; }
+      openjdk // { headless = openjdk.override { headless = true; }; }
     ;
 
   in rec {

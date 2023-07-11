@@ -28,31 +28,31 @@ let
     makeFlags = [ "PREFIX=${placeholder "out"}" ];
   };
 in
-  stdenv.mkDerivation {
-    pname = "cyclone";
-    inherit version;
+stdenv.mkDerivation {
+  pname = "cyclone";
+  inherit version;
 
-    src = fetchFromGitHub {
-      owner = "justinethier";
-      repo = "cyclone";
-      rev = "v${version}";
-      sha256 = "sha256-4U/uOTbFpPTC9BmO6Wkhy4PY8UCFVt5eHSGqrOlKT/U=";
-    };
+  src = fetchFromGitHub {
+    owner = "justinethier";
+    repo = "cyclone";
+    rev = "v${version}";
+    sha256 = "sha256-4U/uOTbFpPTC9BmO6Wkhy4PY8UCFVt5eHSGqrOlKT/U=";
+  };
 
-    enableParallelBuilding = true;
+  enableParallelBuilding = true;
 
-    nativeBuildInputs = [ bootstrap ]
-      ++ lib.optionals stdenv.isDarwin [ darwin.cctools ];
+  nativeBuildInputs = [ bootstrap ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.cctools ];
 
-    buildInputs = [ libck ];
+  buildInputs = [ libck ];
 
-    makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
-    meta = with lib; {
-      homepage = "https://justinethier.github.io/cyclone/";
-      description =
-        "A brand-new compiler that allows practical application development using R7RS Scheme";
-      license = licenses.mit;
-      maintainers = with maintainers; [ siraben ];
-    };
-  }
+  meta = with lib; {
+    homepage = "https://justinethier.github.io/cyclone/";
+    description =
+      "A brand-new compiler that allows practical application development using R7RS Scheme";
+    license = licenses.mit;
+    maintainers = with maintainers; [ siraben ];
+  };
+}

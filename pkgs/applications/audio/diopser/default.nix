@@ -38,60 +38,60 @@ let
   };
 
 in
-  stdenv.mkDerivation rec {
-    pname = "diopser";
-    version = "unstable-2021-5-13";
+stdenv.mkDerivation rec {
+  pname = "diopser";
+  version = "unstable-2021-5-13";
 
-    src = fetchFromGitHub {
-      owner = "robbert-vdh";
-      repo = pname;
-      fetchSubmodules = true;
-      rev = "d5fdc92f1caf5a828e071dac99e106e58f06d84d";
-      sha256 = "06y1h895yxh44gp4vxzrna59lf7nlfw7aacd3kk4l1g56jhy9pdx";
-    };
+  src = fetchFromGitHub {
+    owner = "robbert-vdh";
+    repo = pname;
+    fetchSubmodules = true;
+    rev = "d5fdc92f1caf5a828e071dac99e106e58f06d84d";
+    sha256 = "06y1h895yxh44gp4vxzrna59lf7nlfw7aacd3kk4l1g56jhy9pdx";
+  };
 
-    postUnpack = ''
-      (
-        cd "$sourceRoot"
-        cp -R --no-preserve=mode,ownership ${function2.src} function2
-        cp -R --no-preserve=mode,ownership ${juce.src} JUCE
-        sed -i 's@CPMAddPackage("gh:juce-framework/JUCE.*@add_subdirectory(JUCE)@g' CMakeLists.txt
-        sed -i 's@CPMAddPackage("gh:Naios/function2.*@add_subdirectory(function2)@g' CMakeLists.txt
-        patchShebangs .
-      )
-    '';
+  postUnpack = ''
+    (
+      cd "$sourceRoot"
+      cp -R --no-preserve=mode,ownership ${function2.src} function2
+      cp -R --no-preserve=mode,ownership ${juce.src} JUCE
+      sed -i 's@CPMAddPackage("gh:juce-framework/JUCE.*@add_subdirectory(JUCE)@g' CMakeLists.txt
+      sed -i 's@CPMAddPackage("gh:Naios/function2.*@add_subdirectory(function2)@g' CMakeLists.txt
+      patchShebangs .
+    )
+  '';
 
-    installPhase = ''
-      mkdir -p $out/lib/vst3
-      cp -r Diopser_artefacts/Release/VST3/Diopser.vst3 $out/lib/vst3
-    '';
+  installPhase = ''
+    mkdir -p $out/lib/vst3
+    cp -r Diopser_artefacts/Release/VST3/Diopser.vst3 $out/lib/vst3
+  '';
 
-    nativeBuildInputs = [
-      cmake
-      pkg-config
-    ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-    buildInputs = [
-      libjack2
-      alsa-lib
-      freetype
-      libX11
-      libXrandr
-      libXinerama
-      libXext
-      libXcursor
-    ];
+  buildInputs = [
+    libjack2
+    alsa-lib
+    freetype
+    libX11
+    libXrandr
+    libXinerama
+    libXext
+    libXcursor
+  ];
 
-    cmakeFlags = [
-      "-DCMAKE_AR=${stdenv.cc.cc}/bin/gcc-ar"
-      "-DCMAKE_RANLIB=${stdenv.cc.cc}/bin/gcc-ranlib"
-    ];
+  cmakeFlags = [
+    "-DCMAKE_AR=${stdenv.cc.cc}/bin/gcc-ar"
+    "-DCMAKE_RANLIB=${stdenv.cc.cc}/bin/gcc-ranlib"
+  ];
 
-    meta = with lib; {
-      description = "A totally original phase rotation plugin";
-      homepage = "https://github.com/robbert-vdh/diopser";
-      license = licenses.gpl3Plus;
-      maintainers = with maintainers; [ magnetophon ];
-      platforms = platforms.all;
-    };
-  }
+  meta = with lib; {
+    description = "A totally original phase rotation plugin";
+    homepage = "https://github.com/robbert-vdh/diopser";
+    license = licenses.gpl3Plus;
+    maintainers = with maintainers; [ magnetophon ];
+    platforms = platforms.all;
+  };
+}

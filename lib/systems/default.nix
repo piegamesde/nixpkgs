@@ -305,18 +305,18 @@ in rec {
         // mapAttrs (n: v: v final.gcc.arch or "default")
         architectures.predicates // args;
     in
-      assert final.useAndroidPrebuilt -> final.isAndroid;
-      assert lib.foldl (pass:
-        {
-          assertion,
-          message,
-        }:
-        if
-          assertion final
-        then
-          pass
-        else
-          throw message) true (final.parsed.abi.assertions or [ ]);
-      final
+    assert final.useAndroidPrebuilt -> final.isAndroid;
+    assert lib.foldl (pass:
+      {
+        assertion,
+        message,
+      }:
+      if
+        assertion final
+      then
+        pass
+      else
+        throw message) true (final.parsed.abi.assertions or [ ]);
+    final
   ;
 }

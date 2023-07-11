@@ -38,11 +38,11 @@ let
           '';
         });
     in
-      build-asdf-system (args // {
-        # Patches are already applied in `build`
-        patches = [ ];
-        src = build;
-      })
+    build-asdf-system (args // {
+      # Patches are already applied in `build`
+      patches = [ ];
+      src = build;
+    })
   ;
 
   # A little hacky
@@ -62,21 +62,21 @@ let
         sha256 = "0qbis8acv04fi902qzak1mbagqaxcsv2zyp7b8y4shs5nj0cgz7a";
       };
     in
-      build-asdf-system {
-        src = pkgs.fetchzip {
-          url =
-            "http://beta.quicklisp.org/archive/cffi/2021-04-11/cffi_0.24.1.tgz";
-          sha256 = "17ryim4xilb1rzxydfr7595dnhqkk02lmrbkqrkvi9091shi4cj3";
-        };
-        version = "0.24.1";
-        pname = "cffi";
-        lispLibs = with super; [
-          alexandria
-          babel
-          trivial-features
-        ];
-        javaLibs = optionals isJVM [ jna ];
-      }
+    build-asdf-system {
+      src = pkgs.fetchzip {
+        url =
+          "http://beta.quicklisp.org/archive/cffi/2021-04-11/cffi_0.24.1.tgz";
+        sha256 = "17ryim4xilb1rzxydfr7595dnhqkk02lmrbkqrkvi9091shi4cj3";
+      };
+      version = "0.24.1";
+      pname = "cffi";
+      lispLibs = with super; [
+        alexandria
+        babel
+        trivial-features
+      ];
+      javaLibs = optionals isJVM [ jna ];
+    }
     ;
 
     cffi-libffi = build-asdf-system {
@@ -154,7 +154,7 @@ let
         url = let
           rev = "0c10bc82f14702c97a26dc25ce075b5d3a2347d1";
         in
-          "https://gitlab.common-lisp.net/cl-tar/cl-tar-file/-/archive/${rev}/cl-tar-file-${rev}.tar.gz"
+        "https://gitlab.common-lisp.net/cl-tar/cl-tar-file/-/archive/${rev}/cl-tar-file-${rev}.tar.gz"
         ;
         sha256 = "0i8j05fkgdqy4c4pqj0c68sh4s3klpx9kc5wp73qwzrl3xqd2svy";
       };
@@ -181,7 +181,7 @@ let
         url = let
           rev = "7c6e07a10c93d9e311f087b5f6328cddd481669a";
         in
-          "https://gitlab.common-lisp.net/cl-tar/cl-tar/-/archive/${rev}/cl-tar-${rev}.tar.gz"
+        "https://gitlab.common-lisp.net/cl-tar/cl-tar/-/archive/${rev}/cl-tar-${rev}.tar.gz"
         ;
         sha256 = "0wp23cs3i6a89dibifiz6559la5nk58d1n17xvbxq4nrl8cqsllf";
       };
@@ -386,40 +386,40 @@ let
     qt = let
       rev = "dffff3ee3dbd0686c85c323f579b8bbf4881e60e";
     in
-      build-with-compile-into-pwd rec {
-        pname = "commonqt";
-        version = builtins.substring 0 7 rev;
-        src = pkgs.fetchFromGitHub {
-          inherit rev;
-          owner = pname;
-          repo = pname;
-          hash = "sha256-GAgwT0D9mIkYPTHfCH/KxxIv7b6QGwcxwZE7ehH5xug=";
-        };
+    build-with-compile-into-pwd rec {
+      pname = "commonqt";
+      version = builtins.substring 0 7 rev;
+      src = pkgs.fetchFromGitHub {
+        inherit rev;
+        owner = pname;
+        repo = pname;
+        hash = "sha256-GAgwT0D9mIkYPTHfCH/KxxIv7b6QGwcxwZE7ehH5xug=";
+      };
 
-        buildInputs = [ pkgs.qt4 ];
-        nativeBuildInputs = [
-          pkgs.smokegen
-          pkgs.smokeqt
-        ];
-        nativeLibs = [
-          pkgs.qt4
-          pkgs.smokegen
-          pkgs.smokeqt
-        ];
+      buildInputs = [ pkgs.qt4 ];
+      nativeBuildInputs = [
+        pkgs.smokegen
+        pkgs.smokeqt
+      ];
+      nativeLibs = [
+        pkgs.qt4
+        pkgs.smokegen
+        pkgs.smokeqt
+      ];
 
-        systems = [ "qt" ];
+      systems = [ "qt" ];
 
-        lispLibs = with super; [
-          cffi
-          named-readtables
-          cl-ppcre
-          alexandria
-          closer-mop
-          iterate
-          trivial-garbage
-          bordeaux-threads
-        ];
-      }
+      lispLibs = with super; [
+        cffi
+        named-readtables
+        cl-ppcre
+        alexandria
+        closer-mop
+        iterate
+        trivial-garbage
+        bordeaux-threads
+      ];
+    }
     ;
 
     qt-libs = build-with-compile-into-pwd {
@@ -679,4 +679,4 @@ let
   });
 
 in
-  packages
+packages

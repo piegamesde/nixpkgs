@@ -49,33 +49,33 @@ else
     version = "1.5.0";
 
   in
-    stdenv.mkDerivation {
+  stdenv.mkDerivation {
 
-      name = "${pname}-${version}";
+    name = "${pname}-${version}";
 
-      src = fetchFromGitHub {
-        owner = "mjambon";
-        repo = pname;
-        rev = "v${version}";
-        sha256 = "1xqldjz9risndnabvadw41fdbi5sa2hl4fnqls7j9xfbby1izbg8";
-      };
+    src = fetchFromGitHub {
+      owner = "mjambon";
+      repo = pname;
+      rev = "v${version}";
+      sha256 = "1xqldjz9risndnabvadw41fdbi5sa2hl4fnqls7j9xfbby1izbg8";
+    };
 
-      strictDeps = true;
+    strictDeps = true;
 
-      nativeBuildInputs = [
-        ocaml
-        findlib
-        ocamlbuild
-      ];
+    nativeBuildInputs = [
+      ocaml
+      findlib
+      ocamlbuild
+    ];
 
-      inherit meta;
+    inherit meta;
 
-      createFindlibDestdir = true;
+    createFindlibDestdir = true;
 
-      makeFlags = [ "PREFIX=$(out)" ];
+    makeFlags = [ "PREFIX=$(out)" ];
 
-      preBuild = ''
-        mkdir -p $out/bin
-      '';
+    preBuild = ''
+      mkdir -p $out/bin
+    '';
 
-    }
+  }

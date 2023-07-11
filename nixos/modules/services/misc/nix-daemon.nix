@@ -66,44 +66,44 @@ let
         concatStringsSep "\n" (mapAttrsToList mkKeyValue attrs);
 
     in
-      pkgs.writeTextFile {
-        name = "nix.conf";
-        text = ''
-          # WARNING: this file is generated from the nix.* options in
-          # your NixOS configuration, typically
-          # /etc/nixos/configuration.nix.  Do not edit it!
-          ${mkKeyValuePairs cfg.settings}
-          ${cfg.extraOptions}
-        '';
-        checkPhase = lib.optionalString cfg.checkConfig (if
-          pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform
-        then ''
-          echo "Ignoring validation for cross-compilation"
-        '' else ''
-          echo "Validating generated nix.conf"
-          ln -s $out ./nix.conf
-          set -e
-          set +o pipefail
-          NIX_CONF_DIR=$PWD \
-            ${cfg.package}/bin/nix show-config ${
-              optionalString (isNixAtLeast "2.3pre") "--no-net"
+    pkgs.writeTextFile {
+      name = "nix.conf";
+      text = ''
+        # WARNING: this file is generated from the nix.* options in
+        # your NixOS configuration, typically
+        # /etc/nixos/configuration.nix.  Do not edit it!
+        ${mkKeyValuePairs cfg.settings}
+        ${cfg.extraOptions}
+      '';
+      checkPhase = lib.optionalString cfg.checkConfig (if
+        pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform
+      then ''
+        echo "Ignoring validation for cross-compilation"
+      '' else ''
+        echo "Validating generated nix.conf"
+        ln -s $out ./nix.conf
+        set -e
+        set +o pipefail
+        NIX_CONF_DIR=$PWD \
+          ${cfg.package}/bin/nix show-config ${
+            optionalString (isNixAtLeast "2.3pre") "--no-net"
+          } \
+            ${
+              optionalString (isNixAtLeast "2.4pre")
+              "--option experimental-features nix-command"
             } \
-              ${
-                optionalString (isNixAtLeast "2.4pre")
-                "--option experimental-features nix-command"
-              } \
-            |& sed -e 's/^warning:/error:/' \
-            | (! grep '${
-              if
-                cfg.checkAllErrors
-              then
-                "^error:"
-              else
-                "^error: unknown setting"
-            }')
-          set -o pipefail
-        '');
-      }
+          |& sed -e 's/^warning:/error:/' \
+          | (! grep '${
+            if
+              cfg.checkAllErrors
+            then
+              "^error:"
+            else
+              "^error: unknown setting"
+          }')
+        set -o pipefail
+      '');
+    }
   ;
 
   legacyConfMappings = {
@@ -135,7 +135,7 @@ let
           "Nix config atom (null, bool, int, float, str, path or package)";
       };
     in
-      attrsOf (either confAtom (listOf confAtom))
+    attrsOf (either confAtom (listOf confAtom))
   ;
 
 in {
@@ -508,61 +508,61 @@ in {
               package
             ]);
         in
-          {
-            config,
-            name,
-            ...
-          }: {
-            options = {
-              from = mkOption {
-                type = referenceAttrs;
-                example = {
-                  type = "indirect";
-                  id = "nixpkgs";
-                };
-                description = lib.mdDoc "The flake reference to be rewritten.";
-              };
-              to = mkOption {
-                type = referenceAttrs;
-                example = {
-                  type = "github";
-                  owner = "my-org";
-                  repo = "my-nixpkgs";
-                };
-                description = lib.mdDoc
-                  "The flake reference {option}`from` is rewritten to.";
-              };
-              flake = mkOption {
-                type = types.nullOr types.attrs;
-                default = null;
-                example = literalExpression "nixpkgs";
-                description = lib.mdDoc ''
-                  The flake input {option}`from` is rewritten to.
-                '';
-              };
-              exact = mkOption {
-                type = types.bool;
-                default = true;
-                description = lib.mdDoc ''
-                  Whether the {option}`from` reference needs to match exactly. If set,
-                  a {option}`from` reference like `nixpkgs` does not
-                  match with a reference like `nixpkgs/nixos-20.03`.
-                '';
-              };
-            };
-            config = {
-              from = mkDefault {
+        {
+          config,
+          name,
+          ...
+        }: {
+          options = {
+            from = mkOption {
+              type = referenceAttrs;
+              example = {
                 type = "indirect";
-                id = name;
+                id = "nixpkgs";
               };
-              to = mkIf (config.flake != null) (mkDefault ({
-                type = "path";
-                path = config.flake.outPath;
-              } // filterAttrs (n: _:
-                n == "lastModified" || n == "rev" || n == "revCount" || n
-                == "narHash") config.flake));
+              description = lib.mdDoc "The flake reference to be rewritten.";
             };
-          }
+            to = mkOption {
+              type = referenceAttrs;
+              example = {
+                type = "github";
+                owner = "my-org";
+                repo = "my-nixpkgs";
+              };
+              description =
+                lib.mdDoc "The flake reference {option}`from` is rewritten to.";
+            };
+            flake = mkOption {
+              type = types.nullOr types.attrs;
+              default = null;
+              example = literalExpression "nixpkgs";
+              description = lib.mdDoc ''
+                The flake input {option}`from` is rewritten to.
+              '';
+            };
+            exact = mkOption {
+              type = types.bool;
+              default = true;
+              description = lib.mdDoc ''
+                Whether the {option}`from` reference needs to match exactly. If set,
+                a {option}`from` reference like `nixpkgs` does not
+                match with a reference like `nixpkgs/nixos-20.03`.
+              '';
+            };
+          };
+          config = {
+            from = mkDefault {
+              type = "indirect";
+              id = name;
+            };
+            to = mkIf (config.flake != null) (mkDefault ({
+              type = "path";
+              path = config.flake.outPath;
+            } // filterAttrs (n: _:
+              n == "lastModified" || n == "rev" || n == "revCount" || n
+              == "narHash") config.flake));
+          };
+        }
         ));
         default = { };
         description = lib.mdDoc ''

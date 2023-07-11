@@ -12,12 +12,12 @@ let
   };
 
 in
-  mkShell {
-    packages = [
-      neovim
-      nurl
-      python3
-    ];
+mkShell {
+  packages = [
+    neovim
+    nurl
+    python3
+  ];
 
-    NVIM_TREESITTER = nvim-treesitter;
-  }
+  NVIM_TREESITTER = nvim-treesitter;
+}

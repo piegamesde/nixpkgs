@@ -36,7 +36,7 @@ stdenv.mkDerivation {
     else
       "linux";
   in
-    "cd ${subdir}"
+  "cd ${subdir}"
   ;
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];

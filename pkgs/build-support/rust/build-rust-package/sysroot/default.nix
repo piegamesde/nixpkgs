@@ -18,30 +18,30 @@ let
     inherit lib stdenv rustPlatform buildPackages originalCargoToml;
   };
 in
-  rustPlatform.buildRustPackage {
-    inherit target RUSTFLAGS;
+rustPlatform.buildRustPackage {
+  inherit target RUSTFLAGS;
 
-    name = "custom-sysroot";
-    src = cargoSrc;
+  name = "custom-sysroot";
+  src = cargoSrc;
 
-    RUSTC_BOOTSTRAP = 1;
-    __internal_dontAddSysroot = true;
-    cargoSha256 = "sha256-zgkwevitxsu1C4OgGTsqNSc0gDxaNXYK1WPbfER48d0=";
+  RUSTC_BOOTSTRAP = 1;
+  __internal_dontAddSysroot = true;
+  cargoSha256 = "sha256-zgkwevitxsu1C4OgGTsqNSc0gDxaNXYK1WPbfER48d0=";
 
-    doCheck = false;
+  doCheck = false;
 
-    installPhase = ''
-      export LIBS_DIR=$out/lib/rustlib/${shortTarget}/lib
-      mkdir -p $LIBS_DIR
-      for f in target/${shortTarget}/release/deps/*.{rlib,rmeta}; do
-        cp $f $LIBS_DIR
-      done
+  installPhase = ''
+    export LIBS_DIR=$out/lib/rustlib/${shortTarget}/lib
+    mkdir -p $LIBS_DIR
+    for f in target/${shortTarget}/release/deps/*.{rlib,rmeta}; do
+      cp $f $LIBS_DIR
+    done
 
-      export RUST_SYSROOT=$(rustc --print=sysroot)
-      host=${rust.toRustTarget stdenv.buildPlatform}
-      cp -r $RUST_SYSROOT/lib/rustlib/$host $out
-    '';
+    export RUST_SYSROOT=$(rustc --print=sysroot)
+    host=${rust.toRustTarget stdenv.buildPlatform}
+    cp -r $RUST_SYSROOT/lib/rustlib/$host $out
+  '';
 
-    # allows support for cross-compilation
-    meta.platforms = lib.platforms.all;
-  }
+  # allows support for cross-compilation
+  meta.platforms = lib.platforms.all;
+}

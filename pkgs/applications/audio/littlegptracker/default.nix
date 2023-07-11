@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     else
       "deb-exe";
   in
-    "install -Dm555 lgpt.${extension} $out/bin/lgpt"
+  "install -Dm555 lgpt.${extension} $out/bin/lgpt"
   ;
 
   passthru.updateScript = unstableGitUpdater {

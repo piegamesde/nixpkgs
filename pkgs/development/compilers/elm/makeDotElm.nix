@@ -36,8 +36,8 @@ let
       cp -R ${pkg} .elm/${ver}/packages/${name}/${info.version}
     '' ) deps;
 in
-  (lib.concatStrings cmds) + ''
-    mkdir -p .elm/${ver}/packages;
-    cp ${registryDat} .elm/${ver}/packages/registry.dat;
-    chmod -R +w .elm
-  ''
+(lib.concatStrings cmds) + ''
+  mkdir -p .elm/${ver}/packages;
+  cp ${registryDat} .elm/${ver}/packages/registry.dat;
+  chmod -R +w .elm
+''

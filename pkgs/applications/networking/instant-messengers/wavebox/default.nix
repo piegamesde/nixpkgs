@@ -33,61 +33,61 @@ let
     }_linux_${bits}.tar.gz";
 
 in
-  stdenv.mkDerivation {
-    pname = "wavebox";
-    inherit version;
-    src = fetchurl {
-      url =
-        "https://github.com/wavebox/waveboxapp/releases/download/v${version}/${tarball}";
-      sha256 = "0z04071lq9bfyrlg034fmvd4346swgfhxbmsnl12m7c2m2b9z784";
-    };
+stdenv.mkDerivation {
+  pname = "wavebox";
+  inherit version;
+  src = fetchurl {
+    url =
+      "https://github.com/wavebox/waveboxapp/releases/download/v${version}/${tarball}";
+    sha256 = "0z04071lq9bfyrlg034fmvd4346swgfhxbmsnl12m7c2m2b9z784";
+  };
 
-    # don't remove runtime deps
-    dontPatchELF = true;
+  # don't remove runtime deps
+  dontPatchELF = true;
 
-    nativeBuildInputs = [
-      autoPatchelfHook
-      makeWrapper
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+  ];
+
+  buildInputs = with xorg;
+    [
+      libXdmcp
+      libXScrnSaver
+      libXtst
+    ] ++ [
+      alsa-lib
+      gtk3
+      nss
     ];
 
-    buildInputs = with xorg;
-      [
-        libXdmcp
-        libXScrnSaver
-        libXtst
-      ] ++ [
-        alsa-lib
-        gtk3
-        nss
-      ];
+  runtimeDependencies = [
+    (lib.getLib udev)
+    libnotify
+  ];
 
-    runtimeDependencies = [
-      (lib.getLib udev)
-      libnotify
-    ];
+  installPhase = ''
+    mkdir -p $out/bin $out/opt/wavebox
+    cp -r * $out/opt/wavebox
 
-    installPhase = ''
-      mkdir -p $out/bin $out/opt/wavebox
-      cp -r * $out/opt/wavebox
+    # provide desktop item and icon
+    mkdir -p $out/share/applications $out/share/pixmaps
+    ln -s ${desktopItem}/share/applications/* $out/share/applications
+    ln -s $out/opt/wavebox/Wavebox-linux-x64/wavebox_icon.png $out/share/pixmaps/wavebox.png
+  '';
 
-      # provide desktop item and icon
-      mkdir -p $out/share/applications $out/share/pixmaps
-      ln -s ${desktopItem}/share/applications/* $out/share/applications
-      ln -s $out/opt/wavebox/Wavebox-linux-x64/wavebox_icon.png $out/share/pixmaps/wavebox.png
-    '';
+  postFixup = ''
+    # make xdg-open overrideable at runtime
+    makeWrapper $out/opt/wavebox/Wavebox $out/bin/wavebox \
+      --suffix PATH : ${xdg-utils}/bin
+  '';
 
-    postFixup = ''
-      # make xdg-open overrideable at runtime
-      makeWrapper $out/opt/wavebox/Wavebox $out/bin/wavebox \
-        --suffix PATH : ${xdg-utils}/bin
-    '';
-
-    meta = with lib; {
-      description = "Wavebox messaging application";
-      homepage = "https://wavebox.io";
-      license = licenses.mpl20;
-      maintainers = with maintainers; [ rawkode ];
-      platforms = [ "x86_64-linux" ];
-      hydraPlatforms = [ ];
-    };
-  }
+  meta = with lib; {
+    description = "Wavebox messaging application";
+    homepage = "https://wavebox.io";
+    license = licenses.mpl20;
+    maintainers = with maintainers; [ rawkode ];
+    platforms = [ "x86_64-linux" ];
+    hydraPlatforms = [ ];
+  };
+}

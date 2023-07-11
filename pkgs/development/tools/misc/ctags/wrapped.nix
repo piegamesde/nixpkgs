@@ -29,14 +29,14 @@ with pkgs.lib;
       args = let
         x = pkgs.ctagsWrapped;
       in
-        concatLists [
-          x.defaultArgs
-          x.phpLang
-          x.jsLang
-          x.nixLang
-          x.asLang
-          x.rubyLang
-        ]
+      concatLists [
+        x.defaultArgs
+        x.phpLang
+        x.jsLang
+        x.nixLang
+        x.asLang
+        x.rubyLang
+      ]
       ;
       name = "${ctags.name}-wrapped";
     };

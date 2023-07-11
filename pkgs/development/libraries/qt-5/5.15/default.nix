@@ -148,153 +148,153 @@ let
       callPackage =
         self.newScope { inherit qtCompatVersion qtModule srcs stdenv; };
     in
-      {
+    {
 
-        inherit callPackage qtCompatVersion qtModule srcs;
+      inherit callPackage qtCompatVersion qtModule srcs;
 
-        mkDerivationWith = import ../mkDerivation.nix {
-          inherit lib;
+      mkDerivationWith = import ../mkDerivation.nix {
+        inherit lib;
+        inherit debug;
+        inherit (self) wrapQtAppsHook;
+      };
+
+      mkDerivation = mkDerivationWith stdenv.mkDerivation;
+
+      qtbase = callPackage ../modules/qtbase.nix {
+        inherit (srcs.qtbase) src version;
+        patches = patches.qtbase;
+        inherit bison cups harfbuzz libGL;
+        withGtk3 = !stdenv.isDarwin;
+        inherit dconf gtk3;
+        inherit developerBuild decryptSslTraffic;
+        inherit (darwin.apple_sdk_11_0.frameworks)
+          AGL AppKit ApplicationServices AVFoundation Carbon Cocoa CoreAudio
+          CoreBluetooth CoreLocation CoreServices DiskArbitration Foundation
+          OpenGL MetalKit IOKit;
+        libobjc = darwin.apple_sdk_11_0.objc4;
+        xcbuild = darwin.apple_sdk_11_0.xcodebuild;
+      };
+
+      qt3d = callPackage ../modules/qt3d.nix { };
+      qtcharts = callPackage ../modules/qtcharts.nix { };
+      qtconnectivity = callPackage ../modules/qtconnectivity.nix { };
+      qtdeclarative = callPackage ../modules/qtdeclarative.nix { };
+      qtdoc = callPackage ../modules/qtdoc.nix { };
+      qtgamepad = callPackage ../modules/qtgamepad.nix {
+        inherit (darwin.apple_sdk_11_0.frameworks) GameController;
+      };
+      qtgraphicaleffects = callPackage ../modules/qtgraphicaleffects.nix { };
+      qtimageformats = callPackage ../modules/qtimageformats.nix { };
+      qtlocation = callPackage ../modules/qtlocation.nix { };
+      qtlottie = callPackage ../modules/qtlottie.nix { };
+      qtmacextras = callPackage ../modules/qtmacextras.nix { };
+      qtmultimedia = callPackage ../modules/qtmultimedia.nix {
+        inherit gstreamer gst-plugins-base;
+      };
+      qtnetworkauth = callPackage ../modules/qtnetworkauth.nix { };
+      qtpositioning = callPackage ../modules/qtpositioning.nix { };
+      qtquick1 = null;
+      qtquickcontrols = callPackage ../modules/qtquickcontrols.nix { };
+      qtquickcontrols2 = callPackage ../modules/qtquickcontrols2.nix { };
+      qtscript = callPackage ../modules/qtscript.nix { };
+      qtsensors = callPackage ../modules/qtsensors.nix { };
+      qtserialbus = callPackage ../modules/qtserialbus.nix { };
+      qtserialport = callPackage ../modules/qtserialport.nix { };
+      qtspeech = callPackage ../modules/qtspeech.nix { };
+      qtsvg = callPackage ../modules/qtsvg.nix { };
+      qtsystems = callPackage ../modules/qtsystems.nix { };
+      qtscxml = callPackage ../modules/qtscxml.nix { };
+      qttools = callPackage ../modules/qttools.nix { };
+      qttranslations = callPackage ../modules/qttranslations.nix { };
+      qtvirtualkeyboard = callPackage ../modules/qtvirtualkeyboard.nix { };
+      qtwayland = callPackage ../modules/qtwayland.nix { };
+      qtwebchannel = callPackage ../modules/qtwebchannel.nix { };
+      qtwebengine = callPackage ../modules/qtwebengine.nix {
+        inherit (srcs.qtwebengine) version;
+        python = python3;
+        postPatch = ''
+          # update catapult for python3 compatibility
+          rm -r src/3rdparty/chromium/third_party/catapult
+          cp -r ${srcs.catapult} src/3rdparty/chromium/third_party/catapult
+        '';
+        inherit (darwin) cctools xnu;
+        inherit (darwin.apple_sdk_11_0) libpm libunwind;
+        inherit (darwin.apple_sdk_11_0.libs) sandbox;
+        inherit (darwin.apple_sdk_11_0.frameworks)
+          ApplicationServices AVFoundation Foundation ForceFeedback
+          GameController AppKit ImageCaptureCore CoreBluetooth IOBluetooth
+          CoreWLAN Quartz Cocoa LocalAuthentication MediaPlayer
+          MediaAccessibility SecurityInterface Vision CoreML OpenDirectory
+          Accelerate;
+        libobjc = darwin.apple_sdk_11_0.objc4;
+      };
+      qtwebglplugin = callPackage ../modules/qtwebglplugin.nix { };
+      qtwebkit = callPackage ../modules/qtwebkit.nix {
+        inherit (darwin) ICU;
+        inherit (darwin.apple_sdk_11_0.frameworks) OpenGL;
+      };
+      qtwebsockets = callPackage ../modules/qtwebsockets.nix { };
+      qtwebview = callPackage ../modules/qtwebview.nix {
+        inherit (darwin.apple_sdk_11_0.frameworks) CoreFoundation WebKit;
+      };
+      qtx11extras = callPackage ../modules/qtx11extras.nix { };
+      qtxmlpatterns = callPackage ../modules/qtxmlpatterns.nix { };
+
+      env = callPackage ../qt-env.nix { };
+      full = env "qt-full-${qtbase.version}" ([
+        qt3d
+        qtcharts
+        qtconnectivity
+        qtdeclarative
+        qtdoc
+        qtgraphicaleffects
+        qtimageformats
+        qtlocation
+        qtmultimedia
+        qtquickcontrols
+        qtquickcontrols2
+        qtscript
+        qtsensors
+        qtserialport
+        qtsvg
+        qttools
+        qttranslations
+        qtvirtualkeyboard
+        qtwebchannel
+        qtwebengine
+        qtwebkit
+        qtwebsockets
+        qtwebview
+        qtx11extras
+        qtxmlpatterns
+        qtlottie
+      ] ++ lib.optional (!stdenv.isDarwin) qtwayland
+        ++ lib.optional (stdenv.isDarwin) qtmacextras);
+
+      qmake = makeSetupHook {
+        name = "qmake-hook";
+        propagatedBuildInputs = [ self.qtbase.dev ];
+        substitutions = {
           inherit debug;
-          inherit (self) wrapQtAppsHook;
+          fix_qmake_libtool = ../hooks/fix-qmake-libtool.sh;
         };
+      } ../hooks/qmake-hook.sh;
 
-        mkDerivation = mkDerivationWith stdenv.mkDerivation;
-
-        qtbase = callPackage ../modules/qtbase.nix {
-          inherit (srcs.qtbase) src version;
-          patches = patches.qtbase;
-          inherit bison cups harfbuzz libGL;
-          withGtk3 = !stdenv.isDarwin;
-          inherit dconf gtk3;
-          inherit developerBuild decryptSslTraffic;
-          inherit (darwin.apple_sdk_11_0.frameworks)
-            AGL AppKit ApplicationServices AVFoundation Carbon Cocoa CoreAudio
-            CoreBluetooth CoreLocation CoreServices DiskArbitration Foundation
-            OpenGL MetalKit IOKit;
-          libobjc = darwin.apple_sdk_11_0.objc4;
-          xcbuild = darwin.apple_sdk_11_0.xcodebuild;
-        };
-
-        qt3d = callPackage ../modules/qt3d.nix { };
-        qtcharts = callPackage ../modules/qtcharts.nix { };
-        qtconnectivity = callPackage ../modules/qtconnectivity.nix { };
-        qtdeclarative = callPackage ../modules/qtdeclarative.nix { };
-        qtdoc = callPackage ../modules/qtdoc.nix { };
-        qtgamepad = callPackage ../modules/qtgamepad.nix {
-          inherit (darwin.apple_sdk_11_0.frameworks) GameController;
-        };
-        qtgraphicaleffects = callPackage ../modules/qtgraphicaleffects.nix { };
-        qtimageformats = callPackage ../modules/qtimageformats.nix { };
-        qtlocation = callPackage ../modules/qtlocation.nix { };
-        qtlottie = callPackage ../modules/qtlottie.nix { };
-        qtmacextras = callPackage ../modules/qtmacextras.nix { };
-        qtmultimedia = callPackage ../modules/qtmultimedia.nix {
-          inherit gstreamer gst-plugins-base;
-        };
-        qtnetworkauth = callPackage ../modules/qtnetworkauth.nix { };
-        qtpositioning = callPackage ../modules/qtpositioning.nix { };
-        qtquick1 = null;
-        qtquickcontrols = callPackage ../modules/qtquickcontrols.nix { };
-        qtquickcontrols2 = callPackage ../modules/qtquickcontrols2.nix { };
-        qtscript = callPackage ../modules/qtscript.nix { };
-        qtsensors = callPackage ../modules/qtsensors.nix { };
-        qtserialbus = callPackage ../modules/qtserialbus.nix { };
-        qtserialport = callPackage ../modules/qtserialport.nix { };
-        qtspeech = callPackage ../modules/qtspeech.nix { };
-        qtsvg = callPackage ../modules/qtsvg.nix { };
-        qtsystems = callPackage ../modules/qtsystems.nix { };
-        qtscxml = callPackage ../modules/qtscxml.nix { };
-        qttools = callPackage ../modules/qttools.nix { };
-        qttranslations = callPackage ../modules/qttranslations.nix { };
-        qtvirtualkeyboard = callPackage ../modules/qtvirtualkeyboard.nix { };
-        qtwayland = callPackage ../modules/qtwayland.nix { };
-        qtwebchannel = callPackage ../modules/qtwebchannel.nix { };
-        qtwebengine = callPackage ../modules/qtwebengine.nix {
-          inherit (srcs.qtwebengine) version;
-          python = python3;
-          postPatch = ''
-            # update catapult for python3 compatibility
-            rm -r src/3rdparty/chromium/third_party/catapult
-            cp -r ${srcs.catapult} src/3rdparty/chromium/third_party/catapult
-          '';
-          inherit (darwin) cctools xnu;
-          inherit (darwin.apple_sdk_11_0) libpm libunwind;
-          inherit (darwin.apple_sdk_11_0.libs) sandbox;
-          inherit (darwin.apple_sdk_11_0.frameworks)
-            ApplicationServices AVFoundation Foundation ForceFeedback
-            GameController AppKit ImageCaptureCore CoreBluetooth IOBluetooth
-            CoreWLAN Quartz Cocoa LocalAuthentication MediaPlayer
-            MediaAccessibility SecurityInterface Vision CoreML OpenDirectory
-            Accelerate;
-          libobjc = darwin.apple_sdk_11_0.objc4;
-        };
-        qtwebglplugin = callPackage ../modules/qtwebglplugin.nix { };
-        qtwebkit = callPackage ../modules/qtwebkit.nix {
-          inherit (darwin) ICU;
-          inherit (darwin.apple_sdk_11_0.frameworks) OpenGL;
-        };
-        qtwebsockets = callPackage ../modules/qtwebsockets.nix { };
-        qtwebview = callPackage ../modules/qtwebview.nix {
-          inherit (darwin.apple_sdk_11_0.frameworks) CoreFoundation WebKit;
-        };
-        qtx11extras = callPackage ../modules/qtx11extras.nix { };
-        qtxmlpatterns = callPackage ../modules/qtxmlpatterns.nix { };
-
-        env = callPackage ../qt-env.nix { };
-        full = env "qt-full-${qtbase.version}" ([
-          qt3d
-          qtcharts
-          qtconnectivity
-          qtdeclarative
-          qtdoc
-          qtgraphicaleffects
-          qtimageformats
-          qtlocation
-          qtmultimedia
-          qtquickcontrols
-          qtquickcontrols2
-          qtscript
-          qtsensors
-          qtserialport
-          qtsvg
-          qttools
-          qttranslations
-          qtvirtualkeyboard
-          qtwebchannel
-          qtwebengine
-          qtwebkit
-          qtwebsockets
-          qtwebview
-          qtx11extras
-          qtxmlpatterns
-          qtlottie
-        ] ++ lib.optional (!stdenv.isDarwin) qtwayland
-          ++ lib.optional (stdenv.isDarwin) qtmacextras);
-
-        qmake = makeSetupHook {
-          name = "qmake-hook";
-          propagatedBuildInputs = [ self.qtbase.dev ];
-          substitutions = {
-            inherit debug;
-            fix_qmake_libtool = ../hooks/fix-qmake-libtool.sh;
-          };
-        } ../hooks/qmake-hook.sh;
-
-        wrapQtAppsHook = makeSetupHook {
-          name = "wrap-qt5-apps-hook";
-          propagatedBuildInputs = [
-            self.qtbase.dev
-            buildPackages.makeBinaryWrapper
-          ] ++ lib.optional stdenv.isLinux self.qtwayland.dev;
-        } ../hooks/wrap-qt-apps-hook.sh;
-      } // lib.optionalAttrs config.allowAliases {
-        # remove before 23.11
-        overrideScope' = lib.warn ''
-          qt5 now uses makeScopeWithSplicing which does not have "overrideScope'", use "overrideScope".''
-          self.overrideScope;
-      }
+      wrapQtAppsHook = makeSetupHook {
+        name = "wrap-qt5-apps-hook";
+        propagatedBuildInputs = [
+          self.qtbase.dev
+          buildPackages.makeBinaryWrapper
+        ] ++ lib.optional stdenv.isLinux self.qtwayland.dev;
+      } ../hooks/wrap-qt-apps-hook.sh;
+    } // lib.optionalAttrs config.allowAliases {
+      # remove before 23.11
+      overrideScope' = lib.warn ''
+        qt5 now uses makeScopeWithSplicing which does not have "overrideScope'", use "overrideScope".''
+        self.overrideScope;
+    }
   ;
 
 in
-  makeScopeWithSplicing (generateSplicesForMkScope "qt5") (_: { }) (_: { })
-  addPackages
+makeScopeWithSplicing (generateSplicesForMkScope "qt5") (_: { }) (_: { })
+addPackages

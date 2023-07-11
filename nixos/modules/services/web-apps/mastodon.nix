@@ -126,19 +126,19 @@ let
       source ${p}
     '') cfg.extraEnvFiles;
   in
-    pkgs.writeShellScriptBin "mastodon-tootctl" ''
-      set -a
-      export RAILS_ROOT="${cfg.package}"
-      source "${envFile}"
-      source /var/lib/mastodon/.secrets_env
-      ${sourceExtraEnv}
+  pkgs.writeShellScriptBin "mastodon-tootctl" ''
+    set -a
+    export RAILS_ROOT="${cfg.package}"
+    source "${envFile}"
+    source /var/lib/mastodon/.secrets_env
+    ${sourceExtraEnv}
 
-      sudo=exec
-      if [[ "$USER" != ${cfg.user} ]]; then
-        sudo='exec /run/wrappers/bin/sudo -u ${cfg.user} --preserve-env'
-      fi
-      $sudo ${cfg.package}/bin/tootctl "$@"
-    ''
+    sudo=exec
+    if [[ "$USER" != ${cfg.user} ]]; then
+      sudo='exec /run/wrappers/bin/sudo -u ${cfg.user} --preserve-env'
+    fi
+    $sudo ${cfg.package}/bin/tootctl "$@"
+  ''
   ;
 
   sidekiqUnits = lib.attrsets.mapAttrs' (name: processCfg:

@@ -20,25 +20,25 @@ let
     inherit (stdenv.hostPlatform) system;
   };
 in
-  nodePackages.package.override {
-    inherit src;
-    nativeBuildInputs = [
-      pkgs.makeWrapper
-      pkgs.nodePackages.node-gyp-build
-    ];
+nodePackages.package.override {
+  inherit src;
+  nativeBuildInputs = [
+    pkgs.makeWrapper
+    pkgs.nodePackages.node-gyp-build
+  ];
 
-    postInstall = ''
-      # Patch shebangs in node_modules, otherwise the webpack build fails with interpreter problems
-      patchShebangs --build "$out/lib/node_modules/spacegun/node_modules/"
-      # compile Typescript sources
-      npm run build
-    '';
+  postInstall = ''
+    # Patch shebangs in node_modules, otherwise the webpack build fails with interpreter problems
+    patchShebangs --build "$out/lib/node_modules/spacegun/node_modules/"
+    # compile Typescript sources
+    npm run build
+  '';
 
-    meta = with lib; {
-      broken = stdenv.isDarwin;
-      description =
-        "Version controlled multi-cluster deployment manager for kubernetes";
-      maintainers = with maintainers; [ ];
-      license = licenses.mit;
-    };
-  }
+  meta = with lib; {
+    broken = stdenv.isDarwin;
+    description =
+      "Version controlled multi-cluster deployment manager for kubernetes";
+    maintainers = with maintainers; [ ];
+    license = licenses.mit;
+  };
+}

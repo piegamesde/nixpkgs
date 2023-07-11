@@ -16,26 +16,26 @@ let
   };
 
 in
-  buildGoModule {
-    pname = "influx-cli";
-    version = version;
-    inherit src;
+buildGoModule {
+  pname = "influx-cli";
+  version = version;
+  inherit src;
 
-    vendorHash = "sha256-QNhL5RPkNLTXoQ0NqcZuKec3ZBc3CDTc/XTWvjy55wk=";
-    subPackages = [ "cmd/influx" ];
+  vendorHash = "sha256-QNhL5RPkNLTXoQ0NqcZuKec3ZBc3CDTc/XTWvjy55wk=";
+  subPackages = [ "cmd/influx" ];
 
-    ldflags = [
-      "-X main.commit=v${version}"
-      "-X main.version=${version}"
+  ldflags = [
+    "-X main.commit=v${version}"
+    "-X main.version=${version}"
+  ];
+
+  meta = with lib; {
+    description = "CLI for managing resources in InfluxDB v2";
+    license = licenses.mit;
+    homepage = "https://influxdata.com/";
+    maintainers = with maintainers; [
+      abbradar
+      danderson
     ];
-
-    meta = with lib; {
-      description = "CLI for managing resources in InfluxDB v2";
-      license = licenses.mit;
-      homepage = "https://influxdata.com/";
-      maintainers = with maintainers; [
-        abbradar
-        danderson
-      ];
-    };
-  }
+  };
+}

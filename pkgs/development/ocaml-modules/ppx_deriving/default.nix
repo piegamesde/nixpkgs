@@ -32,48 +32,48 @@ let
   };
 
 in
-  buildDunePackage rec {
-    pname = "ppx_deriving";
-    inherit (params) version;
+buildDunePackage rec {
+  pname = "ppx_deriving";
+  inherit (params) version;
 
-    duneVersion = "3";
+  duneVersion = "3";
 
-    src = fetchurl {
-      url =
-        "https://github.com/ocaml-ppx/ppx_deriving/releases/download/v${version}/ppx_deriving-v${version}.tbz";
-      inherit (params) sha256;
-    };
+  src = fetchurl {
+    url =
+      "https://github.com/ocaml-ppx/ppx_deriving/releases/download/v${version}/ppx_deriving-v${version}.tbz";
+    inherit (params) sha256;
+  };
 
-    strictDeps = true;
+  strictDeps = true;
 
-    nativeBuildInputs = [ cppo ];
-    buildInputs = [
-      findlib
-      ppxlib
-    ];
-    propagatedBuildInputs = [
-      (if
-        params.useOMP2
-      then
-        ocaml-migrate-parsetree-2
-      else
-        ocaml-migrate-parsetree)
-      ppx_derivers
-      result
-    ];
-
-    doCheck = lib.versionOlder ocaml.version "5.0";
-    checkInputs = [ (if
-      lib.versionAtLeast version "5.2"
+  nativeBuildInputs = [ cppo ];
+  buildInputs = [
+    findlib
+    ppxlib
+  ];
+  propagatedBuildInputs = [
+    (if
+      params.useOMP2
     then
-      ounit2
+      ocaml-migrate-parsetree-2
     else
-      ounit) ];
+      ocaml-migrate-parsetree)
+    ppx_derivers
+    result
+  ];
 
-    meta = with lib; {
-      description =
-        "deriving is a library simplifying type-driven code generation on OCaml >=4.02.";
-      maintainers = [ maintainers.maurer ];
-      license = licenses.mit;
-    };
-  }
+  doCheck = lib.versionOlder ocaml.version "5.0";
+  checkInputs = [ (if
+    lib.versionAtLeast version "5.2"
+  then
+    ounit2
+  else
+    ounit) ];
+
+  meta = with lib; {
+    description =
+      "deriving is a library simplifying type-driven code generation on OCaml >=4.02.";
+    maintainers = [ maintainers.maurer ];
+    license = licenses.mit;
+  };
+}

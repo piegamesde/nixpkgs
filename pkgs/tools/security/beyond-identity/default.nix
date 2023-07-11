@@ -92,26 +92,26 @@ let
   };
   # /usr/bin/pkcheck is hardcoded in binary - we need FHS
 in
-  buildFHSEnv {
-    inherit meta;
-    name = pname;
+buildFHSEnv {
+  inherit meta;
+  name = pname;
 
-    targetPkgs = pkgs: [
-      beyond-identity
-      glib
-      glibc
-      openssl
-      tpm2-tss
-      gtk3
-      gnome.gnome-keyring
-      polkit
-      polkit_gnome
-    ];
+  targetPkgs = pkgs: [
+    beyond-identity
+    glib
+    glibc
+    openssl
+    tpm2-tss
+    gtk3
+    gnome.gnome-keyring
+    polkit
+    polkit_gnome
+  ];
 
-    extraInstallCommands = ''
-      ln -s ${beyond-identity}/share $out
-    '';
+  extraInstallCommands = ''
+    ln -s ${beyond-identity}/share $out
+  '';
 
-    runScript = "beyond-identity";
-  }
+  runScript = "beyond-identity";
+}
 

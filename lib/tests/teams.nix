@@ -50,9 +50,9 @@ let
         ];
       }).config;
     in
-      checkedAttrs
+    checkedAttrs
   ;
 
   checkedTeams = lib.mapAttrs checkTeam lib.teams;
 in
-  pkgs.writeTextDir "maintainer-teams.json" (builtins.toJSON checkedTeams)
+pkgs.writeTextDir "maintainer-teams.json" (builtins.toJSON checkedTeams)

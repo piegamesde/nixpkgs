@@ -401,7 +401,7 @@ let
           } // lib.optionalAttrs useBaseRuby { inherit baseRuby; };
         }) args;
     in
-      self
+    self
   ;
 
 in {

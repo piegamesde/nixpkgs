@@ -54,25 +54,25 @@ in let
   };
 
 in
-  ocamlPackages.buildDunePackage {
+ocamlPackages.buildDunePackage {
 
-    inherit pname version src configureScript;
+  inherit pname version src configureScript;
 
-    configureFlags = [ pname ];
+  configureFlags = [ pname ];
 
-    nativeBuildInputs = [
-      which
-      ocamlPackages.menhir
-    ];
-    buildInputs = [
-      alt-ergo-parsers
-      ocamlPackages.cmdliner
-    ];
+  nativeBuildInputs = [
+    which
+    ocamlPackages.menhir
+  ];
+  buildInputs = [
+    alt-ergo-parsers
+    ocamlPackages.cmdliner
+  ];
 
-    meta = {
-      description = "High-performance theorem prover and SMT solver";
-      homepage = "https://alt-ergo.ocamlpro.com/";
-      license = lib.licenses.ocamlpro_nc;
-      maintainers = [ lib.maintainers.thoughtpolice ];
-    };
-  }
+  meta = {
+    description = "High-performance theorem prover and SMT solver";
+    homepage = "https://alt-ergo.ocamlpro.com/";
+    license = lib.licenses.ocamlpro_nc;
+    maintainers = [ lib.maintainers.thoughtpolice ];
+  };
+}

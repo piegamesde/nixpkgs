@@ -238,18 +238,18 @@ let
         concatStringsSep ":" (map (p: "${p}/bin") ([ faust ] ++ runtimeInputs));
 
     in
-      stdenv.mkDerivation ((faust2ApplBase args) // {
+    stdenv.mkDerivation ((faust2ApplBase args) // {
 
-        nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [ makeWrapper ];
 
-        postFixup = ''
-          for script in "$out"/bin/*; do
-            wrapProgram "$script" --prefix PATH : "${runtimePath}"
-          done
-        '';
+      postFixup = ''
+        for script in "$out"/bin/*; do
+          wrapProgram "$script" --prefix PATH : "${runtimePath}"
+        done
+      '';
 
-      })
+    })
   ;
 
 in
-  faust
+faust

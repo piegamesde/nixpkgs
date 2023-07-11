@@ -27,13 +27,13 @@ let
     let
       deps = p.perlPackages or [ ];
     in
-      map (x:
-        if
-          x == "self"
-        then
-          p
-        else
-          x) deps
+    map (x:
+      if
+        x == "self"
+      then
+        p
+      else
+        x) deps
   ;
 
   # The wrapper is called with a `configure` function
@@ -52,30 +52,30 @@ let
       extraDeps = config.extraDeps or [ ];
       perlDeps = (config.perlDeps or [ ]) ++ lib.concatMap mkPerlDeps plugins;
     in
-      symlinkJoin {
-        name = "rxvt-unicode-${rxvt-unicode-unwrapped.version}";
+    symlinkJoin {
+      name = "rxvt-unicode-${rxvt-unicode-unwrapped.version}";
 
-        paths = [ rxvt-unicode-unwrapped ] ++ plugins ++ extraDeps;
+      paths = [ rxvt-unicode-unwrapped ] ++ plugins ++ extraDeps;
 
-        nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [ makeWrapper ];
 
-        postBuild = ''
-          wrapProgram $out/bin/urxvt \
-            --prefix PERL5LIB : "${perlPackages.makePerlPath perlDeps}" \
-            --suffix-each URXVT_PERL_LIB ':' "$out/lib/urxvt/perl"
-          wrapProgram $out/bin/urxvtd \
-            --prefix PERL5LIB : "${perlPackages.makePerlPath perlDeps}" \
-            --suffix-each URXVT_PERL_LIB ':' "$out/lib/urxvt/perl"
-        '';
+      postBuild = ''
+        wrapProgram $out/bin/urxvt \
+          --prefix PERL5LIB : "${perlPackages.makePerlPath perlDeps}" \
+          --suffix-each URXVT_PERL_LIB ':' "$out/lib/urxvt/perl"
+        wrapProgram $out/bin/urxvtd \
+          --prefix PERL5LIB : "${perlPackages.makePerlPath perlDeps}" \
+          --suffix-each URXVT_PERL_LIB ':' "$out/lib/urxvt/perl"
+      '';
 
-        inherit (rxvt-unicode-unwrapped) meta;
+      inherit (rxvt-unicode-unwrapped) meta;
 
-        passthru = {
-          plugins = plugins;
-          tests.test = nixosTests.terminal-emulators.urxvt;
-        };
-      }
+      passthru = {
+        plugins = plugins;
+        tests.test = nixosTests.terminal-emulators.urxvt;
+      };
+    }
   ;
 
 in
-  lib.makeOverridable wrapper { inherit configure; }
+lib.makeOverridable wrapper { inherit configure; }

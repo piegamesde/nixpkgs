@@ -225,34 +225,34 @@ rec {
          - not sure how this affects multiple outputs
       */
     in
-      lib.extendDerivation true passthru (stdenv.mkDerivation {
-        src = unresholved;
-        inherit version pname;
-        buildInputs = [ resholve ];
-        disallowedReferences = [ resholve ];
+    lib.extendDerivation true passthru (stdenv.mkDerivation {
+      src = unresholved;
+      inherit version pname;
+      buildInputs = [ resholve ];
+      disallowedReferences = [ resholve ];
 
-        # retain a reference to the base
-        passthru = unresholved.passthru // {
-          unresholved = unresholved;
-          # fallback attr for update bot to query our src
-          originalSrc = unresholved.src;
-        };
+      # retain a reference to the base
+      passthru = unresholved.passthru // {
+        unresholved = unresholved;
+        # fallback attr for update bot to query our src
+        originalSrc = unresholved.src;
+      };
 
-        # do these imply that we should use NoCC or something?
-        dontConfigure = true;
-        dontBuild = true;
+      # do these imply that we should use NoCC or something?
+      dontConfigure = true;
+      dontBuild = true;
 
-        installPhase = ''
-          cp -R $src $out
-        '';
+      installPhase = ''
+        cp -R $src $out
+      '';
 
-        # enable below for verbose debug info if needed
-        # supports default python.logging levels
-        # LOGLEVEL="INFO";
-        preFixup = phraseSolutions solutions unresholved;
+      # enable below for verbose debug info if needed
+      # supports default python.logging levels
+      # LOGLEVEL="INFO";
+      preFixup = phraseSolutions solutions unresholved;
 
-        # don't break the metadata...
-        meta = unresholved.meta;
-      })
+      # don't break the metadata...
+      meta = unresholved.meta;
+    })
   ;
 }

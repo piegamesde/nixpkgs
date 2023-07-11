@@ -15,12 +15,12 @@ let
     exports = builtins.attrValues
       (builtins.mapAttrs (n: v: "export ${n}=${v}") cfg.gamescopeSession.env);
   in
-    pkgs.writeShellScriptBin "steam-gamescope" ''
-      ${builtins.concatStringsSep "\n" exports}
-      gamescope --steam ${
-        toString cfg.gamescopeSession.args
-      } -- steam -tenfoot -pipewire-dmabuf
-    ''
+  pkgs.writeShellScriptBin "steam-gamescope" ''
+    ${builtins.concatStringsSep "\n" exports}
+    gamescope --steam ${
+      toString cfg.gamescopeSession.args
+    } -- steam -tenfoot -pipewire-dmabuf
+  ''
   ;
 
   gamescopeSessionFile =
@@ -70,7 +70,7 @@ in {
                   else
                     [ package32 ] ++ extraPackages32;
               in
-                prevLibs ++ additionalLibs
+              prevLibs ++ additionalLibs
             ;
           } // optionalAttrs
           (cfg.gamescopeSession.enable && gamescopeCfg.capSysNice) {

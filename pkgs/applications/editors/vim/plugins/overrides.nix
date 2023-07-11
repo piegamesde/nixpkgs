@@ -508,22 +508,22 @@ self: super:
       sha256 = "05xdy13vm5n8dw2i366ppbznc4cfhq23rdcklisbaklz2jhdx352";
     };
   in
-    super.fruzzy.overrideAttrs (old: {
-      buildInputs = [ nim ];
-      patches = [ (substituteAll {
-        src = ./patches/fruzzy/get_version.patch;
-        inherit (old) version;
-      }) ];
-      configurePhase = ''
-        substituteInPlace Makefile \
-          --replace \
-            "nim c" \
-            "nim c --nimcache:$TMP --path:${nimpy} --path:${binaryheap}"
-      '';
-      buildPhase = ''
-        make build
-      '';
-    })
+  super.fruzzy.overrideAttrs (old: {
+    buildInputs = [ nim ];
+    patches = [ (substituteAll {
+      src = ./patches/fruzzy/get_version.patch;
+      inherit (old) version;
+    }) ];
+    configurePhase = ''
+      substituteInPlace Makefile \
+        --replace \
+          "nim c" \
+          "nim c --nimcache:$TMP --path:${nimpy} --path:${binaryheap}"
+    '';
+    buildPhase = ''
+      make build
+    '';
+  })
   ;
 
   fuzzy-nvim = super.fuzzy-nvim.overrideAttrs
@@ -623,18 +623,18 @@ self: super:
       '';
     };
   in
-    buildVimPluginFrom2Nix {
-      pname = "LanguageClient-neovim";
-      inherit version;
-      src = LanguageClient-neovim-src;
+  buildVimPluginFrom2Nix {
+    pname = "LanguageClient-neovim";
+    inherit version;
+    src = LanguageClient-neovim-src;
 
-      propagatedBuildInputs = [ LanguageClient-neovim-bin ];
+    propagatedBuildInputs = [ LanguageClient-neovim-bin ];
 
-      preFixup = ''
-        substituteInPlace "$out"/autoload/LanguageClient.vim \
-          --replace "let l:path = s:root . '/bin/'" "let l:path = '${LanguageClient-neovim-bin}' . '/bin/'"
-      '';
-    }
+    preFixup = ''
+      substituteInPlace "$out"/autoload/LanguageClient.vim \
+        --replace "let l:path = s:root . '/bin/'" "let l:path = '${LanguageClient-neovim-bin}' . '/bin/'"
+    '';
+  }
   ;
 
   lazy-lsp-nvim = super.lazy-lsp-nvim.overrideAttrs
@@ -961,17 +961,17 @@ self: super:
       doCheck = false;
     };
   in
-    buildVimPluginFrom2Nix {
-      pname = "sniprun";
-      inherit version src;
+  buildVimPluginFrom2Nix {
+    pname = "sniprun";
+    inherit version src;
 
-      patches = [ ./patches/sniprun/fix-paths.patch ];
-      postPatch = ''
-        substituteInPlace lua/sniprun.lua --replace '@sniprun_bin@' ${sniprun-bin}
-      '';
+    patches = [ ./patches/sniprun/fix-paths.patch ];
+    postPatch = ''
+      substituteInPlace lua/sniprun.lua --replace '@sniprun_bin@' ${sniprun-bin}
+    '';
 
-      propagatedBuildInputs = [ sniprun-bin ];
-    }
+    propagatedBuildInputs = [ sniprun-bin ];
+  }
   ;
 
   # The GitHub repository returns 404, which breaks the update script
@@ -1046,14 +1046,14 @@ self: super:
       '';
     };
   in
-    super.sved.overrideAttrs (old: {
-      preferLocalBuild = true;
-      postPatch = ''
-        rm ftplugin/evinceSync.py
-        ln -s ${svedbackend}/bin/evinceSync.py ftplugin/evinceSync.py
-      '';
-      meta = { description = "synctex support between vim/neovim and evince"; };
-    })
+  super.sved.overrideAttrs (old: {
+    preferLocalBuild = true;
+    postPatch = ''
+      rm ftplugin/evinceSync.py
+      ln -s ${svedbackend}/bin/evinceSync.py ftplugin/evinceSync.py
+    '';
+    meta = { description = "synctex support between vim/neovim and evince"; };
+  })
   ;
 
   taskwarrior = buildVimPluginFrom2Nix {
@@ -1145,16 +1145,16 @@ self: super:
       au BufNewFile,BufRead Tupfile,*.tup setf tup
     '';
   in
-    buildVimPluginFrom2Nix {
-      inherit (tup) pname version src;
-      preInstall = ''
-        mkdir -p vim-plugin/syntax vim-plugin/ftdetect
-        cp contrib/syntax/tup.vim vim-plugin/syntax/tup.vim
-        cp "${ftdetect}" vim-plugin/ftdetect/tup.vim
-        cd vim-plugin
-      '';
-      meta.maintainers = with lib.maintainers; [ enderger ];
-    }
+  buildVimPluginFrom2Nix {
+    inherit (tup) pname version src;
+    preInstall = ''
+      mkdir -p vim-plugin/syntax vim-plugin/ftdetect
+      cp contrib/syntax/tup.vim vim-plugin/syntax/tup.vim
+      cp "${ftdetect}" vim-plugin/ftdetect/tup.vim
+      cd vim-plugin
+    '';
+    meta.maintainers = with lib.maintainers; [ enderger ];
+  }
   ;
 
   unicode-vim = let
@@ -1163,15 +1163,15 @@ self: super:
       sha256 = "16b0jzvvzarnlxdvs2izd5ia0ipbd87md143dc6lv6xpdqcs75s9";
     };
   in
-    super.unicode-vim.overrideAttrs (old: {
+  super.unicode-vim.overrideAttrs (old: {
 
-      # redirect to /dev/null else changes terminal color
-      buildPhase = ''
-        cp "${unicode-data}" autoload/unicode/UnicodeData.txt
-        echo "Building unicode cache"
-        ${vim}/bin/vim --cmd ":set rtp^=$PWD" -c 'ru plugin/unicode.vim' -c 'UnicodeCache' -c ':echohl Normal' -c ':q' > /dev/null
-      '';
-    })
+    # redirect to /dev/null else changes terminal color
+    buildPhase = ''
+      cp "${unicode-data}" autoload/unicode/UnicodeData.txt
+      echo "Building unicode cache"
+      ${vim}/bin/vim --cmd ":set rtp^=$PWD" -c 'ru plugin/unicode.vim' -c 'UnicodeCache' -c ':echohl Normal' -c ':q' > /dev/null
+    '';
+  })
   ;
 
   unison = super.unison.overrideAttrs (old: {
@@ -1388,13 +1388,13 @@ self: super:
       doCheck = false;
     };
   in
-    super.vim-markdown-composer.overrideAttrs (old: {
-      preFixup = ''
-        substituteInPlace "$out"/after/ftplugin/markdown/composer.vim \
-          --replace "s:plugin_root . '/target/release/markdown-composer'" \
-          "'${vim-markdown-composer-bin}/bin/markdown-composer'"
-      '';
-    })
+  super.vim-markdown-composer.overrideAttrs (old: {
+    preFixup = ''
+      substituteInPlace "$out"/after/ftplugin/markdown/composer.vim \
+        --replace "s:plugin_root . '/target/release/markdown-composer'" \
+        "'${vim-markdown-composer-bin}/bin/markdown-composer'"
+    '';
+  })
   ;
 
   vim-metamath =
@@ -1616,5 +1616,5 @@ self: super:
       src = "${nodePackages.${name}}/lib/node_modules/${name}";
     };
 in
-  lib.genAttrs nodePackageNames nodePackage2VimPackage
+lib.genAttrs nodePackageNames nodePackage2VimPackage
 )

@@ -101,7 +101,7 @@ let
       };
     };
   in
-    lib.mapAttrs build (grammars)
+  lib.mapAttrs build (grammars)
   ;
 
   # Usage:
@@ -115,84 +115,83 @@ let
     let
       grammars = grammarFn builtGrammars;
     in
-      linkFarm "grammars" (map (drv:
-        let
-          name = lib.strings.getName drv;
-        in {
-          name = (lib.strings.replaceStrings [ "-" ] [ "_" ]
-            (lib.strings.removePrefix "tree-sitter-"
-              (lib.strings.removeSuffix "-grammar" name))) + ".so";
-          path = "${drv}/parser";
-        } ) grammars)
+    linkFarm "grammars" (map (drv:
+      let
+        name = lib.strings.getName drv;
+      in {
+        name = (lib.strings.replaceStrings [ "-" ] [ "_" ]
+          (lib.strings.removePrefix "tree-sitter-"
+            (lib.strings.removeSuffix "-grammar" name))) + ".so";
+        path = "${drv}/parser";
+      } ) grammars)
   ;
 
   allGrammars = builtins.attrValues builtGrammars;
 
 in
-  rustPlatform.buildRustPackage {
-    pname = "tree-sitter";
-    inherit src version cargoSha256;
+rustPlatform.buildRustPackage {
+  pname = "tree-sitter";
+  inherit src version cargoSha256;
 
-    buildInputs = lib.optionals stdenv.isDarwin [
-      Security
-      CoreServices
+  buildInputs = lib.optionals stdenv.isDarwin [
+    Security
+    CoreServices
+  ];
+  nativeBuildInputs = [ which ] ++ lib.optionals webUISupport [ emscripten ];
+
+  postPatch = lib.optionalString (!webUISupport) ''
+    # remove web interface
+    sed -e '/pub mod web_ui/d' \
+        -i cli/src/lib.rs
+    sed -e 's/web_ui,//' \
+        -e 's/web_ui::serve(&current_dir.*$/println!("ERROR: web-ui is not available in this nixpkgs build; enable the webUISupport"); std::process::exit(1);/' \
+        -i cli/src/main.rs
+  '';
+
+  # Compile web assembly with emscripten. The --debug flag prevents us from
+  # minifying the JavaScript; passing it allows us to side-step more Node
+  # JS dependencies for installation.
+  preBuild = lib.optionalString webUISupport ''
+    bash ./script/build-wasm --debug
+  '';
+
+  postInstall = ''
+    PREFIX=$out make install
+    ${lib.optionalString (!enableShared) "rm $out/lib/*.so{,.*}"}
+    ${lib.optionalString (!enableStatic) "rm $out/lib/*.a"}
+  '';
+
+  # test result: FAILED. 120 passed; 13 failed; 0 ignored; 0 measured; 0 filtered out
+  doCheck = false;
+
+  passthru = {
+    updater = { inherit update-all-grammars; };
+    inherit grammars buildGrammar builtGrammars withPlugins allGrammars;
+
+    tests = {
+      # make sure all grammars build
+      builtGrammars = lib.recurseIntoAttrs builtGrammars;
+    };
+  };
+
+  meta = with lib; {
+    homepage = "https://github.com/tree-sitter/tree-sitter";
+    description = "A parser generator tool and an incremental parsing library";
+    longDescription = ''
+      Tree-sitter is a parser generator tool and an incremental parsing library.
+      It can build a concrete syntax tree for a source file and efficiently update the syntax tree as the source file is edited.
+
+      Tree-sitter aims to be:
+
+      * General enough to parse any programming language
+      * Fast enough to parse on every keystroke in a text editor
+      * Robust enough to provide useful results even in the presence of syntax errors
+      * Dependency-free so that the runtime library (which is written in pure C) can be embedded in any application
+    '';
+    license = licenses.mit;
+    maintainers = with maintainers; [
+      Profpatsch
+      oxalica
     ];
-    nativeBuildInputs = [ which ] ++ lib.optionals webUISupport [ emscripten ];
-
-    postPatch = lib.optionalString (!webUISupport) ''
-      # remove web interface
-      sed -e '/pub mod web_ui/d' \
-          -i cli/src/lib.rs
-      sed -e 's/web_ui,//' \
-          -e 's/web_ui::serve(&current_dir.*$/println!("ERROR: web-ui is not available in this nixpkgs build; enable the webUISupport"); std::process::exit(1);/' \
-          -i cli/src/main.rs
-    '';
-
-    # Compile web assembly with emscripten. The --debug flag prevents us from
-    # minifying the JavaScript; passing it allows us to side-step more Node
-    # JS dependencies for installation.
-    preBuild = lib.optionalString webUISupport ''
-      bash ./script/build-wasm --debug
-    '';
-
-    postInstall = ''
-      PREFIX=$out make install
-      ${lib.optionalString (!enableShared) "rm $out/lib/*.so{,.*}"}
-      ${lib.optionalString (!enableStatic) "rm $out/lib/*.a"}
-    '';
-
-    # test result: FAILED. 120 passed; 13 failed; 0 ignored; 0 measured; 0 filtered out
-    doCheck = false;
-
-    passthru = {
-      updater = { inherit update-all-grammars; };
-      inherit grammars buildGrammar builtGrammars withPlugins allGrammars;
-
-      tests = {
-        # make sure all grammars build
-        builtGrammars = lib.recurseIntoAttrs builtGrammars;
-      };
-    };
-
-    meta = with lib; {
-      homepage = "https://github.com/tree-sitter/tree-sitter";
-      description =
-        "A parser generator tool and an incremental parsing library";
-      longDescription = ''
-        Tree-sitter is a parser generator tool and an incremental parsing library.
-        It can build a concrete syntax tree for a source file and efficiently update the syntax tree as the source file is edited.
-
-        Tree-sitter aims to be:
-
-        * General enough to parse any programming language
-        * Fast enough to parse on every keystroke in a text editor
-        * Robust enough to provide useful results even in the presence of syntax errors
-        * Dependency-free so that the runtime library (which is written in pure C) can be embedded in any application
-      '';
-      license = licenses.mit;
-      maintainers = with maintainers; [
-        Profpatsch
-        oxalica
-      ];
-    };
-  }
+  };
+}

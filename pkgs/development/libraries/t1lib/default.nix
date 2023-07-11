@@ -43,34 +43,34 @@ let
     # this ^ also fixes CVE-2011-5244
   ];
 in
-  stdenv.mkDerivation rec {
-    pname = "t1lib";
-    version = "5.1.2";
+stdenv.mkDerivation rec {
+  pname = "t1lib";
+  version = "5.1.2";
 
-    src = fetchurl {
-      url = "mirror://ibiblioPubLinux/libs/graphics/${pname}-${version}.tar.gz";
-      hash = "sha256-ghMotQVPeJCg0M0vUoJScHBd82QdvUdtWNF+Vu2Ve1k=";
-    };
-    inherit patches;
+  src = fetchurl {
+    url = "mirror://ibiblioPubLinux/libs/graphics/${pname}-${version}.tar.gz";
+    hash = "sha256-ghMotQVPeJCg0M0vUoJScHBd82QdvUdtWNF+Vu2Ve1k=";
+  };
+  inherit patches;
 
-    buildInputs = [
-      libX11
-      libXaw
+  buildInputs = [
+    libX11
+    libXaw
+  ];
+  buildFlags = [ "without_doc" ];
+
+  postInstall = lib.optionalString (!stdenv.isDarwin) ''
+    # ??
+    chmod +x $out/lib/*.so.*
+  '';
+
+  meta = with lib; {
+    homepage = "http://www.t1lib.org/";
+    description = "A type 1 font rasterizer library for UNIX/X11";
+    license = with licenses; [
+      gpl2
+      lgpl2
     ];
-    buildFlags = [ "without_doc" ];
-
-    postInstall = lib.optionalString (!stdenv.isDarwin) ''
-      # ??
-      chmod +x $out/lib/*.so.*
-    '';
-
-    meta = with lib; {
-      homepage = "http://www.t1lib.org/";
-      description = "A type 1 font rasterizer library for UNIX/X11";
-      license = with licenses; [
-        gpl2
-        lgpl2
-      ];
-      platforms = platforms.unix;
-    };
-  }
+    platforms = platforms.unix;
+  };
+}

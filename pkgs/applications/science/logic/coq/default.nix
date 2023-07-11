@@ -268,16 +268,16 @@ let
     postInstall = let
       suffix = optionalString (coqAtLeast "8.14") "-core";
     in
-      optionalString (!coqAtLeast "8.17") ''
-        cp bin/votour $out/bin/
-      '' + ''
-        ln -s $out/lib/coq${suffix} $OCAMLFIND_DESTDIR/coq${suffix}
-      '' + optionalString (coqAtLeast "8.14") ''
-        ln -s $out/lib/coqide-server $OCAMLFIND_DESTDIR/coqide-server
-      '' + optionalString buildIde ''
-        mkdir -p "$out/share/pixmaps"
-        ln -s "$out/share/coq/coq.png" "$out/share/pixmaps/"
-      ''
+    optionalString (!coqAtLeast "8.17") ''
+      cp bin/votour $out/bin/
+    '' + ''
+      ln -s $out/lib/coq${suffix} $OCAMLFIND_DESTDIR/coq${suffix}
+    '' + optionalString (coqAtLeast "8.14") ''
+      ln -s $out/lib/coqide-server $OCAMLFIND_DESTDIR/coqide-server
+    '' + optionalString buildIde ''
+      mkdir -p "$out/share/pixmaps"
+      ln -s "$out/share/coq/coq.png" "$out/share/pixmaps/"
+    ''
     ;
 
     meta = {

@@ -68,8 +68,8 @@ let
     let
       modules = lib.filter hasPythonModule drvs;
     in
-      lib.unique ([ python ] ++ modules
-        ++ lib.concatLists (lib.catAttrs "requiredPythonModules" modules))
+    lib.unique ([ python ] ++ modules
+      ++ lib.concatLists (lib.catAttrs "requiredPythonModules" modules))
   ;
 
   # Create a PYTHONPATH from a list of derivations. This function recurses into the items to find derivations

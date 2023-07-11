@@ -85,11 +85,11 @@ buildPythonPackage rec {
       pythonEnv = python.withPackages f;
 
     in
-      runCommand "certbot-with-plugins" { } ''
-        mkdir -p $out/bin
-        cd $out/bin
-        ln -s ${pythonEnv}/bin/certbot
-      ''
+    runCommand "certbot-with-plugins" { } ''
+      mkdir -p $out/bin
+      cd $out/bin
+      ln -s ${pythonEnv}/bin/certbot
+    ''
   ;
 
   meta = with lib; {

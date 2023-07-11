@@ -79,99 +79,99 @@ let
   };
 
 in
-  stdenv.mkDerivation rec {
-    pname = "bumblebee";
-    version = "3.2.1";
+stdenv.mkDerivation rec {
+  pname = "bumblebee";
+  version = "3.2.1";
 
-    src = fetchurl {
-      url = "https://www.bumblebee-project.org/${pname}-${version}.tar.gz";
-      sha256 = "03p3gvx99lwlavznrpg9l7jnl1yfg2adcj8jcjj0gxp20wxp060h";
-    };
+  src = fetchurl {
+    url = "https://www.bumblebee-project.org/${pname}-${version}.tar.gz";
+    sha256 = "03p3gvx99lwlavznrpg9l7jnl1yfg2adcj8jcjj0gxp20wxp060h";
+  };
 
-    patches = [
-      ./nixos.patch
+  patches = [
+    ./nixos.patch
 
-      modprobePatch
-      libkmodPatch
-      gcc10Patch
+    modprobePatch
+    libkmodPatch
+    gcc10Patch
+  ];
+
+  # By default we don't want to use a display device
+  nvidiaDeviceOptions = lib.optionalString (!useDisplayDevice) ''
+    # Disable display device
+    Option "UseEDID" "false"
+    Option "UseDisplayDevice" "none"
+  '' + extraNvidiaDeviceOptions;
+
+  nouveauDeviceOptions = extraNouveauDeviceOptions;
+
+  # the have() function is deprecated and not available to bash completions the
+  # way they are currently loaded in NixOS, so use _have. See #10936
+  postPatch = ''
+    substituteInPlace scripts/bash_completion/bumblebee \
+      --replace "have optirun" "_have optirun"
+  '';
+
+  preConfigure = ''
+    # Don't use a special group, just reuse wheel.
+    substituteInPlace configure \
+      --replace 'CONF_GID="bumblebee"' 'CONF_GID="wheel"'
+
+    # Apply configuration options
+    substituteInPlace conf/xorg.conf.nvidia \
+      --subst-var nvidiaDeviceOptions
+
+    substituteInPlace conf/xorg.conf.nouveau \
+      --subst-var nouveauDeviceOptions
+  '';
+
+  # Build-time dependencies of bumblebeed and optirun.
+  # Note that it has several runtime dependencies.
+  buildInputs = [
+    libX11
+    glib
+    libbsd
+    kmod
+  ];
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+    help2man
+    automake111x
+    autoconf
+  ];
+
+  # The order of LDPATH is very specific: First X11 then the host
+  # environment then the optional sub architecture paths.
+  #
+  # The order for MODPATH is the opposite: First the environment that
+  # includes the acceleration driver. As this is used for the X11
+  # server, which runs under the host architecture, this does not
+  # include the sub architecture components.
+  configureFlags = [ "--with-udev-rules=$out/lib/udev/rules.d"
+    # see #10282
+    #"CONF_PRIMUS_LD_PATH=${primusLibs}"
+    ] ++ lib.optionals useNvidia [
+      "CONF_LDPATH_NVIDIA=${nvidiaLibs}"
+      "CONF_MODPATH_NVIDIA=${nvidia_x11.bin}/lib/xorg/modules"
     ];
 
-    # By default we don't want to use a display device
-    nvidiaDeviceOptions = lib.optionalString (!useDisplayDevice) ''
-      # Disable display device
-      Option "UseEDID" "false"
-      Option "UseDisplayDevice" "none"
-    '' + extraNvidiaDeviceOptions;
+  CFLAGS = [ ''-DX_MODULE_APPENDS=\"${xmodules}\"'' ];
 
-    nouveauDeviceOptions = extraNouveauDeviceOptions;
+  postInstall = ''
+    wrapProgram "$out/sbin/bumblebeed" \
+      --prefix PATH : "${bbdPath}"
 
-    # the have() function is deprecated and not available to bash completions the
-    # way they are currently loaded in NixOS, so use _have. See #10936
-    postPatch = ''
-      substituteInPlace scripts/bash_completion/bumblebee \
-        --replace "have optirun" "_have optirun"
-    '';
+    wrapProgram "$out/bin/optirun" \
+      --prefix PATH : "${virtualgl}/bin"
+  '';
 
-    preConfigure = ''
-      # Don't use a special group, just reuse wheel.
-      substituteInPlace configure \
-        --replace 'CONF_GID="bumblebee"' 'CONF_GID="wheel"'
-
-      # Apply configuration options
-      substituteInPlace conf/xorg.conf.nvidia \
-        --subst-var nvidiaDeviceOptions
-
-      substituteInPlace conf/xorg.conf.nouveau \
-        --subst-var nouveauDeviceOptions
-    '';
-
-    # Build-time dependencies of bumblebeed and optirun.
-    # Note that it has several runtime dependencies.
-    buildInputs = [
-      libX11
-      glib
-      libbsd
-      kmod
-    ];
-    nativeBuildInputs = [
-      makeWrapper
-      pkg-config
-      help2man
-      automake111x
-      autoconf
-    ];
-
-    # The order of LDPATH is very specific: First X11 then the host
-    # environment then the optional sub architecture paths.
-    #
-    # The order for MODPATH is the opposite: First the environment that
-    # includes the acceleration driver. As this is used for the X11
-    # server, which runs under the host architecture, this does not
-    # include the sub architecture components.
-    configureFlags = [ "--with-udev-rules=$out/lib/udev/rules.d"
-      # see #10282
-      #"CONF_PRIMUS_LD_PATH=${primusLibs}"
-      ] ++ lib.optionals useNvidia [
-        "CONF_LDPATH_NVIDIA=${nvidiaLibs}"
-        "CONF_MODPATH_NVIDIA=${nvidia_x11.bin}/lib/xorg/modules"
-      ];
-
-    CFLAGS = [ ''-DX_MODULE_APPENDS=\"${xmodules}\"'' ];
-
-    postInstall = ''
-      wrapProgram "$out/sbin/bumblebeed" \
-        --prefix PATH : "${bbdPath}"
-
-      wrapProgram "$out/bin/optirun" \
-        --prefix PATH : "${virtualgl}/bin"
-    '';
-
-    meta = with lib; {
-      description =
-        "Daemon for managing Optimus videocards (power-on/off, spawns xservers)";
-      homepage = "https://github.com/Bumblebee-Project/Bumblebee";
-      license = licenses.gpl3;
-      maintainers = with maintainers; [ abbradar ];
-      platforms = platforms.linux;
-    };
-  }
+  meta = with lib; {
+    description =
+      "Daemon for managing Optimus videocards (power-on/off, spawns xservers)";
+    homepage = "https://github.com/Bumblebee-Project/Bumblebee";
+    license = licenses.gpl3;
+    maintainers = with maintainers; [ abbradar ];
+    platforms = platforms.linux;
+  };
+}

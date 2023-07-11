@@ -63,11 +63,11 @@ in {
         command_not_found_handle "$@"
       '';
     in
-      lib.mkIf cfg.enableFishIntegration ''
-        function __fish_command_not_found_handler --on-event fish_command_not_found
-            ${wrapper} $argv
-        end
-      ''
+    lib.mkIf cfg.enableFishIntegration ''
+      function __fish_command_not_found_handler --on-event fish_command_not_found
+          ${wrapper} $argv
+      end
+    ''
     ;
   };
 }

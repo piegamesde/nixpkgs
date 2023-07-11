@@ -73,5 +73,5 @@ let
   mkTclDerivation = callPackage ./mk-tcl-derivation.nix { tcl = baseInterp; };
 
 in
-  baseInterp.overrideAttrs
-  (self: { passthru = self.passthru // { inherit mkTclDerivation; }; })
+baseInterp.overrideAttrs
+(self: { passthru = self.passthru // { inherit mkTclDerivation; }; })

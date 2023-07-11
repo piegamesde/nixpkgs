@@ -43,21 +43,21 @@ let
     let
       selected = selector plugins;
     in
-      python.pkgs.toPythonApplication (python.pkgs.poetry.overridePythonAttrs
-        (old: {
-          propagatedBuildInputs = old.propagatedBuildInputs ++ selected;
+    python.pkgs.toPythonApplication (python.pkgs.poetry.overridePythonAttrs
+      (old: {
+        propagatedBuildInputs = old.propagatedBuildInputs ++ selected;
 
-          # save some build time when adding plugins by disabling tests
-          doCheck = selected == [ ];
+        # save some build time when adding plugins by disabling tests
+        doCheck = selected == [ ];
 
-          # Propagating dependencies leaks them through $PYTHONPATH which causes issues
-          # when used in nix-shell.
-          postFixup = ''
-            rm $out/nix-support/propagated-build-inputs
-          '';
+        # Propagating dependencies leaks them through $PYTHONPATH which causes issues
+        # when used in nix-shell.
+        postFixup = ''
+          rm $out/nix-support/propagated-build-inputs
+        '';
 
-          passthru = rec { inherit plugins withPlugins python; };
-        }))
+        passthru = rec { inherit plugins withPlugins python; };
+      }))
   ;
 in
-  withPlugins (ps: [ ])
+withPlugins (ps: [ ])

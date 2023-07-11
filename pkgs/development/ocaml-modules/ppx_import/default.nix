@@ -26,36 +26,36 @@ let
   }."${version}";
 
 in
-  lib.throwIfNot (lib.versionAtLeast ppxlib.version "0.24.0")
-  "ppx_import is not available with ppxlib-${ppxlib.version}"
+lib.throwIfNot (lib.versionAtLeast ppxlib.version "0.24.0")
+"ppx_import is not available with ppxlib-${ppxlib.version}"
 
-  buildDunePackage rec {
-    pname = "ppx_import";
-    inherit version;
+buildDunePackage rec {
+  pname = "ppx_import";
+  inherit version;
 
-    minimalOCamlVersion = "4.05";
-    duneVersion = "3";
+  minimalOCamlVersion = "4.05";
+  duneVersion = "3";
 
-    src = fetchurl {
-      url =
-        "https://github.com/ocaml-ppx/ppx_import/releases/download/${version}/ppx_import-${version}.tbz";
-      inherit (param) sha256;
-    };
+  src = fetchurl {
+    url =
+      "https://github.com/ocaml-ppx/ppx_import/releases/download/${version}/ppx_import-${version}.tbz";
+    inherit (param) sha256;
+  };
 
-    propagatedBuildInputs = [ ppxlib ];
+  propagatedBuildInputs = [ ppxlib ];
 
-    checkInputs = [
-      ounit
-      ppx_deriving
-      ppx_sexp_conv
-    ];
+  checkInputs = [
+    ounit
+    ppx_deriving
+    ppx_sexp_conv
+  ];
 
-    doCheck = true;
+  doCheck = true;
 
-    meta = {
-      description =
-        "A syntax extension for importing declarations from interface files";
-      license = lib.licenses.mit;
-      homepage = "https://github.com/ocaml-ppx/ppx_import";
-    };
-  }
+  meta = {
+    description =
+      "A syntax extension for importing declarations from interface files";
+    license = lib.licenses.mit;
+    homepage = "https://github.com/ocaml-ppx/ppx_import";
+  };
+}

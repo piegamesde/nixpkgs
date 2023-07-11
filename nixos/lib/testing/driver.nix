@@ -23,9 +23,9 @@ let
   nodeHostNames = let
     nodesList = map (c: c.system.name) (lib.attrValues config.nodes);
   in
-    nodesList
-    ++ lib.optional (lib.length nodesList == 1 && !lib.elem "machine" nodesList)
-    "machine"
+  nodesList
+  ++ lib.optional (lib.length nodesList == 1 && !lib.elem "machine" nodesList)
+  "machine"
   ;
 
   # TODO: This is an implementation error and needs fixing

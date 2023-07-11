@@ -76,9 +76,9 @@ assert let
       0;
   xor = a: b: ((builtins.bitXor (int a) (int b)) == 1);
 in
-  lib.assertMsg (xor (gitRelease != null) (officialRelease != null))
-  ("must specify `gitRelease` or `officialRelease`"
-    + (lib.optionalString (gitRelease != null) " — not both"))
+lib.assertMsg (xor (gitRelease != null) (officialRelease != null))
+("must specify `gitRelease` or `officialRelease`"
+  + (lib.optionalString (gitRelease != null) " — not both"))
 ;
 let
   monorepoSrc' = monorepoSrc;
@@ -114,11 +114,11 @@ in let
       else
         "llvmorg-${releaseInfo.version}";
     in
-      fetchFromGitHub {
-        owner = "llvm";
-        repo = "llvm-project";
-        inherit rev sha256;
-      }
+    fetchFromGitHub {
+      owner = "llvm";
+      repo = "llvm-project";
+      inherit rev sha256;
+    }
   ;
 
   inherit (releaseInfo) release_version version;
@@ -370,10 +370,10 @@ in let
         # on macOS, depends on `libcxxabi`, thus forming a cycle.
         stdenv_ = overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc;
       in
-        callPackage ./libcxxabi {
-          stdenv = stdenv_;
-          inherit llvm_meta cxx-headers;
-        }
+      callPackage ./libcxxabi {
+        stdenv = stdenv_;
+        inherit llvm_meta cxx-headers;
+      }
       ;
 
       # Like `libcxxabi` above, `libcxx` requires a fairly modern C++ compiler,
@@ -393,4 +393,4 @@ in let
     } );
 
 in
-  { inherit tools libraries release_version; } // libraries // tools
+{ inherit tools libraries release_version; } // libraries // tools

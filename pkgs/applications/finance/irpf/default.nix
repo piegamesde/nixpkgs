@@ -19,11 +19,11 @@ stdenvNoCC.mkDerivation rec {
   src = let
     year = lib.head (lib.splitVersion version);
   in
-    fetchzip {
-      url =
-        "https://downloadirpf.receita.fazenda.gov.br/irpf/${year}/irpf/arquivos/IRPF${version}.zip";
-      sha256 = "sha256-UOo9LBeOA6H/A7dM6wIa0wXyAaq9xGnX9EUBzK4Y0ng=";
-    }
+  fetchzip {
+    url =
+      "https://downloadirpf.receita.fazenda.gov.br/irpf/${year}/irpf/arquivos/IRPF${version}.zip";
+    sha256 = "sha256-UOo9LBeOA6H/A7dM6wIa0wXyAaq9xGnX9EUBzK4Y0ng=";
+  }
   ;
 
   nativeBuildInputs = [

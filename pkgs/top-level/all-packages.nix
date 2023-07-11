@@ -62,16 +62,16 @@ with pkgs;
         noLibc = true;
       };
     in
-      stdenv.override {
-        cc = stdenv.cc.override {
-          libc = null;
-          noLibc = true;
-          extraPackages = [ ];
-          inherit bintools;
-        };
-        allowedRequisites = lib.mapNullable (rs: rs ++ [ bintools ])
-          (stdenv.allowedRequisites or null);
-      }
+    stdenv.override {
+      cc = stdenv.cc.override {
+        libc = null;
+        noLibc = true;
+        extraPackages = [ ];
+        inherit bintools;
+      };
+      allowedRequisites = lib.mapNullable (rs: rs ++ [ bintools ])
+        (stdenv.allowedRequisites or null);
+    }
   ;
 
   stdenvNoLibs = if
@@ -10313,10 +10313,10 @@ with pkgs;
   mecab = let
     mecab-nodic = callPackage ../tools/text/mecab/nodic.nix { };
   in
-    callPackage ../tools/text/mecab {
-      mecab-ipadic =
-        callPackage ../tools/text/mecab/ipadic.nix { inherit mecab-nodic; };
-    }
+  callPackage ../tools/text/mecab {
+    mecab-ipadic =
+      callPackage ../tools/text/mecab/ipadic.nix { inherit mecab-nodic; };
+  }
   ;
 
   mediawiki = callPackage ../servers/web-apps/mediawiki { };
@@ -13309,10 +13309,10 @@ with pkgs;
         (filterAttrs (name: _: hasPrefix ("thelounge-" + prefix + "-") name)
           pkgs);
     in
-      recurseIntoAttrs {
-        plugins = recurseIntoAttrs (getPackagesWithPrefix "plugin");
-        themes = recurseIntoAttrs (getPackagesWithPrefix "theme");
-      }
+    recurseIntoAttrs {
+      plugins = recurseIntoAttrs (getPackagesWithPrefix "plugin");
+      themes = recurseIntoAttrs (getPackagesWithPrefix "theme");
+    }
   ;
 
   thefuck = python3Packages.callPackage ../tools/misc/thefuck { };
@@ -15350,22 +15350,22 @@ with pkgs;
         # Binutils with glibc multi
         bintools = cc.bintools.override { libc = glibc_multi; };
       in
-        lowPrio (wrapCCWith {
-          cc = cc.cc.override {
-            stdenv = overrideCC stdenv (wrapCCWith {
-              cc = cc.cc;
-              inherit bintools;
-              libc = glibc_multi;
-            });
-            profiledCompiler = false;
-            enableMultilib = true;
-          };
-          libc = glibc_multi;
-          inherit bintools;
-          extraBuildCommands = ''
-            echo "dontMoveLib64=1" >> $out/nix-support/setup-hook
-          '';
-        })
+      lowPrio (wrapCCWith {
+        cc = cc.cc.override {
+          stdenv = overrideCC stdenv (wrapCCWith {
+            cc = cc.cc;
+            inherit bintools;
+            libc = glibc_multi;
+          });
+          profiledCompiler = false;
+          enableMultilib = true;
+        };
+        libc = glibc_multi;
+        inherit bintools;
+        extraBuildCommands = ''
+          echo "dontMoveLib64=1" >> $out/nix-support/setup-hook
+        '';
+      })
     else
       throw
       "Multilib ${cc.name} not supported for ‘${stdenv.targetPlatform.system}’";
@@ -15413,32 +15413,32 @@ with pkgs;
     let
       libcCross1 = binutilsNoLibc.libc;
     in
-      wrapCCWith {
-        cc = gccFun {
-          # copy-pasted
-          inherit noSysDirs;
+    wrapCCWith {
+      cc = gccFun {
+        # copy-pasted
+        inherit noSysDirs;
 
-          reproducibleBuild = true;
-          profiledCompiler = false;
+        reproducibleBuild = true;
+        profiledCompiler = false;
 
-          isl = if
-            !stdenv.isDarwin
-          then
-            isl_0_20
-          else
-            null;
+        isl = if
+          !stdenv.isDarwin
+        then
+          isl_0_20
+        else
+          null;
 
-          # just for stage static
-          crossStageStatic = true;
-          langCC = false;
-          libcCross = libcCross1;
-          targetPackages.stdenv.cc.bintools = binutilsNoLibc;
-          enableShared = false;
-        };
-        bintools = binutilsNoLibc;
-        libc = libcCross1;
-        extraPackages = [ ];
-      }
+        # just for stage static
+        crossStageStatic = true;
+        langCC = false;
+        libcCross = libcCross1;
+        targetPackages.stdenv.cc.bintools = binutilsNoLibc;
+        enableShared = false;
+      };
+      bintools = binutilsNoLibc;
+      libc = libcCross1;
+      extraPackages = [ ];
+    }
   ;
 
   gcc48 = lowPrio (wrapCC (callPackage ../development/compilers/gcc/4.8 {
@@ -16375,7 +16375,7 @@ with pkgs;
     minSupported = toString (lib.trivial.max (choose stdenv.hostPlatform)
       (choose stdenv.targetPlatform));
   in
-    pkgs.${"llvmPackages_${minSupported}"}
+  pkgs.${"llvmPackages_${minSupported}"}
   ;
 
   llvmPackages_5 = recurseIntoAttrs
@@ -17363,7 +17363,7 @@ with pkgs;
         inherit cc bintools libc libcxx extraPackages nixSupport zlib;
       } // extraArgs;
     in
-      self
+    self
     );
 
   wrapCC = cc: wrapCCWith { inherit cc; };
@@ -17392,7 +17392,7 @@ with pkgs;
         inherit (darwin) postLinkSignHook signingUtils;
       } // extraArgs;
     in
-      self
+    self
     );
 
   yaml-language-server = nodePackages.yaml-language-server;
@@ -21240,25 +21240,25 @@ with pkgs;
   makeFontsConf = let
     fontconfig_ = fontconfig;
   in
-    {
-      fontconfig ? fontconfig_,
-      fontDirectories,
-    }:
-    callPackage ../development/libraries/fontconfig/make-fonts-conf.nix {
-      inherit fontconfig fontDirectories;
-    }
+  {
+    fontconfig ? fontconfig_,
+    fontDirectories,
+  }:
+  callPackage ../development/libraries/fontconfig/make-fonts-conf.nix {
+    inherit fontconfig fontDirectories;
+  }
   ;
 
   makeFontsCache = let
     fontconfig_ = fontconfig;
   in
-    {
-      fontconfig ? fontconfig_,
-      fontDirectories,
-    }:
-    callPackage ../development/libraries/fontconfig/make-fonts-cache.nix {
-      inherit fontconfig fontDirectories;
-    }
+  {
+    fontconfig ? fontconfig_,
+    fontDirectories,
+  }:
+  callPackage ../development/libraries/fontconfig/make-fonts-cache.nix {
+    inherit fontconfig fontDirectories;
+  }
   ;
 
   f2c = callPackage ../development/tools/f2c { };
@@ -23094,10 +23094,10 @@ with pkgs;
       inherit (libc) pname version;
       libcDev = lib.getDev libc;
     in
-      runCommand "${pname}-iconv-${version}" { strictDeps = true; } ''
-        mkdir -p $out/include
-        ln -sv ${libcDev}/include/iconv.h $out/include
-      ''
+    runCommand "${pname}-iconv-${version}" { strictDeps = true; } ''
+      mkdir -p $out/include
+      ln -sv ${libcDev}/include/iconv.h $out/include
+    ''
   ;
 
   libiconvReal = callPackage ../development/libraries/libiconv { };
@@ -23738,20 +23738,20 @@ with pkgs;
   libxml2Python = let
     inherit (python3.pkgs) libxml2;
   in
-    pkgs.buildEnv { # slightly hacky
-      name = "libxml2+py-${res.libxml2.version}";
-      paths = with libxml2; [
-        dev
-        bin
-        py
-      ];
-      inherit (libxml2) passthru;
-      # the hook to find catalogs is hidden by buildEnv
-      postBuild = ''
-        mkdir "$out/nix-support"
-        cp '${libxml2.dev}/nix-support/propagated-build-inputs' "$out/nix-support/"
-      '';
-    }
+  pkgs.buildEnv { # slightly hacky
+    name = "libxml2+py-${res.libxml2.version}";
+    paths = with libxml2; [
+      dev
+      bin
+      py
+    ];
+    inherit (libxml2) passthru;
+    # the hook to find catalogs is hidden by buildEnv
+    postBuild = ''
+      mkdir "$out/nix-support"
+      cp '${libxml2.dev}/nix-support/propagated-build-inputs' "$out/nix-support/"
+    '';
+  }
   ;
 
   libxmlb = callPackage ../development/libraries/libxmlb { };
@@ -24231,13 +24231,13 @@ with pkgs;
       libnvidia-container =
         (callPackage ../applications/virtualization/libnvidia-container { });
     in
-      symlinkJoin {
-        inherit name;
-        paths = [
-          libnvidia-container
-          nvidia-container-toolkit
-        ] ++ additionalPaths;
-      }
+    symlinkJoin {
+      inherit name;
+      paths = [
+        libnvidia-container
+        nvidia-container-toolkit
+      ] ++ additionalPaths;
+    }
   ;
 
   nvidia-docker = mkNvidiaContainerPkg {
@@ -27709,7 +27709,7 @@ with pkgs;
       (lib.extends overrides generatedPackages);
 
   in
-    recurseIntoAttrs xorgPackages
+  recurseIntoAttrs xorgPackages
   ;
 
   xorg-autoconf = callPackage ../development/tools/misc/xorg-autoconf { };
@@ -28323,7 +28323,7 @@ with pkgs;
       };
     };
   in
-    tinyLinuxPackages.kernel
+  tinyLinuxPackages.kernel
   ;
 
   # The current default kernel / kernel modules.
@@ -34735,10 +34735,10 @@ with pkgs;
     opentoonz-libtiff =
       callPackage ../applications/graphics/opentoonz/libtiff.nix { };
   in
-    qt5.callPackage ../applications/graphics/opentoonz {
-      libtiff = opentoonz-libtiff;
-      opencv = opencv.override { libtiff = opentoonz-libtiff; };
-    }
+  qt5.callPackage ../applications/graphics/opentoonz {
+    libtiff = opentoonz-libtiff;
+    opencv = opencv.override { libtiff = opentoonz-libtiff; };
+  }
   ;
 
   opentabletdriver = callPackage ../tools/X11/opentabletdriver { };
@@ -40923,7 +40923,7 @@ with pkgs;
           else [ configuration ]);
       };
     in
-      c.config.system.build // c
+    c.config.system.build // c
   ;
 
   # A NixOS/home-manager/arion/... module that sets the `pkgs` module argument.

@@ -176,11 +176,11 @@ let
         postInstall = let
           tgt = "$out/share/coq/${coq.coq-version}/";
         in
-          optionalString withDoc ''
-            mkdir -p ${tgt}
-            cp -r htmldoc ${tgt}
-            cp -r $htmldoc_template/htmldoc_template/* ${tgt}/htmldoc/
-          ''
+        optionalString withDoc ''
+          mkdir -p ${tgt}
+          cp -r htmldoc ${tgt}
+          cp -r $htmldoc_template/htmldoc_template/* ${tgt}/htmldoc/
+        ''
         ;
         buildTargets = "doc";
         extraInstallFlags = [ "-f Makefile.coq" ];
@@ -198,12 +198,12 @@ let
             installFlags = o.installFlags ++ [ "-f Makefile.coq" ];
           });
     in
-      patched-derivation
+    patched-derivation
   ;
 in
-  mathcomp_ (if
-    single
-  then
-    "single"
-  else
-    "all")
+mathcomp_ (if
+  single
+then
+  "single"
+else
+  "all")

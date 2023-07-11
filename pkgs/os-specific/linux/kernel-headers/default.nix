@@ -134,17 +134,17 @@ in {
   linuxHeaders = let
     version = "6.2";
   in
-    makeLinuxHeaders {
-      inherit version;
-      src = fetchurl {
-        url = "mirror://kernel/linux/kernel/v${
-            lib.versions.major version
-          }.x/linux-${version}.tar.xz";
-        hash = "sha256-dIYvqKtA7a6FuzOFwLcf4QMoi85RhSbWMZeACzy97LE=";
-      };
-      patches =
-        [ ./no-relocs.patch # for building x86 kernel headers on non-ELF platforms
-        ];
-    }
+  makeLinuxHeaders {
+    inherit version;
+    src = fetchurl {
+      url = "mirror://kernel/linux/kernel/v${
+          lib.versions.major version
+        }.x/linux-${version}.tar.xz";
+      hash = "sha256-dIYvqKtA7a6FuzOFwLcf4QMoi85RhSbWMZeACzy97LE=";
+    };
+    patches =
+      [ ./no-relocs.patch # for building x86 kernel headers on non-ELF platforms
+      ];
+  }
   ;
 }

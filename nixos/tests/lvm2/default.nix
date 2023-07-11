@@ -45,18 +45,17 @@ let
     };
   } ;
 in
-  lib.listToAttrs (lib.filter (x: x.value != { })
-    (lib.flip lib.concatMap kernelVersionsToTest (version:
-      let
-        v' = lib.replaceStrings [ "." ] [ "_" ] version;
-      in
-        lib.flip lib.mapAttrsToList tests (name: t:
-          lib.nameValuePair "lvm-${name}-linux-${v'}" (lib.optionalAttrs
-            (builtins.elem version (t.kernelFilter kernelVersionsToTest))
-            (t.test ({
-              kernelPackages = pkgs."linuxPackages_${v'}";
-            } // builtins.removeAttrs t [
-              "test"
-              "kernelFilter"
-            ]))))
-    )))
+lib.listToAttrs (lib.filter (x: x.value != { })
+  (lib.flip lib.concatMap kernelVersionsToTest (version:
+    let
+      v' = lib.replaceStrings [ "." ] [ "_" ] version;
+    in
+    lib.flip lib.mapAttrsToList tests (name: t:
+      lib.nameValuePair "lvm-${name}-linux-${v'}" (lib.optionalAttrs
+        (builtins.elem version (t.kernelFilter kernelVersionsToTest)) (t.test ({
+          kernelPackages = pkgs."linuxPackages_${v'}";
+        } // builtins.removeAttrs t [
+          "test"
+          "kernelFilter"
+        ]))))
+  )))

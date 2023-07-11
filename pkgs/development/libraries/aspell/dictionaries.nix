@@ -155,7 +155,7 @@ let
         "meta"
       ];
     in
-      buildDict buildArgs
+    buildDict buildArgs
   ;
 
   # Function to compile txt dict files into Aspell dictionaries.

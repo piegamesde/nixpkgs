@@ -141,14 +141,14 @@ import ../make-test-python.nix ({
                 INSERT INTO user_threepids (user_id, medium, address, validated_at, added_at) VALUES ('${testUser}@serverpostgres', 'email', '${testEmail}', '1629149927271', '1629149927270');
               '';
             in
-              pkgs.writeScriptBin "obtain-token-and-register-email" ''
-                #!${pkgs.runtimeShell}
-                set -o errexit
-                set -o pipefail
-                set -o nounset
-                su postgres -c "psql -d matrix-synapse -f ${insertEmailForAlice}"
-                curl --fail -XPOST 'https://localhost:8448/_matrix/client/r0/account/password/email/requestToken' -d '{"email":"${testEmail}","client_secret":"foobar","send_attempt":1}' -v
-              ''
+            pkgs.writeScriptBin "obtain-token-and-register-email" ''
+              #!${pkgs.runtimeShell}
+              set -o errexit
+              set -o pipefail
+              set -o nounset
+              su postgres -c "psql -d matrix-synapse -f ${insertEmailForAlice}"
+              curl --fail -XPOST 'https://localhost:8448/_matrix/client/r0/account/password/email/requestToken' -d '{"email":"${testEmail}","client_secret":"foobar","send_attempt":1}' -v
+            ''
             ;
           in [
             sendTestMailStarttls

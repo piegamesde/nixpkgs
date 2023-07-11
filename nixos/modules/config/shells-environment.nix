@@ -32,7 +32,7 @@ let
       mapAttrsToList (n: v: ''export ${n}="${concatStringsSep ":" v}"'')
       allVariables;
   in
-    concatStringsSep "\n" exportVariables
+  concatStringsSep "\n" exportVariables
   ;
 
 in {

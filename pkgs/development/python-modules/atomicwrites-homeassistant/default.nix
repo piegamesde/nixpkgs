@@ -10,23 +10,23 @@ let
   version = "1.4.1";
 
 in
-  buildPythonPackage {
+buildPythonPackage {
+  inherit pname version;
+  format = "setuptools";
+
+  src = fetchPypi {
     inherit pname version;
-    format = "setuptools";
+    hash = "sha256-JWpnIQbxZ0VEUijZZiQLd7VfRqCW0gMFkBpXql0fTC8=";
+  };
 
-    src = fetchPypi {
-      inherit pname version;
-      hash = "sha256-JWpnIQbxZ0VEUijZZiQLd7VfRqCW0gMFkBpXql0fTC8=";
-    };
+  pythonImportsCheck = [ "atomicwrites" ];
 
-    pythonImportsCheck = [ "atomicwrites" ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
-    nativeCheckInputs = [ pytestCheckHook ];
-
-    meta = with lib; {
-      description = "Atomic file writes";
-      homepage = "https://pypi.org/project/atomicwrites-homeassistant/";
-      license = licenses.mit;
-      maintainers = with maintainers; [ hexa ];
-    };
-  }
+  meta = with lib; {
+    description = "Atomic file writes";
+    homepage = "https://pypi.org/project/atomicwrites-homeassistant/";
+    license = licenses.mit;
+    maintainers = with maintainers; [ hexa ];
+  };
+}

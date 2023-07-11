@@ -65,6 +65,6 @@ let
   };
 
 in
-  writeText "make-binary-wrapper-tests" ''
-    ${lib.concatStringsSep "\n" (builtins.attrValues tests)}
-  '' // tests
+writeText "make-binary-wrapper-tests" ''
+  ${lib.concatStringsSep "\n" (builtins.attrValues tests)}
+'' // tests

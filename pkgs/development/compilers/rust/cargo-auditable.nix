@@ -49,13 +49,13 @@ let
   bootstrap = rustPlatform.buildRustPackage (args // { auditable = false; });
 
 in
-  rustPlatform.buildRustPackage.override { cargo-auditable = bootstrap; } (args
-    // {
-      nativeBuildInputs = [ installShellFiles ];
+rustPlatform.buildRustPackage.override { cargo-auditable = bootstrap; } (args
+  // {
+    nativeBuildInputs = [ installShellFiles ];
 
-      postInstall = ''
-        installManPage cargo-auditable/cargo-auditable.1
-      '';
+    postInstall = ''
+      installManPage cargo-auditable/cargo-auditable.1
+    '';
 
-      passthru = { inherit bootstrap; };
-    })
+    passthru = { inherit bootstrap; };
+  })

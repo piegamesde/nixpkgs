@@ -28,15 +28,15 @@ let
   };
 
 in
-  stdenv.mkDerivation {
-    name = "keter-bundle";
-    buildCommand = ''
-      mkdir -p config
-      cp ${configFile} config/keter.yaml
+stdenv.mkDerivation {
+  name = "keter-bundle";
+  buildCommand = ''
+    mkdir -p config
+    cp ${configFile} config/keter.yaml
 
-      echo 'create a gzipped tarball'
-      mkdir -p $out
-      tar -zcvf $out/bundle.tar.gz.keter ./.
-    '';
-    buildInputs = [ gnutar ];
-  }
+    echo 'create a gzipped tarball'
+    mkdir -p $out
+    tar -zcvf $out/bundle.tar.gz.keter ./.
+  '';
+  buildInputs = [ gnutar ];
+}

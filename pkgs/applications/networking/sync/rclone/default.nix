@@ -58,20 +58,20 @@ buildGoModule rec {
     else
       lib.getBin buildPackages.rclone;
   in
-    ''
-      installManPage rclone.1
-      for shell in bash zsh fish; do
-        ${rcloneBin}/bin/rclone genautocomplete $shell rclone.$shell
-        installShellCompletion rclone.$shell
-      done
-    '' + lib.optionalString (enableCmount && !stdenv.isDarwin)
-    # use --suffix here to ensure we don't shadow /run/wrappers/bin/fusermount,
-    # as the setuid wrapper is required as non-root on NixOS.
-    ''
-      wrapProgram $out/bin/rclone \
-        --suffix PATH : "${lib.makeBinPath [ fuse ]}" \
-        --prefix LD_LIBRARY_PATH : "${fuse}/lib"
-    ''
+  ''
+    installManPage rclone.1
+    for shell in bash zsh fish; do
+      ${rcloneBin}/bin/rclone genautocomplete $shell rclone.$shell
+      installShellCompletion rclone.$shell
+    done
+  '' + lib.optionalString (enableCmount && !stdenv.isDarwin)
+  # use --suffix here to ensure we don't shadow /run/wrappers/bin/fusermount,
+  # as the setuid wrapper is required as non-root on NixOS.
+  ''
+    wrapProgram $out/bin/rclone \
+      --suffix PATH : "${lib.makeBinPath [ fuse ]}" \
+      --prefix LD_LIBRARY_PATH : "${fuse}/lib"
+  ''
   ;
 
   meta = with lib; {

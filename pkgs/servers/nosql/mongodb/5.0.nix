@@ -24,13 +24,13 @@ let
     sha256 = "1p9pq0dfd6lynvnz5p1c8dqp4filzrz86j840xwxwx82dm1zl6p0";
   };
 in
-  buildMongoDB {
-    version = variants.version;
-    sha256 = variants.sha256;
-    patches = [
-      ./forget-build-dependencies-4-4.patch
-      ./asio-no-experimental-string-view-4-4.patch
-      ./fix-build-with-boost-1.79-5_0.patch
-      ./fix-gcc-Wno-exceptions-5.0.patch
-    ];
-  }
+buildMongoDB {
+  version = variants.version;
+  sha256 = variants.sha256;
+  patches = [
+    ./forget-build-dependencies-4-4.patch
+    ./asio-no-experimental-string-view-4-4.patch
+    ./fix-build-with-boost-1.79-5_0.patch
+    ./fix-gcc-Wno-exceptions-5.0.patch
+  ];
+}

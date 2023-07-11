@@ -111,19 +111,19 @@ in {
           let
             fs' = utils.escapeSystemdPath fs;
           in
-            nameValuePair "btrfs-scrub-${fs'}" {
-              description = "regular btrfs scrub timer on ${fs}";
+          nameValuePair "btrfs-scrub-${fs'}" {
+            description = "regular btrfs scrub timer on ${fs}";
 
-              wantedBy = [ "timers.target" ];
-              timerConfig = {
-                OnCalendar = cfgScrub.interval;
-                AccuracySec = "1d";
-                Persistent = true;
-              };
-            }
+            wantedBy = [ "timers.target" ];
+            timerConfig = {
+              OnCalendar = cfgScrub.interval;
+              AccuracySec = "1d";
+              Persistent = true;
+            };
+          }
         ;
       in
-        listToAttrs (map scrubTimer cfgScrub.fileSystems)
+      listToAttrs (map scrubTimer cfgScrub.fileSystems)
       ;
 
       systemd.services = let
@@ -131,34 +131,33 @@ in {
           let
             fs' = utils.escapeSystemdPath fs;
           in
-            nameValuePair "btrfs-scrub-${fs'}" {
-              description = "btrfs scrub on ${fs}";
-              # scrub prevents suspend2ram or proper shutdown
-              conflicts = [
-                "shutdown.target"
-                "sleep.target"
-              ];
-              before = [
-                "shutdown.target"
-                "sleep.target"
-              ];
+          nameValuePair "btrfs-scrub-${fs'}" {
+            description = "btrfs scrub on ${fs}";
+            # scrub prevents suspend2ram or proper shutdown
+            conflicts = [
+              "shutdown.target"
+              "sleep.target"
+            ];
+            before = [
+              "shutdown.target"
+              "sleep.target"
+            ];
 
-              serviceConfig = {
-                # simple and not oneshot, otherwise ExecStop is not used
-                Type = "simple";
-                Nice = 19;
-                IOSchedulingClass = "idle";
-                ExecStart =
-                  "${pkgs.btrfs-progs}/bin/btrfs scrub start -B ${fs}";
-                # if the service is stopped before scrub end, cancel it
-                ExecStop = pkgs.writeShellScript "btrfs-scrub-maybe-cancel" ''
-                  (${pkgs.btrfs-progs}/bin/btrfs scrub status ${fs} | ${pkgs.gnugrep}/bin/grep finished) || ${pkgs.btrfs-progs}/bin/btrfs scrub cancel ${fs}
-                '';
-              };
-            }
+            serviceConfig = {
+              # simple and not oneshot, otherwise ExecStop is not used
+              Type = "simple";
+              Nice = 19;
+              IOSchedulingClass = "idle";
+              ExecStart = "${pkgs.btrfs-progs}/bin/btrfs scrub start -B ${fs}";
+              # if the service is stopped before scrub end, cancel it
+              ExecStop = pkgs.writeShellScript "btrfs-scrub-maybe-cancel" ''
+                (${pkgs.btrfs-progs}/bin/btrfs scrub status ${fs} | ${pkgs.gnugrep}/bin/grep finished) || ${pkgs.btrfs-progs}/bin/btrfs scrub cancel ${fs}
+              '';
+            };
+          }
         ;
       in
-        listToAttrs (map scrubService cfgScrub.fileSystems)
+      listToAttrs (map scrubService cfgScrub.fileSystems)
       ;
     })
   ];

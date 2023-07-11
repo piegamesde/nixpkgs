@@ -56,10 +56,10 @@ stdenv.mkDerivation (finalAttrs: {
     else
       stdenv.hostPlatform.extensions.sharedLibrary;
   in
-    lib.optionalString blas64 ''
-      ln -s $out/lib/liblapack64${canonicalExtension} $out/lib/liblapack${canonicalExtension}
-      ln -s $out/lib/liblapacke64${canonicalExtension} $out/lib/liblapacke${canonicalExtension}
-    ''
+  lib.optionalString blas64 ''
+    ln -s $out/lib/liblapack64${canonicalExtension} $out/lib/liblapack${canonicalExtension}
+    ln -s $out/lib/liblapacke64${canonicalExtension} $out/lib/liblapacke${canonicalExtension}
+  ''
   ;
 
   doCheck = true;

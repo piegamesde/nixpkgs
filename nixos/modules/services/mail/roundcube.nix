@@ -185,7 +185,7 @@ in {
           let
             p = builtins.parseDrvName dict.shortName;
           in
-            "'${p.name}' => '${dict.fullName}'"
+          "'${p.name}' => '${dict.fullName}'"
         ) cfg.dicts
       });
 

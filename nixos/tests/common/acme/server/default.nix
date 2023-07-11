@@ -113,7 +113,7 @@ in {
       resolver.enable = let
         isLocalResolver = config.networking.nameservers == [ "127.0.0.1" ];
       in
-        lib.mkOverride 900 isLocalResolver
+      lib.mkOverride 900 isLocalResolver
       ;
     };
 

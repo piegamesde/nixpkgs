@@ -21,7 +21,7 @@ let
   enabled = let
     initrd = config.boot.initrd;
   in
-    (initrd.network.enable || initrd.systemd.network.enable) && cfg.enable
+  (initrd.network.enable || initrd.systemd.network.enable) && cfg.enable
   ;
 
 in {
@@ -146,8 +146,8 @@ in {
         let
           name = builtins.baseNameOf path;
         in
-          builtins.unsafeDiscardStringContext
-          ("/etc/ssh/" + substring 1 (stringLength name) name)
+        builtins.unsafeDiscardStringContext
+        ("/etc/ssh/" + substring 1 (stringLength name) name)
     ;
 
     sshdCfg = config.services.openssh;
@@ -181,133 +181,130 @@ in {
       ${cfg.extraConfig}
     '';
   in
-    mkIf enabled {
-      assertions = [
-        {
-          assertion = cfg.authorizedKeys != [ ];
-          message =
-            "You should specify at least one authorized key for initrd SSH";
-        }
+  mkIf enabled {
+    assertions = [
+      {
+        assertion = cfg.authorizedKeys != [ ];
+        message =
+          "You should specify at least one authorized key for initrd SSH";
+      }
 
-        {
-          assertion = (cfg.hostKeys != [ ]) || cfg.ignoreEmptyHostKeys;
-          message = ''
-            You must now pre-generate the host keys for initrd SSH.
-            See the boot.initrd.network.ssh.hostKeys documentation
-            for instructions.
-          '';
-        }
-
-        {
-          assertion = config.boot.initrd.systemd.enable -> cfg.shell == null;
-          message =
-            "systemd stage 1 does not support boot.initrd.network.ssh.shell";
-        }
-      ];
-
-      boot.initrd.extraUtilsCommands =
-        mkIf (!config.boot.initrd.systemd.enable) ''
-          copy_bin_and_libs ${package}/bin/sshd
-          cp -pv ${pkgs.glibc.out}/lib/libnss_files.so.* $out/lib
+      {
+        assertion = (cfg.hostKeys != [ ]) || cfg.ignoreEmptyHostKeys;
+        message = ''
+          You must now pre-generate the host keys for initrd SSH.
+          See the boot.initrd.network.ssh.hostKeys documentation
+          for instructions.
         '';
+      }
 
-      boot.initrd.extraUtilsCommandsTest =
-        mkIf (!config.boot.initrd.systemd.enable) ''
-          # sshd requires a host key to check config, so we pass in the test's
-          tmpkey="$(mktemp initrd-ssh-testkey.XXXXXXXXXX)"
-          cp "${
-            ../../../tests/initrd-network-ssh/ssh_host_ed25519_key
-          }" "$tmpkey"
+      {
+        assertion = config.boot.initrd.systemd.enable -> cfg.shell == null;
+        message =
+          "systemd stage 1 does not support boot.initrd.network.ssh.shell";
+      }
+    ];
+
+    boot.initrd.extraUtilsCommands =
+      mkIf (!config.boot.initrd.systemd.enable) ''
+        copy_bin_and_libs ${package}/bin/sshd
+        cp -pv ${pkgs.glibc.out}/lib/libnss_files.so.* $out/lib
+      '';
+
+    boot.initrd.extraUtilsCommandsTest =
+      mkIf (!config.boot.initrd.systemd.enable) ''
+        # sshd requires a host key to check config, so we pass in the test's
+        tmpkey="$(mktemp initrd-ssh-testkey.XXXXXXXXXX)"
+        cp "${../../../tests/initrd-network-ssh/ssh_host_ed25519_key}" "$tmpkey"
+        # keys from Nix store are world-readable, which sshd doesn't like
+        chmod 600 "$tmpkey"
+        echo -n ${escapeShellArg sshdConfig} |
+          $out/bin/sshd -t -f /dev/stdin \
+          -h "$tmpkey"
+        rm "$tmpkey"
+      '';
+
+    boot.initrd.network.postCommands =
+      mkIf (!config.boot.initrd.systemd.enable) ''
+        echo '${shell}' > /etc/shells
+        echo 'root:x:0:0:root:/root:${shell}' > /etc/passwd
+        echo 'sshd:x:1:1:sshd:/var/empty:/bin/nologin' >> /etc/passwd
+        echo 'passwd: files' > /etc/nsswitch.conf
+
+        mkdir -p /var/log /var/empty
+        touch /var/log/lastlog
+
+        mkdir -p /etc/ssh
+        echo -n ${escapeShellArg sshdConfig} > /etc/ssh/sshd_config
+
+        echo "export PATH=$PATH" >> /etc/profile
+        echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> /etc/profile
+
+        mkdir -p /root/.ssh
+        ${concatStrings (map (key: ''
+          echo ${escapeShellArg key} >> /root/.ssh/authorized_keys
+        '') cfg.authorizedKeys)}
+
+        ${flip concatMapStrings cfg.hostKeys (path: ''
           # keys from Nix store are world-readable, which sshd doesn't like
-          chmod 600 "$tmpkey"
-          echo -n ${escapeShellArg sshdConfig} |
-            $out/bin/sshd -t -f /dev/stdin \
-            -h "$tmpkey"
-          rm "$tmpkey"
-        '';
+          chmod 0600 "${initrdKeyPath path}"
+        '')}
 
-      boot.initrd.network.postCommands =
-        mkIf (!config.boot.initrd.systemd.enable) ''
-          echo '${shell}' > /etc/shells
-          echo 'root:x:0:0:root:/root:${shell}' > /etc/passwd
-          echo 'sshd:x:1:1:sshd:/var/empty:/bin/nologin' >> /etc/passwd
-          echo 'passwd: files' > /etc/nsswitch.conf
+        /bin/sshd -e
+      '';
 
-          mkdir -p /var/log /var/empty
-          touch /var/log/lastlog
+    boot.initrd.postMountCommands = mkIf (!config.boot.initrd.systemd.enable) ''
+      # Stop sshd cleanly before stage 2.
+      #
+      # If you want to keep it around to debug post-mount SSH issues,
+      # run `touch /.keep_sshd` (either from an SSH session or in
+      # another initrd hook like preDeviceCommands).
+      if ! [ -e /.keep_sshd ]; then
+        pkill -x sshd
+      fi
+    '';
 
-          mkdir -p /etc/ssh
-          echo -n ${escapeShellArg sshdConfig} > /etc/ssh/sshd_config
+    boot.initrd.secrets = listToAttrs
+      (map (path: nameValuePair (initrdKeyPath path) path) cfg.hostKeys);
 
-          echo "export PATH=$PATH" >> /etc/profile
-          echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> /etc/profile
+    # Systemd initrd stuff
+    boot.initrd.systemd = mkIf config.boot.initrd.systemd.enable {
+      users.sshd = {
+        uid = 1;
+        group = "sshd";
+      };
+      groups.sshd = { gid = 1; };
 
-          mkdir -p /root/.ssh
-          ${concatStrings (map (key: ''
-            echo ${escapeShellArg key} >> /root/.ssh/authorized_keys
-          '') cfg.authorizedKeys)}
+      contents."/etc/ssh/authorized_keys.d/root".text =
+        concatStringsSep "\n" config.boot.initrd.network.ssh.authorizedKeys;
+      contents."/etc/ssh/sshd_config".text = sshdConfig;
+      storePaths = [ "${package}/bin/sshd" ];
 
-          ${flip concatMapStrings cfg.hostKeys (path: ''
-            # keys from Nix store are world-readable, which sshd doesn't like
-            chmod 0600 "${initrdKeyPath path}"
-          '')}
+      services.sshd = {
+        description = "SSH Daemon";
+        wantedBy = [ "initrd.target" ];
+        after = [
+          "network.target"
+          "initrd-nixos-copy-secrets.service"
+        ];
 
-          /bin/sshd -e
-        '';
-
-      boot.initrd.postMountCommands =
-        mkIf (!config.boot.initrd.systemd.enable) ''
-          # Stop sshd cleanly before stage 2.
-          #
-          # If you want to keep it around to debug post-mount SSH issues,
-          # run `touch /.keep_sshd` (either from an SSH session or in
-          # another initrd hook like preDeviceCommands).
-          if ! [ -e /.keep_sshd ]; then
-            pkill -x sshd
-          fi
-        '';
-
-      boot.initrd.secrets = listToAttrs
-        (map (path: nameValuePair (initrdKeyPath path) path) cfg.hostKeys);
-
-      # Systemd initrd stuff
-      boot.initrd.systemd = mkIf config.boot.initrd.systemd.enable {
-        users.sshd = {
-          uid = 1;
-          group = "sshd";
-        };
-        groups.sshd = { gid = 1; };
-
-        contents."/etc/ssh/authorized_keys.d/root".text =
-          concatStringsSep "\n" config.boot.initrd.network.ssh.authorizedKeys;
-        contents."/etc/ssh/sshd_config".text = sshdConfig;
-        storePaths = [ "${package}/bin/sshd" ];
-
-        services.sshd = {
-          description = "SSH Daemon";
-          wantedBy = [ "initrd.target" ];
-          after = [
-            "network.target"
-            "initrd-nixos-copy-secrets.service"
-          ];
-
-          # Keys from Nix store are world-readable, which sshd doesn't
-          # like. If this were a real nix store and not the initrd, we
-          # neither would nor could do this
-          preStart = flip concatMapStrings cfg.hostKeys (path: ''
-            /bin/chmod 0600 "${initrdKeyPath path}"
-          '');
-          unitConfig.DefaultDependencies = false;
-          serviceConfig = {
-            ExecStart = "${package}/bin/sshd -D -f /etc/ssh/sshd_config";
-            Type = "simple";
-            KillMode = "process";
-            Restart = "on-failure";
-          };
+        # Keys from Nix store are world-readable, which sshd doesn't
+        # like. If this were a real nix store and not the initrd, we
+        # neither would nor could do this
+        preStart = flip concatMapStrings cfg.hostKeys (path: ''
+          /bin/chmod 0600 "${initrdKeyPath path}"
+        '');
+        unitConfig.DefaultDependencies = false;
+        serviceConfig = {
+          ExecStart = "${package}/bin/sshd -D -f /etc/ssh/sshd_config";
+          Type = "simple";
+          KillMode = "process";
+          Restart = "on-failure";
         };
       };
+    };
 
-    }
+  }
   ;
 
 }

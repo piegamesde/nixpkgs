@@ -155,7 +155,7 @@ let
         '';
       } // def;
     in
-      base // { unit = makeUnit name base; }
+    base // { unit = makeUnit name base; }
   ;
 
 in {
@@ -175,21 +175,21 @@ in {
       let
         nspawnFile = "${n}.nspawn";
       in
-        nameValuePair nspawnFile (instanceToUnit nspawnFile v)
+      nameValuePair nspawnFile (instanceToUnit nspawnFile v)
     ) cfg;
   in
-    mkMerge [
-      (mkIf (cfg != { }) {
-        environment.etc."systemd/nspawn".source = mkIf (cfg != { })
-          (generateUnits {
-            allowCollisions = false;
-            type = "nspawn";
-            inherit units;
-            upstreamUnits = [ ];
-            upstreamWants = [ ];
-          });
-      })
-      { systemd.targets.multi-user.wants = [ "machines.target" ]; }
-    ]
+  mkMerge [
+    (mkIf (cfg != { }) {
+      environment.etc."systemd/nspawn".source = mkIf (cfg != { })
+        (generateUnits {
+          allowCollisions = false;
+          type = "nspawn";
+          inherit units;
+          upstreamUnits = [ ];
+          upstreamWants = [ ];
+        });
+    })
+    { systemd.targets.multi-user.wants = [ "machines.target" ]; }
+  ]
   ;
 }

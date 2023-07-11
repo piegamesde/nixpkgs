@@ -97,7 +97,7 @@ let
           '';
         };
       in
-        examples.${service} or ""
+      examples.${service} or ""
       ;
       description = lib.mdDoc ''
         ${daemonName service} configuration statements.
@@ -177,9 +177,9 @@ in {
         value.source = configFile service;
       };
     in
-      (builtins.listToAttrs (map mkEtcLink (filter isEnabled allServices))) // {
-        "frr/vtysh.conf".text = "";
-      }
+    (builtins.listToAttrs (map mkEtcLink (filter isEnabled allServices))) // {
+      "frr/vtysh.conf".text = "";
+    }
     ;
 
     systemd.tmpfiles.rules = [ "d /run/frr 0750 frr frr -" ];
@@ -190,51 +190,51 @@ in {
           scfg = cfg.${service};
           daemon = daemonName service;
         in
-          nameValuePair daemon ({
-            wantedBy = [ "multi-user.target" ];
-            after = [
-              "network-pre.target"
-              "systemd-sysctl.service"
-            ] ++ lib.optionals (service != "zebra") [ "zebra.service" ];
-            bindsTo = lib.optionals (service != "zebra") [ "zebra.service" ];
-            wants = [ "network.target" ];
+        nameValuePair daemon ({
+          wantedBy = [ "multi-user.target" ];
+          after = [
+            "network-pre.target"
+            "systemd-sysctl.service"
+          ] ++ lib.optionals (service != "zebra") [ "zebra.service" ];
+          bindsTo = lib.optionals (service != "zebra") [ "zebra.service" ];
+          wants = [ "network.target" ];
 
-            description = if
-              service == "zebra"
-            then
-              "FRR Zebra routing manager"
-            else
-              "FRR ${toUpper service} routing daemon";
+          description = if
+            service == "zebra"
+          then
+            "FRR Zebra routing manager"
+          else
+            "FRR ${toUpper service} routing daemon";
 
-            unitConfig.Documentation = if
-              service == "zebra"
-            then
-              "man:zebra(8)"
-            else
-              "man:${daemon}(8) man:zebra(8)";
+          unitConfig.Documentation = if
+            service == "zebra"
+          then
+            "man:zebra(8)"
+          else
+            "man:${daemon}(8) man:zebra(8)";
 
-            restartTriggers = [ (configFile service) ];
-            reloadIfChanged = true;
+          restartTriggers = [ (configFile service) ];
+          reloadIfChanged = true;
 
-            serviceConfig = {
-              PIDFile = "frr/${daemon}.pid";
-              ExecStart =
-                "${pkgs.frr}/libexec/frr/${daemon} -f /etc/frr/${service}.conf"
-                + optionalString (scfg.vtyListenAddress != "")
-                " -A ${scfg.vtyListenAddress}"
-                + optionalString (scfg.vtyListenPort != null)
-                " -P ${toString scfg.vtyListenPort}" + " "
-                + (concatStringsSep " " scfg.extraOptions);
-              ExecReload =
-                "${pkgs.python3.interpreter} ${pkgs.frr}/libexec/frr/frr-reload.py --reload --daemon ${
-                  daemonName service
-                } --bindir ${pkgs.frr}/bin --rundir /run/frr /etc/frr/${service}.conf";
-              Restart = "on-abnormal";
-            };
-          })
+          serviceConfig = {
+            PIDFile = "frr/${daemon}.pid";
+            ExecStart =
+              "${pkgs.frr}/libexec/frr/${daemon} -f /etc/frr/${service}.conf"
+              + optionalString (scfg.vtyListenAddress != "")
+              " -A ${scfg.vtyListenAddress}"
+              + optionalString (scfg.vtyListenPort != null)
+              " -P ${toString scfg.vtyListenPort}" + " "
+              + (concatStringsSep " " scfg.extraOptions);
+            ExecReload =
+              "${pkgs.python3.interpreter} ${pkgs.frr}/libexec/frr/frr-reload.py --reload --daemon ${
+                daemonName service
+              } --bindir ${pkgs.frr}/bin --rundir /run/frr /etc/frr/${service}.conf";
+            Restart = "on-abnormal";
+          };
+        })
       ;
     in
-      listToAttrs (map frrService (filter isEnabled allServices))
+    listToAttrs (map frrService (filter isEnabled allServices))
     ;
 
   };

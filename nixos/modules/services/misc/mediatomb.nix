@@ -403,43 +403,43 @@ in {
     configFlag = optionalString (!cfg.customCfg)
       "--config ${pkgs.writeText "config.xml" configText}";
   in
-    mkIf cfg.enable {
-      systemd.services.mediatomb = {
-        description = "${cfg.serverName} media Server";
-        # Gerbera might fail if the network interface is not available on startup
-        # https://github.com/gerbera/gerbera/issues/1324
-        after = [
-          "network.target"
-          "network-online.target"
-        ];
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig.ExecStart = "${binaryCommand} --port ${
-            toString cfg.port
-          } ${interfaceFlag} ${configFlag} --home ${cfg.dataDir}";
-        serviceConfig.User = cfg.user;
-        serviceConfig.Group = cfg.group;
-      };
-
-      users.groups =
-        optionalAttrs (cfg.group == "mediatomb") { mediatomb.gid = gid; };
-
-      users.users = optionalAttrs (cfg.user == "mediatomb") {
-        mediatomb = {
-          isSystemUser = true;
-          group = cfg.group;
-          home = cfg.dataDir;
-          createHome = true;
-          description = "${name} DLNA Server User";
-        };
-      };
-
-      # Open firewall only if users enable it
-      networking.firewall = mkMerge [
-        (mkIf (cfg.openFirewall && cfg.interface != "") {
-          interfaces."${cfg.interface}" = defaultFirewallRules;
-        })
-        (mkIf (cfg.openFirewall && cfg.interface == "") defaultFirewallRules)
+  mkIf cfg.enable {
+    systemd.services.mediatomb = {
+      description = "${cfg.serverName} media Server";
+      # Gerbera might fail if the network interface is not available on startup
+      # https://github.com/gerbera/gerbera/issues/1324
+      after = [
+        "network.target"
+        "network-online.target"
       ];
-    }
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig.ExecStart = "${binaryCommand} --port ${
+          toString cfg.port
+        } ${interfaceFlag} ${configFlag} --home ${cfg.dataDir}";
+      serviceConfig.User = cfg.user;
+      serviceConfig.Group = cfg.group;
+    };
+
+    users.groups =
+      optionalAttrs (cfg.group == "mediatomb") { mediatomb.gid = gid; };
+
+    users.users = optionalAttrs (cfg.user == "mediatomb") {
+      mediatomb = {
+        isSystemUser = true;
+        group = cfg.group;
+        home = cfg.dataDir;
+        createHome = true;
+        description = "${name} DLNA Server User";
+      };
+    };
+
+    # Open firewall only if users enable it
+    networking.firewall = mkMerge [
+      (mkIf (cfg.openFirewall && cfg.interface != "") {
+        interfaces."${cfg.interface}" = defaultFirewallRules;
+      })
+      (mkIf (cfg.openFirewall && cfg.interface == "") defaultFirewallRules)
+    ];
+  }
   ;
 }

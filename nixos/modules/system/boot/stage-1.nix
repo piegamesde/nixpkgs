@@ -270,7 +270,7 @@ let
       filterAttrs (n: v: hasSuffix ".link" n) config.systemd.network.units;
     files = mapAttrsToList (n: v: "${v.unit}/${n}") links;
   in
-    concatMapStringsSep "\n" (file: "cp -v ${file} $out/") files
+  concatMapStringsSep "\n" (file: "cp -v ${file} $out/") files
   ));
 
   udevRules = pkgs.runCommand "udev-rules" {
@@ -367,8 +367,8 @@ let
         (builtins.concatStringsSep "," fs.options)
       ];
     in
-      pkgs.writeText "initrd-fsinfo"
-      (concatStringsSep "\n" (concatMap f fileSystems))
+    pkgs.writeText "initrd-fsinfo"
+    (concatStringsSep "\n" (concatMap f fileSystems))
     ;
 
     setHostId = optionalString (config.networking.hostId != null) ''
@@ -438,55 +438,55 @@ let
   initialRamdiskSecretAppender = let
     compressorExe = initialRamdisk.compressorExecutableFunction pkgs;
   in
-    pkgs.writeScriptBin "append-initrd-secrets" ''
-      #!${pkgs.bash}/bin/bash -e
-      function usage {
-        echo "USAGE: $0 INITRD_FILE" >&2
-        echo "Appends this configuration's secrets to INITRD_FILE" >&2
-      }
+  pkgs.writeScriptBin "append-initrd-secrets" ''
+    #!${pkgs.bash}/bin/bash -e
+    function usage {
+      echo "USAGE: $0 INITRD_FILE" >&2
+      echo "Appends this configuration's secrets to INITRD_FILE" >&2
+    }
 
-      if [ $# -ne 1 ]; then
-        usage
-        exit 1
+    if [ $# -ne 1 ]; then
+      usage
+      exit 1
+    fi
+
+    if [ "$1"x = "--helpx" ]; then
+      usage
+      exit 0
+    fi
+
+    ${lib.optionalString (config.boot.initrd.secrets == { }) "exit 0"}
+
+    export PATH=${pkgs.coreutils}/bin:${pkgs.libarchive}/bin:${pkgs.gzip}/bin:${pkgs.findutils}/bin
+
+    function cleanup {
+      if [ -n "$tmp" -a -d "$tmp" ]; then
+        rm -fR "$tmp"
       fi
+    }
+    trap cleanup EXIT
 
-      if [ "$1"x = "--helpx" ]; then
-        usage
-        exit 0
-      fi
+    tmp=$(mktemp -d ''${TMPDIR:-/tmp}/initrd-secrets.XXXXXXXXXX)
 
-      ${lib.optionalString (config.boot.initrd.secrets == { }) "exit 0"}
+    ${lib.concatStringsSep "\n" (mapAttrsToList (dest: source:
+      let
+        source' = if
+          source == null
+        then
+          dest
+        else
+          toString source;
+      in ''
+        mkdir -p $(dirname "$tmp/.initrd-secrets/${dest}")
+        cp -a ${source'} "$tmp/.initrd-secrets/${dest}"
+      '' ) config.boot.initrd.secrets)}
 
-      export PATH=${pkgs.coreutils}/bin:${pkgs.libarchive}/bin:${pkgs.gzip}/bin:${pkgs.findutils}/bin
-
-      function cleanup {
-        if [ -n "$tmp" -a -d "$tmp" ]; then
-          rm -fR "$tmp"
-        fi
-      }
-      trap cleanup EXIT
-
-      tmp=$(mktemp -d ''${TMPDIR:-/tmp}/initrd-secrets.XXXXXXXXXX)
-
-      ${lib.concatStringsSep "\n" (mapAttrsToList (dest: source:
-        let
-          source' = if
-            source == null
-          then
-            dest
-          else
-            toString source;
-        in ''
-          mkdir -p $(dirname "$tmp/.initrd-secrets/${dest}")
-          cp -a ${source'} "$tmp/.initrd-secrets/${dest}"
-        '' ) config.boot.initrd.secrets)}
-
-      # mindepth 1 so that we don't change the mode of /
-      (cd "$tmp" && find . -mindepth 1 -print0 | sort -z | bsdtar --uid 0 --gid 0 -cnf - -T - | bsdtar --null -cf - --format=newc @-) | \
-        ${compressorExe} ${
-          lib.escapeShellArgs initialRamdisk.compressorArgs
-        } >> "$1"
-    ''
+    # mindepth 1 so that we don't change the mode of /
+    (cd "$tmp" && find . -mindepth 1 -print0 | sort -z | bsdtar --uid 0 --gid 0 -cnf - -T - | bsdtar --null -cf - --format=newc @-) | \
+      ${compressorExe} ${
+        lib.escapeShellArgs initialRamdisk.compressorArgs
+      } >> "$1"
+  ''
   ;
 
 in {
@@ -736,7 +736,7 @@ in {
         assertion = let
           inherit (config.boot) resumeDevice;
         in
-          resumeDevice == "" || builtins.substring 0 1 resumeDevice == "/"
+        resumeDevice == "" || builtins.substring 0 1 resumeDevice == "/"
         ;
         message = "boot.resumeDevice has to be an absolute path."
           + " Old \"x:y\" style is no longer supported.";

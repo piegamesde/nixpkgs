@@ -24,16 +24,16 @@ let
   else
     "${args.pname}-${args.version}";
 in
-  stdenv.mkDerivation (args // {
-    name = "${name}-source";
-    installPhase = "cp -r . $out";
-    outputs = [ "out" ];
-    separateDebugInfo = false;
-    dontUnpack = false;
-    dontInstall = false;
-    phases = [
-      "unpackPhase"
-      "patchPhase"
-      "installPhase"
-    ];
-  })
+stdenv.mkDerivation (args // {
+  name = "${name}-source";
+  installPhase = "cp -r . $out";
+  outputs = [ "out" ];
+  separateDebugInfo = false;
+  dontUnpack = false;
+  dontInstall = false;
+  phases = [
+    "unpackPhase"
+    "patchPhase"
+    "installPhase"
+  ];
+})

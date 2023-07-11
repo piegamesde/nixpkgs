@@ -65,10 +65,10 @@ let
   '';
 
 in
-  symlinkJoin {
-    inherit name meta;
-    paths = [
-      script
-      desktopItem
-    ];
-  }
+symlinkJoin {
+  inherit name meta;
+  paths = [
+    script
+    desktopItem
+  ];
+}

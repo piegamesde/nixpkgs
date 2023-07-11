@@ -22,14 +22,14 @@ let
   '';
 
 in
-  stdenv.mkDerivation {
-    name = "qbe-test-can-run-hello-world";
-    meta.timeout = 10;
-    buildCommand = ''
-      ${qbe}/bin/qbe -o asm.s ${helloWorld}
-      cc -o out asm.s
-      ./out | grep 'One and one make 2!'
-      touch $out
-    '';
-  }
+stdenv.mkDerivation {
+  name = "qbe-test-can-run-hello-world";
+  meta.timeout = 10;
+  buildCommand = ''
+    ${qbe}/bin/qbe -o asm.s ${helloWorld}
+    cc -o out asm.s
+    ./out | grep 'One and one make 2!'
+    touch $out
+  '';
+}
 

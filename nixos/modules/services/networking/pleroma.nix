@@ -137,7 +137,7 @@ in {
             ${cfg.package}/bin/pleroma_ctl migrate
           '';
         in
-          "${preScript}/bin/pleromaStartPre"
+        "${preScript}/bin/pleromaStartPre"
         ;
 
         ExecStart = "${cfg.package}/bin/pleroma start";

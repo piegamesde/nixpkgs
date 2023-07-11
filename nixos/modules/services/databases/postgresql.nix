@@ -507,12 +507,12 @@ in {
       # ‘system.stateVersion’ to maintain compatibility with existing
       # systems!
     in
-      mkDefault (if
-        cfg.enableJIT
-      then
-        base.withJIT
-      else
-        base)
+    mkDefault (if
+      cfg.enableJIT
+    then
+      base.withJIT
+    else
+      base)
     ;
 
     services.postgresql.dataDir =

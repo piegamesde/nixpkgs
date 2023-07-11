@@ -9,43 +9,43 @@
 let
   version = "2022.7";
 in
-  python3Packages.buildPythonApplication {
-    pname = "mimeo";
-    inherit version;
+python3Packages.buildPythonApplication {
+  pname = "mimeo";
+  inherit version;
 
-    src = fetchurl {
-      url = "https://xyne.dev/projects/mimeo/src/mimeo-${version}.tar.xz";
-      hash = "sha256-xzWPMtlKj35mkE04jcGalbf/94qEOOUi9pvZgSPgdj8=";
-    };
+  src = fetchurl {
+    url = "https://xyne.dev/projects/mimeo/src/mimeo-${version}.tar.xz";
+    hash = "sha256-xzWPMtlKj35mkE04jcGalbf/94qEOOUi9pvZgSPgdj8=";
+  };
 
-    buildInputs = [
-      file
-      desktop-file-utils
-    ];
+  buildInputs = [
+    file
+    desktop-file-utils
+  ];
 
-    propagatedBuildInputs = [ python3Packages.pyxdg ];
+  propagatedBuildInputs = [ python3Packages.pyxdg ];
 
-    preConfigure = ''
-      substituteInPlace Mimeo.py \
-        --replace "EXE_UPDATE_DESKTOP_DATABASE = 'update-desktop-database'" \
-                  "EXE_UPDATE_DESKTOP_DATABASE = '${desktop-file-utils}/bin/update-desktop-database'" \
-        --replace "EXE_FILE = 'file'" \
-                  "EXE_FILE = '${file}/bin/file'"
-    '';
+  preConfigure = ''
+    substituteInPlace Mimeo.py \
+      --replace "EXE_UPDATE_DESKTOP_DATABASE = 'update-desktop-database'" \
+                "EXE_UPDATE_DESKTOP_DATABASE = '${desktop-file-utils}/bin/update-desktop-database'" \
+      --replace "EXE_FILE = 'file'" \
+                "EXE_FILE = '${file}/bin/file'"
+  '';
 
-    installPhase = "install -Dm755 Mimeo.py $out/bin/mimeo";
+  installPhase = "install -Dm755 Mimeo.py $out/bin/mimeo";
 
-    doInstallCheck = true;
-    installCheckPhase = ''
-      $out/bin/mimeo --help > /dev/null
-    '';
+  doInstallCheck = true;
+  installCheckPhase = ''
+    $out/bin/mimeo --help > /dev/null
+  '';
 
-    meta = with lib; {
-      description =
-        "Open files by MIME-type or file name using regular expressions";
-      homepage = "https://xyne.dev/projects/mimeo/";
-      license = [ licenses.gpl2Only ];
-      maintainers = [ maintainers.rycee ];
-      platforms = platforms.unix;
-    };
-  }
+  meta = with lib; {
+    description =
+      "Open files by MIME-type or file name using regular expressions";
+    homepage = "https://xyne.dev/projects/mimeo/";
+    license = [ licenses.gpl2Only ];
+    maintainers = [ maintainers.rycee ];
+    platforms = platforms.unix;
+  };
+}

@@ -27,7 +27,7 @@ let
         else
           toString value);
       in
-        "${key} = ${value'}"
+      "${key} = ${value'}"
     ;
   };
 
@@ -430,15 +430,15 @@ in {
           fi
         '';
       in
-        withSqlite ''
-          if ! test -f '${settings.database.filename}'; then
-            ${cfg.package}/bin/writefreely -c '${cfg.stateDir}/config.ini' db init
-          fi
+      withSqlite ''
+        if ! test -f '${settings.database.filename}'; then
+          ${cfg.package}/bin/writefreely -c '${cfg.stateDir}/config.ini' db init
+        fi
 
-          ${migrateDatabase}
+        ${migrateDatabase}
 
-          ${createAdmin}
-        ''
+        ${createAdmin}
+      ''
       ;
     };
 
@@ -476,17 +476,17 @@ in {
           fi
         '';
       in
-        withMysql ''
-          ${updateUser}
+      withMysql ''
+        ${updateUser}
 
-          if [[ $(query "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = '${cfg.database.name}'") == 0 ]]; then
-            ${cfg.package}/bin/writefreely -c '${cfg.stateDir}/config.ini' db init
-          fi
+        if [[ $(query "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = '${cfg.database.name}'") == 0 ]]; then
+          ${cfg.package}/bin/writefreely -c '${cfg.stateDir}/config.ini' db init
+        fi
 
-          ${migrateDatabase}
+        ${migrateDatabase}
 
-          ${createAdmin}
-        ''
+        ${createAdmin}
+      ''
       ;
     };
 

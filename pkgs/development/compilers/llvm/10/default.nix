@@ -310,4 +310,4 @@ let
     } );
 
 in
-  { inherit tools libraries release_version; } // libraries // tools
+{ inherit tools libraries release_version; } // libraries // tools

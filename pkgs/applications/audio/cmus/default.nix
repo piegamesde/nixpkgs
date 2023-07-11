@@ -139,42 +139,42 @@ let
   ];
 
 in
-  stdenv.mkDerivation rec {
-    pname = "cmus";
-    version = "2.10.0";
+stdenv.mkDerivation rec {
+  pname = "cmus";
+  version = "2.10.0";
 
-    src = fetchFromGitHub {
-      owner = "cmus";
-      repo = "cmus";
-      rev = "v${version}";
-      sha256 = "sha256-Ha0bIh3SYMhA28YXQ//Loaz9J1lTJAzjTx8eK3AqUjM=";
-    };
+  src = fetchFromGitHub {
+    owner = "cmus";
+    repo = "cmus";
+    rev = "v${version}";
+    sha256 = "sha256-Ha0bIh3SYMhA28YXQ//Loaz9J1lTJAzjTx8eK3AqUjM=";
+  };
 
-    patches = [ ./option-debugging.patch ];
+  patches = [ ./option-debugging.patch ];
 
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ ncurses ] ++ lib.optionals stdenv.isDarwin [
-      libiconv
-      CoreAudio
-      AudioUnit
-      VideoToolbox
-    ] ++ lib.flatten (lib.concatMap (a: a.deps) opts);
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ ncurses ] ++ lib.optionals stdenv.isDarwin [
+    libiconv
+    CoreAudio
+    AudioUnit
+    VideoToolbox
+  ] ++ lib.flatten (lib.concatMap (a: a.deps) opts);
 
-    prefixKey = "prefix=";
+  prefixKey = "prefix=";
 
-    configureFlags = [
-      "CONFIG_WAV=y"
-      "HOSTCC=${stdenv.cc.targetPrefix}cc"
-    ] ++ lib.concatMap (a: a.flags) opts;
+  configureFlags = [
+    "CONFIG_WAV=y"
+    "HOSTCC=${stdenv.cc.targetPrefix}cc"
+  ] ++ lib.concatMap (a: a.flags) opts;
 
-    makeFlags = [ "LD=$(CC)" ];
+  makeFlags = [ "LD=$(CC)" ];
 
-    meta = with lib; {
-      description =
-        "Small, fast and powerful console music player for Linux and *BSD";
-      homepage = "https://cmus.github.io/";
-      license = licenses.gpl2;
-      maintainers = [ maintainers.oxij ];
-      platforms = platforms.linux ++ platforms.darwin;
-    };
-  }
+  meta = with lib; {
+    description =
+      "Small, fast and powerful console music player for Linux and *BSD";
+    homepage = "https://cmus.github.io/";
+    license = licenses.gpl2;
+    maintainers = [ maintainers.oxij ];
+    platforms = platforms.linux ++ platforms.darwin;
+  };
+}

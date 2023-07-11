@@ -84,7 +84,7 @@ let
       inherit config;
     };
   in
-    imap1 mkHead cfg.xrandrHeads
+  imap1 mkHead cfg.xrandrHeads
   ;
 
   xrandrDeviceSection = let
@@ -92,7 +92,7 @@ let
       Option "monitor-${h.config.output}" "${h.name}"
     '');
   in
-    concatStrings monitors
+  concatStrings monitors
   ;
 
   # Here we chain every monitor from the left to right, so we have:
@@ -122,7 +122,7 @@ let
       } ++ previous;
     monitors = reverseList (foldl mkMonitor [ ] xrandrHeads);
   in
-    concatMapStrings (getAttr "value") monitors
+  concatMapStrings (getAttr "value") monitors
   ;
 
   configFile = pkgs.runCommand "xserver.conf" {
@@ -692,7 +692,7 @@ in {
         || dmConf.sx.enable || dmConf.startx.enable
         || config.services.greetd.enable);
     in
-      mkIf (default) (mkDefault true)
+    mkIf (default) (mkDefault true)
     ;
 
     # so that the service won't be enabled when only startx is used
@@ -701,7 +701,7 @@ in {
       noDmUsed = !(dmConf.gdm.enable || dmConf.sddm.enable || dmConf.xpra.enable
         || dmConf.lightdm.enable);
     in
-      mkIf (noDmUsed) (mkDefault false)
+    mkIf (noDmUsed) (mkDefault false)
     ;
 
     hardware.opengl.enable = mkDefault true;
@@ -719,12 +719,12 @@ in {
         } else
           null) knownVideoDrivers;
       in
-        optional (driver != null) ({
-          inherit name;
-          modules = [ ];
-          driverName = name;
-          display = true;
-        } // driver)
+      optional (driver != null) ({
+        inherit name;
+        modules = [ ];
+        driverName = name;
+        display = true;
+      } // driver)
     );
 
     assertions = [
@@ -973,11 +973,11 @@ in {
                     EndSubSection
                   '';
                 in
-                  concatMapStrings f [
-                    8
-                    16
-                    24
-                  ]
+                concatMapStrings f [
+                  8
+                  16
+                  24
+                ]
                 )
             }
 

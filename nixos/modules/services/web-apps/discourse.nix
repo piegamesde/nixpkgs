@@ -716,27 +716,27 @@ in {
     systemd.services.discourse-postgresql = let
       pgsql = config.services.postgresql;
     in
-      lib.mkIf databaseActuallyCreateLocally {
-        after = [ "postgresql.service" ];
-        bindsTo = [ "postgresql.service" ];
-        wantedBy = [ "discourse.service" ];
-        partOf = [ "discourse.service" ];
-        path = [ pgsql.package ];
-        script = ''
-          set -o errexit -o pipefail -o nounset -o errtrace
-          shopt -s inherit_errexit
+    lib.mkIf databaseActuallyCreateLocally {
+      after = [ "postgresql.service" ];
+      bindsTo = [ "postgresql.service" ];
+      wantedBy = [ "discourse.service" ];
+      partOf = [ "discourse.service" ];
+      path = [ pgsql.package ];
+      script = ''
+        set -o errexit -o pipefail -o nounset -o errtrace
+        shopt -s inherit_errexit
 
-          psql -tAc "SELECT 1 FROM pg_database WHERE datname = 'discourse'" | grep -q 1 || psql -tAc 'CREATE DATABASE "discourse" OWNER "discourse"'
-          psql '${cfg.database.name}' -tAc "CREATE EXTENSION IF NOT EXISTS pg_trgm"
-          psql '${cfg.database.name}' -tAc "CREATE EXTENSION IF NOT EXISTS hstore"
-        '';
+        psql -tAc "SELECT 1 FROM pg_database WHERE datname = 'discourse'" | grep -q 1 || psql -tAc 'CREATE DATABASE "discourse" OWNER "discourse"'
+        psql '${cfg.database.name}' -tAc "CREATE EXTENSION IF NOT EXISTS pg_trgm"
+        psql '${cfg.database.name}' -tAc "CREATE EXTENSION IF NOT EXISTS hstore"
+      '';
 
-        serviceConfig = {
-          User = pgsql.superUser;
-          Type = "oneshot";
-          RemainAfterExit = true;
-        };
-      }
+      serviceConfig = {
+        User = pgsql.superUser;
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
+    }
     ;
 
     systemd.services.discourse = {

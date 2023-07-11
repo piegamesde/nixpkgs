@@ -74,12 +74,12 @@ let
       else
         escapeRegex cmdline_;
     in
-      writeIgnoreRule "cron-${name}" {
-        inherit level;
-        regex = ''
-          (/usr/bin/)?cron\[[0-9]+\]: \(${user}\) CMD \(${re}\)$
-        '';
-      }
+    writeIgnoreRule "cron-${name}" {
+      inherit level;
+      regex = ''
+        (/usr/bin/)?cron\[[0-9]+\]: \(${user}\) CMD \(${re}\)$
+      '';
+    }
   ;
 
   levelOption = mkOption {
@@ -277,7 +277,7 @@ in {
           ${timeArgs} ${user} ${cmdline}
         '';
     in
-      mapAttrsToList mkCron (filterAttrs withTime cfg.ignoreCron) ++ [ cronJob ]
+    mapAttrsToList mkCron (filterAttrs withTime cfg.ignoreCron) ++ [ cronJob ]
     ;
   };
 }

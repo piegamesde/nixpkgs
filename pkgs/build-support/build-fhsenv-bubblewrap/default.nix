@@ -106,7 +106,7 @@ let
       "pki"
     ];
   in
-    map (path: "/etc/${path}") files
+  map (path: "/etc/${path}") files
   ;
 
   # Create this on the fly instead of linking from /nix
@@ -250,21 +250,21 @@ let
 
   bin = writeShellScript "${name}-bwrap" (bwrapCmd { initArgs = ''"$@"''; });
 in
-  runCommandLocal name {
-    inherit meta;
+runCommandLocal name {
+  inherit meta;
 
-    passthru = passthru // {
-      env = runCommandLocal "${name}-shell-env" { shellHook = bwrapCmd { }; } ''
-        echo >&2 ""
-        echo >&2 "*** User chroot 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
-        echo >&2 ""
-        exit 1
-      '';
-      inherit args fhsenv;
-    };
-  } ''
-    mkdir -p $out/bin
-    ln -s ${bin} $out/bin/${pname}
+  passthru = passthru // {
+    env = runCommandLocal "${name}-shell-env" { shellHook = bwrapCmd { }; } ''
+      echo >&2 ""
+      echo >&2 "*** User chroot 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
+      echo >&2 ""
+      exit 1
+    '';
+    inherit args fhsenv;
+  };
+} ''
+  mkdir -p $out/bin
+  ln -s ${bin} $out/bin/${pname}
 
-    ${extraInstallCommands}
-  ''
+  ${extraInstallCommands}
+''

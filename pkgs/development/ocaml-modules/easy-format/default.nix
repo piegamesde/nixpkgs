@@ -17,23 +17,23 @@ let
   };
 
 in
-  buildDunePackage rec {
-    pname = "easy-format";
-    inherit (params) version;
+buildDunePackage rec {
+  pname = "easy-format";
+  inherit (params) version;
 
-    src = fetchurl {
-      url =
-        "https://github.com/ocaml-community/easy-format/releases/download/${version}/easy-format-${version}.tbz";
-      inherit (params) sha256;
-    };
+  src = fetchurl {
+    url =
+      "https://github.com/ocaml-community/easy-format/releases/download/${version}/easy-format-${version}.tbz";
+    inherit (params) sha256;
+  };
 
-    doCheck = true;
+  doCheck = true;
 
-    meta = with lib; {
-      description =
-        "A high-level and functional interface to the Format module of the OCaml standard library";
-      homepage = "https://github.com/ocaml-community/easy-format";
-      license = licenses.bsd3;
-      maintainers = [ maintainers.vbgl ];
-    };
-  }
+  meta = with lib; {
+    description =
+      "A high-level and functional interface to the Format module of the OCaml standard library";
+    homepage = "https://github.com/ocaml-community/easy-format";
+    license = licenses.bsd3;
+    maintainers = [ maintainers.vbgl ];
+  };
+}

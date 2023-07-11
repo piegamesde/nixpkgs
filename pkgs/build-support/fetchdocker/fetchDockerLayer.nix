@@ -9,13 +9,13 @@ let
   generic-fetcher = import ./generic-fetcher.nix pkgargs;
 
 in
-  args@{
-    layerDigest,
-    ...
-  }:
+args@{
+  layerDigest,
+  ...
+}:
 
-  generic-fetcher ({
-    fetcher = "hocker-layer";
-    name = "docker-layer-${layerDigest}.tar.gz";
-    tag = "unused";
-  } // args)
+generic-fetcher ({
+  fetcher = "hocker-layer";
+  name = "docker-layer-${layerDigest}.tar.gz";
+  tag = "unused";
+} // args)

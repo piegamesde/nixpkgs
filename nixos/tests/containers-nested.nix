@@ -21,7 +21,7 @@ import ./make-test-python.nix ({
           };
         };
       in
-        makeNested (makeNested { })
+      makeNested (makeNested { })
     ;
 
     testScript = ''

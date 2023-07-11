@@ -73,67 +73,67 @@ let
     ${swiplPath}/bin/swipl -g "pack_install(${pack}, [package_directory(\"${swiplPath}/lib/swipl/pack\"), silent(true), interactive(false)])." -t "halt."
   '';
 in
-  stdenv.mkDerivation {
-    pname = "swi-prolog";
-    inherit version;
+stdenv.mkDerivation {
+  pname = "swi-prolog";
+  inherit version;
 
-    src = fetchFromGitHub {
-      owner = "SWI-Prolog";
-      repo = "swipl-devel";
-      rev = "V${version}";
-      sha256 = "sha256-2QYY3VDG3dhbv5gtSid4eMYMxhhpggCedJL+RhtbbaU=";
-      fetchSubmodules = true;
-    };
+  src = fetchFromGitHub {
+    owner = "SWI-Prolog";
+    repo = "swipl-devel";
+    rev = "V${version}";
+    sha256 = "sha256-2QYY3VDG3dhbv5gtSid4eMYMxhhpggCedJL+RhtbbaU=";
+    fetchSubmodules = true;
+  };
 
-    # Add the packInstall path to the swipl pack search path
-    postPatch = ''
-      echo "user:file_search_path(pack, '$out/lib/swipl/pack')." >> boot/init.pl
-    '';
+  # Add the packInstall path to the swipl pack search path
+  postPatch = ''
+    echo "user:file_search_path(pack, '$out/lib/swipl/pack')." >> boot/init.pl
+  '';
 
-    nativeBuildInputs = [
-      cmake
-      pkg-config
-    ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-    buildInputs = [
-      gmp
-      readline
-      openssl
-      libarchive
-      libyaml
-      db
-      pcre
-      libedit
-      libossp_uuid
-      libxcrypt
-      zlib
-    ] ++ lib.optionals (withGui && !stdenv.isDarwin) [
-      libXpm
-      libX11
-      libXext
-      libXft
-      libXinerama
-      libjpeg
-    ] ++ extraLibraries ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [
+    gmp
+    readline
+    openssl
+    libarchive
+    libyaml
+    db
+    pcre
+    libedit
+    libossp_uuid
+    libxcrypt
+    zlib
+  ] ++ lib.optionals (withGui && !stdenv.isDarwin) [
+    libXpm
+    libX11
+    libXext
+    libXft
+    libXinerama
+    libjpeg
+  ] ++ extraLibraries ++ lib.optional stdenv.isDarwin Security;
 
-    hardeningDisable = [ "format" ];
+  hardeningDisable = [ "format" ];
 
-    cmakeFlags = [ "-DSWIPL_INSTALL_IN_LIB=ON" ];
+  cmakeFlags = [ "-DSWIPL_INSTALL_IN_LIB=ON" ];
 
-    preInstall = ''
-      mkdir -p $out/lib/swipl/pack
-    '';
+  preInstall = ''
+    mkdir -p $out/lib/swipl/pack
+  '';
 
-    postInstall = builtins.concatStringsSep "\n"
-      (builtins.map (packInstall "$out") extraPacks);
+  postInstall = builtins.concatStringsSep "\n"
+    (builtins.map (packInstall "$out") extraPacks);
 
-    meta = {
-      homepage = "https://www.swi-prolog.org";
-      description = "A Prolog compiler and interpreter";
-      license = lib.licenses.bsd2;
-      mainProgram = "swipl";
-      platforms = lib.platforms.linux
-        ++ lib.optionals (!withGui) lib.platforms.darwin;
-      maintainers = [ lib.maintainers.meditans ];
-    };
-  }
+  meta = {
+    homepage = "https://www.swi-prolog.org";
+    description = "A Prolog compiler and interpreter";
+    license = lib.licenses.bsd2;
+    mainProgram = "swipl";
+    platforms = lib.platforms.linux
+      ++ lib.optionals (!withGui) lib.platforms.darwin;
+    maintainers = [ lib.maintainers.meditans ];
+  };
+}

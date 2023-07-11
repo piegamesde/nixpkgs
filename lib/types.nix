@@ -233,7 +233,7 @@ let
               # Otherwise fall back to only allowing all equal definitions
             }.${commonType} or mergeEqualOption;
           in
-            mergeFunction loc defs
+          mergeFunction loc defs
         ;
       };
 
@@ -381,13 +381,13 @@ let
           ?'')
           check merge;
       in
-        mkOptionType {
-          name = "singleLineStr";
-          description = "(optionally newline-terminated) single-line string";
-          descriptionClass = "noun";
-          inherit check;
-          merge = loc: defs: lib.removeSuffix "\n" (merge loc defs);
-        }
+      mkOptionType {
+        name = "singleLineStr";
+        description = "(optionally newline-terminated) single-line string";
+        descriptionClass = "noun";
+        inherit check;
+        merge = loc: defs: lib.removeSuffix "\n" (merge loc defs);
+      }
       ;
 
       strMatching = pattern:
@@ -517,12 +517,12 @@ let
         let
           list = addCheck (types.listOf elemType) (l: l != [ ]);
         in
-          list // {
-            description = "non-empty ${
-                optionDescriptionPhrase (class: class == "noun") list
-              }";
-            emptyValue = { }; # no .value attr, meaning unset
-          }
+        list // {
+          description = "non-empty ${
+              optionDescriptionPhrase (class: class == "noun") list
+            }";
+          emptyValue = { }; # no .value attr, meaning unset
+        }
       ;
 
       attrsOf = elemType:
@@ -574,7 +574,7 @@ let
                 merged = mergeDefinitions (loc ++ [ name ]) elemType defs;
                 # mergedValue will trigger an appropriate error when accessed
               in
-                merged.optionalValue.value or elemType.emptyValue.value or merged.mergedValue
+              merged.optionalValue.value or elemType.emptyValue.value or merged.mergedValue
             )
             # Push down position info.
             (map (def:
@@ -755,7 +755,7 @@ let
               mergedOption =
                 fixupOptionType loc (mergeOptionDecls loc optionModules);
             in
-              mergedOption.type
+            mergedOption.type
         ;
       };
 
@@ -810,81 +810,81 @@ let
           name = "submodule";
 
         in
-          mkOptionType {
-            inherit name;
-            description = if
-              description != null
-            then
-              description
-            else
-              freeformType.description or name;
-            check = x: isAttrs x || isFunction x || path.check x;
-            merge = loc: defs:
-              (base.extendModules {
-                modules = [ { _module.args.name = last loc; } ]
-                  ++ allModules defs;
-                prefix = loc;
-              }).config;
-            emptyValue = { value = { }; };
-            getSubOptions = prefix:
-              (base.extendModules { inherit prefix; }).options
-              // optionalAttrs (freeformType != null) {
-                # Expose the sub options of the freeform type. Note that the option
-                # discovery doesn't care about the attribute name used here, so this
-                # is just to avoid conflicts with potential options from the submodule
-                _freeformOptions = freeformType.getSubOptions prefix;
-              };
-            getSubModules = modules;
-            substSubModules = m: submoduleWith (attrs // { modules = m; });
-            nestedTypes = lib.optionalAttrs (freeformType != null) {
-              freeformType = freeformType;
+        mkOptionType {
+          inherit name;
+          description = if
+            description != null
+          then
+            description
+          else
+            freeformType.description or name;
+          check = x: isAttrs x || isFunction x || path.check x;
+          merge = loc: defs:
+            (base.extendModules {
+              modules = [ { _module.args.name = last loc; } ]
+                ++ allModules defs;
+              prefix = loc;
+            }).config;
+          emptyValue = { value = { }; };
+          getSubOptions = prefix:
+            (base.extendModules { inherit prefix; }).options
+            // optionalAttrs (freeformType != null) {
+              # Expose the sub options of the freeform type. Note that the option
+              # discovery doesn't care about the attribute name used here, so this
+              # is just to avoid conflicts with potential options from the submodule
+              _freeformOptions = freeformType.getSubOptions prefix;
             };
-            functor = defaultFunctor name // {
-              type = types.submoduleWith;
-              payload = {
-                inherit modules specialArgs shorthandOnlyDefinesConfig
-                  description;
-              };
-              binOp = lhs: rhs: {
-                modules = lhs.modules ++ rhs.modules;
-                specialArgs = let
-                  intersecting =
-                    builtins.intersectAttrs lhs.specialArgs rhs.specialArgs;
-                in if
-                  intersecting == { }
-                then
-                  lhs.specialArgs // rhs.specialArgs
-                else
-                  throw ''
-                    A submoduleWith option is declared multiple times with the same specialArgs "${
-                      toString (attrNames intersecting)
-                    }"'';
-                shorthandOnlyDefinesConfig = if
-                  lhs.shorthandOnlyDefinesConfig == null
-                then
-                  rhs.shorthandOnlyDefinesConfig
-                else if rhs.shorthandOnlyDefinesConfig == null then
-                  lhs.shorthandOnlyDefinesConfig
-                else if lhs.shorthandOnlyDefinesConfig
-                == rhs.shorthandOnlyDefinesConfig then
-                  lhs.shorthandOnlyDefinesConfig
-                else
-                  throw
-                  "A submoduleWith option is declared multiple times with conflicting shorthandOnlyDefinesConfig values";
-                description = if
-                  lhs.description == null
-                then
-                  rhs.description
-                else if rhs.description == null then
-                  lhs.description
-                else if lhs.description == rhs.description then
-                  lhs.description
-                else
-                  throw
-                  "A submoduleWith option is declared multiple times with conflicting descriptions";
-              };
+          getSubModules = modules;
+          substSubModules = m: submoduleWith (attrs // { modules = m; });
+          nestedTypes = lib.optionalAttrs (freeformType != null) {
+            freeformType = freeformType;
+          };
+          functor = defaultFunctor name // {
+            type = types.submoduleWith;
+            payload = {
+              inherit modules specialArgs shorthandOnlyDefinesConfig
+                description;
             };
-          }
+            binOp = lhs: rhs: {
+              modules = lhs.modules ++ rhs.modules;
+              specialArgs = let
+                intersecting =
+                  builtins.intersectAttrs lhs.specialArgs rhs.specialArgs;
+              in if
+                intersecting == { }
+              then
+                lhs.specialArgs // rhs.specialArgs
+              else
+                throw ''
+                  A submoduleWith option is declared multiple times with the same specialArgs "${
+                    toString (attrNames intersecting)
+                  }"'';
+              shorthandOnlyDefinesConfig = if
+                lhs.shorthandOnlyDefinesConfig == null
+              then
+                rhs.shorthandOnlyDefinesConfig
+              else if rhs.shorthandOnlyDefinesConfig == null then
+                lhs.shorthandOnlyDefinesConfig
+              else if lhs.shorthandOnlyDefinesConfig
+              == rhs.shorthandOnlyDefinesConfig then
+                lhs.shorthandOnlyDefinesConfig
+              else
+                throw
+                "A submoduleWith option is declared multiple times with conflicting shorthandOnlyDefinesConfig values";
+              description = if
+                lhs.description == null
+              then
+                rhs.description
+              else if rhs.description == null then
+                lhs.description
+              else if lhs.description == rhs.description then
+                lhs.description
+              else
+                throw
+                "A submoduleWith option is declared multiple times with conflicting descriptions";
+            };
+          };
+        }
       ;
 
       # A value from a set of allowed ones.
@@ -903,34 +903,34 @@ let
             else
               "<${builtins.typeOf v}>";
         in
-          mkOptionType rec {
-            name = "enum";
-            description =
-              # Length 0 or 1 enums may occur in a design pattern with type merging
-              # where an "interface" module declares an empty enum and other modules
-              # provide implementations, each extending the enum with their own
-              # identifier.
-              if
-                values == [ ]
-              then
-                "impossible (empty enum)"
-              else if builtins.length values == 1 then
-                "value ${show (builtins.head values)} (singular enum)"
-              else
-                "one of ${concatMapStringsSep ", " show values}";
-            descriptionClass = if
-              builtins.length values < 2
+        mkOptionType rec {
+          name = "enum";
+          description =
+            # Length 0 or 1 enums may occur in a design pattern with type merging
+            # where an "interface" module declares an empty enum and other modules
+            # provide implementations, each extending the enum with their own
+            # identifier.
+            if
+              values == [ ]
             then
-              "noun"
+              "impossible (empty enum)"
+            else if builtins.length values == 1 then
+              "value ${show (builtins.head values)} (singular enum)"
             else
-              "conjunction";
-            check = flip elem values;
-            merge = mergeEqualOption;
-            functor = (defaultFunctor name) // {
-              payload = values;
-              binOp = a: b: unique (a ++ b);
-            };
-          }
+              "one of ${concatMapStringsSep ", " show values}";
+          descriptionClass = if
+            builtins.length values < 2
+          then
+            "noun"
+          else
+            "conjunction";
+          check = flip elem values;
+          merge = mergeEqualOption;
+          functor = (defaultFunctor name) // {
+            payload = values;
+            binOp = a: b: unique (a ++ b);
+          };
+        }
       ;
 
       # Either value of type `t1` or `t2`.
@@ -989,7 +989,7 @@ let
             head ts;
           tail' = tail ts;
         in
-          foldl' either head' tail'
+        foldl' either head' tail'
       ;
 
       # Either value of type `coercedType` or `finalType`, the former is
@@ -1016,8 +1016,8 @@ let
                 else
                   val;
             in
-              finalType.merge loc
-              (map (def: def // { value = coerceVal def.value; }) defs)
+            finalType.merge loc
+            (map (def: def // { value = coerceVal def.value; }) defs)
           ;
           emptyValue = finalType.emptyValue;
           getSubOptions = finalType.getSubOptions;
@@ -1040,4 +1040,4 @@ let
   };
 
 in
-  outer_types // outer_types.types
+outer_types // outer_types.types

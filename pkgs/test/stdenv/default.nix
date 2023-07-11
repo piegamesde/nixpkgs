@@ -279,40 +279,40 @@ in {
         }
       '';
     in
-      bootStdenvStructuredAttrsByDefault.mkDerivation {
-        name = "test-golden-example-structuredAttrsByDefault";
-        nativeBuildInputs = [ earlyPkgs.jq ];
+    bootStdenvStructuredAttrsByDefault.mkDerivation {
+      name = "test-golden-example-structuredAttrsByDefault";
+      nativeBuildInputs = [ earlyPkgs.jq ];
 
-        EXAMPLE_BOOL_TRUE = true;
-        EXAMPLE_BOOL_FALSE = false;
-        EXAMPLE_INT = 123;
-        EXAMPLE_INT_NEG = -123;
-        EXAMPLE_STR = "foo bar";
-        EXAMPLE_LIST = [
+      EXAMPLE_BOOL_TRUE = true;
+      EXAMPLE_BOOL_FALSE = false;
+      EXAMPLE_INT = 123;
+      EXAMPLE_INT_NEG = -123;
+      EXAMPLE_STR = "foo bar";
+      EXAMPLE_LIST = [
+        "foo"
+        "bar"
+      ];
+      EXAMPLE_NESTED_LIST = [
+        [
           "foo"
           "bar"
-        ];
-        EXAMPLE_NESTED_LIST = [
-          [
-            "foo"
-            "bar"
-          ]
-          [ "baz" ]
-        ];
-        EXAMPLE_ATTRS = { foo = "bar"; };
-        EXAMPLE_NESTED_ATTRS = { foo.bar = "baz"; };
+        ]
+        [ "baz" ]
+      ];
+      EXAMPLE_ATTRS = { foo = "bar"; };
+      EXAMPLE_NESTED_ATTRS = { foo.bar = "baz"; };
 
-        inherit goldenSh;
-        inherit goldenJson;
+      inherit goldenSh;
+      inherit goldenJson;
 
-        buildCommand = ''
-          mkdir -p $out
-          cat $NIX_ATTRS_SH_FILE | grep "EXAMPLE" | grep -v -E 'installPhase|jq' > $out/sh
-          jq 'with_entries(select(.key|match("EXAMPLE")))' $NIX_ATTRS_JSON_FILE > $out/json
-          diff $out/sh $goldenSh
-          diff $out/json $goldenJson
-        '';
-      }
+      buildCommand = ''
+        mkdir -p $out
+        cat $NIX_ATTRS_SH_FILE | grep "EXAMPLE" | grep -v -E 'installPhase|jq' > $out/sh
+        jq 'with_entries(select(.key|match("EXAMPLE")))' $NIX_ATTRS_JSON_FILE > $out/json
+        diff $out/sh $goldenSh
+        diff $out/json $goldenJson
+      '';
+    }
     ;
 
   };

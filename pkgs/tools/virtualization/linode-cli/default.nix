@@ -23,54 +23,54 @@ let
   };
 
 in
-  buildPythonApplication rec {
-    pname = "linode-cli";
-    version = "5.26.1";
+buildPythonApplication rec {
+  pname = "linode-cli";
+  version = "5.26.1";
 
-    src = fetchFromGitHub {
-      owner = "linode";
-      repo = pname;
-      rev = version;
-      inherit sha256;
-    };
+  src = fetchFromGitHub {
+    owner = "linode";
+    repo = pname;
+    rev = version;
+    inherit sha256;
+  };
 
-    patches = [ ./remove-update-check.patch ];
+  patches = [ ./remove-update-check.patch ];
 
-    # remove need for git history
-    prePatch = ''
-      substituteInPlace setup.py \
-        --replace "version=get_version()," "version='${version}',"
-    '';
+  # remove need for git history
+  prePatch = ''
+    substituteInPlace setup.py \
+      --replace "version=get_version()," "version='${version}',"
+  '';
 
-    propagatedBuildInputs = [
-      colorclass
-      pyyaml
-      requests
-      setuptools
-      terminaltables
-    ];
+  propagatedBuildInputs = [
+    colorclass
+    pyyaml
+    requests
+    setuptools
+    terminaltables
+  ];
 
-    postConfigure = ''
-      python3 -m linodecli bake ${spec} --skip-config
-      cp data-3 linodecli/
-    '';
+  postConfigure = ''
+    python3 -m linodecli bake ${spec} --skip-config
+    cp data-3 linodecli/
+  '';
 
-    doInstallCheck = true;
-    installCheckPhase = ''
-      $out/bin/linode-cli --skip-config --version | grep ${version} > /dev/null
-    '';
+  doInstallCheck = true;
+  installCheckPhase = ''
+    $out/bin/linode-cli --skip-config --version | grep ${version} > /dev/null
+  '';
 
-    nativeBuildInputs = [ installShellFiles ];
-    postInstall = ''
-      installShellCompletion --cmd linode-cli --bash <($out/bin/linode-cli --skip-config completion bash)
-    '';
+  nativeBuildInputs = [ installShellFiles ];
+  postInstall = ''
+    installShellCompletion --cmd linode-cli --bash <($out/bin/linode-cli --skip-config completion bash)
+  '';
 
-    passthru.updateScript = ./update.sh;
+  passthru.updateScript = ./update.sh;
 
-    meta = with lib; {
-      description = "The Linode Command Line Interface";
-      homepage = "https://github.com/linode/linode-cli";
-      license = licenses.bsd3;
-      maintainers = with maintainers; [ ryantm ];
-    };
-  }
+  meta = with lib; {
+    description = "The Linode Command Line Interface";
+    homepage = "https://github.com/linode/linode-cli";
+    license = licenses.bsd3;
+    maintainers = with maintainers; [ ryantm ];
+  };
+}

@@ -50,37 +50,37 @@ let
         else
           v) withHeadlines;
     in
-      ''
-        #!${pkgs.runtimeShell}
+    ''
+      #!${pkgs.runtimeShell}
 
-        systemConfig='@out@'
+      systemConfig='@out@'
 
-        export PATH=/empty
-        for i in ${toString path}; do
-            PATH=$PATH:$i/bin:$i/sbin
-        done
+      export PATH=/empty
+      for i in ${toString path}; do
+          PATH=$PATH:$i/bin:$i/sbin
+      done
 
-        _status=0
-        trap "_status=1 _localstatus=\$?" ERR
+      _status=0
+      trap "_status=1 _localstatus=\$?" ERR
 
-        # Ensure a consistent umask.
-        umask 0022
+      # Ensure a consistent umask.
+      umask 0022
 
-        ${textClosureMap id (withDrySnippets) (attrNames withDrySnippets)}
+      ${textClosureMap id (withDrySnippets) (attrNames withDrySnippets)}
 
-      '' + optionalString (!onlyDry) ''
-        # Make this configuration the current configuration.
-        # The readlink is there to ensure that when $systemConfig = /system
-        # (which is a symlink to the store), /run/current-system is still
-        # used as a garbage collection root.
-        ln -sfn "$(readlink -f "$systemConfig")" /run/current-system
+    '' + optionalString (!onlyDry) ''
+      # Make this configuration the current configuration.
+      # The readlink is there to ensure that when $systemConfig = /system
+      # (which is a symlink to the store), /run/current-system is still
+      # used as a garbage collection root.
+      ln -sfn "$(readlink -f "$systemConfig")" /run/current-system
 
-        # Prevent the current configuration from being garbage-collected.
-        mkdir -p /nix/var/nix/gcroots
-        ln -sfn /run/current-system /nix/var/nix/gcroots/current-system
+      # Prevent the current configuration from being garbage-collected.
+      mkdir -p /nix/var/nix/gcroots
+      ln -sfn /run/current-system /nix/var/nix/gcroots/current-system
 
-        exit $_status
-      ''
+      exit $_status
+    ''
   ;
 
   path = with pkgs;
@@ -124,7 +124,7 @@ let
         };
       };
     in
-      either str (submodule { options = scriptOptions; })
+    either str (submodule { options = scriptOptions; })
   ;
 
 in {
@@ -215,7 +215,7 @@ in {
                 v) set;
             withHeadlines = addAttributeName set';
           in
-            textClosureMap id (withHeadlines) (attrNames withHeadlines)
+          textClosureMap id (withHeadlines) (attrNames withHeadlines)
           }
 
           exit $_status

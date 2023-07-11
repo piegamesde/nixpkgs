@@ -75,4 +75,4 @@ let
     };
 
 in
-  lib.mapAttrs dropBass allBass
+lib.mapAttrs dropBass allBass

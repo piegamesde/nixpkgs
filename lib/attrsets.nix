@@ -100,7 +100,7 @@ in rec {
           ${elemAt attrPath n} = atDepth (n + 1);
         };
     in
-      atDepth 0
+    atDepth 0
   ;
 
   /* Like `attrByPath`, but without a default value. If it doesn't find the
@@ -125,7 +125,7 @@ in rec {
       errorMsg = "cannot find attribute `" + concatStringsSep "." attrPath
         + "'";
     in
-      attrByPath attrPath (abort errorMsg) set
+    attrByPath attrPath (abort errorMsg) set
   ;
 
   /* Map each attribute in the given set and merge them into a new attribute set.
@@ -226,11 +226,10 @@ in rec {
               let
                 updatePath = (head split.right).path;
               in
-                throw ("updateManyAttrsByPath: Path '${
-                    showAttrPath updatePath
-                  }' does "
-                  + "not exist in the given value, but the first update to this "
-                  + "path tries to access the existing value.")
+              throw
+              ("updateManyAttrsByPath: Path '${showAttrPath updatePath}' does "
+                + "not exist in the given value, but the first update to this "
+                + "path tries to access the existing value.")
           else
           # If there are nested modifications, try to apply them to the value
           if !hasValue then
@@ -248,13 +247,12 @@ in rec {
             let
               updatePath = (head split.wrong).path;
             in
-              throw ("updateManyAttrsByPath: Path '${
-                  showAttrPath updatePath
-                }' needs to " + "be updated, but path '${
-                  showAttrPath (take prefixLength updatePath)
-                }' "
-                + "of the given value is not an attribute set, so we can't "
-                + "update an attribute inside of it.")
+            throw ("updateManyAttrsByPath: Path '${
+                showAttrPath updatePath
+              }' needs to " + "be updated, but path '${
+                showAttrPath (take prefixLength updatePath)
+              }' " + "of the given value is not an attribute set, so we can't "
+              + "update an attribute inside of it.")
         ;
 
         # We get the final result by applying all the updates on this level
@@ -262,11 +260,11 @@ in rec {
         # We use foldl instead of foldl' so that in case of multiple updates,
         # intermediate values aren't evaluated if not needed
       in
-        foldl (acc: el: el.update acc) withNestedMods split.right
+      foldl (acc: el: el.update acc) withNestedMods split.right
     ;
 
   in
-    updates: value: go 0 true value updates
+  updates: value: go 0 true value updates
   ;
 
   /* Return the specified attributes from a set.
@@ -629,10 +627,10 @@ in rec {
             else
               f (path ++ [ name ]) value;
         in
-          mapAttrs g
+        mapAttrs g
       ;
     in
-      recurse [ ] set
+    recurse [ ] set
   ;
 
   /* Generate an attribute set by mapping a function over a list of
@@ -690,7 +688,7 @@ in rec {
         outputName = "out";
       };
     in
-      res
+    res
   ;
 
   /* If `cond` is true, return the attribute set `as`,
@@ -822,10 +820,10 @@ in rec {
           else
             f here values);
     in
-      f [ ] [
-        rhs
-        lhs
-      ]
+    f [ ] [
+      rhs
+      lhs
+    ]
   ;
 
   /* A recursive variant of the update operator ‘//’.  The recursion
@@ -1060,7 +1058,7 @@ in rec {
         "unionOfDisjoint: collision on ${name}; complete list: ${collisions}")
         intersection;
     in
-      (x // y) // mask
+    (x // y) // mask
   ;
 
   # DEPRECATED

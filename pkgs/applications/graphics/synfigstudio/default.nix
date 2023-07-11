@@ -85,57 +85,57 @@ let
     ];
   };
 in
-  stdenv.mkDerivation {
-    pname = "synfigstudio";
-    inherit version src;
+stdenv.mkDerivation {
+  pname = "synfigstudio";
+  inherit version src;
 
-    sourceRoot = "source/synfig-studio";
+  sourceRoot = "source/synfig-studio";
 
-    postPatch = ''
-      patchShebangs images/splash_screen_development.sh
-    '';
+  postPatch = ''
+    patchShebangs images/splash_screen_development.sh
+  '';
 
-    preConfigure = ''
-      ./bootstrap.sh
-    '';
+  preConfigure = ''
+    ./bootstrap.sh
+  '';
 
-    nativeBuildInputs = [
-      pkg-config
-      autoreconfHook
-      gettext
-      intltool
-      wrapGAppsHook
-    ];
-    buildInputs = [
-      ETL
-      synfig
-      boost
-      cairo
-      glibmm
-      gtk3
-      gtkmm3
-      imagemagick
-      libjack2
-      libsigcxx
-      libxmlxx
-      mlt
-      gnome.adwaita-icon-theme
-      openexr
-      fftw
-    ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+    gettext
+    intltool
+    wrapGAppsHook
+  ];
+  buildInputs = [
+    ETL
+    synfig
+    boost
+    cairo
+    glibmm
+    gtk3
+    gtkmm3
+    imagemagick
+    libjack2
+    libsigcxx
+    libxmlxx
+    mlt
+    gnome.adwaita-icon-theme
+    openexr
+    fftw
+  ];
 
-    enableParallelBuilding = true;
+  enableParallelBuilding = true;
 
-    passthru = {
-      # Expose libraries and cli tools
-      inherit ETL synfig;
-    };
+  passthru = {
+    # Expose libraries and cli tools
+    inherit ETL synfig;
+  };
 
-    meta = with lib; {
-      description = "A 2D animation program";
-      homepage = "http://www.synfig.org";
-      license = licenses.gpl2Plus;
-      maintainers = [ maintainers.goibhniu ];
-      platforms = platforms.linux;
-    };
-  }
+  meta = with lib; {
+    description = "A 2D animation program";
+    homepage = "http://www.synfig.org";
+    license = licenses.gpl2Plus;
+    maintainers = [ maintainers.goibhniu ];
+    platforms = platforms.linux;
+  };
+}

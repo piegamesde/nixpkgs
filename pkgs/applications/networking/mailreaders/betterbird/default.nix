@@ -50,46 +50,46 @@
       sha256 = "sha256-ouJSFz/5shNR9puVjrZRJq90DHTeSx7hAnDpuhkBsDo=";
     };
   in
-    thunderbird-unwrapped.extraPostPatch or "" + # bash
-    ''
-      PATH=$PATH:${lib.makeBinPath [ git ]}
-      patches=$(mktemp -d)
-      for dir in branding bugs external features misc; do
-        cp -r ${betterbird}/${majVer}/$dir/*.patch $patches/
-      done
-      cp ${betterbird}/${majVer}/series* $patches/
-      chmod -R +w $patches
+  thunderbird-unwrapped.extraPostPatch or "" + # bash
+  ''
+    PATH=$PATH:${lib.makeBinPath [ git ]}
+    patches=$(mktemp -d)
+    for dir in branding bugs external features misc; do
+      cp -r ${betterbird}/${majVer}/$dir/*.patch $patches/
+    done
+    cp ${betterbird}/${majVer}/series* $patches/
+    chmod -R +w $patches
 
-      cd $patches
-      patch -p1 < ${./betterbird.diff}
-      substituteInPlace 12-feature-linux-systray.patch \
-        --replace "/usr/include/libdbusmenu-glib-0.4/" "${
-          lib.getDev libdbusmenu-gtk3
-        }/include/libdbusmenu-glib-0.4/" \
-        --replace "/usr/include/libdbusmenu-gtk3-0.4/" "${
-          lib.getDev libdbusmenu-gtk3
-        }/include/libdbusmenu-gtk3-0.4/"
-      cd -
+    cd $patches
+    patch -p1 < ${./betterbird.diff}
+    substituteInPlace 12-feature-linux-systray.patch \
+      --replace "/usr/include/libdbusmenu-glib-0.4/" "${
+        lib.getDev libdbusmenu-gtk3
+      }/include/libdbusmenu-glib-0.4/" \
+      --replace "/usr/include/libdbusmenu-gtk3-0.4/" "${
+        lib.getDev libdbusmenu-gtk3
+      }/include/libdbusmenu-gtk3-0.4/"
+    cd -
 
-      chmod -R +w dom/base/test/gtest/
+    chmod -R +w dom/base/test/gtest/
 
-      while read patch; do
-        patch="''${patch%%#*}"
-        patch="''${patch% }"
-        if [[ $patch == "" ]]; then
-          continue
-        fi
+    while read patch; do
+      patch="''${patch%%#*}"
+      patch="''${patch% }"
+      if [[ $patch == "" ]]; then
+        continue
+      fi
 
-        echo Applying patch $patch.
-        if [[ $patch == *-m-c.patch ]]; then
-          git apply -p1 -v < $patches/$patch
-        else
-          cd comm
-          git apply -p1 -v < $patches/$patch
-          cd ..
-        fi
-      done < <(cat $patches/series $patches/series-M-C)
-    ''
+      echo Applying patch $patch.
+      if [[ $patch == *-m-c.patch ]]; then
+        git apply -p1 -v < $patches/$patch
+      else
+        cd comm
+        git apply -p1 -v < $patches/$patch
+        cd ..
+      fi
+    done < <(cat $patches/series $patches/series-M-C)
+  ''
   ;
 
   extraBuildInputs = [ libdbusmenu-gtk3 ];

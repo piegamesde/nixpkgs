@@ -20,30 +20,30 @@ let
   };
   inherit (python3Packages) python pygobject3;
 in
-  callPackage pkg {
-    buildInputs = [
-      python
-      pygobject3
-      gtk3
-      glib
-      libnotify
-      gnome.adwaita-icon-theme
-      gdk-pixbuf
-      librsvg
+callPackage pkg {
+  buildInputs = [
+    python
+    pygobject3
+    gtk3
+    glib
+    libnotify
+    gnome.adwaita-icon-theme
+    gdk-pixbuf
+    librsvg
+  ];
+  drvParams = {
+    nativeBuildInputs = [
+      gobject-introspection
+      cmake
+      makeWrapper
+      intltool
     ];
-    drvParams = {
-      nativeBuildInputs = [
-        gobject-introspection
-        cmake
-        makeWrapper
-        intltool
-      ];
-      postFixup = ''
-        wrapProgram $out/bin/gcdemu \
-          --set PYTHONPATH "$PYTHONPATH" \
-          --set GI_TYPELIB_PATH "$GI_TYPELIB_PATH" \
-          --prefix XDG_DATA_DIRS : "$out/share:$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH"
-      '';
-      # TODO AppIndicator
-    };
-  }
+    postFixup = ''
+      wrapProgram $out/bin/gcdemu \
+        --set PYTHONPATH "$PYTHONPATH" \
+        --set GI_TYPELIB_PATH "$GI_TYPELIB_PATH" \
+        --prefix XDG_DATA_DIRS : "$out/share:$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH"
+    '';
+    # TODO AppIndicator
+  };
+}

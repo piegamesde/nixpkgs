@@ -854,12 +854,12 @@ in rec {
         packages = packages ++ extraPackages;
       };
     in
-      (fillDiskWithDebs {
-        inherit name fullName size postInstall createRootFS QEMU_OPTS memSize;
-        debs = import expr { inherit fetchurl; } ++ extraDebs;
-      }) // {
-        inherit expr;
-      }
+    (fillDiskWithDebs {
+      inherit name fullName size postInstall createRootFS QEMU_OPTS memSize;
+      debs = import expr { inherit fetchurl; } ++ extraDebs;
+    }) // {
+      inherit expr;
+    }
   ;
 
   # The set of supported RPM-based distributions.

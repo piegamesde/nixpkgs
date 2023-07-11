@@ -84,13 +84,13 @@ let
     ${vscodeExts2nix}/bin/vscodeExts2nix > ${mutableExtensionsFilePath}
   '';
 in
-  buildEnv {
-    name = "vscodeEnv";
-    paths = [
-      code
-      vscodeExts2nix
-      updateSettingsCmd
-      updateLaunchCmd
-      updateKeybindingsCmd
-    ];
-  }
+buildEnv {
+  name = "vscodeEnv";
+  paths = [
+    code
+    vscodeExts2nix
+    updateSettingsCmd
+    updateLaunchCmd
+    updateKeybindingsCmd
+  ];
+}

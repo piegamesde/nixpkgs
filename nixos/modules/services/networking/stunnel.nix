@@ -156,8 +156,8 @@ in {
             };
           forceClient = c: c // { client = true; };
         in
-          mapAttrs
-          (_: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c)))
+        mapAttrs
+        (_: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c)))
         ;
 
         example = {

@@ -46,14 +46,14 @@ let
 
       args = mkArgs rule;
     in
-      optionals (length cfg.extraRules > 0) [
-        (optionalString (length rule.users > 0)
-          (map (usr: "permit ${opts} ${mkUsrString usr} ${as} ${cmd} ${args}")
-            rule.users))
-        (optionalString (length rule.groups > 0)
-          (map (grp: "permit ${opts} ${mkGrpString grp} ${as} ${cmd} ${args}")
-            rule.groups))
-      ]
+    optionals (length cfg.extraRules > 0) [
+      (optionalString (length rule.users > 0)
+        (map (usr: "permit ${opts} ${mkUsrString usr} ${as} ${cmd} ${args}")
+          rule.users))
+      (optionalString (length rule.groups > 0)
+        (map (grp: "permit ${opts} ${mkGrpString grp} ${as} ${cmd} ${args}")
+          rule.groups))
+    ]
   ;
 in {
 

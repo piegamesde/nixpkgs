@@ -59,80 +59,80 @@ let
     outputHash = "sha256-QebPRmfLtXy4ZlyKeGC5XNzhMTsYI0X36My+nTFvQpM=";
   };
 in
-  stdenv.mkDerivation {
-    inherit pname version src;
+stdenv.mkDerivation {
+  inherit pname version src;
 
-    nativeBuildInputs = [
-      gradle
-      jdk
-      makeWrapper
-    ];
+  nativeBuildInputs = [
+    gradle
+    jdk
+    makeWrapper
+  ];
 
-    # Otherwise, Gradle fails with `java.net.SocketException: Operation not permitted`
-    __darwinAllowLocalNetworking = true;
+  # Otherwise, Gradle fails with `java.net.SocketException: Operation not permitted`
+  __darwinAllowLocalNetworking = true;
 
-    buildPhase = ''
-      # The installDist Gradle build phase tries to copy some dependency .jar
-      # files multiple times into the build directory. This ends up failing when
-      # the dependencies are read directly from the Nix store since they are not
-      # marked as chmod +w. To work around this, get a local copy of the
-      # dependency store, and give write permissions.
-      depsDir=$(mktemp -d)
-      cp -R ${deps}/* $depsDir
-      chmod -R u+w $depsDir
+  buildPhase = ''
+    # The installDist Gradle build phase tries to copy some dependency .jar
+    # files multiple times into the build directory. This ends up failing when
+    # the dependencies are read directly from the Nix store since they are not
+    # marked as chmod +w. To work around this, get a local copy of the
+    # dependency store, and give write permissions.
+    depsDir=$(mktemp -d)
+    cp -R ${deps}/* $depsDir
+    chmod -R u+w $depsDir
 
-      gradleInit=$(mktemp)
-      cat >$gradleInit <<EOF
-        gradle.projectsLoaded {
-          rootProject.allprojects {
-            buildscript {
-              repositories {
-                clear()
-                maven { url '$depsDir' }
-              }
-            }
+    gradleInit=$(mktemp)
+    cat >$gradleInit <<EOF
+      gradle.projectsLoaded {
+        rootProject.allprojects {
+          buildscript {
             repositories {
               clear()
               maven { url '$depsDir' }
             }
           }
-        }
-
-        settingsEvaluated { settings ->
-          settings.pluginManagement {
-            repositories {
-              maven { url '$depsDir' }
-            }
+          repositories {
+            clear()
+            maven { url '$depsDir' }
           }
         }
-      EOF
+      }
 
-      export GRADLE_USER_HOME=$(mktemp -d)
-      export JADX_VERSION=${version}
-      gradle --offline --no-daemon --info --init-script $gradleInit pack
+      settingsEvaluated { settings ->
+        settings.pluginManagement {
+          repositories {
+            maven { url '$depsDir' }
+          }
+        }
+      }
+    EOF
+
+    export GRADLE_USER_HOME=$(mktemp -d)
+    export JADX_VERSION=${version}
+    gradle --offline --no-daemon --info --init-script $gradleInit pack
+  '';
+
+  installPhase = ''
+    mkdir $out $out/bin
+    cp -R build/jadx/lib $out
+    for prog in jadx jadx-gui; do
+      cp build/jadx/bin/$prog $out/bin
+      wrapProgram $out/bin/$prog --set JAVA_HOME ${jdk.home}
+    done
+  '';
+
+  meta = with lib; {
+    description = "Dex to Java decompiler";
+    longDescription = ''
+      Command line and GUI tools for produce Java source code from Android Dex
+      and Apk files.
     '';
-
-    installPhase = ''
-      mkdir $out $out/bin
-      cp -R build/jadx/lib $out
-      for prog in jadx jadx-gui; do
-        cp build/jadx/bin/$prog $out/bin
-        wrapProgram $out/bin/$prog --set JAVA_HOME ${jdk.home}
-      done
-    '';
-
-    meta = with lib; {
-      description = "Dex to Java decompiler";
-      longDescription = ''
-        Command line and GUI tools for produce Java source code from Android Dex
-        and Apk files.
-      '';
-      sourceProvenance = with sourceTypes; [
-        fromSource
-        binaryBytecode # deps
-      ];
-      license = licenses.asl20;
-      platforms = platforms.unix;
-      maintainers = with maintainers; [ delroth ];
-    };
-  }
+    sourceProvenance = with sourceTypes; [
+      fromSource
+      binaryBytecode # deps
+    ];
+    license = licenses.asl20;
+    platforms = platforms.unix;
+    maintainers = with maintainers; [ delroth ];
+  };
+}

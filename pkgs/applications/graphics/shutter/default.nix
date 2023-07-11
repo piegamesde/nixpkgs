@@ -64,48 +64,48 @@ let
     TypesSerialiser
   ];
 in
-  stdenv.mkDerivation rec {
-    pname = "shutter";
-    version = "0.99.2";
+stdenv.mkDerivation rec {
+  pname = "shutter";
+  version = "0.99.2";
 
-    src = fetchFromGitHub {
-      owner = "shutter-project";
-      repo = "shutter";
-      rev = "v${version}";
-      sha256 = "sha256-o95skSr6rszh0wsHQTpu1GjqCDmde7aygIP+i4XQW9A=";
-    };
+  src = fetchFromGitHub {
+    owner = "shutter-project";
+    repo = "shutter";
+    rev = "v${version}";
+    sha256 = "sha256-o95skSr6rszh0wsHQTpu1GjqCDmde7aygIP+i4XQW9A=";
+  };
 
-    nativeBuildInputs = [ wrapGAppsHook ];
-    buildInputs = [
-      perlPackages.perl
-      procps
-      gdk-pixbuf
-      librsvg
-      libwnck
-      libappindicator-gtk3
-      hicolor-icon-theme
-    ] ++ perlModules;
+  nativeBuildInputs = [ wrapGAppsHook ];
+  buildInputs = [
+    perlPackages.perl
+    procps
+    gdk-pixbuf
+    librsvg
+    libwnck
+    libappindicator-gtk3
+    hicolor-icon-theme
+  ] ++ perlModules;
 
-    makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = [ "prefix=${placeholder "out"}" ];
 
-    postPatch = ''
-      patchShebangs po2mo.sh
-    '';
+  postPatch = ''
+    patchShebangs po2mo.sh
+  '';
 
-    preFixup = ''
-      # make xdg-open overrideable at runtime
-      gappsWrapperArgs+=(
-        --set PERL5LIB ${perlPackages.makePerlPath perlModules} \
-        --prefix PATH : ${lib.makeBinPath [ imagemagick ]}
-        --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
-      )
-    '';
+  preFixup = ''
+    # make xdg-open overrideable at runtime
+    gappsWrapperArgs+=(
+      --set PERL5LIB ${perlPackages.makePerlPath perlModules} \
+      --prefix PATH : ${lib.makeBinPath [ imagemagick ]}
+      --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
+    )
+  '';
 
-    meta = with lib; {
-      description = "Screenshot and annotation tool";
-      homepage = "https://shutter-project.org/";
-      license = licenses.gpl3Plus;
-      platforms = platforms.all;
-      maintainers = [ maintainers.bjornfor ];
-    };
-  }
+  meta = with lib; {
+    description = "Screenshot and annotation tool";
+    homepage = "https://shutter-project.org/";
+    license = licenses.gpl3Plus;
+    platforms = platforms.all;
+    maintainers = [ maintainers.bjornfor ];
+  };
+}

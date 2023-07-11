@@ -436,7 +436,7 @@ in {
       } // optionalAttrs (cfg.client.enable && cfg.client.extraConfig != { })
         cfg.client.extraConfig;
     in
-      generators.toINI { } totalConfig
+    generators.toINI { } totalConfig
     ;
 
     users.users.ceph = {
@@ -456,7 +456,7 @@ in {
         ++ optional cfg.rgw.enable (makeServices "rgw" cfg.rgw.daemons)
         ++ optional cfg.mgr.enable (makeServices "mgr" cfg.mgr.daemons);
     in
-      mkMerge services
+    mkMerge services
     ;
 
     systemd.targets = let
@@ -473,7 +473,7 @@ in {
         ++ optional cfg.rgw.enable (makeTarget "rgw")
         ++ optional cfg.mgr.enable (makeTarget "mgr");
     in
-      mkMerge targets
+    mkMerge targets
     ;
 
     systemd.tmpfiles.rules = [

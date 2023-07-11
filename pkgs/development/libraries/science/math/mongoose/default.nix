@@ -10,60 +10,60 @@
 let
   suitesparseVersion = "7.0.1";
 in
-  stdenv.mkDerivation rec {
-    pname = "mongoose";
-    version = "3.0.4";
+stdenv.mkDerivation rec {
+  pname = "mongoose";
+  version = "3.0.4";
 
-    outputs = [
-      "bin"
-      "out"
-      "dev"
-    ];
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+  ];
 
-    src = fetchFromGitHub {
-      owner = "DrTimothyAldenDavis";
-      repo = "SuiteSparse";
-      rev = "v${suitesparseVersion}";
-      hash = "sha256-EIreweeOx44YDxlnxnJ7l31Ie1jSx6y87VAyEX+4NsQ=";
-    };
+  src = fetchFromGitHub {
+    owner = "DrTimothyAldenDavis";
+    repo = "SuiteSparse";
+    rev = "v${suitesparseVersion}";
+    hash = "sha256-EIreweeOx44YDxlnxnJ7l31Ie1jSx6y87VAyEX+4NsQ=";
+  };
 
-    nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake ];
 
-    buildInputs = [ blas ];
+  buildInputs = [ blas ];
 
-    dontUseCmakeConfigure = true;
+  dontUseCmakeConfigure = true;
 
-    cmakeFlags = [
-      "-DBLAS_LIBRARIES=${blas}"
-      "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
-    ];
+  cmakeFlags = [
+    "-DBLAS_LIBRARIES=${blas}"
+    "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
+  ];
 
-    buildPhase = ''
-      runHook preConfigure
+  buildPhase = ''
+    runHook preConfigure
 
-      for f in SuiteSparse_config Mongoose; do
-        (cd $f && cmakeConfigurePhase && make -j$NIX_BUILD_CORES)
-      done
+    for f in SuiteSparse_config Mongoose; do
+      (cd $f && cmakeConfigurePhase && make -j$NIX_BUILD_CORES)
+    done
 
-      runHook postConfigure
-    '';
+    runHook postConfigure
+  '';
 
-    installPhase = ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      for f in SuiteSparse_config Mongoose; do
-        (cd $f/build && make install -j$NIX_BUILD_CORES)
-      done
+    for f in SuiteSparse_config Mongoose; do
+      (cd $f/build && make install -j$NIX_BUILD_CORES)
+    done
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
-    meta = with lib; {
-      description = "Graph Coarsening and Partitioning Library";
-      homepage =
-        "https://github.com/DrTimothyAldenDavis/SuiteSparse/tree/dev/Mongoose";
-      license = licenses.gpl3Only;
-      maintainers = with maintainers; [ wegank ];
-      platforms = with platforms; unix;
-    };
-  }
+  meta = with lib; {
+    description = "Graph Coarsening and Partitioning Library";
+    homepage =
+      "https://github.com/DrTimothyAldenDavis/SuiteSparse/tree/dev/Mongoose";
+    license = licenses.gpl3Only;
+    maintainers = with maintainers; [ wegank ];
+    platforms = with platforms; unix;
+  };
+}

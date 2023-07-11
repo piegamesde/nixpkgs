@@ -26,46 +26,46 @@ let
       toml
     ]);
 in
-  buildPythonPackage rec {
-    pname = "online-judge-api-client";
-    version = "10.10.1";
+buildPythonPackage rec {
+  pname = "online-judge-api-client";
+  version = "10.10.1";
 
-    src = fetchFromGitHub {
-      owner = "online-judge-tools";
-      repo = "api-client";
-      rev = "refs/tags/v${version}";
-      hash = "sha256-P0pIjd/YS155dSDpY/ekMp8HnJcM35waV7aoTQiEWHo=";
-    };
+  src = fetchFromGitHub {
+    owner = "online-judge-tools";
+    repo = "api-client";
+    rev = "refs/tags/v${version}";
+    hash = "sha256-P0pIjd/YS155dSDpY/ekMp8HnJcM35waV7aoTQiEWHo=";
+  };
 
-    patches = [ ./fix-paths.patch ];
-    postPatch = ''
-      substituteInPlace onlinejudge/service/library_checker.py \
-        --subst-var-by git               ${git} \
-        --subst-var-by pythonInterpreter ${pythonEnv.interpreter}
-    '';
+  patches = [ ./fix-paths.patch ];
+  postPatch = ''
+    substituteInPlace onlinejudge/service/library_checker.py \
+      --subst-var-by git               ${git} \
+      --subst-var-by pythonInterpreter ${pythonEnv.interpreter}
+  '';
 
-    propagatedBuildInputs = [
-      appdirs
-      beautifulsoup4
-      colorlog
-      jsonschema
-      lxml
-      requests
-      toml
-    ];
+  propagatedBuildInputs = [
+    appdirs
+    beautifulsoup4
+    colorlog
+    jsonschema
+    lxml
+    requests
+    toml
+  ];
 
-    # Requires internet access
-    doCheck = false;
+  # Requires internet access
+  doCheck = false;
 
-    pythonImportsCheck = [
-      "onlinejudge"
-      "onlinejudge_api"
-    ];
+  pythonImportsCheck = [
+    "onlinejudge"
+    "onlinejudge_api"
+  ];
 
-    meta = with lib; {
-      description = "API client to develop tools for competitive programming";
-      homepage = "https://github.com/online-judge-tools/api-client";
-      license = licenses.mit;
-      maintainers = with maintainers; [ sei40kr ];
-    };
-  }
+  meta = with lib; {
+    description = "API client to develop tools for competitive programming";
+    homepage = "https://github.com/online-judge-tools/api-client";
+    license = licenses.mit;
+    maintainers = with maintainers; [ sei40kr ];
+  };
+}

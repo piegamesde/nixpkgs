@@ -22,23 +22,23 @@ let
   ];
 
 in
-  stdenv.mkDerivation {
-    inherit pname version;
-    srcs = fonts;
-    sourceRoot = ".";
+stdenv.mkDerivation {
+  inherit pname version;
+  srcs = fonts;
+  sourceRoot = ".";
 
-    dontUnpack = true;
+  dontUnpack = true;
 
-    installPhase = ''
-      install -D $srcs -t $out/share/fonts/truetype/
-    '';
+  installPhase = ''
+    install -D $srcs -t $out/share/fonts/truetype/
+  '';
 
-    meta = with lib; {
-      description = "truetype monospaced typeface designed for X environments";
-      homepage = "https://b.agaric.net/page/agave";
-      license = licenses.mit;
-      maintainers = with maintainers; [ dtzWill ];
-      platforms = platforms.all;
-    };
-  }
+  meta = with lib; {
+    description = "truetype monospaced typeface designed for X environments";
+    homepage = "https://b.agaric.net/page/agave";
+    license = licenses.mit;
+    maintainers = with maintainers; [ dtzWill ];
+    platforms = platforms.all;
+  };
+}
 

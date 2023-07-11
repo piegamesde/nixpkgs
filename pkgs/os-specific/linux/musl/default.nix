@@ -53,141 +53,141 @@ let
     null;
 
 in
-  stdenv.mkDerivation rec {
-    pname = "musl";
-    version = "1.2.3";
+stdenv.mkDerivation rec {
+  pname = "musl";
+  version = "1.2.3";
 
-    src = fetchurl {
-      url = "https://musl.libc.org/releases/${pname}-${version}.tar.gz";
-      sha256 = "sha256-fVsLYGJSHkYn4JnkydyCSNMqMChelZt+7Kp4DPjP1KQ=";
-    };
+  src = fetchurl {
+    url = "https://musl.libc.org/releases/${pname}-${version}.tar.gz";
+    sha256 = "sha256-fVsLYGJSHkYn4JnkydyCSNMqMChelZt+7Kp4DPjP1KQ=";
+  };
 
-    enableParallelBuilding = true;
+  enableParallelBuilding = true;
 
-    # Disable auto-adding stack protector flags,
-    # so musl can selectively disable as needed
-    hardeningDisable = [ "stackprotector" ];
+  # Disable auto-adding stack protector flags,
+  # so musl can selectively disable as needed
+  hardeningDisable = [ "stackprotector" ];
 
-    # Leave these, be friendlier to debuggers/perf tools
-    # Don't force them on, but don't force off either
-    postPatch = ''
-      substituteInPlace configure \
-        --replace -fno-unwind-tables "" \
-        --replace -fno-asynchronous-unwind-tables ""
-    '';
+  # Leave these, be friendlier to debuggers/perf tools
+  # Don't force them on, but don't force off either
+  postPatch = ''
+    substituteInPlace configure \
+      --replace -fno-unwind-tables "" \
+      --replace -fno-asynchronous-unwind-tables ""
+  '';
 
-    patches = [
-      # Minor touchup to build system making dynamic linker symlink relative
-      (fetchurl {
-        url =
-          "https://raw.githubusercontent.com/openwrt/openwrt/87606e25afac6776d1bbc67ed284434ec5a832b4/toolchain/musl/patches/300-relative.patch";
-        sha256 = "0hfadrycb60sm6hb6by4ycgaqc9sgrhh42k39v8xpmcvdzxrsq2n";
-      })
+  patches = [
+    # Minor touchup to build system making dynamic linker symlink relative
+    (fetchurl {
+      url =
+        "https://raw.githubusercontent.com/openwrt/openwrt/87606e25afac6776d1bbc67ed284434ec5a832b4/toolchain/musl/patches/300-relative.patch";
+      sha256 = "0hfadrycb60sm6hb6by4ycgaqc9sgrhh42k39v8xpmcvdzxrsq2n";
+    })
 
-      # fix parsing lines with optional fields in fstab etc. NOTE: Remove for the next release since it has been merged upstream
-      (fetchurl {
-        url =
-          "https://git.musl-libc.org/cgit/musl/patch/?id=751bee0ee727e8d8b003c87cff77ac76f1dbecd6";
-        sha256 = "sha256-qCw132TCSaZrkISmtDb8Q8ufyt8sAJdwACkvfwuoi/0=";
-      })
+    # fix parsing lines with optional fields in fstab etc. NOTE: Remove for the next release since it has been merged upstream
+    (fetchurl {
+      url =
+        "https://git.musl-libc.org/cgit/musl/patch/?id=751bee0ee727e8d8b003c87cff77ac76f1dbecd6";
+      sha256 = "sha256-qCw132TCSaZrkISmtDb8Q8ufyt8sAJdwACkvfwuoi/0=";
+    })
+  ];
+  CFLAGS = [ "-fstack-protector-strong" ]
+    ++ lib.optional stdenv.hostPlatform.isPower "-mlong-double-64";
+
+  configureFlags = [
+    "--enable-shared"
+    "--enable-static"
+    "--enable-debug"
+    "--enable-wrapper=all"
+    "--syslibdir=${placeholder "out"}/lib"
+  ];
+
+  outputs = [
+    "out"
+    "bin"
+    "dev"
+  ];
+
+  dontDisableStatic = true;
+  dontAddStaticConfigureFlags = true;
+  separateDebugInfo = true;
+
+  NIX_DONT_SET_RPATH = true;
+
+  preBuild = ''
+    ${lib.optionalString
+    (stdenv.targetPlatform.libc == "musl" && stdenv.targetPlatform.isx86_32) ''
+      # the -x c flag is required since the file extension confuses gcc
+          # that detect the file as a linker script.
+          $CC -x c -c ${stack_chk_fail_local_c} -o __stack_chk_fail_local.o
+          $AR r libssp_nonshared.a __stack_chk_fail_local.o''}
+  '';
+
+  postInstall = ''
+    # Not sure why, but link in all but scsi directory as that's what uclibc/glibc do.
+    # Apparently glibc provides scsi itself?
+    (cd $dev/include && ln -s $(ls -d ${linuxHeaders}/include/* | grep -v "scsi$") .)
+
+    ${lib.optionalString
+    (stdenv.targetPlatform.libc == "musl" && stdenv.targetPlatform.isx86_32)
+    "install -D libssp_nonshared.a $out/lib/libssp_nonshared.a"}
+
+    # Create 'ldd' symlink, builtin
+    ln -s $out/lib/libc.so $bin/bin/ldd
+
+    # (impure) cc wrapper around musl for interactive usuage
+    for i in musl-gcc musl-clang ld.musl-clang; do
+      moveToOutput bin/$i $dev
+    done
+    moveToOutput lib/musl-gcc.specs $dev
+    substituteInPlace $dev/bin/musl-gcc \
+      --replace $out/lib/musl-gcc.specs $dev/lib/musl-gcc.specs
+
+    # provide 'iconv' utility, using just-built headers, libc/ldso
+    $CC ${iconv_c} -o $bin/bin/iconv \
+      -I$dev/include \
+      -L$out/lib -Wl,-rpath=$out/lib \
+      -lc \
+      -B $out/lib \
+      -Wl,-dynamic-linker=$(ls $out/lib/ld-*)
+  '' + lib.optionalString (arch != null) ''
+    # Create 'libc.musl-$arch' symlink
+    ln -rs $out/lib/libc.so $out/lib/libc.musl-${arch}.so.1
+  '' + lib.optionalString useBSDCompatHeaders ''
+    install -D ${queue_h} $dev/include/sys/queue.h
+    install -D ${cdefs_h} $dev/include/sys/cdefs.h
+    install -D ${tree_h} $dev/include/sys/tree.h
+  '';
+
+  passthru.linuxHeaders = linuxHeaders;
+
+  meta = with lib; {
+    description = "An efficient, small, quality libc implementation";
+    homepage = "https://musl.libc.org/";
+    changelog =
+      "https://git.musl-libc.org/cgit/musl/tree/WHATSNEW?h=v${version}";
+    license = licenses.mit;
+    platforms = [
+      "aarch64-linux"
+      "armv5tel-linux"
+      "armv6l-linux"
+      "armv7a-linux"
+      "armv7l-linux"
+      "i686-linux"
+      "x86_64-linux"
+      "m68k-linux"
+      "microblaze-linux"
+      "microblazeel-linux"
+      "mipsel-linux"
+      "mips64el-linux"
+      "powerpc64-linux"
+      "powerpc64le-linux"
+      "riscv64-linux"
+      "s390x-linux"
     ];
-    CFLAGS = [ "-fstack-protector-strong" ]
-      ++ lib.optional stdenv.hostPlatform.isPower "-mlong-double-64";
-
-    configureFlags = [
-      "--enable-shared"
-      "--enable-static"
-      "--enable-debug"
-      "--enable-wrapper=all"
-      "--syslibdir=${placeholder "out"}/lib"
+    maintainers = with maintainers; [
+      thoughtpolice
+      dtzWill
     ];
-
-    outputs = [
-      "out"
-      "bin"
-      "dev"
-    ];
-
-    dontDisableStatic = true;
-    dontAddStaticConfigureFlags = true;
-    separateDebugInfo = true;
-
-    NIX_DONT_SET_RPATH = true;
-
-    preBuild = ''
-      ${lib.optionalString (stdenv.targetPlatform.libc == "musl"
-        && stdenv.targetPlatform.isx86_32) ''
-          # the -x c flag is required since the file extension confuses gcc
-              # that detect the file as a linker script.
-              $CC -x c -c ${stack_chk_fail_local_c} -o __stack_chk_fail_local.o
-              $AR r libssp_nonshared.a __stack_chk_fail_local.o''}
-    '';
-
-    postInstall = ''
-      # Not sure why, but link in all but scsi directory as that's what uclibc/glibc do.
-      # Apparently glibc provides scsi itself?
-      (cd $dev/include && ln -s $(ls -d ${linuxHeaders}/include/* | grep -v "scsi$") .)
-
-      ${lib.optionalString
-      (stdenv.targetPlatform.libc == "musl" && stdenv.targetPlatform.isx86_32)
-      "install -D libssp_nonshared.a $out/lib/libssp_nonshared.a"}
-
-      # Create 'ldd' symlink, builtin
-      ln -s $out/lib/libc.so $bin/bin/ldd
-
-      # (impure) cc wrapper around musl for interactive usuage
-      for i in musl-gcc musl-clang ld.musl-clang; do
-        moveToOutput bin/$i $dev
-      done
-      moveToOutput lib/musl-gcc.specs $dev
-      substituteInPlace $dev/bin/musl-gcc \
-        --replace $out/lib/musl-gcc.specs $dev/lib/musl-gcc.specs
-
-      # provide 'iconv' utility, using just-built headers, libc/ldso
-      $CC ${iconv_c} -o $bin/bin/iconv \
-        -I$dev/include \
-        -L$out/lib -Wl,-rpath=$out/lib \
-        -lc \
-        -B $out/lib \
-        -Wl,-dynamic-linker=$(ls $out/lib/ld-*)
-    '' + lib.optionalString (arch != null) ''
-      # Create 'libc.musl-$arch' symlink
-      ln -rs $out/lib/libc.so $out/lib/libc.musl-${arch}.so.1
-    '' + lib.optionalString useBSDCompatHeaders ''
-      install -D ${queue_h} $dev/include/sys/queue.h
-      install -D ${cdefs_h} $dev/include/sys/cdefs.h
-      install -D ${tree_h} $dev/include/sys/tree.h
-    '';
-
-    passthru.linuxHeaders = linuxHeaders;
-
-    meta = with lib; {
-      description = "An efficient, small, quality libc implementation";
-      homepage = "https://musl.libc.org/";
-      changelog =
-        "https://git.musl-libc.org/cgit/musl/tree/WHATSNEW?h=v${version}";
-      license = licenses.mit;
-      platforms = [
-        "aarch64-linux"
-        "armv5tel-linux"
-        "armv6l-linux"
-        "armv7a-linux"
-        "armv7l-linux"
-        "i686-linux"
-        "x86_64-linux"
-        "m68k-linux"
-        "microblaze-linux"
-        "microblazeel-linux"
-        "mipsel-linux"
-        "mips64el-linux"
-        "powerpc64-linux"
-        "powerpc64le-linux"
-        "riscv64-linux"
-        "s390x-linux"
-      ];
-      maintainers = with maintainers; [
-        thoughtpolice
-        dtzWill
-      ];
-    };
-  }
+  };
+}

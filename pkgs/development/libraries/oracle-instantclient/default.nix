@@ -101,67 +101,67 @@ let
   pname = "oracle-instantclient";
   extLib = stdenv.hostPlatform.extensions.sharedLibrary;
 in
-  stdenv.mkDerivation {
-    inherit pname version srcs;
+stdenv.mkDerivation {
+  inherit pname version srcs;
 
-    buildInputs = [ stdenv.cc.cc.lib ] ++ optional stdenv.isLinux libaio
-      ++ optional odbcSupport unixODBC;
+  buildInputs = [ stdenv.cc.cc.lib ] ++ optional stdenv.isLinux libaio
+    ++ optional odbcSupport unixODBC;
 
-    nativeBuildInputs = [
-      makeWrapper
-      unzip
-    ] ++ optional stdenv.isLinux autoPatchelfHook
-      ++ optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+  ] ++ optional stdenv.isLinux autoPatchelfHook
+    ++ optional stdenv.isDarwin fixDarwinDylibNames;
 
-    outputs = [
-      "out"
-      "dev"
-      "lib"
+  outputs = [
+    "out"
+    "dev"
+    "lib"
+  ];
+
+  unpackCmd = "unzip $curSrc";
+
+  installPhase = ''
+    mkdir -p "$out/"{bin,include,lib,"share/java","share/${pname}-${version}/demo/"} $lib/lib
+    install -Dm755 {adrci,genezi,uidrvci,sqlplus,exp,expdp,imp,impdp} $out/bin
+
+    # cp to preserve symlinks
+    cp -P *${extLib}* $lib/lib
+
+    install -Dm644 *.jar $out/share/java
+    install -Dm644 sdk/include/* $out/include
+    install -Dm644 sdk/demo/* $out/share/${pname}-${version}/demo
+
+    # provide alias
+    ln -sfn $out/bin/sqlplus $out/bin/sqlplus64
+  '';
+
+  postFixup = optionalString stdenv.isDarwin ''
+    for exe in "$out/bin/"* ; do
+      if [ ! -L "$exe" ]; then
+        install_name_tool -add_rpath "$lib/lib" "$exe"
+      fi
+    done
+  '';
+
+  meta = with lib; {
+    description = "Oracle instant client libraries and sqlplus CLI";
+    longDescription = ''
+      Oracle instant client provides access to Oracle databases (OCI,
+      OCCI, Pro*C, ODBC or JDBC). This package includes the sqlplus
+      command line SQL client.
+    '';
+    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    license = licenses.unfree;
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
     ];
-
-    unpackCmd = "unzip $curSrc";
-
-    installPhase = ''
-      mkdir -p "$out/"{bin,include,lib,"share/java","share/${pname}-${version}/demo/"} $lib/lib
-      install -Dm755 {adrci,genezi,uidrvci,sqlplus,exp,expdp,imp,impdp} $out/bin
-
-      # cp to preserve symlinks
-      cp -P *${extLib}* $lib/lib
-
-      install -Dm644 *.jar $out/share/java
-      install -Dm644 sdk/include/* $out/include
-      install -Dm644 sdk/demo/* $out/share/${pname}-${version}/demo
-
-      # provide alias
-      ln -sfn $out/bin/sqlplus $out/bin/sqlplus64
-    '';
-
-    postFixup = optionalString stdenv.isDarwin ''
-      for exe in "$out/bin/"* ; do
-        if [ ! -L "$exe" ]; then
-          install_name_tool -add_rpath "$lib/lib" "$exe"
-        fi
-      done
-    '';
-
-    meta = with lib; {
-      description = "Oracle instant client libraries and sqlplus CLI";
-      longDescription = ''
-        Oracle instant client provides access to Oracle databases (OCI,
-        OCCI, Pro*C, ODBC or JDBC). This package includes the sqlplus
-        command line SQL client.
-      '';
-      sourceProvenance = with sourceTypes; [ binaryBytecode ];
-      license = licenses.unfree;
-      platforms = [
-        "x86_64-linux"
-        "aarch64-linux"
-        "x86_64-darwin"
-      ];
-      maintainers = with maintainers; [
-        flokli
-        dylanmtaylor
-      ];
-      hydraPlatforms = [ ];
-    };
-  }
+    maintainers = with maintainers; [
+      flokli
+      dylanmtaylor
+    ];
+    hydraPlatforms = [ ];
+  };
+}

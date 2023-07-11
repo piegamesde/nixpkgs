@@ -42,10 +42,10 @@ let
           let
             path' = path ++ [ n ];
           in
-            trace path' (recurse path' v)
+          trace path' (recurse path' v)
         ) attrs
     else
       { };
 
 in
-  recurse [ ] rel
+recurse [ ] rel

@@ -115,61 +115,61 @@ let
   '';
 
 in
-  stdenv.mkDerivation {
-    pname = "subsurface";
-    inherit version;
+stdenv.mkDerivation {
+  pname = "subsurface";
+  inherit version;
 
-    src = subsurfaceSrc;
+  src = subsurfaceSrc;
 
-    postPatch = ''
-      install -m555 -t scripts ${lib.getExe get-version}
+  postPatch = ''
+    install -m555 -t scripts ${lib.getExe get-version}
+  '';
+
+  buildInputs = [
+    bluez
+    curl
+    googlemaps
+    grantlee
+    libdc
+    libgit2
+    libssh2
+    libxml2
+    libxslt
+    libzip
+    qtbase
+    qtconnectivity
+    qtsvg
+    qttools
+    qtwebengine
+  ];
+
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+    pkg-config
+  ];
+
+  cmakeFlags = [
+    "-DLIBDC_FROM_PKGCONFIG=ON"
+    "-DNO_PRINTING=OFF"
+  ];
+
+  passthru = { inherit version libdc googlemaps; };
+
+  meta = with lib; {
+    description = "A divelog program";
+    longDescription = ''
+      Subsurface can track single- and multi-tank dives using air, Nitrox or TriMix.
+      It allows tracking of dive locations including GPS coordinates (which can also
+      conveniently be entered using a map interface), logging of equipment used and
+      names of other divers, and lets users rate dives and provide additional notes.
     '';
-
-    buildInputs = [
-      bluez
-      curl
-      googlemaps
-      grantlee
-      libdc
-      libgit2
-      libssh2
-      libxml2
-      libxslt
-      libzip
-      qtbase
-      qtconnectivity
-      qtsvg
-      qttools
-      qtwebengine
+    homepage = "https://subsurface-divelog.org";
+    license = licenses.gpl2;
+    maintainers = with maintainers; [
+      mguentner
+      adisbladis
     ];
-
-    nativeBuildInputs = [
-      cmake
-      wrapQtAppsHook
-      pkg-config
-    ];
-
-    cmakeFlags = [
-      "-DLIBDC_FROM_PKGCONFIG=ON"
-      "-DNO_PRINTING=OFF"
-    ];
-
-    passthru = { inherit version libdc googlemaps; };
-
-    meta = with lib; {
-      description = "A divelog program";
-      longDescription = ''
-        Subsurface can track single- and multi-tank dives using air, Nitrox or TriMix.
-        It allows tracking of dive locations including GPS coordinates (which can also
-        conveniently be entered using a map interface), logging of equipment used and
-        names of other divers, and lets users rate dives and provide additional notes.
-      '';
-      homepage = "https://subsurface-divelog.org";
-      license = licenses.gpl2;
-      maintainers = with maintainers; [
-        mguentner
-        adisbladis
-      ];
-      platforms = platforms.all;
-    };
-  }
+    platforms = platforms.all;
+  };
+}

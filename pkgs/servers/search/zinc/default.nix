@@ -29,30 +29,30 @@ let
     '';
   };
 in
-  buildGoModule rec {
-    pname = "zinc";
-    inherit src version;
+buildGoModule rec {
+  pname = "zinc";
+  inherit src version;
 
-    preBuild = ''
-      cp -r ${webui}/share/zinc-ui web/dist
-    '';
+  preBuild = ''
+    cp -r ${webui}/share/zinc-ui web/dist
+  '';
 
-    vendorHash = "sha256-akjb0cxHbITKS26c+7lVSHWO/KRoQVVKzAOra+tdAD8=";
-    subPackages = [ "cmd/zinc" ];
+  vendorHash = "sha256-akjb0cxHbITKS26c+7lVSHWO/KRoQVVKzAOra+tdAD8=";
+  subPackages = [ "cmd/zinc" ];
 
-    CGO_ENABLED = 0;
+  CGO_ENABLED = 0;
 
-    ldflags = [
-      "-s"
-      "-w"
-      "-X github.com/zinclabs/zinc/pkg/meta.Version=${version}"
-    ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/zinclabs/zinc/pkg/meta.Version=${version}"
+  ];
 
-    meta = with lib; {
-      description =
-        "A lightweight alternative to elasticsearch that requires minimal resources, written in Go";
-      homepage = "https://github.com/zinclabs/zinc";
-      license = licenses.asl20;
-      maintainers = with maintainers; [ dit7ya ];
-    };
-  }
+  meta = with lib; {
+    description =
+      "A lightweight alternative to elasticsearch that requires minimal resources, written in Go";
+    homepage = "https://github.com/zinclabs/zinc";
+    license = licenses.asl20;
+    maintainers = with maintainers; [ dit7ya ];
+  };
+}

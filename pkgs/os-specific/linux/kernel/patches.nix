@@ -58,7 +58,7 @@
       } ;
     patches = lib.importJSON ./hardened/patches.json;
   in
-    lib.mapAttrs mkPatch patches
+  lib.mapAttrs mkPatch patches
   ;
 
   # Adapted for Linux 5.4 from:

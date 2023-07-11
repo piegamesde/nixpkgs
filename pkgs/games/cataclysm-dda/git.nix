@@ -46,4 +46,4 @@ let
   });
 
 in
-  attachPkgs pkgs self
+attachPkgs pkgs self

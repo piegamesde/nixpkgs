@@ -26,7 +26,7 @@ let
              lib.escapeShellArg (toString value)
            }";
     in
-      lib.concatStrings (lib.mapAttrsToList toArg args)
+    lib.concatStrings (lib.mapAttrsToList toArg args)
   ;
 
   isPathType = x: lib.types.path.check x;

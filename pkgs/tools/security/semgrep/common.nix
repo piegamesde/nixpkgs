@@ -53,11 +53,11 @@ rec {
         data.${system} or (throw "Unsupported system: ${system}");
       inherit (selectSystemData data) suffix sha256;
     in
-      fetchzip {
-        url =
-          "https://github.com/returntocorp/semgrep/releases/download/v${version}/semgrep-v${version}${suffix}";
-        inherit sha256;
-      }
+    fetchzip {
+      url =
+        "https://github.com/returntocorp/semgrep/releases/download/v${version}/semgrep-v${version}${suffix}";
+      inherit sha256;
+    }
     ;
   };
 

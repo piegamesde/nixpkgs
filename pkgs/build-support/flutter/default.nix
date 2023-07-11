@@ -156,12 +156,12 @@ let
   else
     builtins.fromJSON (builtins.readFile depsListFile));
 in
-  builtins.foldl' (prev: package:
-    if
-      packageOverrideRepository ? ${package.name}
-    then
-      prev.overrideAttrs (packageOverrideRepository.${package.name} {
-        inherit (package) name version kind source dependencies;
-      })
-    else
-      prev) baseDerivation productPackages
+builtins.foldl' (prev: package:
+  if
+    packageOverrideRepository ? ${package.name}
+  then
+    prev.overrideAttrs (packageOverrideRepository.${package.name} {
+      inherit (package) name version kind source dependencies;
+    })
+  else
+    prev) baseDerivation productPackages

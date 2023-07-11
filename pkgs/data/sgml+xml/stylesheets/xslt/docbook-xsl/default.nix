@@ -100,7 +100,7 @@ let
         };
       };
     in
-      self
+    self
   ;
 
 in {

@@ -61,9 +61,9 @@ let
     let
       extraParams = { inherit shabScript; };
     in
-      runCommand "out" (parameters // extraParams) ''
-        ${shab}/bin/shab "$shabScript" >$out
-      ''
+    runCommand "out" (parameters // extraParams) ''
+      ${shab}/bin/shab "$shabScript" >$out
+    ''
   ;
 
   /* shabScriptText:   a string to use as a template
@@ -74,4 +74,4 @@ let
     render (writeText "template" shabScriptText) parameters;
 
 in
-  shab
+shab

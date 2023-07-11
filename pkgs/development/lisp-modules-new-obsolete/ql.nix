@@ -173,8 +173,8 @@ let
         (extras.${pkg.pname} builtPkg));
       fixedUp = fixup withExtras;
     in
-      build-asdf-system fixedUp
+    build-asdf-system fixedUp
   ;
 
 in
-  builtQlpkgs
+builtQlpkgs

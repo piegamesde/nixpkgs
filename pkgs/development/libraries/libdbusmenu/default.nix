@@ -30,12 +30,12 @@ stdenv.mkDerivation (finalAttrs: {
   src = let
     inherit (finalAttrs) version;
   in
-    fetchurl {
-      url = "https://launchpad.net/dbusmenu/${
-          lib.versions.majorMinor version
-        }/${version}/+download/libdbusmenu-${version}.tar.gz";
-      sha256 = "12l7z8dhl917iy9h02sxmpclnhkdjryn08r8i4sr8l3lrlm4mk5r";
-    }
+  fetchurl {
+    url = "https://launchpad.net/dbusmenu/${
+        lib.versions.majorMinor version
+      }/${version}/+download/libdbusmenu-${version}.tar.gz";
+    sha256 = "12l7z8dhl917iy9h02sxmpclnhkdjryn08r8i4sr8l3lrlm4mk5r";
+  }
   ;
 
   nativeBuildInputs = [

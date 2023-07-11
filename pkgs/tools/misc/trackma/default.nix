@@ -24,71 +24,71 @@ let
       categories = [ "Network" ];
     };
 in
-  python3.pkgs.buildPythonApplication rec {
-    pname = "trackma";
-    version = "0.8.5";
+python3.pkgs.buildPythonApplication rec {
+  pname = "trackma";
+  version = "0.8.5";
 
-    src = fetchFromGitHub {
-      owner = "z411";
-      repo = "trackma";
-      rev = "v${version}";
-      sha256 = "sha256-BjZw/AYFlTYtgJTDFOALHx1d71ZQsYZ2TXnEUeQVvpw=";
-      fetchSubmodules = true; # for anime-relations submodule
-    };
+  src = fetchFromGitHub {
+    owner = "z411";
+    repo = "trackma";
+    rev = "v${version}";
+    sha256 = "sha256-BjZw/AYFlTYtgJTDFOALHx1d71ZQsYZ2TXnEUeQVvpw=";
+    fetchSubmodules = true; # for anime-relations submodule
+  };
 
-    nativeBuildInputs = [ copyDesktopItems ] ++ lib.optionals withGTK [
-      wrapGAppsHook
-      gobject-introspection
-    ] ++ lib.optionals withQT [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [ copyDesktopItems ] ++ lib.optionals withGTK [
+    wrapGAppsHook
+    gobject-introspection
+  ] ++ lib.optionals withQT [ qt5.wrapQtAppsHook ];
 
-    buildInputs = lib.optionals withGTK [
-      glib
-      gtk3
-    ];
+  buildInputs = lib.optionals withGTK [
+    glib
+    gtk3
+  ];
 
-    propagatedBuildInputs = with python3.pkgs;
-      ([ urllib3 ] ++ lib.optionals withQT [ pyqt5 ]
-        ++ lib.optionals withGTK [ pycairo ]
-        ++ lib.optionals withCurses [ urwid ] ++ lib.optionals stdenv.isLinux [
-          dbus-python
-          pygobject3
-          pyinotify
-        ] ++ lib.optionals (withGTK || withQT) [ pillow ]);
+  propagatedBuildInputs = with python3.pkgs;
+    ([ urllib3 ] ++ lib.optionals withQT [ pyqt5 ]
+      ++ lib.optionals withGTK [ pycairo ] ++ lib.optionals withCurses [ urwid ]
+      ++ lib.optionals stdenv.isLinux [
+        dbus-python
+        pygobject3
+        pyinotify
+      ] ++ lib.optionals (withGTK || withQT) [ pillow ]);
 
-    dontWrapQtApps = true;
-    dontWrapGApps = true;
+  dontWrapQtApps = true;
+  dontWrapGApps = true;
 
-    preFixup = lib.optional withQT "wrapQtApp $out/bin/trackma-qt"
-      ++ lib.optional withGTK "wrapGApp $out/bin/trackma-gtk";
+  preFixup = lib.optional withQT "wrapQtApp $out/bin/trackma-qt"
+    ++ lib.optional withGTK "wrapGApp $out/bin/trackma-gtk";
 
-    desktopItems = lib.optional withQT
-      (mkDesktopItem "trackma-qt" "Trackma (Qt)" "Trackma Updater (Qt-frontend)"
-        false) ++ lib.optional withGTK
-      (mkDesktopItem "trackma-gtk" "Trackma (GTK)"
-        "Trackma Updater (Gtk-frontend)" false) ++ lib.optional withCurses
-      (mkDesktopItem "trackma-curses" "Trackma (ncurses)"
-        "Trackma Updater (ncurses frontend)" true);
+  desktopItems = lib.optional withQT
+    (mkDesktopItem "trackma-qt" "Trackma (Qt)" "Trackma Updater (Qt-frontend)"
+      false) ++ lib.optional withGTK
+    (mkDesktopItem "trackma-gtk" "Trackma (GTK)"
+      "Trackma Updater (Gtk-frontend)" false) ++ lib.optional withCurses
+    (mkDesktopItem "trackma-curses" "Trackma (ncurses)"
+      "Trackma Updater (ncurses frontend)" true);
 
-    postInstall = ''
-      install -Dvm444 $src/trackma/data/icon.png $out/share/pixmaps/trackma.png
-    '';
+  postInstall = ''
+    install -Dvm444 $src/trackma/data/icon.png $out/share/pixmaps/trackma.png
+  '';
 
-    doCheck = false;
+  doCheck = false;
 
-    pythonImportsCheck = [ "trackma" ];
+  pythonImportsCheck = [ "trackma" ];
 
-    postDist = lib.optional (!withQT) "rm $out/bin/trackma-qt"
-      ++ lib.optional (!withGTK) "rm $out/bin/trackma-gtk"
-      ++ lib.optional (!withCurses) "rm $out/bin/trackma-curses";
+  postDist = lib.optional (!withQT) "rm $out/bin/trackma-qt"
+    ++ lib.optional (!withGTK) "rm $out/bin/trackma-gtk"
+    ++ lib.optional (!withCurses) "rm $out/bin/trackma-curses";
 
-    passthru.updateScript = ./update.sh;
+  passthru.updateScript = ./update.sh;
 
-    meta = with lib; {
-      homepage = "https://github.com/z411/trackma";
-      description =
-        "Open multi-site list manager for Unix-like systems (ex-wMAL)";
-      license = licenses.gpl3Plus;
-      platforms = platforms.linux;
-      maintainers = with maintainers; [ WeebSorceress ];
-    };
-  }
+  meta = with lib; {
+    homepage = "https://github.com/z411/trackma";
+    description =
+      "Open multi-site list manager for Unix-like systems (ex-wMAL)";
+    license = licenses.gpl3Plus;
+    platforms = platforms.linux;
+    maintainers = with maintainers; [ WeebSorceress ];
+  };
+}

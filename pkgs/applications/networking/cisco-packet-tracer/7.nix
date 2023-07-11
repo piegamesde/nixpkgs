@@ -77,27 +77,27 @@ let
       ];
   };
 in
-  stdenv.mkDerivation {
-    pname = "ciscoPacketTracer7";
-    inherit version;
+stdenv.mkDerivation {
+  pname = "ciscoPacketTracer7";
+  inherit version;
 
-    dontUnpack = true;
+  dontUnpack = true;
 
-    installPhase = ''
-      mkdir $out
-      ${lndir}/bin/lndir -silent ${fhs} $out
-    '';
+  installPhase = ''
+    mkdir $out
+    ${lndir}/bin/lndir -silent ${fhs} $out
+  '';
 
-    desktopItems = [ desktopItem ];
+  desktopItems = [ desktopItem ];
 
-    nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [ copyDesktopItems ];
 
-    meta = with lib; {
-      description = "Network simulation tool from Cisco";
-      homepage = "https://www.netacad.com/courses/packet-tracer";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-      license = licenses.unfree;
-      maintainers = with maintainers; [ lucasew ];
-      platforms = [ "x86_64-linux" ];
-    };
-  }
+  meta = with lib; {
+    description = "Network simulation tool from Cisco";
+    homepage = "https://www.netacad.com/courses/packet-tracer";
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    license = licenses.unfree;
+    maintainers = with maintainers; [ lucasew ];
+    platforms = [ "x86_64-linux" ];
+  };
+}

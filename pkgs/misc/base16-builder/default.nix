@@ -9,4 +9,4 @@ let
     inherit (stdenv.hostPlatform) system;
   };
 in
-  nodePackages.base16-builder
+nodePackages.base16-builder

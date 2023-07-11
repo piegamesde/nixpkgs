@@ -107,14 +107,14 @@ let
       tarball = config.system.build.tarball;
 
     in
-      tarball // {
-        meta = {
-          description =
-            "NixOS system tarball for ${system} - ${stdenv.hostPlatform.linux-kernel.name}";
-          maintainers = map (x: lib.maintainers.${x}) maintainers;
-        };
-        inherit config;
-      }
+    tarball // {
+      meta = {
+        description =
+          "NixOS system tarball for ${system} - ${stdenv.hostPlatform.linux-kernel.name}";
+        maintainers = map (x: lib.maintainers.${x}) maintainers;
+      };
+      inherit config;
+    }
   ;
 
   makeClosure = module:
@@ -145,21 +145,21 @@ let
       build = configEvaled.config.system.build;
       kernelTarget = configEvaled.pkgs.stdenv.hostPlatform.linux-kernel.target;
     in
-      pkgs.symlinkJoin {
-        name = "netboot";
-        paths = [
-          build.netbootRamdisk
-          build.kernel
-          build.netbootIpxeScript
-        ];
-        postBuild = ''
-          mkdir -p $out/nix-support
-          echo "file ${kernelTarget} ${build.kernel}/${kernelTarget}" >> $out/nix-support/hydra-build-products
-          echo "file initrd ${build.netbootRamdisk}/initrd" >> $out/nix-support/hydra-build-products
-          echo "file ipxe ${build.netbootIpxeScript}/netboot.ipxe" >> $out/nix-support/hydra-build-products
-        '';
-        preferLocalBuild = true;
-      }
+    pkgs.symlinkJoin {
+      name = "netboot";
+      paths = [
+        build.netbootRamdisk
+        build.kernel
+        build.netbootIpxeScript
+      ];
+      postBuild = ''
+        mkdir -p $out/nix-support
+        echo "file ${kernelTarget} ${build.kernel}/${kernelTarget}" >> $out/nix-support/hydra-build-products
+        echo "file initrd ${build.netbootRamdisk}/initrd" >> $out/nix-support/hydra-build-products
+        echo "file ipxe ${build.netbootIpxeScript}/netboot.ipxe" >> $out/nix-support/hydra-build-products
+      '';
+      preferLocalBuild = true;
+    }
   ;
 
 in rec {

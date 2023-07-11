@@ -60,7 +60,7 @@ rec {
         else
           self.callHackage;
       in
-        generateExprs name src { }
+      generateExprs name src { }
     ) overrides;
 
   /* doCoverage modifies a haskell package to enable the generation
@@ -397,8 +397,8 @@ rec {
               ++ optional ignoreMainModule "--ignore-main-module"
               ++ map (pkg: "--ignore-package ${pkg}") ignorePackages);
         in
-          "${pkgs.haskellPackages.packunused}/bin/packunused"
-          + optionalString (args != "") " ${args}"
+        "${pkgs.haskellPackages.packunused}/bin/packunused"
+        + optionalString (args != "") " ${args}"
       ;
     }) (appendConfigureFlag "--ghc-option=-ddump-minimal-imports" drv);
 
@@ -472,13 +472,13 @@ rec {
     let
       inherit (ghcInfo ghc) isCross;
     in
-      {
-        doCheck ? !isCross && (lib.versionOlder "7.4" ghc.version),
-        doBenchmark ? false,
-        ...
-      }: {
-        inherit doCheck doBenchmark;
-      }
+    {
+      doCheck ? !isCross && (lib.versionOlder "7.4" ghc.version),
+      doBenchmark ? false,
+      ...
+    }: {
+      inherit doCheck doBenchmark;
+    }
   ;
 
   # Utility to convert a directory full of `cabal2nix`-generated files into a
@@ -501,7 +501,7 @@ rec {
       };
 
     in
-      builtins.listToAttrs (map toKeyVal haskellPaths)
+    builtins.listToAttrs (map toKeyVal haskellPaths)
   ;
 
   /* INTERNAL function retained for backwards compatibility, use
@@ -590,15 +590,15 @@ rec {
               } ]) (val.buildInputs or [ ] ++ val.propagatedBuildInputs or [ ]);
       });
   in
-    overrideCabal (old: {
-      benchmarkPkgconfigDepends =
-        propagatedPlainBuildInputs old.benchmarkPkgconfigDepends or [ ];
-      executablePkgconfigDepends =
-        propagatedPlainBuildInputs old.executablePkgconfigDepends or [ ];
-      libraryPkgconfigDepends =
-        propagatedPlainBuildInputs old.libraryPkgconfigDepends or [ ];
-      testPkgconfigDepends =
-        propagatedPlainBuildInputs old.testPkgconfigDepends or [ ];
-    })
+  overrideCabal (old: {
+    benchmarkPkgconfigDepends =
+      propagatedPlainBuildInputs old.benchmarkPkgconfigDepends or [ ];
+    executablePkgconfigDepends =
+      propagatedPlainBuildInputs old.executablePkgconfigDepends or [ ];
+    libraryPkgconfigDepends =
+      propagatedPlainBuildInputs old.libraryPkgconfigDepends or [ ];
+    testPkgconfigDepends =
+      propagatedPlainBuildInputs old.testPkgconfigDepends or [ ];
+  })
   ;
 }

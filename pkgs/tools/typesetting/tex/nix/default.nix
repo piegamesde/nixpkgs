@@ -23,25 +23,25 @@ rec {
         ({ inherit (pkgs.texlive) scheme-basic; } // texPackages);
 
     in
-      pkgs.stdenv.mkDerivation {
-        name = "doc";
+    pkgs.stdenv.mkDerivation {
+      name = "doc";
 
-        builder = ./run-latex.sh;
-        copyIncludes = ./copy-includes.pl;
+      builder = ./run-latex.sh;
+      copyIncludes = ./copy-includes.pl;
 
-        inherit rootFile generatePDF generatePS extraFiles compressBlanksInIndex
-          copySources;
+      inherit rootFile generatePDF generatePS extraFiles compressBlanksInIndex
+        copySources;
 
-        includes = map (x: [
-          x.key
-          (baseNameOf (toString x.key))
-        ]) (findLaTeXIncludes { inherit rootFile; });
+      includes = map (x: [
+        x.key
+        (baseNameOf (toString x.key))
+      ]) (findLaTeXIncludes { inherit rootFile; });
 
-        buildInputs = [
-          tex
-          pkgs.perl
-        ] ++ packages;
-      }
+      buildInputs = [
+        tex
+        pkgs.perl
+      ] ++ packages;
+    }
   ;
 
   # Returns the closure of the "dependencies" of a LaTeX source file.
@@ -98,7 +98,7 @@ rec {
               xs;
 
         in
-          pkgs.lib.foldr foundDeps [ ] deps
+        pkgs.lib.foldr foundDeps [ ] deps
       ;
     };
 
@@ -121,9 +121,9 @@ rec {
             "${pkgs.stdenv.bash}/bin/bash ${./find-lhs2tex-includes.sh}");
 
         in
-          pkgs.lib.concatMap
-          (x: lib.optionals (builtins.pathExists x) [ { key = x; } ])
-          (map (x: dirOf key + ("/" + x)) deps)
+        pkgs.lib.concatMap
+        (x: lib.optionals (builtins.pathExists x) [ { key = x; } ])
+        (map (x: dirOf key + ("/" + x)) deps)
       ;
     };
 

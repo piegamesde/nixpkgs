@@ -22,19 +22,19 @@ let
     lib.makeSearchPath "share/hunspell" (lib.attrVals langs hunspellDicts);
 
 in
-  symlinkJoin {
-    name = "${typing-booster.name}-with-hunspell";
-    paths = [ typing-booster ];
-    nativeBuildInputs = [ makeWrapper ];
+symlinkJoin {
+  name = "${typing-booster.name}-with-hunspell";
+  paths = [ typing-booster ];
+  nativeBuildInputs = [ makeWrapper ];
 
-    postBuild = ''
-      for i in bin/emoji-picker libexec/ibus-{setup,engine}-typing-booster; do
-        wrapProgram "$out/$i" \
-          --prefix DICPATH : ${lib.escapeShellArg hunspellDirs}
-      done
+  postBuild = ''
+    for i in bin/emoji-picker libexec/ibus-{setup,engine}-typing-booster; do
+      wrapProgram "$out/$i" \
+        --prefix DICPATH : ${lib.escapeShellArg hunspellDirs}
+    done
 
-      sed -i -e "s,${typing-booster},$out," $out/share/ibus/component/typing-booster.xml
-    '';
+    sed -i -e "s,${typing-booster},$out," $out/share/ibus/component/typing-booster.xml
+  '';
 
-    inherit (typing-booster) meta;
-  }
+  inherit (typing-booster) meta;
+}

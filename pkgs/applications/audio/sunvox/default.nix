@@ -28,43 +28,43 @@ let
   else
     "x86";
 in
-  stdenv.mkDerivation rec {
-    pname = "SunVox";
-    version = "2.0e";
+stdenv.mkDerivation rec {
+  pname = "SunVox";
+  version = "2.0e";
 
-    src = fetchurl {
-      url = "https://www.warmplace.ru/soft/sunvox/sunvox-${version}.zip";
-      sha256 = "sha256-v4dQnRr7pusOAHX8ytDChKixYxEIjg30vOTD6uA/S0o=";
-    };
+  src = fetchurl {
+    url = "https://www.warmplace.ru/soft/sunvox/sunvox-${version}.zip";
+    sha256 = "sha256-v4dQnRr7pusOAHX8ytDChKixYxEIjg30vOTD6uA/S0o=";
+  };
 
-    nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [ unzip ];
 
-    unpackPhase = "unzip $src";
+  unpackPhase = "unzip $src";
 
-    dontBuild = true;
+  dontBuild = true;
 
-    installPhase = ''
-      mkdir -p $out/share $out/bin
-      mv sunvox $out/share/
+  installPhase = ''
+    mkdir -p $out/share $out/bin
+    mv sunvox $out/share/
 
-      bin="$out/share/sunvox/sunvox/linux_${arch}/sunvox"
-      patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-               --set-rpath "${libPath}" \
-               "$bin"
+    bin="$out/share/sunvox/sunvox/linux_${arch}/sunvox"
+    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+             --set-rpath "${libPath}" \
+             "$bin"
 
-      ln -s "$bin" $out/bin/sunvox
-    '';
+    ln -s "$bin" $out/bin/sunvox
+  '';
 
-    meta = with lib; {
-      description =
-        "Small, fast and powerful modular synthesizer with pattern-based sequencer";
-      license = licenses.unfreeRedistributable;
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-      homepage = "http://www.warmplace.ru/soft/sunvox/";
-      maintainers = with maintainers; [ puffnfresh ];
-      platforms = [
-        "i686-linux"
-        "x86_64-linux"
-      ];
-    };
-  }
+  meta = with lib; {
+    description =
+      "Small, fast and powerful modular synthesizer with pattern-based sequencer";
+    license = licenses.unfreeRedistributable;
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    homepage = "http://www.warmplace.ru/soft/sunvox/";
+    maintainers = with maintainers; [ puffnfresh ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
+  };
+}

@@ -50,10 +50,10 @@ stdenv.mkDerivation rec {
     optionalPatch = pred: so:
       lib.optionalString pred "patchelf --add-needed ${so} $out/bin/htop";
   in
-    lib.optionalString (!stdenv.hostPlatform.isStatic) ''
-      ${optionalPatch sensorsSupport "${lm_sensors}/lib/libsensors.so"}
-      ${optionalPatch systemdSupport "${systemd}/lib/libsystemd.so"}
-    ''
+  lib.optionalString (!stdenv.hostPlatform.isStatic) ''
+    ${optionalPatch sensorsSupport "${lm_sensors}/lib/libsensors.so"}
+    ${optionalPatch systemdSupport "${systemd}/lib/libsystemd.so"}
+  ''
   ;
 
   meta = with lib; {

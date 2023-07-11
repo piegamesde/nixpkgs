@@ -140,29 +140,29 @@ let
       plainLines = makeLines "password" "passwordFile";
       hashedLines = makeLines "hashedPassword" "hashedPasswordFile";
     in
-      pkgs.writeScript "make-mosquitto-passwd" (''
-        #! ${pkgs.runtimeShell}
+    pkgs.writeScript "make-mosquitto-passwd" (''
+      #! ${pkgs.runtimeShell}
 
-        set -eu
+      set -eu
 
-        file=${escapeShellArg path}
+      file=${escapeShellArg path}
 
-        rm -f "$file"
-        touch "$file"
+      rm -f "$file"
+      touch "$file"
 
-        addLine() {
-          echo "$1:$2" >> "$file"
-        }
-        addFile() {
-          if [ $(wc -l <"$2") -gt 1 ]; then
-            echo "invalid mosquitto password file $2" >&2
-            return 1
-          fi
-          echo "$1:$(cat "$2")" >> "$file"
-        }
-      '' + concatStringsSep "\n" (plainLines ++ optional (plainLines != [ ]) ''
-        ${cfg.package}/bin/mosquitto_passwd -U "$file"
-      '' ++ hashedLines))
+      addLine() {
+        echo "$1:$2" >> "$file"
+      }
+      addFile() {
+        if [ $(wc -l <"$2") -gt 1 ]; then
+          echo "invalid mosquitto password file $2" >&2
+          return 1
+        fi
+        echo "$1:$(cat "$2")" >> "$file"
+      }
+    '' + concatStringsSep "\n" (plainLines ++ optional (plainLines != [ ]) ''
+      ${cfg.package}/bin/mosquitto_passwd -U "$file"
+    '' ++ hashedLines))
   ;
 
   makeACLFile = idx: users: supplement:

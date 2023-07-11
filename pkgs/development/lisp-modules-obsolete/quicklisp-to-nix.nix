@@ -4660,4 +4660,4 @@ let
 
   };
 in
-  quicklisp-to-nix-packages
+quicklisp-to-nix-packages

@@ -90,4 +90,4 @@ let
       deepin-turbo = callPackage ./misc/deepin-turbo { };
     } ;
 in
-  lib.makeScope libsForQt5.newScope packages
+lib.makeScope libsForQt5.newScope packages

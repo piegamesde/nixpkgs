@@ -225,19 +225,19 @@ in rec {
       # Eclipse.
       name = (lib.meta.appendToName "with-plugins" eclipse).name;
     in
-      runCommand name { nativeBuildInputs = [ makeWrapper ]; } ''
-        mkdir -p $out/bin $out/etc
+    runCommand name { nativeBuildInputs = [ makeWrapper ]; } ''
+      mkdir -p $out/bin $out/etc
 
-        # Prepare an eclipse.ini with the plugin directory.
-        cat ${eclipse}/eclipse/eclipse.ini - > $out/etc/eclipse.ini <<EOF
-        ${jvmArgsText}
-        EOF
+      # Prepare an eclipse.ini with the plugin directory.
+      cat ${eclipse}/eclipse/eclipse.ini - > $out/etc/eclipse.ini <<EOF
+      ${jvmArgsText}
+      EOF
 
-        makeWrapper ${eclipse}/bin/eclipse $out/bin/eclipse \
-          --add-flags "--launcher.ini $out/etc/eclipse.ini"
+      makeWrapper ${eclipse}/bin/eclipse $out/bin/eclipse \
+        --add-flags "--launcher.ini $out/etc/eclipse.ini"
 
-        ln -s ${eclipse}/share $out/
-      ''
+      ln -s ${eclipse}/share $out/
+    ''
   ;
 
   ### Plugins

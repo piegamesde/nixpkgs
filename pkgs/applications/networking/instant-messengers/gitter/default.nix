@@ -86,61 +86,61 @@ let
        $out/${gitterDirectorySuffix}/${target}
   '';
 in
-  stdenv.mkDerivation rec {
-    pname = "gitter";
-    version = "5.0.1";
+stdenv.mkDerivation rec {
+  pname = "gitter";
+  version = "5.0.1";
 
-    src = fetchurl {
-      url = "https://update.gitter.im/linux64/${pname}_${version}_amd64.deb";
-      sha256 = "1ps9akylqrril4902r8mi0mprm0hb5wra51ry6c1rb5xz5nrzgh1";
-    };
+  src = fetchurl {
+    url = "https://update.gitter.im/linux64/${pname}_${version}_amd64.deb";
+    sha256 = "1ps9akylqrril4902r8mi0mprm0hb5wra51ry6c1rb5xz5nrzgh1";
+  };
 
-    nativeBuildInputs = [
-      makeWrapper
-      dpkg
+  nativeBuildInputs = [
+    makeWrapper
+    dpkg
+  ];
+
+  unpackPhase = "dpkg -x $src .";
+
+  installPhase = ''
+    mkdir -p $out/{bin,opt/gitter,share/pixmaps}
+    mv ./opt/Gitter/linux64/* $out/opt/gitter
+
+    ${doELFPatch "Gitter"}
+    ${doELFPatch "nacl_helper"}
+    ${doELFPatch "minidump_stackwalk"}
+    ${doELFPatch "nwjc"}
+    ${doELFPatch "chromedriver"}
+    ${doELFPatch "payload"}
+
+    patchelf --set-rpath "$out/${gitterDirectorySuffix}/lib:${libPath}" \
+         $out/${gitterDirectorySuffix}/lib/libnw.so
+
+    wrapProgram $out/${gitterDirectorySuffix}/Gitter --prefix LD_LIBRARY_PATH : ${libPath}
+
+    ln -s $out/${gitterDirectorySuffix}/Gitter $out/bin/
+    ln -s $out/${gitterDirectorySuffix}/logo.png $out/share/pixmaps/gitter.png
+    ln -s "${desktopItem}/share/applications" $out/share/
+  '';
+
+  desktopItem = makeDesktopItem {
+    name = pname;
+    exec = "Gitter";
+    icon = pname;
+    desktopName = "Gitter";
+    genericName = meta.description;
+    categories = [
+      "Network"
+      "InstantMessaging"
     ];
+  };
 
-    unpackPhase = "dpkg -x $src .";
-
-    installPhase = ''
-      mkdir -p $out/{bin,opt/gitter,share/pixmaps}
-      mv ./opt/Gitter/linux64/* $out/opt/gitter
-
-      ${doELFPatch "Gitter"}
-      ${doELFPatch "nacl_helper"}
-      ${doELFPatch "minidump_stackwalk"}
-      ${doELFPatch "nwjc"}
-      ${doELFPatch "chromedriver"}
-      ${doELFPatch "payload"}
-
-      patchelf --set-rpath "$out/${gitterDirectorySuffix}/lib:${libPath}" \
-           $out/${gitterDirectorySuffix}/lib/libnw.so
-
-      wrapProgram $out/${gitterDirectorySuffix}/Gitter --prefix LD_LIBRARY_PATH : ${libPath}
-
-      ln -s $out/${gitterDirectorySuffix}/Gitter $out/bin/
-      ln -s $out/${gitterDirectorySuffix}/logo.png $out/share/pixmaps/gitter.png
-      ln -s "${desktopItem}/share/applications" $out/share/
-    '';
-
-    desktopItem = makeDesktopItem {
-      name = pname;
-      exec = "Gitter";
-      icon = pname;
-      desktopName = "Gitter";
-      genericName = meta.description;
-      categories = [
-        "Network"
-        "InstantMessaging"
-      ];
-    };
-
-    meta = with lib; {
-      description = "Where developers come to talk";
-      downloadPage = "https://gitter.im/apps";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-      license = licenses.mit;
-      maintainers = [ maintainers.imalison ];
-      platforms = [ "x86_64-linux" ];
-    };
-  }
+  meta = with lib; {
+    description = "Where developers come to talk";
+    downloadPage = "https://gitter.im/apps";
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    license = licenses.mit;
+    maintainers = [ maintainers.imalison ];
+    platforms = [ "x86_64-linux" ];
+  };
+}

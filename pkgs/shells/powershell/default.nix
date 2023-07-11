@@ -65,86 +65,84 @@ let
     lttng-ust
   ] else [ darwin.Libsystem ]);
 in
-  stdenv.mkDerivation rec {
-    pname = "powershell";
-    version = "7.3.2";
+stdenv.mkDerivation rec {
+  pname = "powershell";
+  version = "7.3.2";
 
-    src = fetchzip {
-      url =
-        "https://github.com/PowerShell/PowerShell/releases/download/v${version}/powershell-${version}-${platformString}-${archString}.tar.gz";
-      sha256 = platformSha;
-      stripRoot = false;
-    };
+  src = fetchzip {
+    url =
+      "https://github.com/PowerShell/PowerShell/releases/download/v${version}/powershell-${version}-${platformString}-${archString}.tar.gz";
+    sha256 = platformSha;
+    stripRoot = false;
+  };
 
-    strictDeps = true;
-    buildInputs = [ less ] ++ libraries;
-    nativeBuildInputs = [ makeWrapper ]
-      ++ lib.optional stdenv.isLinux autoPatchelfHook;
+  strictDeps = true;
+  buildInputs = [ less ] ++ libraries;
+  nativeBuildInputs = [ makeWrapper ]
+    ++ lib.optional stdenv.isLinux autoPatchelfHook;
 
-    installPhase = let
-      ext = stdenv.hostPlatform.extensions.sharedLibrary;
-    in
-      ''
-        pslibs=$out/share/powershell
-        mkdir -p $pslibs
+  installPhase = let
+    ext = stdenv.hostPlatform.extensions.sharedLibrary;
+  in
+  ''
+    pslibs=$out/share/powershell
+    mkdir -p $pslibs
 
-        cp -r * $pslibs
+    cp -r * $pslibs
 
-        rm -f $pslibs/libcrypto${ext}.1.0.0
-        rm -f $pslibs/libssl${ext}.1.0.0
+    rm -f $pslibs/libcrypto${ext}.1.0.0
+    rm -f $pslibs/libssl${ext}.1.0.0
 
-        # At least the 7.1.4-osx package does not have the executable bit set.
-        chmod a+x $pslibs/pwsh
+    # At least the 7.1.4-osx package does not have the executable bit set.
+    chmod a+x $pslibs/pwsh
 
-        ls $pslibs
-      '' + lib.optionalString (!stdenv.isDarwin && !stdenv.isAarch64) ''
-        patchelf --replace-needed libcrypto${ext}.1.0.0 libcrypto${ext}.1.1 $pslibs/libmi.so
-        patchelf --replace-needed libssl${ext}.1.0.0 libssl${ext}.1.1 $pslibs/libmi.so
-      '' + lib.optionalString (!stdenv.isDarwin) ''
-        patchelf --replace-needed liblttng-ust${ext}.0 liblttng-ust${ext}.1 $pslibs/libcoreclrtraceptprovider.so
-      '' + ''
+    ls $pslibs
+  '' + lib.optionalString (!stdenv.isDarwin && !stdenv.isAarch64) ''
+    patchelf --replace-needed libcrypto${ext}.1.0.0 libcrypto${ext}.1.1 $pslibs/libmi.so
+    patchelf --replace-needed libssl${ext}.1.0.0 libssl${ext}.1.1 $pslibs/libmi.so
+  '' + lib.optionalString (!stdenv.isDarwin) ''
+    patchelf --replace-needed liblttng-ust${ext}.0 liblttng-ust${ext}.1 $pslibs/libcoreclrtraceptprovider.so
+  '' + ''
 
-        mkdir -p $out/bin
+    mkdir -p $out/bin
 
-        makeWrapper $pslibs/pwsh $out/bin/pwsh \
-          --prefix ${platformLdLibraryPath} : "${
-            lib.makeLibraryPath libraries
-          }" \
-          --set TERM xterm --set POWERSHELL_TELEMETRY_OPTOUT 1 --set DOTNET_CLI_TELEMETRY_OPTOUT 1
-      ''
-    ;
+    makeWrapper $pslibs/pwsh $out/bin/pwsh \
+      --prefix ${platformLdLibraryPath} : "${lib.makeLibraryPath libraries}" \
+      --set TERM xterm --set POWERSHELL_TELEMETRY_OPTOUT 1 --set DOTNET_CLI_TELEMETRY_OPTOUT 1
+  ''
+  ;
 
-    dontStrip = true;
+  dontStrip = true;
 
-    doInstallCheck = true;
-    installCheckPhase = ''
-      # May need a writable home, seen on Darwin.
-      HOME=$TMP $out/bin/pwsh --help > /dev/null
-    '';
+  doInstallCheck = true;
+  installCheckPhase = ''
+    # May need a writable home, seen on Darwin.
+    HOME=$TMP $out/bin/pwsh --help > /dev/null
+  '';
 
-    meta = with lib; {
-      description =
-        "Powerful cross-platform (Windows, Linux, and macOS) shell and scripting language based on .NET";
-      homepage = "https://github.com/PowerShell/PowerShell";
-      sourceProvenance = with sourceTypes; [
-        binaryBytecode
-        binaryNativeCode
-      ];
-      maintainers = with maintainers; [
-        yrashk
-        srgom
-        p3psi
-      ];
-      mainProgram = "pwsh";
-      platforms = [
-        "x86_64-darwin"
-        "x86_64-linux"
-        "aarch64-linux"
-        "aarch64-darwin"
-      ];
-      license = with licenses; [ mit ];
-    };
+  meta = with lib; {
+    description =
+      "Powerful cross-platform (Windows, Linux, and macOS) shell and scripting language based on .NET";
+    homepage = "https://github.com/PowerShell/PowerShell";
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      binaryNativeCode
+    ];
+    maintainers = with maintainers; [
+      yrashk
+      srgom
+      p3psi
+    ];
+    mainProgram = "pwsh";
+    platforms = [
+      "x86_64-darwin"
+      "x86_64-linux"
+      "aarch64-linux"
+      "aarch64-darwin"
+    ];
+    license = with licenses; [ mit ];
+  };
 
-    passthru = { shellPath = "/bin/pwsh"; };
+  passthru = { shellPath = "/bin/pwsh"; };
 
-  }
+}

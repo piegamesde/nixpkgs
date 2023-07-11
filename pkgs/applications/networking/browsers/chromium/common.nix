@@ -161,7 +161,7 @@ let
         throw "Unsupported type for GN value `${value}'.";
     toFlag = key: value: "${key}=${sanitize value}";
   in
-    attrs: lib.concatStringsSep " " (lib.attrValues (lib.mapAttrs toFlag attrs))
+  attrs: lib.concatStringsSep " " (lib.attrValues (lib.mapAttrs toFlag attrs))
   ;
 
   # https://source.chromium.org/chromium/chromium/src/+/master:build/linux/unbundle/replace_gn_files.py
@@ -482,10 +482,10 @@ let
 
   # Remove some extraAttrs we supplied to the base attributes already.
 in
-  stdenv.mkDerivation (base // removeAttrs extraAttrs [
-    "name"
-    "gnFlags"
-    "buildTargets"
-  ] // {
-    passthru = base.passthru // (extraAttrs.passthru or { });
-  })
+stdenv.mkDerivation (base // removeAttrs extraAttrs [
+  "name"
+  "gnFlags"
+  "buildTargets"
+] // {
+  passthru = base.passthru // (extraAttrs.passthru or { });
+})

@@ -43,7 +43,7 @@ in {
         configFileClause =
           optionalString (cfg.configFile != null) ''-c "${cfg.configFile}"'';
       in
-        "${cfg.package}/bin/herbstluftwm ${configFileClause}"
+      "${cfg.package}/bin/herbstluftwm ${configFileClause}"
       ;
     };
     environment.systemPackages = [ cfg.package ];

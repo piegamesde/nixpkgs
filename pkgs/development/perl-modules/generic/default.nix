@@ -74,5 +74,5 @@ lib.throwIf (attrs ? name) ''
   });
 
 in
-  toPerlModule package
+toPerlModule package
 )

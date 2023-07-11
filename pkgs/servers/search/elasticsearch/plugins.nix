@@ -215,32 +215,32 @@ in {
   search-guard = let
     majorVersion = lib.head (builtins.splitVersion esVersion);
   in
-    esPlugin rec {
-      pluginName = "search-guard";
-      version =
-        # https://docs.search-guard.com/latest/search-guard-versions
-        if
-          esVersion == "7.17.4"
-        then
-          "${esVersion}-53.4.0"
-        else
-          throw "unsupported version ${esVersion} for plugin ${pluginName}";
-      src = if
+  esPlugin rec {
+    pluginName = "search-guard";
+    version =
+      # https://docs.search-guard.com/latest/search-guard-versions
+      if
         esVersion == "7.17.4"
       then
-        fetchurl {
-          url =
-            "https://maven.search-guard.com/search-guard-suite-release/com/floragunn/search-guard-suite-plugin/${version}/search-guard-suite-plugin-${version}.zip";
-          sha256 = "sha256-PIRzhkxYryAiPjdjAXeV+g+O4YmQ1oV31m2GMC1PXu0=";
-        }
+        "${esVersion}-53.4.0"
       else
-        throw "unsupported version ${version} for plugin ${pluginName}";
-      meta = with lib; {
-        homepage = "https://search-guard.com";
-        description =
-          "Elasticsearch plugin that offers encryption, authentication, and authorisation.";
-        license = licenses.asl20;
-      };
-    }
+        throw "unsupported version ${esVersion} for plugin ${pluginName}";
+    src = if
+      esVersion == "7.17.4"
+    then
+      fetchurl {
+        url =
+          "https://maven.search-guard.com/search-guard-suite-release/com/floragunn/search-guard-suite-plugin/${version}/search-guard-suite-plugin-${version}.zip";
+        sha256 = "sha256-PIRzhkxYryAiPjdjAXeV+g+O4YmQ1oV31m2GMC1PXu0=";
+      }
+    else
+      throw "unsupported version ${version} for plugin ${pluginName}";
+    meta = with lib; {
+      homepage = "https://search-guard.com";
+      description =
+        "Elasticsearch plugin that offers encryption, authentication, and authorisation.";
+      license = licenses.asl20;
+    };
+  }
   ;
 }

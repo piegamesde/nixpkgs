@@ -45,33 +45,33 @@ let
       inherit rev sha256;
     };
   in
-    mkDerivation {
-      name = "${src.name}-patched";
-      inherit src;
+  mkDerivation {
+    name = "${src.name}-patched";
+    inherit src;
 
-      dontInstall = true;
+    dontInstall = true;
 
-      patchPhase = with lib; ''
-        # we don’t want prebuild binaries checked into version control!
-        rm -rf lib include
+    patchPhase = with lib; ''
+      # we don’t want prebuild binaries checked into version control!
+      rm -rf lib include
 
-        # fix up main project file
-        sed -e 's|-L.*unix.*lbass.*$|-lbass|' \
-            -e "/QMAKE_POST_LINK/d" \
-            -e "s|../include/bass|${getLib libbass}/include|g" \
-            -e "s|../include/taglib|${getLib taglib}/include|g" \
-            -e "s|../include/mediainfo|${getLib libmediainfo}/include|g" \
-            -i src/UltraStar-Manager.pro
+      # fix up main project file
+      sed -e 's|-L.*unix.*lbass.*$|-lbass|' \
+          -e "/QMAKE_POST_LINK/d" \
+          -e "s|../include/bass|${getLib libbass}/include|g" \
+          -e "s|../include/taglib|${getLib taglib}/include|g" \
+          -e "s|../include/mediainfo|${getLib libmediainfo}/include|g" \
+          -i src/UltraStar-Manager.pro
 
-        # if more plugins start depending on ../../../include,
-        # it should be abstracted out for all .pro files
-        sed -e "s|../../../include/taglib|${getLib taglib}/include/taglib|g" \
-            -i src/plugins/audiotag/audiotag.pro
+      # if more plugins start depending on ../../../include,
+      # it should be abstracted out for all .pro files
+      sed -e "s|../../../include/taglib|${getLib taglib}/include/taglib|g" \
+          -i src/plugins/audiotag/audiotag.pro
 
-        mkdir $out
-        mv * $out
-      '';
-    }
+      mkdir $out
+      mv * $out
+    '';
+  }
   ;
 
   patchApplicationPath = file: path: ''
@@ -106,40 +106,40 @@ let
   };
 
 in
-  mkDerivation {
-    pname = "ultrastar-manager";
-    inherit version;
-    src = patchedSrc;
+mkDerivation {
+  pname = "ultrastar-manager";
+  inherit version;
+  src = patchedSrc;
 
-    postPatch = ''
-      sed -e "s|DESTDIR =.*$|DESTDIR = $out/bin|" \
-          -i src/UltraStar-Manager.pro
-      # patch plugin manager to point to the collected plugin folder
-      ${patchApplicationPath "src/plugins/QUPluginManager.cpp" builtPlugins}
-    '';
+  postPatch = ''
+    sed -e "s|DESTDIR =.*$|DESTDIR = $out/bin|" \
+        -i src/UltraStar-Manager.pro
+    # patch plugin manager to point to the collected plugin folder
+    ${patchApplicationPath "src/plugins/QUPluginManager.cpp" builtPlugins}
+  '';
 
-    buildPhase = ''
-      find -path './src/plugins/*' -prune -type d -print0 \
-        | xargs -0 -i'{}' basename '{}' \
-        | sed -e '/shared/d' \
-        > found_plugins
-      ${diffPlugins plugins "found_plugins"}
+  buildPhase = ''
+    find -path './src/plugins/*' -prune -type d -print0 \
+      | xargs -0 -i'{}' basename '{}' \
+      | sed -e '/shared/d' \
+      > found_plugins
+    ${diffPlugins plugins "found_plugins"}
 
-      cd src && qmake && make
-    '';
+    cd src && qmake && make
+  '';
 
-    # is not installPhase so that qt post hooks can run
-    preInstall = ''
-      make install
-    '';
+  # is not installPhase so that qt post hooks can run
+  preInstall = ''
+    make install
+  '';
 
-    nativeBuildInputs = [ pkg-config ];
-    inherit buildInputs;
+  nativeBuildInputs = [ pkg-config ];
+  inherit buildInputs;
 
-    meta = with lib; {
-      description = "Ultrastar karaoke song manager";
-      homepage = "https://github.com/UltraStar-Deluxe/UltraStar-Manager";
-      license = licenses.gpl2;
-      maintainers = with maintainers; [ Profpatsch ];
-    };
-  }
+  meta = with lib; {
+    description = "Ultrastar karaoke song manager";
+    homepage = "https://github.com/UltraStar-Deluxe/UltraStar-Manager";
+    license = licenses.gpl2;
+    maintainers = with maintainers; [ Profpatsch ];
+  };
+}

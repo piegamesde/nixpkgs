@@ -62,44 +62,44 @@ let
         ""
       ] (lib.toLower plong);
     in
-      stdenv.mkDerivation ({
-        name = "${pname}-${version}";
+    stdenv.mkDerivation ({
+      name = "${pname}-${version}";
 
-        nativeBuildInputs = [ unzip ];
+      nativeBuildInputs = [ unzip ];
 
-        dontBuild = true;
-        dontFixup = true;
+      dontBuild = true;
+      dontFixup = true;
 
-        installPhase = ''
-          runHook preInstall
+      installPhase = ''
+        runHook preInstall
 
-          mkdir -p $out/bin $out/share/{applications,${pname},doc/${pname}}
+        mkdir -p $out/bin $out/share/{applications,${pname},doc/${pname}}
 
-          ${lib.concatStringsSep "\n"
-          (map (f: "mv ${f} $out/share/doc/${pname}") docs)}
-          ${lib.concatStringsSep "\n"
-          (map (f: "mv ${f} $out/share/${pname}") files)}
+        ${lib.concatStringsSep "\n"
+        (map (f: "mv ${f} $out/share/doc/${pname}") docs)}
+        ${lib.concatStringsSep "\n"
+        (map (f: "mv ${f} $out/share/${pname}") files)}
 
-          substitute ${run pname pshort pcode} $out/bin/${pshort} \
-            --subst-var out
-          substitute ${
-            desktopItem pname pshort plong description
-          }/share/applications/${pname}.desktop $out/share/applications/${pname}.desktop \
-            --subst-var out
+        substitute ${run pname pshort pcode} $out/bin/${pshort} \
+          --subst-var out
+        substitute ${
+          desktopItem pname pshort plong description
+        }/share/applications/${pname}.desktop $out/share/applications/${pname}.desktop \
+          --subst-var out
 
-          chmod 0755 $out/bin/${pshort}
+        chmod 0755 $out/bin/${pshort}
 
-          runHook postInstall
-        '';
+        runHook postInstall
+      '';
 
-        meta = with lib; {
-          homepage = "https://www.scummvm.org";
-          license = licenses.free; # refer to the readme for exact wording
-          maintainers = with maintainers; [ peterhoeg ];
-          inherit description;
-          inherit (scummvm.meta) platforms;
-        };
-      } // attrs')
+      meta = with lib; {
+        homepage = "https://www.scummvm.org";
+        license = licenses.free; # refer to the readme for exact wording
+        maintainers = with maintainers; [ peterhoeg ];
+        inherit description;
+        inherit (scummvm.meta) platforms;
+      };
+    } // attrs')
   ;
 
 in {

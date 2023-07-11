@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     ] ++ lib.optionals
       stdenv.hostPlatform.isStatic [ "LogBacktraceAt.DoesBacktraceAtRightLineWhenEnabled" ];
   in
-    lib.optionalString doCheck "-${builtins.concatStringsSep ":" filteredTests}"
+  lib.optionalString doCheck "-${builtins.concatStringsSep ":" filteredTests}"
   ;
 
   meta = with lib; {

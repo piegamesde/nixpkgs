@@ -178,9 +178,9 @@ in {
         "${cfg.hostName}.${cfg.domain}" ++ optional (cfg.hostName != "")
         cfg.hostName; # Then the hostname (without the domain)
     in
-      {
-        "127.0.0.2" = hostnames;
-      } // optionalAttrs cfg.enableIPv6 { "::1" = hostnames; }
+    {
+      "127.0.0.2" = hostnames;
+    } // optionalAttrs cfg.enableIPv6 { "::1" = hostnames; }
     ;
 
     networking.hostFiles = let
@@ -196,16 +196,16 @@ in {
         oneToString = set: ip: ip + " " + concatStringsSep " " set.${ip} + "\n";
         allToString = set: concatMapStrings (oneToString set) (attrNames set);
       in
-        pkgs.writeText "string-hosts"
-        (allToString (filterAttrs (_: v: v != [ ]) cfg.hosts))
+      pkgs.writeText "string-hosts"
+      (allToString (filterAttrs (_: v: v != [ ]) cfg.hosts))
       ;
       extraHosts = pkgs.writeText "extra-hosts" cfg.extraHosts;
     in
-      mkBefore [
-        localhostHosts
-        stringHosts
-        extraHosts
-      ]
+    mkBefore [
+      localhostHosts
+      stringHosts
+      extraHosts
+    ]
     ;
 
     environment.etc = { # /etc/services: TCP/UDP port assignments.

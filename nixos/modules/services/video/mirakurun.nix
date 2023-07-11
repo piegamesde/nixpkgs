@@ -202,7 +202,7 @@ in {
         targets = [ "server" ] ++ optional (cfg.tunerSettings != null) "tuners"
           ++ optional (cfg.channelSettings != null) "channels";
       in
-        (map getconf targets)
+      (map getconf targets)
       ;
     };
   };

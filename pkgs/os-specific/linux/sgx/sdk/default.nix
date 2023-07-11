@@ -262,16 +262,16 @@ stdenv.mkDerivation rec {
     testsHWLinked =
       linkFarmFromDrvs "sgx-samples-hw-bundle" (lib.attrValues testsHW);
   in
-    writeShellApplication {
-      name = "run-tests-hw";
-      text = ''
-        for test in ${testsHWLinked}/*; do
-          printf '*** Running test %s ***\n\n' "$(basename "$test")"
-          printf 'a\n' | "$test/bin/app"
-          printf '\n'
-        done
-      '';
-    }
+  writeShellApplication {
+    name = "run-tests-hw";
+    text = ''
+      for test in ${testsHWLinked}/*; do
+        printf '*** Running test %s ***\n\n' "$(basename "$test")"
+        printf 'a\n' | "$test/bin/app"
+        printf '\n'
+      done
+    '';
+  }
   ;
 
   meta = with lib; {

@@ -25,38 +25,37 @@ let
     lua = [ lua ];
   };
 in
-  stdenv.mkDerivation rec {
-    pname = "libucl";
-    version = "0.8.2";
+stdenv.mkDerivation rec {
+  pname = "libucl";
+  version = "0.8.2";
 
-    src = fetchFromGitHub {
-      owner = "vstakhov";
-      repo = pname;
-      rev = version;
-      sha256 = "sha256-rpTc0gq8HquDow4NEkRSjyESEMrv8dAhX98yKKu/Fsk=";
-    };
+  src = fetchFromGitHub {
+    owner = "vstakhov";
+    repo = pname;
+    rev = version;
+    sha256 = "sha256-rpTc0gq8HquDow4NEkRSjyESEMrv8dAhX98yKKu/Fsk=";
+  };
 
-    nativeBuildInputs = [
-      pkg-config
-      autoreconfHook
-    ];
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ];
 
-    buildInputs = with lib;
-      concatLists (mapAttrsToList
-        (feat: enabled: optionals enabled (featureDeps."${feat}" or [ ]))
-        features);
+  buildInputs = with lib;
+    concatLists (mapAttrsToList
+      (feat: enabled: optionals enabled (featureDeps."${feat}" or [ ]))
+      features);
 
-    enableParallelBuilding = true;
+  enableParallelBuilding = true;
 
-    configureFlags = with lib;
-      mapAttrsToList (feat: enabled: strings.enableFeature enabled feat)
-      features;
+  configureFlags = with lib;
+    mapAttrsToList (feat: enabled: strings.enableFeature enabled feat) features;
 
-    meta = with lib; {
-      description = "Universal configuration library parser";
-      homepage = "https://github.com/vstakhov/libucl";
-      license = licenses.bsd2;
-      platforms = platforms.unix;
-      maintainers = with maintainers; [ jpotier ];
-    };
-  }
+  meta = with lib; {
+    description = "Universal configuration library parser";
+    homepage = "https://github.com/vstakhov/libucl";
+    license = licenses.bsd2;
+    platforms = platforms.unix;
+    maintainers = with maintainers; [ jpotier ];
+  };
+}

@@ -42,21 +42,21 @@ stdenv.mkDerivation rec {
       genericName = gameName;
     };
   in
-    map (x: makeDesktopItem (generateItem x)) [
-      "canfield"
-      "freecell"
-      "golf"
-      "mastermind"
-      "merlin"
-      "minesweeper"
-      "pegged"
-      "penguins"
-      "solitaire"
-      "spider"
-      "taipedit"
-      "taipei"
-      "thornq"
-    ]
+  map (x: makeDesktopItem (generateItem x)) [
+    "canfield"
+    "freecell"
+    "golf"
+    "mastermind"
+    "merlin"
+    "minesweeper"
+    "pegged"
+    "penguins"
+    "solitaire"
+    "spider"
+    "taipedit"
+    "taipei"
+    "thornq"
+  ]
   ;
 
   meta = with lib; {

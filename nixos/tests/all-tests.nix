@@ -71,7 +71,7 @@ let
       let
         r = doRunTest arg;
       in
-        findTests r
+      findTests r
     ;
     runTestOn = systems: arg:
       if

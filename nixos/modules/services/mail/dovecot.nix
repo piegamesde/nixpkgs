@@ -243,37 +243,37 @@ in {
           };
         };
     in
-      mkOption {
-        type = with types;
-          submodule {
-            options = {
-              globally = mkOption {
-                description = lib.mdDoc
-                  "Additional entries to add to the mail_plugins variable for all protocols";
-                type = plugins "top-level";
-                example = { enable = [ "virtual" ]; };
-                default = { enable = [ ]; };
-              };
-              perProtocol = mkOption {
-                description = lib.mdDoc
-                  "Additional entries to add to the mail_plugins variable, per protocol";
-                type = attrsOf (plugins "corresponding per-protocol");
-                default = { };
-                example = { imap = [ "imap_acl" ]; };
-              };
+    mkOption {
+      type = with types;
+        submodule {
+          options = {
+            globally = mkOption {
+              description = lib.mdDoc
+                "Additional entries to add to the mail_plugins variable for all protocols";
+              type = plugins "top-level";
+              example = { enable = [ "virtual" ]; };
+              default = { enable = [ ]; };
+            };
+            perProtocol = mkOption {
+              description = lib.mdDoc
+                "Additional entries to add to the mail_plugins variable, per protocol";
+              type = attrsOf (plugins "corresponding per-protocol");
+              default = { };
+              example = { imap = [ "imap_acl" ]; };
             };
           };
-        description = lib.mdDoc
-          "Additional entries to add to the mail_plugins variable, globally and per protocol";
-        example = {
-          globally.enable = [ "acl" ];
-          perProtocol.imap.enable = [ "imap_acl" ];
         };
-        default = {
-          globally.enable = [ ];
-          perProtocol = { };
-        };
-      }
+      description = lib.mdDoc
+        "Additional entries to add to the mail_plugins variable, globally and per protocol";
+      example = {
+        globally.enable = [ "acl" ];
+        perProtocol.imap.enable = [ "imap_acl" ];
+      };
+      default = {
+        globally.enable = [ ];
+        perProtocol = { };
+      };
+    }
     ;
 
     configFile = mkOption {

@@ -18,55 +18,55 @@ let
         "rev"
       ];
     in
-      buildGoModule {
-        pname = "kops";
-        inherit version;
+    buildGoModule {
+      pname = "kops";
+      inherit version;
 
-        src = fetchFromGitHub {
-          rev = rev;
-          owner = "kubernetes";
-          repo = "kops";
-          inherit sha256;
-        };
+      src = fetchFromGitHub {
+        rev = rev;
+        owner = "kubernetes";
+        repo = "kops";
+        inherit sha256;
+      };
 
-        vendorSha256 = null;
+      vendorSha256 = null;
 
-        nativeBuildInputs = [ installShellFiles ];
+      nativeBuildInputs = [ installShellFiles ];
 
-        subPackages = [ "cmd/kops" ];
+      subPackages = [ "cmd/kops" ];
 
-        ldflags = [
-          "-s"
-          "-w"
-          "-X k8s.io/kops.Version=${version}"
-          "-X k8s.io/kops.GitVersion=${version}"
+      ldflags = [
+        "-s"
+        "-w"
+        "-X k8s.io/kops.Version=${version}"
+        "-X k8s.io/kops.GitVersion=${version}"
+      ];
+
+      doCheck = false;
+
+      postInstall = ''
+        installShellCompletion --cmd kops \
+          --bash <($GOPATH/bin/kops completion bash) \
+          --fish <($GOPATH/bin/kops completion fish) \
+          --zsh <($GOPATH/bin/kops completion zsh)
+      '';
+
+      meta = with lib; {
+        description =
+          "Easiest way to get a production Kubernetes up and running";
+        homepage = "https://github.com/kubernetes/kops";
+        changelog =
+          "https://github.com/kubernetes/kops/tree/master/docs/releases";
+        license = licenses.asl20;
+        maintainers = with maintainers; [
+          offline
+          zimbatm
+          diegolelis
+          yurrriq
         ];
-
-        doCheck = false;
-
-        postInstall = ''
-          installShellCompletion --cmd kops \
-            --bash <($GOPATH/bin/kops completion bash) \
-            --fish <($GOPATH/bin/kops completion fish) \
-            --zsh <($GOPATH/bin/kops completion zsh)
-        '';
-
-        meta = with lib; {
-          description =
-            "Easiest way to get a production Kubernetes up and running";
-          homepage = "https://github.com/kubernetes/kops";
-          changelog =
-            "https://github.com/kubernetes/kops/tree/master/docs/releases";
-          license = licenses.asl20;
-          maintainers = with maintainers; [
-            offline
-            zimbatm
-            diegolelis
-            yurrriq
-          ];
-          platforms = platforms.unix;
-        };
-      } // attrs'
+        platforms = platforms.unix;
+      };
+    } // attrs'
   ;
 in rec {
   mkKops = generic;

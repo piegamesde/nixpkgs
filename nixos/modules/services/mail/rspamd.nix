@@ -100,13 +100,13 @@ let
                 showFiles files
               } has enum value `proxy` which has been renamed to `rspamd_proxy`";
           in
-            x:
-            if
-              x == "proxy"
-            then
-              traceWarning warning "rspamd_proxy"
-            else
-              x
+          x:
+          if
+            x == "proxy"
+          then
+            traceWarning warning "rspamd_proxy"
+          else
+            x
           ;
         };
         bindSockets = mkOption {
@@ -184,12 +184,12 @@ let
               group = cfg.group;
             };
           in
-            mkDefault (if
-              name == "normal"
-            then [ (unixSocket "rspamd") ] else if name
-            == "controller" then [ "localhost:11334" ] else if name
-            == "rspamd_proxy" then [ (unixSocket "proxy") ] else
-              [ ])
+          mkDefault (if
+            name == "normal"
+          then [ (unixSocket "rspamd") ] else if name
+          == "controller" then [ "localhost:11334" ] else if name
+          == "rspamd_proxy" then [ (unixSocket "proxy") ] else
+            [ ])
           ;
         };
     };
@@ -310,7 +310,7 @@ let
         source = mkIf (config.text != null) (let
           name' = "rspamd-${prefix}-" + baseNameOf name;
         in
-          mkDefault (pkgs.writeText name' config.text)
+        mkDefault (pkgs.writeText name' config.text)
         );
       };
     };

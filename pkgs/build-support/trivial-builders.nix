@@ -75,30 +75,30 @@ in rec {
     # prevent infinite recursion for the default stdenv value
     defaultStdenv = stdenv;
   in
-    {
-    # which stdenv to use, defaults to a stdenv with a C compiler, pkgs.stdenv
-      stdenv ? defaultStdenv
-        # whether to build this derivation locally instead of substituting
-      ,
-      runLocal ? false
-        # extra arguments to pass to stdenv.mkDerivation
-      ,
-      derivationArgs ? { }
-        # name of the resulting derivation
-      ,
-      name
-      # TODO(@Artturin): enable strictDeps always
-      ,
-    }:
-    buildCommand:
-    stdenv.mkDerivation ({
-      enableParallelBuilding = true;
-      inherit buildCommand name;
-      passAsFile = [ "buildCommand" ] ++ (derivationArgs.passAsFile or [ ]);
-    } // (lib.optionalAttrs runLocal {
-      preferLocalBuild = true;
-      allowSubstitutes = false;
-    }) // builtins.removeAttrs derivationArgs [ "passAsFile" ])
+  {
+  # which stdenv to use, defaults to a stdenv with a C compiler, pkgs.stdenv
+    stdenv ? defaultStdenv
+      # whether to build this derivation locally instead of substituting
+    ,
+    runLocal ? false
+      # extra arguments to pass to stdenv.mkDerivation
+    ,
+    derivationArgs ? { }
+      # name of the resulting derivation
+    ,
+    name
+    # TODO(@Artturin): enable strictDeps always
+    ,
+  }:
+  buildCommand:
+  stdenv.mkDerivation ({
+    enableParallelBuilding = true;
+    inherit buildCommand name;
+    passAsFile = [ "buildCommand" ] ++ (derivationArgs.passAsFile or [ ]);
+  } // (lib.optionalAttrs runLocal {
+    preferLocalBuild = true;
+    allowSubstitutes = false;
+  }) // builtins.removeAttrs derivationArgs [ "passAsFile" ])
   ;
 
   /* Writes a text file to the nix store.
@@ -490,13 +490,13 @@ in rec {
         passAsFile = [ "paths" ];
       }; # pass the defaults
     in
-      runCommand name args ''
-        mkdir -p $out
-        for i in $(cat $pathsPath); do
-          ${lndir}/bin/lndir -silent $i $out
-        done
-        ${postBuild}
-      ''
+    runCommand name args ''
+      mkdir -p $out
+      for i in $(cat $pathsPath); do
+        ${lndir}/bin/lndir -silent $i $out
+      done
+      ${postBuild}
+    ''
   ;
 
   /* Quickly create a set of symlinks to derivations.
@@ -542,15 +542,15 @@ in rec {
         ln -s ${lib.escapeShellArg "${path}"} ${lib.escapeShellArg "${name}"}
       '') entries';
     in
-      runCommand name {
-        preferLocalBuild = true;
-        allowSubstitutes = false;
-        passthru.entries = entries';
-      } ''
-        mkdir -p $out
-        cd $out
-        ${lib.concatStrings linkCommands}
-      ''
+    runCommand name {
+      preferLocalBuild = true;
+      allowSubstitutes = false;
+      passthru.entries = entries';
+    } ''
+      mkdir -p $out
+      cd $out
+      ${lib.concatStrings linkCommands}
+    ''
   ;
 
   /* Easily create a linkFarm from a set of derivations.
@@ -578,7 +578,7 @@ in rec {
         path = drv;
       };
     in
-      linkFarm name (map mkEntryFromDrv drvs)
+    linkFarm name (map mkEntryFromDrv drvs)
   ;
 
   # docs in doc/builders/special/makesetuphook.section.md
@@ -811,25 +811,25 @@ in rec {
       else
         name;
     in
-      stdenvNoCC.mkDerivation {
-        name = name_;
-        outputHashMode = hashMode;
-        outputHashAlgo = hashAlgo;
-        outputHash = hash_;
-        preferLocalBuild = true;
-        allowSubstitutes = false;
-        builder = writeScript "restrict-message" ''
-          source ${stdenvNoCC}/setup
-          cat <<_EOF_
+    stdenvNoCC.mkDerivation {
+      name = name_;
+      outputHashMode = hashMode;
+      outputHashAlgo = hashAlgo;
+      outputHash = hash_;
+      preferLocalBuild = true;
+      allowSubstitutes = false;
+      builder = writeScript "restrict-message" ''
+        source ${stdenvNoCC}/setup
+        cat <<_EOF_
 
-          ***
-          ${msg}
-          ***
+        ***
+        ${msg}
+        ***
 
-          _EOF_
-          exit 1
-        '';
-      }
+        _EOF_
+        exit 1
+      '';
+    }
   ;
 
   /* Copy a path to the Nix store.

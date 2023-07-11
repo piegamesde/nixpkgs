@@ -76,7 +76,7 @@ lib.makeScope pkgs.newScope (self:
         else
           (_: origArgs)));
       in
-        pkgs.stdenv.mkDerivation args
+      pkgs.stdenv.mkDerivation args
     ;
 
     # Function to build an extension which is shipped as part of the php
@@ -692,6 +692,6 @@ lib.makeScope pkgs.newScope (self:
 
       # Produce the final attribute set of all extensions defined.
     in
-      builtins.listToAttrs namedExtensions
+    builtins.listToAttrs namedExtensions
     );
   })

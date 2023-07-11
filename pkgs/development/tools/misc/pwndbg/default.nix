@@ -28,42 +28,42 @@ let
       ]);
 
 in
-  stdenv.mkDerivation rec {
-    pname = "pwndbg";
-    version = "2022.12.19";
-    format = "other";
+stdenv.mkDerivation rec {
+  pname = "pwndbg";
+  version = "2022.12.19";
+  format = "other";
 
-    src = fetchFromGitHub {
-      owner = "pwndbg";
-      repo = "pwndbg";
-      rev = version;
-      sha256 = "sha256-pyY2bMasd6GaJZZjLF48SvkKUBw3XfVa0g3Q0LiEi4k=";
-      fetchSubmodules = true;
-    };
+  src = fetchFromGitHub {
+    owner = "pwndbg";
+    repo = "pwndbg";
+    rev = version;
+    sha256 = "sha256-pyY2bMasd6GaJZZjLF48SvkKUBw3XfVa0g3Q0LiEi4k=";
+    fetchSubmodules = true;
+  };
 
-    nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeWrapper ];
 
-    installPhase = ''
-      mkdir -p $out/share/pwndbg
-      cp -r *.py pwndbg gdb-pt-dump $out/share/pwndbg
-      chmod +x $out/share/pwndbg/gdbinit.py
-      makeWrapper ${gdb}/bin/gdb $out/bin/pwndbg \
-        --add-flags "-q -x $out/share/pwndbg/gdbinit.py" \
-        --prefix PATH : ${binPath} \
-        --set NIX_PYTHONPATH ${pythonPath}
-    '';
+  installPhase = ''
+    mkdir -p $out/share/pwndbg
+    cp -r *.py pwndbg gdb-pt-dump $out/share/pwndbg
+    chmod +x $out/share/pwndbg/gdbinit.py
+    makeWrapper ${gdb}/bin/gdb $out/bin/pwndbg \
+      --add-flags "-q -x $out/share/pwndbg/gdbinit.py" \
+      --prefix PATH : ${binPath} \
+      --set NIX_PYTHONPATH ${pythonPath}
+  '';
 
-    meta = with lib; {
-      description =
-        "Exploit Development and Reverse Engineering with GDB Made Easy";
-      homepage = "https://github.com/pwndbg/pwndbg";
-      license = licenses.mit;
-      platforms = platforms.all;
-      maintainers = with maintainers; [
-        mic92
-        patryk4815
-      ];
-      # not supported on aarch64-darwin see: https://inbox.sourceware.org/gdb/3185c3b8-8a91-4beb-a5d5-9db6afb93713@Spark/
-      broken = stdenv.isDarwin && stdenv.isAarch64;
-    };
-  }
+  meta = with lib; {
+    description =
+      "Exploit Development and Reverse Engineering with GDB Made Easy";
+    homepage = "https://github.com/pwndbg/pwndbg";
+    license = licenses.mit;
+    platforms = platforms.all;
+    maintainers = with maintainers; [
+      mic92
+      patryk4815
+    ];
+    # not supported on aarch64-darwin see: https://inbox.sourceware.org/gdb/3185c3b8-8a91-4beb-a5d5-9db6afb93713@Spark/
+    broken = stdenv.isDarwin && stdenv.isAarch64;
+  };
+}

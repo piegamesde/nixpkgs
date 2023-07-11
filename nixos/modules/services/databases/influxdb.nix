@@ -178,11 +178,11 @@ in {
           else
             "${ba}") (toString configOptions.http.bind-address);
       in
-        mkBefore ''
-          until ${pkgs.curl.bin}/bin/curl -s -o /dev/null ${scheme}://${bindAddr}/ping; do
-            sleep 1;
-          done
-        ''
+      mkBefore ''
+        until ${pkgs.curl.bin}/bin/curl -s -o /dev/null ${scheme}://${bindAddr}/ping; do
+          sleep 1;
+        done
+      ''
       ;
     };
 

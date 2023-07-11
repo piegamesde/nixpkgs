@@ -49,4 +49,4 @@ let
     };
   };
 in
-  pygments
+pygments

@@ -17,14 +17,14 @@ let
   };
 
 in
-  bootStages ++ [
+bootStages ++ [
 
-    # Additional stage, built using custom stdenv
-    (vanillaPackages: {
-      inherit config overlays;
-      stdenv = assert vanillaPackages.hostPlatform == localSystem;
-        assert vanillaPackages.targetPlatform == localSystem;
-        config.replaceStdenv { pkgs = vanillaPackages; };
-    })
+  # Additional stage, built using custom stdenv
+  (vanillaPackages: {
+    inherit config overlays;
+    stdenv = assert vanillaPackages.hostPlatform == localSystem;
+      assert vanillaPackages.targetPlatform == localSystem;
+      config.replaceStdenv { pkgs = vanillaPackages; };
+  })
 
-  ]
+]

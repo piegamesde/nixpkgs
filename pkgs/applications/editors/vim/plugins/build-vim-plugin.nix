@@ -47,7 +47,7 @@ rec {
         meta = { platforms = lib.platforms.all; } // meta;
       });
     in
-      addRtp (toVimPlugin drv)
+    addRtp (toVimPlugin drv)
   ;
 
   buildVimPluginFrom2Nix = attrs:

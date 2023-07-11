@@ -45,36 +45,36 @@ let
       };
     });
 in
-  python3Packages.buildPythonApplication rec {
-    pname = "onlykey-agent";
-    version = "1.1.13";
+python3Packages.buildPythonApplication rec {
+  pname = "onlykey-agent";
+  version = "1.1.13";
 
-    src = python3Packages.fetchPypi {
-      inherit pname version;
-      sha256 = "sha256-GAb6crtW6rLAbFtdi6fAGCPjXpKFhravguoGjuNcIxc=";
-    };
+  src = python3Packages.fetchPypi {
+    inherit pname version;
+    sha256 = "sha256-GAb6crtW6rLAbFtdi6fAGCPjXpKFhravguoGjuNcIxc=";
+  };
 
-    propagatedBuildInputs = with python3Packages; [
-      lib-agent
-      onlykey-cli
-    ];
+  propagatedBuildInputs = with python3Packages; [
+    lib-agent
+    onlykey-cli
+  ];
 
-    # move the python library into the sitePackages.
-    postInstall = ''
-      mkdir $out/${python3Packages.python.sitePackages}/onlykey_agent
-      mv $out/bin/onlykey_agent.py $out/${python3Packages.python.sitePackages}/onlykey_agent/__init__.py
-      chmod a-x $out/${python3Packages.python.sitePackages}/onlykey_agent/__init__.py
-    '';
+  # move the python library into the sitePackages.
+  postInstall = ''
+    mkdir $out/${python3Packages.python.sitePackages}/onlykey_agent
+    mv $out/bin/onlykey_agent.py $out/${python3Packages.python.sitePackages}/onlykey_agent/__init__.py
+    chmod a-x $out/${python3Packages.python.sitePackages}/onlykey_agent/__init__.py
+  '';
 
-    # no tests
-    doCheck = false;
-    pythonImportsCheck = [ "onlykey_agent" ];
+  # no tests
+  doCheck = false;
+  pythonImportsCheck = [ "onlykey_agent" ];
 
-    meta = with lib; {
-      description =
-        " The OnlyKey agent is essentially middleware that lets you use OnlyKey as a hardware SSH/GPG device.";
-      homepage = "https://github.com/trustcrypto/onlykey-agent";
-      license = licenses.lgpl3Only;
-      maintainers = with maintainers; [ kalbasit ];
-    };
-  }
+  meta = with lib; {
+    description =
+      " The OnlyKey agent is essentially middleware that lets you use OnlyKey as a hardware SSH/GPG device.";
+    homepage = "https://github.com/trustcrypto/onlykey-agent";
+    license = licenses.lgpl3Only;
+    maintainers = with maintainers; [ kalbasit ];
+  };
+}

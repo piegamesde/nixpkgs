@@ -50,54 +50,54 @@ let
     }.${gnuradio.versionAttr.major};
   };
 in
-  mkDerivation {
-    pname = "gr-grnet";
-    version = version.name;
-    inherit src;
-    disabledForGRafter = "3.10";
+mkDerivation {
+  pname = "gr-grnet";
+  version = version.name;
+  inherit src;
+  disabledForGRafter = "3.10";
 
-    patches = [
-      # Use cross platform struct ip instead of iphdr
-      # https://github.com/ghostop14/gr-grnet/pull/19
-      (fetchpatch {
-        name = "fix-compilation-on-darwin.patch";
-        url =
-          "https://github.com/ghostop14/gr-grnet/commit/52c07daa9ba595b76ffa5dd90c0c96694d95d140.patch";
-        sha256 = "sha256-1gJaYLIn09blOhALMfBPROt5YBXaosG41Vsd3+5h518=";
-      })
-    ];
+  patches = [
+    # Use cross platform struct ip instead of iphdr
+    # https://github.com/ghostop14/gr-grnet/pull/19
+    (fetchpatch {
+      name = "fix-compilation-on-darwin.patch";
+      url =
+        "https://github.com/ghostop14/gr-grnet/commit/52c07daa9ba595b76ffa5dd90c0c96694d95d140.patch";
+      sha256 = "sha256-1gJaYLIn09blOhALMfBPROt5YBXaosG41Vsd3+5h518=";
+    })
+  ];
 
-    buildInputs = [
-      boost
-      logLib
-      doxygen
-      mpir
-      gmp
-      libpcap
-      icu
-    ] ++ (if
-      lib.versionAtLeast gnuradio.versionAttr.major "3.9"
-    then
-      with python.pkgs; [
-        pybind11
-        numpy
-      ]
-    else [
-      swig
-      thrift
-      python.pkgs.thrift
-    ]);
-    nativeBuildInputs = [
-      cmake
-      pkg-config
-    ];
+  buildInputs = [
+    boost
+    logLib
+    doxygen
+    mpir
+    gmp
+    libpcap
+    icu
+  ] ++ (if
+    lib.versionAtLeast gnuradio.versionAttr.major "3.9"
+  then
+    with python.pkgs; [
+      pybind11
+      numpy
+    ]
+  else [
+    swig
+    thrift
+    python.pkgs.thrift
+  ]);
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-    meta = with lib; {
-      description =
-        "GNURadio TCP/UDP source and sink blocks rewritten in C++/Boost";
-      homepage = "https://github.com/ghostop14/gr-grnet";
-      license = licenses.gpl3Plus;
-      maintainers = with maintainers; [ chuangzhu ];
-      platforms = platforms.unix;
-    };
-  }
+  meta = with lib; {
+    description =
+      "GNURadio TCP/UDP source and sink blocks rewritten in C++/Boost";
+    homepage = "https://github.com/ghostop14/gr-grnet";
+    license = licenses.gpl3Plus;
+    maintainers = with maintainers; [ chuangzhu ];
+    platforms = platforms.unix;
+  };
+}

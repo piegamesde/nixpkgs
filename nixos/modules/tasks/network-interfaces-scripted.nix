@@ -80,7 +80,7 @@ let
             };
         };
     in
-      listToAttrs (map createNetworkLink interfaces)
+    listToAttrs (map createNetworkLink interfaces)
     ;
     systemd.services = let
 
@@ -209,86 +209,84 @@ let
         let
           ips = interfaceIps i;
         in
-          nameValuePair "network-addresses-${i.name}" {
-            description = "Address configuration of ${i.name}";
-            wantedBy = [
-              "network-setup.service"
-              "network.target"
-            ];
-            # order before network-setup because the routes that are configured
-            # there may need ip addresses configured
-            before = [ "network-setup.service" ];
-            bindsTo = deviceDependency i.name;
-            after = [ "network-pre.target" ] ++ (deviceDependency i.name);
-            serviceConfig.Type = "oneshot";
-            serviceConfig.RemainAfterExit = true;
-            # Restart rather than stop+start this unit to prevent the
-            # network from dying during switch-to-configuration.
-            stopIfChanged = false;
-            path = [ pkgs.iproute2 ];
-            script = ''
-              state="/run/nixos/network/addresses/${i.name}"
-              mkdir -p $(dirname "$state")
+        nameValuePair "network-addresses-${i.name}" {
+          description = "Address configuration of ${i.name}";
+          wantedBy = [
+            "network-setup.service"
+            "network.target"
+          ];
+          # order before network-setup because the routes that are configured
+          # there may need ip addresses configured
+          before = [ "network-setup.service" ];
+          bindsTo = deviceDependency i.name;
+          after = [ "network-pre.target" ] ++ (deviceDependency i.name);
+          serviceConfig.Type = "oneshot";
+          serviceConfig.RemainAfterExit = true;
+          # Restart rather than stop+start this unit to prevent the
+          # network from dying during switch-to-configuration.
+          stopIfChanged = false;
+          path = [ pkgs.iproute2 ];
+          script = ''
+            state="/run/nixos/network/addresses/${i.name}"
+            mkdir -p $(dirname "$state")
 
-              ip link set "${i.name}" up
+            ip link set "${i.name}" up
 
-              ${flip concatMapStrings ips (ip:
-                let
-                  cidr = "${ip.address}/${toString ip.prefixLength}";
-                in ''
-                  echo "${cidr}" >> $state
-                  echo -n "adding address ${cidr}... "
-                  if out=$(ip addr add "${cidr}" dev "${i.name}" 2>&1); then
-                    echo "done"
-                  elif ! echo "$out" | grep "File exists" >/dev/null 2>&1; then
-                    echo "'ip addr add "${cidr}" dev "${i.name}"' failed: $out"
-                    exit 1
-                  fi
-                '' )}
+            ${flip concatMapStrings ips (ip:
+              let
+                cidr = "${ip.address}/${toString ip.prefixLength}";
+              in ''
+                echo "${cidr}" >> $state
+                echo -n "adding address ${cidr}... "
+                if out=$(ip addr add "${cidr}" dev "${i.name}" 2>&1); then
+                  echo "done"
+                elif ! echo "$out" | grep "File exists" >/dev/null 2>&1; then
+                  echo "'ip addr add "${cidr}" dev "${i.name}"' failed: $out"
+                  exit 1
+                fi
+              '' )}
 
-              state="/run/nixos/network/routes/${i.name}"
-              mkdir -p $(dirname "$state")
+            state="/run/nixos/network/routes/${i.name}"
+            mkdir -p $(dirname "$state")
 
-              ${flip concatMapStrings (i.ipv4.routes ++ i.ipv6.routes) (route:
-                let
-                  cidr = "${route.address}/${toString route.prefixLength}";
-                  via =
-                    optionalString (route.via != null) ''via "${route.via}"'';
-                  options = concatStrings
-                    (mapAttrsToList (name: val: "${name} ${val} ")
-                      route.options);
-                  type = toString route.type;
-                in ''
-                  echo "${cidr}" >> $state
-                  echo -n "adding route ${cidr}... "
-                  if out=$(ip route add ${type} "${cidr}" ${options} ${via} dev "${i.name}" proto static 2>&1); then
-                    echo "done"
-                  elif ! echo "$out" | grep "File exists" >/dev/null 2>&1; then
-                    echo "'ip route add ${type} "${cidr}" ${options} ${via} dev "${i.name}"' failed: $out"
-                    exit 1
-                  fi
-                '' )}
-            '';
-            preStop = ''
-              state="/run/nixos/network/routes/${i.name}"
-              if [ -e "$state" ]; then
-                while read cidr; do
-                  echo -n "deleting route $cidr... "
-                  ip route del "$cidr" dev "${i.name}" >/dev/null 2>&1 && echo "done" || echo "failed"
-                done < "$state"
-                rm -f "$state"
-              fi
+            ${flip concatMapStrings (i.ipv4.routes ++ i.ipv6.routes) (route:
+              let
+                cidr = "${route.address}/${toString route.prefixLength}";
+                via = optionalString (route.via != null) ''via "${route.via}"'';
+                options = concatStrings
+                  (mapAttrsToList (name: val: "${name} ${val} ") route.options);
+                type = toString route.type;
+              in ''
+                echo "${cidr}" >> $state
+                echo -n "adding route ${cidr}... "
+                if out=$(ip route add ${type} "${cidr}" ${options} ${via} dev "${i.name}" proto static 2>&1); then
+                  echo "done"
+                elif ! echo "$out" | grep "File exists" >/dev/null 2>&1; then
+                  echo "'ip route add ${type} "${cidr}" ${options} ${via} dev "${i.name}"' failed: $out"
+                  exit 1
+                fi
+              '' )}
+          '';
+          preStop = ''
+            state="/run/nixos/network/routes/${i.name}"
+            if [ -e "$state" ]; then
+              while read cidr; do
+                echo -n "deleting route $cidr... "
+                ip route del "$cidr" dev "${i.name}" >/dev/null 2>&1 && echo "done" || echo "failed"
+              done < "$state"
+              rm -f "$state"
+            fi
 
-              state="/run/nixos/network/addresses/${i.name}"
-              if [ -e "$state" ]; then
-                while read cidr; do
-                  echo -n "deleting address $cidr... "
-                  ip addr del "$cidr" dev "${i.name}" >/dev/null 2>&1 && echo "done" || echo "failed"
-                done < "$state"
-                rm -f "$state"
-              fi
-            '';
-          }
+            state="/run/nixos/network/addresses/${i.name}"
+            if [ -e "$state" ]; then
+              while read cidr; do
+                echo -n "deleting address $cidr... "
+                ip addr del "$cidr" dev "${i.name}" >/dev/null 2>&1 && echo "done" || echo "failed"
+              done < "$state"
+              rm -f "$state"
+            fi
+          '';
+        }
       ;
 
       createTunDevice = i:
@@ -523,8 +521,8 @@ let
                 (mapAttrs (const toString) (bondDeprecation.filterDeprecated v))
                 // v.driverOptions;
             in
-              concatStringsSep "\n"
-              (mapAttrsToList (set: val: "  ${set} ${val} \\") opts)
+            concatStringsSep "\n"
+            (mapAttrsToList (set: val: "  ${set} ${val} \\") opts)
             }
 
             # !!! There must be a better way to wait for the interface
@@ -724,19 +722,19 @@ let
         } );
 
     in
-      listToAttrs (map configureAddrs interfaces
-        ++ map createTunDevice (filter (i: i.virtual) interfaces))
-      // mapAttrs' createBridgeDevice cfg.bridges
-      // mapAttrs' createVswitchDevice cfg.vswitches
-      // mapAttrs' createBondDevice cfg.bonds
-      // mapAttrs' createMacvlanDevice cfg.macvlans
-      // mapAttrs' createFouEncapsulation cfg.fooOverUDP
-      // mapAttrs' createSitDevice cfg.sits
-      // mapAttrs' createGreDevice cfg.greTunnels
-      // mapAttrs' createVlanDevice cfg.vlans // {
-        network-setup = networkSetup;
-        network-local-commands = networkLocalCommands;
-      }
+    listToAttrs (map configureAddrs interfaces
+      ++ map createTunDevice (filter (i: i.virtual) interfaces))
+    // mapAttrs' createBridgeDevice cfg.bridges
+    // mapAttrs' createVswitchDevice cfg.vswitches
+    // mapAttrs' createBondDevice cfg.bonds
+    // mapAttrs' createMacvlanDevice cfg.macvlans
+    // mapAttrs' createFouEncapsulation cfg.fooOverUDP
+    // mapAttrs' createSitDevice cfg.sits
+    // mapAttrs' createGreDevice cfg.greTunnels
+    // mapAttrs' createVlanDevice cfg.vlans // {
+      network-setup = networkSetup;
+      network-local-commands = networkLocalCommands;
+    }
     ;
 
     services.udev.extraRules = ''

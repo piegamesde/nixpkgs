@@ -40,11 +40,11 @@ mkDerivation rec {
     majorMinorPatch =
       lib.concatStringsSep "." (lib.take 3 (lib.splitVersion version));
   in
-    fetchurl {
-      url =
-        "mirror://kde/stable/KBibTeX/${majorMinorPatch}/kbibtex-${version}.tar.xz";
-      hash = "sha256-sSeyQKfNd8U4YZ3IgqOZs8bM13oEQopJevkG8U0JuMQ=";
-    }
+  fetchurl {
+    url =
+      "mirror://kde/stable/KBibTeX/${majorMinorPatch}/kbibtex-${version}.tar.xz";
+    hash = "sha256-sSeyQKfNd8U4YZ3IgqOZs8bM13oEQopJevkG8U0JuMQ=";
+  }
   ;
 
   nativeBuildInputs = [

@@ -55,4 +55,4 @@ let
   };
 
 in
-  testBazel
+testBazel

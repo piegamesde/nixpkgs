@@ -24,16 +24,16 @@ let
     url = "mirror://maven/${m2Path}/${m2File}";
   };
 in
-  stdenv.mkDerivation {
-    inherit version m2Path m2File src;
-    pname = artifactId;
+stdenv.mkDerivation {
+  inherit version m2Path m2File src;
+  pname = artifactId;
 
-    dontUnpack = true;
+  dontUnpack = true;
 
-    installPhase = ''
-      mkdir -p $out/m2/$m2Path
-      cp $src $out/m2/$m2Path/$m2File
-    '';
+  installPhase = ''
+    mkdir -p $out/m2/$m2Path
+    cp $src $out/m2/$m2Path/$m2File
+  '';
 
-    meta.sourceProvenance = sourceProvenance;
-  }
+  meta.sourceProvenance = sourceProvenance;
+}

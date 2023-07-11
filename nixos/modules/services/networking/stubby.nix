@@ -72,19 +72,19 @@ in {
           debug = 7;
         };
       in
-        mkOption {
-          default = null;
-          type = types.nullOr
-            (types.enum (attrNames logLevels ++ attrValues logLevels));
-          apply = v:
-            if
-              isString v
-            then
-              logLevels.${v}
-            else
-              v;
-          description = lib.mdDoc "Log verbosity (syslog keyword or level).";
-        }
+      mkOption {
+        default = null;
+        type = types.nullOr
+          (types.enum (attrNames logLevels ++ attrValues logLevels));
+        apply = v:
+          if
+            isString v
+          then
+            logLevels.${v}
+          else
+            v;
+        description = lib.mdDoc "Log verbosity (syslog keyword or level).";
+      }
       ;
 
     };

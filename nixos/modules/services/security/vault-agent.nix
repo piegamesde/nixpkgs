@@ -71,10 +71,10 @@ let
                         else
                           "https://github.com/hashicorp/consul-template/blob/main/docs/configuration.md#templates";
                       in
-                        mdDoc ''
-                          Template section of ${flavour}.
-                          Refer to <${upstreamDocs}> for supported values.
-                        ''
+                      mdDoc ''
+                        Template section of ${flavour}.
+                        Refer to <${upstreamDocs}> for supported values.
+                      ''
                       ;
                     };
                   };
@@ -90,15 +90,15 @@ let
                   else
                     "https://github.com/hashicorp/consul-template/blob/main/docs/configuration.md#configuration-file";
                 in
-                  mdDoc ''
-                    Free-form settings written directly to the `config.json` file.
-                    Refer to <${upstreamDocs}> for supported values.
+                mdDoc ''
+                  Free-form settings written directly to the `config.json` file.
+                  Refer to <${upstreamDocs}> for supported values.
 
-                    ::: {.note}
-                    Resulting format is JSON not HCL.
-                    Refer to <https://www.hcl2json.com/> if you are unsure how to convert HCL options to JSON.
-                    :::
-                  ''
+                  ::: {.note}
+                  Resulting format is JSON not HCL.
+                  Refer to <https://www.hcl2json.com/> if you are unsure how to convert HCL options to JSON.
+                  :::
+                ''
                 ;
               };
             };
@@ -113,26 +113,26 @@ let
     let
       configFile = format.generate "${name}.json" instance.settings;
     in
-      mkIf (instance.enable) {
-        description = "${flavour} daemon - ${name}";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
-        path = [ pkgs.getent ];
-        startLimitIntervalSec = 60;
-        startLimitBurst = 3;
-        serviceConfig = {
-          User = instance.user;
-          Group = instance.group;
-          RuntimeDirectory = flavour;
-          ExecStart = "${getExe instance.package} ${
-              optionalString ((getName instance.package) == "vault") "agent"
-            } -config ${configFile}";
-          ExecReload = "${pkgs.coreutils}/bin/kill -SIGHUP $MAINPID";
-          KillSignal = "SIGINT";
-          TimeoutStopSec = "30s";
-          Restart = "on-failure";
-        };
-      }
+    mkIf (instance.enable) {
+      description = "${flavour} daemon - ${name}";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
+      path = [ pkgs.getent ];
+      startLimitIntervalSec = 60;
+      startLimitBurst = 3;
+      serviceConfig = {
+        User = instance.user;
+        Group = instance.group;
+        RuntimeDirectory = flavour;
+        ExecStart = "${getExe instance.package} ${
+            optionalString ((getName instance.package) == "vault") "agent"
+          } -config ${configFile}";
+        ExecReload = "${pkgs.coreutils}/bin/kill -SIGHUP $MAINPID";
+        KillSignal = "SIGINT";
+        TimeoutStopSec = "30s";
+        Restart = "on-failure";
+      };
+    }
   ;
 in {
   options = {
@@ -148,12 +148,11 @@ in {
     let
       cfg = config.services.${flavour};
     in
-      mkIf (cfg.instances != { }) {
-        systemd.services = mapAttrs' (name: instance:
-          nameValuePair "${flavour}-${name}"
-          (createAgentInstance { inherit name instance flavour; }))
-          cfg.instances;
-      }
+    mkIf (cfg.instances != { }) {
+      systemd.services = mapAttrs' (name: instance:
+        nameValuePair "${flavour}-${name}"
+        (createAgentInstance { inherit name instance flavour; })) cfg.instances;
+    }
   ) [
     "consul-template"
     "vault-agent"

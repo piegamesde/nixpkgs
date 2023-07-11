@@ -26,5 +26,5 @@ let
   };
   assertCondition = true;
 in
-  lib.extendDerivation assertCondition passthruExtra cudaStdenv
+lib.extendDerivation assertCondition passthruExtra cudaStdenv
 

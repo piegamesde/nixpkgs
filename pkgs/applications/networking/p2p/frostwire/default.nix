@@ -60,67 +60,66 @@ let
   };
 
 in
-  stdenv.mkDerivation {
-    pname = "frostwire-desktop";
-    inherit version src;
+stdenv.mkDerivation {
+  pname = "frostwire-desktop";
+  inherit version src;
 
-    nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [ gradle_6 ];
+  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [ gradle_6 ];
 
-    buildPhase = ''
-      export GRADLE_USER_HOME=$(mktemp -d)
-      ( cd desktop
+  buildPhase = ''
+    export GRADLE_USER_HOME=$(mktemp -d)
+    ( cd desktop
 
-        # disable auto-update (anyway it won't update frostwire installed in nix store)
-        substituteInPlace src/com/frostwire/gui/updates/UpdateManager.java \
-          --replace 'um.checkForUpdates' '// um.checkForUpdates'
+      # disable auto-update (anyway it won't update frostwire installed in nix store)
+      substituteInPlace src/com/frostwire/gui/updates/UpdateManager.java \
+        --replace 'um.checkForUpdates' '// um.checkForUpdates'
 
-        # fix path to mplayer
-        substituteInPlace src/com/frostwire/gui/player/MediaPlayerLinux.java \
-          --replace /usr/bin/mplayer ${mplayer}/bin/mplayer
+      # fix path to mplayer
+      substituteInPlace src/com/frostwire/gui/player/MediaPlayerLinux.java \
+        --replace /usr/bin/mplayer ${mplayer}/bin/mplayer
 
-        substituteInPlace build.gradle \
-          --replace 'mavenCentral()' 'mavenLocal(); maven { url uri("${deps}") }'
-        gradle --offline --no-daemon build
-      )
-    '';
+      substituteInPlace build.gradle \
+        --replace 'mavenCentral()' 'mavenLocal(); maven { url uri("${deps}") }'
+      gradle --offline --no-daemon build
+    )
+  '';
 
-    installPhase = ''
-      mkdir -p $out/lib $out/share/java
+  installPhase = ''
+    mkdir -p $out/lib $out/share/java
 
-      cp desktop/build/libs/frostwire.jar $out/share/java/frostwire.jar
+    cp desktop/build/libs/frostwire.jar $out/share/java/frostwire.jar
 
-      cp ${
-        {
-          x86_64-darwin = "desktop/lib/native/*.dylib";
-          x86_64-linux =
-            "desktop/lib/native/lib{jlibtorrent,SystemUtilities}.so";
-          i686-linux =
-            "desktop/lib/native/lib{jlibtorrent,SystemUtilities}X86.so";
-        }.${stdenv.hostPlatform.system} or (throw
-          "unsupported system ${stdenv.hostPlatform.system}")
-      } $out/lib
+    cp ${
+      {
+        x86_64-darwin = "desktop/lib/native/*.dylib";
+        x86_64-linux = "desktop/lib/native/lib{jlibtorrent,SystemUtilities}.so";
+        i686-linux =
+          "desktop/lib/native/lib{jlibtorrent,SystemUtilities}X86.so";
+      }.${stdenv.hostPlatform.system} or (throw
+        "unsupported system ${stdenv.hostPlatform.system}")
+    } $out/lib
 
-      cp -dpR ${desktopItem}/share $out
+    cp -dpR ${desktopItem}/share $out
 
-      makeWrapper ${jre}/bin/java $out/bin/frostwire \
-        --add-flags "-Djava.library.path=$out/lib -jar $out/share/java/frostwire.jar"
-    '';
+    makeWrapper ${jre}/bin/java $out/bin/frostwire \
+      --add-flags "-Djava.library.path=$out/lib -jar $out/share/java/frostwire.jar"
+  '';
 
-    meta = with lib; {
-      homepage = "https://www.frostwire.com/";
-      description = "BitTorrent Client and Cloud File Downloader";
-      sourceProvenance = with sourceTypes; [
-        fromSource
-        binaryBytecode # deps
-      ];
-      license = licenses.gpl2;
-      maintainers = with maintainers; [ gavin ];
-      platforms = [
-        "x86_64-darwin"
-        "x86_64-linux"
-        "i686-linux"
-      ];
-      broken = true; # at 2022-09-30, errors with changing hash.
-    };
-  }
+  meta = with lib; {
+    homepage = "https://www.frostwire.com/";
+    description = "BitTorrent Client and Cloud File Downloader";
+    sourceProvenance = with sourceTypes; [
+      fromSource
+      binaryBytecode # deps
+    ];
+    license = licenses.gpl2;
+    maintainers = with maintainers; [ gavin ];
+    platforms = [
+      "x86_64-darwin"
+      "x86_64-linux"
+      "i686-linux"
+    ];
+    broken = true; # at 2022-09-30, errors with changing hash.
+  };
+}

@@ -33,65 +33,65 @@ let
     args.stdenv;
 
 in
-  stdenv.mkDerivation rec {
-    version = "2.7.9";
-    pname = "dar";
+stdenv.mkDerivation rec {
+  version = "2.7.9";
+  pname = "dar";
 
-    src = fetchzip {
-      url = "mirror://sourceforge/dar/${pname}-${version}.tar.gz";
-      sha256 = "sha256-q5ZfX0bybyvJ0NjrJQ2/+o0n7dBLGxdIDevls3xOQMg=";
-    };
+  src = fetchzip {
+    url = "mirror://sourceforge/dar/${pname}-${version}.tar.gz";
+    sha256 = "sha256-q5ZfX0bybyvJ0NjrJQ2/+o0n7dBLGxdIDevls3xOQMg=";
+  };
 
-    outputs = [
-      "out"
-      "dev"
-    ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-    nativeBuildInputs = [ which ];
+  nativeBuildInputs = [ which ];
 
-    buildInputs = [
-      curl
-      librsync
-      libthreadar
-      gpgme
-      libargon2
-      libgcrypt
-      openssl
-      bzip2
-      lz4
-      lzo
-      xz
-      zlib
-      zstd
-    ] ++ lib.optionals stdenv.isLinux [
-      attr
-      0.0
-      fsprogs
-    ] ++ lib.optionals stdenv.isDarwin [ CoreFoundation ];
+  buildInputs = [
+    curl
+    librsync
+    libthreadar
+    gpgme
+    libargon2
+    libgcrypt
+    openssl
+    bzip2
+    lz4
+    lzo
+    xz
+    zlib
+    zstd
+  ] ++ lib.optionals stdenv.isLinux [
+    attr
+    0.0
+    fsprogs
+  ] ++ lib.optionals stdenv.isDarwin [ CoreFoundation ];
 
-    configureFlags = [
-      "--disable-birthtime"
-      "--disable-upx"
-      "--disable-dar-static"
-      "--disable-build-html"
-      "--enable-threadar"
-    ];
+  configureFlags = [
+    "--disable-birthtime"
+    "--disable-upx"
+    "--disable-dar-static"
+    "--disable-build-html"
+    "--enable-threadar"
+  ];
 
-    hardeningDisable = [ "format" ];
+  hardeningDisable = [ "format" ];
 
-    enableParallelBuilding = true;
+  enableParallelBuilding = true;
 
-    postInstall = ''
-      # Disable html help
-      rm -r "$out"/share/dar
-    '';
+  postInstall = ''
+    # Disable html help
+    rm -r "$out"/share/dar
+  '';
 
-    meta = with lib; {
-      homepage = "http://dar.linux.free.fr";
-      description =
-        "Disk ARchiver, allows backing up files into indexed archives";
-      maintainers = with maintainers; [ izorkin ];
-      license = licenses.gpl2Only;
-      platforms = platforms.unix;
-    };
-  }
+  meta = with lib; {
+    homepage = "http://dar.linux.free.fr";
+    description =
+      "Disk ARchiver, allows backing up files into indexed archives";
+    maintainers = with maintainers; [ izorkin ];
+    license = licenses.gpl2Only;
+    platforms = platforms.unix;
+  };
+}

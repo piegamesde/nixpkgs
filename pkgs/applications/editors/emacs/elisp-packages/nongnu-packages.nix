@@ -35,8 +35,8 @@ let
       overrides = { };
 
     in
-      super // overrides
+    super // overrides
   );
 
 in
-  generateNongnu { }
+generateNongnu { }

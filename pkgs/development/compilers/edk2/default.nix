@@ -111,49 +111,49 @@ let
           let
             attrs = lib.toFunction attrsOrFun finalAttrs;
           in
-            {
-              inherit (edk2) src;
+          {
+            inherit (edk2) src;
 
-              depsBuildBuild = [ buildPackages.stdenv.cc ]
-                ++ attrs.depsBuildBuild or [ ];
-              nativeBuildInputs = [
-                bc
-                pythonEnv
-              ] ++ attrs.nativeBuildInputs or [ ];
-              strictDeps = true;
+            depsBuildBuild = [ buildPackages.stdenv.cc ]
+              ++ attrs.depsBuildBuild or [ ];
+            nativeBuildInputs = [
+              bc
+              pythonEnv
+            ] ++ attrs.nativeBuildInputs or [ ];
+            strictDeps = true;
 
-              ${"GCC5_${targetArch}_PREFIX"} = stdenv.cc.targetPrefix;
+            ${"GCC5_${targetArch}_PREFIX"} = stdenv.cc.targetPrefix;
 
-              prePatch = ''
-                rm -rf BaseTools
-                ln -sv ${edk2}/BaseTools BaseTools
-              '';
+            prePatch = ''
+              rm -rf BaseTools
+              ln -sv ${edk2}/BaseTools BaseTools
+            '';
 
-              configurePhase = ''
-                runHook preConfigure
-                export WORKSPACE="$PWD"
-                . ${edk2}/edksetup.sh BaseTools
-                runHook postConfigure
-              '';
+            configurePhase = ''
+              runHook preConfigure
+              export WORKSPACE="$PWD"
+              . ${edk2}/edksetup.sh BaseTools
+              runHook postConfigure
+            '';
 
-              buildPhase = ''
-                runHook preBuild
-                build -a ${targetArch} -b RELEASE -t ${buildType} -p ${projectDscPath} -n $NIX_BUILD_CORES $buildFlags
-                runHook postBuild
-              '';
+            buildPhase = ''
+              runHook preBuild
+              build -a ${targetArch} -b RELEASE -t ${buildType} -p ${projectDscPath} -n $NIX_BUILD_CORES $buildFlags
+              runHook postBuild
+            '';
 
-              installPhase = ''
-                runHook preInstall
-                mv -v Build/*/* $out
-                runHook postInstall
-              '';
-            } // removeAttrs attrs [
-              "nativeBuildInputs"
-              "depsBuildBuild"
-            ]
+            installPhase = ''
+              runHook preInstall
+              mv -v Build/*/* $out
+              runHook postInstall
+            '';
+          } // removeAttrs attrs [
+            "nativeBuildInputs"
+            "depsBuildBuild"
+          ]
         );
     };
   };
 
 in
-  edk2
+edk2

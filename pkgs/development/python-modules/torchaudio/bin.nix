@@ -24,7 +24,7 @@ buildPythonPackage rec {
     srcs = (import ./binary-hashes.nix
       version)."${stdenv.system}-${pyVerNoDot}" or unsupported;
   in
-    fetchurl srcs
+  fetchurl srcs
   ;
 
   disabled = (pythonOlder "3.8") || (pythonAtLeast "3.12");

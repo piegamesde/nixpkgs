@@ -13,7 +13,7 @@ let
         let
           p = toString (src + ("/" + f));
         in
-          (path == p) || (type == "directory" && lib.strings.hasPrefix path p)
+        (path == p) || (type == "directory" && lib.strings.hasPrefix path p)
       ) includedFiles) src;
   updateFeatures = f: up: functions:
     builtins.deepSeq f (lib.lists.foldl' (features: fun: fun features)

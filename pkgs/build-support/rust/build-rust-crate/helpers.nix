@@ -23,7 +23,7 @@
         let
           p = toString (src + ("/" + f));
         in
-          p == path || (lib.strings.hasPrefix (p + "/") path)
+        p == path || (lib.strings.hasPrefix (p + "/") path)
       ) includedFiles) src;
   exclude = excludedFiles: src:
     builtins.filterSource (path: type:

@@ -497,12 +497,12 @@ in {
           let
             n = escapeSystemdPath v.where;
           in
-            nameValuePair "${n}.mount" (mountToUnit n v)
+          nameValuePair "${n}.mount" (mountToUnit n v)
         ) cfg.mounts) // listToAttrs (map (v:
           let
             n = escapeSystemdPath v.where;
           in
-            nameValuePair "${n}.automount" (automountToUnit n v)
+          nameValuePair "${n}.automount" (automountToUnit n v)
         ) cfg.automounts);
 
       # make sure all the /dev nodes are set up

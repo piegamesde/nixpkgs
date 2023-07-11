@@ -42,7 +42,7 @@ stdenv.mkDerivation {
           inherit sha256;
         };
     in
-      import ./readline-6.3-patches.nix patch
+    import ./readline-6.3-patches.nix patch
     );
 
   meta = with lib; {

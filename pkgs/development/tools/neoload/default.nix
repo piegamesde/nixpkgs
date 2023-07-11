@@ -52,86 +52,82 @@ else
     };
 
   in
-    stdenv.mkDerivation rec {
-      pname = "neoload";
-      version = "4.1.4";
+  stdenv.mkDerivation rec {
+    pname = "neoload";
+    version = "4.1.4";
 
-      src = fetchurl (if
-        stdenv.hostPlatform.system == "x86_64-linux"
-      then {
-        url =
-          "http://neoload.installers.neotys.com/documents/download/${pname}/v${
-            lib.versions.majorMinor version
-          }/${pname}_${
-            lib.replaceStrings [ "." ] [ "_" ] version
-          }_linux_x64.sh";
-        sha256 = "199jcf5a0nwfm8wfld2rcjgq64g91vvz2bkmki8dxfzf1yasifcd";
-      } else {
-        url =
-          "http://neoload.installers.neotys.com/documents/download/${pname}/v${
-            lib.versions.majorMinor version
-          }/${pname}_${
-            lib.replaceStrings [ "." ] [ "_" ] version
-          }_linux_x86.sh";
-        sha256 = "1z66jiwcxixsqqwa0f4q8m2p5kna4knq6lic8y8l74dgv25mw912";
-      });
+    src = fetchurl (if
+      stdenv.hostPlatform.system == "x86_64-linux"
+    then {
+      url =
+        "http://neoload.installers.neotys.com/documents/download/${pname}/v${
+          lib.versions.majorMinor version
+        }/${pname}_${lib.replaceStrings [ "." ] [ "_" ] version}_linux_x64.sh";
+      sha256 = "199jcf5a0nwfm8wfld2rcjgq64g91vvz2bkmki8dxfzf1yasifcd";
+    } else {
+      url =
+        "http://neoload.installers.neotys.com/documents/download/${pname}/v${
+          lib.versions.majorMinor version
+        }/${pname}_${lib.replaceStrings [ "." ] [ "_" ] version}_linux_x86.sh";
+      sha256 = "1z66jiwcxixsqqwa0f4q8m2p5kna4knq6lic8y8l74dgv25mw912";
+    });
 
-      nativeBuildInputs = [ makeWrapper ];
-      phases = [ "installPhase" ];
+    nativeBuildInputs = [ makeWrapper ];
+    phases = [ "installPhase" ];
 
-      # TODO: load generator / monitoring agent only builds
+    # TODO: load generator / monitoring agent only builds
 
-      installPhase = ''
-        mkdir -p $out/lib/neoload
+    installPhase = ''
+      mkdir -p $out/lib/neoload
 
-        # the installer wants to use its internal JRE
-        # disable this. The extra spaces are needed because the installer carries
-        # a binary payload, so should not change in size
-        sed -e 's/^if \[ -f jre.tar.gz/if false          /' $src > installer
-        chmod a+x installer
+      # the installer wants to use its internal JRE
+      # disable this. The extra spaces are needed because the installer carries
+      # a binary payload, so should not change in size
+      sed -e 's/^if \[ -f jre.tar.gz/if false          /' $src > installer
+      chmod a+x installer
 
-        cp ${dotInstall4j jre} .install4j
-        chmod u+w .install4j
+      cp ${dotInstall4j jre} .install4j
+      chmod u+w .install4j
 
-        sed -e "s|INSTALLDIR|$out|" ${responseVarfile} > response.varfile
+      sed -e "s|INSTALLDIR|$out|" ${responseVarfile} > response.varfile
 
-        export HOME=`pwd`
-        export INSTALL4J_JAVA_HOME=${jre.home}
-        export FONTCONFIG_FILE=${fontsConf}
-        bash -ic './installer -q -varfile response.varfile'
+      export HOME=`pwd`
+      export INSTALL4J_JAVA_HOME=${jre.home}
+      export FONTCONFIG_FILE=${fontsConf}
+      bash -ic './installer -q -varfile response.varfile'
 
-        sed -i 's/Xmx450m/Xmx900m/;s/Xss192k/Xss384k/' $out/lib/neoload/conf/agent.properties
+      sed -i 's/Xmx450m/Xmx900m/;s/Xss192k/Xss384k/' $out/lib/neoload/conf/agent.properties
 
-        for i in $out/bin/*; do
-          wrapProgram $i --run 'cp ${
-            dotInstall4j "${jre.home}/jre"
-          } ~/.install4j' \
-                         --run 'chmod u+w ~/.install4j'
-        done
+      for i in $out/bin/*; do
+        wrapProgram $i --run 'cp ${
+          dotInstall4j "${jre.home}/jre"
+        } ~/.install4j' \
+                       --run 'chmod u+w ~/.install4j'
+      done
 
-        mkdir -p $out/share/applications
-        for i in $out/lib/neoload/*.desktop; do
-          name=$(basename "$i")
-          sed -e 's|/lib/neoload/bin|/bin|' "$i" > "$out/share/applications/$name"
-        done
-        rm -r $out/lib/neoload/*.desktop $out/lib/neoload/uninstall
+      mkdir -p $out/share/applications
+      for i in $out/lib/neoload/*.desktop; do
+        name=$(basename "$i")
+        sed -e 's|/lib/neoload/bin|/bin|' "$i" > "$out/share/applications/$name"
+      done
+      rm -r $out/lib/neoload/*.desktop $out/lib/neoload/uninstall
 
-      '';
+    '';
 
-      meta = {
-        description =
-          "Load testing software for Web applications to realistically simulate user activity and analyze server behavior";
+    meta = {
+      description =
+        "Load testing software for Web applications to realistically simulate user activity and analyze server behavior";
 
-        homepage = "https://www.neotys.com/product/overview-neoload.html";
+      homepage = "https://www.neotys.com/product/overview-neoload.html";
 
-        sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-        # https://www.neotys.com/documents/legal/eula/neoload/eula_en.html
-        license = lib.licenses.unfree;
+      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      # https://www.neotys.com/documents/legal/eula/neoload/eula_en.html
+      license = lib.licenses.unfree;
 
-        maintainers = [ lib.maintainers.bluescreen303 ];
-        platforms = [
-          "i686-linux"
-          "x86_64-linux"
-        ];
-      };
-    }
+      maintainers = [ lib.maintainers.bluescreen303 ];
+      platforms = [
+        "i686-linux"
+        "x86_64-linux"
+      ];
+    };
+  }

@@ -35,12 +35,12 @@ stdenv.mkDerivation (finalAttrs: {
   src = let
     inherit (finalAttrs) pname version;
   in
-    fetchurl {
-      url = "mirror://gnome/sources/${pname}/${
-          lib.versions.majorMinor version
-        }/${pname}-${version}.tar.xz";
-      sha256 = "fsnRj7KD0fhKOj7/O3pysJoQycAGWXs/uru1lYQgqH0=";
-    }
+  fetchurl {
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
+    sha256 = "fsnRj7KD0fhKOj7/O3pysJoQycAGWXs/uru1lYQgqH0=";
+  }
   ;
 
   patches = [

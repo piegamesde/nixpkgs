@@ -208,18 +208,18 @@ let
         dontFixup = true;
       };
     in
-      modArgs // ({
-        outputHashMode = "recursive";
-      } // (if
-        (vendorHashType == "sha256")
-      then {
-        outputHashAlgo = "sha256";
-        outputHash = vendorSha256;
-      } else {
-        outputHash = vendorHash;
-      }) // (lib.optionalAttrs (vendorHashType == "sri" && vendorHash == "") {
-        outputHashAlgo = "sha256";
-      })) // overrideModAttrs modArgs
+    modArgs // ({
+      outputHashMode = "recursive";
+    } // (if
+      (vendorHashType == "sha256")
+    then {
+      outputHashAlgo = "sha256";
+      outputHash = vendorSha256;
+    } else {
+      outputHash = vendorHash;
+    }) // (lib.optionalAttrs (vendorHashType == "sri" && vendorHash == "") {
+      outputHashAlgo = "sha256";
+    })) // overrideModAttrs modArgs
     )
   else
     "";
@@ -379,6 +379,6 @@ let
     } // meta;
   });
 in
-  lib.warnIf (buildFlags != "" || buildFlagsArray != "")
-  "Use the `ldflags` and/or `tags` attributes instead of `buildFlags`/`buildFlagsArray`"
-  package
+lib.warnIf (buildFlags != "" || buildFlagsArray != "")
+"Use the `ldflags` and/or `tags` attributes instead of `buildFlags`/`buildFlagsArray`"
+package

@@ -44,13 +44,13 @@ stdenvNoCC.mkDerivation (args // rec {
       tileset = "gfx";
     }.${type};
   in
-    args.installPhase or ''
-      runHook preInstall
-      destdir="$out/share/cataclysm-dda/${baseDir}"
-      mkdir -p "$destdir"
-      cp -R "${modRoot}" "$destdir/${modName}"
-      runHook postInstall
-    ''
+  args.installPhase or ''
+    runHook preInstall
+    destdir="$out/share/cataclysm-dda/${baseDir}"
+    mkdir -p "$destdir"
+    cp -R "${modRoot}" "$destdir/${modName}"
+    runHook postInstall
+  ''
   ;
 
   passthru = {

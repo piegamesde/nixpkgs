@@ -23,12 +23,12 @@ stdenv.mkDerivation rec {
         sha256 = sha256.${system};
       };
   in
-    fetchsrc version {
-      x86_64-linux = "sha256-bYqycTB036J8trojySPNkC+jrw76F7+N4I4puGCyalU=";
-      aarch64-linux = "sha256-DlzSIZCAASPnflXQ8ndPU7/0jXA18U4bGGOfmgLXPr0=";
-      x86_64-darwin = "sha256-FaPyrPzO7AzC6LHQP5c58NjLTqU+ei8vFffT8x6mUhQ=";
-      aarch64-darwin = "sha256-31CYhAsHYIVAenp8hFHYj8LhFf3lSiOTw7gULBu3gio=";
-    }
+  fetchsrc version {
+    x86_64-linux = "sha256-bYqycTB036J8trojySPNkC+jrw76F7+N4I4puGCyalU=";
+    aarch64-linux = "sha256-DlzSIZCAASPnflXQ8ndPU7/0jXA18U4bGGOfmgLXPr0=";
+    x86_64-darwin = "sha256-FaPyrPzO7AzC6LHQP5c58NjLTqU+ei8vFffT8x6mUhQ=";
+    aarch64-darwin = "sha256-31CYhAsHYIVAenp8hFHYj8LhFf3lSiOTw7gULBu3gio=";
+  }
   ;
 
   dontConfigure = true;

@@ -150,7 +150,7 @@ rec {
         source = mkIf (config.text != null) (let
           name' = "initrd-" + baseNameOf name;
         in
-          mkDerivedConfig options.text (pkgs.writeText name')
+        mkDerivedConfig options.text (pkgs.writeText name')
         );
       };
     }));

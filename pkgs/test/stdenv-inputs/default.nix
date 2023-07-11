@@ -49,35 +49,35 @@ let
   };
 
 in
-  stdenv.mkDerivation {
-    name = "stdenv-inputs-test";
-    phases = [ "buildPhase" ];
+stdenv.mkDerivation {
+  name = "stdenv-inputs-test";
+  phases = [ "buildPhase" ];
 
-    buildInputs = [
-      foo
-      bar
-    ];
+  buildInputs = [
+    foo
+    bar
+  ];
 
-    buildPhase = ''
-      env
+  buildPhase = ''
+    env
 
-      printf "checking whether binaries are available... " >&2
-      foo && bar
+    printf "checking whether binaries are available... " >&2
+    foo && bar
 
-      printf "checking whether compiler can find headers... " >&2
-      $CC -o include-check ${./include-main.c}
-      ./include-check
+    printf "checking whether compiler can find headers... " >&2
+    $CC -o include-check ${./include-main.c}
+    ./include-check
 
-      printf "checking whether compiler can find headers... " >&2
-      $CC -o include-check ${./include-main.c}
-      ./include-check
+    printf "checking whether compiler can find headers... " >&2
+    $CC -o include-check ${./include-main.c}
+    ./include-check
 
-      printf "checking whether compiler can find libraries... " >&2
-      $CC -lfoo -lbar -o lib-check ${./lib-main.c}
-      ./lib-check
+    printf "checking whether compiler can find libraries... " >&2
+    $CC -lfoo -lbar -o lib-check ${./lib-main.c}
+    ./lib-check
 
-      touch $out
-    '';
+    touch $out
+  '';
 
-    meta.platforms = lib.platforms.all;
-  }
+  meta.platforms = lib.platforms.all;
+}

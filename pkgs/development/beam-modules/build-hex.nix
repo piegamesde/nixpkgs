@@ -24,4 +24,4 @@ let
       };
     });
 in
-  lib.fix pkg
+lib.fix pkg

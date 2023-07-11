@@ -69,77 +69,77 @@ let
         args.efiSysMountPoint;
       efiSysMountPoint' = replaceStrings [ "/" ] [ "-" ] efiSysMountPoint;
     in
-      pkgs.writeText "grub-config.xml" (builtins.toXML {
-        splashImage = f cfg.splashImage;
-        splashMode = f cfg.splashMode;
-        backgroundColor = f cfg.backgroundColor;
-        entryOptions = f cfg.entryOptions;
-        subEntryOptions = f cfg.subEntryOptions;
-        grub = f grub;
-        grubTarget = f (grub.grubTarget or "");
-        shell = "${pkgs.runtimeShell}";
-        fullName = lib.getName realGrub;
-        fullVersion = lib.getVersion realGrub;
-        grubEfi = f grubEfi;
-        grubTargetEfi = optionalString (cfg.efiSupport && (cfg.version == 2))
-          (f (grubEfi.grubTarget or ""));
-        bootPath = args.path;
-        storePath = config.boot.loader.grub.storePath;
-        bootloaderId = if
-          args.efiBootloaderId == null
+    pkgs.writeText "grub-config.xml" (builtins.toXML {
+      splashImage = f cfg.splashImage;
+      splashMode = f cfg.splashMode;
+      backgroundColor = f cfg.backgroundColor;
+      entryOptions = f cfg.entryOptions;
+      subEntryOptions = f cfg.subEntryOptions;
+      grub = f grub;
+      grubTarget = f (grub.grubTarget or "");
+      shell = "${pkgs.runtimeShell}";
+      fullName = lib.getName realGrub;
+      fullVersion = lib.getVersion realGrub;
+      grubEfi = f grubEfi;
+      grubTargetEfi = optionalString (cfg.efiSupport && (cfg.version == 2))
+        (f (grubEfi.grubTarget or ""));
+      bootPath = args.path;
+      storePath = config.boot.loader.grub.storePath;
+      bootloaderId = if
+        args.efiBootloaderId == null
+      then
+        "${config.system.nixos.distroName}${efiSysMountPoint'}"
+      else
+        args.efiBootloaderId;
+      timeout = if
+        config.boot.loader.timeout == null
+      then
+        -1
+      else
+        config.boot.loader.timeout;
+      users = if
+        cfg.users == { } || cfg.version != 1
+      then
+        cfg.users
+      else
+        throw "GRUB version 1 does not support user accounts.";
+      theme = f cfg.theme;
+      inherit efiSysMountPoint;
+      inherit (args) devices;
+      inherit (efi) canTouchEfiVariables;
+      inherit (cfg)
+        version extraConfig extraPerEntryConfig extraEntries forceInstall
+        useOSProber extraGrubInstallArgs extraEntriesBeforeNixOS
+        extraPrepareConfig configurationLimit copyKernels default fsIdentifier
+        efiSupport efiInstallAsRemovable gfxmodeEfi gfxmodeBios gfxpayloadEfi
+        gfxpayloadBios;
+      path = with pkgs;
+        makeBinPath ([
+          coreutils
+          gnused
+          gnugrep
+          findutils
+          diffutils
+          btrfs-progs
+          util-linux
+          mdadm
+        ] ++ optional (cfg.efiSupport && (cfg.version == 2)) efibootmgr
+          ++ optionals cfg.useOSProber [
+            busybox
+            os-prober
+          ]);
+      font = if
+        cfg.font == null
+      then
+        ""
+      else
+        (if
+          lib.last (lib.splitString "." cfg.font) == "pf2"
         then
-          "${config.system.nixos.distroName}${efiSysMountPoint'}"
+          cfg.font
         else
-          args.efiBootloaderId;
-        timeout = if
-          config.boot.loader.timeout == null
-        then
-          -1
-        else
-          config.boot.loader.timeout;
-        users = if
-          cfg.users == { } || cfg.version != 1
-        then
-          cfg.users
-        else
-          throw "GRUB version 1 does not support user accounts.";
-        theme = f cfg.theme;
-        inherit efiSysMountPoint;
-        inherit (args) devices;
-        inherit (efi) canTouchEfiVariables;
-        inherit (cfg)
-          version extraConfig extraPerEntryConfig extraEntries forceInstall
-          useOSProber extraGrubInstallArgs extraEntriesBeforeNixOS
-          extraPrepareConfig configurationLimit copyKernels default fsIdentifier
-          efiSupport efiInstallAsRemovable gfxmodeEfi gfxmodeBios gfxpayloadEfi
-          gfxpayloadBios;
-        path = with pkgs;
-          makeBinPath ([
-            coreutils
-            gnused
-            gnugrep
-            findutils
-            diffutils
-            btrfs-progs
-            util-linux
-            mdadm
-          ] ++ optional (cfg.efiSupport && (cfg.version == 2)) efibootmgr
-            ++ optionals cfg.useOSProber [
-              busybox
-              os-prober
-            ]);
-        font = if
-          cfg.font == null
-        then
-          ""
-        else
-          (if
-            lib.last (lib.splitString "." cfg.font) == "pf2"
-          then
-            cfg.font
-          else
-            "${convertedFont}");
-      })
+          "${convertedFont}");
+    })
   ;
 
   bootDeviceCounters =
@@ -862,14 +862,13 @@ in {
             JSON
           ]);
       in
-        pkgs.writeScript "install-grub.sh" (''
-          #!${pkgs.runtimeShell}
-          set -e
-          ${optionalString cfg.enableCryptodisk
-          "export GRUB_ENABLE_CRYPTODISK=y"}
-        '' + flip concatMapStrings cfg.mirroredBoots (args: ''
-          ${perl}/bin/perl ${install-grub-pl} ${grubConfig args} $@
-        '') + cfg.extraInstallCommands)
+      pkgs.writeScript "install-grub.sh" (''
+        #!${pkgs.runtimeShell}
+        set -e
+        ${optionalString cfg.enableCryptodisk "export GRUB_ENABLE_CRYPTODISK=y"}
+      '' + flip concatMapStrings cfg.mirroredBoots (args: ''
+        ${perl}/bin/perl ${install-grub-pl} ${grubConfig args} $@
+      '') + cfg.extraInstallCommands)
       ;
 
       system.build.grub = grub;

@@ -97,12 +97,12 @@ let
     let
       p = cfg.settings.cfsProfiles.${name};
     in
-      ''
-        ${name} latency=${toString p.latency} nr-latency=${
-          toString p.nr-latency
-        } wakeup-granularity=${toString p.wakeup-granularity} bandwidth-size=${
-          toString p.bandwidth-size
-        } preempt="${p.preempt}"''
+    ''
+      ${name} latency=${toString p.latency} nr-latency=${
+        toString p.nr-latency
+      } wakeup-granularity=${toString p.wakeup-granularity} bandwidth-size=${
+        toString p.bandwidth-size
+      } preempt="${p.preempt}"''
   ;
 
   prioToString = class: prio:
@@ -302,49 +302,49 @@ in {
         cfsp = settings.cfsProfiles;
         ps = settings.processScheduler;
       in
-        mkIf (!cfg.useStockConfig) {
-          "system76-scheduler/config.kdl".text = ''
-            version "2.0"
-            autogroup-enabled false
-            cfs-profiles enable=${boolToString cfsp.enable} {
-              ${cfsProfileToString "default"}
-              ${cfsProfileToString "responsive"}
-            }
-            process-scheduler enable=${boolToString ps.enable} {
-              execsnoop ${boolToString ps.useExecsnoop}
-              refresh-rate ${toString ps.refreshInterval}
-              assignments {
-                ${
-                  if
-                    ps.foregroundBoost.enable
-                  then
-                    (schedulerProfileToString "foreground"
-                      ps.foregroundBoost.foreground "    ")
-                  else
-                    ""
-                }
-                ${
-                  if
-                    ps.foregroundBoost.enable
-                  then
-                    (schedulerProfileToString "background"
-                      ps.foregroundBoost.background "    ")
-                  else
-                    ""
-                }
-                ${
-                  if
-                    ps.pipewireBoost.enable
-                  then
-                    (schedulerProfileToString "pipewire"
-                      ps.pipewireBoost.profile "    ")
-                  else
-                    ""
-                }
+      mkIf (!cfg.useStockConfig) {
+        "system76-scheduler/config.kdl".text = ''
+          version "2.0"
+          autogroup-enabled false
+          cfs-profiles enable=${boolToString cfsp.enable} {
+            ${cfsProfileToString "default"}
+            ${cfsProfileToString "responsive"}
+          }
+          process-scheduler enable=${boolToString ps.enable} {
+            execsnoop ${boolToString ps.useExecsnoop}
+            refresh-rate ${toString ps.refreshInterval}
+            assignments {
+              ${
+                if
+                  ps.foregroundBoost.enable
+                then
+                  (schedulerProfileToString "foreground"
+                    ps.foregroundBoost.foreground "    ")
+                else
+                  ""
+              }
+              ${
+                if
+                  ps.foregroundBoost.enable
+                then
+                  (schedulerProfileToString "background"
+                    ps.foregroundBoost.background "    ")
+                else
+                  ""
+              }
+              ${
+                if
+                  ps.pipewireBoost.enable
+                then
+                  (schedulerProfileToString "pipewire" ps.pipewireBoost.profile
+                    "    ")
+                else
+                  ""
               }
             }
-          '';
-        }
+          }
+        '';
+      }
       )
 
       {

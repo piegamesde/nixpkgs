@@ -100,7 +100,7 @@ let
             )${lib.optionalString (args ? comment) "\n\n  ${args.comment}"}
         '' ;
     in
-      lib.concatMapStrings (p: describe (unpack p)) packages
+    lib.concatMapStrings (p: describe (unpack p)) packages
   ;
 
   optionsNix = builtins.listToAttrs (map (o: {

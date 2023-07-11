@@ -74,20 +74,20 @@ let
         ]) addons)
       ];
     in
-      stdenv.mkDerivation {
-        name = "androidenv-repo-json";
-        buildInputs = [ mkRepoRuby ];
-        preferLocalBuild = true;
-        unpackPhase = "true";
-        buildPhase = ''
-          ruby ${./mkrepo.rb} ${
-            lib.escapeShellArgs mkRepoRubyArguments
-          } > repo.json
-        '';
-        installPhase = ''
-          mv repo.json $out
-        '';
-      }
+    stdenv.mkDerivation {
+      name = "androidenv-repo-json";
+      buildInputs = [ mkRepoRuby ];
+      preferLocalBuild = true;
+      unpackPhase = "true";
+      buildPhase = ''
+        ruby ${./mkrepo.rb} ${
+          lib.escapeShellArgs mkRepoRubyArguments
+        } > repo.json
+      '';
+      installPhase = ''
+        mv repo.json $out
+      '';
+    }
   ;
 
   # Reads the repo JSON. If repoXmls is provided, will build a repo JSON into the Nix store.
@@ -101,7 +101,7 @@ let
         addons = repoXmls.addons or [ ];
       };
     in
-      lib.importJSON "${mkRepoJson repoXmlSpec}"
+    lib.importJSON "${mkRepoJson repoXmlSpec}"
   else
     lib.importJSON repoJson;
 
@@ -163,11 +163,11 @@ in rec {
         "patchInstructions"
       ];
     in
-      deployAndroidPackages ({
-        inherit os buildInputs meta;
-        packages = [ package ];
-        patchesInstructions = { "${package.name}" = patchInstructions; };
-      } // extraParams)
+    deployAndroidPackages ({
+      inherit os buildInputs meta;
+      packages = [ package ];
+      patchesInstructions = { "${package.name}" = patchInstructions; };
+    } // extraParams)
   );
 
   platform-tools = callPackage ./platform-tools.nix {
@@ -274,11 +274,11 @@ in rec {
           '';
         }) availablePackages);
       in
-        lib.optionals (availablePackages != [ ]) (deployAndroidPackages {
-          inherit os;
-          packages = availablePackages;
-          patchesInstructions = instructions;
-        })
+      lib.optionals (availablePackages != [ ]) (deployAndroidPackages {
+        inherit os;
+        packages = availablePackages;
+        patchesInstructions = instructions;
+      })
     ) systemImageTypes) platformVersions);
 
   cmake = map (version:

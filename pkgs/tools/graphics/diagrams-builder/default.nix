@@ -39,14 +39,14 @@ let
   ];
 
 in
-  stdenv.mkDerivation {
-    name = "diagrams-builder";
+stdenv.mkDerivation {
+  name = "diagrams-builder";
 
-    nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [ makeWrapper ];
 
-    buildCommand = with lib; concatStringsSep "\n" (map exeWrapper backends);
+  buildCommand = with lib; concatStringsSep "\n" (map exeWrapper backends);
 
-    # Will be faster to build the wrapper locally then to fetch it from a binary cache.
-    preferLocalBuild = true;
-    meta = diagrams-builder.meta;
-  }
+  # Will be faster to build the wrapper locally then to fetch it from a binary cache.
+  preferLocalBuild = true;
+  meta = diagrams-builder.meta;
+}

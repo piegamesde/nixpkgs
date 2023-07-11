@@ -15,24 +15,24 @@ let
     gemset = ./gemset.nix;
   };
 in
-  stdenv.mkDerivation {
-    pname = "papertrail";
-    version = (import ./gemset.nix).papertrail.version;
+stdenv.mkDerivation {
+  pname = "papertrail";
+  version = (import ./gemset.nix).papertrail.version;
 
-    dontUnpack = true;
+  dontUnpack = true;
 
-    installPhase = ''
-      mkdir -p $out/bin
-      ln -s ${papertrail-env}/bin/papertrail $out/bin/papertrail
-    '';
+  installPhase = ''
+    mkdir -p $out/bin
+    ln -s ${papertrail-env}/bin/papertrail $out/bin/papertrail
+  '';
 
-    passthru.updateScript = bundlerUpdateScript "papertrail";
+  passthru.updateScript = bundlerUpdateScript "papertrail";
 
-    meta = with lib; {
-      description = "Command-line client for Papertrail log management service";
-      homepage = "https://github.com/papertrail/papertrail-cli/";
-      license = licenses.mit;
-      maintainers = with maintainers; [ nicknovitski ];
-      platforms = ruby.meta.platforms;
-    };
-  }
+  meta = with lib; {
+    description = "Command-line client for Papertrail log management service";
+    homepage = "https://github.com/papertrail/papertrail-cli/";
+    license = licenses.mit;
+    maintainers = with maintainers; [ nicknovitski ];
+    platforms = ruby.meta.platforms;
+  };
+}

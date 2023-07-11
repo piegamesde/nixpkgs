@@ -110,4 +110,4 @@ let
 
     };
 in
-  makeScope libsForQt5.newScope packages
+makeScope libsForQt5.newScope packages

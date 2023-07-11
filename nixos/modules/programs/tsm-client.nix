@@ -25,7 +25,7 @@ let
     let
       lenUniq = l: length (lib.lists.unique l);
     in
-      lenUniq lst == lenUniq (map toLower lst)
+    lenUniq lst == lenUniq (map toLower lst)
   ;
 
   # TSM rejects servername strings longer than 64 chars.
@@ -178,7 +178,7 @@ let
         mkLine = k: v: k + optionalString (v != "") "  ${v}";
         lines = mapAttrsToList mkLine attrset;
       in
-        concatLines lines
+      concatLines lines
       ;
       config.stanza = ''
         server  ${config.name}

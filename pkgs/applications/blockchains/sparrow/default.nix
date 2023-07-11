@@ -168,81 +168,81 @@ let
     '';
   };
 in
-  stdenv.mkDerivation rec {
-    inherit version src;
-    pname = "sparrow-unwrapped";
-    nativeBuildInputs = [
-      makeWrapper
-      copyDesktopItems
+stdenv.mkDerivation rec {
+  inherit version src;
+  pname = "sparrow-unwrapped";
+  nativeBuildInputs = [
+    makeWrapper
+    copyDesktopItems
+  ];
+
+  desktopItems = [ (makeDesktopItem {
+    name = "Sparrow";
+    exec = pname;
+    icon = pname;
+    desktopName = "Sparrow Bitcoin Wallet";
+    genericName = "Bitcoin Wallet";
+    categories = [
+      "Finance"
+      "Network"
     ];
+    mimeTypes = [
+      "application/psbt"
+      "application/bitcoin-transaction"
+      "x-scheme-handler/bitcoin"
+      "x-scheme-handler/auth47"
+      "x-scheme-handler/lightning"
+    ];
+    startupWMClass = "Sparrow";
+  }) ];
 
-    desktopItems = [ (makeDesktopItem {
-      name = "Sparrow";
-      exec = pname;
-      icon = pname;
-      desktopName = "Sparrow Bitcoin Wallet";
-      genericName = "Bitcoin Wallet";
-      categories = [
-        "Finance"
-        "Network"
-      ];
-      mimeTypes = [
-        "application/psbt"
-        "application/bitcoin-transaction"
-        "x-scheme-handler/bitcoin"
-        "x-scheme-handler/auth47"
-        "x-scheme-handler/lightning"
-      ];
-      startupWMClass = "Sparrow";
-    }) ];
-
-    sparrow-icons = stdenv.mkDerivation {
-      inherit version src;
-      pname = "sparrow-icons";
-      nativeBuildInputs = [ imagemagick ];
-
-      installPhase = ''
-        for n in 16 24 32 48 64 96 128 256; do
-          size=$n"x"$n
-          mkdir -p $out/hicolor/$size/apps
-          convert lib/Sparrow.png -resize $size $out/hicolor/$size/apps/sparrow.png
-          done;
-      '';
-    };
+  sparrow-icons = stdenv.mkDerivation {
+    inherit version src;
+    pname = "sparrow-icons";
+    nativeBuildInputs = [ imagemagick ];
 
     installPhase = ''
-      runHook preInstall
-
-      mkdir -p $out/bin $out
-      ln -s ${sparrow-modules}/modules $out/lib
-      install -D -m 777 ${launcher} $out/bin/sparrow
-      substituteAllInPlace $out/bin/sparrow
-      substituteInPlace $out/bin/sparrow --subst-var-by jdkModules ${jdk-modules}
-
-      mkdir -p $out/share/icons
-      ln -s ${sparrow-icons}/hicolor $out/share/icons
-
-      mkdir -p $out/etc/udev/rules.d
-      cp ${hwi}/lib/python*/site-packages/hwilib/udev/*.rules $out/etc/udev/rules.d
-
-      runHook postInstall
+      for n in 16 24 32 48 64 96 128 256; do
+        size=$n"x"$n
+        mkdir -p $out/hicolor/$size/apps
+        convert lib/Sparrow.png -resize $size $out/hicolor/$size/apps/sparrow.png
+        done;
     '';
+  };
 
-    passthru.updateScript = ./update.sh;
+  installPhase = ''
+    runHook preInstall
 
-    meta = with lib; {
-      description =
-        "A modern desktop Bitcoin wallet application supporting most hardware wallets and built on common standards such as PSBT, with an emphasis on transparency and usability.";
-      homepage = "https://sparrowwallet.com";
-      sourceProvenance = with sourceTypes; [
-        binaryBytecode
-        binaryNativeCode
-      ];
-      license = licenses.asl20;
-      maintainers = with maintainers; [
-        emmanuelrosa
-        _1000101
-      ];
-      platforms = [ "x86_64-linux" ];
-    };
-  }
+    mkdir -p $out/bin $out
+    ln -s ${sparrow-modules}/modules $out/lib
+    install -D -m 777 ${launcher} $out/bin/sparrow
+    substituteAllInPlace $out/bin/sparrow
+    substituteInPlace $out/bin/sparrow --subst-var-by jdkModules ${jdk-modules}
+
+    mkdir -p $out/share/icons
+    ln -s ${sparrow-icons}/hicolor $out/share/icons
+
+    mkdir -p $out/etc/udev/rules.d
+    cp ${hwi}/lib/python*/site-packages/hwilib/udev/*.rules $out/etc/udev/rules.d
+
+    runHook postInstall
+  '';
+
+  passthru.updateScript = ./update.sh;
+
+  meta = with lib; {
+    description =
+      "A modern desktop Bitcoin wallet application supporting most hardware wallets and built on common standards such as PSBT, with an emphasis on transparency and usability.";
+    homepage = "https://sparrowwallet.com";
+    sourceProvenance = with sourceTypes; [
+      binaryBytecode
+      binaryNativeCode
+    ];
+    license = licenses.asl20;
+    maintainers = with maintainers; [
+      emmanuelrosa
+      _1000101
+    ];
+    platforms = [ "x86_64-linux" ];
+  };
+}

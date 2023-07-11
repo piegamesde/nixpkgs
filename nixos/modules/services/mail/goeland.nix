@@ -47,17 +47,17 @@ in {
       serviceConfig = let
         confFile = tomlFormat.generate "config.toml" cfg.settings;
       in
-        mkMerge [
-          {
-            ExecStart = "${pkgs.goeland}/bin/goeland run -c ${confFile}";
-            User = "goeland";
-            Group = "goeland";
-          }
-          (mkIf (cfg.stateDir == "/var/lib/goeland") {
-            StateDirectory = "goeland";
-            StateDirectoryMode = "0750";
-          })
-        ]
+      mkMerge [
+        {
+          ExecStart = "${pkgs.goeland}/bin/goeland run -c ${confFile}";
+          User = "goeland";
+          Group = "goeland";
+        }
+        (mkIf (cfg.stateDir == "/var/lib/goeland") {
+          StateDirectory = "goeland";
+          StateDirectoryMode = "0750";
+        })
+      ]
       ;
       startAt = cfg.schedule;
     };

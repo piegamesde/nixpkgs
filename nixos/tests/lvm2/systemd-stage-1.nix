@@ -59,65 +59,65 @@ let
   }.${flavour};
 
 in
-  import ../make-test-python.nix ({
-      pkgs,
-      ...
-    }: {
-      name = "lvm2-${flavour}-systemd-stage-1";
-      meta.maintainers = with pkgs.lib.maintainers; [ das_j ];
+import ../make-test-python.nix ({
+    pkgs,
+    ...
+  }: {
+    name = "lvm2-${flavour}-systemd-stage-1";
+    meta.maintainers = with pkgs.lib.maintainers; [ das_j ];
 
-      nodes.machine = {
-          pkgs,
-          lib,
-          ...
-        }: {
-          imports = [ extraConfig ];
-          # Use systemd-boot
-          virtualisation = {
-            emptyDiskImages = [
-              8192
-              8192
-            ];
-            useBootLoader = true;
-            useEFIBoot = true;
+    nodes.machine = {
+        pkgs,
+        lib,
+        ...
+      }: {
+        imports = [ extraConfig ];
+        # Use systemd-boot
+        virtualisation = {
+          emptyDiskImages = [
+            8192
+            8192
+          ];
+          useBootLoader = true;
+          useEFIBoot = true;
+        };
+        boot.loader.systemd-boot.enable = true;
+        boot.loader.efi.canTouchEfiVariables = true;
+
+        environment.systemPackages = with pkgs; [
+          0.0
+          fsprogs
+        ]; # for mkfs.ext4
+        boot = {
+          initrd.systemd = {
+            enable = true;
+            emergencyAccess = true;
           };
-          boot.loader.systemd-boot.enable = true;
-          boot.loader.efi.canTouchEfiVariables = true;
-
-          environment.systemPackages = with pkgs; [
-            0.0
-            fsprogs
-          ]; # for mkfs.ext4
-          boot = {
-            initrd.systemd = {
-              enable = true;
-              emergencyAccess = true;
-            };
-            initrd.services.lvm.enable = true;
-            kernelPackages = lib.mkIf (kernelPackages != null) kernelPackages;
-          };
-
-          specialisation.boot-lvm.configuration.virtualisation.rootDevice =
-            "/dev/test_vg/test_lv";
+          initrd.services.lvm.enable = true;
+          kernelPackages = lib.mkIf (kernelPackages != null) kernelPackages;
         };
 
-      testScript = ''
-        machine.wait_for_unit("multi-user.target")
-        # Create a VG for the root
-        ${preparationCode}
-        machine.succeed("mkfs.ext4 /dev/test_vg/test_lv")
-        machine.succeed("mkdir -p /mnt && mount /dev/test_vg/test_lv /mnt && echo hello > /mnt/test && umount /mnt")
+        specialisation.boot-lvm.configuration.virtualisation.rootDevice =
+          "/dev/test_vg/test_lv";
+      };
 
-        # Boot from LVM
-        machine.succeed("bootctl set-default nixos-generation-1-specialisation-boot-lvm.conf")
-        machine.succeed("sync")
-        machine.crash()
-        machine.wait_for_unit("multi-user.target")
+    testScript = ''
+      machine.wait_for_unit("multi-user.target")
+      # Create a VG for the root
+      ${preparationCode}
+      machine.succeed("mkfs.ext4 /dev/test_vg/test_lv")
+      machine.succeed("mkdir -p /mnt && mount /dev/test_vg/test_lv /mnt && echo hello > /mnt/test && umount /mnt")
 
-        # Ensure we have successfully booted from LVM
-        assert "(initrd)" in machine.succeed("systemd-analyze")  # booted with systemd in stage 1
-        assert "/dev/mapper/test_vg-test_lv on / type ext4" in machine.succeed("mount")
-        assert "hello" in machine.succeed("cat /test")
-        ${extraCheck}
-      '';
-    })
+      # Boot from LVM
+      machine.succeed("bootctl set-default nixos-generation-1-specialisation-boot-lvm.conf")
+      machine.succeed("sync")
+      machine.crash()
+      machine.wait_for_unit("multi-user.target")
+
+      # Ensure we have successfully booted from LVM
+      assert "(initrd)" in machine.succeed("systemd-analyze")  # booted with systemd in stage 1
+      assert "/dev/mapper/test_vg-test_lv on / type ext4" in machine.succeed("mount")
+      assert "hello" in machine.succeed("cat /test")
+      ${extraCheck}
+    '';
+  })

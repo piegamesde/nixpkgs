@@ -104,7 +104,7 @@ let
       else
         "-device virtio-blk-pci,${deviceOpts}";
     in
-      "-drive ${driveOpts} ${device}"
+    "-drive ${driveOpts} ${device}"
   ;
 
   drivesCmdLine = drives:
@@ -1067,14 +1067,14 @@ in {
             else
               "_") (stringToCharacters s);
       in
-        mkIf (!cfg.useBootLoader) [
-          "-kernel \${NIXPKGS_QEMU_KERNEL_${
-            sanitizeShellIdent config.system.name
-          }:-${config.system.build.toplevel}/kernel}"
-          "-initrd ${config.system.build.toplevel}/initrd"
-          ''
-            -append "$(cat ${config.system.build.toplevel}/kernel-params) init=${config.system.build.toplevel}/init regInfo=${regInfo}/registration ${consoles} $QEMU_KERNEL_PARAMS"''
-        ]
+      mkIf (!cfg.useBootLoader) [
+        "-kernel \${NIXPKGS_QEMU_KERNEL_${
+          sanitizeShellIdent config.system.name
+        }:-${config.system.build.toplevel}/kernel}"
+        "-initrd ${config.system.build.toplevel}/initrd"
+        ''
+          -append "$(cat ${config.system.build.toplevel}/kernel-params) init=${config.system.build.toplevel}/init regInfo=${regInfo}/registration ${consoles} $QEMU_KERNEL_PARAMS"''
+      ]
       )
       (mkIf cfg.useEFIBoot [
         "-drive if=pflash,format=raw,unit=0,readonly=on,file=${cfg.efi.firmware}"
@@ -1135,58 +1135,58 @@ in {
         ] ++ lib.optional (tag == "nix-store") "cache=loose";
       };
     in
-      lib.mkMerge [
-        (lib.mapAttrs' mkSharedDir cfg.sharedDirectories)
-        {
-          "/" = lib.mkIf cfg.useDefaultFilesystems (if
-            cfg.diskImage == null
-          then {
-            device = "tmpfs";
+    lib.mkMerge [
+      (lib.mapAttrs' mkSharedDir cfg.sharedDirectories)
+      {
+        "/" = lib.mkIf cfg.useDefaultFilesystems (if
+          cfg.diskImage == null
+        then {
+          device = "tmpfs";
+          fsType = "tmpfs";
+        } else {
+          device = cfg.rootDevice;
+          fsType = "ext4";
+          autoFormat = true;
+        });
+        "/tmp" = lib.mkIf config.boot.tmp.useTmpfs {
+          device = "tmpfs";
+          fsType = "tmpfs";
+          neededForBoot = true;
+          # Sync with systemd's tmp.mount;
+          options = [
+            "mode=1777"
+            "strictatime"
+            "nosuid"
+            "nodev"
+            "size=${toString config.boot.tmp.tmpfsSize}"
+          ];
+        };
+        "/nix/${
+          if
+            cfg.writableStore
+          then
+            ".ro-store"
+          else
+            "store"
+        }" = lib.mkIf cfg.useNixStoreImage {
+          device = "${lookupDriveDeviceName "nix-store" cfg.qemu.drives}";
+          neededForBoot = true;
+          options = [ "ro" ];
+        };
+        "/nix/.rw-store" =
+          lib.mkIf (cfg.writableStore && cfg.writableStoreUseTmpfs) {
             fsType = "tmpfs";
-          } else {
-            device = cfg.rootDevice;
-            fsType = "ext4";
-            autoFormat = true;
-          });
-          "/tmp" = lib.mkIf config.boot.tmp.useTmpfs {
-            device = "tmpfs";
-            fsType = "tmpfs";
+            options = [ "mode=0755" ];
             neededForBoot = true;
-            # Sync with systemd's tmp.mount;
-            options = [
-              "mode=1777"
-              "strictatime"
-              "nosuid"
-              "nodev"
-              "size=${toString config.boot.tmp.tmpfsSize}"
-            ];
           };
-          "/nix/${
-            if
-              cfg.writableStore
-            then
-              ".ro-store"
-            else
-              "store"
-          }" = lib.mkIf cfg.useNixStoreImage {
-            device = "${lookupDriveDeviceName "nix-store" cfg.qemu.drives}";
-            neededForBoot = true;
-            options = [ "ro" ];
-          };
-          "/nix/.rw-store" =
-            lib.mkIf (cfg.writableStore && cfg.writableStoreUseTmpfs) {
-              fsType = "tmpfs";
-              options = [ "mode=0755" ];
-              neededForBoot = true;
-            };
-          "/boot" = lib.mkIf (cfg.useBootLoader && cfg.bootPartition != null) {
-            device =
-              cfg.bootPartition; # 1 for e.g. `vda1`, as created in `systemImage`
-            fsType = "vfat";
-            noCheck = true; # fsck fails on a r/o filesystem
-          };
-        }
-      ]
+        "/boot" = lib.mkIf (cfg.useBootLoader && cfg.bootPartition != null) {
+          device =
+            cfg.bootPartition; # 1 for e.g. `vda1`, as created in `systemImage`
+          fsType = "vfat";
+          noCheck = true; # fsck fails on a r/o filesystem
+        };
+      }
+    ]
     ;
 
     boot.initrd.systemd =

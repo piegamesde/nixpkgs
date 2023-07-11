@@ -20,47 +20,47 @@ let
   };
 
 in
-  buildPythonApplication rec {
-    pname = "sonota-unstable";
-    version = "2018-10-07";
+buildPythonApplication rec {
+  pname = "sonota-unstable";
+  version = "2018-10-07";
 
-    src = fetchFromGitHub {
-      owner = "mirko";
-      repo = "SonOTA";
-      rev = "d7f4b353858aae7ac403f95475a35560fb7ffeae";
-      sha256 = "0jd9xrhcyk8d2plbjnrlpn87536zr6n708797n0k5blf109q3c1z";
-    };
+  src = fetchFromGitHub {
+    owner = "mirko";
+    repo = "SonOTA";
+    rev = "d7f4b353858aae7ac403f95475a35560fb7ffeae";
+    sha256 = "0jd9xrhcyk8d2plbjnrlpn87536zr6n708797n0k5blf109q3c1z";
+  };
 
-    patches = [ ./set_resource_path.patch ];
+  patches = [ ./set_resource_path.patch ];
 
-    postPatch = ''
-      substituteInPlace sonota.py --subst-var out
-    '';
+  postPatch = ''
+    substituteInPlace sonota.py --subst-var out
+  '';
 
-    format = "other";
+  format = "other";
 
-    propagatedBuildInputs = [
-      httplib2
-      netifaces
-      tornado
-    ];
+  propagatedBuildInputs = [
+    httplib2
+    netifaces
+    tornado
+  ];
 
-    installPhase = ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      install -Dm755 sonota.py $out/bin/sonota
-      install -d $out/share/sonota
-      cp -r ssl static $out/share/sonota
-      cp ${core} $out/share/sonota/static/image_arduino.bin
+    install -Dm755 sonota.py $out/bin/sonota
+    install -d $out/share/sonota
+    cp -r ssl static $out/share/sonota
+    cp ${core} $out/share/sonota/static/image_arduino.bin
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
-    meta = with lib; {
-      description =
-        "Flash Itead Sonoff devices with custom firmware via original OTA mechanism";
-      homepage = src.meta.homepage;
-      license = licenses.gpl2;
-      maintainers = with maintainers; [ peterhoeg ];
-    };
-  }
+  meta = with lib; {
+    description =
+      "Flash Itead Sonoff devices with custom firmware via original OTA mechanism";
+    homepage = src.meta.homepage;
+    license = licenses.gpl2;
+    maintainers = with maintainers; [ peterhoeg ];
+  };
+}

@@ -72,8 +72,8 @@ let
     };
   };
 in
-  jruby.overrideAttrs (oldAttrs: {
-    passthru = oldAttrs.passthru // {
-      devEnv = callPackage ../ruby/dev.nix { ruby = jruby; };
-    };
-  })
+jruby.overrideAttrs (oldAttrs: {
+  passthru = oldAttrs.passthru // {
+    devEnv = callPackage ../ruby/dev.nix { ruby = jruby; };
+  };
+})

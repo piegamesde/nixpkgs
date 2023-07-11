@@ -26,11 +26,11 @@ callPackage ../nginx/generic.nix args rec {
     let
       name = patch.name or (builtins.baseNameOf patch);
     in
-      runCommand "openresty-${name}" { src = patch; } ''
-        substitute $src $out \
-          --replace "a/" "a/bundle/nginx-${nginxVersion}/" \
-          --replace "b/" "b/bundle/nginx-${nginxVersion}/"
-      ''
+    runCommand "openresty-${name}" { src = patch; } ''
+      substitute $src $out \
+        --replace "a/" "a/bundle/nginx-${nginxVersion}/" \
+        --replace "b/" "b/bundle/nginx-${nginxVersion}/"
+    ''
   ;
 
   nativeBuildInputs = [ perl ];

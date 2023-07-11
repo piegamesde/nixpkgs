@@ -53,4 +53,4 @@ let
   }) // (genAttrs packageSets evalPackageSet));
 
 in
-  jobs
+jobs

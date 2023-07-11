@@ -147,17 +147,17 @@ in {
                 (attrsOf validSettingsTypes)
               ];
             in
-              attrsOf (oneOf [
-                settingsType
-                (listOf settingsType)
-              ]) // {
-                description = ''
-                  unbound.conf configuration type. The format consist of an attribute
-                  set of settings. Each settings can be either one value, a list of
-                  values or an attribute set. The allowed values are integers,
-                  strings, booleans or floats.
-                '';
-              }
+            attrsOf (oneOf [
+              settingsType
+              (listOf settingsType)
+            ]) // {
+              description = ''
+                unbound.conf configuration type. The format consist of an attribute
+                set of settings. Each settings can be either one value, a list of
+                values or an attribute set. The allowed values are integers,
+                strings, booleans or floats.
+              '';
+            }
             ;
 
             options = {

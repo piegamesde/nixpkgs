@@ -36,11 +36,10 @@ python3Packages.buildPythonApplication rec {
         fetchFn = builtins.getAttr json.fetch.fn fetchers;
         src = fetchFn json.fetch.args;
       in
-        json // json.fetch // {
-          inherit src;
-          overrideSrc = drv:
-            lib.overrideDerivation drv (orig: { inherit src; });
-        }
+      json // json.fetch // {
+        inherit src;
+        overrideSrc = drv: lib.overrideDerivation drv (orig: { inherit src; });
+      }
     ;
 
     updateScript = ''

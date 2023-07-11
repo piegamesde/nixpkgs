@@ -18,32 +18,32 @@ let
     sha256 = "sha256-EEp9dxz/+l5XkNaVBFgv5v64sizQILnljRAzwXv/yV8=";
   };
 in
-  runCommand "appimage-run-tests" {
-    buildInputs = [
-      appimage-run
-      glibcLocales
-      file
-      xdg-utils
-    ];
-    meta.platforms = [ "x86_64-linux" ];
-  } ''
-    export HOME=$(mktemp -d)
-    set -x
+runCommand "appimage-run-tests" {
+  buildInputs = [
+    appimage-run
+    glibcLocales
+    file
+    xdg-utils
+  ];
+  meta.platforms = [ "x86_64-linux" ];
+} ''
+  export HOME=$(mktemp -d)
+  set -x
 
-    # regression test for #101137, must come first
-    LANG=fr_FR appimage-run ${sample-appImage} --list ${sample-appImage}
+  # regression test for #101137, must come first
+  LANG=fr_FR appimage-run ${sample-appImage} --list ${sample-appImage}
 
-    # regression test for #108426
-    cp ${sample-appImage} foo.appImage
-    LANG=fr_FR appimage-run ${sample-appImage} --list foo.appImage
-    cp ${owdtest} owdtest.AppImage.gz
-    gunzip owdtest.AppImage.gz
-    appimage-run owdtest.AppImage
+  # regression test for #108426
+  cp ${sample-appImage} foo.appImage
+  LANG=fr_FR appimage-run ${sample-appImage} --list foo.appImage
+  cp ${owdtest} owdtest.AppImage.gz
+  gunzip owdtest.AppImage.gz
+  appimage-run owdtest.AppImage
 
-    # Verify desktop entry
-    XDG_DATA_DIRS="${appimage-run}/share"
-    [[ "$(xdg-mime query default application/vnd.appimage)" == '${appimage-run.name}.desktop' ]]
+  # Verify desktop entry
+  XDG_DATA_DIRS="${appimage-run}/share"
+  [[ "$(xdg-mime query default application/vnd.appimage)" == '${appimage-run.name}.desktop' ]]
 
-    set +x
-    touch $out
-  ''
+  set +x
+  touch $out
+''

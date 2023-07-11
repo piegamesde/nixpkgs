@@ -152,4 +152,4 @@ let
     };
   };
 in
-  onlyoffice-documentserver
+onlyoffice-documentserver

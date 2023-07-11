@@ -18,7 +18,7 @@ let
     let
       s = toString path;
     in
-      removePrefix nixosPath s != s
+    removePrefix nixosPath s != s
   ;
 
   # Copy modules given as extra configuration files.  Unfortunately, we

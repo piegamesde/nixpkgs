@@ -27,19 +27,19 @@ let
       acl_gen = concatMapStringsSep "\n"
         (l: "${l.page} 	 ${l.actor} 	 ${toString l.level}");
     in
-      pkgs.writeText "acl.auth-${hostName}.php" ''
-        # acl.auth.php
-        # <?php exit()?>
-        #
-        # Access Control Lists
-        #
-        ${if
-          isString acl
-        then
-          acl
-        else
-          acl_gen acl}
-      ''
+    pkgs.writeText "acl.auth-${hostName}.php" ''
+      # acl.auth.php
+      # <?php exit()?>
+      #
+      # Access Control Lists
+      #
+      ${if
+        isString acl
+      then
+        acl
+      else
+        acl_gen acl}
+    ''
   ;
 
   mergeConfig = cfg:
@@ -93,16 +93,16 @@ let
       then [ " = ${mkPhpValue v};" ] else
         mkPhpAttrVals v;
     in
-      map (e: "[${escapeShellArg k}]${e}") (flatten values)
+    map (e: "[${escapeShellArg k}]${e}") (flatten values)
   ;
 
   dokuwikiLocalConfig = hostName: cfg:
     let
       conf_gen = c: map (v: "$conf${v}") (mkPhpAttrVals c);
     in
-      writePhpFile "local-${hostName}.php" ''
-        ${concatStringsSep "\n" (conf_gen cfg.mergedConfig)}
-      ''
+    writePhpFile "local-${hostName}.php" ''
+      ${concatStringsSep "\n" (conf_gen cfg.mergedConfig)}
+    ''
   ;
 
   dokuwikiPluginsLocalConfig = hostName: cfg:
@@ -112,14 +112,14 @@ let
         concatStringsSep "\n"
         (mapAttrsToList (n: v: "$plugins['${n}'] = ${boolToString v};") pc);
     in
-      writePhpFile "plugins.local-${hostName}.php" ''
-        ${if
-          isString pc
-        then
-          pc
-        else
-          pc_gen pc}
-      ''
+    writePhpFile "plugins.local-${hostName}.php" ''
+      ${if
+        isString pc
+      then
+        pc
+      else
+        pc_gen pc}
+    ''
   ;
 
   pkg = hostName: cfg:
@@ -166,21 +166,21 @@ let
             "delete" = 16;
           };
         in
-          mkOption {
-            type = types.enum ((attrValues available) ++ (attrNames available));
-            apply = x:
-              if
-                isInt x
-              then
-                x
-              else
-                available.${x};
-            description = lib.mdDoc ''
-              Permission level to restrict the actor(s) to.
-              See <https://www.dokuwiki.org/acl#background_info> for explanation
-            '';
-            example = "read";
-          }
+        mkOption {
+          type = types.enum ((attrValues available) ++ (attrNames available));
+          apply = x:
+            if
+              isInt x
+            then
+              x
+            else
+              available.${x};
+          description = lib.mdDoc ''
+            Permission level to restrict the actor(s) to.
+            See <https://www.dokuwiki.org/acl#background_info> for explanation
+          '';
+          example = "read";
+        }
         ;
       };
     };

@@ -52,44 +52,44 @@ let
     doCheck = false;
   };
 in
-  stdenv.mkDerivation rec {
-    inherit version pname src;
+stdenv.mkDerivation rec {
+  inherit version pname src;
 
-    buildInputs = [ maven ];
+  buildInputs = [ maven ];
 
-    nativeBuildInputs = [
-      makeWrapper
-      # the build system gets angry if it doesn't see git (even though it's not
-      # actually in a git repository)
-      git
+  nativeBuildInputs = [
+    makeWrapper
+    # the build system gets angry if it doesn't see git (even though it's not
+    # actually in a git repository)
+    git
 
-      # springframework boot gets angry about 1970 sources
-      # fix from https://github.com/nix-community/mavenix/issues/25
-      (ensureNewerSourcesHook { year = "1980"; })
-    ];
+    # springframework boot gets angry about 1970 sources
+    # fix from https://github.com/nix-community/mavenix/issues/25
+    (ensureNewerSourcesHook { year = "1980"; })
+  ];
 
-    wrappedPath = lib.makeBinPath [ graphviz ];
+  wrappedPath = lib.makeBinPath [ graphviz ];
 
-    buildPhase = ''
-      VERSION=${version}
-      SEMVER_STR=${version}
+  buildPhase = ''
+    VERSION=${version}
+    SEMVER_STR=${version}
 
-      mvn package --offline -Dmaven.test.skip=true -Dmaven.repo.local=$(cp -dpR ${deps}/.m2 ./ && chmod +w -R .m2 && pwd)/.m2
-    '';
+    mvn package --offline -Dmaven.test.skip=true -Dmaven.repo.local=$(cp -dpR ${deps}/.m2 ./ && chmod +w -R .m2 && pwd)/.m2
+  '';
 
-    installPhase = ''
-      install -D target/${pname}-${version}.jar $out/share/java/${pname}-${version}.jar
+  installPhase = ''
+    install -D target/${pname}-${version}.jar $out/share/java/${pname}-${version}.jar
 
-      makeWrapper ${jre}/bin/java $out/bin/schemaspy \
-        --add-flags "-jar $out/share/java/${pname}-${version}.jar" \
-        --prefix PATH : "$wrappedPath"
-    '';
+    makeWrapper ${jre}/bin/java $out/bin/schemaspy \
+      --add-flags "-jar $out/share/java/${pname}-${version}.jar" \
+      --prefix PATH : "$wrappedPath"
+  '';
 
-    meta = with lib; {
-      homepage = "https://schemaspy.org";
-      description = "Document your database simply and easily";
-      license = licenses.lgpl3Plus;
-      maintainers = with maintainers; [ jraygauthier ];
-    };
-  }
+  meta = with lib; {
+    homepage = "https://schemaspy.org";
+    description = "Document your database simply and easily";
+    license = licenses.lgpl3Plus;
+    maintainers = with maintainers; [ jraygauthier ];
+  };
+}
 

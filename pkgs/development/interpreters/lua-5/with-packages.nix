@@ -8,4 +8,4 @@ f:
 let
   packages = f luaPackages;
 in
-  buildEnv.override { extraLibs = packages; }
+buildEnv.override { extraLibs = packages; }

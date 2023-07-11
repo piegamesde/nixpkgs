@@ -430,7 +430,7 @@ let
                     includeSiteCustomize = true;
                   });
                 in
-                  self.withPackages (p: [ p.mistune ])
+                self.withPackages (p: [ p.mistune ])
                 )
                 shared-mime-info
                 sudo

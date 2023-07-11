@@ -23,7 +23,7 @@ lib.recurseIntoAttrs {
     tempAllow = p: v: pa: builtins.seq v builtins.seq p.version pa;
 
   in
-    pkgs.hello
+  pkgs.hello
   ;
 
 }

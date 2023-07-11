@@ -46,45 +46,45 @@ let
     "installPhase"
   ];
 in
-  stdenv.mkDerivation ({
-    inherit dontUnpack LC_ALL jar;
+stdenv.mkDerivation ({
+  inherit dontUnpack LC_ALL jar;
 
-    nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
-      graalvmDrv
-      glibcLocales
-    ];
+  nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
+    graalvmDrv
+    glibcLocales
+  ];
 
-    nativeImageBuildArgs = nativeImageBuildArgs ++ extraNativeImageBuildArgs
-      ++ [ graalvmXmx ];
+  nativeImageBuildArgs = nativeImageBuildArgs ++ extraNativeImageBuildArgs
+    ++ [ graalvmXmx ];
 
-    buildPhase = args.buildPhase or ''
-      runHook preBuild
+  buildPhase = args.buildPhase or ''
+    runHook preBuild
 
-      native-image -jar "$jar" ''${nativeImageBuildArgs[@]}
+    native-image -jar "$jar" ''${nativeImageBuildArgs[@]}
 
-      runHook postBuild
-    '';
+    runHook postBuild
+  '';
 
-    installPhase = args.installPhase or ''
-      runHook preInstall
+  installPhase = args.installPhase or ''
+    runHook preInstall
 
-      install -Dm755 ${executable} -t $out/bin
+    install -Dm755 ${executable} -t $out/bin
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
-    disallowedReferences = [ graalvmDrv ];
+  disallowedReferences = [ graalvmDrv ];
 
-    passthru = { inherit graalvmDrv; };
+  passthru = { inherit graalvmDrv; };
 
-    meta = {
-      # default to graalvm's platforms
-      platforms = graalvmDrv.meta.platforms;
-      # default to executable name
-      mainProgram = executable;
-      # need to have native-image-installable-svm available
-      broken =
-        !(builtins.any (p: (p.product or "") == "native-image-installable-svm")
-          graalvmDrv.products);
-    } // meta;
-  } // extraArgs)
+  meta = {
+    # default to graalvm's platforms
+    platforms = graalvmDrv.meta.platforms;
+    # default to executable name
+    mainProgram = executable;
+    # need to have native-image-installable-svm available
+    broken =
+      !(builtins.any (p: (p.product or "") == "native-image-installable-svm")
+        graalvmDrv.products);
+  } // meta;
+} // extraArgs)

@@ -238,30 +238,30 @@ let
         "\\011"
       ] string;
   in
-    fstabFileSystems:
-    {
-      rootPrefix ? "",
-      extraOpts ? (fs: [ ])
-    }:
-    concatMapStrings (fs:
-      (optionalString (isBindMount fs) (escape rootPrefix)) + (if
-        fs.device != null
-      then
-        escape fs.device
-      else if fs.label != null then
-        "/dev/disk/by-label/${escape fs.label}"
-      else
-        throw "No device specified for mount point ‘${fs.mountPoint}’.") + " "
-      + escape fs.mountPoint + " " + fs.fsType + " "
-      + escape (builtins.concatStringsSep "," (fs.options ++ (extraOpts fs)))
-      + " 0 " + (if
-        skipCheck fs
-      then
-        "0"
-      else if fs.mountPoint == "/" then
-        "1"
-      else
-        "2") + "\n") fstabFileSystems
+  fstabFileSystems:
+  {
+    rootPrefix ? "",
+    extraOpts ? (fs: [ ])
+  }:
+  concatMapStrings (fs:
+    (optionalString (isBindMount fs) (escape rootPrefix)) + (if
+      fs.device != null
+    then
+      escape fs.device
+    else if fs.label != null then
+      "/dev/disk/by-label/${escape fs.label}"
+    else
+      throw "No device specified for mount point ‘${fs.mountPoint}’.") + " "
+    + escape fs.mountPoint + " " + fs.fsType + " "
+    + escape (builtins.concatStringsSep "," (fs.options ++ (extraOpts fs)))
+    + " 0 " + (if
+      skipCheck fs
+    then
+      "0"
+    else if fs.mountPoint == "/" then
+      "1"
+    else
+      "2") + "\n") fstabFileSystems
   ;
 
   initrdFstab = pkgs.writeText "initrd-fstab"
@@ -387,11 +387,11 @@ in {
         message = let
           fs = head (filter notAutoResizable fileSystems);
         in
-          ''
-            Mountpoint '${fs.mountPoint}': 'autoResize = true' is not supported for 'fsType = "${fs.fsType}"':${
-              optionalString (fs.fsType == "auto")
-              " fsType has to be explicitly set and"
-            } only the ext filesystems and f2fs support it.''
+        ''
+          Mountpoint '${fs.mountPoint}': 'autoResize = true' is not supported for 'fsType = "${fs.fsType}"':${
+            optionalString (fs.fsType == "auto")
+            " fsType has to be explicitly set and"
+          } only the ext filesystems and f2fs support it.''
         ;
       }
     ] ;
@@ -461,68 +461,67 @@ in {
             device' = escapeSystemdPath fs.device;
             device'' = "${device'}.device";
           in
-            nameValuePair "mkfs-${device'}" {
-              description = "Initialisation of Filesystem ${fs.device}";
-              wantedBy = [ mountPoint' ];
-              before = [
-                mountPoint'
-                "systemd-fsck@${device'}.service"
-              ];
-              requires = [ device'' ];
-              after = [ device'' ];
-              path = [ pkgs.util-linux ] ++ config.system.fsPackages;
-              script = ''
-                if ! [ -e "${fs.device}" ]; then exit 1; fi
-                # FIXME: this is scary.  The test could be more robust.
-                type=$(blkid -p -s TYPE -o value "${fs.device}" || true)
-                if [ -z "$type" ]; then
-                  echo "creating ${fs.fsType} filesystem on ${fs.device}..."
-                  mkfs.${fs.fsType} ${fs.formatOptions} "${fs.device}"
-                fi
-              '';
-              unitConfig.RequiresMountsFor = [ "${dirOf fs.device}" ];
-              unitConfig.DefaultDependencies =
-                false; # needed to prevent a cycle
-              serviceConfig.Type = "oneshot";
-            }
+          nameValuePair "mkfs-${device'}" {
+            description = "Initialisation of Filesystem ${fs.device}";
+            wantedBy = [ mountPoint' ];
+            before = [
+              mountPoint'
+              "systemd-fsck@${device'}.service"
+            ];
+            requires = [ device'' ];
+            after = [ device'' ];
+            path = [ pkgs.util-linux ] ++ config.system.fsPackages;
+            script = ''
+              if ! [ -e "${fs.device}" ]; then exit 1; fi
+              # FIXME: this is scary.  The test could be more robust.
+              type=$(blkid -p -s TYPE -o value "${fs.device}" || true)
+              if [ -z "$type" ]; then
+                echo "creating ${fs.fsType} filesystem on ${fs.device}..."
+                mkfs.${fs.fsType} ${fs.formatOptions} "${fs.device}"
+              fi
+            '';
+            unitConfig.RequiresMountsFor = [ "${dirOf fs.device}" ];
+            unitConfig.DefaultDependencies = false; # needed to prevent a cycle
+            serviceConfig.Type = "oneshot";
+          }
         ;
       in
-        listToAttrs (map formatDevice
-          (filter (fs: fs.autoFormat && !(utils.fsNeededForBoot fs))
-            fileSystems)) // {
-              # Mount /sys/fs/pstore for evacuating panic logs and crashdumps from persistent storage onto the disk using systemd-pstore.
-              # This cannot be done with the other special filesystems because the pstore module (which creates the mount point) is not loaded then.
-              "mount-pstore" = {
-                serviceConfig = {
-                  Type = "oneshot";
-                  # skip on kernels without the pstore module
-                  ExecCondition = "${pkgs.kmod}/bin/modprobe -b pstore";
-                  ExecStart = pkgs.writeShellScript "mount-pstore.sh" ''
-                    set -eu
-                    # if the pstore module is builtin it will have mounted the persistent store automatically. it may also be already mounted for other reasons.
-                    ${pkgs.util-linux}/bin/mountpoint -q /sys/fs/pstore || ${pkgs.util-linux}/bin/mount -t pstore -o nosuid,noexec,nodev pstore /sys/fs/pstore
-                    # wait up to 1.5 seconds for the backend to be registered and the files to appear. a systemd path unit cannot detect this happening; and succeeding after a restart would not start dependent units.
-                    TRIES=15
-                    while [ "$(cat /sys/module/pstore/parameters/backend)" = "(null)" ]; do
-                      if (( $TRIES )); then
-                        sleep 0.1
-                        TRIES=$((TRIES-1))
-                      else
-                        echo "Persistent Storage backend was not registered in time." >&2
-                        break
-                      fi
-                    done
-                  '';
-                  RemainAfterExit = true;
-                };
-                unitConfig = {
-                  ConditionVirtualization = "!container";
-                  DefaultDependencies = false; # needed to prevent a cycle
-                };
-                before = [ "systemd-pstore.service" ];
-                wantedBy = [ "systemd-pstore.service" ];
-              };
-            }
+      listToAttrs (map formatDevice
+        (filter (fs: fs.autoFormat && !(utils.fsNeededForBoot fs)) fileSystems))
+      // {
+        # Mount /sys/fs/pstore for evacuating panic logs and crashdumps from persistent storage onto the disk using systemd-pstore.
+        # This cannot be done with the other special filesystems because the pstore module (which creates the mount point) is not loaded then.
+        "mount-pstore" = {
+          serviceConfig = {
+            Type = "oneshot";
+            # skip on kernels without the pstore module
+            ExecCondition = "${pkgs.kmod}/bin/modprobe -b pstore";
+            ExecStart = pkgs.writeShellScript "mount-pstore.sh" ''
+              set -eu
+              # if the pstore module is builtin it will have mounted the persistent store automatically. it may also be already mounted for other reasons.
+              ${pkgs.util-linux}/bin/mountpoint -q /sys/fs/pstore || ${pkgs.util-linux}/bin/mount -t pstore -o nosuid,noexec,nodev pstore /sys/fs/pstore
+              # wait up to 1.5 seconds for the backend to be registered and the files to appear. a systemd path unit cannot detect this happening; and succeeding after a restart would not start dependent units.
+              TRIES=15
+              while [ "$(cat /sys/module/pstore/parameters/backend)" = "(null)" ]; do
+                if (( $TRIES )); then
+                  sleep 0.1
+                  TRIES=$((TRIES-1))
+                else
+                  echo "Persistent Storage backend was not registered in time." >&2
+                  break
+                fi
+              done
+            '';
+            RemainAfterExit = true;
+          };
+          unitConfig = {
+            ConditionVirtualization = "!container";
+            DefaultDependencies = false; # needed to prevent a cycle
+          };
+          before = [ "systemd-pstore.service" ];
+          wantedBy = [ "systemd-pstore.service" ];
+        };
+      }
     ;
 
     systemd.tmpfiles.rules = [

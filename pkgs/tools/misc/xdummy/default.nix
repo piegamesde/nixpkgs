@@ -83,11 +83,11 @@ let
   '';
 
 in
-  writeScriptBin "xdummy" ''
-    #!${runtimeShell}
-    exec ${xorg.xorgserver.out}/bin/Xorg \
-      -noreset \
-      -logfile /dev/null \
-      "$@" \
-      -config "${xorgConfig}"
-  ''
+writeScriptBin "xdummy" ''
+  #!${runtimeShell}
+  exec ${xorg.xorgserver.out}/bin/Xorg \
+    -noreset \
+    -logfile /dev/null \
+    "$@" \
+    -config "${xorgConfig}"
+''

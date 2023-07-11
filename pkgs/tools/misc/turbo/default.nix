@@ -58,46 +58,46 @@ let
 
   };
 in
-  rustPlatform.buildRustPackage rec {
-    pname = "turbo";
-    inherit src version;
-    cargoBuildFlags = [
-      "--package"
-      "turbo"
-    ];
-    RELEASE_TURBO_CLI = "true";
+rustPlatform.buildRustPackage rec {
+  pname = "turbo";
+  inherit src version;
+  cargoBuildFlags = [
+    "--package"
+    "turbo"
+  ];
+  RELEASE_TURBO_CLI = "true";
 
-    cargoLock = {
-      lockFile = ./Cargo.lock;
-      outputHashes = {
-        "update-informer-0.6.0" =
-          "sha256-uMp6PE4ccNGflbYz5WbLBKDtTlXNjOPA3vAnIMSdMEs=";
-      };
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+    outputHashes = {
+      "update-informer-0.6.0" =
+        "sha256-uMp6PE4ccNGflbYz5WbLBKDtTlXNjOPA3vAnIMSdMEs=";
     };
-    RUSTC_BOOTSTRAP = 1;
-    nativeBuildInputs = [
-      pkg-config
-      extra-cmake-modules
-    ];
-    buildInputs = [
-      openssl
-      fontconfig
-    ];
+  };
+  RUSTC_BOOTSTRAP = 1;
+  nativeBuildInputs = [
+    pkg-config
+    extra-cmake-modules
+  ];
+  buildInputs = [
+    openssl
+    fontconfig
+  ];
 
-    postInstall = ''
-      ln -s ${go-turbo}/bin/turbo $out/bin/go-turbo
-    '';
+  postInstall = ''
+    ln -s ${go-turbo}/bin/turbo $out/bin/go-turbo
+  '';
 
-    # Browser tests time out with chromium and google-chrome
-    doCheck = false;
+  # Browser tests time out with chromium and google-chrome
+  doCheck = false;
 
-    passthru.tests.version = testers.testVersion { package = turbo; };
+  passthru.tests.version = testers.testVersion { package = turbo; };
 
-    meta = with lib; {
-      description =
-        "High-performance build system for JavaScript and TypeScript codebases";
-      homepage = "https://turbo.build/";
-      maintainers = with maintainers; [ dlip ];
-      license = licenses.mpl20;
-    };
-  }
+  meta = with lib; {
+    description =
+      "High-performance build system for JavaScript and TypeScript codebases";
+    homepage = "https://turbo.build/";
+    maintainers = with maintainers; [ dlip ];
+    license = licenses.mpl20;
+  };
+}

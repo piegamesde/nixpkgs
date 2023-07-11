@@ -70,4 +70,4 @@ let
   };
 
 in
-  link-grammar
+link-grammar

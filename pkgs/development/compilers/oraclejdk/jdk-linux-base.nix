@@ -87,12 +87,12 @@ in let
       }.${stdenv.hostPlatform.system} or (throw
         "unsupported system ${stdenv.hostPlatform.system}");
     in
-      requireFile {
-        name = "jdk-${productVersion}u${patchVersion}-${platformName}.tar.gz";
-        url =
-          "http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html";
-        sha256 = sha256.${stdenv.hostPlatform.system};
-      }
+    requireFile {
+      name = "jdk-${productVersion}u${patchVersion}-${platformName}.tar.gz";
+      url =
+        "http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html";
+      sha256 = sha256.${stdenv.hostPlatform.system};
+    }
     ;
 
     nativeBuildInputs = [
@@ -238,4 +238,4 @@ in let
 
   };
 in
-  result
+result

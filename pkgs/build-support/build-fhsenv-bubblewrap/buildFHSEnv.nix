@@ -262,14 +262,14 @@ let
   '';
 
 in
-  runCommandLocal "${name}-fhs" {
-    passthru = { inherit args multiPaths targetPaths; };
-  } ''
-    mkdir -p $out
-    cd $out
-    ${setupTargetProfile}
-    cd $out
-    ${extraBuildCommands}
-    cd $out
-    ${lib.optionalString isMultiBuild extraBuildCommandsMulti}
-  ''
+runCommandLocal "${name}-fhs" {
+  passthru = { inherit args multiPaths targetPaths; };
+} ''
+  mkdir -p $out
+  cd $out
+  ${setupTargetProfile}
+  cd $out
+  ${extraBuildCommands}
+  cd $out
+  ${lib.optionalString isMultiBuild extraBuildCommandsMulti}
+''

@@ -28,14 +28,14 @@ lib.mapAttrs (lname: lset:
             redistributable = license.free;
           } // license;
       in
-        lib.pipe licenseDeclaration [
-          applyDefaults
-          applySpdx
-          applyRedistributable
-        ]
+      lib.pipe licenseDeclaration [
+        applyDefaults
+        applySpdx
+        applyRedistributable
+      ]
     ;
   in
-    mkLicense lset
+  mkLicense lset
 ) ({
   # License identifiers from spdx.org where possible.
   # If you cannot find your license here, then look for a similar license or

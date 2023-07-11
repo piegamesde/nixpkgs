@@ -57,170 +57,169 @@ let
     ] ++ lib.optionals (compatible lib stdenv.cc.libc) libcModules;
 
 in
-  {
-    lib,
-    stdenv,
-    fetchFromGitHub,
-    nixosTests,
-    perl,
-    pkg-config,
-    libargon2,
-    openldap,
-    postgresql,
-    libmysqlclient,
-    pcre,
-    pcre2,
-    tre,
-    re2,
-    sqlite,
-    gnutls,
-    libmaxminddb,
-    openssl,
-    mbedtls
-    # For a full list of module names, see https://docs.inspircd.org/packaging/
-    ,
-    extraModules ? compatibleModules lib stdenv
-  }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nixosTests,
+  perl,
+  pkg-config,
+  libargon2,
+  openldap,
+  postgresql,
+  libmysqlclient,
+  pcre,
+  pcre2,
+  tre,
+  re2,
+  sqlite,
+  gnutls,
+  libmaxminddb,
+  openssl,
+  mbedtls
+  # For a full list of module names, see https://docs.inspircd.org/packaging/
+  ,
+  extraModules ? compatibleModules lib stdenv
+}:
 
-  let
-    extras = {
-      # GPLv2 compatible
-      argon2 = [ (libargon2 // {
-        meta = libargon2.meta // {
-          # use libargon2 as CC0 since ASL20 is GPLv2-incompatible
-          # updating this here is important that meta.license is accurate
-          # libargon2 is licensed under either ASL20 or CC0.
-          license = lib.licenses.cc0;
-        };
-      }) ];
-      ldap = [ openldap ];
-      mysql = [ libmysqlclient ];
-      pgsql = [ postgresql ];
-      regex_pcre = [ pcre ];
-      regex_pcre2 = [ pcre2 ];
-      regex_re2 = [ re2 ];
-      regex_tre = [ tre ];
-      sqlite3 = [ sqlite ];
-      ssl_gnutls = [ gnutls ];
-      # depends on stdenv.cc.libc
-      regex_posix = [ ];
-      sslrehashsignal = [ ];
-      # depends on used libc++
-      regex_stdlib = [ ];
-      # GPLv2 incompatible
-      geo_maxmind = [ libmaxminddb ];
-      ssl_mbedtls = [ mbedtls ];
-      ssl_openssl = [ openssl ];
-    };
+let
+  extras = {
+    # GPLv2 compatible
+    argon2 = [ (libargon2 // {
+      meta = libargon2.meta // {
+        # use libargon2 as CC0 since ASL20 is GPLv2-incompatible
+        # updating this here is important that meta.license is accurate
+        # libargon2 is licensed under either ASL20 or CC0.
+        license = lib.licenses.cc0;
+      };
+    }) ];
+    ldap = [ openldap ];
+    mysql = [ libmysqlclient ];
+    pgsql = [ postgresql ];
+    regex_pcre = [ pcre ];
+    regex_pcre2 = [ pcre2 ];
+    regex_re2 = [ re2 ];
+    regex_tre = [ tre ];
+    sqlite3 = [ sqlite ];
+    ssl_gnutls = [ gnutls ];
+    # depends on stdenv.cc.libc
+    regex_posix = [ ];
+    sslrehashsignal = [ ];
+    # depends on used libc++
+    regex_stdlib = [ ];
+    # GPLv2 incompatible
+    geo_maxmind = [ libmaxminddb ];
+    ssl_mbedtls = [ mbedtls ];
+    ssl_openssl = [ openssl ];
+  };
 
-    # buildInputs necessary for the enabled extraModules
-    extraInputs = lib.concatMap
-      (m: extras."${m}" or (builtins.throw "Unknown extra module ${m}"))
-      extraModules;
+  # buildInputs necessary for the enabled extraModules
+  extraInputs = lib.concatMap
+    (m: extras."${m}" or (builtins.throw "Unknown extra module ${m}"))
+    extraModules;
 
-    # if true, we can't provide a binary version of this
-    # package without violating the GPL 2
-    gpl2Conflict = let
-      allowed = compatibleModules lib stdenv;
-    in
-      !lib.all (lib.flip lib.elem allowed) extraModules
-    ;
-
-    # return list of the license(s) of the given derivation
-    getLicenses = drv:
-      let
-        lics = drv.meta.license or [ ];
-      in if lib.isAttrs lics || lib.isString lics then [ lics ] else lics;
-
-    # Whether any member of list1 is also member of list2, i. e. set intersection.
-    anyMembers = list1: list2: lib.any (m1: lib.elem m1 list2) list1;
-
+  # if true, we can't provide a binary version of this
+  # package without violating the GPL 2
+  gpl2Conflict = let
+    allowed = compatibleModules lib stdenv;
   in
-    stdenv.mkDerivation rec {
-      pname = "inspircd";
-      version = "3.16.0";
+  !lib.all (lib.flip lib.elem allowed) extraModules
+  ;
 
-      src = fetchFromGitHub {
-        owner = pname;
-        repo = pname;
-        rev = "v${version}";
-        sha256 = "sha256-TKjUgy8S76gn9a9hbrWehb6BGI+dSFn1gYc0MCppyJk=";
-      };
+  # return list of the license(s) of the given derivation
+  getLicenses = drv:
+    let
+      lics = drv.meta.license or [ ];
+    in if lib.isAttrs lics || lib.isString lics then [ lics ] else lics;
 
-      outputs = [
-        "bin"
-        "lib"
-        "man"
-        "doc"
-        "out"
-      ];
+  # Whether any member of list1 is also member of list2, i. e. set intersection.
+  anyMembers = list1: list2: lib.any (m1: lib.elem m1 list2) list1;
 
-      nativeBuildInputs = [
-        perl
-        pkg-config
-      ];
-      buildInputs = extraInputs;
+in
+stdenv.mkDerivation rec {
+  pname = "inspircd";
+  version = "3.16.0";
 
-      configurePhase = ''
-        runHook preConfigure
+  src = fetchFromGitHub {
+    owner = pname;
+    repo = pname;
+    rev = "v${version}";
+    sha256 = "sha256-TKjUgy8S76gn9a9hbrWehb6BGI+dSFn1gYc0MCppyJk=";
+  };
 
-        patchShebangs configure make/*.pl
+  outputs = [
+    "bin"
+    "lib"
+    "man"
+    "doc"
+    "out"
+  ];
 
-        # configure is executed twice, once to set the extras
-        # to use and once to do the Makefile setup
-        ./configure \
-          --enable-extras \
-          ${lib.escapeShellArg (lib.concatStringsSep " " extraModules)}
+  nativeBuildInputs = [
+    perl
+    pkg-config
+  ];
+  buildInputs = extraInputs;
 
-        # this manually sets the flags instead of using configureFlags, because otherwise stdenv passes flags like --bindir, which make configure fail
-        ./configure \
-          --disable-auto-extras \
-          --distribution-label nixpkgs${version} \
-          --uid 0 \
-          --gid 0 \
-          --binary-dir  ${placeholder "bin"}/bin \
-          --config-dir  /etc/inspircd \
-          --data-dir    ${placeholder "lib"}/lib/inspircd \
-          --example-dir ${placeholder "doc"}/share/doc/inspircd \
-          --log-dir     /var/log/inspircd \
-          --manual-dir  ${placeholder "man"}/share/man/man1 \
-          --module-dir  ${placeholder "lib"}/lib/inspircd \
-          --runtime-dir /var/run \
-          --script-dir  ${placeholder "bin"}/share/inspircd \
+  configurePhase = ''
+    runHook preConfigure
 
-        runHook postConfigure
-      '';
+    patchShebangs configure make/*.pl
 
-      postInstall = ''
-        # for some reasons the executables are not executable
-        chmod +x $bin/bin/*
-      '';
+    # configure is executed twice, once to set the extras
+    # to use and once to do the Makefile setup
+    ./configure \
+      --enable-extras \
+      ${lib.escapeShellArg (lib.concatStringsSep " " extraModules)}
 
-      enableParallelBuilding = true;
+    # this manually sets the flags instead of using configureFlags, because otherwise stdenv passes flags like --bindir, which make configure fail
+    ./configure \
+      --disable-auto-extras \
+      --distribution-label nixpkgs${version} \
+      --uid 0 \
+      --gid 0 \
+      --binary-dir  ${placeholder "bin"}/bin \
+      --config-dir  /etc/inspircd \
+      --data-dir    ${placeholder "lib"}/lib/inspircd \
+      --example-dir ${placeholder "doc"}/share/doc/inspircd \
+      --log-dir     /var/log/inspircd \
+      --manual-dir  ${placeholder "man"}/share/man/man1 \
+      --module-dir  ${placeholder "lib"}/lib/inspircd \
+      --runtime-dir /var/run \
+      --script-dir  ${placeholder "bin"}/share/inspircd \
 
-      passthru.tests = { nixos-test = nixosTests.inspircd; };
+    runHook postConfigure
+  '';
 
-      meta = {
-        description = "A modular C++ IRC server";
-        license = [ lib.licenses.gpl2Only ]
-          ++ lib.concatMap getLicenses extraInputs
-          ++ lib.optionals (anyMembers extraModules libcModules)
-          (getLicenses stdenv.cc.libc)
-          # FIXME(sternenseemann): get license of used lib(std)c++ somehow
-          ++ lib.optional (anyMembers extraModules libcxxModules) "Unknown"
-          # Hack: Definitely prevent a hydra from building this package on
-          # a GPL 2 incompatibility even if it is not in a top-level attribute,
-          # but pulled in indirectly somehow.
-          ++ lib.optional gpl2Conflict lib.licenses.unfree;
-        maintainers = [ lib.maintainers.sternenseemann ];
-        # windows is theoretically possible, but requires extra work
-        # which I am not willing to do and can't test.
-        # https://github.com/inspircd/inspircd/blob/master/win/README.txt
-        platforms = lib.platforms.unix;
-        homepage = "https://www.inspircd.org/";
-      } // lib.optionalAttrs gpl2Conflict {
-        # make sure we never distribute a GPLv2-violating module
-        # in binary form. They can be built locally of course.
-        hydraPlatforms = [ ];
-      };
-    }
+  postInstall = ''
+    # for some reasons the executables are not executable
+    chmod +x $bin/bin/*
+  '';
+
+  enableParallelBuilding = true;
+
+  passthru.tests = { nixos-test = nixosTests.inspircd; };
+
+  meta = {
+    description = "A modular C++ IRC server";
+    license = [ lib.licenses.gpl2Only ] ++ lib.concatMap getLicenses extraInputs
+      ++ lib.optionals (anyMembers extraModules libcModules)
+      (getLicenses stdenv.cc.libc)
+      # FIXME(sternenseemann): get license of used lib(std)c++ somehow
+      ++ lib.optional (anyMembers extraModules libcxxModules) "Unknown"
+      # Hack: Definitely prevent a hydra from building this package on
+      # a GPL 2 incompatibility even if it is not in a top-level attribute,
+      # but pulled in indirectly somehow.
+      ++ lib.optional gpl2Conflict lib.licenses.unfree;
+    maintainers = [ lib.maintainers.sternenseemann ];
+    # windows is theoretically possible, but requires extra work
+    # which I am not willing to do and can't test.
+    # https://github.com/inspircd/inspircd/blob/master/win/README.txt
+    platforms = lib.platforms.unix;
+    homepage = "https://www.inspircd.org/";
+  } // lib.optionalAttrs gpl2Conflict {
+    # make sure we never distribute a GPLv2-violating module
+    # in binary form. They can be built locally of course.
+    hydraPlatforms = [ ];
+  };
+}

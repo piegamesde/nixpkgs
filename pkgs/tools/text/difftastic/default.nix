@@ -16,42 +16,42 @@ let
   };
 
 in
-  rustPlatform.buildRustPackage rec {
-    pname = "difftastic";
-    version = "0.46.0";
+rustPlatform.buildRustPackage rec {
+  pname = "difftastic";
+  version = "0.46.0";
 
-    src = fetchFromGitHub {
-      owner = "wilfred";
-      repo = pname;
-      rev = version;
-      sha256 = "sha256-uXSmEJUpcw/PQ5I9nR1b6N1fcOdCSCM4KF0XnGNJkME=";
+  src = fetchFromGitHub {
+    owner = "wilfred";
+    repo = pname;
+    rev = version;
+    sha256 = "sha256-uXSmEJUpcw/PQ5I9nR1b6N1fcOdCSCM4KF0XnGNJkME=";
+  };
+
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+    outputHashes = {
+      "tree_magic_mini-3.0.2" =
+        "sha256-iIX/DeDbquObDPOx/pctVFN4R8GSkD9bPNkNgOLdUJs=";
     };
+  };
 
-    cargoLock = {
-      lockFile = ./Cargo.lock;
-      outputHashes = {
-        "tree_magic_mini-3.0.2" =
-          "sha256-iIX/DeDbquObDPOx/pctVFN4R8GSkD9bPNkNgOLdUJs=";
-      };
-    };
+  postPatch = ''
+    patch -d $cargoDepsCopy/libmimalloc-sys-0.1.24/c_src/mimalloc \
+      -p1 < ${mimallocPatch}
+  '';
 
-    postPatch = ''
-      patch -d $cargoDepsCopy/libmimalloc-sys-0.1.24/c_src/mimalloc \
-        -p1 < ${mimallocPatch}
-    '';
+  passthru.tests.version = testers.testVersion { package = difftastic; };
 
-    passthru.tests.version = testers.testVersion { package = difftastic; };
-
-    meta = with lib; {
-      description = "A syntax-aware diff";
-      homepage = "https://github.com/Wilfred/difftastic";
-      changelog =
-        "https://github.com/Wilfred/difftastic/blob/${version}/CHANGELOG.md";
-      license = licenses.mit;
-      maintainers = with maintainers; [
-        ethancedwards8
-        figsoda
-      ];
-      mainProgram = "difft";
-    };
-  }
+  meta = with lib; {
+    description = "A syntax-aware diff";
+    homepage = "https://github.com/Wilfred/difftastic";
+    changelog =
+      "https://github.com/Wilfred/difftastic/blob/${version}/CHANGELOG.md";
+    license = licenses.mit;
+    maintainers = with maintainers; [
+      ethancedwards8
+      figsoda
+    ];
+    mainProgram = "difft";
+  };
+}

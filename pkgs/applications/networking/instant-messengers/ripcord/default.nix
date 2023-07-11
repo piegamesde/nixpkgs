@@ -31,10 +31,10 @@ mkDerivation rec {
       name = "${pname}-${version}.AppImage";
     };
   in
-    appimageTools.extract {
-      name = "${pname}-${version}";
-      src = appimage;
-    }
+  appimageTools.extract {
+    name = "${pname}-${version}";
+    src = appimage;
+  }
   ;
 
   nativeBuildInputs = [

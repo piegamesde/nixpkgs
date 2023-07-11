@@ -41,7 +41,7 @@ let
         [ ]
       else [ newPath ];
     in
-      filteredPaths ++ filteredNew
+    filteredPaths ++ filteredNew
   ) [ ];
 
   defaultServiceConfig = {

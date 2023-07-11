@@ -36,13 +36,13 @@ let
         path
       ];
     in
-      attrsOf (either atom (listOf atom)) // {
-        description = ''
-          privoxy configuration type. The format consists of an attribute
-          set of settings. Each setting can be either a value (integer, string,
-          boolean or path) or a list of such values.
-        '';
-      }
+    attrsOf (either atom (listOf atom)) // {
+      description = ''
+        privoxy configuration type. The format consists of an attribute
+        set of settings. Each setting can be either a value (integer, string,
+        boolean or path) or a list of such values.
+      '';
+    }
   ;
 
   ageType = types.str // {

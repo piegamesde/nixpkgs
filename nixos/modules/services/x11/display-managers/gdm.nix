@@ -274,18 +274,18 @@ in {
         '';
       };
     in
-      pkgs.stdenv.mkDerivation {
-        name = "dconf-gdm-profile";
-        buildCommand = ''
-          # Check that the GDM profile starts with what we expect.
-          if [ $(head -n 1 ${gdm}/share/dconf/profile/gdm) != "user-db:user" ]; then
-            echo "GDM dconf profile changed, please update gdm.nix"
-            exit 1
-          fi
-          # Insert our custom DB behind it.
-          sed '2ifile-db:${customDconfDb}' ${gdm}/share/dconf/profile/gdm > $out
-        '';
-      }
+    pkgs.stdenv.mkDerivation {
+      name = "dconf-gdm-profile";
+      buildCommand = ''
+        # Check that the GDM profile starts with what we expect.
+        if [ $(head -n 1 ${gdm}/share/dconf/profile/gdm) != "user-db:user" ]; then
+          echo "GDM dconf profile changed, please update gdm.nix"
+          exit 1
+        fi
+        # Insert our custom DB behind it.
+        sed '2ifile-db:${customDconfDb}' ${gdm}/share/dconf/profile/gdm > $out
+      '';
+    }
     ;
 
     # Use AutomaticLogin if delay is zero, because it's immediate.

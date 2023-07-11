@@ -17,11 +17,11 @@ stdenv.mkDerivation rec {
   src = let
     urlVersion = builtins.replaceStrings [ "." ] [ "_" ] version;
   in
-    fetchzip {
-      url =
-        "https://www.kyoceradocumentsolutions.de/content/download-center/de/drivers/all/Linux_${urlVersion}_ECOSYS_M2x35_40_P2x35_40dnw_zip.download.zip";
-      sha256 = "10crxdfj62ini70vv471445zi6q0l9fmg2jsd74sp6fr0qa0kvr7";
-    }
+  fetchzip {
+    url =
+      "https://www.kyoceradocumentsolutions.de/content/download-center/de/drivers/all/Linux_${urlVersion}_ECOSYS_M2x35_40_P2x35_40dnw_zip.download.zip";
+    sha256 = "10crxdfj62ini70vv471445zi6q0l9fmg2jsd74sp6fr0qa0kvr7";
+  }
   ;
 
   installPhase = ''
