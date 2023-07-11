@@ -63,8 +63,8 @@ stdenv.mkDerivation rec {
   ];
 
   mesonFlags = [
-      "-Dreproducible=true" # Do not hardcode build directory…
-    ];
+    "-Dreproducible=true" # Do not hardcode build directory…
+  ];
 
   postPatch = ''
     chmod +x meson_post_install.py

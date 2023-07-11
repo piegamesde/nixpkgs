@@ -32,12 +32,12 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   nativeBuildInputs = [
-      perl # pod2man
-    ];
+    perl # pod2man
+  ];
 
   buildInputs = [
-      perl # in shebang of pptpsetup
-    ];
+    perl # in shebang of pptpsetup
+  ];
 
   meta = with lib; {
     description = "PPTP client for Linux";

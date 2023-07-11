@@ -83,8 +83,8 @@ in
         users.groups.${cfg.group} = { gid = config.ids.gids.ircd; };
 
         systemd.tmpfiles.rules = [
-            "d ${cfg.statedir} - ${cfg.user} ${cfg.group} - -"
-          ];
+          "d ${cfg.statedir} - ${cfg.user} ${cfg.group} - -"
+        ];
 
         environment.etc."charybdis/ircd.conf".source = configFile;
 

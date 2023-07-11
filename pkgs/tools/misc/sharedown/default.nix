@@ -33,19 +33,19 @@ stdenvNoCC.mkDerivation rec {
   ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "Sharedown";
-        exec = "Sharedown";
-        icon = "Sharedown";
-        comment =
-          "An Application to save your Sharepoint videos for offline usage.";
-        desktopName = "Sharedown";
-        categories = [
-          "Network"
-          "Archiving"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "Sharedown";
+      exec = "Sharedown";
+      icon = "Sharedown";
+      comment =
+        "An Application to save your Sharepoint videos for offline usage.";
+      desktopName = "Sharedown";
+      categories = [
+        "Network"
+        "Archiving"
+      ];
+    })
+  ];
 
   dontBuild = true;
 

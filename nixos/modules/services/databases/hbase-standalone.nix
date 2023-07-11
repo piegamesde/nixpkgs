@@ -44,16 +44,16 @@ in
 {
 
   imports = [
-      (mkRenamedOptionModule
-        [
-          "services"
-          "hbase"
-        ]
-        [
-          "services"
-          "hbase-standalone"
-        ])
-    ];
+    (mkRenamedOptionModule
+      [
+        "services"
+        "hbase"
+      ]
+      [
+        "services"
+        "hbase-standalone"
+      ])
+  ];
 
   ###### interface
 

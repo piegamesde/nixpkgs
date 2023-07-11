@@ -57,11 +57,11 @@ let
       ++ lib.optionals useThrustSourceBuild [ nvidia-thrust ]
       ++ lib.optionals (!useThrustSourceBuild) [ cuda_cccl ]
       ++ lib.optionals (cudaPackages ? cuda_profiler_api) [
-          cuda_profiler_api # cuda_profiler_api.h
-        ]
+        cuda_profiler_api # cuda_profiler_api.h
+      ]
       ++ lib.optionals (!(cudaPackages ? cuda_profiler_api)) [
-          cuda_nvprof # cuda_profiler_api.h
-        ];
+        cuda_nvprof # cuda_profiler_api.h
+      ];
   };
 in
 stdenv.mkDerivation {

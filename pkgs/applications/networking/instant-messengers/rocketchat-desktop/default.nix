@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-      wrapGAppsHook # to fully work with gnome also needs programs.dconf.enable = true in your configuration.nix
-    ];
+    wrapGAppsHook # to fully work with gnome also needs programs.dconf.enable = true in your configuration.nix
+  ];
 
   buildInputs = with pkgs; [
     gtk3

@@ -56,8 +56,8 @@ let
           "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
         ]
         ++ lib.optionals buildTests [
-            "-DGOOGLETEST_DIR=${gtest.src}" # Custom linker names
-          ]
+          "-DGOOGLETEST_DIR=${gtest.src}" # Custom linker names
+        ]
         ;
 
       # No flags to build selectively it seems...

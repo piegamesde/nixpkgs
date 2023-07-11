@@ -44,11 +44,11 @@ buildDunePackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./carton-find-getconf.patch;
-        getconf = "${getconf}";
-      })
-    ];
+    (substituteAll {
+      src = ./carton-find-getconf.patch;
+      getconf = "${getconf}";
+    })
+  ];
 
   # remove changelogs for mimic and the git* packages
   postPatch = ''

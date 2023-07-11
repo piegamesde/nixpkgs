@@ -35,11 +35,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        inherit kmod openconnect;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      inherit kmod openconnect;
+    })
+  ];
 
   buildInputs =
     [

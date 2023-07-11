@@ -25,11 +25,11 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.09";
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        inherit coreutils imagemagick;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      inherit coreutils imagemagick;
+    })
+  ];
 
   buildInputs = [
     base64

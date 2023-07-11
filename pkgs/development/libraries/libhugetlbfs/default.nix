@@ -15,12 +15,12 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (fetchurl {
-        url =
-          "https://build.opensuse.org/public/source/openSUSE:Factory/libhugetlbfs/glibc-2.34-fix.patch?rev=50";
-        sha256 = "sha256-eRQa6M0ZdHMtwA5nnzDTWYv/x4AnRZhj+MpDiwyCvVM=";
-      })
-    ];
+    (fetchurl {
+      url =
+        "https://build.opensuse.org/public/source/openSUSE:Factory/libhugetlbfs/glibc-2.34-fix.patch?rev=50";
+      sha256 = "sha256-eRQa6M0ZdHMtwA5nnzDTWYv/x4AnRZhj+MpDiwyCvVM=";
+    })
+  ];
 
   outputs = [
     "bin"

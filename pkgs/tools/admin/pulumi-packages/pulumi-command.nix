@@ -12,8 +12,8 @@ mkPulumiPackage rec {
   cmdGen = "pulumi-gen-command";
   cmdRes = "pulumi-resource-command";
   extraLdflags = [
-      "-X github.com/pulumi/${repo}/provider/v4/pkg/version.Version=v${version}"
-    ];
+    "-X github.com/pulumi/${repo}/provider/v4/pkg/version.Version=v${version}"
+  ];
 
   postConfigure = ''
     pushd ..

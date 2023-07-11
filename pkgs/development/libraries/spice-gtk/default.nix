@@ -95,8 +95,8 @@ stdenv.mkDerivation rec {
       vala
     ]
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-        mesonEmulatorHook
-      ]
+      mesonEmulatorHook
+    ]
     ++ lib.optionals stdenv.isLinux [ wayland-scanner ]
     ;
 
@@ -150,8 +150,8 @@ stdenv.mkDerivation rec {
       "-Degl=disabled"
     ]
     ++ lib.optionals stdenv.hostPlatform.isMusl [
-        "-Dcoroutine=gthread" # Fixes "Function missing:makecontext"
-      ]
+      "-Dcoroutine=gthread" # Fixes "Function missing:makecontext"
+    ]
     ;
 
   postPatch = ''

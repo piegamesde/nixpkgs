@@ -66,8 +66,8 @@ let
               nativeBuildInputs =
                 (old.nativeBuildInputs or [ ])
                 ++ lib.optionals (!(builtins.isNull buildSystem)) [
-                    buildSystem
-                  ]
+                  buildSystem
+                ]
                 ++ map (a: self.${a}) extraAttrs
                 ;
             }
@@ -487,8 +487,8 @@ lib.composeManyExtensions [
             nativeBuildInputs =
               (old.nativeBuildInputs or [ ])
               ++ lib.optionals (lib.versionAtLeast old.version "3.4") [
-                  self.setuptools-rust
-                ]
+                self.setuptools-rust
+              ]
               ++ lib.optional (!self.isPyPy) pyBuildPackages.cffi
               ++ lib.optional
                 (lib.versionAtLeast old.version "3.5" && !isWheel)
@@ -1253,12 +1253,12 @@ lib.composeManyExtensions [
         attrs: {
           buildInputs = [ pkgs.jq ];
           patches = [
-              (pkgs.fetchpatch {
-                url =
-                  "https://raw.githubusercontent.com/NixOS/nixpkgs/088da8735f6620b60d724aa7db742607ea216087/pkgs/development/python-modules/jq/jq-py-setup.patch";
-                sha256 = "sha256-MYvX3S1YGe0QsUtExtOtULvp++AdVrv+Fid4Jh1xewQ=";
-              })
-            ];
+            (pkgs.fetchpatch {
+              url =
+                "https://raw.githubusercontent.com/NixOS/nixpkgs/088da8735f6620b60d724aa7db742607ea216087/pkgs/development/python-modules/jq/jq-py-setup.patch";
+              sha256 = "sha256-MYvX3S1YGe0QsUtExtOtULvp++AdVrv+Fid4Jh1xewQ=";
+            })
+          ];
         }
       );
 
@@ -2139,8 +2139,8 @@ lib.composeManyExtensions [
               lcms2
             ]
             ++ lib.optionals (lib.versionAtLeast old.version "7.1.0") [
-                xorg.libxcb
-              ]
+              xorg.libxcb
+            ]
             ++ lib.optionals (self.isPyPy) [
               tk
               xorg.libX11
@@ -2374,13 +2374,13 @@ lib.composeManyExtensions [
               (old.propagatedBuildInputs or [ ]) ++ [ pkgs.cairo ];
 
             mesonFlags = [
-                "-Dpython=${
-                  if self.isPy3k then
-                    "python3"
-                  else
-                    "python"
-                }"
-              ];
+              "-Dpython=${
+                if self.isPy3k then
+                  "python3"
+                else
+                  "python"
+              }"
+            ];
           }
         )
       )
@@ -3771,8 +3771,8 @@ lib.composeManyExtensions [
             patches =
               old.patches or [ ]
               ++ lib.optionals (!(old.src.isWheel or false)) [
-                  patchJinja2Imports
-                ]
+                patchJinja2Imports
+              ]
               ;
             # strip the first two levels ("a/src/") when patching since we're in site-packages
             # just above mkdocstrings

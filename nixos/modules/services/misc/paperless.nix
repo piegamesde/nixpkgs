@@ -113,16 +113,16 @@ in
   ];
 
   imports = [
-      (mkRenamedOptionModule
-        [
-          "services"
-          "paperless-ng"
-        ]
-        [
-          "services"
-          "paperless"
-        ])
-    ];
+    (mkRenamedOptionModule
+      [
+        "services"
+        "paperless-ng"
+      ]
+      [
+        "services"
+        "paperless"
+      ])
+  ];
 
   options.services.paperless = {
     enable = mkOption {

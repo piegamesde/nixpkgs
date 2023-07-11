@@ -236,10 +236,10 @@ in
     {
 
       warnings = [
-          (mkIf
-            (!cfg.runAsUser)
-            "Running moosefs services as root is not recommended.")
-        ];
+        (mkIf
+          (!cfg.runAsUser)
+          "Running moosefs services as root is not recommended.")
+      ];
 
       # Service settings
       services.moosefs = {

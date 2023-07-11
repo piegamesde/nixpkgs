@@ -24,13 +24,13 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (fetchpatch {
-        # Remove unnecessary py.code import
-        url =
-          "https://github.com/pytest-dev/pytest-mock/pull/328/commits/e2016928db1147a2a46de6ee9fa878ca0e9d8fc8.patch";
-        hash = "sha256-5Gpzi7h7Io1CMykmBCZR/upM8E9isc3jEItYgwjEOWA=";
-      })
-    ];
+    (fetchpatch {
+      # Remove unnecessary py.code import
+      url =
+        "https://github.com/pytest-dev/pytest-mock/pull/328/commits/e2016928db1147a2a46de6ee9fa878ca0e9d8fc8.patch";
+      hash = "sha256-5Gpzi7h7Io1CMykmBCZR/upM8E9isc3jEItYgwjEOWA=";
+    })
+  ];
 
   nativeBuildInputs = [ setuptools-scm ];
 

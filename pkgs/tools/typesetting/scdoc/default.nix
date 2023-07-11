@@ -23,8 +23,8 @@ stdenv.mkDerivation rec {
   '';
 
   makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-      "HOST_SCDOC=${buildPackages.scdoc}/bin/scdoc"
-    ];
+    "HOST_SCDOC=${buildPackages.scdoc}/bin/scdoc"
+  ];
 
   doCheck = true;
 

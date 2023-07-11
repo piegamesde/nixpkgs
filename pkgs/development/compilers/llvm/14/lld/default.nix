@@ -42,8 +42,8 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen"
-    ];
+    "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen"
+  ];
 
   # Musl's default stack size is too small for lld to be able to link Firefox.
   LDFLAGS =

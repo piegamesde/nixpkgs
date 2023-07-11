@@ -182,8 +182,8 @@ in
           DynamicUser = true;
           Group = "sgx";
           SupplementaryGroups = [
-              config.hardware.cpu.intel.sgx.provision.group
-            ];
+            config.hardware.cpu.intel.sgx.provision.group
+          ];
 
           Type = "simple";
 

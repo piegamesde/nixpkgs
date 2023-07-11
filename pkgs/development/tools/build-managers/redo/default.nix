@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-      perl # for pod2man
-    ];
+    perl # for pod2man
+  ];
 
   sourceRoot = ".";
 

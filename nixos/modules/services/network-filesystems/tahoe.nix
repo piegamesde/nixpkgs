@@ -243,8 +243,8 @@ in
           wantedBy = [ "multi-user.target" ];
           path = [ settings.package ];
           restartTriggers = [
-              config.environment.etc."tahoe-lafs/introducer-${node}.cfg".source
-            ];
+            config.environment.etc."tahoe-lafs/introducer-${node}.cfg".source
+          ];
           serviceConfig = {
             Type = "simple";
             PIDFile = pidfile;
@@ -365,8 +365,8 @@ in
           wantedBy = [ "multi-user.target" ];
           path = [ settings.package ];
           restartTriggers = [
-              config.environment.etc."tahoe-lafs/${node}.cfg".source
-            ];
+            config.environment.etc."tahoe-lafs/${node}.cfg".source
+          ];
           serviceConfig = {
             Type = "simple";
             PIDFile = pidfile;

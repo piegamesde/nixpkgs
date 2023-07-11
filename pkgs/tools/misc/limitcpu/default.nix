@@ -14,15 +14,15 @@ stdenv.mkDerivation rec {
   };
 
   buildFlags = with stdenv; [
-      (
-        if isDarwin then
-          "osx"
-        else if isFreeBSD then
-          "freebsd"
-        else
-          "cpulimit"
-      )
-    ];
+    (
+      if isDarwin then
+        "osx"
+      else if isFreeBSD then
+        "freebsd"
+      else
+        "cpulimit"
+    )
+  ];
 
   installFlags = [ "PREFIX=$(out)" ];
 

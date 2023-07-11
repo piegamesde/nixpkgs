@@ -70,20 +70,20 @@ stdenv.mkDerivation rec {
   ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "TeamSpeak";
-        exec = "TeamSpeak";
-        icon = pname;
-        desktopName = pname;
-        comment = "TeamSpeak Voice Communication Client";
-        categories = [
-          "Audio"
-          "AudioVideo"
-          "Chat"
-          "Network"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "TeamSpeak";
+      exec = "TeamSpeak";
+      icon = pname;
+      desktopName = pname;
+      comment = "TeamSpeak Voice Communication Client";
+      categories = [
+        "Audio"
+        "AudioVideo"
+        "Chat"
+        "Network"
+      ];
+    })
+  ];
 
   dontConfigure = true;
   dontBuild = true;

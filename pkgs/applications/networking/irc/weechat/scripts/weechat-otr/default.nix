@@ -58,20 +58,20 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./libpath.patch;
-        env =
-          "${
-            buildEnv {
-              name = "weechat-otr-env";
-              paths = [
-                potr
-                pycrypto
-              ];
-            }
-          }/${python3Packages.python.sitePackages}";
-      })
-    ];
+    (substituteAll {
+      src = ./libpath.patch;
+      env =
+        "${
+          buildEnv {
+            name = "weechat-otr-env";
+            paths = [
+              potr
+              pycrypto
+            ];
+          }
+        }/${python3Packages.python.sitePackages}";
+    })
+  ];
 
   passthru.scripts = [ "weechat_otr.py" ];
 

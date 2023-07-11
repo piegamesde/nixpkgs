@@ -40,7 +40,7 @@ with lib;
     environment.extraOutputsToInstall = [ "debug" ];
 
     environment.variables.NIX_DEBUG_INFO_DIRS = [
-        "/run/current-system/sw/lib/debug"
-      ];
+      "/run/current-system/sw/lib/debug"
+    ];
   };
 }

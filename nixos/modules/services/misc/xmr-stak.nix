@@ -102,16 +102,16 @@ in
   };
 
   imports = [
-      (mkRemovedOptionModule
-        [
-          "services"
-          "xmr-stak"
-          "configText"
-        ]
-        ''
-          This option was removed in favour of `services.xmr-stak.configFiles`
-          because the new config file `pools.txt` was introduced. You are
-          now able to define all other config files like cpu.txt or amd.txt.
-        '')
-    ];
+    (mkRemovedOptionModule
+      [
+        "services"
+        "xmr-stak"
+        "configText"
+      ]
+      ''
+        This option was removed in favour of `services.xmr-stak.configFiles`
+        because the new config file `pools.txt` was introduced. You are
+        now able to define all other config files like cpu.txt or amd.txt.
+      '')
+  ];
 }

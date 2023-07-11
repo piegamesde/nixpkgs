@@ -111,8 +111,8 @@ buildPythonPackage rec {
       "test_read_sql_via_sqlalchemy_engine"
     ]
     ++ lib.optionals stdenv.isDarwin [
-        "test_plotting" # Fatal Python error: Illegal instruction
-      ]
+      "test_plotting" # Fatal Python error: Illegal instruction
+    ]
     ;
 
   pythonImportsCheck = [ "pandas" ];

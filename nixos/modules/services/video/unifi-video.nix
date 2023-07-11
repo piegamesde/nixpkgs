@@ -205,8 +205,8 @@ in
         7442 # Camera management from cameras to NVR over WAN
       ];
       allowedUDPPorts = [
-          6666 # Inbound camera streams sent over WAN
-        ];
+        6666 # Inbound camera streams sent over WAN
+      ];
     };
 
     systemd.tmpfiles.rules = [
@@ -284,18 +284,18 @@ in
   };
 
   imports = [
-      (mkRenamedOptionModule
-        [
-          "services"
-          "unifi-video"
-          "openPorts"
-        ]
-        [
-          "services"
-          "unifi-video"
-          "openFirewall"
-        ])
-    ];
+    (mkRenamedOptionModule
+      [
+        "services"
+        "unifi-video"
+        "openPorts"
+      ]
+      [
+        "services"
+        "unifi-video"
+        "openFirewall"
+      ])
+  ];
 
   meta.maintainers = with lib.maintainers; [ rsynnest ];
 }

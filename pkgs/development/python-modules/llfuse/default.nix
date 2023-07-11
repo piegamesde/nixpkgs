@@ -49,8 +49,8 @@ buildPythonPackage rec {
   ];
 
   disabledTests = [
-      "test_listdir" # accesses /usr/bin
-    ];
+    "test_listdir" # accesses /usr/bin
+  ];
 
   meta = with lib; {
     description = "Python bindings for the low-level FUSE API";

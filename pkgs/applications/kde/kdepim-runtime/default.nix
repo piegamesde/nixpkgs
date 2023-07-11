@@ -78,11 +78,11 @@ mkDerivation {
     qtxmlpatterns
   ];
   qtWrapperArgs = [
-      "--prefix SASL_PATH : ${
-        lib.makeSearchPath "lib/sasl2" [
-          cyrus_sasl.out
-          libkgapi
-        ]
-      }"
-    ];
+    "--prefix SASL_PATH : ${
+      lib.makeSearchPath "lib/sasl2" [
+        cyrus_sasl.out
+        libkgapi
+      ]
+    }"
+  ];
 }

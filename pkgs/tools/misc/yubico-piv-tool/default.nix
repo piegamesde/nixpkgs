@@ -56,13 +56,13 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-      "--with-backend=${
-        if withApplePCSC then
-          "macscard"
-        else
-          "pcsc"
-      }"
-    ];
+    "--with-backend=${
+      if withApplePCSC then
+        "macscard"
+      else
+        "pcsc"
+    }"
+  ];
 
   passthru = {
     updateScript = gitUpdater {

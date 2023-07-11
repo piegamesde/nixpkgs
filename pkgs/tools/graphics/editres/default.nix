@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-      "--with-appdefaultdir=$(out)/share/X11/app-defaults/editres"
-    ];
+    "--with-appdefaultdir=$(out)/share/X11/app-defaults/editres"
+  ];
 
   hardeningDisable = [ "format" ];
 

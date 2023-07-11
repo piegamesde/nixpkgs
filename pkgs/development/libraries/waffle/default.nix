@@ -40,8 +40,8 @@ stdenv.mkDerivation rec {
       libGL
     ]
     ++ lib.optionals (with stdenv.hostPlatform; isUnix && !isDarwin) [
-        libglvnd
-      ]
+      libglvnd
+    ]
     ++ lib.optionals x11Support [
       libX11
       libxcb

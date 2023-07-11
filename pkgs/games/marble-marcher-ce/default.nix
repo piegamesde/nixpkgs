@@ -54,15 +54,15 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = pname;
-        exec = pname;
-        icon = pname;
-        desktopName = pname;
-        comment = meta.description;
-        categories = [ "Game" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = pname;
+      exec = pname;
+      icon = pname;
+      desktopName = pname;
+      comment = meta.description;
+      categories = [ "Game" ];
+    })
+  ];
 
   meta = with lib; {
     description = "A fractal physics game.";

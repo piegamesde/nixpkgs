@@ -144,13 +144,13 @@ with prev; {
   http = prev.http.overrideAttrs (
     oa: {
       patches = [
-          (fetchpatch {
-            name = "invalid-state-progression.patch";
-            url =
-              "https://github.com/daurnimator/lua-http/commit/cb7b59474a.diff";
-            sha256 = "1vmx039n3nqfx50faqhs3wgiw28ws416rhw6vh6srmh9i826dac7";
-          })
-        ];
+        (fetchpatch {
+          name = "invalid-state-progression.patch";
+          url =
+            "https://github.com/daurnimator/lua-http/commit/cb7b59474a.diff";
+          sha256 = "1vmx039n3nqfx50faqhs3wgiw28ws416rhw6vh6srmh9i826dac7";
+        })
+      ];
       /* TODO: separate docs derivation? (pandoc is heavy)
          nativeBuildInputs = [ pandoc ];
          makeFlags = [ "-C doc" "lua-http.html" "lua-http.3" ];
@@ -203,13 +203,13 @@ with prev; {
         gobject-introspection
       ];
       patches = [
-          (fetchpatch {
-            name = "lgi-find-cairo-through-typelib.patch";
-            url =
-              "https://github.com/psychon/lgi/commit/46a163d9925e7877faf8a4f73996a20d7cf9202a.patch";
-            sha256 = "0gfvvbri9kyzhvq3bvdbj2l6mwvlz040dk4mrd5m9gz79f7w109c";
-          })
-        ];
+        (fetchpatch {
+          name = "lgi-find-cairo-through-typelib.patch";
+          url =
+            "https://github.com/psychon/lgi/commit/46a163d9925e7877faf8a4f73996a20d7cf9202a.patch";
+          sha256 = "0gfvvbri9kyzhvq3bvdbj2l6mwvlz040dk4mrd5m9gz79f7w109c";
+        })
+      ];
 
       # https://github.com/lgi-devs/lgi/pull/300
       postPatch = ''

@@ -64,11 +64,11 @@ stdenv.mkDerivation rec {
   ];
 
   patches = [
-      (substituteAll {
-        src = ./osinfo-db-data-dir.patch;
-        osinfo_db_data_dir = "${osinfo-db}/share";
-      })
-    ];
+    (substituteAll {
+      src = ./osinfo-db-data-dir.patch;
+      osinfo_db_data_dir = "${osinfo-db}/share";
+    })
+  ];
 
   mesonFlags = [
     "-Dwith-usb-ids-path=${hwdata}/share/hwdata/usb.ids"

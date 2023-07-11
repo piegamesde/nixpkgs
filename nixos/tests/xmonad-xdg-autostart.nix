@@ -22,18 +22,18 @@ import ./make-test-python.nix (
         services.xserver.desktopManager.runXdgAutostartIfNone = true;
 
         environment.systemPackages = [
-            (pkgs.writeTextFile {
-              name = "test-xdg-autostart";
-              destination = "/etc/xdg/autostart/test-xdg-autostart.desktop";
-              text = ''
-                [Desktop Entry]
-                Name=test-xdg-autoatart
-                Type=Application
-                Terminal=false
-                Exec=${pkgs.coreutils}/bin/touch ${config.users.users.alice.home}/xdg-autostart-executed
-              '';
-            })
-          ];
+          (pkgs.writeTextFile {
+            name = "test-xdg-autostart";
+            destination = "/etc/xdg/autostart/test-xdg-autostart.desktop";
+            text = ''
+              [Desktop Entry]
+              Name=test-xdg-autoatart
+              Type=Application
+              Terminal=false
+              Exec=${pkgs.coreutils}/bin/touch ${config.users.users.alice.home}/xdg-autostart-executed
+            '';
+          })
+        ];
       }
       ;
 

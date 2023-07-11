@@ -29,11 +29,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        inherit networkmanagerapplet;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      inherit networkmanagerapplet;
+    })
+  ];
 
   nativeBuildInputs = [
     meson

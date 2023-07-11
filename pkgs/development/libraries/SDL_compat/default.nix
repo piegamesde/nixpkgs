@@ -35,8 +35,8 @@ stdenv.mkDerivation rec {
       pkg-config
     ]
     ++ optionals (stdenv.isDarwin && stdenv.isAarch64) [
-        autoSignDarwinBinariesHook
-      ]
+      autoSignDarwinBinariesHook
+    ]
     ;
 
   propagatedBuildInputs =

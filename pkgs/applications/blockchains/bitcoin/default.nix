@@ -43,8 +43,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     urls = [
-        "https://bitcoincore.org/bin/bitcoin-core-${version}/bitcoin-${version}.tar.gz"
-      ];
+      "https://bitcoincore.org/bin/bitcoin-core-${version}/bitcoin-${version}.tar.gz"
+    ];
     # hash retrieved from signed SHA256SUMS
     sha256 = "12d4ad6dfab4767d460d73307e56d13c72997e114fad4f274650f95560f5f2ff";
   };
@@ -57,8 +57,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isLinux [ util-linux ]
     ++ lib.optionals stdenv.isDarwin [ hexdump ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-        autoSignDarwinBinariesHook
-      ]
+      autoSignDarwinBinariesHook
+    ]
     ++ lib.optionals withGui [ wrapQtAppsHook ]
     ;
 

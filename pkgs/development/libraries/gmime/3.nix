@@ -47,8 +47,8 @@ stdenv.mkDerivation rec {
       "--enable-vala=yes"
     ]
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-        "ac_cv_have_iconv_detect_h=yes"
-      ]
+      "ac_cv_have_iconv_detect_h=yes"
+    ]
     ;
 
   postPatch = ''

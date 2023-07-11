@@ -51,19 +51,19 @@ stdenv.mkDerivation rec {
   libipasir = callPackage ./libipasirglucose4 { };
 
   patches = [
-      (substituteAll {
-        src = ./0001-Fix-some-paths-for-Nix-build.patch;
-        libipasir = "${libipasir}/lib/${libipasir.libname}";
-        libssl =
-          "${
-            lib.getLib openssl
-          }/lib/libssl${stdenv.hostPlatform.extensions.sharedLibrary}";
-        libcrypto =
-          "${
-            lib.getLib openssl
-          }/lib/libcrypto${stdenv.hostPlatform.extensions.sharedLibrary}";
-      })
-    ];
+    (substituteAll {
+      src = ./0001-Fix-some-paths-for-Nix-build.patch;
+      libipasir = "${libipasir}/lib/${libipasir.libname}";
+      libssl =
+        "${
+          lib.getLib openssl
+        }/lib/libssl${stdenv.hostPlatform.extensions.sharedLibrary}";
+      libcrypto =
+        "${
+          lib.getLib openssl
+        }/lib/libcrypto${stdenv.hostPlatform.extensions.sharedLibrary}";
+    })
+  ];
 
   nativeBuildInputs = lib.optional certifyBooks makeWrapper;
 
@@ -134,13 +134,13 @@ stdenv.mkDerivation rec {
     ;
 
   preDistPhases = [
-      (
-        if certifyBooks then
-          "certifyBooksPhase"
-        else
-          "removeBooksPhase"
-      )
-    ];
+    (
+      if certifyBooks then
+        "certifyBooksPhase"
+      else
+        "removeBooksPhase"
+    )
+  ];
 
   certifyBooksPhase = ''
     # Certify the community books

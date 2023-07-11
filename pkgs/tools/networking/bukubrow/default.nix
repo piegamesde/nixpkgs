@@ -38,8 +38,8 @@ rustPlatform.buildRustPackage rec {
   chromeManifest = builtins.toJSON (
     manifest // {
       allowed_origins = [
-          "chrome-extension://ghniladkapjacfajiooekgkfopkjblpn/"
-        ];
+        "chrome-extension://ghniladkapjacfajiooekgkfopkjblpn/"
+      ];
     }
   );
   postBuild = ''

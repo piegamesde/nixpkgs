@@ -1169,13 +1169,13 @@ in
         Group = "matrix-synapse";
         WorkingDirectory = cfg.dataDir;
         ExecStartPre = [
-            ("+"
-              + (pkgs.writeShellScript "matrix-synapse-fix-permissions" ''
-                chown matrix-synapse:matrix-synapse ${cfg.settings.signing_key_path}
-                chmod 0600 ${cfg.settings.signing_key_path}
-              '')
-            )
-          ];
+          ("+"
+            + (pkgs.writeShellScript "matrix-synapse-fix-permissions" ''
+              chown matrix-synapse:matrix-synapse ${cfg.settings.signing_key_path}
+              chmod 0600 ${cfg.settings.signing_key_path}
+            '')
+          )
+        ];
         ExecStart = ''
           ${cfg.package}/bin/synapse_homeserver \
             ${

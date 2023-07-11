@@ -29,8 +29,8 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     [ "-DCMAKE_INSTALL_DATADIR=${placeholder "dev"}" ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-        "-DWAYLAND_SCANNERPP=${buildPackages.waylandpp}/bin/wayland-scanner++"
-      ]
+      "-DWAYLAND_SCANNERPP=${buildPackages.waylandpp}/bin/wayland-scanner++"
+    ]
     ;
 
   # Complains about not being able to find the fontconfig config file otherwise

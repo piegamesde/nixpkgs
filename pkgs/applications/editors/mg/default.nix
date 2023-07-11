@@ -26,8 +26,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   makeFlags = [
-      "PKG_CONFIG=${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config"
-    ];
+    "PKG_CONFIG=${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config"
+  ];
 
   installPhase = ''
     install -m 555 -Dt $out/bin mg

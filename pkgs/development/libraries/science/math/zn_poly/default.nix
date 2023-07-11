@@ -26,8 +26,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ gmp ];
 
   nativeBuildInputs = [
-      python3 # needed by ./configure to create the makefile
-    ];
+    python3 # needed by ./configure to create the makefile
+  ];
 
   # name of library file ("libzn_poly.so")
   libbasename = "libzn_poly";

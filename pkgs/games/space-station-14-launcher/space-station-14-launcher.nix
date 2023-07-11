@@ -113,16 +113,16 @@ buildDotnetModule rec {
   executables = [ "SS14.Launcher" ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = pname;
-        exec = meta.mainProgram;
-        icon = pname;
-        desktopName = "Space Station 14 Launcher";
-        comment = meta.description;
-        categories = [ "Game" ];
-        startupWMClass = meta.mainProgram;
-      })
-    ];
+    (makeDesktopItem {
+      name = pname;
+      exec = meta.mainProgram;
+      icon = pname;
+      desktopName = "Space Station 14 Launcher";
+      comment = meta.description;
+      categories = [ "Game" ];
+      startupWMClass = meta.mainProgram;
+    })
+  ];
 
   postInstall = ''
     mkdir -p $out/lib/space-station-14-launcher/loader

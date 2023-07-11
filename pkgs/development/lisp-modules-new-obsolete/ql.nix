@@ -121,8 +121,8 @@ let
       pkg: {
         propagatedBuildInputs = [ pkgs.glucose ];
         patches = [
-            ./patches/cl-sat.glucose-binary-from-PATH-if-present.patch
-          ];
+          ./patches/cl-sat.glucose-binary-from-PATH-if-present.patch
+        ];
       }
       ;
     "cl-sat.minisat" = pkg: { propagatedBuildInputs = [ pkgs.minisat ]; };

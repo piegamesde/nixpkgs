@@ -27,11 +27,11 @@ buildDunePackage rec {
 
   # Finds R and Rmathlib separatley
   patches = [
-      (fetchpatch {
-        url = "https://github.com/pveber/ocaml-r/commit/aa96dc5.patch";
-        sha256 = "sha256-xW33W2ciesyUkDKEH08yfOXv0wP0V6X80or2/n2Nrb4=";
-      })
-    ];
+    (fetchpatch {
+      url = "https://github.com/pveber/ocaml-r/commit/aa96dc5.patch";
+      sha256 = "sha256-xW33W2ciesyUkDKEH08yfOXv0wP0V6X80or2/n2Nrb4=";
+    })
+  ];
 
   nativeBuildInputs = [
     pkg-config

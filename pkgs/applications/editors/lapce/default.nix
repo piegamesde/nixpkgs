@@ -161,20 +161,20 @@ rustPlatform.buildRustPackage rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "lapce";
-        exec = "lapce %F";
-        icon = "lapce";
-        desktopName = "Lapce";
-        comment = meta.description;
-        genericName = "Code Editor";
-        categories = [
-          "Development"
-          "Utility"
-          "TextEditor"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "lapce";
+      exec = "lapce %F";
+      icon = "lapce";
+      desktopName = "Lapce";
+      comment = meta.description;
+      genericName = "Code Editor";
+      categories = [
+        "Development"
+        "Utility"
+        "TextEditor"
+      ];
+    })
+  ];
 
   passthru.updateScript = nix-update-script { };
 

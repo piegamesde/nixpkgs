@@ -18,13 +18,13 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (fetchpatch {
-        # pci_*_dma_mask no longer exists in 5.18
-        url =
-          "https://github.com/DigitalDevices/dddvb/commit/871821d6a0be147313bb52570591ce3853b3d370.patch";
-        hash = "sha256-wY05HrsduvsIdp/KpS9NWfL3hR9IvGjuNCDljFn7dd0=";
-      })
-    ];
+    (fetchpatch {
+      # pci_*_dma_mask no longer exists in 5.18
+      url =
+        "https://github.com/DigitalDevices/dddvb/commit/871821d6a0be147313bb52570591ce3853b3d370.patch";
+      hash = "sha256-wY05HrsduvsIdp/KpS9NWfL3hR9IvGjuNCDljFn7dd0=";
+    })
+  ];
 
   postPatch = ''
     sed -i '/depmod/d' Makefile
@@ -33,8 +33,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
   makeFlags = [
-      "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    ];
+    "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+  ];
 
   INSTALL_MOD_PATH = placeholder "out";
 

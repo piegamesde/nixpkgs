@@ -126,8 +126,8 @@ in
     '';
 
     systemd.tmpfiles.rules = [
-        "d /var/cache/postfixadmin/templates_c 700 ${user} ${user}"
-      ];
+      "d /var/cache/postfixadmin/templates_c 700 ${user} ${user}"
+    ];
 
     services.nginx = {
       enable = true;

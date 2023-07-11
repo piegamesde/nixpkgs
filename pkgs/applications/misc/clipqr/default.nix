@@ -55,16 +55,16 @@ buildGoModule rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "ClipQR";
-        desktopName = "ClipQR";
-        exec = "clipqr";
-        categories = [ "Utility" ];
-        icon = "clipqr";
-        comment = "Scan QR codes on screen and from camera";
-        genericName = "ClipQR";
-      })
-    ];
+    (makeDesktopItem {
+      name = "ClipQR";
+      desktopName = "ClipQR";
+      exec = "clipqr";
+      categories = [ "Utility" ];
+      icon = "clipqr";
+      comment = "Scan QR codes on screen and from camera";
+      genericName = "ClipQR";
+    })
+  ];
 
   meta = with lib; {
     description =

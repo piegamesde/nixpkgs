@@ -24,11 +24,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        libhangul = "${libhangul}/lib/libhangul.so.1";
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      libhangul = "${libhangul}/lib/libhangul.so.1";
+    })
+  ];
 
   nativeBuildInputs = [
     appstream-glib

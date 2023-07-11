@@ -26,8 +26,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ gmp ];
 
   nativeBuildInputs = [
-      perl # needed for ./configure
-    ];
+    perl # needed for ./configure
+  ];
 
   sourceRoot = "${pname}-${version}/src";
 

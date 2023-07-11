@@ -20695,12 +20695,12 @@ let
             (
               sources."html-minifier-terser-5.1.1" // {
                 dependencies = [
-                    (
-                      sources."terser-4.8.1" // {
-                        dependencies = [ sources."commander-2.20.3" ];
-                      }
-                    )
-                  ];
+                  (
+                    sources."terser-4.8.1" // {
+                      dependencies = [ sources."commander-2.20.3" ];
+                    }
+                  )
+                ];
               }
             )
             (
@@ -21030,12 +21030,12 @@ let
             (
               sources."html-minifier-terser-5.1.1" // {
                 dependencies = [
-                    (
-                      sources."terser-4.8.1" // {
-                        dependencies = [ sources."commander-2.20.3" ];
-                      }
-                    )
-                  ];
+                  (
+                    sources."terser-4.8.1" // {
+                      dependencies = [ sources."commander-2.20.3" ];
+                    }
+                  )
+                ];
               }
             )
             (
@@ -21535,8 +21535,8 @@ let
       (
         sources."babel-plugin-polyfill-corejs3-0.1.7" // {
           dependencies = [
-              sources."@babel/helper-define-polyfill-provider-0.1.5"
-            ];
+            sources."@babel/helper-define-polyfill-provider-0.1.5"
+          ];
         }
       )
       sources."babel-plugin-polyfill-regenerator-0.4.0"

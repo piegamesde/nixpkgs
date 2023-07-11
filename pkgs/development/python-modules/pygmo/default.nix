@@ -30,10 +30,10 @@ toPythonModule (
     };
 
     cmakeFlags = [
-        "-DPYGMO_INSTALL_PATH=${
-          placeholder "out"
-        }/lib/${python.libPrefix}/site-packages"
-      ];
+      "-DPYGMO_INSTALL_PATH=${
+        placeholder "out"
+      }/lib/${python.libPrefix}/site-packages"
+    ];
 
     nativeBuildInputs = [ cmake ];
 

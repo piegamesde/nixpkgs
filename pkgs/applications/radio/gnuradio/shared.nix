@@ -107,8 +107,8 @@ rec {
     ++ lib.optionals (hasFeature "gr-audio") [ "share/gnuradio/examples/audio" ]
     ++ lib.optionals (hasFeature "gr-uhd") [ "share/gnuradio/examples/uhd" ]
     ++ lib.optionals (hasFeature "gr-qtgui") [
-        "share/gnuradio/examples/qt-gui"
-      ]
+      "share/gnuradio/examples/qt-gui"
+    ]
     ;
   postInstall =
     ""

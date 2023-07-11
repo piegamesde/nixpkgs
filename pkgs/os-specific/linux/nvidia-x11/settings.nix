@@ -45,8 +45,8 @@ let
     '';
 
     makeFlags = [
-        "OUTPUTDIR=." # src/libXNVCtrl
-      ];
+      "OUTPUTDIR=." # src/libXNVCtrl
+    ];
 
     installPhase = ''
       mkdir -p $out/lib

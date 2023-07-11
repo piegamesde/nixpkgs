@@ -80,16 +80,16 @@ mkYarnPackage rec {
   # The desktop item properties should be kept in sync with data from upstream:
   # https://github.com/MicroPad/MicroPad-Electron/blob/master/package.json
   desktopItems = [
-      (makeDesktopItem {
-        name = "micropad";
-        exec = "${executableName} %u";
-        icon = "micropad";
-        desktopName = "µPad";
-        startupWMClass = "µPad";
-        comment = meta.description;
-        categories = [ "Office" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "micropad";
+      exec = "${executableName} %u";
+      icon = "micropad";
+      desktopName = "µPad";
+      startupWMClass = "µPad";
+      comment = meta.description;
+      categories = [ "Office" ];
+    })
+  ];
 
   passthru.updateScript = ./update.sh;
 

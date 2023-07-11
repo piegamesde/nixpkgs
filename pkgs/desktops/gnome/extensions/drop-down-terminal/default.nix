@@ -25,11 +25,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix_vte_and_gjs.patch;
-        inherit gjs vte;
-      })
-    ];
+    (substituteAll {
+      src = ./fix_vte_and_gjs.patch;
+      inherit gjs vte;
+    })
+  ];
 
   installPhase = ''
     runHook preInstall

@@ -35,12 +35,12 @@ stdenv.mkDerivation rec {
     ;
 
   patches = [
-      (fetchpatch {
-        url =
-          "https://sources.debian.net/data/main/e/epic5/2.0.1-1/debian/patches/openssl-1.1.patch";
-        sha256 = "03bpsyv1sr5icajs2qkdvv8nnn6rz6yvvj7pgiq8gz9sbp6siyfv";
-      })
-    ];
+    (fetchpatch {
+      url =
+        "https://sources.debian.net/data/main/e/epic5/2.0.1-1/debian/patches/openssl-1.1.patch";
+      sha256 = "03bpsyv1sr5icajs2qkdvv8nnn6rz6yvvj7pgiq8gz9sbp6siyfv";
+    })
+  ];
 
   configureFlags = [
     "--disable-debug"

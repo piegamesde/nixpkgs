@@ -51,8 +51,8 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       path = with pkgs; [
-          util-linux # for dmesg
-        ];
+        util-linux # for dmesg
+      ];
       serviceConfig = {
         ExecStart = "${pkgs.salt}/bin/salt-master";
         LimitNOFILE = 16384;

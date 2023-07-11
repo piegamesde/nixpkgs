@@ -25,10 +25,10 @@ import ./make-test-python.nix (
                     nodeid = i;
                     inherit name;
                     ring_addrs = [
-                        (builtins.head
-                          nodes.${name}.networking.interfaces.eth1.ipv4.addresses)
-                        .address
-                      ];
+                      (builtins.head
+                        nodes.${name}.networking.interfaces.eth1.ipv4.addresses)
+                      .address
+                    ];
                   }
                 )
                 (builtins.attrNames nodes);

@@ -23,8 +23,8 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      ./disable-cpack.patch # disable the need of cpack/rpm
-    ];
+    ./disable-cpack.patch # disable the need of cpack/rpm
+  ];
 
   nativeBuildInputs = [
     pkg-config

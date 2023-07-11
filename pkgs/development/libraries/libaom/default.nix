@@ -64,8 +64,8 @@ stdenv.mkDerivation rec {
       "-DCONFIG_RUNTIME_CPU_DETECT=0"
     ]
     ++ lib.optionals (isCross && !stdenv.hostPlatform.isx86) [
-        "-DAS_EXECUTABLE=${stdenv.cc.targetPrefix}as"
-      ]
+      "-DAS_EXECUTABLE=${stdenv.cc.targetPrefix}as"
+    ]
     ++ lib.optionals stdenv.isAarch32 [
       # armv7l-hf-multiplatform does not support NEON
       # see lib/systems/platform.nix

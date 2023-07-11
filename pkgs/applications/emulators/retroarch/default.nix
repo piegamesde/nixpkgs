@@ -64,8 +64,8 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      ./use-default-values-for-libretro_info_path-assets_directory.patch
-    ];
+    ./use-default-values-for-libretro_info_path-assets_directory.patch
+  ];
 
   nativeBuildInputs =
     [

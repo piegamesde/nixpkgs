@@ -16,12 +16,12 @@ pythonPackages.buildPythonApplication rec {
 
   # https://github.com/lpechacek/cpuset/pull/36
   patches = [
-      (fetchpatch {
-        url =
-          "https://github.com/MawKKe/cpuset/commit/a4b6b275d0a43d2794ab9e82922d3431aeea9903.patch";
-        sha256 = "1mi1xrql81iczl67s4dk2rm9r1mk36qhsa19wn7zgryf95krsix2";
-      })
-    ];
+    (fetchpatch {
+      url =
+        "https://github.com/MawKKe/cpuset/commit/a4b6b275d0a43d2794ab9e82922d3431aeea9903.patch";
+      sha256 = "1mi1xrql81iczl67s4dk2rm9r1mk36qhsa19wn7zgryf95krsix2";
+    })
+  ];
 
   makeFlags = [ "prefix=$(out)" ];
 

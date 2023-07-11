@@ -54,8 +54,8 @@ mkDerivation {
   '';
 
   cmakeFlags = [
-      "-DGUILE_CCACHE_DIR=${placeholder "out"}/lib/guile/3.0/ccache"
-    ];
+    "-DGUILE_CCACHE_DIR=${placeholder "out"}/lib/guile/3.0/ccache"
+  ];
 
   postInstall =
     if stdenv.isDarwin then

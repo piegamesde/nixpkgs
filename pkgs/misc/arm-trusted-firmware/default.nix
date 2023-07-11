@@ -104,8 +104,8 @@ let
             license =
               [ licenses.bsd3 ]
               ++ lib.optionals (!deleteHDCPBlobBeforeBuild) [
-                  licenses.unfreeRedistributable
-                ]
+                licenses.unfreeRedistributable
+              ]
               ;
             maintainers = with maintainers; [ lopsided98 ];
           } // extraMeta;

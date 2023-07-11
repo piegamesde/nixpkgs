@@ -163,8 +163,8 @@ in
   config = mkIf (any isEnabled allServices) {
 
     environment.systemPackages = [
-        pkgs.frr # for the vtysh tool
-      ];
+      pkgs.frr # for the vtysh tool
+    ];
 
     users.users.frr = {
       description = "FRR daemon user";

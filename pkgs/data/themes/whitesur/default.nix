@@ -118,8 +118,8 @@ rec {
   ];
 
   buildInputs = [
-      gnome-themes-extra # adwaita engine for Gtk2
-    ];
+    gnome-themes-extra # adwaita engine for Gtk2
+  ];
 
   postPatch = ''
     find -name "*.sh" -print0 | while IFS= read -r -d ''' file; do

@@ -388,8 +388,8 @@ in
           }
           ;
         systemd.tmpfiles.rules = [
-            "d  /run/coturn 0700 turnserver turnserver - -"
-          ];
+          "d  /run/coturn 0700 turnserver turnserver - -"
+        ];
       }
     ])
   );

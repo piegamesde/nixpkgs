@@ -20,14 +20,14 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (fetchpatch {
-        # https://github.com/kennethreitz/maya/issues/112
-        # Merged, so should be in next release.
-        url =
-          "https://github.com/kennethreitz/maya/commit/f69a93b1103130139cdec30511777823957fb659.patch";
-        sha256 = "152ba7amv9dhhx1wcklfalsdzsxggik9f7rsrikms921lq9xqc8h";
-      })
-    ];
+    (fetchpatch {
+      # https://github.com/kennethreitz/maya/issues/112
+      # Merged, so should be in next release.
+      url =
+        "https://github.com/kennethreitz/maya/commit/f69a93b1103130139cdec30511777823957fb659.patch";
+      sha256 = "152ba7amv9dhhx1wcklfalsdzsxggik9f7rsrikms921lq9xqc8h";
+    })
+  ];
 
   propagatedBuildInputs = [
     dateparser

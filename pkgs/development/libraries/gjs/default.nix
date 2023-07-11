@@ -73,8 +73,8 @@ stdenv.mkDerivation rec {
       gobject-introspection
     ]
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-        mesonEmulatorHook
-      ]
+      mesonEmulatorHook
+    ]
     ;
 
   buildInputs = [
@@ -91,8 +91,8 @@ stdenv.mkDerivation rec {
   mesonFlags =
     [ "-Dinstalled_test_prefix=${placeholder "installedTests"}" ]
     ++ lib.optionals (!stdenv.isLinux || stdenv.hostPlatform.isMusl) [
-        "-Dprofiler=disabled"
-      ]
+      "-Dprofiler=disabled"
+    ]
     ;
 
   doCheck = !stdenv.isDarwin;

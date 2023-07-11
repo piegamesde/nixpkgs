@@ -72,8 +72,8 @@ lib.init bootStages
             extraBuildInputs =
               [ ] # Old ones run on wrong platform
               ++ lib.optionals hostPlatform.isDarwin [
-                  buildPackages.targetPackages.darwin.apple_sdk.frameworks.CoreFoundation
-                ]
+                buildPackages.targetPackages.darwin.apple_sdk.frameworks.CoreFoundation
+              ]
               ;
             allowedRequisites = null;
 

@@ -169,21 +169,21 @@ stdenv.mkDerivation rec {
     ;
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "Pulsar";
-        desktopName = "Pulsar";
-        exec = "pulsar";
-        icon = "pulsar";
-        comment = "A Community-led Hyper-Hackable Text Editor";
-        genericName = "Text Editor";
-        categories = [
-          "Development"
-          "TextEditor"
-          "Utility"
-        ];
-        mimeTypes = [ "text/plain" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "Pulsar";
+      desktopName = "Pulsar";
+      exec = "pulsar";
+      icon = "pulsar";
+      comment = "A Community-led Hyper-Hackable Text Editor";
+      genericName = "Text Editor";
+      categories = [
+        "Development"
+        "TextEditor"
+        "Utility"
+      ];
+      mimeTypes = [ "text/plain" ];
+    })
+  ];
 
   passthru.updateScript = ./update.mjs;
 

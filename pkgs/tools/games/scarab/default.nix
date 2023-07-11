@@ -56,16 +56,16 @@ buildDotnetModule rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        desktopName = "Scarab";
-        name = "scarab";
-        exec = "Scarab";
-        icon = "scarab";
-        comment = meta.description;
-        type = "Application";
-        categories = [ "Game" ];
-      })
-    ];
+    (makeDesktopItem {
+      desktopName = "Scarab";
+      name = "scarab";
+      exec = "Scarab";
+      icon = "scarab";
+      comment = meta.description;
+      type = "Application";
+      categories = [ "Game" ];
+    })
+  ];
 
   meta = with lib; {
     description = "Hollow Knight mod installer and manager";

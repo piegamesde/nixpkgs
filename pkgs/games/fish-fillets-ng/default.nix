@@ -38,18 +38,18 @@ stdenv.mkDerivation rec {
   ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "fish-fillets-ng";
-        exec = "fillets";
-        icon = "fish-fillets-ng";
-        desktopName = "Fish Fillets";
-        comment = "Puzzle game about witty fish saving the world sokoban-style";
-        categories = [
-          "Game"
-          "LogicGame"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "fish-fillets-ng";
+      exec = "fillets";
+      icon = "fish-fillets-ng";
+      desktopName = "Fish Fillets";
+      comment = "Puzzle game about witty fish saving the world sokoban-style";
+      categories = [
+        "Game"
+        "LogicGame"
+      ];
+    })
+  ];
 
   postInstall = ''
     mkdir -p $out/share/games/fillets-ng

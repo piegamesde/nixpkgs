@@ -12,16 +12,16 @@ let
 in
 {
   imports = [
-      (mkRenamedOptionModule
-        [
-          "services"
-          "plexpy"
-        ]
-        [
-          "services"
-          "tautulli"
-        ])
-    ];
+    (mkRenamedOptionModule
+      [
+        "services"
+        "plexpy"
+      ]
+      [
+        "services"
+        "tautulli"
+      ])
+  ];
 
   options = {
     services.tautulli = {
@@ -77,8 +77,8 @@ in
 
   config = mkIf cfg.enable {
     systemd.tmpfiles.rules = [
-        "d '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -"
-      ];
+      "d '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -"
+    ];
 
     systemd.services.tautulli = {
       description = "Tautulli Plex Monitor";

@@ -37,18 +37,18 @@ stdenv.mkDerivation rec {
   };
 
   desktopItems = [
-      (makeDesktopItem {
-        comment = meta.description;
-        name = "JabRef %U";
-        desktopName = "JabRef";
-        genericName = "Bibliography manager";
-        categories = [ "Office" ];
-        icon = "jabref";
-        exec = "JabRef";
-        startupWMClass = "org.jabref.gui.JabRefMain";
-        mimeTypes = [ "text/x-bibtex" ];
-      })
-    ];
+    (makeDesktopItem {
+      comment = meta.description;
+      name = "JabRef %U";
+      desktopName = "JabRef";
+      genericName = "Bibliography manager";
+      categories = [ "Office" ];
+      icon = "jabref";
+      exec = "JabRef";
+      startupWMClass = "org.jabref.gui.JabRefMain";
+      mimeTypes = [ "text/x-bibtex" ];
+    })
+  ];
 
   deps = stdenv.mkDerivation {
     pname = "${pname}-deps";

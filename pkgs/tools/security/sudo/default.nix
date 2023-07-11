@@ -49,8 +49,8 @@ stdenv.mkDerivation rec {
     ;
 
   configureFlagsArray = [
-      "--with-passprompt=[sudo] password for %p: " # intentional trailing space
-    ];
+    "--with-passprompt=[sudo] password for %p: " # intentional trailing space
+  ];
 
   postConfigure = ''
     cat >> pathnames.h <<'EOF'

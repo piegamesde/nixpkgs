@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      ./0001-Don-t-resolve-symlinks-when-trying-to-find-INSTALL_P.patch
-    ];
+    ./0001-Don-t-resolve-symlinks-when-trying-to-find-INSTALL_P.patch
+  ];
 
   dontBuild = true;
 

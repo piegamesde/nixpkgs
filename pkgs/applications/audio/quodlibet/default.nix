@@ -60,13 +60,13 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   patches = [
-      (fetchpatch {
-        # Fixes cover globbing under python 3.10.5+
-        url =
-          "https://github.com/quodlibet/quodlibet/commit/5eb7c30766e1dcb30663907664855ee94a3accc0.patch";
-        hash = "sha256-bDyEOE7Vs4df4BeN4QMvt6niisVEpvc1onmX5rtoAWc=";
-      })
-    ];
+    (fetchpatch {
+      # Fixes cover globbing under python 3.10.5+
+      url =
+        "https://github.com/quodlibet/quodlibet/commit/5eb7c30766e1dcb30663907664855ee94a3accc0.patch";
+      hash = "sha256-bDyEOE7Vs4df4BeN4QMvt6niisVEpvc1onmX5rtoAWc=";
+    })
+  ];
 
   outputs = [
     "out"
@@ -165,8 +165,8 @@ python3.pkgs.buildPythonApplication rec {
       "--ignore=tests/test_operon.py"
     ]
     ++ lib.optionals (withXineBackend || !withGstPlugins) [
-        "--ignore=tests/plugin/test_replaygain.py"
-      ]
+      "--ignore=tests/plugin/test_replaygain.py"
+    ]
     ;
 
   preCheck = ''

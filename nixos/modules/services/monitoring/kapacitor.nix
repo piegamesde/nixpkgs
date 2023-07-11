@@ -174,8 +174,8 @@ in
     environment.systemPackages = [ pkgs.kapacitor ];
 
     systemd.tmpfiles.rules = [
-        "d '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -"
-      ];
+      "d '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -"
+    ];
 
     systemd.services.kapacitor = {
       description = "Kapacitor Real-Time Stream Processing Engine";

@@ -26,12 +26,12 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        # Disable automatic download of dependencies
-        src = ./build.xml.patch;
-        inherit version;
-      })
-    ];
+    (substituteAll {
+      # Disable automatic download of dependencies
+      src = ./build.xml.patch;
+      inherit version;
+    })
+  ];
 
   postPatch = with deps;
     ''

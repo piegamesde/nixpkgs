@@ -47,8 +47,8 @@ import ./make-test-python.nix (
 
         # auto-start container
         systemd.targets.machines.wants = [
-            "systemd-nspawn@${containerName}.service"
-          ];
+          "systemd-nspawn@${containerName}.service"
+        ];
 
         virtualisation.additionalPaths = [ containerSystem ];
 

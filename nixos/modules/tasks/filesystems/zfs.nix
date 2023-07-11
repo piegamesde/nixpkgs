@@ -256,14 +256,14 @@ in
 {
 
   imports = [
-      (mkRemovedOptionModule
-        [
-          "boot"
-          "zfs"
-          "enableLegacyCrypto"
-        ]
-        "The corresponding package was removed from nixpkgs.")
-    ];
+    (mkRemovedOptionModule
+      [
+        "boot"
+        "zfs"
+        "enableLegacyCrypto"
+      ]
+      "The corresponding package was removed from nixpkgs.")
+  ];
 
   ###### interface
 
@@ -626,13 +626,13 @@ in
           lib.optionals (!config.boot.zfs.allowHibernation) [ "nohibernate" ];
 
         extraModulePackages = [
-            (
-              if config.boot.zfs.enableUnstable then
-                config.boot.kernelPackages.zfsUnstable
-              else
-                config.boot.kernelPackages.zfs
-            )
-          ];
+          (
+            if config.boot.zfs.enableUnstable then
+              config.boot.kernelPackages.zfsUnstable
+            else
+              config.boot.kernelPackages.zfs
+          )
+        ];
       };
 
       boot.initrd = mkIf inInitrd {
@@ -759,8 +759,8 @@ in
         };
 
       system.fsPackages = [
-          cfgZfs.package
-        ]; # XXX: needed? zfs doesn't have (need) a fsck
+        cfgZfs.package
+      ]; # XXX: needed? zfs doesn't have (need) a fsck
       environment.systemPackages =
         [ cfgZfs.package ] ++ optional cfgSnapshots.enable autosnapPkg
         ; # so the user can run the command to see flags
@@ -973,8 +973,8 @@ in
       systemd.timers.zfs-scrub = {
         wantedBy = [ "timers.target" ];
         after = [
-            "multi-user.target"
-          ]; # Apparently scrubbing before boot is complete hangs the system? #53583
+          "multi-user.target"
+        ]; # Apparently scrubbing before boot is complete hangs the system? #53583
         timerConfig = {
           OnCalendar = cfgScrub.interval;
           Persistent = "yes";

@@ -23,11 +23,11 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./hardcode-graphviz-path.patch;
-        graphviz = graphvizPkgs;
-      })
-    ];
+    (substituteAll {
+      src = ./hardcode-graphviz-path.patch;
+      graphviz = graphvizPkgs;
+    })
+  ];
 
   propagatedBuildInputs = [ graphviz ];
 

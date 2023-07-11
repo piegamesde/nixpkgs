@@ -18,22 +18,22 @@ nimPackages.buildNimPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./nitter-version.patch;
-        inherit version;
-        inherit (src) rev;
-        url = builtins.replaceStrings
-          [
-            "archive"
-            ".tar.gz"
-          ]
-          [
-            "commit"
-            ""
-          ]
-          src.url;
-      })
-    ];
+    (substituteAll {
+      src = ./nitter-version.patch;
+      inherit version;
+      inherit (src) rev;
+      url = builtins.replaceStrings
+        [
+          "archive"
+          ".tar.gz"
+        ]
+        [
+          "commit"
+          ""
+        ]
+        src.url;
+    })
+  ];
 
   buildInputs = with nimPackages; [
     flatty

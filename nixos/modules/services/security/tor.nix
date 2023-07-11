@@ -872,8 +872,8 @@ in
             "example.org/www" = {
               map = [ 80 ];
               authorizedClients = [
-                  "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-                ];
+                "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+              ];
             };
           };
           type = types.attrsOf (
@@ -954,8 +954,8 @@ in
                   type = with types; listOf str;
                   default = [ ];
                   example = [
-                      "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-                    ];
+                    "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+                  ];
                 };
                 options.map = mkOption {
                   description =

@@ -59,27 +59,27 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "vis";
-        exec = "vis %U";
-        type = "Application";
-        icon = "accessories-text-editor";
-        comment = meta.description;
-        desktopName = "vis";
-        genericName = "Text editor";
-        categories = [
-          "Application"
-          "Development"
-          "IDE"
-        ];
-        mimeTypes = [
-          "text/plain"
-          "application/octet-stream"
-        ];
-        startupNotify = false;
-        terminal = true;
-      })
-    ];
+    (makeDesktopItem {
+      name = "vis";
+      exec = "vis %U";
+      type = "Application";
+      icon = "accessories-text-editor";
+      comment = meta.description;
+      desktopName = "vis";
+      genericName = "Text editor";
+      categories = [
+        "Application"
+        "Development"
+        "IDE"
+      ];
+      mimeTypes = [
+        "text/plain"
+        "application/octet-stream"
+      ];
+      startupNotify = false;
+      terminal = true;
+    })
+  ];
 
   meta = with lib; {
     description = "A vim like editor";

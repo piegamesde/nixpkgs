@@ -35,8 +35,8 @@ stdenv.mkDerivation rec {
   ];
 
   build2ConfigureFlags = [
-      "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}"
-    ];
+    "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}"
+  ];
 
   meta = with lib; {
     description = "build2 project dependency manager";

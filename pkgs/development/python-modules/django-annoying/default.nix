@@ -21,13 +21,13 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (fetchpatch {
-        name = "django-4-compatibility.patch";
-        url =
-          "https://github.com/skorokithakis/django-annoying/pull/101/commits/51b5bd7bc8bb7a410400667e00d0813603df32bd.patch";
-        hash = "sha256-gLRlAtIHHJ85I88af3C3y+ZT+nXrj2KrV7QgOuEqspk=";
-      })
-    ];
+    (fetchpatch {
+      name = "django-4-compatibility.patch";
+      url =
+        "https://github.com/skorokithakis/django-annoying/pull/101/commits/51b5bd7bc8bb7a410400667e00d0813603df32bd.patch";
+      hash = "sha256-gLRlAtIHHJ85I88af3C3y+ZT+nXrj2KrV7QgOuEqspk=";
+    })
+  ];
 
   propagatedBuildInputs = [
     django

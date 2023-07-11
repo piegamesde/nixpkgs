@@ -50,8 +50,8 @@ with lib;
       wantedBy = [ "sysinit.target" ];
       aliases = [ "dbus-org.freedesktop.timesync1.service" ];
       restartTriggers = [
-          config.environment.etc."systemd/timesyncd.conf".source
-        ];
+        config.environment.etc."systemd/timesyncd.conf".source
+      ];
     };
 
     environment.etc."systemd/timesyncd.conf".text = ''

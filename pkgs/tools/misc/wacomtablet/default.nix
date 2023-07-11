@@ -18,12 +18,12 @@ mkDerivation rec {
     sha256 = "197pwpl87gqlnza36bp68jvw8ww25znk08acmi8bpz7n84xfc368";
   };
   patches = [
-      (fetchpatch {
-        url =
-          "https://invent.kde.org/system/wacomtablet/commit/4f73ff02b3efd5e8728b18fcf1067eca166704ee.patch";
-        sha256 = "0185gbh1vywfz8a3wnvncmzdk0dd189my4bzimkbh85rlrqq2nf8";
-      })
-    ];
+    (fetchpatch {
+      url =
+        "https://invent.kde.org/system/wacomtablet/commit/4f73ff02b3efd5e8728b18fcf1067eca166704ee.patch";
+      sha256 = "0185gbh1vywfz8a3wnvncmzdk0dd189my4bzimkbh85rlrqq2nf8";
+    })
+  ];
 
   nativeBuildInputs = [ extra-cmake-modules ];
   buildInputs = [

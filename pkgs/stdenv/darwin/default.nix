@@ -1110,8 +1110,8 @@ rec {
       cc = pkgs."${finalLlvmPackages}".libcxxClang;
 
       extraNativeBuildInputs = lib.optionals localSystem.isAarch64 [
-          pkgs.updateAutotoolsGnuConfigScriptsHook
-        ];
+        pkgs.updateAutotoolsGnuConfigScriptsHook
+      ];
 
       extraBuildInputs = [ pkgs.darwin.CF ];
 

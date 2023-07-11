@@ -36,17 +36,17 @@ let
     makeSetupHook { name = "netbsd-setup-hook"; } ./setup-hook.sh;
 
   defaultMakeFlags = [
-      "MKSOFTFLOAT=${
-        if
-          stdenv.hostPlatform.gcc.float
-            or (stdenv.hostPlatform.parsed.abi.float or "hard")
-          == "soft"
-        then
-          "yes"
-        else
-          "no"
-      }"
-    ];
+    "MKSOFTFLOAT=${
+      if
+        stdenv.hostPlatform.gcc.float
+          or (stdenv.hostPlatform.parsed.abi.float or "hard")
+        == "soft"
+      then
+        "yes"
+      else
+        "no"
+    }"
+  ];
 in
 makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
   self:
@@ -568,10 +568,10 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
       '';
       extraPaths = [
-          (fetchNetBSD "share/mk"
-            "9.2"
-            "0w9x77cfnm6zwy40slradzi0ip9gz80x6lk7pvnlxzsr2m5ra5sy")
-        ];
+        (fetchNetBSD "share/mk"
+          "9.2"
+          "0w9x77cfnm6zwy40slradzi0ip9gz80x6lk7pvnlxzsr2m5ra5sy")
+      ];
     };
 
     mtree = mkDerivation {
@@ -925,10 +925,10 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         make -C $BSDSRCDIR/share/terminfo $makeFlags BINDIR=$out/share install
       '';
       extraPaths = with self; [
-          (fetchNetBSD "share/terminfo"
-            "9.2"
-            "1vh9rl4w8118a9qdpblfxmv1wkpm83rm9gb4rzz5bpm56i6d7kk7")
-        ];
+        (fetchNetBSD "share/terminfo"
+          "9.2"
+          "1vh9rl4w8118a9qdpblfxmv1wkpm83rm9gb4rzz5bpm56i6d7kk7")
+      ];
     };
 
     libcurses = mkDerivation {

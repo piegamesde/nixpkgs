@@ -47,8 +47,8 @@ buildGoModule rec {
     ;
 
   importpathFlags = [
-      "-X github.com/pulumi/pulumi/pkg/v3/version.Version=v${version}"
-    ];
+    "-X github.com/pulumi/pulumi/pkg/v3/version.Version=v${version}"
+  ];
 
   doCheck = true;
 

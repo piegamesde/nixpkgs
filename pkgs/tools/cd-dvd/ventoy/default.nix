@@ -117,18 +117,18 @@ stdenv.mkDerivation (
       ;
 
     desktopItems = [
-        (makeDesktopItem {
-          name = "Ventoy";
-          desktopName = "Ventoy";
-          comment =
-            "Tool to create bootable USB drive for ISO/WIM/IMG/VHD(x)/EFI files";
-          icon = "VentoyLogo";
-          exec = "ventoy-gui";
-          terminal = false;
-          categories = [ "Utility" ];
-          startupNotify = true;
-        })
-      ];
+      (makeDesktopItem {
+        name = "Ventoy";
+        desktopName = "Ventoy";
+        comment =
+          "Tool to create bootable USB drive for ISO/WIM/IMG/VHD(x)/EFI files";
+        icon = "VentoyLogo";
+        exec = "ventoy-gui";
+        terminal = false;
+        categories = [ "Utility" ];
+        startupNotify = true;
+      })
+    ];
 
     dontConfigure = true;
     dontBuild = true;

@@ -49,12 +49,12 @@ let
       };
 
       nativeBuildInputs = [
-          wrapGAppsHook # Fix error: GLib-GIO-ERROR **: No GSettings schemas are installed on the system
-        ];
+        wrapGAppsHook # Fix error: GLib-GIO-ERROR **: No GSettings schemas are installed on the system
+      ];
 
       buildInputs = [
-          gtk3 # Fix error: GLib-GIO-ERROR **: Settings schema 'org.gtk.Settings.FileChooser' is not installed
-        ];
+        gtk3 # Fix error: GLib-GIO-ERROR **: Settings schema 'org.gtk.Settings.FileChooser' is not installed
+      ];
 
       dontBuild = true;
       dontConfigure = true;

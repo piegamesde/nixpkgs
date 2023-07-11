@@ -420,8 +420,8 @@ buildPythonPackage rec {
       pybind11
     ]
     ++ lib.optionals stdenv.isLinux [
-        linuxHeaders_5_19
-      ] # TMP: avoid "flexible array member" errors for now
+      linuxHeaders_5_19
+    ] # TMP: avoid "flexible array member" errors for now
     ++ lib.optionals cudaSupport [
       cudnn
       nccl

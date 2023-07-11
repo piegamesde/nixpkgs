@@ -25,13 +25,13 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (fetchpatch {
-        name = "add-offline-option.patch";
-        url =
-          "https://github.com/webrecorder/warcio/pull/135/commits/2546fe457c57ab0b391764a4ce419656458d9d07.patch";
-        hash = "sha256-3izm9LvAeOFixiIUUqmd5flZIxH92+NxL7jeu35aObQ=";
-      })
-    ];
+    (fetchpatch {
+      name = "add-offline-option.patch";
+      url =
+        "https://github.com/webrecorder/warcio/pull/135/commits/2546fe457c57ab0b391764a4ce419656458d9d07.patch";
+      hash = "sha256-3izm9LvAeOFixiIUUqmd5flZIxH92+NxL7jeu35aObQ=";
+    })
+  ];
 
   propagatedBuildInputs = [
     six

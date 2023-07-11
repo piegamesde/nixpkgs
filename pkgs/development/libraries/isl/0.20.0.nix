@@ -6,6 +6,6 @@ import ./generic.nix rec {
   ];
   sha256 = "1akpgq0rbqbah5517blg2zlnfvjxfcl9cjrfc75nbcx5p2gnlnd5";
   configureFlags = [
-      "--with-gcc-arch=generic" # don't guess -march=/mtune=
-    ];
+    "--with-gcc-arch=generic" # don't guess -march=/mtune=
+  ];
 }

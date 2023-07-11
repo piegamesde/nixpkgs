@@ -54,13 +54,13 @@ let
 
           # extraConfig should be inserted verbatim
           string = [
-              (
-                if name == "extraConfig" then
-                  value
-                else
-                  "${name} = ${value}"
-              )
-            ];
+            (
+              if name == "extraConfig" then
+                value
+              else
+                "${name} = ${value}"
+            )
+          ];
 
           # Values like `Foo = [ "bar" "baz" ];` should be transformed into
           #   Foo=bar

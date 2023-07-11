@@ -17,11 +17,11 @@ python3Packages.buildPythonApplication rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        inherit chia;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      inherit chia;
+    })
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

@@ -52,8 +52,8 @@ stdenv.mkDerivation (
       ++ lib.optionals buildTests [ "-DBUILD_TEST=ON" ]
       ++ lib.optionals buildBenchmarks [ "-DBUILD_BENCHMARKS=ON" ]
       ++ lib.optionals (buildTests || buildBenchmarks) [
-          "-DCMAKE_CXX_FLAGS=-Wno-deprecated-builtins" # Too much spam
-        ]
+        "-DCMAKE_CXX_FLAGS=-Wno-deprecated-builtins" # Too much spam
+      ]
       ;
 
     postInstall =

@@ -78,8 +78,8 @@ gnuradio.pkgs.mkDerivation rec {
         gnuradio.unwrapped.libiio
       ]
     ++ lib.optionals (gnuradio.hasFeature "gr-pdu") [
-        gnuradio.unwrapped.libad9361
-      ]
+      gnuradio.unwrapped.libad9361
+    ]
     ;
 
   cmakeFlags = [

@@ -1912,24 +1912,24 @@ in
 
   config = mkIf cfg.enable {
     assertions = [
-        (
-          let
-            # Match something with dots (an IPv4 address) or something ending in
-            # a square bracket (an IPv6 addresses) followed by a port number.
-            legacy =
-              builtins.match "(.*\\..*|.*]):([[:digit:]]+)" cfg.listenAddress;
-          in
-          {
-            assertion = legacy == null;
-            message = ''
-              Do not specify the port for Prometheus to listen on in the
-              listenAddress option; use the port option instead:
-                services.prometheus.listenAddress = ${builtins.elemAt legacy 0};
-                services.prometheus.port = ${builtins.elemAt legacy 1};
-            '';
-          }
-        )
-      ];
+      (
+        let
+          # Match something with dots (an IPv4 address) or something ending in
+          # a square bracket (an IPv6 addresses) followed by a port number.
+          legacy =
+            builtins.match "(.*\\..*|.*]):([[:digit:]]+)" cfg.listenAddress;
+        in
+        {
+          assertion = legacy == null;
+          message = ''
+            Do not specify the port for Prometheus to listen on in the
+            listenAddress option; use the port option instead:
+              services.prometheus.listenAddress = ${builtins.elemAt legacy 0};
+              services.prometheus.port = ${builtins.elemAt legacy 1};
+          '';
+        }
+      )
+    ];
 
     users.groups.prometheus.gid = config.ids.gids.prometheus;
     users.users.prometheus = {

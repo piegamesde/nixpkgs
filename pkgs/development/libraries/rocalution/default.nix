@@ -81,8 +81,8 @@ stdenv.mkDerivation (
         "-DCMAKE_INSTALL_INCLUDEDIR=include"
       ]
       ++ lib.optionals (gpuTargets != [ ]) [
-          "-DAMDGPU_TARGETS=${lib.strings.concatStringsSep ";" gpuTargets}"
-        ]
+        "-DAMDGPU_TARGETS=${lib.strings.concatStringsSep ";" gpuTargets}"
+      ]
       ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
       ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
       ;

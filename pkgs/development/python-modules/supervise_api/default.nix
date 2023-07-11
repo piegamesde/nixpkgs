@@ -19,11 +19,11 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./supervise-path.patch;
-        inherit supervise;
-      })
-    ];
+    (substituteAll {
+      src = ./supervise-path.patch;
+      inherit supervise;
+    })
+  ];
 
   # In the git repo, supervise_api lives inside a python subdir
   patchFlags = [ "-p2" ];

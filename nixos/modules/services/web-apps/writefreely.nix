@@ -383,8 +383,8 @@ in
     };
 
     systemd.tmpfiles.rules = [
-        "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
-      ];
+      "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
+    ];
 
     systemd.services.writefreely = {
       after =

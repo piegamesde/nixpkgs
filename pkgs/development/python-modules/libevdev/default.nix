@@ -19,11 +19,11 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        libevdev = lib.getLib pkgs.libevdev;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      libevdev = lib.getLib pkgs.libevdev;
+    })
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -661,15 +661,15 @@ let
 in
 {
   imports = [
-      (mkRemovedOptionModule
-        [
-          "boot"
-          "initrd"
-          "luks"
-          "enable"
-        ]
-        "")
-    ];
+    (mkRemovedOptionModule
+      [
+        "boot"
+        "initrd"
+        "luks"
+        "enable"
+      ]
+      "")
+  ];
 
   options = {
 
@@ -927,8 +927,8 @@ in
                   credentials = mkOption {
                     default = [ ];
                     example = [
-                        "f1d00200d8dc783f7fb1e10ace8da27f8312d72692abfca2f7e4960a73f48e82e1f7571f6ebfcee9fb434f9886ccc8fcc52a6614d8d2"
-                      ];
+                      "f1d00200d8dc783f7fb1e10ace8da27f8312d72692abfca2f7e4960a73f48e82e1f7571f6ebfcee9fb434f9886ccc8fcc52a6614d8d2"
+                    ];
                     type = types.listOf types.str;
                     description = lib.mdDoc ''
                       List of FIDO2 credential IDs.

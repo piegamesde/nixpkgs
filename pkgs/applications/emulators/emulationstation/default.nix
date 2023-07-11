@@ -29,12 +29,12 @@ stdenv.mkDerivation {
   };
 
   patches = [
-      (fetchpatch {
-        url =
-          "https://github.com/Aloshi/EmulationStation/commit/49ccd8fc7a7b1dfd974fc57eb13317c42842f22c.patch";
-        sha256 = "1v5d81l7bav0k5z4vybrc3rjcysph6lkm5pcfr6m42wlz7jmjw0p";
-      })
-    ];
+    (fetchpatch {
+      url =
+        "https://github.com/Aloshi/EmulationStation/commit/49ccd8fc7a7b1dfd974fc57eb13317c42842f22c.patch";
+      sha256 = "1v5d81l7bav0k5z4vybrc3rjcysph6lkm5pcfr6m42wlz7jmjw0p";
+    })
+  ];
 
   nativeBuildInputs = [
     pkg-config

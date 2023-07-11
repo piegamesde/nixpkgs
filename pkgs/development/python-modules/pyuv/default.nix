@@ -20,13 +20,13 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (fetchpatch {
-        name = "fix-build-with-python3.10.patch";
-        url =
-          "https://github.com/saghul/pyuv/commit/8bddcc27052017b5b9cb89c24dbfdf06737b0dd3.patch";
-        hash = "sha256-J/3ky64Ff+gYpN3ksFLNuZ5xgPbBkyOl4LTY6fiHAgk=";
-      })
-    ];
+    (fetchpatch {
+      name = "fix-build-with-python3.10.patch";
+      url =
+        "https://github.com/saghul/pyuv/commit/8bddcc27052017b5b9cb89c24dbfdf06737b0dd3.patch";
+      hash = "sha256-J/3ky64Ff+gYpN3ksFLNuZ5xgPbBkyOl4LTY6fiHAgk=";
+    })
+  ];
 
   setupPyBuildFlags = [ "--use-system-libuv" ];
 

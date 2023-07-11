@@ -108,16 +108,16 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        type = "Application";
-        name = "everspace-gog";
-        desktopName = "EVERSPACE™";
-        comment = meta.description;
-        exec = "everspace";
-        icon = "everspace-gog";
-        categories = [ "Game" ];
-      })
-    ];
+    (makeDesktopItem {
+      type = "Application";
+      name = "everspace-gog";
+      desktopName = "EVERSPACE™";
+      comment = meta.description;
+      exec = "everspace";
+      icon = "everspace-gog";
+      categories = [ "Game" ];
+    })
+  ];
 
   meta = with lib; {
     description =

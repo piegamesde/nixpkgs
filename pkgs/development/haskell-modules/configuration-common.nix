@@ -1560,11 +1560,11 @@ self: super:
   scat = overrideCabal
     (drv: {
       patches = [
-          (fetchpatch {
-            url = "https://github.com/redelmann/scat/pull/6.diff";
-            sha256 = "07nj2p0kg05livhgp1hkkdph0j0a6lb216f8x348qjasy0lzbfhl";
-          })
-        ];
+        (fetchpatch {
+          url = "https://github.com/redelmann/scat/pull/6.diff";
+          sha256 = "07nj2p0kg05livhgp1hkkdph0j0a6lb216f8x348qjasy0lzbfhl";
+        })
+      ];
     })
     super.scat;
 
@@ -2003,12 +2003,12 @@ self: super:
     (drv: {
       # Remove when https://github.com/danfran/hcoord/pull/8 is merged.
       patches = [
-          (fetchpatch {
-            url =
-              "https://github.com/danfran/hcoord/pull/8/commits/762738b9e4284139f5c21f553667a9975bad688e.patch";
-            sha256 = "03r4jg9a6xh7w3jz3g4bs7ff35wa4rrmjgcggq51y0jc1sjqvhyz";
-          })
-        ];
+        (fetchpatch {
+          url =
+            "https://github.com/danfran/hcoord/pull/8/commits/762738b9e4284139f5c21f553667a9975bad688e.patch";
+          sha256 = "03r4jg9a6xh7w3jz3g4bs7ff35wa4rrmjgcggq51y0jc1sjqvhyz";
+        })
+      ];
       # Remove when https://github.com/danfran/hcoord/issues/9 is closed.
       doCheck = false;
     })
@@ -2438,13 +2438,13 @@ self: super:
       "Native"
     ];
     patches = [
-        (fetchpatch {
-          url =
-            "https://gitlab.haskell.org/ghc/ghc/-/commit/08d1588bf38d83140a86817a7a615db486357d4f.patch";
-          sha256 = "sha256-Y9WW0KDQ/qY2L9ObPvh1i/6lxXIlprbxzdSBDfiaMtE=";
-          relative = "libraries/ghc-bignum";
-        })
-      ];
+      (fetchpatch {
+        url =
+          "https://gitlab.haskell.org/ghc/ghc/-/commit/08d1588bf38d83140a86817a7a615db486357d4f.patch";
+        sha256 = "sha256-Y9WW0KDQ/qY2L9ObPvh1i/6lxXIlprbxzdSBDfiaMtE=";
+        relative = "libraries/ghc-bignum";
+      })
+    ];
   };
 
   # 2021-04-09: outdated base and alex-tools

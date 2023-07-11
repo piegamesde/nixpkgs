@@ -83,8 +83,8 @@ in
         SWANCTL_DIR = "/etc/swanctl";
       };
       restartTriggers = [
-          config.environment.etc."swanctl/swanctl.conf".source
-        ];
+        config.environment.etc."swanctl/swanctl.conf".source
+      ];
       serviceConfig = {
         ExecStart = "${cfg.package}/sbin/charon-systemd";
         Type = "notify";

@@ -37,11 +37,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./borg-path.patch;
-        borg = "${borgbackup}/bin/borg";
-      })
-    ];
+    (substituteAll {
+      src = ./borg-path.patch;
+      borg = "${borgbackup}/bin/borg";
+    })
+  ];
 
   postPatch = ''
     patchShebangs build-aux

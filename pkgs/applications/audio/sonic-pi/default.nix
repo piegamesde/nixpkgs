@@ -234,19 +234,19 @@ stdenv.mkDerivation rec {
   ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "sonic-pi";
-        exec = "sonic-pi";
-        icon = "sonic-pi";
-        desktopName = "Sonic Pi";
-        comment = meta.description;
-        categories = [
-          "Audio"
-          "AudioVideo"
-          "Education"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "sonic-pi";
+      exec = "sonic-pi";
+      icon = "sonic-pi";
+      desktopName = "Sonic Pi";
+      comment = meta.description;
+      categories = [
+        "Audio"
+        "AudioVideo"
+        "Education"
+      ];
+    })
+  ];
 
   passthru.updateScript = ./update.sh;
 

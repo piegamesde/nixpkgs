@@ -210,8 +210,8 @@ stdenv.mkDerivation (
       ++ lib.optionals supportFlags.waylandSupport [ "--with-wayland" ]
       ++ lib.optionals supportFlags.vulkanSupport [ "--with-vulkan" ]
       ++ lib.optionals (stdenv.isDarwin && !supportFlags.xineramaSupport) [
-          "--without-x"
-        ]
+        "--without-x"
+      ]
       ;
 
     # Wine locates a lot of libraries dynamically through dlopen().  Add

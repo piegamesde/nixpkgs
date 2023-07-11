@@ -58,8 +58,8 @@ buildPythonPackage rec {
   pytestFlagsArray = [ "--durations=10" ];
 
   disabledTests = [
-      "test_two_qubit_reduction" # failure cause unclear
-    ];
+    "test_two_qubit_reduction" # failure cause unclear
+  ];
 
   meta = with lib; {
     description = "Software for developing quantum computing programs";

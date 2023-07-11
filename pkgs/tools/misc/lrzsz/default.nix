@@ -16,12 +16,12 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (fetchpatch {
-        name = "CVE-2018-10195.patch";
-        url = "https://bugzilla.redhat.com/attachment.cgi?id=79507";
-        sha256 = "0jlh8w0cjaz6k56f0h3a0h4wgc51axmrdn3mdspk7apjfzqcvx3c";
-      })
-    ];
+    (fetchpatch {
+      name = "CVE-2018-10195.patch";
+      url = "https://bugzilla.redhat.com/attachment.cgi?id=79507";
+      sha256 = "0jlh8w0cjaz6k56f0h3a0h4wgc51axmrdn3mdspk7apjfzqcvx3c";
+    })
+  ];
 
   makeFlags = [ "AR:=$(AR)" ];
 

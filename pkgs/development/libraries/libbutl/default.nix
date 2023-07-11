@@ -37,8 +37,8 @@ stdenv.mkDerivation rec {
   '';
 
   build2ConfigureFlags = [
-      "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}"
-    ];
+    "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}"
+  ];
 
   doCheck = true;
 

@@ -17,14 +17,14 @@ in
 {
 
   imports = [
-      (mkRemovedOptionModule
-        [
-          "services"
-          "tumbler"
-          "package"
-        ]
-        "")
-    ];
+    (mkRemovedOptionModule
+      [
+        "services"
+        "tumbler"
+        "package"
+      ]
+      "")
+  ];
 
   meta = with lib; {
     maintainers = with maintainers; [ ] ++ teams.pantheon.members;

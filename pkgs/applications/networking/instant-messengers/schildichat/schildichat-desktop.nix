@@ -112,22 +112,22 @@ stdenv.mkDerivation rec {
   # The desktop item properties should be kept in sync with data from upstream:
   # https://github.com/schildichat/element-desktop/blob/sc/package.json
   desktopItems = [
-      (makeDesktopItem {
-        name = "schildichat-desktop";
-        exec = "${executableName} %u";
-        icon = "schildichat";
-        desktopName = "SchildiChat";
-        genericName = "Matrix Client";
-        comment = meta.description;
-        categories = [
-          "Network"
-          "InstantMessaging"
-          "Chat"
-        ];
-        startupWMClass = "schildichat";
-        mimeTypes = [ "x-scheme-handler/element" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "schildichat-desktop";
+      exec = "${executableName} %u";
+      icon = "schildichat";
+      desktopName = "SchildiChat";
+      genericName = "Matrix Client";
+      comment = meta.description;
+      categories = [
+        "Network"
+        "InstantMessaging"
+        "Chat"
+      ];
+      startupWMClass = "schildichat";
+      mimeTypes = [ "x-scheme-handler/element" ];
+    })
+  ];
 
   passthru.updateScript = ./update.sh;
 

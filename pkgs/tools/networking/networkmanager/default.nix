@@ -193,8 +193,8 @@ stdenv.mkDerivation rec {
       pythonForDocs
     ]
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-        mesonEmulatorHook
-      ]
+      mesonEmulatorHook
+    ]
     ;
 
   doCheck = false; # requires /sys, the net

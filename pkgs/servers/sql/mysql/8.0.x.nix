@@ -51,8 +51,8 @@ let
       ;
 
     patches = [
-        ./no-force-outline-atomics.patch # Do not force compilers to turn on -moutline-atomics switch
-      ];
+      ./no-force-outline-atomics.patch # Do not force compilers to turn on -moutline-atomics switch
+    ];
 
     ## NOTE: MySQL upstream frequently twiddles the invocations of libtool. When updating, you might proactively grep for libtool references.
     postPatch = ''

@@ -26,13 +26,13 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoPatches = [
-      (fetchpatch {
-        name = "bump-rust-web-view.patch";
-        url =
-          "https://github.com/Revertron/Alfis/commit/03b461a740ab6ccbacd576eafc7a3faf4a66648f.patch";
-        sha256 = "sha256-CSqSMdVD31w7QxxXWtjKmqlaEirmbs1EVuiefSf1NKY=";
-      })
-    ];
+    (fetchpatch {
+      name = "bump-rust-web-view.patch";
+      url =
+        "https://github.com/Revertron/Alfis/commit/03b461a740ab6ccbacd576eafc7a3faf4a66648f.patch";
+      sha256 = "sha256-CSqSMdVD31w7QxxXWtjKmqlaEirmbs1EVuiefSf1NKY=";
+    })
+  ];
 
   cargoSha256 = "sha256-B4xI++U6RCljXCyaOmNj/SwA6I16zoiZsgk2VTiKfkg=";
 

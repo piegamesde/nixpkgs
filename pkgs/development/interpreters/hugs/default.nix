@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (fetchurl {
-        url =
-          "https://aur.archlinux.org/cgit/aur.git/plain/hsbase_inline.patch?h=hugs";
-        name = "hsbase_inline.patch";
-        sha256 = "1h0sp16d17hlm6gj7zdbgwrjwi2l4q02m8p0wd60dp4gn9i9js0v";
-      })
-    ];
+    (fetchurl {
+      url =
+        "https://aur.archlinux.org/cgit/aur.git/plain/hsbase_inline.patch?h=hugs";
+      name = "hsbase_inline.patch";
+      sha256 = "1h0sp16d17hlm6gj7zdbgwrjwi2l4q02m8p0wd60dp4gn9i9js0v";
+    })
+  ];
 
   nativeBuildInputs = [ bison ];
 

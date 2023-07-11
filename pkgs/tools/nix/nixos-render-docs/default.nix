@@ -72,16 +72,16 @@ python.pkgs.buildPythonApplication rec {
   passthru.tests.typing = runCommand "${pname}-mypy"
     {
       nativeBuildInputs = [
-          (python3.withPackages (
-            ps:
-            with ps; [
-              mypy
-              pytest
-              markdown-it-py
-              mdit-py-plugins
-            ]
-          ))
-        ];
+        (python3.withPackages (
+          ps:
+          with ps; [
+            mypy
+            pytest
+            markdown-it-py
+            mdit-py-plugins
+          ]
+        ))
+      ];
     }
     ''
       mypy --strict ${src}

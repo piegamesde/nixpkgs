@@ -21,12 +21,12 @@ mkDerivation rec {
 
   # Add missing QAction include
   patches = [
-      (fetchpatch {
-        url =
-          "https://github.com/fcoiffie/fontmatrix/commit/dc6de8c414ae21516b72daead79c8db88309b102.patch";
-        sha256 = "092860fdyf5gq67jqfxnlgwzjgpizi6j0njjv3m62aiznrhig7c8";
-      })
-    ];
+    (fetchpatch {
+      url =
+        "https://github.com/fcoiffie/fontmatrix/commit/dc6de8c414ae21516b72daead79c8db88309b102.patch";
+      sha256 = "092860fdyf5gq67jqfxnlgwzjgpizi6j0njjv3m62aiznrhig7c8";
+    })
+  ];
 
   buildInputs = [
     qttools

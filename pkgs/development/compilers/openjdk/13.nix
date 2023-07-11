@@ -129,8 +129,8 @@ let
         })
       ]
       ++ lib.optionals (!headless && enableGnome2) [
-          ./swing-use-gtk-jdk13.patch
-        ]
+        ./swing-use-gtk-jdk13.patch
+      ]
       ;
 
     prePatch = ''

@@ -23,13 +23,13 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags = [
-      "--${
-        if withShishi then
-          "enable"
-        else
-          "disable"
-      }-kerberos5"
-    ];
+    "--${
+      if withShishi then
+        "enable"
+      else
+        "disable"
+    }-kerberos5"
+  ];
 
   doCheck = true;
 

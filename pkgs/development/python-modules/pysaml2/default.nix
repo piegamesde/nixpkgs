@@ -72,11 +72,11 @@ buildPythonPackage rec {
   ];
 
   patches = [
-      (substituteAll {
-        src = ./hardcode-xmlsec1-path.patch;
-        inherit xmlsec;
-      })
-    ];
+    (substituteAll {
+      src = ./hardcode-xmlsec1-path.patch;
+      inherit xmlsec;
+    })
+  ];
 
   postPatch = ''
     # fix failing tests on systems with 32bit time_t

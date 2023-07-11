@@ -103,15 +103,15 @@ buildDotnetModule rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        desktopName = "OpenTabletDriver";
-        name = "OpenTabletDriver";
-        exec = "otd-gui";
-        icon = "otd";
-        comment = meta.description;
-        categories = [ "Utility" ];
-      })
-    ];
+    (makeDesktopItem {
+      desktopName = "OpenTabletDriver";
+      name = "OpenTabletDriver";
+      exec = "otd-gui";
+      icon = "otd";
+      comment = meta.description;
+      categories = [ "Utility" ];
+    })
+  ];
 
   passthru = {
     updateScript = ./update.sh;

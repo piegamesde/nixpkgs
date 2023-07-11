@@ -18,13 +18,13 @@ perlPackages.buildPerlPackage rec {
     hash = "sha256-SPLwsGKLVhANoqSQ/GJ938cYjbjMbUOXkNn9so3aJTA=";
   };
   patches = [
-      (substituteAll {
-        src = ./hardcode-deps.patch;
-        gs = "${ghostscript}/bin/gs";
-        # bbox cannot be substituted here because substituteAll doesn't know what
-        # will be the $out path of the main derivation
-      })
-    ];
+    (substituteAll {
+      src = ./hardcode-deps.patch;
+      gs = "${ghostscript}/bin/gs";
+      # bbox cannot be substituted here because substituteAll doesn't know what
+      # will be the $out path of the main derivation
+    })
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 

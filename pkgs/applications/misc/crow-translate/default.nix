@@ -29,12 +29,12 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        # See https://github.com/NixOS/nixpkgs/issues/86054
-        src = ./fix-qttranslations-path.patch;
-        inherit qttranslations;
-      })
-    ];
+    (substituteAll {
+      # See https://github.com/NixOS/nixpkgs/issues/86054
+      src = ./fix-qttranslations-path.patch;
+      inherit qttranslations;
+    })
+  ];
 
   postPatch = ''
     substituteInPlace data/io.crow_translate.CrowTranslate.desktop \

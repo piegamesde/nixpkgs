@@ -53,18 +53,18 @@ stdenv.mkDerivation rec {
   ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "Bisq";
-        exec = "bisq-desktop";
-        icon = "bisq";
-        desktopName = "Bisq ${version}";
-        genericName = "Decentralized bitcoin exchange";
-        categories = [
-          "Network"
-          "P2P"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "Bisq";
+      exec = "bisq-desktop";
+      icon = "bisq";
+      desktopName = "Bisq ${version}";
+      genericName = "Decentralized bitcoin exchange";
+      categories = [
+        "Network"
+        "P2P"
+      ];
+    })
+  ];
 
   unpackPhase = ''
     dpkg -x $src .

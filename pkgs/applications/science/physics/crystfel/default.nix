@@ -195,12 +195,12 @@ let
     };
 
     patches = [
-        (fetchpatch {
-          url =
-            "https://github.com/spanezz/HDF5-External-Filter-Plugins/commit/6b337fe36da97a3ef72354393687ce3386c0709d.patch";
-          hash = "sha256-wnBEdL/MjEyRHPwaVtuhzY+DW1AFeaUQUmIXh+JaRHo=";
-        })
-      ];
+      (fetchpatch {
+        url =
+          "https://github.com/spanezz/HDF5-External-Filter-Plugins/commit/6b337fe36da97a3ef72354393687ce3386c0709d.patch";
+        hash = "sha256-wnBEdL/MjEyRHPwaVtuhzY+DW1AFeaUQUmIXh+JaRHo=";
+      })
+    ];
 
     nativeBuildInputs = [ cmake ];
     buildInputs = [
@@ -257,8 +257,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isDarwin [ argp-standalone ]
     ++ lib.optionals (stdenv.isDarwin && !stdenv.isAarch64) [
-        memorymappingHook
-      ]
+      memorymappingHook
+    ]
     ++ lib.optionals withBitshuffle [ hdf5-external-filter-plugins ]
     ;
 

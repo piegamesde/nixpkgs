@@ -12,12 +12,12 @@ stdenv.mkDerivation {
   ];
 
   nativeBuildInputs = [
-      (rWrapper.override {
-        packages = with rPackages; [
-          data_table
-          parallel
-          BiocManager
-        ];
-      })
-    ];
+    (rWrapper.override {
+      packages = with rPackages; [
+        data_table
+        parallel
+        BiocManager
+      ];
+    })
+  ];
 }

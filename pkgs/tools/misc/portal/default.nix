@@ -19,8 +19,8 @@ buildGoModule rec {
   subPackages = [ "cmd/portal/" ];
 
   ldflags = [
-      "-s -X main.version=${version}"
-    ]; # from: https://github.com/SpatiumPortae/portal/blob/master/Makefile#L3
+    "-s -X main.version=${version}"
+  ]; # from: https://github.com/SpatiumPortae/portal/blob/master/Makefile#L3
 
   meta = with lib; {
     description =

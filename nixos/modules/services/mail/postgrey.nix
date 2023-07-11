@@ -52,48 +52,48 @@ let
 in
 {
   imports = [
-      (mkMergedOptionModule
+    (mkMergedOptionModule
+      [
         [
-          [
-            "services"
-            "postgrey"
-            "inetAddr"
-          ]
-          [
-            "services"
-            "postgrey"
-            "inetPort"
-          ]
+          "services"
+          "postgrey"
+          "inetAddr"
         ]
         [
           "services"
           "postgrey"
-          "socket"
+          "inetPort"
         ]
-        (
-          config:
-          let
-            value = p: getAttrFromPath p config;
-            inetAddr = [
-              "services"
-              "postgrey"
-              "inetAddr"
-            ];
-            inetPort = [
-              "services"
-              "postgrey"
-              "inetPort"
-            ];
-          in
-          if value inetAddr == null then
-            { path = "/run/postgrey.sock"; }
-          else
-            {
-              addr = value inetAddr;
-              port = value inetPort;
-            }
-        ))
-    ];
+      ]
+      [
+        "services"
+        "postgrey"
+        "socket"
+      ]
+      (
+        config:
+        let
+          value = p: getAttrFromPath p config;
+          inetAddr = [
+            "services"
+            "postgrey"
+            "inetAddr"
+          ];
+          inetPort = [
+            "services"
+            "postgrey"
+            "inetPort"
+          ];
+        in
+        if value inetAddr == null then
+          { path = "/run/postgrey.sock"; }
+        else
+          {
+            addr = value inetAddr;
+            port = value inetPort;
+          }
+      ))
+  ];
 
   options = {
     services.postgrey = with types; {

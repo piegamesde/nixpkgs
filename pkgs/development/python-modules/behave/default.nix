@@ -57,8 +57,8 @@ buildPythonPackage rec {
   # timing-based test flaky on Darwin
   # https://github.com/NixOS/nixpkgs/pull/97737#issuecomment-691489824
   disabledTests = lib.optionals stdenv.isDarwin [
-      "test_step_decorator_async_run_until_complete"
-    ];
+    "test_step_decorator_async_run_until_complete"
+  ];
 
   postCheck = ''
     export LANG="en_US.UTF-8"

@@ -47,10 +47,10 @@ stdenv.mkDerivation rec {
   ];
 
   mesonFlags = [
-      "-Dnautilus-extension-dir=${
-        placeholder "nautilusExtension"
-      }/lib/nautilus/extensions-4"
-    ];
+    "-Dnautilus-extension-dir=${
+      placeholder "nautilusExtension"
+    }/lib/nautilus/extensions-4"
+  ];
 
   meta = with lib; {
     description = "Graphical editor for ACLs and extended attributes";

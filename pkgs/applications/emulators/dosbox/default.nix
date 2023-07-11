@@ -43,19 +43,19 @@ stdenv.mkDerivation rec {
   configureFlags = lib.optional stdenv.isDarwin "--disable-sdltest";
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "dosbox";
-        exec = "dosbox";
-        icon = "dosbox";
-        comment = "x86 dos emulator";
-        desktopName = "DOSBox";
-        genericName = "DOS emulator";
-        categories = [
-          "Emulator"
-          "Game"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "dosbox";
+      exec = "dosbox";
+      icon = "dosbox";
+      comment = "x86 dos emulator";
+      desktopName = "DOSBox";
+      genericName = "DOS emulator";
+      categories = [
+        "Emulator"
+        "Game"
+      ];
+    })
+  ];
 
   postInstall = ''
     mkdir -p $out/share/icons/hicolor/256x256/apps

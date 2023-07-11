@@ -30,8 +30,8 @@ let
     ];
 
     nativeBuildInputs = [
-        python3Packages.markdown # documentation build
-      ];
+      python3Packages.markdown # documentation build
+    ];
 
     preBuild = ''
       git() { if [[ $1 = describe ]]; then echo ${version}; else command git "$@"; fi; }

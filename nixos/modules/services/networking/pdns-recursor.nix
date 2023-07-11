@@ -258,14 +258,14 @@ in
   };
 
   imports = [
-      (mkRemovedOptionModule
-        [
-          "services"
-          "pdns-recursor"
-          "extraConfig"
-        ]
-        "To change extra Recursor settings use services.pdns-recursor.settings instead.")
-    ];
+    (mkRemovedOptionModule
+      [
+        "services"
+        "pdns-recursor"
+        "extraConfig"
+      ]
+      "To change extra Recursor settings use services.pdns-recursor.settings instead.")
+  ];
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
 }

@@ -92,16 +92,16 @@ let
 in
 {
   imports = [
-      (mkRenamedOptionModule
-        [
-          "services"
-          "bitwarden_rs"
-        ]
-        [
-          "services"
-          "vaultwarden"
-        ])
-    ];
+    (mkRenamedOptionModule
+      [
+        "services"
+        "bitwarden_rs"
+      ]
+      [
+        "services"
+        "vaultwarden"
+      ])
+  ];
 
   options.services.vaultwarden = with types; {
     enable = mkEnableOption (lib.mdDoc "vaultwarden");

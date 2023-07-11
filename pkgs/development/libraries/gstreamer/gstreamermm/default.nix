@@ -23,13 +23,13 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (fetchpatch {
-        name = "${pname}-${version}.fix-build-against-glib-2.68.patch";
-        url =
-          "https://gitlab.gnome.org/GNOME/gstreamermm/-/commit/37116547fb5f9066978e39b4cf9f79f2154ad425.patch";
-        sha256 = "sha256-YHtmOiOl4POwas3eWHsew3IyGK7Aq22MweBm3JPwyBM=";
-      })
-    ];
+    (fetchpatch {
+      name = "${pname}-${version}.fix-build-against-glib-2.68.patch";
+      url =
+        "https://gitlab.gnome.org/GNOME/gstreamermm/-/commit/37116547fb5f9066978e39b4cf9f79f2154ad425.patch";
+      sha256 = "sha256-YHtmOiOl4POwas3eWHsew3IyGK7Aq22MweBm3JPwyBM=";
+    })
+  ];
 
   outputs = [
     "out"

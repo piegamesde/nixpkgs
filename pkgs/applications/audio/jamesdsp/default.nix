@@ -67,31 +67,31 @@ mkDerivation rec {
     ;
 
   qtWrapperArgs = lib.optionals usePulseaudio [
-      "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${pluginPath}"
-    ];
+    "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${pluginPath}"
+  ];
 
   qmakeFlags = lib.optionals usePulseaudio [ "CONFIG+=USE_PULSEAUDIO" ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "jamesdsp";
-        desktopName = "JamesDSP";
-        genericName = "Audio effects processor";
-        exec = "jamesdsp";
-        icon = "jamesdsp";
-        comment = "JamesDSP for Linux";
-        categories = [
-          "AudioVideo"
-          "Audio"
-        ];
-        startupNotify = false;
-        keywords = [
-          "equalizer"
-          "audio"
-          "effect"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "jamesdsp";
+      desktopName = "JamesDSP";
+      genericName = "Audio effects processor";
+      exec = "jamesdsp";
+      icon = "jamesdsp";
+      comment = "JamesDSP for Linux";
+      categories = [
+        "AudioVideo"
+        "Audio"
+      ];
+      startupNotify = false;
+      keywords = [
+        "equalizer"
+        "audio"
+        "effect"
+      ];
+    })
+  ];
 
   postInstall = ''
     install -D resources/icons/icon.png $out/share/pixmaps/jamesdsp.png

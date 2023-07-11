@@ -73,8 +73,8 @@ else
     '';
 
     makeFlags = [
-        "INSTALLDIR=$(out)/lib/ocaml/${ocaml.version}/site-lib/cairo"
-      ];
+      "INSTALLDIR=$(out)/lib/ocaml/${ocaml.version}/site-lib/cairo"
+    ];
 
     meta = {
       homepage = "http://cairographics.org/cairo-ocaml";

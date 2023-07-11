@@ -377,8 +377,8 @@ stdenv.mkDerivation (
           # https://xenbits.xen.org/docs/unstable/support-matrix.html
         ]
         ++ lib.optionals (lib.versionOlder version "4.15") [
-            "This version of Xen has reached its end of life. See https://xenbits.xen.org/docs/unstable/support-matrix.html"
-          ]
+          "This version of Xen has reached its end of life. See https://xenbits.xen.org/docs/unstable/support-matrix.html"
+        ]
         ;
     } // (config.meta or { });
   } // removeAttrs config [

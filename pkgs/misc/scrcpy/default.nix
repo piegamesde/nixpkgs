@@ -38,13 +38,13 @@ stdenv.mkDerivation rec {
 
   # Remove in the next patch release
   patches = [
-      (fetchpatch {
-        name = "fix-macos-build-error.patch";
-        url =
-          "https://github.com/Genymobile/scrcpy/commit/6b769675fa68e60c9765022e43c4d7b1e329353a.patch";
-        hash = "sha256-lQx01HI0nTWdZFusLIswZT2iOgkP84btqF6F58tGNko=";
-      })
-    ];
+    (fetchpatch {
+      name = "fix-macos-build-error.patch";
+      url =
+        "https://github.com/Genymobile/scrcpy/commit/6b769675fa68e60c9765022e43c4d7b1e329353a.patch";
+      hash = "sha256-lQx01HI0nTWdZFusLIswZT2iOgkP84btqF6F58tGNko=";
+    })
+  ];
 
   # postPatch:
   #   screen.c: When run without a hardware accelerator, this allows the command to continue working rather than failing unexpectedly.

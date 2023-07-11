@@ -32,15 +32,15 @@ let
           sha256 = "sha256-t3smLqstp7wWfi9HXJoBCek+3acqt/ySBYF8RJOG6Mo=";
         };
         patches = [
-            (fetchpatch {
-              # For Darwin, OSG doesn't build some plugins as they're redundant with QuickTime.
-              # OpenMW doesn't like this, and expects them to be there. Apply their patch for it.
-              name = "darwin-osg-plugins-fix.patch";
-              url =
-                "https://gitlab.com/OpenMW/openmw-dep/-/raw/0abe3c9c3858211028d881d7706813d606335f72/macos/osg.patch";
-              sha256 = "sha256-/CLRZofZHot8juH78VG1/qhTHPhy5DoPMN+oH8hC58U=";
-            })
-          ];
+          (fetchpatch {
+            # For Darwin, OSG doesn't build some plugins as they're redundant with QuickTime.
+            # OpenMW doesn't like this, and expects them to be there. Apply their patch for it.
+            name = "darwin-osg-plugins-fix.patch";
+            url =
+              "https://gitlab.com/OpenMW/openmw-dep/-/raw/0abe3c9c3858211028d881d7706813d606335f72/macos/osg.patch";
+            sha256 = "sha256-/CLRZofZHot8juH78VG1/qhTHPhy5DoPMN+oH8hC58U=";
+          })
+        ];
       }
     );
 
@@ -76,11 +76,11 @@ mkDerivation rec {
   };
 
   patches = [
-      (fetchpatch {
-        url = "https://gitlab.com/OpenMW/openmw/-/merge_requests/1239.diff";
-        sha256 = "sha256-RhbIGeE6GyqnipisiMTwWjcFnIiR055hUPL8IkjPgZw=";
-      })
-    ];
+    (fetchpatch {
+      url = "https://gitlab.com/OpenMW/openmw/-/merge_requests/1239.diff";
+      sha256 = "sha256-RhbIGeE6GyqnipisiMTwWjcFnIiR055hUPL8IkjPgZw=";
+    })
+  ];
 
   postPatch =
     ''

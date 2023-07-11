@@ -48,26 +48,26 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem rec {
-        name = pname;
-        desktopName = "DeepGit";
-        keywords = [ "git" ];
-        comment = "Git-Client";
-        categories = [
-          "Development"
-          "RevisionControl"
-        ];
-        terminal = false;
-        startupNotify = true;
-        startupWMClass = desktopName;
-        exec = pname;
-        mimeTypes = [
-          "x-scheme-handler/${pname}"
-          "x-scheme-handler/sourcetree"
-        ];
-        icon = pname;
-      })
-    ];
+    (makeDesktopItem rec {
+      name = pname;
+      desktopName = "DeepGit";
+      keywords = [ "git" ];
+      comment = "Git-Client";
+      categories = [
+        "Development"
+        "RevisionControl"
+      ];
+      terminal = false;
+      startupNotify = true;
+      startupWMClass = desktopName;
+      exec = pname;
+      mimeTypes = [
+        "x-scheme-handler/${pname}"
+        "x-scheme-handler/sourcetree"
+      ];
+      icon = pname;
+    })
+  ];
 
   installPhase = ''
     runHook preInstall

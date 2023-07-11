@@ -56,8 +56,8 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-7tqo8cxAzoDfTU372uW1qUhm+qqyRhz8bQ7oMiRU528=";
 
   checkFlags = [
-      "--skip test_github" # requires internet
-    ];
+    "--skip test_github" # requires internet
+  ];
 
   meta = with lib; {
     description = "Bisects rustc, either nightlies or CI artifacts";

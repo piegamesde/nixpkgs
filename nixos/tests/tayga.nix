@@ -44,8 +44,8 @@ import ./make-test-python.nix (
       # the pool addresses to one IPv4 addresses, this would not be needed.
       server = {
         virtualisation.vlans = [
-            2 # towards router
-          ];
+          2 # towards router
+        ];
         networking = {
           useDHCP = false;
           interfaces.eth1 = lib.mkForce { };
@@ -187,8 +187,8 @@ import ./make-test-python.nix (
       # normal cases, there would be only a default route.
       client = {
         virtualisation.vlans = [
-            3 # towards router
-          ];
+          3 # towards router
+        ];
 
         networking = {
           useDHCP = false;

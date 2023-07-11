@@ -48,8 +48,8 @@ stdenv.mkDerivation rec {
       (python3.pythonForBuild.withPackages (ps: [ ps.pygobject3 ]))
     ]
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
-        mesonEmulatorHook
-      ]
+      mesonEmulatorHook
+    ]
     ;
 
   buildInputs = [ glib ];

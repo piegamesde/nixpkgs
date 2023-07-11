@@ -677,11 +677,11 @@ rec {
     name = "hello";
     tag = "latest";
     contents = [
-        (pkgs.buildEnv {
-          name = "hello-root";
-          paths = [ pkgs.hello ];
-        })
-      ];
+      (pkgs.buildEnv {
+        name = "hello-root";
+        paths = [ pkgs.hello ];
+      })
+    ];
     config.Cmd = [ "hello" ];
   };
 
@@ -689,11 +689,11 @@ rec {
     name = "hello";
     tag = "latest";
     contents = [
-        (pkgs.buildEnv {
-          name = "hello-root";
-          paths = [ pkgs.hello ];
-        })
-      ];
+      (pkgs.buildEnv {
+        name = "hello-root";
+        paths = [ pkgs.hello ];
+      })
+    ];
     config.Cmd = [ "hello" ];
     includeStorePaths = false;
   };

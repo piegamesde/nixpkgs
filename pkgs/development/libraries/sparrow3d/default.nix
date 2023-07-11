@@ -30,26 +30,26 @@ stdenv.mkDerivation (
     };
 
     pkgconfigItems = [
-        (makePkgconfigItem rec {
-          name = "sparrow3d";
-          inherit (finalAttrs) version;
-          inherit (finalAttrs.meta) description;
+      (makePkgconfigItem rec {
+        name = "sparrow3d";
+        inherit (finalAttrs) version;
+        inherit (finalAttrs.meta) description;
 
-          cflags = [ "-isystem${variables.includedir}" ];
-          libs = [
-            "-L${variables.libdir}"
-            "-lsparrow3d"
-            "-lsparrowNet"
-            "-lsparrowSound"
-          ];
-          variables = rec {
-            prefix = "@dev@";
-            exec_prefix = "@out@";
-            includedir = "${prefix}/include";
-            libdir = "${exec_prefix}/lib";
-          };
-        })
-      ];
+        cflags = [ "-isystem${variables.includedir}" ];
+        libs = [
+          "-L${variables.libdir}"
+          "-lsparrow3d"
+          "-lsparrowNet"
+          "-lsparrowSound"
+        ];
+        variables = rec {
+          prefix = "@dev@";
+          exec_prefix = "@out@";
+          includedir = "${prefix}/include";
+          libdir = "${exec_prefix}/lib";
+        };
+      })
+    ];
 
     nativeBuildInputs = [
       copyPkgconfigItems

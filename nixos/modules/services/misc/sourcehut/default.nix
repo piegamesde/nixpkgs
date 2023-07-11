@@ -1149,8 +1149,8 @@ in
             users.users.${nginx.user}.extraGroups = [ cfg.builds.group ];
             systemd.services.nginx = {
               serviceConfig.BindReadOnlyPaths = [
-                  cfg.settings."builds.sr.ht::worker".buildlogs
-                ];
+                cfg.settings."builds.sr.ht::worker".buildlogs
+              ];
             };
             services.nginx.virtualHosts."logs.${domain}" = mkMerge [
               {
@@ -1175,10 +1175,8 @@ in
         baseService = {
           path = [ cfg.git.package ];
           serviceConfig.BindPaths = [
-              "${
-                cfg.settings."git.sr.ht".repos
-              }:/var/lib/sourcehut/gitsrht/repos"
-            ];
+            "${cfg.settings."git.sr.ht".repos}:/var/lib/sourcehut/gitsrht/repos"
+          ];
         };
       in
       {
@@ -1280,10 +1278,10 @@ in
             User = null;
             DynamicUser = true;
             BindReadOnlyPaths = [
-                "${
-                  cfg.settings."git.sr.ht".repos
-                }:/var/lib/sourcehut/gitsrht/repos"
-              ];
+              "${
+                cfg.settings."git.sr.ht".repos
+              }:/var/lib/sourcehut/gitsrht/repos"
+            ];
             IPAddressDeny = "any";
             InaccessiblePaths = [
               "-+/run/postgresql"
@@ -1311,8 +1309,8 @@ in
         baseService = {
           path = [ cfg.hg.package ];
           serviceConfig.BindPaths = [
-              "${cfg.settings."hg.sr.ht".repos}:/var/lib/sourcehut/hgsrht/repos"
-            ];
+            "${cfg.settings."hg.sr.ht".repos}:/var/lib/sourcehut/hgsrht/repos"
+          ];
         };
       in
       {
@@ -1383,8 +1381,8 @@ in
             };
             systemd.services.nginx = {
               serviceConfig.BindReadOnlyPaths = [
-                  "${cfg.settings."hg.sr.ht".repos}:/var/lib/nginx/hgsrht/repos"
-                ];
+                "${cfg.settings."hg.sr.ht".repos}:/var/lib/nginx/hgsrht/repos"
+              ];
             };
           })
         ];

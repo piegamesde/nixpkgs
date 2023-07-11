@@ -41,14 +41,14 @@ let
 in
 {
   imports = [
-      (mkRemovedOptionModule
-        [
-          "services"
-          "parsoid"
-          "interwikis"
-        ]
-        "Use services.parsoid.wikis instead")
-    ];
+    (mkRemovedOptionModule
+      [
+        "services"
+        "parsoid"
+        "interwikis"
+      ]
+      "Use services.parsoid.wikis instead")
+  ];
 
   ##### interface
 

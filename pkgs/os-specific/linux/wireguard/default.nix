@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
   makeFlags =
     [ "ARCH=${stdenv.hostPlatform.linuxArch}" ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-        "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-      ]
+      "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
+    ]
     ;
 
   INSTALL_MOD_PATH = placeholder "out";

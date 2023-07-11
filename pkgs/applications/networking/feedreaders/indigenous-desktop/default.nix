@@ -26,15 +26,15 @@ stdenv.mkDerivation rec {
   ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = pname;
-        exec = "indigenous-desktop";
-        icon = "indigenous-desktop";
-        comment = meta.description;
-        desktopName = "Indigenous";
-        genericName = "Feed Reader";
-      })
-    ];
+    (makeDesktopItem {
+      name = pname;
+      exec = "indigenous-desktop";
+      icon = "indigenous-desktop";
+      comment = meta.description;
+      desktopName = "Indigenous";
+      genericName = "Feed Reader";
+    })
+  ];
 
   dontConfigure = true;
   dontBuild = true;

@@ -30,18 +30,18 @@ let
       ];
 
       sectionDHCPv4 = checkUnitConfig "DHCPv4" [
-          (assertOnlyFields [
-            "DUIDType"
-            "DUIDRawData"
-          ])
-        ];
+        (assertOnlyFields [
+          "DUIDType"
+          "DUIDRawData"
+        ])
+      ];
 
       sectionDHCPv6 = checkUnitConfig "DHCPv6" [
-          (assertOnlyFields [
-            "DUIDType"
-            "DUIDRawData"
-          ])
-        ];
+        (assertOnlyFields [
+          "DUIDType"
+          "DUIDRawData"
+        ])
+      ];
     };
 
     link = {
@@ -1305,18 +1305,18 @@ let
       ];
 
       sectionTokenBucketFilter = checkUnitConfig "TokenBucketFilter" [
-          (assertOnlyFields [
-            "Parent"
-            "Handle"
-            "LatencySec"
-            "LimitBytes"
-            "BurstBytes"
-            "Rate"
-            "MPUBytes"
-            "PeakRate"
-            "MTUBytes"
-          ])
-        ];
+        (assertOnlyFields [
+          "Parent"
+          "Handle"
+          "LatencySec"
+          "LimitBytes"
+          "BurstBytes"
+          "Rate"
+          "MPUBytes"
+          "PeakRate"
+          "MTUBytes"
+        ])
+      ];
 
       sectionPIE = checkUnitConfig "PIE" [
         (assertOnlyFields [
@@ -1359,12 +1359,12 @@ let
         ];
 
       sectionBFIFO = checkUnitConfig "BFIFO" [
-          (assertOnlyFields [
-            "Parent"
-            "Handle"
-            "LimitBytes"
-          ])
-        ];
+        (assertOnlyFields [
+          "Parent"
+          "Handle"
+          "LimitBytes"
+        ])
+      ];
 
       sectionPFIFO = checkUnitConfig "PFIFO" [
         (assertOnlyFields [
@@ -1387,11 +1387,11 @@ let
       ];
 
       sectionPFIFOFast = checkUnitConfig "PFIFOFast" [
-          (assertOnlyFields [
-            "Parent"
-            "Handle"
-          ])
-        ];
+        (assertOnlyFields [
+          "Parent"
+          "Handle"
+        ])
+      ];
 
       sectionCAKE = checkUnitConfig "CAKE" [
         (assertOnlyFields [
@@ -1547,12 +1547,12 @@ let
       ];
 
       sectionTrivialLinkEqualizer = checkUnitConfig "TrivialLinkEqualizer" [
-          (assertOnlyFields [
-            "Parent"
-            "Handle"
-            "Id"
-          ])
-        ];
+        (assertOnlyFields [
+          "Parent"
+          "Handle"
+          "Id"
+        ])
+      ];
 
       sectionHierarchyTokenBucket = checkUnitConfig "HierarchyTokenBucket" [
         (assertOnlyFields [
@@ -1591,11 +1591,11 @@ let
       ];
 
       sectionQuickFairQueueing = checkUnitConfig "QuickFairQueueing" [
-          (assertOnlyFields [
-            "Parent"
-            "Handle"
-          ])
-        ];
+        (assertOnlyFields [
+          "Parent"
+          "Handle"
+        ])
+      ];
 
       sectionQuickFairQueueingClass = checkUnitConfig "QuickFairQueueingClass" [
         (assertOnlyFields [
@@ -3687,8 +3687,8 @@ let
           (n: _: hasSuffix ".link" n)
           config.systemd.network.units;
         systemd.storePaths = [
-            "${config.boot.initrd.systemd.package}/lib/systemd/network/99-default.link"
-          ];
+          "${config.boot.initrd.systemd.package}/lib/systemd/network/99-default.link"
+        ];
       }
 
       (mkIf cfg.enable {
@@ -3718,8 +3718,8 @@ let
 
         systemd.services.systemd-networkd.wantedBy = [ "initrd.target" ];
         systemd.services.systemd-network-generator.wantedBy = [
-            "sysinit.target"
-          ];
+          "sysinit.target"
+        ];
 
         systemd.storePaths = [
           "${config.boot.initrd.systemd.package}/lib/systemd/systemd-networkd"

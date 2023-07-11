@@ -21,12 +21,12 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./lib-path.patch;
-        libturbojpeg =
-          "${libjpeg_turbo.out}/lib/libturbojpeg${stdenv.hostPlatform.extensions.sharedLibrary}";
-      })
-    ];
+    (substituteAll {
+      src = ./lib-path.patch;
+      libturbojpeg =
+        "${libjpeg_turbo.out}/lib/libturbojpeg${stdenv.hostPlatform.extensions.sharedLibrary}";
+    })
+  ];
 
   propagatedBuildInputs = [ numpy ];
 

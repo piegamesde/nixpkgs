@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ ehmry ];
     platforms = platforms.all;
     knownVulnerabilities = [
-        "Unmaintained upstream: https://github.com/jech/polipo/commit/4d42ca1b5849"
-      ];
+      "Unmaintained upstream: https://github.com/jech/polipo/commit/4d42ca1b5849"
+    ];
   };
 }

@@ -13897,8 +13897,8 @@ let
       (
         sources."@babel/plugin-proposal-private-methods-7.16.11" // {
           dependencies = [
-              sources."@babel/helper-create-class-features-plugin-7.17.1"
-            ];
+            sources."@babel/helper-create-class-features-plugin-7.17.1"
+          ];
         }
       )
       sources."@babel/plugin-proposal-private-property-in-object-7.16.7"
@@ -13946,8 +13946,8 @@ let
       (
         sources."@babel/plugin-transform-modules-systemjs-7.16.7" // {
           dependencies = [
-              sources."@babel/helper-validator-identifier-7.16.7"
-            ];
+            sources."@babel/helper-validator-identifier-7.16.7"
+          ];
         }
       )
       sources."@babel/plugin-transform-modules-umd-7.16.7"

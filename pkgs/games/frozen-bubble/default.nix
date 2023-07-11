@@ -46,15 +46,15 @@ perlPackages.buildPerlModule {
   perlPreHook = "export LD=$CC";
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "frozen-bubble";
-        exec = "frozen-bubble";
-        desktopName = "Frozen Bubble";
-        genericName = "Frozen Bubble";
-        comment = "Arcade/reflex colour matching game";
-        categories = [ "Game" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "frozen-bubble";
+      exec = "frozen-bubble";
+      desktopName = "Frozen Bubble";
+      genericName = "Frozen Bubble";
+      comment = "Arcade/reflex colour matching game";
+      categories = [ "Game" ];
+    })
+  ];
 
   meta = {
     description = "Puzzle with Bubbles";

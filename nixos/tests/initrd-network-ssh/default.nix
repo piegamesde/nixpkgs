@@ -20,8 +20,8 @@ import ../make-test-python.nix (
           ...
         }: {
           boot.kernelParams = [
-              "ip=${config.networking.primaryIPAddress}:::255.255.255.0::eth1:none"
-            ];
+            "ip=${config.networking.primaryIPAddress}:::255.255.255.0::eth1:none"
+          ];
           boot.initrd.network = {
             enable = true;
             ssh = {

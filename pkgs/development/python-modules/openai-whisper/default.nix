@@ -38,11 +38,11 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./ffmpeg-path.patch;
-        inherit ffmpeg;
-      })
-    ];
+    (substituteAll {
+      src = ./ffmpeg-path.patch;
+      inherit ffmpeg;
+    })
+  ];
 
   propagatedBuildInputs =
     [

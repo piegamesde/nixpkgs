@@ -270,8 +270,8 @@ stdenv.mkDerivation {
       "-DLIBGSM_INCLUDE_DIRS=${gsm}/include/gsm"
     ]
     ++ lib.optionals (hasFeature "volk" && volk != null) [
-        "-DENABLE_INTERNAL_VOLK=OFF"
-      ]
+      "-DENABLE_INTERNAL_VOLK=OFF"
+    ]
     ;
 
   postInstall =

@@ -397,8 +397,8 @@ stdenv.mkDerivation {
       "-DKODI_WEBSERVER_EXTRA_WHITELIST=${builtins.storeDir}"
     ]
     ++ lib.optionals waylandSupport [
-        "-DWAYLANDPP_SCANNER=${buildPackages.waylandpp}/bin/wayland-scanner++"
-      ]
+      "-DWAYLANDPP_SCANNER=${buildPackages.waylandpp}/bin/wayland-scanner++"
+    ]
     ;
 
   # 14 tests fail but the biggest issue is that every test takes 30 seconds -

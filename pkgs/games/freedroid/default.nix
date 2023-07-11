@@ -53,18 +53,18 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = pname;
-        exec = pname;
-        icon = pname;
-        desktopName = "Freedroid Classic";
-        comment = "A clone of the classic game 'Paradroid' on Commodore 64";
-        categories = [
-          "Game"
-          "ArcadeGame"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = pname;
+      exec = pname;
+      icon = pname;
+      desktopName = "Freedroid Classic";
+      comment = "A clone of the classic game 'Paradroid' on Commodore 64";
+      categories = [
+        "Game"
+        "ArcadeGame"
+      ];
+    })
+  ];
 
   meta = with lib; {
     description = "A clone of the classic game 'Paradroid' on Commodore 64";

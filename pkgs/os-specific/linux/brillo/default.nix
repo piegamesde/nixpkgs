@@ -19,11 +19,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./udev-rule.patch;
-        inherit coreutils;
-      })
-    ];
+    (substituteAll {
+      src = ./udev-rule.patch;
+      inherit coreutils;
+    })
+  ];
 
   nativeBuildInputs = [ go-md2man ];
 

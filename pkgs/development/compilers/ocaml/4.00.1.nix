@@ -25,12 +25,12 @@ stdenv.mkDerivation rec {
 
   # Compatibility with Glibc 2.34
   patches = [
-      (fetchpatch {
-        url =
-          "https://github.com/ocaml/ocaml/commit/60b0cdaf2519d881947af4175ac4c6ff68901be3.patch";
-        sha256 = "sha256:07g9q9sjk4xsbqix7jxggfp36v15pmqw4bms80g5car0hfbszirn";
-      })
-    ];
+    (fetchpatch {
+      url =
+        "https://github.com/ocaml/ocaml/commit/60b0cdaf2519d881947af4175ac4c6ff68901be3.patch";
+      sha256 = "sha256:07g9q9sjk4xsbqix7jxggfp36v15pmqw4bms80g5car0hfbszirn";
+    })
+  ];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:

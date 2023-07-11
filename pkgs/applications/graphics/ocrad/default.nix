@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-      lzip # unpack
-    ];
+    lzip # unpack
+  ];
   buildInputs = [ texinfo ];
 
   doCheck = true;

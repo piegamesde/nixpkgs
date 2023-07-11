@@ -106,8 +106,8 @@ stdenv.mkDerivation rec {
       "-Dtest-junit-xml=false"
     ]
     ++ lib.optionals (xwayland != null) [
-        "-Dxwayland-path=${xwayland.out}/bin/Xwayland"
-      ]
+      "-Dxwayland-path=${xwayland.out}/bin/Xwayland"
+    ]
     ;
 
   passthru.providedSessions = [ "weston" ];

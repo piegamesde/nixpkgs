@@ -21,8 +21,8 @@ stdenv.mkDerivation (
     nativeBuildInputs = [ cmake ];
 
     cmakeFlags = lib.optionals finalAttrs.finalPackage.doCheck [
-        "-DRAPIDFUZZ_BUILD_TESTING=ON"
-      ];
+      "-DRAPIDFUZZ_BUILD_TESTING=ON"
+    ];
 
     CXXFLAGS = lib.optionals stdenv.cc.isClang [
       # error: no member named 'fill' in namespace 'std'

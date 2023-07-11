@@ -40,12 +40,12 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-zaAAEFBumfHU4hGzAOmLvBu3X4J7LAlmexqixHtVPr8=";
 
   patches = [
-      (fetchpatch {
-        url =
-          "https://gitlab.com/sequoia-pgp/sequoia/-/commit/4dc6e624c2394936dc447f18aedb4a4810bb2ddb.patch";
-        hash = "sha256-T6hh7U1gvKvyn/OCuJBvLM7TG1VFnpvpAiWS72m3P6I=";
-      })
-    ];
+    (fetchpatch {
+      url =
+        "https://gitlab.com/sequoia-pgp/sequoia/-/commit/4dc6e624c2394936dc447f18aedb4a4810bb2ddb.patch";
+      hash = "sha256-T6hh7U1gvKvyn/OCuJBvLM7TG1VFnpvpAiWS72m3P6I=";
+    })
+  ];
 
   nativeBuildInputs =
     [

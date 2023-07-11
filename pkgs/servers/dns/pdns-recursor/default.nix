@@ -49,8 +49,8 @@ stdenv.mkDerivation rec {
     homepage = "https://www.powerdns.com/";
     platforms = platforms.linux;
     badPlatforms = [
-        "i686-linux" # a 64-bit time_t is needed
-      ];
+      "i686-linux" # a 64-bit time_t is needed
+    ];
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ rnhmjoj ];
   };

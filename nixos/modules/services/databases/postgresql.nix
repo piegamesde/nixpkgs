@@ -61,14 +61,14 @@ in
 
 {
   imports = [
-      (mkRemovedOptionModule
-        [
-          "services"
-          "postgresql"
-          "extraConfig"
-        ]
-        "Use services.postgresql.settings instead.")
-    ];
+    (mkRemovedOptionModule
+      [
+        "services"
+        "postgresql"
+        "extraConfig"
+      ]
+      "Use services.postgresql.settings instead.")
+  ];
 
   ###### interface
 

@@ -41,14 +41,14 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (fetchpatch {
-        name = "tests-timezones-2.patch";
-        url =
-          "https://github.com/ecederstrand/exchangelib/commit/419eafcd9261bfd0617823ee437204d5556a8271.diff";
-        excludes = [ "tests/test_ewsdatetime.py" ];
-        hash = "sha256-dSp6NkNT5dHOg8XgDi8sR3t3hq46sNtPjUXva2YfFSU=";
-      })
-    ];
+    (fetchpatch {
+      name = "tests-timezones-2.patch";
+      url =
+        "https://github.com/ecederstrand/exchangelib/commit/419eafcd9261bfd0617823ee437204d5556a8271.diff";
+      excludes = [ "tests/test_ewsdatetime.py" ];
+      hash = "sha256-dSp6NkNT5dHOg8XgDi8sR3t3hq46sNtPjUXva2YfFSU=";
+    })
+  ];
 
   propagatedBuildInputs =
     [

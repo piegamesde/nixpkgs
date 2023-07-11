@@ -121,14 +121,14 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "Valley";
-        exec = "valley";
-        genericName = "A GPU Stress test tool from the UNIGINE";
-        icon = "Valley";
-        desktopName = "Valley Benchmark";
-      })
-    ];
+    (makeDesktopItem {
+      name = "Valley";
+      exec = "valley";
+      genericName = "A GPU Stress test tool from the UNIGINE";
+      icon = "Valley";
+      desktopName = "Valley Benchmark";
+    })
+  ];
 
   stripDebugList = [ "${instPath}/bin" ];
 

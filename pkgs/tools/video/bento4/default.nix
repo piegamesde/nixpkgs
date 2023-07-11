@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      ./libap4.patch # include all libraries as shared, not static
-    ];
+    ./libap4.patch # include all libraries as shared, not static
+  ];
 
   nativeBuildInputs = [ cmake ];
 

@@ -16,15 +16,15 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substitute {
-        src = ./libamplsolver-sharedlib.patch;
-        replacements = [
-          "--replace"
-          "@sharedlibext@"
-          "${stdenv.hostPlatform.extensions.sharedLibrary}"
-        ];
-      })
-    ];
+    (substitute {
+      src = ./libamplsolver-sharedlib.patch;
+      replacements = [
+        "--replace"
+        "@sharedlibext@"
+        "${stdenv.hostPlatform.extensions.sharedLibrary}"
+      ];
+    })
+  ];
 
   installPhase =
     ''

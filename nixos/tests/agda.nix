@@ -28,8 +28,8 @@ import ./make-test-python.nix (
         ...
       }: {
         environment.systemPackages = [
-            (pkgs.agda.withPackages { pkgs = p: [ p.standard-library ]; })
-          ];
+          (pkgs.agda.withPackages { pkgs = p: [ p.standard-library ]; })
+        ];
         virtualisation.memorySize = 2000; # Agda uses a lot of memory
       }
       ;

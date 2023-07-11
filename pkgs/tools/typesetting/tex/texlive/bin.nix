@@ -176,8 +176,8 @@ rec { # un-indented
     configureFlags =
       common.configureFlags
       ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-          "BUILDCC=${buildPackages.stdenv.cc.targetPrefix}cc"
-        ]
+        "BUILDCC=${buildPackages.stdenv.cc.targetPrefix}cc"
+      ]
       ++ [ "--without-x" ] # disable xdvik and xpdfopen
       ++ map (what: "--disable-${what}") [
         "chktex"
@@ -448,8 +448,8 @@ rec { # un-indented
 
     nativeBuildInputs = [ pkg-config ];
     buildInputs = [
-        core # kpathsea
-      ];
+      core # kpathsea
+    ];
 
     preConfigure = "cd texk/chktex";
 

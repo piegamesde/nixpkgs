@@ -82,8 +82,8 @@ stdenv.mkDerivation rec {
     ;
 
   installFlags = lib.optionals stdenv.isDarwin [
-      "framedir=$(out)/Library/Frameworks/SASL2.framework"
-    ];
+    "framedir=$(out)/Library/Frameworks/SASL2.framework"
+  ];
 
   passthru.tests = { inherit (nixosTests) parsedmarc postfix; };
 

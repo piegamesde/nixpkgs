@@ -147,8 +147,8 @@ buildPythonPackage rec {
       "test_qv_natural" # fails due to sign error. Not sure why
     ]
     ++ lib.optionals (lib.versionAtLeast matplotlib.version "3.4.0") [
-        "test_plot_circuit_layout"
-      ]
+      "test_plot_circuit_layout"
+    ]
     # Disabling slow tests for build constraints
     ++ [
       "test_all_examples"

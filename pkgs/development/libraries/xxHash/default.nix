@@ -43,13 +43,13 @@ stdenv.mkDerivation rec {
   cmakeDir = "../cmake_unofficial";
 
   cmakeFlags = [
-      "-DBUILD_SHARED_LIBS=${
-        if stdenv.hostPlatform.isStatic then
-          "OFF"
-        else
-          "ON"
-      }"
-    ];
+    "-DBUILD_SHARED_LIBS=${
+      if stdenv.hostPlatform.isStatic then
+        "OFF"
+      else
+        "ON"
+    }"
+  ];
 
   meta = with lib; {
     description = "Extremely fast hash algorithm";

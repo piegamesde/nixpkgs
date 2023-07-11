@@ -27,12 +27,12 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (fetchpatch {
-        url =
-          "https://github.com/archlinux/svntogit-packages/raw/edcf78c831894000f2fbfd3e5818e363911c746a/trunk/telepathy-gabble-0.18.4-python3.patch";
-        hash = "sha256-bvcZW6gbCNogqwPDaXHTbohe7c2GAYjXeHGyBEDVsB4=";
-      })
-    ];
+    (fetchpatch {
+      url =
+        "https://github.com/archlinux/svntogit-packages/raw/edcf78c831894000f2fbfd3e5818e363911c746a/trunk/telepathy-gabble-0.18.4-python3.patch";
+      hash = "sha256-bvcZW6gbCNogqwPDaXHTbohe7c2GAYjXeHGyBEDVsB4=";
+    })
+  ];
 
   nativeBuildInputs = [
     pkg-config
@@ -52,8 +52,8 @@ stdenv.mkDerivation rec {
   nativeCheckInputs = [ dbus ];
 
   configureFlags = [
-      "--with-ca-certificates=/etc/ssl/certs/ca-certificates.crt"
-    ];
+    "--with-ca-certificates=/etc/ssl/certs/ca-certificates.crt"
+  ];
 
   enableParallelBuilding = true;
   doCheck = true;

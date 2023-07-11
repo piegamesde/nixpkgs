@@ -31,11 +31,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        inherit zenity;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      inherit zenity;
+    })
+  ];
 
   nativeBuildInputs = [
     gettext

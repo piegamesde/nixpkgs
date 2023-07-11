@@ -434,8 +434,8 @@ in
       services.gnome.core-utilities.enable = mkDefault true;
 
       services.xserver.displayManager.sessionPackages = [
-          pkgs.gnome.gnome-session.sessions
-        ];
+        pkgs.gnome.gnome-session.sessions
+      ];
 
       environment.extraInit = ''
         ${concatMapStrings
@@ -490,12 +490,12 @@ in
 
       # gnome-panel needs these for menu applet
       environment.sessionVariables.XDG_DATA_DIRS = [
-          "${pkgs.gnome.gnome-flashback}/share"
-        ];
+        "${pkgs.gnome.gnome-flashback}/share"
+      ];
       # TODO: switch to sessionVariables (resolve conflict)
       environment.variables.XDG_CONFIG_DIRS = [
-          "${pkgs.gnome.gnome-flashback}/etc/xdg"
-        ];
+        "${pkgs.gnome.gnome-flashback}/etc/xdg"
+      ];
     })
 
     (mkIf serviceCfg.core-os-services.enable {
@@ -552,8 +552,8 @@ in
 
       # Needed for themes and backgrounds
       environment.pathsToLink = [
-          "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
-        ];
+        "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
+      ];
     })
 
     (mkIf serviceCfg.core-shell.enable {

@@ -34,15 +34,15 @@ stdenv.mkDerivation rec {
   buildInputs = [ SDL ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "Ballerburg";
-        desktopName = "Ballerburg SDL";
-        exec = "_NET_WM_ICON=ballerburg ballerburg";
-        comment = meta.description;
-        icon = "ballerburg";
-        categories = [ "Game" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "Ballerburg";
+      desktopName = "Ballerburg SDL";
+      exec = "_NET_WM_ICON=ballerburg ballerburg";
+      comment = meta.description;
+      icon = "ballerburg";
+      categories = [ "Game" ];
+    })
+  ];
 
   postInstall = ''
     # Generate and install icon files

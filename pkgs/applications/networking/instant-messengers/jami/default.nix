@@ -117,8 +117,8 @@ stdenv.mkDerivation rec {
     sourceRoot = "source/daemon";
 
     patches = [
-        ./0001-fix-annotations-in-bin-dbus-cx.ring.Ring.CallManager.patch
-      ];
+      ./0001-fix-annotations-in-bin-dbus-cx.ring.Ring.CallManager.patch
+    ];
 
     nativeBuildInputs = [
       autoreconfHook

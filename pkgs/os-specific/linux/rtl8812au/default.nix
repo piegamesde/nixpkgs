@@ -58,8 +58,8 @@ stdenv.mkDerivation rec {
       )
     ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-        "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-      ]
+      "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
+    ]
     ;
 
   preInstall = ''

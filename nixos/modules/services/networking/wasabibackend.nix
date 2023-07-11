@@ -144,8 +144,8 @@ in
   config = mkIf cfg.enable {
 
     systemd.tmpfiles.rules = [
-        "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -"
-      ];
+      "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -"
+    ];
 
     systemd.services.wasabibackend = {
       description = "wasabibackend server";

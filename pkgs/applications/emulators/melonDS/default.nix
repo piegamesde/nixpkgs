@@ -43,8 +43,8 @@ stdenv.mkDerivation rec {
   ];
 
   qtWrapperArgs = [
-      "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libpcap ]}"
-    ];
+    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libpcap ]}"
+  ];
 
   meta = with lib; {
     homepage = "https://melonds.kuribo64.net/";

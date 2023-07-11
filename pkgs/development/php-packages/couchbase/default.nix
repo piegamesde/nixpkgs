@@ -30,11 +30,11 @@ buildPecl {
   ];
 
   patches = [
-      (substituteAll {
-        src = ./libcouchbase.patch;
-        inherit libcouchbase;
-      })
-    ];
+    (substituteAll {
+      src = ./libcouchbase.patch;
+      inherit libcouchbase;
+    })
+  ];
 
   meta = with lib; {
     changelog =

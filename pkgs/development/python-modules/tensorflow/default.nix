@@ -388,8 +388,8 @@ let
         "zlib"
       ]
       ++ lib.optionals (!stdenv.isDarwin) [
-          "nsync" # fails to build on darwin
-        ]
+        "nsync" # fails to build on darwin
+      ]
     );
 
     INCLUDEDIR = "${includes_joined}/include";
@@ -495,8 +495,8 @@ let
       ;
 
     bazelTargets = [
-        "//tensorflow/tools/pip_package:build_pip_package //tensorflow/tools/lib_package:libtensorflow"
-      ];
+      "//tensorflow/tools/pip_package:build_pip_package //tensorflow/tools/lib_package:libtensorflow"
+    ];
 
     removeRulesCC = false;
     # Without this Bazel complaints about sandbox violations.

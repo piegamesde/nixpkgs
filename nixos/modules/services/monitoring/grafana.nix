@@ -2136,8 +2136,8 @@ in
         RuntimeDirectoryMode = "0755";
         # Hardening
         AmbientCapabilities = lib.mkIf (cfg.settings.server.http_port < 1024) [
-            "CAP_NET_BIND_SERVICE"
-          ];
+          "CAP_NET_BIND_SERVICE"
+        ];
         CapabilityBoundingSet =
           if (cfg.settings.server.http_port < 1024) then
             [ "CAP_NET_BIND_SERVICE" ]
@@ -2176,8 +2176,8 @@ in
             "~@privileged"
           ]
           ++ lib.optionals (cfg.settings.server.protocol == "socket") [
-              "@chown"
-            ]
+            "@chown"
+          ]
           ;
         UMask = "0027";
       };

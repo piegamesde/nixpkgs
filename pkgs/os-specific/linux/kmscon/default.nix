@@ -51,13 +51,13 @@ stdenv.mkDerivation rec {
   ];
 
   patches = [
-      (fetchpatch {
-        name = "0001-tests-fix-warnings.patch";
-        url =
-          "https://github.com/Aetf/kmscon/commit/b65f4269b03de580923ab390bde795e7956b633f.patch";
-        sha256 = "sha256-ngflPwmNMM/2JzhV+hHiH3efQyoSULfqEywzWox9iAQ=";
-      })
-    ];
+    (fetchpatch {
+      name = "0001-tests-fix-warnings.patch";
+      url =
+        "https://github.com/Aetf/kmscon/commit/b65f4269b03de580923ab390bde795e7956b633f.patch";
+      sha256 = "sha256-ngflPwmNMM/2JzhV+hHiH3efQyoSULfqEywzWox9iAQ=";
+    })
+  ];
 
   # _FORTIFY_SOURCE requires compiling with optimization (-O)
   env.NIX_CFLAGS_COMPILE =

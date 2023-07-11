@@ -77,13 +77,13 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./paths.patch;
-        gcm = gnome-color-manager;
-        inherit glibc libgnomekbd tzdata shadow;
-        inherit cups networkmanagerapplet;
-      })
-    ];
+    (substituteAll {
+      src = ./paths.patch;
+      gcm = gnome-color-manager;
+      inherit glibc libgnomekbd tzdata shadow;
+      inherit cups networkmanagerapplet;
+    })
+  ];
 
   nativeBuildInputs = [
     docbook-xsl-nons

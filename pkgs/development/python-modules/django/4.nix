@@ -64,13 +64,13 @@ buildPythonPackage rec {
       ./django_4_tests.patch
     ]
     ++ lib.optionals withGdal [
-        (substituteAll {
-          src = ./django_4_set_geos_gdal_lib.patch;
-          geos = geos;
-          gdal = gdal;
-          extension = stdenv.hostPlatform.extensions.sharedLibrary;
-        })
-      ]
+      (substituteAll {
+        src = ./django_4_set_geos_gdal_lib.patch;
+        geos = geos;
+        gdal = gdal;
+        extension = stdenv.hostPlatform.extensions.sharedLibrary;
+      })
+    ]
     ;
 
   postPatch = ''

@@ -134,8 +134,8 @@ let
             "cannot:${getBin netcat-gnu}/bin/nc"
           ]
           ++ optionals withSystemd [
-              "cannot:${getBin systemd}/bin/systemd-cat"
-            ]
+            "cannot:${getBin systemd}/bin/systemd-cat"
+          ]
           ;
         fix."$MSMTP" = [ "msmtp" ];
         fake.external =

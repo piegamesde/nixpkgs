@@ -610,8 +610,8 @@ let
         useEFIBoot
         "-drive if=pflash,format=raw,unit=0,readonly=on,file=${efiFirmware}"
         ++ lib.optionals touchEFIVars [
-            "-drive if=pflash,format=raw,unit=1,file=$efiVars"
-          ]
+          "-drive if=pflash,format=raw,unit=1,file=$efiVars"
+        ]
       );
       inherit memSize;
     }

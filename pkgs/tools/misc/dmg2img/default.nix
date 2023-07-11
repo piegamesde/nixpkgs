@@ -24,12 +24,12 @@ stdenv.mkDerivation rec {
   ];
 
   patches = [
-      (fetchpatch {
-        url =
-          "https://raw.githubusercontent.com/Homebrew/formula-patches/85fa66a9/dmg2img/openssl-1.1.diff";
-        sha256 = "076sz69hf3ryylplg025vl8sj991cb81g3yazsmrf8anrd7ffmxx";
-      })
-    ];
+    (fetchpatch {
+      url =
+        "https://raw.githubusercontent.com/Homebrew/formula-patches/85fa66a9/dmg2img/openssl-1.1.diff";
+      sha256 = "076sz69hf3ryylplg025vl8sj991cb81g3yazsmrf8anrd7ffmxx";
+    })
+  ];
 
   patchFlags = [ "-p0" ];
 

@@ -6768,12 +6768,12 @@ in
         (
           sources."chokidar-2.1.8" // {
             dependencies = [
-                (
-                  sources."glob-parent-3.1.0" // {
-                    dependencies = [ sources."is-glob-3.1.0" ];
-                  }
-                )
-              ];
+              (
+                sources."glob-parent-3.1.0" // {
+                  dependencies = [ sources."is-glob-3.1.0" ];
+                }
+              )
+            ];
           }
         )
         (

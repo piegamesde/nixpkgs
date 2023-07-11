@@ -55,8 +55,8 @@ stdenv.mkDerivation rec {
   '';
 
   patches = [
-      ../../../applications/science/logic/cvc4/cvc4-bash-patsub-replacement.patch
-    ];
+    ../../../applications/science/logic/cvc4/cvc4-bash-patsub-replacement.patch
+  ];
 
   preConfigure = ''
     patchShebangs ./src/

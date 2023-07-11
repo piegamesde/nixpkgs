@@ -57,8 +57,8 @@ in
       [ ]
       ++ optionals (activatedHosts != [ ]) [ hostsPath ]
       ++ optionals (activatedHosts == [ ]) [
-          "${pkgs.stevenblack-blocklist}/hosts"
-        ]
+        "${pkgs.stevenblack-blocklist}/hosts"
+      ]
       ;
   };
 

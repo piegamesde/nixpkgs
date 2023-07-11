@@ -141,8 +141,8 @@ stdenv.mkDerivation (
           lib.makeSearchPath "lib/mangohud" (
             [ (placeholder "out") ]
             ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [
-                mangohud32
-              ]
+              mangohud32
+            ]
           )
         } \
         --subst-var-by dataDir ${placeholder "out"}/share

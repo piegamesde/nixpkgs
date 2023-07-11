@@ -88,8 +88,8 @@ in
         services.lirc.enable = true;
         users.users.vdr.extraGroups = [ "lirc" ];
         services.vdr.extraArguments = [
-            "--lirc=${config.passthru.lirc.socket}"
-          ];
+          "--lirc=${config.passthru.lirc.socket}"
+        ];
       })
     ]
   );

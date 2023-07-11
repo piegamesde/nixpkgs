@@ -28,8 +28,8 @@ buildPythonPackage rec {
   ];
 
   disabledTests = [
-      "test_combined" # no longer compatible with setuptools>=58
-    ];
+    "test_combined" # no longer compatible with setuptools>=58
+  ];
 
   pythonImportsCheck = [ "portalocker" ];
 

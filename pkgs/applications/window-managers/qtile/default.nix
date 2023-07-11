@@ -27,8 +27,8 @@ python3Packages.buildPythonPackage rec {
   };
 
   patches = [
-      ./fix-restart.patch # https://github.com/NixOS/nixpkgs/issues/139568
-    ];
+    ./fix-restart.patch # https://github.com/NixOS/nixpkgs/issues/139568
+  ];
 
   postPatch = ''
     substituteInPlace libqtile/pangocffi.py \

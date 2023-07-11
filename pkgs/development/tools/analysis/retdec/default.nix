@@ -177,8 +177,8 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [
-      "-DRETDEC_TESTS=ON" # build tests
-    ];
+    "-DRETDEC_TESTS=ON" # build tests
+  ];
 
   # all dependencies that are normally fetched during build time (the subdirectories of `deps`)
   # all of these need to be fetched through nix and the CMakeLists files need to be patched not to fetch them themselves

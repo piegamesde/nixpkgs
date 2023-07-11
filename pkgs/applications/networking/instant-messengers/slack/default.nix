@@ -158,8 +158,8 @@ let
       ;
 
     buildInputs = [
-        gtk3 # needed for GSETTINGS_SCHEMAS_PATH
-      ];
+      gtk3 # needed for GSETTINGS_SCHEMAS_PATH
+    ];
 
     nativeBuildInputs = [
       dpkg

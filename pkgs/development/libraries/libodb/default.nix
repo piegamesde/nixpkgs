@@ -23,8 +23,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ build2 ];
   build2ConfigureFlags = [
-      "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}"
-    ];
+    "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}"
+  ];
 
   doCheck = true;
 

@@ -18,13 +18,13 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (fetchpatch {
-        name = "remove-leftover-six-import.patch";
-        url =
-          "https://github.com/tych0/xcffib/commit/8a488867d30464913706376ca3a9f4c98ca6c5cf.patch";
-        hash = "sha256-wEms0gC7tVqtmKMjjpH/34kdQ6HUV0h67bUGbgijlqw=";
-      })
-    ];
+    (fetchpatch {
+      name = "remove-leftover-six-import.patch";
+      url =
+        "https://github.com/tych0/xcffib/commit/8a488867d30464913706376ca3a9f4c98ca6c5cf.patch";
+      hash = "sha256-wEms0gC7tVqtmKMjjpH/34kdQ6HUV0h67bUGbgijlqw=";
+    })
+  ];
 
   postPatch = ''
     # Hardcode cairo library path

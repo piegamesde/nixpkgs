@@ -28,8 +28,8 @@ buildPythonPackage rec {
   # force kqueue on x86_64-darwin, because our api version does
   # not support fsevents
   patches = lib.optionals (stdenv.isDarwin && !stdenv.isAarch64) [
-      ./force-kqueue.patch
-    ];
+    ./force-kqueue.patch
+  ];
 
   buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
 

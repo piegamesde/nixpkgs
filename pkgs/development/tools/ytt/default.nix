@@ -17,8 +17,8 @@ buildGoModule rec {
   vendorSha256 = null;
 
   ldflags = [
-      "-X github.com/vmware-tanzu/carvel-ytt/pkg/version.Version=${version}"
-    ];
+    "-X github.com/vmware-tanzu/carvel-ytt/pkg/version.Version=${version}"
+  ];
 
   subPackages = [ "cmd/ytt" ];
 

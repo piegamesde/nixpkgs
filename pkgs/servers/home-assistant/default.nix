@@ -405,11 +405,11 @@ python.pkgs.buildPythonApplication rec {
 
   # leave this in, so users don't have to constantly update their downstream patch handling
   patches = [
-      (substituteAll {
-        src = ./patches/ffmpeg-path.patch;
-        ffmpeg = "${lib.getBin ffmpeg-headless}/bin/ffmpeg";
-      })
-    ];
+    (substituteAll {
+      src = ./patches/ffmpeg-path.patch;
+      ffmpeg = "${lib.getBin ffmpeg-headless}/bin/ffmpeg";
+    })
+  ];
 
   postPatch =
     let

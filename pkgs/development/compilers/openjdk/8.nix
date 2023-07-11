@@ -122,8 +122,8 @@ let
         ./fix-library-path-jdk8.patch
       ]
       ++ lib.optionals (!headless && enableGnome2) [
-          ./swing-use-gtk-jdk8.patch
-        ]
+        ./swing-use-gtk-jdk8.patch
+      ]
       ;
 
     # Hotspot cares about the host(!) version otherwise

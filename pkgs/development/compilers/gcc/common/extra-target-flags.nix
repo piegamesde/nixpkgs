@@ -24,8 +24,8 @@ in
         (
           [ "-O2 -idirafter ${lib.getDev dep}${dep.incdir or "/include"}" ]
           ++ lib.optionals (!crossStageStatic) [
-              "-B${lib.getLib dep}${dep.libdir or "/lib"}"
-            ]
+            "-B${lib.getLib dep}${dep.libdir or "/lib"}"
+          ]
         )
         ;
     in

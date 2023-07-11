@@ -86,8 +86,8 @@ stdenv.mkDerivation rec {
     ;
 
   cmakeFlags = [
-      "-DCOMPILE_QML=ON" # see https://github.com/Nheko-Reborn/nheko/issues/389
-    ];
+    "-DCOMPILE_QML=ON" # see https://github.com/Nheko-Reborn/nheko/issues/389
+  ];
 
   preFixup = lib.optionalString voipSupport ''
     # add gstreamer plugins path to the wrapper

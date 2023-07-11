@@ -105,8 +105,8 @@ in
     systemd.packages = [ cfg.package ]; # include the upstream bee.service file
 
     systemd.tmpfiles.rules = [
-        "d '${cfg.settings.data-dir}' 0750 ${cfg.user} ${cfg.group}"
-      ];
+      "d '${cfg.settings.data-dir}' 0750 ${cfg.user} ${cfg.group}"
+    ];
 
     systemd.services.bee = {
       requires = optional config.services.bee-clef.enable "bee-clef.service";

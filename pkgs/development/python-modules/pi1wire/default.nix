@@ -21,8 +21,8 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   disabledTests = [
-      "test_find_all_sensors" # flaky
-    ];
+    "test_find_all_sensors" # flaky
+  ];
 
   pythonImportsCheck = [ "pi1wire" ];
 

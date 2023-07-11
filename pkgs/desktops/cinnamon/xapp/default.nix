@@ -72,10 +72,10 @@ stdenv.mkDerivation rec {
   ];
 
   mesonFlags = [
-      "-Dpy-overrides-dir=${
-        placeholder "out"
-      }/${python3.sitePackages}/gi/overrides"
-    ];
+    "-Dpy-overrides-dir=${
+      placeholder "out"
+    }/${python3.sitePackages}/gi/overrides"
+  ];
 
   postPatch = ''
     chmod +x schemas/meson_install_schemas.py # patchShebangs requires executable file

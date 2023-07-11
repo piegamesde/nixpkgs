@@ -31,13 +31,13 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./paths.patch;
-        ffmpeg = "${ffmpeg}/bin/ffmpeg";
-        libopus =
-          "${libopus}/lib/libopus${stdenv.hostPlatform.extensions.sharedLibrary}";
-      })
-    ];
+    (substituteAll {
+      src = ./paths.patch;
+      ffmpeg = "${ffmpeg}/bin/ffmpeg";
+      libopus =
+        "${libopus}/lib/libopus${stdenv.hostPlatform.extensions.sharedLibrary}";
+    })
+  ];
 
   propagatedBuildInputs = [
     aiodns

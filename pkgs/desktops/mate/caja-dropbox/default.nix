@@ -29,11 +29,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-cli-paths.patch;
-        inherit dropboxd;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-cli-paths.patch;
+      inherit dropboxd;
+    })
+  ];
 
   strictDeps = true;
 
@@ -57,8 +57,8 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-      "--with-caja-extension-dir=$$out/lib/caja/extensions-2.0"
-    ];
+    "--with-caja-extension-dir=$$out/lib/caja/extensions-2.0"
+  ];
 
   enableParallelBuilding = true;
 

@@ -23,8 +23,8 @@ buildGoModule rec {
   doCheck = false;
 
   ldflags = [
-      "-X github.com/wallarm/gotestwaf/internal/version.Version=v${version}"
-    ];
+    "-X github.com/wallarm/gotestwaf/internal/version.Version=v${version}"
+  ];
 
   postFixup = ''
     # Rename binary

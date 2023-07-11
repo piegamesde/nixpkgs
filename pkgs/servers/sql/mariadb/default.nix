@@ -325,8 +325,8 @@ let
               zeromq
             ]
             ++ lib.optionals (lib.versionAtLeast common.version "10.7") [
-                fmt_8
-              ]
+              fmt_8
+            ]
             ;
 
           propagatedBuildInputs = lib.optional withNuma numactl;
@@ -365,8 +365,8 @@ let
                 "-DWITH_ROCKSDB_JEMALLOC=ON"
               ]
             ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
-                "-DWITH_JEMALLOC=yes"
-              ]
+              "-DWITH_JEMALLOC=yes"
+            ]
             ++ lib.optionals stdenv.hostPlatform.isDarwin [
               "-DPLUGIN_AUTH_PAM=NO"
               "-DPLUGIN_AUTH_PAM_V1=NO"

@@ -36,20 +36,20 @@ stdenv.mkDerivation rec {
   };
 
   desktopItems = [
-      (makeDesktopItem {
-        name = pname;
-        exec = "viper-gui";
-        icon = "viper";
-        desktopName = "viper4linux";
-        genericName = "Equalizer";
-        comment = meta.description;
-        categories = [
-          "AudioVideo"
-          "Audio"
-        ];
-        startupNotify = false;
-      })
-    ];
+    (makeDesktopItem {
+      name = pname;
+      exec = "viper-gui";
+      icon = "viper";
+      desktopName = "viper4linux";
+      genericName = "Equalizer";
+      comment = meta.description;
+      categories = [
+        "AudioVideo"
+        "Audio"
+      ];
+      startupNotify = false;
+    })
+  ];
 
   nativeBuildInputs = [
     qmake

@@ -146,10 +146,10 @@ stdenv.mkDerivation (
     nativeBuildInputs =
       nativeBuildInputs
       ++ lib.optionals auditable [
-          (buildPackages.cargo-auditable-cargo-wrapper.override {
-            inherit cargo cargo-auditable;
-          })
-        ]
+        (buildPackages.cargo-auditable-cargo-wrapper.override {
+          inherit cargo cargo-auditable;
+        })
+      ]
       ++ [
         cargoBuildHook
         (

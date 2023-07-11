@@ -46,8 +46,8 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = with maintainers; [
-        vcunat # for knot-dns
-      ];
+      vcunat # for knot-dns
+    ];
   };
 }
 

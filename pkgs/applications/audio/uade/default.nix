@@ -60,15 +60,15 @@ stdenv.mkDerivation rec {
       vorbis-tools
     ]
     ++ lib.optionals withWriteAudio [
-        (python3.withPackages (
-          p:
-          with p; [
-            pillow
-            tqdm
-            more-itertools
-          ]
-        ))
-      ]
+      (python3.withPackages (
+        p:
+        with p; [
+          pillow
+          tqdm
+          more-itertools
+        ]
+      ))
+    ]
     ;
 
   configureFlags =

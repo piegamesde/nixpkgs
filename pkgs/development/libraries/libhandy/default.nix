@@ -59,8 +59,8 @@ stdenv.mkDerivation rec {
       vala
     ]
     ++ lib.optionals enableGlade [
-        libxml2 # for xmllint
-      ]
+      libxml2 # for xmllint
+    ]
     ;
 
   buildInputs =

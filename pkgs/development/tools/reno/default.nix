@@ -43,8 +43,8 @@ buildPythonApplication rec {
   '';
 
   disabledTests = [
-      "test_build_cache_db" # expects to be run from a git repository
-    ];
+    "test_build_cache_db" # expects to be run from a git repository
+  ];
 
   # verify executable
   postCheck = ''

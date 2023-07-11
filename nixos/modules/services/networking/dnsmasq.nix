@@ -42,19 +42,19 @@ in
 {
 
   imports = [
-      (mkRenamedOptionModule
-        [
-          "services"
-          "dnsmasq"
-          "servers"
-        ]
-        [
-          "services"
-          "dnsmasq"
-          "settings"
-          "server"
-        ])
-    ];
+    (mkRenamedOptionModule
+      [
+        "services"
+        "dnsmasq"
+        "servers"
+      ]
+      [
+        "services"
+        "dnsmasq"
+        "settings"
+        "server"
+      ])
+  ];
 
   ###### interface
 

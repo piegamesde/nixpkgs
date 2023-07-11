@@ -80,8 +80,8 @@ stdenv.mkDerivation rec {
       "--with-umount-helper=${mount}/bin/umount"
     ]
     ++ lib.optionals stdenv.isLinux [
-        "--with-modprobe-helper=${kmod}/bin/modprobe"
-      ]
+      "--with-modprobe-helper=${kmod}/bin/modprobe"
+    ]
     ;
 
   postInstall = ''

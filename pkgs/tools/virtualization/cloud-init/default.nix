@@ -78,14 +78,14 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   makeWrapperArgs = [
-      "--prefix PATH : ${
-        lib.makeBinPath [
-          dmidecode
-          cloud-utils.guest
-          busybox
-        ]
-      }/bin"
-    ];
+    "--prefix PATH : ${
+      lib.makeBinPath [
+        dmidecode
+        cloud-utils.guest
+        busybox
+      ]
+    }/bin"
+  ];
 
   disabledTests = [
     # tries to create /var

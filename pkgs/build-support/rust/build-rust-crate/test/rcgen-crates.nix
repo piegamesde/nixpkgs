@@ -2337,8 +2337,8 @@ rec {
           "spans" = [ "wasm-bindgen-macro/spans" ];
           "strict-macro" = [ "wasm-bindgen-macro/strict-macro" ];
           "xxx_debug_only_print_generated_code" = [
-              "wasm-bindgen-macro/xxx_debug_only_print_generated_code"
-            ];
+            "wasm-bindgen-macro/xxx_debug_only_print_generated_code"
+          ];
         };
         resolvedDefaultFeatures = [
           "default"

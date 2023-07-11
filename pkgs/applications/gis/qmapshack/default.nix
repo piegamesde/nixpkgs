@@ -47,13 +47,13 @@ mkDerivation rec {
   cmakeFlags = [ "-DROUTINO_XML_PATH=${routino}/share/routino" ];
 
   qtWrapperArgs = [
-      "--suffix PATH : ${
-        lib.makeBinPath [
-          gdal
-          routino
-        ]
-      }"
-    ];
+    "--suffix PATH : ${
+      lib.makeBinPath [
+        gdal
+        routino
+      ]
+    }"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/Maproom/qmapshack";

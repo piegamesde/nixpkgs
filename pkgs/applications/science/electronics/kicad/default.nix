@@ -188,11 +188,11 @@ stdenv.mkDerivation rec {
       "--prefix KICAD7_TEMPLATE_DIR : ${footprints}/share/kicad/template"
     ]
     ++ optionals (with3d) [
-        "--set-default KICAD7_3DMODEL_DIR ${packages3d}/share/kicad/3dmodels"
-      ]
+      "--set-default KICAD7_3DMODEL_DIR ${packages3d}/share/kicad/3dmodels"
+    ]
     ++ optionals (withNgspice) [
-        "--prefix LD_LIBRARY_PATH : ${libngspice}/lib"
-      ]
+      "--prefix LD_LIBRARY_PATH : ${libngspice}/lib"
+    ]
 
     # infinisil's workaround for #39493
     ++ [

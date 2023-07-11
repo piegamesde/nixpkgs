@@ -163,8 +163,8 @@ stdenv.mkDerivation (
         "--libdir=\${exec_prefix}/lib"
       ]
       ++ lib.optionals (!withPython) [
-          "--disable-python" # depends on Python2 which was EOLed on 2020-01-01
-        ]
+        "--disable-python" # depends on Python2 which was EOLed on 2020-01-01
+      ]
       ;
 
     enableParallelBuilding = true;

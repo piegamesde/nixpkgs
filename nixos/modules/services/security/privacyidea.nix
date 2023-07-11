@@ -473,8 +473,8 @@ in
       } ];
 
       warnings = mkIf (cfg.ldap-proxy.configFile != null) [
-          "Using services.privacyidea.ldap-proxy.configFile is deprecated! Use the RFC42-style settings option instead!"
-        ];
+        "Using services.privacyidea.ldap-proxy.configFile is deprecated! Use the RFC42-style settings option instead!"
+      ];
 
       systemd.services.privacyidea-ldap-proxy =
         let
@@ -489,8 +489,8 @@ in
             Group = cfg.ldap-proxy.group;
             StateDirectory = "privacyidea-ldap-proxy";
             EnvironmentFile = mkIf (cfg.ldap-proxy.environmentFile != null) [
-                cfg.ldap-proxy.environmentFile
-              ];
+              cfg.ldap-proxy.environmentFile
+            ];
             ExecStartPre =
               "${pkgs.writeShellScript "substitute-secrets-ldap-proxy" ''
                 umask 0077

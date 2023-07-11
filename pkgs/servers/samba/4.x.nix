@@ -190,15 +190,15 @@ stdenv.mkDerivation rec {
       "--without-ads"
     ]
     ++ optionals (!enableLDAP && stdenv.isLinux) [
-        "--bundled-libraries=!ldb,!pyldb-util!talloc,!pytalloc-util,!tevent,!tdb,!pytdb"
-      ]
+      "--bundled-libraries=!ldb,!pyldb-util!talloc,!pytalloc-util,!tevent,!tdb,!pytdb"
+    ]
     ++ optional enableLibunwind "--with-libunwind"
     ++ optional enableProfiling "--with-profiling-data"
     ++ optional (!enableAcl) "--without-acl-support"
     ++ optional (!enablePam) "--without-pam"
     ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-        "--bundled-libraries=!asn1_compile,!compile_et"
-      ]
+      "--bundled-libraries=!asn1_compile,!compile_et"
+    ]
     ++ optionals stdenv.isAarch32 [
       # https://bugs.gentoo.org/683148
       "--jobs 1"

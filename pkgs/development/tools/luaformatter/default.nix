@@ -26,12 +26,12 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-lib-paths.patch;
-        antlr4RuntimeCpp = antlr4.runtime.cpp.dev;
-        inherit libargs catch2 yaml-cpp;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-lib-paths.patch;
+      antlr4RuntimeCpp = antlr4.runtime.cpp.dev;
+      inherit libargs catch2 yaml-cpp;
+    })
+  ];
 
   nativeBuildInputs = [ cmake ];
 

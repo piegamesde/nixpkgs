@@ -996,8 +996,8 @@ in
             transport_maps = [ "hash:/etc/postfix/transport" ];
           } // optionalAttrs haveVirtual {
             virtual_alias_maps = [
-                "${cfg.virtualMapType}:/etc/postfix/virtual"
-              ];
+              "${cfg.virtualMapType}:/etc/postfix/virtual"
+            ];
           } // optionalAttrs haveLocalRecipients {
             local_recipient_maps =
               [ "hash:/etc/postfix/local_recipients" ]

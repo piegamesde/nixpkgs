@@ -33,11 +33,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        inherit kmod openvpn;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      inherit kmod openvpn;
+    })
+  ];
 
   nativeBuildInputs = [
     gettext

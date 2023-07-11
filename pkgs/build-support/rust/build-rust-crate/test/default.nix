@@ -307,23 +307,23 @@ rec {
           crateBin = [ { name = "my-binary-rename1"; } ];
           src = mkBinExtern "src/main.rs" "foo_renamed";
           dependencies = [
-              (mkHostCrate {
-                crateName = "foo";
-                src = mkLib "src/lib.rs";
-              })
-            ];
+            (mkHostCrate {
+              crateName = "foo";
+              src = mkLib "src/lib.rs";
+            })
+          ];
           crateRenames = { "foo" = "foo_renamed"; };
         };
         crateBinRename2 = {
           crateBin = [ { name = "my-binary-rename2"; } ];
           src = mkBinExtern "src/main.rs" "foo_renamed";
           dependencies = [
-              (mkHostCrate {
-                crateName = "foo";
-                libName = "foolib";
-                src = mkLib "src/lib.rs";
-              })
-            ];
+            (mkHostCrate {
+              crateName = "foo";
+              libName = "foolib";
+              src = mkLib "src/lib.rs";
+            })
+          ];
           crateRenames = { "foo" = "foo_renamed"; };
         };
         crateBinRenameMultiVersion =
@@ -346,16 +346,16 @@ rec {
             src = symlinkJoin {
               name = "my_bin_src";
               paths = [
-                  (mkFile "src/main.rs" ''
-                    #[test]
-                    fn my_lib_01() { assert_eq!(lib01::version, "0.1.2"); }
+                (mkFile "src/main.rs" ''
+                  #[test]
+                  fn my_lib_01() { assert_eq!(lib01::version, "0.1.2"); }
 
-                    #[test]
-                    fn my_lib_02() { assert_eq!(lib02::version, "0.2.1"); }
+                  #[test]
+                  fn my_lib_02() { assert_eq!(lib02::version, "0.2.1"); }
 
-                    fn main() { }
-                  '')
-                ];
+                  fn main() { }
+                '')
+              ];
             };
             dependencies = [
               depCrate01
@@ -445,12 +445,12 @@ rec {
             fn main() {}
           '';
           dependencies = [
-              (mkHostCrate {
-                crateName = "somerlib";
-                type = [ "rlib" ];
-                src = mkLib "src/lib.rs";
-              })
-            ];
+            (mkHostCrate {
+              crateName = "somerlib";
+              type = [ "rlib" ];
+              src = mkLib "src/lib.rs";
+            })
+          ];
         };
         buildScriptDeps =
           let
@@ -483,8 +483,8 @@ rec {
               ];
             };
             buildDependencies = [
-                (depCrate buildPackages.buildRustCrate "true")
-              ];
+              (depCrate buildPackages.buildRustCrate "true")
+            ];
             dependencies = [ (depCrate buildRustCrate "false") ];
             buildTests = true;
             expectedTestOutputs = [ "test baz_false ... ok" ];
@@ -692,10 +692,10 @@ rec {
           src = symlinkJoin {
             name = "proc-macro-in-prelude";
             paths = [
-                (mkFile "src/lib.rs" ''
-                  use proc_macro::TokenTree;
-                '')
-              ];
+              (mkFile "src/lib.rs" ''
+                use proc_macro::TokenTree;
+              '')
+            ];
           };
         };
       };

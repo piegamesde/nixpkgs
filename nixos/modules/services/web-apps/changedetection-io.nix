@@ -174,8 +174,8 @@ in
           };
         };
         tmpfiles.rules = mkIf defaultStateDir [
-            "d ${cfg.datastorePath} 0750 ${cfg.user} ${cfg.group} - -"
-          ];
+          "d ${cfg.datastorePath} 0750 ${cfg.user} ${cfg.group} - -"
+        ];
       }
       ;
 

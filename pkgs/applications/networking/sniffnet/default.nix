@@ -52,8 +52,8 @@ rustPlatform.buildRustPackage rec {
 
   # requires internet access
   checkFlags = [
-      "--skip=secondary_threads::check_updates::tests::fetch_latest_release_from_github"
-    ];
+    "--skip=secondary_threads::check_updates::tests::fetch_latest_release_from_github"
+  ];
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf $out/bin/sniffnet \

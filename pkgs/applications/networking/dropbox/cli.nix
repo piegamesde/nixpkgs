@@ -68,16 +68,16 @@ stdenv.mkDerivation {
   ];
 
   configureFlags = [
-      "--with-nautilus-extension-dir=${
-        placeholder "nautilusExtension"
-      }/lib/nautilus/extensions-3.0"
-    ];
+    "--with-nautilus-extension-dir=${
+      placeholder "nautilusExtension"
+    }/lib/nautilus/extensions-3.0"
+  ];
 
   makeFlags = [
-      "EMBLEM_DIR=${
-        placeholder "nautilusExtension"
-      }/share/nautilus-dropbox/emblems"
-    ];
+    "EMBLEM_DIR=${
+      placeholder "nautilusExtension"
+    }/share/nautilus-dropbox/emblems"
+  ];
 
   meta = {
     homepage = "https://www.dropbox.com";

@@ -307,8 +307,8 @@ lib.makeOverridable (
           "ARCH=${stdenv.hostPlatform.linuxArch}"
         ]
         ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-            "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-          ]
+          "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
+        ]
         ++ (kernelConf.makeFlags or [ ])
         ++ extraMakeFlags
         ;
@@ -398,18 +398,18 @@ lib.makeOverridable (
 
       # Some image types need special install targets (e.g. uImage is installed with make uinstall)
       installTargets = [
-          (kernelConf.installTarget or (
-            if kernelConf.target == "uImage" then
-              "uinstall"
-            else if
-              kernelConf.target == "zImage" || kernelConf.target == "Image.gz"
-            then
-              "zinstall"
-            else
-              "install"
-          )
-          )
-        ];
+        (kernelConf.installTarget or (
+          if kernelConf.target == "uImage" then
+            "uinstall"
+          else if
+            kernelConf.target == "zImage" || kernelConf.target == "Image.gz"
+          then
+            "zinstall"
+          else
+            "install"
+        )
+        )
+      ];
 
       postInstall = optionalString isModular ''
         if [ -z "''${dontStrip-}" ]; then

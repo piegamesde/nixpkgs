@@ -28,13 +28,13 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-I${catch2}/include/catch2";
 
   patches = [
-      (fetchpatch {
-        name = "int-to-MHD_Result.patch";
-        url =
-          "https://patch-diff.githubusercontent.com/raw/cinemast/libjson-rpc-cpp/pull/299.patch";
-        sha256 = "sha256-hiey6etzbOxhMElTMX7offKbey7c2OO/UWeN03k0AaM=";
-      })
-    ];
+    (fetchpatch {
+      name = "int-to-MHD_Result.patch";
+      url =
+        "https://patch-diff.githubusercontent.com/raw/cinemast/libjson-rpc-cpp/pull/299.patch";
+      sha256 = "sha256-hiey6etzbOxhMElTMX7offKbey7c2OO/UWeN03k0AaM=";
+    })
+  ];
 
   nativeBuildInputs = [
     pkg-config

@@ -35,12 +35,12 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (fetchurl {
-        url =
-          "mirror://debian/pool/main/s/space-orbit/space-orbit_${version}-${patchversion}.diff.gz";
-        sha256 = "1v3s97day6fhv08l2rn81waiprhi1lfyjjsj55axfh6n6zqfn1w2";
-      })
-    ];
+    (fetchurl {
+      url =
+        "mirror://debian/pool/main/s/space-orbit/space-orbit_${version}-${patchversion}.diff.gz";
+      sha256 = "1v3s97day6fhv08l2rn81waiprhi1lfyjjsj55axfh6n6zqfn1w2";
+    })
+  ];
 
   preBuild = ''
     cd src

@@ -64,19 +64,19 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "gkrellm";
-        exec = "gkrellm";
-        icon = "gkrellm";
-        desktopName = "GKrellM";
-        genericName = "System monitor";
-        comment = "The GNU Krell Monitors";
-        categories = [
-          "System"
-          "Monitor"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "gkrellm";
+      exec = "gkrellm";
+      icon = "gkrellm";
+      desktopName = "GKrellM";
+      genericName = "System monitor";
+      comment = "The GNU Krell Monitors";
+      categories = [
+        "System"
+        "Monitor"
+      ];
+    })
+  ];
 
   meta = with lib; {
     description = "Themeable process stack of system monitors";

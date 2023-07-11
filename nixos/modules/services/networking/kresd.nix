@@ -51,8 +51,8 @@ let
 in
 {
   meta.maintainers = [
-      maintainers.vcunat # upstream developer
-    ];
+    maintainers.vcunat # upstream developer
+  ];
 
   imports = [
     (mkChangedOptionModule
@@ -190,8 +190,8 @@ in
     users.groups.knot-resolver.gid = null;
 
     systemd.packages = [
-        cfg.package
-      ]; # the units are patched inside the package a bit
+      cfg.package
+    ]; # the units are patched inside the package a bit
 
     systemd.targets.kresd = { # configure units started by default
       wantedBy = [ "multi-user.target" ];

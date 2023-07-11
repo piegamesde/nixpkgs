@@ -24,11 +24,11 @@ buildLuarocksPackage {
 
   # use zenity because default gtk impl just crashes
   patches = [
-      (substituteAll {
-        src = ./zenity.patch;
-        inherit zenity;
-      })
-    ];
+    (substituteAll {
+      src = ./zenity.patch;
+      inherit zenity;
+    })
+  ];
   rockspecDir = "lua";
 
   extraVariables.LUA_LIBDIR = "${lua}/lib";

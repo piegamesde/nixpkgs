@@ -52,8 +52,8 @@ stdenv.mkDerivation rec {
   mesonFlags =
     [ "-Denable-test=false" ]
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-        "-Ddisable-introspection=true"
-      ]
+      "-Ddisable-introspection=true"
+    ]
     ;
 
   passthru = {

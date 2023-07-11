@@ -107,13 +107,13 @@ buildPythonApplication rec {
   ];
 
   makeWrapperArgs = [
-      "--prefix PATH : ${
-        lib.makeBinPath [
-          git
-          openssl
-        ]
-      }"
-    ];
+    "--prefix PATH : ${
+      lib.makeBinPath [
+        git
+        openssl
+      ]
+    }"
+  ];
 
   meta = with lib; {
     description =

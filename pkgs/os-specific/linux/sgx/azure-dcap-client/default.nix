@@ -27,8 +27,8 @@ let
       repo = "SGXDataCenterAttestationPrimitives";
       rev = "0436284f12f1bd5da7e7a06f6274d36b4c8d39f9";
       sparseCheckout = [
-          "QuoteGeneration/quote_wrapper/common/inc/sgx_ql_lib_common.h"
-        ];
+        "QuoteGeneration/quote_wrapper/common/inc/sgx_ql_lib_common.h"
+      ];
       hash = "sha256-ipKpYHbiwjCUXF/pCArJZy5ko1YX2wqMMdSnMUzhkgY=";
       postFetch = filterSparse sparseCheckout;
     })

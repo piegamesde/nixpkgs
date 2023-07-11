@@ -99,17 +99,17 @@ stdenv.mkDerivation (
 
     # see: https://github.com/containers/podman-desktop/blob/main/.flatpak.desktop
     desktopItems = [
-        (makeDesktopItem {
-          name = "podman-desktop";
-          exec = "podman-desktop %U";
-          icon = "podman-desktop";
-          desktopName = "Podman Desktop";
-          genericName = "Desktop client for podman";
-          comment = finalAttrs.meta.description;
-          categories = [ "Utility" ];
-          startupWMClass = "Podman Desktop";
-        })
-      ];
+      (makeDesktopItem {
+        name = "podman-desktop";
+        exec = "podman-desktop %U";
+        icon = "podman-desktop";
+        desktopName = "Podman Desktop";
+        genericName = "Desktop client for podman";
+        comment = finalAttrs.meta.description;
+        categories = [ "Utility" ];
+        startupWMClass = "Podman Desktop";
+      })
+    ];
 
     meta = with lib; {
       description =

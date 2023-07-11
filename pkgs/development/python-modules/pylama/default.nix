@@ -33,11 +33,11 @@ let
     };
 
     patches = [
-        (substituteAll {
-          src = ./paths.patch;
-          git = "${lib.getBin git}/bin/git";
-        })
-      ];
+      (substituteAll {
+        src = ./paths.patch;
+        git = "${lib.getBin git}/bin/git";
+      })
+    ];
 
     propagatedBuildInputs = [
       eradicate

@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];
     knownVulnerabilities = [
-        "Usage of ANSI escape sequences causes unexpected newline-termination, leading to unexpected command execution (https://www.openwall.com/lists/oss-security/2021/05/17/1)"
-      ];
+      "Usage of ANSI escape sequences causes unexpected newline-termination, leading to unexpected command execution (https://www.openwall.com/lists/oss-security/2021/05/17/1)"
+    ];
   };
 }

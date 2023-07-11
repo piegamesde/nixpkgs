@@ -131,8 +131,8 @@ stdenv.mkDerivation (
         }"
       ]
       ++ lib.optionals (finalAttrs.passthru.isLLVM && targetProjects != [ ]) [
-          "-DLLVM_ENABLE_PROJECTS=${lib.concatStringsSep ";" targetProjects}"
-        ]
+        "-DLLVM_ENABLE_PROJECTS=${lib.concatStringsSep ";" targetProjects}"
+      ]
       ++ lib.optionals
         ((finalAttrs.passthru.isLLVM || targetDir == "runtimes")
           && targetRuntimes != [ ]
@@ -161,8 +161,8 @@ stdenv.mkDerivation (
         "-DLLVM_BUILD_TESTS=ON"
       ]
       ++ lib.optionals (buildTests && !finalAttrs.passthru.isLLVM) [
-          "-DLLVM_EXTERNAL_LIT=${lit}/bin/.lit-wrapped"
-        ]
+        "-DLLVM_EXTERNAL_LIT=${lit}/bin/.lit-wrapped"
+      ]
       ++ extraCMakeFlags
       ;
 

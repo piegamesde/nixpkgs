@@ -42,15 +42,15 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = pname;
-        exec = pname;
-        icon = pname;
-        comment = "Emuflight configuration tool";
-        desktopName = "Emuflight Configurator";
-        genericName = "Flight controller configuration tool";
-      })
-    ];
+    (makeDesktopItem {
+      name = pname;
+      exec = pname;
+      icon = pname;
+      comment = "Emuflight configuration tool";
+      desktopName = "Emuflight Configurator";
+      genericName = "Flight controller configuration tool";
+    })
+  ];
 
   meta = with lib; {
     description = "The Emuflight flight control system configuration tool";

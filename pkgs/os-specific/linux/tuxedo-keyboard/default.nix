@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
   ];
 
   makeFlags = [
-      "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    ];
+    "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+  ];
 
   installPhase = ''
     mkdir -p "$out/lib/modules/${kernel.modDirVersion}"

@@ -30,13 +30,13 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-      (
-        if gtkVersion == "2" then
-          gtk2
-        else
-          gtk3
-      )
-    ];
+    (
+      if gtkVersion == "2" then
+        gtk2
+      else
+        gtk3
+    )
+  ];
 
   postPatch = ''
     substituteInPlace configure \

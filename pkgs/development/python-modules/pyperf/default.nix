@@ -21,13 +21,13 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (fetchpatch {
-        name = "fix-pythonpath-in-tests.patch";
-        url =
-          "https://github.com/psf/pyperf/commit/d373c5e56c0257d2d7abd705b676bea25cf66566.patch";
-        hash = "sha256-2q1fTf+uU3qj3BG8P5otX4f7mSTnQxm4sfmmgIUuszA=";
-      })
-    ];
+    (fetchpatch {
+      name = "fix-pythonpath-in-tests.patch";
+      url =
+        "https://github.com/psf/pyperf/commit/d373c5e56c0257d2d7abd705b676bea25cf66566.patch";
+      hash = "sha256-2q1fTf+uU3qj3BG8P5otX4f7mSTnQxm4sfmmgIUuszA=";
+    })
+  ];
 
   propagatedBuildInputs = [ psutil ];
 

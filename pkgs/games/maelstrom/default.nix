@@ -31,15 +31,15 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "maelstrom";
-        exec = "maelstrom";
-        desktopName = "Maelstrom";
-        genericName = "Maelstrom";
-        comment = "An arcade-style game resembling Asteroids";
-        categories = [ "Game" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "maelstrom";
+      exec = "maelstrom";
+      desktopName = "Maelstrom";
+      genericName = "Maelstrom";
+      comment = "An arcade-style game resembling Asteroids";
+      categories = [ "Game" ];
+    })
+  ];
 
   meta = with lib; {
     description = "An arcade-style game resembling Asteroids";

@@ -49,8 +49,8 @@ stdenv.mkDerivation rec {
   ];
 
   depsBuildBuild = [
-      emacs-nox # to generate man pages from .org
-    ];
+    emacs-nox # to generate man pages from .org
+  ];
   nativeBuildInputs = [
     bpftools
     llvmPackages.clang
@@ -60,8 +60,8 @@ stdenv.mkDerivation rec {
     nukeReferences
   ];
   nativeCheckInputs = [
-      wireshark-cli # for tshark
-    ];
+    wireshark-cli # for tshark
+  ];
 
   # When building BPF, the default CC wrapper is interfering a bit too much.
   BPF_CFLAGS = "-fno-stack-protector -Wno-error=unused-command-line-argument";

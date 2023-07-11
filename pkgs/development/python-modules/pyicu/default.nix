@@ -19,8 +19,8 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [
-      icu
-    ]; # for icu-config, but should be replaced with pkg-config
+    icu
+  ]; # for icu-config, but should be replaced with pkg-config
   buildInputs = [ icu ];
   nativeCheckInputs = [
     pytestCheckHook

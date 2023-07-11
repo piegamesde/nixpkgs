@@ -20,11 +20,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        inherit hwdata;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      inherit hwdata;
+    })
+  ];
 
   nativeBuildInputs = [
     autoreconfHook

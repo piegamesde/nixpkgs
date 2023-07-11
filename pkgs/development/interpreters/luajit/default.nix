@@ -94,8 +94,8 @@ stdenv.mkDerivation rec {
   buildInputs = lib.optional enableValgrindSupport valgrind;
 
   buildFlags = [
-      "amalg" # Build highly optimized version
-    ];
+    "amalg" # Build highly optimized version
+  ];
   makeFlags =
     [
       "PREFIX=$(out)"

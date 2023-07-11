@@ -46,10 +46,10 @@ in
     # for the cfssl apiserver.
     # TODO: remove patch when PR is merged.
     patches = [
-        (fetchpatch {
-          url = "https://github.com/cloudflare/certmgr/pull/51.patch";
-          sha256 = "0jhsw159d2mgybvbbn6pmvj4yqr5cwcal5fjwkcn9m4f4zlb6qrs";
-        })
-      ];
+      (fetchpatch {
+        url = "https://github.com/cloudflare/certmgr/pull/51.patch";
+        sha256 = "0jhsw159d2mgybvbbn6pmvj4yqr5cwcal5fjwkcn9m4f4zlb6qrs";
+      })
+    ];
   };
 }

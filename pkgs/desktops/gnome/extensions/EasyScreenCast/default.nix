@@ -22,11 +22,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-gi-path.patch;
-        gnomeShell = gnome.gnome-shell;
-      })
-    ];
+    (substituteAll {
+      src = ./fix-gi-path.patch;
+      gnomeShell = gnome.gnome-shell;
+    })
+  ];
 
   nativeBuildInputs = [
     glib

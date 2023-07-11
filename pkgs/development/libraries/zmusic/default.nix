@@ -31,13 +31,13 @@ stdenv.mkDerivation rec {
   ];
 
   patches = [
-      (fetchpatch {
-        name = "system-fluidsynth.patch";
-        url =
-          "https://git.alpinelinux.org/aports/plain/testing/zmusic/system-fluidsynth.patch?id=59bac94da374cb01bc2a0e49d9e9287812fa1ac0";
-        hash = "sha256-xKaqiNk1Kt9yNLB22IVmSEtGeOtxrCi7YtFCmhNr0MI=";
-      })
-    ];
+    (fetchpatch {
+      name = "system-fluidsynth.patch";
+      url =
+        "https://git.alpinelinux.org/aports/plain/testing/zmusic/system-fluidsynth.patch?id=59bac94da374cb01bc2a0e49d9e9287812fa1ac0";
+      hash = "sha256-xKaqiNk1Kt9yNLB22IVmSEtGeOtxrCi7YtFCmhNr0MI=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace source/mididevices/music_fluidsynth_mididevice.cpp \

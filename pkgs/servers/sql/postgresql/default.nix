@@ -160,13 +160,13 @@ let
           ./patches/findstring.patch
         ]
         ++ lib.optionals stdenv'.isLinux [
-            (
-              if atLeast "13" then
-                ./patches/socketdir-in-run-13.patch
-              else
-                ./patches/socketdir-in-run.patch
-            )
-          ]
+          (
+            if atLeast "13" then
+              ./patches/socketdir-in-run-13.patch
+            else
+              ./patches/socketdir-in-run.patch
+          )
+        ]
         ;
 
       installTargets = [ "install-world" ];

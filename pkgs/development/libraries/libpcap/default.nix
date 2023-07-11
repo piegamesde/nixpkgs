@@ -49,8 +49,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [ "--disable-universal" ]
     ++ lib.optionals withRemote [ "--enable-remote" ]
     ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
-        "ac_cv_linux_vers=2"
-      ]
+      "ac_cv_linux_vers=2"
+    ]
     ;
 
   postInstall = ''

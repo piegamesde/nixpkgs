@@ -40,8 +40,8 @@ buildPythonPackage rec {
   ];
 
   disabledTests = [
-      "test_desc_from_uri" # test requires network access
-    ];
+    "test_desc_from_uri" # test requires network access
+  ];
 
   meta = with lib; {
     description = "A SoCo fork with fixes for Home Assistant";

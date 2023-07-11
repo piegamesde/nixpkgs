@@ -22,8 +22,8 @@ stdenv.mkDerivation rec {
   '';
 
   installFlags = [
-      "sbindir=$(out)/bin" # no reason for us to have a $out/sbin, its just a symlink to $out/bin
-    ];
+    "sbindir=$(out)/bin" # no reason for us to have a $out/sbin, its just a symlink to $out/bin
+  ];
 
   doCheck = true;
 

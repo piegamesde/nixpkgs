@@ -21,13 +21,13 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./ffmpeg-path.patch;
-        ffmpeg = "${lib.getBin ffmpeg}/bin/ffmpeg";
-        ffprobe = "${lib.getBin ffmpeg}/bin/ffmpeg";
-        version = lib.getVersion ffmpeg;
-      })
-    ];
+    (substituteAll {
+      src = ./ffmpeg-path.patch;
+      ffmpeg = "${lib.getBin ffmpeg}/bin/ffmpeg";
+      ffprobe = "${lib.getBin ffmpeg}/bin/ffmpeg";
+      version = lib.getVersion ffmpeg;
+    })
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 

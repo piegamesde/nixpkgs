@@ -48,13 +48,13 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./fix-paths.patch;
-        gsettings = "${glib.bin}/bin/gsettings";
-        dbusLaunch = "${dbus.lib}/bin/dbus-launch";
-        bash = "${bash}/bin/bash";
-      })
-    ];
+    (substituteAll {
+      src = ./fix-paths.patch;
+      gsettings = "${glib.bin}/bin/gsettings";
+      dbusLaunch = "${dbus.lib}/bin/dbus-launch";
+      bash = "${bash}/bin/bash";
+    })
+  ];
 
   nativeBuildInputs = [
     meson

@@ -50,8 +50,8 @@ stdenv.mkDerivation rec {
   ];
 
   pythonPath = [
-      python3.pkgs.pygobject3 # for slick-greeter-check-hidpi
-    ];
+    python3.pkgs.pygobject3 # for slick-greeter-check-hidpi
+  ];
 
   postPatch = ''
     substituteInPlace src/slick-greeter.vala \

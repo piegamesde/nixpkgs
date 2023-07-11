@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
   };
 
   configureFlags = [
-      "--with-docbook-xsl-stylesheets=${docbook_xsl}/xml/xsl/docbook"
-    ];
+    "--with-docbook-xsl-stylesheets=${docbook_xsl}/xml/xsl/docbook"
+  ];
 
   buildInputs = [
     expat

@@ -32,18 +32,18 @@ stdenvNoCC.mkDerivation rec {
   ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = pname;
-        desktopName = "MARS";
-        exec = "mars-mips";
-        icon = "mars-mips";
-        comment = "An IDE for programming in MIPS assembly language";
-        categories = [
-          "Development"
-          "IDE"
-        ];
-      })
-    ];
+    (makeDesktopItem {
+      name = pname;
+      desktopName = "MARS";
+      exec = "mars-mips";
+      icon = "mars-mips";
+      comment = "An IDE for programming in MIPS assembly language";
+      categories = [
+        "Development"
+        "IDE"
+      ];
+    })
+  ];
 
   installPhase = ''
     runHook preInstall

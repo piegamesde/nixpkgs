@@ -41,8 +41,8 @@ stdenv.mkDerivation rec {
       "prefix=$(out)"
     ]
     ++ lib.optionals (!stdenv.isDarwin) [
-        "AR:=$(AR)" # libtool is used for darwin
-      ]
+      "AR:=$(AR)" # libtool is used for darwin
+    ]
     ;
 
   patchPhase = ''

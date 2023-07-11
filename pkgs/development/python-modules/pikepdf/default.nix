@@ -46,12 +46,12 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./paths.patch;
-        jbig2dec = "${lib.getBin jbig2dec}/bin/jbig2dec";
-        mudraw = "${lib.getBin mupdf}/bin/mudraw";
-      })
-    ];
+    (substituteAll {
+      src = ./paths.patch;
+      jbig2dec = "${lib.getBin jbig2dec}/bin/jbig2dec";
+      mudraw = "${lib.getBin mupdf}/bin/mudraw";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

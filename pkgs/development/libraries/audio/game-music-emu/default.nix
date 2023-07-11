@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "07857vdkak306d9s5g6fhmjyxk7vijzjhkmqb15s7ihfxx9lx8xb";
   };
   cmakeFlags = lib.optionals (stdenv.isDarwin || stdenv.hostPlatform.isMusl) [
-      "-DENABLE_UBSAN=OFF"
-    ];
+    "-DENABLE_UBSAN=OFF"
+  ];
   nativeBuildInputs = [
     cmake
     removeReferencesTo

@@ -173,8 +173,8 @@ let
       (stdenv.buildPlatform.isDarwin && stdenv.hostPlatform.isLinux)
       "pch=off"
     ++ lib.optionals (stdenv.hostPlatform.libc == "msvcrt") [
-        "threadapi=win32"
-      ]
+      "threadapi=win32"
+    ]
     ++ extraB2Args
   );
 in

@@ -38,14 +38,14 @@ let
 in
 {
   imports = [
-      (mkRemovedOptionModule
-        [
-          "services"
-          "thelounge"
-          "private"
-        ]
-        "The option was renamed to `services.thelounge.public` to follow upstream changes.")
-    ];
+    (mkRemovedOptionModule
+      [
+        "services"
+        "thelounge"
+        "private"
+      ]
+      "The option was renamed to `services.thelounge.public` to follow upstream changes.")
+  ];
 
   options.services.thelounge = {
     enable = mkEnableOption (lib.mdDoc "The Lounge web IRC client");

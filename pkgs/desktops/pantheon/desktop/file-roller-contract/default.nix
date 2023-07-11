@@ -19,11 +19,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./exec-path.patch;
-        file_roller = file-roller;
-      })
-    ];
+    (substituteAll {
+      src = ./exec-path.patch;
+      file_roller = file-roller;
+    })
+  ];
 
   dontConfigure = true;
 

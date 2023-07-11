@@ -12,8 +12,8 @@ mkPulumiPackage rec {
   cmdGen = "pulumi-gen-aws-native";
   cmdRes = "pulumi-resource-aws-native";
   extraLdflags = [
-      "-X github.com/pulumi/${repo}/provider/pkg/version.Version=v${version}"
-    ];
+    "-X github.com/pulumi/${repo}/provider/pkg/version.Version=v${version}"
+  ];
 
   fetchSubmodules = true;
   postConfigure = ''

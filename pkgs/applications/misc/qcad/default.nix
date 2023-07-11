@@ -75,8 +75,8 @@ mkDerivation rec {
       "--prefix LD_LIBRARY_PATH : ${placeholder "out"}/lib"
     ]
     ++ lib.optionals stdenv.isDarwin [
-        "--prefix DYLD_LIBRARY_PATH : ${placeholder "out"}/lib"
-      ]
+      "--prefix DYLD_LIBRARY_PATH : ${placeholder "out"}/lib"
+    ]
     ;
 
   installPhase =

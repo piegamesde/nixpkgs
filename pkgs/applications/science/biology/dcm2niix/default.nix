@@ -34,11 +34,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = lib.optionals withCloudflareZlib [
-      (substituteAll {
-        src = ./dont-fetch-external-libs.patch;
-        inherit cloudflareZlib;
-      })
-    ];
+    (substituteAll {
+      src = ./dont-fetch-external-libs.patch;
+      inherit cloudflareZlib;
+    })
+  ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs =

@@ -34,21 +34,21 @@ stdenv.mkDerivation rec {
   ];
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "com.cloudflare.WarpCli";
-        desktopName = "Cloudflare Zero Trust Team Enrollment";
-        categories = [
-          "Utility"
-          "Security"
-          "ConsoleOnly"
-        ];
-        noDisplay = true;
-        mimeTypes = [ "x-scheme-handler/com.cloudflare.warp" ];
-        exec = "warp-cli teams-enroll-token %u";
-        startupNotify = false;
-        terminal = true;
-      })
-    ];
+    (makeDesktopItem {
+      name = "com.cloudflare.WarpCli";
+      desktopName = "Cloudflare Zero Trust Team Enrollment";
+      categories = [
+        "Utility"
+        "Security"
+        "ConsoleOnly"
+      ];
+      noDisplay = true;
+      mimeTypes = [ "x-scheme-handler/com.cloudflare.warp" ];
+      exec = "warp-cli teams-enroll-token %u";
+      startupNotify = false;
+      terminal = true;
+    })
+  ];
 
   unpackPhase = ''
     dpkg-deb -x ${src} ./

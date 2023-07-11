@@ -152,8 +152,8 @@ in
       serviceConfig = {
         UMask = "0077";
         ExecStart = [
-            "${cfg.package}/bin/vmware-networks --postinstall vmware-player,0,1"
-          ];
+          "${cfg.package}/bin/vmware-networks --postinstall vmware-player,0,1"
+        ];
         Type = "oneshot";
         RemainAfterExit = "yes";
       };

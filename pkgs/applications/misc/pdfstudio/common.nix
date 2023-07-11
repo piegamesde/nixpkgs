@@ -37,17 +37,17 @@ let
     ];
 
     desktopItems = [
-        (makeDesktopItem {
-          name = "${pname}";
-          desktopName = desktopName;
-          genericName = "View and edit PDF files";
-          exec = "${pname} %f";
-          icon = "${pname}";
-          comment = "Views and edits PDF files";
-          mimeTypes = [ "application/pdf" ];
-          categories = [ "Office" ];
-        })
-      ];
+      (makeDesktopItem {
+        name = "${pname}";
+        desktopName = desktopName;
+        genericName = "View and edit PDF files";
+        exec = "${pname} %f";
+        icon = "${pname}";
+        comment = "Views and edits PDF files";
+        mimeTypes = [ "application/pdf" ];
+        categories = [ "Office" ];
+      })
+    ];
 
     unpackCmd = "dpkg-deb -x $src ./${program}-${version}";
     dontBuild = true;

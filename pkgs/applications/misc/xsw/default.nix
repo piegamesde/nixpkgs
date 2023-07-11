@@ -48,8 +48,8 @@ stdenv.mkDerivation rec {
   );
 
   patches = [
-      ./parse.patch # Fixes compilation error by avoiding redundant definitions.
-    ];
+    ./parse.patch # Fixes compilation error by avoiding redundant definitions.
+  ];
 
   meta = with lib; {
     inherit (src.meta) homepage;

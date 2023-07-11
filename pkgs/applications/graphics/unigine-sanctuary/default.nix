@@ -62,14 +62,14 @@ stdenv.mkDerivation rec {
   '';
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "Sanctuary";
-        exec = "Sanctuary";
-        genericName = "A GPU Stress test tool from the UNIGINE";
-        icon = "Sanctuary";
-        desktopName = "Sanctuary Benchmark";
-      })
-    ];
+    (makeDesktopItem {
+      name = "Sanctuary";
+      exec = "Sanctuary";
+      genericName = "A GPU Stress test tool from the UNIGINE";
+      icon = "Sanctuary";
+      desktopName = "Sanctuary Benchmark";
+    })
+  ];
 
   nativeBuildInputs = [
     autoPatchelfHook

@@ -440,8 +440,8 @@ stdenv.mkDerivation {
     ]
     ++ optionals (!static && !enableFramework) [ "--enable-shared" ]
     ++ optionals enableFramework [
-        "--enable-framework=${placeholder "out"}/Library/Frameworks"
-      ]
+      "--enable-framework=${placeholder "out"}/Library/Frameworks"
+    ]
     ++ optionals enableOptimizations [ "--enable-optimizations" ]
     ++ optionals enableLTO [ "--with-lto" ]
     ++ optionals (pythonOlder "3.7") [
@@ -449,8 +449,8 @@ stdenv.mkDerivation {
       "--with-threads"
     ]
     ++ optionals (sqlite != null && isPy3k) [
-        "--enable-loadable-sqlite-extensions"
-      ]
+      "--enable-loadable-sqlite-extensions"
+    ]
     ++ optionals (openssl' != null) [ "--with-openssl=${openssl'.dev}" ]
     ++ optionals (libxcrypt != null) [
       "CFLAGS=-I${libxcrypt}/include"

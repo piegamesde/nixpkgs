@@ -19,11 +19,11 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./unvendor-doctest.patch;
-        inherit doctest;
-      })
-    ];
+    (substituteAll {
+      src = ./unvendor-doctest.patch;
+      inherit doctest;
+    })
+  ];
 
   postPatch = ''
     rm -r 3rd-party

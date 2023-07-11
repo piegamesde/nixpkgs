@@ -48,8 +48,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (libmaxminddb != null) [ "--enable-mmdb" ]
     ++ lib.optionals (geolite-legacy != null) [
-        "--with-geoip-db=${geolite-legacy}/share/GeoIP"
-      ]
+      "--with-geoip-db=${geolite-legacy}/share/GeoIP"
+    ]
     ++ lib.optionals (ip2location-c != null) [ "--enable-ip2location" ]
     ;
 

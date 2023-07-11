@@ -105,8 +105,8 @@ let
       "-Dcom.sun.management.jmxremote.password.file=${cfg.jmxRolesFile}"
     ]
     ++ optionals cfg.remoteJmx [
-        "-Djava.rmi.server.hostname=${cfg.rpcAddress}"
-      ]
+      "-Djava.rmi.server.hostname=${cfg.rpcAddress}"
+    ]
     ++ optionals atLeast4 [
       # Historically, we don't use a log dir, whereas the upstream scripts do
       # expect this. We override those by providing our own -Xlog:gc flag.

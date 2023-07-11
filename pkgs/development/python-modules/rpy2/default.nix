@@ -74,8 +74,8 @@ buildPythonPackage rec {
     ;
 
   nativeBuildInputs = [
-      R # needed at setup time to detect R_HOME (alternatively set R_HOME explicitly)
-    ];
+    R # needed at setup time to detect R_HOME (alternatively set R_HOME explicitly)
+  ];
 
   propagatedBuildInputs = [
     ipython

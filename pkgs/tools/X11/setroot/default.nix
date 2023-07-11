@@ -22,12 +22,12 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-      (fetchpatch {
-        url =
-          "https://github.com/ttzhou/setroot/commit/d8ff8edd7d7594d276d741186bf9ccf0bce30277.patch";
-        sha256 = "sha256-e0iMSpiOmTOpQnp599fjH2UCPU4Oq1VKXcVypVoR9hw=";
-      })
-    ];
+    (fetchpatch {
+      url =
+        "https://github.com/ttzhou/setroot/commit/d8ff8edd7d7594d276d741186bf9ccf0bce30277.patch";
+      sha256 = "sha256-e0iMSpiOmTOpQnp599fjH2UCPU4Oq1VKXcVypVoR9hw=";
+    })
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -40,13 +40,13 @@ stdenv.mkDerivation rec {
     ;
 
   buildFlags = [
-      (
-        if enableXinerama then
-          "xinerama=1"
-        else
-          "xinerama=0"
-      )
-    ];
+    (
+      if enableXinerama then
+        "xinerama=1"
+      else
+        "xinerama=0"
+    )
+  ];
 
   installFlags = [ "PREFIX=$(out)" ];
 

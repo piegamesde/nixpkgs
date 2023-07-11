@@ -49,8 +49,8 @@ buildPythonPackage rec {
   ];
 
   disabledTestPaths = [
-      "tests/python" # tries to import internal API test.test_asyncio
-    ];
+    "tests/python" # tries to import internal API test.test_asyncio
+  ];
 
   pythonImportsCheck = [ "trio_asyncio" ];
 

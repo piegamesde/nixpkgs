@@ -28,16 +28,16 @@ stdenv.mkDerivation rec {
   };
 
   desktopItems = [
-      (makeDesktopItem {
-        name = "orthorobot";
-        exec = pname;
-        icon = icon;
-        comment = "Robot game";
-        desktopName = "Orthorobot";
-        genericName = "orthorobot";
-        categories = [ "Game" ];
-      })
-    ];
+    (makeDesktopItem {
+      name = "orthorobot";
+      exec = pname;
+      icon = icon;
+      comment = "Robot game";
+      desktopName = "Orthorobot";
+      genericName = "orthorobot";
+      categories = [ "Game" ];
+    })
+  ];
 
   nativeBuildInputs = [
     makeWrapper

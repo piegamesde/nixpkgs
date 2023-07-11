@@ -19,13 +19,13 @@ buildGoModule rec {
   };
 
   patches = [
-      (fetchpatch {
-        name = "fix-TestGet_GCRCredentials.patch";
-        url =
-          "https://github.com/GoogleCloudPlatform/docker-credential-gcr/commit/a0c080e58bbfdeb0aa24e66551c4e8b0359bf178.patch";
-        sha256 = "sha256-aXp/1kNaxqQDPszC7pO+qP7ZBWHjpVljUHiKFnnDWuM=";
-      })
-    ];
+    (fetchpatch {
+      name = "fix-TestGet_GCRCredentials.patch";
+      url =
+        "https://github.com/GoogleCloudPlatform/docker-credential-gcr/commit/a0c080e58bbfdeb0aa24e66551c4e8b0359bf178.patch";
+      sha256 = "sha256-aXp/1kNaxqQDPszC7pO+qP7ZBWHjpVljUHiKFnnDWuM=";
+    })
+  ];
 
   postPatch = ''
     rm -rf ./test

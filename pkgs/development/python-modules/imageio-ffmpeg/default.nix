@@ -20,11 +20,11 @@ buildPythonPackage rec {
   };
 
   patches = [
-      (substituteAll {
-        src = ./ffmpeg-path.patch;
-        ffmpeg = "${ffmpeg_4}/bin/ffmpeg";
-      })
-    ];
+    (substituteAll {
+      src = ./ffmpeg-path.patch;
+      ffmpeg = "${ffmpeg_4}/bin/ffmpeg";
+    })
+  ];
 
   checkPhase = ''
     runHook preCheck

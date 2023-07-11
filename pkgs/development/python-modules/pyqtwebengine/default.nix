@@ -58,8 +58,8 @@ buildPythonPackage rec {
       pythonPackages.setuptools
     ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-        autoSignDarwinBinariesHook
-      ]
+      autoSignDarwinBinariesHook
+    ]
     ;
 
   buildInputs = [

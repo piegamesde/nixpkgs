@@ -22,8 +22,8 @@ import ./make-test-python.nix (
           lib.mkForce "none+herbstluftwm";
         services.xserver.windowManager.herbstluftwm.enable = true;
         environment.systemPackages = [
-            pkgs.dzen2
-          ]; # needed for upstream provided panel
+          pkgs.dzen2
+        ]; # needed for upstream provided panel
       }
       ;
 

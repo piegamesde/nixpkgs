@@ -87,19 +87,19 @@ stdenv.mkDerivation rec {
   ];
 
   qtWrapperArgs = [
-      "--prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          ffmpeg
-          ffmpegthumbnailer
-          gst_all_1.gstreamer
-          gst_all_1.gst-plugins-base
-          libusb1
-          libv4l
-          portaudio
-          systemd
-        ]
-      }"
-    ];
+    "--prefix LD_LIBRARY_PATH : ${
+      lib.makeLibraryPath [
+        ffmpeg
+        ffmpegthumbnailer
+        gst_all_1.gstreamer
+        gst_all_1.gst-plugins-base
+        libusb1
+        libv4l
+        portaudio
+        systemd
+      ]
+    }"
+  ];
 
   preFixup = ''
     qtWrapperArgs+=(--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0")

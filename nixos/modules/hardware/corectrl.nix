@@ -65,8 +65,8 @@ in
         # https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpu/drm/amd/include/amd_shared.h#n169
         # The overdrive bit
         boot.kernelParams = [
-            "amdgpu.ppfeaturemask=${cfg.gpuOverclock.ppfeaturemask}"
-          ];
+          "amdgpu.ppfeaturemask=${cfg.gpuOverclock.ppfeaturemask}"
+        ];
       })
     ]
   );
