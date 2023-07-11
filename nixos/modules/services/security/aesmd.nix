@@ -13,19 +13,24 @@ let
   sgx-psw = pkgs.sgx-psw.override { inherit (cfg) debug; };
 
   configFile = with cfg.settings;
-    pkgs.writeText "aesmd.conf" (concatStringsSep "\n" (
-      optional (whitelistUrl != null) "whitelist url = ${whitelistUrl}"
-      ++ optional (proxy != null) "aesm proxy = ${proxy}"
-      ++ optional (proxyType != null) "proxy type = ${proxyType}"
-      ++ optional (defaultQuotingType != null)
-        "default quoting type = ${defaultQuotingType}"
-      ++ [ "" ]
-    ));
+    pkgs.writeText "aesmd.conf" (
+      concatStringsSep "\n" (
+        optional (whitelistUrl != null) "whitelist url = ${whitelistUrl}"
+        ++ optional (proxy != null) "aesm proxy = ${proxy}"
+        ++ optional (proxyType != null) "proxy type = ${proxyType}"
+        ++ optional
+          (defaultQuotingType != null)
+          "default quoting type = ${defaultQuotingType}"
+        ++ [ "" ]
+      )
+    );
 in
 {
   options.services.aesmd = {
-    enable = mkEnableOption (lib.mdDoc
-      "Intel's Architectural Enclave Service Manager (AESM) for Intel SGX");
+    enable = mkEnableOption (
+      lib.mdDoc
+      "Intel's Architectural Enclave Service Manager (AESM) for Intel SGX"
+    );
     debug = mkOption {
       type = types.bool;
       default = false;
@@ -68,11 +73,13 @@ in
         };
         options.proxyType = mkOption {
           type = with types;
-            nullOr (enum [
-              "default"
-              "direct"
-              "manual"
-            ]);
+            nullOr (
+              enum [
+                "default"
+                "direct"
+                "manual"
+              ]
+            );
           default =
             if (cfg.settings.proxy != null) then
               "manual"
@@ -92,11 +99,13 @@ in
         };
         options.defaultQuotingType = mkOption {
           type = with types;
-            nullOr (enum [
-              "ecdsa_256"
-              "epid_linkable"
-              "epid_unlinkable"
-            ]);
+            nullOr (
+              enum [
+                "ecdsa_256"
+                "epid_linkable"
+                "epid_unlinkable"
+              ]
+            );
           default = null;
           example = "ecdsa_256";
           description = lib.mdDoc "Attestation quote type.";

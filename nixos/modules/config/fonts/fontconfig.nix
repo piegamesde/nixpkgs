@@ -61,13 +61,14 @@ let
       <fontconfig>
         <!-- Font directories -->
         ${
-          concatStringsSep "\n"
-          (map (font: "<dir>${font}</dir>") config.fonts.fonts)
+          concatStringsSep "\n" (
+            map (font: "<dir>${font}</dir>") config.fonts.fonts
+          )
         }
         ${
-          optionalString (
-            pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform
-          ) ''
+          optionalString
+          (pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform)
+          ''
             <!-- Pre-generated font caches -->
             <cachedir>${cache}</cachedir>
             ${optionalString (pkgs.stdenv.isx86_64 && cfg.cache32Bit) ''
@@ -125,9 +126,13 @@ let
             <family>${name}</family>
             <prefer>
             ${
-              concatStringsSep "" (map (font: ''
-                <family>${font}</family>
-              '') fonts)
+              concatStringsSep "" (
+                map
+                (font: ''
+                  <family>${font}</family>
+                '')
+                fonts
+              )
             }
             </prefer>
           </alias>
@@ -258,101 +263,125 @@ in
 {
   imports =
     [
-      (mkRenamedOptionModule [
-        "fonts"
-        "fontconfig"
-        "ultimate"
-        "allowBitmaps"
-      ] [
-        "fonts"
-        "fontconfig"
-        "allowBitmaps"
-      ])
-      (mkRenamedOptionModule [
-        "fonts"
-        "fontconfig"
-        "ultimate"
-        "allowType1"
-      ] [
-        "fonts"
-        "fontconfig"
-        "allowType1"
-      ])
-      (mkRenamedOptionModule [
-        "fonts"
-        "fontconfig"
-        "ultimate"
-        "useEmbeddedBitmaps"
-      ] [
-        "fonts"
-        "fontconfig"
-        "useEmbeddedBitmaps"
-      ])
-      (mkRenamedOptionModule [
-        "fonts"
-        "fontconfig"
-        "ultimate"
-        "forceAutohint"
-      ] [
-        "fonts"
-        "fontconfig"
-        "forceAutohint"
-      ])
-      (mkRenamedOptionModule [
-        "fonts"
-        "fontconfig"
-        "ultimate"
-        "renderMonoTTFAsBitmap"
-      ] [
-        "fonts"
-        "fontconfig"
-        "renderMonoTTFAsBitmap"
-      ])
-      (mkRemovedOptionModule [
-        "fonts"
-        "fontconfig"
-        "forceAutohint"
-      ] "")
-      (mkRemovedOptionModule [
-        "fonts"
-        "fontconfig"
-        "renderMonoTTFAsBitmap"
-      ] "")
-      (mkRemovedOptionModule [
-        "fonts"
-        "fontconfig"
-        "dpi"
-      ] "Use display server-specific options")
-      (mkRemovedOptionModule [
-        "hardware"
-        "video"
-        "hidpi"
-        "enable"
-      ] fontconfigNote)
-      (mkRemovedOptionModule [
-        "fonts"
-        "optimizeForVeryHighDPI"
-      ] fontconfigNote)
+      (mkRenamedOptionModule
+        [
+          "fonts"
+          "fontconfig"
+          "ultimate"
+          "allowBitmaps"
+        ]
+        [
+          "fonts"
+          "fontconfig"
+          "allowBitmaps"
+        ])
+      (mkRenamedOptionModule
+        [
+          "fonts"
+          "fontconfig"
+          "ultimate"
+          "allowType1"
+        ]
+        [
+          "fonts"
+          "fontconfig"
+          "allowType1"
+        ])
+      (mkRenamedOptionModule
+        [
+          "fonts"
+          "fontconfig"
+          "ultimate"
+          "useEmbeddedBitmaps"
+        ]
+        [
+          "fonts"
+          "fontconfig"
+          "useEmbeddedBitmaps"
+        ])
+      (mkRenamedOptionModule
+        [
+          "fonts"
+          "fontconfig"
+          "ultimate"
+          "forceAutohint"
+        ]
+        [
+          "fonts"
+          "fontconfig"
+          "forceAutohint"
+        ])
+      (mkRenamedOptionModule
+        [
+          "fonts"
+          "fontconfig"
+          "ultimate"
+          "renderMonoTTFAsBitmap"
+        ]
+        [
+          "fonts"
+          "fontconfig"
+          "renderMonoTTFAsBitmap"
+        ])
+      (mkRemovedOptionModule
+        [
+          "fonts"
+          "fontconfig"
+          "forceAutohint"
+        ]
+        "")
+      (mkRemovedOptionModule
+        [
+          "fonts"
+          "fontconfig"
+          "renderMonoTTFAsBitmap"
+        ]
+        "")
+      (mkRemovedOptionModule
+        [
+          "fonts"
+          "fontconfig"
+          "dpi"
+        ]
+        "Use display server-specific options")
+      (mkRemovedOptionModule
+        [
+          "hardware"
+          "video"
+          "hidpi"
+          "enable"
+        ]
+        fontconfigNote)
+      (mkRemovedOptionModule
+        [
+          "fonts"
+          "optimizeForVeryHighDPI"
+        ]
+        fontconfigNote)
     ]
-    ++ lib.forEach [
-      "enable"
-      "substitutions"
-      "preset"
-    ] (
-      opt:
-      lib.mkRemovedOptionModule [
-        "fonts"
-        "fontconfig"
-        "ultimate"
-        "${opt}"
-      ] ''
-        The fonts.fontconfig.ultimate module and configuration is obsolete.
-        The repository has since been archived and activity has ceased.
-        https://github.com/bohoomil/fontconfig-ultimate/issues/171.
-        No action should be needed for font configuration, as the fonts.fontconfig
-        module is already used by default.
-      ''
-    )
+    ++ lib.forEach
+      [
+        "enable"
+        "substitutions"
+        "preset"
+      ]
+      (
+        opt:
+        lib.mkRemovedOptionModule
+        [
+          "fonts"
+          "fontconfig"
+          "ultimate"
+          "${opt}"
+        ]
+        ''
+          The fonts.fontconfig.ultimate module and configuration is obsolete.
+          The repository has since been archived and activity has ceased.
+          https://github.com/bohoomil/fontconfig-ultimate/issues/171.
+          No action should be needed for font configuration, as the fonts.fontconfig
+          module is already used by default.
+        ''
+      )
     ;
 
   options = {

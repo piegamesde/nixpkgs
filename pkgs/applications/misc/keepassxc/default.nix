@@ -54,16 +54,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-amedKK9nplLVJTldeabN3/c+g/QesrdH+qx+rba2/4s=";
   };
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang (toString [
-    "-Wno-old-style-cast"
-    "-Wno-error"
-    "-D__BIG_ENDIAN__=${
-      if stdenv.isBigEndian then
-        "1"
-      else
-        "0"
-    }"
-  ]);
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang (
+    toString [
+      "-Wno-old-style-cast"
+      "-Wno-error"
+      "-D__BIG_ENDIAN__=${
+        if stdenv.isBigEndian then
+          "1"
+        else
+          "0"
+      }"
+    ]
+  );
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-rpath ${libargon2}/lib";
 
@@ -76,9 +78,11 @@ stdenv.mkDerivation rec {
       "-DWITH_XC_UPDATECHECK=OFF"
     ]
     ++ (lib.optional (!withKeePassX11) "-DWITH_XC_X11=OFF")
-    ++ (lib.optional (withKeePassFDOSecrets && stdenv.isLinux)
+    ++ (lib.optional
+      (withKeePassFDOSecrets && stdenv.isLinux)
       "-DWITH_XC_FDOSECRETS=ON")
-    ++ (lib.optional (withKeePassYubiKey && stdenv.isLinux)
+    ++ (lib.optional
+      (withKeePassYubiKey && stdenv.isLinux)
       "-DWITH_XC_YUBIKEY=ON")
     ++ (lib.optional withKeePassBrowser "-DWITH_XC_BROWSER=ON")
     ++ (lib.optional withKeePassKeeShare "-DWITH_XC_KEESHARE=ON")

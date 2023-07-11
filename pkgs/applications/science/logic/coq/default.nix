@@ -79,15 +79,16 @@ let
     "8.17.0".sha256 = "sha256-TGwm7S6+vkeZ8cidvp8pkiAd9tk008jvvPvYgfEOXhM=";
   };
   releaseRev = v: "V${v}";
-  fetched = import ../../../../build-support/coq/meta-fetch/default.nix {
-    inherit lib stdenv fetchzip;
-  } {
-    inherit release releaseRev;
-    location = {
-      owner = "coq";
-      repo = "coq";
-    };
-  } args.version;
+  fetched = import ../../../../build-support/coq/meta-fetch/default.nix
+    { inherit lib stdenv fetchzip; }
+    {
+      inherit release releaseRev;
+      location = {
+        owner = "coq";
+        repo = "coq";
+      };
+    }
+    args.version;
   version = fetched.version;
   coq-version =
     args.coq-version or (
@@ -98,7 +99,8 @@ let
     );
   coqAtLeast = v: coq-version == "dev" || versionAtLeast coq-version v;
   buildIde = args.buildIde or (!coqAtLeast "8.14");
-  ideFlags = optionalString (buildIde && !coqAtLeast "8.10")
+  ideFlags = optionalString
+    (buildIde && !coqAtLeast "8.10")
     "-lablgtkdir ${ocamlPackages.lablgtk}/lib/ocaml/*/site-lib/lablgtk2 -coqide opt"
     ;
   csdpPatch = lib.optionalString (csdp != null) ''
@@ -110,7 +112,8 @@ let
       customOCamlPackages
     else
       with versions;
-      switch coq-version [
+      switch coq-version
+      [
         {
           case = range "8.16" "8.17";
           out = ocamlPackages_4_14;
@@ -131,7 +134,8 @@ let
           case = range "8.5" "8.6";
           out = ocamlPackages_4_05;
         }
-      ] ocamlPackages_4_14
+      ]
+      ocamlPackages_4_14
     ;
   ocamlNativeBuildInputs = with ocamlPackages;
     [
@@ -234,8 +238,8 @@ let
       UNAME=$(type -tp uname)
       RM=$(type -tp rm)
       substituteInPlace tools/beautify-archive --replace "/bin/rm" "$RM"
-      ${lib.optionalString (!coqAtLeast "8.7")
-      ''substituteInPlace configure.ml --replace "md5 -q" "md5sum"''}
+      ${lib.optionalString (!coqAtLeast "8.7") ''
+        substituteInPlace configure.ml --replace "md5 -q" "md5sum"''}
       ${csdpPatch}
     '';
 
@@ -276,20 +280,22 @@ let
 
     createFindlibDestdir = true;
 
-    desktopItems = optional buildIde (makeDesktopItem {
-      name = "coqide";
-      exec = "coqide";
-      icon = "coq";
-      desktopName = "CoqIDE";
-      comment = "Graphical interface for the Coq proof assistant";
-      categories = [
-        "Development"
-        "Science"
-        "Math"
-        "IDE"
-        "GTK"
-      ];
-    });
+    desktopItems = optional buildIde (
+      makeDesktopItem {
+        name = "coqide";
+        exec = "coqide";
+        icon = "coq";
+        desktopName = "CoqIDE";
+        comment = "Graphical interface for the Coq proof assistant";
+        categories = [
+          "Development"
+          "Science"
+          "Math"
+          "IDE"
+          "GTK"
+        ];
+      }
+    );
 
     postInstall =
       let
@@ -333,22 +339,24 @@ let
   };
 in
 if coqAtLeast "8.17" then
-  self.overrideAttrs (_: {
-    buildPhase = ''
-      runHook preBuild
-      make dunestrap
-      dune build -p coq-core,coq-stdlib,coq,coqide-server${
-        lib.optionalString buildIde ",coqide"
-      } -j $NIX_BUILD_CORES
-      runHook postBuild
-    '';
-    installPhase = ''
-      runHook preInstall
-      dune install --prefix $out coq-core coq-stdlib coq coqide-server${
-        lib.optionalString buildIde " coqide"
-      }
-      runHook postInstall
-    '';
-  })
+  self.overrideAttrs (
+    _: {
+      buildPhase = ''
+        runHook preBuild
+        make dunestrap
+        dune build -p coq-core,coq-stdlib,coq,coqide-server${
+          lib.optionalString buildIde ",coqide"
+        } -j $NIX_BUILD_CORES
+        runHook postBuild
+      '';
+      installPhase = ''
+        runHook preInstall
+        dune install --prefix $out coq-core coq-stdlib coq coqide-server${
+          lib.optionalString buildIde " coqide"
+        }
+        runHook postInstall
+      '';
+    }
+  )
 else
   self

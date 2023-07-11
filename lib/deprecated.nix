@@ -41,10 +41,13 @@ rec {
           z:
           z // {
             function = foldArgs merger f arg;
-            args = (lib.attrByPath [
-              "passthru"
-              "args"
-            ] { } z) // x;
+            args = (lib.attrByPath
+              [
+                "passthru"
+                "args"
+              ]
+              { }
+              z) // x;
           }
         ));
       withStdOverrides = base // { override = base.passthru.function; };
@@ -95,43 +98,53 @@ rec {
     # Output : its value or default.
   getValue =
     attrSet: argList: name:
-    (attrByPath [ name ] (
-      if checkFlag attrSet name then
-        true
-      else if argList == [ ] then
-        null
-      else
-        let
-          x = builtins.head argList;
-        in
-        if (head x) == name then
-          (head (tail x))
+    (attrByPath [ name ]
+      (
+        if checkFlag attrSet name then
+          true
+        else if argList == [ ] then
+          null
         else
-          (getValue attrSet (tail argList) name)
-    ) attrSet)
+          let
+            x = builtins.head argList;
+          in
+          if (head x) == name then
+            (head (tail x))
+          else
+            (getValue attrSet (tail argList) name)
+      )
+      attrSet)
     ;
 
     # Input : attrSet, [[name default] ...], [ [flagname reqs..] ... ]
     # Output : are reqs satisfied? It's asserted.
   checkReqs =
     attrSet: argList: condList:
-    (foldr lib.and true (map (
-      x:
-      let
-        name = (head x);
-
-      in
+    (foldr lib.and true (
+      map
       (
-        (checkFlag attrSet name)
-        -> (foldr lib.and true (map (
-          y:
-          let
-            val = (getValue attrSet argList y);
-          in
-          (val != null) && (val != false)
-        ) (tail x)))
+        x:
+        let
+          name = (head x);
+
+        in
+        (
+          (checkFlag attrSet name)
+          -> (foldr lib.and true (
+            map
+            (
+              y:
+              let
+                val = (getValue attrSet argList y);
+              in
+              (val != null) && (val != false)
+            )
+            (tail x)
+          ))
+        )
       )
-    ) condList))
+      condList
+    ))
     ;
 
     # This function has O(n^2) performance.
@@ -251,14 +264,16 @@ rec {
         let
           acc' = [ y ] ++ acc;
         in
-        innerClosePropagation acc' (uniqList {
-          inputList =
-            (maybeAttrNullable "propagatedBuildInputs" [ ] y)
-            ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y)
-            ++ ys
-            ;
-          acc = acc';
-        })
+        innerClosePropagation acc' (
+          uniqList {
+            inputList =
+              (maybeAttrNullable "propagatedBuildInputs" [ ] y)
+              ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y)
+              ++ ys
+              ;
+            acc = acc';
+          }
+        )
     ;
 
   closePropagationSlow =
@@ -274,35 +289,41 @@ rec {
     # See https://github.com/NixOS/nixpkgs/pull/194391 for details.
   closePropagationFast =
     list:
-    builtins.map (x: x.val) (builtins.genericClosure {
-      startSet = builtins.map (x: {
-        key = x.outPath;
-        val = x;
-      }) (builtins.filter (x: x != null) list);
-      operator =
-        item:
-        if !builtins.isAttrs item.val then
-          [ ]
-        else
-          builtins.concatMap (
-            x:
-            if x != null then
-              [ {
-                key = x.outPath;
-                val = x;
-              } ]
-            else
-              [ ]
-          ) (
+    builtins.map (x: x.val) (
+      builtins.genericClosure {
+        startSet = builtins.map
+          (x: {
+            key = x.outPath;
+            val = x;
+          })
+          (builtins.filter (x: x != null) list);
+        operator =
+          item:
+          if !builtins.isAttrs item.val then
+            [ ]
+          else
+            builtins.concatMap
             (
-              item.val.propagatedBuildInputs or [ ]
+              x:
+              if x != null then
+                [ {
+                  key = x.outPath;
+                  val = x;
+                } ]
+              else
+                [ ]
             )
-            ++ (
-              item.val.propagatedNativeBuildInputs or [ ]
+            (
+              (
+                item.val.propagatedBuildInputs or [ ]
+              )
+              ++ (
+                item.val.propagatedNativeBuildInputs or [ ]
+              )
             )
-          )
-        ;
-    })
+          ;
+      }
+    )
     ;
 
   closePropagation =
@@ -342,15 +363,16 @@ rec {
     # exists in both sets
   mergeAttrsWithFunc =
     f: set1: set2:
-    foldr (
+    foldr
+    (
       n: set:
       if set ? ${n} then
         setAttr set n (f set.${n} set2.${n})
       else
         set
-    ) (
-      set2 // set1
-    ) (attrNames set2)
+    )
+    (set2 // set1)
+    (attrNames set2)
     ;
 
     # merging two attribute set concatenating the values of same attribute names
@@ -374,12 +396,14 @@ rec {
       overrideSnd ? [ "buildPhase" ]
     }:
     attrs1: attrs2:
-    foldr (
+    foldr
+    (
       n: set:
       setAttr set n (
         if set ? ${n} then # merge
           if
-            elem n
+            elem
+            n
             mergeLists # attribute contains list, merge them by concatenating
           then
             attrs2.${n} ++ attrs1.${n}
@@ -391,7 +415,9 @@ rec {
         else
           attrs2.${n} # add attribute not existing in attr1
       )
-    ) attrs1 (attrNames attrs2)
+    )
+    attrs1
+    (attrNames attrs2)
     ;
 
     # example usage:
@@ -415,18 +441,23 @@ rec {
     foldr lib.mergeAttrs { } [
       x
       y
-      (mapAttrs (
-        a: v: # merge special names using given functions
-        if x ? ${a} then
-          if y ? ${a} then
-            v x.${a} y.${a} # both have attr, use merge func
+      (mapAttrs
+        (
+          a: v: # merge special names using given functions
+          if x ? ${a} then
+            if y ? ${a} then
+              v x.${a} y.${a} # both have attr, use merge func
+            else
+              x.${a} # only x has attr
           else
-            x.${a} # only x has attr
-        else
-          y.${a} # only y has attr)
-      ) (removeAttrs mergeAttrBy2
-        # don't merge attrs which are neither in x nor y
-        (filter (a: !x ? ${a} && !y ? ${a}) (attrNames mergeAttrBy2))))
+            y.${a} # only y has attr)
+        )
+        (
+          removeAttrs
+          mergeAttrBy2
+          # don't merge attrs which are neither in x nor y
+          (filter (a: !x ? ${a} && !y ? ${a}) (attrNames mergeAttrBy2))
+        ))
     ]
     ;
   mergeAttrsByFuncDefaults = foldl mergeAttrByFunc { inherit mergeAttrBy; };
@@ -437,30 +468,38 @@ rec {
 
     # sane defaults (same name as attr name so that inherit can be used)
   mergeAttrBy = # { buildInputs = concatList; [...]; passthru = mergeAttr; [..]; }
-    listToAttrs (map (n: nameValuePair n lib.concat) [
-      "nativeBuildInputs"
-      "buildInputs"
-      "propagatedBuildInputs"
-      "configureFlags"
-      "prePhases"
-      "postAll"
-      "patches"
-    ]) // listToAttrs (map (n: nameValuePair n lib.mergeAttrs) [
-      "passthru"
-      "meta"
-      "cfg"
-      "flags"
-    ]) // listToAttrs (map (
-      n:
-      nameValuePair n (
-        a: b: ''
-          ${a}
-          ${b}''
+    listToAttrs (
+      map (n: nameValuePair n lib.concat) [
+        "nativeBuildInputs"
+        "buildInputs"
+        "propagatedBuildInputs"
+        "configureFlags"
+        "prePhases"
+        "postAll"
+        "patches"
+      ]
+    ) // listToAttrs (
+      map (n: nameValuePair n lib.mergeAttrs) [
+        "passthru"
+        "meta"
+        "cfg"
+        "flags"
+      ]
+    ) // listToAttrs (
+      map
+      (
+        n:
+        nameValuePair n (
+          a: b: ''
+            ${a}
+            ${b}''
+        )
       )
-    ) [
-      "preConfigure"
-      "postInstall"
-    ]);
+      [
+        "preConfigure"
+        "postInstall"
+      ]
+    );
 
   nixType =
     x:

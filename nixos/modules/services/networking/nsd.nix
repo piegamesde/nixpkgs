@@ -37,17 +37,21 @@ let
     # replaces include: directives for keys with fake keys for nsd-checkconf
   injectFakeKeys =
     keys:
-    concatStrings (mapAttrsToList (
-      keyName: keyOptions: ''
-        fakeKey="$(${pkgs.bind}/bin/tsig-keygen -a ${
-          escapeShellArgs [
-            keyOptions.algorithm
-            keyName
-          ]
-        } | grep -oP "\s*secret \"\K.*(?=\";)")"
-        sed "s@^\s*include:\s*\"${stateDir}/private/${keyName}\"\$@secret: $fakeKey@" -i $out/nsd.conf
-      ''
-    ) keys)
+    concatStrings (
+      mapAttrsToList
+      (
+        keyName: keyOptions: ''
+          fakeKey="$(${pkgs.bind}/bin/tsig-keygen -a ${
+            escapeShellArgs [
+              keyOptions.algorithm
+              keyName
+            ]
+          } | grep -oP "\s*secret \"\K.*(?=\";)")"
+          sed "s@^\s*include:\s*\"${stateDir}/private/${keyName}\"\$@secret: $fakeKey@" -i $out/nsd.conf
+        ''
+      )
+      keys
+    )
     ;
 
   nsdEnv = pkgs.buildEnv {
@@ -184,24 +188,32 @@ let
     ;
   forEach = pre: l: concatMapStrings (x: pre + x + "\n") l;
 
-  keyConfigFile = concatStrings (mapAttrsToList (
-    keyName: keyOptions: ''
-      key:
-        name:      "${keyName}"
-        algorithm: "${keyOptions.algorithm}"
-        include:   "${stateDir}/private/${keyName}"
-    ''
-  ) cfg.keys);
+  keyConfigFile = concatStrings (
+    mapAttrsToList
+    (
+      keyName: keyOptions: ''
+        key:
+          name:      "${keyName}"
+          algorithm: "${keyOptions.algorithm}"
+          include:   "${stateDir}/private/${keyName}"
+      ''
+    )
+    cfg.keys
+  );
 
-  copyKeys = concatStrings (mapAttrsToList (
-    keyName: keyOptions: ''
-      secret=$(cat "${keyOptions.keyFile}")
-      dest="${stateDir}/private/${keyName}"
-      echo "  secret: \"$secret\"" > "$dest"
-      chown ${username}:${username} "$dest"
-      chmod 0400 "$dest"
-    ''
-  ) cfg.keys);
+  copyKeys = concatStrings (
+    mapAttrsToList
+    (
+      keyName: keyOptions: ''
+        secret=$(cat "${keyOptions.keyFile}")
+        dest="${stateDir}/private/${keyName}"
+        echo "  secret: \"$secret\"" > "$dest"
+        chown ${username}:${username} "$dest"
+        chmod 0400 "$dest"
+      ''
+    )
+    cfg.keys
+  );
 
     # options are ordered alphanumerically by the nixos option name
   zoneConfigFile =
@@ -247,10 +259,14 @@ let
 
       # fork -> pattern
     else
-      zipAttrsWith (name: head) (mapAttrsToList (
-        name: child:
-        zoneConfigs' (parent // zone // { children = { }; }) name child
-      ) zone.children)
+      zipAttrsWith (name: head) (
+        mapAttrsToList
+        (
+          name: child:
+          zoneConfigs' (parent // zone // { children = { }; }) name child
+        )
+        zone.children
+      )
     ;
 
     # options are ordered alphanumerically
@@ -466,18 +482,20 @@ let
 
       rrlWhitelist = mkOption {
         type = with types;
-          listOf (enum [
-            "nxdomain"
-            "error"
-            "referral"
-            "any"
-            "rrsig"
-            "wildcard"
-            "nodata"
-            "dnskey"
-            "positive"
-            "all"
-          ]);
+          listOf (
+            enum [
+              "nxdomain"
+              "error"
+              "referral"
+              "any"
+              "rrsig"
+              "wildcard"
+              "nodata"
+              "dnskey"
+              "positive"
+              "all"
+            ]
+          );
         default = [ ];
         description = lib.mdDoc ''
           Whitelists the given rrl-types.
@@ -522,13 +540,15 @@ let
   };
 
   dnssecZones =
-    (filterAttrs (
-      n: v:
-      if v ? dnssec then
-        v.dnssec
-      else
-        false
-    ) zoneConfigs);
+    (filterAttrs
+      (
+        n: v:
+        if v ? dnssec then
+          v.dnssec
+        else
+          false
+      )
+      zoneConfigs);
 
   dnssec = dnssecZones != { };
 
@@ -793,29 +813,31 @@ in
     };
 
     keys = mkOption {
-      type = types.attrsOf (types.submodule {
-        options = {
+      type = types.attrsOf (
+        types.submodule {
+          options = {
 
-          algorithm = mkOption {
-            type = types.str;
-            default = "hmac-sha256";
-            description = lib.mdDoc ''
-              Authentication algorithm for this key.
-            '';
+            algorithm = mkOption {
+              type = types.str;
+              default = "hmac-sha256";
+              description = lib.mdDoc ''
+                Authentication algorithm for this key.
+              '';
+            };
+
+            keyFile = mkOption {
+              type = types.path;
+              description = lib.mdDoc ''
+                Path to the file which contains the actual base64 encoded
+                key. The key will be copied into "${stateDir}/private" before
+                NSD starts. The copied file is only accessibly by the NSD
+                user.
+              '';
+            };
+
           };
-
-          keyFile = mkOption {
-            type = types.path;
-            description = lib.mdDoc ''
-              Path to the file which contains the actual base64 encoded
-              key. The key will be copied into "${stateDir}/private" before
-              NSD starts. The copied file is only accessibly by the NSD
-              user.
-            '';
-          };
-
-        };
-      });
+        }
+      );
       default = { };
       example = literalExpression ''
         { "tsig.example.org" = {

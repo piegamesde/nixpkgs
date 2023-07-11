@@ -39,13 +39,15 @@ let
   toVarName =
     s:
     "XMPP_PASSWORD_"
-    + stringAsChars (
-      c:
-      if builtins.match "[A-Za-z0-9]" c != null then
-        c
-      else
-        "_"
-    ) s
+    + stringAsChars
+      (
+        c:
+        if builtins.match "[A-Za-z0-9]" c != null then
+          c
+        else
+          "_"
+      )
+      s
     ;
 
   defaultJvbConfig = {
@@ -81,8 +83,9 @@ let
 in
 {
   options.services.jitsi-videobridge = with types; {
-    enable = mkEnableOption
-      (lib.mdDoc "Jitsi Videobridge, a WebRTC compatible video router");
+    enable = mkEnableOption (
+      lib.mdDoc "Jitsi Videobridge, a WebRTC compatible video router"
+    );
 
     config = mkOption {
       type = attrs;
@@ -124,72 +127,76 @@ in
           };
         }
       '';
-      type = attrsOf (submodule (
-        {
-          name,
-          ...
-        }: {
-          options = {
-            hostName = mkOption {
-              type = str;
-              example = "xmpp.example.org";
-              description = lib.mdDoc ''
-                Hostname of the XMPP server to connect to. Name of the attribute set is used by default.
-              '';
+      type = attrsOf (
+        submodule (
+          {
+            name,
+            ...
+          }: {
+            options = {
+              hostName = mkOption {
+                type = str;
+                example = "xmpp.example.org";
+                description = lib.mdDoc ''
+                  Hostname of the XMPP server to connect to. Name of the attribute set is used by default.
+                '';
+              };
+              domain = mkOption {
+                type = nullOr str;
+                default = null;
+                example = "auth.xmpp.example.org";
+                description = lib.mdDoc ''
+                  Domain part of JID of the XMPP user, if it is different from hostName.
+                '';
+              };
+              userName = mkOption {
+                type = str;
+                default = "jvb";
+                description = lib.mdDoc ''
+                  User part of the JID.
+                '';
+              };
+              passwordFile = mkOption {
+                type = str;
+                example = "/run/keys/jitsi-videobridge-xmpp1";
+                description = lib.mdDoc ''
+                  File containing the password for the user.
+                '';
+              };
+              mucJids = mkOption {
+                type = str;
+                example = "jvbbrewery@internal.xmpp.example.org";
+                description = lib.mdDoc ''
+                  JID of the MUC to join. JiCoFo needs to be configured to join the same MUC.
+                '';
+              };
+              mucNickname = mkOption {
+                # Upstream DEBs use UUID, let's use hostname instead.
+                type = str;
+                description = lib.mdDoc ''
+                  Videobridges use the same XMPP account and need to be distinguished by the
+                  nickname (aka resource part of the JID). By default, system hostname is used.
+                '';
+              };
+              disableCertificateVerification = mkOption {
+                type = bool;
+                default = false;
+                description = lib.mdDoc ''
+                  Whether to skip validation of the server's certificate.
+                '';
+              };
             };
-            domain = mkOption {
-              type = nullOr str;
-              default = null;
-              example = "auth.xmpp.example.org";
-              description = lib.mdDoc ''
-                Domain part of JID of the XMPP user, if it is different from hostName.
-              '';
+            config = {
+              hostName = mkDefault name;
+              mucNickname = mkDefault (
+                builtins.replaceStrings [ "." ] [ "-" ] (
+                  config.networking.fqdnOrHostName
+                )
+              );
             };
-            userName = mkOption {
-              type = str;
-              default = "jvb";
-              description = lib.mdDoc ''
-                User part of the JID.
-              '';
-            };
-            passwordFile = mkOption {
-              type = str;
-              example = "/run/keys/jitsi-videobridge-xmpp1";
-              description = lib.mdDoc ''
-                File containing the password for the user.
-              '';
-            };
-            mucJids = mkOption {
-              type = str;
-              example = "jvbbrewery@internal.xmpp.example.org";
-              description = lib.mdDoc ''
-                JID of the MUC to join. JiCoFo needs to be configured to join the same MUC.
-              '';
-            };
-            mucNickname = mkOption {
-              # Upstream DEBs use UUID, let's use hostname instead.
-              type = str;
-              description = lib.mdDoc ''
-                Videobridges use the same XMPP account and need to be distinguished by the
-                nickname (aka resource part of the JID). By default, system hostname is used.
-              '';
-            };
-            disableCertificateVerification = mkOption {
-              type = bool;
-              default = false;
-              description = lib.mdDoc ''
-                Whether to skip validation of the server's certificate.
-              '';
-            };
-          };
-          config = {
-            hostName = mkDefault name;
-            mucNickname = mkDefault (builtins.replaceStrings [ "." ] [ "-" ] (
-              config.networking.fqdnOrHostName
-            ));
-          };
-        }
-      ));
+          }
+        )
+      );
     };
 
     nat = {
@@ -271,11 +278,15 @@ in
         environment.JAVA_SYS_PROPS = attrsToArgs jvbProps;
 
         script =
-          (concatStrings (mapAttrsToList (
-            name: xmppConfig: ''
-              export ${toVarName name}=$(cat ${xmppConfig.passwordFile})
-            ''
-          ) cfg.xmppConfigs))
+          (concatStrings (
+            mapAttrsToList
+            (
+              name: xmppConfig: ''
+                export ${toVarName name}=$(cat ${xmppConfig.passwordFile})
+              ''
+            )
+            cfg.xmppConfigs
+          ))
           + ''
             ${pkgs.jitsi-videobridge}/bin/jitsi-videobridge --apis=${
               if (cfg.apis == [ ]) then

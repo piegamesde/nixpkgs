@@ -10,28 +10,30 @@ with lib;
 let
   cfg = config.services.hologram-server;
 
-  cfgFile = pkgs.writeText "hologram-server.json" (builtins.toJSON {
-    ldap = {
-      host = cfg.ldapHost;
-      bind = {
-        dn = cfg.ldapBindDN;
-        password = cfg.ldapBindPassword;
+  cfgFile = pkgs.writeText "hologram-server.json" (
+    builtins.toJSON {
+      ldap = {
+        host = cfg.ldapHost;
+        bind = {
+          dn = cfg.ldapBindDN;
+          password = cfg.ldapBindPassword;
+        };
+        insecureldap = cfg.ldapInsecure;
+        userattr = cfg.ldapUserAttr;
+        baseDN = cfg.ldapBaseDN;
+        enableldapRoles = cfg.enableLdapRoles;
+        roleAttr = cfg.roleAttr;
+        groupClassAttr = cfg.groupClassAttr;
       };
-      insecureldap = cfg.ldapInsecure;
-      userattr = cfg.ldapUserAttr;
-      baseDN = cfg.ldapBaseDN;
-      enableldapRoles = cfg.enableLdapRoles;
-      roleAttr = cfg.roleAttr;
-      groupClassAttr = cfg.groupClassAttr;
-    };
-    aws = {
-      account = cfg.awsAccount;
-      defaultrole = cfg.awsDefaultRole;
-    };
-    stats = cfg.statsAddress;
-    listen = cfg.listenAddress;
-    cachetimeout = cfg.cacheTimeoutSeconds;
-  });
+      aws = {
+        account = cfg.awsAccount;
+        defaultrole = cfg.awsDefaultRole;
+      };
+      stats = cfg.statsAddress;
+      listen = cfg.listenAddress;
+      cachetimeout = cfg.cacheTimeoutSeconds;
+    }
+  );
 in
 {
   options = {

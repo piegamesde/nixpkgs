@@ -101,8 +101,9 @@ let
   toValidStoreName =
     x:
     with builtins;
-    lib.concatStringsSep "-"
-    (filter (x: !(isList x)) (split "[^a-zA-Z0-9_=.?-]+" x))
+    lib.concatStringsSep "-" (
+      filter (x: !(isList x)) (split "[^a-zA-Z0-9_=.?-]+" x)
+    )
     ;
 
 in
@@ -141,22 +142,27 @@ stdenvNoCC.mkDerivation rec {
     # !!! should use XML.
   objects = map (x: x.object) contents;
   symlinks = map (x: x.symlink) contents;
-  suffices = map (
-    x:
-    if x ? suffix then
-      x.suffix
-    else
-      "none"
-  ) contents;
+  suffices = map
+    (
+      x:
+      if x ? suffix then
+        x.suffix
+      else
+        "none"
+    )
+    contents;
 
     # For obtaining the closure of `contents'.
     # Note: we don't use closureInfo yet, as that won't build with nix-1.x.
     # See #36268.
-  exportReferencesGraph = lib.zipListsWith (
-    x: i: [
-      ("closure-${toValidStoreName (baseNameOf x.symlink)}-${toString i}")
-      x.object
-    ]
-  ) contents (lib.range 0 (lib.length contents - 1));
+  exportReferencesGraph = lib.zipListsWith
+    (
+      x: i: [
+        ("closure-${toValidStoreName (baseNameOf x.symlink)}-${toString i}")
+        x.object
+      ]
+    )
+    contents
+    (lib.range 0 (lib.length contents - 1));
   pathsFromGraph = ./paths-from-graph.pl;
 }

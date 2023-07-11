@@ -50,37 +50,39 @@ rec {
 
   hd = "vda"; # either "sda" or "vda"
 
-  initrdUtils = runCommand "initrd-utils" {
-    nativeBuildInputs = [ buildPackages.nukeReferences ];
-    allowedReferences = [
-      "out"
-      modulesClosure
-    ]; # prevent accidents like glibc being included in the initrd
-  } ''
-    mkdir -p $out/bin
-    mkdir -p $out/lib
+  initrdUtils = runCommand "initrd-utils"
+    {
+      nativeBuildInputs = [ buildPackages.nukeReferences ];
+      allowedReferences = [
+        "out"
+        modulesClosure
+      ]; # prevent accidents like glibc being included in the initrd
+    }
+    ''
+      mkdir -p $out/bin
+      mkdir -p $out/lib
 
-    # Copy what we need from Glibc.
-    cp -p \
-      ${pkgs.stdenv.cc.libc}/lib/ld-*.so.? \
-      ${pkgs.stdenv.cc.libc}/lib/libc.so.* \
-      ${pkgs.stdenv.cc.libc}/lib/libm.so.* \
-      ${pkgs.stdenv.cc.libc}/lib/libresolv.so.* \
-      $out/lib
+      # Copy what we need from Glibc.
+      cp -p \
+        ${pkgs.stdenv.cc.libc}/lib/ld-*.so.? \
+        ${pkgs.stdenv.cc.libc}/lib/libc.so.* \
+        ${pkgs.stdenv.cc.libc}/lib/libm.so.* \
+        ${pkgs.stdenv.cc.libc}/lib/libresolv.so.* \
+        $out/lib
 
-    # Copy BusyBox.
-    cp -pd ${pkgs.busybox}/bin/* $out/bin
+      # Copy BusyBox.
+      cp -pd ${pkgs.busybox}/bin/* $out/bin
 
-    # Run patchelf to make the programs refer to the copied libraries.
-    for i in $out/bin/* $out/lib/*; do if ! test -L $i; then nuke-refs $i; fi; done
+      # Run patchelf to make the programs refer to the copied libraries.
+      for i in $out/bin/* $out/lib/*; do if ! test -L $i; then nuke-refs $i; fi; done
 
-    for i in $out/bin/*; do
-        if [ -f "$i" -a ! -L "$i" ]; then
-            echo "patching $i..."
-            patchelf --set-interpreter $out/lib/ld-*.so.? --set-rpath $out/lib $i || true
-        fi
-    done
-  ''; # */
+      for i in $out/bin/*; do
+          if [ -f "$i" -a ! -L "$i" ]; then
+              echo "patching $i..."
+              patchelf --set-interpreter $out/lib/ld-*.so.? --set-rpath $out/lib $i || true
+          fi
+      done
+    ''; # */
 
   stage1Init = writeScript "vm-run-stage1" ''
     #! ${initrdUtils}/bin/ash -e
@@ -373,31 +375,33 @@ rec {
       file,
       fs ? null
     }:
-    runInLinuxVM (stdenv.mkDerivation {
-      name = "extract-file";
-      buildInputs = [ util-linux ];
-      buildCommand = ''
-        ln -s ${kernel}/lib /lib
-        ${kmod}/bin/modprobe loop
-        ${kmod}/bin/modprobe ext4
-        ${kmod}/bin/modprobe hfs
-        ${kmod}/bin/modprobe hfsplus
-        ${kmod}/bin/modprobe squashfs
-        ${kmod}/bin/modprobe iso9660
-        ${kmod}/bin/modprobe ufs
-        ${kmod}/bin/modprobe cramfs
+    runInLinuxVM (
+      stdenv.mkDerivation {
+        name = "extract-file";
+        buildInputs = [ util-linux ];
+        buildCommand = ''
+          ln -s ${kernel}/lib /lib
+          ${kmod}/bin/modprobe loop
+          ${kmod}/bin/modprobe ext4
+          ${kmod}/bin/modprobe hfs
+          ${kmod}/bin/modprobe hfsplus
+          ${kmod}/bin/modprobe squashfs
+          ${kmod}/bin/modprobe iso9660
+          ${kmod}/bin/modprobe ufs
+          ${kmod}/bin/modprobe cramfs
 
-        mkdir -p $out
-        mkdir -p tmp
-        mount -o loop,ro,ufstype=44bsd ${
-          lib.optionalString (fs != null) "-t ${fs} "
-        }${file} tmp ||
-          mount -o loop,ro ${
+          mkdir -p $out
+          mkdir -p tmp
+          mount -o loop,ro,ufstype=44bsd ${
             lib.optionalString (fs != null) "-t ${fs} "
-          }${file} tmp
-        cp -Rv tmp/* $out/ || exit 0
-      '';
-    })
+          }${file} tmp ||
+            mount -o loop,ro ${
+              lib.optionalString (fs != null) "-t ${fs} "
+            }${file} tmp
+          cp -Rv tmp/* $out/ || exit 0
+        '';
+      }
+    )
     ;
 
   extractMTDfs =
@@ -405,30 +409,32 @@ rec {
       file,
       fs ? null
     }:
-    runInLinuxVM (stdenv.mkDerivation {
-      name = "extract-file-mtd";
-      buildInputs = [
-        pkgs.util-linux
-        pkgs.mtdutils
-      ];
-      buildCommand = ''
-        ln -s ${kernel}/lib /lib
-        ${kmod}/bin/modprobe mtd
-        ${kmod}/bin/modprobe mtdram total_size=131072
-        ${kmod}/bin/modprobe mtdchar
-        ${kmod}/bin/modprobe mtdblock
-        ${kmod}/bin/modprobe jffs2
-        ${kmod}/bin/modprobe zlib
+    runInLinuxVM (
+      stdenv.mkDerivation {
+        name = "extract-file-mtd";
+        buildInputs = [
+          pkgs.util-linux
+          pkgs.mtdutils
+        ];
+        buildCommand = ''
+          ln -s ${kernel}/lib /lib
+          ${kmod}/bin/modprobe mtd
+          ${kmod}/bin/modprobe mtdram total_size=131072
+          ${kmod}/bin/modprobe mtdchar
+          ${kmod}/bin/modprobe mtdblock
+          ${kmod}/bin/modprobe jffs2
+          ${kmod}/bin/modprobe zlib
 
-        mkdir -p $out
-        mkdir -p tmp
+          mkdir -p $out
+          mkdir -p tmp
 
-        dd if=${file} of=/dev/mtd0
-        mount ${lib.optionalString (fs != null) "-t ${fs} "}/dev/mtdblock0 tmp
+          dd if=${file} of=/dev/mtd0
+          mount ${lib.optionalString (fs != null) "-t ${fs} "}/dev/mtdblock0 tmp
 
-        cp -R tmp/* $out/
-      '';
-    })
+          cp -R tmp/* $out/
+        '';
+      }
+    )
     ;
 
     /* Like runInLinuxVM, but run the build not using the stdenv from
@@ -439,34 +445,38 @@ rec {
 
   runInLinuxImage =
     drv:
-    runInLinuxVM (lib.overrideDerivation drv (attrs: {
-      mountDisk = true;
+    runInLinuxVM (
+      lib.overrideDerivation drv (
+        attrs: {
+          mountDisk = true;
 
-        /* Mount `image' as the root FS, but use a temporary copy-on-write
-           image since we don't want to (and can't) write to `image'.
-        */
-      preVM = ''
-        diskImage=$(pwd)/disk-image.qcow2
-        origImage=${attrs.diskImage}
-        if test -d "$origImage"; then origImage="$origImage/disk-image.qcow2"; fi
-        ${qemu}/bin/qemu-img create -F ${attrs.diskImageFormat} -b "$origImage" -f qcow2 $diskImage
-      '';
+            /* Mount `image' as the root FS, but use a temporary copy-on-write
+               image since we don't want to (and can't) write to `image'.
+            */
+          preVM = ''
+            diskImage=$(pwd)/disk-image.qcow2
+            origImage=${attrs.diskImage}
+            if test -d "$origImage"; then origImage="$origImage/disk-image.qcow2"; fi
+            ${qemu}/bin/qemu-img create -F ${attrs.diskImageFormat} -b "$origImage" -f qcow2 $diskImage
+          '';
 
-        /* Inside the VM, run the stdenv setup script normally, but at the
-           very end set $PATH and $SHELL to the `native' paths for the
-           distribution inside the VM.
-        */
-      postHook = ''
-        PATH=/usr/bin:/bin:/usr/sbin:/sbin
-        SHELL=/bin/sh
-        eval "$origPostHook"
-      '';
+            /* Inside the VM, run the stdenv setup script normally, but at the
+               very end set $PATH and $SHELL to the `native' paths for the
+               distribution inside the VM.
+            */
+          postHook = ''
+            PATH=/usr/bin:/bin:/usr/sbin:/sbin
+            SHELL=/bin/sh
+            eval "$origPostHook"
+          '';
 
-      origPostHook = lib.optionalString (attrs ? postHook) attrs.postHook;
+          origPostHook = lib.optionalString (attrs ? postHook) attrs.postHook;
 
-        # Don't run Nix-specific build steps like patchelf.
-      fixupPhase = "true";
-    }))
+            # Don't run Nix-specific build steps like patchelf.
+          fixupPhase = "true";
+        }
+      )
+    )
     ;
 
     /* Create a filesystem image of the specified size and fill it with
@@ -488,69 +498,71 @@ rec {
       unifiedSystemDir ? false
     }:
 
-    runInLinuxVM (stdenv.mkDerivation {
-      inherit name preInstall postInstall rpms QEMU_OPTS memSize;
-      preVM = createEmptyImage { inherit size fullName; };
+    runInLinuxVM (
+      stdenv.mkDerivation {
+        inherit name preInstall postInstall rpms QEMU_OPTS memSize;
+        preVM = createEmptyImage { inherit size fullName; };
 
-      buildCommand = ''
-        ${createRootFS}
+        buildCommand = ''
+          ${createRootFS}
 
-        chroot=$(type -tP chroot)
+          chroot=$(type -tP chroot)
 
-        # Make the Nix store available in /mnt, because that's where the RPMs live.
-        mkdir -p /mnt${storeDir}
-        ${util-linux}/bin/mount -o bind ${storeDir} /mnt${storeDir}
+          # Make the Nix store available in /mnt, because that's where the RPMs live.
+          mkdir -p /mnt${storeDir}
+          ${util-linux}/bin/mount -o bind ${storeDir} /mnt${storeDir}
 
-        # Newer distributions like Fedora 18 require /lib etc. to be
-        # symlinked to /usr.
-        ${lib.optionalString unifiedSystemDir ''
-          mkdir -p /mnt/usr/bin /mnt/usr/sbin /mnt/usr/lib /mnt/usr/lib64
-          ln -s /usr/bin /mnt/bin
-          ln -s /usr/sbin /mnt/sbin
-          ln -s /usr/lib /mnt/lib
-          ln -s /usr/lib64 /mnt/lib64
-          ${util-linux}/bin/mount -t proc none /mnt/proc
-        ''}
+          # Newer distributions like Fedora 18 require /lib etc. to be
+          # symlinked to /usr.
+          ${lib.optionalString unifiedSystemDir ''
+            mkdir -p /mnt/usr/bin /mnt/usr/sbin /mnt/usr/lib /mnt/usr/lib64
+            ln -s /usr/bin /mnt/bin
+            ln -s /usr/sbin /mnt/sbin
+            ln -s /usr/lib /mnt/lib
+            ln -s /usr/lib64 /mnt/lib64
+            ${util-linux}/bin/mount -t proc none /mnt/proc
+          ''}
 
-        echo "unpacking RPMs..."
-        set +o pipefail
-        for i in $rpms; do
-            echo "$i..."
-            ${rpm}/bin/rpm2cpio "$i" | chroot /mnt ${cpio}/bin/cpio -i --make-directories --unconditional
-        done
+          echo "unpacking RPMs..."
+          set +o pipefail
+          for i in $rpms; do
+              echo "$i..."
+              ${rpm}/bin/rpm2cpio "$i" | chroot /mnt ${cpio}/bin/cpio -i --make-directories --unconditional
+          done
 
-        eval "$preInstall"
+          eval "$preInstall"
 
-        echo "initialising RPM DB..."
-        PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
-          ldconfig -v || true
-        PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
-          rpm --initdb
+          echo "initialising RPM DB..."
+          PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
+            ldconfig -v || true
+          PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
+            rpm --initdb
 
-        ${util-linux}/bin/mount -o bind /tmp /mnt/tmp
+          ${util-linux}/bin/mount -o bind /tmp /mnt/tmp
 
-        echo "installing RPMs..."
-        PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
-          rpm -iv --nosignature ${
-            if runScripts then
-              ""
-            else
-              "--noscripts"
-          } $rpms
+          echo "installing RPMs..."
+          PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
+            rpm -iv --nosignature ${
+              if runScripts then
+                ""
+              else
+                "--noscripts"
+            } $rpms
 
-        echo "running post-install script..."
-        eval "$postInstall"
+          echo "running post-install script..."
+          eval "$postInstall"
 
-        rm /mnt/.debug
+          rm /mnt/.debug
 
-        ${util-linux}/bin/umount /mnt${storeDir} /mnt/tmp ${
-          lib.optionalString unifiedSystemDir "/mnt/proc"
-        }
-        ${util-linux}/bin/umount /mnt
-      '';
+          ${util-linux}/bin/umount /mnt${storeDir} /mnt/tmp ${
+            lib.optionalString unifiedSystemDir "/mnt/proc"
+          }
+          ${util-linux}/bin/umount /mnt
+        '';
 
-      passthru = { inherit fullName; };
-    })
+        passthru = { inherit fullName; };
+      }
+    )
     ;
 
     /* Generate a script that can be used to run an interactive session
@@ -587,67 +599,69 @@ rec {
 
   buildRPM =
     attrs:
-    runInLinuxImage (stdenv.mkDerivation (
-      {
-        prePhases = [
-          "prepareImagePhase"
-          "sysInfoPhase"
-        ];
-        dontConfigure = true;
+    runInLinuxImage (
+      stdenv.mkDerivation (
+        {
+          prePhases = [
+            "prepareImagePhase"
+            "sysInfoPhase"
+          ];
+          dontConfigure = true;
 
-        outDir = "rpms/${attrs.diskImage.name}";
+          outDir = "rpms/${attrs.diskImage.name}";
 
-        prepareImagePhase = ''
-          if test -n "$extraRPMs"; then
-            for rpmdir in $extraRPMs ; do
-              rpm -iv $(ls $rpmdir/rpms/*/*.rpm | grep -v 'src\.rpm' | sort | head -1)
+          prepareImagePhase = ''
+            if test -n "$extraRPMs"; then
+              for rpmdir in $extraRPMs ; do
+                rpm -iv $(ls $rpmdir/rpms/*/*.rpm | grep -v 'src\.rpm' | sort | head -1)
+              done
+            fi
+          '';
+
+          sysInfoPhase = ''
+            echo "System/kernel: $(uname -a)"
+            if test -e /etc/fedora-release; then echo "Fedora release: $(cat /etc/fedora-release)"; fi
+            if test -e /etc/SuSE-release; then echo "SUSE release: $(cat /etc/SuSE-release)"; fi
+            echo "installed RPM packages"
+            rpm -qa --qf "%{Name}-%{Version}-%{Release} (%{Arch}; %{Distribution}; %{Vendor})\n"
+          '';
+
+          buildPhase = ''
+            eval "$preBuild"
+
+            srcName="$(rpmspec --srpm -q --qf '%{source}' *.spec)"
+            cp "$src" "$srcName" # `ln' doesn't work always work: RPM requires that the file is owned by root
+
+            export HOME=/tmp/home
+            mkdir $HOME
+
+            rpmout=/tmp/rpmout
+            mkdir $rpmout $rpmout/SPECS $rpmout/BUILD $rpmout/RPMS $rpmout/SRPMS
+
+            echo "%_topdir $rpmout" >> $HOME/.rpmmacros
+
+            if [ `uname -m` = i686 ]; then extra="--target i686-linux"; fi
+            rpmbuild -vv $extra -ta "$srcName"
+
+            eval "$postBuild"
+          '';
+
+          installPhase = ''
+            eval "$preInstall"
+
+            mkdir -p $out/$outDir
+            find $rpmout -name "*.rpm" -exec cp {} $out/$outDir \;
+
+            for i in $out/$outDir/*.rpm; do
+              echo "Generated RPM/SRPM: $i"
+              rpm -qip $i
             done
-          fi
-        '';
 
-        sysInfoPhase = ''
-          echo "System/kernel: $(uname -a)"
-          if test -e /etc/fedora-release; then echo "Fedora release: $(cat /etc/fedora-release)"; fi
-          if test -e /etc/SuSE-release; then echo "SUSE release: $(cat /etc/SuSE-release)"; fi
-          echo "installed RPM packages"
-          rpm -qa --qf "%{Name}-%{Version}-%{Release} (%{Arch}; %{Distribution}; %{Vendor})\n"
-        '';
-
-        buildPhase = ''
-          eval "$preBuild"
-
-          srcName="$(rpmspec --srpm -q --qf '%{source}' *.spec)"
-          cp "$src" "$srcName" # `ln' doesn't work always work: RPM requires that the file is owned by root
-
-          export HOME=/tmp/home
-          mkdir $HOME
-
-          rpmout=/tmp/rpmout
-          mkdir $rpmout $rpmout/SPECS $rpmout/BUILD $rpmout/RPMS $rpmout/SRPMS
-
-          echo "%_topdir $rpmout" >> $HOME/.rpmmacros
-
-          if [ `uname -m` = i686 ]; then extra="--target i686-linux"; fi
-          rpmbuild -vv $extra -ta "$srcName"
-
-          eval "$postBuild"
-        '';
-
-        installPhase = ''
-          eval "$preInstall"
-
-          mkdir -p $out/$outDir
-          find $rpmout -name "*.rpm" -exec cp {} $out/$outDir \;
-
-          for i in $out/$outDir/*.rpm; do
-            echo "Generated RPM/SRPM: $i"
-            rpm -qip $i
-          done
-
-          eval "$postInstall"
-        ''; # */
-      } // attrs
-    ))
+            eval "$postInstall"
+          ''; # */
+        } // attrs
+      )
+    )
     ;
 
     /* Create a filesystem image of the specified size and fill it with
@@ -668,93 +682,95 @@ rec {
       memSize ? 512
     }:
 
-    runInLinuxVM (stdenv.mkDerivation {
-      inherit name postInstall QEMU_OPTS memSize;
+    runInLinuxVM (
+      stdenv.mkDerivation {
+        inherit name postInstall QEMU_OPTS memSize;
 
-      debs = (lib.intersperse "|" debs);
+        debs = (lib.intersperse "|" debs);
 
-      preVM = createEmptyImage { inherit size fullName; };
+        preVM = createEmptyImage { inherit size fullName; };
 
-      buildCommand = ''
-        ${createRootFS}
+        buildCommand = ''
+          ${createRootFS}
 
-        PATH=$PATH:${
-          lib.makeBinPath [
-            pkgs.dpkg
-            pkgs.glibc
-            pkgs.xz
-          ]
-        }
+          PATH=$PATH:${
+            lib.makeBinPath [
+              pkgs.dpkg
+              pkgs.glibc
+              pkgs.xz
+            ]
+          }
 
-        # Unpack the .debs.  We do this to prevent pre-install scripts
-        # (which have lots of circular dependencies) from barfing.
-        echo "unpacking Debs..."
+          # Unpack the .debs.  We do this to prevent pre-install scripts
+          # (which have lots of circular dependencies) from barfing.
+          echo "unpacking Debs..."
 
-        for deb in $debs; do
-          if test "$deb" != "|"; then
-            echo "$deb..."
-            dpkg-deb --extract "$deb" /mnt
-          fi
-        done
-
-        # Make the Nix store available in /mnt, because that's where the .debs live.
-        mkdir -p /mnt/inst${storeDir}
-        ${util-linux}/bin/mount -o bind ${storeDir} /mnt/inst${storeDir}
-        ${util-linux}/bin/mount -o bind /proc /mnt/proc
-        ${util-linux}/bin/mount -o bind /dev /mnt/dev
-
-        # Misc. files/directories assumed by various packages.
-        echo "initialising Dpkg DB..."
-        touch /mnt/etc/shells
-        touch /mnt/var/lib/dpkg/status
-        touch /mnt/var/lib/dpkg/available
-        touch /mnt/var/lib/dpkg/diversions
-
-        # Now install the .debs.  This is basically just to register
-        # them with dpkg and to make their pre/post-install scripts
-        # run.
-        echo "installing Debs..."
-
-        export DEBIAN_FRONTEND=noninteractive
-
-        oldIFS="$IFS"
-        IFS="|"
-        for component in $debs; do
-          IFS="$oldIFS"
-          echo
-          echo ">>> INSTALLING COMPONENT: $component"
-          debs=
-          for i in $component; do
-            debs="$debs /inst/$i";
+          for deb in $debs; do
+            if test "$deb" != "|"; then
+              echo "$deb..."
+              dpkg-deb --extract "$deb" /mnt
+            fi
           done
-          chroot=$(type -tP chroot)
 
-          # Create a fake start-stop-daemon script, as done in debootstrap.
-          mv "/mnt/sbin/start-stop-daemon" "/mnt/sbin/start-stop-daemon.REAL"
-          echo "#!/bin/true" > "/mnt/sbin/start-stop-daemon"
-          chmod 755 "/mnt/sbin/start-stop-daemon"
+          # Make the Nix store available in /mnt, because that's where the .debs live.
+          mkdir -p /mnt/inst${storeDir}
+          ${util-linux}/bin/mount -o bind ${storeDir} /mnt/inst${storeDir}
+          ${util-linux}/bin/mount -o bind /proc /mnt/proc
+          ${util-linux}/bin/mount -o bind /dev /mnt/dev
 
-          PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
-            /usr/bin/dpkg --install --force-all $debs < /dev/null || true
+          # Misc. files/directories assumed by various packages.
+          echo "initialising Dpkg DB..."
+          touch /mnt/etc/shells
+          touch /mnt/var/lib/dpkg/status
+          touch /mnt/var/lib/dpkg/available
+          touch /mnt/var/lib/dpkg/diversions
 
-          # Move the real start-stop-daemon back into its place.
-          mv "/mnt/sbin/start-stop-daemon.REAL" "/mnt/sbin/start-stop-daemon"
-        done
+          # Now install the .debs.  This is basically just to register
+          # them with dpkg and to make their pre/post-install scripts
+          # run.
+          echo "installing Debs..."
 
-        echo "running post-install script..."
-        eval "$postInstall"
-        ln -sf dash /mnt/bin/sh
+          export DEBIAN_FRONTEND=noninteractive
 
-        rm /mnt/.debug
+          oldIFS="$IFS"
+          IFS="|"
+          for component in $debs; do
+            IFS="$oldIFS"
+            echo
+            echo ">>> INSTALLING COMPONENT: $component"
+            debs=
+            for i in $component; do
+              debs="$debs /inst/$i";
+            done
+            chroot=$(type -tP chroot)
 
-        ${util-linux}/bin/umount /mnt/inst${storeDir}
-        ${util-linux}/bin/umount /mnt/proc
-        ${util-linux}/bin/umount /mnt/dev
-        ${util-linux}/bin/umount /mnt
-      '';
+            # Create a fake start-stop-daemon script, as done in debootstrap.
+            mv "/mnt/sbin/start-stop-daemon" "/mnt/sbin/start-stop-daemon.REAL"
+            echo "#!/bin/true" > "/mnt/sbin/start-stop-daemon"
+            chmod 755 "/mnt/sbin/start-stop-daemon"
 
-      passthru = { inherit fullName; };
-    })
+            PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
+              /usr/bin/dpkg --install --force-all $debs < /dev/null || true
+
+            # Move the real start-stop-daemon back into its place.
+            mv "/mnt/sbin/start-stop-daemon.REAL" "/mnt/sbin/start-stop-daemon"
+          done
+
+          echo "running post-install script..."
+          eval "$postInstall"
+          ln -sf dash /mnt/bin/sh
+
+          rm /mnt/.debug
+
+          ${util-linux}/bin/umount /mnt/inst${storeDir}
+          ${util-linux}/bin/umount /mnt/proc
+          ${util-linux}/bin/umount /mnt/dev
+          ${util-linux}/bin/umount /mnt
+        '';
+
+        passthru = { inherit fullName; };
+      }
+    )
     ;
 
     /* Generate a Nix expression containing fetchurl calls for the
@@ -771,23 +787,27 @@ rec {
       archs ? [ ]
     }:
     assert (builtins.length packagesLists) == (builtins.length urlPrefixes);
-    runCommand "${name}.nix" {
+    runCommand "${name}.nix"
+    {
       nativeBuildInputs = [
         buildPackages.perl
         buildPackages.perlPackages.XMLSimple
       ];
       inherit archs;
-    } ''
-      ${lib.concatImapStrings (
+    }
+    ''
+      ${lib.concatImapStrings
+      (
         i: pl: ''
           gunzip < ${pl} > ./packages_${toString i}.xml
         ''
-      ) packagesLists}
+      )
+      packagesLists}
       perl -w ${rpm/rpm-closure.pl} \
         ${
-          lib.concatImapStrings (
-            i: pl: "./packages_${toString i}.xml ${pl.snd} "
-          ) (lib.zipLists packagesLists urlPrefixes)
+          lib.concatImapStrings
+          (i: pl: "./packages_${toString i}.xml ${pl.snd} ")
+          (lib.zipLists packagesLists urlPrefixes)
         } \
         ${toString packages} > $out
     ''
@@ -835,10 +855,14 @@ rec {
         QEMU_OPTS
         memSize
         ;
-      rpms = import (rpmClosureGenerator {
-        inherit name packagesLists urlPrefixes archs;
-        packages = packages ++ extraPackages;
-      }) { inherit fetchurl; };
+      rpms = import
+        (rpmClosureGenerator {
+          inherit name packagesLists urlPrefixes archs;
+          packages = packages ++ extraPackages;
+        })
+        {
+          inherit fetchurl;
+        };
     }
     ;
 
@@ -854,12 +878,14 @@ rec {
       packages,
     }:
 
-    runCommand "${name}.nix" {
+    runCommand "${name}.nix"
+    {
       nativeBuildInputs = [
         buildPackages.perl
         buildPackages.dpkg
       ];
-    } ''
+    }
+    ''
       for i in ${toString packagesLists}; do
         echo "adding $i..."
         case $i in
@@ -1480,12 +1506,13 @@ rec {
     */
   diskImageFuns =
     (lib.mapAttrs (name: as: as2: makeImageFromRPMDist (as // as2)) rpmDistros)
-    // (lib.mapAttrs (name: as: as2: makeImageFromDebDist (as // as2))
+    // (lib.mapAttrs
+      (name: as: as2: makeImageFromDebDist (as // as2))
       debDistros);
 
     # Shorthand for `diskImageFuns.<attr> { extraPackages = ... }'.
-  diskImageExtraFuns =
-    lib.mapAttrs (name: f: extraPackages: f { inherit extraPackages; })
+  diskImageExtraFuns = lib.mapAttrs
+    (name: f: extraPackages: f { inherit extraPackages; })
     diskImageFuns;
 
     /* Default disk images generated from the `rpmDistros' and

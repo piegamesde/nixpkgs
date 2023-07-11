@@ -79,9 +79,11 @@ let
     }
     ;
 in
-mkProtobufDerivation (
+mkProtobufDerivation
+(
   if (stdenv.buildPlatform != stdenv.hostPlatform) then
     (mkProtobufDerivation null buildPackages.stdenv)
   else
     null
-) stdenv
+)
+stdenv

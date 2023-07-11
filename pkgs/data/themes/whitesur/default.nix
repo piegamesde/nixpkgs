@@ -30,17 +30,30 @@ let
   single = x: lib.optional (x != null) x;
 
 in
-lib.checkListOfEnum "${pname}: alt variants" [
+lib.checkListOfEnum "${pname}: alt variants"
+[
   "normal"
   "alt"
   "all"
-] altVariants lib.checkListOfEnum "${pname}: color variants" [
+]
+altVariants
+lib.checkListOfEnum
+"${pname}: color variants"
+[
   "light"
   "dark"
-] colorVariants lib.checkListOfEnum "${pname}: opacity variants" [
+]
+colorVariants
+lib.checkListOfEnum
+"${pname}: opacity variants"
+[
   "normal"
   "solid"
-] opacityVariants lib.checkListOfEnum "${pname}: theme variants" [
+]
+opacityVariants
+lib.checkListOfEnum
+"${pname}: theme variants"
+[
   "default"
   "blue"
   "purple"
@@ -51,26 +64,40 @@ lib.checkListOfEnum "${pname}: alt variants" [
   "green"
   "grey"
   "all"
-] themeVariants lib.checkListOfEnum "${pname}: nautilus sidebar minimum width" [
+]
+themeVariants
+lib.checkListOfEnum
+"${pname}: nautilus sidebar minimum width"
+[
   "default"
   "180"
   "220"
   "240"
   "260"
   "280"
-] (single nautilusSize) lib.checkListOfEnum "${pname}: panel opacity" [
+]
+(single nautilusSize)
+lib.checkListOfEnum
+"${pname}: panel opacity"
+[
   "default"
   "30"
   "45"
   "60"
   "75"
-] (single panelOpacity) lib.checkListOfEnum "${pname}: panel size" [
+]
+(single panelOpacity)
+lib.checkListOfEnum
+"${pname}: panel size"
+[
   "default"
   "smaller"
   "bigger"
-] (single panelSize)
+]
+(single panelSize)
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   pname = "whitesur-gtk-theme";
   version = "2023-02-07";
 

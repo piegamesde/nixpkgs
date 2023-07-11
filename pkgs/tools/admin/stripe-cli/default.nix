@@ -41,18 +41,20 @@ buildGoModule rec {
       rm pkg/git/editor_test.go
       rm pkg/rpcservice/sample_create_test.go
     ''
-    + lib.optionalString (
-      # delete plugin tests on all platforms but exact matches
-      # https://github.com/stripe/stripe-cli/issues/850
-      !lib.lists.any (
-        platform: lib.meta.platformMatch stdenv.hostPlatform platform
-      ) [
-        "x86_64-linux"
-        "x86_64-darwin"
-      ]
-    ) ''
-      rm pkg/plugins/plugin_test.go
-    ''
+    + lib.optionalString
+      (
+        # delete plugin tests on all platforms but exact matches
+        # https://github.com/stripe/stripe-cli/issues/850
+        !lib.lists.any
+        (platform: lib.meta.platformMatch stdenv.hostPlatform platform)
+        [
+          "x86_64-linux"
+          "x86_64-darwin"
+        ]
+      )
+      ''
+        rm pkg/plugins/plugin_test.go
+      ''
     ;
 
   postInstall = ''

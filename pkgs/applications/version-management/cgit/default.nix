@@ -5,7 +5,8 @@
   luajit,
 }:
 
-callPackage (import ./common.nix rec {
+callPackage
+(import ./common.nix rec {
   pname = "cgit";
   version = "1.2.3";
 
@@ -27,4 +28,5 @@ callPackage (import ./common.nix rec {
   homepage = "https://git.zx2c4.com/cgit/about/";
   description = "Web frontend for git repositories";
   maintainers = with lib.maintainers; [ bjornfor ];
-}) { }
+})
+{ }

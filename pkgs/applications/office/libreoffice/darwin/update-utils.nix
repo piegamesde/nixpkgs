@@ -9,8 +9,9 @@ let
       majorMinorPatchGroup = "([0-9]+\\.[0-9]+\\.[0-9]+)";
       splittedVersions =
         builtins.split ''href="${majorMinorPatchGroup}'' htmlString;
-      stableVersions = builtins.concatLists
-        (builtins.filter (e: builtins.isList e) splittedVersions);
+      stableVersions = builtins.concatLists (
+        builtins.filter (e: builtins.isList e) splittedVersions
+      );
     in
     if stableVersions == [ ] then
       abort "Failed to extract versions from html."
@@ -25,8 +26,9 @@ let
     ;
 
     # getLatestStableVersion :: String
-  getLatestStableVersion = extractLatestVersionFromHtml
-    (getHtml "https://download.documentfoundation.org/libreoffice/stable/");
+  getLatestStableVersion = extractLatestVersionFromHtml (
+    getHtml "https://download.documentfoundation.org/libreoffice/stable/"
+  );
 
     # extractSha256FromHtml :: String -> String
   extractSha256FromHtml =

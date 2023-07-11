@@ -32,13 +32,15 @@ let
     # and because JSON is a valid subset of YAML.
   makeCheckConfigs =
     entries:
-    mapAttrs' (
+    mapAttrs'
+    (
       name: conf: {
         name = "datadog-agent/conf.d/${name}.d/conf.yaml";
         value.source =
           pkgs.writeText "${name}-check-conf.yaml" (builtins.toJSON conf);
       }
-    ) entries
+    )
+    entries
     ;
 
   defaultChecks = {
@@ -130,12 +132,14 @@ in
     logLevel = mkOption {
       description = lib.mdDoc "Logging verbosity.";
       default = null;
-      type = types.nullOr (types.enum [
-        "DEBUG"
-        "INFO"
-        "WARN"
-        "ERROR"
-      ]);
+      type = types.nullOr (
+        types.enum [
+          "DEBUG"
+          "INFO"
+          "WARN"
+          "ERROR"
+        ]
+      );
     };
 
     extraIntegrations = mkOption {
@@ -270,7 +274,8 @@ in
       let
         makeService =
           attrs:
-          recursiveUpdate {
+          recursiveUpdate
+          {
             path = [
               datadogPkg
               pkgs.sysstat
@@ -286,7 +291,8 @@ in
             };
             restartTriggers =
               [ datadogPkg ] ++ map (x: x.source) (attrValues etcfiles);
-          } attrs
+          }
+          attrs
           ;
       in
       {
@@ -303,36 +309,41 @@ in
           serviceConfig.PermissionsStartOnly = true;
         };
 
-        dd-jmxfetch = lib.mkIf (lib.hasAttr "jmx" cfg.checks) (makeService {
-          description = "Datadog JMX Fetcher";
-          path = [
-            datadogPkg
-            pkgs.python
-            pkgs.sysstat
-            pkgs.procps
-            pkgs.jdk
-          ];
-          serviceConfig.ExecStart = "${datadogPkg}/bin/dd-jmxfetch";
-        });
+        dd-jmxfetch = lib.mkIf (lib.hasAttr "jmx" cfg.checks) (
+          makeService {
+            description = "Datadog JMX Fetcher";
+            path = [
+              datadogPkg
+              pkgs.python
+              pkgs.sysstat
+              pkgs.procps
+              pkgs.jdk
+            ];
+            serviceConfig.ExecStart = "${datadogPkg}/bin/dd-jmxfetch";
+          }
+        );
 
-        datadog-process-agent = lib.mkIf cfg.enableLiveProcessCollection
-          (makeService {
+        datadog-process-agent = lib.mkIf cfg.enableLiveProcessCollection (
+          makeService {
             description = "Datadog Live Process Agent";
             path = [ ];
             script = ''
               export DD_API_KEY=$(head -n 1 ${cfg.apiKeyFile})
               ${pkgs.datadog-process-agent}/bin/process-agent --config /etc/datadog-agent/datadog.yaml
             '';
-          });
+          }
+        );
 
-        datadog-trace-agent = lib.mkIf cfg.enableTraceAgent (makeService {
-          description = "Datadog Trace Agent";
-          path = [ ];
-          script = ''
-            export DD_API_KEY=$(head -n 1 ${cfg.apiKeyFile})
-            ${datadogPkg}/bin/trace-agent -config /etc/datadog-agent/datadog.yaml
-          '';
-        });
+        datadog-trace-agent = lib.mkIf cfg.enableTraceAgent (
+          makeService {
+            description = "Datadog Trace Agent";
+            path = [ ];
+            script = ''
+              export DD_API_KEY=$(head -n 1 ${cfg.apiKeyFile})
+              ${datadogPkg}/bin/trace-agent -config /etc/datadog-agent/datadog.yaml
+            '';
+          }
+        );
 
       }
       ;

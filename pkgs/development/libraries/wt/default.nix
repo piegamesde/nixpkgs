@@ -69,7 +69,8 @@ let
           "-DWT_WRASTERIMAGE_IMPLEMENTATION=GraphicsMagick"
           "-DGM_PREFIX=${graphicsmagick}"
         ]
-        ++ lib.optional (libmysqlclient != null)
+        ++ lib.optional
+          (libmysqlclient != null)
           "-DMYSQL_PREFIX=${libmysqlclient}"
         ;
 

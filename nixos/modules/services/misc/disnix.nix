@@ -31,8 +31,9 @@ in
           ;
       };
 
-      useWebServiceInterface = mkEnableOption
-        (lib.mdDoc "the DisnixWebService interface running on Apache Tomcat");
+      useWebServiceInterface = mkEnableOption (
+        lib.mdDoc "the DisnixWebService interface running on Apache Tomcat"
+      );
 
       package = mkOption {
         type = types.path;
@@ -41,8 +42,9 @@ in
         defaultText = literalExpression "pkgs.disnix";
       };
 
-      enableProfilePath = mkEnableOption
-        (lib.mdDoc "exposing the Disnix profiles in the system's PATH");
+      enableProfilePath = mkEnableOption (
+        lib.mdDoc "exposing the Disnix profiles in the system's PATH"
+      );
 
       profiles = mkOption {
         type = types.listOf types.str;
@@ -63,9 +65,11 @@ in
       [ pkgs.disnix ]
       ++ optional cfg.useWebServiceInterface pkgs.DisnixWebService
       ;
-    environment.variables.PATH = lib.optionals cfg.enableProfilePath
-      (map (profileName: "/nix/var/nix/profiles/disnix/${profileName}/bin")
-        cfg.profiles);
+    environment.variables.PATH = lib.optionals cfg.enableProfilePath (
+      map
+      (profileName: "/nix/var/nix/profiles/disnix/${profileName}/bin")
+      cfg.profiles
+    );
     environment.variables.DISNIX_REMOTE_CLIENT =
       lib.optionalString (cfg.enableMultiUser) "disnix-client";
 
@@ -76,13 +80,16 @@ in
     services.tomcat.extraGroups = [ "disnix" ];
     services.tomcat.javaOpts =
       "${
-        optionalString cfg.useWebServiceInterface
+        optionalString
+        cfg.useWebServiceInterface
         "-Djava.library.path=${pkgs.libmatthew_java}/lib/jni"
       } ";
     services.tomcat.sharedLibs =
-      optional cfg.useWebServiceInterface
+      optional
+        cfg.useWebServiceInterface
         "${pkgs.DisnixWebService}/share/java/DisnixConnection.jar"
-      ++ optional cfg.useWebServiceInterface
+      ++ optional
+        cfg.useWebServiceInterface
         "${pkgs.dbus_java}/share/java/dbus.jar"
       ;
     services.tomcat.webapps =

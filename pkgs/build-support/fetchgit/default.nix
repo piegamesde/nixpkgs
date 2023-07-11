@@ -16,8 +16,8 @@ let
 
       short = builtins.substring 0 7 rev;
 
-      appendShort =
-        lib.optionalString ((builtins.match "[a-f0-9]*" rev) != null)
+      appendShort = lib.optionalString
+        ((builtins.match "[a-f0-9]*" rev) != null)
         "-${short}";
     in
     "${
@@ -87,7 +87,8 @@ else
 # Added 2022-11-12
   lib.warnIf (builtins.isString sparseCheckout)
   "Please provide directories/patterns for sparse checkout as a list of strings. Support for passing a (multi-line) string is deprecated and will be removed in the next release."
-  stdenvNoCC.mkDerivation {
+  stdenvNoCC.mkDerivation
+  {
     inherit name;
     builder = ./builder.sh;
     fetcher = ./nix-prefetch-git;

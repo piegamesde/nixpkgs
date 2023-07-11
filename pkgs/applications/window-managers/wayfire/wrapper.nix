@@ -22,13 +22,15 @@ let
   plugins = choosePlugins wayfirePlugins;
 
 in
-runCommand "${application.name}-wrapped" {
+runCommand "${application.name}-wrapped"
+{
   nativeBuildInputs = [ makeWrapper ];
 
   passthru = application.passthru // { unwrapped = application; };
 
   inherit (application) meta;
-} ''
+}
+''
   mkdir -p $out/bin
   for bin in ${application}/bin/*
   do

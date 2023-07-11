@@ -30,15 +30,16 @@ let
       nodesList = map (c: c.system.name) (lib.attrValues config.nodes);
     in
     nodesList
-    ++ lib.optional (lib.length nodesList == 1 && !lib.elem "machine" nodesList)
+    ++ lib.optional
+      (lib.length nodesList == 1 && !lib.elem "machine" nodesList)
       "machine"
     ;
 
     # TODO: This is an implementation error and needs fixing
     # the testing famework cannot legitimately restrict hostnames further
     # beyond RFC1035
-  invalidNodeNames =
-    lib.filter (node: builtins.match "^[A-z_]([A-z0-9_]+)?$" node == null)
+  invalidNodeNames = lib.filter
+    (node: builtins.match "^[A-z_]([A-z0-9_]+)?$" node == null)
     nodeHostNames;
 
   uniqueVlans = lib.unique (builtins.concatLists vlans);
@@ -61,62 +62,72 @@ let
       lib.warnIf config.skipLint "Linting is disabled"
     ;
 
-  driver = hostPkgs.runCommand "nixos-test-driver-${config.name}" {
-    # inherit testName; TODO (roberth): need this?
-    nativeBuildInputs =
-      [ hostPkgs.makeWrapper ]
-      ++ lib.optionals (!config.skipTypeCheck) [ hostPkgs.mypy ]
-      ;
-    buildInputs = [ testDriver ];
-    testScript = config.testScriptString;
-    preferLocalBuild = true;
-    passthru = config.passthru;
-    meta = config.meta // { mainProgram = "nixos-test-driver"; };
-  } ''
-    mkdir -p $out/bin
+  driver = hostPkgs.runCommand "nixos-test-driver-${config.name}"
+    {
+      # inherit testName; TODO (roberth): need this?
+      nativeBuildInputs =
+        [ hostPkgs.makeWrapper ]
+        ++ lib.optionals (!config.skipTypeCheck) [ hostPkgs.mypy ]
+        ;
+      buildInputs = [ testDriver ];
+      testScript = config.testScriptString;
+      preferLocalBuild = true;
+      passthru = config.passthru;
+      meta = config.meta // { mainProgram = "nixos-test-driver"; };
+    }
+    ''
+      mkdir -p $out/bin
 
-    vmStartScripts=($(for i in ${toString vms}; do echo $i/bin/run-*-vm; done))
+      vmStartScripts=($(for i in ${
+        toString vms
+      }; do echo $i/bin/run-*-vm; done))
 
-    ${lib.optionalString (!config.skipTypeCheck) ''
-      # prepend type hints so the test script can be type checked with mypy
-      cat "${../test-script-prepend.py}" >> testScriptWithTypes
-      echo "${builtins.toString machineNames}" >> testScriptWithTypes
-      echo "${builtins.toString vlanNames}" >> testScriptWithTypes
-      echo -n "$testScript" >> testScriptWithTypes
+      ${lib.optionalString (!config.skipTypeCheck) ''
+        # prepend type hints so the test script can be type checked with mypy
+        cat "${../test-script-prepend.py}" >> testScriptWithTypes
+        echo "${builtins.toString machineNames}" >> testScriptWithTypes
+        echo "${builtins.toString vlanNames}" >> testScriptWithTypes
+        echo -n "$testScript" >> testScriptWithTypes
 
-      cat -n testScriptWithTypes
+        cat -n testScriptWithTypes
 
-      mypy  --no-implicit-optional \
-            --pretty \
-            --no-color-output \
-            testScriptWithTypes
-    ''}
+        mypy  --no-implicit-optional \
+              --pretty \
+              --no-color-output \
+              testScriptWithTypes
+      ''}
 
-    echo -n "$testScript" >> $out/test-script
+      echo -n "$testScript" >> $out/test-script
 
-    ln -s ${testDriver}/bin/nixos-test-driver $out/bin/nixos-test-driver
+      ln -s ${testDriver}/bin/nixos-test-driver $out/bin/nixos-test-driver
 
-    ${testDriver}/bin/generate-driver-symbols
-    ${lib.optionalString (!config.skipLint) ''
-      PYFLAKES_BUILTINS="$(
-        echo -n ${lib.escapeShellArg (lib.concatStringsSep "," nodeHostNames)},
-        < ${lib.escapeShellArg "driver-symbols"}
-      )" ${hostPkgs.python3Packages.pyflakes}/bin/pyflakes $out/test-script
-    ''}
+      ${testDriver}/bin/generate-driver-symbols
+      ${lib.optionalString (!config.skipLint) ''
+        PYFLAKES_BUILTINS="$(
+          echo -n ${
+            lib.escapeShellArg (lib.concatStringsSep "," nodeHostNames)
+          },
+          < ${lib.escapeShellArg "driver-symbols"}
+        )" ${hostPkgs.python3Packages.pyflakes}/bin/pyflakes $out/test-script
+      ''}
 
-    # set defaults through environment
-    # see: ./test-driver/test-driver.py argparse implementation
-    wrapProgram $out/bin/nixos-test-driver \
-      --set startScripts "''${vmStartScripts[*]}" \
-      --set testScript "$out/test-script" \
-      --set vlans '${toString vlans}' \
-      ${
-        lib.escapeShellArgs (lib.concatMap (arg: [
-          "--add-flags"
-          arg
-        ]) config.extraDriverArgs)
-      }
-  '';
+      # set defaults through environment
+      # see: ./test-driver/test-driver.py argparse implementation
+      wrapProgram $out/bin/nixos-test-driver \
+        --set startScripts "''${vmStartScripts[*]}" \
+        --set testScript "$out/test-script" \
+        --set vlans '${toString vlans}' \
+        ${
+          lib.escapeShellArgs (
+            lib.concatMap
+            (arg: [
+              "--add-flags"
+              arg
+            ])
+            config.extraDriverArgs
+          )
+        }
+    '';
 
 in
 {

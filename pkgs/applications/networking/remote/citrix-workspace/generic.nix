@@ -157,7 +157,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (lib.versionOlder version "20.04") 0.0 fsprogs
     ++ lib.optional (lib.versionAtLeast version "20.10") libpulseaudio
-    ++ lib.optional (lib.versionAtLeast version "21.12")
+    ++ lib.optional
+      (lib.versionAtLeast version "21.12")
       llvmPackages_12.libunwind
     ;
 
@@ -197,8 +198,8 @@ stdenv.mkDerivation rec {
         program: ''
           wrapProgram $out/opt/citrix-icaclient/${program} \
             ${
-              lib.optionalString (icaFlag program != null)
-              ''--add-flags "${icaFlag program} $ICAInstDir"''
+              lib.optionalString (icaFlag program != null) ''
+                --add-flags "${icaFlag program} $ICAInstDir"''
             } \
             --set ICAROOT "$ICAInstDir" \
             --prefix LD_LIBRARY_PATH : "$ICAInstDir:$ICAInstDir/lib" \

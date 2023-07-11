@@ -14,7 +14,8 @@ let
   pname = "webtorrent-desktop";
   version = "0.21.0";
 in
-runCommand "${pname}-${version}" rec {
+runCommand "${pname}-${version}"
+rec {
   inherit (stdenv) shell;
   inherit pname version;
   src =
@@ -106,7 +107,8 @@ runCommand "${pname}-${version}" rec {
     platforms = [ "x86_64-linux" ];
   };
 
-} ''
+}
+''
   mkdir -p $out/{bin,share/{applications,icons/hicolor/{48x48,256x256}/apps}}
 
   cp $fhs/bin/fhsEnterWebTorrent $out/bin/WebTorrent

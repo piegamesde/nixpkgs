@@ -15,28 +15,34 @@ in
 {
   imports =
     [
-      (mkRemovedOptionModule [
-        "stubby"
-        "debugLogging"
-      ] ''Use services.stubby.logLevel = "debug"; instead.'')
+      (mkRemovedOptionModule
+        [
+          "stubby"
+          "debugLogging"
+        ]
+        ''Use services.stubby.logLevel = "debug"; instead.'')
     ]
-    ++ map (
-      x:
-      (mkRemovedOptionModule [
-        "services"
-        "stubby"
-        x
-      ] "Stubby configuration moved to services.stubby.settings.")
-    ) [
-      "authenticationMode"
-      "fallbackProtocols"
-      "idleTimeout"
-      "listenAddresses"
-      "queryPaddingBlocksize"
-      "roundRobinUpstreams"
-      "subnetPrivate"
-      "upstreamServers"
-    ]
+    ++ map
+      (
+        x:
+        (mkRemovedOptionModule
+          [
+            "services"
+            "stubby"
+            x
+          ]
+          "Stubby configuration moved to services.stubby.settings.")
+      )
+      [
+        "authenticationMode"
+        "fallbackProtocols"
+        "idleTimeout"
+        "listenAddresses"
+        "queryPaddingBlocksize"
+        "roundRobinUpstreams"
+        "subnetPrivate"
+        "upstreamServers"
+      ]
     ;
 
   options = {
@@ -83,8 +89,9 @@ in
         in
         mkOption {
           default = null;
-          type = types.nullOr
-            (types.enum (attrNames logLevels ++ attrValues logLevels));
+          type = types.nullOr (
+            types.enum (attrNames logLevels ++ attrValues logLevels)
+          );
           apply =
             v:
             if isString v then

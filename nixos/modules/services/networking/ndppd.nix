@@ -19,27 +19,31 @@ let
       b
     ;
 
-  ndppdConf = prefer cfg.configFile (pkgs.writeText "ndppd.conf" ''
-    route-ttl ${toString cfg.routeTTL}
-    ${render cfg.proxies (
-      proxyInterfaceName: proxy: ''
-        proxy ${prefer proxy.interface proxyInterfaceName} {
-          router ${boolToString proxy.router}
-          timeout ${toString proxy.timeout}
-          ttl ${toString proxy.ttl}
-          ${
-            render proxy.rules (
-              ruleNetworkName: rule: ''
-                rule ${prefer rule.network ruleNetworkName} {
-                  ${rule.method}${
-                    optionalString (rule.method == "iface") " ${rule.interface}"
-                  }
-                }''
-            )
-          }
-        }''
-    )}
-  '');
+  ndppdConf = prefer cfg.configFile (
+    pkgs.writeText "ndppd.conf" ''
+      route-ttl ${toString cfg.routeTTL}
+      ${render cfg.proxies (
+        proxyInterfaceName: proxy: ''
+          proxy ${prefer proxy.interface proxyInterfaceName} {
+            router ${boolToString proxy.router}
+            timeout ${toString proxy.timeout}
+            ttl ${toString proxy.ttl}
+            ${
+              render proxy.rules (
+                ruleNetworkName: rule: ''
+                  rule ${prefer rule.network ruleNetworkName} {
+                    ${rule.method}${
+                      optionalString
+                      (rule.method == "iface")
+                      " ${rule.interface}"
+                    }
+                  }''
+              )
+            }
+          }''
+      )}
+    ''
+  );
 
   proxy = types.submodule {
     options = {
@@ -127,9 +131,10 @@ let
 in
 {
   options.services.ndppd = {
-    enable = mkEnableOption (lib.mdDoc
-      "daemon that proxies NDP (Neighbor Discovery Protocol) messages between interfaces")
-      ;
+    enable = mkEnableOption (
+      lib.mdDoc
+      "daemon that proxies NDP (Neighbor Discovery Protocol) messages between interfaces"
+    );
     interface = mkOption {
       type = types.nullOr types.str;
       description = lib.mdDoc ''

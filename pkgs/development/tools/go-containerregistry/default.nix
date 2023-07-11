@@ -42,11 +42,15 @@ buildGoModule rec {
     ]
     ;
 
-  postInstall = lib.concatStringsSep "\n" (map (bin: ''
-    mkdir -p ''$${bin}/bin &&
-    mv $out/bin/${bin} ''$${bin}/bin/ &&
-    ln -s ''$${bin}/bin/${bin} $out/bin/
-  '') bins);
+  postInstall = lib.concatStringsSep "\n" (
+    map
+    (bin: ''
+      mkdir -p ''$${bin}/bin &&
+      mv $out/bin/${bin} ''$${bin}/bin/ &&
+      ln -s ''$${bin}/bin/${bin} $out/bin/
+    '')
+    bins
+  );
 
     # NOTE: no tests
   doCheck = false;

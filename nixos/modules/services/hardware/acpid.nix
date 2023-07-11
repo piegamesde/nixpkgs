@@ -65,23 +65,25 @@ in
       };
 
       handlers = mkOption {
-        type = types.attrsOf (types.submodule {
-          options = {
-            event = mkOption {
-              type = types.str;
-              example = literalExpression ''
-                "button/power.*" "button/lid.*" "ac_adapter.*" "button/mute.*" "button/volumedown.*" "cd/play.*" "cd/next.*"''
-                ;
-              description = lib.mdDoc "Event type.";
-            };
+        type = types.attrsOf (
+          types.submodule {
+            options = {
+              event = mkOption {
+                type = types.str;
+                example = literalExpression ''
+                  "button/power.*" "button/lid.*" "ac_adapter.*" "button/mute.*" "button/volumedown.*" "cd/play.*" "cd/next.*"''
+                  ;
+                description = lib.mdDoc "Event type.";
+              };
 
-            action = mkOption {
-              type = types.lines;
-              description = lib.mdDoc
-                "Shell commands to execute when the event is triggered.";
+              action = mkOption {
+                type = types.lines;
+                description = lib.mdDoc
+                  "Shell commands to execute when the event is triggered.";
+              };
             };
-          };
-        });
+          }
+        );
 
         description = lib.mdDoc ''
           Event handlers.

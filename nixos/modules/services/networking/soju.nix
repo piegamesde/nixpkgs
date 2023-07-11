@@ -11,7 +11,8 @@ let
   cfg = config.services.soju;
   stateDir = "/var/lib/soju";
   listenCfg = concatMapStringsSep "\n" (l: "listen ${l}") cfg.listen;
-  tlsCfg = optionalString (cfg.tlsCertificate != null)
+  tlsCfg = optionalString
+    (cfg.tlsCertificate != null)
     "tls ${cfg.tlsCertificate} ${cfg.tlsCertificateKey}";
   logCfg = optionalString cfg.enableMessageLogging "log fs ${stateDir}/logs";
 

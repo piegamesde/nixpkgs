@@ -139,66 +139,80 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule [
-      "services"
-      "minidlna"
-      "config"
-    ] "")
-    (mkRemovedOptionModule [
-      "services"
-      "minidlna"
-      "extraConfig"
-    ] "")
-    (mkRenamedOptionModule [
-      "services"
-      "minidlna"
-      "loglevel"
-    ] [
-      "services"
-      "minidlna"
-      "settings"
-      "log_level"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "minidlna"
-      "rootContainer"
-    ] [
-      "services"
-      "minidlna"
-      "settings"
-      "root_container"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "minidlna"
-      "mediaDirs"
-    ] [
-      "services"
-      "minidlna"
-      "settings"
-      "media_dir"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "minidlna"
-      "friendlyName"
-    ] [
-      "services"
-      "minidlna"
-      "settings"
-      "friendly_name"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "minidlna"
-      "announceInterval"
-    ] [
-      "services"
-      "minidlna"
-      "settings"
-      "notify_interval"
-    ])
+    (mkRemovedOptionModule
+      [
+        "services"
+        "minidlna"
+        "config"
+      ]
+      "")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "minidlna"
+        "extraConfig"
+      ]
+      "")
+    (mkRenamedOptionModule
+      [
+        "services"
+        "minidlna"
+        "loglevel"
+      ]
+      [
+        "services"
+        "minidlna"
+        "settings"
+        "log_level"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "minidlna"
+        "rootContainer"
+      ]
+      [
+        "services"
+        "minidlna"
+        "settings"
+        "root_container"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "minidlna"
+        "mediaDirs"
+      ]
+      [
+        "services"
+        "minidlna"
+        "settings"
+        "media_dir"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "minidlna"
+        "friendlyName"
+      ]
+      [
+        "services"
+        "minidlna"
+        "settings"
+        "friendly_name"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "minidlna"
+        "announceInterval"
+      ]
+      [
+        "services"
+        "minidlna"
+        "settings"
+        "notify_interval"
+      ])
   ];
 
     ###### implementation

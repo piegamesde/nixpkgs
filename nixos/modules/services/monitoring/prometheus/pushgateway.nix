@@ -15,8 +15,8 @@ let
     ++ opt "web.telemetry-path" cfg.web.telemetry-path
     ++ opt "web.external-url" cfg.web.external-url
     ++ opt "web.route-prefix" cfg.web.route-prefix
-    ++ optional cfg.persistMetrics
-      ''--persistence.file="/var/lib/${cfg.stateDir}/metrics"''
+    ++ optional cfg.persistMetrics ''
+      --persistence.file="/var/lib/${cfg.stateDir}/metrics"''
     ++ opt "persistence.interval" cfg.persistence.interval
     ++ opt "log.level" cfg.log.level
     ++ opt "log.format" cfg.log.format
@@ -91,13 +91,15 @@ in
       };
 
       log.level = mkOption {
-        type = types.nullOr (types.enum [
-          "debug"
-          "info"
-          "warn"
-          "error"
-          "fatal"
-        ]);
+        type = types.nullOr (
+          types.enum [
+            "debug"
+            "info"
+            "warn"
+            "error"
+            "fatal"
+          ]
+        );
         default = null;
         description = lib.mdDoc ''
           Only log messages with the given severity or above.

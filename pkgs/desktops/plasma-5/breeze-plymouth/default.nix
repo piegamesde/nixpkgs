@@ -53,7 +53,8 @@ mkDerivation {
     ++ lib.optional (osVersion != null) "-DDISTRO_VERSION=${osVersion}"
     ++ lib.optional (logoName != null) "-DDISTRO_LOGO=${logoName}"
     ++ lib.optional (topColor != null) "-DBACKGROUND_TOP_COLOR=${topColor}"
-    ++ lib.optional (bottomColor != null)
+    ++ lib.optional
+      (bottomColor != null)
       "-DBACKGROUND_BOTTOM_COLOR=${bottomColor}"
     ;
 

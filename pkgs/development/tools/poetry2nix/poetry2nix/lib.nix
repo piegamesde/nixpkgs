@@ -13,13 +13,15 @@ let
     # Replace a list entry at defined index with set value
   ireplace =
     idx: value: list:
-    (genList (
-      i:
-      if i == idx then
-        value
-      else
-        (builtins.elemAt list i)
-    ) (length list))
+    (genList
+      (
+        i:
+        if i == idx then
+          value
+        else
+          (builtins.elemAt list i)
+      )
+      (length list))
     ;
 
     # Normalize package names as per PEP 503
@@ -67,9 +69,11 @@ let
       };
       splitRe =
         "("
-        + (builtins.concatStringsSep "|"
-          (builtins.map (x: lib.replaceStrings [ "|" ] [ "\\|" ] x)
-            (lib.attrNames operators)))
+        + (builtins.concatStringsSep "|" (
+          builtins.map (x: lib.replaceStrings [ "|" ] [ "\\|" ] x) (
+            lib.attrNames operators
+          )
+        ))
         + ")"
         ;
     in
@@ -109,17 +113,23 @@ let
   fromTOML =
     builtins.fromTOML or (
       toml:
-      builtins.fromJSON (builtins.readFile (pkgs.runCommand "from-toml" {
-        inherit toml;
-        allowSubstitutes = false;
-        preferLocalBuild = true;
-      } ''
-        ${pkgs.remarshal}/bin/remarshal \
-          -if toml \
-          -i <(echo "$toml") \
-          -of json \
-          -o $out
-      ''))
+      builtins.fromJSON (
+        builtins.readFile (
+          pkgs.runCommand "from-toml"
+          {
+            inherit toml;
+            allowSubstitutes = false;
+            preferLocalBuild = true;
+          }
+          ''
+            ${pkgs.remarshal}/bin/remarshal \
+              -if toml \
+              -i <(echo "$toml") \
+              -of json \
+              -o $out
+          ''
+        )
+      )
     );
   readTOML =
     path:
@@ -236,13 +246,15 @@ let
     }:
     let
       pathParts =
-        (builtins.filter (
-          {
-            prefix,
-            path,
-          }:
-          "NETRC" == prefix
-        ) builtins.nixPath);
+        (builtins.filter
+          (
+            {
+              prefix,
+              path,
+            }:
+            "NETRC" == prefix
+          )
+          builtins.nixPath);
       netrc_file =
         if (pathParts != [ ]) then
           (builtins.head pathParts).path
@@ -250,14 +262,16 @@ let
           ""
         ;
     in
-    pkgs.runCommand file {
+    pkgs.runCommand file
+    {
       nativeBuildInputs = [ python ];
       impureEnvVars = lib.fetchers.proxyImpureEnvVars;
       outputHashMode = "flat";
       outputHashAlgo = "sha256";
       outputHash = hash;
       NETRC = netrc_file;
-    } ''
+    }
+    ''
       python ${./fetch_from_legacy.py} ${url} ${pname} ${file}
       mv ${file} $out
     ''
@@ -273,19 +287,24 @@ let
         "No build-system.build-backend section in pyproject.toml. "
         + "Add such a section as described in https://python-poetry.org/docs/pyproject/#poetry-and-pep-517"
         ;
-      requires = lib.attrByPath [
-        "build-system"
-        "requires"
-      ] (throw missingBuildBackendError) pyProject;
-      requiredPkgs =
-        builtins.map (n: lib.elemAt (builtins.match "([^!=<>~[]+).*" n) 0)
+      requires = lib.attrByPath
+        [
+          "build-system"
+          "requires"
+        ]
+        (throw missingBuildBackendError)
+        pyProject;
+      requiredPkgs = builtins.map
+        (n: lib.elemAt (builtins.match "([^!=<>~[]+).*" n) 0)
         requires;
     in
-    builtins.map (
+    builtins.map
+    (
       drvAttr:
       pythonPackages.${drvAttr} or (throw
         "unsupported build system requirement ${drvAttr}")
-    ) requiredPkgs
+    )
+    requiredPkgs
     ;
 
     # Find gitignore files recursively in parent directory stopping with .git
@@ -303,9 +322,9 @@ let
           [ ]
         ;
     in
-    lib.optionals (
-      builtins.pathExists path && builtins.toString path != "/" && !isGitRoot
-    ) (findGitIgnores parent)
+    lib.optionals
+      (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot)
+      (findGitIgnores parent)
     ++ gitIgnores
     ;
 

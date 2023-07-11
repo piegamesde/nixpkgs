@@ -65,8 +65,8 @@
 
   , # What flavour to build. An empty string indicates no
   # specific flavour and falls back to ghc default values.
-  ghcFlavour ? lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-    (
+  ghcFlavour ?
+    lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform) (
       if useLLVM then
         "perf-cross"
       else
@@ -111,7 +111,8 @@ let
     ;
 
     # TODO(@Ericson2314) Make unconditional
-  targetPrefix = lib.optionalString (targetPlatform != hostPlatform)
+  targetPrefix = lib.optionalString
+    (targetPlatform != hostPlatform)
     "${targetPlatform.config}-";
 
   buildMK =
@@ -184,7 +185,8 @@ let
     lib.optional enableTerminfo ncurses
     ++ [ libffi ]
     ++ lib.optional (!enableIntegerSimple) gmp
-    ++ lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows)
+    ++ lib.optional
+      (platform.libc != "glibc" && !targetPlatform.isWindows)
       libiconv
     ;
 
@@ -322,17 +324,17 @@ stdenv.mkDerivation (
           sha256 = "0r4zjj0bv1x1m2dgxp3adsf2xkr94fjnyj1igsivd9ilbs5ja0b5";
         })
       ]
-      ++ lib.optionals (
-        stdenv.targetPlatform.isDarwin && stdenv.targetPlatform.isAarch64
-      ) [
-        # Prevent the paths module from emitting symbols that we don't use
-        # when building with separate outputs.
-        #
-        # These cause problems as they're not eliminated by GHC's dead code
-        # elimination on aarch64-darwin. (see
-        # https://github.com/NixOS/nixpkgs/issues/140774 for details).
-        ./Cabal-3.2-3.4-paths-fix-cycle-aarch64-darwin.patch
-      ]
+      ++ lib.optionals
+        (stdenv.targetPlatform.isDarwin && stdenv.targetPlatform.isAarch64)
+        [
+          # Prevent the paths module from emitting symbols that we don't use
+          # when building with separate outputs.
+          #
+          # These cause problems as they're not eliminated by GHC's dead code
+          # elimination on aarch64-darwin. (see
+          # https://github.com/NixOS/nixpkgs/issues/140774 for details).
+          ./Cabal-3.2-3.4-paths-fix-cycle-aarch64-darwin.patch
+        ]
       ;
 
     postPatch = "patchShebangs .";
@@ -428,20 +430,22 @@ stdenv.mkDerivation (
         "--with-ffi-includes=${targetPackages.libffi.dev}/include"
         "--with-ffi-libraries=${targetPackages.libffi.out}/lib"
       ]
-      ++ lib.optionals (
-        targetPlatform == hostPlatform && !enableIntegerSimple
-      ) [
-        "--with-gmp-includes=${targetPackages.gmp.dev}/include"
-        "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
-      ]
-      ++ lib.optionals (
-        targetPlatform == hostPlatform
-        && hostPlatform.libc != "glibc"
-        && !targetPlatform.isWindows
-      ) [
-        "--with-iconv-includes=${libiconv}/include"
-        "--with-iconv-libraries=${libiconv}/lib"
-      ]
+      ++ lib.optionals
+        (targetPlatform == hostPlatform && !enableIntegerSimple)
+        [
+          "--with-gmp-includes=${targetPackages.gmp.dev}/include"
+          "--with-gmp-libraries=${targetPackages.gmp.out}/lib"
+        ]
+      ++ lib.optionals
+        (
+          targetPlatform == hostPlatform
+          && hostPlatform.libc != "glibc"
+          && !targetPlatform.isWindows
+        )
+        [
+          "--with-iconv-includes=${libiconv}/include"
+          "--with-iconv-libraries=${libiconv}/lib"
+        ]
       ++ lib.optionals (targetPlatform != hostPlatform) [
           "--enable-bootstrap-with-devel-snapshot"
         ]

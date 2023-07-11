@@ -116,7 +116,8 @@ stdenv.mkDerivation rec {
     ;
 
     # Fails to find fp.h on its own
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin
+  env.NIX_CFLAGS_COMPILE = lib.optionalString
+    stdenv.hostPlatform.isDarwin
     "-isystem ${CoreServices}/Library/Frameworks/CoreServices.framework/Versions/Current/Frameworks/CarbonCore.framework/Versions/Current/Headers/"
     ;
 

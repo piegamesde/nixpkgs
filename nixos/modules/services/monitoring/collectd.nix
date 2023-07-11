@@ -141,18 +141,24 @@ in
         NotifyLevel "OKAY"
       </Plugin>
 
-      ${concatStrings (mapAttrsToList (
-        plugin: pluginConfig: ''
-          LoadPlugin ${plugin}
-          <Plugin "${plugin}">
-          ${pluginConfig}
-          </Plugin>
-        ''
-      ) cfg.plugins)}
+      ${concatStrings (
+        mapAttrsToList
+        (
+          plugin: pluginConfig: ''
+            LoadPlugin ${plugin}
+            <Plugin "${plugin}">
+            ${pluginConfig}
+            </Plugin>
+          ''
+        )
+        cfg.plugins
+      )}
 
-      ${concatMapStrings (f: ''
+      ${concatMapStrings
+      (f: ''
         Include "${f}"
-      '') cfg.include}
+      '')
+      cfg.include}
     '';
 
     systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - ${cfg.user} - - -" ];

@@ -61,11 +61,13 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [ darwin.libobjc ]
     ;
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isClang [
-    "-Wno-deprecated-copy"
-    "-Wno-old-style-cast"
-    "-Wno-unused-parameter"
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals stdenv.cc.isClang [
+      "-Wno-deprecated-copy"
+      "-Wno-old-style-cast"
+      "-Wno-unused-parameter"
+    ]
+  );
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/{Applications,bin}

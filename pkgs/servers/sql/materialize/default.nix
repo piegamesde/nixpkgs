@@ -58,15 +58,17 @@ let
           dst = "${static}/${extra_file.dst}";
         };
     in
-    lib.concatStringsSep "\n" (lib.forEach files (
-      {
-        src,
-        dst,
-      }: ''
-        mkdir -p "${dirOf dst}"
-        cp "${package}/${src}" "${dst}"
-      ''
-    ))
+    lib.concatStringsSep "\n" (
+      lib.forEach files (
+        {
+          src,
+          dst,
+        }: ''
+          mkdir -p "${dirOf dst}"
+          cp "${package}/${src}" "${dst}"
+        ''
+      )
+    )
     ;
 
   npmPackages = import ./npm_deps.nix;

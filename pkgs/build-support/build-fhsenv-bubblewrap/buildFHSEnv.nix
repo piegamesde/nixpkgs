@@ -275,9 +275,9 @@ let
   '';
 
 in
-runCommandLocal "${name}-fhs" {
-  passthru = { inherit args multiPaths targetPaths; };
-} ''
+runCommandLocal "${name}-fhs"
+{ passthru = { inherit args multiPaths targetPaths; }; }
+''
   mkdir -p $out
   cd $out
   ${setupTargetProfile}

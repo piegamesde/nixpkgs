@@ -51,14 +51,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.etc."keyd/default.conf".source =
-      pkgs.runCommand "default.conf" {
+    environment.etc."keyd/default.conf".source = pkgs.runCommand "default.conf"
+      {
         ids = ''
           [ids]
           ${concatStringsSep "\n" cfg.ids}
         '';
         passAsFile = [ "ids" ];
-      } ''
+      }
+      ''
         cat $idsPath <(echo) ${
           settingsFormat.generate "keyd-main.conf" cfg.settings
         } >$out

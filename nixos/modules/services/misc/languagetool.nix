@@ -82,7 +82,8 @@ in
             --port ${toString cfg.port} \
             ${optionalString cfg.public "--public"} \
             ${
-              optionalString (cfg.allowOrigin != null)
+              optionalString
+              (cfg.allowOrigin != null)
               "--allow-origin ${cfg.allowOrigin}"
             } \
             "--config" ${

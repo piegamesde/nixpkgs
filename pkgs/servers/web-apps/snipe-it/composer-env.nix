@@ -15,7 +15,8 @@ let
 
   filterSrc =
     src:
-    builtins.filterSource (
+    builtins.filterSource
+    (
       path: type:
       type != "directory"
       || (
@@ -23,7 +24,8 @@ let
         && baseNameOf path != ".git"
         && baseNameOf path != ".svn"
       )
-    ) src
+    )
+    src
     ;
 
   buildZipPackage =
@@ -142,7 +144,8 @@ let
 
       bundleDependencies =
         dependencies:
-        lib.concatMapStrings (
+        lib.concatMapStrings
+        (
           dependencyName:
           let
             dependency = dependencies.${dependencyName};
@@ -171,7 +174,8 @@ let
                     cp -av "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''}
               ''}
           ''
-        ) (builtins.attrNames dependencies)
+        )
+        (builtins.attrNames dependencies)
         ;
 
       extraArgs = removeAttrs args [

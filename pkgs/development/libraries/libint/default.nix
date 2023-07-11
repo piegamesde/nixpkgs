@@ -96,35 +96,41 @@ assert (eri3Deriv >= 0 && eri3Deriv <= 4);
 # Ensure valid arguments for generated angular momenta in ERI derivatives are used.
 assert (
   builtins.length eriAm == eriDeriv + 1
-  && builtins.foldl' (a: b: a && b) true
-    (builtins.map (a: a <= maxAm && a >= 0) eriAm)
+  && builtins.foldl' (a: b: a && b) true (
+    builtins.map (a: a <= maxAm && a >= 0) eriAm
+  )
 );
 assert (
   builtins.length eri3Am == eriDeriv + 1
-  && builtins.foldl' (a: b: a && b) true
-    (builtins.map (a: a <= maxAm && a >= 0) eri3Am)
+  && builtins.foldl' (a: b: a && b) true (
+    builtins.map (a: a <= maxAm && a >= 0) eri3Am
+  )
 );
 assert (
   builtins.length eri2Am == eriDeriv + 1
-  && builtins.foldl' (a: b: a && b) true
-    (builtins.map (a: a <= maxAm && a >= 0) eri2Am)
+  && builtins.foldl' (a: b: a && b) true (
+    builtins.map (a: a <= maxAm && a >= 0) eri2Am
+  )
 );
 
 # Ensure valid arguments for generated angular momenta in optimised ERI derivatives are used.
 assert (
   builtins.length eriOptAm == eriDeriv + 1
-  && builtins.foldl' (a: b: a && b) true
-    (builtins.map (a: a <= maxAm && a >= 0) eriOptAm)
+  && builtins.foldl' (a: b: a && b) true (
+    builtins.map (a: a <= maxAm && a >= 0) eriOptAm
+  )
 );
 assert (
   builtins.length eri3OptAm == eriDeriv + 1
-  && builtins.foldl' (a: b: a && b) true
-    (builtins.map (a: a <= maxAm && a >= 0) eri3OptAm)
+  && builtins.foldl' (a: b: a && b) true (
+    builtins.map (a: a <= maxAm && a >= 0) eri3OptAm
+  )
 );
 assert (
   builtins.length eri2OptAm == eriDeriv + 1
-  && builtins.foldl' (a: b: a && b) true
-    (builtins.map (a: a <= maxAm && a >= 0) eri2OptAm)
+  && builtins.foldl' (a: b: a && b) true (
+    builtins.map (a: a <= maxAm && a >= 0) eri2OptAm
+  )
 );
 
 # Ensure a valid derivative order for one-electron integrals
@@ -241,8 +247,9 @@ let
         "--enable-1body=${builtins.toString oneBodyDerivOrd}"
         "--enable-1body-property-derivs"
       ]
-      ++ optional (multipoleOrd > 0)
-        "--with-multipole-max-order=${builtins.toString multipoleOrd}"
+      ++ optional (multipoleOrd > 0) "--with-multipole-max-order=${
+          builtins.toString multipoleOrd
+        }"
       ++ optional enableGeneric "--enable-generic"
       ++ optional enableContracted "--enable-contracted-ints"
       ++ optional eri3PureSh "--enable-eri3-pure-sh"
@@ -288,7 +295,8 @@ let
     cmakeFlags =
       [ "-DLIBINT2_SHGAUSS_ORDERING=${shGaussOrd}" ]
       ++ lib.optional enableFortran "-DENABLE_FORTRAN=ON"
-      ++ lib.optional enableSSE
+      ++ lib.optional
+        enableSSE
         "-DLIBINT2_REALTYPE=libint2::simd::VectorSSEDouble"
       ;
 

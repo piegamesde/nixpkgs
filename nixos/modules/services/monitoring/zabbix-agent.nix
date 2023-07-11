@@ -26,17 +26,20 @@ let
     paths = attrValues cfg.modules;
   };
 
-  configFile = pkgs.writeText "zabbix_agent.conf"
-    (toKeyValue { listsAsDuplicateKeys = true; } cfg.settings);
+  configFile = pkgs.writeText "zabbix_agent.conf" (
+    toKeyValue { listsAsDuplicateKeys = true; } cfg.settings
+  );
 
 in
 {
   imports = [
-      (lib.mkRemovedOptionModule [
-        "services"
-        "zabbixAgent"
-        "extraConfig"
-      ] "Use services.zabbixAgent.settings instead.")
+      (lib.mkRemovedOptionModule
+        [
+          "services"
+          "zabbixAgent"
+          "extraConfig"
+        ]
+        "Use services.zabbixAgent.settings instead.")
     ];
 
     # interface
@@ -119,11 +122,13 @@ in
 
       settings = mkOption {
         type = with types;
-          attrsOf (oneOf [
-            int
-            str
-            (listOf str)
-          ]);
+          attrsOf (
+            oneOf [
+              int
+              str
+              (listOf str)
+            ]
+          );
         default = { };
         description = lib.mdDoc ''
           Zabbix Agent configuration. Refer to

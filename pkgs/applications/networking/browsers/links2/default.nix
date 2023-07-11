@@ -62,7 +62,8 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ "--with-ssl" ]
-    ++ lib.optional (enableX11 || enableFB || enableDirectFB)
+    ++ lib.optional
+      (enableX11 || enableFB || enableDirectFB)
       "--enable-graphics"
     ++ lib.optional enableX11 "--with-x"
     ++ lib.optional enableFB "--with-fb"

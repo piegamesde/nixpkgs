@@ -29,14 +29,17 @@ let
       browse-domains=${concatStringsSep ", " browseDomains}
       use-ipv4=${yesNo ipv4}
       use-ipv6=${yesNo ipv6}
-      ${optionalString (allowInterfaces != null)
-      "allow-interfaces=${concatStringsSep "," allowInterfaces}"}
-      ${optionalString (denyInterfaces != null)
-      "deny-interfaces=${concatStringsSep "," denyInterfaces}"}
+      ${optionalString (allowInterfaces != null) "allow-interfaces=${
+        concatStringsSep "," allowInterfaces
+      }"}
+      ${optionalString (denyInterfaces != null) "deny-interfaces=${
+        concatStringsSep "," denyInterfaces
+      }"}
       ${optionalString (domainName != null) "domain-name=${domainName}"}
       allow-point-to-point=${yesNo allowPointToPoint}
-      ${optionalString (cacheEntriesMax != null)
-      "cache-entries-max=${toString cacheEntriesMax}"}
+      ${optionalString (cacheEntriesMax != null) "cache-entries-max=${
+        toString cacheEntriesMax
+      }"}
 
       [wide-area]
       enable-wide-area=${yesNo wideArea}
@@ -56,15 +59,17 @@ let
 in
 {
   imports = [
-      (lib.mkRenamedOptionModule [
-        "services"
-        "avahi"
-        "interfaces"
-      ] [
-        "services"
-        "avahi"
-        "allowInterfaces"
-      ])
+      (lib.mkRenamedOptionModule
+        [
+          "services"
+          "avahi"
+          "interfaces"
+        ]
+        [
+          "services"
+          "avahi"
+          "allowInterfaces"
+        ])
     ];
 
   options.services.avahi = {
@@ -287,25 +292,29 @@ in
     users.groups.avahi = { };
 
     system.nssModules = optional cfg.nssmdns pkgs.nssmdns;
-    system.nssDatabases.hosts = optionals cfg.nssmdns (mkMerge [
-      (mkBefore [ "mdns_minimal [NOTFOUND=return]" ]) # before resolve
-      (mkAfter [ "mdns" ]) # after dns
-    ]);
+    system.nssDatabases.hosts = optionals cfg.nssmdns (
+      mkMerge [
+        (mkBefore [ "mdns_minimal [NOTFOUND=return]" ]) # before resolve
+        (mkAfter [ "mdns" ]) # after dns
+      ]
+    );
 
     environment.systemPackages = [ pkgs.avahi ];
 
     environment.etc =
-      (mapAttrs' (
-        n: v:
-        nameValuePair "avahi/services/${n}.service" {
-          ${
-            if types.path.check v then
-              "source"
-            else
-              "text"
-          } = v;
-        }
-      ) cfg.extraServiceFiles);
+      (mapAttrs'
+        (
+          n: v:
+          nameValuePair "avahi/services/${n}.service" {
+            ${
+              if types.path.check v then
+                "source"
+              else
+                "text"
+            } = v;
+          }
+        )
+        cfg.extraServiceFiles);
 
     systemd.sockets.avahi-daemon = {
       description = "Avahi mDNS/DNS-SD Stack Activation Socket";

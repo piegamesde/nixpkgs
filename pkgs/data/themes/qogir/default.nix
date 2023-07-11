@@ -21,22 +21,33 @@ let
   pname = "qogir-theme";
 
 in
-lib.checkListOfEnum "${pname}: theme variants" [
+lib.checkListOfEnum "${pname}: theme variants"
+[
   "default"
   "manjaro"
   "ubuntu"
   "all"
-] themeVariants lib.checkListOfEnum "${pname}: color variants" [
+]
+themeVariants
+lib.checkListOfEnum
+"${pname}: color variants"
+[
   "standard"
   "light"
   "dark"
-] colorVariants lib.checkListOfEnum "${pname}: tweaks" [
+]
+colorVariants
+lib.checkListOfEnum
+"${pname}: tweaks"
+[
   "image"
   "square"
   "round"
-] tweaks
+]
+tweaks
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   inherit pname;
   version = "2023-02-27";
 

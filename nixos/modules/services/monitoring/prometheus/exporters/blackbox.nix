@@ -19,10 +19,12 @@ let
       file
     else
       (
-        lib.warn ''
-          ${logPrefix}: configuration file "${file}" is being copied to the nix-store.
-          If you would like to avoid that, please set enableConfigCheck to false.
-        '' /.
+        lib.warn
+          ''
+            ${logPrefix}: configuration file "${file}" is being copied to the nix-store.
+            If you would like to avoid that, please set enableConfigCheck to false.
+          ''
+          /.
         + file
       )
     ;
@@ -36,10 +38,12 @@ let
     ;
   checkConfig =
     file:
-    pkgs.runCommand "checked-blackbox-exporter.conf" {
+    pkgs.runCommand "checked-blackbox-exporter.conf"
+    {
       preferLocalBuild = true;
       buildInputs = [ pkgs.buildPackages.prometheus-blackbox-exporter ];
-    } ''
+    }
+    ''
       ln -s ${coerceConfigFile file} $out
       blackbox_exporter --config.check --config.file $out
     ''

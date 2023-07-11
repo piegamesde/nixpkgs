@@ -92,7 +92,8 @@ buildPythonPackage rec {
     description = "Python bindings for Qt5";
     homepage = "http://www.riverbankcomputing.co.uk";
     license = licenses.gpl3;
-    platforms = lib.lists.intersectLists qtwebengine.meta.platforms
+    platforms = lib.lists.intersectLists
+      qtwebengine.meta.platforms
       platforms.mesaPlatforms;
   };
 }

@@ -20,8 +20,9 @@ let
         }: {
           # Do not include PHP by default, because it bloats the closure, doesn't
           # build on Darwin, and there are no official PHP scripts.
-          plugins = builtins.attrValues
-            (builtins.removeAttrs availablePlugins [ "php" ]);
+          plugins = builtins.attrValues (
+            builtins.removeAttrs availablePlugins [ "php" ]
+          );
         }
     }:
 
@@ -104,10 +105,11 @@ let
             )
             ;
 
-          scripts = builtins.concatStringsSep ";"
-            (lib.foldl (scripts: drv: scripts ++ mkScript drv) [ ] (
+          scripts = builtins.concatStringsSep ";" (
+            lib.foldl (scripts: drv: scripts ++ mkScript drv) [ ] (
               config.scripts or [ ]
-            ));
+            )
+          );
         in
         "${scripts};${init}"
         ;
@@ -117,9 +119,9 @@ let
         (writeScriptBin bin ''
           #!${runtimeShell}
           export WEECHAT_EXTRA_LIBDIR=${pluginsDir}
-          ${lib.concatMapStringsSep "\n" (
-            p: lib.optionalString (p ? extraEnv) p.extraEnv
-          ) plugins}
+          ${lib.concatMapStringsSep "\n"
+          (p: lib.optionalString (p ? extraEnv) p.extraEnv)
+          plugins}
           exec ${weechat}/bin/${bin} "$@" --run-command ${
             lib.escapeShellArg init
           }

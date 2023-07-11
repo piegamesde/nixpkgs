@@ -44,11 +44,13 @@ rec {
     else if builtins.isList val then
       "${name}:${semicolons (map lib.escapeShellArg val)}"
     else
-      nope [
+      nope
+      [
         solution
         env
         name
-      ] "unexpected type: ${builtins.typeOf val}"
+      ]
+      "unexpected type: ${builtins.typeOf val}"
     ;
 
     # Build fake/fix/keep directives from Nix types
@@ -80,10 +82,12 @@ rec {
     else if builtins.isAttrs val then
       spaces (phraseDirectives solution env val)
     else
-      nope [
+      nope
+      [
         solution
         env
-      ] "unexpected type: ${builtins.typeOf val}"
+      ]
+      "unexpected type: ${builtins.typeOf val}"
     ;
 
     # Shell-format each env value
@@ -170,15 +174,19 @@ rec {
 
   injectUnresholved =
     solutions: unresholved:
-    (builtins.mapAttrs (name: value: value // { inherit unresholved; })
+    (builtins.mapAttrs
+      (name: value: value // { inherit unresholved; })
       solutions)
     ;
 
     # Build resholve invocation for each solution.
   phraseCommands =
     solutions: unresholved:
-    builtins.concatStringsSep "\n" (lib.mapAttrsToList phraseInvocation
-      (injectUnresholved solutions unresholved))
+    builtins.concatStringsSep "\n" (
+      lib.mapAttrsToList phraseInvocation (
+        injectUnresholved solutions unresholved
+      )
+    )
     ;
 
     /* subshell/PS4/set -x and : command to output resholve envs
@@ -222,9 +230,11 @@ rec {
       executable = true;
       checkPhase =
         ''
-          ${(phraseContextForPWD (phraseInvocation name (
-            partialSolution // { scripts = [ "${placeholder "out"}" ]; }
-          )))}
+          ${(phraseContextForPWD (
+            phraseInvocation name (
+              partialSolution // { scripts = [ "${placeholder "out"}" ]; }
+            )
+          ))}
         ''
         + lib.optionalString (partialSolution.interpreter != "none") ''
           ${partialSolution.interpreter} -n $out
@@ -240,9 +250,11 @@ rec {
       destination = "/bin/${name}";
       checkPhase =
         ''
-          ${phraseContextForOut (phraseInvocation name (
-            partialSolution // { scripts = [ "bin/${name}" ]; }
-          ))}
+          ${phraseContextForOut (
+            phraseInvocation name (
+              partialSolution // { scripts = [ "bin/${name}" ]; }
+            )
+          )}
         ''
         + lib.optionalString (partialSolution.interpreter != "none") ''
           ${partialSolution.interpreter} -n $out/bin/${name}
@@ -282,34 +294,36 @@ rec {
          - not sure how this affects multiple outputs
       */
     in
-    lib.extendDerivation true passthru (stdenv.mkDerivation {
-      src = unresholved;
-      inherit version pname;
-      buildInputs = [ resholve ];
-      disallowedReferences = [ resholve ];
+    lib.extendDerivation true passthru (
+      stdenv.mkDerivation {
+        src = unresholved;
+        inherit version pname;
+        buildInputs = [ resholve ];
+        disallowedReferences = [ resholve ];
 
-        # retain a reference to the base
-      passthru = unresholved.passthru // {
-        unresholved = unresholved;
-          # fallback attr for update bot to query our src
-        originalSrc = unresholved.src;
-      };
+          # retain a reference to the base
+        passthru = unresholved.passthru // {
+          unresholved = unresholved;
+            # fallback attr for update bot to query our src
+          originalSrc = unresholved.src;
+        };
 
-        # do these imply that we should use NoCC or something?
-      dontConfigure = true;
-      dontBuild = true;
+          # do these imply that we should use NoCC or something?
+        dontConfigure = true;
+        dontBuild = true;
 
-      installPhase = ''
-        cp -R $src $out
-      '';
+        installPhase = ''
+          cp -R $src $out
+        '';
 
-        # enable below for verbose debug info if needed
-        # supports default python.logging levels
-        # LOGLEVEL="INFO";
-      preFixup = phraseSolutions solutions unresholved;
+          # enable below for verbose debug info if needed
+          # supports default python.logging levels
+          # LOGLEVEL="INFO";
+        preFixup = phraseSolutions solutions unresholved;
 
-        # don't break the metadata...
-      meta = unresholved.meta;
-    })
+          # don't break the metadata...
+        meta = unresholved.meta;
+      }
+    )
     ;
 }

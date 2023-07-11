@@ -102,5 +102,6 @@ self: super: {
       appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ]
     else
       x: x
-  ) super.inline-c-cpp;
+  )
+    super.inline-c-cpp;
 }

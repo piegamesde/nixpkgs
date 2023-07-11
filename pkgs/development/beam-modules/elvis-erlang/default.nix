@@ -24,10 +24,12 @@ rebar3Relx rec {
     sha256 = "6vNxr3AYpFuXaIVH9bWw7K5KiF1swfI+CSI43RoMQEA=";
     rev = version;
   };
-  beamDeps = builtins.attrValues (import ./rebar-deps.nix {
-    inherit fetchHex fetchgit fetchFromGitHub;
-    builder = buildRebar3;
-  });
+  beamDeps = builtins.attrValues (
+    import ./rebar-deps.nix {
+      inherit fetchHex fetchgit fetchFromGitHub;
+      builder = buildRebar3;
+    }
+  );
   passthru.updateScript = writeScript "update.sh" ''
     #!/usr/bin/env nix-shell
     #!nix-shell -i bash -p bash common-updater-scripts git nix-prefetch-git gnutar gzip "rebar3WithPlugins {globalPlugins = [beamPackages.rebar3-nix];}"

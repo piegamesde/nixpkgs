@@ -71,36 +71,38 @@ in
         Subvolume configuration
       '';
 
-      type = types.attrsOf (types.submodule {
-        options = {
-          subvolume = mkOption {
-            type = types.path;
-            description = lib.mdDoc ''
-              Path of the subvolume or mount point.
-              This path is a subvolume and has to contain a subvolume named
-              .snapshots.
-              See also man:snapper(8) section PERMISSIONS.
-            '';
-          };
+      type = types.attrsOf (
+        types.submodule {
+          options = {
+            subvolume = mkOption {
+              type = types.path;
+              description = lib.mdDoc ''
+                Path of the subvolume or mount point.
+                This path is a subvolume and has to contain a subvolume named
+                .snapshots.
+                See also man:snapper(8) section PERMISSIONS.
+              '';
+            };
 
-          fstype = mkOption {
-            type = types.enum [ "btrfs" ];
-            default = "btrfs";
-            description = lib.mdDoc ''
-              Filesystem type. Only btrfs is stable and tested.
-            '';
-          };
+            fstype = mkOption {
+              type = types.enum [ "btrfs" ];
+              default = "btrfs";
+              description = lib.mdDoc ''
+                Filesystem type. Only btrfs is stable and tested.
+              '';
+            };
 
-          extraConfig = mkOption {
-            type = types.lines;
-            default = "";
-            description = lib.mdDoc ''
-              Additional configuration next to SUBVOLUME and FSTYPE.
-              See man:snapper-configs(5).
-            '';
+            extraConfig = mkOption {
+              type = types.lines;
+              default = "";
+              description = lib.mdDoc ''
+                Additional configuration next to SUBVOLUME and FSTYPE.
+                See man:snapper-configs(5).
+              '';
+            };
           };
-        };
-      });
+        }
+      );
     };
   };
 
@@ -127,18 +129,20 @@ in
             }"
           '';
 
-        } // (mapAttrs' (
-          name: subvolume:
-          nameValuePair "snapper/configs/${name}" ({
-            text = ''
-              ${subvolume.extraConfig}
-              FSTYPE="${subvolume.fstype}"
-              SUBVOLUME="${subvolume.subvolume}"
-            '';
-          })
-        ) cfg.configs) // (lib.optionalAttrs (cfg.filters != null) {
-          "snapper/filters/default.txt".text = cfg.filters;
-        });
+        } // (mapAttrs'
+          (
+            name: subvolume:
+            nameValuePair "snapper/configs/${name}" ({
+              text = ''
+                ${subvolume.extraConfig}
+                FSTYPE="${subvolume.fstype}"
+                SUBVOLUME="${subvolume.subvolume}"
+              '';
+            })
+          )
+          cfg.configs) // (lib.optionalAttrs (cfg.filters != null) {
+            "snapper/filters/default.txt".text = cfg.filters;
+          });
 
       };
 

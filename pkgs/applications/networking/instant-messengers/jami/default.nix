@@ -106,8 +106,9 @@ stdenv.mkDerivation rec {
 
       configureFlags =
         (readLinesToList ./config/pjsip_args_common)
-        ++ lib.optionals stdenv.isLinux
-          (readLinesToList ./config/pjsip_args_linux)
+        ++ lib.optionals stdenv.isLinux (
+          readLinesToList ./config/pjsip_args_linux
+        )
         ;
     }
   );

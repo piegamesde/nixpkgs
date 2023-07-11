@@ -76,11 +76,13 @@ in
         LD_LIBRARY_PATH = "${pkgs.linuxPackages_latest.nvidia_x11}/lib";
       };
 
-      preStart = concatStrings (flip mapAttrsToList cfg.configFiles (
-        fn: content: ''
-          ln -sf '${pkgs.writeText "xmr-stak-${fn}" content}' '${fn}'
-        ''
-      ));
+      preStart = concatStrings (
+        flip mapAttrsToList cfg.configFiles (
+          fn: content: ''
+            ln -sf '${pkgs.writeText "xmr-stak-${fn}" content}' '${fn}'
+          ''
+        )
+      );
 
       serviceConfig =
         let
@@ -100,14 +102,16 @@ in
   };
 
   imports = [
-      (mkRemovedOptionModule [
-        "services"
-        "xmr-stak"
-        "configText"
-      ] ''
-        This option was removed in favour of `services.xmr-stak.configFiles`
-        because the new config file `pools.txt` was introduced. You are
-        now able to define all other config files like cpu.txt or amd.txt.
-      '')
+      (mkRemovedOptionModule
+        [
+          "services"
+          "xmr-stak"
+          "configText"
+        ]
+        ''
+          This option was removed in favour of `services.xmr-stak.configFiles`
+          because the new config file `pools.txt` was introduced. You are
+          now able to define all other config files like cpu.txt or amd.txt.
+        '')
     ];
 }

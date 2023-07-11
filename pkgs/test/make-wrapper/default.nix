@@ -59,7 +59,8 @@ let
     ''
     ;
 in
-runCommand "make-wrapper-test" {
+runCommand "make-wrapper-test"
+{
   nativeBuildInputs = [
     which
     (mkWrapperBinary {
@@ -206,8 +207,9 @@ runCommand "make-wrapper-test" {
       ];
     })
   ];
-} (
-  # --argv0 works
+}
+(
+# --argv0 works
   mkTest "test-argv0" "argv0=foo"
 
     # --set works

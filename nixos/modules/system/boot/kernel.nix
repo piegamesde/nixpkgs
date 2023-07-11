@@ -23,11 +23,12 @@ in
   ###### interface
 
   options = {
-    boot.kernel.enable = mkEnableOption (lib.mdDoc
-      "the Linux kernel. This is useful for systemd-like containers which do not require a kernel")
-      // {
-        default = true;
-      };
+    boot.kernel.enable = mkEnableOption (
+      lib.mdDoc
+      "the Linux kernel. This is useful for systemd-like containers which do not require a kernel"
+    ) // {
+      default = true;
+    };
 
     boot.kernel.features = mkOption {
       default = { };
@@ -49,12 +50,14 @@ in
         kernelPackages:
         kernelPackages.extend (
           self: super: {
-            kernel = super.kernel.override (originalArgs: {
-              inherit randstructSeed;
-              kernelPatches =
-                (originalArgs.kernelPatches or [ ]) ++ kernelPatches;
-              features = lib.recursiveUpdate super.kernel.features features;
-            });
+            kernel = super.kernel.override (
+              originalArgs: {
+                inherit randstructSeed;
+                kernelPatches =
+                  (originalArgs.kernelPatches or [ ]) ++ kernelPatches;
+                features = lib.recursiveUpdate super.kernel.features features;
+              }
+            );
           }
         )
         ;
@@ -436,10 +439,12 @@ in
           let
             cfg = config.boot.kernelPackages.kernel.config;
           in
-          map (attrs: {
+          map
+          (attrs: {
             assertion = attrs.assertion cfg;
             inherit (attrs) message;
-          }) config.system.requiredKernelConfig
+          })
+          config.system.requiredKernelConfig
         ;
 
     })

@@ -50,12 +50,14 @@ let
     mirror = "mirror://kde";
   };
 
-  qtStdenv = libsForQt5.callPackage (
-    {
-      stdenv,
-    }:
-    stdenv
-  ) { };
+  qtStdenv = libsForQt5.callPackage
+    (
+      {
+        stdenv,
+      }:
+      stdenv
+    )
+    { };
 
   packages =
     self:

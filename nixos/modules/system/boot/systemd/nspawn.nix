@@ -174,24 +174,27 @@ in
 
   config =
     let
-      units = mapAttrs' (
-        n: v:
-        let
-          nspawnFile = "${n}.nspawn";
-        in
-        nameValuePair nspawnFile (instanceToUnit nspawnFile v)
-      ) cfg;
+      units = mapAttrs'
+        (
+          n: v:
+          let
+            nspawnFile = "${n}.nspawn";
+          in
+          nameValuePair nspawnFile (instanceToUnit nspawnFile v)
+        )
+        cfg;
     in
     mkMerge [
       (mkIf (cfg != { }) {
-        environment.etc."systemd/nspawn".source = mkIf (cfg != { })
-          (generateUnits {
+        environment.etc."systemd/nspawn".source = mkIf (cfg != { }) (
+          generateUnits {
             allowCollisions = false;
             type = "nspawn";
             inherit units;
             upstreamUnits = [ ];
             upstreamWants = [ ];
-          });
+          }
+        );
       })
       { systemd.targets.multi-user.wants = [ "machines.target" ]; }
     ]

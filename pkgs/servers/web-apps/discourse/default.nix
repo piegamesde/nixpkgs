@@ -150,9 +150,11 @@ let
     mkdir -p $out/bin
     makeWrapper ${rubyEnv}/bin/rake $out/bin/discourse-rake \
         ${
-          lib.concatStrings
-          (lib.mapAttrsToList (name: value: "--set ${name} '${value}' ")
-            runtimeEnv)
+          lib.concatStrings (
+            lib.mapAttrsToList
+            (name: value: "--set ${name} '${value}' ")
+            runtimeEnv
+          )
         } \
         --prefix PATH : ${lib.makeBinPath runtimeDeps} \
         --set RAKEOPT '-f ${discourse}/share/discourse/Rakefile' \
@@ -320,9 +322,9 @@ let
       mkdir $NIX_BUILD_TOP/tmp_home
       export HOME=$NIX_BUILD_TOP/tmp_home
 
-      ${lib.concatMapStringsSep "\n" (
-        p: "ln -sf ${p} plugins/${p.pluginName or ""}"
-      ) plugins}
+      ${lib.concatMapStringsSep "\n"
+      (p: "ln -sf ${p} plugins/${p.pluginName or ""}")
+      plugins}
 
       export RAILS_ENV=production
 
@@ -421,9 +423,9 @@ let
       ln -sf ${assets} $out/share/discourse/public.dist/assets
       rm -r $out/share/discourse/app/assets/javascripts
       ln -sf ${assets.javascripts} $out/share/discourse/app/assets/javascripts
-      ${lib.concatMapStringsSep "\n" (
-        p: "ln -sf ${p} $out/share/discourse/plugins/${p.pluginName or ""}"
-      ) plugins}
+      ${lib.concatMapStringsSep "\n"
+      (p: "ln -sf ${p} $out/share/discourse/plugins/${p.pluginName or ""}")
+      plugins}
 
       runHook postInstall
     '';

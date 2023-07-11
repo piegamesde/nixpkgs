@@ -6,38 +6,42 @@ with import ./base.nix { inherit system; };
 let
   domain = "my.zyx";
 
-  redisPod = pkgs.writeText "redis-pod.json" (builtins.toJSON {
-    kind = "Pod";
-    apiVersion = "v1";
-    metadata.name = "redis";
-    metadata.labels.name = "redis";
-    spec.containers = [ {
-      name = "redis";
-      image = "redis";
-      args = [
-        "--bind"
-        "0.0.0.0"
-      ];
-      imagePullPolicy = "Never";
-      ports = [ {
-        name = "redis-server";
-        containerPort = 6379;
+  redisPod = pkgs.writeText "redis-pod.json" (
+    builtins.toJSON {
+      kind = "Pod";
+      apiVersion = "v1";
+      metadata.name = "redis";
+      metadata.labels.name = "redis";
+      spec.containers = [ {
+        name = "redis";
+        image = "redis";
+        args = [
+          "--bind"
+          "0.0.0.0"
+        ];
+        imagePullPolicy = "Never";
+        ports = [ {
+          name = "redis-server";
+          containerPort = 6379;
+        } ];
       } ];
-    } ];
-  });
+    }
+  );
 
-  redisService = pkgs.writeText "redis-service.json" (builtins.toJSON {
-    kind = "Service";
-    apiVersion = "v1";
-    metadata.name = "redis";
-    spec = {
-      ports = [ {
-        port = 6379;
-        targetPort = 6379;
-      } ];
-      selector = { name = "redis"; };
-    };
-  });
+  redisService = pkgs.writeText "redis-service.json" (
+    builtins.toJSON {
+      kind = "Service";
+      apiVersion = "v1";
+      metadata.name = "redis";
+      spec = {
+        ports = [ {
+          port = 6379;
+          targetPort = 6379;
+        } ];
+        selector = { name = "redis"; };
+      };
+    }
+  );
 
   redisImage = pkgs.dockerTools.buildImage {
     name = "redis";
@@ -53,19 +57,21 @@ let
     config.Entrypoint = [ "/bin/redis-server" ];
   };
 
-  probePod = pkgs.writeText "probe-pod.json" (builtins.toJSON {
-    kind = "Pod";
-    apiVersion = "v1";
-    metadata.name = "probe";
-    metadata.labels.name = "probe";
-    spec.containers = [ {
-      name = "probe";
-      image = "probe";
-      args = [ "-f" ];
-      tty = true;
-      imagePullPolicy = "Never";
-    } ];
-  });
+  probePod = pkgs.writeText "probe-pod.json" (
+    builtins.toJSON {
+      kind = "Pod";
+      apiVersion = "v1";
+      metadata.name = "probe";
+      metadata.labels.name = "probe";
+      spec.containers = [ {
+        name = "probe";
+        image = "probe";
+        args = [ "-f" ];
+        tty = true;
+        imagePullPolicy = "Never";
+      } ];
+    }
+  );
 
   probeImage = pkgs.dockerTools.buildImage {
     name = "probe";

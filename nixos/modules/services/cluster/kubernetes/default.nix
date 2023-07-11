@@ -37,30 +37,32 @@ let
 
   mkKubeConfig =
     name: conf:
-    pkgs.writeText "${name}-kubeconfig" (builtins.toJSON {
-      apiVersion = "v1";
-      kind = "Config";
-      clusters = [ {
-        name = "local";
-        cluster.certificate-authority = conf.caFile or cfg.caFile;
-        cluster.server = conf.server;
-      } ];
-      users = [ {
-        inherit name;
-        user = {
-          client-certificate = conf.certFile;
-          client-key = conf.keyFile;
-        };
-      } ];
-      contexts = [ {
-        context = {
-          cluster = "local";
-          user = name;
-        };
-        name = "local";
-      } ];
-      current-context = "local";
-    })
+    pkgs.writeText "${name}-kubeconfig" (
+      builtins.toJSON {
+        apiVersion = "v1";
+        kind = "Config";
+        clusters = [ {
+          name = "local";
+          cluster.certificate-authority = conf.caFile or cfg.caFile;
+          cluster.server = conf.server;
+        } ];
+        users = [ {
+          inherit name;
+          user = {
+            client-certificate = conf.certFile;
+            client-key = conf.keyFile;
+          };
+        } ];
+        contexts = [ {
+          context = {
+            cluster = "local";
+            user = name;
+          };
+          name = "local";
+        } ];
+        current-context = "local";
+      }
+    )
     ;
 
   caCert = secret "ca";
@@ -126,17 +128,21 @@ in
 {
 
   imports = [
-    (mkRemovedOptionModule [
-      "services"
-      "kubernetes"
-      "addons"
-      "dashboard"
-    ] "Removed due to it being an outdated version")
-    (mkRemovedOptionModule [
-      "services"
-      "kubernetes"
-      "verbose"
-    ] "")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "addons"
+        "dashboard"
+      ]
+      "Removed due to it being an outdated version")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "verbose"
+      ]
+      "")
   ];
 
     ###### interface
@@ -151,10 +157,12 @@ in
         Node role will enable flannel, docker, kubelet and proxy services.
       '';
       default = [ ];
-      type = types.listOf (types.enum [
-        "master"
-        "node"
-      ]);
+      type = types.listOf (
+        types.enum [
+          "master"
+          "node"
+        ]
+      );
     };
 
     package = mkOption {
@@ -321,46 +329,48 @@ in
       };
     })
 
-    (mkIf (
-      cfg.apiserver.enable
-      || cfg.scheduler.enable
-      || cfg.controllerManager.enable
-      || cfg.kubelet.enable
-      || cfg.proxy.enable
-      || cfg.addonManager.enable
-    ) {
-      systemd.targets.kubernetes = {
-        description = "Kubernetes";
-        wantedBy = [ "multi-user.target" ];
-      };
+    (mkIf
+      (
+        cfg.apiserver.enable
+        || cfg.scheduler.enable
+        || cfg.controllerManager.enable
+        || cfg.kubelet.enable
+        || cfg.proxy.enable
+        || cfg.addonManager.enable
+      )
+      {
+        systemd.targets.kubernetes = {
+          description = "Kubernetes";
+          wantedBy = [ "multi-user.target" ];
+        };
 
-      systemd.tmpfiles.rules = [
-        "d /opt/cni/bin 0755 root root -"
-        "d /run/kubernetes 0755 kubernetes kubernetes -"
-        "d /var/lib/kubernetes 0755 kubernetes kubernetes -"
-      ];
+        systemd.tmpfiles.rules = [
+          "d /opt/cni/bin 0755 root root -"
+          "d /run/kubernetes 0755 kubernetes kubernetes -"
+          "d /var/lib/kubernetes 0755 kubernetes kubernetes -"
+        ];
 
-      users.users.kubernetes = {
-        uid = config.ids.uids.kubernetes;
-        description = "Kubernetes user";
-        group = "kubernetes";
-        home = cfg.dataDir;
-        createHome = true;
-      };
-      users.groups.kubernetes.gid = config.ids.gids.kubernetes;
+        users.users.kubernetes = {
+          uid = config.ids.uids.kubernetes;
+          description = "Kubernetes user";
+          group = "kubernetes";
+          home = cfg.dataDir;
+          createHome = true;
+        };
+        users.groups.kubernetes.gid = config.ids.gids.kubernetes;
 
-        # dns addon is enabled by default
-      services.kubernetes.addons.dns.enable = mkDefault true;
+          # dns addon is enabled by default
+        services.kubernetes.addons.dns.enable = mkDefault true;
 
-      services.kubernetes.apiserverAddress = mkDefault (
-        "https://${
-          if cfg.apiserver.advertiseAddress != null then
-            cfg.apiserver.advertiseAddress
-          else
-            "${cfg.masterAddress}:${toString cfg.apiserver.securePort}"
-        }"
-      );
-    })
+        services.kubernetes.apiserverAddress = mkDefault (
+          "https://${
+            if cfg.apiserver.advertiseAddress != null then
+              cfg.apiserver.advertiseAddress
+            else
+              "${cfg.masterAddress}:${toString cfg.apiserver.securePort}"
+          }"
+        );
+      })
   ];
 
   meta.buildDocsInSandbox = false;

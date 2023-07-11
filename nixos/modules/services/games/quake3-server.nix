@@ -120,7 +120,8 @@ in
             else
               cfg.baseq3
             ;
-          ExecStartPre = optionalString (!baseq3InStore)
+          ExecStartPre = optionalString
+            (!baseq3InStore)
             "+${pkgs.coreutils}/bin/cp ${configFile} ${cfg.baseq3}/.q3a/baseq3/nix.cfg"
             ;
 

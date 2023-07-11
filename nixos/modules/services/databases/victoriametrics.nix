@@ -74,7 +74,8 @@ in
       postStart =
         let
           bindAddr =
-            (lib.optionalString (lib.hasPrefix ":" cfg.listenAddress)
+            (lib.optionalString
+              (lib.hasPrefix ":" cfg.listenAddress)
               "127.0.0.1")
             + cfg.listenAddress
             ;

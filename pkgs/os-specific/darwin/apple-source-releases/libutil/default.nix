@@ -10,12 +10,14 @@
   headersOnly ? false
 }:
 
-appleDerivation' (
+appleDerivation'
+(
   if headersOnly then
     stdenvNoCC
   else
     stdenv
-) {
+)
+{
   nativeBuildInputs = lib.optional (!headersOnly) xcbuildHook;
 
   prePatch = ''

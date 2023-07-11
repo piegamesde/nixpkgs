@@ -49,9 +49,10 @@ let
               then
                 (
                   final: prev:
-                  callPackage ../../lua-modules/generated-packages.nix {
-                    inherit (final) callPackage;
-                  } final prev
+                  callPackage ../../lua-modules/generated-packages.nix
+                  { inherit (final) callPackage; }
+                  final
+                  prev
                 )
               else
                 (final: prev: { })
@@ -74,9 +75,11 @@ let
               overrides
             ];
           in
-          makeScopeWithSplicing otherSplices keep extra
-          (lib.extends extensions luaPackagesFun)
-        ) {
+          makeScopeWithSplicing otherSplices keep extra (
+            lib.extends extensions luaPackagesFun
+          )
+        )
+        {
           overrides = packageOverrides;
           lua = self;
         };

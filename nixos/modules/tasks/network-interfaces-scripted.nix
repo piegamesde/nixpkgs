@@ -17,11 +17,14 @@ let
   slaves =
     concatMap (i: i.interfaces) (attrValues cfg.bonds)
     ++ concatMap (i: i.interfaces) (attrValues cfg.bridges)
-    ++ concatMap (
-      i:
-      attrNames
-      (filterAttrs (_: config: config.type != "internal") i.interfaces)
-    ) (attrValues cfg.vswitches)
+    ++ concatMap
+      (
+        i:
+        attrNames (
+          filterAttrs (_: config: config.type != "internal") i.interfaces
+        )
+      )
+      (attrValues cfg.vswitches)
     ++ concatMap (i: [ i.interface ]) (attrValues cfg.macvlans)
     ++ concatMap (i: [ i.interface ]) (attrValues cfg.vlans)
     ;
@@ -62,7 +65,8 @@ let
     ];
     filterDeprecated =
       bond:
-      (filterAttrs (attrName: attr: elem attrName deprecated && attr != null)
+      (filterAttrs
+        (attrName: attr: elem attrName deprecated && attr != null)
         bond)
       ;
   };
@@ -71,8 +75,9 @@ let
     let
       oneBondWarnings =
         bondName: bond:
-        mapAttrsToList (bondText bondName)
-        (bondDeprecation.filterDeprecated bond)
+        mapAttrsToList (bondText bondName) (
+          bondDeprecation.filterDeprecated bond
+        )
         ;
       bondText =
         bondName: optName: _:
@@ -118,8 +123,9 @@ let
           then
             [ "${dev}-netdev.service" ]
           else
-            optional (dev != null && dev != "lo" && !config.boot.isContainer)
-            (subsystemDevice dev)
+            optional (dev != null && dev != "lo" && !config.boot.isContainer) (
+              subsystemDevice dev
+            )
           ;
 
         hasDefaultGatewaySet =
@@ -158,8 +164,9 @@ let
           ];
           wants = [ "network.target" ];
             # exclude bridges from the partOf relationship to fix container networking bug #47210
-          partOf = map (i: "network-addresses-${i.name}.service")
-            (filter (i: !(hasAttr i.name cfg.bridges)) interfaces);
+          partOf = map (i: "network-addresses-${i.name}.service") (
+            filter (i: !(hasAttr i.name cfg.bridges)) interfaces
+          );
           conflicts = [ "shutdown.target" ];
           wantedBy =
             [ "multi-user.target" ]
@@ -187,50 +194,60 @@ let
               ${optionalString (cfg.search != [ ]) (
                 "search " + concatStringsSep " " cfg.search
               )}
-              ${flip concatMapStrings cfg.nameservers (ns: ''
-                nameserver ${ns}
-              '')}
+              ${flip concatMapStrings cfg.nameservers (
+                ns: ''
+                  nameserver ${ns}
+                ''
+              )}
               EOF
             ''}
 
             # Set the default gateway.
-            ${optionalString (
-              cfg.defaultGateway != null && cfg.defaultGateway.address != ""
-            ) ''
+            ${optionalString
+            (cfg.defaultGateway != null && cfg.defaultGateway.address != "")
+            ''
               ${optionalString (cfg.defaultGateway.interface != null) ''
                 ip route replace ${cfg.defaultGateway.address} dev ${cfg.defaultGateway.interface} ${
-                  optionalString (cfg.defaultGateway.metric != null)
-                  "metric ${toString cfg.defaultGateway.metric}"
+                  optionalString (cfg.defaultGateway.metric != null) "metric ${
+                    toString cfg.defaultGateway.metric
+                  }"
                 } proto static
               ''}
               ip route replace default ${
-                optionalString (cfg.defaultGateway.metric != null)
-                "metric ${toString cfg.defaultGateway.metric}"
+                optionalString (cfg.defaultGateway.metric != null) "metric ${
+                  toString cfg.defaultGateway.metric
+                }"
               } via "${cfg.defaultGateway.address}" ${
-                optionalString (cfg.defaultGatewayWindowSize != null)
-                "window ${toString cfg.defaultGatewayWindowSize}"
+                optionalString (cfg.defaultGatewayWindowSize != null) "window ${
+                  toString cfg.defaultGatewayWindowSize
+                }"
               } ${
-                optionalString (cfg.defaultGateway.interface != null)
+                optionalString
+                (cfg.defaultGateway.interface != null)
                 "dev ${cfg.defaultGateway.interface}"
               } proto static
             ''}
-            ${optionalString (
-              cfg.defaultGateway6 != null && cfg.defaultGateway6.address != ""
-            ) ''
+            ${optionalString
+            (cfg.defaultGateway6 != null && cfg.defaultGateway6.address != "")
+            ''
               ${optionalString (cfg.defaultGateway6.interface != null) ''
                 ip -6 route replace ${cfg.defaultGateway6.address} dev ${cfg.defaultGateway6.interface} ${
-                  optionalString (cfg.defaultGateway6.metric != null)
-                  "metric ${toString cfg.defaultGateway6.metric}"
+                  optionalString (cfg.defaultGateway6.metric != null) "metric ${
+                    toString cfg.defaultGateway6.metric
+                  }"
                 } proto static
               ''}
               ip -6 route replace default ${
-                optionalString (cfg.defaultGateway6.metric != null)
-                "metric ${toString cfg.defaultGateway6.metric}"
+                optionalString (cfg.defaultGateway6.metric != null) "metric ${
+                  toString cfg.defaultGateway6.metric
+                }"
               } via "${cfg.defaultGateway6.address}" ${
-                optionalString (cfg.defaultGatewayWindowSize != null)
-                "window ${toString cfg.defaultGatewayWindowSize}"
+                optionalString (cfg.defaultGatewayWindowSize != null) "window ${
+                  toString cfg.defaultGatewayWindowSize
+                }"
               } ${
-                optionalString (cfg.defaultGateway6.interface != null)
+                optionalString
+                (cfg.defaultGateway6.interface != null)
                 "dev ${cfg.defaultGateway6.interface}"
               } proto static
             ''}
@@ -299,9 +316,9 @@ let
                   cidr = "${route.address}/${toString route.prefixLength}";
                   via =
                     optionalString (route.via != null) ''via "${route.via}"'';
-                  options = concatStrings
-                    (mapAttrsToList (name: val: "${name} ${val} ")
-                      route.options);
+                  options = concatStrings (
+                    mapAttrsToList (name: val: "${name} ${val} ") route.options
+                  );
                   type = toString route.type;
                 in
                 ''
@@ -401,15 +418,19 @@ let
                 ip link add name "${n}" type bridge
 
                 # Enslave child interfaces
-                ${flip concatMapStrings v.interfaces (i: ''
-                  ip link set "${i}" master "${n}"
-                  ip link set "${i}" up
-                '')}
+                ${flip concatMapStrings v.interfaces (
+                  i: ''
+                    ip link set "${i}" master "${n}"
+                    ip link set "${i}" up
+                  ''
+                )}
                 # Save list of enslaved interfaces
                 echo "${
-                  flip concatMapStrings v.interfaces (i: ''
-                    ${i}
-                  '')
+                  flip concatMapStrings v.interfaces (
+                    i: ''
+                      ${i}
+                    ''
+                  )
                 }" > /run/${n}.interfaces
 
                 ${optionalString config.virtualisation.libvirtd.enable ''
@@ -448,15 +469,19 @@ let
                 done
 
                 # Enslave child interfaces (new list of interfaces)
-                ${flip concatMapStrings v.interfaces (i: ''
-                  ip link set "${i}" master "${n}"
-                  ip link set "${i}" up
-                '')}
+                ${flip concatMapStrings v.interfaces (
+                  i: ''
+                    ip link set "${i}" master "${n}"
+                    ip link set "${i}" up
+                  ''
+                )}
                 # Save list of enslaved interfaces
                 echo "${
-                  flip concatMapStrings v.interfaces (i: ''
-                    ${i}
-                  '')
+                  flip concatMapStrings v.interfaces (
+                    i: ''
+                      ${i}
+                    ''
+                  )
                 }" > /run/${n}.interfaces
 
                 # (Un-)set stp on the bridge
@@ -476,12 +501,22 @@ let
           n: v:
           nameValuePair "${n}-netdev" (
             let
-              deps = concatLists (map deviceDependency (attrNames
-                (filterAttrs (_: config: config.type != "internal")
-                  v.interfaces)));
-              internalConfigs = map (i: "network-addresses-${i}.service")
-                (attrNames (filterAttrs (_: config: config.type == "internal")
-                  v.interfaces));
+              deps = concatLists (
+                map deviceDependency (
+                  attrNames (
+                    filterAttrs
+                    (_: config: config.type != "internal")
+                    v.interfaces
+                  )
+                )
+              );
+              internalConfigs = map (i: "network-addresses-${i}.service") (
+                attrNames (
+                  filterAttrs
+                  (_: config: config.type == "internal")
+                  v.interfaces
+                )
+              );
               ofRules =
                 pkgs.writeText "vswitch-${n}-openFlowRules" v.openFlowRules;
             in
@@ -529,27 +564,39 @@ let
               script = ''
                 echo "Configuring Open vSwitch ${n}..."
                 ovs-vsctl ${
-                  concatStrings (mapAttrsToList (
-                    name: config:
-                    " -- add-port ${n} ${name}"
-                    + optionalString (config.vlan != null)
-                      " tag=${toString config.vlan}"
-                  ) v.interfaces)
+                  concatStrings (
+                    mapAttrsToList
+                    (
+                      name: config:
+                      " -- add-port ${n} ${name}"
+                      + optionalString (config.vlan != null) " tag=${
+                           toString config.vlan
+                         }"
+                    )
+                    v.interfaces
+                  )
                 } \
                   ${
-                    concatStrings (mapAttrsToList (
-                      name: config:
-                      optionalString (config.type != null)
-                      " -- set interface ${name} type=${config.type}"
-                    ) v.interfaces)
+                    concatStrings (
+                      mapAttrsToList
+                      (
+                        name: config:
+                        optionalString
+                        (config.type != null)
+                        " -- set interface ${name} type=${config.type}"
+                      )
+                      v.interfaces
+                    )
                   } \
                   ${
-                    concatMapStrings (x: " -- set-controller ${n} " + x)
+                    concatMapStrings
+                    (x: " -- set-controller ${n} " + x)
                     v.controllers
                   } \
                   ${
-                    concatMapStrings (x: " -- " + x)
-                    (splitString "\n" v.extraOvsctlCmds)
+                    concatMapStrings (x: " -- " + x) (
+                      splitString "\n" v.extraOvsctlCmds
+                    )
                   }
 
 
@@ -602,11 +649,13 @@ let
                 echo "Creating new bond ${n}..."
                 ip link add name "${n}" type bond \
                 ${let
-                  opts = (mapAttrs (const toString)
-                    (bondDeprecation.filterDeprecated v)) // v.driverOptions;
+                  opts = (mapAttrs (const toString) (
+                    bondDeprecation.filterDeprecated v
+                  )) // v.driverOptions;
                 in
-                concatStringsSep "\n"
-                (mapAttrsToList (set: val: "  ${set} ${val} \\") opts)
+                concatStringsSep "\n" (
+                  mapAttrsToList (set: val: "  ${set} ${val} \\") opts
+                )
                 }
 
                 # !!! There must be a better way to wait for the interface
@@ -614,10 +663,12 @@ let
 
                 # Bring up the bond and enslave the specified interfaces
                 ip link set "${n}" up
-                ${flip concatMapStrings v.interfaces (i: ''
-                  ip link set "${i}" down
-                  ip link set "${i}" master "${n}"
-                '')}
+                ${flip concatMapStrings v.interfaces (
+                  i: ''
+                    ip link set "${i}" down
+                    ip link set "${i}" master "${n}"
+                  ''
+                )}
               '';
               postStop = destroyBond n;
             }
@@ -674,10 +725,12 @@ let
                   else
                     "gue"
                 } ${
-                  optionalString (v.local != null)
-                  "local ${escapeShellArg v.local.address} ${
-                    optionalString (v.local.dev != null)
-                    "dev ${escapeShellArg v.local.dev}"
+                  optionalString (v.local != null) "local ${
+                    escapeShellArg v.local.address
+                  } ${
+                    optionalString (v.local.dev != null) "dev ${
+                      escapeShellArg v.local.dev
+                    }"
                   }"
                 }";
             in
@@ -736,11 +789,13 @@ let
                   ${optionalString (v.ttl != null) "ttl ${toString v.ttl}"} \
                   ${optionalString (v.dev != null) ''dev "${v.dev}"''} \
                   ${
-                    optionalString (v.encapsulation != null)
+                    optionalString
+                    (v.encapsulation != null)
                     "encap ${v.encapsulation.type} encap-dport ${
                       toString v.encapsulation.port
                     } ${
-                      optionalString (v.encapsulation.sourcePort != null)
+                      optionalString
+                      (v.encapsulation.sourcePort != null)
                       "encap-sport ${toString v.encapsulation.sourcePort}"
                     }"
                   }

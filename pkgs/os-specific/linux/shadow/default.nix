@@ -118,8 +118,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  disallowedReferences =
-    lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
+  disallowedReferences = lib.optional
+    (stdenv.buildPlatform != stdenv.hostPlatform)
     stdenv.shellPackage;
 
   meta = with lib; {

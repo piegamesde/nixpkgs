@@ -65,7 +65,8 @@ let
     configureFlags =
       [ "--disable-debug" ]
       ++ lib.optional (stdenv.isFreeBSD || stdenv.isDarwin) "--enable-rpath"
-      ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
+      ++ lib.optional
+        (stdenv.buildPlatform != stdenv.hostPlatform)
         "--with-cross-build=${nativeBuildRoot}"
       ;
 
@@ -123,7 +124,8 @@ let
         ''
           substituteInPlace "$dev/bin/icu-config" \
             ${
-              lib.concatMapStringsSep " " (r: "--replace '${r.from}' '${r.to}'")
+              lib.concatMapStringsSep " "
+              (r: "--replace '${r.from}' '${r.to}'")
               replacements
             }
         ''

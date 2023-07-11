@@ -56,12 +56,15 @@ buildPythonPackage rec {
     withPackages =
       python-packages:
       (python.withPackages (ps: (python-packages ps) ++ [ ps.hy ]))
-      .overrideAttrs (old: {
-        name = "${hy.name}-env";
-        meta = lib.mergeAttrs (builtins.removeAttrs hy.meta [ "license" ]) {
-          mainProgram = "hy";
-        };
-      })
+      .overrideAttrs
+      (
+        old: {
+          name = "${hy.name}-env";
+          meta = lib.mergeAttrs (builtins.removeAttrs hy.meta [ "license" ]) {
+            mainProgram = "hy";
+          };
+        }
+      )
       ;
   };
 

@@ -13,8 +13,9 @@ in
 {
   options = {
     services.bazarr = {
-      enable = mkEnableOption
-        (lib.mdDoc "bazarr, a subtitle manager for Sonarr and Radarr");
+      enable = mkEnableOption (
+        lib.mdDoc "bazarr, a subtitle manager for Sonarr and Radarr"
+      );
 
       openFirewall = mkOption {
         type = types.bool;

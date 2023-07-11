@@ -108,7 +108,8 @@ stdenv.mkDerivation rec {
       source tests/testenv.sh
       robot \
         ${
-          lib.concatMapStringsSep " " (t: lib.escapeShellArg "--skip=${t}")
+          lib.concatMapStringsSep " "
+          (t: lib.escapeShellArg "--skip=${t}")
           skippedTests
         } \
         ../tests

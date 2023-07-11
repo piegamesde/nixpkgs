@@ -22,22 +22,24 @@ let
 
   pyEnv = pkgs.python.withPackages (ps: [ ps.mininet-python ]);
 
-  mnexecWrapped = pkgs.runCommand "mnexec-wrapper" {
-    nativeBuildInputs = [
-      pkgs.makeWrapper
-      pkgs.pythonPackages.wrapPython
-    ];
-  } ''
-    makeWrapper ${pkgs.mininet}/bin/mnexec \
-      $out/bin/mnexec \
-      --prefix PATH : "${generatedPath}"
+  mnexecWrapped = pkgs.runCommand "mnexec-wrapper"
+    {
+      nativeBuildInputs = [
+        pkgs.makeWrapper
+        pkgs.pythonPackages.wrapPython
+      ];
+    }
+    ''
+      makeWrapper ${pkgs.mininet}/bin/mnexec \
+        $out/bin/mnexec \
+        --prefix PATH : "${generatedPath}"
 
-    ln -s ${pyEnv}/bin/mn $out/bin/mn
+      ln -s ${pyEnv}/bin/mn $out/bin/mn
 
-    # mn errors out without a telnet binary
-    # pkgs.inetutils brings an undesired ifconfig into PATH see #43105
-    ln -s ${pkgs.inetutils}/bin/telnet $out/bin/telnet
-  '';
+      # mn errors out without a telnet binary
+      # pkgs.inetutils brings an undesired ifconfig into PATH see #43105
+      ln -s ${pkgs.inetutils}/bin/telnet $out/bin/telnet
+    '';
 in
 {
   options.programs.mininet.enable = mkEnableOption (lib.mdDoc "Mininet");

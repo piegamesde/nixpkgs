@@ -27,15 +27,17 @@ let
       # Convert derivation to a kodi module. Stolen from ../../../top-level/python-packages.nix
     toKodiAddon =
       drv:
-      drv.overrideAttrs (oldAttrs: {
-        # Use passthru in order to prevent rebuilds when possible.
-        passthru = (
-          oldAttrs.passthru or { }
-        ) // {
-          kodiAddonFor = kodi;
-          requiredKodiAddons = requiredKodiAddons drv.propagatedBuildInputs;
-        };
-      })
+      drv.overrideAttrs (
+        oldAttrs: {
+          # Use passthru in order to prevent rebuilds when possible.
+          passthru = (
+            oldAttrs.passthru or { }
+          ) // {
+            kodiAddonFor = kodi;
+            requiredKodiAddons = requiredKodiAddons drv.propagatedBuildInputs;
+          };
+        }
+      )
       ;
 
       # Check whether a derivation provides a Kodi addon.
@@ -79,8 +81,8 @@ let
     arteplussept =
       callPackage ../applications/video/kodi/addons/arteplussept { };
 
-    controller-topology-project =
-      callPackage ../applications/video/kodi/addons/controller-topology-project
+    controller-topology-project = callPackage
+      ../applications/video/kodi/addons/controller-topology-project
       { };
 
     iagl = callPackage ../applications/video/kodi/addons/iagl { };

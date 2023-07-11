@@ -15,19 +15,26 @@ let
     # systemd.services.lifecycled.serviceConfig.Environment
   configFile = pkgs.writeText "lifecycled" ''
     LIFECYCLED_HANDLER=${cfg.handler}
-    ${lib.optionalString (cfg.cloudwatchGroup != null)
+    ${lib.optionalString
+    (cfg.cloudwatchGroup != null)
     "LIFECYCLED_CLOUDWATCH_GROUP=${cfg.cloudwatchGroup}"}
-    ${lib.optionalString (cfg.cloudwatchStream != null)
+    ${lib.optionalString
+    (cfg.cloudwatchStream != null)
     "LIFECYCLED_CLOUDWATCH_STREAM=${cfg.cloudwatchStream}"}
-    ${lib.optionalString cfg.debug
-    "LIFECYCLED_DEBUG=${lib.boolToString cfg.debug}"}
-    ${lib.optionalString (cfg.instanceId != null)
+    ${lib.optionalString cfg.debug "LIFECYCLED_DEBUG=${
+      lib.boolToString cfg.debug
+    }"}
+    ${lib.optionalString
+    (cfg.instanceId != null)
     "LIFECYCLED_INSTANCE_ID=${cfg.instanceId}"}
-    ${lib.optionalString cfg.json
-    "LIFECYCLED_JSON=${lib.boolToString cfg.json}"}
-    ${lib.optionalString cfg.noSpot
-    "LIFECYCLED_NO_SPOT=${lib.boolToString cfg.noSpot}"}
-    ${lib.optionalString (cfg.snsTopic != null)
+    ${lib.optionalString cfg.json "LIFECYCLED_JSON=${
+      lib.boolToString cfg.json
+    }"}
+    ${lib.optionalString cfg.noSpot "LIFECYCLED_NO_SPOT=${
+      lib.boolToString cfg.noSpot
+    }"}
+    ${lib.optionalString
+    (cfg.snsTopic != null)
     "LIFECYCLED_SNS_TOPIC=${cfg.snsTopic}"}
     ${lib.optionalString (cfg.awsRegion != null) "AWS_REGION=${cfg.awsRegion}"}
   '';

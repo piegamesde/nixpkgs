@@ -20,18 +20,20 @@ let
     #   ocaml-interface
     #   tree-sitter-ocaml-interface
     #   tree-sitter-ocaml_interface
-  builtGrammars = generatedGrammars // lib.concatMapAttrs (
-    k: v:
-    let
-      replaced = lib.replaceStrings [ "_" ] [ "-" ] k;
-    in
-    {
-      "tree-sitter-${k}" = v;
-    } // lib.optionalAttrs (k != replaced) {
-      ${replaced} = v;
-      "tree-sitter-${replaced}" = v;
-    }
-  ) generatedDerivations;
+  builtGrammars = generatedGrammars // lib.concatMapAttrs
+    (
+      k: v:
+      let
+        replaced = lib.replaceStrings [ "_" ] [ "-" ] k;
+      in
+      {
+        "tree-sitter-${k}" = v;
+      } // lib.optionalAttrs (k != replaced) {
+        ${replaced} = v;
+        "tree-sitter-${replaced}" = v;
+      }
+    )
+    generatedDerivations;
 
   grammarToPlugin =
     grammar:
@@ -62,10 +64,12 @@ let
     # pkgs.vimPlugins.nvim-treesitter.withAllGrammars
   withPlugins =
     f:
-    self.nvim-treesitter.overrideAttrs (_: {
-      passthru.dependencies =
-        map grammarToPlugin (f (tree-sitter.builtGrammars // builtGrammars));
-    })
+    self.nvim-treesitter.overrideAttrs (
+      _: {
+        passthru.dependencies =
+          map grammarToPlugin (f (tree-sitter.builtGrammars // builtGrammars));
+      }
+    )
     ;
 
   withAllGrammars = withPlugins (_: allGrammars);
@@ -93,10 +97,12 @@ in
           configure.packages.all.start = [ withAllGrammars ];
         };
       in
-      runCommand "nvim-treesitter-check-queries" {
+      runCommand "nvim-treesitter-check-queries"
+      {
         nativeBuildInputs = [ nvimWithAllGrammars ];
         CI = true;
-      } ''
+      }
+      ''
         touch $out
         export HOME=$(mktemp -d)
         ln -s ${withAllGrammars}/CONTRIBUTING.md .

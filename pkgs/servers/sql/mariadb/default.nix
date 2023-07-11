@@ -155,9 +155,9 @@ let
           ]
           # Fixes a build issue as documented on
           # https://jira.mariadb.org/browse/MDEV-26769?focusedCommentId=206073&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-206073
-          ++ lib.optional (
-            !stdenv.hostPlatform.isLinux && lib.versionAtLeast version "10.6"
-          ) ./patch/macos-MDEV-26769-regression-fix.patch
+          ++ lib.optional
+            (!stdenv.hostPlatform.isLinux && lib.versionAtLeast version "10.6")
+            ./patch/macos-MDEV-26769-regression-fix.patch
           ;
 
         cmakeFlags =
@@ -199,12 +199,12 @@ let
             "-DCONNECT_WITH_JDBC=OFF"
             "-DCURSES_LIBRARY=${ncurses.out}/lib/libncurses.dylib"
           ]
-          ++ lib.optionals (
-            stdenv.hostPlatform.isDarwin && lib.versionAtLeast version "10.6"
-          ) [
-            # workaround for https://jira.mariadb.org/browse/MDEV-29925
-            "-Dhave_C__Wl___as_needed="
-          ]
+          ++ lib.optionals
+            (stdenv.hostPlatform.isDarwin && lib.versionAtLeast version "10.6")
+            [
+              # workaround for https://jira.mariadb.org/browse/MDEV-29925
+              "-Dhave_C__Wl___as_needed="
+            ]
           ++ lib.optionals isCross [
             # revisit this if nixpkgs supports any architecture whose stack grows upwards
             "-DSTACK_DIRECTION=-1"
@@ -237,8 +237,9 @@ let
           let
             testVersion =
               "mariadb_${
-                builtins.replaceStrings [ "." ] [ "" ]
-                (lib.versions.majorMinor version)
+                builtins.replaceStrings [ "." ] [ "" ] (
+                  lib.versions.majorMinor version
+                )
               }";
           in
           {
@@ -363,9 +364,11 @@ let
             ++ lib.optionals withNuma [ "-DWITH_NUMA=ON" ]
             ++ lib.optionals (!withStorageMroonga) [ "-DWITHOUT_MROONGA=1" ]
             ++ lib.optionals (!withStorageRocks) [ "-DWITHOUT_ROCKSDB=1" ]
-            ++ lib.optionals (
-              !stdenv.hostPlatform.isDarwin && withStorageRocks
-            ) [ "-DWITH_ROCKSDB_JEMALLOC=ON" ]
+            ++ lib.optionals
+              (!stdenv.hostPlatform.isDarwin && withStorageRocks)
+              [
+                "-DWITH_ROCKSDB_JEMALLOC=ON"
+              ]
             ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
                 "-DWITH_JEMALLOC=yes"
               ]
@@ -391,14 +394,16 @@ let
             + lib.optionalString withStorageMroonga ''
               mv "$out"/share/{groonga,groonga-normalizer-mysql} "$out"/share/doc/mysql
             ''
-            + lib.optionalString (
-              !stdenv.hostPlatform.isDarwin
-              && lib.versionAtLeast common.version "10.4"
-            ) ''
-              mv "$out"/OFF/suite/plugins/pam/pam_mariadb_mtr.so "$out"/share/pam/lib/security
-              mv "$out"/OFF/suite/plugins/pam/mariadb_mtr "$out"/share/pam/etc/security
-              rm -r "$out"/OFF
-            ''
+            + lib.optionalString
+              (
+                !stdenv.hostPlatform.isDarwin
+                && lib.versionAtLeast common.version "10.4"
+              )
+              ''
+                mv "$out"/OFF/suite/plugins/pam/pam_mariadb_mtr.so "$out"/share/pam/lib/security
+                mv "$out"/OFF/suite/plugins/pam/mariadb_mtr "$out"/share/pam/etc/security
+                rm -r "$out"/OFF
+              ''
             ;
 
           CXXFLAGS =

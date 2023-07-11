@@ -10,7 +10,8 @@ mkCoqDerivation {
   owner = "snu-sf";
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch coq.coq-version [
+    lib.switch coq.coq-version
+    [
       {
         case = range "8.12" "8.17";
         out = "4.1.2";
@@ -27,7 +28,8 @@ mkCoqDerivation {
         case = isEq "8.5";
         out = "1.2.8";
       }
-    ] null;
+    ]
+    null;
   release."4.1.2".sha256 =
     "sha256:1l8mwakqp4wnppsldl8wp2j24h1jvadnvrsgf35xnvdyygypjp2v";
   release."4.1.1".sha256 =

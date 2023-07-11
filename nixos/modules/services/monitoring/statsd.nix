@@ -40,21 +40,23 @@ let
       mgmt_address: "${cfg.mgmt_address}",
       mgmt_port: "${toString cfg.mgmt_port}",
       backends: [${
-        concatMapStringsSep "," (
+        concatMapStringsSep ","
+        (
           name:
           if (isBuiltinBackend name) then
             ''"./backends/${name}"''
           else
             ''"${name}"''
-        ) cfg.backends
+        )
+        cfg.backends
       }],
       ${
-        optionalString (cfg.graphiteHost != null)
-        ''graphiteHost: "${cfg.graphiteHost}",''
+        optionalString (cfg.graphiteHost != null) ''
+          graphiteHost: "${cfg.graphiteHost}",''
       }
       ${
-        optionalString (cfg.graphitePort != null)
-        ''graphitePort: "${toString cfg.graphitePort}",''
+        optionalString (cfg.graphitePort != null) ''
+          graphitePort: "${toString cfg.graphitePort}",''
       }
       console: {
         prettyprint: false
@@ -150,13 +152,16 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions = map (backend: {
-      assertion =
-        !isBuiltinBackend backend -> hasAttrByPath [ backend ] pkgs.nodePackages
-        ;
-      message =
-        "Only builtin backends (graphite, console, repeater) or backends enumerated in `pkgs.nodePackages` are allowed!";
-    }) cfg.backends;
+    assertions = map
+      (backend: {
+        assertion =
+          !isBuiltinBackend backend
+          -> hasAttrByPath [ backend ] pkgs.nodePackages
+          ;
+        message =
+          "Only builtin backends (graphite, console, repeater) or backends enumerated in `pkgs.nodePackages` are allowed!";
+      })
+      cfg.backends;
 
     users.users.statsd = {
       uid = config.ids.uids.statsd;

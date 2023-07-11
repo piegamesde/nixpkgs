@@ -38,16 +38,19 @@
   enableHAXM ? false
 }:
 
-assert lib.assertMsg (enable16Bit || enable32Bit)
+assert lib.assertMsg
+  (enable16Bit || enable32Bit)
   "Must enable 16-Bit and/or 32-Bit system variant.";
-assert lib.assertMsg (enableSDL || enableX11)
+assert lib.assertMsg
+  (enableSDL || enableX11)
   "Must enable SDL and/or X11 graphics interfaces.";
 assert lib.assertOneOf "withSDLVersion" withSDLVersion [
   "1"
   "2"
 ];
 assert enableHAXM
-  -> (lib.assertMsg enableX11
+  -> (lib.assertMsg
+    enableX11
     "Must enable X11 graphics interface for HAXM build.");
 let
   inherit (lib) optional optionals optionalString;
@@ -88,8 +91,9 @@ let
     optionals enable16Bit [ "Makefile" ]
     ++ optionals enable32Bit [ "Makefile21" ]
   );
-  sdlBuildFlags = concatStringsSep " "
-    (optionals enableSDL [ "SDL_VERSION=${withSDLVersion}" ]);
+  sdlBuildFlags = concatStringsSep " " (
+    optionals enableSDL [ "SDL_VERSION=${withSDLVersion}" ]
+  );
   sdlBins = concatStringsSep " " (
     optionals enable16Bit [ "np2kai" ] ++ optionals enable32Bit [ "np21kai" ]
   );

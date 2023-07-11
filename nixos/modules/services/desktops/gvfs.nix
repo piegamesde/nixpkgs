@@ -20,16 +20,18 @@ in
 
     # Added 2019-08-19
   imports = [
-      (mkRenamedOptionModule [
-        "services"
-        "gnome3"
-        "gvfs"
-        "enable"
-      ] [
-        "services"
-        "gvfs"
-        "enable"
-      ])
+      (mkRenamedOptionModule
+        [
+          "services"
+          "gnome3"
+          "gvfs"
+          "enable"
+        ]
+        [
+          "services"
+          "gvfs"
+          "enable"
+        ])
     ];
 
     ###### interface

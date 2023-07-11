@@ -10,13 +10,15 @@
   # Random seed
   seed ? null,
 }:
-pkgs.runCommand "lib-path-tests" {
+pkgs.runCommand "lib-path-tests"
+{
   nativeBuildInputs = with pkgs; [
     nix
     jq
     bc
   ];
-} ''
+}
+''
   # Needed to make Nix evaluation work
   export NIX_STATE_DIR=$(mktemp -d)
 

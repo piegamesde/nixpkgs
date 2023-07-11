@@ -43,22 +43,29 @@ let
   templates =
     if cfg.templates != { } then
       let
-        list = mapAttrsToList (name: value: { inherit name; } // value)
-          (filterAttrs (name: value: value.enable) cfg.templates);
+        list = mapAttrsToList (name: value: { inherit name; } // value) (
+          filterAttrs (name: value: value.enable) cfg.templates
+        );
       in
       {
-        files = map (tpl: {
-          source = tpl.template;
-          target = "/templates/${tpl.name}.tpl";
-        }) list;
-        properties = listToAttrs (map (
-          tpl:
-          nameValuePair tpl.target {
-            when = tpl.when;
-            template = "${tpl.name}.tpl";
-            properties = tpl.properties;
-          }
-        ) list);
+        files = map
+          (tpl: {
+            source = tpl.template;
+            target = "/templates/${tpl.name}.tpl";
+          })
+          list;
+        properties = listToAttrs (
+          map
+          (
+            tpl:
+            nameValuePair tpl.target {
+              when = tpl.when;
+              template = "${tpl.name}.tpl";
+              properties = tpl.properties;
+            }
+          )
+          list
+        );
       }
     else
       {
@@ -140,7 +147,8 @@ in
         [ {
           source = toYAML "metadata.yaml" {
             architecture = builtins.elemAt
-              (builtins.match "^([a-z0-9_]+).+" (toString pkgs.system)) 0;
+              (builtins.match "^([a-z0-9_]+).+" (toString pkgs.system))
+              0;
             creation_date = 1;
             properties = {
               description =

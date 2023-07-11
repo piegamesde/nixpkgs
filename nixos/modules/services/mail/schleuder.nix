@@ -9,8 +9,9 @@ let
   settingsFormat = pkgs.formats.yaml { };
   postfixMap =
     entries:
-    lib.concatStringsSep "\n"
-    (lib.mapAttrsToList (name: value: "${name} ${value}") entries)
+    lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (name: value: "${name} ${value}") entries
+    )
     ;
   writePostfixMap = name: entries: pkgs.writeText name (postfixMap entries);
   configScript = pkgs.writeScript "schleuder-cfg" ''
@@ -105,8 +106,9 @@ in
       }
       {
         assertion =
-          !(lib.any (db: db ? password)
-            (lib.attrValues cfg.settings.database or { }))
+          !(lib.any (db: db ? password) (
+            lib.attrValues cfg.settings.database or { }
+          ))
           ;
         message = ''
           A password is defined for at least one database in services.schleuder.settings.database. Defining passwords via NixOS config results in them being copied to the world-readable Nix store. Please use the extraSettingsFile option to store database passwords in a non-public location.
@@ -122,8 +124,9 @@ in
         schleuder  unix  -       n       n       -       -       pipe
           flags=DRhu user=schleuder argv=/${pkgs.schleuder}/bin/schleuder work ''${recipient}
       '';
-      transport = lib.mkIf (cfg.lists != [ ])
-        (postfixMap (lib.genAttrs cfg.lists (_: "schleuder:")));
+      transport = lib.mkIf (cfg.lists != [ ]) (
+        postfixMap (lib.genAttrs cfg.lists (_: "schleuder:"))
+      );
       extraConfig = ''
         schleuder_destination_recipient_limit = 1
       '';

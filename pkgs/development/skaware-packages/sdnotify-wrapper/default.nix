@@ -13,7 +13,8 @@ let
   src = ./sdnotify-wrapper.c;
 
 in
-runCommandCC "sdnotify-wrapper" {
+runCommandCC "sdnotify-wrapper"
+{
 
   outputs = [
     "bin"
@@ -30,7 +31,8 @@ runCommandCC "sdnotify-wrapper" {
     maintainers = with lib.maintainers; [ Profpatsch ];
   };
 
-} ''
+}
+''
   mkdir -p $bin/bin
   mkdir $out
 

@@ -4,7 +4,8 @@
   runCommand,
 }:
 
-runCommand "jazz2-content" {
+runCommand "jazz2-content"
+{
   inherit (jazz2) version src;
 
   preferLocalBuild = true;
@@ -15,6 +16,7 @@ runCommand "jazz2-content" {
     license = licenses.gpl3;
     maintainers = with maintainers; [ surfaceflinger ];
   };
-} ''
+}
+''
   cp -r $src/Content $out
 ''

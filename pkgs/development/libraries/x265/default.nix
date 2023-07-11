@@ -62,7 +62,8 @@ let
       (mkFlag werrorSupport "WARNINGS_AS_ERRORS")
       # Potentially riscv cross could be fixed by providing the correct CMAKE_SYSTEM_PROCESSOR flag
     ]
-    ++ lib.optional (isCross && stdenv.hostPlatform.isRiscV)
+    ++ lib.optional
+      (isCross && stdenv.hostPlatform.isRiscV)
       "-DENABLE_ASSEMBLY=OFF"
     ;
 

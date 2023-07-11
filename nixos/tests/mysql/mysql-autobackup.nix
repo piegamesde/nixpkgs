@@ -59,5 +59,6 @@ let
     }
     ;
 in
-lib.mapAttrs (_: package: makeAutobackupTest { inherit package; })
+lib.mapAttrs
+(_: package: makeAutobackupTest { inherit package; })
 mariadbPackages

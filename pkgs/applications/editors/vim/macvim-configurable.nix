@@ -72,8 +72,9 @@ let
             }
             ;
         in
-        lib.makeOverridable
-        (lib.setFunctionArgs doConfig (lib.functionArgs vimUtils.vimrcFile))
+        lib.makeOverridable (
+          lib.setFunctionArgs doConfig (lib.functionArgs vimUtils.vimrcFile)
+        )
         ;
 
       override = f: makeCustomizable (macvim.override f);

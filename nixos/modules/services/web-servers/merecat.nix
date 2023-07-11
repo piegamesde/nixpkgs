@@ -10,19 +10,21 @@ with lib;
 let
   cfg = config.services.merecat;
   format = pkgs.formats.keyValue {
-    mkKeyValue = generators.mkKeyValueDefault {
-      mkValueString =
-        v:
-        # In merecat.conf, booleans are "true" and "false"
-        if builtins.isBool v then
-          if v then
-            "true"
+    mkKeyValue = generators.mkKeyValueDefault
+      {
+        mkValueString =
+          v:
+          # In merecat.conf, booleans are "true" and "false"
+          if builtins.isBool v then
+            if v then
+              "true"
+            else
+              "false"
           else
-            "false"
-        else
-          generators.mkValueStringDefault { } v
-        ;
-    } "=";
+            generators.mkValueStringDefault { } v
+          ;
+      }
+      "=";
   };
   configFile = format.generate "merecat.conf" cfg.settings;
 

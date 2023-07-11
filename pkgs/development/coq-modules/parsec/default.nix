@@ -21,7 +21,8 @@ mkCoqDerivation {
 
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch coq.version [
+    lib.switch coq.version
+    [
       {
         case = range "8.12" "8.16";
         out = "0.1.1";
@@ -30,7 +31,8 @@ mkCoqDerivation {
         case = range "8.12" "8.13";
         out = "0.1.0";
       }
-    ] null;
+    ]
+    null;
   release."0.1.1".sha256 =
     "sha256:1c0l18s68pzd4c8i3jimh2yz0pqm4g38pca4bm7fr18r8xmqf189";
   release."0.1.0".sha256 =

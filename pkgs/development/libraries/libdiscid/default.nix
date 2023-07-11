@@ -25,7 +25,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3V6PHJrq1ELiO3SanMkzY3LmLoitcHmitiiVsDkMsoI=";
   };
 
-  NIX_LDFLAGS = lib.optionalString stdenv.isDarwin
+  NIX_LDFLAGS = lib.optionalString
+    stdenv.isDarwin
     "-framework CoreFoundation -framework IOKit";
 
   meta = with lib; {

@@ -39,15 +39,17 @@
 
       type = with lib.types;
         let
-          valueType = nullOr (oneOf [
-            bool
-            int
-            float
-            str
-            path
-            (attrsOf valueType)
-            (listOf valueType)
-          ]) // {
+          valueType = nullOr (
+            oneOf [
+              bool
+              int
+              float
+              str
+              path
+              (attrsOf valueType)
+              (listOf valueType)
+            ]
+          ) // {
             description = "JSON value";
           };
         in
@@ -56,19 +58,23 @@
 
       generate =
         name: value:
-        pkgs.callPackage (
+        pkgs.callPackage
+        (
           {
             runCommand,
             jq,
           }:
-          runCommand name {
+          runCommand name
+          {
             nativeBuildInputs = [ jq ];
             value = builtins.toJSON value;
             passAsFile = [ "value" ];
-          } ''
+          }
+          ''
             jq . "$valuePath"> $out
           ''
-        ) { }
+        )
+        { }
         ;
 
     }
@@ -79,32 +85,38 @@
 
       generate =
         name: value:
-        pkgs.callPackage (
+        pkgs.callPackage
+        (
           {
             runCommand,
             remarshal,
           }:
-          runCommand name {
+          runCommand name
+          {
             nativeBuildInputs = [ remarshal ];
             value = builtins.toJSON value;
             passAsFile = [ "value" ];
-          } ''
+          }
+          ''
             json2yaml "$valuePath" "$out"
           ''
-        ) { }
+        )
+        { }
         ;
 
       type = with lib.types;
         let
-          valueType = nullOr (oneOf [
-            bool
-            int
-            float
-            str
-            path
-            (attrsOf valueType)
-            (listOf valueType)
-          ]) // {
+          valueType = nullOr (
+            oneOf [
+              bool
+              int
+              float
+              str
+              path
+              (attrsOf valueType)
+              (listOf valueType)
+            ]
+          ) // {
             description = "YAML value";
           };
         in
@@ -128,12 +140,14 @@
       type = with lib.types;
         let
 
-          singleIniAtom = nullOr (oneOf [
-            bool
-            int
-            float
-            str
-          ]) // {
+          singleIniAtom = nullOr (
+            oneOf [
+              bool
+              int
+              float
+              str
+            ]
+          ) // {
             description = "INI atom (null, bool, int, float or string)";
           };
 
@@ -146,8 +160,9 @@
                   ;
               }
             else if listToValue != null then
-              coercedTo singleIniAtom lib.singleton
-              (nonEmptyListOf singleIniAtom) // {
+              coercedTo singleIniAtom lib.singleton (
+                nonEmptyListOf singleIniAtom
+              ) // {
                 description =
                   singleIniAtom.description + " or a non-empty list of them";
               }
@@ -164,7 +179,8 @@
         let
           transformedValue =
             if listToValue != null then
-              lib.mapAttrs (
+              lib.mapAttrs
+              (
                 section:
                 lib.mapAttrs (
                   key: val:
@@ -173,14 +189,17 @@
                   else
                     val
                 )
-              ) value
+              )
+              value
             else
               value
             ;
         in
-        pkgs.writeText name
-        (lib.generators.toINI (removeAttrs args [ "listToValue" ])
-          transformedValue)
+        pkgs.writeText name (
+          lib.generators.toINI
+          (removeAttrs args [ "listToValue" ])
+          transformedValue
+        )
         ;
 
     }
@@ -200,12 +219,14 @@
       type = with lib.types;
         let
 
-          singleAtom = nullOr (oneOf [
-            bool
-            int
-            float
-            str
-          ]) // {
+          singleAtom = nullOr (
+            oneOf [
+              bool
+              int
+              float
+              str
+            ]
+          ) // {
             description = "atom (null, bool, int, float or string)";
           };
 
@@ -236,20 +257,24 @@
         let
           transformedValue =
             if listToValue != null then
-              lib.mapAttrs (
+              lib.mapAttrs
+              (
                 key: val:
                 if lib.isList val then
                   listToValue val
                 else
                   val
-              ) value
+              )
+              value
             else
               value
             ;
         in
-        pkgs.writeText name
-        (lib.generators.toKeyValue (removeAttrs args [ "listToValue" ])
-          transformedValue)
+        pkgs.writeText name (
+          lib.generators.toKeyValue
+          (removeAttrs args [ "listToValue" ])
+          transformedValue
+        )
         ;
 
     }
@@ -300,19 +325,23 @@
 
       generate =
         name: value:
-        pkgs.callPackage (
+        pkgs.callPackage
+        (
           {
             runCommand,
             remarshal,
           }:
-          runCommand name {
+          runCommand name
+          {
             nativeBuildInputs = [ remarshal ];
             value = builtins.toJSON value;
             passAsFile = [ "value" ];
-          } ''
+          }
+          ''
             json2toml "$valuePath" "$out"
           ''
-        ) { }
+        )
+        { }
         ;
 
     }
@@ -448,14 +477,16 @@
     {
       type = with lib.types;
         let
-          valueType = nullOr (oneOf [
-            bool
-            int
-            float
-            str
-            (attrsOf valueType)
-            (listOf valueType)
-          ]) // {
+          valueType = nullOr (
+            oneOf [
+              bool
+              int
+              float
+              str
+              (attrsOf valueType)
+              (listOf valueType)
+            ]
+          ) // {
             description = "Elixir value";
           };
         in
@@ -483,8 +514,9 @@
               envVariable,
               fallback ? null
             }:
-            mkRaw
-            "System.get_env(${toElixir envVariable}, ${toElixir fallback})"
+            mkRaw "System.get_env(${toElixir envVariable}, ${
+              toElixir fallback
+            })"
             ;
 
             /* Make an Elixir atom.
@@ -535,23 +567,29 @@
             {
               inherit rawElixir elixirOr;
 
-              atom = elixirOr (mkOptionType {
-                name = "elixirAtom";
-                description = "elixir atom";
-                check = isElixirType "atom";
-              });
+              atom = elixirOr (
+                mkOptionType {
+                  name = "elixirAtom";
+                  description = "elixir atom";
+                  check = isElixirType "atom";
+                }
+              );
 
-              tuple = elixirOr (mkOptionType {
-                name = "elixirTuple";
-                description = "elixir tuple";
-                check = isElixirType "tuple";
-              });
+              tuple = elixirOr (
+                mkOptionType {
+                  name = "elixirTuple";
+                  description = "elixir tuple";
+                  check = isElixirType "tuple";
+                }
+              );
 
-              map = elixirOr (mkOptionType {
-                name = "elixirMap";
-                description = "elixir map";
-                check = isElixirType "map";
-              });
+              map = elixirOr (
+                mkOptionType {
+                  name = "elixirMap";
+                  description = "elixir map";
+                  check = isElixirType "map";
+                }
+              );
                 # Wrap standard types, since anything in the Elixir configuration
                 # can be raw Elixir
             } // lib.mapAttrs (_name: type: elixirOr type) lib.types
@@ -561,11 +599,13 @@
 
       generate =
         name: value:
-        pkgs.runCommand name {
+        pkgs.runCommand name
+        {
           value = toConf value;
           passAsFile = [ "value" ];
           nativeBuildInputs = [ elixir ];
-        } ''
+        }
+        ''
           cp "$valuePath" "$out"
           mix format "$out"
         ''
@@ -579,15 +619,17 @@
     { }: {
       type = with lib.types;
         let
-          valueType = nullOr (oneOf [
-            bool
-            float
-            int
-            path
-            str
-            (attrsOf valueType)
-            (listOf valueType)
-          ]) // {
+          valueType = nullOr (
+            oneOf [
+              bool
+              float
+              int
+              path
+              str
+              (attrsOf valueType)
+              (listOf valueType)
+            ]
+          ) // {
             description = "Python value";
           };
         in
@@ -595,13 +637,15 @@
         ;
       generate =
         name: value:
-        pkgs.callPackage (
+        pkgs.callPackage
+        (
           {
             runCommand,
             python3,
             black,
           }:
-          runCommand name {
+          runCommand name
+          {
             nativeBuildInputs = [
               python3
               black
@@ -619,12 +663,14 @@
               "value"
               "pythonGen"
             ];
-          } ''
+          }
+          ''
             cat "$valuePath"
             python3 "$pythonGenPath" > $out
             black $out
           ''
-        ) { }
+        )
+        { }
         ;
     }
     ;

@@ -60,13 +60,15 @@ let
       "--prefix"
       "QT_PLUGIN_PATH"
       ":"
-      "${lib.makeSearchPath unwrapped.qtbase.qtPluginPrefix
-      (builtins.map lib.getBin unwrapped.qtPackages)}"
+      "${lib.makeSearchPath unwrapped.qtbase.qtPluginPrefix (
+        builtins.map lib.getBin unwrapped.qtPackages
+      )}"
       "--prefix"
       "QML2_IMPORT_PATH"
       ":"
-      "${lib.makeSearchPath unwrapped.qtbase.qtQmlPrefix
-      (builtins.map lib.getBin unwrapped.qmlPackages)}"
+      "${lib.makeSearchPath unwrapped.qtbase.qtQmlPrefix (
+        builtins.map lib.getBin unwrapped.qmlPackages
+      )}"
     ]
     ++ [
       # Add dictionaries from all NIX_PROFILES
@@ -108,7 +110,8 @@ let
     ++ extraMakeWrapperArgs
   );
 in
-runCommand "${unwrapped.name}-wrapped" {
+runCommand "${unwrapped.name}-wrapped"
+{
   inherit (unwrapped) meta;
   paths = [ unwrapped ];
   nativeBuildInputs = [
@@ -125,7 +128,8 @@ runCommand "${unwrapped.name}-wrapped" {
       unwrapped;
     inherit (unwrapped) kdeIntegration;
   };
-} (
+}
+(
   ''
     mkdir -p $out/share
     for dir in ${unwrapped}/share/*; do

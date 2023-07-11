@@ -11,7 +11,8 @@
   inherit version;
   displayVersion = { tlc = false; };
   defaultVersion = with lib.versions;
-    lib.switch coq.coq-version [
+    lib.switch coq.coq-version
+    [
       {
         case = range "8.13" "8.16";
         out = "20211215";
@@ -28,7 +29,8 @@
         case = range "8.6" "8.12";
         out = "20181116";
       }
-    ] null;
+    ]
+    null;
   release."20211215".sha256 =
     "sha256:0m4d4jhdcyq8p2gpz9j3nd6jqzmz2bjmbpc0q06b38b8i550mamp";
   release."20210316".sha256 =
@@ -44,7 +46,8 @@
     license = licenses.free;
     maintainers = [ maintainers.vbgl ];
   };
-}).overrideAttrs (
+}).overrideAttrs
+(
   x:
   if lib.versionAtLeast x.version "20210316" then
     { }

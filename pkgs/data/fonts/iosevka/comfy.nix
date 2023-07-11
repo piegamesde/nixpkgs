@@ -73,7 +73,11 @@ let
     })
     ;
 in
-builtins.listToAttrs (builtins.map (set: {
-  name = set;
-  value = makeIosevkaFont set;
-}) sets)
+builtins.listToAttrs (
+  builtins.map
+  (set: {
+    name = set;
+    value = makeIosevkaFont set;
+  })
+  sets
+)

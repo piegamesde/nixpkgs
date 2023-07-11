@@ -20,9 +20,9 @@ let
     );
 
 in
-makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { }) (
-  spliced: spliced.apple_sdk.frameworks
-) (
+makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
+(spliced: spliced.apple_sdk.frameworks)
+(
   self:
   let
     inherit (self)
@@ -61,20 +61,27 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { }) (
 
     selectAttrs =
       attrs: names:
-      lib.listToAttrs (lib.concatMap (
-        n: lib.optionals (attrs ? "${n}") [ (lib.nameValuePair n attrs."${n}") ]
-      ) names)
+      lib.listToAttrs (
+        lib.concatMap
+        (
+          n:
+          lib.optionals (attrs ? "${n}") [ (lib.nameValuePair n attrs."${n}") ]
+        )
+        names
+      )
       ;
 
     chooseLibs = (
       # There are differences in which libraries are exported. Avoid evaluation
       # errors when a package is not provided.
-      selectAttrs (
+      selectAttrs
+      (
         if useAppleSDKLibs then
           apple_sdk
         else
           appleSourcePackages
-      ) [
+      )
+      [
         "Libsystem"
         "LibsystemCross"
         "libcharset"
@@ -166,10 +173,12 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { }) (
 
     rewrite-tbd = callPackage ../os-specific/darwin/rewrite-tbd { };
 
-    checkReexportsHook = pkgs.makeSetupHook {
-      name = "darwin-check-reexports-hook";
-      propagatedBuildInputs = [ pkgs.darwin.print-reexports ];
-    } ../os-specific/darwin/print-reexports/setup-hook.sh;
+    checkReexportsHook = pkgs.makeSetupHook
+      {
+        name = "darwin-check-reexports-hook";
+        propagatedBuildInputs = [ pkgs.darwin.print-reexports ];
+      }
+      ../os-specific/darwin/print-reexports/setup-hook.sh;
 
     sigtool = callPackage ../os-specific/darwin/sigtool { };
 
@@ -187,10 +196,12 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { }) (
 
     signingUtils = callPackage ../os-specific/darwin/signing-utils { };
 
-    autoSignDarwinBinariesHook = pkgs.makeSetupHook {
-      name = "auto-sign-darwin-binaries-hook";
-      propagatedBuildInputs = [ self.signingUtils ];
-    } ../os-specific/darwin/signing-utils/auto-sign-hook.sh;
+    autoSignDarwinBinariesHook = pkgs.makeSetupHook
+      {
+        name = "auto-sign-darwin-binaries-hook";
+        propagatedBuildInputs = [ self.signingUtils ];
+      }
+      ../os-specific/darwin/signing-utils/auto-sign-hook.sh;
 
     maloader = callPackage ../os-specific/darwin/maloader { };
 
@@ -292,8 +303,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { }) (
       # This may seem unimportant, but without it packages (e.g., bacula) will
       # fail with linker errors referring ___CFConstantStringClassReference.
       # It's not clear to me why some packages need this extra setup.
-        lib.overrideDerivation apple_sdk.frameworks.CoreFoundation
-        (drv: { setupHook = null; })
+        lib.overrideDerivation apple_sdk.frameworks.CoreFoundation (
+          drv: { setupHook = null; }
+        )
       else
         callPackage ../os-specific/darwin/swift-corelibs/corefoundation.nix { }
       ;

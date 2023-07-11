@@ -235,10 +235,12 @@ in
               PIDFile = "frr/${daemon}.pid";
               ExecStart =
                 "${pkgs.frr}/libexec/frr/${daemon} -f /etc/frr/${service}.conf"
-                + optionalString (scfg.vtyListenAddress != "")
+                + optionalString
+                  (scfg.vtyListenAddress != "")
                   " -A ${scfg.vtyListenAddress}"
-                + optionalString (scfg.vtyListenPort != null)
-                  " -P ${toString scfg.vtyListenPort}"
+                + optionalString (scfg.vtyListenPort != null) " -P ${
+                     toString scfg.vtyListenPort
+                   }"
                 + " "
                 + (concatStringsSep " " scfg.extraOptions)
                 ;

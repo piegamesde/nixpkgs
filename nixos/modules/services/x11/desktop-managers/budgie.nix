@@ -123,7 +123,8 @@ in
       ];
 
     environment.extraInit = ''
-      ${concatMapStrings (p: ''
+      ${concatMapStrings
+      (p: ''
         if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
           export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
         fi
@@ -131,7 +132,8 @@ in
           export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
           export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
         fi
-      '') cfg.sessionPath}
+      '')
+      cfg.sessionPath}
     '';
 
     environment.systemPackages = with pkgs;
@@ -160,25 +162,27 @@ in
         # Update user directories.
         xdg-user-dirs
       ]
-      ++ (utils.removePackagesByName [
-        cinnamon.nemo
-        mate.eom
-        mate.pluma
-        mate.atril
-        mate.engrampa
-        mate.mate-calc
-        mate.mate-terminal
-        mate.mate-system-monitor
-        vlc
+      ++ (utils.removePackagesByName
+        [
+          cinnamon.nemo
+          mate.eom
+          mate.pluma
+          mate.atril
+          mate.engrampa
+          mate.mate-calc
+          mate.mate-terminal
+          mate.mate-system-monitor
+          vlc
 
-        # Desktop themes.
-        qogir-theme
-        qogir-icon-theme
-        nixos-background-info
+          # Desktop themes.
+          qogir-theme
+          qogir-icon-theme
+          nixos-background-info
 
-        # Default settings.
-        nixos-gsettings-overrides
-      ] config.environment.budgie.excludePackages)
+          # Default settings.
+          nixos-gsettings-overrides
+        ]
+        config.environment.budgie.excludePackages)
       ++ cfg.sessionPath;
 
       # Fonts.

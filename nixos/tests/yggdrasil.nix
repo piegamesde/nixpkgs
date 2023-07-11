@@ -60,10 +60,12 @@ import ./make-test-python.nix (
               Listen = [ "tcp://0.0.0.0:12345" ];
               MulticastInterfaces = [ ];
             };
-            configFile = toString (pkgs.writeTextFile {
-              name = "yggdrasil-alice-conf";
-              text = builtins.toJSON aliceKeys;
-            });
+            configFile = toString (
+              pkgs.writeTextFile {
+                name = "yggdrasil-alice-conf";
+                text = builtins.toJSON aliceKeys;
+              }
+            );
           };
         }
         ;
@@ -78,10 +80,12 @@ import ./make-test-python.nix (
           services.yggdrasil = {
             enable = true;
             openMulticastPort = true;
-            configFile = toString (pkgs.writeTextFile {
-              name = "yggdrasil-bob-conf";
-              text = builtins.toJSON bobConfig;
-            });
+            configFile = toString (
+              pkgs.writeTextFile {
+                name = "yggdrasil-bob-conf";
+                text = builtins.toJSON bobConfig;
+              }
+            );
           };
 
           boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = 1;

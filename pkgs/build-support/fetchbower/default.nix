@@ -22,13 +22,16 @@ let
 
   cleanName =
     name:
-    lib.replaceStrings [
+    lib.replaceStrings
+    [
       "/"
       ":"
-    ] [
+    ]
+    [
       "-"
       "-"
-    ] name
+    ]
+    name
     ;
 
   fetchbower =

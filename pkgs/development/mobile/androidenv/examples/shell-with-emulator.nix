@@ -119,12 +119,14 @@ pkgs.mkShell rec {
   passthru.tests = {
 
     shell-with-emulator-sdkmanager-packages-test =
-      pkgs.runCommand "shell-with-emulator-sdkmanager-packages-test" {
+      pkgs.runCommand "shell-with-emulator-sdkmanager-packages-test"
+      {
         nativeBuildInputs = [
           androidSdk
           jdk
         ];
-      } ''
+      }
+      ''
         output="$(sdkmanager --list)"
         installed_packages_section=$(echo "''${output%%Available Packages*}" | awk 'NR>4 {print $1}')
         echo "installed_packages_section: ''${installed_packages_section}"
@@ -147,13 +149,15 @@ pkgs.mkShell rec {
       '';
 
     shell-with-emulator-avdmanager-create-avd-test =
-      pkgs.runCommand "shell-with-emulator-avdmanager-create-avd-test" {
+      pkgs.runCommand "shell-with-emulator-avdmanager-create-avd-test"
+      {
         nativeBuildInputs = [
           androidSdk
           androidEmulator
           jdk
         ];
-      } ''
+      }
+      ''
         avdmanager delete avd -n testAVD || true
         echo "" | avdmanager create avd --force --name testAVD --package 'system-images;android-33;google_apis;x86_64'
         result=$(avdmanager list avd)

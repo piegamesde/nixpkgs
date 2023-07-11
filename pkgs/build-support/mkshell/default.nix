@@ -22,8 +22,9 @@ let
     (
       attrs.${name} or [ ]
     )
-    ++ (lib.subtractLists inputsFrom
-      (lib.flatten (lib.catAttrs name inputsFrom)))
+    ++ (lib.subtractLists inputsFrom (
+      lib.flatten (lib.catAttrs name inputsFrom)
+    ))
     ;
 
   rest = builtins.removeAttrs attrs [
@@ -47,8 +48,9 @@ stdenv.mkDerivation (
     propagatedBuildInputs = mergeInputs "propagatedBuildInputs";
     propagatedNativeBuildInputs = mergeInputs "propagatedNativeBuildInputs";
 
-    shellHook = lib.concatStringsSep "\n"
-      (lib.catAttrs "shellHook" (lib.reverseList inputsFrom ++ [ attrs ]));
+    shellHook = lib.concatStringsSep "\n" (
+      lib.catAttrs "shellHook" (lib.reverseList inputsFrom ++ [ attrs ])
+    );
 
     phases = [ "buildPhase" ];
 

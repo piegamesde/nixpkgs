@@ -25,9 +25,9 @@ let
 
   prettyJSON =
     conf:
-    pkgs.runCommandLocal "hedgedoc-config.json" {
-      nativeBuildInputs = [ pkgs.jq ];
-    } ''
+    pkgs.runCommandLocal "hedgedoc-config.json"
+    { nativeBuildInputs = [ pkgs.jq ]; }
+    ''
       jq '{production:del(.[]|nulls)|del(.[][]?|nulls)}' \
         < ${settingsFormat.generate "hedgedoc-ugly.json" cfg.settings} \
         > $out
@@ -36,22 +36,26 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "codimd"
-    ] [
-      "services"
-      "hedgedoc"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "hedgedoc"
-      "configuration"
-    ] [
-      "services"
-      "hedgedoc"
-      "settings"
-    ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "codimd"
+      ]
+      [
+        "services"
+        "hedgedoc"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "hedgedoc"
+        "configuration"
+      ]
+      [
+        "services"
+        "hedgedoc"
+        "settings"
+      ])
   ];
 
   options.services.hedgedoc = {
@@ -477,69 +481,73 @@ in
             '';
           };
           minio = mkOption {
-            type = types.nullOr (types.submodule {
-              options = {
-                accessKey = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Minio access key.
-                  '';
+            type = types.nullOr (
+              types.submodule {
+                options = {
+                  accessKey = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Minio access key.
+                    '';
+                  };
+                  secretKey = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Minio secret key.
+                    '';
+                  };
+                  endPoint = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Minio endpoint.
+                    '';
+                  };
+                  port = mkOption {
+                    type = types.port;
+                    default = 9000;
+                    description = lib.mdDoc ''
+                      Minio listen port.
+                    '';
+                  };
+                  secure = mkOption {
+                    type = types.bool;
+                    default = true;
+                    description = lib.mdDoc ''
+                      Whether to use HTTPS for Minio.
+                    '';
+                  };
                 };
-                secretKey = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Minio secret key.
-                  '';
-                };
-                endPoint = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Minio endpoint.
-                  '';
-                };
-                port = mkOption {
-                  type = types.port;
-                  default = 9000;
-                  description = lib.mdDoc ''
-                    Minio listen port.
-                  '';
-                };
-                secure = mkOption {
-                  type = types.bool;
-                  default = true;
-                  description = lib.mdDoc ''
-                    Whether to use HTTPS for Minio.
-                  '';
-                };
-              };
-            });
+              }
+            );
             default = null;
             description =
               lib.mdDoc "Configure the minio third-party integration.";
           };
           s3 = mkOption {
-            type = types.nullOr (types.submodule {
-              options = {
-                accessKeyId = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    AWS access key id.
-                  '';
+            type = types.nullOr (
+              types.submodule {
+                options = {
+                  accessKeyId = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      AWS access key id.
+                    '';
+                  };
+                  secretAccessKey = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      AWS access key.
+                    '';
+                  };
+                  region = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      AWS S3 region.
+                    '';
+                  };
                 };
-                secretAccessKey = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    AWS access key.
-                  '';
-                };
-                region = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    AWS S3 region.
-                  '';
-                };
-              };
-            });
+              }
+            );
             default = null;
             description = lib.mdDoc "Configure the s3 third-party integration.";
           };
@@ -565,480 +573,502 @@ in
             '';
           };
           azure = mkOption {
-            type = types.nullOr (types.submodule {
-              options = {
-                connectionString = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Azure Blob Storage connection string.
-                  '';
+            type = types.nullOr (
+              types.submodule {
+                options = {
+                  connectionString = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Azure Blob Storage connection string.
+                    '';
+                  };
+                  container = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Azure Blob Storage container name.
+                      It will be created if non-existent.
+                    '';
+                  };
                 };
-                container = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Azure Blob Storage container name.
-                    It will be created if non-existent.
-                  '';
-                };
-              };
-            });
+              }
+            );
             default = null;
             description =
               lib.mdDoc "Configure the azure third-party integration.";
           };
           oauth2 = mkOption {
-            type = types.nullOr (types.submodule {
-              options = {
-                authorizationURL = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Specify the OAuth authorization URL.
-                  '';
+            type = types.nullOr (
+              types.submodule {
+                options = {
+                  authorizationURL = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Specify the OAuth authorization URL.
+                    '';
+                  };
+                  tokenURL = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Specify the OAuth token URL.
+                    '';
+                  };
+                  baseURL = mkOption {
+                    type = with types; nullOr str;
+                    default = null;
+                    description = lib.mdDoc ''
+                      Specify the OAuth base URL.
+                    '';
+                  };
+                  userProfileURL = mkOption {
+                    type = with types; nullOr str;
+                    default = null;
+                    description = lib.mdDoc ''
+                      Specify the OAuth userprofile URL.
+                    '';
+                  };
+                  userProfileUsernameAttr = mkOption {
+                    type = with types; nullOr str;
+                    default = null;
+                    description = lib.mdDoc ''
+                      Specify the name of the attribute for the username from the claim.
+                    '';
+                  };
+                  userProfileDisplayNameAttr = mkOption {
+                    type = with types; nullOr str;
+                    default = null;
+                    description = lib.mdDoc ''
+                      Specify the name of the attribute for the display name from the claim.
+                    '';
+                  };
+                  userProfileEmailAttr = mkOption {
+                    type = with types; nullOr str;
+                    default = null;
+                    description = lib.mdDoc ''
+                      Specify the name of the attribute for the email from the claim.
+                    '';
+                  };
+                  scope = mkOption {
+                    type = with types; nullOr str;
+                    default = null;
+                    description = lib.mdDoc ''
+                      Specify the OAuth scope.
+                    '';
+                  };
+                  providerName = mkOption {
+                    type = with types; nullOr str;
+                    default = null;
+                    description = lib.mdDoc ''
+                      Specify the name to be displayed for this strategy.
+                    '';
+                  };
+                  rolesClaim = mkOption {
+                    type = with types; nullOr str;
+                    default = null;
+                    description = lib.mdDoc ''
+                      Specify the role claim name.
+                    '';
+                  };
+                  accessRole = mkOption {
+                    type = with types; nullOr str;
+                    default = null;
+                    description = lib.mdDoc ''
+                      Specify role which should be included in the ID token roles claim to grant access
+                    '';
+                  };
+                  clientID = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Specify the OAuth client ID.
+                    '';
+                  };
+                  clientSecret = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Specify the OAuth client secret.
+                    '';
+                  };
                 };
-                tokenURL = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Specify the OAuth token URL.
-                  '';
-                };
-                baseURL = mkOption {
-                  type = with types; nullOr str;
-                  default = null;
-                  description = lib.mdDoc ''
-                    Specify the OAuth base URL.
-                  '';
-                };
-                userProfileURL = mkOption {
-                  type = with types; nullOr str;
-                  default = null;
-                  description = lib.mdDoc ''
-                    Specify the OAuth userprofile URL.
-                  '';
-                };
-                userProfileUsernameAttr = mkOption {
-                  type = with types; nullOr str;
-                  default = null;
-                  description = lib.mdDoc ''
-                    Specify the name of the attribute for the username from the claim.
-                  '';
-                };
-                userProfileDisplayNameAttr = mkOption {
-                  type = with types; nullOr str;
-                  default = null;
-                  description = lib.mdDoc ''
-                    Specify the name of the attribute for the display name from the claim.
-                  '';
-                };
-                userProfileEmailAttr = mkOption {
-                  type = with types; nullOr str;
-                  default = null;
-                  description = lib.mdDoc ''
-                    Specify the name of the attribute for the email from the claim.
-                  '';
-                };
-                scope = mkOption {
-                  type = with types; nullOr str;
-                  default = null;
-                  description = lib.mdDoc ''
-                    Specify the OAuth scope.
-                  '';
-                };
-                providerName = mkOption {
-                  type = with types; nullOr str;
-                  default = null;
-                  description = lib.mdDoc ''
-                    Specify the name to be displayed for this strategy.
-                  '';
-                };
-                rolesClaim = mkOption {
-                  type = with types; nullOr str;
-                  default = null;
-                  description = lib.mdDoc ''
-                    Specify the role claim name.
-                  '';
-                };
-                accessRole = mkOption {
-                  type = with types; nullOr str;
-                  default = null;
-                  description = lib.mdDoc ''
-                    Specify role which should be included in the ID token roles claim to grant access
-                  '';
-                };
-                clientID = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Specify the OAuth client ID.
-                  '';
-                };
-                clientSecret = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Specify the OAuth client secret.
-                  '';
-                };
-              };
-            });
+              }
+            );
             default = null;
             description = lib.mdDoc "Configure the OAuth integration.";
           };
           facebook = mkOption {
-            type = types.nullOr (types.submodule {
-              options = {
-                clientID = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Facebook API client ID.
-                  '';
+            type = types.nullOr (
+              types.submodule {
+                options = {
+                  clientID = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Facebook API client ID.
+                    '';
+                  };
+                  clientSecret = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Facebook API client secret.
+                    '';
+                  };
                 };
-                clientSecret = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Facebook API client secret.
-                  '';
-                };
-              };
-            });
+              }
+            );
             default = null;
             description =
               lib.mdDoc "Configure the facebook third-party integration";
           };
           twitter = mkOption {
-            type = types.nullOr (types.submodule {
-              options = {
-                consumerKey = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Twitter API consumer key.
-                  '';
+            type = types.nullOr (
+              types.submodule {
+                options = {
+                  consumerKey = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Twitter API consumer key.
+                    '';
+                  };
+                  consumerSecret = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Twitter API consumer secret.
+                    '';
+                  };
                 };
-                consumerSecret = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Twitter API consumer secret.
-                  '';
-                };
-              };
-            });
+              }
+            );
             default = null;
             description =
               lib.mdDoc "Configure the Twitter third-party integration.";
           };
           github = mkOption {
-            type = types.nullOr (types.submodule {
-              options = {
-                clientID = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    GitHub API client ID.
-                  '';
+            type = types.nullOr (
+              types.submodule {
+                options = {
+                  clientID = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      GitHub API client ID.
+                    '';
+                  };
+                  clientSecret = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Github API client secret.
+                    '';
+                  };
                 };
-                clientSecret = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Github API client secret.
-                  '';
-                };
-              };
-            });
+              }
+            );
             default = null;
             description =
               lib.mdDoc "Configure the GitHub third-party integration.";
           };
           gitlab = mkOption {
-            type = types.nullOr (types.submodule {
-              options = {
-                baseURL = mkOption {
-                  type = types.str;
-                  default = "";
-                  description = lib.mdDoc ''
-                    GitLab API authentication endpoint.
-                    Only needed for other endpoints than gitlab.com.
-                  '';
+            type = types.nullOr (
+              types.submodule {
+                options = {
+                  baseURL = mkOption {
+                    type = types.str;
+                    default = "";
+                    description = lib.mdDoc ''
+                      GitLab API authentication endpoint.
+                      Only needed for other endpoints than gitlab.com.
+                    '';
+                  };
+                  clientID = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      GitLab API client ID.
+                    '';
+                  };
+                  clientSecret = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      GitLab API client secret.
+                    '';
+                  };
+                  scope = mkOption {
+                    type = types.enum [
+                      "api"
+                      "read_user"
+                    ];
+                    default = "api";
+                    description = lib.mdDoc ''
+                      GitLab API requested scope.
+                      GitLab snippet import/export requires api scope.
+                    '';
+                  };
                 };
-                clientID = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    GitLab API client ID.
-                  '';
-                };
-                clientSecret = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    GitLab API client secret.
-                  '';
-                };
-                scope = mkOption {
-                  type = types.enum [
-                    "api"
-                    "read_user"
-                  ];
-                  default = "api";
-                  description = lib.mdDoc ''
-                    GitLab API requested scope.
-                    GitLab snippet import/export requires api scope.
-                  '';
-                };
-              };
-            });
+              }
+            );
             default = null;
             description =
               lib.mdDoc "Configure the GitLab third-party integration.";
           };
           mattermost = mkOption {
-            type = types.nullOr (types.submodule {
-              options = {
-                baseURL = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Mattermost authentication endpoint.
-                  '';
+            type = types.nullOr (
+              types.submodule {
+                options = {
+                  baseURL = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Mattermost authentication endpoint.
+                    '';
+                  };
+                  clientID = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Mattermost API client ID.
+                    '';
+                  };
+                  clientSecret = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Mattermost API client secret.
+                    '';
+                  };
                 };
-                clientID = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Mattermost API client ID.
-                  '';
-                };
-                clientSecret = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Mattermost API client secret.
-                  '';
-                };
-              };
-            });
+              }
+            );
             default = null;
             description =
               lib.mdDoc "Configure the Mattermost third-party integration.";
           };
           dropbox = mkOption {
-            type = types.nullOr (types.submodule {
-              options = {
-                clientID = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Dropbox API client ID.
-                  '';
+            type = types.nullOr (
+              types.submodule {
+                options = {
+                  clientID = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Dropbox API client ID.
+                    '';
+                  };
+                  clientSecret = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Dropbox API client secret.
+                    '';
+                  };
+                  appKey = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Dropbox app key.
+                    '';
+                  };
                 };
-                clientSecret = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Dropbox API client secret.
-                  '';
-                };
-                appKey = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Dropbox app key.
-                  '';
-                };
-              };
-            });
+              }
+            );
             default = null;
             description =
               lib.mdDoc "Configure the Dropbox third-party integration.";
           };
           google = mkOption {
-            type = types.nullOr (types.submodule {
-              options = {
-                clientID = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Google API client ID.
-                  '';
+            type = types.nullOr (
+              types.submodule {
+                options = {
+                  clientID = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Google API client ID.
+                    '';
+                  };
+                  clientSecret = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Google API client secret.
+                    '';
+                  };
                 };
-                clientSecret = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Google API client secret.
-                  '';
-                };
-              };
-            });
+              }
+            );
             default = null;
             description =
               lib.mdDoc "Configure the Google third-party integration.";
           };
           ldap = mkOption {
-            type = types.nullOr (types.submodule {
-              options = {
-                providerName = mkOption {
-                  type = types.str;
-                  default = "";
-                  description = lib.mdDoc ''
-                    Optional name to be displayed at login form, indicating the LDAP provider.
-                  '';
+            type = types.nullOr (
+              types.submodule {
+                options = {
+                  providerName = mkOption {
+                    type = types.str;
+                    default = "";
+                    description = lib.mdDoc ''
+                      Optional name to be displayed at login form, indicating the LDAP provider.
+                    '';
+                  };
+                  url = mkOption {
+                    type = types.str;
+                    example = "ldap://localhost";
+                    description = lib.mdDoc ''
+                      URL of LDAP server.
+                    '';
+                  };
+                  bindDn = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Bind DN for LDAP access.
+                    '';
+                  };
+                  bindCredentials = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Bind credentials for LDAP access.
+                    '';
+                  };
+                  searchBase = mkOption {
+                    type = types.str;
+                    example = "o=users,dc=example,dc=com";
+                    description = lib.mdDoc ''
+                      LDAP directory to begin search from.
+                    '';
+                  };
+                  searchFilter = mkOption {
+                    type = types.str;
+                    example = "(uid={{username}})";
+                    description = lib.mdDoc ''
+                      LDAP filter to search with.
+                    '';
+                  };
+                  searchAttributes = mkOption {
+                    type = types.nullOr (types.listOf types.str);
+                    default = null;
+                    example = [
+                      "displayName"
+                      "mail"
+                    ];
+                    description = lib.mdDoc ''
+                      LDAP attributes to search with.
+                    '';
+                  };
+                  userNameField = mkOption {
+                    type = types.str;
+                    default = "";
+                    description = lib.mdDoc ''
+                      LDAP field which is used as the username on HedgeDoc.
+                      By default {option}`useridField` is used.
+                    '';
+                  };
+                  useridField = mkOption {
+                    type = types.str;
+                    example = "uid";
+                    description = lib.mdDoc ''
+                      LDAP field which is a unique identifier for users on HedgeDoc.
+                    '';
+                  };
+                  tlsca = mkOption {
+                    type = types.str;
+                    default = "/etc/ssl/certs/ca-certificates.crt";
+                    example = "server-cert.pem,root.pem";
+                    description = lib.mdDoc ''
+                      Root CA for LDAP TLS in PEM format.
+                    '';
+                  };
                 };
-                url = mkOption {
-                  type = types.str;
-                  example = "ldap://localhost";
-                  description = lib.mdDoc ''
-                    URL of LDAP server.
-                  '';
-                };
-                bindDn = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Bind DN for LDAP access.
-                  '';
-                };
-                bindCredentials = mkOption {
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    Bind credentials for LDAP access.
-                  '';
-                };
-                searchBase = mkOption {
-                  type = types.str;
-                  example = "o=users,dc=example,dc=com";
-                  description = lib.mdDoc ''
-                    LDAP directory to begin search from.
-                  '';
-                };
-                searchFilter = mkOption {
-                  type = types.str;
-                  example = "(uid={{username}})";
-                  description = lib.mdDoc ''
-                    LDAP filter to search with.
-                  '';
-                };
-                searchAttributes = mkOption {
-                  type = types.nullOr (types.listOf types.str);
-                  default = null;
-                  example = [
-                    "displayName"
-                    "mail"
-                  ];
-                  description = lib.mdDoc ''
-                    LDAP attributes to search with.
-                  '';
-                };
-                userNameField = mkOption {
-                  type = types.str;
-                  default = "";
-                  description = lib.mdDoc ''
-                    LDAP field which is used as the username on HedgeDoc.
-                    By default {option}`useridField` is used.
-                  '';
-                };
-                useridField = mkOption {
-                  type = types.str;
-                  example = "uid";
-                  description = lib.mdDoc ''
-                    LDAP field which is a unique identifier for users on HedgeDoc.
-                  '';
-                };
-                tlsca = mkOption {
-                  type = types.str;
-                  default = "/etc/ssl/certs/ca-certificates.crt";
-                  example = "server-cert.pem,root.pem";
-                  description = lib.mdDoc ''
-                    Root CA for LDAP TLS in PEM format.
-                  '';
-                };
-              };
-            });
+              }
+            );
             default = null;
             description = lib.mdDoc "Configure the LDAP integration.";
           };
           saml = mkOption {
-            type = types.nullOr (types.submodule {
-              options = {
-                idpSsoUrl = mkOption {
-                  type = types.str;
-                  example = "https://idp.example.com/sso";
-                  description = lib.mdDoc ''
-                    IdP authentication endpoint.
-                  '';
-                };
-                idpCert = mkOption {
-                  type = types.path;
-                  example = "/path/to/cert.pem";
-                  description = lib.mdDoc ''
-                    Path to IdP certificate file in PEM format.
-                  '';
-                };
-                issuer = mkOption {
-                  type = types.str;
-                  default = "";
-                  description = lib.mdDoc ''
-                    Optional identity of the service provider.
-                    This defaults to the server URL.
-                  '';
-                };
-                identifierFormat = mkOption {
-                  type = types.str;
-                  default =
-                    "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress";
-                  description = lib.mdDoc ''
-                    Optional name identifier format.
-                  '';
-                };
-                groupAttribute = mkOption {
-                  type = types.str;
-                  default = "";
-                  example = "memberOf";
-                  description = lib.mdDoc ''
-                    Optional attribute name for group list.
-                  '';
-                };
-                externalGroups = mkOption {
-                  type = types.listOf types.str;
-                  default = [ ];
-                  example = [
-                    "Temporary-staff"
-                    "External-users"
-                  ];
-                  description = lib.mdDoc ''
-                    Excluded group names.
-                  '';
-                };
-                requiredGroups = mkOption {
-                  type = types.listOf types.str;
-                  default = [ ];
-                  example = [ "Hedgedoc-Users" ];
-                  description = lib.mdDoc ''
-                    Required group names.
-                  '';
-                };
-                providerName = mkOption {
-                  type = types.str;
-                  default = "";
-                  example = "My institution";
-                  description = lib.mdDoc ''
-                    Optional name to be displayed at login form indicating the SAML provider.
-                  '';
-                };
-                attribute = {
-                  id = mkOption {
+            type = types.nullOr (
+              types.submodule {
+                options = {
+                  idpSsoUrl = mkOption {
+                    type = types.str;
+                    example = "https://idp.example.com/sso";
+                    description = lib.mdDoc ''
+                      IdP authentication endpoint.
+                    '';
+                  };
+                  idpCert = mkOption {
+                    type = types.path;
+                    example = "/path/to/cert.pem";
+                    description = lib.mdDoc ''
+                      Path to IdP certificate file in PEM format.
+                    '';
+                  };
+                  issuer = mkOption {
                     type = types.str;
                     default = "";
                     description = lib.mdDoc ''
-                      Attribute map for `id`.
-                      Defaults to `NameID` of SAML response.
+                      Optional identity of the service provider.
+                      This defaults to the server URL.
                     '';
                   };
-                  username = mkOption {
+                  identifierFormat = mkOption {
                     type = types.str;
-                    default = "";
+                    default =
+                      "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress";
                     description = lib.mdDoc ''
-                      Attribute map for `username`.
-                      Defaults to `NameID` of SAML response.
+                      Optional name identifier format.
                     '';
                   };
-                  email = mkOption {
+                  groupAttribute = mkOption {
                     type = types.str;
                     default = "";
+                    example = "memberOf";
                     description = lib.mdDoc ''
-                      Attribute map for `email`.
-                      Defaults to `NameID` of SAML response if
-                      {option}`identifierFormat` has
-                      the default value.
+                      Optional attribute name for group list.
                     '';
+                  };
+                  externalGroups = mkOption {
+                    type = types.listOf types.str;
+                    default = [ ];
+                    example = [
+                      "Temporary-staff"
+                      "External-users"
+                    ];
+                    description = lib.mdDoc ''
+                      Excluded group names.
+                    '';
+                  };
+                  requiredGroups = mkOption {
+                    type = types.listOf types.str;
+                    default = [ ];
+                    example = [ "Hedgedoc-Users" ];
+                    description = lib.mdDoc ''
+                      Required group names.
+                    '';
+                  };
+                  providerName = mkOption {
+                    type = types.str;
+                    default = "";
+                    example = "My institution";
+                    description = lib.mdDoc ''
+                      Optional name to be displayed at login form indicating the SAML provider.
+                    '';
+                  };
+                  attribute = {
+                    id = mkOption {
+                      type = types.str;
+                      default = "";
+                      description = lib.mdDoc ''
+                        Attribute map for `id`.
+                        Defaults to `NameID` of SAML response.
+                      '';
+                    };
+                    username = mkOption {
+                      type = types.str;
+                      default = "";
+                      description = lib.mdDoc ''
+                        Attribute map for `username`.
+                        Defaults to `NameID` of SAML response.
+                      '';
+                    };
+                    email = mkOption {
+                      type = types.str;
+                      default = "";
+                      description = lib.mdDoc ''
+                        Attribute map for `email`.
+                        Defaults to `NameID` of SAML response if
+                        {option}`identifierFormat` has
+                        the default value.
+                      '';
+                    };
                   };
                 };
-              };
-            });
+              }
+            );
             default = null;
             description = lib.mdDoc "Configure the SAML integration.";
           };

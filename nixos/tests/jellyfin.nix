@@ -23,8 +23,9 @@ import ./make-test-python.nix (
     testScript =
       let
         payloads = {
-          auth = pkgs.writeText "auth.json"
-            (builtins.toJSON { Username = "jellyfin"; });
+          auth = pkgs.writeText "auth.json" (
+            builtins.toJSON { Username = "jellyfin"; }
+          );
           empty = pkgs.writeText "empty.json" (builtins.toJSON { });
         };
       in

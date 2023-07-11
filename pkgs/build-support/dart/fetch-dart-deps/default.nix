@@ -50,13 +50,16 @@ let
     "postPatch"
   ];
 
-  buildDrvInheritArgs = builtins.foldl' (
-    attrs: arg:
-    if buildDrvArgs ? ${arg} then
-      attrs // { ${arg} = buildDrvArgs.${arg}; }
-    else
-      attrs
-  ) { } buildDrvInheritArgNames;
+  buildDrvInheritArgs = builtins.foldl'
+    (
+      attrs: arg:
+      if buildDrvArgs ? ${arg} then
+        attrs // { ${arg} = buildDrvArgs.${arg}; }
+      else
+        attrs
+    )
+    { }
+    buildDrvInheritArgNames;
 
   drvArgs = buildDrvInheritArgs // (removeAttrs args [ "buildDrvArgs" ]);
   name =
@@ -95,7 +98,8 @@ let
         # so we can use lock, diff yaml
         mkdir -p "$out/pubspec"
         cp "pubspec.yaml" "$out/pubspec"
-        ${lib.optionalString (pubspecLockFile != null)
+        ${lib.optionalString
+        (pubspecLockFile != null)
         "install -m644 ${pubspecLockFile} pubspec.lock"}
         if ! cp "pubspec.lock" "$out/pubspec"; then
           echo 1>&2 -e '\nThe pubspec.lock file is missing. This is a requirement for reproducible builds.' \
@@ -214,6 +218,7 @@ let
       files = deps.outPath;
       depsListFile = depsListDrv.outPath;
     };
-  }) ./setup-hook.sh;
+  })
+    ./setup-hook.sh;
 in
 hook

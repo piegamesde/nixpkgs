@@ -59,7 +59,8 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-  buildFlags = lib.optional stdenv.isDarwin
+  buildFlags = lib.optional
+    stdenv.isDarwin
     "pcsclite_CFLAGS=-I${PCSC}/Library/Frameworks/PCSC.framework/Headers";
 
   meta = with lib; {

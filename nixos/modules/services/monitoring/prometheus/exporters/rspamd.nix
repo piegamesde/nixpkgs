@@ -16,58 +16,65 @@ let
   generateConfig =
     extraLabels: {
       modules.default.metrics =
-        (map (path: {
-          name =
-            "rspamd_${
-              replaceStrings [
-                "["
-                "."
-                " "
-                "]"
-                "\\"
-                "'"
-              ] [
-                "_"
-                "_"
-                "_"
-                ""
-                ""
-                ""
-              ] path
-            }";
-          path = "{ .${path} }";
-          labels = extraLabels;
-        }) [
-          "actions['add\\ header']"
-          "actions['no\\ action']"
-          "actions['rewrite\\ subject']"
-          "actions['soft\\ reject']"
-          "actions.greylist"
-          "actions.reject"
-          "bytes_allocated"
-          "chunks_allocated"
-          "chunks_freed"
-          "chunks_oversized"
-          "connections"
-          "control_connections"
-          "ham_count"
-          "learned"
-          "pools_allocated"
-          "pools_freed"
-          "read_only"
-          "scanned"
-          "shared_chunks_allocated"
-          "spam_count"
-          "total_learns"
-        ])
+        (map
+          (path: {
+            name =
+              "rspamd_${
+                replaceStrings
+                [
+                  "["
+                  "."
+                  " "
+                  "]"
+                  "\\"
+                  "'"
+                ]
+                [
+                  "_"
+                  "_"
+                  "_"
+                  ""
+                  ""
+                  ""
+                ]
+                path
+              }";
+            path = "{ .${path} }";
+            labels = extraLabels;
+          })
+          [
+            "actions['add\\ header']"
+            "actions['no\\ action']"
+            "actions['rewrite\\ subject']"
+            "actions['soft\\ reject']"
+            "actions.greylist"
+            "actions.reject"
+            "bytes_allocated"
+            "chunks_allocated"
+            "chunks_freed"
+            "chunks_oversized"
+            "connections"
+            "control_connections"
+            "ham_count"
+            "learned"
+            "pools_allocated"
+            "pools_freed"
+            "read_only"
+            "scanned"
+            "shared_chunks_allocated"
+            "spam_count"
+            "total_learns"
+          ])
         ++ [ {
           name = "rspamd_statfiles";
           type = "object";
           path = "{.statfiles[*]}";
-          labels = recursiveUpdate {
-            symbol = "{.symbol}";
-            type = "{.type}";
-          } extraLabels;
+          labels = recursiveUpdate
+            {
+              symbol = "{.symbol}";
+              type = "{.type}";
+            }
+            extraLabels;
           values = {
             revision = "{.revision}";
             size = "{.size}";

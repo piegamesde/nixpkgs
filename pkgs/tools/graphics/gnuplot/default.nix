@@ -47,7 +47,8 @@ in
     mkDerivation
   else
     stdenv.mkDerivation
-) rec {
+)
+rec {
   pname = "gnuplot";
   version = "5.4.6";
 
@@ -74,8 +75,9 @@ in
       readline
       zlib
     ]
-    ++ lib.optional withTeXLive
-      (texlive.combine { inherit (texlive) scheme-small; })
+    ++ lib.optional withTeXLive (
+      texlive.combine { inherit (texlive) scheme-small; }
+    )
     ++ lib.optional withLua lua
     ++ lib.optional withCaca libcaca
     ++ lib.optionals withX [

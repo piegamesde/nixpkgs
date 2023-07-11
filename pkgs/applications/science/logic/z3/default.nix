@@ -64,7 +64,8 @@ let
           ]
           ++ optional javaBindings "--java"
           ++ optional ocamlBindings "--ml"
-          ++ optional pythonBindings
+          ++ optional
+            pythonBindings
             "--python --pypkgdir=$out/${python.sitePackages}"
         )
         + "\n"

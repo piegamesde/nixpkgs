@@ -28,26 +28,32 @@ import ./make-test-python.nix (
           '';
         };
       };
-    } // lib.listToAttrs (builtins.map (
-      client:
-      lib.nameValuePair client {
-        imports = [ ./common/user-account.nix ];
+    } // lib.listToAttrs (
+      builtins.map
+      (
+        client:
+        lib.nameValuePair client {
+          imports = [ ./common/user-account.nix ];
 
-        systemd.services.ii = {
-          requires = [ "network.target" ];
-          wantedBy = [ "default.target" ];
+          systemd.services.ii = {
+            requires = [ "network.target" ];
+            wantedBy = [ "default.target" ];
 
-          serviceConfig = {
-            Type = "simple";
-            ExecPreStartPre = "mkdir -p ${iiDir}";
-            ExecStart = ''
-              ${lib.getBin pkgs.ii}/bin/ii -n ${client} -s ${server} -i ${iiDir}
-            '';
-            User = "alice";
+            serviceConfig = {
+              Type = "simple";
+              ExecPreStartPre = "mkdir -p ${iiDir}";
+              ExecStart = ''
+                ${
+                  lib.getBin pkgs.ii
+                }/bin/ii -n ${client} -s ${server} -i ${iiDir}
+              '';
+              User = "alice";
+            };
           };
-        };
-      }
-    ) clients);
+        }
+      )
+      clients
+    );
 
     testScript =
       let
@@ -79,11 +85,13 @@ import ./make-test-python.nix (
             ''
             # check that all greetings arrived on all clients
           ]
-          ++ builtins.map (other: ''
-            ${client}.succeed(
-                "grep '${msg other}$' ${iiDir}/${server}/#${channel}/out"
-            )
-          '') clients
+          ++ builtins.map
+            (other: ''
+              ${client}.succeed(
+                  "grep '${msg other}$' ${iiDir}/${server}/#${channel}/out"
+              )
+            '')
+            clients
           ;
 
           # foldl', but requires a non-empty list instead of a start value
@@ -98,8 +106,11 @@ import ./make-test-python.nix (
         # entry is executed by every client before advancing
         # to the next one.
       ''
-      + lib.concatStrings (reduce (lib.zipListsWith (cs: c: cs + c))
-        (builtins.map clientScript clients))
+      + lib.concatStrings (
+        reduce (lib.zipListsWith (cs: c: cs + c)) (
+          builtins.map clientScript clients
+        )
+      )
       ;
   }
 )

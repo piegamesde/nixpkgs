@@ -51,11 +51,15 @@ let
           next if $key eq 'LOCALE_ARCHIVE';
           delete $ENV{$key};
       }
-      ${concatStrings (mapAttrsToList (
-        n: v: ''
-          $ENV{'${n}'} = '${v}';
-        ''
-      ) service.environment)}
+      ${concatStrings (
+        mapAttrsToList
+        (
+          n: v: ''
+            $ENV{'${n}'} = '${v}';
+          ''
+        )
+        service.environment
+      )}
 
       # Run the ExecStartPre program.  FIXME: this could be a list.
       my $preStart = <<END_CMD;

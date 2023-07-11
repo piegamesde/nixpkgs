@@ -22,7 +22,8 @@
   ...
 }:
 
-pythonPackages.callPackage (
+pythonPackages.callPackage
+(
   {
     preferWheel ? preferWheels,
     ...
@@ -48,17 +49,22 @@ pythonPackages.callPackage (
           );
         matchesVersion =
           fname:
-          builtins.match (
-            "^.*"
-            + builtins.replaceStrings [
-              "."
-              "+"
-            ] [
-              "\\."
-              "\\+"
-            ] version
-            + ".*$"
-          ) fname
+          builtins.match
+            (
+              "^.*"
+              + builtins.replaceStrings
+                [
+                  "."
+                  "+"
+                ]
+                [
+                  "\\."
+                  "\\+"
+                ]
+                version
+              + ".*$"
+            )
+            fname
           != null
           ;
         hasSupportedExtension =
@@ -69,12 +75,14 @@ pythonPackages.callPackage (
           || lib.strings.hasSuffix "py${python.pythonVersion}.egg" fname
           ;
       in
-      builtins.filter (
+      builtins.filter
+      (
         f:
         matchesVersion f.file
         && hasSupportedExtension f.file
         && isCompatibleEgg f.file
-      ) files
+      )
+      files
       ;
     toPath = s: pwd + "/${s}";
     isLocked = lib.length fileCandidates > 0;
@@ -186,9 +194,11 @@ pythonPackages.callPackage (
 
     nativeBuildInputs =
       [ hooks.poetry2nixFixupHook ]
-      ++ lib.optional (!pythonPackages.isPy27)
+      ++ lib.optional
+        (!pythonPackages.isPy27)
         hooks.poetry2nixPythonRequiresPatchHook
-      ++ lib.optional (isLocked && (getManyLinuxDeps fileInfo.name).str != null)
+      ++ lib.optional
+        (isLocked && (getManyLinuxDeps fileInfo.name).str != null)
         autoPatchelfHook
       ++ lib.optionals (format == "wheel") [
         hooks.wheelUnpackHook
@@ -206,21 +216,26 @@ pythonPackages.callPackage (
       (
         lib.optional (isLocked) (getManyLinuxDeps fileInfo.name).pkg
         ++ lib.optional isDirectory buildSystemPkgs
-        ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
+        ++ lib.optional
+          (stdenv.buildPlatform != stdenv.hostPlatform)
           pythonPackages.setuptools
       );
 
     propagatedBuildInputs =
       let
         compat = isCompatible (poetryLib.getPythonVersion python);
-        deps = lib.filterAttrs (n: v: v) (lib.mapAttrs (
-          n: v:
-          let
-            constraints = v.python or "";
-            pep508Markers = v.markers or "";
-          in
-          compat constraints && evalPep508 pep508Markers
-        ) dependencies);
+        deps = lib.filterAttrs (n: v: v) (
+          lib.mapAttrs
+          (
+            n: v:
+            let
+              constraints = v.python or "";
+              pep508Markers = v.markers or "";
+            in
+            compat constraints && evalPep508 pep508Markers
+          )
+          dependencies
+        );
         depAttrs = lib.attrNames deps;
       in
       builtins.map (n: pythonPackages.${normalizePackageName n}) depAttrs
@@ -257,9 +272,16 @@ pythonPackages.callPackage (
                 else
                   "HEAD"
               );
-          } // (lib.optionalAttrs (
-            (sourceSpec ? rev) && (lib.versionAtLeast builtins.nixVersion "2.4")
-          ) { allRefs = true; })
+          } // (lib.optionalAttrs
+            (
+              (
+                sourceSpec ? rev
+              )
+              && (lib.versionAtLeast builtins.nixVersion "2.4")
+            )
+            {
+              allRefs = true;
+            })
         ))
       else if isWheelUrl then
         builtins.fetchurl {
@@ -290,4 +312,5 @@ pythonPackages.callPackage (
         }
       ;
   }
-) { }
+)
+{ }

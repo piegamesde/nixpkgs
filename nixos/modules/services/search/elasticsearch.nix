@@ -16,7 +16,8 @@ let
     network.host: ${cfg.listenAddress}
     cluster.name: ${cfg.cluster_name}
     ${lib.optionalString cfg.single_node "discovery.type: single-node"}
-    ${lib.optionalString (cfg.single_node && es7)
+    ${lib.optionalString
+    (cfg.single_node && es7)
     "gateway.auto_import_dangling_indices: true"}
 
     http.port: ${toString cfg.port}

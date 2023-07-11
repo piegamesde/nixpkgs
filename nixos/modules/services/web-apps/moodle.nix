@@ -40,14 +40,16 @@ let
     $CFG->dbhost    = '${cfg.database.host}';
     $CFG->dbname    = '${cfg.database.name}';
     $CFG->dbuser    = '${cfg.database.user}';
-    ${optionalString (cfg.database.passwordFile != null)
+    ${optionalString
+    (cfg.database.passwordFile != null)
     "$CFG->dbpass = file_get_contents('${cfg.database.passwordFile}');"}
     $CFG->prefix    = 'mdl_';
     $CFG->dboptions = array (
       'dbpersist' => 0,
       'dbport' => '${toString cfg.database.port}',
       ${
-        optionalString (cfg.database.socket != null)
+        optionalString
+        (cfg.database.socket != null)
         "'dbsocket' => '${cfg.database.socket}',"
       }
       'dbcollation' => 'utf8mb4_unicode_ci',
@@ -239,11 +241,13 @@ in
 
     poolConfig = mkOption {
       type = with types;
-        attrsOf (oneOf [
-          str
-          int
-          bool
-        ]);
+        attrsOf (
+          oneOf [
+            str
+            int
+            bool
+          ]
+        );
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;

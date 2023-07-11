@@ -54,16 +54,18 @@ let
     assert areLicenseListsValid;
     attrs:
     hasLicense attrs
-    && lib.lists.any (l: builtins.elem l allowlist)
-      (lib.lists.toList attrs.meta.license)
+    && lib.lists.any (l: builtins.elem l allowlist) (
+      lib.lists.toList attrs.meta.license
+    )
     ;
 
   hasBlocklistedLicense =
     assert areLicenseListsValid;
     attrs:
     hasLicense attrs
-    && lib.lists.any (l: builtins.elem l blocklist)
-      (lib.lists.toList attrs.meta.license)
+    && lib.lists.any (l: builtins.elem l blocklist) (
+      lib.lists.toList attrs.meta.license
+    )
     ;
 
   allowBroken =
@@ -158,8 +160,9 @@ let
   remediation = {
     unfree =
       remediate_allowlist "Unfree" (remediate_predicate "allowUnfreePredicate");
-    non-source = remediate_allowlist "NonSource"
-      (remediate_predicate "allowNonSourcePredicate");
+    non-source = remediate_allowlist "NonSource" (
+      remediate_predicate "allowNonSourcePredicate"
+    );
     broken = remediate_allowlist "Broken" (x: "");
     unsupported = remediate_allowlist "UnsupportedSystem" (x: "");
     blocklisted = x: "";
@@ -228,8 +231,9 @@ let
 
       Known issues:
     ''
-    + (lib.concatStrings
-      (map (issue: " - ${issue}\n") attrs.meta.knownVulnerabilities))
+    + (lib.concatStrings (
+      map (issue: " - ${issue}\n") attrs.meta.knownVulnerabilities
+    ))
     + ''
 
       You can install it anyway by allowing this package, using the
@@ -268,8 +272,8 @@ let
     let
       expectedOutputs = attrs.meta.outputsToInstall or [ ];
       actualOutputs = attrs.outputs or [ "out" ];
-      missingOutputs =
-        builtins.filter (output: !builtins.elem output actualOutputs)
+      missingOutputs = builtins.filter
+        (output: !builtins.elem output actualOutputs)
         expectedOutputs;
     in
     ''
@@ -283,8 +287,9 @@ let
 
       and is missing the following ouputs:
 
-      ${lib.concatStrings
-      (builtins.map (output: "  - ${output}\n") missingOutputs)}
+      ${lib.concatStrings (
+        builtins.map (output: "  - ${output}\n") missingOutputs
+      )}
     ''
     ;
 
@@ -396,17 +401,19 @@ let
     insecure = bool;
       # TODO: refactor once something like Profpatsch's types-simple will land
       # This is currently dead code due to https://github.com/NixOS/nix/issues/2532
-    tests = attrsOf (mkOptionType {
-      name = "test";
-      check =
-        x:
-        x == { }
-        || ( # Accept {} for tests that are unsupported
-          isDerivation x && x ? meta.timeout
-        )
-        ;
-      merge = lib.options.mergeOneOption;
-    });
+    tests = attrsOf (
+      mkOptionType {
+        name = "test";
+        check =
+          x:
+          x == { }
+          || ( # Accept {} for tests that are unsupported
+            isDerivation x && x ? meta.timeout
+          )
+          ;
+        merge = lib.options.mergeOneOption;
+      }
+    );
     timeout = int;
 
       # Needed for Hydra to expose channel tarballs:
@@ -451,8 +458,9 @@ let
     ;
   checkMeta =
     meta:
-    lib.optionals config.checkMeta
-    (lib.remove null (lib.mapAttrsToList checkMetaAttr meta))
+    lib.optionals config.checkMeta (
+      lib.remove null (lib.mapAttrsToList checkMetaAttr meta)
+    )
     ;
 
   checkOutputsToInstall =
@@ -460,8 +468,8 @@ let
     let
       expectedOutputs = attrs.meta.outputsToInstall or [ ];
       actualOutputs = attrs.outputs or [ "out" ];
-      missingOutputs =
-        builtins.filter (output: !builtins.elem output actualOutputs)
+      missingOutputs = builtins.filter
+        (output: !builtins.elem output actualOutputs)
         expectedOutputs;
     in
     if config.checkMeta then

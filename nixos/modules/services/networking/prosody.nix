@@ -314,9 +314,11 @@ let
         key = "${o.key}";
         certificate = "${o.cert}";
         ${
-          concatStringsSep "\n"
-          (mapAttrsToList (name: value: "${name} = ${toLua value};")
-            o.extraOptions)
+          concatStringsSep "\n" (
+            mapAttrsToList
+            (name: value: "${name} = ${toLua value};")
+            o.extraOptions
+          )
         }
       };
     ''
@@ -869,14 +871,17 @@ in
           else
             [ ]
           ;
-        mucDiscoItems = builtins.foldl' (
-          acc: muc:
-          [ {
-            url = muc.domain;
-            description = "${muc.domain} MUC endpoint";
-          } ]
-          ++ acc
-        ) [ ] cfg.muc;
+        mucDiscoItems = builtins.foldl'
+          (
+            acc: muc:
+            [ {
+              url = muc.domain;
+              description = "${muc.domain} MUC endpoint";
+            } ]
+            ++ acc
+          )
+          [ ]
+          cfg.muc;
         discoItems = cfg.disco_items ++ httpDiscoItems ++ mucDiscoItems;
       in
       ''
@@ -902,20 +907,24 @@ in
         modules_enabled = {
 
           ${
-            lib.concatStringsSep "\n  "
-            (lib.mapAttrsToList (name: val: optionalString val "${toLua name};")
-              cfg.modules)
+            lib.concatStringsSep "\n  " (
+              lib.mapAttrsToList
+              (name: val: optionalString val "${toLua name};")
+              cfg.modules
+            )
           }
           ${
-            lib.concatStringsSep "\n"
-            (map (x: "${toLua x};") cfg.package.communityModules)
+            lib.concatStringsSep "\n" (
+              map (x: "${toLua x};") cfg.package.communityModules
+            )
           }
           ${lib.concatStringsSep "\n" (map (x: "${toLua x};") cfg.extraModules)}
         };
 
         disco_items = {
-        ${lib.concatStringsSep "\n"
-        (builtins.map (x: ''{ "${x.url}", "${x.description}"};'') discoItems)}
+        ${lib.concatStringsSep "\n" (
+          builtins.map (x: ''{ "${x.url}", "${x.description}"};'') discoItems
+        )}
         };
 
         allow_registration = ${toLua cfg.allowRegistration}
@@ -942,7 +951,8 @@ in
 
         ${cfg.extraConfig}
 
-        ${lib.concatMapStrings (muc: ''
+        ${lib.concatMapStrings
+        (muc: ''
           Component ${toLua muc.domain} "muc"
               modules_enabled = { "muc_mam"; ${
                 optionalString muc.vcard_muc ''"vcard_muc";''
@@ -968,7 +978,8 @@ in
               }
               muc_room_default_language = ${toLua muc.roomDefaultLanguage}
               ${muc.extraConfig}
-        '') cfg.muc}
+        '')
+        cfg.muc}
 
         ${lib.optionalString (cfg.uploadHttp != null) ''
           -- TODO: think about migrating this to mod-http_file_share instead.
@@ -976,20 +987,25 @@ in
               http_upload_file_size_limit = ${cfg.uploadHttp.uploadFileSizeLimit}
               http_upload_expire_after = ${cfg.uploadHttp.uploadExpireAfter}
               ${
-                lib.optionalString (cfg.uploadHttp.userQuota != null)
+                lib.optionalString
+                (cfg.uploadHttp.userQuota != null)
                 "http_upload_quota = ${toLua cfg.uploadHttp.userQuota}"
               }
               http_upload_path = ${toLua cfg.uploadHttp.httpUploadPath}
         ''}
 
-        ${lib.concatStringsSep "\n" (lib.mapAttrsToList (
-          n: v: ''
-            VirtualHost "${v.domain}"
-              enabled = ${boolToString v.enabled};
-              ${optionalString (v.ssl != null) (createSSLOptsStr v.ssl)}
-              ${v.extraConfig}
-          ''
-        ) cfg.virtualHosts)}
+        ${lib.concatStringsSep "\n" (
+          lib.mapAttrsToList
+          (
+            n: v: ''
+              VirtualHost "${v.domain}"
+                enabled = ${boolToString v.enabled};
+                ${optionalString (v.ssl != null) (createSSLOptsStr v.ssl)}
+                ${v.extraConfig}
+            ''
+          )
+          cfg.virtualHosts
+        )}
       ''
       ;
 

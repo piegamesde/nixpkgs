@@ -26,13 +26,17 @@ let
       }
     ''
 
-    (concatStringsSep "\n" (mapAttrsToList (
-      protocol: plugins: ''
-        protocol ${protocol} {
-          mail_plugins = $mail_plugins ${concatStringsSep " " plugins.enable}
-        }
-      ''
-    ) cfg.mailPlugins.perProtocol))
+    (concatStringsSep "\n" (
+      mapAttrsToList
+      (
+        protocol: plugins: ''
+          protocol ${protocol} {
+            mail_plugins = $mail_plugins ${concatStringsSep " " plugins.enable}
+          }
+        ''
+      )
+      cfg.mailPlugins.perProtocol
+    ))
 
     (
       if cfg.sslServerCert == null then
@@ -47,7 +51,8 @@ let
           ${optionalString (cfg.sslCACert != null) (
             "ssl_ca = <" + cfg.sslCACert
           )}
-          ${optionalString cfg.enableDHE
+          ${optionalString
+          cfg.enableDHE
           "ssl_dh = <${config.security.dhparams.params.dovecot2.path}"}
           disable_plaintext_auth = yes
         ''
@@ -87,9 +92,11 @@ let
     (optionalString (cfg.sieveScripts != { }) ''
       plugin {
         ${
-          concatStringsSep "\n"
-          (mapAttrsToList (to: from: "sieve_${to} = ${stateDir}/sieve/${to}")
-            cfg.sieveScripts)
+          concatStringsSep "\n" (
+            mapAttrsToList
+            (to: from: "sieve_${to} = ${stateDir}/sieve/${to}")
+            cfg.sieveScripts
+          )
         }
       }
     '')
@@ -173,15 +180,17 @@ let
             ;
         };
         specialUse = mkOption {
-          type = types.nullOr (types.enum [
-            "All"
-            "Archive"
-            "Drafts"
-            "Flagged"
-            "Junk"
-            "Sent"
-            "Trash"
-          ]);
+          type = types.nullOr (
+            types.enum [
+              "All"
+              "Archive"
+              "Drafts"
+              "Flagged"
+              "Junk"
+              "Sent"
+              "Trash"
+            ]
+          );
           default = null;
           example = "Junk";
           description = lib.mdDoc
@@ -203,26 +212,31 @@ let
 in
 {
   imports = [
-      (mkRemovedOptionModule [
-        "services"
-        "dovecot2"
-        "package"
-      ] "")
+      (mkRemovedOptionModule
+        [
+          "services"
+          "dovecot2"
+          "package"
+        ]
+        "")
     ];
 
   options.services.dovecot2 = {
     enable = mkEnableOption (lib.mdDoc "the dovecot 2.x POP3/IMAP server");
 
-    enablePop3 = mkEnableOption
-      (lib.mdDoc "starting the POP3 listener (when Dovecot is enabled)");
+    enablePop3 = mkEnableOption (
+      lib.mdDoc "starting the POP3 listener (when Dovecot is enabled)"
+    );
 
-    enableImap = mkEnableOption
-      (lib.mdDoc "starting the IMAP listener (when Dovecot is enabled)") // {
-        default = true;
-      };
+    enableImap = mkEnableOption (
+      lib.mdDoc "starting the IMAP listener (when Dovecot is enabled)"
+    ) // {
+      default = true;
+    };
 
-    enableLmtp = mkEnableOption
-      (lib.mdDoc "starting the LMTP listener (when Dovecot is enabled)");
+    enableLmtp = mkEnableOption (
+      lib.mdDoc "starting the LMTP listener (when Dovecot is enabled)"
+    );
 
     protocols = mkOption {
       type = types.listOf types.str;
@@ -339,12 +353,14 @@ in
       description = lib.mdDoc "Default group to store mail for virtual users.";
     };
 
-    createMailUser = mkEnableOption (lib.mdDoc ''
-      automatically creating the user
-            given in {option}`services.dovecot.user` and the group
-            given in {option}`services.dovecot.group`.'') // {
-        default = true;
-      };
+    createMailUser = mkEnableOption (
+      lib.mdDoc ''
+        automatically creating the user
+              given in {option}`services.dovecot.user` and the group
+              given in {option}`services.dovecot.group`.''
+    ) // {
+      default = true;
+    };
 
     modules = mkOption {
       type = types.listOf types.package;
@@ -375,16 +391,18 @@ in
       description = lib.mdDoc "Path to the server's private key.";
     };
 
-    enablePAM = mkEnableOption (lib.mdDoc
-      "creating a own Dovecot PAM service and configure PAM user logins") // {
-        default = true;
-      };
+    enablePAM = mkEnableOption (
+      lib.mdDoc
+      "creating a own Dovecot PAM service and configure PAM user logins"
+    ) // {
+      default = true;
+    };
 
-    enableDHE = mkEnableOption
-      (lib.mdDoc "enable ssl_dh and generation of primes for the key exchange")
-      // {
-        default = true;
-      };
+    enableDHE = mkEnableOption (
+      lib.mdDoc "enable ssl_dh and generation of primes for the key exchange"
+    ) // {
+      default = true;
+    };
 
     sieveScripts = mkOption {
       type = types.attrsOf types.path;
@@ -394,19 +412,26 @@ in
         ;
     };
 
-    showPAMFailure = mkEnableOption (lib.mdDoc
-      "showing the PAM failure message on authentication error (useful for OTPW)")
-      ;
+    showPAMFailure = mkEnableOption (
+      lib.mdDoc
+      "showing the PAM failure message on authentication error (useful for OTPW)"
+    );
 
     mailboxes = mkOption {
       type = with types;
-        coercedTo (listOf unspecified) (
+        coercedTo (listOf unspecified)
+        (
           list:
-          listToAttrs (map (entry: {
-            name = entry.name;
-            value = removeAttrs entry [ "name" ];
-          }) list)
-        ) (attrsOf (submodule mailboxes));
+          listToAttrs (
+            map
+            (entry: {
+              name = entry.name;
+              value = removeAttrs entry [ "name" ];
+            })
+            list
+          )
+        )
+        (attrsOf (submodule mailboxes));
       default = { };
       example = literalExpression ''
         {
@@ -515,17 +540,21 @@ in
         ''
         + optionalString (cfg.sieveScripts != { }) ''
           mkdir -p ${stateDir}/sieve
-          ${concatStringsSep "\n" (mapAttrsToList (
-            to: from: ''
-              if [ -d '${from}' ]; then
-                mkdir '${stateDir}/sieve/${to}'
-                cp -p "${from}/"*.sieve '${stateDir}/sieve/${to}'
-              else
-                cp -p '${from}' '${stateDir}/sieve/${to}'
-              fi
-              ${pkgs.dovecot_pigeonhole}/bin/sievec '${stateDir}/sieve/${to}'
-            ''
-          ) cfg.sieveScripts)}
+          ${concatStringsSep "\n" (
+            mapAttrsToList
+            (
+              to: from: ''
+                if [ -d '${from}' ]; then
+                  mkdir '${stateDir}/sieve/${to}'
+                  cp -p "${from}/"*.sieve '${stateDir}/sieve/${to}'
+                else
+                  cp -p '${from}' '${stateDir}/sieve/${to}'
+                fi
+                ${pkgs.dovecot_pigeonhole}/bin/sievec '${stateDir}/sieve/${to}'
+              ''
+            )
+            cfg.sieveScripts
+          )}
           chown -R '${cfg.mailUser}:${cfg.mailGroup}' '${stateDir}/sieve'
         ''
         ;

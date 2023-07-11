@@ -172,11 +172,13 @@ in
 
     poolConfig = mkOption {
       type = with types;
-        attrsOf (oneOf [
-          str
-          int
-          bool
-        ]);
+        attrsOf (
+          oneOf [
+            str
+            int
+            bool
+          ]
+        );
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;
@@ -244,8 +246,8 @@ in
             + optionalString mysqlLocal ";socket=${cfg.database.socket}"
             ;
           username = cfg.database.user;
-          password = mkIf (cfg.database.passwordFile != null)
-            ''file_get_contents("${toString cfg.database.passwordFile}");'';
+          password = mkIf (cfg.database.passwordFile != null) ''
+            file_get_contents("${toString cfg.database.passwordFile}");'';
           tablePrefix = "limesurvey_";
         };
         assetManager.basePath = "${stateDir}/tmp/assets";
@@ -259,11 +261,13 @@ in
         uploaddir = "${stateDir}/upload";
         encryptionnonce = cfg.encryptionNonce;
         encryptionsecretboxkey = cfg.encryptionKey;
-        force_ssl = mkIf (
-          cfg.virtualHost.addSSL
-          || cfg.virtualHost.forceSSL
-          || cfg.virtualHost.onlySSL
-        ) "on";
+        force_ssl = mkIf
+          (
+            cfg.virtualHost.addSSL
+            || cfg.virtualHost.forceSSL
+            || cfg.virtualHost.onlySSL
+          )
+          "on";
         config.defaultlang = "en";
       };
     };

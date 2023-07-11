@@ -170,11 +170,13 @@ in
 
       poolConfig = mkOption {
         type = with types;
-          attrsOf (oneOf [
-            str
-            int
-            bool
-          ]);
+          attrsOf (
+            oneOf [
+              str
+              int
+              bool
+            ]
+          );
         default = {
           "pm" = "dynamic";
           "pm.max_children" = 32;
@@ -203,12 +205,14 @@ in
 
   config = mkIf cfg.enable {
 
-    services.zabbixWeb.extraConfig = optionalString (
-      (versionAtLeast config.system.stateVersion "20.09")
-      && (versionAtLeast cfg.package.version "5.0.0")
-    ) ''
-      $DB['DOUBLE_IEEE754'] = 'true';
-    '';
+    services.zabbixWeb.extraConfig = optionalString
+      (
+        (versionAtLeast config.system.stateVersion "20.09")
+        && (versionAtLeast cfg.package.version "5.0.0")
+      )
+      ''
+        $DB['DOUBLE_IEEE754'] = 'true';
+      '';
 
     systemd.tmpfiles.rules = [
       "d '${stateDir}' 0750 ${user} ${group} - -"

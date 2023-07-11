@@ -63,24 +63,26 @@ let
     ignoreCollisions = true;
   };
 
-  settings_ = lib.recursiveUpdate {
-    init = {
-      PRINT_MODE =
-        if enableTextMode then
-          "TEXT"
-        else if enableTWBT then
-          "TWBT"
-        else if stdenv.hostPlatform.isDarwin then
-          "STANDARD" # https://www.bay12games.com/dwarves/mantisbt/view.php?id=11680
-        else
-          null
-        ;
-      INTRO = enableIntro;
-      TRUETYPE = enableTruetype;
-      FPS = enableFPS;
-      SOUND = enableSound;
-    };
-  } settings;
+  settings_ = lib.recursiveUpdate
+    {
+      init = {
+        PRINT_MODE =
+          if enableTextMode then
+            "TEXT"
+          else if enableTWBT then
+            "TWBT"
+          else if stdenv.hostPlatform.isDarwin then
+            "STANDARD" # https://www.bay12games.com/dwarves/mantisbt/view.php?id=11680
+          else
+            null
+          ;
+        INTRO = enableIntro;
+        TRUETYPE = enableTruetype;
+        FPS = enableFPS;
+        SOUND = enableSound;
+      };
+    }
+    settings;
 
   forEach = attrs: f: lib.concatStrings (lib.mapAttrsToList f attrs);
 
@@ -99,8 +101,8 @@ let
       throw "dwarf-fortress: unsupported configuration value ${toString v}"
     ;
 
-  config = runCommand "dwarf-fortress-config" { nativeBuildInputs = [ gawk ]; }
-    (
+  config =
+    runCommand "dwarf-fortress-config" { nativeBuildInputs = [ gawk ]; } (
       ''
         mkdir -p $out/data/init
 
@@ -161,13 +163,16 @@ let
 
 in
 lib.throwIf (enableTWBT && !enableDFHack)
-"dwarf-fortress: TWBT requires DFHack to be enabled" lib.throwIf (
-  enableStoneSense && !enableDFHack
-) "dwarf-fortress: StoneSense requires DFHack to be enabled" lib.throwIf (
-  enableTextMode && enableTWBT
-) "dwarf-fortress: text mode and TWBT are mutually exclusive"
+"dwarf-fortress: TWBT requires DFHack to be enabled"
+lib.throwIf
+(enableStoneSense && !enableDFHack)
+"dwarf-fortress: StoneSense requires DFHack to be enabled"
+lib.throwIf
+(enableTextMode && enableTWBT)
+"dwarf-fortress: text mode and TWBT are mutually exclusive"
 
-stdenv.mkDerivation {
+stdenv.mkDerivation
+{
   pname = "dwarf-fortress";
   version = dwarf-fortress.dfVersion;
 

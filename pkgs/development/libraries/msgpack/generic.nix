@@ -16,7 +16,8 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+  cmakeFlags = lib.optional
+    (stdenv.hostPlatform != stdenv.buildPlatform)
     "-DMSGPACK_BUILD_EXAMPLES=OFF";
 
   meta = with lib; {

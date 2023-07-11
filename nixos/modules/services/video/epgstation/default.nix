@@ -76,13 +76,15 @@ let
     # Deprecate top level options that are redundant.
   deprecateTopLevelOption =
     config:
-    lib.mkRenamedOptionModule (
+    lib.mkRenamedOptionModule
+    (
       [
         "services"
         "epgstation"
       ]
       ++ config
-    ) (
+    )
+    (
       [
         "services"
         "epgstation"
@@ -94,13 +96,15 @@ let
 
   removeOption =
     config: instruction:
-    lib.mkRemovedOptionModule (
+    lib.mkRemovedOptionModule
+    (
       [
         "services"
         "epgstation"
       ]
       ++ config
-    ) instruction
+    )
+    instruction
     ;
 in
 {
@@ -110,7 +114,8 @@ in
     (deprecateTopLevelOption [ "port" ])
     (deprecateTopLevelOption [ "socketioPort" ])
     (deprecateTopLevelOption [ "clientSocketioPort" ])
-    (removeOption [ "basicAuth" ]
+    (removeOption
+      [ "basicAuth" ]
       "Use a TLS-terminated reverse proxy with authentication instead.")
   ];
 

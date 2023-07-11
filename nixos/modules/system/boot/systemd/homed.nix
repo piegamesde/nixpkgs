@@ -9,9 +9,11 @@ let
   cfg = config.services.homed;
 in
 {
-  options.services.homed.enable = lib.mkEnableOption (lib.mdDoc ''
-    Enable systemd home area/user account manager
-  '');
+  options.services.homed.enable = lib.mkEnableOption (
+    lib.mdDoc ''
+      Enable systemd home area/user account manager
+    ''
+  );
 
   config = lib.mkIf cfg.enable {
     assertions = [ {

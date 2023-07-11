@@ -162,7 +162,8 @@ in
     maintainers = with maintainers; [ LunNova ];
     mainProgram = "input-remapper-gtk";
   };
-}).overrideAttrs (
+}).overrideAttrs
+(
   final: prev: {
     # Set in an override as buildPythonApplication doesn't yet support
     # the `final:` arg yet from #119942 'overlay style overridable recursive attributes'

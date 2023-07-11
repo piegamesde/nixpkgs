@@ -42,12 +42,14 @@ let
   instanceSettings =
     name: {
       freeformType = with lib.types;
-        nullOr (oneOf [
-          int
-          str
-          path
-          package
-        ]);
+        nullOr (
+          oneOf [
+            int
+            str
+            path
+            package
+          ]
+        );
         # override defaults:
         # inject instance name into paths,
         # also avoid conflicts between user names and special dirs
@@ -104,11 +106,13 @@ let
         enable = (lib.mkEnableOption (lib.mdDoc "this cups-pdf instance")) // {
           default = true;
         };
-        installPrinter = (lib.mkEnableOption (lib.mdDoc ''
-          a CUPS printer queue for this instance.
-          The queue will be named after the instance and will use the {file}`CUPS-PDF_opt.ppd` ppd file.
-          If this is disabled, you need to add the queue yourself to use the instance
-        '')) // {
+        installPrinter = (lib.mkEnableOption (
+          lib.mdDoc ''
+            a CUPS printer queue for this instance.
+            The queue will be named after the instance and will use the {file}`CUPS-PDF_opt.ppd` ppd file.
+            If this is disabled, you need to add the queue yourself to use the instance
+          ''
+        )) // {
           default = true;
         };
         confFileText = lib.mkOption {
@@ -178,11 +182,13 @@ in
 {
 
   options.services.printing.cups-pdf = {
-    enable = lib.mkEnableOption (lib.mdDoc ''
-      the cups-pdf virtual pdf printer backend.
-      By default, this will install a single printer `pdf`.
-      but this can be changed/extended with {option}`services.printing.cups-pdf.instances`
-    '');
+    enable = lib.mkEnableOption (
+      lib.mdDoc ''
+        the cups-pdf virtual pdf printer backend.
+        By default, this will install a single printer `pdf`.
+        but this can be changed/extended with {option}`services.printing.cups-pdf.instances`
+      ''
+    );
     instances = lib.mkOption {
       type = lib.types.attrsOf (lib.types.submodule instanceConfig);
       default.pdf = { };

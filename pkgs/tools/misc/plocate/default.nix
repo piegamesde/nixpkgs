@@ -12,10 +12,13 @@
   zstd,
 }:
 let
-  dbfile = lib.attrByPath [
-    "locate"
-    "dbfile"
-  ] "/var/cache/locatedb" config;
+  dbfile = lib.attrByPath
+    [
+      "locate"
+      "dbfile"
+    ]
+    "/var/cache/locatedb"
+    config;
 in
 stdenv.mkDerivation rec {
   pname = "plocate";

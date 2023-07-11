@@ -59,7 +59,8 @@ let
             zlib # libz.so.1
           ];
       in
-      runCommand "conda-install" {
+      runCommand "conda-install"
+      {
         nativeBuildInputs = [ makeWrapper ];
         buildInputs = [ zlib ];
       }

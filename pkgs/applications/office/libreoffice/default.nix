@@ -199,23 +199,25 @@ let
 
   srcs = {
     primary = primary-src;
-    third_party = map (
-      x:
+    third_party = map
       (
-        (fetchurl { inherit (x) url sha256 name; }) // {
-          inherit (x) md5name md5;
-        }
+        x:
+        (
+          (fetchurl { inherit (x) url sha256 name; }) // {
+            inherit (x) md5name md5;
+          }
+        )
       )
-    ) (
-      importVariant "download.nix"
-      ++ [ (rec {
-        name = "unowinreg.dll";
-        url = "https://dev-www.libreoffice.org/extern/${md5name}";
-        sha256 = "1infwvv1p6i21scywrldsxs22f62x85mns4iq8h6vr6vlx3fdzga";
-        md5 = "185d60944ea767075d27247c3162b3bc";
-        md5name = "${md5}-${name}";
-      }) ]
-    );
+      (
+        importVariant "download.nix"
+        ++ [ (rec {
+          name = "unowinreg.dll";
+          url = "https://dev-www.libreoffice.org/extern/${md5name}";
+          sha256 = "1infwvv1p6i21scywrldsxs22f62x85mns4iq8h6vr6vlx3fdzga";
+          md5 = "185d60944ea767075d27247c3162b3bc";
+          md5name = "${md5}-${name}";
+        }) ]
+      );
 
     translations = primary-src.translations;
     help = primary-src.help;
@@ -224,18 +226,22 @@ let
     # See `postPatch` for details
   kdeDeps = symlinkJoin {
     name = "libreoffice-kde-dependencies-${version}";
-    paths = flatten (map (e: [
-      (getDev e)
-      (getLib e)
-    ]) [
-      qtbase
-      qtx11extras
-      kconfig
-      kcoreaddons
-      ki18n
-      kio
-      kwindowsystem
-    ]);
+    paths = flatten (
+      map
+      (e: [
+        (getDev e)
+        (getLib e)
+      ])
+      [
+        qtbase
+        qtx11extras
+        kconfig
+        kcoreaddons
+        ki18n
+        kio
+        kwindowsystem
+      ]
+    );
   };
 
 in
@@ -261,10 +267,12 @@ in
     ''
       mkdir -v $sourceRoot/${tarballPath}
     ''
-    + (flip concatMapStrings srcs.third_party (f: ''
-      ln -sfv ${f} $sourceRoot/${tarballPath}/${f.md5name}
-      ln -sfv ${f} $sourceRoot/${tarballPath}/${f.name}
-    ''))
+    + (flip concatMapStrings srcs.third_party (
+      f: ''
+        ln -sfv ${f} $sourceRoot/${tarballPath}/${f.md5name}
+        ln -sfv ${f} $sourceRoot/${tarballPath}/${f.name}
+      ''
+    ))
     + ''
       ln -sv ${srcs.help} $sourceRoot/${tarballPath}/${srcs.help.name}
       ln -svf ${srcs.translations} $sourceRoot/${tarballPath}/${srcs.translations.name}

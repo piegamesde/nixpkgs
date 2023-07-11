@@ -86,13 +86,16 @@ assert bluezSupport -> bluez != null;
 
 assert enableFramework -> stdenv.isDarwin;
 
-assert lib.assertMsg (reproducibleBuild -> stripBytecode)
+assert lib.assertMsg
+  (reproducibleBuild -> stripBytecode)
   "Deterministic builds require stripping bytecode.";
 
-assert lib.assertMsg (reproducibleBuild -> (!enableOptimizations))
+assert lib.assertMsg
+  (reproducibleBuild -> (!enableOptimizations))
   "Deterministic builds are not achieved when optimizations are enabled.";
 
-assert lib.assertMsg (reproducibleBuild -> (!rebuildBytecode))
+assert lib.assertMsg
+  (reproducibleBuild -> (!rebuildBytecode))
   "Deterministic builds are not achieved when (default unoptimized) bytecode is created.";
 
 with lib;
@@ -162,15 +165,19 @@ let
       buildPackages.stdenv.cc
       pythonForBuild
     ]
-    ++ optionals (
-      stdenv.cc.isClang
-      && (
-        !stdenv.hostPlatform.useAndroidPrebuilt or false
+    ++ optionals
+      (
+        stdenv.cc.isClang
+        && (
+          !stdenv.hostPlatform.useAndroidPrebuilt or false
+        )
+        && (
+          enableLTO || enableOptimizations
+        )
       )
-      && (
-        enableLTO || enableOptimizations
-      )
-    ) [ stdenv.cc.cc.libllvm.out ]
+      [
+        stdenv.cc.cc.libllvm.out
+      ]
     ;
 
   buildInputs =
@@ -372,7 +379,8 @@ stdenv.mkDerivation {
       ./3.7/darwin-libutil.patch
     ]
     ++ optionals (pythonAtLeast "3.11") [ ./3.11/darwin-libutil.patch ]
-    ++ optionals (pythonAtLeast "3.9" && pythonOlder "3.11" && stdenv.isDarwin)
+    ++ optionals
+      (pythonAtLeast "3.9" && pythonOlder "3.11" && stdenv.isDarwin)
       [
         # Stop checking for TCL/TK in global macOS locations
         ./3.9/darwin-tcl-tk.patch
@@ -484,9 +492,11 @@ stdenv.mkDerivation {
       "ac_cv_file__dev_ptmx=yes"
       "ac_cv_file__dev_ptc=yes"
     ]
-    ++ optionals (
-      stdenv.hostPlatform != stdenv.buildPlatform && pythonAtLeast "3.11"
-    ) [ "--with-build-python=${pythonForBuildInterpreter}" ]
+    ++ optionals
+      (stdenv.hostPlatform != stdenv.buildPlatform && pythonAtLeast "3.11")
+      [
+        "--with-build-python=${pythonForBuildInterpreter}"
+      ]
     ++ optionals stdenv.hostPlatform.isLinux [
       # Never even try to use lchmod on linux,
       # don't rely on detecting glibc-isms.
@@ -706,13 +716,16 @@ stdenv.mkDerivation {
     changelog =
       let
         majorMinor = lib.versions.majorMinor version;
-        dashedVersion = lib.replaceStrings [
-          "."
-          "a"
-        ] [
-          "-"
-          "-alpha-"
-        ] version;
+        dashedVersion = lib.replaceStrings
+          [
+            "."
+            "a"
+          ]
+          [
+            "-"
+            "-alpha-"
+          ]
+          version;
       in
       if sourceVersion.suffix == "" then
         "https://docs.python.org/release/${version}/whatsnew/changelog.html"

@@ -32,13 +32,15 @@ let
       else
         {
           recurseForDerivations = true;
-        } // mapAttrs (
+        } // mapAttrs
+        (
           n: v:
           let
             path' = path ++ [ n ];
           in
           trace path' (recurse path' v)
-        ) attrs
+        )
+        attrs
     else
       { }
     ;

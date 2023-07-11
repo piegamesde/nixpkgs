@@ -19,10 +19,12 @@ in
 
     services.haveged = {
 
-      enable = mkEnableOption (lib.mdDoc ''
-        haveged entropy daemon, which refills /dev/random when low.
-        NOTE: does nothing on kernels newer than 5.6.
-      '');
+      enable = mkEnableOption (
+        lib.mdDoc ''
+          haveged entropy daemon, which refills /dev/random when low.
+          NOTE: does nothing on kernels newer than 5.6.
+        ''
+      );
         # source for the note https://github.com/jirka-h/haveged/issues/57
 
       refill_threshold = mkOption {

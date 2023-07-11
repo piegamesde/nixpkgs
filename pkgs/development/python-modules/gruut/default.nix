@@ -62,9 +62,12 @@ buildPythonPackage rec {
       dateparser
       networkx
     ]
-    ++ (map (
-      lang: callPackage ./language-pack.nix { inherit lang version format src; }
-    ) langPkgs)
+    ++ (map
+      (
+        lang:
+        callPackage ./language-pack.nix { inherit lang version format src; }
+      )
+      langPkgs)
     ;
 
   nativeCheckInputs = [

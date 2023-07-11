@@ -20,22 +20,32 @@ let
     ClusterName=${cfg.clusterName}
     StateSaveLocation=${cfg.stateSaveLocation}
     SlurmUser=${cfg.user}
-    ${optionalString (cfg.controlMachine != null)
+    ${optionalString
+    (cfg.controlMachine != null)
     "controlMachine=${cfg.controlMachine}"}
     ${optionalString (cfg.controlAddr != null) "controlAddr=${cfg.controlAddr}"}
-    ${toString (map (x: ''
-      NodeName=${x}
-    '') cfg.nodeName)}
-    ${toString (map (x: ''
-      PartitionName=${x}
-    '') cfg.partitionName)}
+    ${toString (
+      map
+      (x: ''
+        NodeName=${x}
+      '')
+      cfg.nodeName
+    )}
+    ${toString (
+      map
+      (x: ''
+        PartitionName=${x}
+      '')
+      cfg.partitionName
+    )}
     PlugStackConfig=${plugStackConfig}/plugstack.conf
     ProctrackType=${cfg.procTrackType}
     ${cfg.extraConfig}
   '';
 
   plugStackConfig = pkgs.writeTextDir "plugstack.conf" ''
-    ${optionalString cfg.enableSrunX11
+    ${optionalString
+    cfg.enableSrunX11
     "optional ${pkgs.slurm-spank-x11}/lib/x11.so"}
     ${cfg.extraPlugstackConfig}
   '';
@@ -311,24 +321,28 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule [
-      "services"
-      "slurm"
-      "dbdserver"
-      "storagePass"
-    ] ''
-      This option has been removed so that the database password is not exposed via the nix store.
-      Use services.slurm.dbdserver.storagePassFile to provide the database password.
-    '')
-    (mkRemovedOptionModule [
-      "services"
-      "slurm"
-      "dbdserver"
-      "configFile"
-    ] ''
-      This option has been removed. Use services.slurm.dbdserver.storagePassFile
-      and services.slurm.dbdserver.extraConfig instead.
-    '')
+    (mkRemovedOptionModule
+      [
+        "services"
+        "slurm"
+        "dbdserver"
+        "storagePass"
+      ]
+      ''
+        This option has been removed so that the database password is not exposed via the nix store.
+        Use services.slurm.dbdserver.storagePassFile to provide the database password.
+      '')
+    (mkRemovedOptionModule
+      [
+        "services"
+        "slurm"
+        "dbdserver"
+        "configFile"
+      ]
+      ''
+        This option has been removed. Use services.slurm.dbdserver.storagePassFile
+        and services.slurm.dbdserver.extraConfig instead.
+      '')
   ];
 
     ###### implementation
@@ -363,12 +377,14 @@ in
       };
 
     in
-    mkIf (
+    mkIf
+    (
       cfg.enableStools
       || cfg.client.enable
       || cfg.server.enable
       || cfg.dbdserver.enable
-    ) {
+    )
+    {
 
       environment.systemPackages = [ wrappedSlurm ];
 

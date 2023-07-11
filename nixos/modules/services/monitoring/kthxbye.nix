@@ -158,7 +158,8 @@ in
           -listen ${cfg.listenAddress}:${toString cfg.port} \
           ${optionalString cfg.logJSON "-log-json"} \
           ${
-            optionalString (cfg.maxDuration != null)
+            optionalString
+            (cfg.maxDuration != null)
             "-max-duration ${cfg.maxDuration}"
           } \
           ${concatStringsSep " " cfg.extraOptions}

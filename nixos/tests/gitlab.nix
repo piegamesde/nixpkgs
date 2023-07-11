@@ -108,7 +108,8 @@ import ./make-test-python.nix (
               secretFile = pkgs.writeText "secret" "Aig5zaic";
               otpFile = pkgs.writeText "otpsecret" "Riew9mue";
               dbFile = pkgs.writeText "dbsecret" "we2quaeZ";
-              jwsFile = pkgs.runCommand "oidcKeyBase" { }
+              jwsFile = pkgs.runCommand "oidcKeyBase"
+                { }
                 "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
             };
           };
@@ -122,78 +123,95 @@ import ./make-test-python.nix (
         ...
       }:
       let
-        auth = pkgs.writeText "auth.json" (builtins.toJSON {
-          grant_type = "password";
-          username = "root";
-          password = initialRootPassword;
-        });
+        auth = pkgs.writeText "auth.json" (
+          builtins.toJSON {
+            grant_type = "password";
+            username = "root";
+            password = initialRootPassword;
+          }
+        );
 
-        createUserAlice = pkgs.writeText "create-user-alice.json"
-          (builtins.toJSON rec {
+        createUserAlice = pkgs.writeText "create-user-alice.json" (
+          builtins.toJSON rec {
             username = aliceUsername;
             name = username;
             email = "alice@localhost";
             password = alicePassword;
             skip_confirmation = true;
-          });
+          }
+        );
 
-        createUserBob = pkgs.writeText "create-user-bob.json"
-          (builtins.toJSON rec {
+        createUserBob = pkgs.writeText "create-user-bob.json" (
+          builtins.toJSON rec {
             username = bobUsername;
             name = username;
             email = "bob@localhost";
             password = bobPassword;
             skip_confirmation = true;
-          });
+          }
+        );
 
-        aliceAuth = pkgs.writeText "alice-auth.json" (builtins.toJSON {
-          grant_type = "password";
-          username = aliceUsername;
-          password = alicePassword;
-        });
+        aliceAuth = pkgs.writeText "alice-auth.json" (
+          builtins.toJSON {
+            grant_type = "password";
+            username = aliceUsername;
+            password = alicePassword;
+          }
+        );
 
-        bobAuth = pkgs.writeText "bob-auth.json" (builtins.toJSON {
-          grant_type = "password";
-          username = bobUsername;
-          password = bobPassword;
-        });
+        bobAuth = pkgs.writeText "bob-auth.json" (
+          builtins.toJSON {
+            grant_type = "password";
+            username = bobUsername;
+            password = bobPassword;
+          }
+        );
 
-        aliceAddSSHKey = pkgs.writeText "alice-add-ssh-key.json"
-          (builtins.toJSON {
+        aliceAddSSHKey = pkgs.writeText "alice-add-ssh-key.json" (
+          builtins.toJSON {
             id = aliceUserId;
             title = "snakeoil@nixos";
             key = snakeOilPublicKey;
-          });
+          }
+        );
 
-        createProjectAlice = pkgs.writeText "create-project-alice.json"
-          (builtins.toJSON {
+        createProjectAlice = pkgs.writeText "create-project-alice.json" (
+          builtins.toJSON {
             name = aliceProjectName;
             visibility = "public";
-          });
+          }
+        );
 
-        putFile = pkgs.writeText "put-file.json" (builtins.toJSON {
-          branch = "master";
-          author_email = "author@example.com";
-          author_name = "Firstname Lastname";
-          content = "some content";
-          commit_message = "create a new file";
-        });
+        putFile = pkgs.writeText "put-file.json" (
+          builtins.toJSON {
+            branch = "master";
+            author_email = "author@example.com";
+            author_name = "Firstname Lastname";
+            content = "some content";
+            commit_message = "create a new file";
+          }
+        );
 
-        mergeRequest = pkgs.writeText "merge-request.json" (builtins.toJSON {
-          id = bobProjectId;
-          target_project_id = aliceProjectId;
-          source_branch = "master";
-          target_branch = "master";
-          title = "Add some other file";
-        });
+        mergeRequest = pkgs.writeText "merge-request.json" (
+          builtins.toJSON {
+            id = bobProjectId;
+            target_project_id = aliceProjectId;
+            source_branch = "master";
+            target_branch = "master";
+            title = "Add some other file";
+          }
+        );
 
-        newIssue = pkgs.writeText "new-issue.json"
-          (builtins.toJSON { title = "useful issue title"; });
+        newIssue = pkgs.writeText "new-issue.json" (
+          builtins.toJSON { title = "useful issue title"; }
+        );
 
-        closeIssue = pkgs.writeText "close-issue.json" (builtins.toJSON {
-          issue_iid = 1;
-          state_event = "close";
-        });
+        closeIssue = pkgs.writeText "close-issue.json" (
+          builtins.toJSON {
+            issue_iid = 1;
+            state_event = "close";
+          }
+        );
 
           # Wait for all GitLab services to be fully started.
         waitForServices = ''

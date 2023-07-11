@@ -40,29 +40,34 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule [
-      "security"
-      "duosec"
-      "group"
-    ] [
-      "security"
-      "duosec"
-      "groups"
-    ])
-    (mkRenamedOptionModule [
-      "security"
-      "duosec"
-      "ikey"
-    ] [
-      "security"
-      "duosec"
-      "integrationKey"
-    ])
-    (mkRemovedOptionModule [
-      "security"
-      "duosec"
-      "skey"
-    ]
+    (mkRenamedOptionModule
+      [
+        "security"
+        "duosec"
+        "group"
+      ]
+      [
+        "security"
+        "duosec"
+        "groups"
+      ])
+    (mkRenamedOptionModule
+      [
+        "security"
+        "duosec"
+        "ikey"
+      ]
+      [
+        "security"
+        "duosec"
+        "integrationKey"
+      ])
+    (mkRemovedOptionModule
+      [
+        "security"
+        "duosec"
+        "skey"
+      ]
       "The insecure security.duosec.skey option has been replaced by a new security.duosec.secretKeyFile option. Use this new option to store a secure copy of your key instead.")
   ];
 

@@ -11,22 +11,24 @@ let
     with self; {
 
       # Libs
-      libcprime =
-        libsForQt5.callPackage ../applications/misc/cubocore-packages/libcprime
+      libcprime = libsForQt5.callPackage
+        ../applications/misc/cubocore-packages/libcprime
         { };
 
-      libcsys =
-        libsForQt5.callPackage ../applications/misc/cubocore-packages/libcsys
+      libcsys = libsForQt5.callPackage
+        ../applications/misc/cubocore-packages/libcsys
         { };
 
         # Apps
       coreaction = libsForQt5.callPackage
-        ../applications/misc/cubocore-packages/coreaction {
+        ../applications/misc/cubocore-packages/coreaction
+        {
           inherit libcprime libcsys;
         };
 
       corearchiver = libsForQt5.callPackage
-        ../applications/misc/cubocore-packages/corearchiver {
+        ../applications/misc/cubocore-packages/corearchiver
+        {
           inherit libcprime libcsys;
         };
 
@@ -36,7 +38,8 @@ let
         };
 
       coregarage = libsForQt5.callPackage
-        ../applications/misc/cubocore-packages/coregarage {
+        ../applications/misc/cubocore-packages/coregarage
+        {
           inherit libcprime libcsys;
         };
 
@@ -46,7 +49,8 @@ let
         };
 
       coreimage = libsForQt5.callPackage
-        ../applications/misc/cubocore-packages/coreimage {
+        ../applications/misc/cubocore-packages/coreimage
+        {
           inherit libcprime libcsys;
         };
 
@@ -56,7 +60,8 @@ let
         };
 
       corekeyboard = libsForQt5.callPackage
-        ../applications/misc/cubocore-packages/corekeyboard {
+        ../applications/misc/cubocore-packages/corekeyboard
+        {
           inherit libcprime libcsys;
         };
 
@@ -66,7 +71,8 @@ let
         };
 
       corepaint = libsForQt5.callPackage
-        ../applications/misc/cubocore-packages/corepaint {
+        ../applications/misc/cubocore-packages/corepaint
+        {
           inherit libcprime libcsys;
         };
 
@@ -81,7 +87,8 @@ let
         };
 
       corerenamer = libsForQt5.callPackage
-        ../applications/misc/cubocore-packages/corerenamer {
+        ../applications/misc/cubocore-packages/corerenamer
+        {
           inherit libcprime libcsys;
         };
 
@@ -91,17 +98,20 @@ let
         };
 
       corestats = libsForQt5.callPackage
-        ../applications/misc/cubocore-packages/corestats {
+        ../applications/misc/cubocore-packages/corestats
+        {
           inherit libcprime libcsys;
         };
 
       corestuff = libsForQt5.callPackage
-        ../applications/misc/cubocore-packages/corestuff {
+        ../applications/misc/cubocore-packages/corestuff
+        {
           inherit libcprime libcsys;
         };
 
       coreterminal = libsForQt5.callPackage
-        ../applications/misc/cubocore-packages/coreterminal {
+        ../applications/misc/cubocore-packages/coreterminal
+        {
           inherit (lxqt) qtermwidget;
           inherit libcprime libcsys;
         };
@@ -112,12 +122,14 @@ let
         };
 
       coretoppings = libsForQt5.callPackage
-        ../applications/misc/cubocore-packages/coretoppings {
+        ../applications/misc/cubocore-packages/coretoppings
+        {
           inherit libcprime libcsys;
         };
 
       coreuniverse = libsForQt5.callPackage
-        ../applications/misc/cubocore-packages/coreuniverse {
+        ../applications/misc/cubocore-packages/coreuniverse
+        {
           inherit libcprime libcsys;
         };
     }

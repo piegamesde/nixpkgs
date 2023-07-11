@@ -19,7 +19,8 @@ in
     let
       mkFlags =
         dep: langD:
-        lib.optionals (targetPlatform != hostPlatform && dep != null && !langD)
+        lib.optionals
+        (targetPlatform != hostPlatform && dep != null && !langD)
         (
           [ "-O2 -idirafter ${lib.getDev dep}${dep.incdir or "/include"}" ]
           ++ lib.optionals (!crossStageStatic) [
@@ -29,8 +30,9 @@ in
         ;
     in
     mkFlags libcCross langD
-    ++ lib.optionals (!crossStageStatic)
-      (mkFlags (threadsCross.package or null) langD)
+    ++ lib.optionals (!crossStageStatic) (
+      mkFlags (threadsCross.package or null) langD
+    )
     ;
 
   EXTRA_LDFLAGS_FOR_TARGET =
@@ -52,7 +54,8 @@ in
         ;
     in
     mkFlags libcCross
-    ++ lib.optionals (!crossStageStatic)
-      (mkFlags (threadsCross.package or null))
+    ++ lib.optionals (!crossStageStatic) (
+      mkFlags (threadsCross.package or null)
+    )
     ;
 }

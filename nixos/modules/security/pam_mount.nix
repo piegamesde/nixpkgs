@@ -18,8 +18,9 @@ let
     ${pkgs.lsof}/bin/lsof | ${pkgs.gnugrep}/bin/grep $MNTPT | ${pkgs.gawk}/bin/awk '{print $2}' | ${pkgs.findutils}/bin/xargs ${pkgs.util-linux}/bin/kill -$SIGNAL
   '';
 
-  anyPamMount = any (attrByPath [ "pamMount" ] false)
-    (attrValues config.security.pam.services);
+  anyPamMount = any (attrByPath [ "pamMount" ] false) (
+    attrValues config.security.pam.services
+  );
 
 in
 {
@@ -137,8 +138,8 @@ in
     environment.etc."security/pam_mount.conf.xml" = {
       source =
         let
-          extraUserVolumes =
-            filterAttrs (n: u: u.cryptHomeLuks != null || u.pamMount != { })
+          extraUserVolumes = filterAttrs
+            (n: u: u.cryptHomeLuks != null || u.pamMount != { })
             config.users.users;
           mkAttr = k: v: ''${k}="${v}"'';
           userVolumeEntry =
@@ -202,7 +203,8 @@ in
           <cryptmount>${pkgs.pam_mount}/bin/mount.crypt %(VOLUME) %(MNTPT)</cryptmount>
           <cryptumount>${pkgs.pam_mount}/bin/umount.crypt %(MNTPT)</cryptumount>
           <pmvarrun>${pkgs.pam_mount}/bin/pmvarrun -u %(USER) -o %(OPERATION)</pmvarrun>
-          ${optionalString oflRequired
+          ${optionalString
+          oflRequired
           "<ofl>${fake_ofl}/bin/fake_ofl %(SIGNAL) %(MNTPT)</ofl>"}
           ${concatStrings (map userVolumeEntry (attrValues extraUserVolumes))}
           ${concatStringsSep "\n" cfg.extraVolumes}

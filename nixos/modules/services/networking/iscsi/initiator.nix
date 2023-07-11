@@ -11,10 +11,12 @@ in
 {
   options.services.openiscsi = with types; {
     enable = mkEnableOption (lib.mdDoc "the openiscsi iscsi daemon");
-    enableAutoLoginOut = mkEnableOption (lib.mdDoc ''
-      automatic login and logout of all automatic targets.
-      You probably do not want this.
-    '');
+    enableAutoLoginOut = mkEnableOption (
+      lib.mdDoc ''
+        automatic login and logout of all automatic targets.
+        You probably do not want this.
+      ''
+    );
     discoverPortal = mkOption {
       type = nullOr str;
       default = null;
@@ -86,7 +88,8 @@ in
 
     systemd.services."iscsi" = mkIf cfg.enableAutoLoginOut {
       wantedBy = [ "remote-fs.target" ];
-      serviceConfig.ExecStartPre = mkIf (cfg.discoverPortal != null)
+      serviceConfig.ExecStartPre = mkIf
+        (cfg.discoverPortal != null)
         "${cfg.package}/bin/iscsiadm --mode discoverydb --type sendtargets --portal ${
           escapeShellArg cfg.discoverPortal
         } --discover";

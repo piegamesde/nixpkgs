@@ -248,14 +248,16 @@ let
 
       depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-      postPatch = lib.optionalString (
-        stdenv.isDarwin
-        && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "12.0"
-      ) ''
-        substituteInPlace src/output/plugins/OSXOutputPlugin.cxx \
-          --replace kAudioObjectPropertyElement{Main,Master} \
-          --replace kAudioHardwareServiceDeviceProperty_Virtual{Main,Master}Volume
-      '';
+      postPatch = lib.optionalString
+        (
+          stdenv.isDarwin
+          && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "12.0"
+        )
+        ''
+          substituteInPlace src/output/plugins/OSXOutputPlugin.cxx \
+            --replace kAudioObjectPropertyElement{Main,Master} \
+            --replace kAudioHardwareServiceDeviceProperty_Virtual{Main,Master}Volume
+        '';
 
         # Otherwise, the meson log says:
         #
@@ -285,10 +287,12 @@ let
           "-Dhtml_manual=true"
         ]
         ++ map (x: "-D${x}=enabled") features_
-        ++ map (x: "-D${x}=disabled")
-          (lib.subtractLists features_ knownFeatures)
+        ++ map (x: "-D${x}=disabled") (
+          lib.subtractLists features_ knownFeatures
+        )
         ++ lib.optional (builtins.elem "zeroconf" features_) "-Dzeroconf=avahi"
-        ++ lib.optional (builtins.elem "systemd" features_)
+        ++ lib.optional
+          (builtins.elem "systemd" features_)
           "-Dsystemd_system_unit_dir=etc/systemd/system"
         ;
 

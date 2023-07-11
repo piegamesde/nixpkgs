@@ -27,7 +27,8 @@
   llvm_15,
 }@args:
 
-import ./default.nix {
+import ./default.nix
+{
   rustcVersion = "1.69.0";
   rustcSha256 = "sha256-+wWXGGetbMq703ICefWpS5n2ECSSMYe1a7XEVfo89g8=";
 
@@ -86,9 +87,11 @@ import ./default.nix {
   rustcPatches = [ ];
 }
 
-(builtins.removeAttrs args [
-  "pkgsBuildHost"
-  "llvmPackages_11"
-  "llvmPackages_15"
-  "llvm_15"
-])
+(
+  builtins.removeAttrs args [
+    "pkgsBuildHost"
+    "llvmPackages_11"
+    "llvmPackages_15"
+    "llvm_15"
+  ]
+)

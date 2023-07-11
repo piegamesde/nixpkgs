@@ -61,15 +61,21 @@ stdenv.mkDerivation {
 
     # Expected output as printed by Main.java
   passAsFile = [ "expected" ];
-  expected = concatStrings (attrValues (mapAttrs (
-    key: value: ''
-      KEY
-      ${key}
-      VALUE
-      ${value}
+  expected = concatStrings (
+    attrValues (
+      mapAttrs
+      (
+        key: value: ''
+          KEY
+          ${key}
+          VALUE
+          ${value}
 
-    ''
-  ) input));
+        ''
+      )
+      input
+    )
+  );
 
   src = lib.sourceByRegex ./. [ ".*.java" ];
     # On Linux, this can be C.UTF-8, but darwin + zulu requires en_US.UTF-8

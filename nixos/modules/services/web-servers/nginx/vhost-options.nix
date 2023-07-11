@@ -34,34 +34,36 @@ with lib; {
 
     listen = mkOption {
       type = with types;
-        listOf (submodule {
-          options = {
-            addr = mkOption {
-              type = str;
-              description = lib.mdDoc "IP address.";
+        listOf (
+          submodule {
+            options = {
+              addr = mkOption {
+                type = str;
+                description = lib.mdDoc "IP address.";
+              };
+              port = mkOption {
+                type = port;
+                description = lib.mdDoc "Port number.";
+                default = 80;
+              };
+              ssl = mkOption {
+                type = bool;
+                description = lib.mdDoc "Enable SSL.";
+                default = false;
+              };
+              extraParameters = mkOption {
+                type = listOf str;
+                description =
+                  lib.mdDoc "Extra parameters of this listen directive.";
+                default = [ ];
+                example = [
+                  "backlog=1024"
+                  "deferred"
+                ];
+              };
             };
-            port = mkOption {
-              type = port;
-              description = lib.mdDoc "Port number.";
-              default = 80;
-            };
-            ssl = mkOption {
-              type = bool;
-              description = lib.mdDoc "Enable SSL.";
-              default = false;
-            };
-            extraParameters = mkOption {
-              type = listOf str;
-              description =
-                lib.mdDoc "Extra parameters of this listen directive.";
-              default = [ ];
-              example = [
-                "backlog=1024"
-                "deferred"
-              ];
-            };
-          };
-        });
+          }
+        );
       default = [ ];
       example = [
         {
@@ -355,8 +357,9 @@ with lib; {
     };
 
     locations = mkOption {
-      type = types.attrsOf (types.submodule
-        (import ./location-options.nix { inherit lib config; }));
+      type = types.attrsOf (
+        types.submodule (import ./location-options.nix { inherit lib config; })
+      );
       default = { };
       example = literalExpression ''
         {

@@ -76,19 +76,22 @@ let
       let
         with-sdk =
           sdk:
-          runCommand "with-${
+          runCommand
+          "with-${
             if sdk ? version then
               sdk.version
             else
               "no"
-          }-sdk" {
+          }-sdk"
+          {
             nativeBuildInputs = [
               finalPackage
               sdk
               expect
             ];
             meta.timeout = 60;
-          } ''
+          }
+          ''
             HOME=$TMPDIR
             expect <<"EOF"
               spawn OmniSharp

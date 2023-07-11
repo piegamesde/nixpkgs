@@ -174,8 +174,8 @@ rec {
           [ default ]
         ;
       defaultPath = concatStringsSep "." default';
-      defaultValue =
-        attrByPath default' (throw "${defaultPath} cannot be found in pkgs")
+      defaultValue = attrByPath default'
+        (throw "${defaultPath} cannot be found in pkgs")
         pkgs;
     in
     mkOption {
@@ -268,10 +268,9 @@ rec {
     else if all isInt list && all (x: x == head list) list then
       head list
     else
-      throw
-      "Cannot merge definitions of `${showOption loc}'. Definition values:${
-        showDefs defs
-      }"
+      throw "Cannot merge definitions of `${
+        showOption loc
+      }'. Definition values:${showDefs defs}"
     ;
 
   mergeOneOption = mergeUniqueOption { message = ""; };
@@ -305,20 +304,25 @@ rec {
     else if length defs == 1 then
       (head defs).value
     else
-      (foldl' (
-        first: def:
-        if def.value != first.value then
-          throw ''
-            The option `${showOption loc}' has conflicting definition values:${
-              showDefs [
-                first
-                def
-              ]
-            }
-            ${prioritySuggestion}''
-        else
-          first
-      ) (head defs) (tail defs)).value
+      (foldl'
+        (
+          first: def:
+          if def.value != first.value then
+            throw ''
+              The option `${
+                showOption loc
+              }' has conflicting definition values:${
+                showDefs [
+                  first
+                  def
+                ]
+              }
+              ${prioritySuggestion}''
+          else
+            first
+        )
+        (head defs)
+        (tail defs)).value
     ;
 
     /* Extracts values of all "value" keys of the given list.
@@ -347,7 +351,8 @@ rec {
 
   optionAttrSetToDocList' =
     _: options:
-    concatMap (
+    concatMap
+    (
       opt:
       let
         name = showOption opt.loc;
@@ -373,9 +378,11 @@ rec {
           default = builtins.addErrorContext
             "while evaluating the default value of option `${name}`"
             (renderOptionValue (opt.defaultText or opt.default));
-        } // optionalAttrs (
-          opt ? relatedPackages && opt.relatedPackages != null
-        ) { inherit (opt) relatedPackages; };
+        } // optionalAttrs
+          (opt ? relatedPackages && opt.relatedPackages != null)
+          {
+            inherit (opt) relatedPackages;
+          };
 
         subOptions =
           let
@@ -392,7 +399,8 @@ rec {
         # builtins.trace opt.loc
       in
       [ docOption ] ++ optionals subOptionsVisible subOptions
-    ) (collect isOption options)
+    )
+    (collect isOption options)
     ;
 
     /* This function recursively removes all derivation attributes from
@@ -431,10 +439,14 @@ rec {
     if v ? _type && v ? text then
       v
     else
-      literalExpression (lib.generators.toPretty {
-        multiline = true;
-        allowPrettyValues = true;
-      } v)
+      literalExpression (
+        lib.generators.toPretty
+        {
+          multiline = true;
+          allowPrettyValues = true;
+        }
+        v
+      )
     ;
 
     /* For use in the `defaultText` and `example` option attributes. Causes the
@@ -467,7 +479,8 @@ rec {
       throw "literalDocBook expects a string."
     else
       lib.warnIf (lib.isInOldestRelease 2211)
-      "literalDocBook is deprecated, use literalMD instead" {
+      "literalDocBook is deprecated, use literalMD instead"
+      {
         _type = "literalDocBook";
         inherit text;
       }
@@ -542,15 +555,21 @@ rec {
 
   showDefs =
     defs:
-    concatMapStrings (
+    concatMapStrings
+    (
       def:
       let
         # Pretty print the value for display, if successful
-        prettyEval = builtins.tryEval (lib.generators.toPretty { }
-          (lib.generators.withRecursion {
-            depthLimit = 10;
-            throwOnDepthLimit = false;
-          } def.value));
+        prettyEval = builtins.tryEval (
+          lib.generators.toPretty { } (
+            lib.generators.withRecursion
+            {
+              depthLimit = 10;
+              throwOnDepthLimit = false;
+            }
+            def.value
+          )
+        );
           # Split it into its lines
         lines = filter (v: !isList v) (builtins.split "\n" prettyEval.value);
           # Only display the first 5 lines, and indent them for better visibility
@@ -571,7 +590,8 @@ rec {
       ''
 
         - In `${def.file}'${result}''
-    ) defs
+    )
+    defs
     ;
 
   showOptionWithDefLocs =

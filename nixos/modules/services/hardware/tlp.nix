@@ -12,17 +12,21 @@ let
     # TODO: Use this for having proper parameters in the future
   mkTlpConfig =
     tlpConfig:
-    generators.toKeyValue {
-      mkKeyValue = generators.mkKeyValueDefault {
-        mkValueString =
-          val:
-          if isList val then
-            ''"'' + (toString val) + ''"''
-          else
-            toString val
-          ;
-      } "=";
-    } tlpConfig
+    generators.toKeyValue
+    {
+      mkKeyValue = generators.mkKeyValueDefault
+        {
+          mkValueString =
+            val:
+            if isList val then
+              ''"'' + (toString val) + ''"''
+            else
+              toString val
+            ;
+        }
+        "=";
+    }
+    tlpConfig
     ;
 in
 {
@@ -38,13 +42,15 @@ in
 
       settings = mkOption {
         type = with types;
-          attrsOf (oneOf [
-            bool
-            int
-            float
-            str
-            (listOf str)
-          ]);
+          attrsOf (
+            oneOf [
+              bool
+              int
+              float
+              str
+              (listOf str)
+            ]
+          );
         default = { };
         example = {
           SATA_LINKPWR_ON_BAT = "med_power_with_dipm";

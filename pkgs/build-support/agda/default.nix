@@ -33,7 +33,8 @@ let
       pname = "agdaWithPackages";
       version = Agda.version;
     in
-    runCommand "${pname}-${version}" {
+    runCommand "${pname}-${version}"
+    {
       inherit pname version;
       nativeBuildInputs = [ makeWrapper ];
       passthru = {
@@ -41,12 +42,14 @@ let
         inherit withPackages;
         tests = {
           inherit (nixosTests) agda;
-          allPackages = withPackages
-            (lib.filter self.lib.isUnbrokenAgdaPackage (lib.attrValues self));
+          allPackages = withPackages (
+            lib.filter self.lib.isUnbrokenAgdaPackage (lib.attrValues self)
+          );
         };
       };
       inherit (Agda) meta;
-    } ''
+    }
+    ''
       mkdir -p $out/bin
       makeWrapper ${Agda}/bin/agda $out/bin/agda \
         --add-flags "--with-compiler=${ghc}/bin/ghc" \
@@ -148,11 +151,13 @@ let
 
         # Retrieve all packages from the finished package set that have the current package as a dependency and build them
       passthru.tests = with builtins;
-        lib.filterAttrs (
+        lib.filterAttrs
+        (
           name: pkg:
           self.lib.isUnbrokenAgdaPackage pkg
           && elem pname (map (pkg: pkg.pname) pkg.buildInputs)
-        ) self;
+        )
+        self;
     }
     ;
 in

@@ -182,7 +182,8 @@ in
         JAVA_HOME = "${cfg.jrePackage}";
         CATALINA_OPTS = concatStringsSep " " cfg.catalinaOptions;
         CATALINA_TMPDIR = "/tmp";
-        JAVA_OPTS = mkIf (cfg.openidPasswordFile != null)
+        JAVA_OPTS = mkIf
+          (cfg.openidPasswordFile != null)
           "-Dcrowd.properties=${cfg.home}/crowd.properties";
       };
 

@@ -11,18 +11,21 @@ let
 in
 {
   imports = [
-      (lib.mkRemovedOptionModule [
-        "services"
-        "geoip-updater"
-      ]
+      (lib.mkRemovedOptionModule
+        [
+          "services"
+          "geoip-updater"
+        ]
         "services.geoip-updater has been removed, use services.geoipupdate instead.")
     ];
 
   options = {
     services.geoipupdate = {
-      enable = lib.mkEnableOption (lib.mdDoc ''
-        periodic downloading of GeoIP databases using geoipupdate.
-      '');
+      enable = lib.mkEnableOption (
+        lib.mdDoc ''
+          periodic downloading of GeoIP databases using geoipupdate.
+        ''
+      );
 
       interval = lib.mkOption {
         type = lib.types.str;
@@ -203,8 +206,9 @@ in
             secretReplacements =
               lib.concatMapStrings mkSecretReplacement secretPaths;
 
-            geoipupdateConf = pkgs.writeText "geoipupdate.conf"
-              (geoipupdateKeyValue cfg.settings);
+            geoipupdateConf = pkgs.writeText "geoipupdate.conf" (
+              geoipupdateKeyValue cfg.settings
+            );
 
             script = ''
               set -o errexit -o pipefail -o nounset -o errtrace

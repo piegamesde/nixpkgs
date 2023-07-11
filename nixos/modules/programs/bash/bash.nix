@@ -16,18 +16,22 @@ let
 
   cfg = config.programs.bash;
 
-  bashAliases = concatStringsSep "\n"
-    (mapAttrsFlatten (k: v: "alias -- ${k}=${escapeShellArg v}")
-      (filterAttrs (k: v: v != null) cfg.shellAliases));
+  bashAliases = concatStringsSep "\n" (
+    mapAttrsFlatten (k: v: "alias -- ${k}=${escapeShellArg v}") (
+      filterAttrs (k: v: v != null) cfg.shellAliases
+    )
+  );
 
 in
 {
   imports = [
-      (mkRemovedOptionModule [
-        "programs"
-        "bash"
-        "enable"
-      ] "")
+      (mkRemovedOptionModule
+        [
+          "programs"
+          "bash"
+          "enable"
+        ]
+        "")
     ];
 
   options = {

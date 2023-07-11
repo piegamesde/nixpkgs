@@ -113,28 +113,31 @@ in
       # For most files this consists of reading
       # ${deliantra}/etc/deliantra-server/${name} and appending the user setting
       # to it.
-    environment.etc = lib.attrsets.mapAttrs' (
-      name: value:
-      lib.attrsets.nameValuePair "deliantra-server/${name}" {
-        mode = "0644";
-        text =
-          # Deliantra doesn't come with a motd file, but respects it if present
-          # in /etc.
-          (optionalString (name != "motd")
-            (fileContents "${cfg.package}/etc/deliantra-server/${name}"))
-          + ''
+    environment.etc = lib.attrsets.mapAttrs'
+      (
+        name: value:
+        lib.attrsets.nameValuePair "deliantra-server/${name}" {
+          mode = "0644";
+          text =
+            # Deliantra doesn't come with a motd file, but respects it if present
+            # in /etc.
+            (optionalString (name != "motd") (
+              fileContents "${cfg.package}/etc/deliantra-server/${name}"
+            ))
+            + ''
 
-            ${value}''
-          ;
-      }
-    ) (
-      {
-        motd = "";
-        settings = "";
-        config = "";
-        dm_file = "";
-      } // cfg.configFiles
-    );
+              ${value}''
+            ;
+        }
+      )
+      (
+        {
+          motd = "";
+          settings = "";
+          config = "";
+          dm_file = "";
+        } // cfg.configFiles
+      );
 
     systemd.services.deliantra-server = {
       description = "Deliantra Server Daemon";

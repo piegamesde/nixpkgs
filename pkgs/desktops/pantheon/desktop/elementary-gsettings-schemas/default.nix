@@ -33,18 +33,18 @@ let
 
   # TODO: Having https://github.com/NixOS/nixpkgs/issues/54150 would supersede this
 in
-runCommand "elementary-gsettings-desktop-schemas" {
-  preferLocalBuild = true;
-} ''
+runCommand "elementary-gsettings-desktop-schemas"
+{ preferLocalBuild = true; }
+''
   data_dir="$out/share/gsettings-schemas/nixos-gsettings-overrides"
   schema_dir="$data_dir/glib-2.0/schemas"
 
   mkdir -p "$schema_dir"
   cp -rf "${glib.getSchemaPath gala}"/*.gschema.override "$schema_dir"
 
-  ${concatMapStringsSep "\n" (
-    pkg: ''cp -rf "${glib.getSchemaPath pkg}"/*.xml "$schema_dir"''
-  ) gsettingsOverridePackages}
+  ${concatMapStringsSep "\n"
+  (pkg: ''cp -rf "${glib.getSchemaPath pkg}"/*.xml "$schema_dir"'')
+  gsettingsOverridePackages}
 
   chmod -R a+w "$data_dir"
   cp "${glib.getSchemaPath elementary-default-settings}"/* "$schema_dir"

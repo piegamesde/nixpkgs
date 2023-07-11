@@ -40,30 +40,32 @@ in
             }
           }
         '';
-        type = types.attrsOf (types.submodule ({
-          options = {
-            server = mkOption {
-              type = types.str;
-              default = "";
-              description = lib.mdDoc "IP address of server running hans";
-              example = "192.0.2.1";
-            };
+        type = types.attrsOf (
+          types.submodule ({
+            options = {
+              server = mkOption {
+                type = types.str;
+                default = "";
+                description = lib.mdDoc "IP address of server running hans";
+                example = "192.0.2.1";
+              };
 
-            extraConfig = mkOption {
-              type = types.str;
-              default = "";
-              description = lib.mdDoc "Additional command line parameters";
-              example = "-v";
-            };
+              extraConfig = mkOption {
+                type = types.str;
+                default = "";
+                description = lib.mdDoc "Additional command line parameters";
+                example = "-v";
+              };
 
-            passwordFile = mkOption {
-              type = types.str;
-              default = "";
-              description = lib.mdDoc "File that contains password";
-            };
+              passwordFile = mkOption {
+                type = types.str;
+                default = "";
+                description = lib.mdDoc "File that contains password";
+              };
 
-          };
-        }));
+            };
+          })
+        );
       };
 
       server = {
@@ -121,8 +123,8 @@ in
             wantedBy = [ "multi-user.target" ];
             script =
               "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.extraConfig} -c ${cfg.server} ${
-                optionalString (cfg.passwordFile != "")
-                ''-p $(cat "${cfg.passwordFile}")''
+                optionalString (cfg.passwordFile != "") ''
+                  -p $(cat "${cfg.passwordFile}")''
               }";
             serviceConfig = {
               RestartSec = "30s";
@@ -131,10 +133,14 @@ in
           }
           ;
       in
-      listToAttrs (mapAttrsToList (
-        name: value:
-        nameValuePair "hans-${name}" (createHansClientService name value)
-      ) cfg.clients) // {
+      listToAttrs (
+        mapAttrsToList
+        (
+          name: value:
+          nameValuePair "hans-${name}" (createHansClientService name value)
+        )
+        cfg.clients
+      ) // {
         hans = mkIf (cfg.server.enable) {
           description = "hans, ip over icmp server daemon";
           after = [ "network.target" ];
@@ -143,8 +149,8 @@ in
             "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.server.extraConfig} -s ${cfg.server.ip} ${
               optionalString cfg.server.respondToSystemPings "-r"
             } ${
-              optionalString (cfg.server.passwordFile != "")
-              ''-p $(cat "${cfg.server.passwordFile}")''
+              optionalString (cfg.server.passwordFile != "") ''
+                -p $(cat "${cfg.server.passwordFile}")''
             }";
         };
       }

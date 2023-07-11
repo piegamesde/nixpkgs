@@ -70,11 +70,13 @@ let
     # Content of wpa_supplicant.conf
   generatedConfig = concatStringsSep "\n" (
     (map mkNetwork allNetworks)
-    ++ optional cfg.userControlled.enable (concatStringsSep "\n" [
-      "ctrl_interface=/run/wpa_supplicant"
-      "ctrl_interface_group=${cfg.userControlled.group}"
-      "update_config=1"
-    ])
+    ++ optional cfg.userControlled.enable (
+      concatStringsSep "\n" [
+        "ctrl_interface=/run/wpa_supplicant"
+        "ctrl_interface_group=${cfg.userControlled.group}"
+        "update_config=1"
+      ]
+    )
     ++ [ "pmf=1" ]
     ++ optional cfg.scanOnLowSignal ''bgscan="simple:30:-70:3600"''
     ++ optional (cfg.extraConfig != "") cfg.extraConfig
@@ -119,8 +121,9 @@ let
         ]
         ++ optional opts.hidden "scan_ssid=1"
         ++ optional (pskString != null) "psk=${pskString}"
-        ++ optionals (opts.auth != null)
-          (filter (x: x != "") (splitString "\n" opts.auth))
+        ++ optionals (opts.auth != null) (
+          filter (x: x != "") (splitString "\n" opts.auth)
+        )
         ++ optional (opts.priority != null) "priority=${toString opts.priority}"
         ++ optional (opts.extraConfig != "") opts.extraConfig
         ;
@@ -136,8 +139,9 @@ let
   mkUnit =
     iface:
     let
-      deviceUnit = optional (iface != null)
-        "sys-subsystem-net-devices-${utils.escapeSystemdPath iface}.device";
+      deviceUnit = optional (iface != null) "sys-subsystem-net-devices-${
+          utils.escapeSystemdPath iface
+        }.device";
       configStr =
         if cfg.allowAuxiliaryImperativeNetworks then
           "-c /etc/wpa_supplicant.conf -I ${finalConfig}"
@@ -161,13 +165,14 @@ let
       path = [ package ];
       serviceConfig.RuntimeDirectory = "wpa_supplicant";
       serviceConfig.RuntimeDirectoryMode = "700";
-      serviceConfig.EnvironmentFile = mkIf (cfg.environmentFile != null)
-        (builtins.toString cfg.environmentFile);
+      serviceConfig.EnvironmentFile = mkIf (cfg.environmentFile != null) (
+        builtins.toString cfg.environmentFile
+      );
 
       script = ''
-        ${optionalString (
-          configIsGenerated && !cfg.allowAuxiliaryImperativeNetworks
-        ) ''
+        ${optionalString
+        (configIsGenerated && !cfg.allowAuxiliaryImperativeNetworks)
+        ''
           if [ -f /etc/wpa_supplicant.conf ]; then
             echo >&2 "<3>/etc/wpa_supplicant.conf present but ignored. Generated ${configFile} is used instead."
           fi
@@ -253,16 +258,17 @@ in
         description = lib.mdDoc "Force a specific wpa_supplicant driver.";
       };
 
-      allowAuxiliaryImperativeNetworks = mkEnableOption
-        (lib.mdDoc "support for imperative & declarative networks") // {
-          description = lib.mdDoc ''
-            Whether to allow configuring networks "imperatively" (e.g. via
-            `wpa_supplicant_gui`) and declaratively via
-            [](#opt-networking.wireless.networks).
+      allowAuxiliaryImperativeNetworks = mkEnableOption (
+        lib.mdDoc "support for imperative & declarative networks"
+      ) // {
+        description = lib.mdDoc ''
+          Whether to allow configuring networks "imperatively" (e.g. via
+          `wpa_supplicant_gui`) and declaratively via
+          [](#opt-networking.wireless.networks).
 
-            Please note that this adds a custom patch to `wpa_supplicant`.
-          '';
-        };
+          Please note that this adds a custom patch to `wpa_supplicant`.
+        '';
+      };
 
       scanOnLowSignal = mkOption {
         type = types.bool;
@@ -323,161 +329,165 @@ in
       };
 
       networks = mkOption {
-        type = types.attrsOf (types.submodule {
-          options = {
-            psk = mkOption {
-              type = types.nullOr types.str;
-              default = null;
-              description = lib.mdDoc ''
-                The network's pre-shared key in plaintext defaulting
-                to being a network without any authentication.
+        type = types.attrsOf (
+          types.submodule {
+            options = {
+              psk = mkOption {
+                type = types.nullOr types.str;
+                default = null;
+                description = lib.mdDoc ''
+                  The network's pre-shared key in plaintext defaulting
+                  to being a network without any authentication.
 
-                ::: {.warning}
-                Be aware that this will be written to the nix store
-                in plaintext! Use an environment variable instead.
-                :::
+                  ::: {.warning}
+                  Be aware that this will be written to the nix store
+                  in plaintext! Use an environment variable instead.
+                  :::
 
-                ::: {.note}
-                Mutually exclusive with {var}`pskRaw`.
-                :::
-              '';
+                  ::: {.note}
+                  Mutually exclusive with {var}`pskRaw`.
+                  :::
+                '';
+              };
+
+              pskRaw = mkOption {
+                type = types.nullOr types.str;
+                default = null;
+                description = lib.mdDoc ''
+                  The network's pre-shared key in hex defaulting
+                  to being a network without any authentication.
+
+                  ::: {.warning}
+                  Be aware that this will be written to the nix store
+                  in plaintext! Use an environment variable instead.
+                  :::
+
+                  ::: {.note}
+                  Mutually exclusive with {var}`psk`.
+                  :::
+                '';
+              };
+
+              authProtocols = mkOption {
+                default = [
+                  # WPA2 and WPA3
+                  "WPA-PSK"
+                  "WPA-EAP"
+                  "SAE"
+                  # 802.11r variants of the above
+                  "FT-PSK"
+                  "FT-EAP"
+                  "FT-SAE"
+                ];
+                  # The list can be obtained by running this command
+                  # awk '
+                  #   /^# key_mgmt: /{ run=1 }
+                  #   /^#$/{ run=0 }
+                  #   /^# [A-Z0-9-]{2,}/{ if(run){printf("\"%s\"\n", $2)} }
+                  # ' /run/current-system/sw/share/doc/wpa_supplicant/wpa_supplicant.conf.example
+                type = types.listOf (
+                  types.enum [
+                    "WPA-PSK"
+                    "WPA-EAP"
+                    "IEEE8021X"
+                    "NONE"
+                    "WPA-NONE"
+                    "FT-PSK"
+                    "FT-EAP"
+                    "FT-EAP-SHA384"
+                    "WPA-PSK-SHA256"
+                    "WPA-EAP-SHA256"
+                    "SAE"
+                    "FT-SAE"
+                    "WPA-EAP-SUITE-B"
+                    "WPA-EAP-SUITE-B-192"
+                    "OSEN"
+                    "FILS-SHA256"
+                    "FILS-SHA384"
+                    "FT-FILS-SHA256"
+                    "FT-FILS-SHA384"
+                    "OWE"
+                    "DPP"
+                  ]
+                );
+                description = lib.mdDoc ''
+                  The list of authentication protocols accepted by this network.
+                  This corresponds to the `key_mgmt` option in wpa_supplicant.
+                '';
+              };
+
+              auth = mkOption {
+                type = types.nullOr types.str;
+                default = null;
+                example = ''
+                  eap=PEAP
+                  identity="user@example.com"
+                  password="@EXAMPLE_PASSWORD@"
+                '';
+                description = lib.mdDoc ''
+                  Use this option to configure advanced authentication methods like EAP.
+                  See
+                  {manpage}`wpa_supplicant.conf(5)`
+                  for example configurations.
+
+                  ::: {.warning}
+                  Be aware that this will be written to the nix store
+                  in plaintext! Use an environment variable for secrets.
+                  :::
+
+                  ::: {.note}
+                  Mutually exclusive with {var}`psk` and
+                  {var}`pskRaw`.
+                  :::
+                '';
+              };
+
+              hidden = mkOption {
+                type = types.bool;
+                default = false;
+                description = lib.mdDoc ''
+                  Set this to `true` if the SSID of the network is hidden.
+                '';
+                example = literalExpression ''
+                  { echelon = {
+                      hidden = true;
+                      psk = "abcdefgh";
+                    };
+                  }
+                '';
+              };
+
+              priority = mkOption {
+                type = types.nullOr types.int;
+                default = null;
+                description = lib.mdDoc ''
+                  By default, all networks will get same priority group (0). If some of the
+                  networks are more desirable, this field can be used to change the order in
+                  which wpa_supplicant goes through the networks when selecting a BSS. The
+                  priority groups will be iterated in decreasing priority (i.e., the larger the
+                  priority value, the sooner the network is matched against the scan results).
+                  Within each priority group, networks will be selected based on security
+                  policy, signal strength, etc.
+                '';
+              };
+
+              extraConfig = mkOption {
+                type = types.str;
+                default = "";
+                example = ''
+                  bssid_blacklist=02:11:22:33:44:55 02:22:aa:44:55:66
+                '';
+                description = lib.mdDoc ''
+                  Extra configuration lines appended to the network block.
+                  See
+                  {manpage}`wpa_supplicant.conf(5)`
+                  for available options.
+                '';
+              };
+
             };
-
-            pskRaw = mkOption {
-              type = types.nullOr types.str;
-              default = null;
-              description = lib.mdDoc ''
-                The network's pre-shared key in hex defaulting
-                to being a network without any authentication.
-
-                ::: {.warning}
-                Be aware that this will be written to the nix store
-                in plaintext! Use an environment variable instead.
-                :::
-
-                ::: {.note}
-                Mutually exclusive with {var}`psk`.
-                :::
-              '';
-            };
-
-            authProtocols = mkOption {
-              default = [
-                # WPA2 and WPA3
-                "WPA-PSK"
-                "WPA-EAP"
-                "SAE"
-                # 802.11r variants of the above
-                "FT-PSK"
-                "FT-EAP"
-                "FT-SAE"
-              ];
-                # The list can be obtained by running this command
-                # awk '
-                #   /^# key_mgmt: /{ run=1 }
-                #   /^#$/{ run=0 }
-                #   /^# [A-Z0-9-]{2,}/{ if(run){printf("\"%s\"\n", $2)} }
-                # ' /run/current-system/sw/share/doc/wpa_supplicant/wpa_supplicant.conf.example
-              type = types.listOf (types.enum [
-                "WPA-PSK"
-                "WPA-EAP"
-                "IEEE8021X"
-                "NONE"
-                "WPA-NONE"
-                "FT-PSK"
-                "FT-EAP"
-                "FT-EAP-SHA384"
-                "WPA-PSK-SHA256"
-                "WPA-EAP-SHA256"
-                "SAE"
-                "FT-SAE"
-                "WPA-EAP-SUITE-B"
-                "WPA-EAP-SUITE-B-192"
-                "OSEN"
-                "FILS-SHA256"
-                "FILS-SHA384"
-                "FT-FILS-SHA256"
-                "FT-FILS-SHA384"
-                "OWE"
-                "DPP"
-              ]);
-              description = lib.mdDoc ''
-                The list of authentication protocols accepted by this network.
-                This corresponds to the `key_mgmt` option in wpa_supplicant.
-              '';
-            };
-
-            auth = mkOption {
-              type = types.nullOr types.str;
-              default = null;
-              example = ''
-                eap=PEAP
-                identity="user@example.com"
-                password="@EXAMPLE_PASSWORD@"
-              '';
-              description = lib.mdDoc ''
-                Use this option to configure advanced authentication methods like EAP.
-                See
-                {manpage}`wpa_supplicant.conf(5)`
-                for example configurations.
-
-                ::: {.warning}
-                Be aware that this will be written to the nix store
-                in plaintext! Use an environment variable for secrets.
-                :::
-
-                ::: {.note}
-                Mutually exclusive with {var}`psk` and
-                {var}`pskRaw`.
-                :::
-              '';
-            };
-
-            hidden = mkOption {
-              type = types.bool;
-              default = false;
-              description = lib.mdDoc ''
-                Set this to `true` if the SSID of the network is hidden.
-              '';
-              example = literalExpression ''
-                { echelon = {
-                    hidden = true;
-                    psk = "abcdefgh";
-                  };
-                }
-              '';
-            };
-
-            priority = mkOption {
-              type = types.nullOr types.int;
-              default = null;
-              description = lib.mdDoc ''
-                By default, all networks will get same priority group (0). If some of the
-                networks are more desirable, this field can be used to change the order in
-                which wpa_supplicant goes through the networks when selecting a BSS. The
-                priority groups will be iterated in decreasing priority (i.e., the larger the
-                priority value, the sooner the network is matched against the scan results).
-                Within each priority group, networks will be selected based on security
-                policy, signal strength, etc.
-              '';
-            };
-
-            extraConfig = mkOption {
-              type = types.str;
-              default = "";
-              example = ''
-                bssid_blacklist=02:11:22:33:44:55 02:22:aa:44:55:66
-              '';
-              description = lib.mdDoc ''
-                Extra configuration lines appended to the network block.
-                See
-                {manpage}`wpa_supplicant.conf(5)`
-                for available options.
-              '';
-            };
-
-          };
-        });
+          }
+        );
         description = lib.mdDoc ''
           The network definitions to automatically connect to when
            {command}`wpa_supplicant` is running. If this
@@ -605,8 +615,9 @@ in
       if cfg.interfaces == [ ] then
         { wpa_supplicant = mkUnit null; }
       else
-        listToAttrs
-        (map (i: nameValuePair "wpa_supplicant-${i}" (mkUnit i)) cfg.interfaces)
+        listToAttrs (
+          map (i: nameValuePair "wpa_supplicant-${i}" (mkUnit i)) cfg.interfaces
+        )
       ;
 
       # Restart wpa_supplicant after resuming from sleep

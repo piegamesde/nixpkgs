@@ -54,10 +54,12 @@ stdenv.mkDerivation rec {
     libsndfile
     libogg
     libSM
-    (gnutls.overrideAttrs (oldAttrs: {
-      configureFlags =
-        oldAttrs.configureFlags ++ [ "--enable-openssl-compatibility" ];
-    }))
+    (gnutls.overrideAttrs (
+      oldAttrs: {
+        configureFlags =
+          oldAttrs.configureFlags ++ [ "--enable-openssl-compatibility" ];
+      }
+    ))
   ];
   env.NIX_CFLAGS_COMPILE = toString (
     makeSDLFlags [

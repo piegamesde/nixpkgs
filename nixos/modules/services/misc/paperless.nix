@@ -31,8 +31,9 @@ let
 
   manage =
     let
-      setupEnv = lib.concatStringsSep "\n"
-        (mapAttrsToList (name: val: ''export ${name}="${val}"'') env);
+      setupEnv = lib.concatStringsSep "\n" (
+        mapAttrsToList (name: val: ''export ${name}="${val}"'') env
+      );
     in
     pkgs.writeShellScript "manage" ''
       ${setupEnv}
@@ -112,13 +113,15 @@ in
   ];
 
   imports = [
-      (mkRenamedOptionModule [
-        "services"
-        "paperless-ng"
-      ] [
-        "services"
-        "paperless"
-      ])
+      (mkRenamedOptionModule
+        [
+          "services"
+          "paperless-ng"
+        ]
+        [
+          "services"
+          "paperless"
+        ])
     ];
 
   options.services.paperless = {

@@ -18,10 +18,14 @@ let
   makeServices =
     (
       daemonType: daemonIds:
-      mkMerge (map (daemonId: {
-        "ceph-${daemonType}-${daemonId}" =
-          makeService daemonType daemonId cfg.global.clusterName pkgs.ceph;
-      }) daemonIds)
+      mkMerge (
+        map
+        (daemonId: {
+          "ceph-${daemonType}-${daemonId}" =
+            makeService daemonType daemonId cfg.global.clusterName pkgs.ceph;
+        })
+        daemonIds
+      )
     );
 
   makeService =
@@ -428,7 +432,8 @@ in
       }
     ];
 
-    warnings = optional (cfg.global.monInitialMembers == null)
+    warnings = optional
+      (cfg.global.monInitialMembers == null)
       "Not setting up a list of members in monInitialMembers requires that you set the host variable for each mon daemon or else the cluster won't function"
       ;
 
@@ -449,7 +454,8 @@ in
           mds = cfg.mds.extraConfig;
         } // optionalAttrs (cfg.osd.enable && cfg.osd.extraConfig != { }) {
           osd = cfg.osd.extraConfig;
-        } // optionalAttrs (cfg.client.enable && cfg.client.extraConfig != { })
+        } // optionalAttrs
+          (cfg.client.enable && cfg.client.extraConfig != { })
           cfg.client.extraConfig;
       in
       generators.toINI { } totalConfig

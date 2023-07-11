@@ -10,7 +10,8 @@ mkCoqDerivation {
   pname = "coqhammer";
   owner = "lukaszcz";
   defaultVersion = with lib.versions;
-    lib.switch coq.coq-version [
+    lib.switch coq.coq-version
+    [
       {
         case = "8.15";
         out = "1.3.2-coq8.15";
@@ -43,7 +44,8 @@ mkCoqDerivation {
         case = "8.8";
         out = "1.1-coq8.8";
       }
-    ] null;
+    ]
+    null;
   release."1.3.2-coq8.15".sha256 =
     "sha256:0n0y9wda8bx88r17ls9541ibxw013ghp73zshgb65bi7ibznbhha";
   release."1.3.2-coq8.15".rev = "9a3e689036f12c09800ca3bac05054af0cc49233";

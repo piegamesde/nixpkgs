@@ -70,10 +70,11 @@ stdenv.mkDerivation rec {
         "https://mirror.racket-lang.org/installers/${version}/${name}-src.tgz";
       inherit sha256;
     }
-  )) {
-    name = "${pname}-${version}";
-    sha256 = "0gmp2ahmfd97nn9bwpfx9lznjmjkd042slnrrbdmyh59cqh98y2m";
-  };
+  ))
+    {
+      name = "${pname}-${version}";
+      sha256 = "0gmp2ahmfd97nn9bwpfx9lznjmjkd042slnrrbdmyh59cqh98y2m";
+    };
 
   FONTCONFIG_FILE = fontsConf;
   LD_LIBRARY_PATH = libPath;

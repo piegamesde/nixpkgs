@@ -91,7 +91,8 @@ in
       }
     ];
 
-    warnings = optional (!config.services.bee-clef.enable)
+    warnings = optional
+      (!config.services.bee-clef.enable)
       "The bee service requires an external signer. Consider setting `config.services.bee-clef.enable` = true"
       ;
 
@@ -152,7 +153,8 @@ in
         home = cfg.settings.data-dir;
         isSystemUser = true;
         description = "Daemon user for Ethereum Swarm Bee";
-        extraGroups = optional config.services.bee-clef.enable
+        extraGroups = optional
+          config.services.bee-clef.enable
           config.services.bee-clef.group;
       };
     };

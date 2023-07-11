@@ -38,7 +38,8 @@ rec {
         defs' = filterOverrides defs;
       in
       if isList (head defs').value then
-        concatMap (
+        concatMap
+        (
           def:
           if builtins.typeOf def.value == "list" then
             def.value
@@ -49,7 +50,8 @@ rec {
             }, the definitions are a mix of list and non-list ${
               lib.options.showDefs defs'
             }"
-        ) defs'
+        )
+        defs'
 
       else
         mergeEqualOption loc defs'
@@ -321,11 +323,15 @@ rec {
         environment = mkOption {
           default = { };
           type = with types;
-            attrsOf (nullOr (oneOf [
-              str
-              path
-              package
-            ]));
+            attrsOf (
+              nullOr (
+                oneOf [
+                  str
+                  path
+                  package
+                ]
+              )
+            );
           example = {
             PATH = "/foo/bar/bin";
             LANG = "nl_NL.UTF-8";
@@ -338,10 +344,12 @@ rec {
         path = mkOption {
           default = [ ];
           type = with types;
-            listOf (oneOf [
-              package
-              str
-            ]);
+            listOf (
+              oneOf [
+                package
+                str
+              ]
+            );
           description = lib.mdDoc ''
             Packages added to the service's {env}`PATH`
             environment variable.  Both the {file}`bin`

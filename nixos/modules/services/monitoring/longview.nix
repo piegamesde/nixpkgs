@@ -132,14 +132,14 @@ in
           location ${cfg.apacheStatusUrl}?auto
           EOF
         '')
-        + (optionalString (
-          cfg.mysqlUser != "" && cfg.mysqlPasswordFile != null
-        ) ''
-          cat > ${configsDir}/MySQL.conf <<EOF
-          username ${cfg.mysqlUser}
-          password `head -n1 "${cfg.mysqlPasswordFile}"`
-          EOF
-        '')
+        + (optionalString
+          (cfg.mysqlUser != "" && cfg.mysqlPasswordFile != null)
+          ''
+            cat > ${configsDir}/MySQL.conf <<EOF
+            username ${cfg.mysqlUser}
+            password `head -n1 "${cfg.mysqlPasswordFile}"`
+            EOF
+          '')
         + (optionalString (cfg.nginxStatusUrl != "") ''
           cat > ${configsDir}/Nginx.conf <<EOF
           location ${cfg.nginxStatusUrl}
@@ -152,7 +152,8 @@ in
       let
         warn =
           k:
-          optional (cfg.${k} != "")
+          optional
+          (cfg.${k} != "")
           "config.services.longview.${k} is insecure. Use ${k}File instead."
           ;
       in
@@ -168,17 +169,25 @@ in
     } ];
 
       # Create API key file if not configured.
-    services.longview.apiKeyFile = mkIf (cfg.apiKey != "") (mkDefault (toString
-      (pkgs.writeTextFile {
-        name = "longview.key";
-        text = cfg.apiKey;
-      })));
+    services.longview.apiKeyFile = mkIf (cfg.apiKey != "") (
+      mkDefault (
+        toString (
+          pkgs.writeTextFile {
+            name = "longview.key";
+            text = cfg.apiKey;
+          }
+        )
+      )
+    );
 
       # Create MySQL password file if not configured.
-    services.longview.mysqlPasswordFile = mkDefault (toString
-      (pkgs.writeTextFile {
-        name = "mysql-password-file";
-        text = cfg.mysqlPassword;
-      }));
+    services.longview.mysqlPasswordFile = mkDefault (
+      toString (
+        pkgs.writeTextFile {
+          name = "mysql-password-file";
+          text = cfg.mysqlPassword;
+        }
+      )
+    );
   };
 }

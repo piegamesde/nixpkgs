@@ -27,8 +27,8 @@ in
       };
       configFile = mkOption {
         type = with types; nullOr path;
-        example = literalExpression
-          ''"''${pkgs.bspwm}/share/doc/bspwm/examples/bspwmrc"'';
+        example = literalExpression ''
+          "''${pkgs.bspwm}/share/doc/bspwm/examples/bspwmrc"'';
         default = null;
         description = lib.mdDoc ''
           Path to the bspwm configuration file.
@@ -48,8 +48,8 @@ in
         };
         configFile = mkOption {
           type = with types; nullOr path;
-          example = literalExpression
-            ''"''${pkgs.bspwm}/share/doc/bspwm/examples/sxhkdrc"'';
+          example = literalExpression ''
+            "''${pkgs.bspwm}/share/doc/bspwm/examples/sxhkdrc"'';
           default = null;
           description = lib.mdDoc ''
             Path to the sxhkd configuration file.
@@ -66,8 +66,8 @@ in
       start = ''
         export _JAVA_AWT_WM_NONREPARENTING=1
         SXHKD_SHELL=/bin/sh ${cfg.sxhkd.package}/bin/sxhkd ${
-          optionalString (cfg.sxhkd.configFile != null)
-          ''-c "${cfg.sxhkd.configFile}"''
+          optionalString (cfg.sxhkd.configFile != null) ''
+            -c "${cfg.sxhkd.configFile}"''
         } &
         ${cfg.package}/bin/bspwm ${
           optionalString (cfg.configFile != null) ''-c "${cfg.configFile}"''
@@ -79,27 +79,32 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule [
-      "services"
-      "xserver"
-      "windowManager"
-      "bspwm-unstable"
-      "enable"
-    ]
+    (mkRemovedOptionModule
+      [
+        "services"
+        "xserver"
+        "windowManager"
+        "bspwm-unstable"
+        "enable"
+      ]
       "Use services.xserver.windowManager.bspwm.enable and set services.xserver.windowManager.bspwm.package to pkgs.bspwm-unstable to use the unstable version of bspwm.")
-    (mkRemovedOptionModule [
-      "services"
-      "xserver"
-      "windowManager"
-      "bspwm"
-      "startThroughSession"
-    ] "bspwm package does not provide bspwm-session anymore.")
-    (mkRemovedOptionModule [
-      "services"
-      "xserver"
-      "windowManager"
-      "bspwm"
-      "sessionScript"
-    ] "bspwm package does not provide bspwm-session anymore.")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "xserver"
+        "windowManager"
+        "bspwm"
+        "startThroughSession"
+      ]
+      "bspwm package does not provide bspwm-session anymore.")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "xserver"
+        "windowManager"
+        "bspwm"
+        "sessionScript"
+      ]
+      "bspwm package does not provide bspwm-session anymore.")
   ];
 }

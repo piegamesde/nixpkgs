@@ -164,7 +164,8 @@ let
     else
       "stage-final"
     ;
-  crossNameAddon = optionalString (targetPlatform != hostPlatform)
+  crossNameAddon = optionalString
+    (targetPlatform != hostPlatform)
     "${targetPlatform.config}-${stageNameAddon}-";
 
   callFile = lib.callPackageWith {
@@ -350,8 +351,8 @@ stdenv.mkDerivation (
         null
       ;
 
-    buildFlags =
-      optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
+    buildFlags = optional
+      (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
       (
         if profiledCompiler then
           "profiledbootstrap"
@@ -390,8 +391,8 @@ stdenv.mkDerivation (
       # compiler (after the specs for the cross-gcc are created). Having
       # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
 
-    CPATH = optionals (targetPlatform == hostPlatform)
-      (makeSearchPathOutput "dev" "include" (
+    CPATH = optionals (targetPlatform == hostPlatform) (
+      makeSearchPathOutput "dev" "include" (
         [ ]
         ++ optional (zlib != null) zlib
         ++ optional langJava boehmgc
@@ -400,18 +401,21 @@ stdenv.mkDerivation (
           gmp
           mpfr
         ]
-      ));
+      )
+    );
 
-    LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (makeLibraryPath (
-      [ ]
-      ++ optional (zlib != null) zlib
-      ++ optional langJava boehmgc
-      ++ optionals javaAwtGtk xlibs
-      ++ optionals javaAwtGtk [
-        gmp
-        mpfr
-      ]
-    ));
+    LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (
+      makeLibraryPath (
+        [ ]
+        ++ optional (zlib != null) zlib
+        ++ optional langJava boehmgc
+        ++ optionals javaAwtGtk xlibs
+        ++ optionals javaAwtGtk [
+          gmp
+          mpfr
+        ]
+      )
+    );
 
     inherit (callFile ../common/extra-target-flags.nix { })
       EXTRA_FLAGS_FOR_TARGET
@@ -443,11 +447,13 @@ stdenv.mkDerivation (
     };
   }
 
-  // optionalAttrs (
+  // optionalAttrs
+  (
     targetPlatform != hostPlatform
     && targetPlatform.libc == "msvcrt"
     && crossStageStatic
-  ) {
+  )
+  {
     makeFlags = [
       "all-gcc"
       "all-target-libgcc"

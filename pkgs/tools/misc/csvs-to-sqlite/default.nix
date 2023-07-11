@@ -13,13 +13,15 @@ let
     packageOverrides =
       self: super: {
         # Use click 7
-        click = super.click.overridePythonAttrs (old: rec {
-          version = "7.1.2";
-          src = old.src.override {
-            inherit version;
-            hash = "sha256-0rUlXHxjSbwb0eWeCM0SrLvWPOZJ8liHVXg6qU37axo=";
-          };
-        });
+        click = super.click.overridePythonAttrs (
+          old: rec {
+            version = "7.1.2";
+            src = old.src.override {
+              inherit version;
+              hash = "sha256-0rUlXHxjSbwb0eWeCM0SrLvWPOZJ8liHVXg6qU37axo=";
+            };
+          }
+        );
       }
       ;
   };

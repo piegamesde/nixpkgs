@@ -138,15 +138,19 @@ let
 
       clang-unwrapped = tools.libclang;
 
-      llvm-manpages = lowPrio (tools.libllvm.override {
-        enableManpages = true;
-        python3 = pkgs.python3; # don't use python-boot
-      });
+      llvm-manpages = lowPrio (
+        tools.libllvm.override {
+          enableManpages = true;
+          python3 = pkgs.python3; # don't use python-boot
+        }
+      );
 
-      clang-manpages = lowPrio (tools.libclang.override {
-        enableManpages = true;
-        python3 = pkgs.python3; # don't use python-boot
-      });
+      clang-manpages = lowPrio (
+        tools.libclang.override {
+          enableManpages = true;
+          python3 = pkgs.python3; # don't use python-boot
+        }
+      );
 
         # TODO: lldb/docs/index.rst:155:toctree contains reference to nonexisting document 'design/structureddataplugins'
         # lldb-manpages = lowPrio (tools.lldb.override {
@@ -228,12 +232,14 @@ let
           + lib.optionalString (!stdenv.targetPlatform.isWasm) ''
             echo "--unwindlib=libunwind" >> $out/nix-support/cc-cflags
           ''
-          + lib.optionalString (
-            !stdenv.targetPlatform.isWasm
-            && stdenv.targetPlatform.useLLVM or false
-          ) ''
-            echo "-lunwind" >> $out/nix-support/cc-ldflags
-          ''
+          + lib.optionalString
+            (
+              !stdenv.targetPlatform.isWasm
+              && stdenv.targetPlatform.useLLVM or false
+            )
+            ''
+              echo "-lunwind" >> $out/nix-support/cc-ldflags
+            ''
           + lib.optionalString stdenv.targetPlatform.isWasm ''
             echo "-fno-exceptions" >> $out/nix-support/cc-cflags
           ''

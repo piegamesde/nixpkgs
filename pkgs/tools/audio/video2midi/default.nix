@@ -6,11 +6,13 @@
 }:
 
 let
-  opencv3_ = pythonPackages.toPythonModule (opencv3.override {
-    inherit pythonPackages;
-    enablePython = true;
-    enableFfmpeg = true;
-  });
+  opencv3_ = pythonPackages.toPythonModule (
+    opencv3.override {
+      inherit pythonPackages;
+      enablePython = true;
+      enableFfmpeg = true;
+    }
+  );
 in
 pythonPackages.buildPythonApplication rec {
   pname = "video2midi";

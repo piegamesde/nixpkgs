@@ -58,21 +58,23 @@
 
 let
 
-  _llvm_9 = llvm_9.overrideAttrs (prev: {
-    patches =
-      (
-        prev.patches or [ ]
-      )
-      ++ [
-        (fetchpatch {
-          url =
-            "https://github.com/root-project/root/commit/a9c961cf4613ff1f0ea50f188e4a4b0eb749b17d.diff";
-          stripLen = 3;
-          hash = "sha256-LH2RipJICEDWOr7JzX5s0QiUhEwXNMFEJihYKy9qWpo=";
-        })
-      ]
-      ;
-  });
+  _llvm_9 = llvm_9.overrideAttrs (
+    prev: {
+      patches =
+        (
+          prev.patches or [ ]
+        )
+        ++ [
+          (fetchpatch {
+            url =
+              "https://github.com/root-project/root/commit/a9c961cf4613ff1f0ea50f188e4a4b0eb749b17d.diff";
+            stripLen = 3;
+            hash = "sha256-LH2RipJICEDWOr7JzX5s0QiUhEwXNMFEJihYKy9qWpo=";
+          })
+        ]
+        ;
+    }
+  );
 
 in
 stdenv.mkDerivation rec {
@@ -172,12 +174,14 @@ stdenv.mkDerivation rec {
       substituteInPlace core/CMakeLists.txt \
         --replace "-F/System/Library/PrivateFrameworks" ""
     ''
-    + lib.optionalString (
-      stdenv.isDarwin
-      && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
-    ) ''
-      MACOSX_DEPLOYMENT_TARGET=10.16
-    ''
+    + lib.optionalString
+      (
+        stdenv.isDarwin
+        && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
+      )
+      ''
+        MACOSX_DEPLOYMENT_TARGET=10.16
+      ''
     ;
 
   cmakeFlags =
@@ -226,8 +230,9 @@ stdenv.mkDerivation rec {
       "-Dxml=ON"
       "-Dxrootd=ON"
     ]
-    ++ lib.optional (stdenv.cc.libc != null)
-      "-DC_INCLUDE_DIRS=${lib.getDev stdenv.cc.libc}/include"
+    ++ lib.optional (stdenv.cc.libc != null) "-DC_INCLUDE_DIRS=${
+        lib.getDev stdenv.cc.libc
+      }/include"
     ++ lib.optionals stdenv.isDarwin [
       "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
       "-DCMAKE_DISABLE_FIND_PACKAGE_Python2=TRUE"

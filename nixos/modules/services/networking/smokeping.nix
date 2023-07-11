@@ -25,7 +25,8 @@ let
         owner = ${cfg.owner}
         pagedir = ${smokepingHome}/cache
         piddir  = ${smokepingPidDir}
-        ${lib.optionalString (cfg.sendmail != null)
+        ${lib.optionalString
+        (cfg.sendmail != null)
         "sendmail = ${cfg.sendmail}"}
         smokemail = ${cfg.smokeMailTemplate}
         *** Presentation ***
@@ -78,8 +79,8 @@ in
       cgiUrl = mkOption {
         type = types.str;
         default = "http://${cfg.hostName}:${toString cfg.port}/smokeping.cgi";
-        defaultText = literalExpression
-          ''"http://''${hostName}:''${toString port}/smokeping.cgi"'';
+        defaultText = literalExpression ''
+          "http://''${hostName}:''${toString port}/smokeping.cgi"'';
         example = "https://somewhere.example.com/smokeping.cgi";
         description = lib.mdDoc "URL to the smokeping cgi.";
       };
@@ -374,15 +375,17 @@ in
       ];
       serviceConfig = {
         Restart = "always";
-        ExecStart = lib.concatStringsSep " " (lib.concatLists [
-          [ "${pkgs.thttpd}/bin/thttpd" ]
-          [ "-u ${cfg.user}" ]
-          [ ''-c "**.fcgi"'' ]
-          [ "-d ${smokepingHome}" ]
-          (lib.optional (cfg.host != null) "-h ${cfg.host}")
-          [ "-p ${builtins.toString cfg.port}" ]
-          [ "-D -nos" ]
-        ]);
+        ExecStart = lib.concatStringsSep " " (
+          lib.concatLists [
+            [ "${pkgs.thttpd}/bin/thttpd" ]
+            [ "-u ${cfg.user}" ]
+            [ ''-c "**.fcgi"'' ]
+            [ "-d ${smokepingHome}" ]
+            (lib.optional (cfg.host != null) "-h ${cfg.host}")
+            [ "-p ${builtins.toString cfg.port}" ]
+            [ "-D -nos" ]
+          ]
+        );
       };
     };
   };

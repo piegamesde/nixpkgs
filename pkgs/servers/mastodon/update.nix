@@ -22,7 +22,8 @@ let
     jq
   ];
 in
-runCommand "mastodon-update-script" {
+runCommand "mastodon-update-script"
+{
   nativeBuildInputs = [ makeWrapper ];
 
   meta = {
@@ -31,7 +32,8 @@ runCommand "mastodon-update-script" {
       "Utility to generate Nix expressions for Mastodon's dependencies";
     platforms = lib.platforms.unix;
   };
-} ''
+}
+''
   mkdir -p $out/bin
   cp ${./update.sh} $out/bin/update.sh
   patchShebangs $out/bin/update.sh

@@ -13,9 +13,10 @@ let
 in
 {
   options.services.portunus = {
-    enable = mkEnableOption (lib.mdDoc
-      "Portunus, a self-contained user/group management and authentication service for LDAP")
-      ;
+    enable = mkEnableOption (
+      lib.mdDoc
+      "Portunus, a self-contained user/group management and authentication service for LDAP"
+    );
 
     domain = mkOption {
       type = types.str;
@@ -71,28 +72,32 @@ in
     };
 
     dex = {
-      enable = mkEnableOption (lib.mdDoc ''
-        Dex ldap connector.
+      enable = mkEnableOption (
+        lib.mdDoc ''
+          Dex ldap connector.
 
-        To activate dex, first a search user must be created in the Portunus web ui
-        and then the password must to be set as the `DEX_SEARCH_USER_PASSWORD` environment variable
-        in the [](#opt-services.dex.environmentFile) setting.
-      '');
+          To activate dex, first a search user must be created in the Portunus web ui
+          and then the password must to be set as the `DEX_SEARCH_USER_PASSWORD` environment variable
+          in the [](#opt-services.dex.environmentFile) setting.
+        ''
+      );
 
       oidcClients = mkOption {
-        type = types.listOf (types.submodule {
-          options = {
-            callbackURL = mkOption {
-              type = types.str;
-              description =
-                lib.mdDoc "URL where the OIDC client should redirect";
+        type = types.listOf (
+          types.submodule {
+            options = {
+              callbackURL = mkOption {
+                type = types.str;
+                description =
+                  lib.mdDoc "URL where the OIDC client should redirect";
+              };
+              id = mkOption {
+                type = types.str;
+                description = lib.mdDoc "ID of the OIDC client";
+              };
             };
-            id = mkOption {
-              type = types.str;
-              description = lib.mdDoc "ID of the OIDC client";
-            };
-          };
-        });
+          }
+        );
         default = [ ];
         example = [ {
           callbackURL = "https://example.com/client/oidc/callback";
@@ -224,12 +229,14 @@ in
           };
         } ];
 
-        staticClients = forEach cfg.dex.oidcClients (client: {
-          inherit (client) id;
-          redirectURIs = [ client.callbackURL ];
-          name = "OIDC for ${client.id}";
-          secretEnv = "DEX_CLIENT_${client.id}";
-        });
+        staticClients = forEach cfg.dex.oidcClients (
+          client: {
+            inherit (client) id;
+            redirectURIs = [ client.callbackURL ];
+            name = "OIDC for ${client.id}";
+            secretEnv = "DEX_CLIENT_${client.id}";
+          }
+        );
       };
     };
 

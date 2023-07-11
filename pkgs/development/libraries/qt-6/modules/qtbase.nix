@@ -270,10 +270,12 @@ stdenv.mkDerivation rec {
     ]
     ;
 
-  NIX_LDFLAGS = toString (lib.optionals stdenv.isDarwin [
-    # Undefined symbols for architecture arm64: "___gss_c_nt_hostbased_service_oid_desc"
-    "-framework GSS"
-  ]);
+  NIX_LDFLAGS = toString (
+    lib.optionals stdenv.isDarwin [
+      # Undefined symbols for architecture arm64: "___gss_c_nt_hostbased_service_oid_desc"
+      "-framework GSS"
+    ]
+  );
 
   outputs = [
     "out"

@@ -19,7 +19,8 @@ let
     })
 
     cp ${pkgs.hddtemp}/share/hddtemp/hddtemp.db $file
-    ${lib.concatMapStringsSep "\n" (e: "echo ${lib.escapeShellArg e} >> $file")
+    ${lib.concatMapStringsSep "\n"
+    (e: "echo ${lib.escapeShellArg e} >> $file")
     cfg.dbEntries}
 
     exec ${pkgs.hddtemp}/bin/hddtemp ${lib.escapeShellArgs cfg.extraArgs} \

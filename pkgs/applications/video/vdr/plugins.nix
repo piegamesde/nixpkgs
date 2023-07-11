@@ -38,19 +38,22 @@ in
 
   xineliboutput = callPackage ./xineliboutput { };
 
-  skincurses = (mkPlugin "skincurses").overrideAttrs
-    (oldAttr: { buildInputs = oldAttr.buildInputs ++ [ ncurses ]; });
+  skincurses = (mkPlugin "skincurses").overrideAttrs (
+    oldAttr: { buildInputs = oldAttr.buildInputs ++ [ ncurses ]; }
+  );
 
   inherit
-    (lib.genAttrs [
-      "epgtableid0"
-      "hello"
-      "osddemo"
-      "pictures"
-      "servicedemo"
-      "status"
-      "svdrpdemo"
-    ] mkPlugin)
+    (lib.genAttrs
+      [
+        "epgtableid0"
+        "hello"
+        "osddemo"
+        "pictures"
+        "servicedemo"
+        "status"
+        "svdrpdemo"
+      ]
+      mkPlugin)
     ;
 
   femon = stdenv.mkDerivation rec {

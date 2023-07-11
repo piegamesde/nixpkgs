@@ -151,10 +151,12 @@ rec {
       allowSubstitutes ? false,
       preferLocalBuild ? true
     }:
-    runCommand name {
+    runCommand name
+    {
       inherit text executable checkPhase meta allowSubstitutes preferLocalBuild;
       passAsFile = [ "text" ];
-    } ''
+    }
+    ''
       target=$out${lib.escapeShellArg destination}
       mkdir -p "$(dirname "$target")"
 
@@ -364,8 +366,9 @@ rec {
             # use shellcheck which does not include docs
             # pandoc takes long to build and documentation isn't needed for in nixpkgs usage
             ${
-              lib.getExe
-              (haskell.lib.compose.justStaticExecutables shellcheck.unwrapped)
+              lib.getExe (
+                haskell.lib.compose.justStaticExecutables shellcheck.unwrapped
+              )
             } "$target"
             runHook postCheck
           ''
@@ -380,14 +383,16 @@ rec {
     # Create a C binary
   writeCBin =
     name: code:
-    runCommandCC name {
+    runCommandCC name
+    {
       inherit name code;
       executable = true;
       passAsFile = [ "code" ];
         # Pointless to do this on a remote machine.
       preferLocalBuild = true;
       allowSubstitutes = false;
-    } ''
+    }
+    ''
       n=$out/bin/$name
       mkdir -p "$(dirname "$n")"
       mv "$codePath" code.c
@@ -429,9 +434,9 @@ rec {
       ,
       meta ? { }
     }:
-    runCommandLocal name {
-      inherit files executable checkPhase meta destination;
-    } ''
+    runCommandLocal name
+    { inherit files executable checkPhase meta destination; }
+    ''
       file=$out$destination
       mkdir -p "$(dirname "$file")"
       cat $files > "$file"
@@ -581,18 +586,24 @@ rec {
           throw "linkFarm entries must be either attrs or a list!"
         ;
 
-      linkCommands = lib.mapAttrsToList (
-        name: path: ''
-          mkdir -p "$(dirname ${lib.escapeShellArg "${name}"})"
-          ln -s ${lib.escapeShellArg "${path}"} ${lib.escapeShellArg "${name}"}
-        ''
-      ) entries';
+      linkCommands = lib.mapAttrsToList
+        (
+          name: path: ''
+            mkdir -p "$(dirname ${lib.escapeShellArg "${name}"})"
+            ln -s ${lib.escapeShellArg "${path}"} ${
+              lib.escapeShellArg "${name}"
+            }
+          ''
+        )
+        entries';
     in
-    runCommand name {
+    runCommand name
+    {
       preferLocalBuild = true;
       allowSubstitutes = false;
       passthru.entries = entries';
-    } ''
+    }
+    ''
       mkdir -p $out
       cd $out
       ${lib.concatStrings linkCommands}
@@ -633,8 +644,8 @@ rec {
     # docs in doc/builders/special/makesetuphook.section.md
   makeSetupHook =
     {
-      name ?
-        lib.warn "calling makeSetupHook without passing a name is deprecated."
+      name ? lib.warn
+        "calling makeSetupHook without passing a name is deprecated."
         "hook",
       deps ? [ ]
         # hooks go in nativeBuildInput so these will be nativeBuildInput
@@ -648,7 +659,8 @@ rec {
       substitutions ? { }
     }:
     script:
-    runCommand name (
+    runCommand name
+    (
       substitutions // {
         inherit meta;
         inherit depsTargetTargetPropagated;
@@ -657,11 +669,13 @@ rec {
           lib.warnIf (!lib.isList deps)
           "'deps' argument to makeSetupHook must be a list. content of deps: ${
             toString deps
-          }" (
+          }"
+          (
             lib.warnIf (deps != [ ])
               "'deps' argument to makeSetupHook is deprecated and will be removed in release 23.11., Please use propagatedBuildInputs instead. content of deps: ${
                 toString deps
-              }" propagatedBuildInputs
+              }"
+              propagatedBuildInputs
             ++ (
               if lib.isList deps then
                 deps
@@ -671,13 +685,16 @@ rec {
           );
         strictDeps = true;
           # TODO 2023-01, no backport: simplify to inherit passthru;
-        passthru = passthru // optionalAttrs (substitutions ? passthru) (warn
+        passthru = passthru // optionalAttrs (substitutions ? passthru) (
+          warn
           "makeSetupHook (name = ${
             lib.strings.escapeNixString name
           }): `substitutions.passthru` is deprecated. Please set `passthru` directly."
-          substitutions.passthru);
+          substitutions.passthru
+        );
       }
-    ) (
+    )
+    (
       ''
         mkdir -p $out/nix-support
         cp ${script} $out/nix-support/setup-hook
@@ -693,12 +710,14 @@ rec {
 
   writeReferencesToFile =
     path:
-    runCommand "runtime-deps" {
+    runCommand "runtime-deps"
+    {
       exportReferencesGraph = [
         "graph"
         path
       ];
-    } ''
+    }
+    ''
       touch $out
       while read path; do
         echo $path >> $out
@@ -715,13 +734,15 @@ rec {
     */
   writeDirectReferencesToFile =
     path:
-    runCommand "runtime-references" {
+    runCommand "runtime-references"
+    {
       exportReferencesGraph = [
         "graph"
         path
       ];
       inherit path;
-    } ''
+    }
+    ''
       touch ./references
       while read p; do
         read dummy
@@ -771,14 +792,18 @@ rec {
         # Objects copied from outside of the store, such as paths and
         # `builtins.fetch*`ed ones
       sources = lib.attrNames (lib.filterAttrs (n: v: v ? path) context);
-      packages = lib.mapAttrs' (
-        name: value: {
-          inherit value;
-          name = lib.head
-            (builtins.match "${builtins.storeDir}/[${nixHashChars}]+-(.*).drv"
-              name);
-        }
-      ) derivations;
+      packages = lib.mapAttrs'
+        (
+          name: value: {
+            inherit value;
+            name = lib.head (
+              builtins.match
+              "${builtins.storeDir}/[${nixHashChars}]+-(.*).drv"
+              name
+            );
+          }
+        )
+        derivations;
         # The syntax of output paths differs between outputs named `out`
         # and other, explicitly named ones. For explicitly named ones,
         # the output name is suffixed as `-name`, but `out` outputs
@@ -786,34 +811,52 @@ rec {
         # from named output paths. Therefore, we find all the named ones
         # first so we can use them to remove false matches when looking
         # for `out` outputs (see the definition of `outputPaths`).
-      namedOutputPaths = lib.flatten (lib.mapAttrsToList (
-        name: value:
-        (map (
-          output:
-          lib.filter lib.isList (builtins.split
-            "(${builtins.storeDir}/[${nixHashChars}]+-${name}-${output})"
-            string)
-        ) (lib.remove "out" value.outputs))
-      ) packages);
+      namedOutputPaths = lib.flatten (
+        lib.mapAttrsToList
+        (
+          name: value:
+          (map
+            (
+              output:
+              lib.filter lib.isList (
+                builtins.split
+                "(${builtins.storeDir}/[${nixHashChars}]+-${name}-${output})"
+                string
+              )
+            )
+            (lib.remove "out" value.outputs))
+        )
+        packages
+      );
         # Only `out` outputs
-      outputPaths = lib.flatten (lib.mapAttrsToList (
-        name: value:
-        if lib.elem "out" value.outputs then
-          lib.filter (
-            x:
-            lib.isList x
-            &&
-            # If the matched path is in `namedOutputPaths`,
-            # it's a partial match of an output path where
-            # the output name isn't `out`
-            lib.all (o: !lib.hasPrefix (lib.head x) o) namedOutputPaths
-          ) (builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name})"
-            string)
-        else
-          [ ]
-      ) packages);
-      allPaths = lib.concatStringsSep "\n"
-        (lib.unique (sources ++ namedOutputPaths ++ outputPaths));
+      outputPaths = lib.flatten (
+        lib.mapAttrsToList
+        (
+          name: value:
+          if lib.elem "out" value.outputs then
+            lib.filter
+            (
+              x:
+              lib.isList x
+              &&
+              # If the matched path is in `namedOutputPaths`,
+              # it's a partial match of an output path where
+              # the output name isn't `out`
+              lib.all (o: !lib.hasPrefix (lib.head x) o) namedOutputPaths
+            )
+            (
+              builtins.split
+              "(${builtins.storeDir}/[${nixHashChars}]+-${name})"
+              string
+            )
+          else
+            [ ]
+        )
+        packages
+      );
+      allPaths = lib.concatStringsSep "\n" (
+        lib.unique (sources ++ namedOutputPaths ++ outputPaths)
+      );
       allPathsWithContext = builtins.appendContext allPaths context;
     in
     if builtins ? getContext then
@@ -959,18 +1002,22 @@ rec {
     ;
 
     # An immutable file in the store with a length of 0 bytes.
-  emptyFile = runCommand "empty-file" {
-    outputHashAlgo = "sha256";
-    outputHashMode = "recursive";
-    outputHash = "0ip26j2h11n1kgkz36rl4akv694yz65hr72q4kv4b3lxcbi65b3p";
-    preferLocalBuild = true;
-  } "touch $out";
+  emptyFile = runCommand "empty-file"
+    {
+      outputHashAlgo = "sha256";
+      outputHashMode = "recursive";
+      outputHash = "0ip26j2h11n1kgkz36rl4akv694yz65hr72q4kv4b3lxcbi65b3p";
+      preferLocalBuild = true;
+    }
+    "touch $out";
 
     # An immutable empty directory in the store.
-  emptyDirectory = runCommand "empty-directory" {
-    outputHashAlgo = "sha256";
-    outputHashMode = "recursive";
-    outputHash = "0sjjj9z1dhilhpc8pq4154czrb79z9cm044jvn75kxcjv6v5l2m5";
-    preferLocalBuild = true;
-  } "mkdir $out";
+  emptyDirectory = runCommand "empty-directory"
+    {
+      outputHashAlgo = "sha256";
+      outputHashMode = "recursive";
+      outputHash = "0sjjj9z1dhilhpc8pq4154czrb79z9cm044jvn75kxcjv6v5l2m5";
+      preferLocalBuild = true;
+    }
+    "mkdir $out";
 }

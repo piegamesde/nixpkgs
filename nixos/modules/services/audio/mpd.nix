@@ -20,13 +20,15 @@ let
       creds:
       let
         placeholders =
-          (imap0 (
-            i: c:
-            ''
-              password "{{password-${toString i}}}@${
-                concatStringsSep "," c.permissions
-              }"''
-          ) creds);
+          (imap0
+            (
+              i: c:
+              ''
+                password "{{password-${toString i}}}@${
+                  concatStringsSep "," c.permissions
+                }"''
+            )
+            creds);
       in
       concatStringsSep "\n" placeholders
     );
@@ -44,10 +46,10 @@ let
     state_file          "${cfg.dataDir}/state"
     sticker_file        "${cfg.dataDir}/sticker.sql"
 
-    ${optionalString (cfg.network.listenAddress != "any")
-    ''bind_to_address "${cfg.network.listenAddress}"''}
-    ${optionalString (cfg.network.port != 6600)
-    ''port "${toString cfg.network.port}"''}
+    ${optionalString (cfg.network.listenAddress != "any") ''
+      bind_to_address "${cfg.network.listenAddress}"''}
+    ${optionalString (cfg.network.port != 6600) ''
+      port "${toString cfg.network.port}"''}
     ${optionalString (cfg.fluidsynth) ''
       decoder {
               plugin "fluidsynth"
@@ -55,8 +57,9 @@ let
       }
     ''}
 
-    ${optionalString (cfg.credentials != [ ])
-    (credentialsPlaceholder cfg.credentials)}
+    ${optionalString (cfg.credentials != [ ]) (
+      credentialsPlaceholder cfg.credentials
+    )}
 
     ${cfg.extraConfig}
   '';
@@ -181,34 +184,36 @@ in
       };
 
       credentials = mkOption {
-        type = types.listOf (types.submodule {
-          options = {
-            passwordFile = mkOption {
-              type = types.path;
-              description = lib.mdDoc ''
-                Path to file containing the password.
-              '';
-            };
-            permissions =
-              let
-                perms = [
-                  "read"
-                  "add"
-                  "control"
-                  "admin"
-                ];
-              in
-              mkOption {
-                type = types.listOf (types.enum perms);
-                default = [ "read" ];
+        type = types.listOf (
+          types.submodule {
+            options = {
+              passwordFile = mkOption {
+                type = types.path;
                 description = lib.mdDoc ''
-                  List of permissions that are granted with this password.
-                  Permissions can be "${concatStringsSep ''", "'' perms}".
+                  Path to file containing the password.
                 '';
-              }
-              ;
-          };
-        });
+              };
+              permissions =
+                let
+                  perms = [
+                    "read"
+                    "add"
+                    "control"
+                    "admin"
+                  ];
+                in
+                mkOption {
+                  type = types.listOf (types.enum perms);
+                  default = [ "read" ];
+                  description = lib.mdDoc ''
+                    List of permissions that are granted with this password.
+                    Permissions can be "${concatStringsSep ''", "'' perms}".
+                  '';
+                }
+                ;
+            };
+          }
+        );
         description = lib.mdDoc ''
           Credentials and permissions for accessing the mpd server.
         '';
@@ -257,7 +262,8 @@ in
             cfg.network.listenAddress
           else
             "${
-              optionalString (cfg.network.listenAddress != "any")
+              optionalString
+              (cfg.network.listenAddress != "any")
               "${cfg.network.listenAddress}:"
             }${toString cfg.network.port}"
         )
@@ -272,13 +278,18 @@ in
           set -euo pipefail
           install -m 600 ${mpdConf} /run/mpd/mpd.conf
         ''
-        + optionalString (cfg.credentials != [ ]) (concatStringsSep "\n" (imap0
-          (
-            i: c:
-            "${pkgs.replace-secret}/bin/replace-secret '{{password-${
-              toString i
-            }}}' '${c.passwordFile}' /run/mpd/mpd.conf"
-          ) cfg.credentials))
+        + optionalString (cfg.credentials != [ ]) (
+          concatStringsSep "\n" (
+            imap0
+            (
+              i: c:
+              "${pkgs.replace-secret}/bin/replace-secret '{{password-${
+                toString i
+              }}}' '${c.passwordFile}' /run/mpd/mpd.conf"
+            )
+            cfg.credentials
+          )
+        )
         ;
 
       serviceConfig = {

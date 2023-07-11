@@ -42,7 +42,8 @@ let
       [server]
       ${concatMapStringsSep "\n" (n: "port_${n}") (attrNames cfg.ports)}
 
-      ${concatMapStrings (p: ''
+      ${concatMapStrings
+      (p: ''
         [port_${p.name}]
         ip=${p.ip}
         port=${toString p.port}
@@ -53,7 +54,8 @@ let
         ${optionalString (p.ssl.key != null) "ssl_key=${p.ssl.key}"}
         ${optionalString (p.ssl.cert != null) "ssl_cert=${p.ssl.cert}"}
         ${optionalString (p.ssl.chain != null) "ssl_chain=${p.ssl.chain}"}
-      '') (attrValues cfg.ports)}
+      '')
+      (attrValues cfg.ports)}
 
       [database_path]
       ${cfg.databasePath}
@@ -130,13 +132,15 @@ let
 
         protocol = mkOption {
           description = lib.mdDoc "Protocols expose by rippled.";
-          type = types.listOf (types.enum [
-            "http"
-            "https"
-            "ws"
-            "wss"
-            "peer"
-          ]);
+          type = types.listOf (
+            types.enum [
+              "http"
+              "https"
+              "ws"
+              "wss"
+              "peer"
+            ]
+          );
         };
 
         user = mkOption {

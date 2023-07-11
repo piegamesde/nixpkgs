@@ -14,16 +14,20 @@ let
     let
       grammars = grammarFn tree-sitter.builtGrammars;
     in
-    linkFarm "grammars" (map (
-      drv:
-      let
-        name = lib.strings.getName drv;
-      in
-      {
-        name = "lib" + (lib.strings.removeSuffix "-grammar" name) + ".so";
-        path = "${drv}/parser";
-      }
-    ) grammars)
+    linkFarm "grammars" (
+      map
+      (
+        drv:
+        let
+          name = lib.strings.getName drv;
+        in
+        {
+          name = "lib" + (lib.strings.removeSuffix "-grammar" name) + ".so";
+          path = "${drv}/parser";
+        }
+      )
+      grammars
+    )
     ;
 
   libPath = withPlugins (_: tree-sitter.allGrammars);

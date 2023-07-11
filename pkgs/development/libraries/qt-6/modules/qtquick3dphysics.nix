@@ -12,7 +12,7 @@ qtModule {
     qtbase
     qtquick3d
   ];
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString (stdenv.isDarwin && stdenv.isx86_64)
+  env.NIX_CFLAGS_COMPILE = lib.optionalString
+    (stdenv.isDarwin && stdenv.isx86_64)
     "-faligned-allocation";
 }

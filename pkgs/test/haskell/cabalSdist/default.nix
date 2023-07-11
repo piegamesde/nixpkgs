@@ -18,18 +18,20 @@ lib.recurseIntoAttrs rec {
 
   localFromCabalSdist = haskellPackages.buildFromCabalSdist localRaw;
 
-  assumptionLocalHasDirectReference = runCommand "localHasDirectReference" {
-    drvPath = builtins.unsafeDiscardOutputDependency localRaw.drvPath;
-  } ''
-    grep ${./local} $drvPath >/dev/null
-    touch $out
-  '';
+  assumptionLocalHasDirectReference = runCommand "localHasDirectReference"
+    { drvPath = builtins.unsafeDiscardOutputDependency localRaw.drvPath; }
+    ''
+      grep ${./local} $drvPath >/dev/null
+      touch $out
+    '';
 
-  localHasNoDirectReference = runCommand "localHasNoDirectReference" {
-    drvPath =
-      builtins.unsafeDiscardOutputDependency localFromCabalSdist.drvPath;
-  } ''
-    grep -v ${./local} $drvPath >/dev/null
-    touch $out
-  '';
+  localHasNoDirectReference = runCommand "localHasNoDirectReference"
+    {
+      drvPath =
+        builtins.unsafeDiscardOutputDependency localFromCabalSdist.drvPath;
+    }
+    ''
+      grep -v ${./local} $drvPath >/dev/null
+      touch $out
+    '';
 }

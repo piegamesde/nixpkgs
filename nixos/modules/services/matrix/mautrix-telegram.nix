@@ -19,8 +19,10 @@ in
 {
   options = {
     services.mautrix-telegram = {
-      enable = mkEnableOption (lib.mdDoc
-        "Mautrix-Telegram, a Matrix-Telegram hybrid puppeting/relaybot bridge");
+      enable = mkEnableOption (
+        lib.mdDoc
+        "Mautrix-Telegram, a Matrix-Telegram hybrid puppeting/relaybot bridge"
+      );
 
       settings = mkOption rec {
         apply = recursiveUpdate default;
@@ -124,7 +126,8 @@ in
 
       serviceDependencies = mkOption {
         type = with types; listOf str;
-        default = optional config.services.matrix-synapse.enable
+        default = optional
+          config.services.matrix-synapse.enable
           "matrix-synapse.service";
         defaultText = literalExpression ''
           optional config.services.matrix-synapse.enable "matrix-synapse.service"

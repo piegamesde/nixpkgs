@@ -46,11 +46,11 @@ stdenv.mkDerivation {
       substituteInPlace src/build-system.jam \
       --replace "default-toolset = darwin" "default-toolset = clang-darwin"
     ''
-    + lib.optionalString (
-      useBoost ? version && lib.versionAtLeast useBoost.version "1.82"
-    ) ''
-      patchShebangs --build src/engine/build.sh
-    ''
+    + lib.optionalString
+      (useBoost ? version && lib.versionAtLeast useBoost.version "1.82")
+      ''
+        patchShebangs --build src/engine/build.sh
+      ''
     ;
 
   nativeBuildInputs = [ bison ];

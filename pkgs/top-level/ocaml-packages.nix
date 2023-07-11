@@ -199,8 +199,8 @@ let
         caqti-driver-mariadb =
           callPackage ../development/ocaml-modules/caqti/driver-mariadb.nix { };
 
-        caqti-driver-postgresql =
-          callPackage ../development/ocaml-modules/caqti/driver-postgresql.nix
+        caqti-driver-postgresql = callPackage
+          ../development/ocaml-modules/caqti/driver-postgresql.nix
           { };
 
         caqti-driver-sqlite3 =
@@ -422,8 +422,8 @@ let
 
         dose3 = callPackage ../development/ocaml-modules/dose3 { };
 
-        dot-merlin-reader =
-          callPackage ../development/tools/ocaml/merlin/dot-merlin-reader.nix
+        dot-merlin-reader = callPackage
+          ../development/tools/ocaml/merlin/dot-merlin-reader.nix
           { };
 
         dscheck = callPackage ../development/ocaml-modules/dscheck { };
@@ -617,7 +617,8 @@ let
               ;
           };
         ffmpeg-swresample = callPackage
-          ../development/ocaml-modules/ffmpeg/ffmpeg-swresample.nix {
+          ../development/ocaml-modules/ffmpeg/ffmpeg-swresample.nix
+          {
             inherit (pkgs) ffmpeg;
             inherit (pkgs.darwin.apple_sdk.frameworks) VideoToolbox;
           };
@@ -676,8 +677,8 @@ let
 
         getopt = callPackage ../development/ocaml-modules/getopt { };
 
-        gettext-camomile =
-          callPackage ../development/ocaml-modules/ocaml-gettext/camomile.nix
+        gettext-camomile = callPackage
+          ../development/ocaml-modules/ocaml-gettext/camomile.nix
           { };
 
         gettext-stub =
@@ -860,15 +861,19 @@ let
         janePackage =
           if lib.versionOlder "4.10.2" ocaml.version then
             callPackage
-            ../development/ocaml-modules/janestreet/janePackage_0_15.nix { }
+            ../development/ocaml-modules/janestreet/janePackage_0_15.nix
+            { }
           else if lib.versionOlder "4.08" ocaml.version then
             callPackage
-            ../development/ocaml-modules/janestreet/janePackage_0_14.nix { }
+            ../development/ocaml-modules/janestreet/janePackage_0_14.nix
+            { }
           else if lib.versionOlder "4.07" ocaml.version then
             callPackage
-            ../development/ocaml-modules/janestreet/janePackage_0_12.nix { }
+            ../development/ocaml-modules/janestreet/janePackage_0_12.nix
+            { }
           else
-            callPackage ../development/ocaml-modules/janestreet/janePackage.nix
+            callPackage
+            ../development/ocaml-modules/janestreet/janePackage.nix
             { }
           ;
 
@@ -902,7 +907,8 @@ let
             self = self.janeStreet_0_9_0;
             super = self // {
               janePackage = callPackage
-                ../development/ocaml-modules/janestreet/janePackage.nix {
+                ../development/ocaml-modules/janestreet/janePackage.nix
+                {
                   defaultVersion = "0.9.0";
                 };
             };
@@ -928,7 +934,8 @@ let
           callPackage ../development/tools/ocaml/js_of_ocaml/ppx.nix { };
 
         js_of_ocaml-ppx_deriving_json = callPackage
-          ../development/tools/ocaml/js_of_ocaml/ppx_deriving_json.nix { };
+          ../development/tools/ocaml/js_of_ocaml/ppx_deriving_json.nix
+          { };
 
         js_of_ocaml-toplevel =
           callPackage ../development/tools/ocaml/js_of_ocaml/toplevel.nix { };
@@ -939,8 +946,8 @@ let
         json-data-encoding =
           callPackage ../development/ocaml-modules/json-data-encoding { };
 
-        json-data-encoding-bson =
-          callPackage ../development/ocaml-modules/json-data-encoding/bson.nix
+        json-data-encoding-bson = callPackage
+          ../development/ocaml-modules/json-data-encoding/bson.nix
           { };
 
         jsonm = callPackage ../development/ocaml-modules/jsonm { };
@@ -1167,8 +1174,8 @@ let
         mirage-block =
           callPackage ../development/ocaml-modules/mirage-block { };
 
-        mirage-block-combinators =
-          callPackage ../development/ocaml-modules/mirage-block/combinators.nix
+        mirage-block-combinators = callPackage
+          ../development/ocaml-modules/mirage-block/combinators.nix
           { };
 
         mirage-block-ramdisk =
@@ -1189,8 +1196,8 @@ let
         mirage-clock =
           callPackage ../development/ocaml-modules/mirage-clock { };
 
-        mirage-clock-freestanding =
-          callPackage ../development/ocaml-modules/mirage-clock/freestanding.nix
+        mirage-clock-freestanding = callPackage
+          ../development/ocaml-modules/mirage-clock/freestanding.nix
           { };
 
         mirage-clock-unix =
@@ -1214,16 +1221,16 @@ let
         mirage-crypto-rng =
           callPackage ../development/ocaml-modules/mirage-crypto/rng.nix { };
 
-        mirage-crypto-rng-async =
-          callPackage ../development/ocaml-modules/mirage-crypto/rng-async.nix
+        mirage-crypto-rng-async = callPackage
+          ../development/ocaml-modules/mirage-crypto/rng-async.nix
           { };
 
         mirage-crypto-rng-lwt =
           callPackage ../development/ocaml-modules/mirage-crypto/rng-lwt.nix { }
           ;
 
-        mirage-crypto-rng-mirage =
-          callPackage ../development/ocaml-modules/mirage-crypto/rng-mirage.nix
+        mirage-crypto-rng-mirage = callPackage
+          ../development/ocaml-modules/mirage-crypto/rng-mirage.nix
           { };
 
         mirage-device =
@@ -1231,8 +1238,8 @@ let
 
         mirage-flow = callPackage ../development/ocaml-modules/mirage-flow { };
 
-        mirage-flow-combinators =
-          callPackage ../development/ocaml-modules/mirage-flow/combinators.nix
+        mirage-flow-combinators = callPackage
+          ../development/ocaml-modules/mirage-flow/combinators.nix
           { };
 
         mirage-flow-unix =
@@ -1364,10 +1371,12 @@ let
         ocaml-migrate-parsetree = ocaml-migrate-parsetree-1-8;
 
         ocaml-migrate-parsetree-1-8 = callPackage
-          ../development/ocaml-modules/ocaml-migrate-parsetree/1.8.x.nix { };
+          ../development/ocaml-modules/ocaml-migrate-parsetree/1.8.x.nix
+          { };
 
         ocaml-migrate-parsetree-2 = callPackage
-          ../development/ocaml-modules/ocaml-migrate-parsetree/2.x.nix { };
+          ../development/ocaml-modules/ocaml-migrate-parsetree/2.x.nix
+          { };
 
         ocaml-monadic =
           callPackage ../development/ocaml-modules/ocaml-monadic { };
@@ -1736,8 +1745,9 @@ let
 
         reason = callPackage ../development/compilers/reason { };
 
-        reason-native = lib.recurseIntoAttrs
-          (callPackage ../development/ocaml-modules/reason-native { });
+        reason-native = lib.recurseIntoAttrs (
+          callPackage ../development/ocaml-modules/reason-native { }
+        );
 
         rebez = callPackage ../development/ocaml-modules/rebez { };
 
@@ -1755,7 +1765,8 @@ let
         resto-cohttp-client =
           callPackage ../development/ocaml-modules/resto/cohttp-client.nix { };
         resto-cohttp-self-serving-client = callPackage
-          ../development/ocaml-modules/resto/cohttp-self-serving-client.nix { };
+          ../development/ocaml-modules/resto/cohttp-self-serving-client.nix
+          { };
         resto-cohttp-server =
           callPackage ../development/ocaml-modules/resto/cohttp-server.nix { };
         resto-directory =
@@ -1817,8 +1828,8 @@ let
         shared-memory-ring =
           callPackage ../development/ocaml-modules/shared-memory-ring { };
 
-        shared-memory-ring-lwt =
-          callPackage ../development/ocaml-modules/shared-memory-ring/lwt.nix
+        shared-memory-ring-lwt = callPackage
+          ../development/ocaml-modules/shared-memory-ring/lwt.nix
           { };
 
         shine = callPackage ../development/ocaml-modules/shine {
@@ -1893,8 +1904,8 @@ let
         tezos-base58 =
           callPackage ../development/ocaml-modules/tezos-base58 { };
 
-        tezos-bls12-381-polynomial =
-          callPackage ../development/ocaml-modules/tezos-bls12-381-polynomial
+        tezos-bls12-381-polynomial = callPackage
+          ../development/ocaml-modules/tezos-bls12-381-polynomial
           { };
 
         tezos-plompiler = callPackage
@@ -1902,7 +1913,8 @@ let
           { };
 
         tezos-plonk = callPackage
-          ../development/ocaml-modules/tezos-bls12-381-polynomial/plonk.nix { };
+          ../development/ocaml-modules/tezos-bls12-381-polynomial/plonk.nix
+          { };
 
         theora = callPackage ../development/ocaml-modules/theora { };
 
@@ -2090,7 +2102,8 @@ let
           ### End ###
 
       }
-    )).overrideScope' liftJaneStreet
+    )).overrideScope'
+    liftJaneStreet
     ;
 
 in
@@ -2154,8 +2167,9 @@ rec {
 
     # We still have packages that rely on unsafe-string, which is deprecated in OCaml 4.06.0.
     # Below are aliases for porting them to the latest versions of the OCaml 4 series.
-  ocamlPackages_4_14_unsafe_string = mkOcamlPackages
-    (callPackage ../development/compilers/ocaml/4.14.nix {
+  ocamlPackages_4_14_unsafe_string = mkOcamlPackages (
+    callPackage ../development/compilers/ocaml/4.14.nix {
       unsafeStringSupport = true;
-    });
+    }
+  );
 }

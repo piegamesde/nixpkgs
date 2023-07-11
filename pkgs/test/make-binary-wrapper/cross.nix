@@ -6,13 +6,15 @@
   expectedArch ? stdenv.hostPlatform.parsed.cpu.name
 }:
 
-runCommand "make-binary-wrapper-test-cross" {
+runCommand "make-binary-wrapper-test-cross"
+{
   nativeBuildInputs = [
     makeBinaryWrapper
     binutils
   ];
   inherit expectedArch;
-} ''
+}
+''
   touch prog
   chmod +x prog
   makeWrapper prog $out

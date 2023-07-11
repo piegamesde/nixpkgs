@@ -8,7 +8,8 @@
   nix ? pkgs.nix,
 }:
 
-pkgs.runCommand "nixpkgs-lib-tests" {
+pkgs.runCommand "nixpkgs-lib-tests"
+{
   buildInputs = [
     (import ./check-eval.nix)
     (import ./maintainers.nix {
@@ -23,7 +24,8 @@ pkgs.runCommand "nixpkgs-lib-tests" {
   ];
   nativeBuildInputs = [ nix ];
   strictDeps = true;
-} ''
+}
+''
   datadir="${nix}/share"
   export TEST_ROOT=$(pwd)/test-tmp
   export NIX_BUILD_HOOK=

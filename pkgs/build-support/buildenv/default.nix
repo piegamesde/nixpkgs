@@ -60,7 +60,8 @@ lib.makeOverridable (
     };
 
   in
-  runCommand name rec {
+  runCommand name
+  rec {
     inherit
       manifest
       ignoreCollisions
@@ -73,29 +74,34 @@ lib.makeOverridable (
       nativeBuildInputs
       buildInputs
       ;
-    pkgs = builtins.toJSON (map (drv: {
-      paths =
-        # First add the usual output(s): respect if user has chosen explicitly,
-        # and otherwise use `meta.outputsToInstall`. The attribute is guaranteed
-        # to exist in mkDerivation-created cases. The other cases (e.g. runCommand)
-        # aren't expected to have multiple outputs.
-        (
-          if
-            (
-              !drv ? outputSpecified || !drv.outputSpecified
-            )
-            && drv.meta.outputsToInstall or null != null
-          then
-            map (outName: drv.${outName}) drv.meta.outputsToInstall
-          else
-            [ drv ]
-        )
-        # Add any extra outputs specified by the caller of `buildEnv`.
-        ++ lib.filter (p: p != null)
-          (builtins.map (outName: drv.${outName} or null) extraOutputsToInstall)
-        ;
-      priority = drv.meta.priority or 5;
-    }) paths);
+    pkgs = builtins.toJSON (
+      map
+      (drv: {
+        paths =
+          # First add the usual output(s): respect if user has chosen explicitly,
+          # and otherwise use `meta.outputsToInstall`. The attribute is guaranteed
+          # to exist in mkDerivation-created cases. The other cases (e.g. runCommand)
+          # aren't expected to have multiple outputs.
+          (
+            if
+              (
+                !drv ? outputSpecified || !drv.outputSpecified
+              )
+              && drv.meta.outputsToInstall or null != null
+            then
+              map (outName: drv.${outName}) drv.meta.outputsToInstall
+            else
+              [ drv ]
+          )
+          # Add any extra outputs specified by the caller of `buildEnv`.
+          ++ lib.filter (p: p != null) (
+            builtins.map (outName: drv.${outName} or null) extraOutputsToInstall
+          )
+          ;
+        priority = drv.meta.priority or 5;
+      })
+      paths
+    );
     preferLocalBuild = true;
     allowSubstitutes = false;
       # XXX: The size is somewhat arbitrary
@@ -105,7 +111,8 @@ lib.makeOverridable (
       else
         [ ]
       ;
-  } ''
+  }
+  ''
     ${buildPackages.perl}/bin/perl -w ${builder}
     eval "$postBuild"
   ''

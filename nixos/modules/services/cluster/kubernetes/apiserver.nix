@@ -24,94 +24,112 @@ in
 {
 
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "kubernetes"
-      "apiserver"
-      "admissionControl"
-    ] [
-      "services"
-      "kubernetes"
-      "apiserver"
-      "enableAdmissionPlugins"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "kubernetes"
-      "apiserver"
-      "address"
-    ] [
-      "services"
-      "kubernetes"
-      "apiserver"
-      "bindAddress"
-    ])
-    (mkRemovedOptionModule [
-      "services"
-      "kubernetes"
-      "apiserver"
-      "insecureBindAddress"
-    ] "")
-    (mkRemovedOptionModule [
-      "services"
-      "kubernetes"
-      "apiserver"
-      "insecurePort"
-    ] "")
-    (mkRemovedOptionModule [
-      "services"
-      "kubernetes"
-      "apiserver"
-      "publicAddress"
-    ] "")
-    (mkRenamedOptionModule [
-      "services"
-      "kubernetes"
-      "etcd"
-      "servers"
-    ] [
-      "services"
-      "kubernetes"
-      "apiserver"
-      "etcd"
-      "servers"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "kubernetes"
-      "etcd"
-      "keyFile"
-    ] [
-      "services"
-      "kubernetes"
-      "apiserver"
-      "etcd"
-      "keyFile"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "kubernetes"
-      "etcd"
-      "certFile"
-    ] [
-      "services"
-      "kubernetes"
-      "apiserver"
-      "etcd"
-      "certFile"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "kubernetes"
-      "etcd"
-      "caFile"
-    ] [
-      "services"
-      "kubernetes"
-      "apiserver"
-      "etcd"
-      "caFile"
-    ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "apiserver"
+        "admissionControl"
+      ]
+      [
+        "services"
+        "kubernetes"
+        "apiserver"
+        "enableAdmissionPlugins"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "apiserver"
+        "address"
+      ]
+      [
+        "services"
+        "kubernetes"
+        "apiserver"
+        "bindAddress"
+      ])
+    (mkRemovedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "apiserver"
+        "insecureBindAddress"
+      ]
+      "")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "apiserver"
+        "insecurePort"
+      ]
+      "")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "apiserver"
+        "publicAddress"
+      ]
+      "")
+    (mkRenamedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "etcd"
+        "servers"
+      ]
+      [
+        "services"
+        "kubernetes"
+        "apiserver"
+        "etcd"
+        "servers"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "etcd"
+        "keyFile"
+      ]
+      [
+        "services"
+        "kubernetes"
+        "apiserver"
+        "etcd"
+        "keyFile"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "etcd"
+        "certFile"
+      ]
+      [
+        "services"
+        "kubernetes"
+        "apiserver"
+        "etcd"
+        "certFile"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "etcd"
+        "caFile"
+      ]
+      [
+        "services"
+        "kubernetes"
+        "apiserver"
+        "etcd"
+        "caFile"
+      ])
   ];
 
     ###### interface
@@ -143,14 +161,16 @@ in
         "RBAC"
         "Node"
       ]; # Enabling RBAC by default, although kubernetes default is AllowAllow
-      type = listOf (enum [
-        "AlwaysAllow"
-        "AlwaysDeny"
-        "ABAC"
-        "Webhook"
-        "RBAC"
-        "Node"
-      ]);
+      type = listOf (
+        enum [
+          "AlwaysAllow"
+          "AlwaysDeny"
+          "ABAC"
+          "Webhook"
+          "RBAC"
+          "Node"
+        ]
+      );
     };
 
     authorizationPolicy = mkOption {
@@ -449,11 +469,14 @@ in
                             concatStringsSep "," cfg.authorizationMode
                           } \
                             ${
-                              optionalString (elem "ABAC" cfg.authorizationMode)
+                              optionalString
+                              (elem "ABAC" cfg.authorizationMode)
                               "--authorization-policy-file=${
-                                pkgs.writeText "kube-auth-policy.jsonl"
-                                (concatMapStringsSep "\n" (l: builtins.toJSON l)
-                                  cfg.authorizationPolicy)
+                                pkgs.writeText "kube-auth-policy.jsonl" (
+                                  concatMapStringsSep "\n"
+                                  (l: builtins.toJSON l)
+                                  cfg.authorizationPolicy
+                                )
                               }"
                             } \
                             ${
@@ -463,11 +486,13 @@ in
                             } \
                           --bind-address=${cfg.bindAddress} \
                           ${
-                            optionalString (cfg.advertiseAddress != null)
+                            optionalString
+                            (cfg.advertiseAddress != null)
                             "--advertise-address=${cfg.advertiseAddress}"
                           } \
                           ${
-                            optionalString (cfg.clientCaFile != null)
+                            optionalString
+                            (cfg.clientCaFile != null)
                             "--client-ca-file=${cfg.clientCaFile}"
                           } \
                           --disable-admission-plugins=${
@@ -480,55 +505,67 @@ in
                             concatStringsSep "," cfg.etcd.servers
                           } \
                           ${
-                            optionalString (cfg.etcd.caFile != null)
+                            optionalString
+                            (cfg.etcd.caFile != null)
                             "--etcd-cafile=${cfg.etcd.caFile}"
                           } \
                           ${
-                            optionalString (cfg.etcd.certFile != null)
+                            optionalString
+                            (cfg.etcd.certFile != null)
                             "--etcd-certfile=${cfg.etcd.certFile}"
                           } \
                           ${
-                            optionalString (cfg.etcd.keyFile != null)
+                            optionalString
+                            (cfg.etcd.keyFile != null)
                             "--etcd-keyfile=${cfg.etcd.keyFile}"
                           } \
                           ${
-                            optionalString (cfg.featureGates != [ ])
+                            optionalString
+                            (cfg.featureGates != [ ])
                             "--feature-gates=${
-                              concatMapStringsSep "," (
-                                feature: "${feature}=true"
-                              ) cfg.featureGates
+                              concatMapStringsSep ","
+                              (feature: "${feature}=true")
+                              cfg.featureGates
                             }"
                           } \
                           ${
-                            optionalString (cfg.basicAuthFile != null)
+                            optionalString
+                            (cfg.basicAuthFile != null)
                             "--basic-auth-file=${cfg.basicAuthFile}"
                           } \
                           ${
-                            optionalString (cfg.kubeletClientCaFile != null)
+                            optionalString
+                            (cfg.kubeletClientCaFile != null)
                             "--kubelet-certificate-authority=${cfg.kubeletClientCaFile}"
                           } \
                           ${
-                            optionalString (cfg.kubeletClientCertFile != null)
+                            optionalString
+                            (cfg.kubeletClientCertFile != null)
                             "--kubelet-client-certificate=${cfg.kubeletClientCertFile}"
                           } \
                           ${
-                            optionalString (cfg.kubeletClientKeyFile != null)
+                            optionalString
+                            (cfg.kubeletClientKeyFile != null)
                             "--kubelet-client-key=${cfg.kubeletClientKeyFile}"
                           } \
                           ${
-                            optionalString (cfg.preferredAddressTypes != null)
+                            optionalString
+                            (cfg.preferredAddressTypes != null)
                             "--kubelet-preferred-address-types=${cfg.preferredAddressTypes}"
                           } \
                           ${
-                            optionalString (cfg.proxyClientCertFile != null)
+                            optionalString
+                            (cfg.proxyClientCertFile != null)
                             "--proxy-client-cert-file=${cfg.proxyClientCertFile}"
                           } \
                           ${
-                            optionalString (cfg.proxyClientKeyFile != null)
+                            optionalString
+                            (cfg.proxyClientKeyFile != null)
                             "--proxy-client-key-file=${cfg.proxyClientKeyFile}"
                           } \
                           ${
-                            optionalString (cfg.runtimeConfig != "")
+                            optionalString
+                            (cfg.runtimeConfig != "")
                             "--runtime-config=${cfg.runtimeConfig}"
                           } \
                           --secure-port=${toString cfg.securePort} \
@@ -541,20 +578,24 @@ in
                           --service-cluster-ip-range=${cfg.serviceClusterIpRange} \
                           --storage-backend=${cfg.storageBackend} \
                           ${
-                            optionalString (cfg.tlsCertFile != null)
+                            optionalString
+                            (cfg.tlsCertFile != null)
                             "--tls-cert-file=${cfg.tlsCertFile}"
                           } \
                           ${
-                            optionalString (cfg.tlsKeyFile != null)
+                            optionalString
+                            (cfg.tlsKeyFile != null)
                             "--tls-private-key-file=${cfg.tlsKeyFile}"
                           } \
                           ${
-                            optionalString (cfg.tokenAuthFile != null)
+                            optionalString
+                            (cfg.tokenAuthFile != null)
                             "--token-auth-file=${cfg.tokenAuthFile}"
                           } \
                           ${
-                            optionalString (cfg.verbosity != null)
-                            "--v=${toString cfg.verbosity}"
+                            optionalString (cfg.verbosity != null) "--v=${
+                              toString cfg.verbosity
+                            }"
                           } \
                           ${cfg.extraOpts}
           '';

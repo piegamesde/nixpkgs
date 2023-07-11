@@ -27,7 +27,8 @@ mkCoqDerivation rec {
 
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch coq.coq-version [
+    lib.switch coq.coq-version
+    [
       {
         case = range "8.10" "8.17";
         out = "8.14.0";
@@ -48,7 +49,8 @@ mkCoqDerivation rec {
         case = "8.6";
         out = "8.6.0";
       }
-    ] null;
+    ]
+    null;
 
   mlPlugin = true;
   nativeBuildInputs = (with coq.ocamlPackages; [ ocamlbuild ]);

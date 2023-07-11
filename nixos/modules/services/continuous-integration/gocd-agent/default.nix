@@ -188,8 +188,8 @@ in
 
       environment =
         let
-          selectedSessionVars =
-            lib.filterAttrs (n: v: builtins.elem n [ "NIX_PATH" ])
+          selectedSessionVars = lib.filterAttrs
+            (n: v: builtins.elem n [ "NIX_PATH" ])
             config.environment.sessionVariables;
         in
         selectedSessionVars // {

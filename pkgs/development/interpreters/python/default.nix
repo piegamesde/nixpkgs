@@ -41,10 +41,12 @@
               items:
               let
                 exceptions = [ stdenv ];
-                providesSetupHook = lib.attrByPath [
-                  "provides"
-                  "setupHook"
-                ] false;
+                providesSetupHook = lib.attrByPath
+                  [
+                    "provides"
+                    "setupHook"
+                  ]
+                  false;
                 valid =
                   value:
                   pythonPackages.hasPythonModule value
@@ -54,11 +56,14 @@
                 func =
                   name: value:
                   if lib.isDerivation value then
-                    lib.extendDerivation (
+                    lib.extendDerivation
+                    (
                       valid value
                       || throw
                         "${name} should use `buildPythonPackage` or `toPythonModule` if it is to be part of the Python packages set."
-                    ) { } value
+                    )
+                    { }
+                    value
                   else
                     value
                   ;
@@ -66,7 +71,8 @@
               lib.mapAttrs func items
               ;
           in
-          ensurePythonModules (callPackage
+          ensurePythonModules (
+            callPackage
             # Function that when called
             # - imports python-packages.nix
             # - adds spliced package sets to the package set
@@ -106,16 +112,20 @@
                 );
                 aliases =
                   self: super:
-                  lib.optionalAttrs config.allowAliases
-                  (import ../../../top-level/python-aliases.nix lib self super)
+                  lib.optionalAttrs config.allowAliases (
+                    import ../../../top-level/python-aliases.nix lib self super
+                  )
                   ;
               in
-              makeScopeWithSplicing otherSplices keep extra
-              (lib.extends (lib.composeExtensions aliases extensions) keep)
-            ) {
+              makeScopeWithSplicing otherSplices keep extra (
+                lib.extends (lib.composeExtensions aliases extensions) keep
+              )
+            )
+            {
               overrides = packageOverrides;
               python = self;
-            })
+            }
+          )
           ;
       in
       rec {
@@ -278,11 +288,14 @@
         enableLTO = false;
         mimetypesSupport = false;
       } // sources.python310
-    )).overrideAttrs (old: {
-      # TODO(@Artturin): Add this to the main cpython expr
-      strictDeps = true;
-      pname = "python3-minimal";
-    });
+    )).overrideAttrs
+      (
+        old: {
+          # TODO(@Artturin): Add this to the main cpython expr
+          strictDeps = true;
+          pname = "python3-minimal";
+        }
+      );
 
     pypy27 = callPackage ./pypy {
       self = __splicedPackages.pypy27;

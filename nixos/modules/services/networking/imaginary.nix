@@ -40,12 +40,14 @@ in
       '';
       type = types.submodule {
         freeformType = with types;
-          attrsOf (oneOf [
-            bool
-            int
-            (nonEmptyListOf str)
-            str
-          ]);
+          attrsOf (
+            oneOf [
+              bool
+              int
+              (nonEmptyListOf str)
+              str
+            ]
+          );
 
         options = {
           return-size = mkOption {
@@ -76,18 +78,20 @@ in
       serviceConfig = rec {
         ExecStart =
           let
-            args = lib.mapAttrsToList (
-              key: val:
-              "-"
-              + key
-              + "="
-              + lib.concatStringsSep "," (map toString (lib.toList val))
-            ) (
-              cfg.settings // {
-                a = cfg.address;
-                p = cfg.port;
-              }
-            );
+            args = lib.mapAttrsToList
+              (
+                key: val:
+                "-"
+                + key
+                + "="
+                + lib.concatStringsSep "," (map toString (lib.toList val))
+              )
+              (
+                cfg.settings // {
+                  a = cfg.address;
+                  p = cfg.port;
+                }
+              );
           in
           "${pkgs.imaginary}/bin/imaginary ${utils.escapeSystemdExecArgs args}"
           ;

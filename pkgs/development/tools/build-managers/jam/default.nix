@@ -98,14 +98,16 @@ in
         };
       };
     in
-    base.overrideAttrs (oldAttrs: {
-      makeFlags =
-        (
-          oldAttrs.makeFlags or [ ]
-        )
-        ++ [ "CC=${buildPackages.stdenv.cc.targetPrefix}cc" ]
-        ;
-    })
+    base.overrideAttrs (
+      oldAttrs: {
+        makeFlags =
+          (
+            oldAttrs.makeFlags or [ ]
+          )
+          ++ [ "CC=${buildPackages.stdenv.cc.targetPrefix}cc" ]
+          ;
+      }
+    )
     ;
 
   ftjam =
@@ -132,31 +134,33 @@ in
         };
       };
     in
-    base.overrideAttrs (oldAttrs: {
-      postPatch =
-        (
-          oldAttrs.postPatch or ""
-        )
-        + ''
-          substituteInPlace Jamfile --replace strip ${stdenv.cc.targetPrefix}strip
-        ''
-        ;
+    base.overrideAttrs (
+      oldAttrs: {
+        postPatch =
+          (
+            oldAttrs.postPatch or ""
+          )
+          + ''
+            substituteInPlace Jamfile --replace strip ${stdenv.cc.targetPrefix}strip
+          ''
+          ;
 
-        # Doesn't understand how to cross compile once bootstrapped, so we'll just
-        # use the Makefile for the bootstrapping portion.
-      configurePlatforms = [
-        "build"
-        "target"
-      ];
-      configureFlags =
-        (
-          oldAttrs.configureFlags or [ ]
-        )
-        ++ [
-          "CC=${buildPackages.stdenv.cc.targetPrefix}cc"
-          "--host=${stdenv.buildPlatform.config}"
-        ]
-        ;
-    })
+          # Doesn't understand how to cross compile once bootstrapped, so we'll just
+          # use the Makefile for the bootstrapping portion.
+        configurePlatforms = [
+          "build"
+          "target"
+        ];
+        configureFlags =
+          (
+            oldAttrs.configureFlags or [ ]
+          )
+          ++ [
+            "CC=${buildPackages.stdenv.cc.targetPrefix}cc"
+            "--host=${stdenv.buildPlatform.config}"
+          ]
+          ;
+      }
+    )
     ;
 }

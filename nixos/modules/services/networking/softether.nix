@@ -164,6 +164,7 @@ in
         boot.kernelModules = [ "tun" ];
       })
 
-    ]);
+    ]
+  );
 
 }

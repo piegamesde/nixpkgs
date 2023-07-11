@@ -69,14 +69,17 @@ in
         }: [
           all.imagick
         ]
-      )).overrideAttrs (attrs: {
-        postInstall =
-          attrs.postInstall or ""
-          + ''
-            touch "$out/oApee-was-here"
-          ''
-          ;
-      });
+      )).overrideAttrs
+        (
+          attrs: {
+            postInstall =
+              attrs.postInstall or ""
+              + ''
+                touch "$out/oApee-was-here"
+              ''
+              ;
+          }
+        );
     in
     runTest "php-test-overrideAttrs-preserves-enabled-extensions" ''
       php="${customPhp}"
@@ -99,26 +102,30 @@ in
       customPhp = lib.pipe php.unwrapped [
         (
           pkg:
-          pkg.overrideAttrs (attrs: {
-            postInstall =
-              attrs.postInstall or ""
-              + ''
-                touch "$out/oAs-first"
-              ''
-              ;
-          })
+          pkg.overrideAttrs (
+            attrs: {
+              postInstall =
+                attrs.postInstall or ""
+                + ''
+                  touch "$out/oAs-first"
+                ''
+                ;
+            }
+          )
         )
 
         (
           pkg:
-          pkg.overrideAttrs (attrs: {
-            postInstall =
-              attrs.postInstall or ""
-              + ''
-                touch "$out/oAs-second"
-              ''
-              ;
-          })
+          pkg.overrideAttrs (
+            attrs: {
+              postInstall =
+                attrs.postInstall or ""
+                + ''
+                  touch "$out/oAs-second"
+                ''
+                ;
+            }
+          )
         )
       ];
     in
@@ -136,26 +143,30 @@ in
       customPhp = lib.pipe php [
         (
           pkg:
-          pkg.overrideAttrs (attrs: {
-            postInstall =
-              attrs.postInstall or ""
-              + ''
-                touch "$out/oAs-first"
-              ''
-              ;
-          })
+          pkg.overrideAttrs (
+            attrs: {
+              postInstall =
+                attrs.postInstall or ""
+                + ''
+                  touch "$out/oAs-first"
+                ''
+                ;
+            }
+          )
         )
 
         (
           pkg:
-          pkg.overrideAttrs (attrs: {
-            postInstall =
-              attrs.postInstall or ""
-              + ''
-                touch "$out/oAs-second"
-              ''
-              ;
-          })
+          pkg.overrideAttrs (
+            attrs: {
+              postInstall =
+                attrs.postInstall or ""
+                + ''
+                  touch "$out/oAs-second"
+                ''
+                ;
+            }
+          )
         )
       ];
     in

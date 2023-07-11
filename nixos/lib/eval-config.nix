@@ -68,9 +68,8 @@ let
     x:
     lib.warnIf (evalConfigArgs ? extraArgs)
     "The extraArgs argument to eval-config.nix is deprecated. Please set config._module.args instead."
-    lib.warnIf (
-      evalConfigArgs ? check
-    )
+    lib.warnIf
+    (evalConfigArgs ? check)
     "The check argument to eval-config.nix is deprecated. Please set config._module.check instead."
     x
     ;

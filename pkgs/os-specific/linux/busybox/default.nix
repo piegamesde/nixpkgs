@@ -92,7 +92,8 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-vl1wPbsHtXY9naajjnTicQ7Uj3N+EQ8pRNnrdsiow+w=";
       })
     ]
-    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+    ++ lib.optional
+      (stdenv.hostPlatform != stdenv.buildPlatform)
       ./clang-cross.patch
     ;
 

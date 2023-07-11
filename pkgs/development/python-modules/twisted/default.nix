@@ -168,7 +168,8 @@ buildPythonPackage rec {
     ]
     ++ passthru.optional-dependencies.conch
       # not supported on aarch64-darwin: https://github.com/pyca/pyopenssl/issues/873
-    ++ lib.optionals (!(stdenv.isDarwin && stdenv.isAarch64))
+    ++ lib.optionals
+      (!(stdenv.isDarwin && stdenv.isAarch64))
       passthru.optional-dependencies.tls
     ;
 

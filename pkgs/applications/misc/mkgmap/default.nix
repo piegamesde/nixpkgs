@@ -50,11 +50,13 @@ stdenv.mkDerivation rec {
       cp ${hamcrest-core} lib/test/${hamcrest-core.name}
 
       mkdir -p test/resources/in/img
-      ${lib.concatMapStringsSep "\n" (res: ''
+      ${lib.concatMapStringsSep "\n"
+      (res: ''
         cp ${res} test/resources/in/${
           builtins.replaceStrings [ "__" ] [ "/" ] res.name
         }
-      '') testInputs}
+      '')
+      testInputs}
     '';
 
   nativeBuildInputs = [

@@ -37,26 +37,30 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule [
-      "hardware"
-      "bluetooth"
-      "config"
-    ] [
-      "hardware"
-      "bluetooth"
-      "settings"
-    ])
-    (mkRemovedOptionModule [
-      "hardware"
-      "bluetooth"
-      "extraConfig"
-    ] ''
-      Use hardware.bluetooth.settings instead.
+    (mkRenamedOptionModule
+      [
+        "hardware"
+        "bluetooth"
+        "config"
+      ]
+      [
+        "hardware"
+        "bluetooth"
+        "settings"
+      ])
+    (mkRemovedOptionModule
+      [
+        "hardware"
+        "bluetooth"
+        "extraConfig"
+      ]
+      ''
+        Use hardware.bluetooth.settings instead.
 
-      This is part of the general move to use structured settings instead of raw
-      text for config as introduced by RFC0042:
-      https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md
-    '')
+        This is part of the general move to use structured settings instead of raw
+        text for config as introduced by RFC0042:
+        https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md
+      '')
   ];
 
     ###### interface
@@ -66,8 +70,9 @@ in
     hardware.bluetooth = {
       enable = mkEnableOption (lib.mdDoc "support for Bluetooth");
 
-      hsphfpd.enable = mkEnableOption
-        (lib.mdDoc "support for hsphfpd[-prototype] implementation");
+      hsphfpd.enable = mkEnableOption (
+        lib.mdDoc "support for hsphfpd[-prototype] implementation"
+      );
 
       powerOnBoot = mkOption {
         type = types.bool;
@@ -154,8 +159,9 @@ in
               "-f"
               "/etc/bluetooth/main.conf"
             ]
-            ++ optional hasDisabledPlugins
-              "--noplugin=${concatStringsSep "," cfg.disabledPlugins}"
+            ++ optional hasDisabledPlugins "--noplugin=${
+                concatStringsSep "," cfg.disabledPlugins
+              }"
             ;
         in
         {

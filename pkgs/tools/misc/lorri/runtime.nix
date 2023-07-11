@@ -26,11 +26,13 @@ let
     ) > $out
   '';
 
-  runtimeClosureInfoAsNix = runCommand "runtime-closure.nix" {
-    runtime_closure_list = closureToNix;
-    tools_build_host = tools;
-  } ''
-    substituteAll ${./runtime-closure.nix.template} $out
-  '';
+  runtimeClosureInfoAsNix = runCommand "runtime-closure.nix"
+    {
+      runtime_closure_list = closureToNix;
+      tools_build_host = tools;
+    }
+    ''
+      substituteAll ${./runtime-closure.nix.template} $out
+    '';
 in
 runtimeClosureInfoAsNix

@@ -5,7 +5,8 @@
   writeText,
 }:
 
-runCommand "${elasticmq-server.name}-tests" (
+runCommand "${elasticmq-server.name}-tests"
+(
   let
     commonPy = ''
       import boto3
@@ -44,7 +45,8 @@ runCommand "${elasticmq-server.name}-tests" (
       assert messages[0].body == "bazqux"
     '';
   }
-) ''
+)
+''
   JAVA_TOOL_OPTIONS="-Dconfig.file=$emqConfig" ${elasticmq-server}/bin/elasticmq-server &
   SERVER_PID=$!
   sleep 10

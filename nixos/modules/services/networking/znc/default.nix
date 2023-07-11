@@ -18,8 +18,9 @@ let
     paths = cfg.modulePackages;
   };
 
-  listenerPorts = concatMap (l: optional (l ? Port) l.Port)
-    (attrValues (cfg.config.Listener or { }));
+  listenerPorts = concatMap (l: optional (l ? Port) l.Port) (
+    attrValues (cfg.config.Listener or { })
+  );
 
     # Converts the config option to a string
   semanticString =
@@ -27,7 +28,8 @@ let
 
       sortedAttrs =
         set:
-        sort (
+        sort
+        (
           l: r:
           if l == "extraConfig" then
             false # Always put extraConfig last
@@ -38,7 +40,8 @@ let
             # This last case occurs when any side (but not both) is an attrset
             # The order of these is correct when the attrset is on the right
             # which we're just returning
-        ) (attrNames set)
+        )
+        (attrNames set)
         ;
 
         # Specifies an attrset that encodes the value according to its type
@@ -69,14 +72,16 @@ let
             #     Baz=baz
             #     Qux=qux
             #   </Foo>
-          set = concatMap (
-            subname:
-            optionals (value.${subname} != null) (
-              [ "<${name} ${subname}>" ]
-              ++ map (line: "	${line}") (toLines value.${subname})
-              ++ [ "</${name}>" ]
+          set = concatMap
+            (
+              subname:
+              optionals (value.${subname} != null) (
+                [ "<${name} ${subname}>" ]
+                ++ map (line: "	${line}") (toLines value.${subname})
+                ++ [ "</${name}>" ]
+              )
             )
-          ) (filter (v: v != null) (attrNames value));
+            (filter (v: v != null) (attrNames value));
 
         }
         .${builtins.typeOf value}
@@ -91,11 +96,13 @@ let
     ;
 
   semanticTypes = with types; rec {
-    zncAtom = nullOr (oneOf [
-      int
-      bool
-      str
-    ]);
+    zncAtom = nullOr (
+      oneOf [
+        int
+        bool
+        str
+      ]
+    );
     zncAttr = attrsOf (nullOr zncConf);
     zncAll = oneOf [
       zncAtom

@@ -15,8 +15,9 @@ in
     ../profiles/qemu-guest.nix
   ];
 
-  system.build.brightboxImage = pkgs.vmTools.runInLinuxVM
-    (pkgs.runCommand "brightbox-image" {
+  system.build.brightboxImage = pkgs.vmTools.runInLinuxVM (
+    pkgs.runCommand "brightbox-image"
+    {
       preVM = ''
         mkdir $out
         diskImage=$out/$diskImageBase
@@ -46,7 +47,8 @@ in
         "closure"
         config.system.build.toplevel
       ];
-    } ''
+    }
+    ''
       # Create partition table
       ${pkgs.parted}/sbin/parted --script /dev/vda mklabel msdos
       ${pkgs.parted}/sbin/parted --script /dev/vda mkpart primary ext4 1 ${diskSize}
@@ -102,7 +104,8 @@ in
 
       umount /mnt/proc /mnt/dev /mnt/sys
       umount /mnt
-    '');
+    ''
+  );
 
   fileSystems."/".label = "nixos";
 

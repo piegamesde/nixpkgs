@@ -175,11 +175,14 @@ rec {
         # wouldn't be passed to it
       missingArgs = lib.attrNames
         # Filter out arguments that have a default value
-        (lib.filterAttrs (
-          name: value: !value
-        )
-        # Filter out arguments that would be passed
-          (removeAttrs fargs (lib.attrNames allArgs)));
+        (
+          lib.filterAttrs
+          (
+            name: value: !value
+          )
+          # Filter out arguments that would be passed
+          (removeAttrs fargs (lib.attrNames allArgs))
+        );
 
         # Get a list of suggested argument names for a given missing one
       getSuggestions =
@@ -223,7 +226,8 @@ rec {
               loc.file + ":" + toString loc.line
             else if !lib.isFunction fn then
               toString fn
-              + lib.optionalString (lib.sources.pathIsDirectory fn)
+              + lib.optionalString
+                (lib.sources.pathIsDirectory fn)
                 "/default.nix"
             else
               "<unknown location>"
@@ -405,7 +409,8 @@ rec {
           # overridden.
         overrideScope =
           g:
-          makeScopeWithSplicing splicePackages newScope otherSplices keep extra
+          makeScopeWithSplicing splicePackages newScope otherSplices keep
+          extra
           (lib.fixedPoints.extends g f)
           ;
         packages = f;

@@ -39,25 +39,32 @@ let
           const ? { }
         }:
         lib.concatLists (
-          (lib.mapAttrsToList (
-            from: to: [
-              "-p"
-              "${from}:${to}"
-            ]
-          ) prefix)
-          ++ (lib.mapAttrsToList (
-            from: to: [
-              "-c"
-              "${from}:${to}"
-            ]
-          ) const)
+          (lib.mapAttrsToList
+            (
+              from: to: [
+                "-p"
+                "${from}:${to}"
+              ]
+            )
+            prefix)
+          ++ (lib.mapAttrsToList
+            (
+              from: to: [
+                "-c"
+                "${from}:${to}"
+              ]
+            )
+            const)
         )
         ;
 
       rewrites =
         depList:
-        lib.fold mergeRewrites { } (map (dep: dep.tbdRewrites)
-          (lib.filter (dep: dep ? tbdRewrites) depList))
+        lib.fold mergeRewrites { } (
+          map (dep: dep.tbdRewrites) (
+            lib.filter (dep: dep ? tbdRewrites) depList
+          )
+        )
         ;
     in
     lib.escapeShellArgs (rewriteArgs (rewrites (builtins.attrValues deps)))
@@ -306,8 +313,9 @@ rec {
         # Overrides for framework derivations.
       overrides =
         super: {
-          CoreFoundation = lib.overrideDerivation super.CoreFoundation
-            (drv: { setupHook = ./cf-setup-hook.sh; });
+          CoreFoundation = lib.overrideDerivation super.CoreFoundation (
+            drv: { setupHook = ./cf-setup-hook.sh; }
+          );
 
             # This framework doesn't exist in newer SDKs (somewhere around 10.13), but
             # there are references to it in nixpkgs.
@@ -316,33 +324,37 @@ rec {
             # Seems to be appropriate given https://developer.apple.com/forums/thread/666686
           JavaVM = super.JavaNativeFoundation;
 
-          CoreVideo = lib.overrideDerivation super.CoreVideo (drv: {
-            installPhase =
-              drv.installPhase
-              + ''
-                # When used as a module, complains about a missing import for
-                # Darwin.C.stdint. Apparently fixed in later SDKs.
-                awk -i inplace '/CFBase.h/ { print "#include <stdint.h>" } { print }' \
-                  $out/Library/Frameworks/CoreVideo.framework/Headers/CVBase.h
-              ''
-              ;
-          });
+          CoreVideo = lib.overrideDerivation super.CoreVideo (
+            drv: {
+              installPhase =
+                drv.installPhase
+                + ''
+                  # When used as a module, complains about a missing import for
+                  # Darwin.C.stdint. Apparently fixed in later SDKs.
+                  awk -i inplace '/CFBase.h/ { print "#include <stdint.h>" } { print }' \
+                    $out/Library/Frameworks/CoreVideo.framework/Headers/CVBase.h
+                ''
+                ;
+            }
+          );
 
-          System = lib.overrideDerivation super.System (drv: {
-            installPhase =
-              drv.installPhase
-              + ''
-                # Contrarily to the other frameworks, System framework's TBD file
-                # is a symlink pointing to ${MacOSX-SDK}/usr/lib/libSystem.B.tbd.
-                # This produces an error when installing the framework as:
-                #   1. The original file is not copied into the output directory
-                #   2. Even if it was copied, the relative path wouldn't match
-                # Thus, it is easier to replace the file than to fix the symlink.
-                cp --remove-destination ${MacOSX-SDK}/usr/lib/libSystem.B.tbd \
-                  $out/Library/Frameworks/System.framework/Versions/B/System.tbd
-              ''
-              ;
-          });
+          System = lib.overrideDerivation super.System (
+            drv: {
+              installPhase =
+                drv.installPhase
+                + ''
+                  # Contrarily to the other frameworks, System framework's TBD file
+                  # is a symlink pointing to ${MacOSX-SDK}/usr/lib/libSystem.B.tbd.
+                  # This produces an error when installing the framework as:
+                  #   1. The original file is not copied into the output directory
+                  #   2. Even if it was copied, the relative path wouldn't match
+                  # Thus, it is easier to replace the file than to fix the symlink.
+                  cp --remove-destination ${MacOSX-SDK}/usr/lib/libSystem.B.tbd \
+                    $out/Library/Frameworks/System.framework/Versions/B/System.tbd
+                ''
+                ;
+            }
+          );
         }
         ;
 
@@ -352,10 +364,12 @@ rec {
 
         # Create derivations, and add private frameworks.
       bareFrameworks = (lib.mapAttrs framework deps)
-        // (lib.mapAttrs privateFramework (import ./private-frameworks.nix {
-          inherit frameworks;
-          libobjc = pkgs.darwin.apple_sdk_11_0.objc4;
-        }));
+        // (lib.mapAttrs privateFramework (
+          import ./private-frameworks.nix {
+            inherit frameworks;
+            libobjc = pkgs.darwin.apple_sdk_11_0.objc4;
+          }
+        ));
       # Apply derivation overrides.
     in
     bareFrameworks // overrides bareFrameworks

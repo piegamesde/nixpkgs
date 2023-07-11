@@ -12,15 +12,21 @@ let
 
   collectors = pkgs.runCommand "collectors" { preferLocalBuild = true; } ''
     mkdir -p $out
-    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (
-      frequency: binaries:
-      ''
-        mkdir -p $out/${frequency}
-      ''
-      + (lib.concatStringsSep "\n"
-        (map (path: "ln -s ${path} $out/${frequency}/$(basename ${path})")
-          binaries))
-    ) cfg.collectors)}
+    ${lib.concatStringsSep "\n" (
+      lib.mapAttrsToList
+      (
+        frequency: binaries:
+        ''
+          mkdir -p $out/${frequency}
+        ''
+        + (lib.concatStringsSep "\n" (
+          map
+          (path: "ln -s ${path} $out/${frequency}/$(basename ${path})")
+          binaries
+        ))
+      )
+      cfg.collectors
+    )}
   '';
 
   conf = pkgs.writeText "scollector.toml" ''
@@ -81,8 +87,8 @@ in
       collectors = mkOption {
         type = with types; attrsOf (listOf path);
         default = { };
-        example = literalExpression
-          ''{ "0" = [ "''${postgresStats}/bin/collect-stats" ]; }'';
+        example = literalExpression ''
+          { "0" = [ "''${postgresStats}/bin/collect-stats" ]; }'';
         description = lib.mdDoc ''
           An attribute set mapping the frequency of collection to a list of
           binaries that should be executed at that frequency. You can use "0"

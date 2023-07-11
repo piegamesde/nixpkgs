@@ -43,11 +43,13 @@ let
     "systemverilog"
   ];
 
-  static_gtest = gtest.overrideAttrs (old: {
-    dontDisableStatic = true;
-    disableHardening = [ "pie" ];
-    cmakeFlags = old.cmakeFlags ++ [ "-DBUILD_SHARED_LIBS=OFF" ];
-  });
+  static_gtest = gtest.overrideAttrs (
+    old: {
+      dontDisableStatic = true;
+      disableHardening = [ "pie" ];
+      cmakeFlags = old.cmakeFlags ++ [ "-DBUILD_SHARED_LIBS=OFF" ];
+    }
+  );
 
 in
 lib.genAttrs plugins (
@@ -100,7 +102,8 @@ lib.genAttrs plugins (
         (
           "NIX_YOSYS_PLUGIN_DIRS=\${NIX_BUILD_TOP}/source/${plugin}-plugin/build"
             # sdc and xdc plugins use design introspection for their tests
-          + (lib.optionalString (plugin == "sdc" || plugin == "xdc")
+          + (lib.optionalString
+            (plugin == "sdc" || plugin == "xdc")
             ":${yosys-symbiflow.design_introspection}/share/yosys/plugins/")
         )
       ];

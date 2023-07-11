@@ -25,38 +25,46 @@ let
           "0"
         ;
     in
-    concatStringsSep "\n" (mapAttrsToList (
-      name: config: ''
-        [${name}]
-        type = "ido"
-        resource = "${config.resource}"
-        disabled = "${formatBool config.disabled}"
-      ''
-    ) cfg.backends)
+    concatStringsSep "\n" (
+      mapAttrsToList
+      (
+        name: config: ''
+          [${name}]
+          type = "ido"
+          resource = "${config.resource}"
+          disabled = "${formatBool config.disabled}"
+        ''
+      )
+      cfg.backends
+    )
     ;
 
-  transportsIni = concatStringsSep "\n" (mapAttrsToList (
-    name: config: ''
-      [${name}]
-      type = "${config.type}"
-      ${optionalString (config.instance != null)
-      ''instance = "${config.instance}"''}
-      ${optionalString (config.type == "local" || config.type == "remote")
-      ''path = "${config.path}"''}
-      ${optionalString (config.type != "local") ''
-        host = "${config.host}"
-        ${optionalString (config.port != null)
-        ''port = "${toString config.port}"''}
-        user${
-          optionalString (config.type == "api") "name"
-        } = "${config.username}"
-      ''}
-      ${optionalString (config.type == "api")
-      ''password = "${config.password}"''}
-      ${optionalString (config.type == "remote")
-      ''resource = "${config.resource}"''}
-    ''
-  ) cfg.transports);
+  transportsIni = concatStringsSep "\n" (
+    mapAttrsToList
+    (
+      name: config: ''
+        [${name}]
+        type = "${config.type}"
+        ${optionalString (config.instance != null) ''
+          instance = "${config.instance}"''}
+        ${optionalString (config.type == "local" || config.type == "remote") ''
+          path = "${config.path}"''}
+        ${optionalString (config.type != "local") ''
+          host = "${config.host}"
+          ${optionalString (config.port != null) ''
+            port = "${toString config.port}"''}
+          user${
+            optionalString (config.type == "api") "name"
+          } = "${config.username}"
+        ''}
+        ${optionalString (config.type == "api") ''
+          password = "${config.password}"''}
+        ${optionalString (config.type == "remote") ''
+          resource = "${config.resource}"''}
+      ''
+    )
+    cfg.transports
+  );
 
 in
 {
@@ -101,32 +109,34 @@ in
     backends = mkOption {
       default = { icinga = { resource = "icinga_ido"; }; };
       description = lib.mdDoc "Monitoring backends to define";
-      type = attrsOf (submodule (
-        {
-          name,
-          ...
-        }: {
-          options = {
-            name = mkOption {
-              visible = false;
-              default = name;
-              type = str;
-              description = lib.mdDoc "Name of this backend";
-            };
+      type = attrsOf (
+        submodule (
+          {
+            name,
+            ...
+          }: {
+            options = {
+              name = mkOption {
+                visible = false;
+                default = name;
+                type = str;
+                description = lib.mdDoc "Name of this backend";
+              };
 
-            resource = mkOption {
-              type = str;
-              description = lib.mdDoc "Name of the IDO resource";
-            };
+              resource = mkOption {
+                type = str;
+                description = lib.mdDoc "Name of the IDO resource";
+              };
 
-            disabled = mkOption {
-              type = bool;
-              default = false;
-              description = lib.mdDoc "Disable this backend";
+              disabled = mkOption {
+                type = bool;
+                default = false;
+                description = lib.mdDoc "Disable this backend";
+              };
             };
-          };
-        }
-      ));
+          }
+        )
+      );
     };
 
     mutableTransports = mkOption {
@@ -140,73 +150,76 @@ in
     transports = mkOption {
       default = { };
       description = lib.mdDoc "Command transports to define";
-      type = attrsOf (submodule (
-        {
-          name,
-          ...
-        }: {
-          options = {
-            name = mkOption {
-              visible = false;
-              default = name;
-              type = str;
-              description = lib.mdDoc "Name of this transport";
-            };
+      type = attrsOf (
+        submodule (
+          {
+            name,
+            ...
+          }: {
+            options = {
+              name = mkOption {
+                visible = false;
+                default = name;
+                type = str;
+                description = lib.mdDoc "Name of this transport";
+              };
 
-            type = mkOption {
-              type = enum [
-                "api"
-                "local"
-                "remote"
-              ];
-              default = "api";
-              description = lib.mdDoc "Type of  this transport";
-            };
+              type = mkOption {
+                type = enum [
+                  "api"
+                  "local"
+                  "remote"
+                ];
+                default = "api";
+                description = lib.mdDoc "Type of  this transport";
+              };
 
-            instance = mkOption {
-              type = nullOr str;
-              default = null;
-              description =
-                lib.mdDoc "Assign a icinga instance to this transport";
-            };
+              instance = mkOption {
+                type = nullOr str;
+                default = null;
+                description =
+                  lib.mdDoc "Assign a icinga instance to this transport";
+              };
 
-            path = mkOption {
-              type = str;
-              description =
-                lib.mdDoc "Path to the socket for local or remote transports";
-            };
+              path = mkOption {
+                type = str;
+                description =
+                  lib.mdDoc "Path to the socket for local or remote transports";
+              };
 
-            host = mkOption {
-              type = str;
-              description = lib.mdDoc "Host for the api or remote transport";
-            };
+              host = mkOption {
+                type = str;
+                description = lib.mdDoc "Host for the api or remote transport";
+              };
 
-            port = mkOption {
-              type = nullOr str;
-              default = null;
-              description =
-                lib.mdDoc "Port to connect to for the api or remote transport";
-            };
+              port = mkOption {
+                type = nullOr str;
+                default = null;
+                description =
+                  lib.mdDoc "Port to connect to for the api or remote transport"
+                  ;
+              };
 
-            username = mkOption {
-              type = str;
-              description =
-                lib.mdDoc "Username for the api or remote transport";
-            };
+              username = mkOption {
+                type = str;
+                description =
+                  lib.mdDoc "Username for the api or remote transport";
+              };
 
-            password = mkOption {
-              type = str;
-              description = lib.mdDoc "Password for the api transport";
-            };
+              password = mkOption {
+                type = str;
+                description = lib.mdDoc "Password for the api transport";
+              };
 
-            resource = mkOption {
-              type = str;
-              description =
-                lib.mdDoc "SSH identity resource for the remote transport";
+              resource = mkOption {
+                type = str;
+                description =
+                  lib.mdDoc "SSH identity resource for the remote transport";
+              };
             };
-          };
-        }
-      ));
+          }
+        )
+      );
     };
   };
 

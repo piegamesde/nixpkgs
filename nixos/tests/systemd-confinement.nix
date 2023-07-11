@@ -104,11 +104,13 @@ import ./make-test-python.nix {
         }
         (
           let
-            symlink = pkgs.runCommand "symlink" {
-              target = pkgs.writeText "symlink-target" ''
-                got me
-              '';
-            } ''ln -s "$target" "$out"'';
+            symlink = pkgs.runCommand "symlink"
+              {
+                target = pkgs.writeText "symlink-target" ''
+                  got me
+                '';
+              }
+              ''ln -s "$target" "$out"'';
           in
           {
             config.confinement.packages = lib.singleton symlink;
@@ -196,15 +198,17 @@ import ./make-test-python.nix {
       };
 
       config.environment.systemPackages = lib.singleton testClient;
-      config.systemd.packages = lib.singleton (pkgs.writeTextFile {
-        name = "shipped-unitfile";
-        destination = "/etc/systemd/system/shipped-unitfile@.service";
-        text = ''
-          [Service]
-          SystemCallFilter=~kill
-          SystemCallErrorNumber=ELOOP
-        '';
-      });
+      config.systemd.packages = lib.singleton (
+        pkgs.writeTextFile {
+          name = "shipped-unitfile";
+          destination = "/etc/systemd/system/shipped-unitfile@.service";
+          text = ''
+            [Service]
+            SystemCallFilter=~kill
+            SystemCallErrorNumber=ELOOP
+          '';
+        }
+      );
 
       config.users.groups.chroot-testgroup = { };
       config.users.users.chroot-testuser = {

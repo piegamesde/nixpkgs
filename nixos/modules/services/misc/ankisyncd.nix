@@ -18,18 +18,20 @@ let
 
   sessionDbPath = "${stateDir}/session.db";
 
-  configFile = pkgs.writeText "ankisyncd.conf" (lib.generators.toINI { } {
-    sync_app = {
-      host = cfg.host;
-      port = cfg.port;
-      data_root = stateDir;
-      auth_db_path = authDbPath;
-      session_db_path = sessionDbPath;
+  configFile = pkgs.writeText "ankisyncd.conf" (
+    lib.generators.toINI { } {
+      sync_app = {
+        host = cfg.host;
+        port = cfg.port;
+        data_root = stateDir;
+        auth_db_path = authDbPath;
+        session_db_path = sessionDbPath;
 
-      base_url = "/sync/";
-      base_media_url = "/msync/";
-    };
-  });
+        base_url = "/sync/";
+        base_media_url = "/msync/";
+      };
+    }
+  );
 in
 {
   options.services.ankisyncd = {

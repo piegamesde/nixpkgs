@@ -37,7 +37,9 @@ let
   inherit (args') stripLen extraPrefix;
 in
 lib.throwIfNot (excludes == [ ] || includes == [ ])
-"fetchpatch: cannot use excludes and includes simultaneously" fetchurl (
+"fetchpatch: cannot use excludes and includes simultaneously"
+fetchurl
+(
   {
     postFetch =
       ''
@@ -63,8 +65,9 @@ lib.throwIfNot (excludes == [ ] || includes == [ ])
 
         "${patchutils}/bin/lsdiff" \
           ${
-            lib.optionalString (relative != null)
-            "-p1 -i ${lib.escapeShellArg relative}/'*'"
+            lib.optionalString (relative != null) "-p1 -i ${
+              lib.escapeShellArg relative
+            }/'*'"
           } \
           "$out" \
         | sort -u | sed -e 's/[*?]/\\&/g' \
@@ -91,12 +94,14 @@ lib.throwIfNot (excludes == [ ] || includes == [ ])
         ${patchutils}/bin/filterdiff \
           -p1 \
           ${
-            builtins.toString
-            (builtins.map (x: "-x ${lib.escapeShellArg x}") excludes)
+            builtins.toString (
+              builtins.map (x: "-x ${lib.escapeShellArg x}") excludes
+            )
           } \
           ${
-            builtins.toString
-            (builtins.map (x: "-i ${lib.escapeShellArg x}") includes)
+            builtins.toString (
+              builtins.map (x: "-i ${lib.escapeShellArg x}") includes
+            )
           } \
           "$tmpfile" > "$out"
 

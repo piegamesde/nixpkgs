@@ -6,7 +6,8 @@
 # Write the references of `path' to a file, in order of how "popular" each
 # reference is. Nix 2 only.
 path:
-runCommand "closure-paths" {
+runCommand "closure-paths"
+{
   exportReferencesGraph.graph = path;
   __structuredAttrs = true;
   preferLocalBuild = true;
@@ -15,4 +16,5 @@ runCommand "closure-paths" {
     . .attrs.sh
     python3 ${./closure-graph.py} .attrs.json graph > ''${outputs[out]}
   '';
-} ""
+}
+""

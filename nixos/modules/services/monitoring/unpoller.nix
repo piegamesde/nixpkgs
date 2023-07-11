@@ -10,20 +10,24 @@ with lib;
 let
   cfg = config.services.unpoller;
 
-  configFile = pkgs.writeText "unpoller.json" (generators.toJSON { } {
-    inherit (cfg) poller influxdb loki prometheus unifi;
-  });
+  configFile = pkgs.writeText "unpoller.json" (
+    generators.toJSON { } {
+      inherit (cfg) poller influxdb loki prometheus unifi;
+    }
+  );
 
 in
 {
   imports = [
-      (lib.mkRenamedOptionModule [
-        "services"
-        "unifi-poller"
-      ] [
-        "services"
-        "unpoller"
-      ])
+      (lib.mkRenamedOptionModule
+        [
+          "services"
+          "unifi-poller"
+        ]
+        [
+          "services"
+          "unpoller"
+        ])
     ];
 
   options.services.unpoller = {
@@ -219,10 +223,12 @@ in
           };
           sites = mkOption {
             type = with types;
-              either (enum [
+              either
+              (enum [
                 "default"
                 "all"
-              ]) (listOf str);
+              ])
+              (listOf str);
             default = "all";
             description = lib.mdDoc ''
               List of site names for which statistics should be exported.

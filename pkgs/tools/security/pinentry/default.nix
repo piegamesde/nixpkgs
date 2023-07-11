@@ -41,8 +41,9 @@ let
     let
       flag = flavorInfo.${f}.flag or null;
     in
-    lib.optionalString (flag != null)
-    (lib.enableFeature (lib.elem f enabledFlavors) ("pinentry-" + flag))
+    lib.optionalString (flag != null) (
+      lib.enableFeature (lib.elem f enabledFlavors) ("pinentry-" + flag)
+    )
     ;
 
   flavorInfo = {
@@ -94,7 +95,8 @@ pinentryMkDerivation rec {
       pkg-config
       autoreconfHook
     ]
-    ++ lib.concatMap (f: flavorInfo.${f}.nativeBuildInputs or [ ])
+    ++ lib.concatMap
+      (f: flavorInfo.${f}.nativeBuildInputs or [ ])
       enabledFlavors
     ;
 
@@ -131,22 +133,24 @@ pinentryMkDerivation rec {
     ;
 
   postInstall =
-    lib.concatStrings (lib.flip map enabledFlavors (
-      f:
-      let
-        binary = "pinentry-" + flavorInfo.${f}.bin;
-      in
-      ''
-        moveToOutput bin/${binary} ${placeholder f}
-        ln -sf ${placeholder f}/bin/${binary} ${placeholder f}/bin/pinentry
-      ''
-      + lib.optionalString (f == "gnome3") ''
-        wrapGApp ${placeholder f}/bin/${binary}
-      ''
-      + lib.optionalString (f == "qt") ''
-        wrapQtApp ${placeholder f}/bin/${binary}
-      ''
-    ))
+    lib.concatStrings (
+      lib.flip map enabledFlavors (
+        f:
+        let
+          binary = "pinentry-" + flavorInfo.${f}.bin;
+        in
+        ''
+          moveToOutput bin/${binary} ${placeholder f}
+          ln -sf ${placeholder f}/bin/${binary} ${placeholder f}/bin/pinentry
+        ''
+        + lib.optionalString (f == "gnome3") ''
+          wrapGApp ${placeholder f}/bin/${binary}
+        ''
+        + lib.optionalString (f == "qt") ''
+          wrapQtApp ${placeholder f}/bin/${binary}
+        ''
+      )
+    )
     + ''
       ln -sf ${placeholder (lib.head enabledFlavors)}/bin/pinentry-${
         flavorInfo.${lib.head enabledFlavors}.bin

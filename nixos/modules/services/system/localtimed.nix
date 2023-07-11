@@ -12,13 +12,15 @@ let
 in
 {
   imports = [
-      (lib.mkRenamedOptionModule [
-        "services"
-        "localtime"
-      ] [
-        "services"
-        "localtimed"
-      ])
+      (lib.mkRenamedOptionModule
+        [
+          "services"
+          "localtime"
+        ]
+        [
+          "services"
+          "localtimed"
+        ])
     ];
 
   options = {

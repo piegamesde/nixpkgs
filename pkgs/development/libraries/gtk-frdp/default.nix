@@ -41,10 +41,12 @@ stdenv.mkDerivation rec {
 
   passthru = { updateScript = unstableGitUpdater { }; };
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.isDarwin [
-    "-DTARGET_OS_IPHONE=0"
-    "-DTARGET_OS_WATCH=0"
-  ]);
+  env.NIX_CFLAGS_COMPILE = toString (
+    lib.optionals stdenv.isDarwin [
+      "-DTARGET_OS_IPHONE=0"
+      "-DTARGET_OS_WATCH=0"
+    ]
+  );
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/gtk-frdp";

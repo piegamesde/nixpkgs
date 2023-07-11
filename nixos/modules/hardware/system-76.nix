@@ -79,8 +79,9 @@ in
 {
   options = {
     hardware.system76 = {
-      enableAll = mkEnableOption
-        (lib.mdDoc "all recommended configuration for system76 systems");
+      enableAll = mkEnableOption (
+        lib.mdDoc "all recommended configuration for system76 systems"
+      );
 
       firmware-daemon.enable = mkOption {
         default = cfg.enableAll;

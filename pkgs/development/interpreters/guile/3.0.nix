@@ -45,7 +45,8 @@ builder rec {
 
   depsBuildBuild =
     [ buildPackages.stdenv.cc ]
-    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+    ++ lib.optional
+      (stdenv.hostPlatform != stdenv.buildPlatform)
       pkgsBuildBuild.guile_3_0
     ;
   nativeBuildInputs = [
@@ -79,19 +80,21 @@ builder rec {
   patches =
     [ ./eai_system.patch ]
     ++ lib.optional (coverageAnalysis != null) ./gcov-file-name.patch
-    ++ lib.optional stdenv.isDarwin (fetchpatch {
-      url =
-        "https://gitlab.gnome.org/GNOME/gtk-osx/raw/52898977f165777ad9ef169f7d4818f2d4c9b731/patches/guile-clocktime.patch";
-      sha256 = "12wvwdna9j8795x59ldryv9d84c1j3qdk2iskw09306idfsis207";
-    })
+    ++ lib.optional stdenv.isDarwin (
+      fetchpatch {
+        url =
+          "https://gitlab.gnome.org/GNOME/gtk-osx/raw/52898977f165777ad9ef169f7d4818f2d4c9b731/patches/guile-clocktime.patch";
+        sha256 = "12wvwdna9j8795x59ldryv9d84c1j3qdk2iskw09306idfsis207";
+      }
+    )
     ;
 
     # Explicitly link against libgcc_s, to work around the infamous
     # "libgcc_s.so.1 must be installed for pthread_cancel to work".
 
     # don't have "libgcc_s.so.1" on clang
-  LDFLAGS =
-    lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
+  LDFLAGS = lib.optionalString
+    (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
     "-lgcc_s";
 
   configureFlags =

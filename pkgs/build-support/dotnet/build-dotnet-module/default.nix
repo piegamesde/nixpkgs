@@ -235,7 +235,8 @@ stdenvNoCC.mkDerivation (
             if runtimeId != null then
               [ runtimeId ]
             else
-              map (system: dotnetCorePackages.systemToDotnetRid system)
+              map
+              (system: dotnetCorePackages.systemToDotnetRid system)
               platforms
             ;
           defaultDepsFile =
@@ -319,7 +320,8 @@ stdenvNoCC.mkDerivation (
                   --no-cache \
                   --force \
                   ${
-                    lib.optionalString (!enableParallelBuilding)
+                    lib.optionalString
+                    (!enableParallelBuilding)
                     "--disable-parallel"
                   } \
                   ${lib.optionalString (flags != [ ]) (toString flags)}

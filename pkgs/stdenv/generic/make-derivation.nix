@@ -72,7 +72,8 @@ let
     # but pre-evaluated for a slight improvement in performance.
   makeDerivationExtensibleConst =
     attrs:
-    mkDerivationSimple (
+    mkDerivationSimple
+    (
       f0:
       let
         f =
@@ -87,7 +88,8 @@ let
           ;
       in
       makeDerivationExtensible (self: attrs // f self attrs)
-    ) attrs
+    )
+    attrs
     ;
 
   mkDerivationSimple =
@@ -153,16 +155,18 @@ let
       # Including it then would cause needless mass rebuilds.
       #
       # TODO(@Ericson2314): Make [ "build" "host" ] always the default / resolve #87909
-      configurePlatforms ? lib.optionals (
-        stdenv.hostPlatform != stdenv.buildPlatform
-        || config.configurePlatformsByDefault
-      ) [
-        "build"
-        "host"
-      ]
+      configurePlatforms ? lib.optionals
+        (
+          stdenv.hostPlatform != stdenv.buildPlatform
+          || config.configurePlatformsByDefault
+        )
+        [
+          "build"
+          "host"
+        ]
 
-      # TODO(@Ericson2314): Make unconditional / resolve #33599
-      # Check phase
+        # TODO(@Ericson2314): Make unconditional / resolve #33599
+        # Check phase
       ,
       doCheck ? config.doCheckByDefault or false
 
@@ -365,9 +369,11 @@ let
           ;
         nativeBuildInputs' =
           nativeBuildInputs
-          ++ lib.optional separateDebugInfo'
+          ++ lib.optional
+            separateDebugInfo'
             ../../build-support/setup-hooks/separate-debug-info.sh
-          ++ lib.optional stdenv.hostPlatform.isWindows
+          ++ lib.optional
+            stdenv.hostPlatform.isWindows
             ../../build-support/setup-hooks/win-dll-link.sh
           ++ lib.optionals doCheck nativeCheckInputs
           ++ lib.optionals doInstallCheck nativeInstallCheckInputs
@@ -384,48 +390,64 @@ let
 
         dependencies = map (map lib.chooseDevOutputs) [
           [
-            (map (drv: drv.__spliced.buildBuild or drv)
-              (checkDependencyList "depsBuildBuild" depsBuildBuild))
-            (map (drv: drv.__spliced.buildHost or drv)
-              (checkDependencyList "nativeBuildInputs" nativeBuildInputs'))
-            (map (drv: drv.__spliced.buildTarget or drv)
-              (checkDependencyList "depsBuildTarget" depsBuildTarget))
+            (map (drv: drv.__spliced.buildBuild or drv) (
+              checkDependencyList "depsBuildBuild" depsBuildBuild
+            ))
+            (map (drv: drv.__spliced.buildHost or drv) (
+              checkDependencyList "nativeBuildInputs" nativeBuildInputs'
+            ))
+            (map (drv: drv.__spliced.buildTarget or drv) (
+              checkDependencyList "depsBuildTarget" depsBuildTarget
+            ))
           ]
           [
-            (map (drv: drv.__spliced.hostHost or drv)
-              (checkDependencyList "depsHostHost" depsHostHost))
-            (map (drv: drv.__spliced.hostTarget or drv)
-              (checkDependencyList "buildInputs" buildInputs'))
+            (map (drv: drv.__spliced.hostHost or drv) (
+              checkDependencyList "depsHostHost" depsHostHost
+            ))
+            (map (drv: drv.__spliced.hostTarget or drv) (
+              checkDependencyList "buildInputs" buildInputs'
+            ))
           ]
           [
-            (map (drv: drv.__spliced.targetTarget or drv)
-              (checkDependencyList "depsTargetTarget" depsTargetTarget))
+            (map (drv: drv.__spliced.targetTarget or drv) (
+              checkDependencyList "depsTargetTarget" depsTargetTarget
+            ))
           ]
         ];
         propagatedDependencies = map (map lib.chooseDevOutputs) [
           [
-            (map (drv: drv.__spliced.buildBuild or drv)
-              (checkDependencyList "depsBuildBuildPropagated"
-                depsBuildBuildPropagated))
-            (map (drv: drv.__spliced.buildHost or drv)
-              (checkDependencyList "propagatedNativeBuildInputs"
-                propagatedNativeBuildInputs))
-            (map (drv: drv.__spliced.buildTarget or drv)
-              (checkDependencyList "depsBuildTargetPropagated"
-                depsBuildTargetPropagated))
+            (map (drv: drv.__spliced.buildBuild or drv) (
+              checkDependencyList
+              "depsBuildBuildPropagated"
+              depsBuildBuildPropagated
+            ))
+            (map (drv: drv.__spliced.buildHost or drv) (
+              checkDependencyList
+              "propagatedNativeBuildInputs"
+              propagatedNativeBuildInputs
+            ))
+            (map (drv: drv.__spliced.buildTarget or drv) (
+              checkDependencyList
+              "depsBuildTargetPropagated"
+              depsBuildTargetPropagated
+            ))
           ]
           [
-            (map (drv: drv.__spliced.hostHost or drv)
-              (checkDependencyList "depsHostHostPropagated"
-                depsHostHostPropagated))
-            (map (drv: drv.__spliced.hostTarget or drv)
-              (checkDependencyList "propagatedBuildInputs"
-                propagatedBuildInputs))
+            (map (drv: drv.__spliced.hostHost or drv) (
+              checkDependencyList
+              "depsHostHostPropagated"
+              depsHostHostPropagated
+            ))
+            (map (drv: drv.__spliced.hostTarget or drv) (
+              checkDependencyList "propagatedBuildInputs" propagatedBuildInputs
+            ))
           ]
           [
-            (map (drv: drv.__spliced.targetTarget or drv)
-              (checkDependencyList "depsTargetTargetPropagated"
-                depsTargetTargetPropagated))
+            (map (drv: drv.__spliced.targetTarget or drv) (
+              checkDependencyList
+              "depsTargetTargetPropagated"
+              depsTargetTargetPropagated
+            ))
           ]
         ];
 
@@ -437,19 +459,23 @@ let
           );
 
         computedPropagatedSandboxProfile =
-          lib.concatMap (input: input.__propagatedSandboxProfile or [ ])
-          (lib.concatLists propagatedDependencies);
+          lib.concatMap (input: input.__propagatedSandboxProfile or [ ]) (
+            lib.concatLists propagatedDependencies
+          );
 
-        computedImpureHostDeps = lib.unique
-          (lib.concatMap (input: input.__propagatedImpureHostDeps or [ ]) (
+        computedImpureHostDeps = lib.unique (
+          lib.concatMap (input: input.__propagatedImpureHostDeps or [ ]) (
             stdenv.extraNativeBuildInputs
             ++ stdenv.extraBuildInputs
             ++ lib.concatLists dependencies
-          ));
+          )
+        );
 
-        computedPropagatedImpureHostDeps = lib.unique
-          (lib.concatMap (input: input.__propagatedImpureHostDeps or [ ])
-            (lib.concatLists propagatedDependencies));
+        computedPropagatedImpureHostDeps = lib.unique (
+          lib.concatMap (input: input.__propagatedImpureHostDeps or [ ]) (
+            lib.concatLists propagatedDependencies
+          )
+        );
 
         envIsExportable = lib.isAttrs env && !lib.isDerivation env;
 
@@ -470,245 +496,273 @@ let
             "propagatedSandboxProfile"
           ]
           ++ lib.optional (__structuredAttrs || envIsExportable) "env"
-        )) // (lib.optionalAttrs (
-          attrs ? name || (attrs ? pname && attrs ? version)
-        ) {
-          name =
-            let
-              # Indicate the host platform of the derivation if cross compiling.
-              # Fixed-output derivations like source tarballs shouldn't get a host
-              # suffix. But we have some weird ones with run-time deps that are
-              # just used for their side-affects. Those might as well since the
-              # hash can't be the same. See #32986.
-              hostSuffix = lib.optionalString (
-                stdenv.hostPlatform != stdenv.buildPlatform
-                && !dontAddHostSuffix
-              ) "-${stdenv.hostPlatform.config}";
-
-                # Disambiguate statically built packages. This was originally
-                # introduce as a means to prevent nix-env to get confused between
-                # nix and nixStatic. This should be also achieved by moving the
-                # hostSuffix before the version, so we could contemplate removing
-                # it again.
-              staticMarker =
-                lib.optionalString stdenv.hostPlatform.isStatic "-static";
-            in
-            lib.strings.sanitizeDerivationName (
-              if attrs ? name then
-                attrs.name + hostSuffix
-              else
-              # we cannot coerce null to a string below
-                assert lib.assertMsg (attrs ? version && attrs.version != null)
-                  "The ‘version’ attribute cannot be null.";
-                "${attrs.pname}${staticMarker}${hostSuffix}-${attrs.version}"
-            )
-            ;
-        }) // lib.optionalAttrs __structuredAttrs { env = checkedEnv; } // {
-          builder = attrs.realBuilder or stdenv.shell;
-          args =
-            attrs.args or [
-              "-e"
-              (attrs.builder or ./default-builder.sh)
-            ];
-          inherit
-            stdenv
-            ;
-
-            # The `system` attribute of a derivation has special meaning to Nix.
-            # Derivations set it to choose what sort of machine could be used to
-            # execute the build, The build platform entirely determines this,
-            # indeed more finely than Nix knows or cares about. The `system`
-            # attribute of `buildPlatfom` matches Nix's degree of specificity.
-            # exactly.
-          inherit (stdenv.buildPlatform) system;
-
-          userHook = config.stdenv.userHook or null;
-          __ignoreNulls = true;
-          inherit __structuredAttrs strictDeps;
-
-          depsBuildBuild = lib.elemAt (lib.elemAt dependencies 0) 0;
-          nativeBuildInputs = lib.elemAt (lib.elemAt dependencies 0) 1;
-          depsBuildTarget = lib.elemAt (lib.elemAt dependencies 0) 2;
-          depsHostHost = lib.elemAt (lib.elemAt dependencies 1) 0;
-          buildInputs = lib.elemAt (lib.elemAt dependencies 1) 1;
-          depsTargetTarget = lib.elemAt (lib.elemAt dependencies 2) 0;
-
-          depsBuildBuildPropagated =
-            lib.elemAt (lib.elemAt propagatedDependencies 0) 0;
-          propagatedNativeBuildInputs =
-            lib.elemAt (lib.elemAt propagatedDependencies 0) 1;
-          depsBuildTargetPropagated =
-            lib.elemAt (lib.elemAt propagatedDependencies 0) 2;
-          depsHostHostPropagated =
-            lib.elemAt (lib.elemAt propagatedDependencies 1) 0;
-          propagatedBuildInputs =
-            lib.elemAt (lib.elemAt propagatedDependencies 1) 1;
-          depsTargetTargetPropagated =
-            lib.elemAt (lib.elemAt propagatedDependencies 2) 0;
-
-            # This parameter is sometimes a string, sometimes null, and sometimes a list, yuck
-          configureFlags =
-            let
-              inherit (lib) optional elem;
-            in
-            (
-              if lib.isString configureFlags then
-                lib.warn
-                "String 'configureFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${
-                  pos.file or "unknown file"
-                }" [ configureFlags ]
-              else if configureFlags == null then
-                lib.warn
-                "Null 'configureFlags' is deprecated and will be removed in release 23.05. Please use a empty list instead '[]'. Derivation name: ${derivationArg.name}, file: ${
-                  pos.file or "unknown file"
-                }" [ ]
-              else
-                configureFlags
-            )
-            ++ optional (elem "build" configurePlatforms)
-              "--build=${stdenv.buildPlatform.config}"
-            ++ optional (elem "host" configurePlatforms)
-              "--host=${stdenv.hostPlatform.config}"
-            ++ optional (elem "target" configurePlatforms)
-              "--target=${stdenv.targetPlatform.config}"
-            ;
-
-          cmakeFlags =
-            let
-              explicitFlags =
-                if lib.isString cmakeFlags then
-                  lib.warn
-                  "String 'cmakeFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${
-                    pos.file or "unknown file"
-                  }" [ cmakeFlags ]
-                else if cmakeFlags == null then
-                  lib.warn
-                  "Null 'cmakeFlags' is deprecated and will be removed in release 23.05. Please use a empty list instead '[]'. Derivation name: ${derivationArg.name}, file: ${
-                    pos.file or "unknown file"
-                  }" [ ]
-                else
-                  cmakeFlags
-                ;
-
-              crossFlags =
-                [
-                  "-DCMAKE_SYSTEM_NAME=${
-                    lib.findFirst lib.isString "Generic"
-                    (lib.optional (!stdenv.hostPlatform.isRedox)
-                      stdenv.hostPlatform.uname.system)
-                  }"
-                ]
-                ++ lib.optionals (stdenv.hostPlatform.uname.processor != null) [
-                    "-DCMAKE_SYSTEM_PROCESSOR=${stdenv.hostPlatform.uname.processor}"
-                  ]
-                ++ lib.optionals (stdenv.hostPlatform.uname.release != null) [
-                    "-DCMAKE_SYSTEM_VERSION=${stdenv.hostPlatform.uname.release}"
-                  ]
-                ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
-                    "-DCMAKE_OSX_ARCHITECTURES=${stdenv.hostPlatform.darwinArch}"
-                  ]
-                ++ lib.optionals (stdenv.buildPlatform.uname.system != null) [
-                    "-DCMAKE_HOST_SYSTEM_NAME=${stdenv.buildPlatform.uname.system}"
-                  ]
-                ++ lib.optionals (
-                  stdenv.buildPlatform.uname.processor != null
-                ) [
-                    "-DCMAKE_HOST_SYSTEM_PROCESSOR=${stdenv.buildPlatform.uname.processor}"
-                  ]
-                ++ lib.optionals (stdenv.buildPlatform.uname.release != null) [
-                    "-DCMAKE_HOST_SYSTEM_VERSION=${stdenv.buildPlatform.uname.release}"
-                  ]
-                ;
-            in
-            explicitFlags
-            ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-              crossFlags
-            ;
-
-          mesonFlags =
-            let
-              explicitFlags =
-                if lib.isString mesonFlags then
-                  lib.warn
-                  "String 'mesonFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${
-                    pos.file or "unknown file"
-                  }" [ mesonFlags ]
-                else if mesonFlags == null then
-                  lib.warn
-                  "Null 'mesonFlags' is deprecated and will be removed in release 23.05. Please use a empty list instead '[]'. Derivation name: ${derivationArg.name}, file: ${
-                    pos.file or "unknown file"
-                  }" [ ]
-                else
-                  mesonFlags
-                ;
-
-                # See https://mesonbuild.com/Reference-tables.html#cpu-families
-              cpuFamily =
-                platform:
-                with platform;
-                if isAarch32 then
-                  "arm"
-                else if isx86_32 then
-                  "x86"
-                else
-                  platform.uname.processor
-                ;
-
-              crossFile = builtins.toFile "cross-file.conf" ''
-                [properties]
-                needs_exe_wrapper = ${
-                  lib.boolToString (
-                    !stdenv.buildPlatform.canExecute stdenv.hostPlatform
+        )) // (lib.optionalAttrs
+          (attrs ? name || (attrs ? pname && attrs ? version))
+          {
+            name =
+              let
+                # Indicate the host platform of the derivation if cross compiling.
+                # Fixed-output derivations like source tarballs shouldn't get a host
+                # suffix. But we have some weird ones with run-time deps that are
+                # just used for their side-affects. Those might as well since the
+                # hash can't be the same. See #32986.
+                hostSuffix = lib.optionalString
+                  (
+                    stdenv.hostPlatform != stdenv.buildPlatform
+                    && !dontAddHostSuffix
                   )
-                }
+                  "-${stdenv.hostPlatform.config}";
 
-                [host_machine]
-                system = '${stdenv.targetPlatform.parsed.kernel.name}'
-                cpu_family = '${cpuFamily stdenv.targetPlatform}'
-                cpu = '${stdenv.targetPlatform.parsed.cpu.name}'
-                endian = ${
-                  if stdenv.targetPlatform.isLittleEndian then
-                    "'little'"
+                  # Disambiguate statically built packages. This was originally
+                  # introduce as a means to prevent nix-env to get confused between
+                  # nix and nixStatic. This should be also achieved by moving the
+                  # hostSuffix before the version, so we could contemplate removing
+                  # it again.
+                staticMarker =
+                  lib.optionalString stdenv.hostPlatform.isStatic "-static";
+              in
+              lib.strings.sanitizeDerivationName (
+                if attrs ? name then
+                  attrs.name + hostSuffix
+                else
+                # we cannot coerce null to a string below
+                  assert lib.assertMsg
+                    (attrs ? version && attrs.version != null)
+                    "The ‘version’ attribute cannot be null.";
+                  "${attrs.pname}${staticMarker}${hostSuffix}-${attrs.version}"
+              )
+              ;
+          }) // lib.optionalAttrs __structuredAttrs { env = checkedEnv; } // {
+            builder = attrs.realBuilder or stdenv.shell;
+            args =
+              attrs.args or [
+                "-e"
+                (attrs.builder or ./default-builder.sh)
+              ];
+            inherit
+              stdenv
+              ;
+
+              # The `system` attribute of a derivation has special meaning to Nix.
+              # Derivations set it to choose what sort of machine could be used to
+              # execute the build, The build platform entirely determines this,
+              # indeed more finely than Nix knows or cares about. The `system`
+              # attribute of `buildPlatfom` matches Nix's degree of specificity.
+              # exactly.
+            inherit (stdenv.buildPlatform) system;
+
+            userHook = config.stdenv.userHook or null;
+            __ignoreNulls = true;
+            inherit __structuredAttrs strictDeps;
+
+            depsBuildBuild = lib.elemAt (lib.elemAt dependencies 0) 0;
+            nativeBuildInputs = lib.elemAt (lib.elemAt dependencies 0) 1;
+            depsBuildTarget = lib.elemAt (lib.elemAt dependencies 0) 2;
+            depsHostHost = lib.elemAt (lib.elemAt dependencies 1) 0;
+            buildInputs = lib.elemAt (lib.elemAt dependencies 1) 1;
+            depsTargetTarget = lib.elemAt (lib.elemAt dependencies 2) 0;
+
+            depsBuildBuildPropagated =
+              lib.elemAt (lib.elemAt propagatedDependencies 0) 0;
+            propagatedNativeBuildInputs =
+              lib.elemAt (lib.elemAt propagatedDependencies 0) 1;
+            depsBuildTargetPropagated =
+              lib.elemAt (lib.elemAt propagatedDependencies 0) 2;
+            depsHostHostPropagated =
+              lib.elemAt (lib.elemAt propagatedDependencies 1) 0;
+            propagatedBuildInputs =
+              lib.elemAt (lib.elemAt propagatedDependencies 1) 1;
+            depsTargetTargetPropagated =
+              lib.elemAt (lib.elemAt propagatedDependencies 2) 0;
+
+              # This parameter is sometimes a string, sometimes null, and sometimes a list, yuck
+            configureFlags =
+              let
+                inherit (lib) optional elem;
+              in
+              (
+                if lib.isString configureFlags then
+                  lib.warn
+                  "String 'configureFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${
+                    pos.file or "unknown file"
+                  }"
+                  [
+                    configureFlags
+                  ]
+                else if configureFlags == null then
+                  lib.warn
+                  "Null 'configureFlags' is deprecated and will be removed in release 23.05. Please use a empty list instead '[]'. Derivation name: ${derivationArg.name}, file: ${
+                    pos.file or "unknown file"
+                  }"
+                  [ ]
+                else
+                  configureFlags
+              )
+              ++ optional
+                (elem "build" configurePlatforms)
+                "--build=${stdenv.buildPlatform.config}"
+              ++ optional
+                (elem "host" configurePlatforms)
+                "--host=${stdenv.hostPlatform.config}"
+              ++ optional
+                (elem "target" configurePlatforms)
+                "--target=${stdenv.targetPlatform.config}"
+              ;
+
+            cmakeFlags =
+              let
+                explicitFlags =
+                  if lib.isString cmakeFlags then
+                    lib.warn
+                    "String 'cmakeFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${
+                      pos.file or "unknown file"
+                    }"
+                    [
+                      cmakeFlags
+                    ]
+                  else if cmakeFlags == null then
+                    lib.warn
+                    "Null 'cmakeFlags' is deprecated and will be removed in release 23.05. Please use a empty list instead '[]'. Derivation name: ${derivationArg.name}, file: ${
+                      pos.file or "unknown file"
+                    }"
+                    [ ]
                   else
-                    "'big'"
-                }
+                    cmakeFlags
+                  ;
 
-                [binaries]
-                llvm-config = 'llvm-config-native'
-              '';
-              crossFlags =
-                lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-                  "--cross-file=${crossFile}"
-                ];
-            in
-            crossFlags ++ explicitFlags
-            ;
+                crossFlags =
+                  [
+                    "-DCMAKE_SYSTEM_NAME=${
+                      lib.findFirst lib.isString "Generic" (
+                        lib.optional
+                        (!stdenv.hostPlatform.isRedox)
+                        stdenv.hostPlatform.uname.system
+                      )
+                    }"
+                  ]
+                  ++ lib.optionals
+                    (stdenv.hostPlatform.uname.processor != null)
+                    [
+                      "-DCMAKE_SYSTEM_PROCESSOR=${stdenv.hostPlatform.uname.processor}"
+                    ]
+                  ++ lib.optionals (stdenv.hostPlatform.uname.release != null) [
+                      "-DCMAKE_SYSTEM_VERSION=${stdenv.hostPlatform.uname.release}"
+                    ]
+                  ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
+                      "-DCMAKE_OSX_ARCHITECTURES=${stdenv.hostPlatform.darwinArch}"
+                    ]
+                  ++ lib.optionals (stdenv.buildPlatform.uname.system != null) [
+                      "-DCMAKE_HOST_SYSTEM_NAME=${stdenv.buildPlatform.uname.system}"
+                    ]
+                  ++ lib.optionals
+                    (stdenv.buildPlatform.uname.processor != null)
+                    [
+                      "-DCMAKE_HOST_SYSTEM_PROCESSOR=${stdenv.buildPlatform.uname.processor}"
+                    ]
+                  ++ lib.optionals
+                    (stdenv.buildPlatform.uname.release != null)
+                    [
+                      "-DCMAKE_HOST_SYSTEM_VERSION=${stdenv.buildPlatform.uname.release}"
+                    ]
+                  ;
+              in
+              explicitFlags
+              ++ lib.optionals
+                (stdenv.hostPlatform != stdenv.buildPlatform)
+                crossFlags
+              ;
 
-          inherit patches;
+            mesonFlags =
+              let
+                explicitFlags =
+                  if lib.isString mesonFlags then
+                    lib.warn
+                    "String 'mesonFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${
+                      pos.file or "unknown file"
+                    }"
+                    [
+                      mesonFlags
+                    ]
+                  else if mesonFlags == null then
+                    lib.warn
+                    "Null 'mesonFlags' is deprecated and will be removed in release 23.05. Please use a empty list instead '[]'. Derivation name: ${derivationArg.name}, file: ${
+                      pos.file or "unknown file"
+                    }"
+                    [ ]
+                  else
+                    mesonFlags
+                  ;
 
-          inherit doCheck doInstallCheck;
+                  # See https://mesonbuild.com/Reference-tables.html#cpu-families
+                cpuFamily =
+                  platform:
+                  with platform;
+                  if isAarch32 then
+                    "arm"
+                  else if isx86_32 then
+                    "x86"
+                  else
+                    platform.uname.processor
+                  ;
 
-          inherit outputs;
-        } // lib.optionalAttrs (__contentAddressed) {
-          inherit
-            __contentAddressed
-            ;
-            # Provide default values for outputHashMode and outputHashAlgo because
-            # most people won't care about these anyways
-          outputHashAlgo = attrs.outputHashAlgo or "sha256";
-          outputHashMode = attrs.outputHashMode or "recursive";
-        } // lib.optionalAttrs (enableParallelBuilding) {
-          inherit enableParallelBuilding;
-          enableParallelChecking = attrs.enableParallelChecking or true;
-          enableParallelInstalling = attrs.enableParallelInstalling or true;
-        } // lib.optionalAttrs (
-          hardeningDisable != [ ]
-          || hardeningEnable != [ ]
-          || stdenv.hostPlatform.isMusl
-        ) { NIX_HARDENING_ENABLE = enabledHardeningOptions; }
-          // lib.optionalAttrs (
-            stdenv.hostPlatform.isx86_64 && stdenv.hostPlatform ? gcc.arch
-          ) {
+                crossFile = builtins.toFile "cross-file.conf" ''
+                  [properties]
+                  needs_exe_wrapper = ${
+                    lib.boolToString (
+                      !stdenv.buildPlatform.canExecute stdenv.hostPlatform
+                    )
+                  }
+
+                  [host_machine]
+                  system = '${stdenv.targetPlatform.parsed.kernel.name}'
+                  cpu_family = '${cpuFamily stdenv.targetPlatform}'
+                  cpu = '${stdenv.targetPlatform.parsed.cpu.name}'
+                  endian = ${
+                    if stdenv.targetPlatform.isLittleEndian then
+                      "'little'"
+                    else
+                      "'big'"
+                  }
+
+                  [binaries]
+                  llvm-config = 'llvm-config-native'
+                '';
+                crossFlags =
+                  lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+                    "--cross-file=${crossFile}"
+                  ];
+              in
+              crossFlags ++ explicitFlags
+              ;
+
+            inherit patches;
+
+            inherit doCheck doInstallCheck;
+
+            inherit outputs;
+          } // lib.optionalAttrs (__contentAddressed) {
+            inherit
+              __contentAddressed
+              ;
+              # Provide default values for outputHashMode and outputHashAlgo because
+              # most people won't care about these anyways
+            outputHashAlgo = attrs.outputHashAlgo or "sha256";
+            outputHashMode = attrs.outputHashMode or "recursive";
+          } // lib.optionalAttrs (enableParallelBuilding) {
+            inherit enableParallelBuilding;
+            enableParallelChecking = attrs.enableParallelChecking or true;
+            enableParallelInstalling = attrs.enableParallelInstalling or true;
+          } // lib.optionalAttrs
+          (
+            hardeningDisable != [ ]
+            || hardeningEnable != [ ]
+            || stdenv.hostPlatform.isMusl
+          )
+          {
+            NIX_HARDENING_ENABLE = enabledHardeningOptions;
+          } // lib.optionalAttrs
+          (stdenv.hostPlatform.isx86_64 && stdenv.hostPlatform ? gcc.arch)
+          {
             requiredSystemFeatures =
               attrs.requiredSystemFeatures or [ ]
               ++ [ "gccarch-${stdenv.hostPlatform.gcc.arch}" ]
@@ -729,8 +783,9 @@ let
                     sandboxProfile
                   ]
                   ;
-                final = lib.concatStringsSep "\n"
-                  (lib.filter (x: x != "") (lib.unique profiles));
+                final = lib.concatStringsSep "\n" (
+                  lib.filter (x: x != "") (lib.unique profiles)
+                );
               in
               final
               ;
@@ -778,12 +833,12 @@ let
             disallowedRequisites =
               map unsafeDerivationToUntrackedOutpath attrs.disallowedRequisites;
           } // lib.optionalAttrs (attrs ? allowedReferences) {
-            allowedReferences =
-              lib.mapNullable unsafeDerivationToUntrackedOutpath
+            allowedReferences = lib.mapNullable
+              unsafeDerivationToUntrackedOutpath
               attrs.allowedReferences;
           } // lib.optionalAttrs (attrs ? allowedRequisites) {
-            allowedRequisites =
-              lib.mapNullable unsafeDerivationToUntrackedOutpath
+            allowedRequisites = lib.mapNullable
+              unsafeDerivationToUntrackedOutpath
               attrs.allowedRequisites;
           };
 
@@ -795,29 +850,35 @@ let
             overlappingNames =
               lib.attrNames (builtins.intersectAttrs env derivationArg);
           in
-          assert lib.assertMsg envIsExportable
+          assert lib.assertMsg
+            envIsExportable
             "When using structured attributes, `env` must be an attribute set of environment variables.";
-          assert lib.assertMsg (overlappingNames == [ ])
+          assert lib.assertMsg
+            (overlappingNames == [ ])
             "The ‘env’ attribute set cannot contain any attributes passed to derivation. The following attributes are overlapping: ${
               lib.concatStringsSep ", " overlappingNames
             }";
-          lib.mapAttrs (
+          lib.mapAttrs
+          (
             n: v:
-            assert lib.assertMsg (
-              lib.isString v
-              || lib.isBool v
-              || lib.isInt v
-              || lib.isDerivation v
-            )
+            assert lib.assertMsg
+              (
+                lib.isString v
+                || lib.isBool v
+                || lib.isInt v
+                || lib.isDerivation v
+              )
               "The ‘env’ attribute set can only contain derivation, string, boolean or integer attributes. The ‘${n}’ attribute is of type ${
                 builtins.typeOf v
               }.";
             v
-          ) env
+          )
+          env
           ;
 
       in
-      lib.extendDerivation validity.handled (
+      lib.extendDerivation validity.handled
+      (
         {
           # A derivation that always builds successfully and whose runtime
           # dependencies are the original derivations build time dependencies
@@ -862,9 +923,12 @@ let
         # should be made available to Nix expressions using the
         # derivation (e.g., in assertions).
         passthru
-      ) (derivation (
-        derivationArg // lib.optionalAttrs envIsExportable checkedEnv
-      ))
+      )
+      (
+        derivation (
+          derivationArg // lib.optionalAttrs envIsExportable checkedEnv
+        )
+      )
     ;
 
 in

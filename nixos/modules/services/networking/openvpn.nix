@@ -35,27 +35,31 @@ let
         done
 
         ${cfg.up}
-        ${optionalString cfg.updateResolvConf
+        ${optionalString
+        cfg.updateResolvConf
         "${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf"}
       '';
 
       downScript = ''
         export PATH=${path}
-        ${optionalString cfg.updateResolvConf
+        ${optionalString
+        cfg.updateResolvConf
         "${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf"}
         ${cfg.down}
       '';
 
       configFile = pkgs.writeText "openvpn-config-${name}" ''
         errors-to-stderr
-        ${optionalString (
-          cfg.up != "" || cfg.down != "" || cfg.updateResolvConf
-        ) "script-security 2"}
+        ${optionalString
+        (cfg.up != "" || cfg.down != "" || cfg.updateResolvConf)
+        "script-security 2"}
         ${cfg.config}
-        ${optionalString (cfg.up != "" || cfg.updateResolvConf)
-        "up ${pkgs.writeShellScript "openvpn-${name}-up" upScript}"}
-        ${optionalString (cfg.down != "" || cfg.updateResolvConf)
-        "down ${pkgs.writeShellScript "openvpn-${name}-down" downScript}"}
+        ${optionalString (cfg.up != "" || cfg.updateResolvConf) "up ${
+          pkgs.writeShellScript "openvpn-${name}-up" upScript
+        }"}
+        ${optionalString (cfg.down != "" || cfg.updateResolvConf) "down ${
+          pkgs.writeShellScript "openvpn-${name}-down" downScript
+        }"}
         ${optionalString (cfg.authUserPass != null) "auth-user-pass ${
           pkgs.writeText "openvpn-credentials-${name}" ''
             ${cfg.authUserPass.username}
@@ -98,11 +102,13 @@ let
 in
 {
   imports = [
-      (mkRemovedOptionModule [
-        "services"
-        "openvpn"
-        "enable"
-      ] "")
+      (mkRemovedOptionModule
+        [
+          "services"
+          "openvpn"
+          "enable"
+        ]
+        "")
     ];
 
     ###### interface
@@ -153,84 +159,88 @@ in
       '';
 
       type = with types;
-        attrsOf (submodule {
+        attrsOf (
+          submodule {
 
-          options = {
+            options = {
 
-            config = mkOption {
-              type = types.lines;
-              description = lib.mdDoc ''
-                Configuration of this OpenVPN instance.  See
-                {manpage}`openvpn(8)`
-                for details.
+              config = mkOption {
+                type = types.lines;
+                description = lib.mdDoc ''
+                  Configuration of this OpenVPN instance.  See
+                  {manpage}`openvpn(8)`
+                  for details.
 
-                To import an external config file, use the following definition:
-                `config = "config /path/to/config.ovpn"`
-              '';
+                  To import an external config file, use the following definition:
+                  `config = "config /path/to/config.ovpn"`
+                '';
+              };
+
+              up = mkOption {
+                default = "";
+                type = types.lines;
+                description = lib.mdDoc ''
+                  Shell commands executed when the instance is starting.
+                '';
+              };
+
+              down = mkOption {
+                default = "";
+                type = types.lines;
+                description = lib.mdDoc ''
+                  Shell commands executed when the instance is shutting down.
+                '';
+              };
+
+              autoStart = mkOption {
+                default = true;
+                type = types.bool;
+                description = lib.mdDoc
+                  "Whether this OpenVPN instance should be started automatically."
+                  ;
+              };
+
+              updateResolvConf = mkOption {
+                default = false;
+                type = types.bool;
+                description = lib.mdDoc ''
+                  Use the script from the update-resolv-conf package to automatically
+                  update resolv.conf with the DNS information provided by openvpn. The
+                  script will be run after the "up" commands and before the "down" commands.
+                '';
+              };
+
+              authUserPass = mkOption {
+                default = null;
+                description = lib.mdDoc ''
+                  This option can be used to store the username / password credentials
+                  with the "auth-user-pass" authentication method.
+
+                  WARNING: Using this option will put the credentials WORLD-READABLE in the Nix store!
+                '';
+                type = types.nullOr (
+                  types.submodule {
+
+                    options = {
+                      username = mkOption {
+                        description = lib.mdDoc
+                          "The username to store inside the credentials file.";
+                        type = types.str;
+                      };
+
+                      password = mkOption {
+                        description = lib.mdDoc
+                          "The password to store inside the credentials file.";
+                        type = types.str;
+                      };
+                    };
+                  }
+                );
+              };
             };
 
-            up = mkOption {
-              default = "";
-              type = types.lines;
-              description = lib.mdDoc ''
-                Shell commands executed when the instance is starting.
-              '';
-            };
-
-            down = mkOption {
-              default = "";
-              type = types.lines;
-              description = lib.mdDoc ''
-                Shell commands executed when the instance is shutting down.
-              '';
-            };
-
-            autoStart = mkOption {
-              default = true;
-              type = types.bool;
-              description = lib.mdDoc
-                "Whether this OpenVPN instance should be started automatically."
-                ;
-            };
-
-            updateResolvConf = mkOption {
-              default = false;
-              type = types.bool;
-              description = lib.mdDoc ''
-                Use the script from the update-resolv-conf package to automatically
-                update resolv.conf with the DNS information provided by openvpn. The
-                script will be run after the "up" commands and before the "down" commands.
-              '';
-            };
-
-            authUserPass = mkOption {
-              default = null;
-              description = lib.mdDoc ''
-                This option can be used to store the username / password credentials
-                with the "auth-user-pass" authentication method.
-
-                WARNING: Using this option will put the credentials WORLD-READABLE in the Nix store!
-              '';
-              type = types.nullOr (types.submodule {
-
-                options = {
-                  username = mkOption {
-                    description = lib.mdDoc
-                      "The username to store inside the credentials file.";
-                    type = types.str;
-                  };
-
-                  password = mkOption {
-                    description = lib.mdDoc
-                      "The password to store inside the credentials file.";
-                    type = types.str;
-                  };
-                };
-              });
-            };
-          };
-
-        });
+          }
+        );
 
     };
 
@@ -247,9 +257,11 @@ in
 
   config = mkIf (cfg.servers != { }) {
 
-    systemd.services = (listToAttrs (mapAttrsFlatten (
-      name: value: nameValuePair "openvpn-${name}" (makeOpenVPNJob value name)
-    ) cfg.servers)) // restartService;
+    systemd.services = (listToAttrs (
+      mapAttrsFlatten
+      (name: value: nameValuePair "openvpn-${name}" (makeOpenVPNJob value name))
+      cfg.servers
+    )) // restartService;
 
     environment.systemPackages = [ openvpn ];
 

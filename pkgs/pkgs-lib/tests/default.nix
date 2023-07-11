@@ -36,22 +36,32 @@ let
 
   flatten =
     prefix: as:
-    foldl' mergeAttrs { } (attrValues (mapAttrs (
-      k: v:
-      if isDerivation v then
-        { "${prefix}${k}" = v; }
-      else if v ? recurseForDerivations then
-        flatten "${prefix}${k}-" (removeAttrs v [ "recurseForDerivations" ])
-      else
-        builtins.trace v throw "expected derivation or recurseIntoAttrs"
-    ) as))
+    foldl' mergeAttrs { } (
+      attrValues (
+        mapAttrs
+        (
+          k: v:
+          if isDerivation v then
+            { "${prefix}${k}" = v; }
+          else if v ? recurseForDerivations then
+            flatten "${prefix}${k}-" (removeAttrs v [ "recurseForDerivations" ])
+          else
+            builtins.trace v throw "expected derivation or recurseIntoAttrs"
+        )
+        as
+      )
+    )
     ;
 
   # It has to be a link farm for inclusion in the hydra unstable jobset.
 in
-pkgs.linkFarm "pkgs-lib-formats-tests" (mapAttrsToList (
-  k: v: {
-    name = k;
-    path = v;
-  }
-) (flatten "" structured)) // structured
+pkgs.linkFarm "pkgs-lib-formats-tests" (
+  mapAttrsToList
+  (
+    k: v: {
+      name = k;
+      path = v;
+    }
+  )
+  (flatten "" structured)
+) // structured

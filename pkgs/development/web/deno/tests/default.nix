@@ -17,10 +17,12 @@ let
     let
       command = "deno run ${args} ${dir}/${file}";
     in
-    runCommand "deno-test-${name}" {
+    runCommand "deno-test-${name}"
+    {
       nativeBuildInputs = [ deno ];
       meta.timeout = 60;
-    } ''
+    }
+    ''
       HOME=$(mktemp -d)
       if output=$(${command} 2>&1); then
         if [[ $output =~ '${expected}' ]]; then

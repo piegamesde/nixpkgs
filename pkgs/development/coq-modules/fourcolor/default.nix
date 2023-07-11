@@ -21,10 +21,12 @@ mkCoqDerivation {
 
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch [
+    lib.switch
+    [
       coq.version
       mathcomp.version
-    ] [
+    ]
+    [
       {
         cases = [
           (isGe "8.11")
@@ -46,7 +48,8 @@ mkCoqDerivation {
         ];
         out = "1.2.3";
       }
-    ] null;
+    ]
+    null;
 
   propagatedBuildInputs = [
     mathcomp.algebra

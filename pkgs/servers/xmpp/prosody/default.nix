@@ -87,13 +87,17 @@ stdenv.mkDerivation rec {
 
     # the wrapping should go away once lua hook is fixed
   postInstall = ''
-    ${concatMapStringsSep "\n" (module: ''
+    ${concatMapStringsSep "\n"
+    (module: ''
       cp -r $communityModules/mod_${module} $out/lib/prosody/modules/
-    '') (lib.lists.unique (
-      nixosModuleDeps
-      ++ withCommunityModules
-      ++ withOnlyInstalledCommunityModules
-    ))}
+    '')
+    (
+      lib.lists.unique (
+        nixosModuleDeps
+        ++ withCommunityModules
+        ++ withOnlyInstalledCommunityModules
+      )
+    )}
     wrapProgram $out/bin/prosodyctl \
       --add-flags '--config "/etc/prosody/prosody.cfg.lua"'
     make -C tools/migration install

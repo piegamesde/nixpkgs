@@ -15,16 +15,18 @@ let
   configFile =
     let
       src = "${pkg.src}/tox_node/dpkg/config.yml";
-      confJSON = pkgs.writeText "config.json" (builtins.toJSON {
-        log-type = cfg.logType;
-        keys-file = cfg.keysFile;
-        udp-address = cfg.udpAddress;
-        tcp-addresses = cfg.tcpAddresses;
-        tcp-connections-limit = cfg.tcpConnectionLimit;
-        lan-discovery = cfg.lanDiscovery;
-        threads = cfg.threads;
-        motd = cfg.motd;
-      });
+      confJSON = pkgs.writeText "config.json" (
+        builtins.toJSON {
+          log-type = cfg.logType;
+          keys-file = cfg.keysFile;
+          udp-address = cfg.udpAddress;
+          tcp-addresses = cfg.tcpAddresses;
+          tcp-connections-limit = cfg.tcpConnectionLimit;
+          lan-discovery = cfg.lanDiscovery;
+          threads = cfg.threads;
+          motd = cfg.motd;
+        }
+      );
     in
     with pkgs;
     runCommand "config.yml" { } ''

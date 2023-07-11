@@ -30,144 +30,168 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "gitea"
-      "cookieSecure"
-    ] [
-      "services"
-      "gitea"
-      "settings"
-      "session"
-      "COOKIE_SECURE"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gitea"
-      "disableRegistration"
-    ] [
-      "services"
-      "gitea"
-      "settings"
-      "service"
-      "DISABLE_REGISTRATION"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gitea"
-      "domain"
-    ] [
-      "services"
-      "gitea"
-      "settings"
-      "server"
-      "DOMAIN"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gitea"
-      "httpAddress"
-    ] [
-      "services"
-      "gitea"
-      "settings"
-      "server"
-      "HTTP_ADDR"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gitea"
-      "httpPort"
-    ] [
-      "services"
-      "gitea"
-      "settings"
-      "server"
-      "HTTP_PORT"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gitea"
-      "log"
-      "level"
-    ] [
-      "services"
-      "gitea"
-      "settings"
-      "log"
-      "LEVEL"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gitea"
-      "log"
-      "rootPath"
-    ] [
-      "services"
-      "gitea"
-      "settings"
-      "log"
-      "ROOT_PATH"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gitea"
-      "rootUrl"
-    ] [
-      "services"
-      "gitea"
-      "settings"
-      "server"
-      "ROOT_URL"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gitea"
-      "ssh"
-      "clonePort"
-    ] [
-      "services"
-      "gitea"
-      "settings"
-      "server"
-      "SSH_PORT"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "gitea"
-      "staticRootPath"
-    ] [
-      "services"
-      "gitea"
-      "settings"
-      "server"
-      "STATIC_ROOT_PATH"
-    ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitea"
+        "cookieSecure"
+      ]
+      [
+        "services"
+        "gitea"
+        "settings"
+        "session"
+        "COOKIE_SECURE"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitea"
+        "disableRegistration"
+      ]
+      [
+        "services"
+        "gitea"
+        "settings"
+        "service"
+        "DISABLE_REGISTRATION"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitea"
+        "domain"
+      ]
+      [
+        "services"
+        "gitea"
+        "settings"
+        "server"
+        "DOMAIN"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitea"
+        "httpAddress"
+      ]
+      [
+        "services"
+        "gitea"
+        "settings"
+        "server"
+        "HTTP_ADDR"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitea"
+        "httpPort"
+      ]
+      [
+        "services"
+        "gitea"
+        "settings"
+        "server"
+        "HTTP_PORT"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitea"
+        "log"
+        "level"
+      ]
+      [
+        "services"
+        "gitea"
+        "settings"
+        "log"
+        "LEVEL"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitea"
+        "log"
+        "rootPath"
+      ]
+      [
+        "services"
+        "gitea"
+        "settings"
+        "log"
+        "ROOT_PATH"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitea"
+        "rootUrl"
+      ]
+      [
+        "services"
+        "gitea"
+        "settings"
+        "server"
+        "ROOT_URL"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitea"
+        "ssh"
+        "clonePort"
+      ]
+      [
+        "services"
+        "gitea"
+        "settings"
+        "server"
+        "SSH_PORT"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gitea"
+        "staticRootPath"
+      ]
+      [
+        "services"
+        "gitea"
+        "settings"
+        "server"
+        "STATIC_ROOT_PATH"
+      ])
 
-    (mkChangedOptionModule [
-      "services"
-      "gitea"
-      "enableUnixSocket"
-    ] [
-      "services"
-      "gitea"
-      "settings"
-      "server"
-      "PROTOCOL"
-    ] (
-      config:
-      if config.services.gitea.enableUnixSocket then
-        "http+unix"
-      else
-        "http"
-    ))
+    (mkChangedOptionModule
+      [
+        "services"
+        "gitea"
+        "enableUnixSocket"
+      ]
+      [
+        "services"
+        "gitea"
+        "settings"
+        "server"
+        "PROTOCOL"
+      ]
+      (
+        config:
+        if config.services.gitea.enableUnixSocket then
+          "http+unix"
+        else
+          "http"
+      ))
 
-    (mkRemovedOptionModule [
-      "services"
-      "gitea"
-      "ssh"
-      "enable"
-    ]
+    (mkRemovedOptionModule
+      [
+        "services"
+        "gitea"
+        "ssh"
+        "enable"
+      ]
       "services.gitea.ssh.enable has been migrated into freeform setting services.gitea.settings.server.DISABLE_SSH. Keep in mind that the setting is inverted")
   ];
 
@@ -864,7 +888,8 @@ in
     users.groups = mkIf (cfg.group == "gitea") { gitea = { }; };
 
     warnings =
-      optional (cfg.database.password != "")
+      optional
+        (cfg.database.password != "")
         "config.services.gitea.database.password will be stored as plaintext in the Nix store. Use database.passwordFile instead."
       ++ optional (cfg.extraConfig != null) ''
         services.gitea.`extraConfig` is deprecated, please use services.gitea.`settings`.
@@ -872,11 +897,14 @@ in
       ;
 
       # Create database passwordFile default when password is configured.
-    services.gitea.database.passwordFile = mkDefault (toString
-      (pkgs.writeTextFile {
-        name = "gitea-database-password";
-        text = cfg.database.password;
-      }));
+    services.gitea.database.passwordFile = mkDefault (
+      toString (
+        pkgs.writeTextFile {
+          name = "gitea-database-password";
+          text = cfg.database.password;
+        }
+      )
+    );
 
     systemd.services.gitea-dump = mkIf cfg.dump.enable {
       description = "gitea dump";

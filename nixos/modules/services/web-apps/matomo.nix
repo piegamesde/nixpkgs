@@ -21,52 +21,64 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "piwik"
-      "enable"
-    ] [
-      "services"
-      "matomo"
-      "enable"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "piwik"
-      "webServerUser"
-    ] [
-      "services"
-      "matomo"
-      "webServerUser"
-    ])
-    (mkRemovedOptionModule [
-      "services"
-      "piwik"
-      "phpfpmProcessManagerConfig"
-    ] "Use services.phpfpm.pools.<name>.settings")
-    (mkRemovedOptionModule [
-      "services"
-      "matomo"
-      "phpfpmProcessManagerConfig"
-    ] "Use services.phpfpm.pools.<name>.settings")
-    (mkRenamedOptionModule [
-      "services"
-      "piwik"
-      "nginx"
-    ] [
-      "services"
-      "matomo"
-      "nginx"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "matomo"
-      "periodicArchiveProcessingUrl"
-    ] [
-      "services"
-      "matomo"
-      "hostname"
-    ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "piwik"
+        "enable"
+      ]
+      [
+        "services"
+        "matomo"
+        "enable"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "piwik"
+        "webServerUser"
+      ]
+      [
+        "services"
+        "matomo"
+        "webServerUser"
+      ])
+    (mkRemovedOptionModule
+      [
+        "services"
+        "piwik"
+        "phpfpmProcessManagerConfig"
+      ]
+      "Use services.phpfpm.pools.<name>.settings")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "matomo"
+        "phpfpmProcessManagerConfig"
+      ]
+      "Use services.phpfpm.pools.<name>.settings")
+    (mkRenamedOptionModule
+      [
+        "services"
+        "piwik"
+        "nginx"
+      ]
+      [
+        "services"
+        "matomo"
+        "nginx"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "matomo"
+        "periodicArchiveProcessingUrl"
+      ]
+      [
+        "services"
+        "matomo"
+        "hostname"
+      ])
   ];
 
   options = {
@@ -134,15 +146,20 @@ in
       };
 
       nginx = mkOption {
-        type = types.nullOr (types.submodule (recursiveUpdate
-          (import ../web-servers/nginx/vhost-options.nix {
-            inherit config lib;
-          }) {
-            # enable encryption by default,
-            # as sensitive login and Matomo data should not be transmitted in clear text.
-            options.forceSSL.default = true;
-            options.enableACME.default = true;
-          }));
+        type = types.nullOr (
+          types.submodule (
+            recursiveUpdate
+            (import ../web-servers/nginx/vhost-options.nix {
+              inherit config lib;
+            })
+            {
+              # enable encryption by default,
+              # as sensitive login and Matomo data should not be transmitted in clear text.
+              options.forceSSL.default = true;
+              options.enableACME.default = true;
+            }
+          )
+        );
         default = null;
         example = literalExpression ''
           {

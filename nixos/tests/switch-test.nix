@@ -10,7 +10,8 @@ import ./make-test-python.nix (
     # Simple service that can either be socket-activated or that will
     # listen on port 1234 if not socket-activated.
     # A connection to the socket causes 'hello' to be written to the client.
-    socketTest = pkgs.writeScript "socket-test.py" # python
+    socketTest = pkgs.writeScript
+      "socket-test.py" # python
       ''
         #!${pkgs.python3}/bin/python3
 
@@ -69,11 +70,12 @@ import ./make-test-python.nix (
           users.mutableUsers = false;
 
             # For boot/switch testing
-          system.build.installBootLoader = lib.mkForce
-            (pkgs.writeShellScript "install-dummy-loader" ''
+          system.build.installBootLoader = lib.mkForce (
+            pkgs.writeShellScript "install-dummy-loader" ''
               echo "installing dummy bootloader"
               touch /tmp/bootloader-installed
-            '');
+            ''
+          );
 
           specialisation = rec {
             simpleService.configuration = {

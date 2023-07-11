@@ -44,8 +44,11 @@ let
       ""
     ;
 
-  configDir = pkgs.writeTextDir "recursor.conf" (concatStringsSep "\n"
-    (flip mapAttrsToList cfg.settings (name: val: "${name}=${serialize val}")));
+  configDir = pkgs.writeTextDir "recursor.conf" (
+    concatStringsSep "\n" (
+      flip mapAttrsToList cfg.settings (name: val: "${name}=${serialize val}")
+    )
+  );
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);
 
@@ -257,11 +260,12 @@ in
   };
 
   imports = [
-      (mkRemovedOptionModule [
-        "services"
-        "pdns-recursor"
-        "extraConfig"
-      ]
+      (mkRemovedOptionModule
+        [
+          "services"
+          "pdns-recursor"
+          "extraConfig"
+        ]
         "To change extra Recursor settings use services.pdns-recursor.settings instead.")
     ];
 

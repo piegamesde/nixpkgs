@@ -33,8 +33,10 @@ in
 
   options = {
     services.zammad = {
-      enable = mkEnableOption (lib.mdDoc
-        "Zammad, a web-based, open source user support/ticketing solution");
+      enable = mkEnableOption (
+        lib.mdDoc
+        "Zammad, a web-based, open source user support/ticketing solution"
+      );
 
       package = mkOption {
         type = types.package;
@@ -186,21 +188,23 @@ in
   config = mkIf cfg.enable {
 
     services.zammad.database.settings = {
-      production = mapAttrs (_: v: mkDefault v) (filterNull {
-        adapter =
-          {
-            PostgreSQL = "postgresql";
-            MySQL = "mysql2";
-          }
-          .${cfg.database.type};
-        database = cfg.database.name;
-        pool = 50;
-        timeout = 5000;
-        encoding = "utf8";
-        username = cfg.database.user;
-        host = cfg.database.host;
-        port = cfg.database.port;
-      });
+      production = mapAttrs (_: v: mkDefault v) (
+        filterNull {
+          adapter =
+            {
+              PostgreSQL = "postgresql";
+              MySQL = "mysql2";
+            }
+            .${cfg.database.type};
+          database = cfg.database.name;
+          pool = 50;
+          timeout = 5000;
+          encoding = "utf8";
+          username = cfg.database.user;
+          host = cfg.database.host;
+          port = cfg.database.port;
+        }
+      );
     };
 
     networking.firewall.allowedTCPPorts = mkIf cfg.openPorts [
@@ -231,30 +235,30 @@ in
       }
     ];
 
-    services.mysql = optionalAttrs (
-      cfg.database.createLocally && cfg.database.type == "MySQL"
-    ) {
-      enable = true;
-      package = mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [ {
-        name = cfg.database.user;
-        ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
-      } ];
-    };
+    services.mysql = optionalAttrs
+      (cfg.database.createLocally && cfg.database.type == "MySQL")
+      {
+        enable = true;
+        package = mkDefault pkgs.mariadb;
+        ensureDatabases = [ cfg.database.name ];
+        ensureUsers = [ {
+          name = cfg.database.user;
+          ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
+        } ];
+      };
 
-    services.postgresql = optionalAttrs (
-      cfg.database.createLocally && cfg.database.type == "PostgreSQL"
-    ) {
-      enable = true;
-      ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [ {
-        name = cfg.database.user;
-        ensurePermissions = {
-          "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
-        };
-      } ];
-    };
+    services.postgresql = optionalAttrs
+      (cfg.database.createLocally && cfg.database.type == "PostgreSQL")
+      {
+        enable = true;
+        ensureDatabases = [ cfg.database.name ];
+        ensureUsers = [ {
+          name = cfg.database.user;
+          ensurePermissions = {
+            "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
+          };
+        } ];
+      };
 
     systemd.services.zammad-web = {
       inherit environment;
@@ -297,8 +301,9 @@ in
         if [ `${config.services.postgresql.package}/bin/psql \
                   --host ${cfg.database.host} \
                   ${
-                    optionalString (cfg.database.port != null)
-                    "--port ${toString cfg.database.port}"
+                    optionalString (cfg.database.port != null) "--port ${
+                      toString cfg.database.port
+                    }"
                   } \
                   --username ${cfg.database.user} \
                   --dbname ${cfg.database.name} \

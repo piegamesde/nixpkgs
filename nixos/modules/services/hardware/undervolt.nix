@@ -14,7 +14,8 @@ let
     if (limit == null && window == null) then
       null
     else
-      assert asserts.assertMsg (limit != null && window != null)
+      assert asserts.assertMsg
+        (limit != null && window != null)
         "Both power limit and window must be set";
       "${toString limit} ${toString window}"
     ;
@@ -43,11 +44,13 @@ let
 in
 {
   options.services.undervolt = {
-    enable = mkEnableOption (lib.mdDoc ''
-      Undervolting service for Intel CPUs.
+    enable = mkEnableOption (
+      lib.mdDoc ''
+        Undervolting service for Intel CPUs.
 
-      Warning: This service is not endorsed by Intel and may permanently damage your hardware. Use at your own risk!
-    '');
+        Warning: This service is not endorsed by Intel and may permanently damage your hardware. Use at your own risk!
+      ''
+    );
 
     verbose = mkOption {
       type = types.bool;
@@ -132,10 +135,12 @@ in
     };
     p1.window = mkOption {
       type = with types;
-        nullOr (oneOf [
-          float
-          int
-        ]);
+        nullOr (
+          oneOf [
+            float
+            int
+          ]
+        );
       default = null;
       description = lib.mdDoc ''
         The P1 Time Window in seconds.
@@ -153,10 +158,12 @@ in
     };
     p2.window = mkOption {
       type = with types;
-        nullOr (oneOf [
-          float
-          int
-        ]);
+        nullOr (
+          oneOf [
+            float
+            int
+          ]
+        );
       default = null;
       description = lib.mdDoc ''
         The P2 Time Window in seconds.

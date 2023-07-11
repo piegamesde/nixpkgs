@@ -68,17 +68,19 @@ let
     {
       version,
     }:
-    writeText "Info.plist" (lib.generators.toPlist { } {
-      CFBundleName = "mikutter";
-      CFBundleDisplayName = "mikutter";
-      CFBundleExecutable = "mikutter";
-      CFBundleIconFile = "mikutter";
-      CFBundleIdentifier = "net.hachune.mikutter";
-      CFBundleInfoDictionaryVersion = "6.0";
-      CFBundlePackageType = "APPL";
-      CFBundleVersion = version;
-      CFBundleShortVersionString = version;
-    })
+    writeText "Info.plist" (
+      lib.generators.toPlist { } {
+        CFBundleName = "mikutter";
+        CFBundleDisplayName = "mikutter";
+        CFBundleExecutable = "mikutter";
+        CFBundleIconFile = "mikutter";
+        CFBundleIdentifier = "net.hachune.mikutter";
+        CFBundleInfoDictionaryVersion = "6.0";
+        CFBundlePackageType = "APPL";
+        CFBundleVersion = version;
+        CFBundleShortVersionString = version;
+      }
+    )
     ;
 
   inherit (gems) wrappedRuby;

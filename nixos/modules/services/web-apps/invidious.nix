@@ -33,7 +33,8 @@ let
             ;
           jqFiles =
             [ settingsFile ]
-            ++ lib.optional (cfg.extraSettingsFile != null)
+            ++ lib.optional
+              (cfg.extraSettingsFile != null)
               cfg.extraSettingsFile
             ;
         in
@@ -291,9 +292,11 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable (lib.mkMerge [
-    serviceConfig
-    localDatabaseConfig
-    nginxConfig
-  ]);
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      serviceConfig
+      localDatabaseConfig
+      nginxConfig
+    ]
+  );
 }

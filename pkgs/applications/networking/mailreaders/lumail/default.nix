@@ -23,8 +23,9 @@ let
     else
       "lumail2"
     ;
-  alternativeConfig = builtins.toFile "lumail2.lua"
-    (builtins.readFile alternativeGlobalConfigFilePath);
+  alternativeConfig = builtins.toFile "lumail2.lua" (
+    builtins.readFile alternativeGlobalConfigFilePath
+  );
 
   globalConfig =
     if alternativeGlobalConfigFilePath == null then

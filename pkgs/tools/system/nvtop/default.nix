@@ -55,7 +55,8 @@ stdenv.mkDerivation rec {
       "-DUSE_LIBUDEV_OVER_LIBSYSTEMD=ON"
     ]
     ++ optional nvidia "-DNVML_INCLUDE_DIRS=${cudatoolkit}/include"
-    ++ optional nvidia
+    ++ optional
+      nvidia
       "-DNVML_LIBRARIES=${cudatoolkit}/targets/x86_64-linux/lib/stubs/libnvidia-ml.so"
     ++ optional (!amd) "-DAMDGPU_SUPPORT=OFF"
     ++ optional (!nvidia) "-DNVIDIA_SUPPORT=OFF"

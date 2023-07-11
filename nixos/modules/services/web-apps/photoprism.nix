@@ -17,9 +17,11 @@ let
 
   manage =
     let
-      setupEnv = lib.concatStringsSep "\n" (lib.mapAttrsToList (
-        name: val: "export ${name}=${lib.escapeShellArg val}"
-      ) env);
+      setupEnv = lib.concatStringsSep "\n" (
+        lib.mapAttrsToList
+        (name: val: "export ${name}=${lib.escapeShellArg val}")
+        env
+      );
     in
     pkgs.writeShellScript "manage" ''
       ${setupEnv}
@@ -111,7 +113,8 @@ in
         WorkingDirectory = "/var/lib/photoprism";
         RuntimeDirectory = "photoprism";
 
-        LoadCredential = lib.optionalString (cfg.passwordFile != null)
+        LoadCredential = lib.optionalString
+          (cfg.passwordFile != null)
           "PHOTOPRISM_ADMIN_PASSWORD:${cfg.passwordFile}";
 
         CapabilityBoundingSet = "";

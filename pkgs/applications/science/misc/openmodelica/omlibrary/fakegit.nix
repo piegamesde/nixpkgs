@@ -21,13 +21,15 @@ let
   hashname =
     r:
     let
-      rpl = lib.replaceStrings [
-        ":"
-        "/"
-      ] [
-        "_"
-        "_"
-      ];
+      rpl = lib.replaceStrings
+        [
+          ":"
+          "/"
+        ]
+        [
+          "_"
+          "_"
+        ];
     in
     (rpl r.url) + "-" + (rpl r.rev)
     ;
@@ -38,9 +40,11 @@ stdenv.mkDerivation {
 
   buildCommand = ''
     mkdir -pv $out/repos
-    ${lib.concatMapStrings (r: ''
+    ${lib.concatMapStrings
+    (r: ''
       cp -r ${fetchgit r} $out/repos/${hashname r}
-    '') (import ./src-libs.nix)}
+    '')
+    (import ./src-libs.nix)}
 
     ${mkscript "$out/bin/checkout-git.sh" ''
       if test "$#" -ne 4; then

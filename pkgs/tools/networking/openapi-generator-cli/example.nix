@@ -4,7 +4,8 @@
   runCommand,
 }:
 
-runCommand "openapi-generator-cli-test" {
+runCommand "openapi-generator-cli-test"
+{
   nativeBuildInputs = [ openapi-generator-cli ];
   petstore = fetchurl {
     url =
@@ -16,7 +17,8 @@ runCommand "openapi-generator-cli-test" {
     elmPrefixCustomTypeVariants = false;
   };
   passAsFile = [ "config" ];
-} ''
+}
+''
   openapi-generator-cli generate \
     --input-spec $petstore \
     --enable-post-process-file \

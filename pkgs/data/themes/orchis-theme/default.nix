@@ -37,7 +37,8 @@ in
 assert nordXorDracula;
 lib.checkListOfEnum "${pname}: theme tweaks" validTweaks tweaks
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation
+rec {
   inherit pname;
   version = "2023-04-08";
 

@@ -60,7 +60,8 @@ let
                             }
                             ${lib.optionalString static "LDFLAGS=-static"}
                             ${
-                              lib.withFeature (static == true || popt == null)
+                              lib.withFeature
+                              (static == true || popt == null)
                               "included-popt"
                             }
                             ${lib.withFeature (avahi != null) "avahi"}

@@ -13,8 +13,9 @@ let
 
   steam-gamescope =
     let
-      exports = builtins.attrValues
-        (builtins.mapAttrs (n: v: "export ${n}=${v}") cfg.gamescopeSession.env);
+      exports = builtins.attrValues (
+        builtins.mapAttrs (n: v: "export ${n}=${v}") cfg.gamescopeSession.env
+      );
     in
     pkgs.writeShellScriptBin "steam-gamescope" ''
       ${builtins.concatStringsSep "\n" exports}
@@ -31,7 +32,8 @@ let
       Comment=A digital distribution platform
       Exec=${steam-gamescope}/bin/steam-gamescope
       Type=Application
-    '').overrideAttrs (_: { passthru.providedSessions = [ "steam" ]; });
+    '').overrideAttrs
+    (_: { passthru.providedSessions = [ "steam" ]; });
 in
 {
   options.programs.steam = {
@@ -75,9 +77,9 @@ in
               in
               prevLibs ++ additionalLibs
               ;
-          } // optionalAttrs (
-            cfg.gamescopeSession.enable && gamescopeCfg.capSysNice
-          ) {
+          } // optionalAttrs
+          (cfg.gamescopeSession.enable && gamescopeCfg.capSysNice)
+          {
             buildFHSEnv = pkgs.buildFHSEnv.override {
               # use the setuid wrapped bubblewrap
               bubblewrap = "${config.security.wrapperDir}/..";

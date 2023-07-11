@@ -204,9 +204,9 @@ backendStdenv.mkDerivation rec {
           cd ..
         done
       ''}
-      ${lib.optionalString (
-        lib.versionAtLeast version "10.1" && lib.versionOlder version "11"
-      ) ''
+      ${lib.optionalString
+      (lib.versionAtLeast version "10.1" && lib.versionOlder version "11")
+      ''
         cd pkg/builds/cuda-toolkit
         mv * $out/
       ''}
@@ -239,7 +239,8 @@ backendStdenv.mkDerivation rec {
         rm $out/host-linux-x64/libstdc++.so*
       ''}
         ${
-          lib.optionalString (lib.versionAtLeast version "11.8")
+          lib.optionalString
+          (lib.versionAtLeast version "11.8")
           # error: auto-patchelf could not satisfy dependency libtiff.so.5 wanted by /nix/store/.......-cudatoolkit-12.0.1/host-linux-x64/Plugins/imageformats/libqtiff.so
           # we only ship libtiff.so.6, so let's use qt plugins built by Nix.
           # TODO: don't copy, come up with a symlink-based "merge"
@@ -258,9 +259,9 @@ backendStdenv.mkDerivation rec {
       ''}
 
       # Remove some cruft.
-      ${lib.optionalString (
-        (lib.versionAtLeast version "7.0") && (lib.versionOlder version "10.1")
-      ) "rm $out/bin/uninstall*"}
+      ${lib.optionalString
+      ((lib.versionAtLeast version "7.0") && (lib.versionOlder version "10.1"))
+      "rm $out/bin/uninstall*"}
 
       # Fixup path to samples (needed for cuda 6.5 or else nsight will not find them)
       if [ -d "$out"/cuda-samples ]; then
@@ -292,9 +293,9 @@ backendStdenv.mkDerivation rec {
 
       # Remove OpenCL libraries as they are provided by ocl-icd and driver.
       rm -f $out/lib64/libOpenCL*
-      ${lib.optionalString (
-        lib.versionAtLeast version "10.1" && (lib.versionOlder version "11")
-      ) ''
+      ${lib.optionalString
+      (lib.versionAtLeast version "10.1" && (lib.versionOlder version "11"))
+      ''
         mv $out/lib64 $out/lib
         mv $out/extras/CUPTI/lib64/libcupti* $out/lib
       ''}

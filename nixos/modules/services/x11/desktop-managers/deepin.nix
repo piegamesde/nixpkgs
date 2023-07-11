@@ -191,7 +191,8 @@ in
         ];
       in
       requiredPackages
-      ++ utils.removePackagesByName optionalPackages
+      ++ utils.removePackagesByName
+        optionalPackages
         config.environment.deepin.excludePackages
       ;
 

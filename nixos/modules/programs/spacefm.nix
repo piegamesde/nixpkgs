@@ -55,11 +55,14 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.spaceFM ];
 
-    environment.etc."spacefm/spacefm.conf".text = concatStrings (mapAttrsToList
+    environment.etc."spacefm/spacefm.conf".text = concatStrings (
+      mapAttrsToList
       (
         n: v: ''
           ${n}=${toString v}
         ''
-      ) cfg.settings);
+      )
+      cfg.settings
+    );
   };
 }

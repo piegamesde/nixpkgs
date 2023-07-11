@@ -48,12 +48,12 @@ let
 
   systemsWithAnySupport = supportedSystems ++ limitedSupportedSystems;
 
-  supportDarwin = lib.genAttrs [
-    "x86_64"
-    "aarch64"
-  ] (
-    arch: builtins.elem "${arch}-darwin" systemsWithAnySupport
-  );
+  supportDarwin = lib.genAttrs
+    [
+      "x86_64"
+      "aarch64"
+    ]
+    (arch: builtins.elem "${arch}-darwin" systemsWithAnySupport);
 
   nonPackageJobs = {
     tarball = import ./make-tarball.nix {
@@ -230,38 +230,40 @@ let
     # 'nonPackageAttrs' and jobs pulled in from 'pkgs'.
     # Conflicts usually cause silent job drops like in
     #   https://github.com/NixOS/nixpkgs/pull/182058
-  jobs = lib.attrsets.unionOfDisjoint nonPackageJobs (mapTestOn (
-    (packagePlatforms pkgs) // {
-      haskell.compiler = packagePlatforms pkgs.haskell.compiler;
-      haskellPackages = packagePlatforms pkgs.haskellPackages;
-      idrisPackages = packagePlatforms pkgs.idrisPackages;
-      agdaPackages = packagePlatforms pkgs.agdaPackages;
+  jobs = lib.attrsets.unionOfDisjoint nonPackageJobs (
+    mapTestOn (
+      (packagePlatforms pkgs) // {
+        haskell.compiler = packagePlatforms pkgs.haskell.compiler;
+        haskellPackages = packagePlatforms pkgs.haskellPackages;
+        idrisPackages = packagePlatforms pkgs.idrisPackages;
+        agdaPackages = packagePlatforms pkgs.agdaPackages;
 
-      pkgsLLVM.stdenv = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-      pkgsMusl.stdenv = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-      pkgsStatic.stdenv = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
+        pkgsLLVM.stdenv = [
+          "x86_64-linux"
+          "aarch64-linux"
+        ];
+        pkgsMusl.stdenv = [
+          "x86_64-linux"
+          "aarch64-linux"
+        ];
+        pkgsStatic.stdenv = [
+          "x86_64-linux"
+          "aarch64-linux"
+        ];
 
-      tests = packagePlatforms pkgs.tests;
+        tests = packagePlatforms pkgs.tests;
 
-        # Language packages disabled in https://github.com/NixOS/nixpkgs/commit/ccd1029f58a3bb9eca32d81bf3f33cb4be25cc66
+          # Language packages disabled in https://github.com/NixOS/nixpkgs/commit/ccd1029f58a3bb9eca32d81bf3f33cb4be25cc66
 
-        #emacsPackages = packagePlatforms pkgs.emacsPackages;
-        #rPackages = packagePlatforms pkgs.rPackages;
-      ocamlPackages = { };
-      perlPackages = { };
+          #emacsPackages = packagePlatforms pkgs.emacsPackages;
+          #rPackages = packagePlatforms pkgs.rPackages;
+        ocamlPackages = { };
+        perlPackages = { };
 
-      darwin = packagePlatforms pkgs.darwin // { xcode = { }; };
-    }
-  ));
+        darwin = packagePlatforms pkgs.darwin // { xcode = { }; };
+      }
+    )
+  );
 
 in
 jobs

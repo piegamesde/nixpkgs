@@ -98,7 +98,8 @@ mkDerivation {
       --replace InitialPreference=3 InitialPreference=1
   '';
 
-  cmakeFlags = lib.optional (!withSpeech)
+  cmakeFlags = lib.optional
+    (!withSpeech)
     "-DFORCE_NOT_REQUIRED_DEPENDENCIES=Qt5TextToSpeech";
 
   meta = with lib; {

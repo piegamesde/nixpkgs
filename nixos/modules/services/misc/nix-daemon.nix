@@ -94,7 +94,8 @@ let
                 optionalString (isNixAtLeast "2.3pre") "--no-net"
               } \
                 ${
-                  optionalString (isNixAtLeast "2.4pre")
+                  optionalString
+                  (isNixAtLeast "2.4pre")
                   "--option experimental-features nix-command"
                 } \
               |& sed -e 's/^warning:/error:/' \
@@ -127,14 +128,16 @@ let
 
   semanticConfType = with types;
     let
-      confAtom = nullOr (oneOf [
-        bool
-        int
-        float
-        str
-        path
-        package
-      ]) // {
+      confAtom = nullOr (
+        oneOf [
+          bool
+          int
+          float
+          str
+          path
+          package
+        ]
+      ) // {
         description =
           "Nix config atom (null, bool, int, float, str, path or package)";
       };
@@ -190,26 +193,30 @@ in
           "readOnlyNixStore"
         ];
       })
-      (mkRemovedOptionModule [
-        "nix"
-        "daemonNiceLevel"
-      ] "Consider nix.daemonCPUSchedPolicy instead.")
+      (mkRemovedOptionModule
+        [
+          "nix"
+          "daemonNiceLevel"
+        ]
+        "Consider nix.daemonCPUSchedPolicy instead.")
     ]
-    ++ mapAttrsToList (
-      oldConf: newConf:
-      mkRenamedOptionModuleWith {
-        sinceRelease = 2205;
-        from = [
-          "nix"
-          oldConf
-        ];
-        to = [
-          "nix"
-          "settings"
-          newConf
-        ];
-      }
-    ) legacyConfMappings
+    ++ mapAttrsToList
+      (
+        oldConf: newConf:
+        mkRenamedOptionModuleWith {
+          sinceRelease = 2205;
+          from = [
+            "nix"
+            oldConf
+          ];
+          to = [
+            "nix"
+            "settings"
+            newConf
+          ];
+        }
+      )
+      legacyConfMappings
     ;
 
     ###### interface
@@ -319,136 +326,138 @@ in
       };
 
       buildMachines = mkOption {
-        type = types.listOf (types.submodule {
-          options = {
-            hostName = mkOption {
-              type = types.str;
-              example = "nixbuilder.example.org";
-              description = lib.mdDoc ''
-                The hostname of the build machine.
-              '';
-            };
-            protocol = mkOption {
-              type = types.enum [
-                null
-                "ssh"
-                "ssh-ng"
-              ];
-              default = "ssh";
-              example = "ssh-ng";
-              description = lib.mdDoc ''
-                The protocol used for communicating with the build machine.
-                Use `ssh-ng` if your remote builder and your
-                local Nix version support that improved protocol.
+        type = types.listOf (
+          types.submodule {
+            options = {
+              hostName = mkOption {
+                type = types.str;
+                example = "nixbuilder.example.org";
+                description = lib.mdDoc ''
+                  The hostname of the build machine.
+                '';
+              };
+              protocol = mkOption {
+                type = types.enum [
+                  null
+                  "ssh"
+                  "ssh-ng"
+                ];
+                default = "ssh";
+                example = "ssh-ng";
+                description = lib.mdDoc ''
+                  The protocol used for communicating with the build machine.
+                  Use `ssh-ng` if your remote builder and your
+                  local Nix version support that improved protocol.
 
-                Use `null` when trying to change the special localhost builder
-                without a protocol which is for example used by hydra.
-              '';
-            };
-            system = mkOption {
-              type = types.nullOr types.str;
-              default = null;
-              example = "x86_64-linux";
-              description = lib.mdDoc ''
-                The system type the build machine can execute derivations on.
-                Either this attribute or {var}`systems` must be
-                present, where {var}`system` takes precedence if
-                both are set.
-              '';
-            };
-            systems = mkOption {
-              type = types.listOf types.str;
-              default = [ ];
-              example = [
-                "x86_64-linux"
-                "aarch64-linux"
-              ];
-              description = lib.mdDoc ''
-                The system types the build machine can execute derivations on.
-                Either this attribute or {var}`system` must be
-                present, where {var}`system` takes precedence if
-                both are set.
-              '';
-            };
-            sshUser = mkOption {
-              type = types.nullOr types.str;
-              default = null;
-              example = "builder";
-              description = lib.mdDoc ''
-                The username to log in as on the remote host. This user must be
-                able to log in and run nix commands non-interactively. It must
-                also be privileged to build derivations, so must be included in
-                {option}`nix.settings.trusted-users`.
-              '';
-            };
-            sshKey = mkOption {
-              type = types.nullOr types.str;
-              default = null;
-              example = "/root/.ssh/id_buildhost_builduser";
-              description = lib.mdDoc ''
-                The path to the SSH private key with which to authenticate on
-                the build machine. The private key must not have a passphrase.
-                If null, the building user (root on NixOS machines) must have an
-                appropriate ssh configuration to log in non-interactively.
+                  Use `null` when trying to change the special localhost builder
+                  without a protocol which is for example used by hydra.
+                '';
+              };
+              system = mkOption {
+                type = types.nullOr types.str;
+                default = null;
+                example = "x86_64-linux";
+                description = lib.mdDoc ''
+                  The system type the build machine can execute derivations on.
+                  Either this attribute or {var}`systems` must be
+                  present, where {var}`system` takes precedence if
+                  both are set.
+                '';
+              };
+              systems = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+                example = [
+                  "x86_64-linux"
+                  "aarch64-linux"
+                ];
+                description = lib.mdDoc ''
+                  The system types the build machine can execute derivations on.
+                  Either this attribute or {var}`system` must be
+                  present, where {var}`system` takes precedence if
+                  both are set.
+                '';
+              };
+              sshUser = mkOption {
+                type = types.nullOr types.str;
+                default = null;
+                example = "builder";
+                description = lib.mdDoc ''
+                  The username to log in as on the remote host. This user must be
+                  able to log in and run nix commands non-interactively. It must
+                  also be privileged to build derivations, so must be included in
+                  {option}`nix.settings.trusted-users`.
+                '';
+              };
+              sshKey = mkOption {
+                type = types.nullOr types.str;
+                default = null;
+                example = "/root/.ssh/id_buildhost_builduser";
+                description = lib.mdDoc ''
+                  The path to the SSH private key with which to authenticate on
+                  the build machine. The private key must not have a passphrase.
+                  If null, the building user (root on NixOS machines) must have an
+                  appropriate ssh configuration to log in non-interactively.
 
-                Note that for security reasons, this path must point to a file
-                in the local filesystem, *not* to the nix store.
-              '';
+                  Note that for security reasons, this path must point to a file
+                  in the local filesystem, *not* to the nix store.
+                '';
+              };
+              maxJobs = mkOption {
+                type = types.int;
+                default = 1;
+                description = lib.mdDoc ''
+                  The number of concurrent jobs the build machine supports. The
+                  build machine will enforce its own limits, but this allows hydra
+                  to schedule better since there is no work-stealing between build
+                  machines.
+                '';
+              };
+              speedFactor = mkOption {
+                type = types.int;
+                default = 1;
+                description = lib.mdDoc ''
+                  The relative speed of this builder. This is an arbitrary integer
+                  that indicates the speed of this builder, relative to other
+                  builders. Higher is faster.
+                '';
+              };
+              mandatoryFeatures = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+                example = [ "big-parallel" ];
+                description = lib.mdDoc ''
+                  A list of features mandatory for this builder. The builder will
+                  be ignored for derivations that don't require all features in
+                  this list. All mandatory features are automatically included in
+                  {var}`supportedFeatures`.
+                '';
+              };
+              supportedFeatures = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+                example = [
+                  "kvm"
+                  "big-parallel"
+                ];
+                description = lib.mdDoc ''
+                  A list of features supported by this builder. The builder will
+                  be ignored for derivations that require features not in this
+                  list.
+                '';
+              };
+              publicHostKey = mkOption {
+                type = types.nullOr types.str;
+                default = null;
+                description = lib.mdDoc ''
+                  The (base64-encoded) public host key of this builder. The field
+                  is calculated via {command}`base64 -w0 /etc/ssh/ssh_host_type_key.pub`.
+                  If null, SSH will use its regular known-hosts file when connecting.
+                '';
+              };
             };
-            maxJobs = mkOption {
-              type = types.int;
-              default = 1;
-              description = lib.mdDoc ''
-                The number of concurrent jobs the build machine supports. The
-                build machine will enforce its own limits, but this allows hydra
-                to schedule better since there is no work-stealing between build
-                machines.
-              '';
-            };
-            speedFactor = mkOption {
-              type = types.int;
-              default = 1;
-              description = lib.mdDoc ''
-                The relative speed of this builder. This is an arbitrary integer
-                that indicates the speed of this builder, relative to other
-                builders. Higher is faster.
-              '';
-            };
-            mandatoryFeatures = mkOption {
-              type = types.listOf types.str;
-              default = [ ];
-              example = [ "big-parallel" ];
-              description = lib.mdDoc ''
-                A list of features mandatory for this builder. The builder will
-                be ignored for derivations that don't require all features in
-                this list. All mandatory features are automatically included in
-                {var}`supportedFeatures`.
-              '';
-            };
-            supportedFeatures = mkOption {
-              type = types.listOf types.str;
-              default = [ ];
-              example = [
-                "kvm"
-                "big-parallel"
-              ];
-              description = lib.mdDoc ''
-                A list of features supported by this builder. The builder will
-                be ignored for derivations that require features not in this
-                list.
-              '';
-            };
-            publicHostKey = mkOption {
-              type = types.nullOr types.str;
-              default = null;
-              description = lib.mdDoc ''
-                The (base64-encoded) public host key of this builder. The field
-                is calculated via {command}`base64 -w0 /etc/ssh/ssh_host_type_key.pub`.
-                If null, SSH will use its regular known-hosts file when connecting.
-              '';
-            };
-          };
-        });
+          }
+        );
         default = [ ];
         description = lib.mdDoc ''
           This option lists the machines to be used if distributed builds are
@@ -508,79 +517,88 @@ in
       };
 
       registry = mkOption {
-        type = types.attrsOf (types.submodule (
-          let
-            referenceAttrs = with types;
-              attrsOf (oneOf [
-                str
-                int
-                bool
-                path
-                package
-              ]);
-          in
-          {
-            config,
-            name,
-            ...
-          }: {
-            options = {
-              from = mkOption {
-                type = referenceAttrs;
-                example = {
+        type = types.attrsOf (
+          types.submodule (
+            let
+              referenceAttrs = with types;
+                attrsOf (
+                  oneOf [
+                    str
+                    int
+                    bool
+                    path
+                    package
+                  ]
+                );
+            in
+            {
+              config,
+              name,
+              ...
+            }: {
+              options = {
+                from = mkOption {
+                  type = referenceAttrs;
+                  example = {
+                    type = "indirect";
+                    id = "nixpkgs";
+                  };
+                  description =
+                    lib.mdDoc "The flake reference to be rewritten.";
+                };
+                to = mkOption {
+                  type = referenceAttrs;
+                  example = {
+                    type = "github";
+                    owner = "my-org";
+                    repo = "my-nixpkgs";
+                  };
+                  description = lib.mdDoc
+                    "The flake reference {option}`from` is rewritten to.";
+                };
+                flake = mkOption {
+                  type = types.nullOr types.attrs;
+                  default = null;
+                  example = literalExpression "nixpkgs";
+                  description = lib.mdDoc ''
+                    The flake input {option}`from` is rewritten to.
+                  '';
+                };
+                exact = mkOption {
+                  type = types.bool;
+                  default = true;
+                  description = lib.mdDoc ''
+                    Whether the {option}`from` reference needs to match exactly. If set,
+                    a {option}`from` reference like `nixpkgs` does not
+                    match with a reference like `nixpkgs/nixos-20.03`.
+                  '';
+                };
+              };
+              config = {
+                from = mkDefault {
                   type = "indirect";
-                  id = "nixpkgs";
+                  id = name;
                 };
-                description = lib.mdDoc "The flake reference to be rewritten.";
+                to = mkIf (config.flake != null) (
+                  mkDefault (
+                    {
+                      type = "path";
+                      path = config.flake.outPath;
+                    } // filterAttrs
+                    (
+                      n: _:
+                      n == "lastModified"
+                      || n == "rev"
+                      || n == "revCount"
+                      || n == "narHash"
+                    )
+                    config.flake
+                  )
+                );
               };
-              to = mkOption {
-                type = referenceAttrs;
-                example = {
-                  type = "github";
-                  owner = "my-org";
-                  repo = "my-nixpkgs";
-                };
-                description = lib.mdDoc
-                  "The flake reference {option}`from` is rewritten to.";
-              };
-              flake = mkOption {
-                type = types.nullOr types.attrs;
-                default = null;
-                example = literalExpression "nixpkgs";
-                description = lib.mdDoc ''
-                  The flake input {option}`from` is rewritten to.
-                '';
-              };
-              exact = mkOption {
-                type = types.bool;
-                default = true;
-                description = lib.mdDoc ''
-                  Whether the {option}`from` reference needs to match exactly. If set,
-                  a {option}`from` reference like `nixpkgs` does not
-                  match with a reference like `nixpkgs/nixos-20.03`.
-                '';
-              };
-            };
-            config = {
-              from = mkDefault {
-                type = "indirect";
-                id = name;
-              };
-              to = mkIf (config.flake != null) (mkDefault (
-                {
-                  type = "path";
-                  path = config.flake.outPath;
-                } // filterAttrs (
-                  n: _:
-                  n == "lastModified"
-                  || n == "rev"
-                  || n == "revCount"
-                  || n == "narHash"
-                ) config.flake
-              ));
-            };
-          }
-        ));
+            }
+          )
+        );
         default = { };
         description = lib.mdDoc ''
           A system-wide flake registry.
@@ -811,7 +829,8 @@ in
         nixPackage
         pkgs.nix-info
       ]
-      ++ optional (config.programs.bash.enableCompletion)
+      ++ optional
+        (config.programs.bash.enableCompletion)
         pkgs.nix-bash-completions
       ;
 
@@ -826,59 +845,66 @@ in
       # List of machines for distributed Nix builds in the format
       # expected by build-remote.pl.
     environment.etc."nix/machines" = mkIf (cfg.buildMachines != [ ]) {
-      text = concatMapStrings (
-        machine:
-        (concatStringsSep " " (
-          [
-            "${
-              optionalString (machine.protocol != null) "${machine.protocol}://"
-            }${
-              optionalString (machine.sshUser != null) "${machine.sshUser}@"
-            }${machine.hostName}"
-            (
-              if machine.system != null then
-                machine.system
-              else if machine.systems != [ ] then
-                concatStringsSep "," machine.systems
+      text = concatMapStrings
+        (
+          machine:
+          (concatStringsSep " " (
+            [
+              "${
+                optionalString
+                (machine.protocol != null)
+                "${machine.protocol}://"
+              }${
+                optionalString (machine.sshUser != null) "${machine.sshUser}@"
+              }${machine.hostName}"
+              (
+                if machine.system != null then
+                  machine.system
+                else if machine.systems != [ ] then
+                  concatStringsSep "," machine.systems
+                else
+                  "-"
+              )
+              (
+                if machine.sshKey != null then
+                  machine.sshKey
+                else
+                  "-"
+              )
+              (toString machine.maxJobs)
+              (toString machine.speedFactor)
+              (
+                let
+                  res =
+                    (
+                      machine.supportedFeatures ++ machine.mandatoryFeatures
+                    );
+                in
+                if (res == [ ]) then
+                  "-"
+                else
+                  (concatStringsSep "," res)
+              )
+              (
+                let
+                  res = machine.mandatoryFeatures;
+                in
+                if (res == [ ]) then
+                  "-"
+                else
+                  (concatStringsSep "," machine.mandatoryFeatures)
+              )
+            ]
+            ++ optional (isNixAtLeast "2.4pre") (
+              if machine.publicHostKey != null then
+                machine.publicHostKey
               else
                 "-"
             )
-            (
-              if machine.sshKey != null then
-                machine.sshKey
-              else
-                "-"
-            )
-            (toString machine.maxJobs)
-            (toString machine.speedFactor)
-            (
-              let
-                res = (machine.supportedFeatures ++ machine.mandatoryFeatures);
-              in
-              if (res == [ ]) then
-                "-"
-              else
-                (concatStringsSep "," res)
-            )
-            (
-              let
-                res = machine.mandatoryFeatures;
-              in
-              if (res == [ ]) then
-                "-"
-              else
-                (concatStringsSep "," machine.mandatoryFeatures)
-            )
-          ]
-          ++ optional (isNixAtLeast "2.4pre") (
-            if machine.publicHostKey != null then
-              machine.publicHostKey
-            else
-              "-"
-          )
-        ))
-        + "\n"
-      ) cfg.buildMachines;
+          ))
+          + "\n"
+        )
+        cfg.buildMachines;
     };
 
     assertions =
@@ -894,8 +920,9 @@ in
               Invalid machine specifications:
           ''
           + "      "
-          + (concatStringsSep "\n      "
-            (map (m: m.hostName) (filter (badMachine) cfg.buildMachines)))
+          + (concatStringsSep "\n      " (
+            map (m: m.hostName) (filter (badMachine) cfg.buildMachines)
+          ))
           ;
       } ]
       ;
@@ -997,17 +1024,19 @@ in
 
     services.xserver.displayManager.hiddenUsers = attrNames nixbldUsers;
 
-    system.activationScripts.nix = stringAfter [
-      "etc"
-      "users"
-    ] ''
-      install -m 0755 -d /nix/var/nix/{gcroots,profiles}/per-user
+    system.activationScripts.nix = stringAfter
+      [
+        "etc"
+        "users"
+      ]
+      ''
+        install -m 0755 -d /nix/var/nix/{gcroots,profiles}/per-user
 
-      # Subscribe the root user to the NixOS channel by default.
-      if [ ! -e "/root/.nix-channels" ]; then
-          echo "${config.system.defaultChannel} nixos" > "/root/.nix-channels"
-      fi
-    '';
+        # Subscribe the root user to the NixOS channel by default.
+        if [ ! -e "/root/.nix-channels" ]; then
+            echo "${config.system.defaultChannel} nixos" > "/root/.nix-channels"
+        fi
+      '';
 
       # Legacy configuration conversion.
     nix.settings = mkMerge [
@@ -1025,7 +1054,7 @@ in
             "kvm"
           ]
           ++ optionals (pkgs.stdenv.hostPlatform ? gcc.arch) (
-            # a builder can run code for `gcc.arch` and inferior architectures
+          # a builder can run code for `gcc.arch` and inferior architectures
             [ "gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}" ]
             ++ map (x: "gccarch-${x}") (
               systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch} or [ ]

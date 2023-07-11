@@ -39,7 +39,8 @@ let
         name = last (builtins.split "/" nameOrPath);
 
       in
-      pkgs.runCommandLocal name (
+      pkgs.runCommandLocal name
+      (
         if (types.str.check content) then
           {
             inherit content interpreter;
@@ -50,7 +51,8 @@ let
             inherit interpreter;
             contentPath = content;
           }
-      ) ''
+      )
+      ''
         # On darwin a script cannot be used as an interpreter in a shebang but
         # there doesn't seem to be a limit to the size of shebang and multiple
         # arguments to the interpreter are allowed.
@@ -108,7 +110,8 @@ let
       let
         name = last (builtins.split "/" nameOrPath);
       in
-      pkgs.runCommand name (
+      pkgs.runCommand name
+      (
         (
           if (types.str.check content) then
             {
@@ -117,15 +120,16 @@ let
             }
           else
             { contentPath = content; }
-        ) // lib.optionalAttrs (
-          stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
-        ) {
+        ) // lib.optionalAttrs
+        (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
+        {
           # post-link-hook expects codesign_allocate to be in PATH
           # https://github.com/NixOS/nixpkgs/issues/154203
           # https://github.com/NixOS/nixpkgs/issues/148189
           nativeBuildInputs = [ stdenv.cc.bintools ];
         }
-      ) ''
+      )
+      ''
         ${compileScript}
         ${lib.optionalString strip "${
           lib.getBin buildPackages.bintools-unwrapped
@@ -222,7 +226,8 @@ let
           ;
 
       in
-      makeBinWriter {
+      makeBinWriter
+      {
         compileScript = ''
           cp $contentPath tmp.hs
           ${ghc.withPackages (_: libraries)}/bin/ghc ${
@@ -231,7 +236,8 @@ let
           mv tmp $out
         '';
         inherit strip;
-      } name
+      }
+      name
       ;
 
       # writeHaskellBin takes the same arguments as writeHaskell but outputs a directory (like writeScriptBin)
@@ -248,7 +254,8 @@ let
         darwinArgs =
           lib.optionals stdenv.isDarwin [ "-L${lib.getLib libiconv}/lib" ];
       in
-      makeBinWriter {
+      makeBinWriter
+      {
         compileScript = ''
           cp "$contentPath" tmp.rs
           PATH=${makeBinPath [ pkgs.gcc ]} ${lib.getBin rustc}/bin/rustc ${
@@ -256,7 +263,8 @@ let
           } ${lib.escapeShellArgs darwinArgs} -o "$out" tmp.rs
         '';
         inherit strip;
-      } name
+      }
+      name
       ;
 
     writeRustBin =
@@ -306,7 +314,8 @@ let
 
     writeNginxConfig =
       name: text:
-      pkgs.runCommandLocal name {
+      pkgs.runCommandLocal name
+      {
         inherit text;
         passAsFile = [ "text" ];
         nativeBuildInputs = [ gixy ];
@@ -331,9 +340,9 @@ let
       {
         libraries ? [ ]
       }:
-      makeScriptWriter {
-        interpreter = "${pkgs.perl.withPackages (p: libraries)}/bin/perl";
-      } name
+      makeScriptWriter
+      { interpreter = "${pkgs.perl.withPackages (p: libraries)}/bin/perl"; }
+      name
       ;
 
       # writePerlBin takes the same arguments as writePerl but outputs a directory (like writeScriptBin)
@@ -352,20 +361,25 @@ let
         flakeIgnore ? [ ]
       }:
       let
-        ignoreAttribute = optionalString (flakeIgnore != [ ])
-          "--ignore ${concatMapStringsSep "," escapeShellArg flakeIgnore}";
+        ignoreAttribute = optionalString (flakeIgnore != [ ]) "--ignore ${
+            concatMapStringsSep "," escapeShellArg flakeIgnore
+          }";
       in
-      makeScriptWriter {
+      makeScriptWriter
+      {
         interpreter =
           if libraries == [ ] then
             "${python}/bin/python"
           else
             "${python.withPackages (ps: libraries)}/bin/python"
           ;
-        check = optionalString python.isPy3k (writeDash "pythoncheck.sh" ''
-          exec ${buildPythonPackages.flake8}/bin/flake8 --show-source ${ignoreAttribute} "$1"
-        '');
-      } name
+        check = optionalString python.isPy3k (
+          writeDash "pythoncheck.sh" ''
+            exec ${buildPythonPackages.flake8}/bin/flake8 --show-source ${ignoreAttribute} "$1"
+          ''
+        );
+      }
+      name
       ;
 
       # writePyPy2 takes a name an attributeset with libraries and some pypy2 sourcecode and
@@ -402,7 +416,8 @@ let
       #   """)
       #   print(y[0]['test'])
       # ''
-    writePython3 = makePythonWriter pkgs.python3 pkgs.python3Packages
+    writePython3 = makePythonWriter pkgs.python3
+      pkgs.python3Packages
       buildPackages.python3Packages;
 
       # writePython3Bin takes the same arguments as writePython3 but outputs a directory (like writeScriptBin)

@@ -53,37 +53,45 @@ let
     }: ''
       # We can't match on incoming interface in POSTROUTING, so
       # mark packets coming from the internal interfaces.
-      ${concatMapStrings (iface: ''
+      ${concatMapStrings
+      (iface: ''
         ${iptables} -w -t nat -A nixos-nat-pre \
           -i '${iface}' -j MARK --set-mark 1
-      '') cfg.internalInterfaces}
+      '')
+      cfg.internalInterfaces}
 
       # NAT the marked packets.
       ${optionalString (cfg.internalInterfaces != [ ]) ''
         ${iptables} -w -t nat -A nixos-nat-post -m mark --mark 1 \
           ${
-            optionalString (cfg.externalInterface != null)
+            optionalString
+            (cfg.externalInterface != null)
             "-o ${cfg.externalInterface}"
           } ${dest}
       ''}
 
       # NAT packets coming from the internal IPs.
-      ${concatMapStrings (range: ''
+      ${concatMapStrings
+      (range: ''
         ${iptables} -w -t nat -A nixos-nat-post \
           -s '${range}' ${
-            optionalString (cfg.externalInterface != null)
+            optionalString
+            (cfg.externalInterface != null)
             "-o ${cfg.externalInterface}"
           } ${dest}
-      '') internalIPs}
+      '')
+      internalIPs}
 
       # NAT from external ports to internal ports.
-      ${concatMapStrings (fwd: ''
+      ${concatMapStrings
+      (fwd: ''
         ${iptables} -w -t nat -A nixos-nat-pre \
           -i ${toString cfg.externalInterface} -p ${fwd.proto} \
           --dport ${builtins.toString fwd.sourcePort} \
           -j DNAT --to-destination ${fwd.destination}
 
-        ${concatMapStrings (
+        ${concatMapStrings
+        (
           loopbackip:
           let
             matchIP =
@@ -128,8 +136,10 @@ let
               --dport ${destinationPorts} \
               -j SNAT --to-source ${loopbackip}
           ''
-        ) fwd.loopbackIPs}
-      '') forwardPorts}
+        )
+        fwd.loopbackIPs}
+      '')
+      forwardPorts}
     ''
     ;
 
@@ -147,12 +157,14 @@ let
       forwardPorts = filter (x: !(isIPv6 x.destination)) cfg.forwardPorts;
     }}
 
-    ${optionalString cfg.enableIPv6 (mkSetupNat {
-      iptables = "ip6tables";
-      dest = destIPv6;
-      internalIPs = cfg.internalIPv6s;
-      forwardPorts = filter (x: isIPv6 x.destination) cfg.forwardPorts;
-    })}
+    ${optionalString cfg.enableIPv6 (
+      mkSetupNat {
+        iptables = "ip6tables";
+        dest = destIPv6;
+        internalIPs = cfg.internalIPv6s;
+        forwardPorts = filter (x: isIPv6 x.destination) cfg.forwardPorts;
+      }
+    )}
 
     ${optionalString (cfg.dmzHost != null) ''
       iptables -w -t nat -A nixos-nat-pre \
@@ -199,36 +211,38 @@ in
 
   };
 
-  config = mkIf (!config.networking.nftables.enable) (mkMerge [
-    ({ networking.firewall.extraCommands = mkBefore flushNat; })
-    (mkIf config.networking.nat.enable {
+  config = mkIf (!config.networking.nftables.enable) (
+    mkMerge [
+      ({ networking.firewall.extraCommands = mkBefore flushNat; })
+      (mkIf config.networking.nat.enable {
 
-      networking.firewall = mkIf config.networking.firewall.enable {
-        extraCommands = setupNat;
-        extraStopCommands = flushNat;
-      };
-
-      systemd.services = mkIf (!config.networking.firewall.enable) {
-        nat = {
-          description = "Network Address Translation";
-          wantedBy = [ "network.target" ];
-          after = [
-            "network-pre.target"
-            "systemd-modules-load.service"
-          ];
-          path = [ config.networking.firewall.package ];
-          unitConfig.ConditionCapability = "CAP_NET_ADMIN";
-
-          serviceConfig = {
-            Type = "oneshot";
-            RemainAfterExit = true;
-          };
-
-          script = flushNat + setupNat;
-
-          postStop = flushNat;
+        networking.firewall = mkIf config.networking.firewall.enable {
+          extraCommands = setupNat;
+          extraStopCommands = flushNat;
         };
-      };
-    })
-  ]);
+
+        systemd.services = mkIf (!config.networking.firewall.enable) {
+          nat = {
+            description = "Network Address Translation";
+            wantedBy = [ "network.target" ];
+            after = [
+              "network-pre.target"
+              "systemd-modules-load.service"
+            ];
+            path = [ config.networking.firewall.package ];
+            unitConfig.ConditionCapability = "CAP_NET_ADMIN";
+
+            serviceConfig = {
+              Type = "oneshot";
+              RemainAfterExit = true;
+            };
+
+            script = flushNat + setupNat;
+
+            postStop = flushNat;
+          };
+        };
+      })
+    ]
+  );
 }

@@ -43,12 +43,14 @@ let
 
   assertKeysValid =
     prefix: valid: config:
-    mapAttrsToList (
+    mapAttrsToList
+    (
       n: _: {
         assertion = valid ? ${n};
         message = "Invalid config key ${prefix}.${n}.";
       }
-    ) config
+    )
+    config
     ;
 
   formatFreeform =
@@ -120,32 +122,38 @@ let
 
   userAsserts =
     prefix: users:
-    mapAttrsToList (
-      n: _: {
-        assertion =
-          builtins.match ''
-            [^:
-            ]+'' n
-          != null
-          ;
-        message = "Invalid user name ${n} in ${prefix}";
-      }
-    ) users
-    ++ mapAttrsToList (
-      n: u: {
-        assertion =
-          count (s: s != null) [
-            u.password
-            u.passwordFile
-            u.hashedPassword
-            u.hashedPasswordFile
-          ]
-          <= 1
-          ;
-        message =
-          "Cannot set more than one password option for user ${n} in ${prefix}";
-      }
-    ) users
+    mapAttrsToList
+      (
+        n: _: {
+          assertion =
+            builtins.match
+              ''
+                [^:
+                ]+''
+              n
+            != null
+            ;
+          message = "Invalid user name ${n} in ${prefix}";
+        }
+      )
+      users
+    ++ mapAttrsToList
+      (
+        n: u: {
+          assertion =
+            count (s: s != null) [
+              u.password
+              u.passwordFile
+              u.hashedPassword
+              u.hashedPasswordFile
+            ]
+            <= 1
+            ;
+          message =
+            "Cannot set more than one password option for user ${n} in ${prefix}";
+        }
+      )
+      users
     ;
 
   makePasswordFile =
@@ -153,12 +161,12 @@ let
     let
       makeLines =
         store: file:
-        mapAttrsToList (
-          n: u: "addLine ${escapeShellArg n} ${escapeShellArg u.${store}}"
-        ) (filterAttrs (_: u: u.${store} != null) users)
-        ++ mapAttrsToList (
-          n: u: "addFile ${escapeShellArg n} ${escapeShellArg "${u.${file}}"}"
-        ) (filterAttrs (_: u: u.${file} != null) users)
+        mapAttrsToList
+          (n: u: "addLine ${escapeShellArg n} ${escapeShellArg u.${store}}")
+          (filterAttrs (_: u: u.${store} != null) users)
+        ++ mapAttrsToList
+          (n: u: "addFile ${escapeShellArg n} ${escapeShellArg "${u.${file}}"}")
+          (filterAttrs (_: u: u.${file} != null) users)
         ;
       plainLines = makeLines "password" "passwordFile";
       hashedLines = makeLines "hashedPassword" "hashedPasswordFile";
@@ -197,12 +205,16 @@ let
 
   makeACLFile =
     idx: users: supplement:
-    pkgs.writeText "mosquitto-acl-${toString idx}.conf" (concatStringsSep "\n"
-      (flatten [
-        supplement
-        (mapAttrsToList (n: u: [ "user ${n}" ] ++ map (t: "topic ${t}") u.acl)
-          users)
-      ]))
+    pkgs.writeText "mosquitto-acl-${toString idx}.conf" (
+      concatStringsSep "\n" (
+        flatten [
+          supplement
+          (mapAttrsToList
+            (n: u: [ "user ${n}" ] ++ map (t: "topic ${t}") u.acl)
+            users)
+        ]
+      )
+    )
     ;
 
   authPluginOptions = with types;
@@ -237,12 +249,14 @@ let
 
   authAsserts =
     prefix: auth:
-    mapAttrsToList (
+    mapAttrsToList
+    (
       n: _: {
         assertion = configKey.check n;
         message = "Invalid auth plugin key ${prefix}.${n}";
       }
-    ) auth
+    )
+    auth
     ;
 
   formatAuthPlugin =
@@ -365,7 +379,8 @@ let
     prefix: listener:
     assertKeysValid "${prefix}.settings" freeformListenerKeys listener.settings
     ++ userAsserts prefix listener.users
-    ++ imap0 (i: v: authAsserts "${prefix}.authPlugins.${toString i}" v)
+    ++ imap0
+      (i: v: authAsserts "${prefix}.authPlugins.${toString i}" v)
       listener.authPlugins
     ;
 
@@ -375,7 +390,8 @@ let
       "listener ${toString listener.port} ${toString listener.address}"
       "acl_file ${makeACLFile idx listener.users listener.acl}"
     ]
-    ++ optional (!listener.omitPasswordAuth)
+    ++ optional
+      (!listener.omitPasswordAuth)
       "password_file ${cfg.dataDir}/passwd-${toString idx}"
     ++ formatFreeform { } listener.settings
     ++ concatMap formatAuthPlugin listener.authPlugins
@@ -421,24 +437,26 @@ let
     submodule {
       options = {
         addresses = mkOption {
-          type = listOf (submodule {
-            options = {
-              address = mkOption {
-                type = str;
-                description = lib.mdDoc ''
-                  Address of the remote MQTT broker.
-                '';
-              };
+          type = listOf (
+            submodule {
+              options = {
+                address = mkOption {
+                  type = str;
+                  description = lib.mdDoc ''
+                    Address of the remote MQTT broker.
+                  '';
+                };
 
-              port = mkOption {
-                type = port;
-                description = lib.mdDoc ''
-                  Port of the remote MQTT broker.
-                '';
-                default = 1883;
+                port = mkOption {
+                  type = port;
+                  description = lib.mdDoc ''
+                    Port of the remote MQTT broker.
+                  '';
+                  default = 1883;
+                };
               };
-            };
-          });
+            }
+          );
           default = [ ];
           description = lib.mdDoc ''
             Remote endpoints for the bridge.
@@ -480,7 +498,8 @@ let
     [
       "connection ${name}"
       "addresses ${
-        concatMapStringsSep " " (a: "${a.address}:${toString a.port}")
+        concatMapStringsSep " "
+        (a: "${a.address}:${toString a.port}")
         bridge.addresses
       }"
     ]
@@ -558,13 +577,17 @@ let
     };
 
     logDest = mkOption {
-      type = listOf (either path (enum [
-        "stdout"
-        "stderr"
-        "syslog"
-        "topic"
-        "dlt"
-      ]));
+      type = listOf (
+        either path (
+          enum [
+            "stdout"
+            "stderr"
+            "syslog"
+            "topic"
+            "dlt"
+          ]
+        )
+      );
       description = lib.mdDoc ''
         Destinations to send log messages to.
       '';
@@ -572,18 +595,20 @@ let
     };
 
     logType = mkOption {
-      type = listOf (enum [
-        "debug"
-        "error"
-        "warning"
-        "notice"
-        "information"
-        "subscribe"
-        "unsubscribe"
-        "websockets"
-        "none"
-        "all"
-      ]);
+      type = listOf (
+        enum [
+          "debug"
+          "error"
+          "warning"
+          "notice"
+          "information"
+          "subscribe"
+          "unsubscribe"
+          "websockets"
+          "none"
+          "all"
+        ]
+      );
       description = lib.mdDoc ''
         Types of messages to log.
       '';
@@ -619,9 +644,11 @@ let
     prefix: cfg:
     flatten [
       (assertKeysValid "${prefix}.settings" freeformGlobalKeys cfg.settings)
-      (imap0 (n: l: listenerAsserts "${prefix}.listener.${toString n}" l)
+      (imap0
+        (n: l: listenerAsserts "${prefix}.listener.${toString n}" l)
         cfg.listeners)
-      (mapAttrsToList (n: b: bridgeAsserts "${prefix}.bridge.${n}" b)
+      (mapAttrsToList
+        (n: b: bridgeAsserts "${prefix}.bridge.${n}" b)
         cfg.bridges)
     ]
     ;
@@ -632,13 +659,15 @@ let
       "per_listener_settings true"
       "persistence ${optionToString cfg.persistence}"
     ]
-    ++ map (
-      d:
-      if path.check d then
-        "log_dest file ${d}"
-      else
-        "log_dest ${d}"
-    ) cfg.logDest
+    ++ map
+      (
+        d:
+        if path.check d then
+          "log_dest file ${d}"
+        else
+          "log_dest ${d}"
+      )
+      cfg.logDest
     ++ map (t: "log_type ${t}") cfg.logType
     ++ formatFreeform { } cfg.settings
     ++ concatLists (imap0 formatListener cfg.listeners)
@@ -705,26 +734,32 @@ in
           ;
         ReadOnlyPaths = map (p: "${p}") (
           cfg.includeDirs
-          ++ filter (v: v != null) (flatten [
-            (map (l: [
-              (l.settings.psk_file or null)
-              (l.settings.http_dir or null)
-              (l.settings.cafile or null)
-              (l.settings.capath or null)
-              (l.settings.certfile or null)
-              (l.settings.crlfile or null)
-              (l.settings.dhparamfile or null)
-              (l.settings.keyfile or null)
-            ]) cfg.listeners)
-            (mapAttrsToList (
-              _: b: [
-                (b.settings.bridge_cafile or null)
-                (b.settings.bridge_capath or null)
-                (b.settings.bridge_certfile or null)
-                (b.settings.bridge_keyfile or null)
-              ]
-            ) cfg.bridges)
-          ])
+          ++ filter (v: v != null) (
+            flatten [
+              (map
+                (l: [
+                  (l.settings.psk_file or null)
+                  (l.settings.http_dir or null)
+                  (l.settings.cafile or null)
+                  (l.settings.capath or null)
+                  (l.settings.certfile or null)
+                  (l.settings.crlfile or null)
+                  (l.settings.dhparamfile or null)
+                  (l.settings.keyfile or null)
+                ])
+                cfg.listeners)
+              (mapAttrsToList
+                (
+                  _: b: [
+                    (b.settings.bridge_cafile or null)
+                    (b.settings.bridge_capath or null)
+                    (b.settings.bridge_certfile or null)
+                    (b.settings.bridge_keyfile or null)
+                  ]
+                )
+                cfg.bridges)
+            ]
+          )
         );
         RemoveIPC = true;
         RestrictAddressFamilies = [
@@ -744,10 +779,16 @@ in
         ];
         UMask = "0077";
       };
-      preStart = concatStringsSep "\n" (imap0 (
-        idx: listener:
-        makePasswordFile listener.users "${cfg.dataDir}/passwd-${toString idx}"
-      ) cfg.listeners);
+      preStart = concatStringsSep "\n" (
+        imap0
+        (
+          idx: listener:
+          makePasswordFile listener.users "${cfg.dataDir}/passwd-${
+            toString idx
+          }"
+        )
+        cfg.listeners
+      );
     };
 
     users.users.mosquitto = {

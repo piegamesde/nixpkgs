@@ -38,11 +38,13 @@ in
 
       config = mkOption {
         type = with types;
-          attrsOf (oneOf [
-            str
-            int
-            bool
-          ]);
+          attrsOf (
+            oneOf [
+              str
+              int
+              bool
+            ]
+          );
         default = { };
         description = lib.mdDoc ''
           The configuration to give rss2email.
@@ -62,26 +64,28 @@ in
 
       feeds = mkOption {
         description = lib.mdDoc "The feeds to watch.";
-        type = types.attrsOf (types.submodule {
-          options = {
-            url = mkOption {
-              type = types.str;
-              description = lib.mdDoc "The URL at which to fetch the feed.";
-            };
+        type = types.attrsOf (
+          types.submodule {
+            options = {
+              url = mkOption {
+                type = types.str;
+                description = lib.mdDoc "The URL at which to fetch the feed.";
+              };
 
-            to = mkOption {
-              type = with types; nullOr str;
-              default = null;
-              description = lib.mdDoc ''
-                Email address to which to send feed items.
+              to = mkOption {
+                type = with types; nullOr str;
+                default = null;
+                description = lib.mdDoc ''
+                  Email address to which to send feed items.
 
-                If `null`, this will not be set in the
-                configuration file, and rss2email will make it default to
-                `rss2email.to`.
-              '';
+                  If `null`, this will not be set in the
+                  configuration file, and rss2email will make it default to
+                  `rss2email.to`.
+                '';
+              };
             };
-          };
-        });
+          }
+        );
       };
     };
 
@@ -110,18 +114,22 @@ in
 
     systemd.services.rss2email =
       let
-        conf = pkgs.writeText "rss2email.cfg" (lib.generators.toINI { } (
-          {
-            DEFAULT = cfg.config;
-          } // lib.mapAttrs' (
-            name: feed:
-            nameValuePair "feed.${name}" (
-              {
-                inherit (feed) url;
-              } // lib.optionalAttrs (feed.to != null) { inherit (feed) to; }
+        conf = pkgs.writeText "rss2email.cfg" (
+          lib.generators.toINI { } (
+            {
+              DEFAULT = cfg.config;
+            } // lib.mapAttrs'
+            (
+              name: feed:
+              nameValuePair "feed.${name}" (
+                {
+                  inherit (feed) url;
+                } // lib.optionalAttrs (feed.to != null) { inherit (feed) to; }
+              )
             )
-          ) cfg.feeds
-        ));
+            cfg.feeds
+          )
+        );
       in
       {
         preStart = ''

@@ -109,7 +109,8 @@ let
   withConfigFile =
     text: ''
       db_pass=${
-        optionalString (cfg.database.passwordFile != null)
+        optionalString
+        (cfg.database.passwordFile != null)
         "$(head -n1 ${cfg.database.passwordFile})"
       }
 
@@ -160,8 +161,9 @@ let
 in
 {
   options.services.writefreely = {
-    enable = lib.mkEnableOption
-      (lib.mdDoc "Writefreely, build a digital writing community");
+    enable = lib.mkEnableOption (
+      lib.mdDoc "Writefreely, build a digital writing community"
+    );
 
     package = lib.mkOption {
       type = lib.types.package;
@@ -427,7 +429,8 @@ in
         User = cfg.user;
         Group = cfg.group;
         WorkingDirectory = cfg.stateDir;
-        ReadOnlyPaths = optional (cfg.admin.initialPasswordFile != null)
+        ReadOnlyPaths = optional
+          (cfg.admin.initialPasswordFile != null)
           cfg.admin.initialPasswordFile;
       };
 
@@ -468,7 +471,8 @@ in
         WorkingDirectory = cfg.stateDir;
         ReadOnlyPaths =
           optional isMysqlLocal cfg.database.passwordFile
-          ++ optional (cfg.admin.initialPasswordFile != null)
+          ++ optional
+            (cfg.admin.initialPasswordFile != null)
             cfg.admin.initialPasswordFile
           ;
       };

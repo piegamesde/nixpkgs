@@ -11,13 +11,14 @@
 }:
 let
   cfg = config.boot.bootspec;
-  children = lib.mapAttrs (
-    childName: childConfig: childConfig.configuration.system.build.toplevel
-  ) config.specialisation;
+  children = lib.mapAttrs
+    (childName: childConfig: childConfig.configuration.system.build.toplevel)
+    config.specialisation;
   schemas = {
     v1 = rec {
       filename = "boot.json";
-      json = pkgs.writeText filename (builtins.toJSON
+      json = pkgs.writeText filename (
+        builtins.toJSON
         # Merge extensions first to not let them shadow NixOS bootspec data.
         (
           cfg.extensions // {
@@ -35,7 +36,8 @@ let
                 "${config.system.build.initialRamdiskSecretAppender}/bin/append-initrd-secrets";
             };
           }
-        ));
+        )
+      );
 
       generator =
         let
@@ -69,14 +71,16 @@ let
           specialisationInjector =
             let
               specialisationLoader =
-                (lib.mapAttrsToList (
-                  childName: childToplevel:
-                  lib.escapeShellArgs [
-                    "--slurpfile"
-                    childName
-                    "${childToplevel}/${filename}"
-                  ]
-                ) children);
+                (lib.mapAttrsToList
+                  (
+                    childName: childToplevel:
+                    lib.escapeShellArgs [
+                      "--slurpfile"
+                      childName
+                      "${childToplevel}/${filename}"
+                    ]
+                  )
+                  children);
             in
             lib.escapeShellArgs [
               "${pkgs.jq}/bin/jq"
@@ -99,17 +103,20 @@ let
 in
 {
   options.boot.bootspec = {
-    enable = lib.mkEnableOption (lib.mdDoc
-      "the generation of RFC-0125 bootspec in $system/boot.json, e.g. /run/current-system/boot.json")
-      // {
-        default = true;
-        internal = true;
-      };
-    enableValidation = lib.mkEnableOption (lib.mdDoc ''
-      the validation of bootspec documents for each build.
-            This will introduce Go in the build-time closure as we are relying on [Cuelang](https://cuelang.org/) for schema validation.
-            Enable this option if you want to ascertain that your documents are correct.
-    '');
+    enable = lib.mkEnableOption (
+      lib.mdDoc
+      "the generation of RFC-0125 bootspec in $system/boot.json, e.g. /run/current-system/boot.json"
+    ) // {
+      default = true;
+      internal = true;
+    };
+    enableValidation = lib.mkEnableOption (
+      lib.mdDoc ''
+        the validation of bootspec documents for each build.
+              This will introduce Go in the build-time closure as we are relying on [Cuelang](https://cuelang.org/) for schema validation.
+              Enable this option if you want to ascertain that your documents are correct.
+      ''
+    );
 
     extensions = lib.mkOption {
       # NOTE(RaitoBezarius): this is not enough to validate: extensions."osRelease" = drv; those are picked up by cue validation.

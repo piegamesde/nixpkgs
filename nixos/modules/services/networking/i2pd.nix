@@ -193,7 +193,8 @@ let
         ]
         ++ (optionalNullString "yggaddress" cfg.yggdrasil.address)
         ++ (flip map
-          (collect (proto: proto ? port && proto ? address) cfg.proto) (
+          (collect (proto: proto ? port && proto ? address) cfg.proto)
+          (
             proto:
             let
               protoOpts =
@@ -271,7 +272,8 @@ let
       opts = [
         notice
         (flip map
-          (collect (tun: tun ? port && tun ? destination) cfg.outTunnels) (
+          (collect (tun: tun ? port && tun ? destination) cfg.outTunnels)
+          (
             tun:
             let
               outTunOpts =
@@ -389,15 +391,17 @@ in
 {
 
   imports = [
-      (mkRenamedOptionModule [
-        "services"
-        "i2pd"
-        "extIp"
-      ] [
-        "services"
-        "i2pd"
-        "address"
-      ])
+      (mkRenamedOptionModule
+        [
+          "services"
+          "i2pd"
+          "extIp"
+        ]
+        [
+          "services"
+          "i2pd"
+          "address"
+        ])
     ];
 
     ###### interface
@@ -798,22 +802,24 @@ in
       outTunnels = mkOption {
         default = { };
         type = with types;
-          attrsOf (submodule (
-            {
-              name,
-              ...
-            }: {
-              options = {
-                destinationPort = mkOption {
-                  type = with types; nullOr int;
-                  default = null;
-                  description =
-                    lib.mdDoc "Connect to particular port at destination.";
-                };
-              } // commonTunOpts name;
-              config = { name = mkDefault name; };
-            }
-          ));
+          attrsOf (
+            submodule (
+              {
+                name,
+                ...
+              }: {
+                options = {
+                  destinationPort = mkOption {
+                    type = with types; nullOr int;
+                    default = null;
+                    description =
+                      lib.mdDoc "Connect to particular port at destination.";
+                  };
+                } // commonTunOpts name;
+                config = { name = mkDefault name; };
+              }
+            )
+          );
         description = lib.mdDoc ''
           Connect to someone as a client and establish a local accept endpoint
         '';
@@ -822,28 +828,30 @@ in
       inTunnels = mkOption {
         default = { };
         type = with types;
-          attrsOf (submodule (
-            {
-              name,
-              ...
-            }: {
-              options = {
-                inPort = mkOption {
-                  type = types.int;
-                  default = 0;
-                  description = lib.mdDoc
-                    "Service port. Default to the tunnel's listen port.";
-                };
-                accessList = mkOption {
-                  type = with types; listOf str;
-                  default = [ ];
-                  description = lib.mdDoc
-                    "I2P nodes that are allowed to connect to this service.";
-                };
-              } // commonTunOpts name;
-              config = { name = mkDefault name; };
-            }
-          ));
+          attrsOf (
+            submodule (
+              {
+                name,
+                ...
+              }: {
+                options = {
+                  inPort = mkOption {
+                    type = types.int;
+                    default = 0;
+                    description = lib.mdDoc
+                      "Service port. Default to the tunnel's listen port.";
+                  };
+                  accessList = mkOption {
+                    type = with types; listOf str;
+                    default = [ ];
+                    description = lib.mdDoc
+                      "I2P nodes that are allowed to connect to this service.";
+                  };
+                } // commonTunOpts name;
+                config = { name = mkDefault name; };
+              }
+            )
+          );
         description = lib.mdDoc ''
           Serve something on I2P network at port and delegate requests to address inPort.
         '';

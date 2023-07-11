@@ -175,9 +175,13 @@ in
   config = mkIf cfg.enable {
 
     # pkg.opensnitch is referred to elsewhere in the module so we don't need to worry about it being garbage collected
-    services.opensnitch.settings = mapAttrs (_: v: mkDefault v)
-      (builtins.fromJSON (builtins.unsafeDiscardStringContext
-        (builtins.readFile "${pkgs.opensnitch}/etc/default-config.json")));
+    services.opensnitch.settings = mapAttrs (_: v: mkDefault v) (
+      builtins.fromJSON (
+        builtins.unsafeDiscardStringContext (
+          builtins.readFile "${pkgs.opensnitch}/etc/default-config.json"
+        )
+      )
+    );
 
     systemd = {
       packages = [ pkgs.opensnitch ];
@@ -200,24 +204,28 @@ in
         find /var/lib/opensnitch/rules -type l -lname '${builtins.storeDir}/*' ${
           optionalString (rules != { }) ''
             -not \( ${
-              concatMapStringsSep " -o " (
+              concatMapStringsSep " -o "
+              (
                 {
                   local,
                   ...
                 }:
                 "-name '${baseNameOf local}*'"
-              ) rules
+              )
+              rules
             } \) \
           ''
         } -delete
-        ${concatMapStrings (
+        ${concatMapStrings
+        (
           {
             file,
             local,
           }: ''
             ln -sf '${file}' "${local}"
           ''
-        ) rules}
+        )
+        rules}
       ''
     );
 

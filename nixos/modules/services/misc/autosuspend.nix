@@ -25,27 +25,29 @@ let
 
   settingsFormat = pkgs.formats.ini { };
 
-  checks = mapAttrs' (
-    n: v: nameValuePair "check.${n}" (filterAttrs (_: v: v != null) v)
-  ) cfg.checks;
-  wakeups = mapAttrs' (
-    n: v: nameValuePair "wakeup.${n}" (filterAttrs (_: v: v != null) v)
-  ) cfg.wakeups;
+  checks = mapAttrs'
+    (n: v: nameValuePair "check.${n}" (filterAttrs (_: v: v != null) v))
+    cfg.checks;
+  wakeups = mapAttrs'
+    (n: v: nameValuePair "wakeup.${n}" (filterAttrs (_: v: v != null) v))
+    cfg.wakeups;
 
     # Whether the given check is enabled
   hasCheck =
     class:
-    (filterAttrs (
-      n: v:
-      v.enabled
-      && (
-        if v.class == null then
-          n
-        else
-          v.class
+    (filterAttrs
+      (
+        n: v:
+        v.enabled
+        && (
+          if v.class == null then
+            n
+          else
+            v.class
+        )
+          == class
       )
-        == class
-    ) cfg.checks)
+      cfg.checks)
     != { }
     ;
 
@@ -73,25 +75,27 @@ let
     options.class = mkOption {
       default = null;
       type = with types;
-        nullOr (enum [
-          "ActiveCalendarEvent"
-          "ActiveConnection"
-          "ExternalCommand"
-          "JsonPath"
-          "Kodi"
-          "KodiIdleTime"
-          "LastLogActivity"
-          "Load"
-          "LogindSessionsIdle"
-          "Mpd"
-          "NetworkBandwidth"
-          "Ping"
-          "Processes"
-          "Smb"
-          "Users"
-          "XIdleTime"
-          "XPath"
-        ]);
+        nullOr (
+          enum [
+            "ActiveCalendarEvent"
+            "ActiveConnection"
+            "ExternalCommand"
+            "JsonPath"
+            "Kodi"
+            "KodiIdleTime"
+            "LastLogActivity"
+            "Load"
+            "LogindSessionsIdle"
+            "Mpd"
+            "NetworkBandwidth"
+            "Ping"
+            "Processes"
+            "Smb"
+            "Users"
+            "XIdleTime"
+            "XPath"
+          ]
+        );
       description = mdDoc ''
         Name of the class implementing the check.  If this option is not specified, the check's
         name must represent a valid internal check class.
@@ -108,15 +112,17 @@ let
     options.class = mkOption {
       default = null;
       type = with types;
-        nullOr (enum [
-          "Calendar"
-          "Command"
-          "File"
-          "Periodic"
-          "SystemdTimer"
-          "XPath"
-          "XPathDelta"
-        ]);
+        nullOr (
+          enum [
+            "Calendar"
+            "Command"
+            "File"
+            "Periodic"
+            "SystemdTimer"
+            "XPath"
+            "XPathDelta"
+          ]
+        );
       description = mdDoc ''
         Name of the class implementing the check.  If this option is not specified, the check's
         name must represent a valid internal check class.
@@ -243,8 +249,9 @@ in
         ];
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      path = flatten
-        (attrValues (filterAttrs (n: _: hasCheck n) dependenciesForChecks));
+      path = flatten (
+        attrValues (filterAttrs (n: _: hasCheck n) dependenciesForChecks)
+      );
       serviceConfig = {
         ExecStart =
           "${autosuspend}/bin/autosuspend -l ${autosuspend}/etc/autosuspend-logging.conf -c ${autosuspend-conf} daemon";

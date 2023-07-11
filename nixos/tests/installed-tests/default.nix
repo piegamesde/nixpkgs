@@ -40,55 +40,60 @@ let
       ,
       ...
     }@args:
-    makeTest (recursiveUpdate rec {
-      name = tested.name;
+    makeTest (
+      recursiveUpdate
+      rec {
+        name = tested.name;
 
-      meta = { maintainers = tested.meta.maintainers or [ ]; };
+        meta = { maintainers = tested.meta.maintainers or [ ]; };
 
-      nodes.machine =
-        {
-          ...
-        }: {
-          imports = [ testConfig ] ++ optional withX11 ../common/x11.nix;
+        nodes.machine =
+          {
+            ...
+          }: {
+            imports = [ testConfig ] ++ optional withX11 ../common/x11.nix;
 
-          environment.systemPackages = with pkgs; [
-              gnome-desktop-testing
-            ];
+            environment.systemPackages = with pkgs; [
+                gnome-desktop-testing
+              ];
 
-            # The installed tests need to be added to the test VM’s closure.
-            # Otherwise, their dependencies might not actually be registered
-            # as valid paths in the VM’s Nix store database,
-            # and `nix-store --query` commands run as part of the tests
-            # (for example when building Flatpak runtimes) will fail.
-          environment.variables.TESTED_PACKAGE_INSTALLED_TESTS =
-            "${tested.installedTests}/share";
-        }
-        ;
+              # The installed tests need to be added to the test VM’s closure.
+              # Otherwise, their dependencies might not actually be registered
+              # as valid paths in the VM’s Nix store database,
+              # and `nix-store --query` commands run as part of the tests
+              # (for example when building Flatpak runtimes) will fail.
+            environment.variables.TESTED_PACKAGE_INSTALLED_TESTS =
+              "${tested.installedTests}/share";
+          }
+          ;
 
-      testScript =
-        optionalString withX11 ''
-          machine.wait_for_x()
-        ''
-        + optionalString (preTestScript != "") ''
-          ${preTestScript}
-        ''
-        + ''
-          machine.succeed(
-              "gnome-desktop-testing-runner ${
-                escapeShellArgs testRunnerFlags
-              } -d '${tested.installedTests}/share'"
-          )
-        ''
-        ;
-    }
+        testScript =
+          optionalString withX11 ''
+            machine.wait_for_x()
+          ''
+          + optionalString (preTestScript != "") ''
+            ${preTestScript}
+          ''
+          + ''
+            machine.succeed(
+                "gnome-desktop-testing-runner ${
+                  escapeShellArgs testRunnerFlags
+                } -d '${tested.installedTests}/share'"
+            )
+          ''
+          ;
+      }
 
-      (removeAttrs args [
-        "tested"
-        "testConfig"
-        "preTestScript"
-        "withX11"
-        "testRunnerFlags"
-      ]))
+      (
+        removeAttrs args [
+          "tested"
+          "testConfig"
+          "preTestScript"
+          "withX11"
+          "testRunnerFlags"
+        ]
+      )
+    )
     ;
 
 in

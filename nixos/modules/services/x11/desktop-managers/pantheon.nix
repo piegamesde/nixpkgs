@@ -32,8 +32,10 @@ in
     services.pantheon = {
 
       contractor = {
-        enable = mkEnableOption (lib.mdDoc
-          "contractor, a desktop-wide extension service used by Pantheon");
+        enable = mkEnableOption (
+          lib.mdDoc
+          "contractor, a desktop-wide extension service used by Pantheon"
+        );
       };
 
       apps.enable = mkEnableOption (lib.mdDoc "Pantheon default applications");
@@ -101,7 +103,8 @@ in
   config = mkMerge [
     (mkIf cfg.enable {
       services.xserver.desktopManager.pantheon.sessionPath =
-        utils.removePackagesByName [ pkgs.pantheon.pantheon-agent-geoclue2 ]
+        utils.removePackagesByName
+        [ pkgs.pantheon.pantheon-agent-geoclue2 ]
         config.environment.pantheon.excludePackages;
 
       services.xserver.displayManager.sessionPackages = [
@@ -110,11 +113,11 @@ in
 
         # Ensure lightdm is used when Pantheon is enabled
         # Without it screen locking will be nonfunctional because of the use of lightlocker
-      warnings = optional (
-        config.services.xserver.displayManager.lightdm.enable != true
-      ) ''
-        Using Pantheon without LightDM as a displayManager will break screenlocking from the UI.
-      '';
+      warnings = optional
+        (config.services.xserver.displayManager.lightdm.enable != true)
+        ''
+          Using Pantheon without LightDM as a displayManager will break screenlocking from the UI.
+        '';
 
       services.xserver.displayManager.lightdm.greeters.pantheon.enable =
         mkDefault true;
@@ -126,7 +129,8 @@ in
       services.xserver.displayManager.sessionCommands = ''
         if test "$XDG_CURRENT_DESKTOP" = "Pantheon"; then
             ${
-              concatMapStrings (p: ''
+              concatMapStrings
+              (p: ''
                 if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
                   export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
                 fi
@@ -135,7 +139,8 @@ in
                   export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
                   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
                 fi
-              '') cfg.sessionPath
+              '')
+              cfg.sessionPath
             }
         fi
       '';
@@ -212,41 +217,43 @@ in
             })
           ]
         )
-        ++ utils.removePackagesByName (
+        ++ utils.removePackagesByName
           (
-            with pkgs; [
-              desktop-file-utils
-              glib # for gsettings program
-              gnome-menus
-              gnome.adwaita-icon-theme
-              gtk3.out # for gtk-launch program
-              onboard
-              qgnomeplatform
-              sound-theme-freedesktop
-              xdg-user-dirs # Update user dirs as described in http://freedesktop.org/wiki/Software/xdg-user-dirs/
-            ]
-          )
-          ++ (
-            with pkgs.pantheon; [
-              # Artwork
-              elementary-gtk-theme
-              elementary-icon-theme
-              elementary-sound-theme
-              elementary-wallpapers
+            (
+              with pkgs; [
+                desktop-file-utils
+                glib # for gsettings program
+                gnome-menus
+                gnome.adwaita-icon-theme
+                gtk3.out # for gtk-launch program
+                onboard
+                qgnomeplatform
+                sound-theme-freedesktop
+                xdg-user-dirs # Update user dirs as described in http://freedesktop.org/wiki/Software/xdg-user-dirs/
+              ]
+            )
+            ++ (
+              with pkgs.pantheon; [
+                # Artwork
+                elementary-gtk-theme
+                elementary-icon-theme
+                elementary-sound-theme
+                elementary-wallpapers
 
-              # Desktop
-              elementary-default-settings
-              elementary-dock
-              elementary-shortcut-overlay
+                # Desktop
+                elementary-default-settings
+                elementary-dock
+                elementary-shortcut-overlay
 
-              # Services
-              elementary-capnet-assist
-              elementary-notifications
-              pantheon-agent-geoclue2
-              pantheon-agent-polkit
-            ]
+                # Services
+                elementary-capnet-assist
+                elementary-notifications
+                pantheon-agent-geoclue2
+                pantheon-agent-polkit
+              ]
+            )
           )
-        ) config.environment.pantheon.excludePackages
+          config.environment.pantheon.excludePackages
         ;
 
         # Settings from elementary-default-settings
@@ -308,33 +315,35 @@ in
       programs.evince.enable = mkDefault true;
       programs.file-roller.enable = mkDefault true;
 
-      environment.systemPackages = utils.removePackagesByName (
-        [ pkgs.gnome.gnome-font-viewer ]
-        ++ (
-          with pkgs.pantheon;
-          [
-            elementary-calculator
-            elementary-calendar
-            elementary-camera
-            elementary-code
-            elementary-files
-            elementary-mail
-            elementary-music
-            elementary-photos
-            elementary-screenshot
-            elementary-tasks
-            elementary-terminal
-            elementary-videos
-            epiphany
-          ]
-          ++ lib.optionals config.services.flatpak.enable [
-            # Only install appcenter if flatpak is enabled before
-            # https://github.com/NixOS/nixpkgs/issues/15932 is resolved.
-            appcenter
-            sideload
-          ]
+      environment.systemPackages = utils.removePackagesByName
+        (
+          [ pkgs.gnome.gnome-font-viewer ]
+          ++ (
+            with pkgs.pantheon;
+            [
+              elementary-calculator
+              elementary-calendar
+              elementary-camera
+              elementary-code
+              elementary-files
+              elementary-mail
+              elementary-music
+              elementary-photos
+              elementary-screenshot
+              elementary-tasks
+              elementary-terminal
+              elementary-videos
+              epiphany
+            ]
+            ++ lib.optionals config.services.flatpak.enable [
+              # Only install appcenter if flatpak is enabled before
+              # https://github.com/NixOS/nixpkgs/issues/15932 is resolved.
+              appcenter
+              sideload
+            ]
+          )
         )
-      ) config.environment.pantheon.excludePackages;
+        config.environment.pantheon.excludePackages;
 
         # needed by screenshot
       fonts.fonts = [ pkgs.pantheon.elementary-redacted-script ];

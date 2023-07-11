@@ -21,9 +21,11 @@ let
 
   fdbServers =
     n:
-    concatStringsSep "\n"
-    (map (x: "[fdbserver.${toString (x + cfg.listenPortStart)}]")
-      (range 0 (n - 1)))
+    concatStringsSep "\n" (
+      map (x: "[fdbserver.${toString (x + cfg.listenPortStart)}]") (
+        range 0 (n - 1)
+      )
+    )
     ;
 
   backupAgents =
@@ -63,13 +65,17 @@ let
       tls_verify_peers     = ${cfg.tls.allowedPeers}
     ''}
 
-    ${optionalString (cfg.locality.machineId != null)
+    ${optionalString
+    (cfg.locality.machineId != null)
     "locality_machineid=${cfg.locality.machineId}"}
-    ${optionalString (cfg.locality.zoneId != null)
+    ${optionalString
+    (cfg.locality.zoneId != null)
     "locality_zoneid=${cfg.locality.zoneId}"}
-    ${optionalString (cfg.locality.datacenterId != null)
+    ${optionalString
+    (cfg.locality.datacenterId != null)
     "locality_dcid=${cfg.locality.datacenterId}"}
-    ${optionalString (cfg.locality.dataHall != null)
+    ${optionalString
+    (cfg.locality.dataHall != null)
     "locality_data_hall=${cfg.locality.dataHall}"}
 
     ${fdbServers cfg.serverProcesses}
@@ -153,11 +159,13 @@ in
     };
 
     class = mkOption {
-      type = types.nullOr (types.enum [
-        "storage"
-        "transaction"
-        "stateless"
-      ]);
+      type = types.nullOr (
+        types.enum [
+          "storage"
+          "transaction"
+          "stateless"
+        ]
+      );
       default = null;
       description = lib.mdDoc "Process class";
     };
@@ -245,35 +253,37 @@ in
         FoundationDB Transport Security Layer (TLS) settings.
       '';
 
-      type = types.nullOr (types.submodule ({
-        options = {
-          certificate = mkOption {
-            type = types.str;
-            description = lib.mdDoc ''
-              Path to the TLS certificate file. This certificate will
-              be offered to, and may be verified by, clients.
-            '';
-          };
+      type = types.nullOr (
+        types.submodule ({
+          options = {
+            certificate = mkOption {
+              type = types.str;
+              description = lib.mdDoc ''
+                Path to the TLS certificate file. This certificate will
+                be offered to, and may be verified by, clients.
+              '';
+            };
 
-          key = mkOption {
-            type = types.str;
-            description = lib.mdDoc "Private key file for the certificate.";
-          };
+            key = mkOption {
+              type = types.str;
+              description = lib.mdDoc "Private key file for the certificate.";
+            };
 
-          allowedPeers = mkOption {
-            type = types.str;
-            default = "Check.Valid=1,Check.Unexpired=1";
-            description = lib.mdDoc ''
-              "Peer verification string". This may be used to adjust which TLS
-              client certificates a server will accept, as a form of user
-              authorization; for example, it may only accept TLS clients who
-              offer a certificate abiding by some locality or organization name.
+            allowedPeers = mkOption {
+              type = types.str;
+              default = "Check.Valid=1,Check.Unexpired=1";
+              description = lib.mdDoc ''
+                "Peer verification string". This may be used to adjust which TLS
+                client certificates a server will accept, as a form of user
+                authorization; for example, it may only accept TLS clients who
+                offer a certificate abiding by some locality or organization name.
 
-              For more information, please see the FoundationDB documentation.
-            '';
+                For more information, please see the FoundationDB documentation.
+              '';
+            };
           };
-        };
-      }));
+        })
+      );
     };
 
     locality = mkOption {

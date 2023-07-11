@@ -16,8 +16,8 @@ let
     pkgs = python3.pkgs.overrideScope (
       self: super: {
         django = super.django_4;
-        drf-nested-routers = super.drf-nested-routers.overridePythonAttrs
-          (_oldAttrs: {
+        drf-nested-routers = super.drf-nested-routers.overridePythonAttrs (
+          _oldAttrs: {
             patches = [
               # all for django 4 compat
               (fetchpatch {
@@ -36,7 +36,8 @@ let
                 hash = "sha256-IW4BLhHHhXDUZqHaXg46qWoQ89pMXv0ZxKjOCTnDcI0=";
               })
             ];
-          });
+          }
+        );
       }
     );
   };
@@ -133,7 +134,8 @@ py.pkgs.buildPythonApplication rec {
       "IP address management (IPAM) and data center infrastructure management (DCIM) tool";
     license = lib.licenses.asl20;
     knownVulnerabilities =
-      (lib.optional eol
+      (lib.optional
+        eol
         "Netbox version ${version} is EOL; please upgrade by following the current release notes instructions.");
       # Warning:
       # Notice the missing `lib` in the inherit: it is using this function argument rather than a `with lib;` argument.

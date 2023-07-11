@@ -83,17 +83,21 @@ let
     # Maps the name of a GPU architecture to different versions of that architecture.
     # For example, "Ampere" maps to [ "8.0" "8.6" "8.7" ].
   cudaArchNameToVersions =
-    lists.groupBy' (versions: gpu: versions ++ [ gpu.computeCapability ]) [ ] (
-      gpu: gpu.archName
-    ) supportedGpus;
+    lists.groupBy' (versions: gpu: versions ++ [ gpu.computeCapability ]) [ ]
+    (gpu: gpu.archName)
+    supportedGpus;
 
     # cudaComputeCapabilityToName :: AttrSet String String
     # Maps the version of a GPU architecture to the name of that architecture.
     # For example, "8.0" maps to "Ampere".
-  cudaComputeCapabilityToName = builtins.listToAttrs (lists.map (gpu: {
-    name = gpu.computeCapability;
-    value = gpu.archName;
-  }) supportedGpus);
+  cudaComputeCapabilityToName = builtins.listToAttrs (
+    lists.map
+    (gpu: {
+      name = gpu.computeCapability;
+      value = gpu.archName;
+    })
+    supportedGpus
+  );
 
     # dropDot :: String -> String
   dropDot =
@@ -135,9 +139,9 @@ let
 
         # archNames :: List String
         # E.g. [ "Turing" "Ampere" ]
-      archNames = lists.unique
-        (builtins.map (cap: cudaComputeCapabilityToName.${cap})
-          cudaCapabilities);
+      archNames = lists.unique (
+        builtins.map (cap: cudaComputeCapabilityToName.${cap}) cudaCapabilities
+      );
 
         # realArches :: List String
         # The real architectures are physical architectures supported by the CUDA version.

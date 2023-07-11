@@ -20,15 +20,17 @@
 }:
 
 let
-  stuntrally_ogre = ogre.overrideAttrs (old: {
-    cmakeFlags =
-      old.cmakeFlags
-      ++ [
-        "-DOGRE_NODELESS_POSITIONING=ON"
-        "-DOGRE_RESOURCEMANAGER_STRICT=0"
-      ]
-      ;
-  });
+  stuntrally_ogre = ogre.overrideAttrs (
+    old: {
+      cmakeFlags =
+        old.cmakeFlags
+        ++ [
+          "-DOGRE_NODELESS_POSITIONING=ON"
+          "-DOGRE_RESOURCEMANAGER_STRICT=0"
+        ]
+        ;
+    }
+  );
   stuntrally_mygui = mygui.override {
     withOgre = true;
     inherit ogre;

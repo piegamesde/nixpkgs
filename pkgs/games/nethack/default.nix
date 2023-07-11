@@ -133,7 +133,8 @@ stdenv.mkDerivation rec {
         -e 's,moc-qt4,moc,' \
         -i sys/unix/hints/linux-qt4
     ''}
-    ${lib.optionalString (
+    ${lib.optionalString
+    (
       stdenv.buildPlatform != stdenv.hostPlatform
     )
     # If we're cross-compiling, replace the paths to the data generation tools
@@ -201,7 +202,8 @@ stdenv.mkDerivation rec {
     ${lib.optionalString x11Mode "mv $out/bin/nethack $out/bin/nethack-x11"}
     ${lib.optionalString qtMode "mv $out/bin/nethack $out/bin/nethack-qt"}
     install -Dm 555 util/{makedefs,dgn_comp,lev_comp} -t $out/libexec/nethack/
-    ${lib.optionalString (!(x11Mode || qtMode))
+    ${lib.optionalString
+    (!(x11Mode || qtMode))
     "install -Dm 555 util/dlb -t $out/libexec/nethack/"}
   '';
 

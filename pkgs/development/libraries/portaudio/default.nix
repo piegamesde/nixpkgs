@@ -34,7 +34,8 @@ stdenv.mkDerivation rec {
     "--enable-cxx"
   ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang
+  env.NIX_CFLAGS_COMPILE = lib.optionalString
+    stdenv.cc.isClang
     "-Wno-error=nullability-inferred-on-nested-type -Wno-error=nullability-completeness-on-arrays -Wno-error=implicit-const-int-float-conversion"
     ;
 

@@ -1721,7 +1721,8 @@ let
     options = {
       l2tpSessionConfig = mkOption {
         default = { };
-        type = types.addCheck (types.attrsOf unitOption)
+        type = types.addCheck
+          (types.attrsOf unitOption)
           check.netdev.sectionL2TPSession;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -1736,7 +1737,8 @@ let
     options = {
       wireguardPeerConfig = mkOption {
         default = { };
-        type = types.addCheck (types.attrsOf unitOption)
+        type = types.addCheck
+          (types.attrsOf unitOption)
           check.netdev.sectionWireGuardPeer;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -1971,7 +1973,8 @@ let
         GatewayMode = "server";
         RoutingAlgorithm = "batman-v";
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.netdev.sectionBatmanAdvanced;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2007,7 +2010,8 @@ let
           IncomingInterface = "eth1";
           Family = "both";
         };
-        type = types.addCheck (types.attrsOf unitOption)
+        type = types.addCheck
+          (types.attrsOf unitOption)
           check.network.sectionRoutingPolicyRule;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -2039,7 +2043,8 @@ let
       ipv6PrefixConfig = mkOption {
         default = { };
         example = { Prefix = "fd00::/64"; };
-        type = types.addCheck (types.attrsOf unitOption)
+        type = types.addCheck
+          (types.attrsOf unitOption)
           check.network.sectionIPv6Prefix;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -2055,7 +2060,8 @@ let
       ipv6RoutePrefixConfig = mkOption {
         default = { };
         example = { Route = "fd00::/64"; };
-        type = types.addCheck (types.attrsOf unitOption)
+        type = types.addCheck
+          (types.attrsOf unitOption)
           check.network.sectionIPv6RoutePrefix;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -2074,7 +2080,8 @@ let
           MACAddress = "65:43:4a:5b:d8:5f";
           Address = "192.168.1.42";
         };
-        type = types.addCheck (types.attrsOf unitOption)
+        type = types.addCheck
+          (types.attrsOf unitOption)
           check.network.sectionDHCPServerStaticLease;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -2097,7 +2104,8 @@ let
           Destination = "192.168.1.42";
           VNI = 20;
         };
-        type = types.addCheck (types.attrsOf unitOption)
+        type = types.addCheck
+          (types.attrsOf unitOption)
           check.network.sectionBridgeFDB;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -2116,7 +2124,8 @@ let
           MulticastGroupAddress = "ff02::1:2:3:4";
           VLANId = 10;
         };
-        type = types.addCheck (types.attrsOf unitOption)
+        type = types.addCheck
+          (types.attrsOf unitOption)
           check.network.sectionBridgeMDB;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -2132,7 +2141,8 @@ let
       bridgeMDBConfig = mkOption {
         default = { };
         example = { VLAN = 20; };
-        type = types.addCheck (types.attrsOf unitOption)
+        type = types.addCheck
+          (types.attrsOf unitOption)
           check.network.sectionBridgeVLAN;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -2222,7 +2232,8 @@ let
         SubnetId = "auto";
         Announce = true;
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionDHCPPrefixDelegation;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2237,7 +2248,8 @@ let
         UseDNS = true;
         DHCPv6Client = "always";
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionIPv6AcceptRA;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2252,7 +2264,8 @@ let
         PoolOffset = 50;
         EmitDNS = false;
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionDHCPServer;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2279,7 +2292,8 @@ let
         Managed = true;
         OtherInformation = true;
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionIPv6SendRA;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2432,7 +2446,8 @@ let
         Parent = "ingress";
         DelaySec = "20msec";
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionNetworkEmulator;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2447,7 +2462,8 @@ let
         Parent = "ingress";
         Rate = "100k";
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionTokenBucketFilter;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2476,7 +2492,8 @@ let
         Parent = "ingress";
         PacketLimit = "3847";
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionFlowQueuePIE;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2491,7 +2508,8 @@ let
         Parent = "ingress";
         PacketLimit = "3847";
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionStochasticFairBlue;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2506,7 +2524,8 @@ let
         Parent = "ingress";
         PerturbPeriodSec = "30";
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionStochasticFairnessQueueing;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2551,7 +2570,8 @@ let
         Parent = "ingress";
         PacketLimit = "300";
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionPFIFOHeadDrop;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2595,7 +2615,8 @@ let
         Parent = "ingress";
         TargetSec = "20msec";
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionControlledDelay;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2607,7 +2628,8 @@ let
     deficitRoundRobinSchedulerConfig = mkOption {
       default = { };
       example = { Parent = "root"; };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionDeficitRoundRobinScheduler;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2622,7 +2644,8 @@ let
         Parent = "root";
         QuantumBytes = "300k";
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionDeficitRoundRobinSchedulerClass;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2639,7 +2662,8 @@ let
         Bands = 3;
         PriorityMap = "100 200 300";
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionEnhancedTransmissionSelection;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2655,7 +2679,8 @@ let
         VirtualQueues = 5;
         DefaultVirtualQueue = 3;
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionGenericRandomEarlyDetection;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2670,7 +2695,8 @@ let
         Parent = "root";
         Flows = 5;
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionFairQueueingControlledDelay;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2685,7 +2711,8 @@ let
         Parent = "root";
         FlowLimit = 5;
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionFairQueueing;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2700,7 +2727,8 @@ let
         Parent = "root";
         Id = 0;
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionTrivialLinkEqualizer;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2712,7 +2740,8 @@ let
     hierarchyTokenBucketConfig = mkOption {
       default = { };
       example = { Parent = "root"; };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionHierarchyTokenBucket;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2727,7 +2756,8 @@ let
         Parent = "root";
         Rate = "10M";
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionHierarchyTokenBucketClass;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2742,7 +2772,8 @@ let
         Parent = "root";
         PacketLimit = 10000;
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionHeavyHitterFilter;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2754,7 +2785,8 @@ let
     quickFairQueueingConfig = mkOption {
       default = { };
       example = { Parent = "root"; };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionQuickFairQueueing;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2769,7 +2801,8 @@ let
         Parent = "root";
         Weight = 133;
       };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionQuickFairQueueingClass;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2781,7 +2814,8 @@ let
     bridgeVLANConfig = mkOption {
       default = { };
       example = { VLAN = "10-20"; };
-      type = types.addCheck (types.attrsOf unitOption)
+      type = types.addCheck
+        (types.attrsOf unitOption)
         check.network.sectionBridgeVLAN;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -3007,8 +3041,8 @@ let
 
       config = {
         networkConfig = optionalAttrs (config.routeTables != { }) {
-          RouteTable =
-            mapAttrsToList (name: number: "${name}:${toString number}")
+          RouteTable = mapAttrsToList
+            (name: number: "${name}:${toString number}")
             config.routeTables;
         };
       };
@@ -3082,18 +3116,22 @@ let
           [L2TP]
           ${attrsToSection def.l2tpConfig}
         ''
-        + flip concatMapStrings def.l2tpSessions (x: ''
-          [L2TPSession]
-          ${attrsToSection x.l2tpSessionConfig}
-        '')
+        + flip concatMapStrings def.l2tpSessions (
+          x: ''
+            [L2TPSession]
+            ${attrsToSection x.l2tpSessionConfig}
+          ''
+        )
         + optionalString (def.wireguardConfig != { }) ''
           [WireGuard]
           ${attrsToSection def.wireguardConfig}
         ''
-        + flip concatMapStrings def.wireguardPeers (x: ''
-          [WireGuardPeer]
-          ${attrsToSection x.wireguardPeerConfig}
-        '')
+        + flip concatMapStrings def.wireguardPeers (
+          x: ''
+            [WireGuardPeer]
+            ${attrsToSection x.wireguardPeerConfig}
+          ''
+        )
         + optionalString (def.bondConfig != { }) ''
           [Bond]
           ${attrsToSection def.bondConfig}
@@ -3184,18 +3222,24 @@ let
           ${concatStringsSep "\n" (map (s: "Xfrm=${s}") def.xfrm)}
         ''
         + "\n"
-        + flip concatMapStrings def.addresses (x: ''
-          [Address]
-          ${attrsToSection x.addressConfig}
-        '')
-        + flip concatMapStrings def.routingPolicyRules (x: ''
-          [RoutingPolicyRule]
-          ${attrsToSection x.routingPolicyRuleConfig}
-        '')
-        + flip concatMapStrings def.routes (x: ''
-          [Route]
-          ${attrsToSection x.routeConfig}
-        '')
+        + flip concatMapStrings def.addresses (
+          x: ''
+            [Address]
+            ${attrsToSection x.addressConfig}
+          ''
+        )
+        + flip concatMapStrings def.routingPolicyRules (
+          x: ''
+            [RoutingPolicyRule]
+            ${attrsToSection x.routingPolicyRuleConfig}
+          ''
+        )
+        + flip concatMapStrings def.routes (
+          x: ''
+            [Route]
+            ${attrsToSection x.routeConfig}
+          ''
+        )
         + optionalString (def.dhcpV4Config != { }) ''
           [DHCPv4]
           ${attrsToSection def.dhcpV4Config}
@@ -3220,30 +3264,40 @@ let
           [IPv6SendRA]
           ${attrsToSection def.ipv6SendRAConfig}
         ''
-        + flip concatMapStrings def.ipv6Prefixes (x: ''
-          [IPv6Prefix]
-          ${attrsToSection x.ipv6PrefixConfig}
-        '')
-        + flip concatMapStrings def.ipv6RoutePrefixes (x: ''
-          [IPv6RoutePrefix]
-          ${attrsToSection x.ipv6RoutePrefixConfig}
-        '')
-        + flip concatMapStrings def.dhcpServerStaticLeases (x: ''
-          [DHCPServerStaticLease]
-          ${attrsToSection x.dhcpServerStaticLeaseConfig}
-        '')
+        + flip concatMapStrings def.ipv6Prefixes (
+          x: ''
+            [IPv6Prefix]
+            ${attrsToSection x.ipv6PrefixConfig}
+          ''
+        )
+        + flip concatMapStrings def.ipv6RoutePrefixes (
+          x: ''
+            [IPv6RoutePrefix]
+            ${attrsToSection x.ipv6RoutePrefixConfig}
+          ''
+        )
+        + flip concatMapStrings def.dhcpServerStaticLeases (
+          x: ''
+            [DHCPServerStaticLease]
+            ${attrsToSection x.dhcpServerStaticLeaseConfig}
+          ''
+        )
         + optionalString (def.bridgeConfig != { }) ''
           [Bridge]
           ${attrsToSection def.bridgeConfig}
         ''
-        + flip concatMapStrings def.bridgeFDBs (x: ''
-          [BridgeFDB]
-          ${attrsToSection x.bridgeFDBConfig}
-        '')
-        + flip concatMapStrings def.bridgeMDBs (x: ''
-          [BridgeMDB]
-          ${attrsToSection x.bridgeMDBConfig}
-        '')
+        + flip concatMapStrings def.bridgeFDBs (
+          x: ''
+            [BridgeFDB]
+            ${attrsToSection x.bridgeFDBConfig}
+          ''
+        )
+        + flip concatMapStrings def.bridgeMDBs (
+          x: ''
+            [BridgeMDB]
+            ${attrsToSection x.bridgeMDBConfig}
+          ''
+        )
         + optionalString (def.lldpConfig != { }) ''
           [LLDP]
           ${attrsToSection def.lldpConfig}
@@ -3356,10 +3410,12 @@ let
           [QuickFairQueueingClass]
           ${attrsToSection def.quickFairQueueingConfigClass}
         ''
-        + flip concatMapStrings def.bridgeVLANs (x: ''
-          [BridgeVLAN]
-          ${attrsToSection x.bridgeVLANConfig}
-        '')
+        + flip concatMapStrings def.bridgeVLANs (
+          x: ''
+            [BridgeVLAN]
+            ${attrsToSection x.bridgeVLANConfig}
+          ''
+        )
         + def.extraConfig
         ;
     }
@@ -3367,10 +3423,14 @@ let
 
   mkUnitFiles =
     prefix: cfg:
-    listToAttrs (map (name: {
-      name = "${prefix}systemd/network/${name}";
-      value.source = "${cfg.units.${name}.unit}/${name}";
-    }) (attrNames cfg.units))
+    listToAttrs (
+      map
+      (name: {
+        name = "${prefix}systemd/network/${name}";
+        value.source = "${cfg.units.${name}.unit}/${name}";
+      })
+      (attrNames cfg.units)
+    )
     ;
 
   commonOptions =
@@ -3402,10 +3462,12 @@ let
         default = { };
         inherit visible;
         type = with types;
-          attrsOf (submodule [
-            { options = networkOptions; }
-            networkConfig
-          ]);
+          attrsOf (
+            submodule [
+              { options = networkOptions; }
+              networkConfig
+            ]
+          );
         description = lib.mdDoc "Definition of systemd networks.";
       };
 
@@ -3425,17 +3487,20 @@ let
         default = { };
         internal = true;
         type = with types;
-          attrsOf (submodule (
-            {
-              name,
-              config,
-              ...
-            }: {
-              options =
-                mapAttrs (_: x: x // { internal = true; }) concreteUnitOptions;
-              config = { unit = mkDefault (makeUnit name config); };
-            }
-          ));
+          attrsOf (
+            submodule (
+              {
+                name,
+                config,
+                ...
+              }: {
+                options =
+                  mapAttrs (_: x: x // { internal = true; }) concreteUnitOptions
+                  ;
+                config = { unit = mkDefault (makeUnit name config); };
+              }
+            )
+          );
       };
 
       wait-online = {
@@ -3517,10 +3582,10 @@ let
 
       (mkIf config.systemd.network.enable {
 
-        systemd.network.units =
-          mapAttrs' (n: v: nameValuePair "${n}.netdev" (netdevToUnit n v))
-          cfg.netdevs
-          // mapAttrs' (n: v: nameValuePair "${n}.network" (networkToUnit n v))
+        systemd.network.units = mapAttrs'
+          (n: v: nameValuePair "${n}.netdev" (netdevToUnit n v))
+          cfg.netdevs // mapAttrs'
+          (n: v: nameValuePair "${n}.network" (networkToUnit n v))
           cfg.networks;
 
           # systemd-networkd is socket-activated by kernel netlink route change
@@ -3589,18 +3654,20 @@ let
           aliases = [ "dbus-org.freedesktop.network1.service" ];
         };
 
-        networking.iproute2 = mkIf (
-          cfg.config.addRouteTablesToIPRoute2 && cfg.config.routeTables != { }
-        ) {
-          enable = mkDefault true;
-          rttablesExtraConfig = ''
+        networking.iproute2 = mkIf
+          (cfg.config.addRouteTablesToIPRoute2 && cfg.config.routeTables != { })
+          {
+            enable = mkDefault true;
+            rttablesExtraConfig = ''
 
-            # Extra tables defined in NixOS systemd.networkd.config.routeTables.
-            ${concatStringsSep "\n"
-            (mapAttrsToList (name: number: "${toString number} ${name}")
-              cfg.config.routeTables)}
-          '';
-        };
+              # Extra tables defined in NixOS systemd.networkd.config.routeTables.
+              ${concatStringsSep "\n" (
+                mapAttrsToList
+                (name: number: "${toString number} ${name}")
+                cfg.config.routeTables
+              )}
+            '';
+          };
 
         services.resolved.enable = mkDefault true;
 
@@ -3622,7 +3689,8 @@ let
           # Networkd link files are used early by udev to set up interfaces early.
           # This must be done in stage 1 to avoid race conditions between udev and
           # network daemons.
-        systemd.network.units = lib.filterAttrs (n: _: hasSuffix ".link" n)
+        systemd.network.units = lib.filterAttrs
+          (n: _: hasSuffix ".link" n)
           config.systemd.network.units;
         systemd.storePaths = [
             "${config.boot.initrd.systemd.package}/lib/systemd/network/99-default.link"

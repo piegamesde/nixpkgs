@@ -18,9 +18,11 @@ let
 
       OnionAddrRange ${cfg.onionAddrRange}
 
-      ${optionalNullStr cfg.socks5Username
+      ${optionalNullStr
+      cfg.socks5Username
       "SOCKS5Username ${cfg.socks5Username}"}
-      ${optionalNullStr cfg.socks5Password
+      ${optionalNullStr
+      cfg.socks5Password
       "SOCKS5Password ${cfg.socks5Password}"}
 
       AllowInbound ${

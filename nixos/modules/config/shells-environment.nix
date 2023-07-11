@@ -21,7 +21,8 @@ let
 
       suffixedVariables = flip mapAttrs cfg.profileRelativeEnvVars (
         envVar: listSuffixes:
-        concatMap (profile: map (suffix: "${profile}${suffix}") listSuffixes)
+        concatMap
+        (profile: map (suffix: "${profile}${suffix}") listSuffixes)
         cfg.profiles
       );
 
@@ -30,8 +31,8 @@ let
         suffixedVariables
       ];
 
-      exportVariables =
-        mapAttrsToList (n: v: ''export ${n}="${concatStringsSep ":" v}"'')
+      exportVariables = mapAttrsToList
+        (n: v: ''export ${n}="${concatStringsSep ":" v}"'')
         allVariables;
     in
     concatStringsSep "\n" exportVariables
@@ -56,11 +57,13 @@ in
         characters.
       '';
       type = with types;
-        attrsOf (oneOf [
-          (listOf str)
-          str
-          path
-        ]);
+        attrsOf (
+          oneOf [
+            (listOf str)
+            str
+            path
+          ]
+        );
       apply = mapAttrs (
         n: v:
         if isList v then

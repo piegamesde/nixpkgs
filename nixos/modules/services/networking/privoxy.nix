@@ -54,16 +54,18 @@ let
     description = "tmpfiles.d(5) age format";
   };
 
-  configFile = pkgs.writeText "privoxy.conf" (concatStrings (
+  configFile = pkgs.writeText "privoxy.conf" (
+    concatStrings (
     # Relative paths in some options are relative to confdir. Privoxy seems
     # to parse the options in order of appearance, so this must come first.
     # Nix however doesn't preserve the order in attrsets, so we have to
     # hardcode confdir here.
-    [ ''
-      confdir ${pkgs.privoxy}/etc
-    '' ]
-    ++ mapAttrsToList serialise cfg.settings
-  ));
+      [ ''
+        confdir ${pkgs.privoxy}/etc
+      '' ]
+      ++ mapAttrsToList serialise cfg.settings
+    )
+  );
 
   inspectAction = pkgs.writeText "inspect-all-https.action" ''
     # Enable HTTPS inspection for all requests
@@ -175,8 +177,9 @@ in
           apply =
             x:
             x
-            ++ optional (cfg.userActions != "")
-              (toString (pkgs.writeText "user.actions" cfg.userActions))
+            ++ optional (cfg.userActions != "") (
+              toString (pkgs.writeText "user.actions" cfg.userActions)
+            )
             ;
           default = [
             "match-all.action"
@@ -194,8 +197,9 @@ in
           apply =
             x:
             x
-            ++ optional (cfg.userFilters != "")
-              (toString (pkgs.writeText "user.filter" cfg.userFilters))
+            ++ optional (cfg.userFilters != "") (
+              toString (pkgs.writeText "user.filter" cfg.userFilters)
+            )
             ;
           description = lib.mdDoc ''
             List of paths to Privoxy filter files. These paths may either be
@@ -245,7 +249,8 @@ in
 
     users.groups.privoxy = { };
 
-    systemd.tmpfiles.rules = optional cfg.inspectHttps
+    systemd.tmpfiles.rules = optional
+      cfg.inspectHttps
       "d ${cfg.settings.certificate-directory} 0770 privoxy privoxy ${cfg.certsLifetime}"
       ;
 
@@ -328,8 +333,9 @@ in
         ;
     in
     [
-      (mkRenamedOptionModule (top "enableEditActions")
-        (setting "enable-edit-actions"))
+      (mkRenamedOptionModule (top "enableEditActions") (
+        setting "enable-edit-actions"
+      ))
       (mkRenamedOptionModule (top "listenAddress") (setting "listen-address"))
       (mkRenamedOptionModule (top "actionsFiles") (setting "actionsfile"))
       (mkRenamedOptionModule (top "filterFiles") (setting "filterfile"))

@@ -28,8 +28,9 @@ in
       default = "pass123";
       description = lib.mdDoc "Password or passwordfile for the relay.";
     };
-    openFirewall = lib.mkEnableOption
-      (lib.mdDoc "opening of the peer port(s) in the firewall");
+    openFirewall = lib.mkEnableOption (
+      lib.mdDoc "opening of the peer port(s) in the firewall"
+    );
     debug = lib.mkEnableOption (lib.mdDoc "debug logs");
   };
 

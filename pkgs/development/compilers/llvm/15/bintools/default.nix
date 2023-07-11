@@ -8,13 +8,16 @@
 }:
 
 let
-  prefix = lib.optionalString (stdenv.hostPlatform != stdenv.targetPlatform)
+  prefix = lib.optionalString
+    (stdenv.hostPlatform != stdenv.targetPlatform)
     "${stdenv.targetPlatform.config}-";
 in
-runCommand "llvm-binutils-${version}" {
+runCommand "llvm-binutils-${version}"
+{
   preferLocalBuild = true;
   passthru = { isLLVM = true; };
-} ''
+}
+''
   mkdir -p $out/bin
   for prog in ${lld}/bin/*; do
     ln -s $prog $out/bin/${prefix}$(basename $prog)

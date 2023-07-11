@@ -44,7 +44,8 @@ let
                 username = "bogus";
                 name = "also bogus";
                 passwordFile =
-                  "${pkgs.writeText "dbPassword"
+                  "${pkgs.writeText
+                  "dbPassword"
                   "wzf6\\\"vO\"Cb\\nP>p#6;c&o?eu=q'THE''H'''E"}";
               };
               plugins = with config.services.keycloak.package.plugins; [

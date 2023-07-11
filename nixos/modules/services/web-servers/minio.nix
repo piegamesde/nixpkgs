@@ -105,7 +105,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    warnings = optional ((cfg.accessKey != "") || (cfg.secretKey != ""))
+    warnings = optional
+      ((cfg.accessKey != "") || (cfg.secretKey != ""))
       "services.minio.`accessKey` and services.minio.`secretKey` are deprecated, please use services.minio.`rootCredentialsFile` instead."
       ;
 

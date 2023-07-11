@@ -81,7 +81,8 @@ appleDerivation {
       "DATA_LOOKUP_DIR=$(DSTROOT)$(DATA_INSTALL_DIR)"
     ]
     ++ lib.optionals
-      stdenv.hostPlatform.isDarwin [ # darwin* platform properties are only defined on darwin
+      stdenv.hostPlatform.isDarwin
+      [ # darwin* platform properties are only defined on darwin
         # hack to use our lower macos version
         "MAC_OS_X_VERSION_MIN_REQUIRED=${
           formatVersionNumeric stdenv.hostPlatform.darwinMinVersion

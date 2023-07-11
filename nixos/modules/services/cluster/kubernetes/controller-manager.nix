@@ -15,23 +15,27 @@ let
 in
 {
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "kubernetes"
-      "controllerManager"
-      "address"
-    ] [
-      "services"
-      "kubernetes"
-      "controllerManager"
-      "bindAddress"
-    ])
-    (mkRemovedOptionModule [
-      "services"
-      "kubernetes"
-      "controllerManager"
-      "insecurePort"
-    ] "")
+    (mkRenamedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "controllerManager"
+        "address"
+      ]
+      [
+        "services"
+        "kubernetes"
+        "controllerManager"
+        "bindAddress"
+      ])
+    (mkRemovedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "controllerManager"
+        "insecurePort"
+      ]
+      "")
   ];
 
     ###### interface
@@ -150,36 +154,44 @@ in
                     } \
                     --bind-address=${cfg.bindAddress} \
                     ${
-                      optionalString (cfg.clusterCidr != null)
+                      optionalString
+                      (cfg.clusterCidr != null)
                       "--cluster-cidr=${cfg.clusterCidr}"
                     } \
                     ${
-                      optionalString (cfg.featureGates != [ ])
+                      optionalString
+                      (cfg.featureGates != [ ])
                       "--feature-gates=${
-                        concatMapStringsSep "," (feature: "${feature}=true")
+                        concatMapStringsSep ","
+                        (feature: "${feature}=true")
                         cfg.featureGates
                       }"
                     } \
                     --kubeconfig=${
-                      top.lib.mkKubeConfig "kube-controller-manager"
+                      top.lib.mkKubeConfig
+                      "kube-controller-manager"
                       cfg.kubeconfig
                     } \
                     --leader-elect=${boolToString cfg.leaderElect} \
                     ${
-                      optionalString (cfg.rootCaFile != null)
+                      optionalString
+                      (cfg.rootCaFile != null)
                       "--root-ca-file=${cfg.rootCaFile}"
                     } \
                     --secure-port=${toString cfg.securePort} \
                     ${
-                      optionalString (cfg.serviceAccountKeyFile != null)
+                      optionalString
+                      (cfg.serviceAccountKeyFile != null)
                       "--service-account-private-key-file=${cfg.serviceAccountKeyFile}"
                     } \
                     ${
-                      optionalString (cfg.tlsCertFile != null)
+                      optionalString
+                      (cfg.tlsCertFile != null)
                       "--tls-cert-file=${cfg.tlsCertFile}"
                     } \
                     ${
-                      optionalString (cfg.tlsKeyFile != null)
+                      optionalString
+                      (cfg.tlsKeyFile != null)
                       "--tls-private-key-file=${cfg.tlsKeyFile}"
                     } \
                     ${
@@ -188,8 +200,9 @@ in
                       "--use-service-account-credentials"
                     } \
                     ${
-                      optionalString (cfg.verbosity != null)
-                      "--v=${toString cfg.verbosity}"
+                      optionalString (cfg.verbosity != null) "--v=${
+                        toString cfg.verbosity
+                      }"
                     } \
                     ${cfg.extraOpts}
         '';

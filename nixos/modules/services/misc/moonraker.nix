@@ -17,7 +17,8 @@ let
       if builtins.length l == 1 then
         generators.mkValueStringDefault { } (head l)
       else
-        lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}")
+        lib.concatMapStrings
+        (s: "\n  ${generators.mkValueStringDefault { } s}")
         l
       ;
     mkKeyValue = generators.mkKeyValueDefault { } ":";
@@ -113,7 +114,8 @@ in
   config = mkIf cfg.enable {
     warnings =
       [ ]
-      ++ optional (cfg.settings ? update_manager)
+      ++ optional
+        (cfg.settings ? update_manager)
         "Enabling update_manager is not supported on NixOS and will lead to non-removable warnings in some clients."
       ++ optional (cfg.configDir != null) ''
         services.moonraker.configDir has been deprecated upstream and will be removed.
@@ -163,7 +165,8 @@ in
 
     systemd.tmpfiles.rules =
       [ "d '${cfg.stateDir}' - ${cfg.user} ${cfg.group} - -" ]
-      ++ lib.optional (cfg.configDir != null)
+      ++ lib.optional
+        (cfg.configDir != null)
         "d '${cfg.configDir}' - ${cfg.user} ${cfg.group} - -"
       ;
 

@@ -11,13 +11,15 @@ let
 
   settingsFormat = pkgs.formats.json { };
 
-  rawDefaultConfig = lib.importJSON (pkgs.runCommand "kubo-default-config" {
-    nativeBuildInputs = [ cfg.package ];
-  } ''
-    export IPFS_PATH="$TMPDIR"
-    ipfs init --empty-repo --profile=${profile}
-    ipfs --offline config show > "$out"
-  '');
+  rawDefaultConfig = lib.importJSON (
+    pkgs.runCommand "kubo-default-config"
+    { nativeBuildInputs = [ cfg.package ]; }
+    ''
+      export IPFS_PATH="$TMPDIR"
+      ipfs init --empty-repo --profile=${profile}
+      ipfs --offline config show > "$out"
+    ''
+  );
 
     # Remove the PeerID (an attribute of "Identity") of the temporary Kubo repo.
     # The "Pinning" section contains the "RemoteServices" section, which would prevent
@@ -128,9 +130,10 @@ in
 
     services.kubo = {
 
-      enable = mkEnableOption (lib.mdDoc
-        "Interplanetary File System (WARNING: may cause severe network degradation)")
-        ;
+      enable = mkEnableOption (
+        lib.mdDoc
+        "Interplanetary File System (WARNING: may cause severe network degradation)"
+      );
 
       package = mkOption {
         type = types.package;
@@ -471,233 +474,281 @@ in
   meta = { maintainers = with lib.maintainers; [ Luflosi ]; };
 
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "enable"
-    ] [
-      "services"
-      "kubo"
-      "enable"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "package"
-    ] [
-      "services"
-      "kubo"
-      "package"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "user"
-    ] [
-      "services"
-      "kubo"
-      "user"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "group"
-    ] [
-      "services"
-      "kubo"
-      "group"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "dataDir"
-    ] [
-      "services"
-      "kubo"
-      "dataDir"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "defaultMode"
-    ] [
-      "services"
-      "kubo"
-      "defaultMode"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "autoMount"
-    ] [
-      "services"
-      "kubo"
-      "autoMount"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "autoMigrate"
-    ] [
-      "services"
-      "kubo"
-      "autoMigrate"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "ipfsMountDir"
-    ] [
-      "services"
-      "kubo"
-      "ipfsMountDir"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "ipnsMountDir"
-    ] [
-      "services"
-      "kubo"
-      "ipnsMountDir"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "gatewayAddress"
-    ] [
-      "services"
-      "kubo"
-      "settings"
-      "Addresses"
-      "Gateway"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "apiAddress"
-    ] [
-      "services"
-      "kubo"
-      "settings"
-      "Addresses"
-      "API"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "swarmAddress"
-    ] [
-      "services"
-      "kubo"
-      "settings"
-      "Addresses"
-      "Swarm"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "enableGC"
-    ] [
-      "services"
-      "kubo"
-      "enableGC"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "emptyRepo"
-    ] [
-      "services"
-      "kubo"
-      "emptyRepo"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "extraConfig"
-    ] [
-      "services"
-      "kubo"
-      "settings"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "extraFlags"
-    ] [
-      "services"
-      "kubo"
-      "extraFlags"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "localDiscovery"
-    ] [
-      "services"
-      "kubo"
-      "localDiscovery"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "serviceFdlimit"
-    ] [
-      "services"
-      "kubo"
-      "serviceFdlimit"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "ipfs"
-      "startWhenNeeded"
-    ] [
-      "services"
-      "kubo"
-      "startWhenNeeded"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "kubo"
-      "extraConfig"
-    ] [
-      "services"
-      "kubo"
-      "settings"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "kubo"
-      "gatewayAddress"
-    ] [
-      "services"
-      "kubo"
-      "settings"
-      "Addresses"
-      "Gateway"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "kubo"
-      "apiAddress"
-    ] [
-      "services"
-      "kubo"
-      "settings"
-      "Addresses"
-      "API"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "kubo"
-      "swarmAddress"
-    ] [
-      "services"
-      "kubo"
-      "settings"
-      "Addresses"
-      "Swarm"
-    ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "enable"
+      ]
+      [
+        "services"
+        "kubo"
+        "enable"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "package"
+      ]
+      [
+        "services"
+        "kubo"
+        "package"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "user"
+      ]
+      [
+        "services"
+        "kubo"
+        "user"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "group"
+      ]
+      [
+        "services"
+        "kubo"
+        "group"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "dataDir"
+      ]
+      [
+        "services"
+        "kubo"
+        "dataDir"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "defaultMode"
+      ]
+      [
+        "services"
+        "kubo"
+        "defaultMode"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "autoMount"
+      ]
+      [
+        "services"
+        "kubo"
+        "autoMount"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "autoMigrate"
+      ]
+      [
+        "services"
+        "kubo"
+        "autoMigrate"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "ipfsMountDir"
+      ]
+      [
+        "services"
+        "kubo"
+        "ipfsMountDir"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "ipnsMountDir"
+      ]
+      [
+        "services"
+        "kubo"
+        "ipnsMountDir"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "gatewayAddress"
+      ]
+      [
+        "services"
+        "kubo"
+        "settings"
+        "Addresses"
+        "Gateway"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "apiAddress"
+      ]
+      [
+        "services"
+        "kubo"
+        "settings"
+        "Addresses"
+        "API"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "swarmAddress"
+      ]
+      [
+        "services"
+        "kubo"
+        "settings"
+        "Addresses"
+        "Swarm"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "enableGC"
+      ]
+      [
+        "services"
+        "kubo"
+        "enableGC"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "emptyRepo"
+      ]
+      [
+        "services"
+        "kubo"
+        "emptyRepo"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "extraConfig"
+      ]
+      [
+        "services"
+        "kubo"
+        "settings"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "extraFlags"
+      ]
+      [
+        "services"
+        "kubo"
+        "extraFlags"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "localDiscovery"
+      ]
+      [
+        "services"
+        "kubo"
+        "localDiscovery"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "serviceFdlimit"
+      ]
+      [
+        "services"
+        "kubo"
+        "serviceFdlimit"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "ipfs"
+        "startWhenNeeded"
+      ]
+      [
+        "services"
+        "kubo"
+        "startWhenNeeded"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "kubo"
+        "extraConfig"
+      ]
+      [
+        "services"
+        "kubo"
+        "settings"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "kubo"
+        "gatewayAddress"
+      ]
+      [
+        "services"
+        "kubo"
+        "settings"
+        "Addresses"
+        "Gateway"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "kubo"
+        "apiAddress"
+      ]
+      [
+        "services"
+        "kubo"
+        "settings"
+        "Addresses"
+        "API"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "kubo"
+        "swarmAddress"
+      ]
+      [
+        "services"
+        "kubo"
+        "settings"
+        "Addresses"
+        "Swarm"
+      ])
   ];
 }

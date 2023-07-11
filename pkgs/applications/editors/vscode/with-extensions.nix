@@ -70,13 +70,15 @@ let
   '';
 
 in
-runCommand "${wrappedPkgName}-with-extensions-${wrappedPkgVersion}" {
+runCommand "${wrappedPkgName}-with-extensions-${wrappedPkgVersion}"
+{
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ vscode ];
   dontPatchELF = true;
   dontStrip = true;
   meta = vscode.meta;
-} (
+}
+(
   if stdenv.isDarwin then
     ''
       mkdir -p $out/bin/

@@ -144,11 +144,13 @@ let
         value:
         ''
           "${
-            lib.escape [
+            lib.escape
+            [
               ''"''
               "$"
               "\\"
-            ] value
+            ]
+            value
           }"''
         ;
       sanitize =

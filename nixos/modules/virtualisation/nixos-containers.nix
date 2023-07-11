@@ -181,15 +181,17 @@ let
         --setenv PATH="$PATH" \
         ${optionalString cfg.ephemeral "--ephemeral"} \
         ${
-          optionalString (
+          optionalString
+          (
             cfg.additionalCapabilities != null
             && cfg.additionalCapabilities != [ ]
           )
           ''--capability="${concatStringsSep "," cfg.additionalCapabilities}"''
         } \
         ${
-          optionalString (cfg.tmpfs != null && cfg.tmpfs != [ ])
-          "--tmpfs=${concatStringsSep " --tmpfs=" cfg.tmpfs}"
+          optionalString (cfg.tmpfs != null && cfg.tmpfs != [ ]) "--tmpfs=${
+            concatStringsSep " --tmpfs=" cfg.tmpfs
+          }"
         } \
         ${
           containerInit cfg
@@ -208,9 +210,11 @@ let
         ip link del dev "vb-$INSTANCE" 2> /dev/null || true
       fi
 
-      ${concatStringsSep "\n" (mapAttrsToList (
-        name: cfg: "ip link del dev ${name} 2> /dev/null || true "
-      ) cfg.extraVeths)}
+      ${concatStringsSep "\n" (
+        mapAttrsToList
+        (name: cfg: "ip link del dev ${name} 2> /dev/null || true ")
+        cfg.extraVeths
+      )}
     ''
     ;
 
@@ -406,27 +410,29 @@ let
     };
 
     forwardPorts = mkOption {
-      type = types.listOf (types.submodule {
-        options = {
-          protocol = mkOption {
-            type = types.str;
-            default = "tcp";
-            description = lib.mdDoc
-              "The protocol specifier for port forwarding between host and container"
-              ;
+      type = types.listOf (
+        types.submodule {
+          options = {
+            protocol = mkOption {
+              type = types.str;
+              default = "tcp";
+              description = lib.mdDoc
+                "The protocol specifier for port forwarding between host and container"
+                ;
+            };
+            hostPort = mkOption {
+              type = types.int;
+              description =
+                lib.mdDoc "Source port of the external interface on host";
+            };
+            containerPort = mkOption {
+              type = types.nullOr types.int;
+              default = null;
+              description = lib.mdDoc "Target port of container";
+            };
           };
-          hostPort = mkOption {
-            type = types.int;
-            description =
-              lib.mdDoc "Source port of the external interface on host";
-          };
-          containerPort = mkOption {
-            type = types.nullOr types.int;
-            default = null;
-            description = lib.mdDoc "Target port of container";
-          };
-        };
-      });
+        }
+      );
       default = [ ];
       example = [ {
         protocol = "tcp";
@@ -523,318 +529,325 @@ in
     };
 
     containers = mkOption {
-      type = types.attrsOf (types.submodule (
-        {
-          config,
-          options,
-          name,
-          ...
-        }: {
-          options = {
-            config = mkOption {
-              description = lib.mdDoc ''
-                A specification of the desired configuration of this
-                container, as a NixOS module.
-              '';
-              type = lib.mkOptionType {
-                name = "Toplevel NixOS config";
-                merge =
-                  loc: defs:
-                  (import
-                    "${toString config.nixpkgs}/nixos/lib/eval-config.nix" {
-                      modules =
-                        let
-                          extraConfig =
-                            {
-                              options,
-                              ...
-                            }: {
-                              _file =
-                                "module at ${__curPos.file}:${
-                                  toString __curPos.line
-                                }";
-                              config = {
-                                nixpkgs =
-                                  if
-                                    options.nixpkgs ? hostPlatform
-                                    && host.options.nixpkgs.hostPlatform.isDefined
-                                  then
-                                    {
-                                      inherit (host.config.nixpkgs)
-                                        hostPlatform
-                                        ;
-                                    }
-                                  else
-                                    {
-                                      inherit (host.config.nixpkgs) localSystem;
-                                    }
-                                  ;
-                                boot.isContainer = true;
-                                networking.hostName = mkDefault name;
-                                networking.useDHCP = false;
-                                assertions = [ {
-                                  assertion =
-                                    (
-                                      builtins.compareVersions kernelVersion
-                                        "5.8"
-                                      <= 0
-                                    )
-                                    -> config.privateNetwork
-                                    -> stringLength name <= 11
+      type = types.attrsOf (
+        types.submodule (
+          {
+            config,
+            options,
+            name,
+            ...
+          }: {
+            options = {
+              config = mkOption {
+                description = lib.mdDoc ''
+                  A specification of the desired configuration of this
+                  container, as a NixOS module.
+                '';
+                type = lib.mkOptionType {
+                  name = "Toplevel NixOS config";
+                  merge =
+                    loc: defs:
+                    (import
+                      "${toString config.nixpkgs}/nixos/lib/eval-config.nix"
+                      {
+                        modules =
+                          let
+                            extraConfig =
+                              {
+                                options,
+                                ...
+                              }: {
+                                _file =
+                                  "module at ${__curPos.file}:${
+                                    toString __curPos.line
+                                  }";
+                                config = {
+                                  nixpkgs =
+                                    if
+                                      options.nixpkgs ? hostPlatform
+                                      && host.options.nixpkgs.hostPlatform.isDefined
+                                    then
+                                      {
+                                        inherit (host.config.nixpkgs)
+                                          hostPlatform
+                                          ;
+                                      }
+                                    else
+                                      {
+                                        inherit (host.config.nixpkgs)
+                                          localSystem
+                                          ;
+                                      }
                                     ;
-                                  message = ''
-                                    Container name `${name}` is too long: When `privateNetwork` is enabled, container names can
-                                    not be longer than 11 characters, because the container's interface name is derived from it.
-                                    You should either make the container name shorter or upgrade to a more recent kernel that
-                                    supports interface altnames (i.e. at least Linux 5.8 - please see https://github.com/NixOS/nixpkgs/issues/38509
-                                    for details).
-                                  '';
-                                } ];
-                              };
-                            }
-                            ;
-                        in
-                        [ extraConfig ] ++ (map (x: x.value) defs)
-                        ;
-                      prefix = [
-                        "containers"
-                        name
-                      ];
-                      inherit (config) specialArgs;
-                    }).config
-                  ;
+                                  boot.isContainer = true;
+                                  networking.hostName = mkDefault name;
+                                  networking.useDHCP = false;
+                                  assertions = [ {
+                                    assertion =
+                                      (
+                                        builtins.compareVersions
+                                          kernelVersion
+                                          "5.8"
+                                        <= 0
+                                      )
+                                      -> config.privateNetwork
+                                      -> stringLength name <= 11
+                                      ;
+                                    message = ''
+                                      Container name `${name}` is too long: When `privateNetwork` is enabled, container names can
+                                      not be longer than 11 characters, because the container's interface name is derived from it.
+                                      You should either make the container name shorter or upgrade to a more recent kernel that
+                                      supports interface altnames (i.e. at least Linux 5.8 - please see https://github.com/NixOS/nixpkgs/issues/38509
+                                      for details).
+                                    '';
+                                  } ];
+                                };
+                              }
+                              ;
+                          in
+                          [ extraConfig ] ++ (map (x: x.value) defs)
+                          ;
+                        prefix = [
+                          "containers"
+                          name
+                        ];
+                        inherit (config) specialArgs;
+                      }).config
+                    ;
+                };
               };
-            };
 
-            path = mkOption {
-              type = types.path;
-              example = "/nix/var/nix/profiles/per-container/webserver";
-              description = lib.mdDoc ''
-                As an alternative to specifying
-                {option}`config`, you can specify the path to
-                the evaluated NixOS system configuration, typically a
-                symlink to a system profile.
-              '';
-            };
+              path = mkOption {
+                type = types.path;
+                example = "/nix/var/nix/profiles/per-container/webserver";
+                description = lib.mdDoc ''
+                  As an alternative to specifying
+                  {option}`config`, you can specify the path to
+                  the evaluated NixOS system configuration, typically a
+                  symlink to a system profile.
+                '';
+              };
 
-            additionalCapabilities = mkOption {
-              type = types.listOf types.str;
-              default = [ ];
-              example = [
-                "CAP_NET_ADMIN"
-                "CAP_MKNOD"
-              ];
-              description = lib.mdDoc ''
-                Grant additional capabilities to the container.  See the
-                capabilities(7) and systemd-nspawn(1) man pages for more
-                information.
-              '';
-            };
+              additionalCapabilities = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+                example = [
+                  "CAP_NET_ADMIN"
+                  "CAP_MKNOD"
+                ];
+                description = lib.mdDoc ''
+                  Grant additional capabilities to the container.  See the
+                  capabilities(7) and systemd-nspawn(1) man pages for more
+                  information.
+                '';
+              };
 
-            nixpkgs = mkOption {
-              type = types.path;
-              default = pkgs.path;
-              defaultText = literalExpression "pkgs.path";
-              description = lib.mdDoc ''
-                A path to the nixpkgs that provide the modules, pkgs and lib for evaluating the container.
+              nixpkgs = mkOption {
+                type = types.path;
+                default = pkgs.path;
+                defaultText = literalExpression "pkgs.path";
+                description = lib.mdDoc ''
+                  A path to the nixpkgs that provide the modules, pkgs and lib for evaluating the container.
 
-                To only change the `pkgs` argument used inside the container modules,
-                set the `nixpkgs.*` options in the container {option}`config`.
-                Setting `config.nixpkgs.pkgs = pkgs` speeds up the container evaluation
-                by reusing the system pkgs, but the `nixpkgs.config` option in the
-                container config is ignored in this case.
-              '';
-            };
+                  To only change the `pkgs` argument used inside the container modules,
+                  set the `nixpkgs.*` options in the container {option}`config`.
+                  Setting `config.nixpkgs.pkgs = pkgs` speeds up the container evaluation
+                  by reusing the system pkgs, but the `nixpkgs.config` option in the
+                  container config is ignored in this case.
+                '';
+              };
 
-            specialArgs = mkOption {
-              type = types.attrsOf types.unspecified;
-              default = { };
-              description = lib.mdDoc ''
-                A set of special arguments to be passed to NixOS modules.
-                This will be merged into the `specialArgs` used to evaluate
-                the NixOS configurations.
-              '';
-            };
+              specialArgs = mkOption {
+                type = types.attrsOf types.unspecified;
+                default = { };
+                description = lib.mdDoc ''
+                  A set of special arguments to be passed to NixOS modules.
+                  This will be merged into the `specialArgs` used to evaluate
+                  the NixOS configurations.
+                '';
+              };
 
-            ephemeral = mkOption {
-              type = types.bool;
-              default = false;
-              description = lib.mdDoc ''
-                Runs container in ephemeral mode with the empty root filesystem at boot.
-                This way container will be bootstrapped from scratch on each boot
-                and will be cleaned up on shutdown leaving no traces behind.
-                Useful for completely stateless, reproducible containers.
+              ephemeral = mkOption {
+                type = types.bool;
+                default = false;
+                description = lib.mdDoc ''
+                  Runs container in ephemeral mode with the empty root filesystem at boot.
+                  This way container will be bootstrapped from scratch on each boot
+                  and will be cleaned up on shutdown leaving no traces behind.
+                  Useful for completely stateless, reproducible containers.
 
-                Note that this option might require to do some adjustments to the container configuration,
-                e.g. you might want to set
-                {var}`systemd.network.networks.$interface.dhcpV4Config.ClientIdentifier` to "mac"
-                if you use {var}`macvlans` option.
-                This way dhcp client identifier will be stable between the container restarts.
+                  Note that this option might require to do some adjustments to the container configuration,
+                  e.g. you might want to set
+                  {var}`systemd.network.networks.$interface.dhcpV4Config.ClientIdentifier` to "mac"
+                  if you use {var}`macvlans` option.
+                  This way dhcp client identifier will be stable between the container restarts.
 
-                Note that the container journal will not be linked to the host if this option is enabled.
-              '';
-            };
+                  Note that the container journal will not be linked to the host if this option is enabled.
+                '';
+              };
 
-            enableTun = mkOption {
-              type = types.bool;
-              default = false;
-              description = lib.mdDoc ''
-                Allows the container to create and setup tunnel interfaces
-                by granting the `NET_ADMIN` capability and
-                enabling access to `/dev/net/tun`.
-              '';
-            };
+              enableTun = mkOption {
+                type = types.bool;
+                default = false;
+                description = lib.mdDoc ''
+                  Allows the container to create and setup tunnel interfaces
+                  by granting the `NET_ADMIN` capability and
+                  enabling access to `/dev/net/tun`.
+                '';
+              };
 
-            privateNetwork = mkOption {
-              type = types.bool;
-              default = false;
-              description = lib.mdDoc ''
-                Whether to give the container its own private virtual
-                Ethernet interface.  The interface is called
-                `eth0`, and is hooked up to the interface
-                `ve-«container-name»`
-                on the host.  If this option is not set, then the
-                container shares the network interfaces of the host,
-                and can bind to any port on any interface.
-              '';
-            };
+              privateNetwork = mkOption {
+                type = types.bool;
+                default = false;
+                description = lib.mdDoc ''
+                  Whether to give the container its own private virtual
+                  Ethernet interface.  The interface is called
+                  `eth0`, and is hooked up to the interface
+                  `ve-«container-name»`
+                  on the host.  If this option is not set, then the
+                  container shares the network interfaces of the host,
+                  and can bind to any port on any interface.
+                '';
+              };
 
-            interfaces = mkOption {
-              type = types.listOf types.str;
-              default = [ ];
-              example = [
-                "eth1"
-                "eth2"
-              ];
-              description = lib.mdDoc ''
-                The list of interfaces to be moved into the container.
-              '';
-            };
+              interfaces = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+                example = [
+                  "eth1"
+                  "eth2"
+                ];
+                description = lib.mdDoc ''
+                  The list of interfaces to be moved into the container.
+                '';
+              };
 
-            macvlans = mkOption {
-              type = types.listOf types.str;
-              default = [ ];
-              example = [
-                "eth1"
-                "eth2"
-              ];
-              description = lib.mdDoc ''
-                The list of host interfaces from which macvlans will be
-                created. For each interface specified, a macvlan interface
-                will be created and moved to the container.
-              '';
-            };
+              macvlans = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+                example = [
+                  "eth1"
+                  "eth2"
+                ];
+                description = lib.mdDoc ''
+                  The list of host interfaces from which macvlans will be
+                  created. For each interface specified, a macvlan interface
+                  will be created and moved to the container.
+                '';
+              };
 
-            extraVeths = mkOption {
-              type =
-                with types; attrsOf (submodule { options = networkOptions; });
-              default = { };
-              description = lib.mdDoc ''
-                Extra veth-pairs to be created for the container.
-              '';
-            };
+              extraVeths = mkOption {
+                type =
+                  with types; attrsOf (submodule { options = networkOptions; });
+                default = { };
+                description = lib.mdDoc ''
+                  Extra veth-pairs to be created for the container.
+                '';
+              };
 
-            autoStart = mkOption {
-              type = types.bool;
-              default = false;
-              description = lib.mdDoc ''
-                Whether the container is automatically started at boot-time.
-              '';
-            };
+              autoStart = mkOption {
+                type = types.bool;
+                default = false;
+                description = lib.mdDoc ''
+                  Whether the container is automatically started at boot-time.
+                '';
+              };
 
-            timeoutStartSec = mkOption {
-              type = types.str;
-              default = "1min";
-              description = lib.mdDoc ''
-                Time for the container to start. In case of a timeout,
-                the container processes get killed.
-                See {manpage}`systemd.time(7)`
-                for more information about the format.
-              '';
-            };
+              timeoutStartSec = mkOption {
+                type = types.str;
+                default = "1min";
+                description = lib.mdDoc ''
+                  Time for the container to start. In case of a timeout,
+                  the container processes get killed.
+                  See {manpage}`systemd.time(7)`
+                  for more information about the format.
+                '';
+              };
 
-            bindMounts = mkOption {
-              type = with types; attrsOf (submodule bindMountOpts);
-              default = { };
-              example = literalExpression ''
-                { "/home" = { hostPath = "/home/alice";
-                              isReadOnly = false; };
-                }
-              '';
+              bindMounts = mkOption {
+                type = with types; attrsOf (submodule bindMountOpts);
+                default = { };
+                example = literalExpression ''
+                  { "/home" = { hostPath = "/home/alice";
+                                isReadOnly = false; };
+                  }
+                '';
 
-              description = lib.mdDoc ''
-                An extra list of directories that is bound to the container.
-              '';
-            };
+                description = lib.mdDoc ''
+                  An extra list of directories that is bound to the container.
+                '';
+              };
 
-            allowedDevices = mkOption {
-              type = with types; listOf (submodule allowedDeviceOpts);
-              default = [ ];
-              example = [ {
-                node = "/dev/net/tun";
-                modifier = "rw";
-              } ];
-              description = lib.mdDoc ''
-                A list of device nodes to which the containers has access to.
-              '';
-            };
+              allowedDevices = mkOption {
+                type = with types; listOf (submodule allowedDeviceOpts);
+                default = [ ];
+                example = [ {
+                  node = "/dev/net/tun";
+                  modifier = "rw";
+                } ];
+                description = lib.mdDoc ''
+                  A list of device nodes to which the containers has access to.
+                '';
+              };
 
-            tmpfs = mkOption {
-              type = types.listOf types.str;
-              default = [ ];
-              example = [ "/var" ];
-              description = lib.mdDoc ''
-                Mounts a set of tmpfs file systems into the container.
-                Multiple paths can be specified.
-                Valid items must conform to the --tmpfs argument
-                of systemd-nspawn. See systemd-nspawn(1) for details.
-              '';
-            };
+              tmpfs = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+                example = [ "/var" ];
+                description = lib.mdDoc ''
+                  Mounts a set of tmpfs file systems into the container.
+                  Multiple paths can be specified.
+                  Valid items must conform to the --tmpfs argument
+                  of systemd-nspawn. See systemd-nspawn(1) for details.
+                '';
+              };
 
-            extraFlags = mkOption {
-              type = types.listOf types.str;
-              default = [ ];
-              example = [ "--drop-capability=CAP_SYS_CHROOT" ];
-              description = lib.mdDoc ''
-                Extra flags passed to the systemd-nspawn command.
-                See systemd-nspawn(1) for details.
-              '';
-            };
+              extraFlags = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+                example = [ "--drop-capability=CAP_SYS_CHROOT" ];
+                description = lib.mdDoc ''
+                  Extra flags passed to the systemd-nspawn command.
+                  See systemd-nspawn(1) for details.
+                '';
+              };
 
-              # Removed option. See `checkAssertion` below for the accompanying error message.
-            pkgs = mkOption { visible = false; };
-          } // networkOptions;
+                # Removed option. See `checkAssertion` below for the accompanying error message.
+              pkgs = mkOption { visible = false; };
+            } // networkOptions;
 
-          config =
-            let
-              # Throw an error when removed option `pkgs` is used.
-              # Because this is a submodule we cannot use `mkRemovedOptionModule` or option `assertions`.
-              optionPath = "containers.${name}.pkgs";
-              files = showFiles options.pkgs.files;
-              checkAssertion =
-                if options.pkgs.isDefined then
-                  throw ''
-                    The option definition `${optionPath}' in ${files} no longer has any effect; please remove it.
+            config =
+              let
+                # Throw an error when removed option `pkgs` is used.
+                # Because this is a submodule we cannot use `mkRemovedOptionModule` or option `assertions`.
+                optionPath = "containers.${name}.pkgs";
+                files = showFiles options.pkgs.files;
+                checkAssertion =
+                  if options.pkgs.isDefined then
+                    throw ''
+                      The option definition `${optionPath}' in ${files} no longer has any effect; please remove it.
 
-                    Alternatively, you can use the following options:
-                    - containers.${name}.nixpkgs
-                      This sets the nixpkgs (and thereby the modules, pkgs and lib) that
-                      are used for evaluating the container.
+                      Alternatively, you can use the following options:
+                      - containers.${name}.nixpkgs
+                        This sets the nixpkgs (and thereby the modules, pkgs and lib) that
+                        are used for evaluating the container.
 
-                    - containers.${name}.config.nixpkgs.pkgs
-                      This only sets the `pkgs` argument used inside the container modules.
-                  ''
-                else
-                  null
-                ;
-            in
-            {
-              path = builtins.seq checkAssertion mkIf options.config.isDefined
-                config.config.system.build.toplevel;
-            }
-            ;
-        }
-      ));
+                      - containers.${name}.config.nixpkgs.pkgs
+                        This only sets the `pkgs` argument used inside the container modules.
+                    ''
+                  else
+                    null
+                  ;
+              in
+              {
+                path = builtins.seq checkAssertion mkIf
+                  options.config.isDefined
+                  config.config.system.build.toplevel;
+              }
+              ;
+          }
+        )
+      );
 
       default = { };
       example = literalExpression ''
@@ -891,75 +904,81 @@ in
     in
     {
       warnings =
-        (optional (
-          config.virtualisation.containers.enable
-          && versionOlder config.system.stateVersion "22.05"
-        ) ''
-          Enabling both boot.enableContainers & virtualisation.containers on system.stateVersion < 22.05 is unsupported.
-        '');
+        (optional
+          (
+            config.virtualisation.containers.enable
+            && versionOlder config.system.stateVersion "22.05"
+          )
+          ''
+            Enabling both boot.enableContainers & virtualisation.containers on system.stateVersion < 22.05 is unsupported.
+          '');
 
       systemd.targets.multi-user.wants = [ "machines.target" ];
 
-      systemd.services = listToAttrs (filter (x: x.value != null) (
+      systemd.services = listToAttrs (
+        filter (x: x.value != null) (
         # The generic container template used by imperative containers
-        [ {
-          name = "container@";
-          value = unit;
-        } ]
-        # declarative containers
-        ++ (mapAttrsToList (
-          name: cfg:
-          nameValuePair "container@${name}" (
-            let
-              containerConfig = cfg // (
-                if cfg.enableTun then
-                  {
-                    allowedDevices =
-                      cfg.allowedDevices
-                      ++ [ {
-                        node = "/dev/net/tun";
-                        modifier = "rw";
-                      } ]
-                      ;
-                    additionalCapabilities =
-                      cfg.additionalCapabilities ++ [ "CAP_NET_ADMIN" ];
-                  }
-                else
-                  { }
-              );
-            in
-            recursiveUpdate unit {
-              preStart = preStartScript containerConfig;
-              script = startScript containerConfig;
-              postStart = postStartScript containerConfig;
-              serviceConfig = serviceDirectives containerConfig;
-              unitConfig.RequiresMountsFor =
-                lib.optional (!containerConfig.ephemeral) "${stateDirectory}/%i"
-                ;
-              environment.root =
-                if containerConfig.ephemeral then
-                  "/run/nixos-containers/%i"
-                else
-                  "${stateDirectory}/%i"
-                ;
-            } // (
-              if containerConfig.autoStart then
-                {
-                  wantedBy = [ "machines.target" ];
-                  wants = [ "network.target" ];
-                  after = [ "network.target" ];
-                  restartTriggers = [
-                    containerConfig.path
-                    config.environment.etc."${configurationDirectoryName}/${name}.conf".source
-                  ];
-                  restartIfChanged = true;
-                }
-              else
-                { }
+          [ {
+            name = "container@";
+            value = unit;
+          } ]
+          # declarative containers
+          ++ (mapAttrsToList
+            (
+              name: cfg:
+              nameValuePair "container@${name}" (
+                let
+                  containerConfig = cfg // (
+                    if cfg.enableTun then
+                      {
+                        allowedDevices =
+                          cfg.allowedDevices
+                          ++ [ {
+                            node = "/dev/net/tun";
+                            modifier = "rw";
+                          } ]
+                          ;
+                        additionalCapabilities =
+                          cfg.additionalCapabilities ++ [ "CAP_NET_ADMIN" ];
+                      }
+                    else
+                      { }
+                  );
+                in
+                recursiveUpdate unit {
+                  preStart = preStartScript containerConfig;
+                  script = startScript containerConfig;
+                  postStart = postStartScript containerConfig;
+                  serviceConfig = serviceDirectives containerConfig;
+                  unitConfig.RequiresMountsFor = lib.optional
+                    (!containerConfig.ephemeral)
+                    "${stateDirectory}/%i";
+                  environment.root =
+                    if containerConfig.ephemeral then
+                      "/run/nixos-containers/%i"
+                    else
+                      "${stateDirectory}/%i"
+                    ;
+                } // (
+                  if containerConfig.autoStart then
+                    {
+                      wantedBy = [ "machines.target" ];
+                      wants = [ "network.target" ];
+                      after = [ "network.target" ];
+                      restartTriggers = [
+                        containerConfig.path
+                        config.environment.etc."${configurationDirectoryName}/${name}.conf".source
+                      ];
+                      restartIfChanged = true;
+                    }
+                  else
+                    { }
+                )
+              )
             )
-          )
-        ) config.containers)
-      ));
+            config.containers)
+        )
+      );
 
         # Generate a configuration file in /etc/nixos-containers for each
         # container so that container@.target can get the container
@@ -980,7 +999,8 @@ in
             )
             ;
         in
-        mapAttrs' (
+        mapAttrs'
+        (
           name: cfg:
           nameValuePair "${configurationDirectoryName}/${name}.conf" {
             text = ''
@@ -1021,16 +1041,21 @@ in
               }"
             '';
           }
-        ) config.containers
+        )
+        config.containers
         ;
 
         # Generate /etc/hosts entries for the containers.
-      networking.extraHosts = concatStrings (mapAttrsToList (
-        name: cfg:
-        optionalString (cfg.localAddress != null) ''
-          ${head (splitString "/" cfg.localAddress)} ${name}.containers
-        ''
-      ) config.containers);
+      networking.extraHosts = concatStrings (
+        mapAttrsToList
+        (
+          name: cfg:
+          optionalString (cfg.localAddress != null) ''
+            ${head (splitString "/" cfg.localAddress)} ${name}.containers
+          ''
+        )
+        config.containers
+      );
 
       networking.dhcpcd.denyInterfaces = [
         "ve-*"

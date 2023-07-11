@@ -50,7 +50,8 @@ let
     }
     ;
 
-  clang-tools-extra_src = fetch "clang-tools-extra"
+  clang-tools-extra_src = fetch
+    "clang-tools-extra"
     "18n1w1hkv931xzq02b34wglbv6zd6sd0r5kb8piwvag7klj7qw3n";
 
   llvm_meta = {
@@ -146,15 +147,19 @@ let
         enablePolly = true;
       };
 
-      llvm-manpages = lowPrio (tools.libllvm.override {
-        enableManpages = true;
-        python3 = pkgs.python3; # don't use python-boot
-      });
+      llvm-manpages = lowPrio (
+        tools.libllvm.override {
+          enableManpages = true;
+          python3 = pkgs.python3; # don't use python-boot
+        }
+      );
 
-      clang-manpages = lowPrio (tools.libclang.override {
-        enableManpages = true;
-        python3 = pkgs.python3; # don't use python-boot
-      });
+      clang-manpages = lowPrio (
+        tools.libclang.override {
+          enableManpages = true;
+          python3 = pkgs.python3; # don't use python-boot
+        }
+      );
 
         # disabled until recommonmark supports sphinx 3
         # lldb-manpages = lowPrio (tools.lldb.override {
@@ -231,12 +236,14 @@ let
           + lib.optionalString (!stdenv.targetPlatform.isWasm) ''
             echo "--unwindlib=libunwind" >> $out/nix-support/cc-cflags
           ''
-          + lib.optionalString (
-            !stdenv.targetPlatform.isWasm
-            && stdenv.targetPlatform.useLLVM or false
-          ) ''
-            echo "-lunwind" >> $out/nix-support/cc-ldflags
-          ''
+          + lib.optionalString
+            (
+              !stdenv.targetPlatform.isWasm
+              && stdenv.targetPlatform.useLLVM or false
+            )
+            ''
+              echo "-lunwind" >> $out/nix-support/cc-ldflags
+            ''
           + lib.optionalString stdenv.targetPlatform.isWasm ''
             echo "-fno-exceptions" >> $out/nix-support/cc-cflags
           ''

@@ -4,7 +4,8 @@
   callPackage,
 }:
 
-callPackage (import ./common.nix rec {
+callPackage
+(import ./common.nix rec {
   pname = "cgit-pink";
   version = "1.4.1";
 
@@ -25,4 +26,5 @@ callPackage (import ./common.nix rec {
   homepage = "https://git.causal.agency/cgit-pink/about/";
   description = "cgit fork aiming for better maintenance";
   maintainers = with lib.maintainers; [ sternenseemann ];
-}) { }
+})
+{ }

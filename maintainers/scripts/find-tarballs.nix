@@ -11,41 +11,51 @@ let
 
   root = expr;
 
-  uniqueUrls = map (x: x.file) (genericClosure {
-    startSet = map (file: {
-      key = file.url;
-      inherit file;
-    }) urls;
-    operator = const [ ];
-  });
+  uniqueUrls = map (x: x.file) (
+    genericClosure {
+      startSet = map
+        (file: {
+          key = file.url;
+          inherit file;
+        })
+        urls;
+      operator = const [ ];
+    }
+  );
 
-  urls = map (drv: {
-    url = head (drv.urls or [ drv.url ]);
-    hash = drv.outputHash;
-    isPatch = (drv ? postFetch && drv.postFetch != "");
-    type = drv.outputHashAlgo;
-    name = drv.name;
-  }) fetchurlDependencies;
+  urls = map
+    (drv: {
+      url = head (drv.urls or [ drv.url ]);
+      hash = drv.outputHash;
+      isPatch = (drv ? postFetch && drv.postFetch != "");
+      type = drv.outputHashAlgo;
+      name = drv.name;
+    })
+    fetchurlDependencies;
 
-  fetchurlDependencies = filter (
-    drv:
-    drv.outputHash or "" != ""
-    && drv.outputHashMode or "flat" == "flat"
-    && (
-      drv ? url || drv ? urls
+  fetchurlDependencies = filter
+    (
+      drv:
+      drv.outputHash or "" != ""
+      && drv.outputHashMode or "flat" == "flat"
+      && (
+        drv ? url || drv ? urls
+      )
     )
-  ) dependencies;
+    dependencies;
 
-  dependencies = map (x: x.value) (genericClosure {
-    startSet = map keyDrv (derivationsIn' root);
-    operator =
-      {
-        key,
-        value,
-      }:
-      map keyDrv (immediateDependenciesOf value)
-      ;
-  });
+  dependencies = map (x: x.value) (
+    genericClosure {
+      startSet = map keyDrv (derivationsIn' root);
+      operator =
+        {
+          key,
+          value,
+        }:
+        map keyDrv (immediateDependenciesOf value)
+        ;
+    }
+  );
 
   derivationsIn' =
     x:
@@ -56,10 +66,14 @@ let
     else if isList x then
       concatLists (map derivationsIn' x)
     else if isAttrs x then
-      concatLists (mapAttrsToList (
-        n: v:
-        addErrorContext "while finding tarballs in '${n}':" (derivationsIn' v)
-      ) x)
+      concatLists (
+        mapAttrsToList
+        (
+          n: v:
+          addErrorContext "while finding tarballs in '${n}':" (derivationsIn' v)
+        )
+        x
+      )
     else
       [ ]
     ;
@@ -77,13 +91,17 @@ let
 
   immediateDependenciesOf =
     drv:
-    concatLists (mapAttrsToList (n: v: derivationsIn v) (removeAttrs drv (
-      [
-        "meta"
-        "passthru"
-      ]
-      ++ optionals (drv ? passthru) (attrNames drv.passthru)
-    )))
+    concatLists (
+      mapAttrsToList (n: v: derivationsIn v) (
+        removeAttrs drv (
+          [
+            "meta"
+            "passthru"
+          ]
+          ++ optionals (drv ? passthru) (attrNames drv.passthru)
+        )
+      )
+    )
     ;
 
   derivationsIn =

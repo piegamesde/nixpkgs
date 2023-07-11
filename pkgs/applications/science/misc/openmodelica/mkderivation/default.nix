@@ -86,7 +86,8 @@ let
     runHook preConfigure
     export configureFlags="''${configureFlags} --with-ombuilddir=$PWD/build --prefix=$prefix"
     ./configure --no-recursion $configureFlags
-    ${lib.optionalString omautoconf
+    ${lib.optionalString
+    omautoconf
     "(cd ${omdir}; ./configure $configureFlags)"}
     runHook postConfigure
   '';

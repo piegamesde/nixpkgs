@@ -13,14 +13,19 @@ let
   settingsFile =
     settingsFormat.generate "mautrix-facebook-config.json" cfg.settings;
 
-  puppetRegex = concatStringsSep ".*" (map escapeRegex
-    (splitString "{userid}" cfg.settings.bridge.username_template));
+  puppetRegex = concatStringsSep ".*" (
+    map escapeRegex (
+      splitString "{userid}" cfg.settings.bridge.username_template
+    )
+  );
 in
 {
   options = {
     services.mautrix-facebook = {
-      enable = mkEnableOption (lib.mdDoc
-        "Mautrix-Facebook, a Matrix-Facebook hybrid puppeting/relaybot bridge");
+      enable = mkEnableOption (
+        lib.mdDoc
+        "Mautrix-Facebook, a Matrix-Facebook hybrid puppeting/relaybot bridge"
+      );
 
       settings = mkOption rec {
         apply = recursiveUpdate default;
@@ -147,7 +152,8 @@ in
       wantedBy = [ "multi-user.target" ];
       wants =
         [ "network-online.target" ]
-        ++ optional config.services.matrix-synapse.enable
+        ++ optional
+          config.services.matrix-synapse.enable
           "matrix-synapse.service"
         ++ optional cfg.configurePostgresql "postgresql.service"
         ;

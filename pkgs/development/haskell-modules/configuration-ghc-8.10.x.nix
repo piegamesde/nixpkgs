@@ -92,20 +92,25 @@ self: super: {
   shower = doJailbreak super.shower;
 
     # Apply patch from https://github.com/finnsson/template-helper/issues/12#issuecomment-611795375 to fix the build.
-  language-haskell-extract = appendPatch (pkgs.fetchpatch {
-    name = "language-haskell-extract-0.2.4.patch";
-    url =
-      "https://gitlab.haskell.org/ghc/head.hackage/-/raw/e48738ee1be774507887a90a0d67ad1319456afc/patches/language-haskell-extract-0.2.4.patch?inline=false";
-    sha256 = "0rgzrq0513nlc1vw7nw4km4bcwn4ivxcgi33jly4a7n3c1r32v1f";
-  }) (doJailbreak super.language-haskell-extract);
+  language-haskell-extract = appendPatch
+    (pkgs.fetchpatch {
+      name = "language-haskell-extract-0.2.4.patch";
+      url =
+        "https://gitlab.haskell.org/ghc/head.hackage/-/raw/e48738ee1be774507887a90a0d67ad1319456afc/patches/language-haskell-extract-0.2.4.patch?inline=false";
+      sha256 = "0rgzrq0513nlc1vw7nw4km4bcwn4ivxcgi33jly4a7n3c1r32v1f";
+    })
+    (doJailbreak super.language-haskell-extract);
 
     # hnix 0.9.0 does not provide an executable for ghc < 8.10, so define completions here for now.
-  hnix = self.generateOptparseApplicativeCompletions [ "hnix" ] (overrideCabal
+  hnix = self.generateOptparseApplicativeCompletions [ "hnix" ] (
+    overrideCabal
     (drv: {
       # executable is allowed for ghc >= 8.10 and needs repline
       executableHaskellDepends =
         drv.executableToolDepends or [ ] ++ [ self.repline ];
-    }) super.hnix);
+    })
+    super.hnix
+  );
 
   haskell-language-server =
     let
@@ -118,8 +123,8 @@ self: super: {
         hls-tactics-plugin
       ];
     in
-    addBuildDepends additionalDeps (super.haskell-language-server.overrideScope
-      (
+    addBuildDepends additionalDeps (
+      super.haskell-language-server.overrideScope (
         lself: lsuper: {
           Cabal = lself.Cabal_3_6_3_0;
           aeson = lself.aeson_1_5_6_0;
@@ -127,68 +132,84 @@ self: super: {
           lsp-types =
             doJailbreak lsuper.lsp-types; # Checks require aeson >= 2.0
         }
-      ))
+      )
+    )
     ;
 
-  hls-tactics-plugin = unmarkBroken (addBuildDepends (
-    with self.hls-tactics-plugin.scope; [
-      aeson
-      extra
-      fingertree
-      generic-lens
-      ghc-exactprint
-      ghc-source-gen
-      ghcide
-      hls-graph
-      hls-plugin-api
-      hls-refactor-plugin
-      hyphenation
-      lens
-      lsp
-      megaparsec
-      parser-combinators
-      prettyprinter
-      refinery
-      retrie
-      syb
-      unagi-chan
-      unordered-containers
-    ]
-  ) super.hls-tactics-plugin);
+  hls-tactics-plugin = unmarkBroken (
+    addBuildDepends
+    (
+      with self.hls-tactics-plugin.scope; [
+        aeson
+        extra
+        fingertree
+        generic-lens
+        ghc-exactprint
+        ghc-source-gen
+        ghcide
+        hls-graph
+        hls-plugin-api
+        hls-refactor-plugin
+        hyphenation
+        lens
+        lsp
+        megaparsec
+        parser-combinators
+        prettyprinter
+        refinery
+        retrie
+        syb
+        unagi-chan
+        unordered-containers
+      ]
+    )
+    super.hls-tactics-plugin
+  );
 
-  hls-brittany-plugin = unmarkBroken (addBuildDepends (
-    with self.hls-brittany-plugin.scope; [
-      brittany
-      czipwith
-      extra
-      ghc-exactprint
-      ghcide
-      hls-plugin-api
-      hls-test-utils
-      lens
-      lsp-types
-    ]
-  ) (super.hls-brittany-plugin.overrideScope (
-    lself: lsuper: {
-      brittany = doJailbreak (unmarkBroken lself.brittany_0_13_1_2);
-      aeson = lself.aeson_1_5_6_0;
-      multistate = unmarkBroken (dontCheck lsuper.multistate);
-      lsp-types = doJailbreak lsuper.lsp-types; # Checks require aeson >= 2.0
-    }
-  )));
+  hls-brittany-plugin = unmarkBroken (
+    addBuildDepends
+    (
+      with self.hls-brittany-plugin.scope; [
+        brittany
+        czipwith
+        extra
+        ghc-exactprint
+        ghcide
+        hls-plugin-api
+        hls-test-utils
+        lens
+        lsp-types
+      ]
+    )
+    (
+      super.hls-brittany-plugin.overrideScope (
+        lself: lsuper: {
+          brittany = doJailbreak (unmarkBroken lself.brittany_0_13_1_2);
+          aeson = lself.aeson_1_5_6_0;
+          multistate = unmarkBroken (dontCheck lsuper.multistate);
+          lsp-types =
+            doJailbreak lsuper.lsp-types; # Checks require aeson >= 2.0
+        }
+      )
+    )
+  );
 
     # This package is marked as unbuildable on GHC 9.2, so hackage2nix doesn't include any dependencies.
     # See https://github.com/NixOS/nixpkgs/pull/205902 for why we use `self.<package>.scope`
-  hls-haddock-comments-plugin = unmarkBroken (addBuildDepends (
-    with self.hls-haddock-comments-plugin.scope; [
-      ghc-exactprint
-      ghcide
-      hls-plugin-api
-      hls-refactor-plugin
-      lsp-types
-      unordered-containers
-    ]
-  ) super.hls-haddock-comments-plugin);
+  hls-haddock-comments-plugin = unmarkBroken (
+    addBuildDepends
+    (
+      with self.hls-haddock-comments-plugin.scope; [
+        ghc-exactprint
+        ghcide
+        hls-plugin-api
+        hls-refactor-plugin
+        lsp-types
+        unordered-containers
+      ]
+    )
+    super.hls-haddock-comments-plugin
+  );
 
   mime-string = disableOptimization super.mime-string;
 
@@ -215,7 +236,8 @@ self: super: {
       dontCheck
     else
       x: x
-  ) super.inline-c-cpp;
+  )
+    super.inline-c-cpp;
 
     # Depends on OneTuple for GHC < 9.0
   universe-base = addBuildDepends [ self.OneTuple ] super.universe-base;

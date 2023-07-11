@@ -98,17 +98,20 @@ in
               ${lines}
             ''
             ;
-          runnerRegistrationConfig = getAttrs [
-            "name"
-            "tokenFile"
-            "url"
-            "runnerGroup"
-            "extraLabels"
-            "ephemeral"
-            "workDir"
-          ] cfg;
-          newConfigPath = builtins.toFile "${svcName}-config.json"
-            (builtins.toJSON runnerRegistrationConfig);
+          runnerRegistrationConfig = getAttrs
+            [
+              "name"
+              "tokenFile"
+              "url"
+              "runnerGroup"
+              "extraLabels"
+              "ephemeral"
+              "workDir"
+            ]
+            cfg;
+          newConfigPath = builtins.toFile "${svcName}-config.json" (
+            builtins.toJSON runnerRegistrationConfig
+          );
           currentConfigPath = "$STATE_DIRECTORY/.nixos-current-config.json";
           newConfigTokenPath = "$STATE_DIRECTORY/.new-token";
           currentConfigTokenPath =
@@ -181,8 +184,9 @@ in
                 --name ${escapeShellArg cfg.name}
                 ${optionalString cfg.replace "--replace"}
                 ${
-                  optionalString (cfg.runnerGroup != null)
-                  "--runnergroup ${escapeShellArg cfg.runnerGroup}"
+                  optionalString (cfg.runnerGroup != null) "--runnergroup ${
+                    escapeShellArg cfg.runnerGroup
+                  }"
                 }
                 ${optionalString cfg.ephemeral "--ephemeral"}
               )
@@ -215,7 +219,8 @@ in
             }} "$WORK_DIRECTORY/"
           '';
         in
-        map (
+        map
+        (
           x:
           "${x} ${
             escapeShellArgs [
@@ -224,7 +229,8 @@ in
               logsDir
             ]
           }"
-        ) [
+        )
+        [
           "+${unconfigureRunner}" # runs as root
           configureRunner
           setupWorkDir

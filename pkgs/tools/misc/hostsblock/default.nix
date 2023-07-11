@@ -50,12 +50,16 @@ stdenv.mkDerivation {
 
     mkdir -p $out/etc
     install -Dm644 conf/hostsblock.conf $out/etc/
-    ${lib.concatMapStrings (d: ''
+    ${lib.concatMapStrings
+    (d: ''
       echo ${d} >> $out/etc/black.list
-    '') blacklist}
-    ${lib.concatMapStrings (d: ''
+    '')
+    blacklist}
+    ${lib.concatMapStrings
+    (d: ''
       echo ${d} >> $out/etc/white.list
-    '') whitelist}
+    '')
+    whitelist}
     install -Dm644 conf/hosts.head $out/etc/
 
     for f in $out/bin/* $out/lib/* $out/etc/hostsblock.conf; do

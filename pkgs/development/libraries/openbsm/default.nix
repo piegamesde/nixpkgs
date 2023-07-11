@@ -11,13 +11,18 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = pname;
     repo = pname;
-    rev = lib.toUpper (builtins.replaceStrings [
-      "."
-      "-"
-    ] [
-      "_"
-      "_"
-    ] "${pname}-${version}");
+    rev = lib.toUpper (
+      builtins.replaceStrings
+      [
+        "."
+        "-"
+      ]
+      [
+        "_"
+        "_"
+      ]
+      "${pname}-${version}"
+    );
     sha256 = "0b98359hd8mm585sh145ss828pg2y8vgz38lqrb7nypapiyqdnd1";
   };
 
@@ -25,7 +30,8 @@ stdenv.mkDerivation rec {
     lib.optionals stdenv.isDarwin [ ./bsm-add-audit_token_to_pid.patch ];
 
   preConfigure = lib.optionalString
-    (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") ''
+    (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
+    ''
       MACOSX_DEPLOYMENT_TARGET=10.16
     '';
 

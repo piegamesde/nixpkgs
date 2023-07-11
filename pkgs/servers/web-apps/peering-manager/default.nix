@@ -13,8 +13,8 @@ let
     packageOverrides =
       final: prev: {
         django = final.django_4;
-        drf-nested-routers = prev.drf-nested-routers.overridePythonAttrs
-          (oldAttrs: {
+        drf-nested-routers = prev.drf-nested-routers.overridePythonAttrs (
+          oldAttrs: {
             patches = [
               # all for django 4 compat
               (fetchpatch {
@@ -33,7 +33,8 @@ let
                 hash = "sha256-IW4BLhHHhXDUZqHaXg46qWoQ89pMXv0ZxKjOCTnDcI0=";
               })
             ];
-          });
+          }
+        );
       }
       ;
   };

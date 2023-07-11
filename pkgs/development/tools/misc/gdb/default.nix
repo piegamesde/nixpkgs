@@ -46,8 +46,8 @@
 
 let
   basename = "gdb";
-  targetPrefix =
-    lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
+  targetPrefix = lib.optionalString
+    (stdenv.targetPlatform != stdenv.hostPlatform)
     "${stdenv.targetPlatform.config}-";
 
 in
@@ -103,8 +103,9 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional pythonSupport python3
     ++ lib.optional doCheck dejagnu
-    ++ lib.optional enableDebuginfod
-      (elfutils.override { enableDebuginfod = true; })
+    ++ lib.optional enableDebuginfod (
+      elfutils.override { enableDebuginfod = true; }
+    )
     ;
 
   propagatedNativeBuildInputs = [ setupDebugInfoDirs ];

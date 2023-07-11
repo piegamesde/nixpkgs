@@ -48,8 +48,9 @@ let
     #version=${pkg.version}
     # DONT'T REMOVE THE PREVIOUS VERSION LINE!
     #
-    ${concatStringsSep "\n"
-    (mapAttrsToList (name: value: "CONFIG_${name}=${toStr value}") cfg.config)}
+    ${concatStringsSep "\n" (
+      mapAttrsToList (name: value: "CONFIG_${name}=${toStr value}") cfg.config
+    )}
   '';
 
 in
@@ -70,12 +71,14 @@ in
 
       config = mkOption {
         type = with types;
-          attrsOf (oneOf [
-            str
-            int
-            bool
-            (listOf str)
-          ]);
+          attrsOf (
+            oneOf [
+              str
+              int
+              bool
+              (listOf str)
+            ]
+          );
         default = { };
         description = lib.mdDoc ''
           automysqlbackup configuration. Refer to
@@ -147,14 +150,17 @@ in
         "d '${cfg.config.backup_dir}' 0750 ${user} ${group} - -"
       ];
 
-    services.mysql.ensureUsers = optional (
-      config.services.mysql.enable && cfg.config.mysql_dump_host == "localhost"
-    ) {
-      name = user;
-      ensurePermissions = {
-        "*.*" = "SELECT, SHOW VIEW, TRIGGER, LOCK TABLES, EVENT";
+    services.mysql.ensureUsers = optional
+      (
+        config.services.mysql.enable
+        && cfg.config.mysql_dump_host == "localhost"
+      )
+      {
+        name = user;
+        ensurePermissions = {
+          "*.*" = "SELECT, SHOW VIEW, TRIGGER, LOCK TABLES, EVENT";
+        };
       };
-    };
 
   };
 }

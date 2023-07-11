@@ -170,13 +170,16 @@ let
     default_cc_wrapper = clang; # Instead of `@out@` in the original.
     coreutils_bin = lib.getBin coreutils;
     gnugrep_bin = gnugrep;
-    suffixSalt = lib.replaceStrings [
-      "-"
-      "."
-    ] [
-      "_"
-      "_"
-    ] targetPlatform.config;
+    suffixSalt = lib.replaceStrings
+      [
+        "-"
+        "."
+      ]
+      [
+        "_"
+        "_"
+      ]
+      targetPlatform.config;
     use_response_file_by_default = 1;
     swiftDriver = "";
       # NOTE: @prog@ needs to be filled elsewhere.
@@ -295,8 +298,9 @@ stdenv.mkDerivation {
       ${copySource "llvm-project"}
       ${copySource "swift"}
       ${copySource "swift-experimental-string-processing"}
-      ${lib.optionalString (!stdenv.isDarwin)
-      (copySource "swift-corelibs-libdispatch")}
+      ${lib.optionalString (!stdenv.isDarwin) (
+        copySource "swift-corelibs-libdispatch"
+      )}
 
       chmod -R u+w .
     ''
@@ -307,7 +311,8 @@ stdenv.mkDerivation {
     # TODO: eliminate use of env.
     find -type f -print0 | xargs -0 sed -i \
     ${
-      lib.optionalString stdenv.isDarwin
+      lib.optionalString
+      stdenv.isDarwin
       "-e 's|/usr/libexec/PlistBuddy|${xcbuild}/bin/PlistBuddy|g'"
     } \
       -e 's|/usr/bin/env|${coreutils}/bin/env|g' \

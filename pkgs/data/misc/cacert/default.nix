@@ -20,22 +20,25 @@
 }:
 
 let
-  blocklist = writeText "cacert-blocklist.txt" (lib.concatStringsSep "\n" (
-    blacklist
-    ++ [
-      # Mozilla does not trust new certificates issued by these CAs after 2022/11/30¹
-      # in their products, but unfortunately we don't have such a fine-grained
-      # solution for most system packages², so we decided to eject these.
-      #
-      # [1] https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/oxX69KFvsm4/m/yLohoVqtCgAJ
-      # [2] https://utcc.utoronto.ca/~cks/space/blog/linux/CARootStoreTrustProblem
-      "TrustCor ECA-1"
-      "TrustCor RootCert CA-1"
-      "TrustCor RootCert CA-2"
-    ]
-  ));
-  extraCertificatesBundle = writeText "cacert-extra-certificates-bundle.crt"
-    (lib.concatStringsSep "\n\n" extraCertificateStrings);
+  blocklist = writeText "cacert-blocklist.txt" (
+    lib.concatStringsSep "\n" (
+      blacklist
+      ++ [
+        # Mozilla does not trust new certificates issued by these CAs after 2022/11/30¹
+        # in their products, but unfortunately we don't have such a fine-grained
+        # solution for most system packages², so we decided to eject these.
+        #
+        # [1] https://groups.google.com/a/mozilla.org/g/dev-security-policy/c/oxX69KFvsm4/m/yLohoVqtCgAJ
+        # [2] https://utcc.utoronto.ca/~cks/space/blog/linux/CARootStoreTrustProblem
+        "TrustCor ECA-1"
+        "TrustCor RootCert CA-1"
+        "TrustCor RootCert CA-2"
+      ]
+    )
+  );
+  extraCertificatesBundle = writeText "cacert-extra-certificates-bundle.crt" (
+    lib.concatStringsSep "\n\n" extraCertificateStrings
+  );
 
   srcVersion = "3.86";
   version =
@@ -162,11 +165,13 @@ stdenv.mkDerivation rec {
             };
             mapBlacklist =
               f:
-              lib.concatStringsSep "\n"
-              (lib.mapAttrsToList f blacklistCAToFingerprint)
+              lib.concatStringsSep "\n" (
+                lib.mapAttrsToList f blacklistCAToFingerprint
+              )
               ;
           in
-          runCommand "verify-the-cacert-filter-output" {
+          runCommand "verify-the-cacert-filter-output"
+          {
             cacert = cacert.unbundled;
             cacertWithExcludes =
               (cacert.override {
@@ -174,7 +179,8 @@ stdenv.mkDerivation rec {
               }).unbundled;
 
             nativeBuildInputs = [ openssl ];
-          } ''
+          }
+          ''
             ${isTrusted}
 
             # Ensure that each certificate is in the main "cacert".
@@ -231,11 +237,13 @@ stdenv.mkDerivation rec {
             };
             mapExtra =
               f:
-              lib.concatStringsSep "\n"
-              (lib.mapAttrsToList f extraCertificatesToFingerprint)
+              lib.concatStringsSep "\n" (
+                lib.mapAttrsToList f extraCertificatesToFingerprint
+              )
               ;
           in
-          runCommand "verify-the-cacert-extra-output" {
+          runCommand "verify-the-cacert-extra-output"
+          {
             cacert = cacert.unbundled;
             cacertWithExtras =
               (cacert.override {
@@ -244,7 +252,8 @@ stdenv.mkDerivation rec {
               }).unbundled;
 
             nativeBuildInputs = [ openssl ];
-          } ''
+          }
+          ''
             ${isTrusted}
 
             # Ensure that the extra certificate is not in the main "cacert".

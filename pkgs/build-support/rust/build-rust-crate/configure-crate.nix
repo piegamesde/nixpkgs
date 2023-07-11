@@ -38,14 +38,17 @@ let
       lib.elemAt version_ 1
     ;
   version = lib.splitVersion (lib.head version_);
-  rustcOpts = lib.foldl' (opts: opt: opts + " " + opt) (
-    if release then
-      "-C opt-level=3"
-    else
-      "-C debuginfo=2"
-  ) (
-    [ "-C codegen-units=${toString codegenUnits}" ] ++ extraRustcOptsForBuildRs
-  );
+  rustcOpts = lib.foldl' (opts: opt: opts + " " + opt)
+    (
+      if release then
+        "-C opt-level=3"
+      else
+        "-C debuginfo=2"
+    )
+    (
+      [ "-C codegen-units=${toString codegenUnits}" ]
+      ++ extraRustcOptsForBuildRs
+    );
   buildDeps = mkRustcDepArgs buildDependencies crateRenames;
   authors = lib.concatStringsSep ":" crateAuthors;
   optLevel =
@@ -56,8 +59,9 @@ let
     ;
   completeDepsDir = lib.concatStringsSep " " completeDeps;
   completeBuildDepsDir = lib.concatStringsSep " " completeBuildDeps;
-  envFeatures = lib.concatStringsSep " "
-    (map (f: lib.replaceStrings [ "-" ] [ "_" ] (lib.toUpper f)) crateFeatures);
+  envFeatures = lib.concatStringsSep " " (
+    map (f: lib.replaceStrings [ "-" ] [ "_" ] (lib.toUpper f)) crateFeatures
+  );
 in
 ''
   ${echo_colored colors}

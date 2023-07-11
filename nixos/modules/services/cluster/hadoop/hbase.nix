@@ -65,14 +65,17 @@ let
         path = with cfg;
           [ hbase.package ]
           ++ optional (with cfg.hbase.master; enable && initHDFS) package;
-        preStart = mkIf (with cfg.hbase.master; enable && initHDFS)
-          (concatStringsSep "\n" (map (
-            x: "HADOOP_USER_NAME=hdfs hdfs --config /etc/hadoop-conf ${x}"
-          ) [
-            "dfsadmin -safemode wait"
-            "dfs -mkdir -p ${cfg.hbase.rootdir}"
-            "dfs -chown hbase ${cfg.hbase.rootdir}"
-          ]));
+        preStart = mkIf (with cfg.hbase.master; enable && initHDFS) (
+          concatStringsSep "\n" (
+            map
+            (x: "HADOOP_USER_NAME=hdfs hdfs --config /etc/hadoop-conf ${x}")
+            [
+              "dfsadmin -safemode wait"
+              "dfs -mkdir -p ${cfg.hbase.rootdir}"
+              "dfs -chown hbase ${cfg.hbase.rootdir}"
+            ]
+          )
+        );
 
         inherit (cfg.hbase."${name}") environment;
         script = concatStringsSep " " (
@@ -81,11 +84,12 @@ let
             "${toLower name} start"
           ]
           ++ cfg.hbase."${name}".extraFlags
-          ++ map (x: "--${toLower x} ${toString cfg.hbase.${name}.${x}}")
-            (filter (x: hasAttr x cfg.hbase.${name}) [
+          ++ map (x: "--${toLower x} ${toString cfg.hbase.${name}.${x}}") (
+            filter (x: hasAttr x cfg.hbase.${name}) [
               "port"
               "infoPort"
-            ])
+            ]
+          )
         );
 
         serviceConfig = {

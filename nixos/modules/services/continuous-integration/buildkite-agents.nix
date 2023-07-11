@@ -47,8 +47,9 @@ let
     in
     pkgs.runCommand "buildkite-agent-hooks" { preferLocalBuild = true; } ''
       mkdir $out
-      ${concatStringsSep "\n"
-      (mapAttrsToList mkHookEntry (filterAttrs (n: v: v != null) cfg.hooks))}
+      ${concatStringsSep "\n" (
+        mapAttrsToList mkHookEntry (filterAttrs (n: v: v != null) cfg.hooks)
+      )}
     ''
     ;
 
@@ -312,8 +313,9 @@ in
             tagStr =
               name: value:
               if lib.isList value then
-                lib.concatStringsSep ","
-                (builtins.map (v: "${name}=${v}") value)
+                lib.concatStringsSep "," (
+                  builtins.map (v: "${name}=${v}") value
+                )
               else
                 "${name}=${value}"
               ;
@@ -366,10 +368,11 @@ in
   );
 
   imports = [
-      (mkRemovedOptionModule [
-        "services"
-        "buildkite-agent"
-      ]
+      (mkRemovedOptionModule
+        [
+          "services"
+          "buildkite-agent"
+        ]
         "services.buildkite-agent has been upgraded from version 2 to version 3 and moved to an attribute set at services.buildkite-agents. Please consult the 20.03 release notes for more information.")
     ];
 }

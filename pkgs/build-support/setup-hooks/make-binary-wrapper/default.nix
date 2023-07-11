@@ -10,7 +10,8 @@
   sanitizers ? [ ]
 }:
 
-makeSetupHook {
+makeSetupHook
+{
   name = "make-binary-wrapper-hook";
   propagatedBuildInputs =
     [
@@ -35,4 +36,5 @@ makeSetupHook {
 
     tests = tests.makeBinaryWrapper;
   };
-} ./make-binary-wrapper.sh
+}
+./make-binary-wrapper.sh

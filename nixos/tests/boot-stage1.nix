@@ -16,14 +16,16 @@ import ./make-test-python.nix (
           let
             compileKernelModule =
               name: source:
-              pkgs.runCommandCC name rec {
+              pkgs.runCommandCC name
+              rec {
                 inherit source;
                 kdev = config.boot.kernelPackages.kernel.dev;
                 kver = config.boot.kernelPackages.kernel.modDirVersion;
                 ksrc = "${kdev}/lib/modules/${kver}/build";
                 hardeningDisable = [ "pic" ];
                 nativeBuildInputs = kdev.moduleBuildDependencies;
-              } ''
+              }
+              ''
                 echo "obj-m += $name.o" > Makefile
                 echo "$source" > "$name.c"
                 make -C "$ksrc" M=$(pwd) modules
@@ -138,12 +140,14 @@ import ./make-test-python.nix (
               ;
 
             copyCanaries = with lib;
-              concatMapStrings (canary: ''
-                ${optionalString (canary ? child) ''
-                  copy_bin_and_libs "${canary.child}/bin/${canary.child.name}"
-                ''}
-                copy_bin_and_libs "${canary}/bin/${canary.name}"
-              '');
+              concatMapStrings (
+                canary: ''
+                  ${optionalString (canary ? child) ''
+                    copy_bin_and_libs "${canary.child}/bin/${canary.child.name}"
+                  ''}
+                  copy_bin_and_libs "${canary}/bin/${canary.name}"
+                ''
+              );
 
           in
           copyCanaries [

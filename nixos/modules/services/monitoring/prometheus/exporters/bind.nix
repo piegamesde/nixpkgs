@@ -39,11 +39,13 @@ in
       '';
     };
     bindGroups = mkOption {
-      type = types.listOf (types.enum [
-        "server"
-        "view"
-        "tasks"
-      ]);
+      type = types.listOf (
+        types.enum [
+          "server"
+          "view"
+          "tasks"
+        ]
+      );
       default = [
         "server"
         "view"

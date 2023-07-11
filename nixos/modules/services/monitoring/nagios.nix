@@ -17,10 +17,12 @@ let
 
   nagiosObjectDefs = cfg.objectDefs;
 
-  nagiosObjectDefsDir = pkgs.runCommand "nagios-objects" {
-    inherit nagiosObjectDefs;
-    preferLocalBuild = true;
-  } "mkdir -p $out; ln -s $nagiosObjectDefs $out/";
+  nagiosObjectDefsDir = pkgs.runCommand "nagios-objects"
+    {
+      inherit nagiosObjectDefs;
+      preferLocalBuild = true;
+    }
+    "mkdir -p $out; ln -s $nagiosObjectDefs $out/";
 
   nagiosCfgFile =
     let
@@ -97,11 +99,12 @@ let
 in
 {
   imports = [
-      (mkRemovedOptionModule [
-        "services"
-        "nagios"
-        "urlPath"
-      ]
+      (mkRemovedOptionModule
+        [
+          "services"
+          "nagios"
+          "urlPath"
+        ]
         "The urlPath option has been removed as it is hard coded to /nagios in the nagios package.")
     ];
 
@@ -109,8 +112,10 @@ in
 
   options = {
     services.nagios = {
-      enable = mkEnableOption (lib.mdDoc
-        "[Nagios](http://www.nagios.org/) to monitor your system or network.");
+      enable = mkEnableOption (
+        lib.mdDoc
+        "[Nagios](http://www.nagios.org/) to monitor your system or network."
+      );
 
       objectDefs = mkOption {
         description = lib.mdDoc ''

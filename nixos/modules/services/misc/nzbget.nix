@@ -12,9 +12,11 @@ let
   pkg = pkgs.nzbget;
   stateDir = "/var/lib/nzbget";
   configFile = "${stateDir}/nzbget.conf";
-  configOpts = concatStringsSep " "
-    (mapAttrsToList (name: value: "-o ${name}=${escapeShellArg (toStr value)}")
-      cfg.settings);
+  configOpts = concatStringsSep " " (
+    mapAttrsToList
+    (name: value: "-o ${name}=${escapeShellArg (toStr value)}")
+    cfg.settings
+  );
   toStr =
     v:
     if v == true then
@@ -29,25 +31,29 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule [
-      "services"
-      "misc"
-      "nzbget"
-      "configFile"
-    ]
+    (mkRemovedOptionModule
+      [
+        "services"
+        "misc"
+        "nzbget"
+        "configFile"
+      ]
       "The configuration of nzbget is now managed by users through the web interface.")
-    (mkRemovedOptionModule [
-      "services"
-      "misc"
-      "nzbget"
-      "dataDir"
-    ] "The data directory for nzbget is now /var/lib/nzbget.")
-    (mkRemovedOptionModule [
-      "services"
-      "misc"
-      "nzbget"
-      "openFirewall"
-    ]
+    (mkRemovedOptionModule
+      [
+        "services"
+        "misc"
+        "nzbget"
+        "dataDir"
+      ]
+      "The data directory for nzbget is now /var/lib/nzbget.")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "misc"
+        "nzbget"
+        "openFirewall"
+      ]
       "The port used by nzbget is managed through the web interface so you should adjust your firewall rules accordingly.")
   ];
 
@@ -71,11 +77,13 @@ in
 
       settings = mkOption {
         type = with types;
-          attrsOf (oneOf [
-            bool
-            int
-            str
-          ]);
+          attrsOf (
+            oneOf [
+              bool
+              int
+              str
+            ]
+          );
         default = { };
         description = lib.mdDoc ''
           NZBGet configuration, passed via command line using switch -o. Refer to

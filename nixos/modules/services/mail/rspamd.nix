@@ -52,8 +52,9 @@ let
         let
           maybeOption =
             option:
-            optionalString options.${option}.isDefined
-            " ${option}=${config.${option}}"
+            optionalString options.${option}.isDefined " ${option}=${
+               config.${option}
+             }"
             ;
         in
         if (!(hasPrefix "/" config.socket)) then
@@ -86,14 +87,16 @@ let
           description = lib.mdDoc "Name of the worker";
         };
         type = mkOption {
-          type = types.nullOr (types.enum [
-            "normal"
-            "controller"
-            "fuzzy"
-            "rspamd_proxy"
-            "lua"
-            "proxy"
-          ]);
+          type = types.nullOr (
+            types.enum [
+              "normal"
+              "controller"
+              "fuzzy"
+              "rspamd_proxy"
+              "lua"
+              "proxy"
+            ]
+          );
           description = lib.mdDoc ''
             The type of this worker. The type `proxy` is
             deprecated and only kept for backwards compatibility and should be
@@ -116,8 +119,9 @@ let
             ;
         };
         bindSockets = mkOption {
-          type = types.listOf
-            (types.either types.str (types.submodule bindSocketOpts));
+          type = types.listOf (
+            types.either types.str (types.submodule bindSocketOpts)
+          );
           default = [ ];
           description = lib.mdDoc ''
             List of sockets to listen, in format acceptable by rspamd
@@ -132,7 +136,8 @@ let
           ];
           apply =
             value:
-            map (
+            map
+            (
               each:
               if (isString each) then
                 if (isUnixSocket each) then
@@ -150,7 +155,8 @@ let
                   }
               else
                 each
-            ) value
+            )
+            value
             ;
         };
         count = mkOption {
@@ -175,44 +181,46 @@ let
             ;
         };
       };
-      config = mkIf (
-        name == "normal"
-        || name == "controller"
-        || name == "fuzzy"
-        || name == "rspamd_proxy"
-      ) {
-        type = mkDefault name;
-        includes = mkDefault [
-            "$CONFDIR/worker-${
-              if name == "rspamd_proxy" then
-                "proxy"
+      config = mkIf
+        (
+          name == "normal"
+          || name == "controller"
+          || name == "fuzzy"
+          || name == "rspamd_proxy"
+        )
+        {
+          type = mkDefault name;
+          includes = mkDefault [
+              "$CONFDIR/worker-${
+                if name == "rspamd_proxy" then
+                  "proxy"
+                else
+                  name
+              }.inc"
+            ];
+          bindSockets =
+            let
+              unixSocket =
+                name: {
+                  mode = "0660";
+                  socket = "/run/rspamd/${name}.sock";
+                  owner = cfg.user;
+                  group = cfg.group;
+                }
+                ;
+            in
+            mkDefault (
+              if name == "normal" then
+                [ (unixSocket "rspamd") ]
+              else if name == "controller" then
+                [ "localhost:11334" ]
+              else if name == "rspamd_proxy" then
+                [ (unixSocket "proxy") ]
               else
-                name
-            }.inc"
-          ];
-        bindSockets =
-          let
-            unixSocket =
-              name: {
-                mode = "0660";
-                socket = "/run/rspamd/${name}.sock";
-                owner = cfg.user;
-                group = cfg.group;
-              }
-              ;
-          in
-          mkDefault (
-            if name == "normal" then
-              [ (unixSocket "rspamd") ]
-            else if name == "controller" then
-              [ "localhost:11334" ]
-            else if name == "rspamd_proxy" then
-              [ (unixSocket "proxy") ]
-            else
-              [ ]
-          )
-          ;
-      };
+                [ ]
+            )
+            ;
+        };
     }
     ;
 
@@ -228,8 +236,9 @@ let
 
   mkBindSockets =
     enabled: socks:
-    concatStringsSep "\n  "
-    (flatten (map (each: ''bind_socket = "${each.rawEntry}";'') socks))
+    concatStringsSep "\n  " (
+      flatten (map (each: ''bind_socket = "${each.rawEntry}";'') socks)
+    )
     ;
 
   rspamdConfFile = pkgs.writeText "rspamd.conf" ''
@@ -249,42 +258,48 @@ let
       .include(try=true; priority=10) "$LOCAL_CONFDIR/override.d/logging.inc"
     }
 
-    ${concatStringsSep "\n" (mapAttrsToList (
-      name: value:
-      let
-        includeName =
-          if name == "rspamd_proxy" then
-            "proxy"
-          else
-            name
-          ;
-        tryOverride = boolToString (value.extraConfig == "");
-      in
-      ''
-        worker "${value.type}" {
-          type = "${value.type}";
-          ${
-            optionalString (value.enable != null) "enabled = ${
-              if value.enable != false then
-                "yes"
-              else
-                "no"
-            };"
+    ${concatStringsSep "\n" (
+      mapAttrsToList
+      (
+        name: value:
+        let
+          includeName =
+            if name == "rspamd_proxy" then
+              "proxy"
+            else
+              name
+            ;
+          tryOverride = boolToString (value.extraConfig == "");
+        in
+        ''
+          worker "${value.type}" {
+            type = "${value.type}";
+            ${
+              optionalString (value.enable != null) "enabled = ${
+                if value.enable != false then
+                  "yes"
+                else
+                  "no"
+              };"
+            }
+            ${mkBindSockets value.enable value.bindSockets}
+            ${
+              optionalString (value.count != null) "count = ${
+                toString value.count
+              };"
+            }
+            ${
+              concatStringsSep "\n  " (
+                map (each: ''.include "${each}"'') value.includes
+              )
+            }
+            .include(try=true; priority=1,duplicate=merge) "$LOCAL_CONFDIR/local.d/worker-${includeName}.inc"
+            .include(try=${tryOverride}; priority=10) "$LOCAL_CONFDIR/override.d/worker-${includeName}.inc"
           }
-          ${mkBindSockets value.enable value.bindSockets}
-          ${
-            optionalString (value.count != null)
-            "count = ${toString value.count};"
-          }
-          ${
-            concatStringsSep "\n  "
-            (map (each: ''.include "${each}"'') value.includes)
-          }
-          .include(try=true; priority=1,duplicate=merge) "$LOCAL_CONFDIR/local.d/worker-${includeName}.inc"
-          .include(try=${tryOverride}; priority=10) "$LOCAL_CONFDIR/override.d/worker-${includeName}.inc"
-        }
-      ''
-    ) cfg.workers)}
+        ''
+      )
+      cfg.workers
+    )}
 
     ${optionalString (cfg.extraConfig != "") ''
       .include(priority=10) "$LOCAL_CONFDIR/override.d/extra-config.inc"
@@ -293,18 +308,22 @@ let
 
   filterFiles = files: filterAttrs (n: v: v.enable) files;
   rspamdDir = pkgs.linkFarm "etc-rspamd-dir" (
-    (mapAttrsToList (
-      name: file: {
-        name = "local.d/${name}";
-        path = file.source;
-      }
-    ) (filterFiles cfg.locals))
-    ++ (mapAttrsToList (
-      name: file: {
-        name = "override.d/${name}";
-        path = file.source;
-      }
-    ) (filterFiles cfg.overrides))
+    (mapAttrsToList
+      (
+        name: file: {
+          name = "local.d/${name}";
+          path = file.source;
+        }
+      )
+      (filterFiles cfg.locals))
+    ++ (mapAttrsToList
+      (
+        name: file: {
+          name = "override.d/${name}";
+          path = file.source;
+        }
+      )
+      (filterFiles cfg.overrides))
     ++ (optional (cfg.localLuaRules != null) {
       name = "rspamd.local.lua";
       path = cfg.localLuaRules;
@@ -354,20 +373,26 @@ let
     }
     ;
 
-  configOverrides = (mapAttrs' (
-    n: v:
-    nameValuePair "worker-${
-      if n == "rspamd_proxy" then
-        "proxy"
+  configOverrides = (mapAttrs'
+    (
+      n: v:
+      nameValuePair
+      "worker-${
+        if n == "rspamd_proxy" then
+          "proxy"
+        else
+          n
+      }.inc"
+      {
+        text = v.extraConfig;
+      }
+    )
+    (filterAttrs (n: v: v.extraConfig != "") cfg.workers)) // (
+      if cfg.extraConfig == "" then
+        { }
       else
-        n
-    }.inc" { text = v.extraConfig; }
-  ) (filterAttrs (n: v: v.extraConfig != "") cfg.workers)) // (
-    if cfg.extraConfig == "" then
-      { }
-    else
-      { "extra-config.inc".text = cfg.extraConfig; }
-  );
+        { "extra-config.inc".text = cfg.extraConfig; }
+    );
 
 in
 {
@@ -484,11 +509,13 @@ in
 
         config = mkOption {
           type = with types;
-            attrsOf (oneOf [
-              bool
-              str
-              (listOf str)
-            ]);
+            attrsOf (
+              oneOf [
+                bool
+                str
+                (listOf str)
+              ]
+            );
           description = lib.mdDoc ''
             Addon to postfix configuration
           '';
@@ -598,37 +625,44 @@ in
     };
   };
   imports = [
-    (mkRemovedOptionModule [
-      "services"
-      "rspamd"
-      "socketActivation"
-    ]
+    (mkRemovedOptionModule
+      [
+        "services"
+        "rspamd"
+        "socketActivation"
+      ]
       "Socket activation never worked correctly and could at this time not be fixed and so was removed")
-    (mkRenamedOptionModule [
-      "services"
-      "rspamd"
-      "bindSocket"
-    ] [
-      "services"
-      "rspamd"
-      "workers"
-      "normal"
-      "bindSockets"
-    ])
-    (mkRenamedOptionModule [
-      "services"
-      "rspamd"
-      "bindUISocket"
-    ] [
-      "services"
-      "rspamd"
-      "workers"
-      "controller"
-      "bindSockets"
-    ])
-    (mkRemovedOptionModule [
-      "services"
-      "rmilter"
-    ] "Use services.rspamd.* instead to set up milter service")
+    (mkRenamedOptionModule
+      [
+        "services"
+        "rspamd"
+        "bindSocket"
+      ]
+      [
+        "services"
+        "rspamd"
+        "workers"
+        "normal"
+        "bindSockets"
+      ])
+    (mkRenamedOptionModule
+      [
+        "services"
+        "rspamd"
+        "bindUISocket"
+      ]
+      [
+        "services"
+        "rspamd"
+        "workers"
+        "controller"
+        "bindSockets"
+      ])
+    (mkRemovedOptionModule
+      [
+        "services"
+        "rmilter"
+      ]
+      "Use services.rspamd.* instead to set up milter service")
   ];
 }

@@ -66,13 +66,15 @@ rec {
     # Apply a function to each derivation and only to derivations in an attrset.
   mapDerivationAttrset =
     f: set:
-    lib.mapAttrs (
+    lib.mapAttrs
+    (
       name: pkg:
       if lib.isDerivation pkg then
         (f pkg)
       else
         pkg
-    ) set
+    )
+    set
     ;
 
     # Set the nix-env priority of the package.
@@ -174,13 +176,16 @@ rec {
   getLicenseFromSpdxId =
     let
       spdxLicenses =
-        lib.mapAttrs (id: ls: assert lib.length ls == 1; builtins.head ls)
-        (lib.groupBy (l: lib.toLower l.spdxId)
-          (lib.filter (l: l ? spdxId) (lib.attrValues lib.licenses)));
+        lib.mapAttrs (id: ls: assert lib.length ls == 1; builtins.head ls) (
+          lib.groupBy (l: lib.toLower l.spdxId) (
+            lib.filter (l: l ? spdxId) (lib.attrValues lib.licenses)
+          )
+        );
     in
     licstr:
     spdxLicenses.${lib.toLower licstr} or (lib.warn
-      "getLicenseFromSpdxId: No license matches the given SPDX ID: ${licstr}" {
+      "getLicenseFromSpdxId: No license matches the given SPDX ID: ${licstr}"
+      {
         shortName = licstr;
       })
     ;

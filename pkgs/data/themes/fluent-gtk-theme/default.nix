@@ -20,7 +20,8 @@ let
   pname = "fluent-gtk-theme";
 
 in
-lib.checkListOfEnum "${pname}: theme variants" [
+lib.checkListOfEnum "${pname}: theme variants"
+[
   "default"
   "purple"
   "pink"
@@ -31,23 +32,37 @@ lib.checkListOfEnum "${pname}: theme variants" [
   "teal"
   "grey"
   "all"
-] themeVariants lib.checkListOfEnum "${pname}: color variants" [
+]
+themeVariants
+lib.checkListOfEnum
+"${pname}: color variants"
+[
   "standard"
   "light"
   "dark"
-] colorVariants lib.checkListOfEnum "${pname}: size variants" [
+]
+colorVariants
+lib.checkListOfEnum
+"${pname}: size variants"
+[
   "standard"
   "compact"
-] sizeVariants lib.checkListOfEnum "${pname}: tweaks" [
+]
+sizeVariants
+lib.checkListOfEnum
+"${pname}: tweaks"
+[
   "solid"
   "float"
   "round"
   "blur"
   "noborder"
   "square"
-] tweaks
+]
+tweaks
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation
+rec {
   inherit pname;
   version = "2022-12-15";
 

@@ -15,10 +15,12 @@ let
       name,
       command,
     }:
-    pkgs.runCommandLocal "test-${lua.name}" ({
+    pkgs.runCommandLocal "test-${lua.name}"
+    ({
       nativeBuildInputs = [ lua ];
       meta.platforms = lua.meta.platforms;
-    }) (
+    })
+    (
       ''
         source ${./assert.sh}
       ''
@@ -27,15 +29,17 @@ let
     )
     ;
 
-  wrappedHello = hello.overrideAttrs (oa: {
-    propagatedBuildInputs = [
-      wrapLua
-      lua.pkgs.cjson
-    ];
-    postFixup = ''
-      wrapLuaPrograms
-    '';
-  });
+  wrappedHello = hello.overrideAttrs (
+    oa: {
+      propagatedBuildInputs = [
+        wrapLua
+        lua.pkgs.cjson
+      ];
+      postFixup = ''
+        wrapLuaPrograms
+      '';
+    }
+  );
 in
 pkgs.recurseIntoAttrs ({
 

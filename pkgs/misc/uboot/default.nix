@@ -85,10 +85,12 @@ let
           dtc
           flex
           openssl
-          (buildPackages.python3.withPackages (p: [
-            p.libfdt
-            p.setuptools # for pkg_resources
-          ]))
+          (buildPackages.python3.withPackages (
+            p: [
+              p.libfdt
+              p.setuptools # for pkg_resources
+            ]
+          ))
           swig
           which # for scripts/dtc-version.sh
         ];
@@ -131,11 +133,13 @@ let
           cp ${lib.concatStringsSep " " filesToInstall} ${installDir}
 
           mkdir -p "$out/nix-support"
-          ${lib.concatMapStrings (file: ''
+          ${lib.concatMapStrings
+          (file: ''
             echo "file binary-dist ${installDir}/${
               builtins.baseNameOf file
             }" >> "$out/nix-support/hydra-build-products"
-          '') filesToInstall}
+          '')
+          filesToInstall}
 
           runHook postInstall
         '';

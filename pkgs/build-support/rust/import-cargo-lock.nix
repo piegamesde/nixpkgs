@@ -83,8 +83,11 @@ let
     builtins.deepSeq gitShaOutputHash (builtins.map mkCrate depPackages);
 
     # Map package name + version to git commit SHA for packages with a git source.
-  namesGitShas = builtins.listToAttrs (builtins.map nameGitSha
-    (builtins.filter (pkg: lib.hasPrefix "git+" pkg.source) depPackages));
+  namesGitShas = builtins.listToAttrs (
+    builtins.map nameGitSha (
+      builtins.filter (pkg: lib.hasPrefix "git+" pkg.source) depPackages
+    )
+  );
 
   nameGitSha =
     pkg:
@@ -105,19 +108,21 @@ let
     # workspace). By using the git commit SHA as a universal identifier,
     # the user does not have to specify the output hash for every package
     # individually.
-  gitShaOutputHash = lib.mapAttrs' (
-    nameVer: hash:
-    let
-      unusedHash = throw
-        "A hash was specified for ${nameVer}, but there is no corresponding git dependency."
-        ;
-      rev = namesGitShas.${nameVer} or unusedHash;
-    in
-    {
-      name = rev;
-      value = hash;
-    }
-  ) outputHashes;
+  gitShaOutputHash = lib.mapAttrs'
+    (
+      nameVer: hash:
+      let
+        unusedHash = throw
+          "A hash was specified for ${nameVer}, but there is no corresponding git dependency."
+          ;
+        rev = namesGitShas.${nameVer} or unusedHash;
+      in
+      {
+        name = rev;
+        value = hash;
+      }
+    )
+    outputHashes;
 
     # We can't use the existing fetchCrate function, since it uses a
     # recursive hash of the unpacked crate.
@@ -143,13 +148,15 @@ let
   } // extraRegistries;
 
     # Replaces values inherited by workspace members.
-  replaceWorkspaceValues = writers.writePython3 "replace-workspace-values" {
-    libraries = with python3Packages; [
-      tomli
-      tomli-w
-    ];
-    flakeIgnore = [ "E501" ];
-  } (builtins.readFile ./replace-workspace-values.py);
+  replaceWorkspaceValues = writers.writePython3 "replace-workspace-values"
+    {
+      libraries = with python3Packages; [
+        tomli
+        tomli-w
+      ];
+      flakeIgnore = [ "E501" ];
+    }
+    (builtins.readFile ./replace-workspace-values.py);
 
     # Fetch and unpack a crate.
   mkCrate =
@@ -250,8 +257,8 @@ let
         cat > $out/.cargo-config <<EOF
         [source."${gitParts.url}"]
         git = "${gitParts.url}"
-        ${lib.optionalString (gitParts ? type)
-        ''${gitParts.type} = "${gitParts.value}"''}
+        ${lib.optionalString (gitParts ? type) ''
+          ${gitParts.type} = "${gitParts.value}"''}
         replace-with = "vendored-sources"
         EOF
       ''
@@ -259,55 +266,57 @@ let
       throw "Cannot handle crate source: ${pkg.source}"
     ;
 
-  vendorDir = runCommand "cargo-vendor-dir" (
-    if lockFile == null then
-      {
-        inherit lockFileContents;
-        passAsFile = [ "lockFileContents" ];
-      }
-    else
-      { passthru = { inherit lockFile; }; }
-  ) ''
-        mkdir -p $out/.cargo
-
-        ${
-          if lockFile != null then
-            "ln -s ${lockFile} $out/Cargo.lock"
-          else
-            "cp $lockFileContentsPath $out/Cargo.lock"
+  vendorDir = runCommand "cargo-vendor-dir"
+    (
+      if lockFile == null then
+        {
+          inherit lockFileContents;
+          passAsFile = [ "lockFileContents" ];
         }
+      else
+        { passthru = { inherit lockFile; }; }
+    )
+    ''
+          mkdir -p $out/.cargo
 
-        cat > $out/.cargo/config <<EOF
-    [source.crates-io]
-    replace-with = "vendored-sources"
+          ${
+            if lockFile != null then
+              "ln -s ${lockFile} $out/Cargo.lock"
+            else
+              "cp $lockFileContentsPath $out/Cargo.lock"
+          }
 
-    [source.vendored-sources]
-    directory = "cargo-vendor-dir"
-    EOF
+          cat > $out/.cargo/config <<EOF
+      [source.crates-io]
+      replace-with = "vendored-sources"
 
-        declare -A keysSeen
+      [source.vendored-sources]
+      directory = "cargo-vendor-dir"
+      EOF
 
-        for registry in ${toString (builtins.attrNames extraRegistries)}; do
-          cat >> $out/.cargo/config <<EOF
+          declare -A keysSeen
 
-    [source."$registry"]
-    registry = "$registry"
-    replace-with = "vendored-sources"
-    EOF
-        done
+          for registry in ${toString (builtins.attrNames extraRegistries)}; do
+            cat >> $out/.cargo/config <<EOF
 
-        for crate in ${toString depCrates}; do
-          # Link the crate directory, removing the output path hash from the destination.
-          ln -s "$crate" $out/$(basename "$crate" | cut -c 34-)
+      [source."$registry"]
+      registry = "$registry"
+      replace-with = "vendored-sources"
+      EOF
+          done
 
-          if [ -e "$crate/.cargo-config" ]; then
-            key=$(sed 's/\[source\."\(.*\)"\]/\1/; t; d' < "$crate/.cargo-config")
-            if [[ -z ''${keysSeen[$key]} ]]; then
-              keysSeen[$key]=1
-              cat "$crate/.cargo-config" >> $out/.cargo/config
+          for crate in ${toString depCrates}; do
+            # Link the crate directory, removing the output path hash from the destination.
+            ln -s "$crate" $out/$(basename "$crate" | cut -c 34-)
+
+            if [ -e "$crate/.cargo-config" ]; then
+              key=$(sed 's/\[source\."\(.*\)"\]/\1/; t; d' < "$crate/.cargo-config")
+              if [[ -z ''${keysSeen[$key]} ]]; then
+                keysSeen[$key]=1
+                cat "$crate/.cargo-config" >> $out/.cargo/config
+              fi
             fi
-          fi
-        done
-  '';
+          done
+    '';
 in
 vendorDir

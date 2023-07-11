@@ -88,8 +88,11 @@ let
 
   enabledUpstreamUnits = filter (n: !elem n cfg.suppressedUnits) upstreamUnits;
   enabledUnits = filterAttrs (n: v: !elem n cfg.suppressedUnits) cfg.units;
-  jobScripts = concatLists (mapAttrsToList (_: unit: unit.jobScripts or [ ])
-    (filterAttrs (_: v: v.enable) cfg.services));
+  jobScripts = concatLists (
+    mapAttrsToList (_: unit: unit.jobScripts or [ ]) (
+      filterAttrs (_: v: v.enable) cfg.services
+    )
+  );
 
   stage1Units = generateUnits {
     type = "initrd";
@@ -126,8 +129,9 @@ let
       "/bin"
       "/sbin"
     ];
-    postBuild = concatStringsSep "\n"
-      (mapAttrsToList (n: v: "ln -sf '${v}' $out/bin/'${n}'") cfg.extraBin);
+    postBuild = concatStringsSep "\n" (
+      mapAttrsToList (n: v: "ln -sf '${v}' $out/bin/'${n}'") cfg.extraBin
+    );
   };
 
   initialRamdisk = pkgs.makeInitrdNG {
@@ -136,16 +140,20 @@ let
     inherit (cfg) strip;
 
     contents =
-      map (path: {
-        object = path;
-        symlink = "";
-      }) (subtractLists cfg.suppressedStorePaths cfg.storePaths)
-      ++ mapAttrsToList (
-        _: v: {
-          object = v.source;
-          symlink = v.target;
-        }
-      ) (filterAttrs (_: v: v.enable) cfg.contents)
+      map
+        (path: {
+          object = path;
+          symlink = "";
+        })
+        (subtractLists cfg.suppressedStorePaths cfg.storePaths)
+      ++ mapAttrsToList
+        (
+          _: v: {
+            object = v.source;
+            symlink = v.target;
+          }
+        )
+        (filterAttrs (_: v: v.enable) cfg.contents)
       ;
   };
 
@@ -180,11 +188,15 @@ in
 
     managerEnvironment = mkOption {
       type = with types;
-        attrsOf (nullOr (oneOf [
-          str
-          path
-          package
-        ]));
+        attrsOf (
+          nullOr (
+            oneOf [
+              str
+              path
+              package
+            ]
+          )
+        );
       default = { };
       example = { SYSTEMD_LOG_LEVEL = "debug"; };
       description = lib.mdDoc ''
@@ -210,10 +222,12 @@ in
         Store paths to copy into the initrd as well.
       '';
       type = with types;
-        listOf (oneOf [
-          singleLineStr
-          package
-        ]);
+        listOf (
+          oneOf [
+            singleLineStr
+            package
+          ]
+        );
       default = [ ];
     };
 
@@ -390,7 +404,8 @@ in
         # systemd-cryptenroll
         "tpm-tis"
       ]
-      ++ lib.optional (pkgs.stdenv.hostPlatform.system != "riscv64-linux")
+      ++ lib.optional
+        (pkgs.stdenv.hostPlatform.system != "riscv64-linux")
         "tpm-crb"
       ;
 
@@ -424,9 +439,11 @@ in
           DefaultEnvironment=PATH=/bin:/sbin
           ${cfg.extraConfig}
           ManagerEnvironment=${
-            lib.concatStringsSep " "
-            (lib.mapAttrsToList (n: v: "${n}=${lib.escapeShellArg v}")
-              cfg.managerEnvironment)
+            lib.concatStringsSep " " (
+              lib.mapAttrsToList
+              (n: v: "${n}=${lib.escapeShellArg v}")
+              cfg.managerEnvironment
+            )
           }
         '';
 
@@ -511,28 +528,37 @@ in
       targets.initrd.aliases = [ "default.target" ];
       units =
         mapAttrs' (n: v: nameValuePair "${n}.path" (pathToUnit n v)) cfg.paths
-        // mapAttrs' (n: v: nameValuePair "${n}.service" (serviceToUnit n v))
-        cfg.services
-        // mapAttrs' (n: v: nameValuePair "${n}.slice" (sliceToUnit n v))
-        cfg.slices
-        // mapAttrs' (n: v: nameValuePair "${n}.socket" (socketToUnit n v))
-        cfg.sockets
-        // mapAttrs' (n: v: nameValuePair "${n}.target" (targetToUnit n v))
-        cfg.targets
-        // mapAttrs' (n: v: nameValuePair "${n}.timer" (timerToUnit n v))
-        cfg.timers // listToAttrs (map (
-          v:
-          let
-            n = escapeSystemdPath v.where;
-          in
-          nameValuePair "${n}.mount" (mountToUnit n v)
-        ) cfg.mounts) // listToAttrs (map (
-          v:
-          let
-            n = escapeSystemdPath v.where;
-          in
-          nameValuePair "${n}.automount" (automountToUnit n v)
-        ) cfg.automounts);
+        // mapAttrs'
+        (n: v: nameValuePair "${n}.service" (serviceToUnit n v))
+        cfg.services // mapAttrs'
+        (n: v: nameValuePair "${n}.slice" (sliceToUnit n v))
+        cfg.slices // mapAttrs'
+        (n: v: nameValuePair "${n}.socket" (socketToUnit n v))
+        cfg.sockets // mapAttrs'
+        (n: v: nameValuePair "${n}.target" (targetToUnit n v))
+        cfg.targets // mapAttrs'
+        (n: v: nameValuePair "${n}.timer" (timerToUnit n v))
+        cfg.timers // listToAttrs (
+          map
+          (
+            v:
+            let
+              n = escapeSystemdPath v.where;
+            in
+            nameValuePair "${n}.mount" (mountToUnit n v)
+          )
+          cfg.mounts
+        ) // listToAttrs (
+          map
+          (
+            v:
+            let
+              n = escapeSystemdPath v.where;
+            in
+            nameValuePair "${n}.automount" (automountToUnit n v)
+          )
+          cfg.automounts
+        );
 
         # make sure all the /dev nodes are set up
       services.systemd-tmpfiles-setup-dev.wantedBy = [ "sysinit.target" ];

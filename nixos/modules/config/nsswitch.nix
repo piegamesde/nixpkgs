@@ -95,14 +95,16 @@ with lib;
   };
 
   imports = [
-      (mkRenamedOptionModule [
-        "system"
-        "nssHosts"
-      ] [
-        "system"
-        "nssDatabases"
-        "hosts"
-      ])
+      (mkRenamedOptionModule
+        [
+          "system"
+          "nssHosts"
+        ]
+        [
+          "system"
+          "nssDatabases"
+          "hosts"
+        ])
     ];
 
   config = {

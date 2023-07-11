@@ -76,7 +76,8 @@ stdenv.mkDerivation rec {
 
     jlink \
       ${
-        lib.optionalString (!stdenv.isDarwin)
+        lib.optionalString
+        (!stdenv.isDarwin)
         "--module-path './jdks/${platform}/jdk-13/jmods'"
       } \
       --add-modules java.base,java.compiler,java.logging,java.sql,java.xml,jdk.compiler,jdk.jdi,jdk.unsupported,jdk.zipfs \

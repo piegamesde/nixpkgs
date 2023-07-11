@@ -40,12 +40,13 @@ testers.nixosTest {
 
         # Test runs without network, so we don't substitute and prepare our deps
       nix.settings.substituters = lib.mkForce [ ];
-      environment.etc."pre-built-paths".source = writeText "pre-built-paths"
-        (builtins.toJSON [
+      environment.etc."pre-built-paths".source = writeText "pre-built-paths" (
+        builtins.toJSON [
           hello
           figlet
           stdenvNoCC
-        ]);
+        ]
+      );
       environment.variables = {
         SAMPLE = invokeSamples ./sample.nix;
         REFERENCES = invokeSamples ./invoke-writeReferencesToFile.nix;

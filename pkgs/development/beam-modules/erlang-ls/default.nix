@@ -21,11 +21,13 @@ let
       (
         self: super: {
           proper = super.proper.overrideAttrs (_: { configurePhase = "true"; });
-          redbug = super.redbug.overrideAttrs (_: {
-            patchPhase = ''
-              substituteInPlace rebar.config --replace ", warnings_as_errors" ""
-            '';
-          });
+          redbug = super.redbug.overrideAttrs (
+            _: {
+              patchPhase = ''
+                substituteInPlace rebar.config --replace ", warnings_as_errors" ""
+              '';
+            }
+          );
         }
       );
   };

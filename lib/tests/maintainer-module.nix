@@ -25,9 +25,11 @@ in
       default = null;
     };
     keys = lib.mkOption {
-      type = types.listOf (types.submodule {
-        options.fingerprint = lib.mkOption { type = types.str; };
-      });
+      type = types.listOf (
+        types.submodule {
+          options.fingerprint = lib.mkOption { type = types.str; };
+        }
+      );
       default = [ ];
     };
   };

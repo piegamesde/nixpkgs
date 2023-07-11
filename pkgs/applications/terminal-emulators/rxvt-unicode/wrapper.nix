@@ -28,13 +28,15 @@ let
     let
       deps = p.perlPackages or [ ];
     in
-    map (
+    map
+    (
       x:
       if x == "self" then
         p
       else
         x
-    ) deps
+    )
+    deps
     ;
 
     # The wrapper is called with a `configure` function

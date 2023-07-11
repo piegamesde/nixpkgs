@@ -147,12 +147,14 @@ stdenv.mkDerivation {
           libopcodes_2_38
         ]
     )
-    ++ lib.optional (lib.meta.availableOn stdenv.hostPlatform systemtap)
+    ++ lib.optional
+      (lib.meta.availableOn stdenv.hostPlatform systemtap)
       systemtap.stapBuild
     ++ lib.optional withGtk gtk2
     ++ lib.optional withZstd zstd
     ++ lib.optional withLibcap libcap
-    ++ lib.optional (lib.versionAtLeast kernel.version "6.0")
+    ++ lib.optional
+      (lib.versionAtLeast kernel.version "6.0")
       python3.pkgs.setuptools
     ;
 

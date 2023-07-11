@@ -206,25 +206,31 @@ rec {
   };
 
     # Caution: ci.nix asserts the equality of both of these w/ diff
-  resholvedScript = resholve.writeScript "resholved-script" {
-    inputs = [ file ];
-    interpreter = "${bash}/bin/bash";
-  } ''
-    echo "Hello"
-    file .
-  '';
-  resholvedScriptBin = resholve.writeScriptBin "resholved-script-bin" {
-    inputs = [ file ];
-    interpreter = "${bash}/bin/bash";
-  } ''
-    echo "Hello"
-    file .
-  '';
-  resholvedScriptBinNone = resholve.writeScriptBin "resholved-script-bin" {
-    inputs = [ file ];
-    interpreter = "none";
-  } ''
-    echo "Hello"
-    file .
-  '';
+  resholvedScript = resholve.writeScript "resholved-script"
+    {
+      inputs = [ file ];
+      interpreter = "${bash}/bin/bash";
+    }
+    ''
+      echo "Hello"
+      file .
+    '';
+  resholvedScriptBin = resholve.writeScriptBin "resholved-script-bin"
+    {
+      inputs = [ file ];
+      interpreter = "${bash}/bin/bash";
+    }
+    ''
+      echo "Hello"
+      file .
+    '';
+  resholvedScriptBinNone = resholve.writeScriptBin "resholved-script-bin"
+    {
+      inputs = [ file ];
+      interpreter = "none";
+    }
+    ''
+      echo "Hello"
+      file .
+    '';
 }

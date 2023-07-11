@@ -17,11 +17,13 @@ in
 {
 
   imports = [
-      (mkRemovedOptionModule [
-        "services"
-        "tumbler"
-        "package"
-      ] "")
+      (mkRemovedOptionModule
+        [
+          "services"
+          "tumbler"
+          "package"
+        ]
+        "")
     ];
 
   meta = with lib; {

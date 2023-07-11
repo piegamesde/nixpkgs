@@ -121,7 +121,8 @@ stdenv.mkDerivation rec {
         ]
         # cpuid is only compatible with i686 and x86_64
         ++ lib.optional
-          (lib.elem stdenv.hostPlatform.system cpuid.meta.platforms) cpuid
+          (lib.elem stdenv.hostPlatform.system cpuid.meta.platforms)
+          cpuid
         ;
       conditionallyRecommendedPrograms =
         lib.optional systemdSupport systemd; # (systemd-analyze)

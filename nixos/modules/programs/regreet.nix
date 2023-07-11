@@ -25,10 +25,12 @@ in
       '';
     };
 
-    package = lib.mkPackageOptionMD pkgs [
-      "greetd"
-      "regreet"
-    ] { };
+    package = lib.mkPackageOptionMD pkgs
+      [
+        "greetd"
+        "regreet"
+      ]
+      { };
 
     settings = lib.mkOption {
       type = lib.types.either lib.types.path settingsFormat.type;
@@ -54,10 +56,10 @@ in
   config = lib.mkIf cfg.enable {
     services.greetd = {
       enable = lib.mkDefault true;
-      settings.default_session.command = lib.mkDefault
-        "${pkgs.dbus}/bin/dbus-run-session ${lib.getExe pkgs.cage} -s -- ${
-          lib.getExe cfg.package
-        }";
+      settings.default_session.command =
+        lib.mkDefault "${pkgs.dbus}/bin/dbus-run-session ${
+          lib.getExe pkgs.cage
+        } -s -- ${lib.getExe cfg.package}";
     };
 
     environment.etc = {

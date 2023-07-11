@@ -45,7 +45,8 @@ let
       ++ optionals (versionOlder version "19.0.0") [ "i686-linux" ]
       ;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    knownVulnerabilities = optional (versionOlder version "22.0.0")
+    knownVulnerabilities = optional
+      (versionOlder version "22.0.0")
       "Electron version ${version} is EOL";
   };
 
@@ -139,7 +140,8 @@ let
         --set-rpath "${atomEnv.libPath}:${electronLibPath}:$out/lib/electron" \
         $out/lib/electron/electron \
         ${
-          lib.optionalString (lib.versionAtLeast version "15.0.0")
+          lib.optionalString
+          (lib.versionAtLeast version "15.0.0")
           "$out/lib/electron/chrome_crashpad_handler"
         }
 

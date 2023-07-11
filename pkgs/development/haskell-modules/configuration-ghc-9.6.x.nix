@@ -10,8 +10,9 @@ let
 
   jailbreakWhileRevision =
     rev:
-    overrideCabal
-    (old: { jailbreak = assert old.revision or "0" == toString rev; true; })
+    overrideCabal (
+      old: { jailbreak = assert old.revision or "0" == toString rev; true; }
+    )
     ;
   checkAgainAfter =
     pkg: ver: msg: act:
@@ -148,7 +149,8 @@ self: super: {
 
     # Add missing Functor instance for Tuple2
     # https://github.com/haskell-foundation/foundation/pull/572
-  foundation = appendPatches [
+  foundation = appendPatches
+    [
       (pkgs.fetchpatch {
         name = "foundation-pr-572.patch";
         url =
@@ -156,22 +158,21 @@ self: super: {
         sha256 = "sha256-oPadhQdCPJHICdCPxn+GsSQUARIYODG8Ed6g2sK+eC4=";
         stripLen = 1;
       })
-    ] (
-      super.foundation
-    );
+    ]
+    (super.foundation);
 
     # Add support for time 1.10
     # https://github.com/vincenthz/hs-hourglass/pull/56
-  hourglass = appendPatches [
+  hourglass = appendPatches
+    [
       (pkgs.fetchpatch {
         name = "hourglass-pr-56.patch";
         url =
           "https://github.com/vincenthz/hs-hourglass/commit/cfc2a4b01f9993b1b51432f0a95fa6730d9a558a.patch";
         sha256 = "sha256-gntZf7RkaR4qzrhjrXSC69jE44SknPDBmfs4z9rVa5Q=";
       })
-    ] (
-      super.hourglass
-    );
+    ]
+    (super.hourglass);
 
     # Test suite doesn't compile with base-4.18 / GHC 9.6
     # https://github.com/dreixel/syb/issues/40
@@ -199,20 +200,24 @@ self: super: {
   hiedb = dontCheck super.hiedb;
   retrie = dontCheck (super.retrie);
 
-  ghc-exactprint = unmarkBroken (addBuildDepends (
-    with self.ghc-exactprint.scope; [
-      HUnit
-      Diff
-      data-default
-      extra
-      fail
-      free
-      ghc-paths
-      ordered-containers
-      silently
-      syb
-    ]
-  ) super.ghc-exactprint_1_7_0_0);
+  ghc-exactprint = unmarkBroken (
+    addBuildDepends
+    (
+      with self.ghc-exactprint.scope; [
+        HUnit
+        Diff
+        data-default
+        extra
+        fail
+        free
+        ghc-paths
+        ordered-containers
+        silently
+        syb
+      ]
+    )
+    super.ghc-exactprint_1_7_0_0
+  );
 
   inherit (pkgs.lib.mapAttrs (_: doJailbreak) super)
     hls-cabal-plugin

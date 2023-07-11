@@ -114,9 +114,9 @@ stdenv.mkDerivation rec {
 
   C_INCLUDE_PATH = lib.makeSearchPathOutput "dev" "include" buildInputs;
   LIBRARY_PATH = lib.makeLibraryPath buildInputs;
-  LD_LIBRARY_PATH = lib.makeLibraryPath
-    (builtins.filter (x: x.outPath != stdenv.cc.libc.outPath or "") buildInputs)
-    ;
+  LD_LIBRARY_PATH = lib.makeLibraryPath (
+    builtins.filter (x: x.outPath != stdenv.cc.libc.outPath or "") buildInputs
+  );
 
   patches = [
     ./dont_fetch_vendored_deps.patch
@@ -168,7 +168,8 @@ stdenv.mkDerivation rec {
     cp -R {include,lib_pypy,lib-python,${executable}-c} $out/${executable}-c
     cp lib${executable}-c${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/
     ln -s $out/${executable}-c/${executable}-c $out/bin/${executable}
-    ${lib.optionalString isPy39OrNewer
+    ${lib.optionalString
+    isPy39OrNewer
     "ln -s $out/bin/${executable} $out/bin/pypy3"}
 
     # other packages expect to find stuff according to libPrefix

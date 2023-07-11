@@ -92,17 +92,21 @@ let
     ]
     # We only apply this patch when building a native toolchain for aarch64-darwin, as it breaks building
     # a foreign one: https://github.com/iains/gcc-12-branch/issues/18
-    ++ optional (
-      stdenv.isDarwin
-      && stdenv.isAarch64
-      && buildPlatform == hostPlatform
-      && hostPlatform == targetPlatform
-    ) (fetchpatch {
-      name = "gcc-12-darwin-aarch64-support.patch";
-      url =
-        "https://github.com/Homebrew/formula-patches/raw/1d184289/gcc/gcc-12.2.0-arm.diff";
-      sha256 = "sha256-omclLslGi/2yCV4pNBMaIpPDMW3tcz/RXdupbNbeOHA=";
-    })
+    ++ optional
+      (
+        stdenv.isDarwin
+        && stdenv.isAarch64
+        && buildPlatform == hostPlatform
+        && hostPlatform == targetPlatform
+      )
+      (
+        fetchpatch {
+          name = "gcc-12-darwin-aarch64-support.patch";
+          url =
+            "https://github.com/Homebrew/formula-patches/raw/1d184289/gcc/gcc-12.2.0-arm.diff";
+          sha256 = "sha256-omclLslGi/2yCV4pNBMaIpPDMW3tcz/RXdupbNbeOHA=";
+        }
+      )
     ++ optional langD ../libphobos.patch
 
       # backport fixes to build gccgo with musl libc
@@ -151,17 +155,23 @@ let
     ]
 
     # Fix detection of bootstrap compiler Ada support (cctools as) on Nix Darwin
-    ++ optional (stdenv.isDarwin && langAda)
+    ++ optional
+      (stdenv.isDarwin && langAda)
       ../ada-cctools-as-detection-configure.patch
 
       # Use absolute path in GNAT dylib install names on Darwin
-    ++ optional (stdenv.isDarwin && langAda)
+    ++ optional
+      (stdenv.isDarwin && langAda)
       ../gnat-darwin-dylib-install-name.patch
 
       # Obtain latest patch with ../update-mcfgthread-patches.sh
-    ++ optional (
-      !crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf"
-    ) ./Added-mcf-thread-model-support-from-mcfgthread.patch
+    ++ optional
+      (
+        !crossStageStatic
+        && targetPlatform.isMinGW
+        && threadsCross.model == "mcf"
+      )
+      ./Added-mcf-thread-model-support-from-mcfgthread.patch
     ;
 
     # Cross-gcc settings (build == host != target)
@@ -173,7 +183,8 @@ let
     else
       "stage-final"
     ;
-  crossNameAddon = optionalString (targetPlatform != hostPlatform)
+  crossNameAddon = optionalString
+    (targetPlatform != hostPlatform)
     "${targetPlatform.config}-${stageNameAddon}-";
 
   callFile = lib.callPackageWith {
@@ -242,7 +253,8 @@ let
   };
 
 in
-lib.pipe (stdenv.mkDerivation (
+lib.pipe
+(stdenv.mkDerivation (
   {
     pname = "${crossNameAddon}${name}";
     inherit version;
@@ -293,11 +305,12 @@ lib.pipe (stdenv.mkDerivation (
         substituteInPlace libgfortran/configure \
           --replace "-install_name \\\$rpath/\\\$soname" "-install_name ''${!outputLib}/lib/\\\$soname"
       ''
-      + (lib.optionalString (
-        targetPlatform != hostPlatform || stdenv.cc.libc != null
-      )
-      # On NixOS, use the right path to the dynamic linker instead of
-      # `/lib/ld*.so'.
+      + (lib.optionalString
+        (
+          targetPlatform != hostPlatform || stdenv.cc.libc != null
+        )
+        # On NixOS, use the right path to the dynamic linker instead of
+        # `/lib/ld*.so'.
         (
           let
             libc =
@@ -374,11 +387,13 @@ lib.pipe (stdenv.mkDerivation (
       let
         target =
           lib.optionalString (profiledCompiler) "profiled"
-          + lib.optionalString (
-            targetPlatform == hostPlatform
-            && hostPlatform == buildPlatform
-            && !disableBootstrap
-          ) "bootstrap"
+          + lib.optionalString
+            (
+              targetPlatform == hostPlatform
+              && hostPlatform == buildPlatform
+              && !disableBootstrap
+            )
+            "bootstrap"
           ;
       in
       lib.optional (target != "") target
@@ -407,13 +422,13 @@ lib.pipe (stdenv.mkDerivation (
       # compiler (after the specs for the cross-gcc are created). Having
       # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
 
-    CPATH = optionals (targetPlatform == hostPlatform)
-      (makeSearchPathOutput "dev" "include" (
-        [ ] ++ optional (zlib != null) zlib
-      ));
+    CPATH = optionals (targetPlatform == hostPlatform) (
+      makeSearchPathOutput "dev" "include" ([ ] ++ optional (zlib != null) zlib)
+    );
 
-    LIBRARY_PATH = optionals (targetPlatform == hostPlatform)
-      (makeLibraryPath (optional (zlib != null) zlib));
+    LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (
+      makeLibraryPath (optional (zlib != null) zlib)
+    );
 
     inherit (callFile ../common/extra-target-flags.nix { })
       EXTRA_FLAGS_FOR_TARGET
@@ -450,11 +465,13 @@ lib.pipe (stdenv.mkDerivation (
     };
   }
 
-  // optionalAttrs (
+  // optionalAttrs
+  (
     targetPlatform != hostPlatform
     && targetPlatform.libc == "msvcrt"
     && crossStageStatic
-  ) {
+  )
+  {
     makeFlags = [
       "all-gcc"
       "all-target-libgcc"
@@ -463,7 +480,8 @@ lib.pipe (stdenv.mkDerivation (
   }
 
   // optionalAttrs (enableMultilib) { dontMoveLib64 = true; }
-)) [
+))
+[
   (callPackage ../common/libgcc.nix { inherit langC langCC langJit; })
   (callPackage ../common/checksum.nix { inherit langC langCC; })
 ]

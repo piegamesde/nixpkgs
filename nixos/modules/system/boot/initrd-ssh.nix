@@ -118,28 +118,32 @@ in
     };
   };
 
-  imports = map (
-    opt:
-    mkRemovedOptionModule (
-      [
-        "boot"
-        "initrd"
-        "network"
-        "ssh"
-      ]
-      ++ [ opt ]
-    ) ''
-      The initrd SSH functionality now uses OpenSSH rather than Dropbear.
+  imports = map
+    (
+      opt:
+      mkRemovedOptionModule
+      (
+        [
+          "boot"
+          "initrd"
+          "network"
+          "ssh"
+        ]
+        ++ [ opt ]
+      )
+      ''
+        The initrd SSH functionality now uses OpenSSH rather than Dropbear.
 
-      If you want to keep your existing initrd SSH host keys, convert them with
-        $ dropbearconvert dropbear openssh dropbear_host_$type_key ssh_host_$type_key
-      and then set options.boot.initrd.network.ssh.hostKeys.
-    ''
-  ) [
-    "hostRSAKey"
-    "hostDSSKey"
-    "hostECDSAKey"
-  ];
+        If you want to keep your existing initrd SSH host keys, convert them with
+          $ dropbearconvert dropbear openssh dropbear_host_$type_key ssh_host_$type_key
+        and then set options.boot.initrd.network.ssh.hostKeys.
+      ''
+    )
+    [
+      "hostRSAKey"
+      "hostDSSKey"
+      "hostECDSAKey"
+    ];
 
   config =
     let
@@ -168,9 +172,11 @@ in
         AuthorizedKeysFile %h/.ssh/authorized_keys %h/.ssh/authorized_keys2 /etc/ssh/authorized_keys.d/%u
         ChallengeResponseAuthentication no
 
-        ${flip concatMapStrings cfg.hostKeys (path: ''
-          HostKey ${initrdKeyPath path}
-        '')}
+        ${flip concatMapStrings cfg.hostKeys (
+          path: ''
+            HostKey ${initrdKeyPath path}
+          ''
+        )}
 
         KexAlgorithms ${concatStringsSep "," sshdCfg.settings.KexAlgorithms}
         Ciphers ${concatStringsSep "," sshdCfg.settings.Ciphers}
@@ -252,14 +258,20 @@ in
           echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> /etc/profile
 
           mkdir -p /root/.ssh
-          ${concatStrings (map (key: ''
-            echo ${escapeShellArg key} >> /root/.ssh/authorized_keys
-          '') cfg.authorizedKeys)}
+          ${concatStrings (
+            map
+            (key: ''
+              echo ${escapeShellArg key} >> /root/.ssh/authorized_keys
+            '')
+            cfg.authorizedKeys
+          )}
 
-          ${flip concatMapStrings cfg.hostKeys (path: ''
-            # keys from Nix store are world-readable, which sshd doesn't like
-            chmod 0600 "${initrdKeyPath path}"
-          '')}
+          ${flip concatMapStrings cfg.hostKeys (
+            path: ''
+              # keys from Nix store are world-readable, which sshd doesn't like
+              chmod 0600 "${initrdKeyPath path}"
+            ''
+          )}
 
           /bin/sshd -e
         '';
@@ -276,8 +288,9 @@ in
           fi
         '';
 
-      boot.initrd.secrets = listToAttrs
-        (map (path: nameValuePair (initrdKeyPath path) path) cfg.hostKeys);
+      boot.initrd.secrets = listToAttrs (
+        map (path: nameValuePair (initrdKeyPath path) path) cfg.hostKeys
+      );
 
         # Systemd initrd stuff
       boot.initrd.systemd = mkIf config.boot.initrd.systemd.enable {
@@ -303,9 +316,11 @@ in
             # Keys from Nix store are world-readable, which sshd doesn't
             # like. If this were a real nix store and not the initrd, we
             # neither would nor could do this
-          preStart = flip concatMapStrings cfg.hostKeys (path: ''
-            /bin/chmod 0600 "${initrdKeyPath path}"
-          '');
+          preStart = flip concatMapStrings cfg.hostKeys (
+            path: ''
+              /bin/chmod 0600 "${initrdKeyPath path}"
+            ''
+          );
           unitConfig.DefaultDependencies = false;
           serviceConfig = {
             ExecStart = "${package}/bin/sshd -D -f /etc/ssh/sshd_config";

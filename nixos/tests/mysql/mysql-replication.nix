@@ -120,5 +120,6 @@ let
     }
     ;
 in
-lib.mapAttrs (_: package: makeReplicationTest { inherit package; })
+lib.mapAttrs
+(_: package: makeReplicationTest { inherit package; })
 mariadbPackages

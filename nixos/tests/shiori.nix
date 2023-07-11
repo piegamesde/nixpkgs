@@ -19,11 +19,13 @@ import ./make-test-python.nix (
 
     testScript =
       let
-        authJSON = pkgs.writeText "auth.json" (builtins.toJSON {
-          username = "shiori";
-          password = "gopher";
-          owner = true;
-        });
+        authJSON = pkgs.writeText "auth.json" (
+          builtins.toJSON {
+            username = "shiori";
+            password = "gopher";
+            owner = true;
+          }
+        );
 
         insertBookmark = {
           url = "http://example.org";

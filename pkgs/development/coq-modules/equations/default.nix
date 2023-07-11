@@ -10,56 +10,58 @@
   owner = "mattam82";
   repo = "Coq-Equations";
   inherit version;
-  defaultVersion = lib.switch coq.coq-version [
-    {
-      case = "8.17";
-      out = "1.3+8.17";
-    }
-    {
-      case = "8.16";
-      out = "1.3+8.16";
-    }
-    {
-      case = "8.15";
-      out = "1.3+8.15";
-    }
-    {
-      case = "8.14";
-      out = "1.3+8.14";
-    }
-    {
-      case = "8.13";
-      out = "1.3+8.13";
-    }
-    {
-      case = "8.12";
-      out = "1.2.4+coq8.12";
-    }
-    {
-      case = "8.11";
-      out = "1.2.4+coq8.11";
-    }
-    {
-      case = "8.10";
-      out = "1.2.1+coq8.10-2";
-    }
-    {
-      case = "8.9";
-      out = "1.2.1+coq8.9";
-    }
-    {
-      case = "8.8";
-      out = "1.2+coq8.8";
-    }
-    {
-      case = "8.7";
-      out = "1.0+coq8.7";
-    }
-    {
-      case = "8.6";
-      out = "1.0+coq8.6";
-    }
-  ] null;
+  defaultVersion = lib.switch coq.coq-version
+    [
+      {
+        case = "8.17";
+        out = "1.3+8.17";
+      }
+      {
+        case = "8.16";
+        out = "1.3+8.16";
+      }
+      {
+        case = "8.15";
+        out = "1.3+8.15";
+      }
+      {
+        case = "8.14";
+        out = "1.3+8.14";
+      }
+      {
+        case = "8.13";
+        out = "1.3+8.13";
+      }
+      {
+        case = "8.12";
+        out = "1.2.4+coq8.12";
+      }
+      {
+        case = "8.11";
+        out = "1.2.4+coq8.11";
+      }
+      {
+        case = "8.10";
+        out = "1.2.1+coq8.10-2";
+      }
+      {
+        case = "8.9";
+        out = "1.2.1+coq8.9";
+      }
+      {
+        case = "8.8";
+        out = "1.2+coq8.8";
+      }
+      {
+        case = "8.7";
+        out = "1.0+coq8.7";
+      }
+      {
+        case = "8.6";
+        out = "1.0+coq8.6";
+      }
+    ]
+    null;
 
   release."1.0+coq8.6".version = "1.0";
   release."1.0+coq8.6".rev = "v1.0";
@@ -121,11 +123,14 @@
     description = "A plugin for Coq to add dependent pattern-matching";
     maintainers = with maintainers; [ jwiegley ];
   };
-}).overrideAttrs (o: {
-  preBuild =
-    "coq_makefile -f _CoqProject -o Makefile${
-      lib.optionalString (
-        lib.versionAtLeast o.version "1.2.1" || o.version == "dev"
-      ) ".coq"
-    }";
-})
+}).overrideAttrs
+(
+  o: {
+    preBuild =
+      "coq_makefile -f _CoqProject -o Makefile${
+        lib.optionalString
+        (lib.versionAtLeast o.version "1.2.1" || o.version == "dev")
+        ".coq"
+      }";
+  }
+)

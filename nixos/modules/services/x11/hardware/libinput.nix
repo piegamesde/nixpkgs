@@ -83,11 +83,13 @@ let
       };
 
       clickMethod = mkOption {
-        type = types.nullOr (types.enum [
-          "none"
-          "buttonareas"
-          "clickfinger"
-        ]);
+        type = types.nullOr (
+          types.enum [
+            "none"
+            "buttonareas"
+            "clickfinger"
+          ]
+        );
         default = null;
         example = "buttonareas";
         description = lib.mdDoc ''
@@ -180,10 +182,12 @@ let
       };
 
       tappingButtonMap = mkOption {
-        type = types.nullOr (types.enum [
-          "lrm"
-          "lmr"
-        ]);
+        type = types.nullOr (
+          types.enum [
+            "lrm"
+            "lmr"
+          ]
+        );
         default = null;
         description = lib.mdDoc ''
           Set the button mapping for 1/2/3-finger taps to left/right/middle or left/middle/right, respectively.
@@ -238,34 +242,34 @@ let
       Identifier "libinput ${deviceType} configuration"
       MatchDriver "libinput"
       MatchIs${matchIs} "${xorgBool true}"
-      ${optionalString (cfg.${deviceType}.dev != null)
-      ''MatchDevicePath "${cfg.${deviceType}.dev}"''}
+      ${optionalString (cfg.${deviceType}.dev != null) ''
+        MatchDevicePath "${cfg.${deviceType}.dev}"''}
       Option "AccelProfile" "${cfg.${deviceType}.accelProfile}"
-      ${optionalString (cfg.${deviceType}.accelSpeed != null)
-      ''Option "AccelSpeed" "${cfg.${deviceType}.accelSpeed}"''}
-      ${optionalString (cfg.${deviceType}.buttonMapping != null)
-      ''Option "ButtonMapping" "${cfg.${deviceType}.buttonMapping}"''}
-      ${optionalString (cfg.${deviceType}.calibrationMatrix != null)
-      ''Option "CalibrationMatrix" "${cfg.${deviceType}.calibrationMatrix}"''}
+      ${optionalString (cfg.${deviceType}.accelSpeed != null) ''
+        Option "AccelSpeed" "${cfg.${deviceType}.accelSpeed}"''}
+      ${optionalString (cfg.${deviceType}.buttonMapping != null) ''
+        Option "ButtonMapping" "${cfg.${deviceType}.buttonMapping}"''}
+      ${optionalString (cfg.${deviceType}.calibrationMatrix != null) ''
+        Option "CalibrationMatrix" "${cfg.${deviceType}.calibrationMatrix}"''}
       ${optionalString (cfg.${deviceType}.transformationMatrix != null) ''
         Option "TransformationMatrix" "${
           cfg.${deviceType}.transformationMatrix
         }"''}
-      ${optionalString (cfg.${deviceType}.clickMethod != null)
-      ''Option "ClickMethod" "${cfg.${deviceType}.clickMethod}"''}
+      ${optionalString (cfg.${deviceType}.clickMethod != null) ''
+        Option "ClickMethod" "${cfg.${deviceType}.clickMethod}"''}
       Option "LeftHanded" "${xorgBool cfg.${deviceType}.leftHanded}"
       Option "MiddleEmulation" "${xorgBool cfg.${deviceType}.middleEmulation}"
       Option "NaturalScrolling" "${xorgBool cfg.${deviceType}.naturalScrolling}"
-      ${optionalString (cfg.${deviceType}.scrollButton != null)
-      ''Option "ScrollButton" "${toString cfg.${deviceType}.scrollButton}"''}
+      ${optionalString (cfg.${deviceType}.scrollButton != null) ''
+        Option "ScrollButton" "${toString cfg.${deviceType}.scrollButton}"''}
       Option "ScrollMethod" "${cfg.${deviceType}.scrollMethod}"
       Option "HorizontalScrolling" "${
         xorgBool cfg.${deviceType}.horizontalScrolling
       }"
       Option "SendEventsMode" "${cfg.${deviceType}.sendEventsMode}"
       Option "Tapping" "${xorgBool cfg.${deviceType}.tapping}"
-      ${optionalString (cfg.${deviceType}.tappingButtonMap != null)
-      ''Option "TappingButtonMap" "${cfg.${deviceType}.tappingButtonMap}"''}
+      ${optionalString (cfg.${deviceType}.tappingButtonMap != null) ''
+        Option "TappingButtonMap" "${cfg.${deviceType}.tappingButtonMap}"''}
       Option "TappingDragLock" "${xorgBool cfg.${deviceType}.tappingDragLock}"
       Option "DisableWhileTyping" "${
         xorgBool cfg.${deviceType}.disableWhileTyping
@@ -277,40 +281,44 @@ in
 {
 
   imports =
-    (map (
-      option:
-      mkRenamedOptionModule ([
-        "services"
-        "xserver"
-        "libinput"
-        option
-      ]) [
-        "services"
-        "xserver"
-        "libinput"
-        "touchpad"
-        option
-      ]
-    ) [
-      "accelProfile"
-      "accelSpeed"
-      "buttonMapping"
-      "calibrationMatrix"
-      "clickMethod"
-      "leftHanded"
-      "middleEmulation"
-      "naturalScrolling"
-      "scrollButton"
-      "scrollMethod"
-      "horizontalScrolling"
-      "sendEventsMode"
-      "tapping"
-      "tappingButtonMap"
-      "tappingDragLock"
-      "transformationMatrix"
-      "disableWhileTyping"
-      "additionalOptions"
-    ]);
+    (map
+      (
+        option:
+        mkRenamedOptionModule
+        ([
+          "services"
+          "xserver"
+          "libinput"
+          option
+        ])
+        [
+          "services"
+          "xserver"
+          "libinput"
+          "touchpad"
+          option
+        ]
+      )
+      [
+        "accelProfile"
+        "accelSpeed"
+        "buttonMapping"
+        "calibrationMatrix"
+        "clickMethod"
+        "leftHanded"
+        "middleEmulation"
+        "naturalScrolling"
+        "scrollButton"
+        "scrollMethod"
+        "horizontalScrolling"
+        "sendEventsMode"
+        "tapping"
+        "tappingButtonMap"
+        "tappingDragLock"
+        "transformationMatrix"
+        "disableWhileTyping"
+        "additionalOptions"
+      ]);
 
   options = {
 

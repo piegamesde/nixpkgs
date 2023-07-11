@@ -12,8 +12,8 @@ let
 
   cfg = config.services.ofono;
 
-  plugin_path =
-    lib.concatMapStringsSep ":" (plugin: "${plugin}/lib/ofono/plugins")
+  plugin_path = lib.concatMapStringsSep ":"
+    (plugin: "${plugin}/lib/ofono/plugins")
     cfg.plugins;
 
 in

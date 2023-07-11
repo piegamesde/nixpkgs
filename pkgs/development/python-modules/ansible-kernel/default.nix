@@ -16,18 +16,20 @@
 }:
 
 let
-  kernelSpecFile = writeText "kernel.json" (builtins.toJSON {
-    argv = [
-      python.interpreter
-      "-m"
-      "ansible_kernel"
-      "-f"
-      "{connection_file}"
-    ];
-    codemirror_mode = "yaml";
-    display_name = "Ansible";
-    language = "ansible";
-  });
+  kernelSpecFile = writeText "kernel.json" (
+    builtins.toJSON {
+      argv = [
+        python.interpreter
+        "-m"
+        "ansible_kernel"
+        "-f"
+        "{connection_file}"
+      ];
+      codemirror_mode = "yaml";
+      display_name = "Ansible";
+      language = "ansible";
+    }
+  );
 in
 buildPythonPackage rec {
   pname = "ansible-kernel";

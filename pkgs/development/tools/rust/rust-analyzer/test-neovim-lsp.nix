@@ -5,7 +5,8 @@
   rust-analyzer,
   rustc,
 }:
-runCommand "test-neovim-rust-analyzer" {
+runCommand "test-neovim-rust-analyzer"
+{
   nativeBuildInputs = [
     cargo
     neovim
@@ -45,7 +46,8 @@ runCommand "test-neovim-rust-analyzer" {
       }))
     '';
 
-} ''
+}
+''
   # neovim requires a writable HOME.
   export HOME="$(pwd)"
 

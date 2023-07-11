@@ -31,7 +31,8 @@ mkCoqDerivation {
   repo = "VST";
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch coq.coq-version [
+    lib.switch coq.coq-version
+    [
       {
         case = range "8.15" "8.16";
         out = "2.11.1";
@@ -48,7 +49,8 @@ mkCoqDerivation {
         case = range "8.12" "8.13";
         out = "2.8";
       }
-    ] null;
+    ]
+    null;
   release."2.11.1".sha256 =
     "sha256-unpNstZBnRT4dIqAYOv9n1J0tWJMeRuaaa2RG1U0Xs0=";
   release."2.10".sha256 = "sha256-RIxfPWoHnV1CFkpxCusoGY/LIk07TgC7wWGRP4BSq8w=";

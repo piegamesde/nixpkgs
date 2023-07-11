@@ -242,8 +242,8 @@ in
 
       systemd.services.freshrss-config =
         let
-          settingsFlags = concatStringsSep " \\\n    "
-            (mapAttrsToList (k: v: "${k} ${toString v}") {
+          settingsFlags = concatStringsSep " \\\n    " (
+            mapAttrsToList (k: v: "${k} ${toString v}") {
               "--default_user" = ''"${cfg.defaultUser}"'';
               "--auth_type" = ''"form"'';
               "--base_url" = ''"${cfg.baseUrl}"'';
@@ -282,7 +282,8 @@ in
                 else
                   null
               } = ''"${cfg.database.host}:${toString cfg.database.port}"'';
-            });
+            }
+          );
         in
         {
           description = "Set up the state directory for FreshRSS before use";

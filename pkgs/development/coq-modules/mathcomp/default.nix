@@ -30,7 +30,8 @@ let
   owner = "math-comp";
   withDoc = single && (args.withDoc or false);
   defaultVersion = with versions;
-    lib.switch coq.coq-version [
+    lib.switch coq.coq-version
+    [
       {
         case = range "8.13" "8.17";
         out = "1.16.0";
@@ -75,7 +76,8 @@ let
         case = range "8.5" "8.7";
         out = "1.6.4";
       }
-    ] null;
+    ]
+    null;
   release = {
     "1.16.0".sha256 = "sha256-gXTKhRgSGeRBUnwdDezMsMKbOvxdffT+kViZ9e1gEz0=";
     "1.15.0".sha256 = "1bp0jxl35ms54s0mdqky15w9af03f3i0n06qk12k4gw1xzvwqv21";
@@ -198,13 +200,15 @@ let
       );
       patched-derivation1 = derivation.overrideAttrs (
         o:
-        optionalAttrs (
+        optionalAttrs
+        (
           o.pname != null
           && o.pname == "mathcomp-all"
           && o.version != null
           && o.version != "dev"
           && versions.isLt "1.7" o.version
-        ) {
+        )
+        {
           preBuild = "";
           buildPhase = "";
           installPhase = "echo doing nothing";
@@ -212,12 +216,16 @@ let
       );
       patched-derivation = patched-derivation1.overrideAttrs (
         o:
-        optionalAttrs (
+        optionalAttrs
+        (
           versions.isLe "8.7" coq.coq-version
           || (
             o.version != "dev" && versions.isLe "1.7" o.version
           )
-        ) { installFlags = o.installFlags ++ [ "-f Makefile.coq" ]; }
+        )
+        {
+          installFlags = o.installFlags ++ [ "-f Makefile.coq" ];
+        }
       );
     in
     patched-derivation

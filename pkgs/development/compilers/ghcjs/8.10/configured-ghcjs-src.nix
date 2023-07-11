@@ -18,7 +18,8 @@
   version,
 }:
 
-runCommand "configured-ghcjs-src" {
+runCommand "configured-ghcjs-src"
+{
   nativeBuildInputs = [
     perl
     autoconf
@@ -39,7 +40,8 @@ runCommand "configured-ghcjs-src" {
       "https://github.com/ghcjs/ghcjs/commit/b7711fbca7c3f43a61f1dba526e6f2a2656ef44c.patch";
     hash = "sha256-zZ3l8/5gbIGtvu0s2Xl92fEDhkhJ2c2w+5Ql5qkvr3s=";
   };
-} ''
+}
+''
   export HOME=$(pwd)
   mkdir $HOME/.cabal
   touch $HOME/.cabal/config

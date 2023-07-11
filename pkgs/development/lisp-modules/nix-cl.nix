@@ -235,13 +235,17 @@ let
           let
             mkSystemsRegex =
               systems:
-              concatMapStringsSep "\\|" (replaceStrings [
-                "."
-                "+"
-              ] [
-                "[.]"
-                "[+]"
-              ]) systems
+              concatMapStringsSep "\\|"
+              (replaceStrings
+                [
+                  "."
+                  "+"
+                ]
+                [
+                  "[.]"
+                  "[+]"
+                ])
+              systems
               ;
           in
           ''
@@ -342,24 +346,27 @@ let
       version = "with-packages";
       lispLibs = packages clpkgs;
       systems = [ ];
-    }).overrideAttrs (o: {
-      nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
-      installPhase = ''
-        mkdir -pv $out/bin
-        makeWrapper \
-          ${o.pkg}/bin/${o.program} \
-          $out/bin/${o.program} \
-          --add-flags "${toString o.flags}" \
-          --set ASDF "${o.asdfFasl}/asdf.${o.faslExt}" \
-          --prefix CL_SOURCE_REGISTRY : "$CL_SOURCE_REGISTRY" \
-          --prefix ASDF_OUTPUT_TRANSLATIONS : "$(echo $CL_SOURCE_REGISTRY | sed s,//:,::,g):" \
-          --prefix LD_LIBRARY_PATH : "$LD_LIBRARY_PATH" \
-          --prefix DYLD_LIBRARY_PATH : "$DYLD_LIBRARY_PATH" \
-          --prefix CLASSPATH : "$CLASSPATH" \
-          --prefix GI_TYPELIB_PATH : "$GI_TYPELIB_PATH" \
-          --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [ ])}"
-      '';
-    })
+    }).overrideAttrs
+    (
+      o: {
+        nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
+        installPhase = ''
+          mkdir -pv $out/bin
+          makeWrapper \
+            ${o.pkg}/bin/${o.program} \
+            $out/bin/${o.program} \
+            --add-flags "${toString o.flags}" \
+            --set ASDF "${o.asdfFasl}/asdf.${o.faslExt}" \
+            --prefix CL_SOURCE_REGISTRY : "$CL_SOURCE_REGISTRY" \
+            --prefix ASDF_OUTPUT_TRANSLATIONS : "$(echo $CL_SOURCE_REGISTRY | sed s,//:,::,g):" \
+            --prefix LD_LIBRARY_PATH : "$LD_LIBRARY_PATH" \
+            --prefix DYLD_LIBRARY_PATH : "$DYLD_LIBRARY_PATH" \
+            --prefix CLASSPATH : "$CLASSPATH" \
+            --prefix GI_TYPELIB_PATH : "$GI_TYPELIB_PATH" \
+            --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [ ])}"
+        '';
+      }
+    )
     ;
 
   wrapLisp =

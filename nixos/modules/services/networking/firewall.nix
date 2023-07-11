@@ -181,10 +181,12 @@ in
       };
 
       checkReversePath = mkOption {
-        type = types.either types.bool (types.enum [
-          "strict"
-          "loose"
-        ]);
+        type = types.either types.bool (
+          types.enum [
+            "strict"
+            "loose"
+          ]
+        );
         default = true;
         defaultText = literalMD
           "`true` except if the iptables based firewall is in use and the kernel lacks rpfilter support"

@@ -119,7 +119,8 @@ in
       extraUtilsCommands = ''
         copy_bin_and_libs ${pkgs.openiscsi}/bin/iscsid
         copy_bin_and_libs ${pkgs.openiscsi}/bin/iscsiadm
-        ${optionalString (!config.boot.initrd.network.ssh.enable)
+        ${optionalString
+        (!config.boot.initrd.network.ssh.enable)
         "cp -pv ${pkgs.glibc.out}/lib/libnss_files.so.* $out/lib"}
 
         mkdir -p $out/etc/iscsi

@@ -120,15 +120,17 @@ let
   optZfs = shouldUsePkg zfs;
 
     # Downgrade rocksdb, 7.10 breaks ceph
-  rocksdb' = rocksdb.overrideAttrs (oldAttrs: {
-    version = "7.9.2";
-    src = fetchFromGitHub {
-      owner = "facebook";
-      repo = "rocksdb";
-      rev = "refs/tags/v7.9.2";
-      hash = "sha256-5P7IqJ14EZzDkbjaBvbix04ceGGdlWBuVFH/5dpD5VM=";
-    };
-  });
+  rocksdb' = rocksdb.overrideAttrs (
+    oldAttrs: {
+      version = "7.9.2";
+      src = fetchFromGitHub {
+        owner = "facebook";
+        repo = "rocksdb";
+        rev = "refs/tags/v7.9.2";
+        hash = "sha256-5P7IqJ14EZzDkbjaBvbix04ceGGdlWBuVFH/5dpD5VM=";
+      };
+    }
+  );
 
   hasRadosgw =
     optExpat != null && optCurl != null && optLibedit != null
@@ -210,25 +212,27 @@ let
   python = python310.override {
     packageOverrides =
       self: super: {
-        sqlalchemy = super.sqlalchemy.overridePythonAttrs (oldAttrs: rec {
-          version = "1.4.46";
-          src = super.fetchPypi {
-            pname = "SQLAlchemy";
-            inherit version;
-            hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
-          };
-          nativeCheckInputs =
-            oldAttrs.nativeCheckInputs ++ (with super; [ pytest-xdist ]);
-          disabledTestPaths =
-            (
-              oldAttrs.disabledTestPaths or [ ]
-            )
-            ++ [
-              "test/aaa_profiling"
-              "test/ext/mypy"
-            ]
-            ;
-        });
+        sqlalchemy = super.sqlalchemy.overridePythonAttrs (
+          oldAttrs: rec {
+            version = "1.4.46";
+            src = super.fetchPypi {
+              pname = "SQLAlchemy";
+              inherit version;
+              hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
+            };
+            nativeCheckInputs =
+              oldAttrs.nativeCheckInputs ++ (with super; [ pytest-xdist ]);
+            disabledTestPaths =
+              (
+                oldAttrs.disabledTestPaths or [ ]
+              )
+              ++ [
+                "test/aaa_profiling"
+                "test/ext/mypy"
+              ]
+              ;
+          }
+        );
       }
       ;
   };
@@ -454,20 +458,22 @@ rec {
     };
   };
 
-  ceph-client = runCommand "ceph-client-${version}" {
-    meta = getMeta "Tools needed to mount Ceph's RADOS Block Devices/Cephfs";
-  } ''
-    mkdir -p $out/{bin,etc,${sitePackages},share/bash-completion/completions}
-    cp -r ${ceph}/bin/{ceph,.ceph-wrapped,rados,rbd,rbdmap} $out/bin
-    cp -r ${ceph}/bin/ceph-{authtool,conf,dencoder,rbdnamer,syn} $out/bin
-    cp -r ${ceph}/bin/rbd-replay* $out/bin
-    cp -r ${ceph}/sbin/mount.ceph $out/bin
-    cp -r ${ceph}/sbin/mount.fuse.ceph $out/bin
-    ln -s bin $out/sbin
-    cp -r ${ceph}/${sitePackages}/* $out/${sitePackages}
-    cp -r ${ceph}/etc/bash_completion.d $out/share/bash-completion/completions
-    # wrapPythonPrograms modifies .ceph-wrapped, so lets just update its paths
-    substituteInPlace $out/bin/ceph          --replace ${ceph} $out
-    substituteInPlace $out/bin/.ceph-wrapped --replace ${ceph} $out
-  '';
+  ceph-client = runCommand "ceph-client-${version}"
+    {
+      meta = getMeta "Tools needed to mount Ceph's RADOS Block Devices/Cephfs";
+    }
+    ''
+      mkdir -p $out/{bin,etc,${sitePackages},share/bash-completion/completions}
+      cp -r ${ceph}/bin/{ceph,.ceph-wrapped,rados,rbd,rbdmap} $out/bin
+      cp -r ${ceph}/bin/ceph-{authtool,conf,dencoder,rbdnamer,syn} $out/bin
+      cp -r ${ceph}/bin/rbd-replay* $out/bin
+      cp -r ${ceph}/sbin/mount.ceph $out/bin
+      cp -r ${ceph}/sbin/mount.fuse.ceph $out/bin
+      ln -s bin $out/sbin
+      cp -r ${ceph}/${sitePackages}/* $out/${sitePackages}
+      cp -r ${ceph}/etc/bash_completion.d $out/share/bash-completion/completions
+      # wrapPythonPrograms modifies .ceph-wrapped, so lets just update its paths
+      substituteInPlace $out/bin/ceph          --replace ${ceph} $out
+      substituteInPlace $out/bin/.ceph-wrapped --replace ${ceph} $out
+    '';
 }

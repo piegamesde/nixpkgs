@@ -39,14 +39,21 @@ let
 
 in
 lib.checkListOfEnum "Invalid accent, valid accents are ${toString validAccents}"
-validAccents accents lib.checkListOfEnum
-"Invalid flavour, valid flavours are ${toString validFlavours}" validFlavours
-flavour lib.checkListOfEnum
+validAccents
+accents
+lib.checkListOfEnum
+"Invalid flavour, valid flavours are ${toString validFlavours}"
+validFlavours
+flavour
+lib.checkListOfEnum
 "Invalid window decoration style, valid styles are ${
   toString validWinDecStyles
-}" validWinDecStyles winDecStyles
+}"
+validWinDecStyles
+winDecStyles
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation
+rec {
   pname = "kde";
   version = "0.2.4";
 

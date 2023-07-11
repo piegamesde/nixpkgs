@@ -10,7 +10,8 @@
 }@args:
 
 # Test whether `avahi-daemon' and `libnss-mdns' work as expected.
-import ./make-test-python.nix {
+import ./make-test-python.nix
+{
   name = "avahi";
   meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
 
@@ -87,4 +88,5 @@ import ./make-test-python.nix {
     two.succeed("avahi-browse -r -t _ssh._tcp | tee out >&2")
     two.succeed("test `wc -l < out` -gt 0")
   '';
-} args
+}
+args

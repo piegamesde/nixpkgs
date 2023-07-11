@@ -109,13 +109,15 @@ let
     # We don't want to use the wrapped version, because this version of ld is
     # only used for linking the Xen EFI binary, and the build process really
     # needs control over the LDFLAGS used
-  efiBinutils = binutils-unwrapped.overrideAttrs (oldAttrs: {
-    name = "efi-binutils";
-    configureFlags =
-      oldAttrs.configureFlags ++ [ "--enable-targets=x86_64-pep" ];
-    doInstallCheck =
-      false; # We get a spurious failure otherwise, due to host/target mis-match
-  });
+  efiBinutils = binutils-unwrapped.overrideAttrs (
+    oldAttrs: {
+      name = "efi-binutils";
+      configureFlags =
+        oldAttrs.configureFlags ++ [ "--enable-targets=x86_64-pep" ];
+      doInstallCheck =
+        false; # We get a spurious failure otherwise, due to host/target mis-match
+    }
+  );
 
 in
 stdenv.mkDerivation (
@@ -273,10 +275,12 @@ stdenv.mkDerivation (
 
       ${withTools "patches" (
         name: x: ''
-          ${concatMapStringsSep "\n" (p: ''
+          ${concatMapStringsSep "\n"
+          (p: ''
             echo "# Patching with ${p}"
             patch -p1 < ${p}
-          '') x.patches}
+          '')
+          x.patches}
         ''
       )}
 
@@ -350,7 +354,8 @@ stdenv.mkDerivation (
       homepage = "http://www.xen.org/";
       description =
         "Xen hypervisor and related components"
-        + optionalString (args ? meta && args.meta ? description)
+        + optionalString
+          (args ? meta && args.meta ? description)
           " (${args.meta.description})"
         ;
       longDescription =

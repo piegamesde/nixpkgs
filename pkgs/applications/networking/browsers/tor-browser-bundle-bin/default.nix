@@ -129,17 +129,20 @@ let
     };
   };
 
-  distributionIni = writeText "distribution.ini" (lib.generators.toINI { } {
-    # Some light branding indicating this build uses our distro preferences
-    Global = {
-      id = "nixos";
-      version = "1.0";
-      about = "Tor Browser for NixOS";
-    };
-  });
+  distributionIni = writeText "distribution.ini" (
+    lib.generators.toINI { } {
+      # Some light branding indicating this build uses our distro preferences
+      Global = {
+        id = "nixos";
+        version = "1.0";
+        about = "Tor Browser for NixOS";
+      };
+    }
+  );
 
-  policiesJson = writeText "policies.json"
-    (builtins.toJSON { policies.DisableAppUpdate = true; });
+  policiesJson = writeText "policies.json" (
+    builtins.toJSON { policies.DisableAppUpdate = true; }
+  );
 in
 stdenv.mkDerivation rec {
   pname = "tor-browser-bundle-bin";
@@ -296,7 +299,8 @@ stdenv.mkDerivation rec {
     EOF
 
     WRAPPER_LD_PRELOAD=${
-      lib.optionalString useHardenedMalloc
+      lib.optionalString
+      useHardenedMalloc
       "${graphene-hardened-malloc}/lib/libhardened_malloc.so"
     }
 
@@ -307,9 +311,9 @@ stdenv.mkDerivation rec {
       ]
     }
     WRAPPER_XDG_DATA_DIRS+=":"${
-      lib.concatMapStringsSep ":" (
-        x: "${x}/share/gsettings-schemas/${x.name}"
-      ) [
+      lib.concatMapStringsSep ":"
+      (x: "${x}/share/gsettings-schemas/${x.name}")
+      [
         glib
         gsettings-desktop-schemas
         gtk3

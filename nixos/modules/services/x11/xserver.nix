@@ -95,9 +95,11 @@ let
 
   xrandrDeviceSection =
     let
-      monitors = forEach xrandrHeads (h: ''
-        Option "monitor-${h.config.output}" "${h.name}"
-      '');
+      monitors = forEach xrandrHeads (
+        h: ''
+          Option "monitor-${h.config.output}" "${h.name}"
+        ''
+      );
     in
     concatStrings monitors
     ;
@@ -136,35 +138,37 @@ let
     concatMapStrings (getAttr "value") monitors
     ;
 
-  configFile = pkgs.runCommand "xserver.conf" {
-    fontpath =
-      optionalString (cfg.fontPath != null) ''FontPath "${cfg.fontPath}"'';
-    inherit (cfg) config;
-    preferLocalBuild = true;
-  } ''
-    echo 'Section "Files"' >> $out
-    echo $fontpath >> $out
+  configFile = pkgs.runCommand "xserver.conf"
+    {
+      fontpath =
+        optionalString (cfg.fontPath != null) ''FontPath "${cfg.fontPath}"'';
+      inherit (cfg) config;
+      preferLocalBuild = true;
+    }
+    ''
+      echo 'Section "Files"' >> $out
+      echo $fontpath >> $out
 
-    for i in ${toString fontsForXServer}; do
-      if test "''${i:0:''${#NIX_STORE}}" == "$NIX_STORE"; then
-        for j in $(find $i -name fonts.dir); do
-          echo "  FontPath \"$(dirname $j)\"" >> $out
-        done
-      fi
-    done
+      for i in ${toString fontsForXServer}; do
+        if test "''${i:0:''${#NIX_STORE}}" == "$NIX_STORE"; then
+          for j in $(find $i -name fonts.dir); do
+            echo "  FontPath \"$(dirname $j)\"" >> $out
+          done
+        fi
+      done
 
-    for i in $(find ${toString cfg.modules} -type d); do
-      if test $(echo $i/*.so* | wc -w) -ne 0; then
-        echo "  ModulePath \"$i\"" >> $out
-      fi
-    done
+      for i in $(find ${toString cfg.modules} -type d); do
+        if test $(echo $i/*.so* | wc -w) -ne 0; then
+          echo "  ModulePath \"$i\"" >> $out
+        fi
+      done
 
-    echo '${cfg.filesSection}' >> $out
-    echo 'EndSection' >> $out
-    echo >> $out
+      echo '${cfg.filesSection}' >> $out
+      echo 'EndSection' >> $out
+      echo >> $out
 
-    echo "$config" >> $out
-  ''; # */
+      echo "$config" >> $out
+    ''; # */
 
   prefixStringLines =
     prefix: str:
@@ -202,27 +206,33 @@ in
     ./display-managers/default.nix
     ./window-managers/default.nix
     ./desktop-managers/default.nix
-    (mkRemovedOptionModule [
-      "services"
-      "xserver"
-      "startGnuPGAgent"
-    ] "See the 16.09 release notes for more information.")
-    (mkRemovedOptionModule [
-      "services"
-      "xserver"
-      "startDbusSession"
-    ]
+    (mkRemovedOptionModule
+      [
+        "services"
+        "xserver"
+        "startGnuPGAgent"
+      ]
+      "See the 16.09 release notes for more information.")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "xserver"
+        "startDbusSession"
+      ]
       "The user D-Bus session is now always socket activated and this option can safely be removed.")
-    (mkRemovedOptionModule [
-      "services"
-      "xserver"
-      "useXFS"
-    ] "Use services.xserver.fontPath instead of useXFS")
-    (mkRemovedOptionModule [
-      "services"
-      "xserver"
-      "useGlamor"
-    ]
+    (mkRemovedOptionModule
+      [
+        "services"
+        "xserver"
+        "useXFS"
+      ]
+      "Use services.xserver.fontPath instead of useXFS")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "xserver"
+        "useGlamor"
+      ]
       "Option services.xserver.useGlamor was removed because it is unnecessary. Drivers that uses Glamor will use it automatically.")
   ];
 
@@ -350,16 +360,20 @@ in
           "amdgpu-pro"
         ];
           # TODO(@oxij): think how to easily add the rest, like those nvidia things
-        relatedPackages = concatLists (mapAttrsToList (
-          n: v:
-          optional (hasPrefix "xf86video" n) {
-            path = [
-              "xorg"
-              n
-            ];
-            title = removePrefix "xf86video" n;
-          }
-        ) pkgs.xorg);
+        relatedPackages = concatLists (
+          mapAttrsToList
+          (
+            n: v:
+            optional (hasPrefix "xf86video" n) {
+              path = [
+                "xorg"
+                n
+              ];
+              title = removePrefix "xf86video" n;
+            }
+          )
+          pkgs.xorg
+        );
         description = lib.mdDoc ''
           The names of the video drivers the configuration
           supports. They will be tried in order until one that
@@ -531,8 +545,11 @@ in
           }
         ];
         type = with types;
-          listOf (coercedTo str (output: { inherit output; })
-            (submodule { options = xrandrOptions; }));
+          listOf (
+            coercedTo str (output: { inherit output; }) (
+              submodule { options = xrandrOptions; }
+            )
+          );
           # Set primary to true for the first head if no other has been set
           # primary already.
         apply =
@@ -758,12 +775,14 @@ in
     services.xserver.drivers = flip concatMap cfg.videoDrivers (
       name:
       let
-        driver = attrByPath [ name ] (
-          if xorg ? ${"xf86video" + name} then
-            { modules = [ xorg.${"xf86video" + name} ]; }
-          else
-            null
-        ) knownVideoDrivers;
+        driver = attrByPath [ name ]
+          (
+            if xorg ? ${"xf86video" + name} then
+              { modules = [ xorg.${"xf86video" + name} ]; }
+            else
+              null
+          )
+          knownVideoDrivers;
       in
       optional (driver != null) (
         {
@@ -824,23 +843,25 @@ in
       );
 
     environment.systemPackages =
-      utils.removePackagesByName [
-        xorg.xorgserver.out
-        xorg.xrandr
-        xorg.xrdb
-        xorg.setxkbmap
-        xorg.iceauth # required for KDE applications (it's called by dcopserver)
-        xorg.xlsclients
-        xorg.xset
-        xorg.xsetroot
-        xorg.xinput
-        xorg.xprop
-        xorg.xauth
-        pkgs.xterm
-        pkgs.xdg-utils
-        xorg.xf86inputevdev.out # get evdev.4 man page
-        pkgs.nixos-icons # needed for gnome and pantheon about dialog, nixos-manual and maybe more
-      ] config.services.xserver.excludePackages
+      utils.removePackagesByName
+        [
+          xorg.xorgserver.out
+          xorg.xrandr
+          xorg.xrdb
+          xorg.setxkbmap
+          xorg.iceauth # required for KDE applications (it's called by dcopserver)
+          xorg.xlsclients
+          xorg.xset
+          xorg.xsetroot
+          xorg.xinput
+          xorg.xprop
+          xorg.xauth
+          pkgs.xterm
+          pkgs.xdg-utils
+          xorg.xf86inputevdev.out # get evdev.4 man page
+          pkgs.nixos-icons # needed for gnome and pantheon about dialog, nixos-manual and maybe more
+        ]
+        config.services.xserver.excludePackages
       ++ optional (elem "virtualbox" cfg.videoDrivers) xorg.xrefresh
       ;
 
@@ -884,7 +905,8 @@ in
       '';
 
         # TODO: move declaring the systemd service to its own mkIf
-      script = mkIf (config.systemd.services.display-manager.enable == true)
+      script = mkIf
+        (config.systemd.services.display-manager.enable == true)
         "${cfg.displayManager.job.execCmd}";
 
         # Stop restarting if the display manager stops (crashes) 2 times
@@ -910,10 +932,12 @@ in
       ++ optional (cfg.logFile != null) "-logfile ${toString cfg.logFile}"
       ++ optional (cfg.verbose != null) "-verbose ${toString cfg.verbose}"
       ++ optional (!cfg.enableTCP) "-nolisten tcp"
-      ++ optional (cfg.autoRepeatDelay != null)
-        "-ardelay ${toString cfg.autoRepeatDelay}"
-      ++ optional (cfg.autoRepeatInterval != null)
-        "-arinterval ${toString cfg.autoRepeatInterval}"
+      ++ optional (cfg.autoRepeatDelay != null) "-ardelay ${
+          toString cfg.autoRepeatDelay
+        }"
+      ++ optional (cfg.autoRepeatInterval != null) "-arinterval ${
+          toString cfg.autoRepeatInterval
+        }"
       ++ optional cfg.terminateOnReset "-terminate"
       ;
 
@@ -925,16 +949,21 @@ in
       ]
       ;
 
-    system.extraDependencies = singleton (pkgs.runCommand "xkb-validated" {
-      inherit (cfg) xkbModel layout xkbVariant xkbOptions;
-      nativeBuildInputs = with pkgs.buildPackages; [ xkbvalidate ];
-      preferLocalBuild = true;
-    } ''
-      ${optionalString (config.environment.sessionVariables ? XKB_CONFIG_ROOT)
-      "export XKB_CONFIG_ROOT=${config.environment.sessionVariables.XKB_CONFIG_ROOT}"}
-      xkbvalidate "$xkbModel" "$layout" "$xkbVariant" "$xkbOptions"
-      touch "$out"
-    '');
+    system.extraDependencies = singleton (
+      pkgs.runCommand "xkb-validated"
+      {
+        inherit (cfg) xkbModel layout xkbVariant xkbOptions;
+        nativeBuildInputs = with pkgs.buildPackages; [ xkbvalidate ];
+        preferLocalBuild = true;
+      }
+      ''
+        ${optionalString
+        (config.environment.sessionVariables ? XKB_CONFIG_ROOT)
+        "export XKB_CONFIG_ROOT=${config.environment.sessionVariables.XKB_CONFIG_ROOT}"}
+        xkbvalidate "$xkbModel" "$layout" "$xkbVariant" "$xkbOptions"
+        touch "$out"
+      ''
+    );
 
     services.xserver.config = ''
       Section "ServerFlags"
@@ -958,12 +987,13 @@ in
       EndSection
 
       # Additional "InputClass" sections
-      ${flip (concatMapStringsSep "\n") cfg.inputClassSections
-      (inputClassSection: ''
-        Section "InputClass"
-        ${indent inputClassSection}
-        EndSection
-      '')}
+      ${flip (concatMapStringsSep "\n") cfg.inputClassSections (
+        inputClassSection: ''
+          Section "InputClass"
+          ${indent inputClassSection}
+          EndSection
+        ''
+      )}
 
 
       Section "ServerLayout"
@@ -972,86 +1002,93 @@ in
         # Reference the Screen sections for each driver.  This will
         # cause the X server to try each in turn.
         ${
-          flip concatMapStrings (filter (d: d.display) cfg.drivers) (d: ''
-            Screen "Screen-${d.name}[0]"
-          '')
+          flip concatMapStrings (filter (d: d.display) cfg.drivers) (
+            d: ''
+              Screen "Screen-${d.name}[0]"
+            ''
+          )
         }
       EndSection
 
       # For each supported driver, add a "Device" and "Screen"
       # section.
-      ${flip concatMapStrings cfg.drivers (driver: ''
+      ${flip concatMapStrings cfg.drivers (
+        driver: ''
 
-        Section "Device"
-          Identifier "Device-${driver.name}[0]"
-          Driver "${driver.driverName or driver.name}"
-        ${indent cfg.deviceSection}
-        ${indent (driver.deviceSection or "")}
-        ${indent xrandrDeviceSection}
-        EndSection
-        ${optionalString driver.display ''
-
-          Section "Screen"
-            Identifier "Screen-${driver.name}[0]"
-            Device "Device-${driver.name}[0]"
-            ${
-              optionalString (cfg.monitorSection != "") ''
-                Monitor "Monitor[0]"
-              ''
-            }
-
-          ${indent cfg.screenSection}
-          ${indent (driver.screenSection or "")}
-
-            ${
-              optionalString (cfg.defaultDepth != 0) ''
-                DefaultDepth ${toString cfg.defaultDepth}
-              ''
-            }
-
-            ${
-              optionalString (
-                driver.name != "virtualbox"
-                && (
-                  cfg.resolutions != [ ]
-                  || cfg.extraDisplaySettings != ""
-                  || cfg.virtualScreen != null
-                )
-              ) (
-                let
-                  f =
-                    depth: ''
-                      SubSection "Display"
-                        Depth ${toString depth}
-                        ${
-                          optionalString (cfg.resolutions != [ ]) "Modes ${
-                            concatMapStrings (
-                              res: ''"${toString res.x}x${toString res.y}"''
-                            ) cfg.resolutions
-                          }"
-                        }
-                      ${indent cfg.extraDisplaySettings}
-                        ${
-                          optionalString (cfg.virtualScreen != null)
-                          "Virtual ${toString cfg.virtualScreen.x} ${
-                            toString cfg.virtualScreen.y
-                          }"
-                        }
-                      EndSubSection
-                    ''
-                    ;
-                in
-                concatMapStrings f [
-                  8
-                  16
-                  24
-                ]
-              )
-            }
-
+          Section "Device"
+            Identifier "Device-${driver.name}[0]"
+            Driver "${driver.driverName or driver.name}"
+          ${indent cfg.deviceSection}
+          ${indent (driver.deviceSection or "")}
+          ${indent xrandrDeviceSection}
           EndSection
-        ''}
-      '')}
+          ${optionalString driver.display ''
+
+            Section "Screen"
+              Identifier "Screen-${driver.name}[0]"
+              Device "Device-${driver.name}[0]"
+              ${
+                optionalString (cfg.monitorSection != "") ''
+                  Monitor "Monitor[0]"
+                ''
+              }
+
+            ${indent cfg.screenSection}
+            ${indent (driver.screenSection or "")}
+
+              ${
+                optionalString (cfg.defaultDepth != 0) ''
+                  DefaultDepth ${toString cfg.defaultDepth}
+                ''
+              }
+
+              ${
+                optionalString
+                (
+                  driver.name != "virtualbox"
+                  && (
+                    cfg.resolutions != [ ]
+                    || cfg.extraDisplaySettings != ""
+                    || cfg.virtualScreen != null
+                  )
+                )
+                (
+                  let
+                    f =
+                      depth: ''
+                        SubSection "Display"
+                          Depth ${toString depth}
+                          ${
+                            optionalString (cfg.resolutions != [ ]) "Modes ${
+                              concatMapStrings
+                              (res: ''"${toString res.x}x${toString res.y}"'')
+                              cfg.resolutions
+                            }"
+                          }
+                        ${indent cfg.extraDisplaySettings}
+                          ${
+                            optionalString
+                            (cfg.virtualScreen != null)
+                            "Virtual ${toString cfg.virtualScreen.x} ${
+                              toString cfg.virtualScreen.y
+                            }"
+                          }
+                        EndSubSection
+                      ''
+                      ;
+                  in
+                  concatMapStrings f [
+                    8
+                    16
+                    24
+                  ]
+                )
+              }
+
+            EndSection
+          ''}
+        ''
+      )}
 
       ${xrandrMonitorSections}
 

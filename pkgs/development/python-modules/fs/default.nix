@@ -62,7 +62,8 @@ buildPythonPackage rec {
 
   disabledTests =
     [ "user_data_repr" ]
-    ++ lib.optionals (stdenv.isDarwin)
+    ++ lib.optionals
+      (stdenv.isDarwin)
       [ # remove if https://github.com/PyFilesystem/pyfilesystem2/issues/430#issue-707878112 resolved
         "test_ftpfs"
       ]

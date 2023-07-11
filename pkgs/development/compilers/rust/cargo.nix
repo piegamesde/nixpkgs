@@ -22,9 +22,9 @@
   pkgsBuildBuild,
 }:
 
-rustPlatform.buildRustPackage.override {
-  cargo-auditable = cargo-auditable.bootstrap;
-} (
+rustPlatform.buildRustPackage.override
+{ cargo-auditable = cargo-auditable.bootstrap; }
+(
   {
     pname = "cargo";
     inherit (rustc)
@@ -154,8 +154,12 @@ rustPlatform.buildRustPackage.override {
       ];
       platforms = platforms.unix;
     };
-  } // lib.optionalAttrs (
+  } // lib.optionalAttrs
+  (
     rust.toRustTarget stdenv.buildPlatform
     != rust.toRustTarget stdenv.hostPlatform
-  ) { HOST_PKG_CONFIG_PATH = "${pkgsBuildBuild.pkg-config}/bin/pkg-config"; }
+  )
+  {
+    HOST_PKG_CONFIG_PATH = "${pkgsBuildBuild.pkg-config}/bin/pkg-config";
+  }
 )

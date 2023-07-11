@@ -25,8 +25,9 @@ let
     x86_64-linux.target = "i386";
   };
 
-  inPCSystems = lib.any (system: stdenv.hostPlatform.system == system)
-    (lib.mapAttrsToList (name: _: name) pcSystems);
+  inPCSystems = lib.any (system: stdenv.hostPlatform.system == system) (
+    lib.mapAttrsToList (name: _: name) pcSystems
+  );
 
   version =
     if for_HP_laptop then
@@ -130,8 +131,9 @@ stdenv.mkDerivation rec {
   ];
 
     # save target that grub is compiled for
-  grubTarget = lib.optionalString inPCSystems
-    "${pcSystems.${stdenv.hostPlatform.system}.target}-pc";
+  grubTarget = lib.optionalString inPCSystems "${
+      pcSystems.${stdenv.hostPlatform.system}.target
+    }-pc";
 
   doCheck = false;
     # On -j16 races with early header creation:

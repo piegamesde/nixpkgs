@@ -21,7 +21,8 @@ let
 
       super_only = ${builtins.toJSON cfg.superOnly}
 
-      ${optionalString (cfg.loginGroup != null)
+      ${optionalString
+      (cfg.loginGroup != null)
       "login_group = ${cfg.loginGroup}"}
 
       login_timeout = ${toString cfg.loginTimeout}
@@ -41,8 +42,9 @@ let
 
   pgmanageConnectionsFile = pkgs.writeTextFile {
     name = "pgmanage-connections.conf";
-    text = concatStringsSep "\n"
-      (mapAttrsToList (name: conn: "${name}: ${conn}") cfg.connections);
+    text = concatStringsSep "\n" (
+      mapAttrsToList (name: conn: "${name}: ${conn}") cfg.connections
+    );
   };
 
   pgmanage = "pgmanage";
@@ -151,18 +153,20 @@ in
     };
 
     tls = mkOption {
-      type = types.nullOr (types.submodule {
-        options = {
-          cert = mkOption {
-            type = types.str;
-            description = lib.mdDoc "TLS certificate";
+      type = types.nullOr (
+        types.submodule {
+          options = {
+            cert = mkOption {
+              type = types.str;
+              description = lib.mdDoc "TLS certificate";
+            };
+            key = mkOption {
+              type = types.str;
+              description = lib.mdDoc "TLS key";
+            };
           };
-          key = mkOption {
-            type = types.str;
-            description = lib.mdDoc "TLS key";
-          };
-        };
-      });
+        }
+      );
       default = null;
       description = lib.mdDoc ''
         These options tell pgmanage where the TLS Certificate and Key files

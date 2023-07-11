@@ -17,7 +17,8 @@ let
 
   pkg =
     # justStaticExecutables is needed due to https://github.com/NixOS/nix/issues/2990
-    overrideCabal (o: {
+    overrideCabal
+    (o: {
       postInstall = ''
         ${o.postInstall or ""}
         mkdir -p $out/libexec
@@ -26,7 +27,11 @@ let
           lib.escapeShellArg (makeBinPath bundledBins)
         }
       '';
-    }) (addBuildTools [ makeWrapper ]
-      (justStaticExecutables haskellPackages.hercules-ci-cli));
+    })
+    (
+      addBuildTools [ makeWrapper ] (
+        justStaticExecutables haskellPackages.hercules-ci-cli
+      )
+    );
 in
 pkg // { meta = pkg.meta // { position = toString ./default.nix + ":1"; }; }

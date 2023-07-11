@@ -95,7 +95,8 @@ in
         if test "$XDG_CURRENT_DESKTOP" = "Cinnamon"; then
             true
             ${
-              concatMapStrings (p: ''
+              concatMapStrings
+              (p: ''
                 if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
                   export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
                 fi
@@ -104,7 +105,8 @@ in
                   export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
                   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
                 fi
-              '') cfg.sessionPath
+              '')
+              cfg.sessionPath
             }
         fi
       '';
@@ -184,21 +186,23 @@ in
             glib # for gsettings
             xdg-user-dirs
           ]
-          ++ utils.removePackagesByName [
-            # accessibility
-            onboard
-            orca
+          ++ utils.removePackagesByName
+            [
+              # accessibility
+              onboard
+              orca
 
-            # theme
-            sound-theme-freedesktop
-            nixos-artwork.wallpapers.simple-dark-gray
-            mint-artwork
-            mint-cursor-themes
-            mint-themes
-            mint-x-icons
-            mint-y-icons
-            xapp # provides some xapp-* icons
-          ] config.environment.cinnamon.excludePackages
+              # theme
+              sound-theme-freedesktop
+              nixos-artwork.wallpapers.simple-dark-gray
+              mint-artwork
+              mint-cursor-themes
+              mint-themes
+              mint-x-icons
+              mint-y-icons
+              xapp # provides some xapp-* icons
+            ]
+            config.environment.cinnamon.excludePackages
         );
 
       xdg.mime.enable = true;
@@ -237,7 +241,8 @@ in
       programs.file-roller.enable = mkDefault true;
 
       environment.systemPackages = with pkgs // pkgs.gnome // pkgs.cinnamon;
-        utils.removePackagesByName [
+        utils.removePackagesByName
+        [
           # cinnamon team apps
           bulky
           warpinator
@@ -254,7 +259,8 @@ in
           gnome-calculator
           gnome-calendar
           gnome-screenshot
-        ] config.environment.cinnamon.excludePackages;
+        ]
+        config.environment.cinnamon.excludePackages;
     })
   ];
 }

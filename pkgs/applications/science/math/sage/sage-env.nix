@@ -161,30 +161,34 @@ writeTextFile rec {
         export CXX='${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++'
         # cython needs to find these libraries, otherwise will fail with `ld: cannot find -lflint` or similar
         export LDFLAGS='${
-          lib.concatStringsSep " " (map (pkg: "-L${pkg}/lib") [
-            flint
-            gap
-            glpk
-            gmp
-            mpfr
-            pari
-            zlib
-            eclib
-            gsl
-            ntl
-            jmol
-            sympow
-          ])
+          lib.concatStringsSep " " (
+            map (pkg: "-L${pkg}/lib") [
+              flint
+              gap
+              glpk
+              gmp
+              mpfr
+              pari
+              zlib
+              eclib
+              gsl
+              ntl
+              jmol
+              sympow
+            ]
+          )
         }'
         export CFLAGS='${
-          lib.concatStringsSep " " (map (pkg: "-isystem ${pkg}/include") [
-            singular
-            gmp.dev
-            glpk
-            flint
-            gap
-            mpfr.dev
-          ])
+          lib.concatStringsSep " " (
+            map (pkg: "-isystem ${pkg}/include") [
+              singular
+              gmp.dev
+              glpk
+              flint
+              gap
+              mpfr.dev
+            ]
+          )
         }'
         export CXXFLAGS=$CFLAGS
 

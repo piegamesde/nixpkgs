@@ -140,10 +140,13 @@ in
   config = mkIf cfg.enable {
     # backward compatibility: if password is set but not passwordFile, make one.
     services.roundcube.database.passwordFile =
-      mkIf (!localDB && cfg.database.password != "") (mkDefault (
-        "${pkgs.writeText "roundcube-password" cfg.database.password}"
-      ));
-    warnings = lib.optional (!localDB && cfg.database.password != "")
+      mkIf (!localDB && cfg.database.password != "") (
+        mkDefault (
+          "${pkgs.writeText "roundcube-password" cfg.database.password}"
+        )
+      );
+    warnings = lib.optional
+      (!localDB && cfg.database.password != "")
       "services.roundcube.database.password is deprecated and insecure; use services.roundcube.database.passwordFile instead"
       ;
 
@@ -185,13 +188,15 @@ in
       # by default, spellchecking uses a third-party cloud services
       $config['spellcheck_engine'] = 'pspell';
       $config['spellcheck_languages'] = array(${
-        lib.concatMapStringsSep ", " (
+        lib.concatMapStringsSep ", "
+        (
           dict:
           let
             p = builtins.parseDrvName dict.shortName;
           in
           "'${p.name}' => '${dict.fullName}'"
-        ) cfg.dicts
+        )
+        cfg.dicts
       });
 
       ${cfg.extraConfig}
@@ -290,10 +295,12 @@ in
           let
             psql =
               "${
-                lib.optionalString (!localDB)
+                lib.optionalString
+                (!localDB)
                 "PGPASSFILE=${cfg.database.passwordFile}"
               } ${pkgs.postgresql}/bin/psql ${
-                lib.optionalString (!localDB)
+                lib.optionalString
+                (!localDB)
                 "-h ${cfg.database.host} -U ${cfg.database.username} "
               } ${cfg.database.dbname}";
           in

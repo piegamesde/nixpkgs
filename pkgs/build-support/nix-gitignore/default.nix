@@ -25,18 +25,22 @@ rec {
       let
         relPath = lib.removePrefix ((toString root) + "/") name;
         matches = pair: (match (head pair) relPath) != null;
-        matched = map (pair: [
-          (matches pair)
-          (last pair)
-        ]) patterns;
+        matched = map
+          (pair: [
+            (matches pair)
+            (last pair)
+          ])
+          patterns;
       in
-      last (last (
-        [ [
-          true
-          true
-        ] ]
-        ++ (filter head matched)
-      ))
+      last (
+        last (
+          [ [
+            true
+            true
+          ] ]
+          ++ (filter head matched)
+        )
+      )
     )
     ;
 
@@ -63,13 +67,15 @@ rec {
         ;
 
         # regex -> regex
-      handleHashesBangs = replaceStrings [
-        "\\#"
-        "\\!"
-      ] [
-        "#"
-        "!"
-      ];
+      handleHashesBangs = replaceStrings
+        [
+          "\\#"
+          "\\!"
+        ]
+        [
+          "#"
+          "!"
+        ];
 
         # ignore -> regex
       substWildcards =
@@ -94,7 +100,8 @@ rec {
           chars = s: filter (c: c != "" && !isList c) (splitString s);
           escape = s: map (c: "\\" + c) (chars s);
         in
-        replaceStrings (
+        replaceStrings
+        (
           (chars special)
           ++ (escape escs)
           ++ [
@@ -103,7 +110,8 @@ rec {
             "*"
             "?"
           ]
-        ) (
+        )
+        (
           (escape special)
           ++ (escape escs)
           ++ [
@@ -121,13 +129,17 @@ rec {
         let
           slightFix = replaceStrings [ "\\]" ] [ "]" ];
         in
-        concatStringsSep "" (map (
-          rl:
-          if isList rl then
-            slightFix (elemAt rl 0)
-          else
-            f rl
-        ) (split "(\\[([^\\\\]|\\\\.)+])" r))
+        concatStringsSep "" (
+          map
+          (
+            rl:
+            if isList rl then
+              slightFix (elemAt rl 0)
+            else
+              f rl
+          )
+          (split "(\\[([^\\\\]|\\\\.)+])" r)
+        )
         ;
 
         # regex -> regex
@@ -173,14 +185,21 @@ rec {
         ]
         ;
     in
-    map (
+    map
+    (
       l: # `l' for "line"
-      mapPat (
+      mapPat
+      (
         l:
-        handleSlashSuffix (handleSlashPrefix
-          (handleHashesBangs (mapAroundCharclass substWildcards l)))
-      ) (computeNegation l)
-    ) (filter (l: !isList l && !isComment l) (split "\n" gitignore))
+        handleSlashSuffix (
+          handleSlashPrefix (
+            handleHashesBangs (mapAroundCharclass substWildcards l)
+          )
+        )
+      )
+      (computeNegation l)
+    )
+    (filter (l: !isList l && !isComment l) (split "\n" gitignore))
     ;
 
   gitignoreFilter =
@@ -222,38 +241,40 @@ rec {
         file: type: baseNameOf file == ".gitignore" || type == "directory";
       ignores = builtins.filterSource dirOrIgnore root;
     in
-    readFile (runCommand "${baseNameOf root}-recursive-gitignore" { } ''
-      cd ${ignores}
+    readFile (
+      runCommand "${baseNameOf root}-recursive-gitignore" { } ''
+        cd ${ignores}
 
-      find -type f -exec sh -c '
-        rel="$(realpath --relative-to=. "$(dirname "$1")")/"
-        if [ "$rel" = "./" ]; then rel=""; fi
+        find -type f -exec sh -c '
+          rel="$(realpath --relative-to=. "$(dirname "$1")")/"
+          if [ "$rel" = "./" ]; then rel=""; fi
 
-        awk -v prefix="$rel" -v root="$1" -v top="$(test -z "$rel" && echo 1)" "
-          BEGIN { print \"# \"root }
+          awk -v prefix="$rel" -v root="$1" -v top="$(test -z "$rel" && echo 1)" "
+            BEGIN { print \"# \"root }
 
-          /^!?[^\\/]+\/?$/ {
-            match(\$0, /^!?/, negation)
-            sub(/^!?/, \"\")
+            /^!?[^\\/]+\/?$/ {
+              match(\$0, /^!?/, negation)
+              sub(/^!?/, \"\")
 
-            if (top) { middle = \"\" } else { middle = \"**/\" }
+              if (top) { middle = \"\" } else { middle = \"**/\" }
 
-            print negation[0] prefix middle \$0
-          }
+              print negation[0] prefix middle \$0
+            }
 
-          /^!?(\\/|.*\\/.+$)/ {
-            match(\$0, /^!?/, negation)
-            sub(/^!?/, \"\")
+            /^!?(\\/|.*\\/.+$)/ {
+              match(\$0, /^!?/, negation)
+              sub(/^!?/, \"\")
 
-            if (!top) sub(/^\//, \"\")
+              if (!top) sub(/^\//, \"\")
 
-            print negation[0] prefix \$0
-          }
+              print negation[0] prefix \$0
+            }
 
-          END { print \"\" }
-        " "$1"
-      ' sh {} \; > $out
-    '')
+            END { print \"\" }
+          " "$1"
+        ' sh {} \; > $out
+      ''
+    )
     ;
 
   withGitignoreFile =
@@ -280,7 +301,8 @@ rec {
 
   gitignoreFilterRecursiveSource =
     filter: patterns: root:
-    gitignoreFilterSourcePure filter (withRecursiveGitignoreFile patterns root)
+    gitignoreFilterSourcePure filter
+    (withRecursiveGitignoreFile patterns root)
     root
     ;
 
@@ -293,8 +315,8 @@ rec {
       type = typeOf patterns;
     in
     if (type == "string" && pathExists patterns) || type == "path" then
-      throw "type error in gitignoreSource(patterns -> source -> path), "
-      ''use [] or "" if there are no additional patterns''
+      throw "type error in gitignoreSource(patterns -> source -> path), " ''
+        use [] or "" if there are no additional patterns''
     else
       gitignoreFilterSource (_: _: true) patterns
     ;

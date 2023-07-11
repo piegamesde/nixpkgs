@@ -301,23 +301,27 @@ in
   };
 
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "buildbot-master"
-      "bpPort"
-    ] [
-      "services"
-      "buildbot-master"
-      "pbPort"
-    ])
-    (mkRemovedOptionModule [
-      "services"
-      "buildbot-master"
-      "status"
-    ] ''
-      Since Buildbot 0.9.0, status targets are deprecated and ignored.
-      Review your configuration and migrate to reporters (available at services.buildbot-master.reporters).
-    '')
+    (mkRenamedOptionModule
+      [
+        "services"
+        "buildbot-master"
+        "bpPort"
+      ]
+      [
+        "services"
+        "buildbot-master"
+        "pbPort"
+      ])
+    (mkRemovedOptionModule
+      [
+        "services"
+        "buildbot-master"
+        "status"
+      ]
+      ''
+        Since Buildbot 0.9.0, status targets are deprecated and ignored.
+        Review your configuration and migrate to reporters (available at services.buildbot-master.reporters).
+      '')
   ];
 
   meta.maintainers = with lib.maintainers; [

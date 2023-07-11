@@ -8,7 +8,8 @@
 let
   pname = "catppuccin-kvantum";
 in
-lib.checkListOfEnum "${pname}: theme accent" [
+lib.checkListOfEnum "${pname}: theme accent"
+[
   "Blue"
   "Flamingo"
   "Green"
@@ -23,14 +24,20 @@ lib.checkListOfEnum "${pname}: theme accent" [
   "Sky"
   "Teal"
   "Yellow"
-] [ accent ] lib.checkListOfEnum "${pname}: color variant" [
+]
+[ accent ]
+lib.checkListOfEnum
+"${pname}: color variant"
+[
   "Latte"
   "Frappe"
   "Macchiato"
   "Mocha"
-] [ variant ]
+]
+[ variant ]
 
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation
+{
   inherit pname;
   version = "unstable-2022-07-04";
 

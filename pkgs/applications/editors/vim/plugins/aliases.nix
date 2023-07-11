@@ -38,17 +38,21 @@ let
 
   mapAliases =
     aliases:
-    lib.mapAttrs (
+    lib.mapAttrs
+    (
       n: alias:
       removeDistribute (removeRecurseForDerivations (checkInPkgs n alias))
-    ) aliases
+    )
+    aliases
     ;
 
-  deprecations = lib.mapAttrs (
-    old: info:
-    throw
-    "${old} was renamed to ${info.new} on ${info.date}. Please update to ${info.new}."
-  ) (lib.importJSON ./deprecated.json);
+  deprecations = lib.mapAttrs
+    (
+      old: info:
+      throw
+      "${old} was renamed to ${info.new} on ${info.date}. Please update to ${info.new}."
+    )
+    (lib.importJSON ./deprecated.json);
 
 in
 mapAliases (

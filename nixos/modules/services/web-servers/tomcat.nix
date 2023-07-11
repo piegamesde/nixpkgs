@@ -149,27 +149,29 @@ in
       };
 
       virtualHosts = mkOption {
-        type = types.listOf (types.submodule {
-          options = {
-            name = mkOption {
-              type = types.str;
-              description = lib.mdDoc "name of the virtualhost";
+        type = types.listOf (
+          types.submodule {
+            options = {
+              name = mkOption {
+                type = types.str;
+                description = lib.mdDoc "name of the virtualhost";
+              };
+              aliases = mkOption {
+                type = types.listOf types.str;
+                description = lib.mdDoc "aliases of the virtualhost";
+                default = [ ];
+              };
+              webapps = mkOption {
+                type = types.listOf types.path;
+                description = lib.mdDoc ''
+                  List containing web application WAR files and/or directories containing
+                  web applications and configuration files for the virtual host.
+                '';
+                default = [ ];
+              };
             };
-            aliases = mkOption {
-              type = types.listOf types.str;
-              description = lib.mdDoc "aliases of the virtualhost";
-              default = [ ];
-            };
-            webapps = mkOption {
-              type = types.listOf types.path;
-              description = lib.mdDoc ''
-                List containing web application WAR files and/or directories containing
-                web applications and configuration files for the virtual host.
-              '';
-              default = [ ];
-            };
-          };
-        });
+          }
+        );
         default = [ ];
         description = lib.mdDoc
           "List consisting of a virtual host name and a list of web applications to deploy on each virtual host"
@@ -287,20 +289,24 @@ in
               ;
             innerElementsForVirtualHost =
               virtualHost:
-              (map (alias: ''
-                <Alias>${alias}</Alias>
-              '') virtualHost.aliases)
+              (map
+                (alias: ''
+                  <Alias>${alias}</Alias>
+                '')
+                virtualHost.aliases)
               ++ (optional cfg.logPerVirtualHost ''
                 <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs/${virtualHost.name}"
                        prefix="${virtualHost.name}_access_log." pattern="combined" resolveHosts="false"/>
               '')
               ;
-            hostElementsString =
-              concatMapStringsSep "\n" hostElementForVirtualHost
+            hostElementsString = concatMapStringsSep "\n"
+              hostElementForVirtualHost
               cfg.virtualHosts;
-            hostElementsSedString = replaceStrings [ "\n" ] [ ''
-              \
-            '' ] hostElementsString;
+            hostElementsSedString = replaceStrings [ "\n" ]
+              [ ''
+                \
+              '' ]
+              hostElementsString;
           in
           ''
             # Create a modified server.xml which also includes all virtual hosts
@@ -316,10 +322,16 @@ in
             chown ${cfg.user}:${cfg.group} ${cfg.baseDir}/logs/$i
           done
         ''}
-        ${optionalString cfg.logPerVirtualHost (toString (map (h: ''
-          mkdir -p ${cfg.baseDir}/logs/${h.name}
-          chown ${cfg.user}:${cfg.group} ${cfg.baseDir}/logs/${h.name}
-        '') cfg.virtualHosts))}
+        ${optionalString cfg.logPerVirtualHost (
+          toString (
+            map
+            (h: ''
+              mkdir -p ${cfg.baseDir}/logs/${h.name}
+              chown ${cfg.user}:${cfg.group} ${cfg.baseDir}/logs/${h.name}
+            '')
+            cfg.virtualHosts
+          )
+        )}
 
         # Symlink all the given common libs files or paths into the lib/ directory
         for i in ${tomcat} ${toString cfg.commonLibs}; do
@@ -374,40 +386,45 @@ in
           fi
         done
 
-        ${toString (map (virtualHost: ''
-          # Create webapps directory for the virtual host
-          mkdir -p ${cfg.baseDir}/virtualhosts/${virtualHost.name}/webapps
+        ${toString (
+          map
+          (virtualHost: ''
+            # Create webapps directory for the virtual host
+            mkdir -p ${cfg.baseDir}/virtualhosts/${virtualHost.name}/webapps
 
-          # Modify ownership
-          chown ${cfg.user}:${cfg.group} ${cfg.baseDir}/virtualhosts/${virtualHost.name}/webapps
+            # Modify ownership
+            chown ${cfg.user}:${cfg.group} ${cfg.baseDir}/virtualhosts/${virtualHost.name}/webapps
 
-          # Symlink all the given web applications files or paths into the webapps/ directory
-          # of this virtual host
-          for i in "${
-            optionalString (virtualHost ? webapps)
-            (toString virtualHost.webapps)
-          }"; do
-            if [ -f $i ]; then
-              # If the given web application is a file, symlink it into the webapps/ directory
-              ln -sfn $i ${cfg.baseDir}/virtualhosts/${virtualHost.name}/webapps/`basename $i`
-            elif [ -d $i ]; then
-              # If the given web application is a directory, then iterate over the files
-              # in the special purpose directories and symlink them into the tomcat tree
+            # Symlink all the given web applications files or paths into the webapps/ directory
+            # of this virtual host
+            for i in "${
+              optionalString (virtualHost ? webapps) (
+                toString virtualHost.webapps
+              )
+            }"; do
+              if [ -f $i ]; then
+                # If the given web application is a file, symlink it into the webapps/ directory
+                ln -sfn $i ${cfg.baseDir}/virtualhosts/${virtualHost.name}/webapps/`basename $i`
+              elif [ -d $i ]; then
+                # If the given web application is a directory, then iterate over the files
+                # in the special purpose directories and symlink them into the tomcat tree
 
-              for j in $i/webapps/*; do
-                ln -sfn $j ${cfg.baseDir}/virtualhosts/${virtualHost.name}/webapps/`basename $j`
-              done
-
-              # Also symlink the configuration files if they are included
-              if [ -d $i/conf/Catalina ]; then
-                for j in $i/conf/Catalina/*; do
-                  mkdir -p ${cfg.baseDir}/conf/Catalina/${virtualHost.name}
-                  ln -sfn $j ${cfg.baseDir}/conf/Catalina/${virtualHost.name}/`basename $j`
+                for j in $i/webapps/*; do
+                  ln -sfn $j ${cfg.baseDir}/virtualhosts/${virtualHost.name}/webapps/`basename $j`
                 done
+
+                # Also symlink the configuration files if they are included
+                if [ -d $i/conf/Catalina ]; then
+                  for j in $i/conf/Catalina/*; do
+                    mkdir -p ${cfg.baseDir}/conf/Catalina/${virtualHost.name}
+                    ln -sfn $j ${cfg.baseDir}/conf/Catalina/${virtualHost.name}/`basename $j`
+                  done
+                fi
               fi
-            fi
-          done
-        '') cfg.virtualHosts)}
+            done
+          '')
+          cfg.virtualHosts
+        )}
 
         ${optionalString cfg.axis2.enable ''
           # Copy the Axis2 web application

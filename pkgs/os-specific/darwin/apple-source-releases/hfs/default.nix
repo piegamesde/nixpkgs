@@ -6,12 +6,14 @@
   headersOnly ? true
 }:
 
-appleDerivation' (
+appleDerivation'
+(
   if headersOnly then
     stdenvNoCC
   else
     stdenv
-) {
+)
+{
   installPhase = lib.optionalString headersOnly ''
     mkdir -p $out/include/hfs
     cp core/*.h $out/include/hfs

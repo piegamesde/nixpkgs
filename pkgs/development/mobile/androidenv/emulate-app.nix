@@ -128,9 +128,11 @@ stdenv.mkDerivation {
         }
 
         ${
-          lib.concatMapStrings (extraAVDFile: ''
+          lib.concatMapStrings
+          (extraAVDFile: ''
             ln -sf ${extraAVDFile} $ANDROID_AVD_HOME/device.avd
-          '') extraAVDFiles
+          '')
+          extraAVDFiles
         }
     fi
 

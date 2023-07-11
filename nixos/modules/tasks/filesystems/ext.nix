@@ -7,9 +7,11 @@
 
 let
 
-  inInitrd = lib.any (fs: fs == "ext2" || fs == "ext3" || fs == "ext4")
+  inInitrd = lib.any
+    (fs: fs == "ext2" || fs == "ext3" || fs == "ext4")
     config.boot.initrd.supportedFilesystems;
-  inSystem = lib.any (fs: fs == "ext2" || fs == "ext3" || fs == "ext4")
+  inSystem = lib.any
+    (fs: fs == "ext2" || fs == "ext3" || fs == "ext4")
     config.boot.supportedFilesystems;
 
 in

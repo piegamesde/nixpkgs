@@ -80,7 +80,8 @@ let
     }
     ;
 in
-lib.concatMapAttrs (
+lib.concatMapAttrs
+(
   name: package: {
     "minimal_${name}" = makeTest {
       # minimal setup should always work
@@ -117,4 +118,5 @@ lib.concatMapAttrs (
       '';
     };
   }
-) packages
+)
+packages

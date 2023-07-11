@@ -5,16 +5,20 @@
 
 # We provide the same presets as the upstream
 
-lib.mapAttrs (
+lib.mapAttrs
+(
   name:
   {
     CPPFLAGS,
   }:
-  mkspiffs.overrideAttrs (drv: {
-    inherit CPPFLAGS;
-    BUILD_CONFIG_NAME = "-${name}";
-  })
-) {
+  mkspiffs.overrideAttrs (
+    drv: {
+      inherit CPPFLAGS;
+      BUILD_CONFIG_NAME = "-${name}";
+    }
+  )
+)
+{
   arduino-esp8266.CPPFLAGS = [
     "-DSPIFFS_USE_MAGIC_LENGTH=0"
     "-DSPIFFS_ALIGNED_OBJECT_INDEX_TABLES=1"

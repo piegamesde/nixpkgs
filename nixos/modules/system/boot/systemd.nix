@@ -314,11 +314,15 @@ in
 
     systemd.globalEnvironment = mkOption {
       type = with types;
-        attrsOf (nullOr (oneOf [
-          str
-          path
-          package
-        ]));
+        attrsOf (
+          nullOr (
+            oneOf [
+              str
+              path
+              package
+            ]
+          )
+        );
       default = { };
       example = { TZ = "CET"; };
       description = lib.mdDoc ''
@@ -328,11 +332,15 @@ in
 
     systemd.managerEnvironment = mkOption {
       type = with types;
-        attrsOf (nullOr (oneOf [
-          str
-          path
-          package
-        ]));
+        attrsOf (
+          nullOr (
+            oneOf [
+              str
+              path
+              package
+            ]
+          )
+        );
       default = { };
       example = { SYSTEMD_LOG_LEVEL = "debug"; };
       description = lib.mdDoc ''
@@ -451,25 +459,35 @@ in
 
   config = {
 
-    warnings = concatLists (mapAttrsToList (
-      name: service:
-      let
-        type = service.serviceConfig.Type or "";
-        restart = service.serviceConfig.Restart or "no";
-        hasDeprecated =
-          builtins.hasAttr "StartLimitInterval" service.serviceConfig;
-      in
-      concatLists [
-        (optional (
-          type == "oneshot" && (restart == "always" || restart == "on-success")
-        )
-          "Service '${name}.service' with 'Type=oneshot' cannot have 'Restart=always' or 'Restart=on-success'")
-        (optional hasDeprecated
-          "Service '${name}.service' uses the attribute 'StartLimitInterval' in the Service section, which is deprecated. See https://github.com/NixOS/nixpkgs/issues/45786.")
-        (optional (service.reloadIfChanged && service.reloadTriggers != [ ])
-          "Service '${name}.service' has both 'reloadIfChanged' and 'reloadTriggers' set. This is probably not what you want, because 'reloadTriggers' behave the same whay as 'restartTriggers' if 'reloadIfChanged' is set.")
-      ]
-    ) cfg.services);
+    warnings = concatLists (
+      mapAttrsToList
+      (
+        name: service:
+        let
+          type = service.serviceConfig.Type or "";
+          restart = service.serviceConfig.Restart or "no";
+          hasDeprecated =
+            builtins.hasAttr "StartLimitInterval" service.serviceConfig;
+        in
+        concatLists [
+          (optional
+            (
+              type == "oneshot"
+              && (
+                restart == "always" || restart == "on-success"
+              )
+            )
+            "Service '${name}.service' with 'Type=oneshot' cannot have 'Restart=always' or 'Restart=on-success'")
+          (optional
+            hasDeprecated
+            "Service '${name}.service' uses the attribute 'StartLimitInterval' in the Service section, which is deprecated. See https://github.com/NixOS/nixpkgs/issues/45786.")
+          (optional
+            (service.reloadIfChanged && service.reloadTriggers != [ ])
+            "Service '${name}.service' has both 'reloadIfChanged' and 'reloadTriggers' set. This is probably not what you want, because 'reloadTriggers' behave the same whay as 'restartTriggers' if 'reloadIfChanged' is set.")
+        ]
+      )
+      cfg.services
+    );
 
     system.build.units = cfg.units;
 
@@ -500,10 +518,12 @@ in
         # generate contents for /etc/systemd/system-${type} from attrset of links and packages
         hooks =
           type: links:
-          pkgs.runCommand "system-${type}" {
+          pkgs.runCommand "system-${type}"
+          {
             preferLocalBuild = true;
             packages = cfg.packages;
-          } ''
+          }
+          ''
             set -e
             mkdir -p $out
             for package in $packages
@@ -513,11 +533,15 @@ in
                 ln -s $hook $out/
               done
             done
-            ${concatStrings (mapAttrsToList (
-              exec: target: ''
-                ln -s ${target} $out/${exec};
-              ''
-            ) links)}
+            ${concatStrings (
+              mapAttrsToList
+              (
+                exec: target: ''
+                  ln -s ${target} $out/${exec};
+                ''
+              )
+              links
+            )}
           ''
           ;
 
@@ -538,9 +562,11 @@ in
         "systemd/system.conf".text = ''
           [Manager]
           ManagerEnvironment=${
-            lib.concatStringsSep " "
-            (lib.mapAttrsToList (n: v: "${n}=${lib.escapeShellArg v}")
-              cfg.managerEnvironment)
+            lib.concatStringsSep " " (
+              lib.mapAttrsToList
+              (n: v: "${n}=${lib.escapeShellArg v}")
+              cfg.managerEnvironment
+            )
           }
           ${optionalString config.systemd.enableCgroupAccounting ''
             DefaultCPUAccounting=yes
@@ -600,28 +626,37 @@ in
 
     systemd.units =
       mapAttrs' (n: v: nameValuePair "${n}.path" (pathToUnit n v)) cfg.paths
-      // mapAttrs' (n: v: nameValuePair "${n}.service" (serviceToUnit n v))
-      cfg.services
-      // mapAttrs' (n: v: nameValuePair "${n}.slice" (sliceToUnit n v))
-      cfg.slices
-      // mapAttrs' (n: v: nameValuePair "${n}.socket" (socketToUnit n v))
-      cfg.sockets
-      // mapAttrs' (n: v: nameValuePair "${n}.target" (targetToUnit n v))
-      cfg.targets
-      // mapAttrs' (n: v: nameValuePair "${n}.timer" (timerToUnit n v))
-      cfg.timers // listToAttrs (map (
-        v:
-        let
-          n = escapeSystemdPath v.where;
-        in
-        nameValuePair "${n}.mount" (mountToUnit n v)
-      ) cfg.mounts) // listToAttrs (map (
-        v:
-        let
-          n = escapeSystemdPath v.where;
-        in
-        nameValuePair "${n}.automount" (automountToUnit n v)
-      ) cfg.automounts);
+      // mapAttrs'
+      (n: v: nameValuePair "${n}.service" (serviceToUnit n v))
+      cfg.services // mapAttrs'
+      (n: v: nameValuePair "${n}.slice" (sliceToUnit n v))
+      cfg.slices // mapAttrs'
+      (n: v: nameValuePair "${n}.socket" (socketToUnit n v))
+      cfg.sockets // mapAttrs'
+      (n: v: nameValuePair "${n}.target" (targetToUnit n v))
+      cfg.targets // mapAttrs'
+      (n: v: nameValuePair "${n}.timer" (timerToUnit n v))
+      cfg.timers // listToAttrs (
+        map
+        (
+          v:
+          let
+            n = escapeSystemdPath v.where;
+          in
+          nameValuePair "${n}.mount" (mountToUnit n v)
+        )
+        cfg.mounts
+      ) // listToAttrs (
+        map
+        (
+          v:
+          let
+            n = escapeSystemdPath v.where;
+          in
+          nameValuePair "${n}.automount" (automountToUnit n v)
+        )
+        cfg.automounts
+      );
 
       # Environment of PID 1
     systemd.managerEnvironment = {
@@ -633,8 +668,10 @@ in
       LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
       TZDIR = "/etc/zoneinfo";
         # If SYSTEMD_UNIT_PATH ends with an empty component (":"), the usual unit load path will be appended to the contents of the variable
-      SYSTEMD_UNIT_PATH = lib.mkIf (config.boot.extraSystemdUnitPaths != [ ])
-        "${builtins.concatStringsSep ":" config.boot.extraSystemdUnitPaths}:";
+      SYSTEMD_UNIT_PATH =
+        lib.mkIf (config.boot.extraSystemdUnitPaths != [ ]) "${
+          builtins.concatStringsSep ":" config.boot.extraSystemdUnitPaths
+        }:";
     };
 
     system.requiredKernelConfig = map config.lib.kernelConfig.isEnabled [
@@ -659,13 +696,18 @@ in
     ];
 
       # Generate timer units for all services that have a ‘startAt’ value.
-    systemd.timers = mapAttrs (
-      name: service: {
-        wantedBy = [ "timers.target" ];
-        timerConfig.OnCalendar = service.startAt;
-      }
-    ) (filterAttrs (name: service: service.enable && service.startAt != [ ])
-      cfg.services);
+    systemd.timers = mapAttrs
+      (
+        name: service: {
+          wantedBy = [ "timers.target" ];
+          timerConfig.OnCalendar = service.startAt;
+        }
+      )
+      (
+        filterAttrs
+        (name: service: service.enable && service.startAt != [ ])
+        cfg.services
+      );
 
       # Some overrides to upstream units.
     systemd.services."systemd-backlight@".restartIfChanged = false;
@@ -701,7 +743,8 @@ in
     boot.kernel.sysctl."kernel.pid_max" =
       mkIf pkgs.stdenv.is64bit (lib.mkDefault 4194304);
 
-    boot.kernelParams = optional (!cfg.enableUnifiedCgroupHierarchy)
+    boot.kernelParams = optional
+      (!cfg.enableUnifiedCgroupHierarchy)
       "systemd.unified_cgroup_hierarchy=0";
 
       # Avoid potentially degraded system state due to
@@ -726,37 +769,45 @@ in
 
     # FIXME: Remove these eventually.
   imports = [
-    (mkRenamedOptionModule [
-      "boot"
-      "systemd"
-      "sockets"
-    ] [
-      "systemd"
-      "sockets"
-    ])
-    (mkRenamedOptionModule [
-      "boot"
-      "systemd"
-      "targets"
-    ] [
-      "systemd"
-      "targets"
-    ])
-    (mkRenamedOptionModule [
-      "boot"
-      "systemd"
-      "services"
-    ] [
-      "systemd"
-      "services"
-    ])
+    (mkRenamedOptionModule
+      [
+        "boot"
+        "systemd"
+        "sockets"
+      ]
+      [
+        "systemd"
+        "sockets"
+      ])
+    (mkRenamedOptionModule
+      [
+        "boot"
+        "systemd"
+        "targets"
+      ]
+      [
+        "systemd"
+        "targets"
+      ])
+    (mkRenamedOptionModule
+      [
+        "boot"
+        "systemd"
+        "services"
+      ]
+      [
+        "systemd"
+        "services"
+      ])
     (mkRenamedOptionModule [ "jobs" ] [
       "systemd"
       "services"
     ])
-    (mkRemovedOptionModule [
-      "systemd"
-      "generator-packages"
-    ] "Use systemd.packages instead.")
+    (mkRemovedOptionModule
+      [
+        "systemd"
+        "generator-packages"
+      ]
+      "Use systemd.packages instead.")
   ];
 }

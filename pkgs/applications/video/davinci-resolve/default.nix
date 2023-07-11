@@ -40,69 +40,71 @@ let
         xorg.libXxf86vm
       ];
 
-      src = runCommandLocal "${pname}-src.zip" rec {
-        outputHashMode = "recursive";
-        outputHashAlgo = "sha256";
-        outputHash = "0hq374n26mbcds8f1z644cvnh4h2rjdrbxxxbj4p34mx9b04ab28";
+      src = runCommandLocal "${pname}-src.zip"
+        rec {
+          outputHashMode = "recursive";
+          outputHashAlgo = "sha256";
+          outputHash = "0hq374n26mbcds8f1z644cvnh4h2rjdrbxxxbj4p34mx9b04ab28";
 
-        impureEnvVars = lib.fetchers.proxyImpureEnvVars;
+          impureEnvVars = lib.fetchers.proxyImpureEnvVars;
 
-        nativeBuildInputs = [ curl ];
+          nativeBuildInputs = [ curl ];
 
-          # ENV VARS
-        SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
+            # ENV VARS
+          SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-        DOWNLOADID = "5efad1a052e8471989f662338d5247f1";
-        REFERID = "263d62f31cbb49e0868005059abcb0c9";
-        SITEURL =
-          "https://www.blackmagicdesign.com/api/register/us/download/${DOWNLOADID}";
+          DOWNLOADID = "5efad1a052e8471989f662338d5247f1";
+          REFERID = "263d62f31cbb49e0868005059abcb0c9";
+          SITEURL =
+            "https://www.blackmagicdesign.com/api/register/us/download/${DOWNLOADID}";
 
-        USERAGENT = builtins.concatStringsSep " " [
-          "User-Agent: Mozilla/5.0 (X11; Linux ${stdenv.targetPlatform.linuxArch})"
-          "AppleWebKit/537.36 (KHTML, like Gecko)"
-          "Chrome/77.0.3865.75"
-          "Safari/537.36"
-        ];
+          USERAGENT = builtins.concatStringsSep " " [
+            "User-Agent: Mozilla/5.0 (X11; Linux ${stdenv.targetPlatform.linuxArch})"
+            "AppleWebKit/537.36 (KHTML, like Gecko)"
+            "Chrome/77.0.3865.75"
+            "Safari/537.36"
+          ];
 
-        REQJSON = builtins.toJSON {
-          "firstname" = "NixOS";
-          "lastname" = "Linux";
-          "email" = "someone@nixos.org";
-          "phone" = "+31 71 452 5670";
-          "country" = "nl";
-          "state" = "Province of Utrecht";
-          "city" = "Utrecht";
-          "product" = "DaVinci Resolve";
-        };
+          REQJSON = builtins.toJSON {
+            "firstname" = "NixOS";
+            "lastname" = "Linux";
+            "email" = "someone@nixos.org";
+            "phone" = "+31 71 452 5670";
+            "country" = "nl";
+            "state" = "Province of Utrecht";
+            "city" = "Utrecht";
+            "product" = "DaVinci Resolve";
+          };
 
-      } ''
-        RESOLVEURL=$(curl \
-          -s \
-          -H 'Host: www.blackmagicdesign.com' \
-          -H 'Accept: application/json, text/plain, */*' \
-          -H 'Origin: https://www.blackmagicdesign.com' \
-          -H "$USERAGENT" \
-          -H 'Content-Type: application/json;charset=UTF-8' \
-          -H "Referer: https://www.blackmagicdesign.com/support/download/$REFERID/Linux" \
-          -H 'Accept-Encoding: gzip, deflate, br' \
-          -H 'Accept-Language: en-US,en;q=0.9' \
-          -H 'Authority: www.blackmagicdesign.com' \
-          -H 'Cookie: _ga=GA1.2.1849503966.1518103294; _gid=GA1.2.953840595.1518103294' \
-          --data-ascii "$REQJSON" \
-          --compressed \
-          "$SITEURL")
+        }
+        ''
+          RESOLVEURL=$(curl \
+            -s \
+            -H 'Host: www.blackmagicdesign.com' \
+            -H 'Accept: application/json, text/plain, */*' \
+            -H 'Origin: https://www.blackmagicdesign.com' \
+            -H "$USERAGENT" \
+            -H 'Content-Type: application/json;charset=UTF-8' \
+            -H "Referer: https://www.blackmagicdesign.com/support/download/$REFERID/Linux" \
+            -H 'Accept-Encoding: gzip, deflate, br' \
+            -H 'Accept-Language: en-US,en;q=0.9' \
+            -H 'Authority: www.blackmagicdesign.com' \
+            -H 'Cookie: _ga=GA1.2.1849503966.1518103294; _gid=GA1.2.953840595.1518103294' \
+            --data-ascii "$REQJSON" \
+            --compressed \
+            "$SITEURL")
 
-        curl \
-          --retry 3 --retry-delay 3 \
-          -H "Host: sw.blackmagicdesign.com" \
-          -H "Upgrade-Insecure-Requests: 1" \
-          -H "$USERAGENT" \
-          -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8" \
-          -H "Accept-Language: en-US,en;q=0.9" \
-          --compressed \
-          "$RESOLVEURL" \
-          > $out
-      '';
+          curl \
+            --retry 3 --retry-delay 3 \
+            -H "Host: sw.blackmagicdesign.com" \
+            -H "Upgrade-Insecure-Requests: 1" \
+            -H "$USERAGENT" \
+            -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8" \
+            -H "Accept-Language: en-US,en;q=0.9" \
+            --compressed \
+            "$RESOLVEURL" \
+            > $out
+        '';
 
         # The unpack phase won't generate a directory
       setSourceRoot = ''

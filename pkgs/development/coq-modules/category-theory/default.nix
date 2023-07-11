@@ -29,7 +29,8 @@ mkCoqDerivation {
 
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch coq.coq-version [
+    lib.switch coq.coq-version
+    [
       {
         case = range "8.14" "8.17";
         out = "1.0.0";
@@ -46,7 +47,8 @@ mkCoqDerivation {
         case = range "8.6" "8.7";
         out = "20180709";
       }
-    ] null;
+    ]
+    null;
 
   mlPlugin = true;
   propagatedBuildInputs = [

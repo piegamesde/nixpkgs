@@ -23,14 +23,16 @@ let
 
       ${cfg.extraConfig}
 
-      ${lib.concatMapStrings (machine: ''
+      ${lib.concatMapStrings
+      (machine: ''
         host ${machine.hostName} {
           hardware ethernet ${machine.ethernetAddress};
           fixed-address${
             optionalString (postfix == "6") postfix
           } ${machine.ipAddress};
         }
-      '') cfg.machines}
+      '')
+      cfg.machines}
     ''
     ;
 
@@ -217,29 +219,35 @@ in
 
   imports =
     [
-      (mkRenamedOptionModule [
-        "services"
-        "dhcpd"
-      ] [
-        "services"
-        "dhcpd4"
-      ])
+      (mkRenamedOptionModule
+        [
+          "services"
+          "dhcpd"
+        ]
+        [
+          "services"
+          "dhcpd4"
+        ])
     ]
-    ++ flip map [
-      "4"
-      "6"
-    ] (
-      postfix:
-      mkRemovedOptionModule [
-        "services"
-        "dhcpd${postfix}"
-        "stateDir"
-      ] ''
-        The DHCP server state directory is now managed with the systemd's DynamicUser mechanism.
-        This means the directory is named after the service (dhcpd${postfix}), created under
-        /var/lib/private/ and symlinked to /var/lib/.
-      ''
-    )
+    ++ flip map
+      [
+        "4"
+        "6"
+      ]
+      (
+        postfix:
+        mkRemovedOptionModule
+        [
+          "services"
+          "dhcpd${postfix}"
+          "stateDir"
+        ]
+        ''
+          The DHCP server state directory is now managed with the systemd's DynamicUser mechanism.
+          This means the directory is named after the service (dhcpd${postfix}), created under
+          /var/lib/private/ and symlinked to /var/lib/.
+        ''
+      )
     ;
 
     ###### interface

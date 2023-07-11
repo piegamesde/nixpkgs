@@ -88,20 +88,28 @@ let
     cfg:
     pkgs.writeText "cgitrc" ''
       # global settings
-      ${concatStringsSep "\n" (mapAttrsToList cgitrcLine (
-        { virtual-root = cfg.nginx.location; } // cfg.settings
-      ))}
-      ${optionalString (cfg.scanPath != null)
-      (cgitrcLine "scan-path" cfg.scanPath)}
+      ${concatStringsSep "\n" (
+        mapAttrsToList cgitrcLine (
+          { virtual-root = cfg.nginx.location; } // cfg.settings
+        )
+      )}
+      ${optionalString (cfg.scanPath != null) (
+        cgitrcLine "scan-path" cfg.scanPath
+      )}
 
       # repository settings
-      ${concatStrings (mapAttrsToList (
-        url: settings: ''
-          ${cgitrcLine "repo.url" url}
-          ${concatStringsSep "\n"
-          (mapAttrsToList (name: cgitrcLine "repo.${name}") settings)}
-        ''
-      ) cfg.repos)}
+      ${concatStrings (
+        mapAttrsToList
+        (
+          url: settings: ''
+            ${cgitrcLine "repo.url" url}
+            ${concatStringsSep "\n" (
+              mapAttrsToList (name: cgitrcLine "repo.${name}") settings
+            )}
+          ''
+        )
+        cfg.repos
+      )}
 
       # extra config
       ${cfg.extraConfig}
@@ -113,16 +121,22 @@ let
     if cfg.scanPath != null then
       cfg.scanPath
     else
-      pkgs.runCommand "cgit-repos" {
+      pkgs.runCommand "cgit-repos"
+      {
         preferLocalBuild = true;
         allowSubstitutes = false;
-      } ''
+      }
+      ''
         mkdir -p "$out"
-        ${concatStrings (mapAttrsToList (
-          name: value: ''
-            ln -s ${escapeShellArg value.path} "$out"/${escapeShellArg name}
-          ''
-        ) cfg.repos)}
+        ${concatStrings (
+          mapAttrsToList
+          (
+            name: value: ''
+              ln -s ${escapeShellArg value.path} "$out"/${escapeShellArg name}
+            ''
+          )
+          cfg.repos
+        )}
       ''
     ;
 
@@ -132,126 +146,138 @@ in
     services.cgit = mkOption {
       description = mdDoc "Configure cgit instances.";
       default = { };
-      type = types.attrsOf (types.submodule (
-        {
-          config,
-          ...
-        }: {
-          options = {
-            enable = mkEnableOption (mdDoc "cgit");
+      type = types.attrsOf (
+        types.submodule (
+          {
+            config,
+            ...
+          }: {
+            options = {
+              enable = mkEnableOption (mdDoc "cgit");
 
-            package = mkPackageOptionMD pkgs "cgit" { };
+              package = mkPackageOptionMD pkgs "cgit" { };
 
-            nginx.virtualHost = mkOption {
-              description = mdDoc
-                "VirtualHost to serve cgit on, defaults to the attribute name.";
-              type = types.str;
-              default = config._module.args.name;
-              example = "git.example.com";
-            };
+              nginx.virtualHost = mkOption {
+                description = mdDoc
+                  "VirtualHost to serve cgit on, defaults to the attribute name."
+                  ;
+                type = types.str;
+                default = config._module.args.name;
+                example = "git.example.com";
+              };
 
-            nginx.location = mkOption {
-              description = mdDoc "Location to serve cgit under.";
-              type = types.str;
-              default = "/";
-              example = "/git/";
-            };
+              nginx.location = mkOption {
+                description = mdDoc "Location to serve cgit under.";
+                type = types.str;
+                default = "/";
+                example = "/git/";
+              };
 
-            repos = mkOption {
-              description = mdDoc "cgit repository settings, see cgitrc(5)";
-              type = with types; attrsOf (attrsOf settingType);
-              default = { };
-              example = {
-                blah = {
-                  path = "/var/lib/git/example";
-                  desc = "An example repository";
+              repos = mkOption {
+                description = mdDoc "cgit repository settings, see cgitrc(5)";
+                type = with types; attrsOf (attrsOf settingType);
+                default = { };
+                example = {
+                  blah = {
+                    path = "/var/lib/git/example";
+                    desc = "An example repository";
+                  };
                 };
               };
-            };
 
-            scanPath = mkOption {
-              description =
-                mdDoc "A path which will be scanned for repositories.";
-              type = types.nullOr types.path;
-              default = null;
-              example = "/var/lib/git";
-            };
+              scanPath = mkOption {
+                description =
+                  mdDoc "A path which will be scanned for repositories.";
+                type = types.nullOr types.path;
+                default = null;
+                example = "/var/lib/git";
+              };
 
-            settings = mkOption {
-              description = mdDoc "cgit configuration, see cgitrc(5)";
-              type = types.attrsOf settingType;
-              default = { };
-              example = literalExpression ''
-                {
-                  enable-follow-links = true;
-                  source-filter = "''${pkgs.cgit}/lib/cgit/filters/syntax-highlighting.py";
-                }
-              '';
-            };
+              settings = mkOption {
+                description = mdDoc "cgit configuration, see cgitrc(5)";
+                type = types.attrsOf settingType;
+                default = { };
+                example = literalExpression ''
+                  {
+                    enable-follow-links = true;
+                    source-filter = "''${pkgs.cgit}/lib/cgit/filters/syntax-highlighting.py";
+                  }
+                '';
+              };
 
-            extraConfig = mkOption {
-              description =
-                mdDoc "These lines go to the end of cgitrc verbatim.";
-              type = types.lines;
-              default = "";
+              extraConfig = mkOption {
+                description =
+                  mdDoc "These lines go to the end of cgitrc verbatim.";
+                type = types.lines;
+                default = "";
+              };
             };
-          };
-        }
-      ));
+          }
+        )
+      );
     };
   };
 
   config = mkIf (any (cfg: cfg.enable) (attrValues cfgs)) {
-    assertions = mapAttrsToList (
-      vhost: cfg: {
-        assertion = !cfg.enable || (cfg.scanPath == null) != (cfg.repos == { });
-        message =
-          "Exactly one of services.cgit.${vhost}.scanPath or services.cgit.${vhost}.repos must be set.";
-      }
-    ) cfgs;
+    assertions = mapAttrsToList
+      (
+        vhost: cfg: {
+          assertion =
+            !cfg.enable || (cfg.scanPath == null) != (cfg.repos == { });
+          message =
+            "Exactly one of services.cgit.${vhost}.scanPath or services.cgit.${vhost}.repos must be set.";
+        }
+      )
+      cfgs;
 
     services.fcgiwrap.enable = true;
 
     services.nginx.enable = true;
 
-    services.nginx.virtualHosts = mkMerge (mapAttrsToList (
-      _: cfg: {
-        ${cfg.nginx.virtualHost} = {
-          locations = (genAttrs' [
-            "cgit.css"
-            "cgit.png"
-            "favicon.ico"
-            "robots.txt"
-          ] (
-            name:
-            nameValuePair "= ${stripLocation cfg}/${name}" {
-              extraConfig = ''
-                alias ${cfg.package}/cgit/${name};
-              '';
-            }
-          )) // {
-            "~ ${regexLocation cfg}/.+/(info/refs|git-upload-pack)" = {
-              fastcgiParams = rec {
-                SCRIPT_FILENAME =
-                  "${pkgs.git}/libexec/git-core/git-http-backend";
-                GIT_HTTP_EXPORT_ALL = "1";
-                GIT_PROJECT_ROOT = mkCgitReposDir cfg;
-                HOME = GIT_PROJECT_ROOT;
+    services.nginx.virtualHosts = mkMerge (
+      mapAttrsToList
+      (
+        _: cfg: {
+          ${cfg.nginx.virtualHost} = {
+            locations = (genAttrs'
+              [
+                "cgit.css"
+                "cgit.png"
+                "favicon.ico"
+                "robots.txt"
+              ]
+              (
+                name:
+                nameValuePair "= ${stripLocation cfg}/${name}" {
+                  extraConfig = ''
+                    alias ${cfg.package}/cgit/${name};
+                  '';
+                }
+              )) // {
+                "~ ${regexLocation cfg}/.+/(info/refs|git-upload-pack)" = {
+                  fastcgiParams = rec {
+                    SCRIPT_FILENAME =
+                      "${pkgs.git}/libexec/git-core/git-http-backend";
+                    GIT_HTTP_EXPORT_ALL = "1";
+                    GIT_PROJECT_ROOT = mkCgitReposDir cfg;
+                    HOME = GIT_PROJECT_ROOT;
+                  };
+                  extraConfig = mkFastcgiPass cfg;
+                };
+                "${stripLocation cfg}/" = {
+                  fastcgiParams = {
+                    SCRIPT_FILENAME = "${cfg.package}/cgit/cgit.cgi";
+                    QUERY_STRING = "$args";
+                    HTTP_HOST = "$server_name";
+                    CGIT_CONFIG = mkCgitrc cfg;
+                  };
+                  extraConfig = mkFastcgiPass cfg;
+                };
               };
-              extraConfig = mkFastcgiPass cfg;
-            };
-            "${stripLocation cfg}/" = {
-              fastcgiParams = {
-                SCRIPT_FILENAME = "${cfg.package}/cgit/cgit.cgi";
-                QUERY_STRING = "$args";
-                HTTP_HOST = "$server_name";
-                CGIT_CONFIG = mkCgitrc cfg;
-              };
-              extraConfig = mkFastcgiPass cfg;
-            };
           };
-        };
-      }
-    ) cfgs);
+        }
+      )
+      cfgs
+    );
   };
 }

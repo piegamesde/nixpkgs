@@ -41,7 +41,8 @@ let
             environment.etc."powerdns-admin/secret".text = "secret key";
             environment.etc."powerdns-admin/salt".text = "salt";
             environment.systemPackages = [
-                (pkgs.writeShellScriptBin "run-test"
+                (pkgs.writeShellScriptBin
+                  "run-test"
                   config.system.build.testScript)
               ];
           } ]

@@ -104,8 +104,9 @@ in
         requires = [ "postgresql.service" ];
         script =
           "HOME=$STATE_DIRECTORY ${cfg.package}/bin/odoo ${
-            optionalString (cfg.addons != [ ])
-            "--addons-path=${concatMapStringsSep "," escapeShellArg cfg.addons}"
+            optionalString (cfg.addons != [ ]) "--addons-path=${
+              concatMapStringsSep "," escapeShellArg cfg.addons
+            }"
           } -c ${cfgFile}";
 
         serviceConfig = {

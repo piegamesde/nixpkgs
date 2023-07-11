@@ -15,29 +15,31 @@ let
   ge7 = builtins.compareVersions cfg.package.version "7" >= 0;
   lt6_6 = builtins.compareVersions cfg.package.version "6.6" < 0;
 
-  cfgFile = pkgs.writeText "kibana.json" (builtins.toJSON (
-    (filterAttrsRecursive (n: v: v != null && v != [ ]) (
-      {
-        server.host = cfg.listenAddress;
-        server.port = cfg.port;
-        server.ssl.certificate = cfg.cert;
-        server.ssl.key = cfg.key;
+  cfgFile = pkgs.writeText "kibana.json" (
+    builtins.toJSON (
+      (filterAttrsRecursive (n: v: v != null && v != [ ]) (
+        {
+          server.host = cfg.listenAddress;
+          server.port = cfg.port;
+          server.ssl.certificate = cfg.cert;
+          server.ssl.key = cfg.key;
 
-        kibana.index = cfg.index;
-        kibana.defaultAppId = cfg.defaultAppId;
+          kibana.index = cfg.index;
+          kibana.defaultAppId = cfg.defaultAppId;
 
-        elasticsearch.url = cfg.elasticsearch.url;
-        elasticsearch.hosts = cfg.elasticsearch.hosts;
-        elasticsearch.username = cfg.elasticsearch.username;
-        elasticsearch.password = cfg.elasticsearch.password;
+          elasticsearch.url = cfg.elasticsearch.url;
+          elasticsearch.hosts = cfg.elasticsearch.hosts;
+          elasticsearch.username = cfg.elasticsearch.username;
+          elasticsearch.password = cfg.elasticsearch.password;
 
-        elasticsearch.ssl.certificate = cfg.elasticsearch.cert;
-        elasticsearch.ssl.key = cfg.elasticsearch.key;
-        elasticsearch.ssl.certificateAuthorities =
-          cfg.elasticsearch.certificateAuthorities;
-      } // cfg.extraConf
-    ))
-  ));
+          elasticsearch.ssl.certificate = cfg.elasticsearch.cert;
+          elasticsearch.ssl.key = cfg.elasticsearch.key;
+          elasticsearch.ssl.certificateAuthorities =
+            cfg.elasticsearch.certificateAuthorities;
+        } // cfg.extraConf
+      ))
+    )
+  );
 
 in
 {

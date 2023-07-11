@@ -38,7 +38,8 @@ let
   dirConfig = pkgs.writeText "xtreemfs-dir-config.properties" ''
     uuid = ${cfg.dir.uuid}
     listen.port = ${toString cfg.dir.port}
-    ${optionalString (cfg.dir.address != "")
+    ${optionalString
+    (cfg.dir.address != "")
     "listen.address = ${cfg.dir.address}"}
     http_port = ${toString cfg.dir.httpPort}
     babudb.baseDir = ${home}/dir/database
@@ -50,7 +51,8 @@ let
         cfg.dir.syncMode
     }
 
-    ${optionalString cfg.dir.replication.enable
+    ${optionalString
+    cfg.dir.replication.enable
     "babudb.plugin.0 = ${dirReplicationConfig}"}
 
     ${cfg.dir.extraConfig}
@@ -68,7 +70,8 @@ let
   mrcConfig = pkgs.writeText "xtreemfs-mrc-config.properties" ''
     uuid = ${cfg.mrc.uuid}
     listen.port = ${toString cfg.mrc.port}
-    ${optionalString (cfg.mrc.address != "")
+    ${optionalString
+    (cfg.mrc.address != "")
     "listen.address = ${cfg.mrc.address}"}
     http_port = ${toString cfg.mrc.httpPort}
     babudb.baseDir = ${home}/mrc/database
@@ -80,7 +83,8 @@ let
         cfg.mrc.syncMode
     }
 
-    ${optionalString cfg.mrc.replication.enable
+    ${optionalString
+    cfg.mrc.replication.enable
     "babudb.plugin.0 = ${mrcReplicationConfig}"}
 
     ${cfg.mrc.extraConfig}
@@ -89,7 +93,8 @@ let
   osdConfig = pkgs.writeText "xtreemfs-osd-config.properties" ''
     uuid = ${cfg.osd.uuid}
     listen.port = ${toString cfg.osd.port}
-    ${optionalString (cfg.osd.address != "")
+    ${optionalString
+    (cfg.osd.address != "")
     "listen.address = ${cfg.osd.address}"}
     http_port = ${toString cfg.osd.httpPort}
     object_dir = ${home}/osd/

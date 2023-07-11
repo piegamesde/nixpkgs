@@ -13,10 +13,12 @@ let
 in
 {
   options = {
-    services.hdapsd.enable = mkEnableOption (lib.mdDoc ''
-      Hard Drive Active Protection System Daemon,
-      devices are detected and managed automatically by udev and systemd
-    '');
+    services.hdapsd.enable = mkEnableOption (
+      lib.mdDoc ''
+        Hard Drive Active Protection System Daemon,
+        devices are detected and managed automatically by udev and systemd
+      ''
+    );
   };
 
   config = mkIf cfg.enable {

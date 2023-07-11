@@ -327,10 +327,12 @@ in
           configFile = format.generate "config.yml" instance.settings;
           configArg =
             "--config ${
-              builtins.concatStringsSep "," (lib.concatLists [
-                [ configFile ]
-                instance.settingsFiles
-              ])
+              builtins.concatStringsSep "," (
+                lib.concatLists [
+                  [ configFile ]
+                  instance.settingsFiles
+                ]
+              )
             }";
         in
         {
@@ -421,36 +423,44 @@ in
       instances = lib.attrValues cfg.instances;
     in
     {
-      assertions = lib.flatten (lib.flip lib.mapAttrsToList cfg.instances (
-        name: instance: [ {
-          assertion =
-            instance.secrets.manual
-            || (
-              instance.secrets.jwtSecretFile != null
-              && instance.secrets.storageEncryptionKeyFile != null
-            )
-            ;
-          message = ''
-            Authelia requires a JWT Secret and a Storage Encryption Key to work.
-            Either set them like so:
-            services.authelia.${name}.secrets.jwtSecretFile = /my/path/to/jwtsecret;
-            services.authelia.${name}.secrets.storageEncryptionKeyFile = /my/path/to/encryptionkey;
-            Or set services.authelia.${name}.secrets.manual = true and provide them yourself via
-            environmentVariables or settingsFiles.
-            Do not include raw secrets in nix settings.
-          '';
-        } ]
-      ));
+      assertions = lib.flatten (
+        lib.flip lib.mapAttrsToList cfg.instances (
+          name: instance: [ {
+            assertion =
+              instance.secrets.manual
+              || (
+                instance.secrets.jwtSecretFile != null
+                && instance.secrets.storageEncryptionKeyFile != null
+              )
+              ;
+            message = ''
+              Authelia requires a JWT Secret and a Storage Encryption Key to work.
+              Either set them like so:
+              services.authelia.${name}.secrets.jwtSecretFile = /my/path/to/jwtsecret;
+              services.authelia.${name}.secrets.storageEncryptionKeyFile = /my/path/to/encryptionkey;
+              Or set services.authelia.${name}.secrets.manual = true and provide them yourself via
+              environmentVariables or settingsFiles.
+              Do not include raw secrets in nix settings.
+            '';
+          } ]
+        )
+      );
 
-      systemd.services = lib.mkMerge (map (
-        instance:
-        lib.mkIf instance.enable {
-          "authelia-${instance.name}" = mkInstanceServiceConfig instance;
-        }
-      ) instances);
-      users = lib.mkMerge (map (
-        instance: lib.mkIf instance.enable (mkInstanceUsersConfig instance)
-      ) instances);
+      systemd.services = lib.mkMerge (
+        map
+        (
+          instance:
+          lib.mkIf instance.enable {
+            "authelia-${instance.name}" = mkInstanceServiceConfig instance;
+          }
+        )
+        instances
+      );
+      users = lib.mkMerge (
+        map
+        (instance: lib.mkIf instance.enable (mkInstanceUsersConfig instance))
+        instances
+      );
     }
     ;
 }

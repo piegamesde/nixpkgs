@@ -57,7 +57,8 @@ let
         inherit version;
         pname =
           "subversion${
-            lib.optionalString (!bdbSupport && perlBindings && pythonBindings)
+            lib.optionalString
+            (!bdbSupport && perlBindings && pythonBindings)
             "-client"
           }";
 

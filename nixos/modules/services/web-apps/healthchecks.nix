@@ -25,8 +25,9 @@ let
     DB_NAME = "${cfg.dataDir}/healthchecks.sqlite";
   } // cfg.settings;
 
-  environmentFile = pkgs.writeText "healthchecks-environment"
-    (lib.generators.toKeyValue { } environment);
+  environmentFile = pkgs.writeText "healthchecks-environment" (
+    lib.generators.toKeyValue { } environment
+  );
 
   healthchecksManageScript = pkgs.writeShellScriptBin "healthchecks-manage" ''
     sudo=exec

@@ -178,9 +178,11 @@ stdenv.mkDerivation rec {
     echo '--install.offline true' >> .yarnrc
 
     # set default yarn opts
-    ${lib.concatMapStrings (option: ''
+    ${lib.concatMapStrings
+    (option: ''
       yarn --offline config set ${option}
-    '') defaultYarnOpts}
+    '')
+    defaultYarnOpts}
 
     # set offline mirror to yarn cache we created in previous steps
     yarn --offline config set yarn-offline-mirror "${yarnCache}"

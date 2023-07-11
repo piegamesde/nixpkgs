@@ -29,19 +29,36 @@
 let
   pname = "mojave-gtk-theme";
 in
-lib.checkListOfEnum "${pname}: button size variants" [
+lib.checkListOfEnum "${pname}: button size variants"
+[
   "standard"
   "small"
-] buttonSizeVariants lib.checkListOfEnum "${pname}: button variants" [
+]
+buttonSizeVariants
+lib.checkListOfEnum
+"${pname}: button variants"
+[
   "standard"
   "alt"
-] buttonVariants lib.checkListOfEnum "${pname}: color variants" [
+]
+buttonVariants
+lib.checkListOfEnum
+"${pname}: color variants"
+[
   "light"
   "dark"
-] colorVariants lib.checkListOfEnum "${pname}: opacity variants" [
+]
+colorVariants
+lib.checkListOfEnum
+"${pname}: opacity variants"
+[
   "standard"
   "solid"
-] opacityVariants lib.checkListOfEnum "${pname}: theme variants" [
+]
+opacityVariants
+lib.checkListOfEnum
+"${pname}: theme variants"
+[
   "default"
   "blue"
   "purple"
@@ -52,9 +69,11 @@ lib.checkListOfEnum "${pname}: button size variants" [
   "green"
   "grey"
   "all"
-] themeVariants
+]
+themeVariants
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation
+rec {
   inherit pname;
   version = "2022-10-21";
 
@@ -67,11 +86,13 @@ stdenvNoCC.mkDerivation rec {
         sha256 = "sha256-0OqQXyv/fcbKTzvQUVIbUw5Y27hU1bzwx/0DelMEZIs=";
       })
     ]
-    ++ lib.optional wallpapers (fetchurl {
-      url =
-        "https://github.com/vinceliuice/Mojave-gtk-theme/raw/11741a99d96953daf9c27e44c94ae50a7247c0ed/macOS_Mojave_Wallpapers.tar.xz";
-      sha256 = "18zzkwm1kqzsdaj8swf0xby1n65gxnyslpw4lnxcx1rphip0rwf7";
-    })
+    ++ lib.optional wallpapers (
+      fetchurl {
+        url =
+          "https://github.com/vinceliuice/Mojave-gtk-theme/raw/11741a99d96953daf9c27e44c94ae50a7247c0ed/macOS_Mojave_Wallpapers.tar.xz";
+        sha256 = "18zzkwm1kqzsdaj8swf0xby1n65gxnyslpw4lnxcx1rphip0rwf7";
+      }
+    )
     ;
 
   sourceRoot = "source";

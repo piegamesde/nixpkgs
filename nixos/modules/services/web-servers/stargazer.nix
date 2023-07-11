@@ -20,22 +20,25 @@ let
     organization = ${cfg.certOrg}
     gen-certs = ${lib.boolToString cfg.genCerts}
     regen-certs = ${lib.boolToString cfg.regenCerts}
-    ${lib.optionalString (cfg.certLifetime != "")
+    ${lib.optionalString
+    (cfg.certLifetime != "")
     "cert-lifetime = ${cfg.certLifetime}"}
 
   '';
   genINI = lib.generators.toINI { };
-  configFile = pkgs.writeText "config.ini" (lib.strings.concatStrings (
-    [ globalSection ]
-    ++ (lib.lists.forEach cfg.routes (
-      section:
-      let
-        name = section.route;
-        params = builtins.removeAttrs section [ "route" ];
-      in
-      genINI { "${name}" = params; } + "\n"
-    ))
-  ));
+  configFile = pkgs.writeText "config.ini" (
+    lib.strings.concatStrings (
+      [ globalSection ]
+      ++ (lib.lists.forEach cfg.routes (
+        section:
+        let
+          name = section.route;
+          params = builtins.removeAttrs section [ "route" ];
+        in
+        genINI { "${name}" = params; } + "\n"
+      ))
+    )
+  );
 in
 {
   options.services.stargazer = {
@@ -45,8 +48,8 @@ in
       type = lib.types.listOf lib.types.str;
       default =
         [ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]";
-      defaultText = lib.literalExpression
-        ''[ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"'';
+      defaultText = lib.literalExpression ''
+        [ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"'';
       example = lib.literalExpression ''[ "10.0.0.12" "[2002:a00:1::]" ]'';
       description = lib.mdDoc ''
         Address and port to listen on.
@@ -138,23 +141,27 @@ in
     };
 
     routes = lib.mkOption {
-      type = lib.types.listOf (lib.types.submodule {
-        freeformType = with lib.types;
-          attrsOf (
-            nullOr (oneOf [
-              bool
-              int
-              float
-              str
-            ]) // {
-              description = "INI atom (null, bool, int, float or string)";
-            }
-          );
-        options.route = lib.mkOption {
-          type = lib.types.str;
-          description = lib.mdDoc "Route section name";
-        };
-      });
+      type = lib.types.listOf (
+        lib.types.submodule {
+          freeformType = with lib.types;
+            attrsOf (
+              nullOr (
+                oneOf [
+                  bool
+                  int
+                  float
+                  str
+                ]
+              ) // {
+                description = "INI atom (null, bool, int, float or string)";
+              }
+            );
+          options.route = lib.mkOption {
+            type = lib.types.str;
+            description = lib.mdDoc "Route section name";
+          };
+        }
+      );
       default = [ ];
       description = lib.mdDoc ''
         Routes that Stargazer should server.

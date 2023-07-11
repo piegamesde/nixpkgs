@@ -37,8 +37,9 @@ in
 {
   options.services.snipe-it = {
 
-    enable = mkEnableOption
-      (lib.mdDoc "A free open source IT asset/license management system");
+    enable = mkEnableOption (
+      lib.mdDoc "A free open source IT asset/license management system"
+    );
 
     user = mkOption {
       default = "snipeit";
@@ -152,10 +153,12 @@ in
       };
       encryption = mkOption {
         type = with types;
-          nullOr (enum [
-            "tls"
-            "ssl"
-          ]);
+          nullOr (
+            enum [
+              "tls"
+              "ssl"
+            ]
+          );
         default = null;
         description = lib.mdDoc "SMTP encryption mechanism to use.";
       };
@@ -215,11 +218,13 @@ in
 
     poolConfig = mkOption {
       type = with types;
-        attrsOf (oneOf [
-          str
-          int
-          bool
-        ]);
+        attrsOf (
+          oneOf [
+            str
+            int
+            bool
+          ]
+        );
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;
@@ -235,9 +240,11 @@ in
     };
 
     nginx = mkOption {
-      type = types.submodule (recursiveUpdate
+      type = types.submodule (
+        recursiveUpdate
         (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
-        { });
+        { }
+      );
       default = { };
       example = literalExpression ''
         {
@@ -256,27 +263,37 @@ in
 
     config = mkOption {
       type = with types;
-        attrsOf (nullOr (either (oneOf [
-          bool
-          int
-          port
-          path
-          str
-        ]) (submodule {
-          options = {
-            _secret = mkOption {
-              type = nullOr (oneOf [
-                str
-                path
-              ]);
-              description = lib.mdDoc ''
-                The path to a file containing the value the
-                option should be set to in the final
-                configuration file.
-              '';
-            };
-          };
-        })));
+        attrsOf (
+          nullOr (
+            either
+            (oneOf [
+              bool
+              int
+              port
+              path
+              str
+            ])
+            (
+              submodule {
+                options = {
+                  _secret = mkOption {
+                    type = nullOr (
+                      oneOf [
+                        str
+                        path
+                      ]
+                    );
+                    description = lib.mdDoc ''
+                      The path to a file containing the value the
+                      option should be set to in the final
+                      configuration file.
+                    '';
+                  };
+                };
+              }
+            )
+          )
+        );
       default = { };
       example = literalExpression ''
         {
@@ -384,12 +401,14 @@ in
         cfg.nginx
         {
           root = mkForce "${snipe-it}/public";
-          extraConfig = optionalString (
-            cfg.nginx.addSSL
-            || cfg.nginx.forceSSL
-            || cfg.nginx.onlySSL
-            || cfg.nginx.enableACME
-          ) "fastcgi_param HTTPS on;";
+          extraConfig = optionalString
+            (
+              cfg.nginx.addSSL
+              || cfg.nginx.forceSSL
+              || cfg.nginx.onlySSL
+              || cfg.nginx.enableACME
+            )
+            "fastcgi_param HTTPS on;";
           locations = {
             "/" = {
               index = "index.php";
@@ -404,12 +423,14 @@ in
                 fastcgi_pass unix:${
                   config.services.phpfpm.pools."snipe-it".socket
                 };
-                ${optionalString (
+                ${optionalString
+                (
                   cfg.nginx.addSSL
                   || cfg.nginx.forceSSL
                   || cfg.nginx.onlySSL
                   || cfg.nginx.enableACME
-                ) "fastcgi_param HTTPS on;"}
+                )
+                "fastcgi_param HTTPS on;"}
               '';
             };
             "~ .(js|css|gif|png|ico|jpg|jpeg)$" = {
@@ -469,8 +490,9 @@ in
                 ;
             };
           };
-          secretPaths = lib.mapAttrsToList (_: v: v._secret)
-            (lib.filterAttrs (_: isSecret) cfg.config);
+          secretPaths = lib.mapAttrsToList (_: v: v._secret) (
+            lib.filterAttrs (_: isSecret) cfg.config
+          );
           mkSecretReplacement =
             file: ''
               replace-secret ${
@@ -489,13 +511,15 @@ in
             ;
           secretReplacements =
             lib.concatMapStrings mkSecretReplacement secretPaths;
-          filteredConfig = lib.converge (lib.filterAttrsRecursive (
-            _: v:
-            !elem v [
-              { }
-              null
-            ]
-          )) cfg.config;
+          filteredConfig = lib.converge
+            (lib.filterAttrsRecursive (
+              _: v:
+              !elem v [
+                { }
+                null
+              ]
+            ))
+            cfg.config;
           snipeITEnv =
             pkgs.writeText "snipeIT.env" (snipeITEnvVars filteredConfig);
         in

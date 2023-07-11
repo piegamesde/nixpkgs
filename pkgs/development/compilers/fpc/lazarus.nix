@@ -34,12 +34,15 @@ let
   majorMinorPatch =
     v: builtins.concatStringsSep "." (lib.take 3 (lib.splitVersion v));
 
-  overrides = writeText "revision.inc" (lib.concatStringsSep "\n"
-    (lib.mapAttrsToList (k: v: "const ${k} = '${v}';") {
-      # this is technically the SVN revision but as we don't have that replace
-      # it with the version instead of showing "Unknown"
-      RevisionStr = version;
-    }));
+  overrides = writeText "revision.inc" (
+    lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (k: v: "const ${k} = '${v}';") {
+        # this is technically the SVN revision but as we don't have that replace
+        # it with the version instead of showing "Unknown"
+        RevisionStr = version;
+      }
+    )
+  );
 
 in
 stdenv.mkDerivation rec {

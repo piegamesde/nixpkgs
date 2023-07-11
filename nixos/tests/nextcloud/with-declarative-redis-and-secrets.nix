@@ -8,9 +8,11 @@ import ../make-test-python.nix (
       # This will be used both for redis and postgresql
     pass = "hunter2";
       # Don't do this at home, use a file outside of the nix store instead
-    passFile = toString (pkgs.writeText "pass-file" ''
-      ${pass}
-    '');
+    passFile = toString (
+      pkgs.writeText "pass-file" ''
+        ${pass}
+      ''
+    );
   in
   {
     name = "nextcloud-with-declarative-redis";

@@ -48,10 +48,12 @@ buildGoModule rec {
     substituteAllInPlace $out/share/applications/*
     wrapProgram $out/bin/gomuks \
       --prefix PATH : "${
-        lib.makeBinPath (lib.optionals stdenv.isLinux [
-          libnotify
-          pulseaudio
-        ])
+        lib.makeBinPath (
+          lib.optionals stdenv.isLinux [
+            libnotify
+            pulseaudio
+          ]
+        )
       }" \
       --set-default GOMUKS_SOUND_NORMAL "${sound-theme-freedesktop}/share/sounds/freedesktop/stereo/message-new-instant.oga" \
       --set-default GOMUKS_SOUND_CRITICAL "${sound-theme-freedesktop}/share/sounds/freedesktop/stereo/complete.oga"

@@ -204,19 +204,21 @@ in
         to `https://[publicUrl]/auth/slack.callback`.
       '';
       default = null;
-      type = lib.types.nullOr (lib.types.submodule {
-        options = {
-          clientId = lib.mkOption {
-            type = lib.types.str;
-            description = lib.mdDoc "Authentication key.";
+      type = lib.types.nullOr (
+        lib.types.submodule {
+          options = {
+            clientId = lib.mkOption {
+              type = lib.types.str;
+              description = lib.mdDoc "Authentication key.";
+            };
+            secretFile = lib.mkOption {
+              type = lib.types.str;
+              description =
+                lib.mdDoc "File path containing the authentication secret.";
+            };
           };
-          secretFile = lib.mkOption {
-            type = lib.types.str;
-            description =
-              lib.mdDoc "File path containing the authentication secret.";
-          };
-        };
-      });
+        }
+      );
     };
 
     googleAuthentication = lib.mkOption {
@@ -228,19 +230,21 @@ in
         `https://[publicUrl]/auth/google.callback`.
       '';
       default = null;
-      type = lib.types.nullOr (lib.types.submodule {
-        options = {
-          clientId = lib.mkOption {
-            type = lib.types.str;
-            description = lib.mdDoc "Authentication client identifier.";
+      type = lib.types.nullOr (
+        lib.types.submodule {
+          options = {
+            clientId = lib.mkOption {
+              type = lib.types.str;
+              description = lib.mdDoc "Authentication client identifier.";
+            };
+            clientSecretFile = lib.mkOption {
+              type = lib.types.str;
+              description =
+                lib.mdDoc "File path containing the authentication secret.";
+            };
           };
-          clientSecretFile = lib.mkOption {
-            type = lib.types.str;
-            description =
-              lib.mdDoc "File path containing the authentication secret.";
-          };
-        };
-      });
+        }
+      );
     };
 
     azureAuthentication = lib.mkOption {
@@ -251,23 +255,25 @@ in
         for details on setting up your Azure App.
       '';
       default = null;
-      type = lib.types.nullOr (lib.types.submodule {
-        options = {
-          clientId = lib.mkOption {
-            type = lib.types.str;
-            description = lib.mdDoc "Authentication client identifier.";
+      type = lib.types.nullOr (
+        lib.types.submodule {
+          options = {
+            clientId = lib.mkOption {
+              type = lib.types.str;
+              description = lib.mdDoc "Authentication client identifier.";
+            };
+            clientSecretFile = lib.mkOption {
+              type = lib.types.str;
+              description =
+                lib.mdDoc "File path containing the authentication secret.";
+            };
+            resourceAppId = lib.mkOption {
+              type = lib.types.str;
+              description = lib.mdDoc "Authentication application resource ID.";
+            };
           };
-          clientSecretFile = lib.mkOption {
-            type = lib.types.str;
-            description =
-              lib.mdDoc "File path containing the authentication secret.";
-          };
-          resourceAppId = lib.mkOption {
-            type = lib.types.str;
-            description = lib.mdDoc "Authentication application resource ID.";
-          };
-        };
-      });
+        }
+      );
     };
 
     oidcAuthentication = lib.mkOption {
@@ -278,53 +284,55 @@ in
         `https://[publicUrl]/auth/oidc.callback`.
       '';
       default = null;
-      type = lib.types.nullOr (lib.types.submodule {
-        options = {
-          clientId = lib.mkOption {
-            type = lib.types.str;
-            description = lib.mdDoc "Authentication client identifier.";
+      type = lib.types.nullOr (
+        lib.types.submodule {
+          options = {
+            clientId = lib.mkOption {
+              type = lib.types.str;
+              description = lib.mdDoc "Authentication client identifier.";
+            };
+            clientSecretFile = lib.mkOption {
+              type = lib.types.str;
+              description =
+                lib.mdDoc "File path containing the authentication secret.";
+            };
+            authUrl = lib.mkOption {
+              type = lib.types.str;
+              description = lib.mdDoc "OIDC authentication URL endpoint.";
+            };
+            tokenUrl = lib.mkOption {
+              type = lib.types.str;
+              description = lib.mdDoc "OIDC token URL endpoint.";
+            };
+            userinfoUrl = lib.mkOption {
+              type = lib.types.str;
+              description = lib.mdDoc "OIDC userinfo URL endpoint.";
+            };
+            usernameClaim = lib.mkOption {
+              type = lib.types.str;
+              description = lib.mdDoc ''
+                Specify which claims to derive user information from. Supports any
+                valid JSON path with the JWT payload
+              '';
+              default = "preferred_username";
+            };
+            displayName = lib.mkOption {
+              type = lib.types.str;
+              description = lib.mdDoc "Display name for OIDC authentication.";
+              default = "OpenID";
+            };
+            scopes = lib.mkOption {
+              type = lib.types.listOf lib.types.str;
+              description = lib.mdDoc "OpenID authentication scopes.";
+              default = [
+                "openid"
+                "profile"
+                "email"
+              ];
+            };
           };
-          clientSecretFile = lib.mkOption {
-            type = lib.types.str;
-            description =
-              lib.mdDoc "File path containing the authentication secret.";
-          };
-          authUrl = lib.mkOption {
-            type = lib.types.str;
-            description = lib.mdDoc "OIDC authentication URL endpoint.";
-          };
-          tokenUrl = lib.mkOption {
-            type = lib.types.str;
-            description = lib.mdDoc "OIDC token URL endpoint.";
-          };
-          userinfoUrl = lib.mkOption {
-            type = lib.types.str;
-            description = lib.mdDoc "OIDC userinfo URL endpoint.";
-          };
-          usernameClaim = lib.mkOption {
-            type = lib.types.str;
-            description = lib.mdDoc ''
-              Specify which claims to derive user information from. Supports any
-              valid JSON path with the JWT payload
-            '';
-            default = "preferred_username";
-          };
-          displayName = lib.mkOption {
-            type = lib.types.str;
-            description = lib.mdDoc "Display name for OIDC authentication.";
-            default = "OpenID";
-          };
-          scopes = lib.mkOption {
-            type = lib.types.listOf lib.types.str;
-            description = lib.mdDoc "OpenID authentication scopes.";
-            default = [
-              "openid"
-              "profile"
-              "email"
-            ];
-          };
-        };
-      });
+        }
+      );
     };
 
       #
@@ -413,24 +421,26 @@ in
         https://wiki.generaloutline.com/share/be25efd1-b3ef-4450-b8e5-c4a4fc11e02a
       '';
       default = null;
-      type = lib.types.nullOr (lib.types.submodule {
-        options = {
-          verificationTokenFile = lib.mkOption {
-            type = lib.types.str;
-            description =
-              lib.mdDoc "File path containing the verification token.";
+      type = lib.types.nullOr (
+        lib.types.submodule {
+          options = {
+            verificationTokenFile = lib.mkOption {
+              type = lib.types.str;
+              description =
+                lib.mdDoc "File path containing the verification token.";
+            };
+            appId = lib.mkOption {
+              type = lib.types.str;
+              description = lib.mdDoc "Application ID.";
+            };
+            messageActions = lib.mkOption {
+              type = lib.types.bool;
+              default = true;
+              description = lib.mdDoc "Whether to enable message actions.";
+            };
           };
-          appId = lib.mkOption {
-            type = lib.types.str;
-            description = lib.mdDoc "Application ID.";
-          };
-          messageActions = lib.mkOption {
-            type = lib.types.bool;
-            default = true;
-            description = lib.mdDoc "Whether to enable message actions.";
-          };
-        };
-      });
+        }
+      );
     };
 
     googleAnalyticsId = lib.mkOption {
@@ -477,47 +487,49 @@ in
         authentication for an SMTP server.
       '';
       default = null;
-      type = lib.types.nullOr (lib.types.submodule {
-        options = {
-          host = lib.mkOption {
-            type = lib.types.str;
-            description =
-              lib.mdDoc "Host name or IP address of the SMTP server.";
+      type = lib.types.nullOr (
+        lib.types.submodule {
+          options = {
+            host = lib.mkOption {
+              type = lib.types.str;
+              description =
+                lib.mdDoc "Host name or IP address of the SMTP server.";
+            };
+            port = lib.mkOption {
+              type = lib.types.port;
+              description = lib.mdDoc "TCP port of the SMTP server.";
+            };
+            username = lib.mkOption {
+              type = lib.types.str;
+              description = lib.mdDoc "Username to authenticate with.";
+            };
+            passwordFile = lib.mkOption {
+              type = lib.types.str;
+              description = lib.mdDoc ''
+                File path containing the password to authenticate with.
+              '';
+            };
+            fromEmail = lib.mkOption {
+              type = lib.types.str;
+              description = lib.mdDoc "Sender email in outgoing mail.";
+            };
+            replyEmail = lib.mkOption {
+              type = lib.types.str;
+              description = lib.mdDoc "Reply address in outgoing mail.";
+            };
+            tlsCiphers = lib.mkOption {
+              type = lib.types.str;
+              default = "";
+              description = lib.mdDoc "Override SMTP cipher configuration.";
+            };
+            secure = lib.mkOption {
+              type = lib.types.bool;
+              default = true;
+              description = lib.mdDoc "Use a secure SMTP connection.";
+            };
           };
-          port = lib.mkOption {
-            type = lib.types.port;
-            description = lib.mdDoc "TCP port of the SMTP server.";
-          };
-          username = lib.mkOption {
-            type = lib.types.str;
-            description = lib.mdDoc "Username to authenticate with.";
-          };
-          passwordFile = lib.mkOption {
-            type = lib.types.str;
-            description = lib.mdDoc ''
-              File path containing the password to authenticate with.
-            '';
-          };
-          fromEmail = lib.mkOption {
-            type = lib.types.str;
-            description = lib.mdDoc "Sender email in outgoing mail.";
-          };
-          replyEmail = lib.mkOption {
-            type = lib.types.str;
-            description = lib.mdDoc "Reply address in outgoing mail.";
-          };
-          tlsCiphers = lib.mkOption {
-            type = lib.types.str;
-            default = "";
-            description = lib.mdDoc "Override SMTP cipher configuration.";
-          };
-          secure = lib.mkOption {
-            type = lib.types.bool;
-            default = true;
-            description = lib.mdDoc "Use a secure SMTP connection.";
-          };
-        };
-      });
+        }
+      );
     };
 
     defaultLanguage = lib.mkOption {
@@ -551,8 +563,9 @@ in
       '';
     };
 
-    rateLimiter.enable = lib.mkEnableOption
-      (lib.mdDoc "rate limiter for the application web server");
+    rateLimiter.enable = lib.mkEnableOption (
+      lib.mdDoc "rate limiter for the application web server"
+    );
     rateLimiter.requests = lib.mkOption {
       type = lib.types.int;
       default = 5000;
@@ -660,8 +673,8 @@ in
             WEB_CONCURRENCY = builtins.toString cfg.concurrency;
             MAXIMUM_IMPORT_SIZE = builtins.toString cfg.maximumImportSize;
             DEBUG = cfg.debugOutput;
-            GOOGLE_ANALYTICS_ID =
-              lib.optionalString (cfg.googleAnalyticsId != null)
+            GOOGLE_ANALYTICS_ID = lib.optionalString
+              (cfg.googleAnalyticsId != null)
               cfg.googleAnalyticsId;
             SENTRY_DSN =
               lib.optionalString (cfg.sentryDsn != null) cfg.sentryDsn;

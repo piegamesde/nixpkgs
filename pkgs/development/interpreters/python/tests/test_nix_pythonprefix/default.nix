@@ -17,10 +17,12 @@ let
     }
     ;
 
-  pythonEnv = python.withPackages (ps: [
-    ps.typeddep
-    ps.mypy
-  ]);
+  pythonEnv = python.withPackages (
+    ps: [
+      ps.typeddep
+      ps.mypy
+    ]
+  );
 
   pythonScript = writeText "myscript.py" ''
     from typeddep import util

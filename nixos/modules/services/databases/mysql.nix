@@ -22,31 +22,41 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule [
-      "services"
-      "mysql"
-      "pidDir"
-    ] "Don't wait for pidfiles, describe dependencies through systemd.")
-    (mkRemovedOptionModule [
-      "services"
-      "mysql"
-      "rootPassword"
-    ] "Use socket authentication or set the password outside of the nix store.")
-    (mkRemovedOptionModule [
-      "services"
-      "mysql"
-      "extraOptions"
-    ] "Use services.mysql.settings.mysqld instead.")
-    (mkRemovedOptionModule [
-      "services"
-      "mysql"
-      "bind"
-    ] "Use services.mysql.settings.mysqld.bind-address instead.")
-    (mkRemovedOptionModule [
-      "services"
-      "mysql"
-      "port"
-    ] "Use services.mysql.settings.mysqld.port instead.")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "mysql"
+        "pidDir"
+      ]
+      "Don't wait for pidfiles, describe dependencies through systemd.")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "mysql"
+        "rootPassword"
+      ]
+      "Use socket authentication or set the password outside of the nix store.")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "mysql"
+        "extraOptions"
+      ]
+      "Use services.mysql.settings.mysqld instead.")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "mysql"
+        "bind"
+      ]
+      "Use services.mysql.settings.mysqld.bind-address instead.")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "mysql"
+        "port"
+      ]
+      "Use services.mysql.settings.mysqld.port instead.")
   ];
 
     ###### interface
@@ -161,24 +171,26 @@ in
       };
 
       initialDatabases = mkOption {
-        type = types.listOf (types.submodule {
-          options = {
-            name = mkOption {
-              type = types.str;
-              description = lib.mdDoc ''
-                The name of the database to create.
-              '';
+        type = types.listOf (
+          types.submodule {
+            options = {
+              name = mkOption {
+                type = types.str;
+                description = lib.mdDoc ''
+                  The name of the database to create.
+                '';
+              };
+              schema = mkOption {
+                type = types.nullOr types.path;
+                default = null;
+                description = lib.mdDoc ''
+                  The initial schema of the database; if null (the default),
+                  an empty database is created.
+                '';
+              };
             };
-            schema = mkOption {
-              type = types.nullOr types.path;
-              default = null;
-              description = lib.mdDoc ''
-                The initial schema of the database; if null (the default),
-                an empty database is created.
-              '';
-            };
-          };
-        });
+          }
+        );
         default = [ ];
         description = lib.mdDoc ''
           List of database names and their initial schemas that should be used to create databases on the first startup
@@ -216,38 +228,40 @@ in
       };
 
       ensureUsers = mkOption {
-        type = types.listOf (types.submodule {
-          options = {
-            name = mkOption {
-              type = types.str;
-              description = lib.mdDoc ''
-                Name of the user to ensure.
-              '';
-            };
-            ensurePermissions = mkOption {
-              type = types.attrsOf types.str;
-              default = { };
-              description = lib.mdDoc ''
-                Permissions to ensure for the user, specified as attribute set.
-                The attribute names specify the database and tables to grant the permissions for,
-                separated by a dot. You may use wildcards here.
-                The attribute values specfiy the permissions to grant.
-                You may specify one or multiple comma-separated SQL privileges here.
+        type = types.listOf (
+          types.submodule {
+            options = {
+              name = mkOption {
+                type = types.str;
+                description = lib.mdDoc ''
+                  Name of the user to ensure.
+                '';
+              };
+              ensurePermissions = mkOption {
+                type = types.attrsOf types.str;
+                default = { };
+                description = lib.mdDoc ''
+                  Permissions to ensure for the user, specified as attribute set.
+                  The attribute names specify the database and tables to grant the permissions for,
+                  separated by a dot. You may use wildcards here.
+                  The attribute values specfiy the permissions to grant.
+                  You may specify one or multiple comma-separated SQL privileges here.
 
-                For more information on how to specify the target
-                and on which privileges exist, see the
-                [GRANT syntax](https://mariadb.com/kb/en/library/grant/).
-                The attributes are used as `GRANT ''${attrName} ON ''${attrValue}`.
-              '';
-              example = literalExpression ''
-                {
-                  "database.*" = "ALL PRIVILEGES";
-                  "*.*" = "SELECT, LOCK TABLES";
-                }
-              '';
+                  For more information on how to specify the target
+                  and on which privileges exist, see the
+                  [GRANT syntax](https://mariadb.com/kb/en/library/grant/).
+                  The attributes are used as `GRANT ''${attrName} ON ''${attrValue}`.
+                '';
+                example = literalExpression ''
+                  {
+                    "database.*" = "ALL PRIVILEGES";
+                    "*.*" = "SELECT, LOCK TABLES";
+                  }
+                '';
+              };
             };
-          };
-        });
+          }
+        );
         default = [ ];
         description = lib.mdDoc ''
           Ensures that the specified users exist and have at least the ensured permissions.
@@ -341,19 +355,20 @@ in
         datadir = cfg.dataDir;
         port = mkDefault 3306;
       }
-      (mkIf (
-        cfg.replication.role == "master" || cfg.replication.role == "slave"
-      ) {
-        log-bin = "mysql-bin-${toString cfg.replication.serverId}";
-        log-bin-index = "mysql-bin-${toString cfg.replication.serverId}.index";
-        relay-log = "mysql-relay-bin";
-        server-id = cfg.replication.serverId;
-        binlog-ignore-db = [
-          "information_schema"
-          "performance_schema"
-          "mysql"
-        ];
-      })
+      (mkIf
+        (cfg.replication.role == "master" || cfg.replication.role == "slave")
+        {
+          log-bin = "mysql-bin-${toString cfg.replication.serverId}";
+          log-bin-index =
+            "mysql-bin-${toString cfg.replication.serverId}.index";
+          relay-log = "mysql-relay-bin";
+          server-id = cfg.replication.serverId;
+          binlog-ignore-db = [
+            "information_schema"
+            "performance_schema"
+            "mysql"
+          ];
+        })
       (mkIf (!isMariaDB) { plugin-load-add = "auth_socket.so"; })
     ];
 
@@ -460,7 +475,8 @@ in
               ) | ${cfg.package}/bin/mysql -u ${superUser} -N
 
               ${
-                concatMapStrings (database: ''
+                concatMapStrings
+                (database: ''
                   # Create initial databases
                   if ! test -e "${cfg.dataDir}/${database.name}"; then
                       echo "Creating initial database: ${database.name}"
@@ -483,7 +499,8 @@ in
                         }
                       ) | ${cfg.package}/bin/mysql -u ${superUser} -N
                   fi
-                '') cfg.initialDatabases
+                '')
+                cfg.initialDatabases
               }
 
               ${
@@ -525,13 +542,16 @@ in
 
           ${optionalString (cfg.ensureDatabases != [ ]) ''
             (
-            ${concatMapStrings (database: ''
+            ${concatMapStrings
+            (database: ''
               echo "CREATE DATABASE IF NOT EXISTS \`${database}\`;"
-            '') cfg.ensureDatabases}
+            '')
+            cfg.ensureDatabases}
             ) | ${cfg.package}/bin/mysql -N
           ''}
 
-          ${concatMapStrings (user: ''
+          ${concatMapStrings
+          (user: ''
             ( echo "CREATE USER IF NOT EXISTS '${user.name}'@'localhost' IDENTIFIED WITH ${
               if isMariaDB then
                 "unix_socket"
@@ -539,14 +559,19 @@ in
                 "auth_socket"
             };"
               ${
-                concatStringsSep "\n" (mapAttrsToList (
-                  database: permission: ''
-                    echo "GRANT ${permission} ON ${database} TO '${user.name}'@'localhost';"
-                  ''
-                ) user.ensurePermissions)
+                concatStringsSep "\n" (
+                  mapAttrsToList
+                  (
+                    database: permission: ''
+                      echo "GRANT ${permission} ON ${database} TO '${user.name}'@'localhost';"
+                    ''
+                  )
+                  user.ensurePermissions
+                )
               }
             ) | ${cfg.package}/bin/mysql -N
-          '') cfg.ensureUsers}
+          '')
+          cfg.ensureUsers}
         ''
         ;
 

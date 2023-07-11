@@ -118,14 +118,15 @@ let
     let
       fontconfig = makeFontsConf { fontDirectories = [ ]; };
     in
-    runCommand (
-      "playwright-browsers" + lib.optionalString withChromium "-chromium"
-    ) {
+    runCommand
+    ("playwright-browsers" + lib.optionalString withChromium "-chromium")
+    {
       nativeBuildInputs = [
         makeWrapper
         jq
       ];
-    } (
+    }
+    (
       ''
         BROWSERS_JSON=${driver}/package/browsers.json
       ''

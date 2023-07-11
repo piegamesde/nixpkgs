@@ -36,24 +36,30 @@ let
     # empty line at the end needed to to separate the blocks
   mkPatterns =
     filterBlocks:
-    concatStringsSep "\n" (map (block: ''
-      ${block.match}
-      ${block.filters}
+    concatStringsSep "\n" (
+      map
+      (block: ''
+        ${block.match}
+        ${block.filters}
 
-    '') filterBlocks)
+      '')
+      filterBlocks
+    )
     ;
 
     # can't use joinSymlinks directly, because when we point $XDG_CONFIG_HOME
     # to the /nix/store path, we still need the subdirectory "journalwatch" inside that
     # to match journalwatch's expectations
-  journalwatchConfigDir = pkgs.runCommand "journalwatch-config" {
-    preferLocalBuild = true;
-    allowSubstitutes = false;
-  } ''
-    mkdir -p $out/journalwatch
-    ln -sf ${journalwatchConfig} $out/journalwatch/config
-    ln -sf ${journalwatchPatterns} $out/journalwatch/patterns
-  '';
+  journalwatchConfigDir = pkgs.runCommand "journalwatch-config"
+    {
+      preferLocalBuild = true;
+      allowSubstitutes = false;
+    }
+    ''
+      mkdir -p $out/journalwatch
+      ln -sf ${journalwatchConfig} $out/journalwatch/config
+      ln -sf ${journalwatchPatterns} $out/journalwatch/patterns
+    '';
 
 in
 {
@@ -119,38 +125,40 @@ in
       };
 
       filterBlocks = mkOption {
-        type = types.listOf (types.submodule {
-          options = {
-            match = mkOption {
-              type = types.str;
-              example = "SYSLOG_IDENTIFIER = systemd";
-              description = lib.mdDoc ''
-                Syntax: `field = value`
-                Specifies the log entry `field` this block should apply to.
-                If the `field` of a message matches this `value`,
-                this patternBlock's {option}`filters` are applied.
-                If `value` starts and ends with a slash, it is interpreted as
-                an extended python regular expression, if not, it's an exact match.
-                The journal fields are explained in systemd.journal-fields(7).
-              '';
-            };
+        type = types.listOf (
+          types.submodule {
+            options = {
+              match = mkOption {
+                type = types.str;
+                example = "SYSLOG_IDENTIFIER = systemd";
+                description = lib.mdDoc ''
+                  Syntax: `field = value`
+                  Specifies the log entry `field` this block should apply to.
+                  If the `field` of a message matches this `value`,
+                  this patternBlock's {option}`filters` are applied.
+                  If `value` starts and ends with a slash, it is interpreted as
+                  an extended python regular expression, if not, it's an exact match.
+                  The journal fields are explained in systemd.journal-fields(7).
+                '';
+              };
 
-            filters = mkOption {
-              type = types.str;
-              example = ''
-                (Stopped|Stopping|Starting|Started) .*
-                (Reached target|Stopped target) .*
-              '';
-              description = lib.mdDoc ''
-                The filters to apply on all messages which satisfy {option}`match`.
-                Any of those messages that match any specified filter will be removed from journalwatch's output.
-                Each filter is an extended Python regular expression.
-                You can specify multiple filters and separate them by newlines.
-                Lines starting with '#' are comments. Inline-comments are not permitted.
-              '';
+              filters = mkOption {
+                type = types.str;
+                example = ''
+                  (Stopped|Stopping|Starting|Started) .*
+                  (Reached target|Stopped target) .*
+                '';
+                description = lib.mdDoc ''
+                  The filters to apply on all messages which satisfy {option}`match`.
+                  Any of those messages that match any specified filter will be removed from journalwatch's output.
+                  Each filter is an extended Python regular expression.
+                  You can specify multiple filters and separate them by newlines.
+                  Lines starting with '#' are comments. Inline-comments are not permitted.
+                '';
+              };
             };
-          };
-        });
+          }
+        );
 
         example = [
           # examples taken from upstream

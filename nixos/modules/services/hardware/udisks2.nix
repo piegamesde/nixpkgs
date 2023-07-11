@@ -12,9 +12,11 @@ let
   settingsFormat = pkgs.formats.ini {
     listToValue = concatMapStringsSep "," (generators.mkValueStringDefault { });
   };
-  configFiles = mapAttrs (name: value: (settingsFormat.generate name value))
-    (mapAttrs' (name: value: nameValuePair name value)
-      config.services.udisks2.settings);
+  configFiles = mapAttrs (name: value: (settingsFormat.generate name value)) (
+    mapAttrs'
+    (name: value: nameValuePair name value)
+    config.services.udisks2.settings
+  );
 
 in
 {
@@ -25,9 +27,10 @@ in
 
     services.udisks2 = {
 
-      enable = mkEnableOption (mdDoc
-        "udisks2, a DBus service that allows applications to query and manipulate storage devices")
-        ;
+      enable = mkEnableOption (
+        mdDoc
+        "udisks2, a DBus service that allows applications to query and manipulate storage devices"
+      );
 
       mountOnMedia = mkOption {
         type = types.bool;
@@ -77,16 +80,16 @@ in
 
     environment.systemPackages = [ pkgs.udisks2 ];
 
-    environment.etc = (mapAttrs' (
-      name: value: nameValuePair "udisks2/${name}" { source = value; }
-    ) configFiles) // {
-      # We need to make sure /etc/libblockdev/conf.d is populated to avoid
-      # warnings
-      "libblockdev/conf.d/00-default.cfg".source =
-        "${pkgs.libblockdev}/etc/libblockdev/conf.d/00-default.cfg";
-      "libblockdev/conf.d/10-lvm-dbus.cfg".source =
-        "${pkgs.libblockdev}/etc/libblockdev/conf.d/10-lvm-dbus.cfg";
-    };
+    environment.etc = (mapAttrs'
+      (name: value: nameValuePair "udisks2/${name}" { source = value; })
+      configFiles) // {
+        # We need to make sure /etc/libblockdev/conf.d is populated to avoid
+        # warnings
+        "libblockdev/conf.d/00-default.cfg".source =
+          "${pkgs.libblockdev}/etc/libblockdev/conf.d/00-default.cfg";
+        "libblockdev/conf.d/10-lvm-dbus.cfg".source =
+          "${pkgs.libblockdev}/etc/libblockdev/conf.d/10-lvm-dbus.cfg";
+      };
 
     security.polkit.enable = true;
 

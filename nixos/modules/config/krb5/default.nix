@@ -18,24 +18,28 @@ let
       default_realm = cfg.defaultRealm;
     };
 
-    realms = optionalAttrs (lib.all (value: value != null) [
-      cfg.defaultRealm
-      cfg.kdc
-      cfg.kerberosAdminServer
-    ]) {
-      ${cfg.defaultRealm} = {
-        kdc = cfg.kdc;
-        admin_server = cfg.kerberosAdminServer;
+    realms = optionalAttrs
+      (lib.all (value: value != null) [
+        cfg.defaultRealm
+        cfg.kdc
+        cfg.kerberosAdminServer
+      ])
+      {
+        ${cfg.defaultRealm} = {
+          kdc = cfg.kdc;
+          admin_server = cfg.kerberosAdminServer;
+        };
       };
-    };
 
-    domain_realm = optionalAttrs (lib.all (value: value != null) [
-      cfg.domainRealm
-      cfg.defaultRealm
-    ]) {
-      ".${cfg.domainRealm}" = cfg.defaultRealm;
-      ${cfg.domainRealm} = cfg.defaultRealm;
-    };
+    domain_realm = optionalAttrs
+      (lib.all (value: value != null) [
+        cfg.domainRealm
+        cfg.defaultRealm
+      ])
+      {
+        ".${cfg.domainRealm}" = cfg.defaultRealm;
+        ${cfg.domainRealm} = cfg.defaultRealm;
+      };
   };
 
   mergedConfig =
@@ -56,9 +60,9 @@ let
   filterEmbeddedMetadata =
     value:
     if isAttrs value then
-      (filterAttrs (
-        attrName: attrValue: attrName != "_module" && attrValue != null
-      ) value)
+      (filterAttrs
+        (attrName: attrValue: attrName != "_module" && attrValue != null)
+        value)
     else
       value
     ;
@@ -87,11 +91,11 @@ let
           concatLists (map (splitString "\n") (mapAttrsToList mkRelation value))
           ;
       in
-      (concatStringsSep ''
+      (concatStringsSep
+        ''
 
-        ${indent}'' (
-          [ "{" ] ++ configLines
-        ))
+          ${indent}''
+        ([ "{" ] ++ configLines))
       + ''
 
         }''
@@ -101,18 +105,22 @@ let
 
   mkMappedAttrsOrString =
     value:
-    concatMapStringsSep "\n" (
+    concatMapStringsSep "\n"
+    (
       line:
       if builtins.stringLength line > 0 then
         "${indent}${line}"
       else
         line
-    ) (splitString "\n" (
-      if isAttrs value then
-        concatStringsSep "\n" (mapAttrsToList mkRelation value)
-      else
-        value
-    ))
+    )
+    (
+      splitString "\n" (
+        if isAttrs value then
+          concatStringsSep "\n" (mapAttrsToList mkRelation value)
+        else
+          value
+      )
+    )
     ;
 
 in
@@ -122,8 +130,9 @@ in
 
   options = {
     krb5 = {
-      enable = mkEnableOption
-        (lib.mdDoc "building krb5.conf, configuration file for Kerberos V");
+      enable = mkEnableOption (
+        lib.mdDoc "building krb5.conf, configuration file for Kerberos V"
+      );
 
       kerberos = mkOption {
         type = types.package;

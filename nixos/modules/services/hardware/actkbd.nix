@@ -12,7 +12,8 @@ let
   cfg = config.services.actkbd;
 
   configFile = pkgs.writeText "actkbd.conf" ''
-    ${concatMapStringsSep "\n" (
+    ${concatMapStringsSep "\n"
+    (
       {
         keys,
         events,
@@ -23,7 +24,8 @@ let
       "${concatMapStringsSep "+" toString keys}:${
         concatStringsSep "," events
       }:${concatStringsSep "," attributes}:${command}"
-    ) cfg.bindings}
+    )
+    cfg.bindings}
     ${cfg.extraConfig}
   '';
 
@@ -39,11 +41,13 @@ let
         };
 
         events = mkOption {
-          type = types.listOf (types.enum [
-            "key"
-            "rep"
-            "rel"
-          ]);
+          type = types.listOf (
+            types.enum [
+              "key"
+              "rep"
+              "rel"
+            ]
+          );
           default = [ "key" ];
           description = lib.mdDoc "List of events to match.";
         };
@@ -122,13 +126,15 @@ in
 
   config = mkIf cfg.enable {
 
-    services.udev.packages = lib.singleton (pkgs.writeTextFile {
-      name = "actkbd-udev-rules";
-      destination = "/etc/udev/rules.d/61-actkbd.rules";
-      text = ''
-        ACTION=="add", SUBSYSTEM=="input", KERNEL=="event[0-9]*", ENV{ID_INPUT_KEY}=="1", TAG+="systemd", ENV{SYSTEMD_WANTS}+="actkbd@$env{DEVNAME}.service"
-      '';
-    });
+    services.udev.packages = lib.singleton (
+      pkgs.writeTextFile {
+        name = "actkbd-udev-rules";
+        destination = "/etc/udev/rules.d/61-actkbd.rules";
+        text = ''
+          ACTION=="add", SUBSYSTEM=="input", KERNEL=="event[0-9]*", ENV{ID_INPUT_KEY}=="1", TAG+="systemd", ENV{SYSTEMD_WANTS}+="actkbd@$env{DEVNAME}.service"
+        '';
+      }
+    );
 
     systemd.services."actkbd@" = {
       enable = true;

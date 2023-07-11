@@ -164,7 +164,8 @@ stdenv.mkDerivation rec {
   ];
   preConfigure =
     "substituteInPlace ./configure --replace /usr/bin/file ${file}/bin/file";
-  postConfigure = lib.optionalString stdenv.isLinux
+  postConfigure = lib.optionalString
+    stdenv.isLinux
     "substituteInPlace libtool --replace ldconfig ${stdenv.cc.libc.bin}/bin/ldconfig"
     ;
   configureFlags =
@@ -172,7 +173,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals contribPlugins [
       (
         "--with-contrib-plugins"
-        + lib.optionalString stdenv.isDarwin
+        + lib.optionalString
+          stdenv.isDarwin
           "=all,-FileManager,-NassiShneiderman"
       )
       "--with-boost-libdir=${boost}/lib"

@@ -129,7 +129,8 @@ rec {
       "${cmark}/lib/libcmark${stdenv.hostPlatform.extensions.sharedLibrary}";
 
       # See earlier note on glibcLocales TODO: verify needed?
-    LOCALE_ARCHIVE = lib.optionalString (stdenv.buildPlatform.libc == "glibc")
+    LOCALE_ARCHIVE = lib.optionalString
+      (stdenv.buildPlatform.libc == "glibc")
       "${glibcLocales}/lib/locale/locale-archive";
 
       # not exhaustive; sample what resholve uses as a sanity check

@@ -31,20 +31,22 @@ let
       inherit (bootGhcjs) version;
       happy = bootPkgs.happy_1_19_12;
     };
-    bootPkgs = bootPkgs.extend (lib.foldr lib.composeExtensions (_: _: { }) [
-      (
-        self: _:
-        import stage0 {
-          inherit (passthru) configuredSrc;
-          inherit (self) callPackage;
-        }
-      )
+    bootPkgs = bootPkgs.extend (
+      lib.foldr lib.composeExtensions (_: _: { }) [
+        (
+          self: _:
+          import stage0 {
+            inherit (passthru) configuredSrc;
+            inherit (self) callPackage;
+          }
+        )
 
-      (callPackage ./common-overrides.nix {
-        inherit haskellLib fetchpatch buildPackages;
-      })
-      ghcjsDepOverrides
-    ]);
+        (callPackage ./common-overrides.nix {
+          inherit haskellLib fetchpatch buildPackages;
+        })
+        ghcjsDepOverrides
+      ]
+    );
 
     targetPrefix = "";
     inherit bootGhcjs;

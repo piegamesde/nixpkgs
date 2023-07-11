@@ -33,10 +33,12 @@ let
       password =
         if (cfg.database.password != null) then
           "'${
-            (escape [
-              "'"
-              "\\"
-            ] cfg.database.password)
+            (escape
+              [
+                "'"
+                "\\"
+              ]
+              cfg.database.password)
           }'"
         else if (cfg.database.passwordFile != null) then
           "file_get_contents('${cfg.database.passwordFile}')"
@@ -71,10 +73,12 @@ let
         putenv('TTRSS_AUTH_AUTO_LOGIN=${boolToString cfg.auth.autoLogin}');
 
         putenv('TTRSS_FEED_CRYPT_KEY=${
-          escape [
+          escape
+          [
             "'"
             "\\"
-          ] cfg.feedCryptKey
+          ]
+          cfg.feedCryptKey
         }');
 
 
@@ -125,30 +129,38 @@ let
         putenv('TTRSS_SMTP_SERVER=${cfg.email.server}');
         putenv('TTRSS_SMTP_LOGIN=${cfg.email.login}');
         putenv('TTRSS_SMTP_PASSWORD=${
-          escape [
+          escape
+          [
             "'"
             "\\"
-          ] cfg.email.password
+          ]
+          cfg.email.password
         }');
         putenv('TTRSS_SMTP_SECURE=${cfg.email.security}');
 
         putenv('TTRSS_SMTP_FROM_NAME=${
-          escape [
+          escape
+          [
             "'"
             "\\"
-          ] cfg.email.fromName
+          ]
+          cfg.email.fromName
         }');
         putenv('TTRSS_SMTP_FROM_ADDRESS=${
-          escape [
+          escape
+          [
             "'"
             "\\"
-          ] cfg.email.fromAddress
+          ]
+          cfg.email.fromAddress
         }');
         putenv('TTRSS_DIGEST_SUBJECT=${
-          escape [
+          escape
+          [
             "'"
             "\\"
-          ] cfg.email.digestSubject
+          ]
+          cfg.email.digestSubject
         }');
 
         ${cfg.extraConfig}
@@ -589,16 +601,18 @@ in
   };
 
   imports = [
-      (mkRemovedOptionModule [
-        "services"
-        "tt-rss"
-        "checkForUpdates"
-      ] ''
-        This option was removed because setting this to true will cause TT-RSS
-        to be unable to start if an automatic update of the code in
-        services.tt-rss.root leads to a database schema upgrade that is not
-        supported by the code active in the Nix store.
-      '')
+      (mkRemovedOptionModule
+        [
+          "services"
+          "tt-rss"
+          "checkForUpdates"
+        ]
+        ''
+          This option was removed because setting this to true will cause TT-RSS
+          to be unable to start if an automatic update of the code in
+          services.tt-rss.root leads to a database schema upgrade that is not
+          supported by the code active in the Nix store.
+        '')
     ];
 
     ###### implementation
@@ -679,17 +693,20 @@ in
               if cfg.database.type == "pgsql" then
                 ''
                   ${
-                    optionalString (cfg.database.password != null)
+                    optionalString
+                    (cfg.database.password != null)
                     "PGPASSWORD=${cfg.database.password}"
                   } \
                   ${
-                    optionalString (cfg.database.passwordFile != null)
+                    optionalString
+                    (cfg.database.passwordFile != null)
                     "PGPASSWORD=$(cat ${cfg.database.passwordFile})"
                   } \
                   ${config.services.postgresql.package}/bin/psql \
                     -U ${cfg.database.user} \
                     ${
-                      optionalString (cfg.database.host != null)
+                      optionalString
+                      (cfg.database.host != null)
                       "-h ${cfg.database.host} --port ${toString dbPort}"
                     } \
                     -c '${e}' \
@@ -700,11 +717,13 @@ in
                   echo '${e}' | ${config.services.mysql.package}/bin/mysql \
                     -u ${cfg.database.user} \
                     ${
-                      optionalString (cfg.database.password != null)
+                      optionalString
+                      (cfg.database.password != null)
                       "-p${cfg.database.password}"
                     } \
                     ${
-                      optionalString (cfg.database.host != null)
+                      optionalString
+                      (cfg.database.host != null)
                       "-h ${cfg.database.host} -P ${toString dbPort}"
                     } \
                     ${cfg.database.name}''

@@ -20,30 +20,35 @@ let
       module = "lib/index.js";
       entrypoint = "apiServiceWorker";
       conf = {
-        mwApis = map (
-          x:
-          if isAttrs x then
-            x
-          else
-            { uri = x; }
-        ) cfg.wikis;
+        mwApis = map
+          (
+            x:
+            if isAttrs x then
+              x
+            else
+              { uri = x; }
+          )
+          cfg.wikis;
         serverInterface = cfg.interface;
         serverPort = cfg.port;
       };
     } ];
   };
 
-  confFile = pkgs.writeText "config.yml"
-    (builtins.toJSON (recursiveUpdate confTree cfg.extraConfig));
+  confFile = pkgs.writeText "config.yml" (
+    builtins.toJSON (recursiveUpdate confTree cfg.extraConfig)
+  );
 
 in
 {
   imports = [
-      (mkRemovedOptionModule [
-        "services"
-        "parsoid"
-        "interwikis"
-      ] "Use services.parsoid.wikis instead")
+      (mkRemovedOptionModule
+        [
+          "services"
+          "parsoid"
+          "interwikis"
+        ]
+        "Use services.parsoid.wikis instead")
     ];
 
     ##### interface

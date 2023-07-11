@@ -34,15 +34,16 @@ let
     ;
 
 in
-writeShellScriptBin "vscodeNixUpdate-${lib.removeSuffix ".json" (fileName)}"
-(lib.optionalString (settings != { }) (
-  if createIfDoesNotExists then
-    ''
-      [ ! -f "${vscodeSettingsFile}" ] && ${createEmptySettingsCmd}
-      ${updateVSCodeSettingsCmd} ${symlinkFromUserSettingCmd}
-    ''
-  else
-    ''
-      [ -f "${vscodeSettingsFile}" ] && ${updateVSCodeSettingsCmd} ${symlinkFromUserSettingCmd}
-    ''
-))
+writeShellScriptBin "vscodeNixUpdate-${lib.removeSuffix ".json" (fileName)}" (
+  lib.optionalString (settings != { }) (
+    if createIfDoesNotExists then
+      ''
+        [ ! -f "${vscodeSettingsFile}" ] && ${createEmptySettingsCmd}
+        ${updateVSCodeSettingsCmd} ${symlinkFromUserSettingCmd}
+      ''
+    else
+      ''
+        [ -f "${vscodeSettingsFile}" ] && ${updateVSCodeSettingsCmd} ${symlinkFromUserSettingCmd}
+      ''
+  )
+)

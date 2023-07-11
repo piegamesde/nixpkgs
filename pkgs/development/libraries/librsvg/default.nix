@@ -108,7 +108,8 @@ stdenv.mkDerivation rec {
       "--enable-always-build-tests"
     ]
     ++ lib.optional stdenv.isDarwin "--disable-Bsymbolic"
-    ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
+    ++ lib.optional
+      (stdenv.buildPlatform != stdenv.hostPlatform)
       "RUST_TARGET=${rust.toRustTarget stdenv.hostPlatform}"
     ;
 
@@ -117,8 +118,9 @@ stdenv.mkDerivation rec {
 
   GDK_PIXBUF_QUERYLOADERS = writeScript "gdk-pixbuf-loader-loaders-wrapped" ''
     ${
-      lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages)
-      (stdenv.hostPlatform.emulator buildPackages)
+      lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
+        stdenv.hostPlatform.emulator buildPackages
+      )
     } ${lib.getDev gdk-pixbuf}/bin/gdk-pixbuf-query-loaders
   '';
 
@@ -150,16 +152,18 @@ stdenv.mkDerivation rec {
       # 'error: linker `cc` not found' when cross-compiling
       export RUSTFLAGS="-Clinker=$CC"
     ''
-    + lib.optionalString (
+    + lib.optionalString
       (
-        stdenv.buildPlatform != stdenv.hostPlatform
+        (
+          stdenv.buildPlatform != stdenv.hostPlatform
+        )
+        && (stdenv.hostPlatform.emulatorAvailable buildPackages)
       )
-      && (stdenv.hostPlatform.emulatorAvailable buildPackages)
-    ) ''
-      # the replacement is the native conditional
-      substituteInPlace gdk-pixbuf-loader/Makefile \
-        --replace 'RUN_QUERY_LOADER_TEST = false' 'RUN_QUERY_LOADER_TEST = test -z "$(DESTDIR)"' \
-    ''
+      ''
+        # the replacement is the native conditional
+        substituteInPlace gdk-pixbuf-loader/Makefile \
+          --replace 'RUN_QUERY_LOADER_TEST = false' 'RUN_QUERY_LOADER_TEST = test -z "$(DESTDIR)"' \
+      ''
     ;
 
     # Not generated when cross compiling.

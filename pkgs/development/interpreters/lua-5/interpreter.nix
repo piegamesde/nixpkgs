@@ -127,7 +127,8 @@ stdenv.mkDerivation rec {
         "MYCFLAGS"
     })' )
     makeFlagsArray+=(${lib.optionalString stdenv.isDarwin ''CC="$CC"''}${
-      lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
+      lib.optionalString
+      (stdenv.buildPlatform != stdenv.hostPlatform)
       " 'AR=${stdenv.cc.targetPrefix}ar rcu'"
     })
 
@@ -138,7 +139,8 @@ stdenv.mkDerivation rec {
         else
           (
             "liblua.a"
-            + lib.optionalString (!staticOnly)
+            + lib.optionalString
+              (!staticOnly)
               " liblua.so liblua.so.${luaversion} liblua.so.${version}"
           )
       }" )

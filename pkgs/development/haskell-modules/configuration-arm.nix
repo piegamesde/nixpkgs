@@ -43,14 +43,16 @@ self: super:
   happy_1_19_12 = doDistribute (dontCheck super.happy_1_19_12);
 
     # add arm specific library
-  wiringPi = overrideCabal (
-    {
-      librarySystemDepends ? [ ],
-      ...
-    }: {
-      librarySystemDepends = librarySystemDepends ++ [ pkgs.wiringpi ];
-    }
-  ) super.wiringPi;
+  wiringPi = overrideCabal
+    (
+      {
+        librarySystemDepends ? [ ],
+        ...
+      }: {
+        librarySystemDepends = librarySystemDepends ++ [ pkgs.wiringpi ];
+      }
+    )
+    super.wiringPi;
 
 } // lib.optionalAttrs pkgs.stdenv.hostPlatform.isAarch64 {
   # AARCH64-SPECIFIC OVERRIDES

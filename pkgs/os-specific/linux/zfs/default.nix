@@ -119,8 +119,9 @@ let
           # We don't *need* python support, but we set it like this to minimize closure size:
           # If it's disabled by default, no need to enable it, even if we have python enabled
           # And if it's enabled by default, only change that if we explicitly disable python to remove python from the closure
-            nfs-utils.override
-            (old: { enablePython = old.enablePython or true && enablePython; })
+            nfs-utils.override (
+              old: { enablePython = old.enablePython or true && enablePython; }
+            )
           }/bin/exportfs"
           substituteInPlace ./lib/libshare/smb.h        --replace "/usr/bin/net"            "${samba}/bin/net"
           # Disable dynamic loading of libcurl
@@ -197,7 +198,8 @@ let
         [
           "--with-config=${configFile}"
           "--with-tirpc=1"
-          (lib.withFeatureAs (buildUser && enablePython) "python"
+          (lib.withFeatureAs (buildUser && enablePython)
+            "python"
             python3.interpreter)
         ]
         ++ optionals buildUser [

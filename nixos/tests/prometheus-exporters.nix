@@ -161,12 +161,14 @@ let
     blackbox = {
       exporterConfig = {
         enable = true;
-        configFile = pkgs.writeText "config.yml" (builtins.toJSON {
-          modules.icmp_v6 = {
-            prober = "icmp";
-            icmp.preferred_ip_protocol = "ip6";
-          };
-        });
+        configFile = pkgs.writeText "config.yml" (
+          builtins.toJSON {
+            modules.icmp_v6 = {
+              prober = "icmp";
+              icmp.preferred_ip_protocol = "ip6";
+            };
+          }
+        );
       };
       exporterTest = ''
         wait_for_unit("prometheus-blackbox-exporter.service")
@@ -344,12 +346,14 @@ let
       exporterConfig = {
         enable = true;
         url = "http://localhost";
-        configFile = pkgs.writeText "json-exporter-conf.json" (builtins.toJSON {
-          metrics = [ {
-            name = "json_test_metric";
-            path = "{ .test }";
-          } ];
-        });
+        configFile = pkgs.writeText "json-exporter-conf.json" (
+          builtins.toJSON {
+            metrics = [ {
+              name = "json_test_metric";
+              path = "{ .test }";
+            } ];
+          }
+        );
       };
       metricProvider = {
         systemd.services.prometheus-json-exporter.after = [ "nginx.service" ];
@@ -1436,7 +1440,8 @@ let
     };
   };
 in
-mapAttrs (
+mapAttrs
+(
   exporter: testConfig:
   (makeTest (
     let
@@ -1455,22 +1460,27 @@ mapAttrs (
 
       testScript = ''
         ${nodeName}.start()
-        ${concatStringsSep "\n" (map (
-          line:
-          if
-            (
-              builtins.substring 0 1 line == " "
-              || builtins.substring 0 1 line == ")"
-            )
-          then
-            line
-          else
-            "${nodeName}.${line}"
-        ) (splitString "\n" (removeSuffix "\n" testConfig.exporterTest)))}
+        ${concatStringsSep "\n" (
+          map
+          (
+            line:
+            if
+              (
+                builtins.substring 0 1 line == " "
+                || builtins.substring 0 1 line == ")"
+              )
+            then
+              line
+            else
+              "${nodeName}.${line}"
+          )
+          (splitString "\n" (removeSuffix "\n" testConfig.exporterTest))
+        )}
         ${nodeName}.shutdown()
       '';
 
       meta = with maintainers; { maintainers = [ willibutz ]; };
     }
   ))
-) exporterTests
+)
+exporterTests

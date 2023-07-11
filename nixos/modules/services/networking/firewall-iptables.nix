@@ -151,68 +151,94 @@ let
     ''}
 
     # Accept all traffic on the trusted interfaces.
-    ${flip concatMapStrings cfg.trustedInterfaces (iface: ''
-      ip46tables -A nixos-fw -i ${iface} -j nixos-fw-accept
-    '')}
+    ${flip concatMapStrings cfg.trustedInterfaces (
+      iface: ''
+        ip46tables -A nixos-fw -i ${iface} -j nixos-fw-accept
+      ''
+    )}
 
     # Accept packets from established or related connections.
     ip46tables -A nixos-fw -m conntrack --ctstate ESTABLISHED,RELATED -j nixos-fw-accept
 
     # Accept connections to the allowed TCP ports.
-    ${concatStrings (mapAttrsToList (
-      iface: cfg:
-      concatMapStrings (port: ''
-        ip46tables -A nixos-fw -p tcp --dport ${
-          toString port
-        } -j nixos-fw-accept ${
-          optionalString (iface != "default") "-i ${iface}"
-        }
-      '') cfg.allowedTCPPorts
-    ) cfg.allInterfaces)}
+    ${concatStrings (
+      mapAttrsToList
+      (
+        iface: cfg:
+        concatMapStrings
+        (port: ''
+          ip46tables -A nixos-fw -p tcp --dport ${
+            toString port
+          } -j nixos-fw-accept ${
+            optionalString (iface != "default") "-i ${iface}"
+          }
+        '')
+        cfg.allowedTCPPorts
+      )
+      cfg.allInterfaces
+    )}
 
     # Accept connections to the allowed TCP port ranges.
-    ${concatStrings (mapAttrsToList (
-      iface: cfg:
-      concatMapStrings (
-        rangeAttr:
-        let
-          range = toString rangeAttr.from + ":" + toString rangeAttr.to;
-        in
-        ''
-          ip46tables -A nixos-fw -p tcp --dport ${range} -j nixos-fw-accept ${
-            optionalString (iface != "default") "-i ${iface}"
-          }
-        ''
-      ) cfg.allowedTCPPortRanges
-    ) cfg.allInterfaces)}
+    ${concatStrings (
+      mapAttrsToList
+      (
+        iface: cfg:
+        concatMapStrings
+        (
+          rangeAttr:
+          let
+            range = toString rangeAttr.from + ":" + toString rangeAttr.to;
+          in
+          ''
+            ip46tables -A nixos-fw -p tcp --dport ${range} -j nixos-fw-accept ${
+              optionalString (iface != "default") "-i ${iface}"
+            }
+          ''
+        )
+        cfg.allowedTCPPortRanges
+      )
+      cfg.allInterfaces
+    )}
 
     # Accept packets on the allowed UDP ports.
-    ${concatStrings (mapAttrsToList (
-      iface: cfg:
-      concatMapStrings (port: ''
-        ip46tables -A nixos-fw -p udp --dport ${
-          toString port
-        } -j nixos-fw-accept ${
-          optionalString (iface != "default") "-i ${iface}"
-        }
-      '') cfg.allowedUDPPorts
-    ) cfg.allInterfaces)}
-
-    # Accept packets on the allowed UDP port ranges.
-    ${concatStrings (mapAttrsToList (
-      iface: cfg:
-      concatMapStrings (
-        rangeAttr:
-        let
-          range = toString rangeAttr.from + ":" + toString rangeAttr.to;
-        in
-        ''
-          ip46tables -A nixos-fw -p udp --dport ${range} -j nixos-fw-accept ${
+    ${concatStrings (
+      mapAttrsToList
+      (
+        iface: cfg:
+        concatMapStrings
+        (port: ''
+          ip46tables -A nixos-fw -p udp --dport ${
+            toString port
+          } -j nixos-fw-accept ${
             optionalString (iface != "default") "-i ${iface}"
           }
-        ''
-      ) cfg.allowedUDPPortRanges
-    ) cfg.allInterfaces)}
+        '')
+        cfg.allowedUDPPorts
+      )
+      cfg.allInterfaces
+    )}
+
+    # Accept packets on the allowed UDP port ranges.
+    ${concatStrings (
+      mapAttrsToList
+      (
+        iface: cfg:
+        concatMapStrings
+        (
+          rangeAttr:
+          let
+            range = toString rangeAttr.from + ":" + toString rangeAttr.to;
+          in
+          ''
+            ip46tables -A nixos-fw -p udp --dport ${range} -j nixos-fw-accept ${
+              optionalString (iface != "default") "-i ${iface}"
+            }
+          ''
+        )
+        cfg.allowedUDPPortRanges
+      )
+      cfg.allInterfaces
+    )}
 
     # Optionally respond to ICMPv4 pings.
     ${optionalString cfg.allowPing ''

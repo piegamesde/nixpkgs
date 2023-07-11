@@ -21,29 +21,34 @@ let
           isPosInt =
             num:
             0
-            == lib.stringLength (lib.replaceStrings [
-              "0"
-              "1"
-              "2"
-              "3"
-              "4"
-              "5"
-              "6"
-              "7"
-              "8"
-              "9"
-            ] [
-              ""
-              ""
-              ""
-              ""
-              ""
-              ""
-              ""
-              ""
-              ""
-              ""
-            ] num)
+            == lib.stringLength (
+              lib.replaceStrings
+              [
+                "0"
+                "1"
+                "2"
+                "3"
+                "4"
+                "5"
+                "6"
+                "7"
+                "8"
+                "9"
+              ]
+              [
+                ""
+                ""
+                ""
+                ""
+                ""
+                ""
+                ""
+                ""
+                ""
+                ""
+              ]
+              num
+            )
             ;
         in
         if lib.hasPrefix "p" tail && isPosInt p then

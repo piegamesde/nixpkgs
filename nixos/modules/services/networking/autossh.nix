@@ -21,42 +21,45 @@ in
     services.autossh = {
 
       sessions = mkOption {
-        type = types.listOf (types.submodule {
-          options = {
-            name = mkOption {
-              type = types.str;
-              example = "socks-peer";
-              description = lib.mdDoc "Name of the local AutoSSH session";
+        type = types.listOf (
+          types.submodule {
+            options = {
+              name = mkOption {
+                type = types.str;
+                example = "socks-peer";
+                description = lib.mdDoc "Name of the local AutoSSH session";
+              };
+              user = mkOption {
+                type = types.str;
+                example = "bill";
+                description =
+                  lib.mdDoc "Name of the user the AutoSSH session should run as"
+                  ;
+              };
+              monitoringPort = mkOption {
+                type = types.int;
+                default = 0;
+                example = 20000;
+                description = lib.mdDoc ''
+                  Port to be used by AutoSSH for peer monitoring. Note, that
+                  AutoSSH also uses mport+1. Value of 0 disables the keep-alive
+                  style monitoring
+                '';
+              };
+              extraArguments = mkOption {
+                type = types.separatedString " ";
+                example = "-N -D4343 bill@socks.example.net";
+                description = lib.mdDoc ''
+                  Arguments to be passed to AutoSSH and retransmitted to SSH
+                  process. Some meaningful options include -N (don't run remote
+                  command), -D (open SOCKS proxy on local port), -R (forward
+                  remote port), -L (forward local port), -v (Enable debug). Check
+                  ssh manual for the complete list.
+                '';
+              };
             };
-            user = mkOption {
-              type = types.str;
-              example = "bill";
-              description =
-                lib.mdDoc "Name of the user the AutoSSH session should run as";
-            };
-            monitoringPort = mkOption {
-              type = types.int;
-              default = 0;
-              example = 20000;
-              description = lib.mdDoc ''
-                Port to be used by AutoSSH for peer monitoring. Note, that
-                AutoSSH also uses mport+1. Value of 0 disables the keep-alive
-                style monitoring
-              '';
-            };
-            extraArguments = mkOption {
-              type = types.separatedString " ";
-              example = "-N -D4343 bill@socks.example.net";
-              description = lib.mdDoc ''
-                Arguments to be passed to AutoSSH and retransmitted to SSH
-                process. Some meaningful options include -N (don't run remote
-                command), -D (open SOCKS proxy on local port), -R (forward
-                remote port), -L (forward local port), -v (Enable debug). Check
-                ssh manual for the complete list.
-              '';
-            };
-          };
-        });
+          }
+        );
 
         default = [ ];
         description = lib.mdDoc ''
@@ -82,7 +85,8 @@ in
 
     systemd.services =
 
-      lib.foldr (
+      lib.foldr
+      (
         s: acc:
         acc // {
           "autossh-${s.name}" =
@@ -119,7 +123,9 @@ in
             }
             ;
         }
-      ) { } cfg.sessions;
+      )
+      { }
+      cfg.sessions;
 
     environment.systemPackages = [ pkgs.autossh ];
 

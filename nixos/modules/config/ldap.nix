@@ -37,9 +37,11 @@ let
     base ${cfg.base}
     timelimit ${toString cfg.timeLimit}
     bind_timelimit ${toString cfg.bind.timeLimit}
-    ${optionalString (cfg.bind.distinguishedName != "")
+    ${optionalString
+    (cfg.bind.distinguishedName != "")
     "binddn ${cfg.bind.distinguishedName}"}
-    ${optionalString (cfg.daemon.rootpwmoddn != "")
+    ${optionalString
+    (cfg.daemon.rootpwmoddn != "")
     "rootpwmoddn ${cfg.daemon.rootpwmoddn}"}
     ${optionalString (cfg.daemon.extraConfig != "") cfg.daemon.extraConfig}
   '';
@@ -238,27 +240,31 @@ in
       optionalAttrs (!cfg.daemon.enable) { "ldap.conf" = ldapConfig; };
 
     system.activationScripts = mkIf (!cfg.daemon.enable) {
-      ldap = stringAfter [
-        "etc"
-        "groups"
-        "users"
-      ] ''
-        if test -f "${cfg.bind.passwordFile}" ; then
-          umask 0077
-          conf="$(mktemp)"
-          printf 'bindpw %s\n' "$(cat ${cfg.bind.passwordFile})" |
-          cat ${ldapConfig.source} - >"$conf"
-          mv -fT "$conf" /etc/ldap.conf
-        fi
-      '';
+      ldap = stringAfter
+        [
+          "etc"
+          "groups"
+          "users"
+        ]
+        ''
+          if test -f "${cfg.bind.passwordFile}" ; then
+            umask 0077
+            conf="$(mktemp)"
+            printf 'bindpw %s\n' "$(cat ${cfg.bind.passwordFile})" |
+            cat ${ldapConfig.source} - >"$conf"
+            mv -fT "$conf" /etc/ldap.conf
+          fi
+        '';
     };
 
-    system.nssModules = mkIf cfg.nsswitch (singleton (
-      if cfg.daemon.enable then
-        nss_pam_ldapd
-      else
-        nss_ldap
-    ));
+    system.nssModules = mkIf cfg.nsswitch (
+      singleton (
+        if cfg.daemon.enable then
+          nss_pam_ldapd
+        else
+          nss_ldap
+      )
+    );
 
     system.nssDatabases.group = optional cfg.nsswitch "ldap";
     system.nssDatabases.passwd = optional cfg.nsswitch "ldap";
@@ -314,16 +320,18 @@ in
   };
 
   imports = [
-      (mkRenamedOptionModule [
-        "users"
-        "ldap"
-        "bind"
-        "password"
-      ] [
-        "users"
-        "ldap"
-        "bind"
-        "passwordFile"
-      ])
+      (mkRenamedOptionModule
+        [
+          "users"
+          "ldap"
+          "bind"
+          "password"
+        ]
+        [
+          "users"
+          "ldap"
+          "bind"
+          "passwordFile"
+        ])
     ];
 }

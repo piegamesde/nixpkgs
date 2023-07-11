@@ -54,8 +54,8 @@ stdenv.mkDerivation rec {
     substituteInPlace tests/unit-utils-io.c --replace "| O_DIRECT" ""
   '';
 
-  NIX_LDFLAGS =
-    lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
+  NIX_LDFLAGS = lib.optionalString
+    (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
     "-lgcc_s";
 
   configureFlags =
@@ -91,10 +91,13 @@ stdenv.mkDerivation rec {
 
   passthru = {
     tests = {
-      nixos = lib.optionalAttrs stdenv.hostPlatform.isLinux
-        (lib.recurseIntoAttrs
-          (lib.filterAttrs (name: _value: lib.hasPrefix "luks" name)
-            nixosTests.installer));
+      nixos = lib.optionalAttrs stdenv.hostPlatform.isLinux (
+        lib.recurseIntoAttrs (
+          lib.filterAttrs
+          (name: _value: lib.hasPrefix "luks" name)
+          nixosTests.installer
+        )
+      );
     };
   };
 

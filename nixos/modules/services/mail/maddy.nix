@@ -224,10 +224,12 @@ in
       tls = {
         loader = mkOption {
           type = with types;
-            nullOr (enum [
-              "file"
-              "off"
-            ]);
+            nullOr (
+              enum [
+                "file"
+                "off"
+              ]
+            );
           default = "off";
           description = lib.mdDoc ''
             TLS certificates are obtained by modules called "certificate
@@ -239,24 +241,26 @@ in
 
         certificates = mkOption {
           type = with types;
-            listOf (submodule {
-              options = {
-                keyPath = mkOption {
-                  type = types.path;
-                  example = "/etc/ssl/mx1.example.org.key";
-                  description = lib.mdDoc ''
-                    Path to the private key used for TLS.
-                  '';
+            listOf (
+              submodule {
+                options = {
+                  keyPath = mkOption {
+                    type = types.path;
+                    example = "/etc/ssl/mx1.example.org.key";
+                    description = lib.mdDoc ''
+                      Path to the private key used for TLS.
+                    '';
+                  };
+                  certPath = mkOption {
+                    type = types.path;
+                    example = "/etc/ssl/mx1.example.org.crt";
+                    description = lib.mdDoc ''
+                      Path to the certificate used for TLS.
+                    '';
+                  };
                 };
-                certPath = mkOption {
-                  type = types.path;
-                  example = "/etc/ssl/mx1.example.org.crt";
-                  description = lib.mdDoc ''
-                    Path to the certificate used for TLS.
-                  '';
-                };
-              };
-            });
+              }
+            );
           default = [ ];
           example = lib.literalExpression ''
             [{
@@ -318,19 +322,21 @@ in
           "user1@localhost".passwordFile = /secrets/user1-localhost;
           "user2@localhost".passwordFile = /secrets/user2-localhost;
         };
-        type = types.attrsOf (types.submodule {
-          options = {
-            passwordFile = mkOption {
-              type = types.path;
-              example = "/path/to/file";
-              default = null;
-              description = lib.mdDoc ''
-                Specifies the path to a file containing the
-                clear text password for the user.
-              '';
+        type = types.attrsOf (
+          types.submodule {
+            options = {
+              passwordFile = mkOption {
+                type = types.path;
+                example = "/path/to/file";
+                default = null;
+                description = lib.mdDoc ''
+                  Specifies the path to a file containing the
+                  clear text password for the user.
+                '';
+              };
             };
-          };
-        });
+          }
+        );
       };
 
     };
@@ -366,22 +372,28 @@ in
         maddy-ensure-accounts = {
           script = ''
             ${optionalString (cfg.ensureAccounts != [ ]) ''
-              ${concatMapStrings (account: ''
+              ${concatMapStrings
+              (account: ''
                 if ! ${pkgs.maddy}/bin/maddyctl imap-acct list | grep "${account}"; then
                   ${pkgs.maddy}/bin/maddyctl imap-acct create ${account}
                 fi
-              '') cfg.ensureAccounts}
+              '')
+              cfg.ensureAccounts}
             ''}
             ${optionalString (cfg.ensureCredentials != { }) ''
-              ${concatStringsSep "\n" (mapAttrsToList (
-                name: cfg: ''
-                  if ! ${pkgs.maddy}/bin/maddyctl creds list | grep "${name}"; then
-                    ${pkgs.maddy}/bin/maddyctl creds create --password $(cat ${
-                      escapeShellArg cfg.passwordFile
-                    }) ${name}
-                  fi
-                ''
-              ) cfg.ensureCredentials)}
+              ${concatStringsSep "\n" (
+                mapAttrsToList
+                (
+                  name: cfg: ''
+                    if ! ${pkgs.maddy}/bin/maddyctl creds list | grep "${name}"; then
+                      ${pkgs.maddy}/bin/maddyctl creds create --password $(cat ${
+                        escapeShellArg cfg.passwordFile
+                      }) ${name}
+                    fi
+                  ''
+                )
+                cfg.ensureCredentials
+              )}
             ''}
           '';
           serviceConfig = {
@@ -406,8 +418,9 @@ in
         ${if (cfg.tls.loader == "file") then
           ''
             tls file ${
-              concatStringsSep " "
-              (map (x: x.certPath + " " + x.keyPath) cfg.tls.certificates)
+              concatStringsSep " " (
+                map (x: x.certPath + " " + x.keyPath) cfg.tls.certificates
+              )
             } ${
               optionalString (cfg.tls.extraConfig != "") ''
                 { ${cfg.tls.extraConfig} }

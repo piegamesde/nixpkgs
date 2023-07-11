@@ -56,7 +56,8 @@ with lib;
         exec toxvpn -i ${config.services.toxvpn.localip} -l /run/toxvpn/control -u toxvpn -p ${
           toString config.services.toxvpn.port
         } ${
-          lib.concatMapStringsSep " " (x: "-a ${x}")
+          lib.concatMapStringsSep " "
+          (x: "-a ${x}")
           config.services.toxvpn.auto_add_peers
         }
       '';

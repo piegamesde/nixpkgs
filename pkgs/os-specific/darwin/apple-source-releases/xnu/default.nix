@@ -14,12 +14,14 @@
   headersOnly ? true
 }:
 
-appleDerivation' (
+appleDerivation'
+(
   if headersOnly then
     stdenvNoCC
   else
     stdenv
-) (
+)
+(
   let
     arch =
       if stdenv.isx86_64 then

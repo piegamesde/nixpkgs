@@ -41,14 +41,16 @@ let
     # on macOS.
     #
     # See https://github.com/NixOS/nixpkgs/pull/198311#issuecomment-1326894295
-  myCargoSetupHook = rustPlatform.cargoSetupHook.overrideAttrs (old: {
-    cargoConfig =
-      if stdenv.isDarwin then
-        ""
-      else
-        old.cargoConfig
-      ;
-  });
+  myCargoSetupHook = rustPlatform.cargoSetupHook.overrideAttrs (
+    old: {
+      cargoConfig =
+        if stdenv.isDarwin then
+          ""
+        else
+          old.cargoConfig
+        ;
+    }
+  );
 
   src = fetchFromGitHub {
     owner = "facebook";
@@ -131,9 +133,13 @@ python3Packages.buildPythonApplication {
     # with filesystem paths for the curl calls.
   postUnpack = ''
     mkdir $sourceRoot/hack_pydeps
-    ${lib.concatStrings (map (li: ''
-      ln -s ${fetchurl li} $sourceRoot/hack_pydeps/${baseNameOf li.url}
-    '') links)}
+    ${lib.concatStrings (
+      map
+      (li: ''
+        ln -s ${fetchurl li} $sourceRoot/hack_pydeps/${baseNameOf li.url}
+      '')
+      links
+    )}
     sed -i "s|https://files.pythonhosted.org/packages/[[:alnum:]]*/[[:alnum:]]*/[[:alnum:]]*/|file://$NIX_BUILD_TOP/$sourceRoot/hack_pydeps/|g" $sourceRoot/setup.py
   '';
 

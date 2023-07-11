@@ -133,7 +133,8 @@ let
 
       # No need to patch these libraries, it works well with our own
       rm libcrypto.so.1.1 libssl.so.1.1
-      ${lib.optionalString (lib.versionAtLeast buildVersion "4145")
+      ${lib.optionalString
+      (lib.versionAtLeast buildVersion "4145")
       "rm libsqlite3.so"}
 
       mkdir -p $out
@@ -186,9 +187,13 @@ stdenv.mkDerivation (rec {
       mkdir -p "$out/bin"
       makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
     ''
-    + builtins.concatStringsSep "" (map (binaryAlias: ''
-      ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
-    '') primaryBinaryAliases)
+    + builtins.concatStringsSep "" (
+      map
+      (binaryAlias: ''
+        ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
+      '')
+      primaryBinaryAliases
+    )
     + ''
       mkdir -p "$out/share/applications"
       substitute "''$${primaryBinary}/${primaryBinary}.desktop" "$out/share/applications/${primaryBinary}.desktop" --replace "/opt/${primaryBinary}/${primaryBinary}" "${primaryBinary}"

@@ -80,15 +80,19 @@ let
 
   wrapFactor =
     runtimeLibs:
-    runCommand (lib.appendToName "with-libs" interpreter).name {
+    runCommand (lib.appendToName "with-libs" interpreter).name
+    {
       nativeBuildInputs = [ makeWrapper ];
       buildInputs = [ gdk-pixbuf ];
       passthru.runtimeLibs = runtimeLibs ++ interpreter.runtimeLibs;
-    } (wrapFactorScript {
-      from = "${interpreter}/lib/factor/.factor.wrapped";
-      to = "$out/bin/factor";
-      runtimeLibs = (runtimeLibs ++ interpreter.runtimeLibs);
-    })
+    }
+    (
+      wrapFactorScript {
+        from = "${interpreter}/lib/factor/.factor.wrapped";
+        to = "$out/bin/factor";
+        runtimeLibs = (runtimeLibs ++ interpreter.runtimeLibs);
+      }
+    )
     ;
 
     # Development helper for use in nix shell

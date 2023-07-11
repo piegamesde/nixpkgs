@@ -213,27 +213,30 @@ assert (lib.assertOneOf "partitionTableType" partitionTableType [
   "hybrid"
   "none"
 ]);
-assert (lib.assertMsg (fsType == "ext4" && deterministic -> rootFSUID != null)
+assert (lib.assertMsg
+  (fsType == "ext4" && deterministic -> rootFSUID != null)
   "In deterministic mode with a ext4 partition, rootFSUID must be non-null, by default, it is equal to rootGPUID.");
 # We use -E offset=X below, which is only supported by e2fsprogs
-assert (lib.assertMsg (partitionTableType != "none" -> fsType == "ext4")
+assert (lib.assertMsg
+  (partitionTableType != "none" -> fsType == "ext4")
   "to produce a partition table, we need to use -E offset flag which is support only for fsType = ext4");
-assert (lib.assertMsg (
-  touchEFIVars
-  -> partitionTableType == "hybrid"
-    || partitionTableType == "efi"
-    || partitionTableType == "legacy+gpt"
-)
+assert (lib.assertMsg
+  (
+    touchEFIVars
+    -> partitionTableType == "hybrid"
+      || partitionTableType == "efi"
+      || partitionTableType == "legacy+gpt"
+  )
   "EFI variables can be used only with a partition table of type: hybrid, efi or legacy+gpt.");
 # If only Nix store image, then: contents must be empty, configFile must be unset, and we should no install bootloader.
-assert (lib.assertMsg (
-  onlyNixStore -> contents == [ ] && configFile == null && !installBootLoader
-)
+assert (lib.assertMsg
+  (onlyNixStore -> contents == [ ] && configFile == null && !installBootLoader)
   "In a only Nix store image, the contents must be empty, no configuration must be provided and no bootloader should be installed.");
 # Either both or none of {user,group} need to be set
-assert (lib.assertMsg (lib.all (
-  attrs: ((attrs.user or null) == null) == ((attrs.group or null) == null)
-) contents)
+assert (lib.assertMsg
+  (lib.all
+    (attrs: ((attrs.user or null) == null) == ((attrs.group or null) == null))
+    contents)
   "Contents of the disk image should set none of {user, group} or both at the same time.");
 
 with lib;
@@ -596,112 +599,118 @@ let
     chmod 0644 $efiVars
   '';
 
-  buildImage = pkgs.vmTools.runInLinuxVM (pkgs.runCommand name {
-    preVM = prepareImage + lib.optionalString touchEFIVars createEFIVars;
-    buildInputs = with pkgs; [
-      util-linux
-      0.0
-      fsprogs
-      dosfstools
-    ];
-    postVM = moveOrConvertImage + postVM;
-    QEMU_OPTS = concatStringsSep " " (
-      lib.optional useEFIBoot
-        "-drive if=pflash,format=raw,unit=0,readonly=on,file=${efiFirmware}"
-      ++ lib.optionals touchEFIVars [
-          "-drive if=pflash,format=raw,unit=1,file=$efiVars"
-        ]
-    );
-    inherit memSize;
-  } ''
-    export PATH=${binPath}:$PATH
-
-    rootDisk=${
-      if partitionTableType != "none" then
-        "/dev/vda${rootPartition}"
-      else
-        "/dev/vda"
+  buildImage = pkgs.vmTools.runInLinuxVM (
+    pkgs.runCommand name
+    {
+      preVM = prepareImage + lib.optionalString touchEFIVars createEFIVars;
+      buildInputs = with pkgs; [
+        util-linux
+        0.0
+        fsprogs
+        dosfstools
+      ];
+      postVM = moveOrConvertImage + postVM;
+      QEMU_OPTS = concatStringsSep " " (
+        lib.optional
+          useEFIBoot
+          "-drive if=pflash,format=raw,unit=0,readonly=on,file=${efiFirmware}"
+        ++ lib.optionals touchEFIVars [
+            "-drive if=pflash,format=raw,unit=1,file=$efiVars"
+          ]
+      );
+      inherit memSize;
     }
+    ''
+      export PATH=${binPath}:$PATH
 
-    # It is necessary to set root filesystem unique identifier in advance, otherwise
-    # bootloader might get the wrong one and fail to boot.
-    # At the end, we reset again because we want deterministic timestamps.
-    ${optionalString (fsType == "ext4" && deterministic) ''
-      tune2fs -T now ${
-        optionalString deterministic "-U ${rootFSUID}"
-      } -c 0 -i 0 $rootDisk
-    ''}
-    # make systemd-boot find ESP without udev
-    mkdir /dev/block
-    ln -s /dev/vda1 /dev/block/254:1
+      rootDisk=${
+        if partitionTableType != "none" then
+          "/dev/vda${rootPartition}"
+        else
+          "/dev/vda"
+      }
 
-    mountPoint=/mnt
-    mkdir $mountPoint
-    mount $rootDisk $mountPoint
+      # It is necessary to set root filesystem unique identifier in advance, otherwise
+      # bootloader might get the wrong one and fail to boot.
+      # At the end, we reset again because we want deterministic timestamps.
+      ${optionalString (fsType == "ext4" && deterministic) ''
+        tune2fs -T now ${
+          optionalString deterministic "-U ${rootFSUID}"
+        } -c 0 -i 0 $rootDisk
+      ''}
+      # make systemd-boot find ESP without udev
+      mkdir /dev/block
+      ln -s /dev/vda1 /dev/block/254:1
 
-    # Create the ESP and mount it. Unlike e2fsprogs, mkfs.vfat doesn't support an
-    # '-E offset=X' option, so we can't do this outside the VM.
-    ${optionalString (
-      partitionTableType == "efi" || partitionTableType == "hybrid"
-    ) ''
-      mkdir -p /mnt/boot
-      mkfs.vfat -n ESP /dev/vda1
-      mount /dev/vda1 /mnt/boot
+      mountPoint=/mnt
+      mkdir $mountPoint
+      mount $rootDisk $mountPoint
 
-      ${optionalString touchEFIVars
-      "mount -t efivarfs efivarfs /sys/firmware/efi/efivars"}
-    ''}
+      # Create the ESP and mount it. Unlike e2fsprogs, mkfs.vfat doesn't support an
+      # '-E offset=X' option, so we can't do this outside the VM.
+      ${optionalString
+      (partitionTableType == "efi" || partitionTableType == "hybrid")
+      ''
+        mkdir -p /mnt/boot
+        mkfs.vfat -n ESP /dev/vda1
+        mount /dev/vda1 /mnt/boot
 
-    # Install a configuration.nix
-    mkdir -p /mnt/etc/nixos
-    ${optionalString (configFile != null) ''
-      cp ${configFile} /mnt/etc/nixos/configuration.nix
-    ''}
-
-    ${lib.optionalString installBootLoader ''
-      # In this throwaway resource, we only have /dev/vda, but the actual VM may refer to another disk for bootloader, e.g. /dev/vdb
-      # Use this option to create a symlink from vda to any arbitrary device you want.
-      ${optionalString (config.boot.loader.grub.device != "/dev/vda") ''
-        ln -s /dev/vda ${config.boot.loader.grub.device}
+        ${optionalString
+        touchEFIVars
+        "mount -t efivarfs efivarfs /sys/firmware/efi/efivars"}
       ''}
 
-      # Set up core system link, bootloader (sd-boot, GRUB, uboot, etc.), etc.
-      NIXOS_INSTALL_BOOTLOADER=1 nixos-enter --root $mountPoint -- /nix/var/nix/profiles/system/bin/switch-to-configuration boot
+      # Install a configuration.nix
+      mkdir -p /mnt/etc/nixos
+      ${optionalString (configFile != null) ''
+        cp ${configFile} /mnt/etc/nixos/configuration.nix
+      ''}
 
-      # The above scripts will generate a random machine-id and we don't want to bake a single ID into all our images
-      rm -f $mountPoint/etc/machine-id
-    ''}
+      ${lib.optionalString installBootLoader ''
+        # In this throwaway resource, we only have /dev/vda, but the actual VM may refer to another disk for bootloader, e.g. /dev/vdb
+        # Use this option to create a symlink from vda to any arbitrary device you want.
+        ${optionalString (config.boot.loader.grub.device != "/dev/vda") ''
+          ln -s /dev/vda ${config.boot.loader.grub.device}
+        ''}
 
-    # Set the ownerships of the contents. The modes are set in preVM.
-    # No globbing on targets, so no need to set -f
-    targets_=(${concatStringsSep " " targets})
-    users_=(${concatStringsSep " " users})
-    groups_=(${concatStringsSep " " groups})
-    for ((i = 0; i < ''${#targets_[@]}; i++)); do
-      target="''${targets_[$i]}"
-      user="''${users_[$i]}"
-      group="''${groups_[$i]}"
-      if [ -n "$user$group" ]; then
-        # We have to nixos-enter since we need to use the user and group of the VM
-        nixos-enter --root $mountPoint -- chown -R "$user:$group" "$target"
-      fi
-    done
+        # Set up core system link, bootloader (sd-boot, GRUB, uboot, etc.), etc.
+        NIXOS_INSTALL_BOOTLOADER=1 nixos-enter --root $mountPoint -- /nix/var/nix/profiles/system/bin/switch-to-configuration boot
 
-    umount -R /mnt
+        # The above scripts will generate a random machine-id and we don't want to bake a single ID into all our images
+        rm -f $mountPoint/etc/machine-id
+      ''}
 
-    # Make sure resize2fs works. Note that resize2fs has stricter criteria for resizing than a normal
-    # mount, so the `-c 0` and `-i 0` don't affect it. Setting it to `now` doesn't produce deterministic
-    # output, of course, but we can fix that when/if we start making images deterministic.
-    # In deterministic mode, this is fixed to 1970-01-01 (UNIX timestamp 0).
-    # This two-step approach is necessary otherwise `tune2fs` will want a fresher filesystem to perform
-    # some changes.
-    ${optionalString (fsType == "ext4") ''
-      tune2fs -T now ${
-        optionalString deterministic "-U ${rootFSUID}"
-      } -c 0 -i 0 $rootDisk
-      ${optionalString deterministic "tune2fs -f -T 19700101 $rootDisk"}
-    ''}
-  '');
+      # Set the ownerships of the contents. The modes are set in preVM.
+      # No globbing on targets, so no need to set -f
+      targets_=(${concatStringsSep " " targets})
+      users_=(${concatStringsSep " " users})
+      groups_=(${concatStringsSep " " groups})
+      for ((i = 0; i < ''${#targets_[@]}; i++)); do
+        target="''${targets_[$i]}"
+        user="''${users_[$i]}"
+        group="''${groups_[$i]}"
+        if [ -n "$user$group" ]; then
+          # We have to nixos-enter since we need to use the user and group of the VM
+          nixos-enter --root $mountPoint -- chown -R "$user:$group" "$target"
+        fi
+      done
+
+      umount -R /mnt
+
+      # Make sure resize2fs works. Note that resize2fs has stricter criteria for resizing than a normal
+      # mount, so the `-c 0` and `-i 0` don't affect it. Setting it to `now` doesn't produce deterministic
+      # output, of course, but we can fix that when/if we start making images deterministic.
+      # In deterministic mode, this is fixed to 1970-01-01 (UNIX timestamp 0).
+      # This two-step approach is necessary otherwise `tune2fs` will want a fresher filesystem to perform
+      # some changes.
+      ${optionalString (fsType == "ext4") ''
+        tune2fs -T now ${
+          optionalString deterministic "-U ${rootFSUID}"
+        } -c 0 -i 0 $rootDisk
+        ${optionalString deterministic "tune2fs -f -T 19700101 $rootDisk"}
+      ''}
+    ''
+  );
 in
 if onlyNixStore then
   pkgs.runCommand name { } (prepareImage + moveOrConvertImage + postVM)

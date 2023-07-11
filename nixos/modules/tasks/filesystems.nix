@@ -20,9 +20,11 @@ let
 
   isNonEmpty =
     s:
-    (builtins.match ''
-      [ 	
-      ]*'' s)
+    (builtins.match
+      ''
+        [ 	
+        ]*''
+      s)
     == null
     ;
   nonEmptyStr = addCheckDesc "non-empty" types.str isNonEmpty;
@@ -203,11 +205,15 @@ let
     # `systemMount` should be defined in the sourcing script.
   makeSpecialMounts =
     mounts:
-    pkgs.writeText "mounts.sh" (concatMapStringsSep "\n" (mount: ''
-      specialMount "${mount.device}" "${mount.mountPoint}" "${
-        concatStringsSep "," mount.options
-      }" "${mount.fsType}"
-    '') mounts)
+    pkgs.writeText "mounts.sh" (
+      concatMapStringsSep "\n"
+      (mount: ''
+        specialMount "${mount.device}" "${mount.mountPoint}" "${
+          concatStringsSep "," mount.options
+        }" "${mount.fsType}"
+      '')
+      mounts
+    )
     ;
 
   makeFstabEntries =
@@ -256,13 +262,16 @@ let
         # https://wiki.archlinux.org/index.php/fstab#Filepath_spaces
       escape =
         string:
-        builtins.replaceStrings [
+        builtins.replaceStrings
+        [
           " "
           "	"
-        ] [
+        ]
+        [
           "\\040"
           "\\011"
-        ] string
+        ]
+        string
         ;
     in
     fstabFileSystems:
@@ -270,7 +279,8 @@ let
       rootPrefix ? "",
       extraOpts ? (fs: [ ])
     }:
-    concatMapStrings (
+    concatMapStrings
+    (
       fs:
       (optionalString (isBindMount fs) (escape rootPrefix))
       + (
@@ -297,18 +307,20 @@ let
           "2"
       )
       + "\n"
-    ) fstabFileSystems
+    )
+    fstabFileSystems
     ;
 
-  initrdFstab = pkgs.writeText "initrd-fstab"
-    (makeFstabEntries (filter utils.fsNeededForBoot fileSystems) {
+  initrdFstab = pkgs.writeText "initrd-fstab" (
+    makeFstabEntries (filter utils.fsNeededForBoot fileSystems) {
       rootPrefix = "/sysroot";
       extraOpts =
         fs:
         (optional fs.autoResize "x-systemd.growfs")
         ++ (optional fs.autoFormat "x-systemd.makefs")
         ;
-    });
+    }
+  );
 
 in
 {
@@ -330,10 +342,12 @@ in
           "/bigdisk".label = "bigdisk";
         }
       '';
-      type = types.attrsOf (types.submodule [
-        coreFileSystemOpts
-        fileSystemOpts
-      ]);
+      type = types.attrsOf (
+        types.submodule [
+          coreFileSystemOpts
+          fileSystemOpts
+        ]
+      );
       description = lib.mdDoc ''
         The file systems to be mounted.  It must include an entry for
         the root directory (`mountPoint = "/"`).  Each
@@ -433,7 +447,8 @@ in
             in
             ''
               Mountpoint '${fs.mountPoint}': 'autoResize = true' is not supported for 'fsType = "${fs.fsType}"':${
-                optionalString (fs.fsType == "auto")
+                optionalString
+                (fs.fsType == "auto")
                 " fsType has to be explicitly set and"
               } only the ext filesystems and f2fs support it.''
             ;
@@ -443,8 +458,9 @@ in
 
       # Export for use in other modules
     system.build.fileSystems = fileSystems;
-    system.build.earlyMountScript = makeSpecialMounts
-      (toposort fsBefore (attrValues config.boot.specialFileSystems)).result;
+    system.build.earlyMountScript = makeSpecialMounts (toposort fsBefore (
+      attrValues config.boot.specialFileSystems
+    )).result;
 
     boot.supportedFilesystems = map (fs: fs.fsType) fileSystems;
 
@@ -466,8 +482,9 @@ in
             sw.options
             ++ optional (sw.priority != null) "pri=${toString sw.priority}"
             ++ optional (sw.discardPolicy != null) "discard${
-                optionalString (sw.discardPolicy != "both")
-                "=${toString sw.discardPolicy}"
+                optionalString (sw.discardPolicy != "both") "=${
+                  toString sw.discardPolicy
+                }"
               }"
           )
           ;
@@ -484,9 +501,11 @@ in
         ${makeFstabEntries fileSystems { }}
 
         # Swap devices.
-        ${flip concatMapStrings config.swapDevices (sw: ''
-          ${sw.realDevice} none swap ${swapOptions sw}
-        '')}
+        ${flip concatMapStrings config.swapDevices (
+          sw: ''
+            ${sw.realDevice} none swap ${swapOptions sw}
+          ''
+        )}
       ''
       ;
 
@@ -540,9 +559,11 @@ in
           }
           ;
       in
-      listToAttrs (map formatDevice
-        (filter (fs: fs.autoFormat && !(utils.fsNeededForBoot fs)) fileSystems))
-      // {
+      listToAttrs (
+        map formatDevice (
+          filter (fs: fs.autoFormat && !(utils.fsNeededForBoot fs)) fileSystems
+        )
+      ) // {
         # Mount /sys/fs/pstore for evacuating panic logs and crashdumps from persistent storage onto the disk using systemd-pstore.
         # This cannot be done with the other special filesystems because the pstore module (which creates the mount point) is not loaded then.
         "mount-pstore" = {

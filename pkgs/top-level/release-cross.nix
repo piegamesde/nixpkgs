@@ -129,8 +129,9 @@ in
         let
           f =
             path: crossSystem: system:
-            builtins.toString
-            (lib.getAttrFromPath path (pkgsForCross crossSystem system))
+            builtins.toString (
+              lib.getAttrFromPath path (pkgsForCross crossSystem system)
+            )
             ;
         in
         assertTrue (
@@ -272,7 +273,8 @@ in
         hydraJob' (lib.addMetaAttrs { inherit maintainers; } drv)
         ;
     in
-    lib.mapAttrsRecursiveCond (as: !lib.isDerivation as) (
+    lib.mapAttrsRecursiveCond (as: !lib.isDerivation as)
+    (
       name: mkBootstrapToolsJob
     )
     # The `bootstrapTools.${platform}.bootstrapTools` derivation

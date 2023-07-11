@@ -68,8 +68,8 @@ let
   crossDarwin =
     targetPlatform != hostPlatform && targetPlatform.libc == "libSystem";
 
-  targetPrefix =
-    lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
+  targetPrefix = lib.optionalString
+    (stdenv.targetPlatform != stdenv.hostPlatform)
     "${stdenv.targetPlatform.config}-";
 
   crossConfigureFlags =
@@ -137,17 +137,19 @@ let
           }"
           "--enable-nls"
         ]
-        ++ lib.optionals (
-          targetPlatform.libc == "uclibc" || targetPlatform.libc == "musl"
-        ) [
-          # libsanitizer requires netrom/netrom.h which is not
-          # available in uclibc.
-          "--disable-libsanitizer"
-        ]
-        ++ lib.optional (
-          targetPlatform.libc == "newlib"
-          || targetPlatform.libc == "newlib-nano"
-        ) "--with-newlib"
+        ++ lib.optionals
+          (targetPlatform.libc == "uclibc" || targetPlatform.libc == "musl")
+          [
+            # libsanitizer requires netrom/netrom.h which is not
+            # available in uclibc.
+            "--disable-libsanitizer"
+          ]
+        ++ lib.optional
+          (
+            targetPlatform.libc == "newlib"
+            || targetPlatform.libc == "newlib-nano"
+          )
+          "--with-newlib"
         ++ lib.optional (targetPlatform.libc == "avrlibc") "--with-avrlibc"
     )
     ;
@@ -240,18 +242,23 @@ let
         [ "--disable-multilib" ]
     )
     ++ lib.optional (!enableShared) "--disable-shared"
-    ++ lib.singleton (lib.enableFeature enablePlugin "plugin")
+    ++ lib.singleton (
+      lib.enableFeature enablePlugin "plugin"
+    )
     # Libcc1 is the GCC cc1 plugin for the GDB debugger which is only used by gdb
     ++ lib.optional disableGdbPlugin "--disable-libcc1"
 
       # Support -m32 on powerpc64le/be
-    ++ lib.optional (targetPlatform.system == "powerpc64le-linux")
+    ++ lib.optional
+      (targetPlatform.system == "powerpc64le-linux")
       "--enable-targets=powerpcle-linux"
-    ++ lib.optional (targetPlatform.system == "powerpc64-linux")
+    ++ lib.optional
+      (targetPlatform.system == "powerpc64-linux")
       "--enable-targets=powerpc-linux"
 
       # Fix "unknown long double size, cannot define BFP_FMT"
-    ++ lib.optional (targetPlatform.isPower && targetPlatform.isMusl)
+    ++ lib.optional
+      (targetPlatform.isPower && targetPlatform.isMusl)
       "--disable-decimal-float"
 
       # Optional features
@@ -280,7 +287,8 @@ let
       "--with-java-home=\${prefix}/lib/jvm/jre"
     ]
     ++ lib.optional javaAwtGtk "--enable-java-awt=gtk"
-    ++ lib.optional (langJava && javaAntlr != null)
+    ++ lib.optional
+      (langJava && javaAntlr != null)
       "--with-antlr-jar=${javaAntlr}"
 
     ++ import ../common/platform-flags.nix {
@@ -291,9 +299,11 @@ let
     ++ lib.optional disableBootstrap' "--disable-bootstrap"
 
       # Platform-specific flags
-    ++ lib.optional (targetPlatform == hostPlatform && targetPlatform.isx86_32)
+    ++ lib.optional
+      (targetPlatform == hostPlatform && targetPlatform.isx86_32)
       "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}"
-    ++ lib.optional targetPlatform.isNetBSD
+    ++ lib.optional
+      targetPlatform.isNetBSD
       "--disable-libssp" # Provided by libc.
     ++ lib.optionals hostPlatform.isSunOS [
       "--enable-long-long"
@@ -305,19 +315,20 @@ let
       "--with-gnu-as"
       "--without-gnu-ld"
     ]
-    ++ lib.optional (
-      targetPlatform.libc == "musl"
-    )
-    # musl at least, disable: https://git.buildroot.net/buildroot/commit/?id=873d4019f7fb00f6a80592224236b3ba7d657865
+    ++ lib.optional
+      (
+        targetPlatform.libc == "musl"
+      )
+      # musl at least, disable: https://git.buildroot.net/buildroot/commit/?id=873d4019f7fb00f6a80592224236b3ba7d657865
       "--disable-libmpx"
-    ++ lib.optionals (
-      targetPlatform == hostPlatform && targetPlatform.libc == "musl"
-    ) [
-      "--disable-libsanitizer"
-      "--disable-symvers"
-      "libat_cv_have_ifunc=no"
-      "--disable-gnu-indirect-function"
-    ]
+    ++ lib.optionals
+      (targetPlatform == hostPlatform && targetPlatform.libc == "musl")
+      [
+        "--disable-libsanitizer"
+        "--disable-symvers"
+        "libat_cv_have_ifunc=no"
+        "--disable-gnu-indirect-function"
+      ]
     ++ lib.optionals langJit [ "--enable-host-shared" ]
     ++ lib.optionals (langD) [ "--with-target-system-zlib=yes" ]
     ;

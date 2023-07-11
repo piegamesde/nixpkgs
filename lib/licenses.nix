@@ -2,7 +2,8 @@
   lib,
 }:
 
-lib.mapAttrs (
+lib.mapAttrs
+(
   lname: lset:
   let
     defaultLicense = rec {
@@ -36,7 +37,8 @@ lib.mapAttrs (
       ;
   in
   mkLicense lset
-) (
+)
+(
   {
     # License identifiers from spdx.org where possible.
     # If you cannot find your license here, then look for a similar license or

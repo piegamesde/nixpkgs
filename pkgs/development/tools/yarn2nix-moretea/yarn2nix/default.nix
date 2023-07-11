@@ -63,7 +63,8 @@ rec {
       yarnLock,
       flags ? [ ]
     }:
-    pkgs.runCommand "yarn.nix" { }
+    pkgs.runCommand "yarn.nix"
+    { }
     "${yarn2nix}/bin/yarn2nix --lockfile ${yarnLock} --no-patch --builtin-fetchgit ${
       lib.escapeShellArgs flags
     } > $out"
@@ -107,44 +108,52 @@ rec {
     }:
     let
       extraNativeBuildInputs =
-        lib.concatMap (key: pkgConfig.${key}.nativeBuildInputs or [ ])
-        (builtins.attrNames pkgConfig);
+        lib.concatMap (key: pkgConfig.${key}.nativeBuildInputs or [ ]) (
+          builtins.attrNames pkgConfig
+        );
       extraBuildInputs =
-        lib.concatMap (key: pkgConfig.${key}.buildInputs or [ ])
-        (builtins.attrNames pkgConfig);
+        lib.concatMap (key: pkgConfig.${key}.buildInputs or [ ]) (
+          builtins.attrNames pkgConfig
+        );
 
       postInstall =
-        (builtins.map (
-          key:
-          if (pkgConfig.${key} ? postInstall) then
-            ''
-              for f in $(find -L -path '*/node_modules/${key}' -type d); do
-                (cd "$f" && (${pkgConfig.${key}.postInstall}))
-              done
-            ''
-          else
-            ""
-        ) (builtins.attrNames pkgConfig));
+        (builtins.map
+          (
+            key:
+            if (pkgConfig.${key} ? postInstall) then
+              ''
+                for f in $(find -L -path '*/node_modules/${key}' -type d); do
+                  (cd "$f" && (${pkgConfig.${key}.postInstall}))
+                done
+              ''
+            else
+              ""
+          )
+          (builtins.attrNames pkgConfig));
 
         # build-time JSON generation to avoid IFD
         # see https://nixos.wiki/wiki/Import_From_Derivation
-      workspaceJSON = pkgs.runCommand "${name}-workspace-package.json" {
-        nativeBuildInputs = [ pkgs.jq ];
-        inherit packageJSON;
-        passAsFile = [ "baseJSON" ];
-        baseJSON = builtins.toJSON {
-          private = true;
-          workspaces = [ "deps/**" ];
-          resolutions = packageResolutions;
-        };
-      } ''
-        jq --slurpfile packageJSON "$packageJSON" '.resolutions = $packageJSON[0].resolutions + .resolutions' <"$baseJSONPath" >$out
-      '';
+      workspaceJSON = pkgs.runCommand "${name}-workspace-package.json"
+        {
+          nativeBuildInputs = [ pkgs.jq ];
+          inherit packageJSON;
+          passAsFile = [ "baseJSON" ];
+          baseJSON = builtins.toJSON {
+            private = true;
+            workspaces = [ "deps/**" ];
+            resolutions = packageResolutions;
+          };
+        }
+        ''
+          jq --slurpfile packageJSON "$packageJSON" '.resolutions = $packageJSON[0].resolutions + .resolutions' <"$baseJSONPath" >$out
+        '';
 
-      workspaceDependencyLinks = lib.concatMapStringsSep "\n" (dep: ''
-        mkdir -p "deps/${dep.pname}"
-        ln -sf ${dep.packageJSON} "deps/${dep.pname}/package.json"
-      '') workspaceDependencies;
+      workspaceDependencyLinks = lib.concatMapStringsSep "\n"
+        (dep: ''
+          mkdir -p "deps/${dep.pname}"
+          ln -sf ${dep.packageJSON} "deps/${dep.pname}/package.json"
+        '')
+        workspaceDependencies;
 
     in
     stdenv.mkDerivation {
@@ -255,16 +264,19 @@ rec {
         let
           elemRegex = globElemToRegex (lib.head globElems);
           rest = lib.tail globElems;
-          children = lib.attrNames
-            (lib.filterAttrs (name: type: type == "directory")
-              (builtins.readDir base));
+          children = lib.attrNames (
+            lib.filterAttrs (name: type: type == "directory") (
+              builtins.readDir base
+            )
+          );
           matchingChildren =
             lib.filter (child: builtins.match elemRegex child != null) children;
         in
         if globElems == [ ] then
           [ base ]
         else
-          lib.concatMap (child: expandGlobList (base + ("/" + child)) rest)
+          lib.concatMap
+          (child: expandGlobList (base + ("/" + child)) rest)
           matchingChildren
         ;
 
@@ -273,56 +285,65 @@ rec {
 
       packagePaths = lib.concatMap (expandGlob src) packageGlobs;
 
-      packages = lib.listToAttrs (map (
-        src:
-        let
-          packageJSON = src + "/package.json";
+      packages = lib.listToAttrs (
+        map
+        (
+          src:
+          let
+            packageJSON = src + "/package.json";
 
-          package = lib.importJSON packageJSON;
+            package = lib.importJSON packageJSON;
 
-          allDependencies = lib.foldl (a: b: a // b) { }
-            (map (field: lib.attrByPath [ field ] { } package) [
-              "dependencies"
-              "devDependencies"
-            ]);
+            allDependencies = lib.foldl (a: b: a // b) { } (
+              map (field: lib.attrByPath [ field ] { } package) [
+                "dependencies"
+                "devDependencies"
+              ]
+            );
 
-            # { [name: String] : { pname : String, packageJSON : String, ... } } -> { [pname: String] : version } -> [{ pname : String, packageJSON : String, ... }]
-          getWorkspaceDependencies =
-            packages: allDependencies:
-            let
-              packageList = lib.attrValues packages;
-            in
-            composeAll [
-              (lib.filter (x: x != null))
-              (lib.mapAttrsToList (
-                pname: _version:
-                lib.findFirst (package: package.pname == pname) null packageList
-              ))
-            ] allDependencies
-            ;
+              # { [name: String] : { pname : String, packageJSON : String, ... } } -> { [pname: String] : version } -> [{ pname : String, packageJSON : String, ... }]
+            getWorkspaceDependencies =
+              packages: allDependencies:
+              let
+                packageList = lib.attrValues packages;
+              in
+              composeAll
+              [
+                (lib.filter (x: x != null))
+                (lib.mapAttrsToList (
+                  pname: _version:
+                  lib.findFirst (package: package.pname == pname)
+                  null
+                  packageList
+                ))
+              ]
+              allDependencies
+              ;
 
-          workspaceDependencies =
-            getWorkspaceDependencies packages allDependencies;
+            workspaceDependencies =
+              getWorkspaceDependencies packages allDependencies;
 
-          name = reformatPackageName package.name;
-        in
-        {
-          inherit name;
-          value = mkYarnPackage (
-            builtins.removeAttrs attrs [ "packageOverrides" ] // {
-              inherit
-                src
-                packageJSON
-                yarnLock
-                nodejs
-                yarn
-                packageResolutions
-                workspaceDependencies
-                ;
-            } // lib.attrByPath [ name ] { } packageOverrides
-          );
-        }
-      ) packagePaths);
+            name = reformatPackageName package.name;
+          in
+          {
+            inherit name;
+            value = mkYarnPackage (
+              builtins.removeAttrs attrs [ "packageOverrides" ] // {
+                inherit
+                  src
+                  packageJSON
+                  yarnLock
+                  nodejs
+                  yarn
+                  packageResolutions
+                  workspaceDependencies
+                  ;
+              } // lib.attrByPath [ name ] { } packageOverrides
+            );
+          }
+        )
+        packagePaths
+      );
     in
     packages
     ;
@@ -355,8 +376,9 @@ rec {
       baseName = unlessNull name "${safeName}-${version}";
 
       workspaceDependenciesTransitive = lib.unique (
-        (lib.flatten
-          (builtins.map (dep: dep.workspaceDependencies) workspaceDependencies))
+        (lib.flatten (
+          builtins.map (dep: dep.workspaceDependencies) workspaceDependencies
+        ))
         ++ workspaceDependencies
       );
 
@@ -398,15 +420,17 @@ rec {
         }
       '';
 
-      workspaceDependencyCopy = lib.concatMapStringsSep "\n" (dep: ''
-        # ensure any existing scope directory is not a symlink
-        linkDirToDirLinks "$(dirname node_modules/${dep.pname})"
-        mkdir -p "deps/${dep.pname}"
-        tar -xf "${dep}/tarballs/${dep.name}.tgz" --directory "deps/${dep.pname}" --strip-components=1
-        if [ ! -e "deps/${dep.pname}/node_modules" ]; then
-          ln -s "${deps}/deps/${dep.pname}/node_modules" "deps/${dep.pname}/node_modules"
-        fi
-      '') workspaceDependenciesTransitive;
+      workspaceDependencyCopy = lib.concatMapStringsSep "\n"
+        (dep: ''
+          # ensure any existing scope directory is not a symlink
+          linkDirToDirLinks "$(dirname node_modules/${dep.pname})"
+          mkdir -p "deps/${dep.pname}"
+          tar -xf "${dep}/tarballs/${dep.name}.tgz" --directory "deps/${dep.pname}" --strip-components=1
+          if [ ! -e "deps/${dep.pname}/node_modules" ]; then
+            ln -s "${deps}/deps/${dep.pname}/node_modules" "deps/${dep.pname}/node_modules"
+          fi
+        '')
+        workspaceDependenciesTransitive;
 
     in
     stdenv.mkDerivation (
@@ -550,7 +574,8 @@ rec {
           )
           ;
       in
-      builtins.filterSource (mkFilter {
+      builtins.filterSource
+      (mkFilter {
         dirsToInclude = [
           "bin"
           "lib"
@@ -560,7 +585,8 @@ rec {
           "yarn.lock"
         ];
         root = src;
-      }) src
+      })
+      src
       ;
 
       # yarn2nix is the only package that requires the yarnNix option.

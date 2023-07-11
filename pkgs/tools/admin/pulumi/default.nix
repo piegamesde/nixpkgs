@@ -106,9 +106,9 @@ buildGoModule rec {
     pkgs = pulumiPackages;
     withPackages =
       f:
-      runCommand "${pulumi.name}-with-packages" {
-        nativeBuildInputs = [ makeWrapper ];
-      } ''
+      runCommand "${pulumi.name}-with-packages"
+      { nativeBuildInputs = [ makeWrapper ]; }
+      ''
         mkdir -p $out/bin
         makeWrapper ${pulumi}/bin/pulumi $out/bin/pulumi \
           --suffix PATH : ${lib.makeSearchPath "bin" (f pulumiPackages)}

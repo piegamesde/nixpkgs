@@ -109,78 +109,85 @@ let
     lib.concatMapStrings (p: describe (unpack p)) packages
     ;
 
-  optionsNix = builtins.listToAttrs (map (o: {
-    name = o.name;
-    value = removeAttrs o [
-      "name"
-      "visible"
-      "internal"
-    ];
-  }) optionsList);
+  optionsNix = builtins.listToAttrs (
+    map
+    (o: {
+      name = o.name;
+      value = removeAttrs o [
+        "name"
+        "visible"
+        "internal"
+      ];
+    })
+    optionsList
+  );
 
 in
 rec {
   inherit optionsNix;
 
-  optionsAsciiDoc = pkgs.runCommand "options.adoc" {
-    nativeBuildInputs = [ pkgs.nixos-render-docs ];
-  } ''
-    nixos-render-docs -j $NIX_BUILD_CORES options asciidoc \
-      --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
-      --revision ${lib.escapeShellArg revision} \
-      ${optionsJSON}/share/doc/nixos/options.json \
-      $out
-  '';
+  optionsAsciiDoc = pkgs.runCommand "options.adoc"
+    { nativeBuildInputs = [ pkgs.nixos-render-docs ]; }
+    ''
+      nixos-render-docs -j $NIX_BUILD_CORES options asciidoc \
+        --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
+        --revision ${lib.escapeShellArg revision} \
+        ${optionsJSON}/share/doc/nixos/options.json \
+        $out
+    '';
 
-  optionsCommonMark = pkgs.runCommand "options.md" {
-    nativeBuildInputs = [ pkgs.nixos-render-docs ];
-  } ''
-    nixos-render-docs -j $NIX_BUILD_CORES options commonmark \
-      --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
-      --revision ${lib.escapeShellArg revision} \
-      ${optionsJSON}/share/doc/nixos/options.json \
-      $out
-  '';
+  optionsCommonMark = pkgs.runCommand "options.md"
+    { nativeBuildInputs = [ pkgs.nixos-render-docs ]; }
+    ''
+      nixos-render-docs -j $NIX_BUILD_CORES options commonmark \
+        --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
+        --revision ${lib.escapeShellArg revision} \
+        ${optionsJSON}/share/doc/nixos/options.json \
+        $out
+    '';
 
-  optionsJSON = pkgs.runCommand "options.json" {
-    meta.description = "List of NixOS options in JSON format";
-    nativeBuildInputs = [
-      pkgs.brotli
-      pkgs.python3Minimal
-    ];
-    options = builtins.toFile "options.json"
-      (builtins.unsafeDiscardStringContext (builtins.toJSON optionsNix));
-      # merge with an empty set if baseOptionsJSON is null to run markdown
-      # processing on the input options
-    baseJSON =
-      if baseOptionsJSON == null then
-        builtins.toFile "base.json" "{}"
-      else
-        baseOptionsJSON
-      ;
-  } ''
-    # Export list of options in different format.
-    dst=$out/share/doc/nixos
-    mkdir -p $dst
-
-    TOUCH_IF_DB=$dst/.used-docbook \
-    python ${./mergeJSON.py} \
-      ${lib.optionalString warningsAreErrors "--warnings-are-errors"} \
-      ${
-        if allowDocBook then
-          "--warn-on-docbook"
+  optionsJSON = pkgs.runCommand "options.json"
+    {
+      meta.description = "List of NixOS options in JSON format";
+      nativeBuildInputs = [
+        pkgs.brotli
+        pkgs.python3Minimal
+      ];
+      options = builtins.toFile "options.json" (
+        builtins.unsafeDiscardStringContext (builtins.toJSON optionsNix)
+      );
+        # merge with an empty set if baseOptionsJSON is null to run markdown
+        # processing on the input options
+      baseJSON =
+        if baseOptionsJSON == null then
+          builtins.toFile "base.json" "{}"
         else
-          "--error-on-docbook"
-      } \
-      $baseJSON $options \
-      > $dst/options.json
+          baseOptionsJSON
+        ;
+    }
+    ''
+      # Export list of options in different format.
+      dst=$out/share/doc/nixos
+      mkdir -p $dst
 
-    brotli -9 < $dst/options.json > $dst/options.json.br
+      TOUCH_IF_DB=$dst/.used-docbook \
+      python ${./mergeJSON.py} \
+        ${lib.optionalString warningsAreErrors "--warnings-are-errors"} \
+        ${
+          if allowDocBook then
+            "--warn-on-docbook"
+          else
+            "--error-on-docbook"
+        } \
+        $baseJSON $options \
+        > $dst/options.json
 
-    mkdir -p $out/nix-support
-    echo "file json $dst/options.json" >> $out/nix-support/hydra-build-products
-    echo "file json-br $dst/options.json.br" >> $out/nix-support/hydra-build-products
-  '';
+      brotli -9 < $dst/options.json > $dst/options.json.br
+
+      mkdir -p $out/nix-support
+      echo "file json $dst/options.json" >> $out/nix-support/hydra-build-products
+      echo "file json-br $dst/options.json.br" >> $out/nix-support/hydra-build-products
+    '';
 
   optionsUsedDocbook = pkgs.runCommand "options-used-docbook" { } ''
     if [ -e ${optionsJSON}/share/doc/nixos/.used-docbook ]; then
@@ -190,28 +197,28 @@ rec {
     fi >"$out"
   '';
 
-  optionsDocBook = pkgs.runCommand "options-docbook.xml" {
-    nativeBuildInputs = [ pkgs.nixos-render-docs ];
-  } ''
-    nixos-render-docs -j $NIX_BUILD_CORES options docbook \
-      --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
-      --revision ${lib.escapeShellArg revision} \
-      --document-type ${lib.escapeShellArg documentType} \
-      --varlist-id ${lib.escapeShellArg variablelistId} \
-      --id-prefix ${lib.escapeShellArg optionIdPrefix} \
-      ${lib.optionalString markdownByDefault "--markdown-by-default"} \
-      ${optionsJSON}/share/doc/nixos/options.json \
-      options.xml
+  optionsDocBook = pkgs.runCommand "options-docbook.xml"
+    { nativeBuildInputs = [ pkgs.nixos-render-docs ]; }
+    ''
+      nixos-render-docs -j $NIX_BUILD_CORES options docbook \
+        --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
+        --revision ${lib.escapeShellArg revision} \
+        --document-type ${lib.escapeShellArg documentType} \
+        --varlist-id ${lib.escapeShellArg variablelistId} \
+        --id-prefix ${lib.escapeShellArg optionIdPrefix} \
+        ${lib.optionalString markdownByDefault "--markdown-by-default"} \
+        ${optionsJSON}/share/doc/nixos/options.json \
+        options.xml
 
-    if grep /nixpkgs/nixos/modules options.xml; then
-      echo "The manual appears to depend on the location of Nixpkgs, which is bad"
-      echo "since this prevents sharing via the NixOS channel.  This is typically"
-      echo "caused by an option default that refers to a relative path (see above"
-      echo "for hints about the offending path)."
-      exit 1
-    fi
+      if grep /nixpkgs/nixos/modules options.xml; then
+        echo "The manual appears to depend on the location of Nixpkgs, which is bad"
+        echo "since this prevents sharing via the NixOS channel.  This is typically"
+        echo "caused by an option default that refers to a relative path (see above"
+        echo "for hints about the offending path)."
+        exit 1
+      fi
 
-    ${pkgs.libxslt.bin}/bin/xsltproc \
-      -o "$out" ${./postprocess-option-descriptions.xsl} options.xml
-  '';
+      ${pkgs.libxslt.bin}/bin/xsltproc \
+        -o "$out" ${./postprocess-option-descriptions.xsl} options.xml
+    '';
 }

@@ -17,7 +17,8 @@ import ./make-test-python.nix (
           auto_auth = [ {
             method = [ {
               type = "token_file";
-              config.token_file_path = pkgs.writeText "vault-token"
+              config.token_file_path = pkgs.writeText
+                "vault-token"
                 config.environment.variables.VAULT_TOKEN;
             } ];
           } ];

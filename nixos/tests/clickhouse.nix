@@ -14,10 +14,12 @@ import ./make-test-python.nix (
     testScript =
       let
         # work around quote/substitution complexity by Nix, Perl, bash and SQL.
-        tableDDL = pkgs.writeText "ddl.sql"
+        tableDDL = pkgs.writeText
+          "ddl.sql"
           "CREATE TABLE `demo` (`value` FixedString(10)) engine = MergeTree PARTITION BY value ORDER BY tuple();"
           ;
-        insertQuery = pkgs.writeText "insert.sql"
+        insertQuery = pkgs.writeText
+          "insert.sql"
           "INSERT INTO `demo` (`value`) VALUES ('foo');";
         selectQuery = pkgs.writeText "select.sql" "SELECT * from `demo`";
       in

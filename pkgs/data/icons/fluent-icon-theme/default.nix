@@ -13,7 +13,8 @@
 let
   pname = "Fluent-icon-theme";
 in
-lib.checkListOfEnum "${pname}: available color variants" [
+lib.checkListOfEnum "${pname}: available color variants"
+[
   "standard"
   "green"
   "grey"
@@ -23,9 +24,11 @@ lib.checkListOfEnum "${pname}: available color variants" [
   "red"
   "yellow"
   "teal"
-] colorVariants
+]
+colorVariants
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation
+rec {
   inherit pname;
   version = "2023-02-01";
 

@@ -32,13 +32,15 @@ let
   prevName = pname;
   prevPlatforms = platforms;
   prevConfigFlags = configureFlags;
-  setupHookDarwin = makeSetupHook {
-    name = "darwin-mingw-hook";
-    substitutions = {
-      darwinSuffixSalt = stdenv.cc.suffixSalt;
-      mingwGccsSuffixSalts = map (gcc: gcc.suffixSalt) mingwGccs;
-    };
-  } ./setup-hook-darwin.sh;
+  setupHookDarwin = makeSetupHook
+    {
+      name = "darwin-mingw-hook";
+      substitutions = {
+        darwinSuffixSalt = stdenv.cc.suffixSalt;
+        mingwGccsSuffixSalts = map (gcc: gcc.suffixSalt) mingwGccs;
+      };
+    }
+    ./setup-hook-darwin.sh;
 in
 stdenv.mkDerivation (
   (lib.optionalAttrs (buildScript != null) { builder = buildScript; })
@@ -107,7 +109,8 @@ stdenv.mkDerivation (
         ++ lib.optional fontconfigSupport pkgs.fontconfig
         ++ lib.optional alsaSupport pkgs.alsa-lib
         ++ lib.optional pulseaudioSupport pkgs.libpulseaudio
-        ++ lib.optional (xineramaSupport && !waylandSupport)
+        ++ lib.optional
+          (xineramaSupport && !waylandSupport)
           pkgs.xorg.libXinerama
         ++ lib.optional udevSupport pkgs.udev
         ++ lib.optional vulkanSupport (
@@ -215,18 +218,24 @@ stdenv.mkDerivation (
       # Wine locates a lot of libraries dynamically through dlopen().  Add
       # them to the RPATH so that the user doesn't have to set them in
       # LD_LIBRARY_PATH.
-    NIX_LDFLAGS = toString (map (path: "-rpath " + path) (
-      map (x: "${lib.getLib x}/lib") (
-        [ stdenv.cc.cc ] ++ buildInputs
+    NIX_LDFLAGS = toString (
+      map (path: "-rpath " + path) (
+        map (x: "${lib.getLib x}/lib") (
+          [ stdenv.cc.cc ] ++ buildInputs
+        )
+        # libpulsecommon.so is linked but not found otherwise
+        ++ lib.optionals supportFlags.pulseaudioSupport (
+          map (x: "${lib.getLib x}/lib/pulseaudio") (
+            toBuildInputs pkgArches (pkgs: [ pkgs.libpulseaudio ])
+          )
+        )
+        ++ lib.optionals supportFlags.waylandSupport (
+          map (x: "${lib.getLib x}/share/wayland-protocols") (
+            toBuildInputs pkgArches (pkgs: [ pkgs.wayland-protocols ])
+          )
+        )
       )
-      # libpulsecommon.so is linked but not found otherwise
-      ++ lib.optionals supportFlags.pulseaudioSupport
-        (map (x: "${lib.getLib x}/lib/pulseaudio")
-          (toBuildInputs pkgArches (pkgs: [ pkgs.libpulseaudio ])))
-      ++ lib.optionals supportFlags.waylandSupport
-        (map (x: "${lib.getLib x}/share/wayland-protocols")
-          (toBuildInputs pkgArches (pkgs: [ pkgs.wayland-protocols ])))
-    ));
+    );
 
       # Don't shrink the ELF RPATHs in order to keep the extra RPATH
       # elements specified above.

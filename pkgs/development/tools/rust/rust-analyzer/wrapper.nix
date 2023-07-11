@@ -10,11 +10,13 @@
   ,
   rustSrc ? rustPlatform.rustLibSrc
 }:
-runCommand "${pname}-${version}" {
+runCommand "${pname}-${version}"
+{
   inherit pname version;
   inherit (rust-analyzer-unwrapped) src meta;
   nativeBuildInputs = [ makeWrapper ];
-} ''
+}
+''
   mkdir -p $out/bin
   makeWrapper ${rust-analyzer-unwrapped}/bin/rust-analyzer $out/bin/rust-analyzer \
     --set-default RUST_SRC_PATH "${rustSrc}"

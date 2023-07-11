@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     wrapProgram "$out/bin/ifwifi" \
       --prefix PATH : "${
         lib.makeBinPath (
-          # `ifwifi` runtime dep
+        # `ifwifi` runtime dep
           [
             networkmanager
           ]

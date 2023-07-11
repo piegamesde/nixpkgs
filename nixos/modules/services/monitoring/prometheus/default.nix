@@ -47,9 +47,9 @@ let
     what: name: file:
     if checkConfigEnabled then
       pkgs.runCommandLocal
-      "${name}-${replaceStrings [ " " ] [ "" ] what}-checked" {
-        buildInputs = [ cfg.package.cli ];
-      } ''
+      "${name}-${replaceStrings [ " " ] [ "" ] what}-checked"
+      { buildInputs = [ cfg.package.cli ]; }
+      ''
         ln -s ${file} $out
         promtool ${what} $out
       ''
@@ -83,9 +83,12 @@ let
           generatedPrometheusYml
         ;
     in
-    promtoolCheck "check config ${
+    promtoolCheck
+    "check config ${
       lib.optionalString (cfg.checkConfig == "syntax-only") "--syntax-only"
-    }" "prometheus.yml" yml
+    }"
+    "prometheus.yml"
+    yml
     ;
 
   cmdlineArgs =
@@ -103,11 +106,14 @@ let
         toString cfg.alertmanagerNotificationQueueCapacity
       }"
     ]
-    ++ optional (cfg.webExternalUrl != null)
+    ++ optional
+      (cfg.webExternalUrl != null)
       "--web.external-url=${cfg.webExternalUrl}"
-    ++ optional (cfg.retentionTime != null)
+    ++ optional
+      (cfg.retentionTime != null)
       "--storage.tsdb.retention.time=${cfg.retentionTime}"
-    ++ optional (cfg.webConfigFile != null)
+    ++ optional
+      (cfg.webConfigFile != null)
       "--web.config.file=${cfg.webConfigFile}"
     ;
 
@@ -116,16 +122,20 @@ let
   filterAttrsListRecursive =
     pred: x:
     if isAttrs x then
-      listToAttrs (concatMap (
-        name:
-        let
-          v = x.${name};
-        in
-        if pred name v then
-          [ (nameValuePair name (filterAttrsListRecursive pred v)) ]
-        else
-          [ ]
-      ) (attrNames x))
+      listToAttrs (
+        concatMap
+        (
+          name:
+          let
+            v = x.${name};
+          in
+          if pred name v then
+            [ (nameValuePair name (filterAttrsListRecursive pred v)) ]
+          else
+            [ ]
+        )
+        (attrNames x)
+      )
     else if isList x then
       map (filterAttrsListRecursive pred) x
     else
@@ -165,24 +175,26 @@ let
           Optional HTTP basic authentication information.
         '';
 
-        authorization = mkOpt (types.submodule {
-          options = {
-            type = mkDefOpt types.str "Bearer" ''
-              Sets the authentication type.
-            '';
+        authorization = mkOpt
+          (types.submodule {
+            options = {
+              type = mkDefOpt types.str "Bearer" ''
+                Sets the authentication type.
+              '';
 
-            credentials = mkOpt types.str ''
-              Sets the credentials. It is mutually exclusive with `credentials_file`.
-            '';
+              credentials = mkOpt types.str ''
+                Sets the credentials. It is mutually exclusive with `credentials_file`.
+              '';
 
-            credentials_file = mkOpt types.str ''
-              Sets the credentials to the credentials read from the configured file.
-              It is mutually exclusive with `credentials`.
-            '';
-          };
-        }) ''
-          Optional `Authorization` header configuration.
-        '';
+              credentials_file = mkOpt types.str ''
+                Sets the credentials to the credentials read from the configured file.
+                It is mutually exclusive with `credentials`.
+              '';
+            };
+          })
+          ''
+            Optional `Authorization` header configuration.
+          '';
 
         oauth2 = mkOpt promtypes.oauth2 ''
           Optional OAuth 2.0 configuration.
@@ -356,12 +368,15 @@ let
         by the target will be ignored.
       '';
 
-      scheme = mkDefOpt (types.enum [
+      scheme = mkDefOpt
+        (types.enum [
+          "http"
+          "https"
+        ])
         "http"
-        "https"
-      ]) "http" ''
-        The URL scheme with which to fetch metrics from targets.
-      '';
+        ''
+          The URL scheme with which to fetch metrics from targets.
+        '';
 
       params = mkOpt (types.attrsOf (types.listOf types.str)) ''
         Optional HTTP URL parameters.
@@ -564,13 +579,16 @@ let
         The Azure environment.
       '';
 
-      authentication_method = mkDefOpt (types.enum [
+      authentication_method = mkDefOpt
+        (types.enum [
+          "OAuth"
+          "ManagedIdentity"
+        ])
         "OAuth"
-        "ManagedIdentity"
-      ]) "OAuth" ''
-        The authentication method, either OAuth or ManagedIdentity.
-        See https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview
-      '';
+        ''
+          The authentication method, either OAuth or ManagedIdentity.
+          See https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview
+        '';
 
       subscription_id = mkOption {
         type = types.str;
@@ -692,27 +710,31 @@ let
           tasks and services that don't have published ports.
         '';
 
-        filters = mkOpt (types.listOf (types.submodule {
-          options = {
-            name = mkOption {
-              type = types.str;
-              description = lib.mdDoc ''
-                Name of the filter. The available filters are listed in the upstream documentation:
-                Services: <https://docs.docker.com/engine/api/v1.40/#operation/ServiceList>
-                Tasks: <https://docs.docker.com/engine/api/v1.40/#operation/TaskList>
-                Nodes: <https://docs.docker.com/engine/api/v1.40/#operation/NodeList>
-              '';
-            };
-            values = mkOption {
-              type = types.str;
-              description = lib.mdDoc ''
-                Value for the filter.
-              '';
-            };
-          };
-        })) ''
-          Optional filters to limit the discovery process to a subset of available resources.
-        '';
+        filters = mkOpt
+          (types.listOf (
+            types.submodule {
+              options = {
+                name = mkOption {
+                  type = types.str;
+                  description = lib.mdDoc ''
+                    Name of the filter. The available filters are listed in the upstream documentation:
+                    Services: <https://docs.docker.com/engine/api/v1.40/#operation/ServiceList>
+                    Tasks: <https://docs.docker.com/engine/api/v1.40/#operation/TaskList>
+                    Nodes: <https://docs.docker.com/engine/api/v1.40/#operation/NodeList>
+                  '';
+                };
+                values = mkOption {
+                  type = types.str;
+                  description = lib.mdDoc ''
+                    Value for the filter.
+                  '';
+                };
+              };
+            }
+          ))
+          ''
+            Optional filters to limit the discovery process to a subset of available resources.
+          '';
 
         refresh_interval = mkDefOpt types.str "60s" ''
           The time after which the containers are refreshed.
@@ -749,13 +771,16 @@ let
         '';
       };
 
-      type = mkDefOpt (types.enum [
+      type = mkDefOpt
+        (types.enum [
+          "SRV"
+          "A"
+          "AAAA"
+        ])
         "SRV"
-        "A"
-        "AAAA"
-      ]) "SRV" ''
-        The type of DNS query to perform. One of SRV, A, or AAAA.
-      '';
+        ''
+          The type of DNS query to perform. One of SRV, A, or AAAA.
+        '';
 
       port = mkOpt types.int ''
         The port number used if the query type is not SRV.
@@ -807,27 +832,31 @@ let
         rule.
       '';
 
-      filters = mkOpt (types.listOf (types.submodule {
-        options = {
-          name = mkOption {
-            type = types.str;
-            description = lib.mdDoc ''
-              See [this list](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html)
-              for the available filters.
-            '';
-          };
+      filters = mkOpt
+        (types.listOf (
+          types.submodule {
+            options = {
+              name = mkOption {
+                type = types.str;
+                description = lib.mdDoc ''
+                  See [this list](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html)
+                  for the available filters.
+                '';
+              };
 
-          values = mkOption {
-            type = types.listOf types.str;
-            default = [ ];
-            description = lib.mdDoc ''
-              Value of the filter.
-            '';
-          };
-        };
-      })) ''
-        Filters can be used optionally to filter the instance list by other criteria.
-      '';
+              values = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+                description = lib.mdDoc ''
+                  Value of the filter.
+                '';
+              };
+            };
+          }
+        ))
+        ''
+          Filters can be used optionally to filter the instance list by other criteria.
+        '';
     };
   };
 
@@ -979,47 +1008,53 @@ let
       Note that api_server and kube_config are mutually exclusive.
     '';
 
-    namespaces = mkOpt (types.submodule {
-      options = {
-        names = mkOpt (types.listOf types.str) ''
-          Namespace name.
-        '';
-      };
-    }) ''
-      Optional namespace discovery. If omitted, all namespaces are used.
-    '';
-
-    selectors = mkOpt (types.listOf (types.submodule {
-      options = {
-        role = mkOption {
-          type = types.str;
-          description = lib.mdDoc ''
-            Selector role
+    namespaces = mkOpt
+      (types.submodule {
+        options = {
+          names = mkOpt (types.listOf types.str) ''
+            Namespace name.
           '';
         };
+      })
+      ''
+        Optional namespace discovery. If omitted, all namespaces are used.
+      '';
 
-        label = mkOpt types.str ''
-          Selector label
-        '';
+    selectors = mkOpt
+      (types.listOf (
+        types.submodule {
+          options = {
+            role = mkOption {
+              type = types.str;
+              description = lib.mdDoc ''
+                Selector role
+              '';
+            };
 
-        field = mkOpt types.str ''
-          Selector field
-        '';
-      };
-    })) ''
-      Optional label and field selectors to limit the discovery process to a subset of available resources.
-      See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors/
-      and https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ to learn more about the possible
-      filters that can be used. Endpoints role supports pod, service and endpoints selectors, other roles
-      only support selectors matching the role itself (e.g. node role can only contain node selectors).
+            label = mkOpt types.str ''
+              Selector label
+            '';
 
-      Note: When making decision about using field/label selector make sure that this
-      is the best approach - it will prevent Prometheus from reusing single list/watch
-      for all scrape configs. This might result in a bigger load on the Kubernetes API,
-      because per each selector combination there will be additional LIST/WATCH. On the other hand,
-      if you just want to monitor small subset of pods in large cluster it's recommended to use selectors.
-      Decision, if selectors should be used or not depends on the particular situation.
-    '';
+            field = mkOpt types.str ''
+              Selector field
+            '';
+          };
+        }
+      ))
+      ''
+        Optional label and field selectors to limit the discovery process to a subset of available resources.
+        See https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors/
+        and https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ to learn more about the possible
+        filters that can be used. Endpoints role supports pod, service and endpoints selectors, other roles
+        only support selectors matching the role itself (e.g. node role can only contain node selectors).
+
+        Note: When making decision about using field/label selector make sure that this
+        is the best approach - it will prevent Prometheus from reusing single list/watch
+        for all scrape configs. This might result in a bigger load on the Kubernetes API,
+        because per each selector combination there will be additional LIST/WATCH. On the other hand,
+        if you just want to monitor small subset of pods in large cluster it's recommended to use selectors.
+        Decision, if selectors should be used or not depends on the particular situation.
+      '';
   };
 
   promTypes.kuma_sd_config = mkSdConfigModule {
@@ -1223,13 +1258,16 @@ let
           instead be specified in the relabeling rule.
         '';
 
-        availability = mkDefOpt (types.enum [
+        availability = mkDefOpt
+          (types.enum [
+            "public"
+            "admin"
+            "internal"
+          ])
           "public"
-          "admin"
-          "internal"
-        ]) "public" ''
-          The availability of the endpoint to connect to. Must be one of public, admin or internal.
-        '';
+          ''
+            The availability of the endpoint to connect to. Must be one of public, admin or internal.
+          '';
 
         tls_config = mkOpt promTypes.tls_config ''
           TLS configuration.
@@ -1359,14 +1397,17 @@ let
         '';
       };
 
-      role = mkDefOpt (types.enum [
+      role = mkDefOpt
+        (types.enum [
+          "container"
+          "cn"
+        ])
         "container"
-        "cn"
-      ]) "container" ''
-        The type of targets to discover, can be set to:
-        - "container" to discover virtual machines (SmartOS zones, lx/KVM/bhyve branded zones) running on Triton
-        - "cn" to discover compute nodes (servers/global zones) making up the Triton infrastructure
-      '';
+        ''
+          The type of targets to discover, can be set to:
+          - "container" to discover virtual machines (SmartOS zones, lx/KVM/bhyve branded zones) running on Triton
+          - "cn" to discover compute nodes (servers/global zones) making up the Triton infrastructure
+        '';
 
       dns_suffix = mkOption {
         type = types.str;
@@ -1493,19 +1534,22 @@ let
         regular expression matches.
       '';
 
-      action = mkDefOpt (types.enum [
+      action = mkDefOpt
+        (types.enum [
+          "replace"
+          "lowercase"
+          "uppercase"
+          "keep"
+          "drop"
+          "hashmod"
+          "labelmap"
+          "labeldrop"
+          "labelkeep"
+        ])
         "replace"
-        "lowercase"
-        "uppercase"
-        "keep"
-        "drop"
-        "hashmod"
-        "labelmap"
-        "labeldrop"
-        "labelkeep"
-      ]) "replace" ''
-        Action to perform based on regex matching.
-      '';
+        ''
+          Action to perform based on regex matching.
+        '';
     };
   };
 
@@ -1550,50 +1594,54 @@ let
         Configures the remote write request's TLS settings.
       '';
       proxy_url = mkOpt types.str "Optional Proxy URL.";
-      queue_config = mkOpt (types.submodule {
-        options = {
-          capacity = mkOpt types.int ''
-            Number of samples to buffer per shard before we block reading of more
-            samples from the WAL. It is recommended to have enough capacity in each
-            shard to buffer several requests to keep throughput up while processing
-            occasional slow remote requests.
-          '';
-          max_shards = mkOpt types.int ''
-            Maximum number of shards, i.e. amount of concurrency.
-          '';
-          min_shards = mkOpt types.int ''
-            Minimum number of shards, i.e. amount of concurrency.
-          '';
-          max_samples_per_send = mkOpt types.int ''
-            Maximum number of samples per send.
-          '';
-          batch_send_deadline = mkOpt types.str ''
-            Maximum time a sample will wait in buffer.
-          '';
-          min_backoff = mkOpt types.str ''
-            Initial retry delay. Gets doubled for every retry.
-          '';
-          max_backoff = mkOpt types.str ''
-            Maximum retry delay.
-          '';
-        };
-      }) ''
-        Configures the queue used to write to remote storage.
-      '';
-      metadata_config = mkOpt (types.submodule {
-        options = {
-          send = mkOpt types.bool ''
-            Whether metric metadata is sent to remote storage or not.
-          '';
-          send_interval = mkOpt types.str ''
-            How frequently metric metadata is sent to remote storage.
-          '';
-        };
-      }) ''
-        Configures the sending of series metadata to remote storage.
-        Metadata configuration is subject to change at any point
-        or be removed in future releases.
-      '';
+      queue_config = mkOpt
+        (types.submodule {
+          options = {
+            capacity = mkOpt types.int ''
+              Number of samples to buffer per shard before we block reading of more
+              samples from the WAL. It is recommended to have enough capacity in each
+              shard to buffer several requests to keep throughput up while processing
+              occasional slow remote requests.
+            '';
+            max_shards = mkOpt types.int ''
+              Maximum number of shards, i.e. amount of concurrency.
+            '';
+            min_shards = mkOpt types.int ''
+              Minimum number of shards, i.e. amount of concurrency.
+            '';
+            max_samples_per_send = mkOpt types.int ''
+              Maximum number of samples per send.
+            '';
+            batch_send_deadline = mkOpt types.str ''
+              Maximum time a sample will wait in buffer.
+            '';
+            min_backoff = mkOpt types.str ''
+              Initial retry delay. Gets doubled for every retry.
+            '';
+            max_backoff = mkOpt types.str ''
+              Maximum retry delay.
+            '';
+          };
+        })
+        ''
+          Configures the queue used to write to remote storage.
+        '';
+      metadata_config = mkOpt
+        (types.submodule {
+          options = {
+            send = mkOpt types.bool ''
+              Whether metric metadata is sent to remote storage or not.
+            '';
+            send_interval = mkOpt types.str ''
+              How frequently metric metadata is sent to remote storage.
+            '';
+          };
+        })
+        ''
+          Configures the sending of series metadata to remote storage.
+          Metadata configuration is subject to change at any point
+          or be removed in future releases.
+        '';
     };
   };
 
@@ -1646,24 +1694,29 @@ in
 {
 
   imports = [
-    (mkRenamedOptionModule [
-      "services"
-      "prometheus2"
-    ] [
-      "services"
-      "prometheus"
-    ])
-    (mkRemovedOptionModule [
-      "services"
-      "prometheus"
-      "environmentFile"
-    ]
+    (mkRenamedOptionModule
+      [
+        "services"
+        "prometheus2"
+      ]
+      [
+        "services"
+        "prometheus"
+      ])
+    (mkRemovedOptionModule
+      [
+        "services"
+        "prometheus"
+        "environmentFile"
+      ]
       "It has been removed since it was causing issues (https://github.com/NixOS/nixpkgs/issues/126083) and Prometheus now has native support for secret files, i.e. `basic_auth.password_file` and `authorization.credentials_file`.")
-    (mkRemovedOptionModule [
-      "services"
-      "prometheus"
-      "alertmanagerTimeout"
-    ] "Deprecated upstream and no longer had any effect")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "prometheus"
+        "alertmanagerTimeout"
+      ]
+      "Deprecated upstream and no longer had any effect")
   ];
 
   options.services.prometheus = {

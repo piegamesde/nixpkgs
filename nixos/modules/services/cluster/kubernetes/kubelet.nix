@@ -21,11 +21,14 @@ let
     else
       (pkgs.buildEnv {
         name = "kubernetes-cni-config";
-        paths = imap (
-          i: entry:
-          pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf"
-          (builtins.toJSON entry)
-        ) cfg.cni.config;
+        paths = imap
+          (
+            i: entry:
+            pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf" (
+              builtins.toJSON entry
+            )
+          )
+          cfg.cni.config;
       })
     ;
 
@@ -72,41 +75,52 @@ let
       };
     };
 
-  taints = concatMapStringsSep "," (v: "${v.key}=${v.value}:${v.effect}")
-    (mapAttrsToList (n: v: v) cfg.taints);
+  taints = concatMapStringsSep "," (v: "${v.key}=${v.value}:${v.effect}") (
+    mapAttrsToList (n: v: v) cfg.taints
+  );
 in
 {
   imports = [
-    (mkRemovedOptionModule [
-      "services"
-      "kubernetes"
-      "kubelet"
-      "applyManifests"
-    ] "")
-    (mkRemovedOptionModule [
-      "services"
-      "kubernetes"
-      "kubelet"
-      "cadvisorPort"
-    ] "")
-    (mkRemovedOptionModule [
-      "services"
-      "kubernetes"
-      "kubelet"
-      "allowPrivileged"
-    ] "")
-    (mkRemovedOptionModule [
-      "services"
-      "kubernetes"
-      "kubelet"
-      "networkPlugin"
-    ] "")
-    (mkRemovedOptionModule [
-      "services"
-      "kubernetes"
-      "kubelet"
-      "containerRuntime"
-    ] "")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "kubelet"
+        "applyManifests"
+      ]
+      "")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "kubelet"
+        "cadvisorPort"
+      ]
+      "")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "kubelet"
+        "allowPrivileged"
+      ]
+      "")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "kubelet"
+        "networkPlugin"
+      ]
+      "")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "kubernetes"
+        "kubelet"
+        "containerRuntime"
+      ]
+      "")
   ];
 
     ###### interface
@@ -337,7 +351,8 @@ in
           ++ lib.optional config.boot.zfs.enabled config.boot.zfs.package
           ++ top.path;
         preStart = ''
-          ${concatMapStrings (img: ''
+          ${concatMapStrings
+          (img: ''
             echo "Seeding container image: ${img}"
             ${if (lib.hasSuffix "gz" img) then
               ''
@@ -345,13 +360,16 @@ in
             else
               ''
                 ${pkgs.coreutils}/bin/cat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''}
-          '') cfg.seedDockerImages}
+          '')
+          cfg.seedDockerImages}
 
           rm /opt/cni/bin/* || true
-          ${concatMapStrings (package: ''
+          ${concatMapStrings
+          (package: ''
             echo "Linking cni package: ${package}"
             ln -fs ${package}/bin/* /opt/cni/bin
-          '') cfg.cni.packages}
+          '')
+          cfg.cni.packages}
         '';
         serviceConfig = {
           Slice = "kubernetes.slice";
@@ -366,21 +384,26 @@ in
                         --authentication-token-webhook-cache-ttl="10s" \
                         --authorization-mode=Webhook \
                         ${
-                          optionalString (cfg.clientCaFile != null)
+                          optionalString
+                          (cfg.clientCaFile != null)
                           "--client-ca-file=${cfg.clientCaFile}"
                         } \
                         ${
-                          optionalString (cfg.clusterDns != "")
+                          optionalString
+                          (cfg.clusterDns != "")
                           "--cluster-dns=${cfg.clusterDns}"
                         } \
                         ${
-                          optionalString (cfg.clusterDomain != "")
+                          optionalString
+                          (cfg.clusterDomain != "")
                           "--cluster-domain=${cfg.clusterDomain}"
                         } \
                         ${
-                          optionalString (cfg.featureGates != [ ])
+                          optionalString
+                          (cfg.featureGates != [ ])
                           "--feature-gates=${
-                            concatMapStringsSep "," (feature: "${feature}=true")
+                            concatMapStringsSep ","
+                            (feature: "${feature}=true")
                             cfg.featureGates
                           }"
                         } \
@@ -390,32 +413,38 @@ in
                         --hostname-override=${cfg.hostname} \
                         --kubeconfig=${kubeconfig} \
                         ${
-                          optionalString (cfg.nodeIp != null)
+                          optionalString
+                          (cfg.nodeIp != null)
                           "--node-ip=${cfg.nodeIp}"
                         } \
                         --pod-infra-container-image=pause \
                         ${
-                          optionalString (cfg.manifests != { })
+                          optionalString
+                          (cfg.manifests != { })
                           "--pod-manifest-path=/etc/${manifestPath}"
                         } \
                         --port=${toString cfg.port} \
                         --register-node=${boolToString cfg.registerNode} \
                         ${
-                          optionalString (taints != "")
+                          optionalString
+                          (taints != "")
                           "--register-with-taints=${taints}"
                         } \
                         --root-dir=${top.dataDir} \
                         ${
-                          optionalString (cfg.tlsCertFile != null)
+                          optionalString
+                          (cfg.tlsCertFile != null)
                           "--tls-cert-file=${cfg.tlsCertFile}"
                         } \
                         ${
-                          optionalString (cfg.tlsKeyFile != null)
+                          optionalString
+                          (cfg.tlsKeyFile != null)
                           "--tls-private-key-file=${cfg.tlsKeyFile}"
                         } \
                         ${
-                          optionalString (cfg.verbosity != null)
-                          "--v=${toString cfg.verbosity}"
+                          optionalString (cfg.verbosity != null) "--v=${
+                            toString cfg.verbosity
+                          }"
                         } \
                         --container-runtime-endpoint=${cfg.containerRuntimeEndpoint} \
                         --cgroup-driver=systemd \
@@ -460,13 +489,15 @@ in
     })
 
     (mkIf (cfg.enable && cfg.manifests != { }) {
-      environment.etc = mapAttrs' (
-        name: manifest:
-        nameValuePair "${manifestPath}/${name}.json" {
-          text = builtins.toJSON manifest;
-          mode = "0755";
-        }
-      ) cfg.manifests;
+      environment.etc = mapAttrs'
+        (
+          name: manifest:
+          nameValuePair "${manifestPath}/${name}.json" {
+            text = builtins.toJSON manifest;
+            mode = "0755";
+          }
+        )
+        cfg.manifests;
     })
 
     (mkIf (cfg.unschedulable && cfg.enable) {

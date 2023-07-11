@@ -60,10 +60,12 @@ let
           self = deterministicLuajit;
         };
       in
-      deterministicLuajit.withPackages (ps: [
-        ps.mpack
-        ps.lpeg
-      ])
+      deterministicLuajit.withPackages (
+        ps: [
+          ps.mpack
+          ps.lpeg
+        ]
+      )
     else
       lua
     ;
@@ -181,18 +183,22 @@ stdenv.mkDerivation rec {
     + ''
       mkdir -p $out/lib/nvim/parser
     ''
-    + lib.concatStrings (lib.mapAttrsToList (
-      language: src: ''
-        ln -s \
-          ${
-            tree-sitter.buildGrammar {
-              inherit language src;
-              version = "neovim-${version}";
-            }
-          }/parser \
-          $out/lib/nvim/parser/${language}.so
-      ''
-    ) treesitter-parsers)
+    + lib.concatStrings (
+      lib.mapAttrsToList
+      (
+        language: src: ''
+          ln -s \
+            ${
+              tree-sitter.buildGrammar {
+                inherit language src;
+                version = "neovim-${version}";
+              }
+            }/parser \
+            $out/lib/nvim/parser/${language}.so
+        ''
+      )
+      treesitter-parsers
+    )
     ;
 
   shellHook = ''

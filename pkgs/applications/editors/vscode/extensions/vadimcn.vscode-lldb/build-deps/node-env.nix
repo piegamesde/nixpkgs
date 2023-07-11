@@ -125,11 +125,13 @@ let
         mkdir -p node_modules
         cd node_modules
       ''
-      + (lib.concatMapStrings (dependency: ''
-        if [ ! -e "${dependency.packageName}" ]; then
-            ${composePackage dependency}
-        fi
-      '') dependencies)
+      + (lib.concatMapStrings
+        (dependency: ''
+          if [ ! -e "${dependency.packageName}" ]; then
+              ${composePackage dependency}
+          fi
+        '')
+        dependencies)
       + ''
         cd ..
       ''
@@ -225,9 +227,9 @@ let
         then
             cd node_modules
             ${
-              lib.concatMapStrings (
-                dependency: pinpointDependenciesOfPackage dependency
-              ) dependencies
+              lib.concatMapStrings
+              (dependency: pinpointDependenciesOfPackage dependency)
+              dependencies
             }
             cd ..
         fi
@@ -252,7 +254,8 @@ let
           ${pinpointDependencies { inherit dependencies production; }}
           cd ..
           ${
-            lib.optionalString (builtins.substring 0 1 packageName == "@")
+            lib.optionalString
+            (builtins.substring 0 1 packageName == "@")
             "cd .."
           }
       fi
@@ -666,7 +669,8 @@ let
 
           # Go to the parent folder to make sure that all packages are pinpointed
           cd ..
-          ${lib.optionalString (builtins.substring 0 1 packageName == "@")
+          ${lib.optionalString
+          (builtins.substring 0 1 packageName == "@")
           "cd .."}
 
           ${prepareAndInvokeNPM {
@@ -675,7 +679,8 @@ let
 
           # Expose the executables that were installed
           cd ..
-          ${lib.optionalString (builtins.substring 0 1 packageName == "@")
+          ${lib.optionalString
+          (builtins.substring 0 1 packageName == "@")
           "cd .."}
 
           mv ${packageName} lib

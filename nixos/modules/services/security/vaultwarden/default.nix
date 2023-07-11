@@ -19,7 +19,8 @@ let
       parts = builtins.split "([A-Z0-9]+)" name;
       partsToEnvVar =
         parts:
-        foldl' (
+        foldl'
+        (
           key: x:
           let
             last = stringLength key - 1;
@@ -37,7 +38,9 @@ let
             + toUpper x
           else
             key + toUpper x
-        ) "" parts
+        )
+        ""
+        parts
         ;
     in
     if builtins.match "[A-Z0-9_]+" name != null then
@@ -50,44 +53,55 @@ let
     # we can only check for values consistently after converting them to their corresponding environment variable name.
   configEnv =
     let
-      configEnv = concatMapAttrs (
-        name: value:
-        optionalAttrs (value != null) {
-          ${nameToEnvVar name} =
-            if isBool value then
-              boolToString value
-            else
-              toString value
-            ;
-        }
-      ) cfg.config;
+      configEnv = concatMapAttrs
+        (
+          name: value:
+          optionalAttrs (value != null) {
+            ${nameToEnvVar name} =
+              if isBool value then
+                boolToString value
+              else
+                toString value
+              ;
+          }
+        )
+        cfg.config;
     in
     {
       DATA_FOLDER = "/var/lib/bitwarden_rs";
-    } // optionalAttrs (
-      !(configEnv ? WEB_VAULT_ENABLED) || configEnv.WEB_VAULT_ENABLED == "true"
-    ) { WEB_VAULT_FOLDER = "${cfg.webVaultPackage}/share/vaultwarden/vault"; }
-    // configEnv
+    } // optionalAttrs
+    (!(configEnv ? WEB_VAULT_ENABLED) || configEnv.WEB_VAULT_ENABLED == "true")
+    {
+      WEB_VAULT_FOLDER = "${cfg.webVaultPackage}/share/vaultwarden/vault";
+    } // configEnv
     ;
 
-  configFile = pkgs.writeText "vaultwarden.env" (concatStrings (mapAttrsToList (
-    name: value: ''
-      ${name}=${value}
-    ''
-  ) configEnv));
+  configFile = pkgs.writeText "vaultwarden.env" (
+    concatStrings (
+      mapAttrsToList
+      (
+        name: value: ''
+          ${name}=${value}
+        ''
+      )
+      configEnv
+    )
+  );
 
   vaultwarden = cfg.package.override { inherit (cfg) dbBackend; };
 
 in
 {
   imports = [
-      (mkRenamedOptionModule [
-        "services"
-        "bitwarden_rs"
-      ] [
-        "services"
-        "vaultwarden"
-      ])
+      (mkRenamedOptionModule
+        [
+          "services"
+          "bitwarden_rs"
+        ]
+        [
+          "services"
+          "vaultwarden"
+        ])
     ];
 
   options.services.vaultwarden = with types; {
@@ -114,11 +128,15 @@ in
     };
 
     config = mkOption {
-      type = attrsOf (nullOr (oneOf [
-        bool
-        int
-        str
-      ]));
+      type = attrsOf (
+        nullOr (
+          oneOf [
+            bool
+            int
+            str
+          ]
+        )
+      );
       default = { };
       example = literalExpression ''
         {

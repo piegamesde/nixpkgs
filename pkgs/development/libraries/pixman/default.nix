@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
   configureFlags =
     lib.optional stdenv.isAarch32 "--disable-arm-iwmmxt"
       # Disable until https://gitlab.freedesktop.org/pixman/pixman/-/issues/46 is resolved
-    ++ lib.optional (stdenv.isAarch64 && !stdenv.cc.isGNU)
+    ++ lib.optional
+      (stdenv.isAarch64 && !stdenv.cc.isGNU)
       "--disable-arm-a64-neon"
     ;
 

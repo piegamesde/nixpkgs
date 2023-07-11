@@ -40,16 +40,20 @@ in
 
     settings = mkOption {
       type = with types;
-        attrsOf (oneOf [
-          str
-          int
-          bool
-          (listOf (oneOf [
+        attrsOf (
+          oneOf [
             str
             int
             bool
-          ]))
-        ]);
+            (listOf (
+              oneOf [
+                str
+                int
+                bool
+              ]
+            ))
+          ]
+        );
       default = { };
       example = {
         hide_kernel_threads = true;
@@ -72,8 +76,9 @@ in
         # Global htop configuration
         # To change set: programs.htop.settings.KEY = VALUE;
       ''
-      + concatStringsSep "\n"
-        (mapAttrsToList (key: value: "${key}=${fmt value}") cfg.settings)
+      + concatStringsSep "\n" (
+        mapAttrsToList (key: value: "${key}=${fmt value}") cfg.settings
+      )
       ;
   };
 

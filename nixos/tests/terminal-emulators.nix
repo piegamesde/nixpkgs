@@ -118,7 +118,8 @@ let
     xterm.pkg = p: p.xterm;
   };
 in
-mapAttrs (
+mapAttrs
+(
   name:
   {
     pkg,
@@ -168,11 +169,12 @@ mapAttrs (
             done
             sleep infinity
           '')
-          (pkgs.writeShellScriptBin "run-in-this-term"
+          (pkgs.writeShellScriptBin
+            "run-in-this-term"
             "sudo -u alice run-in-this-term-wrapped $1")
 
-          (pkgs.writeShellScriptBin "run-in-this-term-wrapped"
-            ''command="$(which "$1")"; ${cmd}'')
+          (pkgs.writeShellScriptBin "run-in-this-term-wrapped" ''
+            command="$(which "$1")"; ${cmd}'')
         ];
 
           # Helpful reminder to add this test to passthru.tests
@@ -248,4 +250,5 @@ mapAttrs (
       ;
   }
 
-) tests
+)
+tests

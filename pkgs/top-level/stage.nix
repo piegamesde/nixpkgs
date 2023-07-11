@@ -165,7 +165,8 @@ let
     let
       res =
         import ./all-packages.nix { inherit lib noSysDirs config overlays; } res
-        self super;
+        self
+        super;
     in
     res
     ;
@@ -192,8 +193,9 @@ let
     # ... pkgs.foo ...").
   configOverrides =
     self: super:
-    lib.optionalAttrs allowCustomOverrides
-    ((config.packageOverrides or (super: { })) super)
+    lib.optionalAttrs allowCustomOverrides (
+      (config.packageOverrides or (super: { })) super
+    )
     ;
 
     # Convenience attributes for instantitating package sets. Each of
@@ -210,8 +212,8 @@ let
       # that target system. For instance, pkgsCross.raspberryPi.hello,
       # will refer to the "hello" package built for the ARM6-based
       # Raspberry Pi.
-      pkgsCross =
-        lib.mapAttrs (n: crossSystem: nixpkgsFun { inherit crossSystem; })
+      pkgsCross = lib.mapAttrs
+        (n: crossSystem: nixpkgsFun { inherit crossSystem; })
         lib.systems.examples;
 
       pkgsLLVM = nixpkgsFun {
@@ -315,9 +317,11 @@ let
           crossSystem = {
             isStatic = true;
             parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
-          } // lib.optionalAttrs (
-            stdenv.hostPlatform.system == "powerpc64-linux"
-          ) { gcc.abi = "elfv2"; };
+          } // lib.optionalAttrs
+            (stdenv.hostPlatform.system == "powerpc64-linux")
+            {
+              gcc.abi = "elfv2";
+            };
         }
       );
     }

@@ -26,10 +26,12 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [
       pkgs.asusctl
-      (lib.mkIf cfg.autoStart (pkgs.makeAutostartItem {
-        name = "rog-control-center";
-        package = pkgs.asusctl;
-      }))
+      (lib.mkIf cfg.autoStart (
+        pkgs.makeAutostartItem {
+          name = "rog-control-center";
+          package = pkgs.asusctl;
+        }
+      ))
     ];
 
     services.asusd.enable = true;

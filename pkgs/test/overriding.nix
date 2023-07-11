@@ -7,8 +7,9 @@
 let
   tests =
     let
-      p = pkgs.python3Packages.xpybutil.overridePythonAttrs
-        (_: { dontWrapPythonPrograms = true; });
+      p = pkgs.python3Packages.xpybutil.overridePythonAttrs (
+        _: { dontWrapPythonPrograms = true; }
+      );
     in
     [
       ({
@@ -32,14 +33,16 @@ let
 
   addEntangled =
     origOverrideAttrs: f:
-    origOverrideAttrs (lib.composeExtensions f (
-      self: super: {
-        passthru = super.passthru // {
-          entangled = super.passthru.entangled.overrideAttrs f;
-          overrideAttrs = addEntangled self.overrideAttrs;
-        };
-      }
-    ))
+    origOverrideAttrs (
+      lib.composeExtensions f (
+        self: super: {
+          passthru = super.passthru // {
+            entangled = super.passthru.entangled.overrideAttrs f;
+            overrideAttrs = addEntangled self.overrideAttrs;
+          };
+        }
+      )
+    )
     ;
 
   entangle =
@@ -71,11 +74,13 @@ stdenvNoCC.mkDerivation {
     ''
       touch $out
     ''
-    + lib.concatMapStringsSep "\n" (
-      t:
-      "([[ ${lib.boolToString t.expr} == ${
-        lib.boolToString t.expected
-      } ]] && echo '${t.name} success') || (echo '${t.name} fail' && exit 1)"
-    ) tests
+    + lib.concatMapStringsSep "\n"
+      (
+        t:
+        "([[ ${lib.boolToString t.expr} == ${
+          lib.boolToString t.expected
+        } ]] && echo '${t.name} success') || (echo '${t.name} fail' && exit 1)"
+      )
+      tests
     ;
 }

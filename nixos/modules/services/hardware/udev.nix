@@ -56,11 +56,13 @@ let
       binPackages,
       initrdBin ? null
     }:
-    pkgs.runCommand name {
+    pkgs.runCommand name
+    {
       preferLocalBuild = true;
       allowSubstitutes = false;
       packages = unique (map toString udevPackages);
-    } ''
+    }
+    ''
       mkdir -p $out
       shopt -s nullglob
       set +o pipefail
@@ -160,26 +162,28 @@ let
     ''
     ;
 
-  hwdbBin = pkgs.runCommand "hwdb.bin" {
-    preferLocalBuild = true;
-    allowSubstitutes = false;
-    packages = unique (map toString ([ udev ] ++ cfg.packages));
-  } ''
-    mkdir -p etc/udev/hwdb.d
-    for i in $packages; do
-      echo "Adding hwdb files for package $i"
-      for j in $i/{etc,lib}/udev/hwdb.d/*; do
-        ln -s $j etc/udev/hwdb.d/$(basename $j)
+  hwdbBin = pkgs.runCommand "hwdb.bin"
+    {
+      preferLocalBuild = true;
+      allowSubstitutes = false;
+      packages = unique (map toString ([ udev ] ++ cfg.packages));
+    }
+    ''
+      mkdir -p etc/udev/hwdb.d
+      for i in $packages; do
+        echo "Adding hwdb files for package $i"
+        for j in $i/{etc,lib}/udev/hwdb.d/*; do
+          ln -s $j etc/udev/hwdb.d/$(basename $j)
+        done
       done
-    done
 
-    echo "Generating hwdb database..."
-    # hwdb --update doesn't return error code even on errors!
-    res="$(${pkgs.buildPackages.systemd}/bin/systemd-hwdb --root=$(pwd) update 2>&1)"
-    echo "$res"
-    [ -z "$(echo "$res" | egrep '^Error')" ]
-    mv etc/udev/hwdb.bin $out
-  '';
+      echo "Generating hwdb database..."
+      # hwdb --update doesn't return error code even on errors!
+      res="$(${pkgs.buildPackages.systemd}/bin/systemd-hwdb --root=$(pwd) update 2>&1)"
+      echo "$res"
+      [ -z "$(echo "$res" | egrep '^Error')" ]
+      mv etc/udev/hwdb.bin $out
+    '';
 
   compressFirmware =
     firmware:
@@ -390,14 +394,16 @@ in
       mkIf (!config.networking.usePredictableInterfaceNames) [ "net.ifnames=0" ]
       ;
 
-    boot.initrd.extraUdevRulesCommands = optionalString (
-      !config.boot.initrd.systemd.enable
-      && config.boot.initrd.services.udev.rules != ""
-    ) ''
-      cat <<'EOF' > $out/99-local.rules
-      ${config.boot.initrd.services.udev.rules}
-      EOF
-    '';
+    boot.initrd.extraUdevRulesCommands = optionalString
+      (
+        !config.boot.initrd.systemd.enable
+        && config.boot.initrd.services.udev.rules != ""
+      )
+      ''
+        cat <<'EOF' > $out/99-local.rules
+        ${config.boot.initrd.services.udev.rules}
+        EOF
+      '';
 
     boot.initrd.services.udev.rules = nixosInitrdRules;
 
@@ -438,11 +444,13 @@ in
       # Insert initrd rules
     boot.initrd.services.udev.packages = [
       initrdUdevRules
-      (mkIf (config.boot.initrd.services.udev.rules != "") (pkgs.writeTextFile {
-        name = "initrd-udev-rules";
-        destination = "/etc/udev/rules.d/99-local.rules";
-        text = config.boot.initrd.services.udev.rules;
-      }))
+      (mkIf (config.boot.initrd.services.udev.rules != "") (
+        pkgs.writeTextFile {
+          name = "initrd-udev-rules";
+          destination = "/etc/udev/rules.d/99-local.rules";
+          text = config.boot.initrd.services.udev.rules;
+        }
+      ))
     ];
 
     environment.etc = {
@@ -483,16 +491,18 @@ in
   };
 
   imports = [
-      (mkRenamedOptionModule [
-        "services"
-        "udev"
-        "initrdRules"
-      ] [
-        "boot"
-        "initrd"
-        "services"
-        "udev"
-        "rules"
-      ])
+      (mkRenamedOptionModule
+        [
+          "services"
+          "udev"
+          "initrdRules"
+        ]
+        [
+          "boot"
+          "initrd"
+          "services"
+          "udev"
+          "rules"
+        ])
     ];
 }

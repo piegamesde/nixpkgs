@@ -102,9 +102,13 @@ stdenv.mkDerivation rec {
   postPatch = ''
     rm -rf web/api/lib/Cake/Test
 
-    ${lib.concatStringsSep "\n" (map (e: ''
-      cp ${e.src} ${e.path}
-    '') addons)}
+    ${lib.concatStringsSep "\n" (
+      map
+      (e: ''
+        cp ${e.src} ${e.path}
+      '')
+      addons
+    )}
 
     for d in scripts/ZoneMinder onvif/{modules,proxy} ; do
       substituteInPlace $d/CMakeLists.txt \

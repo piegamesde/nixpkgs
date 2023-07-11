@@ -13,7 +13,8 @@ let
   pname = "vimix-icon-theme";
 
 in
-lib.checkListOfEnum "${pname}: color variants" [
+lib.checkListOfEnum "${pname}: color variants"
+[
   "standard"
   "Amethyst"
   "Beryl"
@@ -22,9 +23,11 @@ lib.checkListOfEnum "${pname}: color variants" [
   "Jade"
   "Black"
   "White"
-] colorVariants
+]
+colorVariants
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation
+rec {
   inherit pname;
   version = "2023-01-18";
 

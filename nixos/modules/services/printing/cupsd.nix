@@ -90,9 +90,11 @@ let
   '';
 
   cupsdFile = writeConf "cupsd.conf" ''
-    ${concatMapStrings (addr: ''
+    ${concatMapStrings
+    (addr: ''
       Listen ${addr}
-    '') cfg.listenAddresses}
+    '')
+    cfg.listenAddresses}
     Listen /run/cups/cups.sock
 
     DefaultShared ${
@@ -147,38 +149,47 @@ in
 {
 
   imports = [
-    (mkChangedOptionModule [
-      "services"
-      "printing"
-      "gutenprint"
-    ] [
-      "services"
-      "printing"
-      "drivers"
-    ] (
-      config:
-      let
-        enabled = getAttrFromPath [
-          "services"
-          "printing"
-          "gutenprint"
-        ] config;
-      in
-      if enabled then
-        [ pkgs.gutenprint ]
-      else
-        [ ]
-    ))
-    (mkRemovedOptionModule [
-      "services"
-      "printing"
-      "cupsFilesConf"
-    ] "")
-    (mkRemovedOptionModule [
-      "services"
-      "printing"
-      "cupsdConf"
-    ] "")
+    (mkChangedOptionModule
+      [
+        "services"
+        "printing"
+        "gutenprint"
+      ]
+      [
+        "services"
+        "printing"
+        "drivers"
+      ]
+      (
+        config:
+        let
+          enabled = getAttrFromPath
+            [
+              "services"
+              "printing"
+              "gutenprint"
+            ]
+            config;
+        in
+        if enabled then
+          [ pkgs.gutenprint ]
+        else
+          [ ]
+      ))
+    (mkRemovedOptionModule
+      [
+        "services"
+        "printing"
+        "cupsFilesConf"
+      ]
+      "")
+    (mkRemovedOptionModule
+      [
+        "services"
+        "printing"
+        "cupsdConf"
+      ]
+      "")
   ];
 
     ###### interface
@@ -405,10 +416,12 @@ in
           ""
           "/run/cups/cups.sock"
         ]
-        ++ map (
-          x:
-          replaceStrings [ "localhost" ] [ "127.0.0.1" ] (removePrefix "*:" x)
-        ) cfg.listenAddresses
+        ++ map
+          (
+            x:
+            replaceStrings [ "localhost" ] [ "127.0.0.1" ] (removePrefix "*:" x)
+          )
+          cfg.listenAddresses
         ;
     };
 

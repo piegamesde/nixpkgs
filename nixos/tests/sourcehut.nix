@@ -186,45 +186,52 @@ import ./make-test-python.nix (
 
           settings."sr.ht" = {
             global-domain = config.networking.domain;
-            service-key = pkgs.writeText "service-key"
+            service-key = pkgs.writeText
+              "service-key"
               "8b327279b77e32a3620e2fc9aabce491cc46e7d821fd6713b2a2e650ce114d01"
               ;
-            network-key = pkgs.writeText "network-key"
+            network-key = pkgs.writeText
+              "network-key"
               "cEEmc30BRBGkgQZcHFksiG7hjc6_dK1XR2Oo5Jb9_nQ=";
           };
           settings."builds.sr.ht" = {
-            oauth-client-secret = pkgs.writeText "buildsrht-oauth-client-secret"
+            oauth-client-secret = pkgs.writeText
+              "buildsrht-oauth-client-secret"
               "2260e9c4d9b8dcedcef642860e0504bc";
             oauth-client-id = "299db9f9c2013170";
           };
           settings."git.sr.ht" = {
-            oauth-client-secret = pkgs.writeText "gitsrht-oauth-client-secret"
+            oauth-client-secret = pkgs.writeText
+              "gitsrht-oauth-client-secret"
               "3597288dc2c716e567db5384f493b09d";
             oauth-client-id = "d07cb713d920702e";
           };
-          settings.webhooks.private-key = pkgs.writeText "webhook-key"
+          settings.webhooks.private-key = pkgs.writeText
+            "webhook-key"
             "Ra3IjxgFiwG9jxgp4WALQIZw/BMYt30xWiOsqD0J7EA=";
           settings.mail = {
             smtp-from = "root+hut@${domain}";
               # WARNING: take care to keep pgp-privkey outside the Nix store in production,
               # or use LoadCredentialEncrypted=
-            pgp-privkey = toString (pkgs.writeText "sourcehut.pgp-privkey" ''
-              -----BEGIN PGP PRIVATE KEY BLOCK-----
+            pgp-privkey = toString (
+              pkgs.writeText "sourcehut.pgp-privkey" ''
+                -----BEGIN PGP PRIVATE KEY BLOCK-----
 
-              lFgEYqDRORYJKwYBBAHaRw8BAQdAehGoy36FUx2OesYm07be2rtLyvR5Pb/ltstd
-              Gk7hYQoAAP9X4oPmxxrHN8LewBpWITdBomNqlHoiP7mI0nz/BOPJHxEktDZuaXhv
-              cy90ZXN0cy9zb3VyY2VodXQgPHJvb3QraHV0QHNvdXJjZWh1dC5sb2NhbGRvbWFp
-              bj6IlwQTFgoAPxYhBPqjgjnL8RHN4JnADNicgXaYm0jJBQJioNE5AhsDBQkDwmcA
-              BgsJCAcDCgUVCgkICwUWAwIBAAIeBQIXgAAKCRDYnIF2mJtIySVCAP9e2nHsVHSi
-              2B1YGZpVG7Xf36vxljmMkbroQy+0gBPwRwEAq+jaiQqlbGhQ7R/HMFcAxBIVsq8h
-              Aw1rngsUd0o3dAicXQRioNE5EgorBgEEAZdVAQUBAQdAXZV2Sd5ZNBVTBbTGavMv
-              D6ORrUh8z7TI/3CsxCE7+yADAQgHAAD/c1RU9xH+V/uI1fE7HIn/zL0LUPpsuce2
-              cH++g4u3kBgTOYh+BBgWCgAmFiEE+qOCOcvxEc3gmcAM2JyBdpibSMkFAmKg0TkC
-              GwwFCQPCZwAACgkQ2JyBdpibSMlKagD/cTre6p1m8QuJ7kwmCFRSz5tBzIuYMMgN
-              xtT7dmS91csA/35fWsOykSiFRojQ7ccCSUTHL7ApF2EbL968tP/D2hIG
-              =Hjoc
-              -----END PGP PRIVATE KEY BLOCK-----
-            '');
+                lFgEYqDRORYJKwYBBAHaRw8BAQdAehGoy36FUx2OesYm07be2rtLyvR5Pb/ltstd
+                Gk7hYQoAAP9X4oPmxxrHN8LewBpWITdBomNqlHoiP7mI0nz/BOPJHxEktDZuaXhv
+                cy90ZXN0cy9zb3VyY2VodXQgPHJvb3QraHV0QHNvdXJjZWh1dC5sb2NhbGRvbWFp
+                bj6IlwQTFgoAPxYhBPqjgjnL8RHN4JnADNicgXaYm0jJBQJioNE5AhsDBQkDwmcA
+                BgsJCAcDCgUVCgkICwUWAwIBAAIeBQIXgAAKCRDYnIF2mJtIySVCAP9e2nHsVHSi
+                2B1YGZpVG7Xf36vxljmMkbroQy+0gBPwRwEAq+jaiQqlbGhQ7R/HMFcAxBIVsq8h
+                Aw1rngsUd0o3dAicXQRioNE5EgorBgEEAZdVAQUBAQdAXZV2Sd5ZNBVTBbTGavMv
+                D6ORrUh8z7TI/3CsxCE7+yADAQgHAAD/c1RU9xH+V/uI1fE7HIn/zL0LUPpsuce2
+                cH++g4u3kBgTOYh+BBgWCgAmFiEE+qOCOcvxEc3gmcAM2JyBdpibSMkFAmKg0TkC
+                GwwFCQPCZwAACgkQ2JyBdpibSMlKagD/cTre6p1m8QuJ7kwmCFRSz5tBzIuYMMgN
+                xtT7dmS91csA/35fWsOykSiFRojQ7ccCSUTHL7ApF2EbL968tP/D2hIG
+                =Hjoc
+                -----END PGP PRIVATE KEY BLOCK-----
+              ''
+            );
             pgp-pubkey = pkgs.writeText "sourcehut.pgp-pubkey" ''
               -----BEGIN PGP PUBLIC KEY BLOCK-----
 

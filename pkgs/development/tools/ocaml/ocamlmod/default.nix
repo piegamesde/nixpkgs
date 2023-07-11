@@ -16,7 +16,8 @@ in
 lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
 "ocamlmod is not available for OCaml ≥ 5.0"
 
-stdenv.mkDerivation {
+stdenv.mkDerivation
+{
   pname = "ocamlmod";
   version = "0.0.9";
 

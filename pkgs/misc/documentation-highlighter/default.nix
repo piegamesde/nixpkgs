@@ -2,7 +2,8 @@
   lib,
   runCommand,
 }:
-runCommand "documentation-highlighter" {
+runCommand "documentation-highlighter"
+{
   meta = {
     description = "Highlight.js sources for the Nix Ecosystem's documentation";
     homepage = "https://highlightjs.org";
@@ -14,15 +15,18 @@ runCommand "documentation-highlighter" {
     src = ./.;
     filter =
       path: type:
-      lib.elem path (map toString [
-        ./highlight.pack.js
-        ./LICENSE
-        ./loader.js
-        ./mono-blue.css
-        ./README.md
-      ])
+      lib.elem path (
+        map toString [
+          ./highlight.pack.js
+          ./LICENSE
+          ./loader.js
+          ./mono-blue.css
+          ./README.md
+        ]
+      )
       ;
   };
-} ''
+}
+''
   cp -r "$src" "$out"
 ''

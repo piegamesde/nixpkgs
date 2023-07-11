@@ -91,17 +91,20 @@
       # Try to find an architecture compatible with our current system. We
       # just try every bootstrap we’ve got and test to see if it is
       # compatible with or current architecture.
-    getCompatibleTools = lib.foldl (
-      v: system:
-      if v != null then
-        v
-      else if
-        localSystem.canExecute (lib.systems.elaborate { inherit system; })
-      then
-        archLookupTable.${system}
-      else
-        null
-    ) null (lib.attrNames archLookupTable);
+    getCompatibleTools = lib.foldl
+      (
+        v: system:
+        if v != null then
+          v
+        else if
+          localSystem.canExecute (lib.systems.elaborate { inherit system; })
+        then
+          archLookupTable.${system}
+        else
+          null
+      )
+      null
+      (lib.attrNames archLookupTable);
 
     archLookupTable =
       table.${localSystem.libc} or (abort
@@ -157,21 +160,23 @@ let
     # coreutils, GCC, etc.
 
     # Download and unpack the bootstrap tools (coreutils, GCC, Glibc, ...).
-  bootstrapTools = (import (
-    if localSystem.libc == "musl" then
-      ./bootstrap-tools-musl
-    else
-      ./bootstrap-tools
-  ) {
-    inherit system bootstrapFiles;
-    extraAttrs = lib.optionalAttrs config.contentAddressedByDefault {
-      __contentAddressed = true;
-      outputHashAlgo = "sha256";
-      outputHashMode = "recursive";
+  bootstrapTools = (import
+    (
+      if localSystem.libc == "musl" then
+        ./bootstrap-tools-musl
+      else
+        ./bootstrap-tools
+    )
+    {
+      inherit system bootstrapFiles;
+      extraAttrs = lib.optionalAttrs config.contentAddressedByDefault {
+        __contentAddressed = true;
+        outputHashAlgo = "sha256";
+        outputHashMode = "recursive";
+      };
+    }) // {
+      passthru.isFromBootstrapFiles = true;
     };
-  }) // {
-    passthru.isFromBootstrapFiles = true;
-  };
 
   getLibc =
     stage:
@@ -227,11 +232,12 @@ let
               inherit lib;
               inherit (prevStage) coreutils gnugrep;
               stdenvNoCC = prevStage.ccWrapperStdenv;
-            }).overrideAttrs (
+            }).overrideAttrs
+            (
               a:
-              lib.optionalAttrs (
-                prevStage.gcc-unwrapped.passthru.isXgcc or false
-              ) {
+              lib.optionalAttrs
+              (prevStage.gcc-unwrapped.passthru.isXgcc or false)
+              {
                 # This affects only `xgcc` (the compiler which compiles the final compiler).
                 postFixup =
                   (
@@ -382,7 +388,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         ;
 
         # `gettext` comes with obsolete config.sub/config.guess that don't recognize LoongArch64.
-      extraNativeBuildInputs = lib.optional (localSystem.isLoongArch64)
+      extraNativeBuildInputs = lib.optional
+        (localSystem.isLoongArch64)
         prevStage.updateAutotoolsGnuConfigScriptsHook;
     }
   )
@@ -437,58 +444,62 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
                 #     error loading plugin: ...-bootstrap-tools/lib/libpthread.so.0: undefined symbol: __libc_vfork, version GLIBC_PRIVATE
               enableLTO = false;
             }
-          )).overrideAttrs (a: {
+          )).overrideAttrs
+            (
+              a: {
 
-            # This signals to cc-wrapper (as overridden above in this file) to add `--sysroot`
-            # to `$out/nix-support/cc-cflags`.
-            passthru = a.passthru // {
-              isXgcc = true;
-            };
+                # This signals to cc-wrapper (as overridden above in this file) to add `--sysroot`
+                # to `$out/nix-support/cc-cflags`.
+                passthru = a.passthru // {
+                  isXgcc = true;
+                };
 
-              # Gcc will look for the C library headers in
-              #
-              #    ${with_build_sysroot}${native_system_header_dir}
-              #
-              # The ordinary gcc expression sets `--with-build-sysroot=/` and sets
-              # `native-system-header-dir` to `"${lib.getDev stdenv.cc.libc}/include`.
-              #
-              # Unfortunately the value of "--with-native-system-header-dir=" gets "burned in" to the
-              # compiler, and it is quite difficult to get the compiler to change or ignore it
-              # afterwards.  On the other hand, the `sysroot` is very easy to change; you can just pass
-              # a `--sysroot` flag to `gcc`.
-              #
-              # So we override the expression to remove the default settings for these flags, and
-              # replace them such that the concatenated value will be the same as before, but we split
-              # the value between the two variables differently: `--native-system-header-dir=/include`,
-              # and `--with-build-sysroot=${lib.getDev stdenv.cc.libc}`.
-              #
-            configureFlags =
-              (
-                a.configureFlags or [ ]
-              )
-              ++ [
-                "--with-native-system-header-dir=/include"
-                "--with-build-sysroot=${lib.getDev final.stdenv.cc.libc}"
-              ]
-              ;
+                  # Gcc will look for the C library headers in
+                  #
+                  #    ${with_build_sysroot}${native_system_header_dir}
+                  #
+                  # The ordinary gcc expression sets `--with-build-sysroot=/` and sets
+                  # `native-system-header-dir` to `"${lib.getDev stdenv.cc.libc}/include`.
+                  #
+                  # Unfortunately the value of "--with-native-system-header-dir=" gets "burned in" to the
+                  # compiler, and it is quite difficult to get the compiler to change or ignore it
+                  # afterwards.  On the other hand, the `sysroot` is very easy to change; you can just pass
+                  # a `--sysroot` flag to `gcc`.
+                  #
+                  # So we override the expression to remove the default settings for these flags, and
+                  # replace them such that the concatenated value will be the same as before, but we split
+                  # the value between the two variables differently: `--native-system-header-dir=/include`,
+                  # and `--with-build-sysroot=${lib.getDev stdenv.cc.libc}`.
+                  #
+                configureFlags =
+                  (
+                    a.configureFlags or [ ]
+                  )
+                  ++ [
+                    "--with-native-system-header-dir=/include"
+                    "--with-build-sysroot=${lib.getDev final.stdenv.cc.libc}"
+                  ]
+                  ;
 
-              # This is a separate phase because gcc assembles its phase scripts
-              # in bash instead of nix (we should fix that).
-            preFixupPhases =
-              (a.preFixupPhases or [ ]) ++ [ "preFixupXgccPhase" ]
-              ;
+                  # This is a separate phase because gcc assembles its phase scripts
+                  # in bash instead of nix (we should fix that).
+                preFixupPhases =
+                  (a.preFixupPhases or [ ]) ++ [ "preFixupXgccPhase" ]
+                  ;
 
-              # This is needed to prevent "error: cycle detected in build of '...-xgcc-....drv'
-              # in the references of output 'lib' from output 'out'"
-            preFixupXgccPhase = ''
-              find $lib/lib/ -name \*.so\* -exec patchelf --shrink-rpath {} \; || true
-            '';
-          });
+                  # This is needed to prevent "error: cycle detected in build of '...-xgcc-....drv'
+                  # in the references of output 'lib' from output 'out'"
+                preFixupXgccPhase = ''
+                  find $lib/lib/ -name \*.so\* -exec patchelf --shrink-rpath {} \; || true
+                '';
+              }
+            );
         }
         ;
 
         # `gettext` comes with obsolete config.sub/config.guess that don't recognize LoongArch64.
-      extraNativeBuildInputs = lib.optional (localSystem.isLoongArch64)
+      extraNativeBuildInputs = lib.optional
+        (localSystem.isLoongArch64)
         prevStage.updateAutotoolsGnuConfigScriptsHook;
     }
   )
@@ -528,29 +539,33 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             # To avoid the cycle, we build against bootstrap libc, nuke references,
             # and use the result as input for our final glibc.  We also pass this pair
             # through, so the final package-set uses exactly the same builds.
-          libunistring = super.libunistring.overrideAttrs (attrs: {
-            postFixup =
-              attrs.postFixup or ""
-              + ''
-                ${self.nukeReferences}/bin/nuke-refs "$out"/lib/lib*.so.*.*
-              ''
-              ;
-              # Apparently iconv won't work with bootstrap glibc, but it will be used
-              # with glibc built later where we keep *this* build of libunistring,
-              # so we need to trick it into supporting libiconv.
-            env = attrs.env or { } // { am_cv_func_iconv_works = "yes"; };
-          });
-          libidn2 = super.libidn2.overrideAttrs (attrs: {
-            postFixup =
-              attrs.postFixup or ""
-              + ''
-                ${self.nukeReferences}/bin/nuke-refs -e '${
-                  lib.getLib self.libunistring
-                }' \
-                  "$out"/lib/lib*.so.*.*
-              ''
-              ;
-          });
+          libunistring = super.libunistring.overrideAttrs (
+            attrs: {
+              postFixup =
+                attrs.postFixup or ""
+                + ''
+                  ${self.nukeReferences}/bin/nuke-refs "$out"/lib/lib*.so.*.*
+                ''
+                ;
+                # Apparently iconv won't work with bootstrap glibc, but it will be used
+                # with glibc built later where we keep *this* build of libunistring,
+                # so we need to trick it into supporting libiconv.
+              env = attrs.env or { } // { am_cv_func_iconv_works = "yes"; };
+            }
+          );
+          libidn2 = super.libidn2.overrideAttrs (
+            attrs: {
+              postFixup =
+                attrs.postFixup or ""
+                + ''
+                  ${self.nukeReferences}/bin/nuke-refs -e '${
+                    lib.getLib self.libunistring
+                  }' \
+                    "$out"/lib/lib*.so.*.*
+                ''
+                ;
+            }
+          );
 
             # This also contains the full, dynamically linked, final Glibc.
           binutils = prevStage.binutils.override {
@@ -601,8 +616,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
 
         # `gettext` comes with obsolete config.sub/config.guess that don't recognize LoongArch64.
         # `libtool` comes with obsolete config.sub/config.guess that don't recognize Risc-V.
-      extraNativeBuildInputs =
-        lib.optional (localSystem.isLoongArch64 || localSystem.isRiscV)
+      extraNativeBuildInputs = lib.optional
+        (localSystem.isLoongArch64 || localSystem.isRiscV)
         prevStage.updateAutotoolsGnuConfigScriptsHook;
     }
   )
@@ -656,17 +671,22 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           ${localSystem.libc} = getLibc prevStage;
           gcc-unwrapped = (super.gcc-unwrapped.override (
             commonGccOverrides // { inherit (prevStage) which; }
-          )).overrideAttrs (a: {
-            # so we can add them to allowedRequisites below
-            passthru = a.passthru // { inherit (self) gmp mpfr libmpc isl; };
-          });
+          )).overrideAttrs
+            (
+              a: {
+                # so we can add them to allowedRequisites below
+                passthru =
+                  a.passthru // { inherit (self) gmp mpfr libmpc isl; };
+              }
+            );
         }
         ;
       extraNativeBuildInputs =
         [ prevStage.patchelf ]
         ++
         # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
-        lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
+        lib.optional
+          (!localSystem.isx86 || localSystem.libc == "musl")
           prevStage.updateAutotoolsGnuConfigScriptsHook
         ;
     }
@@ -739,7 +759,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         ]
         ++
         # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
-        lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
+        lib.optional
+          (!localSystem.isx86 || localSystem.libc == "musl")
           prevStage.updateAutotoolsGnuConfigScriptsHook
         ;
     }
@@ -781,7 +802,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           [ prevStage.patchelf ]
           ++
           # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
-          lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
+          lib.optional
+            (!localSystem.isx86 || localSystem.libc == "musl")
             prevStage.updateAutotoolsGnuConfigScriptsHook
           ;
 
@@ -802,30 +824,32 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         allowedRequisites = with prevStage;
           with lib;
           # Simple executable tools
-          concatMap (p: [
-            (getBin p)
-            (getLib p)
-          ]) [
-            gzip
-            bzip2
-            xz
-            bash
-            binutils.bintools
-            coreutils
-            diffutils
-            findutils
-            gawk
-            gmp
-            gnumake
-            gnused
-            gnutar
-            gnugrep
-            gnupatch
-            patchelf
-            ed
-            file
-          ]
-          # Library dependencies
+          concatMap
+            (p: [
+              (getBin p)
+              (getLib p)
+            ])
+            [
+              gzip
+              bzip2
+              xz
+              bash
+              binutils.bintools
+              coreutils
+              diffutils
+              findutils
+              gawk
+              gmp
+              gnumake
+              gnused
+              gnutar
+              gnugrep
+              gnupatch
+              patchelf
+              ed
+              file
+            ]
+            # Library dependencies
           ++ map getLib (
             [
               attr
@@ -893,7 +917,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
 
               # Hack: avoid libidn2.{bin,dev} referencing bootstrap tools.  There's a logical cycle.
             libidn2 = import
-              ../../development/libraries/libidn2/no-bootstrap-reference.nix {
+              ../../development/libraries/libidn2/no-bootstrap-reference.nix
+              {
                 inherit lib;
                 inherit (prevStage) libidn2;
                 inherit (self) stdenv runCommandLocal patchelf libunistring;

@@ -5,7 +5,8 @@
   callPackage,
 }:
 
-makeSetupHook {
+makeSetupHook
+{
   name = "patch-ppd-files";
   substitutions = {
     which = lib.getBin which;
@@ -16,4 +17,5 @@ makeSetupHook {
     description = "setup hook to patch executable paths in ppd files";
     maintainers = [ lib.maintainers.yarny ];
   };
-} ./patch-ppd-hook.sh
+}
+./patch-ppd-hook.sh

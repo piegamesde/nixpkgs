@@ -74,10 +74,12 @@ let
     sha256 = "1084lnyb0a1khbgjvak05fcx6jy973wqvsf77n0alxjys18sg2yk";
   };
 
-  myGn = gn.overrideAttrs (oldAttrs: {
-    version = "for-v8";
-    src = gnSrc;
-  });
+  myGn = gn.overrideAttrs (
+    oldAttrs: {
+      version = "for-v8";
+      src = gnSrc;
+    }
+  );
 
 in
 stdenv.mkDerivation rec {
@@ -91,12 +93,16 @@ stdenv.mkDerivation rec {
   src = v8Src;
 
   postUnpack = ''
-    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (
-      n: v: ''
-        mkdir -p $sourceRoot/${n}
-        cp -r ${v}/* $sourceRoot/${n}
-      ''
-    ) deps)}
+    ${lib.concatStringsSep "\n" (
+      lib.mapAttrsToList
+      (
+        n: v: ''
+          mkdir -p $sourceRoot/${n}
+          cp -r ${v}/* $sourceRoot/${n}
+        ''
+      )
+      deps
+    )}
     chmod u+w -R .
   '';
 

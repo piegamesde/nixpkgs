@@ -53,7 +53,8 @@ let
   };
 
 in
-runCommand buildah-unwrapped.name {
+runCommand buildah-unwrapped.name
+{
   name = "${buildah-unwrapped.pname}-wrapper-${buildah-unwrapped.version}";
   inherit (buildah-unwrapped) pname version passthru;
 
@@ -68,7 +69,8 @@ runCommand buildah-unwrapped.name {
 
   nativeBuildInputs = [ makeWrapper ];
 
-} ''
+}
+''
   ln -s ${buildah-unwrapped.man} $man
 
   mkdir -p $out/bin

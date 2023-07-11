@@ -246,12 +246,15 @@ let
     }
     ;
 in
-concatMapAttrs (
+concatMapAttrs
+(
   name: package: {
     ${name} = make-postgresql-test name package false;
     ${name + "-clauses"} = mk-ensure-clauses-test name package;
   }
-) postgresql-versions // {
+)
+postgresql-versions // {
   postgresql_11-backup-all = make-postgresql-test "postgresql_11-backup-all"
-    postgresql-versions.postgresql_11 true;
+    postgresql-versions.postgresql_11
+    true;
 }

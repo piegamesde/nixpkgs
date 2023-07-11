@@ -22,13 +22,15 @@ stdenv.mkDerivation {
         "tar xf $src/${x}.tar; mkdir -p x86/${x} amd64/${x}; cp ${x}/x86/* x86/${x}/.; cp ${x}/x64/* amd64/${x}/."
         ;
     in
-    lib.concatStringsSep "\n" (map unpack [
-      "xenbus"
-      "xeniface"
-      "xenvif"
-      "xennet"
-      "xenvbd"
-    ])
+    lib.concatStringsSep "\n" (
+      map unpack [
+        "xenbus"
+        "xeniface"
+        "xenvif"
+        "xennet"
+        "xenvbd"
+      ]
+    )
     ;
 
   installPhase = ''

@@ -12,7 +12,8 @@
 lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
 "ocaml-recovery-parser is not available for OCaml ${ocaml.version}"
 
-buildDunePackage rec {
+buildDunePackage
+rec {
   pname = "ocaml-recovery-parser";
   version = "0.2.4";
 

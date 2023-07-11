@@ -61,27 +61,33 @@ in
   meta.maintainers = [ maintainers.romildo ];
 
   imports = [
-    (mkRenamedOptionModule [
-      "qt5"
-      "enable"
-    ] [
-      "qt"
-      "enable"
-    ])
-    (mkRenamedOptionModule [
-      "qt5"
-      "platformTheme"
-    ] [
-      "qt"
-      "platformTheme"
-    ])
-    (mkRenamedOptionModule [
-      "qt5"
-      "style"
-    ] [
-      "qt"
-      "style"
-    ])
+    (mkRenamedOptionModule
+      [
+        "qt5"
+        "enable"
+      ]
+      [
+        "qt"
+        "enable"
+      ])
+    (mkRenamedOptionModule
+      [
+        "qt5"
+        "platformTheme"
+      ]
+      [
+        "qt"
+        "platformTheme"
+      ])
+    (mkRenamedOptionModule
+      [
+        "qt5"
+        "style"
+      ]
+      [
+        "qt"
+        "style"
+      ])
   ];
 
   options = {

@@ -24,7 +24,8 @@
   inherit
     maven
     ; # use overridden maven version (see dbeaver's entry in all-packages.nix)
-}) rec {
+})
+rec {
   pname = "dbeaver";
   version = "22.2.2"; # When updating also update mvnSha256
 

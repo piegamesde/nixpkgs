@@ -58,7 +58,8 @@ stdenv.mkDerivation rec {
       "--enable-x-accelerator-vary"
       "--enable-htcp"
     ]
-    ++ lib.optional (stdenv.isLinux && !stdenv.hostPlatform.isMusl)
+    ++ lib.optional
+      (stdenv.isLinux && !stdenv.hostPlatform.isMusl)
       "--enable-linux-netfilter"
     ;
 

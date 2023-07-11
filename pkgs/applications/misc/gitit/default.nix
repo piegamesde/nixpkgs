@@ -27,7 +27,9 @@ let
 in
 (haskell.lib.compose.overrideCabal
   (drv: { buildTools = (drv.buildTools or [ ]) ++ [ removeReferencesTo ]; })
-  static).overrideAttrs (drv: {
+  static).overrideAttrs
+(
+  drv: {
 
     # These libraries are still referenced, because they generate
     # a `Paths_*` module for figuring out their version.
@@ -65,4 +67,5 @@ in
       maintainers =
         drv.meta.maintainers or [ ] ++ [ lib.maintainers.Profpatsch ];
     };
-  })
+  }
+)

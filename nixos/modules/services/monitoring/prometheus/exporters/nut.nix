@@ -50,7 +50,8 @@ in
   };
   serviceOpts = {
     script = ''
-      ${optionalString (cfg.passwordPath != null)
+      ${optionalString
+      (cfg.passwordPath != null)
       "export NUT_EXPORTER_PASSWORD=$(cat ${toString cfg.passwordPath})"}
       ${pkgs.prometheus-nut-exporter}/bin/nut_exporter \
         --nut.server=${cfg.nutServer} \

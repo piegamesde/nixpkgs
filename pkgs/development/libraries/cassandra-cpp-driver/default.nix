@@ -27,15 +27,19 @@ stdenv.mkDerivation rec {
     openssl.dev
   ];
 
-  cmakeFlags = lib.attrsets.mapAttrsToList (
-    name: value:
-    "-DCASS_BUILD_${name}:BOOL=${
-      if value then
-        "ON"
-      else
-        "OFF"
-    }"
-  ) { EXAMPLES = examples; };
+  cmakeFlags = lib.attrsets.mapAttrsToList
+    (
+      name: value:
+      "-DCASS_BUILD_${name}:BOOL=${
+        if value then
+          "ON"
+        else
+          "OFF"
+      }"
+    )
+    {
+      EXAMPLES = examples;
+    };
 
   meta = with lib; {
     description = "DataStax CPP cassandra driver";

@@ -138,33 +138,37 @@ in
       '';
 
       type = with types;
-        listOf (submodule {
-          options.path = mkOption {
-            type = str;
-            example = "xdebug.so";
-            description = lib.mdDoc ''
-              Path to plugin. The path can either be absolute, or relative to
-              the plugin directory.
-            '';
-          };
-          options.arg = mkOption {
-            type = str;
-            default = "";
-            example = "--header=ATS-My-Debug";
-            description = lib.mdDoc "arguments to pass to the plugin";
-          };
-        });
+        listOf (
+          submodule {
+            options.path = mkOption {
+              type = str;
+              example = "xdebug.so";
+              description = lib.mdDoc ''
+                Path to plugin. The path can either be absolute, or relative to
+                the plugin directory.
+              '';
+            };
+            options.arg = mkOption {
+              type = str;
+              default = "";
+              example = "--header=ATS-My-Debug";
+              description = lib.mdDoc "arguments to pass to the plugin";
+            };
+          }
+        );
     };
 
     records = mkOption {
       type = with types;
         let
-          valueType = (attrsOf (oneOf [
-            int
-            float
-            str
-            valueType
-          ])) // {
+          valueType = (attrsOf (
+            oneOf [
+              int
+              float
+              str
+              valueType
+            ]
+          )) // {
             description = "Traffic Server records value";
           };
         in

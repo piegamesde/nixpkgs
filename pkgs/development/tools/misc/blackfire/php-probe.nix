@@ -138,8 +138,9 @@ let
           createName =
             path:
 
-            builtins.replaceStrings [ "." ] [ "_" ]
-            (lib.concatStringsSep "_" path)
+            builtins.replaceStrings [ "." ] [ "_" ] (
+              lib.concatStringsSep "_" path
+            )
             ;
 
           createSourceParams =
@@ -164,8 +165,11 @@ let
           createUpdateable =
             path: _value:
 
-            lib.nameValuePair (createName path) (self.overrideAttrs
-              (attrs: { src = makeSource (createSourceParams path); }))
+            lib.nameValuePair (createName path) (
+              self.overrideAttrs (
+                attrs: { src = makeSource (createSourceParams path); }
+              )
+            )
             ;
 
           hashesOnly =
@@ -174,8 +178,11 @@ let
         in
         builtins.listToAttrs
         # Collect all leaf attributes (containing hashes).
-        (lib.collect (attrs: attrs ? name)
-          (lib.mapAttrsRecursive createUpdateable hashesOnly))
+        (
+          lib.collect (attrs: attrs ? name) (
+            lib.mapAttrsRecursive createUpdateable hashesOnly
+          )
+        )
         ;
     };
 

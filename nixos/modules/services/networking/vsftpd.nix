@@ -116,9 +116,11 @@ let
   ];
 
   configFile = pkgs.writeText "vsftpd.conf" ''
-    ${concatMapStrings (x: ''
+    ${concatMapStrings
+    (x: ''
       ${x.cfgText}
-    '') optionDescription}
+    '')
+    optionDescription}
     ${optionalString (cfg.rsaCertFile != null) ''
       ssl_enable=YES
       rsa_cert_file=${cfg.rsaCertFile}
@@ -172,9 +174,13 @@ in
 
       userlistFile = mkOption {
         type = types.path;
-        default = pkgs.writeText "userlist" (concatMapStrings (x: ''
-          ${x}
-        '') cfg.userlist);
+        default = pkgs.writeText "userlist" (
+          concatMapStrings
+          (x: ''
+            ${x}
+          '')
+          cfg.userlist
+        );
         defaultText = literalExpression ''
           pkgs.writeText "userlist" (concatMapStrings (x: "''${x}\n") cfg.userlist)''
           ;
@@ -349,7 +355,8 @@ in
       ;
 
     systemd = {
-      tmpfiles.rules = optional cfg.anonymousUser
+      tmpfiles.rules = optional
+        cfg.anonymousUser
         #Type Path                       Mode User   Gr    Age Arg
         "d    '${
           builtins.toString cfg.anonymousUserHome

@@ -36,11 +36,13 @@ in
 
       settings = mkOption {
         type = with types;
-          attrsOf (oneOf [
-            int
-            bool
-            str
-          ]);
+          attrsOf (
+            oneOf [
+              int
+              bool
+              str
+            ]
+          );
         default = { };
         example = { apply_nice = false; };
         description = lib.mdDoc ''
@@ -76,7 +78,8 @@ in
         cp -r ${pkgs.ananicy}/etc/ananicy.d/* $out
         rm $out/ananicy.conf
         cp ${configFile} $out/ananicy.conf
-        ${optionalString (cfg.extraRules != "")
+        ${optionalString
+        (cfg.extraRules != "")
         "cp ${extraRules} $out/nixRules.rules"}
       '';
     };

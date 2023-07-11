@@ -28,7 +28,8 @@ let
             if atLeast12 then
               pkgs.writeTextDir "recovery.signal" ""
             else
-              pkgs.writeTextDir "recovery.conf"
+              pkgs.writeTextDir
+              "recovery.conf"
               "restore_command = 'cp ${walBackupDir}/%f %p'"
             ;
 
@@ -130,5 +131,8 @@ let
 
     # Maps the generic function over all attributes of PostgreSQL packages
 in
-builtins.listToAttrs (map makePostgresqlWalReceiverTest
-  (builtins.attrNames (import ../../pkgs/servers/sql/postgresql pkgs)))
+builtins.listToAttrs (
+  map makePostgresqlWalReceiverTest (
+    builtins.attrNames (import ../../pkgs/servers/sql/postgresql pkgs)
+  )
+)

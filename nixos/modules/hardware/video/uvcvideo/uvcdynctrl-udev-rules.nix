@@ -26,14 +26,16 @@ let
     ;
 
 in
-runCommand "uvcdynctrl-udev-rules-${version}" {
+runCommand "uvcdynctrl-udev-rules-${version}"
+{
   inherit dataPath;
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ libwebcam ];
   dontPatchELF = true;
   dontStrip = true;
   preferLocalBuild = true;
-} ''
+}
+''
   mkdir -p "$out/lib/udev"
   makeWrapper "${libwebcam}/lib/udev/uvcdynctrl" "$out/lib/udev/uvcdynctrl" \
     --set NIX_UVCDYNCTRL_DATA_DIR "${dataDir}" \

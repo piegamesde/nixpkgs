@@ -38,7 +38,8 @@ stdenv.mkDerivation {
     "CAML_INCLUDES=${ocaml}/lib/ocaml/caml"
     (
       "WITHBIGARRAY="
-      + lib.optionalString (lib.versionOlder ocaml.version "4.08.0")
+      + lib.optionalString
+        (lib.versionOlder ocaml.version "4.08.0")
         "bigarray.cma"
     )
     "all"

@@ -13,7 +13,8 @@ mkCoqDerivation {
   repo = "coq-simple-io";
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch coq.coq-version [
+    lib.switch coq.coq-version
+    [
       {
         case = range "8.11" "8.16";
         out = "1.7.0";
@@ -22,7 +23,8 @@ mkCoqDerivation {
         case = range "8.7" "8.13";
         out = "1.3.0";
       }
-    ] null;
+    ]
+    null;
   release."1.7.0".sha256 =
     "sha256:1a1q9x2abx71hqvjdai3n12jxzd49mhf3nqqh3ya2ssl2lj609ci";
   release."1.3.0".sha256 =

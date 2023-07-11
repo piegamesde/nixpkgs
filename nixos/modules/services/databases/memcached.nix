@@ -41,8 +41,9 @@ in
         description = lib.mdDoc "The port to bind to.";
       };
 
-      enableUnixSocket = mkEnableOption
-        (lib.mdDoc "unix socket at /run/memcached/memcached.sock");
+      enableUnixSocket = mkEnableOption (
+        lib.mdDoc "unix socket at /run/memcached/memcached.sock"
+      );
 
       maxMemory = mkOption {
         type = types.ints.unsigned;
@@ -128,13 +129,15 @@ in
     };
   };
   imports = [
-      (mkRemovedOptionModule [
-        "services"
-        "memcached"
-        "socket"
-      ] ''
-        This option was replaced by a fixed unix socket path at /run/memcached/memcached.sock enabled using services.memcached.enableUnixSocket.
-      '')
+      (mkRemovedOptionModule
+        [
+          "services"
+          "memcached"
+          "socket"
+        ]
+        ''
+          This option was replaced by a fixed unix socket path at /run/memcached/memcached.sock enabled using services.memcached.enableUnixSocket.
+        '')
     ];
 
 }

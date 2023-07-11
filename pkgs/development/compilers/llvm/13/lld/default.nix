@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     [
       "-DLLVM_CONFIG_PATH=${libllvm.dev}/bin/llvm-config${
-        lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
+        lib.optionalString
+        (stdenv.hostPlatform != stdenv.buildPlatform)
         "-native"
       }"
     ]

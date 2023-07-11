@@ -45,9 +45,11 @@ buildGoModule rec {
       # move vendored codes so nixpkgs go builder could find it
       runHook preBuild
 
-      ${lib.concatMapStrings (t: ''
+      ${lib.concatMapStrings
+      (t: ''
         go build -o "$out/bin/${t}" -tags ssl -ldflags "-s -w" ./${t}/main
-      '') tools}
+      '')
+      tools}
 
       runHook postBuild
     ''

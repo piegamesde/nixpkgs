@@ -49,46 +49,53 @@ let
       parm ${openafsSrv}/libexec/openafs/dasalvager ${cfg.roles.fileserver.salvagerArgs}
       end
     '')
-    + (optionalString (
-      cfg.roles.database.enable
-      && cfg.roles.backup.enable
-      && (
-        !cfg.roles.backup.enableFabs
+    + (optionalString
+      (
+        cfg.roles.database.enable
+        && cfg.roles.backup.enable
+        && (
+          !cfg.roles.backup.enableFabs
+        )
       )
-    ) ''
-      bnode simple buserver 1
-      parm ${openafsSrv}/libexec/openafs/buserver ${cfg.roles.backup.buserverArgs} ${
-        optionalString useBuCellServDB "-cellservdb /etc/openafs/backup/"
-      }
-      end
-    '')
-    + (optionalString (
-      cfg.roles.database.enable
-      && cfg.roles.backup.enable
-      && cfg.roles.backup.enableFabs
-    ) ''
-      bnode simple buserver 1
-      parm ${
-        lib.getBin pkgs.fabs
-      }/bin/fabsys server --config ${fabsConfFile} ${cfg.roles.backup.fabsArgs}
-      end
-    '')
+      ''
+        bnode simple buserver 1
+        parm ${openafsSrv}/libexec/openafs/buserver ${cfg.roles.backup.buserverArgs} ${
+          optionalString useBuCellServDB "-cellservdb /etc/openafs/backup/"
+        }
+        end
+      '')
+    + (optionalString
+      (
+        cfg.roles.database.enable
+        && cfg.roles.backup.enable
+        && cfg.roles.backup.enableFabs
+      )
+      ''
+        bnode simple buserver 1
+        parm ${
+          lib.getBin pkgs.fabs
+        }/bin/fabsys server --config ${fabsConfFile} ${cfg.roles.backup.fabsArgs}
+        end
+      '')
   );
 
   netInfo =
     if (cfg.advertisedAddresses != [ ]) then
       pkgs.writeText "NetInfo" (
-        (concatStringsSep ''
+        (concatStringsSep
+          ''
 
-          f '' cfg.advertisedAddresses)
+            f ''
+          cfg.advertisedAddresses)
         + "\n"
       )
     else
       null
     ;
 
-  buCellServDB = pkgs.writeText "backup-cellServDB-${cfg.cellName}"
-    (mkCellServDB cfg.cellName cfg.roles.backup.cellServDB);
+  buCellServDB = pkgs.writeText "backup-cellServDB-${cfg.cellName}" (
+    mkCellServDB cfg.cellName cfg.roles.backup.cellServDB
+  );
 
   useBuCellServDB =
     (cfg.roles.backup.cellServDB != [ ]) && (!cfg.roles.backup.enableFabs);
@@ -97,19 +104,21 @@ let
 
   udpSizeStr = toString cfg.udpPacketSize;
 
-  fabsConfFile = pkgs.writeText "fabs.yaml" (builtins.toJSON (
-    {
-      afs = {
-        aklog = cfg.package + "/bin/aklog";
-        cell = cfg.cellName;
-        dumpscan = cfg.package + "/bin/afsdump_scan";
-        fs = cfg.package + "/bin/fs";
-        pts = cfg.package + "/bin/pts";
-        vos = cfg.package + "/bin/vos";
-      };
-      k5start.command = (lib.getBin pkgs.kstart) + "/bin/k5start";
-    } // cfg.roles.backup.fabsExtraConfig
-  ));
+  fabsConfFile = pkgs.writeText "fabs.yaml" (
+    builtins.toJSON (
+      {
+        afs = {
+          aklog = cfg.package + "/bin/aklog";
+          cell = cfg.cellName;
+          dumpscan = cfg.package + "/bin/afsdump_scan";
+          fs = cfg.package + "/bin/fs";
+          pts = cfg.package + "/bin/pts";
+          vos = cfg.package + "/bin/vos";
+        };
+        k5start.command = (lib.getBin pkgs.kstart) + "/bin/k5start";
+      } // cfg.roles.backup.fabsExtraConfig
+    )
+  );
 
 in
 {
@@ -239,20 +248,24 @@ in
         };
 
         backup = {
-          enable = mkEnableOption (lib.mdDoc ''
-            Backup server role. When using OpenAFS built-in buserver, use in conjunction with the
-            `database` role to maintain the Backup
-            Database. Normally only used in conjunction with tape storage
-            or IBM's Tivoli Storage Manager.
+          enable = mkEnableOption (
+            lib.mdDoc ''
+              Backup server role. When using OpenAFS built-in buserver, use in conjunction with the
+              `database` role to maintain the Backup
+              Database. Normally only used in conjunction with tape storage
+              or IBM's Tivoli Storage Manager.
 
-            For a modern backup server, enable this role and see
-            {option}`enableFabs`.
-          '');
+              For a modern backup server, enable this role and see
+              {option}`enableFabs`.
+            ''
+          );
 
-          enableFabs = mkEnableOption (lib.mdDoc ''
-            FABS, the flexible AFS backup system. It stores volumes as dump files, relying on other
-            pre-existing backup solutions for handling them.
-          '');
+          enableFabs = mkEnableOption (
+            lib.mdDoc ''
+              FABS, the flexible AFS backup system. It stores volumes as dump files, relying on other
+              pre-existing backup solutions for handling them.
+            ''
+          );
 
           buserverArgs = mkOption {
             default = "";
@@ -373,7 +386,8 @@ in
         unitConfig.ConditionPathExists = [ "|/etc/openafs/server/KeyFileExt" ];
         preStart = ''
           mkdir -m 0755 -p /var/openafs
-          ${optionalString (netInfo != null)
+          ${optionalString
+          (netInfo != null)
           "cp ${netInfo} /var/openafs/netInfo"}
           ${optionalString useBuCellServDB "cp ${buCellServDB}"}
         '';

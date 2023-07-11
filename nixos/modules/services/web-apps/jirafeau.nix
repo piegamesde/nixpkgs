@@ -99,8 +99,9 @@ in
     };
 
     nginxConfig = mkOption {
-      type = types.submodule
-        (import ../web-servers/nginx/vhost-options.nix { inherit config lib; });
+      type = types.submodule (
+        import ../web-servers/nginx/vhost-options.nix { inherit config lib; }
+      );
       default = { };
       example = literalExpression ''
         {
@@ -120,11 +121,13 @@ in
 
     poolConfig = mkOption {
       type = with types;
-        attrsOf (oneOf [
-          str
-          int
-          bool
-        ]);
+        attrsOf (
+          oneOf [
+            str
+            int
+            bool
+          ]
+        );
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;

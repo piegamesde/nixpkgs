@@ -15,10 +15,12 @@ in
 
   options = {
     programs.wshowkeys = {
-      enable = mkEnableOption (lib.mdDoc ''
-        wshowkeys (displays keypresses on screen on supported Wayland
-        compositors). It requires root permissions to read input events, but
-        these permissions are dropped after startup'');
+      enable = mkEnableOption (
+        lib.mdDoc ''
+          wshowkeys (displays keypresses on screen on supported Wayland
+          compositors). It requires root permissions to read input events, but
+          these permissions are dropped after startup''
+      );
     };
   };
 

@@ -36,8 +36,9 @@ let
     paths = attrValues cfg.modules;
   };
 
-  configFile = pkgs.writeText "zabbix_server.conf"
-    (toKeyValue { listsAsDuplicateKeys = true; } cfg.settings);
+  configFile = pkgs.writeText "zabbix_server.conf" (
+    toKeyValue { listsAsDuplicateKeys = true; } cfg.settings
+  );
 
   mysqlLocal = cfg.database.createLocally && cfg.database.type == "mysql";
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "pgsql";
@@ -45,26 +46,32 @@ let
 in
 {
   imports = [
-    (lib.mkRenamedOptionModule [
-      "services"
-      "zabbixServer"
-      "dbServer"
-    ] [
-      "services"
-      "zabbixServer"
-      "database"
-      "host"
-    ])
-    (lib.mkRemovedOptionModule [
-      "services"
-      "zabbixServer"
-      "dbPassword"
-    ] "Use services.zabbixServer.database.passwordFile instead.")
-    (lib.mkRemovedOptionModule [
-      "services"
-      "zabbixServer"
-      "extraConfig"
-    ] "Use services.zabbixServer.settings instead.")
+    (lib.mkRenamedOptionModule
+      [
+        "services"
+        "zabbixServer"
+        "dbServer"
+      ]
+      [
+        "services"
+        "zabbixServer"
+        "database"
+        "host"
+      ])
+    (lib.mkRemovedOptionModule
+      [
+        "services"
+        "zabbixServer"
+        "dbPassword"
+      ]
+      "Use services.zabbixServer.database.passwordFile instead.")
+    (lib.mkRemovedOptionModule
+      [
+        "services"
+        "zabbixServer"
+        "extraConfig"
+      ]
+      "Use services.zabbixServer.settings instead.")
   ];
 
     # interface
@@ -220,11 +227,13 @@ in
 
       settings = mkOption {
         type = with types;
-          attrsOf (oneOf [
-            int
-            str
-            (listOf str)
-          ]);
+          attrsOf (
+            oneOf [
+              int
+              str
+              (listOf str)
+            ]
+          );
         default = { };
         description = lib.mdDoc ''
           Zabbix Server configuration. Refer to
@@ -295,21 +304,23 @@ in
       package = mkDefault pkgs.mariadb;
     };
 
-    systemd.services.mysql.postStart = mkAfter (optionalString mysqlLocal ''
-      ( echo "CREATE DATABASE IF NOT EXISTS \`${cfg.database.name}\` CHARACTER SET utf8 COLLATE utf8_bin;"
-        echo "CREATE USER IF NOT EXISTS '${cfg.database.user}'@'localhost' IDENTIFIED WITH ${
-          if
-            (
-              getName config.services.mysql.package == getName pkgs.mariadb
-            )
-          then
-            "unix_socket"
-          else
-            "auth_socket"
-        };"
-        echo "GRANT ALL PRIVILEGES ON \`${cfg.database.name}\`.* TO '${cfg.database.user}'@'localhost';"
-      ) | ${config.services.mysql.package}/bin/mysql -N
-    '');
+    systemd.services.mysql.postStart = mkAfter (
+      optionalString mysqlLocal ''
+        ( echo "CREATE DATABASE IF NOT EXISTS \`${cfg.database.name}\` CHARACTER SET utf8 COLLATE utf8_bin;"
+          echo "CREATE USER IF NOT EXISTS '${cfg.database.user}'@'localhost' IDENTIFIED WITH ${
+            if
+              (
+                getName config.services.mysql.package == getName pkgs.mariadb
+              )
+            then
+              "unix_socket"
+            else
+              "auth_socket"
+          };"
+          echo "GRANT ALL PRIVILEGES ON \`${cfg.database.name}\`.* TO '${cfg.database.user}'@'localhost';"
+        ) | ${config.services.mysql.package}/bin/mysql -N
+      ''
+    );
 
     services.postgresql = optionalAttrs pgsqlLocal {
       enable = true;
@@ -397,7 +408,8 @@ in
 
     systemd.services.httpd.after =
       optional (config.services.zabbixWeb.enable && mysqlLocal) "mysql.service"
-      ++ optional (config.services.zabbixWeb.enable && pgsqlLocal)
+      ++ optional
+        (config.services.zabbixWeb.enable && pgsqlLocal)
         "postgresql.service"
       ;
 

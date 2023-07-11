@@ -26,8 +26,13 @@ in
 
         # this default is also what kubernetes users
       default =
-        (concatStringsSep "." (take 3 (splitString "."
-          config.services.kubernetes.apiserver.serviceClusterIpRange)))
+        (concatStringsSep "." (
+          take 3 (
+            splitString
+            "."
+            config.services.kubernetes.apiserver.serviceClusterIpRange
+          )
+        ))
         + ".254"
         ;
       defaultText = literalMD ''

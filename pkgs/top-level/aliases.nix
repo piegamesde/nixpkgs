@@ -53,10 +53,12 @@ let
 
   mapAliases =
     aliases:
-    lib.mapAttrs (
+    lib.mapAttrs
+    (
       n: alias:
       removeDistribute (removeRecurseForDerivations (checkInPkgs n alias))
-    ) aliases
+    )
+    aliases
     ;
 
 in
@@ -1155,14 +1157,16 @@ mapAliases ({
     ; # Converted to throw 2022-02-22
 
   gnuradio-with-packages = gnuradio3_7.override {
-    extraPackages = lib.attrVals [
-      "osmosdr"
-      "ais"
-      "gsm"
-      "nacl"
-      "rds"
-      "limesdr"
-    ] gnuradio3_7Packages;
+    extraPackages = lib.attrVals
+      [
+        "osmosdr"
+        "ais"
+        "gsm"
+        "nacl"
+        "rds"
+        "limesdr"
+      ]
+      gnuradio3_7Packages;
   }; # Added 2020-10-16
 
   gmock = gtest; # moved from top-level 2021-03-14
@@ -1687,8 +1691,8 @@ mapAliases ({
   libgumbo = throw "'libgumbo' has been renamed to/replaced by 'gumbo'"
     ; # Converted to throw 2022-02-22
   libheimdal = heimdal; # Added 2022-11-18
-  libintlOrEmpty =
-    lib.optional (!stdenv.isLinux || stdenv.hostPlatform.libc != "glibc")
+  libintlOrEmpty = lib.optional
+    (!stdenv.isLinux || stdenv.hostPlatform.libc != "glibc")
     gettext; # Added 2018-03-14
   libixp_hg = libixp;
   libjpeg_drop = libjpeg_original; # Added 2020-06-05
@@ -3621,15 +3625,16 @@ mapAliases ({
     ; # Added 2023-01-09
 
     # LLVM packages for (integration) testing that should not be used inside Nixpkgs:
-  llvmPackages_git = recurseIntoAttrs
-    (callPackage ../development/compilers/llvm/git {
+  llvmPackages_git = recurseIntoAttrs (
+    callPackage ../development/compilers/llvm/git {
       inherit (stdenvAdapters) overrideCC;
       buildLlvmTools = buildPackages.llvmPackages_git.tools;
       targetLlvmLibraries =
         targetPackages.llvmPackages_git.libraries or llvmPackages_git.libraries;
       targetLlvm =
         targetPackages.llvmPackages_git.llvm or llvmPackages_git.llvm;
-    });
+    }
+  );
 
     # Added 2022-01-28
   zeroc-ice-36 = throw "Unmaintained, doesn't build w/glibc-2.34";

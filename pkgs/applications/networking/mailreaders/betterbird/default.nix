@@ -108,24 +108,28 @@
     maintainers = with maintainers; [ SuperSandro2000 ];
     inherit (thunderbird-unwrapped.meta) platforms badPlatforms broken license;
   };
-}).override {
-  crashreporterSupport = false; # not supported
-  geolocationSupport = false;
-  webrtcSupport = false;
+}).override
+  {
+    crashreporterSupport = false; # not supported
+    geolocationSupport = false;
+    webrtcSupport = false;
 
-  pgoSupport =
-    false; # console.warn: feeds: "downloadFeed: network connection unavailable"
-}).overrideAttrs (oldAttrs: {
-  postInstall =
-    oldAttrs.postInstall or ""
-    + ''
-      mv $out/lib/thunderbird/* $out/lib/betterbird
-      rmdir $out/lib/thunderbird/
-      rm $out/bin/thunderbird
-      ln -srf $out/lib/betterbird/betterbird $out/bin/betterbird
-    ''
-    ;
+    pgoSupport =
+      false; # console.warn: feeds: "downloadFeed: network connection unavailable"
+  }).overrideAttrs
+(
+  oldAttrs: {
+    postInstall =
+      oldAttrs.postInstall or ""
+      + ''
+        mv $out/lib/thunderbird/* $out/lib/betterbird
+        rmdir $out/lib/thunderbird/
+        rm $out/bin/thunderbird
+        ln -srf $out/lib/betterbird/betterbird $out/bin/betterbird
+      ''
+      ;
 
-  doInstallCheck = false;
-  requiredSystemFeatures = [ ];
-})
+    doInstallCheck = false;
+    requiredSystemFeatures = [ ];
+  }
+)

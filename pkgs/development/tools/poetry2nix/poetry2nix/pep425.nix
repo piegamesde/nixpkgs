@@ -151,9 +151,11 @@ let
           # See PEP 600 for details.
             (
               p:
-              builtins.match "any|manylinux(1|2010|2014)_${
+              builtins.match
+                "any|manylinux(1|2010|2014)_${
                   escapeRegex targetMachine
-                }|manylinux_[0-9]+_[0-9]+_${escapeRegex targetMachine}" p
+                }|manylinux_[0-9]+_[0-9]+_${escapeRegex targetMachine}"
+                p
               != null
             )
           else

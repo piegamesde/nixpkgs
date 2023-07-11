@@ -47,17 +47,21 @@ let
     "crystalBinaries"
   ];
 
-  crystalLib = linkFarm "crystal-lib" (lib.mapAttrsToList (
-    name: value: {
-      inherit name;
-      path =
-        if (builtins.hasAttr "url" value) then
-          fetchgit value
-        else
-          fetchFromGitHub value
-        ;
-    }
-  ) (import shardsFile));
+  crystalLib = linkFarm "crystal-lib" (
+    lib.mapAttrsToList
+    (
+      name: value: {
+        inherit name;
+        path =
+          if (builtins.hasAttr "url" value) then
+            fetchgit value
+          else
+            fetchFromGitHub value
+          ;
+      }
+    )
+    (import shardsFile)
+  );
 
     # We no longer use --no-debug in accordance with upstream's recommendation
   defaultOptions = [
@@ -134,11 +138,14 @@ stdenv.mkDerivation (
     buildPhase =
       args.buildPhase or (lib.concatStringsSep "\n" (
         [ "runHook preBuild" ]
-        ++ lib.optional (format == "make")
+        ++ lib.optional
+          (format == "make")
           "make \${buildTargets:-build} $makeFlags"
-        ++ lib.optionals (format == "crystal")
-          (lib.mapAttrsToList mkCrystalBuildArgs crystalBinaries)
-        ++ lib.optional (format == "shards")
+        ++ lib.optionals (format == "crystal") (
+          lib.mapAttrsToList mkCrystalBuildArgs crystalBinaries
+        )
+        ++ lib.optional
+          (format == "shards")
           "shards build --local --production ${
             lib.concatStringsSep " " (args.options or defaultOptions)
           }"
@@ -148,16 +155,21 @@ stdenv.mkDerivation (
     installPhase =
       args.installPhase or (lib.concatStringsSep "\n" (
         [ "runHook preInstall" ]
-        ++ lib.optional (format == "make")
+        ++ lib.optional
+          (format == "make")
           "make \${installTargets:-install} $installFlags"
-        ++ lib.optionals (format == "crystal") (map (bin: ''
-          install -Dm555 ${
-            lib.escapeShellArgs [
-              bin
-              "${placeholder "out"}/bin/${bin}"
-            ]
-          }
-        '') (lib.attrNames crystalBinaries))
+        ++ lib.optionals (format == "crystal") (
+          map
+          (bin: ''
+            install -Dm555 ${
+              lib.escapeShellArgs [
+                bin
+                "${placeholder "out"}/bin/${bin}"
+              ]
+            }
+          '')
+          (lib.attrNames crystalBinaries)
+        )
         ++ lib.optional (format == "shards") "install -Dm555 bin/* -t $out/bin"
         ++ [ ''
           for f in README* *.md LICENSE; do
@@ -180,9 +192,11 @@ stdenv.mkDerivation (
     checkPhase =
       args.checkPhase or (lib.concatStringsSep "\n" (
         [ "runHook preCheck" ]
-        ++ lib.optional (format == "make")
+        ++ lib.optional
+          (format == "make")
           "make \${checkTarget:-test} $checkFlags"
-        ++ lib.optional (format != "make")
+        ++ lib.optional
+          (format != "make")
           "crystal \${checkTarget:-spec} $checkFlags"
         ++ [ "runHook postCheck" ]
       ));

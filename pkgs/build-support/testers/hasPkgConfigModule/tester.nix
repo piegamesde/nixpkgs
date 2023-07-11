@@ -11,7 +11,8 @@
   testName ? "check-pkg-config-${moduleName}",
 }:
 
-runCommand testName {
+runCommand testName
+{
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ package ];
   inherit moduleName;
@@ -22,7 +23,8 @@ runCommand testName {
   # Make sure licensing info etc is preserved, as this is a concern for e.g. cache.nixos.org,
   # as hydra can't check this meta info in dependencies.
   # The test itself is just Nixpkgs, with MIT license.
-    // builtins.intersectAttrs {
+    // builtins.intersectAttrs
+    {
       available = throw "unused";
       broken = throw "unused";
       insecure = throw "unused";
@@ -31,8 +33,10 @@ runCommand testName {
       platforms = throw "unused";
       unfree = throw "unused";
       unsupported = throw "unused";
-    } package.meta;
-} ''
+    }
+    package.meta;
+}
+''
   echo "checking pkg-config module $moduleName in $buildInputs"
   set +e
   version="$(pkg-config --modversion $moduleName)"

@@ -26,8 +26,9 @@ let
     sha256 = "1wmjn6mmyy2r8p10nlbdzs4nrqxy8a9pjyrdciy5nmppg4053rk2";
   };
 
-  clientServDB = pkgs.writeText "client-cellServDB-${cfg.cellName}"
-    (mkCellServDB cfg.cellName cfg.cellServDB);
+  clientServDB = pkgs.writeText "client-cellServDB-${cfg.cellName}" (
+    mkCellServDB cfg.cellName cfg.cellServDB
+  );
 
   afsConfig = pkgs.runCommand "afsconfig" { preferLocalBuild = true; } ''
     mkdir -p $out
@@ -259,7 +260,8 @@ in
           -mountdir ${cfg.mountPoint} \
           -confdir ${afsConfig} \
           ${
-            optionalString (!cfg.cache.diskless)
+            optionalString
+            (!cfg.cache.diskless)
             "-cachedir ${cfg.cache.directory}"
           } \
           -blocks ${toString cfg.cache.blocks} \
@@ -285,7 +287,8 @@ in
           else
             "off"
         }
-        ${optionalString cfg.startDisconnected
+        ${optionalString
+        cfg.startDisconnected
         "${openafsBin}/bin/fs discon offline"}
       '';
 

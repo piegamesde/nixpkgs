@@ -34,28 +34,30 @@ import ./make-test-python.nix (
           environment.systemPackages = [
             pkgs.steck
 
-            (pkgs.writers.writePython3Bin "setup-steck.py" {
-              libraries = with pkgs.python3.pkgs; [
-                appdirs
-                toml
-              ];
-              flakeIgnore = [ "E501" ];
-            } ''
-              import appdirs
-              import toml
-              import os
-
-              CONFIG = {
-                  "base": "${baseUrl}/",
-                  "confirm": False,
-                  "magic": True,
-                  "ignore": True
+            (pkgs.writers.writePython3Bin "setup-steck.py"
+              {
+                libraries = with pkgs.python3.pkgs; [
+                  appdirs
+                  toml
+                ];
+                flakeIgnore = [ "E501" ];
               }
+              ''
+                import appdirs
+                import toml
+                import os
 
-              os.makedirs(appdirs.user_config_dir('steck'))
-              with open(os.path.join(appdirs.user_config_dir('steck'), 'steck.toml'), "w") as fd:
-                  toml.dump(CONFIG, fd)
-            '')
+                CONFIG = {
+                    "base": "${baseUrl}/",
+                    "confirm": False,
+                    "magic": True,
+                    "ignore": True
+                }
+
+                os.makedirs(appdirs.user_config_dir('steck'))
+                with open(os.path.join(appdirs.user_config_dir('steck'), 'steck.toml'), "w") as fd:
+                    toml.dump(CONFIG, fd)
+              '')
           ];
         }
         ;

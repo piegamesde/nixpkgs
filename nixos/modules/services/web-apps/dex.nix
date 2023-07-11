@@ -20,35 +20,45 @@ let
     else
       client
     ;
-  filteredSettings = mapAttrs (
-    n: v:
-    if n == "staticClients" then
-      (builtins.map fixClient v)
-    else
-      v
-  ) cfg.settings;
-  secretFiles = flatten (builtins.map (
-    c:
-    if c ? secretFile then
-      [ c.secretFile ]
-    else
-      [ ]
-  ) (
-    cfg.settings.staticClients or [ ]
-  ));
+  filteredSettings = mapAttrs
+    (
+      n: v:
+      if n == "staticClients" then
+        (builtins.map fixClient v)
+      else
+        v
+    )
+    cfg.settings;
+  secretFiles = flatten (
+    builtins.map
+    (
+      c:
+      if c ? secretFile then
+        [ c.secretFile ]
+      else
+        [ ]
+    )
+    (cfg.settings.staticClients or [ ])
+  );
 
   settingsFormat = pkgs.formats.yaml { };
   configFile = settingsFormat.generate "config.yaml" filteredSettings;
 
-  startPreScript = pkgs.writeShellScript "dex-start-pre" (concatStringsSep "\n"
-    (map (file: ''
-      replace-secret '${file}' '${file}' /run/dex/config.yaml
-    '') secretFiles));
+  startPreScript = pkgs.writeShellScript "dex-start-pre" (
+    concatStringsSep "\n" (
+      map
+      (file: ''
+        replace-secret '${file}' '${file}' /run/dex/config.yaml
+      '')
+      secretFiles
+    )
+  );
 in
 {
   options.services.dex = {
-    enable = mkEnableOption
-      (lib.mdDoc "the OpenID Connect and OAuth2 identity provider");
+    enable = mkEnableOption (
+      lib.mdDoc "the OpenID Connect and OAuth2 identity provider"
+    );
 
     environmentFile = mkOption {
       type = types.nullOr types.path;
@@ -101,7 +111,8 @@ in
       wantedBy = [ "multi-user.target" ];
       after =
         [ "networking.target" ]
-        ++ (optional (cfg.settings.storage.type == "postgres")
+        ++ (optional
+          (cfg.settings.storage.type == "postgres")
           "postgresql.service")
         ;
       path = with pkgs; [ replace-secret ];
@@ -123,7 +134,8 @@ in
           "-/etc/resolv.conf"
           "-/etc/ssl/certs/ca-certificates.crt"
         ];
-        BindPaths = optional (cfg.settings.storage.type == "postgres")
+        BindPaths = optional
+          (cfg.settings.storage.type == "postgres")
           "/var/run/postgresql";
         CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
           # ProtectClock= adds DeviceAllow=char-rtc r

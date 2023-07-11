@@ -17,10 +17,14 @@ let
 
   bindZoneCoerce =
     list:
-    builtins.listToAttrs (lib.forEach list (zone: {
-      name = zone.name;
-      value = zone;
-    }))
+    builtins.listToAttrs (
+      lib.forEach list (
+        zone: {
+          name = zone.name;
+          value = zone;
+        }
+      )
+    )
     ;
 
   bindZoneOptions =
@@ -105,7 +109,8 @@ let
 
     ${cfg.extraConfig}
 
-    ${concatMapStrings (
+    ${concatMapStrings
+    (
       {
         name,
         file,
@@ -128,9 +133,11 @@ let
               ''
                 allow-transfer {
                   ${
-                    concatMapStrings (ip: ''
+                    concatMapStrings
+                    (ip: ''
                       ${ip};
-                    '') slaves
+                    '')
+                    slaves
                   }
                 };
               ''
@@ -138,9 +145,11 @@ let
               ''
                 masters {
                   ${
-                    concatMapStrings (ip: ''
+                    concatMapStrings
+                    (ip: ''
                       ${ip};
-                    '') masters
+                    '')
+                    masters
                   }
                 };
               ''
@@ -149,7 +158,8 @@ let
           ${extraConfig}
         };
       ''
-    ) (attrValues cfg.zones)}
+    )
+    (attrValues cfg.zones)}
   '';
 
 in
@@ -245,8 +255,9 @@ in
       zones = mkOption {
         default = [ ];
         type = with types;
-          coercedTo (listOf attrs) bindZoneCoerce
-          (attrsOf (types.submodule bindZoneOptions));
+          coercedTo (listOf attrs) bindZoneCoerce (
+            attrsOf (types.submodule bindZoneOptions)
+          );
         description = lib.mdDoc ''
           List of zones we claim authority over.
         '';

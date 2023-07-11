@@ -7,7 +7,8 @@
 
 # defined in trivial-builders.nix
 # imported as wrapLua in lua-packages.nix and passed to build-lua-derivation to be used as buildInput
-makeSetupHook {
+makeSetupHook
+{
   name = "wrap-lua-hook";
   propagatedBuildInputs = [ makeWrapper ];
   substitutions.executable = lua.interpreter;
@@ -15,4 +16,5 @@ makeSetupHook {
   substitutions.LuaPathSearchPaths = lib.escapeShellArgs lua.LuaPathSearchPaths;
   substitutions.LuaCPathSearchPaths =
     lib.escapeShellArgs lua.LuaPathSearchPaths;
-} ./wrap.sh
+}
+./wrap.sh

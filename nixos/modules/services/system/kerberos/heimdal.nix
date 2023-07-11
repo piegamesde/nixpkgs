@@ -17,34 +17,42 @@ let
   cfg = config.services.kerberos_server;
   kerberos = config.krb5.kerberos;
   stateDir = "/var/heimdal";
-  aclFiles = mapAttrs (
-    name:
-    {
-      acl,
-      ...
-    }:
-    pkgs.writeText "${name}.acl" (concatMapStrings (
-      (
-        {
-          principal,
-          access,
-          target,
-          ...
-        }: ''
-          ${principal}	${concatStringsSep "," (toList access)}	${target}
-        ''
+  aclFiles = mapAttrs
+    (
+      name:
+      {
+        acl,
+        ...
+      }:
+      pkgs.writeText "${name}.acl" (
+        concatMapStrings
+        (
+          (
+            {
+              principal,
+              access,
+              target,
+              ...
+            }: ''
+              ${principal}	${concatStringsSep "," (toList access)}	${target}
+            ''
+          )
+        )
+        acl
       )
-    ) acl)
-  ) cfg.realms;
+    )
+    cfg.realms;
 
-  kdcConfigs = mapAttrsToList (
-    name: value: ''
-      database = {
-        dbname = ${stateDir}/heimdal
-        acl_file = ${value}
-      }
-    ''
-  ) aclFiles;
+  kdcConfigs = mapAttrsToList
+    (
+      name: value: ''
+        database = {
+          dbname = ${stateDir}/heimdal
+          acl_file = ${value}
+        }
+      ''
+    )
+    aclFiles;
   kdcConfFile = pkgs.writeText "kdc.conf" ''
     [kdc]
     ${concatStringsSep "\n" kdcConfigs}

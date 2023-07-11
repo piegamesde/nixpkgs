@@ -79,11 +79,13 @@ stdenv.mkDerivation rec {
     dbus
     gobject-introspection
     umockdev
-    (python3.pythonForBuild.withPackages (p: [
-      p.pygobject3
-      p.dbus-python
-      p.python-dbusmock
-    ]))
+    (python3.pythonForBuild.withPackages (
+      p: [
+        p.pygobject3
+        p.dbus-python
+        p.python-dbusmock
+      ]
+    ))
   ];
 
   postPatch = ''

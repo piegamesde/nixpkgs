@@ -12,7 +12,8 @@
     darwin.apple_sdk_11_0.clang14Stdenv
   else
     stdenv
-).mkDerivation rec {
+).mkDerivation
+rec {
   pname = "signalbackup-tools";
   version = "20230429";
 

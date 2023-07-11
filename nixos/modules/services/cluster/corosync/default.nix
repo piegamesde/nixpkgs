@@ -38,22 +38,24 @@ in
       description = lib.mdDoc "Corosync nodelist: all cluster members.";
       default = [ ];
       type = with types;
-        listOf (submodule {
-          options = {
-            nodeid = mkOption {
-              type = int;
-              description = lib.mdDoc "Node ID number";
+        listOf (
+          submodule {
+            options = {
+              nodeid = mkOption {
+                type = int;
+                description = lib.mdDoc "Node ID number";
+              };
+              name = mkOption {
+                type = str;
+                description = lib.mdDoc "Node name";
+              };
+              ring_addrs = mkOption {
+                type = listOf str;
+                description = lib.mdDoc "List of addresses, one for each ring.";
+              };
             };
-            name = mkOption {
-              type = str;
-              description = lib.mdDoc "Node name";
-            };
-            ring_addrs = mkOption {
-              type = listOf str;
-              description = lib.mdDoc "List of addresses, one for each ring.";
-            };
-          };
-        });
+          }
+        );
     };
   };
 
@@ -71,7 +73,8 @@ in
 
       nodelist {
         ${
-          concatMapStrings (
+          concatMapStrings
+          (
             {
               nodeid,
               name,
@@ -81,15 +84,20 @@ in
                 nodeid: ${toString nodeid}
                 name: ${name}
                 ${
-                  concatStrings (imap0 (
-                    i: addr: ''
-                      ring${toString i}_addr: ${addr}
-                    ''
-                  ) ring_addrs)
+                  concatStrings (
+                    imap0
+                    (
+                      i: addr: ''
+                        ring${toString i}_addr: ${addr}
+                      ''
+                    )
+                    ring_addrs
+                  )
                 }
               }
             ''
-          ) cfg.nodelist
+          )
+          cfg.nodelist
         }
       }
 

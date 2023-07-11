@@ -40,10 +40,12 @@
 assert gtk3Support -> gtk3 != null;
 
 let
-  luaEnv = lua.withPackages (ps: [
-    ps.lgi
-    ps.ldoc
-  ]);
+  luaEnv = lua.withPackages (
+    ps: [
+      ps.lgi
+      ps.ldoc
+    ]
+  );
 
 in
 stdenv.mkDerivation rec {
@@ -131,7 +133,8 @@ stdenv.mkDerivation rec {
       #"-DGENERATE_MANPAGES=ON"
       "-DOVERRIDE_VERSION=${version}"
     ]
-    ++ lib.optional lua.pkgs.isLuaJIT
+    ++ lib.optional
+      lua.pkgs.isLuaJIT
       "-DLUA_LIBRARY=${lua}/lib/libluajit-5.1.so"
     ;
 

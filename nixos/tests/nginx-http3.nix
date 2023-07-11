@@ -49,15 +49,17 @@ import ./make-test-python.nix (
               http3_hq = false;
               quic = true;
               reuseport = true;
-              root = lib.mkForce (pkgs.runCommandLocal "testdir" { } ''
-                mkdir "$out"
-                cat > "$out/index.html" <<EOF
-                <html><body>Hello World!</body></html>
-                EOF
-                cat > "$out/example.txt" <<EOF
-                Check http3 protocol.
-                EOF
-              '');
+              root = lib.mkForce (
+                pkgs.runCommandLocal "testdir" { } ''
+                  mkdir "$out"
+                  cat > "$out/index.html" <<EOF
+                  <html><body>Hello World!</body></html>
+                  EOF
+                  cat > "$out/example.txt" <<EOF
+                  Check http3 protocol.
+                  EOF
+                ''
+              );
             };
           };
         }

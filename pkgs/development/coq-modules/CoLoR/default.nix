@@ -11,7 +11,8 @@ mkCoqDerivation {
   owner = "fblanqui";
   inherit version;
   defaultVersion = with lib.versions;
-    lib.switch coq.version [
+    lib.switch coq.version
+    [
       {
         case = range "8.12" "8.16";
         out = "1.8.2";
@@ -28,7 +29,8 @@ mkCoqDerivation {
         case = range "8.6" "8.7";
         out = "1.4.0";
       }
-    ] null;
+    ]
+    null;
 
   release."1.8.2".sha256 =
     "sha256:1gvx5cxm582793vxzrvsmhxif7px18h9xsb2jljy2gkphdmsnpqj";

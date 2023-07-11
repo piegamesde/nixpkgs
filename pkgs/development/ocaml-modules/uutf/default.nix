@@ -16,7 +16,8 @@ in
 lib.throwIfNot (lib.versionAtLeast ocaml.version "4.03")
 "${pname} is not available with OCaml ${ocaml.version}"
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation
+rec {
   name = "ocaml${ocaml.version}-${pname}-${version}";
   version = "1.0.3";
 

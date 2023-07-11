@@ -30,7 +30,8 @@ assert enableQt -> qwt != null;
     mkDerivation
   else
     stdenv.mkDerivation
-) rec {
+)
+rec {
   pname = "testdisk";
   version = "7.1";
   src = fetchurl {

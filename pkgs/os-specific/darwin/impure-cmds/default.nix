@@ -15,11 +15,13 @@ let
 
   mkImpureDrv =
     name: path:
-    runCommandLocal "${name}-impure-darwin" {
+    runCommandLocal "${name}-impure-darwin"
+    {
       __impureHostDeps = [ path ];
 
       meta = { platforms = lib.platforms.darwin; };
-    } ''
+    }
+    ''
       if ! [ -x ${path} ]; then
         echo Cannot find command ${path}
         exit 1

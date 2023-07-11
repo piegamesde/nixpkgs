@@ -38,8 +38,9 @@ let
       node_capacity_release_rate = 1;
     };
   };
-  configFile = format.generate "syncstorage.toml"
-    (lib.recursiveUpdate settings cfg.settings);
+  configFile = format.generate "syncstorage.toml" (
+    lib.recursiveUpdate settings cfg.settings
+  );
   setupScript = pkgs.writeShellScript "firefox-syncserver-setup" ''
     set -euo pipefail
     shopt -s inherit_errexit
@@ -87,22 +88,24 @@ in
 {
   options = {
     services.firefox-syncserver = {
-      enable = lib.mkEnableOption (lib.mdDoc ''
-        the Firefox Sync storage service.
+      enable = lib.mkEnableOption (
+        lib.mdDoc ''
+          the Firefox Sync storage service.
 
-        Out of the box this will not be very useful unless you also configure at least
-        one service and one nodes by inserting them into the mysql database manually, e.g.
-        by running
+          Out of the box this will not be very useful unless you also configure at least
+          one service and one nodes by inserting them into the mysql database manually, e.g.
+          by running
 
-        ```
-          INSERT INTO `services` (`id`, `service`, `pattern`) VALUES ('1', 'sync-1.5', '{node}/1.5/{uid}');
-          INSERT INTO `nodes` (`id`, `service`, `node`, `available`, `current_load`,
-              `capacity`, `downed`, `backoff`)
-            VALUES ('1', '1', 'https://mydomain.tld', '1', '0', '10', '0', '0');
-        ```
+          ```
+            INSERT INTO `services` (`id`, `service`, `pattern`) VALUES ('1', 'sync-1.5', '{node}/1.5/{uid}');
+            INSERT INTO `nodes` (`id`, `service`, `node`, `available`, `current_load`,
+                `capacity`, `downed`, `backoff`)
+              VALUES ('1', '1', 'https://mydomain.tld', '1', '0', '10', '0', '0');
+          ```
 
-        {option}`${opt.singleNode.enable}` does this automatically when enabled
-      '');
+          {option}`${opt.singleNode.enable}` does this automatically when enabled
+        ''
+      );
 
       package = lib.mkOption {
         type = lib.types.package;
@@ -171,8 +174,9 @@ in
       };
 
       singleNode = {
-        enable = lib.mkEnableOption
-          (lib.mdDoc "auto-configuration for a simple single-node setup");
+        enable = lib.mkEnableOption (
+          lib.mdDoc "auto-configuration for a simple single-node setup"
+        );
 
         enableTLS = lib.mkEnableOption (lib.mdDoc "automatic TLS setup");
 

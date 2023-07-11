@@ -23,7 +23,8 @@ let
       else
         "${haka}/share/haka/sample/${cfg.configFile}"
     }
-    ${optionalString (builtins.lessThan 0 cfg.threads)
+    ${optionalString
+    (builtins.lessThan 0 cfg.threads)
     "thread = ${cfg.threads}"}
 
     [packet]

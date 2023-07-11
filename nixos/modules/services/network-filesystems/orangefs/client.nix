@@ -37,32 +37,34 @@ in
         } ];
 
         type = with types;
-          listOf (submodule (
-            {
-              ...
-            }: {
-              options = {
+          listOf (
+            submodule (
+              {
+                ...
+              }: {
+                options = {
 
-                mountPoint = mkOption {
-                  type = types.str;
-                  default = "/orangefs";
-                  description = lib.mdDoc "Mount point.";
-                };
+                  mountPoint = mkOption {
+                    type = types.str;
+                    default = "/orangefs";
+                    description = lib.mdDoc "Mount point.";
+                  };
 
-                options = mkOption {
-                  type = with types; listOf str;
-                  default = [ ];
-                  description = lib.mdDoc "Mount options";
-                };
+                  options = mkOption {
+                    type = with types; listOf str;
+                    default = [ ];
+                    description = lib.mdDoc "Mount options";
+                  };
 
-                target = mkOption {
-                  type = types.str;
-                  example = "tcp://server:3334/orangefs";
-                  description = lib.mdDoc "Target URL";
+                  target = mkOption {
+                    type = types.str;
+                    example = "tcp://server:3334/orangefs";
+                    description = lib.mdDoc "Target URL";
+                  };
                 };
-              };
-            }
-          ));
+              }
+            )
+          );
       };
     };
   };
@@ -91,16 +93,18 @@ in
       };
     };
 
-    systemd.mounts = map (fs: {
-      requires = [ "orangefs-client.service" ];
-      after = [ "orangefs-client.service" ];
-      bindsTo = [ "orangefs-client.service" ];
-      wantedBy = [ "remote-fs.target" ];
-      type = "pvfs2";
-      options = concatStringsSep "," fs.options;
-      what = fs.target;
-      where = fs.mountPoint;
-    }) cfg.fileSystems;
+    systemd.mounts = map
+      (fs: {
+        requires = [ "orangefs-client.service" ];
+        after = [ "orangefs-client.service" ];
+        bindsTo = [ "orangefs-client.service" ];
+        wantedBy = [ "remote-fs.target" ];
+        type = "pvfs2";
+        options = concatStringsSep "," fs.options;
+        what = fs.target;
+        where = fs.mountPoint;
+      })
+      cfg.fileSystems;
   };
 }
 

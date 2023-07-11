@@ -28,13 +28,16 @@ let
 
   callPackageCase =
     case:
-    callPackage (
+    callPackage
+    (
       {
         writeShellScript,
       }:
-      writeShellScript "test-trivial-callpackage-overriding-${case}"
+      writeShellScript
+      "test-trivial-callpackage-overriding-${case}"
       extglobScript
-    ) { }
+    )
+    { }
     ;
 
   binCase =
@@ -55,11 +58,13 @@ let
 
   disallowExtglob =
     x:
-    x.overrideAttrs (_: {
-      checkPhase = ''
-        ${stdenv.shell} -n "$target"
-      '';
-    })
+    x.overrideAttrs (
+      _: {
+        checkPhase = ''
+          ${stdenv.shell} -n "$target"
+        '';
+      }
+    )
     ;
 
     # Run old checkPhase, but only succeed if it fails.
@@ -68,13 +73,15 @@ let
     # `checkPhase` would fail if extglob was used in the script.
   assertFail =
     x:
-    x.overrideAttrs (old: {
-      checkPhase = ''
-        if
-          ${old.checkPhase}
-        then exit 1; fi
-      '';
-    })
+    x.overrideAttrs (
+      old: {
+        checkPhase = ''
+          if
+            ${old.checkPhase}
+          then exit 1; fi
+        '';
+      }
+    )
     ;
 
   mkCase =
@@ -128,11 +135,13 @@ let
     ;
 
 in
-runCommand "test-writeShellScript-overriding" {
-  passthru = { inherit writeTextOverrides; };
-} ''
-  ${lib.concatMapStrings (test: ''
+runCommand "test-writeShellScript-overriding"
+{ passthru = { inherit writeTextOverrides; }; }
+''
+  ${lib.concatMapStrings
+  (test: ''
     ${runTest test}
-  '') (lib.attrValues writeTextOverrides)}
+  '')
+  (lib.attrValues writeTextOverrides)}
   touch "$out"
 ''

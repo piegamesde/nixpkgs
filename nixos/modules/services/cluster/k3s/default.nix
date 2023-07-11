@@ -10,13 +10,15 @@ let
   cfg = config.services.k3s;
   removeOption =
     config: instruction:
-    lib.mkRemovedOptionModule (
+    lib.mkRemovedOptionModule
+    (
       [
         "services"
         "k3s"
       ]
       ++ config
-    ) instruction
+    )
+    instruction
     ;
 in
 {

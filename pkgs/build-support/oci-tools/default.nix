@@ -84,45 +84,49 @@
           ];
         };
       };
-      config = writeText "config.json" (builtins.toJSON {
-        ociVersion = "1.0.0";
-        platform = { inherit os arch; };
+      config = writeText "config.json" (
+        builtins.toJSON {
+          ociVersion = "1.0.0";
+          platform = { inherit os arch; };
 
-        linux = {
-          namespaces = map (type: { inherit type; }) [
-            "pid"
-            "network"
-            "mount"
-            "ipc"
-            "uts"
-          ];
-        };
-
-        root = {
-          path = "rootfs";
-          inherit readonly;
-        };
-
-        process = {
-          inherit args;
-          user = {
-            uid = 0;
-            gid = 0;
+          linux = {
+            namespaces = map (type: { inherit type; }) [
+              "pid"
+              "network"
+              "mount"
+              "ipc"
+              "uts"
+            ];
           };
-          cwd = "/";
-        };
 
-        mounts = lib.mapAttrsToList (
-          destination:
-          {
-            type,
-            source,
-            options ? null
-          }: {
-            inherit destination type source options;
-          }
-        ) sysMounts;
-      });
+          root = {
+            path = "rootfs";
+            inherit readonly;
+          };
+
+          process = {
+            inherit args;
+            user = {
+              uid = 0;
+              gid = 0;
+            };
+            cwd = "/";
+          };
+
+          mounts = lib.mapAttrsToList
+            (
+              destination:
+              {
+                type,
+                source,
+                options ? null
+              }: {
+                inherit destination type source options;
+              }
+            )
+            sysMounts;
+        }
+      );
     in
     runCommand "join" { } ''
       set -o pipefail
