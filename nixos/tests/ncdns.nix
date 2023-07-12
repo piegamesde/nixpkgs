@@ -33,7 +33,8 @@ import ./make-test-python.nix (
     nodes.server =
       {
         ...
-      }: {
+      }:
+      {
         networking.nameservers = [ "::1" ];
 
         services.namecoind.rpc = {

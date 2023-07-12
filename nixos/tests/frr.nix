@@ -43,7 +43,8 @@ import ./make-test-python.nix (
         {
           nodes,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 1 ];
           networking.defaultGateway = ifAddr nodes.router1 "eth1";
         }
@@ -52,7 +53,8 @@ import ./make-test-python.nix (
       router1 =
         {
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [
             1
             2
@@ -74,7 +76,8 @@ import ./make-test-python.nix (
       router2 =
         {
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [
             3
             2
@@ -93,7 +96,8 @@ import ./make-test-python.nix (
         {
           nodes,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 3 ];
           networking.defaultGateway = ifAddr nodes.router2 "eth1";
         }
@@ -104,7 +108,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         start_all()
 
         # Wait for the networking to start on all machines

@@ -3,7 +3,8 @@
 
 {
   fetchNuGet,
-}: [
+}:
+[
   (fetchNuGet {
     pname = "Microsoft.NETCore.Platforms";
     version = "5.0.0";

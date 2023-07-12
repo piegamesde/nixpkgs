@@ -93,7 +93,8 @@ let
       lib,
       name,
       ...
-    }: {
+    }:
+    {
       options = {
 
         enable = mkEnableOption (lib.mdDoc "InvoicePlane web application");

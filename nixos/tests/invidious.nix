@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "invidious";
 
     meta = with pkgs.lib.maintainers; { maintainers = [ sbruder ]; };
@@ -13,7 +14,8 @@ import ./make-test-python.nix (
         lib,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.invidious = { enable = true; };
 
         specialisation = {
@@ -67,7 +69,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         def curl_assert_status_code(url, code, form=None):
             assert int(machine.succeed(f"curl -s -o /dev/null -w %{{http_code}} {'-F ' + form + ' ' if form else '''}{url}")) == code
 

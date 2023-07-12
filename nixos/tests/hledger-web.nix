@@ -24,7 +24,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.hledger-web = {
             host = "127.0.0.1";
             port = 5000;
@@ -42,7 +43,8 @@ import ./make-test-python.nix (
       apiserver =
         {
           ...
-        }: {
+        }:
+        {
           imports = [ server ];
           services.hledger-web.serveApi = true;
         }

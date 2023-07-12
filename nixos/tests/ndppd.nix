@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "ndppd";
     meta = with pkgs.lib.maintainers; { maintainers = [ fpletz ]; };
 
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [ pkgs.tcpdump ];
           networking.useDHCP = false;
           networking.interfaces = {
@@ -33,7 +35,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           boot.kernel.sysctl = {
             "net.ipv6.conf.all.forwarding" = "1";
             "net.ipv6.conf.default.forwarding" = "1";

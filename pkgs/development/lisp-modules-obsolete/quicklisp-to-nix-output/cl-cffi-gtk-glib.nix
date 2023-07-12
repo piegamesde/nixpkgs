@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "cl-cffi-gtk-glib";
   version = "cl-cffi-gtk-20201220-git";
 

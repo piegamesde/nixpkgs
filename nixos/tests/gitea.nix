@@ -47,7 +47,8 @@ let
               config,
               pkgs,
               ...
-            }: {
+            }:
+            {
               virtualisation.memorySize = 2048;
               services.gitea = {
                 enable = true;
@@ -69,7 +70,8 @@ let
               config,
               pkgs,
               ...
-            }: {
+            }:
+            {
               environment.systemPackages = [ pkgs.git ];
             }
           ;
@@ -78,7 +80,8 @@ let
               config,
               pkgs,
               ...
-            }: {
+            }:
+            {
               environment.systemPackages = [ pkgs.git ];
             }
           ;

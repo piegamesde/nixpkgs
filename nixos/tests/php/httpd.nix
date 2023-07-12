@@ -4,7 +4,8 @@ import ../make-test-python.nix (
     lib,
     php,
     ...
-  }: {
+  }:
+  {
     name = "php-${php.version}-httpd-test";
     meta.maintainers = lib.teams.php.members;
 
@@ -14,7 +15,8 @@ import ../make-test-python.nix (
         lib,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.httpd = {
           enable = true;
           adminAddr = "admin@phpfpm";
@@ -35,7 +37,8 @@ import ../make-test-python.nix (
     testScript =
       {
         ...
-      }: ''
+      }:
+      ''
         machine.wait_for_unit("httpd.service")
 
         # Check so we get an evaluated PHP back

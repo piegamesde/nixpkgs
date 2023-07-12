@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "endlessh-go";
     meta.maintainers = with lib.maintainers; [ azahi ];
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
       server =
         {
           ...
-        }: {
+        }:
+        {
           services.endlessh-go = {
             enable = true;
             prometheus.enable = true;
@@ -40,7 +42,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = with pkgs; [
             curl
             netcat

@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "nodered";
     meta = with pkgs.lib.maintainers; { maintainers = [ matthewcroughan ]; };
 
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [ pkgs.curl ];
         }
       ;
@@ -21,7 +23,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.node-red = {
             enable = true;
             openFirewall = true;

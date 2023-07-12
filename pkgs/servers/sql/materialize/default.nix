@@ -63,7 +63,8 @@ let
         {
           src,
           dst,
-        }: ''
+        }:
+        ''
           mkdir -p "${dirOf dst}"
           cp "${package}/${src}" "${dst}"
         ''

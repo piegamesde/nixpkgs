@@ -52,7 +52,8 @@ in
             {
               name,
               ...
-            }: {
+            }:
+            {
               freeformType = json.type;
               options = {
                 type = mkOption {
@@ -109,7 +110,8 @@ in
             {
               name,
               ...
-            }: {
+            }:
+            {
               freeformType = json.type;
               options = {
                 module = mkOption {

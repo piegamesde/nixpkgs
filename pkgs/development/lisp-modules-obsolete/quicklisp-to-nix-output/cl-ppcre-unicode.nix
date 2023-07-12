@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "cl-ppcre-unicode";
   version = "cl-ppcre-20190521-git";
 

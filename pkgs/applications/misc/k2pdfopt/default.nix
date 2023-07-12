@@ -119,7 +119,8 @@ stdenv.mkDerivation rec {
         {
           patches ? [ ],
           ...
-        }: {
+        }:
+        {
           patches = patches ++ [ mupdf_patch ];
           # This function is missing in font.c, see font-win32.c
           postPatch = ''
@@ -140,7 +141,8 @@ stdenv.mkDerivation rec {
         {
           patches ? [ ],
           ...
-        }: {
+        }:
+        {
           patches = patches ++ [ leptonica_patch ];
         }
       );
@@ -168,7 +170,8 @@ stdenv.mkDerivation rec {
           {
             patches ? [ ],
             ...
-          }: {
+          }:
+          {
             patches = patches ++ [ tesseract_patch ];
             # Additional compilation fixes
             postPatch = ''

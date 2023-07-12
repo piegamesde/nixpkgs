@@ -4,7 +4,8 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "systemd-networkd-dhcpserver-static-leases";
     meta = with lib.maintainers; {
       maintainers = [

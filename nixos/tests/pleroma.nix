@@ -193,7 +193,8 @@ import ./make-test-python.nix (
           pkgs,
           config,
           ...
-        }: {
+        }:
+        {
           security.pki.certificateFiles = [ "${tls-cert}/cert.pem" ];
           networking.extraHosts = hosts nodes;
           environment.systemPackages = with pkgs; [
@@ -208,7 +209,8 @@ import ./make-test-python.nix (
           pkgs,
           config,
           ...
-        }: {
+        }:
+        {
           security.pki.certificateFiles = [ "${tls-cert}/cert.pem" ];
           networking.extraHosts = hosts nodes;
           networking.firewall.enable = false;
@@ -266,7 +268,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         pleroma.wait_for_unit("postgresql.service")
         pleroma.succeed("provision-db")
         pleroma.succeed("provision-secrets")

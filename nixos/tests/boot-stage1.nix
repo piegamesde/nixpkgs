@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "boot-stage1";
 
     nodes.machine =
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         boot.extraModulePackages =
           let
             compileKernelModule =

@@ -20,7 +20,8 @@ import ./make-test-python.nix (
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         services.kanidm = {
           enableServer = true;
           serverSettings = {
@@ -53,7 +54,8 @@ import ./make-test-python.nix (
         pkgs,
         nodes,
         ...
-      }: {
+      }:
+      {
         services.kanidm = {
           enableClient = true;
           clientSettings = {

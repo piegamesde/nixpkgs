@@ -2,14 +2,16 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "without-nix";
     meta = with lib.maintainers; { maintainers = [ ericson2314 ]; };
 
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         nix.enable = false;
         nixpkgs.overlays = [
           (self: super: {

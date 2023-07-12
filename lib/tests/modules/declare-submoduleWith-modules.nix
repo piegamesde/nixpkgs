@@ -1,7 +1,8 @@
 {
   lib,
   ...
-}: {
+}:
+{
   options.submodule = lib.mkOption {
     type = lib.types.submoduleWith {
       modules = [ {
@@ -19,7 +20,8 @@
       {
         lib,
         ...
-      }: {
+      }:
+      {
         options.outer = lib.mkOption {
           type = lib.types.bool;
           default = false;

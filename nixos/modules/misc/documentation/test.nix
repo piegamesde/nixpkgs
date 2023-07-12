@@ -16,7 +16,8 @@ let
           lib,
           someArg,
           ...
-        }: {
+        }:
+        {
           # Make sure imports from specialArgs are respected
           imports = [ someArg.myModule ];
 
@@ -41,7 +42,8 @@ let
       {
         lib,
         ...
-      }: {
+      }:
+      {
         options.foobar = lib.mkOption {
           type = lib.types.str;
           description = lib.mdDoc "The foobar option was added via specialArgs";

@@ -20,7 +20,8 @@ makeTest {
   nodes.machine =
     {
       ...
-    }: {
+    }:
+    {
       imports = [
         ../modules/profiles/headless.nix
         ../modules/virtualisation/amazon-init.nix

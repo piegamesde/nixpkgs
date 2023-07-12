@@ -16,7 +16,8 @@ let
       nodes.machine =
         {
           ...
-        }: {
+        }:
+        {
           imports = [ ./common/user-account.nix ];
           services.xserver.enable = true;
           services.xserver.displayManager.sddm.enable = true;
@@ -54,7 +55,8 @@ let
       nodes.machine =
         {
           ...
-        }: {
+        }:
+        {
           imports = [ ./common/user-account.nix ];
           services.xserver.enable = true;
           services.xserver.displayManager = {

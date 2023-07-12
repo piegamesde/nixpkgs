@@ -101,7 +101,8 @@ let
       name,
       config,
       ...
-    }: {
+    }:
+    {
       options = {
         enable = (lib.mkEnableOption (lib.mdDoc "this cups-pdf instance")) // {
           default = true;

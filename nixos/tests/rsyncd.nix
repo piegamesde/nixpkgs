@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "rsyncd";
     meta.maintainers = with pkgs.lib.maintainers; [ ehmry ];
 
@@ -13,7 +14,8 @@ import ./make-test-python.nix (
           {
             config,
             ...
-          }: {
+          }:
+          {
             networking.firewall.allowedTCPPorts = [
               config.services.rsyncd.port
             ];

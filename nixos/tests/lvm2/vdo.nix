@@ -5,7 +5,8 @@ import ../make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "lvm2-vdo";
     meta.maintainers = with pkgs.lib.maintainers; [ ajs124 ];
 
@@ -14,7 +15,8 @@ import ../make-test-python.nix (
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         # Minimum required size for VDO volume: 5063921664 bytes
         virtualisation.emptyDiskImages = [ 8192 ];
         services.lvm = {

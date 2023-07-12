@@ -9,7 +9,8 @@ import ../make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     inherit name;
     meta = { maintainers = with lib.maintainers; [ hmenke ]; };
 

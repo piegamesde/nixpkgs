@@ -937,7 +937,8 @@ in
             proxy =
               {
                 extraConfig ? "",
-              }: {
+              }:
+              {
                 proxyPass = "http://discourse";
                 extraConfig =
                   extraConfig

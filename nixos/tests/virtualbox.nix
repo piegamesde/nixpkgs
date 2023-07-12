@@ -400,7 +400,8 @@ let
           lib,
           config,
           ...
-        }: {
+        }:
+        {
           imports =
             let
               mkVMConf = name: val: val.machine // { key = "${name}-config"; };

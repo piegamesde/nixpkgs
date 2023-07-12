@@ -8,7 +8,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         networking = {
           firewall = {
             allowedUDPPorts = [ 4791 ]; # open RoCE port

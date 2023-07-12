@@ -4,7 +4,8 @@ import ./make-test-python.nix (
     lib,
     package ? pkgs.hbase,
     ...
-  }: {
+  }:
+  {
     name = "hbase-standalone";
 
     meta = with lib.maintainers; { maintainers = [ illustris ]; };
@@ -14,7 +15,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.hbase-standalone = {
             enable = true;
             inherit package;

@@ -177,7 +177,8 @@ let
           {
             pkgs,
             ...
-          }: {
+          }:
+          {
             environment.systemPackages = [ pkgs.bitwarden-cli ];
           }
         ;

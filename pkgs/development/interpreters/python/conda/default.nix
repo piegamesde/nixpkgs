@@ -1,6 +1,7 @@
 {
   pkgs,
-}: {
+}:
+{
 
   # List of libraries that are needed for conda binary packages.
   # When installing a conda binary package, just extend

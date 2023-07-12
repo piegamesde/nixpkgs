@@ -2,14 +2,16 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "bitcoind";
     meta = with pkgs.lib; { maintainers = with maintainers; [ _1000101 ]; };
 
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.bitcoind."mainnet" = {
           enable = true;
           rpc = {

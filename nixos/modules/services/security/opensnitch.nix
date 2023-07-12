@@ -218,7 +218,8 @@ in
             {
               file,
               local,
-            }: ''
+            }:
+            ''
               ln -sf '${file}' "${local}"
             ''
           )

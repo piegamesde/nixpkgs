@@ -16,7 +16,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = with pkgs; [ jq ];
         services.octoprint = {
           enable = true;

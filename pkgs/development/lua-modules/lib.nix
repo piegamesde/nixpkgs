@@ -123,7 +123,8 @@ rec {
             {
               name,
               dep,
-            }: {
+            }:
+            {
               "${name}_INCDIR" = "${lib.getDev dep}/include";
               "${name}_LIBDIR" = "${lib.getLib dep}/lib";
               "${name}_BINDIR" = "${lib.getBin dep}/bin";

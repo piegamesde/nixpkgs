@@ -26,7 +26,8 @@ let
             {
               name,
               ...
-            }: {
+            }:
+            {
               options = {
                 enable = mkEnableOption (mdDoc "this ${flavour} instance") // {
                   default = true;

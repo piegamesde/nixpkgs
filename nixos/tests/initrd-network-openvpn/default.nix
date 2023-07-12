@@ -32,7 +32,8 @@ import ../make-test-python.nix (
         minimalboot =
           {
             ...
-          }: {
+          }:
+          {
             boot.initrd.systemd.enable = systemdStage1;
             boot.initrd.network = {
               enable = true;
@@ -48,7 +49,8 @@ import ../make-test-python.nix (
         ovpnclient =
           {
             ...
-          }: {
+          }:
+          {
             virtualisation.useBootLoader = true;
             virtualisation.vlans = [ 1 ];
 
@@ -93,7 +95,8 @@ import ../make-test-python.nix (
         ovpnserver =
           {
             ...
-          }: {
+          }:
+          {
             virtualisation.vlans = [
               1
               2
@@ -132,7 +135,8 @@ import ../make-test-python.nix (
         testclient =
           {
             ...
-          }: {
+          }:
+          {
             virtualisation.vlans = [ 2 ];
           }
         ;

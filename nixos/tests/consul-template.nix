@@ -1,13 +1,15 @@
 import ./make-test-python.nix (
   {
     ...
-  }: {
+  }:
+  {
     name = "consul-template";
 
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.consul-template.instances.example.settings = {
           template = [ {
             contents = ''

@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "trezord";
     meta = with pkgs.lib; {
       maintainers = with maintainers; [
@@ -14,7 +15,8 @@ import ./make-test-python.nix (
       machine =
         {
           ...
-        }: {
+        }:
+        {
           services.trezord.enable = true;
           services.trezord.emulator.enable = true;
         }

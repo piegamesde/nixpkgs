@@ -13,7 +13,8 @@ import ./make-test-python.nix (
     nodes.server =
       {
         ...
-      }: {
+      }:
+      {
         imports = [ ../modules/profiles/minimal.nix ];
 
         users.users.alice.isNormalUser = true;
@@ -26,7 +27,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [ ../modules/profiles/minimal.nix ];
 
         users.users.alice.isNormalUser = true;

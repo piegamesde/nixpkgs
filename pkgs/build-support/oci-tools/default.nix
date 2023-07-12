@@ -121,7 +121,8 @@
                   type,
                   source,
                   options ? null,
-                }: {
+                }:
+                {
                   inherit destination type source options;
                 }
               )

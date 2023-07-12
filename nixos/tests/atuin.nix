@@ -19,7 +19,8 @@ import ./make-test-python.nix (
       server =
         {
           ...
-        }: {
+        }:
+        {
           services.atuin = {
             enable = true;
             port = testPort;

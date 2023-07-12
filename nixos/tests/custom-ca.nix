@@ -140,7 +140,8 @@ let
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           imports = [
             ./common/user-account.nix
             ./common/x11.nix

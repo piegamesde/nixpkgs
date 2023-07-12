@@ -5,7 +5,8 @@ import ./make-test-python.nix (
     pkgs,
     nftables,
     ...
-  }: {
+  }:
+  {
     name = "firewall" + pkgs.lib.optionalString nftables "-nftables";
     meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
 
@@ -13,7 +14,8 @@ import ./make-test-python.nix (
       walled =
         {
           ...
-        }: {
+        }:
+        {
           networking.firewall.enable = true;
           networking.firewall.logRefusedPackets = true;
           networking.nftables.enable = nftables;
@@ -29,7 +31,8 @@ import ./make-test-python.nix (
       walled2 =
         {
           ...
-        }: {
+        }:
+        {
           networking.firewall.enable = true;
           networking.firewall.rejectPackets = true;
           networking.nftables.enable = nftables;
@@ -39,7 +42,8 @@ import ./make-test-python.nix (
       attacker =
         {
           ...
-        }: {
+        }:
+        {
           services.httpd.enable = true;
           services.httpd.adminAddr = "foo@example.org";
           networking.firewall.enable = false;

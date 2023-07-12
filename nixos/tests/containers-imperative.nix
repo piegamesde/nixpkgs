@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "containers-imperative";
     meta = {
       maintainers = with lib.maintainers; [
@@ -20,7 +21,8 @@ import ./make-test-python.nix (
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         imports = [ ../modules/installer/cd-dvd/channel.nix ];
 
         # XXX: Sandbox setup fails while trying to hardlink files from the host's

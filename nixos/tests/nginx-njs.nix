@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "nginx-njs";
 
     nodes.machine =
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
         lib,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.nginx = {
           enable = true;
           additionalModules = [ pkgs.nginxModules.njs ];

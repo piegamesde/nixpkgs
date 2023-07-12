@@ -48,7 +48,8 @@ import ./make-test-python.nix (
       webserver:
       {
         ...
-      }: {
+      }:
+      {
         services.dokuwiki = {
           inherit webserver;
 

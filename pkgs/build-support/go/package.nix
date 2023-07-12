@@ -156,7 +156,8 @@ let
             {
               src,
               goPackagePath,
-            }: ''
+            }:
+            ''
               mkdir goPath
               (cd goPath; unpackFile "${src}")
               mkdir -p "go/src/$(dirname "${goPackagePath}")"

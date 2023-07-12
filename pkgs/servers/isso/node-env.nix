@@ -223,7 +223,8 @@ let
       dependencies ? [ ],
       production ? true,
       ...
-    }@args: ''
+    }@args:
+    ''
       if [ -d "${packageName}" ]
       then
           cd "${packageName}"

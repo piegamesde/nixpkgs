@@ -454,7 +454,8 @@ rec {
       config,
       options,
       ...
-    }: {
+    }:
+    {
       config = {
         unitConfig = optionalAttrs (config.requires != [ ]) {
           Requires = toString config.requires;
@@ -499,7 +500,8 @@ rec {
     {
       config,
       ...
-    }: {
+    }:
+    {
       config.environment.PATH = mkIf (config.path != [ ]) "${
             makeBinPath config.path
           }:${makeSearchPathOutput "bin" "sbin" config.path}";
@@ -524,7 +526,8 @@ rec {
     {
       config,
       ...
-    }: {
+    }:
+    {
       config = {
         mountConfig = {
           What = config.what;
@@ -539,7 +542,8 @@ rec {
     {
       config,
       ...
-    }: {
+    }:
+    {
       config = { automountConfig = { Where = config.where; }; };
     }
   ;

@@ -12,7 +12,8 @@
   util-linux,
   runtimeShell,
   e2fsprogs,
-}: rec {
+}:
+rec {
   shellScript =
     name: text:
     writeScript name ''

@@ -19,7 +19,8 @@ let
       options,
       config,
       ...
-    }: {
+    }:
+    {
       options = {
         socket = mkOption {
           type = types.str;
@@ -74,7 +75,8 @@ let
       name,
       options,
       ...
-    }: {
+    }:
+    {
       options = {
         enable = mkOption {
           type = types.nullOr types.bool;
@@ -322,7 +324,8 @@ let
       name,
       config,
       ...
-    }: {
+    }:
+    {
       options = {
         enable = mkOption {
           type = types.bool;

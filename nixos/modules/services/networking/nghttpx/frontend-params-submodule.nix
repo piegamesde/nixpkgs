@@ -1,7 +1,8 @@
 {
   lib,
   ...
-}: {
+}:
+{
   options = {
     tls = lib.mkOption {
       type = lib.types.enum [

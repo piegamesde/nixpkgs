@@ -3,14 +3,16 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "pict-rs";
     meta.maintainers = with lib.maintainers; [ happysalada ];
 
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = with pkgs; [
           curl
           jq

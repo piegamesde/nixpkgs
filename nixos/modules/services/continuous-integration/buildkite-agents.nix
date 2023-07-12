@@ -15,7 +15,8 @@ let
       name,
       description,
       example ? null,
-    }: {
+    }:
+    {
       inherit name;
       value = mkOption {
         default = null;
@@ -53,7 +54,8 @@ let
       name ? "",
       config,
       ...
-    }: {
+    }:
+    {
       options = {
         enable = mkOption {
           default = true;

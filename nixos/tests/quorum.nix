@@ -36,7 +36,8 @@ import ./make-test-python.nix (
       machine =
         {
           ...
-        }: {
+        }:
+        {
           services.quorum = {
             enable = true;
             permissioned = false;

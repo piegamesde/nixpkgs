@@ -14,7 +14,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [ ../modules/installer/cd-dvd/channel.nix ];
         environment.systemPackages = with pkgs; [ python3 ];
         system.extraDependencies = with pkgs; [ hello.inputDerivation ];

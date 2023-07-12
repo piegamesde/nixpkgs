@@ -362,7 +362,8 @@ in
               {
                 olcDbDirectory ? null,
                 ...
-              }: {
+              }:
+              {
                 # For forward compatibility with `DynamicUser`, and to avoid accidentally clobbering
                 # directories with `declarativeContents`.
                 assertion =

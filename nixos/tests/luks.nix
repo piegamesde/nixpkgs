@@ -3,14 +3,16 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "luks";
 
     nodes.machine =
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         # Use systemd-boot
         virtualisation = {
           emptyDiskImages = [

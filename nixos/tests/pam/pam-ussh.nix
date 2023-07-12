@@ -49,7 +49,8 @@ import ../make-test-python.nix (
     machine =
       {
         ...
-      }: {
+      }:
+      {
         users.users.alice = {
           isNormalUser = true;
           extraGroups = [ "wheel" ];

@@ -25,7 +25,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         virtualisation = {
           emptyDiskImages = [ 512 ];
           useBootLoader = true;

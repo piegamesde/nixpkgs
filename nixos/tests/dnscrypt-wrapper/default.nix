@@ -2,7 +2,8 @@ import ../make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "dnscrypt-wrapper";
     meta = with pkgs.lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
@@ -11,7 +12,8 @@ import ../make-test-python.nix (
         {
           lib,
           ...
-        }: {
+        }:
+        {
           services.dnscrypt-wrapper = with builtins; {
             enable = true;
             address = "192.168.1.1";
@@ -42,7 +44,8 @@ import ../make-test-python.nix (
         {
           lib,
           ...
-        }: {
+        }:
+        {
           services.dnscrypt-proxy2.enable = true;
           services.dnscrypt-proxy2.upstreamDefaults = false;
           services.dnscrypt-proxy2.settings = {

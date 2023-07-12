@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "grub";
 
     meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         virtualisation.useBootLoader = true;
 
         boot.loader.timeout = null;

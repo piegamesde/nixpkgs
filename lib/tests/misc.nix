@@ -1601,7 +1601,8 @@ runTests {
           {
             lib,
             ...
-          }: {
+          }:
+          {
             freeformType = lib.types.attrsOf (
               lib.types.submodule { options.bar = lib.mkOption { }; }
             );
@@ -1613,7 +1614,8 @@ runTests {
           {
             lib,
             ...
-          }: {
+          }:
+          {
             options.foo =
               lib.mkOption
                 { type = lib.types.submodule submodule; }

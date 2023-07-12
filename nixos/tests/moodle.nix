@@ -3,14 +3,16 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "moodle";
     meta.maintainers = [ lib.maintainers.aanderse ];
 
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.moodle.enable = true;
         services.moodle.virtualHost.hostName = "localhost";
         services.moodle.virtualHost.adminAddr = "root@example.com";

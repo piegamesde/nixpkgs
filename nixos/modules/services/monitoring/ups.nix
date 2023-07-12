@@ -19,7 +19,8 @@ let
       name,
       config,
       ...
-    }: {
+    }:
+    {
       options = {
         # This can be inferred from the UPS model by looking at
         # /nix/store/nut/share/driver.list

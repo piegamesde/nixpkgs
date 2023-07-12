@@ -371,7 +371,8 @@ let
           {
             pkgs,
             ...
-          }: {
+          }:
+          {
             imports = [
               ../modules/profiles/installation-device.nix
               ../modules/profiles/base.nix

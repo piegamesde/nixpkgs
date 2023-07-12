@@ -542,7 +542,8 @@ in
               config,
               options,
               ...
-            }: {
+            }:
+            {
               options = {
 
                 allowKeyGeneration = mkOption {

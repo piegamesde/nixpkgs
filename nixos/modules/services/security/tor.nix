@@ -120,7 +120,8 @@ let
         {
           config,
           ...
-        }: {
+        }:
+        {
           options = {
             addr = optionAddress;
             port = optionPort;
@@ -195,7 +196,8 @@ let
         {
           config,
           ...
-        }: {
+        }:
+        {
           options = {
             unix = optionUnix;
             addr = optionAddress;
@@ -780,7 +782,8 @@ in
                 name,
                 config,
                 ...
-              }: {
+              }:
+              {
                 options.clientAuthorizations = mkOption {
                   description = lib.mdDoc ''
                     Clients' authorizations for a v3 onion service,
@@ -924,7 +927,8 @@ in
                 name,
                 config,
                 ...
-              }: {
+              }:
+              {
                 options.path = mkOption {
                   type = types.path;
                   description = lib.mdDoc ''
@@ -956,7 +960,8 @@ in
                     types.submodule (
                       {
                         ...
-                      }: {
+                      }:
+                      {
                         options = {
                           authType = mkOption {
                             type = types.enum [
@@ -1010,7 +1015,8 @@ in
                         (submodule (
                           {
                             ...
-                          }: {
+                          }:
+                          {
                             options = {
                               port = optionPort;
                               target = mkOption {
@@ -1019,7 +1025,8 @@ in
                                   submodule (
                                     {
                                       ...
-                                    }: {
+                                    }:
+                                    {
                                       options = {
                                         unix = optionUnix;
                                         addr = optionAddress;
@@ -1384,7 +1391,8 @@ in
                   (submodule (
                     {
                       ...
-                    }: {
+                    }:
+                    {
                       options = {
                         addr = optionAddress;
                         port = optionPort;
@@ -1557,7 +1565,8 @@ in
                 submodule (
                   {
                     ...
-                  }: {
+                  }:
+                  {
                     options = {
                       transports = mkOption {
                         description = lib.mdDoc "List of pluggable transports.";

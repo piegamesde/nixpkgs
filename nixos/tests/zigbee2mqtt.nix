@@ -3,13 +3,15 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "zigbee2mqtt";
     nodes.machine =
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.zigbee2mqtt = { enable = true; };
 
         systemd.services.zigbee2mqtt.serviceConfig.DevicePolicy =

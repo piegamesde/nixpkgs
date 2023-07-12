@@ -99,7 +99,8 @@ let
         {
           options,
           ...
-        }: {
+        }:
+        {
           _file = "nixpkgs.config";
           config = config1;
         }

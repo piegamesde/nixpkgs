@@ -1058,7 +1058,8 @@ in
           types.submodule (
             {
               ...
-            }: {
+            }:
+            {
               options = {
                 enable = mkEnableOption (
                   lib.mdDoc "this proxy cache path entry"

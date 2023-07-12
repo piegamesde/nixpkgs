@@ -745,7 +745,8 @@ in
             {
               name,
               ...
-            }: {
+            }:
+            {
               options = {
 
                 name = mkOption {

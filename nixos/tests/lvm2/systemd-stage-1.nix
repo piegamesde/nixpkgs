@@ -68,7 +68,8 @@ import ../make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "lvm2-${flavour}-systemd-stage-1";
     meta.maintainers = with pkgs.lib.maintainers; [ das_j ];
 
@@ -77,7 +78,8 @@ import ../make-test-python.nix (
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         imports = [ extraConfig ];
         # Use systemd-boot
         virtualisation = {

@@ -4,7 +4,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "netdata";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -18,7 +19,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = with pkgs; [
             curl
             jq

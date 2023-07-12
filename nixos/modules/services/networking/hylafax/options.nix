@@ -55,7 +55,8 @@ let
       name,
       config,
       ...
-    }: {
+    }:
+    {
       options = {
         name = mkOption {
           type = nonEmptyStr;

@@ -149,7 +149,8 @@ in
             {
               name,
               ...
-            }: {
+            }:
+            {
               options = {
 
                 name = mkOption {
@@ -233,7 +234,8 @@ in
             {
               name,
               ...
-            }: {
+            }:
+            {
               options = {
 
                 enable = mkOption {

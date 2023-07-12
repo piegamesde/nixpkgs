@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "cinnamon";
 
     meta = with lib; { maintainers = teams.cinnamon.members; };
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: {
+      }:
+      {
         imports = [ ./common/user-account.nix ];
         services.xserver.enable = true;
         services.xserver.desktopManager.cinnamon.enable = true;

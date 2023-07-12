@@ -145,7 +145,8 @@ lib.flip map versions (
     language,
     sha256,
     installer,
-  }: {
+  }:
+  {
     inherit version lang;
     src = requireFile {
       name = installer;

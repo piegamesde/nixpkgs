@@ -180,7 +180,8 @@ in
               {
                 name,
                 ...
-              }: {
+              }:
+              {
                 options = {
                   url = mkOption {
                     type = types.str;

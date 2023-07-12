@@ -7,14 +7,16 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "minecraft-server";
     meta = with pkgs.lib.maintainers; { maintainers = [ nequissimus ]; };
 
     nodes.server =
       {
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = [ pkgs.mcrcon ];
 
         nixpkgs.config.allowUnfree = true;

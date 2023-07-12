@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "netbird";
 
     meta = with pkgs.lib.maintainers; { maintainers = [ misuzu ]; };
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
       node =
         {
           ...
-        }: {
+        }:
+        {
           services.netbird.enable = true;
         }
       ;

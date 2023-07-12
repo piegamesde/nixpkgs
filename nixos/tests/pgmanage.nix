@@ -17,7 +17,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           services = {
             postgresql = {
               enable = true;

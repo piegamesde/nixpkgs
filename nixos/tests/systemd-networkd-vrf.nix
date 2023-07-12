@@ -16,7 +16,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [
             1
             2
@@ -95,7 +96,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 1 ];
           networking = {
             useDHCP = false;
@@ -124,7 +126,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 2 ];
           networking = {
             useDHCP = false;
@@ -150,7 +153,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 2 ];
           networking = {
             useDHCP = false;

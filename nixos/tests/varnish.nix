@@ -21,7 +21,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.nix-serve = { enable = true; };
 
           services.varnish = {
@@ -47,7 +48,8 @@ import ./make-test-python.nix (
         {
           lib,
           ...
-        }: {
+        }:
+        {
           nix.settings = {
             require-sigs = false;
             substituters = lib.mkForce [ "http://varnish" ];

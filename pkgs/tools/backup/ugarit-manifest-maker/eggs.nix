@@ -1,7 +1,8 @@
 {
   eggDerivation,
   fetchegg,
-}: rec {
+}:
+rec {
   blob-utils = eggDerivation {
     name = "blob-utils-1.0.3";
 

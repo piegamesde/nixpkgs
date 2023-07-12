@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "systemd-cryptenroll";
     meta = with pkgs.lib.maintainers; { maintainers = [ ymatsiuk ]; };
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = [ pkgs.cryptsetup ];
         virtualisation = {
           emptyDiskImages = [ 512 ];

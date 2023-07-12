@@ -9,7 +9,8 @@ import ../make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         security.pam.u2f = {
           control = "required";
           cue = true;

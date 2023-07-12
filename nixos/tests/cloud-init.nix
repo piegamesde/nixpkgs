@@ -66,7 +66,8 @@ makeTest {
   nodes.machine =
     {
       ...
-    }: {
+    }:
+    {
       virtualisation.qemu.options = [
         "-cdrom"
         "${metadataDrive}/metadata.iso"

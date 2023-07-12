@@ -2,14 +2,16 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "systemd";
 
     nodes.machine =
       {
         lib,
         ...
-      }: {
+      }:
+      {
         imports = [
           common/user-account.nix
           common/x11.nix

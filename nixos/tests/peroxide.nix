@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "peroxide";
     meta.maintainers = with lib.maintainers; [ aidalgol ];
 
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         networking.hostName = "nixos";
         services.peroxide.enable = true;
       }

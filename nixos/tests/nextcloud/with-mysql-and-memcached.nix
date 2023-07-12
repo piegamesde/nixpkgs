@@ -31,7 +31,8 @@ args@{
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           networking.firewall.allowedTCPPorts = [ 80 ];
 
           services.nextcloud = {

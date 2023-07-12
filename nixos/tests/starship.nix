@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "starship";
     meta.maintainers = pkgs.starship.meta.maintainers;
 

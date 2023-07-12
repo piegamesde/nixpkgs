@@ -16,7 +16,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
 
         imports = [ ./common/user-account.nix ];
 

@@ -147,7 +147,8 @@ in
       {
         config,
         ...
-      }: {
+      }:
+      {
         imports = [ standard ];
         environment.systemPackages = [ pkgs.jq ];
         boot.bootspec.extensions = {

@@ -93,7 +93,8 @@ let
       pkgs,
       lib,
       ...
-    }: {
+    }:
+    {
       environment.systemPackages = [ pkgs.bind.host ];
       services.dnsmasq.enable = true;
       services.dnsmasq.settings.server = [

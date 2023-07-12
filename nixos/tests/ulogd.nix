@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "ulogd";
 
     meta = with lib; { maintainers = with maintainers; [ p-h ]; };
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         networking.firewall.enable = false;
         networking.nftables.enable = true;
         networking.nftables.ruleset = ''

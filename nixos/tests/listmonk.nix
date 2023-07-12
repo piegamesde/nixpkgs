@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "listmonk";
     meta.maintainers = with lib.maintainers; [ raitobezarius ];
 
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.mailhog.enable = true;
         services.listmonk = {
           enable = true;

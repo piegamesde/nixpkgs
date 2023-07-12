@@ -16,7 +16,8 @@ import ./make-test-python.nix (
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
 
         services.osrm = {
           enable = true;

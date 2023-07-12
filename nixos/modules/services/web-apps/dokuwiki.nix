@@ -146,7 +146,8 @@ let
   aclOpts =
     {
       ...
-    }: {
+    }:
+    {
       options = {
 
         page = mkOption {
@@ -244,7 +245,8 @@ let
       lib,
       name,
       ...
-    }: {
+    }:
+    {
       imports = [
         (mkRenamed [ "aclUse" ] [
           "settings"

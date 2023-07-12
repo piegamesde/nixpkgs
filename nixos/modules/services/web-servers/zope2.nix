@@ -15,7 +15,8 @@ let
     {
       name,
       ...
-    }: {
+    }:
+    {
       options = {
 
         name = mkOption {

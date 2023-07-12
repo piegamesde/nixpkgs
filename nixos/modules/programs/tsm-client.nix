@@ -53,7 +53,8 @@ let
       name,
       config,
       ...
-    }: {
+    }:
+    {
       options.name = mkOption {
         type = servernameType;
         example = "mainTsmServer";

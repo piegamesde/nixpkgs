@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "nixos-generate-config";
     meta.maintainers = with lib.maintainers; [ basvandijk ];
     nodes.machine = {

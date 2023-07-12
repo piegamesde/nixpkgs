@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "wild-package-inferred-system";
   version = "20200325-git";
 

@@ -27,7 +27,8 @@ let
       jarSha256,
       extraCppBuildInputs ? [ ],
       extraCppCmakeFlags ? [ ],
-    }: rec {
+    }:
+    rec {
       source = fetchFromGitHub {
         owner = "antlr";
         repo = "antlr4";

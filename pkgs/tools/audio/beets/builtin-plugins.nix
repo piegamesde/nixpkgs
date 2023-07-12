@@ -11,7 +11,8 @@
   mp3val,
   python3Packages,
   ...
-}: {
+}:
+{
   absubmit = {
     enable =
       lib.elem stdenv.hostPlatform.system

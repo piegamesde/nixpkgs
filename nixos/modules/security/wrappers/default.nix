@@ -32,7 +32,8 @@ let
       name,
       config,
       ...
-    }: {
+    }:
+    {
       options.source = lib.mkOption {
         type = lib.types.path;
         description =
@@ -113,7 +114,8 @@ let
       group,
       permissions,
       ...
-    }: ''
+    }:
+    ''
       cp ${securityWrapper}/bin/security-wrapper "$wrapperDir/${program}"
       echo -n "${source}" > "$wrapperDir/${program}.real"
 
@@ -142,7 +144,8 @@ let
       setgid,
       permissions,
       ...
-    }: ''
+    }:
+    ''
       cp ${securityWrapper}/bin/security-wrapper "$wrapperDir/${program}"
       echo -n "${source}" > "$wrapperDir/${program}.real"
 

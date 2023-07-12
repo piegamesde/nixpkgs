@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "minecraft";
     meta = with lib.maintainers; { maintainers = [ nequissimus ]; };
 

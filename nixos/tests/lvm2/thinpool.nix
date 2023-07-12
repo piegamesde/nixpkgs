@@ -5,7 +5,8 @@ import ../make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "lvm2-thinpool";
     meta.maintainers = with pkgs.lib.maintainers; [ ajs124 ];
 
@@ -14,7 +15,8 @@ import ../make-test-python.nix (
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         virtualisation.emptyDiskImages = [ 4096 ];
         services.lvm = {
           boot.thin.enable = true;

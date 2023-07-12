@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "_3bmd-ext-code-blocks";
   version = "3bmd-20210411-git";
 

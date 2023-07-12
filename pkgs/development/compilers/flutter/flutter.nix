@@ -67,7 +67,8 @@ let
         mkCommonArtifactLinkCommand =
           {
             artifact,
-          }: ''
+          }:
+          ''
             mkdir -p $out/common
             ${lndir}/bin/lndir -silent ${artifact} $out/common
           ''

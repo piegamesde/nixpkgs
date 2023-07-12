@@ -27,7 +27,8 @@ args@{
       client =
         {
           ...
-        }: {
+        }:
+        {
           services.davfs2.enable = true;
           system.activationScripts.davfs2-secrets = ''
             echo "http://nextcloud/remote.php/webdav/ ${adminuser} ${adminpass}" > /tmp/davfs2-secrets

@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "mate";
 
     meta = { maintainers = lib.teams.mate.members; };
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         imports = [ ./common/user-account.nix ];
 
         services.xserver.enable = true;

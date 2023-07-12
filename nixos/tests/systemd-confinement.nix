@@ -29,7 +29,8 @@ import ./make-test-python.nix {
           testScript,
           config ? { },
           serviceName ? "test${toString num}",
-        }: {
+        }:
+        {
           systemd.sockets.${serviceName} = {
             description = "Socket for Test Service ${toString num}";
             wantedBy = [ "sockets.target" ];

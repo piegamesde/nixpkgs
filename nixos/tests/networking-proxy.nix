@@ -14,7 +14,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "networking-proxy";
     meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
 

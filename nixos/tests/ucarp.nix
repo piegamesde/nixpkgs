@@ -17,7 +17,8 @@ import ./make-test-python.nix (
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
           address = addr;
           prefixLength = 24;

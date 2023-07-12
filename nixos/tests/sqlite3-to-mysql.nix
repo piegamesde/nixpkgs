@@ -17,7 +17,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = with pkgs; [
           sqlite3-to-mysql
           # create one coherent python environment

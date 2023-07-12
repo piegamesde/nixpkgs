@@ -849,7 +849,8 @@ in
   rbczmq =
     {
       ...
-    }: {
+    }:
+    {
       buildInputs = [
         zeromq
         czmq

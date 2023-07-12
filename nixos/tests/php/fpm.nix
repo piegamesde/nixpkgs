@@ -4,7 +4,8 @@ import ../make-test-python.nix (
     lib,
     php,
     ...
-  }: {
+  }:
+  {
     name = "php-${php.version}-fpm-nginx-test";
     meta.maintainers = lib.teams.php.members;
 
@@ -14,7 +15,8 @@ import ../make-test-python.nix (
         lib,
         pkgs,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = [ php ];
 
         services.nginx = {
@@ -60,7 +62,8 @@ import ../make-test-python.nix (
     testScript =
       {
         ...
-      }: ''
+      }:
+      ''
         machine.wait_for_unit("nginx.service")
         machine.wait_for_unit("phpfpm-foobar.service")
 

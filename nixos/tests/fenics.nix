@@ -39,7 +39,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = with pkgs; [
             gcc
             (python3.withPackages (ps: with ps; [ fenics ]))
@@ -51,7 +52,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         start_all()
         fenicsnode.succeed("${fenicsScript}")
       ''

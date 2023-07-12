@@ -106,7 +106,8 @@ let
     {
       config,
       ...
-    }: {
+    }:
+    {
       options = {
         addresses = mkOption {
           type = types.listOf (types.submodule addressSubmodule);
@@ -198,7 +199,8 @@ in
               {
                 config,
                 ...
-              }: {
+              }:
+              {
                 options = {
 
                   extraConfig = mkOption {

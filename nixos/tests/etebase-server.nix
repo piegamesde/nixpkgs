@@ -15,7 +15,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.etebase-server = {
           inherit dataDir;
           enable = true;

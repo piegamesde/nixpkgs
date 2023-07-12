@@ -121,7 +121,8 @@ in
               name,
               config,
               ...
-            }: {
+            }:
+            {
               options = {
 
                 enable = mkOption {

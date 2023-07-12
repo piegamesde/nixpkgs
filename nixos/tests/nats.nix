@@ -10,7 +10,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "nats";
     meta = with pkgs.lib; { maintainers = with maintainers; [ c0deaddict ]; };
 
@@ -20,7 +21,8 @@ import ./make-test-python.nix (
           {
             pkgs,
             ...
-          }: {
+          }:
+          {
             environment.systemPackages = with pkgs; [ natscli ];
           }
         ;
@@ -30,7 +32,8 @@ import ./make-test-python.nix (
           {
             pkgs,
             ...
-          }: {
+          }:
+          {
             networking.firewall.allowedTCPPorts = [ port ];
             services.nats = {
               inherit port;

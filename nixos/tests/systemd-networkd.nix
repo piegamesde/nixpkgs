@@ -9,7 +9,8 @@ let
       peerId,
       nodeId,
       ...
-    }: {
+    }:
+    {
       imports = [ common/user-account.nix ];
       systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "debug";
       networking.useNetworkd = true;
@@ -127,7 +128,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "networkd";
     meta = with pkgs.lib.maintainers; { maintainers = [ ninjatrappeur ]; };
     nodes = {

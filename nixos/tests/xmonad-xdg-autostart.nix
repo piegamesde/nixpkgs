@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "xmonad-xdg-autostart";
     meta.maintainers = with lib.maintainers; [ oxalica ];
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
         pkgs,
         config,
         ...
-      }: {
+      }:
+      {
         imports = [
           ./common/x11.nix
           ./common/user-account.nix

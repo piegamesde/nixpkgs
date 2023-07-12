@@ -38,7 +38,8 @@ import ../make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.pantalaimon-headless.instances.${pantalaimonInstanceName} = {
           homeserver = "https://localhost:8448";
           listenAddress = "0.0.0.0";

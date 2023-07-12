@@ -132,7 +132,8 @@ lib.makeOverridable (
         name,
         icon ? null,
         exec ? null,
-      }: {
+      }:
+      {
         "Name" = name;
         "Icon" = icon;
         "Exec" = exec;

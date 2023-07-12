@@ -8,7 +8,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "nginx";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -23,7 +24,8 @@ import ./make-test-python.nix (
           pkgs,
           lib,
           ...
-        }: {
+        }:
+        {
           services.nginx.enable = true;
           services.nginx.commonHttpConfig = ''
             log_format ceeformat '@cee: {"status":"$status",'

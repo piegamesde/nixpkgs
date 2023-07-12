@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "nginx-sso";
     meta = { maintainers = with pkgs.lib.maintainers; [ delroth ]; };
 

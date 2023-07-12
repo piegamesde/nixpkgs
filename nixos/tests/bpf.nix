@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "bpf";
     meta.maintainers = with pkgs.lib.maintainers; [ martinetd ];
 
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         programs.bcc.enable = true;
         environment.systemPackages = with pkgs; [ bpftrace ];
       }

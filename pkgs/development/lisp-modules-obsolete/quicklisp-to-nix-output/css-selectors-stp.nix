@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "css-selectors-stp";
   version = "css-selectors-20160628-git";
 

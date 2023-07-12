@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "smokeping";
     meta = with pkgs.lib.maintainers; { maintainers = [ cransom ]; };
 
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
       sm =
         {
           ...
-        }: {
+        }:
+        {
           networking.domain = "example.com"; # FQDN: sm.example.com
           services.smokeping = {
             enable = true;

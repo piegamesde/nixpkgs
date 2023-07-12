@@ -1,6 +1,7 @@
 {
   fetchurl,
-}: rec {
+}:
+rec {
   version = "1.5.0";
 
   src = fetchurl {

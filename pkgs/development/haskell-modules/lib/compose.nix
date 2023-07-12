@@ -532,7 +532,8 @@ rec {
       doCheck ? !isCross && (lib.versionOlder "7.4" ghc.version),
       doBenchmark ? false,
       ...
-    }: {
+    }:
+    {
       inherit doCheck doBenchmark;
     }
   ;

@@ -1,7 +1,8 @@
 {
   lib,
   ...
-}: {
+}:
+{
 
   imports = [
     "${builtins.toFile "drv" "{}"}"

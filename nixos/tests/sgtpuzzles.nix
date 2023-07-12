@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "sgtpuzzles";
     meta = with pkgs.lib.maintainers; { maintainers = [ tomfitzhenry ]; };
 
@@ -25,7 +26,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         start_all()
         machine.wait_for_x()
 

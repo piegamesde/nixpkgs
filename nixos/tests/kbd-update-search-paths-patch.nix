@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "kbd-update-search-paths-patch";
 
     nodes.machine =
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
         pkgs,
         options,
         ...
-      }: {
+      }:
+      {
         console = {
           packages = options.console.packages.default ++ [ pkgs.terminus_font ];
         };

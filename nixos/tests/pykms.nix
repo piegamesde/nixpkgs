@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "pykms-test";
     meta.maintainers = with pkgs.lib.maintainers; [ zopieux ];
 
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
         lib,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.pykms.enable = true;
       }
     ;

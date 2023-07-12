@@ -11,7 +11,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "sssd-ldap";
 
     meta = with pkgs.lib.maintainers; { maintainers = [ bbigras ]; };
@@ -20,7 +21,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.openldap = {
           enable = true;
           settings = {

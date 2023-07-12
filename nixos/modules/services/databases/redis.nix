@@ -441,7 +441,8 @@ in
                 config,
                 name,
                 ...
-              }: {
+              }:
+              {
                 options = {
                   enable = mkEnableOption (
                     lib.mdDoc ''
@@ -597,7 +598,8 @@ in
                         submodule (
                           {
                             ...
-                          }: {
+                          }:
+                          {
                             options = {
                               ip = mkOption {
                                 type = str;

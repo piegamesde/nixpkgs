@@ -44,7 +44,8 @@ import ./make-test-python.nix (
       gitlab =
         {
           ...
-        }: {
+        }:
+        {
           imports = [ common/user-account.nix ];
 
           virtualisation.memorySize =

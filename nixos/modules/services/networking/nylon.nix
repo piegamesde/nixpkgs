@@ -34,7 +34,8 @@ let
     {
       name,
       ...
-    }: {
+    }:
+    {
 
       options = {
 

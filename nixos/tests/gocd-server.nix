@@ -16,7 +16,8 @@ import ./make-test-python.nix (
       server =
         {
           ...
-        }: {
+        }:
+        {
           virtualisation.memorySize = 2046;
           services.gocd-server.enable = true;
         }

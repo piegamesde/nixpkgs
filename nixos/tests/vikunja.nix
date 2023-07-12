@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "vikunja";
 
     meta.maintainers = with lib.maintainers; [ leona ];
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
       vikunjaSqlite =
         {
           ...
-        }: {
+        }:
+        {
           services.vikunja = {
             enable = true;
             database = { type = "sqlite"; };
@@ -26,7 +28,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.vikunja = {
             enable = true;
             database = {

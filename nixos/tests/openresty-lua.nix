@@ -21,7 +21,8 @@ import ./make-test-python.nix (
           pkgs,
           lib,
           ...
-        }: {
+        }:
+        {
           services.nginx = {
             enable = true;
             package = pkgs.openresty;
@@ -51,7 +52,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         url = "http://localhost"
 
         webserver.wait_for_unit("nginx")

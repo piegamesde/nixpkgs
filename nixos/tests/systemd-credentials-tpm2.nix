@@ -23,7 +23,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         virtualisation = {
           qemu.options = [
             "-chardev socket,id=chrtpm,path=${tpmSocketPath}"

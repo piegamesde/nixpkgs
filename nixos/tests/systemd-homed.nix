@@ -15,7 +15,8 @@ import ./make-test-python.nix (
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.homed.enable = true;
 
         users.users.test-normal-user = {

@@ -77,7 +77,8 @@ in
               name,
               config,
               ...
-            }: {
+            }:
+            {
               options = {
                 enable =
                   mkDisableOption

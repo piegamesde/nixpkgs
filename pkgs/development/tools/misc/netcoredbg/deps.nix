@@ -3,7 +3,8 @@
 
 {
   fetchNuGet,
-}: [
+}:
+[
   (fetchNuGet {
     pname = "Microsoft.CodeAnalysis.Analyzers";
     version = "1.1.0";

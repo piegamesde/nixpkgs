@@ -10,7 +10,8 @@ let
       {
         config,
         ...
-      }: {
+      }:
+      {
         imports = [ module ];
         result = config.test;
       }

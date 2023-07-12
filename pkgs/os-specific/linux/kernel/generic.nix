@@ -127,7 +127,8 @@ let
         {
           extraStructuredConfig ? { },
           ...
-        }: {
+        }:
+        {
           settings = extraStructuredConfig;
         }
       )

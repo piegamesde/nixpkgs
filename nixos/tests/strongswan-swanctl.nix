@@ -42,7 +42,8 @@ import ./make-test-python.nix (
       alice =
         {
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 0 ];
           networking = {
             dhcpcd.enable = false;

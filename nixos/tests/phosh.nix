@@ -21,7 +21,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           users.users.nixos = {
             isNormalUser = true;
             password = pin;

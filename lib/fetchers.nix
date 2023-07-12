@@ -1,7 +1,8 @@
 # snippets that can be shared by multiple fetchers (pkgs/build-support)
 {
   lib,
-}: {
+}:
+{
 
   proxyImpureEnvVars = [
     # We borrow these environment variables from the caller to allow

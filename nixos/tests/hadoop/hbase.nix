@@ -25,7 +25,8 @@ import ../make-test-python.nix (
         zookeeper =
           {
             ...
-          }: {
+          }:
+          {
             services.zookeeper.enable = true;
             networking.firewall.allowedTCPPorts = [ 2181 ];
           }
@@ -33,7 +34,8 @@ import ../make-test-python.nix (
         namenode =
           {
             ...
-          }: {
+          }:
+          {
             services.hadoop = {
               hdfs = { namenode = defOpts // { formatOnInit = true; }; };
               inherit coreSite;
@@ -43,7 +45,8 @@ import ../make-test-python.nix (
         datanode =
           {
             ...
-          }: {
+          }:
+          {
             virtualisation.diskSize = 8192;
             services.hadoop = {
               hdfs.datanode = defOpts;
@@ -55,7 +58,8 @@ import ../make-test-python.nix (
         master =
           {
             ...
-          }: {
+          }:
+          {
             services.hadoop = {
               inherit coreSite;
               hbase = {
@@ -68,7 +72,8 @@ import ../make-test-python.nix (
         regionserver =
           {
             ...
-          }: {
+          }:
+          {
             services.hadoop = {
               inherit coreSite;
               hbase = {
@@ -81,7 +86,8 @@ import ../make-test-python.nix (
         thrift =
           {
             ...
-          }: {
+          }:
+          {
             services.hadoop = {
               inherit coreSite;
               hbase = {
@@ -94,7 +100,8 @@ import ../make-test-python.nix (
         rest =
           {
             ...
-          }: {
+          }:
+          {
             services.hadoop = {
               inherit coreSite;
               hbase = {

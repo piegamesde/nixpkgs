@@ -109,7 +109,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "cockroachdb";
     meta.maintainers = with pkgs.lib.maintainers; [ thoughtpolice ];
 

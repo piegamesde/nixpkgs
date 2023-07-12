@@ -32,7 +32,8 @@ let
   bindingCfg =
     {
       ...
-    }: {
+    }:
+    {
       options = {
 
         keys = mkOption {

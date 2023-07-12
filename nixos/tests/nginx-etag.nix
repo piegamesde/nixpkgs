@@ -7,7 +7,8 @@ import ./make-test-python.nix {
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         networking.firewall.enable = false;
         services.nginx.enable = true;
         services.nginx.virtualHosts.server = {
@@ -49,7 +50,8 @@ import ./make-test-python.nix {
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages =
           let
             testRunner =

@@ -119,7 +119,8 @@ let
     {
       config,
       ...
-    }: {
+    }:
+    {
       options = commonOptions // {
         listen = mkOption {
           description =
@@ -193,7 +194,8 @@ let
     {
       config,
       ...
-    }: {
+    }:
+    {
       options = commonOptions // {
         connectTo = mkOption {
           description = mdDoc "Server address and port to connect to.";

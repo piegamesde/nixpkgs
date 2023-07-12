@@ -34,7 +34,8 @@ let
     {
       preBuild,
       ...
-    }: {
+    }:
+    {
       version = versions.boringssl.rev;
       src = fetchgit {
         url = "https://boringssl.googlesource.com/boringssl";

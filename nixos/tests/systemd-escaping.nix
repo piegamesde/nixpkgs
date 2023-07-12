@@ -32,7 +32,8 @@ import ./make-test-python.nix (
         lib,
         utils,
         ...
-      }: {
+      }:
+      {
         systemd.services.echo =
           assert !(builtins.tryEval (utils.escapeSystemdExecArgs [ [ ] ]))
             .success;

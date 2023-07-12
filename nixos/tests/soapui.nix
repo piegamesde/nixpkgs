@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "soapui";
     meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [ ./common/x11.nix ];
 
         services.xserver.enable = true;

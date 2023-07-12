@@ -4,7 +4,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "docker";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -18,7 +19,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.docker.enable = true;
           virtualisation.docker.autoPrune.enable = true;
           virtualisation.docker.package = pkgs.docker;

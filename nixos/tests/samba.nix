@@ -14,7 +14,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.fileSystems = {
             "/public" = {
               fsType = "cifs";
@@ -28,7 +29,8 @@ import ./make-test-python.nix (
       server =
         {
           ...
-        }: {
+        }:
+        {
           services.samba.enable = true;
           services.samba.openFirewall = true;
           services.samba.shares.public = {

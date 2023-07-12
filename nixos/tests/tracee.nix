@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "tracee-integration";
     meta.maintainers = pkgs.tracee.meta.maintainers;
 
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           # EventFilters/trace_only_events_from_new_containers and
           # Test_EventFilters/trace_only_events_from_"dockerd"_binary_and_contain_it's_pid
           # require docker/dockerd

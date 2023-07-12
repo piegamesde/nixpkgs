@@ -3,7 +3,8 @@ import ../make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "peering-manager";
 
     meta = with lib.maintainers; { maintainers = [ yuka ]; };
@@ -11,7 +12,8 @@ import ../make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.peering-manager = {
           enable = true;
           secretKeyFile = pkgs.writeText "secret" ''
@@ -24,7 +26,8 @@ import ../make-test-python.nix (
     testScript =
       {
         nodes,
-      }: ''
+      }:
+      ''
         machine.start()
         machine.wait_for_unit("peering-manager.target")
         machine.wait_until_succeeds("journalctl --since -1m --unit peering-manager --grep Listening")

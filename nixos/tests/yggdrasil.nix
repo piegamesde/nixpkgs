@@ -28,7 +28,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "yggdrasil";
     meta = with pkgs.lib.maintainers; { maintainers = [ gazally ]; };
 
@@ -39,7 +40,8 @@ import ./make-test-python.nix (
       alice =
         {
           ...
-        }: {
+        }:
+        {
           networking = {
             interfaces.eth1.ipv4.addresses = [ {
               address = "192.168.1.200";
@@ -74,7 +76,8 @@ import ./make-test-python.nix (
       bob =
         {
           ...
-        }: {
+        }:
+        {
           networking.firewall.allowedTCPPorts = [ 54321 ];
           services.yggdrasil = {
             enable = true;
@@ -109,7 +112,8 @@ import ./make-test-python.nix (
                 config,
                 pkgs,
                 ...
-              }: {
+              }:
+              {
                 networking.interfaces.eth0.ipv6 = {
                   addresses = [ {
                     address = bobPrefix + "::2";
@@ -134,7 +138,8 @@ import ./make-test-python.nix (
       carol =
         {
           ...
-        }: {
+        }:
+        {
           networking.firewall.allowedTCPPorts = [ 43210 ];
           services.yggdrasil = {
             enable = true;

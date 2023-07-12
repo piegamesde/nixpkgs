@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "merecat";
     meta = with pkgs.lib.maintainers; { maintainers = [ fgaz ]; };
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.merecat = {
           enable = true;
           settings = {

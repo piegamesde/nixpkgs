@@ -204,7 +204,8 @@ rec {
             {
               cc,
               ...
-            }: {
+            }:
+            {
               extraPackages = [
                 last.pkgs."${finalLlvmPackages}".libcxxabi
                 last.pkgs."${finalLlvmPackages}".compiler-rt
@@ -222,7 +223,8 @@ rec {
             {
               cc,
               ...
-            }: {
+            }:
+            {
               libcxx = null;
               extraPackages = [ last.pkgs."${finalLlvmPackages}".compiler-rt ];
               extraBuildCommands =

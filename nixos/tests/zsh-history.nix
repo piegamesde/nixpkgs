@@ -2,14 +2,16 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "zsh-history";
     meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
 
     nodes.default =
       {
         ...
-      }: {
+      }:
+      {
         programs = { zsh.enable = true; };
         environment.systemPackages = [ pkgs.zsh-history ];
         programs.zsh.interactiveShellInit = ''

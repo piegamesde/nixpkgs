@@ -13,7 +13,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.samba-wsdd = {
             enable = true;
             interface = "eth1";
@@ -30,7 +31,8 @@ import ./make-test-python.nix (
       server_wsdd =
         {
           ...
-        }: {
+        }:
+        {
           services.samba-wsdd = {
             enable = true;
             interface = "eth1";

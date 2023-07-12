@@ -3,14 +3,16 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "systemd-userdbd";
     nodes.machine =
       {
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.userdbd.enable = true;
 
         users.users.test-user-nss = { isNormalUser = true; };

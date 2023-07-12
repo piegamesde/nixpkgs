@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "kbd-setfont-decompress";
 
     meta.maintainers = with lib.maintainers; [ oxalica ];

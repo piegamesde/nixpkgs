@@ -4,7 +4,8 @@ let
   importTest =
     {
       ...
-    }: {
+    }:
+    {
       services.logrotate.settings.import = { olddir = false; };
     }
   ;
@@ -14,7 +15,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: rec {
+  }:
+  rec {
     name = "logrotate";
     meta = with pkgs.lib.maintainers; { maintainers = [ martinetd ]; };
 
@@ -28,7 +30,8 @@ import ./make-test-python.nix (
       failingMachine =
         {
           ...
-        }: {
+        }:
+        {
           services.logrotate.configFile = pkgs.writeText "logrotate.conf" ''
             # self-written config file
             su notarealuser notagroupeither
@@ -39,7 +42,8 @@ import ./make-test-python.nix (
         {
           config,
           ...
-        }: {
+        }:
+        {
           imports = [ importTest ];
 
           services.logrotate.settings = {

@@ -119,7 +119,8 @@ let
     {
       cudaCapabilities,
       enableForwardCompat ? true,
-    }: rec {
+    }:
+    rec {
       inherit cudaCapabilities enableForwardCompat;
 
       # archNames :: List String

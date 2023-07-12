@@ -24,7 +24,8 @@ import ./make-test-python.nix (
         {
           config,
           ...
-        }: {
+        }:
+        {
           networking.firewall.allowedTCPPorts = [ 80 ];
 
           services.fcgiwrap.enable = true;
@@ -81,7 +82,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [ pkgs.git ];
         }
       ;

@@ -1,7 +1,8 @@
 {
   eggDerivation,
   fetchegg,
-}: rec {
+}:
+rec {
   aes = eggDerivation {
     name = "aes-1.5";
 

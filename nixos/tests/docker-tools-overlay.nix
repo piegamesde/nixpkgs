@@ -4,7 +4,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "docker-tools-overlay";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -17,7 +18,8 @@ import ./make-test-python.nix (
       docker =
         {
           ...
-        }: {
+        }:
+        {
           virtualisation.docker.enable = true;
           virtualisation.docker.storageDriver =
             "overlay"; # defaults to overlay2

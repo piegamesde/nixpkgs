@@ -32,7 +32,8 @@ in
             {
               name,
               ...
-            }: {
+            }:
+            {
               options = {
                 name = mkOption {
                   type = types.str;

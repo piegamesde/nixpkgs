@@ -46,7 +46,8 @@ import ./make-test-python.nix (
       node =
         {
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = with pkgs; [
             mongodb-4_2
             mongodb-4_4

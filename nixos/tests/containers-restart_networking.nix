@@ -21,7 +21,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "containers-restart_networking";
     meta = { maintainers = with lib.maintainers; [ kampfschlaefer ]; };
 

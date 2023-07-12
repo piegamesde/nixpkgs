@@ -1,6 +1,7 @@
 {
   callPackage,
-}: {
+}:
+{
   ace-window =
     callPackage
       (

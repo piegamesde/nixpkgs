@@ -70,7 +70,8 @@ let
     {
       name,
       value,
-    }: {
+    }:
+    {
       inherit name;
       value = value // { file = removeNixpkgs value.file; };
     }
@@ -87,7 +88,8 @@ let
           {
             name,
             value,
-          }: ''
+          }:
+          ''
             <section><title>${name}</title>
               <para xml:id="${sanitizeId name}">
               Located at

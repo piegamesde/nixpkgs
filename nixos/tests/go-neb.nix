@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "go-neb";
     meta = with pkgs.lib.maintainers; {
       maintainers = [

@@ -2,7 +2,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   name = "stargazer";
   meta = with lib.maintainers; { maintainers = [ gaykitty ]; };
 
@@ -11,7 +12,8 @@
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.stargazer = {
           enable = true;
           routes = [ {
@@ -31,7 +33,8 @@
     {
       nodes,
       ...
-    }: ''
+    }:
+    ''
       geminiserver.wait_for_unit("stargazer")
       geminiserver.wait_for_open_port(1965)
 

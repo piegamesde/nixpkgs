@@ -5,7 +5,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "systemd-networkd-dhcpserver";
     meta = with pkgs.lib.maintainers; { maintainers = [ tomfitzhenry ]; };
     nodes = {
@@ -14,7 +15,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 1 ];
           systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL =
             "debug";
@@ -51,7 +53,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 1 ];
           systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL =
             "debug";
@@ -67,7 +70,8 @@ import ./make-test-python.nix (
     testScript =
       {
         ...
-      }: ''
+      }:
+      ''
         start_all()
         router.wait_for_unit("systemd-networkd-wait-online.service")
         client.wait_for_unit("systemd-networkd-wait-online.service")

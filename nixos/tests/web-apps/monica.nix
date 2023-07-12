@@ -22,7 +22,8 @@ import ../make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.monica = {
             enable = true;
             hostname = "localhost";

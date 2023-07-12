@@ -12,7 +12,8 @@ let
   sslOpts =
     {
       ...
-    }: {
+    }:
+    {
 
       options = {
 
@@ -351,7 +352,8 @@ let
   mucOpts =
     {
       ...
-    }: {
+    }:
+    {
       options = {
         domain = mkOption {
           type = types.str;
@@ -502,7 +504,8 @@ let
   uploadHttpOpts =
     {
       ...
-    }: {
+    }:
+    {
       options = {
         domain = mkOption {
           type = types.nullOr types.str;
@@ -549,7 +552,8 @@ let
   vHostOpts =
     {
       ...
-    }: {
+    }:
+    {
 
       options = {
 

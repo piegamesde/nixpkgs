@@ -15,7 +15,8 @@ let
       x64suffix,
       x86suffix,
       homepage,
-    }: {
+    }:
+    {
       inherit homepage;
       version =
         "${major}.${minor}.${patch}.${

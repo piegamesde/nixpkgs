@@ -17,7 +17,8 @@ import ./make-test-python.nix (
         {
           config,
           ...
-        }: {
+        }:
+        {
           imports = [ ./common/user-account.nix ];
           security.polkit.enable = true;
           users.users.${user} = { extraGroups = [ "wheel" ]; };
@@ -32,7 +33,8 @@ import ./make-test-python.nix (
         {
           config,
           ...
-        }: {
+        }:
+        {
           imports = [ ./common/user-account.nix ];
           environment.systemPackages =
             let

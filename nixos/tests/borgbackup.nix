@@ -46,7 +46,8 @@ import ./make-test-python.nix (
       client =
         {
           ...
-        }: {
+        }:
+        {
           services.borgbackup.jobs = {
 
             local = {
@@ -127,7 +128,8 @@ import ./make-test-python.nix (
       server =
         {
           ...
-        }: {
+        }:
+        {
           services.openssh = {
             enable = true;
             settings = {

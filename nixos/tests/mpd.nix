@@ -32,7 +32,8 @@ import ./make-test-python.nix (
         user,
         group,
         musicDirectory,
-      }: {
+      }:
+      {
         description = "Sets up the music file(s) for MPD to use.";
         requires = [ "mpd.service" ];
         after = [ "mpd.service" ];
@@ -51,7 +52,8 @@ import ./make-test-python.nix (
       {
         mpd,
         musicService,
-      }: {
+      }:
+      {
         boot.kernelModules = [ "snd-dummy" ];
         sound.enable = true;
         services.mpd = mpd;

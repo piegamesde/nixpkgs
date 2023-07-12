@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "restart-by-activation-script";
     meta = with pkgs.lib.maintainers; { maintainers = [ das_j ]; };
 
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [ ../modules/profiles/minimal.nix ];
 
         systemd.services.restart-me = {

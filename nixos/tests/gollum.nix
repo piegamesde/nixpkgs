@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "gollum";
 
     nodes = {
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
           pkgs,
           lib,
           ...
-        }: {
+        }:
+        {
           services.gollum.enable = true;
         }
       ;
@@ -21,7 +23,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         webserver.wait_for_unit("gollum")
         webserver.wait_for_open_port(${
           toString nodes.webserver.services.gollum.port

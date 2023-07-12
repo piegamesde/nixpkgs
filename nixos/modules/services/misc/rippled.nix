@@ -106,7 +106,8 @@ let
     {
       name,
       ...
-    }: {
+    }:
+    {
       options = {
         name = mkOption {
           internal = true;

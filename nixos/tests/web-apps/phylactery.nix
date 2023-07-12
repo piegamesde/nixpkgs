@@ -3,13 +3,15 @@ import ../make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "phylactery";
 
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.phylactery = rec {
           enable = true;
           port = 8080;

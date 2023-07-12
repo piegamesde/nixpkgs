@@ -204,7 +204,8 @@ in
       {
         nodes,
         ...
-      }: {
+      }:
+      {
         imports = [ ./common/acme/server ];
         networking.nameservers = lib.mkForce [ (dnsServerIP nodes) ];
       }
@@ -216,7 +217,8 @@ in
       {
         nodes,
         ...
-      }: {
+      }:
+      {
         networking.firewall.allowedTCPPorts = [
           8055
           53
@@ -242,7 +244,8 @@ in
         nodes,
         config,
         ...
-      }: {
+      }:
+      {
         imports = [ commonConfig ];
         networking.nameservers = lib.mkForce [ (dnsServerIP nodes) ];
         networking.firewall.allowedTCPPorts = [
@@ -361,7 +364,8 @@ in
           lego-server.configuration =
             {
               ...
-            }: {
+            }:
+            {
               security.acme.useRoot = true;
               security.acme.certs."lego.example.test" = {
                 listenHTTP = ":80";
@@ -384,7 +388,8 @@ in
                 nodes,
                 config,
                 ...
-              }: {
+              }:
+              {
                 security.acme = {
                   defaults = (dnsConfig nodes);
                   # One manual wildcard cert
@@ -448,7 +453,8 @@ in
       {
         nodes,
         ...
-      }: {
+      }:
+      {
         imports = [ commonConfig ];
         networking.nameservers = lib.mkForce [ (dnsServerIP nodes) ];
 

@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "flannel";
 
     meta = with lib.maintainers; { maintainers = [ offline ]; };
@@ -13,7 +14,8 @@ import ./make-test-python.nix (
           {
             pkgs,
             ...
-          }: {
+          }:
+          {
             services.flannel = {
               enable = true;
               backend = {
@@ -33,7 +35,8 @@ import ./make-test-python.nix (
         etcd =
           {
             ...
-          }: {
+          }:
+          {
             services = {
               etcd = {
                 enable = true;

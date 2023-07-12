@@ -34,7 +34,8 @@ import ../make-test-python.nix (
         {
           config,
           ...
-        }: {
+        }:
+        {
           services.grafana.settings.server = {
             protocol = "socket";
             socket = "/run/grafana/sock";

@@ -16,7 +16,8 @@ in
       {
         config,
         ...
-      }: {
+      }:
+      {
         _file = "generic.nix";
         options.nodes = mkOption {
           type = lazyAttrsOf (submodule { imports = [ config.default ]; });
@@ -38,7 +39,8 @@ in
         {
           config,
           ...
-        }: {
+        }:
+        {
           options.settingsDict = lib.mkOption {
             type = lazyAttrsOf str;
             default = { };
@@ -69,7 +71,8 @@ in
         {
           config,
           ...
-        }: {
+        }:
+        {
           settingsDict.c = config.settingsDict.a;
         }
       ;

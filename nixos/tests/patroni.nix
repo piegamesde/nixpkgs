@@ -123,7 +123,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
 
           networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
             address = "192.168.1.4";
@@ -143,7 +144,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [ pkgs.postgresql_14 ];
 
           networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {

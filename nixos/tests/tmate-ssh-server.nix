@@ -28,7 +28,8 @@ import ./make-test-python.nix (
       server =
         {
           ...
-        }: {
+        }:
+        {
           services.tmate-ssh-server = {
             enable = true;
             port = 2223;
@@ -38,7 +39,8 @@ import ./make-test-python.nix (
       client =
         {
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [ pkgs.tmate ];
           services.openssh.enable = true;
           users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
@@ -47,7 +49,8 @@ import ./make-test-python.nix (
       client2 =
         {
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [ pkgs.openssh ];
         }
       ;

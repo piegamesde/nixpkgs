@@ -10,7 +10,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = [ pkgs.glusterfs ];
         virtualisation.fileSystems = {
           "/gluster" = {
@@ -25,7 +26,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         networking.firewall.enable = false;
         services.glusterfs.enable = true;
 

@@ -28,7 +28,8 @@ import ./make-test-python.nix (
       {
         lib,
         ...
-      }: {
+      }:
+      {
         virtualisation = {
           diskSize = 4096;
 

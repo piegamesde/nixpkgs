@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def";
   version = "hu.dwim.stefil-20200218-darcs";
 

@@ -15,7 +15,8 @@ import ../make-test-python.nix (
     pkgs,
     netbox,
     ...
-  }: {
+  }:
+  {
     name = "netbox";
 
     meta = with lib.maintainers; {
@@ -29,7 +30,8 @@ import ../make-test-python.nix (
       {
         config,
         ...
-      }: {
+      }:
+      {
         services.netbox = {
           enable = true;
           package = netbox;

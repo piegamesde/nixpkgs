@@ -11,14 +11,16 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "btrbk-section-order";
     meta.maintainers = with lib.maintainers; [ oxalica ];
 
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.btrbk.instances.local = {
           onCalendar = null;
           settings = {

@@ -53,7 +53,8 @@ let
     {
       name,
       ...
-    }: {
+    }:
+    {
       options = {
         key = mkOption {
           description = lib.mdDoc "Key of taint.";

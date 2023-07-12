@@ -50,7 +50,8 @@ let
       dest,
       internalIPs,
       forwardPorts,
-    }: ''
+    }:
+    ''
       # We can't match on incoming interface in POSTROUTING, so
       # mark packets coming from the internal interfaces.
       ${concatMapStrings

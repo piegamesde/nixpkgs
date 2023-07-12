@@ -6,7 +6,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "alps";
     meta = with pkgs.lib.maintainers; { maintainers = [ hmenke ]; };
 
@@ -44,7 +45,8 @@ import ./make-test-python.nix (
           nodes,
           config,
           ...
-        }: {
+        }:
+        {
           security.pki.certificateFiles = [ certs.ca.cert ];
           networking.extraHosts = ''
             ${nodes.server.config.networking.primaryIPAddress} ${domain}
@@ -105,7 +107,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         server.start()
         server.wait_for_unit("postfix.service")
         server.wait_for_unit("dovecot2.service")

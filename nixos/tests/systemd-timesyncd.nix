@@ -7,7 +7,8 @@ import ./make-test-python.nix (
       {
         lib,
         ...
-      }: {
+      }:
+      {
         # override the `false` value from the qemu-vm base profile
         services.timesyncd.enable = lib.mkForce true;
       }

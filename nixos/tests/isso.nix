@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "isso";
     meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.isso = {
           enable = true;
           settings = {

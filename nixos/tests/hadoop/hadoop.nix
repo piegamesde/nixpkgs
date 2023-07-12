@@ -5,7 +5,8 @@ import ../make-test-python.nix (
   {
     package,
     ...
-  }: {
+  }:
+  {
     name = "hadoop-combined";
 
     nodes =
@@ -50,7 +51,8 @@ import ../make-test-python.nix (
         zk1 =
           {
             ...
-          }: {
+          }:
+          {
             services.zookeeper.enable = true;
             networking.firewall.allowedTCPPorts = [ 2181 ];
           }
@@ -60,7 +62,8 @@ import ../make-test-python.nix (
         nn1 =
           {
             ...
-          }: {
+          }:
+          {
             services.hadoop = {
               inherit package coreSite hdfsSite;
               hdfs.namenode = {
@@ -74,7 +77,8 @@ import ../make-test-python.nix (
         nn2 =
           {
             ...
-          }: {
+          }:
+          {
             services.hadoop = {
               inherit package coreSite hdfsSite;
               hdfs.namenode = {
@@ -89,7 +93,8 @@ import ../make-test-python.nix (
         jn1 =
           {
             ...
-          }: {
+          }:
+          {
             services.hadoop = {
               inherit package coreSite hdfsSite;
               hdfs.journalnode = {
@@ -102,7 +107,8 @@ import ../make-test-python.nix (
         jn2 =
           {
             ...
-          }: {
+          }:
+          {
             services.hadoop = {
               inherit package coreSite hdfsSite;
               hdfs.journalnode = {
@@ -115,7 +121,8 @@ import ../make-test-python.nix (
         jn3 =
           {
             ...
-          }: {
+          }:
+          {
             services.hadoop = {
               inherit package coreSite hdfsSite;
               hdfs.journalnode = {
@@ -129,7 +136,8 @@ import ../make-test-python.nix (
         dn1 =
           {
             ...
-          }: {
+          }:
+          {
             services.hadoop = {
               inherit package coreSite hdfsSite;
               hdfs.datanode = {
@@ -145,7 +153,8 @@ import ../make-test-python.nix (
           {
             options,
             ...
-          }: {
+          }:
+          {
             services.hadoop = {
               inherit package coreSite hdfsSite yarnSite;
               yarn.resourcemanager = {
@@ -159,7 +168,8 @@ import ../make-test-python.nix (
           {
             options,
             ...
-          }: {
+          }:
+          {
             services.hadoop = {
               inherit package coreSite hdfsSite yarnSite;
               yarn.resourcemanager = {
@@ -173,7 +183,8 @@ import ../make-test-python.nix (
           {
             options,
             ...
-          }: {
+          }:
+          {
             virtualisation.memorySize = 2048;
             services.hadoop = {
               inherit package coreSite hdfsSite yarnSite;
@@ -188,7 +199,8 @@ import ../make-test-python.nix (
           {
             options,
             ...
-          }: {
+          }:
+          {
             services.hadoop = {
               gatewayRole.enable = true;
               inherit package coreSite hdfsSite yarnSite;

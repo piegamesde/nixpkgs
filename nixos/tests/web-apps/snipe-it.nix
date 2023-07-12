@@ -23,7 +23,8 @@ in
     snipeit =
       {
         ...
-      }: {
+      }:
+      {
         services.snipe-it = {
           enable = true;
           appKeyFile = toString (
@@ -62,7 +63,8 @@ in
       checkLoginPage =
         {
           shouldSucceed ? true,
-        }: ''
+        }:
+        ''
           snipeit.${
             if shouldSucceed then "succeed" else "fail"
           }("""curl http://localhost/login | grep '${siteName}'""")

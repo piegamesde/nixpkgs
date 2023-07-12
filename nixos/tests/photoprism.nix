@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "photoprism";
     meta.maintainers = with lib.maintainers; [ stunkymonkey ];
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.photoprism = {
           enable = true;
           port = 8080;

@@ -18,7 +18,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.convos = {
             enable = true;
             listenPort = port;

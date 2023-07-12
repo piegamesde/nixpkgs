@@ -23,7 +23,8 @@ import ./make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = with pkgs; [
           curl
           jq

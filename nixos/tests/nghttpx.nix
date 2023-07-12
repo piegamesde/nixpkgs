@@ -4,7 +4,8 @@ in
 import ./make-test-python.nix (
   {
     ...
-  }: {
+  }:
+  {
     name = "nghttpx";
     nodes = {
       webserver = {

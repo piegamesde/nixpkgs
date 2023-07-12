@@ -27,7 +27,8 @@ import ./make-test-python.nix (
           pkgs,
           nodes,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [
             1
             2
@@ -61,7 +62,8 @@ import ./make-test-python.nix (
           pkgs,
           nodes,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [
             pkgs.miniupnpc
             pkgs.netcat
@@ -90,7 +92,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [ pkgs.miniupnpc ];
           virtualisation.vlans = [ 1 ];
           networking.interfaces.eth1.ipv4.addresses = [ {
@@ -106,7 +109,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         start_all()
 
         # Wait for network and miniupnpd.

@@ -16,7 +16,8 @@ import ./make-test-python.nix (
         {
           config,
           ...
-        }: {
+        }:
+        {
           networking.firewall.allowedTCPPorts = [ port ];
 
           services.pinnwand = {
@@ -30,7 +31,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [
             pkgs.steck
 

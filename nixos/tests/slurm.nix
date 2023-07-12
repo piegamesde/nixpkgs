@@ -68,7 +68,8 @@ import ./make-test-python.nix (
         computeNode =
           {
             ...
-          }: {
+          }:
+          {
             imports = [ slurmconfig ];
             # TODO slurmd port and slurmctld port should be configurations and
             # automatically allowed by the  firewall.
@@ -81,7 +82,8 @@ import ./make-test-python.nix (
         control =
           {
             ...
-          }: {
+          }:
+          {
             imports = [ slurmconfig ];
             services.slurm = { server.enable = true; };
           }
@@ -90,7 +92,8 @@ import ./make-test-python.nix (
         submit =
           {
             ...
-          }: {
+          }:
+          {
             imports = [ slurmconfig ];
             services.slurm = { enableStools = true; };
           }

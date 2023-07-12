@@ -10,7 +10,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     meta.maintainers = with lib.maintainers; [ hexa ];
 
     name = "kea";
@@ -21,7 +22,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 1 ];
 
           networking = {
@@ -99,7 +101,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 1 ];
 
           networking = {
@@ -175,7 +178,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 1 ];
           systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL =
             "debug";
@@ -191,7 +195,8 @@ import ./make-test-python.nix (
     testScript =
       {
         ...
-      }: ''
+      }:
+      ''
         start_all()
         router.wait_for_unit("kea-dhcp4-server.service")
         client.wait_for_unit("systemd-networkd-wait-online.service")

@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "nginx-sandbox";
     meta = with pkgs.lib.maintainers; { maintainers = [ izorkin ]; };
 
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         nixpkgs.overlays = [
           (self: super: {
             nginx-lua = super.nginx.override {

@@ -13,7 +13,8 @@ import ./make-test-python.nix (
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         services.journald.enableHttpGateway = true;
       }
     ;

@@ -20,7 +20,8 @@ in
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.gemstash = { enable = true; };
       }
     ;
@@ -43,7 +44,8 @@ in
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.gemstash = {
           enable = true;
           openFirewall = true;

@@ -73,7 +73,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = [ pkgs.curl ];
         services.v2ray = {
           enable = true;

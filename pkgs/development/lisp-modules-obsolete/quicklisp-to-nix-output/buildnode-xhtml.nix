@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "buildnode-xhtml";
   version = "buildnode-20170403-git";
 

@@ -18,7 +18,8 @@ let
     {
       pkgs,
       ...
-    }: {
+    }:
+    {
       virtualisation.vlans = [ 1 ];
 
       environment.systemPackages = with pkgs; [ jq ];

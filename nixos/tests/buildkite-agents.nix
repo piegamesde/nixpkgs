@@ -12,7 +12,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.buildkite-agents = {
           one = {
             privateSshKeyPath = (import ./ssh-keys.nix pkgs).snakeOilPrivateKey;

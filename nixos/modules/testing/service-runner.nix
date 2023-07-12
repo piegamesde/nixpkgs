@@ -119,7 +119,8 @@ let
       config,
       name,
       ...
-    }: {
+    }:
+    {
       options.runner = mkOption {
         internal = true;
         description = lib.mdDoc ''

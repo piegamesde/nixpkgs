@@ -95,7 +95,8 @@ import ./make-test-python.nix (
           lib,
           nodes,
           ...
-        }: {
+        }:
+        {
           imports = [ server ];
           services.taskserver.pki.manual = {
             ca.cert = snakeOil.cacert;
@@ -121,7 +122,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [
             pkgs.taskwarrior
             pkgs.gnutls

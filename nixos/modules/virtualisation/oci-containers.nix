@@ -16,7 +16,8 @@ let
   containerOptions =
     {
       ...
-    }: {
+    }:
+    {
 
       options = {
 

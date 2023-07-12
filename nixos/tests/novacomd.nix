@@ -2,14 +2,16 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "novacomd";
     meta = with pkgs.lib.maintainers; { maintainers = [ dtzWill ]; };
 
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.novacomd.enable = true;
       }
     ;

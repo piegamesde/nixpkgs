@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "nagios";
     meta = with pkgs.lib.maintainers; { maintainers = [ symphorien ]; };
 
@@ -100,7 +101,8 @@ import ./make-test-python.nix (
     testScript =
       {
         ...
-      }: ''
+      }:
+      ''
         with subtest("ensure sshd starts"):
             machine.wait_for_unit("sshd.service")
 

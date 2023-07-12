@@ -2,7 +2,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   name = "aesmd";
   meta = {
     maintainers = with lib.maintainers; [
@@ -15,7 +16,8 @@
     {
       lib,
       ...
-    }: {
+    }:
+    {
       services.aesmd = {
         enable = true;
         settings = {
@@ -41,7 +43,8 @@
         withQuoteProvider.configuration =
           {
             ...
-          }: {
+          }:
+          {
             services.aesmd = {
               quoteProviderLibrary = pkgs.sgx-azure-dcap-client;
               environment = { AZDCAP_DEBUG_LOG_LEVEL = "INFO"; };

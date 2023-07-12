@@ -16,7 +16,8 @@ import ../make-test-python.nix (
         lib,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.unit = {
           enable = true;
           config = pkgs.lib.strings.toJSON {

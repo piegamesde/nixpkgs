@@ -3,13 +3,15 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "nix-ld";
     nodes.machine =
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         programs.nix-ld.enable = true;
         environment.systemPackages = [
           (pkgs.runCommand "patched-hello" { } ''

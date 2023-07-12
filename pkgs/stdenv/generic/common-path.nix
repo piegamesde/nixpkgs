@@ -1,6 +1,7 @@
 {
   pkgs,
-}: [
+}:
+[
   pkgs.coreutils
   pkgs.findutils
   pkgs.diffutils

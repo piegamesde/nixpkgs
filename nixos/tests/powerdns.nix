@@ -7,13 +7,15 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "powerdns";
 
     nodes.server =
       {
         ...
-      }: {
+      }:
+      {
         services.powerdns.enable = true;
         services.powerdns.extraConfig = ''
           launch=gmysql

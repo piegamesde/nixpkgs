@@ -9,7 +9,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "lxd-nftables";
 
     meta = with pkgs.lib.maintainers; { maintainers = [ patryk27 ]; };
@@ -18,7 +19,8 @@ import ./make-test-python.nix (
       {
         lib,
         ...
-      }: {
+      }:
+      {
         virtualisation = { lxd.enable = true; };
 
         networking = {

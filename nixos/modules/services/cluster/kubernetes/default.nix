@@ -77,7 +77,8 @@ let
       fields ? { },
       action ? "",
       privateKeyOwner ? "kubernetes",
-    }: rec {
+    }:
+    rec {
       inherit name caCert CN hosts fields action;
       cert = secret name;
       key = secret "${name}-key";

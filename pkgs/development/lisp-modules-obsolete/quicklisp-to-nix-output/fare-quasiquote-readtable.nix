@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "fare-quasiquote-readtable";
   version = "fare-quasiquote-20200925-git";
 

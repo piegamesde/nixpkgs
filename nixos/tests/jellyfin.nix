@@ -12,7 +12,8 @@ import ./make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.jellyfin.enable = true;
         environment.systemPackages = with pkgs; [ ffmpeg ];
       }

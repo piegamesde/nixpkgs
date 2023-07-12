@@ -23,7 +23,8 @@ import ./make-test-python.nix (
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         ids.gids.users = usersGid;
 
         users.users = {

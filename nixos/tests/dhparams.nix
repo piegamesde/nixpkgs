@@ -5,7 +5,8 @@ import ./make-test-python.nix {
     {
       pkgs,
       ...
-    }: {
+    }:
+    {
       security.dhparams.enable = true;
       environment.systemPackages = [ pkgs.openssl ];
 
@@ -14,7 +15,8 @@ import ./make-test-python.nix {
           {
             config,
             ...
-          }: {
+          }:
+          {
             security.dhparams.params = {
               # Use low values here because we don't want the test to run for ages.
               foo.bits = 1024;

@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "grocy";
     meta = with pkgs.lib.maintainers; { maintainers = [ ma27 ]; };
 
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.grocy = {
           enable = true;
           hostName = "localhost";

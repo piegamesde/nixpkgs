@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "cfssl";
 
     nodes.machine =
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
         lib,
         pkgs,
         ...
-      }: {
+      }:
+      {
         networking.firewall.allowedTCPPorts = [ config.services.cfssl.port ];
 
         services.cfssl.enable = true;

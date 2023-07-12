@@ -5,7 +5,8 @@ import ../make-test-python.nix {
     {
       pkgs,
       ...
-    }: {
+    }:
+    {
       imports = [ ../../modules/profiles/minimal.nix ];
       environment.systemPackages = [ pkgs.lorri ];
     }

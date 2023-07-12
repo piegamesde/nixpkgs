@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "bordeaux-threads";
   version = "v0.8.8";
 

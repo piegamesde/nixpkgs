@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "plotinus";
     meta = { maintainers = pkgs.plotinus.meta.maintainers; };
 

@@ -1,6 +1,7 @@
 {
   pkgs,
-}: rec {
+}:
+rec {
   inherit (pkgs) eggDerivation fetchegg;
 
   base64 = eggDerivation {

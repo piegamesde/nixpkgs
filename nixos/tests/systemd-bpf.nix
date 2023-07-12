@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "systemd-bpf";
     meta = with lib.maintainers; { maintainers = [ veehaitch ]; };
     nodes = {

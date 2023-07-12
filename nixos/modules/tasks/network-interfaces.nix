@@ -189,7 +189,8 @@ let
   gatewayOpts =
     {
       ...
-    }: {
+    }:
+    {
 
       options = {
 
@@ -219,7 +220,8 @@ let
     {
       name,
       ...
-    }: {
+    }:
+    {
 
       options = {
         name = mkOption {
@@ -499,7 +501,8 @@ let
     {
       name,
       ...
-    }: {
+    }:
+    {
 
       options = {
 

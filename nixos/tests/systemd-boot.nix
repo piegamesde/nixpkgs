@@ -50,7 +50,8 @@ in
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         imports = [ common ];
         specialisation.something.configuration = { };
       }
@@ -79,7 +80,8 @@ in
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         imports = [ common ];
         boot.loader.efi.canTouchEfiVariables = mkForce false;
       }
@@ -133,7 +135,8 @@ in
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         imports = [ common ];
         boot.loader.systemd-boot.memtest86.enable = true;
         nixpkgs.config.allowUnfreePredicate =
@@ -156,7 +159,8 @@ in
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         imports = [ common ];
         boot.loader.systemd-boot.netbootxyz.enable = true;
       }
@@ -177,7 +181,8 @@ in
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         imports = [ common ];
         boot.loader.systemd-boot.memtest86.enable = true;
         boot.loader.systemd-boot.memtest86.entryFilename = "apple.conf";
@@ -202,7 +207,8 @@ in
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         imports = [ common ];
         boot.loader.systemd-boot.extraEntries = {
           "banana.conf" = ''
@@ -227,7 +233,8 @@ in
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         imports = [ common ];
         boot.loader.systemd-boot.extraFiles = {
           "efi/fruits/tomato.efi" = pkgs.netbootxyz-efi;
@@ -252,7 +259,8 @@ in
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           imports = [ common ];
           boot.loader.systemd-boot.extraFiles = {
             "efi/fruits/tomato.efi" = pkgs.netbootxyz-efi;
@@ -264,7 +272,8 @@ in
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           imports = [ common ];
           boot.loader.systemd-boot.netbootxyz.enable = true;
         }

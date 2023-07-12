@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "quasiquote-2_dot_0";
   version = "20150505-git";
 

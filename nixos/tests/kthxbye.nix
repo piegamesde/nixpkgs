@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "kthxbye";
 
     meta = with lib.maintainers; { maintainers = [ nukaduka ]; };
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
     nodes.server =
       {
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = with pkgs; [ prometheus-alertmanager ];
         services.prometheus = {
           enable = true;

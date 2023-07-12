@@ -4,7 +4,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "traefik";
     meta = with pkgs.lib.maintainers; { maintainers = [ joko ]; };
 
@@ -14,7 +15,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [ pkgs.curl ];
         }
       ;
@@ -23,7 +25,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           virtualisation.oci-containers = {
             backend = "docker";
             containers.nginx = {

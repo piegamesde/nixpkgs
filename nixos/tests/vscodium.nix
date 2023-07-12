@@ -4,7 +4,8 @@ let
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [ ./common/wayland-cage.nix ];
 
         services.cage.program = "${pkgs.vscodium}/bin/codium";
@@ -19,7 +20,8 @@ let
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [
           ./common/user-account.nix
           ./common/x11.nix
@@ -41,7 +43,8 @@ let
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         inherit name;
 
         nodes = { "${name}" = machine; };

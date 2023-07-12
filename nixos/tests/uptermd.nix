@@ -9,7 +9,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = [ pkgs.upterm ];
       }
     ;
@@ -23,7 +24,8 @@ import ./make-test-python.nix (
         {
           config,
           ...
-        }: {
+        }:
+        {
           services.uptermd = {
             enable = true;
             openFirewall = true;

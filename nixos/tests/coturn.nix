@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "coturn";
     nodes = {
       default = { services.coturn.enable = true; };

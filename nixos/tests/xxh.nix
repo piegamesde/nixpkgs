@@ -45,7 +45,8 @@ import ./make-test-python.nix (
       server =
         {
           ...
-        }: {
+        }:
+        {
           services.openssh.enable = true;
           users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
         }
@@ -54,7 +55,8 @@ import ./make-test-python.nix (
       client =
         {
           ...
-        }: {
+        }:
+        {
           programs.zsh.enable = true;
           users.users.root.shell = pkgs.zsh;
           environment.systemPackages = with pkgs; [

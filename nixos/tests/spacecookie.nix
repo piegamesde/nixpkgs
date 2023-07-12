@@ -10,7 +10,8 @@ in
 import ./make-test-python.nix (
   {
     ...
-  }: {
+  }:
+  {
     name = "spacecookie";
     nodes = {
       ${gopherHost} = {

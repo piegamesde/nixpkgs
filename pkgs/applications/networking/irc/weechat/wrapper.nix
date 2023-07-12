@@ -17,7 +17,8 @@ let
       configure ? {
           availablePlugins,
           ...
-        }: {
+        }:
+        {
           # Do not include PHP by default, because it bloats the closure, doesn't
           # build on Darwin, and there are no official PHP scripts.
           plugins = builtins.attrValues (

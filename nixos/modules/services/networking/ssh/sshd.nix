@@ -517,7 +517,8 @@ in
           {
             name,
             ...
-          }: {
+          }:
+          {
             freeformType = settingsFormat.type;
             options = {
               LogLevel = mkOption {
@@ -839,7 +840,8 @@ in
             port,
             addr,
             ...
-          }: ''
+          }:
+          ''
             ListenAddress ${addr}${
               optionalString (port != null) (":" + toString port)
             }
@@ -879,7 +881,8 @@ in
         {
           addr,
           ...
-        }: {
+        }:
+        {
           assertion = addr != null;
           message = "addr must be specified in each listenAddresses entry";
         }

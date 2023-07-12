@@ -49,7 +49,8 @@ import ../make-test-python.nix {
         pkgs,
         config,
         ...
-      }: {
+      }:
+      {
         security.pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
         console.keyMap = "fr-bepo";
         networking.extraHosts = ''
@@ -69,7 +70,8 @@ import ../make-test-python.nix {
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         nixpkgs.overlays = [
           (self: super: {
             prosody = super.prosody.override {
@@ -120,7 +122,8 @@ import ../make-test-python.nix {
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         networking.firewall.enable = false;
         services.mysql = {
           enable = true;
@@ -140,7 +143,8 @@ import ../make-test-python.nix {
     {
       nodes,
       ...
-    }: ''
+    }:
+    ''
       # Check with mysql storage
       mysql.wait_for_unit("mysql.service")
       server.wait_for_unit("prosody.service")

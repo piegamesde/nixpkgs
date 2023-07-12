@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "breitbandmessung";
     meta.maintainers = with lib.maintainers; [ b4dm4n ];
 
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [
           ./common/user-account.nix
           ./common/x11.nix

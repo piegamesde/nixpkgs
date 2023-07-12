@@ -5,7 +5,8 @@ import ../make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "krb5-with-example-config";
     meta = with pkgs.lib.maintainers; { maintainers = [ eqyiel ]; };
 
@@ -13,7 +14,8 @@ import ../make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         krb5 = {
           enable = true;
           kerberos = pkgs.krb5;

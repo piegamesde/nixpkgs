@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "ft2-clone";
     meta = with pkgs.lib.maintainers; { maintainers = [ fgaz ]; };
 
@@ -11,7 +12,8 @@ import ./make-test-python.nix (
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [ ./common/x11.nix ];
 
         services.xserver.enable = true;

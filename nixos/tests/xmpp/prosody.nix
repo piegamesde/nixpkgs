@@ -49,7 +49,8 @@ import ../make-test-python.nix {
         pkgs,
         config,
         ...
-      }: {
+      }:
+      {
         security.pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
         console.keyMap = "fr-bepo";
         networking.extraHosts = ''
@@ -69,7 +70,8 @@ import ../make-test-python.nix {
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         security.pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
         console.keyMap = "fr-bepo";
         networking.extraHosts = ''
@@ -103,7 +105,8 @@ import ../make-test-python.nix {
     {
       nodes,
       ...
-    }: ''
+    }:
+    ''
       # Check with sqlite storage
       start_all()
       server.wait_for_unit("prosody.service")

@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "glsl-docs";
   version = "glsl-spec-release-quicklisp-f04476f7-git";
 

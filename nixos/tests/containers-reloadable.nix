@@ -23,7 +23,8 @@ import ./make-test-python.nix (
       client =
         {
           ...
-        }: {
+        }:
+        {
           imports = [ client_base ];
         }
       ;
@@ -32,7 +33,8 @@ import ./make-test-python.nix (
         {
           lib,
           ...
-        }: {
+        }:
+        {
           imports = [ client_base ];
 
           containers.test1.config = {
@@ -46,7 +48,8 @@ import ./make-test-python.nix (
         {
           lib,
           ...
-        }: {
+        }:
+        {
           imports = [ client_base ];
 
           containers.test1.config = {

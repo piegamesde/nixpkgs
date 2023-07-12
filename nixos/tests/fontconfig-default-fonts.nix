@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "fontconfig-default-fonts";
 
     meta.maintainers = with lib.maintainers; [ jtojnar ];
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         fonts.enableDefaultFonts = true; # Background fonts
         fonts.fonts = with pkgs; [
           noto-fonts-emoji

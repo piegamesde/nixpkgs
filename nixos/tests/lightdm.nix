@@ -2,14 +2,16 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "lightdm";
     meta = with pkgs.lib.maintainers; { maintainers = [ aszlig ]; };
 
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         imports = [ ./common/user-account.nix ];
         services.xserver.enable = true;
         services.xserver.displayManager.lightdm.enable = true;

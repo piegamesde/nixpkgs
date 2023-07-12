@@ -48,7 +48,8 @@ import ./make-test-python.nix (
         cephConfig,
         networkConfig,
         ...
-      }: {
+      }:
+      {
         virtualisation = {
           emptyDiskImages = [
             20480
@@ -108,7 +109,8 @@ import ./make-test-python.nix (
     testscript =
       {
         ...
-      }: ''
+      }:
+      ''
         start_all()
 
         monA.wait_for_unit("network.target")

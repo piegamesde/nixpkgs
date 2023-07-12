@@ -3,7 +3,8 @@
 
 {
   fetchNuGet,
-}: [
+}:
+[
   (fetchNuGet {
     pname = "Microsoft.AspNetCore.JsonPatch";
     version = "7.0.0";

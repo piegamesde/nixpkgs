@@ -9,7 +9,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         imports = [ ./common/x11.nix ];
         environment.systemPackages = [ pkgs.mumble ];
       }
@@ -34,7 +35,8 @@ import ./make-test-python.nix (
         {
           config,
           ...
-        }: {
+        }:
+        {
           services.murmur.enable = true;
           services.murmur.registerName = "NixOS tests";
           services.murmur.password = "$MURMURD_PASSWORD";

@@ -62,7 +62,8 @@ let
       name,
       config,
       ...
-    }: {
+    }:
+    {
 
       options = {
 
@@ -399,7 +400,8 @@ let
       name,
       config,
       ...
-    }: {
+    }:
+    {
 
       options = {
 
@@ -703,7 +705,8 @@ in
           {
             name,
             ...
-          }: {
+          }:
+          {
             options.uid = mkOption {
               visible = false;
               type = types.int;
@@ -741,7 +744,8 @@ in
           {
             name,
             ...
-          }: {
+          }:
+          {
             options.gid = mkOption {
               visible = false;
               type = types.int;
@@ -865,7 +869,8 @@ in
               packages,
               name,
               ...
-            }: {
+            }:
+            {
               name = "profiles/per-user/${name}";
               value.source = pkgs.buildEnv {
                 name = "user-environment";

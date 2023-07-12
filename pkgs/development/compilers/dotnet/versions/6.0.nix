@@ -97,7 +97,8 @@
     packages =
       {
         fetchNuGet,
-      }: [
+      }:
+      [
         (fetchNuGet {
           pname = "Microsoft.AspNetCore.App.Runtime.linux-arm";
           version = "6.0.16";

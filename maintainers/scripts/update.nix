@@ -61,7 +61,8 @@ let
             {
               package,
               attrPath,
-            }: {
+            }:
+            {
               inherit (package) updateScript;
               # Some updaters use the same `updateScript` value for all packages.
               # Also compare `meta.description`.
@@ -235,7 +236,8 @@ let
     {
       package,
       attrPath,
-    }: {
+    }:
+    {
       name = package.name;
       pname = lib.getName package;
       oldVersion = lib.getVersion package;

@@ -110,7 +110,8 @@ import ./make-test-python.nix (
       node1 =
         {
           ...
-        }: {
+        }:
+        {
           require = [ nodeConfig ];
           services.etcd = {
             initialCluster = [
@@ -125,7 +126,8 @@ import ./make-test-python.nix (
       node2 =
         {
           ...
-        }: {
+        }:
+        {
           require = [ nodeConfig ];
           services.etcd = {
             initialCluster = [
@@ -140,7 +142,8 @@ import ./make-test-python.nix (
       node3 =
         {
           ...
-        }: {
+        }:
+        {
           require = [ nodeConfig ];
           services.etcd = {
             initialCluster = [

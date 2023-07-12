@@ -40,7 +40,8 @@ import ./make-test-python.nix (
         pkgs,
         lib,
         ...
-      }: {
+      }:
+      {
         boot.extraSystemdUnitPaths = [ "/etc/systemd-rw/system" ];
 
         users.users.limited = {

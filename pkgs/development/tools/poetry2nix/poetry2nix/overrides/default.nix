@@ -1364,7 +1364,8 @@ lib.composeManyExtensions [
         {
           nativeBuildInputs ? [ ],
           ...
-        }: {
+        }:
+        {
           nativeBuildInputs = nativeBuildInputs ++ [ pkg-config ];
           propagatedBuildInputs = [ pkgs.libvirt ];
         }

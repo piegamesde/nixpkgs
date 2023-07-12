@@ -7,7 +7,8 @@
 
 {
   lib,
-}: rec {
+}:
+rec {
   pc = {
     linux-kernel = {
       name = "pc";

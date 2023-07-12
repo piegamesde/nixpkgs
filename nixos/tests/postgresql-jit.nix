@@ -20,7 +20,8 @@ let
           pkgs,
           lib,
           ...
-        }: {
+        }:
+        {
           services.postgresql = {
             enable = true;
             enableJIT = true;

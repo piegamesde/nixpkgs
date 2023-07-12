@@ -1,7 +1,8 @@
 {
   config,
   ...
-}: {
+}:
+{
   imports = [ ../sd-card/sd-image.nix ];
   config = {
     warnings = [ ''

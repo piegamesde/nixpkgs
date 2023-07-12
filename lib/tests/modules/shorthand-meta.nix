@@ -11,7 +11,8 @@ in
       {
         config,
         ...
-      }: {
+      }:
+      {
         options = {
           meta.foo = mkOption { type = types.listOf types.str; };
           result = mkOption {

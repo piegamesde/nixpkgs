@@ -2,14 +2,16 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "ghostunnel";
     nodes = {
       backend =
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.nginx.enable = true;
           services.nginx.virtualHosts."backend".root =
             pkgs.runCommand "webroot" { }
@@ -24,7 +26,8 @@ import ./make-test-python.nix (
       service =
         {
           ...
-        }: {
+        }:
+        {
           services.ghostunnel.enable = true;
           services.ghostunnel.servers."plain-old" = {
             listen = "0.0.0.0:443";
@@ -53,7 +56,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           environment.systemPackages = [ pkgs.curl ];
         }
       ;

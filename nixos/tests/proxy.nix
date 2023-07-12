@@ -9,7 +9,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.httpd = {
           enable = true;
           adminAddr = "foo@example.org";
@@ -29,7 +30,8 @@ import ./make-test-python.nix (
         {
           nodes,
           ...
-        }: {
+        }:
+        {
           services.httpd = {
             enable = true;
             adminAddr = "bar@example.org";

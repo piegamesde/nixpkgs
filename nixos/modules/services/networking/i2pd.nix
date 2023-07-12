@@ -812,7 +812,8 @@ in
               {
                 name,
                 ...
-              }: {
+              }:
+              {
                 options = {
                   destinationPort = mkOption {
                     type = with types; nullOr int;
@@ -840,7 +841,8 @@ in
               {
                 name,
                 ...
-              }: {
+              }:
+              {
                 options = {
                   inPort = mkOption {
                     type = types.int;

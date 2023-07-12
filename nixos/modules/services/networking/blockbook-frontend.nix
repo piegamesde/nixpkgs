@@ -17,7 +17,8 @@ let
       lib,
       name,
       ...
-    }: {
+    }:
+    {
 
       options = {
 

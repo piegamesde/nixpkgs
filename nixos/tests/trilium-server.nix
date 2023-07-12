@@ -1,7 +1,8 @@
 import ./make-test-python.nix (
   {
     ...
-  }: {
+  }:
+  {
     name = "trilium-server";
     nodes = {
       default = { services.trilium-server.enable = true; };

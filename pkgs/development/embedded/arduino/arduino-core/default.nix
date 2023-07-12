@@ -267,7 +267,8 @@ stdenv.mkDerivation rec {
         {
           jar,
           file,
-        }: ''
+        }:
+        ''
           jar xvf $out/${jar} ${file}
           patchelf --set-rpath $rpath ${file}
           jar uvf $out/${jar} ${file}

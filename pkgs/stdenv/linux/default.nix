@@ -271,7 +271,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
 [
 
   (
-    { }: {
+    { }:
+    {
       __raw = true;
 
       gcc-unwrapped = null;

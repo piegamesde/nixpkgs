@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "dbd-sqlite3";
   version = "cl-dbi-20211020-git";
 

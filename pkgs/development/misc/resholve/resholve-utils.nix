@@ -181,7 +181,8 @@ rec {
     {
       invokable,
       prep ? ''cd "$out"'',
-    }: ''
+    }:
+    ''
       (
         ${prep}
         PS4=$'\x1f'"\033[33m[resholve context]\033[0m "

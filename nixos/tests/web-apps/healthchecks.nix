@@ -3,7 +3,8 @@ import ../make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "healthchecks";
 
     meta = with lib.maintainers; { maintainers = [ phaer ]; };
@@ -11,7 +12,8 @@ import ../make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.healthchecks = {
           enable = true;
           settings = {

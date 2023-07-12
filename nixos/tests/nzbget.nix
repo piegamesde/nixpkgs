@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "nzbget";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -15,7 +16,8 @@ import ./make-test-python.nix (
       server =
         {
           ...
-        }: {
+        }:
+        {
           services.nzbget.enable = true;
 
           # provide some test settings
@@ -37,7 +39,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         start_all()
 
         server.wait_for_unit("nzbget.service")

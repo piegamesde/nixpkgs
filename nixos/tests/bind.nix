@@ -6,7 +6,8 @@ import ./make-test-python.nix {
       pkgs,
       lib,
       ...
-    }: {
+    }:
+    {
       services.bind.enable = true;
       services.bind.extraOptions = "empty-zones-enable no;";
       services.bind.zones = lib.singleton {

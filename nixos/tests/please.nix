@@ -2,14 +2,16 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "please";
     meta.maintainers = with lib.maintainers; [ azahi ];
 
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         users.users = with lib;
           mkMerge [
             (listToAttrs (

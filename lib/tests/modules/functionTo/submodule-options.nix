@@ -14,7 +14,8 @@ in
     (
       {
         ...
-      }: {
+      }:
+      {
         options = {
           fun = lib.mkOption {
             type = types.functionTo (
@@ -29,7 +30,8 @@ in
     (
       {
         ...
-      }: {
+      }:
+      {
         options = {
           fun = lib.mkOption {
             type = types.functionTo (

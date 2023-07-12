@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "environment";
     meta = with pkgs.lib.maintainers; { maintainers = [ nequissimus ]; };
 
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         boot.kernelPackages = pkgs.linuxPackages;
         environment.etc.plainFile.text = ''
           Hello World

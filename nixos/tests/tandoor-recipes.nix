@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     lib,
     ...
-  }: {
+  }:
+  {
     name = "tandoor-recipes";
     meta.maintainers = with lib.maintainers; [ ambroisie ];
 
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         # Setup using Postgres
         services.tandoor-recipes = {
           enable = true;

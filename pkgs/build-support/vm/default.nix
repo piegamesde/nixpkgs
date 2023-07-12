@@ -302,7 +302,8 @@ rec {
       fullName,
       # Where to write the image files, defaulting to $out
       destination ? "$out",
-    }: ''
+    }:
+    ''
       mkdir -p ${destination}
       diskImage=${destination}/disk-image.qcow2
       ${qemu}/bin/qemu-img create -f qcow2 $diskImage "${toString size}M"
@@ -356,7 +357,8 @@ rec {
         args,
         builder,
         ...
-      }: {
+      }:
+      {
         requiredSystemFeatures = [ "kvm" ];
         builder = "${bash}/bin/sh";
         args = [

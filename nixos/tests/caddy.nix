@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "caddy";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -17,7 +18,8 @@ import ./make-test-python.nix (
           pkgs,
           lib,
           ...
-        }: {
+        }:
+        {
           services.caddy.enable = true;
           services.caddy.extraConfig = ''
             http://localhost {

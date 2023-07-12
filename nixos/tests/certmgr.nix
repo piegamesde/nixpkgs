@@ -11,7 +11,8 @@ let
       host,
       service ? null,
       action,
-    }: {
+    }:
+    {
       inherit action;
       authority = {
         file = {
@@ -70,7 +71,8 @@ let
             lib,
             pkgs,
             ...
-          }: {
+          }:
+          {
             networking.firewall.allowedTCPPorts = with config.services; [
               cfssl.port
               certmgr.metricsPort

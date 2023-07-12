@@ -19,7 +19,8 @@ import ./make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.udisks2.enable = true;
         imports = [ ./common/user-account.nix ];
 

@@ -18,7 +18,8 @@ import ./make-test-python.nix (
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.calibre-web = {
             enable = true;
             listen.port = port;

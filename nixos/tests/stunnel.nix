@@ -24,7 +24,8 @@ let
       config,
       pkgs,
       ...
-    }: {
+    }:
+    {
       system.activationScripts.create-test-cert = stringAfter [ "users" ] ''
         ${pkgs.openssl}/bin/openssl req -batch -x509 -newkey rsa -nodes -out /test-cert.pem -keyout /test-key.pem -subj /CN=${config.networking.hostName}
         ( umask 077; cat /test-key.pem /test-cert.pem > /test-key-and-cert.pem )
@@ -36,7 +37,8 @@ let
     {
       pkgs,
       ...
-    }: {
+    }:
+    {
       networking.firewall.allowedTCPPorts = [ 443 ];
       services.stunnel.servers.https = {
         accept = "443";

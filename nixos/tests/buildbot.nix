@@ -15,7 +15,8 @@ import ./make-test-python.nix
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.buildbot-master = {
             enable = true;
 
@@ -44,7 +45,8 @@ import ./make-test-python.nix
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.buildbot-worker = {
             enable = true;
             masterUrl = "bbmaster:9989";
@@ -60,7 +62,8 @@ import ./make-test-python.nix
         {
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.openssh.enable = true;
           networking.firewall.allowedTCPPorts = [
             22

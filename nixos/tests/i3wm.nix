@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "i3wm";
     meta = with pkgs.lib.maintainers; { maintainers = [ aszlig ]; };
 
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
       {
         lib,
         ...
-      }: {
+      }:
+      {
         imports = [
           ./common/x11.nix
           ./common/user-account.nix
@@ -24,7 +26,8 @@ import ./make-test-python.nix (
     testScript =
       {
         ...
-      }: ''
+      }:
+      ''
         with subtest("ensure x starts"):
             machine.wait_for_x()
             machine.wait_for_file("/home/alice/.Xauthority")

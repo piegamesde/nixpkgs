@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "wasabibackend";
     meta = with pkgs.lib.maintainers; { maintainers = [ mmahut ]; };
 
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
       machine =
         {
           ...
-        }: {
+        }:
+        {
           services.wasabibackend = {
             enable = true;
             network = "testnet";

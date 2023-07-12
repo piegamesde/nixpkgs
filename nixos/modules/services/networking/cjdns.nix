@@ -16,7 +16,8 @@ let
   connectToSubmodule =
     {
       ...
-    }: {
+    }:
+    {
       options = {
         password = mkOption {
           type = types.str;

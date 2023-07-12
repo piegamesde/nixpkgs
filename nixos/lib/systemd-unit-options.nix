@@ -315,7 +315,8 @@ rec {
       name,
       config,
       ...
-    }: {
+    }:
+    {
       options = {
 
         environment = mkOption {

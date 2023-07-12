@@ -4,7 +4,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "etcd";
 
     meta = with pkgs.lib.maintainers; { maintainers = [ offline ]; };
@@ -13,7 +14,8 @@ import ./make-test-python.nix (
       node =
         {
           ...
-        }: {
+        }:
+        {
           services.etcd.enable = true;
         }
       ;

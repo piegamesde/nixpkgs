@@ -181,7 +181,8 @@ in
             submodule (
               {
                 ...
-              }: {
+              }:
+              {
                 options = {
                   id = mkOption {
                     type = types.int;

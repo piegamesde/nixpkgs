@@ -14,7 +14,8 @@ import ./make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.languagetool.enable = true;
         services.languagetool.port = port;
       }

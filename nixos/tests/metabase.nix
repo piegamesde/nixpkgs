@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "metabase";
     meta = with pkgs.lib.maintainers; { maintainers = [ mmahut ]; };
 
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
       machine =
         {
           ...
-        }: {
+        }:
+        {
           services.metabase.enable = true;
         }
       ;

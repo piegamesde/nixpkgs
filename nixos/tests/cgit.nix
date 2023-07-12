@@ -17,14 +17,16 @@ import ./make-test-python.nix (
       server =
         {
           ...
-        }: {
+        }:
+        {
           services.cgit."localhost" = {
             enable = true;
             package = pkgs.cgit.overrideAttrs (
               {
                 postInstall,
                 ...
-              }: {
+              }:
+              {
                 postInstall = ''
                   ${postInstall}
                   cp ${robotsTxt} "$out/cgit/robots.txt"
@@ -49,7 +51,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         start_all()
 
         server.wait_for_unit("nginx.service")

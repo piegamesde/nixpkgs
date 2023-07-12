@@ -14,7 +14,8 @@ import ./make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         imports = [ ../modules/profiles/minimal.nix ];
 
         networking.firewall.allowedTCPPorts = [ 9000 ];

@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "trickster";
     meta = with pkgs.lib; { maintainers = with maintainers; [ _1000101 ]; };
 
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
       prometheus =
         {
           ...
-        }: {
+        }:
+        {
           services.prometheus.enable = true;
           networking.firewall.allowedTCPPorts = [ 9090 ];
         }
@@ -18,7 +20,8 @@ import ./make-test-python.nix (
       trickster =
         {
           ...
-        }: {
+        }:
+        {
           services.trickster.enable = true;
         }
       ;

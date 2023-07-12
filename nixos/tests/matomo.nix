@@ -18,7 +18,8 @@ let
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.matomo = {
             package = package;
             enable = true;

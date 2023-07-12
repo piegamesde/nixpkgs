@@ -11,7 +11,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: {
+      }:
+      {
         virtualisation.emptyDiskImages = [ 1 ];
         networking.firewall.allowedTCPPorts = [ drbdPort ];
 
@@ -68,7 +69,8 @@ import ./make-test-python.nix (
     testScript =
       {
         nodes,
-      }: ''
+      }:
+      ''
         drbd1.start()
         drbd2.start()
 

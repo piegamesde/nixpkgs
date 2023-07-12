@@ -36,7 +36,8 @@ import ./make-test-python.nix {
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         virtualisation.diskSize = 2 * 1024;
         virtualisation.memorySize = 2048;
         environment.systemPackages = [ pkgs.jq ];
@@ -140,7 +141,8 @@ import ./make-test-python.nix {
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = [ pkgs.jq ];
         services.thanos.query = {
           enable = true;
@@ -154,7 +156,8 @@ import ./make-test-python.nix {
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         virtualisation.diskSize = 2 * 1024;
         virtualisation.memorySize = 2048;
         environment.systemPackages = with pkgs; [
@@ -186,7 +189,8 @@ import ./make-test-python.nix {
       {
         pkgs,
         ...
-      }: {
+      }:
+      {
         # Minio requires at least 1GiB of free disk space to run.
         virtualisation = { diskSize = 2 * 1024; };
         networking.firewall.allowedTCPPorts = [ minioPort ];
@@ -210,7 +214,8 @@ import ./make-test-python.nix {
     {
       nodes,
       ...
-    }: ''
+    }:
+    ''
       import json
 
       # Before starting the other machines we first make sure that our S3 service is online

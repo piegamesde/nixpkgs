@@ -27,7 +27,8 @@ let
       libname,
       version,
       files ? "*",
-    }: ''
+    }:
+    ''
       mkdir -p "$out/lib/haxe/${withCommas libname}/${withCommas version}"
       echo -n "${version}" > $out/lib/haxe/${withCommas libname}/.current
       cp -dpR ${files} "$out/lib/haxe/${withCommas libname}/${

@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "clsql-sqlite3";
   version = "clsql-20210228-git";
 

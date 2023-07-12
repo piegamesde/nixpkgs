@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "num-utils";
   version = "numerical-utilities-20210411-git";
 

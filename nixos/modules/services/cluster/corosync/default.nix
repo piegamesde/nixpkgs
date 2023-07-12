@@ -81,7 +81,8 @@ in
                 nodeid,
                 name,
                 ring_addrs,
-              }: ''
+              }:
+              ''
                 node {
                   nodeid: ${toString nodeid}
                   name: ${name}

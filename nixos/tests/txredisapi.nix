@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "txredisapi";
     meta = with pkgs.lib.maintainers; { maintainers = [ dandellion ]; };
 

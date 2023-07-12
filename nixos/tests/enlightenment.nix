@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "enlightenment";
 
     meta = with pkgs.lib.maintainers; { maintainers = [ romildo ]; };
@@ -10,7 +11,8 @@ import ./make-test-python.nix (
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         imports = [ ./common/user-account.nix ];
         services.xserver.enable = true;
         services.xserver.desktopManager.enlightenment.enable = true;

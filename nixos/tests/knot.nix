@@ -53,7 +53,8 @@ import ./make-test-python.nix (
         {
           lib,
           ...
-        }: {
+        }:
+        {
           imports = [ common ];
 
           # trigger sched_setaffinity syscall
@@ -117,7 +118,8 @@ import ./make-test-python.nix (
         {
           lib,
           ...
-        }: {
+        }:
+        {
           imports = [ common ];
           networking.interfaces.eth1 = {
             ipv4.addresses = lib.mkForce [ {
@@ -174,7 +176,8 @@ import ./make-test-python.nix (
           lib,
           nodes,
           ...
-        }: {
+        }:
+        {
           imports = [ common ];
           networking.interfaces.eth1 = {
             ipv4.addresses = [ {

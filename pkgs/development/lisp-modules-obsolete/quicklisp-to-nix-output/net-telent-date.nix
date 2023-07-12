@@ -2,7 +2,8 @@
 args@{
   fetchurl,
   ...
-}: rec {
+}:
+rec {
   baseName = "net-telent-date";
   version = "net-telent-date_0.42";
 

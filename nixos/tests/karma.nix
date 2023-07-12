@@ -3,13 +3,15 @@ import ./make-test-python.nix (
     lib,
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "karma";
     nodes = {
       server =
         {
           ...
-        }: {
+        }:
+        {
           services.prometheus.alertmanager = {
             enable = true;
             logLevel = "debug";

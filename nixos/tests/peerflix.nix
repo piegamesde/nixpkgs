@@ -4,7 +4,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "peerflix";
     meta = with pkgs.lib.maintainers; { maintainers = [ offline ]; };
 
@@ -12,7 +13,8 @@ import ./make-test-python.nix (
       peerflix =
         {
           ...
-        }: {
+        }:
+        {
           services.peerflix.enable = true;
         }
       ;

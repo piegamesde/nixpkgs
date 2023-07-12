@@ -3,7 +3,8 @@
 
 {
   fetchFromGitHub,
-}: rec {
+}:
+rec {
   versions = {
     opentoonz = "1.5.0";
     libtiff = "4.0.3"; # The version in thirdparty/tiff-*

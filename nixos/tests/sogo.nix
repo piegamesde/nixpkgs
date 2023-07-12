@@ -2,7 +2,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "sogo";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -17,7 +18,8 @@ import ./make-test-python.nix (
           config,
           pkgs,
           ...
-        }: {
+        }:
+        {
           services.nginx.enable = true;
 
           services.mysql = {

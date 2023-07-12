@@ -236,7 +236,8 @@ in
           {
             name,
             ...
-          }: {
+          }:
+          {
             options = {
               source = mkOption {
                 type = types.str;

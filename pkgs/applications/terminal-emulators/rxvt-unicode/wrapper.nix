@@ -10,7 +10,8 @@
   configure ? {
       availablePlugins,
       ...
-    }: {
+    }:
+    {
       plugins = builtins.attrValues availablePlugins;
       extraDeps = [ ];
       perlDeps = [ ];

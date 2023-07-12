@@ -29,7 +29,8 @@ import ./make-test-python.nix (
         lib,
         pkgs,
         ...
-      }: {
+      }:
+      {
         config = {
           environment.systemPackages = [ pkgs.knot-dns ];
 
@@ -65,7 +66,8 @@ import ./make-test-python.nix (
           pkgs,
           config,
           ...
-        }: {
+        }:
+        {
           imports = [ common ];
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
             address = "192.168.0.1";
@@ -111,7 +113,8 @@ import ./make-test-python.nix (
           lib,
           nodes,
           ...
-        }: {
+        }:
+        {
           imports = [ common ];
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
             address = "192.168.0.2";
@@ -180,7 +183,8 @@ import ./make-test-python.nix (
           nodes,
           config,
           ...
-        }: {
+        }:
+        {
           imports = [ common ];
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
             address = "192.168.0.3";
@@ -270,7 +274,8 @@ import ./make-test-python.nix (
           lib,
           nodes,
           ...
-        }: {
+        }:
+        {
           imports = [ common ];
           networking.nameservers = [
             (
@@ -298,7 +303,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         import typing
 
         zone = "example.local."

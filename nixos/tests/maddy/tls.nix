@@ -16,7 +16,8 @@ import ../make-test-python.nix (
         {
           options,
           ...
-        }: {
+        }:
+        {
           services.maddy = {
             enable = true;
             hostname = domain;
@@ -63,7 +64,8 @@ import ../make-test-python.nix (
         {
           nodes,
           ...
-        }: {
+        }:
+        {
           security.pki.certificateFiles = [ certs.ca.cert ];
           networking.extraHosts = ''
             ${nodes.server.networking.primaryIPAddress} ${domain}

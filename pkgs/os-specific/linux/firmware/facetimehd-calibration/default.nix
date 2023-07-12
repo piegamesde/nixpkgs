@@ -78,7 +78,8 @@ stdenvNoCC.mkDerivation {
             file,
             offset,
             size,
-          }: ''
+          }:
+          ''
             dd bs=1 skip=${offset} count=${size} if=AppleCamera.sys of=$out/lib/firmware/facetimehd/${file}
           ''
         )

@@ -57,7 +57,8 @@ let
       from,
       to ? false,
       runtimeLibs,
-    }: ''
+    }:
+    ''
       # Set Gdk pixbuf loaders file to the one from the build dependencies here
       unset GDK_PIXBUF_MODULE_FILE
       # Defined in gdk-pixbuf setup hook

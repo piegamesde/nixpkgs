@@ -32,7 +32,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: {
+      }:
+      {
         virtualisation.memorySize = 2048;
         virtualisation.cores = 4;
         virtualisation.useNixStoreImage = true;
@@ -92,7 +93,8 @@ import ./make-test-python.nix (
       {
         nodes,
         ...
-      }: {
+      }:
+      {
         imports = [ common/user-account.nix ];
 
         security.pki.certificateFiles = [ certs.ca.cert ];

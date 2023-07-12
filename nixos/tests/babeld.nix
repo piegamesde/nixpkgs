@@ -3,7 +3,8 @@ import ./make-test-python.nix (
     pkgs,
     lib,
     ...
-  }: {
+  }:
+  {
     name = "babeld";
     meta = with pkgs.lib.maintainers; { maintainers = [ hexa ]; };
 
@@ -13,7 +14,8 @@ import ./make-test-python.nix (
           pkgs,
           lib,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [ 10 ];
 
           networking = {
@@ -47,7 +49,8 @@ import ./make-test-python.nix (
           pkgs,
           lib,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [
             10
             20
@@ -113,7 +116,8 @@ import ./make-test-python.nix (
           pkgs,
           lib,
           ...
-        }: {
+        }:
+        {
           virtualisation.vlans = [
             20
             30

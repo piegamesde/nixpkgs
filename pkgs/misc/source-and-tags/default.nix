@@ -5,7 +5,8 @@
   unzip,
   hasktags,
   ctags,
-}: {
+}:
+{
   # optional srcDir
   annotatedWithSourceAndTagInfo =
     x:

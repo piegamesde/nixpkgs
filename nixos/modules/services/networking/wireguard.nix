@@ -20,7 +20,8 @@ let
   interfaceOpts =
     {
       ...
-    }: {
+    }:
+    {
 
       options = {
 
@@ -695,7 +696,8 @@ in
                 interfaceName,
                 peer,
                 ...
-              }: {
+              }:
+              {
                 assertion =
                   (peer.presharedKey == null) || (peer.presharedKeyFile == null)
                 ;

@@ -29,7 +29,8 @@ import ./make-test-python.nix (
       default =
         {
           ...
-        }: {
+        }:
+        {
           services.miniflux = {
             enable = true;
             inherit adminCredentialsFile;
@@ -40,7 +41,8 @@ import ./make-test-python.nix (
       withoutSudo =
         {
           ...
-        }: {
+        }:
+        {
           services.miniflux = {
             enable = true;
             inherit adminCredentialsFile;
@@ -52,7 +54,8 @@ import ./make-test-python.nix (
       customized =
         {
           ...
-        }: {
+        }:
+        {
           services.miniflux = {
             enable = true;
             config = {

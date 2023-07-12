@@ -2,13 +2,15 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "navidrome";
 
     nodes.machine =
       {
         ...
-      }: {
+      }:
+      {
         services.navidrome.enable = true;
       }
     ;

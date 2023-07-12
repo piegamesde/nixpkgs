@@ -12,7 +12,8 @@ import ./make-test-python.nix {
     {
       lib,
       ...
-    }: {
+    }:
+    {
       virtualisation.emptyDiskImages = [ 1 ];
 
       virtualisation.fileSystems = {

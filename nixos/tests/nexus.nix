@@ -7,7 +7,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "nexus";
     meta = with pkgs.lib.maintainers; { maintainers = [ ironpinguin ]; };
 
@@ -16,7 +17,8 @@ import ./make-test-python.nix (
       server =
         {
           ...
-        }: {
+        }:
+        {
           virtualisation.memorySize = 2047; # qemu-system-i386 has a 2047M limit
           virtualisation.diskSize = 8192;
 

@@ -17,7 +17,8 @@ with pkgs.lib;
         config,
         pkgs,
         ...
-      }: {
+      }:
+      {
         services.vector = {
           enable = true;
           journaldAccess = true;

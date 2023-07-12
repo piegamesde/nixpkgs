@@ -69,7 +69,8 @@ let
   linkMutableComponents =
     {
       containerName,
-    }: ''
+    }:
+    ''
       mkdir ${containerName}
 
       ${concatMapStrings

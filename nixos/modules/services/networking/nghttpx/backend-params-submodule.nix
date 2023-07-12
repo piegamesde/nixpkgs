@@ -1,7 +1,8 @@
 {
   lib,
   ...
-}: {
+}:
+{
   options = {
     proto = lib.mkOption {
       type = lib.types.enum [

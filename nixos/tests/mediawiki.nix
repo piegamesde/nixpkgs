@@ -62,7 +62,8 @@ in
       {
         nodes,
         ...
-      }: ''
+      }:
+      ''
         start_all()
         machine.wait_for_unit("phpfpm-mediawiki.service")
         env = (

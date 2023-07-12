@@ -9,7 +9,8 @@ import ./make-test-python.nix (
   {
     pkgs,
     ...
-  }: {
+  }:
+  {
     name = "vault-postgresql";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -22,7 +23,8 @@ import ./make-test-python.nix (
         lib,
         pkgs,
         ...
-      }: {
+      }:
+      {
         environment.systemPackages = [ pkgs.vault ];
         environment.variables.VAULT_ADDR = "http://127.0.0.1:8200";
         services.vault.enable = true;
