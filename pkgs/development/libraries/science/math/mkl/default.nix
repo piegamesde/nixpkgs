@@ -20,12 +20,7 @@ let
   version = "${mklVersion}.${rel}";
 
   mklVersion = "2023.1.0";
-  rel =
-    if stdenvNoCC.isDarwin then
-      "43558"
-    else
-      "46342"
-    ;
+  rel = if stdenvNoCC.isDarwin then "43558" else "46342";
 
   # Intel openmp uses its own versioning.
   openmpVersion = "2023.1.0";
@@ -146,10 +141,7 @@ stdenvNoCC.mkDerivation (
           lib.optionalString stdenvNoCC.isLinux "intel64"
         }/*${shlibExt}* $out/lib
         cp -a opt/intel/oneapi/compiler/${mklVersion}/${
-          if stdenvNoCC.isDarwin then
-            "mac"
-          else
-            "linux"
+          if stdenvNoCC.isDarwin then "mac" else "linux"
         }/compiler/lib/${
           lib.optionalString stdenvNoCC.isLinux "intel64_lin"
         }/*${shlibExt}* $out/lib

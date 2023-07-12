@@ -65,12 +65,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "urllib3" ];
 
   passthru.optional-dependencies = {
-    brotli =
-      if isPyPy then
-        [ brotlicffi ]
-      else
-        [ brotli ]
-      ;
+    brotli = if isPyPy then [ brotlicffi ] else [ brotli ];
     # Use carefully since pyopenssl is not supported aarch64-darwin
     secure = [
       certifi

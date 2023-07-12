@@ -219,12 +219,7 @@ rec {
           (x: ''
             ${name}=${toOption x}
           '')
-          (
-            if isList value then
-              value
-            else
-              [ value ]
-          )
+          (if isList value then value else [ value ])
         )
         as
       )

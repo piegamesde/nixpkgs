@@ -64,11 +64,7 @@ stdenv.mkDerivation {
       null
     ;
   NATIVE_TOOLS_LDFLAGS =
-    if crossBuildTools then
-      "-L${getLib buildPackages.ncurses}/lib"
-    else
-      null
-    ;
+    if crossBuildTools then "-L${getLib buildPackages.ncurses}/lib" else null;
 
   strictDeps = true;
   enableParallelBuilding = true;

@@ -37,10 +37,7 @@ let
   };
 
   aliases =
-    if config.allowAliases then
-      (import ./aliases.nix lib)
-    else
-      final: prev: { }
+    if config.allowAliases then (import ./aliases.nix lib) else final: prev: { }
     ;
 
   extensible-self = lib.makeExtensible (

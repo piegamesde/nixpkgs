@@ -268,19 +268,10 @@ in
 
       wantedBy = [ "multi-user.target" ];
       requires =
-        if cfg.database.host == null then
-          [ ]
-        else
-          [ "postgresql.service" ]
-        ;
+        if cfg.database.host == null then [ ] else [ "postgresql.service" ];
       after =
         [ "network.target" ]
-        ++ (
-          if cfg.database.host == null then
-            [ ]
-          else
-            [ "postgresql.service" ]
-        )
+        ++ (if cfg.database.host == null then [ ] else [ "postgresql.service" ])
         ;
 
       script = ''

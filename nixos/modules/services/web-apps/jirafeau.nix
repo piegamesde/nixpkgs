@@ -12,13 +12,7 @@ let
   group = config.services.nginx.group;
   user = config.services.nginx.user;
 
-  withTrailingSlash =
-    str:
-    if hasSuffix "/" str then
-      str
-    else
-      "${str}/"
-    ;
+  withTrailingSlash = str: if hasSuffix "/" str then str else "${str}/";
 
   localConfig = pkgs.writeText "config.local.php" ''
     <?php

@@ -23,10 +23,7 @@ let
         lib.mapAttrsToList
         (
           name: value:
-          if value != null then
-            [ ''${name}="${toString value}"'' ]
-          else
-            [ ]
+          if value != null then [ ''${name}="${toString value}"'' ] else [ ]
         )
         env
       ))
@@ -72,12 +69,7 @@ in
 
       listenHost = lib.mkOption {
         type = lib.types.str;
-        default =
-          if cfg.enableHTTPS then
-            "0.0.0.0"
-          else
-            "127.0.0.1"
-          ;
+        default = if cfg.enableHTTPS then "0.0.0.0" else "127.0.0.1";
         defaultText = lib.literalExpression ''
           if config.${opt.enableHTTPS}
           then "0.0.0.0"
@@ -88,12 +80,7 @@ in
 
       listenPort = lib.mkOption {
         type = lib.types.int;
-        default =
-          if cfg.enableHTTPS then
-            8443
-          else
-            8080
-          ;
+        default = if cfg.enableHTTPS then 8443 else 8080;
         defaultText = lib.literalExpression ''
           if config.${opt.enableHTTPS}
           then "8443"
@@ -104,12 +91,7 @@ in
 
       proxyHost = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
-        default =
-          if cfg.enableHTTPS then
-            "0.0.0.0"
-          else
-            null
-          ;
+        default = if cfg.enableHTTPS then "0.0.0.0" else null;
         defaultText = lib.literalExpression ''
           if config.${opt.enableHTTPS}
           then "0.0.0.0"
@@ -120,12 +102,7 @@ in
 
       proxyPort = lib.mkOption {
         type = lib.types.nullOr lib.types.int;
-        default =
-          if cfg.enableHTTPS then
-            8443
-          else
-            null
-          ;
+        default = if cfg.enableHTTPS then 8443 else null;
         defaultText = lib.literalExpression ''
           if config.${opt.enableHTTPS}
           then "8443"

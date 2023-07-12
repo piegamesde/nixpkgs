@@ -142,16 +142,8 @@ let
       chmod 0000 "$wrapperDir/${program}"
       chown ${owner}:${group} "$wrapperDir/${program}"
 
-      chmod "u${
-        if setuid then
-          "+"
-        else
-          "-"
-      }s,g${
-        if setgid then
-          "+"
-        else
-          "-"
+      chmod "u${if setuid then "+" else "-"}s,g${
+        if setgid then "+" else "-"
       }s,${permissions}" "$wrapperDir/${program}"
     ''
     ;

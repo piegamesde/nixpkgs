@@ -118,11 +118,7 @@ in
             domain = cfg.userDomain;
             password = { __hocon_envvar = "JICOFO_AUTH_PASS"; };
             xmpp-domain =
-              if cfg.xmppDomain == null then
-                cfg.xmppHost
-              else
-                cfg.xmppDomain
-              ;
+              if cfg.xmppDomain == null then cfg.xmppHost else cfg.xmppDomain;
           };
           service = client;
         };

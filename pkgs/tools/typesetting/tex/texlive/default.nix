@@ -350,10 +350,7 @@ tl // {
             ${pname} = attrs;
             extraName = "combined" + lib.removePrefix "scheme" pname;
             extraVersion = with version;
-              if final then
-                "-final"
-              else
-                ".${year}${month}${day}";
+              if final then "-final" else ".${year}${month}${day}";
           }
         )
       )

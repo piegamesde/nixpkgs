@@ -241,14 +241,7 @@ rec {
           This function also copies the path to the Nix store and returns the store path, the same as "''${path}" will, which may not be what you want.
           This behavior is deprecated and will throw an error in the future.''
     (
-      builtins.foldl'
-      (
-        x: y:
-        if y == "/" && hasSuffix "/" x then
-          x
-        else
-          x + y
-      )
+      builtins.foldl' (x: y: if y == "/" && hasSuffix "/" x then x else x + y)
       ""
       (stringToCharacters s)
     )
@@ -270,10 +263,7 @@ rec {
     cond:
     # String to return if condition is true
     string:
-    if cond then
-      string
-    else
-      ""
+    if cond then string else ""
     ;
 
   /* Determine whether a string has given prefix.
@@ -860,10 +850,7 @@ rec {
     let
       parse = drv: (parseDrvName drv).name;
     in
-    if isString x then
-      parse x
-    else
-      x.pname or (parse x.name)
+    if isString x then parse x else x.pname or (parse x.name)
     ;
 
   /* This function takes an argument that's either a derivation or a
@@ -881,10 +868,7 @@ rec {
     let
       parse = drv: (parseDrvName drv).version;
     in
-    if isString x then
-      parse x
-    else
-      x.version or (parse x.name)
+    if isString x then parse x else x.version or (parse x.name)
     ;
 
   /* Extract name with version from URL. Ask for separator which is
@@ -965,12 +949,7 @@ rec {
     feature: flag:
     assert (lib.isString feature);
     assert (lib.isBool flag);
-    mesonOption feature (
-      if flag then
-        "enabled"
-      else
-        "disabled"
-    )
+    mesonOption feature (if flag then "enabled" else "disabled")
     ;
 
   /* Create an --{enable,disable}-<feat> string that can be passed to
@@ -985,12 +964,7 @@ rec {
   enableFeature =
     enable: feat:
     assert isString feat; # e.g. passing openssl instead of "openssl"
-    "--${
-      if enable then
-        "enable"
-      else
-        "disable"
-    }-${feat}"
+    "--${if enable then "enable" else "disable"}-${feat}"
     ;
 
   /* Create an --{enable-<feat>=<value>,disable-<feat>} string that can be passed to
@@ -1019,12 +993,7 @@ rec {
   withFeature =
     with_: feat:
     assert isString feat; # e.g. passing openssl instead of "openssl"
-    "--${
-      if with_ then
-        "with"
-      else
-        "without"
-    }-${feat}"
+    "--${if with_ then "with" else "without"}-${feat}"
     ;
 
   /* Create an --{with-<feat>=<value>,without-<feat>} string that can be passed to
@@ -1064,10 +1033,7 @@ rec {
       "fixedWidthString: requested string length (${
         toString width
       }) must not be shorter than actual length (${toString strw})";
-    if strw == width then
-      str
-    else
-      filler + fixedWidthString reqWidth filler str
+    if strw == width then str else filler + fixedWidthString reqWidth filler str
     ;
 
   /* Format a number adding leading zeroes up to fixed width.
@@ -1333,23 +1299,11 @@ rec {
         # https://github.com/NixOS/nix/blob/2242be83c61788b9c0736a92bb0b5c7bbfc40803/nix-rust/src/store/path.rs#L100-L125
         (split "[^[:alnum:]+._?=-]+")
         # Replace invalid character ranges with a "-"
-        (concatMapStrings (
-          s:
-          if lib.isList s then
-            "-"
-          else
-            s
-        ))
+        (concatMapStrings (s: if lib.isList s then "-" else s))
         # Limit to 211 characters (minus 4 chars for ".drv")
         (x: substring (lib.max (stringLength x - 207) 0) (-1) x)
         # If the result is empty, replace it with "unknown"
-        (
-          x:
-          if stringLength x == 0 then
-            "unknown"
-          else
-            x
-        )
+        (x: if stringLength x == 0 then "unknown" else x)
       ]
     ;
 
@@ -1378,12 +1332,7 @@ rec {
       dist =
         i: j:
         let
-          c =
-            if substring (i - 1) 1 a == substring (j - 1) 1 b then
-              0
-            else
-              1
-            ;
+          c = if substring (i - 1) 1 a == substring (j - 1) 1 b then 0 else 1;
         in
         if j == 0 then
           i

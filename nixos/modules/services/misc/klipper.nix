@@ -260,13 +260,7 @@ in
 
     environment.systemPackages = with pkgs;
       let
-        default =
-          a: b:
-          if a != null then
-            a
-          else
-            b
-          ;
+        default = a: b: if a != null then a else b;
         firmwares = filterAttrs (n: v: v != null) (
           mapAttrs
           (

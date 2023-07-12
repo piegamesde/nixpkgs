@@ -24,14 +24,8 @@ let
     welcometext="${cfg.welcometext}"
     port=${toString cfg.port}
 
-    ${if cfg.hostName == "" then
-      ""
-    else
-      "host=" + cfg.hostName}
-    ${if cfg.password == "" then
-      ""
-    else
-      "serverpassword=" + cfg.password}
+    ${if cfg.hostName == "" then "" else "host=" + cfg.hostName}
+    ${if cfg.password == "" then "" else "serverpassword=" + cfg.password}
 
     bandwidth=${toString cfg.bandwidth}
     users=${toString cfg.users}
@@ -43,36 +37,21 @@ let
     bonjour=${boolToString cfg.bonjour}
     sendversion=${boolToString cfg.sendVersion}
 
-    ${if cfg.registerName == "" then
-      ""
-    else
-      "registerName=" + cfg.registerName}
+    ${if cfg.registerName == "" then "" else "registerName=" + cfg.registerName}
     ${if cfg.registerPassword == "" then
       ""
     else
       "registerPassword=" + cfg.registerPassword}
-    ${if cfg.registerUrl == "" then
-      ""
-    else
-      "registerUrl=" + cfg.registerUrl}
+    ${if cfg.registerUrl == "" then "" else "registerUrl=" + cfg.registerUrl}
     ${if cfg.registerHostname == "" then
       ""
     else
       "registerHostname=" + cfg.registerHostname}
 
     certrequired=${boolToString cfg.clientCertRequired}
-    ${if cfg.sslCert == "" then
-      ""
-    else
-      "sslCert=" + cfg.sslCert}
-    ${if cfg.sslKey == "" then
-      ""
-    else
-      "sslKey=" + cfg.sslKey}
-    ${if cfg.sslCa == "" then
-      ""
-    else
-      "sslCA=" + cfg.sslCa}
+    ${if cfg.sslCert == "" then "" else "sslCert=" + cfg.sslCert}
+    ${if cfg.sslKey == "" then "" else "sslKey=" + cfg.sslKey}
+    ${if cfg.sslCa == "" then "" else "sslCA=" + cfg.sslCa}
 
     ${lib.optionalString (cfg.dbus != null) "dbus=${cfg.dbus}"}
 
@@ -383,12 +362,7 @@ in
 
       serviceConfig = {
         # murmurd doesn't fork when logging to the console.
-        Type =
-          if forking then
-            "forking"
-          else
-            "simple"
-          ;
+        Type = if forking then "forking" else "simple";
         PIDFile = mkIf forking "/run/murmur/murmurd.pid";
         EnvironmentFile =
           mkIf (cfg.environmentFile != null) cfg.environmentFile;

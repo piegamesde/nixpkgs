@@ -14,13 +14,7 @@ let
 
   isConfig = x: builtins.isAttrs x || lib.isFunction x;
 
-  optCall =
-    f: x:
-    if lib.isFunction f then
-      f x
-    else
-      f
-    ;
+  optCall = f: x: if lib.isFunction f then f x else f;
 
   mergeConfig =
     lhs_: rhs_:
@@ -49,13 +43,7 @@ let
     check =
       x:
       let
-        traceXIfNot =
-          c:
-          if c x then
-            true
-          else
-            lib.traceSeqN 1 x false
-          ;
+        traceXIfNot = c: if c x then true else lib.traceSeqN 1 x false;
       in
       traceXIfNot isConfig
       ;

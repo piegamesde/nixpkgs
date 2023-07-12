@@ -63,13 +63,7 @@ let
       type = types.nullOr types.int;
       default = null;
       example = 365;
-      apply =
-        val:
-        if val == null then
-          -1
-        else
-          val
-        ;
+      apply = val: if val == null then -1 else val;
       description = mkAutoDesc ''
         The expiration time of ${desc} in days or `null` for no
         expiration time.
@@ -169,12 +163,7 @@ let
               certBits = cfg.pki.auto.bits;
               clientExpiration = cfg.pki.auto.expiration.client;
               crlExpiration = cfg.pki.auto.expiration.crl;
-              isAutoConfig =
-                if needToCreateCA then
-                  "True"
-                else
-                  "False"
-                ;
+              isAutoConfig = if needToCreateCA then "True" else "False";
             }
           }" > "$out/main.py"
           cat > "$out/setup.py" <<EOF

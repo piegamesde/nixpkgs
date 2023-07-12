@@ -25,12 +25,7 @@ let
           let
             posNew = acc.pos + 1;
             isOpen = acc.openP == 0;
-            startPos =
-              if isOpen then
-                posNew
-              else
-                acc.startPos
-              ;
+            startPos = if isOpen then posNew else acc.startPos;
           in
           acc // {
             inherit startPos;
@@ -49,18 +44,8 @@ let
           acc // {
             inherit openP;
             pos = acc.pos + 1;
-            exprs =
-              if openP == 0 then
-                acc.exprs ++ [ exprs ]
-              else
-                acc.exprs
-              ;
-            exprPos =
-              if openP == 0 then
-                acc.pos + 1
-              else
-                acc.exprPos
-              ;
+            exprs = if openP == 0 then acc.exprs ++ [ exprs ] else acc.exprs;
+            exprPos = if openP == 0 then acc.pos + 1 else acc.exprPos;
           }
         )
       else
@@ -84,12 +69,7 @@ let
         }
         (lib.stringToCharacters expr);
       tailExpr = (substr acc.exprPos acc.pos expr);
-      tailExprs =
-        if tailExpr != "" then
-          [ tailExpr ]
-        else
-          [ ]
-        ;
+      tailExprs = if tailExpr != "" then [ tailExpr ] else [ ];
     in
     acc.exprs ++ tailExprs
     ;
@@ -103,10 +83,7 @@ let
           (
             x:
             stripStr (
-              if builtins.typeOf x == "list" then
-                (builtins.elemAt x 0)
-              else
-                x
+              if builtins.typeOf x == "list" then (builtins.elemAt x 0) else x
             )
           )
           (builtins.split " (and|or) " (s + " "))
@@ -159,13 +136,7 @@ let
     exprs:
     let
       variables = {
-        os_name =
-          (
-            if python.pname == "jython" then
-              "java"
-            else
-              "posix"
-          );
+        os_name = (if python.pname == "jython" then "java" else "posix");
         sys_platform =
           (
             if stdenv.isLinux then
@@ -243,12 +214,7 @@ let
               type = "expr";
               value = {
                 # HACK: We don't know extra at eval time, so we assume the expression is always true
-                op =
-                  if m0 == "extra" then
-                    "true"
-                  else
-                    builtins.elemAt m 1
-                  ;
+                op = if m0 == "extra" then "true" else builtins.elemAt m 1;
                 values = [
                   m0
                   m2

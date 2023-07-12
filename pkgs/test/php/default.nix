@@ -30,13 +30,7 @@ let
     ''
     ;
 
-  check =
-    cond:
-    if cond then
-      "ok"
-    else
-      "nok"
-    ;
+  check = cond: if cond then "ok" else "nok";
 in
 {
   withExtensions-enables-previously-disabled-extensions =

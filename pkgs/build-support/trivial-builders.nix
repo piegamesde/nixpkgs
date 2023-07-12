@@ -658,12 +658,7 @@ rec {
               toString deps
             }"
             propagatedBuildInputs
-            ++ (
-              if lib.isList deps then
-                deps
-              else
-                [ deps ]
-            )
+            ++ (if lib.isList deps then deps else [ deps ])
           );
         strictDeps = true;
         # TODO 2023-01, no backport: simplify to inherit passthru;
@@ -902,12 +897,7 @@ rec {
         else
           sha1
         ;
-      name_ =
-        if name == null then
-          baseNameOf (toString url)
-        else
-          name
-        ;
+      name_ = if name == null then baseNameOf (toString url) else name;
     in
     stdenvNoCC.mkDerivation {
       name = name_;

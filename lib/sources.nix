@@ -13,21 +13,11 @@ let
 
   # Returns true if the path exists and is a directory, false otherwise.
   pathIsDirectory =
-    path:
-    if pathExists path then
-      (pathType path) == "directory"
-    else
-      false
-    ;
+    path: if pathExists path then (pathType path) == "directory" else false;
 
   # Returns true if the path exists and is a regular file, false otherwise.
   pathIsRegularFile =
-    path:
-    if pathExists path then
-      (pathType path) == "regular"
-    else
-      false
-    ;
+    path: if pathExists path then (pathType path) == "regular" else false;
 
   /* A basic filter for `cleanSourceWith` that removes
      directories of version control system, backup files (*~)
@@ -117,12 +107,7 @@ let
     fromSourceAttributes {
       inherit (orig) origSrc;
       filter = path: type: filter path type && orig.filter path type;
-      name =
-        if name != null then
-          name
-        else
-          orig.name
-        ;
+      name = if name != null then name else orig.name;
     }
     ;
 
@@ -160,12 +145,7 @@ let
     src: regexes:
     let
       isFiltered = src ? _isLibCleanSourceWith;
-      origSrc =
-        if isFiltered then
-          src.origSrc
-        else
-          src
-        ;
+      origSrc = if isFiltered then src.origSrc else src;
     in
     lib.cleanSourceWith {
       filter =
@@ -328,24 +308,9 @@ let
     in
     {
       # The original path
-      origSrc =
-        if isFiltered then
-          src.origSrc
-        else
-          src
-        ;
-      filter =
-        if isFiltered then
-          src.filter
-        else
-          _: _: true
-        ;
-      name =
-        if isFiltered then
-          src.name
-        else
-          "source"
-        ;
+      origSrc = if isFiltered then src.origSrc else src;
+      filter = if isFiltered then src.filter else _: _: true;
+      name = if isFiltered then src.name else "source";
     }
     ;
 

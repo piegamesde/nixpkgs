@@ -50,10 +50,7 @@ rec {
       # by default one character is a short option (`-`),
       # more than one characters a long option (`--`).
       mkOptionName ? k:
-        if builtins.stringLength k == 1 then
-          "-${k}"
-        else
-          "--${k}",
+        if builtins.stringLength k == 1 then "-${k}" else "--${k}",
 
       # how to format a boolean value to a command list;
       # by default it’s a flag option

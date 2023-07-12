@@ -203,12 +203,7 @@ let
   # the target dir for haddock documentation
   docdir = docoutput: docoutput + "/share/doc/" + pname + "-" + version;
 
-  binDir =
-    if enableSeparateBinOutput then
-      "$bin/bin"
-    else
-      "$out/bin"
-    ;
+  binDir = if enableSeparateBinOutput then "$bin/bin" else "$out/bin";
 
   newCabalFileUrl =
     "mirror://hackage/${pname}-${version}/revision/${revision}.cabal";
@@ -261,12 +256,7 @@ let
       # Pass the "wrong" C compiler rather than none at all so packages that just
       # use the C preproccessor still work, see
       # https://github.com/haskell/cabal/issues/6466 for details.
-      "--with-gcc=${
-        if stdenv.hasCC then
-          "$CC"
-        else
-          "$CC_FOR_BUILD"
-      }"
+      "--with-gcc=${if stdenv.hasCC then "$CC" else "$CC_FOR_BUILD"}"
     ]
     ++ optionals stdenv.hasCC [
       "--with-ld=${stdenv.cc.bintools.targetPrefix}ld"
@@ -464,12 +454,7 @@ let
 
   setupCommand = "./Setup";
 
-  ghcCommand' =
-    if isGhcjs then
-      "ghcjs"
-    else
-      "ghc"
-    ;
+  ghcCommand' = if isGhcjs then "ghcjs" else "ghc";
   ghcCommand = "${ghc.targetPrefix}${ghcCommand'}";
 
   ghcNameWithPrefix = "${ghc.targetPrefix}${ghc.haskellCompilerName}";
@@ -880,12 +865,7 @@ lib.fix (
         # `null' if no haddock documentation was built.
         # TODO: fetch the self from the fixpoint instead
         haddockDir =
-          self:
-          if doHaddock then
-            "${docdir self.doc}/html"
-          else
-            null
-          ;
+          self: if doHaddock then "${docdir self.doc}/html" else null;
 
         # Creates a derivation containing all of the necessary dependencies for building the
         # parent derivation. The attribute set that it takes as input can be viewed as:
@@ -909,11 +889,7 @@ lib.fix (
             name = "ghc-shell-for-${drv.name}";
 
             withPackages =
-              if withHoogle then
-                ghcWithHoogle
-              else
-                ghcWithPackages
-              ;
+              if withHoogle then ghcWithHoogle else ghcWithPackages;
 
             # We use the `ghcWithPackages` function from `buildHaskellPackages` if we
             # want a shell for the sake of cross compiling a package. In the native case

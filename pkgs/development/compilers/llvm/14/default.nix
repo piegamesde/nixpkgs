@@ -19,14 +19,10 @@
   # This is the default binutils, but with *this* version of LLD rather
   # than the default LLVM verion's, if LLD is the choice. We use these for
   # the `useLLVM` bootstrapping below.
-  bootBintoolsNoLibc ? if stdenv.targetPlatform.linker == "lld" then
-    null
-  else
-    pkgs.bintoolsNoLibc,
-  bootBintools ? if stdenv.targetPlatform.linker == "lld" then
-    null
-  else
-    pkgs.bintools,
+  bootBintoolsNoLibc ?
+    if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintoolsNoLibc,
+  bootBintools ?
+    if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintools,
   darwin,
 }:
 
@@ -37,22 +33,13 @@ let
   rev = ""; # When using a Git commit
   rev-version = ""; # When using a Git commit
   version =
-    if rev != "" then
-      rev-version
-    else
-      "${release_version}${dash-candidate}"
-    ;
+    if rev != "" then rev-version else "${release_version}${dash-candidate}";
   targetConfig = stdenv.targetPlatform.config;
 
   monorepoSrc = fetchFromGitHub {
     owner = "llvm";
     repo = "llvm-project";
-    rev =
-      if rev != "" then
-        rev
-      else
-        "llvmorg-${version}"
-      ;
+    rev = if rev != "" then rev else "llvmorg-${version}";
     sha256 = "sha256-vffu4HilvYwtzwgq+NlS26m65DGbp6OSSne2aje1yJE=";
   };
 
@@ -114,12 +101,7 @@ let
         else
           bootBintoolsNoLibc
         ;
-      bintools' =
-        if bootBintools == null then
-          tools.bintools
-        else
-          bootBintools
-        ;
+      bintools' = if bootBintools == null then tools.bintools else bootBintools;
     in
     {
 

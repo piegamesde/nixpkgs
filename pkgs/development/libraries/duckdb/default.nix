@@ -13,13 +13,7 @@
 }:
 
 let
-  enableFeature =
-    yes:
-    if yes then
-      "ON"
-    else
-      "OFF"
-    ;
+  enableFeature = yes: if yes then "ON" else "OFF";
 in
 stdenv.mkDerivation rec {
   pname = "duckdb";

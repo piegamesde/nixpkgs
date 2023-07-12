@@ -57,11 +57,7 @@ let
 
   lint = flip pipe (
     flip mapAttrsToList lints (
-      k: v:
-      if v == [ ] then
-        id
-      else
-        warn "${k}: ${concatStringsSep ", " v}"
+      k: v: if v == [ ] then id else warn "${k}: ${concatStringsSep ", " v}"
     )
   );
 

@@ -72,10 +72,7 @@ let
         lib.mapAttrsToList
         (
           name: value:
-          if value != null then
-            [ ''${name}="${toString value}"'' ]
-          else
-            [ ]
+          if value != null then [ ''${name}="${toString value}"'' ] else [ ]
         )
         env
       ))
@@ -219,11 +216,7 @@ in
       host = lib.mkOption {
         type = lib.types.str;
         default =
-          if cfg.database.createLocally then
-            "/run/postgresql"
-          else
-            null
-          ;
+          if cfg.database.createLocally then "/run/postgresql" else null;
         defaultText = lib.literalExpression ''
           if config.${opt.database.createLocally}
           then "/run/postgresql"
@@ -415,13 +408,7 @@ in
       {
         listen = { port = cfg.listenHttp; };
         webserver = {
-          https =
-            (
-              if cfg.enableWebHttps then
-                true
-              else
-                false
-            );
+          https = (if cfg.enableWebHttps then true else false);
           hostname = "${cfg.localDomain}";
           port = cfg.listenWeb;
         };
@@ -433,13 +420,7 @@ in
         };
         redis = {
           hostname = "${toString cfg.redis.host}";
-          port =
-            (
-              if cfg.redis.port == null then
-                ""
-              else
-                cfg.redis.port
-            );
+          port = (if cfg.redis.port == null then "" else cfg.redis.port);
         };
         storage = {
           tmp = lib.mkDefault "/var/lib/peertube/storage/tmp/";

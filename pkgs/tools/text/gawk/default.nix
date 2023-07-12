@@ -89,11 +89,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     libsigsegv =
-      if withSigsegv then
-        libsigsegv
-      else
-        null
-      ; # for stdenv bootstrap
+      if withSigsegv then libsigsegv else null; # for stdenv bootstrap
   };
 
   meta = with lib; {

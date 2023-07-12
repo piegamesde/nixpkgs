@@ -58,12 +58,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DENABLE_AUTOUPDATE=OFF"
-    "-DENABLE_TESTS=${
-      if doCheck then
-        "ON"
-      else
-        "OFF"
-    }"
+    "-DENABLE_TESTS=${if doCheck then "ON" else "OFF"}"
   ];
 
   doCheck = stdenv.hostPlatform == stdenv.buildPlatform;

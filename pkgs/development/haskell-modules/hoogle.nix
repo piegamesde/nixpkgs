@@ -24,12 +24,7 @@ let
   wrapper = ./hoogle-local-wrapper.sh;
   isGhcjs = ghc.isGhcjs or false;
   opts = lib.optionalString;
-  haddockExe =
-    if !isGhcjs then
-      "haddock"
-    else
-      "haddock-ghcjs"
-    ;
+  haddockExe = if !isGhcjs then "haddock" else "haddock-ghcjs";
   ghcDocLibDir =
     if !isGhcjs then
       ghc.doc + "/share/doc/ghc*/html/libraries"
@@ -104,12 +99,7 @@ buildPackages.stdenv.mkDerivation {
       lib.filter (el: el.haddockDir != null) (
         builtins.map
         (p: {
-          haddockDir =
-            if p ? haddockDir then
-              p.haddockDir p
-            else
-              null
-            ;
+          haddockDir = if p ? haddockDir then p.haddockDir p else null;
           name = p.pname;
         })
         docPackages

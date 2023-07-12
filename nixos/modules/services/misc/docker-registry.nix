@@ -10,12 +10,7 @@ with lib;
 let
   cfg = config.services.dockerRegistry;
 
-  blobCache =
-    if cfg.enableRedisCache then
-      "redis"
-    else
-      "inmemory"
-    ;
+  blobCache = if cfg.enableRedisCache then "redis" else "inmemory";
 
   registryConfig = {
     version = "0.1";

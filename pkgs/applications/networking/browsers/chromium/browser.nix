@@ -116,11 +116,7 @@ mkChromiumDerivation (
             thefloweringash
           ];
       license =
-        if enableWideVine then
-          lib.licenses.unfree
-        else
-          lib.licenses.bsd3
-        ;
+        if enableWideVine then lib.licenses.unfree else lib.licenses.bsd3;
       platforms = lib.platforms.linux;
       mainProgram = "chromium";
       hydraPlatforms =

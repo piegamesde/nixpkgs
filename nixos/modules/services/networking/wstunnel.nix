@@ -13,13 +13,7 @@ let
     attrs:
     utils.escapeSystemdExecArgs (
       mapAttrsToList
-      (
-        name: value:
-        if value == true then
-          "--${name}"
-        else
-          "--${name}=${value}"
-      )
+      (name: value: if value == true then "--${name}" else "--${name}=${value}")
       attrs
     )
     ;
@@ -128,12 +122,7 @@ let
           type = types.submodule hostPortSubmodule;
           default = {
             address = "0.0.0.0";
-            port =
-              if config.enableHTTPS then
-                443
-              else
-                80
-              ;
+            port = if config.enableHTTPS then 443 else 80;
           };
           defaultText = literalExpression ''
             {
@@ -396,10 +385,7 @@ let
                   ${attrsToArgs extraArgs} \
                   ${
                     utils.escapeSystemdExecArg "${
-                      if enableHTTPS then
-                        "wss"
-                      else
-                        "ws"
+                      if enableHTTPS then "wss" else "ws"
                     }://${hostPortToString listen}"
                   }
               ''
@@ -494,10 +480,7 @@ let
               ${attrsToArgs extraArgs} \
               ${
                 utils.escapeSystemdExecArg "${
-                  if enableHTTPS then
-                    "wss"
-                  else
-                    "ws"
+                  if enableHTTPS then "wss" else "ws"
                 }://${hostPortToString connectTo}"
               }
           '';

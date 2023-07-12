@@ -135,13 +135,7 @@ let
     ]
     ;
 in
-(
-  if withMacport then
-    llvmPackages_6.stdenv
-  else
-    stdenv
-).mkDerivation
-(
+(if withMacport then llvmPackages_6.stdenv else stdenv).mkDerivation (
   finalAttrs:
   (
     lib.optionalAttrs nativeComp {
@@ -452,12 +446,7 @@ in
           matthewbauer
           atemu
         ];
-        platforms =
-          if withMacport then
-            platforms.darwin
-          else
-            platforms.all
-          ;
+        platforms = if withMacport then platforms.darwin else platforms.all;
         broken = !(stdenv.buildPlatform.canExecute stdenv.hostPlatform);
 
         longDescription = ''

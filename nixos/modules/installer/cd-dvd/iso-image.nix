@@ -202,11 +202,7 @@ let
     ;
 
   grubPkgs =
-    if config.boot.loader.grub.forcei686 then
-      pkgs.pkgsi686Linux
-    else
-      pkgs
-    ;
+    if config.boot.loader.grub.forcei686 then pkgs.pkgsi686Linux else pkgs;
 
   grubMenuCfg = ''
     #

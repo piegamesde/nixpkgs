@@ -103,12 +103,7 @@ let
           if (iface == "WLAN" || iface == "LAN") then
             "-i%I"
           else
-            (
-              if (iface == "DBUS") then
-                "-u"
-              else
-                ifaceArg
-            )
+            (if (iface == "DBUS") then "-u" else ifaceArg)
         }";
     }
     ;

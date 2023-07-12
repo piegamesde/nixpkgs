@@ -10,12 +10,7 @@ with lib;
 let
   cfg = config.services.moosefs;
 
-  mfsUser =
-    if cfg.runAsUser then
-      "moosefs"
-    else
-      "root"
-    ;
+  mfsUser = if cfg.runAsUser then "moosefs" else "root";
 
   settingsFormat =
     let
@@ -31,12 +26,7 @@ let
         if isList val then
           concatStringsSep listSep (map (x: valueToString x) val)
         else if isBool val then
-          (
-            if val then
-              "1"
-            else
-              "0"
-          )
+          (if val then "1" else "0")
         else
           toString val
         ;

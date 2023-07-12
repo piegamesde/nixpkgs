@@ -30,12 +30,7 @@ buildDunePackage rec {
   pname = "lambda-term";
   inherit (params) version;
 
-  duneVersion =
-    if lib.versionAtLeast ocaml.version "4.08" then
-      "3"
-    else
-      "2"
-    ;
+  duneVersion = if lib.versionAtLeast ocaml.version "4.08" then "3" else "2";
 
   src = fetchFromGitHub {
     owner = "ocaml-community";

@@ -39,12 +39,7 @@ let
   );
 
   srcVersion = "3.86";
-  version =
-    if nssOverride != null then
-      nssOverride.version
-    else
-      srcVersion
-    ;
+  version = if nssOverride != null then nssOverride.version else srcVersion;
   meta = with lib; {
     homepage = "https://curl.haxx.se/docs/caextract.html";
     description =

@@ -165,10 +165,7 @@ in
       $config['db_dsnw'] = 'pgsql://${cfg.database.username}${
         lib.optionalString (!localDB) ":' . $password . '"
       }@${
-        if localDB then
-          "unix(/run/postgresql)"
-        else
-          cfg.database.host
+        if localDB then "unix(/run/postgresql)" else cfg.database.host
       }/${cfg.database.dbname}';
       $config['log_driver'] = 'syslog';
       $config['max_message_size'] =  '${cfg.maxAttachmentSize}';
@@ -180,10 +177,7 @@ in
       # Roundcube uses PHP-FPM which has `PrivateTmp = true;`
       $config['temp_dir'] = '/tmp';
       $config['enable_spellcheck'] = ${
-        if cfg.dicts == [ ] then
-          "false"
-        else
-          "true"
+        if cfg.dicts == [ ] then "false" else "true"
       };
       # by default, spellchecking uses a third-party cloud services
       $config['spellcheck_engine'] = 'pspell';
@@ -247,12 +241,7 @@ in
     users.groups.${user} = mkIf localDB { };
 
     services.phpfpm.pools.roundcube = {
-      user =
-        if localDB then
-          user
-        else
-          "nginx"
-        ;
+      user = if localDB then user else "nginx";
       phpOptions = ''
         error_log = 'stderr'
         log_errors = on
@@ -323,12 +312,7 @@ in
         serviceConfig = {
           Type = "oneshot";
           StateDirectory = "roundcube";
-          User =
-            if localDB then
-              user
-            else
-              "nginx"
-            ;
+          User = if localDB then user else "nginx";
           # so that the des_key is not world readable
           StateDirectoryMode = "0700";
         };

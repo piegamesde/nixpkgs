@@ -49,12 +49,7 @@ stdenv.mkDerivation rec {
 
   installPhase =
     let
-      extension =
-        if stdenv.isDarwin then
-          "app"
-        else
-          "deb-exe"
-        ;
+      extension = if stdenv.isDarwin then "app" else "deb-exe";
     in
     "install -Dm555 lgpt.${extension} $out/bin/lgpt"
     ;

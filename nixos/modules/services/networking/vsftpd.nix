@@ -27,12 +27,7 @@ let
   yesNoOption =
     nixosName: vsftpdName: default: description: {
       cfgText =
-        "${vsftpdName}=${
-          if getAttr nixosName cfg then
-            "YES"
-          else
-            "NO"
-        }";
+        "${vsftpdName}=${if getAttr nixosName cfg then "YES" else "NO"}";
 
       nixosOption = {
         type = types.bool;
@@ -337,12 +332,7 @@ in
 
     # If you really have to access root via FTP use mkOverride or userlistDeny
     # = false and whitelist root
-    services.vsftpd.userlist =
-      if cfg.userlistDeny then
-        [ "root" ]
-      else
-        [ ]
-      ;
+    services.vsftpd.userlist = if cfg.userlistDeny then [ "root" ] else [ ];
 
     systemd = {
       tmpfiles.rules = optional

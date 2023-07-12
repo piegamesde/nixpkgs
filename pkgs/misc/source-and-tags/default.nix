@@ -80,12 +80,7 @@
       passthru = {
         sourceWithTags = {
           inherit (deriv) src;
-          srcDir =
-            if deriv ? srcDir then
-              deriv.srcDir
-            else
-              "."
-            ;
+          srcDir = if deriv ? srcDir then deriv.srcDir else ".";
           name = deriv.name;
           createTagFiles = [ {
             name = "${deriv.name}_haskell";

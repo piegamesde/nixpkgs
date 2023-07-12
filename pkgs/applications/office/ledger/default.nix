@@ -66,18 +66,8 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DBUILD_DOCS:BOOL=ON"
-    "-DUSE_PYTHON:BOOL=${
-      if usePython then
-        "ON"
-      else
-        "OFF"
-    }"
-    "-DUSE_GPGME:BOOL=${
-      if gpgmeSupport then
-        "ON"
-      else
-        "OFF"
-    }"
+    "-DUSE_PYTHON:BOOL=${if usePython then "ON" else "OFF"}"
+    "-DUSE_GPGME:BOOL=${if gpgmeSupport then "ON" else "OFF"}"
   ];
 
   # by default, it will query the python interpreter for it's sitepackages location

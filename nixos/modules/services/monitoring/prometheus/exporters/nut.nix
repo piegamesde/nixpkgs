@@ -35,13 +35,7 @@ in
     passwordPath = mkOption {
       type = types.nullOr types.path;
       default = null;
-      apply =
-        final:
-        if final == null then
-          null
-        else
-          toString final
-        ;
+      apply = final: if final == null then null else toString final;
       description = lib.mdDoc ''
         A run-time path to the nutUser password file, which should be
         provisioned outside of Nix store.

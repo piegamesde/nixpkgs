@@ -27,19 +27,9 @@ let
       throw "Unsupported architecture"
     ;
 
-  buildStdenv =
-    if stdenv.isDarwin then
-      llvmPackages_9.stdenv
-    else
-      stdenv
-    ;
+  buildStdenv = if stdenv.isDarwin then llvmPackages_9.stdenv else stdenv;
 
-  buildType =
-    if stdenv.isDarwin then
-      "CLANGPDB"
-    else
-      "GCC5"
-    ;
+  buildType = if stdenv.isDarwin then "CLANGPDB" else "GCC5";
 
   edk2 = buildStdenv.mkDerivation {
     pname = "edk2";

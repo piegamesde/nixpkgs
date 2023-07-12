@@ -543,10 +543,7 @@ rec {
           echo "installing RPMs..."
           PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
             rpm -iv --nosignature ${
-              if runScripts then
-                ""
-              else
-                "--noscripts"
+              if runScripts then "" else "--noscripts"
             } $rpms
 
           echo "running post-install script..."

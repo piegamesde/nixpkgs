@@ -65,12 +65,7 @@ let
     ;
 
   pname = "qutebrowser";
-  version =
-    if isQt6 then
-      "unstable-2023-04-18"
-    else
-      "2.5.3"
-    ;
+  version = if isQt6 then "unstable-2023-04-18" else "2.5.3";
 in
 
 assert withMediaPlayback -> gst_all_1 != null;

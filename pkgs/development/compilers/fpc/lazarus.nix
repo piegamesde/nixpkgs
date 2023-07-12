@@ -96,12 +96,7 @@ stdenv.mkDerivation rec {
     "bigide"
   ];
 
-  LCL_PLATFORM =
-    if withQt then
-      "qt5"
-    else
-      "gtk2"
-    ;
+  LCL_PLATFORM = if withQt then "qt5" else "gtk2";
 
   NIX_LDFLAGS = lib.concatStringsSep " " (
     [

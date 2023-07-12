@@ -321,18 +321,9 @@ in
 
   config =
     let
-      igpuDriver =
-        if pCfg.intelBusId != "" then
-          "modesetting"
-        else
-          "amdgpu"
-        ;
+      igpuDriver = if pCfg.intelBusId != "" then "modesetting" else "amdgpu";
       igpuBusId =
-        if pCfg.intelBusId != "" then
-          pCfg.intelBusId
-        else
-          pCfg.amdgpuBusId
-        ;
+        if pCfg.intelBusId != "" then pCfg.intelBusId else pCfg.amdgpuBusId;
     in
     mkIf enabled {
       assertions = [
@@ -616,11 +607,7 @@ in
         ;
 
       boot.extraModulePackages =
-        if cfg.open then
-          [ nvidia_x11.open ]
-        else
-          [ nvidia_x11.bin ]
-        ;
+        if cfg.open then [ nvidia_x11.open ] else [ nvidia_x11.bin ];
       hardware.firmware = lib.optional cfg.open nvidia_x11.firmware;
 
       # nvidia-uvm is required by CUDA applications.

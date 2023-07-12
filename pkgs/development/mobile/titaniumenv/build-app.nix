@@ -98,10 +98,7 @@ stdenv.mkDerivation (
       ''}
 
       export HOME=${
-        if target == "iphone" then
-          "/Users/$(whoami)"
-        else
-          "$TMPDIR"
+        if target == "iphone" then "/Users/$(whoami)" else "$TMPDIR"
       }
 
       ${lib.optionalString (tiVersion != null) ''
@@ -191,10 +188,7 @@ stdenv.mkDerivation (
 
               # Do the actual build
               titanium build --config-file $TMPDIR/config.json --force --no-colors --platform ios --target ${
-                if iosBuildStore then
-                  "dist-appstore"
-                else
-                  "dist-adhoc"
+                if iosBuildStore then "dist-appstore" else "dist-adhoc"
               } --pp-uuid $provisioningId --distribution-name "${iosCertificateName}" --keychain $HOME/Library/Keychains/$keychainName-db --device-family universal --ios-version ${iosVersion} --output-dir $out
 
               # Remove our generated keychain

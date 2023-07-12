@@ -74,18 +74,8 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [
     "-Dbackends=${lib.optionalString (variant != null) variant}"
-    "-Dvapi=${
-      if variant != "qt5" then
-        "true"
-      else
-        "false"
-    }"
-    "-Dintrospection=${
-      if variant != "qt5" then
-        "true"
-      else
-        "false"
-    }"
+    "-Dvapi=${if variant != "qt5" then "true" else "false"}"
+    "-Dintrospection=${if variant != "qt5" then "true" else "false"}"
   ];
 
   postFixup = ''

@@ -65,18 +65,8 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-    "--with-gnome=${
-      if withGnome then
-        "yes"
-      else
-        "no"
-    }"
-    "--with-gtk4=${
-      if withGnome then
-        "yes"
-      else
-        "no"
-    }"
+    "--with-gnome=${if withGnome then "yes" else "no"}"
+    "--with-gtk4=${if withGnome then "yes" else "no"}"
     "--enable-absolute-paths"
   ];
 

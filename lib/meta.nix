@@ -49,15 +49,7 @@ rec {
   # Apply a function to each derivation and only to derivations in an attrset.
   mapDerivationAttrset =
     f: set:
-    lib.mapAttrs
-    (
-      name: pkg:
-      if lib.isDerivation pkg then
-        (f pkg)
-      else
-        pkg
-    )
-    set
+    lib.mapAttrs (name: pkg: if lib.isDerivation pkg then (f pkg) else pkg) set
     ;
 
   # Set the nix-env priority of the package.

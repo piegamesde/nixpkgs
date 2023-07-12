@@ -368,10 +368,7 @@ in
                   settings = {
                     DeviceType = mkDefault config.interfaceType;
                     Name = mkDefault (
-                      if config.name == null then
-                        "$HOST"
-                      else
-                        config.name
+                      if config.name == null then "$HOST" else config.name
                     );
                     Ed25519PrivateKeyFile =
                       mkIf (config.ed25519PrivateKeyFile != null) (

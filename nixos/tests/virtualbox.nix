@@ -119,10 +119,7 @@ let
       all = concatMapStringsSep " " (f: ''"${f}"'') ([ logfile ] ++ rotated);
       logcmd = ''tail -F ${all} 2> /dev/null | logger -t "${tag}"'';
     in
-    if debug then
-      "machine.execute(ru('${logcmd} & disown'))"
-    else
-      "pass"
+    if debug then "machine.execute(ru('${logcmd} & disown'))" else "pass"
     ;
 
   testVM =
@@ -130,12 +127,7 @@ let
     let
       cfg =
         (import ../lib/eval-config.nix {
-          system =
-            if use64bitGuest then
-              "x86_64-linux"
-            else
-              "i686-linux"
-            ;
+          system = if use64bitGuest then "x86_64-linux" else "i686-linux";
           modules = [
             ../modules/profiles/minimal.nix
             (testVMConfig vmName vmScript)
@@ -193,12 +185,7 @@ let
       sharePath = "/home/alice/vboxshare-${name}";
 
       createFlags = mkFlags [
-        "--ostype ${
-          if use64bitGuest then
-            "Linux26_64"
-          else
-            "Linux26"
-        }"
+        "--ostype ${if use64bitGuest then "Linux26_64" else "Linux26"}"
         "--register"
       ];
 
@@ -607,9 +594,4 @@ mapAttrs (mkVBoxTest false vboxVMs) {
     destroy_vm_test1()
     destroy_vm_test2()
   '';
-} // (
-  if enableUnfree then
-    unfreeTests
-  else
-    { }
-)
+} // (if enableUnfree then unfreeTests else { })

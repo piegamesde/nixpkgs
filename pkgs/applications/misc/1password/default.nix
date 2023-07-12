@@ -20,10 +20,7 @@ let
         inherit sha256;
       } // lib.optionalAttrs (extension == "zip") { stripRoot = false; };
     in
-    if extension == "zip" then
-      fetchzip args
-    else
-      fetchurl args
+    if extension == "zip" then fetchzip args else fetchurl args
     ;
 
   pname = "1password-cli";

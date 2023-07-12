@@ -38,12 +38,7 @@ lib.warnIf (extraPostFetch != "")
       if extension != null then
         "download.${extension}"
       else
-        baseNameOf (
-          if url != "" then
-            url
-          else
-            builtins.head urls
-        )
+        baseNameOf (if url != "" then url else builtins.head urls)
       ;
   in
 

@@ -439,11 +439,7 @@ let
       TMPFS = yes;
       TMPFS_POSIX_ACL = yes;
       FS_ENCRYPTION =
-        if (versionAtLeast version "5.1") then
-          yes
-        else
-          option module
-        ;
+        if (versionAtLeast version "5.1") then yes else option module;
 
       EXT2_FS_XATTR = yes;
       EXT2_FS_POSIX_ACL = yes;

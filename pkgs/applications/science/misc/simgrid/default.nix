@@ -32,13 +32,7 @@
 with lib;
 
 let
-  optionOnOff =
-    option:
-    if option then
-      "on"
-    else
-      "off"
-    ;
+  optionOnOff = option: if option then "on" else "off";
 in
 
 stdenv.mkDerivation rec {

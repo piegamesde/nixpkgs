@@ -38,12 +38,7 @@ runCommand name
 
     outputHashAlgo = "sha256";
     outputHash = sha256;
-    outputHashMode =
-      if recursiveHash then
-        "recursive"
-      else
-        "flat"
-      ;
+    outputHashMode = if recursiveHash then "recursive" else "flat";
 
     preferLocalBuild = true;
 

@@ -191,11 +191,7 @@ stdenv.mkDerivation rec {
     homepage = "https://dolphin-emu.org";
     description = "Gamecube/Wii/Triforce emulator for x86_64 and ARMv8";
     mainProgram =
-      if stdenv.hostPlatform.isDarwin then
-        "Dolphin"
-      else
-        "dolphin-emu"
-      ;
+      if stdenv.hostPlatform.isDarwin then "Dolphin" else "dolphin-emu";
     branch = "master";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

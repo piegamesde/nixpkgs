@@ -186,12 +186,7 @@ let
           (
             dest: source:
             let
-              source' =
-                if source == null then
-                  dest
-                else
-                  source
-                ;
+              source' = if source == null then dest else source;
             in
             ''
               mkdir -p $(dirname "$out/secrets/${dest}")
@@ -375,13 +370,7 @@ let
       ;
 
     resumeDevices = map
-      (
-        sd:
-        if sd ? device then
-          sd.device
-        else
-          "/dev/disk/by-label/${sd.label}"
-      )
+      (sd: if sd ? device then sd.device else "/dev/disk/by-label/${sd.label}")
       (
         filter
         (
@@ -530,12 +519,7 @@ let
         (
           dest: source:
           let
-            source' =
-              if source == null then
-                dest
-              else
-                toString source
-              ;
+            source' = if source == null then dest else toString source;
           in
           ''
             mkdir -p $(dirname "$tmp/.initrd-secrets/${dest}")

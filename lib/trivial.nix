@@ -97,33 +97,18 @@ rec {
 
   # bitwise “and”
   bitAnd =
-    builtins.bitAnd or (import ./zip-int-bits.nix (
-      a: b:
-      if a == 1 && b == 1 then
-        1
-      else
-        0
-    ));
+    builtins.bitAnd
+      or (import ./zip-int-bits.nix (a: b: if a == 1 && b == 1 then 1 else 0));
 
   # bitwise “or”
   bitOr =
-    builtins.bitOr or (import ./zip-int-bits.nix (
-      a: b:
-      if a == 1 || b == 1 then
-        1
-      else
-        0
-    ));
+    builtins.bitOr
+      or (import ./zip-int-bits.nix (a: b: if a == 1 || b == 1 then 1 else 0));
 
   # bitwise “xor”
   bitXor =
-    builtins.bitXor or (import ./zip-int-bits.nix (
-      a: b:
-      if a != b then
-        1
-      else
-        0
-    ));
+    builtins.bitXor
+      or (import ./zip-int-bits.nix (a: b: if a != b then 1 else 0));
 
   # bitwise “not”
   bitNot = builtins.sub (-1);
@@ -136,13 +121,7 @@ rec {
 
      Type: boolToString :: bool -> string
   */
-  boolToString =
-    b:
-    if b then
-      "true"
-    else
-      "false"
-    ;
+  boolToString = b: if b then "true" else "false";
 
   /* Merge two attribute sets shallowly, right side trumps left
 
@@ -183,10 +162,7 @@ rec {
     f:
     # Argument to check for null before passing it to `f`
     a:
-    if a == null then
-      a
-    else
-      f a
+    if a == null then a else f a
     ;
 
   # Pull in some builtins not included elsewhere.
@@ -299,22 +275,10 @@ rec {
   ## Integer operations
 
   # Return minimum of two numbers.
-  min =
-    x: y:
-    if x < y then
-      x
-    else
-      y
-    ;
+  min = x: y: if x < y then x else y;
 
   # Return maximum of two numbers.
-  max =
-    x: y:
-    if x > y then
-      x
-    else
-      y
-    ;
+  max = x: y: if x > y then x else y;
 
   /* Integer modulus
 
@@ -374,10 +338,7 @@ rec {
     # Second value to compare
     b:
     if p a then
-      if p b then
-        yes a b
-      else
-        -1
+      if p b then yes a b else -1
     else if p b then
       1
     else
@@ -441,25 +402,13 @@ rec {
 
      Type: bool -> string -> a -> a
   */
-  warnIf =
-    cond: msg:
-    if cond then
-      warn msg
-    else
-      x: x
-    ;
+  warnIf = cond: msg: if cond then warn msg else x: x;
 
   /* Like warnIf, but negated (warn if the first argument is `false`).
 
      Type: bool -> string -> a -> a
   */
-  warnIfNot =
-    cond: msg:
-    if cond then
-      x: x
-    else
-      warn msg
-    ;
+  warnIfNot = cond: msg: if cond then x: x else warn msg;
 
   /* Like the `assert b; e` expression, but with a custom error message and
      without the semicolon.
@@ -479,25 +428,13 @@ rec {
          lib.foldr (x: throwIfNot (lib.isFunction x) "All overlays passed to nixpkgs must be functions.") (r: r) overlays
          pkgs
   */
-  throwIfNot =
-    cond: msg:
-    if cond then
-      x: x
-    else
-      throw msg
-    ;
+  throwIfNot = cond: msg: if cond then x: x else throw msg;
 
   /* Like throwIfNot, but negated (throw if the first argument is `true`).
 
      Type: bool -> string -> a -> a
   */
-  throwIf =
-    cond: msg:
-    if cond then
-      throw msg
-    else
-      x: x
-    ;
+  throwIf = cond: msg: if cond then throw msg else x: x;
 
   /* Check if the elements in a list are valid values from a enum, returning the identity function, or throwing an error message otherwise.
 
@@ -578,10 +515,7 @@ rec {
   toFunction =
     # Any value
     v:
-    if isFunction v then
-      v
-    else
-      k: v
+    if isFunction v then v else k: v
     ;
 
   /* Convert the given positive integer to a string of its hexadecimal

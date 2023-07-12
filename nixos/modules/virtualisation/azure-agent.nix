@@ -105,12 +105,7 @@ in
       Provisioning.AllowResetSysUser=n
 
       # Format if unformatted. If 'n', resource disk will not be mounted.
-      ResourceDisk.Format=${
-        if cfg.mountResourceDisk then
-          "y"
-        else
-          "n"
-      }
+      ResourceDisk.Format=${if cfg.mountResourceDisk then "y" else "n"}
 
       # File system on the resource disk
       # Typically ext3 or ext4. FreeBSD images should use 'ufs2' here.
@@ -129,12 +124,7 @@ in
       ResourceDisk.MountOptions=None
 
       # Enable verbose logging (y|n)
-      Logs.Verbose=${
-        if cfg.verboseLogging then
-          "y"
-        else
-          "n"
-      }
+      Logs.Verbose=${if cfg.verboseLogging then "y" else "n"}
 
       # Enable Console logging, default is y
       # Logs.Console=y

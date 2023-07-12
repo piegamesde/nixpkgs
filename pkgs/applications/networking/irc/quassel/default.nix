@@ -47,28 +47,9 @@ assert client || enableDaemon -> !monolithic;
 assert !buildClient -> !withKDE; # KDE is used by the client only
 
 let
-  edf =
-    flag: feature: [
-      (
-        "-D"
-        + feature
-        + (
-          if flag then
-            "=ON"
-          else
-            "=OFF"
-        )
-      )
-    ]
-    ;
+  edf = flag: feature: [ ("-D" + feature + (if flag then "=ON" else "=OFF")) ];
 in
-(
-  if !buildClient then
-    stdenv.mkDerivation
-  else
-    mkDerivation
-)
-rec {
+(if !buildClient then stdenv.mkDerivation else mkDerivation) rec {
   pname = "quassel${tag}";
   version = "0.14.0";
 

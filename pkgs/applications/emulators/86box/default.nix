@@ -80,11 +80,7 @@ stdenv.mkDerivation rec {
         ++ lib.optional unfreeEnableDiscord discord-gamesdk
       );
       libPathVar =
-        if stdenv.isDarwin then
-          "DYLD_LIBRARY_PATH"
-        else
-          "LD_LIBRARY_PATH"
-        ;
+        if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
     in
     ''
       wrapProgram $out/bin/86Box \

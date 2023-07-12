@@ -38,12 +38,7 @@ stdenv.mkDerivation rec {
     "-Dtests=false"
     "-Ddocbook_docs=disabled"
     "-Dgtk_doc=false"
-    "-Dintrospection=${
-      if withIntrospection then
-        "enabled"
-      else
-        "disabled"
-    }"
+    "-Dintrospection=${if withIntrospection then "enabled" else "disabled"}"
   ];
 
   strictDeps = true;

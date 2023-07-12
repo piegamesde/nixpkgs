@@ -30,12 +30,7 @@ let
 in
 
 let
-  suffix =
-    if stdenv.is64bit then
-      "64"
-    else
-      "32"
-    ;
+  suffix = if stdenv.is64bit then "64" else "32";
 in
 
 {

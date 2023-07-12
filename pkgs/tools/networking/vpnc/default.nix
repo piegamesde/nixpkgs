@@ -34,12 +34,7 @@ stdenv.mkDerivation {
       libgcrypt
       perl
     ]
-    ++ (
-      if opensslSupport then
-        [ openssl ]
-      else
-        [ gnutls ]
-    )
+    ++ (if opensslSupport then [ openssl ] else [ gnutls ])
     ;
 
   makeFlags =
@@ -65,12 +60,7 @@ stdenv.mkDerivation {
     homepage = "https://davidepucci.it/doc/vpnc/";
     description =
       "Virtual private network (VPN) client for Cisco's VPN concentrators";
-    license =
-      if opensslSupport then
-        licenses.unfree
-      else
-        licenses.gpl2Plus
-      ;
+    license = if opensslSupport then licenses.unfree else licenses.gpl2Plus;
     platforms = platforms.linux;
   };
 }

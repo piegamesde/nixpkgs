@@ -24,11 +24,7 @@ stdenv.mkDerivation rec {
 
   # Prevents attempts of running 'help2man' on cross-built binaries.
   PERL =
-    if stdenv.hostPlatform == stdenv.buildPlatform then
-      null
-    else
-      "missing"
-    ;
+    if stdenv.hostPlatform == stdenv.buildPlatform then null else "missing";
 
   meta = {
     homepage = "https://www.gnu.org/software/sed/";

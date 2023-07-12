@@ -461,12 +461,7 @@ let
       inherit (libglvnd) driverLink;
       inherit llvmPackages;
 
-      libdrm =
-        if withLibdrm then
-          libdrm
-        else
-          null
-        ;
+      libdrm = if withLibdrm then libdrm else null;
 
       tests = lib.optionalAttrs stdenv.isLinux {
         devDoesNotDependOnLLVM = stdenv.mkDerivation {

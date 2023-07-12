@@ -45,12 +45,7 @@ stdenv.mkDerivation rec {
     ;
 
   configureFlags = [
-    (
-      if withTcl then
-        "TCLSH=${tcl}/bin/tclsh"
-      else
-        "--no-tcl"
-    )
+    (if withTcl then "TCLSH=${tcl}/bin/tclsh" else "--no-tcl")
   ];
 
   installPhase = ''

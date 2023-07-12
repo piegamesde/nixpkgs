@@ -75,10 +75,7 @@ openjdk17.overrideAttrs (
 
       patchShebangs .
       ./jb/project/tools/linux/scripts/mkimages_x64.sh ${build} ${
-        if debugBuild then
-          "fd"
-        else
-          "jcef"
+        if debugBuild then "fd" else "jcef"
       }
 
       runHook postBuild
@@ -86,12 +83,7 @@ openjdk17.overrideAttrs (
 
     installPhase =
       let
-        buildType =
-          if debugBuild then
-            "fastdebug"
-          else
-            "release"
-          ;
+        buildType = if debugBuild then "fastdebug" else "release";
         debugSuffix = lib.optionalString debugBuild "-fastdebug";
         jcefSuffix = lib.optionalString (!debugBuild) "_jcef";
       in

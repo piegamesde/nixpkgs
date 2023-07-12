@@ -73,11 +73,7 @@ in
       '';
       format = "raw";
       configFile =
-        if cfg.configFile == null then
-          defaultConfigFile
-        else
-          cfg.configFile
-        ;
+        if cfg.configFile == null then defaultConfigFile else cfg.configFile;
       inherit (cfg) diskSize;
       inherit config lib pkgs;
     };

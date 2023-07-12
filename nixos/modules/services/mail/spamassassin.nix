@@ -65,10 +65,7 @@ in
         description = lib.mdDoc "The SpamAssassin init.pre config.";
         apply =
           val:
-          if builtins.isPath val then
-            val
-          else
-            pkgs.writeText "init.pre" val
+          if builtins.isPath val then val else pkgs.writeText "init.pre" val
           ;
         default = ''
           #

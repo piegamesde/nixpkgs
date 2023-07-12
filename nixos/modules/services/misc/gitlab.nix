@@ -456,13 +456,7 @@ in
           "artifacts"
           "lfs"
         ];
-        apply =
-          x:
-          if isString x then
-            x
-          else
-            concatStringsSep "," x
-          ;
+        apply = x: if isString x then x else concatStringsSep "," x;
         description = lib.mdDoc ''
           Directories to exclude from the backup. The example excludes
           CI artifacts and LFS objects from the backups. The
@@ -823,13 +817,7 @@ in
           options = {
             listen-http = mkOption {
               type = with types; listOf str;
-              apply =
-                x:
-                if x == [ ] then
-                  null
-                else
-                  lib.concatStringsSep "," x
-                ;
+              apply = x: if x == [ ] then null else lib.concatStringsSep "," x;
               default = [ ];
               description = lib.mdDoc ''
                 The address(es) to listen on for HTTP requests.
@@ -838,13 +826,7 @@ in
 
             listen-https = mkOption {
               type = with types; listOf str;
-              apply =
-                x:
-                if x == [ ] then
-                  null
-                else
-                  lib.concatStringsSep "," x
-                ;
+              apply = x: if x == [ ] then null else lib.concatStringsSep "," x;
               default = [ ];
               description = lib.mdDoc ''
                 The address(es) to listen on for HTTPS requests.
@@ -853,13 +835,7 @@ in
 
             listen-proxy = mkOption {
               type = with types; listOf str;
-              apply =
-                x:
-                if x == [ ] then
-                  null
-                else
-                  lib.concatStringsSep "," x
-                ;
+              apply = x: if x == [ ] then null else lib.concatStringsSep "," x;
               default = [ "127.0.0.1:8090" ];
               description = lib.mdDoc ''
                 The address(es) to listen on for proxy requests.

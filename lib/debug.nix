@@ -58,10 +58,7 @@ rec {
     msg:
     # Value to return
     x:
-    if pred then
-      trace msg x
-    else
-      x
+    if pred then trace msg x else x
     ;
 
   /* Trace the supplied value after applying a function to it, and
@@ -282,12 +279,7 @@ rec {
         (
           name: test:
           let
-            testsToRun =
-              if tests ? tests then
-                tests.tests
-              else
-                [ ]
-              ;
+            testsToRun = if tests ? tests then tests.tests else [ ];
           in
           if
             (substring 0 4 name == "test" || elem name testsToRun)

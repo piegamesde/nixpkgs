@@ -25,11 +25,7 @@ stdenv.mkDerivation rec {
   preCheck =
     let
       ldLibraryPathEnv =
-        if stdenv.isDarwin then
-          "DYLD_LIBRARY_PATH"
-        else
-          "LD_LIBRARY_PATH"
-        ;
+        if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
     in
     ''
       export ${ldLibraryPathEnv}="$(pwd)/build:''${${ldLibraryPathEnv}}"
@@ -50,12 +46,7 @@ stdenv.mkDerivation rec {
   postInstall =
     let
       rel = lib.versions.majorMinor version;
-      suffix =
-        if stdenv.isLinux then
-          "${soext}.${rel}"
-        else
-          ".${rel}${soext}"
-        ;
+      suffix = if stdenv.isLinux then "${soext}.${rel}" else ".${rel}${soext}";
     in
     ''
       # first, move headers and cmake files, that's easy

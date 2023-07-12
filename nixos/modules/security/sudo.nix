@@ -13,20 +13,9 @@ let
 
   inherit (pkgs) sudo;
 
-  toUserString =
-    user:
-    if (isInt user) then
-      "#${toString user}"
-    else
-      "${user}"
-    ;
+  toUserString = user: if (isInt user) then "#${toString user}" else "${user}";
   toGroupString =
-    group:
-    if (isInt group) then
-      "%#${toString group}"
-    else
-      "%${group}"
-    ;
+    group: if (isInt group) then "%#${toString group}" else "%${group}";
 
   toCommandOptionsString =
     options:
@@ -302,19 +291,9 @@ in
     security.wrappers =
       let
         owner = "root";
-        group =
-          if cfg.execWheelOnly then
-            "wheel"
-          else
-            "root"
-          ;
+        group = if cfg.execWheelOnly then "wheel" else "root";
         setuid = true;
-        permissions =
-          if cfg.execWheelOnly then
-            "u+rx,g+x"
-          else
-            "u+rx,g+x,o+x"
-          ;
+        permissions = if cfg.execWheelOnly then "u+rx,g+x" else "u+rx,g+x,o+x";
       in
       {
         sudo = {

@@ -39,10 +39,7 @@ let
       exec ${sway}/bin/sway "$@"
     else
       exec ${
-        if !dbusSupport then
-          ""
-        else
-          "${dbus}/bin/dbus-run-session"
+        if !dbusSupport then "" else "${dbus}/bin/dbus-run-session"
       } ${sway}/bin/sway "$@"
     fi
   '';

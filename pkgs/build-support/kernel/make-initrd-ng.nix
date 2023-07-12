@@ -91,12 +91,7 @@ runCommand name
   };
 
   inherit extension makeUInitrd uInitrdArch prepend;
-  ${
-    if makeUInitrd then
-      "uInitrdCompression"
-    else
-      null
-  } = uInitrdCompression;
+  ${if makeUInitrd then "uInitrdCompression" else null} = uInitrdCompression;
 
   passAsFile = [ "contents" ];
   contents =
@@ -108,10 +103,7 @@ runCommand name
         ...
       }: ''
         ${object}
-        ${if symlink == null then
-          ""
-        else
-          symlink}''
+        ${if symlink == null then "" else symlink}''
     )
     contents
     + "\n"
@@ -126,12 +118,7 @@ runCommand name
     ++ lib.optional strip binutils
     ;
 
-  STRIP =
-    if strip then
-      "${pkgsBuildHost.binutils.targetPrefix}strip"
-    else
-      null
-    ;
+  STRIP = if strip then "${pkgsBuildHost.binutils.targetPrefix}strip" else null;
 })
 ''
   mkdir -p ./root/var/empty

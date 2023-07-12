@@ -103,11 +103,7 @@ stdenv.mkDerivation rec {
       "--runstatedir=/run"
       "--sysconfdir=/etc"
       "--with-distro=${
-        with stdenv.hostPlatform;
-        if isBSD then
-          parsed.kernel.name
-        else
-          "none"
+        with stdenv.hostPlatform; if isBSD then parsed.kernel.name else "none"
       }"
       # A systemd unit is provided by the avahi-daemon NixOS module
       "--with-systemdsystemunitdir=no"

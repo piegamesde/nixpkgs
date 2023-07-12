@@ -202,10 +202,7 @@ mapAttrs
         with subtest("have the terminal run a command"):
             # We run this command synchronously, so we can be certain the exit codes are happy
             machine.${
-              if kill then
-                "execute"
-              else
-                "succeed"
+              if kill then "execute" else "succeed"
             }("run-in-this-term report-success")
             machine.wait_for_file("/tmp/term-ran-successfully")
         ${optionalString colourTest ''

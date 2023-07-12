@@ -122,12 +122,7 @@ let
             libedit
           ]
           ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ jemalloc ]
-          ++ (
-            if (lib.versionOlder version "10.5") then
-              [ pcre ]
-            else
-              [ pcre2 ]
-          )
+          ++ (if (lib.versionOlder version "10.5") then [ pcre ] else [ pcre2 ])
           ++ (
             if (lib.versionOlder version "10.5") then
               [
@@ -343,12 +338,7 @@ let
               "-DENABLED_LOCAL_INFILE=OFF"
               "-DWITH_READLINE=ON"
               "-DWITH_EXTRA_CHARSETS=all"
-              "-DWITH_EMBEDDED_SERVER=${
-                if withEmbedded then
-                  "ON"
-                else
-                  "OFF"
-              }"
+              "-DWITH_EMBEDDED_SERVER=${if withEmbedded then "ON" else "OFF"}"
               "-DWITH_UNIT_TESTS=OFF"
               "-DWITH_WSREP=ON"
               "-DWITH_INNODB_DISALLOW_WRITES=ON"

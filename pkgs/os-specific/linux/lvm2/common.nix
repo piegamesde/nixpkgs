@@ -110,12 +110,7 @@ stdenv.mkDerivation rec {
       (substituteAll (
         let
           optionalTool =
-            cond: pkg:
-            if cond then
-              pkg
-            else
-              "/run/current-system/sw"
-            ;
+            cond: pkg: if cond then pkg else "/run/current-system/sw";
         in
         {
           src = ./fix-blkdeactivate.patch;
@@ -160,10 +155,7 @@ stdenv.mkDerivation rec {
 
   installPhase = lib.optionalString onlyLib ''
     install -D -t $out/lib libdm/ioctl/libdevmapper.${
-      if stdenv.hostPlatform.isStatic then
-        "a"
-      else
-        "so"
+      if stdenv.hostPlatform.isStatic then "a" else "so"
     }
     make -C libdm install_include
     make -C libdm install_pkgconfig

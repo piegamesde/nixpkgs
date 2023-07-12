@@ -132,12 +132,7 @@ let
       optionalLocation =
         let
           pos = builtins.unsafeGetAttrPos
-            (
-              if attrs ? "pname" then
-                "pname"
-              else
-                "name"
-            )
+            (if attrs ? "pname" then "pname" else "name")
             attrs;
         in
         if pos == null then
@@ -272,13 +267,7 @@ let
 
         inherit strictDeps;
 
-        LANG =
-          "${
-            if python.stdenv.isDarwin then
-              "en_US"
-            else
-              "C"
-          }.UTF-8";
+        LANG = "${if python.stdenv.isDarwin then "en_US" else "C"}.UTF-8";
 
         # Python packages don't have a checkPhase, only an installCheckPhase
         doCheck = false;

@@ -22,12 +22,7 @@ let
         let
           m = matchWildCard constraint;
           hasWildcard = m != null;
-          c =
-            if hasWildcard then
-              (elemAt m 0)
-            else
-              constraint
-            ;
+          c = if hasWildcard then (elemAt m 0) else constraint;
           v =
             if hasWildcard then
               (builtins.substring 0 (builtins.stringLength c) version)
@@ -110,10 +105,7 @@ let
     let
       inherit (parseConstraint constraint) op v;
     in
-    if constraint == "*" then
-      true
-    else
-      operators."${op}" version v
+    if constraint == "*" then true else operators."${op}" version v
     ;
 in
 {

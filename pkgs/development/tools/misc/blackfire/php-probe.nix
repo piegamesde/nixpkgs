@@ -72,10 +72,7 @@ let
     fetchurl {
       url =
         "https://packages.blackfire.io/binaries/blackfire-php/${version}/blackfire-php-${
-          if isLinux then
-            "linux"
-          else
-            "darwin"
+          if isLinux then "linux" else "darwin"
         }_${hashes.${system}.system}-php-${
           builtins.replaceStrings [ "." ] [ "" ] phpMajor
         }.so";
@@ -154,11 +151,7 @@ let
             {
               system = builtins.head path;
               phpMajor =
-                if builtins.length rest == 0 then
-                  null
-                else
-                  builtins.head rest
-                ;
+                if builtins.length rest == 0 then null else builtins.head rest;
             }
             ;
 

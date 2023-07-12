@@ -9,12 +9,7 @@ with lib;
 
 let
   cfg = config.amazonImage;
-  amiBootMode =
-    if config.ec2.efi then
-      "uefi"
-    else
-      "legacy-bios"
-    ;
+  amiBootMode = if config.ec2.efi then "uefi" else "legacy-bios";
 in
 {
 
@@ -156,12 +151,7 @@ in
           ; # ensure we use the regular qemu-kvm package
 
         fsType = "ext4";
-        partitionTableType =
-          if config.ec2.efi then
-            "efi"
-          else
-            "legacy+gpt"
-          ;
+        partitionTableType = if config.ec2.efi then "efi" else "legacy+gpt";
 
         diskSize = cfg.sizeMB;
 
@@ -192,9 +182,6 @@ in
         '';
       };
     in
-    if config.ec2.zfs.enable then
-      zfsBuilder
-    else
-      extBuilder
+    if config.ec2.zfs.enable then zfsBuilder else extBuilder
     ;
 }

@@ -126,10 +126,7 @@ let
 
   prioToString =
     class: prio:
-    if prio == null then
-      ''"${class}"''
-    else
-      "(${class})${toString prio}"
+    if prio == null then ''"${class}"'' else "(${class})${toString prio}"
     ;
 
   schedulerProfileToString =

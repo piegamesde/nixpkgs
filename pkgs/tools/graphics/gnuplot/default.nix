@@ -40,13 +40,7 @@ assert libX11 != null
 let
   withX = libX11 != null && !aquaterm && !stdenv.isDarwin;
 in
-(
-  if withQt then
-    mkDerivation
-  else
-    stdenv.mkDerivation
-)
-rec {
+(if withQt then mkDerivation else stdenv.mkDerivation) rec {
   pname = "gnuplot";
   version = "5.4.6";
 
@@ -99,24 +93,9 @@ rec {
 
   configureFlags =
     [
-      (
-        if withX then
-          "--with-x"
-        else
-          "--without-x"
-      )
-      (
-        if withQt then
-          "--with-qt=qt5"
-        else
-          "--without-qt"
-      )
-      (
-        if aquaterm then
-          "--with-aquaterm"
-        else
-          "--without-aquaterm"
-      )
+      (if withX then "--with-x" else "--without-x")
+      (if withQt then "--with-qt=qt5" else "--without-qt")
+      (if aquaterm then "--with-aquaterm" else "--without-aquaterm")
     ]
     ++ lib.optional withCaca "--with-caca"
     ;

@@ -852,12 +852,7 @@ in
 
                   port = mkOption {
                     type = types.port;
-                    default =
-                      if isAbsolutePath web.http.ip then
-                        0
-                      else
-                        4000
-                      ;
+                    default = if isAbsolutePath web.http.ip then 0 else 4000;
                     defaultText = literalExpression ''
                       if isAbsolutePath config.services.akkoma.config.:pleroma"."Pleroma.Web.Endpoint".http.ip
                         then 0

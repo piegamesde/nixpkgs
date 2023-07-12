@@ -108,12 +108,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isLinux [
       # On Linux, fall back to elogind when systemd support is off.
-      (
-        if useSystemd then
-          systemdMinimal
-        else
-          elogind
-      )
+      (if useSystemd then systemdMinimal else elogind)
     ]
     ;
 
@@ -151,10 +146,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isLinux [
       "-Dsession_tracking=${
-        if useSystemd then
-          "libsystemd-login"
-        else
-          "libelogind"
+        if useSystemd then "libsystemd-login" else "libelogind"
       }"
     ]
     ;

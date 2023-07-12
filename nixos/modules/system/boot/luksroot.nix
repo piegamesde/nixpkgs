@@ -275,10 +275,7 @@ let
                       echo "Key File ${dev.keyFile} failed!"
                       if ! try_empty_passphrase; then
                         ${
-                          if dev.fallbackToPassword then
-                            "echo"
-                          else
-                            "die"
+                          if dev.fallbackToPassword then "echo" else "die"
                         } "${dev.keyFile} is unavailable"
                         echo " - failing back to interactive password prompt"
                         do_open_passphrase
@@ -288,10 +285,7 @@ let
                     # If the key file never shows up we should also try the empty passphrase
                     if ! try_empty_passphrase; then
                        ${
-                         if dev.fallbackToPassword then
-                           "echo"
-                         else
-                           "die"
+                         if dev.fallbackToPassword then "echo" else "die"
                        } "${dev.keyFile} is unavailable"
                        echo " - failing back to interactive password prompt"
                        do_open_passphrase
@@ -648,12 +642,9 @@ let
             ++ optional (v.tryEmptyPassphrase) "try-empty-password=true"
             ;
         in
-        "${n} ${v.device} ${
-          if v.keyFile == null then
-            "-"
-          else
-            v.keyFile
-        } ${lib.concatStringsSep "," opts}"
+        "${n} ${v.device} ${if v.keyFile == null then "-" else v.keyFile} ${
+          lib.concatStringsSep "," opts
+        }"
       )
       luks.devices
     )
@@ -1223,12 +1214,7 @@ in
       ++ luks.cryptoModules
       # workaround until https://marc.info/?l=linux-crypto-vger&m=148783562211457&w=4 is merged
       # remove once 'modprobe --show-depends xts' shows ecb as a dependency
-      ++ (
-        if builtins.elem "xts" luks.cryptoModules then
-          [ "ecb" ]
-        else
-          [ ]
-      )
+      ++ (if builtins.elem "xts" luks.cryptoModules then [ "ecb" ] else [ ])
       ;
 
     # copy the cryptsetup binary and it's dependencies

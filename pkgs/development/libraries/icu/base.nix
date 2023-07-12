@@ -154,12 +154,7 @@ let
     '';
   };
 
-  attrs =
-    if buildRootOnly then
-      buildRootOnlyAttrs
-    else
-      realAttrs
-    ;
+  attrs = if buildRootOnly then buildRootOnlyAttrs else realAttrs;
 in
 stdenv.mkDerivation (
   finalAttrs:

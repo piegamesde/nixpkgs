@@ -421,18 +421,8 @@ stdenv.mkDerivation (
         "-I"
         "${openssl.dev}/include"
         "-system-sqlite"
-        "-${
-          if mysqlSupport then
-            "plugin"
-          else
-            "no"
-        }-sql-mysql"
-        "-${
-          if postgresql != null then
-            "plugin"
-          else
-            "no"
-        }-sql-psql"
+        "-${if mysqlSupport then "plugin" else "no"}-sql-mysql"
+        "-${if postgresql != null then "plugin" else "no"}-sql-psql"
 
         "-make libs"
         "-make tools"

@@ -22,13 +22,7 @@ rec {
 
   subdir = "${major}.${minor}.${patch}";
 
-  version =
-    "${subdir}${
-      if tweak == "" then
-        ""
-      else
-        "."
-    }${tweak}";
+  version = "${subdir}${if tweak == "" then "" else "."}${tweak}";
 
   src = fetchurl {
     url =

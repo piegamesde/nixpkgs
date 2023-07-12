@@ -115,12 +115,7 @@ stdenv.mkDerivation {
   meta = {
     description = "OpenPrinting ppd files";
     homepage = "https://openprinting.github.io/projects/02-foomatic/";
-    license =
-      if isFree then
-        lib.licenses.free
-      else
-        lib.licenses.unfree
-      ;
+    license = if isFree then lib.licenses.free else lib.licenses.unfree;
     maintainers = [ lib.maintainers.yarny ];
     # list printer manufacturers here so people
     # searching for ppd files can find this package

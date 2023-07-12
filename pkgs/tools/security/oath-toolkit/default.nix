@@ -9,12 +9,7 @@
 
 let
   # TODO: Switch to OpenPAM once https://gitlab.com/oath-toolkit/oath-toolkit/-/issues/26 is addressed upstream
-  securityDependency =
-    if stdenv.isDarwin then
-      xmlsec
-    else
-      pam
-    ;
+  securityDependency = if stdenv.isDarwin then xmlsec else pam;
 in
 stdenv.mkDerivation rec {
   pname = "oath-toolkit";

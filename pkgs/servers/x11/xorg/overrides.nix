@@ -128,10 +128,7 @@ self: super:
       setupHook = ./imake-setup-hook.sh;
       CFLAGS =
         "-DIMAKE_COMPILETIME_CPP='\"${
-          if stdenv.isDarwin then
-            "${tradcpp}/bin/cpp"
-          else
-            "gcc"
+          if stdenv.isDarwin then "${tradcpp}/bin/cpp" else "gcc"
         }\"'";
 
       configureFlags =
@@ -1421,12 +1418,7 @@ self: super:
   );
 
   xinit = (super.xinit.override {
-    stdenv =
-      if isDarwin then
-        clangStdenv
-      else
-        stdenv
-      ;
+    stdenv = if isDarwin then clangStdenv else stdenv;
   }).overrideAttrs
     (
       attrs: {

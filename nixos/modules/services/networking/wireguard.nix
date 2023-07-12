@@ -520,12 +520,7 @@ let
       ipPreMove = nsWrap "ip" src null;
       ipPostMove = nsWrap "ip" src dst;
       wg = nsWrap "wg" src dst;
-      ns =
-        if dst == "init" then
-          "1"
-        else
-          dst
-        ;
+      ns = if dst == "init" then "1" else dst;
     in
     nameValuePair "wireguard-${name}" {
       description = "WireGuard Tunnel - ${name}";

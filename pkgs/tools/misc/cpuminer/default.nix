@@ -30,11 +30,7 @@ stdenv.mkDerivation rec {
   ];
 
   postPatch =
-    if stdenv.cc.isClang then
-      "${perl}/bin/perl ./nomacro.pl"
-    else
-      null
-    ;
+    if stdenv.cc.isClang then "${perl}/bin/perl ./nomacro.pl" else null;
 
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [

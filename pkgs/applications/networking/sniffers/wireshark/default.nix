@@ -51,12 +51,7 @@ assert withQt -> qt5 != null;
 
 let
   version = "4.0.5";
-  variant =
-    if withQt then
-      "qt"
-    else
-      "cli"
-    ;
+  variant = if withQt then "qt" else "cli";
 in
 stdenv.mkDerivation {
   pname = "wireshark-${variant}";
@@ -75,17 +70,9 @@ stdenv.mkDerivation {
 
   cmakeFlags =
     [
-      "-DBUILD_wireshark=${
-        if withQt then
-          "ON"
-        else
-          "OFF"
-      }"
+      "-DBUILD_wireshark=${if withQt then "ON" else "OFF"}"
       "-DENABLE_APPLICATION_BUNDLE=${
-        if withQt && stdenv.isDarwin then
-          "ON"
-        else
-          "OFF"
+        if withQt && stdenv.isDarwin then "ON" else "OFF"
       }"
       # Fix `extcap` and `plugins` paths. See https://bugs.wireshark.org/bugzilla/show_bug.cgi?id=16444
       "-DCMAKE_INSTALL_LIBDIR=lib"
@@ -246,11 +233,6 @@ stdenv.mkDerivation {
       bjornfor
       fpletz
     ];
-    mainProgram =
-      if withQt then
-        "wireshark"
-      else
-        "tshark"
-      ;
+    mainProgram = if withQt then "wireshark" else "tshark";
   };
 }

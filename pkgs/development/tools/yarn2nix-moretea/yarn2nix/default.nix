@@ -29,13 +29,7 @@ rec {
   # Re-export pkgs
   inherit pkgs;
 
-  unlessNull =
-    item: alt:
-    if item == null then
-      alt
-    else
-      item
-    ;
+  unlessNull = item: alt: if item == null then alt else item;
 
   reformatPackageName =
     pname:

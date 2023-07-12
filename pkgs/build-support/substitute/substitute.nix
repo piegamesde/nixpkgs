@@ -9,12 +9,7 @@ args:
 # to `substitute`, such as `[ "--replace" "sourcetext" "replacementtext" ]`
 stdenvNoCC.mkDerivation (
   {
-    name =
-      if args ? name then
-        args.name
-      else
-        baseNameOf (toString args.src)
-      ;
+    name = if args ? name then args.name else baseNameOf (toString args.src);
     builder = ./substitute.sh;
     inherit (args) src;
     preferLocalBuild = true;

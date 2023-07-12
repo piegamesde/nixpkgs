@@ -44,10 +44,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=${
-      if stdenv.hostPlatform.isStatic then
-        "OFF"
-      else
-        "ON"
+      if stdenv.hostPlatform.isStatic then "OFF" else "ON"
     }"
   ];
 

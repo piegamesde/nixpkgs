@@ -18,10 +18,7 @@ let
         {
           mkValueString =
             val:
-            if isList val then
-              ''"'' + (toString val) + ''"''
-            else
-              toString val
+            if isList val then ''"'' + (toString val) + ''"'' else toString val
             ;
         }
         "=";

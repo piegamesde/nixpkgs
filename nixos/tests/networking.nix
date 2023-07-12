@@ -1432,10 +1432,7 @@ mapAttrs
     attrs // {
       name =
         "${attrs.name}-Networking-${
-          if networkd then
-            "Networkd"
-          else
-            "Scripted"
+          if networkd then "Networkd" else "Scripted"
         }";
     }
   )

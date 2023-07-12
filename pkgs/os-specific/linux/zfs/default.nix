@@ -60,12 +60,7 @@ let
   # by the kernel.
   # If you don't do this your ZFS builds will fail on any non-standard (e.g.
   # clang-built) kernels.
-  stdenv' =
-    if kernel == null then
-      stdenv
-    else
-      kernel.stdenv
-    ;
+  stdenv' = if kernel == null then stdenv else kernel.stdenv;
 
   common =
     {
@@ -339,11 +334,7 @@ in
         kernel.kernelOlder "6.2"
       ;
     latestCompatibleLinuxPackages =
-      if stdenv'.isx86_64 then
-        linuxPackages_6_2
-      else
-        linuxPackages_6_1
-      ;
+      if stdenv'.isx86_64 then linuxPackages_6_2 else linuxPackages_6_1;
 
     # this package should point to the latest release.
     version = "2.1.11";
@@ -363,11 +354,7 @@ in
         kernel.kernelOlder "6.2"
       ;
     latestCompatibleLinuxPackages =
-      if stdenv'.isx86_64 then
-        linuxPackages_6_2
-      else
-        linuxPackages_6_1
-      ;
+      if stdenv'.isx86_64 then linuxPackages_6_2 else linuxPackages_6_1;
 
     # this package should point to a version / git revision compatible with the latest kernel release
     # IMPORTANT: Always use a tagged release candidate or commits from the

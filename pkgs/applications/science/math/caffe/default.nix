@@ -50,13 +50,7 @@ assert ncclSupport -> cudaSupport;
 assert pythonSupport -> (python != null && numpy != null);
 
 let
-  toggle =
-    bool:
-    if bool then
-      "ON"
-    else
-      "OFF"
-    ;
+  toggle = bool: if bool then "ON" else "OFF";
 
   test_model_weights = fetchurl {
     url =

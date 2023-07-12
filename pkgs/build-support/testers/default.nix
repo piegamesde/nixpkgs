@@ -162,12 +162,7 @@
     in
     test:
     let
-      loadedTest =
-        if builtins.typeOf test == "path" then
-          import test
-        else
-          test
-        ;
+      loadedTest = if builtins.typeOf test == "path" then import test else test;
       calledTest = lib.toFunction loadedTest pkgs;
     in
     nixosTesting.simpleTest calledTest

@@ -12,12 +12,7 @@ let
   cfg = config.services.babeld;
 
   conditionalBoolToString =
-    value:
-    if (isBool value) then
-      (boolToString value)
-    else
-      (toString value)
-    ;
+    value: if (isBool value) then (boolToString value) else (toString value);
 
   paramsString =
     params:

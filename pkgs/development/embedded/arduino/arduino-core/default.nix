@@ -99,12 +99,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname =
-    (
-      if withTeensyduino then
-        "teensyduino"
-      else
-        "arduino"
-    )
+    (if withTeensyduino then "teensyduino" else "arduino")
     + lib.optionalString (!withGui) "-core"
     ;
   version = "1.8.19";
@@ -299,11 +294,7 @@ stdenv.mkDerivation rec {
     description = "Open-source electronics prototyping platform";
     homepage = "https://www.arduino.cc/";
     license =
-      if withTeensyduino then
-        licenses.unfreeRedistributable
-      else
-        licenses.gpl2
-      ;
+      if withTeensyduino then licenses.unfreeRedistributable else licenses.gpl2;
     sourceProvenance = with sourceTypes; [
       binaryBytecode
       binaryNativeCode

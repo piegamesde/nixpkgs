@@ -79,10 +79,7 @@ let
         tle = null; # builtin
         advice = null; # builtin
         seq =
-          if lib.versionAtLeast self.emacs.version "27" then
-            null
-          else
-            super.seq
+          if lib.versionAtLeast self.emacs.version "27" then null else super.seq
           ;
         # Compilation instructions for the Ada executables:
         # https://www.nongnu.org/ada-mode/

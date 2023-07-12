@@ -62,18 +62,8 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = with python3.pkgs; [ numpy ];
 
   cmakeFlags = [
-    "-Dwith-python=${
-      if withPython then
-        "ON"
-      else
-        "OFF"
-    }"
-    "-Dwith-mpi=${
-      if withMpi then
-        "ON"
-      else
-        "OFF"
-    }"
+    "-Dwith-python=${if withPython then "ON" else "OFF"}"
+    "-Dwith-mpi=${if withMpi then "ON" else "OFF"}"
     "-Dwith-openmp=ON"
   ];
 

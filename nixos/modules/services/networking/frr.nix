@@ -34,13 +34,7 @@ let
 
   isEnabled = service: cfg.${service}.enable;
 
-  daemonName =
-    service:
-    if service == "zebra" then
-      service
-    else
-      "${service}d"
-    ;
+  daemonName = service: if service == "zebra" then service else "${service}d";
 
   configFile =
     service:

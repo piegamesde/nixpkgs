@@ -39,12 +39,7 @@ let
     SMTP_FROM_ADDRESS = cfg.smtp.fromAddress;
     PAPERCLIP_ROOT_PATH = "/var/lib/mastodon/public-system";
     PAPERCLIP_ROOT_URL = "/system";
-    ES_ENABLED =
-      if (cfg.elasticsearch.host != null) then
-        "true"
-      else
-        "false"
-      ;
+    ES_ENABLED = if (cfg.elasticsearch.host != null) then "true" else "false";
     ES_HOST = cfg.elasticsearch.host;
     ES_PORT = toString (cfg.elasticsearch.port);
 
@@ -123,10 +118,7 @@ let
         lib.mapAttrsToList
         (
           name: value:
-          if value != null then
-            [ ''${name}="${toString value}"'' ]
-          else
-            [ ]
+          if value != null then [ ''${name}="${toString value}"'' ] else [ ]
         )
         env
       ))
@@ -497,12 +489,7 @@ in
 
         port = lib.mkOption {
           type = lib.types.nullOr lib.types.port;
-          default =
-            if cfg.database.createLocally then
-              null
-            else
-              5432
-            ;
+          default = if cfg.database.createLocally then null else 5432;
           defaultText = lib.literalExpression ''
             if config.${opt.database.createLocally}
             then null

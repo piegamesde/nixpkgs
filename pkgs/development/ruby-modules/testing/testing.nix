@@ -71,10 +71,7 @@ let
       if isBool res then
         [
           (prefixName name (
-            if tests under then
-              passed "passed"
-            else
-              failed "failed"
+            if tests under then passed "passed" else failed "failed"
           ))
         ]
       else

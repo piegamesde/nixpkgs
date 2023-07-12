@@ -14,14 +14,7 @@ let
       copyArgs = g: lib.setFunctionArgs g (lib.functionArgs f);
 
       overrideWith =
-        update:
-        args // (
-          if lib.isFunction update then
-            update args
-          else
-            update
-        )
-        ;
+        update: args // (if lib.isFunction update then update args else update);
 
       overridePackage =
         copyArgs (update: makePackageOverridable f (overrideWith update));

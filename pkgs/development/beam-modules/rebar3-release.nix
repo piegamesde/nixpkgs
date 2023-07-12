@@ -81,22 +81,14 @@ let
         buildPhase = ''
           runHook preBuild
           HOME=. DEBUG=1 rebar3 as ${profile} ${
-            if releaseType == "escript" then
-              "escriptize"
-            else
-              "release"
+            if releaseType == "escript" then "escriptize" else "release"
           }
           runHook postBuild
         '';
 
         installPhase = ''
           runHook preInstall
-          dir=${
-            if releaseType == "escript" then
-              "bin"
-            else
-              "rel"
-          }
+          dir=${if releaseType == "escript" then "bin" else "rel"}
           mkdir -p "$out/$dir" "$out/bin"
           cp -R --preserve=mode "_build/${profile}/$dir" "$out"
           ${lib.optionalString
@@ -121,12 +113,7 @@ let
             {
               packageName = pname;
               env = shell self;
-            } // (
-              if attrs ? passthru then
-                attrs.passthru
-              else
-                { }
-            )
+            } // (if attrs ? passthru then attrs.passthru else { })
           );
       } // customPhases
     )

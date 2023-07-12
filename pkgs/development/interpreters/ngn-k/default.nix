@@ -11,12 +11,7 @@
 let
   # k itself can be compiled with -ffreestanding, but tests require a libc;
   # if we want to build k-libc we need a libc obviously
-  useStdenv =
-    if withLibc || doCheck then
-      stdenv
-    else
-      stdenvNoLibs
-    ;
+  useStdenv = if withLibc || doCheck then stdenv else stdenvNoLibs;
 in
 
 useStdenv.mkDerivation {
@@ -44,12 +39,7 @@ useStdenv.mkDerivation {
 
   makeFlags = [ "-e" ];
   buildFlags = [
-    (
-      if withLibc then
-        "k-libc"
-      else
-        "k"
-    )
+    (if withLibc then "k-libc" else "k")
     "libk.so"
   ];
   checkTarget = "t";

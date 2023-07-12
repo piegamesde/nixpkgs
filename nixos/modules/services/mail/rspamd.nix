@@ -112,10 +112,7 @@ let
                 } has enum value `proxy` which has been renamed to `rspamd_proxy`";
             in
             x:
-            if x == "proxy" then
-              traceWarning warning "rspamd_proxy"
-            else
-              x
+            if x == "proxy" then traceWarning warning "rspamd_proxy" else x
             ;
         };
         bindSockets = mkOption {
@@ -192,10 +189,7 @@ let
           type = mkDefault name;
           includes = mkDefault [
             "$CONFDIR/worker-${
-              if name == "rspamd_proxy" then
-                "proxy"
-              else
-                name
+              if name == "rspamd_proxy" then "proxy" else name
             }.inc"
           ];
           bindSockets =
@@ -225,14 +219,7 @@ let
     ;
 
   isUnixSocket =
-    socket:
-    hasPrefix "/" (
-      if (isString socket) then
-        socket
-      else
-        socket.socket
-    )
-    ;
+    socket: hasPrefix "/" (if (isString socket) then socket else socket.socket);
 
   mkBindSockets =
     enabled: socks:
@@ -263,12 +250,7 @@ let
       (
         name: value:
         let
-          includeName =
-            if name == "rspamd_proxy" then
-              "proxy"
-            else
-              name
-            ;
+          includeName = if name == "rspamd_proxy" then "proxy" else name;
           tryOverride = boolToString (value.extraConfig == "");
         in
         ''
@@ -276,10 +258,7 @@ let
             type = "${value.type}";
             ${
               optionalString (value.enable != null) "enabled = ${
-                if value.enable != false then
-                  "yes"
-                else
-                  "no"
+                if value.enable != false then "yes" else "no"
               };"
             }
             ${mkBindSockets value.enable value.bindSockets}
@@ -372,14 +351,7 @@ let
   configOverrides = (mapAttrs'
     (
       n: v:
-      nameValuePair
-      "worker-${
-        if n == "rspamd_proxy" then
-          "proxy"
-        else
-          n
-      }.inc"
-      {
+      nameValuePair "worker-${if n == "rspamd_proxy" then "proxy" else n}.inc" {
         text = v.extraConfig;
       }
     )

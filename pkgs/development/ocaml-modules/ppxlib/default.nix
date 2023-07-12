@@ -5,10 +5,7 @@
   ocaml,
   version ? if lib.versionAtLeast ocaml.version "4.07" then
     if lib.versionAtLeast ocaml.version "4.08" then
-      if lib.versionAtLeast ocaml.version "4.11" then
-        "0.28.0"
-      else
-        "0.24.0"
+      if lib.versionAtLeast ocaml.version "4.11" then "0.28.0" else "0.24.0"
     else
       "0.15.0"
   else
@@ -85,12 +82,7 @@ else
     pname = "ppxlib";
     inherit version;
 
-    duneVersion =
-      if param.useDune2 or true then
-        "3"
-      else
-        "1"
-      ;
+    duneVersion = if param.useDune2 or true then "3" else "1";
 
     src = fetchurl {
       url =

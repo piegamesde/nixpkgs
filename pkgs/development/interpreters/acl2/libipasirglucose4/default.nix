@@ -31,12 +31,7 @@ stdenv.mkDerivation rec {
 
   postBuild = ''
     $CXX -shared -o ${libname} \
-        ${
-          if stdenv.cc.isClang then
-            ""
-          else
-            "-Wl,-soname,${libname}"
-        } \
+        ${if stdenv.cc.isClang then "" else "-Wl,-soname,${libname}"} \
         ipasirglucoseglue.o libipasirglucose4.a
   '';
 

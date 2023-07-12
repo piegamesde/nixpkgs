@@ -98,12 +98,7 @@ with lib;
 let
   # some python packages need legacy ciphers, so we're using openssl 3, but with that config
   # null check for Minimal
-  openssl' =
-    if openssl != null then
-      openssl_legacy
-    else
-      null
-    ;
+  openssl' = if openssl != null then openssl_legacy else null;
 
   buildPackages = pkgsBuildHost;
   inherit (passthru) pythonForBuild;
@@ -503,10 +498,7 @@ stdenv.mkDerivation {
     + optionalString stdenv.isDarwin ''
       # Override the auto-detection in setup.py, which assumes a universal build
       export PYTHON_DECIMAL_WITH_MACHINE=${
-        if stdenv.isAarch64 then
-          "uint128"
-        else
-          "x64"
+        if stdenv.isAarch64 then "uint128" else "x64"
       }
     ''
     + optionalString (isPy3k && pythonOlder "3.7") ''

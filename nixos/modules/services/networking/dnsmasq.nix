@@ -198,12 +198,7 @@ in
         PrivateTmp = true;
         ProtectSystem = true;
         ProtectHome = true;
-        Restart =
-          if cfg.alwaysKeepRunning then
-            "always"
-          else
-            "on-failure"
-          ;
+        Restart = if cfg.alwaysKeepRunning then "always" else "on-failure";
       };
       restartTriggers = [ config.environment.etc.hosts.source ];
     };

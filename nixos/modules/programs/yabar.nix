@@ -17,10 +17,7 @@ let
       (
         key: val:
         "${key} = ${
-          if (isString val) then
-            ''"${val}"''
-          else
-            "${builtins.toString val}"
+          if (isString val) then ''"${val}"'' else "${builtins.toString val}"
         };"
       )
       v

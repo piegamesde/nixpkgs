@@ -55,30 +55,10 @@ stdenv.mkDerivation rec {
   ];
 
   mesonFlags = [
-    "-Degl=${
-      if stdenv.isDarwin then
-        "disabled"
-      else
-        "auto"
-    }"
-    "-Dlibdrm=${
-      if mesa.libdrm == null then
-        "disabled"
-      else
-        "enabled"
-    }"
-    "-Dosmesa=${
-      if mesa ? osmesa then
-        "enabled"
-      else
-        "disabled"
-    }"
-    "-Dwayland=${
-      if wayland.withLibraries then
-        "enabled"
-      else
-        "disabled"
-    }"
+    "-Degl=${if stdenv.isDarwin then "disabled" else "auto"}"
+    "-Dlibdrm=${if mesa.libdrm == null then "disabled" else "enabled"}"
+    "-Dosmesa=${if mesa ? osmesa then "enabled" else "disabled"}"
+    "-Dwayland=${if wayland.withLibraries then "enabled" else "disabled"}"
     "-Dwith-system-data-files=true"
   ];
 

@@ -362,10 +362,7 @@ in
           type = lib.types.str;
           default =
             "${
-              if cfg.mail.incoming.enable then
-                "notifications"
-              else
-                "noreply"
+              if cfg.mail.incoming.enable then "notifications" else "noreply"
             }@${cfg.hostname}";
           defaultText = lib.literalExpression ''
             "''${if config.services.discourse.mail.incoming.enable then "notifications" else "noreply"}@''${config.services.discourse.hostname}"

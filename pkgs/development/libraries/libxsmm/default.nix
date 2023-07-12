@@ -34,12 +34,7 @@ stdenv.mkDerivation rec {
 
   makeFlags =
     let
-      static =
-        if enableStatic then
-          "1"
-        else
-          "0"
-        ;
+      static = if enableStatic then "1" else "0";
     in
     [
       "OMP=1"

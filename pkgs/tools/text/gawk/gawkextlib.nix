@@ -67,12 +67,7 @@ let
       buildInputs = [ gawk ] ++ extraBuildInputs;
       propagatedBuildInputs = lib.optional is_extension gawkextlib;
 
-      setupHook =
-        if is_extension then
-          ./setup-hook.sh
-        else
-          null
-        ;
+      setupHook = if is_extension then ./setup-hook.sh else null;
       inherit gawk;
 
       inherit doCheck;

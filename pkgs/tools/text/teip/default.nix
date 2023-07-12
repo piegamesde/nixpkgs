@@ -31,12 +31,7 @@ rustPlatform.buildRustPackage rec {
 
   # tests are locale sensitive
   preCheck = ''
-    export LANG=${
-      if stdenv.isDarwin then
-        "en_US.UTF-8"
-      else
-        "C.UTF-8"
-    }
+    export LANG=${if stdenv.isDarwin then "en_US.UTF-8" else "C.UTF-8"}
   '';
 
   postInstall = ''

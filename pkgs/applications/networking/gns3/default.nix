@@ -9,18 +9,8 @@ let
   addVersion =
     args:
     let
-      version =
-        if args.stable then
-          stableVersion
-        else
-          previewVersion
-        ;
-      branch =
-        if args.stable then
-          "stable"
-        else
-          "preview"
-        ;
+      version = if args.stable then stableVersion else previewVersion;
+      branch = if args.stable then "stable" else "preview";
     in
     args // {
       inherit version branch;

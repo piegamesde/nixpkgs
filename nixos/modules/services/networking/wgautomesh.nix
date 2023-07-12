@@ -16,10 +16,7 @@ let
         mapAttrs
         (
           k: v:
-          if k == "peers" then
-            map (e: filterAttrs (k: v: v != null) e) v
-          else
-            v
+          if k == "peers" then map (e: filterAttrs (k: v: v != null) e) v else v
         )
         cfg.settings
       )

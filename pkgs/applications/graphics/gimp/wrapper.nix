@@ -14,10 +14,7 @@ let
       lib.attrValues gimpPlugins
     );
   selectedPlugins = lib.filter (pkg: pkg != gimp) (
-    if plugins == null then
-      allPlugins
-    else
-      plugins
+    if plugins == null then allPlugins else plugins
   );
   extraArgs = map (x: x.wrapArgs or "") selectedPlugins;
   versionBranch = lib.versions.majorMinor gimp.version;

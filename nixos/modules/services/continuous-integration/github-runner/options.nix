@@ -89,12 +89,7 @@ with lib;
         types.strMatching "^$|^[[:alnum:]]([[:alnum:]_-]{0,61}[[:alnum:]])?$";
     in
     mkOption {
-      type =
-        if includeNameDefault then
-          baseType
-        else
-          types.nullOr baseType
-        ;
+      type = if includeNameDefault then baseType else types.nullOr baseType;
       description = lib.mdDoc ''
         Name of the runner to configure. Defaults to the hostname.
 

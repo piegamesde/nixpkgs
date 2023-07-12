@@ -83,12 +83,7 @@ let
       "${pname}-${version}"
     ;
 
-  pname' =
-    if pname != null then
-      pname
-    else
-      name
-    ;
+  pname' = if pname != null then pname else name;
 
   copyIfBundledByPath =
     {

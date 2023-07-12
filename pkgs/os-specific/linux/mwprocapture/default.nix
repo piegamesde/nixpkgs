@@ -9,12 +9,7 @@
 with lib;
 
 let
-  bits =
-    if stdenv.is64bit then
-      "64"
-    else
-      "32"
-    ;
+  bits = if stdenv.is64bit then "64" else "32";
 
   libpath = makeLibraryPath [
     stdenv.cc.cc

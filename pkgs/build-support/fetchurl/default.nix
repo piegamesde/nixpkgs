@@ -121,19 +121,9 @@ in
 let
   urls_ =
     if urls != [ ] && url == "" then
-      (
-        if lib.isList urls then
-          urls
-        else
-          throw "`urls` is not a list"
-      )
+      (if lib.isList urls then urls else throw "`urls` is not a list")
     else if urls == [ ] && url != "" then
-      (
-        if lib.isString url then
-          [ url ]
-        else
-          throw "`url` is not a string"
-      )
+      (if lib.isString url then [ url ] else throw "`url` is not a string")
     else
       throw "fetchurl requires either `url` or `urls` to be set"
     ;
@@ -224,11 +214,7 @@ stdenvNoCC.mkDerivation (
       ;
 
     outputHashMode =
-      if (recursiveHash || executable) then
-        "recursive"
-      else
-        "flat"
-      ;
+      if (recursiveHash || executable) then "recursive" else "flat";
 
     curlOpts = lib.warnIf (lib.isList curlOpts)
       ''

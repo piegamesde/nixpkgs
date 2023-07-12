@@ -140,12 +140,7 @@ let
             };
 
             # Have `configure' avoid `/usr/bin/nroff' in non-chroot builds.
-            NROFF =
-              if docSupport then
-                "${groff}/bin/nroff"
-              else
-                null
-              ;
+            NROFF = if docSupport then "${groff}/bin/nroff" else null;
 
             outputs = [ "out" ] ++ lib.optional docSupport "devdoc";
 

@@ -28,12 +28,7 @@ stdenv.mkDerivation rec {
     "-DUSE_GSL=1"
     "-DUSE_PCAP=1"
     "-DUSE_SSL=1"
-    "-DUSE_SCTP=${
-      if stdenv.isLinux then
-        "1"
-      else
-        "0"
-    }"
+    "-DUSE_SCTP=${if stdenv.isLinux then "1" else "0"}"
 
     # file RPATH_CHANGE could not write new RPATH
     "-DCMAKE_SKIP_BUILD_RPATH=ON"

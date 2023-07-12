@@ -107,12 +107,7 @@ let
           tag = builtins.substring 0 2 v;
           major = builtins.substring 2 1 v;
           end = builtins.substring 3 3 v;
-          minor =
-            if builtins.stringLength end > 0 then
-              end
-            else
-              "0"
-            ;
+          minor = if builtins.stringLength end > 0 then end else "0";
         in
         {
           inherit major minor tag;
@@ -216,16 +211,10 @@ let
           chooseLinux = x: lib.take 1 (findBestMatches linuxMatches x);
           chooseOSX = x: lib.take 1 (findBestMatches osxMatches x);
         in
-        if isLinux then
-          chooseLinux files
-        else
-          chooseOSX files
+        if isLinux then chooseLinux files else chooseOSX files
         ;
     in
-    if (builtins.length filtered == 0) then
-      [ ]
-    else
-      choose (filtered)
+    if (builtins.length filtered == 0) then [ ] else choose (filtered)
     ;
 in
 {

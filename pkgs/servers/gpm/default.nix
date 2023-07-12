@@ -64,12 +64,7 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--sysconfdir=/etc"
     "--localstatedir=/var"
-    (
-      if withNcurses then
-        "--with-curses"
-      else
-        "--without-curses"
-    )
+    (if withNcurses then "--with-curses" else "--without-curses")
   ];
 
   enableParallelBuilding = true;

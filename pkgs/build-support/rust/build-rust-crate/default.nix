@@ -344,12 +344,7 @@ lib.makeOverridable
         )
       );
 
-      libName =
-        if crate ? libName then
-          crate.libName
-        else
-          crate.crateName
-        ;
+      libName = if crate ? libName then crate.libName else crate.crateName;
       libPath = lib.optionalString (crate ? libPath) crate.libPath;
 
       # Seed the symbol hashes with something unique every time.
@@ -398,12 +393,7 @@ lib.makeOverridable
       colors = lib.attrByPath [ "colors" ] "always" crate;
       extraLinkFlags = lib.concatStringsSep " " (crate.extraLinkFlags or [ ]);
       edition = crate.edition or null;
-      codegenUnits =
-        if crate ? codegenUnits then
-          crate.codegenUnits
-        else
-          1
-        ;
+      codegenUnits = if crate ? codegenUnits then crate.codegenUnits else 1;
       extraRustcOpts =
         lib.optionals (crate ? extraRustcOpts) crate.extraRustcOpts
         ++ extraRustcOpts_
@@ -475,12 +465,7 @@ lib.makeOverridable
             "lib"
           ]
         ;
-      outputDev =
-        if buildTests then
-          [ "out" ]
-        else
-          [ "lib" ]
-        ;
+      outputDev = if buildTests then [ "out" ] else [ "lib" ];
 
       meta = { mainProgram = crateName; };
     } // extraDerivationAttrs

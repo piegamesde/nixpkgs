@@ -24,10 +24,7 @@ let
         }${trail},"
         ;
     in
-    if isAttrs arg then
-      go arg
-    else
-      go { path = arg; }
+    if isAttrs arg then go arg else go { path = arg; }
     ;
 in
 {

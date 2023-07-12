@@ -202,102 +202,37 @@ stdenv.mkDerivation rec {
         else
           "--disable-x11 --disable-gl"
       )
-      (
-        if xineramaSupport then
-          "--enable-xinerama"
-        else
-          "--disable-xinerama"
-      )
-      (
-        if xvSupport then
-          "--enable-xv"
-        else
-          "--disable-xv"
-      )
-      (
-        if alsaSupport then
-          "--enable-alsa"
-        else
-          "--disable-alsa"
-      )
-      (
-        if screenSaverSupport then
-          "--enable-xss"
-        else
-          "--disable-xss"
-      )
-      (
-        if vdpauSupport then
-          "--enable-vdpau"
-        else
-          "--disable-vdpau"
-      )
-      (
-        if cddaSupport then
-          "--enable-cdparanoia"
-        else
-          "--disable-cdparanoia"
-      )
-      (
-        if dvdnavSupport then
-          "--enable-dvdnav"
-        else
-          "--disable-dvdnav"
-      )
-      (
-        if bluraySupport then
-          "--enable-bluray"
-        else
-          "--disable-bluray"
-      )
+      (if xineramaSupport then "--enable-xinerama" else "--disable-xinerama")
+      (if xvSupport then "--enable-xv" else "--disable-xv")
+      (if alsaSupport then "--enable-alsa" else "--disable-alsa")
+      (if screenSaverSupport then "--enable-xss" else "--disable-xss")
+      (if vdpauSupport then "--enable-vdpau" else "--disable-vdpau")
+      (if cddaSupport then "--enable-cdparanoia" else "--disable-cdparanoia")
+      (if dvdnavSupport then "--enable-dvdnav" else "--disable-dvdnav")
+      (if bluraySupport then "--enable-bluray" else "--disable-bluray")
       (
         if amrSupport then
           "--enable-libopencore_amrnb"
         else
           "--disable-libopencore_amrnb"
       )
-      (
-        if cacaSupport then
-          "--enable-caca"
-        else
-          "--disable-caca"
-      )
+      (if cacaSupport then "--enable-caca" else "--disable-caca")
       (
         if lameSupport then
           "--enable-mp3lame --disable-mp3lame-lavc"
         else
           "--disable-mp3lame --enable-mp3lame-lavc"
       )
-      (
-        if speexSupport then
-          "--enable-speex"
-        else
-          "--disable-speex"
-      )
-      (
-        if theoraSupport then
-          "--enable-theora"
-        else
-          "--disable-theora"
-      )
+      (if speexSupport then "--enable-speex" else "--disable-speex")
+      (if theoraSupport then "--enable-theora" else "--disable-theora")
       (
         if x264Support then
           "--enable-x264 --disable-x264-lavc"
         else
           "--disable-x264 --enable-x264-lavc"
       )
-      (
-        if jackaudioSupport then
-          ""
-        else
-          "--disable-jack"
-      )
-      (
-        if pulseSupport then
-          "--enable-pulse"
-        else
-          "--disable-pulse"
-      )
+      (if jackaudioSupport then "" else "--disable-jack")
+      (if pulseSupport then "--enable-pulse" else "--disable-pulse")
       (
         if v4lSupport then
           "--enable-v4l2 --enable-tv-v4l2"

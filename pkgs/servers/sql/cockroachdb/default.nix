@@ -22,12 +22,7 @@ let
   ];
   linuxDeps = [ ncurses6 ];
 
-  buildInputs =
-    if stdenv.isDarwin then
-      darwinDeps
-    else
-      linuxDeps
-    ;
+  buildInputs = if stdenv.isDarwin then darwinDeps else linuxDeps;
   nativeBuildInputs = [
     installShellFiles
     cmake

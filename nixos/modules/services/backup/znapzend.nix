@@ -279,20 +279,8 @@ let
 
   cfg = config.services.znapzend;
 
-  onOff =
-    b:
-    if b then
-      "on"
-    else
-      "off"
-    ;
-  nullOff =
-    b:
-    if b == null then
-      "off"
-    else
-      toString b
-    ;
+  onOff = b: if b then "on" else "off";
+  nullOff = b: if b == null then "off" else toString b;
   stripSlashes = replaceStrings [ "/" ] [ "." ];
 
   attrsToFile =

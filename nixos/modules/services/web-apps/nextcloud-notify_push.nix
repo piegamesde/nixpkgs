@@ -79,12 +79,7 @@ in
         '';
         script =
           let
-            dbType =
-              if cfg.dbtype == "pgsql" then
-                "postgresql"
-              else
-                cfg.dbtype
-              ;
+            dbType = if cfg.dbtype == "pgsql" then "postgresql" else cfg.dbtype;
             dbUser = lib.optionalString (cfg.dbuser != null) cfg.dbuser;
             dbPass =
               lib.optionalString (cfg.dbpassFile != null) ":$DATABASE_PASSWORD";

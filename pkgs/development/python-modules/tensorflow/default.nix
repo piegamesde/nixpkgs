@@ -155,13 +155,7 @@ let
     paths = [ jsoncpp ];
   };
 
-  tfFeature =
-    x:
-    if x then
-      "1"
-    else
-      "0"
-    ;
+  tfFeature = x: if x then "1" else "0";
 
   version = "2.11.1";
   variant = lib.optionalString cudaSupport "-gpu";

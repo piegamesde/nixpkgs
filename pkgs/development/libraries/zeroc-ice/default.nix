@@ -55,12 +55,7 @@ stdenv.mkDerivation rec {
       "OPTIMIZE=yes"
       "USR_DIR_INSTALL=yes"
       "LANGUAGES=cpp"
-      "CONFIGS=${
-        if cpp11 then
-          "cpp11-shared"
-        else
-          "shared"
-      }"
+      "CONFIGS=${if cpp11 then "cpp11-shared" else "shared"}"
       "SKIP=slice2py" # provided by a separate package
     )
   '';

@@ -22,12 +22,7 @@ let
     lib.filter (pair: pair.name != null) (
       builtins.map
       (v: {
-        name =
-          if lib.hasAttr "spdxId" v then
-            v.spdxId
-          else
-            null
-          ;
+        name = if lib.hasAttr "spdxId" v then v.spdxId else null;
         value = v;
       })
       (lib.attrValues lib.licenses)
@@ -81,10 +76,7 @@ let
               constraints = depSet.${dep}.python or "";
               isCompat = compat constraints;
             in
-            if isCompat then
-              pkg
-            else
-              null
+            if isCompat then pkg else null
           )
           depAttrs)
         ;
@@ -124,10 +116,7 @@ let
     in
     {
       buildInputs = mkInput "buildInputs" (
-        if includeBuildSystem then
-          buildSystemPkgs
-        else
-          [ ]
+        if includeBuildSystem then buildSystemPkgs else [ ]
       );
       propagatedBuildInputs = mkInput "propagatedBuildInputs" (
         getDeps allRawDeps
@@ -216,12 +205,7 @@ lib.makeScope pkgs.newScope (
           inherit (python) stdenv;
         };
         getFunctorFn =
-          fn:
-          if builtins.typeOf fn == "set" then
-            fn.__functor
-          else
-            fn
-          ;
+          fn: if builtins.typeOf fn == "set" then fn.__functor else fn;
 
         poetryPkg = pkgs.callPackage ./pkgs/poetry {
           inherit python;

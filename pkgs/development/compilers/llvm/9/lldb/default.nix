@@ -90,12 +90,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     [
-      "-DLLDB_INCLUDE_TESTS=${
-        if doCheck then
-          "YES"
-        else
-          "NO"
-      }"
+      "-DLLDB_INCLUDE_TESTS=${if doCheck then "YES" else "NO"}"
       "-DClang_DIR=${libclang.dev}/lib/cmake"
       "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
       "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic

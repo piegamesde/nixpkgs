@@ -247,10 +247,7 @@ lib.makeOverridable (
             pushd $out/${ruby.gemPath}
             find doc/ -iname created.rid -delete -print
             find gems/*/ext/ extensions/ \( -iname Makefile -o -iname mkmf.log -o -iname gem_make.out \) -delete -print
-            ${if keepGemCache then
-              ""
-            else
-              "rm -fvr cache"}
+            ${if keepGemCache then "" else "rm -fvr cache"}
             popd
 
             # write out metadata and binstubs

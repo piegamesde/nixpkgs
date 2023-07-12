@@ -22,12 +22,7 @@ let
     match ''^.*CONFIG_BOARD_DIRECTORY="([a-zA-Z0-9_]+)".*$'' (
       readFile firmwareConfig
     );
-  boardArch =
-    if matchBoard == null then
-      null
-    else
-      builtins.head matchBoard
-    ;
+  boardArch = if matchBoard == null then null else builtins.head matchBoard;
 in
 writeShellApplication {
   name = "klipper-flash-${mcu}";

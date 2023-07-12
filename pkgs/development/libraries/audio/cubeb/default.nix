@@ -64,12 +64,7 @@ stdenv.mkDerivation {
     "-DUSE_SANITIZERS=OFF"
 
     # Whether to lazily load libraries with dlopen()
-    "-DLAZY_LOAD_LIBS=${
-      if lazyLoad then
-        "ON"
-      else
-        "OFF"
-    }"
+    "-DLAZY_LOAD_LIBS=${if lazyLoad then "ON" else "OFF"}"
   ];
 
   passthru = {

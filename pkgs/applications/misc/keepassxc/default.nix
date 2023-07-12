@@ -54,12 +54,7 @@ stdenv.mkDerivation rec {
     toString [
       "-Wno-old-style-cast"
       "-Wno-error"
-      "-D__BIG_ENDIAN__=${
-        if stdenv.isBigEndian then
-          "1"
-        else
-          "0"
-      }"
+      "-D__BIG_ENDIAN__=${if stdenv.isBigEndian then "1" else "0"}"
     ]
   );
 

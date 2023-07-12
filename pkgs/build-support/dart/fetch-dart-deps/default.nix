@@ -165,12 +165,7 @@ let
 
       outputHashAlgo = "sha256";
       outputHashMode = "recursive";
-      outputHash =
-        if vendorHash != "" then
-          vendorHash
-        else
-          lib.fakeSha256
-        ;
+      outputHash = if vendorHash != "" then vendorHash else lib.fakeSha256;
     } // (removeAttrs drvArgs [
       "name"
       "pname"

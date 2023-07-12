@@ -35,10 +35,7 @@ let
       #
       # Access Control Lists
       #
-      ${if isString acl then
-        acl
-      else
-        acl_gen acl}
+      ${if isString acl then acl else acl_gen acl}
     ''
     ;
 
@@ -74,12 +71,7 @@ let
     else if isInt v then
       toString v
     else if isBool v then
-      toString (
-        if v then
-          1
-        else
-          0
-      )
+      toString (if v then 1 else 0)
     else if isHasAttr "_file" then
       "trim(file_get_contents(${lib.escapeShellArg v._file}))"
     else if isHasAttr "_raw" then
@@ -128,10 +120,7 @@ let
         ;
     in
     writePhpFile "plugins.local-${hostName}.php" ''
-      ${if isString pc then
-        pc
-      else
-        pc_gen pc}
+      ${if isString pc then pc else pc_gen pc}
     ''
     ;
 
@@ -185,13 +174,7 @@ let
           in
           mkOption {
             type = types.enum ((attrValues available) ++ (attrNames available));
-            apply =
-              x:
-              if isInt x then
-                x
-              else
-                available.${x}
-              ;
+            apply = x: if isInt x then x else available.${x};
             description = lib.mdDoc ''
               Permission level to restrict the actor(s) to.
               See <https://www.dokuwiki.org/acl#background_info> for explanation

@@ -19,13 +19,7 @@ let
 
   interfaceRoutes = i: i.ipv4.routes ++ optionals cfg.enableIPv6 i.ipv6.routes;
 
-  dhcpStr =
-    useDHCP:
-    if useDHCP == true || useDHCP == null then
-      "yes"
-    else
-      "no"
-    ;
+  dhcpStr = useDHCP: if useDHCP == true || useDHCP == null then "yes" else "no";
 
   slaves =
     concatLists (map (bond: bond.interfaces) (attrValues cfg.bonds))
@@ -140,14 +134,9 @@ let
           (genericNetwork id)
           {
             name = mkDefault i.name;
-            DHCP = mkForce (
-              dhcpStr (
-                if i.useDHCP != null then
-                  i.useDHCP
-                else
-                  false
-              )
-            );
+            DHCP =
+              mkForce (dhcpStr (if i.useDHCP != null then i.useDHCP else false))
+              ;
             address = forEach (interfaceIps i) (
               ip: "${ip.address}/${toString ip.prefixLength}"
             );
@@ -368,10 +357,7 @@ in
                         unknownOptions = [ "primary" ];
                         assertTrace =
                           bool: msg:
-                          if bool then
-                            true
-                          else
-                            builtins.trace msg false
+                          if bool then true else builtins.trace msg false
                           ;
                       in
                       assert all

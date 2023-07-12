@@ -113,12 +113,7 @@ in
     environment.etc = {
       "systemd/logind.conf".text = ''
         [Login]
-        KillUserProcesses=${
-          if cfg.killUserProcesses then
-            "yes"
-          else
-            "no"
-        }
+        KillUserProcesses=${if cfg.killUserProcesses then "yes" else "no"}
         HandleLidSwitch=${cfg.lidSwitch}
         HandleLidSwitchDocked=${cfg.lidSwitchDocked}
         HandleLidSwitchExternalPower=${cfg.lidSwitchExternalPower}

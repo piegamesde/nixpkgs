@@ -197,12 +197,7 @@ let
     let
       crate =
         mkHostCrate (builtins.removeAttrs crateArgs [ "expectedTestOutput" ]);
-      crateOutput =
-        if output == null then
-          crate
-        else
-          crate."${output}"
-        ;
+      crateOutput = if output == null then crate else crate."${output}";
       expectedFilesFile = writeTextFile {
         name = "expected-files-${name}";
         text =

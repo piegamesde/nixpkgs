@@ -122,12 +122,7 @@ let
     let
       withFallback =
         thisPkgs:
-        (
-          if adjacentPackages == null then
-            self
-          else
-            thisPkgs
-        ) // {
+        (if adjacentPackages == null then self else thisPkgs) // {
           recurseForDerivations = false;
         }
         ;

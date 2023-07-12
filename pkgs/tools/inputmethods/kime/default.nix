@@ -34,15 +34,7 @@ let
     ++ lib.optionals withQt6 [ "-DENABLE_QT6=ON" ]
     ;
 
-  optFlag =
-    w:
-    (
-      if w then
-        "1"
-      else
-        "0"
-    )
-    ;
+  optFlag = w: (if w then "1" else "0");
 in
 stdenv.mkDerivation rec {
   pname = "kime";

@@ -76,10 +76,7 @@ rec {
           let
             value' = filterEmptySets value;
           in
-          if value' == { } then
-            null
-          else
-            value'
+          if value' == { } then null else value'
         else
           value
       )

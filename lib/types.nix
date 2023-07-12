@@ -191,12 +191,7 @@ let
           nestedTypes
           descriptionClass
           ;
-        description =
-          if description == null then
-            name
-          else
-            description
-          ;
+        description = if description == null then name else description;
       }
       ;
 
@@ -528,13 +523,7 @@ let
           merge = loc: defs: concatStringsSep sep (getValues defs);
           functor = (defaultFunctor name) // {
             payload = sep;
-            binOp =
-              sepLhs: sepRhs:
-              if sepLhs == sepRhs then
-                sepLhs
-              else
-                null
-              ;
+            binOp = sepLhs: sepRhs: if sepLhs == sepRhs then sepLhs else null;
           };
         }
         ;
@@ -1169,11 +1158,7 @@ let
               "one of ${concatMapStringsSep ", " show values}"
             ;
           descriptionClass =
-            if builtins.length values < 2 then
-              "noun"
-            else
-              "conjunction"
-            ;
+            if builtins.length values < 2 then "noun" else "conjunction";
           check = flip elem values;
           merge = mergeEqualOption;
           functor = (defaultFunctor name) // {
@@ -1276,12 +1261,7 @@ let
             loc: defs:
             let
               coerceVal =
-                val:
-                if coercedType.check val then
-                  coerceFunc val
-                else
-                  val
-                ;
+                val: if coercedType.check val then coerceFunc val else val;
             in
             finalType.merge loc (
               map (def: def // { value = coerceVal def.value; }) defs

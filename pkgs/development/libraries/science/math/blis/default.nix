@@ -16,12 +16,7 @@
 }:
 
 let
-  blasIntSize =
-    if blas64 then
-      "64"
-    else
-      "32"
-    ;
+  blasIntSize = if blas64 then "64" else "32";
 in
 stdenv.mkDerivation rec {
   pname = "blis";

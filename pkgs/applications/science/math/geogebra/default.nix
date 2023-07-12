@@ -115,7 +115,4 @@ let
     '';
   };
 in
-if stdenv.isDarwin then
-  darwinPkg
-else
-  linuxPkg
+if stdenv.isDarwin then darwinPkg else linuxPkg

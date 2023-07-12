@@ -502,12 +502,7 @@ with prev; {
       "-DBUILD_MODULE=OFF"
       "-DWITH_SHARED_LIBUV=ON"
       "-DLUA_BUILD_TYPE=System"
-      "-DWITH_LUA_ENGINE=${
-        if isLuaJIT then
-          "LuaJit"
-        else
-          "Lua"
-      }"
+      "-DWITH_LUA_ENGINE=${if isLuaJIT then "LuaJit" else "Lua"}"
     ];
 
     # to make sure we dont use bundled deps

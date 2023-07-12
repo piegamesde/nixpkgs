@@ -141,11 +141,7 @@ in
           };
           environment = {
             MINIO_REGION = "${cfg.region}";
-            MINIO_BROWSER =
-              "${if cfg.browser then
-                "on"
-              else
-                "off"}";
+            MINIO_BROWSER = "${if cfg.browser then "on" else "off"}";
           };
         };
       }

@@ -11,12 +11,7 @@ let
   cfg = config.services.postfixadmin;
   fpm = config.services.phpfpm.pools.postfixadmin;
   localDB = cfg.database.host == "localhost";
-  user =
-    if localDB then
-      cfg.database.username
-    else
-      "nginx"
-    ;
+  user = if localDB then cfg.database.username else "nginx";
 in
 {
   options.services.postfixadmin = {
@@ -105,10 +100,7 @@ in
 
       $CONF['database_type'] = 'pgsql';
       $CONF['database_host'] = ${
-        if localDB then
-          "null"
-        else
-          "'${cfg.database.host}'"
+        if localDB then "null" else "'${cfg.database.host}'"
       };
       ${optionalString
       localDB

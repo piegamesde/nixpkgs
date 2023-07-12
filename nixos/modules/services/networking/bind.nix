@@ -121,12 +121,7 @@ let
         extraConfig ? "",
       }: ''
         zone "${name}" {
-          type ${
-            if master then
-              "master"
-            else
-              "slave"
-          };
+          type ${if master then "master" else "slave"};
           file "${file}";
           ${
             if master then

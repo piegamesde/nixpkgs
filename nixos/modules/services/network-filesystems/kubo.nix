@@ -54,24 +54,14 @@ let
     ++ cfg.extraFlags
   );
 
-  profile =
-    if cfg.localDiscovery then
-      "local-discovery"
-    else
-      "server"
-    ;
+  profile = if cfg.localDiscovery then "local-discovery" else "server";
 
   splitMulitaddr = addrRaw: lib.tail (lib.splitString "/" addrRaw);
 
   multiaddrsToListenStreams =
     addrIn:
     let
-      addrs =
-        if builtins.typeOf addrIn == "list" then
-          addrIn
-        else
-          [ addrIn ]
-        ;
+      addrs = if builtins.typeOf addrIn == "list" then addrIn else [ addrIn ];
       unfilteredResult = map multiaddrToListenStream addrs;
     in
     builtins.filter (addr: addr != null) unfilteredResult
@@ -80,12 +70,7 @@ let
   multiaddrsToListenDatagrams =
     addrIn:
     let
-      addrs =
-        if builtins.typeOf addrIn == "list" then
-          addrIn
-        else
-          [ addrIn ]
-        ;
+      addrs = if builtins.typeOf addrIn == "list" then addrIn else [ addrIn ];
       unfilteredResult = map multiaddrToListenDatagram addrs;
     in
     builtins.filter (addr: addr != null) unfilteredResult

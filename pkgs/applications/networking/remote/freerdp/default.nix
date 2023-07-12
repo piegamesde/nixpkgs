@@ -58,13 +58,7 @@
 }:
 
 let
-  cmFlag =
-    flag:
-    if flag then
-      "ON"
-    else
-      "OFF"
-    ;
+  cmFlag = flag: if flag then "ON" else "OFF";
   disabledTests =
     [
       # this one is probably due to our sandbox

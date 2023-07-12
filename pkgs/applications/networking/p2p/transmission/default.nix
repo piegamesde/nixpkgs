@@ -65,13 +65,7 @@ stdenv.mkDerivation {
 
   cmakeFlags =
     let
-      mkFlag =
-        opt:
-        if opt then
-          "ON"
-        else
-          "OFF"
-        ;
+      mkFlag = opt: if opt then "ON" else "OFF";
     in
     [
       "-DENABLE_MAC=OFF" # requires xcodebuild

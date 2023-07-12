@@ -25,12 +25,7 @@ let
     || (with stdenv.hostPlatform; isPower64 && isLittleEndian)
     ;
 
-  ourNcurses =
-    if useNcurses6 then
-      ncurses6
-    else
-      ncurses5
-    ;
+  ourNcurses = if useNcurses6 then ncurses6 else ncurses5;
 
   libPath = lib.makeLibraryPath (
     [

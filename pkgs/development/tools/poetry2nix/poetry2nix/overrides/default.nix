@@ -34,10 +34,7 @@ let
                 self.${attr.buildSystem}
               ;
           in
-          if fromIsValid && untilIsValid then
-            intendedBuildSystem
-          else
-            null
+          if fromIsValid && untilIsValid then intendedBuildSystem else null
         else if attr == "cython" then
           self.python.pythonForBuild.pkgs.cython
         else
@@ -764,12 +761,7 @@ lib.composeManyExtensions [
       );
 
       # Environment markers are not always included (depending on how a dep was defined)
-      enum34 =
-        if self.pythonAtLeast "3.4" then
-          null
-        else
-          super.enum34
-        ;
+      enum34 = if self.pythonAtLeast "3.4" then null else super.enum34;
 
       eth-hash = super.eth-hash.overridePythonAttrs {
         preConfigure = ''
@@ -1028,18 +1020,9 @@ lib.composeManyExtensions [
                 ]
                 ;
               preBuild =
-                if mpiSupport then
-                  "export CC=${mpi}/bin/mpicc"
-                else
-                  ""
-                ;
+                if mpiSupport then "export CC=${mpi}/bin/mpicc" else "";
               HDF5_DIR = "${pkgs.hdf5}";
-              HDF5_MPI =
-                if mpiSupport then
-                  "ON"
-                else
-                  "OFF"
-                ;
+              HDF5_MPI = if mpiSupport then "ON" else "OFF";
               # avoid strict pinning of numpy
               postPatch = ''
                 substituteInPlace setup.py \
@@ -1590,11 +1573,7 @@ lib.composeManyExtensions [
 
           # Clang doesn't understand -fno-strict-overflow, and matplotlib builds with -Werror
           hardeningDisable =
-            if stdenv.isDarwin then
-              [ "strictoverflow" ]
-            else
-              [ ]
-            ;
+            if stdenv.isDarwin then [ "strictoverflow" ] else [ ];
 
           passthru = old.passthru or { } // passthru;
 
@@ -1852,11 +1831,7 @@ lib.composeManyExtensions [
         {
           # fails to build with format=pyproject and setuptools >= 65
           format =
-            if (old.format == "poetry2nix") then
-              "setuptools"
-            else
-              old.format
-            ;
+            if (old.format == "poetry2nix") then "setuptools" else old.format;
           nativeBuildInputs =
             (old.nativeBuildInputs or [ ]) ++ [ pkgs.gfortran ];
           buildInputs = (old.buildInputs or [ ]) ++ [ blas ];
@@ -2345,12 +2320,7 @@ lib.composeManyExtensions [
                 inherit ARROW_HOME;
 
                 PYARROW_BUILD_TYPE = "release";
-                PYARROW_WITH_FLIGHT =
-                  if _arrow-cpp.enableFlight then
-                    1
-                  else
-                    0
-                  ;
+                PYARROW_WITH_FLIGHT = if _arrow-cpp.enableFlight then 1 else 0;
                 PYARROW_WITH_DATASET = 1;
                 PYARROW_WITH_PARQUET = 1;
                 PYARROW_CMAKE_OPTIONS = [
@@ -2387,12 +2357,7 @@ lib.composeManyExtensions [
               (old.propagatedBuildInputs or [ ]) ++ [ pkgs.cairo ];
 
             mesonFlags = [
-              "-Dpython=${
-                if self.isPy3k then
-                  "python3"
-                else
-                  "python"
-              }"
+              "-Dpython=${if self.isPy3k then "python3" else "python"}"
             ];
           }
         )
@@ -2595,12 +2560,7 @@ lib.composeManyExtensions [
             ;
           propagatedBuildInputs =
             (old.propagatedBuildInputs or [ ])
-            ++ (
-              if withApplePCSC then
-                [ PCSC ]
-              else
-                [ pcsclite ]
-            )
+            ++ (if withApplePCSC then [ PCSC ] else [ pcsclite ])
             ;
           NIX_CFLAGS_COMPILE = lib.optionalString (!withApplePCSC) "-I ${
               lib.getDev pcsclite
@@ -3338,12 +3298,8 @@ lib.composeManyExtensions [
       # Stop infinite recursion by using bootstrapped pkg from nixpkgs
       bootstrapped-pip = super.bootstrapped-pip.override {
         wheel =
-          ((
-            if self.python.isPy2 then
-              pkgs.python2
-            else
-              pkgs.python3
-          ).pkgs.override
+          ((if self.python.isPy2 then pkgs.python2 else pkgs.python3)
+            .pkgs.override
             {
               python = self.python;
             }).wheel;

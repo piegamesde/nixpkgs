@@ -85,12 +85,7 @@ stdenv.mkDerivation rec {
       "--enable-python"
       "--disable-lua"
       "--enable-bash"
-      (
-        if doCheck then
-          "--enable-tests"
-        else
-          "--disable-tests"
-      )
+      (if doCheck then "--enable-tests" else "--disable-tests")
       "--with-rootfs-path=/var/lib/lxc/rootfs"
     ]
     ;

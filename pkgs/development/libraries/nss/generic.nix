@@ -105,12 +105,7 @@ stdenv.mkDerivation rec {
         else if platform.isAarch64 then
           "arm64"
         else if platform.isPower && platform.is64bit then
-          (
-            if platform.isLittleEndian then
-              "ppc64le"
-            else
-              "ppc64"
-          )
+          (if platform.isLittleEndian then "ppc64le" else "ppc64")
         else
           platform.parsed.cpu.name
         ;
@@ -196,12 +191,7 @@ stdenv.mkDerivation rec {
   postFixup =
     let
       isCross = stdenv.hostPlatform != stdenv.buildPlatform;
-      nss =
-        if isCross then
-          buildPackages.nss.tools
-        else
-          "$out"
-        ;
+      nss = if isCross then buildPackages.nss.tools else "$out";
     in
     (lib.optionalString enableFIPS (
       ''

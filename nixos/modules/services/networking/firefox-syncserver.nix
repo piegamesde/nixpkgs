@@ -204,10 +204,7 @@ in
           type = lib.types.str;
           default =
             "${
-              if cfg.singleNode.enableTLS then
-                "https"
-              else
-                "http"
+              if cfg.singleNode.enableTLS then "https" else "http"
             }://${cfg.singleNode.hostname}";
           defaultText = lib.literalExpression ''
             ''${if cfg.singleNode.enableTLS then "https" else "http"}://''${config.${opt.singleNode.hostname}}

@@ -149,12 +149,7 @@ stdenv.mkDerivation (
         echo ISABELLE_LINE_EDITOR=${rlwrap}/bin/rlwrap >>etc/settings
 
         for comp in contrib/jdk* contrib/polyml-* contrib/verit-* contrib/vampire-* contrib/e-*; do
-          rm -rf $comp/${
-            if stdenv.hostPlatform.isx86 then
-              "x86"
-            else
-              "arm"
-          }*
+          rm -rf $comp/${if stdenv.hostPlatform.isx86 then "x86" else "arm"}*
         done
 
         substituteInPlace lib/Tools/env \

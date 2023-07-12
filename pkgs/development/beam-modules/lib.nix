@@ -12,12 +12,7 @@ rec {
   callPackageWith =
     autoArgs: fn: args:
     let
-      f =
-        if pkgs.lib.isFunction fn then
-          fn
-        else
-          import fn
-        ;
+      f = if pkgs.lib.isFunction fn then fn else import fn;
       auto = builtins.intersectAttrs (lib.functionArgs f) autoArgs;
     in
     f (auto // args)

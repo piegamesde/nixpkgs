@@ -31,12 +31,7 @@ stdenv.mkDerivation rec {
 
   buildPhase =
     let
-      ccc =
-        if stdenv.isDarwin then
-          "ccc.osx"
-        else
-          "ccc"
-        ;
+      ccc = if stdenv.isDarwin then "ccc.osx" else "ccc";
     in
     ''
       runHook preBuild

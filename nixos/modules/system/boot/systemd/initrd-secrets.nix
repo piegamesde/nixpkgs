@@ -15,12 +15,7 @@
           (
             dest: source:
             lib.nameValuePair "/.initrd-secrets/${dest}" {
-              source =
-                if source == null then
-                  dest
-                else
-                  source
-                ;
+              source = if source == null then dest else source;
             }
           )
           config.boot.initrd.secrets

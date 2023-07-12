@@ -103,13 +103,7 @@ in
       passwordFile = mkOption {
         type = types.nullOr types.path;
         default = null;
-        apply =
-          value:
-          if value == null then
-            null
-          else
-            toString value
-          ;
+        apply = value: if value == null then null else toString value;
         description = lib.mdDoc ''
           File containing the password to use for basic authentication.
           For insecurely putting the password in the globally readable store use
@@ -185,13 +179,7 @@ in
       keyFile = mkOption {
         type = types.nullOr types.path;
         default = null;
-        apply =
-          value:
-          if value == null then
-            null
-          else
-            toString value
-          ;
+        apply = value: if value == null then null else toString value;
         description = lib.mdDoc ''
           SSL key file path.
           For insecurely putting the keyFile in the globally readable store use

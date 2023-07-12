@@ -129,10 +129,7 @@ let
                   (ext: (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]))
                   extensions;
               in
-              if !(deps == [ ]) then
-                deps ++ (getDepsRecursively deps)
-              else
-                deps
+              if !(deps == [ ]) then deps ++ (getDepsRecursively deps) else deps
               ;
 
             # Generate extension load configuration snippets from the

@@ -53,12 +53,7 @@ let
 
       # add a tail, so that without any bind_addresses we still have a useable address
       bindAddress = head (listener.bind_addresses ++ [ "127.0.0.1" ]);
-      listenerProtocol =
-        if listener.tls then
-          "https"
-        else
-          "http"
-        ;
+      listenerProtocol = if listener.tls then "https" else "http";
     in
     pkgs.writeShellScriptBin "matrix-synapse-register_new_matrix_user" ''
       exec ${cfg.package}/bin/register_new_matrix_user \
@@ -69,10 +64,7 @@ let
           )
         } \
         "${listenerProtocol}://${
-          if (isIpv6 bindAddress) then
-            "[${bindAddress}]"
-          else
-            "${bindAddress}"
+          if (isIpv6 bindAddress) then "[${bindAddress}]" else "${bindAddress}"
         }:${builtins.toString listener.port}/"
     ''
     ;

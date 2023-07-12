@@ -82,10 +82,7 @@
                     ++ matchAliases (lib.last matched)
                     ;
                 in
-                if matched == null then
-                  [ ]
-                else
-                  continue
+                if matched == null then [ ] else continue
                 ;
 
               matchLine =
@@ -116,10 +113,7 @@
                       (.*)''
                     str;
                 in
-                if rest == null then
-                  ""
-                else
-                  lib.head rest
+                if rest == null then "" else lib.head rest
                 ;
 
               getEntries =
@@ -128,17 +122,9 @@
                   result = matchLine str;
                   next = getEntries (skipLine str);
                   newEntry = acc ++ lib.singleton result;
-                  continue =
-                    if result == null then
-                      next acc
-                    else
-                      next newEntry
-                    ;
+                  continue = if result == null then next acc else next newEntry;
                 in
-                if str == "" then
-                  acc
-                else
-                  continue
+                if str == "" then acc else continue
                 ;
 
               isIPv6 = str: builtins.match ".*:.*" str != null;
@@ -154,12 +140,8 @@
                   map
                   (host: {
                     inherit host;
-                    ${
-                      if isIPv6 entry.ipAddr then
-                        "ipv6"
-                      else
-                        "ipv4"
-                    } = entry.ipAddr;
+                    ${if isIPv6 entry.ipAddr then "ipv6" else "ipv4"} =
+                      entry.ipAddr;
                   })
                   entry.hosts
                 )

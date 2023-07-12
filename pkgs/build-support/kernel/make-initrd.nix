@@ -99,12 +99,7 @@ in
 stdenvNoCC.mkDerivation rec {
   inherit name makeUInitrd extension uInitrdArch prepend;
 
-  ${
-    if makeUInitrd then
-      "uInitrdCompression"
-    else
-      null
-  } = uInitrdCompression;
+  ${if makeUInitrd then "uInitrdCompression" else null} = uInitrdCompression;
 
   builder = ./make-initrd.sh;
 
@@ -131,15 +126,7 @@ stdenvNoCC.mkDerivation rec {
   # !!! should use XML.
   objects = map (x: x.object) contents;
   symlinks = map (x: x.symlink) contents;
-  suffices = map
-    (
-      x:
-      if x ? suffix then
-        x.suffix
-      else
-        "none"
-    )
-    contents;
+  suffices = map (x: if x ? suffix then x.suffix else "none") contents;
 
   # For obtaining the closure of `contents'.
   # Note: we don't use closureInfo yet, as that won't build with nix-1.x.

@@ -75,10 +75,7 @@ let
           let
             x = f0 super;
           in
-          if builtins.isFunction x then
-            f0 self super
-          else
-            x
+          if builtins.isFunction x then f0 self super else x
           ;
       in
       makeDerivationExtensible (self: attrs // f self attrs)

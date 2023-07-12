@@ -25,13 +25,7 @@ assert enableQt -> qtbase != null;
 assert enableQt -> qttools != null;
 assert enableQt -> qwt != null;
 
-(
-  if enableQt then
-    mkDerivation
-  else
-    stdenv.mkDerivation
-)
-rec {
+(if enableQt then mkDerivation else stdenv.mkDerivation) rec {
   pname = "testdisk";
   version = "7.1";
   src = fetchurl {

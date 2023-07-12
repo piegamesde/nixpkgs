@@ -11,13 +11,7 @@
 }:
 
 let
-  oz =
-    x:
-    if x then
-      "1"
-    else
-      "0"
-    ;
+  oz = x: if x then "1" else "0";
 in
 
 stdenv.mkDerivation rec {

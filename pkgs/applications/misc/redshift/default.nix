@@ -65,36 +65,11 @@ let
 
       configureFlags =
         [
-          "--enable-randr=${
-            if withRandr then
-              "yes"
-            else
-              "no"
-          }"
-          "--enable-geoclue2=${
-            if withGeoclue then
-              "yes"
-            else
-              "no"
-          }"
-          "--enable-drm=${
-            if withDrm then
-              "yes"
-            else
-              "no"
-          }"
-          "--enable-quartz=${
-            if withQuartz then
-              "yes"
-            else
-              "no"
-          }"
-          "--enable-corelocation=${
-            if withCoreLocation then
-              "yes"
-            else
-              "no"
-          }"
+          "--enable-randr=${if withRandr then "yes" else "no"}"
+          "--enable-geoclue2=${if withGeoclue then "yes" else "no"}"
+          "--enable-drm=${if withDrm then "yes" else "no"}"
+          "--enable-quartz=${if withQuartz then "yes" else "no"}"
+          "--enable-corelocation=${if withCoreLocation then "yes" else "no"}"
         ]
         ++ lib.optionals (pname == "gammastep") [
           "--with-systemduserunitdir=${placeholder "out"}/share/systemd/user/"

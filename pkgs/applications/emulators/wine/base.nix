@@ -113,10 +113,7 @@ stdenv.mkDerivation (
           pkgs.xorg.libXinerama
         ++ lib.optional udevSupport pkgs.udev
         ++ lib.optional vulkanSupport (
-          if stdenv.isDarwin then
-            moltenvk
-          else
-            pkgs.vulkan-loader
+          if stdenv.isDarwin then moltenvk else pkgs.vulkan-loader
         )
         ++ lib.optional sdlSupport pkgs.SDL2
         ++ lib.optional usbSupport pkgs.libusb1

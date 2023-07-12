@@ -64,18 +64,8 @@ let
     SDL2_ttf
     SDL2_mixer
   ];
-  sdlDepsBuildonly =
-    if isSDL2 then
-      sdlDeps1
-    else
-      sdlDeps2
-    ;
-  sdlDepsTarget =
-    if isSDL2 then
-      sdlDeps2
-    else
-      sdlDeps1
-    ;
+  sdlDepsBuildonly = if isSDL2 then sdlDeps1 else sdlDeps2;
+  sdlDepsTarget = if isSDL2 then sdlDeps2 else sdlDeps1;
   sdlMakefileSuffix =
     if stdenv.hostPlatform.isWindows then
       "win"

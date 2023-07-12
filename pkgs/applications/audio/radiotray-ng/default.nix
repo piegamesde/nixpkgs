@@ -101,14 +101,7 @@ stdenv.mkDerivation rec {
       --replace radiotray-ng-notification radiotray-ng-on
   '';
 
-  cmakeFlags = [
-    "-DBUILD_TESTS=${
-      if doCheck then
-        "ON"
-      else
-        "OFF"
-    }"
-  ];
+  cmakeFlags = [ "-DBUILD_TESTS=${if doCheck then "ON" else "OFF"}" ];
 
   # 'wxFont::wxFont(int, int, int, int, bool, const wxString&, wxFontEncoding)' is deprecated
   env.NIX_CFLAGS_COMPILE = "-Wno-error=deprecated-declarations";

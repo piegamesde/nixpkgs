@@ -45,12 +45,7 @@ let
     else if builtins.isInt value then
       toString value
     else if builtins.isBool value then
-      (
-        if value then
-          "True"
-        else
-          "False"
-      )
+      (if value then "True" else "False")
     else if builtins.isAttrs value then
       (formatAttrset value)
     else if builtins.isList value then

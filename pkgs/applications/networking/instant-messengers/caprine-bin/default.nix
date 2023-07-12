@@ -21,13 +21,7 @@ let
     sha256 = "1txuSQk6tH0xsjPk5cWUVnaAw4XBOr1+Fel06NLKFfk=";
   };
 in
-(
-  if stdenvNoCC.isDarwin then
-    x86_64-dmg
-  else
-    x86_64-appimage
-).overrideAttrs
-(
+(if stdenvNoCC.isDarwin then x86_64-dmg else x86_64-appimage).overrideAttrs (
   oldAttrs: {
     passthru =
       (oldAttrs.passthru or { }) // { inherit x86_64-appimage x86_64-dmg; };

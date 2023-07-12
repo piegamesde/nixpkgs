@@ -25,26 +25,11 @@ let
 
   fontconfig = config.fonts.fontconfig;
   xresourcesXft = pkgs.writeText "Xresources-Xft" ''
-    Xft.antialias: ${
-      if fontconfig.antialias then
-        "1"
-      else
-        "0"
-    }
+    Xft.antialias: ${if fontconfig.antialias then "1" else "0"}
     Xft.rgba: ${fontconfig.subpixel.rgba}
     Xft.lcdfilter: lcd${fontconfig.subpixel.lcdfilter}
-    Xft.hinting: ${
-      if fontconfig.hinting.enable then
-        "1"
-      else
-        "0"
-    }
-    Xft.autohint: ${
-      if fontconfig.hinting.autohint then
-        "1"
-      else
-        "0"
-    }
+    Xft.hinting: ${if fontconfig.hinting.enable then "1" else "0"}
+    Xft.autohint: ${if fontconfig.hinting.autohint then "1" else "0"}
     Xft.hintstyle: ${fontconfig.hinting.style}
   '';
 
@@ -159,12 +144,7 @@ let
 
   dmDefault = cfg.desktopManager.default;
   # fallback default for cases when only default wm is set
-  dmFallbackDefault =
-    if dmDefault != null then
-      dmDefault
-    else
-      "none"
-    ;
+  dmFallbackDefault = if dmDefault != null then dmDefault else "none";
   wmDefault = cfg.windowManager.default;
 
   defaultSessionFromLegacyOptions =

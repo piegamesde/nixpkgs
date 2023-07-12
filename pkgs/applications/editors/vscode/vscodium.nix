@@ -21,12 +21,7 @@ let
     }
     .${system} or throwSystem;
 
-  archive_fmt =
-    if stdenv.isDarwin then
-      "zip"
-    else
-      "tar.gz"
-    ;
+  archive_fmt = if stdenv.isDarwin then "zip" else "tar.gz";
 
   sha256 =
     {
@@ -38,12 +33,7 @@ let
     }
     .${system} or throwSystem;
 
-  sourceRoot =
-    if stdenv.isDarwin then
-      ""
-    else
-      "."
-    ;
+  sourceRoot = if stdenv.isDarwin then "" else ".";
 in
 callPackage ./generic.nix rec {
   inherit sourceRoot commandLineArgs;

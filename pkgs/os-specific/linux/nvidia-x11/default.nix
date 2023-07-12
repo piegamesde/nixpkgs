@@ -29,20 +29,12 @@ let
         kernel,
         libsOnly ? false,
       }:
-      if libsOnly then
-        { }
-      else
-        kernel
+      if libsOnly then { } else kernel
     )
     { };
 
   selectHighestVersion =
-    a: b:
-    if lib.versionOlder a.version b.version then
-      b
-    else
-      a
-    ;
+    a: b: if lib.versionOlder a.version b.version then b else a;
 in
 rec {
   # Official Unix Drivers - https://www.nvidia.com/en-us/drivers/unix/
@@ -50,11 +42,7 @@ rec {
 
   # Policy: use the highest stable version as the default (on our master).
   stable =
-    if stdenv.hostPlatform.system == "i686-linux" then
-      legacy_390
-    else
-      latest
-    ;
+    if stdenv.hostPlatform.system == "i686-linux" then legacy_390 else latest;
 
   production = generic {
     version = "525.116.03";

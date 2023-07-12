@@ -17,19 +17,10 @@ rec {
     let
       value = builtins.getEnv name;
     in
-    if value == "" then
-      default
-    else
-      value
+    if value == "" then default else value
     ;
 
-  defaultMergeArg =
-    x: y:
-    if builtins.isAttrs y then
-      y
-    else
-      (y x)
-    ;
+  defaultMergeArg = x: y: if builtins.isAttrs y then y else (y x);
   defaultMerge = x: y: x // (defaultMergeArg x y);
   foldArgs =
     merger: f: init: x:
@@ -158,12 +149,7 @@ rec {
         else
           let
             x = head xs;
-            y =
-              if elem x acc then
-                [ ]
-              else
-                [ x ]
-              ;
+            y = if elem x acc then [ ] else [ x ];
           in
           y ++ go (tail xs) (y ++ acc)
         ;
@@ -185,14 +171,7 @@ rec {
         x = head inputList;
         isX = y: (compare (getter y) (getter x));
         newOutputList =
-          outputList
-          ++ (
-            if any isX outputList then
-              [ ]
-            else
-              [ x ]
-          )
-          ;
+          outputList ++ (if any isX outputList then [ ] else [ x ]);
       in
       uniqListExt {
         outputList = newOutputList;
@@ -239,10 +218,7 @@ rec {
 
   innerModifySumArgs =
     f: x: a: b:
-    if b == null then
-      (f a b) // x
-    else
-      innerModifySumArgs f x (a // b)
+    if b == null then (f a b) // x else innerModifySumArgs f x (a // b)
     ;
   modifySumArgs = f: x: innerModifySumArgs f x { };
 
@@ -346,13 +322,7 @@ rec {
   mergeAttrsWithFunc =
     f: set1: set2:
     foldr
-    (
-      n: set:
-      if set ? ${n} then
-        setAttr set n (f set.${n} set2.${n})
-      else
-        set
-    )
+    (n: set: if set ? ${n} then setAttr set n (f set.${n} set2.${n}) else set)
     (set2 // set1)
     (attrNames set2)
     ;
@@ -486,10 +456,7 @@ rec {
   nixType =
     x:
     if isAttrs x then
-      if x ? outPath then
-        "derivation"
-      else
-        "attrs"
+      if x ? outPath then "derivation" else "attrs"
     else if lib.isFunction x then
       "function"
     else if isList x then

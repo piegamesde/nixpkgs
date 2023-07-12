@@ -20,13 +20,7 @@ let
     ];
   configType = with types; attrsOf (nullOr (oneOrMore valueType));
 
-  toBool =
-    val:
-    if val then
-      "yes"
-    else
-      "no"
-    ;
+  toBool = val: if val then "yes" else "no";
   serialize =
     val:
     with types;

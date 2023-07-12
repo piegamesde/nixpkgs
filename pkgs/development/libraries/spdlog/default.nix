@@ -22,18 +22,8 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ fmt ];
 
   cmakeFlags = [
-    "-DSPDLOG_BUILD_SHARED=${
-      if staticBuild then
-        "OFF"
-      else
-        "ON"
-    }"
-    "-DSPDLOG_BUILD_STATIC=${
-      if staticBuild then
-        "ON"
-      else
-        "OFF"
-    }"
+    "-DSPDLOG_BUILD_SHARED=${if staticBuild then "OFF" else "ON"}"
+    "-DSPDLOG_BUILD_STATIC=${if staticBuild then "ON" else "OFF"}"
     "-DSPDLOG_BUILD_EXAMPLE=OFF"
     "-DSPDLOG_BUILD_BENCH=OFF"
     "-DSPDLOG_BUILD_TESTS=ON"

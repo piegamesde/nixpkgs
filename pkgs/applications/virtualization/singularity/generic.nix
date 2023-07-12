@@ -143,10 +143,7 @@ in
     ]
     ++ lib.optional (!enableSeccomp) "--without-seccomp"
     ++ lib.optional (enableSuid != defaultToSuid) (
-      if enableSuid then
-        "--with-suid"
-      else
-        "--without-suid"
+      if enableSuid then "--with-suid" else "--without-suid"
     )
     ++ extraConfigureFlags
     ;

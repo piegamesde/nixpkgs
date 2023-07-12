@@ -116,12 +116,7 @@ stdenv.mkDerivation rec {
     (lib.mapAttrsToList
       (
         option: enable:
-        "-D${option}=${
-          if enable then
-            "enabled"
-          else
-            "disabled"
-        }"
+        "-D${option}=${if enable then "enabled" else "disabled"}"
       )
       {
         dbusmenu-gtk = traySupport;

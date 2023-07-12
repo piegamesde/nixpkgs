@@ -312,10 +312,6 @@ in
     };
 
     networking.firewall.allowedUDPPorts =
-      if cfg.openFirewall then
-        [ cfg.port ]
-      else
-        [ ]
-      ;
+      if cfg.openFirewall then [ cfg.port ] else [ ];
   };
 }

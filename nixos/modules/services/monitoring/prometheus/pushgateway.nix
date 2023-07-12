@@ -176,12 +176,7 @@ in
             " \\\n  " + concatStringsSep " \\\n  " cmdlineArgs
           )
           ;
-        StateDirectory =
-          if cfg.persistMetrics then
-            cfg.stateDir
-          else
-            null
-          ;
+        StateDirectory = if cfg.persistMetrics then cfg.stateDir else null;
       };
     };
   };

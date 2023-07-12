@@ -26,12 +26,7 @@ let
     ;
 
   blCfg = config.boot.loader;
-  timeoutStr =
-    if blCfg.timeout == null then
-      "-1"
-    else
-      toString blCfg.timeout
-    ;
+  timeoutStr = if blCfg.timeout == null then "-1" else toString blCfg.timeout;
 
   isAarch64 = pkgs.stdenv.hostPlatform.isAarch64;
   optional = pkgs.lib.optionalString;

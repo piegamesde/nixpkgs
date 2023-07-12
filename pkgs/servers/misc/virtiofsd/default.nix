@@ -22,11 +22,7 @@ rustPlatform.buildRustPackage rec {
 
   LIBCAPNG_LIB_PATH = "${lib.getLib libcap_ng}/lib";
   LIBCAPNG_LINK_TYPE =
-    if stdenv.hostPlatform.isStatic then
-      "static"
-    else
-      "dylib"
-    ;
+    if stdenv.hostPlatform.isStatic then "static" else "dylib";
 
   buildInputs = [
     libcap_ng

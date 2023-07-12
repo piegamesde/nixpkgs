@@ -154,13 +154,7 @@ let
               "disable"
               "manual"
             ])
-            (
-              x:
-              if x == "disable" then
-                0
-              else
-                1
-            )
+            (x: if x == "disable" then 0 else 1)
             types.ints.unsigned
           );
           default = null;

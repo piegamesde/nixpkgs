@@ -39,10 +39,7 @@ rec {
         let
           f = platform.rustc.platform.target-family;
         in
-        if builtins.isList f then
-          f
-        else
-          [ f ]
+        if builtins.isList f then f else [ f ]
       )
     else
       lib.optional platform.isUnix "unix"

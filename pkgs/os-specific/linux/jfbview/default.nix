@@ -17,12 +17,7 @@
 }:
 
 let
-  package =
-    if imageSupport then
-      "jfbview"
-    else
-      "jfbpdf"
-    ;
+  package = if imageSupport then "jfbview" else "jfbpdf";
   binaries =
     if imageSupport then
       [

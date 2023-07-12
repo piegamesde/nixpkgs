@@ -13,12 +13,7 @@ let
   json = builtins.toJSON (
     cfg // {
       enable = null;
-      threads =
-        if cfg.threads == 0 then
-          null
-        else
-          toString cfg.threads
-        ;
+      threads = if cfg.threads == 0 then null else toString cfg.threads;
     }
   );
 

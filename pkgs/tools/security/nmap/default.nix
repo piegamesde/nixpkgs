@@ -48,12 +48,7 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags = [
-    (
-      if withLua then
-        "--with-liblua=${lua5_3}"
-      else
-        "--without-liblua"
-    )
+    (if withLua then "--with-liblua=${lua5_3}" else "--without-liblua")
     "--with-liblinear=included"
     "--without-ndiff"
     "--without-zenmap"

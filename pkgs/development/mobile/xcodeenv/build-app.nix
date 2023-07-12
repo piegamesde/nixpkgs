@@ -40,19 +40,11 @@ assert enableWirelessDistribution
 let
   # Set some default values here
 
-  _target =
-    if target == null then
-      name
-    else
-      target
-    ;
+  _target = if target == null then name else target;
 
   _configuration =
     if configuration == null then
-      if release then
-        "Release"
-      else
-        "Debug"
+      if release then "Release" else "Debug"
     else
       configuration
     ;

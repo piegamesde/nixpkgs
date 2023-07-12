@@ -40,18 +40,8 @@ let
   userUnitConfig =
     name: cfg': {
       serviceConfig = {
-        User =
-          if cfg'.user == null then
-            "vdirsyncer"
-          else
-            cfg'.user
-          ;
-        Group =
-          if cfg'.group == null then
-            "vdirsyncer"
-          else
-            cfg'.group
-          ;
+        User = if cfg'.user == null then "vdirsyncer" else cfg'.user;
+        Group = if cfg'.group == null then "vdirsyncer" else cfg'.group;
       } // (optionalAttrs (cfg'.user == null) { DynamicUser = true; })
         // (optionalAttrs (cfg'.additionalGroups != [ ]) {
           SupplementaryGroups = cfg'.additionalGroups;

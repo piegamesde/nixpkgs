@@ -21,12 +21,7 @@ let
   cfg = config.services.mediawiki;
   fpm = config.services.phpfpm.pools.mediawiki;
   user = "mediawiki";
-  group =
-    if cfg.webserver == "apache" then
-      "apache"
-    else
-      "mediawiki"
-    ;
+  group = if cfg.webserver == "apache" then "apache" else "mediawiki";
 
   cacheDir = "/var/cache/mediawiki";
   stateDir = "/var/lib/mediawiki";
@@ -55,10 +50,7 @@ let
         mapAttrsToList
         (k: v: ''
           ln -s ${
-            if v != null then
-              v
-            else
-              "$src/share/mediawiki/extensions/${k}"
+            if v != null then v else "$src/share/mediawiki/extensions/${k}"
           } $out/share/mediawiki/extensions/${k}
         '')
         cfg.extensions
@@ -387,12 +379,7 @@ in
 
         port = mkOption {
           type = types.port;
-          default =
-            if cfg.database.type == "mysql" then
-              3306
-            else
-              5432
-            ;
+          default = if cfg.database.type == "mysql" then 3306 else 5432;
           defaultText = literalExpression "3306";
           description = lib.mdDoc "Database host port.";
         };

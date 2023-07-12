@@ -6,12 +6,7 @@
 }:
 
 let
-  libc =
-    if stdenvNoCC.targetPlatform.isMusl then
-      musl
-    else
-      glibc
-    ;
+  libc = if stdenvNoCC.targetPlatform.isMusl then musl else glibc;
   headerPath =
     if stdenvNoCC.targetPlatform.isMusl then
       "musl-${libc.version}/include/elf.h"

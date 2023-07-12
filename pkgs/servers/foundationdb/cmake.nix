@@ -19,12 +19,7 @@
 }:
 
 let
-  stdenv =
-    if useClang then
-      llvmPackages.libcxxStdenv
-    else
-      gccStdenv
-    ;
+  stdenv = if useClang then llvmPackages.libcxxStdenv else gccStdenv;
 
   tests =
     builtins.replaceStrings [ "\n" ] [ " " ] (lib.fileContents ./test-list.txt);

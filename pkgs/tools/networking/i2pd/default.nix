@@ -36,17 +36,7 @@ stdenv.mkDerivation rec {
 
   makeFlags =
     let
-      ynf =
-        a: b:
-        a
-        + "="
-        + (
-          if b then
-            "yes"
-          else
-            "no"
-        )
-        ;
+      ynf = a: b: a + "=" + (if b then "yes" else "no");
     in
     [
       (ynf "USE_AESNI" aesniSupport)

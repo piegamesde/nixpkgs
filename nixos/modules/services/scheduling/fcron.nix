@@ -11,12 +11,7 @@ let
 
   cfg = config.services.fcron;
 
-  queuelen =
-    if cfg.queuelen == null then
-      ""
-    else
-      "-q ${toString cfg.queuelen}"
-    ;
+  queuelen = if cfg.queuelen == null then "" else "-q ${toString cfg.queuelen}";
 
   # Duplicate code, also found in cron.nix. Needs deduplication.
   systemCronJobs = ''

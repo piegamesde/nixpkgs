@@ -42,12 +42,7 @@ let
       result = f args;
       overrideWith =
         newArgs:
-        args // (
-          if pkgs.lib.isFunction newArgs then
-            newArgs args
-          else
-            newArgs
-        )
+        args // (if pkgs.lib.isFunction newArgs then newArgs args else newArgs)
         ;
     in
     if builtins.isAttrs result then
@@ -147,13 +142,7 @@ let
     } not supported for interpreter ${python.executable}"
     ;
 
-  disabledIf =
-    x: drv:
-    if x then
-      disabled drv
-    else
-      drv
-    ;
+  disabledIf = x: drv: if x then disabled drv else drv;
 in
 {
 

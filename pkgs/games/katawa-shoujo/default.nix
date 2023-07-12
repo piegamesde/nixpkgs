@@ -117,13 +117,7 @@ stdenv.mkDerivation rec {
           }
         else
           rec {
-            arch =
-              "linux-${
-                if isx86_64 then
-                  "x86_64"
-                else
-                  "i686"
-              }";
+            arch = "linux-${if isx86_64 then "x86_64" else "i686"}";
             sourceDir = "'Katawa Shoujo'-${version}-linux";
             installDir = "$out/share/katawa-shoujo";
             dataDir = installDir;

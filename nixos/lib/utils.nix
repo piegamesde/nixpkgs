@@ -76,24 +76,14 @@ rec {
     s:
     let
       replacePrefix =
-        p: r: s:
-        (
-          if (hasPrefix p s) then
-            r + (removePrefix p s)
-          else
-            s
-        )
-        ;
+        p: r: s: (if (hasPrefix p s) then r + (removePrefix p s) else s);
       trim = s: removeSuffix "/" (removePrefix "/" s);
       normalizedPath = strings.normalizePath s;
     in
     replaceStrings [ "/" ] [ "-" ] (
       replacePrefix "." (strings.escapeC [ "." ] ".") (
         strings.escapeC (stringToCharacters " !\"#$%&'()*+,;<=>=@[\\]^`{|}~-") (
-          if normalizedPath == "/" then
-            normalizedPath
-          else
-            trim normalizedPath
+          if normalizedPath == "/" then normalizedPath else trim normalizedPath
         )
       )
     )

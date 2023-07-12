@@ -21,12 +21,7 @@ let
       ghc ? ghcWithPackages (p: with p; [ ieee754 ]),
     }:
     let
-      pkgs' =
-        if builtins.isList pkgs then
-          pkgs
-        else
-          pkgs self
-        ;
+      pkgs' = if builtins.isList pkgs then pkgs else pkgs self;
       library-file = writeText "libraries" ''
         ${(concatMapStringsSep "\n" (p: "${p}/${p.libraryFile}") pkgs')}
       '';

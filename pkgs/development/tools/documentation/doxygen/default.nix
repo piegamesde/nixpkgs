@@ -64,11 +64,6 @@ stdenv.mkDerivation rec {
       files.
     '';
 
-    platforms =
-      if qt5 != null then
-        lib.platforms.linux
-      else
-        lib.platforms.unix
-      ;
+    platforms = if qt5 != null then lib.platforms.linux else lib.platforms.unix;
   };
 }

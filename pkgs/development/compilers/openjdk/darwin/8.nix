@@ -43,12 +43,7 @@ let
     sha256 = "0nk7m0lgcbsvldq2wbfni2pzq8h818523z912i7v8hdcij5s48c0";
   };
 
-  javaPackage =
-    if enableJavaFX then
-      "ca-fx-jdk"
-    else
-      "ca-jdk"
-    ;
+  javaPackage = if enableJavaFX then "ca-fx-jdk" else "ca-jdk";
 
   jdk = stdenv.mkDerivation rec {
     # @hlolli: Later version than 1.8.0_202 throws error when building jvmci.

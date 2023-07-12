@@ -99,12 +99,7 @@ stdenv.mkDerivation rec {
     "gpsd_user=${gpsdUser}"
     "gpsd_group=${gpsdGroup}"
     "systemd=yes"
-    "xgps=${
-      if guiSupport then
-        "True"
-      else
-        "False"
-    }"
+    "xgps=${if guiSupport then "True" else "False"}"
   ];
 
   preCheck = ''

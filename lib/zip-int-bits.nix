@@ -11,18 +11,8 @@ let
       [ ]
     else
       let
-        headbit =
-          if (x / 2) * 2 != x then
-            1
-          else
-            0
-          ; # x & 1
-        tailbits =
-          if x < 0 then
-            ((x + 1) / 2) - 1
-          else
-            x / 2
-          ; # x >> 1
+        headbit = if (x / 2) * 2 != x then 1 else 0; # x & 1
+        tailbits = if x < 0 then ((x + 1) / 2) - 1 else x / 2; # x >> 1
       in
       [ headbit ] ++ (intToBits tailbits)
     ;
@@ -32,28 +22,13 @@ let
   bitsToInt =
     l: signum:
     if l == [ ] then
-      (
-        if signum == 0 then
-          0
-        else
-          -1
-      )
+      (if signum == 0 then 0 else -1)
     else
       (builtins.head l) + (2 * (bitsToInt (builtins.tail l) signum))
     ;
 
-  xsignum =
-    if x < 0 then
-      1
-    else
-      0
-    ;
-  ysignum =
-    if y < 0 then
-      1
-    else
-      0
-    ;
+  xsignum = if x < 0 then 1 else 0;
+  ysignum = if y < 0 then 1 else 0;
   zipListsWith' =
     fst: snd:
     if fst == [ ] && snd == [ ] then

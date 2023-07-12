@@ -24,12 +24,7 @@ stdenv.mkDerivation rec {
 
   preBuild =
     let
-      srcdir =
-        if buildClient then
-          "finger"
-        else
-          "fingerd"
-        ;
+      srcdir = if buildClient then "finger" else "fingerd";
     in
     ''
       cd ${srcdir}
@@ -38,18 +33,8 @@ stdenv.mkDerivation rec {
 
   preInstall =
     let
-      bindir =
-        if buildClient then
-          "bin"
-        else
-          "sbin"
-        ;
-      mandir =
-        if buildClient then
-          "man/man1"
-        else
-          "man/man8"
-        ;
+      bindir = if buildClient then "bin" else "sbin";
+      mandir = if buildClient then "man/man1" else "man/man8";
     in
     ''
       mkdir -p $out/${bindir} $out/${mandir}

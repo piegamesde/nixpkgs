@@ -177,18 +177,8 @@ in
           boot.initrd.preLVMCommands =
             mkIf (!config.boot.initrd.systemd.enable) (
               mkBefore ''
-                kbd_mode ${
-                  if isUnicode then
-                    "-u"
-                  else
-                    "-a"
-                } -C /dev/console
-                printf "\033%%${
-                  if isUnicode then
-                    "G"
-                  else
-                    "@"
-                }" >> /dev/console
+                kbd_mode ${if isUnicode then "-u" else "-a"} -C /dev/console
+                printf "\033%%${if isUnicode then "G" else "@"}" >> /dev/console
                 loadkmap < ${optimizedKeymap}
 
                 ${optionalString (cfg.earlySetup && cfg.font != null) ''

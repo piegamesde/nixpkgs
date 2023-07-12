@@ -10,10 +10,7 @@ assert builtins.elem type [
   "runtime"
   "sdk"
 ];
-assert if type == "sdk" then
-  packages != null
-else
-  true;
+assert if type == "sdk" then packages != null else true;
 
 {
   lib,

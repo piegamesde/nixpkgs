@@ -7,12 +7,7 @@
 }:
 
 let
-  cross =
-    if crossSystem != null then
-      { inherit crossSystem; }
-    else
-      { }
-    ;
+  cross = if crossSystem != null then { inherit crossSystem; } else { };
   custom-bootstrap =
     if bootstrapFiles != null then
       {
@@ -343,12 +338,7 @@ rec {
   test-pkgs = import test-pkgspath {
     # if the bootstrap tools are for another platform, we should be testing
     # that platform.
-    localSystem =
-      if crossSystem != null then
-        crossSystem
-      else
-        localSystem
-      ;
+    localSystem = if crossSystem != null then crossSystem else localSystem;
 
     stdenvStages =
       args:

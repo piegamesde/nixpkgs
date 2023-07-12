@@ -14,12 +14,7 @@
 }:
 
 let
-  arch =
-    if stdenv.isx86_64 then
-      "x86_64"
-    else
-      "generic"
-    ;
+  arch = if stdenv.isx86_64 then "x86_64" else "generic";
 in
 rustPlatform.buildRustPackage rec {
   pname = "kanidm";
@@ -47,12 +42,7 @@ rustPlatform.buildRustPackage rec {
       format = (formats.toml { }).generate "${KANIDM_BUILD_PROFILE}.toml";
       profile = {
         web_ui_pkg_path = "@web_ui_pkg_path@";
-        cpu_flags =
-          if stdenv.isx86_64 then
-            "x86_64_v1"
-          else
-            "none"
-          ;
+        cpu_flags = if stdenv.isx86_64 then "x86_64_v1" else "none";
       };
     in
     ''

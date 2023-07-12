@@ -13,11 +13,7 @@ let
   virtualbox = cfg.package.override {
     inherit (cfg) enableHardening headless enableWebService;
     extensionPack =
-      if cfg.enableExtensionPack then
-        pkgs.virtualboxExtpack
-      else
-        null
-      ;
+      if cfg.enableExtensionPack then pkgs.virtualboxExtpack else null;
   };
 
   kernelModules =

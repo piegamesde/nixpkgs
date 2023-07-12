@@ -17,10 +17,7 @@
   xineramaSupport ? stdenv.isLinux,
   cupsSupport ? config.gtk2.cups or stdenv.isLinux,
   cups,
-  gdktarget ? if stdenv.isDarwin then
-    "quartz"
-  else
-    "x11",
+  gdktarget ? if stdenv.isDarwin then "quartz" else "x11",
   AppKit,
   Cocoa,
   fetchpatch,

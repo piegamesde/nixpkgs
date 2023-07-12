@@ -24,15 +24,9 @@ let
   # Escape as required by: https://www.freedesktop.org/software/systemd/man/systemd.unit.html
   escapeUnitName =
     name:
-    lib.concatMapStrings
-    (
-      s:
-      if lib.isList s then
-        "-"
-      else
-        s
+    lib.concatMapStrings (s: if lib.isList s then "-" else s) (
+      builtins.split "[^a-zA-Z0-9_.\\-]+" name
     )
-    (builtins.split "[^a-zA-Z0-9_.\\-]+" name)
     ;
 
   # Function to build "zfs allow" commands for the filesystems we've delegated

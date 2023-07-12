@@ -212,10 +212,7 @@ rec {
   platform-tools = callPackage ./platform-tools.nix {
     inherit deployAndroidPackage;
     os =
-      if stdenv.system == "aarch64-darwin" then
-        "macosx"
-      else
-        os
+      if stdenv.system == "aarch64-darwin" then "macosx" else os
       ; # "macosx" is a universal binary here
     package = packages.platform-tools.${platformToolsVersion};
   };
@@ -382,11 +379,7 @@ rec {
 
   # The "default" NDK bundle.
   ndk-bundle =
-    if includeNDK then
-      lib.findFirst (x: x != null) null ndk-bundles
-    else
-      null
-    ;
+    if includeNDK then lib.findFirst (x: x != null) null ndk-bundles else null;
 
   google-apis = map
     (

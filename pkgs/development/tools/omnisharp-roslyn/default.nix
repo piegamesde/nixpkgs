@@ -76,13 +76,7 @@ let
       let
         with-sdk =
           sdk:
-          runCommand
-          "with-${
-            if sdk ? version then
-              sdk.version
-            else
-              "no"
-          }-sdk"
+          runCommand "with-${if sdk ? version then sdk.version else "no"}-sdk"
           {
             nativeBuildInputs = [
               finalPackage
@@ -100,10 +94,7 @@ let
                 exit 1
               }
               expect ".NET Core SDK ${
-                if sdk ? version then
-                  sdk.version
-                else
-                  sdk_6_0.version
+                if sdk ? version then sdk.version else sdk_6_0.version
               }"
               expect "{\"Event\":\"started\","
               send \x03

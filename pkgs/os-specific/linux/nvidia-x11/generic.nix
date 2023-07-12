@@ -127,12 +127,7 @@ let
         "nvidia-x11 does not support platform ${stdenv.hostPlatform.system}"
       ;
 
-    patches =
-      if libsOnly then
-        null
-      else
-        patches
-      ;
+    patches = if libsOnly then null else patches;
     inherit prePatch postPatch;
     inherit version useGLVND useProfiles;
     inherit (stdenv.hostPlatform) system;
@@ -144,25 +139,10 @@ let
       ++ optional (!libsOnly) "bin"
       ++ optional (!libsOnly && firmware) "firmware"
       ;
-    outputDev =
-      if libsOnly then
-        null
-      else
-        "bin"
-      ;
+    outputDev = if libsOnly then null else "bin";
 
-    kernel =
-      if libsOnly then
-        null
-      else
-        kernel.dev
-      ;
-    kernelVersion =
-      if libsOnly then
-        null
-      else
-        kernel.modDirVersion
-      ;
+    kernel = if libsOnly then null else kernel.dev;
+    kernelVersion = if libsOnly then null else kernel.modDirVersion;
 
     makeFlags = optionals (!libsOnly) (
       kernel.makeFlags
@@ -208,12 +188,8 @@ let
           }
         )
         openSha256;
-      settings = (
-        if settings32Bit then
-          pkgsi686Linux.callPackage
-        else
-          callPackage
-      )
+      settings =
+        (if settings32Bit then pkgsi686Linux.callPackage else callPackage)
         (import ./settings.nix self settingsSha256)
         {
           withGtk2 = preferGtk2;

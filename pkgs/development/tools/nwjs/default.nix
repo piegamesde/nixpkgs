@@ -35,12 +35,7 @@
   sdk ? false,
 }:
 let
-  bits =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      "x64"
-    else
-      "ia32"
-    ;
+  bits = if stdenv.hostPlatform.system == "x86_64-linux" then "x64" else "ia32";
 
   nwEnv = buildEnv {
     name = "nwjs-env";

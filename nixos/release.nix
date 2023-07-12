@@ -20,12 +20,7 @@ let
 
   version = fileContents ../.version;
   versionSuffix =
-    (
-      if stableBranch then
-        "."
-      else
-        "pre"
-    )
+    (if stableBranch then "." else "pre")
     + "${toString nixpkgs.revCount}.${nixpkgs.shortRev}"
     ;
 

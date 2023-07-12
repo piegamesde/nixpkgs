@@ -75,12 +75,7 @@ lib.makeScope pkgs.newScope (
                 previousAttrs.meta.mainProgram or previousAttrs.pname;
             };
           })
-          (
-            if lib.isFunction origArgs then
-              origArgs
-            else
-              (_: origArgs)
-          )
+          (if lib.isFunction origArgs then origArgs else (_: origArgs))
         );
       in
       pkgs.stdenv.mkDerivation args

@@ -79,12 +79,7 @@ stdenv.mkDerivation (
         if lib.versionAtLeast gtk3.version "4.0" then
           "6.0"
         else
-          "4.${
-            if lib.versions.major libsoup.version == "2" then
-              "0"
-            else
-              "1"
-          }"
+          "4.${if lib.versions.major libsoup.version == "2" then "0" else "1"}"
       }";
 
     outputs = [
@@ -228,13 +223,7 @@ stdenv.mkDerivation (
 
     cmakeFlags =
       let
-        cmakeBool =
-          x:
-          if x then
-            "ON"
-          else
-            "OFF"
-          ;
+        cmakeBool = x: if x then "ON" else "OFF";
       in
       [
         "-DENABLE_INTROSPECTION=ON"

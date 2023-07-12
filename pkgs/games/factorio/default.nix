@@ -79,12 +79,7 @@ let
     categories = [ "Game" ];
   };
 
-  branch =
-    if experimental then
-      "experimental"
-    else
-      "stable"
-    ;
+  branch = if experimental then "experimental" else "stable";
 
   # NB `experimental` directs us to take the latest build, regardless of its branch;
   # hence the (stable, experimental) pairs may sometimes refer to the same distributable.

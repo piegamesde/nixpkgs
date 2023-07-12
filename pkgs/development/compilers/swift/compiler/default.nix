@@ -119,12 +119,7 @@ let
     "toolchain-tools"
     "toolchain-dev-tools"
     "license"
-    (
-      if stdenv.isDarwin then
-        "sourcekit-xpc-service"
-      else
-        "sourcekit-inproc"
-    )
+    (if stdenv.isDarwin then "sourcekit-xpc-service" else "sourcekit-inproc")
     "swift-remote-mirror"
     "swift-remote-mirror-headers"
   ];
@@ -508,10 +503,7 @@ stdenv.mkDerivation {
           lib.concatStringsSep ";" swiftInstallComponents
         }
         -DSWIFT_STDLIB_ENABLE_OBJC_INTEROP=${
-          if stdenv.isDarwin then
-            "ON"
-          else
-            "OFF"
+          if stdenv.isDarwin then "ON" else "OFF"
         }
       "
       buildProject swift
@@ -558,10 +550,7 @@ stdenv.mkDerivation {
         -DLibEdit_INCLUDE_DIRS=${libedit.dev}/include
         -DLibEdit_LIBRARIES=${libedit}/lib/libedit${stdenv.hostPlatform.extensions.sharedLibrary}
         -DCURSES_INCLUDE_DIRS=${
-          if stdenv.isDarwin then
-            "/var/empty"
-          else
-            ncurses.dev
+          if stdenv.isDarwin then "/var/empty" else ncurses.dev
         }/include
         -DCURSES_LIBRARIES=${ncurses}/lib/libncurses${stdenv.hostPlatform.extensions.sharedLibrary}
         -DPANEL_LIBRARIES=${ncurses}/lib/libpanel${stdenv.hostPlatform.extensions.sharedLibrary}

@@ -32,12 +32,7 @@ in
         set.
       '';
       type = lib.types.nullOr lib.types.str;
-      default =
-        if cfg.abrmd.enable then
-          "tss"
-        else
-          "root"
-        ;
+      default = if cfg.abrmd.enable then "tss" else "root";
       defaultText = lib.literalExpression ''
         if config.security.tpm2.abrmd.enable then "tss" else "root"'';
     };

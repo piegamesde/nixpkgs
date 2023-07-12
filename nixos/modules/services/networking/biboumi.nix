@@ -16,10 +16,7 @@ let
     {
       mkKeyValue =
         k: v:
-        if v == null then
-          ""
-        else
-          generators.mkKeyValueDefault { } "=" k v
+        if v == null then "" else generators.mkKeyValueDefault { } "=" k v
         ;
     }
     cfg.settings

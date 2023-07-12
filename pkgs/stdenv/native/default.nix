@@ -209,11 +209,7 @@ in
       extraPath = [ prevStage.xz ];
       overrides = self: super: { inherit (prevStage) xz; };
       extraNativeBuildInputs =
-        if localSystem.isLinux then
-          [ prevStage.patchelf ]
-        else
-          [ ]
-        ;
+        if localSystem.isLinux then [ prevStage.patchelf ] else [ ];
     };
   })
 ]

@@ -649,11 +649,7 @@ in
             NODE_ENV = "production";
 
             REDIS_URL =
-              if cfg.redisUrl == "local" then
-                localRedisUrl
-              else
-                cfg.redisUrl
-              ;
+              if cfg.redisUrl == "local" then localRedisUrl else cfg.redisUrl;
             URL = cfg.publicUrl;
             PORT = builtins.toString cfg.port;
 

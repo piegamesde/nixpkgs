@@ -35,13 +35,7 @@ let
       abort "clight.toConf: unexpected type (v = ${v})"
     ;
 
-  getSep =
-    v:
-    if isAttrs v then
-      ":"
-    else
-      "="
-    ;
+  getSep = v: if isAttrs v then ":" else "=";
 
   convertAttrs =
     attrs:

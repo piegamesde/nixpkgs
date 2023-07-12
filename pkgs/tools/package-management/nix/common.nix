@@ -244,12 +244,7 @@ let
     installFlags = [ "sysconfdir=$(out)/etc" ];
 
     doInstallCheck = true;
-    installCheckTarget =
-      if atLeast210 then
-        "installcheck"
-      else
-        null
-      ;
+    installCheckTarget = if atLeast210 then "installcheck" else null;
 
     # socket path becomes too long otherwise
     preInstallCheck =

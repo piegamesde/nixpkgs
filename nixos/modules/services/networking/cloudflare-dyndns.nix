@@ -85,18 +85,8 @@ in
           let
             args =
               [ "--cache-file /var/lib/cloudflare-dyndns/ip.cache" ]
-              ++ (
-                if cfg.ipv4 then
-                  [ "-4" ]
-                else
-                  [ "-no-4" ]
-              )
-              ++ (
-                if cfg.ipv6 then
-                  [ "-6" ]
-                else
-                  [ "-no-6" ]
-              )
+              ++ (if cfg.ipv4 then [ "-4" ] else [ "-no-4" ])
+              ++ (if cfg.ipv6 then [ "-6" ] else [ "-no-6" ])
               ++ optional cfg.deleteMissing "--delete-missing"
               ++ optional cfg.proxied "--proxied"
               ;

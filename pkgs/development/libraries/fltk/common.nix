@@ -48,13 +48,7 @@
 }:
 
 let
-  onOff =
-    value:
-    if value then
-      "ON"
-    else
-      "OFF"
-    ;
+  onOff = value: if value then "ON" else "OFF";
 in
 stdenv.mkDerivation rec {
   pname = "fltk";

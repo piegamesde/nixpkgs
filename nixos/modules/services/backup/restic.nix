@@ -369,13 +369,7 @@ in
             v: "RCLONE_" + toUpper (builtins.replaceStrings [ "-" ] [ "_" ] v);
           rcloneAttrToConf =
             v: "RCLONE_CONFIG_" + toUpper (rcloneRemoteName + "_" + v);
-          toRcloneVal =
-            v:
-            if lib.isBool v then
-              lib.boolToString v
-            else
-              v
-            ;
+          toRcloneVal = v: if lib.isBool v then lib.boolToString v else v;
         in
         nameValuePair "restic-backups-${name}" (
           {

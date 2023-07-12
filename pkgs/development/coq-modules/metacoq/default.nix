@@ -76,18 +76,8 @@ let
         else
           map metacoq_ (head (splitList (lib.pred.equal package) packages))
         ;
-      pkgpath =
-        if package == "single" then
-          "./"
-        else
-          "./${package}"
-        ;
-      pname =
-        if package == "all" then
-          "metacoq"
-        else
-          "metacoq-${package}"
-        ;
+      pkgpath = if package == "single" then "./" else "./${package}";
+      pname = if package == "all" then "metacoq" else "metacoq-${package}";
       pkgallMake = ''
         mkdir all
         echo "all:" > all/Makefile
@@ -175,9 +165,4 @@ let
     derivation
     ;
 in
-metacoq_ (
-  if single then
-    "single"
-  else
-    "all"
-)
+metacoq_ (if single then "single" else "all")

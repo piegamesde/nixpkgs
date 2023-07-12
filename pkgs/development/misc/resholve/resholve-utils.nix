@@ -139,12 +139,7 @@ rec {
     in
     {
       drvs = value.inputs ++ lib.optionals hasUnresholved [ value.unresholved ];
-      strip =
-        if hasUnresholved then
-          [ value.unresholved ]
-        else
-          [ ]
-        ;
+      strip = if hasUnresholved then [ value.unresholved ] else [ ];
     }
     ;
 

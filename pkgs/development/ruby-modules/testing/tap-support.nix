@@ -20,10 +20,7 @@ let
       result,
       ...
     }:
-    if result == "pass" then
-      "ok"
-    else
-      "not ok"
+    if result == "pass" then "ok" else "not ok"
     ;
 in
 {

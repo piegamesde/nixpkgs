@@ -91,16 +91,7 @@ runTests {
   };
 
   testFix = {
-    expr = fix (
-      x: {
-        a =
-          if x ? a then
-            "a"
-          else
-            "b"
-          ;
-      }
-    );
+    expr = fix (x: { a = if x ? a then "a" else "b"; });
     expected = { a = "a"; };
   };
 

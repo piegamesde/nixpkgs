@@ -32,10 +32,7 @@ stdenv.mkDerivation {
 
   configureFlags = [
     "--with-systemdsystemunitdir=${
-      if useSystemd then
-        "${placeholder "out"}/etc/systemd/system"
-      else
-        "no"
+      if useSystemd then "${placeholder "out"}/etc/systemd/system" else "no"
     }"
     "--enable-warmstarts"
     "--with-rpcuser=rpc"

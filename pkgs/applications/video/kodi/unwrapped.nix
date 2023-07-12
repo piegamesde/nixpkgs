@@ -371,12 +371,7 @@ stdenv.mkDerivation {
 
   cmakeFlags =
     [
-      "-DAPP_RENDER_SYSTEM=${
-        if gbmSupport then
-          "gles"
-        else
-          "gl"
-      }"
+      "-DAPP_RENDER_SYSTEM=${if gbmSupport then "gles" else "gl"}"
       "-Dlibdvdcss_URL=${libdvdcss}"
       "-Dlibdvdnav_URL=${libdvdnav}"
       "-Dlibdvdread_URL=${libdvdread}"

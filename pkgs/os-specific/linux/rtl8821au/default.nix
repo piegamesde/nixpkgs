@@ -38,12 +38,7 @@ stdenv.mkDerivation rec {
       "ARCH=${stdenv.hostPlatform.linuxArch}"
       (
         "CONFIG_PLATFORM_I386_PC="
-        + (
-          if stdenv.hostPlatform.isx86 then
-            "y"
-          else
-            "n"
-        )
+        + (if stdenv.hostPlatform.isx86 then "y" else "n")
       )
       (
         "CONFIG_PLATFORM_ARM_RPI="

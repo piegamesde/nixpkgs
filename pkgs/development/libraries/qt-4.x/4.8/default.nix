@@ -116,12 +116,7 @@ stdenv.mkDerivation rec {
       ./kill-legacy-darwin-apis.patch
       (substituteAll {
         src = ./dlopen-absolute-paths.diff;
-        cups =
-          if cups != null then
-            lib.getLib cups
-          else
-            null
-          ;
+        cups = if cups != null then lib.getLib cups else null;
         icu = icu.out;
         libXfixes = libXfixes.out;
         glibc = stdenv.cc.libc.out;
@@ -275,12 +270,7 @@ stdenv.mkDerivation rec {
           "-dbus-linked"
           "-openssl-linked"
 
-          "-${
-            if libmysqlclient != null then
-              "plugin"
-            else
-              "no"
-          }-sql-mysql"
+          "-${if libmysqlclient != null then "plugin" else "no"}-sql-mysql"
           "-system-sqlite"
 
           "-exceptions"
@@ -299,26 +289,11 @@ stdenv.mkDerivation rec {
         ]
     )
     ++ [
-      "-${
-        if demos then
-          ""
-        else
-          "no"
-      }make"
+      "-${if demos then "" else "no"}make"
       "demos"
-      "-${
-        if examples then
-          ""
-        else
-          "no"
-      }make"
+      "-${if examples then "" else "no"}make"
       "examples"
-      "-${
-        if docs then
-          ""
-        else
-          "no"
-      }make"
+      "-${if docs then "" else "no"}make"
       "docs"
     ]
     ++ lib.optional developerBuild "-developer-build"

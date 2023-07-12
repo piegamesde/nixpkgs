@@ -19,12 +19,7 @@ let
   # that the CUDA toolkit for `passthru.tests` is still
   # up-to-date.
   version = "2.0.0";
-  device =
-    if cudaSupport then
-      "cuda"
-    else
-      "cpu"
-    ;
+  device = if cudaSupport then "cuda" else "cpu";
   srcs = import ./binary-hashes.nix version;
   unavailable = throw "libtorch is not available for this platform";
   libcxx-for-libtorch =

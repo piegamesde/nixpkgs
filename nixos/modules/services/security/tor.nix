@@ -23,23 +23,13 @@ let
     (
       p0:
       let
-        p1 =
-          if p0 ? "port" then
-            p0.port
-          else
-            p0
-          ;
+        p1 = if p0 ? "port" then p0.port else p0;
       in
       if p1 == "auto" then
         false
       else
         let
-          p2 =
-            if isInt p1 then
-              p1
-            else
-              toInt p1
-            ;
+          p2 = if isInt p1 then p1 else toInt p1;
         in
         p1 != null && 0 < p2 && p2 < 1024
     )
@@ -308,12 +298,7 @@ let
     if v == null then
       ""
     else if isBool v then
-      (
-        if v then
-          "1"
-        else
-          "0"
-      )
+      (if v then "1" else "0")
     else if v ? "unix" && v.unix != null then
       "unix:"
       + v.unix
@@ -1068,12 +1053,7 @@ in
                 };
                 config = {
                   path = mkDefault (
-                    (
-                      if config.secretKey == null then
-                        stateDir
-                      else
-                        runDir
-                    )
+                    (if config.secretKey == null then stateDir else runDir)
                     + "/onion/${name}"
                   );
                   settings.HiddenServiceVersion = config.version;
@@ -1295,13 +1275,7 @@ in
                   ))
                 ]
               );
-            apply =
-              p:
-              if isInt p || isString p then
-                { port = p; }
-              else
-                p
-              ;
+            apply = p: if isInt p || isString p then { port = p; } else p;
           };
           options.ExtORPortCookieAuthFile =
             optionPath "ExtORPortCookieAuthFile";

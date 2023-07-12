@@ -141,10 +141,7 @@ let
     let
       lics = drv.meta.license or [ ];
     in
-    if lib.isAttrs lics || lib.isString lics then
-      [ lics ]
-    else
-      lics
+    if lib.isAttrs lics || lib.isString lics then [ lics ] else lics
     ;
 
   # Whether any member of list1 is also member of list2, i. e. set intersection.

@@ -12,10 +12,7 @@ let
     let
       res = builtins.tryEval x;
     in
-    if res.success then
-      res.value
-    else
-      def
+    if res.success then res.value else def
     ;
 in
 

@@ -106,12 +106,7 @@ stdenv.mkDerivation (
       eval "$nextPostUnpack"
     '';
 
-    nextPostUnpack =
-      if args ? postUnpack then
-        args.postUnpack
-      else
-        ""
-      ;
+    nextPostUnpack = if args ? postUnpack then args.postUnpack else "";
 
     # Cause distPhase to copy tar.bz2 in addition to tar.gz.
     tarballs = "*.tar.gz *.tar.bz2 *.tar.xz";
@@ -131,12 +126,7 @@ stdenv.mkDerivation (
       version = version + versionSuffix;
     };
 
-    meta = (
-      if args ? meta then
-        args.meta
-      else
-        { }
-    ) // {
+    meta = (if args ? meta then args.meta else { }) // {
       description = "Source distribution";
 
       # Tarball builds are generally important, so give them a high

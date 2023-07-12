@@ -33,10 +33,7 @@ stdenv.mkDerivation (
         ]
       ;
     propagatedBuildInputs =
-      if stdenv.isDarwin then
-        [ OpenGL ]
-      else
-        [ libGLU ]
+      if stdenv.isDarwin then [ OpenGL ] else [ libGLU ]
       ; # GL/glew.h includes GL/glu.h
 
     outputs = [

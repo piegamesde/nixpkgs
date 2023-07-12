@@ -60,12 +60,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optionals enableJavaScript [
-      (
-        if stdenv.hostPlatform.isDarwin then
-          JavaScriptCore
-        else
-          duktape
-      )
+      (if stdenv.hostPlatform.isDarwin then JavaScriptCore else duktape)
     ]
     ++ (
       if stdenv.hostPlatform.isDarwin then

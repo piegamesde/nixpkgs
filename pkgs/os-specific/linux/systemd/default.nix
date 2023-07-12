@@ -321,13 +321,7 @@ stdenv.mkDerivation (
           # `grep -ri '"lib[a-zA-Z0-9-]*\.so[\.0-9a-zA-z]*"'' $src` and update the below list.
           dlopenLibs =
             let
-              opt =
-                condition: pkg:
-                if condition then
-                  pkg
-                else
-                  null
-                ;
+              opt = condition: pkg: if condition then pkg else null;
             in
             [
               # bpf compilation support. We use libbpf 1 now.

@@ -21,12 +21,7 @@ let
     }
     .${system} or throwSystem;
 
-  archive_fmt =
-    if stdenv.isDarwin then
-      "zip"
-    else
-      "tar.gz"
-    ;
+  archive_fmt = if stdenv.isDarwin then "zip" else "tar.gz";
 
   sha256 =
     {

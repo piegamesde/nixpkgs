@@ -101,22 +101,12 @@ let
       # lost on `.override`) but determine the auto-args based on `drv` (the problem here
       # is that nix has no way to "passthrough" args while preserving the reflection
       # info that callPackage uses to determine the arguments).
-      drv =
-        if lib.isFunction fn then
-          fn
-        else
-          import fn
-        ;
+      drv = if lib.isFunction fn then fn else import fn;
       auto = builtins.intersectAttrs (lib.functionArgs drv) scope;
 
       # Converts a returned function to a functor attribute set if necessary
       ensureAttrs =
-        v:
-        if builtins.isFunction v then
-          { __functor = _: v; }
-        else
-          v
-        ;
+        v: if builtins.isFunction v then { __functor = _: v; } else v;
 
       # this wraps the `drv` function to add `scope` and `overrideScope` to the result.
       drvScope =
@@ -174,11 +164,7 @@ let
     }:
     let
       sha256Arg =
-        if sha256 == null then
-          "--sha256="
-        else
-          ''--sha256="${sha256}"''
-        ;
+        if sha256 == null then "--sha256=" else ''--sha256="${sha256}"'';
     in
     buildPackages.runCommand "cabal2nix-${name}"
     {
@@ -678,10 +664,7 @@ package-set { inherit pkgs lib callPackage; } self // {
   cabalSdist =
     {
       src,
-      name ? if src ? name then
-        "${src.name}-sdist.tar.gz"
-      else
-        "source.tar.gz",
+      name ? if src ? name then "${src.name}-sdist.tar.gz" else "source.tar.gz",
     }:
     pkgs.runCommandLocal name
     {

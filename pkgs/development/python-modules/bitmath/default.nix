@@ -18,12 +18,7 @@ buildPythonPackage rec {
   };
 
   nativeCheckInputs = [
-    (
-      if isPy3k then
-        progressbar33
-      else
-        progressbar231
-    )
+    (if isPy3k then progressbar33 else progressbar231)
     mock
   ];
 

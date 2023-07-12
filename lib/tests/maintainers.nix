@@ -88,7 +88,4 @@ let
       exit 1
     '';
 in
-if missingGithubIds == [ ] then
-  success
-else
-  failure
+if missingGithubIds == [ ] then success else failure

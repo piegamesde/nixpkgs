@@ -119,10 +119,7 @@ stdenv.mkDerivation rec {
     makeFlagsArray+=(CFLAGS='-O2 -fPIC${
       lib.optionalString compat compatFlags
     } $(${
-      if lib.versionAtLeast luaversion "5.2" then
-        "SYSCFLAGS"
-      else
-        "MYCFLAGS"
+      if lib.versionAtLeast luaversion "5.2" then "SYSCFLAGS" else "MYCFLAGS"
     })' )
     makeFlagsArray+=(${lib.optionalString stdenv.isDarwin ''CC="$CC"''}${
       lib.optionalString

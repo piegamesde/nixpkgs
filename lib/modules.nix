@@ -1033,11 +1033,7 @@ rec {
       # Apply the 'apply' function to the merged value. This allows options to
       # yield a value computed from the definitions
       value =
-        if opt ? apply then
-          opt.apply res.mergedValue
-        else
-          res.mergedValue
-        ;
+        if opt ? apply then opt.apply res.mergedValue else res.mergedValue;
 
       warnDeprecation = warnIf
         (opt.type.deprecationMessage != null)
@@ -1124,12 +1120,7 @@ rec {
 
       isDefined = defsFinal != [ ];
 
-      optionalValue =
-        if isDefined then
-          { value = mergedValue; }
-        else
-          { }
-        ;
+      optionalValue = if isDefined then { value = mergedValue; } else { };
     }
     ;
 
@@ -1180,10 +1171,7 @@ rec {
       concatMap dischargeProperties def.contents
     else if def._type or "" == "if" then
       if isBool def.condition then
-        if def.condition then
-          dischargeProperties def.content
-        else
-          [ ]
+        if def.condition then dischargeProperties def.content else [ ]
       else
         throw "‘mkIf’ called with a non-Boolean condition"
     else
@@ -1232,13 +1220,7 @@ rec {
     in
     {
       values = concatMap
-        (
-          def:
-          if getPrio def == highestPrio then
-            [ (strip def) ]
-          else
-            [ ]
-        )
+        (def: if getPrio def == highestPrio then [ (strip def) ] else [ ])
         defs;
       inherit highestPrio;
     }

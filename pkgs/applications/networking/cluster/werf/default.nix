@@ -33,12 +33,7 @@ buildGoModule rec {
     ++ lib.optionals stdenv.hostPlatform.isGnu [ stdenv.cc.libc.static ]
     ;
 
-  CGO_ENABLED =
-    if stdenv.isLinux then
-      1
-    else
-      0
-    ;
+  CGO_ENABLED = if stdenv.isLinux then 1 else 0;
 
   ldflags =
     [

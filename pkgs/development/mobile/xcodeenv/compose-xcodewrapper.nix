@@ -45,10 +45,7 @@ stdenv.mkDerivation {
       ''}
     then
         echo "We require xcodebuild version${
-          if allowHigher then
-            " or higher"
-          else
-            ""
+          if allowHigher then " or higher" else ""
         }: ${version}"
         echo "Instead what was found: $currVer"
         exit 1

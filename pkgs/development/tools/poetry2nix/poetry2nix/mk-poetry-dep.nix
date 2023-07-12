@@ -175,12 +175,7 @@ pythonPackages.callPackage
     inherit pname version;
 
     # Circumvent output separation (https://github.com/NixOS/nixpkgs/pull/190487)
-    format =
-      if format == "pyproject" then
-        "poetry2nix"
-      else
-        format
-      ;
+    format = if format == "pyproject" then "poetry2nix" else format;
 
     doCheck = false; # We never get development deps
 

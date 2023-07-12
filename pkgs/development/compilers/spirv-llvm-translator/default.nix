@@ -55,12 +55,7 @@ stdenv.mkDerivation {
       cmake
       spirv-tools
     ]
-    ++ (
-      if isROCm then
-        [ llvm ]
-      else
-        [ llvm.dev ]
-    )
+    ++ (if isROCm then [ llvm ] else [ llvm.dev ])
     ;
 
   buildInputs = [ spirv-headers ] ++ lib.optionals (!isROCm) [ llvm ];
@@ -70,14 +65,7 @@ stdenv.mkDerivation {
   cmakeFlags =
     [
       "-DLLVM_INCLUDE_TESTS=ON"
-      "-DLLVM_DIR=${
-        (
-          if isROCm then
-            llvm
-          else
-            llvm.dev
-        )
-      }"
+      "-DLLVM_DIR=${(if isROCm then llvm else llvm.dev)}"
       "-DBUILD_SHARED_LIBS=YES"
       "-DLLVM_SPIRV_BUILD_EXTERNAL=YES"
       # RPATH of binary /nix/store/.../bin/llvm-spirv contains a forbidden reference to /build/

@@ -9,10 +9,7 @@
   symlinkJoin,
   tbb,
   hostSystem ? "CPP",
-  deviceSystem ? if config.cudaSupport or false then
-    "CUDA"
-  else
-    "OMP",
+  deviceSystem ? if config.cudaSupport or false then "CUDA" else "OMP",
 }:
 
 # Policy for device_vector<T>
@@ -94,12 +91,7 @@ stdenv.mkDerivation {
 
   cmakeFlags =
     [
-      "-DTHRUST_INCLUDE_CUB_CMAKE=${
-        if cudaSupport then
-          "ON"
-        else
-          "OFF"
-      }"
+      "-DTHRUST_INCLUDE_CUB_CMAKE=${if cudaSupport then "ON" else "OFF"}"
       "-DTHRUST_DEVICE_SYSTEM=${deviceSystem}"
       "-DTHRUST_HOST_SYSTEM=${hostSystem}"
       "-DTHRUST_AUTO_DETECT_COMPUTE_ARCHS=OFF"

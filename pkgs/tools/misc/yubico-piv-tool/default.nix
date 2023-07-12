@@ -39,12 +39,7 @@ stdenv.mkDerivation rec {
       openssl
       check
     ]
-    ++ (
-      if withApplePCSC then
-        [ PCSC ]
-      else
-        [ pcsclite ]
-    )
+    ++ (if withApplePCSC then [ PCSC ] else [ pcsclite ])
     ;
 
   cmakeFlags = [
@@ -56,12 +51,7 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-    "--with-backend=${
-      if withApplePCSC then
-        "macscard"
-      else
-        "pcsc"
-    }"
+    "--with-backend=${if withApplePCSC then "macscard" else "pcsc"}"
   ];
 
   passthru = {

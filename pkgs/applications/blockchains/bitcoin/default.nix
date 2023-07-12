@@ -33,12 +33,7 @@ let
   };
 in
 stdenv.mkDerivation rec {
-  pname =
-    if withGui then
-      "bitcoin"
-    else
-      "bitcoind"
-    ;
+  pname = if withGui then "bitcoin" else "bitcoind";
   version = "24.0.1";
 
   src = fetchurl {

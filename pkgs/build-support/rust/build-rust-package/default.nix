@@ -153,12 +153,7 @@ stdenv.mkDerivation (
       ]
       ++ [
         cargoBuildHook
-        (
-          if useNextest then
-            cargoNextestHook
-          else
-            cargoCheckHook
-        )
+        (if useNextest then cargoNextestHook else cargoCheckHook)
         cargoInstallHook
         cargoSetupHook
         rustc
@@ -174,11 +169,7 @@ stdenv.mkDerivation (
     patches = cargoPatches ++ patches;
 
     PKG_CONFIG_ALLOW_CROSS =
-      if stdenv.buildPlatform != stdenv.hostPlatform then
-        1
-      else
-        0
-      ;
+      if stdenv.buildPlatform != stdenv.hostPlatform then 1 else 0;
 
     postUnpack =
       ''

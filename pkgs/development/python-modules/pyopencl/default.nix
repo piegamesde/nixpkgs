@@ -20,11 +20,7 @@
 
 let
   os-specific-buildInputs =
-    if stdenv.isDarwin then
-      [ mesa_drivers.dev ]
-    else
-      [ ocl-icd ]
-    ;
+    if stdenv.isDarwin then [ mesa_drivers.dev ] else [ ocl-icd ];
 in
 buildPythonPackage rec {
   pname = "pyopencl";

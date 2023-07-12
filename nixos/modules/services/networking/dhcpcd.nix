@@ -30,13 +30,7 @@ let
   ignoredInterfaces =
     map (i: i.name) (
       filter
-      (
-        i:
-        if i.useDHCP != null then
-          !i.useDHCP
-        else
-          i.ipv4.addresses != [ ]
-      )
+      (i: if i.useDHCP != null then !i.useDHCP else i.ipv4.addresses != [ ])
       interfaces
     )
     ++ mapAttrsToList (i: _: i) config.networking.sits

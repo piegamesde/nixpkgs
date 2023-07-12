@@ -117,10 +117,7 @@ lib.makeOverridable (
 
         getValue =
           attr:
-          if config.isSet attr then
-            getAttr (attrName attr) config
-          else
-            null
+          if config.isSet attr then getAttr (attrName attr) config else null
           ;
 
         isYes = attr: (config.getValue attr) == "y";

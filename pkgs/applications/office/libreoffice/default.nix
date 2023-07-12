@@ -189,12 +189,7 @@ let
 
   langsSpaces = concatStringsSep " " langs;
 
-  mkDrv =
-    if kdeIntegration then
-      mkDerivation
-    else
-      stdenv.mkDerivation
-    ;
+  mkDrv = if kdeIntegration then mkDerivation else stdenv.mkDerivation;
 
   srcs = {
     primary = primary-src;
@@ -297,12 +292,7 @@ in
   postPatch =
     ''
       substituteInPlace shell/source/unix/exec/shellexec.cxx \
-        --replace xdg-open ${
-          if kdeIntegration then
-            "kde-open5"
-          else
-            "xdg-open"
-        }
+        --replace xdg-open ${if kdeIntegration then "kde-open5" else "xdg-open"}
 
       # configure checks for header 'gpgme++/gpgmepp_version.h',
       # and if it is found (no matter where) uses a hardcoded path
@@ -498,12 +488,7 @@ in
 
   configureFlags =
     [
-      (
-        if withHelp then
-          ""
-        else
-          "--without-help"
-      )
+      (if withHelp then "" else "--without-help")
       "--with-boost=${getDev boost}"
       "--with-boost-libdir=${getLib boost}/lib"
       "--with-beanshell-jar=${bsh}"

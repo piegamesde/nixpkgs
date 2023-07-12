@@ -76,12 +76,7 @@ let
       "aarch64-darwin"
     ];
   };
-  package =
-    if stdenv.isLinux then
-      ./linux.nix
-    else
-      ./darwin.nix
-    ;
+  package = if stdenv.isLinux then ./linux.nix else ./darwin.nix;
 
   openasar = callPackage ./openasar.nix { };
 
@@ -104,22 +99,12 @@ let
         };
         ptb = rec {
           pname = "discord-ptb";
-          binaryName =
-            if stdenv.isLinux then
-              "DiscordPTB"
-            else
-              desktopName
-            ;
+          binaryName = if stdenv.isLinux then "DiscordPTB" else desktopName;
           desktopName = "Discord PTB";
         };
         canary = rec {
           pname = "discord-canary";
-          binaryName =
-            if stdenv.isLinux then
-              "DiscordCanary"
-            else
-              desktopName
-            ;
+          binaryName = if stdenv.isLinux then "DiscordCanary" else desktopName;
           desktopName = "Discord Canary";
         };
       });

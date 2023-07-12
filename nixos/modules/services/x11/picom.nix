@@ -31,12 +31,7 @@ let
     mapAttrsToList (
       k: v:
       let
-        sep =
-          if (top && isAttrs v) then
-            ":"
-          else
-            "="
-          ;
+        sep = if (top && isAttrs v) then ":" else "=";
       in
       "${escape [ sep ] k}${sep}${mkValueString v};"
     )
@@ -295,10 +290,7 @@ in
             + " interpreting ${x} as ${boolToString res}"
             ;
         in
-        if isBool x then
-          x
-        else
-          warn msg res
+        if isBool x then x else warn msg res
         ;
 
       description = lib.mdDoc ''

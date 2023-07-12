@@ -61,13 +61,7 @@ let
   library =
     let
       inherit (llvmPackages_11) llvm;
-      inherit
-        (
-          if buildWithPatches then
-            passthru
-          else
-            llvmPkgs
-        )
+      inherit (if buildWithPatches then passthru else llvmPkgs)
         libclang
         spirv-llvm-translator
         ;

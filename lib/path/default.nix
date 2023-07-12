@@ -60,18 +60,8 @@ let
       # - Skip a potential leading ".", normalising "./foo" to "foo"
       # - Skip a potential trailing "." or "", normalising "foo/" and "foo/." to
       #   "foo". See ./path.md#trailing-slashes
-      skipStart =
-        if head parts == "." then
-          1
-        else
-          0
-        ;
-      skipEnd =
-        if last parts == "." || last parts == "" then
-          1
-        else
-          0
-        ;
+      skipStart = if head parts == "." then 1 else 0;
+      skipEnd = if last parts == "." || last parts == "" then 1 else 0;
 
       # We can now know the length of the result by removing the number of
       # skipped parts from the total number
@@ -104,12 +94,7 @@ let
     "./"
     +
       # An empty string is not a valid relative path, so we need to return a `.` when we have no components
-      (
-        if components == [ ] then
-          "."
-        else
-          concatStringsSep "/" components
-      )
+      (if components == [ ] then "." else concatStringsSep "/" components)
     ;
 in
 # No rec! Add dependencies on this file at the top.

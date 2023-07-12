@@ -364,13 +364,7 @@ in
               type = str;
               default = "/";
               example = "/auth";
-              apply =
-                x:
-                if !(hasPrefix "/") x then
-                  "/" + x
-                else
-                  x
-                ;
+              apply = x: if !(hasPrefix "/") x then "/" + x else x;
               description = lib.mdDoc ''
                 The path relative to `/` for serving
                 resources.

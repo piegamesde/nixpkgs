@@ -46,13 +46,7 @@ let
       key,
     }:
     foldl'
-    (
-      acc: n:
-      if n.key < key && (acc == null || n.key > acc.key) then
-        n
-      else
-        acc
-    )
+    (acc: n: if n.key < key && (acc == null || n.key > acc.key) then n else acc)
     null
     namesSorted
     ;
@@ -67,10 +61,7 @@ let
           let
             t = before a;
           in
-          if t == null then
-            "the initial {"
-          else
-            t.name
+          if t == null then "the initial {" else t.name
           ;
       in
       if a.line >= b.line then

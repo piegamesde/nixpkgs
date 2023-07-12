@@ -35,12 +35,7 @@ assert (enableCrypt -> (libxcrypt != null));
 
 let
   crossCompiling = stdenv.buildPlatform != stdenv.hostPlatform;
-  libc =
-    if stdenv.cc.libc or null != null then
-      stdenv.cc.libc
-    else
-      "/usr"
-    ;
+  libc = if stdenv.cc.libc or null != null then stdenv.cc.libc else "/usr";
   libcInc = lib.getDev libc;
   libcLib = lib.getLib libc;
 in
@@ -265,10 +260,7 @@ stdenv.mkDerivation (
         substituteInPlace "$out"/lib/perl5/*/*/Config_heavy.pl \
           --replace "${libcInc}" /no-such-path \
           --replace "${
-            if stdenv.hasCC then
-              stdenv.cc.cc
-            else
-              "/no-such-path"
+            if stdenv.hasCC then stdenv.cc.cc else "/no-such-path"
           }" /no-such-path \
           --replace "${stdenv.cc}" /no-such-path \
           --replace "$man" /no-such-path

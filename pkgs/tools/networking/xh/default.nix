@@ -31,10 +31,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs = lib.optionals withNativeTls (
-    if stdenv.isDarwin then
-      [ Security ]
-    else
-      [ openssl ]
+    if stdenv.isDarwin then [ Security ] else [ openssl ]
   );
 
   # Get openssl-sys to use pkg-config

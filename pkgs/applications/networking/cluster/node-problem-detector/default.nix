@@ -31,12 +31,7 @@ buildGoModule rec {
     ;
 
   preBuild = ''
-    export CGO_ENABLED=${
-      if stdenv.isLinux then
-        "1"
-      else
-        "0"
-    }
+    export CGO_ENABLED=${if stdenv.isLinux then "1" else "0"}
   '';
 
   buildInputs = lib.optionals stdenv.isLinux [ systemd ];

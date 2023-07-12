@@ -87,10 +87,7 @@ let
 
   fix-rtags =
     pkg:
-    if pkg != null then
-      dontConfigure (externalSrc pkg pkgs.rtags)
-    else
-      null
+    if pkg != null then dontConfigure (externalSrc pkg pkgs.rtags) else null
     ;
 
   generateMelpa = lib.makeOverridable (
@@ -851,13 +848,7 @@ let
       };
     in
     lib.mapAttrs
-    (
-      n: v:
-      if lib.hasAttr n overrides then
-        overrides.${n}
-      else
-        v
-    )
+    (n: v: if lib.hasAttr n overrides then overrides.${n} else v)
     super
   );
 in

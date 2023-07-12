@@ -179,10 +179,7 @@ in
       ]
       (
         config:
-        if config.services.gitea.enableUnixSocket then
-          "http+unix"
-        else
-          "http"
+        if config.services.gitea.enableUnixSocket then "http+unix" else "http"
       ))
 
     (mkRemovedOptionModule
@@ -266,12 +263,7 @@ in
 
         port = mkOption {
           type = types.port;
-          default =
-            if !usePostgresql then
-              3306
-            else
-              pg.port
-            ;
+          default = if !usePostgresql then 3306 else pg.port;
           defaultText = literalExpression ''
             if config.${opt.database.type} != "postgresql"
             then 3306

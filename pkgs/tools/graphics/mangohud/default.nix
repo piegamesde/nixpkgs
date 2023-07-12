@@ -158,12 +158,7 @@ stdenv.mkDerivation (
       [
         "-Dwith_wayland=enabled"
         "-Duse_system_spdlog=enabled"
-        "-Dtests=${
-          if finalAttrs.doCheck then
-            "enabled"
-          else
-            "disabled"
-        }"
+        "-Dtests=${if finalAttrs.doCheck then "enabled" else "disabled"}"
       ]
       ++ lib.optionals gamescopeSupport [
         "-Dmangoapp=true"

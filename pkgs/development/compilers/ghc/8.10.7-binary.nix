@@ -213,12 +213,7 @@ let
     };
   };
 
-  distSetName =
-    if stdenv.hostPlatform.isMusl then
-      "musl"
-    else
-      "defaultLibc"
-    ;
+  distSetName = if stdenv.hostPlatform.isMusl then "musl" else "defaultLibc";
 
   binDistUsed =
     ghcBinDists.${distSetName}.${stdenv.hostPlatform.system} or (throw
@@ -432,11 +427,7 @@ stdenv.mkDerivation rec {
   #     Error relocating /nix/store/...-ghc-8.10.2-binary/lib/ghc-8.10.5/bin/ghc: 64-linux-ghc-8.10.5/libHSexceptions-0.10.4-ghc8.10.5.so: symbol not found
   # This is extremely bogus and should be investigated.
   dontStrip =
-    if stdenv.hostPlatform.isMusl then
-      true
-    else
-      false
-    ; # `if` for explicitness
+    if stdenv.hostPlatform.isMusl then true else false; # `if` for explicitness
 
   # On Linux, use patchelf to modify the executables so that they can
   # find editline/gmp.

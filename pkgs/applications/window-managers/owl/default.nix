@@ -14,11 +14,7 @@ assert wayland.withLibraries;
 
 let
   mkDerivation =
-    if stdenv.isDarwin then
-      stdenv.mkDerivation
-    else
-      gnustep.gsmakeDerivation
-    ;
+    if stdenv.isDarwin then stdenv.mkDerivation else gnustep.gsmakeDerivation;
 in
 mkDerivation {
   pname = "owl-compositor";

@@ -28,12 +28,7 @@ rec {
   );
   inherit lib;
 
-  hydraJob' =
-    if scrubJobs then
-      hydraJob
-    else
-      id
-    ;
+  hydraJob' = if scrubJobs then hydraJob else id;
 
   /* !!! Hack: poor man's memoisation function.  Necessary to prevent
      Nixpkgs from being evaluated again and again for every
